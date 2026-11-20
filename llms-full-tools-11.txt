@@ -92,7 +92,7 @@ A last day before the first is refused | New South Wales, 1 August 2026 to 31 Ju
 Excluded days that use up the service are refused | New South Wales, 1 July 2026 to 31 July 2026, 31 days excluded, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Refused: excluded days must be fewer than the days from the first day to the last
 More leave taken than the entitlement is refused | New South Wales, 1 February 2014 to 31 July 2026, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, 11 weeks taken, pay $1,500.00 a week | Refused: leave taken or paid is more than this entitlement: the Acts treat leave taken in advance differently, and this calculator does not cover it
 
-One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -102,7 +102,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - termination payment calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
 - black coal mining industry: https://duguid.com.au/tools/coal-lsl-levy/
-- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -184,7 +184,7 @@ Method 1 for LPG, which PCG 2016/2 does not cover | 2026-27; line 1: $10.00 of L
 The basic method for a business that is not a small claimant | 2026-27; heavy vehicle (basic method): 11,430 litres of diesel acquired 30 September 2026, 32,000 km in total, a 32 tonne rigid truck | Refused: the simplified methods are for a business whose fuel tax credits were $10,000 or less in the previous 12 months and are expected to be in the current 12 months (PCG 2016/2 paragraph 4; PCG 2021/2 paragraph 6)
 Fuel acquired outside the income year chosen | 2025-26; line 1: 100 litres of diesel acquired 1 July 2026, other business use | Refused: line 1 was acquired outside the income year 2025-26; work each income year apart
 
-One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -194,7 +194,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Australian Institute of Petroleum’s weekly average retail (pump) prices: https://aip.com.au/pricing/pump-prices-retail/
 - fuel tax credit tools: https://www.ato.gov.au/calculators-and-tools/fuel-tax-credit-tools
-- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -267,7 +267,7 @@ A part for a period before the accrual start is refused | Annual leave $6,000.00
 A part above its total is refused | Annual leave $0.00 ($0.00 before 18 August 1993), loading $0.00 ($0.00 before 18 August 1993), long service leave $5,000.00 ($5,000.01 16 August 1978 to 17 August 1993), accrued from 1 January 1985, normal termination, TFN, scale 2, $1,155.00 a week | Refused: the long service leave for 16 August 1978 to 17 August 1993 is more than the long service leave it is part of
 Under $300 with pre-16 August 1978 leave is refused | Annual leave $100.00 ($0.00 before 18 August 1993), loading $0.00 ($0.00 before 18 August 1993), long service leave $1,000.00 ($1,000.00 before 16 August 1978) ($0.00 16 August 1978 to 17 August 1993), accrued from 1 January 1970, normal termination, TFN, scale 2, $1,155.00 a week | Refused: a post-17 August 1993 payment under $300 has at most 32% of it withheld, and Schedule 7 does not say how to apply that limit when pre-16 August 1978 long service leave joins it in the marginal rate calculation
 
-One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -277,7 +277,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - redundancy and ETP withholding calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
 - Schedule 7: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-7-tax-table-for-unused-leave-payments-on-termination-of-employment
-- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -356,7 +356,7 @@ A member of a group in New South Wales: refused | New South Wales, wages $500,00
 Tasmania with apprentice wages: refused, as no discount applies there | Tasmania, wages $300,000.00 at 2.18%, apprentice wages $10,000.00 | Refused: there is no apprentice deduction for Tasmania here: enter 0 apprentice wages
 New South Wales, actual wages that take the premium over $30,000: refused | New South Wales, wages $1,000,000.00 at 2%, dust diseases 0%, reward 0%, actual wages $1,600,000.00 | Refused: on the actual wages, the average performance premium of $32,000.00 is more than $30,000, so icare experience-rates the premium on its claims model (Market Practice and Premiums Guidelines 2026, clause 6.7): use the renewal notice
 
-One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -364,7 +364,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -426,7 +426,7 @@ A company new this year franks at 25% whatever its own year | Turnover $60,000,0
 Partly franked: 50% of the maximum, rounded down to the cent | Turnover $104,000.00, passive income $4,000.00 of $104,000.00, taxable income $104,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $1,000.01 franked 50%, marginal rate 32% | Tax rate 25%, tax $26,000.00, franking rate 25%, maximum franking credit $333.33, franking credit $166.66, tax left to pay $206.67
 Passive income above assessable income is refused | Turnover $100,000.00, passive income $100,000.01 of $100,000.00, taxable income $100,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $0.00 franked 100%, marginal rate 30% | Refused: base rate entity passive income cannot be more than assessable income
 
-One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; franking credits round down to the cent, so a credit never exceeds the maximum.
 
@@ -435,102 +435,65 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - company tax and franking worksheets: https://duguid.com.au/tools/company-tax-franking/
-- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-five business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
-# Foreign buyer duty and land tax surcharge calculator, all states
+# Company owner salary vs dividends calculator, 2021-22 to 2026-27
 
-Source: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
+Source: https://duguid.com.au/tools/business-calculators/salary-dividend/
 
-> Foreign purchaser duty and land tax surcharges in all 8 states and territories, each one's foreign person test, the 2026-27 FIRB fee and an upfront total by state.
+> Compare a company owner's salary and super guarantee with fully franked dividends: company tax, the owner's tax, Division 293 and the split that keeps the most.
 
-# Foreign buyer surcharge calculator
+# Salary against dividends calculator
 
-Foreign purchaser duty and land tax surcharges in each state and territory, with its own test of who is foreign.
+Pay a company owner by salary, dividends or both, and see what is kept after tax.
 
-Published 18 November 2026. Last checked 19 November 2026.
+Published 19 November 2026. Last checked 19 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Foreign buyer surcharge inputs
+Salary against dividends inputs for one owner
 
-State or territory New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 Company profit before the owner’s salary and super (AUD) Is the company a base rate entity this year and last year? Yes: tax and franking at 25% No: tax and franking at 30% Salary paid to the owner (AUD) Owner’s other taxable income (AUD)
 
-Who is buying An individual A company The trustee of a fixed or unit trust The trustee of a discretionary (family) trust The trustee of a complying self-managed super fund What the property is used for Residential, vacant residential land included Primary production Commercial or other Dutiable value of the whole property (whole dollars) Dutiable value of this buyer’s share (whole dollars) Land value for land tax: all the buyer’s taxable land in the state or territory, their share only (whole dollars) FIRB application for this purchase None: not a foreign person under the Foreign Acquisitions and Takeovers Act, or not needed Residential land without an established dwelling: vacant land or a new dwelling An established dwelling, generally banned to 30 June 2029
+Profit is the company’s taxable income before it pays the owner. The owner is a director and shareholder, an Australian resident with private patient hospital cover, and has no other concessional super contributions and no other labour income. Use the company tax and franking calculator to settle the rate.
 
-## Foreign individual buyers: visa and residence
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, company profit before the owner’s pay $200,000.00, company tax at 25% (a base rate entity), salary $100,000.00, other taxable income $0.00. Super guarantee at 12% of the salary $12,000.00 Company tax on the profit left $22,000.00 Fully franked dividend $66,000.00 Franking credit $22,000.00 Owner’s taxable income $187,000.00 Owner’s extra income tax and Medicare levy, less the franking credit $32,000.00 Contributions tax and Division 293 tax on the super $1,800.00 Cash kept after tax $134,000.00 Super kept after tax $10,200.00 Kept in all, cash and super $144,200.00 All salary, $178,571.43: kept in all $146,463.02 All dividends: kept in all $140,130.00 Most kept: salary of $178,571.43, $128,248.74 cash and $18,214.28 super $146,463.02 The split that keeps the most counts super after tax, though it stays in the fund until retirement.
 
-Each state and territory tests an individual buyer by citizenship or visa and, in some, by days or residence in Australia.
+## How the salary against dividends calculator works
 
-An individual: citizenship or visa Australian citizen Permanent visa New Zealand citizen on a special category visa (subclass 444) Another visa, temporary or bridging, or none Partner (provisional) visa 309 or 820, or retirement visa 405 or 410 New South Wales duty: days in Australia in the 12 months before the contract New South Wales land tax: days in Australia in the 12 months to the next 31 December Victorian duty, New Zealand citizen: ordinarily resident in Australia for 6 consecutive months within the 12 months before or after settlement? No Yes Ordinarily resides in Australia (Victorian and Queensland land tax, ACT)? No Yes Away from Australia on the land tax day, or for over 6 months of the year before it (Victoria: 31 December and the calendar year; Queensland: 30 June and the financial year)? No Yes ACT: will live in the home as their principal place of residence? No Yes
+The company pays the owner the salary you enter and the super guarantee on it, both deductible, pays company tax on the profit left and pays the rest as a fully franked dividend. The owner adds the dividend and its franking credit to other income and the salary, less the $1,000 standard deduction on the salary from 2026-27, and pays tax and the Medicare levy on the total, less the credit. The extra tax this income brings, over the tax on the other income alone, comes off the salary and dividend to give the cash kept. The super fund pays 15% on the super guarantee, and Division 293 tax applies where taxable income and the contributions pass $250,000.
 
-## Foreign company, trust and fund buyers: foreign interests
+With every dollar paid out and franked at the company’s own rate, salary and dividends are taxed at the owner’s rates either way: the franking credit hands back the company tax. What differs is the super guarantee. Salary moves 10% to 12% of itself into super, taxed at 15% instead of the owner’s marginal rate, so more salary keeps more in all whenever that rate, with the Medicare levy, is above 15%, and less where the tax-free threshold, the offsets or the levy’s phase-in leave it lower. The calculator compares your split with all salary and all dividends, then checks every salary at which a tax rate, an offset, the levy, the super guarantee base or Division 293 changes, and gives the highest salary within $1 of the most kept.
 
-Each state and territory tests a company, trust or super fund buyer by where it was incorporated and how much of it foreign persons hold or could receive. For a company, enter the higher of the shares and the votes held, as either counts; in New South Wales, Queensland, Tasmania and Western Australia, potential voting power, such as votes from options, counts too.
+In the example, a $200,000 profit paid as $178,571.43 of salary and $21,428.57 of super guarantee keeps $146,463.02, of which $18,214.28 is in super; paid all as dividends it keeps $140,130.00, all in cash.
 
-A company: incorporated outside Australia? No Yes Company, trust or fund: largest interest held by one foreign person with associates (%) Company, trust or fund: interests of all foreign persons together, with associates (%) Victorian land tax, company or fixed trust: interests of absentee persons together, with associates (%) Discretionary trust: most of the capital the trustee could give foreign persons (%) Discretionary trust: foreign takers in default’s share (%) Discretionary trust: could the deed be amended so a foreign person can benefit? No Yes Discretionary trust: is a foreign person a trustee or appointor? No Yes Discretionary trust: is a beneficiary, object or taker in default named in the deed a foreign person (for Victorian land tax, an absentee)? No Yes Is an exemption, refund or ex gratia relief from a surcharge being sought? No Yes
+## What the salary against dividends calculator does not cover
 
-It works one buyer and one property. Only the answers for the buyer chosen and the state or territory chosen are used. Each revenue office decides the dutiable value and who is foreign; the general duty uses the transfer duty rate table.
+The calculator assumes the whole profit is paid out in the year. Profit kept in the company is taxed at its rate and paid out later, which this calculator does not model; nor does it test the company’s franking account or the holding period rule. A payment or loan to the owner that is neither salary nor a declared dividend can be an unfranked deemed dividend under Division 7A: see the Division 7A calculator. Where the company earns the owner’s personal services income, the PSI rules checker says whether that income is taxed to the owner whatever the company pays. The salary counts as wages for payroll tax and may need workers compensation cover; neither is counted.
 
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, an individual: another visa or none, residential property worth $1,000,000.00, buyer’s share $1,000,000.00, land value for land tax $1,200,000.00, FIRB application for residential land without an established dwelling. Foreign purchaser duty surcharge at 9% of the buyer’s share $90,000.00 Duty surcharge test Foreign: a temporary or bridging visa holder, or a non-citizen with no visa (G009) General transfer duty on the whole property, all buyers $39,187.00 FIRB application fee for 2026-27 on the buyer’s share $15,600.00 Upfront total: general duty, duty surcharge and FIRB fee $144,787.00 Land tax surcharge for a full year $60,000.00 Land tax surcharge test Foreign: a temporary or bridging visa holder, or a non-citizen with no visa (G009) Each test is the jurisdiction’s own, from your answers; the revenue office decides who is foreign.
-
-## How the foreign buyer surcharge calculator works
-
-The calculator applies the chosen state or territory’s own test of who is foreign to your answers, once for its duty surcharge and once for its land tax surcharge, as each revenue office states them. The duty surcharge is its rate times the dutiable value of the buyer’s share: 9% in New South Wales, 8% in Victoria, Queensland and Tasmania (1.5% on Tasmanian primary production land), and 7% in Western Australia and South Australia. The ACT and the Northern Territory charge none.
-
-The land tax surcharge is for a full land tax year on the land value you enter: 5% in New South Wales, 4% in Victoria from $50,000 of taxable land ($25,000 for a trust), 3% of the value over $350,000 in Queensland, 2% in Tasmania and 0.75% in the ACT. Western Australia and South Australia charge none, and the Northern Territory has no land tax. Victoria charges a fixed trust’s surcharge on the land held for absentee beneficiaries only. The general transfer duty is worked on the whole property, for all buyers together, at the general rates.
-
-The calculator reproduces the revenue offices’ examples: Revenue NSW’s $90,000 of surcharge purchaser duty and $39,187 of transfer duty on $1 million, and $60,000 of surcharge land tax on $1.2 million; Victoria’s $80,000 for Andrew, $16,000 for Emily’s $200,000 share and $20,000 for Clara’s half of a fixed trust’s $1 million; RevenueSA’s $42,000 and $21,000 for Peter; Western Australia’s $14,000 for Simon; Queensland’s $1,500 on $400,000; and Tasmania’s $8,000 on $400,000.
-
-## Who is foreign in each state and territory
-
-An individual who is an Australian citizen, holds a permanent visa or is a New Zealand citizen on a special category visa is not foreign for Queensland, Western Australian, South Australian and Tasmanian duty. New South Wales also requires a permanent resident or New Zealand citizen to have been in Australia 200 days of the previous 12 months (Revenue Ruling G009); Victoria gives a New Zealand citizen no exception unless they ordinarily reside in Australia for 6 consecutive months around settlement. Victorian and Queensland land tax charge absentees: non-citizens without a permanent visa who do not ordinarily reside in Australia and were away on the day or for over 6 months of the year.
-
-A company is foreign when it is incorporated outside Australia, or foreign persons with associates hold 50% or more (more than 50% in Victoria) of its shares or votes, or in New South Wales, Queensland, Tasmania and Western Australia of its potential voting power. New South Wales instead asks whether one foreign person with associates holds 20% or more, or foreign persons together 40% or more, wherever the company is incorporated. Trusts and super funds follow the same shares of capital or members’ balances. Victorian land tax counts absentee interests instead, which you enter apart: a company pays absentee owner surcharge when absentees hold more than 50%, a fixed trust on the land held for absentee beneficiaries, and a complying super fund none. A foreign person who ordinarily lives in Australia is no absentee.
-
-A discretionary trust is foreign in New South Wales if a foreign person could benefit, now or by amending the deed (section 104JA); in Victoria and Tasmania if foreign persons could be given more than 50%, or 50% or more, of the capital; in Queensland if foreign takers in default hold 50% or more; in Western Australia if a foreign person controls it, as a foreign trustee or appointor does, or foreign takers in default hold 50% or more; in South Australia if a trustee, appointor, named object or taker in default is foreign; and in the ACT only if a named foreign beneficiary could receive 50% or more. Victorian land tax looks only at named (specified) beneficiaries who are absentees.
-
-## What the foreign buyer surcharge calculator leaves to you
-
-The FIRB fee is the 2026-27 fee for one application to acquire residential land, which FIRB indexes each 1 July. The calculator does not decide whether the buyer is a foreign person under the Foreign Acquisitions and Takeovers Act 1975, whether an exception to the ban on established dwellings applies, or the lower fee rules, exemption certificates, fee waivers and the fees for agricultural and commercial land. The comparison leaves out land tax, since the land value entered is the buyer’s land in the chosen state or territory only.
-
-The calculator does not decide exemptions, refunds or ex gratia relief, which each Commissioner grants on application. Among them are Australian-based developers and build to rent in New South Wales and Victoria, exempt permanent residents who live in the home in New South Wales, significant contributors and large developers in Queensland, and refunds when a buyer stops being foreign within 12 months in South Australia. When one is sought, it refuses. It also refuses a partner (provisional) or retirement visa holder, whom the revenue offices treat differently, and does not trace interests through other companies and trusts or decide who is an associate.
-
-Not covered: the Commonwealth’s foreign investment application fees and its restrictions on foreign purchases of established homes from 1 April 2025, which RevenueSA notes; landholder and corporate trustee acquisitions; concessions on general duty; Queensland’s absentee land tax rates, which replace the general rates; Victorian trust surcharge rates; control of a Western Australian discretionary trust by a foreign person other than its trustee or appointor, such as one whose consent a distribution needs; control of a Victorian company through its board or through influence the Commissioner finds, rather than through shares or votes; a Victorian beneficiary nomination for trust land bought before 2006, under which the surcharge starts at $50,000 rather than $25,000; joint land tax assessments; property converted to residential use later; and a surcharge charged again when a buyer becomes foreign within 3 years. The transfer duty calculator and the land tax calculator work the general duty with first home concessions and the general land tax. Confirm the result with the revenue office or a registered adviser before relying on it.
+It does not cover salary sacrifice, other concessional contributions, the low income super tax offset, the Medicare levy surcharge, study loan repayments, a spouse or dependants, a non-resident owner, more than one owner, or income years before 2021-22. Super counts at its value after tax, though it stays in the fund until retirement. Have a registered tax agent review the arrangement before relying on a result.
 
 ## Boundary cases
 
 Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
 
-Boundary cases: Foreign buyer surcharge calculator
+Boundary cases: Salary against dividends calculator
 
 Case | Inputs | Result
-Revenue NSW’s examples: 9% of $1,000,000 and 5% of $1,200,000 of land | New South Wales, individual, temporary visa or none, 0 and 0 days in Australia; residential property $1,000,000.00, land $1,200,000.00 | Duty surcharge rate 9%, duty surcharge $90,000.00, land tax surcharge $60,000.00
-SRO Victoria’s Emily: 8% of $200,000; as an absentee, 4% of $400,000 of land | Victoria, individual, temporary visa or none, 0 and 0 days in Australia, away; residential property $200,000.00, land $400,000.00 | Duty surcharge rate 8%, duty surcharge $16,000.00, land tax surcharge $16,000.00
-SRO Victoria’s Clara: a fixed trust half held for absentees pays 4% on half of $1,000,000 of land | Victoria, fixed trust, foreign 50% largest and 50% together, absentee 50%; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 8%, duty surcharge $0.00, land tax surcharge $20,000.00
-Queensland: a foreign company pays 8%, and 3% of land value above $350,000 | Queensland, company incorporated overseas, foreign 0% largest and 0% together; residential property $400,000.00, land $400,000.00 | Duty surcharge rate 8%, duty surcharge $32,000.00, land tax surcharge $1,500.00
-Western Australia’s Simon: 7% of $200,000, and no land tax surcharge | Western Australia, individual, temporary visa or none, 0 and 0 days in Australia; residential property $200,000.00, land $200,000.00 | Duty surcharge rate 7%, duty surcharge $14,000.00, land tax surcharge $0.00
-RevenueSA’s Peter: 7% of his half of $600,000 | South Australia, individual, temporary visa or none, 0 and 0 days in Australia; residential property $600,000.00, share $300,000.00, land $600,000.00 | Duty surcharge rate 7%, duty surcharge $21,000.00, land tax surcharge $0.00
-Tasmania: 8% duty and 2% of $400,000 of land | Tasmania, individual, temporary visa or none, 0 and 0 days in Australia; residential property $400,000.00, land $400,000.00 | Duty surcharge rate 8%, duty surcharge $32,000.00, land tax surcharge $8,000.00
-Tasmania: primary production land pays 1.5% duty and no land tax surcharge | Tasmania, individual, temporary visa or none, 0 and 0 days in Australia; primary property $400,000.00, land $400,000.00 | Duty surcharge rate 1.5%, duty surcharge $6,000.00, land tax surcharge $0.00
-The ACT: no duty surcharge; 0.75% of $600,000 of land | Australian Capital Territory, individual, temporary visa or none, 0 and 0 days in Australia; residential property $600,000.00, land $600,000.00 | No duty surcharge, duty surcharge $0.00, land tax surcharge $4,500.00
-The ACT: no land tax surcharge on a foreign owner’s own home | Australian Capital Territory, individual, temporary visa or none, 0 and 0 days in Australia, lives there; residential property $600,000.00, land $600,000.00 | No duty surcharge, duty surcharge $0.00, land tax surcharge $0.00
-The Northern Territory charges neither surcharge | Northern Territory, individual, temporary visa or none, 0 and 0 days in Australia; residential property $600,000.00, land $600,000.00 | No duty surcharge, duty surcharge $0.00, land tax surcharge $0.00
-New South Wales: a permanent visa holder in Australia 200 days of the 12 months is not foreign | New South Wales, individual, permanent visa, 200 and 200 days in Australia; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 9%, duty surcharge $0.00, land tax surcharge $0.00
-New South Wales: 199 days makes the same buyer foreign | New South Wales, individual, permanent visa, 199 and 199 days in Australia; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 9%, duty surcharge $90,000.00, land tax surcharge $50,000.00
-New South Wales: a company 20% held by one foreign person is foreign; Victoria needs more than 50% | New South Wales, company, foreign 20% largest and 20% together; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 9%, duty surcharge $90,000.00, land tax surcharge $50,000.00
-Victoria: the same company 20% foreign held is not foreign | Victoria, company, foreign 20% largest and 20% together; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 8%, duty surcharge $0.00, land tax surcharge $0.00
-New South Wales: a discretionary trust whose deed could admit a foreign beneficiary is foreign | New South Wales, discretionary trust, 0% of capital and 0% in default to foreign persons, deed amendable; residential property $1,000,000.00, land $1,000,000.00 | Duty surcharge rate 9%, duty surcharge $90,000.00, land tax surcharge $50,000.00
-Commercial property in New South Wales bears neither surcharge | New South Wales, individual, temporary visa or none, 0 and 0 days in Australia; other property $1,000,000.00, land $1,000,000.00 | No duty surcharge, duty surcharge $0.00, land tax surcharge $0.00
-An exemption is refused: each Commissioner decides it | New South Wales, individual, temporary visa or none, 0 and 0 days in Australia, exemption sought; residential property $1,000,000.00, land $1,000,000.00 | Refused: exemptions, refunds and relief from these surcharges are decided by each Commissioner on application, so this page does not work them out
-A partner or retirement visa holder is refused | New South Wales, individual, partner or retirement visa, 0 and 0 days in Australia; residential property $1,000,000.00, land $1,000,000.00 | Refused: this page does not decide the status of a partner (provisional) or retirement visa holder: each revenue office treats them differently
-FIRB Guidance Note 10, example 2: $2 million of residential land without an established dwelling | Residential land without an established dwelling, consideration $2,000,000.00 | Fee $31,300.00
-FIRB Guidance Note 10, example 3: the fee is 3 times for an established dwelling | An established dwelling, consideration $2,000,000.00 | Fee $93,900.00
-Under $75,000 the lower fee applies | Residential land without an established dwelling, consideration $74,999.00 | Fee $4,600.00
-Above $40 million the fee stops at its maximum | Residential land without an established dwelling, consideration $40,000,001.00 | Fee $1,245,500.00
+The page’s example: a $200,000 profit, half as salary | 2026-27, profit $200,000.00, 25% company, salary $100,000.00, other income $0.00 | Super guarantee $12,000.00, company tax $22,000.00, dividend $66,000.00, franking credit $22,000.00, owner’s tax $32,000.00, super tax $1,800.00, cash kept $134,000.00, super kept $10,200.00, kept in all $144,200.00, all salary keeps $146,463.02, all dividends keep $140,130.00, best salary $178,571.43, best keeps $146,463.02
+All dividends: the franking credit hands back the company tax | 2026-27, profit $200,000.00, 25% company, salary $0.00, other income $0.00 | Super guarantee $0.00, company tax $50,000.00, dividend $150,000.00, franking credit $50,000.00, owner’s tax $9,870.00, super tax $0.00, cash kept $140,130.00, super kept $0.00, kept in all $140,130.00, all salary keeps $146,463.02, all dividends keep $140,130.00, best salary $178,571.43, best keeps $146,463.02
+Salary at the 2026-27 super guarantee base, with Division 293 tax | 2026-27, profit $600,000.00, 25% company, salary $270,830.00, other income $0.00 | Super guarantee $32,499.60, company tax $74,167.60, dividend $222,502.80, franking credit $74,167.60, owner’s tax $157,957.40, super tax $9,749.88, cash kept $335,375.40, super kept $22,749.72, kept in all $358,125.12, all salary keeps $358,125.12, all dividends keep $352,130.00, best salary $270,830.00, best keeps $358,125.12
+Past the super guarantee base, more salary keeps no more: the best is the base | 2025-26, profit $400,000.00, 25% company, salary $0.00, other income $0.00 | Super guarantee $0.00, company tax $100,000.00, dividend $300,000.00, franking credit $100,000.00, owner’s tax $54,138.00, super tax $0.00, cash kept $245,862.00, super kept $0.00, kept in all $245,862.00, all salary keeps $250,962.00, all dividends keep $245,862.00, best salary $250,000.00, best keeps $250,962.00
+The best salary brings taxable income down to the Medicare levy threshold | 2026-27, profit $30,000.00, 25% company, salary $0.00, other income $0.00 | Super guarantee $0.00, company tax $7,500.00, dividend $22,500.00, franking credit $7,500.00, owner’s refund $6,231.10, super tax $0.00, cash kept $28,731.10, super kept $0.00, kept in all $28,731.10, all salary keeps $29,080.11, all dividends keep $28,731.10, best salary $8,242.00, best keeps $29,080.14
+The best salary brings taxable income down to where the offsets stop clearing the tax | 2025-26, profit $24,000.00, 25% company, salary $0.00, other income $0.00 | Super guarantee $0.00, company tax $6,000.00, dividend $18,000.00, franking credit $6,000.00, owner’s refund $5,772.00, super tax $0.00, cash kept $23,772.00, super kept $0.00, kept in all $23,772.00, all salary keeps $23,614.29, all dividends keep $23,772.00, best salary $11,867.00, best keeps $23,786.39
+The best salary is the $1,000 the standard deduction takes | 2026-27, profit $24,000.00, 25% company, salary $0.00, other income $0.00 | Super guarantee $0.00, company tax $6,000.00, dividend $18,000.00, franking credit $6,000.00, owner’s refund $5,830.00, super tax $0.00, cash kept $23,830.00, super kept $0.00, kept in all $23,830.00, all salary keeps $23,614.29, all dividends keep $23,830.00, best salary $1,000.00, best keeps $23,980.00
+Under the tax-free threshold all dividends keep the most, as the credit is refunded | 2026-27, profit $20,000.00, 25% company, salary $0.00, other income $0.00 | Super guarantee $0.00, company tax $5,000.00, dividend $15,000.00, franking credit $5,000.00, owner’s refund $5,000.00, super tax $0.00, cash kept $20,000.00, super kept $0.00, kept in all $20,000.00, all salary keeps $19,678.57, all dividends keep $20,000.00, best salary $0.00, best keeps $20,000.00
+A company at 30% in 2021-22, with the low and middle income tax offset | 2021-22, profit $41,000.00, 30% company, salary $20,000.00, other income $0.00 | Super guarantee $2,000.00, company tax $5,700.00, dividend $13,300.00, franking credit $5,700.00, owner’s refund $2,418.00, super tax $300.00, cash kept $35,718.00, super kept $1,700.00, kept in all $37,418.00, all salary keeps $37,467.19, all dividends keep $37,348.00, best salary $35,000.00, best keeps $37,470.50
+A salary whose super guarantee the profit cannot pay is refused | 2026-27, profit $100,000.00, 25% company, salary $95,000.00, other income $0.00 | Refused: enter a salary of no more than $89,285.71: the profit also pays its super guarantee
 
-One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-five business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -538,73 +501,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- transfer duty rate table: https://duguid.com.au/rates/transfer-duty/
-- transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
-- land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
-- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# Business days calculator for all Australian states, 2026 and 2027
-
-Source: https://duguid.com.au/tools/business-calculators/business-days/
-
-> Count business days between 2 dates, or add or subtract them, skipping weekends and each Australian state or territory’s public holidays in 2026 and 2027.
-
-# Business days calculator
-
-Business days between 2 dates, or the date a number of business days after or before one, skipping weekends and each state’s public holidays for 2026 and 2027.
-
-Published 18 November 2026. Last checked 18 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Business days inputs, 2026 and 2027
-
-Work out Business days between 2 dates The date a number of business days after the start The date a number of business days before the start Public holidays of Australian Capital Territory New South Wales Northern Territory Queensland South Australia Tasmania Victoria Western Australia Any state or territory: skip a holiday that applies throughout any of them Start date End date, to count between 2 dates Number of business days, to find a date
-
-The count starts the day after the start date and includes the end date. Dates run from 1 January 2026 to 31 December 2027, and to 31 August 2027 for Victoria and for any state or territory.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, start 21 December 2026, end 4 January 2027. Business days after the start, to and including the end 7 Weekday public holidays skipped 25 December 2026 (Christmas Day), 28 December 2026 (Boxing Day / Boxing Day (observed) / Proclamation Day (observed)), 1 January 2027 (New Year's Day) Part-day and regional holidays count as business days; where a local day replaces Melbourne Cup Day or the WA King’s Birthday, the state date is still skipped.
-
-## How the business days calculator works
-
-The calculator skips Saturdays, Sundays and the public holidays of the state or territory you choose, using each government’s published dates for 2026 and 2027. Between 2 dates, it counts the business days after the start date up to and including the end date, so a Friday to the next Monday is 1. Forward or back, it finds the date that is that many business days after or before the start, and lists each weekday holiday it skipped.
-
-‘Any state or territory’ skips a day that is a public holiday throughout any one of them, as the site’s Payday Super business days table counts them, and leaves out Melbourne Cup Day and the WA King’s Birthday because neither applies throughout its state.
-
-## What the business days calculator does not cover
-
-Part-day holidays, such as the evenings of Christmas Eve and New Year’s Eve in South Australia and the Northern Territory, count as business days. So do regional holidays, among them the Royal Queensland Show in Brisbane, Tasmania’s Royal Hobart Regatta and Recreation Day, and show days, and days off for one group only, such as Tasmania’s Easter Tuesday for the public service. A council or region’s local substitute for Melbourne Cup Day or the WA King’s Birthday is not applied: the state date is still skipped.
-
-The calculator does not decide whether a law counts business days, clear days or calendar days, or which state’s holidays apply. Dates after 31 December 2027 are refused until the governments confirm the following year, and Victorian dates after 31 August 2027 until the AFL schedules its Grand Final. The calculator does not work out a superannuation guarantee or Payday Super due date.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Business days calculator
-
-Case | Inputs | Result
-New South Wales over Christmas and New Year: 7 | New South Wales, Monday 21 December 2026 to Monday 4 January 2027 | 7 business days
-Friday to the next Monday is 1 | New South Wales, Friday 13 November 2026 to Monday 16 November 2026 | 1 business day
-The same date is 0 | New South Wales, Wednesday 18 November 2026 to Wednesday 18 November 2026 | 0 business days
-Victoria skips Melbourne Cup Day | Victoria, Monday 2 November 2026 to Wednesday 4 November 2026 | 1 business day
-New South Wales does not | New South Wales, Monday 2 November 2026 to Wednesday 4 November 2026 | 2 business days
-Western Australia skips its King’s Birthday on 28 September 2026 | Western Australia, Friday 25 September 2026 to Tuesday 29 September 2026 | 1 business day
-Any state or territory skips 9 March 2026, a holiday in 4 of them | Any state or territory, Friday 6 March 2026 to Tuesday 10 March 2026 | 1 business day
-10 business days on from 21 December 2026 in New South Wales | New South Wales, 10 business days after Monday 21 December 2026 | 10 business days, date Thursday 7 January 2027
-5 business days back from the Tuesday after Easter 2026 in New South Wales | New South Wales, 5 business days before Tuesday 7 April 2026 | 5 business days, date Friday 27 March 2026
-An end before the start is refused | New South Wales, Wednesday 18 November 2026 to Tuesday 17 November 2026 | Refused: the end date must not be before the start date
-A Victorian date after 31 August 2027 is refused | Victoria, Wednesday 1 September 2027 to Thursday 30 September 2027 | Refused: this page has public holidays from 1 January 2026 to 31 August 2027 for Victoria; choose dates in that range
-Counting past 31 December 2027 is refused | New South Wales, 20 business days after Monday 20 December 2027 | Refused: this page has public holidays from 1 January 2026 to 31 December 2027 for New South Wales; choose dates in that range
-
-One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- forty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
+- Division 7A calculator: https://duguid.com.au/tools/business-calculators/div7a/
+- PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
+- payroll tax: https://duguid.com.au/tools/business-calculators/payroll-tax/
+- forty-five business calculators: https://duguid.com.au/tools/business-calculators/

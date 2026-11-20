@@ -1207,6 +1207,33 @@ test('company tax and franking works Dillmore Manufacture offline and refuses im
   await expect(output).toHaveText('Base rate entity passive income cannot be more than assessable income.');
 });
 
+test('salary against dividends works a 30% company in 2021-22 and Division 293 offline and refuses unpaid super', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/salary-dividend/');
+  const form = page.locator('#salary-dividend form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  const fill = async (profit, salary) => {
+    await form.getByLabel('Company profit before the owner’s salary and super (AUD)', { exact: true }).fill(profit);
+    await form.getByLabel('Salary paid to the owner (AUD)', { exact: true }).fill(salary);
+    await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  };
+  await form.getByLabel('2021-22', { exact: true }).check();
+  await form.getByLabel('No: tax and franking at 30%', { exact: true }).check();
+  await fill('41000', '20000');
+  const output = form.locator('output');
+  await expect(output).toContainText('Super guarantee at 10% of the salary: $2,000.00.');
+  await expect(output).toContainText('Owner’s extra income tax and Medicare levy, less the franking credit: −$2,418.00.');
+  await expect(output).toContainText('Kept in all, cash and super: $37,418.00.');
+  await expect(output).toContainText('Most kept: salary of $35,000.00');
+  await form.getByLabel('2026-27', { exact: true }).check();
+  await form.getByLabel('Yes: tax and franking at 25%', { exact: true }).check();
+  await fill('600000', '270830');
+  await expect(output).toContainText('Contributions tax and Division 293 tax on the super: $9,749.88.');
+  await expect(output).toContainText('Division 293 tax is counted against the super');
+  await fill('100000', '95000');
+  await expect(output).toHaveText('Enter a salary of no more than $89,285.71: the profit also pays its super guarantee.');
+});
+
 // GSTR 2006/8 Example 14: a GST-exclusive price of $96,364 on land acquired for $60,000 comes to $100,000.40
 // GST-inclusive, a margin of $40,000.40 and GST of $3,636.40; a sale to an associate is refused.
 test('GST margin scheme works GSTR 2006/8 Example 14 offline and refuses a sale to an associate', async ({ page, context }) => {
@@ -1308,7 +1335,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'pcg-2021-4-allocation', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
-  'company-tax', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
+  'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
   'workers-compensation', 'fuel-tax-credits', 'lease', 'gst-margin-scheme'];
 
 test.describe('before any script runs', () => {

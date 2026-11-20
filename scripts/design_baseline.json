@@ -236,6 +236,9 @@
     "tools/business-calculators/psi-determination/index.html": [
       "48d9efcea35f393ed85e18c36550a81325c64291ad8b8292addb5b662017de4e"
     ],
+    "tools/business-calculators/salary-dividend/index.html": [
+      "11af26ef4dfa5a5d48fb29d1b6bef9823c50278255ba9b3fa9b7a3063219809d"
+    ],
     "tools/business-calculators/sgc-payday/index.html": [
       "8b98d1ee6c37ababb245fc0a72470e3e800ba166dc7505248d396cc3f313092d"
     ],
@@ -373,9 +376,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "1227fcbba40db2fd736fb78efc925c074de107811c2f47440ac49bd813e3ef9b",
+    "llms.txt": "3c2bd65813ea01eb6659509ad8fe9e9cc65249424152850f1875f643838e2f6a",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "547a1010eae0e1ba9fb4eb7243ecb0f17450c9e157a980c1860aa8f53d38e3ed"
+    "sitemap.xml": "8093edf42b43de95f8edf084c6c73cb9143dfc93a059b7fa8abbc75d50191a7c"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -435,7 +438,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7793,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7794,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

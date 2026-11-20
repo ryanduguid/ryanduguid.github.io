@@ -303,6 +303,13 @@ calculate.longServiceLeave({ ...leaveInput, pay: 1500 });
 // @ts-expect-error The reason is one of the form's 10 reasons.
 calculate.longServiceLeave({ ...leaveInput, reason: 'sacked' });
 void leaveWeeks;
+const ownerPay = { year: '2026-27', profit: '200000', baseRate: true, salary: '100000', other: '0' };
+const ownerKept: number = calculate.salaryDividend(ownerPay).bestKept;
+// @ts-expect-error Whether the company is a base rate entity is a boolean, as the form passes it.
+calculate.salaryDividend({ ...ownerPay, baseRate: 'yes' });
+// @ts-expect-error Money is a decimal string.
+calculate.salaryDividend({ ...ownerPay, profit: 200000 });
+void ownerKept;
 const leaseTerms = { payment: '1000', payments: '60', frequency: 'monthly', timing: 'arrears', rate: '7.5', start: '2026-07-01', residual: '0',
   prepaid: '0', incentives: '0', direct: '500', restoration: '0', ownership: 'no', life: '' } as const;
 const leaseLiability: number = calculate.lease(leaseTerms).liability;

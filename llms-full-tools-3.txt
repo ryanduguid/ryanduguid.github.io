@@ -301,7 +301,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Forty-four calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
+Forty-five calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
 
 Find a question and prepare a checklist.
 
@@ -340,7 +340,11 @@ Published 11 September 2026. Last checked 20 November 2026, the newest of the ca
 - Division 7A loan schedule calculator A complying Division 7A loan year by year over 7 or 25 years: each minimum repayment, the interest, extra repayments and any shortfall taken to be a dividend.
 - Division 296 tax calculator One person’s Division 296 tax on superannuation earnings for 2026-27, above $3 million and above $10 million.
 - PSI rules checker Whether the personal services income rules apply, step by step through Divisions 84 to 87.
+
+## Company tax
+
 - Company tax and franking calculator A company’s 25% or 30% rate from the base rate entity test, its rate for franking dividends, the maximum franking credit and a shareholder’s tax or refund.
+- Salary against dividends calculator A company owner’s salary and super guarantee against fully franked dividends for 2021-22 to 2026-27: the cash and super kept after tax, and the split that keeps the most.
 
 ## Capital gains tax
 
@@ -400,6 +404,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
+- Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/
 - Capital gains tax calculator: https://duguid.com.au/tools/business-calculators/cgt/
 - Small business CGT concessions checker: https://duguid.com.au/tools/business-calculators/cgt-concessions/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
