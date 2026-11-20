@@ -2,14 +2,21 @@
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
 import { number, cents, ratioCents, ratioMoney, ratioPercent } from './money.mjs';
-export { fbtCarParking, fbtLoan, fbtMealEntertainment } from './fbt-benefits.mjs';
+export { fbtCarParking, fbtExpensePayment, fbtLoan, fbtMealEntertainment, fbtProperty } from './fbt-benefits.mjs';
+export { fbtEvExemption } from './fbt-ev-exemption.mjs';
 export { landTaxYear } from './land-tax.mjs';
 export { vehicleClass } from './vehicle-class.mjs';
 export { pcgRisk, pcgAllocation, pcgAllocationResult } from './pcg-2021-4.mjs';
+export { cgtConcessions, cgtConcessionsAnswersOf, cgtConcessionsResult } from './cgt-concessions.mjs';
 export { psiDetermination, psiDeterminationResult } from './psi-determination.mjs';
+export { CPI, capitalGain, cgtEventOf, cgtResult, indexationFactor } from './cgt.mjs';
 export { CALENDAR_END, NON_BUSINESS_WEEKDAYS, compoundedEarnings, paydaySuperDue, paydaySuperCharge, quarterlySgCharge, sgcPaydayResult }
   from './sgc-payday.mjs';
 export { LSL_ACTS, LSL_REASONS, longServiceLeave, longServiceLeaveResult, lslReasonText } from './long-service-leave.mjs';
+export { FTC_FUELS, FTC_PERIODS, FTC_USES, fuelFormInput, fuelInputsText, fuelTaxCredits, fuelTaxCreditsResult } from './fuel-tax-credits.mjs';
+export { unusedLeave, unusedLeaveResult } from './unused-leave.mjs';
+export { BORROWING_YEARS, borrowingAccounting, borrowingFormInput, borrowingInputsText, borrowingResult, borrowingSchedule } from './borrowing-expenses.mjs';
+export { WC_SCHEMES, workersCompensation, workersCompensationResult } from './workers-compensation.mjs';
 
 // Planning arithmetic. Rates, eligibility and classifications belong to the caller.
 // Money inputs are decimal strings in AUD; monetary results are numeric AUD.
@@ -106,6 +113,7 @@ export function variance(actual, budget, kind) {
 }
 
 export { FREQUENCIES, financeSchedule, financeResult, interestByIncomeYear } from './finance-schedule.mjs';
+export { lease, leaseComparison, leaseResult } from './lease.mjs';
 export { div7aMinimumRepayment, div7aSchedule, div7aScheduleResult } from './div7a.mjs';
 
 const TRANSFER_DUTY_RULES = ['excess-rounded-up-to-100', 'excess', 'whole-value', 'nt-formula'];
@@ -610,6 +618,7 @@ export function gicPaymentPlan(plan) {
 export { division296, division296Result } from './division-296.mjs';
 export { payrollTax, payrollTaxResult } from './payroll-tax.mjs';
 export { companyTax, companyTaxResult } from './company-tax.mjs';
+export { gstMarginScheme, gstMarginSchemeResult } from './gst-margin-scheme.mjs';
 export { salaryDividend, salaryDividendResult } from './salary-dividend.mjs';
-export { foreignSurcharge, foreignSurchargeResult } from './foreign-surcharge.mjs';
+export { firbFee, foreignSurcharge, foreignSurchargeResult } from './foreign-surcharge.mjs';
 export { businessDays, businessDaysResult, parseHolidays } from './business-days.mjs';

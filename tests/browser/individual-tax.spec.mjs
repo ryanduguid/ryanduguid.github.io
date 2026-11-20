@@ -6,7 +6,10 @@ import { waitForCalculator } from './calculator-ready.mjs';
 
 // Each individual tax calculator opens on the ATO's worked example, its first boundary case, already worked.
 const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 'study-loan': '$2,527.80',
-  'income-tests': '$73,810.00', 'concessional-catch-up': '$97,500.00' };
+  'sole-trader': '$5,939.00', 'lump-sum-arrears': '$1,688.25', 'division-293': '$750.00', 'income-tests': '$73,810.00',
+  'concessional-catch-up': '$97,500.00', 'bonus-withholding': '$641.00',
+  'salary-packaging': '$5,291.50', 'novated-lease': '$6,047.48',
+  'super-projection': '$539,266.80' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -43,6 +46,26 @@ for (const id of Object.keys(CALCULATORS)) {
     await expect(output).toHaveText('Enter the inputs and calculate.');
   });
 }
+
+test('lump sum in arrears gives no offset below the 10% test and refuses a non-resident or a termination payment offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/lump-sum-arrears/');
+  const form = page.locator('#lump-sum-arrears form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel(/^Taxable income of that year/).fill('1000000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('10% of normal taxable income less the arrears')).toHaveText('$98,900.00');
+  await expect(row('Lump sum payment in arrears tax offset')).toHaveText('$0.00');
+  await form.locator('[name="resident"][value="no"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('This calculator works the offset only for a person resident in Australia for the '
+    + 'whole of the year of receipt and each recent accrual year, taxed at the resident rates with the full tax-free threshold.');
+  await form.locator('[name="resident"][value="yes"]').check();
+  await form.locator('[name="other"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('This calculator does not work the offset when an employment termination payment');
+});
 
 test('catch-up carries nothing forward at a $500,000 balance and refuses a defined benefit interest offline', async ({ page, context }) => {
   await page.goto('/tools/individual-tax/concessional-catch-up/');
@@ -109,6 +132,124 @@ test('a 2026-27 fortnightly pay shows PAYG withheld beside the year spread evenl
   await expect(form.locator('output .result-row--principal strong')).toHaveText('$58,183.20');
 });
 
+test('super projection works one year and refuses salary sacrifice over the cap', async ({ page }) => {
+  await page.goto('/tools/individual-tax/super-projection/');
+  const form = page.locator('#super-projection form');
+  await waitForCalculator(form);
+  await form.getByLabel(/^Your age now/).fill('66');
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await calculate.click();
+  await expect(row('Balance at 67 in future dollars')).toHaveText('$60,829.25');
+  await expect(form.locator('output .result-row--principal strong')).toHaveText('$58,658.87');
+  await expect(form.locator('output')).toContainText('not intended to be relied on');
+  await form.getByLabel(/^Salary sacrifice/).fill('25000');
+  await calculate.click();
+  await expect(form.locator('output')).toContainText('above the $32,500 cap');
+});
+
+test('salary packaging works the ATO’s FBT example and the hospital cap', async ({ page }) => {
+  await page.goto('/tools/individual-tax/salary-packaging/');
+  const form = page.locator('#salary-packaging form');
+  await waitForCalculator(form);
+  await form.getByLabel(/^Salary for the year/).fill('80000');
+  await form.getByLabel(/^Benefits your employer gets no GST credit for/).fill('9000');
+  await form.getByLabel(/^Benefits your employer claims a GST credit for/).fill('7700');
+  await form.getByLabel(/^Salary packaged meal entertainment/).fill('3300');
+  await form.getByLabel('No: Type 2').check();
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await calculate.click();
+  await expect(row('Grossed-up amount liable to FBT')).toHaveText('$4,226.00');
+  await expect(row('FBT on it at 47%')).toHaveText('$1,986.22');
+  await form.getByLabel('A public or not-for-profit hospital').check();
+  await calculate.click();
+  await expect(row('Cap for a hospital or ambulance service')).toHaveText('$17,000.00');
+  await expect(row('FBT on it at 47%')).toHaveText('$8,096.22');
+});
+
+test('novated lease names the exemption condition a plug-in hybrid fails, applies it under a commitment, then refuses it for luxury car tax at another supply', async ({ page }) => {
+  await page.goto('/tools/individual-tax/novated-lease/');
+  const form = page.locator('#novated-lease form');
+  await waitForCalculator(form);
+  await form.getByLabel('Plug-in hybrid', { exact: true }).check();
+  await form.getByRole('group', { name: /first retail sale/ }).getByLabel('2024-25').check();
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await calculate.click();
+  await expect(row('Electric car exemption')).toHaveText(/only under a commitment/);
+  await expect(form.locator('output .result-row--principal strong')).toHaveText('$1,465.69');
+  await form.getByRole('group', { name: /^Plug-in hybrid only/ }).getByLabel('Yes').check();
+  await calculate.click();
+  await expect(row('Electric car exemption')).toHaveText('applies');
+  await expect(form.locator('output .result-row--principal strong')).toHaveText('$6,047.48');
+  await form.getByRole('group', { name: /other supply of the car/ }).getByLabel('Yes').check();
+  await calculate.click();
+  await expect(row('Electric car exemption')).toHaveText(/another supply or an importation/);
+  await expect(form.locator('output .result-row--principal strong')).toHaveText('$1,465.69');
+});
+
+test('Method B works a back payment over 2 years by B(i) and B(ii), as the ATO’s example 4 does', async ({ page }) => {
+  await page.goto('/tools/individual-tax/bonus-withholding/');
+  const form = page.locator('#bonus-withholding form');
+  await waitForCalculator(form);
+  await form.getByLabel('Monthly').check();
+  await form.getByLabel(/^Gross earnings this pay/).fill('7000');
+  await form.getByLabel('Method B: B(i) for back pay').check();
+  await form.getByLabel(/^Bonus, commission or other additional payment/).fill('8800');
+  for (const [label, amount] of [[/^Earlier pays this year it covers/, '2'], [/^Back payment for each/, '800'],
+    [/^Earnings each of those pays/, '6200'], [/^Withheld from each of those pays/, '1257'],
+    [/^Normal earnings this year to date/, '19400'], [/^Pays this year to date/, '3']]) {
+    await form.getByLabel(label).fill(amount);
+  }
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('Less what was withheld, times 2 pays (B(i) steps 4 and 5)')).toHaveText('$754.00');
+  await expect(row('Withheld from the payment, the lesser (B(ii) step 10)')).toHaveText('$4,104.00');
+  await expect(form.locator('output .result-row--principal strong')).toHaveText('$6,492.00');
+});
+
+test('Division 293 leaves out the excess over the cap until unused cap carried forward covers it', async ({ page }) => {
+  await page.goto('/tools/individual-tax/division-293/');
+  const form = page.locator('#division-293 form');
+  await waitForCalculator(form);
+  await form.getByLabel(/^Taxable income/).fill('210000');
+  await form.getByLabel(/^Reportable fringe benefits/).fill('33000');
+  await form.getByLabel(/^Concessional contributions/).fill('45000');
+  await form.getByLabel(/^Unused concessional cap/).fill('20000');
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await calculate.click();
+  await expect(row('Excess concessional contributions')).toHaveText('$12,500.00');
+  await expect(form.locator('output .result-row--principal strong')).toHaveText('$3,825.00');
+  await form.getByLabel('Under $500,000').check();
+  await calculate.click();
+  await expect(row('Unused cap carried forward that raises it')).toHaveText('$12,500.00');
+  await expect(form.locator('output .result-row--principal strong')).toHaveText('$5,700.00');
+  await form.getByLabel('A defined benefit interest').check();
+  await calculate.click();
+  await expect(form.locator('output')).toContainText('Subdivisions 293-D to 293-F');
+});
+
+test('a GST-registered sole trader with no job keeps one share of each invoice for tax and GST', async ({ page }) => {
+  await page.goto('/tools/individual-tax/sole-trader/');
+  const form = page.locator('#sole-trader form');
+  await waitForCalculator(form);
+  await form.getByLabel(/^Business income for the year/).fill('90000');
+  await form.getByLabel(/^Deductible business expenses/).fill('15000');
+  await form.getByLabel(/^Wages from a job/).fill('0');
+  await form.locator('input[name="gst"][value="yes"]').check();
+  await form.getByLabel(/^GST credits for the year/).fill('1200');
+  await form.getByLabel(/^One invoice, GST included/).fill('1100');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('Small business income tax offset')).toHaveText('$1,000.00');
+  await expect(row('GST on the business income')).toHaveText('$9,000.00');
+  await expect(row('Share of each invoice, GST included, to set aside')).toHaveText('21.54%');
+  await expect(row('From an invoice of $1,100.00, set aside')).toHaveText('$236.89');
+  await expect(form.locator('output .result-row--principal strong')).toHaveText('$21,320.00');
+});
+
 test('a 2025-26 fortnightly pay with a loan shows both Schedule 8 components', async ({ page }) => {
   await page.goto('/tools/individual-tax/take-home-pay/');
   const form = page.locator('#take-home-pay form');
@@ -128,8 +269,21 @@ for (const [id, name, input, expected] of [
     reportableFringeBenefits: 27000, daysWithoutHospitalCover: 365, taxWithheld: '21000' }, { refund: '510.00' }],
   ['take-home-pay', 'calculate_take_home_pay', { incomeYear: '2025-26', residency: 'resident', salary: '75000' },
     { takeHomeYear: '60212.00' }],
+  ['salary-packaging', 'calculate_salary_packaging', { incomeYear: '2026-27', residency: 'resident', employer: 'charity',
+    salary: 80000, typeOneBenefits: '7700', typeTwoBenefits: '9000', mealEntertainment: '3300', mealEntertainmentTypeOne: false },
+    { fbt: '1986.22' }],
+  ['novated-lease', 'calculate_novated_lease', { incomeYear: '2026-27', residency: 'resident', salary: 100000, car: 'bev',
+    firstHeldAndUsedFrom1July2022: true, firstSaleYear: '2026-27', costPrice: '60000', daysAvailable: 365, costsWithGst: '15000',
+    costsWithoutGst: '1000' }, { statutoryValue: '12000.00' }],
+  ['bonus-withholding', 'calculate_bonus_withholding', { payPeriod: 'fortnight', residency: 'resident', method: 'B',
+    earnings: '1800', additionalPayment: '2480', earningsToDate: '18000', paysToDate: 10 }, { totalWithheld: '992.00' }],
+  ['sole-trader', 'calculate_sole_trader_set_aside', { incomeYear: '2026-27', businessIncome: '22000', businessExpenses: '2000',
+    wages: '60000', invoice: '1000' }, { setAsideYear: '5939.00' }],
+  ['division-293', 'calculate_division_293_tax', { incomeYear: '2026-27', accumulationOnly: true, taxableIncome: 300000,
+    concessionalContributions: '25000' }, { division293Tax: '3750.00' }],
   ['income-tests', 'calculate_income_tests', { taxableIncome: 90000, reportableFringeBenefitsOther: 27000, assessableIncome: 90000 },
     { incomeForSurchargePurposes: '117000.00' }],
+  ['super-projection', 'project_super_balance', { age: 66, balance: '50000', salary: 80000 }, { balanceAtRetirement: '60829.25' }],
 ]) {
   test(`${id} registers ${name} where the browser offers modelContext`, async ({ page }) => {
     await page.addInitScript(() => {

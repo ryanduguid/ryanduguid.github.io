@@ -171,6 +171,20 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
       if (csv) download(csv, csvDownload.dataset.csv, 'text/csv;charset=utf-8');
     });
 
+    // Each table's rows: a label cell, then figures; a table the result has no rows for stays hidden.
+    /** @param {Record<string, string[][]>} tables */
+    const showTables = (tables) => {
+      for (const table of form.querySelectorAll('table[data-results]')) {
+        const rows = tables[table.dataset.results];
+        if (!rows) continue;
+        table.tBodies[0].replaceChildren(...rows.map(cells => {
+          const tr = document.createElement('tr');
+          tr.append(...cells.map((text, i) => Object.assign(document.createElement(i ? 'td' : 'th'), { textContent: text }, i ? {} : { scope: 'row' })));
+          return tr;
+        }));
+        table.parentElement.hidden = false;
+      }
+    };
     form.addEventListener('submit', event => {
       event.preventDefault();
       invalidate();
@@ -224,23 +238,20 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             break;
           }
           case 'loan':
-          case 'hire-purchase': {
-            result = calculate.financeResult({ solve: value('solve'), amount: value('amount'), rate: value('rate'), payments: value('payments'),
+          case 'hire-purchase':
+          case 'lease': {
+            result = form.dataset.calculator === 'lease' ? calculate.leaseResult(value, aud) : calculate.financeResult({ solve: value('solve'), amount: value('amount'), rate: value('rate'), payments: value('payments'),
               payment: value('payment'), balloon: value('balloon'), balloonKind: value('balloon-kind'), frequency: value('frequency'),
               timing: value('timing'), start: value('start') }, aud, form.dataset.calculator === 'loan' ? null : value('agreement'));
-            // Each table's rows: a label cell, then figures.
-            for (const table of form.querySelectorAll('table[data-results]')) {
-              table.tBodies[0].replaceChildren(...result.tables[table.dataset.results].map(cells => {
-                const tr = document.createElement('tr');
-                tr.append(...cells.map((text, i) => Object.assign(document.createElement(i ? 'td' : 'th'), { textContent: text }, i ? {} : { scope: 'row' })));
-                return tr;
-              }));
-              table.parentElement.hidden = false;
-            }
+            showTables(result.tables);
             csv = result.csv;
             csvDownload.disabled = false;
             break;
           }
+          case 'borrowing-expenses':
+            result = calculate.borrowingResult(value, aud);
+            showTables(result.tables);
+            break;
           case 'div7a': {
             // The year's benchmark rate comes from the option, which lists only years the site's rate table holds.
             const year = form.elements.namedItem('year').selectedOptions[0];
@@ -303,13 +314,20 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             const r = calculate.fbtCar({ method: value('method'), cost: value('cost'), accessories: value('accessories'), reduced,
               days: value('days'), costs: value('costs'), businessUse: value('business-use'), contribution: value('contribution') },
             { days: form.dataset.yearDays, grossUp: type.dataset.grossUp, fbtRate: form.dataset.fbtRate });
+            // An exempt electric car's taxable value is nil (s 8A); its value before the exemption is still reportable.
+            const ev = fbtForms.fbtEvResult(form, calculate, { aud, value, money });
+            const exempt = ev?.exempt === true;
             result = { inputs: `${operating ? 'operating cost method' : 'statutory formula'}, cost price ${money('cost')}, later non-business accessories ${money('accessories')}, `
               + `first held ${reduced ? 'before' : 'on or after'} 1 April 2022, ${count(value('days'), 'day')} of ${form.dataset.yearDays} available for private use, `
-              + `${operating ? `operating costs ${money('costs')} at ${value('business-use')}% business use, ` : ''}employee contributions ${money('contribution')}, Type ${type.value} gross-up ${type.dataset.grossUp}`,
-            rows: [['Base value', aud(r.baseValue)], ['Statutory formula taxable value', aud(r.statutory)],
-              ...(operating ? [['Operating cost taxable value', aud(r.operating)]] : []), ['Taxable value', aud(r.taxableValue)],
-              ['Grossed-up taxable value', aud(r.grossedUp)], [`FBT at ${form.dataset.fbtRate}%`, aud(r.fbt)]],
-            note: operating && r.statutory < r.operating ? 'The statutory formula value is lower, so it applies under subsection 10(5)' : undefined };
+              + `${operating ? `operating costs ${money('costs')} at ${value('business-use')}% business use, ` : ''}employee contributions ${money('contribution')}, Type ${type.value} gross-up ${type.dataset.grossUp}`
+              + `${ev ? `, ${ev.inputs}` : ''}`,
+            rows: [...(ev?.rows ?? []), ['Base value', aud(r.baseValue)], ['Statutory formula taxable value', aud(r.statutory)],
+              ...(operating ? [['Operating cost taxable value', aud(r.operating)]] : []),
+              ...(exempt ? [['Taxable value before the exemption, for reporting', aud(r.taxableValue)]] : []),
+              ['Taxable value', aud(exempt ? 0 : r.taxableValue)], ['Grossed-up taxable value', aud(exempt ? 0 : r.grossedUp)],
+              [`FBT at ${form.dataset.fbtRate}%`, aud(exempt ? 0 : r.fbt)]],
+            note: [exempt && fbtForms.EV_EXEMPT_NOTE, operating && r.statutory < r.operating
+              && 'The statutory formula value is lower, so it applies under subsection 10(5)'].filter(Boolean).join('. ') || undefined };
             result.principal = result.rows.length - 1;
             break;
           }
@@ -408,6 +426,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           }
           case 'psi-determination':
             result = calculate.psiDeterminationResult(value, (name) => form.elements.namedItem(name).checked, aud);
+            break;
+          case 'cgt-concessions':
+            result = calculate.cgtConcessionsResult(value, aud);
             break;
           case 'staff': {
             const r = calculate.staffCost(value('wages'), value('super'), value('other'));
@@ -518,8 +539,20 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'sgc-payday':
             result = calculate.sgcPaydayResult(value, aud);
             break;
+          case 'cgt':
+            result = calculate.cgtResult(value, (name) => form.elements.namedItem(name).checked, aud);
+            break;
           case 'long-service-leave':
             result = calculate.longServiceLeaveResult(value, aud);
+            break;
+          case 'fuel-tax-credits':
+            result = calculate.fuelTaxCreditsResult(value, aud);
+            break;
+          case 'unused-leave':
+            result = calculate.unusedLeaveResult(value, aud);
+            break;
+          case 'workers-compensation':
+            result = calculate.workersCompensationResult(value, aud);
             break;
           case 'payroll-tax':
             result = calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud);
@@ -534,17 +567,35 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
               dividend: value('dividend'), franking: value('franking'), marginal: value('marginal') }, aud);
             break;
           }
+          case 'gst-margin-scheme': {
+            const yes = name => value(name) === 'yes';
+            result = calculate.gstMarginSchemeResult({ interest: value('interest'), taxable: yes('taxable'), agreed: yes('agreed'),
+              acquired: value('acquired'), associate: yes('associate'), method: value('method'), price: value('price'), basis: value('basis'),
+              cost: value('cost'), part: value('part'), whole: value('whole') }, aud);
+            break;
+          }
           case 'foreign-surcharge': {
-            // The chosen jurisdiction's radio carries its general transfer duty scale, as the transfer duty page's does.
+            // Each jurisdiction's radio carries its general transfer duty scale, as the transfer duty page's does.
             const place = form.querySelector('input[name="jurisdiction"]:checked');
             const use = value('use');
-            const general = use === 'residential' ? calculate.transferDuty(value('value'), place.dataset.scale.split(';').map(row => row.split(','))).duty : null;
+            const generals = Object.fromEntries([...form.querySelectorAll('input[name="jurisdiction"]')].map(radio => [radio.value,
+              use === 'residential' ? calculate.transferDuty(value('value'), radio.dataset.scale.split(';').map(row => row.split(','))).duty : null]));
             const yes = name => value(name) === 'yes';
             result = calculate.foreignSurchargeResult({ type: value('buyer'), status: value('status'), daysBefore: value('days-before'),
               daysDecember: value('days-december'), nzResident: yes('nz-resident'), resides: yes('resides'), absent: yes('absent'), home: yes('home'),
               overseas: yes('overseas'), largest: value('largest'), combined: value('combined'), absentee: value('absentee'), capital: value('capital'), amendable: yes('amendable'),
               control: yes('control'), named: yes('named'), defaults: value('defaults'), exemption: yes('exemption') },
-            { place: place.value, use, value: value('value'), share: value('share'), land: value('land') }, general, aud);
+            { place: place.value, use, value: value('value'), share: value('share'), land: value('land') }, generals, value('firb'), aud);
+            // The comparison table: a label cell, then figures; it stays hidden when the result leaves it out.
+            const table = form.querySelector('table[data-results="places"]');
+            if (result.tables.places) {
+              table.tBodies[0].replaceChildren(...result.tables.places.map(cells => {
+                const tr = document.createElement('tr');
+                tr.append(...cells.map((text, i) => Object.assign(document.createElement(i ? 'td' : 'th'), { textContent: text }, i ? {} : { scope: 'row' })));
+                return tr;
+              }));
+              table.parentElement.hidden = false;
+            }
             break;
           }
           case 'business-days':
@@ -576,7 +627,7 @@ function loadCalculators(retryForm) {
   // A failed module import can remain cached, so a manual retry uses fresh URLs.
   const suffix = retryForm ? `?retry=${Date.now()}` : '';
   Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`), import(`./fbt-benefit-forms.mjs${suffix}`),
-    forms.some((f) => ['income-tax', 'take-home-pay', 'study-loan', 'income-tests', 'concessional-catch-up'].includes(f.dataset.calculator ?? '')) ? import(`./individual-tax-results.mjs${suffix}`) : { individualResult: () => undefined }]).then(initialiseCalculators)
+    forms.some((f) => ['income-tax', 'take-home-pay', 'study-loan', 'sole-trader', 'lump-sum-arrears', 'division-293', 'income-tests', 'concessional-catch-up', 'bonus-withholding', 'salary-packaging', 'novated-lease', 'super-projection'].includes(f.dataset.calculator ?? '')) ? import(`./individual-tax-results.mjs${suffix}`) : { individualResult: () => undefined }]).then(initialiseCalculators)
     .then(() => { if (retryForm) retryForm.querySelector('input, select').focus(); })
     .catch(() => {
       for (const form of forms) {

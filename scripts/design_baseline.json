@@ -125,6 +125,9 @@
     "tools/bas-due-dates/index.html": [
       "0cd228c7fb91aae4af73006d6ec4dd8fdbc67f341b2466fc721ea4dada27f930"
     ],
+    "tools/business-calculators/borrowing-expenses/index.html": [
+      "f5661580fa97a81922142d07158b6e69f25d0df5542f310c0c71a9211abd2498"
+    ],
     "tools/business-calculators/break-even/index.html": [
       "af623f4039e036a9ef612948565c5d4d8eee6221daaefa39832be3353340eff0"
     ],
@@ -136,6 +139,12 @@
     ],
     "tools/business-calculators/cash/index.html": [
       "f39459d528bd96610d20b36c8914bbb34e3d7a9ffa3a6d7a4c13f8b914217496"
+    ],
+    "tools/business-calculators/cgt-concessions/index.html": [
+      "924871e8fc07407e0d5afb5ce82dc94fd6a252508ae5bc0e4420d262db46f67a"
+    ],
+    "tools/business-calculators/cgt/index.html": [
+      "92814ae5850e078caf05fcd16d4923aa7735f3e5d8ac98f9fb2fc9611306095e"
     ],
     "tools/business-calculators/company-tax/index.html": [
       "b3b965f4611802ef5b3553ac3d4fa1d4b100c8743eaf59b677cd66ad0422563b"
@@ -153,7 +162,10 @@
       "6779b0afc7823c5ddb31c82c0b2e48a14121e5b485d5fc3c9ea0a05c349c3c77"
     ],
     "tools/business-calculators/fbt-car/index.html": [
-      "1458825601cec0091a9b8476ce67c8ac72d5903f7453d0e03b2709d2c2d23bc0"
+      "cc13654c944a00876a7cc5dd846eabae044a9ae41ccfb7faeb9ef8d5f407196d"
+    ],
+    "tools/business-calculators/fbt-expense-payment/index.html": [
+      "4ec78a9362509e86c570e15e8da2d6ba99024202915968707639130f085205b0"
     ],
     "tools/business-calculators/fbt-loan/index.html": [
       "34ec7682bf66270bb43e736e946b42c37f2a3f2d476b986a0583e59787d6c9dd"
@@ -161,14 +173,23 @@
     "tools/business-calculators/fbt-meal-entertainment/index.html": [
       "020300cbea395aba3084478889fedbdef53b6291b4decadd343de032daa8edbc"
     ],
+    "tools/business-calculators/fbt-property/index.html": [
+      "a570bd8e129b5a50f357ac9f20010fbef74d0aa0166fa4d25c625f349b3b9384"
+    ],
     "tools/business-calculators/fixed-fee/index.html": [
       "92a8a36828e952b98e007144bffcb72766b67b31256bbdc8524917a09fc53ccf"
     ],
     "tools/business-calculators/foreign-surcharge/index.html": [
-      "a495a8a73d55b01347bf24d200eb54d5c3057d0dfde53c8552763f9f06ddae2c"
+      "dbb608ccc16fc0052173f2d589e6f62fadd38e69b9aa9c170e372e666d695f4a"
+    ],
+    "tools/business-calculators/fuel-tax-credits/index.html": [
+      "19ea0999e623b4df3739325bd8b325f4a04d713829648174d8399ee03b6eb9e5"
     ],
     "tools/business-calculators/gic-payment-plan/index.html": [
       "e3de2d186fb139dd4197a71b00171daff2f218a2ca2dda7c9188f891a7f6a1aa"
+    ],
+    "tools/business-calculators/gst-margin-scheme/index.html": [
+      "f17ddd47426b0af26020684efc5189eba8f36aa74f7493e59cd308e6eee7fc02"
     ],
     "tools/business-calculators/gst/index.html": [
       "22416c01f7ec1fdbfc3f1870cbb7ac7715321d1430e3c2878ef2b7824c04f948"
@@ -180,10 +201,13 @@
       "86f5b0ff1e4b4d0e186d3618e5a14afff83676fbf6740a4d258e5a4dd0912673"
     ],
     "tools/business-calculators/index.html": [
-      "91040c7259a600ad1ffeb26f60090dc76dd1a63a2fa108e8a25138771eff2dc0"
+      "7f3b3ee331884be9b2ab5a4ea04ab9722783a2abc111a92f9edb6dd8f205cba6"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "acbca7c4d431d02fe957bc7d11a737d4b5f39e5de41c62382bcfe23d298a76b3"
+    ],
+    "tools/business-calculators/lease/index.html": [
+      "013f833a538f274e54177facd237c41b72420cfb02f3ec6ccf0cff2ef06669b6"
     ],
     "tools/business-calculators/loan/index.html": [
       "ae4b492b58d76e770fd168a2a59cd246d6851b4673116a2601fb20e965bb3531"
@@ -216,7 +240,7 @@
       "11af26ef4dfa5a5d48fb29d1b6bef9823c50278255ba9b3fa9b7a3063219809d"
     ],
     "tools/business-calculators/sgc-payday/index.html": [
-      "7239480ac9b3d488803ae616c4a77491c297acb75d02af1b0b59b0983887c926"
+      "8b98d1ee6c37ababb245fc0a72470e3e800ba166dc7505248d396cc3f313092d"
     ],
     "tools/business-calculators/staff/index.html": [
       "18cb2ea2bdf64673742c95515d6085dac73f05327d8f54c68bd7c2879d0dc2fe"
@@ -227,11 +251,17 @@
     "tools/business-calculators/transfer-duty/index.html": [
       "d6d94998df89089a8bbb70e1e120145f78fe37b761c1ae9133a7da58a2ce4012"
     ],
+    "tools/business-calculators/unused-leave/index.html": [
+      "a6fa96816b0435d319d595d497c2c36aa6d9bb47d45e07f64200ea58519a5e3f"
+    ],
     "tools/business-calculators/variance/index.html": [
       "4f1496eb7a4b0b99b7dd224f877a8a779709eaf56171a421e4ba64b94ede334e"
     ],
     "tools/business-calculators/vehicle-class/index.html": [
       "3cb6d9eb132cb07a5d4a2ba9bd84a6948bfce2a886038c27936b4ce1ae353f67"
+    ],
+    "tools/business-calculators/workers-compensation/index.html": [
+      "f0401c056eb9d551612e5b7aaef1f68bc60ec7202a1c2bebce8b4a0b6c6c4f47"
     ],
     "tools/coal-lsl-levy/index.html": [
       "d228eaa6008eb3d815ffce6b7cb0b31696e81a8cdec6cb60a1aa11acf0b0ed7b"
@@ -245,8 +275,14 @@
     "tools/index.html": [
       "32dc6f7031eeb4e85e09056f786be5ee65b7822903689804ffea6ab226963244"
     ],
+    "tools/individual-tax/bonus-withholding/index.html": [
+      "83ba43ec351fd61ee50c8b345baaf6559cdcd3e2ae004122301ba394a131040a"
+    ],
     "tools/individual-tax/concessional-catch-up/index.html": [
       "f2dac755283bcb93913fd739ccab0b4d70c1acaf94d5d3fce56971c93f985ba0"
+    ],
+    "tools/individual-tax/division-293/index.html": [
+      "4da1426e43dfc1661ffe05a9f233741783260dd99b93111505ae1ecf15f99f15"
     ],
     "tools/individual-tax/income-tax/index.html": [
       "aed04320a1e984625737411e6688f860dd30308e78cf544b438f407c0cbf2037"
@@ -257,8 +293,23 @@
     "tools/individual-tax/index.html": [
       "095fbe24d680773871d1b5b157fe447fd1d2746ca217452e29c61ad4a202f088"
     ],
+    "tools/individual-tax/lump-sum-arrears/index.html": [
+      "143cbd7d34d37340ed6005cc963f555e12f2636465af1fac2c29de193d24883f"
+    ],
+    "tools/individual-tax/novated-lease/index.html": [
+      "6da01e4fff78ce0ccbb04b4fb916091860db698ef405e946a9678b498e2ea502"
+    ],
+    "tools/individual-tax/salary-packaging/index.html": [
+      "d5a69d84bd08addbbcb8ece932d752f080b550f4e673bca7597f467849611666"
+    ],
+    "tools/individual-tax/sole-trader/index.html": [
+      "b650bd8e9a1e227fa343ce6186661a16b07af6816ff0be1915c8ca747b12ee74"
+    ],
     "tools/individual-tax/study-loan/index.html": [
       "e097fdd02619bd0715a3d91bb3455b08912994564bdbc0e0807df76c91cc5cea"
+    ],
+    "tools/individual-tax/super-projection/index.html": [
+      "49e01e0978d54014757a30dd3b2e223ca74ff01a3064680802684448f3e62d02"
     ],
     "tools/individual-tax/take-home-pay/index.html": [
       "70b6d4498a6e9ea18382da96ebaef855657d615de6bb0f1480257c14a3d3c828"
@@ -325,9 +376,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "4e03ef1a00895347f9a1f1579c9086c7f84b55ab337ca9b8dbe15c43286a17e0",
+    "llms.txt": "3c2bd65813ea01eb6659509ad8fe9e9cc65249424152850f1875f643838e2f6a",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "5428fe2d4a2cc9aa47f20c7f47981ad9c2769bba410ec7e28293dede1aeffaeb"
+    "sitemap.xml": "8093edf42b43de95f8edf084c6c73cb9143dfc93a059b7fa8abbc75d50191a7c"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -387,7 +438,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7777,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7794,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

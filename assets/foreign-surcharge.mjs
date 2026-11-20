@@ -238,6 +238,30 @@ export function foreignSurcharge(buyer, purchase) {
     landTest: landTest?.why ?? noLand(law), land: Number(surcharge) / 100 };
 }
 
+/** The Foreign Investment Review Board's fee for one application to acquire residential land in
+ * 2026-27, from its Guidance Note 10 (version 12, 19 September 2026) and schedule of fees (version
+ * 8, 1 July 2026), both read 19 November 2026. The fee constant for residential land is $1 million:
+ * $15,600 to $1 million of consideration, then $31,300 for each further whole or part million to
+ * $40 million, and $1,245,500 above it; $4,600 under $75,000. An established dwelling's fee is 3
+ * times the amount. */
+export const FIRB_FEES = { year: '2026-27', lower: 4600, base: 15600, step: 31300, constant: 1000000, maximum: 1245500, tiers: 40, established: 3 };
+
+/** The FIRB application fee for 2026-27 on the consideration, in whole dollars: nil without an
+ * application, else the residential land fee, tripled for an established dwelling. Lower fee rules,
+ * concessions and waivers are not worked out.
+ * @param {'none' | 'vacant' | 'established'} kind @param {string} consideration */
+export function firbFee(kind, consideration) {
+  if (!['none', 'vacant', 'established'].includes(kind)) throw new Error('Choose whether a FIRB application is made, and for which kind of residential land.');
+  const value = number(consideration, { min: 1, max: 1e9, integer: true, money: true });
+  if (kind === 'none') return { fee: 0 };
+  const f = FIRB_FEES;
+  // Above the fee constant, a multiple of it pays (multiple − 1) steps and any other amount the
+  // multiple rounded down: both are the whole millions below the consideration.
+  const fee = value < 75000 ? f.lower : value <= f.constant ? f.base : value > f.tiers * f.constant ? f.maximum
+    : Math.floor((value - 1) / f.constant) * f.step;
+  return { fee: kind === 'established' ? fee * f.established : fee };
+}
+
 /** The buyer as the result's inputs describe it. @param {ForeignBuyer} b */
 function buyerText(b) {
   const interests = `foreign interests ${b.largest}% largest and ${b.combined}% together, absentee interests ${b.absentee}%`;
@@ -251,20 +275,47 @@ function buyerText(b) {
   }[b.type];
 }
 
-/** The page's result: its inputs sentence, labelled rows and note. `general` is the general transfer
- * duty on the whole property, which the caller works out from the transfer duty scale, or null.
- * @param {ForeignBuyer} buyer @param {ForeignPurchase} purchase @param {number | null} general
- * @param {(value: number) => string} aud */
-export function foreignSurchargeResult(buyer, purchase, general, aud) {
+const FIRB_KINDS = { none: 'no FIRB application', vacant: 'FIRB application for residential land without an established dwelling',
+  established: 'FIRB application for an established dwelling' };
+
+/** The page's result: its inputs sentence, labelled rows, note and the comparison table. `generals`
+ * holds each jurisdiction's general transfer duty on the whole property, which the caller works out
+ * from its transfer duty scale, or null where the property is not residential. The comparison puts
+ * the same buyer, answers and property in each jurisdiction, under its own test.
+ * @param {ForeignBuyer} buyer @param {ForeignPurchase} purchase @param {Record<string, number | null>} generals
+ * @param {'none' | 'vacant' | 'established'} firb @param {(value: number) => string} aud */
+export function foreignSurchargeResult(buyer, purchase, generals, firb, aud) {
   const r = foreignSurcharge(buyer, purchase);
+  const { fee } = firbFee(firb, purchase.share);
+  if (firb !== 'none' && purchase.use !== 'residential') {
+    throw new Error('The FIRB fee here is for residential land; agricultural and commercial land have their own fee steps.');
+  }
   const law = FOREIGN_SURCHARGES[purchase.place];
+  const general = generals[purchase.place];
   const money = (/** @type {string} */ text) => aud(Number(text));
   // Each amount comes before its test, so the result opens on a figure.
   const rows = [[r.dutyRate === null ? 'Foreign purchaser duty surcharge' : `Foreign purchaser duty surcharge at ${r.dutyRate}% of the buyer’s share`,
     aud(r.duty)], ['Duty surcharge test', r.dutyTest]];
   if (general !== null) rows.push(['General transfer duty on the whole property, all buyers', aud(general)]);
+  if (firb !== 'none') rows.push([`FIRB application fee for ${FIRB_FEES.year} on the buyer’s share`, aud(fee)]);
+  /** Cents of the upfront amounts, added exactly. @param {number[]} amounts */
+  const sum = (amounts) => amounts.reduce((total, amount) => total + Math.round(amount * 100), 0) / 100;
+  if (general !== null) rows.push(['Upfront total: general duty, duty surcharge and FIRB fee', aud(sum([general, r.duty, fee]))]);
   rows.push(['Land tax surcharge for a full year', aud(r.land)], ['Land tax surcharge test', r.landTest]);
+  const notes = ['Each test is the jurisdiction’s own, from your answers; the revenue office decides who is foreign'];
+  if (firb === 'established') {
+    notes.push('From 1 April 2025 to 30 June 2029 foreign persons are generally banned from buying established dwellings, with limited exceptions');
+  }
+  /** @type {Record<string, string[][]>} */
+  const tables = {};
+  if (general !== null) {
+    tables.places = Object.entries(FOREIGN_SURCHARGES).map(([place, { name }]) => {
+      const there = foreignSurcharge(buyer, { ...purchase, place });
+      const duty = /** @type {number} */ (generals[place]);
+      return [name, aud(duty), aud(there.duty), aud(sum([duty, there.duty, fee]))];
+    });
+  }
   return { inputs: `${law.name}, ${buyerText(buyer)}, ${{ residential: 'residential', primary: 'primary production', other: 'other' }[purchase.use]} `
-    + `property worth ${money(purchase.value)}, buyer’s share ${money(purchase.share)}, land value for land tax ${money(purchase.land)}`,
-  rows, principal: 0, note: 'Each test is the jurisdiction’s own, from your answers; the revenue office decides who is foreign' };
+    + `property worth ${money(purchase.value)}, buyer’s share ${money(purchase.share)}, land value for land tax ${money(purchase.land)}, ${FIRB_KINDS[firb]}`,
+  rows, principal: 0, note: notes.join('. '), tables };
 }
