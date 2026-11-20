@@ -8,13 +8,13 @@ Source: https://duguid.com.au/tools/business-calculators/sgc-payday/
 
 Payday Super due dates in business days, and the super guarantee charge for one employee, each step cited.
 
-Published 18 November 2026. Last checked 18 November 2026.
+Published 18 November 2026. Last checked 19 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
 Super guarantee charge inputs for one employee
 
-Law Payday Super, 2026-27 Quarterly, 2022-23 to 2025-26 Payday Time the fund has 7 business days 20 business days: first contribution to this fund Out of cycle ATO determination First contribution, out of cycle Out of cycle, ATO determination Next regular payday (out of cycle) Determination date Qualifying earnings (AUD) Earlier earnings in 2026-27 (AUD) Received on time (AUD) Received late (AUD) Late receipt date Assessment date ATO-initiated assessment or estimate by payday No Yes Voluntary disclosure None Lodged Disclosure date GIC rate after 2026 (%) Income year 2022-23 (10.5%) 2023-24 (11%) 2024-25 (11.5%) 2025-26 (12%) Quarter July to September October to December January to March April to June Salary or wages (AUD) Ordinary time earnings (AUD) Contributions within 28 days (AUD) SGC statement lodged
+Law Payday Super, 2026-27 Quarterly, 2022-23 to 2025-26 Is any of the pay Norfolk Island salary or wages? No Yes: a Norfolk Island resident working there or overseas, or a Norfolk Island employer’s Australian resident employee working there Payday Time the fund has 7 business days 20 business days: first contribution to this fund Out of cycle ATO determination First contribution, out of cycle Out of cycle, ATO determination Next regular payday (out of cycle) Determination date Qualifying earnings (AUD) Earlier earnings in 2026-27 (AUD) Received on time (AUD) Received late (AUD) Late receipt date Assessment date ATO-initiated assessment or estimate by payday No Yes Voluntary disclosure None Lodged Disclosure date GIC rate after 2026 (%) Income year 2022-23 (10.5%) 2023-24 (11%) 2024-25 (11.5%) 2025-26 (12%) Quarter July to September October to December January to March April to June Salary or wages (AUD) Ordinary time earnings (AUD) Contributions within 28 days (AUD) SGC statement lodged
 
 Each law and choice reads only its own fields. Business days are from the Payday Super calendar; GIC rates from the GIC table.
 
@@ -35,6 +35,7 @@ The calculator gives an estimate for one employee and one payday or quarter, and
 - a disclosed contribution with no receipt day, whose notional earnings section 36(3) works out as if the fund received it 7 business days after it was paid;
 - exemption certificates, and amounts paid that have not reached the fund;
 - GIC and penalties once the charge is payable;
+- Norfolk Island salary or wages, of which item 2(2) of Schedule 2 to the Tax and Superannuation Laws Amendment (Norfolk Island Reforms) Act 2015 (Compilation No. 1, 1 July 2026) for quarters to 30 June 2026, and item 189 of Schedule 1 to the Payday Superannuation Act for paydays in 2026-27, count only part, for a transitional rate of 7% to 10% for 2022-23 to 2025-26 and 11% for 2026-27 (Table 21 of the ATO’s key superannuation rates), both Acts read 19 November 2026: the calculator refuses them rather than apply the general rate;
 - paydays after 30 June 2027, whose maximum contributions base is not yet known, and quarters before July 2022.
 
 Confirm the figure with the ATO or a registered tax agent before relying on it.
@@ -72,7 +73,7 @@ Interest across 29 February 2024 | Quarter 3 of 2023-24; salary or wages $12,000
 Contributions with no ordinary time earnings | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $0.00; contributions $100.00; lodged 20 November 2025 | Refused: enter the ordinary time earnings for the quarter: contributions reduce the charge percentage in proportion to them
 A statement lodged by the contribution due date | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $10,000.00; contributions $0.00; lodged 28 October 2025 | Refused: enter the day the statement was or will be lodged from 29 October 2025 to 30 June 2031
 
-One of the thirty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -82,4 +83,5 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Payday Super calendar: https://duguid.com.au/tools/payday-super/business-days/
 - GIC table: https://duguid.com.au/rates/general-interest-charge/
-- thirty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Tax and Superannuation Laws Amendment (Norfolk Island Reforms) Act 2015: https://www.legislation.gov.au/C2015A00053/latest/text
+- forty-four business calculators: https://duguid.com.au/tools/business-calculators/

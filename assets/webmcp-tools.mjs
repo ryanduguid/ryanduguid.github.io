@@ -18,6 +18,9 @@ const PATTERNS = {
   life: /^(?:\d{1,3}(?:\.\d{1,4})?|(?:\d{1,3} )?\d{1,2}\/\d{1,2})$/,
   date: /^\d{4}-\d{2}-\d{2}$/,
   month: /^\d{4}-(?:0[1-9]|1[0-2])$/,
+  share: /^(?:0(?:\.\d{1,12})?|1(?:\.0{1,12})?)$/,
+  quantity: /^\d{1,12}(?:\.\d{1,4})?$/,
+  consumption: /^\d{1,3}(?:\.\d{1,6})?$/,
 };
 
 /**
@@ -196,6 +199,48 @@ const financeTool = ({ financeSchedule, interestByIncomeYear }, hirePurchase) =>
   },
 });
 
+/** The AASB 16 lessee schedule tool. @param {typeof import('./business-calculators.mjs').lease} lease */
+const leaseTool = (lease) => tool({
+  name: 'calculate_lease_schedule',
+  title: 'AASB 16 lessee lease schedule',
+  description: 'A lessee\'s AASB 16 lease liability and right-of-use asset in AUD for level lease payments weekly, fortnightly, monthly, '
+    + 'quarterly or yearly, in arrears or in advance. The liability is the payments not paid at commencement and any residual value '
+    + 'guarantee or purchase option price, discounted at the given annual rate (paragraph 26); the asset adds payments made at or '
+    + 'before commencement, initial direct costs and the restoration estimate, less incentives (paragraph 24). Interest is rounded '
+    + 'half up to the cent each period and the last period takes the rest; the asset is depreciated straight line over the lease term, '
+    + 'or over the useful life when ownership transfers or the life ends first. Interest, payments and depreciation are totalled by '
+    + 'income year, 1 July to 30 June. It does not remeasure for a change in rate, term or payments, and it does not work out GST or income tax.',
+  inputSchema: record({
+    payment: text('amount', 'Each lease payment in AUD excluding GST, with at most 2 decimal places, for example "1000".'),
+    payments: whole(1, 2600, 'Number of lease payments in the lease term, at most 50 years of them.'),
+    frequency: choice(['weekly', 'fortnightly', 'monthly', 'quarterly', 'annual'], 'How often payments fall; "monthly" when omitted.'),
+    timing: choice(['arrears', 'advance'], '"arrears" (or omitted) for payments at the end of each period, "advance" for the start, the first at commencement.'),
+    annualRate: text('rate', 'Discount rate in per cent a year with at most 4 decimal places: the rate implicit in the lease or the incremental borrowing rate.'),
+    startDate: text('date', 'Commencement date as YYYY-MM-DD, from 1900-01-01 to 2099-12-31.'),
+    residual: text('amount', 'Residual value guarantee expected to be paid, or purchase option price, in AUD; "0" or omitted for none.'),
+    prepaid: text('amount', 'Lease payments made before commencement, in AUD; "0" or omitted for none.'),
+    incentives: text('amount', 'Lease incentives received, in AUD; "0" or omitted for none.'),
+    initialDirectCosts: text('amount', 'Initial direct costs, in AUD; "0" or omitted for none.'),
+    restoration: text('amount', 'Estimated cost of dismantling or restoring, in AUD; "0" or omitted for none.'),
+    ownershipTransfers: { type: 'boolean', description: 'True when ownership transfers or a purchase option is reasonably certain to be exercised.' },
+    usefulLifeMonths: whole(1, 600, 'Useful life of the underlying asset in months; required when ownershipTransfers is true.'),
+  }, ['payment', 'payments', 'annualRate', 'startDate']),
+  run({ payment, payments, frequency = 'monthly', timing = 'arrears', annualRate, startDate, residual = '0', prepaid = '0', incentives = '0',
+    initialDirectCosts = '0', restoration = '0', ownershipTransfers = false, usefulLifeMonths }) {
+    const r = lease({ payment, payments: String(payments), frequency, timing, rate: annualRate, start: startDate, residual, prepaid, incentives,
+      direct: initialDirectCosts, restoration, ownership: ownershipTransfers ? 'yes' : 'no', life: usefulLifeMonths === undefined ? '' : String(usefulLifeMonths) });
+    return {
+      leaseLiability: dollars(r.liability), rightOfUseAsset: dollars(r.cost), totalInterest: dollars(r.totalInterest), leaseTermEnds: r.end,
+      depreciatedTo: r.depreciationEnd, shortTermElectionAvailable: r.shortTerm,
+      incomeYears: r.years.map((y) => ({ year: y.year, interest: dollars(y.interest), payments: dollars(y.paid), leaseLiability: dollars(y.liability),
+        depreciation: dollars(y.depreciation), rightOfUseAsset: dollars(y.asset) })),
+      schedule: r.rows.map((row) => ({ date: row.date, opening: dollars(row.opening), payment: dollars(row.payment), interest: dollars(row.interest),
+        principal: dollars(row.principal), closing: dollars(row.closing) })),
+      currency: 'AUD', source: `${CALCULATORS}lease/`,
+    };
+  },
+});
+
 /** @param {typeof import('./business-calculators.mjs').breakEven} breakEven */
 const breakEvenTool = (breakEven) => tool({
   name: 'calculate_break_even',
@@ -360,19 +405,125 @@ const longServiceLeaveTool = (longServiceLeave) => tool({
   },
 });
 
+/** Whole cents as dollars to 2 decimal places. @param {bigint} cents */
+const centsText = (cents) => `${cents < 0n ? '-' : ''}${(cents < 0n ? -cents : cents) / 100n}.${String((cents < 0n ? -cents : cents) % 100n).padStart(2, '0')}`;
+
+/** @param {typeof import('./business-calculators.mjs').borrowingSchedule} borrowingSchedule @param {string[]} years */
+const borrowingTool = (borrowingSchedule, years) => tool({
+  name: 'calculate_borrowing_expenses',
+  title: 'Borrowing expenses deduction schedule',
+  description: 'Borrowing expenses deductions under ITAA 1997 s 25-25 for up to 20 loans and every income year of each: each year’s '
+    + 'remaining expenditure, days, maximum deduction and deduction at the income use, the year asked about’s totals in AUD, and the $100 '
+    + 'rule of s 25-25(6) across loans first drawn in the same year. A refinancing is the earlier loan repaid on the new loan’s first '
+    + 'day. Years from 2027-28 are flagged for s 26-155, which it does not apply, and years after 2027-28 are marked projected. It does '
+    + 'not decide which costs are borrowing expenses or the use of the money, and does not work the page’s accounting column. It assumes '
+    + 'no loan’s money is used for a holiday home or other leisure facility, or that s 26-50(3) applies all year: otherwise s 26-50 may deny '
+    + 'the deduction.',
+  inputSchema: record({
+    year: choice(years, 'Income year asked about, for example "2025-26".'),
+    loans: { type: 'array', maxItems: 20, description: 'Each loan, in order; a refinancing names an earlier one by its number from 1.',
+      items: record({
+        borrowingExpenses: text('cost', 'Borrowing expenses in AUD with at most 2 decimal places.'),
+        firstBorrowed: text('date', 'First day the money was borrowed, YYYY-MM-DD, from 2017-07-01.'),
+        contractEnd: text('date', 'Last day of the period the original loan contract specifies, YYYY-MM-DD; omit when it has none.'),
+        repaidOn: text('date', 'Day the loan was repaid, YYYY-MM-DD; omit when it is not.'),
+        incomeUse: text('share', 'Fraction of the money used to produce assessable income in every year, from "0" to "1".'),
+        refinances: whole(1, 19, 'Number of the earlier loan this loan repaid on its first day; omit when none.'),
+      }, ['borrowingExpenses', 'firstBorrowed', 'incomeUse']) },
+  }, ['year', 'loans']),
+  run(input) {
+    const loans = input.loans.map((/** @type {Record<string, any>} */ l) => ({ borrowing_expenses: l.borrowingExpenses, loan_start: l.firstBorrowed,
+      loan_term_end: l.contractEnd ?? null, repaid_on: l.repaidOn ?? null, income_use: l.incomeUse, section_26_50_applies: false,
+      ...(l.refinances === undefined ? {} : { refinances: l.refinances }) }));
+    const r = borrowingSchedule({ year: input.year, loans });
+    return {
+      year: r.year, borrowingExpenses: r.borrowingExpenses.toFixed(2), maximumDeduction: r.maximumDeduction.toFixed(2),
+      deduction: r.deduction.toFixed(2), remainingAfterYear: r.remainingAfterYear.toFixed(2), currency: 'AUD',
+      loans: r.loans.map((l) => ({ loan: l.loan, periodTo: l.to, periodBasis: l.basis, spread: l.spread, totalDeduction: centsText(l.total),
+        years: l.rows.map((row) => ({ incomeYear: row.income_year, remaining: centsText(row.remaining), daysInYear: row.days, daysLeft: row.left,
+          maximum: centsText(row.maximum), deduction: centsText(row.deduction), section26_155: row.section_26_155, projected: row.projected })) })),
+      warnings: r.warnings,
+      basis: 'ITAA 1997 s 25-25 as read 19 November 2026; each maximum is rounded half up to the cent and carried forward, as the ATO’s examples are.',
+      source: `${CALCULATORS}borrowing-expenses/`,
+    };
+  },
+});
+
+const FTC_LINE = record({
+  method: choice(['litres_from_cost', 'basic_heavy_vehicle'], 'Omit for a line by quantity; "litres_from_cost" (a small claimant\'s PCG 2016/2 '
+    + 'Method 1) to work out the litres from cost and averagePriceCentsPerLitre; "basic_heavy_vehicle" (a small claimant\'s PCG 2021/2 basic method) '
+    + 'to split litres of diesel by publicRoadKm or totalKm and rigidTruckGrossWeightTonnes or litresPerKm.'),
+  fuel: choice(['diesel', 'petrol', 'b5', 'b20', 'e10', 'e85', 'lpg', 'lng_cng', 'b100'], 'The eligible fuel; the basic method takes "diesel" only.'),
+  use: choice(['heavy_vehicle_public_road', 'other_business', 'light_vehicle_public_road'], 'The fuel\'s use: a vehicle over 4.5 tonnes GVM on a '
+    + 'public road (including a bus\'s or coach\'s passenger air-conditioning), every other business use, or a vehicle of 4.5 tonnes or less on a '
+    + 'public road (nil). Not with the basic method.'),
+  acquired: text('date', 'Day the fuel was acquired, YYYY-MM-DD, inside the income year and no later than 2027-01-31.'),
+  quantity: text('quantity', 'Litres (kilograms for "lng_cng") with at most 4 decimal places, for a line by quantity.'),
+  cost: text('cost', 'GST inclusive cost in AUD with at most 2 decimal places, with "litres_from_cost".'),
+  averagePriceCentsPerLitre: text('quantity', 'Average GST inclusive pump price for the tax period in cents a litre, from '
+    + 'https://aip.com.au/pricing/pump-prices-retail/, with "litres_from_cost".'),
+  litres: text('quantity', 'Litres of eligible diesel, with "basic_heavy_vehicle".'),
+  publicRoadKm: text('quantity', 'Kilometres travelled on public roads, or give totalKm instead.'),
+  totalKm: text('quantity', 'Total kilometres, of which 98.4% are taken as on public roads.'),
+  rigidTruckGrossWeightTonnes: text('quantity', 'A rigid truck\'s gross weight in tonnes, above 4.5, or give litresPerKm instead.'),
+  litresPerKm: text('consumption', 'The engine diagnostic report\'s \'driving fuel\' economy in litres a kilometre.'),
+}, ['fuel', 'acquired']);
+const FTC_FIELDS = { averagePriceCentsPerLitre: 'average_price_cents_per_litre', publicRoadKm: 'public_road_km', totalKm: 'total_km',
+  rigidTruckGrossWeightTonnes: 'rigid_truck_gross_weight_tonnes', litresPerKm: 'litres_per_km' };
+
+/** @param {typeof import('./business-calculators.mjs').fuelTaxCredits} fuelTaxCredits */
+const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
+  name: 'calculate_fuel_tax_credits',
+  title: 'Fuel tax credit calculator',
+  description: 'A business\'s fuel tax credits in AUD for fuel acquired in one income year from 2022-23 to 2026-27, each line at the ATO\'s '
+    + 'published rate for the day it was acquired, its fuel and its use, rounded half up to the cent, with the whole dollars for label 7D. '
+    + 'Small claimants may give a line by its cost and average price, split a heavy vehicle\'s diesel by the basic method, or take every line '
+    + 'at the rate on a tax period\'s last day across indexation. It refuses fuel acquired after 31 January 2027 and does not decide entitlement, '
+    + 'public roads, hire chains, apportionment or the auxiliary equipment percentages.',
+  inputSchema: record({
+    year: choice(['2022-23', '2023-24', '2024-25', '2025-26', '2026-27'], 'Income year the fuel was acquired in.'),
+    lines: { type: 'array', maxItems: 50, items: FTC_LINE, description: 'From 1 to 50 fuel lines.' },
+    smallClaimant: { type: 'boolean', description: 'Required with a simplified method or ratePeriod: true when the credits were $10,000 or less in '
+      + 'the previous 12 months and are expected to be in the current 12 months (for the basic method alone, no claim in the previous 12 months also '
+      + 'counts: PCG 2021/2 footnote 3).' },
+    ratePeriod: record({ start: text('date', 'Tax period\'s first day, YYYY-MM-DD.'), end: text('date', 'Tax period\'s last day, YYYY-MM-DD.') },
+      ['start', 'end']),
+    returnDate: text('date', 'Day the activity statement is given, YYYY-MM-DD, to list lines acquired more than 4 years before it (subsection 47-5(2)).'),
+  }, ['year', 'lines']),
+  run({ year, lines, smallClaimant, ratePeriod, returnDate }) {
+    const r = fuelTaxCredits({ year, lines: lines.map((/** @type {Record<string, string>} */ line) => Object.fromEntries(Object.entries(line)
+      .map(([key, value]) => [FTC_FIELDS[/** @type {keyof typeof FTC_FIELDS} */ (key)] ?? key, value]))),
+    ...(smallClaimant === undefined ? {} : { small_claimant: smallClaimant }), ...(ratePeriod ? { rate_at_period_end: ratePeriod } : {}),
+    ...(returnDate ? { return_date: returnDate } : {}) });
+    return {
+      lines: r.lines.map((l) => ({ line: l.line, rateDay: l.rateDay, ratePeriod: l.period, ...(l.method === 'basic_heavy_vehicle'
+        ? { publicRoadLitres: l.publicRoadLitres, otherLitres: l.otherLitres, publicRoadRateCents: l.publicRoadRate, otherRateCents: l.otherRate }
+        : { quantity: l.quantity, rateCents: l.rateCents }), credit: dollars(l.credit) })),
+      fuelTaxCredits: dollars(r.total), label7d: String(r.label7d), currency: 'AUD', warnings: r.warnings, timeLimitLines: r.timeLimitLines,
+      basis: 'The ATO\'s 16 published rate periods from 1 July 2022, read 19 November 2026; quantity times rate in cents over 100, rounded half up '
+        + 'to the cent, and label 7D in whole dollars.',
+      source: `${CALCULATORS}fuel-tax-credits/`,
+    };
+  },
+});
+
 /** Tools keyed by the `data-calculator` name of the form whose page registers them.
  * @param {Pick<typeof import('./business-calculators.mjs'), 'gst' | 'div7aMinimumRepayment' | 'financeSchedule' | 'interestByIncomeYear'
- *   | 'breakEven' | 'companyTax' | 'foreignSurcharge' | 'longServiceLeave'>} calculate */
+ *   | 'lease' | 'breakEven' | 'companyTax' | 'foreignSurcharge' | 'longServiceLeave' | 'fuelTaxCredits' | 'borrowingSchedule'
+ *   | 'BORROWING_YEARS'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
     div7a: div7aTool(calculate.div7aMinimumRepayment),
     loan: financeTool(calculate, false),
     'hire-purchase': financeTool(calculate, true),
+    lease: leaseTool(calculate.lease),
     'break-even': breakEvenTool(calculate.breakEven),
     'company-tax': companyTaxTool(calculate.companyTax),
     'foreign-surcharge': foreignSurchargeTool(calculate.foreignSurcharge),
     'long-service-leave': longServiceLeaveTool(calculate.longServiceLeave),
+    'fuel-tax-credits': fuelTaxCreditsTool(calculate.fuelTaxCredits),
+    'borrowing-expenses': borrowingTool(calculate.borrowingSchedule, calculate.BORROWING_YEARS),
   };
 }
 
@@ -558,6 +709,62 @@ const TAKE_HOME_DESCRIPTION = 'Take-home pay in AUD from one salary for a full i
   + 'It names, but does not work, concessional contributions above the cap and Division 293 taxable '
   + `contributions. Sources on ${INDIVIDUAL}take-home-pay/.`;
 
+const BONUS_WITHHOLDING_DESCRIPTION = 'PAYG withholding in AUD from one 2026-27 weekly, fortnightly or monthly pay that includes a '
+  + 'back payment, commission, bonus or similar payment, by the methods of the ATO\'s Schedule 5 for payments made from '
+  + '1 July 2026, on scale 2 (resident claiming the tax-free threshold) or scale 3 (foreign resident), with the Schedule 8 '
+  + 'study loan component when the payee has one. Method A spreads the payment over the pays in a year, or fewer for a '
+  + 'commission or bonus for a defined period under 12 months, and limits it to 47%. Method B works a back payment for earlier pays this year '
+  + 'by B(i), each pay with the same earnings, back payment and earlier withholding, and any other payment by B(ii) on '
+  + 'the average earnings to date, limited to 47%. Method A also gives the tax and study loan repayment the payment adds '
+  + 'to a year of this pay. It does not compute scales 1, 5 or 6, a payee without a tax file number, a working holiday '
+  + `maker, a withholding variation, or years before 2026-27. Sources on ${INDIVIDUAL}bonus-withholding/.`;
+const SOLE_TRADER_DESCRIPTION = 'What an Australian resident sole trader sets aside in AUD for a full income year: the income '
+  + 'tax, Medicare levy, any Medicare levy surcharge and study loan repayment that the business profit adds to any wages, '
+  + 'after the small business income tax offset (16% of the share of basic income tax liability on net small business '
+  + 'income, at most $1,000), plus the GST on the business income less GST credits when registered, as a share of each '
+  + 'invoice and an amount each quarter, month and week, each rounded half up to the cent. It assumes all sales are '
+  + 'taxable supplies, the wages were withheld from as though they were the only income, a single person with no '
+  + 'dependants, an adult, and a study loan debt at least the repayment; it refuses a business loss and GST credits '
+  + `above the GST on income. Sources on ${INDIVIDUAL}sole-trader/.`;
+
+/** @param {typeof import('./sole-trader.mjs').soleTraderSetAside} soleTraderSetAside @param {string[]} years */
+const soleTraderTool = (soleTraderSetAside, years) => tool({
+  name: 'calculate_sole_trader_set_aside',
+  title: 'Sole trader tax set-aside calculator',
+  description: SOLE_TRADER_DESCRIPTION,
+  inputSchema: record({
+    incomeYear: choice(years, `Income year, ${years.at(-1)} to ${years[0]}.`),
+    businessIncome: text('amount', 'Business income for the year excluding GST, in AUD with at most 2 decimal places.'),
+    businessExpenses: text('amount', 'Deductible business expenses for the year excluding GST, in AUD; "0" when omitted.'),
+    wages: text('amount', 'Salary and wages from a job for the year before tax, in AUD; "0" when omitted.'),
+    otherDeductions: text('amount', 'Tax agent fees and gifts claimed, in AUD; "0" when omitted.'),
+    personalSuperContributions: text('amount', 'Personal super contributions claimed as a deduction, in AUD; they also '
+      + 'count in study loan repayment income and income for surcharge purposes; "0" when omitted.'),
+    smallBusinessOffset: { type: 'boolean', description: 'false when the business does not qualify for the small business '
+      + 'income tax offset (aggregated turnover of $5 million or more, or personal services income outside a personal '
+      + 'services business); true when omitted.' },
+    studyLoan: { type: 'boolean', description: 'true when the person has a HELP or other study or training loan.' },
+    privateHospitalCover: { type: 'boolean', description: 'false when the person had no private patient hospital cover all year; true when omitted.' },
+    registeredForGst: { type: 'boolean', description: 'true when the business is registered for GST; false when omitted.' },
+    gstCredits: text('amount', 'GST credits on business purchases for the year, in AUD; "0" when omitted.'),
+    invoice: text('amount', 'One invoice as charged, GST included when registered, in AUD; "0" when omitted.'),
+  }, ['incomeYear', 'businessIncome']),
+  run({ incomeYear, businessIncome, businessExpenses = '0', wages = '0', otherDeductions = '0',
+    personalSuperContributions = '0', smallBusinessOffset = true, studyLoan = false, privateHospitalCover = true,
+    registeredForGst = false, gstCredits = '0', invoice = '0' }) {
+    const r = soleTraderSetAside({ year: incomeYear, income: businessIncome, expenses: businessExpenses, wages,
+      deductions: otherDeductions, super: personalSuperContributions, offset: smallBusinessOffset, studyLoan,
+      hospitalCover: privateHospitalCover, gst: registeredForGst, credits: gstCredits, invoice });
+    return {
+      businessProfit: dollars(r.profit), taxableIncome: dollars(r.taxable), smallBusinessIncomeTaxOffset: dollars(r.smallBusinessOffset),
+      totalTaxLeviesAndRepayment: dollars(r.total), onWagesAlone: dollars(r.wagesTax), businessTax: dollars(r.businessTax),
+      gst: dollars(r.gst), setAsideYear: dollars(r.setAside), setAsideQuarter: dollars(r.quarterly),
+      setAsideMonth: dollars(r.monthly), setAsideWeek: dollars(r.weekly), invoiceSharePercent: r.invoiceShare.toFixed(2),
+      setAsideFromInvoice: dollars(r.invoice.setAside), currency: 'AUD', source: `${INDIVIDUAL}sole-trader/`,
+    };
+  },
+});
+
 const INCOME_TESTS_DESCRIPTION = 'The income measures that the tax return of one person resident in Australia all year feeds, '
   + 'for 2024-25 to 2026-27, in '
   + 'whole AUD: income for surcharge purposes (Medicare levy surcharge), Division 293 income, rebate income (seniors and '
@@ -585,34 +792,107 @@ const INCOME_TEST_INPUTS = /** @type {const} */ ([['taxableIncome', 'taxable', '
   ['assessableIncome', 'assessable', 'Assessable income, at least the taxable income.'],
   ['businessDeductions', 'businessDeductions', 'Deductions from carrying on a business.']]);
 
+const SUPER_PROJECTION_DESCRIPTION = 'A projection in AUD of one accumulation super account from 2026-27 to a retirement '
+  + 'age of 60 to 75, a whole year at a time: employer contributions at their rate of salary up to the $270,830 maximum '
+  + 'contribution base, 15% contributions tax on them and on salary sacrifice, after-tax contributions, a steady return '
+  + 'after investment fees and tax earned on the opening balance and half the year\'s net flows, dollar and percentage '
+  + 'administration fees and insurance premiums less the fund\'s 15% deduction for them; salary, contributions, fees, '
+  + 'premiums and the base grow at the wage growth rate after the first year. The present value divides the final balance '
+  + 'by (1 + the discount rate) per year (ASIC Instrument 2022/603 s 4: 3.7% by default; retirement at 67 by default). '
+  + 'Refuses 2026-27 contributions above the $32,500 concessional or $130,000 non-concessional cap. It does not compute '
+  + 'retirement income, the age pension, the low income super tax offset, co-contributions or Division 293 tax. A model '
+  + 'on stated assumptions, not a prediction or a recommendation. '
+  + `Sources and the reasons for each default on ${INDIVIDUAL}super-projection/.`;
+
 /**
- * WebMCP descriptors for the income tax estimate, take-home pay and income tests calculators, keyed by
- * the `data-calculator` name of the form whose page registers them.
+ * The WebMCP descriptor for the super projection calculator.
+ * @param {typeof import('./super-projection.mjs').superProjection} superProjection
+ */
+function superProjectionTool(superProjection) {
+  return tool({
+    name: 'project_super_balance',
+    title: 'Super projection calculator',
+    description: SUPER_PROJECTION_DESCRIPTION,
+    inputSchema: record({
+      age: whole(15, 74, 'Age now in whole years.'),
+      retirementAge: whole(15, 75, 'Retirement age in whole years; 67 when omitted; an age under 60, the preservation age, is taken as 60.'),
+      balance: text('amount', 'Super balance now in AUD.'),
+      salary: whole(0, 1e9, 'Salary for 2026-27 before salary sacrifice, the qualifying earnings the super guarantee is paid on, in whole AUD.'),
+      employerRate: text('percent', 'Employer contributions as a per cent of salary, up to 30; "12" (the super guarantee) when omitted.'),
+      salarySacrifice: text('amount', 'Salary sacrifice and personal deductible contributions for 2026-27 in AUD; "0" when omitted.'),
+      afterTaxContributions: text('amount', 'After-tax contributions for 2026-27 in AUD; "0" when omitted.'),
+      returnRate: text('percent', 'Return a year after investment fees and tax on earnings, per cent up to 20; "6.1" when omitted.'),
+      adminFee: text('amount', 'Dollar administration fee for 2026-27 in AUD; "59" when omitted.'),
+      percentFee: text('percent', 'Administration fee as a per cent of the balance a year, up to 5; "0.11" when omitted.'),
+      insurancePremiums: text('amount', 'Insurance premiums for 2026-27 in AUD; "599" when omitted.'),
+      wageGrowth: text('percent', 'Wage growth a year, per cent up to 10; "3.7" when omitted.'),
+      discountRate: text('percent', 'Present value rate a year, per cent up to 10; "3.7" (ASIC Instrument 2022/603) when omitted.'),
+    }, ['age', 'balance', 'salary']),
+    run({ age, retirementAge = 67, balance, salary, employerRate = '12', salarySacrifice = '0', afterTaxContributions = '0',
+      returnRate = '6.1', adminFee = '59', percentFee = '0.11', insurancePremiums = '599', wageGrowth = '3.7',
+      discountRate = '3.7' }) {
+      const r = superProjection({ age: String(age), retire: String(retirementAge), balance, salary: String(salary),
+        employer: employerRate, sacrifice: salarySacrifice, afterTax: afterTaxContributions, returnRate, percentFee, adminFee,
+        insurance: insurancePremiums, growth: wageGrowth, discount: discountRate });
+      return {
+        yearsProjected: r.years, retirementAge: r.retire, employerContributionsFirstYear: dollars(r.employer),
+        concessionalContributionsFirstYear: dollars(r.concessional), contributionsAfterTax: dollars(r.contributed),
+        earnings: dollars(r.earnings), feesAndPremiumsAfterDeduction: dollars(r.fees), balanceAtRetirement: dollars(r.balance),
+        presentValue: dollars(r.present), currency: 'AUD', source: `${INDIVIDUAL}super-projection/`,
+      };
+    },
+  });
+}
+
+const DIVISION_293_DESCRIPTION = 'Division 293 tax in AUD for one individual and income year (ITAA 1997 Division 293), '
+  + 'for contributions to accumulation interests only. Division 293 income is taxable income less any assessable first '
+  + 'home super saver released amount, plus income on which family trust distribution tax was paid, the reportable '
+  + 'fringe benefits total and total net investment loss, less a super lump sum taxed element at the zero rate. Low tax '
+  + 'contributions are the concessional contributions less excess concessional contributions over the year\'s cap, '
+  + 'raised by unused cap carried forward when the total super balance just before the year was under $500,000. '
+  + 'Taxable contributions are the lesser of the low tax contributions and the amount by which they plus Division 293 '
+  + 'income exceed $250,000; the tax is 15% of them. It does not compute defined benefit interests, constitutionally '
+  + 'protected funds, Commonwealth judges\' pensions, contributions the Commissioner disregarded or reallocated, or '
+  + `interest, deferral or release from super. Sources on ${INDIVIDUAL}division-293/.`;
+
+const SALARY_PACKAGING_DESCRIPTION = 'Salary packaging in AUD for one employee of an FBT-exempt employer for one year: a public '
+  + 'benevolent institution or health promotion charity ($30,000 cap) or a public or not-for-profit hospital or public '
+  + 'ambulance service ($17,000 cap), FBTAA s 57A. Type 1 and Type 2 benefits are grossed up at 2.0802 and 1.8868 to the '
+  + 'dollar and added; FBT is 47% of the part above the cap after up to $5,000 more of salary packaged meal entertainment '
+  + '(s 5B(1E)). The reportable fringe benefits amount is the taxable value over $2,000 times 1 / 0.53, cents dropped '
+  + '(s 135Q). Tax, the Medicare levy and surcharge and any study loan repayment are worked with and without the '
+  + 'packaging, the salary as the only income. It does not compute rebatable or ordinary employers, car parking, '
+  + `package fees, other income or a spouse. Sources on ${INDIVIDUAL}salary-packaging/.`;
+const NOVATED_LEASE_DESCRIPTION = 'A novated car lease in AUD for one year against paying the same costs from after-tax pay. '
+  + 'The electric car exemption (FBTAA s 8A) applies to a battery electric or hydrogen fuel cell car first held and used '
+  + 'on or after 1 July 2022, for a current employee, with no luxury car tax payable on any supply, including a lease, or importation (cost '
+  + 'price at or under the fuel-efficient threshold for its first sale year), and to a plug-in hybrid from 1 April 2025 '
+  + 'only under an earlier unchanged commitment. An exempt car '
+  + 'is packaged wholly from pre-tax salary and its statutory formula value is reportable; otherwise the employee '
+  + 'contribution method pays the taxable value after tax, ten elevenths of it towards the costs. Costs with GST are '
+  + 'taken less the employer\'s GST credit. It does not compute lease payments, the residual, the operating cost method '
+  + `or other income. Sources on ${INDIVIDUAL}novated-lease/.`;
+
+/**
+ * WebMCP descriptors for the income tax estimate, take-home pay, sole trader set-aside, Division 293, income
+ * tests, bonus withholding, salary packaging, novated lease and super projection calculators, keyed by the
+ * `data-calculator` name of the form whose page registers them.
  * @param {{taxEstimate: typeof import('./tax-estimate.mjs').taxEstimate,
  *   takeHomePay: typeof import('./take-home-pay.mjs').takeHomePay,
- *   incomeTests: typeof import('./income-tests.mjs').incomeTests, incomeYears: string[], payYears: string[]}} engines
+ *   soleTraderSetAside: typeof import('./sole-trader.mjs').soleTraderSetAside,
+ *   division293Tax: typeof import('./division-293.mjs').division293Tax,
+ *   incomeTests: typeof import('./income-tests.mjs').incomeTests, incomeYears: string[], payYears: string[],
+ *   soleTraderYears: string[], division293Years: string[],
+ *   bonusWithholding: typeof import('./bonus-withholding.mjs').bonusWithholding,
+ *   salaryPackaging: typeof import('./salary-packaging.mjs').salaryPackaging,
+ *   novatedLease: typeof import('./novated-lease.mjs').novatedLease, packagingYears: string[],
+ *   novatedYears: string[], superProjection: typeof import('./super-projection.mjs').superProjection}} engines
  */
-export function individualTaxTools({ taxEstimate, takeHomePay, incomeTests, incomeYears, payYears }) {
+export function individualTaxTools({ taxEstimate, takeHomePay, soleTraderSetAside, division293Tax, incomeTests, incomeYears,
+  payYears, soleTraderYears, division293Years, bonusWithholding, salaryPackaging, novatedLease, packagingYears,
+  novatedYears, superProjection }) {
   return {
-    'income-tests': tool({
-      name: 'calculate_income_tests',
-      title: 'Income tests calculator',
-      description: INCOME_TESTS_DESCRIPTION,
-      inputSchema: record(Object.fromEntries(INCOME_TEST_INPUTS.map(([name, , description]) => [name, dollarsOnly(description)])),
-        ['taxableIncome']),
-      run(input) {
-        const parts = Object.fromEntries(INCOME_TEST_INPUTS.map(([name, key]) => [key, String(input[name] ?? 0)]));
-        const r = incomeTests(/** @type {import('./income-tests.mjs').IncomeTestParts} */ ({ ...parts, resident: true }));
-        return {
-          incomeForSurchargePurposes: dollars(r.surchargeIncome), division293Income: dollars(r.division293Income),
-          rebateIncome: dollars(r.rebateIncome), repaymentIncome: dollars(r.repaymentIncome),
-          adjustedTaxableIncome: dollars(r.adjustedTaxableIncome), coContributionTotalIncome: dollars(r.coContributionIncome),
-          reportableFringeBenefitsTotal: dollars(r.fringeTotal), adjustedFringeBenefitsTotal: dollars(r.adjustedFringe),
-          totalNetInvestmentLoss: dollars(r.losses), reportableSuperContributions: dollars(r.contributions),
-          currency: 'AUD', source: `${INDIVIDUAL}income-tests/`,
-        };
-      },
-    }),
+    'income-tests': incomeTestsTool(incomeTests),
     'income-tax': tool({
       name: 'estimate_income_tax',
       title: 'Income tax and refund estimate',
@@ -681,5 +961,202 @@ export function individualTaxTools({ taxEstimate, takeHomePay, incomeTests, inco
         };
       },
     }),
+    'super-projection': superProjectionTool(superProjection),
+    'sole-trader': soleTraderTool(soleTraderSetAside, soleTraderYears),
+    'division-293': division293Tool({ division293Tax, division293Years }),
+    'bonus-withholding': bonusWithholdingTool(bonusWithholding),
+    'salary-packaging': salaryPackagingTool(salaryPackaging, packagingYears),
+    'novated-lease': novatedLeaseTool(novatedLease, novatedYears),
   };
+}
+
+/** The WebMCP descriptor for the income tests calculator.
+ * @param {typeof import('./income-tests.mjs').incomeTests} incomeTests */
+function incomeTestsTool(incomeTests) {
+  return tool({
+    name: 'calculate_income_tests',
+    title: 'Income tests calculator',
+    description: INCOME_TESTS_DESCRIPTION,
+    inputSchema: record(Object.fromEntries(INCOME_TEST_INPUTS.map(([name, , description]) => [name, dollarsOnly(description)])),
+      ['taxableIncome']),
+    run(input) {
+      const parts = Object.fromEntries(INCOME_TEST_INPUTS.map(([name, key]) => [key, String(input[name] ?? 0)]));
+      const r = incomeTests(/** @type {import('./income-tests.mjs').IncomeTestParts} */ ({ ...parts, resident: true }));
+      return {
+        incomeForSurchargePurposes: dollars(r.surchargeIncome), division293Income: dollars(r.division293Income),
+        rebateIncome: dollars(r.rebateIncome), repaymentIncome: dollars(r.repaymentIncome),
+        adjustedTaxableIncome: dollars(r.adjustedTaxableIncome), coContributionTotalIncome: dollars(r.coContributionIncome),
+        reportableFringeBenefitsTotal: dollars(r.fringeTotal), adjustedFringeBenefitsTotal: dollars(r.adjustedFringe),
+        totalNetInvestmentLoss: dollars(r.losses), reportableSuperContributions: dollars(r.contributions),
+        currency: 'AUD', source: `${INDIVIDUAL}income-tests/`,
+      };
+    },
+  });
+}
+
+/** The WebMCP descriptor for the salary packaging calculator.
+ * @param {typeof import('./salary-packaging.mjs').salaryPackaging} salaryPackaging @param {string[]} packagingYears */
+function salaryPackagingTool(salaryPackaging, packagingYears) {
+  return tool({
+    name: 'calculate_salary_packaging',
+    title: 'Salary packaging calculator',
+    description: SALARY_PACKAGING_DESCRIPTION,
+    inputSchema: record({
+      incomeYear: choice(packagingYears, `Income year, ${packagingYears.at(-1)} to ${packagingYears[0]}.`),
+      residency: choice(['resident', 'foreign'], 'Residency for tax purposes all year.'),
+      employer: choice(['charity', 'hospital'], 'charity: public benevolent institution or health promotion charity; '
+        + 'hospital: public or not-for-profit hospital, or public ambulance service for an employee predominantly in or '
+        + 'supporting its ambulance services.'),
+      salary: whole(0, 1e9, 'Salary for the year before packaging, without super, in whole AUD.'),
+      typeTwoBenefits: text('amount', 'Benefits the employer gets no GST credit for, at taxable value in AUD; "0" when omitted.'),
+      typeOneBenefits: text('amount', 'Benefits the employer claims a GST credit for, at taxable value in AUD; "0" when omitted.'),
+      mealEntertainment: text('amount', 'Salary packaged meal entertainment and venue hire in AUD; "0" when omitted.'),
+      mealEntertainmentTypeOne: { type: 'boolean', description: 'true when the employer claims GST credits on it; true when omitted.' },
+      studyLoan: { type: 'boolean', description: 'true when the person has a HELP or other study or training loan.' },
+      privateHospitalCover: { type: 'boolean', description: 'false when the person had no private patient hospital cover all year; true when omitted.' },
+    }, ['incomeYear', 'residency', 'employer', 'salary']),
+    run({ incomeYear, residency, employer, salary, typeTwoBenefits = '0', typeOneBenefits = '0', mealEntertainment = '0',
+      mealEntertainmentTypeOne = true, studyLoan = false, privateHospitalCover = true }) {
+      const r = salaryPackaging({ year: incomeYear, residency, employer, salary: String(salary), typeTwo: typeTwoBenefits,
+        typeOne: typeOneBenefits, meals: mealEntertainment, mealsTypeOne: mealEntertainmentTypeOne, studyLoan,
+        hospitalCover: privateHospitalCover });
+      return {
+        packaged: dollars(r.packaged), grossedUp: dollars(r.grossed), cap: dollars(r.cap), mealEntertainmentAllowed: dollars(r.mealAllowance),
+        liableToFbt: dollars(r.excess), fbt: dollars(r.fbt), reportableFringeBenefits: dollars(r.reportable),
+        owedWithout: dollars(r.owedBefore), owedWith: dollars(r.owedAfter), taxSaved: dollars(r.saved), gainAfterFbt: dollars(r.gain),
+        roomUnderCapTypeTwo: dollars(r.roomTypeTwo), currency: 'AUD', source: `${INDIVIDUAL}salary-packaging/`,
+      };
+    },
+  });
+}
+
+/** The WebMCP descriptor for the Division 293 tax calculator.
+ * @param {{division293Tax: typeof import('./division-293.mjs').division293Tax, division293Years: string[]}} engines */
+function division293Tool({ division293Tax, division293Years }) {
+  return tool({
+    name: 'calculate_division_293_tax',
+    title: 'Division 293 tax calculator',
+    description: DIVISION_293_DESCRIPTION,
+    inputSchema: record({
+      incomeYear: choice(division293Years, `Income year, ${division293Years.at(-1)} to ${division293Years[0]}.`),
+      accumulationOnly: { type: 'boolean', description: 'true when every contribution is to an accumulation interest; false refuses.' },
+      taxableIncome: whole(0, 1e9, 'Taxable income in whole AUD, including any excess concessional contributions assessed.'),
+      reportableFringeBenefits: dollarsOnly('Reportable fringe benefits total.'),
+      totalNetInvestmentLoss: dollarsOnly('Total net investment loss, financial and rental.'),
+      familyTrustDistributionIncome: dollarsOnly('Income on which family trust distribution tax was paid.'),
+      assessableFhssReleasedAmount: dollarsOnly('Assessable first home super saver released amount in taxable income.'),
+      zeroRateLumpSum: dollarsOnly('Taxable component of a super lump sum taxed at 0% (s 301-20(3)), received from preservation age to under 60: 2023-24 and earlier only.'),
+      concessionalContributions: text('amount', 'Concessional contributions for the financial year in AUD with at most 2 decimal places.'),
+      unusedCapCarriedForward: text('amount', 'Unapplied unused concessional cap from the previous 5 years in AUD; "0" when omitted.'),
+      totalSuperBalanceUnder500k: { type: 'boolean', description: 'true when the total super balance just before the year was under $500,000; false when omitted.' },
+    }, ['incomeYear', 'accumulationOnly', 'taxableIncome', 'concessionalContributions']),
+    run({ incomeYear, accumulationOnly, taxableIncome, reportableFringeBenefits = 0, totalNetInvestmentLoss = 0,
+      familyTrustDistributionIncome = 0, assessableFhssReleasedAmount = 0, zeroRateLumpSum = 0, concessionalContributions,
+      unusedCapCarriedForward = '0', totalSuperBalanceUnder500k = false }) {
+      const r = division293Tax({ year: incomeYear, interests: accumulationOnly ? 'accumulation' : 'other',
+        taxable: String(taxableIncome), fringe: String(reportableFringeBenefits), losses: String(totalNetInvestmentLoss),
+        trust: String(familyTrustDistributionIncome), fhss: String(assessableFhssReleasedAmount), lumpSum: String(zeroRateLumpSum),
+        concessional: concessionalContributions, unused: unusedCapCarriedForward, balanceUnder: totalSuperBalanceUnder500k });
+      return {
+        division293Income: dollars(r.income), concessionalContributionsCap: dollars(r.cap), unusedCapApplied: dollars(r.carried),
+        excessConcessionalContributions: dollars(r.excess), lowTaxContributions: dollars(r.low), overThreshold: dollars(r.over),
+        taxableContributions: dollars(r.taxable), division293Tax: dollars(r.tax), roomUnderThreshold: dollars(r.room),
+        currency: 'AUD', source: `${INDIVIDUAL}division-293/`,
+      };
+    },
+  });
+}
+
+/** The WebMCP descriptor for the novated lease calculator.
+ * @param {typeof import('./novated-lease.mjs').novatedLease} novatedLease @param {string[]} novatedYears */
+function novatedLeaseTool(novatedLease, novatedYears) {
+  return tool({
+    name: 'calculate_novated_lease',
+    title: 'Novated lease calculator',
+    description: NOVATED_LEASE_DESCRIPTION,
+    inputSchema: record({
+      incomeYear: choice(novatedYears, `Income year, ${novatedYears.at(-1)} to ${novatedYears[0]}.`),
+      residency: choice(['resident', 'foreign'], 'Residency for tax purposes all year.'),
+      salary: whole(0, 1e9, 'Salary for the year before the lease, without super, in whole AUD.'),
+      car: choice(['bev', 'fcev', 'phev', 'other'], 'bev: battery electric; fcev: hydrogen fuel cell; phev: plug-in hybrid; other.'),
+      firstHeldAndUsedFrom1July2022: { type: 'boolean', description: 'true when the car was first held and used on or after 1 July 2022.' },
+      phevCommitment: { type: 'boolean', description: 'Plug-in hybrid: true when its use was exempt before 1 April 2025 under a commitment still unchanged; false when omitted.' },
+      firstSaleYear: choice(['2026-27', '2025-26', '2024-25', '2023-24', '2022-23', '2021-22'], 'Financial year of the car\'s first retail sale.'),
+      costPrice: text('amount', 'Cost price with GST and dealer-fitted options, without registration and stamp duty, in AUD.'),
+      luxuryCarTaxOnOtherSupply: { type: 'boolean', description: 'true when, before or during the year, luxury car tax '
+        + 'became payable on a supply other than the first retail sale (a sale, lease or hire) or on an importation; '
+        + 'false when omitted.' },
+      heldOverFourYears: { type: 'boolean', description: 'true when the lessor held the car more than 4 years before the FBT year; false when omitted.' },
+      daysAvailable: whole(0, 366, 'Days in the year the car is available for private use.'),
+      costsWithGst: text('amount', 'Yearly lease payments and running costs that include GST, in AUD.'),
+      costsWithoutGst: text('amount', 'Yearly costs without GST, such as registration, in AUD; "0" when omitted.'),
+      studyLoan: { type: 'boolean', description: 'true when the person has a HELP or other study or training loan.' },
+      privateHospitalCover: { type: 'boolean', description: 'false when the person had no private patient hospital cover all year; true when omitted.' },
+    }, ['incomeYear', 'residency', 'salary', 'car', 'firstHeldAndUsedFrom1July2022', 'firstSaleYear', 'costPrice', 'daysAvailable',
+      'costsWithGst']),
+    run({ incomeYear, residency, salary, car, firstHeldAndUsedFrom1July2022, phevCommitment = false, firstSaleYear, costPrice,
+      luxuryCarTaxOnOtherSupply = false, heldOverFourYears = false, daysAvailable, costsWithGst, costsWithoutGst = '0', studyLoan = false,
+      privateHospitalCover = true }) {
+      const r = novatedLease({ year: incomeYear, residency, salary: String(salary), studyLoan, hospitalCover: privateHospitalCover,
+        kind: car, firstUsed: firstHeldAndUsedFrom1July2022 ? 'after' : 'before', commitment: phevCommitment, saleYear: firstSaleYear,
+        price: costPrice, otherSupply: luxuryCarTaxOnOtherSupply, reduced: heldOverFourYears, days: String(daysAvailable),
+        gstCosts: costsWithGst, otherCosts: costsWithoutGst });
+      const way = (/** @type {{preTax: number, postTax: number, reportable: number, owed: number, saving: number} | null} */ c) => (c
+        ? { preTax: dollars(c.preTax), postTax: dollars(c.postTax), reportableFringeBenefits: dollars(c.reportable), owed: dollars(c.owed),
+          saving: dollars(c.saving) } : null);
+      return {
+        exempt: r.exempt, reasonNotExempt: r.reason, statutoryValue: dollars(r.taxableValue), luxuryCarTaxThreshold: dollars(r.threshold),
+        costs: dollars(r.costs), costsLessGstCredits: dollars(r.netCosts), owedPayingAfterTax: dollars(r.owedWithout),
+        exemptCase: way(r.exemptCase), employeeContributionMethod: way(r.contribution), currency: 'AUD',
+        source: `${INDIVIDUAL}novated-lease/`,
+      };
+    },
+  });
+}
+
+/** The WebMCP descriptor for the bonus and back payment withholding calculator.
+ * @param {typeof import('./bonus-withholding.mjs').bonusWithholding} bonusWithholding */
+function bonusWithholdingTool(bonusWithholding) {
+  return tool({
+    name: 'calculate_bonus_withholding',
+    title: 'Bonus withholding calculator',
+    description: BONUS_WITHHOLDING_DESCRIPTION,
+    inputSchema: record({
+      payPeriod: choice(['week', 'fortnight', 'month'], 'How often the payee is paid.'),
+      residency: choice(['resident', 'foreign'], 'resident: an Australian resident claiming the tax-free threshold (scale 2); '
+        + 'foreign: a foreign resident (scale 3).'),
+      studyLoan: { type: 'boolean', description: 'true when the payee has a HELP or other study or training loan; false when omitted.' },
+      method: choice(['A', 'B'], 'Schedule 5 Method A, or Method B with B(i) and B(ii).'),
+      earnings: text('amount', 'Gross earnings this pay without any additional payment, in AUD.'),
+      additionalPayment: text('amount', 'The bonus, commission or other additional payment in AUD; under Method B, the part '
+        + 'worked by B(ii). "0" when omitted.'),
+      spreadOverPays: whole(2, 52, 'Method A: pays to spread the payment over: the pays in a year, or for a commission or bonus '
+        + 'for a defined period under 12 months, the pays it covers; the pays in a year when omitted.'),
+      backPayPays: whole(0, 52, 'Method B(i): earlier pays this year the back payment covers; 0 when omitted.'),
+      backPayEach: text('amount', 'Method B(i): back payment for each of those pays in AUD; "0" when omitted.'),
+      backPayPayEarnings: text('amount', 'Method B(i): earnings each of those pays had before it in AUD; "0" when omitted.'),
+      backPayPayWithheld: text('amount', 'Method B(i): amount withheld from each of those pays in AUD; "0" when omitted.'),
+      earningsToDate: text('amount', 'Method B(ii): normal earnings this year to date, with this pay and B(i) back payments '
+        + 'made in earlier pays (not this pay’s), in AUD; "0" when omitted.'),
+      paysToDate: whole(1, 53, 'Method B(ii): pays this year to date, with this pay; 1 when omitted.'),
+      earlierAdditionalPayments: text('amount', 'Method B(ii): earlier additional payments this year worked by B(ii), in AUD; '
+        + '"0" when omitted.'),
+      earlierAdditionalWithheld: text('amount', 'Method B(ii): amount withheld from those payments, in AUD; "0" when omitted.'),
+    }, ['payPeriod', 'residency', 'method', 'earnings']),
+    run({ payPeriod, residency, studyLoan = false, method, earnings, additionalPayment = '0', spreadOverPays, backPayPays = 0,
+      backPayEach = '0', backPayPayEarnings = '0', backPayPayWithheld = '0', earningsToDate = '0', paysToDate = 1,
+      earlierAdditionalPayments = '0', earlierAdditionalWithheld = '0' }) {
+      const spread = spreadOverPays ?? { week: 52, fortnight: 26, month: 12 }[/** @type {string} */ (payPeriod)];
+      const r = bonusWithholding({ period: payPeriod, residency, studyLoan, method, earnings, additional: additionalPayment,
+        spread: String(spread), backPays: String(backPayPays), backEarnings: backPayPayEarnings, backEach: backPayEach,
+        backWithheld: backPayPayWithheld, yearToDate: earningsToDate, paysToDate: String(paysToDate),
+        earlierAdditional: earlierAdditionalPayments, earlierWithheld: earlierAdditionalWithheld });
+      const parts = r.method === 'A' ? { withheldOnAdditionalPayment: dollars(r.onAdditional), limit: dollars(r.limit),
+        beforeLimit: dollars(r.step7.total), taxAddedToYear: dollars(r.yearTax) }
+        : { methodBi: r.methodBi ? dollars(r.methodBi.onBackPayment) : null,
+          methodBii: r.methodBii ? dollars(r.methodBii.onAdditional) : null };
+      return { method: r.method, withheldOnEarnings: dollars(r.onEarnings), ...parts, totalWithheld: dollars(r.total),
+        currency: 'AUD', source: `${INDIVIDUAL}bonus-withholding/` };
+    },
+  });
 }
