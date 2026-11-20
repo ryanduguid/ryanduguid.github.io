@@ -25,7 +25,7 @@
 <fieldset class="field" aria-describedby="sgc-payday-history-help"><legend>Disqualifying ATO assessment or estimate</legend>
 <label><input type="radio" name="assessed" value="no" checked /> No</label>
 <label><input type="radio" name="assessed" value="yes" /> Yes</label>
-<p class="field-note" id="sgc-payday-history-help">Choose Yes if, from 1 July 2026 through this payday, the ATO made a qualifying positive assessment still in force on the payday or made an SGC estimate that had yet to be revoked or reduced to nil. A positive Payday Super assessment qualifies if the ATO made it on its own initiative or in response to a purported disclosure that did not comply with section 33 of the Superannuation Guarantee (Administration) Act 1992.</p></fieldset>
+<p class="field-note" id="sgc-payday-history-help">Choose Yes for an ATO action from 1 July 2026 through payday. Count a positive, unrevoked SGC estimate or a positive assessment still in force on payday, initiated by the ATO or prompted by an invalid section 33 disclosure.</p></fieldset>
 <fieldset class="field"><legend>Approved voluntary disclosure before the assessment day</legend>
 <label><input type="radio" name="disclosure" value="none" checked /> None</label>
 <label><input type="radio" name="disclosure" value="lodged" /> Lodged in the approved form</label></fieldset>
@@ -46,7 +46,7 @@
 <label class="field" for="sgc-payday-contributions">Contributions within 28 days (AUD)<input id="sgc-payday-contributions" name="contributions" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
 <label class="field" for="sgc-payday-statement">SGC statement lodged<input id="sgc-payday-statement" name="statement" type="date" min="2022-10-29" max="2031-06-30" value="2025-11-20" required /></label>
 </div>
-<p class="field-note">Each law and choice reads only its own fields. Business days are from the <a href="/tools/payday-super/business-days/">Payday Super calendar</a>; GIC rates from the <a href="/rates/general-interest-charge/">GIC table</a>.</p>
+<p class="field-note">Business days are from the <a href="/tools/payday-super/business-days/">Payday Super calendar</a>; GIC rates from the <a href="/rates/general-interest-charge/">GIC table</a>.</p>
 <button type="submit" class="button">Calculate</button></fieldset>
 {% include calculator-example.html inputs="payday 30 July 2026, the usual 7 business days, qualifying earnings $1,000.00, on time $0.00, late $120.00, assessment 1 December 2026, no disqualifying ATO assessment or estimate, no approved voluntary disclosure" rows="Fund must receive it by (7 business days after payday)|Tuesday 11 August 2026;SG amount, 12%|$120.00;Late contributions received|Tuesday 25 August 2026, 14 days late;Business days from payday to receipt|17;Base shortfall|$120.00;Late contributions applied|$120.00;Final shortfall|$0.00;Notional earnings, 14 days to 25 August 2026|$0.53;Administrative uplift, 40%|$0.21;SG charge for the payday, before any choice loading|$0.74" principal="9" %}
 <div class="sources-applied" hidden>

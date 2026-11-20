@@ -13313,11 +13313,11 @@ Super guarantee charge inputs for one employee
 
 Law Payday Super, 2026-27 Quarterly, 2022-23 to 2025-26 Is any of the pay Norfolk Island salary or wages? No Yes: a Norfolk Island resident working there or overseas, or a Norfolk Island employer’s Australian resident employee working there Payday Time the fund has 7 business days 20 business days: first contribution to this fund Out of cycle ATO determination First contribution, out of cycle Out of cycle, ATO determination Next scheduled payday (only if regular qualifying earnings were paid that day) Determination date Qualifying earnings (AUD) Earlier earnings in 2026-27 (AUD) Received on time (AUD) Received late (AUD) Late receipt date Assessment date Disqualifying ATO assessment or estimate No Yes
 
-Choose Yes if, from 1 July 2026 through this payday, the ATO made a qualifying positive assessment still in force on the payday or made an SGC estimate that had yet to be revoked or reduced to nil. A positive Payday Super assessment qualifies if the ATO made it on its own initiative or in response to a purported disclosure that did not comply with section 33 of the Superannuation Guarantee (Administration) Act 1992.
+Choose Yes for an ATO action from 1 July 2026 through payday. Count a positive, unrevoked SGC estimate or a positive assessment still in force on payday, initiated by the ATO or prompted by an invalid section 33 disclosure.
 
 Approved voluntary disclosure before the assessment day None Lodged in the approved form Disclosure date GIC rate after 2026 (%) Income year 2022-23 (10.5%) 2023-24 (11%) 2024-25 (11.5%) 2025-26 (12%) Quarter July to September October to December January to March April to June Salary or wages (AUD) Ordinary time earnings (AUD) Contributions within 28 days (AUD) SGC statement lodged
 
-Each law and choice reads only its own fields. Business days are from the Payday Super calendar; GIC rates from the GIC table.
+Business days are from the Payday Super calendar; GIC rates from the GIC table.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: payday 30 July 2026, the usual 7 business days, qualifying earnings $1,000.00, on time $0.00, late $120.00, assessment 1 December 2026, no disqualifying ATO assessment or estimate, no approved voluntary disclosure. Fund must receive it by (7 business days after payday) Tuesday 11 August 2026 SG amount, 12% $120.00 Late contributions received Tuesday 25 August 2026, 14 days late Business days from payday to receipt 17 Base shortfall $120.00 Late contributions applied $120.00 Final shortfall $0.00 Notional earnings, 14 days to 25 August 2026 $0.53 Administrative uplift, 40% $0.21 SG charge for the payday, before any choice loading $0.74
 

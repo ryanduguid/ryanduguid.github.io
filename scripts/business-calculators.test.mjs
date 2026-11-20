@@ -3389,9 +3389,9 @@ test('the Payday Super form identifies the statutory facts needed for its inputs
   const html = calculatorInclude('sgc-payday');
   assert.match(html, /Next scheduled payday \(only if regular qualifying earnings were paid that day\)/);
   assert.match(html, /if the employer actually paid regular qualifying earnings that day/);
-  assert.match(html, /positive assessment still in force on the payday/);
-  assert.match(html, /estimate that had yet to be revoked or reduced to nil/);
-  assert.match(html, /in response to a purported disclosure that did not comply with section 33/);
+  assert.match(html, /positive assessment still in force on payday/);
+  assert.match(html, /positive, unrevoked SGC estimate/);
+  assert.match(html, /initiated by the ATO or prompted by an invalid section 33 disclosure/);
   assert.match(html, /Approved voluntary disclosure before the assessment day/);
 });
 
