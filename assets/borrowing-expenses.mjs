@@ -26,7 +26,7 @@ const FIRST_YEAR = 2017;
 const LAST_YEAR = 2027;
 const FACTS = ['borrowing_expenses', 'loan_start', 'loan_term_end', 'repaid_on', 'income_use', 'section_26_50_applies', 'refinances'];
 const REQUIRED = FACTS.slice(0, 6);
-const ACCOUNTING_FACTS = ['amount', 'annual_rate', 'payments', 'balloon_percent', 'qualifying_asset', 'same_lender', 'lender_fees'];
+const ACCOUNTING_FACTS = ['amount', 'annual_rate', 'payments', 'balloon_percent', 'qualifying_asset', 'same_lender', 'lender_fees', 'lender_fees_received'];
 
 export const BORROWING_S26_50 = 'Section 26-50(1) denies deductions for a leisure facility, such as a holiday home, unless an exception applies. This page works only s 26-50(3) applying at all times in the income year: part-year use under s 26-50(4) and a fringe benefit under s 26-50(8) are out of scope, and whether s 26-50(7) stops s 26-50(3) applying is yours to decide.';
 const S26_155 = 'From 2027-28 ITAA 1997 s 26-155(1) may quarantine this deduction where the money is used for a residential dwelling held for rent: the amounts here are s 25-25’s before s 26-155, which this page neither applies nor decides the exceptions to.';
@@ -283,7 +283,7 @@ function loanResult(n, f, whole, by) {
 // the cent: the effective interest rate is irrational in general.
 
 /** @typedef {{amount: string, annual_rate: string, payments: string, balloon_percent: string, qualifying_asset: boolean, same_lender?: boolean,
- *   lender_fees?: string}} AccountingFacts */
+ *   lender_fees?: string, lender_fees_received?: string}} AccountingFacts */
 /** @typedef {{first: number, cost: number, unamortised: number, amortisedCost: number}} AccountingYear */
 
 /** A loan's contractual cash flows, monthly in arrears from its first borrowing, and the monthly
@@ -329,28 +329,27 @@ function refinancing(a, t, earlier, old) {
   if (typeof a.same_lender !== 'boolean') refuse('input.flag_invalid', 'same_lender must be a boolean for a loan that refinances another.');
   const k = earlier.loan;
   if (!a.same_lender) {
-    return { rate: null, test: null, expensed: false,
+    return { rate: null, test: null, expensedCosts: null,
       note: `Loan ${k} is repaid to another lender, so it is extinguished (AASB 9 para 3.3.1) and this loan’s borrowing expenses are transaction costs of a new liability (para 5.1.1).` };
   }
-  // The new terms' cash flows and the fees paid to the lender, at the original effective rate,
-  // against the original loan's remaining cash flows at that rate. Para B3.3.6 counts only fees
-  // between the borrower and the lender, so a broker's, valuer's or government's are left out.
-  const lenderFees = typeof a.lender_fees === 'string' ? moneyCents(a.lender_fees) : null;
-  if (lenderFees === null || lenderFees > t.borrowingExpenses) {
-    refuse('accounting.lender_fees_invalid', 'lender_fees, the part of the borrowing expenses paid to the lender, must be given for a refinancing with the same lender and be no more than the borrowing expenses.');
+  // B3.3.6 includes fees between the parties and amounts either pays on the other's behalf.
+  const paid = typeof a.lender_fees === 'string' ? moneyCents(a.lender_fees) : null;
+  if (paid === null || paid > t.borrowingExpenses) {
+    refuse('accounting.lender_fees_invalid', 'Enter the part of the borrowing expenses paid to the same lender or on its behalf, even if it is zero. It cannot exceed the borrowing expenses.');
   }
+  const received = a.lender_fees_received === undefined ? 0n : moneyCents(a.lender_fees_received);
   const rate = effectiveRate(a, t.from, 0);
   const tau = periodsTo(earlier.from, old.flows, /** @type {number} */ (dayOf(t.from)));
   const before = presentValue(old.flows, old.monthly, tau);
-  const after = presentValue(rate.flows, old.monthly, 0) + Number(lenderFees) / 100;
+  const after = presentValue(rate.flows, old.monthly, 0) + Number(paid - received) / 100;
   const change = Math.abs(after - before) / before;
   const shown = `${(change * 100).toFixed(2)}%`;
   if (change < 0.1) {
     refuse('accounting.modification_out_of_scope', `the new terms differ by ${shown}, under 10%, so AASB 9 para B3.3.6A treats the refinancing as a modification of loan ${k}, which this page does not work.`);
   }
   // Accounted for as an extinguishment (para 3.3.2): the costs are part of its gain or loss (para B3.3.6A).
-  return { rate, test: { before, after, change, substantial: true }, expensed: true,
-    note: `The new terms, with the fees paid to the lender, differ by ${shown} from loan ${k}’s remaining cash flows at its effective rate, at least 10% (AASB 9 para B3.3.6): loan ${k} is extinguished (para 3.3.2), and this loan’s borrowing expenses are part of the gain or loss on extinguishment (para B3.3.6A).` };
+  return { rate, test: { before, after, change, substantial: true }, expensedCosts: BigInt(t.borrowingExpenses) - received,
+    note: `The new terms, including net lender fees, differ by ${shown} from loan ${k}’s remaining cash flows at its effective rate, at least 10% (AASB 9 para B3.3.6): loan ${k} is extinguished (para 3.3.2). The borrowing costs less fees received are part of the gain or loss on extinguishment (para B3.3.6A).` };
 }
 
 /** Each period's costs amortised: the effective interest less the contractual interest, shared
@@ -424,7 +423,10 @@ export function borrowingAccounting(input, tax) {
     const t = tax.loans[i];
     const k = t.refinances;
     const how = k === null ? null : refinancing(a, t, tax.loans[k - 1], rates[k - 1]);
-    const costs = how?.expensed ? 0 : Number(t.borrowingExpenses) / 100;
+    const expensedCosts = how?.expensedCosts ?? null;
+    const expensed = expensedCosts !== null;
+    const totalCosts = expensedCosts ?? BigInt(t.borrowingExpenses);
+    const costs = expensed ? 0 : Number(totalCosts) / 100;
     const r = how?.rate ?? effectiveRate(a, t.from, costs);
     rates[i] = r;
     const start = /** @type {number} */ (dayOf(t.from));
@@ -432,15 +434,15 @@ export function borrowingAccounting(input, tax) {
     const amortised = amortise(r, start, ends, costs);
     // Expensed at the start, the costs leave nothing to amortise: the effective interest on the
     // payments, rounded to the cent, differs from the contractual interest by rounding alone.
-    const cost = how?.expensed ? new Map([...amortised.cost.keys()].map((first) => [first, 0])) : amortised.cost;
-    if (how?.expensed) cost.set(yearOfDay(start), Number(t.borrowingExpenses) / 100);
+    const cost = expensed ? new Map([...amortised.cost.keys()].map((first) => [first, 0])) : amortised.cost;
+    if (expensed) cost.set(yearOfDay(start), Number(totalCosts) / 100);
     const { balances } = amortised;
-    const writtenOff = how?.expensed ? null : amortised.writtenOff;
+    const writtenOff = expensed ? null : amortised.writtenOff;
     const notes = how ? [how.note] : [];
     if (writtenOff !== null) notes.push(`Repaid on ${isoOf(writtenOff)}: the loan is extinguished (AASB 9 para 3.3.1) and the unamortised borrowing expenses are written off in profit or loss (para 3.3.3).`);
     if (a.qualifying_asset) notes.push('A qualifying asset: these borrowing costs, with the interest, are capitalised as part of its cost for the capitalisation period (AASB 123 paras 8 and 17 to 25), which you decide; the column shows them before capitalisation.');
     return { loan: i + 1, effectiveAnnualRate: ((1 + r.monthly) ** 12 - 1) * 100, monthlyRate: r.monthly, initialCarrying: r.net,
-      years: centsByYear(cost, balances, BigInt(t.borrowingExpenses)), test: how?.test ?? null, notes, qualifyingAsset: a.qualifying_asset };
+      years: centsByYear(cost, balances, totalCosts), test: how?.test ?? null, notes, qualifyingAsset: a.qualifying_asset };
   }));
 }
 
@@ -501,10 +503,13 @@ export function borrowingFormInput(value) {
     loans.push(loan);
     years.push(blank(value(`use-by-year-${n}`)) ? null : byYear(value(`use-by-year-${n}`), n));
     if (withAccounting) {
+      const sameLender = Boolean(refinances) && value(`lender-${n}`) === 'same';
+      const feesReceived = sameLender ? value(`lender-fees-received-${n}`) : '';
       accounting.push({ amount: value(`amount-${n}`), annual_rate: value(`rate-${n}`), payments: value(`payments-${n}`),
         balloon_percent: blank(value(`balloon-${n}`)) ? '0' : value(`balloon-${n}`), qualifying_asset: value(`qualifying-${n}`) === 'yes',
-        ...(refinances ? { same_lender: value(`lender-${n}`) === 'same' } : {}),
-        ...(refinances && !blank(value(`lender-fees-${n}`)) ? { lender_fees: value(`lender-fees-${n}`) } : {}) });
+        ...(refinances ? { same_lender: sameLender } : {}),
+        ...(refinances && !blank(value(`lender-fees-${n}`)) ? { lender_fees: value(`lender-fees-${n}`) } : {}),
+        ...(!blank(feesReceived) ? { lender_fees_received: feesReceived } : {}) });
     }
   }
   /** @type {BorrowingInput} */

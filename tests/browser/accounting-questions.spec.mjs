@@ -980,6 +980,44 @@ test('borrowing expenses page works its example, the accounting column and a ref
   await expect(form.locator('output')).toContainText(/loan 1: loan_start must not be after the 2024-25 income year ended/i);
 });
 
+test('borrowing expenses page nets same-lender fees paid and received offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/borrowing-expenses/');
+  const form = page.locator('#borrowing-expenses form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.locator('[name="repaid-1"]').fill('2023-03-15');
+  await form.locator('[name="expenses-2"]').fill('900');
+  await form.locator('[name="start-2"]').fill('2023-03-15');
+  await form.locator('[name="term-end-2"]').fill('2048-03-14');
+  await form.locator('[name="refinances-2"]').selectOption('1');
+  await form.locator('[name="amount-2"]').fill('290000');
+  await form.locator('[name="rate-2"]').fill('4.75');
+  await form.locator('[name="payments-2"]').fill('300');
+  await form.locator('[name="lender-2"]').selectOption('same');
+  const paid = form.locator('[name="lender-fees-2"]');
+  const received = form.locator('[name="lender-fees-received-2"]');
+  await expect(paid).toHaveAccessibleName(/paid to the same lender or on its behalf/);
+  await expect(received).toHaveAccessibleName(/paid by it on your behalf/);
+  await paid.fill('900');
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const deduction = form.locator('output .result-row--principal');
+  await calculate.click();
+  await expect(deduction).toHaveText('Deduction for 2024-25: $146.25.');
+  await form.locator('input[name="accounting"][value="yes"]').check();
+  await calculate.click();
+  await expect(form.locator('output')).toContainText('differ by 9.86%, under 10%');
+  await received.fill('500');
+  await calculate.click();
+  await expect(form.locator('output')).toContainText('including net lender fees, differ by 10.04%');
+  await expect(deduction).toHaveText('Deduction for 2024-25: $146.25.');
+  const accounting = form.locator('table[data-results="accounting"]');
+  const refinanceYear = accounting.getByRole('row').filter({ has: page.getByText('2022-23', { exact: true }) });
+  // $1,452.90 for the original loan plus $400 at refinancing, with zero unamortised.
+  await expect(refinanceYear.locator('th, td')).toHaveText([
+    '2022-23', '$1,005.37', '$1,852.90', '−$847.53', '$846.80', '$0.00', '$289,086.73',
+  ]);
+});
+
 // The fuel tax credit page's example, its second line by the cost and average price (PCG 2016/2 Method 1), and fuel
 // acquired after the last rate the page holds.
 test('fuel tax credit page works its example, a line from its cost and a refusal offline', async ({ page, context }) => {

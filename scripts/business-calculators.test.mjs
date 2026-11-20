@@ -4876,8 +4876,8 @@ test('a refinancing with the same lender takes the 10% test, and under 10% is re
   assert.throws(() => account('2048-03-14', facts('290000', '4.8', '300', true)), { message: /differ by 9\.41%, under 10%/ });
   assert.equal(account('2048-03-14', facts('290000', '4.6', '300', true))[1].test.change.toFixed(4), '0.1122');
   assert.throws(() => account('2048-03-14', facts('290000', '5', '300')), { code: 'input.flag_invalid' });
-  // Para B3.3.6 counts only fees between the borrower and the lender: at 4.75% the $900 paid to the
-  // lender leaves the terms 9.86% apart, but paid to a broker it is left out and they are 10.18% apart.
+  // At 4.75%, $900 paid to the lender or on its behalf leaves the terms 9.86% apart.
+  // The same amount paid to a broker for the borrower's own account leaves them 10.18% apart.
   assert.throws(() => account('2048-03-14', facts('290000', '4.75', '300', true)), { message: /differ by 9\.86%, under 10%/ });
   const change = (fees) => {
     try {
@@ -4887,6 +4887,20 @@ test('a refinancing with the same lender takes the 10% test, and under 10% is re
     }
   };
   assert.deepEqual([change('0'), change('450')], ['0.1018', '0.1002']);
+  const receiptFacts = facts('290000', '4.75', '300', true);
+  receiptFacts[1].lender_fees_received = '500';
+  const net = account('2048-03-14', receiptFacts)[1];
+  assert.equal(net.test.change.toFixed(6), '0.100390');
+  assert.deepEqual([net.years[0].cost, net.years[0].unamortised], [400, 0]);
+
+  receiptFacts[1].lender_fees_received = '1200';
+  const netReceipt = account('2048-03-14', receiptFacts)[1];
+  assert.equal(netReceipt.test.change.toFixed(6), '0.102854');
+  assert.deepEqual([netReceipt.years[0].cost, netReceipt.years[0].unamortised], [-300, 0]);
+  for (const received of ['-1', '1.001', '1000000000000.01']) {
+    receiptFacts[1].lender_fees_received = received;
+    assert.throws(() => account('2048-03-14', receiptFacts), { code: 'input.amount_invalid' });
+  }
   for (const fees of [null, '900.01']) {
     assert.throws(() => account('2048-03-14', facts('290000', '4.6', '300', true, fees)), { code: 'accounting.lender_fees_invalid' });
   }
@@ -4894,7 +4908,10 @@ test('a refinancing with the same lender takes the 10% test, and under 10% is re
 
 test('the borrowing expenses form reads use by year and needs the loans in order', () => {
   const fields = formDefaults(borrowHtml);
-  const input = (change) => calculations.borrowingFormInput((name) => ({ ...fields, ...change })[name] ?? '');
+  const input = (change) => calculations.borrowingFormInput((name) => {
+    assert.ok(Object.hasOwn(fields, name), `No borrowing expenses form control named ${name}`);
+    return ({ ...fields, ...change })[name] ?? '';
+  });
   assert.deepEqual(input({ 'use-by-year-1': '2022-23 50, 2023-24 50, 2024-25 0, 2025-26 50' }).loans[0].income_use,
     { '2020-21': '1', '2021-22': '1', '2022-23': '0.5', '2023-24': '0.5', '2024-25': '0', '2025-26': '0.5' });
   assert.throws(() => input({ 'use-by-year-1': '2019-20 50' }), { message: 'Loan 1: 2019-20 is not an income year of the loan’s period.' });
@@ -4902,6 +4919,9 @@ test('the borrowing expenses form reads use by year and needs the loans in order
   assert.equal(input({ accounting: 'yes' }).accounting.length, 2);
   assert.deepEqual(input({ accounting: 'yes', 'refinances-2': '1', 'lender-2': 'same', 'lender-fees-2': '500' }).accounting[1],
     { amount: '209000', annual_rate: '6', payments: '240', balloon_percent: '0', qualifying_asset: false, same_lender: true, lender_fees: '500' });
+  const sameLender = { accounting: 'yes', 'refinances-2': '1', 'lender-2': 'same', 'lender-fees-2': '900', 'lender-fees-received-2': '500' };
+  assert.equal(input(sameLender).accounting[1].lender_fees_received, '500');
+  assert.equal(input({ ...sameLender, 'lender-2': 'other' }).accounting[1].lender_fees_received, undefined);
 });
 
 // The command this page ports, run on the same cases: see the fixture's engine line.
