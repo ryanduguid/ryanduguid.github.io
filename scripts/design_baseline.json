@@ -45,7 +45,7 @@
       "6e938a314ed12017b9a044a6bc261cb31e545fc0015bcdd8294cb7cb6c444739"
     ],
     "rates/announced-not-yet-law/index.html": [
-      "906b7f6eda90796d276b24e22a27394bd58e84a92fa8765189395178289edb66"
+      "3cf42a36cf2eb41c82f2906df53bdea1a9a85981086fa4c0c3d320453ad3a7e6"
     ],
     "rates/car-limit/index.html": [
       "e360c52507f45e06b1a967812236cd4f24c2f8450c4d7d8ed5d565d256c62428"
@@ -63,7 +63,7 @@
       "1b14f2d75f22220602806f6ca1be3ba44d83869e3846ffa4b9cbc3c36c4d2038"
     ],
     "rates/index.html": [
-      "ced13990d90180841607110df80890768ee802d83cb2f4102e9e5a5e28da0d46"
+      "b90903e4599fa15937bb6523b9b4d2c0e3e2263007444b89a08a205ca49388d5"
     ],
     "rates/individual-income-tax/index.html": [
       "16e28a25b03cbd205c798d8a50bb94bb7e4f13f833ac9fc9c9fd00d03cea8a34"
@@ -228,7 +228,7 @@
       "10b2b6a2c30551f32d79808a41de0bd4cc6a0e0f4d337942ad06cac60db66329"
     ],
     "tools/business-calculators/payroll-tax/index.html": [
-      "645bbda26eddd5b3138de1e0e70beace5b0952f61e0aa6f3cc9ca9547141c79a"
+      "47dea44f297c00031bcf686356af5adaa169fb5b2c3f9f886f6f31dc7e7a5b5a"
     ],
     "tools/business-calculators/pcg-2021-4-allocation/index.html": [
       "306f8d29fcf2451162c517c0a561b87320b51a34e50544009f6c40054e7ab542"
@@ -381,7 +381,7 @@
   "protected_files": {
     "llms.txt": "09c02e85a550f364eadfcb3213580081761a0c7d2763a2762ab7510130ca9893",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "6f0ace17032e6edcf0fd13d31210d5eb5a93af2aa4692128ff50a9c2e45fd142"
+    "sitemap.xml": "d85ba95cd5275752e0d774b8ddff2d3d608de5b90aab7ef4e9a2ea534bc43cf2"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

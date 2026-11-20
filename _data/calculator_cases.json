@@ -467,7 +467,7 @@
     ]
   },
   "payroll-tax": {
-    "checked": "2026-11-17",
+    "checked": "2026-11-20",
     "function": "payrollTax",
     "rows": [
       {"case": "Revenue NSW’s example: $1,500,000 of wages, all in NSW, for the full year", "input": "New South Wales, wages $1,500,000.00, Australian wages $1,500,000.00", "call": ["1500000", "", "AU-NSW"], "result": {"deduction": 1200000, "taxable": 300000, "tax": 16350, "total": 16350}, "output": "Deduction $1,200,000.00, taxable amount $300,000.00, payroll tax $16,350.00, total $16,350.00"},

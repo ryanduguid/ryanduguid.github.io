@@ -2835,11 +2835,16 @@ test('the payroll tax table is the page’s data file, with a source and dates f
   const law = {};
   for (const [employer, item, value, over, from, provision, , url, checked] of lines) {
     assert.match(from, /^\d{4}-\d{2}-\d{2}$/, `${employer} ${item}`);
-    assert.ok(from <= '2026-07-01' && provision && /^https:\/\//.test(url) && checked === '2026-11-17', `${employer} ${item}`);
+    assert.ok(from <= '2026-07-01' && provision && /^https:\/\//.test(url), `${employer} ${item}`);
+    assert.equal(checked, employer === 'AU-NSW' ? '2026-11-20' : '2026-11-17');
     const entry = (law[employer] ??= employer === 'AU-VIC-REGIONAL' ? { ...law['AU-VIC'], rates: [] } : { rates: [] });
     if (item === 'rate') entry.rates.push([over, value]);
     else entry[item.replace(/_([a-z])/g, (_, letter) => letter.toUpperCase())] = value;
   }
+  const nsw = lines.filter(([employer]) => employer === 'AU-NSW');
+  assert.deepEqual(nsw.map(([, item, , , from]) => [item, from]), [
+    ['threshold', '2020-07-01'], ['rate', '2022-07-01'],
+  ]);
   assert.deepEqual(law, PAYROLL_TAX_2026_27);
   const radios = [...payrollTaxHtml.matchAll(/<input type="radio" name="jurisdiction" value="([^"]+)"/g)].map(([, code]) => code);
   assert.deepEqual(radios, Object.keys(PAYROLL_TAX_2026_27));
