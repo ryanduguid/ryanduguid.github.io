@@ -3387,10 +3387,11 @@ test('notional earnings and the uplift round per employee as LCR 2026/3’s Empl
 
 test('the Payday Super form identifies the statutory facts needed for its inputs', () => {
   const html = calculatorInclude('sgc-payday');
-  assert.match(html, /Next scheduled payday when regular qualifying earnings were paid/);
+  assert.match(html, /Next scheduled payday \(only if regular qualifying earnings were paid that day\)/);
   assert.match(html, /if the employer actually paid regular qualifying earnings that day/);
   assert.match(html, /positive assessment still in force on the payday/);
   assert.match(html, /estimate that had yet to be revoked or reduced to nil/);
+  assert.match(html, /in response to a purported disclosure that did not comply with section 33/);
   assert.match(html, /Approved voluntary disclosure before the assessment day/);
 });
 

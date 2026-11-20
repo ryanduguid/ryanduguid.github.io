@@ -14,7 +14,7 @@
 <label><input type="radio" name="timing" value="exceptional" /> ATO determination</label>
 <label><input type="radio" name="timing" value="first-out-of-cycle" /> First contribution, out of cycle</label>
 <label><input type="radio" name="timing" value="out-of-cycle-exceptional" /> Out of cycle, ATO determination</label></fieldset>
-<label class="field" for="sgc-payday-next">Next scheduled payday when regular qualifying earnings were paid<input id="sgc-payday-next" name="next-payday" type="date" min="2026-07-01" max="2027-08-31" value="2026-07-30" required /></label>
+<label class="field" for="sgc-payday-next">Next scheduled payday (only if regular qualifying earnings were paid that day)<input id="sgc-payday-next" name="next-payday" type="date" min="2026-07-01" max="2027-08-31" value="2026-07-30" required /></label>
 <label class="field" for="sgc-payday-determination">Determination date<input id="sgc-payday-determination" name="determination" type="date" min="2026-07-01" max="2027-08-31" value="2026-07-30" required /></label>
 <label class="field" for="sgc-payday-earnings">Qualifying earnings (AUD)<input id="sgc-payday-earnings" name="earnings" type="number" inputmode="decimal" min="0.01" max="1000000000" step=".01" value="1000" required /></label>
 <label class="field" for="sgc-payday-earlier">Earlier earnings in 2026-27 (AUD)<input id="sgc-payday-earlier" name="earlier" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
@@ -25,7 +25,7 @@
 <fieldset class="field" aria-describedby="sgc-payday-history-help"><legend>Disqualifying ATO assessment or estimate</legend>
 <label><input type="radio" name="assessed" value="no" checked /> No</label>
 <label><input type="radio" name="assessed" value="yes" /> Yes</label>
-<p class="field-note" id="sgc-payday-history-help">Choose Yes if, from 1 July 2026 through this payday, the ATO made a qualifying positive assessment still in force on the payday or made an SGC estimate that had yet to be revoked or reduced to nil. See regulation 13C below for qualifying assessments.</p></fieldset>
+<p class="field-note" id="sgc-payday-history-help">Choose Yes if, from 1 July 2026 through this payday, the ATO made a qualifying positive assessment still in force on the payday or made an SGC estimate that had yet to be revoked or reduced to nil. A positive Payday Super assessment qualifies if the ATO made it on its own initiative or in response to a purported disclosure that did not comply with section 33 of the Superannuation Guarantee (Administration) Act 1992.</p></fieldset>
 <fieldset class="field"><legend>Approved voluntary disclosure before the assessment day</legend>
 <label><input type="radio" name="disclosure" value="none" checked /> None</label>
 <label><input type="radio" name="disclosure" value="lodged" /> Lodged in the approved form</label></fieldset>
