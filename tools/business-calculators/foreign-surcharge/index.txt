@@ -2,13 +2,13 @@
 
 Source: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
 
-> Foreign purchaser duty and land tax surcharges for all 8 states and territories, with each one's foreign person test for individuals, companies, trusts and SMSFs.
+> Foreign purchaser duty and land tax surcharges in all 8 states and territories, each one's foreign person test, the 2026-27 FIRB fee and an upfront total by state.
 
 # Foreign buyer surcharge calculator
 
 Foreign purchaser duty and land tax surcharges in each state and territory, with its own test of who is foreign.
 
-Published 18 November 2026. Last checked 18 November 2026.
+Published 18 November 2026. Last checked 19 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -16,7 +16,7 @@ Foreign buyer surcharge inputs
 
 State or territory New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
 
-Who is buying An individual A company The trustee of a fixed or unit trust The trustee of a discretionary (family) trust The trustee of a complying self-managed super fund What the property is used for Residential, vacant residential land included Primary production Commercial or other Dutiable value of the whole property (whole dollars) Dutiable value of this buyer’s share (whole dollars) Land value for land tax: all the buyer’s taxable land in the state or territory, their share only (whole dollars)
+Who is buying An individual A company The trustee of a fixed or unit trust The trustee of a discretionary (family) trust The trustee of a complying self-managed super fund What the property is used for Residential, vacant residential land included Primary production Commercial or other Dutiable value of the whole property (whole dollars) Dutiable value of this buyer’s share (whole dollars) Land value for land tax: all the buyer’s taxable land in the state or territory, their share only (whole dollars) FIRB application for this purchase None: not a foreign person under the Foreign Acquisitions and Takeovers Act, or not needed Residential land without an established dwelling: vacant land or a new dwelling An established dwelling, generally banned to 30 June 2029
 
 ## Foreign individual buyers: visa and residence
 
@@ -32,7 +32,7 @@ A company: incorporated outside Australia? No Yes Company, trust or fund: larges
 
 It works one buyer and one property. Only the answers for the buyer chosen and the state or territory chosen are used. Each revenue office decides the dutiable value and who is foreign; the general duty uses the transfer duty rate table.
 
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, an individual: another visa or none, residential property worth $1,000,000.00, buyer’s share $1,000,000.00, land value for land tax $1,200,000.00. Foreign purchaser duty surcharge at 9% of the buyer’s share $90,000.00 Duty surcharge test Foreign: a temporary or bridging visa holder, or a non-citizen with no visa (G009) General transfer duty on the whole property, all buyers $39,187.00 Land tax surcharge for a full year $60,000.00 Land tax surcharge test Foreign: a temporary or bridging visa holder, or a non-citizen with no visa (G009) Each test is the jurisdiction’s own, from your answers; the revenue office decides who is foreign.
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, an individual: another visa or none, residential property worth $1,000,000.00, buyer’s share $1,000,000.00, land value for land tax $1,200,000.00, FIRB application for residential land without an established dwelling. Foreign purchaser duty surcharge at 9% of the buyer’s share $90,000.00 Duty surcharge test Foreign: a temporary or bridging visa holder, or a non-citizen with no visa (G009) General transfer duty on the whole property, all buyers $39,187.00 FIRB application fee for 2026-27 on the buyer’s share $15,600.00 Upfront total: general duty, duty surcharge and FIRB fee $144,787.00 Land tax surcharge for a full year $60,000.00 Land tax surcharge test Foreign: a temporary or bridging visa holder, or a non-citizen with no visa (G009) Each test is the jurisdiction’s own, from your answers; the revenue office decides who is foreign.
 
 ## How the foreign buyer surcharge calculator works
 
@@ -51,6 +51,8 @@ A company is foreign when it is incorporated outside Australia, or foreign perso
 A discretionary trust is foreign in New South Wales if a foreign person could benefit, now or by amending the deed (section 104JA); in Victoria and Tasmania if foreign persons could be given more than 50%, or 50% or more, of the capital; in Queensland if foreign takers in default hold 50% or more; in Western Australia if a foreign person controls it, as a foreign trustee or appointor does, or foreign takers in default hold 50% or more; in South Australia if a trustee, appointor, named object or taker in default is foreign; and in the ACT only if a named foreign beneficiary could receive 50% or more. Victorian land tax looks only at named (specified) beneficiaries who are absentees.
 
 ## What the foreign buyer surcharge calculator leaves to you
+
+The FIRB fee is the 2026-27 fee for one application to acquire residential land, which FIRB indexes each 1 July. The calculator does not decide whether the buyer is a foreign person under the Foreign Acquisitions and Takeovers Act 1975, whether an exception to the ban on established dwellings applies, or the lower fee rules, exemption certificates, fee waivers and the fees for agricultural and commercial land. The comparison leaves out land tax, since the land value entered is the buyer’s land in the chosen state or territory only.
 
 The calculator does not decide exemptions, refunds or ex gratia relief, which each Commissioner grants on application. Among them are Australian-based developers and build to rent in New South Wales and Victoria, exempt permanent residents who live in the home in New South Wales, significant contributors and large developers in Queensland, and refunds when a buyer stops being foreign within 12 months in South Australia. When one is sought, it refuses. It also refuses a partner (provisional) or retirement visa holder, whom the revenue offices treat differently, and does not trace interests through other companies and trusts or decide who is an associate.
 
@@ -82,6 +84,10 @@ New South Wales: a discretionary trust whose deed could admit a foreign benefici
 Commercial property in New South Wales bears neither surcharge | New South Wales, individual, temporary visa or none, 0 and 0 days in Australia; other property $1,000,000.00, land $1,000,000.00 | No duty surcharge, duty surcharge $0.00, land tax surcharge $0.00
 An exemption is refused: each Commissioner decides it | New South Wales, individual, temporary visa or none, 0 and 0 days in Australia, exemption sought; residential property $1,000,000.00, land $1,000,000.00 | Refused: exemptions, refunds and relief from these surcharges are decided by each Commissioner on application, so this page does not work them out
 A partner or retirement visa holder is refused | New South Wales, individual, partner or retirement visa, 0 and 0 days in Australia; residential property $1,000,000.00, land $1,000,000.00 | Refused: this page does not decide the status of a partner (provisional) or retirement visa holder: each revenue office treats them differently
+FIRB Guidance Note 10, example 2: $2 million of residential land without an established dwelling | Residential land without an established dwelling, consideration $2,000,000.00 | Fee $31,300.00
+FIRB Guidance Note 10, example 3: the fee is 3 times for an established dwelling | An established dwelling, consideration $2,000,000.00 | Fee $93,900.00
+Under $75,000 the lower fee applies | Residential land without an established dwelling, consideration $74,999.00 | Fee $4,600.00
+Above $40 million the fee stops at its maximum | Residential land without an established dwelling, consideration $40,000,001.00 | Fee $1,245,500.00
 
 One of the forty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 

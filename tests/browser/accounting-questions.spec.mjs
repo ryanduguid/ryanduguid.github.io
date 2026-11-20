@@ -1258,6 +1258,27 @@ test('foreign purchaser surcharges work SRO Victoria’s fixed trust offline and
     + 'so this page does not work them out.');
 });
 
+test('foreign purchaser surcharges add the FIRB fee, compare every state offline and hide the comparison off residential land', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/foreign-surcharge/');
+  const form = page.locator('#foreign-surcharge form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByLabel('An established dwelling, generally banned to 30 June 2029', { exact: true }).check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const output = form.locator('output');
+  await expect(output).toContainText('FIRB application fee for 2026-27 on the buyer’s share: $46,800.00.');
+  await expect(output).toContainText('Upfront total: general duty, duty surcharge and FIRB fee: $175,987.00.');
+  await expect(output).toContainText('From 1 April 2025 to 30 June 2029 foreign persons are generally banned from buying established dwellings');
+  const rows = form.locator('table[data-results="places"] tbody tr');
+  await expect(rows).toHaveCount(8);
+  await expect(rows.first()).toHaveText('New South Wales$39,187.00$90,000.00$175,987.00');
+  await form.getByLabel('Commercial or other', { exact: true }).check();
+  await form.getByLabel('None: not a foreign person under the Foreign Acquisitions and Takeovers Act, or not needed', { exact: true }).check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).not.toContainText('Upfront total');
+  await expect(form.locator('table[data-results="places"]')).toBeHidden();
+});
+
 // Business Victoria lists Melbourne Cup Day, Tuesday 3 November 2026, for all of Victoria; the WA
 // Government's page lists no such day, so the same dates give 1 business day in Victoria and 2 in WA.
 test('business days skip Melbourne Cup Day in Victoria offline and refuse a date past the coverage', async ({ page, context }) => {

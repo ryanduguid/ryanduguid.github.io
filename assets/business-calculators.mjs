@@ -619,5 +619,5 @@ export { division296, division296Result } from './division-296.mjs';
 export { payrollTax, payrollTaxResult } from './payroll-tax.mjs';
 export { companyTax, companyTaxResult } from './company-tax.mjs';
 export { gstMarginScheme, gstMarginSchemeResult } from './gst-margin-scheme.mjs';
-export { foreignSurcharge, foreignSurchargeResult } from './foreign-surcharge.mjs';
+export { firbFee, foreignSurcharge, foreignSurchargeResult } from './foreign-surcharge.mjs';
 export { businessDays, businessDaysResult, parseHolidays } from './business-days.mjs';

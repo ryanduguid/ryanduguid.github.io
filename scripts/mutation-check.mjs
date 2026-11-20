@@ -676,6 +676,12 @@ const MUTATIONS = [
   { ...lsl, name: 'LSL next date ignores excluded days', find: 'anniversary(start, next) - 1 + excluded;', replace: 'anniversary(start, next) - 1;' },
   { ...lsl, name: 'LSL service before 23 June 1990 passes', find: 'value < LSL_EARLIEST_START', replace: "value < '1900-01-01'" },
 
+  { ...surcharges, name: 'the FIRB lower fee applies at $75,000', find: 'value < 75000 ?', replace: 'value <= 75000 ?' },
+  { ...surcharges, name: 'an exact million pays the next FIRB step', find: 'Math.floor((value - 1) / f.constant)', replace: 'Math.floor(value / f.constant)' },
+  { ...surcharges, name: 'the FIRB fee is not capped above $40 million', find: 'value > f.tiers * f.constant ? f.maximum', replace: 'false ? f.maximum' },
+  { ...surcharges, name: 'an established dwelling pays the single FIRB fee', find: "kind === 'established' ? fee * f.established : fee", replace: 'fee' },
+  { ...surcharges, name: 'the FIRB fee falls on the whole property', find: 'firbFee(firb, purchase.share)', replace: 'firbFee(firb, purchase.value)' },
+  { ...surcharges, name: 'the comparison takes the chosen jurisdiction’s duty everywhere', find: 'const duty = /** @type {number} */ (generals[place]);', replace: 'const duty = /** @type {number} */ (generals[purchase.place]);' },
   { ...leaseEngine, name: 'the payment at commencement stays in the liability', find: 'BigInt(Math.round(pv.amount * 100)) - (advance ? payment : 0n)', replace: 'BigInt(Math.round(pv.amount * 100))' },
   { ...leaseEngine, name: 'incentives add to the right-of-use asset', find: '- incentives + direct + restoration', replace: '+ incentives + direct + restoration' },
   { ...leaseEngine, name: 'initial direct costs are left out of the asset', find: '+ direct + restoration;', replace: '+ restoration;' },

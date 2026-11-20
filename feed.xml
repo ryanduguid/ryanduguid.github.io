@@ -57,6 +57,13 @@
     <summary>A GST margin scheme calculator. It decides the conditions of section 75-5 of the GST Act it can (what is sold, the written agreement and how the property was acquired), works the margin from the consideration paid or an approved valuation, with a subdivided lot’s share of the cost and a GST-exclusive price, and sets the GST under the margin scheme beside the GST on the whole price. It gives the GST in GSTR 2006/8’s Examples 3, 4, 6 and 14, and refuses sales to associates and the acquisitions section 75-11 covers. Sources were read on 19 November 2026.</summary>
   </entry>
   <entry>
+    <title>The foreign buyer surcharge calculator adds the 2026-27 FIRB application fee…</title>
+    <link href="https://duguid.com.au/changelog/#entry-0d0dbde300535310" />
+    <id>https://duguid.com.au/changelog/#entry-0d0dbde300535310</id>
+    <updated>2026-11-19T00:00:00Z</updated>
+    <summary>The foreign buyer surcharge calculator adds the 2026-27 FIRB application fee for residential land, an upfront total of general duty, surcharge and fee, and every state and territory side by side.</summary>
+  </entry>
+  <entry>
     <title>The take-home pay calculator now works the PAYG withheld from each weekly…</title>
     <link href="https://duguid.com.au/changelog/#entry-6eb640faaa410cf0" />
     <id>https://duguid.com.au/changelog/#entry-6eb640faaa410cf0</id>
