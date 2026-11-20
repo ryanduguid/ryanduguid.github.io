@@ -3,7 +3,10 @@
 
 //! An independent oracle for the individual tax engines: `assets/income-tax.mjs`,
 //! `assets/study-loan.mjs`, `assets/take-home-pay.mjs`, `assets/payg-withholding.mjs`,
-//! `assets/division-293.mjs`, `assets/sole-trader.mjs` and `assets/income-tests.mjs`.
+//! `assets/division-293.mjs`, `assets/sole-trader.mjs`, `assets/income-tests.mjs`,
+//! `assets/bonus-withholding.mjs`, `assets/salary-packaging.mjs`, `assets/novated-lease.mjs`,
+//! `assets/super-projection.mjs` and
+//! `assets/salary-dividend.mjs`.
 //! Seeded fictional cases are worked here in exact integers, by a route the engines do not take,
 //! and each result must equal what the browser modules return under Node.
 //!
@@ -23,11 +26,24 @@
 //!
 //! The route is independent; the conventions are not. Both round a half cent up and cap the offsets
 //! at the tax, and the take-home oracle splits a package including super by the engine's formula,
-//! so it checks how the parts combine, not that split.
+//! so it checks how the parts combine, not that split. The salary packaging and novated lease
+//! oracles check the FBT side only, whose tax side is the income tax engine's: they take FBTAA
+//! s 5B(1E)'s steps in order where the engine nets the meal allowance against the excess, and the
+//! employer's GST credit as one eleventh off where the engine takes ten elevenths, but share the
+//! engine's rounding of each grossed-up total to the dollar.
+//! The super projection oracle types its own caps, base and rates and works the present value with
+//! big integers, but shares the engine's rounding of each year's figures to the cent.
 //! The income tests engine (`assets/income-tests.mjs`) works each measure as a formula; the oracle
 //! keeps a table of the terms each definition lists, with their signs, and sums it.
+//!
+//! The salary against dividends oracle works each split from the tables here and the super
+//! guarantee figures below, and checks the engine's best split against all salary, all dividends,
+//! the split entered and, for small profits, every whole dollar of salary, where the engine tries
+//! only the salaries at which the kept total can change slope. Both round the franking credit down
+//! and the rest half up, and take taxable income to the dollar.
 //! The engines run from the repository's own `assets/`, not the rendered site.
 
+use num_bigint::BigUint;
 use serde_json::{Value, json};
 use std::io::Write;
 use std::path::Path;
@@ -37,9 +53,14 @@ const HARNESS: &str = r"
 import { incomeTax, medicareLevySurcharge } from './assets/income-tax.mjs';
 import { studyLoanRepayment } from './assets/study-loan.mjs';
 import { takeHomePay } from './assets/take-home-pay.mjs';
+import { salaryPackaging } from './assets/salary-packaging.mjs';
+import { novatedLease } from './assets/novated-lease.mjs';
+import { bonusWithholding } from './assets/bonus-withholding.mjs';
 import { division293Tax } from './assets/division-293.mjs';
 import { soleTraderSetAside } from './assets/sole-trader.mjs';
 import { incomeTests } from './assets/income-tests.mjs';
+import { superProjection } from './assets/super-projection.mjs';
+import { salaryDividend } from './assets/salary-dividend.mjs';
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
 const cents = (result) => result === null ? null : Object.fromEntries(Object.entries(result)
@@ -51,9 +72,31 @@ const run = {
     super: '0', foreign: '0' }, year)),
   pay: ({ pay }) => cents(takeHomePay(pay)),
   mls: ({ mls }) => cents(medicareLevySurcharge(mls)),
+  pack: ({ pack }) => {
+    const { year, owedBefore, owedAfter, surchargeAfter, studyLoanAfter, saved, gain, ...fbt } = salaryPackaging(pack);
+    return cents(fbt);
+  },
+  lease: ({ lease }) => {
+    try {
+      const { year, owedWithout, exemptCase, contribution, ...car } = novatedLease(lease);
+      const split = (c) => c && cents({ preTax: c.preTax, postTax: c.postTax, reportable: c.reportable });
+      return { ...cents(car), exemptCase: split(exemptCase), contribution: split(contribution) };
+    } catch (error) {
+      return { error: error.message };
+    }
+  },
+  projection: ({ projection }) => {
+    try {
+      return cents(superProjection(projection));
+    } catch (error) {
+      return { error: error.message };
+    }
+  },
+  bonus: ({ bonus }) => cents(bonusWithholding(bonus)),
   d293: ({ d293 }) => cents(division293Tax(d293)),
   sole: ({ sole }) => cents(soleTraderSetAside(sole)),
   tests: ({ parts }) => cents(incomeTests(parts)),
+  owner: ({ pay }) => cents(salaryDividend(pay)),
 };
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
 ";
@@ -70,6 +113,10 @@ const TAX_CASES: usize = 700;
 const LOAN_CASES: usize = 400;
 const PAY_CASES: usize = 900;
 const MLS_CASES: usize = 400;
+const PROJECTION_CASES: usize = 500;
+const PACKAGING_CASES: usize = 600;
+const LEASE_CASES: usize = 600;
+const BONUS_CASES: usize = 500;
 const DIVISION_293_CASES: usize = 600;
 const SOLE_CASES: usize = 600;
 
@@ -1070,6 +1117,674 @@ fn the_take_home_pay_engine_agrees_with_the_oracle_on_every_seeded_case() {
     agree(&cases, &expected);
 }
 
+/// One super projection case: money in cents, rates in hundredths of a per cent.
+#[derive(Clone, Copy)]
+struct Projection {
+    age: u64,
+    retire: u64,
+    balance: i128,
+    salary: i128,
+    employer: i128,
+    sacrifice: i128,
+    after_tax: i128,
+    earn: i128,
+    percent_fee: i128,
+    admin_fee: i128,
+    insurance: i128,
+    growth: i128,
+    discount: u32,
+}
+
+fn half_up_i(numerator: i128, denominator: i128) -> i128 {
+    (2 * numerator + denominator) / (2 * denominator)
+}
+
+/// The 2026-27 figures typed from their sources: the maximum contribution base of $270,830 (the
+/// ATO's 'Super guarantee', Table 23), the caps of $32,500 and $130,000 (the ATO's 'Contributions
+/// caps', Tables 1.1 and 4) and 15% contributions tax (ITAA 1997 s 295-160; Income Tax Rates Act 1986 s 26(1)). Each year earns on
+/// the opening balance and half its net flows; the fees and premiums are deducted at 15%; the
+/// present value is the final balance over 1.037 (or the rate entered) to the power of the years.
+fn projection_oracle(p: &Projection) -> Value {
+    let (mut salary, mut base, mut sacrifice, mut after_tax, mut fee, mut insurance) = (
+        p.salary,
+        27_083_000,
+        p.sacrifice,
+        p.after_tax,
+        p.admin_fee,
+        p.insurance,
+    );
+    let mut balance = p.balance;
+    let (mut contributed_total, mut earnings_total, mut fees_total) = (0, 0, 0);
+    let mut first = None;
+    for year in 0..p.retire - p.age {
+        if year > 0 {
+            let grow = |v: i128| half_up_i(v * (10_000 + p.growth), 10_000);
+            (salary, base, sacrifice, after_tax, fee, insurance) = (
+                grow(salary),
+                grow(base),
+                grow(sacrifice),
+                grow(after_tax),
+                grow(fee),
+                grow(insurance),
+            );
+        }
+        let employer = half_up_i(salary.min(base) * p.employer, 10_000);
+        let concessional = employer + sacrifice;
+        if year == 0 {
+            if concessional > 3_250_000 {
+                return json!({"error": "Your concessional contributions for 2026-27 are above the $32,500 cap; this projection does not compute excess contributions."});
+            }
+            if after_tax > 13_000_000 {
+                return json!({"error": "Your after-tax contributions for 2026-27 are above the $130,000 cap; this projection does not compute excess contributions."});
+            }
+            first = Some((employer, concessional));
+        }
+        let contributed = concessional - half_up_i(concessional * 1_500, 10_000) + after_tax;
+        let twice = (2 * balance + contributed - fee - insurance).max(0);
+        let earnings = half_up_i(twice * p.earn, 20_000);
+        let fees = fee + insurance + half_up_i(twice * p.percent_fee, 20_000);
+        let net = fees - half_up_i(fees * 1_500, 10_000);
+        let available = balance + contributed + earnings;
+        let taken = net.min(available);
+        balance = available - taken;
+        contributed_total += contributed;
+        earnings_total += earnings;
+        fees_total += taken;
+    }
+    let years = (p.retire - p.age) as u32;
+    let denominator = BigUint::from(10_000 + p.discount).pow(years);
+    let numerator = BigUint::from(balance as u128) * BigUint::from(10_000u32).pow(years);
+    let present = (numerator * 2u32 + &denominator) / (denominator * 2u32);
+    let present: u128 = present.try_into().unwrap();
+    let (employer, concessional) = first.unwrap();
+    let u = |v: i128| u64::try_from(v).unwrap();
+    json!({"years": years * 100, "retire": p.retire * 100, "employer": u(employer), "concessional": u(concessional),
+        "balance": u(balance), "present": u64::try_from(present).unwrap(), "contributed": u(contributed_total),
+        "earnings": u(earnings_total), "fees": u(fees_total)})
+}
+
+const DEFAULTS: Projection = Projection {
+    age: 30,
+    retire: 67,
+    balance: 5_000_000,
+    salary: 8_000_000,
+    employer: 1_200,
+    sacrifice: 0,
+    after_tax: 0,
+    earn: 610,
+    percent_fee: 11,
+    admin_fee: 5_900,
+    insurance: 59_900,
+    growth: 370,
+    discount: 370,
+};
+
+#[test]
+fn the_oracle_works_a_super_projection_year_by_hand() {
+    // $50,000 at 66: $9,600 less $1,440 tax, $658 of fees and premiums, 6.1% and 0.11% on $53,751.
+    let year = projection_oracle(&Projection {
+        age: 66,
+        ..DEFAULTS
+    });
+    assert_eq!(year["balance"], 6_082_925);
+    assert_eq!(year["present"], 5_865_887);
+    assert!(
+        projection_oracle(&Projection {
+            sacrifice: 2_290_001,
+            ..DEFAULTS
+        })["error"]
+            .is_string()
+    );
+}
+
+/// One salary packaging case in cents, the salary in whole dollars.
+struct Pack<'a> {
+    year: &'a str,
+    resident: bool,
+    hospital: bool,
+    salary: u64,
+    type_one: u64,
+    type_two: u64,
+    meals: u64,
+    meals_type_one: bool,
+}
+
+/// Cents grossed up at a rate in ten-thousandths, to the dollar, half up (the ATO's guide, 6.10).
+fn grossed(value: u64, rate: u64) -> u64 {
+    half_up(value * rate, 1_000_000)
+}
+
+/// The FBT side of salary packaging, in cents. FBTAA s 5B(1E): step 1 adds the grossed-up Type 1
+/// and Type 2 totals, steps 2 and 3 take off the employer's cap, step 4 takes off the grossed-up
+/// salary packaged meal entertainment up to $5,000; FBT is 47% of what remains. The reportable
+/// amount (s 135Q) grosses the total taxable value above $2,000 up by 1 / 0.53, cents dropped.
+fn pack_oracle(p: &Pack) -> Value {
+    let (one, two) = if p.meals_type_one {
+        (p.type_one + p.meals, p.type_two)
+    } else {
+        (p.type_one, p.type_two + p.meals)
+    };
+    let (g1, g2) = (grossed(one, 20_802), grossed(two, 18_868));
+    let meals = grossed(p.meals, if p.meals_type_one { 20_802 } else { 18_868 });
+    let cap = if p.hospital { 17_000 } else { 30_000 };
+    let step_3 = (g1 + g2).saturating_sub(cap);
+    let step_4 = step_3.saturating_sub(meals.min(5_000));
+    let packaged = p.type_one + p.type_two + p.meals;
+    let reportable = if packaged > 200_000 {
+        packaged * 100 / 5_300
+    } else {
+        0
+    };
+    let salary = p.salary * 100;
+    let deduction = |paid: u64| {
+        if p.resident && p.year == "2026-27" {
+            paid.min(100_000)
+        } else {
+            0
+        }
+    };
+    let taxable = |paid: u64| (paid - deduction(paid)) / 100;
+    let room = cap.saturating_sub(g1 + g2);
+    json!({"cap": cap * 100, "packaged": packaged, "grossedTypeOne": g1 * 100, "grossedTypeTwo": g2 * 100,
+        "grossedMeals": meals * 100, "grossed": (g1 + g2) * 100, "mealAllowance": (step_3 - step_4) * 100,
+        "excess": step_4 * 100, "fbt": step_4 * 47, "reportable": reportable * 100,
+        "taxableBefore": taxable(salary) * 100, "taxableAfter": taxable(salary - packaged) * 100, "room": room * 100,
+        "roomTypeTwo": room * 1_000_000 / 18_868})
+}
+
+#[test]
+fn the_oracle_works_the_salary_packaging_examples_by_hand() {
+    // The ATO's guide, chapter 6, section 6.10: $7,700 Type 1, $9,000 and $3,300 of meal
+    // entertainment Type 2, for a health promotion charity: $16,018 and $23,208, FBT $1,986.22.
+    let ato = pack_oracle(&Pack {
+        year: "2026-27",
+        resident: true,
+        hospital: false,
+        salary: 80_000,
+        type_one: 770_000,
+        type_two: 900_000,
+        meals: 330_000,
+        meals_type_one: false,
+    });
+    assert_eq!(ato["grossedTypeOne"], 1_601_800);
+    assert_eq!(ato["grossedTypeTwo"], 2_320_800);
+    assert_eq!(ato["fbt"], 198_622);
+    // The ATO's threshold table: $2,000.01 is reportable as $3,773.
+    let threshold = Pack {
+        year: "2025-26",
+        resident: true,
+        hospital: true,
+        salary: 50_000,
+        type_one: 0,
+        type_two: 200_001,
+        meals: 0,
+        meals_type_one: true,
+    };
+    assert_eq!(pack_oracle(&threshold)["reportable"], 377_300);
+    assert_eq!(
+        pack_oracle(&Pack {
+            type_two: 200_000,
+            ..threshold
+        })["reportable"],
+        0
+    );
+}
+
+#[test]
+fn the_salary_packaging_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1119_1A7C_0005);
+    let years = ["2022-23", "2023-24", "2024-25", "2025-26", "2026-27"];
+    let money = |cents: u64| format!("{}.{:02}", cents / 100, cents % 100);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..PACKAGING_CASES)
+        .map(|_| {
+            let hospital = rng.below(2) == 0;
+            let filled = if hospital { 900_996 } else { 1_589_993 };
+            let type_two = match rng.below(3) {
+                0 => filled + rng.below(200) - 100,
+                1 => 200_000 + rng.below(3) - 1,
+                _ => rng.below(3_000_001),
+            };
+            let type_one = if rng.below(3) == 0 { rng.below(1_000_001) } else { 0 };
+            let meals = if rng.below(2) == 0 { rng.below(500_001) } else { 0 };
+            let p = Pack {
+                year: rng.pick(&years),
+                resident: rng.below(4) != 0,
+                hospital,
+                salary: 50_000 + rng.below(250_001),
+                type_one,
+                type_two,
+                meals,
+                meals_type_one: rng.below(2) == 0,
+            };
+            let input = json!({"year": p.year, "residency": if p.resident { "resident" } else { "foreign" },
+                "employer": if hospital { "hospital" } else { "charity" }, "salary": p.salary.to_string(),
+                "typeTwo": money(type_two), "typeOne": money(type_one), "meals": money(meals),
+                "mealsTypeOne": p.meals_type_one, "studyLoan": rng.below(2) == 0, "hospitalCover": rng.below(2) == 0});
+            (json!({"kind": "pack", "pack": input}), pack_oracle(&p))
+        })
+        .unzip();
+    agree(&cases, &expected);
+}
+
+/// One novated lease case, the money in cents.
+struct Lease<'a> {
+    year: &'a str,
+    kind: &'a str,
+    after: bool,
+    commitment: bool,
+    sale_year: &'a str,
+    price: u64,
+    other_supply: bool,
+    reduced: bool,
+    days: u64,
+    gst_costs: u64,
+    other_costs: u64,
+}
+
+/// The luxury car tax threshold for fuel-efficient vehicles in whole dollars, typed from the ATO's
+/// 'Luxury car tax rate and thresholds' (last updated 1 June 2026, read 19 November 2026).
+fn lct_threshold(year: &str) -> u64 {
+    match year {
+        "2021-22" => 79_659,
+        "2022-23" => 84_916,
+        "2023-24" => 89_332,
+        "2024-25" | "2025-26" => 91_387,
+        _ => 91_661,
+    }
+}
+
+/// The FBT side of a novated lease, in cents. Section 8A's conditions are tested as a table of
+/// failures; the statutory formula takes 20% of the base value (two-thirds of the cost price once
+/// held 4 years) over the days available; the employer's GST credit comes off the costs that bear
+/// GST, and the GST on the employee's contribution comes off what it pays towards them.
+fn lease_oracle(l: &Lease) -> Value {
+    let electric = matches!(l.kind, "bev" | "fcev")
+        || (l.kind == "phev" && (l.year == "2023-24" || l.year == "2024-25" || l.commitment));
+    let failures = [
+        (
+            l.kind == "other",
+            "it is not a battery electric or hydrogen fuel cell car",
+        ),
+        (
+            !electric,
+            "a plug-in hybrid is exempt from 1 April 2025 only under a commitment made and used before then",
+        ),
+        (!l.after, "it was first held and used before 1 July 2022"),
+        (
+            l.price > lct_threshold(l.sale_year) * 100,
+            "luxury car tax was payable on its first retail sale",
+        ),
+        (
+            l.other_supply,
+            "luxury car tax became payable on another supply or an importation of it",
+        ),
+    ];
+    let reason = failures
+        .iter()
+        .find(|(fails, _)| *fails)
+        .map(|(_, why)| *why);
+    let year_days = days_in(l.year);
+    let base = if l.reduced { l.price * 2 } else { l.price * 3 };
+    let value = half_up(base * l.days, 3 * 5 * year_days);
+    let net = l.gst_costs - half_up(l.gst_costs, 11) + l.other_costs;
+    let covered = value - half_up(value, 11);
+    if covered > net && reason.is_some() {
+        return json!({"error": "The car’s yearly costs are less than its taxable value, so an after-tax contribution cannot cover it; this calculator does not work the FBT that would remain."});
+    }
+    let reportable = if value > 200_000 {
+        value * 100 / 5_300
+    } else {
+        0
+    };
+    let exempt = reason.map_or(
+        json!({"preTax": net, "postTax": 0, "reportable": reportable * 100}),
+        |_| Value::Null,
+    );
+    let contribution = if covered > net {
+        Value::Null
+    } else {
+        json!({"preTax": net - covered, "postTax": value, "reportable": 0})
+    };
+    json!({"exempt": reason.is_none(), "reason": reason, "threshold": lct_threshold(l.sale_year) * 100,
+        "taxableValue": value, "costs": l.gst_costs + l.other_costs, "netCosts": net, "exemptCase": exempt,
+        "contribution": contribution})
+}
+
+#[test]
+fn the_oracle_works_the_novated_lease_examples_by_hand() {
+    // A $60,000 battery electric car for the whole of 2026-27: 20% is $12,000, reportable as
+    // $22,641; $15,000 of costs with GST and $1,000 without are $14,636.36 after the credit.
+    let car = Lease {
+        year: "2026-27",
+        kind: "bev",
+        after: true,
+        commitment: false,
+        sale_year: "2026-27",
+        price: 6_000_000,
+        other_supply: false,
+        reduced: false,
+        days: 365,
+        gst_costs: 1_500_000,
+        other_costs: 100_000,
+    };
+    let bev = lease_oracle(&car);
+    assert_eq!(bev["taxableValue"], 1_200_000);
+    assert_eq!(bev["exemptCase"]["reportable"], 2_264_100);
+    assert_eq!(bev["netCosts"], 1_463_636);
+    assert_eq!(bev["contribution"]["preTax"], 372_727);
+    assert_eq!(
+        lease_oracle(&Lease {
+            kind: "phev",
+            ..car
+        })["exempt"],
+        false
+    );
+    assert_eq!(
+        lease_oracle(&Lease {
+            price: 9_166_101,
+            gst_costs: 2_500_000,
+            ..car
+        })["exempt"],
+        false
+    );
+    // A cent over the threshold with $16,000 of costs: the $18,332.20 value cannot be covered.
+    assert!(
+        lease_oracle(&Lease {
+            price: 9_166_101,
+            ..car
+        })["error"]
+            .is_string()
+    );
+}
+
+#[test]
+fn the_super_projection_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1119_1A7C_0007);
+    let money = |cents: i128| format!("{}.{:02}", cents / 100, cents % 100);
+    let rate = |hundredths: i128| format!("{}.{:02}", hundredths / 100, hundredths % 100);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..PROJECTION_CASES)
+        .map(|_| {
+            let retire = 60 + rng.below(16);
+            let age = 15 + rng.below(retire - 15);
+            let p = Projection {
+                age,
+                retire,
+                balance: rng.below(200_000_001) as i128,
+                salary: (rng.income(&[270_830, 0, 300_000]) * 100) as i128,
+                employer: if rng.below(3) == 0 { rng.below(3_001) as i128 } else { 1_200 },
+                sacrifice: if rng.below(3) == 0 { rng.below(3_000_001) as i128 } else { 0 },
+                after_tax: if rng.below(4) == 0 { rng.below(14_000_001) as i128 } else { 0 },
+                earn: rng.below(1_201) as i128,
+                percent_fee: rng.below(151) as i128,
+                admin_fee: rng.below(30_001) as i128,
+                insurance: rng.below(150_001) as i128,
+                growth: rng.below(601) as i128,
+                discount: rng.below(601) as u32,
+            };
+            let input = json!({"age": age.to_string(), "retire": retire.to_string(), "balance": money(p.balance),
+                "salary": (p.salary / 100).to_string(), "employer": rate(p.employer), "sacrifice": money(p.sacrifice),
+                "afterTax": money(p.after_tax), "returnRate": rate(p.earn), "percentFee": rate(p.percent_fee),
+                "adminFee": money(p.admin_fee), "insurance": money(p.insurance), "growth": rate(p.growth),
+                "discount": rate(p.discount as i128)});
+            (json!({"kind": "projection", "projection": input}), projection_oracle(&p))
+        })
+        .unzip();
+    agree(&cases, &expected);
+}
+
+#[test]
+fn the_novated_lease_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1119_1A7C_0006);
+    let years = ["2023-24", "2024-25", "2025-26", "2026-27"];
+    let sales = [
+        "2021-22", "2022-23", "2023-24", "2024-25", "2025-26", "2026-27",
+    ];
+    let money = |cents: u64| format!("{}.{:02}", cents / 100, cents % 100);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..LEASE_CASES)
+        .map(|_| {
+            let at = 1 + rng.below(years.len() as u64) as usize;
+            let year = years[at - 1];
+            let sale_year = rng.pick(&sales[..at + 2]);
+            let price = if rng.below(2) == 0 {
+                lct_threshold(sale_year) * 100 + rng.below(3) - 1
+            } else {
+                1 + rng.below(15_000_000)
+            };
+            let kind = rng.pick(&["bev", "fcev", "phev", "other"]);
+            let l = Lease {
+                year,
+                kind,
+                after: rng.below(5) != 0,
+                // A plug-in hybrid under a commitment from before 1 April 2025 was sold by 2024-25.
+                commitment: rng.below(2) == 0 && (kind != "phev" || sale_year <= "2024-25"),
+                sale_year,
+                price,
+                other_supply: rng.below(8) == 0,
+                reduced: rng.below(4) == 0,
+                days: if rng.below(2) == 0 { days_in(year) } else { rng.below(days_in(year) + 1) },
+                gst_costs: rng.below(4_000_001),
+                other_costs: rng.below(300_001),
+            };
+            let input = json!({"year": year, "residency": if rng.below(4) == 0 { "foreign" } else { "resident" },
+                "salary": "400000", "studyLoan": rng.below(2) == 0, "hospitalCover": rng.below(2) == 0, "kind": l.kind,
+                "firstUsed": if l.after { "after" } else { "before" }, "commitment": l.commitment, "saleYear": sale_year,
+                "price": money(price), "otherSupply": l.other_supply, "reduced": l.reduced, "days": l.days.to_string(), "gstCosts": money(l.gst_costs),
+                "otherCosts": money(l.other_costs)});
+            (json!({"kind": "lease", "lease": input}), lease_oracle(&l))
+        })
+        .unzip();
+    agree(&cases, &expected);
+}
+
+/// Schedule 5 (Tax table for back payments, commissions, bonuses and similar payments, published
+/// 17 June 2026 for payments from 1 July 2026), as its method steps read, in cents. The 'relevant
+/// tax table' is Schedule 1 on scale 2 or 3, plus Schedule 8 with a study loan, each in whole
+/// dollars. B(i) works each earlier pay in turn and adds them up, where the engine multiplies one
+/// pay's result by the count; the 47% limit compares 47 times the payment with 100 times the step's
+/// dollars, where the engine compares cents.
+struct Bonus<'a> {
+    period: &'a str,
+    resident: bool,
+    loan: bool,
+    method_a: bool,
+    earnings: u64,
+    additional: u64,
+    spread: u64,
+    back: (u64, u64, u64, u64),
+    to_date: (u64, u64, u64, u64),
+}
+
+fn per_year(period: &str) -> u64 {
+    match period {
+        "week" => 52,
+        "fortnight" => 26,
+        _ => 12,
+    }
+}
+
+impl Bonus<'_> {
+    /// [tax, study loan, total] in cents withheld from one pay of `earnings` cents.
+    fn table(&self, earnings: u64) -> [u64; 3] {
+        let scale: &[(u64, i64, i64)] = if self.resident { &SCALE_2 } else { &SCALE_3 };
+        let tax = withheld(earnings, self.period, scale) * 100;
+        let loan = if self.loan {
+            withheld(earnings, self.period, &SCHEDULE_8) * 100
+        } else {
+            0
+        };
+        [tax, loan, tax + loan]
+    }
+}
+
+fn split(cents: [u64; 3]) -> Value {
+    json!({"tax": cents[0], "studyLoan": cents[1], "total": cents[2]})
+}
+
+/// Steps 6 and 7 of Method A or B(ii): the higher table less the lower, times `times`.
+fn spread_extra(high: [u64; 3], low: [u64; 3], times: u64) -> [u64; 3] {
+    [0, 1, 2].map(|i| (high[i] - low[i]) * times)
+}
+
+/// The lesser of `amount` cents and 47% of `additional`, cents ignored, nil if negative.
+fn limit_47(amount: i64, additional: u64) -> u64 {
+    let amount = amount.max(0) as u64;
+    let dollars = if amount * 100 <= additional * 47 {
+        amount / 100
+    } else {
+        additional * 47 / 10_000
+    };
+    dollars * 100
+}
+
+fn bonus_oracle(b: &Bonus) -> Value {
+    let pays = per_year(b.period);
+    let floor_dollars = |cents: u64| cents / 100 * 100;
+    if b.method_a {
+        let step1 = floor_dollars(b.earnings);
+        let step2 = b.table(step1);
+        let step3 = floor_dollars(b.additional / b.spread);
+        let step5 = b.table(step1 + step3);
+        let step7 = spread_extra(step5, step2, b.spread);
+        let on_additional = limit_47(step7[2] as i64, b.additional);
+        let year = b.earnings * pays;
+        let owed = |salary: u64| {
+            let r = pay_oracle(&Pay {
+                year: "2026-27",
+                residency: if b.resident { "resident" } else { "foreign" },
+                period: ("year", 1),
+                salary,
+                sacrifice: 0,
+                included: false,
+                loan: b.loan,
+                cover: true,
+            });
+            r["salary"].as_u64().unwrap() - r["net"].as_u64().unwrap()
+        };
+        return json!({"method": "A", "spread": b.spread * 100, "step1": step1, "step2": split(step2),
+            "step3": step3, "step4": step1 + step3, "step5": split(step5), "step7": split(step7),
+            "limit": b.additional * 47 / 100, "onAdditional": on_additional, "onEarnings": step2[2],
+            "total": step2[2] + on_additional,
+            "yearTax": owed(year + b.additional) - owed(year)});
+    }
+    let base = b.table(b.earnings);
+    let (count, before, each, withheld_then) = b.back;
+    let bi = (count > 0).then(|| {
+        let recalculated = b.table(before + each);
+        let sum: i64 = (0..count)
+            .map(|_| recalculated[2] as i64 - withheld_then as i64)
+            .sum();
+        json!({"pays": count * 100, "each": each, "earnings": before + each,
+            "recalculated": split(recalculated), "onBackPayment": sum.max(0)})
+    });
+    let (to_date, pays_to_date, earlier, earlier_withheld) = b.to_date;
+    let bii = (b.additional > 0).then(|| {
+        let step1 = floor_dollars((to_date + each * count) / pays_to_date);
+        let step2 = b.table(step1);
+        let step3 = floor_dollars((earlier + b.additional) / pays);
+        let step5 = b.table(step1 + step3);
+        let step7 = spread_extra(step5, step2, pays);
+        let step8 = step7[2] as i64 - earlier_withheld as i64;
+        json!({"step1": step1, "step2": split(step2), "step3": step3, "step4": step1 + step3,
+            "step5": split(step5), "step7": split(step7), "step8": step8,
+            "limit": b.additional * 47 / 100, "onAdditional": limit_47(step8, b.additional)})
+    });
+    let cents = |v: &Option<Value>, key: &str| v.as_ref().map_or(0, |v| v[key].as_i64().unwrap());
+    let on_additional = cents(&bi, "onBackPayment") + cents(&bii, "onAdditional");
+    json!({"method": "B", "base": split(base), "methodBi": bi, "methodBii": bii, "onEarnings": base[2],
+        "onAdditional": on_additional, "total": base[2] as i64 + on_additional})
+}
+
+#[test]
+fn the_oracle_works_the_schedule_5_examples_by_hand() {
+    let pay = |period, loan, method_a| Bonus {
+        period,
+        resident: true,
+        loan,
+        method_a,
+        earnings: 0,
+        additional: 0,
+        spread: 52,
+        back: (0, 0, 0, 0),
+        to_date: (0, 1, 0, 0),
+    };
+    // Example 1, Jarrod: $1,400 a week and a $900 bonus with HELP, $641 in all.
+    let jarrod = bonus_oracle(&Bonus {
+        earnings: 140_000,
+        additional: 90_000,
+        ..pay("week", true, true)
+    });
+    assert_eq!(jarrod["total"], 64_100);
+    // Example 2, Robyn: 8 weeks of $100 back pay on $1,600, $331 and $40 withheld then, $794 now.
+    let robyn = bonus_oracle(&Bonus {
+        earnings: 170_000,
+        back: (8, 160_000, 10_000, 37_100),
+        ..pay("week", true, false)
+    });
+    assert_eq!(robyn["total"], 79_400);
+    // Example 3, Laura: $2,480 of arrears, $18,000 over 10 fortnights, $992.
+    let laura = bonus_oracle(&Bonus {
+        earnings: 180_000,
+        additional: 248_000,
+        to_date: (1_800_000, 10, 0, 0),
+        ..pay("fortnight", false, false)
+    });
+    assert_eq!(laura["total"], 99_200);
+    // Example 4, Bradley: $1,600 by B(i) and $8,800 by B(ii) with a Financial Supplement debt, $6,492.
+    let bradley = bonus_oracle(&Bonus {
+        earnings: 700_000,
+        additional: 880_000,
+        back: (2, 620_000, 80_000, 125_700),
+        to_date: (1_940_000, 3, 0, 0),
+        ..pay("month", true, false)
+    });
+    assert_eq!(bradley["total"], 649_200);
+}
+
+#[test]
+fn the_bonus_withholding_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1119_1A7C_0005);
+    let money = |cents: u64| format!("{}.{:02}", cents / 100, cents % 100);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..BONUS_CASES)
+        .map(|_| {
+            let period = rng.pick(&["week", "fortnight", "month"]);
+            let pays = per_year(period);
+            // Weekly earnings near a Schedule 1 or 8 threshold, or any to $6,000, as this period's pay.
+            let weekly = rng.income(&[362, 538, 673, 721, 865, 1282, 1337, 2494, 2596, 3577, 3653]) % 6_000;
+            let earnings = weekly * 100 * 52 / pays + if rng.below(2) == 0 { rng.below(100) } else { 0 };
+            let additional = rng.below(2_000_000) + 1;
+            let method_a = rng.below(2) == 0;
+            let back = if method_a || rng.below(3) == 0 {
+                (0, 0, 0, 0)
+            } else {
+                (rng.below(pays - 1) + 1, rng.below(800_000), rng.below(50_000) + 1, rng.below(300_000))
+            };
+            let additional = if !method_a && back.0 > 0 && rng.below(2) == 0 { 0 } else { additional };
+            let pays_to_date = rng.below(pays) + 1;
+            let to_date = earnings + rng.below(400_000) * (pays_to_date - 1);
+            let earlier = if rng.below(2) == 0 { rng.below(1_000_000) } else { 0 };
+            let b = Bonus {
+                period,
+                resident: rng.below(3) != 0,
+                loan: rng.below(2) == 0,
+                method_a,
+                earnings,
+                additional,
+                spread: if rng.below(3) == 0 { rng.below(pays - 1) + 2 } else { pays },
+                back,
+                to_date: (to_date, pays_to_date, earlier, if earlier > 0 { rng.below(400_000) } else { 0 }),
+            };
+            let bonus = json!({"period": period, "residency": if b.resident { "resident" } else { "foreign" },
+                "studyLoan": b.loan, "method": if method_a { "A" } else { "B" }, "earnings": money(earnings),
+                "additional": money(additional), "spread": b.spread.to_string(), "backPays": back.0.to_string(),
+                "backEarnings": money(back.1), "backEach": money(back.2), "backWithheld": money(back.3),
+                "yearToDate": money(to_date), "paysToDate": pays_to_date.to_string(),
+                "earlierAdditional": money(earlier), "earlierWithheld": money(b.to_date.3)});
+            (json!({"kind": "bonus", "bonus": bonus}), bonus_oracle(&b))
+        })
+        .unzip();
+    agree(&cases, &expected);
+}
+
 /// The general concessional contributions cap in whole dollars, typed from the ATO's 'Contributions
 /// caps' (Table 1.1, last updated 11 September 2026, read 19 November 2026).
 fn concessional_cap(year: &str) -> u64 {
@@ -1463,4 +2178,163 @@ fn the_income_tests_engine_agrees_with_the_oracle_on_every_seeded_case() {
         })
         .unzip();
     agree(&cases, &expected);
+}
+
+const OWNER_CASES: usize = 160;
+const OWNER_SCANS: usize = 24;
+
+/// A company owner's year: the company's profit before the owner's pay and other taxable income,
+/// in cents, and whether the company is a base rate entity.
+struct Owner<'a> {
+    year: &'a str,
+    profit: u64,
+    base_rate: bool,
+    other: u64,
+}
+
+fn resident_total(income: u64, year: &str) -> i64 {
+    tax_oracle(income, year, "resident")["total"]
+        .as_i64()
+        .unwrap()
+}
+
+fn owner_super(salary: u64, year: &str) -> u64 {
+    let (mille, cap, _) = super_guarantee(year);
+    half_up(salary.min(cap * 100) * mille, 1000)
+}
+
+/// The largest salary whose super guarantee the profit also pays, by bisection.
+fn owner_largest(o: &Owner) -> u64 {
+    let (mut low, mut high) = (0, o.profit);
+    while low < high {
+        let middle = (low + high).div_ceil(2);
+        if middle + owner_super(middle, o.year) <= o.profit {
+            low = middle;
+        } else {
+            high = middle - 1;
+        }
+    }
+    low
+}
+
+/// One split in cents: the salary and its super guarantee; company tax at 25% or 30% of the rest,
+/// half up; the rest a dividend franked at 1/3 or 3/7 of itself, rounded down (ITAA 1997 s 202-60);
+/// the owner's tax on other income, salary, dividend and credit (s 207-20), less up to $1,000 of
+/// salary from 2026-27 (s 25-130), to the dollar, less the credit and the tax on the other income
+/// alone; super less 15% of the super guarantee and 15% of the part over $250,000 (s 293-20).
+fn owner_split(o: &Owner, salary: u64) -> Value {
+    let sg = owner_super(salary, o.year);
+    let left = o.profit - salary - sg;
+    let rate = if o.base_rate { 25 } else { 30 };
+    let company_tax = half_up(left * rate, 100);
+    let dividend = left - company_tax;
+    let credit = dividend * rate / (100 - rate);
+    let deduction = if o.year == "2026-27" {
+        salary.min(100_000)
+    } else {
+        0
+    };
+    let taxable = (o.other + salary + dividend + credit - deduction) / 100;
+    let owner_tax =
+        resident_total(taxable, o.year) - credit as i64 - resident_total(o.other / 100, o.year);
+    let excess = (taxable * 100 + sg).saturating_sub(25_000_000).min(sg);
+    let division_293 = half_up(excess * 15, 100);
+    let super_tax = half_up(sg * 15, 100) + division_293;
+    let cash = (salary + dividend) as i64 - owner_tax;
+    json!({"salary": salary, "superGuarantee": sg, "companyTax": company_tax, "dividend": dividend,
+        "credit": credit, "taxable": taxable * 100, "ownerTax": owner_tax, "cash": cash, "superTax": super_tax,
+        "superNet": sg - super_tax, "kept": cash + (sg - super_tax) as i64, "division293": division_293})
+}
+
+fn kept(split: &Value) -> i64 {
+    split["kept"].as_i64().unwrap()
+}
+
+#[test]
+fn the_salary_dividend_oracle_works_the_page_example_by_hand() {
+    let o = Owner {
+        year: "2026-27",
+        profit: 20_000_000,
+        base_rate: true,
+        other: 0,
+    };
+    // $12,000 of super guarantee, $22,000 of company tax, a $66,000 dividend with a $22,000
+    // credit; tax on $187,000 of $54,000 less the credit; $134,000 cash and $10,200 of super.
+    let split = owner_split(&o, 10_000_000);
+    assert_eq!(
+        split,
+        json!({"salary": 10_000_000, "superGuarantee": 1_200_000, "companyTax": 2_200_000,
+            "dividend": 6_600_000, "credit": 2_200_000, "taxable": 18_700_000, "ownerTax": 3_200_000,
+            "cash": 13_400_000, "superTax": 180_000, "superNet": 1_020_000, "kept": 14_420_000,
+            "division293": 0})
+    );
+    // All salary: $178,571.43 and its $21,428.57 of super guarantee use the whole profit.
+    assert_eq!(owner_largest(&o), 17_857_143);
+    assert_eq!(kept(&owner_split(&o, 17_857_143)), 14_646_302);
+}
+
+#[test]
+fn the_salary_dividend_engine_agrees_with_the_oracle_and_no_dollar_of_salary_keeps_more() {
+    let mut rng = Seeded(0x2026_1119_5A1A_D1F0);
+    let money = |cents: u64| format!("{}.{:02}", cents / 100, cents % 100);
+    let mut owners = Vec::new();
+    let mut cases = Vec::new();
+    for index in 0..OWNER_CASES + OWNER_SCANS {
+        let profit = if index < OWNER_CASES {
+            rng.income(&[0, 20_000, 40_000, 60_000, 250_000, 300_000, 350_000]) * 100
+                + rng.below(100)
+        } else {
+            (5_000 + rng.below(35_001)) * 100
+        };
+        let some = rng.below(15_000_001);
+        let other = rng.pick(&[0, 0, some]);
+        let o = Owner {
+            year: rng.pick(&PAY_YEARS),
+            profit,
+            base_rate: rng.below(2) == 0,
+            other,
+        };
+        let largest = owner_largest(&o);
+        let any = rng.below(largest + 1);
+        let cap = super_guarantee(o.year).1 * 100;
+        let salary = rng.pick(&[0, largest, cap.min(largest), any, any]);
+        let pay = json!({"year": o.year, "profit": money(profit), "baseRate": o.base_rate,
+            "salary": money(salary), "other": money(other)});
+        cases.push(json!({"kind": "owner", "pay": pay}));
+        owners.push((o, salary, largest, index >= OWNER_CASES));
+    }
+    let actual = run_node(&cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, (o, salary, largest, scan)), got) in cases.iter().zip(&owners).zip(&actual) {
+        let best_salary = got["bestSalary"].as_u64().unwrap();
+        assert!(best_salary <= *largest, "{case}");
+        let best = owner_split(o, best_salary);
+        let mut want = owner_split(o, *salary);
+        let all_salary = owner_split(o, *largest);
+        let all_dividends = owner_split(o, 0);
+        for (key, value) in [
+            ("largest", json!(largest)),
+            ("allSalary", all_salary["kept"].clone()),
+            ("allDividends", all_dividends["kept"].clone()),
+            ("bestSalary", json!(best_salary)),
+            ("bestKept", best["kept"].clone()),
+            ("bestCash", best["cash"].clone()),
+            ("bestSuper", best["superNet"].clone()),
+        ] {
+            want[key] = value;
+        }
+        assert_eq!(got, &want, "{case}");
+        // Rounding to the cent and taxable income to the dollar move the total by cents from one
+        // dollar of salary to the next, so the best may trail another salary by less than $1.
+        let mut others = vec![kept(&want), kept(&all_salary), kept(&all_dividends)];
+        if *scan {
+            others.extend((0..=largest / 100).map(|dollars| kept(&owner_split(o, dollars * 100))));
+        }
+        let most = others.into_iter().max().unwrap();
+        assert!(
+            kept(&best) > most - 100,
+            "{case}: {} against {most}",
+            kept(&best)
+        );
+    }
 }

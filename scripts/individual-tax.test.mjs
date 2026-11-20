@@ -16,8 +16,13 @@ import { lumpSumArrears } from '../assets/lump-sum-arrears.mjs';
 import { SOLE_TRADER_YEARS, soleTraderSetAside } from '../assets/sole-trader.mjs';
 import { incomeTests, INCOME_TEST_PARTS } from '../assets/income-tests.mjs';
 import { CAP, concessionalCatchUp } from '../assets/concessional-catch-up.mjs';
+import { superProjection } from '../assets/super-projection.mjs';
 
-const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAside, lumpSumArrears, division293Tax, incomeTests, concessionalCatchUp };
+import { bonusWithholding } from '../assets/bonus-withholding.mjs';
+import { salaryPackaging } from '../assets/salary-packaging.mjs';
+import { FUEL_EFFICIENT_THRESHOLD, novatedLease } from '../assets/novated-lease.mjs';
+const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAside, lumpSumArrears, division293Tax, incomeTests, concessionalCatchUp,
+  bonusWithholding, salaryPackaging, novatedLease, superProjection };
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -27,7 +32,9 @@ const PARTS = [['taxable', 'taxable income'], ['fringe', 'fringe benefits'], ['l
 const PERIOD = { year: 'a year', month: 'a month', fortnight: 'a fortnight', week: 'a week' };
 const parts = (r) => PARTS.filter(([key]) => key === 'taxable' || r[key] !== '0').map(([key, label]) => `${label} ${whole(r[key])}`)
   .join(', ');
+const flags = (c) => `${c.studyLoan ? ', study loan' : ''}${c.hospitalCover ? '' : ', no hospital cover'}`;
 const settle = (value) => `${value < 0 ? 'owing' : 'refund'} ${dollars(Math.abs(value))}`;
+const PAY_NAME = { week: 'weekly', fortnight: 'fortnightly', month: 'monthly' };
 const DIVISION_293_PARTS = [['fringe', 'fringe benefits'], ['losses', 'net investment loss'],
   ['trust', 'family trust distribution tax income'], ['fhss', 'less FHSS'], ['lumpSum', 'less zero-rate lump sum']];
 const INCOME_TEST_LABELS = { taxable: 'taxable', fhss: 'FHSS', familyTrust: 'family trust', fringe57a: 'section 57A fringe',
@@ -47,6 +54,24 @@ const INPUTS = {
     + `${p.includesSuper ? 'including' : 'plus'} super${p.sacrifice === '0' ? '' : `, ${whole(p.sacrifice)} sacrificed`}`
     + `${p.studyLoan ? ', study loan' : ''}${p.hospitalCover ? '' : ', no hospital cover'}`,
   studyLoanRepayment: (r, year) => `${year}: ${parts(r)}`,
+  superProjection: (p) => `Age ${p.age} to ${p.retire}, balance ${dollars(p.balance)}, salary ${whole(p.salary)} at ${p.employer}%`
+    + `${p.sacrifice === '0' ? '' : `, sacrifice ${dollars(p.sacrifice)}`}`
+    + `${p.afterTax === '0' ? '' : `, after tax ${dollars(p.afterTax)}`}`
+    + `, return ${p.returnRate}%, fees ${dollars(p.adminFee)} and ${p.percentFee}%, premiums ${dollars(p.insurance)}`
+    + `, growth ${p.growth}%, present value at ${p.discount}%`,
+  salaryPackaging: (p) => `${p.year}, ${p.employer}, ${p.residency}, salary ${whole(p.salary)}, Type 2 ${dollars(p.typeTwo)}`
+    + `${p.typeOne === '0' ? '' : `, Type 1 ${dollars(p.typeOne)}`}`
+    + `${p.meals === '0' ? '' : `, meal entertainment ${dollars(p.meals)} (Type ${p.mealsTypeOne ? 1 : 2})`}${flags(p)}`,
+  novatedLease: (n) => `${n.year}, ${n.kind}, first held and used ${n.firstUsed} 1 July 2022`
+    + `${n.commitment ? ', earlier commitment' : ''}, sold ${n.saleYear} at ${dollars(n.price)}${n.otherSupply ? ', luxury car tax at another supply' : ''}`
+    + `${n.reduced ? ', held over 4 years' : ''}, `
+    + `${n.days} days, costs ${dollars(n.gstCosts)} with GST and ${dollars(n.otherCosts)} without, salary ${whole(n.salary)}${flags(n)}`,
+  bonusWithholding: (b) => `${PAY_NAME[b.period]}, scale ${b.residency === 'resident' ? 2 : 3}${b.studyLoan ? ', study loan' : ''}, `
+    + `${dollars(b.earnings)} this pay; ` + (b.method === 'A' ? `Method A: ${dollars(b.additional)} over ${b.spread} pays`
+    : [b.backPays !== '0' ? `B(i): ${dollars(b.backEach)} for each of ${b.backPays} pays of ${dollars(b.backEarnings)} that had `
+      + `${dollars(b.backWithheld)} withheld` : '', b.additional !== '0' ? `B(ii): ${dollars(b.additional)}, ${dollars(b.yearToDate)} `
+      + `over ${b.paysToDate} pays to date${b.earlierAdditional === '0' ? '' : `, earlier ${dollars(b.earlierAdditional)} with `
+      + `${dollars(b.earlierWithheld)} withheld`}` : ''].filter(Boolean).join('; ')),
   division293Tax: (d) => `${d.year}: taxable income ${whole(d.taxable)}`
     + DIVISION_293_PARTS.filter(([key]) => d[key] !== '0').map(([key, label]) => `, ${label} ${whole(d[key])}`).join('')
     + `; contributions ${dollars(d.concessional)}`
@@ -78,6 +103,16 @@ const OUTPUTS = {
     + `${r.withheld ? `; withheld ${dollars(r.withheld.total)} a pay, ${settle(r.withheld.refund)}` : ''}`
     + `${r.overCap ? `; ${dollars(r.overCap)} over the cap` : ''}${r.division293 ? `; Division 293 on ${dollars(r.division293)}` : ''}`,
   studyLoanRepayment: (r) => `Repayment income ${dollars(r.repaymentIncome)}, repayment ${dollars(r.repayment)}`,
+  superProjection: (r) => `${r.years} year${r.years === 1 ? '' : 's'}: ${dollars(r.balance)}, present value ${dollars(r.present)}`,
+  salaryPackaging: (r) => `Gain ${dollars(r.gain)}: tax saved ${dollars(r.saved)}, FBT ${dollars(r.fbt)}, `
+    + `reportable ${whole(r.reportable)}`,
+  novatedLease: (r) => `${r.exempt ? 'Exempt' : `Not exempt (${r.reason})`}: value ${dollars(r.taxableValue)}, saving `
+    + `${dollars((r.exemptCase ?? r.contribution).saving)}`
+    + `${r.exempt && r.contribution ? `, ${dollars(r.contribution.saving)} without the exemption` : ''}`,
+  bonusWithholding: (r) => `Withheld ${dollars(r.total)}: ${dollars(r.onEarnings)} on earnings`
+    + (r.method === 'A' ? `, ${dollars(r.onAdditional)} on the payment (limit ${dollars(r.limit)}); adds ${dollars(r.yearTax)} to a year`
+      : `${r.methodBi ? `, ${dollars(r.methodBi.onBackPayment)} by B(i)` : ''}`
+        + `${r.methodBii ? `, ${dollars(r.methodBii.onAdditional)} by B(ii) (limit ${dollars(r.methodBii.limit)})` : ''}`),
   division293Tax: (r) => `Division 293 income ${dollars(r.income)}, low tax contributions ${dollars(r.low)}`
     + `${r.excess ? ` after ${dollars(r.excess)} excess` : ''}, taxable contributions ${dollars(r.taxable)}, tax ${dollars(r.tax)}`,
   soleTraderSetAside: (r, s) => `Offset ${dollars(r.smallBusinessOffset)}, business tax ${dollars(r.businessTax)}`
@@ -129,6 +164,20 @@ const FORM_CALLS = {
     includesSuper: f.super === 'included', sacrifice: f.sacrifice, studyLoan: f['study-loan'] === 'yes',
     hospitalCover: f.cover === 'yes' }],
   studyLoanRepayment: (f) => [{ taxable: f.taxable, fringe: f.fringe, losses: f.losses, super: f.super, foreign: f.foreign }, f.year],
+  superProjection: (f) => [{ age: f.age, retire: f.retire, balance: f.balance, salary: f.salary, employer: f.employer,
+    sacrifice: f.sacrifice, afterTax: f['after-tax'], returnRate: f.return, percentFee: f['percent-fee'], adminFee: f['admin-fee'],
+    insurance: f.insurance, growth: f.growth, discount: f.discount }],
+  salaryPackaging: (f) => [{ year: f.year, residency: f.residency, employer: f.employer, salary: f.salary, typeTwo: f['type-two'],
+    typeOne: f['type-one'], meals: f.meals, mealsTypeOne: f['meals-type-one'] === 'yes', studyLoan: f['study-loan'] === 'yes',
+    hospitalCover: f.cover === 'yes' }],
+  novatedLease: (f) => [{ year: f.year, residency: f.residency, salary: f.salary, studyLoan: f['study-loan'] === 'yes',
+    hospitalCover: f.cover === 'yes', kind: f.kind, firstUsed: f['first-used'], commitment: f.commitment === 'yes',
+    saleYear: f['sale-year'], price: f.price, otherSupply: f['other-supply'] === 'yes', reduced: f.reduced === 'yes', days: f.days,
+    gstCosts: f['gst-costs'], otherCosts: f['other-costs'] }],
+  bonusWithholding: (f) => [{ period: f.period, residency: f.residency, studyLoan: f['study-loan'] === 'yes', method: f.method,
+    earnings: f.earnings, additional: f.additional, spread: f.spread, backPays: f['back-pays'], backEarnings: f['back-earnings'],
+    backEach: f['back-each'], backWithheld: f['back-withheld'], yearToDate: f['year-to-date'], paysToDate: f['pays-to-date'],
+    earlierAdditional: f['earlier-additional'], earlierWithheld: f['earlier-withheld'] }],
   division293Tax: (f) => [{ year: f.year, interests: f.interests, taxable: f.taxable, fringe: f.fringe, losses: f.losses,
     trust: f.trust, fhss: f.fhss, lumpSum: f['lump-sum'], concessional: f.concessional, unused: f.unused,
     balanceUnder: f['balance-under'] === 'yes' }],
@@ -536,6 +585,247 @@ test('a form that is not an individual tax calculator gets no result, whatever i
   for (const kind of ['gst', 'constructor', 'toString', '__proto__']) {
     assert.equal(individualResult(kind, () => '0', String), undefined, kind);
   }
+});
+
+const SUPER = { age: '30', retire: '67', balance: '50000', salary: '80000', employer: '12', sacrifice: '0', afterTax: '0',
+  returnRate: '6.1', percentFee: '0.11', adminFee: '59', insurance: '599', growth: '3.7', discount: '3.7' };
+const project = (fields) => superProjection({ ...SUPER, ...fields });
+
+// Worked by hand: $50,000, $9,600 from the employer less $1,440 tax, $59 and $599 out, so $7,502 of net flows;
+// 6.1% and 0.11% of $53,751 are $3,278.81 and $59.13; 15% of the $717.13 of fees is deducted.
+test('super projection works one year by hand', () => {
+  const r = project({ age: '66' });
+  assert.deepEqual([r.employer, r.contributed, r.earnings, r.fees, r.balance], [9600, 8160, 3278.81, 609.56, 60829.25]);
+  assert.equal(r.present, 58658.87);
+});
+
+test('super projection adds up: the balance is the start plus contributions and earnings less fees', () => {
+  for (const fields of [{}, { sacrifice: '22900' }, { employer: '0', afterTax: '5000' }, { age: '45', retire: '60' }]) {
+    const r = project(fields);
+    assert.equal(Math.round((50000 + r.contributed + r.earnings - r.fees) * 100), Math.round(r.balance * 100));
+  }
+});
+
+// ASIC Corporations (Superannuation Calculators and Retirement Estimates) Instrument 2022/603, s 4 'present value'.
+test('super projection discounts the final balance at the Instrument’s 3.7% for each year', () => {
+  const r = project({});
+  assert.equal(r.years, 37);
+  assert.equal(r.present, Math.round((r.balance / 1.037 ** 37) * 100) / 100);
+  assert.equal(project({ discount: '0' }).present, r.balance);
+});
+
+// Instrument 2022/603, s 4 'assumed retirement age': the greater of the age entered and the preservation age, 60.
+test('super projection takes a retirement age under 60 as the preservation age', () => {
+  const early = project({ age: '45', retire: '55' });
+  assert.deepEqual([early.retire, early.years], [60, 15]);
+  assert.deepEqual(early, project({ age: '45', retire: '60' }));
+  assert.throws(() => project({ age: '60', retire: '59' }), /after your current age/);
+});
+
+test('super projection pays the employer rate only up to the maximum contribution base', () => {
+  assert.equal(project({ salary: '270830' }).employer, 32499.6);
+  assert.equal(project({ salary: '300000', employer: '10' }).employer, 27083);
+  assert.equal(project({ salary: '400000' }).employer, 32499.6);
+  assert.equal(project({ employer: '15' }).employer, 12000);
+});
+
+test('super projection grows salary, contributions, fees and premiums with wages after the first year', () => {
+  const flat = project({ age: '65', returnRate: '0', percentFee: '0', growth: '0', discount: '0' });
+  const grown = project({ age: '65', returnRate: '0', percentFee: '0', growth: '10', discount: '0' });
+  assert.equal(grown.contributed - flat.contributed, 816);
+  assert.equal(Math.round((grown.fees - flat.fees) * 100), Math.round(65.8 * 85));
+});
+
+test('super projection lets fees take no more than the account holds', () => {
+  const r = project({ balance: '1000', salary: '0', employer: '0' });
+  assert.equal(r.balance, 0);
+  assert.equal(Math.round((1000 + r.earnings) * 100), Math.round(r.fees * 100));
+});
+
+test('super projection refuses what it does not compute', () => {
+  assert.throws(() => project({ retire: '14' }), /between 15 and 75/);
+  assert.throws(() => project({ retire: '76' }), /between 15 and 75/);
+  assert.throws(() => project({ age: '67', retire: '67' }), /after your current age/);
+  assert.throws(() => project({ age: '14' }), /between 15 and 74/);
+  assert.throws(() => project({ sacrifice: '22900.01' }), /above the \$32,500 cap/);
+  assert.equal(project({ sacrifice: '22900' }).concessional, 32500);
+  assert.throws(() => project({ afterTax: '130000.01' }), /above the \$130,000 cap/);
+  assert.throws(() => project({ returnRate: '20.01' }), /between 0 and 20/);
+  assert.throws(() => project({ employer: '30.01' }), /between 0 and 30/);
+  assert.throws(() => project({ percentFee: '0.111' }), /2 decimal places/);
+  assert.throws(() => project({ salary: '80000.5' }), /whole number/);
+});
+
+const PACK = { year: '2026-27', residency: 'resident', employer: 'charity', salary: '80000', typeTwo: '0', typeOne: '0', meals: '0',
+  mealsTypeOne: true, studyLoan: false, hospitalCover: true };
+const pack = (fields) => salaryPackaging({ ...PACK, ...fields });
+
+// The ATO's Fringe benefits tax – a guide for employers, chapter 6, section 6.10 (read 19 November 2026): a health
+// promotion charity employee with a $7,700 Type 1 car, $9,000 of Type 2 benefits and $3,300 of meal entertainment.
+test('salary packaging gives the FBT in the ATO’s worked example', () => {
+  const r = pack({ typeOne: '7700', typeTwo: '9000', meals: '3300', mealsTypeOne: false });
+  assert.deepEqual([r.grossedTypeOne, r.grossedTypeTwo, r.grossed, r.mealAllowance, r.excess, r.fbt],
+    [16018, 23208, 39226, 5000, 4226, 1986.22]);
+});
+
+test('salary packaging rounds each grossed-up total to the dollar against the cap', () => {
+  assert.equal(pack({ typeTwo: '15900.20' }).excess, 0);
+  assert.equal(pack({ typeTwo: '15900.21' }).fbt, 0.47);
+  assert.equal(pack({ employer: 'hospital', typeTwo: '9009.96' }).excess, 0);
+  assert.equal(pack({ employer: 'hospital', typeTwo: '9010.23' }).excess, 1);
+  assert.equal(pack({ typeOne: '1000' }).grossedTypeOne, 2080);
+});
+
+test('salary packaging lets up to $5,000 of meal entertainment over the cap and no more', () => {
+  const within = pack({ typeTwo: '15899.93', meals: '2403.61' });
+  assert.deepEqual([within.grossedMeals, within.mealAllowance, within.fbt], [5000, 5000, 0]);
+  const over = pack({ typeTwo: '20000', meals: '3000' });
+  assert.equal(over.mealAllowance, 5000);
+  assert.equal(over.excess, 37736 + 6241 - 30000 - 5000);
+  assert.equal(pack({ meals: '3000' }).mealAllowance, 0);
+});
+
+test('salary packaging reports benefits over $2,000 grossed up at 1 / 0.53, cents dropped', () => {
+  assert.equal(pack({ typeTwo: '2000' }).reportable, 0);
+  assert.equal(pack({ typeTwo: '2000.01' }).reportable, 3773);
+  assert.equal(pack({ typeTwo: '15899.93' }).reportable, 29999);
+  assert.equal(pack({ typeOne: '3000', meals: '2000' }).reportable, 9433);
+});
+
+test('salary packaging adds the reportable amount for the surcharge and the study loan', () => {
+  const r = pack({ salary: '100000', typeTwo: '15899.93', studyLoan: true, hospitalCover: false });
+  assert.ok(r.surchargeAfter > 0);
+  assert.ok(r.studyLoanAfter > 0);
+  assert.equal(pack({ salary: '100000', typeTwo: '15899.93' }).surchargeAfter, 0);
+});
+
+test('salary packaging takes the standard deduction only from 2026-27 and for a resident', () => {
+  assert.equal(pack({}).taxableBefore, 79000);
+  assert.equal(pack({ year: '2025-26' }).taxableBefore, 80000);
+  assert.equal(pack({ residency: 'foreign' }).taxableBefore, 80000);
+});
+
+test('salary packaging refuses what it does not compute', () => {
+  assert.throws(() => pack({ year: '2021-22' }), { message: 'Choose an income year from 2022-23 to 2026-27.' });
+  assert.throws(() => pack({ residency: 'working-holiday' }), { message: 'Choose an Australian resident or a foreign resident.' });
+  assert.throws(() => pack({ employer: 'rebatable' }), /public benevolent institution/);
+  assert.throws(() => pack({ studyLoan: 'yes' }), { message: 'Answer each yes or no question.' });
+  assert.throws(() => pack({ salary: '1000', typeTwo: '1000.01' }), { message: 'The benefits packaged cannot exceed the salary.' });
+  assert.throws(() => pack({ typeTwo: '-1' }), /between 0/);
+});
+
+const LEASE = { year: '2026-27', residency: 'resident', salary: '100000', studyLoan: false, hospitalCover: true, kind: 'bev',
+  firstUsed: 'after', commitment: false, saleYear: '2026-27', price: '60000', otherSupply: false, reduced: false, days: '365',
+  gstCosts: '15000', otherCosts: '1000' };
+const lease = (fields) => novatedLease({ ...LEASE, ...fields });
+
+test('novated lease tests each condition of the electric car exemption', () => {
+  assert.equal(lease({}).exempt, true);
+  assert.equal(lease({ kind: 'fcev' }).exempt, true);
+  assert.equal(lease({ kind: 'other' }).reason, 'it is not a battery electric or hydrogen fuel cell car');
+  assert.match(lease({ kind: 'phev' }).reason, /only under a commitment/);
+  assert.equal(lease({ kind: 'phev', commitment: true, saleYear: '2024-25' }).exempt, true);
+  // A plug-in hybrid in use before 1 April 2025 cannot have been first sold after 2024-25.
+  assert.throws(() => lease({ kind: 'phev', commitment: true, saleYear: '2025-26' }), /first sold by 2024-25/);
+  assert.equal(lease({ kind: 'phev', year: '2024-25', saleYear: '2024-25' }).exempt, true);
+  assert.equal(lease({ firstUsed: 'before', saleYear: '2021-22' }).reason, 'it was first held and used before 1 July 2022');
+  assert.equal(lease({ price: '91661', gstCosts: '25000' }).exempt, true);
+  assert.equal(lease({ price: '91661.01', gstCosts: '25000' }).reason, 'luxury car tax was payable on its first retail sale');
+  assert.equal(lease({ saleYear: '2025-26', price: '91387.01', gstCosts: '25000' }).exempt, false);
+  assert.equal(lease({ saleYear: '2025-26', price: '91387', gstCosts: '25000' }).exempt, true);
+  assert.equal(lease({ otherSupply: true }).reason, 'luxury car tax became payable on another supply or an importation of it');
+});
+
+// The ATO's Luxury car tax rate and thresholds (last updated 1 June 2026, read 19 November 2026).
+test('novated lease uses the ATO’s fuel-efficient luxury car tax thresholds', () => {
+  assert.deepEqual(FUEL_EFFICIENT_THRESHOLD, { '2026-27': 91661, '2025-26': 91387, '2024-25': 91387, '2023-24': 89332,
+    '2022-23': 84916, '2021-22': 79659 });
+});
+
+test('novated lease values the car by the statutory formula over the days available', () => {
+  assert.equal(lease({}).taxableValue, 12000);
+  assert.equal(lease({ reduced: true }).taxableValue, 8000);
+  assert.equal(lease({ days: '182' }).taxableValue, 5983.56);
+  assert.equal(lease({ year: '2023-24', saleYear: '2023-24' }).taxableValue, 11967.21);
+  assert.equal(lease({ days: '0' }).taxableValue, 0);
+});
+
+test('novated lease splits the costs as the exemption or the employee contribution method requires', () => {
+  const r = lease({});
+  assert.equal(r.netCosts, 14636.36);
+  assert.deepEqual([r.exemptCase.preTax, r.exemptCase.postTax, r.exemptCase.reportable], [14636.36, 0, 22641]);
+  assert.deepEqual([r.contribution.preTax, r.contribution.postTax, r.contribution.reportable], [3727.27, 12000, 0]);
+  assert.equal(r.exemptCase.saving, 6047.48);
+  assert.equal(r.contribution.saving, 1465.69);
+  assert.equal(lease({ kind: 'other' }).exemptCase, null);
+  assert.equal(lease({ days: '0' }).exemptCase.reportable, 0);
+});
+
+test('novated lease refuses what it does not compute', () => {
+  assert.throws(() => lease({ year: '2022-23', saleYear: '2022-23' }), { message: 'Choose an income year from 2023-24 to 2026-27.' });
+  assert.throws(() => lease({ kind: 'diesel' }), { message: 'Choose the kind of car.' });
+  assert.throws(() => lease({ firstUsed: 'later' }), { message: 'Say when the car was first held and used.' });
+  assert.throws(() => lease({ saleYear: '2027-28' }), /first retail sale, from 2021-22 to the income year/);
+  assert.throws(() => lease({ year: '2024-25', saleYear: '2025-26' }), /first retail sale/);
+  assert.throws(() => lease({ price: '0' }), { message: 'Enter the car’s cost price.' });
+  assert.throws(() => lease({ salary: '10000', gstCosts: '15000' }), { message: 'The car’s costs cannot exceed the salary.' });
+  assert.throws(() => lease({ kind: 'other', gstCosts: '1000' }), /cannot cover it/);
+  assert.throws(() => lease({ commitment: 'no' }), { message: 'Answer each yes or no question.' });
+  assert.throws(() => lease({ otherSupply: undefined }), { message: 'Answer each yes or no question.' });
+  assert.throws(() => lease({ days: '367' }), /between 0/);
+});
+
+const BONUS = { period: 'week', residency: 'resident', studyLoan: false, method: 'A', earnings: '0', additional: '0', spread: '52',
+  backPays: '0', backEarnings: '0', backEach: '0', backWithheld: '0', yearToDate: '0', paysToDate: '1', earlierAdditional: '0',
+  earlierWithheld: '0' };
+const bonus = (fields) => bonusWithholding({ ...BONUS, ...fields });
+
+// Schedule 5, 'Withholding amounts examples' (published 17 June 2026), read 19 November 2026: each step of example 1.
+test('Method A gives each step of the ATO’s example 1, Jarrod, with and without HELP', () => {
+  const plain = bonus({ earnings: '1400', additional: '900' });
+  assert.deepEqual([plain.step1, plain.step2.tax, plain.step3, plain.step4, plain.step5.tax, plain.step7.tax, plain.limit],
+    [1400, 267, 17, 1417, 272, 260, 423]);
+  const help = bonus({ earnings: '1400', additional: '900', studyLoan: true });
+  assert.deepEqual([help.step2.studyLoan, help.step5.studyLoan, help.step7.studyLoan, help.onAdditional, help.total],
+    [10, 12, 104, 364, 641]);
+});
+
+test('the 47% limit applies to the additional payment with its study loan component, cents ignored', () => {
+  const r = bonus({ earnings: '4000', additional: '5200.99', studyLoan: true });
+  assert.equal(r.step7.total, 2964);
+  assert.equal(r.limit, 2444.46);
+  assert.equal(r.onAdditional, 2444);
+  assert.equal(r.total, r.step2.total + 2444);
+  // Method B(i) has no limit: with nothing withheld before, the earlier pay's whole withholding is more than 47%.
+  const back = bonus({ method: 'B', earnings: '4000', backPays: '1', backEarnings: '4000', backEach: '5200', backWithheld: '0' });
+  assert.ok(back.methodBi.onBackPayment > 5200 * 0.47);
+});
+
+test('Method B(ii) averages this pay’s B(i) back payment into the earnings to date, as example 4 does', () => {
+  const r = bonus({ method: 'B', period: 'month', studyLoan: true, earnings: '7000', backPays: '2', backEarnings: '6200',
+    backEach: '800', backWithheld: '1257', additional: '8800', yearToDate: '19400', paysToDate: '3' });
+  assert.equal(r.methodBii.step1, 7000);
+  assert.deepEqual([r.methodBii.step7.tax, r.methodBii.step7.studyLoan], [2808, 1296]);
+  assert.equal(r.total, 6492);
+});
+
+test('the bonus calculator refuses what Schedule 5 or its scales here do not cover', () => {
+  assert.throws(() => bonus({ period: 'year', additional: '1' }), { message: 'Choose weekly, fortnightly or monthly pay.' });
+  assert.throws(() => bonus({ residency: 'working-holiday', additional: '1' }), /tax-free threshold or a foreign resident/);
+  assert.throws(() => bonus({ studyLoan: 'no', additional: '1' }), { message: 'Say whether the payee has a study or training loan.' });
+  assert.throws(() => bonus({ method: 'C', additional: '1' }), { message: 'Choose Method A or Method B.' });
+  assert.throws(() => bonus({}), { message: 'Enter the additional payment.' });
+  assert.throws(() => bonus({ additional: '1', spread: '1' }), /between 2 and 52/);
+  assert.throws(() => bonus({ period: 'month', additional: '1', spread: '13' }), /between 2 and 12/);
+  assert.throws(() => bonus({ method: 'B' }), /back payment for earlier pays this year or another additional payment/);
+  assert.throws(() => bonus({ method: 'B', backPays: '53' }), /between 0 and 52/);
+  assert.throws(() => bonus({ method: 'B', backPays: '2' }), { message: 'Enter the back payment for each earlier pay.' });
+  assert.throws(() => bonus({ method: 'B', earnings: '100', additional: '1', yearToDate: '99' }),
+    { message: 'Enter normal earnings to date that include this pay.' });
+  // The first failure wins: a missing payment before a bad spread, a missing B(i) amount before a bad B(ii) count.
+  assert.throws(() => bonus({ spread: '1' }), { message: 'Enter the additional payment.' });
+  assert.throws(() => bonus({ method: 'B', backPays: '2', additional: '1', paysToDate: '0' }),
+    { message: 'Enter the back payment for each earlier pay.' });
 });
 
 const D293 = { year: '2026-27', interests: 'accumulation', taxable: '0', fringe: '0', losses: '0', trust: '0', fhss: '0', lumpSum: '0',

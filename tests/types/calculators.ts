@@ -109,6 +109,17 @@ calculate.fbtCar({ ...car, reduced: 'yes' }, fbtYear);
 const operatingValue: number = calculate.fbtCar(car, fbtYear).operating;
 void fbt;
 void operatingValue;
+const ev = { vehicle: 'battery', currentEmployee: true, firstUsed: '2026-04-01', firstSale: '2026-04-01', lctValue: '60000',
+  otherSupply: false } as const;
+const evExempt: boolean = calculate.fbtEvExemption(ev, { ended: '2027' }).exempt;
+// @ts-expect-error A current employee is a boolean, as the form passes it.
+calculate.fbtEvExemption({ ...ev, currentEmployee: 'yes' }, { ended: '2027' });
+// @ts-expect-error The vehicle is one of the 3 kinds the exemption can reach.
+calculate.fbtEvExemption({ ...ev, vehicle: 'diesel' }, { ended: '2027' });
+// @ts-expect-error The threshold is whole dollars, a number, or null for a first retail sale after the FBT year.
+const evThreshold: string = calculate.fbtEvExemption(ev, { ended: '2027' }).threshold;
+void evExempt;
+void evThreshold;
 const terms = { solve: 'payment', amount: '60000', rate: '7.5', payments: '60', payment: '', balloon: '18000',
   balloonKind: 'amount', frequency: 'monthly', timing: 'advance', start: '2026-07-01' } as const;
 const lastPayment: number = calculate.financeSchedule(terms).finalPayment;
@@ -151,9 +162,23 @@ const meal = { method: 'register', expenses: '900', registerBenefits: '1000', re
 const mealValue: number = calculate.fbtMealEntertainment({ ...meal, earlier: [] }, { ended: '2027' }).taxableValue;
 // @ts-expect-error Earlier years' expenses are a list of decimal strings.
 calculate.fbtMealEntertainment({ ...meal, earlier: '1000' }, { ended: '2027' });
+const property = { method: 'in-house-public-price', price: '900', notional: '0', contribution: '500', incomeUse: '0',
+  contributionDeduction: '0', available: '0' } as const;
+const propertyValue: number = calculate.fbtProperty(property).taxableValue;
+const inHouseReduction: number | undefined = calculate.fbtProperty(property).inHouseReduction;
+// @ts-expect-error Airline transport is not one of the property rules.
+calculate.fbtProperty({ ...property, method: 'in-house-airline' });
+const expense = { method: 'external', expenditure: '500', paid: '250', contribution: '0', incomeUse: '80', portionDeduction: '200',
+  price: '0', notional: '0', available: '0' } as const;
+const expenseValue: number = calculate.fbtExpensePayment(expense).taxableValue;
+// @ts-expect-error An external property rule does not value an expense payment.
+calculate.fbtExpensePayment({ ...expense, method: 'external-cost-price' });
 void parkingValue;
 void loanValue;
 void mealValue;
+void propertyValue;
+void inHouseReduction;
+void expenseValue;
 const landTax: number = calculate.landTaxYear('1100000', { name: 'Tasmania', scale: '0,0,0,0,excess', surcharge: '0,0,2,0,excess' },
   { foreign: true, surchargeValue: '400000' }).total;
 // @ts-expect-error A land value is a decimal string, as the form field gives it.
@@ -200,6 +225,17 @@ calculate.companyTax({ ...companyInput, existed: 'yes' });
 const companyReason: number = calculate.companyTax(companyInput).entity;
 void companyNet;
 void companyReason;
+const marginInput = { interest: 'freehold' as const, taxable: true, agreed: true, acquired: 'margin' as const, associate: false,
+  method: 'consideration' as const, price: '190000', basis: 'inclusive' as const, cost: '400000', part: '200000', whole: '2000000' };
+const marginGst: number = calculate.gstMarginScheme(marginInput).gst;
+// @ts-expect-error The written agreement is a boolean, not the form's 'yes'.
+calculate.gstMarginScheme({ ...marginInput, agreed: 'yes' });
+// @ts-expect-error An acquisition is one of the 5 the page offers.
+calculate.gstMarginScheme({ ...marginInput, acquired: 'gift' });
+// @ts-expect-error Whether the scheme applies is a boolean, not an amount.
+const marginApplies: number = calculate.gstMarginScheme(marginInput).applies;
+void marginGst;
+void marginApplies;
 const surchargeBuyer = { type: 'individual' as const, status: 'other' as const, daysBefore: '0', daysDecember: '0', nzResident: false,
   resides: false, absent: false, home: false, overseas: false, largest: '0', combined: '0', absentee: '0', capital: '0', amendable: false, control: false,
   named: false, defaults: '0', exemption: false };
@@ -209,6 +245,10 @@ const surchargeDuty: number = calculate.foreignSurcharge(surchargeBuyer, surchar
 calculate.foreignSurcharge(surchargeBuyer, { ...surchargePurchase, value: 1000000 });
 // @ts-expect-error A buyer is one of the 5 kinds the page offers.
 calculate.foreignSurcharge({ ...surchargeBuyer, type: 'partnership' }, surchargePurchase);
+const firb: number = calculate.firbFee('established', '2000000').fee;
+// @ts-expect-error A FIRB application is for residential land without or with an established dwelling, or none.
+calculate.firbFee('commercial', '2000000');
+void firb;
 void surchargeDuty;
 const holidays = calculate.parseHolidays('[]');
 const businessDayCount: number = calculate.businessDays({ mode: 'count', place: 'NSW', start: '2026-12-21', end: '2027-01-04', count: '10' },
@@ -230,6 +270,29 @@ const sgcDue: number = calculate.paydaySuperDue(sgcPay).due;
 calculate.quarterlySgCharge({ year: '2026-27', quarter: '1', wages: '1', ote: '1', contributions: '0', lodged: '2026-11-20' });
 void sgcCharge;
 void sgcDue;
+const cgtHome = { purchased: '', sold: '', movedIn: '', practicable: 'yes', exclusions: 'none',
+  away: [{ from: '', to: '', rented: false, choose: false }], partPercent: '0', partFrom: '', partTo: '', market: '0' };
+const cgtSale = { entity: 'individual', resident: 'yes', kind: 'investment', acquired: '1997-07-01', event: '2026-02-01', proceeds: '496000',
+  price: '144000', buying: { amount: '20000', date: '1997-07-01' }, improvements: [{ amount: '0', date: '' }], selling: '12500', owning: '0',
+  works: '255', currentLosses: '0', priorLosses: '0', income: '90000', home: cgtHome } as const;
+const cgtNet: number = calculate.capitalGain(cgtSale).net;
+// @ts-expect-error Money is a decimal string, as the form passes it.
+calculate.capitalGain({ ...cgtSale, proceeds: 496000 });
+// @ts-expect-error The entity is an individual, a trust, a complying super fund or a company.
+calculate.capitalGain({ ...cgtSale, entity: 'partnership' });
+// @ts-expect-error An absence's rented and chosen marks are checkbox states.
+calculate.capitalGain({ ...cgtSale, home: { ...cgtHome, away: [{ from: '', to: '', rented: 'yes', choose: false }] } });
+void cgtNet;
+const concessionAnswers = { entity: 'individual', partnership: 'no', asset: 'business', acquired: '2014-03-03', event: '2026-02-02',
+  business: 'yes', previousBusiness: 'yes', previous: '2150000', earlierBusiness: 'yes', earlier: '1900000', likely: '2100000',
+  actual: '1950000', netAssets: '6200000', passive: 'none', ceased: '', extension: 'no', active: '3000', born: '1975-08-14',
+  retiring: 'no', incapacitated: 'no', significant: 'no', fifteen: 'no', choice: '2026-10-31', used: '0' } as const;
+const concessionsOpen: boolean = calculate.cgtConcessions(concessionAnswers).basic;
+// @ts-expect-error Money is a decimal string, as the form passes it.
+calculate.cgtConcessions({ ...concessionAnswers, netAssets: 6200000 });
+// @ts-expect-error The entity is an individual, a company or a trust.
+calculate.cgtConcessions({ ...concessionAnswers, entity: 'partnership' });
+void concessionsOpen;
 const leaveInput = { place: 'AU-NSW', start: '2014-02-01', end: '2026-07-31', excluded: '0', taken: '0', mode: 'ends',
   reason: 'redundancy', pay: '1500' } as const;
 const leaveWeeks: number = calculate.longServiceLeave(leaveInput).weeks;
@@ -240,6 +303,34 @@ calculate.longServiceLeave({ ...leaveInput, pay: 1500 });
 // @ts-expect-error The reason is one of the form's 10 reasons.
 calculate.longServiceLeave({ ...leaveInput, reason: 'sacked' });
 void leaveWeeks;
+const ownerPay = { year: '2026-27', profit: '200000', baseRate: true, salary: '100000', other: '0' };
+const ownerKept: number = calculate.salaryDividend(ownerPay).bestKept;
+// @ts-expect-error Whether the company is a base rate entity is a boolean, as the form passes it.
+calculate.salaryDividend({ ...ownerPay, baseRate: 'yes' });
+// @ts-expect-error Money is a decimal string.
+calculate.salaryDividend({ ...ownerPay, profit: 200000 });
+void ownerKept;
+const leaseTerms = { payment: '1000', payments: '60', frequency: 'monthly', timing: 'arrears', rate: '7.5', start: '2026-07-01', residual: '0',
+  prepaid: '0', incentives: '0', direct: '500', restoration: '0', ownership: 'no', life: '' } as const;
+const leaseLiability: number = calculate.lease(leaseTerms).liability;
+// @ts-expect-error Ownership is the form's yes or no, not a boolean.
+calculate.lease({ ...leaseTerms, ownership: false });
+// @ts-expect-error A lease payment is a decimal string, as the form passes it.
+calculate.lease({ ...leaseTerms, payment: 1000 });
+const leasePurchase = { price: '50000', gst: 'credit', hpRate: '7.5', life: '8', method: 'diminishing-value', taxRate: '25', car: 'no' } as const;
+const leaseNet: number = calculate.leaseComparison(leaseTerms, leasePurchase).hirePurchase.net;
+// @ts-expect-error GST is charged and claimed, charged and not claimed, or not charged.
+calculate.leaseComparison(leaseTerms, { ...leasePurchase, gst: 'partly' });
+void leaseLiability;
+void leaseNet;
+const ftcInput = { year: '2026-27', lines: [{ fuel: 'diesel', use: 'other_business', acquired: '2026-09-15', quantity: '2000' }] };
+const ftcTotal: number = calculate.fuelTaxCredits(ftcInput).total;
+// @ts-expect-error The income year is a string such as '2026-27', as the form's select gives it.
+calculate.fuelTaxCredits({ ...ftcInput, year: 2026 });
+// @ts-expect-error Label 7D is whole dollars as a number, not text.
+const ftcLabel: string = calculate.fuelTaxCredits(ftcInput).label7d;
+void ftcTotal;
+void ftcLabel;
 const leavePay = { annual: '0', loading: '0', longService: '22020', accrualStart: '1977-01-01', reason: 'normal', annualBefore1993: '',
   loadingBefore1993: '', lslBefore1978: '780', lsl1978To1993: '6420', payee: 'tfn', earnings: '1155', period: 'week' } as const;
 const leaveWithheld: number = calculate.unusedLeave(leavePay).withholding;
@@ -264,3 +355,20 @@ calculate.frankingAccount({ ...frankingInput, entity: 'trust' });
 calculate.frankingAccount({ ...frankingInput, opening: 10000 });
 void frankingOffset;
 void frankingCode;
+const borrowInput = { year: '2024-25', loans: [{ borrowing_expenses: '1600.00', loan_start: '2020-07-03', loan_term_end: '2045-07-02',
+  repaid_on: null, income_use: '1', section_26_50_applies: false }] };
+const borrowDeduction: number = calculate.borrowingSchedule(borrowInput).deduction;
+// @ts-expect-error The rows hold whole cents as bigint, not dollars.
+const borrowRemaining: number = calculate.borrowingSchedule(borrowInput).loans[0].rows[0].remaining;
+void borrowDeduction;
+void borrowRemaining;
+const premiumInput = { place: 'AU-SA', wages: '450000', rate: '2', apprentice: '0', actual: '', group: 'no', dust: '', reward: '0',
+  vicEmployer: 'new', days: '365', buyout: 'no', qldStart: 'q1', firstYear: 'no', claims: '0' } as const;
+const premiumTotal: number = calculate.workersCompensation(premiumInput).total;
+// @ts-expect-error The place is a state or territory code, as the form's radios carry it.
+calculate.workersCompensation({ ...premiumInput, place: 'SA' });
+// @ts-expect-error Wages are a decimal string, as the form passes them.
+calculate.workersCompensation({ ...premiumInput, wages: 450000 });
+// @ts-expect-error The Queensland start is one of the form's 5 choices.
+calculate.workersCompensation({ ...premiumInput, qldStart: 'q5' });
+void premiumTotal;

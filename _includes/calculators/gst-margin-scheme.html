@@ -1,0 +1,53 @@
+<section class="business-calculator" id="gst-margin-scheme">
+<form class="calculator-split" data-calculator="gst-margin-scheme">
+<fieldset disabled><legend>GST margin scheme inputs for one sale of real property</legend><div class="form-grid"><fieldset class="field"><legend>What is sold?</legend>
+<label><input type="radio" name="interest" value="freehold" checked /> A freehold interest in land</label>
+<label><input type="radio" name="interest" value="stratum" /> A stratum unit</label>
+<label><input type="radio" name="interest" value="lease" /> A lease of 50 years or more</label>
+<label><input type="radio" name="interest" value="other" /> Something else</label></fieldset>
+<fieldset class="field"><legend>Is the sale a taxable supply?</legend>
+<label><input type="radio" name="taxable" value="yes" checked /> Yes</label>
+<label><input type="radio" name="taxable" value="no" /> No</label></fieldset>
+<fieldset class="field"><legend>Have you and the buyer agreed in writing to use the margin scheme?</legend>
+<label><input type="radio" name="agreed" value="yes" checked /> Yes</label>
+<label><input type="radio" name="agreed" value="no" /> No</label></fieldset>
+<fieldset class="field"><legend>How did you acquire it?</legend>
+<label><input type="radio" name="acquired" value="margin" checked /> Bought under the margin scheme</label>
+<label><input type="radio" name="acquired" value="untaxed" /> Bought without GST, such as from an unregistered seller</label>
+<label><input type="radio" name="acquired" value="before-2000" /> Acquired, or contracted for, before 1 July 2000, and not settled later with GST on the whole price</label>
+<label><input type="radio" name="acquired" value="full-gst" /> Bought with GST on the whole price, including a contract made before 1 July 2000 and settled that way</label>
+<label><input type="radio" name="acquired" value="special" /> Inherited, or from a GST group, joint venture or associate, as a GST-free going concern, farm land or government land, or partly with GST on the whole price</label></fieldset>
+<fieldset class="field"><legend>Is the buyer your associate? The example answers No: check it, as a sale to an associate is refused (section 75-13)</legend>
+<label><input type="radio" name="associate" value="no" checked /> No</label>
+<label><input type="radio" name="associate" value="yes" /> Yes</label></fieldset>
+</div>
+<h2>The price and the margin</h2>
+<div class="form-grid">
+<label class="field" for="gst-margin-scheme-price">Price for the sale (AUD)<input id="gst-margin-scheme-price" name="price" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="190000" required /></label>
+<fieldset class="field"><legend>Does the price include GST?</legend>
+<label><input type="radio" name="basis" value="inclusive" checked /> Yes, GST-inclusive</label>
+<label><input type="radio" name="basis" value="exclusive" /> No, GST-exclusive</label></fieldset>
+<fieldset class="field"><legend>Work out the margin from</legend>
+<label><input type="radio" name="method" value="consideration" checked /> The consideration you paid</label>
+<label><input type="radio" name="method" value="valuation" /> An approved valuation (held since before 1 July 2000), as at the day subsection 75-10(3) sets: not checked here</label></fieldset>
+<label class="field" for="gst-margin-scheme-cost">Consideration or approved valuation for the whole (AUD)<input id="gst-margin-scheme-cost" name="cost" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="400000" required /></label>
+<label class="field" for="gst-margin-scheme-part">This sale’s part, by area, lots or anticipated price<input id="gst-margin-scheme-part" name="part" type="number" inputmode="decimal" min="0.01" max="1000000000000" step=".01" value="200000" required /></label>
+<label class="field" for="gst-margin-scheme-whole">The whole, in the same measure<input id="gst-margin-scheme-whole" name="whole" type="number" inputmode="decimal" min="0.01" max="1000000000000" step=".01" value="2000000" required /></label>
+</div>
+<p class="field-note">Land only: no building costs, duty or fees (section 75-14) and nothing unpaid (section 75-12). For a whole sale, enter the same part and whole.</p>
+<button type="submit" class="button">Calculate</button></fieldset>
+{% include calculator-example.html inputs="A freehold interest in land (paragraph 75-5(1)(a)); agreed in writing: yes; acquired under the margin scheme; price $190,000.00 GST-inclusive; consideration $400,000.00 for 200,000 of 2,000,000" rows="Consideration for the sale, GST-inclusive|$190,000.00;A freehold interest in land (paragraph 75-5(1)(a))|Condition met;Agreed in writing with the buyer (subsections 75-5(1) and (1A))|Condition met;Acquired under the margin scheme|Condition met;The margin scheme|Can apply: section 75-5 is met;Consideration for the acquisition, this part’s share (section 75-15)|$40,000.00;Margin (subsection 75-10(2))|$150,000.00;GST under the margin scheme, 1/11 of the margin|$13,636.36;GST without the margin scheme, 1/11 of the GST-inclusive price|$17,272.73;GST the margin scheme saves|$3,636.37" principal="7" note="The buyer cannot claim an input tax credit (section 75-20) and needs no tax invoice (section 75-30)" %}
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>Eligibility: <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19990055/75-5">section 75-5</a> of the A New Tax System (Goods and Services Tax) Act 1999, and the definition of a long-term lease in <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19990055/195-1">section 195-1</a> (at least 50 years), read 19 November 2026.</li>
+<li>The margin and its GST: <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19990055/75-10">section 75-10</a> (1/11 of the margin, by the consideration or an approved valuation), <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19990055/75-12">section 75-12</a> (consideration not paid), <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19990055/75-14">section 75-14</a> (improvements left out), <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19990055/75-15">section 75-15</a> (subdivided property) and <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19990055/9-90">section 9-90</a> (rounding to the nearest cent, half a cent up), read 19 November 2026.</li>
+<li>The buyer: <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19990055/75-20">section 75-20</a> (no input tax credit) and <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19990055/75-30">section 75-30</a> (no tax invoice required), read 19 November 2026.</li>
+<li>Apportionment, the GST-exclusive price and the worked examples: ATO, <a href="https://www.ato.gov.au/law/view/document?docid=GST/GSTR20068/NAT/ATO/00001">GSTR 2006/8</a>, Goods and services tax: the margin scheme for supplies of real property acquired on or after 1 July 2000, paragraphs 56 to 67 and 145, read 19 November 2026.</li>
+<li>Supplied by you: what is sold, whether the sale is taxable, the written agreement, how you acquired it, whether the buyer is your associate, the price, the consideration or valuation and this sale’s part of the whole.</li>
+</ul>
+</div>
+</form>
+<h2>How the GST margin scheme calculator works</h2><p>The GST margin scheme calculator first checks the conditions of section 75-5 of the GST Act that it can decide: what is sold, a written agreement with the buyer, and how you acquired the property. The sale must be a taxable sale (you are registered for GST, you sell in the course of your enterprise, and the sale is not GST-free or input taxed) of a freehold interest in land, a stratum unit or a lease of at least 50 years, and you must not have acquired it with GST on the whole price. The written agreement is made on or before the sale, or within a further period the Commissioner allows.</p><p>Under the margin scheme the GST is 1/11 of the margin, the GST-inclusive price less the consideration you paid for the land (subsection 75-10(2)), or less an approved valuation for property held since before 1 July 2000 (subsection 75-10(3)), as at 1 July 2000 or, if you registered after then, the date of effect of your registration or the earlier day you applied. A margin that is not more than nil gives no GST. Building and development costs are left out of the consideration (section 75-14); you may claim input tax credits for them where each purchase is a creditable acquisition (section 11-5). For one lot of a subdivision, only the lot’s share of the consideration counts (section 75-15), by any fair and reasonable measure such as area, number of lots or anticipated selling price (GSTR 2006/8, paragraphs 58 to 61).</p><p>From a GST-exclusive price the calculator adds GST of one tenth of the price less the consideration, which is 1/11 of the margin on the resulting price (GSTR 2006/8, paragraph 145). Beside the margin scheme it gives the GST without it, 1/11 of the GST-inclusive price, and the difference. Each GST rounds to the nearest cent, half a cent up (section 9-90). The buyer cannot claim an input tax credit on a margin scheme sale (section 75-20), so the scheme suits a buyer who could not claim one anyway.</p><p>The calculator reproduces GSTR 2006/8’s worked examples: $20,000 on Bob’s house and land (Example 3), $4,000 on Josine’s 800 square metre lot (Example 4), $13,636.36 on Adam’s Lot 1 (Example 6) and a $100,000 GST-inclusive price from Example 14’s $96,364, here $100,000.40 to the cent.</p>
+<h2>What the GST margin scheme calculator does not cover</h2><p>The GST margin scheme calculator refuses a sale to your associate, because section 75-13 takes the GST-inclusive market value as the price. It also refuses property inherited, acquired within a GST group or joint venture, as a GST-free going concern, farm land or government land, or from an associate: paragraphs 75-5(3)(b) to (g), item 2A of subsection 75-10(3) and section 75-11 set their own tests and margins. It refuses property acquired partly in a sale with GST on the whole price, which has an increasing adjustment (section 75-22).</p><p>Not covered: adjustments for bad debts and for consideration paid later (sections 75-25 and 75-27), the valuation day for government land under item 4 of subsection 75-10(3), and whether the sale is taxable in the first place, such as whether residential premises are new. The calculator takes your valuation as given and does not check that it meets the Commissioner’s requirements for an approved valuation (section 75-35). Have a registered tax agent confirm eligibility and the result before you settle.</p>
+</section>

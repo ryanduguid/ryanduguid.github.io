@@ -7,11 +7,16 @@ import { STUDY_LOAN_YEARS, studyLoanRepayment } from './study-loan.mjs';
 import { SUPER_GUARANTEE, takeHomePay } from './take-home-pay.mjs';
 import { INCOME_TAX_YEARS } from './income-tax.mjs';
 import { taxEstimate } from './tax-estimate.mjs';
+import { PACKAGING_YEARS, salaryPackaging } from './salary-packaging.mjs';
+import { NOVATED_YEARS, novatedLease } from './novated-lease.mjs';
+import { BONUS_YEAR, bonusWithholding } from './bonus-withholding.mjs';
+import { PAYS } from './payg-withholding.mjs';
 import { DIVISION_293_YEARS, division293Tax } from './division-293.mjs';
 import { lumpSumArrears } from './lump-sum-arrears.mjs';
 import { SOLE_TRADER_YEARS, soleTraderSetAside } from './sole-trader.mjs';
 import { incomeTests } from './income-tests.mjs';
 import { CAP, concessionalCatchUp } from './concessional-catch-up.mjs';
+import { superProjection } from './super-projection.mjs';
 
 /** @typedef {{inputs: string, rows: string[][], principal: number, note?: string}} Result */
 
@@ -121,6 +126,154 @@ function studyLoanResult(value, aud) {
   rows: [['Repayment income', aud(r.repaymentIncome)], ['Compulsory repayment', aud(r.repayment)]], note };
 }
 
+const EMPLOYER = /** @type {Record<string, string>} */ ({ charity: 'a public benevolent institution or health promotion charity',
+  hospital: 'a public or not-for-profit hospital or public ambulance service' });
+
+/** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
+function salaryPackagingResult(value, aud) {
+  const flag = (/** @type {string} */ name) => value(name) === 'yes';
+  const r = salaryPackaging({ year: value('year'), residency: value('residency'), employer: value('employer'),
+    salary: value('salary'), typeTwo: value('type-two'), typeOne: value('type-one'), meals: value('meals'),
+    mealsTypeOne: flag('meals-type-one'), studyLoan: flag('study-loan'), hospitalCover: flag('cover') });
+  const rows = [['Benefits packaged, at their taxable value', aud(r.packaged)]];
+  if (r.grossedTypeOne) rows.push(['Type 1 benefits grossed up at 2.0802, to the dollar', aud(r.grossedTypeOne)]);
+  rows.push(['Type 2 benefits grossed up at 1.8868, to the dollar', aud(r.grossedTypeTwo)],
+    [`Cap for ${value('employer') === 'charity' ? 'a charity' : 'a hospital or ambulance service'}`, aud(r.cap)]);
+  if (r.grossedMeals) rows.push(['Meal entertainment allowed above the cap, up to $5,000', aud(r.mealAllowance)]);
+  rows.push(['Grossed-up amount liable to FBT', aud(r.excess)], ['FBT on it at 47%', aud(r.fbt)],
+    ['Reportable fringe benefits amount', aud(r.reportable)],
+    ['Tax, levies and study loan without packaging', aud(r.owedBefore)],
+    ['Tax, levies and study loan with packaging', aud(r.owedAfter)], ['Tax saved', aud(r.saved)],
+    ['Gain after the FBT, if your employer passes it on', aud(r.gain)]);
+  const principal = rows.length - 1;
+  if (r.room) rows.push(['Room left under the cap, as Type 2 benefits', aud(r.roomTypeTwo)]);
+  const notes = [];
+  if (r.reportable) {
+    notes.push(`Your income statement shows ${aud(r.reportable)} of reportable fringe benefits: it is not taxed, but it counts `
+      + 'for the Medicare levy surcharge, study loan repayments and other income tests');
+  }
+  if (!r.reportable && r.packaged) notes.push('Benefits of $2,000 or less are not reportable');
+  const flagText = (/** @type {string} */ name, /** @type {string} */ yes, /** @type {string} */ no) => (flag(name) ? yes : no);
+  return { inputs: `${r.year}, ${value('residency') === 'resident' ? 'Australian resident' : 'foreign resident'} employed by `
+    + `${EMPLOYER[value('employer')]}, salary ${aud(Number(value('salary')))}, Type 2 benefits ${aud(Number(value('type-two')))}, `
+    + `Type 1 benefits ${aud(Number(value('type-one')))}, salary packaged meal entertainment ${aud(Number(value('meals')))} `
+    + `(${flagText('meals-type-one', 'Type 1', 'Type 2')}), ${flagText('study-loan', 'with', 'no')} study loan, `
+    + `${flagText('cover', 'with', 'without')} private hospital cover`, rows, principal,
+  note: notes.length ? notes.join('. ') : undefined };
+}
+
+const CAR = /** @type {Record<string, string>} */ ({ bev: 'battery electric car', fcev: 'hydrogen fuel cell car',
+  phev: 'plug-in hybrid', other: 'petrol, diesel or hybrid car' });
+
+/** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
+function novatedLeaseResult(value, aud) {
+  const flag = (/** @type {string} */ name) => value(name) === 'yes';
+  const r = novatedLease({ year: value('year'), residency: value('residency'), salary: value('salary'), studyLoan: flag('study-loan'),
+    hospitalCover: flag('cover'), kind: value('kind'), firstUsed: value('first-used'), commitment: flag('commitment'),
+    saleYear: value('sale-year'), price: value('price'), otherSupply: flag('other-supply'), reduced: flag('reduced'),
+    days: value('days'), gstCosts: value('gst-costs'), otherCosts: value('other-costs') });
+  const rows = [[`Statutory formula value for ${value('days')} days`, aud(r.taxableValue)],
+    [`Luxury car tax threshold for fuel-efficient cars, ${value('sale-year')}`, aud(r.threshold)],
+    ['Electric car exemption', r.exempt ? 'applies' : `does not apply: ${r.reason}`],
+    ['Yearly car costs', aud(r.costs)], ['The same less the GST credits your employer claims', aud(r.netCosts)],
+    ['Tax, levies and study loan paying the costs from after-tax pay', aud(r.owedWithout)]];
+  let principal = 0;
+  if (r.exemptCase) {
+    rows.push(['Exempt: all from pre-tax salary', aud(r.exemptCase.preTax)],
+      ['Exempt: reportable fringe benefits amount', aud(r.exemptCase.reportable)],
+      ['Exempt: tax, levies and study loan', aud(r.exemptCase.owed)], ['Exempt: saving', aud(r.exemptCase.saving)]);
+    principal = rows.length - 1;
+  }
+  if (r.contribution) {
+    rows.push([`${r.exempt ? 'Were it not exempt' : 'Employee contribution method'}: after-tax contribution`, aud(r.contribution.postTax)],
+      [`${r.exempt ? 'Were it not exempt' : 'Employee contribution method'}: from pre-tax salary`, aud(r.contribution.preTax)],
+      [`${r.exempt ? 'Were it not exempt' : 'Employee contribution method'}: tax, levies and study loan`, aud(r.contribution.owed)],
+      [`${r.exempt ? 'Were it not exempt' : 'Employee contribution method'}: saving`, aud(r.contribution.saving)]);
+    if (!r.exempt) principal = rows.length - 1;
+  }
+  const note = r.exemptCase?.reportable
+    ? `The exempt car’s ${aud(r.exemptCase.reportable)} reportable amount is not taxed, but it counts for the Medicare levy `
+      + 'surcharge, study loan repayments and other income tests'
+    : undefined;
+  return { inputs: `${r.year}, ${value('residency') === 'resident' ? 'Australian resident' : 'foreign resident'}, salary `
+    + `${aud(Number(value('salary')))}, ${CAR[value('kind')]} first held and used ${value('first-used') === 'after' ? 'on or after' : 'before'} `
+    + `1 July 2022${value('kind') === 'phev' ? `, ${flag('commitment') ? 'with' : 'without'} a commitment from before 1 April 2025` : ''}, `
+    + `first sold in ${value('sale-year')} for ${aud(Number(value('price')))}, `
+    + `${flag('other-supply') ? 'luxury car tax payable at another supply or importation, ' : ''}${flag('reduced') ? 'held over 4 years, ' : ''}`
+    + `available ${value('days')} days, costs with GST ${aud(Number(value('gst-costs')))} and without ${aud(Number(value('other-costs')))}, `
+    + `${flag('study-loan') ? 'with' : 'no'} study loan, ${flag('cover') ? 'with' : 'without'} private hospital cover`, rows, principal, note };
+}
+
+const PAY_NAME = /** @type {Record<string, string>} */ ({ week: 'weekly', fortnight: 'fortnightly', month: 'monthly' });
+const PAYEE = /** @type {Record<string, string>} */ ({ resident: 'Australian resident claiming the tax-free threshold (scale 2)',
+  foreign: 'foreign resident (scale 3)' });
+
+/** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
+function bonusResult(value, aud) {
+  const period = value('period');
+  const loan = value('study-loan') === 'yes';
+  const r = bonusWithholding({ period, residency: value('residency'), studyLoan: loan, method: value('method'),
+    earnings: value('earnings'), additional: value('additional'), spread: value('spread'), backPays: value('back-pays'),
+    backEarnings: value('back-earnings'), backEach: value('back-each'), backWithheld: value('back-withheld'),
+    yearToDate: value('year-to-date'), paysToDate: value('pays-to-date'), earlierAdditional: value('earlier-additional'),
+    earlierWithheld: value('earlier-withheld') });
+  const money = (/** @type {string} */ name) => aud(Number(value(name)));
+  const head = `${BONUS_YEAR}, ${PAY_NAME[period]} pay, ${PAYEE[value('residency')]}, ${loan ? 'with a' : 'no'} study or training loan, `
+    + `earnings ${money('earnings')} this pay`;
+  /** The study loan component of each amount withheld, with a loan.
+   * @param {[{studyLoan: number, total: number}, string][]} parts */
+  const loanNote = (parts) => {
+    const each = parts.map(([t, label]) => `${aud(t.studyLoan)} of the ${aud(t.total)}`.replaceAll('.00', '') + ` ${label}`);
+    return loan ? `Each amount withheld includes the Schedule 8 study loan component: ${each.slice(0, -1).join(', ')}`
+      + `${each.length > 1 ? ' and ' : ''}${each.at(-1)}` : '';
+  };
+  if (r.method === 'A') return methodAResult(r, { aud, loan, head, money, loanNote });
+  const rows = [['Withheld from this pay’s earnings', aud(r.base.total)]];
+  const parts = /** @type {[{studyLoan: number, total: number}, string][]} */ ([[r.base, 'on this pay’s earnings']]);
+  const described = [];
+  if (r.methodBi) {
+    const bi = r.methodBi;
+    rows.push([`Each earlier pay worked again on ${aud(bi.earnings).replace('.00', '')} (B(i) steps 2 and 3)`, aud(bi.recalculated.total)],
+      [`Less what was withheld, times ${bi.pays} pays (B(i) steps 4 and 5)`, aud(bi.onBackPayment)]);
+    described.push(`B(i): back payment ${money('back-each')} for each of ${bi.pays} earlier pays this year that paid `
+      + `${money('back-earnings')} and had ${money('back-withheld')} withheld`);
+  }
+  if (r.methodBii) {
+    const bii = r.methodBii;
+    rows.push(['Average total earnings to date, cents ignored (B(ii) step 1)', aud(bii.step1)],
+      ['Withheld from that average (B(ii) step 2)', aud(bii.step2.total)],
+      [`This year’s B(ii) payments divided by ${PAYS[period]}, cents ignored (B(ii) step 3)`, aud(bii.step3)],
+      [`Withheld from earnings of ${aud(bii.step4).replace('.00', '')} (B(ii) steps 4 and 5)`, aud(bii.step5.total)],
+      [`The difference times ${PAYS[period]}, less earlier B(ii) withholding (B(ii) steps 6 to 8)`, aud(bii.step8)],
+      ['47% of the payment, the limit (B(ii) step 9)', aud(bii.limit)],
+      ['Withheld from the payment, the lesser (B(ii) step 10)', aud(bii.onAdditional)]);
+    described.push(`B(ii): additional payment ${money('additional')}, normal earnings to date ${money('year-to-date')} over `
+      + `${value('pays-to-date')} pays, earlier B(ii) payments ${money('earlier-additional')} with ${money('earlier-withheld')} withheld`);
+  }
+  if (r.methodBi) parts.push([r.methodBi.recalculated, 'for each earlier pay']);
+  if (r.methodBii) parts.push([r.methodBii.step7, 'by B(ii)']);
+  rows.push(['Total withheld this pay', aud(r.total)]);
+  return { inputs: `${head}, Method B, ${described.join('; ')}`, rows, principal: rows.length - 1, note: loanNote(parts) || undefined };
+}
+
+
+/** The Method A rows. @param {Extract<ReturnType<typeof bonusWithholding>, {method: 'A'}>} r
+ * @param {{aud: (amount: number) => string, loan: boolean, head: string, money: (name: string) => string,
+ *   loanNote: (parts: [{studyLoan: number, total: number}, string][]) => string}} f @returns {Result} */
+function methodAResult(r, { aud, loan, head, money, loanNote }) {
+  const rows = [['Earnings this pay, cents ignored (step 1)', aud(r.step1)], ['Withheld from those earnings (step 2)', aud(r.step2.total)],
+    [`The payment divided by ${r.spread}, cents ignored (step 3)`, aud(r.step3)],
+    [`Withheld from earnings of ${aud(r.step4).replace('.00', '')} (steps 4 and 5)`, aud(r.step5.total)],
+    [`The difference, times ${r.spread} (steps 6 and 7)`, aud(r.step7.total)], ['47% of the payment, the limit (step 8)', aud(r.limit)],
+    ['Withheld from the payment, the lesser (step 9)', aud(r.onAdditional)], ['Total withheld this pay (step 10)', aud(r.total)],
+    [`Tax${loan ? ' and study loan repayment' : ''} the payment adds to a year of this pay`, aud(r.yearTax)]];
+  const notes = [loanNote([[r.step2, 'on this pay’s earnings'], [r.step7, 'on the payment']]),
+    'The last row is the payment’s effect on the year’s assessment, were every pay this pay; the withholding schedules do not aim to match it']
+    .filter(Boolean);
+  return { inputs: `${head}, Method A: additional payment ${money('additional')} spread over ${r.spread} pays`, rows, principal: 7,
+    note: notes.join('. ') };
+}
+
 /** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
 function division293Result(value, aud) {
   const balanceUnder = value('balance-under') === 'yes';
@@ -198,6 +351,32 @@ function lumpSumArrearsResult(value, aud) {
     + `${a.taxable === undefined ? '' : ` on taxable income ${aud(Number(a.taxable))}`}`).join(', ');
   return { inputs: `${year}, taxable income ${aud(Number(value('taxable')))}, net capital gain ${aud(Number(value('gain')))}, `
     + `accrual years ${accrued}`, principal: rows.length - 1, rows, note };
+}
+
+/** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
+function superProjectionResult(value, aud) {
+  const r = superProjection({ age: value('age'), retire: value('retire'), balance: value('balance'), salary: value('salary'),
+    employer: value('employer'), sacrifice: value('sacrifice'), afterTax: value('after-tax'), returnRate: value('return'),
+    percentFee: value('percent-fee'), adminFee: value('admin-fee'), insurance: value('insurance'), growth: value('growth'),
+    discount: value('discount') });
+  const rate = (/** @type {string} */ name) => `${Number(value(name))}%`;
+  const rows = [[`Years projected, from age ${value('age')} to ${r.retire}`, String(r.years)],
+    ['Employer contributions in 2026-27', aud(r.employer)],
+    ['Concessional contributions in 2026-27, within the $32,500 cap', aud(r.concessional)],
+    ['Contributions paid in, less the 15% contributions tax', aud(r.contributed)],
+    ['Investment earnings, after investment fees and tax', aud(r.earnings)],
+    ['Administration fees and insurance premiums, less the fund’s tax deduction', aud(r.fees)],
+    [`Balance at ${r.retire} in future dollars`, aud(r.balance)],
+    [`Balance at ${r.retire} at its present value, discounted at ${rate('discount')} a year to today’s dollars`, aud(r.present)]];
+  return { inputs: `Age ${value('age')}, retiring at ${r.retire}, super balance ${aud(Number(value('balance')))}, salary `
+    + `${aud(Number(value('salary')))}, employer contributions ${rate('employer')} of salary, salary sacrifice `
+    + `${aud(Number(value('sacrifice')))} and after-tax contributions ${aud(Number(value('after-tax')))} a year, return `
+    + `${rate('return')} after investment fees and tax, administration fees ${aud(Number(value('admin-fee')))} and `
+    + `${rate('percent-fee')} of the balance, insurance premiums ${aud(Number(value('insurance')))} a year, wages growing `
+    + `${rate('growth')} a year`, rows, principal: rows.length - 1,
+  note: 'A model on the assumptions shown, not a prediction. It is not intended to be relied on for a decision about a '
+    + 'financial product: consider getting advice from an Australian financial services licensee before making any '
+    + 'financial decision' };
 }
 
 /** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
@@ -313,7 +492,9 @@ function incomeTestsResult(value, aud) {
 }
 
 const RESULTS = new Map([['income-tax', incomeTaxResult], ['take-home-pay', takeHomeResult], ['study-loan', studyLoanResult],
-  ['sole-trader', soleTraderResult], ['lump-sum-arrears', lumpSumArrearsResult], ['division-293', division293Result], ['income-tests', incomeTestsResult], ['concessional-catch-up', catchUpResult]]);
+  ['sole-trader', soleTraderResult], ['lump-sum-arrears', lumpSumArrearsResult], ['division-293', division293Result], ['income-tests', incomeTestsResult], ['concessional-catch-up', catchUpResult],
+  ['bonus-withholding', bonusResult], ['salary-packaging', salaryPackagingResult], ['novated-lease', novatedLeaseResult],
+  ['super-projection', superProjectionResult]]);
 
 /** The result of the individual tax calculator `kind`, or undefined for any other form.
  * @param {string} kind the form's data-calculator @param {(name: string) => string} value a field's value
@@ -324,4 +505,6 @@ export function individualResult(kind, value, aud) {
 
 /** The engines and years assets/webmcp-tools.mjs offers as this page's WebMCP tools. */
 export const engines = { taxEstimate, takeHomePay, soleTraderSetAside, division293Tax, incomeTests, incomeYears: INCOME_TAX_YEARS,
-  payYears: Object.keys(SUPER_GUARANTEE), soleTraderYears: SOLE_TRADER_YEARS, division293Years: DIVISION_293_YEARS };
+  payYears: Object.keys(SUPER_GUARANTEE), soleTraderYears: SOLE_TRADER_YEARS, division293Years: DIVISION_293_YEARS,
+  bonusWithholding, salaryPackaging, novatedLease, packagingYears: PACKAGING_YEARS, novatedYears: NOVATED_YEARS,
+  superProjection };
