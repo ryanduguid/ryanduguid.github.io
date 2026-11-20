@@ -1816,7 +1816,7 @@ Follow updates with the Atom feed. It covers this site’s recorded changes and 
 
 Source: https://duguid.com.au/rates/announced-not-yet-law/
 
-> ATO statuses and bill stages for selected tax and super measures: 8 TBD. Enacted-law application dates and transition rules. Selected Senate stages rechecked 20 November 2026.
+> ATO statuses, bill stages and enacted-law dates for 27 selected tax and super measures: 8 TBD. Selected Senate stages checked 20 November 2026.
 
 8 TBD
 
@@ -13225,7 +13225,7 @@ Source: https://duguid.com.au/tools/business-calculators/payroll-tax/
 
 One employer’s annual payroll tax for 2026-27 in any Australian state or territory, step by step, each step cited to its Act or revenue office.
 
-Published 17 November 2026. Last checked 17 November 2026.
+Published 17 November 2026. Last checked 20 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 

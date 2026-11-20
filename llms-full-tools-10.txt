@@ -539,7 +539,7 @@ Source: https://duguid.com.au/tools/business-calculators/payroll-tax/
 
 One employer’s annual payroll tax for 2026-27 in any Australian state or territory, step by step, each step cited to its Act or revenue office.
 
-Published 17 November 2026. Last checked 17 November 2026.
+Published 17 November 2026. Last checked 20 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
