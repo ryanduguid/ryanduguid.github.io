@@ -4283,8 +4283,38 @@ test('franking account takes back a refund received after the year’s end only 
   const r = calculations.frankingAccount({ ...franking, events: [fev('2025-10-28', 'payg_instalment', '5000'),
     fev('2026-08-15', 'income_tax_refund', '20000'), fev('2026-09-30', 'income_tax_refund', '1000', '1000')] });
   assert.deepEqual([r.fdt, r.fdtFromRefunds, r.offsetCode], [15000, 15000, 'F']);
+  assert.deepEqual([r.yearEndBalance, r.closing, r.required, r.due], [5000, -15000, true, null]);
   assert.deepEqual(r.refunds.map((x) => [x.date, x.taken, x.dueOtherwise, x.dueWithReturn]),
     [['2026-08-15', true, '2026-08-29', null], ['2026-09-30', false, null, null]]);
+});
+
+test('franking account rolls actual balances into next year and credits additional FDT on the refund date', () => {
+  const refund = fev('2026-07-18', 'income_tax_refund', '200', '40');
+  const first = calculations.frankingAccount({ ...franking, opening: '100', events: [refund] });
+  assert.deepEqual([first.yearEndBalance, first.closing, first.yearEndRdDeferral, first.rdCarried, first.fdtFromRefunds],
+    [100, -60, 0, 40, 60]);
+
+  const second = calculations.frankingAccount({ ...franking, year: '2026-27',
+    opening: String(first.yearEndBalance), rdForward: String(first.yearEndRdDeferral),
+    events: [fev('2026-07-15', 'payg_instalment', '30'), refund,
+      fev(refund.date, 'prior_year_refund_fdt', String(first.fdtFromRefunds)), fev('2026-07-20', 'income_tax_paid', '50')] });
+  assert.deepEqual(second.ledger.map((x) => [x.date, x.credit, x.debit, x.balance]), [
+    ['2026-07-15', 30, null, 130], ['2026-07-18', null, 160, -30], ['2026-07-18', 60, null, 30], ['2026-07-20', 10, null, 40],
+  ]);
+  assert.equal(second.yearEndRdDeferral, 0);
+});
+
+test('franking account keeps only the refunds that increase deficit and applies the 14-day window', () => {
+  const r = calculations.frankingAccount({ ...franking, ...ekw, events: [...ekw.events,
+    fev('2026-07-18', 'income_tax_refund', '20'), fev('2026-07-17', 'income_tax_refund', '10'),
+    fev('2026-07-31', 'income_tax_refund', '30'), fev('2026-08-01', 'income_tax_refund', '40')] });
+  assert.deepEqual(r.refunds.map((x) => [x.date, x.dueWithReturn, x.dueOtherwise, x.withinFurtherReturnWindow, x.fdtAdded]), [
+    ['2026-07-17', '2026-07-31', '2026-07-31', false, 10],
+    ['2026-07-18', '2026-07-31', '2026-08-01', true, 20],
+    ['2026-07-31', '2026-07-31', '2026-08-14', true, 30],
+    ['2026-08-01', null, '2026-08-15', false, 40],
+  ]);
+  assert.deepEqual([r.yearEndBalance, r.closing, r.fdtFromRefunds], [-80000, -80100, 100]);
 });
 
 test('franking account defers a refund’s R&D part as RI Pty Ltd’s example 2 does', () => {
@@ -4310,6 +4340,11 @@ test('franking account refuses what it cannot work out', () => {
   refuses({ events: [fev('2025-07-01', 'income_tax_refund', '1', '2')] }, 'Event 1: the R&D part is more than the refund.');
   refuses({ distributions: [fdist('2025-09-01', '1', '0'), fdist('2025-08-01', '1', '0')] }, /^Distribution 2: enter the distributions in date order/);
   refuses({ distributions: [fdist('2025-09-01', '1', '0', '50')] }, /^Distribution 1: a permitted percentage is for a distribution after the first/);
+  refuses({ periodsSince: '1' }, 'Enter the last benchmark as well.');
+  refuses({ earlierLiability: 'yes' }, /^Enter the income tax before this offset/);
+  refuses({ determination: 'no' }, /^Say whether a Commissioner’s determination/);
+  refuses({ events: [fev('2025-07-01', 'income_tax_refund', '10', 1)] }, /^Event 1: enter the R&D part as a decimal amount/);
+  refuses({ distributions: [fdist('2025-09-01', '1', '0', 50)] }, /^Distribution 1: enter a decimal percentage/);
   refuses({ lastBenchmark: '60', periodsSince: '' }, /^Enter the franking periods from the one after the last benchmark’s/);
   refuses({ taxBefore: '1', offsetForward: '' }, /^Offset brought forward: /);
   refuses({ entity: 'private', taxBefore: '1', offsetForward: '0' }, /^Say whether the private company had an income tax liability/);
@@ -4331,18 +4366,21 @@ test('franking account agrees with the franking-account command on every recorde
       rd_deferred_debit_carried_forward: r.rdCarried,
       ...(r.offsetTotal === null ? {} : { fdt_offset_total: r.offsetTotal, fdt_offset_used: r.offsetUsed, fdt_offset_carried_forward: r.offsetCarried }) };
     assert.deepEqual(mine, Object.fromEntries(Object.entries(amounts).map(([key, value]) => [key, Number(value)])), source);
+    // The command reports the ordinary date even when only a later refund creates the obligation.
+    const refundOnly = r.fdt > 0 && r.fdt === r.fdtFromRefunds && !r.oft && !r.variation;
     assert.deepEqual({ balance_code: r.balanceCode, offset_code: r.offsetCode ?? 'none', significant_variation: String(r.variation),
-      return_required: String(r.required), return_due: r.due ?? 'none' }, rates, source);
+      return_required: String(r.required), return_due: r.due ?? 'none' }, refundOnly ? { ...rates, return_due: 'none' } : rates, source);
     assert.deepEqual(r.ledger.map((l) => l.balance), balances.map(Number), source);
     assert.deepEqual(r.distributions.map((x) => x.percentage), percentages, source);
   }
 });
 
+const frankingAud = (value) => new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' }).format(value).replace(/^-/, '−');
+
 test('the franking account page opens on EKW Ltd’s result and cites each source with its date', () => {
   const example = frankingHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
-  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
   const fields = formDefaults(frankingHtml);
-  const result = calculations.frankingAccountResult((name) => fields[name], aud);
+  const result = calculations.frankingAccountResult((name) => fields[name], frankingAud);
   assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note],
     example.slice(1, 5).map((text) => text.replaceAll('&amp;', '&')));
   assert.equal(result.rows[result.principal].join('|'), 'Franking tax payable (label E), due 31 July 2026|$80,000.00');
@@ -4352,29 +4390,54 @@ test('the franking account page opens on EKW Ltd’s result and cites each sourc
     assert.ok(frankingHtml.includes(cited), cited);
   }
   // Each event type the engine takes is one the form offers.
-  const offered = [...frankingHtml.match(/<select name="event-1-type">(.*?)<\/select>/s)[1].matchAll(/value="([a-z_]+)"/g)].map((m) => m[1]);
-  assert.deepEqual(offered, Object.keys(calculations.FRANKING_EVENTS));
+  const selects = [...frankingHtml.matchAll(/<select name="event-\d+-type">(.*?)<\/select>/gs)];
+  assert.equal(selects.length, 8);
+  for (const [, select] of selects) {
+    const offered = [...select.matchAll(/value="([a-z_]+)"/g)].map((m) => m[1]);
+    assert.deepEqual(offered, Object.keys(calculations.FRANKING_EVENTS));
+  }
 });
 
 test('the franking account page dates tax from a refund after the year’s end under s 214-150(4)', () => {
-  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
   const blank = Object.fromEntries([3, 4, 5].flatMap((i) => ['date', 'amount', 'rd'].map((k) => [`event-${i}-${k}`, ''])));
   const page = (overrides) => {
     const fields = { ...formDefaults(frankingHtml), ...blank, opening: '0', 'event-1-type': 'payg_instalment', 'event-1-date': '2025-10-28',
       'event-1-amount': '5000', 'event-1-rd': '', 'event-2-type': 'income_tax_refund', 'event-2-amount': '20000', 'event-2-rd': '',
       'distribution-1-date': '', 'distribution-1-amount': '', 'distribution-1-credit': '', 'distribution-1-permitted': '', ...overrides };
-    return calculations.frankingAccountResult((name) => fields[name], aud).rows.map((row) => row.join('|'));
+    return calculations.frankingAccountResult((name) => fields[name], frankingAud).rows.map((row) => row.join('|'));
   };
   // No return outstanding: the whole tax is the refund's, due 14 days after it.
-  const late = page({ 'event-2-date': '2026-08-15' });
-  assert.ok(late.includes('Franking tax payable (label E)|$15,000.00'), late.join('\n'));
-  assert.ok(late.includes('Of it, from the refund received 15 August 2026, due 29 August 2026 (s 214-150(4))|$15,000.00'), late.join('\n'));
+  const late = page({ 'event-2-date': '2026-08-15', 'event-2-rd': '100' });
+  assert.ok(late.includes('Franking tax payable (label E)|$14,900.00'), late.join('\n'));
+  assert.ok(late.includes('Actual 30 June balance for next year’s opening|$5,000.00'), late.join('\n'));
+  assert.ok(late.includes('Actual 30 June R&D deferral for next year (s 205-15(4))|$0.00'), late.join('\n'));
+  assert.ok(late.includes('Of it, from the refund received 15 August 2026, due 29 August 2026 if no return is outstanding (s 214-150(4))|$14,900.00'), late.join('\n'));
   // A deficit before the refund leaves a return outstanding, whose due date the refund's tax may take.
   const outstanding = page({ 'event-2-date': '2026-07-15', 'distribution-1-date': '2025-09-30', 'distribution-1-amount': '14000',
     'distribution-1-credit': '6000' });
-  assert.ok(outstanding.includes('Franking tax payable (label E), due 31 July 2026 but for the refund tax below|$21,000.00'), outstanding.join('\n'));
-  assert.ok(outstanding.includes('Of it, from the refund received 15 July 2026, due 31 July 2026 if in the outstanding return, otherwise 29 July 2026 (s 214-150(4))|$20,000.00'),
+  assert.ok(outstanding.includes('Franking tax payable (label E), due 31 July 2026 for any tax before the refunds below|$21,000.00'), outstanding.join('\n'));
+  assert.ok(outstanding.includes('Of it, from the refund received 15 July 2026, due 31 July 2026 if included in the outstanding return or 29 July 2026 if no return is outstanding (s 214-150(4))|$20,000.00'),
     outstanding.join('\n'));
+  const inWindow = page({ 'event-2-date': '2026-07-18', 'distribution-1-date': '2025-09-30', 'distribution-1-amount': '14000',
+    'distribution-1-credit': '6000' });
+  assert.ok(inWindow.includes('Of it, from the refund received 18 July 2026, due 31 July 2026 if included in the outstanding return or 1 August 2026 if no return is outstanding or you choose a further return under s 214-45(2) (s 214-150(4))|$20,000.00'),
+    inWindow.join('\n'));
+});
+
+test('the franking account page passes exact decimals to its money formatter', () => {
+  const fields = { ...formDefaults(frankingHtml), opening: '1000000000000' };
+  for (let i = 1; i <= 8; i += 1) {
+    fields[`event-${i}-type`] = 'payg_instalment';
+    fields[`event-${i}-date`] = '2025-10-28';
+    fields[`event-${i}-amount`] = '1000000000000';
+  }
+  fields['distribution-1-amount'] = '0.02';
+  fields['distribution-1-credit'] = '1';
+  const result = calculations.frankingAccountResult((name) => fields[name], (value) => {
+    assert.equal(typeof value, 'string');
+    return frankingAud(value);
+  });
+  assert.deepEqual(result.rows.find(([label]) => label === 'Closing balance, code S'), ['Closing balance, code S', '$8,999,999,999,999.99']);
 });
 
 // Salary against dividends: how each call and result reads, how the form passes its fields, and the
