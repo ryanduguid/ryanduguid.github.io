@@ -557,6 +557,19 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'payroll-tax':
             result = calculate.payrollTaxResult(value('wages'), value('australian'), value('jurisdiction'), aud);
             break;
+          case 'franking-account': {
+            result = calculate.frankingAccountResult(value, aud);
+            // The ledger and the distributions, each a label cell, then figures.
+            for (const table of form.querySelectorAll('table[data-results]')) {
+              table.tBodies[0].replaceChildren(...result.tables[table.dataset.results].map(cells => {
+                const tr = document.createElement('tr');
+                tr.append(...cells.map((text, i) => Object.assign(document.createElement(i ? 'td' : 'th'), { textContent: text }, i ? {} : { scope: 'row' })));
+                return tr;
+              }));
+              table.parentElement.hidden = !result.tables[table.dataset.results].length;
+            }
+            break;
+          }
           case 'salary-dividend':
             result = calculate.salaryDividendResult({ year: value('year'), profit: value('profit'), baseRate: value('base-rate') === 'yes',
               salary: value('salary'), other: value('other') }, aud);

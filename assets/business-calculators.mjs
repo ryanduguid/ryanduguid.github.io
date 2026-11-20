@@ -15,6 +15,7 @@ export { CALENDAR_END, NON_BUSINESS_WEEKDAYS, compoundedEarnings, paydaySuperDue
 export { LSL_ACTS, LSL_REASONS, longServiceLeave, longServiceLeaveResult, lslReasonText } from './long-service-leave.mjs';
 export { FTC_FUELS, FTC_PERIODS, FTC_USES, fuelFormInput, fuelInputsText, fuelTaxCredits, fuelTaxCreditsResult } from './fuel-tax-credits.mjs';
 export { unusedLeave, unusedLeaveResult } from './unused-leave.mjs';
+export { FRANKING_EVENTS, frankingAccount, frankingAccountResult, frankingInput } from './franking-account.mjs';
 export { BORROWING_YEARS, borrowingAccounting, borrowingFormInput, borrowingInputsText, borrowingResult, borrowingSchedule } from './borrowing-expenses.mjs';
 export { WC_SCHEMES, workersCompensation, workersCompensationResult } from './workers-compensation.mjs';
 
