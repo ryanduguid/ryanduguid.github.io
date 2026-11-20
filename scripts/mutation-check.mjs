@@ -57,6 +57,7 @@ const salaryDividend = { ...business, file: 'assets/salary-dividend.mjs' };
 const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const leave = { ...business, file: 'assets/unused-leave.mjs' };
+const franking = { ...business, file: 'assets/franking-account.mjs' };
 const borrow = { ...business, file: 'assets/borrowing-expenses.mjs' };
 const wc = { ...business, file: 'assets/workers-compensation.mjs' };
 
@@ -741,6 +742,22 @@ const MUTATIONS = [
   { ...leave, name: 'unused leave TFN payee taxed on scale 3', find: '({ tfn: 2,', replace: '({ tfn: 3,' },
   { ...leave, name: 'unused leave part a cent over its total accepted', find: 'given !== null && given > total)', replace: 'given !== null && given > total + 1)' },
   { ...leave, name: 'unused leave pre-1978 share 90% not assessable', find: 'lslPre1978NotAssessable: toCents(pre1978 * 19)', replace: 'lslPre1978NotAssessable: toCents(pre1978 * 18)' },
+  { ...franking, name: 'franking deficit tax offset reduced by 20%', find: 'reduction = mul(part, q(3n, 10n));', replace: 'reduction = mul(part, q(2n, 10n));' },
+  { ...franking, name: 'franking offset reduced at exactly 10% of the credits', find: 'mul(credits, q(1n, 10n))) <= 0', replace: 'mul(credits, q(1n, 10n))) < 0' },
+  { ...franking, name: 'franking offset private company exception needs more than 90%', find: 'cmp(tax.before, mul(fdt, q(9n, 10n))) >= 0', replace: 'cmp(tax.before, mul(fdt, q(9n, 10n))) > 0' },
+  { ...franking, name: 'franking label K leaves out refunds without a trigger', find: "(l) => l.cls === 'other' || (!trigger && l.cls === 'refund')", replace: "(l) => l.cls === 'other'" },
+  { ...franking, name: 'franking offset item 7 debits counted as attributable', find: "(l) => l.cls === 'trigger' || l.cls === 'refund')", replace: "(l) => l.cls !== 'credit')" },
+  { ...franking, name: 'franking offset counts an opening deficit in the attributable part', find: 'opening.n > 0n ? opening : ZERO', replace: 'opening' },
+  { ...franking, name: 'franking over-franking tax not divided by the gross-up rate', find: 'mul(q(100n), f.grossUp)', replace: 'q(100n)' },
+  { ...franking, name: 'franking credit not capped at the maximum', find: 'const credit = min(dist.allocated, maximum);', replace: 'const credit = dist.allocated;' },
+  { ...franking, name: 'franking refunds taken back up to 2 months after the year', find: 'const last = refund ? addMonths(f.end, 3) : f.end;', replace: 'const last = refund ? addMonths(f.end, 2) : f.end;' },
+  { ...franking, name: 'franking refunds after the year never taken back', find: 'if (!debit.n || after.n >= 0n) {', replace: 'if (true) {' },
+  { ...franking, name: 'franking significant variation threshold ignores the periods between', find: 'row.threshold = 20 * (k - previous.at);', replace: 'row.threshold = 20;' },
+  { ...franking, name: 'franking public company has one franking period', find: 'const periods = f.private ?', replace: 'const periods = true ?' },
+  { ...franking, name: 'franking R&D deferral not applied to tax paid', find: "if (['payg_instalment', 'income_tax_paid'].includes(e.type) && rdPool.n) {", replace: "if (['payg_instalment'].includes(e.type) && rdPool.n) {" },
+  { ...franking, name: 'franking exempt entity still gets benchmark consequences', find: '} else if (!f.exempt) {', replace: '} else {' },
+  { ...franking, name: 'franking amounts rounded down to the cent', find: '(2n * (a.n < 0n ? -a.n : a.n) * 100n + a.d) / (2n * a.d)', replace: '(2n * (a.n < 0n ? -a.n : a.n) * 100n) / (2n * a.d)' },
+  { ...franking, name: 'franking return due a month late', find: 'const due = isoOf(dayOf(addMonths(isoOf(dayOf(f.end) + 1), 1)) - 1);', replace: 'const due = isoOf(dayOf(addMonths(isoOf(dayOf(f.end) + 1), 2)) - 1);' },
   { ...borrow, name: 'borrowing maximum truncates the cents', find: 'const maximum = ratioCents(remaining * BigInt(days), BigInt(left));', replace: 'const maximum = (remaining * BigInt(days)) / BigInt(left);' },
   { ...borrow, name: 'borrowing days leave out the first day', find: 'const [left, days] = [end - begin + 1, Math.min(end, last) - begin + 1];', replace: 'const [left, days] = [end - begin + 1, Math.min(end, last) - begin];' },
   { ...borrow, name: 'borrowing period runs 5 years and a day', find: 'return civil(same)[2] === civil(start)[2] ? same - 1 : same;', replace: 'return civil(same)[2] === civil(start)[2] ? same : same;' },
@@ -797,7 +814,7 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }

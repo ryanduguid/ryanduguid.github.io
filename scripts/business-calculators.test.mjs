@@ -4188,6 +4188,172 @@ test('long service leave words each Act’s misconduct test and states the condi
   assert.ok(ends('AU-SA', 'resign').weeks > 0);
 });
 
+// The franking account page: how each call and result reads. Its rules come from ITAA 1997 Division 205,
+// ss 202-60 to 204-70 and the ATO's Franking account tax return 2026 instructions, read 19 November 2026.
+const frankingHtml = readFileSync(new URL('../_includes/calculators/franking-account.html', import.meta.url), 'utf8');
+const FRANKING_ENTITY = { public: 'not a private company', private: 'private company', exempt: 'exempt from the benchmark rule' };
+Object.assign(INPUTS, {
+  frankingAccount: (x) => [`${x.year}, ${FRANKING_ENTITY[x.entity]}, ${x.rate}%, opening ${dollars(Number(x.opening))}`,
+    ...(Number(x.rdForward) ? [`R&D deferral ${dollars(Number(x.rdForward))}`] : []),
+    ...(x.lastBenchmark ? [`last benchmark ${x.lastBenchmark}% ${x.periodsSince} periods before`] : []),
+    ...(x.determination ? ['Commissioner’s determination'] : []),
+    ...(x.taxBefore || x.offsetForward ? [`income tax ${dollars(Number(x.taxBefore))}, offset brought forward ${dollars(Number(x.offsetForward))}`
+      + `${x.earlierLiability ? `, ${x.earlierLiability === 'yes' ? 'an' : 'no'} earlier liability` : ''}`] : []),
+    ...x.events.map((e) => `${plainDate(e.date)} ${calculations.FRANKING_EVENTS[e.type]?.label ?? e.type} ${dollars(Number(e.amount))}`
+      + `${e.rdPart ? ` (R&D ${dollars(Number(e.rdPart))})` : ''}`),
+    ...x.distributions.map((d) => `${plainDate(d.date)} distribution ${dollars(Number(d.amount))} franked ${dollars(Number(d.credit))}`
+      + `${d.permitted ? ` (permitted ${d.permitted}%)` : ''}`)].join(', '),
+});
+Object.assign(FORM_CALLS, { frankingAccount: (f) => [calculations.frankingInput((name) => f[name])] });
+Object.assign(ENGINE_LABELS, {
+  frankingAccount: { closing: (v) => `closing balance ${dollars(v)}`, fdt: (v) => `franking deficit tax ${dollars(v)}`,
+    offset: (v) => `offset ${dollars(v)}`, oft: (v) => `over-franking tax ${dollars(v)}`,
+    offsetCode: (v) => (v === null ? 'no offset code' : `code ${v}`), variation: (v) => (v ? 'significant variation' : 'no significant variation') },
+});
+const franking = { year: '2025-26', entity: 'public', rate: '30', opening: '0', rdForward: '0', lastBenchmark: '', periodsSince: '',
+  determination: false, taxBefore: '', offsetForward: '', earlierLiability: '', events: [], distributions: [] };
+const fev = (date, type, amount, rdPart = '') => ({ date, type, amount, rdPart });
+const fdist = (date, amount, credit, permitted = '') => ({ date, amount, credit, permitted });
+const ekw = { ...franking, opening: '10000', events: [fev('2025-10-28', 'payg_instalment', '125000'), fev('2025-11-15', 'income_tax_refund', '60000'),
+  fev('2026-02-28', 'payg_instalment', '125000'), fev('2026-03-31', 'streaming_determination', '20000'), fev('2026-04-28', 'payg_instalment', '250000')],
+distributions: [fdist('2025-09-30', '1190000', '510000')] };
+
+test('franking account reproduces the ATO’s example 4 for EKW Ltd line by line', () => {
+  const r = calculations.frankingAccount(ekw);
+  // Credits $500,000; the item 1 and 2 debits ($510,000 and $60,000) less the $10,000 opening and the credits leave
+  // $60,000 attributable, over 10% of the credits, so 30% of it ($18,000) comes off the $80,000.
+  assert.deepEqual([r.credits, r.debits, r.closing, r.fdt, r.reduction, r.offset, r.labelK, r.payable, r.due],
+    [500000, 590000, -80000, 80000, 18000, 62000, 20000, 80000, '2026-07-31']);
+  assert.deepEqual(r.ledger.map((l) => l.balance), [-500000, -375000, -435000, -310000, -330000, -80000]);
+  assert.deepEqual([r.balanceCode, r.offsetCode, r.required, r.variation], ['D', null, true, false]);
+});
+
+test('franking account keeps the offset whole at exactly 10% and reduces it a cent over', () => {
+  const at = (payg) => calculations.frankingAccount({ ...franking, events: [fev('2025-10-28', 'payg_instalment', payg)],
+    distributions: [fdist('2025-09-30', '1283333.34', '550000')] });
+  assert.deepEqual([at('500000').fdt, at('500000').reduction], [50000, 0]);
+  // $499,999.99 of credits: the $50,000.01 part is over $49,999.999, so 30% of it, $15,000.003, comes off.
+  assert.deepEqual([at('499999.99').fdt, at('499999.99').reduction, at('499999.99').offset], [50000.01, 15000, 35000.01]);
+});
+
+test('franking account works Salomon Pty Ltd’s over-franking tax on the exact maximum credit', () => {
+  const r = calculations.frankingAccount({ ...franking, entity: 'private', opening: '1000',
+    distributions: [fdist('2025-08-01', '700', '120'), fdist('2026-03-01', '500', '214.29')] });
+  // $500 × 60% ÷ (70/30) is $128.571…; the $214.29 allocated is capped at $214.2857…
+  assert.deepEqual([r.oft, r.grossUp, r.closing], [128.57, '2.3333', 665.71]);
+  assert.deepEqual([r.distributions[1].percentage, r.distributions[1].comparedWith, r.distributions[1].credit], ['100.00', '40.00', 214.29]);
+  assert.equal(r.periods.length, 1);
+});
+
+test('franking account counts 20 points for each franking period since the last benchmark', () => {
+  const acolmal = calculations.frankingAccount({ ...franking, entity: 'private', opening: '1000', lastBenchmark: '50', periodsSince: '2',
+    distributions: [fdist('2025-08-01', '700', '300')] });
+  assert.deepEqual([acolmal.periods[0].threshold, acolmal.variation, acolmal.required, acolmal.due], [40, true, true, '2026-07-31']);
+  const small = calculations.frankingAccount({ ...franking, entity: 'private', opening: '1000', lastBenchmark: '60', periodsSince: '1',
+    distributions: [fdist('2025-08-01', '700', '135')] });
+  assert.deepEqual([small.periods[0].benchmark, small.variation, small.required, small.due], ['45.00', false, false, null]);
+});
+
+test('franking account takes back a refund received after the year’s end only when it creates a deficit', () => {
+  assert.throws(() => calculations.frankingAccount({ ...franking, events: [fev('2026-10-01', 'income_tax_refund', '1')] }),
+    { message: /^Event 1: enter a date from 1 July 2025 to 30 September 2026/ });
+  const r = calculations.frankingAccount({ ...franking, events: [fev('2025-10-28', 'payg_instalment', '5000'),
+    fev('2026-08-15', 'income_tax_refund', '20000'), fev('2026-09-30', 'income_tax_refund', '1000', '1000')] });
+  assert.deepEqual([r.fdt, r.fdtFromRefunds, r.offsetCode], [15000, 15000, 'F']);
+  assert.deepEqual(r.refunds.map((x) => [x.date, x.taken, x.dueOtherwise, x.dueWithReturn]),
+    [['2026-08-15', true, '2026-08-29', null], ['2026-09-30', false, null, null]]);
+});
+
+test('franking account defers a refund’s R&D part as RI Pty Ltd’s example 2 does', () => {
+  const year = (rdForward, events) => calculations.frankingAccount({ ...franking, opening: '50000', rdForward, events });
+  const first = year('0', [fev('2025-10-01', 'income_tax_refund', '45000', '45000')]);
+  assert.deepEqual([first.debits, first.rdCarried], [0, 45000]);
+  const second = year('45000', [fev('2025-12-01', 'income_tax_paid', '30000')]);
+  assert.deepEqual([second.credits, second.rdCarried], [0, 15000]);
+  const third = year('15000', [fev('2025-12-01', 'income_tax_paid', '36000')]);
+  assert.deepEqual([third.credits, third.rdCarried], [21000, 0]);
+});
+
+test('franking account refuses what it cannot work out', () => {
+  const refuses = (fields, message) => assert.throws(() => calculations.frankingAccount({ ...franking, ...fields }), { message }, JSON.stringify(fields));
+  refuses({ year: '2027-28' }, 'Choose the income year: 2025-26 or 2026-27.');
+  refuses({ rate: '27.5' }, 'Choose the corporate tax rate for imputation purposes: 25% or 30%.');
+  refuses({ entity: 'trust' }, 'Choose the kind of entity.');
+  refuses({ opening: '1.001' }, /^Opening balance: /);
+  refuses({ events: [fev('2025-07-01', 'dpt_paid', '1')] }, 'Event 1: choose what it is.');
+  refuses({ events: [fev('2025-07-01', 'constructor', '1')] }, 'Event 1: choose what it is.');
+  refuses({ events: [fev('2025-07-01', 'payg_instalment', '0')] }, 'Event 1: enter an amount above nil.');
+  refuses({ events: [fev('2025-07-01', 'payg_instalment', '1', '1')] }, 'Event 1: an R&D part is for an income tax refund only.');
+  refuses({ events: [fev('2025-07-01', 'income_tax_refund', '1', '2')] }, 'Event 1: the R&D part is more than the refund.');
+  refuses({ distributions: [fdist('2025-09-01', '1', '0'), fdist('2025-08-01', '1', '0')] }, /^Distribution 2: enter the distributions in date order/);
+  refuses({ distributions: [fdist('2025-09-01', '1', '0', '50')] }, /^Distribution 1: a permitted percentage is for a distribution after the first/);
+  refuses({ lastBenchmark: '60', periodsSince: '' }, /^Enter the franking periods from the one after the last benchmark’s/);
+  refuses({ taxBefore: '1', offsetForward: '' }, /^Offset brought forward: /);
+  refuses({ entity: 'private', taxBefore: '1', offsetForward: '0' }, /^Say whether the private company had an income tax liability/);
+});
+
+test('franking account agrees with the franking-account command on every recorded case', () => {
+  const { engine, cases } = JSON.parse(readFileSync(new URL('./franking-account-engine-differential.json', import.meta.url), 'utf8'));
+  assert.match(engine, /^australian-tax-calculators 1\.0\.0 .*commit 7caa54d24f5811d2cd4c610aec8933efaf83bfbe/);
+  assert.ok(cases.length >= 260);
+  for (const { source, call, refused, amounts, rates, balances, percentages } of cases) {
+    if (refused) {
+      assert.throws(() => calculations.frankingAccount(call), Error, source);
+      continue;
+    }
+    const r = calculations.frankingAccount(call);
+    const mine = { opening_balance: Number(call.opening), credits: r.credits, debits: r.debits, closing_balance: r.closing,
+      franking_deficit_tax: r.fdt, fdt_from_refunds_after_year_end: r.fdtFromRefunds, fdt_offset_reduction: r.reduction,
+      offsetable_fdt: r.offset, debits_not_subject_to_reduction: r.labelK, over_franking_tax: r.oft, franking_tax_payable: r.payable,
+      rd_deferred_debit_carried_forward: r.rdCarried,
+      ...(r.offsetTotal === null ? {} : { fdt_offset_total: r.offsetTotal, fdt_offset_used: r.offsetUsed, fdt_offset_carried_forward: r.offsetCarried }) };
+    assert.deepEqual(mine, Object.fromEntries(Object.entries(amounts).map(([key, value]) => [key, Number(value)])), source);
+    assert.deepEqual({ balance_code: r.balanceCode, offset_code: r.offsetCode ?? 'none', significant_variation: String(r.variation),
+      return_required: String(r.required), return_due: r.due ?? 'none' }, rates, source);
+    assert.deepEqual(r.ledger.map((l) => l.balance), balances.map(Number), source);
+    assert.deepEqual(r.distributions.map((x) => x.percentage), percentages, source);
+  }
+});
+
+test('the franking account page opens on EKW Ltd’s result and cites each source with its date', () => {
+  const example = frankingHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const fields = formDefaults(frankingHtml);
+  const result = calculations.frankingAccountResult((name) => fields[name], aud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note],
+    example.slice(1, 5).map((text) => text.replaceAll('&amp;', '&')));
+  assert.equal(result.rows[result.principal].join('|'), 'Franking tax payable (label E), due 31 July 2026|$80,000.00');
+  assert.equal(result.tables.ledger.length, 6);
+  for (const cited of ['read on the ATO Legal Database 19 November 2026', 'read on the Federal Register of Legislation 19 November 2026',
+    '(published 30 May 2026), read 19 November 2026']) {
+    assert.ok(frankingHtml.includes(cited), cited);
+  }
+  // Each event type the engine takes is one the form offers.
+  const offered = [...frankingHtml.match(/<select name="event-1-type">(.*?)<\/select>/s)[1].matchAll(/value="([a-z_]+)"/g)].map((m) => m[1]);
+  assert.deepEqual(offered, Object.keys(calculations.FRANKING_EVENTS));
+});
+
+test('the franking account page dates tax from a refund after the year’s end under s 214-150(4)', () => {
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const blank = Object.fromEntries([3, 4, 5].flatMap((i) => ['date', 'amount', 'rd'].map((k) => [`event-${i}-${k}`, ''])));
+  const page = (overrides) => {
+    const fields = { ...formDefaults(frankingHtml), ...blank, opening: '0', 'event-1-type': 'payg_instalment', 'event-1-date': '2025-10-28',
+      'event-1-amount': '5000', 'event-1-rd': '', 'event-2-type': 'income_tax_refund', 'event-2-amount': '20000', 'event-2-rd': '',
+      'distribution-1-date': '', 'distribution-1-amount': '', 'distribution-1-credit': '', 'distribution-1-permitted': '', ...overrides };
+    return calculations.frankingAccountResult((name) => fields[name], aud).rows.map((row) => row.join('|'));
+  };
+  // No return outstanding: the whole tax is the refund's, due 14 days after it.
+  const late = page({ 'event-2-date': '2026-08-15' });
+  assert.ok(late.includes('Franking tax payable (label E)|$15,000.00'), late.join('\n'));
+  assert.ok(late.includes('Of it, from the refund received 15 August 2026, due 29 August 2026 (s 214-150(4))|$15,000.00'), late.join('\n'));
+  // A deficit before the refund leaves a return outstanding, whose due date the refund's tax may take.
+  const outstanding = page({ 'event-2-date': '2026-07-15', 'distribution-1-date': '2025-09-30', 'distribution-1-amount': '14000',
+    'distribution-1-credit': '6000' });
+  assert.ok(outstanding.includes('Franking tax payable (label E), due 31 July 2026 but for the refund tax below|$21,000.00'), outstanding.join('\n'));
+  assert.ok(outstanding.includes('Of it, from the refund received 15 July 2026, due 31 July 2026 if in the outstanding return, otherwise 29 July 2026 (s 214-150(4))|$20,000.00'),
+    outstanding.join('\n'));
+});
+
 // Salary against dividends: how each call and result reads, how the form passes its fields, and the
 // page's example worked by hand. 2026-27, a base rate entity, $200,000 of profit, $100,000 of salary:
 // super guarantee 12% of $100,000 = $12,000; company tax 25% of $88,000 = $22,000; dividend $66,000
