@@ -1014,7 +1014,7 @@ test('borrowing expenses page nets same-lender fees paid and received offline', 
   const refinanceYear = accounting.getByRole('row').filter({ has: page.getByText('2022-23', { exact: true }) });
   // $1,452.90 for the original loan plus $400 at refinancing, with zero unamortised.
   await expect(refinanceYear.locator('th, td')).toHaveText([
-    '2022-23', '$1,005.37', '$1,852.90', '-$847.53', '$846.80', '$0.00', '$289,086.73',
+    '2022-23', '$1,005.37', '$1,852.90', '−$847.53', '$846.80', '$0.00', '$289,086.73',
   ]);
 });
 
