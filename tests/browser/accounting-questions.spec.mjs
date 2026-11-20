@@ -943,6 +943,40 @@ test('franking account page works EKW Ltd’s example, shows the ledger and refu
   await expect(form.locator('output')).toHaveText(/^The offset reduction applies unless section 205-70\(5\) does/);
 });
 
+test('franking account page rolls a late refund and its additional deficit tax into the next year offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/franking-account/');
+  const form = page.locator('#franking-account form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  const field = (name) => form.locator(`[name="${name}"]`);
+  const calc = form.getByRole('button', { name: 'Calculate', exact: true });
+  const output = form.locator('output');
+  for (const name of ['event-1-date', 'event-1-amount', 'event-3-date', 'event-3-amount',
+    'event-4-date', 'event-4-amount', 'event-5-date', 'event-5-amount',
+    'distribution-1-date', 'distribution-1-amount', 'distribution-1-credit']) {
+    await field(name).fill('');
+  }
+  await field('opening').fill('100');
+  await field('event-2-date').fill('2026-07-18');
+  await field('event-2-amount').fill('200');
+  await field('event-2-rd').fill('40');
+  await calc.click();
+  await expect(output).toContainText('Actual 30 June balance for next year’s opening: $100.00.');
+  await expect(output).toContainText('Actual 30 June R&D deferral for next year (s 205-15(4)): $0.00.');
+  await expect(output).toContainText('due 1 August 2026 if no return is outstanding (s 214-150(4)): $60.00.');
+
+  await form.locator('[name="year"][value="2026-27"]').check();
+  await field('event-3-type').selectOption('prior_year_refund_fdt');
+  await field('event-3-date').fill('2026-07-18');
+  await field('event-3-amount').fill('60');
+  await calc.click();
+  const ledger = form.locator('table[data-results="ledger"] tbody tr');
+  await expect(ledger).toHaveCount(2);
+  await expect(ledger.last()).toContainText('Additional franking deficit tax from a prior-year refund');
+  await expect(ledger.last().locator('td').last()).toHaveText('$0.00');
+  await expect(output).toContainText('Actual 30 June R&D deferral for next year (s 205-15(4)): $40.00.');
+});
+
 test('unused leave page works Schedule 7’s example, a no-TFN payment and a refusal offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/unused-leave/');
   const form = page.locator('#unused-leave form');
