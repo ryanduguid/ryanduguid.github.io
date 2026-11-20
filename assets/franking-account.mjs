@@ -14,8 +14,8 @@ import { number } from './money.mjs';
 // Every amount is worked exactly as a fraction and shown half up to the cent.
 
 /** @typedef {'private' | 'public' | 'exempt'} FrankingEntity */
-/** @typedef {{date: string, type: string, amount: string, rdPart: string}} FrankingEvent */
-/** @typedef {{date: string, amount: string, credit: string, permitted: string}} FrankingDistribution */
+/** @typedef {{date: string, type: string, amount: string, rdPart?: string}} FrankingEvent */
+/** @typedef {{date: string, amount: string, credit: string, permitted?: string}} FrankingDistribution */
 /** @typedef {{year: string, entity: FrankingEntity, rate: string, opening: string, rdForward: string,
  *   lastBenchmark: string, periodsSince: string, determination: boolean, taxBefore: string, offsetForward: string,
  *   earlierLiability: string, events: readonly FrankingEvent[], distributions: readonly FrankingDistribution[]}} FrankingInput */
@@ -165,9 +165,9 @@ function event(e, n, f) {
   const amount = money(`Event ${n}`, e.amount);
   if (!amount.n) throw new Error(`Event ${n}: enter an amount above nil.`);
   if (e.rdPart !== undefined && typeof e.rdPart !== 'string') throw new Error(`Event ${n}: enter the R&D part as a decimal amount.`);
-  const given = Boolean(e.rdPart?.trim());
+  const given = e.rdPart?.trim();
   if (given && !refund) throw new Error(`Event ${n}: an R&D part is for an income tax refund only.`);
-  const rdPart = given ? money(`Event ${n}’s R&D part`, e.rdPart) : ZERO;
+  const rdPart = given ? money(`Event ${n}’s R&D part`, given) : ZERO;
   if (cmp(rdPart, amount) > 0) throw new Error(`Event ${n}: the R&D part is more than the refund.`);
   return { date, type: e.type, kind, amount, rdPart };
 }
