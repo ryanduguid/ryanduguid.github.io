@@ -2,6 +2,7 @@
 <form class="calculator-split" data-calculator="wine-equalisation-tax">
 <fieldset disabled><legend>Wine equalisation tax and the producer rebate for one tax period</legend><div class="form-grid">
 <div class="field"><label for="wine-equalisation-tax-year">Financial year of the dealings</label><select name="year" id="wine-equalisation-tax-year"><option value="2027-28">2027-28</option><option value="2026-27" selected>2026-27</option><option value="2025-26">2025-26</option><option value="2024-25">2024-25</option><option value="2023-24">2023-24</option></select></div>
+<label class="field" for="wine-equalisation-tax-earlier">Producer rebates already claimed this financial year (AUD)<input id="wine-equalisation-tax-earlier" name="earlier" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" required /></label>
 </div>
 <h2>Dealings</h2>
 <p class="field-note" id="wine-equalisation-tax-price-note">Each dealing takes the price its kind is valued on. Enter a wholesale sale or a sale under quote at its price excluding WET and GST; a retail sale or own use at its retail price including WET and GST (for own use, the price it would normally sell for by retail); and own use of wine bought under quote at the purchase price excluding GST. Prices are taken as stated: use the arm’s length price for a dealing that is not at arm’s length.</p>
@@ -93,7 +94,6 @@
 <fieldset class="field" aria-describedby="wine-equalisation-tax-rebate-note"><legend>Is the wine in a container of 5 litres or less (51 litres for cider or perry), suitable for retail sale and branded with your registered trade mark?</legend>
 <label><input type="radio" name="container" value="yes" checked /> Yes</label>
 <label><input type="radio" name="container" value="no" /> No</label></fieldset>
-<label class="field" for="wine-equalisation-tax-earlier">Producer rebates already claimed this financial year (AUD)<input id="wine-equalisation-tax-earlier" name="earlier" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" required /></label>
 <fieldset class="field"><legend>Are you an associated producer of another producer (section 19-20)? If so, enter the group’s claims above</legend>
 <label><input type="radio" name="group" value="no" checked /> No</label>
 <label><input type="radio" name="group" value="yes" /> Yes</label></fieldset>
