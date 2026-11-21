@@ -13638,6 +13638,8 @@ Wine equalisation tax and the producer rebate for one tax period
 
 Financial year of the dealings 2027-28 2026-27 2025-26 2024-25 2023-24
 
+Producer rebates already claimed this financial year (AUD)
+
 ## Dealings
 
 Each dealing takes the price its kind is valued on. Enter a wholesale sale or a sale under quote at its price excluding WET and GST; a retail sale or own use at its retail price including WET and GST (for own use, the price it would normally sell for by retail); and own use of wine bought under quote at the purchase price excluding GST. Prices are taken as stated: use the arm’s length price for a dealing that is not at arm’s length.
@@ -13668,7 +13670,7 @@ Is the wine grape wine? Yes No Are at least 10% of those sales by value wholesal
 
 The answers below apply to every dealing that claims the rebate. Answer for the wine in those dealings, and work wine that differs separately.
 
-Are you the producer: you made the wine, or had it made from source product you owned? Yes No Did you own the source product, such as the grapes, for at least 85% of the wine by volume, from before crushing until the wine was in its container? Yes No Is the wine in a container of 5 litres or less (51 litres for cider or perry), suitable for retail sale and branded with your registered trade mark? Yes No Producer rebates already claimed this financial year (AUD) Are you an associated producer of another producer (section 19-20)? If so, enter the group’s claims above No Yes
+Are you the producer: you made the wine, or had it made from source product you owned? Yes No Did you own the source product, such as the grapes, for at least 85% of the wine by volume, from before crushing until the wine was in its container? Yes No Is the wine in a container of 5 litres or less (51 litres for cider or perry), suitable for retail sale and branded with your registered trade mark? Yes No Are you an associated producer of another producer (section 19-20)? If so, enter the group’s claims above No Yes
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; dealing 1: retail sale at a retail price of $20,000.00 including WET and GST, rebate claimed; dealing 2: wholesale sale at $30,000.00 excluding WET and GST, rebate claimed; dealing 3: sale under quote at $15,000.00 excluding WET and GST, quote states a taxable dealing of its own, rebate claimed; dealing 4: sale under quote at $20,000.00 excluding WET and GST, quote states a GST-free supply, such as an export, rebate claimed; dealing 5: own use at a retail price of $2,000.00 including WET and GST, rebate claimed; rebates claimed earlier this year $0.00. Wine tax for the period $11,890.00 Label 1C, WET payable, in whole dollars $11,890.00 Producer rebate earned on these dealings $16,240.00 Cap left for 2026-27, of $400,000 $400,000.00 Producer rebate within the cap $16,240.00 Label 1D, WET refundable, in whole dollars $16,240.00 The rebates already claimed reduce what is left of the year’s cap: the ATO accepts rebates claimed in the activity statement for the period the wine tax is attributed to (WETR 2009/2 paragraph 67). No rebate on dealing 4: a condition of subsection 19-5(1) is not met, or the quote states the purchaser will not make a taxable dealing (paragraph 5-50(1)(b)). Report 1C and 1D separately; do not net them.
 
