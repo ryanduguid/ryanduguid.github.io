@@ -12953,7 +12953,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/individual-tax/fhss/
 
-> Work out the FHSS maximum and actual release, assessable amount and tax offset from an ATO determination, or estimate the release and associated earnings from voluntary super contributions.
+> Calculate your first home super saver release and tax offset from an ATO determination, or estimate your release from voluntary super contributions.
 
 # First home super saver calculator
 
