@@ -11,7 +11,7 @@
     "NT": "https://nt.gov.au/nt-public-holidays",
     "QLD": "https://www.qld.gov.au/recreation/travel/holidays/public",
     "SA": "https://safework.sa.gov.au/resources/public-holidays",
-    "TAS": "https://worksafe.tas.gov.au/topics/laws-and-compliance/public-holidays",
+    "TAS": "https://www.legislation.tas.gov.au/view/whole/html/inforce/current/act-2000-096",
     "VIC": "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "WA": "https://www.wa.gov.au/service/employment/workplace-arrangements/public-holidays-western-australia",
     "coverage_note": "Business Victoria says the exact 2027 grand-final holiday remains subject to the AFL schedule. The bundled completeness horizon therefore ends on 31 August 2027; later dates fail closed until the exact holiday is officially published or supplied by a reviewed override. The WA Government says 2028 dates will be published when confirmed, and the Public and Bank Holidays Amendment Bill 2025 remains at Legislative Council second reading."
@@ -336,6 +336,7 @@
         "NT",
         "QLD",
         "SA",
+        "TAS",
         "VIC",
         "WA"
       ],
@@ -604,6 +605,7 @@
         "NT",
         "QLD",
         "SA",
+        "TAS",
         "VIC",
         "WA"
       ],

@@ -3278,6 +3278,15 @@ test('provisional public holidays fall outside the business days coverage, and t
   assert.deepEqual(Object.keys(BUSINESS_DAY_PLACES), [...new Set(businessDayRows.flatMap(({ jurisdictions }) => jurisdictions))].sort());
 });
 
+test('the calendar records Tasmania’s Easter Sunday public holiday from 2027', () => {
+  // Statutory Holidays Act 2000 (Tas), s 4(da), inserted on 9 October 2026.
+  const tasmanianEasterSunday = (date) => businessDayRows.find((row) => row.date === date && row.name === 'Easter Sunday')
+    .jurisdictions.includes('TAS');
+  assert.equal(tasmanianEasterSunday('2026-04-05'), false);
+  assert.equal(tasmanianEasterSunday('2027-03-28'), true);
+  assert.equal(tasmanianEasterSunday('2028-04-16'), true);
+});
+
 test('business days refuse an unusable table, an impossible date and a count they cannot work', () => {
   for (const text of ['{}', '[{"date":"2026-1-1","name":"x","jurisdictions":[],"provisional":false}]', '[{"date":"2026-01-01"}]']) {
     assert.throws(() => calculations.parseHolidays(text), { message: 'The public holiday table is not usable.' }, text);
