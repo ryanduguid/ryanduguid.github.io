@@ -57,6 +57,7 @@ const salaryDividend = { ...business, file: 'assets/salary-dividend.mjs' };
 const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const leave = { ...business, file: 'assets/unused-leave.mjs' };
+const asic = { ...business, file: 'assets/asic-fees.mjs' };
 const franking = { ...business, file: 'assets/franking-account.mjs' };
 const borrow = { ...business, file: 'assets/borrowing-expenses.mjs' };
 const wc = { ...business, file: 'assets/workers-compensation.mjs' };
@@ -798,6 +799,23 @@ const MUTATIONS = [
   { ...wc, name: 'WC an SA group member passes', find: "['AU-NSW', 'AU-VIC', 'AU-QLD', 'AU-SA'].includes(x.place)", replace: "['AU-NSW', 'AU-VIC', 'AU-QLD'].includes(x.place)" },
   { ...wc, name: 'WC apprentice wages above the wages pass', find: 'if (apprentice > wages)', replace: 'if (apprentice > wages + 100n)' },
   { ...wc, name: 'WC private schemes leave out GST', find: 'premium, gst, duty: 0n, total: premium + gst, notes: [] };\n}\n\n/** The premium', replace: 'premium, gst, duty: 0n, total: premium, notes: [] };\n}\n\n/** The premium' },
+  { ...asic, name: 'ASIC month counted from the due date itself', find: 'const start = new Date((due + 1) * DAY);', replace: 'const start = new Date(due * DAY);' },
+  { ...asic, name: 'ASIC month ends on the same day number next month', find: 'if (corresponding <= length) return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), corresponding) / DAY - 1;', replace: 'if (corresponding <= length) return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), Math.min(new Date(due * DAY).getUTCDate(), length)) / DAY;' },
+  { ...asic, name: 'ASIC month with no corresponding day ends a day early', find: 'return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), length) / DAY;', replace: 'return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), length) / DAY - 1;' },
+  { ...asic, name: 'ASIC payment on the due date is late', find: 'if (paidDay <= dueDay) return', replace: 'if (paidDay < dueDay) return' },
+  { ...asic, name: 'ASIC payment on the last day of the month is in the higher tier', find: 'if (paidDay <= ends) return result;', replace: 'if (paidDay < ends) return result;' },
+  { ...asic, name: 'ASIC late fee within one month is $428', find: 'within: 102, beyond: 428', replace: 'within: 428, beyond: 428' },
+  { ...asic, name: 'ASIC late fee beyond one month is $102', find: 'within: 102, beyond: 428', replace: 'within: 102, beyond: 102' },
+  { ...asic, name: 'ASIC proprietary review fee is 2025-26’s $329', find: "Schedule 1 Part 1 item 2' },", replace: "Schedule 1 Part 1 item 2', amount: 329 }," },
+  { ...asic, name: 'ASIC share capital registration at $611', find: 'with share capital\', amount: 636,', replace: 'with share capital\', amount: 611,' },
+  { ...asic, name: 'ASIC 2026-27 starts on 30 June', find: "from: '2026-07-01'", replace: "from: '2026-06-30'" },
+  { ...asic, name: 'ASIC 2026-27 runs into July 2027', find: "to: '2027-06-30'", replace: "to: '2027-07-01'" },
+  { ...asic, name: 'ASIC weekend due date not refused', find: 'if (afterWeekend(dueDay, paidDay)) {', replace: 'if (false) {' },
+  { ...asic, name: 'ASIC weekend month end not refused', find: 'if (afterWeekend(ends, paidDay)) {', replace: 'if (false) {' },
+  { ...asic, name: 'ASIC weekend refusal stops on the Monday', find: '(weekday === 6 ? 4 : 3)', replace: '(weekday === 6 ? 2 : 1)' },
+  { ...asic, name: 'ASIC weekend refusal runs to the Thursday', find: '(weekday === 6 ? 4 : 3)', replace: '(weekday === 6 ? 5 : 4)' },
+  { ...asic, name: 'ASIC impossible dates roll over', find: '&& date.getUTCMonth() === month - 1 && date.getUTCDate() === day)', replace: ')' },
+  { ...asic, name: 'ASIC inherited keys pass as fees', find: 'const entry = Object.hasOwn(ASIC_FEES, fee) ? ASIC_FEES[fee] : null;', replace: '// @ts-ignore\n  const entry = ASIC_FEES[fee] ?? null;' },
 ];
 
 // Runs that must read as invalid, not as caught.

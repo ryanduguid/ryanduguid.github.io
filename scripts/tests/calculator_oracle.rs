@@ -85,6 +85,10 @@
 //! engine multiplies the daily growth factors; and the quarterly shortfall and interest are
 //! worked from the old Act's formulas in their own units.
 //!
+//! Every ASIC late fee case with a due date from 1 June 2026 to 30 June 2027 and a payment from 3 days
+//! before it to 75 days after it counts the month by the 2 branches of Acts Interpretation Act s 2G(1)
+//! with `jiff`, where the engine adds a calendar month to the day after the due date in UTC milliseconds.
+//!
 //! A further 200 seeded GST margin scheme sales work the GST on a GST-exclusive price as 1/11 of
 //! the exact margin on the price it makes, where the engine takes a tenth of the price less the cost.
 //!
@@ -8020,6 +8024,125 @@ fn the_engine_agrees_with_the_oracle_on_every_seeded_lease() {
             > LEASE_CASES / 2
     );
     let actual = run_node(LEASE_HARNESS, &cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the ASIC fees engine, as `HARNESS` runs the others: each case's amount and tier, or which
+/// refusal it met.
+const ASIC_HARNESS: &str = r"
+import { asicFee } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const kinds = [['This page holds', 'year'], ['The due date is', 'due-weekend'], ['The first month', 'month-weekend']];
+process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => {
+  try {
+    const r = asicFee(one);
+    return { amount: r.amount, tier: r.tier };
+  } catch (error) {
+    return { refused: (kinds.find(([start]) => error.message.startsWith(start)) ?? ['', error.message])[1] };
+  }
+})));
+";
+
+/// ASIC's 2026-27 amounts, typed from its fee data (SHA-256 03281f57...866da, read 22 November
+/// 2026), not from the engine: I02, I01, R01, A52, A51, A58, A53, BZA and BZB.
+const ASIC_FIXED: [(&str, u64); 9] = [
+    ("company-share-capital", 636),
+    ("company-no-share-capital", 524),
+    ("name-reservation", 65),
+    ("review-proprietary", 342),
+    ("review-public", 1_591),
+    ("review-special-proprietary", 70),
+    ("review-special-public", 65),
+    ("business-name-1", 47),
+    ("business-name-3", 108),
+];
+
+/// The last day of the month starting the day after `due` (AIA s 36(1) item 6), by s 2G(1)'s 2
+/// branches: before the corresponding day of the next calendar month, or that month's last day.
+fn asic_first_month_ends(due: Date) -> Date {
+    let start = due.tomorrow().unwrap();
+    let next = start.first_of_month().checked_add(1.month()).unwrap();
+    if start.day() <= next.days_in_month() {
+        date(next.year(), next.month(), start.day())
+            .yesterday()
+            .unwrap()
+    } else {
+        next.last_of_month()
+    }
+}
+
+/// A payment after a Saturday or Sunday and by the Wednesday after it: the page refuses it.
+fn asic_after_weekend(boundary: Date, paid: Date) -> bool {
+    let wednesday = match boundary.weekday() {
+        Weekday::Saturday => boundary.checked_add(4.days()).unwrap(),
+        Weekday::Sunday => boundary.checked_add(3.days()).unwrap(),
+        _ => return false,
+    };
+    paid > boundary && paid <= wednesday
+}
+
+fn asic_late_oracle(due: Date, paid: Date) -> Value {
+    if paid < date(2026, 7, 1) || paid > date(2027, 6, 30) {
+        return json!({ "refused": "year" });
+    }
+    if paid <= due {
+        return json!({ "amount": 0, "tier": "not late" });
+    }
+    if asic_after_weekend(due, paid) {
+        return json!({ "refused": "due-weekend" });
+    }
+    let ends = asic_first_month_ends(due);
+    if paid <= ends {
+        return json!({ "amount": 102, "tier": "within one month" });
+    }
+    if asic_after_weekend(ends, paid) {
+        return json!({ "refused": "month-weekend" });
+    }
+    json!({ "amount": 428, "tier": "more than one month" })
+}
+
+#[test]
+fn the_asic_fees_oracle_counts_months_by_hand() {
+    // s 2G(1) example 1: a month starting on 15 December ends immediately before 15 January.
+    assert_eq!(asic_first_month_ends(date(2026, 12, 14)), date(2027, 1, 14));
+    // Example 2: a month starting on 31 August ends at the end of September.
+    assert_eq!(asic_first_month_ends(date(2026, 8, 30)), date(2026, 9, 30));
+    // A due date on a month's last day starts the month on the 1st, so it runs to the next month's end.
+    assert_eq!(
+        asic_first_month_ends(date(2026, 11, 30)),
+        date(2026, 12, 31)
+    );
+    assert_eq!(asic_first_month_ends(date(2027, 1, 29)), date(2027, 2, 28));
+}
+
+#[test]
+fn the_asic_fees_engine_agrees_with_the_oracle_on_every_due_and_payment_date() {
+    if !common::rendered() {
+        return;
+    }
+    let mut cases = Vec::new();
+    let mut expected = Vec::new();
+    for (fee, amount) in ASIC_FIXED {
+        cases.push(json!({ "fee": fee }));
+        expected.push(json!({ "amount": amount, "tier": null }));
+    }
+    let mut due = date(2026, 6, 1);
+    while due <= date(2027, 6, 30) {
+        let mut paid = due.checked_sub(3.days()).unwrap();
+        while paid <= due.checked_add(75.days()).unwrap() {
+            for fee in ["late-review-payment", "late-lodgement"] {
+                cases.push(json!({ "fee": fee, "due": due.to_string(), "paid": paid.to_string() }));
+                expected.push(asic_late_oracle(due, paid));
+            }
+            paid = paid.tomorrow().unwrap();
+        }
+        due = due.tomorrow().unwrap();
+    }
+    let actual = run_node(ASIC_HARNESS, &cases);
     assert_eq!(actual.len(), cases.len());
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
