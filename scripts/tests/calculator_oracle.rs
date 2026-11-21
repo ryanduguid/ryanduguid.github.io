@@ -8059,11 +8059,22 @@ struct WetDealing {
 /// a sale under quote or own use of wine bought under quote. The average wholesale price is the
 /// sales' total price over their total quantity, times this dealing's quantity (WET Act s 9-40).
 fn wet_dealing(rng: &mut Seeded) -> WetDealing {
-    let kind = rng.pick(&["wholesale_sale", "retail_sale", "own_use", "quoted_sale", "own_use_purchased_under_quote"]);
+    let kind = rng.pick(&[
+        "wholesale_sale",
+        "retail_sale",
+        "own_use",
+        "quoted_sale",
+        "own_use_purchased_under_quote",
+    ]);
     let price = rng.cents(MAX_WET_CENTS);
     let claims = kind != "own_use_purchased_under_quote" && rng.below(2) == 0;
     let all_met = rng.below(5) != 0;
-    let intention = rng.pick(&["taxable_dealing", "manufacture", "gst_free_supply", "sale_under_quote"]);
+    let intention = rng.pick(&[
+        "taxable_dealing",
+        "manufacture",
+        "gst_free_supply",
+        "sale_under_quote",
+    ]);
     let mut input = json!({ "kind": kind });
     let value = match kind {
         "wholesale_sale" | "quoted_sale" => {
@@ -8078,7 +8089,12 @@ fn wet_dealing(rng: &mut Seeded) -> WetDealing {
             // Whole quantities, so the weights are exact.
             let quantity = 1 + u128::from(rng.below(500));
             let sales: Vec<(u128, u128)> = (0..1 + rng.below(4))
-                .map(|_| (1 + u128::from(rng.below(1_000)), u128::from(rng.cents(MAX_WET_CENTS))))
+                .map(|_| {
+                    (
+                        1 + u128::from(rng.below(1_000)),
+                        u128::from(rng.cents(MAX_WET_CENTS)),
+                    )
+                })
                 .collect();
             let sold: u128 = sales.iter().map(|(q, _)| q).sum();
             let numerator: u128 = sales.iter().map(|(_, p)| p * quantity).sum();
@@ -8106,7 +8122,12 @@ fn wet_dealing(rng: &mut Seeded) -> WetDealing {
             "producer": true, "source_product_owned_85_percent": true, "container_and_trade_mark": all_met });
     }
     let liable = kind != "quoted_sale" || intention == "taxable_dealing";
-    WetDealing { input, value, taxed: kind != "quoted_sale", earns: claims && all_met && liable }
+    WetDealing {
+        input,
+        value,
+        taxed: kind != "quoted_sale",
+        earns: claims && all_met && liable,
+    }
 }
 
 /// The cap by year: $350,000 for dealings to 30 June 2026, $400,000 from 1 July 2026 (WET Act s 19-15(2);
@@ -8126,7 +8147,9 @@ fn wet_case(rng: &mut Seeded) -> (Value, Value) {
     let dealings: Vec<WetDealing> = (0..1 + rng.below(6)).map(|_| wet_dealing(rng)).collect();
     let mut input = json!({ "year": year, "dealings": dealings.iter().map(|d| d.input.clone()).collect::<Vec<_>>() });
     let cap = wet_cap_cents(year);
-    let claimed = dealings.iter().any(|d| d.input.get("rebate_conditions").is_some());
+    let claimed = dealings
+        .iter()
+        .any(|d| d.input.get("rebate_conditions").is_some());
     let earlier = if claimed {
         let any = u128::from(rng.cents(45_000_000));
         let earlier = rng.pick(&[0, any, cap, cap.saturating_sub(100_000), cap + 1]);
@@ -8154,7 +8177,10 @@ fn wet_case(rng: &mut Seeded) -> (Value, Value) {
     let cents = |value: u128| shown(u64::try_from(value).unwrap());
     let whole = |value: u128| (value / 100).to_string();
     let values: Vec<String> = dealings.iter().map(|d| cents(d.value)).collect();
-    let taxes: Vec<String> = dealings.iter().map(|d| cents(if d.taxed { tenth(d.value) } else { 0 })).collect();
+    let taxes: Vec<String> = dealings
+        .iter()
+        .map(|d| cents(if d.taxed { tenth(d.value) } else { 0 }))
+        .collect();
     (
         input,
         json!({

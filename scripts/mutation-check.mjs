@@ -735,7 +735,7 @@ const MUTATIONS = [
   { ...ftc, name: 'FTC the time limit runs 5 years', find: 'Number(acquired.slice(0, 4)) + 4}', replace: 'Number(acquired.slice(0, 4)) + 5}' },
   { ...wet, name: 'WET at 28%', find: 'ratioCents(cents * 29n, 100n)', replace: 'ratioCents(cents * 28n, 100n)' },
   { ...wet, name: 'WET half retail takes the whole retail price', find: 'ratioCents(v.price, 2n)', replace: 'v.price' },
-  { ...wet, name: 'WET average wholesale price ignores the dealing quantity', find: 'ratioCents(v.price * v.quantity, v.sold)', replace: 'ratioCents(v.price, v.sold)' },
+  { ...wet, name: 'WET average wholesale price ignores the dealing quantity', find: 'ratioCents(v.price * /** @type {bigint} */ (v.quantity),', replace: 'ratioCents(v.price,' },
   { ...wet, name: 'WET charged on a sale under quote', find: "const tax = d.kind === 'quoted_sale' ? 0n : at29(value);", replace: "const tax = at29(value);" },
   { ...wet, name: 'WET GST on the price before WET', find: 'gst = ratioCents(value + tax, 10n);', replace: 'gst = ratioCents(value, 10n);' },
   { ...wet, name: 'WET GST in a retail price taken as a tenth', find: 'gst = ratioCents(d.retail, 11n);', replace: 'gst = ratioCents(d.retail, 10n);' },

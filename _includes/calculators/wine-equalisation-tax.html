@@ -4,7 +4,7 @@
 <div class="field"><label for="wine-equalisation-tax-year">Financial year of the dealings</label><select name="year" id="wine-equalisation-tax-year"><option value="2027-28">2027-28</option><option value="2026-27" selected>2026-27</option><option value="2025-26">2025-26</option><option value="2024-25">2024-25</option><option value="2023-24">2023-24</option></select></div>
 </div>
 <h2>Dealings</h2>
-<p class="field-note" id="wine-equalisation-tax-price-note">Enter a wholesale sale or a sale under quote at its price excluding WET and GST, a retail sale or own use at its retail price including WET and GST (for own use, the price it would normally sell for by retail), and own use of wine bought under quote at the purchase price excluding GST. Prices are taken as stated: use the arm’s length price for a dealing that is not at arm’s length.</p>
+<p class="field-note" id="wine-equalisation-tax-price-note">Each dealing takes the price its kind is valued on. Enter a wholesale sale or a sale under quote at its price excluding WET and GST; a retail sale or own use at its retail price including WET and GST (for own use, the price it would normally sell for by retail); and own use of wine bought under quote at the purchase price excluding GST. Prices are taken as stated: use the arm’s length price for a dealing that is not at arm’s length.</p>
 <div class="form-grid">
 <fieldset class="field"><legend>Dealing 1</legend>
 <label for="wine-equalisation-tax-kind-1">Kind<select name="kind-1" id="wine-equalisation-tax-kind-1"><option value="wholesale_sale">Wholesale sale</option><option value="retail_sale" selected>Retail sale</option><option value="own_use">Own use, such as tastings</option><option value="quoted_sale">Sale under quote</option><option value="own_use_purchased_under_quote">Own use of wine bought under quote</option></select></label>
@@ -30,6 +30,10 @@
 <label for="wine-equalisation-tax-intention-3">A sale under quote: the quote states<select name="intention-3" id="wine-equalisation-tax-intention-3"><option value="taxable_dealing" selected>A taxable dealing of its own</option><option value="manufacture">Using the wine in manufacture</option><option value="gst_free_supply">A GST-free supply, such as an export</option><option value="sale_under_quote">Selling it on under quote</option></select></label>
 <label for="wine-equalisation-tax-rebate-3">Producer rebate<select name="rebate-3" id="wine-equalisation-tax-rebate-3"><option value="yes" selected>Claimed</option><option value="no">Not claimed</option></select></label>
 </fieldset>
+</div>
+<h2>More dealings</h2>
+<p class="field-note">Dealings 4 to 6 take the same fields; choose No dealing to leave one out.</p>
+<div class="form-grid">
 <fieldset class="field"><legend>Dealing 4 (optional)</legend>
 <label for="wine-equalisation-tax-kind-4">Kind<select name="kind-4" id="wine-equalisation-tax-kind-4"><option value="">No dealing</option><option value="wholesale_sale">Wholesale sale</option><option value="retail_sale">Retail sale</option><option value="own_use">Own use, such as tastings</option><option value="quoted_sale" selected>Sale under quote</option><option value="own_use_purchased_under_quote">Own use of wine bought under quote</option></select></label>
 <label for="wine-equalisation-tax-price-4">Price (AUD)<input id="wine-equalisation-tax-price-4" name="price-4" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="20000" aria-describedby="wine-equalisation-tax-price-note" /></label>
@@ -78,7 +82,7 @@
 <label for="wine-equalisation-tax-sale-price-4">Price excluding WET and GST (AUD)<input id="wine-equalisation-tax-sale-price-4" name="sale-price-4" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" /></label></fieldset>
 </div>
 <h2>The producer rebate</h2>
-<p class="field-note" id="wine-equalisation-tax-rebate-note">These answers apply to every dealing that claims the rebate. Answer for the wine in those dealings, and work wine that differs separately.</p>
+<p class="field-note" id="wine-equalisation-tax-rebate-note">The answers below apply to every dealing that claims the rebate. Answer for the wine in those dealings, and work wine that differs separately.</p>
 <div class="form-grid">
 <fieldset class="field" aria-describedby="wine-equalisation-tax-rebate-note"><legend>Are you the producer: you made the wine, or had it made from source product you owned?</legend>
 <label><input type="radio" name="producer" value="yes" checked /> Yes</label>

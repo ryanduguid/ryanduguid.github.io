@@ -163,6 +163,7 @@ function parseDealing(value, n) {
     refuse('input.field_unknown', `${item}: own use of wine bought under quote earns no producer rebate (section 19-5): the producer is the seller.`);
   }
   known(value, item, kind, FIELDS[kind]);
+  /** @type {{method: string, price: bigint, quantity?: bigint, sold?: bigint}} */
   let valuation;
   let retail = null;
   if (kind === 'wholesale_sale' || kind === 'quoted_sale') {
@@ -202,7 +203,7 @@ const at29 = (/** @type {bigint} */ cents) => ratioCents(cents * 29n, 100n);
 function workDealing(d, n) {
   const v = d.valuation;
   const value = v.method === 'half_retail_price' ? ratioCents(v.price, 2n)
-    : v.method === 'average_wholesale_price' ? ratioCents(v.price * v.quantity, v.sold)
+    : v.method === 'average_wholesale_price' ? ratioCents(v.price * /** @type {bigint} */ (v.quantity), /** @type {bigint} */ (v.sold))
       : v.price;
   const tax = d.kind === 'quoted_sale' ? 0n : at29(value);
   let gst = null;
@@ -267,24 +268,27 @@ export function wineEqualisationTax(input) {
   const cap = BigInt(wetRebateCap(input.year)) * 100n;
   const left = earlier < cap ? cap - earlier : 0n;
   const rebate = earned < left ? earned : left;
-  const capText = `$${wetRebateCap(input.year).toLocaleString('en-AU')}`;
-  const warnings = [];
-  if (claimed) {
-    warnings.push('The rebates already claimed reduce what is left of the year’s cap: the ATO accepts rebates claimed in the activity '
-      + 'statement for the period the wine tax is attributed to (WETR 2009/2 paragraph 67).');
-    if (group) {
-      warnings.push(`An associated producer shares the ${capText} cap with its group (sections 19-15(3) and 19-20): the rebates claimed `
-        + 'earlier must be the group’s, and the group splits what is left.');
-    }
-    if (earlier > cap) {
-      warnings.push(`The rebates claimed earlier in the year exceed the ${capText} cap; section 19-25 makes the excess payable as wine tax `
-        + 'at the end of the financial year.');
-    }
-  }
+  const warnings = claimed ? capWarnings(input.year, group, earlier > cap) : [];
   const dollars = (/** @type {bigint} */ c) => Number(c) / 100;
   return { year: input.year, wineTax: dollars(tax), label1c: Number(tax / 100n), rebateBeforeCap: dollars(earned), rebate: dollars(rebate),
     rebateOverCap: dollars(earned - rebate), label1d: Number(rebate / 100n), cap: wetRebateCap(input.year), capLeft: dollars(left),
     dealings: worked, warnings };
+}
+
+/** The notes on a rebate claim's cap. @param {string} year @param {boolean} group @param {boolean} over */
+function capWarnings(year, group, over) {
+  const capText = `$${wetRebateCap(year).toLocaleString('en-AU')}`;
+  const warnings = ['The rebates already claimed reduce what is left of the year’s cap: the ATO accepts rebates claimed in the activity '
+    + 'statement for the period the wine tax is attributed to (WETR 2009/2 paragraph 67).'];
+  if (group) {
+    warnings.push(`An associated producer shares the ${capText} cap with its group (sections 19-15(3) and 19-20): the rebates claimed `
+      + 'earlier must be the group’s, and the group splits what is left.');
+  }
+  if (over) {
+    warnings.push(`The rebates claimed earlier in the year exceed the ${capText} cap; section 19-25 makes the excess payable as wine tax `
+      + 'at the end of the financial year.');
+  }
+  return warnings;
 }
 
 export const WET_FORM_DEALINGS = 6;
