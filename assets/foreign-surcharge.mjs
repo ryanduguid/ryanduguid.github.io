@@ -1,7 +1,7 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
-import { number, ratioCents } from './money.mjs';
+import { number, POSITIVE_FRACTION, ratioCents } from './money.mjs';
 import { landTaxCents } from './land-tax.mjs';
 
 // Foreign purchaser duty surcharges and foreign owner land tax surcharges, with each jurisdiction's
@@ -278,22 +278,57 @@ function buyerText(b) {
 const FIRB_KINDS = { none: 'no FIRB application', vacant: 'FIRB application for residential land without an established dwelling',
   established: 'FIRB application for an established dwelling' };
 
+/** @typedef {{kind: 'none' | 'vacant' | 'established', consideration?: string,
+ * ownership?: 'sole' | 'joint' | 'tenant-in-common', interest?: string}} FirbApplication */
+
+const ESTABLISHED_DWELLING_BAN = 'From 1 April 2025 to 30 June 2029 foreign persons are generally banned from buying established dwellings, with limited exceptions';
+const FIRB_JOINT = 'This is the full fee before payment adjustments. Regulation 57(1) applies when at least 2 joint tenants incur equal fees for the same interest on the same day under subsection 113(1) of the Foreign Acquisitions and Takeovers Act 1975, and the fees are calculated under the same section of the Fees Imposition Regulations. If one fee is paid in full or in part on a later day, each remaining fee falls at the end of that day by the amount paid towards that one fee on that day';
+const FIRB_IN_COMMON = 'A tenant in common pays the fraction of the full fee that corresponds to their ownership under regulation 57(2)';
+
+/** @param {FirbApplication['ownership']} ownership @param {string} [interest] */
+function firbOwnershipFraction(ownership, interest) {
+  if (!ownership || !['sole', 'joint', 'tenant-in-common'].includes(ownership)) {
+    throw new Error('Choose the FIRB ownership type: sole purchaser, joint tenant or tenant in common.');
+  }
+  if (ownership !== 'tenant-in-common') {
+    if (interest && interest !== '1/1') throw new Error('A fractional FIRB ownership share applies to a tenant in common.');
+    return [1n, 1n];
+  }
+  const fraction = POSITIVE_FRACTION.exec(interest ?? '');
+  if (!fraction || BigInt(fraction[1]) >= BigInt(fraction[2])) {
+    throw new Error('Enter the FIRB ownership share as a fraction above 0 and below 1, such as 1/2.');
+  }
+  return [BigInt(fraction[1]), BigInt(fraction[2])];
+}
+
+/** Use consideration under Foreign Acquisitions and Takeovers Regulation 2015 s 14.
+ * Tenants in common pay their fraction of the whole fee under the fee regulations, s 57(2).
+ * @param {FirbApplication} application @param {ForeignPurchase['use']} use */
+export function firbApplicationFee({ kind, consideration, ownership, interest }, use) {
+  const feeYear = FIRB_FEES.year;
+  if (kind === 'none') return { feeYear, fee: 0, whole: 0, ownership: null, notes: [] };
+  if (use !== 'residential') {
+    throw new Error('The FIRB fee here is for residential land; agricultural and commercial land have their own fee steps.');
+  }
+  if (!consideration) throw new Error('Enter the consideration for the whole acquisition for FIRB.');
+  const [numerator, denominator] = firbOwnershipFraction(ownership, interest);
+  const whole = firbFee(kind, consideration).fee;
+  const fee = Number(ratioCents(BigInt(whole) * 100n * numerator, denominator)) / 100;
+  const notes = kind === 'established' ? [ESTABLISHED_DWELLING_BAN] : [];
+  if (ownership === 'joint') notes.push(FIRB_JOINT);
+  if (ownership === 'tenant-in-common') notes.push(FIRB_IN_COMMON);
+  return { feeYear, fee, whole, ownership, notes };
+}
+
 /** The page's result: its inputs sentence, labelled rows, note and the comparison table. `generals`
  * holds each jurisdiction's general transfer duty on the whole property, which the caller works out
  * from its transfer duty scale, or null where the property is not residential. The comparison puts
  * the same buyer, answers and property in each jurisdiction, under its own test.
  * @param {ForeignBuyer} buyer @param {ForeignPurchase} purchase @param {Record<string, number | null>} generals
- * @param {'none' | 'vacant' | 'established'} firb @param {(value: number) => string} aud */
+ * @param {FirbApplication} firb @param {(value: number) => string} aud */
 export function foreignSurchargeResult(buyer, purchase, generals, firb, aud) {
   const r = foreignSurcharge(buyer, purchase);
-  // A buyer of a share, as a tenant in common, pays that share of the fee on the whole property
-  // (Guidance Note 10, 'Tenants in common rule'); a buyer of the whole pays all of it.
-  const [share, value] = [purchase.share, purchase.value].map((amount) => BigInt(number(amount, { min: 1, max: 1e9, integer: true, money: true })));
-  const whole = firbFee(firb, purchase.value).fee;
-  const fee = Number(ratioCents(BigInt(whole) * 100n * share, value)) / 100;
-  if (firb !== 'none' && purchase.use !== 'residential') {
-    throw new Error('The FIRB fee here is for residential land; agricultural and commercial land have their own fee steps.');
-  }
+  const { fee, feeYear, ownership, notes: firbNotes } = firbApplicationFee(firb, purchase.use);
   const law = FOREIGN_SURCHARGES[purchase.place];
   const general = generals[purchase.place];
   const money = (/** @type {string} */ text) => aud(Number(text));
@@ -301,21 +336,16 @@ export function foreignSurchargeResult(buyer, purchase, generals, firb, aud) {
   const rows = [[r.dutyRate === null ? 'Foreign purchaser duty surcharge' : `Foreign purchaser duty surcharge at ${r.dutyRate}% of the buyer’s share`,
     aud(r.duty)], ['Duty surcharge test', r.dutyTest]];
   if (general !== null) rows.push(['General transfer duty on the whole property, all buyers', aud(general)]);
-  if (firb !== 'none') rows.push([`FIRB application fee for ${FIRB_FEES.year} on the buyer’s share`, aud(fee)]);
+  const feeBasis = ownership === 'joint' ? ' before payment adjustments' : ownership === 'tenant-in-common' ? ' on the ownership share' : '';
+  if (firb.kind !== 'none') rows.push([`FIRB application fee for ${feeYear}${feeBasis}`, aud(fee)]);
   /** Cents of the upfront amounts, added exactly. @param {number[]} amounts */
   const sum = (amounts) => amounts.reduce((total, amount) => total + Math.round(amount * 100), 0) / 100;
   if (general !== null) {
-    rows.push([firb === 'none' ? 'Upfront total: general duty and duty surcharge' : 'Upfront total: general duty, duty surcharge and FIRB fee',
+    rows.push([firb.kind === 'none' ? 'Upfront total: general duty and duty surcharge' : 'Upfront total: general duty, duty surcharge and FIRB fee',
       aud(sum([general, r.duty, fee]))]);
   }
   rows.push(['Land tax surcharge for a full year', aud(r.land)], ['Land tax surcharge test', r.landTest]);
-  const notes = ['Each test is the jurisdiction’s own, from your answers; the revenue office decides who is foreign'];
-  if (firb === 'established') {
-    notes.push('From 1 April 2025 to 30 June 2029 foreign persons are generally banned from buying established dwellings, with limited exceptions');
-  }
-  if (firb !== 'none' && share < value) {
-    notes.push(`The FIRB fee shown is a tenant in common’s share; joint tenants pay one fee of ${aud(whole)} on the whole property, each liable for all of it until it is paid`);
-  }
+  const notes = ['Each test is the jurisdiction’s own, from your answers; the revenue office decides who is foreign', ...firbNotes];
   /** @type {Record<string, string[][]>} */
   const tables = {};
   if (general !== null) {
@@ -325,7 +355,10 @@ export function foreignSurchargeResult(buyer, purchase, generals, firb, aud) {
       return [name, aud(duty), aud(there.duty), aud(sum([duty, there.duty, fee]))];
     });
   }
+  const ownershipText = { sole: 'sole purchaser', joint: 'joint tenant', 'tenant-in-common': `tenant in common with a ${firb.interest} interest` };
+  const application = firb.kind === 'none' ? FIRB_KINDS.none
+    : `${FIRB_KINDS[firb.kind]}, federal consideration ${money(firb.consideration ?? '')}, ${ownershipText[ownership ?? 'sole']}`;
   return { inputs: `${law.name}, ${buyerText(buyer)}, ${{ residential: 'residential', primary: 'primary production', other: 'other' }[purchase.use]} `
-    + `property worth ${money(purchase.value)}, buyer’s share ${money(purchase.share)}, land value for land tax ${money(purchase.land)}, ${FIRB_KINDS[firb]}`,
+    + `property worth ${money(purchase.value)}, buyer’s share ${money(purchase.share)}, land value for land tax ${money(purchase.land)}, ${application}`,
   rows, principal: 0, note: notes.join('. '), tables };
 }

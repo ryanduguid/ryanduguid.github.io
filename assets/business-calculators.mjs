@@ -621,5 +621,5 @@ export { payrollTax, payrollTaxResult } from './payroll-tax.mjs';
 export { companyTax, companyTaxResult } from './company-tax.mjs';
 export { gstMarginScheme, gstMarginSchemeResult } from './gst-margin-scheme.mjs';
 export { salaryDividend, salaryDividendResult } from './salary-dividend.mjs';
-export { firbFee, foreignSurcharge, foreignSurchargeResult } from './foreign-surcharge.mjs';
+export { firbApplicationFee, firbFee, foreignSurcharge, foreignSurchargeResult } from './foreign-surcharge.mjs';
 export { businessDays, businessDaysResult, parseHolidays } from './business-days.mjs';
