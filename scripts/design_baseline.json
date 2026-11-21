@@ -12,370 +12,370 @@
   },
   "json_ld": {
     "about/index.html": [
-      "0a18e4ae5d1a3ba783e85600824c0078c697b0ac2a9099e478656d24e34c2207"
+      "6520bb8e79be01b25e98adf2ead250b6d02909e98b70e99f2b1acec05766482f"
     ],
     "changelog/index.html": [
-      "a053066f43377fe0ad67e4dfa1b388e8894ec77731f5764680d515f1d2ba8fce"
+      "642115a8c18fb427b67edb890b86176c3e5f8059aeced822a86f0c791cddce59"
     ],
     "contact/index.html": [
-      "3702a04d4fd1774256f6fca0a979bc51725ea1c2e3e1452ada40a62763c9274f"
+      "0a18f245382fe87efef192df7ba104b6dff0db901dc54a522c57968a000289f1"
     ],
     "evaluate/index.html": [
-      "3a8c893bcee1f073c09025fa21d5a7c401fe21d56cfe56443a04711d13e3058c"
+      "3881776ef6692ba2ff9e3dc2a1cee99844c7ed904f47d85f19c683182c6dc349"
     ],
     "evaluate/manager-review-gate/index.html": [
-      "a26f35ba16002d6523b1cf220768a82c96540df74dba43cd9756228f5b1db84e"
+      "ca381aa86b32c583023599705575915b6891d98b8fe3c86efe664445057b7d1d"
     ],
     "evaluate/payday-super-evidence/index.html": [
-      "6409556732d07ab2d31e3030f14daaafd9150233a7ad6c32ab992fc47f72b017"
+      "e269c9c39e09a7a500a987f2d90f342796937c58219c76d34b395bc7b634a4ac"
     ],
     "evaluate/xero-trial-balance-integrity/index.html": [
-      "25601ec4d7096085d9c66199129a732dbfc19237bace969ba8768fe0600fe7a0"
+      "06f6182dba3480a4b64904611780a5445652275040a1b3f78ef4e9b4f63ef8ea"
     ],
     "evidence/index.html": [
-      "c7f4ac1c6a8b7c1ef401c058d239f515909bc628e051cf4cfbbf340bdb2513c0"
+      "b494584e5f6ed99e9a471333fe36adf4c5e1b75f900b012eece6fda8394b0c30"
     ],
     "examples/profit-vs-cash-flow/index.html": [
-      "b0e3b98c60343e57787bb6b4f4bc0ff5d1bb1a941f9ee99f090732da5a2bc842"
+      "703f765908cc58b5ffaf628b3977e6141bcb8bc81c132c0fdcd13912cb935f75"
     ],
     "index.html": [
-      "982f83c2155c5a00671480a130d7152a54cf1c7bbad9e9e0506641cf773203d9"
+      "34b148a13ad513d744d086e08f3af563a5eed25d4561033da2f7fd1c680ceca0"
     ],
     "privacy/index.html": [
-      "9005f425f16b95413e239095bf511e532b852d2e78007a54a193d53f91a317b1"
+      "e4adcd3754bc4ba665283f24c28df91b32af9525a1da2d4a3d401828c95166bf"
     ],
     "rates/announced-not-yet-law/index.html": [
-      "b6f8ffa0a44ba5fcaba1f40f45335adc22c52e058b94d1e61bb7dc1b4730c8bf"
+      "8d762ef8075b009eeae6cdab289d04ed006a0674774fd0b841cd9dc1a79631f5"
     ],
     "rates/car-limit/index.html": [
-      "9c08fb48a713ec32bc2ba9ac5bc95a97af824ae138bcf854cfc9508bd5aa4a09"
+      "2c0d850884c333ba180d503bc741553d7e35edfbd195969c73a5029d7c423963"
     ],
     "rates/cents-per-kilometre/index.html": [
-      "6ff8deb92ca4986dae02bc3b6277aa19520b96d5d094f7559820aecd336205a1"
+      "032118e45c82d7fd7a401810a11c2bffd729eb3880ecba292c503ad69d89c7c9"
     ],
     "rates/div7a-benchmark-rate/index.html": [
-      "0d2ebe234c5cb0d8fba83017399ec32c50d7605f2cd0a2a36776c66255b745f9"
+      "a570d6e794aa1a3154d1e2b8d9497b2f28dd5dabaddfe60f12328bdf0fea9b1d"
     ],
     "rates/fbt-rate/index.html": [
-      "67004407af2191d39bc6899dc523d8896e5af715d6f51a521dd4b9626496f430"
+      "763981e10de74369edf48fd5025af64752eb265158bc7dfc2cd734faa7d87a1e"
     ],
     "rates/general-interest-charge/index.html": [
-      "0b6fabeab901ea3a7660aa8bac4e1e909a9e3c16812c36d9049603b4f812db9f"
+      "616fc00cfe6b3a5a70d7340b9508e41c05bc4003fcf239373af4766ec05e5e7f"
     ],
     "rates/index.html": [
-      "cd8838e1bc618a0a6d32b9066714e6885e0d8821ce3e2fea7e9ffa3e88f222ae"
+      "27d34244ee6922330875d052b7141e6c426c7dafc608068d1d3c1039e19d5f79"
     ],
     "rates/individual-income-tax/index.html": [
-      "f5e6b6cb6139afee20671101f0b15edbf632a1179bba288cf40106487ab2aad0"
+      "250ffb822266104b4c3e8b619e842f12b009f14fc0c1aca38b2d67155845a61a"
     ],
     "rates/maximum-contribution-base/index.html": [
-      "595b24a9b1794c931da61bf14e4289fe970ab2d1f4515d0b7af84958ddf72bb7"
+      "f0b33147a9c23909c2393fb26a9de219f7d35c3537e2070974c13978c8b2248d"
     ],
     "rates/payg-withholding/index.html": [
-      "e213b3e41258e8afbbe509906740ed3d797560fee327c906d309261d387b2bf5"
+      "7d43b42b45c79cdad87fee06c02410a8a26f19e2a43f44e2b125ecb347c9d56e"
     ],
     "rates/study-loan-repayment/index.html": [
-      "6c74875cb3516d5008ea86c4f1c4d6588020fb005016c788b1b7a8820f79c15e"
+      "931a4a2222205615a734eaaa6c9fb63ec49569bb17fc3885dbd429e3f95c57e8"
     ],
     "rates/super-guarantee/index.html": [
-      "1b11cd1827791ee041d022bbe4178604df841148258a7e9de4ce9487b2601eb0"
+      "960ae4093ac97b212f51cc9ff6241a3535eb0ac362b6b8d9f21216b08ecf1db5"
     ],
     "rates/transfer-duty/index.html": [
-      "133ae6a5b1e1e46e8e9f0fc7f990a94c57754f2ef87eb7ecbd7b031339793f1f"
+      "2e172823347fe9d743836bdf03a42971799b68c2d3a1661afe0e1e3571296528"
     ],
     "tools/accounting-questions/bookkeeping-close/index.html": [
-      "3335621b7feff837f5397795d5173624cba7bf65c01d40fec3af806f6cf7238c"
+      "43527c06f74144f3404d14aa03cf025d2de02e9c739a50dae651151827984975"
     ],
     "tools/accounting-questions/business-setup/index.html": [
-      "dfe65cad356e3d9072bcb491cc8b9081cc09c687a2b40997c61f7f0852252455"
+      "479c33409b6a8ca14238eac664c7e1f3769980e48c5445e9cec2dee73a4c2592"
     ],
     "tools/accounting-questions/cash-flow/index.html": [
-      "4cb5794f2c9d1cbfed7353ddd3f34aad4f92b304f0bf6ac1c7660e36e00336de"
+      "12438b9691fecd3f3821f436c6ffa34d84f61bed426e37056e1b1b03c287ea1f"
     ],
     "tools/accounting-questions/company-compliance/index.html": [
-      "144d686dff21f52809a7f5b572ab3ccaabde66a6b47400a45e52b67eb703d167"
+      "0b3a8387efcc68e8565e6ac64b74ecdab8da87330a4c9f32b45df8c7c18509ff"
     ],
     "tools/accounting-questions/deductions/index.html": [
-      "c12e90a48f1e6fe77d633f9c8375c62627c4bc545d98ea04c46ffa0f34211c00"
+      "072ab8813a0f45fef86cc4e2dbc9d731a2ce7694ad3ab238d9c425abb313120b"
     ],
     "tools/accounting-questions/general-tax/index.html": [
-      "0a3a9e2f2b7b0c8eed7281c22eafcde62f88d15369e60788c4619fae5fb049eb"
+      "1d6db36da0ffcaf3705854e12947b5a0f8dc312b1a7f14728c7e1333041ca0e0"
     ],
     "tools/accounting-questions/gst-bas/index.html": [
-      "371c7e0c2ab185675276daa806cad9ba13e5c657f342a8219f2c5ea85f628f8c"
+      "329623c88d03ce013ab19051ea05cbc58c42060ff707a5bb42cf1a2c462bc872"
     ],
     "tools/accounting-questions/index.html": [
-      "54605ad0a64c148bc490d8a94b342fd5061fae44b0ebaced785d22b27b0bf62e"
+      "46037b9a3192cf259b3916f15f5a707803ab21304456e4e8a56348e6d83a6d73"
     ],
     "tools/accounting-questions/investments-local/index.html": [
-      "b2998660c9bea48d3f4d2354d24dade34f54373fb9719f660f0f4722314722ef"
+      "ee72b696f18cb315c507db886b4996733de8a1f1730ad71784efe91ffa657bea"
     ],
     "tools/accounting-questions/management-reporting/index.html": [
-      "881d89dbac680b3895b448b889f1e9eb01e7c6363f263f4be938d919ff8fb326"
+      "d1999211992ebcd40bb88fec466ab9ce1465952069ad63c6bc4e4b7363847555"
     ],
     "tools/accounting-questions/payroll-super/index.html": [
-      "698112f26b434d0d807e123b4c7cbd092a26f5103a664d3a01ff9537fa191793"
+      "0bdfa92ad394d9f6bf6194a2f0e20f2c68bf45ff4c969aa961dca9fd7f6c528e"
     ],
     "tools/ato-benchmarks/index.html": [
-      "29be5d3a51d2378e021b2738924fc77018d0ef7511f7330df480280c005b283d"
+      "92379c6c9244a5b0adb554580f643656548f72325594fb504d5e65f79543e296"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "e80b7c38e286caf9baf62f1d617074d08f6699ca8d8a9c70743ecc8f404962ee"
+      "69dcc2866a760cb35a8219629341cc8d08c6eeb942afe44752dc844a2b576d03"
     ],
     "tools/bas-due-dates/index.html": [
-      "33b233437b220d795eda4fef783ddab66014b21c81915d990d5bb51d7d68a08d"
+      "6f22173930285ac0d6c7aa02c77b70e02e8f693c73fd2853ffa9b9863e1598b2"
     ],
     "tools/business-calculators/borrowing-expenses/index.html": [
-      "1ae8f1b70988d738a02d0de3689bc388c241340b8f0247a0062a3b36c49d9e24"
+      "6f8f8003512eb912605cb8e0644a74b9a2716e82770a6faec7695fa7caa25a65"
     ],
     "tools/business-calculators/break-even/index.html": [
-      "f7095ba745ae2af3c4774b5ef0161d242d237f64959deac6606c0bb68fcbcd4c"
+      "a95518370c6a1baf91aad81773f22f6453e17b168bbb80f0519aacf93874fdfc"
     ],
     "tools/business-calculators/business-days/index.html": [
-      "6225f5f9e9d10249c498cfee2d5a42cf589a03152a4ea85272854e3dd330718e"
+      "c85f5bf81b30fe4bb16926ec25c807c6b27026f9f331adbf66f3cd86faf24268"
     ],
     "tools/business-calculators/business-use/index.html": [
-      "9a88c817b808d9bca8de47236dbe28ebdbdea355279b2e579bc3761939415b3b"
+      "f49d0c7dc5722a6932eaae0fc74b4c72bfb129f7e481f1ff0afd147af5882e4b"
     ],
     "tools/business-calculators/cash/index.html": [
-      "a95fc82d475d173201d62f6a6e7c18ad63c3c1b2697f87f807e0eebaf5379523"
+      "145b62f36ee65174ecb0bdb176378f9ffd90996d7e43dc6c9eeedd8d652e6e21"
     ],
     "tools/business-calculators/cgt-concessions/index.html": [
-      "8c67b524faabe3a867213b4145580288ae95502081250efaaca3f40d626939f7"
+      "ec639067667e6f56119264fb033dc4c9e15683696d89f7adc715d1778f250773"
     ],
     "tools/business-calculators/cgt/index.html": [
-      "b8af970f23274d0db287c0956cf8652428762c3927e6e92369bf8a77d00cab1b"
+      "33996f0481f8a807418394a3912522b72f736a31903beea6461cb36cdd810856"
     ],
     "tools/business-calculators/company-tax/index.html": [
-      "0c0bb9b63a51ca3ba6a4241a0cdb100bab9b508b0612324d02b4c5757025f604"
+      "155b3eeb04ab0ceebe1358bb675f36c70e7172272c21744cbe7fc35886380d55"
     ],
     "tools/business-calculators/div7a-schedule/index.html": [
-      "fccf8fd2f64a3231af9227bb20a4add117eba6f1fa411b7e7d0e341f6dd228cf"
+      "5669d109570ff27fcc7e428d73f432f8a2ca8cbc6b008ff56756d64e0874afda"
     ],
     "tools/business-calculators/div7a/index.html": [
-      "89c32ff55a802afe3088efa6496b4482c075f03fc8c9a4fb4c96e9e4fa5dc620"
+      "a4de5fd2772f82aeb6900fc25a7d40570662118c4ffc26a0694d89317ac48b06"
     ],
     "tools/business-calculators/division-296/index.html": [
-      "2acef6330a1c4ac7a7641924010b4adcb4a8fc3fb9a3f82a6d5dde98eeabd925"
+      "cd63760b4d73c323f21f4310a792904f1f3787e588c28fe8b6e1b02d542616ac"
     ],
     "tools/business-calculators/fbt-car-parking/index.html": [
-      "b81286e61473ec55c84153c48c74eaae7f83d115d7439d4529239a6a33fd841a"
+      "4d0c2ea02f477db67b64837efa1187a793fed96b49f925403982bb0de0c3b0d3"
     ],
     "tools/business-calculators/fbt-car/index.html": [
-      "ea38d58ea4f5bfd5ff9744a2de414d585047921c687dcd6ca5eb00492286dc08"
+      "e609d9d8c7bf45b0d268e8fb1239c45eb9a0d6905793e4a95c5db58b57002549"
     ],
     "tools/business-calculators/fbt-expense-payment/index.html": [
-      "d386ae36657e0a497c1f861d7afbdcdf1a5da668098b81921e3a2fd0b971f09c"
+      "59be1f3f6de780d123f6a38e92cb09c56776b2fe85ea1b86e11948ca2e229652"
     ],
     "tools/business-calculators/fbt-loan/index.html": [
-      "f2f9296cfb091c20f33805b81a83ca50952879e05deb5ba1a5fc5d4f1c860515"
+      "90c6f1648abfda2d60997446eca592f7f68fd694250dce64890ed6fdf8bf1518"
     ],
     "tools/business-calculators/fbt-meal-entertainment/index.html": [
-      "21f0b512cc010eb6804b52d0e9368ab3159a63a5fcf24a67ddb9b29cb10dae50"
+      "ee4bb970d4fe6115aa03137eab5f354d52f83b3ba3459b001680414730d67c1a"
     ],
     "tools/business-calculators/fbt-property/index.html": [
-      "82d9414d8327ef69a629c70cc67c8b532f37fa83e5676223f309c873de16262c"
+      "76ded7588fa5b5cc6d1a6fa7dec9d12c842b1efd52b0c16961cbcd56c1b5cc44"
     ],
     "tools/business-calculators/fixed-fee/index.html": [
-      "648e01c97542bc2a38a7f9d58c38faeb770985ccfa11a830efd1477b7f155e8b"
+      "e1198c42068b0a1efcce7d97f816d745959010519552ca7f65d83a4b2f9caec6"
     ],
     "tools/business-calculators/foreign-surcharge/index.html": [
-      "43e6638c3d250162ee30bb5a36e10523e85ab05d4d46f3f92f4f69bb05086e1b"
+      "0c2adc6ea6f65c6bceef4497bed4a8afbf12f97b53ad5ad869341f29cf70c9e9"
     ],
     "tools/business-calculators/franking-account/index.html": [
-      "8ff02c7fd8879f7ff63257027157332e4f721c52e82028ed6959d4d9690f56bd"
+      "1c75e6c5e55ef42de569968ef08b4a4d9aac07f01d82e419567f115c2ecf3480"
     ],
     "tools/business-calculators/fuel-tax-credits/index.html": [
-      "2f30586da994a3591ef6a9bcdb3ac1212dbb3d6ebf95bfc8a53de718150f9f8c"
+      "2915f64969a4de87d39b77045c1f63627d9d83d7625d5e31d0922df7790b4e05"
     ],
     "tools/business-calculators/gic-payment-plan/index.html": [
-      "d30de1b11345068ed0ae9b6de0ad40175cc7388af2cef4f2ff970610c3311e1d"
+      "6f587cec8b957d54ecb7a2d7d75c774aee2a00cf572e025749fcfdf97290b75c"
     ],
     "tools/business-calculators/gst-margin-scheme/index.html": [
-      "411b57d45cea2390f568fcd4a07ca6c727e3f201f97a509a2a56f99c26a3b5e7"
+      "4b8909eb1fa0c7e5f8e5cb4f3fcc9197152691783f6b1985d8194b9c2909e18d"
     ],
     "tools/business-calculators/gst/index.html": [
-      "667683fe0c76d02bde81d98ca5a46a8b6b73cf1453f480bb6bdcc7b63d3411f7"
+      "e58667f58c54736b4d5ca05454740962f92cd91470625349e9bb4e555ad649a3"
     ],
     "tools/business-calculators/hire-purchase/index.html": [
-      "68317538ab92c3ac8a0e9f77a1827df4f2b2c54859811551f318dc0e9923aa63"
+      "7720b82998f9b38df278dba68cc0ef4ea831e426bdb1bfc7415c83818263e622"
     ],
     "tools/business-calculators/hourly/index.html": [
-      "7a6fa98a0c0d2ab364659f2c4ef9a83f93f2fa5327be7ea1fbc202694f9b27b0"
+      "1ee789e07f991caadaf17f3e165e8bc60550a06242fe627a485241855184f7b5"
     ],
     "tools/business-calculators/index.html": [
-      "f46ee0b5c9834c56ff9bead49e3a5fba36093908c44810f34374e5ef577aacf3"
+      "c9af45fce73439a4781a1fe6669f3a335960d3226bb34b2b7af8ad786b177776"
     ],
     "tools/business-calculators/land-tax/index.html": [
-      "040b6c31d762ad9f1656c6c7d08051f35b37cbb7d849be961b449ebd87570940"
+      "ee0d5e772ea58049f67c63cc750d51933fe1efcaac62a0b232ef181aa2f0632a"
     ],
     "tools/business-calculators/lease/index.html": [
-      "6684a7722a8648e1183d432d8f783625794219f290dfaf46058c74b0d3e9e9d6"
+      "f1ada462de82074cba52c6f7841f68cb0420b3de3bd1a9984582dbaab56d7077"
     ],
     "tools/business-calculators/loan/index.html": [
-      "94ed409d0130f2878ff28864719f2975c1dd26c352c8213fe1a6aa4f221837f4"
+      "2cd406152ba2bb6a96d062cf11bbf877a9a18426c109e5b7d42327d124e1dea4"
     ],
     "tools/business-calculators/long-service-leave/index.html": [
-      "067146ea471a1c4ebba3539545d736d3cedaf90954436ee65cf97c8e235fbc46"
+      "82ce9cc18a397702a9ff1bf6c9aeabd661e73592a9ea8fe3b7781422895f4278"
     ],
     "tools/business-calculators/margin/index.html": [
-      "b6bb12781aa83683f7aa356f76ce2eb7606b23d81112aebd718469fcba0da111"
+      "0405f7f6b46102d0a58f67be6febab087ef4ef2609b18624e479c59be22518bb"
     ],
     "tools/business-calculators/objection-deadline/index.html": [
-      "3c5cc7154b05583a5e90b1bca8b71e19d24921ba008b346a62c4638404a45a19"
+      "dcab5352be0982423e6e11cacecd9470e3a531468a34a6db716c40ff237e308a"
     ],
     "tools/business-calculators/payg-instalments/index.html": [
-      "eaededb1a1e74177c0077606f25d23d0347ff943ebc6f2f52eaf1d40ffa1167f"
+      "68304c4e85bfd4c517e67a4422a1267b54a82ba3d9799bd568a7e10af1952a4d"
     ],
     "tools/business-calculators/payroll-tax/index.html": [
-      "904e8cfd39992729ea5f77c30717c251b638910a69876092407797957b8eb770"
+      "3f882e4911396cb2d5dbdc3980ad6fe9248ef346ef9971e4c1482aca6c07aee8"
     ],
     "tools/business-calculators/pcg-2021-4-allocation/index.html": [
-      "13854b522c1df6d9d6e411b269c3276758720108a9de39248b7b354924686905"
+      "f1dd0c15600005faaec201406fb24d58cbc8c8afef897eb33241b2cda2ce92c7"
     ],
     "tools/business-calculators/pcg-2021-4/index.html": [
-      "3d6976200361d1da9ccf3d72b47e0cce11dfe2152ab90e64df0a948b606b9bbc"
+      "a4623c53894c00ea390f7fbd8c9eae9fd550eeb724812af747c6f8e4935211e8"
     ],
     "tools/business-calculators/psi-determination/index.html": [
-      "06e88fa10452f9b6ed2a494225b38e21bb502ac80121715a041a4e1cb27e3f45"
+      "89307257641965f4f0836b48c0b39bde9515671955f309b790acc12cbc9146bc"
     ],
     "tools/business-calculators/salary-dividend/index.html": [
-      "4be28d6b30bf847bb49ea3fa69ae5c81046e7c52a0faa4b875f1a13180e70950"
+      "aa561c195cfecb6fac29099845ae6b77ab9285263cc10b305dcac7a49033284e"
     ],
     "tools/business-calculators/sgc-payday/index.html": [
-      "09d4c4033dfc0fa831d212e3d9186564729a744202cd92284bf7d24ab9b809fe"
+      "e973ac852c84dc22cd7ceda86113c1cac5ff87eefb33dc3d1a4bc2d0fec0e1c3"
     ],
     "tools/business-calculators/staff/index.html": [
-      "c634b3d9d5875f92846a2b0d9c75bde97534c09354854d86691a374435361037"
+      "f6d27328541f0ed80446e56fbe3d59031e3686b15759b93994561c842531fb1e"
     ],
     "tools/business-calculators/termination-payment/index.html": [
-      "52cc4d28790be2bbd06545d12270851e32349d2709d1d6db888d7edbcc384cd1"
+      "b055a3fecec1e12e11404b465cc1031bccc9254058bbd4566e22509430287508"
     ],
     "tools/business-calculators/transfer-duty/index.html": [
-      "7650c4ba7d129895e7dfbf62ebdebf487638c180eacd602cf0e96a8dd2fce154"
+      "2c05da53575a5ff6498811b90b04837bee5c5f6f2a99f2da383d66e5a728bf86"
     ],
     "tools/business-calculators/unused-leave/index.html": [
-      "0c90a61e379e0828a40a4b4d726530407bf1167bb82bf57daf2480344ae61b3e"
+      "3697b29370be595bc2dedd087dfc4ac7aa45ea278d3c11ab7ebac05cab502c88"
     ],
     "tools/business-calculators/variance/index.html": [
-      "9dd9c6df5b3bc9e3933e120a1d31a3fe08176e7bcec6edfd1d56f4902b5953dc"
+      "df911df18381de1d192b28ce232844db416a1d7fa74273f77f13e933a2e48a3c"
     ],
     "tools/business-calculators/vehicle-class/index.html": [
-      "c99e7bed0df01d532dcf9326ed535473018045c87e2ed43367b46f6fdcc9ae89"
+      "947d30d0ffe985e4eff6376be1b13119f929aac22d94c20c3f73efb6b7d20abe"
     ],
     "tools/business-calculators/workers-compensation/index.html": [
-      "46c4eceeb77afd2278dd85534319f238ad7b1e91a747a12b3170eeeb21a00e8c"
+      "6f47d11b2da7c30a21df1a4e85cb78b5d677afa084f84b31ca483e223e181a90"
     ],
     "tools/coal-lsl-levy/index.html": [
-      "a034f3bd9af6ba936a24b3b6bc9cd49294d44a614985887c4035482da4d8f933"
+      "7ba6a319a063acbf29bebb58ca51abeab2779fcdb48f7dd6e58f2826ea009b3f"
     ],
     "tools/company-tax-franking/index.html": [
-      "e291fa560ce5cde872caf04b364e84843089edb1db0425cc653aaa1d20dd7b2e"
+      "965f8288b5d2e33a4bf80989a07d4cdf6f2a31a9fbc1a2e6413016af297cdad3"
     ],
     "tools/depreciation-rates/index.html": [
-      "a986329def7ad298da02766560f0744edcc2a198fa90055dfc51a9f237ce99ea"
+      "4b093d1b163d18db86ec4cd04284a6f3e810055781c60a4e325bd78f5b6b6075"
     ],
     "tools/index.html": [
-      "e5ba05f963f95c3ab9cf30fa02a555570a3eb1b09253f4162dbb666589201341"
+      "18951a6a66ddc5d14afd3274a14d21aaa9675ee77c820a75afcc1c033fab4b86"
     ],
     "tools/individual-tax/bonus-withholding/index.html": [
-      "b3434af676ba1b0c8cba465cd984c4c76d78859e9dbb135bceb6d7b068c08e34"
+      "9cc1999d5882a654009ceec2ce4333325daceebbf27b6df5dd09b184e57ebc9f"
     ],
     "tools/individual-tax/concessional-catch-up/index.html": [
-      "22819a00cc82bfa171efda47cb3810531934d2c2d0881b8909f6fed13b170c38"
+      "2ba1e52fb4cebef09e0fbca8bfd1ad711abcd78fcfeb55a7a396a4914082d9ee"
     ],
     "tools/individual-tax/division-293/index.html": [
-      "7b7665547f9e45841f8b4c48fd69e8236ebaafff729b97132945bfc2504986ca"
+      "0fa440f13a2f343c29f15c84365a9800f0cda8fed90f7190e84e9ff08a247d32"
     ],
     "tools/individual-tax/income-tax/index.html": [
-      "0e728de5e976b187d673fa1c274d6df1320c164fd0ffaffd777d112d9bcbbf27"
+      "98166cb8a84440b4e239297314c70117548772f9f32dbda73dbc66896875a06e"
     ],
     "tools/individual-tax/income-tests/index.html": [
-      "eb7635441d1a5502b66c7f844435dbbf43145449ce9285d8727dd72437f8fa78"
+      "2b60af6e2154ba6a3a2435a632963b2e376fe33f608f0fa90d482a67986c7744"
     ],
     "tools/individual-tax/index.html": [
-      "43f2293389484034868178dbbb1a2f564b141456b0cffb3a2aad909b84e638c9"
+      "324ad52945413a0afdcbaa8178b032680f69f39d7991b548d384ae7644a5de38"
     ],
     "tools/individual-tax/lump-sum-arrears/index.html": [
-      "b092eae97fe2b8bcfdb557fd5c0fafbadb27d107e1b0a3f7afd0fc12b914c2e0"
+      "ee2e819e7b9d21df3697d1699c541157dd73af1abf93a9a6d85823fada703023"
     ],
     "tools/individual-tax/novated-lease/index.html": [
-      "3e5c2d34c2e528fa16614e64680779456665d451e5b85433333b067ef20ee010"
+      "7886659bc910ffc82968d9a6d58cedfeeea1e70a9e13da98a75dc46e86c4c964"
     ],
     "tools/individual-tax/salary-packaging/index.html": [
-      "0b46542a69bcf6796ec44f12a0b2ce6a8cfb24f0172f4a777a87ce254470a542"
+      "79df2afc8bdd8a9ee82ab1c9860fa4a827d4379a96f3f60dde93430d21d93a44"
     ],
     "tools/individual-tax/sole-trader/index.html": [
-      "d2d77ceb37a3a0358a3e2bb4b4c151a395cb103b23b54febd89bbddaeab88aaf"
+      "44aa86c5ba6314ff97879a5e029f0059a504030fa8baeb4288efa489acc9bd04"
     ],
     "tools/individual-tax/study-loan/index.html": [
-      "5a7fd20b1c4bea45f802eb2b6e492acea6130919ef2c50fbd8a1ed83c540081c"
+      "2422468bac5a44d932965ff881e3dc336c4a593ea7d1289e9815a78e80315d60"
     ],
     "tools/individual-tax/super-projection/index.html": [
-      "09618ea60f3c82456346aa4940d8a9b25071a891c97f522e97c5e10ef78446d1"
+      "8512735fc9a9099b8c86203f9ce9bbc263c09534ac8f869c4d9a97b433c8e02a"
     ],
     "tools/individual-tax/take-home-pay/index.html": [
-      "3d91fb9a118769b67941b191bc41017c942b586b66874831d41fefd652b2405a"
+      "ad1615d9d73abc147cfc44d3968a996ae890882d52710b57eefcbd16450c74c2"
     ],
     "tools/limitations/index.html": [
-      "cabd7ca56d1f87dfc230005defe3bc1e10108c63487c98da2a3cbf08416426f1"
+      "527a649f897fc8fc69dd9b8e8a59aac06754552a67dab5427007f2729d6b048e"
     ],
     "tools/monthly-close-controls/index.html": [
-      "f58f303063ffb4c244f697f28f84bc8d248f8a4593ad439a31b3734d76213ac8"
+      "dcc8421ca642992db74517e0c97e7ee5990af01b462df6e3baebd57c9e43d67a"
     ],
     "tools/ozzit/functions/dates/index.html": [
-      "a634ae3d628dd0dd979e15ad9a242db5051c7058e4f5fa5c75da07b4c4264336"
+      "ebe5b7ecdccebffe40efd7695068f1e61ec1802f7c526a764904c80f082d1813"
     ],
     "tools/ozzit/functions/debt/index.html": [
-      "767e2d077304c601967db96b09035b5ea438fe8eb5f5e4edc1cc2eb3f8b01120"
+      "80e4e1d3b328cead134258d3dd2d06fb68d80400999844d8d58d83de0935c388"
     ],
     "tools/ozzit/functions/essentials/index.html": [
-      "2da05d0d909b773f991c63306ed8f349c72368c46bc327b93c2577250415c80c"
+      "5b46717b5d9cd7c711a55c64a7c61d6587893f255046d0a2ba8bcaa2dd311437"
     ],
     "tools/ozzit/functions/financial/index.html": [
-      "de3c9b096cfe4e1ea0711f1c02691a3cc2f4ca4436fef3cc2fb5edc8e7466c1d"
+      "602134dedccf225438425add466511a59a9349ab3dfa76efcb57903388822825"
     ],
     "tools/ozzit/functions/ratios/index.html": [
-      "4fb4aeaf125f11e4dd6ca93827938199d4c9c190ff3c2991be07f986ed9cca8e"
+      "6e7f2e93e4e19123789d89cf5a8bb66e3a1e02d73bfefb2d7bbc0974d464e926"
     ],
     "tools/ozzit/functions/utilities/index.html": [
-      "cb409598d3b2535b684f87073c4118c2baf82cbb1a806e94282856c172ebe8ef"
+      "9d439aa0458d7e24125c52d2c1d7a4d4c3e7692996b93d836c8411034c3d0a0b"
     ],
     "tools/ozzit/index.html": [
-      "49cd9909d3bbcbabcc6da09febdb5d3f5781c4323e7ead2f8c051f76b6d5b658"
+      "3be7a825d8ef0a388ab940fd287ce86121beb820ae9947cd2d30eae87d9c6a2b"
     ],
     "tools/payday-super/business-days/index.html": [
-      "f8e8a39be045d5a43522ccee88f73e3f9d5d5b691270c3b3fed22f603941171b"
+      "f079b1a110601d216daa4aa8499c8a9aa615d24cf59aaa0ca57238ef401a8393"
     ],
     "tools/payday-super/index.html": [
-      "74974793432f714449554d58fee795cdaf1c21948bfbcca6658642efc34aa1bb"
+      "24247bea6f4288c044f0bd1480ec88b6623cf865a4e984b5ce92d7d74c590c03"
     ],
     "tools/refusals/index.html": [
-      "dae4b3d4785eb7a76a9d3c97d44563dbaab32831ea788f1334008d43fd28de48"
+      "743e36cf92540ae65085504a03479313436eb014da7c3d67bc324a57ed49da5e"
     ],
     "tools/subcontractor-ledgers/index.html": [
-      "97bffaa1d795b97c34b6411b6f37f2f9a5fccb598f6528eb072e1e30c64a9d74"
+      "3f4ea3eeb10d9ee5280846bb5dd258b6761da75daf20b26b3d343073f97138b3"
     ],
     "tools/trust-distributions/index.html": [
-      "2feff2be5e2aa465ede79f9c7fe8fccdb6fb45a74509c3f88c6bb56fbbb78424"
+      "0bd6858e2126a30b1cd32824dc8deb1a600bff53930a6fbbfcd882fbcb142e4f"
     ],
     "tools/wip-schedule/index.html": [
-      "c2d68094b6b6211077791abedc7d261f5a31632b49aa9752eeac896f556bf379"
+      "153ff034133f020f096bf772fccb2ea6d19b78d0951f7e8f3f5130996f72cb81"
     ],
     "tools/workpaper-review-gate/index.html": [
-      "430f72c90ac8febd4c1b640df96462de292e3e0e80e2cb002e3e90be9ed3d51f"
+      "a76bdf27cc062185a0766ed66be6ee61b6bdaec670caae5230bcec1ca819ad13"
     ],
     "tools/xero-trial-balance/index.html": [
-      "7f944424c1f2c4182a2dfd2bd97e81803ca14ed68027f0180fcd6fa6b1fc4fe8"
+      "7bac99131efe214ca98570ec7ded479db63f9beb82ffcaea0be317f1aca580d9"
     ],
     "works-with/claude/index.html": [
-      "5016f56af4063cc95d1f0720642e98b563d6c9e78a5c3e35d875c8baeb372b36"
+      "00c46e573bd9982d5e9afe75f223d37b6dd5a61572f22553c4487c2ab1c6b34e"
     ],
     "works-with/index.html": [
-      "29a484b6c24d15796f9750e9768f53c90ba126bf8454bf137fc813ee00121870"
+      "2d383ea61f0b345ebb8dd30137934cddb1d013819a734c14f81a61db6ca94578"
     ],
     "works-with/xero/index.html": [
-      "388b85a0d758cb2742e1cdb4e07f98aca7947c6df11048828b3fa5bdc2662774"
+      "9d2349c58b1d74813421e99d961438776993a4405079449bc32a2742fe32da74"
     ]
   },
   "protected_files": {

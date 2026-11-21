@@ -6,7 +6,7 @@ use super::head::ORIGIN;
 use super::{SENTINEL_MODIFIED, SENTINEL_PUBLISHED};
 use serde_json::{Value, json};
 
-const LICENSE: &str = "https://creativecommons.org/licenses/by/4.0/";
+const LICENSE: &str = "https://duguid.com.au/privacy/#licences";
 
 /// The structured data of a page at `path`, whose trail is `crumbs` (name, path), the
 /// last being the page itself.
