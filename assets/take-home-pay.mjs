@@ -93,7 +93,7 @@ function datedSuperGuarantee(payments, year, salary, cap, tenths) {
 
   let remainingBase = quarterly ? cap / 4 : cap;
   let superGuarantee = 0;
-  for (const period of [...earningsByPeriod.keys()].sort()) {
+  for (const period of [...earningsByPeriod.keys()].sort((a, b) => a.localeCompare(b))) {
     const counted = Math.min(earningsByPeriod.get(period), remainingBase);
     superGuarantee += Number(ratioCents(BigInt(counted) * BigInt(tenths), 1000n));
     if (!quarterly) remainingBase -= counted;

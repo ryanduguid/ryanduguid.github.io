@@ -32,7 +32,7 @@ For one employer with super paid on top, enter one payment per line as date, gro
 
 Dated payments (optional)
 
-For one job paid evenly all year, with no other income and no deductions you claim, so the salary less any amount sacrificed to super is the taxable income, less the standard deduction from 2026-27. For a single person with no dependants. A weekly, fortnightly or monthly pay also shows the PAYG amount withheld from each pay under that year’s schedules.
+Tax and PAYG assume one job paid evenly all year, a single person with no dependants, no other income and no claimed deductions. For weekly, fortnightly or monthly pay, the calculator shows withholding under that year’s schedules.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, Australian resident, salary $75,000.00 a year plus super, $0.00 a year sacrificed to super, no study or training loan, with private hospital cover. Salary for the year $75,000.00 Salary sacrificed to super $0.00 Estimated employer super guarantee $9,000.00 Standard deduction for work-related expenses $0.00 Income tax less offsets $13,288.00 Medicare levy $1,500.00 Medicare levy surcharge $0.00 Study and training loan repayment $0.00 Take-home pay for the year $60,212.00 Each month, a twelfth $5,017.67 Each fortnight, a 26th $2,315.85 Each week, a 52nd $1,157.92 The year’s tax on this salary spread evenly, not the amounts an employer withholds each pay.
 
