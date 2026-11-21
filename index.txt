@@ -12,7 +12,7 @@ Explore the cash flow example
 
 Built by Ryan Duguid, a senior accountant in Newcastle, NSW.
 
-Last reviewed 19 November 2026.
+Last reviewed 22 November 2026.
 
 ## Compare profit with cash flow
 
@@ -54,7 +54,7 @@ Browse reproducible evaluations Set up AI tools
 
 ### Latest tool releases
 
-- Aus Accounting MCP v0.10.0 19 November 2026
+- Aus Accounting MCP v0.11.0 21 November 2026
 - Ozzit v3.7.0 18 November 2026
 - Workpaper Review Gate v1.0.1 14 November 2026
 
@@ -73,5 +73,5 @@ Browse reproducible evaluations Set up AI tools
 - Evidence behind the tools: https://duguid.com.au/evidence/
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - Set up AI tools: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- Aus Accounting MCP v0.10.0: https://duguid.com.au/tools/australian-tax-ai-agents/
+- Aus Accounting MCP v0.11.0: https://duguid.com.au/tools/australian-tax-ai-agents/
 - Workpaper Review Gate v1.0.1: https://duguid.com.au/tools/workpaper-review-gate/
