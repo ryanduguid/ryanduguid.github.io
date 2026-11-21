@@ -96,7 +96,7 @@ Source: https://duguid.com.au/about/
 
 I’m Ryan Duguid, a senior accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.
 
-I am a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3. CA ANZ has not endorsed this site or its tools. My LinkedIn profile is linkedin.com/in/ryan-duguid.
+I am a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3. My LinkedIn profile is linkedin.com/in/ryan-duguid.
 
 To send feedback on a tool or example, use the Contact page.
 
@@ -110,7 +110,7 @@ Name | Ryan Duguid
 Based in | Newcastle, NSW, Australia
 Not to be confused with | The US software product executive of the same name
 Field | Accounting, Australian taxation, payroll and statutory compliance
-Professional body | I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+Professional body | I am a Provisional CA ANZ Member.
 
 Certifications |
 
@@ -532,7 +532,7 @@ Merge dates are in Australian Eastern time. Merge status and file counts were re
 
 ## Identity and credentials
 
-I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Two of my credentials can be verified with their issuer: the SAP S/4HANA Financial Accounting Credly badge and the SAP S/4HANA Management Accounting Credly badge. Xero has no public verification page for its certification, so I publish the certificate Xero issued here in full. These credentials do not establish regulatory approval, authorisation to provide a regulated service or a client outcome.
+I am a Provisional CA ANZ Member. Two of my credentials can be verified with their issuer: the SAP S/4HANA Financial Accounting Credly badge and the SAP S/4HANA Management Accounting Credly badge. Xero has no public verification page for its certification, so I publish the certificate Xero issued here in full. These credentials do not establish regulatory approval, authorisation to provide a regulated service or a client outcome.
 
 ### Xero Certified Specialist, Level 3
 
