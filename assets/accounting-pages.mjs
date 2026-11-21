@@ -560,6 +560,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'fuel-tax-credits':
             result = calculate.fuelTaxCreditsResult(value, aud);
             break;
+          case 'luxury-car-tax':
+            result = calculate.luxuryCarTaxResult(value, aud);
+            break;
           case 'unused-leave':
             result = calculate.unusedLeaveResult(value, aud);
             break;

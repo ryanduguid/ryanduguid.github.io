@@ -331,6 +331,14 @@ calculate.fuelTaxCredits({ ...ftcInput, year: 2026 });
 const ftcLabel: string = calculate.fuelTaxCredits(ftcInput).label7d;
 void ftcTotal;
 void ftcLabel;
+const lctInput = { year: '2026-27', lines: [{ kind: 'sale', luxury_car_tax_value: '88000', fuel_consumption_litres_per_100km: null }] };
+const lctOnSales: number = calculate.luxuryCarTax(lctInput).onSales;
+// @ts-expect-error The tax period's year is a string such as '2026-27', as the form's select gives it.
+calculate.luxuryCarTax({ ...lctInput, year: 2026 });
+// @ts-expect-error Label 1E is whole dollars as a number, not text.
+const lctLabel: string = calculate.luxuryCarTax(lctInput).label1e;
+void lctOnSales;
+void lctLabel;
 const leavePay = { annual: '0', loading: '0', longService: '22020', accrualStart: '1977-01-01', reason: 'normal', annualBefore1993: '',
   loadingBefore1993: '', lslBefore1978: '780', lsl1978To1993: '6420', payee: 'tfn', earnings: '1155', period: 'week' } as const;
 const leaveWithheld: number = calculate.unusedLeave(leavePay).withholding;
