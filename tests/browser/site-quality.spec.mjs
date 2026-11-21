@@ -591,6 +591,13 @@ test('mobile sticky header gives readable navigation two rows', async ({ page },
   }
 });
 
+// Waits until the page's module scripts and calculator engines have arrived. A test
+// that leaves sooner cancels them, and the health check reports each cancelled request.
+async function waitForPageModules(page) {
+  await page.waitForLoadState('load');
+  await waitForCalculators(page);
+}
+
 test('all homepage starting routes land on their targets', async ({ page }) => {
   const health = observePageHealth(page);
   for (const [label, href, target] of homepagePreviewRoutes) {
@@ -604,7 +611,23 @@ test('all homepage starting routes land on their targets', async ({ page }) => {
       return `${current.pathname}${current.hash}`;
     }).toBe(href);
     await expect(page.locator(`#${target}`)).toBeVisible();
+    await waitForPageModules(page);
   }
+  health.assertHealthy();
+});
+
+// On 22 November 2026 the test above left /rates/ whilst copy-commands.mjs was still
+// arriving, and the health check failed on it (net::ERR_ABORTED) on a Windows runner.
+test('leaving a page once its module scripts load aborts no request', async ({ page }, testInfo) => {
+  test.skip(projectKind(testInfo) !== 'desktop', 'runs once');
+  await page.route('**/assets/copy-commands.mjs', async (route) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await route.continue();
+  });
+  const health = observePageHealth(page);
+  await page.goto('/rates/', { waitUntil: 'commit' });
+  await waitForPageModules(page);
+  await page.goto('/');
   health.assertHealthy();
 });
 
