@@ -17,12 +17,15 @@ import { SOLE_TRADER_YEARS, soleTraderSetAside } from '../assets/sole-trader.mjs
 import { incomeTests, INCOME_TEST_PARTS } from '../assets/income-tests.mjs';
 import { CAP, concessionalCatchUp } from '../assets/concessional-catch-up.mjs';
 import { superProjection } from '../assets/super-projection.mjs';
+import { fhss } from '../assets/fhss.mjs';
+import { fhssFormFacts, fhssResult } from '../assets/fhss-result.mjs';
+import './fhss.test.mjs';
 
 import { bonusWithholding } from '../assets/bonus-withholding.mjs';
 import { salaryPackaging } from '../assets/salary-packaging.mjs';
 import { FUEL_EFFICIENT_THRESHOLD, novatedLease } from '../assets/novated-lease.mjs';
 const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAside, lumpSumArrears, division293Tax, incomeTests, concessionalCatchUp,
-  bonusWithholding, salaryPackaging, novatedLease, superProjection };
+  bonusWithholding, salaryPackaging, novatedLease, superProjection, fhssAmounts: (facts) => fhss(facts).amounts };
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -46,6 +49,8 @@ const signed = (value) => (value < 0 ? `-${whole(-value)}` : whole(value));
 
 // How each row's call reads on the page and how its result reads, so neither can drift from the engine.
 const INPUTS = {
+  fhssAmounts: (f) => `ATO determination: concessional ${dollars(f.concessional)}, non-concessional ${dollars(f.nonConcessional)}, earnings ${dollars(f.associatedEarnings)}`
+    + (f.actualRelease ? `, requested ${dollars(f.requestedAmount)} on ${f.releaseRequestDate}, gross released ${dollars(f.actualRelease)}` : ''),
   taxEstimate: (r) => `${r.year}, ${RESIDENCY[r.residency]}, ${parts(r)}${r.studyLoan ? ', study loan' : ''}`
     + `${r.uncoveredDays === '0' ? '' : `, ${r.uncoveredDays} days without hospital cover`}`
     + `${r.spouse === null ? '' : `, spouse ${whole(r.spouse)}`}${r.children === '0' ? '' : `, ${r.children} children`}`
@@ -95,6 +100,8 @@ const INPUTS = {
       .join(', '),
 };
 const OUTPUTS = {
+  fhssAmounts: (r) => `Maximum release ${dollars(r.maximum_release_amount)}, assessable ${dollars(r.assessable_fhss_released_amount)}, `
+    + `PAYG ${dollars(r.tax_withheld)}, after withholding ${dollars(r.after_withholding)}, offset ${dollars(r.fhss_tax_offset)}`,
   taxEstimate: (r, call) => `Tax ${dollars(r.tax)}, offset ${dollars(r.offset)}`
     + `${['2020-21', '2021-22'].includes(call.year) ? `, LMITO ${dollars(r.lmito)}` : ''}, Medicare levy ${dollars(r.medicare)}, `
     + `surcharge ${dollars(r.surcharge)}${call.studyLoan ? `, study loan ${dollars(r.studyLoan)}` : ''}, `
@@ -159,7 +166,12 @@ const formDefaults = (html) => {
   return fields;
 };
 // How assets/individual-tax-results.mjs passes each form's fields to its engine.
+const fhssExampleFields = fields => ({ ...fields, scope: 'yes', 'withholding-basis': 'unable', 'debt-offset': '0', transition: '' });
 const FORM_CALLS = {
+  fhssAmounts: (f) => {
+    const fixture = fhssExampleFields(f);
+    return [Object.fromEntries(Object.entries(fhssFormFacts(name => fixture[name] ?? '')).filter(([, value]) => value !== ''))];
+  },
   taxEstimate: (f) => [{ year: f.year, residency: f.residency, taxable: f.income, fringe: f.fringe, super: f.super,
     losses: f.losses, foreign: f.foreign, studyLoan: f['study-loan'] === 'yes', uncoveredDays: f.uncovered,
     spouse: f.spouse === 'yes' ? f['spouse-income'] : null, children: f.children, withheld: f.withheld }],
@@ -626,12 +638,14 @@ for (const page of Object.keys(shownCases)) {
     const html = readFileSync(new URL(`../_includes/calculators/${page}.html`, import.meta.url), 'utf8');
     const example = html.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
     const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
-    const fields = formDefaults(html);
+    const defaults = formDefaults(html);
+    const fields = page === 'fhss' ? fhssExampleFields(defaults) : defaults;
     // The browser reads a field through form.elements, which has no entry for a name the form lacks.
-    const result = individualResult(page, (name) => {
+    const value = (name) => {
       assert.ok(Object.hasOwn(fields, name), `${page} reads ${name}, which its form does not have`);
-      return fields[name];
-    }, aud);
+      return fields[name] ?? '';
+    };
+    const result = page === 'fhss' ? fhssResult(value, aud) : individualResult(page, value, aud);
     assert.equal(result.inputs, example[1]);
     assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);
     assert.equal(String(result.principal), example[3]);
