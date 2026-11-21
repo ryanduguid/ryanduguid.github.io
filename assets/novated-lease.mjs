@@ -25,27 +25,62 @@ export const FUEL_EFFICIENT_THRESHOLD = /** @type {Record<string, number>} */ ({
 
 /**
  * @typedef {{year: string, residency: string, salary: string, studyLoan: boolean, hospitalCover: boolean, kind: string,
- *   firstUsed: string, commitment: boolean, saleYear: string, price: string, otherSupply: boolean, reduced: boolean,
+ *   firstUsed: string, commitment: boolean, saleYear: string, price: string, otherSupply: boolean, lctTiming?: string, reduced: boolean,
  *   days: string, gstCosts: string, otherCosts: string}} Lease
  */
 
+/** Bounds on a taxable first retail sale from the year and number of private-use days.
+ * @param {Lease} n @param {number} days @param {number} yearDays */
+function taxableFirstSaleTiming(n, days, yearDays) {
+  const fbtStartYear = Number(n.year.slice(0, 4));
+  const saleStartYear = Number(n.saleYear.slice(0, 4));
+  const aprilToJuneDays = 30 + 31 + 30;
+  if (saleStartYear < fbtStartYear - 1) {
+    if (n.lctTiming === 'after-all') {
+      throw new Error('The taxable first retail sale was before this FBT year, so luxury car tax was already payable.');
+    }
+    return 'before-all';
+  }
+  if (!n.otherSupply && n.lctTiming === 'before-all'
+    && (saleStartYear > fbtStartYear || (saleStartYear === fbtStartYear && days > yearDays - aprilToJuneDays))) {
+    throw new Error('The taxable first retail sale cannot be before all the benefits counted.');
+  }
+  if (n.lctTiming === 'after-all' && saleStartYear === fbtStartYear - 1 && days > aprilToJuneDays) {
+    throw new Error('The taxable first retail sale cannot be after all the benefits counted.');
+  }
+  return saleStartYear > fbtStartYear ? 'after-all' : null;
+}
+
 /** Why s 8A does not exempt the car's benefits, or null when it does, the payee being a current employee
- * (s 8A(1)(a)). Luxury car tax payable on any supply or importation fails s 8A(1)(c): at the first retail
- * sale read from the cost price, at any other supply (a sale, lease or hire) or importation before or during
- * the year from `otherSupply`. A plug-in hybrid
+ * (s 8A(1)(a)). Luxury car tax first payable before a benefit fails s 8A(1)(c). The cost price indicates
+ * tax at the first retail sale, and `otherSupply` records another sale, lease, hire or an importation.
+ * A plug-in hybrid
  * stopped being a zero or low emissions vehicle on 1 April 2025 (s 8A(2)); the ATO's 'FBT on plug-in hybrid
  * electric vehicles' (last updated 14 March 2025) keeps the exemption where it applied to the car's
  * use before that date under a financially binding commitment that continues unchanged.
- * @param {Lease} n @param {number} price cents */
-function notExempt(n, price) {
+ * @param {Lease} n @param {number} price cents @param {number} days @param {number} yearDays */
+function notExempt(n, price, days, yearDays) {
+  const firstSaleTaxed = price > FUEL_EFFICIENT_THRESHOLD[n.saleYear] * 100;
+  if (!firstSaleTaxed && !n.otherSupply && (n.lctTiming === 'before-all' || n.lctTiming === 'after-all')) {
+    throw new Error('The luxury car tax timing needs a taxable first retail sale or tax on another supply or importation.');
+  }
   if (n.kind === 'other') return 'it is not a battery electric or hydrogen fuel cell car';
   if (n.kind === 'phev' && n.year >= '2025-26' && !n.commitment) {
     return 'a plug-in hybrid is exempt from 1 April 2025 only under a commitment made and used before then';
   }
   if (n.firstUsed < '2022-07-01') return 'it was first held and used before 1 July 2022';
-  if (price > FUEL_EFFICIENT_THRESHOLD[n.saleYear] * 100) return 'luxury car tax was payable on its first retail sale';
-  if (n.otherSupply) return 'luxury car tax became payable on another supply or an importation of it';
-  return null;
+  if (!firstSaleTaxed && !n.otherSupply) return null;
+  const firstSaleReason = 'luxury car tax was payable on its first retail sale';
+  const saleTiming = firstSaleTaxed ? taxableFirstSaleTiming(n, days, yearDays) : null;
+  if (saleTiming === 'before-all') return firstSaleReason;
+  if (saleTiming === 'after-all' && !n.otherSupply) return null;
+  if (n.lctTiming === 'after-all') return null;
+  if (n.lctTiming !== 'before-all') {
+    throw new Error('Say whether luxury car tax first became payable before or after all the benefits counted. '
+      + 'This calculator needs one treatment for the year.');
+  }
+  if (firstSaleTaxed && n.otherSupply) return 'luxury car tax became payable before the benefits';
+  return firstSaleTaxed ? firstSaleReason : 'luxury car tax became payable on another supply or an importation of it';
 }
 
 /** The year's figures for a car under a novated lease, against paying the same costs from after-tax
@@ -63,8 +98,8 @@ export function novatedLease(n) {
   if (!['bev', 'fcev', 'phev', 'other'].includes(n.kind)) throw new Error('Choose the kind of car.');
   const ended = Number(n.year.slice(0, 4)) + 1;
   const firstUsed = carFirstUseDate(n.firstUsed, ended);
-  if (!Object.hasOwn(FUEL_EFFICIENT_THRESHOLD, n.saleYear) || n.saleYear > n.year) {
-    throw new Error('Choose the year of the car’s first retail sale, from 2021-22 to the income year.');
+  if (!Object.hasOwn(FUEL_EFFICIENT_THRESHOLD, n.saleYear)) {
+    throw new Error('Choose the year of the car’s first retail sale, from 2021-22 to 2026-27.');
   }
   for (const flag of ['commitment', 'otherSupply', 'reduced', 'studyLoan', 'hospitalCover']) {
     if (typeof n[/** @type {'commitment'} */ (flag)] !== 'boolean') throw new Error('Answer each yes or no question.');
@@ -89,7 +124,7 @@ export function novatedLease(n) {
   if (costs > salary) throw new Error('The car’s costs cannot exceed the salary.');
   const netCosts = Number(ratioCents(BigInt(gstCosts) * 10n, 11n)) + otherCosts;
   const taxableValue = Number(ratioCents(BigInt(price) * (n.reduced ? 2n : 3n) * 20n * BigInt(days), 300n * BigInt(yearDays)));
-  const reason = notExempt(n, price);
+  const reason = notExempt(n, price, days, yearDays);
   const none = owed(n, salary, 0);
   /** @param {number} pre @param {number} post @param {number} reportable cents, cents, whole dollars */
   const scenario = (pre, post, reportable) => {

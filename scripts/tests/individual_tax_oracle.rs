@@ -1400,6 +1400,9 @@ fn lct_threshold(year: &str) -> u64 {
 fn lease_oracle(l: &Lease) -> Value {
     let electric = matches!(l.kind, "bev" | "fcev")
         || (l.kind == "phev" && (l.year == "2023-24" || l.year == "2024-25" || l.commitment));
+    let first_sale_taxed = l.price > lct_threshold(l.sale_year) * 100;
+    let first_sale_year_end = l.sale_year[..4].parse::<u16>().unwrap() + 1;
+    let fbt_year_start = l.year[..4].parse::<u16>().unwrap();
     let failures = [
         (
             l.kind == "other",
@@ -1411,7 +1414,11 @@ fn lease_oracle(l: &Lease) -> Value {
         ),
         (!l.after, "it was first held and used before 1 July 2022"),
         (
-            l.price > lct_threshold(l.sale_year) * 100,
+            first_sale_taxed && l.other_supply && first_sale_year_end >= fbt_year_start,
+            "luxury car tax became payable before the benefits",
+        ),
+        (
+            first_sale_taxed,
             "luxury car tax was payable on its first retail sale",
         ),
         (
@@ -1551,7 +1558,7 @@ fn the_novated_lease_engine_agrees_with_the_oracle_on_every_seeded_case() {
                 1 + rng.below(15_000_000)
             };
             let kind = rng.pick(&["bev", "fcev", "phev", "other"]);
-            let l = Lease {
+            let mut l = Lease {
                 year,
                 kind,
                 after: rng.below(5) != 0,
@@ -1565,10 +1572,17 @@ fn the_novated_lease_engine_agrees_with_the_oracle_on_every_seeded_case() {
                 gst_costs: rng.below(4_000_001),
                 other_costs: rng.below(300_001),
             };
+            let first_sale_taxed = price > lct_threshold(sale_year) * 100;
+            if sale_year == year && first_sale_taxed && !l.other_supply {
+                // A July or later sale cannot precede a benefit provided in April to June.
+                l.days = l.days.min(days_in(year) - 91);
+            }
             let input = json!({"year": year, "residency": if rng.below(4) == 0 { "foreign" } else { "resident" },
                 "salary": "400000", "studyLoan": rng.below(2) == 0, "hospitalCover": rng.below(2) == 0, "kind": l.kind,
                 "firstUsed": if l.after { "2022-07-01" } else { "2022-06-30" }, "commitment": l.commitment, "saleYear": sale_year,
-                "price": money(price), "otherSupply": l.other_supply, "reduced": l.reduced, "days": l.days.to_string(), "gstCosts": money(l.gst_costs),
+                "price": money(price), "otherSupply": l.other_supply,
+                "lctTiming": if first_sale_taxed || l.other_supply { "before-all" } else { "mixed-or-unknown" },
+                "reduced": l.reduced, "days": l.days.to_string(), "gstCosts": money(l.gst_costs),
                 "otherCosts": money(l.other_costs)});
             (json!({"kind": "lease", "lease": input}), lease_oracle(&l))
         })

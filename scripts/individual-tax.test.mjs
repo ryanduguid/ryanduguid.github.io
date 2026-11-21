@@ -172,7 +172,8 @@ const FORM_CALLS = {
     hospitalCover: f.cover === 'yes' }],
   novatedLease: (f) => [{ year: f.year, residency: f.residency, salary: f.salary, studyLoan: f['study-loan'] === 'yes',
     hospitalCover: f.cover === 'yes', kind: f.kind, firstUsed: f['first-used'], commitment: f.commitment === 'yes',
-    saleYear: f['sale-year'], price: f.price, otherSupply: f['other-supply'] === 'yes', reduced: f.reduced === 'yes', days: f.days,
+    saleYear: f['sale-year'], price: f.price, otherSupply: f['other-supply'] === 'yes', lctTiming: f['lct-timing'],
+    reduced: f.reduced === 'yes', days: f.days,
     gstCosts: f['gst-costs'], otherCosts: f['other-costs'] }],
   bonusWithholding: (f) => [{ period: f.period, residency: f.residency, studyLoan: f['study-loan'] === 'yes', method: f.method,
     earnings: f.earnings, additional: f.additional, spread: f.spread, backPays: f['back-pays'], backEarnings: f['back-earnings'],
@@ -730,11 +731,41 @@ test('novated lease tests each condition of the electric car exemption', () => {
   assert.throws(() => lease({ kind: 'phev', commitment: true, firstUsed: '2025-04-01', saleYear: '2024-25' }), /use before 1 April 2025/);
   assert.equal(lease({ kind: 'phev', year: '2024-25', saleYear: '2024-25' }).exempt, true);
   assert.equal(lease({ firstUsed: '2022-06-30', saleYear: '2021-22' }).reason, 'it was first held and used before 1 July 2022');
-  assert.equal(lease({ price: '91661', gstCosts: '25000' }).exempt, true);
-  assert.equal(lease({ price: '91661.01', gstCosts: '25000' }).reason, 'luxury car tax was payable on its first retail sale');
-  assert.equal(lease({ saleYear: '2025-26', price: '91387.01', gstCosts: '25000' }).exempt, false);
+  let atThreshold;
+  assert.doesNotThrow(() => { atThreshold = lease({ price: '91661', gstCosts: '25000' }); });
+  assert.equal(atThreshold.exempt, true);
+  assert.equal(lease({ price: '91661.01', gstCosts: '25000', days: '274', lctTiming: 'before-all' }).reason, 'luxury car tax was payable on its first retail sale');
+  assert.equal(lease({ saleYear: '2025-26', price: '91387.01', gstCosts: '25000', lctTiming: 'before-all' }).exempt, false);
   assert.equal(lease({ saleYear: '2025-26', price: '91387', gstCosts: '25000' }).exempt, true);
-  assert.equal(lease({ otherSupply: true }).reason, 'luxury car tax became payable on another supply or an importation of it');
+  assert.equal(lease({ otherSupply: true, lctTiming: 'before-all' }).reason, 'luxury car tax became payable on another supply or an importation of it');
+});
+
+test('novated lease applies luxury car tax at the time of the counted benefits', () => {
+  // A taxable first retail sale on 1 April 2026 follows every benefit in the FBT year ending 31 March 2026.
+  const sale = { year: '2025-26', saleYear: '2025-26', firstUsed: '2025-04-01', price: '100000', gstCosts: '25000' };
+  assert.equal(lease({ ...sale, lctTiming: 'after-all' }).exempt, true);
+  assert.equal(lease({ ...sale, days: '274', lctTiming: 'before-all' }).exempt, false);
+  assert.throws(() => lease({ ...sale, days: '275', lctTiming: 'before-all' }), /cannot be before all/);
+  assert.throws(() => lease(sale), /one treatment for the year/);
+  assert.throws(() => lease({ ...sale, lctTiming: 'mixed-or-unknown' }), /one treatment for the year/);
+  assert.equal(lease({ otherSupply: true, lctTiming: 'after-all' }).exempt, true);
+  assert.throws(() => lease({ otherSupply: true, lctTiming: 'mixed-or-unknown' }), /one treatment for the year/);
+  const previousSale = { ...sale, saleYear: '2023-24' };
+  assert.equal(lease(previousSale).exempt, false);
+  assert.throws(() => lease({ ...previousSale, lctTiming: 'after-all' }), /before this FBT year/);
+  const overlappingSale = { ...sale, saleYear: '2024-25', lctTiming: 'after-all' };
+  assert.equal(lease({ ...overlappingSale, days: '91' }).exempt, true);
+  assert.throws(() => lease({ ...overlappingSale, days: '92' }), /cannot be after all/);
+  // Private availability can precede the car's first use.
+  assert.equal(lease({ ...overlappingSale, firstUsed: '2025-07-01', days: '1' }).exempt, true);
+  const laterSale = { ...sale, saleYear: '2026-27' };
+  assert.equal(lease(laterSale).exempt, true);
+  assert.equal(lease({ ...laterSale, lctTiming: 'mixed-or-unknown' }).exempt, true);
+  assert.throws(() => lease({ ...laterSale, lctTiming: 'before-all' }), /cannot be before all/);
+  assert.throws(() => lease({ lctTiming: 'before-all' }), /timing needs a taxable first retail sale/);
+  assert.throws(() => lease({ lctTiming: 'after-all' }), /timing needs a taxable first retail sale/);
+  assert.throws(() => lease({ kind: 'other', lctTiming: 'before-all' }), /timing needs a taxable first retail sale/);
+  assert.match(lease({ ...sale, otherSupply: true, lctTiming: 'before-all' }).reason, /before the benefits/);
 });
 
 // The ATO's Luxury car tax rate and thresholds (last updated 1 June 2026, read 19 November 2026).
@@ -776,8 +807,7 @@ test('novated lease refuses what it does not compute', () => {
   assert.throws(() => lease({ year: '2022-23', saleYear: '2022-23' }), { message: 'Choose an income year from 2023-24 to 2026-27.' });
   assert.throws(() => lease({ kind: 'diesel' }), { message: 'Choose the kind of car.' });
   assert.throws(() => lease({ firstUsed: 'later' }), { message: 'Enter the date the car was first held and used as a calendar date.' });
-  assert.throws(() => lease({ saleYear: '2027-28' }), /first retail sale, from 2021-22 to the income year/);
-  assert.throws(() => lease({ year: '2024-25', saleYear: '2025-26' }), /first retail sale/);
+  assert.throws(() => lease({ saleYear: '2027-28' }), /first retail sale, from 2021-22 to 2026-27/);
   assert.throws(() => lease({ price: '0' }), { message: 'Enter the car’s cost price.' });
   assert.throws(() => lease({ salary: '10000', gstCosts: '15000' }), { message: 'The car’s costs cannot exceed the salary.' });
   assert.throws(() => lease({ kind: 'other', gstCosts: '1000' }), /cannot cover it/);
