@@ -23,7 +23,7 @@ commit them.
 
 ## WebMCP pilot
 
-Twenty-two calculator pages each offer one WebMCP tool to a browser's built-in agent
+The calculator pages listed below each offer one tool to a browser's built-in agent
 through the draft [WebMCP](https://webmachinelearning.github.io/webmcp/)
 `modelContext` API: `calculate_gst`, `calculate_div7a_minimum_repayment`,
 `calculate_loan_schedule`, `calculate_hire_purchase_schedule`, `calculate_lease_schedule`, `calculate_break_even`, `calculate_company_tax`,
