@@ -173,6 +173,7 @@ test('novated lease names the exemption condition a plug-in hybrid fails, applie
   const form = page.locator('#novated-lease form');
   await waitForCalculator(form);
   await form.getByLabel('Plug-in hybrid', { exact: true }).check();
+  await form.getByLabel(/^Date the car was first held and used/).fill('2024-07-01');
   await form.getByRole('group', { name: /first retail sale/ }).getByLabel('2024-25').check();
   const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
   const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
@@ -187,6 +188,23 @@ test('novated lease names the exemption condition a plug-in hybrid fails, applie
   await calculate.click();
   await expect(row('Electric car exemption')).toHaveText(/another supply or an importation/);
   await expect(form.locator('output .result-row--principal strong')).toHaveText('$1,465.69');
+});
+
+test('novated lease accepts first use on 31 March and refuses first use on 1 April offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/novated-lease/');
+  const form = page.locator('#novated-lease form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('group', { name: 'Income year' }).getByLabel('2025-26').check();
+  await form.getByLabel(/^Days of private use or availability/).fill('1');
+  const date = form.getByLabel(/^Date the car was first held and used/);
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  await date.fill('2026-03-31');
+  await calculate.click();
+  await expect(form.locator('output')).toContainText('$32.88');
+  await date.fill('2026-04-01');
+  await calculate.click();
+  await expect(form.locator('output')).toContainText('The car was first held and used after 31 March 2026');
 });
 
 test('Method B works a back payment over 2 years by B(i) and B(ii), as the ATO’s example 4 does', async ({ page }) => {
@@ -273,7 +291,7 @@ for (const [id, name, input, expected] of [
     salary: 80000, typeOneBenefits: '7700', typeTwoBenefits: '9000', mealEntertainment: '3300', mealEntertainmentTypeOne: false },
     { fbt: '1986.22' }],
   ['novated-lease', 'calculate_novated_lease', { incomeYear: '2026-27', residency: 'resident', salary: 100000, car: 'bev',
-    firstHeldAndUsedFrom1July2022: true, firstSaleYear: '2026-27', costPrice: '60000', daysAvailable: 365, costsWithGst: '15000',
+    firstHeldAndUsed: '2026-04-01', firstSaleYear: '2025-26', costPrice: '60000', daysAvailable: 365, costsWithGst: '15000',
     costsWithoutGst: '1000' }, { statutoryValue: '12000.00' }],
   ['bonus-withholding', 'calculate_bonus_withholding', { payPeriod: 'fortnight', residency: 'resident', method: 'B',
     earnings: '1800', additionalPayment: '2480', earningsToDate: '18000', paysToDate: 10 }, { totalWithheld: '992.00' }],

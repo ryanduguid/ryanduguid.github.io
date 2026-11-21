@@ -522,7 +522,7 @@ test('salary packaging tool gives the ATO’s FBT example and refuses what the p
 
 test('novated lease tool tests the electric car exemption and refuses what the page refuses', async () => {
   const tool = individual['novated-lease'];
-  const car = { incomeYear: '2026-27', residency: 'resident', salary: 100000, car: 'bev', firstHeldAndUsedFrom1July2022: true,
+  const car = { incomeYear: '2026-27', residency: 'resident', salary: 100000, car: 'bev', firstHeldAndUsed: '2022-07-01',
     firstSaleYear: '2026-27', costPrice: '60000', daysAvailable: 365, costsWithGst: '15000', costsWithoutGst: '1000' };
   const bev = await tool.execute(car);
   assert.deepEqual([bev.exempt, bev.statutoryValue, bev.exemptCase.saving, bev.exemptCase.reportableFringeBenefits,
@@ -535,6 +535,10 @@ test('novated lease tool tests the electric car exemption and refuses what the p
   assert.match((await tool.execute({ ...car, luxuryCarTaxOnOtherSupply: true })).reasonNotExempt, /another supply or an importation/);
   await assert.rejects(tool.execute({ ...car, car: 'diesel' }), /car does not match/);
   await assert.rejects(tool.execute({ ...car, costPrice: undefined }), /costPrice/);
+  await assert.rejects(tool.execute({ ...car, firstHeldAndUsed: undefined }), /firstHeldAndUsed/);
+  const lastDay = { ...car, firstHeldAndUsed: '2027-03-31', daysAvailable: 1 };
+  assert.equal((await tool.execute(lastDay)).statutoryValue, '32.88');
+  await assert.rejects(tool.execute({ ...lastDay, firstHeldAndUsed: '2027-04-01' }), /no car benefit in the FBT year/);
   assert.match(tool.description, /employee contribution method/);
 });
 

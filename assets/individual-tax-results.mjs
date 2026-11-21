@@ -195,9 +195,10 @@ function novatedLeaseResult(value, aud) {
     ? `The exempt car’s ${aud(r.exemptCase.reportable)} reportable amount is not taxed, but it counts for the Medicare levy `
       + 'surcharge, study loan repayments and other income tests'
     : undefined;
+  const firstUsed = new Date(value('first-used')).toLocaleDateString('en-AU', { dateStyle: 'long', timeZone: 'UTC' });
   return { inputs: `${r.year}, ${value('residency') === 'resident' ? 'Australian resident' : 'foreign resident'}, salary `
-    + `${aud(Number(value('salary')))}, ${CAR[value('kind')]} first held and used ${value('first-used') === 'after' ? 'on or after' : 'before'} `
-    + `1 July 2022${value('kind') === 'phev' ? `, ${flag('commitment') ? 'with' : 'without'} a commitment from before 1 April 2025` : ''}, `
+    + `${aud(Number(value('salary')))}, ${CAR[value('kind')]} first held and used on ${firstUsed}`
+    + `${value('kind') === 'phev' ? `, ${flag('commitment') ? 'with' : 'without'} a commitment from before 1 April 2025` : ''}, `
     + `first sold in ${value('sale-year')} for ${aud(Number(value('price')))}, `
     + `${flag('other-supply') ? 'luxury car tax payable at another supply or importation, ' : ''}${flag('reduced') ? 'held over 4 years, ' : ''}`
     + `available ${value('days')} days, costs with GST ${aud(Number(value('gst-costs')))} and without ${aud(Number(value('other-costs')))}, `

@@ -418,7 +418,7 @@ const MUTATIONS = [
   { ...lease, name: 'novated lease exempts a petrol car', find: "if (n.kind === 'other') return", replace: 'if (false) return' },
   { ...lease, name: 'novated lease exempts a plug-in hybrid without a commitment', find: '&& !n.commitment) {', replace: '&& false) {' },
   { ...lease, name: 'novated lease takes a plug-in hybrid commitment with a sale after 2024-25', find: "n.saleYear > '2024-25'", replace: "n.saleYear > '2026-27'" },
-  { ...lease, name: 'novated lease exempts a car first used before 1 July 2022', find: "if (n.firstUsed !== 'after') return", replace: 'if (false) return' },
+  { ...lease, name: 'novated lease exempts a car first used before 1 July 2022', find: "if (n.firstUsed < '2022-07-01') return", replace: 'if (false) return' },
   { ...lease, name: 'novated lease finds luxury car tax payable at the threshold', find: 'price > FUEL_EFFICIENT_THRESHOLD[n.saleYear] * 100', replace: 'price >= FUEL_EFFICIENT_THRESHOLD[n.saleYear] * 100' },
   { ...lease, name: 'novated lease ignores luxury car tax at another supply or importation', find: 'if (n.otherSupply) return', replace: 'if (false) return' },
   { ...lease, name: 'novated lease takes the income year’s luxury car tax threshold', find: 'FUEL_EFFICIENT_THRESHOLD[n.saleYear] * 100)', replace: 'FUEL_EFFICIENT_THRESHOLD[n.year] * 100)' },

@@ -62,7 +62,7 @@ const INPUTS = {
   salaryPackaging: (p) => `${p.year}, ${p.employer}, ${p.residency}, salary ${whole(p.salary)}, Type 2 ${dollars(p.typeTwo)}`
     + `${p.typeOne === '0' ? '' : `, Type 1 ${dollars(p.typeOne)}`}`
     + `${p.meals === '0' ? '' : `, meal entertainment ${dollars(p.meals)} (Type ${p.mealsTypeOne ? 1 : 2})`}${flags(p)}`,
-  novatedLease: (n) => `${n.year}, ${n.kind}, first held and used ${n.firstUsed} 1 July 2022`
+  novatedLease: (n) => `${n.year}, ${n.kind}, first held and used on ${n.firstUsed}`
     + `${n.commitment ? ', earlier commitment' : ''}, sold ${n.saleYear} at ${dollars(n.price)}${n.otherSupply ? ', luxury car tax at another supply' : ''}`
     + `${n.reduced ? ', held over 4 years' : ''}, `
     + `${n.days} days, costs ${dollars(n.gstCosts)} with GST and ${dollars(n.otherCosts)} without, salary ${whole(n.salary)}${flags(n)}`,
@@ -715,7 +715,7 @@ test('salary packaging refuses what it does not compute', () => {
 });
 
 const LEASE = { year: '2026-27', residency: 'resident', salary: '100000', studyLoan: false, hospitalCover: true, kind: 'bev',
-  firstUsed: 'after', commitment: false, saleYear: '2026-27', price: '60000', otherSupply: false, reduced: false, days: '365',
+  firstUsed: '2022-07-01', commitment: false, saleYear: '2026-27', price: '60000', otherSupply: false, reduced: false, days: '365',
   gstCosts: '15000', otherCosts: '1000' };
 const lease = (fields) => novatedLease({ ...LEASE, ...fields });
 
@@ -727,8 +727,9 @@ test('novated lease tests each condition of the electric car exemption', () => {
   assert.equal(lease({ kind: 'phev', commitment: true, saleYear: '2024-25' }).exempt, true);
   // A plug-in hybrid in use before 1 April 2025 cannot have been first sold after 2024-25.
   assert.throws(() => lease({ kind: 'phev', commitment: true, saleYear: '2025-26' }), /first sold by 2024-25/);
+  assert.throws(() => lease({ kind: 'phev', commitment: true, firstUsed: '2025-04-01', saleYear: '2024-25' }), /use before 1 April 2025/);
   assert.equal(lease({ kind: 'phev', year: '2024-25', saleYear: '2024-25' }).exempt, true);
-  assert.equal(lease({ firstUsed: 'before', saleYear: '2021-22' }).reason, 'it was first held and used before 1 July 2022');
+  assert.equal(lease({ firstUsed: '2022-06-30', saleYear: '2021-22' }).reason, 'it was first held and used before 1 July 2022');
   assert.equal(lease({ price: '91661', gstCosts: '25000' }).exempt, true);
   assert.equal(lease({ price: '91661.01', gstCosts: '25000' }).reason, 'luxury car tax was payable on its first retail sale');
   assert.equal(lease({ saleYear: '2025-26', price: '91387.01', gstCosts: '25000' }).exempt, false);
@@ -750,6 +751,16 @@ test('novated lease values the car by the statutory formula over the days availa
   assert.equal(lease({ days: '0' }).taxableValue, 0);
 });
 
+test('novated lease counts availability from first use through 31 March inclusive', () => {
+  const boundary = { year: '2025-26', saleYear: '2025-26', firstUsed: '2026-03-31', days: '1' };
+  assert.equal(lease(boundary).exempt, true);
+  assert.equal(lease(boundary).taxableValue, 32.88);
+  assert.throws(() => lease({ ...boundary, firstUsed: '2026-04-01' }), /no car benefit in the FBT year/);
+  assert.throws(() => lease({ ...boundary, days: '2' }), /cannot exceed 1 between first use and 31 March 2026/);
+  assert.equal(lease({ ...boundary, year: '2023-24', saleYear: '2023-24', firstUsed: '2024-02-29', days: '32' }).taxableValue, 1049.18);
+  assert.throws(() => lease({ ...boundary, firstUsed: '2026-02-29' }), /as a calendar date/);
+});
+
 test('novated lease splits the costs as the exemption or the employee contribution method requires', () => {
   const r = lease({});
   assert.equal(r.netCosts, 14636.36);
@@ -764,7 +775,7 @@ test('novated lease splits the costs as the exemption or the employee contributi
 test('novated lease refuses what it does not compute', () => {
   assert.throws(() => lease({ year: '2022-23', saleYear: '2022-23' }), { message: 'Choose an income year from 2023-24 to 2026-27.' });
   assert.throws(() => lease({ kind: 'diesel' }), { message: 'Choose the kind of car.' });
-  assert.throws(() => lease({ firstUsed: 'later' }), { message: 'Say when the car was first held and used.' });
+  assert.throws(() => lease({ firstUsed: 'later' }), { message: 'Enter the date the car was first held and used as a calendar date.' });
   assert.throws(() => lease({ saleYear: '2027-28' }), /first retail sale, from 2021-22 to the income year/);
   assert.throws(() => lease({ year: '2024-25', saleYear: '2025-26' }), /first retail sale/);
   assert.throws(() => lease({ price: '0' }), { message: 'Enter the car’s cost price.' });
