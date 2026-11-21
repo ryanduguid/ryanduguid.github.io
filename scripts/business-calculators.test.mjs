@@ -3931,6 +3931,31 @@ test('the retirement exemption row gives each entity its conditions and the limi
     + 'event (paragraph 152-110(1)(d))');
 });
 
+test('the retirement exemption uses the age at choice or stakeholder payment', () => {
+  for (const entity of ['individual', 'company', 'trust']) {
+    for (const [choice, contributionRequired] of [['2026-01-14', true], ['2026-01-15', false], ['2026-01-16', false]]) {
+      // Subsection 152-305(1) uses the individual’s choice. Subsection 152-325(7) uses the stakeholder payment.
+      const result = calculations.cgtConcessions({
+        ...concessionsBase(), entity, event: '2026-01-13', born: '1971-01-15', significant: 'yes', choice,
+      });
+      assert.deepEqual([result.retirement, result.superContribution], [true, contributionRequired], entity + ' ' + choice);
+    }
+  }
+});
+
+test('the 15-year exemption uses the age at the CGT event', () => {
+  for (const entity of ['individual', 'company', 'trust']) {
+    for (const [event, exempt] of [['2026-01-14', false], ['2026-01-15', true], ['2026-01-16', true]]) {
+      // Paragraphs 152-105(d) and 152-110(1)(d) apply to an otherwise eligible retiring individual.
+      const result = calculations.cgtConcessions({
+        ...concessionsBase(), entity, acquired: '2008-01-01', event, active: '6000', born: '1971-01-15',
+        retiring: 'yes', significant: 'yes', fifteen: 'yes', choice: '2026-01-18',
+      });
+      assert.equal(result.fifteenYear, exempt, entity + ' ' + event);
+    }
+  }
+});
+
 test('the concessions engine refuses malformed answers with a reason', () => {
   const refuses = (fields, message) => assert.throws(() => calculations.cgtConcessions({ ...concessionsBase(), ...fields }), { message });
   refuses({ entity: 'partnership' }, 'Choose who made the capital gain.');
