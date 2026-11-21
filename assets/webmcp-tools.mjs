@@ -498,8 +498,8 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
   description: 'A business\'s fuel tax credits in AUD for fuel acquired in one income year from 2022-23 to 2026-27, each line at the ATO\'s '
     + 'published rate for the day it was acquired, its fuel and its use, rounded half up to the cent, with the whole dollars for label 7D. '
     + 'Small claimants may give a line by its cost and average price, split a heavy vehicle\'s diesel by the basic method, or take every line '
-    + 'at the rate on a tax period\'s last day across indexation. It refuses fuel acquired after 31 January 2027 and does not decide entitlement, '
-    + 'public roads, hire chains, apportionment or the auxiliary equipment percentages.',
+    + 'at the rate on a tax period\'s last day when indexation changes an applicable rate. It refuses fuel acquired after 31 January 2027 '
+    + 'and does not decide entitlement, public roads, hire chains, apportionment or the auxiliary equipment percentages.',
   inputSchema: record({
     year: choice(['2022-23', '2023-24', '2024-25', '2025-26', '2026-27'], 'Income year the fuel was acquired in.'),
     lines: { type: 'array', maxItems: 50, items: FTC_LINE, description: 'From 1 to 50 fuel lines.' },
