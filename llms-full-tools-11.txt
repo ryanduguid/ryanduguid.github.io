@@ -216,18 +216,6 @@ Luxury car tax for one tax period
 
 Financial year of the tax period 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20
 
-For a business registered or required to be registered for GST. You establish each line: that the vehicle is a car and not one the Act excludes (an emergency vehicle, a car fitted out for wheelchairs, a commercial vehicle not designed mainly to carry passengers, a motor home or campervan), that the supply or importation is taxable (no quote, not GST-free or input taxed), its luxury car tax value and its combined fuel consumption rating.
-
-## What each line needs
-
-The value is the luxury car tax value, with GST and customs duty but not luxury car tax; for a price adjustment, the corrected value. Leave the litres blank for a car with no combined fuel consumption rating.
-
-An adjustment takes the year of the sale it adjusts. A refund may leave it as the tax period’s.
-
-Needed only for a car rated above 3.5 and up to 7 litres, supplied or imported from 1 July 2025. Answer yes if, before that day, it was supplied or imported and used in Australia other than for a quotable purpose: the 7 litre rating then continues.
-
-The ATO describes a refund-eligible car as a 4 wheel or all wheel drive that is either a passenger car (category MA) with a ground clearance of at least 175 mm or an off-road passenger vehicle (category MC).
-
 ## Lines
 
 Each line is one sale, importation, adjustment or refund in the tax period.
@@ -246,7 +234,21 @@ Line 3 What the line isNo line Sale Importation Price adjustment Change of use: 
 
 Line 4 What the line isNo line Sale Importation Price adjustment Change of use: increasing Change of use: decreasing Refund
 
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; line 1: sale, value $88,000.00, no fuel consumption rating; line 2: importation, value $101,500.00, no fuel consumption rating. Line 1: sale at $88,000.00, threshold $80,809 for 2026-27, $7,191.00 over $2,157.30 Line 2: importation at $101,500.00, threshold $80,809 for 2026-27, $20,691.00 over, paid to the Department of Home Affairs, not at 1E $6,207.30 Luxury car tax on sales $2,157.30 Increasing adjustments $0.00 Label 1E on the BAS, in whole dollars $2,157.00 Decreasing adjustments $0.00 Label 1F on the BAS, in whole dollars $0.00 Luxury car tax on importations, paid to the Department of Home Affairs $6,207.30
+Calculate
+
+## What each line needs
+
+For a business registered or required to be registered for GST. You establish each line: that the vehicle is a car and not one the Act excludes (an emergency vehicle, a car fitted out for wheelchairs, a commercial vehicle not designed mainly to carry passengers, a motor home or campervan), that the supply or importation is taxable (no quote, not GST-free or input taxed), its luxury car tax value and its combined fuel consumption rating.
+
+The value is the luxury car tax value, with GST and customs duty but not luxury car tax; for a price adjustment, the corrected value. Leave the litres blank for a car with no combined fuel consumption rating.
+
+An adjustment takes the year of the sale it adjusts. A refund may leave it as the tax period’s.
+
+Needed only for a car rated above 3.5 and up to 7 litres, supplied or imported from 1 July 2025. Answer yes if, before that day, it was supplied or imported and used in Australia other than for a quotable purpose: the 7 litre rating then continues.
+
+The ATO describes a refund-eligible car as a 4 wheel or all wheel drive that is either a passenger car (category MA) with a ground clearance of at least 175 mm or an off-road passenger vehicle (category MC).
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; line 1: sale, value $88,000.00, no fuel consumption rating; line 2: importation, value $101,500.00, no fuel consumption rating. Line 1: sale at $88,000.00, threshold $80,809 for 2026-27, $7,191.00 over $2,157.30 Line 2: importation at $101,500.00, threshold $80,809 for 2026-27, $20,691.00 over, paid to the Department of Home Affairs, not at 1E $6,207.30 Luxury car tax on sales $2,157.30 Increasing adjustments $0.00 Label 1E on the BAS, in whole dollars $2,157.00 Decreasing adjustments $0.00 Label 1F on the BAS, in whole dollars $0.00 Luxury car tax on importations, paid to the Department of Home Affairs $6,207.30
 
 ## How the luxury car tax calculator works
 
