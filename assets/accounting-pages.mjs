@@ -584,7 +584,10 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             const yes = name => value(name) === 'yes';
             result = calculate.gstMarginSchemeResult({ interest: value('interest'), taxable: yes('taxable'), agreed: yes('agreed'),
               acquired: value('acquired'), associate: yes('associate'), method: value('method'), price: value('price'), basis: value('basis'),
-              cost: value('cost'), part: value('part'), whole: value('whole') }, aud);
+              cost: value('cost'), part: value('part'), whole: value('whole'),
+              valuationDay: value('valuation-day'), registrationAtTransition: value('registration-at-transition'),
+              valuationProperty: value('valuation-property'),
+              registrationEffectiveDay: value('registration-effective-day'), registrationApplicationDay: value('registration-application-day') }, aud);
             break;
           }
           case 'foreign-surcharge': {

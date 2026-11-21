@@ -269,7 +269,19 @@ What is sold? A freehold interest in land A stratum unit A lease of 50 years or 
 
 ## The price and the margin
 
-Price for the sale (AUD) Does the price include GST? Yes, GST-inclusive No, GST-exclusive Work out the margin from The consideration you paid An approved valuation (held since before 1 July 2000), as at the day subsection 75-10(3) sets: not checked here Consideration or approved valuation for the whole (AUD) This sale’s part, by area, lots or anticipated price The whole, in the same measure
+Price for the sale (AUD) Does the price include GST? Yes, GST-inclusive No, GST-exclusive Work out the margin from The consideration you paid An approved valuation (held since before 1 July 2000) Consideration or approved valuation for the whole (AUD) This sale’s part, by area, lots or anticipated price The whole, in the same measure
+
+Approved valuation dates
+
+Date the valuation applies to Were you registered or required to be registered for GST on 1 July 2000?
+
+Choose an answer Yes No, and I applied for registration No, and the Commissioner registered me without an application
+
+Property and supplier for the valuation
+
+Choose an answer The property had improvements on 1 July 2000 The property was unimproved on 1 July 2000 and the supplier is outside the Commonwealth, state and territory governments The property was unimproved on 1 July 2000 and the Commonwealth, a state or a territory is the supplier
+
+Date GST registration took effect, if you answered No Date you applied for GST registration, if you answered No and applied
 
 Land only: no building costs, duty or fees (section 75-14) and nothing unpaid (section 75-12). For a whole sale, enter the same part and whole.
 
@@ -279,11 +291,17 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 
 The GST margin scheme calculator first checks the conditions of section 75-5 of the GST Act that it can decide: what is sold, a written agreement with the buyer, and how you acquired the property. The sale must be a taxable sale (you are registered for GST, you sell in the course of your enterprise, and the sale is not GST-free or input taxed) of a freehold interest in land, a stratum unit or a lease of at least 50 years, and you must not have acquired it with GST on the whole price. The written agreement is made on or before the sale, or within a further period the Commissioner allows.
 
-Under the margin scheme the GST is 1/11 of the margin, the GST-inclusive price less the consideration you paid for the land (subsection 75-10(2)), or less an approved valuation for property held since before 1 July 2000 (subsection 75-10(3)), as at 1 July 2000 or, if you registered after then, the date of effect of your registration or the earlier day you applied. A margin that is not more than nil gives no GST. Building and development costs are left out of the consideration (section 75-14); you may claim input tax credits for them where each purchase is a creditable acquisition (section 11-5). For one lot of a subdivision, only the lot’s share of the consideration counts (section 75-15), by any fair and reasonable measure such as area, number of lots or anticipated selling price (GSTR 2006/8, paragraphs 58 to 61).
+Under the GST margin scheme the GST is 1/11 of the margin. Subtract the acquisition consideration from the GST-inclusive price (subsection 75-10(2)). A nil or negative margin gives no GST. Leave building and development costs out (section 75-14). You may claim input tax credits on creditable purchases (section 11-5). For a subdivided lot, use only its share of the consideration (section 75-15), measured fairly by area, number of lots or anticipated selling price (GSTR 2006/8, paragraphs 58 to 61).
 
 From a GST-exclusive price the calculator adds GST of one tenth of the price less the consideration, which is 1/11 of the margin on the resulting price (GSTR 2006/8, paragraph 145). Beside the margin scheme it gives the GST without it, 1/11 of the GST-inclusive price, and the difference. Each GST rounds to the nearest cent, half a cent up (section 9-90). The buyer cannot claim an input tax credit on a margin scheme sale (section 75-20), so the scheme suits a buyer who could not claim one anyway.
 
 The calculator reproduces GSTR 2006/8’s worked examples: $20,000 on Bob’s house and land (Example 3), $4,000 on Josine’s 800 square metre lot (Example 4), $13,636.36 on Adam’s Lot 1 (Example 6) and a $100,000 GST-inclusive price from Example 14’s $96,364, here $100,000.40 to the cent.
+
+## Approved valuation dates for GST margin scheme sales
+
+The GST margin scheme calculator checks the date an approved valuation applies to for property held since before 1 July 2000. For a covered sale, use a valuation as at 1 July 2000 if you were registered or required to be registered for GST then. For later registration and unimproved property sold outside government, use the earlier of the effective date and the application date, or the effective date if the Commissioner registered you without an application (subsection 75-10(3) and GSTR 2006/7, paragraphs 60 and 61).
+
+Get separate advice on the GST margin scheme valuation date if you registered or first became required to register after 1 July 2000 and the property already had improvements on that day. Items 2 and 3 of subsection 75-10(3) specify different valuation dates. The calculator also refers government supplies of property unimproved on that day for separate review under item 4. The valuer may prepare the report later than the date the valuation applies to.
 
 ## What the GST margin scheme calculator does not cover
 
@@ -303,7 +321,7 @@ GSTR 2006/8 Example 3: Bob’s house and land, the building cost left out | Free
 GSTR 2006/8 Example 4: Josine’s 800 square metre lot of 2,000 | Freehold, bought under the margin scheme; price $140,000.00 GST-inclusive, cost $240,000.00, 800 of 2,000 | margin scheme can apply, cost share $96,000.00, GST-inclusive price $140,000.00, margin $44,000.00, margin scheme GST $4,000.00, GST on the whole price $12,727.27, saved $8,727.27, GST payable $4,000.00
 GSTR 2006/8 Example 14: a GST-exclusive price of $96,364 | Freehold, bought under the margin scheme; price $96,364.00 GST-exclusive, cost $60,000.00 | margin scheme can apply, cost share $60,000.00, GST-inclusive price $100,000.40, margin $40,000.40, margin scheme GST $3,636.40, GST on the whole price $9,636.40, saved $6,000.00, GST payable $3,636.40
 A stratum unit’s anticipated price share, GST rounded to the nearest cent | Stratum unit, bought under the margin scheme; price $610,000.00 GST-inclusive, cost $400,000.00, 600,000 of 2,400,000 | margin scheme can apply, cost share $100,000.00, GST-inclusive price $610,000.00, margin $510,000.00, margin scheme GST $46,363.64, GST on the whole price $55,454.55, saved $9,090.91, GST payable $46,363.64
-Held since before 1 July 2000: an approved valuation of $100,000 | Freehold, held since before 1 July 2000; price $144,000.00 GST-inclusive, valuation $100,000.00 | margin scheme can apply, cost share $100,000.00, GST-inclusive price $144,000.00, margin $44,000.00, margin scheme GST $4,000.00, GST on the whole price $13,090.91, saved $9,090.91, GST payable $4,000.00
+Held since before 1 July 2000: an approved valuation of $100,000 | Freehold, held since before 1 July 2000; price $144,000.00 GST-inclusive, valuation $100,000.00 as at 2000-07-01 | margin scheme can apply, cost share $100,000.00, GST-inclusive price $144,000.00, margin $44,000.00, margin scheme GST $4,000.00, GST on the whole price $13,090.91, saved $9,090.91, GST payable $4,000.00
 Held since before 1 July 2000: the consideration paid instead | Freehold, held since before 1 July 2000; price $144,000.00 GST-inclusive, cost $75,000.00 | margin scheme can apply, cost share $75,000.00, GST-inclusive price $144,000.00, margin $69,000.00, margin scheme GST $6,272.73, GST on the whole price $13,090.91, saved $6,818.18, GST payable $6,272.73
 A long-term lease bought in a sale not taxable | Long-term lease, bought in a sale not taxable; price $550,000.00 GST-inclusive, cost $330,000.00 | margin scheme can apply, cost share $330,000.00, GST-inclusive price $550,000.00, margin $220,000.00, margin scheme GST $20,000.00, GST on the whole price $50,000.00, saved $30,000.00, GST payable $20,000.00
 A sale for less than the cost has a nil margin and no GST | Freehold, bought under the margin scheme; price $100,000.00 GST-inclusive, cost $120,000.00 | margin scheme can apply, cost share $120,000.00, GST-inclusive price $100,000.00, margin $0.00, margin scheme GST $0.00, GST on the whole price $9,090.91, saved $9,090.91, GST payable $0.00
