@@ -219,7 +219,14 @@ function parseLine(value, n) {
 /** The rate period that holds `day`. @param {number} day */
 const periodOn = (day) => /** @type {typeof FTC_PERIODS[number]} */ (FTC_PERIODS.find((p) => dayOf(p.from) <= day && day <= dayOf(p.to)));
 
-/** PCG 2016/2 Method 2's tax period, checked; its last day sets every line's rate.
+/** Whether a line's rates changed between two rate tables.
+ * @param {FtcLine} line @param {typeof FTC_PERIODS[number]} before @param {typeof FTC_PERIODS[number]} after */
+function applicableRateChanged({ row, use }, before, after) {
+  return ((use === 'basic' || use === 'heavy_vehicle_public_road') && milli(before.heavy[row]) !== milli(after.heavy[row]))
+    || ((use === 'basic' || use === 'other_business') && milli(before.other[row]) !== milli(after.other[row]));
+}
+
+/** PCG 2016/2 Method 2's checked period end, or null when the applicable rates stayed flat.
  * @param {unknown} given @param {[number, number]} year @param {FtcLine[]} lines */
 function periodEnd(given, year, lines) {
   if (given === null || typeof given !== 'object' || Array.isArray(given)) {
@@ -244,12 +251,14 @@ function periodEnd(given, year, lines) {
       refuse('fuel_tax_credits.simplified_method_unavailable', `Line ${line.n}: PCG 2016/2 covers liquid fuels only (paragraph 4(b)), not ${line.name}.`);
     }
   }
-  const change = FTC_PERIODS.find((p) => dayOf(p.from) > start && dayOf(p.from) <= end && p.starts !== 'indexation');
+  const changes = FTC_PERIODS.filter((p) => dayOf(p.from) > start && dayOf(p.from) <= end);
+  const change = changes.find((p) => p.starts !== 'indexation');
   if (change) {
     refuse('fuel_tax_credits.simplified_method_unavailable', `The rates change on ${plainDate(change.from)} for a reason other than indexation `
       + `alone (${STARTS[change.starts]}), so PCG 2016/2 Method 2 (paragraph 11: ‘because of indexation’) does not apply: give each line’s own acquisition day instead.`);
   }
-  return end;
+  const initial = periodOn(start);
+  return changes.some((period) => lines.some((line) => applicableRateChanged(line, initial, period))) ? end : null;
 }
 
 /** A worked line: the fields every method gives, then each method's own.
@@ -361,6 +370,7 @@ export function fuelTaxCredits(input) {
   const cents = worked.reduce((sum, line) => sum + line.cents, 0n);
   const warnings = [];
   if (end !== null) warnings.push(`PCG 2016/2 Method 2: every line takes the rate in force on ${plainDate(isoOf(end))}, the tax period’s last day (paragraph 11).`);
+  else if (input.rate_at_period_end !== undefined) warnings.push('The applicable fuel tax credit rates did not change during the tax period. The calculation uses the actual acquisition dates.');
   if (lines.some((line) => line.acquired > dayOf(FTC_RATES_READ))) {
     warnings.push(`Some fuel was acquired after ${plainDate(FTC_RATES_READ)}, when the rates were last read: check the ATO’s fuel tax credit rates for business for a change since.`);
   }
@@ -426,7 +436,7 @@ export function fuelInputsText(input, aud) {
     return `line ${i + 1}: ${what} ${acquired}, ${FTC_USES[/** @type {keyof typeof FTC_USES} */ (l.use)]}`;
   });
   const period = /** @type {{start: string, end: string} | undefined} */ (input.rate_at_period_end);
-  return [input.year, ...lines, period && `the rate on the last day of the tax period ${plainDate(period.start)} to ${plainDate(period.end)}`,
+  return [input.year, ...lines, period && `tax period ${plainDate(period.start)} to ${plainDate(period.end)}`,
     input.return_date !== undefined && `return given ${plainDate(/** @type {string} */ (input.return_date))}`].filter(Boolean).join('; ');
 }
 
