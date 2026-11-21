@@ -157,6 +157,7 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+21 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.11.0
 19 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.10.0
 18 November 2026 | Ozzit | v3.7.0
 14 November 2026 | Monthly Close Controls | monthly-close-control-plane/v1.1.0
@@ -241,6 +242,7 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 - site licence notice: https://duguid.com.au/privacy/
 - FBT property: https://duguid.com.au/tools/business-calculators/fbt-property/
 - FBT expense payment: https://duguid.com.au/tools/business-calculators/fbt-expense-payment/
+- aus-accounting-mcp/v0.11.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.11.0
 - aus-accounting-mcp/v0.10.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.10.0
 - v3.7.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.7.0
 - monthly-close-control-plane/v1.1.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.1.0
