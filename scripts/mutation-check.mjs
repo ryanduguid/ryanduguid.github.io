@@ -722,7 +722,7 @@ const MUTATIONS = [
   { ...ftc, name: 'FTC a light vehicle on a public road earns the full rate', find: "line.use === 'other_business' ? other : '0'", replace: "line.use === 'other_business' ? other : other" },
   { ...ftc, name: 'FTC fuel after 31 January 2027 passes', find: 'if (line.acquired > dayOf(FTC_LAST_DAY)) {', replace: 'if (line.acquired > dayOf(FTC_LAST_DAY) + 366) {' },
   { ...ftc, name: 'FTC fuel outside the income year passes', find: 'if (line.acquired < year[0] || line.acquired > year[1]) {', replace: 'if (false) {' },
-  { ...ftc, name: 'FTC Method 2 spans any rate change', find: "&& p.starts !== 'indexation');", replace: '&& false);' },
+  { ...ftc, name: 'FTC Method 2 spans any rate change', find: "changes.find((p) => p.starts !== 'indexation')", replace: 'changes.find(() => false)' },
   { ...ftc, name: 'FTC Method 2 period after the last rate passes', find: 'if (end > dayOf(FTC_LAST_DAY)) {', replace: 'if (false) {' },
   { ...ftc, name: 'FTC Method 1 loses a factor of 10', find: 'cost * milli(rate) * 10n, price', replace: 'cost * milli(rate), price' },
   { ...ftc, name: 'FTC derived kilometres take 100%', find: '* 984n, kmBasis', replace: '* 1000n, kmBasis' },
