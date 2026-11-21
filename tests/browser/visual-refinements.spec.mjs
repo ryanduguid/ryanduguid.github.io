@@ -109,7 +109,7 @@ test('ordinary links carry a red underline at least 2px thick', async ({ page })
 test('the checked setup tab and the targeted changelog row are marked in red', async ({ page }) => {
   await page.goto('/tools/australian-tax-ai-agents/');
   const tab = page.locator('.adopt-input:checked + .adopt-tab').first();
-  expect(await tab.evaluate((element) => getComputedStyle(element).borderTopColor)).toBe('rgb(231, 22, 47)');
+  await expect(tab).toHaveCSS('border-top-color', 'rgb(231, 22, 47)');
   await page.goto('/changelog/');
   const id = await page.locator('.changelog-section tbody tr[id]').first().getAttribute('id');
   await page.goto(`/changelog/#${id}`);
