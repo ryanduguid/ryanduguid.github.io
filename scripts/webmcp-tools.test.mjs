@@ -88,7 +88,7 @@ test('the business calculator tools pass the page function the strings its form 
   const calls = [];
   const spy = Object.fromEntries(['gst', 'div7aMinimumRepayment', 'financeSchedule', 'interestByIncomeYear', 'breakEven'].map(name =>
     [name, (...args) => { calls.push([name, ...args]); return calculate[name](...args); }]));
-  const spied = calculatorTools(spy);
+  const spied = calculatorTools({ ...calculate, ...spy });
   await spied.div7a.execute({ balance: '1000', benchmarkRate: '8.77', remainingTerm: 1 });
   await spied.loan.execute({ solve: 'payment', amount: '100000', annualRate: '6', payments: 360, startDate: '2026-07-01' });
   await spied['break-even'].execute({ fixedCosts: '1000', pricePerUnit: '30', variableCostPerUnit: '18' });
@@ -347,6 +347,31 @@ test('foreign surcharge tool returns the page worked example and refuses what th
   await assert.rejects(tool.execute({ ...permanent, daysBefore: 365 }), /give daysBefore and daysToDecember/);
   const counted = await tool.execute({ ...permanent, daysBefore: 365, daysToDecember: 0 });
   assert.match(counted.dutyTest, /^Not foreign: /);
+});
+
+test('foreign surcharge tool uses separate federal consideration and the legal share for an FIRB fee', async () => {
+  const tool = tools['foreign-surcharge'];
+  const purchase = { place: 'AU-NSW', buyer: 'individual', status: 'other', use: 'residential',
+    value: 1200000, share: 600000, landValue: 1200000 };
+  const firb = { kind: 'vacant', consideration: 1000000, ownership: 'tenant-in-common', interest: '1/2' };
+  const r = await tool.execute({ ...purchase, firb });
+  assert.deepEqual([r.dutySurcharge, r.landTaxSurcharge], ['54000.00', '60000.00']);
+  assert.deepEqual([r.firb.applicationFee, r.firb.feeYear], ['7800.00', '2026-27']);
+  assert.equal(r.firb.wholePropertyFee, '15600.00');
+  assert.match(r.firb.notes.join(' '), /regulation 57\(2\)/);
+  assert.doesNotMatch(r.firb.notes.join(' '), /payment adjustments/);
+  const joint = await tool.execute({ ...purchase, firb: { kind: 'established', consideration: 2000000, ownership: 'joint', interest: '1/1' } });
+  assert.equal(joint.firb.applicationFee, '93900.00');
+  assert.equal(joint.firb.ownership, 'joint');
+  assert.match(joint.firb.notes.join(' '), /generally banned.*same interest on the same day under subsection 113\(1\) of the Foreign Acquisitions and Takeovers Act 1975.*same section of the Fees Imposition Regulations.*in full or in part on a later day.*at the end of that day.*paid towards that one fee on that day/);
+  assert.equal((await tool.execute(purchase)).firb, undefined);
+  assert.equal((await tool.execute({ ...purchase, firb: { kind: 'none' } })).firb.applicationFee, '0.00');
+  await assert.rejects(tool.execute({ ...purchase, firb: { kind: 'none', interest: 'invalid-fraction' } }), /interest/);
+  await assert.rejects(tool.execute({ ...purchase, firb: { kind: 'vacant', ownership: 'tenant-in-common', interest: '1/2' } }), /consideration/);
+  await assert.rejects(tool.execute({ ...purchase, firb: { kind: 'vacant', consideration: 1000000, interest: '1/2' } }), /ownership/);
+  await assert.rejects(tool.execute({ ...purchase, firb: { ...firb, interest: '2/1' } }), /ownership share/);
+  await assert.rejects(tool.execute({ ...purchase, firb: { ...firb, ownership: 'joint' } }), /fractional FIRB ownership share/);
+  await assert.rejects(tool.execute({ ...purchase, use: 'other', firb }), /fee here is for residential land/);
 });
 
 // The long service leave page's example (redundancy after 12 years and 6 months in New South Wales) and

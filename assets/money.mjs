@@ -3,6 +3,8 @@
 
 // Number parsing and exact rounding shared by the calculator engines.
 
+export const POSITIVE_FRACTION = /^([1-9][0-9]{0,8})\/([1-9][0-9]{0,8})$/;
+
 /** @param {unknown} value
  * @param {{min?: number, max?: number, places?: number, integer?: boolean, money?: boolean}} [options] */
 export function number(value, { min = 0, max = 1e9, places = 2, integer = false, money = false } = {}) {

@@ -597,11 +597,14 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             const generals = Object.fromEntries([...form.querySelectorAll('input[name="jurisdiction"]')].map(radio => [radio.value,
               use === 'residential' ? calculate.transferDuty(value('value'), radio.dataset.scale.split(';').map(row => row.split(','))).duty : null]));
             const yes = name => value(name) === 'yes';
+            const ownership = value('firb-ownership');
             result = calculate.foreignSurchargeResult({ type: value('buyer'), status: value('status'), daysBefore: value('days-before'),
               daysDecember: value('days-december'), nzResident: yes('nz-resident'), resides: yes('resides'), absent: yes('absent'), home: yes('home'),
               overseas: yes('overseas'), largest: value('largest'), combined: value('combined'), absentee: value('absentee'), capital: value('capital'), amendable: yes('amendable'),
               control: yes('control'), named: yes('named'), defaults: value('defaults'), exemption: yes('exemption') },
-            { place: place.value, use, value: value('value'), share: value('share'), land: value('land') }, generals, value('firb'), aud);
+            { place: place.value, use, value: value('value'), share: value('share'), land: value('land') }, generals,
+            { kind: value('firb'), consideration: value('firb-consideration'), ownership,
+              interest: ownership === 'tenant-in-common' ? value('firb-interest') : undefined }, aud);
             // The comparison table: a label cell, then figures; it stays hidden when the result leaves it out.
             const table = form.querySelector('table[data-results="places"]');
             if (result.tables.places) {

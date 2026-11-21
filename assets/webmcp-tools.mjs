@@ -1,6 +1,8 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
 
+import { POSITIVE_FRACTION } from './money.mjs';
+
 // WebMCP tool descriptors for the site's calculators. Each tool calls the same module
 // function as its page's form, reads nothing from the form and sends nothing anywhere.
 // https://webmachinelearning.github.io/webmcp/
@@ -11,6 +13,7 @@
 
 /** The patterns string inputs must match. A schema carries each one as its `source`. */
 const PATTERNS = {
+  fraction: POSITIVE_FRACTION,
   amount: /^\d{1,9}(?:\.\d{1,2})?$/,
   percent: /^\d{1,3}(?:\.\d{1,2})?$/,
   rate: /^\d{1,3}(?:\.\d{1,4})?$/,
@@ -313,15 +316,16 @@ const SURCHARGE_FLAGS = {
   named: 'Discretionary trust: a beneficiary, object or taker in default named in the deed is a foreign person (for Victorian land tax, an absentee).',
 };
 
-/** @param {typeof import('./business-calculators.mjs').foreignSurcharge} foreignSurcharge */
-const foreignSurchargeTool = (foreignSurcharge) => tool({
+/** @param {Pick<typeof import('./business-calculators.mjs'), 'foreignSurcharge' | 'firbApplicationFee'>} calculate */
+const foreignSurchargeTool = ({ foreignSurcharge, firbApplicationFee }) => tool({
   name: 'calculate_foreign_purchaser_surcharges',
   title: 'Foreign purchaser surcharge calculator',
   description: 'One buyer\'s foreign purchaser duty surcharge in AUD on its share of one property, and the foreign owner land tax '
     + 'surcharge for a full year, in one Australian state or territory, each with that jurisdiction\'s own test of whether the '
     + 'buyer is foreign, worded as the result. The Northern Territory charges neither, the ACT no duty surcharge, and Western '
     + 'Australia and South Australia no land tax surcharge. It does not work out exemptions, refunds or relief, which each '
-    + 'Commissioner decides, or the status of a partner or retirement visa holder.',
+    + 'Commissioner decides, or the status of a partner or retirement visa holder. An explicit FIRB application gives the 2026-27 '
+    + 'residential land fee. The federal approval requirement, lower fee rules, waivers and concessions are outside the calculation.',
   inputSchema: record({
     place: choice(SURCHARGE_PLACES, 'State or territory, for example "AU-NSW".'),
     buyer: choice(['individual', 'company', 'trust', 'discretionary', 'smsf'],
@@ -332,6 +336,12 @@ const foreignSurchargeTool = (foreignSurcharge) => tool({
     value: whole(1, 1000000000, 'Dutiable value of the whole property in whole AUD.'),
     share: whole(1, 1000000000, 'Dutiable value of this buyer\'s share in whole AUD, no more than the value.'),
     landValue: whole(0, 1000000000, 'All the buyer\'s taxable land in the jurisdiction, their share only, in whole AUD.'),
+    firb: record({
+      kind: choice(['none', 'vacant', 'established'], 'FIRB application type. Use "vacant" for residential land without an established dwelling.'),
+      consideration: whole(1, 1000000000, 'Consideration for the whole acquisition including any GST, in whole AUD, required for an application.'),
+      ownership: choice(['sole', 'joint', 'tenant-in-common'], 'Acquisition ownership type, required for an application.'),
+      interest: text('fraction', 'Required for a tenant in common, using their ownership fraction, for example 1/2.'),
+    }, ['kind']),
     daysBefore: whole(0, 366, 'New South Wales duty: days in Australia in the 12 months before the contract.'),
     daysToDecember: whole(0, 366, 'New South Wales land tax: days in Australia in the 12 months to the next 31 December.'),
     largestForeignPercent: text('percent', 'Company, trust or fund: largest interest of one foreign person with associates, in per cent; for a company, the higher of shares and votes, or potential voting power where higher in New South Wales, Queensland, Tasmania and Western Australia.'),
@@ -354,12 +364,19 @@ const foreignSurchargeTool = (foreignSurcharge) => tool({
       home: input.home ?? false, overseas: input.overseas ?? false, amendable: input.amendable ?? false,
       control: input.control ?? false, named: input.named ?? false },
     { place: input.place, use: input.use, value: String(input.value), share: String(input.share), land: String(input.landValue) });
-    return {
+    const result = {
       dutySurchargeRatePercent: r.dutyRate, dutySurcharge: dollars(r.duty), dutyTest: r.dutyTest,
       landTaxSurcharge: dollars(r.land), landTaxTest: r.landTest, currency: 'AUD',
       basis: 'Each jurisdiction\'s rate and test of a foreign buyer as its revenue office states them, read 18 November 2026; the revenue office decides.',
       source: `${CALCULATORS}foreign-surcharge/`,
     };
+    if (!input.firb) return result;
+    const { kind, consideration, ownership, interest } = input.firb;
+    const fee = firbApplicationFee({
+      kind, consideration: consideration === undefined ? undefined : String(consideration), ownership, interest,
+    }, input.use);
+    return { ...result, firb: { applicationFee: dollars(fee.fee), wholePropertyFee: dollars(fee.whole),
+      feeYear: fee.feeYear, ownership: fee.ownership, notes: fee.notes } };
   },
 });
 
@@ -509,7 +526,8 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
 
 /** Tools keyed by the `data-calculator` name of the form whose page registers them.
  * @param {Pick<typeof import('./business-calculators.mjs'), 'gst' | 'div7aMinimumRepayment' | 'financeSchedule' | 'interestByIncomeYear'
- *   | 'lease' | 'breakEven' | 'companyTax' | 'foreignSurcharge' | 'longServiceLeave' | 'fuelTaxCredits' | 'borrowingSchedule'
+ *   | 'lease' | 'breakEven' | 'companyTax' | 'foreignSurcharge' | 'firbApplicationFee' | 'longServiceLeave'
+ *   | 'fuelTaxCredits' | 'borrowingSchedule'
  *   | 'BORROWING_YEARS'>} calculate */
 export function calculatorTools(calculate) {
   return {
@@ -520,7 +538,7 @@ export function calculatorTools(calculate) {
     lease: leaseTool(calculate.lease),
     'break-even': breakEvenTool(calculate.breakEven),
     'company-tax': companyTaxTool(calculate.companyTax),
-    'foreign-surcharge': foreignSurchargeTool(calculate.foreignSurcharge),
+    'foreign-surcharge': foreignSurchargeTool(calculate),
     'long-service-leave': longServiceLeaveTool(calculate.longServiceLeave),
     'fuel-tax-credits': fuelTaxCreditsTool(calculate.fuelTaxCredits),
     'borrowing-expenses': borrowingTool(calculate.borrowingSchedule, calculate.BORROWING_YEARS),
