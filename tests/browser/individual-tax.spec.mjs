@@ -9,7 +9,7 @@ const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 's
   'sole-trader': '$5,939.00', 'lump-sum-arrears': '$1,688.25', 'division-293': '$750.00', 'income-tests': '$73,810.00',
   'concessional-catch-up': '$97,500.00', 'bonus-withholding': '$641.00',
   'salary-packaging': '$5,291.50', 'novated-lease': '$6,047.48',
-  'super-projection': '$539,266.80' };
+  'super-projection': '$539,266.80', fhss: '$14,350.00' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -37,6 +37,11 @@ for (const id of Object.keys(CALCULATORS)) {
       copy.querySelector('.result-example').remove();
       return copy.textContent;
     });
+    if (id === 'fhss') {
+      await form.locator('#fhss-scope').selectOption('yes');
+      await form.locator('input[name=withholding-basis][value=unable]').check();
+      await form.locator('#fhss-debt-offset').fill('0');
+    }
     await form.getByRole('button', { name: 'Calculate', exact: true }).click();
     await expect(output.locator('.result-example')).toHaveCount(0);
     expect(await output.evaluate((element) => element.textContent)).toBe(example);
@@ -46,6 +51,72 @@ for (const id of Object.keys(CALCULATORS)) {
     await expect(output).toHaveText('Enter the inputs and calculate.');
   });
 }
+
+test('FHSS separates the actual partial release and income year and works offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/fhss/');
+  const form = page.locator('#fhss form');
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await calculate.click();
+  await expect(form.locator('#fhss-scope')).toBeFocused();
+  await form.locator('#fhss-scope').selectOption('no');
+  await form.locator('input[name=withholding-basis][value=actual]').check();
+  await form.locator('#fhss-withholding').fill('340');
+  await calculate.click();
+  await expect(form.locator('output')).toHaveText('Confirm the scope conditions before calculating.');
+  await form.locator('#fhss-scope').selectOption('yes');
+  await form.locator('#fhss-non-concessional').fill('10000');
+  await form.locator('#fhss-earnings').fill('1500');
+  await form.locator('#fhss-requested').fill('15000');
+  await form.locator('#fhss-release-requested').fill('2025-07-01');
+  await form.locator('#fhss-actual').fill('12000');
+  await calculate.click();
+  await expect(row('Actual gross release')).toHaveText('$12,000.00');
+  await expect(row('Assessable FHSS released amount')).toHaveText('$2,000.00');
+  await expect(row('Income year of the release request')).toHaveText('2025-26');
+  await expect(row('Amount paid to you')).toHaveText('Unknown');
+  await expect(form.getByRole('button', { name: 'Print working' })).toBeVisible();
+  await form.locator('#fhss-debt-offset').fill('1000');
+  await expect(form.getByRole('button', { name: 'Print working' })).toBeHidden();
+  await calculate.click();
+  await expect(row('Amount paid to you')).toHaveText('$10,660.00');
+});
+
+test('FHSS switches to the ledger, keeps the discrepancy on printed working and stops at the verified quarter', async ({ page }) => {
+  await page.goto('/tools/individual-tax/fhss/');
+  const form = page.locator('#fhss form');
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  await waitForCalculator(form);
+  await form.locator('#fhss-scope').selectOption('yes');
+  await form.getByRole('radio', { name: 'Contribution ledger estimate' }).check();
+  await expect(form.locator('#fhss-concessional')).toBeDisabled();
+  await form.locator('#fhss-determined').fill('2024-01-02');
+  await form.locator('#fhss-determination-requested').fill('2024-01-02');
+  await form.locator('#fhss-contributions').fill('2024-01-01,7000,personal\n2024-01-02,7000,personal');
+  await form.locator('input[name=withholding-basis][value=unable]').check();
+  await calculate.click();
+  await expect(form.locator('.result-row--principal strong')).toHaveText('$14,004.00');
+  await expect(form.locator('table[data-results] tbody tr')).toHaveCount(2);
+  await form.locator('#fhss-contributions').fill('2024-01-01,7000,employer_voluntary\n2024-01-02,10000,personal');
+  await form.locator('#fhss-deductions').fill('2023-24,1000.00');
+  await calculate.click();
+  const working = form.locator('table[data-results]');
+  await expect(working.locator('tbody tr')).toHaveCount(3);
+  await expect(working.getByRole('row').filter({
+    has: page.getByRole('rowheader', { name: '2024-01-01 · Salary sacrifice', exact: true }),
+  })).toContainText('$6,000.00');
+  await page.emulateMedia({ media: 'print' });
+  await expect(form.locator('output')).toContainText(/\$7,859.*\$5,190.*difference remains unresolved/);
+  await expect(form.locator('output')).toBeVisible();
+  await expect(working).toBeVisible();
+  await page.emulateMedia({ media: 'screen' });
+  await form.locator('#fhss-determined').fill('2027-01-01');
+  await calculate.click();
+  await expect(form.locator('output')).toContainText('through 31 December 2026');
+  await expect(form.locator('table[data-results]')).toBeHidden();
+});
 
 test('lump sum in arrears gives no offset below the 10% test and refuses a non-resident or a termination payment offline', async ({ page, context }) => {
   await page.goto('/tools/individual-tax/lump-sum-arrears/');
