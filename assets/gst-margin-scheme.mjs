@@ -15,7 +15,10 @@ import { number, ratioCents } from './money.mjs';
  * @typedef {'margin' | 'untaxed' | 'before-2000' | 'full-gst' | 'special'} MarginAcquisition
  * @typedef {{interest: MarginInterest, taxable: boolean, agreed: boolean, acquired: MarginAcquisition,
  *   associate: boolean, method: 'consideration' | 'valuation', price: string, basis: 'inclusive' | 'exclusive',
- *   cost: string, part: string, whole: string}} MarginSchemeInput
+ *   cost: string, part: string, whole: string, valuationDay?: string,
+ *   registrationAtTransition?: 'yes' | 'applied-later' | 'no-application' | '',
+ *   valuationProperty?: 'improved' | 'unimproved' | 'unimproved-government' | '',
+ *   registrationEffectiveDay?: string, registrationApplicationDay?: string}} MarginSchemeInput
  */
 
 /** What was sold, as subsection 75-5(1) and section 195-1 describe it. @type {Record<MarginInterest, string>} */
@@ -42,6 +45,53 @@ const measure = (value) => BigInt(Math.round(number(value, { max: 1e12 }) * 100)
 /** The larger of `value` and nil. @param {bigint} value */
 const nil = (value) => (value > 0n ? value : 0n);
 
+const GST_START = '2000-07-01';
+
+/** @param {string | undefined} value @param {string} label */
+function valuationDate(value, label) {
+  if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) throw new Error(`Enter ${label}.`);
+  const date = new Date(`${value}T00:00:00Z`);
+  if (!Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== value) {
+    throw new Error(`Enter a valid calendar date for ${label}.`);
+  }
+  return value;
+}
+
+/** The valuation date for items 1 to 3 of the table in subsection 75-10(3). @param {MarginSchemeInput} input */
+function checkValuationDay(input) {
+  const { registrationAtTransition, registrationEffectiveDay, registrationApplicationDay, valuationProperty } = input;
+  if (!['yes', 'applied-later', 'no-application'].includes(registrationAtTransition ?? '')) {
+    throw new Error('Say whether you were registered or required to be registered for GST on 1 July 2000.');
+  }
+  const day = valuationDate(input.valuationDay, 'the valuation date');
+  if (valuationProperty === 'unimproved-government') {
+    throw new Error('A government supply of property unimproved on 1 July 2000 needs separate review (subsection 75-10(3) item 4).');
+  }
+  if (valuationProperty !== 'improved' && valuationProperty !== 'unimproved') {
+    throw new Error('Say whether the property had improvements on 1 July 2000 and who is selling it if it was unimproved.');
+  }
+  let requiredDay = GST_START;
+  if (registrationAtTransition !== 'yes') {
+    if (valuationProperty === 'improved') {
+      throw new Error('Later GST registration and improvements on 1 July 2000 need separate review (subsection 75-10(3) items 2 and 3).');
+    }
+    const effectiveDay = valuationDate(registrationEffectiveDay, 'the date GST registration took effect');
+    if (effectiveDay <= GST_START) {
+      throw new Error('For later registration, GST registration must have taken effect after 1 July 2000.');
+    }
+    requiredDay = effectiveDay;
+    if (registrationAtTransition === 'applied-later') {
+      const applicationDay = valuationDate(registrationApplicationDay, 'the date you applied for GST registration');
+      if (applicationDay < effectiveDay) requiredDay = applicationDay;
+    } else if (registrationApplicationDay) {
+      throw new Error('Choose the registration answer for a supplier who applied, or clear the application date.');
+    }
+  }
+  if (day !== requiredDay) {
+    throw new Error(`Use an approved valuation as at ${requiredDay} (subsection 75-10(3)).`);
+  }
+}
+
 /** The margin scheme's conditions in section 75-5 and the GST on the sale. The cost is the
  * consideration paid for the acquisition (s 75-12), without improvements, duty or fees (s 75-14), or
  * an approved valuation for property held since before 1 July 2000 (s 75-10(3)); for part of the
@@ -67,9 +117,12 @@ export function gstMarginScheme(input) {
     throw new Error('On a sale to your associate the consideration is the GST-inclusive market value (section 75-13): '
       + 'this calculator does not work out that value.');
   }
-  if (input.method === 'valuation' && input.acquired !== 'before-2000') {
-    throw new Error('An approved valuation sets the margin only for property held since before 1 July 2000 '
-      + '(subsection 75-10(3)); use the consideration you paid for property acquired later.');
+  if (input.method === 'valuation') {
+    if (input.acquired !== 'before-2000') {
+      throw new Error('An approved valuation sets the margin only for property held since before 1 July 2000 '
+        + '(subsection 75-10(3)); use the consideration you paid for property acquired later.');
+    }
+    checkValuationDay(input);
   }
   const [part, whole] = [measure(input.part), measure(input.whole)];
   if (part <= 0n || whole <= 0n) throw new Error('Enter this sale’s part and the whole as more than 0.');
@@ -100,7 +153,8 @@ export function gstMarginSchemeResult(input, aud) {
   const acquired = MARGIN_ACQUISITIONS[input.acquired];
   const inputs = `${MARGIN_INTERESTS[input.interest]}; agreed in writing: ${input.agreed ? 'yes' : 'no'}; `
     + `${acquired[0].toLowerCase()}${acquired.slice(1)}; price ${aud(Number(input.price))} GST-${input.basis}; `
-    + `${valuation ? 'approved valuation' : 'consideration'} ${aud(Number(input.cost))}${part}`;
+    + `${valuation ? 'approved valuation' : 'consideration'} ${aud(Number(input.cost))}`
+    + `${valuation ? ` as at ${input.valuationDay}` : ''}${part}`;
   const conditions = [[MARGIN_INTERESTS[input.interest], r.conditions.interest ? 'Condition met' : 'Condition not met'],
     ['Agreed in writing with the buyer (subsections 75-5(1) and (1A))', r.conditions.agreed ? 'Condition met' : 'Condition not met'],
     [MARGIN_ACQUISITIONS[input.acquired], r.conditions.eligible ? 'Condition met' : 'Condition not met']];

@@ -1348,6 +1348,39 @@ test('GST margin scheme works GSTR 2006/8 Example 14 offline and refuses a sale 
     + 'this calculator does not work out that value.');
 });
 
+test('GST margin scheme refuses the wrong valuation date and accepts the earlier GST application date offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/gst-margin-scheme/');
+  const form = page.locator('#gst-margin-scheme form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('radio', { name: /^Acquired, or contracted for, before 1 July 2000/ }).check();
+  await form.getByRole('radio', { name: 'An approved valuation (held since before 1 July 2000)', exact: true }).check();
+  await form.getByLabel('Price for the sale (AUD)', { exact: true }).fill('660000');
+  await form.getByLabel('Consideration or approved valuation for the whole (AUD)', { exact: true }).fill('440000');
+  await form.getByLabel('This sale’s part, by area, lots or anticipated price', { exact: true }).fill('1');
+  await form.getByLabel('The whole, in the same measure', { exact: true }).fill('1');
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const output = form.locator('output');
+  await calculate.click();
+  await expect(output).toContainText('Say whether you were registered or required to be registered');
+  await form.getByRole('combobox', { name: 'Were you registered or required to be registered for GST on 1 July 2000?', exact: true })
+    .selectOption('applied-later');
+  await form.getByRole('combobox', { name: 'Property and supplier for the valuation', exact: true }).selectOption('unimproved');
+  await form.getByLabel('Date GST registration took effect, if you answered No', { exact: true }).fill('2003-05-01');
+  const valuation = form.getByLabel('Date the valuation applies to', { exact: true });
+  await calculate.click();
+  await expect(output).toHaveText('Enter the valuation date.');
+  await valuation.fill('2003-05-01');
+  await calculate.click();
+  await expect(output).toHaveText('Enter the date you applied for GST registration.');
+  await form.getByLabel('Date you applied for GST registration, if you answered No and applied', { exact: true }).fill('2003-04-30');
+  await calculate.click();
+  await expect(output).toHaveText('Use an approved valuation as at 2003-04-30 (subsection 75-10(3)).');
+  await valuation.fill('2003-04-30');
+  await calculate.click();
+  await expect(output.locator('.result-row--principal strong')).toHaveText('$20,000.00');
+});
+
 // SRO Victoria's Clara: a fixed trust holding $1,000,000 of land, half for absentee beneficiaries, pays
 // $20,000 of absentee owner surcharge; at 50% foreign it is not a foreign purchaser for duty.
 test('foreign purchaser surcharges work SRO Victoria’s fixed trust offline and refuse an exemption', async ({ page, context }) => {
