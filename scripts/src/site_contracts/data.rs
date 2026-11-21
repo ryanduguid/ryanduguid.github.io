@@ -73,8 +73,7 @@ pub const RETIRED_GITHUB_SOURCE_INSTALL_PATTERN: &str = concat!(
     r"(?:\\\s*)?git\+https://github\.com/ryanduguid/aus-accounting-mcp\s+",
     r"aus-accounting-mcp\b"
 );
-pub const CA_ANZ_NON_ENDORSEMENT: &str =
-    "I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.";
+pub const CA_ANZ_MEMBERSHIP: &str = "I am a Provisional CA ANZ Member.";
 pub const MCP_REL: &str = "tools/australian-tax-ai-agents/index.html";
 pub const ASSURANCE_ANCHORS: [(&str, &str); 11] = [
     ("results-you-can-check", "Results you can check"),

@@ -1,6 +1,6 @@
 # duguid.com.au
 
-> duguid.com.au is the site of Ryan Duguid, a senior accountant based in Newcastle, NSW, Australia. He builds open source computational accounting tools and publishes them at github.com/ryanduguid. Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+> duguid.com.au is the site of Ryan Duguid, a senior accountant based in Newcastle, NSW, Australia. He builds open source computational accounting tools and publishes them at github.com/ryanduguid. Ryan Duguid is a Provisional CA ANZ Member.
 
 Canonical machine index: https://duguid.com.au/llms.txt
 
@@ -14,7 +14,7 @@ Ryan Duguid is not a registered tax agent or BAS agent, and nothing here is tax,
 
 He is distinct from the United States software product executive Ryan Duguid whose LinkedIn URL has no hyphen.
 
-Written by Ryan Duguid in his own time and on his own equipment. Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source repositories: [github.com/ryanduguid](https://github.com/ryanduguid).
+Written by Ryan Duguid in his own time and on his own equipment. Ryan Duguid is a Provisional CA ANZ Member. Source repositories: [github.com/ryanduguid](https://github.com/ryanduguid).
 
 The route list below gives the 5 starting routes on the homepage and Tools page, by accounting task.
 

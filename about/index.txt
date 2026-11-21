@@ -8,7 +8,7 @@ Source: https://duguid.com.au/about/
 
 I’m Ryan Duguid, a senior accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.
 
-I am a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3. CA ANZ has not endorsed this site or its tools. My LinkedIn profile is linkedin.com/in/ryan-duguid.
+I am a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3. My LinkedIn profile is linkedin.com/in/ryan-duguid.
 
 To send feedback on a tool or example, use the Contact page.
 
@@ -22,7 +22,7 @@ Name | Ryan Duguid
 Based in | Newcastle, NSW, Australia
 Not to be confused with | The US software product executive of the same name
 Field | Accounting, Australian taxation, payroll and statutory compliance
-Professional body | I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+Professional body | I am a Provisional CA ANZ Member.
 
 Certifications |
 

@@ -604,8 +604,8 @@ pub fn check_authority_surface(root: &Path) -> Result<Vec<String>, String> {
     {
         failures.push("evidence/index.html: missing assurance heading".into());
     }
-    if !core::visible_text(&rendered_evidence).contains(CA_ANZ_NON_ENDORSEMENT) {
-        failures.push("evidence/index.html: missing CA ANZ non-endorsement boundary".into());
+    if !core::visible_text(&rendered_evidence).contains(CA_ANZ_MEMBERSHIP) {
+        failures.push("evidence/index.html: missing provisional CA ANZ membership".into());
     }
     let span = |pattern: &str, flags: u8| {
         re(pattern, flags).search(&rendered_evidence).map(|m| {
