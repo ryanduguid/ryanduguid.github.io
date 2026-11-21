@@ -1,0 +1,96 @@
+# First home super saver (FHSS) calculator
+
+Source: https://duguid.com.au/tools/individual-tax/fhss/
+
+> Work out the FHSS maximum and actual release, assessable amount and tax offset from an ATO determination, or estimate the release and associated earnings from voluntary super contributions.
+
+# First home super saver calculator
+
+Work out your first home super saver release, withholding and tax offset from your ATO determination. You can also estimate the release from your contribution history.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+First home super saver release
+
+This calculator covers an Australian tax resident who meets the scheme’s eligibility rules, uses eligible accumulation funds and has a single release. If the ATO changed a determination or release authority, use the confirmed amounts and the effective release request date. For the contribution estimate, include only eligible voluntary contributions. Exclude compulsory, excess, transferred and KiwiSaver amounts.
+
+Do these conditions apply?
+
+Choose Yes, I have checked the conditions No or unsure
+
+Calculation basis ATO determination Contribution ledger estimate
+
+Determination date
+
+Amounts on the ATO determination
+
+Concessional component, already reduced to 85%
+
+Non-concessional component
+
+Associated earnings
+
+Actual gross release before withholding and debt offsets (optional)
+
+Amount requested (defaults to the maximum)
+
+Release request date (if known)
+
+PAYG withholding basis Estimate using marginal rate and ordinary 2% Medicare levy ATO cannot estimate the rate (17%) Use a supplied estimate Use actual PAYG withheld I don’t know the withholding
+
+Commonwealth debt offset (leave blank if unknown)
+
+Treatment for determinations before 15 September 2024
+
+Unknown Ordinary purchase, recontribution and FHSS tax rules apply Release after transitional action under item 30
+
+Calculate
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Amounts from the ATO determination, determination 2025-06-20 (2024-25), 17% because the Commissioner cannot estimate the rate. Concessional component (85%) $8,500.00 Non-concessional component (100%) $5,000.00 Associated earnings on the determination $850.00 Maximum release amount $14,350.00 Amount assumed requested $14,350.00 Assumed gross release $14,350.00 Assessable FHSS released amount $9,350.00 Income year of the release request Release request date needed Estimated PAYG withholding $1,589.00 Release after withholding $12,761.00 Commonwealth debt offset $0.00 Estimated amount paid to you $12,761.00 Non-refundable FHSS tax offset (30%) $2,805.00 FHSS tax if no qualifying contract or recontribution $1,870.00 Minimum recontribution if that option is used $7,761.00 The assessable amount uses the assumed gross release. Recalculate when the actual gross release is available. PAYG withholding is an estimate.
+
+## Use your ATO determination
+
+In ATO online services through myGov, go to Super, then Manage, then First home saver. Follow the ATO’s steps to check your contributions and request a determination. Enter the 3 amounts from the determination. Enter the release request date for the correct income year. For a completed release, enter the gross actually released and confirm the withholding and any debt offset against your ATO records.
+
+## Estimate the maximum from contributions
+
+The calculator counts up to $15,000 of eligible contributions a year and $50,000 in total ($30,000 for determinations requested before 1 July 2022). It counts contributions earliest first, using non-concessional contributions first in a year that contains both kinds of personal contribution. It treats contributions on the same day as made at the same time and counts the non-concessional ones first. It adds 100% of the non-concessional part and 85% of the concessional part. It compounds daily at the ATO’s published shortfall interest charge rates, from the first day of the contribution month (1 July 2017 for 2017-18 contributions) through the determination date. Earnings round down to whole dollars per original contribution.
+
+In the ATO’s Jill example, this ledger method estimates $7,859 in earnings. The ATO gives $5,190 in GN 2024/1, example 6. The difference remains unresolved. Use the associated earnings on your determination for the actual release.
+
+## How the release is taxed
+
+The assessable amount is the gross released less the non-concessional component, floored at zero. It counts in the income year you requested the release. The 30% tax offset is non-refundable. The ATO can withhold at the estimated marginal rate including Medicare levy less 30 percentage points, or 17% where the Commissioner cannot estimate that rate. The marginal rate option here assumes the ordinary 2% Medicare levy and rounds withholding down to whole dollars. Any Commonwealth debt offset comes out after withholding.
+
+If you do not know the withholding, calculate the assessable amount and offset first. The net release and minimum recontribution need the withholding amount.
+
+The 20% FHSS tax and minimum recontribution figures apply conditionally under the First Home Super Saver Tax Act 2017 and Division 313. Check the contract, notification and recontribution deadlines with the ATO. For determinations made before 15 September 2024, see Treasury Laws Amendment (2023 Measures No. 3) Act 2023, Schedule 4, items 28 and 30. For an item 30 release, enter the original determination date and the amounts the ATO confirmed.
+
+Confirm eligibility, contribution classification, any transitional treatment and the amount to report with the ATO or a registered tax agent. This calculator works the release figures you enter.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: First home super saver calculator
+
+Case | Inputs | Result
+Sue: ATO GN 2024/1 example 11, with a fictional determination date | ATO determination: concessional $8,500.00, non-concessional $5,000.00, earnings $850.00 | Maximum release $14,350.00, assessable $9,350.00, PAYG $1,589.00, after withholding $12,761.00, offset $2,805.00
+Partial release in the income year after determination | ATO determination: concessional $8,500.00, non-concessional $10,000.00, earnings $1,500.00, requested $15,000.00 on 2025-07-01, gross released $12,000.00 | Maximum release $20,000.00, assessable $2,000.00, PAYG $340.00, after withholding $11,660.00, offset $600.00
+
+One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Follow the ATO’s steps to check your contributions and request a determination: https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/super/withdrawing-and-using-your-super/early-access-to-super/first-home-super-saver-scheme/when-you-want-to-release-your-fhss-amount/step-1-request-a-fhss-determination
+- ATO’s published shortfall interest charge rates: https://www.ato.gov.au/tax-rates-and-codes/shortfall-interest-charge-rates
+- GN 2024/1, example 6: https://www.ato.gov.au/law/view/print?DocID=GDN%2FGDN20241%2FNAT%2FATO%2F00001
+- First Home Super Saver Tax Act 2017: https://www.legislation.gov.au/C2017A00133/asmade
+- Treasury Laws Amendment (2023 Measures No. 3) Act 2023, Schedule 4, items 28 and 30: https://www.legislation.gov.au/C2023A00075
+- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/

@@ -73,7 +73,7 @@ Unused cap covers part of the excess | 2026-27: taxable income $210,000, fringe 
 2023-24: each part of Division 293 income | 2023-24: taxable income $200,000, fringe benefits $10,000, net investment loss $15,000, family trust distribution tax income $20,000, less FHSS $5,000; contributions $27,500.00 | Division 293 income $240,000.00, low tax contributions $27,500.00, taxable contributions $17,500.00, tax $2,625.00
 2021-22: a lump sum taxed at the zero rate comes off | 2021-22: taxable income $260,000, less zero-rate lump sum $30,000; contributions $27,500.00 | Division 293 income $230,000.00, low tax contributions $27,500.00, taxable contributions $7,500.00, tax $1,125.00
 
-One of the twelve individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -81,7 +81,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twelve individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -145,7 +145,7 @@ Child support paid can take adjusted taxable income below nil | Resident all yea
 Pensions and target foreign income count in adjusted taxable income only | Resident all year, taxable $20,000, pensions $5,000, target foreign $3,000, child support $8,000, assessable $20,000 | Surcharge $20,000, Division 293 $20,000, rebate $20,000, repayment $20,000, adjusted taxable $20,000, co-contribution $20,000
 Business deductions come off co-contribution total income only | Resident all year, taxable $35,000, other fringe $2,000, employer super $1,000, assessable $40,000, business deductions $5,000 | Surcharge $38,000, Division 293 $37,000, rebate $38,000, repayment $38,000, adjusted taxable $38,000, co-contribution $38,000
 
-One of the twelve individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -155,7 +155,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - When you must repay your loan: https://www.ato.gov.au/individuals-and-families/study-and-training-support-loans/when-must-you-repay-your-loan
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
-- twelve individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -231,7 +231,7 @@ The present value at 2.5%, as the Instrument allows you to change it | Age 30 to
 A higher-fee fund: $150 and 0.85% | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $150.00 and 0.85%, premiums $599.00, growth 3.7%, present value at 3.7% | 37 years: $1,778,785.44, present value $463,777.40
 No insurance | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $59.00 and 0.11%, premiums $0.00, growth 3.7%, present value at 3.7% | 37 years: $2,178,481.86, present value $567,989.05
 
-One of the twelve individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -239,7 +239,106 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twelve individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# First home super saver (FHSS) calculator
+
+Source: https://duguid.com.au/tools/individual-tax/fhss/
+
+> Work out the FHSS maximum and actual release, assessable amount and tax offset from an ATO determination, or estimate the release and associated earnings from voluntary super contributions.
+
+# First home super saver calculator
+
+Work out your first home super saver release, withholding and tax offset from your ATO determination. You can also estimate the release from your contribution history.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+First home super saver release
+
+This calculator covers an Australian tax resident who meets the scheme’s eligibility rules, uses eligible accumulation funds and has a single release. If the ATO changed a determination or release authority, use the confirmed amounts and the effective release request date. For the contribution estimate, include only eligible voluntary contributions. Exclude compulsory, excess, transferred and KiwiSaver amounts.
+
+Do these conditions apply?
+
+Choose Yes, I have checked the conditions No or unsure
+
+Calculation basis ATO determination Contribution ledger estimate
+
+Determination date
+
+Amounts on the ATO determination
+
+Concessional component, already reduced to 85%
+
+Non-concessional component
+
+Associated earnings
+
+Actual gross release before withholding and debt offsets (optional)
+
+Amount requested (defaults to the maximum)
+
+Release request date (if known)
+
+PAYG withholding basis Estimate using marginal rate and ordinary 2% Medicare levy ATO cannot estimate the rate (17%) Use a supplied estimate Use actual PAYG withheld I don’t know the withholding
+
+Commonwealth debt offset (leave blank if unknown)
+
+Treatment for determinations before 15 September 2024
+
+Unknown Ordinary purchase, recontribution and FHSS tax rules apply Release after transitional action under item 30
+
+Calculate
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Amounts from the ATO determination, determination 2025-06-20 (2024-25), 17% because the Commissioner cannot estimate the rate. Concessional component (85%) $8,500.00 Non-concessional component (100%) $5,000.00 Associated earnings on the determination $850.00 Maximum release amount $14,350.00 Amount assumed requested $14,350.00 Assumed gross release $14,350.00 Assessable FHSS released amount $9,350.00 Income year of the release request Release request date needed Estimated PAYG withholding $1,589.00 Release after withholding $12,761.00 Commonwealth debt offset $0.00 Estimated amount paid to you $12,761.00 Non-refundable FHSS tax offset (30%) $2,805.00 FHSS tax if no qualifying contract or recontribution $1,870.00 Minimum recontribution if that option is used $7,761.00 The assessable amount uses the assumed gross release. Recalculate when the actual gross release is available. PAYG withholding is an estimate.
+
+## Use your ATO determination
+
+In ATO online services through myGov, go to Super, then Manage, then First home saver. Follow the ATO’s steps to check your contributions and request a determination. Enter the 3 amounts from the determination. Enter the release request date for the correct income year. For a completed release, enter the gross actually released and confirm the withholding and any debt offset against your ATO records.
+
+## Estimate the maximum from contributions
+
+The calculator counts up to $15,000 of eligible contributions a year and $50,000 in total ($30,000 for determinations requested before 1 July 2022). It counts contributions earliest first, using non-concessional contributions first in a year that contains both kinds of personal contribution. It treats contributions on the same day as made at the same time and counts the non-concessional ones first. It adds 100% of the non-concessional part and 85% of the concessional part. It compounds daily at the ATO’s published shortfall interest charge rates, from the first day of the contribution month (1 July 2017 for 2017-18 contributions) through the determination date. Earnings round down to whole dollars per original contribution.
+
+In the ATO’s Jill example, this ledger method estimates $7,859 in earnings. The ATO gives $5,190 in GN 2024/1, example 6. The difference remains unresolved. Use the associated earnings on your determination for the actual release.
+
+## How the release is taxed
+
+The assessable amount is the gross released less the non-concessional component, floored at zero. It counts in the income year you requested the release. The 30% tax offset is non-refundable. The ATO can withhold at the estimated marginal rate including Medicare levy less 30 percentage points, or 17% where the Commissioner cannot estimate that rate. The marginal rate option here assumes the ordinary 2% Medicare levy and rounds withholding down to whole dollars. Any Commonwealth debt offset comes out after withholding.
+
+If you do not know the withholding, calculate the assessable amount and offset first. The net release and minimum recontribution need the withholding amount.
+
+The 20% FHSS tax and minimum recontribution figures apply conditionally under the First Home Super Saver Tax Act 2017 and Division 313. Check the contract, notification and recontribution deadlines with the ATO. For determinations made before 15 September 2024, see Treasury Laws Amendment (2023 Measures No. 3) Act 2023, Schedule 4, items 28 and 30. For an item 30 release, enter the original determination date and the amounts the ATO confirmed.
+
+Confirm eligibility, contribution classification, any transitional treatment and the amount to report with the ATO or a registered tax agent. This calculator works the release figures you enter.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: First home super saver calculator
+
+Case | Inputs | Result
+Sue: ATO GN 2024/1 example 11, with a fictional determination date | ATO determination: concessional $8,500.00, non-concessional $5,000.00, earnings $850.00 | Maximum release $14,350.00, assessable $9,350.00, PAYG $1,589.00, after withholding $12,761.00, offset $2,805.00
+Partial release in the income year after determination | ATO determination: concessional $8,500.00, non-concessional $10,000.00, earnings $1,500.00, requested $15,000.00 on 2025-07-01, gross released $12,000.00 | Maximum release $20,000.00, assessable $2,000.00, PAYG $340.00, after withholding $11,660.00, offset $600.00
+
+One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Follow the ATO’s steps to check your contributions and request a determination: https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/super/withdrawing-and-using-your-super/early-access-to-super/first-home-super-saver-scheme/when-you-want-to-release-your-fhss-amount/step-1-request-a-fhss-determination
+- ATO’s published shortfall interest charge rates: https://www.ato.gov.au/tax-rates-and-codes/shortfall-interest-charge-rates
+- GN 2024/1, example 6: https://www.ato.gov.au/law/view/print?DocID=GDN%2FGDN20241%2FNAT%2FATO%2F00001
+- First Home Super Saver Tax Act 2017: https://www.legislation.gov.au/C2017A00133/asmade
+- Treasury Laws Amendment (2023 Measures No. 3) Act 2023, Schedule 4, items 28 and 30: https://www.legislation.gov.au/C2023A00075
+- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -326,7 +425,7 @@ B(ii): what earlier B(ii) payments had withheld comes off | fortnightly, scale 2
 B(ii): earlier withholding beyond the amount gives nil | fortnightly, scale 2, $1,800.00 this pay; B(ii): $2,480.00, $18,000.00 over 10 pays to date, earlier $1,000.00 with $9,999.00 withheld | Withheld $212.00: $212.00 on earnings, $0.00 by B(ii) (limit $1,165.60)
 ATO example 4: Bradley’s back pay over 2 years by B(i) and B(ii), with a Financial Supplement debt | monthly, scale 2, study loan, $7,000.00 this pay; B(i): $800.00 for each of 2 pays of $6,200.00 that had $1,257.00 withheld; B(ii): $8,800.00, $19,400.00 over 3 pays to date | Withheld $6,492.00: $1,634.00 on earnings, $754.00 by B(i), $4,104.00 by B(ii) (limit $4,136.00)
 
-One of the twelve individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -336,7 +435,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
-- twelve individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -412,7 +511,7 @@ The reportable amount brings on the surcharge and raises the study loan repaymen
 A foreign resident | 2026-27, charity, foreign, salary $70,000, Type 2 $15,899.93 | Gain $4,770.00: tax saved $4,770.00, FBT $0.00, reportable $29,999
 2022-23, before the standard deduction | 2022-23, charity, resident, salary $70,000, Type 2 $15,899.93 | Gain $5,674.00: tax saved $5,674.00, FBT $0.00, reportable $29,999
 
-One of the twelve individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -421,7 +520,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - novated lease calculator: https://duguid.com.au/tools/individual-tax/novated-lease/
-- twelve individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -517,7 +616,7 @@ Held over 4 years: two-thirds of the cost price | 2026-27, bev, first held and u
 Half a year available | 2026-27, bev, first held and used on 2022-07-01, sold 2026-27 at $60,000.00, 182 days, costs $15,000.00 with GST and $1,000.00 without, salary $100,000 | Exempt: value $5,983.56, saving $6,047.48, $3,762.72 without the exemption
 The reportable amount brings on the surcharge | 2026-27, bev, first held and used on 2022-07-01, sold 2026-27 at $60,000.00, 365 days, costs $15,000.00 with GST and $1,000.00 without, salary $120,000, no hospital cover | Exempt: value $12,000.00, saving $5,649.93, $1,502.97 without the exemption
 
-One of the twelve individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -525,7 +624,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- twelve individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 

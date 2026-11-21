@@ -1,0 +1,120 @@
+<section class="business-calculator" id="fhss">
+<form class="calculator-split" data-calculator="fhss">
+  <fieldset disabled>
+    <legend>First home super saver release</legend>
+    <p id="fhss-scope-note" class="field-note">This calculator covers an Australian tax resident who meets the scheme’s eligibility rules, uses eligible accumulation funds and has a single release. If the ATO changed a determination or release authority, use the confirmed amounts and the effective release request date. For the contribution estimate, include only eligible voluntary contributions. Exclude compulsory, excess, transferred and KiwiSaver amounts.</p>
+    <label class="field" for="fhss-scope">Do these conditions apply?
+      <select id="fhss-scope" name="scope" aria-describedby="fhss-scope-note" required>
+        <option value="">Choose</option>
+        <option value="yes">Yes, I have checked the conditions</option>
+        <option value="no">No or unsure</option>
+      </select>
+    </label>
+    <div class="form-grid">
+      <fieldset class="field"><legend>Calculation basis</legend>
+        <label><input type="radio" name="mode" value="stated" checked /> ATO determination</label>
+        <label><input type="radio" name="mode" value="estimate" /> Contribution ledger estimate</label>
+      </fieldset>
+      <label class="field" for="fhss-determined">Determination date
+        <input id="fhss-determined" name="determination-date" type="date" min="2018-07-01" value="2025-06-20" required />
+      </label>
+    </div>
+    <fieldset data-show-field="mode" data-show-values="stated">
+      <legend>Amounts on the ATO determination</legend>
+      <div class="form-grid">
+        <label class="field" for="fhss-concessional">Concessional component, already reduced to 85%
+          <input id="fhss-concessional" name="concessional" type="number" inputmode="decimal" min="0" step="0.01" value="8500" required />
+        </label>
+        <label class="field" for="fhss-non-concessional">Non-concessional component
+          <input id="fhss-non-concessional" name="non-concessional" type="number" inputmode="decimal" min="0" step="0.01" value="5000" required />
+        </label>
+        <label class="field" for="fhss-earnings">Associated earnings
+          <input id="fhss-earnings" name="associated-earnings" type="number" inputmode="decimal" min="0" step="0.01" value="850" required />
+        </label>
+        <label class="field" for="fhss-actual">Actual gross release before withholding and debt offsets (optional)
+          <input id="fhss-actual" name="actual-release" type="number" inputmode="decimal" min="0" step="0.01" value="" />
+        </label>
+      </div>
+    </fieldset>
+    <fieldset data-show-field="mode" data-show-values="estimate" hidden disabled>
+      <legend>Contribution ledger estimate</legend>
+      <p class="field-note">Use the fund’s contribution dates and your personal deductions by income year. The verified shortfall interest charge rates cover determinations through 31 December 2026.</p>
+      <label class="field" for="fhss-determination-requested">Date you requested or plan to request the determination
+        <input id="fhss-determination-requested" name="determination-requested" type="date" min="2018-07-01" max="2026-12-31" required />
+      </label>
+      <label class="field" for="fhss-contributions">Voluntary contributions
+        <span class="field-note" id="fhss-contributions-help">One per line, in the order date, dollars and kind. Use <code>personal</code> or <code>employer_voluntary</code> (salary sacrifice). Example <code>2024-08-15,1500.00,employer_voluntary</code>.</span>
+        <textarea id="fhss-contributions" name="contributions" rows="5" maxlength="600000" spellcheck="false" aria-describedby="fhss-contributions-help" required></textarea>
+      </label>
+      <label class="field" for="fhss-deductions">Personal deductions claimed or to be claimed (optional)
+        <span class="field-note" id="fhss-deductions-help">One per line with the income year and total dollars claimed for that year. Example <code>2024-25,500.00</code>. Leave blank if none were or will be claimed.</span>
+        <textarea id="fhss-deductions" name="deductions" rows="2" maxlength="600" spellcheck="false" aria-describedby="fhss-deductions-help"></textarea>
+      </label>
+    </fieldset>
+    <div class="form-grid">
+      <label class="field" for="fhss-requested">Amount requested (defaults to the maximum)
+        <input id="fhss-requested" name="requested-amount" type="number" inputmode="decimal" min="0" step="0.01" value="" />
+      </label>
+      <label class="field" for="fhss-release-requested">Release request date (if known)
+        <input id="fhss-release-requested" name="release-request-date" type="date" min="2018-07-01" value="" />
+      </label>
+      <fieldset class="field"><legend>PAYG withholding basis</legend>
+        <label><input type="radio" name="withholding-basis" value="marginal" required /> Estimate using marginal rate and ordinary 2% Medicare levy</label>
+        <label><input type="radio" name="withholding-basis" value="unable" /> ATO cannot estimate the rate (17%)</label>
+        <label><input type="radio" name="withholding-basis" value="supplied_estimate" /> Use a supplied estimate</label>
+        <label><input type="radio" name="withholding-basis" value="actual" /> Use actual PAYG withheld</label>
+        <label><input type="radio" name="withholding-basis" value="unknown" /> I don’t know the withholding</label>
+      </fieldset>
+      <fieldset data-show-field="withholding-basis" data-show-values="marginal" hidden disabled>
+        <legend>Estimated rate</legend>
+        <label class="field" for="fhss-marginal">Marginal tax rate before the Medicare levy (%)
+          <input id="fhss-marginal" name="marginal-percent" type="number" inputmode="decimal" min="0" max="45" step="any" required />
+        </label>
+      </fieldset>
+      <fieldset data-show-field="withholding-basis" data-show-values="supplied_estimate actual" hidden disabled>
+        <legend>Amount withheld</legend>
+        <label class="field" for="fhss-withholding">Actual or estimated withholding in dollars
+          <input id="fhss-withholding" name="withholding-amount" type="number" inputmode="decimal" min="0" step="0.01" required />
+        </label>
+      </fieldset>
+      <label class="field" for="fhss-debt-offset">Commonwealth debt offset (leave blank if unknown)
+        <input id="fhss-debt-offset" name="debt-offset" type="number" inputmode="decimal" min="0" step="0.01" value="" />
+      </label>
+      <label class="field" for="fhss-transition">Treatment for determinations before 15 September 2024
+        <select id="fhss-transition" name="transition">
+          <option value="">Unknown</option>
+          <option value="ordinary">Ordinary purchase, recontribution and FHSS tax rules apply</option>
+          <option value="item30">Release after transitional action under item 30</option>
+        </select>
+      </label>
+    </div>
+    <button type="submit" class="button">Calculate</button>
+  </fieldset>
+  {% include calculator-example.html inputs="Amounts from the ATO determination, determination 2025-06-20 (2024-25), 17% because the Commissioner cannot estimate the rate" rows="Concessional component (85%)|$8,500.00;Non-concessional component (100%)|$5,000.00;Associated earnings on the determination|$850.00;Maximum release amount|$14,350.00;Amount assumed requested|$14,350.00;Assumed gross release|$14,350.00;Assessable FHSS released amount|$9,350.00;Income year of the release request|Release request date needed;Estimated PAYG withholding|$1,589.00;Release after withholding|$12,761.00;Commonwealth debt offset|$0.00;Estimated amount paid to you|$12,761.00;Non-refundable FHSS tax offset (30%)|$2,805.00;FHSS tax if no qualifying contract or recontribution|$1,870.00;Minimum recontribution if that option is used|$7,761.00" principal="3" note="The assessable amount uses the assumed gross release. Recalculate when the actual gross release is available. PAYG withholding is an estimate" %}
+  <div class="table-scroll" role="region" aria-label="Working for estimated contributions" tabindex="0" hidden>
+    <table class="facts" data-results="fhss-contributions">
+      <caption>Contribution estimate working. Earnings appear once per original contribution, including where it is split into 2 rows.</caption>
+      <thead><tr><th scope="col">Contribution</th><th scope="col">Treatment</th><th scope="col">Amount</th><th scope="col">Counted under the caps</th><th scope="col">Earnings from</th><th scope="col">Deemed earnings</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <div class="sources-applied" hidden>
+    <p>Rules applied</p>
+    <ul>
+      <li><a href="https://www.legislation.gov.au/C1953A00001/2026-10-01/2026-10-01/text/original/epub/OEBPS/document_2/document_2.html">Taxation Administration Act 1953, Schedule 1, ss 138-30 to 138-40 and 280-105</a> sets the contribution caps, release percentages and deemed earnings.</li>
+      <li><a href="https://www.legislation.gov.au/C2004A05138/2026-10-01/2026-10-01/text/original/epub/OEBPS/document_6/document_6.html">Income Tax Assessment Act 1997, Division 313</a> determines the income year, assessable amount and 30% offset.</li>
+      <li><a href="https://www.legislation.gov.au/F2017L01227/2026-11-14/2026-11-14/text/original/epub/OEBPS/document_1/document_1.html">Regulations 26 and 53A of the Taxation Administration Regulations 2017</a> set the withholding method.</li>
+    </ul>
+  </div>
+</form>
+<h2>Use your ATO determination</h2>
+<p>In ATO online services through myGov, go to Super, then Manage, then First home saver. <a href="https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/super/withdrawing-and-using-your-super/early-access-to-super/first-home-super-saver-scheme/when-you-want-to-release-your-fhss-amount/step-1-request-a-fhss-determination">Follow the ATO’s steps to check your contributions and request a determination</a>. Enter the 3 amounts from the determination. Enter the release request date for the correct income year. For a completed release, enter the gross actually released and confirm the withholding and any debt offset against your ATO records.</p>
+<h2>Estimate the maximum from contributions</h2>
+<p>The calculator counts up to $15,000 of eligible contributions a year and $50,000 in total ($30,000 for determinations requested before 1 July 2022). It counts contributions earliest first, using non-concessional contributions first in a year that contains both kinds of personal contribution. It treats contributions on the same day as made at the same time and counts the non-concessional ones first. It adds 100% of the non-concessional part and 85% of the concessional part. It compounds daily at the <a href="https://www.ato.gov.au/tax-rates-and-codes/shortfall-interest-charge-rates">ATO’s published shortfall interest charge rates</a>, from the first day of the contribution month (1 July 2017 for 2017-18 contributions) through the determination date. Earnings round down to whole dollars per original contribution.</p>
+<p>In the ATO’s Jill example, this ledger method estimates $7,859 in earnings. The ATO gives $5,190 in <a href="https://www.ato.gov.au/law/view/print?DocID=GDN%2FGDN20241%2FNAT%2FATO%2F00001">GN 2024/1, example 6</a>. The difference remains unresolved. Use the associated earnings on your determination for the actual release.</p>
+<h2>How the release is taxed</h2>
+<p>The assessable amount is the gross released less the non-concessional component, floored at zero. It counts in the income year you requested the release. The 30% tax offset is non-refundable. The ATO can withhold at the estimated marginal rate including Medicare levy less 30 percentage points, or 17% where the Commissioner cannot estimate that rate. The marginal rate option here assumes the ordinary 2% Medicare levy and rounds withholding down to whole dollars. Any Commonwealth debt offset comes out after withholding.</p>
+<p>If you do not know the withholding, calculate the assessable amount and offset first. The net release and minimum recontribution need the withholding amount.</p>
+<p>The 20% FHSS tax and minimum recontribution figures apply conditionally under the <a href="https://www.legislation.gov.au/C2017A00133/asmade">First Home Super Saver Tax Act 2017</a> and Division 313. Check the contract, notification and recontribution deadlines with the ATO. For determinations made before 15 September 2024, see <a href="https://www.legislation.gov.au/C2023A00075">Treasury Laws Amendment (2023 Measures No. 3) Act 2023, Schedule 4, items 28 and 30</a>. For an item 30 release, enter the original determination date and the amounts the ATO confirmed.</p>
+<p>Confirm eligibility, contribution classification, any transitional treatment and the amount to report with the ATO or a registered tax agent. This calculator works the release figures you enter.</p>
+</section>
