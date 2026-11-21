@@ -1019,15 +1019,19 @@ fn indexable_page_licences_point_to_the_scoped_statement() {
         let page = format!("{}index.html", relative.trim_start_matches('/'));
         let blocks = core::json_ld_blocks(&read_text(root, &page), &page, &mut failures);
         let kinds = ["WebPage", "TechArticle", "ProfilePage", "ContactPage"];
-        let mut licences = blocks
+        let mut page_nodes = blocks
             .iter()
             .flat_map(core::nodes)
             .filter(|node| kinds.iter().any(|kind| core::has_type(node, kind)))
-            .filter_map(|node| node.get("license").and_then(Json::as_str))
             .peekable();
-        assert!(licences.peek().is_some(), "{page}: no scoped licence");
-        for licence in licences {
-            assert_eq!(licence, "https://duguid.com.au/privacy/#licences", "{page}");
+        assert!(page_nodes.peek().is_some(), "{page}: no page node");
+        for node in page_nodes {
+            assert_eq!(
+                node.get("license").and_then(Json::as_str),
+                Some("https://duguid.com.au/privacy/#licences"),
+                "{page}: {:?}",
+                node.get("@id")
+            );
         }
     }
     assert_clean("JSON-LD licence pages", &failures);
