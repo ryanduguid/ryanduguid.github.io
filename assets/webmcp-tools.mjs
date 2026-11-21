@@ -460,7 +460,8 @@ const borrowingTool = (borrowingSchedule, years) => tool({
         years: l.rows.map((row) => ({ incomeYear: row.income_year, remaining: centsText(row.remaining), daysInYear: row.days, daysLeft: row.left,
           maximum: centsText(row.maximum), deduction: centsText(row.deduction), section26_155: row.section_26_155, projected: row.projected })) })),
       warnings: r.warnings,
-      basis: 'ITAA 1997 s 25-25 as read 19 November 2026; each maximum is rounded half up to the cent and carried forward, as the ATO’s examples are.',
+      basis: 'ITAA 1997 s 25-25 as read 19 November 2026. Each maximum is rounded half up to the cent and carried forward, '
+        + 'as the ATO’s examples are. remainingAfterYear is before income-use apportionment.',
       source: `${CALCULATORS}borrowing-expenses/`,
     };
   },

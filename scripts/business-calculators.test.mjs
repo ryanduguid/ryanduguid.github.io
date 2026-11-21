@@ -4871,11 +4871,23 @@ const borrowAud = (value) => value.toLocaleString('en-AU', { style: 'currency', 
 Object.assign(INPUTS, { borrowingSchedule: (x) => calculations.borrowingInputsText(x, borrowAud) });
 Object.assign(FORM_CALLS, { borrowingSchedule: (f) => [calculations.borrowingFormInput((name) => f[name] ?? '')] });
 Object.assign(ENGINE_LABELS, { borrowingSchedule: { borrowingExpenses: 'borrowing expenses', maximumDeduction: 'maximum deduction', deduction: 'deduction',
-  remainingAfterYear: 'still to deduct' } });
+  remainingAfterYear: 'unapportioned costs remaining' } });
 const borrowLoan = (over = {}) => ({ borrowing_expenses: '1600.00', loan_start: '2020-07-03', loan_term_end: '2045-07-02', repaid_on: null,
   income_use: '1', section_26_50_applies: false, ...over });
 const borrowRows = (r, n) => r.loans[n - 1].rows.map((row) => [row.income_year, (Number(row.remaining) / 100).toFixed(2),
   (Number(row.maximum) / 100).toFixed(2), (Number(row.deduction) / 100).toFixed(2), row.days, row.left]);
+
+test('a mixed-use loan shows remaining costs before apportionment', () => {
+  const fields = { year: '2024-25', 'expenses-1': '1826.00', 'start-1': '2024-07-01', 'term-end-1': '2034-06-30',
+    'repaid-1': '2026-03-31', 'use-1': '75', 'use-by-year-1': '2025-26 50' };
+  const result = calculations.borrowingResult((name) => fields[name] ?? '', borrowAud);
+  assert.deepEqual(result.rows.slice(2), [
+    ['Unapportioned costs after 2024-25', '$1,461.00'],
+    ['Deduction for 2024-25', '$273.75'],
+  ]);
+  assert.deepEqual(result.tables.years[1], ['2025-26', '$1,461.00', '$730.50', '']);
+});
+
 const borrowCode = (input) => {
   try {
     calculations.borrowingSchedule(input);
