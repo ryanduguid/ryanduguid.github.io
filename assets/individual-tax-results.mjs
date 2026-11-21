@@ -170,7 +170,8 @@ function novatedLeaseResult(value, aud) {
   const flag = (/** @type {string} */ name) => value(name) === 'yes';
   const r = novatedLease({ year: value('year'), residency: value('residency'), salary: value('salary'), studyLoan: flag('study-loan'),
     hospitalCover: flag('cover'), kind: value('kind'), firstUsed: value('first-used'), commitment: flag('commitment'),
-    saleYear: value('sale-year'), price: value('price'), otherSupply: flag('other-supply'), reduced: flag('reduced'),
+    saleYear: value('sale-year'), price: value('price'), otherSupply: flag('other-supply'), lctTiming: value('lct-timing'),
+    reduced: flag('reduced'),
     days: value('days'), gstCosts: value('gst-costs'), otherCosts: value('other-costs') });
   const rows = [[`Statutory formula value for ${value('days')} days`, aud(r.taxableValue)],
     [`Luxury car tax threshold for fuel-efficient cars, ${value('sale-year')}`, aud(r.threshold)],

@@ -532,7 +532,12 @@ test('novated lease tool tests the electric car exemption and refuses what the p
   assert.deepEqual([phev.exempt, phev.exemptCase], [false, null]);
   assert.match(phev.reasonNotExempt, /commitment/);
   assert.equal((await tool.execute({ ...car, car: 'phev', phevCommitment: true, firstSaleYear: '2024-25' })).exempt, true);
-  assert.match((await tool.execute({ ...car, luxuryCarTaxOnOtherSupply: true })).reasonNotExempt, /another supply or an importation/);
+  const taxed = { ...car, luxuryCarTaxOnOtherSupply: true };
+  assert.match((await tool.execute({ ...taxed, luxuryCarTaxTiming: 'before-all' })).reasonNotExempt, /another supply or an importation/);
+  assert.equal((await tool.execute({ ...taxed, luxuryCarTaxTiming: 'after-all' })).exempt, true);
+  await assert.rejects(tool.execute(taxed), /one treatment for the year/);
+  await assert.rejects(tool.execute({ ...taxed, luxuryCarTaxTiming: 'mixed-or-unknown' }), /one treatment for the year/);
+  await assert.rejects(tool.execute({ ...car, luxuryCarTaxTiming: 'before-all' }), /timing needs a taxable first retail sale/);
   await assert.rejects(tool.execute({ ...car, car: 'diesel' }), /car does not match/);
   await assert.rejects(tool.execute({ ...car, costPrice: undefined }), /costPrice/);
   await assert.rejects(tool.execute({ ...car, firstHeldAndUsed: undefined }), /firstHeldAndUsed/);

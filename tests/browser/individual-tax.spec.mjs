@@ -186,6 +186,12 @@ test('novated lease names the exemption condition a plug-in hybrid fails, applie
   await expect(form.locator('output .result-row--principal strong')).toHaveText('$6,047.48');
   await form.getByRole('group', { name: /other supply of the car/ }).getByLabel('Yes').check();
   await calculate.click();
+  await expect(form.locator('output')).toContainText('This calculator needs one treatment for the year.');
+  await form.getByLabel('After all those benefits').check();
+  await calculate.click();
+  await expect(row('Electric car exemption')).toHaveText('applies');
+  await form.getByLabel('Before all those benefits').check();
+  await calculate.click();
   await expect(row('Electric car exemption')).toHaveText(/another supply or an importation/);
   await expect(form.locator('output .result-row--principal strong')).toHaveText('$1,465.69');
 });
