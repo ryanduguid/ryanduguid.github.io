@@ -217,7 +217,7 @@ fn release_claims() {
     replace_file(
         site.path(),
         MCP_REL,
-        "\"softwareVersion\": \"0.10.0\"",
+        "\"softwareVersion\": \"0.11.0\"",
         "\"softwareVersion\": \"0.2.0\"",
     );
     expect_failure(
@@ -368,7 +368,7 @@ fn release_claims() {
     // The limitations page names the real published release; name the documented one.
     rewrite(site.path(), "tools/limitations/index.html", |t| {
         t.replace(
-            "aus-accounting-mcp 0.10.0, pins",
+            "aus-accounting-mcp 0.11.0, pins",
             "aus-accounting-mcp 0.9.0, pins",
         )
     });
