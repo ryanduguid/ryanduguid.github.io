@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // Catch-up concessional contributions: each earlier year's unused concessional contributions cap,
 // applied earliest year first to increase a later year's cap, and what is left of each after this

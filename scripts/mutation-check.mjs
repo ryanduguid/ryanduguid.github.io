@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // Do the calculator tests notice a wrong engine? Each named mutation below is one
 // plausible money error. It is applied to a temporary copy of the engines, never to

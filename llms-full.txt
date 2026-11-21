@@ -563,7 +563,7 @@ Install commands are under Adopt. The package, release, compatibility and licenc
 - ATO benchmarks, trust distributions and company tax: ato-benchmark-compare repository, releases and licence; Solomon’s Sword repository, releases and licence; The Exchequer Tally repository, releases and licence.
 - Agent skills and construction WIP: Australian Accounting Skills, releases and licence; Hardhat Ledger, releases and licence; TheWIPTally repository and licence.
 - Xero export and Workpaper Review Gate: xero-trial-balance-export repository, releases, release and compatibility record and licence; Workpaper Review Gate repository, release record and licence.
-- Coal LSL calculator and this record: site repository and licence.
+- Coal LSL calculator: site repository and licence.
 
 ## Sources and review dates
 
@@ -1478,7 +1478,7 @@ Verify a figure against current guidance before relying on it. Historical and cu
 
 Each rate page shows its own Source checked date. The Excel instructions below do not renew those checks. Every row of the 11 rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
 
-All 11 rate tables as one JSON file: every CSV row, with its source_url and checked_at, built from the CSVs. It is published under this repository’s licence, the Ryan Duguid Public Attribution Licence 1.0.
+All 11 rate tables as one JSON file: every CSV row, with its source_url and checked_at, built from the CSVs. It is published under the existing data terms, the Ryan Duguid Public Attribution Licence 1.0.
 
 ## Use these tables in Excel
 
@@ -1806,7 +1806,7 @@ Follow updates with the Atom feed. It covers this site’s recorded changes and 
 - Primary source: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty
 - Download CSV: https://duguid.com.au/rates/transfer-duty/transfer-duty-rates.csv
 - All 11 rate tables as one JSON file: https://duguid.com.au/rates/rates.json
-- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
+- Ryan Duguid Public Attribution Licence 1.0: https://duguid.com.au/LICENSE-DATA-AND-ARTWORK
 - Microsoft’s Text/CSV guide: https://learn.microsoft.com/en-us/power-query/connectors/text-csv
 - Follow updates with the Atom feed: https://duguid.com.au/feed.xml
 
@@ -5551,6 +5551,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+21 November 2026 | The site's software now uses the Apache License 2.0. Ryan Duguid's original page text uses Creative Commons Attribution 4.0. The site licence notice identifies the terms for data, artwork and third-party material.
 20 November 2026 | A new business calculator keeps a company’s franking account for 2025-26 or 2026-27 under Division 205 of the Income Tax Assessment Act 1997: each credit and debit on its day with a running balance, the R&D deferral, refunds in the 3 months after the year’s end taken back into it, franking deficit tax and its offset with the 30% reduction worked only on the part the company’s own debits cause, the benchmark rule’s over-franking tax and under-franking debit in each franking period, the significant variation test and the franking return’s labels and due date. The Act and the ATO’s Franking account tax return 2026 instructions were read on 19 November 2026, and the page opens on the ATO’s example of EKW Ltd’s $62,000 offset.
 19 November 2026 | A super projection calculator. It projects one accumulation account from 2026-27 to retirement, a year at a time, with the 12% super guarantee up to the maximum contribution base, 15% contributions tax, fees and premiums and their tax deduction, and gives the balance in future dollars and at its present value. Its defaults follow ASIC’s Instrument 2022/603 (retirement at 67, today’s dollars at 3.7% a year) and ASIC’s own stated assumptions for returns, fees and premiums; each is listed with why it is reasonable and can be changed.
 19 November 2026 | A new business calculator measures a lessee’s lease under AASB 16: the lease liability and right-of-use asset at commencement, each payment’s interest and principal, and each income year’s interest, payments, straight-line depreciation and closing balances, with the journal at commencement and a CSV download. It agrees with Example 13 of the Illustrative Examples accompanying IFRS 16. With the comparison on, it sets the lease beside hire purchase and buying outright for each income year after GST and tax, citing the ATO’s GST and business expenses guidance and Divisions 27, 40 and 240 of the Income Tax Assessment Act 1997. Sources were read on 19 November 2026.
@@ -5767,6 +5768,7 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- site licence notice: https://duguid.com.au/privacy/
 - FBT property: https://duguid.com.au/tools/business-calculators/fbt-property/
 - FBT expense payment: https://duguid.com.au/tools/business-calculators/fbt-expense-payment/
 - aus-accounting-mcp/v0.10.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.10.0
@@ -6968,6 +6970,8 @@ Based on content from the Federal Register of Legislation at 13 November 2026. F
 
 The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: Schedule 2 only, set out as data with each row’s nesting as a number, each life also in months and as 2 rates, dates in one form, plain spaces and hyphens, and 3 rows recorded one level shallower than the EPUB’s text sets them. The Commonwealth does not endorse this page.
 
+Ryan Duguid’s arrangement of the data file retains the Public Attribution 1.0 terms.
+
 The rules beyond the tables were read on 13 November 2026 in the Income Tax Assessment Act 1997 (Compilation No. 268, 1 October 2026), the Income Tax (Transitional Provisions) Act 1997 (Compilation No. 104) and in ATO guidance: the Guide to depreciating assets 2026, Rental properties 2026 and its pages on the 2 methods, the low-value pool and the car limit. The dates from which the capped lives and the labour income exclusion apply were read on 14 November 2026 in the amending Acts as made, as were the ATO’s legal database entries for LI 2025/20 and the withdrawal of TR 2022/1, and the guide’s example of an asset used partly for a taxable purpose. The ATO’s own depreciation and capital allowances tool works out deductions with more of an asset’s history.
 
 ## Changes and corrections
@@ -7253,6 +7257,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Car limit for depreciation: https://duguid.com.au/rates/car-limit/
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/
+- Public Attribution 1.0 terms: https://duguid.com.au/LICENSE-DATA-AND-ARTWORK
 - depreciation and capital allowances tool: https://www.ato.gov.au/calculators-and-tools/depreciation-and-capital-allowances-tool
 - changelog: https://duguid.com.au/changelog/
 - Atom feed: https://duguid.com.au/feed.xml
@@ -14455,7 +14460,7 @@ If an AI answer misquotes this site, email ryan@duguid.com.au with the page addr
 
 Read the advice and review boundary before relying on a tool or example. Check each page’s assumptions, source links and review date, and have a qualified professional review outputs before acting on them.
 
-The website's own text, data and source code are available under its Ryan Duguid Public Attribution Licence 1.0, the FSL-1.1-ALv2 text with a public attribution condition, which includes its warranty terms and makes each version available under the Apache License 2.0 two years after publication; each page's structured data names that licence. Linked projects and third-party assets carry their own licences. Check those terms before reusing or distributing them.
+Ryan Duguid licenses his software under the Apache License 2.0 and his original page prose under CC BY 4.0. His data compilations and artwork retain their existing terms. Earlier versions, linked projects and third-party material carry their respective licences.
 
 ## Accessibility
 
@@ -14474,7 +14479,9 @@ Automated checks find only some barriers. I have not tested the site with screen
 - machine-readable index: https://duguid.com.au/llms.txt
 - full page text: https://duguid.com.au/llms-full.txt
 - advice and review boundary: https://duguid.com.au/about/#advice-boundary
-- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
+- Apache License 2.0: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
+- CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+- data compilations and artwork: https://duguid.com.au/LICENSE-DATA-AND-ARTWORK
 
 ---
 

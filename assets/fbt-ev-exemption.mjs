@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // Whether a car benefit is exempt under section 8A of the Fringe Benefits Tax Assessment Act 1986,
 // the electric cars exemption, condition by condition: the Act as compiled on 1 July 2026

@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! `site-tools build_effective_life_pages`: write and check a page for every effective
 //! life in `tools/depreciation-rates/effective-life.json`, a page for each Table A

@@ -1,12 +1,12 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! Each page's structured data: a WebPage and the BreadcrumbList its visible trail shows.
 use super::head::ORIGIN;
 use super::{SENTINEL_MODIFIED, SENTINEL_PUBLISHED};
 use serde_json::{Value, json};
 
-const LICENSE: &str = "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE";
+const LICENSE: &str = "https://duguid.com.au/privacy/#licences";
 
 /// The structured data of a page at `path`, whose trail is `crumbs` (name, path), the
 /// last being the page itself.

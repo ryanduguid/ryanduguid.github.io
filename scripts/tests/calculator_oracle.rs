@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! An independent oracle for the finance schedule, Division 7A, FBT car, Coal LSL and transfer duty engines. 360 seeded
 //! fictional cases are worked here in exact integers, by a route the engines do not take,

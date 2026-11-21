@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! Differential aid: reads a JSON array of [text, convert_charrefs] pairs on stdin and writes,
 //! for each, the parser's events with their positions, as JSON lines.

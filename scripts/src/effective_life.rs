@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! `site-tools build_effective_life`: build and check
 //! `tools/depreciation-rates/effective-life.json` from the registered text of the
@@ -87,13 +87,12 @@ const CHANGES: &str = "Schedule 2 only, set out as data: each row's indentation 
     endorse this file.";
 const SOURCE_LICENCE: &str = "Creative Commons Attribution 4.0 International (CC BY 4.0)";
 const SOURCE_LICENCE_URL: &str = "https://creativecommons.org/licenses/by/4.0/";
-/// The repository's licence, as LICENSE and NOTICE state it, for the arrangement of this
-/// file; the rows themselves are the Commonwealth's text under the source licence.
+/// Rights in the arrangement of the data file and the Commonwealth's source text.
 const LICENCE: &str = "The rows are text of a Commonwealth legislative instrument, reused \
     under the source licence named in source. The arrangement of this file is under the \
     Ryan Duguid Public Attribution Licence 1.0 (LicenseRef-Duguid-Public-Attribution-1.0), \
-    the licence of the repository it is built in. See LICENSE and NOTICE.";
-const LICENCE_URL: &str = "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE";
+    the licence for this data compilation. See LICENSE-DATA-AND-ARTWORK and NOTICE.";
+const LICENCE_URL: &str = "https://duguid.com.au/LICENSE-DATA-AND-ARTWORK";
 const ADVICE_STATUS: &str = "Not advice. Check each life against the registered instrument, \
     and against an earlier determination for an asset acquired before the row's \
     last_updated date.";

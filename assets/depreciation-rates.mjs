@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // The depreciation rate finder's arithmetic and search, with no page access so
 // Node can test it. Lives are exact fractions of a year and money is whole

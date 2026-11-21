@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // Income tax for one individual for a full income year: the basic tax on taxable income, the
 // low income tax offset, the low and middle income tax offset, the Medicare levy of a single

@@ -127,7 +127,7 @@ Install commands are under Adopt. The package, release, compatibility and licenc
 - ATO benchmarks, trust distributions and company tax: ato-benchmark-compare repository, releases and licence; Solomon’s Sword repository, releases and licence; The Exchequer Tally repository, releases and licence.
 - Agent skills and construction WIP: Australian Accounting Skills, releases and licence; Hardhat Ledger, releases and licence; TheWIPTally repository and licence.
 - Xero export and Workpaper Review Gate: xero-trial-balance-export repository, releases, release and compatibility record and licence; Workpaper Review Gate repository, release record and licence.
-- Coal LSL calculator and this record: site repository and licence.
+- Coal LSL calculator: site repository and licence.
 
 ## Sources and review dates
 

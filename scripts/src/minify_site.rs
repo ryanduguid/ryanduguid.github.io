@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! Minify the built site's JavaScript and CSS in place, for publication and for the
 //! server the browser checks use. The sources in assets/ stay readable: the Node tests,

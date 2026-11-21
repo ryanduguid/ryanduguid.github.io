@@ -1,32 +1,17 @@
-ryanduguid.github.io
+duguid.com.au
 Copyright 2026 Ryan Duguid (https://github.com/ryanduguid)
 
-Ryan Duguid's contributions are licensed under the Ryan Duguid Public
-Attribution Licence, Version 1.0: the Functional Source License, Version 1.1,
-ALv2 Future License (FSL-1.1-ALv2) text with a Public Attribution Condition;
-see LICENSE. Retained third-party material remains under its own licence, as
-stated below.
-
-Public attribution applies when you rely on the FSL grant of a version released
-with the condition (from 4 November 2026) to redistribute or make available a
-copy, modification or derivative: name Ryan Duguid and link to this repository
-in its README or main documentation and in any credits screen. Internal use is
-exempt.
-
-For each version, an additional licence under the Apache License, Version 2.0
-becomes effective on the second anniversary of the date that version was made
-available. The condition does not apply to that licence.
-
-Versions made available before the condition keep the terms they were released
-with.
-
-Redistribution under the FSL grant requires including its terms or a link to
-them and keeping the copyright notices supplied with the software.
-Redistribution under another applicable licence follows that licence's
-conditions.
-
-This product includes work by Ryan Duguid
+Ryan Duguid licenses his software under the Apache License, Version 2.0
+(see LICENSE). This product includes work by Ryan Duguid
 (https://github.com/ryanduguid/ryanduguid.github.io).
+
+Ryan Duguid licenses his original written page content under Creative
+Commons Attribution 4.0 International (https://creativecommons.org/licenses/by/4.0/).
+His original data compilations and artwork retain their existing terms in
+LICENSE-DATA-AND-ARTWORK. Earlier versions retain their published grants.
+Source-specific and third-party rights apply to their respective material.
+Xero retains its rights in the credential certificate and artwork. See
+https://duguid.com.au/assets/credentials/SOURCES.md.
 
 The fonts in assets/fonts remain under the SIL Open Font License, Version 1.1;
 see the OFL files beside them.

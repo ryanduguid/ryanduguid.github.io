@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // The FBT car parking, loan, meal entertainment, property and expense payment forms: each reads its fields, runs its
 // engine from assets/fbt-benefits.mjs and returns the rows assets/accounting-pages.mjs renders.

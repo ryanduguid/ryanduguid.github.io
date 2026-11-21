@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! Hold each page to the passage rules in CONTRIBUTING.md, so a passage quoted alone
 //! keeps its subject and a page answers before it explains.

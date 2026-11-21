@@ -15,8 +15,8 @@
     "changes": "Schedule 2 only, set out as data: each row's indentation is recorded as a depth number, each life is also given in months, dates are in ISO form, and white space and no-break hyphens are written as ordinary spaces and hyphens. 3 rows are recorded one level shallower than the EPUB's text sets them. The Commonwealth does not endorse this file.",
     "attribution": "Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au."
   },
-  "licence": "The rows are text of a Commonwealth legislative instrument, reused under the source licence named in source. The arrangement of this file is under the Ryan Duguid Public Attribution Licence 1.0 (LicenseRef-Duguid-Public-Attribution-1.0), the licence of the repository it is built in. See LICENSE and NOTICE.",
-  "licence_url": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+  "licence": "The rows are text of a Commonwealth legislative instrument, reused under the source licence named in source. The arrangement of this file is under the Ryan Duguid Public Attribution Licence 1.0 (LicenseRef-Duguid-Public-Attribution-1.0), the licence for this data compilation. See LICENSE-DATA-AND-ARTWORK and NOTICE.",
+  "licence_url": "https://duguid.com.au/LICENSE-DATA-AND-ARTWORK",
   "advice_status": "Not advice. Check each life against the registered instrument, and against an earlier determination for an asset acquired before the row's last_updated date.",
   "columns": ["asset", "depth", "life_years", "life_months", "flags", "last_updated"],
   "counts": {

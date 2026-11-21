@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! `site-tools build_effective_life_pages`: one page for every life in the committed data
 //! file, unique and stable addresses that fit a Windows checkout, the address map's

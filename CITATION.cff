@@ -6,10 +6,13 @@ authors:
   - family-names: Duguid
     given-names: Ryan
     website: "https://duguid.com.au/"
-abstract: "Open source engines, MCP servers and AI agent workflows for Australian tax and accounting."
+abstract: >-
+  Open source engines, MCP servers and AI agent workflows for Australian tax
+  and accounting. This citation's Apache-2.0 licence applies to the software.
+  NOTICE specifies the separate terms for original page prose, data and artwork.
 repository-code: "https://github.com/ryanduguid/ryanduguid.github.io"
 url: "https://duguid.com.au/"
-license-url: "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE"
+license: Apache-2.0
 keywords:
   - accounting
   - australia

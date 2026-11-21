@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // Salary against dividends for one company owner and one income year: the company pays the owner a
 // salary and its super guarantee, pays company tax on the profit left and pays all of what remains as

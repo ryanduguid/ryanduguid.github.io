@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! scripts/test_agent_files.py: every case is fabricated in a temporary directory, so a
 //! pass says the gate still fires rather than that the site happens to be clean today.

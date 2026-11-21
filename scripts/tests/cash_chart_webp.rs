@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 use site_tools::cash_chart_webp::{self, CHARTS, NAMES, Rgba};
 use std::path::{Path, PathBuf};

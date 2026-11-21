@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! Embeds the identity of the sources this build reads as `SITE_TOOLS_SOURCES`, so the
 //! binary can refuse to write in a checkout whose sources differ.

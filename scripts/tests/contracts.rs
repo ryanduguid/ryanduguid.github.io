@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! The seo_core and site_contracts parts of scripts/test_contracts.py: focused mutation
 //! tests for the site's public contracts, run against a copy of the committed site.
@@ -1002,6 +1002,42 @@ fn every_dataset_has_a_name_and_a_50_to_5000_character_description() {
 }
 
 #[test]
+fn indexable_page_licences_point_to_the_scoped_statement() {
+    if !rendered() {
+        return;
+    }
+    let root = root();
+    let privacy = read_text(root, "privacy/index.html");
+    assert_eq!(privacy.matches(r#"id="licences""#).count(), 1);
+    assert!(
+        privacy.contains(r#"rel="license" href="https://creativecommons.org/licenses/by/4.0/""#)
+    );
+
+    let mut failures = Vec::new();
+    for url in core::sitemap_urls(root).unwrap() {
+        let relative = url.strip_prefix(contracts::SITE).unwrap();
+        let page = format!("{}index.html", relative.trim_start_matches('/'));
+        let blocks = core::json_ld_blocks(&read_text(root, &page), &page, &mut failures);
+        let kinds = ["WebPage", "TechArticle", "ProfilePage", "ContactPage"];
+        let mut page_nodes = blocks
+            .iter()
+            .flat_map(core::nodes)
+            .filter(|node| kinds.iter().any(|kind| core::has_type(node, kind)))
+            .peekable();
+        assert!(page_nodes.peek().is_some(), "{page}: no page node");
+        for node in page_nodes {
+            assert_eq!(
+                node.get("license").and_then(Json::as_str),
+                Some("https://duguid.com.au/privacy/#licences"),
+                "{page}: {:?}",
+                node.get("@id")
+            );
+        }
+    }
+    assert_clean("JSON-LD licence pages", &failures);
+}
+
+#[test]
 fn rate_datasets_identify_licence_and_creator() {
     // The rate pages take their JSON-LD from `_layouts/rate.html`, so read them rendered.
     if !rendered() {
@@ -1030,7 +1066,7 @@ fn rate_datasets_identify_licence_and_creator() {
         let dataset = datasets[0];
         assert_eq!(
             dataset.get("license").and_then(Json::as_str),
-            Some("https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE"),
+            Some("https://duguid.com.au/LICENSE-DATA-AND-ARTWORK"),
             "{rel}: Dataset licence"
         );
         let creator = dataset.get("creator").expect("Dataset creator");
@@ -1056,11 +1092,29 @@ fn rate_datasets_identify_licence_and_creator() {
     // The depreciation rates page's Dataset names its creator with the same stub.
     let rel = contracts::DEPRECIATION_REL;
     let blocks = core::json_ld_blocks(&read_text(source, rel), rel, &mut failures);
-    let creator = blocks
+    let dataset = blocks
         .iter()
         .flat_map(core::nodes)
         .find(|node| core::has_type(node, "Dataset"))
-        .and_then(|dataset| dataset.get("creator"))
+        .expect("depreciation Dataset");
+    let page = blocks
+        .iter()
+        .flat_map(core::nodes)
+        .find(|node| core::has_type(node, "WebPage"))
+        .expect("depreciation WebPage");
+    assert_eq!(
+        page.get("license").and_then(Json::as_str),
+        Some("https://duguid.com.au/privacy/#licences")
+    );
+    assert_eq!(
+        dataset.get("license"),
+        Some(&Json::Array(vec![
+            Json::str_obj("https://creativecommons.org/licenses/by/4.0/"),
+            Json::str_obj("https://duguid.com.au/LICENSE-DATA-AND-ARTWORK"),
+        ]))
+    );
+    let creator = dataset
+        .get("creator")
         .expect("depreciation Dataset creator");
     assert_clean(
         &format!("{rel}: Dataset creator"),

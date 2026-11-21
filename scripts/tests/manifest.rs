@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! build_agent_skills_manifest --check and pin_rates_dataset: the committed manifest
 //! passes and is an Agent Skills Discovery v0.2.0 index, a broken one reports each

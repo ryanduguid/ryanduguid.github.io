@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! scripts/test_feed.py and the fuzz harness's checks, plus the build_feed command line.
 use site_tools::feed::{self, CHANGELOG_URL};
