@@ -76,25 +76,8 @@ function withholding(facts, assessable, actual) {
   return (assessable * numerator / (100n * scale * UNITS_PER_DOLLAR)) * UNITS_PER_DOLLAR;
 }
 
-/**
- * Amounts are based on an operator-confirmed case. A release request for a
- * particular financial year governs the income year, while actual releases
- * govern s 313-20(2). Neither fact is inferred from the determination.
- * @param {FhssFacts} facts
- */
-export function fhss(facts) {
-  if (facts.scopeConfirmed !== true) {
-    return refuseFhss('scope.not_confirmed', 'Confirm the scope conditions before calculating.');
-  }
-  const determined = fhssDate(facts.determinationDate, 'Determination date');
-  if (determined < FIRST_DETERMINATION) {
-    return refuseFhss('period.unsupported', 'Use a determination date from 1 July 2018.');
-  }
-  const earlierDetermination = determined < REFORM_DATE;
-  if (facts.transition === 'item30' && (!earlierDetermination || facts.mode !== 'stated')) {
-    return refuseFhss('fhss.transition_out_of_scope', 'For an item 30 release, use an original determination date before 15 September 2024 and the confirmed ATO amounts.');
-  }
-  const components = releaseComponents(facts, determined);
+/** @param {FhssFacts} facts @param {string} determined @param {ReturnType<typeof releaseComponents>} components */
+function resolveRelease(facts, determined, components) {
   const maximum = components.concessional + components.nonConcessional + components.earnings;
   const requested = facts.requestedAmount ? fhssCents(facts.requestedAmount, 'Amount requested') * 100n : maximum;
   if (requested > maximum) {
@@ -122,6 +105,29 @@ export function fhss(facts) {
   if (debtOffset !== null && afterWithholding !== null && debtOffset > afterWithholding) {
     return refuseFhss('fhss.debt_exceeds_net_release', 'The Commonwealth debt offset cannot exceed the amount after withholding.');
   }
+  return { maximum, requested, releaseRequest, actual, gross, assessable, withheld, afterWithholding, debtOffset };
+}
+
+/**
+ * The release request date sets the income year. The gross amount actually
+ * released governs s 313-20(2), with an explicit assumption for planning.
+ * @param {FhssFacts} facts
+ */
+export function fhss(facts) {
+  if (facts.scopeConfirmed !== true) {
+    return refuseFhss('scope.not_confirmed', 'Confirm the scope conditions before calculating.');
+  }
+  const determined = fhssDate(facts.determinationDate, 'Determination date');
+  if (determined < FIRST_DETERMINATION) {
+    return refuseFhss('period.unsupported', 'Use a determination date from 1 July 2018.');
+  }
+  const earlierDetermination = determined < REFORM_DATE;
+  if (facts.transition === 'item30' && (!earlierDetermination || facts.mode !== 'stated')) {
+    return refuseFhss('fhss.transition_out_of_scope', 'For an item 30 release, use an original determination date before 15 September 2024 and the confirmed ATO amounts.');
+  }
+  const components = releaseComponents(facts, determined);
+  const { maximum, requested, releaseRequest, actual, gross, assessable, withheld, afterWithholding, debtOffset } =
+    resolveRelease(facts, determined, components);
   const ordinary = !earlierDetermination || facts.transition === 'ordinary';
   return {
     determinationYear: fhssFinancialYear(determined),
