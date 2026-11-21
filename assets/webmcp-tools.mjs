@@ -1079,26 +1079,26 @@ function novatedLeaseTool(novatedLease, novatedYears) {
       residency: choice(['resident', 'foreign'], 'Residency for tax purposes all year.'),
       salary: whole(0, 1e9, 'Salary for the year before the lease, without super, in whole AUD.'),
       car: choice(['bev', 'fcev', 'phev', 'other'], 'bev: battery electric; fcev: hydrogen fuel cell; phev: plug-in hybrid; other.'),
-      firstHeldAndUsedFrom1July2022: { type: 'boolean', description: 'true when the car was first held and used on or after 1 July 2022.' },
-      phevCommitment: { type: 'boolean', description: 'Plug-in hybrid: true when its use was exempt before 1 April 2025 under a commitment still unchanged; false when omitted.' },
+      firstHeldAndUsed: text('date', 'YYYY-MM-DD when the car was first both held and used, including availability for use by anyone.'),
+      phevCommitment: { type: 'boolean', description: 'Plug-in hybrid: true when its private use or availability was exempt before 1 April 2025 under a commitment still unchanged; false when omitted.' },
       firstSaleYear: choice(['2026-27', '2025-26', '2024-25', '2023-24', '2022-23', '2021-22'], 'Financial year of the car\'s first retail sale.'),
       costPrice: text('amount', 'Cost price with GST and dealer-fitted options, without registration and stamp duty, in AUD.'),
       luxuryCarTaxOnOtherSupply: { type: 'boolean', description: 'true when, before or during the year, luxury car tax '
         + 'became payable on a supply other than the first retail sale (a sale, lease or hire) or on an importation; '
         + 'false when omitted.' },
       heldOverFourYears: { type: 'boolean', description: 'true when the lessor held the car more than 4 years before the FBT year; false when omitted.' },
-      daysAvailable: whole(0, 366, 'Days in the year the car is available for private use.'),
+      daysAvailable: whole(0, 366, 'Days in the FBT year ending 31 March when the car was used or available for private use by the employee or an associate, including deemed availability when it was garaged at or near either home.'),
       costsWithGst: text('amount', 'Yearly lease payments and running costs that include GST, in AUD.'),
       costsWithoutGst: text('amount', 'Yearly costs without GST, such as registration, in AUD; "0" when omitted.'),
       studyLoan: { type: 'boolean', description: 'true when the person has a HELP or other study or training loan.' },
       privateHospitalCover: { type: 'boolean', description: 'false when the person had no private patient hospital cover all year; true when omitted.' },
-    }, ['incomeYear', 'residency', 'salary', 'car', 'firstHeldAndUsedFrom1July2022', 'firstSaleYear', 'costPrice', 'daysAvailable',
+    }, ['incomeYear', 'residency', 'salary', 'car', 'firstHeldAndUsed', 'firstSaleYear', 'costPrice', 'daysAvailable',
       'costsWithGst']),
-    run({ incomeYear, residency, salary, car, firstHeldAndUsedFrom1July2022, phevCommitment = false, firstSaleYear, costPrice,
+    run({ incomeYear, residency, salary, car, firstHeldAndUsed, phevCommitment = false, firstSaleYear, costPrice,
       luxuryCarTaxOnOtherSupply = false, heldOverFourYears = false, daysAvailable, costsWithGst, costsWithoutGst = '0', studyLoan = false,
       privateHospitalCover = true }) {
       const r = novatedLease({ year: incomeYear, residency, salary: String(salary), studyLoan, hospitalCover: privateHospitalCover,
-        kind: car, firstUsed: firstHeldAndUsedFrom1July2022 ? 'after' : 'before', commitment: phevCommitment, saleYear: firstSaleYear,
+        kind: car, firstUsed: firstHeldAndUsed, commitment: phevCommitment, saleYear: firstSaleYear,
         price: costPrice, otherSupply: luxuryCarTaxOnOtherSupply, reduced: heldOverFourYears, days: String(daysAvailable),
         gstCosts: costsWithGst, otherCosts: costsWithoutGst });
       const way = (/** @type {{preTax: number, postTax: number, reportable: number, owed: number, saving: number} | null} */ c) => (c

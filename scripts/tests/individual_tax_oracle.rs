@@ -1567,7 +1567,7 @@ fn the_novated_lease_engine_agrees_with_the_oracle_on_every_seeded_case() {
             };
             let input = json!({"year": year, "residency": if rng.below(4) == 0 { "foreign" } else { "resident" },
                 "salary": "400000", "studyLoan": rng.below(2) == 0, "hospitalCover": rng.below(2) == 0, "kind": l.kind,
-                "firstUsed": if l.after { "after" } else { "before" }, "commitment": l.commitment, "saleYear": sale_year,
+                "firstUsed": if l.after { "2022-07-01" } else { "2022-06-30" }, "commitment": l.commitment, "saleYear": sale_year,
                 "price": money(price), "otherSupply": l.other_supply, "reduced": l.reduced, "days": l.days.to_string(), "gstCosts": money(l.gst_costs),
                 "otherCosts": money(l.other_costs)});
             (json!({"kind": "lease", "lease": input}), lease_oracle(&l))

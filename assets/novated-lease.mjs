@@ -7,6 +7,7 @@
 // salary, and its statutory formula value (s 9) is still reportable (s 135P(3)); any other car is
 // taken under the employee contribution method, the employee paying the taxable value from after-tax
 // pay, which reduces it to nil, and the rest from pre-tax salary.
+import { carFirstUseDate } from './fbt-ev-exemption.mjs';
 import { daysInYear, wholeDollars } from './income-tax.mjs';
 import { cents, number, ratioCents } from './money.mjs';
 import { owed } from './salary-packaging.mjs';
@@ -41,7 +42,7 @@ function notExempt(n, price) {
   if (n.kind === 'phev' && n.year >= '2025-26' && !n.commitment) {
     return 'a plug-in hybrid is exempt from 1 April 2025 only under a commitment made and used before then';
   }
-  if (n.firstUsed !== 'after') return 'it was first held and used before 1 July 2022';
+  if (n.firstUsed < '2022-07-01') return 'it was first held and used before 1 July 2022';
   if (price > FUEL_EFFICIENT_THRESHOLD[n.saleYear] * 100) return 'luxury car tax was payable on its first retail sale';
   if (n.otherSupply) return 'luxury car tax became payable on another supply or an importation of it';
   return null;
@@ -60,20 +61,28 @@ export function novatedLease(n) {
   if (!NOVATED_YEARS.includes(n.year)) throw new Error('Choose an income year from 2023-24 to 2026-27.');
   if (!['resident', 'foreign'].includes(n.residency)) throw new Error('Choose an Australian resident or a foreign resident.');
   if (!['bev', 'fcev', 'phev', 'other'].includes(n.kind)) throw new Error('Choose the kind of car.');
-  if (!['after', 'before'].includes(n.firstUsed)) throw new Error('Say when the car was first held and used.');
+  const ended = Number(n.year.slice(0, 4)) + 1;
+  const firstUsed = carFirstUseDate(n.firstUsed, ended);
   if (!Object.hasOwn(FUEL_EFFICIENT_THRESHOLD, n.saleYear) || n.saleYear > n.year) {
     throw new Error('Choose the year of the car’s first retail sale, from 2021-22 to the income year.');
   }
   for (const flag of ['commitment', 'otherSupply', 'reduced', 'studyLoan', 'hospitalCover']) {
     if (typeof n[/** @type {'commitment'} */ (flag)] !== 'boolean') throw new Error('Answer each yes or no question.');
   }
-  if (n.kind === 'phev' && n.commitment && n.saleYear > '2024-25') {
-    throw new Error('A plug-in hybrid in use before 1 April 2025 was first sold by 2024-25: choose that year of first sale.');
+  if (n.kind === 'phev' && n.commitment) {
+    if (firstUsed >= '2025-04-01') throw new Error('The earlier plug-in hybrid exemption requires use before 1 April 2025.');
+    if (n.saleYear > '2024-25') {
+      throw new Error('A plug-in hybrid in use before 1 April 2025 was first sold by 2024-25: choose that year of first sale.');
+    }
   }
   const salary = wholeDollars(n.salary) * 100;
   const price = cents(n.price);
   const yearDays = daysInYear(n.year);
   const days = number(n.days, { max: yearDays, integer: true });
+  const daysFromFirstUse = 1 + (Date.parse(`${ended}-03-31`) - Date.parse(firstUsed)) / 86_400_000;
+  if (days > daysFromFirstUse) {
+    throw new Error(`Days available for private use cannot exceed ${daysFromFirstUse} between first use and 31 March ${ended}.`);
+  }
   const [gstCosts, otherCosts] = [n.gstCosts, n.otherCosts].map((value) => cents(value));
   const costs = gstCosts + otherCosts;
   if (!price) throw new Error('Enter the car’s cost price.');

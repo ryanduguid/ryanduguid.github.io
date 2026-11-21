@@ -37,6 +37,16 @@ function day(text, name) {
   return text;
 }
 
+/** First held and used, including availability for use, on or before the end of the FBT year.
+ * @param {unknown} value @param {number} ended */
+export function carFirstUseDate(value, ended) {
+  const firstUsed = day(value, 'the car was first held and used');
+  if (firstUsed > `${ended}-03-31`) {
+    throw new Error(`The car was first held and used after 31 March ${ended}, so it gave no car benefit in the FBT year.`);
+  }
+  return firstUsed;
+}
+
 /** The financial year, 1 July to 30 June, a date falls in: '2026-27' for 2026-07-01.
  * @param {string} iso */
 function financialYear(iso) {
@@ -78,11 +88,10 @@ export function fbtEvExemption(e, year) {
   const current = yesNo(e.currentEmployee);
   const otherSupply = yesNo(e.otherSupply);
   const facts = hybrid ? [e.hybrid?.committed, e.hybrid?.newCommitment, e.hybrid?.exemptBefore].map(yesNo) : [];
-  const firstUsed = day(e.firstUsed, 'the car was first held and used');
+  const firstUsed = carFirstUseDate(e.firstUsed, ended);
   const firstSale = day(e.firstSale, 'of the car’s first retail sale');
   const value = cents(e.lctValue);
   const yearEnd = `${ended}-03-31`;
-  if (firstUsed > yearEnd) throw new Error(`The car was first held and used after 31 March ${ended}, so it gave no car benefit in the FBT year.`);
   const afterYear = firstSale > yearEnd;
   const saleYear = financialYear(firstSale);
   if (!afterYear && !Object.hasOwn(FUEL_EFFICIENT_THRESHOLDS, saleYear)) {
