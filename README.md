@@ -99,7 +99,7 @@ compression verified on GitHub Pages. Lighthouse uses this same server.
 - the Coal LSL levy engine's own test suite (`assets/levy.mjs`), run with `node --test scripts/levy.test.mjs`
 - the rates register's shape, provenance, ordering and checksums, and a primary `source_url` and a `checked_at` date on every row of the rate CSVs, run with `site-tools check_rates_register` and `cargo test --test rates`
 - the business planning arithmetic and the boundary cases each calculator page shows from `_data/calculator_cases.json`, run with `node --test scripts/business-calculators.test.mjs`
-- 728 named money errors applied to a temporary copy of the Coal LSL, business and individual tax engines, each of which must fail an assertion in those engines' tests, run with `node scripts/mutation-check.mjs`
+- named money errors applied to a temporary copy of the Coal LSL, business and individual tax engines, each of which must fail an assertion in those engines' tests. Run `node scripts/mutation-check.mjs` for the current count and results.
 - 5,710 seeded fictional cases for 28 engines (loan, Division 7A, FBT car, Coal LSL, fixed fee, transfer duty, first home buyer duty, objection deadline, PAYG instalment, ETP, PCG 2021/4, PCG 2021/4 allocation, GIC payment plan, land tax, vehicle classifier, payroll tax, FBT benefits, Division 7A schedule, Division 296, company tax, the GST margin scheme, capital gains tax, foreign purchaser surcharges, the Payday Super charge, the quarterly super guarantee charge, long service leave, workers compensation premiums and the AASB 16 lease), each worked by a different route, which the engines must match, run with `cargo test --test calculator_oracle`
 - the individual tax boundary cases from `_data/individual_tax_cases.json`, run with `node --test scripts/individual-tax.test.mjs`, and 6,284 seeded fictional income tax, Medicare levy surcharge, study loan, take-home, income test, sole trader, Division 293, bonus withholding, salary packaging, novated lease, super projection and salary against dividends cases worked from the ATO's printed tables and the Acts' definitions, run with `cargo test --test individual_tax_oracle`
 - every install command in the machine-readable files must name a package in the reviewed `scripts/agent_file_policy.json`, and a third-party one must name its version; those files must also carry no invisible or direction-control characters. Run with `site-tools check_agent_files` and `cargo test --test agent_files`
@@ -261,11 +261,11 @@ repository one.
 
 ## Published files
 
-GitHub Pages builds the repository with Jekyll. All 122 canonical pages
+GitHub Pages builds the repository with Jekyll. Canonical pages
 include `_includes/site-header.html` and `_includes/site-footer.html`,
 directly or through a layout in `_layouts/`; the header sets the current page
-or section from each page's URL. The count is the number of URLs in
-`sitemap.xml`, which `scripts/tests/contracts.rs` asserts. Local builds and CI
+or section from each page's URL. The sitemaps list the indexable pages, and
+`scripts/tests/contracts.rs` checks their coverage against the rendered site. Local builds and CI
 pin Jekyll 3.10.0 in `Gemfile.lock` to match GitHub Pages.
 `_config.yml` decides what reaches the published origin. It keeps the
 repository's own tooling off duguid.com.au (`docs/`, `scripts/`, `tests/`, the

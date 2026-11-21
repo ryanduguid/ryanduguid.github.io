@@ -297,7 +297,10 @@ for (const timerFirst of [false, true]) {
       await route.continue();
     });
     if (timerFirst) await page.clock.install();
-    await page.goto(`${PAGE}?industry=agriculture-forestry-and-fishing`, { waitUntil: 'commit' });
+    await Promise.all([
+      page.waitForRequest('**/effective-life.json'),
+      page.goto(`${PAGE}?industry=agriculture-forestry-and-fishing`, { waitUntil: 'commit' }),
+    ]);
     await expect(page.locator('#finder-status')).toHaveText('Loading the effective life tables.');
     await page.getByLabel('Asset', { exact: true }).fill('tractor');
     if (timerFirst) {
