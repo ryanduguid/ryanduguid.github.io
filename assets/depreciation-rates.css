@@ -24,6 +24,12 @@
   margin-top: var(--space-3);
 }
 
+/* Keep the browse note and answers within the reading budget across fonts. */
+.depreciation-page #browse > p,
+.depreciation-page .faq > p {
+  max-width: min(var(--reading-width), 52ch);
+}
+
 .depreciation-page .page-jumps {
   margin-top: var(--space-5);
   font-size: var(--text-small);
