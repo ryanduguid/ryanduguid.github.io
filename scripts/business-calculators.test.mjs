@@ -5185,6 +5185,32 @@ test('PCG 2016/2 Method 1 works out litres from the cost, and Method 2 spans ind
   assert.equal(across('2023-01-01', '2023-03-31', '2023-01-10'), 'computed');
 });
 
+test('fuel tax credits retain purchase dates when the requested period has one rate for the fuel and use', () => {
+  for (const [fuel, use, start, acquired, end, expected] of [
+    ['diesel', 'other_business', '2025-03-01', '2025-03-03', '2025-03-31', 50.8],
+    ['b100', 'other_business', '2025-01-01', '2025-01-06', '2025-03-31', 15.2],
+    ['e85', 'heavy_vehicle_public_road', '2025-01-01', '2025-01-06', '2025-03-31', 0],
+  ]) {
+    const r = ftc('2024-25', [ftcLine(fuel, use, acquired, '100')], { small_claimant: true,
+      rate_at_period_end: { start, end } });
+    assert.equal(r.total, expected, fuel);
+    assert.equal(r.lines[0].rateDay, acquired, fuel);
+    assert.match(r.warnings.join(' '), /did not change.*acquisition dates/);
+    assert.doesNotMatch(r.warnings.join(' '), /Method 2/);
+  }
+});
+
+test('an indexed credit selects the period-end rate for the entire request', () => {
+  const r = ftc('2024-25', [
+    ftcLine('b100', 'other_business', '2025-01-03', '100'),
+    { method: 'basic_heavy_vehicle', fuel: 'diesel', acquired: '2025-01-06', litres: '100',
+      public_road_km: '100', litres_per_km: '0.3' },
+  ], { small_claimant: true, rate_at_period_end: { start: '2025-01-01', end: '2025-03-31' } });
+  assert.deepEqual(r.lines.map(({ rateDay }) => rateDay), ['2025-03-31', '2025-03-31']);
+  assert.equal(r.total, 56.85);
+  assert.match(r.warnings.join(' '), /Method 2/);
+});
+
 test('a line acquired more than 4 years before the return is flagged under subsection 47-5(2) and kept', () => {
   const lines = [ftcLine('diesel', 'other_business', '2022-11-19', '100'), ftcLine('diesel', 'other_business', '2023-01-05', '100')];
   assert.deepEqual(ftc('2022-23', lines, { return_date: '2026-11-19' }).timeLimitLines, []);
