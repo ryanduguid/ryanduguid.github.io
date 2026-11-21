@@ -63,26 +63,41 @@ function incomeTaxResult(value, aud) {
     principal: rows.length - 1, rows, note: surcharge };
 }
 
+/** @param {string} text */
+function datedPayments(text) {
+  if (!text.trim()) return undefined;
+  return text.trim().split(/\r?\n/).filter((line) => line.trim()).map((line) => {
+    const [payday, grossSalary, superEarnings, extra] = line.trim().split(/\s+/);
+    if (!superEarnings || extra) throw new Error('Enter one payday, gross salary and earnings for super per line.');
+    return { payday, grossSalary, superEarnings };
+  });
+}
+
 /** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
 function takeHomeResult(value, aud) {
   const included = value('super') === 'included';
   const loan = value('study-loan') === 'yes';
   const covered = value('cover') === 'yes';
   const period = value('period');
-  const r = takeHomePay({ year: value('year'), residency: value('residency'), salary: value('salary'), period,
-    includesSuper: included, sacrifice: value('sacrifice'), studyLoan: loan, hospitalCover: covered });
+  const year = value('year');
+  const datedPay = datedPayments(value('dated-pay'));
+  const r = takeHomePay({ year, residency: value('residency'), salary: value('salary'), period,
+    includesSuper: included, sacrifice: value('sacrifice'), studyLoan: loan, hospitalCover: covered, datedPay });
+  const superLabel = datedPay ? 'Employer super guarantee from dated earnings' : 'Estimated employer super guarantee';
   const rows = [['Salary for the year', aud(r.salary)], ['Salary sacrificed to super', aud(r.sacrifice)],
-    ['Employer super guarantee', aud(r.superGuarantee)], ['Standard deduction for work-related expenses', aud(r.deduction)],
+    [superLabel, aud(r.superGuarantee)], ['Standard deduction for work-related expenses', aud(r.deduction)],
     ['Income tax less offsets', aud((cents(r.tax) - cents(r.offset) - cents(r.lmito)) / 100)], ['Medicare levy', aud(r.medicare)],
     ['Medicare levy surcharge', aud(r.surcharge)], ['Study and training loan repayment', aud(r.studyLoan)],
     ['Take-home pay for the year', aud(r.net)], ['Each month, a twelfth', aud(r.monthly)],
     ['Each fortnight, a 26th', aud(r.fortnightly)], ['Each week, a 52nd', aud(r.weekly)]];
   const notes = [];
+  if (datedPay) {
+    notes.push(`Super uses the supplied earnings ${year < '2026-27' ? 'by quarter' : 'by payday'}; tax and PAYG estimates use the salary and sacrifice inputs`);
+  }
   if (r.withheld) {
     rows.push([`PAYG withheld each ${period}${loan ? ', with the study loan component' : ''}`, aud(r.withheld.total)],
       [`Pay after withholding each ${period}`, aud(r.withheld.afterWithholding)],
       ['PAYG withheld over the year', aud(r.withheld.year)], settle(r.withheld.refund, aud));
-    const year = value('year');
     notes.push(`The take-home rows spread the year’s tax evenly; PAYG withheld is what the ${year} Schedule 1`
       + `${loan ? ' and Schedule 8' : ''} take from each pay, and the refund or amount owing is the difference over the year`);
     if (loan && year === '2025-26') {

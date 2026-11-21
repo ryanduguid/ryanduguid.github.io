@@ -132,6 +132,27 @@ test('a 2026-27 fortnightly pay shows PAYG withheld beside the year spread evenl
   await expect(form.locator('output .result-row--principal strong')).toHaveText('$58,183.20');
 });
 
+test('take-home pay uses the supplied salary dates for super', async ({ page }) => {
+  await page.goto('/tools/individual-tax/take-home-pay/');
+  const form = page.locator('#take-home-pay form');
+  await waitForCalculator(form);
+  await form.getByLabel(/^Salary for each pay period/).fill('260000');
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  await calculate.click();
+  await expect(form.locator('output')).toContainText('Estimated employer super guarantee');
+  await expect(form.locator('output')).toContainText('$30,000.00');
+  await form.getByText('Use dated earnings for super', { exact: true }).click();
+  const payments = form.getByLabel('Dated payments (optional)', { exact: true });
+  await payments.fill('2025-09-30 70000 70000\n2025-10-01 60000 60000\n2026-01-01 70000 70000\n2026-04-01 60000 60000');
+  await calculate.click();
+  await expect(form.locator('output')).toContainText('Employer super guarantee from dated earnings');
+  await expect(form.locator('output')).toContainText('$29,400.00');
+  await expect(form.locator('output')).toContainText('tax and PAYG estimates use the salary and sacrifice inputs');
+  await payments.fill('2025-09-30 70000 70000');
+  await calculate.click();
+  await expect(form.locator('output')).toContainText('Dated gross payments must add up to the salary for the year.');
+});
+
 test('super projection works one year and refuses salary sacrifice over the cap', async ({ page }) => {
   await page.goto('/tools/individual-tax/super-projection/');
   const form = page.locator('#super-projection form');

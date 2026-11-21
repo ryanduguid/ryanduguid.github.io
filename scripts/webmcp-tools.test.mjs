@@ -473,10 +473,28 @@ test('take-home pay tool gives PAYG withholding for a pay in any year and none f
     /Medicare levy exemption/, /working holiday maker who is an Australian resident or has other income/]) {
     assert.match(individual['income-tax'].description, limit);
   }
-  for (const limit of [/super guarantee worked on the year's earnings, not pay by pay or quarter by quarter/,
-    /52, 26 or 12 pays a year; a 53rd weekly or 27th fortnightly pay is not computed/]) {
+  for (const limit of [/Without datedPay, employer super is an annual estimate/,
+    /52, 26 or 12 pays a year; a 53rd weekly or 27th fortnightly pay is not computed by this annualisation/]) {
     assert.match(individual['take-home-pay'].description, limit);
   }
+});
+
+test('take-home pay tool reports the dated super contribution basis', async () => {
+  const tool = individual['take-home-pay'];
+  const input = { incomeYear: '2025-26', residency: 'resident', salary: '260000' };
+  const annual = await tool.execute(input);
+  assert.equal(annual.superGuarantee, '30000.00');
+  assert.ok(!Object.hasOwn(annual, 'superGuaranteeBasis'));
+  const datedPay = ['2025-09-30', '2025-10-01', '2026-01-01', '2026-04-01'].map((payday, i) => ({
+    payday, grossSalary: i % 2 === 0 ? '70000' : '60000', superEarnings: i % 2 === 0 ? '70000' : '60000',
+  }));
+  const dated = await tool.execute({ ...input, datedPay });
+  assert.equal(dated.superGuarantee, '29400.00');
+  assert.equal(dated.superGuaranteeBasis, 'dated-quarterly-earnings');
+  assert.equal(dated.division293TaxableContributions, '29400.00');
+  assert.equal(dated.takeHomeYear, annual.takeHomeYear);
+  await assert.rejects(tool.execute({ ...input, datedPay: [{ ...datedPay[0], grossSalary: 70000 }] }), /grossSalary/);
+  await assert.rejects(tool.execute({ ...input, datedPay, includesSuper: true }), /super is paid on top/);
 });
 
 // ATO, 'When you must repay your loan' (last updated 13 October 2026, read 19 November 2026): Christina's $73,810.
