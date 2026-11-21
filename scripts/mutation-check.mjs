@@ -814,7 +814,7 @@ try {
   for (const name of readdirSync(join(root, 'assets')).filter((entry) => entry.endsWith('.mjs'))) {
     copyFileSync(join(root, 'assets', name), join(work, 'assets', name));
   }
-  for (const test of [levy.test, business.test, individualTest]) copyFileSync(join(root, test), join(work, test));
+  for (const test of [levy.test, business.test, individualTest, 'scripts/fhss.test.mjs']) copyFileSync(join(root, test), join(work, test));
   for (const shared of ['rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators',
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',

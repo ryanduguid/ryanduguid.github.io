@@ -57,7 +57,7 @@ function renderResult(output, result) {
 }
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
-function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }]) {
+function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }, { fhssResult }]) {
   for (const form of forms) {
     const output = form.querySelector('output');
     if (output.textContent.startsWith('Calculators could not load')) output.textContent = 'Enter the inputs and calculate.';
@@ -80,7 +80,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
     // the browser bubble that closes on the next tap.
     form.setAttribute('novalidate', '');
     form.addEventListener('input', event => {
-      if (event.target.matches('input, select')) fieldErrors.clearFieldError(event.target);
+      if (event.target.matches('input, select, textarea')) fieldErrors.clearFieldError(event.target);
     });
     const output = form.querySelector('output');
     // Announce a new result as a whole, in the order the sentence reads.
@@ -100,6 +100,18 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
     const csvDownload = form.querySelector('button[data-csv]');
     const value = name => form.elements.namedItem(name).value;
     const money = name => aud(Number(value(name)));
+    const conditionalFields = form.querySelectorAll('fieldset[data-show-field]');
+    const showFields = () => {
+      for (const fields of conditionalFields) {
+        const visible = fields.dataset.showValues.split(' ').includes(value(fields.dataset.showField));
+        fields.hidden = !visible;
+        fields.disabled = !visible;
+      }
+    };
+    if (conditionalFields.length) {
+      showFields();
+      form.addEventListener('change', showFields);
+    }
     // A finance schedule leaves out the field it works out, so that field cannot block a calculation.
     const solveFields = [...form.querySelectorAll('[data-solve]')];
     const markSolved = () => {
@@ -621,6 +633,10 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             result = calculate.businessDaysResult({ mode: value('mode'), place: value('place'), start: value('start'), end: value('end'),
               count: value('count') }, calculate.parseHolidays(form.dataset.holidays));
             break;
+          case 'fhss':
+            result = fhssResult(value, aud);
+            showTables(result.tables);
+            break;
           default: result = individualResult(form.dataset.calculator, value, aud) ?? fbtForms.fbtBenefitResult(form, calculate, { aud, value, money });
         }
         renderResult(output, result);
@@ -646,7 +662,8 @@ function loadCalculators(retryForm) {
   // A failed module import can remain cached, so a manual retry uses fresh URLs.
   const suffix = retryForm ? `?retry=${Date.now()}` : '';
   Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`), import(`./fbt-benefit-forms.mjs${suffix}`),
-    forms.some((f) => ['income-tax', 'take-home-pay', 'study-loan', 'sole-trader', 'lump-sum-arrears', 'division-293', 'income-tests', 'concessional-catch-up', 'bonus-withholding', 'salary-packaging', 'novated-lease', 'super-projection'].includes(f.dataset.calculator ?? '')) ? import(`./individual-tax-results.mjs${suffix}`) : { individualResult: () => undefined }]).then(initialiseCalculators)
+    forms.some((f) => ['income-tax', 'take-home-pay', 'study-loan', 'sole-trader', 'lump-sum-arrears', 'division-293', 'income-tests', 'concessional-catch-up', 'bonus-withholding', 'salary-packaging', 'novated-lease', 'super-projection'].includes(f.dataset.calculator ?? '')) ? import(`./individual-tax-results.mjs${suffix}`) : { individualResult: () => undefined },
+    forms.some((f) => f.dataset.calculator === 'fhss') ? import(`./fhss-result.mjs${suffix}`) : {}]).then(initialiseCalculators)
     .then(() => { if (retryForm) retryForm.querySelector('input, select').focus(); })
     .catch(() => {
       for (const form of forms) {
