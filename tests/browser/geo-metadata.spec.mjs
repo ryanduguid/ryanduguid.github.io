@@ -43,13 +43,15 @@ test('GEO register names and five homepage routes', async ({ page }) => {
 });
 
 // Every indexable page: the structured data an answer engine reads matches the
-// visible page and names the same author, licence files and release dates.
+// visible page and names the same author, applicable rights and release dates.
 const site = 'https://duguid.com.au';
 const person = { '@id': `${site}/about/#person` };
 const date = /^\d{4}-\d{2}-\d{2}$/;
-const licenceFile = /^https:\/\/github\.com\/ryanduguid\/[^/]+\/blob\/.+\/LICENSE$/;
-// A Dataset adapted from Commonwealth material also names the licence it reuses that material under.
-const reusedUnder = 'https://creativecommons.org/licenses/by/4.0/';
+const softwareLicenceFile = /^https:\/\/github\.com\/ryanduguid\/[^/]+\/blob\/.+\/LICENSE$/;
+const siteSoftwareLicence = 'https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE';
+const pageRights = `${site}/privacy/#licences`;
+const dataLicence = `${site}/LICENSE-DATA-AND-ARTWORK`;
+const commonwealthLicence = 'https://creativecommons.org/licenses/by/4.0/';
 const documentTypes = ['WebPage', 'ContactPage', 'ProfilePage', 'TechArticle'];
 const softwareTypes = ['SoftwareApplication', 'SoftwareSourceCode', 'WebApplication'];
 const typesOf = node => [node['@type']].flat();
@@ -83,9 +85,10 @@ for (const route of routes) {
       .map(m => JSON.parse(m[1])))];
     const url = site + route;
 
-    const documents = nodes.filter(n => n.url === url && typesOf(n).some(t => documentTypes.includes(t)));
-    expect(documents.length, 'page document node').toBeGreaterThan(0);
+    const documents = nodes.filter(n => typesOf(n).some(t => documentTypes.includes(t)));
+    expect(documents.some(n => n.url === url), 'page document node').toBe(true);
     for (const node of documents) {
+      expect(node.license, `${typesOf(node)} scoped rights statement`).toBe(pageRights);
       expect(node.author, 'document author').toEqual(person);
       expect(node.publisher, 'document publisher').toEqual(person);
       expect(node.datePublished, 'document datePublished').toMatch(date);
@@ -104,14 +107,13 @@ for (const route of routes) {
       expect(items.at(-1).item).toBe(url);
     }
 
-    for (const node of nodes.filter(n => 'license' in n)) {
-      const own = [node.license].flat().filter(l => !(typesOf(node).includes('Dataset') && l === reusedUnder));
-      expect(own.length, `${typesOf(node)} names a LICENSE file`).toBeGreaterThan(0);
-      for (const licence of own) expect(licence, `${typesOf(node)} licence is a LICENSE file`).toMatch(licenceFile);
-    }
     for (const node of nodes.filter(n => typesOf(n).some(t => softwareTypes.includes(t)))) {
       expect(node.codeRepository, `${node.name} codeRepository`).toMatch(/^https:\/\/github\.com\/ryanduguid\//);
-      expect(node.license, `${node.name} licence`).toMatch(licenceFile);
+      if (typesOf(node).includes('WebApplication')) {
+        expect(node.license, `${node.name} licence`).toBe(siteSoftwareLicence);
+      } else {
+        expect(node.license, `${node.name} licence`).toMatch(softwareLicenceFile);
+      }
       expect(node.author, `${node.name} author`).toEqual(person);
       if ('softwareVersion' in node) expect(node.dateModified, `${node.name} dateModified`).toMatch(date);
     }
@@ -122,8 +124,16 @@ for (const route of routes) {
       expect(apps[0].isAccessibleForFree).toBe(true);
     }
 
+    if (route === '/rates/') {
+      const catalogues = nodes.filter(n => typesOf(n).includes('DataCatalog') && n.url === url);
+      expect(catalogues, 'rates DataCatalog').toHaveLength(1);
+      expect(catalogues[0].license, 'DataCatalog licence').toBe(dataLicence);
+    }
     const datasets = nodes.filter(n => typesOf(n).includes('Dataset'));
     for (const dataset of datasets) {
+      const expectedLicence = route === '/tools/depreciation-rates/'
+        ? [commonwealthLicence, dataLicence] : dataLicence;
+      expect(dataset.license, 'Dataset licence').toEqual(expectedLicence);
       for (const key of ['name', 'description', 'spatialCoverage']) {
         expect(dataset[key], `Dataset ${key}`).toBeTruthy();
       }
@@ -139,7 +149,6 @@ for (const route of routes) {
       // A rate page's Dataset is its CSV over a stated period, in the rates catalogue.
       if (route.startsWith('/rates/')) {
         expect(dataset.temporalCoverage, 'Dataset temporalCoverage').toBeTruthy();
-        expect(dataset.license).toMatch(licenceFile);
         expect(dataset.distribution.encodingFormat).toBe('text/csv');
         expect(dataset.distribution.contentUrl).toMatch(/\.csv$/);
         expect(dataset.includedInDataCatalog).toMatchObject({ '@type': 'DataCatalog', url: `${site}/rates/` });

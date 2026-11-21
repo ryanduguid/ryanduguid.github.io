@@ -653,7 +653,7 @@ fn committed_data_holds_every_row_of_the_source() {
 /// The SHA-256 of the committed file, whose every row was checked against the instrument's
 /// Word file and authorised PDF. The samples below cover a few rows; this covers the rest,
 /// and their order. `.gitattributes` keeps the file's line endings LF in every checkout.
-const DATA_SHA256: &str = "4988e370589ff5249b5091398e5120edef97d7c9e45e66430ca504bf8c229cce";
+const DATA_SHA256: &str = "fa4633ad0daaa167ffa8a38fd90f8ceaf9e7d0a951f527c7f31fd18be36e9fcf";
 
 #[test]
 fn committed_data_is_the_data_verified_against_the_source() {
