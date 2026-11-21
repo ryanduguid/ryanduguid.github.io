@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // The income measures that the Medicare levy surcharge, Division 293 tax, the seniors and pensioners
 // tax offset, study and training loan repayments, the dependant offsets and the super co-contribution

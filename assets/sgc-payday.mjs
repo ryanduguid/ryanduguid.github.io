@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 import { cents, number, ratioCents } from './money.mjs';
 // business-calculators.mjs re-exports this module, so GIC_QUARTERS is read inside functions only.

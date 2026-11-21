@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // Division 293 tax for one income year, under Division 293 of the Income Tax Assessment Act 1997
 // (Compilation No. 268, 1 October 2026, read 19 November 2026) and section 5 of the Superannuation

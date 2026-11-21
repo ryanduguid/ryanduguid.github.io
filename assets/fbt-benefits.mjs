@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // Taxable values of 5 fringe benefits under the Fringe Benefits Tax Assessment Act 1986
 // (Compilation No. 97, 1 July 2026): a loan (Division 4), meal entertainment (Division 9A)

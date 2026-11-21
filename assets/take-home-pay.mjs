@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // Take-home pay from one salary: the year's income tax, Medicare levy, any Medicare levy surcharge
 // and study loan repayment on that salary, spread evenly over the year, and the employer's super

@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // The depreciation rates page: loads the effective life data and draws search results and
 // the browse view. Search is in depreciation-rates.mjs, which Node tests, and the

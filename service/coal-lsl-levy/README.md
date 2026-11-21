@@ -101,9 +101,9 @@ See [deployment and operations](deploy/README.md), the
 
 ## Licence
 
-This directory is under the repository's
-[Ryan Duguid Public Attribution Licence 1.0](../../LICENSE). Revision 53ba9b8 was
-released under the MIT licence, and that grant stands for that version.
+Ryan Duguid’s software in this directory uses the [Apache License 2.0](../../LICENSE).
+See [NOTICE](../../NOTICE) for applicable attribution. Revision 53ba9b8 retains
+its MIT grant, and other earlier revisions retain their published terms.
 
 ## Correction
 

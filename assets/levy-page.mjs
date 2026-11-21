@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // Page wiring for the Coal LSL levy calculator: branch switching, bonus
 // rows, result rendering, the per-employee table and CSV export. The levy

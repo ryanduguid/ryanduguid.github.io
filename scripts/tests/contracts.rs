@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! The seo_core and site_contracts parts of scripts/test_contracts.py: focused mutation
 //! tests for the site's public contracts, run against a copy of the committed site.
@@ -1030,7 +1030,7 @@ fn rate_datasets_identify_licence_and_creator() {
         let dataset = datasets[0];
         assert_eq!(
             dataset.get("license").and_then(Json::as_str),
-            Some("https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE"),
+            Some("https://duguid.com.au/LICENSE-DATA-AND-ARTWORK"),
             "{rel}: Dataset licence"
         );
         let creator = dataset.get("creator").expect("Dataset creator");

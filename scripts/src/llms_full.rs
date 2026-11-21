@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! scripts/build_llms_full.py: build llms-full.txt, its section parts, the per-page
 //! index.txt copies, the part index of llms.txt and the identical .well-known/llms.txt

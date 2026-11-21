@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // The compulsory study and training loan repayment for one income year, under Division 154 of the
 // Higher Education Support Act 2003 (HESA), from repayment income in whole dollars.

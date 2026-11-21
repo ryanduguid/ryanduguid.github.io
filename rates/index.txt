@@ -206,7 +206,7 @@ Verify a figure against current guidance before relying on it. Historical and cu
 
 Each rate page shows its own Source checked date. The Excel instructions below do not renew those checks. Every row of the 11 rate CSVs names the source it was checked against in source_url and the date of that check in checked_at.
 
-All 11 rate tables as one JSON file: every CSV row, with its source_url and checked_at, built from the CSVs. It is published under this repository’s licence, the Ryan Duguid Public Attribution Licence 1.0.
+All 11 rate tables as one JSON file: every CSV row, with its source_url and checked_at, built from the CSVs. It is published under the existing data terms, the Ryan Duguid Public Attribution Licence 1.0.
 
 ## Use these tables in Excel
 
@@ -534,6 +534,6 @@ Follow updates with the Atom feed. It covers this site’s recorded changes and 
 - Primary source: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty/understanding-transfer-duty/calculate-transfer-duty
 - Download CSV: https://duguid.com.au/rates/transfer-duty/transfer-duty-rates.csv
 - All 11 rate tables as one JSON file: https://duguid.com.au/rates/rates.json
-- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
+- Ryan Duguid Public Attribution Licence 1.0: https://duguid.com.au/LICENSE-DATA-AND-ARTWORK
 - Microsoft’s Text/CSV guide: https://learn.microsoft.com/en-us/power-query/connectors/text-csv
 - Follow updates with the Atom feed: https://duguid.com.au/feed.xml

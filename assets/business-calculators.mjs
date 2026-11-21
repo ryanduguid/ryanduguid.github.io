@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 import { number, cents, ratioCents, ratioMoney, ratioPercent } from './money.mjs';
 export { fbtCarParking, fbtExpensePayment, fbtLoan, fbtMealEntertainment, fbtProperty } from './fbt-benefits.mjs';

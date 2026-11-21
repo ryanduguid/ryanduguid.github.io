@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // PAYG withholding from one regular pay, under the Commissioner's Schedule 1 (Statement of formulas
 // for calculating amounts to be withheld) and Schedule 8 (study and training support loans

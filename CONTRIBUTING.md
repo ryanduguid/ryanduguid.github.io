@@ -559,7 +559,7 @@ Install the git hooks once with `python -m pip install "pre-commit==4.6.2" && pr
 
 ## Pull requests
 
-Contributions are accepted under the Ryan Duguid Public Attribution Licence 1.0, this repository's licence; see
+Contributed software uses Apache-2.0. Original page prose uses CC BY 4.0. Data compilations and artwork retain their existing terms. See [NOTICE](NOTICE) and
 [LICENSE](LICENSE).
 
 Suggested resources should support Australian accounting work, have clear

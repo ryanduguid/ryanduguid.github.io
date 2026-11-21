@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! Page addresses. A group's address comes from its heading; a row's address from its own
 //! wording, with the headings above it added only where the group holds another row of

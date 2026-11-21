@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! scripts/test_fact_check.py: offline checks for source attribution, evidence
 //! qualifications and the rates dataset values, against the rendered checked tree.

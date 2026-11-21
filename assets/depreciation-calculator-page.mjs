@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // The depreciation rates page's calculator: reads the form, draws the result and the yearly
 // schedule, and offers the schedule as a link, a citation, a CSV and a printout. The

@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 export const COAL_LSL_PROOF = Object.freeze({
   viewport: Object.freeze({ width: 868, height: 1106 }),

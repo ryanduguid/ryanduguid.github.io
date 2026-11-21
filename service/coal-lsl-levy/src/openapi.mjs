@@ -278,7 +278,7 @@ function apiInfo(config) {
       'No external conformance approval or practitioner attestation is claimed.',
     ].join('\n\n'),
     license: {
-      name: 'Ryan Duguid Public Attribution Licence 1.0',
+      name: 'Apache License 2.0',
       url: 'https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE',
     },
   };

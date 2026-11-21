@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // The tax offset for lump sum payments in arrears: ITAA 1936 Part III Division 17 Subdivision AB, ss 159ZR to
 // 159ZRD, read 19 November 2026 on the ATO Legal Database. Each year's tax is at the resident rates the ATO

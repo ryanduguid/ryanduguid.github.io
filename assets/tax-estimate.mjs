@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // An estimate of one individual's assessment for a full income year: income tax, offsets, the
 // Medicare levy and surcharge and any compulsory study loan repayment, less the tax withheld that

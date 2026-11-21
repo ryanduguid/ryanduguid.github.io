@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! Serve one directory on a free loopback port without building the site, printing the
 //! port first: the Rust side of the serve_site differential harness.

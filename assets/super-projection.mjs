@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // A projection of one accumulation super account from 2026-27 to a retirement age, in future dollars
 // and as a present value. The defaults the Instrument fixes are used: retirement at 67 and a present

@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! `site-tools build_effective_life`: the parser on each row shape it knows, the shapes it
 //! refuses, and the committed data against the registered instrument's row counts and rows
@@ -653,7 +653,7 @@ fn committed_data_holds_every_row_of_the_source() {
 /// The SHA-256 of the committed file, whose every row was checked against the instrument's
 /// Word file and authorised PDF. The samples below cover a few rows; this covers the rest,
 /// and their order. `.gitattributes` keeps the file's line endings LF in every checkout.
-const DATA_SHA256: &str = "96c5bfa89e554f5f0e115651df65877d8de169c4aa836181e4d0ebf3f618ba80";
+const DATA_SHA256: &str = "4988e370589ff5249b5091398e5120edef97d7c9e45e66430ca504bf8c229cce";
 
 #[test]
 fn committed_data_is_the_data_verified_against_the_source() {

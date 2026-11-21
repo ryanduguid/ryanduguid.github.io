@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "description": "Every row of the rate tables under https://duguid.com.au/rates/, built from their CSVs. Each value is the CSV cell's text; source_url and checked_at give each row's primary source and the date it was last checked against it.",
-  "licence": "Ryan Duguid Public Attribution Licence 1.0 (LicenseRef-Duguid-Public-Attribution-1.0), the licence of the repository this file is built from: FSL-1.1-ALv2 with a public attribution condition. See LICENSE and NOTICE.",
-  "licence_url": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+  "licence": "Ryan Duguid’s data compilation retains the Ryan Duguid Public Attribution Licence 1.0. See LICENSE-DATA-AND-ARTWORK and NOTICE. Source material retains its own terms.",
+  "licence_url": "https://duguid.com.au/LICENSE-DATA-AND-ARTWORK",
   "advice_status": "Not advice. Verify each figure against its primary source at the time of use.",
   "tables": [
     {

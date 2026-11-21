@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // A novated car lease for one year against paying the same car costs from after-tax pay. The
 // electric car exemption (Fringe Benefits Tax Assessment Act 1986 s 8A, Compilation No. 97, 1 July

@@ -1,13 +1,14 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! site-tools minify_site: the published copies shrink, keep their attribution and
 //! keep the names other files and pages reach them by.
 use site_tools::minify_site::{css, header, javascript, minify_tree, run};
 use std::fs;
 
-const HEADER_JS: &str = "// Copyright 2026 Ryan Duguid\n// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0\n";
-const HEADER_CSS: &str = "/* Copyright 2026 Ryan Duguid */\n/* SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0 */\n";
+const HEADER_JS: &str = "// Copyright 2026 Ryan Duguid\n// SPDX-License-Identifier: Apache-2.0\n";
+const HEADER_CSS: &str =
+    "/* Copyright 2026 Ryan Duguid */\n/* SPDX-License-Identifier: Apache-2.0 */\n";
 
 #[test]
 fn header_stops_at_the_first_line_that_is_not_a_whole_comment() {

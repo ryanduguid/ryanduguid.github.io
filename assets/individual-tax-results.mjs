@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // The result rows of the individual tax calculators, from a form's fields. assets/accounting-pages.mjs
 // renders them as it does the business calculators' results.

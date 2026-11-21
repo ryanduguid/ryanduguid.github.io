@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! The identity of the `scripts/` sources a site-tools binary is built from. `build.rs`
 //! includes this file to embed the identity, and the binary recomputes it from the

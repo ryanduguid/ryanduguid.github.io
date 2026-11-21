@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! CI-selection probe for the Hub harness: each stdin line is a JSON case, one of
 //! `{"paragraph": source}`, `{"skip": [event, paths, diff]}` or `{"metadata": [event, paths]}`,

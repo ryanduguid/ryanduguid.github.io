@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 // The depreciation calculator's working as text: the schedule's columns, shared by the page
 // table and the CSV, the citation line and the link that restores a calculation. No page

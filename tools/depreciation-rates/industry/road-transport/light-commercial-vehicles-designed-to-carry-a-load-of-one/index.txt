@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/road-transport/l
 
 ‘Motor vehicles and trailers: Light commercial vehicles designed to carry a load of one tonne or greater and having a gross vehicle mass of 3.5 tonnes or less’, for an asset used in Road transport, has an effective life of 12 years (F2025L01097), last reviewed on 1 January 2005.
 
-Published 14 November 2026. Page updated 14 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 21 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 

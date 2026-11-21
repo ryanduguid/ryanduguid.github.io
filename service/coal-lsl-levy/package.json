@@ -4,7 +4,7 @@
   "private": true,
   "description": "Coal LSL payroll levy calculator over HTTP, reusing the site's assets/levy.mjs engine. Deployed as a Cloudflare Worker; not a package release.",
   "type": "module",
-  "license": "LicenseRef-Duguid-Public-Attribution-1.0",
+  "license": "Apache-2.0",
   "engines": {
     "node": ">=24"
   },

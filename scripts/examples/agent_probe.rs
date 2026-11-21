@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! Agent-file probe for the Hub harness: each stdin line is a JSON case
 //! `{"text", "prose", "versions": [[registry, version], ...], "shlex"}`; each output line

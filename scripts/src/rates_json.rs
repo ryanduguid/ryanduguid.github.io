@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 //! `site-tools build_rates_json`: build and check `rates/rates.json`, every row of the
 //! rate CSVs under `rates/` in one file.
@@ -17,11 +17,9 @@ use std::path::{Path, PathBuf};
 
 pub const RATES_JSON_REL: &str = "rates/rates.json";
 const SITE: &str = "https://duguid.com.au";
-/// The repository's licence, as LICENSE and NOTICE state it; this file restates it.
-pub const LICENCE: &str = "Ryan Duguid Public Attribution Licence 1.0 \
-    (LicenseRef-Duguid-Public-Attribution-1.0), the licence of the repository this file \
-    is built from: FSL-1.1-ALv2 with a public attribution condition. See LICENSE and NOTICE.";
-const LICENCE_URL: &str = "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE";
+/// Rights in the rate compilation and its source material.
+pub const LICENCE: &str = "Ryan Duguid’s data compilation retains the Ryan Duguid Public Attribution Licence 1.0. See LICENSE-DATA-AND-ARTWORK and NOTICE. Source material retains its own terms.";
+const LICENCE_URL: &str = "https://duguid.com.au/LICENSE-DATA-AND-ARTWORK";
 const ADVICE_STATUS: &str =
     "Not advice. Verify each figure against its primary source at the time of use.";
 const PARSER: Parser = Parser {

@@ -1,5 +1,5 @@
 // Copyright 2026 Ryan Duguid
-// SPDX-License-Identifier: LicenseRef-Duguid-Public-Attribution-1.0
+// SPDX-License-Identifier: Apache-2.0
 
 if (window.location.hash.toLowerCase() === '#engage') {
   window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
