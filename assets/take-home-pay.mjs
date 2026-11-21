@@ -6,7 +6,7 @@
 // guarantee. It also works the PAYG amount withheld from each pay under the Commissioner's Schedules 1
 // and 8 for the year, which is a different figure from the year's tax spread evenly.
 import { daysInYear, incomeTax, medicareLevySurcharge } from './income-tax.mjs';
-import { number } from './money.mjs';
+import { cents as amountCents, ratioCents } from './money.mjs';
 import { studyLoanRepayment } from './study-loan.mjs';
 import { PAYS, withholding } from './payg-withholding.mjs';
 
@@ -53,13 +53,53 @@ export const PERIODS = /** @type {Record<string, number>} */ ({ year: 1, ...PAYS
 
 /** @param {number} numerator @param {number} denominator positive; half up */
 const nearest = (numerator, denominator) => Math.floor((2 * numerator + denominator) / (2 * denominator));
-/** An amount in dollars and cents, as cents. @param {string} value */
-const amountCents = (value) => Math.round(number(value, { max: 1e9, money: true }) * 100);
-
 /**
+ * @typedef {{payday: string, grossSalary: string, superEarnings: string}} DatedPay
  * @typedef {{year: string, residency: string, salary: string, period: string, includesSuper: boolean,
- *   sacrifice: string, studyLoan: boolean, hospitalCover: boolean}} Pay
+ *   sacrifice: string, studyLoan: boolean, hospitalCover: boolean, datedPay?: DatedPay[]}} Pay
  */
+
+export const MAX_DATED_PAYMENTS = 1000;
+
+/** SG on actual payments from one employer. Gross salary is before salary sacrifice and excludes SG.
+ * @param {DatedPay[]} payments @param {string} year @param {number} salary annual cents
+ * @param {number} cap annual cents @param {number} tenths rate in tenths of a per cent */
+function datedSuperGuarantee(payments, year, salary, cap, tenths) {
+  if (!Array.isArray(payments) || !payments.length || payments.length > MAX_DATED_PAYMENTS) {
+    throw new Error(`Enter at least one dated payment and no more than ${MAX_DATED_PAYMENTS}.`);
+  }
+  const start = year.slice(0, 4);
+  const from = `${start}-07-01`;
+  const to = `${Number(start) + 1}-06-30`;
+  // Table 24 applies by quarter through June 2026. From July 2026, s 10A(6) caps
+  // qualifying earnings in the year and s 17A(2) combines all payments on the same day.
+  const quarterly = year < '2026-27';
+  const earningsByPeriod = new Map();
+  let grossTotal = 0;
+  for (const { payday, grossSalary, superEarnings } of payments) {
+    const date = new Date(`${payday}T00:00:00Z`);
+    if (typeof payday !== 'string' || payday < from || payday > to
+      || !Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== payday) {
+      throw new Error('Enter a valid payday in the selected income year, using YYYY-MM-DD.');
+    }
+    const gross = amountCents(grossSalary);
+    const earnings = amountCents(superEarnings);
+    if (earnings > gross) throw new Error('Earnings for super cannot exceed gross salary in a dated payment.');
+    grossTotal += gross;
+    const period = quarterly ? String(Math.floor(date.getUTCMonth() / 3)) : payday;
+    earningsByPeriod.set(period, (earningsByPeriod.get(period) ?? 0) + earnings);
+  }
+  if (grossTotal !== salary) throw new Error('Dated gross payments must add up to the salary for the year.');
+
+  let remainingBase = quarterly ? cap / 4 : cap;
+  let superGuarantee = 0;
+  for (const period of [...earningsByPeriod.keys()].sort((a, b) => a.localeCompare(b))) {
+    const counted = Math.min(earningsByPeriod.get(period), remainingBase);
+    superGuarantee += Number(ratioCents(BigInt(counted) * BigInt(tenths), 1000n));
+    if (!quarterly) remainingBase -= counted;
+  }
+  return superGuarantee;
+}
 
 /** One full year at one salary, entered for a `period` and multiplied by that period's pays. With
  * `includesSuper`, the salary is a package of salary and super guarantee: below the base, super is
@@ -92,7 +132,10 @@ export function takeHomePay(pay) {
   const tenths = Math.round(rate * 10);
   const capCents = cap * 100;
   let superGuarantee;
-  if (!pay.includesSuper) superGuarantee = nearest(Math.min(entered, capCents) * tenths, 1000);
+  if (pay.datedPay !== undefined) {
+    if (pay.includesSuper) throw new Error('Enter dated payments only when super is paid on top.');
+    superGuarantee = datedSuperGuarantee(pay.datedPay, pay.year, entered, capCents, tenths);
+  } else if (!pay.includesSuper) superGuarantee = nearest(Math.min(entered, capCents) * tenths, 1000);
   else if (entered * 1000 <= capCents * (1000 + tenths)) superGuarantee = nearest(entered * tenths, 1000 + tenths);
   else superGuarantee = nearest(capCents * tenths, 1000);
   const salary = pay.includesSuper ? entered - superGuarantee : entered;

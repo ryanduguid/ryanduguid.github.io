@@ -153,6 +153,9 @@ const formDefaults = (html) => {
     if (name && /\btype="radio"/.test(tag) && !/\bchecked\b/.test(tag)) continue;
     if (name) fields[name] = tag.match(/\bvalue="([^"]*)"/)?.[1];
   }
+  for (const [, name, text] of html.matchAll(/<textarea\b[^>]*\bname="([^"]+)"[^>]*>([\s\S]*?)<\/textarea>/g)) {
+    fields[name] = text;
+  }
   return fields;
 };
 // How assets/individual-tax-results.mjs passes each form's fields to its engine.
@@ -335,6 +338,60 @@ const PAY = { year: '2026-27', residency: 'resident', salary: '0', period: 'year
   studyLoan: false, hospitalCover: true };
 const pay = (fields) => takeHomePay({ ...PAY, ...fields });
 const cents = (value) => Math.round(value * 100);
+
+const datedSalary = (payday, grossSalary, superEarnings = grossSalary) => ({ payday, grossSalary, superEarnings });
+const regularSalaryDates = (start, count, interval, salary) => Array.from({ length: count }, (_, i) => {
+  const day = new Date(Date.parse(start) + i * interval * 86400000).toISOString().slice(0, 10);
+  return datedSalary(day, salary);
+});
+
+test('dated take-home super applies the historic maximum to each financial quarter', () => {
+  const fields = { year: '2025-26', period: 'fortnight', salary: '10000.00' };
+  const annual = pay(fields);
+  const dated = pay({ ...fields, datedPay: regularSalaryDates('2025-07-08', 26, 14, fields.salary) });
+  assert.equal(annual.superGuarantee, 30000);
+  assert.equal(dated.superGuarantee, 29400);
+  assert.equal(dated.concessional, 29400);
+  assert.equal(dated.division293, 29400);
+  assert.equal(dated.net, annual.net);
+  assert.deepEqual(dated.withheld, annual.withheld);
+});
+
+test('dated take-home super rounds each 2026-27 payday and groups same-day earnings', () => {
+  const fields = { period: 'week', salary: '1442.31' };
+  assert.equal(pay(fields).superGuarantee, 9000.01);
+  assert.equal(pay({ ...fields, datedPay: regularSalaryDates('2026-07-07', 52, 7, fields.salary) }).superGuarantee, 9000.16);
+  const splitDay = [datedSalary('2026-07-03', '0.04'), datedSalary('2026-07-03', '0.04')];
+  assert.equal(pay({ salary: '0.08', datedPay: splitDay }).superGuarantee, 0.01);
+  assert.equal(pay({ salary: '0.08', datedPay: [splitDay[0], datedSalary('2026-07-04', '0.04')] }).superGuarantee, 0);
+});
+
+test('dated take-home super applies the annual cap in payday order to qualifying earnings only', () => {
+  const datedPay = [
+    datedSalary('2027-01-01', '1.00', '0.10'),
+    datedSalary('2026-12-31', '11.47', '0.04'),
+    datedSalary('2026-07-01', '270829.92'),
+  ];
+  const r = pay({ salary: '270842.39', datedPay });
+  assert.equal(r.superGuarantee, 32499.59);
+  assert.equal(r.salary, 270842.39);
+  assert.equal(r.overCap, 0);
+
+  // The 8 cents below the cap are grouped and rounded once on the final QE day.
+  const sameDay = [datedSalary('2027-01-01', '0.04'), datedSalary('2027-01-01', '0.08'), datedPay[2]];
+  assert.equal(pay({ salary: '270830.04', datedPay: sameDay }).superGuarantee, 32499.60);
+});
+
+test('dated take-home super rejects contradictory salaries, invalid dates and packages', () => {
+  const input = { salary: '100', datedPay: [datedSalary('2026-07-01', '100', '80')] };
+  assert.equal(pay(input).superGuarantee, 9.60);
+  assert.throws(() => pay({ ...input, includesSuper: true }), /super is paid on top/);
+  assert.throws(() => pay({ ...input, salary: '101' }), /add up to the salary/);
+  assert.throws(() => pay({ ...input, datedPay: [datedSalary('2027-06-31', '100')] }), /valid payday/);
+  assert.throws(() => pay({ ...input, datedPay: [datedSalary('2026-06-30', '100')] }), /valid payday/);
+  assert.throws(() => pay({ ...input, datedPay: [datedSalary('2026-07-01', '100', '101')] }), /exceed gross salary/);
+  assert.throws(() => pay({ ...input, datedPay: [] }), /at least one dated payment/);
+});
 
 test('take-home pay is the salary less the year’s tax, levy and repayment, spread evenly', () => {
   const r = pay({ year: '2025-26', salary: '123457', studyLoan: true });

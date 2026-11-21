@@ -716,9 +716,11 @@ const INCOME_TAX_DESCRIPTION = 'One Australian individual\'s income tax for a fu
   + 'lump sum, and it assumes the study loan debt is at least the repayment, which the debt still owed caps.';
 const TAKE_HOME_DESCRIPTION = 'Take-home pay in AUD from one salary for a full income year: the year\'s income tax, offsets, Medicare '
   + 'levy, any Medicare levy surcharge and study loan repayment, after salary sacrificed to super and, from 2026-27, '
-  + 'the standard deduction, spread over a year, month, fortnight and week, with the employer\'s super guarantee '
-  + 'worked on the year\'s earnings, not pay by pay or quarter by quarter. A weekly, fortnightly or monthly salary '
-  + 'is 52, 26 or 12 pays a year; a 53rd weekly or 27th fortnightly pay is not computed. The surcharge is a single '
+  + 'the standard deduction, spread over a year, month, fortnight and week. Without datedPay, employer super is an annual estimate. '
+  + 'Supply datedPay for a quarterly calculation through 2025-26 or a payday calculation from 2026-27. Dated gross '
+  + 'salary must reconcile to the salary for the year and super must be paid on top. Tax and PAYG still use the salary and sacrifice '
+  + 'inputs. A weekly, fortnightly or monthly salary is 52, 26 or 12 pays a year; a 53rd weekly or 27th fortnightly pay is not '
+  + 'computed by this annualisation. The surcharge is a single '
   + 'person\'s with no dependants, and the study loan repayment assumes the debt is at least the repayment. For a '
   + 'weekly, fortnightly or monthly pay of a resident (scale 2, tax-free threshold claimed) or a foreign resident '
   + '(scale 3) it also gives the PAYG withheld each pay under the year\'s Schedules 1 and 8 and the refund or amount '
@@ -959,14 +961,22 @@ export function individualTaxTools({ taxEstimate, takeHomePay, soleTraderSetAsid
         salarySacrifice: text('amount', 'Salary sacrificed to super each pay period in AUD; "0" when omitted.'),
         studyLoan: { type: 'boolean', description: 'true when the person has a HELP or other study or training loan.' },
         privateHospitalCover: { type: 'boolean', description: 'false when the person had no private patient hospital cover all year; true when omitted.' },
+        datedPay: { type: 'array', maxItems: 1000, description: 'Optional payments from one employer in the selected income year. '
+          + 'Gross salary must total the salary for the year and exclude employer super.',
+        items: record({
+          payday: text('date', 'Actual payday in YYYY-MM-DD form.'),
+          grossSalary: text('amount', 'Gross salary on this payment before salary sacrifice, excluding employer super.'),
+          superEarnings: text('amount', 'Ordinary time earnings through 2025-26 or qualifying earnings from 2026-27, in AUD.'),
+        }, ['payday', 'grossSalary', 'superEarnings']) },
       }, ['incomeYear', 'residency', 'salary']),
       run({ incomeYear, residency, salary, payPeriod = 'year', includesSuper = false, salarySacrifice = '0', studyLoan = false,
-        privateHospitalCover = true }) {
+        privateHospitalCover = true, datedPay }) {
         const r = takeHomePay({ year: incomeYear, residency, salary, period: payPeriod, includesSuper,
-          sacrifice: salarySacrifice, studyLoan, hospitalCover: privateHospitalCover });
+          sacrifice: salarySacrifice, studyLoan, hospitalCover: privateHospitalCover, datedPay });
         const cents = (/** @type {number} */ value) => Math.round(value * 100);
         return {
           salaryForYear: dollars(r.salary), salarySacrificed: dollars(r.sacrifice), superGuarantee: dollars(r.superGuarantee),
+          ...(datedPay ? { superGuaranteeBasis: incomeYear < '2026-27' ? 'dated-quarterly-earnings' : 'dated-payday-earnings' } : {}),
           standardDeduction: dollars(r.deduction), taxableIncome: dollars(r.taxable),
           incomeTaxLessOffsets: dollars((cents(r.tax) - cents(r.offset) - cents(r.lmito)) / 100), medicareLevy: dollars(r.medicare),
           medicareLevySurcharge: dollars(r.surcharge), studyLoanRepayment: dollars(r.studyLoan), takeHomeYear: dollars(r.net),

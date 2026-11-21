@@ -2216,6 +2216,7 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
 
 .field input:not([type="radio"]):not([type="checkbox"]),
 .field select,
+.field textarea,
 .bonus-row input,
 .bonus-row select {
   width: 100%;
