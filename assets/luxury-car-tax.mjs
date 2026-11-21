@@ -55,9 +55,9 @@ const FIELDS = {
   refund: ['kind', 'supplied_in', 'claimant', 'refund_eligible_car', 'lct_borne'],
 };
 export const LCT_CLAIMANTS = { primary_producer: 'primary producer', tourism_operator: 'tourism operator' };
-const WORDS = { luxury_car_tax_value: 'the luxury car tax value', corrected_luxury_car_tax_value: 'the corrected luxury car tax value',
+const WORDS = /** @type {Record<string, string>} */ ({ luxury_car_tax_value: 'the luxury car tax value', corrected_luxury_car_tax_value: 'the corrected luxury car tax value',
   lct_previously_payable: 'the luxury car tax already payable on the car', previously_attributed_lct: 'the luxury car tax previously attributed',
-  lct_payable_on_supply: 'the luxury car tax payable on the supply', lct_borne: 'the luxury car tax borne' };
+  lct_payable_on_supply: 'the luxury car tax payable on the supply', lct_borne: 'the luxury car tax borne' });
 
 /** A refusal with the command's code. @param {string} code @param {string} message @returns {never} */
 function refuse(code, message) {
