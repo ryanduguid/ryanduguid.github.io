@@ -428,11 +428,12 @@ const centsText = (cents) => `${cents < 0n ? '-' : ''}${(cents < 0n ? -cents : c
 /** @param {typeof import('./business-calculators.mjs').borrowingSchedule} borrowingSchedule @param {string[]} years */
 const borrowingTool = (borrowingSchedule, years) => tool({
   name: 'calculate_borrowing_expenses',
-  title: 'Borrowing expenses deduction schedule',
+  title: 'Borrowing expenses section 25-25 schedule',
   description: 'Borrowing expenses deductions under ITAA 1997 s 25-25 for up to 20 loans and every income year of each: each year’s '
     + 'remaining expenditure, days, maximum deduction and deduction at the income use, the year asked about’s totals in AUD, and the $100 '
     + 'rule of s 25-25(6) across loans first drawn in the same year. A refinancing is the earlier loan repaid on the new loan’s first '
-    + 'day. Years from 2027-28 are flagged for s 26-155, which it does not apply, and years after 2027-28 are marked projected. It does '
+    + 'day. Amounts are before any applicable vacant land (s 26-102) or residential loss (s 26-155) limit. Years after 2027-28 are '
+    + 'marked projected. It does '
     + 'not decide which costs are borrowing expenses or the use of the money, and does not work the page’s accounting column. It assumes '
     + 'no loan’s money is used for a holiday home or other leisure facility, or that s 26-50(3) applies all year: otherwise s 26-50 may deny '
     + 'the deduction.',
@@ -461,7 +462,8 @@ const borrowingTool = (borrowingSchedule, years) => tool({
           maximum: centsText(row.maximum), deduction: centsText(row.deduction), section26_155: row.section_26_155, projected: row.projected })) })),
       warnings: r.warnings,
       basis: 'ITAA 1997 s 25-25 as read 19 November 2026. Each maximum is rounded half up to the cent and carried forward, '
-        + 'as the ATO’s examples are. remainingAfterYear is before income-use apportionment.',
+        + 'as the ATO’s examples are. remainingAfterYear is before income-use apportionment. The deduction fields are section 25-25 '
+        + 'amounts before any applicable vacant land or residential loss limit.',
       source: `${CALCULATORS}borrowing-expenses/`,
     };
   },
