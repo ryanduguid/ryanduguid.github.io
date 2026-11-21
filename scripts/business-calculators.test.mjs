@@ -3036,17 +3036,49 @@ const counted = (value) => Number(value).toLocaleString('en-AU');
 Object.assign(INPUTS, {
   gstMarginScheme: (i) => `${MARGIN_WHAT[i.interest]}${i.taxable ? '' : ', not a taxable sale'}${i.agreed ? '' : ', no written agreement'}, `
     + `${MARGIN_HOW[i.acquired]}${i.associate ? ', sold to an associate' : ''}; price ${dollars(i.price)} GST-${i.basis}, `
-    + `${i.method === 'valuation' ? 'valuation' : 'cost'} ${dollars(i.cost)}${i.part === i.whole ? '' : `, ${counted(i.part)} of ${counted(i.whole)}`}`,
+    + `${i.method === 'valuation' ? 'valuation' : 'cost'} ${dollars(i.cost)}${i.valuationDay ? ` as at ${i.valuationDay}` : ''}`
+    + `${i.part === i.whole ? '' : `, ${counted(i.part)} of ${counted(i.whole)}`}`,
 });
 Object.assign(FORM_CALLS, {
   gstMarginScheme: (f) => [{ interest: f.interest, taxable: f.taxable === 'yes', agreed: f.agreed === 'yes', acquired: f.acquired,
-    associate: f.associate === 'yes', method: f.method, price: f.price, basis: f.basis, cost: f.cost, part: f.part, whole: f.whole }],
+    associate: f.associate === 'yes', method: f.method, price: f.price, basis: f.basis, cost: f.cost, part: f.part, whole: f.whole,
+    ...(f.method === 'valuation' ? { valuationDay: f['valuation-day'], registrationAtTransition: f['registration-at-transition'],
+      valuationProperty: f['valuation-property'],
+      registrationEffectiveDay: f['registration-effective-day'], registrationApplicationDay: f['registration-application-day'] } : {}) }],
 });
 Object.assign(ENGINE_LABELS, {
   gstMarginScheme: { applies: (v) => (v ? 'margin scheme can apply' : 'margin scheme cannot apply'), share: (v) => `cost share ${dollars(v)}`,
     consideration: (v) => `GST-inclusive price ${dollars(v)}`, margin: (v) => `margin ${dollars(v)}`,
     schemeGst: (v) => `margin scheme GST ${dollars(v)}`, basicGst: (v) => `GST on the whole price ${dollars(v)}`,
     saving: (v) => `saved ${dollars(v)}`, gst: (v) => `GST payable ${dollars(v)}` },
+});
+
+test('the GST margin scheme requires an approved valuation as at the statutory day', () => {
+  const input = { interest: 'freehold', taxable: true, agreed: true, acquired: 'before-2000', associate: false,
+    method: 'valuation', price: '660000', basis: 'inclusive', cost: '440000', part: '1', whole: '1' };
+  const atTransition = { ...input, registrationAtTransition: 'yes', valuationDay: '2000-07-01', valuationProperty: 'unimproved' };
+  assert.throws(() => calculations.gstMarginScheme(input), /registered or required/);
+  assert.throws(() => calculations.gstMarginScheme({ ...atTransition, valuationDay: '' }), /valuation date/);
+  assert.throws(() => calculations.gstMarginScheme({ ...atTransition, valuationDay: '2000-07-02' }), /2000-07-01/);
+  assert.equal(calculations.gstMarginScheme(atTransition).gst, 20000);
+  assert.equal(calculations.gstMarginScheme({ ...atTransition, valuationProperty: 'improved' }).gst, 20000);
+  assert.throws(() => calculations.gstMarginScheme({ ...atTransition, valuationProperty: 'unimproved-government' }), /item 4/);
+
+  const lateRegistration = { ...atTransition, registrationAtTransition: 'applied-later', valuationDay: '2003-04-30',
+    registrationEffectiveDay: '2003-05-01', registrationApplicationDay: '2003-04-30' };
+  assert.equal(calculations.gstMarginScheme(lateRegistration).gst, 20000);
+  assert.throws(() => calculations.gstMarginScheme({ ...lateRegistration, valuationDay: '2003-05-01' }), /2003-04-30/);
+  assert.throws(() => calculations.gstMarginScheme({ ...lateRegistration, registrationEffectiveDay: '' }), /date GST registration took effect/);
+  assert.throws(() => calculations.gstMarginScheme({ ...lateRegistration, registrationApplicationDay: '2003-02-30' }), /date you applied/);
+  assert.throws(() => calculations.gstMarginScheme({ ...lateRegistration, registrationEffectiveDay: '2000-07-01' }), /after 1 July 2000/);
+  assert.throws(() => calculations.gstMarginScheme({ ...lateRegistration, registrationApplicationDay: '', valuationDay: '2003-05-01' }), /date you applied/);
+  assert.throws(() => calculations.gstMarginScheme({ ...lateRegistration, valuationProperty: '' }), /improvements on 1 July 2000/);
+  assert.throws(() => calculations.gstMarginScheme({ ...lateRegistration, valuationProperty: 'improved' }), /items 2 and 3/);
+  const noApplication = { ...lateRegistration, registrationAtTransition: 'no-application', valuationDay: '2003-05-01' };
+  assert.throws(() => calculations.gstMarginScheme(noApplication), /clear the application date/);
+  assert.equal(calculations.gstMarginScheme({ ...noApplication, registrationApplicationDay: '' }).gst, 20000);
+  assert.equal(calculations.gstMarginScheme({ ...lateRegistration, registrationApplicationDay: '2003-05-02', valuationDay: '2003-05-01' }).gst, 20000);
+  assert.equal(calculations.gstMarginScheme({ ...input, method: 'consideration', cost: '220000' }).gst, 40000);
 });
 
 test('the GST margin scheme page opens on GSTR 2006/8 Example 6 as its calculation gives it', () => {
