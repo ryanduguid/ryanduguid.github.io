@@ -2,6 +2,10 @@
 <form class="calculator-split" data-calculator="fhss">
   <fieldset disabled>
     <legend>First home super saver release</legend>
+    <fieldset class="field"><legend>Calculation basis</legend>
+      <label><input type="radio" name="mode" value="stated" checked /> ATO determination</label>
+      <label><input type="radio" name="mode" value="estimate" /> Contribution ledger estimate</label>
+    </fieldset>
     <p id="fhss-scope-note" class="field-note">This calculator covers an Australian tax resident who meets the scheme’s eligibility rules, uses eligible accumulation funds and has a single release. If the ATO changed a determination or release authority, use the confirmed amounts and the effective release request date. For the contribution estimate, include only eligible voluntary contributions. Exclude compulsory, excess, transferred and KiwiSaver amounts.</p>
     <label class="field" for="fhss-scope">Do these conditions apply?
       <select id="fhss-scope" name="scope" aria-describedby="fhss-scope-note" required>
@@ -10,15 +14,9 @@
         <option value="no">No or unsure</option>
       </select>
     </label>
-    <div class="form-grid">
-      <fieldset class="field"><legend>Calculation basis</legend>
-        <label><input type="radio" name="mode" value="stated" checked /> ATO determination</label>
-        <label><input type="radio" name="mode" value="estimate" /> Contribution ledger estimate</label>
-      </fieldset>
-      <label class="field" for="fhss-determined">Determination date
-        <input id="fhss-determined" name="determination-date" type="date" min="2018-07-01" value="2025-06-20" required />
-      </label>
-    </div>
+    <label class="field" for="fhss-determined">Determination date
+      <input id="fhss-determined" name="determination-date" type="date" min="2018-07-01" value="2025-06-20" required />
+    </label>
     <fieldset data-show-field="mode" data-show-values="stated">
       <legend>Amounts on the ATO determination</legend>
       <div class="form-grid">

@@ -12957,21 +12957,19 @@ Source: https://duguid.com.au/tools/individual-tax/fhss/
 
 # First home super saver calculator
 
-Work out your first home super saver release, withholding and tax offset from your ATO determination. You can also estimate the release from your contribution history.
+Use your ATO determination or contribution history to work out the release, withholding and tax offset.
 
 Published 22 November 2026. Last checked 22 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-First home super saver release
+First home super saver release Calculation basis ATO determination Contribution ledger estimate
 
 This calculator covers an Australian tax resident who meets the scheme’s eligibility rules, uses eligible accumulation funds and has a single release. If the ATO changed a determination or release authority, use the confirmed amounts and the effective release request date. For the contribution estimate, include only eligible voluntary contributions. Exclude compulsory, excess, transferred and KiwiSaver amounts.
 
 Do these conditions apply?
 
 Choose Yes, I have checked the conditions No or unsure
-
-Calculation basis ATO determination Contribution ledger estimate
 
 Determination date
 
