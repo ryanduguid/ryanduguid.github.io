@@ -12,10 +12,10 @@
   },
   "json_ld": {
     "about/index.html": [
-      "6520bb8e79be01b25e98adf2ead250b6d02909e98b70e99f2b1acec05766482f"
+      "c706952410e9f857b21e3b085356e6f353b2621097386d53baffe6fc0675fcf8"
     ],
     "changelog/index.html": [
-      "642115a8c18fb427b67edb890b86176c3e5f8059aeced822a86f0c791cddce59"
+      "0f04bf51750e57bb3ec3367c730d01c81308c1b7bade73f116b6ec0c14920ca6"
     ],
     "contact/index.html": [
       "0a18f245382fe87efef192df7ba104b6dff0db901dc54a522c57968a000289f1"
@@ -33,19 +33,19 @@
       "06f6182dba3480a4b64904611780a5445652275040a1b3f78ef4e9b4f63ef8ea"
     ],
     "evidence/index.html": [
-      "b494584e5f6ed99e9a471333fe36adf4c5e1b75f900b012eece6fda8394b0c30"
+      "36f469a2cca4f59fe3248ce9136975621c01b5143b964ed9feb0cf3e39375a85"
     ],
     "examples/profit-vs-cash-flow/index.html": [
       "703f765908cc58b5ffaf628b3977e6141bcb8bc81c132c0fdcd13912cb935f75"
     ],
     "index.html": [
-      "34b148a13ad513d744d086e08f3af563a5eed25d4561033da2f7fd1c680ceca0"
+      "71b8af6b0755303f93c6de059733bcb6b0fad8b187dcce42b943a0496c6cb48b"
     ],
     "privacy/index.html": [
       "e4adcd3754bc4ba665283f24c28df91b32af9525a1da2d4a3d401828c95166bf"
     ],
     "rates/announced-not-yet-law/index.html": [
-      "8d762ef8075b009eeae6cdab289d04ed006a0674774fd0b841cd9dc1a79631f5"
+      "b77d2e6666a01903ee670a0d100cb39e913cf15dc2c6faee6e8b4f59782965b8"
     ],
     "rates/car-limit/index.html": [
       "2c0d850884c333ba180d503bc741553d7e35edfbd195969c73a5029d7c423963"
@@ -120,7 +120,7 @@
       "92379c6c9244a5b0adb554580f643656548f72325594fb504d5e65f79543e296"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "69dcc2866a760cb35a8219629341cc8d08c6eeb942afe44752dc844a2b576d03"
+      "b4cbb8780e1af9a42cff42918a5ad3c0953f5e75983515f3e9c977d2e0977119"
     ],
     "tools/bas-due-dates/index.html": [
       "6f22173930285ac0d6c7aa02c77b70e02e8f693c73fd2853ffa9b9863e1598b2"
@@ -321,7 +321,7 @@
       "ad1615d9d73abc147cfc44d3968a996ae890882d52710b57eefcbd16450c74c2"
     ],
     "tools/limitations/index.html": [
-      "527a649f897fc8fc69dd9b8e8a59aac06754552a67dab5427007f2729d6b048e"
+      "2fb56483ebb85fb2bf1aa5e3ebcc6f0d049811d657da388e9392e6c1bbbca43e"
     ],
     "tools/monthly-close-controls/index.html": [
       "dcc8421ca642992db74517e0c97e7ee5990af01b462df6e3baebd57c9e43d67a"
@@ -382,9 +382,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "ed17336ca3dff935d972d3cff1da9b215569c19bf102e1e9f08f391d0082531e",
+    "llms.txt": "45a96317d5d4ed776190712d0fe8fab8c4dd59c131fad1d48d3d5538994eb868",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "2c0127550456ae2f3fc1a64877268aefd54c50c41b2dd59503cd9b2ddf1588c8"
+    "sitemap.xml": "b8a6457d507f088e2403d9ba557cc7e880589054609aeeddf8f63703a7fde80e"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
