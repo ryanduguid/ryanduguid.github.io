@@ -335,25 +335,34 @@ site-tools render_about_portrait path/to/cutout.png
 
 The cutout's alpha channel is the silhouette, and the command refuses a photo
 without a transparent background. The head is found from the silhouette: its
-widest row, then the neck below it. The crop centres the head, keeps the hair
-and collar, and fades the shoulders out at the bottom and lower corners rather
-than ending on the photo's edges. The tone is CIE lightness with local contrast
-against its surroundings within the figure, a gentle gamma, a faint floor so
-the dark hair and suit still read, and a thin rim along the silhouette so the
-outline reads on the black canvas. Each cell of the 140-column grid is sampled
-as 6 rows by 4 columns and gets the glyph whose bitmap, drawn from the site's
-own Spline Sans Mono in the 0.6em by 1em cell the page draws, is closest.
-Floyd and Steinberg's error diffusion carries each cell's leftover tone to the
-cells not yet drawn, so even areas get an even texture. The glyphs are 21
-symbols and the space, none of which needs HTML escaping or can open a Liquid
-tag; `|` and `-` are left out because stacked rows join them into stripes.
-Running it again on the same photo reproduces the same text.
+widest row, then the neck below it. The crop centres the head across two thirds
+of the width, keeps the hair, collar and lapels, and fades the shoulders out at
+the bottom and lower corners rather than ending on the photo's edges. The tone
+is CIE lightness with local contrast against its surroundings within the
+figure, broad for the modelling of the face and fine for the eyes, teeth and
+hair. Its range is the head's alone, so the white shirt cannot set the white
+point and leave the face grey. A gentle gamma, a faint floor so the dark hair
+and suit still read, and a thin rim along the silhouette finish it. Each cell
+of the 140-column grid is sampled as 5 rows by 4 columns and gets the glyph
+whose bitmap, drawn from the site's own Spline Sans Mono in the 0.6em by 0.8em
+cell the page draws, is closest. Floyd and Steinberg's error diffusion carries
+each cell's leftover tone to the cells not yet drawn, alternate rows running
+right to left so it leaves no diagonal streaks. The glyphs are 23 symbols and
+the space, none of which needs HTML escaping or can open a Liquid tag; `|` and
+`-` are left out because stacked rows join them into stripes, `_` because it is
+drawn in the row below its own, and digits because a phone can link a run of
+them as a number to call. Running it again on the same photo reproduces the
+same text.
 
-The 85 rows are real text in a `pre`, with trailing spaces trimmed. A
+The 132 rows are real text in a `pre`, with trailing spaces trimmed. A
 `role="img"` wrapper carries the accessible name and the `pre` is
 `aria-hidden`, so screen readers and the text mirrors skip the characters.
-`.about-portrait pre` in `assets/site.css` sizes the font so 140 columns fill
-the frame and sets each row one em tall, the cell the art was sampled for.
+`.about-portrait pre` in `assets/site.css` sets each row 0.8em tall, the cell
+the art was sampled for, so the rows leave no dark gaps between them. A browser
+sets each row on a whole device pixel, and a row pitch between pixels draws
+bands across the face, so the type steps down to the nearest size whose rows
+are a whole number of device pixels apart: 5px in the full 26.25rem frame, where
+140 columns fill it, and a smaller size centred in a narrower one.
 
 ## Credential documents
 
