@@ -13640,13 +13640,17 @@ Financial year of the dealings 2027-28 2026-27 2025-26 2024-25 2023-24
 
 ## Dealings
 
-Enter a wholesale sale or a sale under quote at its price excluding WET and GST, a retail sale or own use at its retail price including WET and GST (for own use, the price it would normally sell for by retail), and own use of wine bought under quote at the purchase price excluding GST. Prices are taken as stated: use the arm’s length price for a dealing that is not at arm’s length.
+Each dealing takes the price its kind is valued on. Enter a wholesale sale or a sale under quote at its price excluding WET and GST; a retail sale or own use at its retail price including WET and GST (for own use, the price it would normally sell for by retail); and own use of wine bought under quote at the purchase price excluding GST. Prices are taken as stated: use the arm’s length price for a dealing that is not at arm’s length.
 
 Dealing 1 KindWholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
 
 Dealing 2 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
 
 Dealing 3 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
+
+## More dealings
+
+Dealings 4 to 6 take the same fields; choose No dealing to leave one out.
 
 Dealing 4 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
 
@@ -13662,7 +13666,7 @@ Is the wine grape wine? Yes No Are at least 10% of those sales by value wholesal
 
 ## The producer rebate
 
-These answers apply to every dealing that claims the rebate. Answer for the wine in those dealings, and work wine that differs separately.
+The answers below apply to every dealing that claims the rebate. Answer for the wine in those dealings, and work wine that differs separately.
 
 Are you the producer: you made the wine, or had it made from source product you owned? Yes No Did you own the source product, such as the grapes, for at least 85% of the wine by volume, from before crushing until the wine was in its container? Yes No Is the wine in a container of 5 litres or less (51 litres for cider or perry), suitable for retail sale and branded with your registered trade mark? Yes No Producer rebates already claimed this financial year (AUD) Are you an associated producer of another producer (section 19-20)? If so, enter the group’s claims above No Yes
 
