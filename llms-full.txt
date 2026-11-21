@@ -20,7 +20,7 @@ Explore the cash flow example
 
 Built by Ryan Duguid, a senior accountant in Newcastle, NSW.
 
-Last reviewed 19 November 2026.
+Last reviewed 22 November 2026.
 
 ## Compare profit with cash flow
 
@@ -62,7 +62,7 @@ Browse reproducible evaluations Set up AI tools
 
 ### Latest tool releases
 
-- Aus Accounting MCP v0.10.0 19 November 2026
+- Aus Accounting MCP v0.11.0 21 November 2026
 - Ozzit v3.7.0 18 November 2026
 - Workpaper Review Gate v1.0.1 14 November 2026
 
@@ -81,7 +81,7 @@ Browse reproducible evaluations Set up AI tools
 - Evidence behind the tools: https://duguid.com.au/evidence/
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - Set up AI tools: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- Aus Accounting MCP v0.10.0: https://duguid.com.au/tools/australian-tax-ai-agents/
+- Aus Accounting MCP v0.11.0: https://duguid.com.au/tools/australian-tax-ai-agents/
 - Workpaper Review Gate v1.0.1: https://duguid.com.au/tools/workpaper-review-gate/
 
 ---
@@ -102,7 +102,7 @@ To send feedback on a tool or example, use the Contact page.
 
 See my accounting work samples, including a cash forecast, month-end checks and Excel functions.
 
-Last reviewed 19 November 2026.
+Last reviewed 21 November 2026.
 
 ## The short facts
 
@@ -383,7 +383,7 @@ Published 25 October 2026. Last reviewed 25 October 2026.
 
 ### Calculations through Aus Accounting MCP
 
-Aus Accounting MCP gives a compatible Claude client a local set of calculation and review tools, including ATO benchmark comparison, Payday Super timing and bounded tax worksheets. The current release is v0.10.0.
+Aus Accounting MCP gives a compatible Claude client a local set of calculation and review tools, including ATO benchmark comparison, Payday Super timing and bounded tax worksheets. The current release is v0.11.0.
 
 Use Claude Code or Claude Desktop with a local stdio server. This server has no hosted endpoint that you can paste into Claude’s web app. The released client integration guide shows the local configuration.
 
@@ -427,7 +427,7 @@ For Xero report access, use the separate Xero exporter guide. Return to Works wi
 ## Links
 
 - Aus Accounting MCP: https://duguid.com.au/tools/australian-tax-ai-agents/
-- v0.10.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.10.0
+- v0.11.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.11.0
 - released client integration guide: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.6.0/apps/aus-accounting-mcp/README.md#client-integration
 - Australian Accounting Skills v0.7.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.7.0
 - subcontract ledger guide: https://duguid.com.au/tools/subcontractor-ledgers/
@@ -452,7 +452,7 @@ Source: https://duguid.com.au/evidence/
 
 Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims.
 
-Last reviewed 19 November 2026.
+Last reviewed 22 November 2026.
 
 ## Results you can check
 
@@ -460,7 +460,7 @@ Australian Accounting’s Division 7A, Payday Super and MCP results below each c
 
 - Division 7A. On 7 October 2026 the minimum yearly repayment function of the ATO’s Division 7A calculator and decision tool and the div7a-loan-review Python 0.2.0 source agreed to the cent on 12,800 fictional cases with no repayments, for 2019-20 to 2026-27. Its repayment code and rate table are unchanged to the published 0.3.2, but the comparison was not rerun on later releases or the unreleased Rust port. It covers the repayment figure only, not the calculator’s interest or closing balance (record and limits).
 - Payday Super. For wages paid on 30 July 2026, payday-super-check 0.2.3 gives a due date of 11 August 2026, because NT Picnic Day on 3 August is not a business day. The ATO’s worked example gives the same date on the usual 7 business day path. Run and read 5 November 2026.
-- MCP tools. Aus Accounting MCP 0.10.0, the published release, adds validate_bsb_format and validate_account_number_format. 0.9.0 added no tool to 0.8.0, which listed 25 local tools on 13 November 2026, including get_reviewed_rate, validate_abn and validate_acn.
+- MCP tools. Published Aus Accounting MCP 0.11.0 lists 27 tools and serves 66 worksheet kinds with the 1.1.0 calculators executable. Release 0.10.0 added validate_bsb_format and validate_account_number_format. 0.9.0 added no tool to 0.8.0, which listed 25 local tools on 13 November 2026, including get_reviewed_rate, validate_abn and validate_acn.
 
 ## From monthly close to a cash forecast
 
@@ -3710,7 +3710,7 @@ A refusal is a question handed back. A limitation is an answer you should not re
 
 Each entry names the trigger, what it affects, what stays correct and the step that settles it.
 
-Published 16 September 2026. Last reviewed 19 November 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
+Published 16 September 2026. Last reviewed 22 November 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
 
 ## What belongs here
 
@@ -3728,7 +3728,7 @@ Every entry below is declared at runtime by the tool that carries it, so a reade
 Recorded as PSC-1 against release payday-super-checker/v0.1.4. Release payday-super-checker/v0.1.6 (20 September 2026) makes the extrapolation an opt-in: a default run withholds the estimate for the row instead.
 
 Field | Detail
-Trigger | Any day in the notional earnings period falls after the last quarter recorded in the tool’s general interest charge table, and the run was started with --allow-stale-gic. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.10.0, pins checker 0.2.3, so a result it returns never carries an extrapolated figure. The tagged 0.1.6 Excel workbook differs: it extrapolates after 31 December 2026. The workbook version note records the 0.1.7 correction and verification scope.
+Trigger | Any day in the notional earnings period falls after the last quarter recorded in the tool’s general interest charge table, and the run was started with --allow-stale-gic. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.11.0, pins checker 0.2.3, so a result it returns never carries an extrapolated figure. The tagged 0.1.6 Excel workbook differs: it extrapolates after 31 December 2026. The workbook version note records the 0.1.7 correction and verification scope.
 Effect | With the flag, the last known quarterly rate is carried forward, so the notional earnings component under SGAA 1992 s 19A compounds at a rate the ATO has not published for that quarter. The administrative uplift under s 19B(1) is a percentage of shortfalls plus notional earnings, so every scenario with a non-zero uplift moves with the extrapolated figure. The percentage is not fixed: it spans 0% for the low estimate (clean 24-month history with a voluntary disclosure inside 30 days) to 60% for the high estimate (prior history, no disclosure). Both exposure totals move, including the low one: the notional earnings are added into each total before the uplift, so only the low estimate’s uplift component is unmoved, because 0% of a larger base is still nil. Do not read the low estimate as a rate-independent floor.
 Unaffected by this rate issue | The verdict calculation does not use the GIC table. All 6 verdicts, ON_TIME, AT_RISK, LATE, UNPAID, UNKNOWN and SKIPPED, are decided by the deadline and fund receipt tests, which never read the rate table. Deadlines, business-day arithmetic, matched and remitted amounts, and the SG shortfall itself are unaffected. The exposure estimate is the only consumer of the rate. Separately, the receipt amount limitation and the matching limitations below can affect a verdict. A sound verdict does not make the row’s figures sound: a LATE or UNPAID row carries the exposure estimate this entry qualifies when the run asked for it, and shows none on a default run past the table; a SKIPPED row has no estimate to qualify.
 Declared at runtime | Asking for the estimate is the first signal. A caveat on the result then names the table’s end date, the rate carried forward and the file to update. On a default run the caveat instead says the notional earnings and the SG charge estimate were not assessed for that row, and the five charge columns of report.csv are empty rather than nil.
@@ -5107,13 +5107,13 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
-> Aus Accounting MCP v0.10.0: a local MCP server for ATO benchmarks, Payday Super timing, GST review and 14 tax worksheets. Review aids.
+> Aus Accounting MCP v0.11.0: a local MCP server for ATO benchmarks, Payday Super timing, GST review and 66 worksheets with the calculators executable.
 
 # Aus Accounting MCP
 
-Aus Accounting MCP is a local Model Context Protocol server for Australian accounting checks: ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 14 bounded tax and super worksheets.
+Aus Accounting MCP is a local Model Context Protocol server for Australian accounting checks: ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 66 tax and super worksheet kinds with the calculators executable.
 
-Current release aus-accounting-mcp v0.10.0, 19 November 2026, from the australian-accounting repository. Published 25 August 2026. Last reviewed 19 November 2026.
+Current release aus-accounting-mcp v0.11.0, 21 November 2026, from the australian-accounting repository. Published 25 August 2026. Last reviewed 22 November 2026.
 
 Delivery
 
@@ -5133,7 +5133,7 @@ Choose the tool by the work it supports: a calculation on established facts, a s
 
 ## The split, in one table
 
-The comparisons and capability list below describe reference release v0.2.8, so the worked example’s figures stay reproducible. Current release v0.10.0 has 14 worksheets and the additional review tools described under Adopt. Use the current README for its complete scope.
+The comparisons and capability list below describe reference release v0.2.8, so the worked example’s figures stay reproducible. The current release serves 66 worksheet kinds with the published 1.1.0 calculators executable. Use the current README for its complete scope.
 
 Job | What to install | Where it runs | What it will not do
 Apply a statutory test to your own figures | Aus Accounting MCP | Local stdio MCP: Claude Code, Cursor, Claude Desktop, Codex | No hosted ATO corpus, formation of Division 7A amalgamated loans or lodgement.
@@ -5181,7 +5181,13 @@ The transcript’s first line shows the source-checkout command, uv run --locked
 
 ## Adopt
 
-The current published release is aus-accounting-mcp/v0.10.0, published on 19 November 2026 and verified on GitHub, PyPI and the MCP registry on 19 November 2026; the next section describes v0.9.0, the release before it. v0.10.0 adds BSB and bank account number format tests against AusPayNet’s published formats, which prove no institution, account or payee. Its tax worksheets run a separately installed tax calculators executable instead of a Python dependency: without it, the worksheet tool says how to install it and every other tool works as before. Some results change, such as the concessional cap carry-forward the contribution cap worksheet reports as applied. Read the v0.10.0 release notes before upgrading.
+The current published release is aus-accounting-mcp/v0.11.0, published on 21 November 2026 and verified on GitHub, PyPI and the MCP registry on 22 November 2026. With calculator release 1.1.0, the server exposes 66 worksheet kinds. Read aus-accounting://scope for each worksheet’s periods, scope and required inputs. The v0.9.0 release history and v0.2.8 demonstration are preserved below.
+
+Install the calculator separately for Claude Code or Codex. Put it on PATH or set AUS_TAX_CALCULATORS_BIN to its absolute path. The server verifies the executable’s SHA-256. It recognises the released x86-64 Linux and Windows digests. For a source build, set AUS_TAX_CALCULATORS_SHA256 to its verified digest. The server needs permission to run the verified copy from its temporary directory. The v0.11.0 Claude Desktop bundle includes the calculator on x86-64 Linux and Windows.
+
+### Release v0.10.0
+
+Release v0.10.0 added BSB and bank account number format tests against AusPayNet’s published formats. A valid format establishes no institution, account or payee. This release moved the 14 worksheets to a separately installed calculators executable and corrected the amount the contribution cap worksheet reports as carried forward.
 
 ### Release v0.9.0 and earlier
 
@@ -5280,7 +5286,7 @@ The tools calculate and refuse. Professional judgement and lodgement stay human.
 
 ### What is aus-accounting-mcp?
 
-A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.10.0 has 14 and adds GST coding and BAS reconciliation review. Outputs need human review.
+A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. The reference example uses v0.2.8 and its 7 worksheets. Published v0.11.0 serves 66 worksheet kinds with the 1.1.0 calculators executable, alongside GST coding and BAS reconciliation review. Outputs need human review.
 
 ### Is aus-accounting-mcp a hosted ATO document library?
 
@@ -5324,9 +5330,9 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- v0.10.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.10.0
+- v0.11.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.11.0
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
-- Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- current release: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - current README: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp/README.md
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
@@ -5342,6 +5348,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
 - uv installed: https://docs.astral.sh/uv/
+- calculator release 1.1.0: https://github.com/ryanduguid/australian-accounting/releases/tag/australian-tax-calculators/v1.1.0
+- v0.10.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.10.0
 - v0.9.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.9.0
 - Excel cash flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - browser calculator: https://duguid.com.au/tools/coal-lsl-levy/
@@ -5687,6 +5695,7 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+21 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.11.0
 19 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.10.0
 18 November 2026 | Ozzit | v3.7.0
 14 November 2026 | Monthly Close Controls | monthly-close-control-plane/v1.1.0
@@ -5771,6 +5780,7 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 - site licence notice: https://duguid.com.au/privacy/
 - FBT property: https://duguid.com.au/tools/business-calculators/fbt-property/
 - FBT expense payment: https://duguid.com.au/tools/business-calculators/fbt-expense-payment/
+- aus-accounting-mcp/v0.11.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.11.0
 - aus-accounting-mcp/v0.10.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.10.0
 - v3.7.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.7.0
 - monthly-close-control-plane/v1.1.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.1.0
