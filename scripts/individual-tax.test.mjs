@@ -376,6 +376,10 @@ test('dated take-home super applies the annual cap in payday order to qualifying
   assert.equal(r.superGuarantee, 32499.59);
   assert.equal(r.salary, 270842.39);
   assert.equal(r.overCap, 0);
+
+  // The 8 cents below the cap are grouped and rounded once on the final QE day.
+  const sameDay = [datedSalary('2027-01-01', '0.04'), datedSalary('2027-01-01', '0.08'), datedPay[2]];
+  assert.equal(pay({ salary: '270830.04', datedPay: sameDay }).superGuarantee, 32499.60);
 });
 
 test('dated take-home super rejects contradictory salaries, invalid dates and packages', () => {

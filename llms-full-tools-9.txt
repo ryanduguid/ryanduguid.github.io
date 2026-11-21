@@ -517,9 +517,9 @@ When the salary includes super, the calculator splits it: at 12%, a package of $
 
 ## What the take-home pay calculator does not compute
 
-The calculator assumes one employer, a salary paid evenly over the full year, and no other income, deductions or offsets. It does not compute:
+The tax and PAYG estimates assume one employer, a salary paid evenly over the full year and no other income, deductions or offsets. Dated super can use irregular payments that add up to the year’s gross salary.
 
-- overtime, bonuses, allowances or leave loading, a 53rd weekly or 27th fortnightly pay, or withholding on scale 1, scale 5 or 6 or for a working holiday maker, a withholding declaration’s offsets or a Medicare levy variation;
+- separate tax or withholding treatment for overtime, bonuses, allowances or leave loading. PAYG estimates use 52 weekly or 26 fortnightly pays and omit withholding under scales 1, 5 and 6, withholding for working holiday makers, offsets claimed in a withholding declaration and Medicare levy variations;
 - 2025-26 withholding with a study loan that mixes the 2 Schedule 8s: the year’s withholding and refund take the one from 24 September 2025 for every pay, and the component before that date is shown beside it;
 - work-related deductions you claim, which reduce the standard deduction dollar for dollar except those section 25-130(3) disregards, such as professional association fees;
 - salary sacrifice of anything but super, reportable fringe benefits, excess concessional contributions or Division 293 tax;
