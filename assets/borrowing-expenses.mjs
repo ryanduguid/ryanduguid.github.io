@@ -571,7 +571,7 @@ export function borrowingResult(value, aud) {
   const money = (/** @type {bigint} */ cents) => aud(Number(cents) / 100);
   const year = input.year;
   const rows = [['Borrowing expenses, all loans', aud(tax.borrowingExpenses)], [`Maximum deduction for ${year}`, aud(tax.maximumDeduction)],
-    [`Still to deduct after ${year}`, aud(tax.remainingAfterYear)], [`Deduction for ${year}`, aud(tax.deduction)]];
+    [`Unapportioned costs after ${year}`, aud(tax.remainingAfterYear)], [`Deduction for ${year}`, aud(tax.deduction)]];
   const flag = (/** @type {{section_26_155: boolean, projected: boolean}} */ row) =>
     [row.section_26_155 ? 's 26-155' : '', row.projected ? 'projected' : ''].filter(Boolean).join(', ');
   /** @type {Record<string, string[][]>} */
