@@ -13017,6 +13017,8 @@ In ATO online services through myGov, go to Super, then Manage, then First home 
 
 The calculator counts up to $15,000 of eligible contributions a year and $50,000 in total ($30,000 for determinations requested before 1 July 2022). It counts contributions earliest first, using non-concessional contributions first in a year that contains both kinds of personal contribution. It treats contributions on the same day as made at the same time and counts the non-concessional ones first. It adds 100% of the non-concessional part and 85% of the concessional part. It compounds daily at the ATO’s published shortfall interest charge rates, from the first day of the contribution month (1 July 2017 for 2017-18 contributions) through the determination date. Earnings round down to whole dollars per original contribution.
 
+The verified rates support contribution ledger estimates for determinations through 31 December 2026.
+
 In the ATO’s Jill example, this ledger method estimates $7,859 in earnings. The ATO gives $5,190 in GN 2024/1, example 6. The difference remains unresolved. Use the associated earnings on your determination for the actual release.
 
 ## How the release is taxed
