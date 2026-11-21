@@ -29,6 +29,7 @@ const REQUIRED = FACTS.slice(0, 6);
 const ACCOUNTING_FACTS = ['amount', 'annual_rate', 'payments', 'balloon_percent', 'qualifying_asset', 'same_lender', 'lender_fees', 'lender_fees_received'];
 
 export const BORROWING_S26_50 = 'Section 26-50(1) denies deductions for a leisure facility, such as a holiday home, unless an exception applies. This page works only s 26-50(3) applying at all times in the income year: part-year use under s 26-50(4) and a fringe benefit under s 26-50(8) are out of scope, and whether s 26-50(7) stops s 26-50(3) applying is yours to decide.';
+const S26_102 = 'ITAA 1997 s 26-102 can limit deductions for vacant land holding costs incurred from 1 July 2019, including ongoing costs of borrowing to acquire the land. The s 25-25 amounts are before any applicable limit. Check which costs and exceptions apply.';
 const S26_155 = 'From 2027-28 ITAA 1997 s 26-155(1) may quarantine this deduction where the money is used for a residential dwelling held for rent: the amounts here are s 25-25’s before s 26-155, which this page neither applies nor decides the exceptions to.';
 const PROJECTED = 'A row marked projected is after 2027-28, the last income year read: it applies s 25-25 as read on 19 November 2026, and a later amendment would change it.';
 
@@ -252,7 +253,10 @@ export function borrowingSchedule(input) {
   const asked = out.map((l) => l.rows.find((row) => row.first === claimed));
   const sum = (/** @type {(row: BorrowingRow) => bigint} */ pick) => asked.reduce((s, row) => s + (row ? pick(row) : 0n), 0n);
   const firsts = out.flatMap((l) => l.rows.map((row) => row.first));
-  const warnings = [...(firsts.some((f) => f >= 2027) ? [S26_155] : []), ...(firsts.some((f) => f > LAST_YEAR) ? [PROJECTED] : [])];
+  const warnings = [];
+  if (firsts.some((f) => f >= 2019)) warnings.push(S26_102);
+  if (firsts.some((f) => f >= 2027)) warnings.push(S26_155);
+  if (firsts.some((f) => f > LAST_YEAR)) warnings.push(PROJECTED);
   // The year's totals in dollars, each exact to the cent.
   const dollars = (/** @type {bigint} */ cents) => Number(cents) / 100;
   return { year: input.year, loans: out, schedule, warnings, borrowingExpenses: dollars(loans.reduce((s, f) => s + f.expenditure, 0n)),
@@ -571,7 +575,7 @@ export function borrowingResult(value, aud) {
   const money = (/** @type {bigint} */ cents) => aud(Number(cents) / 100);
   const year = input.year;
   const rows = [['Borrowing expenses, all loans', aud(tax.borrowingExpenses)], [`Maximum deduction for ${year}`, aud(tax.maximumDeduction)],
-    [`Unapportioned costs after ${year}`, aud(tax.remainingAfterYear)], [`Deduction for ${year}`, aud(tax.deduction)]];
+    [`Unapportioned costs after ${year}`, aud(tax.remainingAfterYear)], [`Section 25-25 amount for ${year}`, aud(tax.deduction)]];
   const flag = (/** @type {{section_26_155: boolean, projected: boolean}} */ row) =>
     [row.section_26_155 ? 's 26-155' : '', row.projected ? 'projected' : ''].filter(Boolean).join(', ');
   /** @type {Record<string, string[][]>} */
@@ -586,7 +590,7 @@ export function borrowingResult(value, aud) {
     for (const a of accounts) rows.push([`Loan ${a.loan}: effective interest rate (AASB 9)`, `${a.effectiveAnnualRate.toFixed(4)}% a year`]);
     tables.accounting = accountingTable(tax, accounts, aud);
     const asked = tables.accounting.find((row) => row[0] === year);
-    rows.push([`Accounting borrowing costs for ${year}`, asked?.[2] ?? aud(0)], [`Tax deduction less accounting costs, ${year}`, asked?.[3] ?? aud(0)]);
+    rows.push([`Accounting borrowing costs for ${year}`, asked?.[2] ?? aud(0)], [`Section 25-25 amount less accounting costs, ${year}`, asked?.[3] ?? aud(0)]);
     notes.push(...accounts.flatMap((a) => a.notes.map((note) => `Loan ${a.loan}: ${note[0].toLowerCase()}${note.slice(1)}`)));
   }
   const note = notes.length ? notes.join(' ').replace(/\.$/, '') : undefined;

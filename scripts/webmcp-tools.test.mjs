@@ -410,6 +410,8 @@ test('borrowing expenses tool returns the page worked example and a refinancing,
   assert.deepEqual([r.borrowingExpenses, r.maximumDeduction, r.deduction, r.remainingAfterYear, r.currency],
     ['3270.00', '653.65', '591.36', '16.38', 'AUD']);
   assert.match(r.basis, /remainingAfterYear is before income-use apportionment/);
+  assert.match(r.basis, /amounts before any applicable vacant land or residential loss limit/);
+  assert.match(r.warnings.join(' '), /s 26-102/);
   assert.deepEqual(r.loans[1].years.at(-1), { incomeYear: '2025-26', remaining: '14.63', daysInYear: 16, daysLeft: 16, maximum: '14.63',
     deduction: '11.90', section26_155: false, projected: false });
   assert.equal(r.source, 'https://duguid.com.au/tools/business-calculators/borrowing-expenses/');
