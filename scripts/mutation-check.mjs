@@ -572,7 +572,7 @@ const MUTATIONS = [
   { ...marginScheme, name: 'the margin scheme refuses no sale that is not taxable', find: 'if (!input.taxable) {', replace: 'if (false) {' },
   { ...marginScheme, name: 'the margin scheme works out section 75-11 acquisitions', find: "if (input.acquired === 'special') {", replace: 'if (false) {' },
   { ...marginScheme, name: 'the margin scheme takes a sale to an associate at its price', find: 'if (input.associate) {', replace: 'if (false) {' },
-  { ...marginScheme, name: 'the margin scheme takes a valuation for property acquired after 1 July 2000', find: "input.method === 'valuation' && input.acquired !== 'before-2000'", replace: 'false' },
+  { ...marginScheme, name: 'the margin scheme takes a valuation for property acquired after 1 July 2000', find: "input.acquired !== 'before-2000'", replace: 'false' },
   { ...marginScheme, name: 'the margin scheme takes a part larger than the whole', find: 'if (part > whole) throw', replace: 'if (false) throw' },
   { ...marginScheme, name: 'a subdivided lot carries the whole cost', find: 'const share = part === whole ? cost : ratioCents(cost * part, whole);', replace: 'const share = cost;' },
   { ...marginScheme, name: 'the margin scheme applies to a short lease', find: "interest: input.interest !== 'other'", replace: 'interest: true' },

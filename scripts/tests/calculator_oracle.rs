@@ -6323,6 +6323,7 @@ fn margin_scheme_case(rng: &mut Seeded) -> (Value, Value) {
             "interest": interest, "taxable": true, "agreed": agreed, "acquired": acquired, "associate": false,
             "method": method, "price": dollars(price), "basis": if exclusive { "exclusive" } else { "inclusive" },
             "cost": dollars(cost), "part": measure(part), "whole": measure(whole),
+            "registrationAtTransition": "yes", "valuationProperty": "unimproved", "valuationDay": "2000-07-01",
         }),
         margin_scheme_oracle(
             interest, agreed, acquired, exclusive, price, cost, part, whole,
