@@ -618,7 +618,7 @@ The negative gearing acquisition cut-off is not a general CGT grandfathering rul
 
 ### Negative gearing and CGT: a bill before Parliament
 
-A bill before Parliament, the Treasury Laws Amendment (Tax Reform No. 3) Bill 2026, would amend the negative gearing provisions in relation to new residential dwellings and dwellings that support affordable housing. Parliament’s summary of the bill says it would also clarify and adjust the operation of the capital gains tax adjustment provisions, including their application to trusts and managed investment vehicles. The ATO summary, last updated 9 November 2026, lists it and the Income Tax Rates Amendment (Minimum Tax on Discretionary Trusts) Bill 2026, both introduced on 14 October 2026, against the negative gearing and CGT discount reform. The No. 3 Bill’s third reading was agreed in the House on 29 October 2026, and the Senate Economics Legislation Committee reported on it on 13 November 2026; Parliament’s page listed no Senate reading on 16 November 2026. It is not law: check its stage and text before relying on the exceptions above.
+A bill before Parliament, the Treasury Laws Amendment (Tax Reform No. 3) Bill 2026, would amend the negative gearing provisions in relation to new residential dwellings and dwellings that support affordable housing. Parliament’s summary of the bill says it would also clarify and adjust the operation of the capital gains tax adjustment provisions, including their application to trusts and managed investment vehicles. The ATO summary, last updated 9 November 2026, lists it and the Income Tax Rates Amendment (Minimum Tax on Discretionary Trusts) Bill 2026, both introduced on 14 October 2026, against the negative gearing and CGT discount reform. The House agreed to the Bill’s third reading on 29 October 2026. The Senate Economics Legislation Committee reported on 13 November 2026, and the Senate second reading was moved on 16 November 2026. The Bill was still before the Senate on 22 November 2026. Check the Bill’s progress and text before relying on the proposed changes.
 
 ## Legislated: earlier application
 
@@ -647,7 +647,7 @@ Yes. Schedule 4 Part 1 item 17 of the Treasury Laws Amendment (Tax Reform No. 1)
 
 ### Is the negative gearing and CGT discount reform law?
 
-Yes. The negative gearing amendments apply from 2027-28, but an earlier acquisition can affect later treatment. Section 26-155 has a pre-7:30 pm ACT legal time, 12 May 2026 ownership interest exception and a contract date rule. CGT has separate application and transition provisions; do not apply that acquisition cut-off to every CGT asset.
+Yes. The negative gearing amendments apply from 2027-28, but an earlier acquisition can affect later treatment. Section 26-155 has a pre-7:30 pm ACT legal time, 12 May 2026 ownership interest exception and a contract date rule. CGT has separate application and transition provisions; do not apply that acquisition cut-off to every CGT asset. The separate Treasury Laws Amendment (Tax Reform No. 3) Bill 2026 proposes further changes and is before the Senate.
 
 ### What does TBD mean on the ATO’s list?
 
@@ -689,6 +689,7 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Federal Register: https://www.legislation.gov.au/C2026A00086/latest/text
 - Negative gearing and CGT discount reform: https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/tax-reform-boosting-home-ownership-reforming-negative-gearing-and-capital-gains-tax
 - Treasury Laws Amendment (Tax Reform No. 1) Act 2026: https://www.legislation.gov.au/C2026A00049/latest/text
+- Check the Bill’s progress and text before relying on the proposed changes: https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation/Bills_Search_Results/Result?bId=r7554
 - Tax loss carry-back: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-tax-loss-carry-back
 - Download the three tables as CSV: https://duguid.com.au/rates/announced-not-yet-law/announced-measures.csv
 - rates register’s: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/rates/register/README.md
