@@ -5328,9 +5328,11 @@ test('ASIC late fees refuse what the page does not decide', () => {
   for (const fee of ['', 'late', 'toString', '__proto__']) assert.equal(refused({ fee }), 'Choose a fee.', fee);
   // A Sunday due date refuses payments to the Wednesday after it; the Thursday is late.
   assert.match(refused({ fee: 'late-review-payment', due: '2026-08-16', paid: '2026-08-19' }), /^The due date is a Saturday or Sunday/);
+  assert.equal(refused({ fee: 'late-review-payment', due: '2026-08-16', paid: '2026-08-20' }), 'computed');
   assert.deepEqual(asicLate('2026-08-16', '2026-08-20').amount, 102);
   // A Saturday month end refuses payments to the Wednesday after it (31 October 2026 is a Saturday).
   assert.match(refused({ fee: 'late-review-payment', due: '2026-09-30', paid: '2026-11-04' }), /^The first month after the due date ends/);
+  assert.equal(refused({ fee: 'late-review-payment', due: '2026-09-30', paid: '2026-11-05' }), 'computed');
   assert.deepEqual(asicLate('2026-09-30', '2026-11-05').amount, 428);
   // Fixed fees ignore the dates.
   assert.equal(calculations.asicFee({ fee: 'business-name-3', due: 'x', paid: 'y' }).amount, 108);
