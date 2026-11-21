@@ -1002,7 +1002,7 @@ test('borrowing expenses page works its example, the accounting column and a ref
   await waitForCalculator(form);
   await context.setOffline(true);
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
-  await expect(form.locator('output .result-row--principal')).toHaveText('Deduction for 2024-25: $591.36.');
+  await expect(form.locator('output .result-row--principal')).toHaveText('Section 25-25 amount for 2024-25: $591.36.');
   await expect(form.locator('table[data-results="loans"] tbody tr')).toHaveCount(12);
   await expect(form.locator('table[data-results="accounting"]')).toBeHidden();
   await form.locator('input[name="accounting"][value="yes"]').check();
@@ -1036,14 +1036,14 @@ test('borrowing expenses page nets same-lender fees paid and received offline', 
   const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
   const deduction = form.locator('output .result-row--principal');
   await calculate.click();
-  await expect(deduction).toHaveText('Deduction for 2024-25: $146.25.');
+  await expect(deduction).toHaveText('Section 25-25 amount for 2024-25: $146.25.');
   await form.locator('input[name="accounting"][value="yes"]').check();
   await calculate.click();
   await expect(form.locator('output')).toContainText('differ by 9.86%, under 10%');
   await received.fill('500');
   await calculate.click();
   await expect(form.locator('output')).toContainText('including net lender fees, differ by 10.04%');
-  await expect(deduction).toHaveText('Deduction for 2024-25: $146.25.');
+  await expect(deduction).toHaveText('Section 25-25 amount for 2024-25: $146.25.');
   const accounting = form.locator('table[data-results="accounting"]');
   const refinanceYear = accounting.getByRole('row').filter({ has: page.getByText('2022-23', { exact: true }) });
   // $1,452.90 for the original loan plus $400 at refinancing, with zero unamortised.

@@ -4883,9 +4883,11 @@ test('a mixed-use loan shows remaining costs before apportionment', () => {
   const result = calculations.borrowingResult((name) => fields[name] ?? '', borrowAud);
   assert.deepEqual(result.rows.slice(2), [
     ['Unapportioned costs after 2024-25', '$1,461.00'],
-    ['Deduction for 2024-25', '$273.75'],
+    ['Section 25-25 amount for 2024-25', '$273.75'],
   ]);
   assert.deepEqual(result.tables.years[1], ['2025-26', '$1,461.00', '$730.50', '']);
+  assert.match(result.note, /s 26-102.*ongoing costs of borrowing to acquire the land/);
+  assert.doesNotMatch(result.note, /26-155/);
 });
 
 const borrowCode = (input) => {
