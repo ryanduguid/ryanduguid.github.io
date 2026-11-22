@@ -591,13 +591,6 @@ test('mobile sticky header gives readable navigation two rows', async ({ page },
   }
 });
 
-// Waits until the page's module scripts and calculator engines have arrived. A test
-// that leaves sooner cancels them, and the health check reports each cancelled request.
-async function waitForPageModules(page) {
-  await page.waitForLoadState('load');
-  await waitForCalculators(page);
-}
-
 test('all homepage starting routes land on their targets', async ({ page }) => {
   const health = observePageHealth(page);
   for (const [label, href, target] of homepagePreviewRoutes) {
@@ -611,24 +604,36 @@ test('all homepage starting routes land on their targets', async ({ page }) => {
       return `${current.pathname}${current.hash}`;
     }).toBe(href);
     await expect(page.locator(`#${target}`)).toBeVisible();
-    await waitForPageModules(page);
   }
   health.assertHealthy();
 });
 
 // On 22 November 2026 the test above left /rates/ whilst copy-commands.mjs was still
 // arriving, and the health check failed on it (net::ERR_ABORTED) on a Windows runner.
-test('leaving a page once its module scripts load aborts no request', async ({ page }, testInfo) => {
+// It was the second failed run of that kind in 5 days. Leaving a page cancels what it
+// was loading, and the health check does not report that.
+test('leaving a page whilst a module script loads passes the health check', async ({ page }, testInfo) => {
   test.skip(projectKind(testInfo) !== 'desktop', 'runs once');
-  await page.route('**/assets/copy-commands.mjs', async (route) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    await route.continue();
-  });
+  const script = '**/assets/copy-commands.mjs';
+  // Never answered, so the request is still in flight when the test leaves.
+  await page.route(script, () => {});
   const health = observePageHealth(page);
+  const requested = page.waitForRequest(script);
   await page.goto('/rates/', { waitUntil: 'commit' });
-  await waitForPageModules(page);
+  await requested;
+  const cancelled = page.waitForEvent('requestfailed',
+    (request) => request.url().endsWith('/assets/copy-commands.mjs'));
   await page.goto('/');
+  await cancelled;
   health.assertHealthy();
+});
+
+test('health collector catches a request aborted on a page the test stays on', async ({ page }, testInfo) => {
+  test.skip(projectKind(testInfo) !== 'desktop', 'runs once');
+  await page.route('**/assets/copy-commands.mjs', (route) => route.abort('aborted'));
+  const health = observePageHealth(page);
+  await page.goto('/rates/');
+  expect(() => health.assertHealthy()).toThrow(/request failed: GET \S+copy-commands\.mjs/);
 });
 
 // A figure or result code broken across lines can be misread. On 10 November
@@ -678,22 +683,6 @@ const cueStates = (page) => page.evaluate(() => new Promise((resolve) => {
   )));
 }));
 
-// The sweeps below leave each page for the next. On 18 November 2026 they left
-// calculator pages whose engines were still arriving, and the health check failed
-// on division-296.mjs and payroll-tax.mjs (net::ERR_ABORTED).
-test('leaving a calculator page once its modules load aborts no request', async ({ page }, testInfo) => {
-  test.skip(projectKind(testInfo) !== 'desktop', 'runs once');
-  await page.route('**/assets/division-296.mjs', async (route) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    await route.continue();
-  });
-  const health = observePageHealth(page);
-  await page.goto('/tools/business-calculators/gst/');
-  await waitForCalculators(page);
-  await page.goto('/');
-  health.assertHealthy();
-});
-
 // One test per width: all four in one test made 260 navigations, which took
 // 22 to 35 seconds on a Windows CI runner against the 30-second test limit.
 // Each route loads once per width for every check below. Waiting for each calculator
@@ -710,7 +699,7 @@ for (const width of [320, 390, 768, 1440]) {
     const miscued = [];
     for (const [, route] of routes) {
       await page.goto(route);
-      // Leaving a calculator page before its modules arrive aborts them (health check).
+      // The health check sees a calculator page's modules only if they arrive before the next page.
       await waitForCalculators(page);
       const viewport = await page.evaluate(() => ({
         clientWidth: document.documentElement.clientWidth,
