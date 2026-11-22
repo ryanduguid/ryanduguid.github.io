@@ -154,15 +154,18 @@ test('the keyboard alone finds an asset and sends its life to the calculator', a
 });
 
 test('a search sent with Enter is not drawn again once typing pauses', async ({ page }) => {
+  await page.clock.install();
   await page.goto(PAGE);
   await expect(page.locator('#finder-status')).toHaveText('9,311 rows to search.');
+  // The page's timers fire only when the test moves the clock on.
+  await page.clock.pauseAt(Date.now() + 60_000);
   await page.getByLabel('Asset', { exact: true }).focus();
   await page.keyboard.type('desks');
   await page.keyboard.press('Enter');
   await expect(page.locator('#finder-status')).toHaveText(/rows? match ‘desks’\.$/);
   const use = await page.getByRole('button', { name: 'Use this life: 20 years, Desks' }).elementHandle();
   // Typing schedules a search 150 ms after the last key; a redraw then would replace a row the reader had tabbed to.
-  await page.waitForTimeout(400);
+  await page.clock.runFor(400);
   expect(await use.evaluate((node) => node.isConnected)).toBe(true);
 });
 
