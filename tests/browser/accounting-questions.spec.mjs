@@ -1241,6 +1241,31 @@ test('PSI rules checker works TR 2022/3 example 22 and refuses an agent it canno
     + 'so section 87-40 may treat the principal’s customers as the sources of the PSI; this page does not apply section 87-40.');
 });
 
+// Subsection 87-15(3) counts one payer's rows together, and subsection 85-35(2) covers a religious
+// practitioner's payment, as the psi-test command of ryanduguid/australian-accounting does.
+test('PSI rules checker counts one payer’s 2 rows as one source and cites subsection 85-35(2)', async ({ page }) => {
+  await page.goto('/tools/business-calculators/psi-determination/');
+  const form = page.locator('#psi-determination form');
+  await waitForCalculator(form);
+  await form.getByLabel('PSI from payer 1 (AUD)', { exact: true }).fill('74');
+  await form.getByLabel('PSI from payer 2 (AUD)', { exact: true }).fill('26');
+  await form.getByLabel('Payer 2 is the same payer as').selectOption('1');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const output = form.locator('output');
+  await expect(output).toContainText('payer 1 $74.00, ticked: paid for a result, tools supplied, liable for defects; '
+    + 'payer 2 $26.00, same payer as payer 1, ticked: none;');
+  await expect(output).toContainText('Outcome: Subsection 87-15(3): not a personal services business unless a '
+    + 'determination is in force, so Division 85 applies.');
+  await expect(output).toContainText('Subsection 87-18(1): PSI paid for a result, with the tools supplied and liability '
+    + 'for defects: 74.00%, under 75%: not met. Subsection 87-15(3): largest share of the PSI from one payer and its '
+    + 'associates: 100.00%, 80% or more.');
+  await form.getByLabel('The individual, as a religious practitioner paid by an enterprise for work in their vocation as a '
+    + 'member of a religious institution').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toContainText('Outcome: Subsection 85-35(2): a payment to a religious practitioner, so the PSI '
+    + 'rules do not apply. Subsection 84-5(1)');
+});
+
 test('transfer duty notes NSW premium duty from the first dollar over $3,870,000 only', async ({ page }) => {
   await page.goto('/tools/business-calculators/transfer-duty/');
   const form = page.locator('#transfer-duty form');

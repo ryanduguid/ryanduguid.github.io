@@ -49,6 +49,8 @@ export default defineConfig({
   webServer: {
     command: siteServerCommand,
     url: 'http://127.0.0.1:4173/',
+    // serve_site builds the site with Jekyll first: 80 to 270 s on a Windows PC.
+    timeout: 360_000,
     reuseExistingServer: !process.env.CI,
   },
 });

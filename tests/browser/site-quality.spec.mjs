@@ -10,6 +10,7 @@ import { waitForCalculators } from './calculator-ready.mjs';
 import { observePageHealth } from './health.mjs';
 import { gotoForVisualSnapshot, waitForVisualFonts } from './visual.mjs';
 import { projectKind } from './project-kind.mjs';
+import config from '../../playwright.config.mjs';
 
 // Every page in the sitemap, plus the not-found page, gets the shell and axe checks.
 const routes = [
@@ -612,8 +613,9 @@ test('all homepage starting routes land on their targets', async ({ page }) => {
 // arriving, and the health check failed on it (net::ERR_ABORTED) on a Windows runner.
 // It was the second failed run of that kind in 5 days. Leaving a page cancels what it
 // was loading, and the health check does not report that.
-test('leaving a page whilst a module script loads passes the health check', async ({ page }, testInfo) => {
+test('leaving a page whilst a module script loads passes the health check', async ({ page, browserName }, testInfo) => {
   test.skip(projectKind(testInfo) !== 'desktop', 'runs once');
+  test.skip(browserName !== 'chromium', 'Firefox cancels before the navigation request (health.mjs)');
   const script = '**/assets/copy-commands.mjs';
   // Never answered, so the request is still in flight when the test leaves.
   await page.route(script, () => {});
@@ -1035,4 +1037,9 @@ test('a minus sign stays on the line of its amount at 320px', async ({ page }, t
     });
     expect(split, path).toEqual([]);
   }
+});
+
+test('the test server is given time for a cold Jekyll build', () => {
+  // serve_site builds the site before it answers; 270 s was measured on a Windows PC.
+  expect(config.webServer.timeout).toBeGreaterThanOrEqual(300_000);
 });
