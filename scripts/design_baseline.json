@@ -128,6 +128,9 @@
     "tools/business-calculators/asic-fees/index.html": [
       "1695328325c3bd061d256303275f3872f33eaa53076df801b420bfcb01529583"
     ],
+    "tools/business-calculators/ato-penalties-interest/index.html": [
+      "592fbbb8d1e37a1adce4365603775eb8bd730e183acf22945fe43918924a9d15"
+    ],
     "tools/business-calculators/borrowing-expenses/index.html": [
       "6f8f8003512eb912605cb8e0644a74b9a2716e82770a6faec7695fa7caa25a65"
     ],
@@ -403,9 +406,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "b1d9c2aa42693f491b2be21021a3010ddc4682bd428c31b49645c67ccfd0a00e",
+    "llms.txt": "0692759e06993febe59a95a0010dee5cac63911b8ebd8754822fc83ce4a7b285",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "d9d65546d1b4cde46d8f2d300fda2dd7eb9bada20bd8b29d6be6fde694a0bbcc"
+    "sitemap.xml": "7e08b3a6c12673bef21cd095f5406579525fb36d99616bf7f2f1187dfeccf7ad"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
