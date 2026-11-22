@@ -5560,7 +5560,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
-22 November 2026 | A new business calculator, ATO penalties and interest, works out one amount before remission: the general interest charge, compounding daily at each quarter’s rate with payments on their days, the shortfall interest charge on an amended assessment, the failure to lodge penalty with the penalty unit at the start of each 28-day period, false or misleading statement penalties with the 20% increase and the reductions for a voluntary disclosure, and the interest the ATO pays on early payments and overpayments. It agrees with the ato-interest-penalties command of the australian-accounting calculators on every tested case, and it declines remission and scheme penalties.
+22 November 2026 | A new business calculator works out luxury car tax on a tax period’s sales and importations in 2019-20 to 2026-27: the threshold or fuel-efficient car limit for the year of each supply (from 2012-13 for an adjustment), the 3.5 litre rating from 1 July 2025 and the 7 litre rating it keeps for a car supplied or imported and used other than for a quotable purpose before then, the price and change of use adjustments, the primary producer and tourism operator refunds of up to $10,000 and the amounts for labels 1E and 1F. The Act and the ATO’s rate and threshold table were read on 22 November 2026, and the page opens on the ATO’s examples of Matty Bee Motors’ $2,157.30 and Jimmy’s Mustang’s $6,207.30.
 22 November 2026 | A new business calculator, ASIC fees, lists ASIC’s fees from 1 July 2026 to register a company, reserve a company name, pay the annual review fee and register or renew a business name, with no GST. For a due date and the day ASIC received a review fee payment or a document, both in 2026-27, it gives the late fee: $102 within one month after the due date and $428 after that, counting the month as section 2G of the Acts Interpretation Act 1901 does. It takes the due date as given and declines a case that a weekend due date or month end could change.
 22 November 2026 | A new business calculator works out wine equalisation tax for a tax period’s dealings in 2023-24 to 2027-28: 29% of a wholesale sale’s price, of half the retail price or of the average wholesale price for retail sales and own use, of the purchase price for own use of wine bought under quote, and nil on a sale under quote. It gives the producer rebate on each dealing that meets the conditions of section 19-5, within the year’s cap of $350,000, or $400,000 for dealings from 1 July 2026, less the rebates already claimed, and labels 1C and 1D in whole dollars. It reproduces the ATO’s worked examples and rebate table, read on 22 November 2026, and agrees with the wine-equalisation-tax command of the australian-accounting calculators on every tested case.
 21 November 2026 | The site's software now uses the Apache License 2.0. Ryan Duguid's original page text uses Creative Commons Attribution 4.0. The site licence notice identifies the terms for data, artwork and third-party material.
@@ -5781,7 +5781,6 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
-- ATO penalties and interest: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
 - ASIC fees: https://duguid.com.au/tools/business-calculators/asic-fees/
 - site licence notice: https://duguid.com.au/privacy/
 - FBT property: https://duguid.com.au/tools/business-calculators/fbt-property/
@@ -6371,7 +6370,6 @@ Published 11 September 2026. Last checked 22 November 2026, the newest of the ca
 - PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - PCG 2021/4 allocation Each recipient’s tax on a professional firm’s profit, the effective tax rate and the ATO’s risk zone.
 - GIC payment plan calculator What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
-- ATO penalties and interest calculator GIC and SIC by day and quarter, the failure to lodge penalty, statement penalties with increases and reductions, and the interest the ATO pays, all before remission.
 - Division 7A loan schedule calculator A complying Division 7A loan year by year over 7 or 25 years: each minimum repayment, the interest, extra repayments and any shortfall taken to be a dividend.
 - Division 296 tax calculator One person’s Division 296 tax on superannuation earnings for 2026-27, above $3 million and above $10 million.
 - PSI rules checker Whether the personal services income rules apply, step by step through Divisions 84 to 87.
@@ -6400,6 +6398,7 @@ Published 11 September 2026. Last checked 22 November 2026, the newest of the ca
 - Objection deadline checker The last day to object to an income tax or FBT assessment, an amended assessment or another ATO decision, with the weekend rule.
 - PAYG instalments calculator The quarterly PAYG instalment from the notified amount, a varied amount, instalment income times the rate, or a varied rate with its credit.
 - Fuel tax credit calculator A business’s fuel tax credits at the ATO’s rate for each day since 1 July 2022, by fuel and use, with label 7D and the small claimant methods.
+- Luxury car tax calculator Luxury car tax, its adjustments and refunds for 2019-20 to 2026-27.
 - Wine equalisation tax calculator WET on a tax period’s wholesale sales, retail sales, own use and sales under quote, the producer rebate within the year’s $350,000 or $400,000 cap, and labels 1C and 1D.
 - Redundancy and ETP withholding The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
 - Unused leave on termination Schedule 7 withholding and the lump sum A, B and type U amounts for unused leave paid on termination, for 2026-27.
@@ -6438,7 +6437,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - PCG 2021/4 allocation: https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/
 - GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
-- ATO penalties and interest calculator: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
 - Division 7A loan schedule calculator: https://duguid.com.au/tools/business-calculators/div7a-schedule/
 - Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
@@ -6455,6 +6453,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
 - PAYG instalments calculator: https://duguid.com.au/tools/business-calculators/payg-instalments/
 - Fuel tax credit calculator: https://duguid.com.au/tools/business-calculators/fuel-tax-credits/
+- Luxury car tax calculator: https://duguid.com.au/tools/business-calculators/luxury-car-tax/
 - Wine equalisation tax calculator: https://duguid.com.au/tools/business-calculators/wine-equalisation-tax/
 - Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/
 - Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
@@ -11248,77 +11247,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# ATO penalties and interest calculator: GIC, SIC, failure to lodge and statement penalties
-
-Source: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
-
-> The general interest charge and shortfall interest charge by day and quarter, the failure to lodge penalty, statement penalties with increases and reductions, and interest the ATO pays, before remission.
-
-# ATO penalties and interest calculator
-
-GIC, SIC, the failure to lodge penalty, statement penalties and ATO credit interest, before remission.
-
-Published 22 November 2026. Last checked 22 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-One ATO charge, penalty or interest amount, before remission
-
-What to work outGeneral interest charge (GIC) on an unpaid amount Shortfall interest charge (SIC) on an amended assessment Failure to lodge on time penalty False or misleading statement penalty Interest the ATO pays on an early payment Interest the ATO pays on an overpayment Remission of a charge or penalty (not worked) A scheme penalty (not worked)
-
-General interest charge
-
-Amount unpaid at the start of the due day (AUD) Due date Work out GIC to the end of Payment 1 date (optional) Payment 1 amount (AUD) Payment 2 date (optional) Payment 2 amount (AUD) Payment 3 date (optional) Payment 3 amount (AUD) Annual GIC rate to assume after December 2026 (%), needed only for later days
-
-Calculate
-
-Each amount is before remission. Dates run to 30 June 2028; the published GIC and SIC rates end on 31 December 2026.
-
-Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: GIC on $10,000.00 due 21 November 2025, to 30 June 2026. GIC to 30 June 2026 $676.86 Paid in the period $0.00 Owing at the end of that day, with GIC $10,676.86 Days of GIC 222 days Before remission: the Commissioner may remit GIC (TAA 1953 s 8AAG), SIC (TAA Sch 1 s 280-160) and administrative penalties (s 298-20), which this calculator does not estimate.
-
-## How the ATO penalties and interest calculator works
-
-The calculator works one question at a time, with the same rules, rounding and refusals as the ato-interest-penalties command in the australian-accounting calculators. GIC compounds daily from the due day on the unpaid amount and unpaid GIC, at each quarter’s annual rate divided by 365, or 366 in a leap year (sections 8AAC and 8AAD). A payment reduces the balance before that day’s charge. SIC compounds the same way on the additional tax, at the GIC rate less 4 points, from the day the first assessment’s tax was due to the day before the amended assessment’s notice (sections 280-100 and 280-105). Both are worked exactly and rounded to the cent once.
-
-The failure to lodge penalty is 1 penalty unit for each 28 days or part of 28 days late, at most 5, each at the unit applying when its period starts: $330 to 30 June 2026 and $364 from 1 July 2026. It is doubled for a medium entity, times 5 for a large entity and times 500 for a significant global entity (section 286-80). The statement penalty is 75%, 50% or 25% of the shortfall for intentional disregard, recklessness or a failure to take reasonable care, or 60, 40 or 20 penalty units with no shortfall. A position not reasonably arguable gives 25% where its shortfall is more than the greater of $10,000 and 1% of the return’s income tax. The base amount is increased 20% where section 284-220 applies and reduced 80%, to nil or 20% for a voluntary disclosure (section 284-225).
-
-The ATO pays simple interest at the base interest rate, the GIC rate less 7 points, on a payment of income tax made more than 14 days early, to the end of the due day (sections 8A to 8C), and on relevant tax overpaid because of a decision and then refunded, from the later of the notice and the payment (sections 9 and 10). The interest rounds to the cent, and under 50 cents is not paid.
-
-In the example the page opens with, $10,000 due on 21 November 2025 and unpaid to 30 June 2026 grows by 222 days of GIC at 10.61%, 10.65% and 10.96% to $10,676.86: $676.86 of GIC.
-
-## What the ATO penalties and interest calculator does not cover
-
-Every amount is before remission: the Commissioner can remit GIC, SIC and penalties, and the calculator does not estimate that. It does not work scheme penalties, the trust and partnership items of section 284-90, Division 296 GIC, a payment refunded before its due day or interest on a running balance account surplus. It refuses days without a published rate: GIC after 31 December 2026 unless you assume a rate, which makes the result an estimate, and SIC and credit interest after that day. The October to December 2026 base interest rate of 4.51% is the published GIC rate less 7 points; the ATO’s credit interest page lists quarters only to September 2026. The behaviour behind a shortfall, whether a position is reasonably arguable, whether a disclosure was voluntary and the entity’s size are your facts; the calculator does not decide them. Confirm the amount with the ATO or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: ATO penalties and interest calculator
-
-Case | Inputs | Result
-Spec G9: $10,000 unpaid for 222 days across 3 quarters | GIC on $10,000.00 due 21 November 2025, to 30 June 2026 | GIC $676.86, balance owing $10,676.86
-The site’s hand-worked payment plan: $9.68 of GIC | GIC on $1,000.00 due 1 October 2026, to 30 November 2026; $336.56 paid 1 October 2026, $336.56 paid 1 November 2026 | GIC $9.68, balance owing $336.56
-Spec S1: SIC for 284 days to the day before the notice | SIC on $10,000.00 of additional tax first due 21 November 2024, amended assessment notice 1 September 2025 | SIC $575.45
-Spec F4: a medium entity, units of $330 and $364 | Failure to lodge, due 10 June 2026, lodged 1 August 2026, a medium entity (x2) | penalty $1,388.00
-Spec P3: PS LA 2012/5 Example 7 facts at 75% and 25% | Statement penalty, statement made 15 March 2026; part 1: shortfall $15,000.00, intentional disregard; part 2: shortfall $2,000.00, failure to take reasonable care | penalty $11,750.00
-Spec E2: the ATO’s Evan example in 2025, 19 days at 3.61% | $1,926.00 of income tax paid 3 November 2025, due 21 November 2025, notice issued 29 October 2025 | interest payable $3.62
-Spec O2: a refund taken from the later payment first | $3,000.00 paid 1 December 2024, $3,000.00 paid 1 March 2025; notice issued 15 October 2024; $4,000.00 refunded 15 August 2025 | interest payable $86.51
-Spec G10: a GIC day after December 2026 needs an assumed rate | GIC on $10,000.00 due 21 November 2025, to 1 January 2027 | Refused: the ATO has published GIC rates to 31 December 2026; enter an assumed rate to project 1 January 2027 and later
-Remission is the Commissioner’s discretion | Remission of a charge or penalty | Refused: remission of GIC (TAA 1953 s 8AAG), SIC (TAA Sch 1 s 280-160) and administrative penalties (s 298-20) is the Commissioner’s discretion: every amount here is before remission, and the calculator does not estimate one
-
-One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
 # Division 296 tax calculator for 2026-27, above $3 million
 
 Source: https://duguid.com.au/tools/business-calculators/division-296/
@@ -13889,6 +13817,97 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Australian Institute of Petroleum’s weekly average retail (pump) prices: https://aip.com.au/pricing/pump-prices-retail/
 - fuel tax credit tools: https://www.ato.gov.au/calculators-and-tools/fuel-tax-credit-tools
+- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Luxury car tax calculator: thresholds, adjustments, refunds
+
+Source: https://duguid.com.au/tools/business-calculators/luxury-car-tax/
+
+> Luxury car tax for 2019-20 to 2026-27: the threshold or fuel-efficient car limit by year, price and change of use adjustments, refunds and labels 1E and 1F.
+
+# Luxury car tax calculator
+
+Luxury car tax, its adjustments and refunds, and BAS labels 1E and 1F.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Luxury car tax for one tax period
+
+Line 1 What the line isNo line Sale Importation Price adjustment Change of use: increasing Change of use: decreasing Refund
+
+Value (AUD) Litres per 100 km Used before 1 July 2025 other than for a quotable purpose?Choose Yes No
+
+Already payable on the car (AUD, optional)
+
+Line 2 What the line isNo line Sale Importation Price adjustment Change of use: increasing Change of use: decreasing Refund
+
+Value (AUD) Litres per 100 km Used before 1 July 2025 other than for a quotable purpose?Choose Yes No
+
+Line 3 What the line isNo line Sale Importation Price adjustment Change of use: increasing Change of use: decreasing Refund
+
+Line 4 What the line isNo line Sale Importation Price adjustment Change of use: increasing Change of use: decreasing Refund
+
+Financial year of the tax period 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20
+
+Calculate
+
+## What each line needs
+
+Each line is one sale, importation, adjustment or refund in the tax period. Fill the lines in order.
+
+For a business registered or required to be registered for GST. You establish each line: that the vehicle is a car and not one the Act excludes (an emergency vehicle, a car fitted out for wheelchairs, a commercial vehicle not designed mainly to carry passengers, a motor home or campervan), that the supply or importation is taxable (no quote, not GST-free or input taxed), its luxury car tax value and its combined fuel consumption rating.
+
+The value is the luxury car tax value, with GST and customs duty but not luxury car tax; for a price adjustment, the corrected value. Leave the litres blank for a car with no combined fuel consumption rating.
+
+An adjustment takes the year the car was supplied or imported in. A refund left blank takes the tax period’s year; choose the earlier year for a car supplied or imported before then, and one from before 1 July 2019 is refused.
+
+Needed only for a car rated above 3.5 and up to 7 litres, supplied or imported from 1 July 2025. Answer yes if, before that day, it was supplied or imported and used in Australia other than for a quotable purpose: the 7 litre rating then continues.
+
+The ATO describes a refund-eligible car as a 4 wheel or all wheel drive that is either a passenger car (category MA) with a ground clearance of at least 175 mm or an off-road passenger vehicle (category MC). The claimant must be registered for GST (sections 18-5 and 18-10).
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; line 1: sale, value $88,000.00, no fuel consumption rating; line 2: importation, value $101,500.00, no fuel consumption rating. Line 1: sale at $88,000.00, threshold $80,809 for 2026-27, $7,191.00 over $2,157.30 Line 2: importation at $101,500.00, threshold $80,809 for 2026-27, $20,691.00 over, paid to the Department of Home Affairs, not at 1E $6,207.30 Luxury car tax on sales $2,157.30 Increasing adjustments $0.00 Label 1E on the BAS, in whole dollars $2,157.00 Decreasing adjustments $0.00 Label 1F on the BAS, in whole dollars $0.00 Luxury car tax on importations, paid to the Department of Home Affairs $6,207.30
+
+## How the luxury car tax calculator works
+
+The luxury car tax calculator works out the tax on a tax period’s sales and importations of luxury cars in 2019-20 to 2026-27, with the price and change of use adjustments and labels 1E and 1F on the business activity statement. Each car takes the threshold for the financial year of its supply or importation, or the fuel-efficient car limit for a car rated at most 3.5 litres per 100 km from 1 July 2025 and at most 7 litres before. The tax is 33% of the GST-exclusive value over that threshold. Tax on an importation is shown apart, because it is paid to the Department of Home Affairs with any customs duty. A primary producer’s or tourism operator’s refund of the tax borne on a refund-eligible car, up to $10,000, is shown apart too, because it is claimed on the ATO’s form.
+
+Its results match the luxury-car-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 306 test cases, refusals included.
+
+## What the luxury car tax calculator does not cover
+
+The calculator does not decide whether a vehicle is a car or a luxury car, whether you could quote or a supply is taxable, the value of a car sold with other goods, or whether a car is refund-eligible: you state those. It does not work bad debt adjustments, the adjustments in subsections 15-30(1A) and (3A), a public institution’s adjustment, the credit for an entity that is not registered, the refund for cars supplied before 1 July 2019, or which tax period a line belongs to. It refuses a tax period outside 2019-20 to 2026-27, a supply year outside 2012-13 to the tax period’s, and a second primary producer refund in the period. A primary producer’s refund in an earlier period of the same year also rules out another, which the page cannot see.
+
+Confirm the result with the ATO’s luxury car tax guidance or a registered tax or BAS agent before relying on it. The vehicle classifier shows whether a vehicle is a car for luxury car tax.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Luxury car tax calculator
+
+Case | Inputs | Result
+The ATO’s Matty Bee Motors sells an $88,000 car in 2026-27 for $2,157.30 of tax, and Jimmy imports his Mustang for $6,207.30, paid to Home Affairs | 2026-27; line 1: sale, value $88,000.00, no fuel consumption rating; line 2: importation, value $101,500.00, no fuel consumption rating | luxury car tax on sales $2,157.30, label 1E $2,157.00, label 1F $0.00, on importations $6,207.30
+From 1 July 2025 a car rated 3.5 litres per 100 km takes the fuel-efficient car limit of $91,661: $1,001.70 on $95,000 | 2026-27; line 1: sale, value $95,000.00, rated 3.5 litres per 100 km | luxury car tax on sales $1,001.70, label 1E $1,001.00
+A car rated 5 litres keeps the 7 litre rating only if supplied or imported and used other than for a quotable purpose before 1 July 2025 (item 4(2)): $1,001.70, otherwise $4,257.30 | 2026-27; line 1: sale, value $95,000.00, rated 5 litres per 100 km, supplied or imported and used other than for a quotable purpose before 1 July 2025; line 2: sale, value $95,000.00, rated 5 litres per 100 km, not supplied or imported and used other than for a quotable purpose before 1 July 2025 | luxury car tax on sales $5,259.00, label 1E $5,259.00
+Price and change of use adjustments: increasing ones join the sales at 1E, decreasing ones go to 1F, each in whole dollars | 2026-27; line 1: price adjustment, supplied in 2025-26, corrected value $85,000.00, no fuel consumption rating, $2,157.30 previously attributed; line 2: change of use, increasing adjustment, supplied in 2025-26, value $100,000.00, no fuel consumption rating; line 3: change of use, decreasing adjustment, $5,829.90 payable on the supply; line 4: sale, value $88,000.00, no fuel consumption rating | luxury car tax on sales $2,157.30, increasing adjustments $5,829.90, decreasing adjustments $6,657.30, label 1E $7,987.00, label 1F $6,657.00
+Refunds are the lesser of the tax borne and $10,000, claimed on the ATO’s form and kept off the BAS | 2026-27; line 1: refund, supplied in 2026-27, to a primary producer, refund-eligible car, $12,000.00 borne; line 2: refund, supplied in 2026-27, to a tourism operator, refund-eligible car, $4,000.00 borne | refunds $14,000.00, label 1E $0.00, label 1F $0.00
+A primary producer is refunded for one car a financial year (section 18-5(4)) | 2026-27; line 1: refund, supplied in 2026-27, to a primary producer, refund-eligible car, $12,000.00 borne; line 2: refund, supplied in 2026-27, to a primary producer, refund-eligible car, $1,000.00 borne | Refused: a primary producer is refunded for one car a financial year (LCT Act s 18-5(4)): give at most one primary producer refund
+2027-28’s thresholds are not yet published | 2027-28; line 1: sale, value $90,000.00, no fuel consumption rating | Refused: choose a tax period in a financial year from 2019-20 to 2026-27
+
+One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- australian-accounting: https://github.com/ryanduguid/australian-accounting
+- vehicle classifier: https://duguid.com.au/tools/business-calculators/vehicle-class/
 - forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---

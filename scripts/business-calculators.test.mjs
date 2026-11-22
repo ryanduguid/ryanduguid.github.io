@@ -5521,6 +5521,122 @@ test('ASIC late fees refuse what the page does not decide', () => {
   assert.deepEqual(blank.rows, [['ASIC fee, no GST', '$1,591.00']]);
 });
 
+// The luxury car tax page: how each call and result reads, its form, the thresholds the site's
+// other car pages hold and the command it ports, run on the same cases.
+const lctHtml = readFileSync(new URL('../_includes/calculators/luxury-car-tax.html', import.meta.url), 'utf8');
+Object.assign(INPUTS, { luxuryCarTax: (x) => calculations.lctInputsText(x, ftcAud) });
+Object.assign(FORM_CALLS, { luxuryCarTax: (f) => [calculations.lctFormInput((name) => f[name] ?? '')] });
+Object.assign(ENGINE_LABELS, { luxuryCarTax: { onSales: 'luxury car tax on sales', increasing: 'increasing adjustments',
+  decreasing: 'decreasing adjustments', label1e: (v) => `label 1E ${dollars(v)}`, label1f: (v) => `label 1F ${dollars(v)}`,
+  onImportations: 'on importations', refunds: 'refunds' } });
+const lctCode = (input) => {
+  try {
+    calculations.luxuryCarTax(input);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+const lctForm = (change = {}) => {
+  const fields = { ...formDefaults(lctHtml), ...change };
+  return calculations.lctFormInput((name) => fields[name] ?? '');
+};
+
+test('the luxury car tax page opens on the result its calculation gives, and dates its sources', () => {
+  const example = lctHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" %\}/);
+  const fields = formDefaults(lctHtml);
+  const result = calculations.luxuryCarTaxResult((name) => fields[name] ?? '', ftcAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note],
+    [...example.slice(1), undefined]);
+  assert.equal(result.rows[result.principal][0], 'Label 1E on the BAS, in whole dollars');
+  assert.equal((lctHtml.match(/read 22 November 2026/g) ?? []).length, 6);
+  const years = [...lctHtml.match(/<select name="year"[^>]*>(.*?)<\/select>/s)[1].matchAll(/value="([^"]+)"/g)].map(([, y]) => y);
+  assert.deepEqual(years, [...calculations.LCT_YEARS].reverse());
+  const supplied = [...lctHtml.match(/<select name="supplied-1"[^>]*>(.*?)<\/select>/s)[1].matchAll(/value="([^"]*)"/g)].map(([, y]) => y);
+  assert.deepEqual(supplied, ['', ...calculations.LCT_THRESHOLDS.map(([y]) => y).reverse()]);
+});
+
+// QC38161's table is held once here; the vehicle classifier, the novated lease and the electric
+// car FBT pages hold their own copies of some years.
+test('luxury car tax thresholds agree with every other copy on the site', async () => {
+  const table = Object.fromEntries(calculations.LCT_THRESHOLDS.map(([y, efficient, general]) => [y, { efficient, general }]));
+  const { FUEL_EFFICIENT_THRESHOLD } = await import('../assets/novated-lease.mjs');
+  for (const [year, limit] of [...Object.entries(FUEL_EFFICIENT_THRESHOLD), ...Object.entries(FUEL_EFFICIENT_THRESHOLDS)]) {
+    assert.equal(table[year].efficient, limit, year);
+  }
+  const vehicle = readFileSync(new URL('../_includes/calculators/vehicle-class.html', import.meta.url), 'utf8');
+  const radios = [...vehicle.matchAll(/name="year" value="([^"]+)" data-car-limit="\d+" data-fuel-efficient="(\d+)" data-other="(\d+)"/g)];
+  assert.ok(radios.length >= 2);
+  for (const [, year, efficient, general] of radios) assert.deepEqual(table[year], { efficient: Number(efficient), general: Number(general) }, year);
+});
+
+test('the luxury car tax form sends only the fields each line’s kind takes', () => {
+  assert.deepEqual(lctForm({ 'earlier-2': '50', 'attributed-1': '9', 'borne-1': '1' }).lines, [
+    { kind: 'sale', luxury_car_tax_value: '88000', fuel_consumption_litres_per_100km: null },
+    { kind: 'importation', luxury_car_tax_value: '101500', fuel_consumption_litres_per_100km: null }]);
+  // The item 4(2) answer goes only where it decides the rating; a blank one there is refused.
+  assert.equal(lctForm({ 'rating-1': '5', 'used-before-1': 'yes' }).lines[0].used_before_1_july_2025, true);
+  assert.equal(lctForm({ 'rating-1': '8', 'used-before-1': 'yes' }).lines[0].used_before_1_july_2025, undefined);
+  assert.equal(lctForm({ year: '2024-25', 'rating-1': '5', 'used-before-1': 'no' }).lines[0].used_before_1_july_2025, undefined);
+  assert.equal(lctCode(lctForm({ 'rating-1': '5' })), 'input.missing_field');
+  // An adjustment's supply year is never assumed.
+  const adjustment = { 'kind-3': 'price_adjustment', 'value-3': '90000', 'attributed-3': '0' };
+  assert.equal(lctCode(lctForm(adjustment)), 'input.missing_field');
+  assert.deepEqual(lctForm({ ...adjustment, 'supplied-3': '2024-25', 'earlier-3': '' }).lines[2], { kind: 'price_adjustment', supplied_in: '2024-25',
+    corrected_luxury_car_tax_value: '90000', fuel_consumption_litres_per_100km: null, previously_attributed_lct: '0' });
+  const refund = { 'kind-1': 'refund', 'supplied-1': '2025-26', 'claimant-1': 'primary_producer', 'eligible-1': 'no', 'borne-1': '5' };
+  assert.deepEqual(lctForm({ ...refund, 'kind-2': 'change_of_use_decreasing', 'on-supply-2': '10' }).lines,
+    [{ kind: 'refund', supplied_in: '2025-26', claimant: 'primary_producer', refund_eligible_car: false, lct_borne: '5' },
+      { kind: 'change_of_use_decreasing', lct_payable_on_supply: '10' }]);
+  // A refund's claimant and eligibility are never assumed; without a supply year it takes the tax period's, as the command does.
+  assert.equal(lctCode(lctForm({ ...refund, 'claimant-1': '' })), 'input.missing_field');
+  assert.equal(lctCode(lctForm({ ...refund, 'eligible-1': '' })), 'input.missing_field');
+  assert.equal(lctForm({ ...refund, 'supplied-1': '' }).lines[0].supplied_in, undefined);
+  assert.equal(calculations.luxuryCarTax(lctForm({ ...refund, 'supplied-1': '', 'claimant-1': 'tourism_operator', 'eligible-1': 'yes' })).refunds, 5);
+  // Lines fill in order, so the command's line numbers are the form's.
+  assert.throws(() => lctForm({ 'kind-1': '' }), { message: 'Fill line 1 before line 2.' });
+  assert.throws(() => lctForm({ 'kind-1': '', 'kind-2': '' }), { message: 'Choose what at least one line is.' });
+});
+
+test('a luxury car tax price adjustment states its corrected tax after the earlier tax, and an unchanged one no adjustment', () => {
+  const fields = { ...formDefaults(lctHtml), 'kind-2': 'price_adjustment', 'supplied-2': '2026-27', 'value-2': '88000', 'earlier-2': '1000',
+    'attributed-2': '1157.30' };
+  const [text, amount] = calculations.luxuryCarTaxResult((name) => fields[name] ?? '', ftcAud).rows[1];
+  assert.equal(text, 'Line 2: price adjustment, corrected value $88,000.00, threshold $80,809 for 2026-27, $7,191.00 over, '
+    + 'corrected tax $1,157.30 after $1,000.00 already payable on the car against $1,157.30 attributed: no adjustment');
+  assert.equal(amount, '$0.00');
+});
+
+test('luxury car tax rounds half up to the cent and drops the cents at 1E and 1F', () => {
+  const sale = (value) => ({ kind: 'sale', luxury_car_tax_value: value, fuel_consumption_litres_per_100km: null });
+  // $0.05 over is $0.015 of tax, $0.02; $0.01 over is $0.003, nil.
+  const r = calculations.luxuryCarTax({ year: '2026-27', lines: [sale('80809.05'), sale('80809.01'), sale('80809.00')] });
+  assert.deepEqual(r.lines.map((l) => l.payable), [0.02, 0, 0]);
+  const labels = calculations.luxuryCarTax({ year: '2026-27', lines: [sale('80812.30'), { kind: 'change_of_use_decreasing', lct_payable_on_supply: '1.99' }] });
+  assert.deepEqual([labels.onSales, labels.label1e, labels.decreasing, labels.label1f], [0.99, 0, 1.99, 1]);
+});
+
+// The command this page ports, run on the same cases: see the fixture's engine line.
+test('luxury car tax agrees with the australian-accounting command on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./luxury-car-tax-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length > 300);
+  assert.match(lctHtml, new RegExp(`the ATO’s examples and ${cases.length} test cases`));
+  const fixed = (v) => v.toFixed(2);
+  for (const { source, call, amounts, refused } of cases) {
+    if (refused) {
+      assert.equal(lctCode(call), refused, source);
+      continue;
+    }
+    const r = calculations.luxuryCarTax(call);
+    assert.deepEqual({ lct_on_sales: fixed(r.onSales), increasing_adjustments: fixed(r.increasing), decreasing_adjustments: fixed(r.decreasing),
+      label_1e: fixed(r.label1e), label_1f: fixed(r.label1f), lct_on_importations: fixed(r.onImportations), refunds: fixed(r.refunds),
+      lines: r.lines.map((l) => [l.threshold === undefined ? null : String(l.threshold), l.kind === 'price_adjustment'
+        ? (l.decreasing === undefined ? fixed(l.increasing) : `-${fixed(l.decreasing)}`)
+        : fixed({ sale: l.payable, importation: l.tax, change_of_use_increasing: l.increasing, change_of_use_decreasing: l.decreasing, refund: l.refund }[l.kind])]),
+      rates: [String(r.threshold), String(r.fuelEfficientLimit)], warnings: r.warnings.length > 0 }, amounts, source);
+  }
+});
+
 // The ATO penalties and interest page: its example, the command it ports, the form's narrowing of the command's input,
 // the SIC and credit rates read from the one GIC table, the penalty unit by date and the refusals. The rules and vectors
 // are the build 7 spec of 22 November 2026 (ATO GIC and SIC rate pages, last updated 4 September 2026; Penalty units,

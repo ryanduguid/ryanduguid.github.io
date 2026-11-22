@@ -128,9 +128,6 @@
     "tools/business-calculators/asic-fees/index.html": [
       "1695328325c3bd061d256303275f3872f33eaa53076df801b420bfcb01529583"
     ],
-    "tools/business-calculators/ato-penalties-interest/index.html": [
-      "9701e07b21ac58400f4a4351c2753cc39a7b15c9251ca4774488c62dbd0180d9"
-    ],
     "tools/business-calculators/borrowing-expenses/index.html": [
       "6f8f8003512eb912605cb8e0644a74b9a2716e82770a6faec7695fa7caa25a65"
     ],
@@ -223,6 +220,9 @@
     ],
     "tools/business-calculators/long-service-leave/index.html": [
       "82ce9cc18a397702a9ff1bf6c9aeabd661e73592a9ea8fe3b7781422895f4278"
+    ],
+    "tools/business-calculators/luxury-car-tax/index.html": [
+      "aa64115f63ffddc33bb43b51e72d26adfb662e7e31d074f24825bdf1151fd72c"
     ],
     "tools/business-calculators/margin/index.html": [
       "0405f7f6b46102d0a58f67be6febab087ef4ef2609b18624e479c59be22518bb"
@@ -391,9 +391,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "6d544409f05efa7fae92bf9802bc4b797b6be7fee6f66ab6bd98cc910e0283ee",
+    "llms.txt": "d2725de08e9476b4c672e073a20727aaca0fd4f4b1d43f266904f4e55c2d26d5",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "6c19fa578dd14b362a7e2e5c9cb0520082b417acac8f3b4c057bebed66eaed05"
+    "sitemap.xml": "ab59d67dad1defe3febcc156569a6eddcbc1432eb6e3af372a717eb5d93debad"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
