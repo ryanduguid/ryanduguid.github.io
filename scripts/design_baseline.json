@@ -179,6 +179,9 @@
     "tools/business-calculators/fbt-property/index.html": [
       "76ded7588fa5b5cc6d1a6fa7dec9d12c842b1efd52b0c16961cbcd56c1b5cc44"
     ],
+    "tools/business-calculators/first-home-owner-grant/index.html": [
+      "d794e7cb5738997733fe6d98c70aa5c97d787056390de607dd418fcf44610366"
+    ],
     "tools/business-calculators/fixed-fee/index.html": [
       "e1198c42068b0a1efcce7d97f816d745959010519552ca7f65d83a4b2f9caec6"
     ],
@@ -258,7 +261,7 @@
       "b055a3fecec1e12e11404b465cc1031bccc9254058bbd4566e22509430287508"
     ],
     "tools/business-calculators/transfer-duty/index.html": [
-      "2c05da53575a5ff6498811b90b04837bee5c5f6f2a99f2da383d66e5a728bf86"
+      "60f38f03529a188a751b350e5cd40c26a7000e5b14a3151b097502e4ac7c574a"
     ],
     "tools/business-calculators/unused-leave/index.html": [
       "3697b29370be595bc2dedd087dfc4ac7aa45ea278d3c11ab7ebac05cab502c88"
@@ -391,9 +394,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "d2725de08e9476b4c672e073a20727aaca0fd4f4b1d43f266904f4e55c2d26d5",
+    "llms.txt": "ed0e5534a19caed5b25fb79d95c1934c45d81af2796b89916af9363d30cdd17e",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "ab59d67dad1defe3febcc156569a6eddcbc1432eb6e3af372a717eb5d93debad"
+    "sitemap.xml": "7bd5b5a7c386ba04904c2c1339b1abac6f02ef7b0307ea35851bb9f389d10eed"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -453,7 +456,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7799,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7800,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

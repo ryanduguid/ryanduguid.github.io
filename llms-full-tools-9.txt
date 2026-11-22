@@ -95,7 +95,7 @@ The ACT’s foreign ownership surcharge, worked by hand | Australian Capital Ter
 Western Australia has no trust rates here | Western Australia, trust rates, $1,500,000.00 | Refused: this calculator has no trust rates for Western Australia
 Cents are refused | New South Wales, $1,100,000.50 | Refused: enter a whole number between 0 and 1000000000
 
-One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -117,7 +117,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - which land the foreign investor land tax surcharge applies to: https://www.sro.tas.gov.au/land-tax/foreign-investor-land-tax-surcharge/rate-of-surcharge
 - land tax exemptions: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/land-tax-exemptions
 - when the foreign ownership surcharge applies: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/foreign-ownership-surcharge-for-land-tax
-- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -167,7 +167,7 @@ For an eligible first home buyer, the calculator applies the state or territory�
 
 The NSW Government’s 2026-27 table gives $9,796.75 on $850,000, $19,593.50 on $900,000, $29,390.25 on $950,000 and $37,227.65 on $990,000. Revenue NSW’s First Home Buyers Assistance calculator gave $38,991.06 on $999,000 and $20 on $800,001 when tried on 16 November 2026. The Queensland Revenue Office gives $6,555 on $730,000 and $24,100 on $850,000 for an established first home. For Victoria and Western Australia the tests work examples by hand: $24,713.33 on $700,000 in Victoria and $16,150 on $700,000 in Western Australia.
 
-First home owner grants are payments to the buyer, not duty concessions, and are not computed: New South Wales, Victoria, Queensland, Western Australia, South Australia, Tasmania, the Northern Territory’s HomeGrown Territory Grant, and the Australian Capital Territory’s First Home Owner Grant, which stopped on 1 July 2019.
+First home owner grants are payments to the buyer, not duty concessions; the first home owner grant calculator works them out beside this duty. The sources: New South Wales, Victoria, Queensland, Western Australia, South Australia, Tasmania, the Northern Territory’s HomeGrown Territory Grant, and the Australian Capital Territory’s First Home Owner Grant, which stopped on 1 July 2019.
 
 ## What the transfer duty calculator does not compute
 
@@ -213,7 +213,7 @@ No first home buyer concession in Tasmania | Tasmania, $500,000.00, first home b
 The ACT Home Buyer Concession Scheme has no value limit | Australian Capital Territory, $1,500,000.00, first home buyer, established home | Duty $0.00, general duty $68,100.00
 Cents are refused | New South Wales, $1,350,000.50 | Refused: enter a whole number between 1 and 1000000000
 
-One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -222,6 +222,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - transfer duty rate table: https://duguid.com.au/rates/transfer-duty/
+- first home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 - New South Wales: https://www.revenue.nsw.gov.au/grants-schemes/first-home-owner-new-homes-grant
 - Victoria: https://www.sro.vic.gov.au/first-home-owner
 - Queensland: https://qro.qld.gov.au/property-concessions-grants/first-home-grant/
@@ -231,7 +232,101 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - HomeGrown Territory Grant: https://nt.gov.au/property/home-owner-assistance/buy-build-new-home
 - First Home Owner Grant: https://www.revenue.act.gov.au/home-buyer-assistance/first-home-owner-grant
 - foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
-- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# First home owner grant calculator for every state and territory
+
+Source: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
+
+> First home owner grants in all 8 states and territories for contracts from 1 July 2025: the amount and value cap by date, the eligibility facts and the first home buyer transfer duty.
+
+# First home owner grant calculator
+
+The first home owner grant in each Australian state and territory for a new home bought or built, by contract date and value cap, beside the transfer duty for an eligible first home buyer.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+First home owner grant inputs
+
+State or territory New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
+
+Home New home bought, including off the plan New home built under a contract with a builder, including a house and land package Established home
+
+Date the contract was made Total value of the home and land (whole dollars) Western Australia only: where the home is South of the 26th parallel, including all of Perth North of the 26th parallel
+
+Facts you state (untick any that is not true) Every applicant is a person, not a company or trust, aged 18 or over At least one applicant is an Australian citizen or permanent resident, or in a group the jurisdiction also accepts No applicant or spouse has received a first home owner grant, held a home in Australia before 1 July 2000, or lived for 6 continuous months in one they owned since The applicants will meet the jurisdiction’s residence requirement, shown with the result
+
+For contracts made from 1 July 2025 to 22 November 2026, the day the grant rules were read. Owner-builders and substantially renovated homes are not covered.
+
+The value the jurisdiction tests against its cap: for a home bought, the price (Victoria uses the contract price for an off-the-plan home); for a home built, the land and the building contract with its variations. Transfer duty is worked out on the same figure as the dutiable value, using the transfer duty calculator’s rates.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, contract 1 August 2026, new home bought, total value $600,000.00, every eligibility fact stated. First home owner grant $10,000.00 Value cap up to $600,000 Residence requirement you stated each applicant lives in the home for 12 continuous months, starting within 12 months Transfer duty for an eligible first home buyer $0.00 General transfer duty on the same value $21,187.00
+
+## How the first home owner grant calculator works
+
+The first home owner grant calculator gives the grant for a first home buyer who buys or builds a new home under a contract made from 1 July 2025 to 22 November 2026, beside the transfer duty the same buyer pays. It takes the amount and the value cap in force on the contract date, and pays nothing above the cap or for an established home.
+
+- New South Wales: $10,000; the price must not exceed $600,000 for a home bought, and the land and building contract $750,000 for a home built.
+- Victoria: $10,000 for a home worth up to $750,000.
+- Queensland: $30,000, or the consideration if less, for a home worth under $750,000.
+- Western Australia: $10,000. The cap is $800,000 south of the 26th parallel for contracts from 7 May 2026, $750,000 before, and $1,000,000 north of it.
+- South Australia: $15,000, or the consideration if less, with no value cap.
+- Tasmania: $30,000 for contracts from 1 July 2025 to 30 June 2026, then $20,000 to 30 June 2027, with no value cap.
+- Northern Territory: the HomeGrown Territory Grant of $50,000, with no value cap. The contract must not replace one signed before 1 October 2024.
+- Australian Capital Territory: no grant since 1 July 2019. The territory’s Home Buyer Concession Scheme is a duty concession, and the duty result applies it.
+
+Each grant needs every applicant to be a person aged 18 or over, at least one applicant to be an Australian citizen or permanent resident, no applicant or spouse to have had a grant or a home in Australia as the source describes, and the residence requirement to be met: 12 continuous months starting within 12 months in New South Wales; 12 months for at least one applicant in Victoria; 6 continuous months starting within 12 months in Queensland, Western Australia, South Australia and Tasmania; and 12 months after taking possession or completion in the Northern Territory. You state these facts; the calculator does not test them, and it computes nothing until all 4 are stated.
+
+For a home bought, the result adds the transfer duty calculator’s duty for an eligible first home buyer and its general duty on the same value, for contracts its rates cover: from 1 July 2025 in Victoria, Queensland, South Australia and the Northern Territory, from 7 May 2026 in Western Australia, and from 1 July 2026 in New South Wales, Tasmania and the Australian Capital Territory. Earlier contracts there get the grant without the duty.
+
+## What the first home owner grant calculator does not compute
+
+The calculator refuses a contract dated before 1 July 2025 or after 22 November 2026, and a value below the grant amount outside Queensland and South Australia, where the sources read did not confirm the rule. It does not cover owner-builders, substantially renovated homes, the ADF and family violence exemptions, the Commissioner’s discretion over the residence requirement, or schemes that are not first home owner grants, such as regional building grants, shared equity schemes and Commonwealth deposit schemes. For a home built, the duty falls on the land, and the first home buyer concessions on vacant land are not computed. Confirm the grant with the revenue office or an approved agent before relying on it.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: First home owner grant calculator
+
+Case | Inputs | Result
+The opening example: a new home bought in New South Wales at the $600,000 cap | New South Wales, contract 1 August 2026, new home bought, total value $600,000.00, every eligibility fact stated | Grant $10,000.00
+One dollar over the New South Wales cap for a home bought | New South Wales, contract 1 August 2026, new home bought, total value $600,001.00, every eligibility fact stated | Grant $0.00, the value is over the New South Wales cap
+A home built in New South Wales takes the $750,000 cap | New South Wales, contract 1 August 2025, new home built under a contract, total value $750,000.00, every eligibility fact stated | Grant $10,000.00
+Victoria pays on a home worth up to $750,000 | Victoria, contract 1 September 2025, new home bought, total value $750,000.00, every eligibility fact stated | Grant $10,000.00
+Victoria pays nothing a dollar above $750,000 | Victoria, contract 1 September 2025, new home bought, total value $750,001.00, every eligibility fact stated | Grant $0.00, the value is over the Victoria cap
+Queensland pays $30,000 under $750,000 (section 20) | Queensland, contract 1 October 2025, new home bought, total value $749,999.00, every eligibility fact stated | Grant $30,000.00
+Queensland pays nothing at $750,000 or more (section 5(6)) | Queensland, contract 1 October 2025, new home bought, total value $750,000.00, every eligibility fact stated | Grant $0.00, the value is $750,000 or more
+Queensland pays the consideration if it is less than $30,000 (section 20(1)(a)) | Queensland, contract 1 October 2025, new home bought, total value $20,000.00, every eligibility fact stated | Grant $20,000.00, the grant cannot be more than the consideration
+No grant for an established home | Queensland, contract 1 October 2025, established home, total value $730,000.00, every eligibility fact stated | Grant $0.00, the grant is for a new home only
+Western Australia before 7 May 2026: the $750,000 cap | Western Australia, contract 6 May 2026, new home bought, south of the 26th parallel, total value $780,000.00, every eligibility fact stated | Grant $0.00, the value is over the Western Australia cap
+Western Australia from 7 May 2026: the $800,000 cap | Western Australia, contract 7 May 2026, new home bought, south of the 26th parallel, total value $780,000.00, every eligibility fact stated | Grant $10,000.00
+Western Australia north of the 26th parallel: the $1,000,000 cap | Western Australia, contract 1 August 2026, new home bought, north of the 26th parallel, total value $950,000.00, every eligibility fact stated | Grant $10,000.00
+South Australia has no cap from 6 June 2024 | South Australia, contract 1 November 2025, new home bought, total value $2,000,000.00, every eligibility fact stated | Grant $15,000.00
+RevenueSA’s example: a $10,000 home gets a $10,000 grant | South Australia, contract 1 November 2025, new home built under a contract, total value $10,000.00, every eligibility fact stated | Grant $10,000.00, the grant cannot be more than the consideration
+Tasmania pays $30,000 to 30 June 2026 | Tasmania, contract 30 June 2026, new home built under a contract, total value $500,000.00, every eligibility fact stated | Grant $30,000.00
+Tasmania pays $20,000 from 1 July 2026 | Tasmania, contract 1 July 2026, new home built under a contract, total value $500,000.00, every eligibility fact stated | Grant $20,000.00
+The Northern Territory’s HomeGrown Territory Grant has no cap | Northern Territory, contract 1 September 2026, new home bought, total value $1,200,000.00, every eligibility fact stated | Grant $50,000.00
+The Australian Capital Territory has paid no grant since 1 July 2019 | Australian Capital Territory, contract 1 September 2026, new home bought, total value $600,000.00, every eligibility fact stated | Grant $0.00, the Australian Capital Territory has paid none since 1 July 2019
+A contract before 1 July 2025 is not covered | New South Wales, contract 30 June 2025, new home bought, total value $500,000.00, every eligibility fact stated | Refused: not computed: choose a contract date from 1 July 2025 to 22 November 2026, the day the grant rules were read
+A contract after the day the rules were read is not covered | New South Wales, contract 23 November 2026, new home bought, total value $500,000.00, every eligibility fact stated | Refused: not computed: choose a contract date from 1 July 2025 to 22 November 2026, the day the grant rules were read
+A value below the grant outside Queensland and South Australia is refused | New South Wales, contract 1 August 2026, new home bought, total value $5,000.00, every eligibility fact stated | Refused: not computed: a value below the $10,000 grant; the New South Wales rule for that case was not confirmed
+An eligibility fact not stated is refused | New South Wales, contract 1 August 2026, new home bought, total value $500,000.00, not stated: the residence requirement will be met | Refused: not computed: the grant and the first home buyer duty need every eligibility fact stated; not stated: the residence requirement will be met
+
+One of the fifty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
+- fifty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -725,90 +820,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
-
----
-
-# Sole trader tax set-aside calculator for 2026-27: tax and GST
-
-Source: https://duguid.com.au/tools/individual-tax/sole-trader/
-
-> Tax to set aside from sole trader income on top of a job: income tax, the small business income tax offset, Medicare levy, HELP and GST, per invoice and period.
-
-# Sole trader tax set-aside calculator
-
-How much of each invoice a sole trader keeps for tax, Medicare levy, study loan and GST from 2021-22, after the small business income tax offset.
-
-Published 19 November 2026. Last checked 19 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Sole trader inputs for one full income year
-
-Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22
-
-Business income for the year, excluding GST (dollars and cents) Deductible business expenses, excluding GST (dollars and cents) Wages from a job for the year, before tax (dollars and cents) Tax agent fees and gifts claimed (dollars and cents) Personal super contributions claimed (dollars and cents) Does the business qualify for the small business income tax offset? Yes: aggregated turnover under $5 million, not personal services income No
-
-Do you have a study or training loan, such as HELP? No Yes
-
-Did you have private patient hospital cover all year? Yes No
-
-Is the business registered for GST? No Yes
-
-GST credits for the year, if registered (dollars and cents) One invoice, GST included if registered (dollars and cents)
-
-For a resident aged 18 or over, single, all year; every sale is a taxable supply.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, business income $22,000.00 and expenses $2,000.00 excluding GST, wages $60,000.00, other deductions $0.00, qualifies for the small business income tax offset, no study or training loan, with private hospital cover, not registered for GST, invoice $1,000.00. Business profit $20,000.00 Standard deduction on the wages $1,000.00 Taxable income $79,000 Tax on taxable income $14,220.00 Low income tax offset $0.00 Small business income tax offset $576.00 Medicare levy $1,580.00 Total tax, levies and repayment $15,224.00 Less the same on the wages alone $9,285.00 Tax to set aside for the business $5,939.00 Total to set aside for the year $5,939.00 Each quarter $1,484.75 Each month $494.92 Each week $114.21 Share of each invoice to set aside 27.00% From an invoice of $1,000.00, set aside $269.95 As a PAYG instalment rate, 27.00% of business income excluding GST covers this year’s tax on it. A return like this meets 2 of the 3 PAYG instalment entry tests; the ATO works out the third, notional tax, and decides entry. This assumes the wages’ withholding covers the tax, levy and any study loan repayment on the wages alone.
-
-## How the sole trader tax set-aside calculator works
-
-The calculator takes a year’s business income and expenses, any wages from a job and any tax agent fees, gifts or personal super contributions you claim. It works out the year’s income tax, the offsets, the Medicare levy, any Medicare levy surcharge and any study or training loan repayment. It then works the same on the wages alone. The difference is the tax the business adds, which nobody withholds, so it is the amount to set aside from business income.
-
-The small business income tax offset is worked as section 328-360 sets it: 16% of the share of the tax on taxable income that the business profit makes up. On arrival the example shows it below its $1,000 cap: $20,000 of profit is 20/79 of $79,000 of taxable income, so the offset is 16% of 20/79 of $14,220, which is $576.00. The business also costs the low income tax offset the wages alone would have had, $115.00, which the difference picks up.
-
-A business registered for GST also sets aside the GST on its income less its GST credits, paid with each activity statement. The calculator gives one share to keep from every invoice, covering both, and the year’s amount split by quarter, month and week. It also gives the tax as a share of the business income excluding GST, which as a PAYG instalment rate would cover this year’s tax on it.
-
-## What the sole trader tax set-aside calculator does not compute
-
-The calculator is for an Australian resident aged 18 or over with one business as a sole trader, a full year of income and no dependants. It does not compute:
-
-- a business loss, which the non-commercial loss rules in Division 35 may defer, or losses carried forward;
-- personal services income rules, which can deny deductions: see the PSI rules checker;
-- GST-free or input-taxed sales, GST on a cash or accruals basis by period, or a GST refund when credits exceed the GST on income;
-- other income such as interest, dividends, rent or capital gains, or partnership and trust distributions, which change both the tax and the offset’s share, or reportable fringe benefits and salary sacrificed to super from the job, which count in repayment income and income for surcharge purposes;
-- work-related deductions against the wages, which reduce the standard deduction from 2026-27, or a job withheld from at the wrong rate;
-- super guarantee, which a sole trader does not pay for themselves, or personal super contributions beyond entering them as a deduction;
-- a family’s Medicare levy, levy reduction or surcharge, or the seniors and pensioners tax offset;
-- notional tax or the instalment rate the ATO sets, or when each instalment and activity statement is due;
-- a study loan debt smaller than the repayment, which section 154-20(1)(c) of the Higher Education Support Act 2003 caps at what is still owed;
-- 2027-28, whose working Australians tax offset (Subdivision 61-E, added by Act No. 49 of 2026) applies from that year.
-
-Confirm the figures with the ATO’s calculators and tools or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Sole trader tax set-aside calculator
-
-Case | Inputs | Result
-$20,000 of profit on top of $60,000 of wages in 2026-27: the offset is 20/79 of 16% of the tax | 2026-27, business $22,000 less $2,000, wages $60,000, invoice $1,000.00 | Offset $576.00, business tax $5,939.00; set aside $5,939.00 a year, $1,484.75 a quarter, 27.00% of each invoice
-No job, registered for GST: the offset reaches its $1,000 cap | 2026-27, business $90,000 less $15,000, GST registered, credits $1,200, invoice $1,100.00 | Offset $1,000.00, business tax $13,520.00, GST $7,800.00; set aside $21,320.00 a year, $5,330.00 a quarter, 21.54% of each invoice
-No offset: $20,000 of profit on $70,000 of wages adds 30% tax and 2% Medicare levy | 2026-27, business $20,000 less $0, wages $70,000, no offset, invoice $1,000.00 | Offset $0.00, business tax $6,400.00; set aside $6,400.00 a year, $1,600.00 a quarter, 32.00% of each invoice
-2024-25, $29,000 of profit on $131,584 of wages: 16% of $7,359.76 is above the cap | 2024-25, business $29,000 less $0, wages $131,584, invoice $1,000.00 | Offset $1,000.00, business tax $10,070.88; set aside $10,070.88 a year, $2,517.72 a quarter, 34.73% of each invoice
-2025-26 with a study loan and no hospital cover: the repayment and surcharge join the set-aside | 2025-26, business $130,000 less $10,000, study loan, no hospital cover, invoice $1,000.00 | Offset $1,000.00, business tax $37,638.00; set aside $37,638.00 a year, $9,409.50 a quarter, 28.95% of each invoice
-2023-24, other deductions take taxable income below the profit: the offset’s share stops at 1 | 2023-24, business $40,000 less $5,000, other deductions $3,000, invoice $1,000.00 | Offset $419.52, business tax $2,102.48; set aside $2,102.48 a year, $525.62 a quarter, 5.26% of each invoice
-2021-22, $25,000 of profit: the low and middle income offsets leave no tax for this offset | 2021-22, business $25,000 less $0, invoice $1,000.00 | Offset $0.00, business tax $163.50; set aside $163.50 a year, $40.88 a quarter, 0.65% of each invoice
-
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
-- calculators and tools: https://www.ato.gov.au/calculators-and-tools
 - thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
