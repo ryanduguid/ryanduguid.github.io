@@ -795,6 +795,7 @@ const MUTATIONS = [
   { ...rental, name: 'rental property the effect on tax from 2023-24', find: 'if (year.first < 2024) {', replace: 'if (year.first < 2023) {' },
   { ...rental, name: 'rental property the net rent with its cents', find: 'const dropped = (net / 100n) * 100n;', replace: 'const dropped = net;' },
   { ...rental, name: 'rental property the 2^46 dollar limit dropped', find: 'if (steps.some(([, v]) => big(v)))', replace: 'if (steps.some(() => false))' },
+  { ...rentalResult, name: 'rental property the scope answer dropped', find: "if (value('scope') !== '') input.scope_confirmed = value('scope') === 'yes';", replace: '' },
   { ...rentalResult, name: 'rental property the form passes an unanswered question as no', find: "const answered = (key, name) => (value(name) === '' ? {} : { [key]: yes(name) });", replace: 'const answered = (key, name) => ({ [key]: yes(name) });' },
   { ...leave, name: 'unused leave capped parts withheld at 30%', find: 'const FLAT_PERCENT = 32;', replace: 'const FLAT_PERCENT = 30;' },
   { ...leave, name: 'unused leave small payment limit at $200', find: 'const SMALL_PAYMENT = 30000;', replace: 'const SMALL_PAYMENT = 20000;' },

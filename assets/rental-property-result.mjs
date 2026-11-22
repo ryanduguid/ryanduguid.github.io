@@ -45,7 +45,10 @@ export function rentalFormInput(value) {
     loans: numbers(RENTAL_FORM_LOANS).filter((n) => !blank(value(`loan-interest-${n}`))).map((n) => ({ interest: value(`loan-interest-${n}`),
       principal_for_rental: value(`loan-rental-${n}`), principal_total: value(`loan-total-${n}`), redrawn_in_year: value(`loan-redrawn-${n}`) === 'yes' })),
     borrowing_expenses: blank(value('borrowing')) ? '0' : value('borrowing'), capital_works: works, depreciating_assets: assets };
-  if (!blank(value('other-income'))) input.other_taxable_income = value('other-income');
+  // The effect on tax is worked from 2024-25, so an earlier year's net rent is worked without it.
+  if (!blank(value('other-income')) && value('year') >= '2024-25') input.other_taxable_income = value('other-income');
+  // The select is required, so the page sends the answer; a call without it is taken as confirmed.
+  if (value('scope') !== '') input.scope_confirmed = value('scope') === 'yes';
   return input;
 }
 
@@ -99,6 +102,7 @@ export function rentalPropertyResult(value, aud) {
   if (a.travel_denied) notes.push(`Travel of ${aud(a.travel_denied)} at your interest is not deductible (ITAA 1997 s 26-31)`);
   r.assets.forEach((x, i) => { if (x.why) notes.push(`Asset ${i + 1} is nil: ${x.why}`); });
   r.capitalWorks.forEach((w, i) => { if (w.why) notes.push(`Capital works ${i + 1} is nil: ${w.why}`); });
+  if (!('tax_effect' in a) && value('year') < '2024-25') notes.push('The effect on tax is worked from 2024-25 only');
   if ('tax_effect' in a) {
     rows.push([`Tax on ${aud(a.taxable_income_without_rental)} without the rental`, aud(a.tax_without_rental)],
       [`Tax on ${aud(a.taxable_income_with_rental)} with the net rent`, aud(a.tax_with_rental)],

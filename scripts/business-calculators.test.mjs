@@ -5621,6 +5621,19 @@ test('the rental property form leaves out blank items and unanswered questions',
   assert.deepEqual([input.borrowing_expenses, input.days_available, input.disposed, input.loans.length, input.capital_works.length,
     input.depreciating_assets.length, 'other_taxable_income' in input], ['0', '12.5', '2026-06-01', 2, 1, 1, false]);
   assert.deepEqual([input.expenses.travel, input.rental_only_expenses.property_agent_fees], ['436.00', '800.00']);
+  assert.equal('scope_confirmed' in input, false);
+});
+
+// The scope select's answer goes to the engine, and a year before 2024-25 is worked without the effect on tax.
+test('the rental property form sends the scope answer and drops the effect on tax before 2024-25', () => {
+  const read = (more) => (name) => ({ ...formDefaults(rentalHtml), ...more })[name] ?? '';
+  assert.equal(calculations.rentalFormInput(read({ scope: 'yes' })).scope_confirmed, true);
+  assert.equal(rentalCode(calculations.rentalFormInput(read({ scope: 'no' }))), 'scope.not_confirmed');
+  const early = read({ year: '2023-24', acquired: '2020-07-01', days: '366', scope: 'yes', 'asset-decline-1': '', 'asset-decline-2': '' });
+  assert.equal('other_taxable_income' in calculations.rentalFormInput(early), false);
+  const shown = calculations.rentalPropertyResult(early, rentalAud);
+  assert.equal(shown.rows.length, 3);
+  assert.match(shown.note, /The effect on tax is worked from 2024-25 only/);
 });
 
 // The command this page ports, run on the same cases: see the fixture's engine line.

@@ -1099,14 +1099,13 @@ test('luxury car tax page works its example, a refund and a refusal offline', as
   await expect(form.locator('output')).toContainText('Line 3: choose the financial year of the supply, whose threshold applies.');
 });
 
-// The ATO's rebate table for 2026-27 (QC22758) is the form's default; the average wholesale price method is
-// refused for wine that is not grape wine (section 9-30).
 // The guide's Example 33 worksheet with $90,000 of other income is the form's default; a holiday home whose costs
 // section 26-50 denies is refused.
 test('rental property page works the guide’s Example 33, lists each deduction and refuses a holiday home offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/rental-property/');
   const form = page.locator('#rental-property form');
   await waitForCalculator(form);
+  await form.locator('select[name="scope"]').selectOption('yes');
   await context.setOffline(true);
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output .result-row--principal')).toHaveText('Net rent, a loss if negative: −$10,893.33.');
@@ -1120,6 +1119,8 @@ test('rental property page works the guide’s Example 33, lists each deduction 
   await expect(deductions).toBeHidden();
 });
 
+// The ATO's rebate table for 2026-27 (QC22758) is the form's default; the average wholesale price method is
+// refused for wine that is not grape wine (section 9-30).
 test('wine equalisation tax page works the ATO’s rebate table, shows each dealing and refuses the average method for other wine offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/wine-equalisation-tax/');
   const form = page.locator('#wine-equalisation-tax form');
@@ -1599,6 +1600,9 @@ for (const id of CALCULATORS) {
       copy.querySelector('.result-example').remove();
       return copy.textContent;
     });
+    // A page that asks the reader to confirm its scope is answered first, as a reader would.
+    const scope = form.locator('select[name="scope"]');
+    if (await scope.count()) await scope.selectOption('yes');
     await form.getByRole('button', { name: 'Calculate', exact: true }).click();
     await expect(output.locator('.result-example')).toHaveCount(0);
     // The cash result also names week 1's first day, which the page sets to today.
