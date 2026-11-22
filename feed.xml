@@ -8,11 +8,11 @@
   <updated>2026-11-22T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
-    <title>A new individual tax calculator, super co-contribution, LISTO and spouse…</title>
-    <link href="https://duguid.com.au/changelog/#entry-23128dbab90350fa" />
-    <id>https://duguid.com.au/changelog/#entry-23128dbab90350fa</id>
+    <title>A new business calculator works out the tax on one superannuation lump sum from…</title>
+    <link href="https://duguid.com.au/changelog/#entry-904f904ae41547f4" />
+    <id>https://duguid.com.au/changelog/#entry-904f904ae41547f4</id>
     <updated>2026-11-22T00:00:00Z</updated>
-    <summary>A new individual tax calculator, super co-contribution, LISTO and spouse offset, works the government’s super co-contribution, the low income super tax offset and the spouse contribution tax offset for 2020-21 to 2026-27 from one set of answers. It applies each year’s income thresholds, the $500 maximum and 3.333 cent taper, the $20 minimum, LISTO’s 15% between $10 and $500, and the spouse offset’s 18% of up to $3,000, shows each condition met or not and rounds a payment up to 5 cents. It refuses temporary visa holders and an unknown cap or balance answer that would decide an amount.</summary>
+    <summary>A new business calculator works out the tax on one superannuation lump sum from a complying fund paid in 2020-21 to 2026-27: its tax free component by the proportioning rule, its elements taxed and untaxed in the fund, and the most income tax each part can bear before the Medicare levy, for a member by age and preservation age with the low rate cap and untaxed plan cap, and for a death benefit to a dependant or a non-dependant. The Act and the ATO’s caps were read on 22 November 2026; the page reproduces the ATO’s examples and agrees with the super-benefit-tax command of the australian-accounting calculators on every tested case.</summary>
   </entry>
   <entry>
     <title>A new individual tax calculator, work expenses, works an employee’s working…</title>
