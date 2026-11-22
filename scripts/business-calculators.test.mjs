@@ -736,6 +736,10 @@ ENGINE_LABELS.fbtEvExemption = { exempt: (v) => (v ? 'exempt' : 'not exempt'), s
   threshold: (v) => (v === null ? 'after the FBT year' : `threshold ${dollars(v)}`) };
 // The ASIC fees page's rows (its tests are with the page's other tests below).
 Object.assign(INPUTS, { asicFee: (x) => calculations.asicFeeInputsText(x) });
+Object.assign(INPUTS, { atoPenaltiesInterest: (x) => calculations.atoPenaltiesInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { atoPenaltiesInterest: { gic: 'GIC', balance: 'balance owing', sic: 'SIC', penalty: 'penalty',
+  interestPayable: 'interest payable' } });
 Object.assign(ENGINE_LABELS, { asicFee: { amount: (v) => `fee ${dollars(v)}`, code: (v) => `ASIC code ${v}`, tier: (v) => v,
   firstMonthEnds: (v) => `first month ends ${longDay(v)}` } });
 
@@ -1193,6 +1197,7 @@ Object.assign(FORM_CALLS, {
     incomeUse: f['income-use'], portionDeduction: f['portion-deduction'], price: f.price, notional: f.notional, available: f.available }],
 });
 Object.assign(FORM_CALLS, { asicFee: (f) => [calculations.asicFeeFormInput((name) => f[name] ?? '')] });
+Object.assign(FORM_CALLS, { atoPenaltiesInterest: (f) => [calculations.atoPenaltiesFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { lowValuePool: (f) => [calculations.poolFormInput((name) => f[name] ?? '').input] });
 
@@ -5980,4 +5985,137 @@ test('the super lump sum tax form leaves the low rate cap out on the 60th birthd
   assert.equal(sbtForm(sixty).low_rate_cap_used, undefined);
   assert.equal(sbtCode(sbtForm(sixty)), 'computed');
   assert.equal(sbtForm({ ...sixty, paid: '2021-02-28' }).low_rate_cap_used, '0');
+});
+
+// The ATO penalties and interest page: its example, the command it ports, the form's narrowing of the command's input,
+// the SIC and credit rates read from the one GIC table, the penalty unit by date and the refusals. The rules and vectors
+// are the build 7 spec of 22 November 2026 (ATO GIC and SIC rate pages, last updated 4 September 2026; Penalty units,
+// last updated 26 June 2026; TAA 1953 Sch 1 ss 284-90, 284-225 and 286-80; Overpayments Act ss 8A to 12E).
+const atoHtml = readFileSync(new URL('../_includes/calculators/ato-penalties-interest.html', import.meta.url), 'utf8');
+const atoAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const ato = calculations.atoPenaltiesInterest;
+const atoCode = (input) => {
+  try {
+    ato(input);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+const atoFields = (more) => { const fields = { ...formDefaults(atoHtml), ...more }; return (name) => fields[name] ?? ''; };
+
+test('the ATO penalties page opens on spec G9 and dates its sources', () => {
+  const example = atoHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const result = calculations.atoPenaltiesInterestResult(atoFields({}), atoAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  assert.deepEqual(result.tables.working, [['21 November 2025 to 31 December 2025', '41 days', '10.61% a year'],
+    ['1 January 2026 to 31 March 2026', '90 days', '10.65% a year'], ['1 April 2026 to 30 June 2026', '91 days', '10.96% a year']]);
+  for (const cited of ['General interest charge (GIC) rates</a> (last updated 4 September 2026)', 'Penalty units</a> (last updated 26 June 2026), read 22 November 2026',
+    'Credit interest rates and calculation</a> (last updated 19 June 2026), read 22 November 2026', 'each the GIC rate less 4 percentage points']) {
+    assert.ok(atoHtml.includes(cited), cited);
+  }
+});
+
+test('ATO penalties and interest agree with the australian-accounting command on every differential case', () => {
+  const { engine, cases } = JSON.parse(readFileSync(new URL('./ato-penalties-interest-engine-differential.json', import.meta.url), 'utf8'));
+  assert.match(engine, /89dd76fb54f9057f317323c723e209082ad35dfb/);
+  assert.ok(cases.length > 650);
+  const f = (v) => v.toFixed(2);
+  const stretches = (xs) => xs.map((s) => ({ from: s.from, to: s.to, days: s.days, annual_rate_percent: f(s.rate), ...(s.assumed ? { assumed: true } : {}) }));
+  const part = (p) => ({ part: p.part, behaviour: p.behaviour,
+    ...(p.penaltyUnits !== undefined ? { penalty_units: String(p.penaltyUnits), penalty_unit: String(p.penaltyUnit) } : {
+      shortfall_amount: f(p.shortfallAmount), ...(p.acceptedWayAmount ? { accepted_way_amount: f(p.acceptedWayAmount) } : {}),
+      ...(p.aboveThreshold === null ? {} : { above_reasonably_arguable_threshold: p.aboveThreshold }), base_percentage: String(p.basePercentage) }),
+    base_penalty_amount: f(p.basePenaltyAmount), increase_percent: String(p.increasePercent), reduction: p.reduction, disclosure: p.disclosure, penalty: f(p.penalty) });
+  const shape = {
+    gic: (r) => ({ amounts: { gic: f(r.gic), paid: f(r.paid), balance: f(r.balance) },
+      rates: r.assumedRate === null ? {} : { assumed_annual_rate_percent: f(r.assumedRate) }, days: r.days, stretches: stretches(r.stretches), assumed_days: r.assumedDays }),
+    sic: (r) => ({ amounts: { sic: f(r.sic) }, rates: {}, days: r.days, ...(r.firstDay ? { first_day: r.firstDay, last_day: r.lastDay } : {}), stretches: stretches(r.stretches) }),
+    failure_to_lodge: (r) => ({ amounts: { base_penalty_amount: f(r.basePenaltyAmount), penalty: f(r.penalty) }, rates: { size_multiplier: String(r.multiplier) },
+      days_late: r.daysLate, penalty_units: r.penaltyUnits, periods: r.periods.map((p) => ({ from: p.from, penalty_unit: String(p.unit) })) }),
+    statement_penalty: (r) => ({ amounts: { base_penalty_amount: f(r.basePenaltyAmount), penalty: f(r.penalty) },
+      rates: { penalty_unit: String(r.penaltyUnit), ...(r.threshold === null ? {} : { reasonably_arguable_threshold: f(r.threshold) }) }, parts: r.parts.map(part) }),
+    early_payment_interest: (r) => ({ amounts: { interest: f(r.interest), interest_payable: f(r.interestPayable) }, rates: {}, days_early: r.daysEarly,
+      entitled: r.entitled, days: r.days, ...(r.firstDay ? { first_day: r.firstDay, last_day: r.lastDay } : {}), stretches: stretches(r.stretches) }),
+    overpayment_interest: (r) => ({ amounts: { refunded: f(r.refunded), interest: f(r.interest), interest_payable: f(r.interestPayable) }, rates: {},
+      attribution: r.attribution.map((a) => ({ paid_on: a.paidOn, attributed: f(a.attributed), first_day: a.firstDay, last_day: a.lastDay, days: a.days,
+        stretches: stretches(a.stretches) })) }),
+  };
+  let refused = 0;
+  for (const { source, call, result, refused: code } of cases) {
+    if (code) {
+      refused += 1;
+      assert.equal(atoCode(call), code, source);
+      continue;
+    }
+    const r = ato(call);
+    assert.deepEqual(shape[r.question](r), result, source);
+  }
+  assert.ok(refused > 60);
+});
+
+test('the ATO penalties form passes each question’s fields as the command takes them', () => {
+  const call = (question, more = {}) => calculations.atoPenaltiesFormInput(atoFields({ question, ...more }));
+  assert.deepEqual(call('sic'), { question: 'sic', year: '2025-26', amount: '10000', due_date: '2024-11-21', notice_date: '2025-09-01' });
+  assert.deepEqual(call('failure_to_lodge'), { question: 'failure_to_lodge', year: '2026-27', due_date: '2026-06-10', given_on: '2026-08-01', size: 'medium' });
+  assert.deepEqual(call('statement_penalty'), { question: 'statement_penalty', year: '2025-26', statement_date: '2026-03-15', significant_global_entity: false,
+    parts: [{ shortfall_amount: '15000', behaviour: 'intentional_disregard' }, { shortfall_amount: '2000', behaviour: 'failure_to_take_reasonable_care' }] });
+  assert.deepEqual(call('statement_penalty', { 'st-behaviour-2': '', 'st-shortfall-1': '', 'st-nra-1': 'yes', 'st-tax': '900', 'st-disclosure-1': 'before_examination',
+    'st-increase-1': 'yes', 'st-accepted-1': '5', 'st-trust': 'yes', 'st-sge': 'yes' }), { question: 'statement_penalty', year: '2025-26', statement_date: '2026-03-15',
+    significant_global_entity: true, trust_or_partnership: true, income_tax_payable: '900',
+    parts: [{ shortfall_amount: null, behaviour: 'intentional_disregard', not_reasonably_arguable: true, accepted_way_amount: '5', increase: true, disclosure: 'before_examination' }] });
+  assert.deepEqual(call('statement_penalty', { 'st-behaviour-2': '', 'st-disclosure-1': 'before_examination' }).other_disclosed_before_examination, '0');
+  assert.deepEqual(call('early_payment_interest'), { question: 'early_payment_interest', year: '2025-26', amount: '1926', liability: 'income_tax',
+    paid_on: '2025-11-03', due_date: '2025-11-21', full_self_assessment: false, notice_issued: '2025-10-29' });
+  assert.equal(call('early_payment_interest', { 'ep-fsa': 'yes' }).notice_issued, undefined);
+  assert.deepEqual(call('overpayment_interest').payments, [{ paid_on: '2024-12-01', amount: '3000' }, { paid_on: '2025-03-01', amount: '3000' }]);
+  assert.deepEqual(call('gic', { 'gic-paid-on-2': '2026-01-05', 'gic-paid-2': '100', 'gic-assumed': '9' }),
+    { question: 'gic', year: '2025-26', amount: '10000', due_date: '2025-11-21', to: '2026-06-30', payments: [{ date: '2026-01-05', amount: '100' }], assumed_annual_rate: '9' });
+  // Each question's opening fields give its spec vector.
+  const first = (question) => calculations.atoPenaltiesInterestResult(atoFields({ question }), atoAud).rows[0][1];
+  assert.deepEqual(['sic', 'failure_to_lodge', 'statement_penalty', 'early_payment_interest', 'overpayment_interest'].map(first),
+    ['$575.45', '$1,388.00', '$11,750.00', '$3.62', '$86.51']);
+  assert.throws(() => calculations.atoPenaltiesInterestResult(atoFields({ question: 'scheme_penalty' }), atoAud), { code: 'ato_interest_penalties.scheme_penalty' });
+});
+
+test('the year is the financial year of the last date, from 2020-21 to 2027-28', () => {
+  const code = (more) => atoCode(calculations.atoPenaltiesFormInput(atoFields(more)));
+  assert.equal(code({ 'gic-to': '2020-06-30', 'gic-due': '2020-06-01' }), 'period.unsupported');
+  assert.equal(code({ 'gic-to': '2020-07-01', 'gic-due': '2020-06-01' }), 'computed');
+  assert.equal(code({ 'gic-to': '2028-06-30', 'gic-assumed': '11.51' }), 'computed');
+  assert.equal(code({ 'gic-to': '2028-07-01', 'gic-assumed': '11.51' }), 'period.unsupported');
+  assert.equal(code({ 'gic-to': '' }), 'period.unsupported');
+  assert.equal(atoCode({ question: 'gic', year: '2026-27', amount: '1', due_date: '2026-01-01', to: '2026-06-30' }), 'ato_interest_penalties.year_mismatch');
+});
+
+test('SIC and the base interest rate come from the GIC table less 4 and 7 points', () => {
+  const sicDay = (day) => ato({ question: 'sic', year: '2026-27', amount: '100', due_date: day, notice_date: '2027-01-01' }).stretches[0].rate;
+  // The ATO's SIC page: 7.51% for October to December 2026, 6.65% for January to March 2026 and 8.63% for April to June 2005.
+  assert.deepEqual([sicDay('2026-10-01'), sicDay('2026-01-01'), sicDay('2005-04-01')], [7.51, 6.65, 8.63]);
+  assert.equal(atoCode({ question: 'sic', year: '2026-27', amount: '100', due_date: '2005-03-31', notice_date: '2026-07-01' }), 'ato_interest_penalties.rate_unpublished');
+  assert.equal(atoCode({ question: 'sic', year: '2026-27', amount: '100', due_date: '2026-12-31', notice_date: '2027-01-02' }), 'ato_interest_penalties.rate_unpublished');
+  const base = ato({ question: 'early_payment_interest', year: '2026-27', amount: '100', liability: 'income_tax', paid_on: '2026-09-01',
+    due_date: '2026-10-31', full_self_assessment: true }).stretches.map((s) => s.rate);
+  // The ATO's credit interest page: 4.43% for July to September 2026; October to December is the GIC rate 11.51% less 7.
+  assert.deepEqual(base, [4.43, 4.51]);
+});
+
+test('the penalty unit is the ATO table’s value at the start of each 28-day period', () => {
+  assert.deepEqual(calculations.PENALTY_UNITS.map(([from, unit]) => `${from} ${unit}`), ['2012-12-28 170', '2015-07-31 180', '2017-07-01 210',
+    '2020-07-01 222', '2023-01-01 275', '2023-07-01 313', '2024-11-07 330', '2026-07-01 364']);
+  const ftl = (due, given, size = 'small') => ato({ question: 'failure_to_lodge', year: '2026-27', due_date: due, given_on: given, size });
+  assert.deepEqual(ftl('2026-06-10', '2026-08-01', 'medium').periods.map((p) => p.unit), [330, 364]);
+  assert.deepEqual([ftl('2026-07-01', '2026-07-29').penalty, ftl('2026-07-01', '2026-07-30').penalty, ftl('2025-07-01', '2027-06-30').penalty], [364, 728, 1650]);
+  assert.equal(atoCode({ question: 'failure_to_lodge', year: '2026-27', due_date: '2012-12-27', given_on: '2026-07-01', size: 'small' }), 'ato_interest_penalties.penalty_unit_unpublished');
+  assert.equal(atoCode({ question: 'failure_to_lodge', year: '2026-27', due_date: '2017-06-30', given_on: '2026-07-01', size: 'significant_global' }), 'ato_interest_penalties.sge_before_2017');
+});
+
+test('the ATO penalties page refuses figures a JavaScript number cannot hold to the cent', () => {
+  const big = { question: 'gic', year: '2027-28', amount: '1000000000000', due_date: '1999-07-01', to: '2028-06-30', assumed_annual_rate: '100' };
+  assert.equal(atoCode(big), 'input.amount_invalid');
+  assert.equal(atoCode({ ...big, amount: '1000000000000.01' }), 'input.amount_invalid');
+  assert.equal(ato({ ...big, assumed_annual_rate: '1', amount: '1000000000000' }).gic > 0, true);
+  const parts = Array.from({ length: 100 }, () => ({ shortfall_amount: '1000000000000', behaviour: 'intentional_disregard', increase: true }));
+  assert.equal(atoCode({ question: 'statement_penalty', year: '2025-26', statement_date: '2026-03-15', significant_global_entity: true, parts }), 'input.amount_invalid');
+  assert.equal(atoCode({ question: 'statement_penalty', year: '2025-26', statement_date: '2026-03-15', significant_global_entity: true, parts: parts.slice(0, 1) }), 'computed');
 });
