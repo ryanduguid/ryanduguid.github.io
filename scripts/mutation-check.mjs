@@ -766,7 +766,7 @@ const MUTATIONS = [
   { ...fhog, name: 'FHOG Queensland pays $15,000', find: 'amount: 30000, bought: 749999', replace: 'amount: 15000, bought: 749999' },
   { ...fhog, name: 'FHOG Queensland pays at $750,000', find: 'bought: 749999, built: 749999', replace: 'bought: 750000, built: 750000' },
   { ...fhog, name: 'FHOG WA keeps the $750,000 cap after 6 May 2026', find: 'amount: 10000, bought: 800000, built: 800000', replace: 'amount: 10000, bought: 750000, built: 750000' },
-  { ...fhog, name: 'FHOG WA new cap a day early', find: "to: '2026-05-06'", replace: "to: '2026-05-05'" },
+  { ...fhog, name: 'FHOG WA old cap a day late', find: "to: '2026-05-06'", replace: "to: '2026-05-07'" },
   { ...fhog, name: 'FHOG Tasmania keeps $30,000 from 1 July 2026', find: "to: '2027-06-30', amount: 20000", replace: "to: '2027-06-30', amount: 30000" },
   { ...fhog, name: 'FHOG NT at $10,000', find: "to: '2027-09-30', amount: 50000", replace: "to: '2027-09-30', amount: 10000" },
   { ...fhog, name: 'FHOG north of the 26th parallel everywhere', find: "place === 'AU-WA' && north ? rule.north", replace: 'north ? rule.north' },
