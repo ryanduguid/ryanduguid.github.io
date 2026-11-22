@@ -7,12 +7,12 @@
 // ryanduguid/australian-accounting on every case of its differential fixture.
 
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import test from 'node:test';
 import { CO_CONTRIBUTION_THRESHOLDS, GOVERNMENT_SUPER_YEARS, governmentSuperAmounts } from '../assets/government-super.mjs';
 import { governmentSuperFormFacts, governmentSuperResult } from '../assets/government-super-result.mjs';
 
-const fixture = JSON.parse(readFileSync(new URL('./government-super-engine-differential.json', import.meta.url), 'utf8'));
+const fixture = createRequire(import.meta.url)('./government-super-engine-differential.json');
 /** A person with every condition met and `salary` of eligible income, and any other inputs. */
 const person = (year, salary, extra = {}) => ({ ...fixture.defaults, taxable_income: String(salary), assessable_income: String(salary),
   eligible_income: String(salary), year, ...extra });
@@ -177,7 +177,7 @@ const FORM = { year: '2025-26', resident: 'yes', visa: 'no', personal: '1000', c
   'child-support': '0', lodged: 'yes', 'under-71': 'yes', 'non-concessional': 'yes', balance: 'yes', spouse: 'no', scope: 'yes',
   'spouse-contributions': '3000', 'spouse-assessable': '39999', 'spouse-fhss': '0', 'spouse-fringe': '0', 'spouse-employer': '0',
   'spouse-excess': '0', 'spouse-non-concessional': 'yes', 'spouse-balance': 'unknown' };
-const form = (extra = {}) => (/** @type {string} */ name) => ({ ...FORM, ...extra })[name] ?? '';
+const form = (extra = {}) => (/** @type {string} */ name) => new Map(Object.entries({ ...FORM, ...extra })).get(name) ?? '';
 
 test('the form passes its answers to the engine as the command takes them', () => {
   const facts = governmentSuperFormFacts(form());
