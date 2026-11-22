@@ -22,7 +22,7 @@ import { fhssFormFacts, fhssResult } from '../assets/fhss-result.mjs';
 import './fhss.test.mjs';
 import { governmentSuperAmounts } from '../assets/government-super.mjs';
 import { governmentSuperFormFacts, governmentSuperResult } from '../assets/government-super-result.mjs';
-import './government-super.test.mjs';
+import './government-super-amounts.test.mjs';
 
 import { bonusWithholding } from '../assets/bonus-withholding.mjs';
 import { salaryPackaging } from '../assets/salary-packaging.mjs';

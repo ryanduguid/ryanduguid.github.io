@@ -10,13 +10,7 @@
 # are long by design, one case per assertion block, and package-lock.json and
 # Cargo.lock files are generated, so neither is measured; production code
 # still is.
-# Codacy's ESLint 8 image (codacy-eslint 9.18.12) crashes in the security-node
-# detect-unhandled-async-errors rule on a try block without a catch in the
-# proof capture script, which stops ESLint for every file; it skips that file.
 engines:
-  eslint-8:
-    exclude_paths:
-      - "scripts/capture-coal-lsl-proof.mjs"
   opengrep:
     exclude_paths:
       - "tests/**"
