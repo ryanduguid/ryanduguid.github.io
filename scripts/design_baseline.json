@@ -324,7 +324,7 @@
       "ad1615d9d73abc147cfc44d3968a996ae890882d52710b57eefcbd16450c74c2"
     ],
     "tools/individual-tax/work-expenses/index.html": [
-      "f8f24296a69c7f23969777e05e1af2a486d125e277bca337cae42c21031f8a44"
+      "ac4e088b6dedf098a1162a2e64589e14a67fa7b53e48e12109df18e199741b6b"
     ],
     "tools/limitations/index.html": [
       "2fb56483ebb85fb2bf1aa5e3ebcc6f0d049811d657da388e9392e6c1bbbca43e"
@@ -388,7 +388,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "5f3ab6ddde275abd25cac7751b4b56d5d317bb5c522cd1f35c1148bf685f930c",
+    "llms.txt": "1adce55f0ad1292e797027d363d2f2a8036eb54594f4cfa17c9cd7496079deed",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
     "sitemap.xml": "e011e076b838b22c5615aebe5d590c82e72ae4312c3982527576326f2fc88be8"
   },

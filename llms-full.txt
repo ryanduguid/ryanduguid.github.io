@@ -13067,11 +13067,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# Work expenses calculator: working from home, car and self-education
+# Work from home, car and self-education expenses calculator
 
 Source: https://duguid.com.au/tools/individual-tax/work-expenses/
 
-> Compare the working from home fixed rate with actual cost, and work out car expenses by cents per kilometre or log book and self-education expenses, for 2020-21 to 2026-27.
+> Compare the working from home fixed rate with actual cost, and work out car and self-education expenses, for 2020-21 to 2026-27.
 
 # Work expenses calculator
 
