@@ -1324,12 +1324,13 @@ const psiStep = (result, start) => result.steps.find(([label]) => label.startsWi
 
 Object.assign(INPUTS, {
   psiDetermination: (a) => [
-    { 'sole-trader': 'Sole trader', entity: 'Entity', employee: 'Employee' }[a.earner],
+    { 'sole-trader': 'Sole trader', entity: 'Entity', employee: 'Employee', religious: 'Religious practitioner' }[a.earner],
     ...(a.mainly ? [] : ['not mainly personal efforts or skills']),
     ...(a.determination ? ['determination in force'] : []),
     `payers ${a.payers.filter((p) => p.amount !== '0').map((p) => {
       const on = PSI_FLAGS.filter((flag) => p[flag]);
-      return `${dollars(Number(p.amount))}${on.length ? ` (${on.join(', ')})` : ''}`;
+      const notes = [...(on.length ? [on.join(', ')] : []), ...(p.same ? [`same payer as payer ${p.same}`] : [])];
+      return `${dollars(Number(p.amount))}${notes.length ? ` (${notes.join('; ')})` : ''}`;
     }).join(', ') || 'none'}`,
     ...(a.others === '0' ? [] : [`others’ principal work ${dollars(Number(a.others))}`]),
     ...(a.apprentice ? ['an apprentice'] : []),
@@ -1341,7 +1342,8 @@ Object.assign(INPUTS, {
 Object.assign(FORM_CALLS, {
   psiDetermination: (f) => [{ earner: f.earner, mainly: f.mainly === 'yes', determination: f.determination === 'yes',
     payers: Array.from({ length: 5 }, (_, i) => ({ amount: f[`amount-${i + 1}`],
-      ...Object.fromEntries(PSI_FLAGS.map((flag) => [flag, f[`${flag}-${i + 1}`]])) })),
+      ...Object.fromEntries(PSI_FLAGS.map((flag) => [flag, f[`${flag}-${i + 1}`]])),
+      ...(f[`same-${i + 1}`] ? { same: Number(f[`same-${i + 1}`]) } : {}) })),
     agent: f.agent === 'yes', commission: f.commission, principal: f.principal, others: f.others,
     apprentice: f.apprentice === 'yes', premises: Object.fromEntries(PSI_PREMISES.map((key) => [key, f[`premises-${key}`]])) }],
 });
@@ -1512,6 +1514,71 @@ test('PSI refuses what it cannot work through', () => {
     { message: 'The market value of principal work by others cannot exceed the PSI entered.' });
 });
 
+// Subsections 85-35(1) and (2), 87-15(3) and 87-40(2), ITAA 1997 Compilation No. 268, read 22 November 2026,
+// as the psi-test command of ryanduguid/australian-accounting (PR 792) applies them.
+test('PSI puts a religious practitioner’s payment under subsection 85-35(2), apart from an employee’s', () => {
+  const religious = psi({ earner: 'religious', payers: [psiPayer('100')] });
+  assert.deepEqual([religious.rule, religious.effect, religious.psb], ['subsection 85-35(2)',
+    'a payment to a religious practitioner, so the PSI rules do not apply', null]);
+  assert.deepEqual(religious.steps.at(-1), ['Subsection 85-35(2): a payment to a religious practitioner', 'Yes, as you answered']);
+  const employee = psi({ earner: 'employee', payers: [psiPayer('100')] });
+  assert.deepEqual(employee.steps.at(-1), ['Subsection 85-35(1): received as an employee or office holder', 'Yes, as you answered']);
+});
+
+test('PSI counts the rows of one payer as one source and one unrelated client', () => {
+  const same = (payer, row) => ({ ...payer, same: row });
+  // The results test counts each row's income; the 80% rule counts the payer's rows together.
+  const contracts = psi({ payers: [psiPayer('80', ...RESULT_TEST), same(psiPayer('20'), 1)] });
+  assert.deepEqual([contracts.rule, contracts.results], ['subsection 87-18(1)', 80]);
+  const short = psi({ payers: [psiPayer('74', ...RESULT_TEST), same(psiPayer('26'), 1)] });
+  assert.deepEqual([short.rule, short.results, short.source], ['subsection 87-15(3)', 74, 100]);
+  // A chain of rows is one payer: row 3 names row 2, which names row 1.
+  const chain = psi({ payers: [psiPayer('40', 'offer'), same(psiPayer('20', 'offer'), 1), same(psiPayer('20', 'offer'), 2),
+    psiPayer('20', 'offer')] });
+  assert.deepEqual([chain.source, chain.unrelated, chain.rule], [80, 2, 'subsection 87-15(3)']);
+  const apart = psi({ payers: [psiPayer('50', 'offer'), same(psiPayer('25', 'offer'), 1), psiPayer('25', 'offer')] });
+  assert.deepEqual([apart.source, apart.unrelated, apart.rule], [75, 2, 'section 87-20']);
+  for (const row of [0, 2, 1.5, '1']) {
+    assert.throws(() => psi({ payers: [psiPayer('50'), same(psiPayer('50'), row)] }),
+      { message: 'Payer 2 can be the same payer as an earlier row only.' });
+  }
+});
+
+test('PSI checks an agent’s payments before any outcome, and the 75% rule after the results test', () => {
+  const agent = (fields) => psi({ agent: true, commission: '100.01', principal: '100', payers: [psiPayer('100')], ...fields });
+  const message = 'Enter the principal’s payments and the part of them that is commission or performance fees.';
+  for (const fields of [{}, { determination: true }, { mainly: false }, { earner: 'employee' }, { earner: 'religious' }]) {
+    assert.throws(() => agent(fields), { message }, JSON.stringify(fields));
+  }
+  assert.equal(psi({ agent: true, commission: '75', principal: '100', payers: [psiPayer('100', ...RESULT_TEST)] }).rule,
+    'subsection 87-18(1)');
+  // The commission and the principal's payments do not count without an agent.
+  assert.equal(psi({ commission: '100.01', principal: '0', determination: true, payers: [psiPayer('100')] }).rule,
+    'paragraph 87-15(1)(a)');
+});
+
+test('PSI form passes a row’s payer to the steps and the inputs line', () => {
+  const html = readFileSync(new URL('../_includes/calculators/psi-determination.html', import.meta.url), 'utf8');
+  assert.equal(html.match(/<select name="same-1"/), null);
+  for (let row = 2; row <= 5; row++) {
+    const options = html.match(new RegExp(`<select name="same-${row}">(.*?)</select>`))[1];
+    assert.deepEqual([...options.matchAll(/value="(\d*)"/g)].map(([, value]) => value),
+      ['', ...Array.from({ length: row - 1 }, (_, i) => String(i + 1))]);
+  }
+  // Subsection 85-35(2) covers only payments section 12-47 of Schedule 1 to the TAA 1953 describes.
+  assert.match(html, /<input type="radio" name="earner" value="religious" \/> The individual, as a religious practitioner paid by an enterprise for work in their vocation as a member of a religious institution</);
+  assert.match(html, /done as a member of a religious institution \(subsection 85-35\(2\) and section 12-47 of Schedule 1 to the Taxation Administration Act 1953\); check any other PSI they earn as a contractor\./);
+  // Linked rows are one payer for section 87-20 too, which can only understate unrelated clients.
+  assert.match(html, /2 payers that are each an associate of a third, but not of each other, count once there; that can only make the test harder to pass\./);
+  const fields = { ...formDefaults(html), 'amount-1': '74', 'amount-2': '26', 'same-2': '1' };
+  const view = calculations.psiDeterminationResult((name) => fields[name], (name) => fields[name], String);
+  assert.match(view.inputs, /; payer 2 26, same payer as payer 1, ticked: none;/);
+  assert.equal(view.rows[0][1], `Subsection 87-15(3): ${ONE_SOURCE}`);
+  const religious = calculations.psiDeterminationResult((name) => ({ ...fields, earner: 'religious' })[name],
+    (name) => fields[name], String);
+  assert.equal(religious.inputs, 'Received by the individual as a religious practitioner, mainly a reward for personal efforts or skills');
+});
+
 test('PSI page states its consequences, sources and the expense allocation it leaves out', () => {
   const html = readFileSync(new URL('../_includes/calculators/psi-determination.html', import.meta.url), 'utf8');
   const fields = formDefaults(html);
@@ -1527,7 +1594,7 @@ test('PSI page states its consequences, sources and the expense allocation it le
   assert.match(soleTrader.note, /^Division 85 stops a deduction an employee could not claim \(section 85-10\)/);
   const entity = calculations.psiDeterminationResult((name) => ({ ...fields, earner: 'entity' })[name], noDefects, String);
   assert.match(entity.note, /^Section 86-15 puts the entity’s PSI, less the deductions section 86-20 allows/);
-  assert.match(html, /Compilation No\. 268 of 1 October 2026, read 17 November 2026/);
+  assert.match(html, /Compilation No\. 268 of 1 October 2026, read 22 November 2026/);
   assert.match(html, /which replaced TR 2001\/7 and TR 2001\/8 \(paragraph 30\)/);
   assert.match(html, /The checker does not allocate expenses across PSI, business income and other income\./);
   assert.match(html, /so any split is practice rather than law/);

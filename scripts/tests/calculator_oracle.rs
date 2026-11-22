@@ -137,6 +137,11 @@
 //! remuneration, where the engine takes the rate, and South Australia's bands are typed in
 //! dollars and its premium worked as BP × (1 − D) + C − A. Each half-up or round-down step is
 //! the engine's, so the oracle cannot show those conventions.
+//!
+//! A further 2,000 seeded PSI cases, from their own seed, work Part 2-42 of the ITAA 1997 in whole
+//! per cent of exact cents, join the rows of one payer by union-find, where the engine follows each
+//! row to its payer's first row, and count unrelated payers as joined groups. The 2-place shares
+//! round down, as the engine's do, so the oracle cannot show that convention.
 mod common;
 
 use jiff::ToSpan;
@@ -8510,5 +8515,336 @@ fn the_asic_fees_engine_agrees_with_the_oracle_on_every_due_and_payment_date() {
     assert_eq!(actual.len(), cases.len());
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the PSI engine, as `HARNESS` runs the others: each case's rule, whether it is a personal
+/// services business and its figures, the shares to 2 places, or which refusal it met.
+const PSI_HARNESS: &str = r"
+import { psiDetermination } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const kinds = [['Enter the principal', 'agent-payments'], ['At least 75%', 'agent-rules'], ['Enter the PSI', 'no-psi'],
+  ['The market value', 'others']];
+const fixed = (value) => (value === null ? null : value.toFixed(2));
+process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => {
+  try {
+    const r = psiDetermination(one);
+    return { rule: r.rule, psb: r.psb, results: fixed(r.results), source: fixed(r.source), unrelated: r.unrelated,
+      employment: fixed(r.employment) };
+  } catch (error) {
+    return { refused: (kinds.find(([start]) => error.message.startsWith(start)) ?? ['', error.message])[1] };
+  }
+})));
+";
+
+const PSI_CASES: usize = 2_000;
+const PSI_FLAGS: [&str; 5] = ["associate", "offer", "result", "tools", "defects"];
+const PSI_PREMISES: [&str; 5] = ["times", "mainly", "exclusive", "private", "clients"];
+
+/// One row of PSI: its cents, the 5 ticks in `PSI_FLAGS` order and the earlier row (from 1) whose
+/// payer it is, if any.
+struct PsiRow {
+    cents: u64,
+    flags: [bool; 5],
+    same: Option<usize>,
+}
+
+struct PsiCase {
+    earner: &'static str,
+    mainly: bool,
+    determination: bool,
+    rows: Vec<PsiRow>,
+    /// Commission and the principal's payments, in cents, for an agent.
+    agent: Option<(u64, u64)>,
+    others: u64,
+    apprentice: bool,
+    premises: [bool; 5],
+}
+
+/// Cents as the form's decimal text.
+fn psi_amount(cents: u64) -> String {
+    format!("{}.{:02}", cents / 100, cents % 100)
+}
+
+impl PsiCase {
+    fn input(&self) -> Value {
+        let payers: Vec<Value> = self
+            .rows
+            .iter()
+            .map(|row| {
+                let mut payer = json!({ "amount": psi_amount(row.cents) });
+                for (flag, on) in PSI_FLAGS.iter().zip(row.flags) {
+                    payer[*flag] = json!(on);
+                }
+                if let Some(same) = row.same {
+                    payer["same"] = json!(same);
+                }
+                payer
+            })
+            .collect();
+        let (commission, principal) = self.agent.unwrap_or((0, 0));
+        let premises: serde_json::Map<String, Value> = PSI_PREMISES
+            .iter()
+            .zip(self.premises)
+            .map(|(key, on)| ((*key).to_owned(), json!(on)))
+            .collect();
+        json!({
+            "earner": self.earner, "mainly": self.mainly, "determination": self.determination,
+            "payers": payers, "agent": self.agent.is_some(), "commission": psi_amount(commission),
+            "principal": psi_amount(principal), "others": psi_amount(self.others),
+            "apprentice": self.apprentice, "premises": premises,
+        })
+    }
+}
+
+/// A share to 2 places, rounded down, as the page shows it.
+fn psi_share(part: u64, whole: u64) -> String {
+    let hundredths = part * 10_000 / whole;
+    format!("{}.{:02}", hundredths / 100, hundredths % 100)
+}
+
+/// The group a row is in, by its union-find parents.
+fn psi_root(parent: &[usize], row: usize) -> usize {
+    let mut root = row;
+    while parent[root] != root {
+        root = parent[root];
+    }
+    root
+}
+
+fn psi_outcome(
+    rule: &str,
+    psb: Option<bool>,
+    figures: [Option<String>; 3],
+    unrelated: Option<usize>,
+) -> Value {
+    let [results, source, employment] = figures;
+    json!({ "rule": rule, "psb": psb, "results": results, "source": source, "unrelated": unrelated, "employment": employment })
+}
+
+/// Part 2-42 of the ITAA 1997 (Compilation No. 268, read 22 November 2026) in whole per cent of
+/// exact cents: s 84-5(1), s 85-35(1) and (2), s 87-15(1)(a) and (b), s 87-18(1) and (3), s 87-40(2)(c),
+/// s 87-15(3) and ss 87-20, 87-25 and 87-30. An agent's payments are checked first, as the psi-test
+/// command of ryanduguid/australian-accounting checks them.
+fn psi_oracle(case: &PsiCase) -> Value {
+    let none = [None, None, None];
+    if let Some((commission, principal)) = case.agent
+        && (principal == 0 || commission > principal)
+    {
+        return json!({ "refused": "agent-payments" });
+    }
+    if !case.mainly {
+        return psi_outcome("subsection 84-5(1)", None, none, None);
+    }
+    match case.earner {
+        "employee" => return psi_outcome("subsection 85-35(1)", None, none, None),
+        "religious" => return psi_outcome("subsection 85-35(2)", None, none, None),
+        _ => {}
+    }
+    let entity = case.earner == "entity";
+    if case.determination {
+        let rule = if entity {
+            "paragraph 87-15(1)(b)"
+        } else {
+            "paragraph 87-15(1)(a)"
+        };
+        return psi_outcome(rule, Some(true), none, None);
+    }
+    let total: u64 = case.rows.iter().map(|row| row.cents).sum();
+    if total == 0 {
+        return json!({ "refused": "no-psi" });
+    }
+    if case.others > total {
+        return json!({ "refused": "others" });
+    }
+    let met: u64 = case
+        .rows
+        .iter()
+        .filter(|row| row.flags[2] && row.flags[3] && row.flags[4])
+        .map(|row| row.cents)
+        .sum();
+    let results = psi_share(met, total);
+    if met * 100 >= 75 * total {
+        let rule = if entity {
+            "subsection 87-18(3)"
+        } else {
+            "subsection 87-18(1)"
+        };
+        return psi_outcome(rule, Some(true), [Some(results), None, None], None);
+    }
+    if let Some((commission, principal)) = case.agent
+        && commission * 100 >= 75 * principal
+    {
+        return json!({ "refused": "agent-rules" });
+    }
+    let mut parent: Vec<usize> = (0..case.rows.len()).collect();
+    for (row, PsiRow { same, .. }) in case.rows.iter().enumerate() {
+        if let Some(same) = same {
+            let (from, to) = (psi_root(&parent, row), psi_root(&parent, same - 1));
+            parent[from] = to;
+        }
+    }
+    let mut payers = vec![0_u64; case.rows.len()];
+    for (row, PsiRow { cents, .. }) in case.rows.iter().enumerate() {
+        payers[psi_root(&parent, row)] += cents;
+    }
+    let largest = payers.iter().copied().max().unwrap();
+    let mut clients: Vec<usize> = (0..case.rows.len())
+        .filter(|row| {
+            let PsiRow { cents, flags, .. } = &case.rows[*row];
+            *cents > 0 && !flags[0] && flags[1]
+        })
+        .map(|row| psi_root(&parent, row))
+        .collect();
+    clients.sort_unstable();
+    clients.dedup();
+    let figures = [
+        Some(results),
+        Some(psi_share(largest, total)),
+        Some(psi_share(case.others, total)),
+    ];
+    let unrelated = Some(clients.len());
+    if largest * 100 >= 80 * total {
+        return psi_outcome("subsection 87-15(3)", Some(false), figures, unrelated);
+    }
+    let passes: Vec<&str> = [
+        (clients.len() >= 2, "87-20"),
+        (case.others * 100 >= 20 * total || case.apprentice, "87-25"),
+        (case.premises.iter().all(|on| *on), "87-30"),
+    ]
+    .into_iter()
+    .filter_map(|(met, section)| met.then_some(section))
+    .collect();
+    let rule = match passes.as_slice() {
+        [] => "subsection 87-15(1)".to_owned(),
+        [one] => format!("section {one}"),
+        [first @ .., last] => format!("sections {} and {last}", first.join(", ")),
+    };
+    psi_outcome(&rule, Some(!passes.is_empty()), figures, unrelated)
+}
+
+/// Whole-dollar amounts, so the 75%, 80% and 20% thresholds are met exactly in some cases.
+fn psi_case(rng: &mut Seeded) -> PsiCase {
+    let earner = if rng.below(10) == 0 {
+        rng.pick(&["employee", "religious"])
+    } else {
+        rng.pick(&["sole-trader", "entity"])
+    };
+    let count = 1 + rng.below(5) as usize;
+    let mut rows = Vec::new();
+    for row in 0..count {
+        let cents = if rng.below(6) == 0 {
+            0
+        } else {
+            100 * (1 + rng.below(100))
+        };
+        let flags = [
+            rng.below(5) == 0,
+            rng.below(2) == 0,
+            rng.below(2) == 0,
+            rng.below(4) != 0,
+            rng.below(4) != 0,
+        ];
+        let same = (row > 0 && rng.below(3) == 0).then(|| 1 + rng.below(row as u64) as usize);
+        rows.push(PsiRow { cents, flags, same });
+    }
+    let total: u64 = rows.iter().map(|row| row.cents).sum();
+    let agent = (rng.below(5) == 0).then(|| {
+        let principal = 100 * rng.below(101);
+        (rng.below(principal + 150), principal)
+    });
+    let others = if rng.below(10) == 0 {
+        total + 1 + rng.below(100)
+    } else {
+        100 * rng.below(total / 100 + 1)
+    };
+    PsiCase {
+        earner,
+        mainly: rng.below(12) != 0,
+        determination: rng.below(12) == 0,
+        rows,
+        agent,
+        others,
+        apprentice: rng.below(4) == 0,
+        premises: [0; 5].map(|_| rng.below(5) != 0),
+    }
+}
+
+#[test]
+fn the_psi_oracle_joins_a_payers_rows() {
+    let row = |cents, flags: &str, same| PsiRow {
+        cents,
+        flags: PSI_FLAGS.map(|flag| flags.split(' ').any(|on| on == flag)),
+        same,
+    };
+    let case = |rows| PsiCase {
+        earner: "sole-trader",
+        mainly: true,
+        determination: false,
+        rows,
+        agent: None,
+        others: 0,
+        apprentice: false,
+        premises: [false; 5],
+    };
+    let contracts = psi_oracle(&case(vec![
+        row(7_400, "result tools defects", None),
+        row(2_600, "", Some(1)),
+    ]));
+    assert_eq!(contracts["rule"], "subsection 87-15(3)");
+    assert_eq!(contracts["source"], "100.00");
+    // Rows 1 to 3 are one payer through row 2, so 2 payers were won by offers.
+    let chain = psi_oracle(&case(vec![
+        row(4_000, "offer", None),
+        row(2_000, "offer", Some(1)),
+        row(2_000, "offer", Some(2)),
+        row(2_000, "offer", None),
+    ]));
+    assert_eq!(chain["unrelated"], 2);
+    assert_eq!(chain["rule"], "subsection 87-15(3)");
+}
+
+#[test]
+fn the_psi_engine_agrees_with_the_oracle_on_seeded_cases() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1122_0000_0851);
+    let cases: Vec<PsiCase> = (0..PSI_CASES).map(|_| psi_case(&mut rng)).collect();
+    let inputs: Vec<Value> = cases.iter().map(PsiCase::input).collect();
+    let actual = run_node(PSI_HARNESS, &inputs);
+    assert_eq!(actual.len(), cases.len());
+    let mut reached = std::collections::BTreeSet::new();
+    for ((case, input), got) in cases.iter().zip(&inputs).zip(&actual) {
+        let want = psi_oracle(case);
+        reached.insert(
+            want.get("rule")
+                .unwrap_or(&want["refused"])
+                .as_str()
+                .unwrap()
+                .to_owned(),
+        );
+        assert_eq!(got, &want, "{input}");
+    }
+    for outcome in [
+        "subsection 84-5(1)",
+        "subsection 85-35(1)",
+        "subsection 85-35(2)",
+        "paragraph 87-15(1)(a)",
+        "paragraph 87-15(1)(b)",
+        "subsection 87-18(1)",
+        "subsection 87-18(3)",
+        "subsection 87-15(3)",
+        "subsection 87-15(1)",
+        "section 87-20",
+        "section 87-25",
+        "section 87-30",
+        "agent-payments",
+        "agent-rules",
+        "no-psi",
+        "others",
+    ] {
+        assert!(reached.contains(outcome), "{outcome}");
     }
 }
