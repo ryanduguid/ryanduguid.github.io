@@ -1588,9 +1588,15 @@ test('ASIC fees page counts the late fee month from the day after the due date a
   await form.locator('[name="received"]').fill('2027-03-01');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(output).toHaveText(/^The first month after the due date ends on a Saturday or Sunday/);
+  // A fixed fee needs no dates, and the browser's date checks must not stop the engine's own refusal.
+  await form.locator('[name="due"]').fill('');
+  await form.locator('[name="received"]').fill('');
   await form.locator('[name="fee"]').selectOption('review-public');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(output.locator('.result-row--principal')).toHaveText('ASIC fee, no GST: $1,591.00.');
+  await form.locator('[name="fee"]').selectOption('late-lodgement');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toHaveText(/^Enter a real date as YYYY-MM-DD/);
 });
 
 test('objection deadline takes the later of an amended assessment’s 2 dates offline', async ({ page, context }) => {
