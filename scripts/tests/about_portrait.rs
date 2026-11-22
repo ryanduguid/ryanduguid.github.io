@@ -13,14 +13,14 @@ fn font() -> Vec<u8> {
 }
 
 /// A made-up bust on a transparent background: an oval head lit from the
-/// right with a dark band for the eyes, a neck and widening shoulders. The
-/// real photo stays out of the repository.
+/// right with a dark band for the eyes, a neck and widening shoulders in a
+/// dark suit. The real photo stays out of the repository.
 fn cutout(opaque: bool) -> Vec<u8> {
-    encode(300, 300, &bust(opaque))
+    encode(300, 300, &bust(opaque, 30.0))
 }
 
-/// The bust's RGBA pixels, 300 by 300.
-fn bust(opaque: bool) -> Vec<u8> {
+/// The bust's RGBA pixels, 300 by 300, its shoulders in the grey `clothes`.
+fn bust(opaque: bool, clothes: f64) -> Vec<u8> {
     let size = 300u32;
     let mut pixels = Vec::new();
     for y in 0..size {
@@ -33,7 +33,7 @@ fn bust(opaque: bool) -> Vec<u8> {
             let shade = if head && (88.0..100.0).contains(&fy) {
                 40.0
             } else if shoulders && !neck {
-                30.0
+                clothes
             } else {
                 90.0 + fx * 0.5
             };
@@ -62,9 +62,37 @@ fn the_glyphs_are_symbols_the_page_can_hold_verbatim() {
     assert!(GLYPHS.starts_with(' '));
     for glyph in GLYPHS.chars().skip(1) {
         assert!(glyph.is_ascii_punctuation(), "{glyph:?}");
-        // HTML escaping, a Liquid tag's opening, and the stripe-forming strokes.
-        assert!(!"<>&{|-".contains(glyph), "{glyph:?}");
+        // HTML escaping, a Liquid tag's opening, the stripe-forming strokes, and
+        // the underscore, which is drawn in the row below its own.
+        assert!(!"<>&{|-_".contains(glyph), "{glyph:?}");
     }
+}
+
+#[test]
+fn the_page_holds_a_portrait_from_this_glyph_set_and_grid() {
+    let page = std::fs::read_to_string(site().join(PAGE)).unwrap();
+    let (_, rest) = page.split_once("<pre aria-hidden=\"true\">\n").unwrap();
+    let (art, _) = rest.split_once("</pre></div>").unwrap();
+    let lines: Vec<&str> = art.split('\n').collect();
+    // A head and shoulders in 0.8em rows: more rows than columns across the head.
+    assert!(lines.len() > 100, "{} rows", lines.len());
+    for line in &lines {
+        assert!(line.chars().count() <= COLUMNS);
+        assert_eq!(*line, line.trim_end());
+        assert!(line.chars().all(|c| GLYPHS.contains(c)), "{line:?}");
+    }
+}
+
+#[test]
+fn white_clothes_leave_the_head_as_it_was() {
+    // The tonal range is the head's own, so a white shirt cannot dim the face.
+    let render = |clothes| {
+        about_portrait::render(&encode(300, 300, &bust(false, clothes)), &font()).unwrap()
+    };
+    let (dark, white) = (render(30.0), render(250.0));
+    let head = |art: &str| art.split('\n').take(60).collect::<Vec<_>>().join("\n");
+    assert_eq!(head(&dark), head(&white));
+    assert_ne!(dark, white);
 }
 
 #[test]
@@ -93,7 +121,7 @@ fn a_photo_without_a_transparent_background_is_refused() {
     let error = about_portrait::render(&cutout(true), &font()).unwrap_err();
     assert!(error.contains("transparent"), "{error}");
     // One clear pixel on the edge of an opaque photo is not a transparent background.
-    let mut pixels = bust(true);
+    let mut pixels = bust(true, 30.0);
     pixels[150 * 300 * 4 + 3] = 0;
     let error = about_portrait::render(&encode(300, 300, &pixels), &font()).unwrap_err();
     assert!(error.contains("transparent"), "{error}");

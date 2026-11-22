@@ -6,13 +6,13 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Forty-six calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
+Forty-seven calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
 
 Find a question and prepare a checklist.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.
 
-Published 11 September 2026. Last checked 20 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 22 November 2026, the newest of the calculators’ source checks.
 
 ## Pricing, planning and loans
 
@@ -65,7 +65,7 @@ Published 11 September 2026. Last checked 20 November 2026, the newest of the ca
 - Long service leave calculator One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.
 - Workers compensation premium calculator A 2026-27 premium from the declared wages and the insurer’s rate under each state and territory’s scheme, with GST, duty and the actual wages adjustment, each step cited.
 
-## Objections, instalments, termination, land tax, duty and business days
+## Objections, instalments, termination, land tax, duty, business days and ASIC fees
 
 - Objection deadline checker The last day to object to an income tax or FBT assessment, an amended assessment or another ATO decision, with the weekend rule.
 - PAYG instalments calculator The quarterly PAYG instalment from the notified amount, a varied amount, instalment income times the rate, or a varied rate with its credit.
@@ -77,6 +77,7 @@ Published 11 September 2026. Last checked 20 November 2026, the newest of the ca
 - Payroll tax calculator One employer’s annual payroll tax for 2026-27 in any state or territory, for an employer outside a group, with each step cited.
 - Foreign purchaser surcharge calculator Foreign purchaser duty and the foreign owner land tax surcharge in each state and territory, with each one’s own test of who is foreign, the 2026-27 FIRB fee and the upfront total in all 8 side by side.
 - Business days calculator Business days between 2 dates, or the date a number of business days on or back, with each state’s public holidays for 2026 and 2027.
+- ASIC fees calculator ASIC’s 2026-27 fees and late fee tiers.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -129,3 +130,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
 - Foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
 - Business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
+- ASIC fees calculator: https://duguid.com.au/tools/business-calculators/asic-fees/

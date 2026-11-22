@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-11-21T00:00:00Z</updated>
+  <updated>2026-11-22T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>A new business calculator, ASIC fees, lists ASIC’s fees from 1 July 2026 to…</title>
+    <link href="https://duguid.com.au/changelog/#entry-fda19fda16b59f1d" />
+    <id>https://duguid.com.au/changelog/#entry-fda19fda16b59f1d</id>
+    <updated>2026-11-22T00:00:00Z</updated>
+    <summary>A new business calculator, ASIC fees, lists ASIC’s fees from 1 July 2026 to register a company, reserve a company name, pay the annual review fee and register or renew a business name, with no GST. For a due date and the day ASIC received a review fee payment or a document, both in 2026-27, it gives the late fee: $102 within one month after the due date and $428 after that, counting the month as section 2G of the Acts Interpretation Act 1901 does. It takes the due date as given and declines a case that a weekend due date or month end could change.</summary>
+  </entry>
   <entry>
     <title>The site's software now uses the Apache License 2.0. Ryan Duguid's original…</title>
     <link href="https://duguid.com.au/changelog/#entry-f413dedb8f24f405" />
