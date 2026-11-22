@@ -13628,17 +13628,17 @@ Source: https://duguid.com.au/tools/business-calculators/wine-equalisation-tax/
 
 # Wine equalisation tax calculator
 
-WET on a tax period’s wholesale sales, retail sales, own use and sales under quote, the producer rebate within the year’s $350,000 or $400,000 cap, and labels 1C and 1D.
+WET on a tax period’s dealings in wine, the producer rebate within the year’s cap, and BAS labels 1C and 1D.
 
 Published 22 November 2026. Last checked 22 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Wine equalisation tax and the producer rebate for one tax period
+WET and the producer rebate for one tax period
+
+Rebates claimed earlier this financial year (AUD)
 
 Financial year of the dealings 2027-28 2026-27 2025-26 2024-25 2023-24
-
-Producer rebates already claimed this financial year (AUD)
 
 ## Dealings
 
