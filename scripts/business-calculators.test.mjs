@@ -1321,6 +1321,11 @@ test('PAYG instalments add back credits only from the third instalment', () => {
   // The second instalment may itself fall below nil and give the credit the third adds back.
   const second = instalment({ method: 'varied-amount', instalment: '2', estimatedTax: '1000', earlier: '600' });
   assert.deepEqual([second.due, second.amount, second.instalment, second.credit], [500, -100, 0, 100]);
+  // s 45-410(4) and (5) add back credits 'you were entitled to claim'; s 45-215 step 2 takes those 'you have claimed'.
+  const page = calculatorInclude('payg-instalments');
+  assert.ok(page.includes('For a varied amount, earlier credits are those you were entitled to claim for earlier quarters, claimed or not; for a varied rate, those you claimed.'));
+  assert.ok(page.includes('add back any credits you were entitled to claim for earlier instalments, claimed or not'));
+  assert.ok(!page.includes('credits claimed at 5B'));
   let third;
   assert.doesNotThrow(() => { third = instalment({ method: 'varied-amount', instalment: '3', estimatedTax: '1000', earlier: '600', credits: '100' }); });
   assert.deepEqual([third.due, third.amount, third.instalment, third.credit], [750, 250, 250, 0]);
