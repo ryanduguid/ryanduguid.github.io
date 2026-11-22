@@ -5378,7 +5378,8 @@ test('the depreciation pools page opens on the ATO’s John and dates its source
   const fields = formDefaults(poolHtml);
   const result = calculations.depreciationPoolsResult((name) => fields[name] ?? '', poolAud);
   assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
-  for (const cited of ['Low-value pool</a> (last updated 26 June 2025), read 22 November 2026', 'Small business pool calculations</a> (last updated 16 June 2025)',
+  for (const cited of ['Low-value pool</a> (last updated 26 June 2025)', 'Guide to depreciating assets 2026</a> (John’s printer), read 22 November 2026',
+    'Small business pool calculations</a> (last updated 16 June 2025)', 'LCR 2021/3</a> (example 13), read 22 November 2026',
     '($20,000 for income years ending 1 July 2023 to 30 June 2026)', '(no limit for income years ending 6 October 2020 to 30 June 2023)',
     'Treasury Laws Amendment (Tax Reform No. 2) Act 2026</a> ($20,000 for income years ending on or after 1 July 2026)']) {
     assert.ok(poolHtml.includes(cited), cited);
