@@ -37,9 +37,9 @@ function zoneDependants(text) {
       refuse('zone_tax_offset.dependants_invalid', 'Enter each dependant as student or child, their adjusted taxable '
         + 'income and, for part of the year, the days, separated by spaces.');
     }
-    const [kind, income, days] = entries;
+    const [kind, income] = entries;
     return { kind: kind.toLowerCase(), adjusted_taxable_income: income,
-      ...(days === undefined ? {} : { days: number(days, { max: 366, integer: true }) }) };
+      ...(entries.length === 3 ? { days: number(entries[2], { max: 366, integer: true }) } : {}) };
   });
 }
 
