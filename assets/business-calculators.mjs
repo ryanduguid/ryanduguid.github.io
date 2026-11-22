@@ -452,7 +452,9 @@ export function paygInstalment(inputs) {
   let rate = given;
   let credit = 0;
   if (method === 'varied-rate') {
-    const [tax, yearIncome] = [BigInt(cents(inputs.estimatedTax)), BigInt(cents(inputs.estimatedIncome))];
+    // Nil estimated instalment income varies the rate to nil with no tax estimate, which is then not read.
+    const yearIncome = BigInt(cents(inputs.estimatedIncome));
+    const tax = yearIncome ? BigInt(cents(inputs.estimatedTax)) : 0n;
     if (tax > yearIncome) throw new Error('Estimated tax cannot exceed estimated instalment income.');
     rate = yearIncome ? Number(tax * 10000n / yearIncome) : 0;
     if (rate < given) {
