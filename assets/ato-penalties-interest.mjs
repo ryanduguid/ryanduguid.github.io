@@ -465,8 +465,8 @@ function overpaymentInterest(f, year) {
   return { question: 'overpayment_interest', year, refunded: dollars(refunded), ...credit(total), attribution: parts, warnings: [] };
 }
 
-const WORK = { gic, sic, failure_to_lodge: failureToLodge, statement_penalty: statementPenalty,
-  early_payment_interest: earlyPaymentInterest, overpayment_interest: overpaymentInterest };
+const WORK = new Map(Object.entries({ gic, sic, failure_to_lodge: failureToLodge, statement_penalty: statementPenalty,
+  early_payment_interest: earlyPaymentInterest, overpayment_interest: overpaymentInterest }));
 
 /** The command: `question` picks the charge, penalty or interest; `year` is the financial year of its last date; every
  * other field is a fact of the question. Every amount is before remission.
@@ -481,7 +481,7 @@ export function atoPenaltiesInterest(input) {
     refuse('ato_interest_penalties.scheme_penalty', 'Scheme penalties (TAA Sch 1 Subdivision 284-C) turn on the scheme’s dominant purpose and whether the position was reasonably arguable; the calculator does not work them.');
   }
   if (!ATO_QUESTIONS.includes(question)) refuse('ato_interest_penalties.question_invalid', `Choose one of ${ATO_QUESTIONS.join(', ')}.`);
-  return { ...WORK[/** @type {keyof typeof WORK} */ (question)](new Facts(question, facts), year), remission: REMISSION };
+  return { .../** @type {Function} */ (WORK.get(question))(new Facts(question, facts), year), remission: REMISSION };
 }
 
 // The page: the command's input from the form, how the page writes it, and the result's rows and working table.
@@ -533,7 +533,7 @@ function formStatement(value) {
 }
 
 /** Each question's facts from the form. @type {Record<string, (value: (name: string) => string) => Record<string, unknown>>} */
-const FORM_FACTS = {
+const FORM_FACTS = new Map(Object.entries({
   gic: (value) => {
     const payments = formPayments(value, 'gic', 'date');
     return { amount: value('gic-amount'), due_date: value('gic-due'), to: value('gic-to'), ...(payments.length ? { payments } : {}),
@@ -550,13 +550,13 @@ const FORM_FACTS = {
   overpayment_interest: (value) => ({ payments: formPayments(value, 'op', 'paid_on'), refunded: value('op-refunded'),
     refunded_on: value('op-refunded-on'), notice_issued: value('op-notice'), relevant_tax: value('op-relevant') === 'yes',
     decision_to_which_act_applies: value('op-decision') === 'yes' }),
-};
+}));
 
 /** The command's input from the page's fields; the year is the financial year of the question's last date.
  * @param {(name: string) => string} value @returns {{question: string, year: string} & Record<string, unknown>} */
 export function atoPenaltiesFormInput(value) {
   const question = value('question');
-  const facts = Object.hasOwn(FORM_FACTS, question) ? FORM_FACTS[question](value) : {};
+  const facts = FORM_FACTS.get(question)?.(value) ?? {};
   const last = Object.hasOwn(LAST_DATE, question) ? value(LAST_DATE[/** @type {keyof typeof LAST_DATE} */ (question)]) : '2026-07-01';
   const day = /^\d{4}-\d{2}-\d{2}$/.test(last) ? dayOf(last) : NaN;
   return { question, year: Number.isInteger(day) && isoOf(day) === last ? financialYear(day) : '', ...facts };
@@ -612,7 +612,7 @@ const stretchRow = (s) => [`${longDay(s.from)} to ${longDay(s.to)}`, `${s.days} 
 const days = (/** @type {number} */ n) => `${n} day${n === 1 ? '' : 's'}`;
 
 /** Each question's rows, principal row and working table. @type {Record<string, (r: Record<string, any>, aud: (value: number) => string) => {rows: string[][], working: string[][]}>} */
-const RESULT = {
+const RESULT = new Map(Object.entries({
   gic: (r, aud) => ({ rows: [[`GIC to ${longDay(r.stretches.at(-1).to)}`, aud(r.gic)], ['Paid in the period', aud(r.paid)],
     ['Owing at the end of that day, with GIC', aud(r.balance)], ['Days of GIC', days(r.days)]], working: r.stretches.map(stretchRow) }),
   sic: (r, aud) => ({ rows: [['SIC', aud(r.sic)], ['Days of SIC', r.days ? `${days(r.days)}, ${longDay(r.firstDay)} to ${longDay(r.lastDay)}` : '0 days']],
@@ -633,13 +633,13 @@ const RESULT = {
   overpayment_interest: (r, aud) => ({ rows: [['Interest payable', aud(r.interestPayable)], ['Interest worked out', aud(r.interest)], ['Refunded', aud(r.refunded)]],
     working: r.attribution.flatMap((/** @type {Record<string, any>} */ a) => [[`${aud(a.attributed)} of the payment on ${longDay(a.paidOn)}`,
       `${longDay(a.firstDay)} to ${longDay(a.lastDay)}`, days(a.days)], ...a.stretches.map(stretchRow)]) }),
-};
+}));
 
 /** The page's result. @param {(name: string) => string} value @param {(value: number) => string} aud */
 export function atoPenaltiesInterestResult(value, aud) {
   const input = atoPenaltiesFormInput(value);
   const r = atoPenaltiesInterest(input);
-  const { rows, working } = RESULT[r.question](r, aud);
+  const { rows, working } = /** @type {Function} */ (RESULT.get(r.question))(r, aud);
   const note = [...r.warnings, r.remission].join('. ');
   return { inputs: atoPenaltiesInputsText(input, aud), rows, principal: 0, note, tables: { working } };
 }
