@@ -621,8 +621,10 @@ test('leaving a page whilst a module script loads passes the health check', asyn
   const requested = page.waitForRequest(script);
   await page.goto('/rates/', { waitUntil: 'commit' });
   await requested;
-  await page.unroute(script);
+  const cancelled = page.waitForEvent('requestfailed',
+    (request) => request.url().endsWith('/assets/copy-commands.mjs'));
   await page.goto('/');
+  await cancelled;
   health.assertHealthy();
 });
 
