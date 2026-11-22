@@ -34,7 +34,7 @@ export const FHOG_CASE_FACTS = ['contract', 'nt', 'tas'];
 const FACT_NAMES = { person: 'every applicant is a person aged 18 or over', citizen: 'an applicant is an Australian citizen or permanent resident',
   first: 'no applicant or spouse is excluded by the jurisdiction’s prior grant and ownership rules', residence: 'the residence requirement will be met',
   contract: 'the building contract price is at least the grant', nt: 'the contract replaces none signed before 1 October 2024',
-  tas: 'the transaction completes within 24 months or a period the Commissioner extends, and replaces no contract for the same property, between or benefiting substantially the same parties, made before 1 July 2025 (for a 2025-26 contract) or 1 July 2026 (for a 2026-27 contract)' };
+  tas: 'the transaction completes within 24 months or a period the Commissioner extends, and replaces no transaction for the same property, between or benefiting substantially the same parties, entered into before 1 July 2025 (for a 2025-26 contract) or 1 July 2026 (for a 2026-27 contract)' };
 
 /** @typedef {{from: string, to: string, amount: number, bought?: number, built?: number, north?: number, lesser?: boolean}} GrantRule
  * `bought`, `built` and `north` are the highest eligible whole-dollar value; a rule without them has no cap. */
