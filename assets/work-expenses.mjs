@@ -183,7 +183,7 @@ function homeOffice(facts, year, first) {
   back('actual_cost_return_amount', actual);
   methods.push(['actual_cost', actual]);
   // The first listed wins a tie, so a fixed rate equal to the actual cost is named.
-  const higher = methods.reduce((best, m) => (m[1] > best[1] ? m : best));
+  const higher = methods.reduce((best, m) => (m[1] > best[1] ? m : best), methods[0]);
   return { method: 'home_office', year, amounts, rates: rateTexts(fixed, shortcut, incurred && Boolean(shortcut)),
     methodsAvailable: methods.map(([name]) => name), higherMethod: higher[0],
     fixedRateUnavailable: !incurred ? 'no-running-expenses' : dedicated ? null : 'no-dedicated-home-office' };
@@ -224,7 +224,7 @@ function centsPerKilometre(facts, year) {
 function logBookKept(facts, year, first) {
   const text = String(facts.log_book_year ?? '');
   const match = /^(\d{4})-(\d{2})$/.exec(text);
-  const kept = match ? Number(match[1]) : NaN;
+  const kept = match ? Number(match[1]) : Number.NaN;
   if (!match || Number(match[2]) !== (kept + 1) % 100) {
     refuseWorkExpenses('work_expenses.fact_invalid', 'Enter the log book’s income year as YYYY-YY.');
   }
