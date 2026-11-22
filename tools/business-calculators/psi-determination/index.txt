@@ -82,7 +82,7 @@ One payer’s 2 contracts, 74% paid for a result, are 100% from one payer | Sole
 A payer entered in 2 rows is one source and one unrelated client | Sole trader; payers $50.00 (offer), $30.00 (offer; same payer as payer 1), $20.00 (offer) | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 80.00%, 2 unrelated by public offer
 An agent’s payments are checked before a determination settles the question | Sole trader; determination in force; payers $100.00; agent, $100.01 commission of $100.00 | Refused: enter the principal’s payments and the part of them that is commission or performance fees
 
-One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -90,4 +90,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty business calculators: https://duguid.com.au/tools/business-calculators/
