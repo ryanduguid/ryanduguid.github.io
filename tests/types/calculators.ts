@@ -78,6 +78,11 @@ calculate.psiDetermination({ ...psiAnswers, earner: 'trust' });
 calculate.psiDetermination({ ...psiAnswers, payers: [{ ...psiPayer, offer: 'yes' }] });
 // @ts-expect-error The results test share is null when the steps stop before it.
 const psiResults: number = calculate.psiDetermination(psiAnswers).results;
+const psiReligious: string = calculate.psiDetermination({ ...psiAnswers, earner: 'religious' as const,
+  payers: [psiPayer, { ...psiPayer, same: 1 }] }).rule;
+// @ts-expect-error A row names its payer's first row by number, as the form passes it.
+calculate.psiDetermination({ ...psiAnswers, payers: [psiPayer, { ...psiPayer, same: '1' }] });
+void psiReligious;
 void psiRule;
 void psiResults;
 const payg = { method: 'rate', notified: '0', instalment: '1', estimatedTax: '0', earlier: '0', credits: '0', income: '20100',

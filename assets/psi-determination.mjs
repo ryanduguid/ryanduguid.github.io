@@ -4,19 +4,21 @@
 import { cents } from './money.mjs';
 
 // Whether the personal services income (PSI) rules apply to one individual's PSI for one income
-// year. Read 17 November 2026: Part 2-42 (Divisions 84 to 87) of the Income Tax Assessment Act
+// year. Read 22 November 2026: Part 2-42 (Divisions 84 to 87) of the Income Tax Assessment Act
 // 1997, Compilation No. 268 of 1 October 2026, https://www.legislation.gov.au/C2004A05138/latest/text,
 // and Taxation Ruling TR 2022/3, https://www.ato.gov.au/law/view/document?docid=TXR/TR20223/NAT/ATO/00001,
 // which replaced TR 2001/7 and TR 2001/8 (paragraph 30).
 // Whether income is mainly a reward for personal efforts or skills (s 84-5), is for producing a
 // result (s 87-18), or came as a direct result of offers to the public (s 87-20), whether a payer
 // is an associate, and each market value are the user's answers: the engine counts them.
+// The steps and refusals agree with the psi-test command of ryanduguid/australian-accounting.
 
-/** Who receives the income: the individual as an employee (or office holder or religious
- * practitioner), the individual as a contractor, or a company, partnership or trust.
- * @typedef {'employee' | 'sole-trader' | 'entity'} PsiEarner
+/** Who receives the income: the individual as an employee or office holder, a religious
+ * practitioner paid as such, the individual as a contractor, or a company, partnership or trust.
+ * @typedef {'employee' | 'religious' | 'sole-trader' | 'entity'} PsiEarner
  * @typedef {{amount: string, associate: boolean, offer: boolean, result: boolean, tools: boolean,
- *   defects: boolean}} PsiPayer one payer with its associates
+ *   defects: boolean, same?: number}} PsiPayer one payer with its associates, or one more row of the
+ *   payer in the earlier row `same` names (from 1)
  * @typedef {{times: boolean, mainly: boolean, exclusive: boolean, private: boolean, clients: boolean}} PsiPremises
  * @typedef {{earner: PsiEarner, mainly: boolean, determination: boolean, payers: PsiPayer[], agent: boolean,
  *   commission: string, principal: string, others: string, apprentice: boolean, premises: PsiPremises}} PsiAnswers
@@ -34,71 +36,129 @@ const shown = (value) => `${value.toFixed(2)}%`;
 /** @param {boolean} answer */
 const said = (answer) => (answer ? 'Yes, as you answered' : 'No, as you answered');
 
+/** Each row's payer, as the index of that payer's first row: a row whose `same` names an earlier
+ * row is more of that row's payer and its associates (s 87-15(3)). @param {PsiPayer[]} payers */
+const payerRows = (payers) => payers.reduce((/** @type {number[]} */ first, { same }, i) => {
+  if (same !== undefined && !(Number.isInteger(same) && same >= 1 && same <= i)) {
+    throw new Error(`Payer ${i + 1} can be the same payer as an earlier row only.`);
+  }
+  first.push(same === undefined ? i : first[same - 1]);
+  return first;
+}, []);
+
+/** Section 87-40: the principal's payments and the commission in them, checked whenever an agent
+ * is entered, before any outcome. @param {PsiAnswers} answers */
+function agentPayments(answers) {
+  if (!answers.agent) return null;
+  const paid = { commission: cents(answers.commission), principal: cents(answers.principal) };
+  if (!paid.principal || paid.commission > paid.principal) {
+    throw new Error('Enter the principal’s payments and the part of them that is commission or performance fees.');
+  }
+  return paid;
+}
+
+/** Section 85-35: the step, rule and effect for income outside Division 85.
+ * @type {Partial<Record<PsiEarner, [string, string, string]>>} */
+const OUTSIDE = {
+  employee: ['Subsection 85-35(1): received as an employee or office holder', 'subsection 85-35(1)',
+    'income as an employee, so the PSI rules do not apply'],
+  religious: ['Subsection 85-35(2): a payment to a religious practitioner', 'subsection 85-35(2)',
+    'a payment to a religious practitioner, so the PSI rules do not apply'],
+};
+
+const NONE = { psb: null, results: null, source: null, unrelated: null, employment: null };
+
 /** Steps through Part 2-42 for one individual's PSI in one income year: s 84-5, then s 85-35, a
  * PSB determination (s 87-15(1)), the results test (s 87-18), the 80% rule (s 87-15(3), with
  * s 87-40 for agents) and the other 3 tests (ss 87-20, 87-25, 87-30).
  * @param {PsiAnswers} answers @returns {PsiDetermination} */
 export function psiDetermination(answers) {
-  const { earner, payers, premises } = answers;
-  if (!['employee', 'sole-trader', 'entity'].includes(earner)) throw new Error('Choose who receives the income.');
+  const { earner, payers } = answers;
+  if (!['employee', 'religious', 'sole-trader', 'entity'].includes(earner)) throw new Error('Choose who receives the income.');
   if (!Array.isArray(payers) || payers.length < 1 || payers.length > PSI_PAYERS) {
     throw new Error(`Enter up to ${PSI_PAYERS} payers.`);
   }
   const amounts = payers.map(({ amount }) => cents(amount));
+  const rows = payerRows(payers);
+  const agent = agentPayments(answers);
   const total = amounts.reduce((sum, amount) => sum + amount, 0);
   const others = cents(answers.others);
   /** @type {Array<[string, string]>} */
   const steps = [['Subsection 84-5(1): income mainly a reward for the individual’s personal efforts or skills',
     said(answers.mainly)]];
-  const none = { psb: null, results: null, source: null, unrelated: null, employment: null };
   if (!answers.mainly) {
-    return { rule: 'subsection 84-5(1)', effect: 'not personal services income, so Part 2-42 does not apply', ...none, steps };
+    return { rule: 'subsection 84-5(1)', effect: 'not personal services income, so Part 2-42 does not apply', ...NONE, steps };
   }
-  if (earner === 'employee') {
-    steps.push(['Subsection 85-35(1): received as an employee, office holder or religious practitioner', said(true)]);
-    return { rule: 'subsection 85-35(1)', effect: 'income as an employee, so the PSI rules do not apply', ...none, steps };
+  const outside = OUTSIDE[earner];
+  if (outside) {
+    steps.push([outside[0], said(true)]);
+    return { rule: outside[1], effect: outside[2], ...NONE, steps };
   }
   const entity = earner === 'entity';
   steps.push([`Paragraph 87-15(1)(${entity ? 'b' : 'a'}): a personal services business determination in force`,
     said(answers.determination)]);
   if (answers.determination) {
-    return { rule: `paragraph 87-15(1)(${entity ? 'b' : 'a'})`, effect: PSB, ...none, psb: true, steps };
+    return { rule: `paragraph 87-15(1)(${entity ? 'b' : 'a'})`, effect: PSB, ...NONE, psb: true, steps };
   }
   if (!total) throw new Error('Enter the PSI from at least one payer.');
   if (total > 100_000_000_000) throw new Error('The PSI from all payers together cannot exceed $1,000,000,000.');
   if (others > total) throw new Error('The market value of principal work by others cannot exceed the PSI entered.');
+  return businessTests({ answers, amounts, rows, agent, total, others, entity, steps });
+}
 
+/** The results test, then the agent rules, the 80% rule and the other 3 tests.
+ * @param {{answers: PsiAnswers, amounts: number[], rows: number[], agent: {commission: number, principal: number} | null,
+ *   total: number, others: number, entity: boolean, steps: Array<[string, string]>}} work
+ * @returns {PsiDetermination} */
+function businessTests({ answers, amounts, rows, agent, total, others, entity, steps }) {
+  const { payers } = answers;
   // Section 87-18: at least 75% of the PSI meets all 3 conditions.
   const met = payers.reduce((sum, { result, tools, defects }, i) => sum + (result && tools && defects ? amounts[i] : 0), 0);
   const results = share(met, total);
   const passed = 4 * met >= 3 * total;
   steps.push([`Subsection 87-18(${entity ? 3 : 1}): PSI paid for a result, with the tools supplied and liability for defects`,
     `${shown(results)}, ${passed ? 'at least 75%: met' : 'under 75%: not met'}`]);
-  if (passed) return { rule: `subsection 87-18(${entity ? 3 : 1})`, effect: PSB, ...none, psb: true, results, steps };
+  if (passed) return { rule: `subsection 87-18(${entity ? 3 : 1})`, effect: PSB, ...NONE, psb: true, results, steps };
 
-  if (answers.agent) {
-    const [commission, principal] = [cents(answers.commission), cents(answers.principal)];
-    if (!principal || commission > principal) {
-      throw new Error('Enter the principal’s payments and the part of them that is commission or performance fees.');
-    }
-    if (4 * commission >= 3 * principal) {
+  if (agent) {
+    if (4 * agent.commission >= 3 * agent.principal) {
       throw new Error('At least 75% of the principal’s payments are commission or performance fees, so section 87-40 '
         + 'may treat the principal’s customers as the sources of the PSI; this page does not apply section 87-40.');
     }
     steps.push(['Paragraph 87-40(2)(c): commission or performance fees in the principal’s payments',
-      `${shown(share(commission, principal))}, under 75%: the agent rules do not apply`]);
+      `${shown(share(agent.commission, agent.principal))}, under 75%: the agent rules do not apply`]);
   }
 
-  // Subsection 87-15(3): each payer row is one entity with its associates.
-  const largest = Math.max(...amounts);
+  // Subsection 87-15(3): the rows of one payer are one entity with its associates.
+  const fromPayer = amounts.reduce((sums, amount, i) => { sums[rows[i]] += amount; return sums; }, amounts.map(() => 0));
+  const largest = Math.max(...fromPayer);
   const source = share(largest, total);
   const oneSource = 5 * largest >= 4 * total;
   steps.push(['Subsection 87-15(3): largest share of the PSI from one payer and its associates',
     `${shown(source)}, ${oneSource ? '80% or more' : 'under 80%'}`]);
 
-  // The other 3 tests count for self-assessment only under 80% from one source, but they are
-  // still worked out: the Commissioner weighs them for a determination (s 87-15(1), note 2).
-  const unrelated = payers.filter(({ associate, offer }, i) => amounts[i] && !associate && offer).length;
+  const { unrelated, employment, passes } = otherTests({ answers, amounts, rows, total, others, steps });
+  const figures = { results, source, unrelated, employment };
+  const division = entity ? 'Division 86 applies' : 'Division 85 applies';
+  if (oneSource) {
+    return { rule: 'subsection 87-15(3)', effect: `not a personal services business unless a determination is in force, so ${division}`,
+      psb: false, ...figures, steps };
+  }
+  if (passes.length) {
+    const sections = passes.length === 1 ? `section ${passes[0]}`
+      : `sections ${passes.slice(0, -1).join(', ')} and ${passes.at(-1)}`;
+    return { rule: sections, effect: PSB, psb: true, ...figures, steps };
+  }
+  return { rule: 'subsection 87-15(1)', effect: `not a personal services business, so ${division}`, psb: false, ...figures, steps };
+}
+
+/** The other 3 tests, which count for self-assessment only under 80% from one source but are
+ * still worked out: the Commissioner weighs them for a determination (s 87-15(1), note 2).
+ * @param {{answers: PsiAnswers, amounts: number[], rows: number[], total: number, others: number,
+ *   steps: Array<[string, string]>}} work */
+function otherTests({ answers, amounts, rows, total, others, steps }) {
+  const { payers, premises } = answers;
+  const unrelated = new Set(payers.flatMap(({ associate, offer }, i) => (amounts[i] && !associate && offer ? [rows[i]] : []))).size;
   const employment = share(others, total);
   const fifth = 5 * others >= total;
   const employs = fifth || answers.apprentice;
@@ -116,22 +176,11 @@ export function psiDetermination(answers) {
   ];
   for (const { label, finding } of tests) steps.push([label, finding]);
   const passes = tests.filter(({ pass }) => pass).map(({ section }) => section);
-  const figures = { results, source, unrelated, employment };
-  const division = entity ? 'Division 86 applies' : 'Division 85 applies';
-  if (oneSource) {
-    return { rule: 'subsection 87-15(3)', effect: `not a personal services business unless a determination is in force, so ${division}`,
-      psb: false, ...figures, steps };
-  }
-  if (passes.length) {
-    const sections = passes.length === 1 ? `section ${passes[0]}`
-      : `sections ${passes.slice(0, -1).join(', ')} and ${passes.at(-1)}`;
-    return { rule: sections, effect: PSB, psb: true, ...figures, steps };
-  }
-  return { rule: 'subsection 87-15(1)', effect: `not a personal services business, so ${division}`, psb: false, ...figures, steps };
+  return { unrelated, employment, passes };
 }
 
-const EARNERS = { employee: 'Received by the individual as an employee', 'sole-trader': 'Received by the individual as a contractor',
-  entity: 'Received by a company, partnership or trust' };
+const EARNERS = { employee: 'Received by the individual as an employee', religious: 'Received by the individual as a religious practitioner',
+  'sole-trader': 'Received by the individual as a contractor', entity: 'Received by a company, partnership or trust' };
 const CONSEQUENCES = {
   'sole-trader': 'Division 85 stops a deduction an employee could not claim (section 85-10), except those subsection '
     + '85-10(2) keeps, such as for gaining work and insurance; it also stops rent, mortgage interest, rates or land tax '
@@ -150,7 +199,8 @@ export function psiDeterminationResult(value, checked, aud) {
   const earner = /** @type {PsiEarner} */ (value('earner'));
   const payers = Array.from({ length: PSI_PAYERS }, (_, i) => ({ amount: value(`amount-${i + 1}`),
     associate: checked(`associate-${i + 1}`), offer: checked(`offer-${i + 1}`), result: checked(`result-${i + 1}`),
-    tools: checked(`tools-${i + 1}`), defects: checked(`defects-${i + 1}`) }));
+    tools: checked(`tools-${i + 1}`), defects: checked(`defects-${i + 1}`),
+    ...(i && value(`same-${i + 1}`) ? { same: Number(value(`same-${i + 1}`)) } : {}) }));
   const premises = { times: checked('premises-times'), mainly: checked('premises-mainly'),
     exclusive: checked('premises-exclusive'), private: checked('premises-private'), clients: checked('premises-clients') };
   const answers = { earner, mainly: value('mainly') === 'yes', determination: value('determination') === 'yes', payers,
@@ -161,12 +211,12 @@ export function psiDeterminationResult(value, checked, aud) {
   const listed = (/** @type {Array<[boolean, string]>} */ items) => items.filter(([on]) => on).map(([, text]) => text).join(', ')
     || 'none';
   const inputs = [`${EARNERS[earner]}, ${answers.mainly ? '' : 'not '}mainly a reward for personal efforts or skills`];
-  if (answers.mainly && earner !== 'employee') {
+  if (answers.mainly && !OUTSIDE[earner]) {
     inputs[0] += `, ${answers.determination ? 'a' : 'no'} PSB determination`;
     if (!answers.determination) {
       payers.forEach((payer, i) => {
         if (cents(payer.amount)) {
-          inputs.push(`payer ${i + 1} ${money(payer.amount)}, ticked: ${listed([[payer.associate, 'an associate'],
+          inputs.push(`payer ${i + 1} ${money(payer.amount)}${payer.same ? `, same payer as payer ${payer.same}` : ''}, ticked: ${listed([[payer.associate, 'an associate'],
             [payer.offer, 'won by a public offer'], [payer.result, 'paid for a result'], [payer.tools, 'tools supplied'],
             [payer.defects, 'liable for defects']])}`);
         }
