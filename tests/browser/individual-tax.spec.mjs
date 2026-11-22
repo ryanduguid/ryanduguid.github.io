@@ -9,7 +9,8 @@ const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 's
   'sole-trader': '$5,939.00', 'lump-sum-arrears': '$1,688.25', 'division-293': '$750.00', 'income-tests': '$73,810.00',
   'concessional-catch-up': '$97,500.00', 'bonus-withholding': '$641.00',
   'salary-packaging': '$5,291.50', 'novated-lease': '$6,047.48',
-  'super-projection': '$539,266.80', fhss: '$14,350.00', 'work-expenses': '$590.00' };
+  'super-projection': '$539,266.80', fhss: '$14,350.00', 'work-expenses': '$590.00',
+  'government-super': '$500.00' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -37,6 +38,7 @@ for (const id of Object.keys(CALCULATORS)) {
       copy.querySelector('.result-example').remove();
       return copy.textContent;
     });
+    if (id === 'government-super') await form.locator('#government-super-scope').selectOption('yes');
     if (id === 'fhss') {
       await form.locator('#fhss-scope').selectOption('yes');
       await form.locator('input[name=withholding-basis][value=unable]').check();
@@ -456,4 +458,38 @@ test('work expenses switches method and year, shows only their inputs and refuse
   await expect(form.locator('#work-expenses-category-e')).toBeVisible();
   await calculate.click();
   await expect(row('Deduction, cents disregarded')).toHaveText('$40.00');
+});
+
+test('government super shows the spouse inputs on request and refuses a temporary visa and an unknown balance', async ({ page }) => {
+  await page.goto('/tools/individual-tax/government-super/');
+  const form = page.locator('#government-super form');
+  const output = form.locator('output');
+  const row = (label) => output.locator('.result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await waitForCalculator(form);
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  // Unconfirmed answers are refused, and the select takes focus.
+  await calculate.click();
+  await expect(form.locator('#government-super-scope')).toBeFocused();
+  await form.locator('#government-super-scope').selectOption('yes');
+  // The taper: $50,000 in 2025-26 and $1,000 of personal contributions give $416.28, paid as $416.30.
+  await form.locator('input[name=year][value="2025-26"]').check();
+  for (const id of ['assessable', 'taxable', 'eligible']) await form.locator(`#government-super-${id}`).fill('50000');
+  await form.locator('#government-super-personal').fill('1000');
+  await calculate.click();
+  await expect(row('Super co-contribution')).toHaveText('$416.28');
+  await expect(row('Co-contribution paid, up to 5 cents')).toHaveText('$416.30');
+  // The spouse's inputs appear only on request: $39,999 of spouse income leaves 18% of $1.
+  await expect(form.locator('#government-super-spouse-assessable')).toBeHidden();
+  await form.locator('input[name=spouse][value=yes]').check();
+  await form.locator('#government-super-spouse-assessable').fill('39999');
+  await calculate.click();
+  await expect(row('Spouse contribution tax offset')).toHaveText('$0.18');
+  // A balance answer of not known that decides the co-contribution is refused.
+  await form.locator('input[name=balance][value=unknown]').check();
+  await calculate.click();
+  await expect(output).toContainText('was not given');
+  await form.locator('input[name=balance][value=yes]').check();
+  await form.locator('input[name=visa][value=yes]').check();
+  await calculate.click();
+  await expect(output).toContainText('New Zealand citizens');
 });

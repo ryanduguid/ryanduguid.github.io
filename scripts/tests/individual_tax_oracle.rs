@@ -49,6 +49,11 @@
 //! percentage first. Both show half a cent up and take the return amount's cents off the unrounded
 //! total. Self-education applies ITAA 1936 s 82A's $250 reduction, as the ATO's page states it, in
 //! whole cents.
+//!
+//! The government super amounts oracle (`assets/government-super.mjs`) types Table 25's lower
+//! thresholds, read 22 November 2026, and works the co-contribution, LISTO and the spouse offset
+//! from the Act's words in whole cents, the co-contribution in hundred-thousandths of a dollar, where
+//! the engine takes total income and adjusted taxable income from the income tests page's function.
 //! The engines run from the repository's own `assets/`, not the rendered site.
 
 use num_bigint::BigUint;
@@ -70,6 +75,7 @@ import { incomeTests } from './assets/income-tests.mjs';
 import { superProjection } from './assets/super-projection.mjs';
 import { salaryDividend } from './assets/salary-dividend.mjs';
 import { workExpenses } from './assets/work-expenses.mjs';
+import { governmentSuperAmounts } from './assets/government-super.mjs';
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
 const cents = (result) => result === null ? null : Object.fromEntries(Object.entries(result)
@@ -113,6 +119,11 @@ const run = {
     } catch (error) {
       return { refused: error.code };
     }
+  },
+  gov: ({ facts }) => {
+    const a = governmentSuperAmounts(facts).amounts;
+    return { total: a.co_contribution_total_income, adjusted: a.adjusted_taxable_income, co: a.co_contribution,
+      co_paid: a.co_contribution_paid, listo: a.listo, listo_paid: a.listo_paid, spouse: a.spouse_contribution_offset ?? null };
   },
 };
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
@@ -2660,6 +2671,236 @@ fn the_work_expenses_engine_agrees_with_the_oracle_on_every_seeded_case() {
             let facts = Value::Object(facts);
             let want = work_oracle(&facts);
             (json!({ "kind": "work", "facts": facts }), want)
+        })
+        .unzip();
+    agree(&cases, &expected);
+}
+
+/// The co-contribution's lower income threshold by year, typed from the ATO's 'Government
+/// contributions' Table 25 (last updated 27 April 2026); the higher is $15,000 above it.
+fn gov_lower(year: &str) -> i128 {
+    match year {
+        "2020-21" => 39_837,
+        "2021-22" => 41_112,
+        "2022-23" => 42_016,
+        "2023-24" => 43_445,
+        "2024-25" => 45_400,
+        "2025-26" => 47_488,
+        _ => 49_293,
+    }
+}
+
+/// Cents as the engine writes them: "12.34", with a minus sign below nil.
+fn gov_text(cents: i128) -> String {
+    let sign = if cents < 0 { "-" } else { "" };
+    format!("{sign}{}.{:02}", cents.abs() / 100, cents.abs() % 100)
+}
+
+/// Half up to the cent, from a numerator over a positive denominator in cents.
+fn gov_half_up(numerator: i128, denominator: i128) -> i128 {
+    (2 * numerator + denominator) / (2 * denominator)
+}
+
+/// The oracle's amounts for one seeded case, from the Co-contribution Act ss 6, 8 to 11, 12C and 12E
+/// and ITAA 1997 ss 290-230 and 290-235, in whole cents, the co-contribution in hundred-thousandths of a dollar.
+fn gov_oracle(case: &Value) -> Value {
+    let int = |key: &str| {
+        case[key]
+            .as_str()
+            .unwrap()
+            .replace('.', "")
+            .parse::<i128>()
+            .unwrap()
+    };
+    // Whole-dollar income parts in cents; the contributions and eligible income carry their cents.
+    let dollars = |key: &str| case[key].as_str().unwrap().parse::<i128>().unwrap() * 100;
+    let cents = |key: &str| {
+        let text = case[key].as_str().unwrap();
+        if text.contains('.') {
+            int(key)
+        } else {
+            int(key) * 100
+        }
+    };
+    let (assessable, taxable, business) = (
+        dollars("assessable_income"),
+        dollars("taxable_income"),
+        dollars("business_deductions"),
+    );
+    let (employer, excess) = (
+        dollars("reportable_employer_super_contributions"),
+        dollars("excess_concessional_contributions"),
+    );
+    let (other, section_57a) = (
+        dollars("reportable_fringe_benefits_other"),
+        dollars("reportable_fringe_benefits_section_57a"),
+    );
+    let (rental, child) = (
+        dollars("net_rental_property_loss"),
+        dollars("child_support_paid"),
+    );
+    let employer_net = (employer - excess).max(0);
+    // s 8(1), (1A) and (2); for the 10% test, before business deductions (s 8(3)).
+    let total = assessable + other + section_57a + employer_net - business;
+    let before_business = total + business;
+    // Family Assistance Act Sch 3: a section 57A employer's amount at 53%, down to the dollar.
+    let adjusted =
+        taxable + (section_57a / 100 * 53 / 100) * 100 + other + rental + employer_net - child;
+    let eligible = cents("eligible_income");
+    let ten = eligible * 10 >= before_business;
+    let flag = |key: &str| case[key].as_bool().unwrap();
+    let lower = gov_lower(case["year"].as_str().unwrap()) * 100;
+    let personal = cents("personal_contributions");
+    let co_payable = personal > 0
+        && ten
+        && total < lower + 1_500_000
+        && flag("return_lodged")
+        && flag("under_71")
+        && flag("non_concessional_within_cap")
+        && flag("total_super_balance_below_cap");
+    // In hundred-thousandths of a dollar, so 3.333 cents a dollar is exact.
+    let taper = (total - lower).max(0) / 100 * 3_333;
+    let maximum = (50_000_000 - taper).max(0);
+    let co = if co_payable {
+        (personal * 500).min(maximum).max(2_000_000)
+    } else {
+        0
+    };
+    let co_paid = (co + 4_999) / 5_000 * 5;
+    let concessional = cents("concessional_contributions");
+    let listo_payable = concessional > 0 && adjusted <= 3_700_000 && ten;
+    let listo = if listo_payable {
+        gov_half_up(concessional * 15, 100).clamp(1_000, 50_000)
+    } else {
+        0
+    };
+    let listo_paid = (listo + 4) / 5 * 5;
+    let spouse = case.get("spouse_contributions").map(|_| {
+        let income = cents("spouse_assessable_income")
+            + cents("spouse_reportable_employer_super_contributions");
+        let limit = (300_000 - (income - 3_700_000).max(0)).max(0);
+        let made = cents("spouse_contributions");
+        let payable = made > 0
+            && income < 4_000_000
+            && flag("spouse_non_concessional_within_cap")
+            && flag("spouse_total_super_balance_below_cap");
+        json!(gov_text(if payable {
+            gov_half_up(made.min(limit) * 18, 100)
+        } else {
+            0
+        }))
+    });
+    json!({
+        "total": gov_text(total), "adjusted": gov_text(adjusted), "co": gov_text(gov_half_up(co, 1_000)), "co_paid": gov_text(co_paid),
+        "listo": gov_text(listo), "listo_paid": gov_text(listo_paid), "spouse": spouse.unwrap_or(Value::Null),
+    })
+}
+
+#[test]
+fn the_government_super_oracle_works_the_atos_examples_by_hand() {
+    let base = |year: &str, salary: &str| {
+        json!({ "year": year, "assessable_income": salary, "taxable_income": salary, "business_deductions": "0",
+            "reportable_employer_super_contributions": "0", "excess_concessional_contributions": "0",
+            "reportable_fringe_benefits_other": "0", "reportable_fringe_benefits_section_57a": "0",
+            "net_rental_property_loss": "0", "child_support_paid": "0", "eligible_income": salary,
+            "personal_contributions": "0", "concessional_contributions": "0", "return_lodged": true, "under_71": true,
+            "non_concessional_within_cap": true, "total_super_balance_below_cap": true })
+    };
+    let mut angelo = base("2023-24", "35000");
+    angelo["personal_contributions"] = json!("1040");
+    assert_eq!(gov_oracle(&angelo)["co"], "500.00");
+    let mut taper = base("2025-26", "50000");
+    taper["personal_contributions"] = json!("1000");
+    assert_eq!(gov_oracle(&taper)["co"], "416.28");
+    assert_eq!(gov_oracle(&taper)["co_paid"], "416.30");
+    let mut julie = base("2022-23", "32000");
+    julie["taxable_income"] = json!("31000");
+    julie["concessional_contributions"] = json!("3360");
+    assert_eq!(gov_oracle(&julie)["listo"], "500.00");
+    let mut judy = base("2021-22", "80000");
+    for (key, value) in [
+        ("spouse_contributions", "3500"),
+        ("spouse_assessable_income", "19000"),
+        ("spouse_reportable_employer_super_contributions", "0"),
+    ] {
+        judy[key] = json!(value);
+    }
+    judy["spouse_non_concessional_within_cap"] = json!(true);
+    judy["spouse_total_super_balance_below_cap"] = json!(true);
+    assert_eq!(gov_oracle(&judy)["spouse"], "540.00");
+    judy["spouse_assessable_income"] = json!("38000");
+    assert_eq!(gov_oracle(&judy)["spouse"], "360.00");
+}
+
+#[test]
+fn the_government_super_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1122_0B5E_0005);
+    let money = |rng: &mut Seeded, most: u64| {
+        let cents = rng.below(most * 100 + 1);
+        format!("{}.{:02}", cents / 100, cents % 100)
+    };
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..900)
+        .map(|_| {
+            let year = rng.pick(&YEARS);
+            let lower = u64::try_from(gov_lower(year)).unwrap();
+            let assessable = match rng.below(4) {
+                0 => 1 + rng.below(37_500),
+                1 => lower - 2 + rng.below(4),
+                2 => lower + 14_998 + rng.below(4),
+                _ => lower + rng.below(15_000),
+            };
+            let business = if rng.below(5) == 0 { rng.below(assessable) } else { 0 };
+            let taxable = assessable - business - rng.below(assessable - business + 1).min(rng.below(3_000));
+            let employer = if rng.below(3) == 0 { rng.below(9_000) } else { 0 };
+            let excess = if rng.below(6) == 0 { rng.below(employer.min(assessable) + 1) } else { 0 };
+            let most = rng.pick(&[0, 30, 1_200, 4_000]);
+            let personal = money(&mut rng, most);
+            let most = rng.pick(&[0, 70, 4_000, 12_000]);
+            let concessional = money(&mut rng, most);
+            let mut facts = json!({
+                "taxable_income": taxable.to_string(), "assessable_fhss_released_amount": "0",
+                "family_trust_distribution_amounts": "0",
+                "reportable_fringe_benefits_section_57a": (if rng.below(5) == 0 { rng.below(8_000) } else { 0 }).to_string(),
+                "reportable_fringe_benefits_other": (if rng.below(5) == 0 { rng.below(6_000) } else { 0 }).to_string(),
+                "reportable_employer_super_contributions": employer.to_string(), "deductible_personal_super_contributions": "0",
+                "excess_concessional_contributions": excess.to_string(), "net_financial_investment_loss": "0",
+                "net_rental_property_loss": (if rng.below(5) == 0 { rng.below(9_000) } else { 0 }).to_string(),
+                "tax_free_government_pensions": "0", "target_foreign_income": "0", "exempt_foreign_employment_income": "0",
+                "child_support_paid": (if rng.below(8) == 0 { rng.below(5_000) } else { 0 }).to_string(),
+                "assessable_income": assessable.to_string(), "business_deductions": business.to_string(),
+                "residency": "full_year_resident", "personal_contributions": personal, "concessional_contributions": concessional,
+                "return_lodged": rng.below(10) != 0, "under_71": rng.below(10) != 0, "temporary_visa_held": false,
+                "non_concessional_within_cap": rng.below(10) != 0, "total_super_balance_below_cap": rng.below(10) != 0,
+                "year": year, "scope_confirmed": true,
+            });
+            let before_business = assessable + facts["reportable_fringe_benefits_other"].as_str().unwrap().parse::<u64>().unwrap()
+                + facts["reportable_fringe_benefits_section_57a"].as_str().unwrap().parse::<u64>().unwrap()
+                + (employer - excess.min(employer));
+            let eligible = match rng.below(4) {
+                0 => before_business * 100 / 10,
+                1 => (before_business * 100 / 10).saturating_sub(1),
+                _ => rng.below(before_business * 100 + 1),
+            };
+            facts["eligible_income"] = json!(format!("{}.{:02}", eligible / 100, eligible % 100));
+            if rng.below(2) == 0 {
+                let choices = [rng.below(36_000), 36_990 + rng.below(3_020), 39_990 + rng.below(20)];
+                let income = rng.pick(&choices);
+                let most = rng.pick(&[0, 1_000, 4_000]);
+                let made = money(&mut rng, most);
+                for (key, value) in [
+                    ("spouse_contributions", made),
+                    ("spouse_assessable_income", format!("{income}.00")), ("spouse_assessable_fhss_released_amount", "0".into()),
+                    ("spouse_reportable_fringe_benefits_total", "0".into()),
+                    ("spouse_reportable_employer_super_contributions", if rng.below(3) == 0 { money(&mut rng, 3_000) } else { "0".into() }),
+                    ("spouse_excess_concessional_contributions", "0".into()),
+                ] {
+                    facts[key] = json!(value);
+                }
+                facts["spouse_non_concessional_within_cap"] = json!(rng.below(10) != 0);
+                facts["spouse_total_super_balance_below_cap"] = json!(rng.below(10) != 0);
+            }
+            let want = gov_oracle(&facts);
+            (json!({ "kind": "gov", "facts": facts }), want)
         })
         .unzip();
     agree(&cases, &expected);

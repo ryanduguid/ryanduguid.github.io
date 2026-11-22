@@ -35,6 +35,8 @@ const arrears = { file: 'assets/lump-sum-arrears.mjs', test: individualTest };
 const soleTrader = { file: 'assets/sole-trader.mjs', test: individualTest };
 const incomeTests = { file: 'assets/income-tests.mjs', test: individualTest };
 const catchUp = { file: 'assets/concessional-catch-up.mjs', test: individualTest };
+const governmentSuper = { file: 'assets/government-super.mjs', test: individualTest };
+const governmentSuperResult = { file: 'assets/government-super-result.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -976,6 +978,53 @@ const MUTATIONS = [
   { ...workExpenses, name: 'work expenses dedicated office taken from 2022-23', find: "...(early ? ['dedicated_home_office'] : [])", replace: "'dedicated_home_office'" },
   { ...workExpenses, name: 'work expenses category E taken without a prescribed course', find: "...(early && facts.prescribed_course === true ? ['category_e'] : [])", replace: "...(early ? ['category_e'] : [])" },
   { ...workExpenses, name: 'work expenses 2027-28 accepted', find: '\'2025-26\', \'2026-27\'];\nexport const WORK_EXPENSES_METHODS', replace: '\'2025-26\', \'2026-27\', \'2027-28\'];\nexport const WORK_EXPENSES_METHODS' },
+  { ...governmentSuper, name: 'government super 2025-26 lower threshold typed a dollar low', find: '\'2025-26\': [47488, 62488]', replace: '\'2025-26\': [47487, 62488]' },
+  { ...governmentSuper, name: 'government super 2027-28 accepted', find: '\'2026-27\': [49293, 64293],', replace: '\'2026-27\': [49293, 64293], \'2027-28\': [49293, 64293],' },
+  { ...governmentSuper, name: 'government super taper of 3.33 cents', find: 'const TAPER = 3333n;', replace: 'const TAPER = 3330n;' },
+  { ...governmentSuper, name: 'government super maximum of $501', find: 'const MAXIMUM = 500n * DOLLAR;', replace: 'const MAXIMUM = 501n * DOLLAR;' },
+  { ...governmentSuper, name: 'government super no $20 minimum', find: 'const MINIMUM = 20n * DOLLAR;', replace: 'const MINIMUM = 0n * DOLLAR;' },
+  { ...governmentSuper, name: 'government super matches the whole contribution', find: 'const matched = p.personal / 2n;', replace: 'const matched = p.personal;' },
+  { ...governmentSuper, name: 'government super pays at the higher threshold', find: 'total < BigInt(higher) * DOLLAR', replace: 'total <= BigInt(higher) * DOLLAR' },
+  { ...governmentSuper, name: 'government super taper starts a dollar late', find: 'most(0n, total - BigInt(lower) * DOLLAR)', replace: 'most(0n, total - BigInt(lower + 1) * DOLLAR)' },
+  { ...governmentSuper, name: 'government super payment always adds 5 cents', find: '(u + 5n * CENT - 1n) / (5n * CENT)', replace: '(u + 5n * CENT) / (5n * CENT)' },
+  { ...governmentSuper, name: 'government super amounts shown cut to the cent', find: 'const cents = (size + CENT / 2n) / CENT;', replace: 'const cents = size / CENT;' },
+  { ...governmentSuper, name: 'government super 10% test needs more than 10%', find: 'eligible * 10n >= testTotal', replace: 'eligible * 10n > testTotal' },
+  { ...governmentSuper, name: 'government super 10% test after business deductions', find: 'const testTotal = total + business;', replace: 'const testTotal = total;' },
+  { ...governmentSuper, name: 'government super nil total income measured', find: 'const tenPercent = testTotal === 0n ? null : eligible * 10n >= testTotal;', replace: 'const tenPercent = eligible * 10n >= testTotal;' },
+  { ...governmentSuper, name: 'government super eligible income above total accepted', find: 'if (eligible > testTotal) {', replace: 'if (false) {' },
+  { ...governmentSuper, name: 'government super lodged return not required', find: '[\'return_lodged\', p.lodged]', replace: '[\'return_lodged\', true]' },
+  { ...governmentSuper, name: 'government super age not tested', find: '[\'under_71\', p.under71]', replace: '[\'under_71\', true]' },
+  { ...governmentSuper, name: 'government super non-concessional cap not tested', find: '[\'non_concessional_within_cap\', p.nonConcessional]', replace: '[\'non_concessional_within_cap\', true]' },
+  { ...governmentSuper, name: 'government super balance not tested', find: '[\'total_super_balance_below_cap\', p.balance]', replace: '[\'total_super_balance_below_cap\', true]' },
+  { ...governmentSuper, name: 'government super a condition not met does not decide', find: '  if (met.some(([, value]) => value === false)) return false;\n', replace: '' },
+  { ...governmentSuper, name: 'government super nil income refused as a missing fact', find: 'if (missing?.[0] === TEN_PERCENT) {', replace: 'if (false) {' },
+  { ...governmentSuper, name: 'government super a fact not given passes', find: '  if (missing) {\n', replace: '  if (false) {\n' },
+  { ...governmentSuper, name: 'government super null read as a flag', find: 'return facts[name] === null ? null : flag(facts, name);', replace: 'return flag(facts, name);' },
+  { ...governmentSuper, name: 'government super temporary visa accepted', find: 'if (flag(facts, \'temporary_visa_held\')) {', replace: 'if (facts.temporary_visa_held === \'held\') {' },
+  { ...governmentSuper, name: 'government super foreign resident accepted', find: '\'working_holiday_maker\', \'foreign_resident\'];', replace: '\'working_holiday_maker\'];' },
+  { ...governmentSuper, name: 'government super part of the spouse inputs accepted', find: 'if (given.length && given.length < SPOUSE_INPUTS.length) {', replace: 'if (false) {' },
+  { ...governmentSuper, name: 'government super scope not confirmed accepted', find: 'if (facts.scope_confirmed !== true)', replace: 'if (facts.scope_confirmed === false && false)' },
+  { ...governmentSuper, name: 'government super amount cap raised', find: 'number(facts[name], { max: 1e12, money: true })', replace: 'number(facts[name], { max: 1e13, money: true })' },
+  { ...governmentSuper, name: 'government super LISTO at $37,000 refused', find: 'ati <= LISTO_LIMIT', replace: 'ati < LISTO_LIMIT' },
+  { ...governmentSuper, name: 'government super LISTO at 16%', find: 'const fifteen = (p.concessional * 15n) / 100n;', replace: 'const fifteen = (p.concessional * 16n) / 100n;' },
+  { ...governmentSuper, name: 'government super LISTO paid from the unrounded 15%', find: 'const nearestCent = ((fifteen + CENT / 2n) / CENT) * CENT;', replace: 'const nearestCent = fifteen;' },
+  { ...governmentSuper, name: 'government super LISTO minimum of $1', find: 'const LISTO_MINIMUM = 10n * DOLLAR;', replace: 'const LISTO_MINIMUM = 1n * DOLLAR;' },
+  { ...governmentSuper, name: 'government super LISTO maximum of $510', find: 'const LISTO_MAXIMUM = 500n * DOLLAR;', replace: 'const LISTO_MAXIMUM = 510n * DOLLAR;' },
+  { ...governmentSuper, name: 'government super LISTO without concessional contributions', find: '[\'concessional_contributions_made\', p.concessional !== 0n]', replace: '[\'concessional_contributions_made\', true]' },
+  { ...governmentSuper, name: 'government super LISTO skips the 10% test', find: '[\'adjusted_taxable_income_37000\', ati <= LISTO_LIMIT], [TEN_PERCENT, p.tenPercent]', replace: '[\'adjusted_taxable_income_37000\', ati <= LISTO_LIMIT], [TEN_PERCENT, true]' },
+  { ...governmentSuper, name: 'government super spouse offset at 17%', find: '(least(limit, made) * 18n) / 100n', replace: '(least(limit, made) * 17n) / 100n' },
+  { ...governmentSuper, name: 'government super spouse base of $3,001', find: 'const SPOUSE_BASE = 3000n * DOLLAR;', replace: 'const SPOUSE_BASE = 3001n * DOLLAR;' },
+  { ...governmentSuper, name: 'government super spouse taper from $37,001', find: 'const SPOUSE_TAPER_START = 37000n * DOLLAR;', replace: 'const SPOUSE_TAPER_START = 37001n * DOLLAR;' },
+  { ...governmentSuper, name: 'government super spouse at $40,000 accepted', find: 'income < SPOUSE_LIMIT', replace: 'income <= SPOUSE_LIMIT' },
+  { ...governmentSuper, name: 'government super spouse FHSS amount kept', find: 'const income = assessable - fhss + fringe', replace: 'const income = assessable + fringe' },
+  { ...governmentSuper, name: 'government super spouse excess not taken off', find: 'most(0n, employer - excess)', replace: 'employer' },
+  { ...governmentSuper, name: 'government super spouse FHSS conflict accepted', find: 'if (fhss > assessable) {', replace: 'if (false) {' },
+  { ...governmentSuper, name: 'government super spouse excess conflict accepted', find: 'if (excess > assessable) {', replace: 'if (false) {' },
+  { ...governmentSuper, name: 'government super spouse balance not tested', find: 'stated(facts, \'spouse_total_super_balance_below_cap\')]', replace: 'true]' },
+  { ...governmentSuper, name: 'government super spouse cap not tested', find: 'stated(facts, \'spouse_non_concessional_within_cap\')],', replace: 'true],' },
+  { ...governmentSuperResult, name: 'government super not known read as no', find: '(answer === \'unknown\' ? null : answer === \'yes\')', replace: '(answer === \'yes\')' },
+  { ...governmentSuperResult, name: 'government super a non-resident passed as resident', find: 'yes(\'resident\') ? \'full_year_resident\' : \'part_year_resident\'', replace: '\'full_year_resident\'' },
+  { ...governmentSuperResult, name: 'government super thresholds shown the wrong way', find: '`${whole(r.rates.lower_income_threshold)} and ${whole(r.rates.higher_income_threshold)}`', replace: '`${whole(r.rates.higher_income_threshold)} and ${whole(r.rates.lower_income_threshold)}`' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -992,12 +1041,12 @@ try {
   for (const name of readdirSync(join(root, 'assets')).filter((entry) => entry.endsWith('.mjs'))) {
     copyFileSync(join(root, 'assets', name), join(work, 'assets', name));
   }
-  for (const test of [levy.test, business.test, individualTest, 'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs']) copyFileSync(join(root, test), join(work, test));
+  for (const test of [levy.test, business.test, individualTest, 'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs']) copyFileSync(join(root, test), join(work, test));
   for (const shared of ['rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators',
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/luxury-car-tax-engine-differential.json', 'scripts/depreciation-pools-engine-differential.json', 'scripts/ato-penalties-interest-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/government-super-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/luxury-car-tax-engine-differential.json', 'scripts/depreciation-pools-engine-differential.json', 'scripts/ato-penalties-interest-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/wine-equalisation-tax-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json', 'scripts/super-benefit-tax-engine-differential.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });

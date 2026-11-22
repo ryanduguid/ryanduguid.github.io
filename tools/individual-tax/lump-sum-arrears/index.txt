@@ -61,7 +61,7 @@ A recent year that was a rebate year itself is adjusted both ways | 2025-26, tax
 2016-17’s arrears above $180,000 carry the 2% budget repair levy | 2025-26, taxable $100,000.00; 2016-17 $10,000.00 on $200,000.00 | Tax on arrears $3,000.00, notional tax $4,700.00, offset $0.00
 2026-27’s 15% band: $20,000 from 2024-25 at 16% and 30% against 30% and 37% | 2026-27, taxable $150,000.00; 2024-25 $20,000.00 on $30,000.00 | Tax on arrears $7,050.00, notional tax $3,900.00, offset $3,150.00
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -69,4 +69,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
