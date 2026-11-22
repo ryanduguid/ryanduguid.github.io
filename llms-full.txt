@@ -5560,7 +5560,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
-22 November 2026 | A new business calculator works out one residential rental property’s income and deductions for one owner and income year from 2020-21 to 2026-27: expenses apportioned by the days let or available, interest on a loan used partly for the rental, capital works at 2.5% or 4% within the undeducted construction expenditure, decline in value with section 40-27’s nil for second-hand assets, the net rent and, from 2024-25, its effect on tax at the resident scale. It reproduces the ATO’s Rental properties guide 2026 worked examples, read on 22 November 2026, and agrees with the rental-property command of the australian-accounting calculators on every tested case.
+22 November 2026 | A new business calculator, ATO penalties and interest, works out one amount before remission: the general interest charge, compounding daily at each quarter’s rate with payments on their days, the shortfall interest charge on an amended assessment, the failure to lodge penalty with the penalty unit at the start of each 28-day period, false or misleading statement penalties with the 20% increase and the reductions for a voluntary disclosure, and the interest the ATO pays on early payments and overpayments. It agrees with the ato-interest-penalties command of the australian-accounting calculators on every tested case, and it declines remission and scheme penalties.
 22 November 2026 | A new business calculator works out the tax on one superannuation lump sum from a complying fund paid in 2020-21 to 2026-27: its tax free component by the proportioning rule, its elements taxed and untaxed in the fund, and the most income tax each part can bear before the Medicare levy, for a member by age and preservation age with the low rate cap and untaxed plan cap, and for a death benefit to a dependant or a non-dependant. The Act and the ATO’s caps were read on 22 November 2026; the page reproduces the ATO’s examples and agrees with the super-benefit-tax command of the australian-accounting calculators on every tested case.
 22 November 2026 | A new individual tax calculator, work expenses, works an employee’s working from home, car and self-education expenses for 2020-21 to 2026-27. It sets the working from home fixed rate (52c with a dedicated home office or the 80c shortcut to 2021-22, then 67c and 70c from 1 July 2024) beside the actual cost and names the higher, counts the first 5,000 business kilometres at the year’s cents per kilometre rate, takes a log book’s business use percentage, and applies the $250 reduction to a prescribed course of education to 2021-22. It refuses reimbursed expenses, allowances and an expired or short log book, and leaves out occupancy expenses.
 22 November 2026 | A new business calculator works out luxury car tax on a tax period’s sales and importations in 2019-20 to 2026-27: the threshold or fuel-efficient car limit for the year of each supply (from 2012-13 for an adjustment), the 3.5 litre rating from 1 July 2025 and the 7 litre rating it keeps for a car supplied or imported and used other than for a quotable purpose before then, the price and change of use adjustments, the primary producer and tourism operator refunds of up to $10,000 and the amounts for labels 1E and 1F. The Act and the ATO’s rate and threshold table were read on 22 November 2026, and the page opens on the ATO’s examples of Matty Bee Motors’ $2,157.30 and Jimmy’s Mustang’s $6,207.30.
@@ -5785,6 +5785,7 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- ATO penalties and interest: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
 - work expenses: https://duguid.com.au/tools/individual-tax/work-expenses/
 - ASIC fees: https://duguid.com.au/tools/business-calculators/asic-fees/
 - site licence notice: https://duguid.com.au/privacy/
@@ -6362,7 +6363,6 @@ Published 11 September 2026. Last checked 22 November 2026, the newest of the ca
 - AASB 16 lease calculator A lessee’s lease liability, right-of-use asset, interest and depreciation by income year, with the journals, beside hire purchase and buying outright after GST and tax.
 - Borrowing expenses calculator Section 25-25 borrowing expenses by income year from 2017-18, spread by days, with the $100 rule, refinancing and an optional AASB 9 column.
 - Depreciation pools and capital works calculator A low-value pool at 18.75% and 37.5%, a general small business pool at 15% and 30% with the low pool value write-off, or a capital works deduction at 2.5% or 4%, for 2020-21 to 2026-27.
-- Rental property calculator One owner’s rental income and deductions for a year: expenses by days let, interest on a mixed-use loan, capital works and second-hand assets, the net rent and its effect on tax.
 
 ## Division 7A, FBT, professional firms and GIC
 
@@ -6377,6 +6377,7 @@ Published 11 September 2026. Last checked 22 November 2026, the newest of the ca
 - PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - PCG 2021/4 allocation Each recipient’s tax on a professional firm’s profit, the effective tax rate and the ATO’s risk zone.
 - GIC payment plan calculator What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
+- ATO penalties and interest calculator GIC and SIC by day and quarter, the failure to lodge penalty, statement penalties with increases and reductions, and the interest the ATO pays, all before remission.
 - Division 7A loan schedule calculator A complying Division 7A loan year by year over 7 or 25 years: each minimum repayment, the interest, extra repayments and any shortfall taken to be a dividend.
 - Division 296 tax calculator One person’s Division 296 tax on superannuation earnings for 2026-27, above $3 million and above $10 million.
 - PSI rules checker Whether the personal services income rules apply, step by step through Divisions 84 to 87.
@@ -6435,7 +6436,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - AASB 16 lease calculator: https://duguid.com.au/tools/business-calculators/lease/
 - Borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
 - Depreciation pools and capital works calculator: https://duguid.com.au/tools/business-calculators/depreciation-pools/
-- Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - FBT car parking calculator: https://duguid.com.au/tools/business-calculators/fbt-car-parking/
@@ -6447,6 +6447,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - PCG 2021/4 allocation: https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/
 - GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
+- ATO penalties and interest calculator: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
 - Division 7A loan schedule calculator: https://duguid.com.au/tools/business-calculators/div7a-schedule/
 - Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
@@ -10422,139 +10423,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# Rental property calculator: deductions, capital works, net rent
-
-Source: https://duguid.com.au/tools/business-calculators/rental-property/
-
-> Rental property deductions by the ATO worksheet lines: days let, mixed-use loan interest, capital works, second-hand assets, net rent and the effect on tax.
-
-# Rental property calculator
-
-Income, deductions and net rent for one rental property, one owner and one year.
-
-Published 22 November 2026. Last checked 22 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-One rental property, one owner, one income year
-
-Your legal interest as a decimal, such as 0.5 for half
-
-Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
-
-Day you acquired the property Day you stopped holding it in the year (optional) Days in the year you held it that it was let or available for rent on commercial terms Your other taxable income, whole dollars, for the effect on tax from 2024-25 (optional, AUD) Is it a holiday home whose costs section 26-50 denies? No Yes
-
-## Income, the whole property’s
-
-Rent (AUD) Other rental income, such as an insurance payout for lost rent or a bond kept (AUD)
-
-## Expenses for the whole period held
-
-Enter the whole property’s expenses. These are apportioned by the days let or available over the days held.
-
-Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage (AUD) Travel (shown, not deductible) (AUD) Water charges (AUD) Sundry rental expenses (AUD)
-
-## Expenses solely for renting
-
-Expenses that relate only to renting, such as agent commission and removing a tenant’s rubbish, are not apportioned.
-
-Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage (AUD) Water charges (AUD) Sundry rental expenses (AUD)
-
-## Interest on your own loans
-
-Enter your own share of each loan and the outstanding principal used for the rental and in total. A redraw or further drawing in the year is refused. Leave the interest blank to skip a loan.
-
-Loan 1 Interest charged in the year (AUD) Principal used for the rental (AUD) Total principal (AUD) Redrawn or drawn further in the year?No Yes
-
-Loan 2 (optional) Interest charged in the year (AUD) Principal used for the rental (AUD) Total principal (AUD) Redrawn or drawn further in the year?No Yes
-
-## Borrowing expenses
-
-Work out the year’s figure with the borrowing expenses calculator, which spreads them over the loan under section 25-25.
-
-This year’s borrowing expenses deduction (AUD)
-
-## Capital works
-
-Enter the whole property’s construction expenditure from the builder’s contract or a qualified estimator. Leave it blank to skip an item.
-
-Capital works 1 Construction expenditure (AUD) KindA building or extension A structural improvement, such as a fence Day construction began Day first used by anyone after construction A building begun after 15 September 1987: taken to have begun before 16 September 1987 under section 43-220?Not answered Yes No
-
-Capital works 2 (optional) Construction expenditure (AUD) KindA building or extension A structural improvement, such as a fence Day construction began Day first used by anyone after construction A building begun after 15 September 1987: taken to have begun before 16 September 1987 under section 43-220?Not answered Yes No
-
-## Decline in value of depreciating assets
-
-Enter each asset’s decline in value for the year from a schedule or the depreciation calculator, before any private use reduction. Leave it blank to skip an asset.
-
-Asset 1 Decline in value (AUD) Day you acquired it, or entered into the contract to Day it was first used or installed ready for use Did you hold it when it was first used or installed?Yes No Used in your home or for a private purpose, more than occasionally?No Yes In a low-value pool?No Yes Not held when first used: supplied with new residential premises (section 40-27(4) or (5))?Not answered Yes No Acquired before 9 May 2017: was anything deductible for it for 2016-17?Not answered Yes No
-
-Asset 2 (optional) Decline in value (AUD) Day you acquired it, or entered into the contract to Day it was first used or installed ready for use Did you hold it when it was first used or installed?Yes No Used in your home or for a private purpose, more than occasionally?No Yes In a low-value pool?No Yes Not held when first used: supplied with new residential premises (section 40-27(4) or (5))?Not answered Yes No Acquired before 9 May 2017: was anything deductible for it for 2016-17?Not answered Yes No
-
-## The calculator’s scope
-
-The property is a residential rental you hold as an investment, let at market rent, and none of the cases below appliesChoose Yes, I have checked them No or unsure
-
-Calculate
-
-The calculator does not cover a business of letting; a company, trust or other entity; letting part of a dwelling; GST on short stays; the 4% rate for build to rent or short-term traveller accommodation; or vacant land under section 26-102.
-
-Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; legal interest 1; held from 20 July 2025; 346 days let or available; rental income $9,300.00; expenses apportioned by days $4,070.00; expenses solely for renting $848.00; travel $436.00; loan 1: interest $14,108.00, $170,000.00 of $209,000.00 for the rental; borrowing expenses $259.62; capital works 1: $115,800.00, building begun 1 August 1991, first used 1 March 1992; asset 1: decline in value $796.00; other taxable income $90,000.00. Your share of the rent $9,300.00 Total deductions $20,193.33 Net rent, a loss if negative −$10,893.33 Tax on $90,000.00 without the rental $17,788.00 Tax on $79,107.00 with the net rent $14,520.10 Less tax because of the rental, more if negative $3,267.90 Travel of $436.00 at your interest is not deductible (ITAA 1997 s 26-31). The tax is at the resident scale only: the Medicare levy, the surcharge, offsets and study loan repayments are left out.
-
-## How the rental property calculator works
-
-The rental property calculator works out one owner’s rental income and deductions for one residential property and one income year, on the lines of the ATO’s rental property worksheet (Rental properties guide 2026, Example 33). Rent and other rental income are assessable (section 6-5). Co-owners who are not in a business of letting share income and expenses by legal interest, whatever they agree between them (TR 93/32), so the calculator takes the whole property’s amounts and multiplies them by your interest. Your loans are entered as your own and are not divided.
-
-An expense of the property for the whole time you held it in the year, such as rates, insurance or repairs, is apportioned by the days it was let or available for rent on commercial terms over the days you held it. An expense solely for renting, such as agent commission or advertising for tenants, is not (the guide’s time-based method and Example 34). Travel is shown but not deducted: section 26-31 denies it to an individual not in a business of letting from 1 July 2017. Interest on a loan used partly for the rental is the interest times the principal used for the rental over the total principal, then the time-based share (TR 2000/2 paragraphs 15 and 16).
-
-Capital works are 2.5% of the construction expenditure a year, or 4% for a building begun from 18 July 1985 to 15 September 1987 or taken to have begun before 16 September 1987 under section 43-220, times the days used over 365. The deduction is never more than the construction expenditure not yet deducted (sections 43-25, 43-210 and 43-240). Each asset’s decline in value is taken as you enter it, at your interest and the time-based share, and is nil where section 40-27 denies it for a second-hand asset or one used privately. The borrowing expenses line is the year’s figure from the borrowing expenses calculator. Each line is rounded to the cent, where the guide’s examples round to the dollar. The calculator reproduces Example 33: deductions of $20,193.33 and a net rent of −$10,893.33, the guide’s $20,629 less the $436 of travel its Note 2 says needs an exception.
-
-Given your other taxable income for 2024-25 to 2026-27, the calculator works out the tax at the resident scale with and without the net rent, its cents dropped as a return shows them, and the difference.
-
-## Choices the rental property calculator makes
-
-The calculator makes 2 counting choices the ATO gives no worked example for, as the rental-property command of the australian-accounting calculators does. The use period of capital works counts both its first and last day (section 43-230(2)). The time-based share applies to a decline in value you enter, as it does to the other lines. The 4% rate for a residential building begun from 18 July 1985 rests on the guide’s Table 1, not on a provision read. A building begun from 22 August 1979 to 17 July 1985 qualifies only if it was intended on completion for short-term traveller accommodation or non-residential use, so the calculator refuses it rather than give nil.
-
-## What the rental property calculator does not cover
-
-The calculator works the income years 2020-21 to 2026-27 and refuses 2027-28, from which section 26-155 can limit residential rental deductions. It refuses a holiday home whose costs section 26-50 denies (TR 2026/1), a loan redrawn or drawn further in the year (TR 2000/2 paragraphs 23 to 25), an asset acquired on 9 May 2017, the day section 40-27 starts at 7.30 pm, and the effect on tax before 2024-25. It also refuses works or an asset first used after you first held the property in a year it was not available every day, as the days of rental use are then not known.
-
-Not covered: a business of letting; a company, trust or other entity; letting part of a dwelling or at less than market rent; GST on short stays; the 4% rate for build to rent or short-term traveller accommodation; vacant land under section 26-102; a tax loss under Division 36; and the Medicare levy, the surcharge, offsets and study loan repayments. The calculator never derives construction expenditure from a price or a valuation. A value or total of $70,368,744,177,664 or more is refused, as the page cannot show it to the cent. Have a registered tax agent confirm the result before you lodge.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Rental property calculator
-
-Case | Inputs | Result
-Rental properties guide 2026 Example 33 with $90,000 of other income: travel of $436 denied | 2025-26; legal interest 1; held from 20 July 2025; 346 days let or available; rental income $9,300.00; expenses apportioned by days $4,070.00; expenses solely for renting $848.00; travel $436.00; loan 1: interest $14,108.00, $170,000.00 of $209,000.00 for the rental; borrowing expenses $259.62; capital works 1: $115,800.00, building begun 1 August 1991, first used 1 March 1992; asset 1: decline in value $796.00; other taxable income $90,000.00 | gross rent $9,300.00, total deductions $20,193.33, net rent -$10,893.33
-Example 34: $50,000 rent, $37,000 apportioned by 330 of 365 days, $3,000 solely for renting | 2025-26; legal interest 1; held from 1 July 2020; 330 days let or available; rental income $50,000.00; expenses apportioned by days $37,000.00; expenses solely for renting $3,000.00; borrowing expenses $0.00 | gross rent $50,000.00, total deductions $36,452.05, net rent $13,547.95
-Example 34 at a half interest: $6,773.97 each, the ATO’s $6,774 | 2025-26; legal interest 0.5; held from 1 July 2020; 330 days let or available; rental income $50,000.00; expenses apportioned by days $37,000.00; expenses solely for renting $3,000.00; borrowing expenses $0.00 | gross rent $25,000.00, total deductions $18,226.03, net rent $6,773.97
-Example 12: $14,108 of interest, $170,000 of $209,000 for the rental, $11,475.41 | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; loan 1: interest $14,108.00, $170,000.00 of $209,000.00 for the rental; borrowing expenses $0.00 | gross rent $0.00, total deductions $11,475.41, net rent -$11,475.41
-Example 29: $115,800 of construction expenditure, held from 20 July 2025, $2,744.30 | 2025-26; legal interest 1; held from 20 July 2025; 346 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; capital works 1: $115,800.00, building begun 1 August 1991, first used 1 March 1992 | gross rent $0.00, total deductions $2,744.30, net rent -$2,744.30
-4% works first used in 1986 are fully deducted after 25 years | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; capital works 1: $100,000.00, building begun 1 October 1985, first used 1 January 1986 | gross rent $0.00, total deductions $0.00, net rent $0.00
-A building taken to have begun before 16 September 1987 under section 43-220 takes 4% | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; capital works 1: $100,000.00, building begun 27 February 2010, first used 1 January 2011 | gross rent $0.00, total deductions $4,000.00, net rent -$4,000.00
-Example 21: new curtains deducted, the previous owner’s carpet nil under section 40-27 | 2025-26; legal interest 1; held from 20 August 2025; 315 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; asset 1: decline in value $300.00; asset 2: decline in value $500.00 | gross rent $0.00, total deductions $300.00, net rent -$300.00
-Example 23: an asset supplied with new residential premises within 6 months | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; asset 1: decline in value $400.00 | gross rent $0.00, total deductions $400.00, net rent -$400.00
-A holiday home whose costs section 26-50 denies is refused | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00 | Refused: section 26-50 denies the costs of owning a holiday home not used or held mainly to produce rent at all times in the year, before any apportionment (TR 2026/1 paragraphs 17 and 31); this calculator does not decide ‘mainly’
-A loan redrawn in the year is refused | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; loan 1: interest $100.00, $1.00 of $2.00 for the rental, redrawn; borrowing expenses $0.00 | Refused: loan 1: A redraw or further drawing in the year changes the share of the principal used for the rental from that day (TR 2000/2 paragraphs 23 to 25); work the loan’s sub-accounts and give each as a loan of its own
-A building begun from 22 August 1979 to 17 July 1985 is refused | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; capital works 1: $100,000.00, building begun 17 July 1985, first used 1 January 1986 | Refused: capital works 1: A building begun from 22 August 1979 to 17 July 1985 qualifies only if it was intended on completion for short-term traveller accommodation or non-residential use (Rental properties guide 2026, Table 1), which this calculator does not take
-The effect on tax before 2024-25 is refused | 2023-24; legal interest 1; held from 1 July 2020; 366 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; other taxable income $50,000.00 | Refused: the effect on tax is worked out for 2024-25 to 2026-27, the years the resident scale is held for here; leave other taxable income blank for an earlier year
-2027-28 is refused | 2027-28; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00 | Refused: choose an income year from 2020-21 to 2026-27. From 2027-28 s 26-155 can limit residential rental deductions, which this calculator does not work out
-
-One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
-- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
 # Borrowing expenses calculator: section 25-25 by days
 
 Source: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
@@ -11470,6 +11338,75 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - quarterly GIC rate table: https://duguid.com.au/rates/general-interest-charge/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# ATO penalties and interest calculator: GIC, SIC and penalties
+
+Source: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
+
+> GIC and SIC by day and quarter, the failure to lodge penalty, statement penalties with increases and reductions, and ATO credit interest, before remission.
+
+# ATO penalties and interest calculator
+
+GIC, SIC, penalties and credit interest.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+ATO interest or penalty
+
+What to work outGeneral interest charge (GIC) on an unpaid amount Shortfall interest charge (SIC) on an amended assessment Failure to lodge on time penalty False or misleading statement penalty Interest the ATO pays on an early payment Interest the ATO pays on an overpayment Remission of a charge or penalty (not worked) A scheme penalty (not worked)
+
+Amount unpaid at the start of the due day (AUD) Due date Work out GIC to the end of Payment 1 date (optional) Payment 1 amount (AUD) Payment 2 date (optional) Payment 2 amount (AUD) Payment 3 date (optional) Payment 3 amount (AUD) Annual GIC rate to assume after December 2026 (%), needed only for later days
+
+Calculate
+
+Each amount is before remission. Dates run to 30 June 2028; the published GIC and SIC rates end on 31 December 2026.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: GIC on $10,000.00 due 21 November 2025, to 30 June 2026. GIC to 30 June 2026 $676.86 Paid in the period $0.00 Owing at the end of that day, with GIC $10,676.86 Days of GIC 222 days Before remission: the Commissioner may remit GIC (TAA 1953 s 8AAG), SIC (TAA Sch 1 s 280-160) and administrative penalties (s 298-20), which this calculator does not estimate.
+
+## How the ATO penalties and interest calculator works
+
+The calculator works one question at a time, with the same rules, rounding and refusals as the ato-interest-penalties command in the australian-accounting calculators. GIC compounds daily from the due day on the unpaid amount and unpaid GIC, at each quarter’s annual rate divided by 365, or 366 in a leap year (sections 8AAC and 8AAD). A payment reduces the balance before that day’s charge. SIC compounds the same way on the additional tax, at the GIC rate less 4 points, from the day the first assessment’s tax was due to the day before the amended assessment’s notice (sections 280-100 and 280-105). Both are worked exactly and rounded to the cent once.
+
+The failure to lodge penalty is 1 penalty unit for each 28 days or part of 28 days late, at most 5, each at the unit applying when its period starts: $330 to 30 June 2026 and $364 from 1 July 2026. It is doubled for a medium entity, times 5 for a large entity and times 500 for a significant global entity (section 286-80). The statement penalty is 75%, 50% or 25% of the shortfall for intentional disregard, recklessness or a failure to take reasonable care, or 60, 40 or 20 penalty units with no shortfall. A position not reasonably arguable gives 25% where its shortfall is more than the greater of $10,000 and 1% of the return’s income tax. The base amount is increased 20% where section 284-220 applies and reduced 80%, to nil or 20% for a voluntary disclosure (section 284-225).
+
+The ATO pays simple interest at the base interest rate, the GIC rate less 7 points, on a payment of income tax, SIC, a compulsory study loan repayment or an FS assessment debt made more than 14 days early, to the end of the due day (sections 8A to 8C), and on relevant tax overpaid because of a decision and then refunded, from the later of the notice and the payment (sections 9 and 10). The interest rounds to the cent, and under 50 cents is not paid.
+
+In the example the page opens with, $10,000 due on 21 November 2025 and unpaid to 30 June 2026 grows by 222 days of GIC at 10.61%, 10.65% and 10.96% to $10,676.86: $676.86 of GIC.
+
+## What the ATO penalties and interest calculator does not cover
+
+Every amount is before remission: the Commissioner can remit GIC, SIC and penalties, and the calculator does not estimate that. It does not work scheme penalties, the trust and partnership items of section 284-90, Division 296 GIC, a payment refunded before its due day or interest on a running balance account surplus. It refuses days without a published rate: GIC after 31 December 2026 unless you assume a rate, which makes the result an estimate, and SIC and credit interest after that day. The October to December 2026 base interest rate of 4.51% is the published GIC rate less 7 points; the ATO’s credit interest page lists quarters only to September 2026. The behaviour behind a shortfall, whether a position is reasonably arguable, whether a disclosure was voluntary and the entity’s size are your facts; the calculator does not decide them. Confirm the amount with the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: ATO penalties and interest calculator
+
+Case | Inputs | Result
+Spec G9: $10,000 unpaid for 222 days across 3 quarters | GIC on $10,000.00 due 21 November 2025, to 30 June 2026 | GIC $676.86, balance owing $10,676.86
+The site’s hand-worked payment plan: $9.68 of GIC | GIC on $1,000.00 due 1 October 2026, to 30 November 2026; $336.56 paid 1 October 2026, $336.56 paid 1 November 2026 | GIC $9.68, balance owing $336.56
+Spec S1: SIC for 284 days to the day before the notice | SIC on $10,000.00 of additional tax first due 21 November 2024, amended assessment notice 1 September 2025 | SIC $575.45
+Spec F4: a medium entity, units of $330 and $364 | Failure to lodge, due 10 June 2026, lodged 1 August 2026, a medium entity (x2) | penalty $1,388.00
+Spec P3: PS LA 2012/5 Example 7 facts at 75% and 25% | Statement penalty, statement made 15 March 2026; part 1: shortfall $15,000.00, intentional disregard; part 2: shortfall $2,000.00, failure to take reasonable care | penalty $11,750.00
+Spec E2: the ATO’s Evan example in 2025, 19 days at 3.61% | $1,926.00 of income tax paid 3 November 2025, due 21 November 2025, notice issued 29 October 2025 | interest payable $3.62
+Spec O2: a refund taken from the later payment first | $3,000.00 paid 1 December 2024, $3,000.00 paid 1 March 2025; notice issued 15 October 2024; $4,000.00 refunded 15 August 2025 | interest payable $86.51
+Spec G10: a GIC day after December 2026 needs an assumed rate | GIC on $10,000.00 due 21 November 2025, to 1 January 2027 | Refused: the ATO has published GIC rates to 31 December 2026; enter an assumed rate to project 1 January 2027 and later
+Remission is the Commissioner’s discretion | Remission of a charge or penalty | Refused: remission of GIC (TAA 1953 s 8AAG), SIC (TAA Sch 1 s 280-160) and administrative penalties (s 298-20) is the Commissioner’s discretion: every amount here is before remission, and the calculator does not estimate one
+
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
 - fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---

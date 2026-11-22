@@ -104,6 +104,11 @@
 //! s 2G(1) with `jiff` and answers only when every reading of the weekend rules gives one tier, where the
 //! engine adds a calendar month in UTC milliseconds and refuses the ranges a move could reach.
 //!
+//! A further 120 seeded ATO penalties and interest questions reuse the GIC payment plan oracle: half ask
+//! a payment plan as a GIC question and expect its final instalment as the balance, and half work SIC a
+//! day at a time at the published GIC rate less 4 points, where the engine reads the rates through its
+//! own quarter lookup.
+//!
 //! A further 200 seeded GST margin scheme sales work the GST on a GST-exclusive price as 1/11 of
 //! the exact margin on the price it makes, where the engine takes a tenth of the price less the cost.
 //!
@@ -8509,6 +8514,120 @@ fn the_rental_property_engine_agrees_with_the_oracle_on_every_seeded_case() {
         (0..RENTAL_CASES).map(|_| rental_case(&mut rng)).unzip();
     let actual = run_node(RENTAL_HARNESS, &cases);
     assert_eq!(actual.len(), RENTAL_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the ATO penalties and interest engine, as `HARNESS` runs the others: each case's GIC and
+/// balance, or its SIC.
+const ATO_HARNESS: &str = r"
+import { atoPenaltiesInterest } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => {
+  const r = atoPenaltiesInterest(one);
+  return r.question === 'gic' ? { gic: String(r.gic), balance: String(r.balance) } : { sic: String(r.sic) };
+})));
+";
+
+const ATO_CASES: usize = 120;
+
+fn financial_year(day: i64) -> String {
+    let (year, month, _) = civil(day);
+    let start = if month >= 7 { year } else { year - 1 };
+    format!("{start}-{:02}", (start + 1) % 100)
+}
+
+/// A seeded payment plan asked as a GIC question: the debt due on the first instalment day, each
+/// instalment but the last paid on its day, to the day before the last instalment. The plan's
+/// final instalment is then the balance owing, and the plan's GIC the charge.
+fn ato_gic_case(rng: &mut Seeded, quarters: &[(i64, i64, u64)]) -> (Value, Value) {
+    let (first, span) = (day_number(2019, 1, 1), 9 * 366);
+    loop {
+        let debt = 1 + rng.cents(MAX_PRINCIPAL - 1);
+        let start = first + i64::try_from(rng.below(span)).unwrap();
+        let any_count = 2 + rng.below(60);
+        let count = rng.pick(&[2, 3, 12, any_count]);
+        let frequency = rng.pick(&["weekly", "fortnightly", "monthly"]);
+        let any_rate = 1 + rng.below(10_000);
+        let assumed = rng.pick(&[1151, 900, any_rate]);
+        let days = gic_instalment_days(start, count, frequency);
+        let to = days[days.len() - 1] - 1;
+        if !(day_number(2020, 7, 1)..=day_number(2028, 6, 30)).contains(&to) {
+            continue;
+        }
+        let (instalment, last, _) = gic_oracle(quarters, debt, &days, assumed);
+        let payments: Vec<Value> = days[..days.len() - 1]
+            .iter()
+            .map(|day| json!({"date": iso_day(*day), "amount": dollars(instalment)}))
+            .collect();
+        let input = json!({
+            "question": "gic", "year": financial_year(to), "amount": dollars(debt),
+            "due_date": iso_day(start), "to": iso_day(to), "payments": payments,
+            "assumed_annual_rate": format!("{}.{:02}", assumed / 100, assumed % 100),
+        });
+        let total = instalment * (count - 1) + last;
+        return (
+            input,
+            json!({"gic": shown(total - debt), "balance": shown(last)}),
+        );
+    }
+}
+
+/// SIC on additional tax from its due day to the day before the amended assessment's notice,
+/// compounded a day at a time at the published GIC rate less 4 points (TAA Sch 1 s 280-105(2)
+/// against s 8AAD(1)), worked exactly and rounded half up once.
+fn ato_sic_case(rng: &mut Seeded, quarters: &[(i64, i64, u64)]) -> (Value, Value) {
+    let (from, last_notice) = (day_number(2020, 7, 1), day_number(2027, 1, 1));
+    let notice =
+        from + i64::try_from(rng.below(u64::try_from(last_notice - from + 1).unwrap())).unwrap();
+    let any_days = rng.below(6000);
+    let back = i64::try_from(rng.pick(&[0, 1, 90, 400, any_days])).unwrap();
+    let due = (notice - back).max(day_number(2005, 4, 1));
+    let amount = 1 + rng.cents(MAX_PRINCIPAL - 1);
+    let (mut numerator, mut denominator) = (BigUint::from(amount), BigUint::from(1_u8));
+    for day in due..notice {
+        let rate = quarters
+            .iter()
+            .find(|q| q.0 <= day && day <= q.1)
+            .unwrap()
+            .2
+            - 400;
+        let year = civil(day).0;
+        let base =
+            10_000 * u64::try_from(day_number(year + 1, 1, 1) - day_number(year, 1, 1)).unwrap();
+        numerator *= base + rate;
+        denominator *= base;
+    }
+    let input = json!({
+        "question": "sic", "year": financial_year(notice), "amount": dollars(amount),
+        "due_date": iso_day(due), "notice_date": iso_day(notice),
+    });
+    (
+        input,
+        json!({"sic": shown(half_up(&numerator, &denominator) - amount)}),
+    )
+}
+
+#[test]
+fn the_ato_penalties_engine_agrees_with_the_gic_and_sic_oracles_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let quarters = gic_quarters();
+    let mut rng = Seeded(0x2026_1122_0000_0B07);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..ATO_CASES)
+        .map(|i| {
+            if i % 2 == 0 {
+                ato_gic_case(&mut rng, &quarters)
+            } else {
+                ato_sic_case(&mut rng, &quarters)
+            }
+        })
+        .unzip();
+    let actual = run_node(ATO_HARNESS, &cases);
+    assert_eq!(actual.len(), ATO_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }
