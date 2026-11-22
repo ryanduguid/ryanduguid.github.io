@@ -20,12 +20,16 @@ import { superProjection } from '../assets/super-projection.mjs';
 import { fhss } from '../assets/fhss.mjs';
 import { fhssFormFacts, fhssResult } from '../assets/fhss-result.mjs';
 import './fhss.test.mjs';
+import { governmentSuperAmounts } from '../assets/government-super.mjs';
+import { governmentSuperFormFacts, governmentSuperResult } from '../assets/government-super-result.mjs';
+import './government-super.test.mjs';
 
 import { bonusWithholding } from '../assets/bonus-withholding.mjs';
 import { salaryPackaging } from '../assets/salary-packaging.mjs';
 import { FUEL_EFFICIENT_THRESHOLD, novatedLease } from '../assets/novated-lease.mjs';
 const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAside, lumpSumArrears, division293Tax, incomeTests, concessionalCatchUp,
-  bonusWithholding, salaryPackaging, novatedLease, superProjection, fhssAmounts: (facts) => fhss(facts).amounts };
+  bonusWithholding, salaryPackaging, novatedLease, superProjection, fhssAmounts: (facts) => fhss(facts).amounts,
+  governmentSuperAmounts };
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -49,6 +53,13 @@ const signed = (value) => (value < 0 ? `-${whole(-value)}` : whole(value));
 
 // How each row's call reads on the page and how its result reads, so neither can drift from the engine.
 const INPUTS = {
+  governmentSuperAmounts: (f) => `${f.year}, assessable income ${whole(f.assessable_income)}`
+    + (f.taxable_income === f.assessable_income ? '' : `, taxable income ${whole(f.taxable_income)}`)
+    + (f.business_deductions === '0' ? '' : `, business deductions ${whole(f.business_deductions)}`)
+    + `, eligible income ${dollars(f.eligible_income)}, personal contributions ${dollars(f.personal_contributions)}, `
+    + `concessional contributions ${dollars(f.concessional_contributions)}`
+    + ('spouse_contributions' in f ? `, spouse income ${dollars(f.spouse_assessable_income)}, spouse contributions `
+      + `${dollars(f.spouse_contributions)}` : ''),
   fhssAmounts: (f) => `ATO determination: concessional ${dollars(f.concessional)}, non-concessional ${dollars(f.nonConcessional)}, earnings ${dollars(f.associatedEarnings)}`
     + (f.actualRelease ? `, requested ${dollars(f.requestedAmount)} on ${f.releaseRequestDate}, gross released ${dollars(f.actualRelease)}` : ''),
   taxEstimate: (r) => `${r.year}, ${RESIDENCY[r.residency]}, ${parts(r)}${r.studyLoan ? ', study loan' : ''}`
@@ -100,6 +111,8 @@ const INPUTS = {
       .join(', '),
 };
 const OUTPUTS = {
+  governmentSuperAmounts: (r) => `Co-contribution ${dollars(r.amounts.co_contribution_paid)}, LISTO ${dollars(r.amounts.listo_paid)}`
+    + (r.amounts.spouse_contribution_offset === undefined ? '' : `, spouse offset ${dollars(r.amounts.spouse_contribution_offset)}`),
   fhssAmounts: (r) => `Maximum release ${dollars(r.maximum_release_amount)}, assessable ${dollars(r.assessable_fhss_released_amount)}, `
     + `PAYG ${dollars(r.tax_withheld)}, after withholding ${dollars(r.after_withholding)}, offset ${dollars(r.fhss_tax_offset)}`,
   taxEstimate: (r, call) => `Tax ${dollars(r.tax)}, offset ${dollars(r.offset)}`
@@ -168,6 +181,7 @@ const formDefaults = (html) => {
 // How assets/individual-tax-results.mjs passes each form's fields to its engine.
 const fhssExampleFields = fields => ({ ...fields, scope: 'yes', 'withholding-basis': 'unable', 'debt-offset': '0', transition: '' });
 const FORM_CALLS = {
+  governmentSuperAmounts: (f) => [governmentSuperFormFacts((name) => ({ ...f, scope: 'yes' })[name] ?? '')],
   fhssAmounts: (f) => {
     const fixture = fhssExampleFields(f);
     return [Object.fromEntries(Object.entries(fhssFormFacts(name => fixture[name] ?? '')).filter(([, value]) => value !== ''))];
@@ -639,13 +653,14 @@ for (const page of Object.keys(shownCases)) {
     const example = html.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
     const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
     const defaults = formDefaults(html);
-    const fields = page === 'fhss' ? fhssExampleFields(defaults) : defaults;
+    const fields = page === 'fhss' ? fhssExampleFields(defaults) : page === 'government-super' ? { ...defaults, scope: 'yes' } : defaults;
     // The browser reads a field through form.elements, which has no entry for a name the form lacks.
     const value = (name) => {
       assert.ok(Object.hasOwn(fields, name), `${page} reads ${name}, which its form does not have`);
       return fields[name] ?? '';
     };
-    const result = page === 'fhss' ? fhssResult(value, aud) : individualResult(page, value, aud);
+    const result = page === 'fhss' ? fhssResult(value, aud) : page === 'government-super' ? governmentSuperResult(value, aud)
+      : individualResult(page, value, aud);
     assert.equal(result.inputs, example[1]);
     assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);
     assert.equal(String(result.principal), example[3]);
