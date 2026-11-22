@@ -22,7 +22,7 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 
 ## How the PAYG instalments calculator works
 
-The PAYG instalments calculator works out one quarterly pay as you go instalment by the method on the activity statement. Under option 1 the instalment is the amount the ATO notifies at T7. Varying it, the first instalment of the income year is 25% of the estimated tax for the year, the second 50%, the third 75% and the fourth 100%, each less the earlier instalments and plus any credits claimed for them. A negative result is a credit to claim at 5B.
+The PAYG instalments calculator works out one quarterly pay as you go instalment by the method on the activity statement. Under option 1 the instalment is the amount the ATO notifies at T7. Varying it, the first instalment of the income year is 25% of the estimated tax for the year, the second 50%, the third 75% and the fourth 100%, each less the earlier instalments. The third and fourth add back any credits claimed for earlier instalments; no credit can arise before the second, so the calculator refuses one entered for the first or second. A negative result is a credit to claim at 5B.
 
 Under option 2 the instalment is the quarter’s instalment income at T1 times the instalment rate at T2. A varied rate is the estimated tax for the year divided by the estimated instalment income, times 100. If the varied rate is lower than the earlier rate, the earlier instalments less any credits claimed, less the earlier instalment income times the varied rate, is a credit for 5B.
 
@@ -50,6 +50,7 @@ The ATO’s varied rate, cut to 2 decimal places, with a credit | Varied rate fr
 The ATO’s credit example at a 5% varied rate | Varied rate from estimated tax $2,000.00 on $40,000.00; instalment income $10,000.00, rate at T2 10%; earlier instalments $1,000.00, credits $0.00, on $10,000.00 | Instalment rate 5.00%, amount $500.00, instalment $500.00, credit $500.00
 A higher varied rate gives no credit | Varied rate from estimated tax $1,200.00 on $10,000.00; instalment income $10,000.00, rate at T2 10%; earlier instalments $2,000.00, credits $0.00, on $10,000.00 | Instalment rate 12.00%, amount $1,200.00, instalment $1,200.00, credit $0.00
 A first instalment with earlier instalments is refused | Varied amount, instalment 1; estimated tax $8,000.00, earlier instalments $1,000.00, credits $0.00 | Refused: the first instalment of the year has no earlier instalments
+A credit for the second instalment is refused | Varied amount, instalment 2; estimated tax $8,000.00, earlier instalments $2,000.00, credits $500.00 | Refused: the first and second instalments of the year add back no credits
 
 One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
