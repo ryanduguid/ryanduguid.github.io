@@ -6408,11 +6408,14 @@ Published 11 September 2026. Last checked 22 November 2026, the newest of the ca
 - Unused leave on termination Schedule 7 withholding and the lump sum A, B and type U amounts for unused leave paid on termination, for 2026-27.
 - Land tax calculator Land tax for a full year in each of the 7 states and territories that levy it, at the general or trust rates, with a foreign or absentee owner surcharge and WA’s metropolitan region improvement tax where chosen, before any exemption.
 - Transfer duty calculator General transfer (stamp) duty on a residential purchase in each of the 8 states and territories, and the duty for an eligible first home buyer of a home.
-- First home owner grant calculator The grant in each of the 8 states and territories for a new home, by contract date and value cap, beside the first home buyer transfer duty.
 - Payroll tax calculator One employer’s annual payroll tax for 2026-27 in any state or territory, for an employer outside a group, with each step cited.
 - Foreign purchaser surcharge calculator Foreign purchaser duty and the foreign owner land tax surcharge in each state and territory, with each one’s own test of who is foreign, the 2026-27 FIRB fee and the upfront total in all 8 side by side.
 - Business days calculator Business days between 2 dates, or the date a number of business days on or back, with each state’s public holidays for 2026 and 2027.
 - ASIC fees calculator ASIC’s 2026-27 fees and late fee tiers.
+
+## First home buyers
+
+- First home owner grant calculator The grant in each of the 8 states and territories for a new home, by contract date and value cap, beside the first home buyer transfer duty.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -6464,11 +6467,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
 - Land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
-- First home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 - Payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
 - Foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
 - Business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
 - ASIC fees calculator: https://duguid.com.au/tools/business-calculators/asic-fees/
+- First home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 
 ---
 
@@ -12207,7 +12210,9 @@ The first home owner grant calculator gives the grant for a first home buyer who
 - Northern Territory: the HomeGrown Territory Grant of $50,000, with no value cap. The contract must not replace one signed before 1 October 2024.
 - Australian Capital Territory: no grant since 1 July 2019. The territory’s Home Buyer Concession Scheme is a duty concession, and the duty result applies it.
 
-Each grant needs every applicant to be a person aged 18 or over, at least one applicant to be an Australian citizen or permanent resident, no applicant or spouse to have had a grant or a home in Australia as the source describes, and the residence requirement to be met: 12 continuous months starting within 12 months in New South Wales; 12 months for at least one applicant in Victoria; 6 continuous months starting within 12 months in Queensland, Western Australia, South Australia and Tasmania; and 12 months after taking possession or completion in the Northern Territory. You state these facts; the calculator does not test them, and it computes nothing until all 4 are stated.
+## Eligibility facts and transfer duty
+
+Each grant needs 4 facts, which you state and the calculator does not test. Every applicant is a person aged 18 or over. At least one applicant is an Australian citizen or permanent resident. No applicant or spouse has had a grant or a home in Australia as the source describes. The applicants meet the residence requirement: 12 continuous months starting within 12 months in New South Wales; 12 months for at least one applicant in Victoria; 6 continuous months starting within 12 months in Queensland, Western Australia, South Australia and Tasmania; and 12 months after taking possession or completion in the Northern Territory. The calculator computes nothing until all 4 are stated.
 
 For a home bought, the result adds the transfer duty calculator’s duty for an eligible first home buyer and its general duty on the same value, for contracts its rates cover: from 1 July 2025 in Victoria, Queensland, South Australia and the Northern Territory, from 7 May 2026 in Western Australia, and from 1 July 2026 in New South Wales, Tasmania and the Australian Capital Territory. Earlier contracts there get the grant without the duty.
 
