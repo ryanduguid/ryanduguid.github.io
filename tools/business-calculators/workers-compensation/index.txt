@@ -73,7 +73,7 @@ A member of a group in New South Wales: refused | New South Wales, wages $500,00
 Tasmania with apprentice wages: refused, as no discount applies there | Tasmania, wages $300,000.00 at 2.18%, apprentice wages $10,000.00 | Refused: there is no apprentice deduction for Tasmania here: enter 0 apprentice wages
 New South Wales, actual wages that take the premium over $30,000: refused | New South Wales, wages $1,000,000.00 at 2%, dust diseases 0%, reward 0%, actual wages $1,600,000.00 | Refused: on the actual wages, the average performance premium of $32,000.00 is more than $30,000, so icare experience-rates the premium on its claims model (Market Practice and Premiums Guidelines 2026, clause 6.7): use the renewal notice
 
-One of the forty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -81,4 +81,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- forty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/

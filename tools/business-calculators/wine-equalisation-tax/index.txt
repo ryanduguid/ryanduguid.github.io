@@ -1,0 +1,99 @@
+# Wine equalisation tax calculator: WET, producer rebate, 1C and 1D
+
+Source: https://duguid.com.au/tools/business-calculators/wine-equalisation-tax/
+
+> Wine equalisation tax at 29% by the price, half retail or average wholesale method, the producer rebate under its cap and BAS labels 1C and 1D.
+
+# Wine equalisation tax calculator
+
+WET on a tax period’s dealings in wine, the producer rebate within the year’s cap, and BAS labels 1C and 1D.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+WET and the producer rebate for one tax period
+
+Rebates claimed earlier this financial year (AUD)
+
+Financial year of the dealings 2027-28 2026-27 2025-26 2024-25 2023-24
+
+## Dealings
+
+Each dealing takes the price its kind is valued on. Enter a wholesale sale or a sale under quote at its price excluding WET and GST; a retail sale or own use at its retail price including WET and GST (for own use, the price it would normally sell for by retail); and own use of wine bought under quote at the purchase price excluding GST. Prices are taken as stated: use the arm’s length price for a dealing that is not at arm’s length.
+
+Dealing 1 KindWholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
+
+Dealing 2 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
+
+Dealing 3 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
+
+## More dealings
+
+Dealings 4 to 6 take the same fields; choose No dealing to leave one out.
+
+Dealing 4 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
+
+Dealing 5 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
+
+Dealing 6 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
+
+## The average wholesale price method
+
+Only for grape wine, and only if at least 10% by value of the tax period’s sales of grape wine of the same vintage and the same variety or blend are wholesale sales (subsection 9-25(3)). Enter that period’s wholesale sales of it, excluding WET and GST; every dealing valued by this method uses them. The form takes 4 sales: enter any more as part of one of them, adding their quantities and prices, which leaves the average unchanged.
+
+Is the wine grape wine? Yes No Are at least 10% of those sales by value wholesale sales? Yes No Wholesale sale 1 Quantity Price excluding WET and GST (AUD) Wholesale sale 2 Quantity Price excluding WET and GST (AUD) Wholesale sale 3 Quantity Price excluding WET and GST (AUD) Wholesale sale 4 Quantity Price excluding WET and GST (AUD)
+
+## The producer rebate
+
+The answers below apply to every dealing that claims the rebate. Answer for the wine in those dealings, and work wine that differs separately.
+
+Are you the producer: you made the wine, or had it made from source product you owned? Yes No Did you own the source product, such as the grapes, for at least 85% of the wine by volume, from before crushing (or initial fermentation) until the wine was in its container? Yes No At each dealing, is the wine in a container of 5 litres or less (51 litres for cider or perry), suitable for retail sale and branded with a trade mark that identifies you, is owned by you or an associated producer and is registered, pending or used since 1 July 2015? Yes No Are you an associated producer of another producer (section 19-20)? If so, enter the group’s claims above No Yes
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; dealing 1: retail sale at a retail price of $20,000.00 including WET and GST, rebate claimed; dealing 2: wholesale sale at $30,000.00 excluding WET and GST, rebate claimed; dealing 3: sale under quote at $15,000.00 excluding WET and GST, quote states a taxable dealing of its own, rebate claimed; dealing 4: sale under quote at $20,000.00 excluding WET and GST, quote states a GST-free supply, such as an export, rebate claimed; dealing 5: own use at a retail price of $2,000.00 including WET and GST, rebate claimed; rebates claimed earlier this year $0.00. Wine tax for the period $11,890.00 Label 1C, WET payable, in whole dollars $11,890.00 Producer rebate earned on these dealings $16,240.00 Cap left for 2026-27, of $400,000 $400,000.00 Producer rebate within the cap $16,240.00 Label 1D, WET refundable, in whole dollars $16,240.00 The rebates already claimed reduce what is left of the year’s cap: the ATO accepts rebates claimed in the activity statement for the period the wine tax is attributed to (WETR 2009/2 paragraph 67). No rebate on dealing 4: a condition of subsection 19-5(1) is not met, or the quote states the purchaser will not make a taxable dealing (paragraph 5-50(1)(b)). Report 1C and 1D separately; do not net them.
+
+## How the wine equalisation tax calculator works
+
+Wine equalisation tax (WET) is 29% of the taxable value of each assessable dealing in wine (section 5-5). A wholesale sale’s taxable value is its price excluding WET and GST, and GST is then 10% of the price including WET: the ATO’s $120 dozen bears WET of $34.80 and GST of $15.48, $170.28 in all. A retail sale or own use, such as wine used for tastings, is valued at a notional wholesale selling price; own use of wine bought under quote is valued at its purchase price excluding GST (section 5-5, items AD3c and AD13c). By the half retail price method that is 50% of the retail price including WET and GST (section 9-35), so the ATO’s $140 dozen at the cellar door bears WET of $20.30. Grape wine may instead use the average wholesale price method, the weighted average of the tax period’s wholesale prices for wine of the same vintage and variety (section 9-40), but only if at least 10% by value of those sales are wholesale sales (subsection 9-25(3)); wine that is not grape wine must use half retail (section 9-30). A sale under quote bears no WET (section 7-10). Each amount is rounded half up to the cent.
+
+A producer that meets the conditions of section 19-5 earns a producer rebate of 29% of the wholesale price, or of the notional wholesale selling price, on each dealing it is liable for, and on a sale under quote unless the quote states the buyer will use the wine in manufacture, make a GST-free supply of it or sell it on under quote. The rebates for a financial year are capped, for the producer or for its group of associated producers together: $350,000 for dealings to 30 June 2026 and $400,000 from 1 July 2026 (subsections 19-15(2) and (3)). The calculator takes the rebates already claimed this year off the cap and gives what is left. The wine tax goes to label 1C and the rebate to label 1D of the business activity statement, each in whole dollars, never netted. It reproduces the ATO’s rebate table for 2026-27: WET of $11,890 and rebates of $16,240 on its retail, wholesale, quoted and tasting dealings.
+
+## What the wine equalisation tax calculator does not cover
+
+The calculator works dealings in the financial years 2023-24 to 2027-28 and refuses earlier years, which carry the transitional rebate rules for 2017 and earlier vintage wine. It refuses the average wholesale price method for wine that is not grape wine or without the 10% share of wholesale sales, and a rebate on own use of wine bought under quote. It takes each price as given, so it does not work out an arm’s length price (section 27-10) or the price of wine sold with other goods; it assumes GST applies to a sale and does not decide whether a supply is GST-free.
+
+Not covered: imports and other customs dealings, whose WET the Department of Home Affairs collects; the special valuations of section 9-45; wine tax credits other than the producer rebate, such as bad debts and overpaid WET; the reduction of a rebate for earlier producers’ rebates on wine used in a blend; New Zealand participants’ rebates; whether producers are associated (the group’s claims are taken as given); and the tax period a dealing belongs to. A value or total of $70 trillion or more is refused, as the page cannot show it to the cent. Rebates claimed above the cap are flagged, not worked out: section 19-25 makes the excess payable as wine tax at the end of the financial year. Have a registered tax agent confirm the result before you lodge.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Wine equalisation tax calculator
+
+Case | Inputs | Result
+QC22758 rebate table, 2026-27: WET $11,890, rebates $16,240 | 2026-27; dealing 1: retail sale at a retail price of $20,000.00 including WET and GST, rebate claimed; dealing 2: wholesale sale at $30,000.00 excluding WET and GST, rebate claimed; dealing 3: sale under quote at $15,000.00 excluding WET and GST, quote states a taxable dealing of its own, rebate claimed; dealing 4: sale under quote at $20,000.00 excluding WET and GST, quote states a GST-free supply, such as an export, rebate claimed; dealing 5: own use at a retail price of $2,000.00 including WET and GST, rebate claimed; rebates claimed earlier this year $0.00 | wine tax $11,890.00, label 1C $11,890.00, producer rebate $16,240.00, label 1D $16,240.00
+QC22750 Alison and the Library’s Swillo: WET $34.80 and $174.00 | 2026-27; dealing 1: wholesale sale at $120.00 excluding WET and GST; dealing 2: wholesale sale at $600.00 excluding WET and GST | wine tax $208.80, label 1C $208.00, producer rebate $0.00, label 1D $0.00
+QC22751 Happy Valley, WETR 2009/1 example 15 and para 159 | 2025-26; dealing 1: retail sale at a retail price of $140.00 including WET and GST; dealing 2: own use at a retail price of $11.67 including WET and GST; dealing 3: retail sale at a retail price of $22.00 including WET and GST; dealing 4: retail sale at a retail price of $150.00 including WET and GST | wine tax $46.93, label 1C $46.00, producer rebate $0.00, label 1D $0.00
+WETR 2009/1 example 16, QC22751 Good Wines: average $83, WET $24.07 | 2024-25; dealing 1: retail sale at a retail price of $190.00 including WET and GST, by the average wholesale price for 1; dealing 2: own use, by the average wholesale price for 1; the period’s wholesale sales 7 for $560.00 and 3 for $270.00 | wine tax $48.14, label 1C $48.00, producer rebate $0.00, label 1D $0.00
+Cap 2025-26: $340,000 claimed, $10,000 of $14,500 fits | 2025-26; dealing 1: wholesale sale at $50,000.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $340,000.00 | wine tax $14,500.00, label 1C $14,500.00, producer rebate $10,000.00, label 1D $10,000.00
+Cap 2026-27: $390,000 claimed, $10,000 of $14,500 fits | 2026-27; dealing 1: wholesale sale at $50,000.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $390,000.00 | wine tax $14,500.00, label 1C $14,500.00, producer rebate $10,000.00, label 1D $10,000.00
+Cap 2027-28: $390,000 claimed, $10,000 of $14,500 fits | 2027-28; dealing 1: wholesale sale at $50,000.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $390,000.00 | wine tax $14,500.00, label 1C $14,500.00, producer rebate $10,000.00, label 1D $10,000.00
+Cap 2023-24 reached at $350,000: no rebate | 2023-24; dealing 1: wholesale sale at $50,000.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $350,000.00 | wine tax $14,500.00, label 1C $14,500.00, producer rebate $0.00, label 1D $0.00
+Claims already above the cap: no rebate, s 19-25 flagged | 2026-27; dealing 1: wholesale sale at $100.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $410,000.00 | wine tax $29.00, label 1C $29.00, producer rebate $0.00, label 1D $0.00
+An associated producer shares the cap | 2026-27; dealing 1: wholesale sale at $100.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $0.00, an associated producer | wine tax $29.00, label 1C $29.00, producer rebate $29.00, label 1D $29.00
+Purchase price, the Library’s hamper and $12.995 rounding up | 2026-27; dealing 1: own use of wine bought under quote bought for $100.00 excluding GST; dealing 2: wholesale sale at $150.00 excluding WET and GST; dealing 3: retail sale at a retail price of $25.99 including WET and GST | wine tax $76.27, label 1C $76.00, producer rebate $0.00, label 1D $0.00
+A container condition not met: no rebate | 2026-27; dealing 1: wholesale sale at $1,000.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $0.00 | wine tax $290.00, label 1C $290.00, producer rebate $0.00, label 1D $0.00
+Average method for wine that is not grape wine is refused | 2026-27; dealing 1: retail sale at a retail price of $10.00 including WET and GST, by the average wholesale price for 1; the period’s wholesale sales 1 for $5.00 | Refused: dealing 1: wine that is not grape wine is valued by the half retail price method only (section 9-30); enter its retail price instead
+Average method without the 10% wholesale share is refused | 2026-27; dealing 1: retail sale at a retail price of $10.00 including WET and GST, by the average wholesale price for 1; the period’s wholesale sales 1 for $5.00 | Refused: dealing 1: the average wholesale price method is open only if at least 10% by value of the tax period’s sales of grape wine of that vintage and variety are wholesale sales (subsection 9-25(3)); use the half retail price method
+A rebate on own use of wine bought under quote is refused | 2026-27; dealing 1: own use of wine bought under quote bought for $1.00 excluding GST, rebate claimed; rebates claimed earlier this year $0.00 | Refused: dealing 1: own use of wine bought under quote earns no producer rebate (section 19-5): the producer is the seller
+2022-23 is refused | 2022-23; dealing 1: wholesale sale at $1.00 excluding WET and GST | Refused: choose a financial year from 2023-24 to 2027-28: earlier years carry the transitional producer rebate rules for 2017 and earlier vintage wine, which this calculator does not work out
+
+One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/

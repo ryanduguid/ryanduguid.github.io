@@ -63,7 +63,7 @@ The ATO’s example: Simon’s plug-in hybrid, leased from 1 April 2024 to 31 Ma
 The ATO’s example: Tony’s break in the novation from 1 May 2025 is a new commitment, so his plug-in hybrid is not exempt | Plug-in hybrid, current employee, first held and used 2024-09-01, first retail sale 2024-09-01 at $60,000.00, committed before 1 April 2025, a new commitment, an exempt benefit before 1 April 2025; FBT year ending 31 March 2027 | Not exempt, sale in 2024-25, threshold $91,387.00
 A first retail sale after the FBT year comes after every benefit in it, so its luxury car tax does not count | Battery electric, current employee, first held and used 2026-04-01, first retail sale 2027-04-01 at $100,000.00; FBT year ending 31 March 2027 | Exempt, sale in 2026-27, after the FBT year
 
-One of the forty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -75,4 +75,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008
 - announced, not yet law: https://duguid.com.au/rates/announced-not-yet-law/
 - ATO’s FBT rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
-- forty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/

@@ -92,7 +92,7 @@ A last day before the first is refused | New South Wales, 1 August 2026 to 31 Ju
 Excluded days that use up the service are refused | New South Wales, 1 July 2026 to 31 July 2026, 31 days excluded, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Refused: excluded days must be fewer than the days from the first day to the last
 More leave taken than the entitlement is refused | New South Wales, 1 February 2014 to 31 July 2026, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, 11 weeks taken, pay $1,500.00 a week | Refused: leave taken or paid is more than this entitlement: the Acts treat leave taken in advance differently, and this calculator does not cover it
 
-One of the forty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -102,7 +102,109 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - termination payment calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
 - black coal mining industry: https://duguid.com.au/tools/coal-lsl-levy/
-- forty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Wine equalisation tax calculator: WET, producer rebate, 1C and 1D
+
+Source: https://duguid.com.au/tools/business-calculators/wine-equalisation-tax/
+
+> Wine equalisation tax at 29% by the price, half retail or average wholesale method, the producer rebate under its cap and BAS labels 1C and 1D.
+
+# Wine equalisation tax calculator
+
+WET on a tax period’s dealings in wine, the producer rebate within the year’s cap, and BAS labels 1C and 1D.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+WET and the producer rebate for one tax period
+
+Rebates claimed earlier this financial year (AUD)
+
+Financial year of the dealings 2027-28 2026-27 2025-26 2024-25 2023-24
+
+## Dealings
+
+Each dealing takes the price its kind is valued on. Enter a wholesale sale or a sale under quote at its price excluding WET and GST; a retail sale or own use at its retail price including WET and GST (for own use, the price it would normally sell for by retail); and own use of wine bought under quote at the purchase price excluding GST. Prices are taken as stated: use the arm’s length price for a dealing that is not at arm’s length.
+
+Dealing 1 KindWholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
+
+Dealing 2 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
+
+Dealing 3 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
+
+## More dealings
+
+Dealings 4 to 6 take the same fields; choose No dealing to leave one out.
+
+Dealing 4 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
+
+Dealing 5 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
+
+Dealing 6 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
+
+## The average wholesale price method
+
+Only for grape wine, and only if at least 10% by value of the tax period’s sales of grape wine of the same vintage and the same variety or blend are wholesale sales (subsection 9-25(3)). Enter that period’s wholesale sales of it, excluding WET and GST; every dealing valued by this method uses them. The form takes 4 sales: enter any more as part of one of them, adding their quantities and prices, which leaves the average unchanged.
+
+Is the wine grape wine? Yes No Are at least 10% of those sales by value wholesale sales? Yes No Wholesale sale 1 Quantity Price excluding WET and GST (AUD) Wholesale sale 2 Quantity Price excluding WET and GST (AUD) Wholesale sale 3 Quantity Price excluding WET and GST (AUD) Wholesale sale 4 Quantity Price excluding WET and GST (AUD)
+
+## The producer rebate
+
+The answers below apply to every dealing that claims the rebate. Answer for the wine in those dealings, and work wine that differs separately.
+
+Are you the producer: you made the wine, or had it made from source product you owned? Yes No Did you own the source product, such as the grapes, for at least 85% of the wine by volume, from before crushing (or initial fermentation) until the wine was in its container? Yes No At each dealing, is the wine in a container of 5 litres or less (51 litres for cider or perry), suitable for retail sale and branded with a trade mark that identifies you, is owned by you or an associated producer and is registered, pending or used since 1 July 2015? Yes No Are you an associated producer of another producer (section 19-20)? If so, enter the group’s claims above No Yes
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; dealing 1: retail sale at a retail price of $20,000.00 including WET and GST, rebate claimed; dealing 2: wholesale sale at $30,000.00 excluding WET and GST, rebate claimed; dealing 3: sale under quote at $15,000.00 excluding WET and GST, quote states a taxable dealing of its own, rebate claimed; dealing 4: sale under quote at $20,000.00 excluding WET and GST, quote states a GST-free supply, such as an export, rebate claimed; dealing 5: own use at a retail price of $2,000.00 including WET and GST, rebate claimed; rebates claimed earlier this year $0.00. Wine tax for the period $11,890.00 Label 1C, WET payable, in whole dollars $11,890.00 Producer rebate earned on these dealings $16,240.00 Cap left for 2026-27, of $400,000 $400,000.00 Producer rebate within the cap $16,240.00 Label 1D, WET refundable, in whole dollars $16,240.00 The rebates already claimed reduce what is left of the year’s cap: the ATO accepts rebates claimed in the activity statement for the period the wine tax is attributed to (WETR 2009/2 paragraph 67). No rebate on dealing 4: a condition of subsection 19-5(1) is not met, or the quote states the purchaser will not make a taxable dealing (paragraph 5-50(1)(b)). Report 1C and 1D separately; do not net them.
+
+## How the wine equalisation tax calculator works
+
+Wine equalisation tax (WET) is 29% of the taxable value of each assessable dealing in wine (section 5-5). A wholesale sale’s taxable value is its price excluding WET and GST, and GST is then 10% of the price including WET: the ATO’s $120 dozen bears WET of $34.80 and GST of $15.48, $170.28 in all. A retail sale or own use, such as wine used for tastings, is valued at a notional wholesale selling price; own use of wine bought under quote is valued at its purchase price excluding GST (section 5-5, items AD3c and AD13c). By the half retail price method that is 50% of the retail price including WET and GST (section 9-35), so the ATO’s $140 dozen at the cellar door bears WET of $20.30. Grape wine may instead use the average wholesale price method, the weighted average of the tax period’s wholesale prices for wine of the same vintage and variety (section 9-40), but only if at least 10% by value of those sales are wholesale sales (subsection 9-25(3)); wine that is not grape wine must use half retail (section 9-30). A sale under quote bears no WET (section 7-10). Each amount is rounded half up to the cent.
+
+A producer that meets the conditions of section 19-5 earns a producer rebate of 29% of the wholesale price, or of the notional wholesale selling price, on each dealing it is liable for, and on a sale under quote unless the quote states the buyer will use the wine in manufacture, make a GST-free supply of it or sell it on under quote. The rebates for a financial year are capped, for the producer or for its group of associated producers together: $350,000 for dealings to 30 June 2026 and $400,000 from 1 July 2026 (subsections 19-15(2) and (3)). The calculator takes the rebates already claimed this year off the cap and gives what is left. The wine tax goes to label 1C and the rebate to label 1D of the business activity statement, each in whole dollars, never netted. It reproduces the ATO’s rebate table for 2026-27: WET of $11,890 and rebates of $16,240 on its retail, wholesale, quoted and tasting dealings.
+
+## What the wine equalisation tax calculator does not cover
+
+The calculator works dealings in the financial years 2023-24 to 2027-28 and refuses earlier years, which carry the transitional rebate rules for 2017 and earlier vintage wine. It refuses the average wholesale price method for wine that is not grape wine or without the 10% share of wholesale sales, and a rebate on own use of wine bought under quote. It takes each price as given, so it does not work out an arm’s length price (section 27-10) or the price of wine sold with other goods; it assumes GST applies to a sale and does not decide whether a supply is GST-free.
+
+Not covered: imports and other customs dealings, whose WET the Department of Home Affairs collects; the special valuations of section 9-45; wine tax credits other than the producer rebate, such as bad debts and overpaid WET; the reduction of a rebate for earlier producers’ rebates on wine used in a blend; New Zealand participants’ rebates; whether producers are associated (the group’s claims are taken as given); and the tax period a dealing belongs to. A value or total of $70 trillion or more is refused, as the page cannot show it to the cent. Rebates claimed above the cap are flagged, not worked out: section 19-25 makes the excess payable as wine tax at the end of the financial year. Have a registered tax agent confirm the result before you lodge.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Wine equalisation tax calculator
+
+Case | Inputs | Result
+QC22758 rebate table, 2026-27: WET $11,890, rebates $16,240 | 2026-27; dealing 1: retail sale at a retail price of $20,000.00 including WET and GST, rebate claimed; dealing 2: wholesale sale at $30,000.00 excluding WET and GST, rebate claimed; dealing 3: sale under quote at $15,000.00 excluding WET and GST, quote states a taxable dealing of its own, rebate claimed; dealing 4: sale under quote at $20,000.00 excluding WET and GST, quote states a GST-free supply, such as an export, rebate claimed; dealing 5: own use at a retail price of $2,000.00 including WET and GST, rebate claimed; rebates claimed earlier this year $0.00 | wine tax $11,890.00, label 1C $11,890.00, producer rebate $16,240.00, label 1D $16,240.00
+QC22750 Alison and the Library’s Swillo: WET $34.80 and $174.00 | 2026-27; dealing 1: wholesale sale at $120.00 excluding WET and GST; dealing 2: wholesale sale at $600.00 excluding WET and GST | wine tax $208.80, label 1C $208.00, producer rebate $0.00, label 1D $0.00
+QC22751 Happy Valley, WETR 2009/1 example 15 and para 159 | 2025-26; dealing 1: retail sale at a retail price of $140.00 including WET and GST; dealing 2: own use at a retail price of $11.67 including WET and GST; dealing 3: retail sale at a retail price of $22.00 including WET and GST; dealing 4: retail sale at a retail price of $150.00 including WET and GST | wine tax $46.93, label 1C $46.00, producer rebate $0.00, label 1D $0.00
+WETR 2009/1 example 16, QC22751 Good Wines: average $83, WET $24.07 | 2024-25; dealing 1: retail sale at a retail price of $190.00 including WET and GST, by the average wholesale price for 1; dealing 2: own use, by the average wholesale price for 1; the period’s wholesale sales 7 for $560.00 and 3 for $270.00 | wine tax $48.14, label 1C $48.00, producer rebate $0.00, label 1D $0.00
+Cap 2025-26: $340,000 claimed, $10,000 of $14,500 fits | 2025-26; dealing 1: wholesale sale at $50,000.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $340,000.00 | wine tax $14,500.00, label 1C $14,500.00, producer rebate $10,000.00, label 1D $10,000.00
+Cap 2026-27: $390,000 claimed, $10,000 of $14,500 fits | 2026-27; dealing 1: wholesale sale at $50,000.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $390,000.00 | wine tax $14,500.00, label 1C $14,500.00, producer rebate $10,000.00, label 1D $10,000.00
+Cap 2027-28: $390,000 claimed, $10,000 of $14,500 fits | 2027-28; dealing 1: wholesale sale at $50,000.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $390,000.00 | wine tax $14,500.00, label 1C $14,500.00, producer rebate $10,000.00, label 1D $10,000.00
+Cap 2023-24 reached at $350,000: no rebate | 2023-24; dealing 1: wholesale sale at $50,000.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $350,000.00 | wine tax $14,500.00, label 1C $14,500.00, producer rebate $0.00, label 1D $0.00
+Claims already above the cap: no rebate, s 19-25 flagged | 2026-27; dealing 1: wholesale sale at $100.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $410,000.00 | wine tax $29.00, label 1C $29.00, producer rebate $0.00, label 1D $0.00
+An associated producer shares the cap | 2026-27; dealing 1: wholesale sale at $100.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $0.00, an associated producer | wine tax $29.00, label 1C $29.00, producer rebate $29.00, label 1D $29.00
+Purchase price, the Library’s hamper and $12.995 rounding up | 2026-27; dealing 1: own use of wine bought under quote bought for $100.00 excluding GST; dealing 2: wholesale sale at $150.00 excluding WET and GST; dealing 3: retail sale at a retail price of $25.99 including WET and GST | wine tax $76.27, label 1C $76.00, producer rebate $0.00, label 1D $0.00
+A container condition not met: no rebate | 2026-27; dealing 1: wholesale sale at $1,000.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $0.00 | wine tax $290.00, label 1C $290.00, producer rebate $0.00, label 1D $0.00
+Average method for wine that is not grape wine is refused | 2026-27; dealing 1: retail sale at a retail price of $10.00 including WET and GST, by the average wholesale price for 1; the period’s wholesale sales 1 for $5.00 | Refused: dealing 1: wine that is not grape wine is valued by the half retail price method only (section 9-30); enter its retail price instead
+Average method without the 10% wholesale share is refused | 2026-27; dealing 1: retail sale at a retail price of $10.00 including WET and GST, by the average wholesale price for 1; the period’s wholesale sales 1 for $5.00 | Refused: dealing 1: the average wholesale price method is open only if at least 10% by value of the tax period’s sales of grape wine of that vintage and variety are wholesale sales (subsection 9-25(3)); use the half retail price method
+A rebate on own use of wine bought under quote is refused | 2026-27; dealing 1: own use of wine bought under quote bought for $1.00 excluding GST, rebate claimed; rebates claimed earlier this year $0.00 | Refused: dealing 1: own use of wine bought under quote earns no producer rebate (section 19-5): the producer is the seller
+2022-23 is refused | 2022-23; dealing 1: wholesale sale at $1.00 excluding WET and GST | Refused: choose a financial year from 2023-24 to 2027-28: earlier years carry the transitional producer rebate rules for 2017 and earlier vintage wine, which this calculator does not work out
+
+One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -184,7 +286,7 @@ Method 1 for LPG, which PCG 2016/2 does not cover | 2026-27; line 1: $10.00 of L
 The basic method for a business that is not a small claimant | 2026-27; heavy vehicle (basic method): 11,430 litres of diesel acquired 30 September 2026, 32,000 km in total, a 32 tonne rigid truck | Refused: the simplified methods are for a business whose fuel tax credits were $10,000 or less in the previous 12 months and are expected to be in the current 12 months (PCG 2016/2 paragraph 4; PCG 2021/2 paragraph 6)
 Fuel acquired outside the income year chosen | 2025-26; line 1: 100 litres of diesel acquired 1 July 2026, other business use | Refused: line 1 was acquired outside the income year 2025-26; work each income year apart
 
-One of the forty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -194,7 +296,98 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Australian Institute of Petroleum’s weekly average retail (pump) prices: https://aip.com.au/pricing/pump-prices-retail/
 - fuel tax credit tools: https://www.ato.gov.au/calculators-and-tools/fuel-tax-credit-tools
-- forty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Luxury car tax calculator: thresholds, adjustments, refunds
+
+Source: https://duguid.com.au/tools/business-calculators/luxury-car-tax/
+
+> Luxury car tax for 2019-20 to 2026-27: the threshold or fuel-efficient car limit by year, price and change of use adjustments, refunds and labels 1E and 1F.
+
+# Luxury car tax calculator
+
+Luxury car tax, its adjustments and refunds, and BAS labels 1E and 1F.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Luxury car tax for one tax period
+
+Line 1 What the line isNo line Sale Importation Price adjustment Change of use: increasing Change of use: decreasing Refund
+
+Value (AUD) Litres per 100 km Used before 1 July 2025 other than for a quotable purpose?Choose Yes No
+
+Already payable on the car (AUD, optional)
+
+Line 2 What the line isNo line Sale Importation Price adjustment Change of use: increasing Change of use: decreasing Refund
+
+Value (AUD) Litres per 100 km Used before 1 July 2025 other than for a quotable purpose?Choose Yes No
+
+Line 3 What the line isNo line Sale Importation Price adjustment Change of use: increasing Change of use: decreasing Refund
+
+Line 4 What the line isNo line Sale Importation Price adjustment Change of use: increasing Change of use: decreasing Refund
+
+Financial year of the tax period 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20
+
+Calculate
+
+## What each line needs
+
+Each line is one sale, importation, adjustment or refund in the tax period. Fill the lines in order.
+
+For a business registered or required to be registered for GST. You establish each line: that the vehicle is a car and not one the Act excludes (an emergency vehicle, a car fitted out for wheelchairs, a commercial vehicle not designed mainly to carry passengers, a motor home or campervan), that the supply or importation is taxable (no quote, not GST-free or input taxed), its luxury car tax value and its combined fuel consumption rating.
+
+The value is the luxury car tax value, with GST and customs duty but not luxury car tax; for a price adjustment, the corrected value. Leave the litres blank for a car with no combined fuel consumption rating.
+
+An adjustment takes the year the car was supplied or imported in. A refund left blank takes the tax period’s year; choose the earlier year for a car supplied or imported before then, and one from before 1 July 2019 is refused.
+
+Needed only for a car rated above 3.5 and up to 7 litres, supplied or imported from 1 July 2025. Answer yes if, before that day, it was supplied or imported and used in Australia other than for a quotable purpose: the 7 litre rating then continues.
+
+The ATO describes a refund-eligible car as a 4 wheel or all wheel drive that is either a passenger car (category MA) with a ground clearance of at least 175 mm or an off-road passenger vehicle (category MC). The claimant must be registered for GST (sections 18-5 and 18-10).
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; line 1: sale, value $88,000.00, no fuel consumption rating; line 2: importation, value $101,500.00, no fuel consumption rating. Line 1: sale at $88,000.00, threshold $80,809 for 2026-27, $7,191.00 over $2,157.30 Line 2: importation at $101,500.00, threshold $80,809 for 2026-27, $20,691.00 over, paid to the Department of Home Affairs, not at 1E $6,207.30 Luxury car tax on sales $2,157.30 Increasing adjustments $0.00 Label 1E on the BAS, in whole dollars $2,157.00 Decreasing adjustments $0.00 Label 1F on the BAS, in whole dollars $0.00 Luxury car tax on importations, paid to the Department of Home Affairs $6,207.30
+
+## How the luxury car tax calculator works
+
+The luxury car tax calculator works out the tax on a tax period’s sales and importations of luxury cars in 2019-20 to 2026-27, with the price and change of use adjustments and labels 1E and 1F on the business activity statement. Each car takes the threshold for the financial year of its supply or importation, or the fuel-efficient car limit for a car rated at most 3.5 litres per 100 km from 1 July 2025 and at most 7 litres before. The tax is 33% of the GST-exclusive value over that threshold. Tax on an importation is shown apart, because it is paid to the Department of Home Affairs with any customs duty. A primary producer’s or tourism operator’s refund of the tax borne on a refund-eligible car, up to $10,000, is shown apart too, because it is claimed on the ATO’s form.
+
+Its results match the luxury-car-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 306 test cases, refusals included.
+
+## What the luxury car tax calculator does not cover
+
+The calculator does not decide whether a vehicle is a car or a luxury car, whether you could quote or a supply is taxable, the value of a car sold with other goods, or whether a car is refund-eligible: you state those. It does not work bad debt adjustments, the adjustments in subsections 15-30(1A) and (3A), a public institution’s adjustment, the credit for an entity that is not registered, the refund for cars supplied before 1 July 2019, or which tax period a line belongs to. It refuses a tax period outside 2019-20 to 2026-27, a supply year outside 2012-13 to the tax period’s, and a second primary producer refund in the period. A primary producer’s refund in an earlier period of the same year also rules out another, which the page cannot see.
+
+Confirm the result with the ATO’s luxury car tax guidance or a registered tax or BAS agent before relying on it. The vehicle classifier shows whether a vehicle is a car for luxury car tax.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Luxury car tax calculator
+
+Case | Inputs | Result
+The ATO’s Matty Bee Motors sells an $88,000 car in 2026-27 for $2,157.30 of tax, and Jimmy imports his Mustang for $6,207.30, paid to Home Affairs | 2026-27; line 1: sale, value $88,000.00, no fuel consumption rating; line 2: importation, value $101,500.00, no fuel consumption rating | luxury car tax on sales $2,157.30, label 1E $2,157.00, label 1F $0.00, on importations $6,207.30
+From 1 July 2025 a car rated 3.5 litres per 100 km takes the fuel-efficient car limit of $91,661: $1,001.70 on $95,000 | 2026-27; line 1: sale, value $95,000.00, rated 3.5 litres per 100 km | luxury car tax on sales $1,001.70, label 1E $1,001.00
+A car rated 5 litres keeps the 7 litre rating only if supplied or imported and used other than for a quotable purpose before 1 July 2025 (item 4(2)): $1,001.70, otherwise $4,257.30 | 2026-27; line 1: sale, value $95,000.00, rated 5 litres per 100 km, supplied or imported and used other than for a quotable purpose before 1 July 2025; line 2: sale, value $95,000.00, rated 5 litres per 100 km, not supplied or imported and used other than for a quotable purpose before 1 July 2025 | luxury car tax on sales $5,259.00, label 1E $5,259.00
+Price and change of use adjustments: increasing ones join the sales at 1E, decreasing ones go to 1F, each in whole dollars | 2026-27; line 1: price adjustment, supplied in 2025-26, corrected value $85,000.00, no fuel consumption rating, $2,157.30 previously attributed; line 2: change of use, increasing adjustment, supplied in 2025-26, value $100,000.00, no fuel consumption rating; line 3: change of use, decreasing adjustment, $5,829.90 payable on the supply; line 4: sale, value $88,000.00, no fuel consumption rating | luxury car tax on sales $2,157.30, increasing adjustments $5,829.90, decreasing adjustments $6,657.30, label 1E $7,987.00, label 1F $6,657.00
+Refunds are the lesser of the tax borne and $10,000, claimed on the ATO’s form and kept off the BAS | 2026-27; line 1: refund, supplied in 2026-27, to a primary producer, refund-eligible car, $12,000.00 borne; line 2: refund, supplied in 2026-27, to a tourism operator, refund-eligible car, $4,000.00 borne | refunds $14,000.00, label 1E $0.00, label 1F $0.00
+A primary producer is refunded for one car a financial year (section 18-5(4)) | 2026-27; line 1: refund, supplied in 2026-27, to a primary producer, refund-eligible car, $12,000.00 borne; line 2: refund, supplied in 2026-27, to a primary producer, refund-eligible car, $1,000.00 borne | Refused: a primary producer is refunded for one car a financial year (LCT Act s 18-5(4)): give at most one primary producer refund
+2027-28’s thresholds are not yet published | 2027-28; line 1: sale, value $90,000.00, no fuel consumption rating | Refused: choose a tax period in a financial year from 2019-20 to 2026-27
+
+One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- australian-accounting: https://github.com/ryanduguid/australian-accounting
+- vehicle classifier: https://duguid.com.au/tools/business-calculators/vehicle-class/
+- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -267,7 +460,7 @@ A part for a period before the accrual start is refused | Annual leave $6,000.00
 A part above its total is refused | Annual leave $0.00 ($0.00 before 18 August 1993), loading $0.00 ($0.00 before 18 August 1993), long service leave $5,000.00 ($5,000.01 16 August 1978 to 17 August 1993), accrued from 1 January 1985, normal termination, TFN, scale 2, $1,155.00 a week | Refused: the long service leave for 16 August 1978 to 17 August 1993 is more than the long service leave it is part of
 Under $300 with pre-16 August 1978 leave is refused | Annual leave $100.00 ($0.00 before 18 August 1993), loading $0.00 ($0.00 before 18 August 1993), long service leave $1,000.00 ($1,000.00 before 16 August 1978) ($0.00 16 August 1978 to 17 August 1993), accrued from 1 January 1970, normal termination, TFN, scale 2, $1,155.00 a week | Refused: a post-17 August 1993 payment under $300 has at most 32% of it withheld, and Schedule 7 does not say how to apply that limit when pre-16 August 1978 long service leave joins it in the marginal rate calculation
 
-One of the forty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -277,7 +470,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - redundancy and ETP withholding calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
 - Schedule 7: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-7-tax-table-for-unused-leave-payments-on-termination-of-employment
-- forty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -356,7 +549,7 @@ A member of a group in New South Wales: refused | New South Wales, wages $500,00
 Tasmania with apprentice wages: refused, as no discount applies there | Tasmania, wages $300,000.00 at 2.18%, apprentice wages $10,000.00 | Refused: there is no apprentice deduction for Tasmania here: enter 0 apprentice wages
 New South Wales, actual wages that take the premium over $30,000: refused | New South Wales, wages $1,000,000.00 at 2%, dust diseases 0%, reward 0%, actual wages $1,600,000.00 | Refused: on the actual wages, the average performance premium of $32,000.00 is more than $30,000, so icare experience-rates the premium on its claims model (Market Practice and Premiums Guidelines 2026, clause 6.7): use the renewal notice
 
-One of the forty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -364,178 +557,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- forty-seven business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# Franking account calculator: deficit tax, offset, benchmark rule
-
-Source: https://duguid.com.au/tools/business-calculators/franking-account/
-
-> A company’s franking account for 2025-26 or 2026-27: franking deficit tax, the 30% offset reduction, over-franking tax and the franking return’s labels.
-
-# Franking account calculator
-
-A company’s franking account for 2025-26 or 2026-27: franking deficit tax and its offset, the benchmark rule and the franking return’s labels and due date.
-
-Published 20 November 2026. Last checked 19 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-One company’s franking account for an income year
-
-Income year 2025-26 2026-27 Entity Not a private company A private company Exempt from the benchmark rule (s 203-20) Corporate tax rate for imputation purposes 30% 25% Opening balance, a deficit as a negative amount (AUD) R&D deferral brought forward under s 205-15(4) (AUD) Last earlier benchmark franking percentage, if any (%) Franking periods since it, up to and including this year’s first Commissioner’s s 205-70(6) determination that the excess was outside the entity’s control No Yes Income tax left for this offset, if known (AUD) Franking deficit tax offset brought forward (AUD) A private company: an income tax liability in an earlier income year? Yes No
-
-Events, each on its day, including a refund received within 3 months after the year’s end.
-
-Event | Date | What it is | Amount (AUD) | Of a refund, the part attributable to a refundable R&D tax offset (AUD)
-1 | | Credit: PAYG instalment paid Credit: Income tax paid Credit: Franking credit on a franked distribution received Credit: Share of a franking credit through a partnership or trust Credit: Excess of a reduced tax offset refund paid Credit: Additional franking deficit tax from a prior-year refund Credit: Franking credit for an exploration credit Credit: Australian DMT tax paid Debit: Income tax refund received Debit: Linked distribution debit (s 204-15) Debit: Tax-exempt bonus shares debit (s 204-25) Debit: Commissioner’s streaming determination Debit: Transfer to share capital (s 197-45) Debit: Choice to untaint share capital (s 197-65) Debit: On-market buy-back Debit: Off-market buy-back Debit: Selective reduction of capital Debit: Australian DMT tax refund received | |
-2 | | Credit: PAYG instalment paid Credit: Income tax paid Credit: Franking credit on a franked distribution received Credit: Share of a franking credit through a partnership or trust Credit: Excess of a reduced tax offset refund paid Credit: Additional franking deficit tax from a prior-year refund Credit: Franking credit for an exploration credit Credit: Australian DMT tax paid Debit: Income tax refund received Debit: Linked distribution debit (s 204-15) Debit: Tax-exempt bonus shares debit (s 204-25) Debit: Commissioner’s streaming determination Debit: Transfer to share capital (s 197-45) Debit: Choice to untaint share capital (s 197-65) Debit: On-market buy-back Debit: Off-market buy-back Debit: Selective reduction of capital Debit: Australian DMT tax refund received | |
-3 | | Credit: PAYG instalment paid Credit: Income tax paid Credit: Franking credit on a franked distribution received Credit: Share of a franking credit through a partnership or trust Credit: Excess of a reduced tax offset refund paid Credit: Additional franking deficit tax from a prior-year refund Credit: Franking credit for an exploration credit Credit: Australian DMT tax paid Debit: Income tax refund received Debit: Linked distribution debit (s 204-15) Debit: Tax-exempt bonus shares debit (s 204-25) Debit: Commissioner’s streaming determination Debit: Transfer to share capital (s 197-45) Debit: Choice to untaint share capital (s 197-65) Debit: On-market buy-back Debit: Off-market buy-back Debit: Selective reduction of capital Debit: Australian DMT tax refund received | |
-4 | | Credit: PAYG instalment paid Credit: Income tax paid Credit: Franking credit on a franked distribution received Credit: Share of a franking credit through a partnership or trust Credit: Excess of a reduced tax offset refund paid Credit: Additional franking deficit tax from a prior-year refund Credit: Franking credit for an exploration credit Credit: Australian DMT tax paid Debit: Income tax refund received Debit: Linked distribution debit (s 204-15) Debit: Tax-exempt bonus shares debit (s 204-25) Debit: Commissioner’s streaming determination Debit: Transfer to share capital (s 197-45) Debit: Choice to untaint share capital (s 197-65) Debit: On-market buy-back Debit: Off-market buy-back Debit: Selective reduction of capital Debit: Australian DMT tax refund received | |
-5 | | Credit: PAYG instalment paid Credit: Income tax paid Credit: Franking credit on a franked distribution received Credit: Share of a franking credit through a partnership or trust Credit: Excess of a reduced tax offset refund paid Credit: Additional franking deficit tax from a prior-year refund Credit: Franking credit for an exploration credit Credit: Australian DMT tax paid Debit: Income tax refund received Debit: Linked distribution debit (s 204-15) Debit: Tax-exempt bonus shares debit (s 204-25) Debit: Commissioner’s streaming determination Debit: Transfer to share capital (s 197-45) Debit: Choice to untaint share capital (s 197-65) Debit: On-market buy-back Debit: Off-market buy-back Debit: Selective reduction of capital Debit: Australian DMT tax refund received | |
-6 | | Credit: PAYG instalment paid Credit: Income tax paid Credit: Franking credit on a franked distribution received Credit: Share of a franking credit through a partnership or trust Credit: Excess of a reduced tax offset refund paid Credit: Additional franking deficit tax from a prior-year refund Credit: Franking credit for an exploration credit Credit: Australian DMT tax paid Debit: Income tax refund received Debit: Linked distribution debit (s 204-15) Debit: Tax-exempt bonus shares debit (s 204-25) Debit: Commissioner’s streaming determination Debit: Transfer to share capital (s 197-45) Debit: Choice to untaint share capital (s 197-65) Debit: On-market buy-back Debit: Off-market buy-back Debit: Selective reduction of capital Debit: Australian DMT tax refund received | |
-7 | | Credit: PAYG instalment paid Credit: Income tax paid Credit: Franking credit on a franked distribution received Credit: Share of a franking credit through a partnership or trust Credit: Excess of a reduced tax offset refund paid Credit: Additional franking deficit tax from a prior-year refund Credit: Franking credit for an exploration credit Credit: Australian DMT tax paid Debit: Income tax refund received Debit: Linked distribution debit (s 204-15) Debit: Tax-exempt bonus shares debit (s 204-25) Debit: Commissioner’s streaming determination Debit: Transfer to share capital (s 197-45) Debit: Choice to untaint share capital (s 197-65) Debit: On-market buy-back Debit: Off-market buy-back Debit: Selective reduction of capital Debit: Australian DMT tax refund received | |
-8 | | Credit: PAYG instalment paid Credit: Income tax paid Credit: Franking credit on a franked distribution received Credit: Share of a franking credit through a partnership or trust Credit: Excess of a reduced tax offset refund paid Credit: Additional franking deficit tax from a prior-year refund Credit: Franking credit for an exploration credit Credit: Australian DMT tax paid Debit: Income tax refund received Debit: Linked distribution debit (s 204-15) Debit: Tax-exempt bonus shares debit (s 204-25) Debit: Commissioner’s streaming determination Debit: Transfer to share capital (s 197-45) Debit: Choice to untaint share capital (s 197-65) Debit: On-market buy-back Debit: Off-market buy-back Debit: Selective reduction of capital Debit: Australian DMT tax refund received | |
-
-Frankable distributions, in date order. Give a permitted percentage only under s 203-55.
-
-Distribution | Date | Frankable amount (AUD) | Franking credit allocated (AUD) | Permitted percentage, if any
-1 | | | |
-2 | | | |
-3 | | | |
-4 | | | |
-
-A private company whose offset would be reduced needs its income tax and the earlier-liability answer.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, a company that is not a private company, 30% corporate tax rate for imputation purposes, opening balance $10,000.00, 5 events, 1 distribution. Franking credits for the year (label A) $500,000.00 Franking debits for the year $590,000.00 Closing balance, code D −$80,000.00 Franking deficit tax (label B) $80,000.00 Franking deficit tax offset (label C) $62,000.00 Offset reduction, 30% of the attributable part $18,000.00 Debits not subject to the reduction (label K) $20,000.00 Over-franking tax (label D) $0.00 Franking tax payable (label E), due 31 July 2026 $80,000.00 Significant variation in the benchmark (s 204-70) No The part of the deficit attributable to item 1, 2, 3, 5 and 6 debits exceeds 10% of the year’s credits, so 30% of it comes off the offset (s 205-70(2) step 1). A franking return is needed for the year.
-
-It keeps the year’s account and the franking return’s figures; it does not lodge the return or decide what may be franked.
-
-## How the franking account calculator works
-
-Each PAYG instalment, income tax payment and franking credit received credits the account on its day, and each franked distribution, refund and other debit takes it down. A deficit at 30 June gives rise to franking deficit tax. When you enter that deficit as next year’s opening balance, the calculator adds the matching credit on 1 July. The tax is also an offset against the company’s income tax, reduced by 30% of the part caused by its own distributions and refunds when that part is more than 10% of the year’s credits. The first distribution in each franking period sets the benchmark: one franked above it gives over-franking tax, one below it an extra debit, and a benchmark that moves too far from the last must be disclosed. A franking credit received is entered as the credit, not the dividend, and the offset is applied only when the income tax is given.
-
-When a later refund changes the deficit tax, use the actual 30 June balance and R&D deferral for next year’s opening figures. In next year’s account, enter the refund on its receipt date and enter the additional franking deficit tax from that refund as a separate credit on that date.
-
-## What the franking account calculator does not cover
-
-The calculator gives an estimate for one entity’s income year from 1 July 2025 to 30 June 2026 or from 1 July 2026 to 30 June 2027, and no advice. It does not cover:
-
-- consolidated groups, an entity that stops being a franking entity, New Zealand franking companies, pooled development funds, friendly societies, life insurance companies, exempting entities, a substituted accounting period or late balancer, and diverted profits tax;
-- whether a distribution is frankable, what the company may frank it to, or whether a statement given after a distribution was allowed (s 202-75);
-- a tax offset refund other than an income tax refund’s R&D part, the general interest charge on late franking tax, and the return’s amounts in whole dollars;
-- the company’s tax rate and maximum franking credit from turnover, which the company tax and franking calculator works out.
-
-Confirm the figures with the ATO’s instructions or a registered tax agent before relying on them.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Franking account calculator
-
-Case | Inputs | Result
-ATO example 4: EKW Ltd, franking deficit tax $80,000 and an offset of $62,000 | 2025-26, not a private company, 30%, opening $10,000.00, 28 October 2025 PAYG instalment paid $125,000.00, 15 November 2025 Income tax refund received $60,000.00, 28 February 2026 PAYG instalment paid $125,000.00, 31 March 2026 Commissioner’s streaming determination $20,000.00, 28 April 2026 PAYG instalment paid $250,000.00, 30 September 2025 distribution $1,190,000.00 franked $510,000.00 | closing balance -$80,000.00, franking deficit tax $80,000.00, offset $62,000.00, over-franking tax $0.00, no offset code, no significant variation
-EKW Ltd under a Commissioner’s determination keeps the whole $80,000 | 2025-26, not a private company, 30%, opening $10,000.00, Commissioner’s determination, 28 October 2025 PAYG instalment paid $125,000.00, 15 November 2025 Income tax refund received $60,000.00, 28 February 2026 PAYG instalment paid $125,000.00, 31 March 2026 Commissioner’s streaming determination $20,000.00, 28 April 2026 PAYG instalment paid $250,000.00, 30 September 2025 distribution $1,190,000.00 franked $510,000.00 | closing balance -$80,000.00, franking deficit tax $80,000.00, offset $80,000.00, over-franking tax $0.00, no offset code, no significant variation
-No item 1, 3, 5 or 6 debit: the whole $20,000 offset, code F | 2025-26, not a private company, 30%, opening $10,000.00, 28 October 2025 PAYG instalment paid $50,000.00, 15 November 2025 Income tax refund received $60,000.00, 31 March 2026 Commissioner’s streaming determination $20,000.00 | closing balance -$20,000.00, franking deficit tax $20,000.00, offset $20,000.00, over-franking tax $0.00, code F, no significant variation
-An attributable part of exactly 10% of the credits is not reduced | 2025-26, not a private company, 30%, opening $0.00, 28 October 2025 PAYG instalment paid $500,000.00, 30 September 2025 distribution $1,283,333.34 franked $550,000.00 | closing balance -$50,000.00, franking deficit tax $50,000.00, offset $50,000.00, over-franking tax $0.00, no offset code, no significant variation
-ATO example 5: Salomon Pty Ltd’s over-franking tax of $128.57 | 2025-26, private company, 30%, opening $1,000.00, 1 August 2025 distribution $700.00 franked $120.00, 1 March 2026 distribution $500.00 franked $214.29 | closing balance $665.71, franking deficit tax $0.00, offset $0.00, over-franking tax $128.57, no offset code, no significant variation
-Franked below the benchmark: an item 3 debit of $150 | 2025-26, not a private company, 30%, opening $1,000.00, 1 August 2025 distribution $700.00 franked $300.00, 1 November 2025 distribution $700.00 franked $150.00, 1 February 2026 distribution $700.00 franked $0.00 | closing balance $400.00, franking deficit tax $0.00, offset $0.00, over-franking tax $0.00, no offset code, significant variation
-An entity s 203-20 exempts has no benchmark consequences | 2025-26, exempt from the benchmark rule, 30%, opening $1,000.00, 1 August 2025 distribution $700.00 franked $300.00, 1 November 2025 distribution $700.00 franked $150.00, 1 February 2026 distribution $700.00 franked $0.00 | closing balance $550.00, franking deficit tax $0.00, offset $0.00, over-franking tax $0.00, no offset code, no significant variation
-The Commissioner’s permitted percentage replaces the benchmark | 2025-26, not a private company, 30%, opening $1,000.00, 1 August 2025 distribution $700.00 franked $300.00, 1 November 2025 distribution $700.00 franked $150.00 (permitted 50%) | closing balance $550.00, franking deficit tax $0.00, offset $0.00, over-franking tax $0.00, no offset code, no significant variation
-ATO example 2: RI Pty Ltd’s $45,000 refund of R&D offset debits nothing | 2025-26, not a private company, 30%, opening $50,000.00, 1 October 2025 Income tax refund received $45,000.00 (R&D $45,000.00) | closing balance $50,000.00, franking deficit tax $0.00, offset $0.00, over-franking tax $0.00, no offset code, no significant variation
-The s 205-70(2) note: $20,000 of a $60,000 offset used, $40,000 carried forward | 2025-26, not a private company, 30%, opening $0.00, income tax $20,000.00, offset brought forward $0.00, 15 November 2025 Income tax refund received $60,000.00 | closing balance -$60,000.00, franking deficit tax $60,000.00, offset $60,000.00, over-franking tax $0.00, code F, no significant variation
-A private company with an earlier liability: offset $86,300.20 | 2025-26, private company, 30%, opening $55,000.00, income tax $0.00, offset brought forward $0.00, an earlier liability, 28 October 2025 PAYG instalment paid $42,000.00, 28 February 2026 PAYG instalment paid $42,000.00, 28 April 2026 PAYG instalment paid $42,000.00, 28 June 2026 PAYG instalment paid $42,000.00, 1 December 2025 Franking credit on a franked distribution received $13,714.00, 15 March 2026 Income tax refund received $330,000.00, 30 September 2025 distribution $70,000.00 franked $30,000.00 | closing balance -$123,286.00, franking deficit tax $123,286.00, offset $86,300.20, over-franking tax $0.00, no offset code, no significant variation
-A private company’s first liability at 90% of the deficit keeps the whole offset, code P | 2025-26, private company, 30%, opening $55,000.00, income tax $110,957.40, offset brought forward $0.00, no earlier liability, 28 October 2025 PAYG instalment paid $42,000.00, 28 February 2026 PAYG instalment paid $42,000.00, 28 April 2026 PAYG instalment paid $42,000.00, 28 June 2026 PAYG instalment paid $42,000.00, 1 December 2025 Franking credit on a franked distribution received $13,714.00, 15 March 2026 Income tax refund received $330,000.00, 30 September 2025 distribution $70,000.00 franked $30,000.00 | closing balance -$123,286.00, franking deficit tax $123,286.00, offset $123,286.00, over-franking tax $0.00, code P, no significant variation
-A cent under 90% is reduced | 2025-26, private company, 30%, opening $55,000.00, income tax $110,957.39, offset brought forward $0.00, no earlier liability, 28 October 2025 PAYG instalment paid $42,000.00, 28 February 2026 PAYG instalment paid $42,000.00, 28 April 2026 PAYG instalment paid $42,000.00, 28 June 2026 PAYG instalment paid $42,000.00, 1 December 2025 Franking credit on a franked distribution received $13,714.00, 15 March 2026 Income tax refund received $330,000.00, 30 September 2025 distribution $70,000.00 franked $30,000.00 | closing balance -$123,286.00, franking deficit tax $123,286.00, offset $86,300.20, over-franking tax $0.00, no offset code, no significant variation
-A refund after the year’s end that creates a deficit is taken into the year | 2025-26, not a private company, 30%, opening $0.00, 28 October 2025 PAYG instalment paid $5,000.00, 15 August 2026 Income tax refund received $20,000.00, 30 September 2026 Income tax refund received $1,000.00 (R&D $1,000.00) | closing balance -$15,000.00, franking deficit tax $15,000.00, offset $15,000.00, over-franking tax $0.00, code F, no significant variation
-An opening deficit is credited by last year’s franking deficit tax | 2025-26, not a private company, 30%, opening -$5,000.00 | closing balance $0.00, franking deficit tax $0.00, offset $0.00, over-franking tax $0.00, no offset code, no significant variation
-Section C: Acolmal Pty Ltd, 50%, a year without, then 100% | 2025-26, private company, 30%, opening $1,000.00, last benchmark 50% 2 periods before, 1 August 2025 distribution $700.00 franked $300.00 | closing balance $700.00, franking deficit tax $0.00, offset $0.00, over-franking tax $0.00, no offset code, significant variation
-A 15 point change after one period is not significant | 2025-26, private company, 30%, opening $1,000.00, last benchmark 60% 1 periods before, 1 August 2025 distribution $700.00 franked $135.00 | closing balance $865.00, franking deficit tax $0.00, offset $0.00, over-franking tax $0.00, no offset code, no significant variation
-2026-27 at 25% | 2026-27, not a private company, 25%, opening $2,000.00, 28 October 2026 PAYG instalment paid $3,000.00, 30 September 2026 distribution $9,000.00 franked $3,000.00, 1 March 2027 distribution $9,000.00 franked $2,000.00 | closing balance $0.00, franking deficit tax $0.00, offset $0.00, over-franking tax $0.00, no offset code, significant variation
-A private company whose offset would be reduced needs its income tax | 2025-26, private company, 30%, opening $55,000.00, 28 October 2025 PAYG instalment paid $42,000.00, 28 February 2026 PAYG instalment paid $42,000.00, 28 April 2026 PAYG instalment paid $42,000.00, 28 June 2026 PAYG instalment paid $42,000.00, 1 December 2025 Franking credit on a franked distribution received $13,714.00, 15 March 2026 Income tax refund received $330,000.00, 30 September 2025 distribution $70,000.00 franked $30,000.00 | Refused: the offset reduction applies unless section 205-70(5) does, which turns on the private company’s income tax: enter its income tax before this offset, the offset brought forward and whether it had an earlier liability
-Distributions out of date order are refused | 2025-26, not a private company, 30%, opening $0.00, 1 September 2025 distribution $1.00 franked $0.00, 1 August 2025 distribution $1.00 franked $0.00 | Refused: distribution 2: enter the distributions in date order; the first in a franking period sets its benchmark (s 203-30)
-
-One of the forty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
-- ATO’s instructions: https://www.ato.gov.au/forms-and-instructions/franking-account-tax-return-2026-instructions/instructions-to-complete-the-franking-account-tax-return-2026
-- forty-seven business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# Company tax and franking credit calculator: base rate entity test
-
-Source: https://duguid.com.au/tools/business-calculators/company-tax/
-
-> Base rate entity test, 25% or 30% company tax, the corporate tax rate for imputation purposes, the maximum franking credit and a shareholder's top-up tax or refund.
-
-# Company tax and franking calculator
-
-A company’s 25% or 30% rate, its rate for franking, the maximum franking credit and a shareholder’s tax or refund.
-
-Published 18 November 2026. Last checked 18 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Company tax and franking inputs for one income year from 2021-22
-
-Aggregated turnover for the year (AUD) Assessable income for the year (AUD) Base rate entity passive income in it, franking credits included (AUD) Taxable income for the year (AUD) Did the company exist in the previous income year? Yes No Previous year’s aggregated turnover (AUD) Previous year’s assessable income (AUD) Previous year’s base rate entity passive income (AUD) Dividend paid this year (AUD) Franking percentage (%) Shareholder’s marginal tax rate, with any Medicare levy (%)
-
-Aggregated turnover includes that of connected entities and affiliates. The previous year’s figures set the rate for franking dividends; when the company did not exist then, they are not used. The shareholder is an Australian resident individual.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: this year aggregated turnover $104,000.00, assessable income $104,000.00, base rate entity passive income $4,000.00, taxable income $104,000.00; previous year aggregated turnover $104,000.00, assessable income $104,000.00, base rate entity passive income $4,000.00; dividend $30,000.00 franked at 100%, shareholder’s marginal rate 30%. Company tax rate: 25% A base rate entity (section 23AA), with passive income 3.85% of assessable income Tax on taxable income $26,000.00 Corporate tax rate for imputation purposes: 25% A base rate entity (section 23AA) Maximum franking credit on the dividend $10,000.00 Franking credit at 100% $10,000.00 Grossed-up dividend in the shareholder’s assessable income $40,000.00 Shareholder’s tax at 30% on it $12,000.00 Franking tax offset $10,000.00 Tax left to pay on the dividend $2,000.00 Franking credits round down to the cent, so the credit stated never exceeds the maximum (section 202-65).
-
-## How the company tax and franking calculator works
-
-The calculator applies the base rate entity test of section 23AA of the Income Tax Rates Act 1986 to this year’s figures: aggregated turnover under $50 million, and base rate entity passive income of no more than 80% of assessable income. A base rate entity pays 25% of its taxable income, and any other company 30% (subsection 23(2)).
-
-The rate for franking a dividend comes from a second test. Section 995-1 of the Income Tax Assessment Act 1997 runs the base rate entity test on the previous year’s turnover, passive income and assessable income, so a company can pay tax at 30% and frank at 25%, or the reverse; a company that did not exist in the previous year franks at 25%. The maximum franking credit is the dividend times 1 over the gross-up rate, which is 100% less that rate, over that rate (section 202-60): one third of the dividend at 25% and three sevenths at 30%. A credit above the maximum is taken to be the maximum (section 202-65).
-
-The shareholder includes the dividend and its franking credit in assessable income and gets a tax offset equal to the credit (section 207-20). Tax at the marginal rate you enter, less the offset, is the extra tax the dividend brings; where the offset is larger, an individual gets the excess refunded (section 67-25).
-
-The calculator reproduces the outcome of each ATO example: Happy Feet (3.8% passive income, 25%), Coffee and Cake (28.6%, 25%), Best Equity (100%, 30%), SoftDev (85%, 30%) and Hats 4 Cats ($170 million of aggregated turnover, 30%). For Dillmore Manufacture’s $100,000 dividend franked at 30% it gives $42,857.14, the exact credit; the ATO rounds the gross-up rate to 2.3333 and shows $42,857.75, which is more than the section 202-60 maximum.
-
-## What the company tax and franking calculator does not cover
-
-The calculator does not work out aggregated turnover, assessable income or base rate entity passive income: enter figures you have established, with the turnover of connected entities and affiliates included, as the ATO’s Hats 4 Cats example shows. Taxable income gives the tax before offsets, PAYG instalments and other credits.
-
-Not covered: the rates of RSA providers and pooled development funds (subsections 23(3) to (5)), life insurance companies (section 23A), not-for-profit companies and credit unions; corporate unit trusts and public trading trusts; and income years before 2021-22, when the base rate was 27.5% or 26%. A shareholder that is a company, trust, super fund or non-resident is outside its scope; a company shareholder cannot have excess franking credits refunded (section 67-25). Franking account balances, franking deficit tax, the benchmark rule and the holding period rule are not tested: the company tax and franking worksheets track the franking account and the benchmark rule. Have a registered tax agent confirm the figures and the result.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Company tax and franking calculator
-
-Case | Inputs | Result
-Happy Feet’s income from the ATO’s example: 3.85% passive, so 25% | Turnover $104,000.00, passive income $4,000.00 of $104,000.00, taxable income $104,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $30,000.00 franked 100%, marginal rate 30% | Tax rate 25%, tax $26,000.00, franking rate 25%, maximum franking credit $10,000.00, franking credit $10,000.00, tax left to pay $2,000.00
-Coffee and Cake’s income from the ATO’s example: 28.57% passive, so 25% | Turnover $700,000.00, passive income $200,000.00 of $700,000.00, taxable income $700,000.00; last year turnover $700,000.00, passive income $200,000.00 of $700,000.00; dividend $70,000.00 franked 100%, marginal rate 47% | Tax rate 25%, tax $175,000.00, franking rate 25%, maximum franking credit $23,333.33, franking credit $23,333.33, tax left to pay $20,533.34
-Best Equity’s income from the ATO’s example: all passive, so 30%, and a refund at a 0% marginal rate | Turnover $5,000,000.00, passive income $5,000,000.00 of $5,000,000.00, taxable income $5,000,000.00; last year turnover $5,000,000.00, passive income $5,000,000.00 of $5,000,000.00; dividend $100,000.00 franked 100%, marginal rate 0% | Tax rate 30%, tax $1,500,000.00, franking rate 30%, maximum franking credit $42,857.14, franking credit $42,857.14, refund $42,857.14
-SoftDev’s income from the ATO’s example: 85% passive, so 30% | Turnover $1,000,000.00, passive income $850,000.00 of $1,000,000.00, taxable income $1,000,000.00; last year turnover $1,000,000.00, passive income $850,000.00 of $1,000,000.00; dividend $100,000.00 franked 100%, marginal rate 45% | Tax rate 30%, tax $300,000.00, franking rate 30%, maximum franking credit $42,857.14, franking credit $42,857.14, tax left to pay $21,428.57
-Hats 4 Cats’ aggregated turnover from the ATO’s example: $170 million, so 30% | Turnover $170,000,000.00, passive income $0.00 of $20,000,000.00, taxable income $20,000,000.00; last year turnover $170,000,000.00, passive income $0.00 of $20,000,000.00; dividend $1,000,000.00 franked 100%, marginal rate 45% | Tax rate 30%, tax $6,000,000.00, franking rate 30%, maximum franking credit $428,571.42, franking credit $428,571.42, tax left to pay $214,285.72
-Dillmore Manufacture: taxed at 25% but franking at 30% after a $52 million year, the exact credit on $100,000 | Turnover $45,000,000.00, passive income $0.00 of $45,000,000.00, taxable income $4,500,000.00; last year turnover $52,000,000.00, passive income $0.00 of $52,000,000.00; dividend $100,000.00 franked 100%, marginal rate 45% | Tax rate 25%, tax $1,125,000.00, franking rate 30%, maximum franking credit $42,857.14, franking credit $42,857.14, tax left to pay $21,428.57
-Exactly 80% passive income is still a base rate entity | Turnover $100,000.00, passive income $80,000.00 of $100,000.00, taxable income $100,000.00; last year turnover $100,000.00, passive income $80,000.00 of $100,000.00; dividend $0.00 franked 100%, marginal rate 30% | Tax rate 25%, tax $25,000.00, franking rate 25%, maximum franking credit $0.00, franking credit $0.00, tax left to pay $0.00
-One cent over 80% passive income is not | Turnover $100,000.00, passive income $80,000.01 of $100,000.00, taxable income $100,000.00; last year turnover $100,000.00, passive income $80,000.01 of $100,000.00; dividend $0.00 franked 100%, marginal rate 30% | Tax rate 30%, tax $30,000.00, franking rate 30%, maximum franking credit $0.00, franking credit $0.00, tax left to pay $0.00
-Aggregated turnover of exactly $50 million is not under the threshold | Turnover $50,000,000.00, passive income $0.00 of $1,000,000.00, taxable income $1,000,000.00; last year turnover $49,999,999.99, passive income $0.00 of $1,000,000.00; dividend $0.00 franked 100%, marginal rate 30% | Tax rate 30%, tax $300,000.00, franking rate 25%, maximum franking credit $0.00, franking credit $0.00, tax left to pay $0.00
-A company new this year franks at 25% whatever its own year | Turnover $60,000,000.00, passive income $0.00 of $1,000,000.00, taxable income $1,000,000.00; no previous year; dividend $75,000.00 franked 50%, marginal rate 30% | Tax rate 30%, tax $300,000.00, franking rate 25%, maximum franking credit $25,000.00, franking credit $12,500.00, tax left to pay $13,750.00
-Partly franked: 50% of the maximum, rounded down to the cent | Turnover $104,000.00, passive income $4,000.00 of $104,000.00, taxable income $104,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $1,000.01 franked 50%, marginal rate 32% | Tax rate 25%, tax $26,000.00, franking rate 25%, maximum franking credit $333.33, franking credit $166.66, tax left to pay $206.67
-Passive income above assessable income is refused | Turnover $100,000.00, passive income $100,000.01 of $100,000.00, taxable income $100,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $0.00 franked 100%, marginal rate 30% | Refused: base rate entity passive income cannot be more than assessable income
-
-One of the forty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; franking credits round down to the cent, so a credit never exceeds the maximum.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- company tax and franking worksheets: https://duguid.com.au/tools/company-tax-franking/
-- forty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/

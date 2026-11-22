@@ -221,6 +221,9 @@
     "tools/business-calculators/long-service-leave/index.html": [
       "82ce9cc18a397702a9ff1bf6c9aeabd661e73592a9ea8fe3b7781422895f4278"
     ],
+    "tools/business-calculators/luxury-car-tax/index.html": [
+      "aa64115f63ffddc33bb43b51e72d26adfb662e7e31d074f24825bdf1151fd72c"
+    ],
     "tools/business-calculators/margin/index.html": [
       "0405f7f6b46102d0a58f67be6febab087ef4ef2609b18624e479c59be22518bb"
     ],
@@ -265,6 +268,9 @@
     ],
     "tools/business-calculators/vehicle-class/index.html": [
       "947d30d0ffe985e4eff6376be1b13119f929aac22d94c20c3f73efb6b7d20abe"
+    ],
+    "tools/business-calculators/wine-equalisation-tax/index.html": [
+      "544a2f33fca5326e27e6341259f0dc9a4c2dcb13261224967434c201ddbb6a53"
     ],
     "tools/business-calculators/workers-compensation/index.html": [
       "6f47d11b2da7c30a21df1a4e85cb78b5d677afa084f84b31ca483e223e181a90"
@@ -385,9 +391,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "5510aecfe55b7879a0f8c460a76b8cce262399d4a014fd25f7a7519fc6d6ba93",
+    "llms.txt": "d2725de08e9476b4c672e073a20727aaca0fd4f4b1d43f266904f4e55c2d26d5",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "a1e2f9a7cf372f66b2533ae0c6b581ff1e4065647dadbca0c081554f94eaf06b"
+    "sitemap.xml": "b294d77d9c9ade3c8e506e494a76c3b9106bc84ed9eed13b0791a9c7b22b2b37"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -447,7 +453,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7797,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7799,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

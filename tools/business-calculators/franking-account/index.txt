@@ -87,7 +87,7 @@ A 15 point change after one period is not significant | 2025-26, private company
 A private company whose offset would be reduced needs its income tax | 2025-26, private company, 30%, opening $55,000.00, 28 October 2025 PAYG instalment paid $42,000.00, 28 February 2026 PAYG instalment paid $42,000.00, 28 April 2026 PAYG instalment paid $42,000.00, 28 June 2026 PAYG instalment paid $42,000.00, 1 December 2025 Franking credit on a franked distribution received $13,714.00, 15 March 2026 Income tax refund received $330,000.00, 30 September 2025 distribution $70,000.00 franked $30,000.00 | Refused: the offset reduction applies unless section 205-70(5) does, which turns on the private company’s income tax: enter its income tax before this offset, the offset brought forward and whether it had an earlier liability
 Distributions out of date order are refused | 2025-26, not a private company, 30%, opening $0.00, 1 September 2025 distribution $1.00 franked $0.00, 1 August 2025 distribution $1.00 franked $0.00 | Refused: distribution 2: enter the distributions in date order; the first in a franking period sets its benchmark (s 203-30)
 
-One of the forty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -97,4 +97,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
 - ATO’s instructions: https://www.ato.gov.au/forms-and-instructions/franking-account-tax-return-2026-instructions/instructions-to-complete-the-franking-account-tax-return-2026
-- forty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
