@@ -3182,7 +3182,7 @@ Last reviewed 22 November 2026.
 
 Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
-Browser: Coal LSL levy calculator, 51 business planning calculators, 14 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
+Browser: Coal LSL levy calculator, 52 business planning calculators, 15 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
 
 Extract
 
@@ -3399,8 +3399,8 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun.: https://duguid.com.au/tools/monthly-close-controls/
 - Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
-- 51 business planning calculators: https://duguid.com.au/tools/business-calculators/
-- 14 individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- 52 business planning calculators: https://duguid.com.au/tools/business-calculators/
+- 15 individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Works with Xero and Claude: https://duguid.com.au/works-with/
@@ -5560,6 +5560,9 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+22 November 2026 | The income tax calculator now works out the private health insurance rebate from the lines of a private health insurance statement for 2020-21 to 2026-27: the tier, each line’s percentage and entitlement, the refundable offset and any excess premium reduction to repay. It also adds the beneficiary tax offset, the invalid and invalid carer tax offset for 2020-21 to 2025-26 and the zone and overseas forces tax offsets, with the dependant and sole parent amounts they count, taken off the tax in the order the Act sets. They agree with the matching commands of the australian-accounting calculators on every tested case, and refuse what those commands refuse, such as the 2027 rebate percentages and the 2026-27 invalid carer amounts, which were not yet published. Results for the existing inputs are unchanged.
+22 November 2026 | A new individual tax calculator, super co-contribution, LISTO and spouse offset, works the government’s super co-contribution, the low income super tax offset and the spouse contribution tax offset for 2020-21 to 2026-27 from one set of answers. It applies each year’s income thresholds, the $500 maximum and 3.333 cent taper, the $20 minimum, LISTO’s 15% between $10 and $500, and the spouse offset’s 18% of up to $3,000, shows each condition met or not and rounds a payment up to 5 cents. It refuses temporary visa holders and an unknown cap or balance answer that would decide an amount.
+22 November 2026 | A new business calculator, ATO penalties and interest, works out one amount before remission: the general interest charge, compounding daily at each quarter’s rate with payments on their days, the shortfall interest charge on an amended assessment, the failure to lodge penalty with the penalty unit at the start of each 28-day period, false or misleading statement penalties with the 20% increase and the reductions for a voluntary disclosure, and the interest the ATO pays on early payments and overpayments. It agrees with the ato-interest-penalties command of the australian-accounting calculators on every tested case, and it declines remission and scheme penalties.
 22 November 2026 | A new business calculator works out the tax on one superannuation lump sum from a complying fund paid in 2020-21 to 2026-27: its tax free component by the proportioning rule, its elements taxed and untaxed in the fund, and the most income tax each part can bear before the Medicare levy, for a member by age and preservation age with the low rate cap and untaxed plan cap, and for a death benefit to a dependant or a non-dependant. The Act and the ATO’s caps were read on 22 November 2026; the page reproduces the ATO’s examples and agrees with the super-benefit-tax command of the australian-accounting calculators on every tested case.
 22 November 2026 | A new individual tax calculator, work expenses, works an employee’s working from home, car and self-education expenses for 2020-21 to 2026-27. It sets the working from home fixed rate (52c with a dedicated home office or the 80c shortcut to 2021-22, then 67c and 70c from 1 July 2024) beside the actual cost and names the higher, counts the first 5,000 business kilometres at the year’s cents per kilometre rate, takes a log book’s business use percentage, and applies the $250 reduction to a prescribed course of education to 2021-22. It refuses reimbursed expenses, allowances and an expired or short log book, and leaves out occupancy expenses.
 22 November 2026 | A new business calculator works out luxury car tax on a tax period’s sales and importations in 2019-20 to 2026-27: the threshold or fuel-efficient car limit for the year of each supply (from 2012-13 for an adjustment), the 3.5 litre rating from 1 July 2025 and the 7 litre rating it keeps for a car supplied or imported and used other than for a quotable purpose before then, the price and change of use adjustments, the primary producer and tourism operator refunds of up to $10,000 and the amounts for labels 1E and 1F. The Act and the ATO’s rate and threshold table were read on 22 November 2026, and the page opens on the ATO’s examples of Matty Bee Motors’ $2,157.30 and Jimmy’s Mustang’s $6,207.30.
@@ -5784,6 +5787,9 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
+- super co-contribution, LISTO and spouse offset: https://duguid.com.au/tools/individual-tax/government-super/
+- ATO penalties and interest: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
 - work expenses: https://duguid.com.au/tools/individual-tax/work-expenses/
 - ASIC fees: https://duguid.com.au/tools/business-calculators/asic-fees/
 - site licence notice: https://duguid.com.au/privacy/
@@ -6338,7 +6344,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Fifty-one calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
+Fifty-two calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
 
 Find a question and prepare a checklist.
 
@@ -6375,6 +6381,7 @@ Published 11 September 2026. Last checked 22 November 2026, the newest of the ca
 - PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - PCG 2021/4 allocation Each recipient’s tax on a professional firm’s profit, the effective tax rate and the ATO’s risk zone.
 - GIC payment plan calculator What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
+- ATO penalties and interest calculator GIC and SIC by day and quarter, the failure to lodge penalty, statement penalties with increases and reductions, and the interest the ATO pays, all before remission.
 - Division 7A loan schedule calculator A complying Division 7A loan year by year over 7 or 25 years: each minimum repayment, the interest, extra repayments and any shortfall taken to be a dividend.
 - Division 296 tax calculator One person’s Division 296 tax on superannuation earnings for 2026-27, above $3 million and above $10 million.
 - PSI rules checker Whether the personal services income rules apply, step by step through Divisions 84 to 87.
@@ -6444,6 +6451,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - PCG 2021/4 allocation: https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/
 - GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
+- ATO penalties and interest calculator: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
 - Division 7A loan schedule calculator: https://duguid.com.au/tools/business-calculators/div7a-schedule/
 - Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
@@ -9848,7 +9856,7 @@ GST below half a cent rounds to nil | $0.01 including GST | Exclusive $0.01, GST
 
 Official comparison on 5 November 2026, on one fictional input: for $20.15 excluding GST, the Moneysmart GST calculator gave GST $2.02, price including GST $22.17, and this calculator gave GST $2.02, inclusive $22.17. Both give the same cents on this input. This records that date only and is not a standing match.
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -9859,7 +9867,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
 - A New Tax System (Goods and Services Tax) Act 1999: https://www.legislation.gov.au/C2004A00446/latest/text
 - Moneysmart GST calculator: https://moneysmart.gov.au/work-and-tax/gst-calculator
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9906,7 +9914,7 @@ An exact half cent rounds up | $20.15 at 50% | Business share $10.08
 No business use | $100.00 at 0% | Business share $0.00
 A share over 100% is refused | $100.00 at 100.01% | Refused: enter an amount between 0 and 100
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -9916,7 +9924,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - rate by income year: https://duguid.com.au/rates/cents-per-kilometre/
 - Phone and internet record checklist: https://duguid.com.au/tools/accounting-questions/deductions/#q15
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -9963,7 +9971,7 @@ Nil cost gives no markup | Sales $50.00, cost $0.00 | Profit $50.00, margin 100.
 
 Official comparison on 13 November 2026, on one fictional input: for $450,000 total revenue and $300,000 cost of goods sold, the Business Queensland gross profit and gross profit margin calculators gave a gross profit of $150,000 and a gross profit margin of 33.33%, and this calculator gave profit $150,000.00, margin 33.33%. Business Queensland ignored the cents in amounts entered, so this input is in whole dollars; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -9973,7 +9981,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10019,7 +10027,7 @@ A price equal to variable cost never breaks even | Fixed $1,000.00, price $18.00
 
 Official comparison on 13 November 2026, on one fictional input: for $1,000 fixed costs, a $25 price and $15 variable cost a unit, which is a 40% gross profit margin, the Business Queensland break-even calculator gave a break-even point of $2,500, and this calculator gave 100 units, sales $2,500.00. Business Queensland ignored the cents in amounts entered and does not round up to a whole unit, so this input is in whole dollars and breaks even on a whole unit; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10028,7 +10036,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10072,7 +10080,7 @@ Case | Inputs | Result
 An exact half cent rounds up | Costs $20.15, profit $0.00, 2 hours | Rate $10.08
 A rate rounds up so the hours cover the total | Costs $100.00, profit $0.00, 3 hours | Rate $33.34
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the required hourly rate rounds up to the next cent.
 
@@ -10081,7 +10089,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10131,7 +10139,7 @@ The first instalment carries the cents left over | 3 hours at $100.00 an hour, 0
 A margin fee rounds up, not to the nearest cent | 1 hour at $120.00 an hour, 45% margin, rounded up to the cent, no GST, 1 instalment | Fee $218.19, GST $0.00, total $218.19, first instalment $218.19, each later instalment $218.19, effective rate $218.19
 A margin of 100% is refused | 10 hours at $100.00 an hour, 100% margin, rounded up to $10, GST added, 12 instalments | Refused: enter an amount between 0 and 99.99
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the fee rounds up to the step you choose, and instalments round down to the cent with the rest in the first.
 
@@ -10140,7 +10148,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10191,7 +10199,7 @@ Income above budget is favourable | Actual $110.00, budget $100.00, income | Dif
 Cost above budget is unfavourable | Actual $110.00, budget $100.00, cost | Difference $10.00, 10.00%, Unfavourable
 A nil budget has no percentage | Actual $10.00, budget $0.00, income | Difference $10.00, no percentage, Favourable
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
@@ -10201,7 +10209,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Budget explanation checklist: https://duguid.com.au/tools/accounting-questions/management-reporting/#q75
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10268,7 +10276,7 @@ Payments that add up to less than the amount financed have no rate | $1,000.00 f
 
 Official comparison on 5 November 2026, on one fictional input: for $100,000 at 6% over 30 years, repaid monthly, no fees, the Moneysmart mortgage calculator gave repayments of $600 a month, total repayments $215,838, and this calculator gave payment $599.55, total interest $115,838.45 on the $100,000.00 borrowed. Moneysmart shows whole dollars, and the 2 agree to the dollar on this input. This records that date only and is not a standing match.
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10280,7 +10288,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - hire purchase and chattel mortgage schedule: https://duguid.com.au/tools/business-calculators/hire-purchase/
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
 - Moneysmart mortgage calculator: https://moneysmart.gov.au/home-loans/mortgage-calculator
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10335,7 +10343,7 @@ The implicit rate of a hire purchase agreement with a residual | $50,000.00 fina
 A residual equal to the amount financed leaves interest only | $1,000.00 financed, 12% a year, 12 monthly payments, balloon $1,000.00, from 2026-07-01; working out the payment | Payment $10.00, last payment $10.00, total interest $120.00
 A payment that does not cover the interest never reaches the residual | $60,000.00 financed, 7.5% a year, monthly payments, $375.00 each, balloon $18,000.00, from 2026-07-01; working out the number of payments | Refused: the payment does not cover a period’s interest, so the balance never falls to the balloon
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10344,7 +10352,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - australian-accounting: https://github.com/ryanduguid/australian-accounting
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10406,7 +10414,7 @@ A payment before commencement and the restoration estimate add to the asset, qua
 Incentives as large as the rest of the cost are refused | 60 monthly payments of $1,000.00, 7.5% a year, incentives $60,000.00, from 2026-07-01 | Refused: the incentives received are as much as the rest of the right-of-use asset’s cost, which leaves it nothing to depreciate
 Ownership transferring without a useful life is refused | 60 monthly payments of $1,000.00, 7.5% a year, residual $5,000.00, from 2026-07-01, ownership transfers | Refused: enter the asset’s useful life in months: with ownership transferring, the asset is depreciated over it
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10415,7 +10423,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - depreciation rates page: https://duguid.com.au/tools/depreciation-rates/
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10497,7 +10505,7 @@ A loan first drawn before 1 July 2017 | 2024-25; loan 1: $1,600.00 of borrowing 
 A refinancing that does not start on the day the earlier loan was repaid | 2026-27; loan 1: $1,500.00 of borrowing expenses from 1 September 2024, contract to 31 August 2028, repaid 31 December 2025, 100% income use; loan 2: $800.00 of borrowing expenses from 1 January 2026, refinancing loan 1, 100% income use | Refused: loan 2: refinances must be the number of an earlier loan in loans, repaid on this loan's loan_start and refinanced by no other loan
 An income year after 2027-28 | 2028-29; loan 1: $1,600.00 of borrowing expenses from 3 July 2020, contract to 2 July 2045, 100% income use | Refused: choose an income year from 2017-18 to 2027-28
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10507,7 +10515,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Section 26-102: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land/land-vacant-land-and-subdividing/deductions-for-vacant-land
 - Borrowing expenses: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land/residential-rental-properties/rental-expenses/borrowing-expenses
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10580,7 +10588,7 @@ Limited to the undeducted construction expenditure | 2025-26 capital works; cons
 Works begun on 15 September 1987 are refused | 2025-26 capital works; construction expenditure $100,000.00, begun 15 September 1987, not used in the 4% manner, 365 days used, taxable use 100%, undeducted construction expenditure $100,000.00 | Refused: capital works begun before 16 September 1987 (the 4% rate from 22 August 1984 and the earlier rules of section 43-215) are outside this calculator
 4% for works begun on 26 February 1992 is refused | 2025-26 capital works; construction expenditure $100,000.00, begun 26 February 1992, used in the 4% manner, 365 days used, taxable use 100%, undeducted construction expenditure $100,000.00 | Refused: capital works begun before 27 February 1992 have only the 2.5% rate (section 43-215 step 1(b)); the 4% manner (section 43-145) is for works begun later
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10588,7 +10596,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10641,7 +10649,7 @@ One year left repays the balance and a year’s interest | $1,000.00 at 8.77% ov
 The ATO’s worked example, to the cent | $55,000.00 at 5.95% over 7 years | Repayment $9,834.92, interest $3,272.50, principal $6,562.42
 No remaining term is refused | $1,000.00 at 8.77% over 0 years | Refused: enter a whole number between 1 and 25
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10652,7 +10660,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Loans by private companies: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans
 - ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10721,7 +10729,7 @@ The ATO’s example: Simon’s plug-in hybrid, leased from 1 April 2024 to 31 Ma
 The ATO’s example: Tony’s break in the novation from 1 May 2025 is a new commitment, so his plug-in hybrid is not exempt | Plug-in hybrid, current employee, first held and used 2024-09-01, first retail sale 2024-09-01 at $60,000.00, committed before 1 April 2025, a new commitment, an exempt benefit before 1 April 2025; FBT year ending 31 March 2027 | Not exempt, sale in 2024-25, threshold $91,387.00
 A first retail sale after the FBT year comes after every benefit in it, so its luxury car tax does not count | Battery electric, current employee, first held and used 2026-04-01, first retail sale 2027-04-01 at $100,000.00; FBT year ending 31 March 2027 | Exempt, sale in 2026-27, after the FBT year
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10733,7 +10741,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008
 - announced, not yet law: https://duguid.com.au/rates/announced-not-yet-law/
 - ATO’s FBT rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10790,7 +10798,7 @@ The guide’s example 18: 4 spaces at $10 for 182 days, 3 employees | Spaces, 4 
 Spaces without a benefit are refused | Spaces, 4 at $10.00 for 182 days, employees 0 and 0, spaces 0 and 0, contributions $0.00; fee $11.48 against $11.48 | Refused: these spaces gave rise to no car parking benefit: the first business day fee is not more than the car parking threshold, so the spaces method does not count them
 A register first valid 5 years back has lapsed | Register, $2,500.00 over 183 days, first valid 2022; fee $12.36 against $11.48 | Refused: the register must have been first valid for an FBT year ending 31 March 2023 to 2027
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10799,7 +10807,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00017
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10854,7 +10862,7 @@ A payment above the expenditure is refused | external, expenditure $100.00, paid
 A deduction above the part the employee bore is refused | external, expenditure $100.00, paid $60.00, contribution $10.00, income use 0%, deduction $50.01, price $0.00, notional value $0.00, in-house reduction left $0.00 | Refused: the deduction for the recipient’s portion cannot be more than that portion, the expenditure less the payment net of the contribution
 The otherwise deductible rule for an in-house expense payment is refused, not applied | in-house-other, expenditure $100.00, paid $100.00, contribution $0.00, income use 50%, deduction $0.00, price $0.00, notional value $100.00, in-house reduction left $0.00 | Refused: this calculator does not apply the otherwise deductible rule to an in-house expense payment (subparagraph 24(1)(b)(i)): enter 0% income use and no deduction
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10863,7 +10871,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00010
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10915,7 +10923,7 @@ Interest at the statutory rate leaves no value | Daily balances $18,250,000.00, 
 A $20,000 loan owed for 100 days accrues by the day | Daily balances $2,000,000.00, accrued $0.00, income use 0%, deduction $0.00, at 8.27% | Notional interest $453.15, taxable value $453.15
 A deduction above the interest accrued is refused | Daily balances $18,250,000.00, accrued $1,000.00, income use 60%, deduction $1,000.01, at 8.27% | Refused: the deduction for the interest accrued cannot be more than that interest
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10924,7 +10932,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00009
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -10979,7 +10987,7 @@ Expenses more than 20% above the first year end the register | Register, expense
 A nil first year is refused as unsupported, not let through the 20% rule | Register, expenses $1,500.00, $400.00 of $1,000.00, first valid 2025, earlier years $0.00 and $0.00 | Refused: this calculator does not take a register whose first valid year had nil expenses: enter that year’s expenses
 A register first valid 5 years back has lapsed | Register, expenses $1,500.00, $400.00 of $1,000.00, first valid 2022, earlier years $1,000.00 and $1,000.00 and $1,000.00 and $1,000.00 and $1,000.00 | Refused: the register must have been first valid for an FBT year ending 31 March 2023 to 2027
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -10988,7 +10996,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00015
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11046,7 +11054,7 @@ A contribution above the value leaves nil and an excess that reduces nothing els
 A deduction for the contribution above the contribution is refused | external-cost-price, price $100.00, notional value $0.00, contribution $10.00, income use 0%, deduction $10.01, in-house reduction left $0.00 | Refused: the deduction for the employee’s contribution cannot be more than the contribution
 More than the $1,000 in-house reduction is refused | in-house-other, price $0.00, notional value $100.00, contribution $0.00, income use 0%, deduction $0.00, in-house reduction left $1,000.01 | Refused: enter an amount between 0 and 1000
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11055,7 +11063,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00018
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11126,7 +11134,7 @@ A payload that disagrees with the mass and kerb weight is refused | Passenger bo
 A modified vehicle without the manufacturer’s figures is refused | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, modified, manufacturer’s figures unknown, 2026-27, price $75,000.00 | Refused: a modified vehicle is classified on its manufacturer’s figures from the compliance plate; without them this page cannot classify it
 Another body under 1 tonne is refused | Another body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2026-27, price $75,000.00 | Refused: whether this body was designed principally to carry passengers turns on its appearance, marketing and specifications (TD 94/19), which this page does not weigh
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11135,7 +11143,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11188,7 +11196,7 @@ Exactly 50% returned and exactly 30% tax are each in the higher band | Gateways 
 One cent below 50% returned and 30% tax drops a band each, to red | Gateways passed; entitlement $1,000.00, returned $499.99, tax $299.99 | Returned 50.00%, factor 1 score 5, tax rate 30.00%, factor 2 score 4, aggregate 9, red zone
 A failed Gateway 2 is refused | Gateway 2 failed; entitlement $600,000.00, returned $330,000.00, tax $189,367.00 | Refused: the arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11197,7 +11205,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - PCG 2021/4 allocation calculator: https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11262,7 +11270,7 @@ A recipient this calculator cannot tax is refused | 2026-27 rates; gateways pass
 Amounts on a row marked not used are refused, not dropped | 2026-27 rates; gateways passed; IPP $300,000.00; associate 1 not used $100,000.00 | Refused: associate 1 is marked not used but has amounts; choose who it is or set them to 0
 A failed Gateway 2 is refused | 2020-21 rates; Gateway 2 failed; IPP $330,000.00; associate 1 base rate company $270,000.00 | Refused: the arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11270,7 +11278,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11325,7 +11333,7 @@ A start before July 1999 has no published rate | $1,000.00 from 1999-06-30, 3 mo
 A nil debt has nothing to pay by instalments | $0.00 from 2026-10-01, 3 monthly instalments, 11.51% assumed after the table | Refused: enter a debt above nil
 More than 120 instalments | $1,000.00 from 2026-10-01, 121 weekly instalments, 11.51% assumed after the table | Refused: enter a whole number between 1 and 120
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11334,7 +11342,76 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - quarterly GIC rate table: https://duguid.com.au/rates/general-interest-charge/
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# ATO penalties and interest calculator: GIC, SIC and penalties
+
+Source: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
+
+> GIC and SIC by day and quarter, the failure to lodge penalty, statement penalties with increases and reductions, and ATO credit interest, before remission.
+
+# ATO penalties and interest calculator
+
+GIC, SIC, penalties and credit interest.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+ATO interest or penalty
+
+What to work outGeneral interest charge (GIC) on an unpaid amount Shortfall interest charge (SIC) on an amended assessment Failure to lodge on time penalty False or misleading statement penalty Interest the ATO pays on an early payment Interest the ATO pays on an overpayment Remission of a charge or penalty (not worked) A scheme penalty (not worked)
+
+Amount unpaid at the start of the due day (AUD) Due date Work out GIC to the end of Payment 1 date (optional) Payment 1 amount (AUD) Payment 2 date (optional) Payment 2 amount (AUD) Payment 3 date (optional) Payment 3 amount (AUD) Annual GIC rate to assume after December 2026 (%), needed only for later days
+
+Calculate
+
+Each amount is before remission. Dates run to 30 June 2028; the published GIC and SIC rates end on 31 December 2026.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: GIC on $10,000.00 due 21 November 2025, to 30 June 2026. GIC to 30 June 2026 $676.86 Paid in the period $0.00 Owing at the end of that day, with GIC $10,676.86 Days of GIC 222 days Before remission: the Commissioner may remit GIC (TAA 1953 s 8AAG), SIC (TAA Sch 1 s 280-160) and administrative penalties (s 298-20), which this calculator does not estimate.
+
+## How the ATO penalties and interest calculator works
+
+The calculator works one question at a time, with the same rules, rounding and refusals as the ato-interest-penalties command in the australian-accounting calculators. GIC compounds daily from the due day on the unpaid amount and unpaid GIC, at each quarter’s annual rate divided by 365, or 366 in a leap year (sections 8AAC and 8AAD). A payment reduces the balance before that day’s charge. SIC compounds the same way on the additional tax, at the GIC rate less 4 points, from the day the first assessment’s tax was due to the day before the amended assessment’s notice (sections 280-100 and 280-105). Both are worked exactly and rounded to the cent once.
+
+The failure to lodge penalty is 1 penalty unit for each 28 days or part of 28 days late, at most 5, each at the unit applying when its period starts: $330 to 30 June 2026 and $364 from 1 July 2026. It is doubled for a medium entity, times 5 for a large entity and times 500 for a significant global entity (section 286-80). The statement penalty is 75%, 50% or 25% of the shortfall for intentional disregard, recklessness or a failure to take reasonable care, or 60, 40 or 20 penalty units with no shortfall. A position not reasonably arguable gives 25% where its shortfall is more than the greater of $10,000 and 1% of the return’s income tax. The base amount is increased 20% where section 284-220 applies and reduced 80%, to nil or 20% for a voluntary disclosure (section 284-225).
+
+The ATO pays simple interest at the base interest rate, the GIC rate less 7 points, on a payment of income tax, SIC, a compulsory study loan repayment or an FS assessment debt made more than 14 days early, to the end of the due day (sections 8A to 8C), and on relevant tax overpaid because of a decision and then refunded, from the later of the notice and the payment (sections 9 and 10). The interest rounds to the cent, and under 50 cents is not paid.
+
+In the example the page opens with, $10,000 due on 21 November 2025 and unpaid to 30 June 2026 grows by 222 days of GIC at 10.61%, 10.65% and 10.96% to $10,676.86: $676.86 of GIC.
+
+## What the ATO penalties and interest calculator does not cover
+
+Every amount is before remission: the Commissioner can remit GIC, SIC and penalties, and the calculator does not estimate that. It does not work scheme penalties, the trust and partnership items of section 284-90, Division 296 GIC, a payment refunded before its due day or interest on a running balance account surplus. It refuses days without a published rate: GIC after 31 December 2026 unless you assume a rate, which makes the result an estimate, and SIC and credit interest after that day. The October to December 2026 base interest rate of 4.51% is the published GIC rate less 7 points; the ATO’s credit interest page lists quarters only to September 2026. The behaviour behind a shortfall, whether a position is reasonably arguable, whether a disclosure was voluntary and the entity’s size are your facts; the calculator does not decide them. Confirm the amount with the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: ATO penalties and interest calculator
+
+Case | Inputs | Result
+Spec G9: $10,000 unpaid for 222 days across 3 quarters | GIC on $10,000.00 due 21 November 2025, to 30 June 2026 | GIC $676.86, balance owing $10,676.86
+The site’s hand-worked payment plan: $9.68 of GIC | GIC on $1,000.00 due 1 October 2026, to 30 November 2026; $336.56 paid 1 October 2026, $336.56 paid 1 November 2026 | GIC $9.68, balance owing $336.56
+Spec S1: SIC for 284 days to the day before the notice | SIC on $10,000.00 of additional tax first due 21 November 2024, amended assessment notice 1 September 2025 | SIC $575.45
+Spec F4: a medium entity, units of $330 and $364 | Failure to lodge, due 10 June 2026, lodged 1 August 2026, a medium entity (x2) | penalty $1,388.00
+Spec P3: PS LA 2012/5 Example 7 facts at 75% and 25% | Statement penalty, statement made 15 March 2026; part 1: shortfall $15,000.00, intentional disregard; part 2: shortfall $2,000.00, failure to take reasonable care | penalty $11,750.00
+Spec E2: the ATO’s Evan example in 2025, 19 days at 3.61% | $1,926.00 of income tax paid 3 November 2025, due 21 November 2025, notice issued 29 October 2025 | interest payable $3.62
+Spec O2: a refund taken from the later payment first | $3,000.00 paid 1 December 2024, $3,000.00 paid 1 March 2025; notice issued 15 October 2024; $4,000.00 refunded 15 August 2025 | interest payable $86.51
+Spec G10: a GIC day after December 2026 needs an assumed rate | GIC on $10,000.00 due 21 November 2025, to 1 January 2027 | Refused: the ATO has published GIC rates to 31 December 2026; enter an assumed rate to project 1 January 2027 and later
+Remission is the Commissioner’s discretion | Remission of a charge or penalty | Refused: remission of GIC (TAA 1953 s 8AAG), SIC (TAA Sch 1 s 280-160) and administrative penalties (s 298-20) is the Commissioner’s discretion: every amount here is before remission, and the calculator does not estimate one
+
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11389,7 +11466,7 @@ A child recipient has taxable earnings but no liability | Balance $4,000,000.00,
 Death by 30 June 2027 makes the balance nil | Balance $12,000,000.00, earnings $500,000.00, died by 30 June 2027 | Not liable: died, 0.00% above $3,000,000, 0.00% above $10,000,000, taxable earnings $0.00, very large component $0.00, 15% tax $0.00, 10% tax $0.00, Division 296 tax $0.00
 A negative balance is refused | Balance -$1.00, earnings $100,000.00 | Refused: enter an amount between 0 and 1000000000
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11397,7 +11474,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11462,7 +11539,7 @@ A repayment above the amount that repays the loan on 30 June | Made 2022-10-01, 
 Repayments after the loan is repaid | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '50000; 63353.99; 1' | Refused: the loan is repaid in 2024-25; leave out the repayments after it
 More repayments than years of the term | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '1;1;1;1;1;1;1;1' | Refused: enter no more than 7 repayments, one for each year of the term
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11473,7 +11550,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Division 7A minimum yearly repayment calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11579,7 +11656,7 @@ An asset bought before 20 September 1985 is refused | Individual; bought 19 Sept
 Bought on the same date 15 years before the sale is refused | Individual; bought 2 February 2011, sold 2 February 2026; business, turnover $2,150,000.00 previous, $1,900,000.00 before, $2,100,000.00 likely, $1,950,000.00 actual; net assets $6,200,000.00; active 3000 days; born 14 August 1975; choice 31 October 2026 | Refused: whether an asset bought on the same date 15 years before the sale was owned for 15 years (sections 152-35 and 152-105) turns on the time of day of each contract: this page cannot tell
 Owned more than 15 years and active for 2,738 days is refused | Individual; bought 30 June 2005, sold 2 February 2026; business, turnover $2,150,000.00 previous, $1,900,000.00 before, $2,100,000.00 likely, $1,950,000.00 actual; net assets $6,200,000.00; active 2738 days; born 14 August 1975; choice 31 October 2026 | Refused: a total of 7.5 years is 2,736 to 2,746 days, depending on the leap days and months the active periods span: count them in years and months to see whether they reach 7.5 years (paragraph 152-35(1)(b))
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11587,7 +11664,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11675,7 +11752,7 @@ One payer’s 2 contracts, 74% paid for a result, are 100% from one payer | Sole
 A payer entered in 2 rows is one source and one unrelated client | Sole trader; payers $50.00 (offer), $30.00 (offer; same payer as payer 1), $20.00 (offer) | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 80.00%, 2 unrelated by public offer
 An agent’s payments are checked before a determination settles the question | Sole trader; determination in force; payers $100.00; agent, $100.01 commission of $100.00 | Refused: enter the principal’s payments and the part of them that is commission or performance fees
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11683,7 +11760,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11729,7 +11806,7 @@ Case | Inputs | Result
 A month’s share rounds half up | Wages $51.30, super $0.00, other $0.00 | Annual $51.30, monthly $4.28
 Annual costs add before spreading | Wages $80,000.00, super $9,600.00, other $1,000.00 | Annual $90,600.00, monthly $7,550.00
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11739,7 +11816,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
 - Staff cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11814,7 +11891,7 @@ Case | Inputs | Result
 A receipt delayed past week 13 stays visible as deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 13, $600.00 of it delayed 1 week | Closing $350.00, minimum -$50.00, funding $150.00, deferred $600.00
 A receipt delayed into week 13 is not deferred | Opening -$50.00, buffer $100.00, $1,000.00 received in week 12, $600.00 of it delayed 1 week | Closing $950.00, minimum -$50.00, funding $150.00, deferred $0.00
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11824,7 +11901,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
 - Lumbridge cash flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11878,7 +11955,7 @@ An amended assessment takes the later of its 2 dates | Amended income tax assess
 An FBT assessment allows 4 years | FBT assessment, notice 15 November 2026 | Paragraph 14ZW(1)(aaa), period ends Friday 15 November 2030, last day Friday 15 November 2030
 A first notice after the amended notice is refused | Amended FBT assessment, notice 1 July 2026, first notice 2 July 2026 | Refused: the first assessment’s notice cannot be later than the amended one
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -11886,7 +11963,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -11943,7 +12020,7 @@ The ATO’s credit example at a 5% varied rate | Varied rate from estimated tax 
 A higher varied rate gives no credit | Varied rate from estimated tax $1,200.00 on $10,000.00; instalment income $10,000.00, rate at T2 10%; earlier instalments $2,000.00, credits $0.00, on $10,000.00 | Instalment rate 12.00%, amount $1,200.00, instalment $1,200.00, credit $0.00
 A first instalment with earlier instalments is refused | Varied amount, instalment 1; estimated tax $8,000.00, earlier instalments $1,000.00, credits $0.00 | Refused: the first instalment of the year has no earlier instalments
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the instalment rounds down to whole dollars, as the activity statement takes it.
 
@@ -11951,7 +12028,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -12031,7 +12108,7 @@ A death benefit to a death benefits dependant is tax free (section 302-60) | 202
 Other lump sums in the same year share the low rate cap, which the page does not take | 2021-22; member; paid 1 October 2021; lump sum $1,500.00 from an interest of $1,500.00 with $0.00 tax free; untaxed element $500.00; born 1 January 1963; no service before 1 July 1983; low rate cap used $224,999.99; other lump sums this year; untaxed plan cap used $0.00 | Refused: other lump sums received in the same income year at or above preservation age and under 60 share the year’s low rate cap left, the taxed element first whatever the order of payment (ITAA 1997 ss 301-20(3) and 301-105(5) and (6)), which this calculator does not take; with none of the cap left they do not change the result
 2027-28’s untaxed plan cap is not yet published | 2027-28; member; paid 1 October 2027; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00 | Refused: choose an income year from 2020-21 to 2026-27; the untaxed plan cap for 2027-28 is not yet published
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12041,7 +12118,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - australian-accounting: https://github.com/ryanduguid/australian-accounting
 - redundancy and ETP withholding calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -12096,7 +12173,7 @@ Born a day later, still under preservation age | Redundancy payment $0.00 after 
 Withholding of exactly $8.50 rounds up to the next dollar | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $50.00, other payments $0.00, born 30 June 1960 | Withheld from code O $9.00, total withheld $9.00
 Part years of service are refused | Redundancy payment $48,000.00 after 5.5 years, other code R $0.00, code O $0.00, other payments $0.00, born 1 August 1996 | Refused: enter a whole number between 0 and 150
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; each amount withheld rounds to the nearest dollar, with 50 cents rounded up.
 
@@ -12105,7 +12182,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Schedule 11: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-11-tax-table-for-employment-termination-payments
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -12198,7 +12275,7 @@ The ACT’s foreign ownership surcharge, worked by hand | Australian Capital Ter
 Western Australia has no trust rates here | Western Australia, trust rates, $1,500,000.00 | Refused: this calculator has no trust rates for Western Australia
 Cents are refused | New South Wales, $1,100,000.50 | Refused: enter a whole number between 0 and 1000000000
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12220,7 +12297,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - which land the foreign investor land tax surcharge applies to: https://www.sro.tas.gov.au/land-tax/foreign-investor-land-tax-surcharge/rate-of-surcharge
 - land tax exemptions: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/land-tax-exemptions
 - when the foreign ownership surcharge applies: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/foreign-ownership-surcharge-for-land-tax
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -12316,7 +12393,7 @@ No first home buyer concession in Tasmania | Tasmania, $500,000.00, first home b
 The ACT Home Buyer Concession Scheme has no value limit | Australian Capital Territory, $1,500,000.00, first home buyer, established home | Duty $0.00, general duty $68,100.00
 Cents are refused | New South Wales, $1,350,000.50 | Refused: enter a whole number between 1 and 1000000000
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12334,7 +12411,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - HomeGrown Territory Grant: https://nt.gov.au/property/home-owner-assistance/buy-build-new-home
 - First Home Owner Grant: https://www.revenue.act.gov.au/home-buyer-assistance/first-home-owner-grant
 - foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -12346,7 +12423,7 @@ Source: https://duguid.com.au/tools/individual-tax/
 
 # Individual tax calculators
 
-Fourteen calculators for one person’s tax, pay and super, with sources for the rates and thresholds and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
+Fifteen calculators for one person’s tax, pay and super, with sources for the rates and thresholds and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
 
 Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22, salary packaging from 2022-23, novated leases from 2023-24, the withholding from a 2026-27 pay with a bonus or back payment, and super projected from 2026-27. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12371,6 +12448,7 @@ Published 17 November 2026. Last checked 22 November 2026, the newest of the cal
 - Concessional catch-up calculator The concessional contributions cap with unused cap carried forward from the previous 5 years, earliest year first, and the year each amount lapses.
 - Super projection calculator Your super balance at retirement in future and today’s dollars, with every assumption stated and changeable.
 - First home super saver calculator The release, withholding and tax offset from an ATO determination, or a contribution ledger estimate with published shortfall interest charge rates.
+- Super co-contribution, LISTO and spouse offset calculator The government’s co-contribution and low income super tax offset, and the spouse contribution tax offset, for 2020-21 to 2026-27, with each condition met or not.
 
 For a business, see the business calculators.
 
@@ -12392,6 +12470,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
 - First home super saver calculator: https://duguid.com.au/tools/individual-tax/fhss/
+- Super co-contribution, LISTO and spouse offset calculator: https://duguid.com.au/tools/individual-tax/government-super/
 - business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
@@ -12460,7 +12539,7 @@ A balance a cent below $500,000 still carries forward | 2024-25, balance $499,99
 At a $500,000 balance nothing is carried forward and $10,000 is excess | 2024-25, balance $500,000.00, contributions $40,000.00; earlier 2019-20 $11,000.00, 2020-21 $12,000.00, 2021-22 $13,000.00, 2022-23 $14,000.00, 2023-24 $15,000.00 | Cap $30,000.00 with $67,500.00 unused from the previous 5 years, $0.00 applied, $10,000.00 excess; $14,000.00 lapses
 2026-27’s $32,500 cap with $17,500 carried forward, earliest first | 2026-27, balance $300,000.00, contributions $50,000.00; earlier 2021-22 $20,000.00, 2022-23 $20,000.00, 2023-24 $20,000.00, 2024-25 $20,000.00, 2025-26 $20,000.00 | Cap $75,000.00 with $42,500.00 unused from the previous 5 years, $17,500.00 applied, $0.00 excess; $0.00 lapses
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12468,7 +12547,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12480,7 +12559,7 @@ Source: https://duguid.com.au/tools/individual-tax/income-tax/
 
 # Income tax calculator
 
-Income tax, offsets, Medicare levy and surcharge and any study loan repayment for 2020-21 to 2026-27, and the refund or amount owing on the tax withheld.
+Income tax, offsets, Medicare levy and surcharge, the private health insurance rebate and any study loan repayment for 2020-21 to 2026-27, and the refund or amount owing on the tax withheld.
 
 Published 17 November 2026. Last checked 18 November 2026.
 
@@ -12496,7 +12575,11 @@ Taxable income (whole dollars) Reportable fringe benefits total (whole dollars) 
 
 Exempt foreign employment income, for a study loan (whole dollars) Days without private patient hospital cover, for you or, in a family, your spouse or a dependant Did you have a spouse all year? No Yes
 
-Spouse’s income for surcharge purposes, if you had one (whole dollars) Dependent children Tax withheld, from your income statements (dollars and cents)
+Spouse’s income for surcharge purposes, if you had one (whole dollars) Dependent children Tax withheld, from your income statements (dollars and cents) Rebatable benefits, such as JobSeeker Payment, for the beneficiary tax offset (dollars and cents) Claim the private health insurance rebate? No Yes
+
+Did you maintain an invalid or carer dependant? No Yes
+
+Zone or overseas forces tax offset None Zone A Zone B Special area in Zone A or B Overseas forces
 
 Taxable income is assessable income less deductions, as on a tax return; from 2026-27 those include the standard deduction of up to $1,000 for work-related expenses that the ATO applies. For a person who is not entitled to the seniors and pensioners tax offset. Enter 0 for any amount you do not have.
 
@@ -12505,6 +12588,8 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 ## How the income tax calculator works
 
 The income tax calculator works out one individual’s tax for a full income year from 2020-21 to 2026-27: the tax on taxable income at the year’s rates, the offsets, the Medicare levy and the Medicare levy surcharge. The offsets are the low income tax offset and, for 2020-21 and 2021-22, the low and middle income tax offset. It then takes that total, and any study or training loan repayment, from the tax withheld you enter, to estimate a refund or an amount owing.
+
+It can also work out the beneficiary tax offset, the invalid and invalid carer tax offset, the zone or overseas forces tax offset and the private health insurance rebate. The first 3 come off the tax but not below nil. The rebate is worked from your private health insurance statement: what you were entitled to at your tier, less the premium reduction you received, comes off the total and can make it negative; a premium reduction above your entitlement is added to the total.
 
 An Australian resident pays nothing on the first $18,200 and then each part of taxable income at its rate. The low income tax offset of up to $700 comes off a resident’s tax, but not below nil. The Medicare levy is 2% of a resident’s taxable income; up to the low-income threshold there is none, and from there to the phase-in limit it is 10% of the income over the threshold, if that is less. The ATO’s example on Medicare levy reduction for low-income earners, read 17 November 2026, gives Angie, single with $29,000 of taxable income in 2025-26, a levy of $98.90, as this calculator does.
 
@@ -12517,8 +12602,9 @@ For 2026-27 the Medicare levy thresholds are those the Act held on 17 November 2
 The calculator gives the tax of one person who was a resident, a foreign resident or a working holiday maker for the whole year. It does not compute:
 
 - the Medicare levy reduction for families, which depends on family taxable income and dependants, or a Medicare levy exemption;
-- the seniors and pensioners tax offset and its higher Medicare levy thresholds, or any other offset, such as for private health insurance, dependants or super contributions;
-- a change of family or cover status during the year beyond the days without cover, the private health insurance rebate, a spouse’s trust income that the surcharge test adds, the net amount on which family trust distribution tax has been paid, which counts in income for surcharge purposes and in the amount the surcharge is levied on, or exempt foreign employment income, which the ATO’s surcharge page adds to income for surcharge purposes when taxable income is $1 or more;
+- the seniors and pensioners tax offset and its higher Medicare levy thresholds, the net medical expenses tax offset, which ended after 2018-19, or any other offset, such as for super contributions or foreign income tax;
+- for the rebate, a lifetime health cover loading, a policy for dependants only, a claim of a spouse’s share, or dependent children for a person with no spouse who maintained no dependant; for the invalid carer offset, shared maintenance, Family Tax Benefit Part B shared care or successive spouses; for the zone offset, shared maintenance or more than one area;
+- a change of family or cover status during the year beyond the days without cover, a spouse’s trust income that the surcharge test adds, the net amount on which family trust distribution tax has been paid, which counts in income for surcharge purposes and in the amount the surcharge is levied on, or exempt foreign employment income, which the ATO’s surcharge page adds to income for surcharge purposes when taxable income is $1 or more;
 - a first home super saver released amount, which is taxed with a 30% offset but left out of repayment income and income for surcharge purposes, or, for 2023-24 and earlier, the taxed element of a super lump sum up to the low rate cap, which a person from preservation age to under 60 could leave out of income for surcharge purposes;
 - a study loan debt smaller than the repayment: the repayment cannot exceed what is still owed (section 154-20(1)(c) of the Higher Education Support Act 2003), which the calculator does not ask for;
 - a part-year resident’s reduced tax-free threshold, a working holiday maker who is an Australian resident, or one with other income besides working holiday taxable income;
@@ -12560,7 +12646,7 @@ Own income at the Medicare threshold amount: nil whatever the spouse earns | 202
 Foreign resident: no surcharge | 2026-27, foreign resident, taxable income $200,000, 365 days without hospital cover, withheld $0.00 | Tax $65,350.00, offset $0.00, Medicare levy $0.00, surcharge $0.00, total $65,350.00, owing $65,350.00
 Study loan with withholding short: an amount owing | 2026-27, Australian resident, taxable income $90,000, study loan, withheld $19,500.50 | Tax $17,520.00, offset $0.00, Medicare levy $1,800.00, surcharge $0.00, study loan $3,070.80, total $22,390.80, owing $2,890.30
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12570,7 +12656,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12662,7 +12748,7 @@ Above the cap and in Division 293 | 2026-27, Australian resident, $260,000 a yea
 2021-22 fortnightly: withholding leaves the low and middle income tax offset to the return | 2021-22, Australian resident, $3,000 a fortnight plus super | Take-home $62,123.00 a year, $2,389.35 a fortnight; super $7,800.00; withheld $670.00 a pay, refund $1,543.00
 2025-26 fortnightly with a study loan: Schedule 8 from 24 September 2025 | 2025-26, Australian resident, $3,000 a fortnight plus super, study loan | Take-home $60,602.00 a year, $2,330.85 a fortnight; super $9,360.00; withheld $672.00 a pay, refund $74.00
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12674,7 +12760,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12741,7 +12827,7 @@ A recent year that was a rebate year itself is adjusted both ways | 2025-26, tax
 2016-17’s arrears above $180,000 carry the 2% budget repair levy | 2025-26, taxable $100,000.00; 2016-17 $10,000.00 on $200,000.00 | Tax on arrears $3,000.00, notional tax $4,700.00, offset $0.00
 2026-27’s 15% band: $20,000 from 2024-25 at 16% and 30% against 30% and 37% | 2026-27, taxable $150,000.00; 2024-25 $20,000.00 on $30,000.00 | Tax on arrears $7,050.00, notional tax $3,900.00, offset $3,150.00
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12749,7 +12835,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12820,7 +12906,7 @@ ATO example 4: Branson, 2024-25, at 5.5% by section 154-20 | 2024-25: taxable in
 2021-22 at 1% | 2021-22: taxable income $47,014 | Repayment income $47,014.00, repayment $470.14
 2020-21 a dollar below 10% | 2020-21: taxable income $136,739 | Repayment income $136,739.00, repayment $12,990.21
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12830,7 +12916,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12906,7 +12992,7 @@ No offset: $20,000 of profit on $70,000 of wages adds 30% tax and 2% Medicare le
 2023-24, other deductions take taxable income below the profit: the offset’s share stops at 1 | 2023-24, business $40,000 less $5,000, other deductions $3,000, invoice $1,000.00 | Offset $419.52, business tax $2,102.48; set aside $2,102.48 a year, $525.62 a quarter, 5.26% of each invoice
 2021-22, $25,000 of profit: the low and middle income offsets leave no tax for this offset | 2021-22, business $25,000 less $0, invoice $1,000.00 | Offset $0.00, business tax $163.50; set aside $163.50 a year, $40.88 a quarter, 0.65% of each invoice
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12916,7 +13002,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - calculators and tools: https://www.ato.gov.au/calculators-and-tools
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12987,7 +13073,7 @@ Unused cap covers part of the excess | 2026-27: taxable income $210,000, fringe 
 2023-24: each part of Division 293 income | 2023-24: taxable income $200,000, fringe benefits $10,000, net investment loss $15,000, family trust distribution tax income $20,000, less FHSS $5,000; contributions $27,500.00 | Division 293 income $240,000.00, low tax contributions $27,500.00, taxable contributions $17,500.00, tax $2,625.00
 2021-22: a lump sum taxed at the zero rate comes off | 2021-22: taxable income $260,000, less zero-rate lump sum $30,000; contributions $27,500.00 | Division 293 income $230,000.00, low tax contributions $27,500.00, taxable contributions $7,500.00, tax $1,125.00
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12995,7 +13081,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -13059,7 +13145,7 @@ Child support paid can take adjusted taxable income below nil | Resident all yea
 Pensions and target foreign income count in adjusted taxable income only | Resident all year, taxable $20,000, pensions $5,000, target foreign $3,000, child support $8,000, assessable $20,000 | Surcharge $20,000, Division 293 $20,000, rebate $20,000, repayment $20,000, adjusted taxable $20,000, co-contribution $20,000
 Business deductions come off co-contribution total income only | Resident all year, taxable $35,000, other fringe $2,000, employer super $1,000, assessable $40,000, business deductions $5,000 | Surcharge $38,000, Division 293 $37,000, rebate $38,000, repayment $38,000, adjusted taxable $38,000, co-contribution $38,000
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -13069,7 +13155,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - When you must repay your loan: https://www.ato.gov.au/individuals-and-families/study-and-training-support-loans/when-must-you-repay-your-loan
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -13145,7 +13231,7 @@ The present value at 2.5%, as the Instrument allows you to change it | Age 30 to
 A higher-fee fund: $150 and 0.85% | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $150.00 and 0.85%, premiums $599.00, growth 3.7%, present value at 3.7% | 37 years: $1,778,785.44, present value $463,777.40
 No insurance | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $59.00 and 0.11%, premiums $0.00, growth 3.7%, present value at 3.7% | 37 years: $2,178,481.86, present value $567,989.05
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -13153,7 +13239,104 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Super co-contribution, LISTO and spouse offset calculator
+
+Source: https://duguid.com.au/tools/individual-tax/government-super/
+
+> The super co-contribution, the low income super tax offset (LISTO) and the spouse contribution tax offset for 2020-21 to 2026-27, with each condition met or not.
+
+# Super co-contribution, LISTO and spouse offset calculator
+
+Co-contribution, LISTO and spouse offset for 2020-21 to 2026-27.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Amounts for one income year
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Personal contributions not deducted, received by your fund in the year Concessional contributions: employer, salary sacrifice and deducted personal Income from employment or a business, such as salary, director fees and business income before deductions Income from your return (whole dollars) Assessable income Taxable income Deductions against business income Reportable employer super contributions, IT2 Personal super contributions you deduct, D12 Reportable fringe benefits, other employers, IT1 W Reportable fringe benefits, section 57A employers, IT1 N Assessable FHSS released amount Excess concessional contributions for the year Net financial investment loss, IT5 Net rental property loss, IT6 Target foreign income, IT4 Tax-free government pensions, IT7 Child support you paid, IT8
+
+An Australian resident for the whole year Yes No
+
+A temporary visa at any time in the year No Yes
+
+Your tax return for the year is lodged Yes No
+
+Under 71 at the end of the year Yes No
+
+Non-concessional contributions within your cap Yes No Not known
+
+Total super balance at the previous 30 June below the transfer balance cap Yes No Not known
+
+You contributed to your spouse’s super in the year No Yes
+
+The amounts and answers are established for the year
+
+Choose Yes, I have checked them No or unsure
+
+Calculate
+
+Downsizer contributions do not count. Spouse contributions count only if made whilst you were spouses, both Australian residents and not living apart, to a complying fund, and not deductible.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2023-24, assessable income $35,000.00, taxable income $35,000.00, eligible income $35,000.00, personal contributions $1,040.00, concessional contributions $0.00. Total income for the co-contribution $35,000.00 Income thresholds $43,445 and $58,445 Half the personal contributions $520.00 Maximum after the taper $500.00 Super co-contribution $500.00 Co-contribution paid, up to 5 cents $500.00 Adjusted taxable income $35,000.00 LISTO $0.00 LISTO paid, up to 5 cents $0.00 No LISTO: no concessional contributions. The ATO works out the co-contribution and LISTO from your return and your fund’s reports and pays them to your fund.
+
+## How the government super amounts calculator works
+
+The calculator works 3 amounts from the same answers. Total income for the co-contribution is your assessable income, less any FHSS released amount, plus reportable fringe benefits and reportable employer super contributions (less any excess concessional contributions), less business deductions. Adjusted taxable income, which decides LISTO, is taxable income without any FHSS released amount, plus adjusted fringe benefits, target foreign income, investment losses, tax-free pensions and reportable super contributions, less child support paid, as the income tests calculator works it.
+
+The super co-contribution is half your personal contributions, at most $500. Above the year’s lower income threshold the $500 falls by 3.333 cents for each dollar; at the higher threshold, $15,000 above it, none is payable. An amount under $20 is raised to $20. It needs total income below the higher threshold, at least 10% of total income before business deductions from employment or a business, a lodged return, non-concessional contributions within your cap, a total super balance below the general transfer balance cap, and an age under 71.
+
+The year’s thresholds are $39,837 and $54,837 for 2020-21, $41,112 and $56,112 for 2021-22, $42,016 and $57,016 for 2022-23, $43,445 and $58,445 for 2023-24, $45,400 and $60,400 for 2024-25, $47,488 and $62,488 for 2025-26, and $49,293 and $64,293 for 2026-27.
+
+LISTO is 15% of your concessional contributions, to the nearest cent, at most $500 and at least $10, where adjusted taxable income is $37,000 or less and the same 10% test is met. The ATO pays both amounts to your fund, rounded up to a multiple of 5 cents.
+
+The spouse contribution tax offset is 18% of your contributions for your spouse, counting at most $3,000, which falls by a dollar for each dollar of the spouse’s income above $37,000. It is nil when the spouse’s income is $40,000 or more, the spouse’s non-concessional contributions exceed the spouse’s cap, or the spouse’s total super balance has reached the general transfer balance cap. The most it can be is $540.
+
+## What the government super amounts calculator does not cover
+
+The calculator refuses a person who held a temporary visa at any time in the year: the exceptions for New Zealand citizens and some prescribed visas are not worked out. It also refuses a person not resident in Australia for the whole year, a cap or balance answer of not known where that answer decides an amount, and nil total income where a contribution leaves the 10% test to decide.
+
+It leaves out contributions your fund had not received by 30 June, LISTO the ATO estimates without a return, concessional contributions to constitutionally protected funds and other amounts LISTO disregards, a deceased person’s income, interest on late payments, and 2019-20 and earlier. It does not cover 2027-28, when the law changes LISTO and the co-contribution thresholds are not yet published. It takes each amount and answer as you enter them; confirm them with your fund, the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Super co-contribution, LISTO and spouse offset calculator
+
+Case | Inputs | Result
+Angelo: $35,000 salary, $1,040 personal contributions, $500 (ATO super co-contribution page) | 2023-24, assessable income $35,000, eligible income $35,000.00, personal contributions $1,040.00, concessional contributions $0.00 | Co-contribution $500.00, LISTO $0.00
+Julie: $31,000 adjusted taxable income, $3,360 employer SG, LISTO $500 (ATO LISTO page) | 2022-23, assessable income $32,000, taxable income $31,000, eligible income $32,000.00, personal contributions $0.00, concessional contributions $3,360.00 | Co-contribution $0.00, LISTO $500.00
+Robert and Judy: spouse income $19,000, $3,500 contributed, $540 (ATO super-related offsets, example 1) | 2021-22, assessable income $80,000, eligible income $80,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $19,000.00, spouse contributions $3,500.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $540.00
+Carmel and Adam: spouse income $38,000, $3,000 contributed, $360 (example 2) | 2021-22, assessable income $80,000, eligible income $80,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $38,000.00, spouse contributions $3,000.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $360.00
+Aleah and Lewis: spouse income $35,000, $2,000 contributed, $360 (example 3) | 2022-23, assessable income $80,000, eligible income $80,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $35,000.00, spouse contributions $2,000.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $360.00
+Taper: $2,512 above the 2025-26 lower threshold, $416.28 paid as $416.30 (s 10(1C), reg 15(2)) | 2025-26, assessable income $50,000, eligible income $50,000.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $416.30, LISTO $0.00
+$1 below the 2026-27 higher threshold: the $20 minimum (s 11) | 2026-27, assessable income $64,292, eligible income $64,292.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $20.00, LISTO $0.00
+At the 2026-27 higher threshold: no co-contribution (s 6(1)(c)) | 2026-27, assessable income $64,293, eligible income $64,293.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $0.00, LISTO $0.00
+$4,999 eligible of $50,000 fails the 10% test (s 6(1)(b)) | 2025-26, assessable income $50,000, eligible income $4,999.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $0.00, LISTO $0.00
+Business deductions: total income $40,000, the 10% test on $60,000 (s 8(2) and (3)) | 2025-26, assessable income $60,000, taxable income $40,000, business deductions $20,000, eligible income $60,000.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $500.00, LISTO $0.00
+LISTO on $1,234.57: $185.19, paid $185.20 (s 12E(2), reg 15(2)) | 2025-26, assessable income $20,000, eligible income $20,000.00, personal contributions $0.00, concessional contributions $1,234.57 | Co-contribution $0.00, LISTO $185.20
+LISTO on $50: the $10 minimum (s 12E(2)(c)) | 2025-26, assessable income $20,000, eligible income $20,000.00, personal contributions $0.00, concessional contributions $50.00 | Co-contribution $0.00, LISTO $10.00
+LISTO at adjusted taxable income $37,001: nil (s 12C(1)(b)) | 2025-26, assessable income $37,001, eligible income $37,001.00, personal contributions $0.00, concessional contributions $4,000.00 | Co-contribution $0.00, LISTO $0.00
+Spouse income $39,999: 18% of $1 (s 290-235(1)) | 2025-26, assessable income $90,000, eligible income $90,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $39,999.00, spouse contributions $3,000.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $0.18
+
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -13239,7 +13422,7 @@ Case | Inputs | Result
 Sue: ATO GN 2024/1 example 11, with a fictional determination date | ATO determination: concessional $8,500.00, non-concessional $5,000.00, earnings $850.00 | Maximum release $14,350.00, assessable $9,350.00, PAYG $1,589.00, after withholding $12,761.00, offset $2,805.00
 Partial release in the income year after determination | ATO determination: concessional $8,500.00, non-concessional $10,000.00, earnings $1,500.00, requested $15,000.00 on 2025-07-01, gross released $12,000.00 | Maximum release $20,000.00, assessable $2,000.00, PAYG $340.00, after withholding $11,660.00, offset $600.00
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -13252,7 +13435,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - GN 2024/1, example 6: https://www.ato.gov.au/law/view/print?DocID=GDN%2FGDN20241%2FNAT%2FATO%2F00001
 - First Home Super Saver Tax Act 2017: https://www.legislation.gov.au/C2017A00133/asmade
 - Treasury Laws Amendment (2023 Measures No. 3) Act 2023, Schedule 4, items 28 and 30: https://www.legislation.gov.au/C2023A00075
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -13336,7 +13519,7 @@ A seminar is not a prescribed course, so no reduction in 2021-22 (TR 98/9 para 1
 From 2022-23 there is no $250 reduction (Act No. 84, 2022) | 2022-23, self-education, skills for current work, A $290.00, B $0.00, C $0.00, D $0.00 | Deduction $290.00
 Wendy: study for new employment is not deductible (ATO self-education page) | 2025-26, self-education, new employment, A $290.00, B $0.00, C $0.00, D $0.00 | Deduction $0.00, not deductible
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -13344,7 +13527,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -13431,7 +13614,7 @@ B(ii): what earlier B(ii) payments had withheld comes off | fortnightly, scale 2
 B(ii): earlier withholding beyond the amount gives nil | fortnightly, scale 2, $1,800.00 this pay; B(ii): $2,480.00, $18,000.00 over 10 pays to date, earlier $1,000.00 with $9,999.00 withheld | Withheld $212.00: $212.00 on earnings, $0.00 by B(ii) (limit $1,165.60)
 ATO example 4: Bradley’s back pay over 2 years by B(i) and B(ii), with a Financial Supplement debt | monthly, scale 2, study loan, $7,000.00 this pay; B(i): $800.00 for each of 2 pays of $6,200.00 that had $1,257.00 withheld; B(ii): $8,800.00, $19,400.00 over 3 pays to date | Withheld $6,492.00: $1,634.00 on earnings, $754.00 by B(i), $4,104.00 by B(ii) (limit $4,136.00)
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -13441,7 +13624,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -13517,7 +13700,7 @@ The reportable amount brings on the surcharge and raises the study loan repaymen
 A foreign resident | 2026-27, charity, foreign, salary $70,000, Type 2 $15,899.93 | Gain $4,770.00: tax saved $4,770.00, FBT $0.00, reportable $29,999
 2022-23, before the standard deduction | 2022-23, charity, resident, salary $70,000, Type 2 $15,899.93 | Gain $5,674.00: tax saved $5,674.00, FBT $0.00, reportable $29,999
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -13526,7 +13709,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - novated lease calculator: https://duguid.com.au/tools/individual-tax/novated-lease/
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -13622,7 +13805,7 @@ Held over 4 years: two-thirds of the cost price | 2026-27, bev, first held and u
 Half a year available | 2026-27, bev, first held and used on 2022-07-01, sold 2026-27 at $60,000.00, 182 days, costs $15,000.00 with GST and $1,000.00 without, salary $100,000 | Exempt: value $5,983.56, saving $6,047.48, $3,762.72 without the exemption
 The reportable amount brings on the surcharge | 2026-27, bev, first held and used on 2022-07-01, sold 2026-27 at $60,000.00, 365 days, costs $15,000.00 with GST and $1,000.00 without, salary $120,000, no hospital cover | Exempt: value $12,000.00, saving $5,649.93, $1,502.97 without the exemption
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -13630,7 +13813,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -13699,7 +13882,7 @@ The Northern Territory, worked from the Act: the deduction tapers to $2,250,000 
 Australian wages below the state’s wages are refused | New South Wales, wages $2,000,000.00, Australian wages $1,000,000.00 | Refused: enter total Australian wages of at least the wages in the state or territory
 Negative wages are refused | New South Wales, wages -$1.00, Australian wages -$1.00 | Refused: enter an amount between 0 and 100000000000
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -13708,7 +13891,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - data file: https://duguid.com.au/tools/business-calculators/payroll-tax/payroll-tax-rates.csv
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -13791,7 +13974,7 @@ Interest across 29 February 2024 | Quarter 3 of 2023-24; salary or wages $12,000
 Contributions with no ordinary time earnings | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $0.00; contributions $100.00; lodged 20 November 2025 | Refused: enter the ordinary time earnings for the quarter: contributions reduce the charge percentage in proportion to them
 A statement lodged by the contribution due date | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $10,000.00; contributions $0.00; lodged 28 October 2025 | Refused: enter the day the statement was or will be lodged from 29 October 2025 to 30 June 2031
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -13802,7 +13985,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Payday Super calendar: https://duguid.com.au/tools/payday-super/business-days/
 - GIC table: https://duguid.com.au/rates/general-interest-charge/
 - Tax and Superannuation Laws Amendment (Norfolk Island Reforms) Act 2015: https://www.legislation.gov.au/C2015A00053/latest/text
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -13892,7 +14075,7 @@ A last day before the first is refused | New South Wales, 1 August 2026 to 31 Ju
 Excluded days that use up the service are refused | New South Wales, 1 July 2026 to 31 July 2026, 31 days excluded, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week | Refused: excluded days must be fewer than the days from the first day to the last
 More leave taken than the entitlement is refused | New South Wales, 1 February 2014 to 31 July 2026, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, 11 weeks taken, pay $1,500.00 a week | Refused: leave taken or paid is more than this entitlement: the Acts treat leave taken in advance differently, and this calculator does not cover it
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -13902,7 +14085,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - termination payment calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
 - black coal mining industry: https://duguid.com.au/tools/coal-lsl-levy/
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -13996,7 +14179,7 @@ Average method without the 10% wholesale share is refused | 2026-27; dealing 1: 
 A rebate on own use of wine bought under quote is refused | 2026-27; dealing 1: own use of wine bought under quote bought for $1.00 excluding GST, rebate claimed; rebates claimed earlier this year $0.00 | Refused: dealing 1: own use of wine bought under quote earns no producer rebate (section 19-5): the producer is the seller
 2022-23 is refused | 2022-23; dealing 1: wholesale sale at $1.00 excluding WET and GST | Refused: choose a financial year from 2023-24 to 2027-28: earlier years carry the transitional producer rebate rules for 2017 and earlier vintage wine, which this calculator does not work out
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -14004,7 +14187,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -14086,7 +14269,7 @@ Method 1 for LPG, which PCG 2016/2 does not cover | 2026-27; line 1: $10.00 of L
 The basic method for a business that is not a small claimant | 2026-27; heavy vehicle (basic method): 11,430 litres of diesel acquired 30 September 2026, 32,000 km in total, a 32 tonne rigid truck | Refused: the simplified methods are for a business whose fuel tax credits were $10,000 or less in the previous 12 months and are expected to be in the current 12 months (PCG 2016/2 paragraph 4; PCG 2021/2 paragraph 6)
 Fuel acquired outside the income year chosen | 2025-26; line 1: 100 litres of diesel acquired 1 July 2026, other business use | Refused: line 1 was acquired outside the income year 2025-26; work each income year apart
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -14096,7 +14279,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Australian Institute of Petroleum’s weekly average retail (pump) prices: https://aip.com.au/pricing/pump-prices-retail/
 - fuel tax credit tools: https://www.ato.gov.au/calculators-and-tools/fuel-tax-credit-tools
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -14177,7 +14360,7 @@ Refunds are the lesser of the tax borne and $10,000, claimed on the ATO’s form
 A primary producer is refunded for one car a financial year (section 18-5(4)) | 2026-27; line 1: refund, supplied in 2026-27, to a primary producer, refund-eligible car, $12,000.00 borne; line 2: refund, supplied in 2026-27, to a primary producer, refund-eligible car, $1,000.00 borne | Refused: a primary producer is refunded for one car a financial year (LCT Act s 18-5(4)): give at most one primary producer refund
 2027-28’s thresholds are not yet published | 2027-28; line 1: sale, value $90,000.00, no fuel consumption rating | Refused: choose a tax period in a financial year from 2019-20 to 2026-27
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -14187,7 +14370,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - australian-accounting: https://github.com/ryanduguid/australian-accounting
 - vehicle classifier: https://duguid.com.au/tools/business-calculators/vehicle-class/
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -14260,7 +14443,7 @@ A part for a period before the accrual start is refused | Annual leave $6,000.00
 A part above its total is refused | Annual leave $0.00 ($0.00 before 18 August 1993), loading $0.00 ($0.00 before 18 August 1993), long service leave $5,000.00 ($5,000.01 16 August 1978 to 17 August 1993), accrued from 1 January 1985, normal termination, TFN, scale 2, $1,155.00 a week | Refused: the long service leave for 16 August 1978 to 17 August 1993 is more than the long service leave it is part of
 Under $300 with pre-16 August 1978 leave is refused | Annual leave $100.00 ($0.00 before 18 August 1993), loading $0.00 ($0.00 before 18 August 1993), long service leave $1,000.00 ($1,000.00 before 16 August 1978) ($0.00 16 August 1978 to 17 August 1993), accrued from 1 January 1970, normal termination, TFN, scale 2, $1,155.00 a week | Refused: a post-17 August 1993 payment under $300 has at most 32% of it withheld, and Schedule 7 does not say how to apply that limit when pre-16 August 1978 long service leave joins it in the marginal rate calculation
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -14270,7 +14453,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - redundancy and ETP withholding calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
 - Schedule 7: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-7-tax-table-for-unused-leave-payments-on-termination-of-employment
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -14349,7 +14532,7 @@ A member of a group in New South Wales: refused | New South Wales, wages $500,00
 Tasmania with apprentice wages: refused, as no discount applies there | Tasmania, wages $300,000.00 at 2.18%, apprentice wages $10,000.00 | Refused: there is no apprentice deduction for Tasmania here: enter 0 apprentice wages
 New South Wales, actual wages that take the premium over $30,000: refused | New South Wales, wages $1,000,000.00 at 2%, dust diseases 0%, reward 0%, actual wages $1,600,000.00 | Refused: on the actual wages, the average performance premium of $32,000.00 is more than $30,000, so icare experience-rates the premium on its claims model (Market Practice and Premiums Guidelines 2026, clause 6.7): use the renewal notice
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -14357,7 +14540,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -14450,7 +14633,7 @@ A 15 point change after one period is not significant | 2025-26, private company
 A private company whose offset would be reduced needs its income tax | 2025-26, private company, 30%, opening $55,000.00, 28 October 2025 PAYG instalment paid $42,000.00, 28 February 2026 PAYG instalment paid $42,000.00, 28 April 2026 PAYG instalment paid $42,000.00, 28 June 2026 PAYG instalment paid $42,000.00, 1 December 2025 Franking credit on a franked distribution received $13,714.00, 15 March 2026 Income tax refund received $330,000.00, 30 September 2025 distribution $70,000.00 franked $30,000.00 | Refused: the offset reduction applies unless section 205-70(5) does, which turns on the private company’s income tax: enter its income tax before this offset, the offset brought forward and whether it had an earlier liability
 Distributions out of date order are refused | 2025-26, not a private company, 30%, opening $0.00, 1 September 2025 distribution $1.00 franked $0.00, 1 August 2025 distribution $1.00 franked $0.00 | Refused: distribution 2: enter the distributions in date order; the first in a franking period sets its benchmark (s 203-30)
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -14460,7 +14643,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
 - ATO’s instructions: https://www.ato.gov.au/forms-and-instructions/franking-account-tax-return-2026-instructions/instructions-to-complete-the-franking-account-tax-return-2026
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -14522,7 +14705,7 @@ A company new this year franks at 25% whatever its own year | Turnover $60,000,0
 Partly franked: 50% of the maximum, rounded down to the cent | Turnover $104,000.00, passive income $4,000.00 of $104,000.00, taxable income $104,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $1,000.01 franked 50%, marginal rate 32% | Tax rate 25%, tax $26,000.00, franking rate 25%, maximum franking credit $333.33, franking credit $166.66, tax left to pay $206.67
 Passive income above assessable income is refused | Turnover $100,000.00, passive income $100,000.01 of $100,000.00, taxable income $100,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $0.00 franked 100%, marginal rate 30% | Refused: base rate entity passive income cannot be more than assessable income
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; franking credits round down to the cent, so a credit never exceeds the maximum.
 
@@ -14531,7 +14714,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - company tax and franking worksheets: https://duguid.com.au/tools/company-tax-franking/
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -14589,7 +14772,7 @@ Under the tax-free threshold all dividends keep the most, as the credit is refun
 A company at 30% in 2021-22, with the low and middle income tax offset | 2021-22, profit $41,000.00, 30% company, salary $20,000.00, other income $0.00 | Super guarantee $2,000.00, company tax $5,700.00, dividend $13,300.00, franking credit $5,700.00, owner’s refund $2,418.00, super tax $300.00, cash kept $35,718.00, super kept $1,700.00, kept in all $37,418.00, all salary keeps $37,467.19, all dividends keep $37,348.00, best salary $35,000.00, best keeps $37,470.50
 A salary whose super guarantee the profit cannot pay is refused | 2026-27, profit $100,000.00, 25% company, salary $95,000.00, other income $0.00 | Refused: enter a salary of no more than $89,285.71: the profit also pays its super guarantee
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -14602,7 +14785,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - payroll tax: https://duguid.com.au/tools/business-calculators/payroll-tax/
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -14697,7 +14880,7 @@ FIRB Guidance Note 10, example 3: the fee is 3 times for an established dwelling
 Under $75,000 the lower fee applies | Residential land without an established dwelling, consideration $74,999.00 | Fee $4,600.00
 Above $40 million the fee stops at its maximum | Residential land without an established dwelling, consideration $40,000,001.00 | Fee $1,245,500.00
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -14709,7 +14892,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - section 14: https://www.legislation.gov.au/F2015L01854/2025-11-01/2025-11-01/text/original/epub/OEBPS/document_1/document_1.html
 - transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -14807,7 +14990,7 @@ ASIC code A53 | Annual review fee, special purpose company that is not a proprie
 ASIC code BZA or BZC | Register or renew a business name for 1 year | Fee $47.00, ASIC code BZA or BZC
 ASIC code BZB or BZD | Register or renew a business name for 3 years | Fee $108.00, ASIC code BZB or BZD
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -14815,7 +14998,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -14873,7 +15056,7 @@ An end before the start is refused | New South Wales, Wednesday 18 November 2026
 A Victorian date after 31 August 2027 is refused | Victoria, Wednesday 1 September 2027 to Thursday 30 September 2027 | Refused: this page has public holidays from 1 January 2026 to 31 August 2027 for Victoria; choose dates in that range
 Counting past 31 December 2027 is refused | New South Wales, 20 business days after Monday 20 December 2027 | Refused: this page has public holidays from 1 January 2026 to 31 December 2027 for New South Wales; choose dates in that range
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -14881,7 +15064,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -14971,7 +15154,7 @@ A sale to an associate is refused | Freehold, bought under the margin scheme, so
 A valuation for property acquired after 1 July 2000 is refused | Freehold, bought under the margin scheme; price $190,000.00 GST-inclusive, valuation $400,000.00, 200,000 of 2,000,000 | Refused: an approved valuation sets the margin only for property held since before 1 July 2000 (subsection 75-10(3)); use the consideration you paid for property acquired later
 A part larger than the whole is refused | Freehold, bought under the margin scheme; price $190,000.00 GST-inclusive, cost $400,000.00, 2,000,001 of 2,000,000 | Refused: this sale’s part cannot be more than the whole it is part of
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -14979,7 +15162,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -15094,7 +15277,7 @@ A room used to produce income from a day away, with the home chosen as the main 
 Shares an individual and associates own at least 10% of are refused, as section 115-45 can deny the discount | Individual, shares or units held at least 10%; bought 1 July 1997, sold 1 February 2026 for $496,000.00; price $144,000.00, buying $20,000.00 on 1 July 1997, cost $30,000.00 on 1 October 2025, selling $12,500.00, capital works $255.00; other income $90,000.00 | Refused: the gain on shares, or units or other fixed or voting interests in a trust, that you and your associates own at least 10% of is not a discount capital gain when most of the company’s or trust’s assets, by cost base and by net capital gain, were acquired in the 12 months before the sale (section 115-45): this page does not test that
 A home first rented on 21 September 1999 is refused, as section 118-192 moves its acquisition to that day | Individual, home; bought 1 March 1995, sold 14 April 2026 for $496,000.00; price $150,000.00; other income $90,000.00; settled 1 April 1995 and 14 April 2026, moved in 1 April 1995; away 21 September 1999 to 14 April 2026, rented; market value $200,000.00 | Refused: for an asset acquired on 21 September 1999, whether the cost base can be indexed turns on whether it was acquired by 11.45 am (sections 114-1 and 114-10): this page cannot tell
 
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -15102,7 +15285,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 

@@ -425,3 +425,11 @@ calculate.asicFee({ fee: 'late-lodgement', due: 20260915, received: '2026-10-15'
 const asicTier: number = asicLate.tier;
 void asicAmount;
 void asicTier;
+const atoInput = { question: 'gic', year: '2025-26', amount: '10000', due_date: '2025-11-21', to: '2026-06-30' };
+const atoYear: string = calculate.atoPenaltiesInterest(atoInput).year;
+// @ts-expect-error The year is a financial year string, not a number.
+calculate.atoPenaltiesInterest({ ...atoInput, year: 2026 });
+// @ts-expect-error Warnings are sentences, not numbers.
+const atoWarnings: number[] = calculate.atoPenaltiesInterest(atoInput).warnings;
+void atoYear;
+void atoWarnings;
