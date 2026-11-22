@@ -152,6 +152,9 @@
     "tools/business-calculators/company-tax/index.html": [
       "155b3eeb04ab0ceebe1358bb675f36c70e7172272c21744cbe7fc35886380d55"
     ],
+    "tools/business-calculators/depreciation-pools/index.html": [
+      "e5037eba3039d5730d92e9ec6f1848e8537be915ac3693ef4ee57f341263ad14"
+    ],
     "tools/business-calculators/div7a-schedule/index.html": [
       "5669d109570ff27fcc7e428d73f432f8a2ca8cbc6b008ff56756d64e0874afda"
     ],
@@ -276,7 +279,7 @@
       "965f8288b5d2e33a4bf80989a07d4cdf6f2a31a9fbc1a2e6413016af297cdad3"
     ],
     "tools/depreciation-rates/index.html": [
-      "4b093d1b163d18db86ec4cd04284a6f3e810055781c60a4e325bd78f5b6b6075"
+      "6e5cc4539b61882181bb7233c05687c8212cf2b35562639d0d2b353f4665c777"
     ],
     "tools/index.html": [
       "a90b2d0af203356541db6ead18334c8e45fd761cda4e2a4d796d0dc632baaf7f"
@@ -385,9 +388,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "5510aecfe55b7879a0f8c460a76b8cce262399d4a014fd25f7a7519fc6d6ba93",
+    "llms.txt": "5fae6ae4696da943897820f4d3eef390f51a4ccc36c6288b188c936fb302ff74",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "465deb96c6ab890d87d3bbfe32e1097223bd3115ffa50eb459ad7b726cf88683"
+    "sitemap.xml": "8cb38a7f03f52526fc6e9967cc3c5401136a605b2a46f044a57bf19871197af1"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -447,7 +450,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7797,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7798,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
