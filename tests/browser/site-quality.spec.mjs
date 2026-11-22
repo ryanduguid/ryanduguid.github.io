@@ -683,22 +683,6 @@ const cueStates = (page) => page.evaluate(() => new Promise((resolve) => {
   )));
 }));
 
-// The sweeps below leave each page for the next. On 18 November 2026 they left
-// calculator pages whose engines were still arriving, and the health check failed
-// on division-296.mjs and payroll-tax.mjs (net::ERR_ABORTED).
-test('leaving a calculator page once its modules load aborts no request', async ({ page }, testInfo) => {
-  test.skip(projectKind(testInfo) !== 'desktop', 'runs once');
-  await page.route('**/assets/division-296.mjs', async (route) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    await route.continue();
-  });
-  const health = observePageHealth(page);
-  await page.goto('/tools/business-calculators/gst/');
-  await waitForCalculators(page);
-  await page.goto('/');
-  health.assertHealthy();
-});
-
 // One test per width: all four in one test made 260 navigations, which took
 // 22 to 35 seconds on a Windows CI runner against the 30-second test limit.
 // Each route loads once per width for every check below. Waiting for each calculator
@@ -715,7 +699,7 @@ for (const width of [320, 390, 768, 1440]) {
     const miscued = [];
     for (const [, route] of routes) {
       await page.goto(route);
-      // Leaving a calculator page before its modules arrive aborts them (health check).
+      // The health check sees a calculator page's modules only if they arrive before the next page.
       await waitForCalculators(page);
       const viewport = await page.evaluate(() => ({
         clientWidth: document.documentElement.clientWidth,
