@@ -51,10 +51,12 @@ test('the ATO and PCG 2023/1 fixed rate examples', () => {
 
 test('each year has its hourly rates, and the shortcut ends with 2021-22', () => {
   const expected = { '2020-21': '0.52', '2021-22': '0.52', '2022-23': '0.67', '2023-24': '0.67', '2024-25': '0.70', '2025-26': '0.70', '2026-27': '0.70' };
-  for (const year of WORK_EXPENSES_YEARS) {
+  assert.deepEqual(Object.keys(expected), WORK_EXPENSES_YEARS);
+  assert.deepEqual(Object.values(HOME_OFFICE_RATES).map((r) => r.fixed), [52, 52, 67, 67, 70, 70, 70]);
+  for (const [year, rate] of Object.entries(expected)) {
     const r = work(home(year, '100'));
-    assert.equal(r.rates.fixed_rate, expected[year], year);
-    assert.equal(r.amounts.fixed_rate_amount, `${HOME_OFFICE_RATES[year].fixed}.00`, year);
+    assert.equal(r.rates.fixed_rate, rate, year);
+    assert.equal(r.amounts.fixed_rate_amount, `${rate.slice(2)}.00`, year);
     assert.equal(r.rates.shortcut_rate, year < '2022-23' ? '0.80' : undefined, year);
     assert.equal(r.amounts.shortcut_method, year < '2022-23' ? '80.00' : undefined, year);
   }
@@ -103,8 +105,8 @@ test('cents per kilometre: Johan, every rate and the 5,000 kilometre cap', () =>
   assert.deepEqual([johan.deduction, johan.return_amount], ['2212.32', '2212.00']);
   const rates = { '2020-21': 72, '2021-22': 72, '2022-23': 78, '2023-24': 85, '2024-25': 88, '2025-26': 88, '2026-27': 91 };
   assert.deepEqual(CENTS_PER_KILOMETRE, rates);
-  for (const year of WORK_EXPENSES_YEARS) {
-    assert.equal(work(car(year, '100')).amounts.deduction, `${rates[year]}.00`, year);
+  for (const [year, cents] of Object.entries(rates)) {
+    assert.equal(work(car(year, '100')).amounts.deduction, `${cents}.00`, year);
   }
   const capped = work(car('2025-26', '5085'));
   assert.equal(capped.amounts.claimed_kilometres, '5000.00');
@@ -199,15 +201,18 @@ test('an input for another method, or for a year that does not take it, is refus
   assert.equal(work(edu('2025-26', { log_book_car_in_category_a: false })).refused, undefined);
 });
 
+/** The form's answers, as the page reads them. @param {Record<string, string>} fields @param {string} [blank] */
+const answers = (fields, blank = '') => (/** @type {string} */ name) => new Map(Object.entries(fields)).get(name) ?? blank;
+
 test('the form passes only the inputs the method and year take', () => {
   const form = { method: 'self_education', year: '2022-23', scope: 'yes', reimbursed: 'no', allowance: 'no', connection: 'increases_income',
     employed: 'yes', 'category-a': '1', 'category-b': '2', 'category-c': '3', 'category-d': '0', 'log-book-car': 'no', prescribed: 'yes',
     'category-e': '9', hours: '5' };
-  const facts = workExpensesFormFacts((name) => form[name] ?? '');
+  const facts = workExpensesFormFacts(answers(form));
   assert.equal('prescribed_course' in facts || 'category_e' in facts || 'hours' in facts, false);
-  const early = workExpensesFormFacts((name) => ({ ...form, year: '2021-22' })[name] ?? '');
+  const early = workExpensesFormFacts(answers({ ...form, year: '2021-22' }));
   assert.deepEqual([early.prescribed_course, early.category_e], [true, '9']);
-  const result = workExpensesResult((name) => ({ ...form, year: '2021-22' })[name] ?? '', (n) => `$${n.toFixed(2)}`);
+  const result = workExpensesResult(answers({ ...form, year: '2021-22' }), (n) => `$${n.toFixed(2)}`);
   assert.equal(result.rows.at(-1)?.[1], '$5.00');
   assert.equal(result.inputs, 'Self-education, 2021-22, categories A to D $1.00, $2.00, $3.00, $0.00, prescribed course, category E $9.00');
 });
@@ -215,7 +220,7 @@ test('the form passes only the inputs the method and year take', () => {
 test('the note cites PCG 2023/1 for running expenses from 2022-23 and the ATO’s earlier guidance before it', () => {
   const form = { method: 'home_office', scope: 'yes', reimbursed: 'no', allowance: 'no', hours: '100', 'running-expenses': 'no',
     dedicated: 'yes', repairs: '10' };
-  const note = (year) => workExpensesResult((name) => ({ ...form, year })[name] ?? '0', (n) => `$${n.toFixed(2)}`).note ?? '';
+  const note = (year) => workExpensesResult(answers({ ...form, year }, '0'), (n) => `$${n.toFixed(2)}`).note ?? '';
   assert.match(note('2021-22'), /52 cent fixed rate and shortcut method pages; PCG 2020\/3\)/);
   assert.doesNotMatch(note('2021-22'), /PCG 2023\/1/);
   assert.match(note('2022-23'), /\(PCG 2023\/1 paras 18\(b\) and 49 to 55\)/);
