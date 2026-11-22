@@ -14,8 +14,10 @@ import { number } from './money.mjs';
 // - WA: Department of Treasury and Finance fact sheet as at 28 July 2026: $10,000; caps of $750,000
 //   south and $1,000,000 north of the 26th parallel to 6 May 2026, $800,000 south from 7 May 2026.
 // - SA: RevenueSA: $15,000 but not more than the consideration; no cap from 6 June 2024.
-// - Tas: State Revenue Office: $30,000 from 1 July 2025 to 30 June 2026, $20,000 from 1 July 2026
-//   to 30 June 2027.
+// - Tas: First Home Owner Grant Act 2000 (authorised version as at 9 October 2026) s 18: the lesser
+//   of the consideration and $30,000 from 1 July 2025 to 30 June 2026 (s 18L) or $20,000 from 1 July
+//   2026 to 30 June 2027 (s 18M), for a transaction completed within 24 months that replaces no
+//   earlier one; s 7 sets no value cap. The State Revenue Office's table gives the same amounts.
 // - NT: HomeGrown Territory Grant: $50,000 for contracts from 1 October 2024 to 30 September 2027,
 //   with no cap.
 // - ACT: ACT Revenue Office: no grant from 1 July 2019.
@@ -24,9 +26,14 @@ export const FHOG_FIRST = '2025-07-01';
 export const FHOG_LAST = '2026-11-22';
 export const FHOG_HOMES = ['bought', 'built', 'established'];
 export const FHOG_FACTS = ['person', 'citizen', 'first', 'residence'];
+// Facts only some transactions need: the grant for a home built is the lesser of the building
+// contract's consideration and the amount, and the NT and Tasmanian amounts carry their own conditions.
+export const FHOG_CASE_FACTS = ['contract', 'nt', 'tas'];
 /** @type {Record<string, string>} */
 const FACT_NAMES = { person: 'every applicant is a person aged 18 or over', citizen: 'an applicant is an Australian citizen or permanent resident',
-  first: 'no applicant or spouse has had a grant or owned a home in Australia', residence: 'the residence requirement will be met' };
+  first: 'no applicant or spouse is excluded by the jurisdiction’s prior grant and ownership rules', residence: 'the residence requirement will be met',
+  contract: 'the building contract price is at least the grant', nt: 'the contract replaces none signed before 1 October 2024',
+  tas: 'the transaction completes within 24 months and replaces no earlier contract' };
 
 /** @typedef {{from: string, to: string, amount: number, bought?: number, built?: number, north?: number, lesser?: boolean}} GrantRule
  * `bought`, `built` and `north` are the highest eligible whole-dollar value; a rule without them has no cap. */
@@ -45,7 +52,7 @@ export const FHOG = {
   'AU-SA': { name: 'South Australia', residence: 'all applicants live in the home for 6 continuous months, starting within 12 months',
     rules: [{ from: '2024-06-06', to: '9999-12-31', amount: 15000, lesser: true }] },
   'AU-TAS': { name: 'Tasmania', residence: 'each applicant lives in the home for 6 continuous months, starting within 12 months',
-    rules: [{ from: '2025-07-01', to: '2026-06-30', amount: 30000 }, { from: '2026-07-01', to: '2027-06-30', amount: 20000 }] },
+    rules: [{ from: '2025-07-01', to: '2026-06-30', amount: 30000, lesser: true }, { from: '2026-07-01', to: '2027-06-30', amount: 20000, lesser: true }] },
   'AU-NT': { name: 'Northern Territory', residence: 'the applicants live in the home for at least 12 months after taking possession or completion',
     rules: [{ from: '2024-10-01', to: '2027-09-30', amount: 50000 }] },
   'AU-ACT': { name: 'Australian Capital Territory', residence: 'none, as no grant is paid', rules: [{ from: '2019-07-01', to: '9999-12-31', amount: 0 }] },
@@ -65,10 +72,11 @@ const longDate = (/** @type {string} */ iso) => new Date(`${iso}T00:00:00Z`).toL
 /**
  * The first home owner grant for one transaction, for applicants who state every eligibility fact.
  * @param {{place: string, date: string, home: string, value: string, north?: boolean, facts: Record<string, boolean>}} input
- *   `date` is the contract date as YYYY-MM-DD and `value` the total value in whole dollars.
+ *   `date` is the contract date as YYYY-MM-DD and `value` the total value in whole dollars; `north`
+ *   is required in Western Australia.
  * @returns {{grant: number, reason: string, cap: string, residence: string, dutyFrom: string}}
  */
-export function firstHomeOwnerGrant({ place, date, home, value, north = false, facts }) {
+export function firstHomeOwnerGrant({ place, date, home, value, north, facts }) {
   if (!Object.hasOwn(FHOG, place)) throw new Error('Choose a state or territory.');
   if (!FHOG_HOMES.includes(home)) throw new Error('Choose a home bought, built or established.');
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || date < FHOG_FIRST || date > FHOG_LAST) {
@@ -83,10 +91,15 @@ export function firstHomeOwnerGrant({ place, date, home, value, north = false, f
   if (!rule) throw new Error(`Not computed: no ${scheme.name} grant rule covers that date.`);
   if (rule.amount === 0) return { ...out, grant: 0, cap: 'none', reason: `the ${scheme.name} has paid none since ${longDate(rule.from)}` };
   if (home === 'established') return { ...out, grant: 0, cap: 'none', reason: 'the grant is for a new home only' };
+  const unstated = FHOG_CASE_FACTS.filter((f) => facts?.[f] !== true
+    && (f === 'contract' ? home === 'built' : place === (f === 'nt' ? 'AU-NT' : 'AU-TAS')));
+  if (unstated.length) throw new Error(`Not computed: the ${scheme.name} grant for this home needs another fact stated: ${unstated.map((f) => FACT_NAMES[f]).join('; ')}.`);
+  if (place === 'AU-WA' && typeof north !== 'boolean') throw new Error('Not computed: choose where the Western Australian home is, south or north of the 26th parallel.');
   const limit = place === 'AU-WA' && north ? rule.north : rule[/** @type {'bought' | 'built'} */ (home)];
   const cap = limit === undefined ? 'none' : place === 'AU-QLD' ? 'under $750,000' : `up to ${whole(limit)}`;
   if (limit !== undefined && dollars > limit) return { ...out, grant: 0, cap, reason: place === 'AU-QLD' ? 'the value is $750,000 or more' : `the value is over the ${scheme.name} cap` };
   if (dollars < rule.amount) {
+    if (home === 'built') throw new Error(`Not computed: a total value below the ${whole(rule.amount)} grant cannot hold a building contract price of at least the grant.`);
     if (!rule.lesser) throw new Error(`Not computed: a value below the ${whole(rule.amount)} grant; the ${scheme.name} rule for that case was not confirmed.`);
     return { ...out, grant: dollars, cap, reason: 'the grant cannot be more than the consideration' };
   }
@@ -96,8 +109,9 @@ export function firstHomeOwnerGrant({ place, date, home, value, north = false, f
 /** The engine's input from the form: `value` gives a field's value and `checked` a checkbox's state.
  * @param {(name: string) => string} value @param {(name: string) => boolean} checked */
 export function fhogFormInput(value, checked) {
-  return { place: value('jurisdiction'), date: value('date'), home: value('home'), value: value('value'), north: value('wa-location') === 'north',
-    facts: Object.fromEntries(FHOG_FACTS.map((f) => [f, checked(`fact-${f}`)])) };
+  const location = value('wa-location');
+  return { place: value('jurisdiction'), date: value('date'), home: value('home'), value: value('value'), ...(location ? { north: location === 'north' } : {}),
+    facts: Object.fromEntries([...FHOG_FACTS, ...FHOG_CASE_FACTS].map((f) => [f, checked(`fact-${f}`)])) };
 }
 
 /** How an input reads above its result.
@@ -105,7 +119,7 @@ export function fhogFormInput(value, checked) {
  * @param {(n: number) => string} aud */
 export function fhogInputsText(input, aud) {
   const homeText = { bought: 'new home bought', built: 'new home built under a contract', established: 'established home' }[input.home];
-  const north = input.place === 'AU-WA' ? `, ${input.north ? 'north' : 'south'} of the 26th parallel` : '';
+  const north = input.place !== 'AU-WA' ? '' : input.north === undefined ? ', location not stated' : `, ${input.north ? 'north' : 'south'} of the 26th parallel`;
   const missing = FHOG_FACTS.filter((f) => input.facts?.[f] !== true);
   return `${FHOG[input.place]?.name ?? input.place}, contract ${longDate(input.date)}, ${homeText}${north}, total value ${aud(Number(input.value))}, `
     + (missing.length ? `not stated: ${missing.map((f) => FACT_NAMES[f]).join('; ')}` : 'every eligibility fact stated');

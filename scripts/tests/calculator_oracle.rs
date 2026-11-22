@@ -8983,7 +8983,7 @@ const FHOG_HARNESS: &str = r"
 import { firstHomeOwnerGrant } from './assets/first-home-owner-grant.mjs';
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
-const facts = { person: true, citizen: true, first: true, residence: true };
+const facts = { person: true, citizen: true, first: true, residence: true, contract: true, nt: true, tas: true };
 process.stdout.write(JSON.stringify(JSON.parse(input).map(({ place, date, home, value, north }) => {
   try {
     return { grant: String(firstHomeOwnerGrant({ place, date, home, value, north, facts }).grant) };
@@ -9007,13 +9007,16 @@ process.stdout.write(JSON.stringify(JSON.parse(input).map(({ place, date, home, 
 ///   $750,000 south and $1,000,000 north to 6 May 2026, $800,000 south from 7 May 2026.
 /// - SA: <https://www.revenuesa.sa.gov.au/FHOG/grant-details>: $15,000, not more than the
 ///   consideration; no cap from 6 June 2024.
-/// - Tas: <https://www.sro.tas.gov.au/first-home-owner/eligibility>: $30,000 to 30 June 2026,
-///   $20,000 from 1 July 2026.
+/// - Tas: First Home Owner Grant Act 2000 ss 7, 18, 18L and 18M, authorised version as at 9 October
+///   2026, <https://www.legislation.tas.gov.au/view/html/inforce/current/act-2000-019> (read 23
+///   November 2026), and <https://www.sro.tas.gov.au/first-home-owner/eligibility>: the lesser of
+///   the consideration and $30,000 to 30 June 2026 or $20,000 from 1 July 2026; no value cap.
 /// - NT: <https://nt.gov.au/property/home-owner-assistance/buy-build-new-home>: $50,000, no cap.
 /// - ACT: <https://www.revenue.act.gov.au/home-buyer-assistance/first-home-owner-grant>: $0.
 ///
 /// The page covers contracts from 1 July 2025 to 22 November 2026, and refuses a value below the
-/// grant where the source read gives no lesser-of rule.
+/// grant where the source read gives no lesser-of rule. With every fact stated, a home built has a
+/// building contract price of at least the grant, so a total value below the grant is refused.
 fn fhog_oracle(place: &str, day: Date, home: &str, dollars: u64, north: bool) -> Option<u64> {
     if day < date(2025, 7, 1) || day > date(2026, 11, 22) {
         return None;
@@ -9042,7 +9045,8 @@ fn fhog_oracle(place: &str, day: Date, home: &str, dollars: u64, north: bool) ->
         return Some(0);
     }
     if dollars < amount {
-        return matches!(place, "AU-QLD" | "AU-SA").then_some(dollars);
+        return (home == "bought" && matches!(place, "AU-QLD" | "AU-SA" | "AU-TAS"))
+            .then_some(dollars);
     }
     Some(amount)
 }
@@ -9170,7 +9174,7 @@ fn the_first_home_owner_grant_oracle_gives_the_published_figures() {
         (
             "AU-SA",
             date(2025, 11, 1),
-            "built",
+            "bought",
             10_000,
             false,
             Some(10_000),

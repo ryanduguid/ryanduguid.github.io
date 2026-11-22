@@ -1618,7 +1618,7 @@ test('business days skip Melbourne Cup Day in Victoria offline and refuse a date
 });
 
 // The first home owner grant page: its New South Wales example, Western Australia's northern cap
-// with the duty beside it, and the refusal when a fact is not stated.
+// once its location is chosen, with the duty beside it, and the refusal when a fact is not stated.
 test('first home owner grant page works its example, a northern WA home and a refusal offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/first-home-owner-grant/');
   const form = page.locator('#first-home-owner-grant form');
@@ -1628,6 +1628,8 @@ test('first home owner grant page works its example, a northern WA home and a re
   await expect(form.locator('output .result-row--principal')).toHaveText('First home owner grant: $10,000.00.');
   await expect(form.locator('output')).toContainText('General transfer duty on the same value: $21,187.00.');
   await form.getByLabel('Western Australia', { exact: true }).check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('Not computed: choose where the Western Australian home is, south or north of the 26th parallel.');
   await form.getByLabel('North of the 26th parallel', { exact: true }).check();
   await form.getByLabel('Total value of the home and land (whole dollars)').fill('950000');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
