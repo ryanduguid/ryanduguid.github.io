@@ -6047,3 +6047,100 @@ test('luxury car tax agrees with the australian-accounting command on every diff
       rates: [String(r.threshold), String(r.fuelEfficientLimit)], warnings: r.warnings.length > 0 }, amounts, source);
   }
 });
+
+// The super lump sum tax page: how each call and result reads, its form and the command it ports,
+// run on the same cases.
+const sbtHtml = readFileSync(new URL('../_includes/calculators/super-benefit-tax.html', import.meta.url), 'utf8');
+Object.assign(INPUTS, { superBenefitTax: (x) => calculations.sbtInputsText(x, ftcAud) });
+Object.assign(FORM_CALLS, { superBenefitTax: (f) => [calculations.sbtFormInput((name) => f[name] ?? '')] });
+Object.assign(ENGINE_LABELS, { superBenefitTax: { maximumTax: (v) => `most tax ${dollars(v)}`, assessable: (v) => `assessable ${dollars(v)}`,
+  notAssessable: (v) => `not assessable ${dollars(v)}` } });
+const sbtCode = (input) => {
+  try {
+    calculations.superBenefitTax(input);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+const sbtForm = (change = {}) => {
+  const fields = { ...formDefaults(sbtHtml), ...change };
+  return calculations.sbtFormInput((name) => fields[name] ?? '');
+};
+
+test('the super lump sum tax page opens on the result its calculation gives, and dates its sources', () => {
+  const example = sbtHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
+  const fields = formDefaults(sbtHtml);
+  const result = calculations.superBenefitTaxResult((name) => fields[name] ?? '', ftcAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  assert.equal(result.rows[result.principal][0], 'Most income tax on the lump sum, before Medicare levy');
+  assert.equal((sbtHtml.match(/read 22 November 2026/g) ?? []).length, 6);
+  const years = [...sbtHtml.match(/<select name="year"[^>]*>(.*?)<\/select>/s)[1].matchAll(/value="([^"]+)"/g)].map(([, y]) => y);
+  assert.deepEqual(years, [...calculations.SBT_YEARS].reverse());
+  assert.deepEqual(Object.keys(calculations.SBT_UNTAXED_PLAN_CAP), calculations.SBT_YEARS);
+});
+
+test('the super lump sum tax form sends only the facts the member’s treatment uses', () => {
+  // Chloe, 62: no low rate cap; the untaxed element brings the plan cap and the pre-1983 answer.
+  assert.deepEqual(sbtForm(), { benefit: '300000', interest_value: '300000', interest_tax_free_component: '30000', untaxed_element: '80000',
+    recipient: 'member', payment_date: '2026-10-01', year: '2026-27', scope_confirmed: true, service_before_july_1983: false,
+    date_of_birth: '1964-05-01', terminal_medical_condition: false, disability_superannuation_benefit: false, untaxed_plan_cap_used: '0' });
+  // At preservation age and under 60, the low rate cap and the other lump sums answer go too; a blank one is asked for.
+  const tony = { year: '2021-22', paid: '2021-07-25', born: '1963-03-01', benefit: '350000', interest: '350000', 'interest-free': '100000', untaxed: '' };
+  assert.deepEqual(sbtForm(tony), { benefit: '350000', interest_value: '350000', interest_tax_free_component: '100000', untaxed_element: '0',
+    recipient: 'member', payment_date: '2021-07-25', year: '2021-22', scope_confirmed: true, date_of_birth: '1963-03-01',
+    terminal_medical_condition: false, disability_superannuation_benefit: false, low_rate_cap_used: '0', other_lump_sums_this_year: false });
+  assert.equal(calculations.superBenefitTax(sbtForm(tony)).maximumTax, 3750);
+  assert.equal(sbtCode(sbtForm({ ...tony, 'low-used': '' })), 'input.missing_field');
+  assert.equal(sbtCode(sbtForm({ ...tony, others: '' })), 'input.missing_field');
+  // A terminal medical condition or a closing balance under $200 is wholly tax free: no low rate cap.
+  assert.equal(sbtForm({ ...tony, terminal: 'yes' }).low_rate_cap_used, undefined);
+  assert.equal(sbtCode(sbtForm({ ...tony, terminal: 'yes' })), 'computed');
+  assert.equal(sbtForm({ ...tony, benefit: '150', interest: '150', 'interest-free': '0' }).low_rate_cap_used, undefined);
+  // A death benefit sends none of the member's facts; the pre-1983 answer goes with an untaxed element only, never assumed.
+  assert.deepEqual(Object.keys(sbtForm({ recipient: 'non_dependant' })).sort(), ['benefit', 'interest_tax_free_component', 'interest_value',
+    'payment_date', 'recipient', 'scope_confirmed', 'service_before_july_1983', 'untaxed_element', 'year']);
+  assert.equal(sbtCode(sbtForm({ service: '' })), 'input.missing_field');
+  assert.equal(sbtCode(sbtForm({ 'plan-used': '' })), 'input.missing_field');
+  assert.equal(sbtForm({ untaxed: '0' }).service_before_july_1983, undefined);
+});
+
+// The command this page ports, run on the same cases: see the fixture's engine line.
+test('super lump sum tax agrees with the australian-accounting command on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./super-benefit-tax-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length > 500);
+  assert.match(sbtHtml, new RegExp(`the ATO’s examples and ${cases.length} test cases`));
+  const sorted = (o) => Object.fromEntries(Object.entries(o).sort());
+  for (const { source, call, amounts, rates, treatment, refused } of cases) {
+    if (refused) {
+      assert.equal(sbtCode(call), refused, source);
+      continue;
+    }
+    const r = calculations.superBenefitTax(call);
+    const a = { tax_free_component: r.taxFree, taxable_component: r.taxable, taxed_element: r.taxed, untaxed_element: r.untaxed };
+    if (r.caps.untaxedPlanCapLeft !== undefined) a.untaxed_plan_cap_left = r.caps.untaxedPlanCapLeft;
+    if (r.caps.lowRateCapLeft !== undefined) a.low_rate_cap_left = r.caps.lowRateCapLeft;
+    for (const p of r.parts) Object.assign(a, { [p.id]: p.amount, [`${p.id}_tax`]: p.tax });
+    if (r.caps.lowRateCapCounted !== undefined) a.low_rate_cap_counted = r.caps.lowRateCapCounted;
+    if (r.caps.untaxedPlanCapCounted !== undefined) a.untaxed_plan_cap_counted = r.caps.untaxedPlanCapCounted;
+    Object.assign(a, { assessable_amount: r.assessable, non_assessable_non_exempt: r.notAssessable, maximum_tax: r.maximumTax });
+    assert.deepEqual({ amounts: sorted(Object.fromEntries(Object.entries(a).map(([k, v]) => [k, v.toFixed(2)]))), rates: sorted(r.rates), treatment: r.treatment },
+      { amounts: sorted(amounts), rates: sorted(rates), treatment }, source);
+  }
+});
+
+test('a member reaches 60 and preservation age on the birthday itself', () => {
+  const call = { benefit: '1000', interest_value: '1000', interest_tax_free_component: '0', untaxed_element: '0', recipient: 'member',
+    payment_date: '2021-03-01', date_of_birth: '1961-03-01', terminal_medical_condition: false, disability_superannuation_benefit: false,
+    year: '2020-21', scope_confirmed: true };
+  assert.equal(sbtCode(call), 'computed');
+  assert.equal(calculations.superBenefitTax(call).treatment, 'aged_60_or_over');
+  assert.equal(sbtCode({ ...call, payment_date: '2021-02-28' }), 'input.missing_field');
+});
+
+test('the super lump sum tax form leaves the low rate cap out on the 60th birthday', () => {
+  const sixty = { year: '2020-21', paid: '2021-03-01', born: '1961-03-01', untaxed: '0' };
+  assert.equal(sbtForm(sixty).low_rate_cap_used, undefined);
+  assert.equal(sbtCode(sbtForm(sixty)), 'computed');
+  assert.equal(sbtForm({ ...sixty, paid: '2021-02-28' }).low_rate_cap_used, '0');
+});

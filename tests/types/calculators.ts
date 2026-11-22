@@ -355,6 +355,17 @@ calculate.luxuryCarTax({ ...lctInput, year: 2026 });
 const lctLabel: string = calculate.luxuryCarTax(lctInput).label1e;
 void lctOnSales;
 void lctLabel;
+const sbtInput = { benefit: '11000', interest_value: '11000', interest_tax_free_component: '1000', untaxed_element: '0', recipient: 'member',
+  payment_date: '2022-10-01', date_of_birth: '1972-05-01', terminal_medical_condition: false, disability_superannuation_benefit: false,
+  year: '2022-23', scope_confirmed: true };
+const sbtMaximum: number = calculate.superBenefitTax(sbtInput).maximumTax;
+// @ts-expect-error The most tax is a number of dollars, not text.
+const sbtText: string = calculate.superBenefitTax(sbtInput).maximumTax;
+// @ts-expect-error Each part's ceiling rate is a percentage number.
+const sbtRate: string = calculate.superBenefitTax(sbtInput).parts[0].rate;
+void sbtMaximum;
+void sbtText;
+void sbtRate;
 const wetInput = { year: '2026-27', dealings: [{ kind: 'wholesale_sale', price_excluding_wet_and_gst: '120.00' }] };
 const wetLabel: number = calculate.wineEqualisationTax(wetInput).label1c;
 // @ts-expect-error The year is a financial year string, not a number.
