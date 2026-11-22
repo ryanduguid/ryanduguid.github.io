@@ -5322,10 +5322,26 @@ test('the luxury car tax form sends only the fields each line’s kind takes', (
   assert.equal(lctCode(lctForm(adjustment)), 'input.missing_field');
   assert.deepEqual(lctForm({ ...adjustment, 'supplied-3': '2024-25', 'earlier-3': '' }).lines[2], { kind: 'price_adjustment', supplied_in: '2024-25',
     corrected_luxury_car_tax_value: '90000', fuel_consumption_litres_per_100km: null, previously_attributed_lct: '0' });
-  assert.deepEqual(lctForm({ 'kind-1': 'refund', 'kind-2': 'change_of_use_decreasing', 'on-supply-2': '10', 'eligible-1': 'no', 'borne-1': '5' }).lines,
-    [{ kind: 'refund', claimant: 'primary_producer', refund_eligible_car: false, lct_borne: '5' }, { kind: 'change_of_use_decreasing', lct_payable_on_supply: '10' }]);
-  assert.equal(lctCode(lctForm({ 'kind-1': 'refund', 'borne-1': '5' })), 'input.missing_field');
+  const refund = { 'kind-1': 'refund', 'supplied-1': '2025-26', 'claimant-1': 'primary_producer', 'eligible-1': 'no', 'borne-1': '5' };
+  assert.deepEqual(lctForm({ ...refund, 'kind-2': 'change_of_use_decreasing', 'on-supply-2': '10' }).lines,
+    [{ kind: 'refund', supplied_in: '2025-26', claimant: 'primary_producer', refund_eligible_car: false, lct_borne: '5' },
+      { kind: 'change_of_use_decreasing', lct_payable_on_supply: '10' }]);
+  // A refund's claimant, eligibility and supply year are never assumed: the year decides whether the refund applies.
+  assert.equal(lctCode(lctForm({ ...refund, 'claimant-1': '' })), 'input.missing_field');
+  assert.equal(lctCode(lctForm({ ...refund, 'eligible-1': '' })), 'input.missing_field');
+  assert.throws(() => lctForm({ ...refund, 'supplied-1': '' }), { message: /^Line 1: choose the financial year the car was supplied or imported in/ });
+  // Lines fill in order, so the command's line numbers are the form's.
+  assert.throws(() => lctForm({ 'kind-1': '' }), { message: 'Fill line 1 before line 2.' });
   assert.throws(() => lctForm({ 'kind-1': '', 'kind-2': '' }), { message: 'Choose what at least one line is.' });
+});
+
+test('a luxury car tax price adjustment states its corrected tax after the earlier tax, and an unchanged one no adjustment', () => {
+  const fields = { ...formDefaults(lctHtml), 'kind-2': 'price_adjustment', 'supplied-2': '2026-27', 'value-2': '88000', 'earlier-2': '1000',
+    'attributed-2': '1157.30' };
+  const [text, amount] = calculations.luxuryCarTaxResult((name) => fields[name] ?? '', ftcAud).rows[1];
+  assert.equal(text, 'Line 2: price adjustment, corrected value $88,000.00, threshold $80,809 for 2026-27, $7,191.00 over, '
+    + 'corrected tax $1,157.30 after $1,000.00 already payable on the car against $1,157.30 attributed: no adjustment');
+  assert.equal(amount, '$0.00');
 });
 
 test('luxury car tax rounds half up to the cent and drops the cents at 1E and 1F', () => {

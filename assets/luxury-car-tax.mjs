@@ -260,14 +260,21 @@ const FORM_LINES = 4;
 const blank = (/** @type {string} */ text) => text.trim() === '';
 
 /** The command's input from the form: each line with a kind chosen, with only the fields its kind
- * shows. A blank optional amount is left out; a blank rating means the car has none.
+ * shows. A blank optional amount is left out; a blank rating means the car has none. Lines are
+ * filled in order, so the command's line numbers are the form's, and a refund's supply year,
+ * which decides whether the refund applies, is never taken from the tax period.
  * @param {(name: string) => string} value */
 export function lctFormInput(value) {
   const year = value('year');
   const lines = [];
+  let empty = 0;
   for (let i = 1; i <= FORM_LINES; i += 1) {
     const kind = value(`kind-${i}`);
-    if (kind === '') continue;
+    if (kind === '') {
+      empty ||= i;
+      continue;
+    }
+    if (empty) throw new Error(`Fill line ${empty} before line ${i}.`);
     /** @type {Record<string, unknown>} */
     const line = { kind };
     const take = (/** @type {string} */ key, /** @type {string} */ name, optional = false) => {
@@ -277,6 +284,7 @@ export function lctFormInput(value) {
     const supplied = value(`supplied-${i}`);
     const dated = (kind === 'price_adjustment' || kind === 'change_of_use_increasing' || kind === 'refund') && supplied !== '';
     if (dated) line.supplied_in = supplied;
+    else if (kind === 'refund') throw new Error(`Line ${i}: choose the financial year the car was supplied or imported in: the refund is only for a car from 1 July 2019.`);
     if (kind !== 'change_of_use_decreasing' && kind !== 'refund') {
       take(kind === 'price_adjustment' ? 'corrected_luxury_car_tax_value' : 'luxury_car_tax_value', 'value');
       const rated = value(`rating-${i}`).trim();
@@ -293,7 +301,8 @@ export function lctFormInput(value) {
     }
     if (kind === 'change_of_use_decreasing') take('lct_payable_on_supply', 'on-supply');
     if (kind === 'refund') {
-      line.claimant = value(`claimant-${i}`);
+      const claimant = value(`claimant-${i}`);
+      if (claimant !== '') line.claimant = claimant;
       const eligible = value(`eligible-${i}`);
       if (eligible !== '') line.refund_eligible_car = eligible === 'yes';
       take('lct_borne', 'borne');
@@ -315,7 +324,9 @@ export function lctInputsText(input, aud) {
       parts.push(`${l.kind === 'price_adjustment' ? 'corrected value' : 'value'} ${money(carValue)}`,
         l.fuel_consumption_litres_per_100km === null ? 'no fuel consumption rating' : `rated ${l.fuel_consumption_litres_per_100km} litres per 100 km`);
     }
-    if (l.used_before_1_july_2025 !== undefined) parts.push(`${l.used_before_1_july_2025 ? '' : 'not '}supplied and used before 1 July 2025`);
+    if (l.used_before_1_july_2025 !== undefined) {
+      parts.push(`${l.used_before_1_july_2025 ? '' : 'not '}supplied or imported and used other than for a quotable purpose before 1 July 2025`);
+    }
     if (l.lct_previously_payable !== undefined) parts.push(`${money(l.lct_previously_payable)} already payable on the car`);
     if (l.previously_attributed_lct !== undefined) parts.push(`${money(l.previously_attributed_lct)} previously attributed`);
     if (l.lct_payable_on_supply !== undefined) parts.push(`${money(l.lct_payable_on_supply)} payable on the supply`);
@@ -338,8 +349,9 @@ function lineRow(l, aud) {
     case 'importation':
       return [`Line ${l.line}: importation at ${over()}, paid to the Department of Home Affairs, not at 1E`, aud(l.tax ?? 0)];
     case 'price_adjustment':
-      return [`Line ${l.line}: price adjustment, corrected value ${over()}, corrected tax ${aud(l.corrected ?? 0)}${less} against `
-        + `${aud(l.attributed ?? 0)} attributed: ${l.decreasing === undefined ? 'increasing' : 'decreasing'} adjustment`, aud(l.decreasing ?? l.increasing ?? 0)];
+      return [`Line ${l.line}: price adjustment, corrected value ${over()}, corrected tax ${aud(l.corrected ?? 0)}`
+        + `${l.previous ? ` after ${aud(l.previous)} already payable on the car` : ''} against ${aud(l.attributed ?? 0)} attributed: `
+        + `${l.decreasing !== undefined ? 'decreasing adjustment' : l.increasing ? 'increasing adjustment' : 'no adjustment'}`, aud(l.decreasing ?? l.increasing ?? 0)];
     case 'change_of_use_increasing':
       return [`Line ${l.line}: change of use, increasing adjustment of the tax on the supply at ${over()}${less}`, aud(l.increasing ?? 0)];
     case 'change_of_use_decreasing':

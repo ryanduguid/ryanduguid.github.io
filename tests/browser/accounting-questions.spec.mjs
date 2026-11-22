@@ -1086,6 +1086,8 @@ test('luxury car tax page works its example, a refund and a refusal offline', as
   await expect(form.locator('[name="borne-2"]')).toBeHidden();
   await form.locator('[name="kind-2"]').selectOption('refund');
   await expect(form.locator('[name="value-2"]')).toBeHidden();
+  await form.locator('[name="supplied-2"]').selectOption('2026-27');
+  await form.locator('[name="claimant-2"]').selectOption('primary_producer');
   await form.locator('[name="eligible-2"]').selectOption('yes');
   await form.locator('[name="borne-2"]').fill('12000');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
