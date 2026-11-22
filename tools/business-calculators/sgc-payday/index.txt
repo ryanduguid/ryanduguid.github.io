@@ -77,7 +77,7 @@ Interest across 29 February 2024 | Quarter 3 of 2023-24; salary or wages $12,000
 Contributions with no ordinary time earnings | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $0.00; contributions $100.00; lodged 20 November 2025 | Refused: enter the ordinary time earnings for the quarter: contributions reduce the charge percentage in proportion to them
 A statement lodged by the contribution due date | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $10,000.00; contributions $0.00; lodged 28 October 2025 | Refused: enter the day the statement was or will be lodged from 29 October 2025 to 30 June 2031
 
-One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -88,4 +88,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Payday Super calendar: https://duguid.com.au/tools/payday-super/business-days/
 - GIC table: https://duguid.com.au/rates/general-interest-charge/
 - Tax and Superannuation Laws Amendment (Norfolk Island Reforms) Act 2015: https://www.legislation.gov.au/C2015A00053/latest/text
-- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-three business calculators: https://duguid.com.au/tools/business-calculators/
