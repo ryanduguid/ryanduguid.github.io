@@ -305,10 +305,30 @@ function selfEducation(facts, year, first) {
   return { method: 'self_education', year, amounts, rates, deductible: connected, reductionApplies: connected && prescribed };
 }
 
+const SHARED = ['method', 'year', 'scope_confirmed', 'reimbursed', 'allowance_received'];
+const CAR = ['owned_or_leased', 'business_kilometres'];
+
+/** The inputs the method and year take, as the command's: an input for another method or year is refused.
+ * @param {WorkExpensesFacts} facts @param {string} method @param {string} year @param {number} first */
+function checkNames(facts, method, year, first) {
+  const early = first < 2022;
+  const names = {
+    home_office: ['hours', ...HOME_AMOUNTS, 'running_expenses_incurred', ...(early ? ['dedicated_home_office'] : [])],
+    car_cents_per_kilometre: CAR,
+    car_log_book: [...CAR, 'total_kilometres', 'car_expenses', 'log_book_year', 'log_book_weeks', 'log_book_representative'],
+    self_education: ['connection', 'employed_when_incurred', 'category_a', 'category_b', 'category_c', 'category_d',
+      'log_book_car_in_category_a', ...(early ? ['prescribed_course'] : []),
+      ...(early && facts.prescribed_course === true ? ['category_e'] : [])],
+  }[method];
+  const extra = Object.keys(facts).find((k) => facts[k] !== undefined && !SHARED.includes(k) && !names.includes(k));
+  if (extra) refuseWorkExpenses('input.field_unknown', `${extra} is not an input of work-expenses with method ${method} in ${year}.`);
+}
+
 /** The worksheet for one method and year. Facts use the command's input names.
  * @param {WorkExpensesFacts} facts @returns {WorkExpenses} */
 export function workExpenses(facts) {
   const { year, method, first } = checkScope(facts);
+  checkNames(facts, method, year, first);
   if (method === 'home_office') return homeOffice(facts, year, first);
   if (method === 'car_cents_per_kilometre') return centsPerKilometre(facts, year);
   if (method === 'car_log_book') return logBook(facts, year, first);

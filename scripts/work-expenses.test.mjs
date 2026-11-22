@@ -186,6 +186,19 @@ test('refusals: scope, years, reimbursement, allowances and amounts past $1,000,
   refused(home('2025-26', ''), 'input.amount_invalid');
 });
 
+test('an input for another method, or for a year that does not take it, is refused as the command refuses it', () => {
+  refused(home('2022-23', '1', { dedicated_home_office: true }), 'input.field_unknown');
+  refused(edu('2022-23', { prescribed_course: true }), 'input.field_unknown');
+  refused(edu('2022-23', { category_e: '0' }), 'input.field_unknown');
+  refused(edu('2021-22', { prescribed_course: false }), 'input.field_unknown');
+  assert.equal(work(edu('2021-22', { prescribed_course: false, category_e: undefined, category_a: '290' })).amounts.deduction, '290.00');
+  refused(edu('2025-26', { hours: '1' }), 'input.field_unknown');
+  refused({ ...car('2025-26', '1'), car_expenses: '1' }, 'input.field_unknown');
+  refused({ ...log({}), energy: '1' }, 'input.field_unknown');
+  refused(home('2025-26', '1', { business_kilometres: '1' }), 'input.field_unknown');
+  assert.equal(work(edu('2025-26', { log_book_car_in_category_a: false })).refused, undefined);
+});
+
 test('the form passes only the inputs the method and year take', () => {
   const form = { method: 'self_education', year: '2022-23', scope: 'yes', reimbursed: 'no', allowance: 'no', connection: 'increases_income',
     employed: 'yes', 'category-a': '1', 'category-b': '2', 'category-c': '3', 'category-d': '0', 'log-book-car': 'no', prescribed: 'yes',
@@ -196,4 +209,15 @@ test('the form passes only the inputs the method and year take', () => {
   assert.deepEqual([early.prescribed_course, early.category_e], [true, '9']);
   const result = workExpensesResult((name) => ({ ...form, year: '2021-22' })[name] ?? '', (n) => `$${n.toFixed(2)}`);
   assert.equal(result.rows.at(-1)?.[1], '$5.00');
+  assert.equal(result.inputs, 'Self-education, 2021-22, categories A to D $1.00, $2.00, $3.00, $0.00, prescribed course, category E $9.00');
+});
+
+test('the note cites PCG 2023/1 for running expenses from 2022-23 and the ATO’s earlier guidance before it', () => {
+  const form = { method: 'home_office', scope: 'yes', reimbursed: 'no', allowance: 'no', hours: '100', 'running-expenses': 'no',
+    dedicated: 'yes', repairs: '10' };
+  const note = (year) => workExpensesResult((name) => ({ ...form, year })[name] ?? '0', (n) => `$${n.toFixed(2)}`).note ?? '';
+  assert.match(note('2021-22'), /52 cent fixed rate and shortcut method pages; PCG 2020\/3\)/);
+  assert.doesNotMatch(note('2021-22'), /PCG 2023\/1/);
+  assert.match(note('2022-23'), /\(PCG 2023\/1 paras 18\(b\) and 49 to 55\)/);
+  assert.doesNotMatch(note('2022-23'), /PCG 2020\/3/);
 });

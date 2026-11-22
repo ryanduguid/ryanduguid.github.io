@@ -12,7 +12,9 @@ const HOME_AMOUNTS = ['energy', 'phone', 'internet', 'stationery', 'cleaning', '
 const EARLY = ['2020-21', '2021-22'];
 const UNAVAILABLE = /** @type {Record<string, string>} */ ({
   'no-running-expenses': 'No hourly rate applies without additional running expenses from working from home (PCG 2023/1 '
-    + 'paras 18(b) and 49 to 55; PCG 2020/3); the actual cost remains',
+    + 'paras 18(b) and 49 to 55); the actual cost remains',
+  'no-running-expenses-early': 'No hourly rate applies without additional running expenses from working from home (the ATO’s '
+    + '52 cent fixed rate and shortcut method pages; PCG 2020/3); the actual cost remains',
   'no-dedicated-home-office': 'Before 2022-23 the 52c fixed rate needs a dedicated home office; the shortcut and actual cost remain',
 });
 const CHOICE = 'The higher method is named for comparison only: each method needs its own records, and you choose one for the year';
@@ -66,7 +68,9 @@ function homeRows(r, facts, cash) {
     : a.actual_cost_return_amount;
   rows.push(['Actual cost method', cash(a.actual_cost_method)], ['Higher method', HOME_METHODS[higher]],
     ['Higher method, cents disregarded', cash(back)]);
-  const notes = [r.fixedRateUnavailable ? UNAVAILABLE[r.fixedRateUnavailable] : '',
+  const unavailable = r.fixedRateUnavailable === 'no-running-expenses' && EARLY.includes(r.year) ? 'no-running-expenses-early'
+    : r.fixedRateUnavailable;
+  const notes = [unavailable ? UNAVAILABLE[unavailable] : '',
     r.year === '2026-27' ? 'The 70c for 2026-27 is PCG 2023/1 Table 1’s rate from 1 July 2024; the ATO’s fixed rate page did not yet list 2026-27' : '',
     CHOICE];
   return { rows, principal: rows.length - 1, note: notes.filter(Boolean).join('. ') };
@@ -98,21 +102,22 @@ function educationRows(r, cash) {
   return { rows, principal: rows.length - 1, note };
 }
 
-/** @param {Record<string, any>} facts */
-function inputsText(facts) {
+/** @param {Record<string, any>} facts @param {(amount: number) => string} aud */
+function inputsText(facts, aud) {
   const head = `${METHOD_NAMES[facts.method]}, ${facts.year}`;
   if (facts.method === 'home_office') {
     const other = HOME_AMOUNTS.reduce((sum, name) => sum + Number(facts[name.replace('-', '_')]), 0);
-    return `${head}, ${grouped(facts.hours)} hours, other expenses ${other.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })}`
+    return `${head}, ${grouped(facts.hours)} hours, other expenses ${aud(other)}`
       + `${facts.running_expenses_incurred ? '' : ', no additional running expenses'}`
       + `${facts.dedicated_home_office === false ? ', no dedicated home office' : ''}`;
   }
   if (facts.method === 'self_education') {
-    return `${head}, categories A to D ${[facts.category_a, facts.category_b, facts.category_c, facts.category_d].join(', ')}`
-      + `${facts.prescribed_course ? `, prescribed course, category E ${facts.category_e}` : ''}`;
+    const categories = [facts.category_a, facts.category_b, facts.category_c, facts.category_d].map((x) => aud(Number(x)));
+    return `${head}, categories A to D ${categories.join(', ')}`
+      + `${facts.prescribed_course ? `, prescribed course, category E ${aud(Number(facts.category_e))}` : ''}`;
   }
   return `${head}, ${grouped(facts.business_kilometres)} business km`
-    + `${facts.method === 'car_log_book' ? ` of ${grouped(facts.total_kilometres)} km, expenses ${facts.car_expenses}` : ''}`;
+    + `${facts.method === 'car_log_book' ? ` of ${grouped(facts.total_kilometres)} km, expenses ${aud(Number(facts.car_expenses))}` : ''}`;
 }
 
 /** @param {(name: string) => string} value @param {(amount: number) => string} aud */
@@ -122,5 +127,5 @@ export function workExpensesResult(value, aud) {
   const cash = (/** @type {string | undefined} */ text) => aud(Number(text));
   const shown = r.method === 'home_office' ? homeRows(r, facts, cash) : r.method === 'self_education' ? educationRows(r, cash)
     : carRows(r, cash);
-  return { inputs: inputsText(facts), rows: shown.rows, principal: shown.principal, note: shown.note || undefined };
+  return { inputs: inputsText(facts, aud), rows: shown.rows, principal: shown.principal, note: shown.note || undefined };
 }

@@ -874,6 +874,9 @@ const MUTATIONS = [
   { ...workExpenses, name: 'work expenses allowance accepted', find: 'if (flag(facts, \'allowance_received\')) {', replace: 'if (false) {' },
   { ...workExpenses, name: 'work expenses amount cap raised', find: 'number(facts[name], { max: 1e12, money: true })', replace: 'number(facts[name], { max: 1e13, money: true })' },
   { ...workExpenses, name: 'work expenses category D beside log book car accepted', find: 'if (d !== 0n && logBookCar) {', replace: 'if (false) {' },
+  { ...workExpenses, name: 'work expenses input for another method accepted', find: "if (extra) refuseWorkExpenses('input.field_unknown'", replace: "if (false) refuseWorkExpenses('input.field_unknown'" },
+  { ...workExpenses, name: 'work expenses dedicated office taken from 2022-23', find: "...(early ? ['dedicated_home_office'] : [])", replace: "'dedicated_home_office'" },
+  { ...workExpenses, name: 'work expenses category E taken without a prescribed course', find: "...(early && facts.prescribed_course === true ? ['category_e'] : [])", replace: "...(early ? ['category_e'] : [])" },
   { ...workExpenses, name: 'work expenses 2027-28 accepted', find: '\'2025-26\', \'2026-27\'];\nexport const WORK_EXPENSES_METHODS', replace: '\'2025-26\', \'2026-27\', \'2027-28\'];\nexport const WORK_EXPENSES_METHODS' },
 ];
 

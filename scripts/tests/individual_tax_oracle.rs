@@ -47,7 +47,8 @@
 //! ten-thousandths of a dollar in big integers and 40-digit quotients. The log book oracle divides
 //! once, the cents times the business over the total kilometres, where the engine forms the
 //! percentage first. Both show half a cent up and take the return amount's cents off the unrounded
-//! total.
+//! total. Self-education applies ITAA 1936 s 82A's $250 reduction, as the ATO's page states it, in
+//! whole cents.
 //! The engines run from the repository's own `assets/`, not the rendered site.
 
 use num_bigint::BigUint;
@@ -2481,6 +2482,34 @@ fn work_oracle(facts: &Value) -> Value {
             consider("actual_cost", actual * 100);
             json!(best.0)
         }
+        "self_education" => {
+            // s 8-1 and TR 2024/3: nothing unless employed and connected to current employment
+            // when incurred; s 82A before 2022-23 for a prescribed course:
+            // max(0, A - max(0, 250 - (C + D + E))) + B + C + D.
+            let connected = facts["employed_when_incurred"] == json!(true)
+                && matches!(
+                    facts["connection"].as_str(),
+                    Some("maintains_or_improves_skills" | "increases_income")
+                );
+            let prescribed = year < "2022-23" && facts["prescribed_course"] == json!(true);
+            let [a, b, c, d] = ["category_a", "category_b", "category_c", "category_d"].map(cents);
+            let deduction = if !connected {
+                0
+            } else if prescribed {
+                let offset = c + d + cents("category_e");
+                let reduction = 25_000u128.saturating_sub(offset);
+                let reduced = a.saturating_sub(reduction);
+                put("reduction_offset", work_text(offset));
+                put("reduction", work_text(reduction));
+                put("category_a_after_reduction", work_text(reduced));
+                reduced + b + c + d
+            } else {
+                a + b + c + d
+            };
+            put("deduction", work_text(deduction));
+            put("return_amount", format!("{}.00", deduction / 100));
+            Value::Null
+        }
         "car_cents_per_kilometre" => {
             let counted = cents("business_kilometres").min(500_000);
             put("claimed_kilometres", work_text(counted));
@@ -2530,6 +2559,21 @@ fn the_work_expenses_oracle_works_the_atos_examples_by_hand() {
         "total_kilometres": "10000", "car_expenses": "17275.33" }),
     );
     assert_eq!(lana["amounts"]["deduction"], "11919.98");
+    let study = |a: &str, b: &str, c: &str, d: &str, e: &str| {
+        json!({ "method": "self_education", "year": "2021-22", "connection": "maintains_or_improves_skills",
+            "employed_when_incurred": true, "prescribed_course": true, "category_a": a, "category_b": b,
+            "category_c": c, "category_d": d, "category_e": e })
+    };
+    // Maureen: $290 of category A less the full $250 reduction is $40.
+    assert_eq!(
+        work_oracle(&study("290", "0", "0", "0", "0"))["amounts"]["deduction"],
+        "40.00"
+    );
+    // Con: C + D + E of $700 leaves no reduction, so $350 + $200 + $100 + $100 is $750.
+    assert_eq!(
+        work_oracle(&study("350", "200", "100", "100", "500"))["amounts"]["deduction"],
+        "750.00"
+    );
 }
 
 #[test]
@@ -2543,7 +2587,7 @@ fn the_work_expenses_engine_agrees_with_the_oracle_on_every_seeded_case() {
         };
         format!("{}.{:02}", cents / 100, cents % 100)
     };
-    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..900)
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..1200)
         .map(|i| {
             let year = rng.pick(&YEARS);
             let base = json!({ "year": year, "scope_confirmed": true, "reimbursed": false, "allowance_received": false });
@@ -2551,7 +2595,7 @@ fn the_work_expenses_engine_agrees_with_the_oracle_on_every_seeded_case() {
             let mut set = |key: &str, value: Value| {
                 facts.insert(key.to_string(), value);
             };
-            match i % 3 {
+            match i % 4 {
                 0 => {
                     let early = year < "2022-23";
                     let incurred = rng.below(4) != 0;
@@ -2571,6 +2615,34 @@ fn the_work_expenses_engine_agrees_with_the_oracle_on_every_seeded_case() {
                     set("owned_or_leased", json!(true));
                     let near = rng.pick(&[4_999, 5_000, 5_001]);
                     set("business_kilometres", json!(if rng.below(4) == 0 { format!("{near}.00") } else { amount(&mut rng, 9_000) }));
+                }
+                2 => {
+                    let early = year < "2022-23";
+                    let connection = rng.pick(&["maintains_or_improves_skills", "increases_income", "general_only", "new_employment"]);
+                    set("method", json!("self_education"));
+                    set("connection", json!(connection));
+                    set("employed_when_incurred", json!(rng.below(5) != 0));
+                    for name in ["category_a", "category_b"] {
+                        set(name, json!(amount(&mut rng, 5_000)));
+                    }
+                    // C + D + E lands on, or a few cents either side of, the $250 the reduction starts from.
+                    let c = rng.below(15_001);
+                    let d = if rng.below(2) == 0 { 0 } else { rng.below(10_001) };
+                    let near = (25_000 + rng.below(7)).saturating_sub(3 + c + d);
+                    let e = if rng.below(3) == 0 { rng.below(30_001) } else { near };
+                    let text = |cents: u64| format!("{}.{:02}", cents / 100, cents % 100);
+                    set("category_c", json!(text(c)));
+                    set("category_d", json!(text(d)));
+                    if d > 0 || rng.below(2) == 0 {
+                        set("log_book_car_in_category_a", json!(false));
+                    }
+                    if early {
+                        let prescribed = rng.below(4) != 0;
+                        set("prescribed_course", json!(prescribed));
+                        if prescribed {
+                            set("category_e", json!(text(e)));
+                        }
+                    }
                 }
                 _ => {
                     let total = 1_000 + rng.below(60_000);
