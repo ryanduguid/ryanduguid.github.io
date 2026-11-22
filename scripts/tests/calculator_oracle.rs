@@ -90,6 +90,11 @@
 //! each year's low pool value threshold from IT(TP)A ss 328-180(6)(e) and 328-181(5) and Act No. 71 of
 //! 2026, and count capital works days between calendar dates, where the engine works in sixteenths, tenths
 //! and twentieths of a cent and counts days from the epoch.
+//!
+//! A further 240 seeded wine equalisation tax periods fill the producer rebate cap one dealing at a
+//! time, where the engine compares the year's total with what the cap leaves, and type the cap by year
+//! from WET Act s 19-15(2) and Act No. 12 of 2026 Sch 6.
+//!
 //! Every ASIC late fee case with a due date from 1 June 2026 to 30 June 2027 and a received date from
 //! 3 days before it to 75 days after it counts the month by the 2 branches of Acts Interpretation Act
 //! s 2G(1) with `jiff` and answers only when every reading of the weekend rules gives one tier, where the
@@ -8195,6 +8200,181 @@ fn the_depreciation_pools_engine_agrees_with_the_oracle_on_every_seeded_case() {
     assert!(figure("assessableIncome") && figure("lowPoolValueDeduction") && figure("poolDeduction") && figure("assessableExcess"));
     let actual = run_node(POOL_HARNESS, &cases);
     assert_eq!(actual.len(), POOL_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the wine equalisation tax engine, as `HARNESS` runs the others.
+const WET_HARNESS: &str = r"
+import { wineEqualisationTax } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const keys = ['wineTax', 'label1c', 'rebateBeforeCap', 'rebate', 'rebateOverCap', 'label1d', 'cap'];
+process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => {
+  const r = wineEqualisationTax(one);
+  return { ...Object.fromEntries(keys.map((key) => [key, String(r[key])])),
+    values: r.dealings.map((d) => String(d.taxableValue)), taxes: r.dealings.map((d) => String(d.wineTax)) };
+})));
+";
+
+const WET_CASES: usize = 240;
+/// The largest price the seeded dealings take, $10,000,000.00, in cents.
+const MAX_WET_CENTS: u64 = 1_000_000_000;
+
+/// One seeded dealing: its command input, its taxable value in cents and whether it earns a rebate.
+struct WetDealing {
+    input: Value,
+    value: u128,
+    taxed: bool,
+    earns: bool,
+}
+
+/// A wholesale sale, a retail sale or own use by half the retail price or the average wholesale price,
+/// a sale under quote or own use of wine bought under quote. The average wholesale price is the
+/// sales' total price over their total quantity, times this dealing's quantity (WET Act s 9-40).
+fn wet_dealing(rng: &mut Seeded) -> WetDealing {
+    let kind = rng.pick(&[
+        "wholesale_sale",
+        "retail_sale",
+        "own_use",
+        "quoted_sale",
+        "own_use_purchased_under_quote",
+    ]);
+    let price = rng.cents(MAX_WET_CENTS);
+    let claims = kind != "own_use_purchased_under_quote" && rng.below(2) == 0;
+    let all_met = rng.below(5) != 0;
+    let intention = rng.pick(&[
+        "taxable_dealing",
+        "manufacture",
+        "gst_free_supply",
+        "sale_under_quote",
+    ]);
+    let mut input = json!({ "kind": kind });
+    let value = match kind {
+        "wholesale_sale" | "quoted_sale" => {
+            input["price_excluding_wet_and_gst"] = json!(dollars(price));
+            u128::from(price)
+        }
+        "own_use_purchased_under_quote" => {
+            input["purchase_price_excluding_gst"] = json!(dollars(price));
+            u128::from(price)
+        }
+        _ if rng.below(3) == 0 => {
+            // Whole quantities, so the weights are exact.
+            let quantity = 1 + u128::from(rng.below(500));
+            let sales: Vec<(u128, u128)> = (0..1 + rng.below(4))
+                .map(|_| {
+                    (
+                        1 + u128::from(rng.below(1_000)),
+                        u128::from(rng.cents(MAX_WET_CENTS)),
+                    )
+                })
+                .collect();
+            let sold: u128 = sales.iter().map(|(q, _)| q).sum();
+            let numerator: u128 = sales.iter().map(|(_, p)| p * quantity).sum();
+            input["average_wholesale"] = json!({
+                "grape_wine": true, "wholesale_share_at_least_10_percent": true, "quantity": quantity.to_string(),
+                "wholesale_sales": sales.iter().map(|(q, p)| json!({
+                    "quantity": q.to_string(), "price_excluding_wet_and_gst": dollars(u64::try_from(*p).unwrap()) }))
+                    .collect::<Vec<_>>(),
+            });
+            if kind == "retail_sale" {
+                input["retail_price_including_wet_and_gst"] = json!(dollars(price));
+            }
+            exact_half_up(numerator, sold)
+        }
+        _ => {
+            input["retail_price_including_wet_and_gst"] = json!(dollars(price));
+            exact_half_up(u128::from(price), 2)
+        }
+    };
+    if kind == "quoted_sale" {
+        input["purchaser_intention"] = json!(intention);
+    }
+    if claims {
+        input["rebate_conditions"] = json!({
+            "producer": true, "source_product_owned_85_percent": true, "container_and_trade_mark": all_met });
+    }
+    let liable = kind != "quoted_sale" || intention == "taxable_dealing";
+    WetDealing {
+        input,
+        value,
+        taxed: kind != "quoted_sale",
+        earns: claims && all_met && liable,
+    }
+}
+
+/// The cap by year: $350,000 for dealings to 30 June 2026, $400,000 from 1 July 2026 (WET Act s 19-15(2);
+/// Act No. 12 of 2026 Sch 6; the ATO's 'Producer rebate', QC22756), typed here from those sources.
+fn wet_cap_cents(year: &str) -> u128 {
+    match year {
+        "2023-24" | "2024-25" | "2025-26" => 35_000_000,
+        _ => 40_000_000,
+    }
+}
+
+/// The period's wine tax and rebate: each 29% of a value, half up to the cent; the rebate fills what
+/// the year's cap leaves one dealing at a time, where the engine compares the total with it; labels
+/// 1C and 1D drop the cents.
+fn wet_case(rng: &mut Seeded) -> (Value, Value) {
+    let year = rng.pick(&["2023-24", "2024-25", "2025-26", "2026-27", "2027-28"]);
+    let dealings: Vec<WetDealing> = (0..1 + rng.below(6)).map(|_| wet_dealing(rng)).collect();
+    let mut input = json!({ "year": year, "dealings": dealings.iter().map(|d| d.input.clone()).collect::<Vec<_>>() });
+    let cap = wet_cap_cents(year);
+    let claimed = dealings
+        .iter()
+        .any(|d| d.input.get("rebate_conditions").is_some());
+    let earlier = if claimed {
+        let any = u128::from(rng.cents(45_000_000));
+        let earlier = rng.pick(&[0, any, cap, cap.saturating_sub(100_000), cap + 1]);
+        input["rebate_claimed_earlier_in_year"] = json!(dollars(u64::try_from(earlier).unwrap()));
+        input["associated_producer"] = json!(rng.below(4) == 0);
+        earlier
+    } else {
+        0
+    };
+    let tenth = |value: u128| exact_half_up(value * 29, 100);
+    let mut room = cap.saturating_sub(earlier);
+    let (mut tax, mut earned, mut rebate) = (0, 0, 0);
+    for d in &dealings {
+        if d.taxed {
+            tax += tenth(d.value);
+        }
+        if d.earns {
+            let amount = tenth(d.value);
+            earned += amount;
+            let fits = amount.min(room);
+            room -= fits;
+            rebate += fits;
+        }
+    }
+    let cents = |value: u128| shown(u64::try_from(value).unwrap());
+    let whole = |value: u128| (value / 100).to_string();
+    let values: Vec<String> = dealings.iter().map(|d| cents(d.value)).collect();
+    let taxes: Vec<String> = dealings
+        .iter()
+        .map(|d| cents(if d.taxed { tenth(d.value) } else { 0 }))
+        .collect();
+    (
+        input,
+        json!({
+            "wineTax": cents(tax), "label1c": whole(tax), "rebateBeforeCap": cents(earned), "rebate": cents(rebate),
+            "rebateOverCap": cents(earned - rebate), "label1d": whole(rebate), "cap": whole(cap),
+            "values": values, "taxes": taxes,
+        }),
+    )
+}
+
+#[test]
+fn the_wine_equalisation_tax_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1122_0000_0B0B);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..WET_CASES).map(|_| wet_case(&mut rng)).unzip();
+    let actual = run_node(WET_HARNESS, &cases);
+    assert_eq!(actual.len(), WET_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }
