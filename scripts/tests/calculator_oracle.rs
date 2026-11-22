@@ -8195,6 +8195,11 @@ fn the_depreciation_pools_engine_agrees_with_the_oracle_on_every_seeded_case() {
     assert!(figure("assessableIncome") && figure("lowPoolValueDeduction") && figure("poolDeduction") && figure("assessableExcess"));
     let actual = run_node(POOL_HARNESS, &cases);
     assert_eq!(actual.len(), POOL_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
 /// Runs the ASIC fees engine, as `HARNESS` runs the others: each case's amount and tier, or which
 /// refusal it met.
 const ASIC_HARNESS: &str = r"
