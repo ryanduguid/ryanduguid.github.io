@@ -186,7 +186,7 @@
       "76ded7588fa5b5cc6d1a6fa7dec9d12c842b1efd52b0c16961cbcd56c1b5cc44"
     ],
     "tools/business-calculators/first-home-owner-grant/index.html": [
-      "76ac714e7775e31ca833c160fe8be34ca99126108c8f1ae802b744aba812b365"
+      "22e045c17766af300f7f4e745138bdfd7ed15d51ec41997a2cf0a08eb35741c1"
     ],
     "tools/business-calculators/fixed-fee/index.html": [
       "e1198c42068b0a1efcce7d97f816d745959010519552ca7f65d83a4b2f9caec6"
@@ -412,9 +412,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "b720d065916780c7524a47e3c94c5e01aa9bef7e37722d654f1410aaa91ddaeb",
+    "llms.txt": "b1be2361c6e073f5014d67a0a43f1470c67e1245140b72ae745618faf7e39351",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "93e8cac573c8ab283cded6725e0214b0acc8ad20958a40949deed403c97a7f67"
+    "sitemap.xml": "21bbb811fa93cbd644a45a088117723954f0fc95e6d110f27fb694c5db39a451"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -474,7 +474,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7805,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7806,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
