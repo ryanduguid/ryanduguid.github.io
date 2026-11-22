@@ -1,9 +1,9 @@
 <section class="business-calculator" id="ato-penalties-interest">
 <form class="calculator-split" data-calculator="ato-penalties-interest">
-<fieldset disabled><legend>One ATO charge, penalty or interest amount, before remission</legend><div class="form-grid">
+<fieldset disabled><legend>ATO interest or penalty</legend><div class="form-grid">
 <label class="field" for="ato-penalties-interest-question">What to work out<select name="question" id="ato-penalties-interest-question"><option value="gic" selected>General interest charge (GIC) on an unpaid amount</option><option value="sic">Shortfall interest charge (SIC) on an amended assessment</option><option value="failure_to_lodge">Failure to lodge on time penalty</option><option value="statement_penalty">False or misleading statement penalty</option><option value="early_payment_interest">Interest the ATO pays on an early payment</option><option value="overpayment_interest">Interest the ATO pays on an overpayment</option><option value="remission">Remission of a charge or penalty (not worked)</option><option value="scheme_penalty">A scheme penalty (not worked)</option></select></label>
 </div>
-<fieldset data-show-field="question" data-show-values="gic"><legend>General interest charge</legend><div class="form-grid">
+<fieldset data-show-field="question" data-show-values="gic"><legend class="visually-hidden">General interest charge</legend><div class="form-grid">
 <label class="field" for="ato-penalties-interest-gic-amount">Amount unpaid at the start of the due day (AUD)<input id="ato-penalties-interest-gic-amount" name="gic-amount" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="10000" /></label>
 <label class="field" for="ato-penalties-interest-gic-due">Due date<input id="ato-penalties-interest-gic-due" name="gic-due" type="date" min="1999-07-01" max="2028-06-30" value="2025-11-21" /></label>
 <label class="field" for="ato-penalties-interest-gic-to">Work out GIC to the end of<input id="ato-penalties-interest-gic-to" name="gic-to" type="date" min="2020-07-01" max="2028-06-30" value="2026-06-30" /></label>
@@ -15,17 +15,17 @@
 <label class="field" for="ato-penalties-interest-gic-paid-3">Payment 3 amount (AUD)<input id="ato-penalties-interest-gic-paid-3" name="gic-paid-3" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" /></label>
 <label class="field" for="ato-penalties-interest-gic-assumed">Annual GIC rate to assume after December 2026 (%), needed only for later days<input id="ato-penalties-interest-gic-assumed" name="gic-assumed" type="number" inputmode="decimal" min="0.01" max="100" step=".01" /></label>
 </div></fieldset>
-<fieldset data-show-field="question" data-show-values="sic" hidden disabled><legend>Shortfall interest charge</legend><div class="form-grid">
+<fieldset data-show-field="question" data-show-values="sic" hidden disabled><legend class="visually-hidden">Shortfall interest charge</legend><div class="form-grid">
 <label class="field" for="ato-penalties-interest-sic-amount">Additional income tax on the amended assessment (AUD)<input id="ato-penalties-interest-sic-amount" name="sic-amount" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="10000" /></label>
 <label class="field" for="ato-penalties-interest-sic-due">Day the first assessment’s tax was due<input id="ato-penalties-interest-sic-due" name="sic-due" type="date" min="2005-04-01" max="2028-06-30" value="2024-11-21" /></label>
 <label class="field" for="ato-penalties-interest-sic-notice">Day the ATO gave notice of the amended assessment<input id="ato-penalties-interest-sic-notice" name="sic-notice" type="date" min="2020-07-01" max="2028-06-30" value="2025-09-01" /></label>
 </div></fieldset>
-<fieldset data-show-field="question" data-show-values="failure_to_lodge" hidden disabled><legend>Failure to lodge on time</legend><div class="form-grid">
+<fieldset data-show-field="question" data-show-values="failure_to_lodge" hidden disabled><legend class="visually-hidden">Failure to lodge on time</legend><div class="form-grid">
 <label class="field" for="ato-penalties-interest-ftl-due">Day the document was due<input id="ato-penalties-interest-ftl-due" name="ftl-due" type="date" min="2012-12-28" max="2028-06-30" value="2026-06-10" /></label>
 <label class="field" for="ato-penalties-interest-ftl-given">Day it was lodged, or today if it is still outstanding<input id="ato-penalties-interest-ftl-given" name="ftl-given" type="date" min="2020-07-01" max="2028-06-30" value="2026-08-01" /></label>
 <label class="field" for="ato-penalties-interest-ftl-size">Entity size<select name="ftl-size" id="ato-penalties-interest-ftl-size"><option value="small">Small: income or GST turnover of $1 million or less, and not a medium or large withholder</option><option value="medium" selected>Medium: over $1 million and under $20 million, or a medium withholder</option><option value="large">Large: $20 million or more, or a large withholder</option><option value="significant_global">Significant global entity or Pillar Two group entity</option></select></label>
 </div></fieldset>
-<fieldset data-show-field="question" data-show-values="statement_penalty" hidden disabled><legend>False or misleading statement</legend><div class="form-grid">
+<fieldset data-show-field="question" data-show-values="statement_penalty" hidden disabled><legend class="visually-hidden">False or misleading statement</legend><div class="form-grid">
 <label class="field" for="ato-penalties-interest-st-date">Day the statement was made<input id="ato-penalties-interest-st-date" name="st-date" type="date" min="2020-07-01" max="2028-06-30" value="2026-03-15" /></label>
 <label class="field" for="ato-penalties-interest-st-sge">A significant global entity on the trigger day<select name="st-sge" id="ato-penalties-interest-st-sge"><option value="no" selected>No</option><option value="yes">Yes: the base penalty doubles</option></select></label>
 <label class="field" for="ato-penalties-interest-st-trust">A trust or partnership<select name="st-trust" id="ato-penalties-interest-st-trust"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
@@ -48,7 +48,7 @@
 <label for="ato-penalties-interest-st-disclosure-2">Voluntary disclosure<select name="st-disclosure-2" id="ato-penalties-interest-st-disclosure-2"><option value="none" selected>None</option><option value="before_examination">Before the ATO said it would examine</option><option value="during_examination">After that, saving significant time or resources</option></select></label>
 </fieldset>
 </div></fieldset>
-<fieldset data-show-field="question" data-show-values="early_payment_interest" hidden disabled><legend>Interest on an early payment</legend><div class="form-grid">
+<fieldset data-show-field="question" data-show-values="early_payment_interest" hidden disabled><legend class="visually-hidden">Interest on an early payment</legend><div class="form-grid">
 <label class="field" for="ato-penalties-interest-ep-amount">Amount paid early (AUD)<input id="ato-penalties-interest-ep-amount" name="ep-amount" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="1926" /></label>
 <label class="field" for="ato-penalties-interest-ep-liability">What it paid<select name="ep-liability" id="ato-penalties-interest-ep-liability"><option value="income_tax" selected>Income tax</option><option value="shortfall_interest_charge">Shortfall interest charge</option><option value="compulsory_study_loan_repayment">A compulsory study loan repayment</option><option value="fs_assessment_debt">An FS assessment debt</option></select></label>
 <label class="field" for="ato-penalties-interest-ep-paid">Day it was paid<input id="ato-penalties-interest-ep-paid" name="ep-paid" type="date" min="1999-07-01" max="2028-06-30" value="2025-11-03" /></label>
@@ -56,7 +56,7 @@
 <label class="field" for="ato-penalties-interest-ep-fsa">A full self-assessment taxpayer, such as a company<select name="ep-fsa" id="ato-penalties-interest-ep-fsa"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
 <label class="field" for="ato-penalties-interest-ep-notice">If not: day the notice of assessment issued<input id="ato-penalties-interest-ep-notice" name="ep-notice" type="date" min="1999-07-01" max="2028-06-30" value="2025-10-29" /></label>
 </div></fieldset>
-<fieldset data-show-field="question" data-show-values="overpayment_interest" hidden disabled><legend>Interest on an overpayment</legend><div class="form-grid">
+<fieldset data-show-field="question" data-show-values="overpayment_interest" hidden disabled><legend class="visually-hidden">Interest on an overpayment</legend><div class="form-grid">
 <label class="field" for="ato-penalties-interest-op-paid-on-1">Payment 1 date<input id="ato-penalties-interest-op-paid-on-1" name="op-paid-on-1" type="date" min="1999-07-01" max="2028-06-30" value="2024-12-01" /></label>
 <label class="field" for="ato-penalties-interest-op-paid-1">Payment 1 amount (AUD)<input id="ato-penalties-interest-op-paid-1" name="op-paid-1" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="3000" /></label>
 <label class="field" for="ato-penalties-interest-op-paid-on-2">Payment 2 date (optional)<input id="ato-penalties-interest-op-paid-on-2" name="op-paid-on-2" type="date" min="1999-07-01" max="2028-06-30" value="2025-03-01" /></label>
