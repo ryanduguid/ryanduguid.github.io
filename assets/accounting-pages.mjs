@@ -636,6 +636,10 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'asic-fees':
             result = calculate.asicFeesResult(value, aud);
             break;
+          case 'ato-penalties-interest':
+            result = calculate.atoPenaltiesInterestResult(value, aud);
+            showTables(result.tables);
+            break;
           case 'business-days':
             result = calculate.businessDaysResult({ mode: value('mode'), place: value('place'), start: value('start'), end: value('end'),
               count: value('count') }, calculate.parseHolidays(form.dataset.holidays));

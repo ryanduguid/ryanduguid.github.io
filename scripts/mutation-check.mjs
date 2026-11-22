@@ -59,6 +59,7 @@ const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const wet = { ...business, file: 'assets/wine-equalisation-tax.mjs' };
 const leave = { ...business, file: 'assets/unused-leave.mjs' };
 const asic = { ...business, file: 'assets/asic-fees.mjs' };
+const ato = { ...business, file: 'assets/ato-penalties-interest.mjs' };
 const franking = { ...business, file: 'assets/franking-account.mjs' };
 const borrow = { ...business, file: 'assets/borrowing-expenses.mjs' };
 const wc = { ...business, file: 'assets/workers-compensation.mjs' };
@@ -837,6 +838,31 @@ const MUTATIONS = [
   { ...asic, name: 'ASIC weekend refusal runs to the Thursday', find: 'weekday === 6 ? day + 4 : weekday === 0 ? day + 3 : null', replace: 'weekday === 6 ? day + 5 : weekday === 0 ? day + 4 : null' },
   { ...asic, name: 'ASIC impossible dates roll over', find: '&& date.getUTCMonth() === month - 1 && date.getUTCDate() === day)', replace: ')' },
   { ...asic, name: 'ASIC inherited keys pass as fees', find: 'const entry = Object.hasOwn(ASIC_FEES, fee) ? ASIC_FEES[fee] : null;', replace: '// @ts-ignore\n  const entry = ASIC_FEES[fee] ?? null;' },
+  { ...ato, name: 'ATO GIC days always over 365', find: 'const base = BigInt(10000 * yearDays(day));', replace: 'const base = BigInt(10000 * 365);' },
+  { ...ato, name: 'ATO GIC payments ignored', find: 'numerator -= paid * denominator;\n    }\n    const [rate, assumed] = rateOf(day);', replace: 'numerator -= 0n;\n    }\n    const [rate, assumed] = rateOf(day);' },
+  { ...ato, name: 'ATO GIC rounds the balance down', find: 'const halfUp = (numerator, denominator) => (2n * numerator + denominator) / (2n * denominator);', replace: 'const halfUp = (numerator, denominator) => numerator / denominator;' },
+  { ...ato, name: 'ATO SIC at the GIC rate less 3 points', find: 'rate === null ? null : rate - 400;', replace: 'rate === null ? null : rate - 300;' },
+  { ...ato, name: 'ATO SIC runs to the notice day', find: 'compound(rateOf, owed, due, notice - 1, [])', replace: 'compound(rateOf, owed, due, notice, [])' },
+  { ...ato, name: 'ATO base interest at the GIC rate less 6 points', find: 'rate === null ? null : rate - 700;', replace: 'rate === null ? null : rate - 600;' },
+  { ...ato, name: 'ATO failure to lodge counts whole 28-day periods only', find: 'Math.min(Math.ceil(late / 28), 5)', replace: 'Math.min(Math.floor(late / 28), 5)' },
+  { ...ato, name: 'ATO failure to lodge caps at 6 units', find: 'Math.min(Math.ceil(late / 28), 5)', replace: 'Math.min(Math.ceil(late / 28), 6)' },
+  { ...ato, name: 'ATO failure to lodge values every unit on the due date', find: 'const start = due + 28 * k;', replace: 'const start = due;' },
+  { ...ato, name: 'ATO medium entity multiplier 3', find: 'medium: 2n,', replace: 'medium: 3n,' },
+  { ...ato, name: 'ATO recklessness at 75%', find: 'recklessness: [50n, 40n]', replace: 'recklessness: [75n, 40n]' },
+  { ...ato, name: 'ATO reasonably arguable threshold $1,000', find: '(tax > 100000000n ? tax : 100000000n)', replace: '(tax > 10000000n ? tax : 10000000n)' },
+  { ...ato, name: 'ATO item 4 at the threshold itself', find: 'p.shortfall * 100n > thresholdHundredths(c.tax)', replace: 'p.shortfall * 100n >= thresholdHundredths(c.tax)' },
+  { ...ato, name: 'ATO statement penalty ignores the accepted-way part', find: '(p.shortfall - p.accepted) * applied * 100n', replace: 'p.shortfall * applied * 100n' },
+  { ...ato, name: 'ATO significant global entity not doubled', find: 'scaled * (sge ? 2n : 1n)', replace: 'scaled * 1n' },
+  { ...ato, name: 'ATO disclosure before examination cut 80% from $100', find: 'disclosedBefore >= 100000n ? 80n : null', replace: 'disclosedBefore >= 10000n ? 80n : null' },
+  { ...ato, name: 'ATO disclosure after notice of examination cut 80%', find: 'p.disclosure === \'during_examination\' ? 20n : 0n', replace: 'p.disclosure === \'during_examination\' ? 80n : 0n' },
+  { ...ato, name: 'ATO increase of 10%', find: 'p.increase ? 20n : 0n', replace: 'p.increase ? 10n : 0n' },
+  { ...ato, name: 'ATO early payment interest at 14 days early', find: 'const earns = early > 14 && start <= due;', replace: 'const earns = early >= 14 && start <= due;' },
+  { ...ato, name: 'ATO early payment interest from the payment despite a later notice', find: 'fsa ? paid : Math.max(paid, f.date(\'notice_issued\'))', replace: 'fsa ? paid : paid' },
+  { ...ato, name: 'ATO credit interest under 50 cents paid', find: 'interest >= 50n ? interest : 0n', replace: 'interest' },
+  { ...ato, name: 'ATO overpayment refund taken from the earliest payment first', find: '[...paid].sort((a, b) => a[0] - b[0]).reverse()', replace: '[...paid].sort((a, b) => a[0] - b[0])' },
+  { ...ato, name: 'ATO overpayment interest from the payment despite a later notice', find: 'const from = Math.max(notice, day);', replace: 'const from = day;' },
+  { ...ato, name: 'ATO penalty unit $330 from 1 July 2026 kept', find: '[\'2026-07-01\', 364]', replace: '[\'2026-07-01\', 330]' },
+  { ...ato, name: 'ATO form year from the due date', find: 'const last = Object.hasOwn(LAST_DATE, question)', replace: 'const last = question === \'gic\' ? value(\'gic-due\') : Object.hasOwn(LAST_DATE, question)' },
 ];
 
 // Runs that must read as invalid, not as caught.

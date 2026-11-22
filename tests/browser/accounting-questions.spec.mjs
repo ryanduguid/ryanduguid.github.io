@@ -1073,6 +1073,29 @@ test('fuel tax credit page works its example, a line from its cost and a refusal
   await expect(form.locator('output')).toContainText('Line 1: no published rate is held for fuel acquired after 31 January 2027');
 });
 
+// Spec G9 is the form's default; the failure to lodge question shows its 28-day periods, and remission is refused.
+test('ATO penalties and interest page works GIC by quarter, a failure to lodge penalty and refuses remission offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/ato-penalties-interest/');
+  const form = page.locator('#ato-penalties-interest form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('GIC to 30 June 2026: $676.86.');
+  const working = form.locator('table[data-results="working"]');
+  await expect(working.locator('tbody tr')).toHaveCount(3);
+  await expect(working.locator('tbody tr').nth(2).locator('td').last()).toHaveText('10.96% a year');
+  await form.locator('[name="question"]').selectOption('failure_to_lodge');
+  await expect(form.locator('[name="gic-amount"]')).toBeHidden();
+  await form.locator('[name="ftl-size"]').selectOption('large');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Failure to lodge penalty: $3,470.00.');
+  await expect(working.locator('tbody tr').nth(1).locator('td').last()).toHaveText('$364.00');
+  await form.locator('[name="question"]').selectOption('remission');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('the Commissioner’s discretion');
+  await expect(working).toBeHidden();
+});
+
 // The ATO's rebate table for 2026-27 (QC22758) is the form's default; the average wholesale price method is
 // refused for wine that is not grape wine (section 9-30).
 test('wine equalisation tax page works the ATO’s rebate table, shows each dealing and refuses the average method for other wine offline', async ({ page, context }) => {
@@ -1500,7 +1523,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
-  'workers-compensation', 'fuel-tax-credits', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees'];
+  'workers-compensation', 'fuel-tax-credits', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'ato-penalties-interest'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
