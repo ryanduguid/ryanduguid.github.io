@@ -192,7 +192,7 @@ Source: https://duguid.com.au/tools/business-calculators/asic-fees/
 
 # ASIC fees calculator
 
-ASIC fees for 2026-27, and the $102 or $428 late fee for a due date and the day ASIC received it.
+ASIC’s 2026-27 fees and late fee tiers.
 
 Published 22 November 2026. Last checked 22 November 2026.
 
