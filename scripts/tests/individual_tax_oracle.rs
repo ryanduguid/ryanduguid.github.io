@@ -2421,7 +2421,16 @@ fn work_oracle(facts: &Value) -> Value {
             let early = shortcut.is_some();
             let incurred = facts["running_expenses_incurred"] == json!(true);
             let dedicated = !early || facts["dedicated_home_office"] == json!(true);
-            let [energy, phone, internet, stationery, cleaning, furniture, assets, repairs] = [
+            let [
+                energy,
+                phone,
+                internet,
+                stationery,
+                cleaning,
+                furniture,
+                assets,
+                repairs,
+            ] = [
                 "energy",
                 "phone",
                 "internet",
@@ -2433,11 +2442,15 @@ fn work_oracle(facts: &Value) -> Value {
             ]
             .map(cents);
             // The engine refuses these before this point; the cases never send them.
-            assert!(incurred || energy + phone + internet + stationery + if early { cleaning } else { 0 } == 0);
+            assert!(
+                incurred
+                    || energy + phone + internet + stationery + if early { cleaning } else { 0 }
+                        == 0
+            );
             let mut best: (&str, u128) = ("", 0);
             let mut consider = |name: &'static str, total: u128| {
                 if best.0.is_empty() || total > best.1 {
-                    best = (name, total_cents);
+                    best = (name, total);
                 }
             };
             if incurred && dedicated {
@@ -2461,7 +2474,8 @@ fn work_oracle(facts: &Value) -> Value {
                 put("shortcut_return_amount", back);
                 consider("shortcut", hours * rate);
             }
-            let actual = energy + phone + internet + stationery + cleaning + furniture + assets + repairs;
+            let actual =
+                energy + phone + internet + stationery + cleaning + furniture + assets + repairs;
             put("actual_cost_method", work_text(actual));
             put("actual_cost_return_amount", format!("{}.00", actual / 100));
             consider("actual_cost", actual * 100);
@@ -2481,7 +2495,10 @@ fn work_oracle(facts: &Value) -> Value {
                 cents("total_kilometres"),
                 cents("car_expenses"),
             );
-            put("business_use_percentage", work_shown(business * 10_000, total).0);
+            put(
+                "business_use_percentage",
+                work_shown(business * 10_000, total).0,
+            );
             let (shown, back) = work_shown(expenses * business, total);
             put("deduction", shown);
             put("return_amount", back);
@@ -2503,11 +2520,15 @@ fn the_work_expenses_oracle_works_the_atos_examples_by_hand() {
     assert_eq!(yang["amounts"]["fixed_rate_method"], "945.90");
     assert_eq!(yang["amounts"]["fixed_rate_return_amount"], "945.00");
     // Johan: 2,514 km at 88c is $2,212.32.
-    let johan = work_oracle(&json!({ "method": "car_cents_per_kilometre", "year": "2025-26", "business_kilometres": "2514" }));
+    let johan = work_oracle(
+        &json!({ "method": "car_cents_per_kilometre", "year": "2025-26", "business_kilometres": "2514" }),
+    );
     assert_eq!(johan["amounts"]["deduction"], "2212.32");
     // Lana: 69% of $17,275.33 is $11,919.98.
-    let lana = work_oracle(&json!({ "method": "car_log_book", "year": "2025-26", "business_kilometres": "6900",
-        "total_kilometres": "10000", "car_expenses": "17275.33" }));
+    let lana = work_oracle(
+        &json!({ "method": "car_log_book", "year": "2025-26", "business_kilometres": "6900",
+        "total_kilometres": "10000", "car_expenses": "17275.33" }),
+    );
     assert_eq!(lana["amounts"]["deduction"], "11919.98");
 }
 
@@ -2515,7 +2536,11 @@ fn the_work_expenses_oracle_works_the_atos_examples_by_hand() {
 fn the_work_expenses_engine_agrees_with_the_oracle_on_every_seeded_case() {
     let mut rng = Seeded(0x2026_1122_0B3E_0003);
     let amount = |rng: &mut Seeded, most: u64| {
-        let cents = if rng.below(3) == 0 { 0 } else { rng.below(most * 100 + 1) };
+        let cents = if rng.below(3) == 0 {
+            0
+        } else {
+            rng.below(most * 100 + 1)
+        };
         format!("{}.{:02}", cents / 100, cents % 100)
     };
     let (cases, expected): (Vec<Value>, Vec<Value>) = (0..900)
