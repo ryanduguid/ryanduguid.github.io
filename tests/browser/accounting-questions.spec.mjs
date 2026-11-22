@@ -1073,6 +1073,32 @@ test('fuel tax credit page works its example, a line from its cost and a refusal
   await expect(form.locator('output')).toContainText('Line 1: no published rate is held for fuel acquired after 31 January 2027');
 });
 
+// The luxury car tax page's example (the ATO's Matty Bee Motors and Jimmy's Mustang), a refund line whose fields
+// show only once chosen, and an adjustment without the year of its sale.
+test('luxury car tax page works its example, a refund and a refusal offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/luxury-car-tax/');
+  const form = page.locator('#luxury-car-tax form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Label 1E on the BAS, in whole dollars: $2,157.00.');
+  await expect(form.locator('output')).toContainText('Luxury car tax on importations, paid to the Department of Home Affairs: $6,207.30.');
+  await expect(form.locator('[name="borne-2"]')).toBeHidden();
+  await form.locator('[name="kind-2"]').selectOption('refund');
+  await expect(form.locator('[name="value-2"]')).toBeHidden();
+  await form.locator('[name="supplied-2"]').selectOption('2026-27');
+  await form.locator('[name="claimant-2"]').selectOption('primary_producer');
+  await form.locator('[name="eligible-2"]').selectOption('yes');
+  await form.locator('[name="borne-2"]').fill('12000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Refunds, claimed on the ATO’s form, not the BAS: $10,000.00.');
+  await form.locator('[name="kind-3"]').selectOption('price_adjustment');
+  await form.locator('[name="value-3"]').fill('90000');
+  await form.locator('[name="attributed-3"]').fill('0');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Line 3: choose the financial year of the supply, whose threshold applies.');
+});
+
 // The ATO's rebate table for 2026-27 (QC22758) is the form's default; the average wholesale price method is
 // refused for wine that is not grape wine (section 9-30).
 // The guide's Example 33 worksheet with $90,000 of other income is the form's default; a holiday home whose costs
@@ -1209,6 +1235,31 @@ test('PSI rules checker works TR 2022/3 example 22 and refuses an agent it canno
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toHaveText('At least 75% of the principal’s payments are commission or performance fees, '
     + 'so section 87-40 may treat the principal’s customers as the sources of the PSI; this page does not apply section 87-40.');
+});
+
+// Subsection 87-15(3) counts one payer's rows together, and subsection 85-35(2) covers a religious
+// practitioner's payment, as the psi-test command of ryanduguid/australian-accounting does.
+test('PSI rules checker counts one payer’s 2 rows as one source and cites subsection 85-35(2)', async ({ page }) => {
+  await page.goto('/tools/business-calculators/psi-determination/');
+  const form = page.locator('#psi-determination form');
+  await waitForCalculator(form);
+  await form.getByLabel('PSI from payer 1 (AUD)', { exact: true }).fill('74');
+  await form.getByLabel('PSI from payer 2 (AUD)', { exact: true }).fill('26');
+  await form.getByLabel('Payer 2 is the same payer as').selectOption('1');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const output = form.locator('output');
+  await expect(output).toContainText('payer 1 $74.00, ticked: paid for a result, tools supplied, liable for defects; '
+    + 'payer 2 $26.00, same payer as payer 1, ticked: none;');
+  await expect(output).toContainText('Outcome: Subsection 87-15(3): not a personal services business unless a '
+    + 'determination is in force, so Division 85 applies.');
+  await expect(output).toContainText('Subsection 87-18(1): PSI paid for a result, with the tools supplied and liability '
+    + 'for defects: 74.00%, under 75%: not met. Subsection 87-15(3): largest share of the PSI from one payer and its '
+    + 'associates: 100.00%, 80% or more.');
+  await form.getByLabel('The individual, as a religious practitioner paid by an enterprise for work in their vocation as a '
+    + 'member of a religious institution').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toContainText('Outcome: Subsection 85-35(2): a payment to a religious practitioner, so the PSI '
+    + 'rules do not apply. Subsection 84-5(1)');
 });
 
 test('transfer duty notes NSW premium duty from the first dollar over $3,870,000 only', async ({ page }) => {
@@ -1519,7 +1570,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
-  'workers-compensation', 'fuel-tax-credits', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'rental-property'];
+  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'rental-property'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

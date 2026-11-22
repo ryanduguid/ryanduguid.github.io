@@ -5560,7 +5560,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
-22 November 2026 | A new business calculator works out one residential rental property’s income and deductions for one owner and income year from 2020-21 to 2026-27: expenses apportioned by the days let or available, interest on a loan used partly for the rental, capital works at 2.5% or 4% within the undeducted construction expenditure, decline in value with section 40-27’s nil for second-hand assets, the net rent and, from 2024-25, its effect on tax at the resident scale. It reproduces the ATO’s Rental properties guide 2026 worked examples, read on 22 November 2026, and agrees with the rental-property command of the australian-accounting calculators on every tested case.
+22 November 2026 | A new business calculator works out luxury car tax on a tax period’s sales and importations in 2019-20 to 2026-27: the threshold or fuel-efficient car limit for the year of each supply (from 2012-13 for an adjustment), the 3.5 litre rating from 1 July 2025 and the 7 litre rating it keeps for a car supplied or imported and used other than for a quotable purpose before then, the price and change of use adjustments, the primary producer and tourism operator refunds of up to $10,000 and the amounts for labels 1E and 1F. The Act and the ATO’s rate and threshold table were read on 22 November 2026, and the page opens on the ATO’s examples of Matty Bee Motors’ $2,157.30 and Jimmy’s Mustang’s $6,207.30.
 22 November 2026 | A new business calculator, ASIC fees, lists ASIC’s fees from 1 July 2026 to register a company, reserve a company name, pay the annual review fee and register or renew a business name, with no GST. For a due date and the day ASIC received a review fee payment or a document, both in 2026-27, it gives the late fee: $102 within one month after the due date and $428 after that, counting the month as section 2G of the Acts Interpretation Act 1901 does. It takes the due date as given and declines a case that a weekend due date or month end could change.
 22 November 2026 | A new business calculator works out wine equalisation tax for a tax period’s dealings in 2023-24 to 2027-28: 29% of a wholesale sale’s price, of half the retail price or of the average wholesale price for retail sales and own use, of the purchase price for own use of wine bought under quote, and nil on a sale under quote. It gives the producer rebate on each dealing that meets the conditions of section 19-5, within the year’s cap of $350,000, or $400,000 for dealings from 1 July 2026, less the rebates already claimed, and labels 1C and 1D in whole dollars. It reproduces the ATO’s worked examples and rebate table, read on 22 November 2026, and agrees with the wine-equalisation-tax command of the australian-accounting calculators on every tested case.
 21 November 2026 | The site's software now uses the Apache License 2.0. Ryan Duguid's original page text uses Creative Commons Attribution 4.0. The site licence notice identifies the terms for data, artwork and third-party material.
@@ -6359,7 +6359,6 @@ Published 11 September 2026. Last checked 22 November 2026, the newest of the ca
 
 ## Division 7A, FBT, professional firms and GIC
 
-- Rental property calculator One owner’s rental income and deductions for a year: expenses by days let, interest on a mixed-use loan, capital works and second-hand assets, the net rent and its effect on tax.
 - Division 7A loan calculator Minimum yearly repayment, interest and principal on one amalgamated loan.
 - FBT car calculator Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or operating cost method.
 - FBT car parking calculator Whether car parking fringe benefits arise against the $11.48 threshold, and their taxable value by any of the 5 methods, for the FBT year ending 31 March 2027.
@@ -6399,6 +6398,7 @@ Published 11 September 2026. Last checked 22 November 2026, the newest of the ca
 - Objection deadline checker The last day to object to an income tax or FBT assessment, an amended assessment or another ATO decision, with the weekend rule.
 - PAYG instalments calculator The quarterly PAYG instalment from the notified amount, a varied amount, instalment income times the rate, or a varied rate with its credit.
 - Fuel tax credit calculator A business’s fuel tax credits at the ATO’s rate for each day since 1 July 2022, by fuel and use, with label 7D and the small claimant methods.
+- Luxury car tax calculator Luxury car tax, its adjustments and refunds for 2019-20 to 2026-27.
 - Wine equalisation tax calculator WET on a tax period’s wholesale sales, retail sales, own use and sales under quote, the producer rebate within the year’s $350,000 or $400,000 cap, and labels 1C and 1D.
 - Redundancy and ETP withholding The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
 - Unused leave on termination Schedule 7 withholding and the lump sum A, B and type U amounts for unused leave paid on termination, for 2026-27.
@@ -6426,7 +6426,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Hire purchase and chattel mortgage schedule: https://duguid.com.au/tools/business-calculators/hire-purchase/
 - AASB 16 lease calculator: https://duguid.com.au/tools/business-calculators/lease/
 - Borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
-- Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - FBT car parking calculator: https://duguid.com.au/tools/business-calculators/fbt-car-parking/
@@ -6454,6 +6453,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
 - PAYG instalments calculator: https://duguid.com.au/tools/business-calculators/payg-instalments/
 - Fuel tax credit calculator: https://duguid.com.au/tools/business-calculators/fuel-tax-credits/
+- Luxury car tax calculator: https://duguid.com.au/tools/business-calculators/luxury-car-tax/
 - Wine equalisation tax calculator: https://duguid.com.au/tools/business-calculators/wine-equalisation-tax/
 - Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/
 - Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
@@ -10409,131 +10409,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# Rental property calculator: deductions, capital works and net rent
-
-Source: https://duguid.com.au/tools/business-calculators/rental-property/
-
-> A rental property's deductions by the ATO worksheet's lines, apportioned by days let, mixed-use loan interest, capital works, second-hand assets, net rent and tax effect.
-
-# Rental property calculator
-
-Income, deductions and net rent for one rental property, one owner and one year.
-
-Published 22 November 2026. Last checked 22 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-One rental property, one owner, one income year
-
-Your legal interest as a decimal, such as 0.5 for half
-
-Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
-
-Day you acquired the property Day you stopped holding it in the year (optional) Days in the year you held it that it was let or available for rent on commercial terms Your other taxable income, whole dollars, for the effect on tax from 2024-25 (optional, AUD) Is it a holiday home whose costs section 26-50 denies? No Yes
-
-## Income, the whole property’s
-
-Rent (AUD) Other rental income, such as an insurance payout for lost rent or a bond kept (AUD)
-
-## Expenses for the whole period held
-
-Enter the whole property’s expenses. These are apportioned by the days let or available over the days held.
-
-Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage (AUD) Travel (shown, not deductible) (AUD) Water charges (AUD) Sundry rental expenses (AUD)
-
-## Expenses solely for renting
-
-Expenses that relate only to renting, such as agent commission and removing a tenant’s rubbish, are not apportioned.
-
-Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage (AUD) Water charges (AUD) Sundry rental expenses (AUD)
-
-## Interest on your own loans
-
-Enter your own share of each loan and the outstanding principal used for the rental and in total. A redraw or further drawing in the year is refused. Leave the interest blank to skip a loan.
-
-Loan 1 Interest charged in the year (AUD) Principal used for the rental (AUD) Total principal (AUD) Redrawn or drawn further in the year?No Yes
-
-Loan 2 (optional) Interest charged in the year (AUD) Principal used for the rental (AUD) Total principal (AUD) Redrawn or drawn further in the year?No Yes
-
-## Borrowing expenses
-
-Work out the year’s figure with the borrowing expenses calculator, which spreads them over the loan under section 25-25.
-
-This year’s borrowing expenses deduction (AUD)
-
-## Capital works
-
-Enter the whole property’s construction expenditure from the builder’s contract or a qualified estimator. Leave it blank to skip an item.
-
-Capital works 1 Construction expenditure (AUD) KindA building or extension A structural improvement, such as a fence Day construction began Day first used by anyone after construction A building begun after 15 September 1987: taken to have begun before 16 September 1987 under section 43-220?Not answered Yes No
-
-Capital works 2 (optional) Construction expenditure (AUD) KindA building or extension A structural improvement, such as a fence Day construction began Day first used by anyone after construction A building begun after 15 September 1987: taken to have begun before 16 September 1987 under section 43-220?Not answered Yes No
-
-## Decline in value of depreciating assets
-
-Enter each asset’s decline in value for the year from a schedule or the depreciation calculator, before any private use reduction. Leave it blank to skip an asset.
-
-Asset 1 Decline in value (AUD) Day you acquired it, or entered into the contract to Day it was first used or installed ready for use Did you hold it when it was first used or installed?Yes No Used in your home or for a private purpose, more than occasionally?No Yes In a low-value pool?No Yes Not held when first used: supplied with new residential premises (section 40-27(4) or (5))?Not answered Yes No Acquired before 9 May 2017: was anything deductible for it for 2016-17?Not answered Yes No
-
-Asset 2 (optional) Decline in value (AUD) Day you acquired it, or entered into the contract to Day it was first used or installed ready for use Did you hold it when it was first used or installed?Yes No Used in your home or for a private purpose, more than occasionally?No Yes In a low-value pool?No Yes Not held when first used: supplied with new residential premises (section 40-27(4) or (5))?Not answered Yes No Acquired before 9 May 2017: was anything deductible for it for 2016-17?Not answered Yes No
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; legal interest 1; held from 20 July 2025; 346 days let or available; rental income $9,300.00; expenses apportioned by days $4,070.00; expenses solely for renting $848.00; travel $436.00; loan 1: interest $14,108.00, $170,000.00 of $209,000.00 for the rental; borrowing expenses $259.62; capital works 1: $115,800.00, building begun 1 August 1991, first used 1 March 1992; asset 1: decline in value $796.00; other taxable income $90,000.00. Your share of the rent $9,300.00 Total deductions $20,193.33 Net rent, a loss if negative −$10,893.33 Tax on $90,000.00 without the rental $17,788.00 Tax on $79,107.00 with the net rent $14,520.10 Less tax because of the rental, more if negative $3,267.90 Travel of $436.00 at your interest is not deductible (ITAA 1997 s 26-31). The tax is at the resident scale only: the Medicare levy, the surcharge, offsets and study loan repayments are left out.
-
-## How the rental property calculator works
-
-The rental property calculator works out one owner’s rental income and deductions for one residential property and one income year, on the lines of the ATO’s rental property worksheet (Rental properties guide 2026, Example 33). Rent and other rental income are assessable (section 6-5). Co-owners who are not in a business of letting share income and expenses by legal interest, whatever they agree between them (TR 93/32), so the calculator takes the whole property’s amounts and multiplies them by your interest. Your loans are entered as your own and are not divided.
-
-An expense of the property for the whole time you held it in the year, such as rates, insurance or repairs, is apportioned by the days it was let or available for rent on commercial terms over the days you held it. An expense solely for renting, such as agent commission or advertising for tenants, is not (the guide’s time-based method and Example 34). Travel is shown but not deducted: section 26-31 denies it to an individual not in a business of letting from 1 July 2017. Interest on a loan used partly for the rental is the interest times the principal used for the rental over the total principal, then the time-based share (TR 2000/2 paragraphs 15 and 16).
-
-Capital works are 2.5% of the construction expenditure a year, or 4% for a building begun from 18 July 1985 to 15 September 1987 or taken to have begun before 16 September 1987 under section 43-220, times the days used over 365. The deduction is never more than the construction expenditure not yet deducted (sections 43-25, 43-210 and 43-240). Each asset’s decline in value is taken as you enter it, at your interest and the time-based share, and is nil where section 40-27 denies it for a second-hand asset or one used privately. The borrowing expenses line is the year’s figure from the borrowing expenses calculator. Each line is rounded to the cent, where the guide’s examples round to the dollar. The calculator reproduces Example 33: deductions of $20,193.33 and a net rent of −$10,893.33, the guide’s $20,629 less the $436 of travel its Note 2 says needs an exception.
-
-Given your other taxable income for 2024-25 to 2026-27, the calculator works out the tax at the resident scale with and without the net rent, its cents dropped as a return shows them, and the difference.
-
-## Choices the rental property calculator makes
-
-The calculator makes 2 counting choices the ATO gives no worked example for, as the rental-property command of the australian-accounting calculators does. The use period of capital works counts both its first and last day (section 43-230(2)). The time-based share applies to a decline in value you enter, as it does to the other lines. The 4% rate for a residential building begun from 18 July 1985 rests on the guide’s Table 1, not on a provision read. A building begun from 22 August 1979 to 17 July 1985 qualifies only if it was intended on completion for short-term traveller accommodation or non-residential use, so the calculator refuses it rather than give nil.
-
-## What the rental property calculator does not cover
-
-The calculator works the income years 2020-21 to 2026-27 and refuses 2027-28, from which section 26-155 can limit residential rental deductions. It refuses a holiday home whose costs section 26-50 denies (TR 2026/1), a loan redrawn or drawn further in the year (TR 2000/2 paragraphs 23 to 25), an asset acquired on 9 May 2017, the day section 40-27 starts at 7.30 pm, and the effect on tax before 2024-25. It also refuses works or an asset first used after you first held the property in a year it was not available every day, as the days of rental use are then not known.
-
-Not covered: a business of letting; a company, trust or other entity; letting part of a dwelling or at less than market rent; GST on short stays; the 4% rate for build to rent or short-term traveller accommodation; vacant land under section 26-102; a tax loss under Division 36; and the Medicare levy, the surcharge, offsets and study loan repayments. The calculator never derives construction expenditure from a price or a valuation. A value or total of $70,368,744,177,664 or more is refused, as the page cannot show it to the cent. Have a registered tax agent confirm the result before you lodge.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Rental property calculator
-
-Case | Inputs | Result
-Rental properties guide 2026 Example 33 with $90,000 of other income: travel of $436 denied | 2025-26; legal interest 1; held from 20 July 2025; 346 days let or available; rental income $9,300.00; expenses apportioned by days $4,070.00; expenses solely for renting $848.00; travel $436.00; loan 1: interest $14,108.00, $170,000.00 of $209,000.00 for the rental; borrowing expenses $259.62; capital works 1: $115,800.00, building begun 1 August 1991, first used 1 March 1992; asset 1: decline in value $796.00; other taxable income $90,000.00 | gross rent $9,300.00, total deductions $20,193.33, net rent -$10,893.33
-Example 34: $50,000 rent, $37,000 apportioned by 330 of 365 days, $3,000 solely for renting | 2025-26; legal interest 1; held from 1 July 2020; 330 days let or available; rental income $50,000.00; expenses apportioned by days $37,000.00; expenses solely for renting $3,000.00; borrowing expenses $0.00 | gross rent $50,000.00, total deductions $36,452.05, net rent $13,547.95
-Example 34 at a half interest: $6,773.97 each, the ATO’s $6,774 | 2025-26; legal interest 0.5; held from 1 July 2020; 330 days let or available; rental income $50,000.00; expenses apportioned by days $37,000.00; expenses solely for renting $3,000.00; borrowing expenses $0.00 | gross rent $25,000.00, total deductions $18,226.03, net rent $6,773.97
-Example 12: $14,108 of interest, $170,000 of $209,000 for the rental, $11,475.41 | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; loan 1: interest $14,108.00, $170,000.00 of $209,000.00 for the rental; borrowing expenses $0.00 | gross rent $0.00, total deductions $11,475.41, net rent -$11,475.41
-Example 29: $115,800 of construction expenditure, held from 20 July 2025, $2,744.30 | 2025-26; legal interest 1; held from 20 July 2025; 346 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; capital works 1: $115,800.00, building begun 1 August 1991, first used 1 March 1992 | gross rent $0.00, total deductions $2,744.30, net rent -$2,744.30
-4% works first used in 1986 are fully deducted after 25 years | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; capital works 1: $100,000.00, building begun 1 October 1985, first used 1 January 1986 | gross rent $0.00, total deductions $0.00, net rent $0.00
-A building taken to have begun before 16 September 1987 under section 43-220 takes 4% | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; capital works 1: $100,000.00, building begun 27 February 2010, first used 1 January 2011 | gross rent $0.00, total deductions $4,000.00, net rent -$4,000.00
-Example 21: new curtains deducted, the previous owner’s carpet nil under section 40-27 | 2025-26; legal interest 1; held from 20 August 2025; 315 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; asset 1: decline in value $300.00; asset 2: decline in value $500.00 | gross rent $0.00, total deductions $300.00, net rent -$300.00
-Example 23: an asset supplied with new residential premises within 6 months | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; asset 1: decline in value $400.00 | gross rent $0.00, total deductions $400.00, net rent -$400.00
-A holiday home whose costs section 26-50 denies is refused | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00 | Refused: section 26-50 denies the costs of owning a holiday home not used or held mainly to produce rent at all times in the year, before any apportionment (TR 2026/1 paragraphs 17 and 31); this calculator does not decide ‘mainly’
-A loan redrawn in the year is refused | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; loan 1: interest $100.00, $1.00 of $2.00 for the rental, redrawn; borrowing expenses $0.00 | Refused: loan 1: A redraw or further drawing in the year changes the share of the principal used for the rental from that day (TR 2000/2 paragraphs 23 to 25); work the loan’s sub-accounts and give each as a loan of its own
-A building begun from 22 August 1979 to 17 July 1985 is refused | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; capital works 1: $100,000.00, building begun 17 July 1985, first used 1 January 1986 | Refused: capital works 1: A building begun from 22 August 1979 to 17 July 1985 qualifies only if it was intended on completion for short-term traveller accommodation or non-residential use (Rental properties guide 2026, Table 1), which this calculator does not take
-The effect on tax before 2024-25 is refused | 2023-24; legal interest 1; held from 1 July 2020; 366 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; other taxable income $50,000.00 | Refused: the effect on tax is worked out for 2024-25 to 2026-27, the years the resident scale is held for here; leave other taxable income blank for an earlier year
-2027-28 is refused | 2027-28; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00 | Refused: choose an income year from 2020-21 to 2026-27. From 2027-28 s 26-155 can limit residential rental deductions, which this calculator does not work out
-
-One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
-- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
 # Borrowing expenses calculator: section 25-25 by days
 
 Source: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
@@ -11635,20 +11510,20 @@ Source: https://duguid.com.au/tools/business-calculators/psi-determination/
 
 Whether the personal services income rules apply, step by step through Divisions 84 to 87.
 
-Published 17 November 2026. Last checked 17 November 2026.
+Published 17 November 2026. Last checked 22 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
 PSI inputs for one individual and one income year
 
-Who receives the income The individual, as a contractor (sole trader) A company, partnership or trust the individual works through The individual, as an employee, office holder or religious practitioner Is over half the income a reward for the individual’s personal efforts or skills (subsection 84-5(1))? Yes No: mainly from goods, assets or a business structure Is a personal services business determination in force for this income? No Yes
+Who receives the income The individual, as a contractor (sole trader) A company, partnership or trust the individual works through The individual, as an employee or office holder The individual, as a religious practitioner paid by an enterprise for work in their vocation as a member of a religious institution Is over half the income a reward for the individual’s personal efforts or skills (subsection 84-5(1))? Yes No: mainly from goods, assets or a business structure Is a personal services business determination in force for this income? No Yes
 
-Payer, with its associates | PSI in the year (AUD) | Associate of the individual or entity | Engaged by an offer to the public | Paid for a result | Supplies plant and tools | Liable for defects
-Payer 1 | | | | | |
-Payer 2 | | | | | |
-Payer 3 | | | | | |
-Payer 4 | | | | | |
-Payer 5 | | | | | |
+Payer, with its associates | PSI in the year (AUD) | Same payer as | Associate of the individual or entity | Engaged by an offer to the public | Paid for a result | Supplies plant and tools | Liable for defects
+Payer 1 | | | | | | |
+Payer 2 | | None Payer 1 | | | | |
+Payer 3 | | None Payer 1 Payer 2 | | | | |
+Payer 4 | | None Payer 1 Payer 2 Payer 3 | | | | |
+Payer 5 | | None Payer 1 Payer 2 Payer 3 Payer 4 | | | | |
 
 Each tick is your answer; ‘How the PSI rules checker works’ says when to tick.
 
@@ -11660,7 +11535,7 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 
 The PSI rules checker takes one individual’s personal services income for one income year and works through Part 2-42 in the order the Act sets. Each step on the result names the section it applies and what it found.
 
-Income that is not mainly a reward for the individual’s personal efforts or skills is not PSI (subsection 84-5(1)), and income received as an employee falls outside Division 85 (subsection 85-35(1)). A personal services business determination in force settles the question (subsection 87-15(1)). Otherwise the results test comes first: if at least 75% of the PSI is paid for a result, with the plant and tools supplied and liability for defects, the PSI rules do not apply, however much comes from one payer (section 87-18).
+Income that is not mainly a reward for the individual’s personal efforts or skills is not PSI (subsection 84-5(1)), and income received as an employee or office holder falls outside Division 85 (subsection 85-35(1)). So does a payment to a religious practitioner by an entity carrying on an enterprise, for work in their religious vocation done as a member of a religious institution (subsection 85-35(2) and section 12-47 of Schedule 1 to the Taxation Administration Act 1953); check any other PSI they earn as a contractor. A personal services business determination in force settles the question (subsection 87-15(1)). Otherwise the results test comes first: if at least 75% of the PSI is paid for a result, with the plant and tools supplied and liability for defects, the PSI rules do not apply, however much comes from one payer (section 87-18).
 
 If 80% or more of the PSI comes from one payer and its associates, the other 3 tests cannot be self-assessed and only a determination keeps the rules away (subsection 87-15(3)). The checker still works them out, because the Commissioner weighs them for a determination: 2 or more unrelated payers that engaged the individual or entity through offers to the public (section 87-20), principal work by others of at least 20% by market value or an apprentice for half the year (section 87-25), and qualifying business premises all year (section 87-30).
 
@@ -11668,7 +11543,7 @@ The checker reproduces the conclusion of each worked example in TR 2022/3 that r
 
 ## How to enter payers in the PSI rules checker
 
-Enter each payer once, with its associates’ payments added in: the payer is whoever must pay under the contract, so a labour hire firm or agency is the payer, not its client (TR 2022/3 paragraphs 69 to 72). Payers that are associates of each other share one row too, as section 87-20 counts only payers that are not associates of each other. Count each Australian government agency as its own payer (section 87-35) and leave out income received as an employee. If the individual works through their own company, partnership or trust, choose that entity as who receives the income, even if it pays them a salary. Tick ‘Paid for a result’, ‘Supplies plant and tools’ and ‘Liable for defects’ only where the contract or industry custom makes it so (subsection 87-18(4)). The results test counts income, not payers, and a tick covers all of that payer’s PSI: where only part of it meets all 3, leave the boxes unticked, which can only make the results test harder to pass, and work out that part yourself. For the market value of principal work by others, count work by any individual or entity engaged, an individual associate included, but not by an associate that is a company, partnership or trust, nor, for an entity, by an individual whose PSI it receives; a partner counts only if they earn no PSI through the partnership (subsections 87-25(1), (2) and (2A); TR 2022/3 paragraphs 110 to 116). With more than 5 payers, put the smallest together in one row only where every answer is the same; that can only make a test harder to pass.
+Enter each payer once, with its associates’ payments added in: the payer is whoever must pay under the contract, so a labour hire firm or agency is the payer, not its client (TR 2022/3 paragraphs 69 to 72). Payers that are associates of each other count as one payer too, as section 87-20 counts only payers that are not associates of each other: put them in one row, or choose the first of their rows under ‘Same payer as’ in each later one. Linked rows count as one payer in the unrelated clients test too, so 2 payers that are each an associate of a third, but not of each other, count once there; that can only make the test harder to pass. Count each Australian government agency as its own payer (section 87-35) and leave out income received as an employee. If the individual works through their own company, partnership or trust, choose that entity as who receives the income, even if it pays them a salary. Tick ‘Paid for a result’, ‘Supplies plant and tools’ and ‘Liable for defects’ only where the contract or industry custom makes it so (subsection 87-18(4)). The results test counts income, not payers, and a tick covers all of that row’s PSI: where only part of a payer’s PSI meets all 3, enter that part in a row of its own and choose the payer’s first row under ‘Same payer as’, so the 80% rule and section 87-20 still count one payer. For the market value of principal work by others, count work by any individual or entity engaged, an individual associate included, but not by an associate that is a company, partnership or trust, nor, for an entity, by an individual whose PSI it receives; a partner counts only if they earn no PSI through the partnership (subsections 87-25(1), (2) and (2A); TR 2022/3 paragraphs 110 to 116). With more than 5 payers, put the smallest together in one row only where every answer is the same; that can only make a test harder to pass.
 
 ## What the PSI rules checker leaves to you
 
@@ -11704,6 +11579,10 @@ TR 2022/3 example 40: 70% commission leaves the principal as one payer | Sole tr
 An agent with 75% commission may fall under section 87-40, which this page does not apply | Sole trader; payers $100,000.00; agent, $75,000.00 commission of $100,000.00 | Refused: at least 75% of the principal’s payments are commission or performance fees, so section 87-40 may treat the principal’s customers as the sources of the PSI; this page does not apply section 87-40
 No PSI entered | Sole trader; payers none | Refused: enter the PSI from at least one payer
 Others’ work worth more than the PSI | Sole trader; payers $100.00; others’ principal work $100.01 | Refused: the market value of principal work by others cannot exceed the PSI entered
+A payment to a religious practitioner is outside Division 85 under subsection 85-35(2) | Religious practitioner; payers $100,000.00 | Subsection 85-35(2), a payment to a religious practitioner, so the PSI rules do not apply
+One payer’s 2 contracts, 74% paid for a result, are 100% from one payer | Sole trader; payers $74.00 (result, tools, defects), $26.00 (same payer as payer 1) | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, results test 74.00%, largest payer 100.00%
+A payer entered in 2 rows is one source and one unrelated client | Sole trader; payers $50.00 (offer), $30.00 (offer; same payer as payer 1), $20.00 (offer) | Subsection 87-15(3), not a personal services business unless a determination is in force, so Division 85 applies, largest payer 80.00%, 2 unrelated by public offer
+An agent’s payments are checked before a determination settles the question | Sole trader; determination in force; payers $100.00; agent, $100.01 commission of $100.00 | Refused: enter the principal’s payments and the part of them that is commission or performance fees
 
 One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -13942,6 +13821,97 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Australian Institute of Petroleum’s weekly average retail (pump) prices: https://aip.com.au/pricing/pump-prices-retail/
 - fuel tax credit tools: https://www.ato.gov.au/calculators-and-tools/fuel-tax-credit-tools
+- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Luxury car tax calculator: thresholds, adjustments, refunds
+
+Source: https://duguid.com.au/tools/business-calculators/luxury-car-tax/
+
+> Luxury car tax for 2019-20 to 2026-27: the threshold or fuel-efficient car limit by year, price and change of use adjustments, refunds and labels 1E and 1F.
+
+# Luxury car tax calculator
+
+Luxury car tax, its adjustments and refunds, and BAS labels 1E and 1F.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Luxury car tax for one tax period
+
+Line 1 What the line isNo line Sale Importation Price adjustment Change of use: increasing Change of use: decreasing Refund
+
+Value (AUD) Litres per 100 km Used before 1 July 2025 other than for a quotable purpose?Choose Yes No
+
+Already payable on the car (AUD, optional)
+
+Line 2 What the line isNo line Sale Importation Price adjustment Change of use: increasing Change of use: decreasing Refund
+
+Value (AUD) Litres per 100 km Used before 1 July 2025 other than for a quotable purpose?Choose Yes No
+
+Line 3 What the line isNo line Sale Importation Price adjustment Change of use: increasing Change of use: decreasing Refund
+
+Line 4 What the line isNo line Sale Importation Price adjustment Change of use: increasing Change of use: decreasing Refund
+
+Financial year of the tax period 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20
+
+Calculate
+
+## What each line needs
+
+Each line is one sale, importation, adjustment or refund in the tax period. Fill the lines in order.
+
+For a business registered or required to be registered for GST. You establish each line: that the vehicle is a car and not one the Act excludes (an emergency vehicle, a car fitted out for wheelchairs, a commercial vehicle not designed mainly to carry passengers, a motor home or campervan), that the supply or importation is taxable (no quote, not GST-free or input taxed), its luxury car tax value and its combined fuel consumption rating.
+
+The value is the luxury car tax value, with GST and customs duty but not luxury car tax; for a price adjustment, the corrected value. Leave the litres blank for a car with no combined fuel consumption rating.
+
+An adjustment takes the year the car was supplied or imported in. A refund left blank takes the tax period’s year; choose the earlier year for a car supplied or imported before then, and one from before 1 July 2019 is refused.
+
+Needed only for a car rated above 3.5 and up to 7 litres, supplied or imported from 1 July 2025. Answer yes if, before that day, it was supplied or imported and used in Australia other than for a quotable purpose: the 7 litre rating then continues.
+
+The ATO describes a refund-eligible car as a 4 wheel or all wheel drive that is either a passenger car (category MA) with a ground clearance of at least 175 mm or an off-road passenger vehicle (category MC). The claimant must be registered for GST (sections 18-5 and 18-10).
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; line 1: sale, value $88,000.00, no fuel consumption rating; line 2: importation, value $101,500.00, no fuel consumption rating. Line 1: sale at $88,000.00, threshold $80,809 for 2026-27, $7,191.00 over $2,157.30 Line 2: importation at $101,500.00, threshold $80,809 for 2026-27, $20,691.00 over, paid to the Department of Home Affairs, not at 1E $6,207.30 Luxury car tax on sales $2,157.30 Increasing adjustments $0.00 Label 1E on the BAS, in whole dollars $2,157.00 Decreasing adjustments $0.00 Label 1F on the BAS, in whole dollars $0.00 Luxury car tax on importations, paid to the Department of Home Affairs $6,207.30
+
+## How the luxury car tax calculator works
+
+The luxury car tax calculator works out the tax on a tax period’s sales and importations of luxury cars in 2019-20 to 2026-27, with the price and change of use adjustments and labels 1E and 1F on the business activity statement. Each car takes the threshold for the financial year of its supply or importation, or the fuel-efficient car limit for a car rated at most 3.5 litres per 100 km from 1 July 2025 and at most 7 litres before. The tax is 33% of the GST-exclusive value over that threshold. Tax on an importation is shown apart, because it is paid to the Department of Home Affairs with any customs duty. A primary producer’s or tourism operator’s refund of the tax borne on a refund-eligible car, up to $10,000, is shown apart too, because it is claimed on the ATO’s form.
+
+Its results match the luxury-car-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 306 test cases, refusals included.
+
+## What the luxury car tax calculator does not cover
+
+The calculator does not decide whether a vehicle is a car or a luxury car, whether you could quote or a supply is taxable, the value of a car sold with other goods, or whether a car is refund-eligible: you state those. It does not work bad debt adjustments, the adjustments in subsections 15-30(1A) and (3A), a public institution’s adjustment, the credit for an entity that is not registered, the refund for cars supplied before 1 July 2019, or which tax period a line belongs to. It refuses a tax period outside 2019-20 to 2026-27, a supply year outside 2012-13 to the tax period’s, and a second primary producer refund in the period. A primary producer’s refund in an earlier period of the same year also rules out another, which the page cannot see.
+
+Confirm the result with the ATO’s luxury car tax guidance or a registered tax or BAS agent before relying on it. The vehicle classifier shows whether a vehicle is a car for luxury car tax.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Luxury car tax calculator
+
+Case | Inputs | Result
+The ATO’s Matty Bee Motors sells an $88,000 car in 2026-27 for $2,157.30 of tax, and Jimmy imports his Mustang for $6,207.30, paid to Home Affairs | 2026-27; line 1: sale, value $88,000.00, no fuel consumption rating; line 2: importation, value $101,500.00, no fuel consumption rating | luxury car tax on sales $2,157.30, label 1E $2,157.00, label 1F $0.00, on importations $6,207.30
+From 1 July 2025 a car rated 3.5 litres per 100 km takes the fuel-efficient car limit of $91,661: $1,001.70 on $95,000 | 2026-27; line 1: sale, value $95,000.00, rated 3.5 litres per 100 km | luxury car tax on sales $1,001.70, label 1E $1,001.00
+A car rated 5 litres keeps the 7 litre rating only if supplied or imported and used other than for a quotable purpose before 1 July 2025 (item 4(2)): $1,001.70, otherwise $4,257.30 | 2026-27; line 1: sale, value $95,000.00, rated 5 litres per 100 km, supplied or imported and used other than for a quotable purpose before 1 July 2025; line 2: sale, value $95,000.00, rated 5 litres per 100 km, not supplied or imported and used other than for a quotable purpose before 1 July 2025 | luxury car tax on sales $5,259.00, label 1E $5,259.00
+Price and change of use adjustments: increasing ones join the sales at 1E, decreasing ones go to 1F, each in whole dollars | 2026-27; line 1: price adjustment, supplied in 2025-26, corrected value $85,000.00, no fuel consumption rating, $2,157.30 previously attributed; line 2: change of use, increasing adjustment, supplied in 2025-26, value $100,000.00, no fuel consumption rating; line 3: change of use, decreasing adjustment, $5,829.90 payable on the supply; line 4: sale, value $88,000.00, no fuel consumption rating | luxury car tax on sales $2,157.30, increasing adjustments $5,829.90, decreasing adjustments $6,657.30, label 1E $7,987.00, label 1F $6,657.00
+Refunds are the lesser of the tax borne and $10,000, claimed on the ATO’s form and kept off the BAS | 2026-27; line 1: refund, supplied in 2026-27, to a primary producer, refund-eligible car, $12,000.00 borne; line 2: refund, supplied in 2026-27, to a tourism operator, refund-eligible car, $4,000.00 borne | refunds $14,000.00, label 1E $0.00, label 1F $0.00
+A primary producer is refunded for one car a financial year (section 18-5(4)) | 2026-27; line 1: refund, supplied in 2026-27, to a primary producer, refund-eligible car, $12,000.00 borne; line 2: refund, supplied in 2026-27, to a primary producer, refund-eligible car, $1,000.00 borne | Refused: a primary producer is refunded for one car a financial year (LCT Act s 18-5(4)): give at most one primary producer refund
+2027-28’s thresholds are not yet published | 2027-28; line 1: sale, value $90,000.00, no fuel consumption rating | Refused: choose a tax period in a financial year from 2019-20 to 2026-27
+
+One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- australian-accounting: https://github.com/ryanduguid/australian-accounting
+- vehicle classifier: https://duguid.com.au/tools/business-calculators/vehicle-class/
 - forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---

@@ -135,7 +135,11 @@ function chosenDivision() {
   return chosen ? entries.find((entry) => entry.table === 'A' && slug(entry.division) === chosen)?.division ?? null : null;
 }
 
+/** The search typing schedules; any draw cancels it, so a later redraw cannot replace focused results. */
+let waiting = 0;
+
 function drawResults() {
+  clearTimeout(waiting);
   if (!loaded) return;
   const query = queryInput.value.trim();
   const division = chosenDivision();
@@ -236,7 +240,6 @@ finder.addEventListener('submit', (event) => {
   drawResults();
   recordSearch();
 });
-let waiting = 0;
 queryInput.addEventListener('input', () => {
   clearTimeout(waiting);
   waiting = setTimeout(() => {

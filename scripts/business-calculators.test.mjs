@@ -1318,12 +1318,13 @@ const psiStep = (result, start) => result.steps.find(([label]) => label.startsWi
 
 Object.assign(INPUTS, {
   psiDetermination: (a) => [
-    { 'sole-trader': 'Sole trader', entity: 'Entity', employee: 'Employee' }[a.earner],
+    { 'sole-trader': 'Sole trader', entity: 'Entity', employee: 'Employee', religious: 'Religious practitioner' }[a.earner],
     ...(a.mainly ? [] : ['not mainly personal efforts or skills']),
     ...(a.determination ? ['determination in force'] : []),
     `payers ${a.payers.filter((p) => p.amount !== '0').map((p) => {
       const on = PSI_FLAGS.filter((flag) => p[flag]);
-      return `${dollars(Number(p.amount))}${on.length ? ` (${on.join(', ')})` : ''}`;
+      const notes = [...(on.length ? [on.join(', ')] : []), ...(p.same ? [`same payer as payer ${p.same}`] : [])];
+      return `${dollars(Number(p.amount))}${notes.length ? ` (${notes.join('; ')})` : ''}`;
     }).join(', ') || 'none'}`,
     ...(a.others === '0' ? [] : [`others’ principal work ${dollars(Number(a.others))}`]),
     ...(a.apprentice ? ['an apprentice'] : []),
@@ -1335,7 +1336,8 @@ Object.assign(INPUTS, {
 Object.assign(FORM_CALLS, {
   psiDetermination: (f) => [{ earner: f.earner, mainly: f.mainly === 'yes', determination: f.determination === 'yes',
     payers: Array.from({ length: 5 }, (_, i) => ({ amount: f[`amount-${i + 1}`],
-      ...Object.fromEntries(PSI_FLAGS.map((flag) => [flag, f[`${flag}-${i + 1}`]])) })),
+      ...Object.fromEntries(PSI_FLAGS.map((flag) => [flag, f[`${flag}-${i + 1}`]])),
+      ...(f[`same-${i + 1}`] ? { same: Number(f[`same-${i + 1}`]) } : {}) })),
     agent: f.agent === 'yes', commission: f.commission, principal: f.principal, others: f.others,
     apprentice: f.apprentice === 'yes', premises: Object.fromEntries(PSI_PREMISES.map((key) => [key, f[`premises-${key}`]])) }],
 });
@@ -1506,6 +1508,71 @@ test('PSI refuses what it cannot work through', () => {
     { message: 'The market value of principal work by others cannot exceed the PSI entered.' });
 });
 
+// Subsections 85-35(1) and (2), 87-15(3) and 87-40(2), ITAA 1997 Compilation No. 268, read 22 November 2026,
+// as the psi-test command of ryanduguid/australian-accounting (PR 792) applies them.
+test('PSI puts a religious practitioner’s payment under subsection 85-35(2), apart from an employee’s', () => {
+  const religious = psi({ earner: 'religious', payers: [psiPayer('100')] });
+  assert.deepEqual([religious.rule, religious.effect, religious.psb], ['subsection 85-35(2)',
+    'a payment to a religious practitioner, so the PSI rules do not apply', null]);
+  assert.deepEqual(religious.steps.at(-1), ['Subsection 85-35(2): a payment to a religious practitioner', 'Yes, as you answered']);
+  const employee = psi({ earner: 'employee', payers: [psiPayer('100')] });
+  assert.deepEqual(employee.steps.at(-1), ['Subsection 85-35(1): received as an employee or office holder', 'Yes, as you answered']);
+});
+
+test('PSI counts the rows of one payer as one source and one unrelated client', () => {
+  const same = (payer, row) => ({ ...payer, same: row });
+  // The results test counts each row's income; the 80% rule counts the payer's rows together.
+  const contracts = psi({ payers: [psiPayer('80', ...RESULT_TEST), same(psiPayer('20'), 1)] });
+  assert.deepEqual([contracts.rule, contracts.results], ['subsection 87-18(1)', 80]);
+  const short = psi({ payers: [psiPayer('74', ...RESULT_TEST), same(psiPayer('26'), 1)] });
+  assert.deepEqual([short.rule, short.results, short.source], ['subsection 87-15(3)', 74, 100]);
+  // A chain of rows is one payer: row 3 names row 2, which names row 1.
+  const chain = psi({ payers: [psiPayer('40', 'offer'), same(psiPayer('20', 'offer'), 1), same(psiPayer('20', 'offer'), 2),
+    psiPayer('20', 'offer')] });
+  assert.deepEqual([chain.source, chain.unrelated, chain.rule], [80, 2, 'subsection 87-15(3)']);
+  const apart = psi({ payers: [psiPayer('50', 'offer'), same(psiPayer('25', 'offer'), 1), psiPayer('25', 'offer')] });
+  assert.deepEqual([apart.source, apart.unrelated, apart.rule], [75, 2, 'section 87-20']);
+  for (const row of [0, 2, 1.5, '1']) {
+    assert.throws(() => psi({ payers: [psiPayer('50'), same(psiPayer('50'), row)] }),
+      { message: 'Payer 2 can be the same payer as an earlier row only.' });
+  }
+});
+
+test('PSI checks an agent’s payments before any outcome, and the 75% rule after the results test', () => {
+  const agent = (fields) => psi({ agent: true, commission: '100.01', principal: '100', payers: [psiPayer('100')], ...fields });
+  const message = 'Enter the principal’s payments and the part of them that is commission or performance fees.';
+  for (const fields of [{}, { determination: true }, { mainly: false }, { earner: 'employee' }, { earner: 'religious' }]) {
+    assert.throws(() => agent(fields), { message }, JSON.stringify(fields));
+  }
+  assert.equal(psi({ agent: true, commission: '75', principal: '100', payers: [psiPayer('100', ...RESULT_TEST)] }).rule,
+    'subsection 87-18(1)');
+  // The commission and the principal's payments do not count without an agent.
+  assert.equal(psi({ commission: '100.01', principal: '0', determination: true, payers: [psiPayer('100')] }).rule,
+    'paragraph 87-15(1)(a)');
+});
+
+test('PSI form passes a row’s payer to the steps and the inputs line', () => {
+  const html = readFileSync(new URL('../_includes/calculators/psi-determination.html', import.meta.url), 'utf8');
+  assert.equal(html.match(/<select name="same-1"/), null);
+  for (let row = 2; row <= 5; row++) {
+    const options = html.match(new RegExp(`<select name="same-${row}">(.*?)</select>`))[1];
+    assert.deepEqual([...options.matchAll(/value="(\d*)"/g)].map(([, value]) => value),
+      ['', ...Array.from({ length: row - 1 }, (_, i) => String(i + 1))]);
+  }
+  // Subsection 85-35(2) covers only payments section 12-47 of Schedule 1 to the TAA 1953 describes.
+  assert.match(html, /<input type="radio" name="earner" value="religious" \/> The individual, as a religious practitioner paid by an enterprise for work in their vocation as a member of a religious institution</);
+  assert.match(html, /done as a member of a religious institution \(subsection 85-35\(2\) and section 12-47 of Schedule 1 to the Taxation Administration Act 1953\); check any other PSI they earn as a contractor\./);
+  // Linked rows are one payer for section 87-20 too, which can only understate unrelated clients.
+  assert.match(html, /2 payers that are each an associate of a third, but not of each other, count once there; that can only make the test harder to pass\./);
+  const fields = { ...formDefaults(html), 'amount-1': '74', 'amount-2': '26', 'same-2': '1' };
+  const view = calculations.psiDeterminationResult((name) => fields[name], (name) => fields[name], String);
+  assert.match(view.inputs, /; payer 2 26, same payer as payer 1, ticked: none;/);
+  assert.equal(view.rows[0][1], `Subsection 87-15(3): ${ONE_SOURCE}`);
+  const religious = calculations.psiDeterminationResult((name) => ({ ...fields, earner: 'religious' })[name],
+    (name) => fields[name], String);
+  assert.equal(religious.inputs, 'Received by the individual as a religious practitioner, mainly a reward for personal efforts or skills');
+});
+
 test('PSI page states its consequences, sources and the expense allocation it leaves out', () => {
   const html = readFileSync(new URL('../_includes/calculators/psi-determination.html', import.meta.url), 'utf8');
   const fields = formDefaults(html);
@@ -1521,7 +1588,7 @@ test('PSI page states its consequences, sources and the expense allocation it le
   assert.match(soleTrader.note, /^Division 85 stops a deduction an employee could not claim \(section 85-10\)/);
   const entity = calculations.psiDeterminationResult((name) => ({ ...fields, earner: 'entity' })[name], noDefects, String);
   assert.match(entity.note, /^Section 86-15 puts the entity’s PSI, less the deductions section 86-20 allows/);
-  assert.match(html, /Compilation No\. 268 of 1 October 2026, read 17 November 2026/);
+  assert.match(html, /Compilation No\. 268 of 1 October 2026, read 22 November 2026/);
   assert.match(html, /which replaced TR 2001\/7 and TR 2001\/8 \(paragraph 30\)/);
   assert.match(html, /The checker does not allocate expenses across PSI, business income and other income\./);
   assert.match(html, /so any split is practice rather than law/);
@@ -5664,4 +5731,120 @@ test('ASIC late fees refuse what the page does not decide', () => {
   assert.equal(calculations.asicFee({ fee: 'business-name-3', due: 'x', received: 'y' }).amount, 108);
   const blank = calculations.asicFeesResult((name) => ({ fee: 'review-public', due: '', received: '' })[name] ?? '', asicAud);
   assert.deepEqual(blank.rows, [['ASIC fee, no GST', '$1,591.00']]);
+});
+
+// The luxury car tax page: how each call and result reads, its form, the thresholds the site's
+// other car pages hold and the command it ports, run on the same cases.
+const lctHtml = readFileSync(new URL('../_includes/calculators/luxury-car-tax.html', import.meta.url), 'utf8');
+Object.assign(INPUTS, { luxuryCarTax: (x) => calculations.lctInputsText(x, ftcAud) });
+Object.assign(FORM_CALLS, { luxuryCarTax: (f) => [calculations.lctFormInput((name) => f[name] ?? '')] });
+Object.assign(ENGINE_LABELS, { luxuryCarTax: { onSales: 'luxury car tax on sales', increasing: 'increasing adjustments',
+  decreasing: 'decreasing adjustments', label1e: (v) => `label 1E ${dollars(v)}`, label1f: (v) => `label 1F ${dollars(v)}`,
+  onImportations: 'on importations', refunds: 'refunds' } });
+const lctCode = (input) => {
+  try {
+    calculations.luxuryCarTax(input);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+const lctForm = (change = {}) => {
+  const fields = { ...formDefaults(lctHtml), ...change };
+  return calculations.lctFormInput((name) => fields[name] ?? '');
+};
+
+test('the luxury car tax page opens on the result its calculation gives, and dates its sources', () => {
+  const example = lctHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" %\}/);
+  const fields = formDefaults(lctHtml);
+  const result = calculations.luxuryCarTaxResult((name) => fields[name] ?? '', ftcAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note],
+    [...example.slice(1), undefined]);
+  assert.equal(result.rows[result.principal][0], 'Label 1E on the BAS, in whole dollars');
+  assert.equal((lctHtml.match(/read 22 November 2026/g) ?? []).length, 6);
+  const years = [...lctHtml.match(/<select name="year"[^>]*>(.*?)<\/select>/s)[1].matchAll(/value="([^"]+)"/g)].map(([, y]) => y);
+  assert.deepEqual(years, [...calculations.LCT_YEARS].reverse());
+  const supplied = [...lctHtml.match(/<select name="supplied-1"[^>]*>(.*?)<\/select>/s)[1].matchAll(/value="([^"]*)"/g)].map(([, y]) => y);
+  assert.deepEqual(supplied, ['', ...calculations.LCT_THRESHOLDS.map(([y]) => y).reverse()]);
+});
+
+// QC38161's table is held once here; the vehicle classifier, the novated lease and the electric
+// car FBT pages hold their own copies of some years.
+test('luxury car tax thresholds agree with every other copy on the site', async () => {
+  const table = Object.fromEntries(calculations.LCT_THRESHOLDS.map(([y, efficient, general]) => [y, { efficient, general }]));
+  const { FUEL_EFFICIENT_THRESHOLD } = await import('../assets/novated-lease.mjs');
+  for (const [year, limit] of [...Object.entries(FUEL_EFFICIENT_THRESHOLD), ...Object.entries(FUEL_EFFICIENT_THRESHOLDS)]) {
+    assert.equal(table[year].efficient, limit, year);
+  }
+  const vehicle = readFileSync(new URL('../_includes/calculators/vehicle-class.html', import.meta.url), 'utf8');
+  const radios = [...vehicle.matchAll(/name="year" value="([^"]+)" data-car-limit="\d+" data-fuel-efficient="(\d+)" data-other="(\d+)"/g)];
+  assert.ok(radios.length >= 2);
+  for (const [, year, efficient, general] of radios) assert.deepEqual(table[year], { efficient: Number(efficient), general: Number(general) }, year);
+});
+
+test('the luxury car tax form sends only the fields each line’s kind takes', () => {
+  assert.deepEqual(lctForm({ 'earlier-2': '50', 'attributed-1': '9', 'borne-1': '1' }).lines, [
+    { kind: 'sale', luxury_car_tax_value: '88000', fuel_consumption_litres_per_100km: null },
+    { kind: 'importation', luxury_car_tax_value: '101500', fuel_consumption_litres_per_100km: null }]);
+  // The item 4(2) answer goes only where it decides the rating; a blank one there is refused.
+  assert.equal(lctForm({ 'rating-1': '5', 'used-before-1': 'yes' }).lines[0].used_before_1_july_2025, true);
+  assert.equal(lctForm({ 'rating-1': '8', 'used-before-1': 'yes' }).lines[0].used_before_1_july_2025, undefined);
+  assert.equal(lctForm({ year: '2024-25', 'rating-1': '5', 'used-before-1': 'no' }).lines[0].used_before_1_july_2025, undefined);
+  assert.equal(lctCode(lctForm({ 'rating-1': '5' })), 'input.missing_field');
+  // An adjustment's supply year is never assumed.
+  const adjustment = { 'kind-3': 'price_adjustment', 'value-3': '90000', 'attributed-3': '0' };
+  assert.equal(lctCode(lctForm(adjustment)), 'input.missing_field');
+  assert.deepEqual(lctForm({ ...adjustment, 'supplied-3': '2024-25', 'earlier-3': '' }).lines[2], { kind: 'price_adjustment', supplied_in: '2024-25',
+    corrected_luxury_car_tax_value: '90000', fuel_consumption_litres_per_100km: null, previously_attributed_lct: '0' });
+  const refund = { 'kind-1': 'refund', 'supplied-1': '2025-26', 'claimant-1': 'primary_producer', 'eligible-1': 'no', 'borne-1': '5' };
+  assert.deepEqual(lctForm({ ...refund, 'kind-2': 'change_of_use_decreasing', 'on-supply-2': '10' }).lines,
+    [{ kind: 'refund', supplied_in: '2025-26', claimant: 'primary_producer', refund_eligible_car: false, lct_borne: '5' },
+      { kind: 'change_of_use_decreasing', lct_payable_on_supply: '10' }]);
+  // A refund's claimant and eligibility are never assumed; without a supply year it takes the tax period's, as the command does.
+  assert.equal(lctCode(lctForm({ ...refund, 'claimant-1': '' })), 'input.missing_field');
+  assert.equal(lctCode(lctForm({ ...refund, 'eligible-1': '' })), 'input.missing_field');
+  assert.equal(lctForm({ ...refund, 'supplied-1': '' }).lines[0].supplied_in, undefined);
+  assert.equal(calculations.luxuryCarTax(lctForm({ ...refund, 'supplied-1': '', 'claimant-1': 'tourism_operator', 'eligible-1': 'yes' })).refunds, 5);
+  // Lines fill in order, so the command's line numbers are the form's.
+  assert.throws(() => lctForm({ 'kind-1': '' }), { message: 'Fill line 1 before line 2.' });
+  assert.throws(() => lctForm({ 'kind-1': '', 'kind-2': '' }), { message: 'Choose what at least one line is.' });
+});
+
+test('a luxury car tax price adjustment states its corrected tax after the earlier tax, and an unchanged one no adjustment', () => {
+  const fields = { ...formDefaults(lctHtml), 'kind-2': 'price_adjustment', 'supplied-2': '2026-27', 'value-2': '88000', 'earlier-2': '1000',
+    'attributed-2': '1157.30' };
+  const [text, amount] = calculations.luxuryCarTaxResult((name) => fields[name] ?? '', ftcAud).rows[1];
+  assert.equal(text, 'Line 2: price adjustment, corrected value $88,000.00, threshold $80,809 for 2026-27, $7,191.00 over, '
+    + 'corrected tax $1,157.30 after $1,000.00 already payable on the car against $1,157.30 attributed: no adjustment');
+  assert.equal(amount, '$0.00');
+});
+
+test('luxury car tax rounds half up to the cent and drops the cents at 1E and 1F', () => {
+  const sale = (value) => ({ kind: 'sale', luxury_car_tax_value: value, fuel_consumption_litres_per_100km: null });
+  // $0.05 over is $0.015 of tax, $0.02; $0.01 over is $0.003, nil.
+  const r = calculations.luxuryCarTax({ year: '2026-27', lines: [sale('80809.05'), sale('80809.01'), sale('80809.00')] });
+  assert.deepEqual(r.lines.map((l) => l.payable), [0.02, 0, 0]);
+  const labels = calculations.luxuryCarTax({ year: '2026-27', lines: [sale('80812.30'), { kind: 'change_of_use_decreasing', lct_payable_on_supply: '1.99' }] });
+  assert.deepEqual([labels.onSales, labels.label1e, labels.decreasing, labels.label1f], [0.99, 0, 1.99, 1]);
+});
+
+// The command this page ports, run on the same cases: see the fixture's engine line.
+test('luxury car tax agrees with the australian-accounting command on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./luxury-car-tax-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length > 300);
+  assert.match(lctHtml, new RegExp(`the ATO’s examples and ${cases.length} test cases`));
+  const fixed = (v) => v.toFixed(2);
+  for (const { source, call, amounts, refused } of cases) {
+    if (refused) {
+      assert.equal(lctCode(call), refused, source);
+      continue;
+    }
+    const r = calculations.luxuryCarTax(call);
+    assert.deepEqual({ lct_on_sales: fixed(r.onSales), increasing_adjustments: fixed(r.increasing), decreasing_adjustments: fixed(r.decreasing),
+      label_1e: fixed(r.label1e), label_1f: fixed(r.label1f), lct_on_importations: fixed(r.onImportations), refunds: fixed(r.refunds),
+      lines: r.lines.map((l) => [l.threshold === undefined ? null : String(l.threshold), l.kind === 'price_adjustment'
+        ? (l.decreasing === undefined ? fixed(l.increasing) : `-${fixed(l.decreasing)}`)
+        : fixed({ sale: l.payable, importation: l.tax, change_of_use_increasing: l.increasing, change_of_use_decreasing: l.decreasing, refund: l.refund }[l.kind])]),
+      rates: [String(r.threshold), String(r.fuelEfficientLimit)], warnings: r.warnings.length > 0 }, amounts, source);
+  }
 });

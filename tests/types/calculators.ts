@@ -78,6 +78,11 @@ calculate.psiDetermination({ ...psiAnswers, earner: 'trust' });
 calculate.psiDetermination({ ...psiAnswers, payers: [{ ...psiPayer, offer: 'yes' }] });
 // @ts-expect-error The results test share is null when the steps stop before it.
 const psiResults: number = calculate.psiDetermination(psiAnswers).results;
+const psiReligious: string = calculate.psiDetermination({ ...psiAnswers, earner: 'religious' as const,
+  payers: [psiPayer, { ...psiPayer, same: 1 }] }).rule;
+// @ts-expect-error A row names its payer's first row by number, as the form passes it.
+calculate.psiDetermination({ ...psiAnswers, payers: [psiPayer, { ...psiPayer, same: '1' }] });
+void psiReligious;
 void psiRule;
 void psiResults;
 const payg = { method: 'rate', notified: '0', instalment: '1', estimatedTax: '0', earlier: '0', credits: '0', income: '20100',
@@ -331,6 +336,14 @@ calculate.fuelTaxCredits({ ...ftcInput, year: 2026 });
 const ftcLabel: string = calculate.fuelTaxCredits(ftcInput).label7d;
 void ftcTotal;
 void ftcLabel;
+const lctInput = { year: '2026-27', lines: [{ kind: 'sale', luxury_car_tax_value: '88000', fuel_consumption_litres_per_100km: null }] };
+const lctOnSales: number = calculate.luxuryCarTax(lctInput).onSales;
+// @ts-expect-error The tax period's year is a string such as '2026-27', as the form's select gives it.
+calculate.luxuryCarTax({ ...lctInput, year: 2026 });
+// @ts-expect-error Label 1E is whole dollars as a number, not text.
+const lctLabel: string = calculate.luxuryCarTax(lctInput).label1e;
+void lctOnSales;
+void lctLabel;
 const wetInput = { year: '2026-27', dealings: [{ kind: 'wholesale_sale', price_excluding_wet_and_gst: '120.00' }] };
 const wetLabel: number = calculate.wineEqualisationTax(wetInput).label1c;
 // @ts-expect-error The year is a financial year string, not a number.
