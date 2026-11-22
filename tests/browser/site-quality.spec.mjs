@@ -613,8 +613,9 @@ test('all homepage starting routes land on their targets', async ({ page }) => {
 // arriving, and the health check failed on it (net::ERR_ABORTED) on a Windows runner.
 // It was the second failed run of that kind in 5 days. Leaving a page cancels what it
 // was loading, and the health check does not report that.
-test('leaving a page whilst a module script loads passes the health check', async ({ page }, testInfo) => {
+test('leaving a page whilst a module script loads passes the health check', async ({ page, browserName }, testInfo) => {
   test.skip(projectKind(testInfo) !== 'desktop', 'runs once');
+  test.skip(browserName !== 'chromium', 'Firefox cancels before the navigation request (health.mjs)');
   const script = '**/assets/copy-commands.mjs';
   // Never answered, so the request is still in flight when the test leaves.
   await page.route(script, () => {});
