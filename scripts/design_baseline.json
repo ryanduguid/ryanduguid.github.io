@@ -128,6 +128,9 @@
     "tools/business-calculators/asic-fees/index.html": [
       "1695328325c3bd061d256303275f3872f33eaa53076df801b420bfcb01529583"
     ],
+    "tools/business-calculators/ato-penalties-interest/index.html": [
+      "592fbbb8d1e37a1adce4365603775eb8bd730e183acf22945fe43918924a9d15"
+    ],
     "tools/business-calculators/borrowing-expenses/index.html": [
       "6f8f8003512eb912605cb8e0644a74b9a2716e82770a6faec7695fa7caa25a65"
     ],
@@ -400,9 +403,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "3c110b589d07d3bc50baea8de5da74c93c72bd6cae829dd6cd273b5a51e06a70",
+    "llms.txt": "0692759e06993febe59a95a0010dee5cac63911b8ebd8754822fc83ce4a7b285",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "e12f905ffa2c1a11a2b2c9b549b01216619355dd18181b30b80aefe43b9fddf2"
+    "sitemap.xml": "7e08b3a6c12673bef21cd095f5406579525fb36d99616bf7f2f1187dfeccf7ad"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -462,7 +465,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7802,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7803,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
