@@ -5788,3 +5788,10 @@ test('a member reaches 60 and preservation age on the birthday itself', () => {
   assert.equal(calculations.superBenefitTax(call).treatment, 'aged_60_or_over');
   assert.equal(sbtCode({ ...call, payment_date: '2021-02-28' }), 'input.missing_field');
 });
+
+test('the super lump sum tax form leaves the low rate cap out on the 60th birthday', () => {
+  const sixty = { year: '2020-21', paid: '2021-03-01', born: '1961-03-01', untaxed: '0' };
+  assert.equal(sbtForm(sixty).low_rate_cap_used, undefined);
+  assert.equal(sbtCode(sbtForm(sixty)), 'computed');
+  assert.equal(sbtForm({ ...sixty, paid: '2021-02-28' }).low_rate_cap_used, '0');
+});

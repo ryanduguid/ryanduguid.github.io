@@ -8,7 +8,8 @@
 //   307-125, 307-275, 307-345 and 307-350 at the ATO's legal database.
 // - The ATO's 'Payments from super' (last updated 16 September 2026): Table 9, the low rate cap,
 //   and Table 10, the untaxed plan cap; 'Tax rates, Australian residents' (13 August 2026): 45%.
-// - The ATO's 'Tax on super benefits' (2 August 2023): the Tony, Mei, Suzi and Frankie examples.
+// - The ATO's 'Tax on super benefits' (2 August 2023): the Tony, Suzi, Frankie, Peta,
+//   Mei, Howard and Anh examples.
 // - Schedule 12 of the withholding schedules (2020 and LI 2026/18): Heather, Dean and Chloe.
 // The components, the element untaxed in the fund, dependency and a terminal medical condition
 // are the user's facts.
