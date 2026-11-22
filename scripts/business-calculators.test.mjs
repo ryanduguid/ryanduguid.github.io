@@ -1315,6 +1315,17 @@ test('PAYG instalments refuse what the activity statement cannot hold', () => {
   assert.equal(instalment({ method: 'varied-rate', income: '100', rate: '10' }).instalmentRate, 0);
 });
 
+// https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/payg-instalments/how-to-vary-your-payg-instalments
+//   (last updated 23 June 2026, read 23 November 2026), varying the rate, step 3: 'If your estimated instalment
+//   income (step 2) is zero, you can also vary your instalment rate to zero. You don't need to calculate your
+//   estimated tax.'
+test('PAYG instalments vary the rate to nil on nil estimated income, whatever tax is entered', () => {
+  for (const estimatedTax of ['500', 'x']) {
+    const nil = instalment({ method: 'varied-rate', estimatedTax, income: '1000', rate: '10' });
+    assert.deepEqual([nil.instalmentRate, nil.instalment, nil.credit], [0, 0, 0]);
+  }
+});
+
 // Section 45-410 in Schedule 1 to the Taxation Administration Act 1953, Compilation No. 227 (1 October 2026),
 // read 23 November 2026: subsection (3) works the second instalment as '50% of the estimate' less the earlier
 // instalment and adds back no credit; subsection (4) adds back the credit for the second quarter. The first
