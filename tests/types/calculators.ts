@@ -339,6 +339,14 @@ calculate.luxuryCarTax({ ...lctInput, year: 2026 });
 const lctLabel: string = calculate.luxuryCarTax(lctInput).label1e;
 void lctOnSales;
 void lctLabel;
+const fhogInput = { place: 'AU-NSW', date: '2026-08-01', home: 'bought', value: '600000', facts: { person: true, citizen: true, first: true, residence: true } };
+const fhogGrant: number = calculate.firstHomeOwnerGrant(fhogInput).grant;
+// @ts-expect-error The value is whole dollars as the form's text, not a number.
+calculate.firstHomeOwnerGrant({ ...fhogInput, value: 600000 });
+// @ts-expect-error The cap reads as text, such as 'up to $600,000'.
+const fhogCap: number = calculate.firstHomeOwnerGrant(fhogInput).cap;
+void fhogGrant;
+void fhogCap;
 const wetInput = { year: '2026-27', dealings: [{ kind: 'wholesale_sale', price_excluding_wet_and_gst: '120.00' }] };
 const wetLabel: number = calculate.wineEqualisationTax(wetInput).label1c;
 // @ts-expect-error The year is a financial year string, not a number.

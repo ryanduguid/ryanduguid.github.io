@@ -8342,3 +8342,321 @@ fn the_asic_fees_engine_agrees_with_the_oracle_on_every_due_and_payment_date() {
         assert_eq!(got, want, "{case}");
     }
 }
+
+/// Runs the first home owner grant engine with every eligibility fact stated.
+const FHOG_HARNESS: &str = r"
+import { firstHomeOwnerGrant } from './assets/first-home-owner-grant.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const facts = { person: true, citizen: true, first: true, residence: true };
+process.stdout.write(JSON.stringify(JSON.parse(input).map(({ place, date, home, value, north }) => {
+  try {
+    return { grant: String(firstHomeOwnerGrant({ place, date, home, value, north, facts }).grant) };
+  } catch (error) {
+    return { refused: true };
+  }
+})));
+";
+
+/// The first home owner grant in whole dollars, or `None` where the page refuses, typed from
+/// each source as read on 22 November 2026 (AEDT), not from the engine's tables:
+/// - NSW: First Home Owner Grant and Shared Equity Act 2000, current version from 10 July 2026,
+///   <https://legislation.nsw.gov.au/view/whole/html/inforce/current/act-2000-021> (through
+///   Firecrawl): $10,000 from 1 January 2016; caps $600,000 bought and $750,000 built.
+/// - Vic: <https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/first-home-owner-grant-current-rates>:
+///   $10,000 up to $750,000.
+/// - Qld: First Home Owner Grant and Other Home Owner Grants Act 2000 ss 5(6) to (8) and 20,
+///   <https://www.legislation.qld.gov.au/view/pdf/current/act-2000-014>: the lesser of the
+///   consideration and $30,000; none at $750,000 or more.
+/// - WA: <https://www.wa.gov.au/system/files/2026-10/first-home-owner-grant.pdf>: $10,000; caps
+///   $750,000 south and $1,000,000 north to 6 May 2026, $800,000 south from 7 May 2026.
+/// - SA: <https://www.revenuesa.sa.gov.au/FHOG/grant-details>: $15,000, not more than the
+///   consideration; no cap from 6 June 2024.
+/// - Tas: <https://www.sro.tas.gov.au/first-home-owner/eligibility>: $30,000 to 30 June 2026,
+///   $20,000 from 1 July 2026.
+/// - NT: <https://nt.gov.au/property/home-owner-assistance/buy-build-new-home>: $50,000, no cap.
+/// - ACT: <https://www.revenue.act.gov.au/home-buyer-assistance/first-home-owner-grant>: $0.
+///
+/// The page covers contracts from 1 July 2025 to 22 November 2026, and refuses a value below the
+/// grant where the source read gives no lesser-of rule.
+fn fhog_oracle(place: &str, day: Date, home: &str, dollars: u64, north: bool) -> Option<u64> {
+    if day < date(2025, 7, 1) || day > date(2026, 11, 22) {
+        return None;
+    }
+    if place == "AU-ACT" || home == "established" {
+        return Some(0);
+    }
+    let amount = match place {
+        "AU-QLD" => 30_000,
+        "AU-SA" => 15_000,
+        "AU-TAS" if day <= date(2026, 6, 30) => 30_000,
+        "AU-TAS" => 20_000,
+        "AU-NT" => 50_000,
+        _ => 10_000,
+    };
+    let cap = match place {
+        "AU-NSW" if home == "bought" => Some(600_000),
+        "AU-NSW" | "AU-VIC" => Some(750_000),
+        "AU-QLD" => Some(749_999),
+        "AU-WA" if north => Some(1_000_000),
+        "AU-WA" if day >= date(2026, 5, 7) => Some(800_000),
+        "AU-WA" => Some(750_000),
+        _ => None,
+    };
+    if cap.is_some_and(|cap| dollars > cap) {
+        return Some(0);
+    }
+    if dollars < amount {
+        return matches!(place, "AU-QLD" | "AU-SA").then_some(dollars);
+    }
+    Some(amount)
+}
+
+#[test]
+fn the_first_home_owner_grant_oracle_gives_the_published_figures() {
+    for (place, day, home, dollars, north, grant, source) in [
+        (
+            "AU-NSW",
+            date(2026, 8, 1),
+            "bought",
+            600_000,
+            false,
+            Some(10_000),
+            "NSW cap $600,000",
+        ),
+        (
+            "AU-NSW",
+            date(2026, 8, 1),
+            "bought",
+            600_001,
+            false,
+            Some(0),
+            "NSW cap $600,000",
+        ),
+        (
+            "AU-NSW",
+            date(2025, 8, 1),
+            "built",
+            750_000,
+            false,
+            Some(10_000),
+            "NSW cap $750,000",
+        ),
+        (
+            "AU-VIC",
+            date(2025, 9, 1),
+            "bought",
+            750_000,
+            false,
+            Some(10_000),
+            "SRO up to $750,000",
+        ),
+        (
+            "AU-VIC",
+            date(2025, 9, 1),
+            "bought",
+            750_001,
+            false,
+            Some(0),
+            "SRO up to $750,000",
+        ),
+        (
+            "AU-QLD",
+            date(2025, 10, 1),
+            "bought",
+            749_999,
+            false,
+            Some(30_000),
+            "s 20",
+        ),
+        (
+            "AU-QLD",
+            date(2025, 10, 1),
+            "bought",
+            750_000,
+            false,
+            Some(0),
+            "s 5(6)",
+        ),
+        (
+            "AU-QLD",
+            date(2025, 10, 1),
+            "bought",
+            20_000,
+            false,
+            Some(20_000),
+            "s 20(1)(a)",
+        ),
+        (
+            "AU-QLD",
+            date(2025, 10, 1),
+            "established",
+            730_000,
+            false,
+            Some(0),
+            "new homes only",
+        ),
+        (
+            "AU-WA",
+            date(2026, 5, 6),
+            "bought",
+            780_000,
+            false,
+            Some(0),
+            "cap $750,000 to 6 May 2026",
+        ),
+        (
+            "AU-WA",
+            date(2026, 5, 7),
+            "bought",
+            780_000,
+            false,
+            Some(10_000),
+            "cap $800,000 from 7 May 2026",
+        ),
+        (
+            "AU-WA",
+            date(2026, 8, 1),
+            "bought",
+            950_000,
+            true,
+            Some(10_000),
+            "north cap $1,000,000",
+        ),
+        (
+            "AU-SA",
+            date(2025, 11, 1),
+            "bought",
+            2_000_000,
+            false,
+            Some(15_000),
+            "no cap from 6 June 2024",
+        ),
+        (
+            "AU-SA",
+            date(2025, 11, 1),
+            "built",
+            10_000,
+            false,
+            Some(10_000),
+            "RevenueSA's $10,000 example",
+        ),
+        (
+            "AU-TAS",
+            date(2026, 6, 30),
+            "built",
+            500_000,
+            false,
+            Some(30_000),
+            "SRO Tas table",
+        ),
+        (
+            "AU-TAS",
+            date(2026, 7, 1),
+            "built",
+            500_000,
+            false,
+            Some(20_000),
+            "SRO Tas table",
+        ),
+        (
+            "AU-NT",
+            date(2026, 9, 1),
+            "bought",
+            1_200_000,
+            false,
+            Some(50_000),
+            "HomeGrown Territory Grant",
+        ),
+        (
+            "AU-ACT",
+            date(2026, 9, 1),
+            "bought",
+            600_000,
+            false,
+            Some(0),
+            "ACT $0 from 1 July 2019",
+        ),
+        (
+            "AU-NSW",
+            date(2025, 6, 30),
+            "bought",
+            500_000,
+            false,
+            None,
+            "before 1 July 2025",
+        ),
+        (
+            "AU-NSW",
+            date(2026, 11, 23),
+            "bought",
+            500_000,
+            false,
+            None,
+            "after the day read",
+        ),
+        (
+            "AU-NSW",
+            date(2026, 8, 1),
+            "bought",
+            5_000,
+            false,
+            None,
+            "below the grant",
+        ),
+    ] {
+        assert_eq!(
+            fhog_oracle(place, day, home, dollars, north),
+            grant,
+            "{place} {day} {home} {dollars}: {source}"
+        );
+    }
+}
+
+#[test]
+fn the_first_home_owner_grant_engine_agrees_with_the_oracle_on_every_boundary() {
+    let places = [
+        "AU-NSW", "AU-VIC", "AU-QLD", "AU-WA", "AU-SA", "AU-TAS", "AU-ACT", "AU-NT",
+    ];
+    let days = [
+        date(2025, 6, 30),
+        date(2025, 7, 1),
+        date(2026, 5, 6),
+        date(2026, 5, 7),
+        date(2026, 6, 30),
+        date(2026, 7, 1),
+        date(2026, 11, 22),
+        date(2026, 11, 23),
+    ];
+    let mut values = vec![1, 1_000_000_000];
+    for edge in [
+        10_000, 15_000, 20_000, 30_000, 50_000, 600_000, 750_000, 800_000, 1_000_000,
+    ] {
+        values.extend([edge - 1, edge, edge + 1]);
+    }
+    let mut cases = Vec::new();
+    let mut expected = Vec::new();
+    for place in places {
+        for home in ["bought", "built", "established"] {
+            for day in days {
+                for &dollars in &values {
+                    for north in [false, true] {
+                        cases.push(
+                            json!({"place": place, "date": day.to_string(), "home": home,
+                            "value": dollars.to_string(), "north": north}),
+                        );
+                        expected.push(fhog_oracle(place, day, home, dollars, north).map_or_else(
+                            || json!({"refused": true}),
+                            |grant| json!({"grant": grant.to_string()}),
+                        ));
+                    }
+                }
+            }
+        }
+    }
+    let actual = run_node(FHOG_HARNESS, &cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
