@@ -7,11 +7,13 @@
 import { incomeTax, medicareLevySurcharge, wholeDollars } from './income-tax.mjs';
 import { number } from './money.mjs';
 import { studyLoanRepayment } from './study-loan.mjs';
+import { beneficiaryOffset, invalidCarerOffset, zoneOffset } from './individual-offsets.mjs';
+import { privateHealthRebate, refuse } from './private-health-rebate.mjs';
 
 /**
  * @typedef {{year: string, residency: string, taxable: string, fringe: string, super: string, losses: string,
  *   foreign: string, studyLoan: boolean, uncoveredDays: string, spouse: string | null, children: string,
- *   withheld: string}} Return
+ *   withheld: string, offsets?: Offsets}} Return
  */
 
 /** Taxable income and the other parts of income, each in whole dollars; `spouse` is the spouse's
@@ -37,7 +39,58 @@ export function taxEstimate(r) {
     super: r.super, foreign: r.foreign }, r.year) : null;
   const cents = (/** @type {number} */ value) => Math.round(value * 100);
   const total = cents(tax.total) + cents(surcharge.surcharge) + cents(loan?.repayment ?? 0);
-  return { ...tax, surchargeIncome: surcharge.income, surchargeThreshold: surcharge.threshold,
+  const result = { ...tax, surchargeIncome: surcharge.income, surchargeThreshold: surcharge.threshold,
     surchargeRate: surcharge.rate, surcharge: surcharge.surcharge, repaymentIncome: loan?.repaymentIncome ?? 0,
     studyLoan: loan?.repayment ?? 0, assessed: total / 100, withheld: withheld / 100, refund: (withheld - total) / 100 };
+  return r.offsets ? withOffsets(result, r, r.offsets) : result;
+}
+
+/**
+ * @typedef {{rebatableBenefit?: string, carer?: Omit<import('./individual-offsets.mjs').CarerInput, 'year'>,
+ *   zone?: Omit<import('./individual-offsets.mjs').ZoneInput, 'year' | 'invalid_carer_tax_offset'>,
+ *   privateHealth?: {maintained: boolean, lines: import('./private-health-rebate.mjs').StatementLine[]}}} Offsets
+ */
+
+/** The estimate with the further offsets. The non-refundable ones come off the tax on taxable
+ * income in the order of ITAA 1997 s 63-10(1), never below nil: the beneficiary tax offset (item
+ * 15), then the low income and low and middle income tax offsets, the invalid and invalid carer
+ * tax offset and the zone or overseas forces tax offset (item 20). None reduces the Medicare levy
+ * or the surcharge. The zone offset's relevant rebate amount includes the invalid carer offset
+ * (ITAA 1936 s 79A(4)). The private health insurance tax offset is refundable (s 67-23 item 5) and
+ * comes off the total, which it can take below nil; an excess premium reduction is added to it
+ * (Private Health Insurance Act 2007 s 282-18(6)). A foreign resident gets no private health
+ * insurance offset here: the estimate does not test that every person insured is an eligible
+ * person (ITAA 1997 s 61-205(1)(c)).
+ * @param {Record<string, number>} base @param {Return} r @param {Offsets} o */
+function withOffsets(base, r, o) {
+  const cents = (/** @type {number} */ value) => Math.round(value * 100);
+  const benefit = o.rebatableBenefit === undefined ? null
+    : beneficiaryOffset({ year: r.year, rebatable_benefit: o.rebatableBenefit });
+  const carer = o.carer ? invalidCarerOffset({ ...o.carer, year: r.year }) : null;
+  const zone = o.zone ? zoneOffset({ ...o.zone, year: r.year,
+    invalid_carer_tax_offset: carer ? carer.offset.toFixed(2) : undefined }) : null;
+  let privateHealth = null;
+  if (o.privateHealth) {
+    if (r.residency !== 'resident') {
+      refuse('input.field_unknown', 'The private health insurance tax offset needs every person insured to be an eligible '
+        + 'person (ITAA 1997 s 61-205(1)(c)), which this calculator tests only for an Australian resident.');
+    }
+    privateHealth = privateHealthRebate({ year: r.year, income_for_surcharge_purposes: String(base.surchargeIncome),
+      spouse_income_for_surcharge_purposes: r.spouse ?? undefined, dependent_children: Number(r.children),
+      maintained_dependent_person: o.privateHealth.maintained, lines: o.privateHealth.lines });
+  }
+  let left = cents(base.tax);
+  const apply = (/** @type {number} */ amount) => {
+    const applied = Math.min(left, cents(amount));
+    left -= applied;
+    return applied / 100;
+  };
+  const applied = { beneficiary: apply(benefit?.offset ?? 0), offset: apply(base.offset), lmito: apply(base.lmito),
+    carerOffset: apply(carer?.offset ?? 0), zoneOffset: apply(zone?.offset ?? 0) };
+  const total = left + cents(base.medicare);
+  const assessed = total + cents(base.surcharge) + cents(base.studyLoan) + cents(privateHealth?.excess ?? 0)
+    - cents(privateHealth?.offset ?? 0);
+  const withheld = cents(base.withheld);
+  return { ...base, ...applied, netTax: left / 100, total: total / 100, assessed: assessed / 100,
+    refund: (withheld - assessed) / 100, benefit, carer, zone, privateHealth };
 }
