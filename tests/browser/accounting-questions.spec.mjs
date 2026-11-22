@@ -1073,6 +1073,29 @@ test('fuel tax credit page works its example, a line from its cost and a refusal
   await expect(form.locator('output')).toContainText('Line 1: no published rate is held for fuel acquired after 31 January 2027');
 });
 
+// The depreciation pools page's 3 worksheets: John's printer (the example), Loretta's small business pool, example 29's
+// capital works and works begun before 16 September 1987, which the page refuses.
+test('depreciation pools page works each worksheet and a refusal offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/depreciation-pools/');
+  const form = page.locator('#depreciation-pools form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Decline in value, the deduction: $1,986.38.');
+  await form.getByLabel('A general small business pool').check();
+  await expect(form.locator('[name="previous"]')).toBeHidden();
+  await expect(form.locator('[name="opening"]')).toBeVisible();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Deduction: $34,200.00.');
+  await expect(form.locator('output')).toContainText('Closing pool balance: $85,800.00.');
+  await form.getByLabel('A capital works deduction').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Capital works deduction: $2,744.30.');
+  await form.getByLabel('Date construction began').fill('1987-09-15');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText(/^Capital works begun before 16 September 1987/);
+});
+
 // The luxury car tax page's example (the ATO's Matty Bee Motors and Jimmy's Mustang), a refund line whose fields
 // show only once chosen, and an adjustment without the year of its sale.
 test('luxury car tax page works its example, a refund and a refusal offline', async ({ page, context }) => {
@@ -1097,6 +1120,32 @@ test('luxury car tax page works its example, a refund and a refusal offline', as
   await form.locator('[name="attributed-3"]').fill('0');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toContainText('Line 3: choose the financial year of the supply, whose threshold applies.');
+});
+
+// The super lump sum tax page's example (Schedule 12's Chloe), the member's fields that hide for a
+// death benefit, a preservation age case that asks for the low rate cap, and a refusal.
+test('super lump sum tax page works its example, a death benefit and a refusal offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/super-benefit-tax/');
+  const form = page.locator('#super-benefit-tax form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Most income tax on the lump sum, before Medicare levy: $12,000.00.');
+  await form.locator('[name="recipient"]').selectOption('non_dependant');
+  await expect(form.locator('[name="born"]')).toBeHidden();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Most income tax on the lump sum, before Medicare levy: $52,500.00.');
+  await form.locator('[name="recipient"]').selectOption('member');
+  await form.locator('[name="year"]').selectOption('2021-22');
+  await form.locator('[name="paid"]').fill('2021-07-25');
+  await form.locator('[name="born"]').fill('1963-03-01');
+  await form.locator('[name="untaxed"]').fill('0');
+  await form.locator('[name="low-used"]').fill('');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Enter the low rate cap amount used: it is needed for a member at or above preservation age and under 60.');
+  await form.locator('[name="year"]').selectOption('2020-21');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('The payment date must fall in the 2020-21 income year.');
 });
 
 // The ATO's rebate table for 2026-27 (QC22758) is the form's default; the average wholesale price method is
@@ -1572,7 +1621,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'termination-payment', 'transfer-duty', 'first-home-owner-grant', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
-  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees'];
+  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

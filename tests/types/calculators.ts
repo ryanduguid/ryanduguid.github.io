@@ -336,6 +336,17 @@ calculate.fuelTaxCredits({ ...ftcInput, year: 2026 });
 const ftcLabel: string = calculate.fuelTaxCredits(ftcInput).label7d;
 void ftcTotal;
 void ftcLabel;
+const poolInput = { year: '2025-26', opening_pool_balance: '100000.00', additions: '28000.00', cost_additions: '0', termination_values: '8000.00' };
+const poolDeduction: number = calculate.smallBusinessPool(poolInput).deduction;
+// @ts-expect-error The income year is a string such as '2025-26', as the form's select gives it.
+calculate.smallBusinessPool({ ...poolInput, year: 2025 });
+// @ts-expect-error The threshold is dollars as a number, or null for no limit, not text.
+const poolThreshold: string = calculate.smallBusinessPool(poolInput).threshold;
+// @ts-expect-error Whether the part was used in the 4% manner is a boolean, not text.
+calculate.capitalWorks({ year: '2025-26', construction_expenditure: '1', construction_start: '2000-01-01', four_percent_manner: 'no',
+  days_used: 365, taxable_use: '1', undeducted_construction_expenditure: '1' });
+void poolDeduction;
+void poolThreshold;
 const lctInput = { year: '2026-27', lines: [{ kind: 'sale', luxury_car_tax_value: '88000', fuel_consumption_litres_per_100km: null }] };
 const lctOnSales: number = calculate.luxuryCarTax(lctInput).onSales;
 // @ts-expect-error The tax period's year is a string such as '2026-27', as the form's select gives it.
@@ -352,6 +363,17 @@ calculate.firstHomeOwnerGrant({ ...fhogInput, value: 600000 });
 const fhogCap: number = calculate.firstHomeOwnerGrant(fhogInput).cap;
 void fhogGrant;
 void fhogCap;
+const sbtInput = { benefit: '11000', interest_value: '11000', interest_tax_free_component: '1000', untaxed_element: '0', recipient: 'member',
+  payment_date: '2022-10-01', date_of_birth: '1972-05-01', terminal_medical_condition: false, disability_superannuation_benefit: false,
+  year: '2022-23', scope_confirmed: true };
+const sbtMaximum: number = calculate.superBenefitTax(sbtInput).maximumTax;
+// @ts-expect-error The most tax is a number of dollars, not text.
+const sbtText: string = calculate.superBenefitTax(sbtInput).maximumTax;
+// @ts-expect-error Each part's ceiling rate is a percentage number.
+const sbtRate: string = calculate.superBenefitTax(sbtInput).parts[0].rate;
+void sbtMaximum;
+void sbtText;
+void sbtRate;
 const wetInput = { year: '2026-27', dealings: [{ kind: 'wholesale_sale', price_excluding_wet_and_gst: '120.00' }] };
 const wetLabel: number = calculate.wineEqualisationTax(wetInput).label1c;
 // @ts-expect-error The year is a financial year string, not a number.

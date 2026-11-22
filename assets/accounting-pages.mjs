@@ -557,6 +557,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'long-service-leave':
             result = calculate.longServiceLeaveResult(value, aud);
             break;
+          case 'depreciation-pools':
+            result = calculate.depreciationPoolsResult(value, aud);
+            break;
           case 'fuel-tax-credits':
             result = calculate.fuelTaxCreditsResult(value, aud);
             break;
@@ -567,6 +570,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
               place.dataset.scale.split(';').map(row => row.split(',')), calculate.firstHomeDuty, aud);
             break;
           }
+          case 'super-benefit-tax':
+            result = calculate.superBenefitTaxResult(value, aud);
+            break;
           case 'luxury-car-tax':
             result = calculate.luxuryCarTaxResult(value, aud);
             break;

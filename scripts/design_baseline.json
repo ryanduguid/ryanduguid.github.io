@@ -152,6 +152,9 @@
     "tools/business-calculators/company-tax/index.html": [
       "155b3eeb04ab0ceebe1358bb675f36c70e7172272c21744cbe7fc35886380d55"
     ],
+    "tools/business-calculators/depreciation-pools/index.html": [
+      "e5037eba3039d5730d92e9ec6f1848e8537be915ac3693ef4ee57f341263ad14"
+    ],
     "tools/business-calculators/div7a-schedule/index.html": [
       "5669d109570ff27fcc7e428d73f432f8a2ca8cbc6b008ff56756d64e0874afda"
     ],
@@ -257,6 +260,9 @@
     "tools/business-calculators/staff/index.html": [
       "f6d27328541f0ed80446e56fbe3d59031e3686b15759b93994561c842531fb1e"
     ],
+    "tools/business-calculators/super-benefit-tax/index.html": [
+      "b54a2e9cc9083504d09e481bf839f90a700dc3aa54e13a6016342ed16dab0147"
+    ],
     "tools/business-calculators/termination-payment/index.html": [
       "b055a3fecec1e12e11404b465cc1031bccc9254058bbd4566e22509430287508"
     ],
@@ -285,7 +291,7 @@
       "965f8288b5d2e33a4bf80989a07d4cdf6f2a31a9fbc1a2e6413016af297cdad3"
     ],
     "tools/depreciation-rates/index.html": [
-      "4b093d1b163d18db86ec4cd04284a6f3e810055781c60a4e325bd78f5b6b6075"
+      "6e5cc4539b61882181bb7233c05687c8212cf2b35562639d0d2b353f4665c777"
     ],
     "tools/index.html": [
       "a90b2d0af203356541db6ead18334c8e45fd761cda4e2a4d796d0dc632baaf7f"
@@ -397,9 +403,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "ebbbeb3008039d4992e0f8ea3b7b91a381b71a2fd043b63c238bb0a9a9780b06",
+    "llms.txt": "bd968a5a0a1b0e45f921e2e17dfb7e36161adb8fa56e5a9b1ed0dfd4f651dbca",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "1368eaad996c4947b976b679eb039959734aeff4ef3259cc4711b98c165366d4"
+    "sitemap.xml": "3a4ebbbb6220e3a7caee5fe8acf5251cdcb85d64e82fd940adb3b7812a089c32"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -459,7 +465,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7801,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7803,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

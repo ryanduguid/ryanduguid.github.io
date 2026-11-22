@@ -57,8 +57,10 @@ const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
 const salaryDividend = { ...business, file: 'assets/salary-dividend.mjs' };
 const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
+const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
 const fhog = { ...business, file: 'assets/first-home-owner-grant.mjs' };
+const sbt = { ...business, file: 'assets/super-benefit-tax.mjs' };
 const wet = { ...business, file: 'assets/wine-equalisation-tax.mjs' };
 const leave = { ...business, file: 'assets/unused-leave.mjs' };
 const asic = { ...business, file: 'assets/asic-fees.mjs' };
@@ -778,6 +780,30 @@ const MUTATIONS = [
   { ...fhog, name: 'FHOG WA duty before the first home owner rate', find: "'AU-WA': '2026-05-07'", replace: "'AU-WA': '2025-07-01'" },
   { ...fhog, name: 'FHOG duty for a built home', find: "if (input.home === 'built') {", replace: 'if (false) {' },
   { ...fhog, name: 'FHOG an established home takes the new home duty', find: "input.home === 'bought' ? 'new' : 'established'", replace: "'new'" },
+  { ...sbt, name: 'SBT the proportioning rule truncates', find: 'const taxFree = ratioCents(benefit * interestFree, interest);', replace: 'const taxFree = (benefit * interestFree) / interest;' },
+  { ...sbt, name: 'SBT 2026-27 keeps the 2025-26 untaxed plan cap', find: "'2026-27': 1935000 };", replace: "'2026-27': 1865000 };" },
+  { ...sbt, name: 'SBT 2021-22 low rate cap at 2020-21', find: "'2021-22': 225000,", replace: "'2021-22': 215000," },
+  { ...sbt, name: 'SBT 60 is under 60', find: "age >= 60 ? 'aged_60_or_over'", replace: "age > 60 ? 'aged_60_or_over'" },
+  { ...sbt, name: 'SBT preservation age a year late', find: '(month >= 7 ? year : year - 1) - 1960 + 56', replace: '(month >= 7 ? year : year - 1) - 1960 + 57' },
+  { ...sbt, name: 'SBT the birthday counts the day before', find: '(day[1] === born[1] && day[2] < born[2])', replace: '(day[1] === born[1] && day[2] <= born[2])' },
+  { ...sbt, name: 'SBT $200 closes the interest tax free', find: 'benefit < 20000n && benefit === interest', replace: 'benefit <= 20000n && benefit === interest' },
+  { ...sbt, name: 'SBT under preservation age at 15%', find: "part('taxed_element_part', c.taxed, 20);", replace: "part('taxed_element_part', c.taxed, 15);" },
+  { ...sbt, name: 'SBT non-dependant untaxed at 15%', find: "part('untaxed_element_part', c.untaxed, 30);", replace: "part('untaxed_element_part', c.untaxed, 15);" },
+  { ...sbt, name: 'SBT above the plan cap at 30%', find: "part('untaxed_above_plan_cap', c.untaxed - within, 45);", replace: "part('untaxed_above_plan_cap', c.untaxed - within, 30);" },
+  { ...sbt, name: 'SBT the untaxed element ignores the low rate cap the taxed element took', find: 'untaxedParts(plan, 30, lowLeft - low)', replace: 'untaxedParts(plan, 30, lowLeft)' },
+  { ...sbt, name: 'SBT the taxed element above the low rate cap at 0%', find: "part('taxed_above_low_rate_cap', c.taxed - low, 15);", replace: "part('taxed_above_low_rate_cap', c.taxed - low, 0);" },
+  { ...sbt, name: 'SBT other lump sums pass with cap left', find: 'if (others && lowLeft !== 0n) {', replace: 'if (false) {' },
+  { ...sbt, name: 'SBT the plan cap used may exceed the cap', find: 'if (used > BigInt(cap) * 100n) conflict(', replace: 'if (used > BigInt(cap) * 200n) conflict(' },
+  { ...sbt, name: 'SBT 60 or over taxes the taxable component', find: "t.name === 'aged_60_or_over' ? c.untaxed :", replace: "t.name === 'aged_60_or_over' ? c.taxable :" },
+  { ...sbt, name: "SBT a dependant's death benefit is taxed", find: "if (name === 'non_dependant') {\n    l.part(", replace: "if (name === 'non_dependant' || name === 'death_benefits_dependant') {\n    l.part(" },
+  { ...sbt, name: 'SBT pre-1983 service passes', find: "&& flag('service_before_july_1983', input.service_before_july_1983)) {", replace: '&& false) {' },
+  { ...sbt, name: 'SBT a payment on 1 July of the next year passes', find: 'dayText(paid) > `${first + 1}-06-30`', replace: 'dayText(paid) > `${first + 1}-07-01`' },
+  { ...sbt, name: 'SBT the untaxed element within the low rate cap at 0%', find: "if (lowLeft !== null) part('untaxed_within_low_rate_cap', counted, 15);", replace: "if (lowLeft !== null) part('untaxed_within_low_rate_cap', counted, 0);" },
+  { ...sbt, name: 'SBT 60 or over takes the untaxed element at 30% within the plan cap', find: '} else if (plan !== null) l.untaxedParts(plan, 15, null);', replace: '} else if (plan !== null) l.untaxedParts(plan, 30, null);' },
+  { ...sbt, name: 'SBT a terminal medical condition ignored', find: "const name = flag('terminal_medical_condition', input.terminal_medical_condition) ?", replace: 'const name = false ?' },
+  { ...sbt, name: 'SBT under $200 is tax free without closing the interest', find: ': benefit < 20000n && benefit === interest ?', replace: ': benefit < 20000n ?' },
+  { ...sbt, name: 'SBT 2023-24 keeps the 2022-23 low rate cap', find: "'2023-24': 235000 };", replace: "'2023-24': 230000 };" },
+  { ...sbt, name: 'SBT the form sends the low rate cap at 60', find: 'if (age < 60 && age >= preservationAge(born)) {', replace: 'if (age <= 60 && age >= preservationAge(born)) {' },
   { ...wet, name: 'WET at 28%', find: 'ratioCents(cents * 29n, 100n)', replace: 'ratioCents(cents * 28n, 100n)' },
   { ...wet, name: 'WET half retail takes the whole retail price', find: 'ratioCents(v.price, 2n)', replace: 'v.price' },
   { ...wet, name: 'WET average wholesale price ignores the dealing quantity', find: 'ratioCents(v.price * /** @type {bigint} */ (v.quantity),', replace: 'ratioCents(v.price,' },
@@ -861,6 +887,26 @@ const MUTATIONS = [
   { ...wc, name: 'WC an SA group member passes', find: "['AU-NSW', 'AU-VIC', 'AU-QLD', 'AU-SA'].includes(x.place)", replace: "['AU-NSW', 'AU-VIC', 'AU-QLD'].includes(x.place)" },
   { ...wc, name: 'WC apprentice wages above the wages pass', find: 'if (apprentice > wages)', replace: 'if (apprentice > wages + 100n)' },
   { ...wc, name: 'WC private schemes leave out GST', find: 'premium, gst, duty: 0n, total: premium + gst, notes: [] };\n}\n\n/** The premium', replace: 'premium, gst, duty: 0n, total: premium, notes: [] };\n}\n\n/** The premium' },
+  { ...pools, name: 'Pools low-cost assets at 37.5%', find: 'const newAssets = 3n * (lowCost + second);', replace: 'const newAssets = 6n * (lowCost + second);' },
+  { ...pools, name: 'Pools low-value decline rounded in parts', find: 'const decline = ratioCents(newAssets + pool, 16n);', replace: 'const decline = ratioCents(newAssets, 16n) + ratioCents(pool, 16n);' },
+  { ...pools, name: 'Pools low-value termination values ignored', find: 'closingPoolBalance: dollars(max(before - termination, 0n))', replace: 'closingPoolBalance: dollars(before)' },
+  { ...pools, name: 'Pools low pool value threshold $30,000', find: '? null : 20000)', replace: '? null : 30000)' },
+  { ...pools, name: 'Pools 2022-23 has a low pool value limit', find: "const FULL_EXPENSING_YEARS = ['2020-21', '2021-22', '2022-23'];", replace: "const FULL_EXPENSING_YEARS = ['2020-21', '2021-22'];" },
+  { ...pools, name: 'Pools $20,000 is below the threshold', find: 'amount < BigInt(threshold) * 100n', replace: 'amount <= BigInt(threshold) * 100n' },
+  { ...pools, name: 'Pools opening balance at 15%', find: 'ratioCents(3n * opening, 10n)', replace: 'ratioCents(3n * opening, 20n)' },
+  { ...pools, name: 'Pools a balance below zero is not assessable', find: 'assessableIncome: dollars(-amount)', replace: 'assessableIncome: 0' },
+  { ...pools, name: 'Pools backing business investment not refused', find: "if (year === '2020-21' && amount === 0n && added !== 0n) {", replace: 'if (false) {' },
+  { ...pools, name: 'Capital works 4% manner at 2.5%', find: 'const rateDivisor = four ? 25n : 40n;', replace: 'const rateDivisor = four ? 40n : 40n;' },
+  { ...pools, name: 'Capital works days not limited by the start', find: 'const most = Math.max(last - Math.max(begun, first) + 1, 0);', replace: 'const most = Math.max(last - first + 1, 0);' },
+  { ...pools, name: 'Capital works not limited to the undeducted expenditure', find: 'const limited = undeducted * reducedBottom < reducedTop;', replace: 'const limited = false;' },
+  { ...pools, name: 'Capital works from 17 September 1987', find: "if (begun < /** @type {number} */ (day('1987-09-16'))) {", replace: "if (begun < /** @type {number} */ (day('1987-09-17'))) {" },
+  { ...pools, name: 'Capital works 4% from 26 February 1992', find: "const before1992 = begun < /** @type {number} */ (day('1992-02-27'));", replace: "const before1992 = begun < /** @type {number} */ (day('1992-02-26'));" },
+  { ...pools, name: 'Pools cost additions at 30%', find: 'ratioCents(3n * improved, 20n)', replace: 'ratioCents(3n * improved, 10n)' },
+  { ...pools, name: 'Pools closing balance below zero not assessable', find: 'assessableIncome: dollars(max(total - amount, 0n))', replace: 'assessableIncome: dollars(0n)' },
+  { ...pools, name: 'Pools low-value excess not assessable', find: 'assessableExcess: dollars(max(termination - before, 0n))', replace: 'assessableExcess: dollars(0n)' },
+  { ...pools, name: 'Capital works over 366 days', find: 'const reducedBottom = rateDivisor * 365n * scale;', replace: 'const reducedBottom = rateDivisor * 366n * scale;' },
+  { ...pools, name: 'Capital works 4% allowed before 27 February 1992', find: 'if (four && before1992) {', replace: 'if (false) {' },
+  { ...pools, name: 'Capital works taxable use ignored', find: 'const reducedTop = product * use;', replace: 'const reducedTop = product * scale;' },
   { ...asic, name: 'ASIC month counted from the due date itself', find: 'const start = new Date((due + 1) * DAY);', replace: 'const start = new Date(due * DAY);' },
   { ...asic, name: 'ASIC month ends on the same day number next month', find: 'if (corresponding <= length) return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), corresponding) / DAY - 1;', replace: 'if (corresponding <= length) return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), Math.min(new Date(due * DAY).getUTCDate(), length)) / DAY;' },
   { ...asic, name: 'ASIC month with no corresponding day ends a day early', find: 'return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), length) / DAY;', replace: 'return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), length) / DAY - 1;' },
@@ -942,9 +988,9 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/luxury-car-tax-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/luxury-car-tax-engine-differential.json', 'scripts/depreciation-pools-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/wine-equalisation-tax-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
-    'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json']) {
+    'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json', 'scripts/super-benefit-tax-engine-differential.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
 
