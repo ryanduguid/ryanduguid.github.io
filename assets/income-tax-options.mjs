@@ -52,7 +52,8 @@ export function incomeTaxOptions(value, spouse) {
   if (number(value('rebatable-benefit'), { max: 1e9, money: true }) > 0) o.rebatableBenefit = value('rebatable-benefit');
   if (value('carer') === 'yes') {
     const kind = value('carer-case');
-    if (Object.hasOwn(CARER_CASES, kind)) refuse(...CARER_CASES[kind]);
+    const carerCase = CARER_CASES.get(kind);
+    if (carerCase) refuse(...carerCase);
     const dependant = value('carer-dependant');
     if (dependant === 'spouse' && !spouse) throw new Error('For a spouse who is the dependant, answer yes to having a spouse all year.');
     o.carer = { dependant, adjusted_taxable_income: value('carer-income'),

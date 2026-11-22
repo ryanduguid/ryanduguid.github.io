@@ -31,18 +31,17 @@ export function supportedYear(year) {
 // 65, 65 to 69 and 70 or over, columns for the base tier, tier 1 and tier 2. Tier 3 is nil
 // (s 22-15(4)). The percentages from 1 April 2027 were not published on 22 November 2026.
 const FROM_2021 = [[24608, 16405, 8202], [28710, 20507, 12303], [32812, 24608, 16405]];
-/** @type {Record<string, number[][]>} */
-const PERCENTAGES = {
-  2020: [[25059, 16706, 8352], [29236, 20883, 12529], [33413, 25059, 16706]],
-  2021: FROM_2021, 2022: FROM_2021, 2023: FROM_2021, 2024: FROM_2021,
-  2025: [[24288, 16192, 8095], [28337, 20240, 12143], [32385, 24288, 16192]],
-  2026: [[24118, 16079, 8038], [28139, 20098, 12058], [32158, 24118, 16079]],
-};
+/** @type {Map<number, number[][]>} */
+const PERCENTAGES = new Map([
+  [2020, [[25059, 16706, 8352], [29236, 20883, 12529], [33413, 25059, 16706]]],
+  [2021, FROM_2021], [2022, FROM_2021], [2023, FROM_2021], [2024, FROM_2021],
+  [2025, [[24288, 16192, 8095], [28337, 20240, 12143], [32385, 24288, 16192]]],
+  [2026, [[24118, 16079, 8038], [28139, 20098, 12058], [32158, 24118, 16079]]],
+]);
 
 /** The statement's benefit codes: [paid from 1 April, the age band's row]. */
-export const BENEFIT_CODES = /** @type {Record<string, [number, number]>} */ ({
-  30: [0, 0], 31: [1, 0], 35: [0, 1], 36: [1, 1], 40: [0, 2], 41: [1, 2],
-});
+/** @type {Map<number, [number, number]>} */
+export const BENEFIT_CODES = new Map([[30, [0, 0]], [31, [1, 0]], [35, [0, 1]], [36, [1, 1]], [40, [0, 2]], [41, [1, 2]]]);
 export const TIERS = ['base', 'tier_1', 'tier_2', 'tier_3'];
 const LINE_FIELDS = ['premiums_eligible', 'rebate_received', 'benefit_code'];
 export const LHC_LOADING = 'Lifetime health cover loading is outside the rebate (PHI Act s 22-15(6)): give the premiums '
@@ -68,7 +67,7 @@ function readLine(line, n) {
   const extra = Object.keys(fields).find((key) => !LINE_FIELDS.includes(key));
   if (extra) invalid(`Line ${n}: ${extra} is not a field of a line.`);
   const code = fields.benefit_code;
-  if (!Number.isInteger(code) || !Object.hasOwn(BENEFIT_CODES, String(code))) {
+  if (!Number.isInteger(code) || !BENEFIT_CODES.has(/** @type {number} */ (code))) {
     invalid(`Line ${n}: the benefit code must be 30, 31, 35, 36, 40 or 41, the codes the statement uses.`);
   }
   return { code: Number(code), premiums: lineCents(fields.premiums_eligible, `Line ${n}’s premiums eligible`),
@@ -79,15 +78,15 @@ function readLine(line, n) {
  * adjustment year from 1 April of the income year's first calendar year, those paid from 1 April
  * the next (s 22-15(5C) and (5D)). @param {string} year @param {number} code @param {number} tier */
 function percentage(year, code, tier) {
-  const [later, band] = BENEFIT_CODES[code];
+  const [later, band] = /** @type {[number, number]} */ (BENEFIT_CODES.get(code));
   const start = Number(year.slice(0, 4)) + later;
-  const table = PERCENTAGES[start];
+  const table = PERCENTAGES.get(start);
   if (!table) {
     refuse('private_health_insurance_rebate.rate_unpublished', `Benefit code ${code}: the rebate percentages from `
       + `1 April ${start} were not published when this was checked on 22 November 2026 (the ATO: they `
       + `‘will become available in March ${start}’).`);
   }
-  return tier === 3 ? 0 : table[band][tier];
+  return tier === 3 ? 0 : /** @type {number} */ (table.at(band)?.at(tier));
 }
 
 /** @typedef {{benefit_code: number, premiums_eligible: string, rebate_received: string}} StatementLine */
@@ -120,7 +119,7 @@ export function privateHealthRebate(input) {
     invalid('Enter 1 to 100 lines from the private health insurance statement.');
   }
   const read = lines.map((line, i) => readLine(line, i + 1));
-  const thresholds = SURCHARGE_THRESHOLDS[year]
+  const thresholds = /** @type {number[]} */ (new Map(Object.entries(SURCHARGE_THRESHOLDS)).get(year))
     .map((amount) => (families ? 2 * amount + 1500 * Math.max(0, children - 1) : amount) * 100);
   const income = own + (spouse ?? 0);
   const tier = thresholds.filter((threshold) => income > threshold).length;
@@ -130,8 +129,8 @@ export function privateHealthRebate(input) {
     return { code, percentage: pct / 1000, premiums: premiums / 100, received: received / 100, share: share / 100,
       offset: Math.max(0, share - received) / 100, excess: Math.max(0, received - share) / 100 };
   });
-  const sum = (/** @type {'share' | 'received' | 'offset' | 'excess'} */ key) => worked
-    .reduce((total, line) => total + Math.round(line[key] * 100), 0) / 100;
-  return { tier: TIERS[tier], families, income: income / 100, thresholds: thresholds.map((t) => t / 100), lines: worked,
-    share: sum('share'), received: sum('received'), offset: sum('offset'), excess: sum('excess') };
+  const sum = (/** @type {(line: typeof worked[number]) => number} */ pick) => worked
+    .reduce((total, line) => total + Math.round(pick(line) * 100), 0) / 100;
+  return { tier: /** @type {string} */ (TIERS.at(tier)), families, income: income / 100, thresholds: thresholds.map((t) => t / 100), lines: worked,
+    share: sum((l) => l.share), received: sum((l) => l.received), offset: sum((l) => l.offset), excess: sum((l) => l.excess) };
 }

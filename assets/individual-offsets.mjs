@@ -50,21 +50,22 @@ export function beneficiaryOffset(input) {
 // ITAA 1997 ss 61-20 and 61-30 as the ATO publishes them in each year's T5 instructions: the
 // maximum offset, the ATO's daily rate for part of the year, both in cents, and the FTB Part B
 // income limit in dollars. 2026-27's were not published on 22 November 2026.
-/** @type {Record<string, number[]>} */
-export const INVALID_CARER = {
-  '2025-26': [339600, 930, 120007], '2024-25': [330000, 904, 117194], '2023-24': [315200, 861, 112578],
-  '2022-23': [294300, 806, 104432], '2021-22': [283300, 776, 100900], '2020-21': [281600, 772, 100000],
-};
-export const CARER_CASES = /** @type {Record<string, [string, string]>} */ ({
-  shared: ['invalid_carer_tax_offset.shared_maintenance', 'Another person also maintained the dependant: ITAA 1997 '
+/** @type {Map<string, number[]>} */
+export const INVALID_CARER = new Map([
+  ['2025-26', [339600, 930, 120007]], ['2024-25', [330000, 904, 117194]], ['2023-24', [315200, 861, 112578]],
+  ['2022-23', [294300, 806, 104432]], ['2021-22', [283300, 776, 100900]], ['2020-21', [281600, 772, 100000]],
+]);
+/** @type {Map<string, [string, string]>} */
+export const CARER_CASES = new Map([
+  ['shared', ['invalid_carer_tax_offset.shared_maintenance', 'Another person also maintained the dependant: ITAA 1997 '
     + 's 61-40(1)(b) apportions the offset before the s 61-45 income reduction, but the ATO’s worksheets apply the '
-    + 'share after it, and the 2 differ; this calculator does not choose.'],
-  ftb: ['invalid_carer_tax_offset.ftb_shared_care', 'ITAA 1997 s 61-35 reduces the offset by the FTB Part B '
-    + 'shared-care rate over the non-shared-care rate, which Services Australia works out; this calculator does not.'],
-  spouses: ['invalid_carer_tax_offset.successive_spouses', 'With a different spouse in different parts of the year, '
+    + 'share after it, and the 2 differ; this calculator does not choose.']],
+  ['ftb', ['invalid_carer_tax_offset.ftb_shared_care', 'ITAA 1997 s 61-35 reduces the offset by the FTB Part B '
+    + 'shared-care rate over the non-shared-care rate, which Services Australia works out; this calculator does not.']],
+  ['spouses', ['invalid_carer_tax_offset.successive_spouses', 'With a different spouse in different parts of the year, '
     + 'ITAA 1997 s 61-20(3) adds the adjusted taxable income of each spouse who is not the dependant, each for '
-    + 'their part of the year; this calculator takes one spouse for the whole year.'],
-});
+    + 'their part of the year; this calculator takes one spouse for the whole year.']],
+]);
 
 /**
  * @typedef {{year: string, dependant: string, adjusted_taxable_income: string,
@@ -86,8 +87,9 @@ export function invalidCarerOffset(input) {
   if (!['spouse', 'other'].includes(input.dependant)) {
     refuse('invalid_carer_tax_offset.dependant_invalid', 'Say whether the dependant is your spouse or another relative.');
   }
-  for (const [key, flag] of [['shared', 'maintained_by_others'], ['ftb', 'ftb_b_shared_care'], ['spouses', 'different_spouses']]) {
-    if (input[/** @type {'maintained_by_others'} */ (flag)] === true) refuse(...CARER_CASES[key]);
+  for (const [key, flag] of /** @type {[string, unknown][]} */ ([['shared', input.maintained_by_others],
+    ['ftb', input.ftb_b_shared_care], ['spouses', input.different_spouses]])) {
+    if (flag === true) refuse(.../** @type {[string, string]} */ (CARER_CASES.get(key)));
   }
   const own = toCents(input.adjusted_taxable_income);
   const dependantIncome = toCents(input.dependant_adjusted_taxable_income);
@@ -97,7 +99,7 @@ export function invalidCarerOffset(input) {
     refuse('input.field_unknown', 'A spouse who is the dependant adds no income to the limit test (s 61-20(1)(b)).');
   }
   const spouse = input.spouse_adjusted_taxable_income === undefined ? 0 : toCents(input.spouse_adjusted_taxable_income);
-  const [maximum, daily, limit] = INVALID_CARER[year];
+  const [maximum, daily, limit] = /** @type {number[]} */ (INVALID_CARER.get(year));
   const tested = own + spouse;
   const eligible = tested <= limit * 100;
   const amount = days === yearDays ? maximum : daily * days;
@@ -257,7 +259,7 @@ export function zoneOffset(a) {
   if (!Object.hasOwn(ZONE_AREAS, a.area)) refuse('zone_tax_offset.area_invalid', 'Choose a special area, Zone A, Zone B or overseas forces.');
   const area = ZONE_AREAS[a.area];
   const forces = a.area === 'overseas_forces';
-  const extra = forces && NOT_FOR_FORCES.find((key) => a[/** @type {'prior_year'} */ (key)] !== undefined);
+  const extra = forces && Object.entries(a).some(([key, value]) => NOT_FOR_FORCES.includes(key) && value !== undefined);
   if (extra) refuse('input.field_unknown', 'Overseas forces service carries no days from an earlier year and takes no remote area allowance (s 79B).');
   const yearDays = daysInYear(year);
   const days = dayCount(a.days, yearDays, 'The days');
