@@ -331,6 +331,14 @@ calculate.fuelTaxCredits({ ...ftcInput, year: 2026 });
 const ftcLabel: string = calculate.fuelTaxCredits(ftcInput).label7d;
 void ftcTotal;
 void ftcLabel;
+const wetInput = { year: '2026-27', dealings: [{ kind: 'wholesale_sale', price_excluding_wet_and_gst: '120.00' }] };
+const wetLabel: number = calculate.wineEqualisationTax(wetInput).label1c;
+// @ts-expect-error The year is a financial year string, not a number.
+calculate.wineEqualisationTax({ ...wetInput, year: 2027 });
+// @ts-expect-error The cap is a number of dollars, not a string.
+const wetCap: string = calculate.wineEqualisationTax(wetInput).cap;
+void wetLabel;
+void wetCap;
 const leavePay = { annual: '0', loading: '0', longService: '22020', accrualStart: '1977-01-01', reason: 'normal', annualBefore1993: '',
   loadingBefore1993: '', lslBefore1978: '780', lsl1978To1993: '6420', payee: 'tfn', earnings: '1155', period: 'week' } as const;
 const leaveWithheld: number = calculate.unusedLeave(leavePay).withholding;
