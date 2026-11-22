@@ -3182,7 +3182,7 @@ Last reviewed 22 November 2026.
 
 Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
-Browser: Coal LSL levy calculator, 48 business planning calculators, 13 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
+Browser: Coal LSL levy calculator, 48 business planning calculators, 14 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
 
 Extract
 
@@ -3400,7 +3400,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
 - 48 business planning calculators: https://duguid.com.au/tools/business-calculators/
-- 13 individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- 14 individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Works with Xero and Claude: https://duguid.com.au/works-with/
@@ -5560,6 +5560,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+22 November 2026 | A new individual tax calculator, super co-contribution, LISTO and spouse offset, works the government’s super co-contribution, the low income super tax offset and the spouse contribution tax offset for 2020-21 to 2026-27 from one set of answers. It applies each year’s income thresholds, the $500 maximum and 3.333 cent taper, the $20 minimum, LISTO’s 15% between $10 and $500, and the spouse offset’s 18% of up to $3,000, shows each condition met or not and rounds a payment up to 5 cents. It refuses temporary visa holders and an unknown cap or balance answer that would decide an amount.
 22 November 2026 | A new business calculator, ASIC fees, lists ASIC’s fees from 1 July 2026 to register a company, reserve a company name, pay the annual review fee and register or renew a business name, with no GST. For a due date and the day ASIC received a review fee payment or a document, both in 2026-27, it gives the late fee: $102 within one month after the due date and $428 after that, counting the month as section 2G of the Acts Interpretation Act 1901 does. It takes the due date as given and declines a case that a weekend due date or month end could change.
 22 November 2026 | A new business calculator works out wine equalisation tax for a tax period’s dealings in 2023-24 to 2027-28: 29% of a wholesale sale’s price, of half the retail price or of the average wholesale price for retail sales and own use, of the purchase price for own use of wine bought under quote, and nil on a sale under quote. It gives the producer rebate on each dealing that meets the conditions of section 19-5, within the year’s cap of $350,000, or $400,000 for dealings from 1 July 2026, less the rebates already claimed, and labels 1C and 1D in whole dollars. It reproduces the ATO’s worked examples and rebate table, read on 22 November 2026, and agrees with the wine-equalisation-tax command of the australian-accounting calculators on every tested case.
 21 November 2026 | The site's software now uses the Apache License 2.0. Ryan Duguid's original page text uses Creative Commons Attribution 4.0. The site licence notice identifies the terms for data, artwork and third-party material.
@@ -5780,6 +5781,7 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- super co-contribution, LISTO and spouse offset: https://duguid.com.au/tools/individual-tax/government-super/
 - ASIC fees: https://duguid.com.au/tools/business-calculators/asic-fees/
 - site licence notice: https://duguid.com.au/privacy/
 - FBT property: https://duguid.com.au/tools/business-calculators/fbt-property/
@@ -12158,7 +12160,7 @@ Source: https://duguid.com.au/tools/individual-tax/
 
 # Individual tax calculators
 
-Thirteen calculators for one person’s tax, pay and super, with sources for the rates and thresholds and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
+Fourteen calculators for one person’s tax, pay and super, with sources for the rates and thresholds and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
 
 Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22, salary packaging from 2022-23, novated leases from 2023-24, the withholding from a 2026-27 pay with a bonus or back payment, and super projected from 2026-27. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12182,6 +12184,7 @@ Published 17 November 2026. Last checked 22 November 2026, the newest of the cal
 - Concessional catch-up calculator The concessional contributions cap with unused cap carried forward from the previous 5 years, earliest year first, and the year each amount lapses.
 - Super projection calculator Your super balance at retirement in future and today’s dollars, with every assumption stated and changeable.
 - First home super saver calculator The release, withholding and tax offset from an ATO determination, or a contribution ledger estimate with published shortfall interest charge rates.
+- Super co-contribution, LISTO and spouse offset calculator The government’s co-contribution and low income super tax offset, and the spouse contribution tax offset, for 2020-21 to 2026-27, with each condition met or not.
 
 For a business, see the business calculators.
 
@@ -12202,6 +12205,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
 - First home super saver calculator: https://duguid.com.au/tools/individual-tax/fhss/
+- Super co-contribution, LISTO and spouse offset calculator: https://duguid.com.au/tools/individual-tax/government-super/
 - business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
@@ -12270,7 +12274,7 @@ A balance a cent below $500,000 still carries forward | 2024-25, balance $499,99
 At a $500,000 balance nothing is carried forward and $10,000 is excess | 2024-25, balance $500,000.00, contributions $40,000.00; earlier 2019-20 $11,000.00, 2020-21 $12,000.00, 2021-22 $13,000.00, 2022-23 $14,000.00, 2023-24 $15,000.00 | Cap $30,000.00 with $67,500.00 unused from the previous 5 years, $0.00 applied, $10,000.00 excess; $14,000.00 lapses
 2026-27’s $32,500 cap with $17,500 carried forward, earliest first | 2026-27, balance $300,000.00, contributions $50,000.00; earlier 2021-22 $20,000.00, 2022-23 $20,000.00, 2023-24 $20,000.00, 2024-25 $20,000.00, 2025-26 $20,000.00 | Cap $75,000.00 with $42,500.00 unused from the previous 5 years, $17,500.00 applied, $0.00 excess; $0.00 lapses
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12278,7 +12282,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12370,7 +12374,7 @@ Own income at the Medicare threshold amount: nil whatever the spouse earns | 202
 Foreign resident: no surcharge | 2026-27, foreign resident, taxable income $200,000, 365 days without hospital cover, withheld $0.00 | Tax $65,350.00, offset $0.00, Medicare levy $0.00, surcharge $0.00, total $65,350.00, owing $65,350.00
 Study loan with withholding short: an amount owing | 2026-27, Australian resident, taxable income $90,000, study loan, withheld $19,500.50 | Tax $17,520.00, offset $0.00, Medicare levy $1,800.00, surcharge $0.00, study loan $3,070.80, total $22,390.80, owing $2,890.30
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12380,7 +12384,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12472,7 +12476,7 @@ Above the cap and in Division 293 | 2026-27, Australian resident, $260,000 a yea
 2021-22 fortnightly: withholding leaves the low and middle income tax offset to the return | 2021-22, Australian resident, $3,000 a fortnight plus super | Take-home $62,123.00 a year, $2,389.35 a fortnight; super $7,800.00; withheld $670.00 a pay, refund $1,543.00
 2025-26 fortnightly with a study loan: Schedule 8 from 24 September 2025 | 2025-26, Australian resident, $3,000 a fortnight plus super, study loan | Take-home $60,602.00 a year, $2,330.85 a fortnight; super $9,360.00; withheld $672.00 a pay, refund $74.00
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12484,7 +12488,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12551,7 +12555,7 @@ A recent year that was a rebate year itself is adjusted both ways | 2025-26, tax
 2016-17’s arrears above $180,000 carry the 2% budget repair levy | 2025-26, taxable $100,000.00; 2016-17 $10,000.00 on $200,000.00 | Tax on arrears $3,000.00, notional tax $4,700.00, offset $0.00
 2026-27’s 15% band: $20,000 from 2024-25 at 16% and 30% against 30% and 37% | 2026-27, taxable $150,000.00; 2024-25 $20,000.00 on $30,000.00 | Tax on arrears $7,050.00, notional tax $3,900.00, offset $3,150.00
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12559,7 +12563,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12630,7 +12634,7 @@ ATO example 4: Branson, 2024-25, at 5.5% by section 154-20 | 2024-25: taxable in
 2021-22 at 1% | 2021-22: taxable income $47,014 | Repayment income $47,014.00, repayment $470.14
 2020-21 a dollar below 10% | 2020-21: taxable income $136,739 | Repayment income $136,739.00, repayment $12,990.21
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12640,7 +12644,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12716,7 +12720,7 @@ No offset: $20,000 of profit on $70,000 of wages adds 30% tax and 2% Medicare le
 2023-24, other deductions take taxable income below the profit: the offset’s share stops at 1 | 2023-24, business $40,000 less $5,000, other deductions $3,000, invoice $1,000.00 | Offset $419.52, business tax $2,102.48; set aside $2,102.48 a year, $525.62 a quarter, 5.26% of each invoice
 2021-22, $25,000 of profit: the low and middle income offsets leave no tax for this offset | 2021-22, business $25,000 less $0, invoice $1,000.00 | Offset $0.00, business tax $163.50; set aside $163.50 a year, $40.88 a quarter, 0.65% of each invoice
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12726,7 +12730,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - calculators and tools: https://www.ato.gov.au/calculators-and-tools
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12797,7 +12801,7 @@ Unused cap covers part of the excess | 2026-27: taxable income $210,000, fringe 
 2023-24: each part of Division 293 income | 2023-24: taxable income $200,000, fringe benefits $10,000, net investment loss $15,000, family trust distribution tax income $20,000, less FHSS $5,000; contributions $27,500.00 | Division 293 income $240,000.00, low tax contributions $27,500.00, taxable contributions $17,500.00, tax $2,625.00
 2021-22: a lump sum taxed at the zero rate comes off | 2021-22: taxable income $260,000, less zero-rate lump sum $30,000; contributions $27,500.00 | Division 293 income $230,000.00, low tax contributions $27,500.00, taxable contributions $7,500.00, tax $1,125.00
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12805,7 +12809,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12869,7 +12873,7 @@ Child support paid can take adjusted taxable income below nil | Resident all yea
 Pensions and target foreign income count in adjusted taxable income only | Resident all year, taxable $20,000, pensions $5,000, target foreign $3,000, child support $8,000, assessable $20,000 | Surcharge $20,000, Division 293 $20,000, rebate $20,000, repayment $20,000, adjusted taxable $20,000, co-contribution $20,000
 Business deductions come off co-contribution total income only | Resident all year, taxable $35,000, other fringe $2,000, employer super $1,000, assessable $40,000, business deductions $5,000 | Surcharge $38,000, Division 293 $37,000, rebate $38,000, repayment $38,000, adjusted taxable $38,000, co-contribution $38,000
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12879,7 +12883,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - When you must repay your loan: https://www.ato.gov.au/individuals-and-families/study-and-training-support-loans/when-must-you-repay-your-loan
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -12955,7 +12959,7 @@ The present value at 2.5%, as the Instrument allows you to change it | Age 30 to
 A higher-fee fund: $150 and 0.85% | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $150.00 and 0.85%, premiums $599.00, growth 3.7%, present value at 3.7% | 37 years: $1,778,785.44, present value $463,777.40
 No insurance | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $59.00 and 0.11%, premiums $0.00, growth 3.7%, present value at 3.7% | 37 years: $2,178,481.86, present value $567,989.05
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -12963,7 +12967,104 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Super co-contribution, LISTO and spouse contribution offset calculator
+
+Source: https://duguid.com.au/tools/individual-tax/government-super/
+
+> The super co-contribution, the low income super tax offset (LISTO) and the spouse contribution tax offset for 2020-21 to 2026-27, with each condition met or not.
+
+# Super co-contribution, LISTO and spouse offset calculator
+
+Work out the super co-contribution, LISTO and spouse offset for 2020-21 to 2026-27.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Super co-contribution, LISTO and spouse offset for one income year
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Personal super contributions you did not deduct, received by your fund in the year (dollars and cents) Concessional contributions for the year: employer, salary sacrifice and personal contributions you deduct (dollars and cents) Income from employment or carrying on a business, such as salary, wages, director fees and business income before deductions (dollars and cents) Income for the year from your return (whole dollars, 0 if none) Assessable income, before deductions Taxable income Deductions against business income Reportable employer super contributions, IT2 Personal super contributions you deduct, D12 Reportable fringe benefits from other employers, IT1 label W Reportable fringe benefits from employers exempt under section 57A, IT1 label N Assessable first home super saver (FHSS) released amount Excess concessional contributions for the year Net financial investment loss, IT5 Net rental property loss, IT6 Target foreign income, IT4 Tax-free government pensions or benefits, IT7 Child support you paid, IT8
+
+An Australian resident for the whole year Yes No
+
+A temporary visa at any time in the year No Yes
+
+Your tax return for the year is lodged Yes No
+
+Under 71 at the end of the year Yes No
+
+Non-concessional contributions for the year within your cap Yes No Not known
+
+Total super balance on 30 June before the year below the general transfer balance cap Yes No Not known
+
+You contributed to your spouse’s super in the year No Yes
+
+The amounts and answers are established for the year
+
+Choose Yes, I have checked them No or unsure
+
+Calculate
+
+Personal contributions count only if your fund received them by 30 June and you did not deduct them; downsizer contributions do not count. Spouse contributions count only if you were spouses, both Australian residents and not living apart when you made them, to a complying fund, and you cannot deduct them.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2023-24, assessable income $35,000.00, taxable income $35,000.00, eligible income $35,000.00, personal contributions $1,040.00, concessional contributions $0.00. Total income for the co-contribution $35,000.00 Income thresholds $43,445 and $58,445 Half the personal contributions $520.00 Maximum after the taper $500.00 Super co-contribution $500.00 Co-contribution paid, up to 5 cents $500.00 Adjusted taxable income $35,000.00 LISTO $0.00 LISTO paid, up to 5 cents $0.00 No LISTO: no concessional contributions. The ATO works out the co-contribution and LISTO from your return and your fund’s reports and pays them to your fund.
+
+## How the government super amounts calculator works
+
+The calculator works 3 amounts from the same answers. Total income for the co-contribution is your assessable income, less any FHSS released amount, plus reportable fringe benefits and reportable employer super contributions (less any excess concessional contributions), less business deductions. Adjusted taxable income, which decides LISTO, is taxable income without any FHSS released amount, plus adjusted fringe benefits, target foreign income, investment losses, tax-free pensions and reportable super contributions, less child support paid, as the income tests calculator works it.
+
+The super co-contribution is half your personal contributions, at most $500. Above the year’s lower income threshold the $500 falls by 3.333 cents for each dollar, to nil at the higher threshold, which is $15,000 above it. An amount under $20 is raised to $20. It needs total income below the higher threshold, at least 10% of total income before business deductions from employment or a business, a lodged return, non-concessional contributions within your cap, a total super balance below the general transfer balance cap, and an age under 71.
+
+The year’s thresholds are $39,837 and $54,837 for 2020-21, $41,112 and $56,112 for 2021-22, $42,016 and $57,016 for 2022-23, $43,445 and $58,445 for 2023-24, $45,400 and $60,400 for 2024-25, $47,488 and $62,488 for 2025-26, and $49,293 and $64,293 for 2026-27.
+
+LISTO is 15% of your concessional contributions, to the nearest cent, at most $500 and at least $10, where adjusted taxable income is $37,000 or less and the same 10% test is met. The ATO pays both amounts to your fund, rounded up to a multiple of 5 cents.
+
+The spouse contribution tax offset is 18% of your contributions for your spouse, counting at most $3,000, which falls by a dollar for each dollar of the spouse’s income above $37,000. It is nil when the spouse’s income is $40,000 or more, the spouse’s non-concessional contributions exceed the spouse’s cap, or the spouse’s total super balance has reached the general transfer balance cap. The most it can be is $540.
+
+## What the government super amounts calculator does not cover
+
+The calculator refuses a person who held a temporary visa at any time in the year: the exceptions for New Zealand citizens and some prescribed visas are not worked out. It also refuses a person not resident in Australia for the whole year, a cap or balance answer of not known where that answer decides an amount, and nil total income where a contribution leaves the 10% test to decide.
+
+It leaves out contributions your fund had not received by 30 June, LISTO the ATO estimates without a return, concessional contributions to constitutionally protected funds and other amounts LISTO disregards, a deceased person’s income, interest on late payments, and 2019-20 and earlier. It does not cover 2027-28, when the law changes LISTO and the co-contribution thresholds are not yet published. It takes each amount and answer as you enter them; confirm them with your fund, the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Super co-contribution, LISTO and spouse offset calculator
+
+Case | Inputs | Result
+Angelo: $35,000 salary, $1,040 personal contributions, $500 (ATO super co-contribution page) | 2023-24, assessable income $35,000, eligible income $35,000.00, personal contributions $1,040.00, concessional contributions $0.00 | Co-contribution $500.00, LISTO $0.00
+Julie: $31,000 adjusted taxable income, $3,360 employer SG, LISTO $500 (ATO LISTO page) | 2022-23, assessable income $32,000, taxable income $31,000, eligible income $32,000.00, personal contributions $0.00, concessional contributions $3,360.00 | Co-contribution $0.00, LISTO $500.00
+Robert and Judy: spouse income $19,000, $3,500 contributed, $540 (ATO super-related offsets, example 1) | 2021-22, assessable income $80,000, eligible income $80,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $19,000.00, spouse contributions $3,500.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $540.00
+Carmel and Adam: spouse income $38,000, $3,000 contributed, $360 (example 2) | 2021-22, assessable income $80,000, eligible income $80,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $38,000.00, spouse contributions $3,000.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $360.00
+Aleah and Lewis: spouse income $35,000, $2,000 contributed, $360 (example 3) | 2022-23, assessable income $80,000, eligible income $80,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $35,000.00, spouse contributions $2,000.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $360.00
+Taper: $2,512 above the 2025-26 lower threshold, $416.28 paid as $416.30 (s 10(1C), reg 15(2)) | 2025-26, assessable income $50,000, eligible income $50,000.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $416.30, LISTO $0.00
+$1 below the 2026-27 higher threshold: the $20 minimum (s 11) | 2026-27, assessable income $64,292, eligible income $64,292.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $20.00, LISTO $0.00
+At the 2026-27 higher threshold: no co-contribution (s 6(1)(c)) | 2026-27, assessable income $64,293, eligible income $64,293.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $0.00, LISTO $0.00
+$4,999 eligible of $50,000 fails the 10% test (s 6(1)(b)) | 2025-26, assessable income $50,000, eligible income $4,999.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $0.00, LISTO $0.00
+Business deductions: total income $40,000, the 10% test on $60,000 (s 8(2) and (3)) | 2025-26, assessable income $60,000, taxable income $40,000, business deductions $20,000, eligible income $60,000.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $500.00, LISTO $0.00
+LISTO on $1,234.57: $185.19, paid $185.20 (s 12E(2), reg 15(2)) | 2025-26, assessable income $20,000, eligible income $20,000.00, personal contributions $0.00, concessional contributions $1,234.57 | Co-contribution $0.00, LISTO $185.20
+LISTO on $50: the $10 minimum (s 12E(2)(c)) | 2025-26, assessable income $20,000, eligible income $20,000.00, personal contributions $0.00, concessional contributions $50.00 | Co-contribution $0.00, LISTO $10.00
+LISTO at adjusted taxable income $37,001: nil (s 12C(1)(b)) | 2025-26, assessable income $37,001, eligible income $37,001.00, personal contributions $0.00, concessional contributions $4,000.00 | Co-contribution $0.00, LISTO $0.00
+Spouse income $39,999: 18% of $1 (s 290-235(1)) | 2025-26, assessable income $90,000, eligible income $90,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $39,999.00, spouse contributions $3,000.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $0.18
+
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -13049,7 +13150,7 @@ Case | Inputs | Result
 Sue: ATO GN 2024/1 example 11, with a fictional determination date | ATO determination: concessional $8,500.00, non-concessional $5,000.00, earnings $850.00 | Maximum release $14,350.00, assessable $9,350.00, PAYG $1,589.00, after withholding $12,761.00, offset $2,805.00
 Partial release in the income year after determination | ATO determination: concessional $8,500.00, non-concessional $10,000.00, earnings $1,500.00, requested $15,000.00 on 2025-07-01, gross released $12,000.00 | Maximum release $20,000.00, assessable $2,000.00, PAYG $340.00, after withholding $11,660.00, offset $600.00
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -13062,7 +13163,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - GN 2024/1, example 6: https://www.ato.gov.au/law/view/print?DocID=GDN%2FGDN20241%2FNAT%2FATO%2F00001
 - First Home Super Saver Tax Act 2017: https://www.legislation.gov.au/C2017A00133/asmade
 - Treasury Laws Amendment (2023 Measures No. 3) Act 2023, Schedule 4, items 28 and 30: https://www.legislation.gov.au/C2023A00075
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -13149,7 +13250,7 @@ B(ii): what earlier B(ii) payments had withheld comes off | fortnightly, scale 2
 B(ii): earlier withholding beyond the amount gives nil | fortnightly, scale 2, $1,800.00 this pay; B(ii): $2,480.00, $18,000.00 over 10 pays to date, earlier $1,000.00 with $9,999.00 withheld | Withheld $212.00: $212.00 on earnings, $0.00 by B(ii) (limit $1,165.60)
 ATO example 4: Bradley’s back pay over 2 years by B(i) and B(ii), with a Financial Supplement debt | monthly, scale 2, study loan, $7,000.00 this pay; B(i): $800.00 for each of 2 pays of $6,200.00 that had $1,257.00 withheld; B(ii): $8,800.00, $19,400.00 over 3 pays to date | Withheld $6,492.00: $1,634.00 on earnings, $754.00 by B(i), $4,104.00 by B(ii) (limit $4,136.00)
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -13159,7 +13260,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -13235,7 +13336,7 @@ The reportable amount brings on the surcharge and raises the study loan repaymen
 A foreign resident | 2026-27, charity, foreign, salary $70,000, Type 2 $15,899.93 | Gain $4,770.00: tax saved $4,770.00, FBT $0.00, reportable $29,999
 2022-23, before the standard deduction | 2022-23, charity, resident, salary $70,000, Type 2 $15,899.93 | Gain $5,674.00: tax saved $5,674.00, FBT $0.00, reportable $29,999
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -13244,7 +13345,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - novated lease calculator: https://duguid.com.au/tools/individual-tax/novated-lease/
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -13340,7 +13441,7 @@ Held over 4 years: two-thirds of the cost price | 2026-27, bev, first held and u
 Half a year available | 2026-27, bev, first held and used on 2022-07-01, sold 2026-27 at $60,000.00, 182 days, costs $15,000.00 with GST and $1,000.00 without, salary $100,000 | Exempt: value $5,983.56, saving $6,047.48, $3,762.72 without the exemption
 The reportable amount brings on the surcharge | 2026-27, bev, first held and used on 2022-07-01, sold 2026-27 at $60,000.00, 365 days, costs $15,000.00 with GST and $1,000.00 without, salary $120,000, no hospital cover | Exempt: value $12,000.00, saving $5,649.93, $1,502.97 without the exemption
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -13348,7 +13449,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 

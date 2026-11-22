@@ -1,0 +1,94 @@
+# Super co-contribution, LISTO and spouse contribution offset calculator
+
+Source: https://duguid.com.au/tools/individual-tax/government-super/
+
+> The super co-contribution, the low income super tax offset (LISTO) and the spouse contribution tax offset for 2020-21 to 2026-27, with each condition met or not.
+
+# Super co-contribution, LISTO and spouse offset calculator
+
+Work out the super co-contribution, LISTO and spouse offset for 2020-21 to 2026-27.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Super co-contribution, LISTO and spouse offset for one income year
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Personal super contributions you did not deduct, received by your fund in the year (dollars and cents) Concessional contributions for the year: employer, salary sacrifice and personal contributions you deduct (dollars and cents) Income from employment or carrying on a business, such as salary, wages, director fees and business income before deductions (dollars and cents) Income for the year from your return (whole dollars, 0 if none) Assessable income, before deductions Taxable income Deductions against business income Reportable employer super contributions, IT2 Personal super contributions you deduct, D12 Reportable fringe benefits from other employers, IT1 label W Reportable fringe benefits from employers exempt under section 57A, IT1 label N Assessable first home super saver (FHSS) released amount Excess concessional contributions for the year Net financial investment loss, IT5 Net rental property loss, IT6 Target foreign income, IT4 Tax-free government pensions or benefits, IT7 Child support you paid, IT8
+
+An Australian resident for the whole year Yes No
+
+A temporary visa at any time in the year No Yes
+
+Your tax return for the year is lodged Yes No
+
+Under 71 at the end of the year Yes No
+
+Non-concessional contributions for the year within your cap Yes No Not known
+
+Total super balance on 30 June before the year below the general transfer balance cap Yes No Not known
+
+You contributed to your spouse’s super in the year No Yes
+
+The amounts and answers are established for the year
+
+Choose Yes, I have checked them No or unsure
+
+Calculate
+
+Personal contributions count only if your fund received them by 30 June and you did not deduct them; downsizer contributions do not count. Spouse contributions count only if you were spouses, both Australian residents and not living apart when you made them, to a complying fund, and you cannot deduct them.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2023-24, assessable income $35,000.00, taxable income $35,000.00, eligible income $35,000.00, personal contributions $1,040.00, concessional contributions $0.00. Total income for the co-contribution $35,000.00 Income thresholds $43,445 and $58,445 Half the personal contributions $520.00 Maximum after the taper $500.00 Super co-contribution $500.00 Co-contribution paid, up to 5 cents $500.00 Adjusted taxable income $35,000.00 LISTO $0.00 LISTO paid, up to 5 cents $0.00 No LISTO: no concessional contributions. The ATO works out the co-contribution and LISTO from your return and your fund’s reports and pays them to your fund.
+
+## How the government super amounts calculator works
+
+The calculator works 3 amounts from the same answers. Total income for the co-contribution is your assessable income, less any FHSS released amount, plus reportable fringe benefits and reportable employer super contributions (less any excess concessional contributions), less business deductions. Adjusted taxable income, which decides LISTO, is taxable income without any FHSS released amount, plus adjusted fringe benefits, target foreign income, investment losses, tax-free pensions and reportable super contributions, less child support paid, as the income tests calculator works it.
+
+The super co-contribution is half your personal contributions, at most $500. Above the year’s lower income threshold the $500 falls by 3.333 cents for each dollar, to nil at the higher threshold, which is $15,000 above it. An amount under $20 is raised to $20. It needs total income below the higher threshold, at least 10% of total income before business deductions from employment or a business, a lodged return, non-concessional contributions within your cap, a total super balance below the general transfer balance cap, and an age under 71.
+
+The year’s thresholds are $39,837 and $54,837 for 2020-21, $41,112 and $56,112 for 2021-22, $42,016 and $57,016 for 2022-23, $43,445 and $58,445 for 2023-24, $45,400 and $60,400 for 2024-25, $47,488 and $62,488 for 2025-26, and $49,293 and $64,293 for 2026-27.
+
+LISTO is 15% of your concessional contributions, to the nearest cent, at most $500 and at least $10, where adjusted taxable income is $37,000 or less and the same 10% test is met. The ATO pays both amounts to your fund, rounded up to a multiple of 5 cents.
+
+The spouse contribution tax offset is 18% of your contributions for your spouse, counting at most $3,000, which falls by a dollar for each dollar of the spouse’s income above $37,000. It is nil when the spouse’s income is $40,000 or more, the spouse’s non-concessional contributions exceed the spouse’s cap, or the spouse’s total super balance has reached the general transfer balance cap. The most it can be is $540.
+
+## What the government super amounts calculator does not cover
+
+The calculator refuses a person who held a temporary visa at any time in the year: the exceptions for New Zealand citizens and some prescribed visas are not worked out. It also refuses a person not resident in Australia for the whole year, a cap or balance answer of not known where that answer decides an amount, and nil total income where a contribution leaves the 10% test to decide.
+
+It leaves out contributions your fund had not received by 30 June, LISTO the ATO estimates without a return, concessional contributions to constitutionally protected funds and other amounts LISTO disregards, a deceased person’s income, interest on late payments, and 2019-20 and earlier. It does not cover 2027-28, when the law changes LISTO and the co-contribution thresholds are not yet published. It takes each amount and answer as you enter them; confirm them with your fund, the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Super co-contribution, LISTO and spouse offset calculator
+
+Case | Inputs | Result
+Angelo: $35,000 salary, $1,040 personal contributions, $500 (ATO super co-contribution page) | 2023-24, assessable income $35,000, eligible income $35,000.00, personal contributions $1,040.00, concessional contributions $0.00 | Co-contribution $500.00, LISTO $0.00
+Julie: $31,000 adjusted taxable income, $3,360 employer SG, LISTO $500 (ATO LISTO page) | 2022-23, assessable income $32,000, taxable income $31,000, eligible income $32,000.00, personal contributions $0.00, concessional contributions $3,360.00 | Co-contribution $0.00, LISTO $500.00
+Robert and Judy: spouse income $19,000, $3,500 contributed, $540 (ATO super-related offsets, example 1) | 2021-22, assessable income $80,000, eligible income $80,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $19,000.00, spouse contributions $3,500.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $540.00
+Carmel and Adam: spouse income $38,000, $3,000 contributed, $360 (example 2) | 2021-22, assessable income $80,000, eligible income $80,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $38,000.00, spouse contributions $3,000.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $360.00
+Aleah and Lewis: spouse income $35,000, $2,000 contributed, $360 (example 3) | 2022-23, assessable income $80,000, eligible income $80,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $35,000.00, spouse contributions $2,000.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $360.00
+Taper: $2,512 above the 2025-26 lower threshold, $416.28 paid as $416.30 (s 10(1C), reg 15(2)) | 2025-26, assessable income $50,000, eligible income $50,000.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $416.30, LISTO $0.00
+$1 below the 2026-27 higher threshold: the $20 minimum (s 11) | 2026-27, assessable income $64,292, eligible income $64,292.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $20.00, LISTO $0.00
+At the 2026-27 higher threshold: no co-contribution (s 6(1)(c)) | 2026-27, assessable income $64,293, eligible income $64,293.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $0.00, LISTO $0.00
+$4,999 eligible of $50,000 fails the 10% test (s 6(1)(b)) | 2025-26, assessable income $50,000, eligible income $4,999.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $0.00, LISTO $0.00
+Business deductions: total income $40,000, the 10% test on $60,000 (s 8(2) and (3)) | 2025-26, assessable income $60,000, taxable income $40,000, business deductions $20,000, eligible income $60,000.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $500.00, LISTO $0.00
+LISTO on $1,234.57: $185.19, paid $185.20 (s 12E(2), reg 15(2)) | 2025-26, assessable income $20,000, eligible income $20,000.00, personal contributions $0.00, concessional contributions $1,234.57 | Co-contribution $0.00, LISTO $185.20
+LISTO on $50: the $10 minimum (s 12E(2)(c)) | 2025-26, assessable income $20,000, eligible income $20,000.00, personal contributions $0.00, concessional contributions $50.00 | Co-contribution $0.00, LISTO $10.00
+LISTO at adjusted taxable income $37,001: nil (s 12C(1)(b)) | 2025-26, assessable income $37,001, eligible income $37,001.00, personal contributions $0.00, concessional contributions $4,000.00 | Co-contribution $0.00, LISTO $0.00
+Spouse income $39,999: 18% of $1 (s 290-235(1)) | 2025-26, assessable income $90,000, eligible income $90,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $39,999.00, spouse contributions $3,000.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $0.18
+
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
