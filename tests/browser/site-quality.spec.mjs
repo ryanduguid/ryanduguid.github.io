@@ -10,6 +10,7 @@ import { waitForCalculators } from './calculator-ready.mjs';
 import { observePageHealth } from './health.mjs';
 import { gotoForVisualSnapshot, waitForVisualFonts } from './visual.mjs';
 import { projectKind } from './project-kind.mjs';
+import config from '../../playwright.config.mjs';
 
 // Every page in the sitemap, plus the not-found page, gets the shell and axe checks.
 const routes = [
@@ -1036,4 +1037,9 @@ test('a minus sign stays on the line of its amount at 320px', async ({ page }, t
     });
     expect(split, path).toEqual([]);
   }
+});
+
+test('the test server is given time for a cold Jekyll build', () => {
+  // serve_site builds the site before it answers; 270 s was measured on a Windows PC.
+  expect(config.webServer.timeout).toBeGreaterThanOrEqual(300_000);
 });
