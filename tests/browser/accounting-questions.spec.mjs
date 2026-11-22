@@ -1073,6 +1073,32 @@ test('fuel tax credit page works its example, a line from its cost and a refusal
   await expect(form.locator('output')).toContainText('Line 1: no published rate is held for fuel acquired after 31 January 2027');
 });
 
+// The luxury car tax page's example (the ATO's Matty Bee Motors and Jimmy's Mustang), a refund line whose fields
+// show only once chosen, and an adjustment without the year of its sale.
+test('luxury car tax page works its example, a refund and a refusal offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/luxury-car-tax/');
+  const form = page.locator('#luxury-car-tax form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Label 1E on the BAS, in whole dollars: $2,157.00.');
+  await expect(form.locator('output')).toContainText('Luxury car tax on importations, paid to the Department of Home Affairs: $6,207.30.');
+  await expect(form.locator('[name="borne-2"]')).toBeHidden();
+  await form.locator('[name="kind-2"]').selectOption('refund');
+  await expect(form.locator('[name="value-2"]')).toBeHidden();
+  await form.locator('[name="supplied-2"]').selectOption('2026-27');
+  await form.locator('[name="claimant-2"]').selectOption('primary_producer');
+  await form.locator('[name="eligible-2"]').selectOption('yes');
+  await form.locator('[name="borne-2"]').fill('12000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Refunds, claimed on the ATO’s form, not the BAS: $10,000.00.');
+  await form.locator('[name="kind-3"]').selectOption('price_adjustment');
+  await form.locator('[name="value-3"]').fill('90000');
+  await form.locator('[name="attributed-3"]').fill('0');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Line 3: choose the financial year of the supply, whose threshold applies.');
+});
+
 // The ATO's rebate table for 2026-27 (QC22758) is the form's default; the average wholesale price method is
 // refused for wine that is not grape wine (section 9-30).
 test('wine equalisation tax page works the ATO’s rebate table, shows each dealing and refuses the average method for other wine offline', async ({ page, context }) => {
@@ -1500,7 +1526,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
-  'workers-compensation', 'fuel-tax-credits', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees'];
+  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
