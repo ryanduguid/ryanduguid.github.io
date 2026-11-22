@@ -1654,7 +1654,7 @@ const OFFSET_COMMANDS = {
 test('the income tax page’s offsets agree with the australian-accounting commands on every differential case', () => {
   const { cases } = JSON.parse(readFileSync(new URL('./income-tax-offsets-engine-differential.json', import.meta.url), 'utf8'));
   assert.ok(cases.length > 1000);
-  assert.match(incomeTaxHtml, new RegExp(`on ${cases.length} cases`));
+  assert.match(incomeTaxHtml, new RegExp(`on ${cases.length.toLocaleString('en-AU')} cases`));
   for (const command of Object.keys(OFFSET_COMMANDS)) {
     assert.ok(cases.filter((c) => c.command === command && c.refused).length >= 1, command);
   }
