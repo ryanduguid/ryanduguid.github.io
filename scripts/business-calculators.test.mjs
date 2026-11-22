@@ -761,6 +761,12 @@ Object.assign(INPUTS, { wineEqualisationTax: (x) => calculations.wetInputsText(x
 Object.assign(ENGINE_LABELS, { wineEqualisationTax: { wineTax: (v) => `wine tax ${dollars(v)}`, label1c: (v) => `label 1C ${dollars(v)}`,
   rebate: (v) => `producer rebate ${dollars(v)}`, label1d: (v) => `label 1D ${dollars(v)}` } });
 
+// The rental property page's rows (its tests are with the page's other tests below).
+Object.assign(INPUTS, { rentalProperty: (x) => calculations.rentalInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { rentalProperty: { grossRent: (v) => `gross rent ${dollars(v)}`,
+  totalDeductions: (v) => `total deductions ${dollars(v)}`, netRent: (v) => `net rent ${dollars(v)}` } });
+
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
     test(`${page} official comparison states what this calculator returns`, () => {
@@ -1202,6 +1208,8 @@ Object.assign(FORM_CALLS, { atoPenaltiesInterest: (f) => [calculations.atoPenalt
 Object.assign(FORM_CALLS, { lowValuePool: (f) => [calculations.poolFormInput((name) => f[name] ?? '').input] });
 
 Object.assign(FORM_CALLS, { wineEqualisationTax: (f) => [calculations.wetFormInput((name) => f[name] ?? '')] });
+
+Object.assign(FORM_CALLS, { rentalProperty: (f) => [calculations.rentalFormInput((name) => f[name] ?? '')] });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -5687,6 +5695,161 @@ test('wine equalisation tax agrees with the australian-accounting command on eve
       producer_rebate: f(r.rebate), rebate_over_cap: f(r.rebateOverCap), label_1d: `${r.label1d}.00`, producer_rebate_cap: String(r.cap) }, totals, source);
     assert.deepEqual(r.dealings.map((d) => [d.taxableValue, d.wineTax, d.gst, d.priceIncludingWetAndGst, d.rebate ? d.rebate.amount : null].map(f)),
       dealings.map((row) => row.map(f)), source);
+  }
+});
+
+// The rental property page: its example, the ATO's Rental properties guide 2026 worked examples (Examples
+// 12, 21, 23, 29, 33 and 34, read 22 November 2026), Division 43's rate table, its refusals, the form's
+// reading and the australian-accounting command it ports.
+const rentalHtml = readFileSync(new URL('../_includes/calculators/rental-property.html', import.meta.url), 'utf8');
+const rentalAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+const rentalBase = { year: '2025-26', ownership_share: '1', acquired: '2020-07-01', disposed: null, days_available: 365,
+  section_26_50_applies: false, income: {}, expenses: {}, rental_only_expenses: {}, loans: [], borrowing_loans: [], capital_works: [],
+  depreciating_assets: [] };
+const rental = (change) => calculations.rentalProperty({ ...rentalBase, ...change });
+const rentalCode = (change) => {
+  try {
+    rental(change);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+const rentalLoan = (interest, rentalPart, total, redrawn = false) => ({ interest, principal_for_rental: rentalPart, principal_total: total,
+  redrawn_in_year: redrawn });
+const rentalWorks = (cost, kind, began, firstUsed, taken) => ({ construction_expenditure: cost, kind, began, first_used: firstUsed,
+  ...(taken === undefined ? {} : { taken_to_begin_before_16_september_1987: taken }) });
+const rentalAsset = (decline, acquired, firstUsed, held, privateUse, more = {}) => ({ decline_in_value: decline, acquired,
+  first_used: firstUsed, held_when_first_used: held, residence_or_private_use: privateUse, low_value_pool: false, ...more });
+
+test('the rental property page opens on the guide’s Example 33 worksheet and dates its sources', () => {
+  const example = rentalHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(rentalHtml);
+  const result = calculations.rentalPropertyResult((name) => fields[name] ?? '', rentalAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  assert.deepEqual(result.rows.map((row) => row[1]), ['$9,300.00', '$20,193.33', '−$10,893.33', '$17,788.00', '$14,520.10', '$3,267.90']);
+  assert.ok(result.tables.deductions.some(([line, amount]) => line.startsWith('Capital works 1: building begun 1 August 1991, 2.5% for 346 days')
+    && amount === '$2,744.30'));
+  for (const cited of ['Rental properties guide 2026</a> (NAT 1729-06.2026)', 'read on the ATO Legal Database 22 November 2026',
+    'href="/tools/business-calculators/borrowing-expenses/"', 'counts both its first and last day (section 43-230(2))',
+    'rests on the guide’s Table 1, not on a provision read']) {
+    assert.ok(rentalHtml.includes(cited), cited);
+  }
+});
+
+test('rental property follows the guide’s Examples 34, 12, 29 and 33 to the cent', () => {
+  const ex34 = { days_available: 330, income: { rental_income: '50000.00' }, expenses: { sundry: '37000.00' },
+    rental_only_expenses: { property_agent_fees: '3000.00' } };
+  assert.deepEqual([rental(ex34).totalDeductions, rental(ex34).netRent], [36452.05, 13547.95]);
+  const half = rental({ ...ex34, ownership_share: '0.5' });
+  assert.deepEqual([half.amounts.gross_rent, half.amounts.sundry, half.amounts.property_agent_fees, half.netRent], [25000, 16726.03, 1500, 6773.97]);
+  assert.equal(rental({ loans: [rentalLoan('14108.00', '170000.00', '209000.00')] }).amounts.interest, 11475.41);
+  assert.equal(rental({ loans: [rentalLoan('7054.00', '170000.00', '209000.00')] }).amounts.interest, 5737.7);
+  const works = rental({ acquired: '2025-07-20', days_available: 346, capital_works: [rentalWorks('115800.00', 'building', '1991-08-01', '1992-03-01', false)] });
+  assert.deepEqual([works.amounts.capital_works, works.capitalWorks[0].daysUsed, works.capitalWorks[0].rate], [2744.3, 346, '0.025']);
+  const travel = rental({ expenses: { travel: '436.00' } });
+  assert.deepEqual([travel.amounts.travel, travel.amounts.travel_denied, travel.totalDeductions], [0, 436, 0]);
+  // Example 33 with the borrowing expenses schedule run on Example 20's loan drawn 17 July 2025.
+  const fields = formDefaults(rentalHtml);
+  const input = calculations.rentalFormInput((name) => fields[name] ?? '');
+  delete input.borrowing_expenses;
+  input.borrowing_loans = [{ borrowing_expenses: '1670.00', loan_start: '2025-07-17', loan_term_end: '2045-07-16', repaid_on: null,
+    income_use: '0.8133971291866028708133971291866028708134', section_26_50_applies: false }];
+  const r = calculations.rentalProperty(input);
+  assert.deepEqual([r.amounts.borrowing_expenses, r.totalDeductions, r.netRent, r.amounts.taxable_income_with_rental, r.amounts.tax_effect],
+    [259.62, 20193.33, -10893.33, 79107, 3267.9]);
+});
+
+test('rental property applies Division 43’s rates and limit and section 40-27', () => {
+  const rate = (began, taken, kind = 'building') => rentalCode({ capital_works: [rentalWorks('1000.00', kind, began, began, taken)] }) !== 'computed' ? null : rental({ capital_works: [rentalWorks('1000.00', kind, began, began, taken)] }).capitalWorks[0].rate;
+  assert.deepEqual([rate('1979-08-21'), rate('1985-07-18'), rate('1987-09-15'), rate('1987-09-16', false), rate('1987-09-16', true),
+    rate('1992-02-26', undefined, 'structural_improvement'), rate('1992-02-27', undefined, 'structural_improvement')], [null, '0.04', '0.04', '0.025', '0.04', null, '0.025']);
+  assert.equal(rental({ capital_works: [rentalWorks('100000.00', 'building', '1985-10-01', '1986-01-01')] }).amounts.capital_works, 0);
+  assert.equal(rental({ capital_works: [rentalWorks('100000.00', 'building', '1985-10-01', '2000-12-01')] }).amounts.capital_works, 1610.96);
+  const assets = rental({ acquired: '2025-08-20', days_available: 315, depreciating_assets: [rentalAsset('300.00', '2025-08-20', '2025-08-20', true, false),
+    rentalAsset('500.00', '2025-08-20', '2015-01-01', false, false, { new_premises_exception: false }), rentalAsset('150.00', '2025-08-20', '2019-01-01', false, true)] });
+  assert.deepEqual(assets.assets.map((a) => [a.deduction, a.why === null]), [[300, true], [0, false], [0, false]]);
+  assert.equal(rental({ depreciating_assets: [rentalAsset('400.00', '2024-05-01', '2024-01-01', false, false, { new_premises_exception: true })] })
+    .amounts.decline_in_value, 400);
+  const may2017 = (first) => rental({ depreciating_assets: [rentalAsset('1000.00', '2017-05-08', first, true, true, { deductible_in_2016_17: false })] });
+  assert.deepEqual([may2017('2017-07-01').amounts.decline_in_value, may2017('2017-05-10').amounts.decline_in_value], [1000, 0]);
+  assert.equal(rental({ depreciating_assets: [rentalAsset('100.00', '2026-01-01', '2026-01-01', true, false)] }).amounts.decline_in_value, 100);
+  // Exactly half a cent through a recurring third: the command's 28-digit context lands just below it, as the command gives.
+  const third = (interest, rentalPart, disposed) => rental({ disposed, days_available: 3, loans: [rentalLoan(interest, rentalPart, '3.00')] }).amounts.interest;
+  assert.deepEqual([third('0.17', '2.00', '2025-07-04'), third('0.04', '1.00', '2025-07-08')], [0.08, 0]);
+});
+
+test('rental property refuses what the command refuses', () => {
+  const works = (began, taken) => ({ capital_works: [rentalWorks('1000.00', 'building', began, '1990-01-01', taken)] });
+  assert.equal(rentalCode({ section_26_50_applies: true }), 'rental_property.s26_50_denied');
+  assert.equal(rentalCode({ loans: [rentalLoan('1.00', '1.00', '2.00', true)] }), 'rental_property.interest_redraw');
+  assert.equal(rentalCode({ loans: [rentalLoan('1.00', '3.00', '2.00')] }), 'rental_property.fact_conflict');
+  assert.equal(rentalCode(works('1979-08-22')), 'rental_property.works_intended_use');
+  assert.equal(rentalCode(works('1985-07-17')), 'rental_property.works_intended_use');
+  assert.equal(rentalCode({ capital_works: [rentalWorks('1000.00', 'building', '2010-01-01', '2011-01-01')] }), 'input.missing_field');
+  assert.equal(rentalCode({ depreciating_assets: [rentalAsset('1.00', '2017-05-09', '2017-05-09', true, false)] }), 'rental_property.asset_acquired_9_may_2017');
+  assert.equal(rentalCode({ days_available: 181, depreciating_assets: [rentalAsset('1.00', '2026-01-01', '2026-01-01', true, false)] }), 'rental_property.days_unclear');
+  assert.equal(rentalCode({ depreciating_assets: [rentalAsset('1.00', '2025-07-01', '2026-07-01', true, false)] }), 'rental_property.fact_conflict');
+  assert.equal(rentalCode({ year: '2023-24', days_available: 366, other_taxable_income: '1' }), 'rental_property.tax_effect_year');
+  assert.equal(rentalCode({ other_taxable_income: '1.50' }), 'input.amount_not_whole_dollars');
+  assert.equal(rentalCode({ year: '2027-28' }), 'period.unsupported');
+  assert.equal(rentalCode({ days_available: 366 }), 'rental_property.fact_conflict');
+  assert.equal(rentalCode({ ownership_share: '0' }), 'rental_property.fact_invalid');
+  assert.equal(rentalCode({ expenses: { mortgage: '1.00' } }), 'input.field_unknown');
+  assert.equal(rentalCode({ income: { rental_income: '1.005' } }), 'input.amount_invalid');
+  assert.equal(rentalCode({ borrowing_expenses: '1.00' }), 'input.field_unknown');
+  // Totals of 2^46 dollars or more cannot be shown to the cent as JavaScript numbers.
+  const loans = (n) => Array.from({ length: n }, () => rentalLoan('1000000000000', '1.00', '1.00'));
+  assert.equal(rental({ loans: loans(70) }).amounts.interest, 70e12);
+  assert.equal(rentalCode({ loans: loans(71) }), 'input.amount_invalid');
+});
+
+test('the rental property form leaves out blank items and unanswered questions', () => {
+  const fields = { ...formDefaults(rentalHtml), 'works-contract-1': '', 'asset-new-1': 'no', 'borrowing': '', days: '12.5',
+    'loan-interest-2': '10', 'loan-rental-2': '1', 'loan-total-2': '2', disposed: '2026-06-01', 'other-income': '' };
+  const input = calculations.rentalFormInput((name) => {
+    assert.ok(Object.hasOwn(fields, name), `No rental property form control named ${name}`);
+    return fields[name] ?? '';
+  });
+  assert.equal('taken_to_begin_before_16_september_1987' in input.capital_works[0], false);
+  assert.equal(input.depreciating_assets[0].new_premises_exception, false);
+  assert.equal('deductible_in_2016_17' in input.depreciating_assets[0], false);
+  assert.deepEqual([input.borrowing_expenses, input.days_available, input.disposed, input.loans.length, input.capital_works.length,
+    input.depreciating_assets.length, 'other_taxable_income' in input], ['0', '12.5', '2026-06-01', 2, 1, 1, false]);
+  assert.deepEqual([input.expenses.travel, input.rental_only_expenses.property_agent_fees], ['436.00', '800.00']);
+  assert.equal('scope_confirmed' in input, false);
+});
+
+// The scope select's answer goes to the engine, and a year before 2024-25 is worked without the effect on tax.
+test('the rental property form sends the scope answer and drops the effect on tax before 2024-25', () => {
+  const read = (more) => (name) => ({ ...formDefaults(rentalHtml), ...more })[name] ?? '';
+  assert.equal(calculations.rentalFormInput(read({ scope: 'yes' })).scope_confirmed, true);
+  assert.equal(rentalCode(calculations.rentalFormInput(read({ scope: 'no' }))), 'scope.not_confirmed');
+  const early = read({ year: '2023-24', acquired: '2020-07-01', days: '366', scope: 'yes', 'asset-decline-1': '', 'asset-decline-2': '' });
+  assert.equal('other_taxable_income' in calculations.rentalFormInput(early), false);
+  const shown = calculations.rentalPropertyResult(early, rentalAud);
+  assert.equal(shown.rows.length, 3);
+  assert.match(shown.note, /The effect on tax is worked from 2024-25 only/);
+});
+
+// The command this page ports, run on the same cases: see the fixture's engine line.
+test('rental property agrees with the australian-accounting command on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./rental-property-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length > 250);
+  const f = (v) => (v === null || v === undefined ? null : Number(v).toFixed(2));
+  for (const c of cases) {
+    if (c.refused) {
+      assert.equal(rentalCode(c.call), c.refused, c.source);
+      continue;
+    }
+    assert.equal(rentalCode(c.call), 'computed', c.source);
+    const r = calculations.rentalProperty(c.call);
+    assert.deepEqual(Object.fromEntries(Object.entries(r.amounts).map(([k, v]) => [k, f(v)])),
+      Object.fromEntries(Object.entries(c.amounts).map(([k, v]) => [k, f(v)])), c.source);
+    assert.deepEqual(r.loans.map((l) => f(l.deduction)), c.loans.map(f), c.source);
+    assert.deepEqual(r.capitalWorks.map((w) => [w.rate, w.usePeriodDays, f(w.undeducted), w.daysUsed, f(w.deduction)]),
+      c.capital_works.map((w) => [w[0], w[1] ?? null, f(w[2]), w[3] ?? null, f(w[4])]), c.source);
+    assert.deepEqual(r.assets.map((a) => [f(a.deduction), a.why !== null]), c.depreciating_assets.map((a) => [f(a[0]), a[1]]), c.source);
   }
 });
 

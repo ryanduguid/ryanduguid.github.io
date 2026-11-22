@@ -20,6 +20,8 @@ export { LCT_CLAIMANTS, LCT_KINDS, LCT_THRESHOLDS, LCT_YEARS, lctFormInput, lctI
 export { unusedLeave, unusedLeaveResult } from './unused-leave.mjs';
 export { FRANKING_EVENTS, frankingAccount, frankingAccountResult, frankingInput } from './franking-account.mjs';
 export { BORROWING_YEARS, borrowingAccounting, borrowingFormInput, borrowingInputsText, borrowingResult, borrowingSchedule } from './borrowing-expenses.mjs';
+export { RENTAL_YEARS, rentalProperty } from './rental-property.mjs';
+export { rentalFormInput, rentalInputsText, rentalPropertyResult } from './rental-property-result.mjs';
 export { WC_SCHEMES, workersCompensation, workersCompensationResult } from './workers-compensation.mjs';
 
 // Planning arithmetic. Rates, eligibility and classifications belong to the caller.

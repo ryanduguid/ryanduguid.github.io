@@ -264,6 +264,10 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             result = calculate.borrowingResult(value, aud);
             showTables(result.tables);
             break;
+          case 'rental-property':
+            result = calculate.rentalPropertyResult(value, aud);
+            showTables(result.tables);
+            break;
           case 'div7a': {
             // The year's benchmark rate comes from the option, which lists only years the site's rate table holds.
             const year = form.elements.namedItem('year').selectedOptions[0];
