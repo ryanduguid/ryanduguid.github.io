@@ -562,6 +562,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             break;
           case 'luxury-car-tax':
             result = calculate.luxuryCarTaxResult(value, aud);
+            break;
           case 'wine-equalisation-tax':
             result = calculate.wineEqualisationTaxResult(value, aud);
             showTables(result.tables);
