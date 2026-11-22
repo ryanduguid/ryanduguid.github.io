@@ -1,0 +1,89 @@
+# Work from home, car and self-education expenses calculator
+
+Source: https://duguid.com.au/tools/individual-tax/work-expenses/
+
+> Compare the working from home fixed rate with actual cost, and work out car and self-education expenses, for 2020-21 to 2026-27.
+
+# Work expenses calculator
+
+Work out working from home, car or self-education expenses for 2020-21 to 2026-27.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Work expenses for one income year
+
+Method Working from home Car, cents per kilometre Car, log book Self-education
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Working from home Hours worked from home, as recorded Additional running expenses, such as energy or phone, incurred from working from home Yes No
+
+Work-related amounts only, in dollars and cents. Enter 0 for an expense you did not have.
+
+Electricity and gas Mobile and home phone Internet Stationery and computer consumables Cleaning Decline in value of home office furniture and furnishings Decline in value of other assets, such as a computer or phone Repairs to those assets
+
+Reimbursed or paid by your employer or anyone else No Yes
+
+An allowance received for these expenses No Yes
+
+The hours, kilometres and amounts are your records’ work-related figures
+
+Choose Yes, I have checked them No or unsure
+
+Calculate
+
+The calculator applies the rates, caps and reductions to the figures you enter. It does not check your records, apportion an expense, work out decline in value or decide whether your home is a place of business.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Working from home, 2025-26, 843 hours, other expenses $0.00. Fixed rate, 843 hours at 70c $590.10 Expenses claimed beside the fixed rate $0.00 Fixed rate method $590.10 Actual cost method $0.00 Higher method Fixed rate Higher method, cents disregarded $590.00 The higher method is named for comparison only: each method needs its own records, and you choose one for the year.
+
+## How the work expenses calculator works
+
+For working from home, the calculator shows each method open to you beside the actual cost and names the higher. From 2022-23 the fixed rate is your recorded hours times 67c (2022-23 and 2023-24) or 70c (from 1 July 2024). It covers energy, phone, internet, stationery and computer consumables, so only cleaning, decline in value and repairs are added beside it (PCG 2023/1). For 2020-21 and 2021-22, the 52c rate needed a dedicated home office and covered energy, cleaning and the decline in value of home office furniture; phone, internet, stationery, other assets’ decline in value and repairs went beside it. The 80c shortcut covered every working from home expense. Every hourly rate needs at least one additional running expense incurred from working from home. The actual cost is the total of the work-related amounts you enter.
+
+For a car you owned or leased, the cents per kilometre method counts only the first 5,000 business kilometres, at 72c for 2020-21 and 2021-22, 78c for 2022-23, 85c for 2023-24, 88c for 2024-25 and 2025-26, and 91c for 2026-27 (section 28-25). The log book method takes the car expenses times the business use percentage, business kilometres over total kilometres (section 28-90). A log book serves the year it was kept and the next 4 years (section 28-115) and must cover at least 12 continuous weeks (section 28-120).
+
+For self-education, expenses count only when, at the time you incurred them, you were employed and the study kept up or improved the skills or knowledge for your current work, or was likely to increase your income from it. For 2021-22 and earlier, a prescribed course of education reduces category A by $250, less any category C, D and E expenses (section 82A). From 2022-23 there is no reduction. Each deduction is shown to the cent and again with the cents disregarded, as the ATO’s examples show the figure for the return.
+
+## What the work expenses calculator does not cover
+
+The calculator refuses an expense reimbursed or paid by an employer or anyone else, or covered by an allowance. It also refuses a car you did not own or lease, a log book kept more than 4 years before the claim year, one covering under 12 weeks and one that no longer represents the car’s use. It also refuses cents per kilometre expenses in category D beside log book car expenses in category A. It does not cover occupancy expenses such as rent, mortgage interest, rates and house insurance, or decide whether your home is a place of business. It also leaves out the substantiation rules and their exceptions, occupation-specific guidance, cars taken on hire or jointly owned, a new log book after an ATO notice or an added car, and the electric vehicle home charging rate. It does not work out decline in value, apportion an expense or work out the tax saved. Years before 2020-21 and after 2026-27 are not covered: no cents per kilometre rate had been determined for 2027-28 when the calculator was checked.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Work expenses calculator
+
+Case | Inputs | Result
+Keisha: 843 hours at 70c, $590 (ATO fixed rate method page) | 2025-26, working from home, 843 hours | Fixed rate $590.10, actual cost $0.00; higher fixed rate, $590.00 with cents disregarded
+Yang: 567 hours plus a $299 chair and a $250 desk, $945 (ATO fixed rate method page) | 2025-26, working from home, 567 hours, furniture decline $549.00 | Fixed rate $945.90, actual cost $549.00; higher fixed rate, $945.00 with cents disregarded
+Wanda: only the 136 recorded hours count, $95 (ATO fixed rate method page) | 2025-26, working from home, 136 hours | Fixed rate $95.20, actual cost $0.00; higher fixed rate, $95.00 with cents disregarded
+Gerry: 768 hours in 2024-25, $537 (PCG 2023/1 example 1) | 2024-25, working from home, 768 hours | Fixed rate $537.60, actual cost $0.00; higher fixed rate, $537.00 with cents disregarded
+Piruntha: 560 hours plus decline in value, $1,527 (PCG 2023/1 example 8) | 2024-25, working from home, 560 hours, furniture decline $439.20, other assets’ decline $696.52 | Fixed rate $1,527.72, actual cost $1,135.72; higher fixed rate, $1,527.00 with cents disregarded
+67c in 2023-24, the last year before 70c (PCG 2023/1 Table 1) | 2023-24, working from home, 100 hours | Fixed rate $67.00, actual cost $0.00; higher fixed rate, $67.00 with cents disregarded
+2021-22: the 52c rate with a dedicated home office, phone beside it, and the 80c shortcut | 2021-22, working from home, 1,000 hours, phone $120.00 | Fixed rate $640.00, shortcut $800.00, actual cost $120.00; higher shortcut, $800.00 with cents disregarded
+2021-22 without a dedicated home office: the shortcut and actual cost only | 2021-22, working from home, 1,000 hours, energy $900.00, no dedicated home office | Shortcut $800.00, actual cost $900.00; higher actual cost, $900.00 with cents disregarded
+Sergei: no additional running expenses, so actual cost only (PCG 2023/1 example 6) | 2025-26, working from home, 500 hours, other assets’ decline $50.00, no additional running expenses | Actual cost $50.00; higher actual cost, $50.00 with cents disregarded
+Johan: 2,514 km at 88c, $2,212 (ATO cents per kilometre page) | 2025-26, cents per kilometre, 2,514 business km | 2,514 km counted, deduction $2,212.32, $2,212.00 with cents disregarded
+Only the first 5,000 business kilometres count (s 28-25(2)), at 91c for 2026-27 | 2026-27, cents per kilometre, 5,085 business km | 5,000 km counted, deduction $4,550.00, $4,550.00 with cents disregarded
+72c for 2021-22, the rate continued from 2020-21 | 2021-22, cents per kilometre, 1,000 business km | 1,000 km counted, deduction $720.00, $720.00 with cents disregarded
+Lana: 69% business use of $17,275.33 decline in value, $11,919.98 (ATO logbook method page) | 2025-26, log book kept 2025-26 for 12 weeks, 6,900 of 10,000 km, car expenses $17,275.33 | Business use 69.00%, deduction $11,919.98, $11,919.00 with cents disregarded
+A log book kept in 2021-22 still serves 2025-26, its fifth year (s 28-115(2)) | 2025-26, log book kept 2021-22 for 12 weeks, 6,900 of 10,000 km, car expenses $17,275.33 | Business use 69.00%, deduction $11,919.98, $11,919.00 with cents disregarded
+Maureen: category A of $290 alone, $40 after the $250 reduction (ATO reduction page) | 2021-22, self-education, skills for current work, A $290.00, B $0.00, C $0.00, D $0.00, prescribed course, E $0.00 | Reduction $250.00, deduction $40.00
+Con: categories C, D and E above $250 leave no reduction, $750 (TR 98/9 paras 145 to 150) | 2020-21, self-education, skills for current work, A $350.00, B $200.00, C $100.00, D $100.00, prescribed course, E $500.00 | Reduction $0.00, deduction $750.00
+Con’s second year: category E alone above $250 leaves no reduction, $900 (TR 98/9 paras 151 to 155) | 2020-21, self-education, skills for current work, A $500.00, B $400.00, C $0.00, D $0.00, prescribed course, E $2,200.00 | Reduction $0.00, deduction $900.00
+A seminar is not a prescribed course, so no reduction in 2021-22 (TR 98/9 para 129) | 2021-22, self-education, skills for current work, A $290.00, B $0.00, C $0.00, D $0.00, not a prescribed course | Deduction $290.00
+From 2022-23 there is no $250 reduction (Act No. 84, 2022) | 2022-23, self-education, skills for current work, A $290.00, B $0.00, C $0.00, D $0.00 | Deduction $290.00
+Wendy: study for new employment is not deductible (ATO self-education page) | 2025-26, self-education, new employment, A $290.00, B $0.00, C $0.00, D $0.00 | Deduction $0.00, not deductible
+
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
