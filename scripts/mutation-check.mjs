@@ -283,6 +283,8 @@ const MUTATIONS = [
   { ...business, name: 'credits claimed are not added back', find: 'return earlier - credits;', replace: 'return earlier;' },
   { ...business, name: 'a varied amount below nil gives no credit', find: 'credit: wholeDollars(Math.max(0, -amount))', replace: 'credit: 0' },
   { ...business, name: 'the first instalment takes earlier instalments', find: 'instalment === 1 && cents(inputs.earlier)', replace: 'false && cents(inputs.earlier)' },
+  { ...business, name: 'the second instalment adds back credits', find: 'instalment < 3 && cents(inputs.credits)', replace: 'instalment < 2 && cents(inputs.credits)' },
+  { ...business, name: 'the third instalment refuses credits', find: 'instalment < 3 && cents(inputs.credits)', replace: 'instalment < 4 && cents(inputs.credits)' },
   { ...business, name: 'a varied rate rounds to the nearest hundredth', find: 'tax * 10000n / yearIncome', replace: '(tax * 20000n + yearIncome) / (2n * yearIncome)' },
   { ...business, name: 'a higher varied rate gives a credit', find: 'if (rate < given)', replace: 'if (rate !== given)' },
   { ...business, name: 'the credit leaves out earlier instalment income', find: 'earlierLessCredits() - earlierAtRate', replace: 'earlierLessCredits()' },

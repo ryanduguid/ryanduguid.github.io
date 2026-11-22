@@ -2292,7 +2292,13 @@ fn payg_oracle(quarter: &Quarter) -> Result<Instalment, &'static str> {
             if quarter.instalment == 1 && quarter.earlier > 0 {
                 return Err("The first instalment of the year has no earlier instalments.");
             }
-            let amount = signed(due) - signed(net_earlier()?);
+            let net = net_earlier()?;
+            // s 45-410(3) adds no credit to the second instalment, and none can exist before it:
+            // the first is never negative (s 45-410(2)) and s 45-215(1)(b) needs a previous quarter.
+            if quarter.instalment < 3 && quarter.credits > 0 {
+                return Err("The first and second instalments of the year add back no credits.");
+            }
+            let amount = signed(due) - signed(net);
             let whole = |cents: i128| u128::try_from(cents.max(0)).unwrap() / 100;
             Ok((amount, whole(amount), whole(-amount), Some(due), None))
         }

@@ -1321,7 +1321,8 @@ test('PAYG instalments add back credits only from the third instalment', () => {
   // The second instalment may itself fall below nil and give the credit the third adds back.
   const second = instalment({ method: 'varied-amount', instalment: '2', estimatedTax: '1000', earlier: '600' });
   assert.deepEqual([second.due, second.amount, second.instalment, second.credit], [500, -100, 0, 100]);
-  const third = instalment({ method: 'varied-amount', instalment: '3', estimatedTax: '1000', earlier: '600', credits: '100' });
+  let third;
+  assert.doesNotThrow(() => { third = instalment({ method: 'varied-amount', instalment: '3', estimatedTax: '1000', earlier: '600', credits: '100' }); });
   assert.deepEqual([third.due, third.amount, third.instalment, third.credit], [750, 250, 250, 0]);
 });
 
