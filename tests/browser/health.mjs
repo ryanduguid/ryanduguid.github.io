@@ -15,27 +15,24 @@ export function observePageHealth(page, allowedResponse = () => false) {
     }
   });
   // Leaving a page cancels the requests it still has in flight. That is the test's
-  // doing, not a fault in the page, so a request is left out when it fails whilst a
-  // main-frame navigation is under way, or after one has replaced the document that
-  // made it. A hash change starts no navigation request and replaces no document.
+  // doing, not a fault in the page, so a request that fails whilst a main-frame
+  // navigation is under way is left out. A hash change starts no navigation request.
+  // Chromium cancels when the new document commits. Firefox cancels before the
+  // navigation request, so there a page left mid-load is still reported (Firefox
+  // pass on Linux, 22 November 2026).
   let navigation = null;
-  let documents = 0;
-  const madeIn = new WeakMap();
   page.on('request', (request) => {
-    madeIn.set(request, documents);
     if (request.isNavigationRequest() && request.frame() === page.mainFrame()) {
       navigation = request;
     }
   });
   page.on('framenavigated', (frame) => {
-    if (frame !== page.mainFrame() || !navigation) return;
-    navigation = null;
-    documents += 1;
+    if (frame === page.mainFrame()) navigation = null;
   });
   page.on('requestfailed', (request) => {
     if (request === navigation) {
       navigation = null;
-    } else if (navigation || madeIn.get(request) < documents) {
+    } else if (navigation) {
       return;
     }
     const reason = request.failure()?.errorText ?? 'unknown failure';
