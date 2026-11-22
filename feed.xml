@@ -8,6 +8,13 @@
   <updated>2026-11-22T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new business calculator works out the tax on one superannuation lump sum from…</title>
+    <link href="https://duguid.com.au/changelog/#entry-904f904ae41547f4" />
+    <id>https://duguid.com.au/changelog/#entry-904f904ae41547f4</id>
+    <updated>2026-11-22T00:00:00Z</updated>
+    <summary>A new business calculator works out the tax on one superannuation lump sum from a complying fund paid in 2020-21 to 2026-27: its tax free component by the proportioning rule, its elements taxed and untaxed in the fund, and the most income tax each part can bear before the Medicare levy, for a member by age and preservation age with the low rate cap and untaxed plan cap, and for a death benefit to a dependant or a non-dependant. The Act and the ATO’s caps were read on 22 November 2026; the page reproduces the ATO’s examples and agrees with the super-benefit-tax command of the australian-accounting calculators on every tested case.</summary>
+  </entry>
+  <entry>
     <title>A new business calculator works out luxury car tax on a tax period’s sales and…</title>
     <link href="https://duguid.com.au/changelog/#entry-3c0c4ebff9200929" />
     <id>https://duguid.com.au/changelog/#entry-3c0c4ebff9200929</id>
