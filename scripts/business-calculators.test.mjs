@@ -1297,7 +1297,7 @@ test('PAYG instalments refuse what the activity statement cannot hold', () => {
   assert.throws(() => instalment({ method: 'varied-amount', instalment: '1', earlier: '1' }),
     { message: 'The first instalment of the year has no earlier instalments.' });
   assert.throws(() => instalment({ method: 'varied-amount', instalment: '5' }), { message: 'Enter a whole number between 1 and 4.' });
-  assert.throws(() => instalment({ method: 'varied-amount', instalment: '3', earlier: '100', credits: '101' }),
+  assert.throws(() => instalment({ method: 'varied-amount', instalment: '2', earlier: '100', credits: '101' }),
     { message: 'Credits claimed cannot exceed the earlier instalments.' });
   assert.throws(() => instalment({ method: 'varied-rate', estimatedTax: '101', estimatedIncome: '100', rate: '10' }),
     { message: 'Estimated tax cannot exceed estimated instalment income.' });
@@ -1315,7 +1315,9 @@ test('PAYG instalments refuse what the activity statement cannot hold', () => {
 test('PAYG instalments add back credits only from the third instalment', () => {
   const refused = { message: 'The first and second instalments of the year add back no credits.' };
   assert.throws(() => instalment({ method: 'varied-amount', instalment: '2', estimatedTax: '1000', earlier: '250', credits: '1' }), refused);
-  assert.throws(() => instalment({ method: 'varied-amount', instalment: '1', estimatedTax: '1000', credits: '1' }), refused);
+  // The first has no earlier instalments for a credit to come from.
+  assert.throws(() => instalment({ method: 'varied-amount', instalment: '1', estimatedTax: '1000', credits: '1' }),
+    { message: 'Credits claimed cannot exceed the earlier instalments.' });
   // The second instalment may itself fall below nil and give the credit the third adds back.
   const second = instalment({ method: 'varied-amount', instalment: '2', estimatedTax: '1000', earlier: '600' });
   assert.deepEqual([second.due, second.amount, second.instalment, second.credit], [500, -100, 0, 100]);

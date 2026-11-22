@@ -438,8 +438,9 @@ export function paygInstalment(inputs) {
     // third and fourth add back credits (s 45-410(4) and (5)); none can exist before the second.
     const due = Number(ratioCents(BigInt(cents(inputs.estimatedTax)) * BigInt(instalment), 4n));
     if (instalment === 1 && cents(inputs.earlier)) throw new Error('The first instalment of the year has no earlier instalments.');
+    const net = earlierLessCredits();
     if (instalment < 3 && cents(inputs.credits)) throw new Error('The first and second instalments of the year add back no credits.');
-    const amount = due - earlierLessCredits();
+    const amount = due - net;
     return { amount: amount / 100, instalment: wholeDollars(Math.max(0, amount)), credit: wholeDollars(Math.max(0, -amount)),
       due: due / 100, instalmentRate: null };
   }
