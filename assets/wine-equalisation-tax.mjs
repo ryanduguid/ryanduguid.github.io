@@ -192,6 +192,7 @@ function parseDealing(value, n) {
 }
 
 const at29 = (/** @type {bigint} */ cents) => ratioCents(cents * 29n, 100n);
+const SAFE_CENTS = BigInt(Number.MAX_SAFE_INTEGER);
 
 /** @typedef {{dealing: number, kind: string, taxableValue: number, method: string, wineTax: number, gst: number | null,
  *   priceIncludingWetAndGst: number | null, intention: string | null, rebate: null | {conditions: boolean[], liable: boolean,
@@ -224,7 +225,8 @@ function workDealing(d, n) {
     rebate = { conditions: d.conditions, liable, allMet, amount: Number(earned) / 100 };
   }
   const dollars = (/** @type {bigint | null} */ c) => (c === null ? null : Number(c) / 100);
-  return { tax, earned, worked: /** @type {WetDealing} */ ({ dealing: n, kind: d.kind, taxableValue: Number(value) / 100, method: v.method,
+  const largest = total !== null && total > value ? total : value;
+  return { tax, earned, largest, worked: /** @type {WetDealing} */ ({ dealing: n, kind: d.kind, taxableValue: Number(value) / 100, method: v.method,
     wineTax: Number(tax) / 100, gst: dollars(gst), priceIncludingWetAndGst: dollars(total), intention: d.intention, rebate }) };
 }
 
@@ -264,12 +266,18 @@ export function wineEqualisationTax(input) {
   }
   let tax = 0n;
   let earned = 0n;
+  let largest = 0n;
   const worked = dealings.map((d, i) => {
     const w = workDealing(d, i + 1);
     tax += w.tax;
     earned += w.earned;
+    largest = w.largest > largest ? w.largest : largest;
     return w.worked;
   });
+  // Results are JavaScript numbers, exact to the cent only up to 2^53 - 1 cents: the page refuses larger figures.
+  if ([largest, tax, earned].some((cents) => cents > SAFE_CENTS)) {
+    refuse('input.amount_invalid', 'This calculator shows amounts to the cent only up to $90 trillion; a value or total here is larger.');
+  }
   const cap = BigInt(wetRebateCap(input.year)) * 100n;
   const left = earlier < cap ? cap - earlier : 0n;
   const rebate = earned < left ? earned : left;

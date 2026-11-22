@@ -5364,6 +5364,12 @@ test('WET refuses what the command refuses, with its codes', () => {
     assert.equal(wetCode({ year: '2026-27', dealings: [wetSale('1.00')], scope_confirmed: scope }), 'scope.not_confirmed');
   }
   assert.equal(calculations.wineEqualisationTax({ year: '2026-27', dealings: [wetSale('100.00')], scope_confirmed: true }).wineTax, 29);
+  // Above 2^53 - 1 cents a JavaScript number drops cents, so the page refuses: here a value of $333,333,333,333,333.33.
+  const huge = { kind: 'own_use', average_wholesale: { grape_wine: true, wholesale_share_at_least_10_percent: true, quantity: '0.1',
+    wholesale_sales: [{ quantity: '0.0003', price_excluding_wet_and_gst: '1000000000000' }] } };
+  assert.equal(wetCode({ year: '2026-27', dealings: [huge] }), 'input.amount_invalid');
+  const most = calculations.wineEqualisationTax({ year: '2026-27', dealings: Array(6).fill(wetSale('1000000000000.00')) });
+  assert.deepEqual([most.wineTax, most.label1c], [1740000000000, 1740000000000]);
 });
 
 test('the WET form shares one set of wholesale sales and rebate answers, and passes rebate inputs only with a claim', () => {
