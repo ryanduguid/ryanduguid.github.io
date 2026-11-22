@@ -24,6 +24,7 @@ export const FHOG_FIRST = '2025-07-01';
 export const FHOG_LAST = '2026-11-22';
 export const FHOG_HOMES = ['bought', 'built', 'established'];
 export const FHOG_FACTS = ['person', 'citizen', 'first', 'residence'];
+/** @type {Record<string, string>} */
 const FACT_NAMES = { person: 'every applicant is a person aged 18 or over', citizen: 'an applicant is an Australian citizen or permanent resident',
   first: 'no applicant or spouse has had a grant or owned a home in Australia', residence: 'the residence requirement will be met' };
 
@@ -54,6 +55,7 @@ export const FHOG = {
 // transfer duty calculator cover: NSW's 2026-27 scale, WA's first home owner rate from 7 May 2026,
 // Tasmania after its established homes exemption ended with settlements on 30 June 2026, and the
 // ACT's 2026-27 scale and Home Buyer Concession Scheme.
+/** @type {Record<string, string>} */
 export const DUTY_FROM = { 'AU-NSW': '2026-07-01', 'AU-VIC': '2025-07-01', 'AU-QLD': '2025-07-01', 'AU-WA': '2026-05-07',
   'AU-SA': '2025-07-01', 'AU-TAS': '2026-07-01', 'AU-ACT': '2026-07-01', 'AU-NT': '2025-07-01' };
 
