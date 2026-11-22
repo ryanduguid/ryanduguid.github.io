@@ -128,6 +128,9 @@
     "tools/business-calculators/asic-fees/index.html": [
       "1695328325c3bd061d256303275f3872f33eaa53076df801b420bfcb01529583"
     ],
+    "tools/business-calculators/ato-penalties-interest/index.html": [
+      "592fbbb8d1e37a1adce4365603775eb8bd730e183acf22945fe43918924a9d15"
+    ],
     "tools/business-calculators/borrowing-expenses/index.html": [
       "6f8f8003512eb912605cb8e0644a74b9a2716e82770a6faec7695fa7caa25a65"
     ],
@@ -308,8 +311,11 @@
     "tools/individual-tax/fhss/index.html": [
       "17dcd0204b9a84a38aab7dcd7e1270022b2fa898ce850c32dfa56c1e31723c07"
     ],
+    "tools/individual-tax/government-super/index.html": [
+      "a6c04ae01301516be667643b6b3b9ec122cacadea03403d4ac3cc38fb4187c19"
+    ],
     "tools/individual-tax/income-tax/index.html": [
-      "98166cb8a84440b4e239297314c70117548772f9f32dbda73dbc66896875a06e"
+      "bba858972dd984c6ffbaba30ec511be8d047d3adfd9e523e9ec3d24fdfb8336c"
     ],
     "tools/individual-tax/income-tests/index.html": [
       "2b60af6e2154ba6a3a2435a632963b2e376fe33f608f0fa90d482a67986c7744"
@@ -403,9 +409,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "bd968a5a0a1b0e45f921e2e17dfb7e36161adb8fa56e5a9b1ed0dfd4f651dbca",
+    "llms.txt": "cf9abb9850ef6954b74187a012f044c22c9026b7279bbd3a7da05d2cfcfc8b88",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "3a4ebbbb6220e3a7caee5fe8acf5251cdcb85d64e82fd940adb3b7812a089c32"
+    "sitemap.xml": "9da4b9e327812258f7d17bb6de1b5160331b28205df89755b68267029ea15f6d"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -465,7 +471,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7803,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7805,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

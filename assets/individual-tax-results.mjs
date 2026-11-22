@@ -7,6 +7,7 @@ import { STUDY_LOAN_YEARS, studyLoanRepayment } from './study-loan.mjs';
 import { SUPER_GUARANTEE, takeHomePay } from './take-home-pay.mjs';
 import { INCOME_TAX_YEARS } from './income-tax.mjs';
 import { taxEstimate } from './tax-estimate.mjs';
+import { incomeTaxOptions, optionInputs, optionNotes, optionRows } from './income-tax-options.mjs';
 import { PACKAGING_YEARS, salaryPackaging } from './salary-packaging.mjs';
 import { NOVATED_YEARS, novatedLease } from './novated-lease.mjs';
 import { BONUS_YEAR, bonusWithholding } from './bonus-withholding.mjs';
@@ -39,19 +40,22 @@ function incomeTaxResult(value, aud) {
   const spouse = value('spouse') === 'yes';
   const loan = value('study-loan') === 'yes';
   const resident = value('residency') === 'resident';
+  const offsets = incomeTaxOptions(value, spouse);
   const r = taxEstimate({ year: value('year'), residency: value('residency'), taxable: value('income'),
     fringe: value('fringe'), super: value('super'), losses: value('losses'), foreign: value('foreign'), studyLoan: loan,
     uncoveredDays: value('uncovered'), spouse: spouse ? value('spouse-income') : null, children: value('children'),
-    withheld: value('withheld') });
+    withheld: value('withheld'), offsets });
   const children = Number(value('children'));
-  const rows = [['Tax on taxable income', aud(r.tax)], ['Low income tax offset', aud(r.offset)]];
+  const [before, after, refundable] = offsets ? optionRows(r, aud) : [[], [], []];
+  const rows = [['Tax on taxable income', aud(r.tax)], ...before, ['Low income tax offset', aud(r.offset)]];
   if (['2020-21', '2021-22'].includes(value('year'))) rows.push(['Low and middle income tax offset', aud(r.lmito)]);
-  rows.push(['Medicare levy', aud(r.medicare)], ['Medicare levy surcharge', aud(r.surcharge)]);
+  rows.push(...after, ['Medicare levy', aud(r.medicare)], ['Medicare levy surcharge', aud(r.surcharge)]);
   if (loan) rows.push(['Study and training loan repayment', aud(r.studyLoan)]);
-  rows.push(['Total tax, levies and repayment', aud(r.assessed)], ['Tax withheld', aud(r.withheld)], settle(r.refund, aud));
-  const surcharge = resident ? `Income for surcharge purposes ${whole(r.surchargeIncome)}${spouse ? ' and the spouse’s' : ''} `
+  rows.push(...refundable, ['Total tax, levies and repayment', aud(r.assessed)], ['Tax withheld', aud(r.withheld)], settle(r.refund, aud));
+  const surcharge = [resident ? `Income for surcharge purposes ${whole(r.surchargeIncome)}${spouse ? ' and the spouse’s' : ''} `
     + `against a ${spouse || children ? 'family' : 'singles'} threshold of ${whole(r.surchargeThreshold)}: `
-    + (r.surchargeRate ? `${r.surchargeRate}% for the days without cover` : 'no surcharge') : NOT_RESIDENT[value('residency')];
+    + (r.surchargeRate ? `${r.surchargeRate}% for the days without cover` : 'no surcharge') : NOT_RESIDENT[value('residency')],
+  ...(offsets ? optionNotes(r, spouse) : [])].join('. ');
   return {
     inputs: `${value('year')}, ${RESIDENCY[value('residency')]}, taxable income ${aud(Number(value('income')))}, `
       + `reportable fringe benefits ${aud(Number(value('fringe')))}, reportable super contributions ${aud(Number(value('super')))}, `
@@ -59,7 +63,8 @@ function incomeTaxResult(value, aud) {
       + `${loan ? `a study or training loan with exempt foreign employment income ${aud(Number(value('foreign')))}` : 'no study or training loan'}, `
       + `${count(Number(value('uncovered')), 'day')} without private hospital cover, `
       + `${spouse ? `a spouse with income for surcharge purposes of ${aud(Number(value('spouse-income')))}` : 'no spouse'} and `
-      + `${children === 1 ? '1 dependent child' : `${children || 'no'} dependent children`}, tax withheld ${aud(Number(value('withheld')))}`,
+      + `${children === 1 ? '1 dependent child' : `${children || 'no'} dependent children`}, tax withheld ${aud(Number(value('withheld')))}`
+      + (offsets ? optionInputs(value, offsets, aud) : ''),
     principal: rows.length - 1, rows, note: surcharge };
 }
 
