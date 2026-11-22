@@ -485,30 +485,63 @@ main p {
 
 .about-portrait {
   width: 100%;
-  max-width: 26rem;
+  max-width: 26.25rem;
   margin-inline: auto;
   container-type: inline-size;
 }
 
-/* 140 columns of Spline Sans Mono (0.6em advance) fill the frame, and each
-   row is one em tall, the 0.6 by 1 cell the art was sampled for. A fallback
-   font with a narrower advance leaves a small gap on the right. Greyscale
-   stops subpixel antialiasing tinting the tiny glyphs. */
+/* 140 columns of Spline Sans Mono (0.6em advance) at 5px fill the 26.25rem
+   frame, and each row is 0.8em tall, the 0.6 by 0.8 cell the art was sampled
+   for. A browser sets each row on a whole device pixel, so a row pitch between
+   pixels draws some rows closer than others and the portrait bands. The type
+   therefore steps down to the nearest size whose 0.8em is a whole number of
+   device pixels (a multiple of 1.25 of them), centred in a narrower frame; a
+   browser without round() keeps the fluid size. The padding holds the strokes
+   that overhang the first and last rows. A fallback font with a narrower
+   advance leaves a small gap on the right. Greyscale stops subpixel
+   antialiasing tinting the tiny glyphs. */
 .about-portrait pre {
   overflow: hidden;
   filter: grayscale(1);
-  padding: 0;
+  width: 84em;
+  margin-inline: auto;
+  padding: 0.2em 0;
   border: 0;
   border-radius: 0;
   color: var(--colour-ink);
   background: none;
   font-size: calc(100cqi / 84);
-  line-height: 1;
+  font-size: round(down, calc(100cqi / 84 + 0.01px), 1.25px);
+  line-height: 0.8;
+}
+
+@media (min-resolution: 1.25dppx) {
+  .about-portrait pre {
+    font-size: round(down, calc(100cqi / 84 + 0.01px), 1px);
+  }
+}
+
+@media (min-resolution: 1.5dppx) {
+  .about-portrait pre {
+    font-size: round(down, calc(100cqi / 84 + 0.01px), calc(1.25px / 1.5));
+  }
+}
+
+@media (min-resolution: 2dppx) {
+  .about-portrait pre {
+    font-size: round(down, calc(100cqi / 84 + 0.01px), 0.625px);
+  }
+}
+
+@media (min-resolution: 3dppx) {
+  .about-portrait pre {
+    font-size: round(down, calc(100cqi / 84 + 0.01px), calc(1.25px / 3));
+  }
 }
 
 @media (min-width: 56.0625rem) {
   .about-header {
-    grid-template-columns: minmax(0, 1fr) minmax(0, min(40%, 26rem));
+    grid-template-columns: minmax(0, 1fr) minmax(0, min(40%, 26.25rem));
     column-gap: var(--space-7);
   }
 

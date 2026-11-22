@@ -372,3 +372,13 @@ calculate.workersCompensation({ ...premiumInput, wages: 450000 });
 // @ts-expect-error The Queensland start is one of the form's 5 choices.
 calculate.workersCompensation({ ...premiumInput, qldStart: 'q5' });
 void premiumTotal;
+const asicLate = calculate.asicFee({ fee: 'late-review-payment', due: '2026-09-15', received: '2026-10-15' });
+const asicAmount: number = asicLate.amount;
+// @ts-expect-error The fee is one of the page's fee types.
+calculate.asicFee({ fee: 'late-payment' });
+// @ts-expect-error Dates are YYYY-MM-DD strings, as the form passes them.
+calculate.asicFee({ fee: 'late-lodgement', due: 20260915, received: '2026-10-15' });
+// @ts-expect-error The tier is a phrase or null, not a number.
+const asicTier: number = asicLate.tier;
+void asicAmount;
+void asicTier;

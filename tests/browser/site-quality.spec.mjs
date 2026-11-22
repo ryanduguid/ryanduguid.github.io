@@ -949,6 +949,26 @@ test('the About portrait is centred and fits its frame', async ({ page }) => {
   expect(geometry.rows).toBeGreaterThan(40);
   // The stylesheet sizes the type for 140 columns.
   expect(geometry.longest).toBeLessThanOrEqual(140);
+
+  // The type steps down until its rows are a whole number of device pixels
+  // apart; a pitch between pixels draws bands across the face. The art then
+  // sits centred in the frame it no longer fills.
+  for (const width of [768, 390, 320]) {
+    await page.setViewportSize({ width, height: 1024 });
+    const fit = await page.evaluate(() => {
+      const pre = document.querySelector('.about-portrait pre');
+      const frame = pre.parentElement.getBoundingClientRect();
+      const box = pre.getBoundingClientRect();
+      return {
+        pitch: parseFloat(getComputedStyle(pre).lineHeight) * devicePixelRatio,
+        offCentre: (box.left - frame.left) - (frame.right - box.right),
+        spare: frame.width - box.width,
+      };
+    });
+    expect(Math.abs(fit.pitch - Math.round(fit.pitch)), `${width}px`).toBeLessThan(0.01);
+    expect(Math.abs(fit.offCentre), `${width}px`).toBeLessThanOrEqual(1);
+    expect(fit.spare, `${width}px`).toBeGreaterThanOrEqual(0);
+  }
 });
 
 test('on a landscape phone the header and view switch scroll away', async ({ page }) => {
