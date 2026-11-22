@@ -431,15 +431,18 @@ export function paygInstalment(inputs) {
   }
   const earlierLessCredits = () => {
     const [earlier, credits] = [cents(inputs.earlier), cents(inputs.credits)];
-    if (credits > earlier) throw new Error('Credits claimed cannot exceed the earlier instalments.');
+    if (credits > earlier) throw new Error('Earlier credits cannot exceed the earlier instalments.');
     return earlier - credits;
   };
   if (method === 'varied-amount') {
     const instalment = number(inputs.instalment, { min: 1, max: 4, integer: true });
-    // 25%, 50%, 75% or 100% of estimated tax, less earlier instalments net of credits claimed.
+    // 25%, 50%, 75% or 100% of estimated tax, less earlier instalments net of credits claimed. Only the
+    // third and fourth add back credits (s 45-410(4) and (5)); none can exist before the second.
     const due = Number(ratioCents(BigInt(cents(inputs.estimatedTax)) * BigInt(instalment), 4n));
     if (instalment === 1 && cents(inputs.earlier)) throw new Error('The first instalment of the year has no earlier instalments.');
-    const amount = due - earlierLessCredits();
+    const net = earlierLessCredits();
+    if (instalment < 3 && cents(inputs.credits)) throw new Error('The first and second instalments of the year add back no credits.');
+    const amount = due - net;
     return { amount: amount / 100, instalment: wholeDollars(Math.max(0, amount)), credit: wholeDollars(Math.max(0, -amount)),
       due: due / 100, instalmentRate: null };
   }

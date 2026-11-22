@@ -12119,15 +12119,15 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 PAYG instalment inputs for one quarter
 
-How this instalment is worked out Option 1: pay the instalment amount at T7 Option 1, varied: an amount from your estimated tax for the year Option 2: instalment income times the rate at T2 Option 2, varied: a rate from your estimates for the year Option 1: instalment amount at T7 (AUD) Option 2: instalment income for the quarter at T1 (AUD) Option 2: instalment rate at T2 (%) Varied amount only: which of this income year’s instalments is this? First: 25% of estimated tax Second: 50% Third: 75% Fourth: 100% Varying only: estimated tax on instalment income for the year, T8 (AUD) Varied rate only: estimated instalment income for the year (AUD) Varying only: earlier instalments this income year, as at 5A (AUD) Varying only: credits claimed at 5B this income year (AUD) Varied rate only: instalment income of the earlier quarters (AUD)
+How this instalment is worked out Option 1: pay the instalment amount at T7 Option 1, varied: an amount from your estimated tax for the year Option 2: instalment income times the rate at T2 Option 2, varied: a rate from your estimates for the year Option 1: instalment amount at T7 (AUD) Option 2: instalment income for the quarter at T1 (AUD) Option 2: instalment rate at T2 (%) Varied amount only: which of this income year’s instalments is this? First: 25% of estimated tax Second: 50% Third: 75% Fourth: 100% Varying only: estimated tax on instalment income for the year, T8 (AUD) Varied rate only: estimated instalment income for the year (AUD) Varying only: earlier instalments this income year, as at 5A (AUD) Varying only: earlier credits this income year (AUD) Varied rate only: instalment income of the earlier quarters (AUD)
 
-Each option reads only its own fields. Instalment income is generally gross business and investment income, excluding GST.
+Each option reads only its own fields. For a varied amount, earlier credits are those you were entitled to claim for earlier quarters, claimed or not; for a varied rate, those you claimed. Instalment income is generally gross business and investment income, excluding GST.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: instalment rate (option 2), instalment income $20,100.00 at T1, instalment rate 1.7% at T2. T1 × T2 $341.70 Instalment at T11 and 5A, whole dollars $341.00
 
 ## How the PAYG instalments calculator works
 
-The PAYG instalments calculator works out one quarterly pay as you go instalment by the method on the activity statement. Under option 1 the instalment is the amount the ATO notifies at T7. Varying it, the first instalment of the income year is 25% of the estimated tax for the year, the second 50%, the third 75% and the fourth 100%, each less the earlier instalments and plus any credits claimed for them. A negative result is a credit to claim at 5B.
+The PAYG instalments calculator works out one quarterly pay as you go instalment by the method on the activity statement. Under option 1 the instalment is the amount the ATO notifies at T7. Varying it, the first instalment of the income year is 25% of the estimated tax for the year, the second 50%, the third 75% and the fourth 100%, each less the earlier instalments. The third and fourth add back any credits you were entitled to claim for earlier instalments, claimed or not; no credit can arise before the second, so the calculator refuses one entered for the first or second. A negative result is a credit to claim at 5B.
 
 Under option 2 the instalment is the quarter’s instalment income at T1 times the instalment rate at T2. A varied rate is the estimated tax for the year divided by the estimated instalment income, times 100. If the varied rate is lower than the earlier rate, the earlier instalments less any credits claimed, less the earlier instalment income times the varied rate, is a credit for 5B.
 
@@ -12155,6 +12155,7 @@ The ATO’s varied rate, cut to 2 decimal places, with a credit | Varied rate fr
 The ATO’s credit example at a 5% varied rate | Varied rate from estimated tax $2,000.00 on $40,000.00; instalment income $10,000.00, rate at T2 10%; earlier instalments $1,000.00, credits $0.00, on $10,000.00 | Instalment rate 5.00%, amount $500.00, instalment $500.00, credit $500.00
 A higher varied rate gives no credit | Varied rate from estimated tax $1,200.00 on $10,000.00; instalment income $10,000.00, rate at T2 10%; earlier instalments $2,000.00, credits $0.00, on $10,000.00 | Instalment rate 12.00%, amount $1,200.00, instalment $1,200.00, credit $0.00
 A first instalment with earlier instalments is refused | Varied amount, instalment 1; estimated tax $8,000.00, earlier instalments $1,000.00, credits $0.00 | Refused: the first instalment of the year has no earlier instalments
+A credit for the second instalment is refused | Varied amount, instalment 2; estimated tax $8,000.00, earlier instalments $2,000.00, credits $500.00 | Refused: the first and second instalments of the year add back no credits
 
 One of the fifty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 

@@ -505,7 +505,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             const r = calculate.paygInstalment({ method, notified: value('notified'), instalment: value('instalment'),
               estimatedTax: value('estimated-tax'), earlier: value('earlier'), credits: value('credits'), income: value('income'),
               rate: value('rate'), estimatedIncome: value('estimated-income'), earlierIncome: value('earlier-income') });
-            const earlier = `earlier instalments ${money('earlier')} less credits claimed ${money('credits')}`;
+            const earlier = `earlier instalments ${money('earlier')} less ${method === 'varied-amount' ? 'earlier credits' : 'credits claimed'} ${money('credits')}`;
             const credit = ['Credit to claim at 5B, whole dollars', aud(r.credit)];
             if (method === 'amount') {
               result = { inputs: `instalment amount (option 1), ${money('notified')} at T7`, principal: 0,

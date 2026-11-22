@@ -1306,13 +1306,37 @@ test('PAYG instalments refuse what the activity statement cannot hold', () => {
     { message: 'The first instalment of the year has no earlier instalments.' });
   assert.throws(() => instalment({ method: 'varied-amount', instalment: '5' }), { message: 'Enter a whole number between 1 and 4.' });
   assert.throws(() => instalment({ method: 'varied-amount', instalment: '2', earlier: '100', credits: '101' }),
-    { message: 'Credits claimed cannot exceed the earlier instalments.' });
+    { message: 'Earlier credits cannot exceed the earlier instalments.' });
   assert.throws(() => instalment({ method: 'varied-rate', estimatedTax: '101', estimatedIncome: '100', rate: '10' }),
     { message: 'Estimated tax cannot exceed estimated instalment income.' });
   assert.throws(() => instalment({ income: '100', rate: '100.01' }), { message: 'Enter an amount between 0 and 100.' });
   assert.throws(() => instalment({ income: '100', rate: '1.005' }), { message: 'Enter a number with no more than 2 decimal places.' });
   // Nil estimated income varies the rate to nil, as the ATO allows.
   assert.equal(instalment({ method: 'varied-rate', income: '100', rate: '10' }).instalmentRate, 0);
+});
+
+// Section 45-410 in Schedule 1 to the Taxation Administration Act 1953, Compilation No. 227 (1 October 2026),
+// read 23 November 2026: subsection (3) works the second instalment as '50% of the estimate' less the earlier
+// instalment and adds back no credit; subsection (4) adds back the credit for the second quarter. The first
+// quarter's 25% is never negative, and a section 45-215 credit needs a previous quarter, so no credit exists
+// before the second instalment.
+test('PAYG instalments add back credits only from the third instalment', () => {
+  const refused = { message: 'The first and second instalments of the year add back no credits.' };
+  assert.throws(() => instalment({ method: 'varied-amount', instalment: '2', estimatedTax: '1000', earlier: '250', credits: '1' }), refused);
+  // The first has no earlier instalments for a credit to come from.
+  assert.throws(() => instalment({ method: 'varied-amount', instalment: '1', estimatedTax: '1000', credits: '1' }),
+    { message: 'Earlier credits cannot exceed the earlier instalments.' });
+  // The second instalment may itself fall below nil and give the credit the third adds back.
+  const second = instalment({ method: 'varied-amount', instalment: '2', estimatedTax: '1000', earlier: '600' });
+  assert.deepEqual([second.due, second.amount, second.instalment, second.credit], [500, -100, 0, 100]);
+  // s 45-410(4) and (5) add back credits 'you were entitled to claim'; s 45-215 step 2 takes those 'you have claimed'.
+  const page = calculatorInclude('payg-instalments');
+  assert.ok(page.includes('For a varied amount, earlier credits are those you were entitled to claim for earlier quarters, claimed or not; for a varied rate, those you claimed.'));
+  assert.ok(page.includes('add back any credits you were entitled to claim for earlier instalments, claimed or not'));
+  assert.ok(!page.includes('credits claimed at 5B'));
+  let third;
+  assert.doesNotThrow(() => { third = instalment({ method: 'varied-amount', instalment: '3', estimatedTax: '1000', earlier: '600', credits: '100' }); });
+  assert.deepEqual([third.due, third.amount, third.instalment, third.credit], [750, 250, 250, 0]);
 });
 
 // The PSI rules checker. Part 2-42 of the Income Tax Assessment Act 1997, Compilation No. 268
