@@ -338,7 +338,7 @@ const MUTATIONS = [
   { ...rebate, name: 'PHI family thresholds rise for the first child', find: '1500 * Math.max(0, children - 1)', replace: '1500 * children' },
   { ...rebate, name: 'PHI premiums from 1 April take the earlier percentages', find: 'Number(year.slice(0, 4)) + later;', replace: 'Number(year.slice(0, 4));' },
   { ...rebate, name: 'PHI share truncates the cents', find: 'ratioCents(BigInt(premiums) * BigInt(pct), 100000n)', replace: '(BigInt(premiums) * BigInt(pct) / 100000n)' },
-  { ...rebate, name: 'PHI ignores a maintained dependant', find: " || input.maintained_dependent_person === true", replace: '' },
+  { ...rebate, name: 'PHI ignores a maintained dependant', find: '(families ? 2 * amount', replace: '(spouse !== null ? 2 * amount' },
   { ...rebate, name: 'PHI nets the excess against the offset', find: 'offset: Math.max(0, share - received) / 100', replace: 'offset: (share - received) / 100' },
   { ...offsets, name: 'beneficiary offset rounds half up', find: 'Math.ceil(cents / 100)', replace: 'Math.round(cents / 100)' },
   { ...offsets, name: 'beneficiary offset drops the second 15%', find: ' + 15 * Math.max(0, amount - upper)', replace: '' },

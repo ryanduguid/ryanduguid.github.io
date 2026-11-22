@@ -73,7 +73,7 @@ function withOffsets(base, r, o) {
   if (o.privateHealth) {
     if (r.residency !== 'resident') {
       refuse('input.field_unknown', 'The private health insurance tax offset needs every person insured to be an eligible '
-        + 'person (ITAA 1997 s 61-205(1)(c)), which this calculator tests only for an Australian resident.');
+        + 'person (ITAA 1997 s 61-205(1)(c)), which this calculator does not test for a foreign resident or working holiday maker.');
     }
     privateHealth = privateHealthRebate({ year: r.year, income_for_surcharge_purposes: String(base.surchargeIncome),
       spouse_income_for_surcharge_purposes: r.spouse ?? undefined, dependent_children: Number(r.children),

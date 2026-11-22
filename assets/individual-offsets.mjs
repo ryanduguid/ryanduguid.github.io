@@ -10,8 +10,8 @@
 // Tax Assessment (1936 Act) Regulations 2025 and Regulation 2015 s 13, and the ATO's T4 and T5
 // supplementary return instructions for 2021 to 2026. Amounts are worked in cents.
 import { number, ratioCents } from './money.mjs';
-import { daysInYear, incomeYear } from './income-tax.mjs';
-import { refuse } from './private-health-rebate.mjs';
+import { daysInYear } from './income-tax.mjs';
+import { refuse, supportedYear } from './private-health-rebate.mjs';
 
 /** An amount from 0 to $1 billion, to the cent, in cents. @param {unknown} value */
 const toCents = (value) => Math.round(number(value, { max: 1e9, money: true }) * 100);
@@ -39,7 +39,7 @@ export const BENEFICIARY_THRESHOLDS = [6000, 45000];
  * then the formula, rounded up to the whole dollar (s 13(5)).
  * @param {{year: string, rebatable_benefit: string}} input */
 export function beneficiaryOffset(input) {
-  incomeYear(input.year);
+  supportedYear(input.year);
   const amount = Math.floor(toCents(input.rebatable_benefit) / 100);
   const [lower, upper] = BENEFICIARY_THRESHOLDS;
   // 15% of a dollar is 15 cents.
@@ -82,7 +82,7 @@ export function invalidCarerOffset(input) {
     refuse('invalid_carer_tax_offset.rate_unpublished', 'The 2026-27 offset amount and FTB Part B income limit, both '
       + 'indexed (ITAA 1997 ss 61-30 and 61-20), had not been published when this was checked on 22 November 2026.');
   }
-  const year = incomeYear(input.year);
+  const year = supportedYear(input.year);
   if (!['spouse', 'other'].includes(input.dependant)) {
     refuse('invalid_carer_tax_offset.dependant_invalid', 'Say whether the dependant is your spouse or another relative.');
   }
@@ -253,7 +253,7 @@ function zoneResidence(a, year, days) {
  * the year, otherwise times the days over 183 (T4 worksheet 6). Without cents (T4 label R).
  * @param {ZoneInput} a */
 export function zoneOffset(a) {
-  const year = incomeYear(a.year);
+  const year = supportedYear(a.year);
   if (!Object.hasOwn(ZONE_AREAS, a.area)) refuse('zone_tax_offset.area_invalid', 'Choose a special area, Zone A, Zone B or overseas forces.');
   const area = ZONE_AREAS[a.area];
   const forces = a.area === 'overseas_forces';

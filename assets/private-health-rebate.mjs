@@ -17,6 +17,15 @@ export function refuse(code, message) {
   throw Object.assign(new Error(message), { code });
 }
 
+/** One of the page's income years, refusing another with the commands' code. @param {string} year */
+export function supportedYear(year) {
+  try {
+    return incomeYear(year);
+  } catch (error) {
+    return refuse('period.unsupported', /** @type {Error} */ (error).message);
+  }
+}
+
 // PHI Act s 22-15(1) to (5E): the percentages in thousandths of a per cent for each adjustment year,
 // keyed by the calendar year of the 1 April it starts on; rows for the oldest person insured under
 // 65, 65 to 69 and 70 or over, columns for the base tier, tier 1 and tier 2. Tier 3 is nil
@@ -96,7 +105,7 @@ function percentage(year, code, tier) {
  * nil and not netted across lines. Amounts are in dollars.
  * @param {RebateInput} input */
 export function privateHealthRebate(input) {
-  const year = incomeYear(input.year);
+  const year = supportedYear(input.year);
   const own = lineCents(input.income_for_surcharge_purposes, 'Income for surcharge purposes');
   const spouse = input.spouse_income_for_surcharge_purposes === undefined ? null
     : lineCents(input.spouse_income_for_surcharge_purposes, 'The spouse’s income for surcharge purposes');
