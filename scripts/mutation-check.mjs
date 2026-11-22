@@ -776,7 +776,7 @@ const MUTATIONS = [
   { ...sbt, name: 'SBT other lump sums pass with cap left', find: 'if (others && lowLeft !== 0n) {', replace: 'if (false) {' },
   { ...sbt, name: 'SBT the plan cap used may exceed the cap', find: 'if (used > BigInt(cap) * 100n) conflict(', replace: 'if (used > BigInt(cap) * 200n) conflict(' },
   { ...sbt, name: 'SBT 60 or over taxes the taxable component', find: "t.name === 'aged_60_or_over' ? c.untaxed :", replace: "t.name === 'aged_60_or_over' ? c.taxable :" },
-  { ...sbt, name: "SBT a dependant's death benefit is taxed", find: "if (t.name === 'non_dependant') {\n    part(", replace: "if (t.name === 'non_dependant' || t.name === 'death_benefits_dependant') {\n    part(" },
+  { ...sbt, name: "SBT a dependant's death benefit is taxed", find: "if (name === 'non_dependant') {\n    l.part(", replace: "if (name === 'non_dependant' || name === 'death_benefits_dependant') {\n    l.part(" },
   { ...sbt, name: 'SBT pre-1983 service passes', find: "&& flag('service_before_july_1983', input.service_before_july_1983)) {", replace: '&& false) {' },
   { ...sbt, name: 'SBT a payment on 1 July of the next year passes', find: 'dayText(paid) > `${first + 1}-06-30`', replace: 'dayText(paid) > `${first + 1}-07-01`' },
   { ...wet, name: 'WET at 28%', find: 'ratioCents(cents * 29n, 100n)', replace: 'ratioCents(cents * 28n, 100n)' },

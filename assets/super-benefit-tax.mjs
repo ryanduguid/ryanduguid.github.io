@@ -126,7 +126,7 @@ const RATE_TEXT = /** @type {Record<string, string>} */ ({ 0: '0', 15: '0.15', 2
 /** In dollars: each component, each part with its ceiling rate (a percentage) and tax, the caps left
  * and counted where the treatment uses them, and the command's rates, ages and treatment as text.
  * @typedef {{treatment: string, taxFree: number, taxable: number, taxed: number, untaxed: number, parts: SbtShownPart[],
- *   caps: Record<string, number>, rates: Record<string, string>, assessable: number, notAssessable: number, maximumTax: number,
+ *   caps: {lowRateCapLeft?: number, untaxedPlanCapLeft?: number, lowRateCapCounted?: number, untaxedPlanCapCounted?: number}, rates: Record<string, string>, assessable: number, notAssessable: number, maximumTax: number,
  *   age?: number, preservationAge?: number}} SbtWorked */
 
 /** The input's keys, required fields and decimals, refused as the command's reader refuses them.
@@ -199,39 +199,32 @@ function capLeft(input, amounts, key, cap) {
   return BigInt(cap) * 100n - used;
 }
 
-/**
- * The tax on one superannuation lump sum, as the `super-benefit-tax` command works it.
- * @param {Record<string, unknown>} input the command's input, with decimal amounts as strings
- * @returns {SbtWorked}
- */
-export function superBenefitTax(input) {
-  if (input === null || typeof input !== 'object' || Array.isArray(input)) refuse('input.not_object', 'The input is not an object.');
-  const amounts = read(input);
-  const facts = components(input, amounts);
-  const { year, c } = facts;
-  const t = treatment(input, facts);
-  const untaxedWhy = 'with an element untaxed in the fund';
-  if (when(c.untaxed !== 0n, input, 'service_before_july_1983', untaxedWhy) && flag('service_before_july_1983', input.service_before_july_1983)) {
-    refuse('super_benefit_tax.pre_july_1983_service', 'An element untaxed in the fund that relates to service before 1 July 1983 moves part of it to the tax free component under ITAA 1997 s 307-150, which this calculator does not take.');
-  }
+/** @typedef {{lowRateCapLeft?: bigint, untaxedPlanCapLeft?: bigint, lowRateCapCounted?: bigint, untaxedPlanCapCounted?: bigint}} SbtCaps */
+
+/** The parts, rates and caps one lump sum builds up, with the steps that add to them.
+ * @param {Record<string, unknown>} input @param {Record<string, bigint | null>} amounts @param {string} year
+ * @param {{taxed: bigint, untaxed: bigint}} c */
+function ledger(input, amounts, year, c) {
   /** @type {SbtPart[]} */
   const parts = [];
   /** @type {Record<string, string>} */
   const rates = {};
-  /** @type {Record<string, bigint>} */
+  /** @type {SbtCaps} */
   const caps = {};
   const part = (/** @type {string} */ id, /** @type {bigint} */ amount, /** @type {number} */ rate) => {
     parts.push({ id, amount, rate });
     rates[`${id}_rate`] = RATE_TEXT[rate];
   };
+  /** The untaxed plan cap left (s 307-350), or null without an untaxed element. */
   const planLeft = () => {
     if (!when(c.untaxed !== 0n, input, 'untaxed_plan_cap_used', 'for a member benefit with an element untaxed in the fund')) return null;
     const cap = SBT_UNTAXED_PLAN_CAP[/** @type {keyof typeof SBT_UNTAXED_PLAN_CAP} */ (year)];
     rates.untaxed_plan_cap = String(cap);
     return (caps.untaxedPlanCapLeft = capLeft(input, amounts, 'untaxed_plan_cap_used', cap));
   };
-  /** The untaxed element within the plan cap (with any share of the low rate cap) and above it. */
-  const untaxedParts = (/** @type {bigint} */ left, /** @type {number} */ rate, /** @type {bigint | null} */ lowLeft) => {
+  /** The untaxed element within the plan cap (with any share of the low rate cap) and above it.
+   * @param {bigint} left @param {number} rate @param {bigint | null} lowLeft */
+  const untaxedParts = (left, rate, lowLeft) => {
     const within = min(c.untaxed, left);
     const counted = lowLeft === null ? 0n : min(within, lowLeft);
     if (lowLeft !== null) part('untaxed_within_low_rate_cap', counted, 15);
@@ -240,49 +233,81 @@ export function superBenefitTax(input) {
     caps.untaxedPlanCapCounted = within;
     return counted;
   };
-  const member = t.name === 'aged_60_or_over' || t.name === 'preservation_age_to_59' || t.name === 'under_preservation_age';
-  if (t.name === 'non_dependant') {
-    part('taxed_element_part', c.taxed, 15);
-    part('untaxed_element_part', c.untaxed, 30);
-  } else if (member) {
-    const why = 'for a member at or above preservation age and under 60';
-    const needed = t.name === 'preservation_age_to_59';
-    const lowGiven = when(needed, input, 'low_rate_cap_used', why);
-    const others = when(needed, input, 'other_lump_sums_this_year', why) && flag('other_lump_sums_this_year', input.other_lump_sums_this_year);
-    const plan = planLeft();
-    if (needed && lowGiven) {
-      const cap = SBT_LOW_RATE_CAP[/** @type {keyof typeof SBT_LOW_RATE_CAP} */ (year)];
-      rates.low_rate_cap = String(cap);
-      const lowLeft = caps.lowRateCapLeft = capLeft(input, amounts, 'low_rate_cap_used', cap);
-      if (others && lowLeft !== 0n) {
-        refuse('super_benefit_tax.other_lump_sums_this_year', 'Other lump sums received in the same income year at or above preservation age and under 60 share the year’s low rate cap left, the taxed element first whatever the order of payment (ITAA 1997 ss 301-20(3) and 301-105(5) and (6)), which this calculator does not take; with none of the cap left they do not change the result.');
-      }
-      const low = min(c.taxed, lowLeft);
-      part('taxed_within_low_rate_cap', low, 0);
-      part('taxed_above_low_rate_cap', c.taxed - low, 15);
-      caps.lowRateCapCounted = low + (plan === null ? 0n : untaxedParts(plan, 30, lowLeft - low));
-    } else if (t.name === 'under_preservation_age') {
-      part('taxed_element_part', c.taxed, 20);
-      if (plan !== null) untaxedParts(plan, 30, null);
-    } else if (plan !== null) untaxedParts(plan, 15, null);
-  } else if (t.name !== 'death_benefits_dependant') {
-    const plan = planLeft();
-    if (plan !== null) caps.untaxedPlanCapCounted = min(c.untaxed, plan);
+  return { parts, rates, caps, part, planLeft, untaxedParts };
+}
+
+/** A member taxed by age (ss 301-10 to 301-115), the low rate cap first used by the taxed element.
+ * @param {ReturnType<typeof ledger>} l @param {Record<string, unknown>} input @param {Record<string, bigint | null>} amounts
+ * @param {string} year @param {{taxed: bigint}} c @param {string} name */
+function memberParts(l, input, amounts, year, c, name) {
+  const why = 'for a member at or above preservation age and under 60';
+  const needed = name === 'preservation_age_to_59';
+  const lowGiven = when(needed, input, 'low_rate_cap_used', why);
+  const others = when(needed, input, 'other_lump_sums_this_year', why) && flag('other_lump_sums_this_year', input.other_lump_sums_this_year);
+  const plan = l.planLeft();
+  if (needed && lowGiven) {
+    const cap = SBT_LOW_RATE_CAP[/** @type {keyof typeof SBT_LOW_RATE_CAP} */ (year)];
+    l.rates.low_rate_cap = String(cap);
+    const lowLeft = l.caps.lowRateCapLeft = capLeft(input, amounts, 'low_rate_cap_used', cap);
+    if (others && lowLeft !== 0n) {
+      refuse('super_benefit_tax.other_lump_sums_this_year', 'Other lump sums received in the same income year at or above preservation age and under 60 share the year’s low rate cap left, the taxed element first whatever the order of payment (ITAA 1997 ss 301-20(3) and 301-105(5) and (6)), which this calculator does not take; with none of the cap left they do not change the result.');
+    }
+    const low = min(c.taxed, lowLeft);
+    l.part('taxed_within_low_rate_cap', low, 0);
+    l.part('taxed_above_low_rate_cap', c.taxed - low, 15);
+    l.caps.lowRateCapCounted = low + (plan === null ? 0n : l.untaxedParts(plan, 30, lowLeft - low));
+  } else if (name === 'under_preservation_age') {
+    l.part('taxed_element_part', c.taxed, 20);
+    if (plan !== null) l.untaxedParts(plan, 30, null);
+  } else if (plan !== null) l.untaxedParts(plan, 15, null);
+}
+
+/** A death benefit, or a member benefit the whole of which is tax free; refuses the caps it does not use.
+ * @param {ReturnType<typeof ledger>} l @param {Record<string, unknown>} input @param {{taxed: bigint, untaxed: bigint}} c @param {string} name */
+function otherParts(l, input, c, name) {
+  if (name === 'non_dependant') {
+    l.part('taxed_element_part', c.taxed, 15);
+    l.part('untaxed_element_part', c.untaxed, 30);
+  } else if (name !== 'death_benefits_dependant') {
+    const plan = l.planLeft();
+    if (plan !== null) l.caps.untaxedPlanCapCounted = min(c.untaxed, plan);
   }
-  if (!member) {
-    if (t.name === 'death_benefits_dependant' || t.name === 'non_dependant') when(false, input, 'untaxed_plan_cap_used', 'for a member benefit');
-    const why = 'for a member benefit taxed by age (not wholly tax free)';
-    when(false, input, 'low_rate_cap_used', why);
-    when(false, input, 'other_lump_sums_this_year', why);
+  if (name === 'death_benefits_dependant' || name === 'non_dependant') when(false, input, 'untaxed_plan_cap_used', 'for a member benefit');
+  const why = 'for a member benefit taxed by age (not wholly tax free)';
+  when(false, input, 'low_rate_cap_used', why);
+  when(false, input, 'other_lump_sums_this_year', why);
+}
+
+const MEMBER_BANDS = ['aged_60_or_over', 'preservation_age_to_59', 'under_preservation_age'];
+const inDollars = (/** @type {bigint} */ cents) => Number(cents) / 100;
+
+/**
+ * The tax on one superannuation lump sum, as the `super-benefit-tax` command works it.
+ * @param {unknown} given the command's input, with decimal amounts as strings
+ * @returns {SbtWorked}
+ */
+export function superBenefitTax(given) {
+  if (typeof given !== 'object' || !given || Array.isArray(given)) refuse('input.not_object', 'The input is not an object.');
+  const input = /** @type {Record<string, unknown>} */ (given);
+  const amounts = read(input);
+  const facts = components(input, amounts);
+  const { year, c } = facts;
+  const t = treatment(input, facts);
+  if (when(c.untaxed !== 0n, input, 'service_before_july_1983', 'with an element untaxed in the fund')
+    && flag('service_before_july_1983', input.service_before_july_1983)) {
+    refuse('super_benefit_tax.pre_july_1983_service', 'An element untaxed in the fund that relates to service before 1 July 1983 moves part of it to the tax free component under ITAA 1997 s 307-150, which this calculator does not take.');
   }
+  const l = ledger(input, amounts, year, c);
+  const member = MEMBER_BANDS.includes(t.name);
+  if (member) memberParts(l, input, amounts, year, c, t.name);
+  else otherParts(l, input, c, t.name);
   const assessable = t.name === 'aged_60_or_over' ? c.untaxed : member || t.name === 'non_dependant' ? c.taxable : 0n;
-  const maximum = parts.reduce((sum, p) => sum + atRate(p.amount, BigInt(p.rate)), 0n);
-  if (t.age !== undefined) Object.assign(rates, { age: String(t.age), preservation_age: String(t.preservation) });
-  const dollars = (/** @type {bigint} */ cents) => Number(cents) / 100;
-  return { treatment: t.name, taxFree: dollars(c.taxFree), taxable: dollars(c.taxable), taxed: dollars(c.taxed), untaxed: dollars(c.untaxed),
-    parts: parts.map((p) => ({ id: p.id, amount: dollars(p.amount), rate: p.rate, tax: dollars(atRate(p.amount, BigInt(p.rate))) })),
-    caps: Object.fromEntries(Object.entries(caps).map(([k, v]) => [k, dollars(v)])), rates, assessable: dollars(assessable),
-    notAssessable: dollars(facts.benefit - assessable), maximumTax: dollars(maximum),
+  const maximum = l.parts.reduce((sum, p) => sum + atRate(p.amount, BigInt(p.rate)), 0n);
+  if (t.age !== undefined) Object.assign(l.rates, { age: String(t.age), preservation_age: String(t.preservation) });
+  return { treatment: t.name, taxFree: inDollars(c.taxFree), taxable: inDollars(c.taxable), taxed: inDollars(c.taxed), untaxed: inDollars(c.untaxed),
+    parts: l.parts.map((p) => ({ id: p.id, amount: inDollars(p.amount), rate: p.rate, tax: inDollars(atRate(p.amount, BigInt(p.rate))) })),
+    caps: /** @type {SbtWorked['caps']} */ (Object.fromEntries(Object.entries(l.caps).map(([k, v]) => [k, inDollars(v)]))), rates: l.rates,
+    assessable: inDollars(assessable), notAssessable: inDollars(facts.benefit - assessable), maximumTax: inDollars(maximum),
     ...(t.age === undefined ? {} : { age: t.age, preservationAge: t.preservation }) };
 }
 
