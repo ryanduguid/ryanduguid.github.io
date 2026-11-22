@@ -591,13 +591,6 @@ test('mobile sticky header gives readable navigation two rows', async ({ page },
   }
 });
 
-// Waits until the page's module scripts and calculator engines have arrived. A test
-// that leaves sooner cancels them, and the health check reports each cancelled request.
-async function waitForPageModules(page) {
-  await page.waitForLoadState('load');
-  await waitForCalculators(page);
-}
-
 test('all homepage starting routes land on their targets', async ({ page }) => {
   const health = observePageHealth(page);
   for (const [label, href, target] of homepagePreviewRoutes) {
@@ -611,24 +604,34 @@ test('all homepage starting routes land on their targets', async ({ page }) => {
       return `${current.pathname}${current.hash}`;
     }).toBe(href);
     await expect(page.locator(`#${target}`)).toBeVisible();
-    await waitForPageModules(page);
   }
   health.assertHealthy();
 });
 
 // On 22 November 2026 the test above left /rates/ whilst copy-commands.mjs was still
 // arriving, and the health check failed on it (net::ERR_ABORTED) on a Windows runner.
-test('leaving a page once its module scripts load aborts no request', async ({ page }, testInfo) => {
+// It was the second failed run of that kind in 5 days. Leaving a page cancels what it
+// was loading, and the health check does not report that.
+test('leaving a page whilst a module script loads passes the health check', async ({ page }, testInfo) => {
   test.skip(projectKind(testInfo) !== 'desktop', 'runs once');
-  await page.route('**/assets/copy-commands.mjs', async (route) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    await route.continue();
-  });
+  const script = '**/assets/copy-commands.mjs';
+  // Never answered, so the request is still in flight when the test leaves.
+  await page.route(script, () => {});
   const health = observePageHealth(page);
+  const requested = page.waitForRequest(script);
   await page.goto('/rates/', { waitUntil: 'commit' });
-  await waitForPageModules(page);
+  await requested;
+  await page.unroute(script);
   await page.goto('/');
   health.assertHealthy();
+});
+
+test('health collector catches a request aborted on a page the test stays on', async ({ page }, testInfo) => {
+  test.skip(projectKind(testInfo) !== 'desktop', 'runs once');
+  await page.route('**/assets/copy-commands.mjs', (route) => route.abort('aborted'));
+  const health = observePageHealth(page);
+  await page.goto('/rates/');
+  expect(() => health.assertHealthy()).toThrow(/request failed: GET \S+copy-commands\.mjs/);
 });
 
 // A figure or result code broken across lines can be misread. On 10 November
