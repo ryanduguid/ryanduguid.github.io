@@ -734,6 +734,10 @@ Object.assign(INPUTS, {
 });
 ENGINE_LABELS.fbtEvExemption = { exempt: (v) => (v ? 'exempt' : 'not exempt'), saleYear: (v) => `sale in ${v}`,
   threshold: (v) => (v === null ? 'after the FBT year' : `threshold ${dollars(v)}`) };
+// The ASIC fees page's rows (its tests are with the page's other tests below).
+Object.assign(INPUTS, { asicFee: (x) => calculations.asicFeeInputsText(x) });
+Object.assign(ENGINE_LABELS, { asicFee: { amount: (v) => `fee ${dollars(v)}`, code: (v) => `ASIC code ${v}`, tier: (v) => v,
+  firstMonthEnds: (v) => `first month ends ${longDay(v)}` } });
 
 // The depreciation pools page's rows (its tests are with the page's other tests below).
 const poolAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
@@ -1182,6 +1186,7 @@ Object.assign(FORM_CALLS, {
   fbtExpensePayment: (f) => [{ method: f.method, expenditure: f.expenditure, paid: f.paid, contribution: f.contribution,
     incomeUse: f['income-use'], portionDeduction: f['portion-deduction'], price: f.price, notional: f.notional, available: f.available }],
 });
+Object.assign(FORM_CALLS, { asicFee: (f) => [calculations.asicFeeFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { lowValuePool: (f) => [calculations.poolFormInput((name) => f[name] ?? '').input] });
 
@@ -5442,4 +5447,91 @@ test('depreciation pools agree with the australian-accounting commands on every 
     if (command === 'depreciation-small-business-pool') assert.equal(String(r.threshold ?? 'none'), rates.low_pool_value_threshold, source);
     if (command === 'capital-works') assert.equal(Number(rates.rate) * 100, Number(r.rate), source);
   }
+// The ASIC fees page: its example, its fee table against the engine, the late fee month counted under
+// the Acts Interpretation Act 1901 s 2G(1) and s 36(1) item 6, and its refusals. Amounts are ASIC's fee
+// data read 22 November 2026 (SHA-256 03281f57...866da); the Rust oracle types them separately.
+const asicHtml = readFileSync(new URL('../_includes/calculators/asic-fees.html', import.meta.url), 'utf8');
+const asicAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const asicLate = (due, received, fee = 'late-review-payment') => calculations.asicFee({ fee, due, received });
+
+test('the ASIC fees page opens on a payment exactly one month late and dates its sources', () => {
+  const example = asicHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(asicHtml);
+  const result = calculations.asicFeesResult((name) => fields[name] ?? '', asicAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  for (const cited of ['(Compilation No. 11), Schedule 1 Part 3 items 1 and 2', '(Compilation No. 41), Schedule 2 item 14, read 22 November 2026',
+    'sections 2G and 36 of the', 'Both pages say GST does not apply to ASIC fees.', 'GST does not apply to ASIC fees.</p>']) {
+    assert.ok(asicHtml.includes(cited), cited);
+  }
+});
+
+test('the ASIC fees table and the form state the engine’s amounts and codes', () => {
+  const table = [...asicHtml.matchAll(/<tr><th scope="row">([^<]+)<\/th><td>([^<]+)<\/td><td>\$([\d,]+)<\/td>/g)]
+    .map(([, name, code, amount]) => [name, code.replace(', ', ' or '), Number(amount.replace(',', ''))]);
+  const fixed = Object.entries(calculations.ASIC_FEES).filter(([, fee]) => fee.amount !== null);
+  for (const [key, fee] of fixed) {
+    assert.ok(table.some(([name, code, amount]) => name === fee.name && code === fee.code && amount === fee.amount), key);
+    assert.match(asicHtml, new RegExp(`<option value="${key}"`), key);
+  }
+  const late = table.filter(([name]) => name.startsWith('Late'));
+  assert.deepEqual(late.map(([, code, amount]) => [code, amount]), [['LPF1_ETM', 102], ['LPF2_ETM', 428], ['LPF1_ETM', 102], ['LPF2_ETM', 428]]);
+  assert.deepEqual(calculations.ASIC_LATE_FEES, { within: 102, beyond: 428 });
+  assert.equal(table.length, fixed.length + late.length);
+});
+
+test('ASIC late fees count the month from the day after the due date, for every due date in 2026-27', () => {
+  // s 2G(1): a month starting on day d ends before day d of the next month, or at its end if it has none.
+  const iso = (time) => new Date(time).toISOString().slice(0, 10);
+  const day = 86400000;
+  for (let due = Date.UTC(2026, 5, 1); due <= Date.UTC(2027, 5, 30); due += day) {
+    const start = new Date(due + day);
+    const length = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 2, 0)).getUTCDate();
+    const ends = start.getUTCDate() <= length ? Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 1, start.getUTCDate()) - day
+      : Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 1, length);
+    assert.equal(iso(calculations.firstMonthEnds(due / day) * day), iso(ends), iso(due));
+  }
+  // A month-end due date: the month runs to the end of the next month, not to the same day number.
+  assert.deepEqual([asicLate('2026-11-30', '2026-12-31').amount, asicLate('2027-04-30', '2027-05-31').firstMonthEnds], [102, '2027-05-31']);
+  assert.equal(asicLate('2026-09-30', '2026-10-30').firstMonthEnds, '2026-10-31');
+});
+
+test('ASIC late fees refuse what the page does not decide', () => {
+  const refused = (call) => {
+    try {
+      calculations.asicFee(call);
+    } catch (error) {
+      return error.message;
+    }
+    return 'computed';
+  };
+  for (const date of ['', '2026-02-30', '2026-9-15', '15/09/2026', 'NaN', '1899-12-31']) {
+    assert.equal(refused({ fee: 'late-lodgement', due: date, received: '2026-10-01' }), 'Enter a real date as YYYY-MM-DD.', date);
+    assert.equal(refused({ fee: 'late-lodgement', due: '2026-09-15', received: date }), 'Enter a real date as YYYY-MM-DD.', date);
+  }
+  for (const fee of ['', 'late', 'toString', '__proto__']) assert.equal(refused({ fee }), 'Choose a fee.', fee);
+  // The boundaries themselves compute: the due date is not late and the month's last day is within it.
+  for (const received of ['2026-09-15', '2026-10-15']) {
+    assert.equal(refused({ fee: 'late-review-payment', due: '2026-09-15', received }), 'computed', received);
+  }
+  // A Sunday due date refuses payments to the Wednesday after it; the Thursday is late.
+  assert.match(refused({ fee: 'late-review-payment', due: '2026-08-16', received: '2026-08-19' }), /^The due date is a Saturday or Sunday/);
+  assert.equal(refused({ fee: 'late-review-payment', due: '2026-08-16', received: '2026-08-20' }), 'computed');
+  assert.deepEqual(asicLate('2026-08-16', '2026-08-20').amount, 102);
+  // A Saturday month end refuses payments to the Wednesday after it (31 October 2026 is a Saturday).
+  assert.match(refused({ fee: 'late-review-payment', due: '2026-09-30', received: '2026-11-04' }), /^The first month after the due date ends/);
+  assert.equal(refused({ fee: 'late-review-payment', due: '2026-09-30', received: '2026-11-05' }), 'computed');
+  assert.deepEqual(asicLate('2026-09-30', '2026-11-05').amount, 428);
+  // A Saturday due date that moves to Wednesday 3 March 2027 would end the first month as late as
+  // Wednesday 7 April (3 April is a Saturday), so a receipt from 28 March to 7 April is refused.
+  assert.equal(asicLate('2027-02-27', '2027-03-27').amount, 102);
+  assert.match(refused({ fee: 'late-review-payment', due: '2027-02-27', received: '2027-04-01' }), /^The due date is a Saturday or Sunday, so the first month/);
+  assert.match(refused({ fee: 'late-review-payment', due: '2027-02-27', received: '2027-04-07' }), /^The due date is a Saturday or Sunday, so the first month/);
+  assert.equal(refused({ fee: 'late-review-payment', due: '2027-02-27', received: '2027-04-08' }), 'computed');
+  assert.equal(asicLate('2027-02-27', '2027-04-08').amount, 428);
+  // A due date and a received date either side of 1 July are refused.
+  assert.match(refused({ fee: 'late-review-payment', due: '2026-06-30', received: '2026-07-01' }), /^This page holds ASIC’s 2026-27 amounts/);
+  // Fixed fees ignore the dates.
+  assert.equal(calculations.asicFee({ fee: 'business-name-3', due: 'x', received: 'y' }).amount, 108);
+  const blank = calculations.asicFeesResult((name) => ({ fee: 'review-public', due: '', received: '' })[name] ?? '', asicAud);
+  assert.deepEqual(blank.rows, [['ASIC fee, no GST', '$1,591.00']]);
 });

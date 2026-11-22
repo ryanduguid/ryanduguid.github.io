@@ -6,8 +6,8 @@
 //! The photo is not in the repository. It must be a PNG whose background is
 //! transparent: the alpha channel is the silhouette, so nothing has to guess
 //! where Ryan ends and the backdrop begins. Each character cell is sampled as
-//! 6 rows by 4 columns, and the glyph whose own bitmap, drawn from the site's
-//! Spline Sans Mono in the 0.6em by 1em cell the page draws, best matches the
+//! 5 rows by 4 columns, and the glyph whose own bitmap, drawn from the site's
+//! Spline Sans Mono in the 0.6em by 0.8em cell the page draws, best matches the
 //! cell is chosen. Error diffusion carries each cell's leftover tone to its
 //! neighbours, so even areas such as the forehead get an even texture.
 use ab_glyph_rasterizer::{Point, Rasterizer, point};
@@ -18,16 +18,21 @@ use std::path::Path;
 
 pub const PAGE: &str = "about/index.html";
 pub const FONT: &str = "assets/fonts/SplineSansMono-Regular.woff2";
-/// Symbols only, space first: letters read as words at this size. None needs
-/// HTML escaping or can open a Liquid tag. `|` and `-` are left out because a
-/// column of `|` or a row of `-` joins into a stripe at a line height of 1.
-pub const GLYPHS: &str = " !#$'()*+,./:;@[\\]^_`~";
+/// Symbols only, space first: letters read as words at this size, and a phone
+/// can link a run of digits as a number to call. None needs HTML escaping or
+/// can open a Liquid tag. `|` and `-` are left out because a column of `|` or a
+/// row of `-` joins into a stripe, and `_` because it is drawn under its cell,
+/// in the row below the one it was chosen for.
+pub const GLYPHS: &str = " !\"#$%'()*+,./:;?@[\\]^`~";
 pub const COLUMNS: usize = 140;
 /// Samples across and down each cell.
 const SUB_X: usize = 4;
-const SUB_Y: usize = 6;
-/// The cell is 0.6em wide and 1em tall.
+const SUB_Y: usize = 5;
+/// The cell is 0.6em wide and 0.8em tall. Rows closer than one em leave no
+/// dark gap between them, and 0.8em of the page's 5px type is a whole 4px, so
+/// no row lands a pixel nearer its neighbour than the rest.
 const ADVANCE: f64 = 0.6;
+pub const LINE_HEIGHT: f64 = 0.8;
 const PORTRAIT: &str = r#"(?s)(<pre aria-hidden="true">\n)(.*?)(</pre></div>)"#;
 
 /// A greyscale image, row by row.
@@ -257,13 +262,14 @@ fn percentile(sorted: &[f64], p: f64) -> f64 {
 
 /// The crop box around the head, in photo pixels, and the number of rows it draws.
 fn crop(head: &Head) -> Result<([i64; 4], usize), String> {
-    // The hair just inside the top edge, the shoulders below the collar.
-    let crop_w = 1.85 * head.width;
-    let crop_h = 1.5 * head.height;
+    // The head takes two thirds of the width, the hair sits just inside the top
+    // edge and the collar and lapels above the bottom one.
+    let crop_w = 1.5 * head.width;
+    let crop_h = 1.48 * head.height;
     let top = head.top - 0.03 * head.height;
     let left = head.centre - crop_w / 2.0;
     let bounds = [left, top, left + crop_w, top + crop_h].map(|v| v.round() as i64);
-    let rows = (crop_h / crop_w * COLUMNS as f64 * ADVANCE).round() as usize;
+    let rows = (crop_h / crop_w * COLUMNS as f64 * ADVANCE / LINE_HEIGHT).round() as usize;
     // A head far taller than it is wide is a bad cutout, and its grid would
     // need gigabytes of samples.
     if rows > 2 * COLUMNS {
@@ -275,19 +281,30 @@ fn crop(head: &Head) -> Result<([i64; 4], usize), String> {
     Ok((bounds, rows))
 }
 
-/// Local contrast, then the figure's tonal range stretched to 0 to 1.
-fn contrast(value: &Grey, person: &Grey) -> Result<Grey, String> {
-    // Each sample against its surroundings within the figure, so the shadowed
-    // cheek keeps its modelling and the lit one does not clip.
-    let sigma = 0.06 * value.width as f64;
+/// Each sample pushed `amount` further from its surroundings within the figure,
+/// which a blur of `sigma` samples gives.
+fn local_contrast(value: &Grey, person: &Grey, sigma: f64, amount: f64) -> Grey {
     let weighted = blur(&value.zip(person, |v, m| v * m), sigma, false);
     let base = weighted.zip(&blur(person, sigma, false), |n, d| n / d.max(1e-6));
-    let value = value.zip(&base, |v, b| v + 0.9 * (v - b));
+    value.zip(&base, |v, b| v + amount * (v - b))
+}
 
+/// Local contrast, then the head's tonal range stretched to 0 to 1. The head
+/// is the first `head_rows` rows of samples.
+fn contrast(value: &Grey, person: &Grey, head_rows: usize) -> Result<Grey, String> {
+    // Broadly, so the shadowed cheek keeps its modelling and the lit one does
+    // not clip; then finely, so the eyes, teeth and hair keep their edges.
+    let width = value.width as f64;
+    let value = local_contrast(value, person, 0.06 * width, 0.9);
+    let value = local_contrast(&value, person, 0.012 * width, 0.5);
+
+    // The range is the head's alone: the white shirt would otherwise set the
+    // white point and leave the face grey.
     let mut inside: Vec<f64> = value
         .data
         .iter()
         .zip(&person.data)
+        .take(head_rows * value.width)
         .filter(|&(_, &m)| m > 0.5)
         .map(|(&v, _)| v)
         .collect();
@@ -295,7 +312,7 @@ fn contrast(value: &Grey, person: &Grey) -> Result<Grey, String> {
         return Err("the crop holds none of the figure; check the cutout".into());
     }
     inside.sort_by(f64::total_cmp);
-    let (low, high) = (percentile(&inside, 1.0), percentile(&inside, 99.5));
+    let (low, high) = (percentile(&inside, 1.0), percentile(&inside, 99.0));
     if high <= low {
         return Err("the figure has no tonal range to draw; check the photo".into());
     }
@@ -341,8 +358,8 @@ fn fade(out: &mut Grey) {
         };
         for x in 0..width {
             let ellipse = ((x as f64 - width as f64 / 2.0) / (width as f64 * 0.5))
-                .hypot((y as f64 - height as f64 * 0.38) / (height as f64 * 0.72));
-            let corner = (1.0 - (ellipse - 0.72).max(0.0) / 0.28).clamp(0.0, 1.0);
+                .hypot((y as f64 - height as f64 * 0.38) / (height as f64 * 0.85));
+            let corner = (1.0 - (ellipse - 0.8).max(0.0) / 0.2).clamp(0.0, 1.0);
             out.data[y * width + x] *= bottom * corner;
         }
     }
@@ -357,13 +374,15 @@ fn tone(png: &[u8]) -> Result<(Grey, usize), String> {
     if clear * 100 < alpha.data.len() {
         return Err("the photo has no transparent background; supply a cutout PNG".into());
     }
-    let (bounds, rows) = crop(&find_head(&alpha)?)?;
+    let head = find_head(&alpha)?;
+    let (bounds, rows) = crop(&head)?;
     let (width, height) = (COLUMNS * SUB_X, rows * SUB_Y);
     let premultiplied = lightness.zip(&alpha, |l, a| l * a);
     let person = crop_resize(&alpha, bounds, width, height);
     let value = crop_resize(&premultiplied, bounds, width, height)
         .zip(&person, |v, m| if m > 1e-3 { v / m } else { 0.0 });
-    let value = contrast(&value, &person)?;
+    let neck = (head.top + head.height - bounds[1] as f64) / (bounds[3] - bounds[1]) as f64;
+    let value = contrast(&value, &person, (neck * height as f64) as usize)?;
     let mut out = value
         .zip(&rim(&person), f64::max)
         .zip(&person, |v, m| v * m);
@@ -441,11 +460,12 @@ fn glyph_samples(font: &[u8]) -> Result<Vec<Samples>, String> {
     let line = face.metrics().h_line().ok_or("font has no line metrics")?;
     // Drawn large, then averaged down to the samples.
     let size = 240usize;
-    let (cell_w, cell_h) = ((size as f64 * ADVANCE).round() as usize, size);
+    let cell_w = (size as f64 * ADVANCE).round() as usize;
+    let cell_h = (size as f64 * LINE_HEIGHT).round() as usize;
     let px = size as f32 / f32::from(face.metrics().units_per_em);
-    // Line height 1: the content area is centred in the one-em line box.
+    // The content area is centred in the line box, which is the shorter of the two.
     let (ascent, descent) = (line.ascender.to_f32() * px, -line.descender.to_f32() * px);
-    let baseline = (size as f32 - (ascent + descent)) / 2.0 + ascent;
+    let baseline = (cell_h as f32 - (ascent + descent)) / 2.0 + ascent;
     let charmap = face.charmap();
     let scaler = ScalerFont::unhinted(face.clone(), None);
     GLYPHS
@@ -485,8 +505,11 @@ fn glyph_samples(font: &[u8]) -> Result<Vec<Samples>, String> {
                     }
                 }
                 raster.for_each_pixel_2d(|x, y, c| {
-                    let (x, y) = (min_x as i64 + i64::from(x), min_y as i64 + i64::from(y));
-                    if (0..cell_w as i64).contains(&x) && (0..cell_h as i64).contains(&y) {
+                    let x = min_x as i64 + i64::from(x);
+                    // Ink past the top or bottom of the cell lands in the next
+                    // row, where a like glyph puts as much back.
+                    let y = (min_y as i64 + i64::from(y)).rem_euclid(cell_h as i64);
+                    if (0..cell_w as i64).contains(&x) {
                         cell.data[y as usize * cell_w + x as usize] += f64::from(c);
                     }
                 });
@@ -505,7 +528,8 @@ fn glyph_samples(font: &[u8]) -> Result<Vec<Samples>, String> {
 
 /// The portrait text: each cell gets the glyph closest to its samples, and
 /// the difference in tone spreads to the cells not yet drawn, with Floyd and
-/// Steinberg's weights.
+/// Steinberg's weights. Alternate rows run right to left, so the leftovers do
+/// not line up into diagonal streaks.
 pub fn render(png: &[u8], font: &[u8]) -> Result<String, String> {
     let (target, rows) = tone(png)?;
     let glyphs = glyph_samples(font)?;
@@ -520,7 +544,9 @@ pub fn render(png: &[u8], font: &[u8]) -> Result<String, String> {
     let at = |r: usize, c: isize| r * (COLUMNS + 2) + (c + 1) as usize;
     let mut cell = [0.0f64; SUB_X * SUB_Y];
     for r in 0..rows {
-        for c in 0..COLUMNS {
+        let ahead: isize = if r % 2 == 0 { 1 } else { -1 };
+        for step in 0..COLUMNS {
+            let c = if ahead > 0 { step } else { COLUMNS - 1 - step };
             let carried = error[at(r, c as isize)];
             for (k, sample) in cell.iter_mut().enumerate() {
                 let (dy, dx) = (k / SUB_X, k % SUB_X);
@@ -542,10 +568,10 @@ pub fn render(png: &[u8], font: &[u8]) -> Result<String, String> {
             picks[r * COLUMNS + c] = best;
             let left_over = cell.iter().sum::<f64>() / cell.len() as f64 - means[best];
             let c = c as isize;
-            error[at(r, c + 1)] += left_over * 7.0 / 16.0;
-            error[at(r + 1, c - 1)] += left_over * 3.0 / 16.0;
+            error[at(r, c + ahead)] += left_over * 7.0 / 16.0;
+            error[at(r + 1, c - ahead)] += left_over * 3.0 / 16.0;
             error[at(r + 1, c)] += left_over * 5.0 / 16.0;
-            error[at(r + 1, c + 1)] += left_over / 16.0;
+            error[at(r + 1, c + ahead)] += left_over / 16.0;
         }
     }
     text(&picks)

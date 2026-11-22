@@ -60,7 +60,7 @@ Under the tax-free threshold all dividends keep the most, as the credit is refun
 A company at 30% in 2021-22, with the low and middle income tax offset | 2021-22, profit $41,000.00, 30% company, salary $20,000.00, other income $0.00 | Super guarantee $2,000.00, company tax $5,700.00, dividend $13,300.00, franking credit $5,700.00, owner’s refund $2,418.00, super tax $300.00, cash kept $35,718.00, super kept $1,700.00, kept in all $37,418.00, all salary keeps $37,467.19, all dividends keep $37,348.00, best salary $35,000.00, best keeps $37,470.50
 A salary whose super guarantee the profit cannot pay is refused | 2026-27, profit $100,000.00, 25% company, salary $95,000.00, other income $0.00 | Refused: enter a salary of no more than $89,285.71: the profit also pays its super guarantee
 
-One of the forty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -73,7 +73,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - payroll tax: https://duguid.com.au/tools/business-calculators/payroll-tax/
-- forty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -168,7 +168,7 @@ FIRB Guidance Note 10, example 3: the fee is 3 times for an established dwelling
 Under $75,000 the lower fee applies | Residential land without an established dwelling, consideration $74,999.00 | Fee $4,600.00
 Above $40 million the fee stops at its maximum | Residential land without an established dwelling, consideration $40,000,001.00 | Fee $1,245,500.00
 
-One of the forty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -180,7 +180,113 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - section 14: https://www.legislation.gov.au/F2015L01854/2025-11-01/2025-11-01/text/original/epub/OEBPS/document_1/document_1.html
 - transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
-- forty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# ASIC fees 2026-27 and late fee calculator
+
+Source: https://duguid.com.au/tools/business-calculators/asic-fees/
+
+> ASIC’s fees from 1 July 2026 for company registration, name reservation, annual reviews and business names, and the $102 or $428 late fee tier.
+
+# ASIC fees calculator
+
+ASIC’s 2026-27 fees and late fee tiers.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+ASIC fee and late fee tier for 2026-27
+
+FeeRegister a company with share capital Register a company without share capital Reserve a company name, or extend a reservation Annual review fee, proprietary company (not special purpose) Annual review fee, public company (not special purpose or a small transferring financial institution) Annual review fee, special purpose proprietary company Annual review fee, special purpose company that is not proprietary Register or renew a business name for 1 year Register or renew a business name for 3 years Late payment of an annual review fee Late lodgement of a document Late fees only: the due date Late fees only: the day ASIC received the payment or document
+
+Enter the due date from ASIC’s invoice or statement, or, for a document, the last day of the time allowed to lodge it, and the day ASIC received the payment or document, both from 1 July 2026 to 30 June 2027. The calculator does not work the due date out from a review date or move it for a weekend or holiday.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Thursday 15 October 2026. Last day of the first month after the due date Thursday 15 October 2026 Late fee tier Late, within one month after the due date Late fee, no GST $102.00 ASIC code LPF1_ETM; Corporations (Review Fees) Regulations 2003, Schedule 1 Part 3 items 1 and 2. A late fee is on top of the fee itself. Public holidays are not checked: if the due date or the last day of the first month is one where you pay or lodge, check ASIC’s invoice.
+
+## ASIC fees from 1 July 2026
+
+ASIC’s standard fees from 1 July 2026 are listed below as ASIC’s fee data and INFO 30 gave them on 22 November 2026. GST does not apply to ASIC fees.
+
+ASIC fees from 1 July 2026 (AUD, no GST)
+
+Fee | ASIC code | Amount | Imposed by
+Register a company with share capital | I02 | $636 | Corporations (Fees) Regulations 2001, Schedule 1 item 1(a)(i)
+Register a company without share capital | I01 | $524 | Schedule 1 item 1(a)(ii)
+Reserve a company name, or extend a reservation | R01 | $65 | Schedule 2 item 8
+Annual review fee, proprietary company (not a special purpose company) | A52 | $342 | Corporations (Review Fees) Regulations 2003, Schedule 1 Part 1 item 2
+Annual review fee, public company (not a special purpose company or small transferring financial institution) | A51 | $1,591 | Schedule 1 Part 1 item 1
+Annual review fee, special purpose company that is a proprietary company | A58 | $70 | Schedule 1 Part 1 item 5
+Annual review fee, special purpose company that is not a proprietary company | A53 | $65 | Schedule 1 Part 1 item 4
+Late payment of a review fee, within one month after the due date | LPF1_ETM | $102 | Schedule 1 Part 3 item 1
+Late payment of a review fee, more than one month after the due date | LPF2_ETM | $428 | Schedule 1 Part 3 item 2
+Late lodgement, within one month after the prescribed time | LPF1_ETM | $102 | Corporations (Fees) Regulations 2001, Schedule 2 item 14(a)
+Late lodgement, more than one month after the prescribed time | LPF2_ETM | $428 | Schedule 2 item 14(b)
+Register or renew a business name for 1 year | BZA, BZC | $47 | Business Names Registration (Fees) Regulations 2022, section 6 items 1 and 2
+Register or renew a business name for 3 years | BZB, BZD | $108 | Section 6 items 3 and 4
+
+The regulations state base amounts, and ASIC raises some of them each 1 July in line with the Consumer Price Index; the table gives ASIC’s indexed amounts. A special purpose company is defined in regulation 3 of the review fees regulations; it includes a company whose constitution prohibits distributions to its members and whose sole purpose is to act as trustee of a regulated superannuation fund. A company in liquidation and an entity registered with the Australian Charities and Not-for-profits Commission pay no review fee (Schedule 1 Part 1 items 10 and 11).
+
+## How the ASIC fees calculator works
+
+For a standard fee, the calculator returns ASIC’s 2026-27 amount. For a late fee, it compares the day ASIC received the payment or document with the due date you enter, as INFO 30 sets the tiers by the day ASIC receives them. A payment or document received on or before the due date is not late. A review fee paid after its due date but within one month after it costs $102, and later $428 (Schedule 1 Part 3 of the review fees regulations); a document lodged late attracts the same 2 amounts (Schedule 2 item 14 of the fees regulations). A late fee is on top of the fee itself, and ASIC can charge more than one late fee when several obligations are missed.
+
+The one month begins the day after the due date, which is not counted (item 6 of subsection 36(1) of the Acts Interpretation Act 1901). Under subsection 2G(1), a month runs to just before the same day of the next calendar month, or to the end of that month when it has no such day. A fee due on Tuesday 15 September 2026 is within one month if received by Thursday 15 October; one due on Monday 30 November 2026 is within one month if received by Thursday 31 December, because that month starts on 1 December.
+
+## What the ASIC fees calculator does not cover
+
+The calculator does not work out a due date. An annual review fee is due 2 months after the review date (subsection 1351(3) of the Corporations Act 2001), a review date can change, and a document’s lodgement period depends on the document, so you enter the due date shown by ASIC or the form’s rules. When a deadline falls on a weekend or public holiday, subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may allow the next business day. The calculator does not apply that. When the due date or the last day of the first month is a Saturday or Sunday, it declines to give a tier for a received date that such a move could change, up to the following Wednesday and, after a weekend due date, the end of the month that would follow the moved date. It does not check public holidays.
+
+Not covered: due dates and received dates before 1 July 2026 or after 30 June 2027, including a fee due in one financial year and received in the next, because the sources read do not settle which year’s indexed amount applies; upfront review fees; deregistration and the review fee exceptions in subsection 1351(4); registered schemes, notified foreign passport funds, small transferring financial institutions and CCIVs; registered Australian bodies and foreign companies; credit licensee late fees; fee waivers and reviews of a late fee; and the industry funding levy. Check the amount against ASIC’s invoice before you pay.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: ASIC fees calculator
+
+Case | Inputs | Result
+Received exactly one month after the due date: $102 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Thursday 15 October 2026 | First month ends Thursday 15 October 2026, within one month, fee $102.00
+Received on the due date: not late | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Tuesday 15 September 2026 | Not late, fee $0.00
+Received the day after the due date: $102 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Wednesday 16 September 2026 | First month ends Thursday 15 October 2026, within one month, fee $102.00
+Received the day after the first month: $428 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Friday 16 October 2026 | First month ends Thursday 15 October 2026, more than one month, fee $428.00
+Due on a month’s last day: the month runs to 31 December, s 2G(1)(b)(i) | Late lodgement of a document, due Monday 30 November 2026, document received by ASIC Thursday 31 December 2026 | First month ends Thursday 31 December 2026, within one month, fee $102.00
+Due on a month’s last day, received the day after the month: $428 | Late lodgement of a document, due Monday 30 November 2026, document received by ASIC Friday 1 January 2027 | First month ends Thursday 31 December 2026, more than one month, fee $428.00
+No 31 November: the month ends on 30 November, s 2G(1)(b)(ii) | Late payment of an annual review fee, due Friday 30 October 2026, payment received by ASIC Monday 30 November 2026 | First month ends Monday 30 November 2026, within one month, fee $102.00
+No 31 November, received on 1 December: $428 | Late payment of an annual review fee, due Friday 30 October 2026, payment received by ASIC Tuesday 1 December 2026 | First month ends Monday 30 November 2026, more than one month, fee $428.00
+No 30 February: the month ends on 28 February 2027 | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Sunday 28 February 2027 | First month ends Sunday 28 February 2027, within one month, fee $102.00
+A first month ending on a Sunday, received on the Monday: refused | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Monday 1 March 2027 | Refused: the first month after the due date ends on a Saturday or Sunday: subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may extend it; this page does not decide that. Check ASIC’s invoice
+A first month ending on a Sunday, received on the Thursday: $428 | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Thursday 4 March 2027 | First month ends Sunday 28 February 2027, more than one month, fee $428.00
+A due date on a Saturday, received on the Monday: refused | Late payment of an annual review fee, due Saturday 15 August 2026, payment received by ASIC Monday 17 August 2026 | Refused: the due date is a Saturday or Sunday, so subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may move it; this page does not decide that. Check ASIC’s invoice
+A due date on a Saturday, received on the Thursday: $102 | Late payment of an annual review fee, due Saturday 15 August 2026, payment received by ASIC Thursday 20 August 2026 | First month ends Tuesday 15 September 2026, within one month, fee $102.00
+A Saturday due date that may move to Wednesday 3 March, received on 1 April: refused | Late payment of an annual review fee, due Saturday 27 February 2027, payment received by ASIC Thursday 1 April 2027 | Refused: the due date is a Saturday or Sunday, so the first month after it may end later: subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may extend it; this page does not decide that. Check ASIC’s invoice
+The same due date, received on 8 April: $428 | Late payment of an annual review fee, due Saturday 27 February 2027, payment received by ASIC Thursday 8 April 2027 | First month ends Saturday 27 March 2027, more than one month, fee $428.00
+Due in 2025-26, received on 2 July 2026: refused, the year’s amount is not settled | Late payment of an annual review fee, due Monday 15 June 2026, payment received by ASIC Thursday 2 July 2026 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
+Received on 30 June 2026: refused, before 2026-27 | Late lodgement of a document, due Monday 15 June 2026, document received by ASIC Tuesday 30 June 2026 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
+Received on 30 June 2027: $102 | Late lodgement of a document, due Tuesday 15 June 2027, document received by ASIC Wednesday 30 June 2027 | First month ends Thursday 15 July 2027, within one month, fee $102.00
+Received on 1 July 2027: refused, after 2026-27 | Late lodgement of a document, due Tuesday 15 June 2027, document received by ASIC Thursday 1 July 2027 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
+Received the day before the due date: not late | Late lodgement of a document, due Tuesday 15 September 2026, document received by ASIC Monday 14 September 2026 | Not late, fee $0.00
+ASIC code I02 | Register a company with share capital | Fee $636.00, ASIC code I02
+ASIC code I01 | Register a company without share capital | Fee $524.00, ASIC code I01
+ASIC code R01 | Reserve a company name, or extend a reservation | Fee $65.00, ASIC code R01
+ASIC code A52 | Annual review fee, proprietary company (not a special purpose company) | Fee $342.00, ASIC code A52
+ASIC code A51 | Annual review fee, public company (not a special purpose company or small transferring financial institution) | Fee $1,591.00, ASIC code A51
+ASIC code A58 | Annual review fee, special purpose company that is a proprietary company | Fee $70.00, ASIC code A58
+ASIC code A53 | Annual review fee, special purpose company that is not a proprietary company | Fee $65.00, ASIC code A53
+ASIC code BZA or BZC | Register or renew a business name for 1 year | Fee $47.00, ASIC code BZA or BZC
+ASIC code BZB or BZD | Register or renew a business name for 3 years | Fee $108.00, ASIC code BZB or BZD
+
+One of the forty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- forty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -238,7 +344,7 @@ An end before the start is refused | New South Wales, Wednesday 18 November 2026
 A Victorian date after 31 August 2027 is refused | Victoria, Wednesday 1 September 2027 to Thursday 30 September 2027 | Refused: this page has public holidays from 1 January 2026 to 31 August 2027 for Victoria; choose dates in that range
 Counting past 31 December 2027 is refused | New South Wales, 20 business days after Monday 20 December 2027 | Refused: this page has public holidays from 1 January 2026 to 31 December 2027 for New South Wales; choose dates in that range
 
-One of the forty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -246,7 +352,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- forty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -336,7 +442,7 @@ A sale to an associate is refused | Freehold, bought under the margin scheme, so
 A valuation for property acquired after 1 July 2000 is refused | Freehold, bought under the margin scheme; price $190,000.00 GST-inclusive, valuation $400,000.00, 200,000 of 2,000,000 | Refused: an approved valuation sets the margin only for property held since before 1 July 2000 (subsection 75-10(3)); use the consideration you paid for property acquired later
 A part larger than the whole is refused | Freehold, bought under the margin scheme; price $190,000.00 GST-inclusive, cost $400,000.00, 2,000,001 of 2,000,000 | Refused: this sale’s part cannot be more than the whole it is part of
 
-One of the forty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -344,7 +450,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- forty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -459,7 +565,7 @@ A room used to produce income from a day away, with the home chosen as the main 
 Shares an individual and associates own at least 10% of are refused, as section 115-45 can deny the discount | Individual, shares or units held at least 10%; bought 1 July 1997, sold 1 February 2026 for $496,000.00; price $144,000.00, buying $20,000.00 on 1 July 1997, cost $30,000.00 on 1 October 2025, selling $12,500.00, capital works $255.00; other income $90,000.00 | Refused: the gain on shares, or units or other fixed or voting interests in a trust, that you and your associates own at least 10% of is not a discount capital gain when most of the company’s or trust’s assets, by cost base and by net capital gain, were acquired in the 12 months before the sale (section 115-45): this page does not test that
 A home first rented on 21 September 1999 is refused, as section 118-192 moves its acquisition to that day | Individual, home; bought 1 March 1995, sold 14 April 2026 for $496,000.00; price $150,000.00; other income $90,000.00; settled 1 April 1995 and 14 April 2026, moved in 1 April 1995; away 21 September 1999 to 14 April 2026, rented; market value $200,000.00 | Refused: for an asset acquired on 21 September 1999, whether the cost base can be indexed turns on whether it was acquired by 11.45 am (sections 114-1 and 114-10): this page cannot tell
 
-One of the forty-six business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -467,4 +573,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- forty-six business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-seven business calculators: https://duguid.com.au/tools/business-calculators/

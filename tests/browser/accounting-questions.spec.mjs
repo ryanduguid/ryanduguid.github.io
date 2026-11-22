@@ -1499,7 +1499,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
-  'workers-compensation', 'fuel-tax-credits', 'lease', 'gst-margin-scheme', 'depreciation-pools'];
+  'workers-compensation', 'fuel-tax-credits', 'lease', 'gst-margin-scheme', 'asic-fees', 'depreciation-pools'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -1588,6 +1588,39 @@ for (const route of ['/tools/accounting-questions/', '/tools/accounting-question
     }
   });
 }
+
+// The month after a due date of 30 November 2026 starts on 1 December, so it runs to 31 December
+// (Acts Interpretation Act 1901 s 2G(1)); a payment after a Sunday month end and by the Wednesday is refused.
+test('ASIC fees page counts the late fee month from the day after the due date and refuses a weekend boundary offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/asic-fees/');
+  const form = page.locator('#asic-fees form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  const output = form.locator('output');
+  await form.locator('[name="fee"]').selectOption('late-lodgement');
+  await form.locator('[name="due"]').fill('2026-11-30');
+  await form.locator('[name="received"]').fill('2026-12-31');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output.locator('.result-row--principal')).toHaveText('Late fee, no GST: $102.00.');
+  await expect(output).toContainText('Last day of the first month after the due date: Thursday 31 December 2026.');
+  await form.locator('[name="received"]').fill('2027-01-01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output.locator('.result-row--principal')).toHaveText('Late fee, no GST: $428.00.');
+  await form.locator('[name="fee"]').selectOption('late-review-payment');
+  await form.locator('[name="due"]').fill('2027-01-29');
+  await form.locator('[name="received"]').fill('2027-03-01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toHaveText(/^The first month after the due date ends on a Saturday or Sunday/);
+  // A fixed fee needs no dates, and the browser's date checks must not stop the engine's own refusal.
+  await form.locator('[name="due"]').fill('');
+  await form.locator('[name="received"]').fill('');
+  await form.locator('[name="fee"]').selectOption('review-public');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output.locator('.result-row--principal')).toHaveText('ASIC fee, no GST: $1,591.00.');
+  await form.locator('[name="fee"]').selectOption('late-lodgement');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toHaveText(/^Enter a real date as YYYY-MM-DD/);
+});
 
 test('objection deadline takes the later of an amended assessment’s 2 dates offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/objection-deadline/');

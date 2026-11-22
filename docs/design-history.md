@@ -6,6 +6,22 @@ and DESIGN.md disagree, DESIGN.md is current.
 
 ## Current refinement record
 
+On 22 November 2026 the About portrait is redrawn to read as a photograph of
+the same person at the size the page shows it. The 16 November portrait was
+grey and banded: the white shirt set the white point, so the face sat in the
+mid-tones; the art used 115 of its 140 columns; each row left a dark gap under
+it; and a row pitch of 4.95px at desktop width, or 4.26px on a phone, made the
+browser draw some rows a pixel closer than others. The crop now gives the head
+two thirds of the width, the tonal range is the head's alone, and a second,
+finer local contrast keeps the eyes, teeth and hair. Rows are 0.8em tall, so
+the grid is 140 by 132 and the rows touch. `"`, `%` and `?` join the glyphs for
+a finer ramp and `_` leaves, because it is drawn in the row
+below its own. Error diffusion alternates direction by row, which removes its
+diagonal streaks. The frame grows from 26rem to 26.25rem, where 5px type gives
+a 4px row, and the stylesheet steps the type down to the nearest size whose
+rows are a whole number of device pixels apart. The ink colour, accessible
+wrapper and print rule are unchanged.
+
 On 16 November 2026 the About portrait is redrawn from a new cutout of Ryan's
 headshot by `site-tools render_about_portrait`, which replaces the Python
 renderer and its OpenCV, NumPy, Pillow and fontTools dependencies. The 28
