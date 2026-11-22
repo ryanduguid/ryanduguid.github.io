@@ -2276,7 +2276,7 @@ fn payg_oracle(quarter: &Quarter) -> Result<Instalment, &'static str> {
         quarter
             .earlier
             .checked_sub(quarter.credits)
-            .ok_or("Credits claimed cannot exceed the earlier instalments.")
+            .ok_or("Earlier credits cannot exceed the earlier instalments.")
     };
     match quarter.method {
         "amount" => Ok((

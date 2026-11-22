@@ -429,7 +429,7 @@ export function paygInstalment(inputs) {
   }
   const earlierLessCredits = () => {
     const [earlier, credits] = [cents(inputs.earlier), cents(inputs.credits)];
-    if (credits > earlier) throw new Error('Credits claimed cannot exceed the earlier instalments.');
+    if (credits > earlier) throw new Error('Earlier credits cannot exceed the earlier instalments.');
     return earlier - credits;
   };
   if (method === 'varied-amount') {
