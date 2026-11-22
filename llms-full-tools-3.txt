@@ -301,7 +301,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Fifty-one calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
+Fifty-two calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
 
 Find a question and prepare a checklist.
 
