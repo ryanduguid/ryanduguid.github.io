@@ -16,8 +16,9 @@ import { number } from './money.mjs';
 // - SA: RevenueSA: $15,000 but not more than the consideration; no cap from 6 June 2024.
 // - Tas: First Home Owner Grant Act 2000 (authorised version as at 9 October 2026) s 18: the lesser
 //   of the consideration and $30,000 from 1 July 2025 to 30 June 2026 (s 18L) or $20,000 from 1 July
-//   2026 to 30 June 2027 (s 18M), for a transaction completed within 24 months that replaces no
-//   earlier one; s 7 sets no value cap. The State Revenue Office's table gives the same amounts.
+//   2026 to 30 June 2027 (s 18M), for a transaction completed within 24 months or a period the
+//   Commissioner extends, that replaces no transaction for the same property between or benefiting
+//   substantially the same parties entered before the 1 July starting its period; s 7 sets no value cap. The State Revenue Office's table gives the same amounts.
 // - NT: HomeGrown Territory Grant: $50,000 for contracts from 1 October 2024 to 30 September 2027,
 //   with no cap.
 // - ACT: ACT Revenue Office: no grant from 1 July 2019.
@@ -33,7 +34,7 @@ export const FHOG_CASE_FACTS = ['contract', 'nt', 'tas'];
 const FACT_NAMES = { person: 'every applicant is a person aged 18 or over', citizen: 'an applicant is an Australian citizen or permanent resident',
   first: 'no applicant or spouse is excluded by the jurisdiction’s prior grant and ownership rules', residence: 'the residence requirement will be met',
   contract: 'the building contract price is at least the grant', nt: 'the contract replaces none signed before 1 October 2024',
-  tas: 'the transaction completes within 24 months and replaces no earlier contract' };
+  tas: 'the transaction completes within 24 months or a period the Commissioner extends, and replaces no contract for the same property, between or benefiting substantially the same parties, made before 1 July 2025 (for a 2025-26 contract) or 1 July 2026 (for a 2026-27 contract)' };
 
 /** @typedef {{from: string, to: string, amount: number, bought?: number, built?: number, north?: number, lesser?: boolean}} GrantRule
  * `bought`, `built` and `north` are the highest eligible whole-dollar value; a rule without them has no cap. */

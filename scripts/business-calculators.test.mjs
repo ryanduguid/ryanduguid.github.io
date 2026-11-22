@@ -6175,7 +6175,10 @@ test('the first home owner grant asks for the facts a home built, Western Austra
   assert.equal(fhogResult({ jurisdiction: 'AU-WA', 'wa-location': 'south', value: '950000' }).rows[0][1], '$0.00: the value is over the Western Australia cap');
   // S4 and section 18M(3) of the Tasmanian Act: a replacement contract is not stated away.
   assert.throws(() => fhogResult({ jurisdiction: 'AU-NT', 'fact-nt': false }), /replaces none signed before 1 October 2024/);
-  assert.throws(() => fhogResult({ jurisdiction: 'AU-TAS', 'fact-tas': false }), /completes within 24 months and replaces no earlier contract/);
+  assert.throws(() => fhogResult({ jurisdiction: 'AU-TAS', 'fact-tas': false }), /completes within 24 months or a period the Commissioner extends, and replaces no contract for the same property, between or benefiting substantially the same parties, made before 1 July 2025 \(for a 2025-26 contract\) or 1 July 2026 \(for a 2026-27 contract\)/);
+  // S6 (round 7) and sections 18L(2), (3) and 18M(2), (3): an extended completion period and a replacement
+  // of a contract made on or after the period's 1 July are stated as meeting the condition, so the grant follows.
+  assert.match(fhogHtml, /Tasmania only: the transaction will be completed within 24 months or a period the Commissioner extends, and replaces no contract for the same property, between or benefiting substantially the same parties, made before 1 July 2025 \(for a 2025-26 contract\) or 1 July 2026 \(for a 2026-27 contract\)</);
   assert.equal(fhogResult({ jurisdiction: 'AU-NT', home: 'established', 'fact-nt': false }).rows[0][1], '$0.00: the grant is for a new home only');
   // S3: the prior ownership rules keep each jurisdiction's own period.
   assert.match(fhogHtml, /Western Australia: none owned residential property on or after 1 July 2000 and lived in it for a continuous 6 months or more beginning on or after 1 July 2004\./);
