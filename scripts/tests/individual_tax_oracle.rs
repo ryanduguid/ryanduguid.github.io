@@ -2391,46 +2391,91 @@ fn gov_half_up(numerator: i128, denominator: i128) -> i128 {
 /// The oracle's amounts for one seeded case, from the Co-contribution Act ss 6, 8 to 11, 12C and 12E
 /// and ITAA 1997 ss 290-230 and 290-235, in whole cents, the co-contribution in hundred-thousandths of a dollar.
 fn gov_oracle(case: &Value) -> Value {
-    let int = |key: &str| case[key].as_str().unwrap().replace('.', "").parse::<i128>().unwrap();
+    let int = |key: &str| {
+        case[key]
+            .as_str()
+            .unwrap()
+            .replace('.', "")
+            .parse::<i128>()
+            .unwrap()
+    };
     // Whole-dollar income parts in cents; the contributions and eligible income carry their cents.
     let dollars = |key: &str| case[key].as_str().unwrap().parse::<i128>().unwrap() * 100;
     let cents = |key: &str| {
         let text = case[key].as_str().unwrap();
-        if text.contains('.') { int(key) } else { int(key) * 100 }
+        if text.contains('.') {
+            int(key)
+        } else {
+            int(key) * 100
+        }
     };
-    let (assessable, taxable, business) = (dollars("assessable_income"), dollars("taxable_income"), dollars("business_deductions"));
-    let (employer, excess) = (dollars("reportable_employer_super_contributions"), dollars("excess_concessional_contributions"));
-    let (other, section_57a) = (dollars("reportable_fringe_benefits_other"), dollars("reportable_fringe_benefits_section_57a"));
-    let (rental, child) = (dollars("net_rental_property_loss"), dollars("child_support_paid"));
+    let (assessable, taxable, business) = (
+        dollars("assessable_income"),
+        dollars("taxable_income"),
+        dollars("business_deductions"),
+    );
+    let (employer, excess) = (
+        dollars("reportable_employer_super_contributions"),
+        dollars("excess_concessional_contributions"),
+    );
+    let (other, section_57a) = (
+        dollars("reportable_fringe_benefits_other"),
+        dollars("reportable_fringe_benefits_section_57a"),
+    );
+    let (rental, child) = (
+        dollars("net_rental_property_loss"),
+        dollars("child_support_paid"),
+    );
     let employer_net = (employer - excess).max(0);
     // s 8(1), (1A) and (2); for the 10% test, before business deductions (s 8(3)).
     let total = assessable + other + section_57a + employer_net - business;
     let before_business = total + business;
     // Family Assistance Act Sch 3: a section 57A employer's amount at 53%, down to the dollar.
-    let adjusted = taxable + (section_57a / 100 * 53 / 100) * 100 + other + rental + employer_net - child;
+    let adjusted =
+        taxable + (section_57a / 100 * 53 / 100) * 100 + other + rental + employer_net - child;
     let eligible = cents("eligible_income");
     let ten = eligible * 10 >= before_business;
     let flag = |key: &str| case[key].as_bool().unwrap();
     let lower = gov_lower(case["year"].as_str().unwrap()) * 100;
     let personal = cents("personal_contributions");
-    let co_payable = personal > 0 && ten && total < lower + 1_500_000 && flag("return_lodged") && flag("under_71")
-        && flag("non_concessional_within_cap") && flag("total_super_balance_below_cap");
+    let co_payable = personal > 0
+        && ten
+        && total < lower + 1_500_000
+        && flag("return_lodged")
+        && flag("under_71")
+        && flag("non_concessional_within_cap")
+        && flag("total_super_balance_below_cap");
     // In hundred-thousandths of a dollar, so 3.333 cents a dollar is exact.
     let taper = (total - lower).max(0) / 100 * 3_333;
     let maximum = (50_000_000 - taper).max(0);
-    let co = if co_payable { (personal * 500).min(maximum).max(2_000_000) } else { 0 };
+    let co = if co_payable {
+        (personal * 500).min(maximum).max(2_000_000)
+    } else {
+        0
+    };
     let co_paid = (co + 4_999) / 5_000 * 5;
     let concessional = cents("concessional_contributions");
     let listo_payable = concessional > 0 && adjusted <= 3_700_000 && ten;
-    let listo = if listo_payable { gov_half_up(concessional * 15, 100).clamp(1_000, 50_000) } else { 0 };
+    let listo = if listo_payable {
+        gov_half_up(concessional * 15, 100).clamp(1_000, 50_000)
+    } else {
+        0
+    };
     let listo_paid = (listo + 4) / 5 * 5;
     let spouse = case.get("spouse_contributions").map(|_| {
-        let income = cents("spouse_assessable_income") + cents("spouse_reportable_employer_super_contributions");
+        let income = cents("spouse_assessable_income")
+            + cents("spouse_reportable_employer_super_contributions");
         let limit = (300_000 - (income - 3_700_000).max(0)).max(0);
         let made = cents("spouse_contributions");
-        let payable = made > 0 && income < 4_000_000 && flag("spouse_non_concessional_within_cap")
+        let payable = made > 0
+            && income < 4_000_000
+            && flag("spouse_non_concessional_within_cap")
             && flag("spouse_total_super_balance_below_cap");
-        json!(gov_text(if payable { gov_half_up(made.min(limit) * 18, 100) } else { 0 }))
+        json!(gov_text(if payable {
+            gov_half_up(made.min(limit) * 18, 100)
+        } else {
+            0
+        }))
     });
     json!({
         "total": gov_text(total), "adjusted": gov_text(adjusted), "co": gov_text(gov_half_up(co, 1_000)), "co_paid": gov_text(co_paid),
@@ -2460,8 +2505,11 @@ fn the_government_super_oracle_works_the_atos_examples_by_hand() {
     julie["concessional_contributions"] = json!("3360");
     assert_eq!(gov_oracle(&julie)["listo"], "500.00");
     let mut judy = base("2021-22", "80000");
-    for (key, value) in [("spouse_contributions", "3500"), ("spouse_assessable_income", "19000"),
-        ("spouse_reportable_employer_super_contributions", "0")] {
+    for (key, value) in [
+        ("spouse_contributions", "3500"),
+        ("spouse_assessable_income", "19000"),
+        ("spouse_reportable_employer_super_contributions", "0"),
+    ] {
         judy[key] = json!(value);
     }
     judy["spouse_non_concessional_within_cap"] = json!(true);

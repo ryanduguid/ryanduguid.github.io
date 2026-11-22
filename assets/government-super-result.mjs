@@ -92,7 +92,7 @@ export function governmentSuperResult(value, aud) {
     ['Half the personal contributions', cash(a.co_contribution_matched)], ['Maximum after the taper', cash(a.co_contribution_maximum)],
     ['Super co-contribution', cash(a.co_contribution)], ['Co-contribution paid, up to 5 cents', cash(a.co_contribution_paid)],
     ['Adjusted taxable income', cash(a.adjusted_taxable_income)], ['LISTO', cash(a.listo)], ['LISTO paid, up to 5 cents', cash(a.listo_paid)]];
-  if (a.spouse_income !== undefined) {
+  if ('spouse_income' in a) {
     rows.push(['Spouse’s income', cash(a.spouse_income)], ['Spouse contribution limit', cash(a.spouse_contribution_limit)],
       ['Spouse contribution tax offset', cash(a.spouse_contribution_offset)]);
   }
