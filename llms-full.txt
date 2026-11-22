@@ -5560,6 +5560,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+22 November 2026 | A new business calculator works out one residential rental property’s income and deductions for one owner and income year from 2020-21 to 2026-27: expenses apportioned by the days let or available, interest on a loan used partly for the rental, capital works at 2.5% or 4% within the undeducted construction expenditure, decline in value with section 40-27’s nil for second-hand assets, the net rent and, from 2024-25, its effect on tax at the resident scale. It reproduces the ATO’s Rental properties guide 2026 worked examples, read on 22 November 2026, and agrees with the rental-property command of the australian-accounting calculators on every tested case.
 22 November 2026 | The income tax calculator now works out the private health insurance rebate from the lines of a private health insurance statement for 2020-21 to 2026-27: the tier, each line’s percentage and entitlement, the refundable offset and any excess premium reduction to repay. It also adds the beneficiary tax offset, the invalid and invalid carer tax offset for 2020-21 to 2025-26 and the zone and overseas forces tax offsets, with the dependant and sole parent amounts they count, taken off the tax in the order the Act sets. They agree with the matching commands of the australian-accounting calculators on every tested case, and refuse what those commands refuse, such as the 2027 rebate percentages and the 2026-27 invalid carer amounts, which were not yet published. Results for the existing inputs are unchanged.
 22 November 2026 | A new individual tax calculator, super co-contribution, LISTO and spouse offset, works the government’s super co-contribution, the low income super tax offset and the spouse contribution tax offset for 2020-21 to 2026-27 from one set of answers. It applies each year’s income thresholds, the $500 maximum and 3.333 cent taper, the $20 minimum, LISTO’s 15% between $10 and $500, and the spouse offset’s 18% of up to $3,000, shows each condition met or not and rounds a payment up to 5 cents. It refuses temporary visa holders and an unknown cap or balance answer that would decide an amount.
 22 November 2026 | A new business calculator, ATO penalties and interest, works out one amount before remission: the general interest charge, compounding daily at each quarter’s rate with payments on their days, the shortfall interest charge on an amended assessment, the failure to lodge penalty with the penalty unit at the start of each 28-day period, false or misleading statement penalties with the 20% increase and the reductions for a voluntary disclosure, and the interest the ATO pays on early payments and overpayments. It agrees with the ato-interest-penalties command of the australian-accounting calculators on every tested case, and it declines remission and scheme penalties.
@@ -6369,6 +6370,7 @@ Published 11 September 2026. Last checked 23 November 2026, the newest of the ca
 - AASB 16 lease calculator A lessee’s lease liability, right-of-use asset, interest and depreciation by income year, with the journals, beside hire purchase and buying outright after GST and tax.
 - Borrowing expenses calculator Section 25-25 borrowing expenses by income year from 2017-18, spread by days, with the $100 rule, refinancing and an optional AASB 9 column.
 - Depreciation pools and capital works calculator A low-value pool at 18.75% and 37.5%, a general small business pool at 15% and 30% with the low pool value write-off, or a capital works deduction at 2.5% or 4%, for 2020-21 to 2026-27.
+- Rental property calculator One owner’s rental income and deductions for a year: expenses by days let, interest on a mixed-use loan, capital works and second-hand assets, the net rent and its effect on tax.
 
 ## Division 7A, FBT, professional firms and GIC
 
@@ -6446,6 +6448,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - AASB 16 lease calculator: https://duguid.com.au/tools/business-calculators/lease/
 - Borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
 - Depreciation pools and capital works calculator: https://duguid.com.au/tools/business-calculators/depreciation-pools/
+- Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - FBT car parking calculator: https://duguid.com.au/tools/business-calculators/fbt-car-parking/
@@ -10434,6 +10437,139 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
+# Rental property calculator: deductions, capital works, net rent
+
+Source: https://duguid.com.au/tools/business-calculators/rental-property/
+
+> Rental property deductions by the ATO worksheet lines: days let, mixed-use loan interest, capital works, second-hand assets, net rent and the effect on tax.
+
+# Rental property calculator
+
+Income, deductions and net rent for one rental property, one owner and one year.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One rental property, one owner, one income year
+
+Your legal interest as a decimal, such as 0.5 for half
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Day you acquired the property Day you stopped holding it in the year (optional) Days in the year you held it that it was let or available for rent on commercial terms Your other taxable income, whole dollars, for the effect on tax from 2024-25 (optional, AUD) Is it a holiday home whose costs section 26-50 denies? No Yes
+
+## Income, the whole property’s
+
+Rent (AUD) Other rental income, such as an insurance payout for lost rent or a bond kept (AUD)
+
+## Expenses for the whole period held
+
+Enter the whole property’s expenses. These are apportioned by the days let or available over the days held.
+
+Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage (AUD) Travel (shown, not deductible) (AUD) Water charges (AUD) Sundry rental expenses (AUD)
+
+## Expenses solely for renting
+
+Expenses that relate only to renting, such as agent commission and removing a tenant’s rubbish, are not apportioned.
+
+Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage (AUD) Water charges (AUD) Sundry rental expenses (AUD)
+
+## Interest on your own loans
+
+Enter your own share of each loan and the outstanding principal used for the rental and in total. A redraw or further drawing in the year is refused. Leave the interest blank to skip a loan.
+
+Loan 1 Interest charged in the year (AUD) Principal used for the rental (AUD) Total principal (AUD) Redrawn or drawn further in the year?No Yes
+
+Loan 2 (optional) Interest charged in the year (AUD) Principal used for the rental (AUD) Total principal (AUD) Redrawn or drawn further in the year?No Yes
+
+## Borrowing expenses
+
+Work out the year’s figure with the borrowing expenses calculator, which spreads them over the loan under section 25-25.
+
+This year’s borrowing expenses deduction (AUD)
+
+## Capital works
+
+Enter the whole property’s construction expenditure from the builder’s contract or a qualified estimator. Leave it blank to skip an item.
+
+Capital works 1 Construction expenditure (AUD) KindA building or extension A structural improvement, such as a fence Day construction began Day first used by anyone after construction A building begun after 15 September 1987: taken to have begun before 16 September 1987 under section 43-220?Not answered Yes No
+
+Capital works 2 (optional) Construction expenditure (AUD) KindA building or extension A structural improvement, such as a fence Day construction began Day first used by anyone after construction A building begun after 15 September 1987: taken to have begun before 16 September 1987 under section 43-220?Not answered Yes No
+
+## Decline in value of depreciating assets
+
+Enter each asset’s decline in value for the year from a schedule or the depreciation calculator, before any private use reduction. Leave it blank to skip an asset.
+
+Asset 1 Decline in value (AUD) Day you acquired it, or entered into the contract to Day it was first used or installed ready for use Did you hold it when it was first used or installed?Yes No Used in your home or for a private purpose, more than occasionally?No Yes In a low-value pool?No Yes Not held when first used: supplied with new residential premises (section 40-27(4) or (5))?Not answered Yes No Acquired before 9 May 2017: was anything deductible for it for 2016-17?Not answered Yes No
+
+Asset 2 (optional) Decline in value (AUD) Day you acquired it, or entered into the contract to Day it was first used or installed ready for use Did you hold it when it was first used or installed?Yes No Used in your home or for a private purpose, more than occasionally?No Yes In a low-value pool?No Yes Not held when first used: supplied with new residential premises (section 40-27(4) or (5))?Not answered Yes No Acquired before 9 May 2017: was anything deductible for it for 2016-17?Not answered Yes No
+
+## The calculator’s scope
+
+The property is a residential rental you hold as an investment, let at market rent, and none of the cases below appliesChoose Yes, I have checked them No or unsure
+
+Calculate
+
+The calculator does not cover a business of letting; a company, trust or other entity; letting part of a dwelling; GST on short stays; the 4% rate for build to rent or short-term traveller accommodation; or vacant land under section 26-102.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; legal interest 1; held from 20 July 2025; 346 days let or available; rental income $9,300.00; expenses apportioned by days $4,070.00; expenses solely for renting $848.00; travel $436.00; loan 1: interest $14,108.00, $170,000.00 of $209,000.00 for the rental; borrowing expenses $259.62; capital works 1: $115,800.00, building begun 1 August 1991, first used 1 March 1992; asset 1: decline in value $796.00; other taxable income $90,000.00. Your share of the rent $9,300.00 Total deductions $20,193.33 Net rent, a loss if negative −$10,893.33 Tax on $90,000.00 without the rental $17,788.00 Tax on $79,107.00 with the net rent $14,520.10 Less tax because of the rental, more if negative $3,267.90 Travel of $436.00 at your interest is not deductible (ITAA 1997 s 26-31). The tax is at the resident scale only: the Medicare levy, the surcharge, offsets and study loan repayments are left out.
+
+## How the rental property calculator works
+
+The rental property calculator works out one owner’s rental income and deductions for one residential property and one income year, on the lines of the ATO’s rental property worksheet (Rental properties guide 2026, Example 33). Rent and other rental income are assessable (section 6-5). Co-owners who are not in a business of letting share income and expenses by legal interest, whatever they agree between them (TR 93/32), so the calculator takes the whole property’s amounts and multiplies them by your interest. Your loans are entered as your own and are not divided.
+
+An expense of the property for the whole time you held it in the year, such as rates, insurance or repairs, is apportioned by the days it was let or available for rent on commercial terms over the days you held it. An expense solely for renting, such as agent commission or advertising for tenants, is not (the guide’s time-based method and Example 34). Travel is shown but not deducted: section 26-31 denies it to an individual not in a business of letting from 1 July 2017. Interest on a loan used partly for the rental is the interest times the principal used for the rental over the total principal, then the time-based share (TR 2000/2 paragraphs 15 and 16).
+
+Capital works are 2.5% of the construction expenditure a year, or 4% for a building begun from 18 July 1985 to 15 September 1987 or taken to have begun before 16 September 1987 under section 43-220, times the days used over 365. The deduction is never more than the construction expenditure not yet deducted (sections 43-25, 43-210 and 43-240). Each asset’s decline in value is taken as you enter it, at your interest and the time-based share, and is nil where section 40-27 denies it for a second-hand asset or one used privately. The borrowing expenses line is the year’s figure from the borrowing expenses calculator. Each line is rounded to the cent, where the guide’s examples round to the dollar. The calculator reproduces Example 33: deductions of $20,193.33 and a net rent of −$10,893.33, the guide’s $20,629 less the $436 of travel its Note 2 says needs an exception.
+
+Given your other taxable income for 2024-25 to 2026-27, the calculator works out the tax at the resident scale with and without the net rent, its cents dropped as a return shows them, and the difference.
+
+## Choices the rental property calculator makes
+
+The calculator makes 2 counting choices the ATO gives no worked example for, as the rental-property command of the australian-accounting calculators does. The use period of capital works counts both its first and last day (section 43-230(2)). The time-based share applies to a decline in value you enter, as it does to the other lines. The 4% rate for a residential building begun from 18 July 1985 rests on the guide’s Table 1, not on a provision read. A building begun from 22 August 1979 to 17 July 1985 qualifies only if it was intended on completion for short-term traveller accommodation or non-residential use, so the calculator refuses it rather than give nil.
+
+## What the rental property calculator does not cover
+
+The calculator works the income years 2020-21 to 2026-27 and refuses 2027-28, from which section 26-155 can limit residential rental deductions. It refuses a holiday home whose costs section 26-50 denies (TR 2026/1), a loan redrawn or drawn further in the year (TR 2000/2 paragraphs 23 to 25), an asset acquired on 9 May 2017, the day section 40-27 starts at 7.30 pm, and the effect on tax before 2024-25. It also refuses works or an asset first used after you first held the property in a year it was not available every day, as the days of rental use are then not known.
+
+Not covered: a business of letting; a company, trust or other entity; letting part of a dwelling or at less than market rent; GST on short stays; the 4% rate for build to rent or short-term traveller accommodation; vacant land under section 26-102; a tax loss under Division 36; and the Medicare levy, the surcharge, offsets and study loan repayments. The calculator never derives construction expenditure from a price or a valuation. A value or total of $70,368,744,177,664 or more is refused, as the page cannot show it to the cent. Have a registered tax agent confirm the result before you lodge.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Rental property calculator
+
+Case | Inputs | Result
+Rental properties guide 2026 Example 33 with $90,000 of other income: travel of $436 denied | 2025-26; legal interest 1; held from 20 July 2025; 346 days let or available; rental income $9,300.00; expenses apportioned by days $4,070.00; expenses solely for renting $848.00; travel $436.00; loan 1: interest $14,108.00, $170,000.00 of $209,000.00 for the rental; borrowing expenses $259.62; capital works 1: $115,800.00, building begun 1 August 1991, first used 1 March 1992; asset 1: decline in value $796.00; other taxable income $90,000.00 | gross rent $9,300.00, total deductions $20,193.33, net rent -$10,893.33
+Example 34: $50,000 rent, $37,000 apportioned by 330 of 365 days, $3,000 solely for renting | 2025-26; legal interest 1; held from 1 July 2020; 330 days let or available; rental income $50,000.00; expenses apportioned by days $37,000.00; expenses solely for renting $3,000.00; borrowing expenses $0.00 | gross rent $50,000.00, total deductions $36,452.05, net rent $13,547.95
+Example 34 at a half interest: $6,773.97 each, the ATO’s $6,774 | 2025-26; legal interest 0.5; held from 1 July 2020; 330 days let or available; rental income $50,000.00; expenses apportioned by days $37,000.00; expenses solely for renting $3,000.00; borrowing expenses $0.00 | gross rent $25,000.00, total deductions $18,226.03, net rent $6,773.97
+Example 12: $14,108 of interest, $170,000 of $209,000 for the rental, $11,475.41 | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; loan 1: interest $14,108.00, $170,000.00 of $209,000.00 for the rental; borrowing expenses $0.00 | gross rent $0.00, total deductions $11,475.41, net rent -$11,475.41
+Example 29: $115,800 of construction expenditure, held from 20 July 2025, $2,744.30 | 2025-26; legal interest 1; held from 20 July 2025; 346 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; capital works 1: $115,800.00, building begun 1 August 1991, first used 1 March 1992 | gross rent $0.00, total deductions $2,744.30, net rent -$2,744.30
+4% works first used in 1986 are fully deducted after 25 years | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; capital works 1: $100,000.00, building begun 1 October 1985, first used 1 January 1986 | gross rent $0.00, total deductions $0.00, net rent $0.00
+A building taken to have begun before 16 September 1987 under section 43-220 takes 4% | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; capital works 1: $100,000.00, building begun 27 February 2010, first used 1 January 2011 | gross rent $0.00, total deductions $4,000.00, net rent -$4,000.00
+Example 21: new curtains deducted, the previous owner’s carpet nil under section 40-27 | 2025-26; legal interest 1; held from 20 August 2025; 315 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; asset 1: decline in value $300.00; asset 2: decline in value $500.00 | gross rent $0.00, total deductions $300.00, net rent -$300.00
+Example 23: an asset supplied with new residential premises within 6 months | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; asset 1: decline in value $400.00 | gross rent $0.00, total deductions $400.00, net rent -$400.00
+A holiday home whose costs section 26-50 denies is refused | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00 | Refused: section 26-50 denies the costs of owning a holiday home not used or held mainly to produce rent at all times in the year, before any apportionment (TR 2026/1 paragraphs 17 and 31); this calculator does not decide ‘mainly’
+A loan redrawn in the year is refused | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; loan 1: interest $100.00, $1.00 of $2.00 for the rental, redrawn; borrowing expenses $0.00 | Refused: loan 1: A redraw or further drawing in the year changes the share of the principal used for the rental from that day (TR 2000/2 paragraphs 23 to 25); work the loan’s sub-accounts and give each as a loan of its own
+A building begun from 22 August 1979 to 17 July 1985 is refused | 2025-26; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; capital works 1: $100,000.00, building begun 17 July 1985, first used 1 January 1986 | Refused: capital works 1: A building begun from 22 August 1979 to 17 July 1985 qualifies only if it was intended on completion for short-term traveller accommodation or non-residential use (Rental properties guide 2026, Table 1), which this calculator does not take
+The effect on tax before 2024-25 is refused | 2023-24; legal interest 1; held from 1 July 2020; 366 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; other taxable income $50,000.00 | Refused: the effect on tax is worked out for 2024-25 to 2026-27, the years the resident scale is held for here; leave other taxable income blank for an earlier year
+2027-28 is refused | 2027-28; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00 | Refused: choose an income year from 2020-21 to 2026-27. From 2027-28 s 26-155 can limit residential rental deductions, which this calculator does not work out
+
+One of the fifty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
+- fifty-three business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
 # Borrowing expenses calculator: section 25-25 by days
 
 Source: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
@@ -11990,15 +12126,15 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 PAYG instalment inputs for one quarter
 
-How this instalment is worked out Option 1: pay the instalment amount at T7 Option 1, varied: an amount from your estimated tax for the year Option 2: instalment income times the rate at T2 Option 2, varied: a rate from your estimates for the year Option 1: instalment amount at T7 (AUD) Option 2: instalment income for the quarter at T1 (AUD) Option 2: instalment rate at T2 (%) Varied amount only: which of this income year’s instalments is this? First: 25% of estimated tax Second: 50% Third: 75% Fourth: 100% Varying only: estimated tax on instalment income for the year, T8 (AUD) Varied rate only: estimated instalment income for the year (AUD) Varying only: earlier instalments this income year, as at 5A (AUD) Varying only: credits claimed at 5B this income year (AUD) Varied rate only: instalment income of the earlier quarters (AUD)
+How this instalment is worked out Option 1: pay the instalment amount at T7 Option 1, varied: an amount from your estimated tax for the year Option 2: instalment income times the rate at T2 Option 2, varied: a rate from your estimates for the year Option 1: instalment amount at T7 (AUD) Option 2: instalment income for the quarter at T1 (AUD) Option 2: instalment rate at T2 (%) Varied amount only: which of this income year’s instalments is this? First: 25% of estimated tax Second: 50% Third: 75% Fourth: 100% Varying only: estimated tax on instalment income for the year, T8 (AUD) Varied rate only: estimated instalment income for the year (AUD) Varying only: earlier instalments this income year, as at 5A (AUD) Varying only: earlier credits this income year (AUD) Varied rate only: instalment income of the earlier quarters (AUD)
 
-Each option reads only its own fields. Instalment income is generally gross business and investment income, excluding GST.
+Each option reads only its own fields. For a varied amount, earlier credits are those you were entitled to claim for earlier quarters, claimed or not; for a varied rate, those you claimed. Instalment income is generally gross business and investment income, excluding GST.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: instalment rate (option 2), instalment income $20,100.00 at T1, instalment rate 1.7% at T2. T1 × T2 $341.70 Instalment at T11 and 5A, whole dollars $341.00
 
 ## How the PAYG instalments calculator works
 
-The PAYG instalments calculator works out one quarterly pay as you go instalment by the method on the activity statement. Under option 1 the instalment is the amount the ATO notifies at T7. Varying it, the first instalment of the income year is 25% of the estimated tax for the year, the second 50%, the third 75% and the fourth 100%, each less the earlier instalments and plus any credits claimed for them. A negative result is a credit to claim at 5B.
+The PAYG instalments calculator works out one quarterly pay as you go instalment by the method on the activity statement. Under option 1 the instalment is the amount the ATO notifies at T7. Varying it, the first instalment of the income year is 25% of the estimated tax for the year, the second 50%, the third 75% and the fourth 100%, each less the earlier instalments. The third and fourth add back any credits you were entitled to claim for earlier instalments, claimed or not; no credit can arise before the second, so the calculator refuses one entered for the first or second. A negative result is a credit to claim at 5B.
 
 Under option 2 the instalment is the quarter’s instalment income at T1 times the instalment rate at T2. A varied rate is the estimated tax for the year divided by the estimated instalment income, times 100. If the varied rate is lower than the earlier rate, the earlier instalments less any credits claimed, less the earlier instalment income times the varied rate, is a credit for 5B.
 
@@ -12026,6 +12162,7 @@ The ATO’s varied rate, cut to 2 decimal places, with a credit | Varied rate fr
 The ATO’s credit example at a 5% varied rate | Varied rate from estimated tax $2,000.00 on $40,000.00; instalment income $10,000.00, rate at T2 10%; earlier instalments $1,000.00, credits $0.00, on $10,000.00 | Instalment rate 5.00%, amount $500.00, instalment $500.00, credit $500.00
 A higher varied rate gives no credit | Varied rate from estimated tax $1,200.00 on $10,000.00; instalment income $10,000.00, rate at T2 10%; earlier instalments $2,000.00, credits $0.00, on $10,000.00 | Instalment rate 12.00%, amount $1,200.00, instalment $1,200.00, credit $0.00
 A first instalment with earlier instalments is refused | Varied amount, instalment 1; estimated tax $8,000.00, earlier instalments $1,000.00, credits $0.00 | Refused: the first instalment of the year has no earlier instalments
+A credit for the second instalment is refused | Varied amount, instalment 2; estimated tax $8,000.00, earlier instalments $2,000.00, credits $500.00 | Refused: the first and second instalments of the year add back no credits
 
 One of the fifty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
@@ -12419,110 +12556,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - HomeGrown Territory Grant: https://nt.gov.au/property/home-owner-assistance/buy-build-new-home
 - First Home Owner Grant: https://www.revenue.act.gov.au/home-buyer-assistance/first-home-owner-grant
 - foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
-- fifty-three business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# First home owner grant calculator for every state and territory
-
-Source: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
-
-> First home owner grants in all 8 states and territories for contracts from 1 July 2025: amount and value cap by date, eligibility facts and first home buyer duty.
-
-# First home owner grant calculator
-
-The first home owner grant in each Australian state and territory for a new home bought or built, by contract date and value cap, beside the transfer duty for an eligible first home buyer.
-
-Published 22 November 2026. Last checked 23 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-First home owner grant inputs
-
-State or territory New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
-
-Home New home bought, including off the plan New home built under a comprehensive home building contract, including a house and land package Established home
-
-Date the contract was made Total value of the home and land (whole dollars) Western Australia only: where the home is South of the 26th parallel, including all of Perth North of the 26th parallel
-
-Facts you state (the example ticks the first 4; untick any that is not true) Every applicant is a person, not a company or trust, aged 18 or over At least one applicant is an Australian citizen or permanent resident No applicant or spouse is excluded by the prior ownership rules below The applicants will meet the jurisdiction’s residence requirement, shown with the result For a home built: the building contract price, without the land, is at least the grant Northern Territory only: the contract does not replace one signed before 1 October 2024 Tasmania only: the transaction will be completed within 24 months and replaces no earlier contract
-
-Contracts from 1 July 2025 to 22 November 2026, the day the rules were read. Owner-builders and substantially renovated homes are not covered.
-
-The value tested against the cap: for a home bought, the price (in Victoria, the contract price off the plan); for a home built, the land and the building contract with its variations. Duty uses the same figure as the dutiable value, at the transfer duty calculator’s rates.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, contract 1 August 2026, new home bought, total value $600,000.00, every eligibility fact stated. First home owner grant $10,000.00 Value cap up to $600,000 Residence requirement you stated each applicant lives in the home for 12 continuous months, starting within 12 months Transfer duty for an eligible first home buyer $0.00 General transfer duty on the same value $21,187.00
-
-## How the first home owner grant calculator works
-
-The first home owner grant calculator gives the grant for a first home buyer who buys or builds a new home under a contract made from 1 July 2025 to 22 November 2026, beside the transfer duty the same buyer pays. It takes the amount and the value cap in force on the contract date, and pays nothing above the cap or for an established home.
-
-- New South Wales: $10,000; the price must not exceed $600,000 for a home bought, and the land and building contract $750,000 for a home built.
-- Victoria: $10,000 for a home worth up to $750,000.
-- Queensland: $30,000, or the consideration if less, for a home worth under $750,000.
-- Western Australia: $10,000. The cap is $800,000 south of the 26th parallel for contracts from 7 May 2026, $750,000 before, and $1,000,000 north of it.
-- South Australia: $15,000, or the consideration if less, with no value cap.
-- Tasmania: $30,000 for contracts from 1 July 2025 to 30 June 2026, then $20,000 to 30 June 2027, or the consideration if less, with no value cap. The transaction must be completed within 24 months and not replace an earlier one.
-- Northern Territory: the HomeGrown Territory Grant of $50,000, with no value cap. The contract must not replace one signed before 1 October 2024.
-- Australian Capital Territory: no grant since 1 July 2019. The territory’s Home Buyer Concession Scheme is a duty concession, and the duty result applies it.
-
-## Eligibility facts and transfer duty
-
-Each grant needs 4 facts, which you state and the calculator does not test. Every applicant is a person aged 18 or over. At least one applicant is an Australian citizen or permanent resident. No applicant or spouse is excluded by the prior ownership rules below. The applicants meet the residence requirement: 12 continuous months starting within 12 months in New South Wales; 12 months for at least one applicant in Victoria; 6 continuous months starting within 12 months in Queensland, Western Australia, South Australia and Tasmania; and 12 months after taking possession or completion in the Northern Territory. A home built also needs its building contract price, without the land, to be at least the grant, since no grant exceeds that consideration. A Northern Territory contract must not replace one signed before 1 October 2024. A Tasmanian transaction must be completed within 24 months and not replace an earlier one. The calculator computes nothing until the facts a transaction needs are stated, and in Western Australia until you choose where the home is.
-
-For a home bought, the result adds the transfer duty calculator’s duty for an eligible first home buyer and its general duty on the same value, for contracts its rates cover: from 1 July 2025 in Victoria, Queensland, South Australia and the Northern Territory, from 7 May 2026 in Western Australia, and from 1 July 2026 in New South Wales, Tasmania and the Australian Capital Territory. Earlier contracts there get the grant without the duty.
-
-## Prior ownership rules
-
-The sources read state these rules. New South Wales: no applicant or spouse owned a home or other residential property in Australia before 1 July 2000. Victoria: none owned one before 1 July 2000, or lived for a continuous 6 months or more in a home they owned on or after 1 July 2000. Western Australia: none owned residential property on or after 1 July 2000 and lived in it for a continuous 6 months or more beginning on or after 1 July 2004. Tasmania: none owned a residential property before 1 July 2000, or owned and lived in one for more than 6 months after 1 July 2000. For Queensland, South Australia and the Northern Territory the sources read do not set the rule out, so state the fact against the revenue office’s own eligibility rules.
-
-## What the first home owner grant calculator does not compute
-
-The calculator refuses a contract dated before 1 July 2025 or after 22 November 2026, and a value below the grant amount outside Queensland, South Australia and Tasmania, where the sources read did not confirm the rule. For a home built it needs the building contract price to be at least the grant, so it does not compute a smaller grant on a cheaper contract. It does not cover owner-builders, substantially renovated homes, the ADF and family violence exemptions, the Commissioner’s discretion over the residence requirement, or schemes that are not first home owner grants, such as regional building grants, shared equity schemes and Commonwealth deposit schemes. For a home built, the duty falls on the land, and the first home buyer concessions on vacant land are not computed. Confirm the grant with the revenue office or an approved agent before relying on it.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: First home owner grant calculator
-
-Case | Inputs | Result
-The opening example: a new home bought in New South Wales at the $600,000 cap | New South Wales, contract 1 August 2026, new home bought, total value $600,000.00, every eligibility fact stated | Grant $10,000.00
-One dollar over the New South Wales cap for a home bought | New South Wales, contract 1 August 2026, new home bought, total value $600,001.00, every eligibility fact stated | Grant $0.00, the value is over the New South Wales cap
-A home built in New South Wales takes the $750,000 cap | New South Wales, contract 1 August 2025, new home built under a contract, total value $750,000.00, every eligibility fact stated | Grant $10,000.00
-Victoria pays on a home worth up to $750,000 | Victoria, contract 1 September 2025, new home bought, total value $750,000.00, every eligibility fact stated | Grant $10,000.00
-Victoria pays nothing a dollar above $750,000 | Victoria, contract 1 September 2025, new home bought, total value $750,001.00, every eligibility fact stated | Grant $0.00, the value is over the Victoria cap
-Queensland pays $30,000 under $750,000 (section 20) | Queensland, contract 1 October 2025, new home bought, total value $749,999.00, every eligibility fact stated | Grant $30,000.00
-Queensland pays nothing at $750,000 or more (section 5(6)) | Queensland, contract 1 October 2025, new home bought, total value $750,000.00, every eligibility fact stated | Grant $0.00, the value is $750,000 or more
-Queensland pays the consideration if it is less than $30,000 (section 20(1)(a)) | Queensland, contract 1 October 2025, new home bought, total value $20,000.00, every eligibility fact stated | Grant $20,000.00, the grant cannot be more than the consideration
-No grant for an established home | Queensland, contract 1 October 2025, established home, total value $730,000.00, every eligibility fact stated | Grant $0.00, the grant is for a new home only
-Western Australia before 7 May 2026: the $750,000 cap | Western Australia, contract 6 May 2026, new home bought, south of the 26th parallel, total value $780,000.00, every eligibility fact stated | Grant $0.00, the value is over the Western Australia cap
-Western Australia from 7 May 2026: the $800,000 cap | Western Australia, contract 7 May 2026, new home bought, south of the 26th parallel, total value $780,000.00, every eligibility fact stated | Grant $10,000.00
-Western Australia needs the home’s location | Western Australia, contract 1 August 2026, new home bought, location not stated, total value $500,000.00, every eligibility fact stated | Refused: not computed: choose where the Western Australian home is, south or north of the 26th parallel
-Western Australia north of the 26th parallel: the $1,000,000 cap | Western Australia, contract 1 August 2026, new home bought, north of the 26th parallel, total value $950,000.00, every eligibility fact stated | Grant $10,000.00
-South Australia has no cap from 6 June 2024 | South Australia, contract 1 November 2025, new home bought, total value $2,000,000.00, every eligibility fact stated | Grant $15,000.00
-RevenueSA’s example: a $10,000 purchase price gets a $10,000 grant | South Australia, contract 1 November 2025, new home bought, total value $10,000.00, every eligibility fact stated | Grant $10,000.00, the grant cannot be more than the consideration
-A home built needs its building contract price stated as at least the grant | Queensland, contract 1 October 2025, new home built under a contract, total value $120,000.00, every eligibility fact stated | Refused: not computed: the Queensland grant for this home needs another fact stated: the building contract price is at least the grant
-Tasmania pays $30,000 to 30 June 2026 (section 18L) | Tasmania, contract 30 June 2026, new home built under a contract, total value $500,000.00, every eligibility fact stated | Grant $30,000.00
-Tasmania pays $20,000 from 1 July 2026 (section 18M) | Tasmania, contract 1 July 2026, new home built under a contract, total value $500,000.00, every eligibility fact stated | Grant $20,000.00
-Tasmania pays the consideration if it is less (section 18(1)) | Tasmania, contract 1 July 2026, new home bought, total value $15,000.00, every eligibility fact stated | Grant $15,000.00, the grant cannot be more than the consideration
-The Northern Territory’s HomeGrown Territory Grant has no cap | Northern Territory, contract 1 September 2026, new home bought, total value $1,200,000.00, every eligibility fact stated | Grant $50,000.00
-A Northern Territory contract must be stated not to replace an earlier one | Northern Territory, contract 1 September 2026, new home bought, total value $600,000.00, every eligibility fact stated | Refused: not computed: the Northern Territory grant for this home needs another fact stated: the contract replaces none signed before 1 October 2024
-The Australian Capital Territory has paid no grant since 1 July 2019 | Australian Capital Territory, contract 1 September 2026, new home bought, total value $600,000.00, every eligibility fact stated | Grant $0.00, the Australian Capital Territory has paid none since 1 July 2019
-A contract before 1 July 2025 is not covered | New South Wales, contract 30 June 2025, new home bought, total value $500,000.00, every eligibility fact stated | Refused: not computed: choose a contract date from 1 July 2025 to 22 November 2026, the day the grant rules were read
-A contract after the day the rules were read is not covered | New South Wales, contract 23 November 2026, new home bought, total value $500,000.00, every eligibility fact stated | Refused: not computed: choose a contract date from 1 July 2025 to 22 November 2026, the day the grant rules were read
-A value below the grant outside Queensland, South Australia and Tasmania is refused | New South Wales, contract 1 August 2026, new home bought, total value $5,000.00, every eligibility fact stated | Refused: not computed: a value below the $10,000 grant; the New South Wales rule for that case was not confirmed
-An eligibility fact not stated is refused | New South Wales, contract 1 August 2026, new home bought, total value $500,000.00, not stated: the residence requirement will be met | Refused: not computed: the grant and the first home buyer duty need every eligibility fact stated; not stated: the residence requirement will be met
-
-One of the fifty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - fifty-three business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
@@ -14265,7 +14298,7 @@ A producer that meets the conditions of section 19-5 earns a producer rebate of 
 
 The calculator works dealings in the financial years 2023-24 to 2027-28 and refuses earlier years, which carry the transitional rebate rules for 2017 and earlier vintage wine. It refuses the average wholesale price method for wine that is not grape wine or without the 10% share of wholesale sales, and a rebate on own use of wine bought under quote. It takes each price as given, so it does not work out an arm’s length price (section 27-10) or the price of wine sold with other goods; it assumes GST applies to a sale and does not decide whether a supply is GST-free.
 
-Not covered: imports and other customs dealings, whose WET the Department of Home Affairs collects; the special valuations of section 9-45; wine tax credits other than the producer rebate, such as bad debts and overpaid WET; the reduction of a rebate for earlier producers’ rebates on wine used in a blend; New Zealand participants’ rebates; whether producers are associated (the group’s claims are taken as given); and the tax period a dealing belongs to. A value or total of $70 trillion or more is refused, as the page cannot show it to the cent. Rebates claimed above the cap are flagged, not worked out: section 19-25 makes the excess payable as wine tax at the end of the financial year. Have a registered tax agent confirm the result before you lodge.
+Not covered: imports and other customs dealings, whose WET the Department of Home Affairs collects; the special valuations of section 9-45; wine tax credits other than the producer rebate, such as bad debts and overpaid WET; the reduction of a rebate for earlier producers’ rebates on wine used in a blend; New Zealand participants’ rebates; whether producers are associated (the group’s claims are taken as given); and the tax period a dealing belongs to. A value or total of $70,368,744,177,664 or more is refused, as the page cannot show it to the cent. Rebates claimed above the cap are flagged, not worked out: section 19-25 makes the excess payable as wine tax at the end of the financial year. Have a registered tax agent confirm the result before you lodge.
 
 ## Boundary cases
 

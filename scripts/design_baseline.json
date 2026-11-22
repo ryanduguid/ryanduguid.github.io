@@ -216,7 +216,7 @@
       "1ee789e07f991caadaf17f3e165e8bc60550a06242fe627a485241855184f7b5"
     ],
     "tools/business-calculators/index.html": [
-      "2f3137abcc6250d64cc960461de0a15d9a7bd95f2808557dabdbf35f49622c9c"
+      "fa0900c00a6279c77c76c7e2b3bb5ec5205a490563421754432c741555c3c718"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "ee0d5e772ea58049f67c63cc750d51933fe1efcaac62a0b232ef181aa2f0632a"
@@ -240,7 +240,7 @@
       "dcab5352be0982423e6e11cacecd9470e3a531468a34a6db716c40ff237e308a"
     ],
     "tools/business-calculators/payg-instalments/index.html": [
-      "68304c4e85bfd4c517e67a4422a1267b54a82ba3d9799bd568a7e10af1952a4d"
+      "161bfa9feda888ea41dda196632a83be793cb902c1ef53e0c83dd0fe70749fae"
     ],
     "tools/business-calculators/payroll-tax/index.html": [
       "3f882e4911396cb2d5dbdc3980ad6fe9248ef346ef9971e4c1482aca6c07aee8"
@@ -253,6 +253,9 @@
     ],
     "tools/business-calculators/psi-determination/index.html": [
       "bf990b5cb178852bf874916d90e3aee297a665284853f4ce7f06e785f09acc63"
+    ],
+    "tools/business-calculators/rental-property/index.html": [
+      "e93fc40c23d0a1875c6b01c7f533ff159614a834ec6ffd549e3a31d49ffcb72a"
     ],
     "tools/business-calculators/salary-dividend/index.html": [
       "aa561c195cfecb6fac29099845ae6b77ab9285263cc10b305dcac7a49033284e"
@@ -409,9 +412,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "cf9abb9850ef6954b74187a012f044c22c9026b7279bbd3a7da05d2cfcfc8b88",
+    "llms.txt": "b720d065916780c7524a47e3c94c5e01aa9bef7e37722d654f1410aaa91ddaeb",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "9da4b9e327812258f7d17bb6de1b5160331b28205df89755b68267029ea15f6d"
+    "sitemap.xml": "93e8cac573c8ab283cded6725e0214b0acc8ad20958a40949deed403c97a7f67"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

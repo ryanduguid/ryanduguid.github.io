@@ -381,6 +381,14 @@ calculate.wineEqualisationTax({ ...wetInput, year: 2027 });
 // @ts-expect-error The cap is a number of dollars, not a string.
 const wetCap: string = calculate.wineEqualisationTax(wetInput).cap;
 void wetLabel;
+const rentalInput = { year: '2025-26', ownership_share: '1', acquired: '2020-07-01', disposed: null, days_available: 365,
+  section_26_50_applies: false, income: {}, expenses: {}, rental_only_expenses: {}, loans: [], borrowing_expenses: '0',
+  capital_works: [], depreciating_assets: [] };
+const rentalNet: number = calculate.rentalProperty(rentalInput).netRent;
+// @ts-expect-error The net rent is a number of dollars, not a string.
+const rentalText: string = calculate.rentalProperty(rentalInput).netRent;
+void rentalNet;
+void rentalText;
 void wetCap;
 const leavePay = { annual: '0', loading: '0', longService: '22020', accrualStart: '1977-01-01', reason: 'normal', annualBefore1993: '',
   loadingBefore1993: '', lslBefore1978: '780', lsl1978To1993: '6420', payee: 'tfn', earnings: '1155', period: 'week' } as const;

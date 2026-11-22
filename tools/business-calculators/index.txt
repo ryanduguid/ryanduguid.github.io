@@ -29,6 +29,7 @@ Published 11 September 2026. Last checked 23 November 2026, the newest of the ca
 - AASB 16 lease calculator A lessee’s lease liability, right-of-use asset, interest and depreciation by income year, with the journals, beside hire purchase and buying outright after GST and tax.
 - Borrowing expenses calculator Section 25-25 borrowing expenses by income year from 2017-18, spread by days, with the $100 rule, refinancing and an optional AASB 9 column.
 - Depreciation pools and capital works calculator A low-value pool at 18.75% and 37.5%, a general small business pool at 15% and 30% with the low pool value write-off, or a capital works deduction at 2.5% or 4%, for 2020-21 to 2026-27.
+- Rental property calculator One owner’s rental income and deductions for a year: expenses by days let, interest on a mixed-use loan, capital works and second-hand assets, the net rent and its effect on tax.
 
 ## Division 7A, FBT, professional firms and GIC
 
@@ -106,6 +107,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - AASB 16 lease calculator: https://duguid.com.au/tools/business-calculators/lease/
 - Borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
 - Depreciation pools and capital works calculator: https://duguid.com.au/tools/business-calculators/depreciation-pools/
+- Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - FBT car parking calculator: https://duguid.com.au/tools/business-calculators/fbt-car-parking/

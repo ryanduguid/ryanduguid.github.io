@@ -1122,6 +1122,26 @@ test('luxury car tax page works its example, a refund and a refusal offline', as
   await expect(form.locator('output')).toContainText('Line 3: choose the financial year of the supply, whose threshold applies.');
 });
 
+// The guide's Example 33 worksheet with $90,000 of other income is the form's default; a holiday home whose costs
+// section 26-50 denies is refused.
+test('rental property page works the guide’s Example 33, lists each deduction and refuses a holiday home offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/rental-property/');
+  const form = page.locator('#rental-property form');
+  await waitForCalculator(form);
+  await form.locator('select[name="scope"]').selectOption('yes');
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Net rent, a loss if negative: −$10,893.33.');
+  await expect(form.locator('output')).toContainText('Less tax because of the rental, more if negative: $3,267.90.');
+  const deductions = form.locator('table[data-results="deductions"]');
+  await expect(deductions).toBeVisible();
+  await expect(deductions.locator('tbody tr', { hasText: 'Capital works 1:' }).locator('td')).toHaveText('$2,744.30');
+  await form.locator('input[name="holiday"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Section 26-50 denies the costs of owning a holiday home');
+  await expect(deductions).toBeHidden();
+});
+
 // The super lump sum tax page's example (Schedule 12's Chloe), the member's fields that hide for a
 // death benefit, a preservation age case that asks for the low rate cap, and a refusal.
 test('super lump sum tax page works its example, a death benefit and a refusal offline', async ({ page, context }) => {
@@ -1646,7 +1666,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'termination-payment', 'transfer-duty', 'first-home-owner-grant', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
-  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest'];
+  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -1675,6 +1695,9 @@ for (const id of CALCULATORS) {
       copy.querySelector('.result-example').remove();
       return copy.textContent;
     });
+    // A page that asks the reader to confirm its scope is answered first, as a reader would.
+    const scope = form.locator('select[name="scope"]');
+    if (await scope.count()) await scope.selectOption('yes');
     await form.getByRole('button', { name: 'Calculate', exact: true }).click();
     await expect(output.locator('.result-example')).toHaveCount(0);
     // The cash result also names week 1's first day, which the page sets to today.
