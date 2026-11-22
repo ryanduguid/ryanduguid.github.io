@@ -793,4 +793,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
