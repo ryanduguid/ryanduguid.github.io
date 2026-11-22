@@ -8,11 +8,11 @@
   <updated>2026-11-22T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
-    <title>A new business calculator, ATO penalties and interest, works out one amount…</title>
-    <link href="https://duguid.com.au/changelog/#entry-b268010fc47a1177" />
-    <id>https://duguid.com.au/changelog/#entry-b268010fc47a1177</id>
+    <title>A new business calculator works out the tax on one superannuation lump sum from…</title>
+    <link href="https://duguid.com.au/changelog/#entry-904f904ae41547f4" />
+    <id>https://duguid.com.au/changelog/#entry-904f904ae41547f4</id>
     <updated>2026-11-22T00:00:00Z</updated>
-    <summary>A new business calculator, ATO penalties and interest, works out one amount before remission: the general interest charge, compounding daily at each quarter’s rate with payments on their days, the shortfall interest charge on an amended assessment, the failure to lodge penalty with the penalty unit at the start of each 28-day period, false or misleading statement penalties with the 20% increase and the reductions for a voluntary disclosure, and the interest the ATO pays on early payments and overpayments. It agrees with the ato-interest-penalties command of the australian-accounting calculators on every tested case, and it declines remission and scheme penalties.</summary>
+    <summary>A new business calculator works out the tax on one superannuation lump sum from a complying fund paid in 2020-21 to 2026-27: its tax free component by the proportioning rule, its elements taxed and untaxed in the fund, and the most income tax each part can bear before the Medicare levy, for a member by age and preservation age with the low rate cap and untaxed plan cap, and for a death benefit to a dependant or a non-dependant. The Act and the ATO’s caps were read on 22 November 2026; the page reproduces the ATO’s examples and agrees with the super-benefit-tax command of the australian-accounting calculators on every tested case.</summary>
   </entry>
   <entry>
     <title>A new individual tax calculator, work expenses, works an employee’s working…</title>

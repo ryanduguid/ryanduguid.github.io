@@ -5560,7 +5560,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
-22 November 2026 | A new business calculator, ATO penalties and interest, works out one amount before remission: the general interest charge, compounding daily at each quarter’s rate with payments on their days, the shortfall interest charge on an amended assessment, the failure to lodge penalty with the penalty unit at the start of each 28-day period, false or misleading statement penalties with the 20% increase and the reductions for a voluntary disclosure, and the interest the ATO pays on early payments and overpayments. It agrees with the ato-interest-penalties command of the australian-accounting calculators on every tested case, and it declines remission and scheme penalties.
+22 November 2026 | A new business calculator works out the tax on one superannuation lump sum from a complying fund paid in 2020-21 to 2026-27: its tax free component by the proportioning rule, its elements taxed and untaxed in the fund, and the most income tax each part can bear before the Medicare levy, for a member by age and preservation age with the low rate cap and untaxed plan cap, and for a death benefit to a dependant or a non-dependant. The Act and the ATO’s caps were read on 22 November 2026; the page reproduces the ATO’s examples and agrees with the super-benefit-tax command of the australian-accounting calculators on every tested case.
 22 November 2026 | A new individual tax calculator, work expenses, works an employee’s working from home, car and self-education expenses for 2020-21 to 2026-27. It sets the working from home fixed rate (52c with a dedicated home office or the 80c shortcut to 2021-22, then 67c and 70c from 1 July 2024) beside the actual cost and names the higher, counts the first 5,000 business kilometres at the year’s cents per kilometre rate, takes a log book’s business use percentage, and applies the $250 reduction to a prescribed course of education to 2021-22. It refuses reimbursed expenses, allowances and an expired or short log book, and leaves out occupancy expenses.
 22 November 2026 | A new business calculator works out luxury car tax on a tax period’s sales and importations in 2019-20 to 2026-27: the threshold or fuel-efficient car limit for the year of each supply (from 2012-13 for an adjustment), the 3.5 litre rating from 1 July 2025 and the 7 litre rating it keeps for a car supplied or imported and used other than for a quotable purpose before then, the price and change of use adjustments, the primary producer and tourism operator refunds of up to $10,000 and the amounts for labels 1E and 1F. The Act and the ATO’s rate and threshold table were read on 22 November 2026, and the page opens on the ATO’s examples of Matty Bee Motors’ $2,157.30 and Jimmy’s Mustang’s $6,207.30.
 22 November 2026 | A new business calculator, ASIC fees, lists ASIC’s fees from 1 July 2026 to register a company, reserve a company name, pay the annual review fee and register or renew a business name, with no GST. For a due date and the day ASIC received a review fee payment or a document, both in 2026-27, it gives the late fee: $102 within one month after the due date and $428 after that, counting the month as section 2G of the Acts Interpretation Act 1901 does. It takes the due date as given and declines a case that a weekend due date or month end could change.
@@ -5784,7 +5784,6 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
-- ATO penalties and interest: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
 - work expenses: https://duguid.com.au/tools/individual-tax/work-expenses/
 - ASIC fees: https://duguid.com.au/tools/business-calculators/asic-fees/
 - site licence notice: https://duguid.com.au/privacy/
@@ -6376,7 +6375,6 @@ Published 11 September 2026. Last checked 22 November 2026, the newest of the ca
 - PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - PCG 2021/4 allocation Each recipient’s tax on a professional firm’s profit, the effective tax rate and the ATO’s risk zone.
 - GIC payment plan calculator What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
-- ATO penalties and interest calculator GIC and SIC by day and quarter, the failure to lodge penalty, statement penalties with increases and reductions, and the interest the ATO pays, all before remission.
 - Division 7A loan schedule calculator A complying Division 7A loan year by year over 7 or 25 years: each minimum repayment, the interest, extra repayments and any shortfall taken to be a dividend.
 - Division 296 tax calculator One person’s Division 296 tax on superannuation earnings for 2026-27, above $3 million and above $10 million.
 - PSI rules checker Whether the personal services income rules apply, step by step through Divisions 84 to 87.
@@ -6399,6 +6397,7 @@ Published 11 September 2026. Last checked 22 November 2026, the newest of the ca
 - SGC and Payday Super calculator When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.
 - Long service leave calculator One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.
 - Workers compensation premium calculator A 2026-27 premium from the declared wages and the insurer’s rate under each state and territory’s scheme, with GST, duty and the actual wages adjustment, each step cited.
+- Super lump sum tax The components of a super lump sum and the most tax each part can bear, for members and death benefits, 2020-21 to 2026-27.
 
 ## Objections, instalments, termination, land tax, duty, business days and ASIC fees
 
@@ -6445,7 +6444,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - PCG 2021/4 allocation: https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/
 - GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
-- ATO penalties and interest calculator: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
 - Division 7A loan schedule calculator: https://duguid.com.au/tools/business-calculators/div7a-schedule/
 - Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
@@ -6459,6 +6457,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
 - Long service leave calculator: https://duguid.com.au/tools/business-calculators/long-service-leave/
 - Workers compensation premium calculator: https://duguid.com.au/tools/business-calculators/workers-compensation/
+- Super lump sum tax: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
 - PAYG instalments calculator: https://duguid.com.au/tools/business-calculators/payg-instalments/
 - Fuel tax credit calculator: https://duguid.com.au/tools/business-calculators/fuel-tax-credits/
@@ -11339,75 +11338,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# ATO penalties and interest calculator: GIC, SIC and penalties
-
-Source: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
-
-> GIC and SIC by day and quarter, the failure to lodge penalty, statement penalties with increases and reductions, and ATO credit interest, before remission.
-
-# ATO penalties and interest calculator
-
-GIC, SIC, penalties and credit interest.
-
-Published 22 November 2026. Last checked 22 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-ATO interest or penalty
-
-What to work outGeneral interest charge (GIC) on an unpaid amount Shortfall interest charge (SIC) on an amended assessment Failure to lodge on time penalty False or misleading statement penalty Interest the ATO pays on an early payment Interest the ATO pays on an overpayment Remission of a charge or penalty (not worked) A scheme penalty (not worked)
-
-Amount unpaid at the start of the due day (AUD) Due date Work out GIC to the end of Payment 1 date (optional) Payment 1 amount (AUD) Payment 2 date (optional) Payment 2 amount (AUD) Payment 3 date (optional) Payment 3 amount (AUD) Annual GIC rate to assume after December 2026 (%), needed only for later days
-
-Calculate
-
-Each amount is before remission. Dates run to 30 June 2028; the published GIC and SIC rates end on 31 December 2026.
-
-Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: GIC on $10,000.00 due 21 November 2025, to 30 June 2026. GIC to 30 June 2026 $676.86 Paid in the period $0.00 Owing at the end of that day, with GIC $10,676.86 Days of GIC 222 days Before remission: the Commissioner may remit GIC (TAA 1953 s 8AAG), SIC (TAA Sch 1 s 280-160) and administrative penalties (s 298-20), which this calculator does not estimate.
-
-## How the ATO penalties and interest calculator works
-
-The calculator works one question at a time, with the same rules, rounding and refusals as the ato-interest-penalties command in the australian-accounting calculators. GIC compounds daily from the due day on the unpaid amount and unpaid GIC, at each quarter’s annual rate divided by 365, or 366 in a leap year (sections 8AAC and 8AAD). A payment reduces the balance before that day’s charge. SIC compounds the same way on the additional tax, at the GIC rate less 4 points, from the day the first assessment’s tax was due to the day before the amended assessment’s notice (sections 280-100 and 280-105). Both are worked exactly and rounded to the cent once.
-
-The failure to lodge penalty is 1 penalty unit for each 28 days or part of 28 days late, at most 5, each at the unit applying when its period starts: $330 to 30 June 2026 and $364 from 1 July 2026. It is doubled for a medium entity, times 5 for a large entity and times 500 for a significant global entity (section 286-80). The statement penalty is 75%, 50% or 25% of the shortfall for intentional disregard, recklessness or a failure to take reasonable care, or 60, 40 or 20 penalty units with no shortfall. A position not reasonably arguable gives 25% where its shortfall is more than the greater of $10,000 and 1% of the return’s income tax. The base amount is increased 20% where section 284-220 applies and reduced 80%, to nil or 20% for a voluntary disclosure (section 284-225).
-
-The ATO pays simple interest at the base interest rate, the GIC rate less 7 points, on a payment of income tax, SIC, a compulsory study loan repayment or an FS assessment debt made more than 14 days early, to the end of the due day (sections 8A to 8C), and on relevant tax overpaid because of a decision and then refunded, from the later of the notice and the payment (sections 9 and 10). The interest rounds to the cent, and under 50 cents is not paid.
-
-In the example the page opens with, $10,000 due on 21 November 2025 and unpaid to 30 June 2026 grows by 222 days of GIC at 10.61%, 10.65% and 10.96% to $10,676.86: $676.86 of GIC.
-
-## What the ATO penalties and interest calculator does not cover
-
-Every amount is before remission: the Commissioner can remit GIC, SIC and penalties, and the calculator does not estimate that. It does not work scheme penalties, the trust and partnership items of section 284-90, Division 296 GIC, a payment refunded before its due day or interest on a running balance account surplus. It refuses days without a published rate: GIC after 31 December 2026 unless you assume a rate, which makes the result an estimate, and SIC and credit interest after that day. The October to December 2026 base interest rate of 4.51% is the published GIC rate less 7 points; the ATO’s credit interest page lists quarters only to September 2026. The behaviour behind a shortfall, whether a position is reasonably arguable, whether a disclosure was voluntary and the entity’s size are your facts; the calculator does not decide them. Confirm the amount with the ATO or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: ATO penalties and interest calculator
-
-Case | Inputs | Result
-Spec G9: $10,000 unpaid for 222 days across 3 quarters | GIC on $10,000.00 due 21 November 2025, to 30 June 2026 | GIC $676.86, balance owing $10,676.86
-The site’s hand-worked payment plan: $9.68 of GIC | GIC on $1,000.00 due 1 October 2026, to 30 November 2026; $336.56 paid 1 October 2026, $336.56 paid 1 November 2026 | GIC $9.68, balance owing $336.56
-Spec S1: SIC for 284 days to the day before the notice | SIC on $10,000.00 of additional tax first due 21 November 2024, amended assessment notice 1 September 2025 | SIC $575.45
-Spec F4: a medium entity, units of $330 and $364 | Failure to lodge, due 10 June 2026, lodged 1 August 2026, a medium entity (x2) | penalty $1,388.00
-Spec P3: PS LA 2012/5 Example 7 facts at 75% and 25% | Statement penalty, statement made 15 March 2026; part 1: shortfall $15,000.00, intentional disregard; part 2: shortfall $2,000.00, failure to take reasonable care | penalty $11,750.00
-Spec E2: the ATO’s Evan example in 2025, 19 days at 3.61% | $1,926.00 of income tax paid 3 November 2025, due 21 November 2025, notice issued 29 October 2025 | interest payable $3.62
-Spec O2: a refund taken from the later payment first | $3,000.00 paid 1 December 2024, $3,000.00 paid 1 March 2025; notice issued 15 October 2024; $4,000.00 refunded 15 August 2025 | interest payable $86.51
-Spec G10: a GIC day after December 2026 needs an assumed rate | GIC on $10,000.00 due 21 November 2025, to 1 January 2027 | Refused: the ATO has published GIC rates to 31 December 2026; enter an assumed rate to project 1 January 2027 and later
-Remission is the Commissioner’s discretion | Remission of a charge or penalty | Refused: remission of GIC (TAA 1953 s 8AAG), SIC (TAA Sch 1 s 280-160) and administrative penalties (s 298-20) is the Commissioner’s discretion: every amount here is before remission, and the calculator does not estimate one
-
-One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
 # Division 296 tax calculator for 2026-27, above $3 million
 
 Source: https://duguid.com.au/tools/business-calculators/division-296/
@@ -12021,6 +11951,96 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
+- fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Super lump sum tax calculator: components, caps, death benefits
+
+Source: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
+
+> Tax on a super lump sum for 2020-21 to 2026-27: components by the proportioning rule, the low rate and untaxed plan caps, and death benefits.
+
+# Super lump sum tax calculator
+
+The components of a super lump sum and the most income tax each part can bear.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One super lump sum from a complying fund
+
+Payment date
+
+Income year of the payment 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Paid to The member A death benefits dependant A non-dependant, after the member’s death
+
+Lump sum (AUD) Value of the super interest just before the payment (AUD) The interest’s tax free component (AUD) Element untaxed in the fund, in the lump sum (AUD)
+
+Untaxed element from service before 1 July 1983? Choose No Yes
+
+The member Date of birth Terminal medical condition?Choose No Yes Disability superannuation benefit?Choose No Yes Low rate cap amount used in earlier years (AUD) Other lump sums this income year at preservation age to 59?Choose No Yes Untaxed plan cap amount used, from this plan (AUD)
+
+Calculate
+
+## What the inputs need
+
+For one lump sum from a complying fund paid on a condition of release: not a roll-over, an income stream commutation or a payment in breach of the payment rules. The fund states the interest’s value and tax free component just before the payment, and the untaxed element.
+
+The lump sum’s tax free component is its share of the interest’s, rounded to the cent; the rest is taxable, taxed in the fund except the untaxed element. Leave that at 0 for a fund that pays tax on its income, as most do.
+
+Needed only with an untaxed element. An untaxed element from service before 1 July 1983 is refused: part of it then becomes tax free under section 307-150.
+
+You decide whether the person is a death benefits dependant: a spouse or former spouse, a child under 18, someone interdependent with or dependent on the member, or anyone if the member died in the line of duty (section 302-195).
+
+Two registered medical practitioners, one a specialist, certify death is likely within 24 months. A disability superannuation benefit is refused: section 307-145 enlarges its tax free component.
+
+The low rate cap applies only at preservation age and under 60, which from 1 July 2024 no one is. Enter the amounts counted for earlier lump sums. Other lump sums at that age in the same year share the cap, so they are refused while any is left.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; member; paid 1 October 2026; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00. Tax free component $30,000.00 Taxable component: element taxed in the fund $190,000.00 Taxable component: element untaxed in the fund $80,000.00 Untaxed element within the untaxed plan cap left, $80,000.00 at no more than 15% $12,000.00 Assessable income $80,000.00 Not assessable income and not exempt income $220,000.00 Most income tax on the lump sum, before Medicare levy $12,000.00 Untaxed plan cap amount counted $80,000.00 Aged 62 on the payment date, preservation age 59: 60 or over, so only the untaxed element is assessable (ss 301-10 and 301-95).
+
+## How the super lump sum tax calculator works
+
+The super lump sum tax calculator splits one lump sum from a complying fund, paid from 1 July 2020 to 30 June 2027, into its components. It gives the most income tax each part can bear before the Medicare levy. A member’s treatment turns on age on the payment day and preservation age; a death benefit’s turns on whether the person receiving it is a death benefits dependant. Each rate is a ceiling: the offsets stop the tax on a part going above it, so a person on lower marginal rates pays less, and the Medicare levy is added on top.
+
+Its results match the super-benefit-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 532 test cases, refusals included.
+
+## What the super lump sum tax calculator does not cover
+
+The calculator does not work the tax at the person’s own marginal rates, the Medicare levy, the amount the fund withholds, income streams, roll-overs, departing Australia superannuation payments, death benefits paid to a deceased estate, or payments from a non-complying or foreign fund. It does not decide dependency, a terminal medical condition, the components or the elements: you state those. It refuses a disability superannuation benefit, an untaxed element from service before 1 July 1983, and other lump sums in the same year that share the low rate cap.
+
+Confirm the result with the fund, the ATO’s guidance on super lump sums or a registered tax agent before relying on it. The redundancy and ETP withholding calculator covers employment termination payments.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Super lump sum tax calculator
+
+Case | Inputs | Result
+Schedule 12’s Chloe, 62, takes $300,000 in 2026-27 with an $80,000 untaxed element: $12,000 at 15% before the Medicare levy | 2026-27; member; paid 1 October 2026; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00 | most tax $12,000.00, assessable $80,000.00, not assessable $220,000.00
+The ATO’s Tony, at preservation age 58, takes $350,000 in 2021-22: $225,000 of the taxed element within the low rate cap at 0% and $25,000 at 15% | 2021-22; member; paid 25 July 2021; lump sum $350,000.00 from an interest of $350,000.00 with $100,000.00 tax free; untaxed element $0.00; born 1 March 1963; low rate cap used $0.00; no other lump sums this year | most tax $3,750.00, assessable $250,000.00, not assessable $100,000.00
+The ATO’s Mei, 60, pays at most 15% on her $205,000 untaxed element and nothing on the rest | 2021-22; member; paid 25 September 2021; lump sum $380,000.00 from an interest of $380,000.00 with $45,000.00 tax free; untaxed element $205,000.00; born 1 June 1961; no service before 1 July 1983; untaxed plan cap used $0.00 | most tax $30,750.00, assessable $205,000.00, not assessable $175,000.00
+The ATO’s Frankie, under preservation age, pays at most 20% on the taxed element and 30% on the untaxed element | 2022-23; member; paid 1 October 2022; lump sum $70,000.00 from an interest of $70,000.00 with $5,000.00 tax free; untaxed element $20,000.00; born 1 May 1977; no service before 1 July 1983; untaxed plan cap used $0.00 | most tax $15,000.00, assessable $65,000.00, not assessable $5,000.00
+The ATO’s Peta has used both caps: 15% on the taxed element and the top rate of 45% on the untaxed element | 2020-21; member; paid 1 December 2020; lump sum $105,000.00 from an interest of $105,000.00 with $20,000.00 tax free; untaxed element $45,000.00; born 1 March 1961; no service before 1 July 1983; low rate cap used $215,000.00; no other lump sums this year; untaxed plan cap used $1,565,000.00 | most tax $26,250.00, assessable $85,000.00, not assessable $20,000.00
+At preservation age the untaxed element takes the low rate cap the taxed element leaves (section 301-105(6)): $25,000 at 15% and $75,000 at 30% | 2021-22; member; paid 1 August 2021; lump sum $300,000.00 from an interest of $300,000.00 with $0.00 tax free; untaxed element $100,000.00; born 10 January 1963; no service before 1 July 1983; low rate cap used $0.00; no other lump sums this year; untaxed plan cap used $0.00 | most tax $26,250.00, assessable $300,000.00, not assessable $0.00
+A death benefit to a non-dependant: 15% on the taxed element and 30% on the untaxed element (section 302-145) | 2026-27; non-dependant; paid 1 October 2026; lump sum $500,000.00 from an interest of $500,000.00 with $100,000.00 tax free; untaxed element $100,000.00; no service before 1 July 1983 | most tax $75,000.00, assessable $400,000.00, not assessable $100,000.00
+A death benefit to a death benefits dependant is tax free (section 302-60) | 2026-27; death benefits dependant; paid 1 October 2026; lump sum $500,000.00 from an interest of $500,000.00 with $100,000.00 tax free; untaxed element $100,000.00; no service before 1 July 1983 | most tax $0.00, assessable $0.00, not assessable $500,000.00
+Other lump sums in the same year share the low rate cap, which the page does not take | 2021-22; member; paid 1 October 2021; lump sum $1,500.00 from an interest of $1,500.00 with $0.00 tax free; untaxed element $500.00; born 1 January 1963; no service before 1 July 1983; low rate cap used $224,999.99; other lump sums this year; untaxed plan cap used $0.00 | Refused: other lump sums received in the same income year at or above preservation age and under 60 share the year’s low rate cap left, the taxed element first whatever the order of payment (ITAA 1997 ss 301-20(3) and 301-105(5) and (6)), which this calculator does not take; with none of the cap left they do not change the result
+2027-28’s untaxed plan cap is not yet published | 2027-28; member; paid 1 October 2027; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00 | Refused: choose an income year from 2020-21 to 2026-27; the untaxed plan cap for 2027-28 is not yet published
+
+One of the fifty-one business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- australian-accounting: https://github.com/ryanduguid/australian-accounting
+- redundancy and ETP withholding calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
 - fifty-one business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---

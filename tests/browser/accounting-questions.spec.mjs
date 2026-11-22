@@ -1122,6 +1122,32 @@ test('luxury car tax page works its example, a refund and a refusal offline', as
   await expect(form.locator('output')).toContainText('Line 3: choose the financial year of the supply, whose threshold applies.');
 });
 
+// The super lump sum tax page's example (Schedule 12's Chloe), the member's fields that hide for a
+// death benefit, a preservation age case that asks for the low rate cap, and a refusal.
+test('super lump sum tax page works its example, a death benefit and a refusal offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/super-benefit-tax/');
+  const form = page.locator('#super-benefit-tax form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Most income tax on the lump sum, before Medicare levy: $12,000.00.');
+  await form.locator('[name="recipient"]').selectOption('non_dependant');
+  await expect(form.locator('[name="born"]')).toBeHidden();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Most income tax on the lump sum, before Medicare levy: $52,500.00.');
+  await form.locator('[name="recipient"]').selectOption('member');
+  await form.locator('[name="year"]').selectOption('2021-22');
+  await form.locator('[name="paid"]').fill('2021-07-25');
+  await form.locator('[name="born"]').fill('1963-03-01');
+  await form.locator('[name="untaxed"]').fill('0');
+  await form.locator('[name="low-used"]').fill('');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Enter the low rate cap amount used: it is needed for a member at or above preservation age and under 60.');
+  await form.locator('[name="year"]').selectOption('2020-21');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('The payment date must fall in the 2020-21 income year.');
+});
+
 // Spec G9 is the form's default; the failure to lodge question shows its 28-day periods, and remission is refused.
 test('ATO penalties and interest page works GIC by quarter, a failure to lodge penalty and refuses remission offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/ato-penalties-interest/');
@@ -1597,7 +1623,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
-  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest'];
+  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
