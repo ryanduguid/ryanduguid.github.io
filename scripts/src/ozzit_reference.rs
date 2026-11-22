@@ -257,6 +257,21 @@ fn load_json(root: &Path, rel: &str) -> Result<Json> {
     pyjson::loads(&crate::read(&root.join(rel))?).map_err(|e| e.to_string())
 }
 
+fn verify_workbook(record: &Json, tag: &str, sha256: &Json) -> Result<()> {
+    if record
+        .get("workbook_sha256")
+        .is_some_and(|value| value.py_eq(sha256))
+        && record
+            .get("release")
+            .is_some_and(|value| value.py_eq(&Json::str_obj(tag)))
+    {
+        return Ok(());
+    }
+    Err(value_error(&format!(
+        "Reference must identify the {tag} release workbook"
+    )))
+}
+
 pub fn render(root: &Path) -> Result<String> {
     let (tag, workbook_sha256) = documented_release(root)?;
     let rows = load_index(root)?;
@@ -273,6 +288,22 @@ pub fn render(root: &Path) -> Result<String> {
     }
     let examples = load_json(root, EXAMPLES)?;
     let record = load_json(root, &format!("assets/ozzit-reference-{tag}.json"))?;
+    verify_workbook(&record, &tag, &workbook_sha256)?;
+    let record = if let Some(evidence) = record.get("example_evidence") {
+        let release = subscript(evidence, &Json::str_obj("release"))?;
+        let release = text(&release, "str")?;
+        if !re(r"^v[0-9]+\.[0-9]+\.[0-9]+$", 0).is_match(&release) || release == tag {
+            return Err(value_error(
+                "Example evidence must name a different release tag",
+            ));
+        }
+        let native = load_json(root, &format!("assets/ozzit-reference-{release}.json"))?;
+        let sha256 = subscript(evidence, &Json::str_obj("workbook_sha256"))?;
+        verify_workbook(&native, &release, &sha256)?;
+        native
+    } else {
+        record
+    };
     let key = Json::str_obj;
     let mut recorded = Dict::default();
     for case in iterate(&subscript(&record, &key("cases"))?)? {
@@ -294,16 +325,6 @@ pub fn render(root: &Path) -> Result<String> {
         return Err(value_error(
             "Examples need matching native Excel inputs and results",
         ));
-    }
-    // The record subscripted as a dict above, so it is a dict here.
-    if !subscript(&record, &key("workbook_sha256"))?.py_eq(&workbook_sha256)
-        || !record
-            .get("release")
-            .is_some_and(|release| release.py_eq(&Json::Str(tag.clone())))
-    {
-        return Err(value_error(&format!(
-            "Native results must identify the {tag} release workbook"
-        )));
     }
     if functions.len() != rows.len() {
         return Err(value_error(&format!(

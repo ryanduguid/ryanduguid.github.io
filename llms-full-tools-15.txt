@@ -16,7 +16,7 @@ Source: https://duguid.com.au/tools/ozzit/functions/dates/
 
 The 17 Dates formulas cover periods, timelines, schedules, overlaps and Australian financial year labels. Each entry gives what the workbook’s own help supplies: the signature, parameters, notes and worked examples.
 
-Release v3.6.0. Read from the released Dates formula source, which the workbook compiles.
+Release v3.7.0. Read from the released Dates formula source, which the workbook compiles.
 
 Published 20 October 2026. Last reviewed 20 October 2026.
 
@@ -24,7 +24,7 @@ Published 20 October 2026. Last reviewed 20 October 2026.
 
 Each named formula is a native Excel LAMBDA in the free Ozzit workbook, or one of its 5 help tables. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
 
-The text below is the help each function carries in the v3.6.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
+The text below is the help each function carries in the v3.7.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
 
 ## All 17 functions
 
@@ -651,7 +651,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Dates formula source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Dates.txt
+- Dates formula source: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/src/Dates.txt
 - Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
 - oz.AboutDates λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-aboutdates
 - oz.CountDOW λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-countdow
@@ -689,7 +689,7 @@ Source: https://duguid.com.au/tools/ozzit/functions/essentials/
 
 The 17 Essentials formulas cover row and column totals, averages, counts and range conversion for dynamic arrays. Each entry gives what the workbook’s own help supplies: the signature, parameters, notes and worked examples.
 
-Release v3.6.0. Read from the released Essentials formula source, which the workbook compiles.
+Release v3.7.0. Read from the released Essentials formula source, which the workbook compiles.
 
 Published 20 October 2026. Last reviewed 20 October 2026.
 
@@ -697,7 +697,7 @@ Published 20 October 2026. Last reviewed 20 October 2026.
 
 Each named formula is a native Excel LAMBDA in the free Ozzit workbook, or one of its 5 help tables. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
 
-The text below is the help each function carries in the v3.6.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
+The text below is the help each function carries in the v3.7.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
 
 ## All 17 functions
 
@@ -1098,7 +1098,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Essentials formula source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Essentials.txt
+- Essentials formula source: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/src/Essentials.txt
 - Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
 - oz.AboutEssentials λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-aboutessentials
 - oz.CountC λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countc
@@ -1130,13 +1130,13 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/ozzit/functions/financial/
 
-> Parameters and worked examples for 51 Ozzit Financial Excel LAMBDA functions: amortisation, depreciation, corkscrews, IRR, rolling sums, GST and AASB 16 leases.
+> Parameters and worked examples for 52 Ozzit Financial Excel LAMBDA functions: amortisation, depreciation, corkscrews, IRR, rolling sums, GST and AASB 16 leases.
 
 # Ozzit Financial functions
 
-The 51 Financial formulas cover amortisation, depreciation, corkscrews, IRR, rolling sums, GST and AASB 16 leases. Each entry gives what the workbook’s own help supplies: the signature, parameters, notes and worked examples.
+The 52 Financial formulas cover amortisation, depreciation, corkscrews, IRR, rolling sums, GST and AASB 16 leases. Each entry gives what the workbook’s own help supplies: the signature, parameters, notes and worked examples.
 
-Release v3.6.0. Read from the released Financial formula source, which the workbook compiles.
+Release v3.7.0. Read from the released Financial formula source, which the workbook compiles.
 
 Published 20 October 2026. Last reviewed 20 October 2026.
 
@@ -1144,9 +1144,9 @@ Published 20 October 2026. Last reviewed 20 October 2026.
 
 Each named formula is a native Excel LAMBDA in the free Ozzit workbook, or one of its 5 help tables. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
 
-The text below is the help each function carries in the v3.6.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
+The text below is the help each function carries in the v3.7.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
 
-## All 51 functions
+## All 52 functions
 
 - oz.AboutFinancialλ
 - oz.Corkscrewλ
@@ -1194,6 +1194,7 @@ The text below is the help each function carries in the v3.6.0 workbook. The wor
 - oz.Varianceλ
 - oz.VariancePctλ
 - oz.YearToDateλ
+- oz.PAYGWithholdingλ
 - oz.LevelPaymentλ
 - oz.CorkscrewRateλ
 - oz.PeriodRateλ
@@ -1254,17 +1255,17 @@ Create a corkscrew where the opening balance is reversed in the next period base
 
 Create a corkscrew where the opening balance is reversed in the next period based on a timing parameter
 
-Note: All flows are added. To subtract a flow make it negative.
+Note: All flows are added; make a flow negative to subtract it. Text, TRUE or FALSE returns a message.
 
 Parameters:
 
 Opening (required)
 
-First periods opening balance.
+First periods opening balance: a single number or a blank cell.
 
 ReversalFlags (required)
 
-A row of ones and blanks (or zeros) indicating when to reverse period totals. Any other value, including TRUE or a 1 typed as text, returns a message.
+A row of ones and blanks (or zeros) indicating when to reverse period totals. Any other value, including TRUE or a 1 typed as text, returns a message. It needs one row with one flag for each column of Flow1; any other shape returns a message.
 
 Flow1 (required)
 
@@ -2500,6 +2501,36 @@ Month the financial year starts, one whole number from 1 to 12. Blank cells and 
 
 The workbook help shows 70, 7.
 
+### oz.PAYGWithholdingλ
+
+oz.PAYGWithholdingλ(Earnings, Coefficients, [Period])
+
+Amount to withhold from a weekly, fortnightly, monthly or quarterly payment under the ATO's Schedule 1 formulas, from a coefficient table the caller supplies
+
+Amount to withhold from a payment under the ATO's Schedule 1 formulas.
+
+Note: Follows Schedule 1 - Statement of formulas for calculating amounts to be withheld (NAT 1004) for payments from 1 July 2026 (read 16 November 2026): y = a * x - b on weekly earnings x, whole dollars plus 99 cents, rounded to the nearest dollar. Copy the coefficient table for the payee's scale from the ATO's current schedule; recheck it each year. Arithmetic only: it does not choose the scale, apply tax offsets, the Medicare levy adjustment or extra withholding for 53 or 27 pays, and does not do scale 4 (no TFN) or working holiday makers (Schedule 15).
+
+Parameters:
+
+Earnings (required)
+
+One or more payments in whole cents, with allowances subject to withholding. A blank stays blank.
+
+Coefficients (required)
+
+The scale's table: 3 columns of weekly earnings 'less than', a and b, in ascending order. The last row is the '& over' row, used above every bound; only it may repeat the bound above it. Enter a row the ATO gives no a or b for as 0 and 0.
+
+Period (optional, Default = "W")
+
+"W" weekly, "F" fortnightly, "M" monthly or "Q" quarterly.
+
+```
+=oz.PAYGWithholdingλ(1333.45, {362,0,0;538,0.15,54.3462;673,0.25,108.2135;721,0.17,54.3473;865,0.179,60.8377;1282,0.3227,185.1935;2596,0.32,181.7319;3653,0.39,363.4627;3653,0.47,655.7704})
+```
+
+The workbook help shows 245.
+
 ### oz.LevelPaymentλ
 
 oz.LevelPaymentλ(Principal, Rates, [Balloon])
@@ -2673,7 +2704,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Financial formula source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Financial.txt
+- Financial formula source: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/src/Financial.txt
 - Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
 - oz.AboutFinancial λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-aboutfinancial
 - oz.Corkscrew λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrew
@@ -2721,6 +2752,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - oz.Variance λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-variance
 - oz.VariancePct λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-variancepct
 - oz.YearToDate λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-yeartodate
+- oz.PAYGWithholding λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-paygwithholding
 - oz.LevelPayment λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-levelpayment
 - oz.CorkscrewRate λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrewrate
 - oz.PeriodRate λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-periodrate

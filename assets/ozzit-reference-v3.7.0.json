@@ -1,0 +1,8 @@
+{
+  "release": "v3.7.0",
+  "workbook_sha256": "0ed09fc130d30394c97f6a41e40ab72d3f68093b65a5e109adf11bd901f006bd",
+  "example_evidence": {
+    "release": "v3.6.0",
+    "workbook_sha256": "95006168d685496f27b04ab95099a7c103d3013cf031178046ffcbfcfd88d65b"
+  }
+}

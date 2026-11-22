@@ -128,6 +128,13 @@ fn release_claims() {
         &check(root(), &load(root()).unwrap()),
     );
     let record = load(root()).unwrap();
+    let ozzit_release = record
+        .get("components")
+        .and_then(|components| components.get("ozzit"))
+        .and_then(|ozzit| ozzit.get("published"))
+        .and_then(|published| published.get("release_url"))
+        .unwrap()
+        .py_str();
 
     // A lag must name the difference; the same lag without that sentence fails.
     let site = copied_site();
@@ -203,7 +210,7 @@ fn release_claims() {
     replace_file(
         site.path(),
         "tools/ozzit/index.html",
-        "https://github.com/ryanduguid/Ozzit/releases/tag/v3.6.0",
+        &ozzit_release,
         "https://github.com/ryanduguid/Ozzit/releases/tag/v3.6.1",
     );
     expect_failure(
@@ -440,22 +447,23 @@ fn release_claims() {
     assert_clean("unrelated repository sharing a version number", &unrelated);
 
     // A release-specific supporting file must be read at the documented release.
+    let citation = format!("https://github.com/ryanduguid/Ozzit/blob/{tag}/CITATION.cff");
+    let citation_failure = format!("CITATION.cff must be linked at {tag}");
     for replacement in ["main", "v3.6.1"] {
         let site = copied_site();
         rewrite(site.path(), "tools/ozzit/index.html", |t| {
             t.replace(
-                "Ozzit/blob/v3.6.0/CITATION.cff",
-                &format!("Ozzit/blob/{replacement}/CITATION.cff"),
+                &citation,
+                &format!("https://github.com/ryanduguid/Ozzit/blob/{replacement}/CITATION.cff"),
             )
         });
         expect_failure(
             "citation retargeted",
             &check(site.path(), &record),
-            "CITATION.cff must be linked at v3.6.0",
+            &citation_failure,
         );
     }
     let site = copied_site();
-    let citation = "https://github.com/ryanduguid/Ozzit/blob/v3.6.0/CITATION.cff";
     rewrite(site.path(), "tools/ozzit/index.html", |t| {
         t.replace(
             &format!("href=\"{citation}\""),
@@ -466,7 +474,7 @@ fn release_claims() {
     expect_failure(
         "supporting evidence only in a comment",
         &check(site.path(), &record),
-        "CITATION.cff must be linked at v3.6.0",
+        &citation_failure,
     );
     let site = copied_site();
     let unpinned: Vec<String> = check(site.path(), &record)

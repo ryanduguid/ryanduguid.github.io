@@ -31,8 +31,17 @@ fn function_reference() -> String {
     format!("assets/ozzit-function-reference-{}.json", tag())
 }
 
-fn native_record() -> String {
+fn reference_record() -> String {
     format!("assets/ozzit-reference-{}.json", tag())
+}
+
+fn native_record() -> String {
+    let reference = load(&repository(), &reference_record());
+    let evidence = reference.get("example_evidence").unwrap_or(&reference);
+    format!(
+        "assets/ozzit-reference-{}.json",
+        evidence.get("release").unwrap().py_str()
+    )
 }
 
 fn copy(root: &Path, rel: &str) {
@@ -48,6 +57,7 @@ fn inputs() -> tempfile::TempDir {
     for rel in [
         index_csv(),
         EXAMPLES.into(),
+        reference_record(),
         native_record(),
         function_reference(),
         RELEASE_RECORD.into(),
@@ -147,9 +157,23 @@ fn results_must_identify_the_released_workbook() {
         let mut record = load(root.path(), &native_record());
         *member(&mut record, field) = Json::Str(value);
         save(root.path(), &native_record(), &record);
-        let message = format!("{} release workbook", tag());
+        let release = load(&repository(), &native_record());
+        let message = format!(
+            "{} release workbook",
+            release.get("release").unwrap().py_str()
+        );
         assert!(render_error(root.path()).contains(&message), "{field}");
     }
+}
+
+#[test]
+fn reference_must_identify_the_documented_workbook() {
+    let root = inputs();
+    let rel = reference_record();
+    let mut record = load(root.path(), &rel);
+    *member(&mut record, "workbook_sha256") = Json::Str("0".repeat(64));
+    save(root.path(), &rel, &record);
+    assert!(render_error(root.path()).contains(&format!("{} release workbook", tag())));
 }
 
 /// Edit the Ozzit entry of the copied release record.
@@ -415,7 +439,7 @@ fn wrong_or_missing_counts_are_reported() {
             "another page",
             "llms.txt",
             llms.replace(&format!("{lambdas} native LAMBDA"), "1 native LAMBDA"),
-            "llms.txt: states [1, 150] LAMBDA functions",
+            &format!("llms.txt: states [1, {lambdas}] LAMBDA functions"),
         ),
     ];
     for (label, rel, changed, message) in cases {
@@ -546,7 +570,7 @@ fn every_index_entry_links_to_its_module_page_entry() {
         );
         count += 1;
     }
-    assert_eq!(count, 155);
+    assert_eq!(count, rows().len());
 }
 
 #[test]

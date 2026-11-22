@@ -39,7 +39,7 @@
       "703f765908cc58b5ffaf628b3977e6141bcb8bc81c132c0fdcd13912cb935f75"
     ],
     "index.html": [
-      "71b8af6b0755303f93c6de059733bcb6b0fad8b187dcce42b943a0496c6cb48b"
+      "50fd98c1774b963a113c42b9d7a7bcc20888e90dad364ec6778b94e7d9d65cea"
     ],
     "privacy/index.html": [
       "e4adcd3754bc4ba665283f24c28df91b32af9525a1da2d4a3d401828c95166bf"
@@ -366,7 +366,7 @@
       "5b46717b5d9cd7c711a55c64a7c61d6587893f255046d0a2ba8bcaa2dd311437"
     ],
     "tools/ozzit/functions/financial/index.html": [
-      "602134dedccf225438425add466511a59a9349ab3dfa76efcb57903388822825"
+      "5b1635960dd43d3b5e84b4dac4acf20fbe08b52c8800ccf66e7f1784369ef279"
     ],
     "tools/ozzit/functions/ratios/index.html": [
       "6e7f2e93e4e19123789d89cf5a8bb66e3a1e02d73bfefb2d7bbc0974d464e926"
@@ -375,7 +375,7 @@
       "9d439aa0458d7e24125c52d2c1d7a4d4c3e7692996b93d836c8411034c3d0a0b"
     ],
     "tools/ozzit/index.html": [
-      "3be7a825d8ef0a388ab940fd287ce86121beb820ae9947cd2d30eae87d9c6a2b"
+      "eccc4453e27fe1152d3b3117b76220f9de5b46e2fd55fb4810bf1d777b6625b5"
     ],
     "tools/payday-super/business-days/index.html": [
       "f079b1a110601d216daa4aa8499c8a9aa615d24cf59aaa0ca57238ef401a8393"
@@ -412,7 +412,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "b1be2361c6e073f5014d67a0a43f1470c67e1245140b72ae745618faf7e39351",
+    "llms.txt": "ce367e7c716e19f5b10317dad904505f8dfacea52e8530b0ca50237f0a165889",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
     "sitemap.xml": "21bbb811fa93cbd644a45a088117723954f0fc95e6d110f27fb694c5db39a451"
   },

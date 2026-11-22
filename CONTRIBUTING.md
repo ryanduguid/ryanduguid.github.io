@@ -308,17 +308,19 @@ After a new determination:
 
 ## Ozzit reference examples
 
-The ten examples use the Ozzit v3.6.0 function index in
-`assets/ozzit-functions-v3.6.0.csv`. Edit the reviewed examples in
+The ten examples use the documented release's function index. Edit the reviewed examples in
 `scripts/ozzit_reference_examples.json`, then run
 `site-tools build_ozzit_reference --write`. The builder takes the documented tag
 and workbook hash from `scripts/release_record.json`, so a release bump adds the
-two tagged files in `assets/`, updates the record and edits the page prose. It
+tagged index, function reference and reference record in `assets/`, updates the
+release record and edits the page prose. It
 fails when a page states a function, help-table or named-formula count that
 differs from the index. The ordinary site checks
 require the generated include to match both inputs. They also require every
-formula to match the native Excel inputs and results in
-`assets/ozzit-reference-v3.6.0.json`. Each example records its result shape and a
+formula to match the native Excel inputs and results. When the documented release
+and the Excel check differ, the reference record's `example_evidence` names the
+checked release and workbook hash. The v3.7.0 reference points to the v3.6.0
+record in `assets/ozzit-reference-v3.6.0.json`. Each example records its result shape and a
 Python format template. The generator formats every recorded result and requires
 that display to equal the reviewed expected text, including array values and totals.
 
