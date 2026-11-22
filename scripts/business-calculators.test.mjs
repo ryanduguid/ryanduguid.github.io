@@ -5627,10 +5627,15 @@ test('WET refuses what the command refuses, with its codes', () => {
     assert.equal(wetCode({ year: '2026-27', dealings: [wetSale('1.00')], scope_confirmed: scope }), 'scope.not_confirmed');
   }
   assert.equal(calculations.wineEqualisationTax({ year: '2026-27', dealings: [wetSale('100.00')], scope_confirmed: true }).wineTax, 29);
-  // From 2^46 dollars a JavaScript number can miss a cent, so the page refuses: $70,368,744,177,664.01 just past it, and
-  // $333,333,333,333,333.33 well past it; $70,368,744,177,663.99 just below it shows to the cent.
+  // From 2^46 dollars a JavaScript number can miss a cent, so the page refuses: $70,368,744,177,664.00 exactly, $70,368,744,177,664.01
+  // just past it and $333,333,333,333,333.33 well past it; $70,368,744,177,663.99 just below it shows to the cent. The page and the
+  // refusal state that limit.
   const near = (quantity) => ({ kind: 'own_use', average_wholesale: { grape_wine: true, wholesale_share_at_least_10_percent: true, quantity,
     wholesale_sales: [{ quantity: '10000000000.0000', price_excluding_wet_and_gst: '1000000000000.00' }] } });
+  const limit = (2 ** 46).toLocaleString('en-AU');
+  assert.ok(wetHtml.includes(`A value or total of $${limit} or more is refused`), limit);
+  assert.throws(() => calculations.wineEqualisationTax({ year: '2026-27', dealings: [near('703687441776.6400')] }),
+    (error) => error.code === 'input.amount_invalid' && error.message.includes(`only below $${limit};`));
   assert.equal(wetCode({ year: '2026-27', dealings: [near('703687441776.6401')] }), 'input.amount_invalid');
   const below = calculations.wineEqualisationTax({ year: '2026-27', dealings: [near('703687441776.6399')] }).dealings[0];
   assert.equal(below.taxableValue.toFixed(2), '70368744177663.99');
