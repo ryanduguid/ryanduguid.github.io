@@ -1186,7 +1186,8 @@ test('PSI rules checker counts one payer’s 2 rows as one source and cites subs
   await expect(output).toContainText('Subsection 87-18(1): PSI paid for a result, with the tools supplied and liability '
     + 'for defects: 74.00%, under 75%: not met. Subsection 87-15(3): largest share of the PSI from one payer and its '
     + 'associates: 100.00%, 80% or more.');
-  await form.getByLabel('The individual, as a religious practitioner paid for that vocation').check();
+  await form.getByLabel('The individual, as a religious practitioner paid by an enterprise for work in their vocation as a '
+    + 'member of a religious institution').check();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(output).toContainText('Outcome: Subsection 85-35(2): a payment to a religious practitioner, so the PSI '
     + 'rules do not apply. Subsection 84-5(1)');

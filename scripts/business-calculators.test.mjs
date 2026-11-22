@@ -1543,7 +1543,11 @@ test('PSI form passes a row’s payer to the steps and the inputs line', () => {
     assert.deepEqual([...options.matchAll(/value="(\d*)"/g)].map(([, value]) => value),
       ['', ...Array.from({ length: row - 1 }, (_, i) => String(i + 1))]);
   }
-  assert.match(html, /<input type="radio" name="earner" value="religious" \/> The individual, as a religious practitioner/);
+  // Subsection 85-35(2) covers only payments section 12-47 of Schedule 1 to the TAA 1953 describes.
+  assert.match(html, /<input type="radio" name="earner" value="religious" \/> The individual, as a religious practitioner paid by an enterprise for work in their vocation as a member of a religious institution</);
+  assert.match(html, /done as a member of a religious institution \(subsection 85-35\(2\) and section 12-47 of Schedule 1 to the Taxation Administration Act 1953\); check any other PSI they earn as a contractor\./);
+  // Linked rows are one payer for section 87-20 too, which can only understate unrelated clients.
+  assert.match(html, /2 payers that are each an associate of a third, but not of each other, count once there; that can only make the test harder to pass\./);
   const fields = { ...formDefaults(html), 'amount-1': '74', 'amount-2': '26', 'same-2': '1' };
   const view = calculations.psiDeterminationResult((name) => fields[name], (name) => fields[name], String);
   assert.match(view.inputs, /; payer 2 26, same payer as payer 1, ticked: none;/);
