@@ -5447,6 +5447,8 @@ test('depreciation pools agree with the australian-accounting commands on every 
     if (command === 'depreciation-small-business-pool') assert.equal(String(r.threshold ?? 'none'), rates.low_pool_value_threshold, source);
     if (command === 'capital-works') assert.equal(Number(rates.rate) * 100, Number(r.rate), source);
   }
+});
+
 // The ASIC fees page: its example, its fee table against the engine, the late fee month counted under
 // the Acts Interpretation Act 1901 s 2G(1) and s 36(1) item 6, and its refusals. Amounts are ASIC's fee
 // data read 22 November 2026 (SHA-256 03281f57...866da); the Rust oracle types them separately.
