@@ -567,6 +567,13 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'fuel-tax-credits':
             result = calculate.fuelTaxCreditsResult(value, aud);
             break;
+          case 'first-home-owner-grant': {
+            // The chosen jurisdiction's radio carries its transfer duty scale, as on the transfer duty page.
+            const place = form.querySelector('input[name="jurisdiction"]:checked');
+            result = calculate.firstHomeOwnerGrantResult(value, (name) => form.elements.namedItem(name).checked,
+              place.dataset.scale.split(';').map(row => row.split(',')), calculate.firstHomeDuty, aud);
+            break;
+          }
           case 'super-benefit-tax':
             result = calculate.superBenefitTaxResult(value, aud);
             break;

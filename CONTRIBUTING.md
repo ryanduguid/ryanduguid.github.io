@@ -430,6 +430,9 @@ and timed out 4 times again in run 44173032679 on 18 November 2026.
 In run 44229492536 the runner's connection ended before a response for 3
 Tasmanian foreign investor duty surcharge pages the foreign buyer surcharge calculator
 cites; each returned HTTP 200 locally on 18 November 2026.
+In run 45010467606 on 22 November 2026 the connection ended the same way for the
+Tasmanian first home owner grant eligibility page the first home owner grant
+calculator cites, which returned HTTP 200 locally that day.
 The link checker
 reports every exact URL in `CI_MANUAL_URLS` as requiring manual verification in
 GitHub Actions. Run `site-tools check_links` locally before changing any

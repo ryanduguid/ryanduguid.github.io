@@ -355,6 +355,14 @@ calculate.luxuryCarTax({ ...lctInput, year: 2026 });
 const lctLabel: string = calculate.luxuryCarTax(lctInput).label1e;
 void lctOnSales;
 void lctLabel;
+const fhogInput = { place: 'AU-NSW', date: '2026-08-01', home: 'bought', value: '600000', facts: { person: true, citizen: true, first: true, residence: true } };
+const fhogGrant: number = calculate.firstHomeOwnerGrant(fhogInput).grant;
+// @ts-expect-error The value is whole dollars as the form's text, not a number.
+calculate.firstHomeOwnerGrant({ ...fhogInput, value: 600000 });
+// @ts-expect-error The cap reads as text, such as 'up to $600,000'.
+const fhogCap: number = calculate.firstHomeOwnerGrant(fhogInput).cap;
+void fhogGrant;
+void fhogCap;
 const sbtInput = { benefit: '11000', interest_value: '11000', interest_tax_free_component: '1000', untaxed_element: '0', recipient: 'member',
   payment_date: '2022-10-01', date_of_birth: '1972-05-01', terminal_medical_condition: false, disability_superannuation_benefit: false,
   year: '2022-23', scope_confirmed: true };

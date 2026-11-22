@@ -6093,6 +6093,139 @@ test('luxury car tax agrees with the australian-accounting command on every diff
   }
 });
 
+// The first home owner grant page: how each call and result reads, its form, and the duty it
+// shows beside the grant, which is the transfer duty calculator's own figure.
+const fhogHtml = calculatorInclude('first-home-owner-grant');
+Object.assign(INPUTS, { firstHomeOwnerGrant: (x) => calculations.fhogInputsText(x, dollars) });
+Object.assign(FORM_CALLS, { firstHomeOwnerGrant: (f) => [calculations.fhogFormInput((name) => f[name] ?? '', (name) => f[name] === true)] });
+Object.assign(ENGINE_LABELS, { firstHomeOwnerGrant: { grant: (v) => `grant ${dollars(v)}`, reason: (v) => v } });
+// The tests below state the facts only some transactions need unless they test them.
+const fhogResult = (change = {}, facts = {}) => {
+  const fields = { ...formDefaults(fhogHtml), 'wa-location': 'south', 'fact-contract': true, 'fact-nt': true, 'fact-tas': true, ...change };
+  const scale = transferDutyScales[fields.jurisdiction];
+  return calculations.firstHomeOwnerGrantResult((name) => fields[name] ?? '', (name) => facts[name] ?? fields[name] === true, scale,
+    calculations.firstHomeDuty, ftcAud);
+};
+
+test('the first home owner grant page opens on the result its calculation gives, and dates its sources', () => {
+  const example = fhogHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" %\}/);
+  const result = fhogResult();
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal)], example.slice(1));
+  assert.equal((fhogHtml.match(/read 22 November 2026/gi) ?? []).length, 8);
+  const date = fhogHtml.match(/<input id="first-home-owner-grant-date"[^>]*>/)[0];
+  assert.match(date, new RegExp(`min="${calculations.FHOG_FIRST}" max="${calculations.FHOG_LAST}"`));
+  assert.deepEqual(Object.keys(calculations.FHOG).sort(), Object.keys(PLACES).sort());
+  assert.deepEqual([...fhogHtml.matchAll(/name="fact-([a-z]+)"/g)].map(([, f]) => f), [...calculations.FHOG_FACTS, ...calculations.FHOG_CASE_FACTS]);
+  assert.deepEqual([...fhogHtml.matchAll(/name="home" value="([a-z]+)"/g)].map(([, h]) => h), [...calculations.FHOG_HOMES]);
+});
+
+test('the first home owner grant shows the transfer duty calculator’s first home buyer figures beside it', () => {
+  const duty = (result) => result.rows.slice(3).map((row) => row.join('|'));
+  // NSW 2026-27 reduced rate table: $9,796.75 on $850,000; general duty $32,437.
+  assert.deepEqual(duty(fhogResult({ value: '850000' })), ['Transfer duty for an eligible first home buyer|$9,796.75',
+    'General transfer duty on the same value|$32,437.00']);
+  assert.equal(fhogResult({ value: '850000' }).rows[0][1], '$0.00: the value is over the New South Wales cap');
+  // By hand on the duty page: $24,713.33 in Victoria and $16,150 in Western Australia on $700,000; QRO's $6,555 on $730,000.
+  assert.equal(duty(fhogResult({ jurisdiction: 'AU-VIC', date: '2025-09-01', value: '700000' }))[0], 'Transfer duty for an eligible first home buyer|$24,713.33');
+  assert.equal(duty(fhogResult({ jurisdiction: 'AU-WA', value: '700000' }))[0], 'Transfer duty for an eligible first home buyer|$16,150.00');
+  const qld = fhogResult({ jurisdiction: 'AU-QLD', date: '2025-10-01', home: 'established', value: '730000' });
+  assert.equal(qld.rows[0][1], '$0.00: the grant is for a new home only');
+  assert.equal(duty(qld)[0], 'Transfer duty for an eligible first home buyer|$6,555.00');
+  assert.equal(duty(fhogResult({ jurisdiction: 'AU-NT', date: '2026-09-01', value: '1200000' }))[0],
+    'Transfer duty for an eligible first home buyer|no concession for this home, so general duty applies');
+  // A built home's duty falls on the land; a contract before the duty rates' first day gets the grant alone.
+  assert.match(duty(fhogResult({ home: 'built', date: '2025-08-01', value: '750000' }))[0], /^Transfer duty\|not computed: duty on a building contract/);
+  for (const [place, date, from] of [['AU-NSW', '2026-06-30', '1 July 2026'], ['AU-WA', '2026-05-06', '7 May 2026'], ['AU-TAS', '2026-06-30', '1 July 2026'],
+    ['AU-ACT', '2026-06-30', '1 July 2026']]) {
+    const r = fhogResult({ jurisdiction: place, date });
+    assert.equal(r.rows.length, 4, place);
+    assert.match(r.rows[3][1], new RegExp(`cover contracts from ${from}$`), place);
+  }
+  for (const place of ['AU-VIC', 'AU-QLD', 'AU-SA', 'AU-NT']) assert.equal(fhogResult({ jurisdiction: place, date: '2025-07-01' }).rows.length, 5, place);
+  assert.equal(fhogResult({ jurisdiction: 'AU-WA', date: '2026-05-07' }).rows.length, 5);
+});
+
+test('the first home owner grant refuses an unstated fact, a date outside the sources and a value it cannot confirm', () => {
+  for (const fact of calculations.FHOG_FACTS) {
+    assert.throws(() => fhogResult({}, { [`fact-${fact}`]: false }), /^Error: Not computed: the grant and the first home buyer duty need every eligibility fact stated/);
+  }
+  assert.throws(() => calculations.firstHomeOwnerGrant({ place: 'AU-NSW', date: '2026-08-01', home: 'bought', value: '500000' }), /not stated: every applicant/);
+  for (const date of ['2025-06-30', '2026-11-23', '', '2026-8-1']) assert.throws(() => fhogResult({ date }), /choose a contract date from 1 July 2025 to 22 November 2026/, date);
+  for (const place of ['AU-NSW', 'AU-VIC', 'AU-WA', 'AU-NT']) {
+    assert.throws(() => fhogResult({ jurisdiction: place, value: '9999' }), /a value below the \$\d+,000 grant/, place);
+  }
+  // Tasmania's section 18(1) gives the lesser of the consideration and the amount.
+  const tasmania = () => fhogResult({ jurisdiction: 'AU-TAS', value: '19999' }).rows[0][1];
+  assert.doesNotThrow(tasmania);
+  assert.equal(tasmania(), '$19,999.00: the grant cannot be more than the consideration');
+  assert.equal(fhogResult({ jurisdiction: 'AU-QLD', value: '29999' }).rows[0][1], '$29,999.00: the grant cannot be more than the consideration');
+  assert.equal(fhogResult({ jurisdiction: 'AU-QLD', value: '30000' }).rows[0][1], '$30,000.00');
+  assert.equal(fhogResult({ jurisdiction: 'AU-SA', value: '14999' }).rows[0][1], '$14,999.00: the grant cannot be more than the consideration');
+  // The ACT has no grant, so a value below any amount still gives nil.
+  assert.equal(fhogResult({ jurisdiction: 'AU-ACT', value: '1' }).rows[0][1], '$0.00: the Australian Capital Territory has paid none since 1 July 2019');
+  assert.throws(() => fhogResult({ value: '600000.50' }), { message: 'Enter a whole number between 1 and 1000000000.' });
+  assert.throws(() => fhogResult({ home: 'vacant' }), { message: 'Choose a home bought, built or established.' });
+});
+
+// Review findings S1 to S4 and G2 on PR 705: the facts a transaction turns on are asked for, never assumed.
+test('the first home owner grant asks for the facts a home built, Western Australia, the NT and Tasmania turn on', () => {
+  const defaults = formDefaults(fhogHtml);
+  assert.equal(defaults['wa-location'], undefined);
+  for (const fact of calculations.FHOG_CASE_FACTS) assert.equal(defaults[`fact-${fact}`], false, fact);
+  // S1: $100,000 of land and a $20,000 building contract is not a $30,000 Queensland grant.
+  assert.throws(() => fhogResult({ jurisdiction: 'AU-QLD', date: '2025-10-01', home: 'built', value: '120000', 'fact-contract': false }),
+    /needs another fact stated: the building contract price is at least the grant/);
+  assert.throws(() => fhogResult({ jurisdiction: 'AU-SA', home: 'built', value: '14999' }), /cannot hold a building contract price of at least the grant/);
+  assert.equal(fhogResult({ jurisdiction: 'AU-QLD', date: '2025-10-01', home: 'built', value: '120000' }).rows[0][1], '$30,000.00');
+  assert.equal(fhogResult({ jurisdiction: 'AU-QLD', date: '2025-10-01', value: '20000' }).rows[0][1], '$20,000.00: the grant cannot be more than the consideration');
+  // S2: Western Australia needs the location; north of the 26th parallel takes the $1,000,000 cap.
+  assert.throws(() => fhogResult({ jurisdiction: 'AU-WA', 'wa-location': '' }), /choose where the Western Australian home is/);
+  const north = fhogResult({ jurisdiction: 'AU-WA', 'wa-location': 'north', value: '950000' });
+  assert.deepEqual(north.rows.slice(0, 2).map((row) => row[1]), ['$10,000.00', 'up to $1,000,000']);
+  assert.match(north.inputs, /north of the 26th parallel/);
+  assert.equal(fhogResult({ jurisdiction: 'AU-WA', 'wa-location': 'south', value: '950000' }).rows[0][1], '$0.00: the value is over the Western Australia cap');
+  // S4 and section 18M(3) of the Tasmanian Act: a replacement contract is not stated away.
+  assert.throws(() => fhogResult({ jurisdiction: 'AU-NT', 'fact-nt': false }), /replaces none signed before 1 October 2024/);
+  assert.throws(() => fhogResult({ jurisdiction: 'AU-TAS', 'fact-tas': false }), /completes within 24 months or a period the Commissioner extends, and replaces no transaction for the same property, between or benefiting substantially the same parties, entered into before 1 July 2025 \(for a 2025-26 contract\) or 1 July 2026 \(for a 2026-27 contract\)/);
+  // S6 (round 7) and sections 18L(2), (3) and 18M(2), (3): an extended completion period and a replacement
+  // of a transaction entered into on or after the period's 1 July are stated as meeting the condition, so the grant
+  // follows. The checkbox points to the rule, which keeps the Act's word 'transaction'.
+  assert.match(fhogHtml, /Tasmania only: the transaction meets the completion and replacement conditions set out for Tasmania below</);
+  assert.match(fhogHtml, /Tasmania: [^<]*completed within 24 months, or a period the Commissioner extends, and not replace a transaction for the same property, between or benefiting substantially the same parties, entered before 1 July 2025 for a 2025-26 contract or 1 July 2026 for a 2026-27 contract\.</);
+  assert.equal(fhogResult({ jurisdiction: 'AU-NT', home: 'established', 'fact-nt': false }).rows[0][1], '$0.00: the grant is for a new home only');
+  // S3: the prior ownership rules keep each jurisdiction's own period.
+  assert.match(fhogHtml, /Western Australia: none owned residential property on or after 1 July 2000 and lived in it for a continuous 6 months or more beginning on or after 1 July 2004\./);
+  assert.match(fhogHtml, /Tasmania: none owned a residential property before 1 July 2000, or owned and lived in one for more than 6 months after 1 July 2000\./);
+  // G2: duty shows only from a date the transfer duty calculator's general scale and first home buyer rules both cover.
+  const scaleFrom = {};
+  for (const line of readFileSync(new URL('../rates/transfer-duty/transfer-duty-rates.csv', import.meta.url), 'utf8').trim().split('\n').slice(1)) {
+    const [place, from] = line.split(',');
+    if (!(scaleFrom[place] >= from)) scaleFrom[place] = from;
+  }
+  const concessionFrom = { 'AU-QLD': '2025-05-01', 'AU-WA': '2026-05-07', 'AU-SA': '2025-02-13', 'AU-TAS': '2026-07-01', 'AU-ACT': '2026-07-01' };
+  for (const place of Object.keys(calculations.FHOG)) {
+    const floor = [calculations.FHOG_FIRST, scaleFrom[place], concessionFrom[place] ?? ''].sort().at(-1);
+    assert.equal(calculations.DUTY_FROM[place], floor, place);
+  }
+});
+
+test('first home owner grant amounts and caps change on the days their sources give', () => {
+  const grant = (place, date, home, value, north = false) => calculations.firstHomeOwnerGrant({ place, date, home, value, north,
+    facts: { person: true, citizen: true, first: true, residence: true, contract: true, nt: true, tas: true } }).grant;
+  assert.deepEqual([grant('AU-TAS', '2025-07-01', 'bought', '900000'), grant('AU-TAS', '2026-06-30', 'built', '900000'),
+    grant('AU-TAS', '2026-07-01', 'bought', '900000')], [30000, 30000, 20000]);
+  assert.deepEqual([grant('AU-WA', '2026-05-06', 'built', '750000'), grant('AU-WA', '2026-05-06', 'built', '750001'),
+    grant('AU-WA', '2026-05-07', 'built', '800000'), grant('AU-WA', '2026-05-07', 'built', '800001'),
+    grant('AU-WA', '2026-05-06', 'bought', '1000000', true), grant('AU-WA', '2026-05-07', 'bought', '1000001', true)], [10000, 0, 10000, 0, 10000, 0]);
+  assert.deepEqual([grant('AU-NSW', '2026-08-01', 'built', '750000'), grant('AU-NSW', '2026-08-01', 'built', '750001'),
+    grant('AU-NSW', '2026-08-01', 'bought', '600000'), grant('AU-NSW', '2026-08-01', 'bought', '600001')], [10000, 0, 10000, 0]);
+  // North of the 26th parallel counts only in Western Australia.
+  assert.equal(grant('AU-NSW', '2026-08-01', 'bought', '950000', true), 0);
+  assert.deepEqual([grant('AU-QLD', '2025-07-01', 'built', '749999'), grant('AU-QLD', '2026-11-22', 'built', '750000')], [30000, 0]);
+  assert.deepEqual([grant('AU-SA', '2025-07-01', 'bought', '1000000000'), grant('AU-NT', '2025-07-01', 'built', '1000000000')], [15000, 50000]);
+  for (const place of Object.keys(calculations.FHOG)) assert.equal(grant(place, '2026-08-01', 'established', '500000'), 0, place);
+});
+
 // The super lump sum tax page: how each call and result reads, its form and the command it ports,
 // run on the same cases.
 const sbtHtml = readFileSync(new URL('../_includes/calculators/super-benefit-tax.html', import.meta.url), 'utf8');

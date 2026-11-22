@@ -63,6 +63,7 @@ const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
+const fhog = { ...business, file: 'assets/first-home-owner-grant.mjs' };
 const sbt = { ...business, file: 'assets/super-benefit-tax.mjs' };
 const wet = { ...business, file: 'assets/wine-equalisation-tax.mjs' };
 const rental = { ...business, file: 'assets/rental-property.mjs' };
@@ -791,6 +792,26 @@ const MUTATIONS = [
   { ...lct, name: 'LCT 2 primary producer refunds pass', find: 'if (primary.length > 1) {', replace: 'if (primary.length > 2) {' },
   { ...lct, name: 'LCT a refund before 1 July 2019 passes', find: 'if (supplyYear(fields, n, year) < \'2019-20\') {', replace: 'if (supplyYear(fields, n, year) < \'2012-13\') {' },
   { ...lct, name: 'LCT an adjustment without its supply year takes the period', find: '&& !Object.hasOwn(fields, \'supplied_in\')) {\n    refuse(\'input.missing_field\'', replace: '&& false) {\n    refuse(\'input.missing_field\'' },
+  { ...fhog, name: 'FHOG NSW bought cap at $750,000', find: 'amount: 10000, bought: 600000, built: 750000 }', replace: 'amount: 10000, bought: 750000, built: 750000 }' },
+  { ...fhog, name: 'FHOG Queensland pays $15,000', find: 'amount: 30000, bought: 749999', replace: 'amount: 15000, bought: 749999' },
+  { ...fhog, name: 'FHOG Queensland pays at $750,000', find: 'bought: 749999, built: 749999', replace: 'bought: 750000, built: 750000' },
+  { ...fhog, name: 'FHOG WA keeps the $750,000 cap after 6 May 2026', find: 'amount: 10000, bought: 800000, built: 800000', replace: 'amount: 10000, bought: 750000, built: 750000' },
+  { ...fhog, name: 'FHOG WA old cap a day late', find: "to: '2026-05-06'", replace: "to: '2026-05-07'" },
+  { ...fhog, name: 'FHOG Tasmania keeps $30,000 from 1 July 2026', find: "to: '2027-06-30', amount: 20000", replace: "to: '2027-06-30', amount: 30000" },
+  { ...fhog, name: 'FHOG NT at $10,000', find: "to: '2027-09-30', amount: 50000", replace: "to: '2027-09-30', amount: 10000" },
+  { ...fhog, name: 'FHOG north of the 26th parallel everywhere', find: "place === 'AU-WA' && north ? rule.north", replace: 'north ? rule.north' },
+  { ...fhog, name: 'FHOG an established home gets the grant', find: "if (home === 'established') return", replace: 'if (false) return' },
+  { ...fhog, name: 'FHOG a value at the cap is refused the grant', find: 'dollars > limit) return', replace: 'dollars >= limit) return' },
+  { ...fhog, name: 'FHOG a home built needs no contract fact', find: "(f === 'contract' ? home === 'built'", replace: "(f === 'contract' ? false" },
+  { ...fhog, name: 'FHOG Western Australia assumes south', find: "if (place === 'AU-WA' && typeof north !== 'boolean') throw", replace: 'if (false) throw' },
+  { ...fhog, name: 'FHOG Tasmania pays the amount on a smaller consideration', find: "amount: 20000, lesser: true", replace: 'amount: 20000' },
+  { ...fhog, name: 'FHOG a home built takes the lesser of its total value', find: "if (home === 'built') throw", replace: 'if (false) throw' },
+  { ...fhog, name: 'FHOG the lesser of the consideration ignored', find: 'return { ...out, grant: dollars, cap,', replace: 'return { ...out, grant: rule.amount, cap,' },
+  { ...fhog, name: 'FHOG an unstated fact passes', find: 'facts?.[f] !== true);\n  if (missing.length)', replace: 'facts?.[f] === undefined);\n  if (missing.length)' },
+  { ...fhog, name: 'FHOG a contract before 1 July 2025 passes', find: "export const FHOG_FIRST = '2025-07-01';", replace: "export const FHOG_FIRST = '2025-01-01';" },
+  { ...fhog, name: 'FHOG WA duty before the first home owner rate', find: "'AU-WA': '2026-05-07'", replace: "'AU-WA': '2025-07-01'" },
+  { ...fhog, name: 'FHOG duty for a built home', find: "if (input.home === 'built') {", replace: 'if (false) {' },
+  { ...fhog, name: 'FHOG an established home takes the new home duty', find: "input.home === 'bought' ? 'new' : 'established'", replace: "'new'" },
   { ...sbt, name: 'SBT the proportioning rule truncates', find: 'const taxFree = ratioCents(benefit * interestFree, interest);', replace: 'const taxFree = (benefit * interestFree) / interest;' },
   { ...sbt, name: 'SBT 2026-27 keeps the 2025-26 untaxed plan cap', find: "'2026-27': 1935000 };", replace: "'2026-27': 1865000 };" },
   { ...sbt, name: 'SBT 2021-22 low rate cap at 2020-21', find: "'2021-22': 225000,", replace: "'2021-22': 215000," },

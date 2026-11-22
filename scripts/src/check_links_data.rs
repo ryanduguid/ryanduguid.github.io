@@ -14,7 +14,7 @@ pub const RETIRED_NAMES: [&str; 11] = [
     "LouisGoldberg",
 ];
 
-pub const CI_MANUAL_URLS: [&str; 20] = [
+pub const CI_MANUAL_URLS: [&str; 21] = [
     // Still timed out 4 times on hosted CI in run 44173032679 (18 November 2026).
     "https://softwaredevelopers.ato.gov.au/GDPupliftfactor",
     "https://softwaredevelopers.ato.gov.au/SuperStreamStandard",
@@ -28,6 +28,7 @@ pub const CI_MANUAL_URLS: [&str; 20] = [
     "https://www.sro.tas.gov.au/Documents/foreign-investor-duty-surcharge-foreign-person-guideline.pdf",
     "https://www.sro.tas.gov.au/Documents/foreign-investor-land-tax-surcharge-guideline.pdf",
     "https://www.sro.tas.gov.au/first-home-owner",
+    "https://www.sro.tas.gov.au/first-home-owner/eligibility",
     "https://www.sro.tas.gov.au/land-tax/exemptions-and-rebates",
     "https://www.sro.tas.gov.au/land-tax/foreign-investor-land-tax-surcharge/rate-of-surcharge",
     "https://www.sro.tas.gov.au/land-tax/rates-of-land-tax",

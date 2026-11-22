@@ -14,6 +14,7 @@ export { CALENDAR_END, NON_BUSINESS_WEEKDAYS, compoundedEarnings, paydaySuperDue
   from './sgc-payday.mjs';
 export { LSL_ACTS, LSL_REASONS, longServiceLeave, longServiceLeaveResult, lslReasonText } from './long-service-leave.mjs';
 export { FTC_FUELS, FTC_PERIODS, FTC_USES, fuelFormInput, fuelInputsText, fuelTaxCredits, fuelTaxCreditsResult } from './fuel-tax-credits.mjs';
+export { DUTY_FROM, FHOG, FHOG_CASE_FACTS, FHOG_FACTS, FHOG_FIRST, FHOG_HOMES, FHOG_LAST, fhogFormInput, fhogInputsText, firstHomeOwnerGrant, firstHomeOwnerGrantResult } from './first-home-owner-grant.mjs';
 export { SBT_LOW_RATE_CAP, SBT_RECIPIENTS, SBT_UNTAXED_PLAN_CAP, SBT_YEARS, sbtFormInput, sbtInputsText, superBenefitTax, superBenefitTaxResult }
   from './super-benefit-tax.mjs';
 export { LCT_CLAIMANTS, LCT_KINDS, LCT_THRESHOLDS, LCT_YEARS, lctFormInput, lctInputsText, luxuryCarTax, luxuryCarTaxResult } from './luxury-car-tax.mjs';

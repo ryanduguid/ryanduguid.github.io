@@ -1637,10 +1637,33 @@ test('business days skip Melbourne Cup Day in Victoria offline and refuse a date
   await expect(output).toHaveText('This page has public holidays from 1 January 2026 to 31 August 2027 for Victoria; choose dates in that range.');
 });
 
+// The first home owner grant page: its New South Wales example, Western Australia's northern cap
+// once its location is chosen, with the duty beside it, and the refusal when a fact is not stated.
+test('first home owner grant page works its example, a northern WA home and a refusal offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/first-home-owner-grant/');
+  const form = page.locator('#first-home-owner-grant form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('First home owner grant: $10,000.00.');
+  await expect(form.locator('output')).toContainText('General transfer duty on the same value: $21,187.00.');
+  await form.getByLabel('Western Australia', { exact: true }).check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('Not computed: choose where the Western Australian home is, south or north of the 26th parallel.');
+  await form.getByLabel('North of the 26th parallel', { exact: true }).check();
+  await form.getByLabel('Total value of the home and land (whole dollars)').fill('950000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('First home owner grant: $10,000.00.');
+  await expect(form.locator('output')).toContainText('Value cap: up to $1,000,000.');
+  await form.locator('[name="fact-residence"]').uncheck();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('Not computed: the grant and the first home buyer duty need every eligibility fact stated; not stated: the residence requirement will be met.');
+});
+
 // Each calculator opens on a fictional example, its first boundary case, already worked.
 const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'fixed-fee', 'variance', 'loan', 'hire-purchase', 'div7a',
   'fbt-car', 'vehicle-class', 'pcg-2021-4', 'pcg-2021-4-allocation', 'gic-payment-plan', 'staff', 'cash', 'objection-deadline', 'payg-instalments',
-  'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
+  'termination-payment', 'transfer-duty', 'first-home-owner-grant', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
   'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property'];
