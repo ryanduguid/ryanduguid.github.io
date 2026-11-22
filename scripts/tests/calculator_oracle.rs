@@ -8122,7 +8122,8 @@ fn small_business_pool_case(rng: &mut Seeded, year: &str) -> (Value, Value) {
         // The one case the engine refuses (backing business investment): move it off zero.
         opening += 1;
     }
-    let amount = i128::try_from(opening + additions + improved).unwrap() - i128::try_from(termination).unwrap();
+    let amount = i128::try_from(opening + additions + improved).unwrap()
+        - i128::try_from(termination).unwrap();
     let positive = u128::try_from(amount.max(0)).unwrap();
     // The low pool value deduction, the 3 rated deductions, their total, assessable income and the closing balance.
     let (mut low_pool, mut pool, mut newer, mut added) = (0, 0, 0, 0);
@@ -8201,8 +8202,17 @@ fn the_depreciation_pools_engine_agrees_with_the_oracle_on_every_seeded_case() {
             }
         })
         .unzip();
-    let figure = |key: &str| expected.iter().any(|want| want[key].as_str().is_some_and(|value| value != "0"));
-    assert!(figure("assessableIncome") && figure("lowPoolValueDeduction") && figure("poolDeduction") && figure("assessableExcess"));
+    let figure = |key: &str| {
+        expected
+            .iter()
+            .any(|want| want[key].as_str().is_some_and(|value| value != "0"))
+    };
+    assert!(
+        figure("assessableIncome")
+            && figure("lowPoolValueDeduction")
+            && figure("poolDeduction")
+            && figure("assessableExcess")
+    );
     let actual = run_node(POOL_HARNESS, &cases);
     assert_eq!(actual.len(), POOL_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
