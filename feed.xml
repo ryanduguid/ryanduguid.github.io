@@ -33,7 +33,7 @@
     <link href="https://duguid.com.au/changelog/#entry-66d6b3ccfb7b3df4" />
     <id>https://duguid.com.au/changelog/#entry-66d6b3ccfb7b3df4</id>
     <updated>2026-11-22T00:00:00Z</updated>
-    <summary>A new business calculator works out a low-value pool (18.75% and 37.5%), a general small business pool (15% and 30%, with the low pool value write-off of $20,000 from 2023-24 and no limit from 2020-21 to 2022-23) or a Division 43 capital works deduction (2.5% or 4%) for an income year from 2020-21 to 2026-27. It agrees with the australian-accounting commands on every recorded case. The depreciation rates page links to it.</summary>
+    <summary>A new business calculator works out a low-value pool (18.75% and 37.5%), a general small business pool (15% and 30%, with a low pool value below $20,000 written off from 2023-24 and no limit from 2020-21 to 2022-23) or a Division 43 capital works deduction (2.5% or 4%) for an income year from 2020-21 to 2026-27. It agrees with the australian-accounting commands on every recorded case. The depreciation rates page links to it.</summary>
   </entry>
   <entry>
     <title>The site's software now uses the Apache License 2.0. Ryan Duguid's original…</title>
