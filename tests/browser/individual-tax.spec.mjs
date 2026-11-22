@@ -173,6 +173,35 @@ test('a foreign resident pays no Medicare levy or surcharge and gets no offset',
     'A foreign resident gets no low income tax offset and pays no Medicare levy or surcharge.');
 });
 
+test('the private health insurance rebate refunds at nil income, the zone questions follow the area, and a loading is refused offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/income-tax/');
+  const form = page.locator('#income-tax form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  // G1: nil income in 2025-26, $1,000 of premiums under code 30 and no rebate received: 24.288% is refunded.
+  await form.locator('input[name=year][value="2025-26"]').check();
+  await form.getByLabel('Taxable income (whole dollars)').fill('0');
+  await form.getByLabel('Reportable fringe benefits total (whole dollars)').fill('0');
+  await expect(form.locator('#income-tax-phi-lines')).toBeHidden();
+  await form.locator('input[name=phi][value=yes]').check();
+  await form.locator('#income-tax-phi-lines').fill('30 1000 0');
+  await calculate.click();
+  await expect(row('Private health insurance tax offset, refundable')).toHaveText('$242.88');
+  // Overseas forces asks only for the days; a zone also asks about residence.
+  await form.locator('input[name=zone][value=overseas_forces]').check();
+  await expect(form.locator('#income-tax-zone-days')).toBeVisible();
+  await expect(form.locator('#income-tax-zone-allowance')).toBeHidden();
+  await form.locator('input[name=zone][value=zone_a]').check();
+  await expect(form.locator('#income-tax-zone-allowance')).toBeVisible();
+  await form.locator('input[name=zone][value=none]').check();
+  await expect(form.locator('#income-tax-zone-days')).toBeHidden();
+  await form.locator('input[name=phi-loading][value=yes]').check();
+  await calculate.click();
+  await expect(form.locator('output')).toContainText('Lifetime health cover loading is outside the rebate');
+});
+
 test('income tests count section 57A benefits at 53% and refuse a person not resident all year offline', async ({ page, context }) => {
   await page.goto('/tools/individual-tax/income-tests/');
   const form = page.locator('#income-tests form');
