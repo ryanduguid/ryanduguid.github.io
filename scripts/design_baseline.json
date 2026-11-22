@@ -312,7 +312,7 @@
       "a6c04ae01301516be667643b6b3b9ec122cacadea03403d4ac3cc38fb4187c19"
     ],
     "tools/individual-tax/income-tax/index.html": [
-      "98166cb8a84440b4e239297314c70117548772f9f32dbda73dbc66896875a06e"
+      "bba858972dd984c6ffbaba30ec511be8d047d3adfd9e523e9ec3d24fdfb8336c"
     ],
     "tools/individual-tax/income-tests/index.html": [
       "2b60af6e2154ba6a3a2435a632963b2e376fe33f608f0fa90d482a67986c7744"
@@ -408,7 +408,7 @@
   "protected_files": {
     "llms.txt": "a2e4cb846aa29050992d79000c3eb43eb2d75cf9b559711a70e2f1bc2bcc9b44",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "edd44008422e04b4c9474f09014983a8200e71b39369b1db55453ddfb2bd0753"
+    "sitemap.xml": "4658c75d5a3511ef71991c3bd099e13bd9fae156b32dee1aafdba719eff6dbf0"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
