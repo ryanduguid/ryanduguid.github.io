@@ -8,6 +8,13 @@
   <updated>2026-11-22T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new business calculator works out one residential rental property’s income…</title>
+    <link href="https://duguid.com.au/changelog/#entry-147ef5b5c7974011" />
+    <id>https://duguid.com.au/changelog/#entry-147ef5b5c7974011</id>
+    <updated>2026-11-22T00:00:00Z</updated>
+    <summary>A new business calculator works out one residential rental property’s income and deductions for one owner and income year from 2020-21 to 2026-27: expenses apportioned by the days let or available, interest on a loan used partly for the rental, capital works at 2.5% or 4% within the undeducted construction expenditure, decline in value with section 40-27’s nil for second-hand assets, the net rent and, from 2024-25, its effect on tax at the resident scale. It reproduces the ATO’s Rental properties guide 2026 worked examples, read on 22 November 2026, and agrees with the rental-property command of the australian-accounting calculators on every tested case.</summary>
+  </entry>
+  <entry>
     <title>A new business calculator, ASIC fees, lists ASIC’s fees from 1 July 2026 to…</title>
     <link href="https://duguid.com.au/changelog/#entry-fda19fda16b59f1d" />
     <id>https://duguid.com.au/changelog/#entry-fda19fda16b59f1d</id>
