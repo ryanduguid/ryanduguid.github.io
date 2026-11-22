@@ -623,90 +623,64 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# Super lump sum tax calculator: components, caps, death benefits
+# Redundancy and ETP withholding calculator for 2026-27
 
-Source: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
+Source: https://duguid.com.au/tools/business-calculators/termination-payment/
 
-> Tax on a super lump sum for 2020-21 to 2026-27: components by the proportioning rule, the low rate and untaxed plan caps, and death benefits.
+> The tax-free part of a genuine redundancy payment, the ETP and whole-of-income caps, and the PAYG to withhold from an ETP under Schedule 11, for 2026-27.
 
-# Super lump sum tax calculator
+# Redundancy and ETP withholding
 
-The components of a super lump sum and the most income tax each part can bear.
+The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
 
-Published 22 November 2026. Last checked 22 November 2026.
+Published 15 November 2026. Last checked 15 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-One super lump sum from a complying fund
+Inputs for one life benefit ETP paid in 2026-27
 
-Payment date
+Genuine redundancy or early retirement scheme payment, before its tax-free part (AUD) Completed years of service Other code R taxable component: invalidity, or compensation for personal injury, unfair dismissal, harassment or discrimination (AUD) Code O taxable component: golden handshake, gratuity, non-genuine redundancy, severance pay, payment in lieu of notice, unused sick leave or unused rostered days off (AUD) Other taxable payments you made to the employee in 2026-27, excluding the ETP (AUD) Employee’s date of birth
 
-Income year of the payment 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+For an employee who has given you their TFN. Unused annual leave, leave loading and long service leave are not ETPs and are withheld under Schedule 7, but count them in other taxable payments, as Schedule 11’s example 3 counts $50,000 of leave entitlements paid as a lump sum.
 
-Paid to The member A death benefits dependant A non-dependant, after the member’s death
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: genuine redundancy or early retirement scheme payment $48,000.00 after 5 completed years of service, other code R taxable component $0.00, code O taxable component $17,678.00, other taxable payments in 2026-27 $140,000.00, born 1 Aug 1996. Tax-free limit $47,603.00 Tax-free part of the redundancy payment $47,603.00 Code R taxable component $397.00 Withhold from the code R part $127.00 Whole-of-income cap left $40,000.00 Cap for the code O part $40,000.00 Withhold from the code O part $5,657.00 Total to withhold $5,784.00 Under preservation age on 30 June 2027: 32% within each cap and 47% above it.
 
-Lump sum (AUD) Value of the super interest just before the payment (AUD) The interest’s tax free component (AUD) Element untaxed in the fund, in the lump sum (AUD)
+This is the payer’s withholding under Schedule 11, a payroll and practitioner task; it does not estimate the employee’s take-home pay or the tax assessed on their return.
 
-Untaxed element from service before 1 July 1983? Choose No Yes
+## How the redundancy and ETP withholding calculator works
 
-The member Date of birth Terminal medical condition?Choose No Yes Disability superannuation benefit?Choose No Yes Low rate cap amount used in earlier years (AUD) Other lump sums this income year at preservation age to 59?Choose No Yes Untaxed plan cap amount used, from this plan (AUD)
+The redundancy and ETP withholding calculator works out how much a payer withholds from one life benefit employment termination payment (ETP) made in 2026-27. A genuine redundancy or early retirement scheme payment is tax-free up to $13,598 plus $6,801 for each completed year of service. The part above that limit is a code R ETP, as are payments for invalidity and compensation for personal injury, unfair dismissal, harassment or discrimination. The code R part is withheld at the rate within the cap up to the $270,000 ETP cap and at 47% above it.
 
-Calculate
+The rest of the ETP is code O: a golden handshake, gratuity, non-genuine redundancy payment, severance pay, payment in lieu of notice, unused sick leave or unused rostered days off. Its cap is the smaller of the ETP cap left after the code R part and the whole-of-income cap, which is $180,000 less the other taxable payments you made to the employee in the year. The rate within the cap is 17% if the employee is their preservation age or older on 30 June 2027, otherwise 32%; 47% applies above the cap.
 
-## What the inputs need
+Schedule 11’s example 4 takes Alec, 30, made redundant after 5 years of service with a $48,000 genuine redundancy payment and a $17,678 gratuity, having been paid $140,000 of salary and wages in the year. It works out a $397 ETP over the $47,603 tax-free limit, withholds $127 from it and $5,657 from the gratuity within the $40,000 whole-of-income cap. This calculator opens on those figures, with a date of birth that makes Alec 30, and gives the same amounts.
 
-For one lump sum from a complying fund paid on a condition of release: not a roll-over, an income stream commutation or a payment in breach of the payment rules. The fund states the interest’s value and tax free component just before the payment, and the untaxed element.
+## What the redundancy and ETP withholding calculator does not cover
 
-The lump sum’s tax free component is its share of the interest’s, rounded to the cent; the rest is taxable, taxed in the fund except the untaxed element. Leave that at 0 for a fund that pays tax on its income, as most do.
-
-Needed only with an untaxed element. An untaxed element from service before 1 July 1983 is refused: part of it then becomes tax free under section 307-150.
-
-You decide whether the person is a death benefits dependant: a spouse or former spouse, a child under 18, someone interdependent with or dependent on the member, or anyone if the member died in the line of duty (section 302-195).
-
-Two registered medical practitioners, one a specialist, certify death is likely within 24 months. A disability superannuation benefit is refused: section 307-145 enlarges its tax free component.
-
-The low rate cap applies only at preservation age and under 60, which from 1 July 2024 no one is. Enter the amounts counted for earlier lump sums. Other lump sums at that age in the same year share the cap, so they are refused while any is left.
-
-Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; member; paid 1 October 2026; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00. Tax free component $30,000.00 Taxable component: element taxed in the fund $190,000.00 Taxable component: element untaxed in the fund $80,000.00 Untaxed element within the untaxed plan cap left, $80,000.00 at no more than 15% $12,000.00 Assessable income $80,000.00 Not assessable income and not exempt income $220,000.00 Most income tax on the lump sum, before Medicare levy $12,000.00 Untaxed plan cap amount counted $80,000.00 Aged 62 on the payment date, preservation age 59: 60 or over, so only the untaxed element is assessable (ss 301-10 and 301-95).
-
-## How the super lump sum tax calculator works
-
-The super lump sum tax calculator splits one lump sum from a complying fund, paid from 1 July 2020 to 30 June 2027, into its components. It gives the most income tax each part can bear before the Medicare levy. A member’s treatment turns on age on the payment day and preservation age; a death benefit’s turns on whether the person receiving it is a death benefits dependant. Each rate is a ceiling: the offsets stop the tax on a part going above it, so a person on lower marginal rates pays less, and the Medicare levy is added on top.
-
-Its results match the super-benefit-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 532 test cases, refusals included.
-
-## What the super lump sum tax calculator does not cover
-
-The calculator does not work the tax at the person’s own marginal rates, the Medicare levy, the amount the fund withholds, income streams, roll-overs, departing Australia superannuation payments, death benefits paid to a deceased estate, or payments from a non-complying or foreign fund. It does not decide dependency, a terminal medical condition, the components or the elements: you state those. It refuses a disability superannuation benefit, an untaxed element from service before 1 July 1983, and other lump sums in the same year that share the low rate cap.
-
-Confirm the result with the fund, the ATO’s guidance on super lump sums or a registered tax agent before relying on it. The redundancy and ETP withholding calculator covers employment termination payments.
+The calculator does not decide whether a termination is a genuine redundancy, whether a payment is an ETP or which code applies. It takes the taxable component as you enter it and does not work out a tax-free component other than the redundancy limit, such as an invalidity segment. It covers one life benefit ETP for one termination: not death benefit ETPs, delayed termination payments, a later instalment for the same termination, an earlier ETP in the same year, an employee who has not given you their TFN, a foreign resident or a working holiday maker. It does not work out withholding on unused leave, which Schedule 7 covers. Confirm the figures with Schedule 11 or a registered tax agent.
 
 ## Boundary cases
 
 Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
 
-Boundary cases: Super lump sum tax calculator
+Boundary cases: Redundancy and ETP withholding
 
 Case | Inputs | Result
-Schedule 12’s Chloe, 62, takes $300,000 in 2026-27 with an $80,000 untaxed element: $12,000 at 15% before the Medicare levy | 2026-27; member; paid 1 October 2026; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00 | most tax $12,000.00, assessable $80,000.00, not assessable $220,000.00
-The ATO’s Tony, at preservation age 58, takes $350,000 in 2021-22: $225,000 of the taxed element within the low rate cap at 0% and $25,000 at 15% | 2021-22; member; paid 25 July 2021; lump sum $350,000.00 from an interest of $350,000.00 with $100,000.00 tax free; untaxed element $0.00; born 1 March 1963; low rate cap used $0.00; no other lump sums this year | most tax $3,750.00, assessable $250,000.00, not assessable $100,000.00
-The ATO’s Mei, 60, pays at most 15% on her $205,000 untaxed element and nothing on the rest | 2021-22; member; paid 25 September 2021; lump sum $380,000.00 from an interest of $380,000.00 with $45,000.00 tax free; untaxed element $205,000.00; born 1 June 1961; no service before 1 July 1983; untaxed plan cap used $0.00 | most tax $30,750.00, assessable $205,000.00, not assessable $175,000.00
-The ATO’s Frankie, under preservation age, pays at most 20% on the taxed element and 30% on the untaxed element | 2022-23; member; paid 1 October 2022; lump sum $70,000.00 from an interest of $70,000.00 with $5,000.00 tax free; untaxed element $20,000.00; born 1 May 1977; no service before 1 July 1983; untaxed plan cap used $0.00 | most tax $15,000.00, assessable $65,000.00, not assessable $5,000.00
-The ATO’s Peta has used both caps: 15% on the taxed element and the top rate of 45% on the untaxed element | 2020-21; member; paid 1 December 2020; lump sum $105,000.00 from an interest of $105,000.00 with $20,000.00 tax free; untaxed element $45,000.00; born 1 March 1961; no service before 1 July 1983; low rate cap used $215,000.00; no other lump sums this year; untaxed plan cap used $1,565,000.00 | most tax $26,250.00, assessable $85,000.00, not assessable $20,000.00
-At preservation age the untaxed element takes the low rate cap the taxed element leaves (section 301-105(6)): $25,000 at 15% and $75,000 at 30% | 2021-22; member; paid 1 August 2021; lump sum $300,000.00 from an interest of $300,000.00 with $0.00 tax free; untaxed element $100,000.00; born 10 January 1963; no service before 1 July 1983; low rate cap used $0.00; no other lump sums this year; untaxed plan cap used $0.00 | most tax $26,250.00, assessable $300,000.00, not assessable $0.00
-A death benefit to a non-dependant: 15% on the taxed element and 30% on the untaxed element (section 302-145) | 2026-27; non-dependant; paid 1 October 2026; lump sum $500,000.00 from an interest of $500,000.00 with $100,000.00 tax free; untaxed element $100,000.00; no service before 1 July 1983 | most tax $75,000.00, assessable $400,000.00, not assessable $100,000.00
-A death benefit to a death benefits dependant is tax free (section 302-60) | 2026-27; death benefits dependant; paid 1 October 2026; lump sum $500,000.00 from an interest of $500,000.00 with $100,000.00 tax free; untaxed element $100,000.00; no service before 1 July 1983 | most tax $0.00, assessable $0.00, not assessable $500,000.00
-Other lump sums in the same year share the low rate cap, which the page does not take | 2021-22; member; paid 1 October 2021; lump sum $1,500.00 from an interest of $1,500.00 with $0.00 tax free; untaxed element $500.00; born 1 January 1963; no service before 1 July 1983; low rate cap used $224,999.99; other lump sums this year; untaxed plan cap used $0.00 | Refused: other lump sums received in the same income year at or above preservation age and under 60 share the year’s low rate cap left, the taxed element first whatever the order of payment (ITAA 1997 ss 301-20(3) and 301-105(5) and (6)), which this calculator does not take; with none of the cap left they do not change the result
-2027-28’s untaxed plan cap is not yet published | 2027-28; member; paid 1 October 2027; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00 | Refused: choose an income year from 2020-21 to 2026-27; the untaxed plan cap for 2027-28 is not yet published
+Schedule 11’s example 4, Alec: the redundancy payment over its tax-free part first, then the gratuity | Redundancy payment $48,000.00 after 5 years, other code R $0.00, code O $17,678.00, other payments $140,000.00, born 1 August 1996 | Tax-free limit $47,603.00, tax-free part $47,603.00, code R taxable component $397.00, withheld from code R $127.00, whole-of-income cap left $40,000.00, code O cap $40,000.00, withheld from code O $5,657.00, total withheld $5,784.00
+Schedule 11’s example 3, Chris: a golden handshake over the whole-of-income cap | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $120,000.00, other payments $100,000.00, born 1 August 1996 | Whole-of-income cap left $80,000.00, code O cap $80,000.00, withheld from code O $44,400.00, total withheld $44,400.00
+The code R part uses up the ETP cap left for the code O part | Redundancy payment $0.00 after 0 years, other code R $250,000.00, code O $50,000.00, other payments $0.00, born 1 August 1996 | Withheld from code R $80,000.00, whole-of-income cap left $180,000.00, code O cap $20,000.00, withheld from code O $20,500.00, total withheld $100,500.00
+Preservation age 60 reached on 30 June 2027, the year’s last day | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $10,000.00, other payments $0.00, born 30 June 1967 | Withheld from code O $1,700.00, total withheld $1,700.00
+Born a day later, still under preservation age | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $10,000.00, other payments $0.00, born 1 July 1967 | Withheld from code O $3,200.00, total withheld $3,200.00
+Withholding of exactly $8.50 rounds up to the next dollar | Redundancy payment $0.00 after 0 years, other code R $0.00, code O $50.00, other payments $0.00, born 30 June 1960 | Withheld from code O $9.00, total withheld $9.00
+Part years of service are refused | Redundancy payment $48,000.00 after 5.5 years, other code R $0.00, code O $0.00, other payments $0.00, born 1 August 1996 | Refused: enter a whole number between 0 and 150
 
 One of the fifty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; each amount withheld rounds to the nearest dollar, with 50 cents rounded up.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
-- australian-accounting: https://github.com/ryanduguid/australian-accounting
-- redundancy and ETP withholding calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
+- Schedule 11: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-11-tax-table-for-employment-termination-payments
 - fifty business calculators: https://duguid.com.au/tools/business-calculators/

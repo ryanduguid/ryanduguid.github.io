@@ -975,6 +975,87 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
+# Depreciation pools and capital works, 2020-21 to 2026-27
+
+Source: https://duguid.com.au/tools/business-calculators/depreciation-pools/
+
+> The low-value pool at 18.75% and 37.5%, the general small business pool at 15% and 30% with the low pool value write-off, and capital works at 2.5% or 4%.
+
+# Depreciation pools and capital works calculator
+
+Low-value and small business pools and capital works, 2020-21 to 2026-27.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One pool or capital works area for a year
+
+Work out A low-value pool A general small business pool A capital works deduction
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Low-value pool, each amount at its taxable use percentage (section 40-435)
+
+Closing pool balance for the previous year (AUD) Cost of low-cost assets allocated this year (AUD) Opening adjustable values of low-value assets allocated this year (AUD) Second element costs for the year (AUD) Termination values of pooled assets disposed of this year (AUD)
+
+Calculate
+
+Enter each pool amount after applying the taxable use percentage or taxable purpose proportion. The days for capital works run from the later of 1 July and the day construction began, to 30 June: 365, or 366 in 2023-24.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26 low-value pool; previous closing pool balance $5,000.00, low-cost assets $594.00, low-value assets $0.00, second element costs $0.00, termination values $0.00. Decline for low-cost assets and second elements, at 18.75% $111.38 Decline for the pool and low-value assets, at 37.5% $1,875.00 Decline in value, the deduction $1,986.38 Closing pool balance before disposals $3,607.62 Closing pool balance $3,607.62 The decline is rounded to the cent once, after its 2 parts are added.
+
+## How the depreciation pools calculator works
+
+The calculator works one of 3 Division 40, Subdivision 328-D or Division 43 worksheets for an income year from 2020-21 to 2026-27. A low-value pool declines by 18.75% of the low-cost assets and second element costs added in the year, and by 37.5% of the previous closing pool balance and the low-value assets added (section 40-440). The 2 parts are added before rounding. Termination values reduce the closing balance, and any excess over it is assessable income (section 40-445).
+
+A general small business pool first adds the opening balance, the year’s additions and cost additions, less termination values (subsection 328-210(2)). An amount above zero and below the year’s low pool value threshold is deducted in full and the pool closes at zero: $20,000 from 2023-24, and no limit from 2020-21 to 2022-23. An amount below zero is assessable income (section 328-215). Otherwise the deduction is 30% of the opening balance and 15% of the additions and cost additions (section 328-190), each rounded to the cent. The ATO’s example of Loretta’s pool, with a $100,000 opening balance, $28,000 of additions and an $8,000 sale, gives a $34,200 deduction and an $85,800 closing balance.
+
+A capital works deduction is your construction expenditure times the days used over 365, at 4% for a part used in the 4% manner or else 2.5%, then reduced to the taxable use and limited to the undeducted construction expenditure (section 43-210, or section 43-215 for works begun from 16 September 1987 to 26 February 1992). The ATO’s example 29 in Rental properties 2026, $115,800 for 346 days at 2.5%, gives $2,744.
+
+## What the depreciation pools calculator does not cover
+
+The calculator does not decide which assets may go into a pool, whether you are a small business entity that chose simplified depreciation, or each asset’s taxable use: you enter the amounts after those choices. It does not work out temporary full expensing of individual assets from 2020-21 to 2022-23, the instant asset write-off or backing business investment, and refuses the one 2020-21 small business pool case where the 57.5% rate could apply. It leaves out the change of business use adjustment, roll-over relief, the car limit and balancing adjustments outside a pool. For capital works it refuses works begun before 16 September 1987 and the 4% rate for works begun before 27 February 1992, and does not decide whether the works qualify, work out the undeducted construction expenditure or split it amongst co-owners. Results are planning estimates: check them against your records and the ATO’s guidance.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Depreciation pools and capital works calculator
+
+Case | Inputs | Result
+The ATO’s John, Guide to depreciating assets 2026: a $594 printer into a $5,000 pool, decline $1,986 | 2025-26 low-value pool; previous closing pool balance $5,000.00, low-cost assets $594.00, low-value assets $0.00, second element costs $0.00, termination values $0.00 | decline in value $1,986.38, closing pool balance $3,607.62, assessable excess $0.00
+The ATO’s low-value pool examples 2 and 3: 37.5% of $3,608 is $1,353, then a $300 sale leaves $1,955 | 2021-22 low-value pool; previous closing pool balance $3,608.00, low-cost assets $0.00, low-value assets $0.00, second element costs $0.00, termination values $300.00 | decline in value $1,353.00, closing pool balance $1,955.00, assessable excess $0.00
+Low-value assets at 37.5% and second element costs at 18.75% | 2026-27 low-value pool; previous closing pool balance $1,000.00, low-cost assets $0.00, low-value assets $800.00, second element costs $400.00, termination values $0.00 | decline in value $750.00, closing pool balance $1,450.00, assessable excess $0.00
+Termination values above the balance are assessable (section 40-445) | 2023-24 low-value pool; previous closing pool balance $1,000.00, low-cost assets $0.00, low-value assets $0.00, second element costs $0.00, termination values $1,000.00 | decline in value $375.00, closing pool balance $0.00, assessable excess $375.00
+The ATO’s Loretta: 30% of $100,000 and 15% of $28,000 after an $8,000 sale, deduction $34,200 | 2025-26 small business pool; opening pool balance $100,000.00, additions $28,000.00, cost additions $0.00, termination values $8,000.00 | deduction $34,200.00, assessable income $0.00, closing pool balance $85,800.00
+Cassidy’s Gardens, the section 328-210 example: a $15,700 low pool value is written off | 2024-25 small business pool; opening pool balance $28,500.00, additions $16,800.00, cost additions $0.00, termination values $29,600.00 | deduction $15,700.00, assessable income $0.00, closing pool balance $0.00
+LCR 2021/3 example 13: in 2020-21 a $200,000 pool is written off | 2020-21 small business pool; opening pool balance $200,000.00, additions $0.00, cost additions $0.00, termination values $0.00 | deduction $200,000.00, assessable income $0.00, closing pool balance $0.00
+A $20,000 pool in 2023-24 is not below the threshold: 30% | 2023-24 small business pool; opening pool balance $20,000.00, additions $0.00, cost additions $0.00, termination values $0.00 | deduction $6,000.00, assessable income $0.00, closing pool balance $14,000.00
+A $19,999.99 pool in 2023-24 is written off | 2023-24 small business pool; opening pool balance $19,999.99, additions $0.00, cost additions $0.00, termination values $0.00 | deduction $19,999.99, assessable income $0.00, closing pool balance $0.00
+Termination values above the pool: the shortfall is assessable (section 328-215) | 2026-27 small business pool; opening pool balance $10,000.00, additions $0.00, cost additions $0.00, termination values $15,000.00 | deduction $0.00, assessable income $5,000.00, closing pool balance $0.00
+A deduction above the low pool value amount: the excess is assessable | 2026-27 small business pool; opening pool balance $1,000,000.00, additions $0.00, cost additions $0.00, termination values $950,000.00 | deduction $300,000.00, assessable income $250,000.00, closing pool balance $0.00
+The ATO’s example 29, Rental properties 2026: $115,800 at 2.5% for 346 days, $2,744 | 2025-26 capital works; construction expenditure $115,800.00, begun 1 August 1991, not used in the 4% manner, 346 days used, taxable use 100%, undeducted construction expenditure $20,000.00 | deduction $2,744.30
+366 days in 2023-24 over 365 | 2023-24 capital works; construction expenditure $365,000.00, begun 1 January 2010, not used in the 4% manner, 366 days used, taxable use 100%, undeducted construction expenditure $300,000.00 | deduction $9,150.00
+4% at half taxable use | 2026-27 capital works; construction expenditure $1,000,000.00, begun 1 January 2024, used in the 4% manner, 365 days used, taxable use 50%, undeducted construction expenditure $900,000.00 | deduction $20,000.00
+Limited to the undeducted construction expenditure | 2025-26 capital works; construction expenditure $100,000.00, begun 1 January 1990, not used in the 4% manner, 365 days used, taxable use 100%, undeducted construction expenditure $1,000.00 | deduction $1,000.00
+2019-20 is refused | 2019-20 low-value pool; previous closing pool balance $1,000.00, low-cost assets $0.00, low-value assets $0.00, second element costs $0.00, termination values $0.00 | Refused: choose an income year from 2020-21 to 2026-27
+2020-21 with a nil amount and additions is refused: backing business investment | 2020-21 small business pool; opening pool balance $0.00, additions $1,000.00, cost additions $0.00, termination values $1,000.00 | Refused: in 2020-21 a pool whose section 328-210(2) amount is exactly zero deducts 15% of additions, which backing business investment may rate at 57.5% instead; this calculator does not work that out
+Works begun on 15 September 1987 are refused | 2025-26 capital works; construction expenditure $100,000.00, begun 15 September 1987, not used in the 4% manner, 365 days used, taxable use 100%, undeducted construction expenditure $100,000.00 | Refused: capital works begun before 16 September 1987 (the 4% rate from 22 August 1984 and the earlier rules of section 43-215) are outside this calculator
+4% for works begun on 26 February 1992 is refused | 2025-26 capital works; construction expenditure $100,000.00, begun 26 February 1992, used in the 4% manner, 365 days used, taxable use 100%, undeducted construction expenditure $100,000.00 | Refused: capital works begun before 27 February 1992 have only the 2.5% rate (section 43-215 step 1(b)); the 4% manner (section 43-145) is for works begun later
+
+One of the fifty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- fifty business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
 # Division 7A minimum yearly repayment calculator
 
 Source: https://duguid.com.au/tools/business-calculators/div7a/

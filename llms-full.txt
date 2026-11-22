@@ -5560,11 +5560,11 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
-22 November 2026 | A new business calculator works out the tax on one superannuation lump sum from a complying fund paid in 2020-21 to 2026-27: its tax free component by the proportioning rule, its elements taxed and untaxed in the fund, and the most income tax each part can bear before the Medicare levy, for a member by age and preservation age with the low rate cap and untaxed plan cap, and for a death benefit to a dependant or a non-dependant. The Act and the ATO’s caps were read on 22 November 2026; the page reproduces the ATO’s examples and agrees with the super-benefit-tax command of the australian-accounting calculators on every tested case.
 22 November 2026 | A new individual tax calculator, work expenses, works an employee’s working from home, car and self-education expenses for 2020-21 to 2026-27. It sets the working from home fixed rate (52c with a dedicated home office or the 80c shortcut to 2021-22, then 67c and 70c from 1 July 2024) beside the actual cost and names the higher, counts the first 5,000 business kilometres at the year’s cents per kilometre rate, takes a log book’s business use percentage, and applies the $250 reduction to a prescribed course of education to 2021-22. It refuses reimbursed expenses, allowances and an expired or short log book, and leaves out occupancy expenses.
 22 November 2026 | A new business calculator works out luxury car tax on a tax period’s sales and importations in 2019-20 to 2026-27: the threshold or fuel-efficient car limit for the year of each supply (from 2012-13 for an adjustment), the 3.5 litre rating from 1 July 2025 and the 7 litre rating it keeps for a car supplied or imported and used other than for a quotable purpose before then, the price and change of use adjustments, the primary producer and tourism operator refunds of up to $10,000 and the amounts for labels 1E and 1F. The Act and the ATO’s rate and threshold table were read on 22 November 2026, and the page opens on the ATO’s examples of Matty Bee Motors’ $2,157.30 and Jimmy’s Mustang’s $6,207.30.
 22 November 2026 | A new business calculator, ASIC fees, lists ASIC’s fees from 1 July 2026 to register a company, reserve a company name, pay the annual review fee and register or renew a business name, with no GST. For a due date and the day ASIC received a review fee payment or a document, both in 2026-27, it gives the late fee: $102 within one month after the due date and $428 after that, counting the month as section 2G of the Acts Interpretation Act 1901 does. It takes the due date as given and declines a case that a weekend due date or month end could change.
 22 November 2026 | A new business calculator works out wine equalisation tax for a tax period’s dealings in 2023-24 to 2027-28: 29% of a wholesale sale’s price, of half the retail price or of the average wholesale price for retail sales and own use, of the purchase price for own use of wine bought under quote, and nil on a sale under quote. It gives the producer rebate on each dealing that meets the conditions of section 19-5, within the year’s cap of $350,000, or $400,000 for dealings from 1 July 2026, less the rebates already claimed, and labels 1C and 1D in whole dollars. It reproduces the ATO’s worked examples and rebate table, read on 22 November 2026, and agrees with the wine-equalisation-tax command of the australian-accounting calculators on every tested case.
+22 November 2026 | A new business calculator works out a low-value pool (18.75% and 37.5%), a general small business pool (15% and 30%, with a low pool value below $20,000 written off from 2023-24 and no limit from 2020-21 to 2022-23) or a Division 43 capital works deduction (2.5% or 4%) for an income year from 2020-21 to 2026-27. It agrees with the australian-accounting commands on every recorded case. The depreciation rates page links to it.
 21 November 2026 | The site's software now uses the Apache License 2.0. Ryan Duguid's original page text uses Creative Commons Attribution 4.0. The site licence notice identifies the terms for data, artwork and third-party material.
 20 November 2026 | A new business calculator keeps a company’s franking account for 2025-26 or 2026-27 under Division 205 of the Income Tax Assessment Act 1997: each credit and debit on its day with a running balance, the R&D deferral, refunds in the 3 months after the year’s end taken back into it, franking deficit tax and its offset with the 30% reduction worked only on the part the company’s own debits cause, the benchmark rule’s over-franking tax and under-franking debit in each franking period, the significant variation test and the franking return’s labels and due date. The Act and the ATO’s Franking account tax return 2026 instructions were read on 19 November 2026, and the page opens on the ATO’s example of EKW Ltd’s $62,000 offset.
 19 November 2026 | A super projection calculator. It projects one accumulation account from 2026-27 to retirement, a year at a time, with the 12% super guarantee up to the maximum contribution base, 15% contributions tax, fees and premiums and their tax deduction, and gives the balance in future dollars and at its present value. Its defaults follow ASIC’s Instrument 2022/603 (retirement at 67, today’s dollars at 3.7% a year) and ASIC’s own stated assumptions for returns, fees and premiums; each is listed with why it is reasonable and can be changed.
@@ -6359,6 +6359,7 @@ Published 11 September 2026. Last checked 22 November 2026, the newest of the ca
 - Hire purchase and chattel mortgage schedule The same schedule for a hire purchase agreement or chattel mortgage, with the interest by income year and a journal for each payment.
 - AASB 16 lease calculator A lessee’s lease liability, right-of-use asset, interest and depreciation by income year, with the journals, beside hire purchase and buying outright after GST and tax.
 - Borrowing expenses calculator Section 25-25 borrowing expenses by income year from 2017-18, spread by days, with the $100 rule, refinancing and an optional AASB 9 column.
+- Depreciation pools and capital works calculator A low-value pool at 18.75% and 37.5%, a general small business pool at 15% and 30% with the low pool value write-off, or a capital works deduction at 2.5% or 4%, for 2020-21 to 2026-27.
 
 ## Division 7A, FBT, professional firms and GIC
 
@@ -6395,7 +6396,6 @@ Published 11 September 2026. Last checked 22 November 2026, the newest of the ca
 - SGC and Payday Super calculator When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.
 - Long service leave calculator One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.
 - Workers compensation premium calculator A 2026-27 premium from the declared wages and the insurer’s rate under each state and territory’s scheme, with GST, duty and the actual wages adjustment, each step cited.
-- Super lump sum tax The components of a super lump sum and the most tax each part can bear, for members and death benefits, 2020-21 to 2026-27.
 
 ## Objections, instalments, termination, land tax, duty, business days and ASIC fees
 
@@ -6430,6 +6430,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Hire purchase and chattel mortgage schedule: https://duguid.com.au/tools/business-calculators/hire-purchase/
 - AASB 16 lease calculator: https://duguid.com.au/tools/business-calculators/lease/
 - Borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
+- Depreciation pools and capital works calculator: https://duguid.com.au/tools/business-calculators/depreciation-pools/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - FBT car parking calculator: https://duguid.com.au/tools/business-calculators/fbt-car-parking/
@@ -6454,7 +6455,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
 - Long service leave calculator: https://duguid.com.au/tools/business-calculators/long-service-leave/
 - Workers compensation premium calculator: https://duguid.com.au/tools/business-calculators/workers-compensation/
-- Super lump sum tax: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
 - PAYG instalments calculator: https://duguid.com.au/tools/business-calculators/payg-instalments/
 - Fuel tax credit calculator: https://duguid.com.au/tools/business-calculators/fuel-tax-credits/
@@ -6483,7 +6483,7 @@ The Income Tax Assessment (Effective Life of Depreciating Assets) Determination 
 
 General information, not tax advice. The search and the calculator run in your browser. The figures you enter stay there unless you open a link to the calculation. A search is kept in the page address so that it can be linked. An address holding a search or a calculation reaches this site’s host when it is opened.
 
-Published 14 November 2026. Last reviewed 14 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Last reviewed 22 November 2026. Sources checked 13 November 2026.
 
 On this page: find an asset, browse the tables, work out a year’s deduction, which determination applies, how a life becomes a rate, capped lives, pools, write-offs and the car limit, capital works, common questions, source and licence, changes and corrections and limits.
 
@@ -6940,7 +6940,7 @@ Tractor | Primary production sector | 6 2/3 years | 1 July 2007
 
 ## Pools, write-offs and the car limit
 
-Four rules can replace or limit a deduction worked out from an effective life. Each is stated from the law in force on 1 October 2026, with the ATO’s figure where one is named.
+Four rules can replace or limit a deduction worked out from an effective life. Each is stated from the law in force on 1 October 2026, with the ATO’s figure where one is named. The depreciation pools calculator works out a low-value pool or a general small business pool for 2020-21 to 2026-27.
 
 ### Low-value pool
 
@@ -6966,7 +6966,7 @@ The cost of a car designed mainly for carrying passengers is reduced to the car 
 
 Construction costs of capital works are deducted under Division 43 and not by effective life: 2.5% a year for works begun after 26 February 1992, or 4% for parts used in the ways Table 43-145 lists (section 43-25). Those uses include short-term traveller accommodation and industrial activities and, for works begun after 7:30 pm by legal time in the Australian Capital Territory on 9 May 2023, build to rent.
 
-Works begun before 27 February 1992 and used as Table 43-140 describes take 4% if begun after 21 August 1984 and before 16 September 1987, and 2.5% in any other case (subsection 43-25(2)). The ATO’s Rental properties 2026 guide shows no deduction for construction started before 22 August 1979. No deduction is available for a period before construction is complete (section 43-30).
+Works begun before 27 February 1992 and used as Table 43-140 describes take 4% if begun after 21 August 1984 and before 16 September 1987, and 2.5% in any other case (subsection 43-25(2)). The ATO’s Rental properties 2026 guide shows no deduction for construction started before 22 August 1979. No deduction is available for a period before construction is complete (section 43-30). The depreciation pools calculator works out a capital works deduction for works begun from 16 September 1987.
 
 ## Common questions
 
@@ -7004,6 +7004,7 @@ The rules beyond the tables were read on 13 November 2026 in the Income Tax Asse
 
 Changes to this page are listed here, newest first.
 
+- 22 November 2026: the pools and capital works sections link to the new depreciation pools calculator.
 - 14 November 2026: the calculator takes a taxable use percentage and shows both methods side by side, and a drawn schedule can be copied as a citation or a link, downloaded as CSV or printed; the citation gives the day the determination was read and what subsection 40-95(2) means for the start date. The page names the determination in full as LI 2025/20 and says when TR 2022/1 was withdrawn.
 - 14 November 2026: published with the 7,430 lives of the 2025 determination, read on 13 November 2026.
 
@@ -7280,6 +7281,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Effective life determinations, rulings and law: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/general-depreciation-rules-capital-allowances/effective-life-of-an-asset/effective-life-determinations-rulings-and-law
 - TR 2022/1W: https://www.ato.gov.au/law/view/document?docid=TXR/TR20221W/NAT/ATO/00001
 - LI 2025/20: https://www.ato.gov.au/law/view/document?docid=OPS/LI202520/00001
+- depreciation pools calculator: https://duguid.com.au/tools/business-calculators/depreciation-pools/
 - Car limit for depreciation: https://duguid.com.au/rates/car-limit/
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/
@@ -10506,6 +10508,87 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
+# Depreciation pools and capital works, 2020-21 to 2026-27
+
+Source: https://duguid.com.au/tools/business-calculators/depreciation-pools/
+
+> The low-value pool at 18.75% and 37.5%, the general small business pool at 15% and 30% with the low pool value write-off, and capital works at 2.5% or 4%.
+
+# Depreciation pools and capital works calculator
+
+Low-value and small business pools and capital works, 2020-21 to 2026-27.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One pool or capital works area for a year
+
+Work out A low-value pool A general small business pool A capital works deduction
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Low-value pool, each amount at its taxable use percentage (section 40-435)
+
+Closing pool balance for the previous year (AUD) Cost of low-cost assets allocated this year (AUD) Opening adjustable values of low-value assets allocated this year (AUD) Second element costs for the year (AUD) Termination values of pooled assets disposed of this year (AUD)
+
+Calculate
+
+Enter each pool amount after applying the taxable use percentage or taxable purpose proportion. The days for capital works run from the later of 1 July and the day construction began, to 30 June: 365, or 366 in 2023-24.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26 low-value pool; previous closing pool balance $5,000.00, low-cost assets $594.00, low-value assets $0.00, second element costs $0.00, termination values $0.00. Decline for low-cost assets and second elements, at 18.75% $111.38 Decline for the pool and low-value assets, at 37.5% $1,875.00 Decline in value, the deduction $1,986.38 Closing pool balance before disposals $3,607.62 Closing pool balance $3,607.62 The decline is rounded to the cent once, after its 2 parts are added.
+
+## How the depreciation pools calculator works
+
+The calculator works one of 3 Division 40, Subdivision 328-D or Division 43 worksheets for an income year from 2020-21 to 2026-27. A low-value pool declines by 18.75% of the low-cost assets and second element costs added in the year, and by 37.5% of the previous closing pool balance and the low-value assets added (section 40-440). The 2 parts are added before rounding. Termination values reduce the closing balance, and any excess over it is assessable income (section 40-445).
+
+A general small business pool first adds the opening balance, the year’s additions and cost additions, less termination values (subsection 328-210(2)). An amount above zero and below the year’s low pool value threshold is deducted in full and the pool closes at zero: $20,000 from 2023-24, and no limit from 2020-21 to 2022-23. An amount below zero is assessable income (section 328-215). Otherwise the deduction is 30% of the opening balance and 15% of the additions and cost additions (section 328-190), each rounded to the cent. The ATO’s example of Loretta’s pool, with a $100,000 opening balance, $28,000 of additions and an $8,000 sale, gives a $34,200 deduction and an $85,800 closing balance.
+
+A capital works deduction is your construction expenditure times the days used over 365, at 4% for a part used in the 4% manner or else 2.5%, then reduced to the taxable use and limited to the undeducted construction expenditure (section 43-210, or section 43-215 for works begun from 16 September 1987 to 26 February 1992). The ATO’s example 29 in Rental properties 2026, $115,800 for 346 days at 2.5%, gives $2,744.
+
+## What the depreciation pools calculator does not cover
+
+The calculator does not decide which assets may go into a pool, whether you are a small business entity that chose simplified depreciation, or each asset’s taxable use: you enter the amounts after those choices. It does not work out temporary full expensing of individual assets from 2020-21 to 2022-23, the instant asset write-off or backing business investment, and refuses the one 2020-21 small business pool case where the 57.5% rate could apply. It leaves out the change of business use adjustment, roll-over relief, the car limit and balancing adjustments outside a pool. For capital works it refuses works begun before 16 September 1987 and the 4% rate for works begun before 27 February 1992, and does not decide whether the works qualify, work out the undeducted construction expenditure or split it amongst co-owners. Results are planning estimates: check them against your records and the ATO’s guidance.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Depreciation pools and capital works calculator
+
+Case | Inputs | Result
+The ATO’s John, Guide to depreciating assets 2026: a $594 printer into a $5,000 pool, decline $1,986 | 2025-26 low-value pool; previous closing pool balance $5,000.00, low-cost assets $594.00, low-value assets $0.00, second element costs $0.00, termination values $0.00 | decline in value $1,986.38, closing pool balance $3,607.62, assessable excess $0.00
+The ATO’s low-value pool examples 2 and 3: 37.5% of $3,608 is $1,353, then a $300 sale leaves $1,955 | 2021-22 low-value pool; previous closing pool balance $3,608.00, low-cost assets $0.00, low-value assets $0.00, second element costs $0.00, termination values $300.00 | decline in value $1,353.00, closing pool balance $1,955.00, assessable excess $0.00
+Low-value assets at 37.5% and second element costs at 18.75% | 2026-27 low-value pool; previous closing pool balance $1,000.00, low-cost assets $0.00, low-value assets $800.00, second element costs $400.00, termination values $0.00 | decline in value $750.00, closing pool balance $1,450.00, assessable excess $0.00
+Termination values above the balance are assessable (section 40-445) | 2023-24 low-value pool; previous closing pool balance $1,000.00, low-cost assets $0.00, low-value assets $0.00, second element costs $0.00, termination values $1,000.00 | decline in value $375.00, closing pool balance $0.00, assessable excess $375.00
+The ATO’s Loretta: 30% of $100,000 and 15% of $28,000 after an $8,000 sale, deduction $34,200 | 2025-26 small business pool; opening pool balance $100,000.00, additions $28,000.00, cost additions $0.00, termination values $8,000.00 | deduction $34,200.00, assessable income $0.00, closing pool balance $85,800.00
+Cassidy’s Gardens, the section 328-210 example: a $15,700 low pool value is written off | 2024-25 small business pool; opening pool balance $28,500.00, additions $16,800.00, cost additions $0.00, termination values $29,600.00 | deduction $15,700.00, assessable income $0.00, closing pool balance $0.00
+LCR 2021/3 example 13: in 2020-21 a $200,000 pool is written off | 2020-21 small business pool; opening pool balance $200,000.00, additions $0.00, cost additions $0.00, termination values $0.00 | deduction $200,000.00, assessable income $0.00, closing pool balance $0.00
+A $20,000 pool in 2023-24 is not below the threshold: 30% | 2023-24 small business pool; opening pool balance $20,000.00, additions $0.00, cost additions $0.00, termination values $0.00 | deduction $6,000.00, assessable income $0.00, closing pool balance $14,000.00
+A $19,999.99 pool in 2023-24 is written off | 2023-24 small business pool; opening pool balance $19,999.99, additions $0.00, cost additions $0.00, termination values $0.00 | deduction $19,999.99, assessable income $0.00, closing pool balance $0.00
+Termination values above the pool: the shortfall is assessable (section 328-215) | 2026-27 small business pool; opening pool balance $10,000.00, additions $0.00, cost additions $0.00, termination values $15,000.00 | deduction $0.00, assessable income $5,000.00, closing pool balance $0.00
+A deduction above the low pool value amount: the excess is assessable | 2026-27 small business pool; opening pool balance $1,000,000.00, additions $0.00, cost additions $0.00, termination values $950,000.00 | deduction $300,000.00, assessable income $250,000.00, closing pool balance $0.00
+The ATO’s example 29, Rental properties 2026: $115,800 at 2.5% for 346 days, $2,744 | 2025-26 capital works; construction expenditure $115,800.00, begun 1 August 1991, not used in the 4% manner, 346 days used, taxable use 100%, undeducted construction expenditure $20,000.00 | deduction $2,744.30
+366 days in 2023-24 over 365 | 2023-24 capital works; construction expenditure $365,000.00, begun 1 January 2010, not used in the 4% manner, 366 days used, taxable use 100%, undeducted construction expenditure $300,000.00 | deduction $9,150.00
+4% at half taxable use | 2026-27 capital works; construction expenditure $1,000,000.00, begun 1 January 2024, used in the 4% manner, 365 days used, taxable use 50%, undeducted construction expenditure $900,000.00 | deduction $20,000.00
+Limited to the undeducted construction expenditure | 2025-26 capital works; construction expenditure $100,000.00, begun 1 January 1990, not used in the 4% manner, 365 days used, taxable use 100%, undeducted construction expenditure $1,000.00 | deduction $1,000.00
+2019-20 is refused | 2019-20 low-value pool; previous closing pool balance $1,000.00, low-cost assets $0.00, low-value assets $0.00, second element costs $0.00, termination values $0.00 | Refused: choose an income year from 2020-21 to 2026-27
+2020-21 with a nil amount and additions is refused: backing business investment | 2020-21 small business pool; opening pool balance $0.00, additions $1,000.00, cost additions $0.00, termination values $1,000.00 | Refused: in 2020-21 a pool whose section 328-210(2) amount is exactly zero deducts 15% of additions, which backing business investment may rate at 57.5% instead; this calculator does not work that out
+Works begun on 15 September 1987 are refused | 2025-26 capital works; construction expenditure $100,000.00, begun 15 September 1987, not used in the 4% manner, 365 days used, taxable use 100%, undeducted construction expenditure $100,000.00 | Refused: capital works begun before 16 September 1987 (the 4% rate from 22 August 1984 and the earlier rules of section 43-215) are outside this calculator
+4% for works begun on 26 February 1992 is refused | 2025-26 capital works; construction expenditure $100,000.00, begun 26 February 1992, used in the 4% manner, 365 days used, taxable use 100%, undeducted construction expenditure $100,000.00 | Refused: capital works begun before 27 February 1992 have only the 2.5% rate (section 43-215 step 1(b)); the 4% manner (section 43-145) is for works begun later
+
+One of the fifty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- fifty business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
 # Division 7A minimum yearly repayment calculator
 
 Source: https://duguid.com.au/tools/business-calculators/div7a/
@@ -11865,96 +11948,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fifty business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# Super lump sum tax calculator: components, caps, death benefits
-
-Source: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
-
-> Tax on a super lump sum for 2020-21 to 2026-27: components by the proportioning rule, the low rate and untaxed plan caps, and death benefits.
-
-# Super lump sum tax calculator
-
-The components of a super lump sum and the most income tax each part can bear.
-
-Published 22 November 2026. Last checked 22 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-One super lump sum from a complying fund
-
-Payment date
-
-Income year of the payment 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
-
-Paid to The member A death benefits dependant A non-dependant, after the member’s death
-
-Lump sum (AUD) Value of the super interest just before the payment (AUD) The interest’s tax free component (AUD) Element untaxed in the fund, in the lump sum (AUD)
-
-Untaxed element from service before 1 July 1983? Choose No Yes
-
-The member Date of birth Terminal medical condition?Choose No Yes Disability superannuation benefit?Choose No Yes Low rate cap amount used in earlier years (AUD) Other lump sums this income year at preservation age to 59?Choose No Yes Untaxed plan cap amount used, from this plan (AUD)
-
-Calculate
-
-## What the inputs need
-
-For one lump sum from a complying fund paid on a condition of release: not a roll-over, an income stream commutation or a payment in breach of the payment rules. The fund states the interest’s value and tax free component just before the payment, and the untaxed element.
-
-The lump sum’s tax free component is its share of the interest’s, rounded to the cent; the rest is taxable, taxed in the fund except the untaxed element. Leave that at 0 for a fund that pays tax on its income, as most do.
-
-Needed only with an untaxed element. An untaxed element from service before 1 July 1983 is refused: part of it then becomes tax free under section 307-150.
-
-You decide whether the person is a death benefits dependant: a spouse or former spouse, a child under 18, someone interdependent with or dependent on the member, or anyone if the member died in the line of duty (section 302-195).
-
-Two registered medical practitioners, one a specialist, certify death is likely within 24 months. A disability superannuation benefit is refused: section 307-145 enlarges its tax free component.
-
-The low rate cap applies only at preservation age and under 60, which from 1 July 2024 no one is. Enter the amounts counted for earlier lump sums. Other lump sums at that age in the same year share the cap, so they are refused while any is left.
-
-Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; member; paid 1 October 2026; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00. Tax free component $30,000.00 Taxable component: element taxed in the fund $190,000.00 Taxable component: element untaxed in the fund $80,000.00 Untaxed element within the untaxed plan cap left, $80,000.00 at no more than 15% $12,000.00 Assessable income $80,000.00 Not assessable income and not exempt income $220,000.00 Most income tax on the lump sum, before Medicare levy $12,000.00 Untaxed plan cap amount counted $80,000.00 Aged 62 on the payment date, preservation age 59: 60 or over, so only the untaxed element is assessable (ss 301-10 and 301-95).
-
-## How the super lump sum tax calculator works
-
-The super lump sum tax calculator splits one lump sum from a complying fund, paid from 1 July 2020 to 30 June 2027, into its components. It gives the most income tax each part can bear before the Medicare levy. A member’s treatment turns on age on the payment day and preservation age; a death benefit’s turns on whether the person receiving it is a death benefits dependant. Each rate is a ceiling: the offsets stop the tax on a part going above it, so a person on lower marginal rates pays less, and the Medicare levy is added on top.
-
-Its results match the super-benefit-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 532 test cases, refusals included.
-
-## What the super lump sum tax calculator does not cover
-
-The calculator does not work the tax at the person’s own marginal rates, the Medicare levy, the amount the fund withholds, income streams, roll-overs, departing Australia superannuation payments, death benefits paid to a deceased estate, or payments from a non-complying or foreign fund. It does not decide dependency, a terminal medical condition, the components or the elements: you state those. It refuses a disability superannuation benefit, an untaxed element from service before 1 July 1983, and other lump sums in the same year that share the low rate cap.
-
-Confirm the result with the fund, the ATO’s guidance on super lump sums or a registered tax agent before relying on it. The redundancy and ETP withholding calculator covers employment termination payments.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Super lump sum tax calculator
-
-Case | Inputs | Result
-Schedule 12’s Chloe, 62, takes $300,000 in 2026-27 with an $80,000 untaxed element: $12,000 at 15% before the Medicare levy | 2026-27; member; paid 1 October 2026; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00 | most tax $12,000.00, assessable $80,000.00, not assessable $220,000.00
-The ATO’s Tony, at preservation age 58, takes $350,000 in 2021-22: $225,000 of the taxed element within the low rate cap at 0% and $25,000 at 15% | 2021-22; member; paid 25 July 2021; lump sum $350,000.00 from an interest of $350,000.00 with $100,000.00 tax free; untaxed element $0.00; born 1 March 1963; low rate cap used $0.00; no other lump sums this year | most tax $3,750.00, assessable $250,000.00, not assessable $100,000.00
-The ATO’s Mei, 60, pays at most 15% on her $205,000 untaxed element and nothing on the rest | 2021-22; member; paid 25 September 2021; lump sum $380,000.00 from an interest of $380,000.00 with $45,000.00 tax free; untaxed element $205,000.00; born 1 June 1961; no service before 1 July 1983; untaxed plan cap used $0.00 | most tax $30,750.00, assessable $205,000.00, not assessable $175,000.00
-The ATO’s Frankie, under preservation age, pays at most 20% on the taxed element and 30% on the untaxed element | 2022-23; member; paid 1 October 2022; lump sum $70,000.00 from an interest of $70,000.00 with $5,000.00 tax free; untaxed element $20,000.00; born 1 May 1977; no service before 1 July 1983; untaxed plan cap used $0.00 | most tax $15,000.00, assessable $65,000.00, not assessable $5,000.00
-The ATO’s Peta has used both caps: 15% on the taxed element and the top rate of 45% on the untaxed element | 2020-21; member; paid 1 December 2020; lump sum $105,000.00 from an interest of $105,000.00 with $20,000.00 tax free; untaxed element $45,000.00; born 1 March 1961; no service before 1 July 1983; low rate cap used $215,000.00; no other lump sums this year; untaxed plan cap used $1,565,000.00 | most tax $26,250.00, assessable $85,000.00, not assessable $20,000.00
-At preservation age the untaxed element takes the low rate cap the taxed element leaves (section 301-105(6)): $25,000 at 15% and $75,000 at 30% | 2021-22; member; paid 1 August 2021; lump sum $300,000.00 from an interest of $300,000.00 with $0.00 tax free; untaxed element $100,000.00; born 10 January 1963; no service before 1 July 1983; low rate cap used $0.00; no other lump sums this year; untaxed plan cap used $0.00 | most tax $26,250.00, assessable $300,000.00, not assessable $0.00
-A death benefit to a non-dependant: 15% on the taxed element and 30% on the untaxed element (section 302-145) | 2026-27; non-dependant; paid 1 October 2026; lump sum $500,000.00 from an interest of $500,000.00 with $100,000.00 tax free; untaxed element $100,000.00; no service before 1 July 1983 | most tax $75,000.00, assessable $400,000.00, not assessable $100,000.00
-A death benefit to a death benefits dependant is tax free (section 302-60) | 2026-27; death benefits dependant; paid 1 October 2026; lump sum $500,000.00 from an interest of $500,000.00 with $100,000.00 tax free; untaxed element $100,000.00; no service before 1 July 1983 | most tax $0.00, assessable $0.00, not assessable $500,000.00
-Other lump sums in the same year share the low rate cap, which the page does not take | 2021-22; member; paid 1 October 2021; lump sum $1,500.00 from an interest of $1,500.00 with $0.00 tax free; untaxed element $500.00; born 1 January 1963; no service before 1 July 1983; low rate cap used $224,999.99; other lump sums this year; untaxed plan cap used $0.00 | Refused: other lump sums received in the same income year at or above preservation age and under 60 share the year’s low rate cap left, the taxed element first whatever the order of payment (ITAA 1997 ss 301-20(3) and 301-105(5) and (6)), which this calculator does not take; with none of the cap left they do not change the result
-2027-28’s untaxed plan cap is not yet published | 2027-28; member; paid 1 October 2027; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00 | Refused: choose an income year from 2020-21 to 2026-27; the untaxed plan cap for 2027-28 is not yet published
-
-One of the fifty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- australian-accounting: https://github.com/ryanduguid/australian-accounting
-- redundancy and ETP withholding calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
 - fifty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---

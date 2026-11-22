@@ -43,6 +43,13 @@
     <summary>A new business calculator works out wine equalisation tax for a tax period’s dealings in 2023-24 to 2027-28: 29% of a wholesale sale’s price, of half the retail price or of the average wholesale price for retail sales and own use, of the purchase price for own use of wine bought under quote, and nil on a sale under quote. It gives the producer rebate on each dealing that meets the conditions of section 19-5, within the year’s cap of $350,000, or $400,000 for dealings from 1 July 2026, less the rebates already claimed, and labels 1C and 1D in whole dollars. It reproduces the ATO’s worked examples and rebate table, read on 22 November 2026, and agrees with the wine-equalisation-tax command of the australian-accounting calculators on every tested case.</summary>
   </entry>
   <entry>
+    <title>A new business calculator works out a low-value pool (18.75% and 37.5%), a…</title>
+    <link href="https://duguid.com.au/changelog/#entry-66d6b3ccfb7b3df4" />
+    <id>https://duguid.com.au/changelog/#entry-66d6b3ccfb7b3df4</id>
+    <updated>2026-11-22T00:00:00Z</updated>
+    <summary>A new business calculator works out a low-value pool (18.75% and 37.5%), a general small business pool (15% and 30%, with a low pool value below $20,000 written off from 2023-24 and no limit from 2020-21 to 2022-23) or a Division 43 capital works deduction (2.5% or 4%) for an income year from 2020-21 to 2026-27. It agrees with the australian-accounting commands on every recorded case. The depreciation rates page links to it.</summary>
+  </entry>
+  <entry>
     <title>The site's software now uses the Apache License 2.0. Ryan Duguid's original…</title>
     <link href="https://duguid.com.au/changelog/#entry-f413dedb8f24f405" />
     <id>https://duguid.com.au/changelog/#entry-f413dedb8f24f405</id>
