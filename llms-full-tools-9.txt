@@ -802,4 +802,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
