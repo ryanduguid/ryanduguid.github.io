@@ -221,6 +221,9 @@
     "tools/business-calculators/long-service-leave/index.html": [
       "82ce9cc18a397702a9ff1bf6c9aeabd661e73592a9ea8fe3b7781422895f4278"
     ],
+    "tools/business-calculators/luxury-car-tax/index.html": [
+      "aa64115f63ffddc33bb43b51e72d26adfb662e7e31d074f24825bdf1151fd72c"
+    ],
     "tools/business-calculators/margin/index.html": [
       "0405f7f6b46102d0a58f67be6febab087ef4ef2609b18624e479c59be22518bb"
     ],
@@ -295,9 +298,6 @@
     ],
     "tools/individual-tax/fhss/index.html": [
       "17dcd0204b9a84a38aab7dcd7e1270022b2fa898ce850c32dfa56c1e31723c07"
-    ],
-    "tools/individual-tax/government-super/index.html": [
-      "a6c04ae01301516be667643b6b3b9ec122cacadea03403d4ac3cc38fb4187c19"
     ],
     "tools/individual-tax/income-tax/index.html": [
       "98166cb8a84440b4e239297314c70117548772f9f32dbda73dbc66896875a06e"
@@ -391,9 +391,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "7649892f191281b93bb074d7ac5ce5becea8af620bffafe372d086d77e7f6afb",
+    "llms.txt": "d2725de08e9476b4c672e073a20727aaca0fd4f4b1d43f266904f4e55c2d26d5",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "f924f6278da74a21dc44acffd2755f972af124f7ca5cd70620bc3199d748f2c0"
+    "sitemap.xml": "ab59d67dad1defe3febcc156569a6eddcbc1432eb6e3af372a717eb5d93debad"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
