@@ -1075,6 +1075,25 @@ test('fuel tax credit page works its example, a line from its cost and a refusal
 
 // The ATO's rebate table for 2026-27 (QC22758) is the form's default; the average wholesale price method is
 // refused for wine that is not grape wine (section 9-30).
+// The guide's Example 33 worksheet with $90,000 of other income is the form's default; a holiday home whose costs
+// section 26-50 denies is refused.
+test('rental property page works the guide’s Example 33, lists each deduction and refuses a holiday home offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/rental-property/');
+  const form = page.locator('#rental-property form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Net rent, a loss if negative: −$10,893.33.');
+  await expect(form.locator('output')).toContainText('Less tax because of the rental, more if negative: $3,267.90.');
+  const deductions = form.locator('table[data-results="deductions"]');
+  await expect(deductions).toBeVisible();
+  await expect(deductions.locator('tbody tr', { hasText: 'Capital works 1:' }).locator('td')).toHaveText('$2,744.30');
+  await form.locator('input[name="holiday"][value="yes"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Section 26-50 denies the costs of owning a holiday home');
+  await expect(deductions).toBeHidden();
+});
+
 test('wine equalisation tax page works the ATO’s rebate table, shows each dealing and refuses the average method for other wine offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/wine-equalisation-tax/');
   const form = page.locator('#wine-equalisation-tax form');
@@ -1500,7 +1519,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
-  'workers-compensation', 'fuel-tax-credits', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees'];
+  'workers-compensation', 'fuel-tax-credits', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'rental-property'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
