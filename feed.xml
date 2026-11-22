@@ -8,11 +8,11 @@
   <updated>2026-11-22T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
-    <title>A new business calculator works out one residential rental property’s income…</title>
-    <link href="https://duguid.com.au/changelog/#entry-147ef5b5c7974011" />
-    <id>https://duguid.com.au/changelog/#entry-147ef5b5c7974011</id>
+    <title>A new individual tax calculator, work expenses, works an employee’s working…</title>
+    <link href="https://duguid.com.au/changelog/#entry-adfa1976f0648b30" />
+    <id>https://duguid.com.au/changelog/#entry-adfa1976f0648b30</id>
     <updated>2026-11-22T00:00:00Z</updated>
-    <summary>A new business calculator works out one residential rental property’s income and deductions for one owner and income year from 2020-21 to 2026-27: expenses apportioned by the days let or available, interest on a loan used partly for the rental, capital works at 2.5% or 4% within the undeducted construction expenditure, decline in value with section 40-27’s nil for second-hand assets, the net rent and, from 2024-25, its effect on tax at the resident scale. It reproduces the ATO’s Rental properties guide 2026 worked examples, read on 22 November 2026, and agrees with the rental-property command of the australian-accounting calculators on every tested case.</summary>
+    <summary>A new individual tax calculator, work expenses, works an employee’s working from home, car and self-education expenses for 2020-21 to 2026-27. It sets the working from home fixed rate (52c with a dedicated home office or the 80c shortcut to 2021-22, then 67c and 70c from 1 July 2024) beside the actual cost and names the higher, counts the first 5,000 business kilometres at the year’s cents per kilometre rate, takes a log book’s business use percentage, and applies the $250 reduction to a prescribed course of education to 2021-22. It refuses reimbursed expenses, allowances and an expired or short log book, and leaves out occupancy expenses.</summary>
   </entry>
   <entry>
     <title>A new business calculator works out luxury car tax on a tax period’s sales and…</title>

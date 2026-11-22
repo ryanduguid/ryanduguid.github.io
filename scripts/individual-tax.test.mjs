@@ -20,12 +20,16 @@ import { superProjection } from '../assets/super-projection.mjs';
 import { fhss } from '../assets/fhss.mjs';
 import { fhssFormFacts, fhssResult } from '../assets/fhss-result.mjs';
 import './fhss.test.mjs';
+import { workExpenses } from '../assets/work-expenses.mjs';
+import { workExpensesFormFacts, workExpensesResult } from '../assets/work-expenses-result.mjs';
+import './work-expenses.test.mjs';
 
 import { bonusWithholding } from '../assets/bonus-withholding.mjs';
 import { salaryPackaging } from '../assets/salary-packaging.mjs';
 import { FUEL_EFFICIENT_THRESHOLD, novatedLease } from '../assets/novated-lease.mjs';
 const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAside, lumpSumArrears, division293Tax, incomeTests, concessionalCatchUp,
-  bonusWithholding, salaryPackaging, novatedLease, superProjection, fhssAmounts: (facts) => fhss(facts).amounts };
+  bonusWithholding, salaryPackaging, novatedLease, superProjection, fhssAmounts: (facts) => fhss(facts).amounts,
+  workExpenses };
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -48,7 +52,23 @@ const INCOME_TEST_LABELS = { taxable: 'taxable', fhss: 'FHSS', familyTrust: 'fam
 const signed = (value) => (value < 0 ? `-${whole(-value)}` : whole(value));
 
 // How each row's call reads on the page and how its result reads, so neither can drift from the engine.
+const CONNECTION = { maintains_or_improves_skills: 'skills for current work', increases_income: 'likely to increase income',
+  general_only: 'general only', new_employment: 'new employment' };
+const HOME_INPUT = { energy: 'energy', phone: 'phone', internet: 'internet', stationery: 'stationery', cleaning: 'cleaning',
+  furniture_decline: 'furniture decline', asset_decline: 'other assets’ decline', repairs: 'repairs' };
+const HOME_OUTPUT = { fixed_rate: 'fixed rate', shortcut: 'shortcut', actual_cost: 'actual cost' };
 const INPUTS = {
+  workExpenses: (f) => `${f.year}, ` + ({
+    home_office: () => `working from home, ${Number(f.hours).toLocaleString('en-AU')} hours`
+      + Object.entries(HOME_INPUT).filter(([key]) => Number(f[key])).map(([key, label]) => `, ${label} ${dollars(f[key])}`).join('')
+      + `${f.running_expenses_incurred ? '' : ', no additional running expenses'}${f.dedicated_home_office === false ? ', no dedicated home office' : ''}`,
+    car_cents_per_kilometre: () => `cents per kilometre, ${Number(f.business_kilometres).toLocaleString('en-AU')} business km`,
+    car_log_book: () => `log book kept ${f.log_book_year} for ${f.log_book_weeks} weeks, ${Number(f.business_kilometres).toLocaleString('en-AU')} `
+      + `of ${Number(f.total_kilometres).toLocaleString('en-AU')} km, car expenses ${dollars(f.car_expenses)}`,
+    self_education: () => `self-education, ${CONNECTION[f.connection]}${f.employed_when_incurred ? '' : ', not employed'}, `
+      + `A ${dollars(f.category_a)}, B ${dollars(f.category_b)}, C ${dollars(f.category_c)}, D ${dollars(f.category_d)}`
+      + `${f.prescribed_course === undefined ? '' : f.prescribed_course ? `, prescribed course, E ${dollars(f.category_e)}` : ', not a prescribed course'}`,
+  })[f.method](),
   fhssAmounts: (f) => `ATO determination: concessional ${dollars(f.concessional)}, non-concessional ${dollars(f.nonConcessional)}, earnings ${dollars(f.associatedEarnings)}`
     + (f.actualRelease ? `, requested ${dollars(f.requestedAmount)} on ${f.releaseRequestDate}, gross released ${dollars(f.actualRelease)}` : ''),
   taxEstimate: (r) => `${r.year}, ${RESIDENCY[r.residency]}, ${parts(r)}${r.studyLoan ? ', study loan' : ''}`
@@ -100,6 +120,16 @@ const INPUTS = {
       .join(', '),
 };
 const OUTPUTS = {
+  workExpenses: (r) => ({
+    home_office: () => `${r.methodsAvailable.map((m) => `${HOME_OUTPUT[m]} ${dollars(r.amounts[`${m}_method`])}`).join(', ').replace(/^./, (c) => c.toUpperCase())}; `
+      + `higher ${HOME_OUTPUT[r.higherMethod]}, ${dollars(r.amounts[`${r.higherMethod}_return_amount`])} with cents disregarded`,
+    car_cents_per_kilometre: () => `${Number(r.amounts.claimed_kilometres).toLocaleString('en-AU')} km counted, deduction `
+      + `${dollars(r.amounts.deduction)}, ${dollars(r.amounts.return_amount)} with cents disregarded`,
+    car_log_book: () => `Business use ${r.amounts.business_use_percentage}%, deduction ${dollars(r.amounts.deduction)}, `
+      + `${dollars(r.amounts.return_amount)} with cents disregarded`,
+    self_education: () => `${r.reductionApplies ? `Reduction ${dollars(r.amounts.reduction)}, deduction` : 'Deduction'} `
+      + `${dollars(r.amounts.deduction)}${r.deductible ? '' : ', not deductible'}`,
+  })[r.method](),
   fhssAmounts: (r) => `Maximum release ${dollars(r.maximum_release_amount)}, assessable ${dollars(r.assessable_fhss_released_amount)}, `
     + `PAYG ${dollars(r.tax_withheld)}, after withholding ${dollars(r.after_withholding)}, offset ${dollars(r.fhss_tax_offset)}`,
   taxEstimate: (r, call) => `Tax ${dollars(r.tax)}, offset ${dollars(r.offset)}`
@@ -168,6 +198,7 @@ const formDefaults = (html) => {
 // How assets/individual-tax-results.mjs passes each form's fields to its engine.
 const fhssExampleFields = fields => ({ ...fields, scope: 'yes', 'withholding-basis': 'unable', 'debt-offset': '0', transition: '' });
 const FORM_CALLS = {
+  workExpenses: (f) => [workExpensesFormFacts((name) => ({ ...f, scope: 'yes' })[name] ?? '')],
   fhssAmounts: (f) => {
     const fixture = fhssExampleFields(f);
     return [Object.fromEntries(Object.entries(fhssFormFacts(name => fixture[name] ?? '')).filter(([, value]) => value !== ''))];
@@ -639,13 +670,14 @@ for (const page of Object.keys(shownCases)) {
     const example = html.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
     const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
     const defaults = formDefaults(html);
-    const fields = page === 'fhss' ? fhssExampleFields(defaults) : defaults;
+    const fields = page === 'fhss' ? fhssExampleFields(defaults) : page === 'work-expenses' ? { ...defaults, scope: 'yes' } : defaults;
     // The browser reads a field through form.elements, which has no entry for a name the form lacks.
     const value = (name) => {
       assert.ok(Object.hasOwn(fields, name), `${page} reads ${name}, which its form does not have`);
       return fields[name] ?? '';
     };
-    const result = page === 'fhss' ? fhssResult(value, aud) : individualResult(page, value, aud);
+    const result = page === 'fhss' ? fhssResult(value, aud) : page === 'work-expenses' ? workExpensesResult(value, aud)
+      : individualResult(page, value, aud);
     assert.equal(result.inputs, example[1]);
     assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);
     assert.equal(String(result.principal), example[3]);
