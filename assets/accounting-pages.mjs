@@ -57,7 +57,7 @@ function renderResult(output, result) {
 }
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
-function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }, { fhssResult }]) {
+function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }, { fhssResult }, { workExpensesResult }]) {
   for (const form of forms) {
     const output = form.querySelector('output');
     if (output.textContent.startsWith('Calculators could not load')) output.textContent = 'Enter the inputs and calculate.';
@@ -640,6 +640,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             result = fhssResult(value, aud);
             showTables(result.tables);
             break;
+          case 'work-expenses':
+            result = workExpensesResult(value, aud);
+            break;
           default: result = individualResult(form.dataset.calculator, value, aud) ?? fbtForms.fbtBenefitResult(form, calculate, { aud, value, money });
         }
         renderResult(output, result);
@@ -666,7 +669,8 @@ function loadCalculators(retryForm) {
   const suffix = retryForm ? `?retry=${Date.now()}` : '';
   Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`), import(`./fbt-benefit-forms.mjs${suffix}`),
     forms.some((f) => ['income-tax', 'take-home-pay', 'study-loan', 'sole-trader', 'lump-sum-arrears', 'division-293', 'income-tests', 'concessional-catch-up', 'bonus-withholding', 'salary-packaging', 'novated-lease', 'super-projection'].includes(f.dataset.calculator ?? '')) ? import(`./individual-tax-results.mjs${suffix}`) : { individualResult: () => undefined },
-    forms.some((f) => f.dataset.calculator === 'fhss') ? import(`./fhss-result.mjs${suffix}`) : {}]).then(initialiseCalculators)
+    forms.some((f) => f.dataset.calculator === 'fhss') ? import(`./fhss-result.mjs${suffix}`) : {},
+    forms.some((f) => f.dataset.calculator === 'work-expenses') ? import(`./work-expenses-result.mjs${suffix}`) : {}]).then(initialiseCalculators)
     .then(() => { if (retryForm) retryForm.querySelector('input, select').focus(); })
     .catch(() => {
       for (const form of forms) {

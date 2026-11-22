@@ -41,6 +41,13 @@
 //! the split entered and, for small profits, every whole dollar of salary, where the engine tries
 //! only the salaries at which the kept total can change slope. Both round the franking credit down
 //! and the rest half up, and take taxable income to the dollar.
+//! The work expenses oracle (`assets/work-expenses.mjs`) types its rates from the ATO's fixed rate,
+//! 52 cent, shortcut and cents per kilometre pages and PCG 2023/1 Table 1, read 22 November 2026,
+//! and works in whole cents and hundredths of an hour with 128-bit integers, where the engine keeps
+//! ten-thousandths of a dollar in big integers and 40-digit quotients. The log book oracle divides
+//! once, the cents times the business over the total kilometres, where the engine forms the
+//! percentage first. Both show half a cent up and take the return amount's cents off the unrounded
+//! total.
 //! The engines run from the repository's own `assets/`, not the rendered site.
 
 use num_bigint::BigUint;
@@ -61,6 +68,7 @@ import { soleTraderSetAside } from './assets/sole-trader.mjs';
 import { incomeTests } from './assets/income-tests.mjs';
 import { superProjection } from './assets/super-projection.mjs';
 import { salaryDividend } from './assets/salary-dividend.mjs';
+import { workExpenses } from './assets/work-expenses.mjs';
 let input = '';
 for await (const chunk of process.stdin) input += chunk;
 const cents = (result) => result === null ? null : Object.fromEntries(Object.entries(result)
@@ -97,6 +105,14 @@ const run = {
   sole: ({ sole }) => cents(soleTraderSetAside(sole)),
   tests: ({ parts }) => cents(incomeTests(parts)),
   owner: ({ pay }) => cents(salaryDividend(pay)),
+  work: ({ facts }) => {
+    try {
+      const { amounts, higherMethod } = workExpenses(facts);
+      return { amounts, higher: higherMethod ?? null };
+    } catch (error) {
+      return { refused: error.code };
+    }
+  },
 };
 process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => run[one.kind](one))));
 ";
@@ -2351,4 +2367,203 @@ fn the_salary_dividend_engine_agrees_with_the_oracle_and_no_dollar_of_salary_kee
             kept(&best)
         );
     }
+}
+
+/// Cents a work hour for the fixed rate, and the shortcut before 2022-23: the ATO's 52 cent and
+/// shortcut pages (2020-21 and 2021-22) and PCG 2023/1 Table 1 (67c, then 70c from 1 July 2024).
+fn work_hourly(year: &str) -> (u128, Option<u128>) {
+    match year {
+        "2020-21" | "2021-22" => (52, Some(80)),
+        "2022-23" | "2023-24" => (67, None),
+        _ => (70, None),
+    }
+}
+
+/// Cents a kilometre from the ATO's cents per kilometre page, last updated 12 August 2026.
+fn work_per_kilometre(year: &str) -> u128 {
+    match year {
+        "2020-21" | "2021-22" => 72,
+        "2022-23" => 78,
+        "2023-24" => 85,
+        "2024-25" | "2025-26" => 88,
+        _ => 91,
+    }
+}
+
+/// Hundredths as the engine writes them.
+fn work_text(hundredths: u128) -> String {
+    format!("{}.{:02}", hundredths / 100, hundredths % 100)
+}
+
+/// A fraction of cents half up to the cent, and with its cents taken off.
+fn work_shown(numerator: u128, denominator: u128) -> (String, String) {
+    let cents = (2 * numerator + denominator) / (2 * denominator);
+    let dollars = numerator / denominator / 100;
+    (work_text(cents), format!("{dollars}.00"))
+}
+
+/// The amounts for one call, from its hours in hundredths and amounts in cents.
+fn work_oracle(facts: &Value) -> Value {
+    let cents = |name: &str| -> u128 {
+        let text = facts[name].as_str().unwrap();
+        let (whole, part) = text.split_once('.').unwrap_or((text, "0"));
+        whole.parse::<u128>().unwrap() * 100 + format!("{part:0<2}").parse::<u128>().unwrap()
+    };
+    let year = facts["year"].as_str().unwrap();
+    let mut amounts = serde_json::Map::new();
+    let mut put = |id: &str, value: String| {
+        amounts.insert(id.to_string(), json!(value));
+    };
+    let higher = match facts["method"].as_str().unwrap() {
+        "home_office" => {
+            let hours = cents("hours");
+            let (fixed, shortcut) = work_hourly(year);
+            let early = shortcut.is_some();
+            let incurred = facts["running_expenses_incurred"] == json!(true);
+            let dedicated = !early || facts["dedicated_home_office"] == json!(true);
+            let [energy, phone, internet, stationery, cleaning, furniture, assets, repairs] = [
+                "energy",
+                "phone",
+                "internet",
+                "stationery",
+                "cleaning",
+                "furniture_decline",
+                "asset_decline",
+                "repairs",
+            ]
+            .map(cents);
+            // The engine refuses these before this point; the cases never send them.
+            assert!(incurred || energy + phone + internet + stationery + if early { cleaning } else { 0 } == 0);
+            let mut best: (&str, u128) = ("", 0);
+            let mut consider = |name: &'static str, total: u128| {
+                if best.0.is_empty() || total > best.1 {
+                    best = (name, total_cents);
+                }
+            };
+            if incurred && dedicated {
+                // Hundredths of an hour times cents is hundredths of a cent.
+                let beside = if early {
+                    phone + internet + stationery + assets + repairs
+                } else {
+                    cleaning + furniture + assets + repairs
+                };
+                let total = hours * fixed + beside * 100;
+                put("fixed_rate_amount", work_shown(hours * fixed, 100).0);
+                put("fixed_rate_separate_expenses", work_text(beside));
+                let (shown, back) = work_shown(total, 100);
+                put("fixed_rate_method", shown);
+                put("fixed_rate_return_amount", back);
+                consider("fixed_rate", total);
+            }
+            if let (true, Some(rate)) = (incurred, shortcut) {
+                let (shown, back) = work_shown(hours * rate, 100);
+                put("shortcut_method", shown);
+                put("shortcut_return_amount", back);
+                consider("shortcut", hours * rate);
+            }
+            let actual = energy + phone + internet + stationery + cleaning + furniture + assets + repairs;
+            put("actual_cost_method", work_text(actual));
+            put("actual_cost_return_amount", format!("{}.00", actual / 100));
+            consider("actual_cost", actual * 100);
+            json!(best.0)
+        }
+        "car_cents_per_kilometre" => {
+            let counted = cents("business_kilometres").min(500_000);
+            put("claimed_kilometres", work_text(counted));
+            let (shown, back) = work_shown(counted * work_per_kilometre(year), 100);
+            put("deduction", shown);
+            put("return_amount", back);
+            Value::Null
+        }
+        _ => {
+            let (business, total, expenses) = (
+                cents("business_kilometres"),
+                cents("total_kilometres"),
+                cents("car_expenses"),
+            );
+            put("business_use_percentage", work_shown(business * 10_000, total).0);
+            let (shown, back) = work_shown(expenses * business, total);
+            put("deduction", shown);
+            put("return_amount", back);
+            Value::Null
+        }
+    };
+    json!({ "amounts": amounts, "higher": higher })
+}
+
+#[test]
+fn the_work_expenses_oracle_works_the_atos_examples_by_hand() {
+    let home = |hours: &str| {
+        json!({ "method": "home_office", "year": "2025-26", "hours": hours, "energy": "0", "phone": "0",
+            "internet": "0", "stationery": "0", "cleaning": "0", "furniture_decline": "549", "asset_decline": "0",
+            "repairs": "0", "running_expenses_incurred": true })
+    };
+    // Yang: 567 hours at 70c is $396.90, with a $299 chair and $250 desk $945.90, $945 claimed.
+    let yang = work_oracle(&home("567"));
+    assert_eq!(yang["amounts"]["fixed_rate_method"], "945.90");
+    assert_eq!(yang["amounts"]["fixed_rate_return_amount"], "945.00");
+    // Johan: 2,514 km at 88c is $2,212.32.
+    let johan = work_oracle(&json!({ "method": "car_cents_per_kilometre", "year": "2025-26", "business_kilometres": "2514" }));
+    assert_eq!(johan["amounts"]["deduction"], "2212.32");
+    // Lana: 69% of $17,275.33 is $11,919.98.
+    let lana = work_oracle(&json!({ "method": "car_log_book", "year": "2025-26", "business_kilometres": "6900",
+        "total_kilometres": "10000", "car_expenses": "17275.33" }));
+    assert_eq!(lana["amounts"]["deduction"], "11919.98");
+}
+
+#[test]
+fn the_work_expenses_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1122_0B3E_0003);
+    let amount = |rng: &mut Seeded, most: u64| {
+        let cents = if rng.below(3) == 0 { 0 } else { rng.below(most * 100 + 1) };
+        format!("{}.{:02}", cents / 100, cents % 100)
+    };
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..900)
+        .map(|i| {
+            let year = rng.pick(&YEARS);
+            let base = json!({ "year": year, "scope_confirmed": true, "reimbursed": false, "allowance_received": false });
+            let mut facts = base.as_object().unwrap().clone();
+            let mut set = |key: &str, value: Value| {
+                facts.insert(key.to_string(), value);
+            };
+            match i % 3 {
+                0 => {
+                    let early = year < "2022-23";
+                    let incurred = rng.below(4) != 0;
+                    set("method", json!("home_office"));
+                    set("hours", json!(amount(&mut rng, 2_000)));
+                    for name in ["energy", "phone", "internet", "stationery", "cleaning", "furniture_decline", "asset_decline", "repairs"] {
+                        let running = matches!(name, "energy" | "phone" | "internet" | "stationery") || (early && name == "cleaning");
+                        set(name, json!(if !incurred && running { "0.00".to_string() } else { amount(&mut rng, 900) }));
+                    }
+                    set("running_expenses_incurred", json!(incurred));
+                    if early {
+                        set("dedicated_home_office", json!(rng.below(3) != 0));
+                    }
+                }
+                1 => {
+                    set("method", json!("car_cents_per_kilometre"));
+                    set("owned_or_leased", json!(true));
+                    let near = rng.pick(&[4_999, 5_000, 5_001]);
+                    set("business_kilometres", json!(if rng.below(4) == 0 { format!("{near}.00") } else { amount(&mut rng, 9_000) }));
+                }
+                _ => {
+                    let total = 1_000 + rng.below(60_000);
+                    let business = rng.below(total * 100 + 1);
+                    set("method", json!("car_log_book"));
+                    set("owned_or_leased", json!(true));
+                    set("business_kilometres", json!(format!("{}.{:02}", business / 100, business % 100)));
+                    set("total_kilometres", json!(format!("{total}.00")));
+                    set("car_expenses", json!(format!("{}.{:02}", 1_000 + rng.below(40_000), rng.below(100))));
+                    set("log_book_year", json!(year));
+                    set("log_book_weeks", json!("12"));
+                    set("log_book_representative", json!(true));
+                }
+            }
+            let facts = Value::Object(facts);
+            let want = work_oracle(&facts);
+            (json!({ "kind": "work", "facts": facts }), want)
+        })
+        .unzip();
+    agree(&cases, &expected);
 }
