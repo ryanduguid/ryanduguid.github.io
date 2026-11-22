@@ -5560,6 +5560,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+22 November 2026 | The income tax calculator now works out the private health insurance rebate from the lines of a private health insurance statement for 2020-21 to 2026-27: the tier, each line’s percentage and entitlement, the refundable offset and any excess premium reduction to repay. It also adds the beneficiary tax offset, the invalid and invalid carer tax offset for 2020-21 to 2025-26 and the zone and overseas forces tax offsets, with the dependant and sole parent amounts they count, taken off the tax in the order the Act sets. They agree with the matching commands of the australian-accounting calculators on every tested case, and refuse what those commands refuse, such as the 2027 rebate percentages and the 2026-27 invalid carer amounts, which were not yet published. Results for the existing inputs are unchanged.
 22 November 2026 | A new individual tax calculator, work expenses, works an employee’s working from home, car and self-education expenses for 2020-21 to 2026-27. It sets the working from home fixed rate (52c with a dedicated home office or the 80c shortcut to 2021-22, then 67c and 70c from 1 July 2024) beside the actual cost and names the higher, counts the first 5,000 business kilometres at the year’s cents per kilometre rate, takes a log book’s business use percentage, and applies the $250 reduction to a prescribed course of education to 2021-22. It refuses reimbursed expenses, allowances and an expired or short log book, and leaves out occupancy expenses.
 22 November 2026 | A new business calculator works out luxury car tax on a tax period’s sales and importations in 2019-20 to 2026-27: the threshold or fuel-efficient car limit for the year of each supply (from 2012-13 for an adjustment), the 3.5 litre rating from 1 July 2025 and the 7 litre rating it keeps for a car supplied or imported and used other than for a quotable purpose before then, the price and change of use adjustments, the primary producer and tourism operator refunds of up to $10,000 and the amounts for labels 1E and 1F. The Act and the ATO’s rate and threshold table were read on 22 November 2026, and the page opens on the ATO’s examples of Matty Bee Motors’ $2,157.30 and Jimmy’s Mustang’s $6,207.30.
 22 November 2026 | A new business calculator, ASIC fees, lists ASIC’s fees from 1 July 2026 to register a company, reserve a company name, pay the annual review fee and register or renew a business name, with no GST. For a due date and the day ASIC received a review fee payment or a document, both in 2026-27, it gives the late fee: $102 within one month after the due date and $428 after that, counting the month as section 2G of the Acts Interpretation Act 1901 does. It takes the due date as given and declines a case that a weekend due date or month end could change.
@@ -5782,6 +5783,7 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - work expenses: https://duguid.com.au/tools/individual-tax/work-expenses/
 - ASIC fees: https://duguid.com.au/tools/business-calculators/asic-fees/
 - site licence notice: https://duguid.com.au/privacy/
@@ -12301,7 +12303,7 @@ Source: https://duguid.com.au/tools/individual-tax/income-tax/
 
 # Income tax calculator
 
-Income tax, offsets, Medicare levy and surcharge and any study loan repayment for 2020-21 to 2026-27, and the refund or amount owing on the tax withheld.
+Income tax, offsets, Medicare levy and surcharge, the private health insurance rebate and any study loan repayment for 2020-21 to 2026-27, and the refund or amount owing on the tax withheld.
 
 Published 17 November 2026. Last checked 18 November 2026.
 
@@ -12317,7 +12319,11 @@ Taxable income (whole dollars) Reportable fringe benefits total (whole dollars) 
 
 Exempt foreign employment income, for a study loan (whole dollars) Days without private patient hospital cover, for you or, in a family, your spouse or a dependant Did you have a spouse all year? No Yes
 
-Spouse’s income for surcharge purposes, if you had one (whole dollars) Dependent children Tax withheld, from your income statements (dollars and cents)
+Spouse’s income for surcharge purposes, if you had one (whole dollars) Dependent children Tax withheld, from your income statements (dollars and cents) Rebatable benefits in your assessable income, such as JobSeeker Payment, for the beneficiary tax offset (dollars and cents) Claim the private health insurance rebate from your statement? No Yes
+
+Did you maintain a dependant who is an invalid or a carer? No Yes
+
+Zone or overseas forces tax offset None Zone A Zone B Special area in Zone A or B Overseas forces
 
 Taxable income is assessable income less deductions, as on a tax return; from 2026-27 those include the standard deduction of up to $1,000 for work-related expenses that the ATO applies. For a person who is not entitled to the seniors and pensioners tax offset. Enter 0 for any amount you do not have.
 
@@ -12326,6 +12332,8 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 ## How the income tax calculator works
 
 The income tax calculator works out one individual’s tax for a full income year from 2020-21 to 2026-27: the tax on taxable income at the year’s rates, the offsets, the Medicare levy and the Medicare levy surcharge. The offsets are the low income tax offset and, for 2020-21 and 2021-22, the low and middle income tax offset. It then takes that total, and any study or training loan repayment, from the tax withheld you enter, to estimate a refund or an amount owing.
+
+It can also work out the beneficiary tax offset, the invalid and invalid carer tax offset, the zone or overseas forces tax offset and the private health insurance rebate. The first 3 come off the tax but not below nil. The rebate is worked from your private health insurance statement: what you were entitled to at your tier, less the premium reduction you received, comes off the total and can make it negative; a premium reduction above your entitlement is added to the total.
 
 An Australian resident pays nothing on the first $18,200 and then each part of taxable income at its rate. The low income tax offset of up to $700 comes off a resident’s tax, but not below nil. The Medicare levy is 2% of a resident’s taxable income; up to the low-income threshold there is none, and from there to the phase-in limit it is 10% of the income over the threshold, if that is less. The ATO’s example on Medicare levy reduction for low-income earners, read 17 November 2026, gives Angie, single with $29,000 of taxable income in 2025-26, a levy of $98.90, as this calculator does.
 
@@ -12338,8 +12346,9 @@ For 2026-27 the Medicare levy thresholds are those the Act held on 17 November 2
 The calculator gives the tax of one person who was a resident, a foreign resident or a working holiday maker for the whole year. It does not compute:
 
 - the Medicare levy reduction for families, which depends on family taxable income and dependants, or a Medicare levy exemption;
-- the seniors and pensioners tax offset and its higher Medicare levy thresholds, or any other offset, such as for private health insurance, dependants or super contributions;
-- a change of family or cover status during the year beyond the days without cover, the private health insurance rebate, a spouse’s trust income that the surcharge test adds, the net amount on which family trust distribution tax has been paid, which counts in income for surcharge purposes and in the amount the surcharge is levied on, or exempt foreign employment income, which the ATO’s surcharge page adds to income for surcharge purposes when taxable income is $1 or more;
+- the seniors and pensioners tax offset and its higher Medicare levy thresholds, the net medical expenses tax offset, which ended after 2018-19, or any other offset, such as for super contributions or foreign income tax;
+- for the private health insurance rebate, a lifetime health cover loading, a policy that covers only dependants, a choice to claim a spouse’s share, or a person with no spouse and dependent children who answers no to maintaining a dependent child or sibling; for the invalid and invalid carer tax offset, a dependant maintained with someone else, shared care for Family Tax Benefit Part B or successive spouses; for the zone tax offset, a dependant maintained with someone else or more than one area in the year;
+- a change of family or cover status during the year beyond the days without cover, a spouse’s trust income that the surcharge test adds, the net amount on which family trust distribution tax has been paid, which counts in income for surcharge purposes and in the amount the surcharge is levied on, or exempt foreign employment income, which the ATO’s surcharge page adds to income for surcharge purposes when taxable income is $1 or more;
 - a first home super saver released amount, which is taxed with a 30% offset but left out of repayment income and income for surcharge purposes, or, for 2023-24 and earlier, the taxed element of a super lump sum up to the low rate cap, which a person from preservation age to under 60 could leave out of income for surcharge purposes;
 - a study loan debt smaller than the repayment: the repayment cannot exceed what is still owed (section 154-20(1)(c) of the Higher Education Support Act 2003), which the calculator does not ask for;
 - a part-year resident’s reduced tax-free threshold, a working holiday maker who is an Australian resident, or one with other income besides working holiday taxable income;

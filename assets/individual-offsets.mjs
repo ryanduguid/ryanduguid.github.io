@@ -193,7 +193,7 @@ function priorYearGap(prior, year) {
 /** @typedef {{prior_year?: string, prior_days?: number, continuous_residence?: boolean, includes_first_day?: boolean}} Carried */
 
 /** Days carried from an earlier year, if given: [days, 2 to 4 years back, s 79A(3B)(e)'s
- * conditions met]. @param {Carried} a @param {string} year */
+ * conditions met]. @param {Carried} a @param {string} year @returns {[number, boolean, boolean] | null} */
 function carriedDays(a, year) {
   const conditions = a.continuous_residence !== undefined || a.includes_first_day !== undefined;
   if (a.prior_year === undefined && a.prior_days === undefined) {

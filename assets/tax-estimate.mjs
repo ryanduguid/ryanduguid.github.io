@@ -61,7 +61,9 @@ export function taxEstimate(r) {
  * (Private Health Insurance Act 2007 s 282-18(6)). A foreign resident gets no private health
  * insurance offset here: the estimate does not test that every person insured is an eligible
  * person (ITAA 1997 s 61-205(1)(c)).
- * @param {Record<string, number>} base @param {Return} r @param {Offsets} o */
+ * @template {{tax: number, offset: number, lmito: number, medicare: number, surcharge: number, studyLoan: number,
+ *   withheld: number, surchargeIncome: number}} T
+ * @param {T} base @param {Return} r @param {Offsets} o */
 function withOffsets(base, r, o) {
   const cents = (/** @type {number} */ value) => Math.round(value * 100);
   const benefit = o.rebatableBenefit === undefined ? null
