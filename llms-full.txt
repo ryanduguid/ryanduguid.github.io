@@ -12971,7 +12971,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# Super co-contribution, LISTO and spouse contribution offset calculator
+# Super co-contribution, LISTO and spouse offset calculator
 
 Source: https://duguid.com.au/tools/individual-tax/government-super/
 
@@ -12979,13 +12979,13 @@ Source: https://duguid.com.au/tools/individual-tax/government-super/
 
 # Super co-contribution, LISTO and spouse offset calculator
 
-Work out the super co-contribution, LISTO and spouse offset for 2020-21 to 2026-27.
+Co-contribution, LISTO and spouse offset for 2020-21 to 2026-27.
 
 Published 22 November 2026. Last checked 22 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Super co-contribution, LISTO and spouse offset for one income year
+Amounts for one income year
 
 Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
 
