@@ -56,6 +56,7 @@ const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
 const salaryDividend = { ...business, file: 'assets/salary-dividend.mjs' };
 const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
+const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const leave = { ...business, file: 'assets/unused-leave.mjs' };
 const franking = { ...business, file: 'assets/franking-account.mjs' };
 const borrow = { ...business, file: 'assets/borrowing-expenses.mjs' };
@@ -798,6 +799,21 @@ const MUTATIONS = [
   { ...wc, name: 'WC an SA group member passes', find: "['AU-NSW', 'AU-VIC', 'AU-QLD', 'AU-SA'].includes(x.place)", replace: "['AU-NSW', 'AU-VIC', 'AU-QLD'].includes(x.place)" },
   { ...wc, name: 'WC apprentice wages above the wages pass', find: 'if (apprentice > wages)', replace: 'if (apprentice > wages + 100n)' },
   { ...wc, name: 'WC private schemes leave out GST', find: 'premium, gst, duty: 0n, total: premium + gst, notes: [] };\n}\n\n/** The premium', replace: 'premium, gst, duty: 0n, total: premium, notes: [] };\n}\n\n/** The premium' },
+  { ...pools, name: 'Pools low-cost assets at 37.5%', find: 'const newAssets = 3n * (lowCost + second);', replace: 'const newAssets = 6n * (lowCost + second);' },
+  { ...pools, name: 'Pools low-value decline rounded in parts', find: 'const decline = ratioCents(newAssets + pool, 16n);', replace: 'const decline = ratioCents(newAssets, 16n) + ratioCents(pool, 16n);' },
+  { ...pools, name: 'Pools low-value termination values ignored', find: 'closingPoolBalance: dollars(max(before - termination, 0n))', replace: 'closingPoolBalance: dollars(before)' },
+  { ...pools, name: 'Pools low pool value threshold $30,000', find: '? null : 20000)', replace: '? null : 30000)' },
+  { ...pools, name: 'Pools 2022-23 has a low pool value limit', find: "const FULL_EXPENSING_YEARS = ['2020-21', '2021-22', '2022-23'];", replace: "const FULL_EXPENSING_YEARS = ['2020-21', '2021-22'];" },
+  { ...pools, name: 'Pools $20,000 is below the threshold', find: 'amount < BigInt(threshold) * 100n', replace: 'amount <= BigInt(threshold) * 100n' },
+  { ...pools, name: 'Pools opening balance at 15%', find: 'ratioCents(3n * opening, 10n)', replace: 'ratioCents(3n * opening, 20n)' },
+  { ...pools, name: 'Pools a balance below zero is not assessable', find: 'assessableIncome: dollars(-amount)', replace: 'assessableIncome: 0' },
+  { ...pools, name: 'Pools backing business investment not refused', find: "if (year === '2020-21' && amount === 0n && added !== 0n) {", replace: 'if (false) {' },
+  { ...pools, name: 'Capital works 4% manner at 2.5%', find: 'const rateDivisor = four ? 25n : 40n;', replace: 'const rateDivisor = four ? 40n : 40n;' },
+  { ...pools, name: 'Capital works days not limited by the start', find: 'const most = Math.max(last - Math.max(begun, first) + 1, 0);', replace: 'const most = Math.max(last - first + 1, 0);' },
+  { ...pools, name: 'Capital works not limited to the undeducted expenditure', find: 'const limited = undeducted * reducedBottom < reducedTop;', replace: 'const limited = false;' },
+  { ...pools, name: 'Capital works from 17 September 1987', find: "if (begun < /** @type {number} */ (day('1987-09-16'))) {", replace: "if (begun < /** @type {number} */ (day('1987-09-17'))) {" },
+  { ...pools, name: 'Capital works 4% from 26 February 1992', find: "const before1992 = begun < /** @type {number} */ (day('1992-02-27'));", replace: "const before1992 = begun < /** @type {number} */ (day('1992-02-26'));" },
+  { ...pools, name: 'Capital works taxable use ignored', find: 'const reducedTop = product * use;', replace: 'const reducedTop = product * scale;' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -819,7 +835,7 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/depreciation-pools-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }

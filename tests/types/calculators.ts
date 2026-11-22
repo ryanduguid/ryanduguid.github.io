@@ -331,6 +331,17 @@ calculate.fuelTaxCredits({ ...ftcInput, year: 2026 });
 const ftcLabel: string = calculate.fuelTaxCredits(ftcInput).label7d;
 void ftcTotal;
 void ftcLabel;
+const poolInput = { year: '2025-26', opening_pool_balance: '100000.00', additions: '28000.00', cost_additions: '0', termination_values: '8000.00' };
+const poolDeduction: number = calculate.smallBusinessPool(poolInput).deduction;
+// @ts-expect-error The income year is a string such as '2025-26', as the form's select gives it.
+calculate.smallBusinessPool({ ...poolInput, year: 2025 });
+// @ts-expect-error The threshold is dollars as a number, or null for no limit, not text.
+const poolThreshold: string = calculate.smallBusinessPool(poolInput).threshold;
+// @ts-expect-error Whether the part was used in the 4% manner is a boolean, not text.
+calculate.capitalWorks({ year: '2025-26', construction_expenditure: '1', construction_start: '2000-01-01', four_percent_manner: 'no',
+  days_used: 365, taxable_use: '1', undeducted_construction_expenditure: '1' });
+void poolDeduction;
+void poolThreshold;
 const leavePay = { annual: '0', loading: '0', longService: '22020', accrualStart: '1977-01-01', reason: 'normal', annualBefore1993: '',
   loadingBefore1993: '', lslBefore1978: '780', lsl1978To1993: '6420', payee: 'tfn', earnings: '1155', period: 'week' } as const;
 const leaveWithheld: number = calculate.unusedLeave(leavePay).withholding;

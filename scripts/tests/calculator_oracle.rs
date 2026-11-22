@@ -85,6 +85,12 @@
 //! engine multiplies the daily growth factors; and the quarterly shortfall and interest are
 //! worked from the old Act's formulas in their own units.
 //!
+//! A further 240 seeded depreciation pools and capital works cases, from their own seed, take the
+//! low-value pool's rates in ten-thousandths of a cent, the small business pool's in thousandths and
+//! each year's low pool value threshold from IT(TP)A ss 328-180(6)(e) and 328-181(5) and Act No. 71 of
+//! 2026, and count capital works days between calendar dates, where the engine works in sixteenths, tenths
+//! and twentieths of a cent and counts days from the epoch.
+//!
 //! A further 200 seeded GST margin scheme sales work the GST on a GST-exclusive price as 1/11 of
 //! the exact margin on the price it makes, where the engine takes a tenth of the price less the cost.
 //!
@@ -8021,6 +8027,170 @@ fn the_engine_agrees_with_the_oracle_on_every_seeded_lease() {
     );
     let actual = run_node(LEASE_HARNESS, &cases);
     assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the depreciation pools worksheets, as `HARNESS` runs the others, and returns each result's figures as text.
+const POOL_HARNESS: &str = r"
+import { lowValuePool, smallBusinessPool, capitalWorks } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const run = { lvp: lowValuePool, sbp: smallBusinessPool, cw: capitalWorks };
+process.stdout.write(JSON.stringify(JSON.parse(input).map(({ worksheet, call }) => Object.fromEntries(
+  Object.entries(run[worksheet](call)).filter(([, value]) => typeof value === 'number').map(([key, value]) => [key, String(value)])))));
+";
+
+const POOL_CASES: usize = 240;
+const POOL_YEARS: [&str; 7] = [
+    "2020-21", "2021-22", "2022-23", "2023-24", "2024-25", "2025-26", "2026-27",
+];
+
+/// The low pool value threshold in cents: none in the temporary full expensing years (IT(TP)A
+/// s 328-181(5)), else $20,000 (IT(TP)A s 328-180(6)(e); ITAA 1997 s 328-210(1) as Act No. 71
+/// of 2026 Sch 2 amends it), typed here from those sources.
+fn pool_threshold(year: &str) -> Option<u128> {
+    match year {
+        "2020-21" | "2021-22" | "2022-23" => None,
+        _ => Some(2_000_000),
+    }
+}
+
+/// Cents as the page's dollars text.
+fn pool_money(value: u128) -> String {
+    dollars(u64::try_from(value).unwrap())
+}
+
+/// Cents as the engine's number reads as text.
+fn pool_shown(value: u128) -> String {
+    shown(u64::try_from(value).unwrap())
+}
+
+/// A low-value pool in ten-thousandths of a cent: 1,875 of them for each cent of low-cost assets
+/// and second element costs, 3,750 for each cent of the rest, where the engine counts sixteenths.
+fn low_value_pool_case(rng: &mut Seeded, year: &str) -> (Value, Value) {
+    let previous = u128::from(rng.cents(100_000_000));
+    let low_cost = u128::from(rng.cents(99_999));
+    let low_value = u128::from(rng.cents(99_999));
+    let second = u128::from(rng.cents(1_000_000));
+    let any = rng.cents(100_000_000);
+    let termination = u128::from(rng.pick(&[0, 0, any]));
+    let newer = 1_875 * (low_cost + second);
+    let older = 3_750 * (previous + low_value);
+    let decline = exact_half_up(newer + older, 10_000);
+    let before = previous + low_cost + low_value + second - decline;
+    (
+        json!({ "worksheet": "lvp", "call": { "year": year, "previous_closing_pool_balance": pool_money(previous),
+            "low_cost_assets": pool_money(low_cost), "low_value_assets": pool_money(low_value),
+            "second_element_costs": pool_money(second), "termination_values": pool_money(termination) } }),
+        json!({
+            "newAssetsDecline": pool_shown(exact_half_up(newer, 10_000)), "poolDecline": pool_shown(exact_half_up(older, 10_000)),
+            "declineInValue": pool_shown(decline), "closingBeforeDisposals": pool_shown(before),
+            "closingPoolBalance": pool_shown(before.saturating_sub(termination)),
+            "assessableExcess": pool_shown(termination.saturating_sub(before)),
+        }),
+    )
+}
+
+/// A general small business pool: 300 and 150 thousandths of each amount, half up, where the
+/// engine takes 3/10 and 3/20; amounts near $20,000 test the threshold.
+fn small_business_pool_case(rng: &mut Seeded, year: &str) -> (Value, Value) {
+    let any = rng.cents(1_000_000_000);
+    let mut opening = u128::from(rng.pick(&[any, 1_999_999, 2_000_000, 2_000_001, 0]));
+    let any = rng.cents(10_000_000);
+    let additions = u128::from(rng.pick(&[0, any]));
+    let any = rng.cents(1_000_000);
+    let improved = u128::from(rng.pick(&[0, 0, any]));
+    let any = rng.cents(1_000_000_000);
+    let termination = u128::from(rng.pick(&[0, any]));
+    if year == "2020-21" && opening + additions + improved == termination && additions > 0 {
+        // The one case the engine refuses (backing business investment): move it off zero.
+        opening += 1;
+    }
+    let amount = i128::try_from(opening + additions + improved).unwrap() - i128::try_from(termination).unwrap();
+    let positive = u128::try_from(amount.max(0)).unwrap();
+    // The low pool value deduction, the 3 rated deductions, their total, assessable income and the closing balance.
+    let (mut low_pool, mut pool, mut newer, mut added) = (0, 0, 0, 0);
+    let (mut deduction, mut assessable, mut closing) = (0, 0, 0);
+    if amount > 0 && pool_threshold(year).is_none_or(|limit| positive < limit) {
+        (low_pool, deduction) = (positive, positive);
+    } else if amount < 0 {
+        assessable = amount.unsigned_abs();
+    } else {
+        pool = exact_half_up(opening * 300, 1_000);
+        newer = exact_half_up(additions * 150, 1_000);
+        added = exact_half_up(improved * 150, 1_000);
+        deduction = pool + newer + added;
+        assessable = deduction.saturating_sub(positive);
+        closing = positive.saturating_sub(deduction);
+    }
+    let mut want = json!({
+        "lowPoolValueAmount": shown_signed(amount), "lowPoolValueDeduction": pool_shown(low_pool), "poolDeduction": pool_shown(pool),
+        "newAssetDeduction": pool_shown(newer), "costAdditionDeduction": pool_shown(added), "deduction": pool_shown(deduction),
+        "assessableIncome": pool_shown(assessable), "closingPoolBalance": pool_shown(closing),
+    });
+    if let Some(limit) = pool_threshold(year) {
+        want["threshold"] = json!((limit / 100).to_string());
+    }
+    (
+        json!({ "worksheet": "sbp", "call": { "year": year, "opening_pool_balance": pool_money(opening),
+            "additions": pool_money(additions), "cost_additions": pool_money(improved), "termination_values": pool_money(termination) } }),
+        want,
+    )
+}
+
+/// A capital works deduction: the days counted with calendar dates from the later of 1 July and the
+/// start, 25 or 40 thousandths a year over 365 and the use in ten-thousandths, one division.
+fn capital_works_case(rng: &mut Seeded, year: &str) -> (Value, Value) {
+    let begun = date(1987, 9, 16) + i64::try_from(rng.below(14_000)).unwrap().days();
+    let start_year: i16 = year[..4].parse().unwrap();
+    let (first, last) = (date(start_year, 7, 1), date(start_year + 1, 6, 30));
+    let most = if begun > last {
+        0
+    } else {
+        u64::try_from((last - begun.max(first)).get_days()).unwrap() + 1
+    };
+    let some = rng.below(most + 1);
+    let days = u128::from(rng.pick(&[most, some]));
+    let four = begun >= date(1992, 2, 27) && rng.below(3) == 0;
+    let per_mille = if four { 40 } else { 25 };
+    let expenditure = 1 + u128::from(rng.cents(100_000_000_000));
+    let some = rng.below(10_001);
+    let use_ = u128::from(rng.pick(&[10_000, 0, 5_000, some]));
+    let some = u128::from(rng.cents(u64::try_from(expenditure).unwrap()));
+    let undeducted = rng.pick(&[expenditure, some]);
+    let rate_amount = exact_half_up(expenditure * days * per_mille, 1_000 * 365);
+    let reduced = exact_half_up(expenditure * days * per_mille * use_, 1_000 * 365 * 10_000);
+    (
+        json!({ "worksheet": "cw", "call": { "year": year, "construction_expenditure": pool_money(expenditure),
+            "construction_start": begun.to_string(), "four_percent_manner": four, "days_used": days,
+            "taxable_use": format!("{}.{:04}", use_ / 10_000, use_ % 10_000),
+            "undeducted_construction_expenditure": pool_money(undeducted) } }),
+        json!({ "rateAmount": pool_shown(rate_amount), "reducedAmount": pool_shown(reduced), "deduction": pool_shown(reduced.min(undeducted)) }),
+    )
+}
+
+#[test]
+fn the_depreciation_pools_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1122_0000_00B4);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..POOL_CASES)
+        .map(|i| {
+            let year = rng.pick(&POOL_YEARS);
+            match i % 3 {
+                0 => low_value_pool_case(&mut rng, year),
+                1 => small_business_pool_case(&mut rng, year),
+                _ => capital_works_case(&mut rng, year),
+            }
+        })
+        .unzip();
+    let figure = |key: &str| expected.iter().any(|want| want[key].as_str().is_some_and(|value| value != "0"));
+    assert!(figure("assessableIncome") && figure("lowPoolValueDeduction") && figure("poolDeduction") && figure("assessableExcess"));
+    let actual = run_node(POOL_HARNESS, &cases);
+    assert_eq!(actual.len(), POOL_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }
