@@ -257,6 +257,9 @@
     "tools/business-calculators/staff/index.html": [
       "f6d27328541f0ed80446e56fbe3d59031e3686b15759b93994561c842531fb1e"
     ],
+    "tools/business-calculators/super-benefit-tax/index.html": [
+      "b54a2e9cc9083504d09e481bf839f90a700dc3aa54e13a6016342ed16dab0147"
+    ],
     "tools/business-calculators/termination-payment/index.html": [
       "b055a3fecec1e12e11404b465cc1031bccc9254058bbd4566e22509430287508"
     ],
@@ -303,7 +306,7 @@
       "17dcd0204b9a84a38aab7dcd7e1270022b2fa898ce850c32dfa56c1e31723c07"
     ],
     "tools/individual-tax/income-tax/index.html": [
-      "bba858972dd984c6ffbaba30ec511be8d047d3adfd9e523e9ec3d24fdfb8336c"
+      "98166cb8a84440b4e239297314c70117548772f9f32dbda73dbc66896875a06e"
     ],
     "tools/individual-tax/income-tests/index.html": [
       "2b60af6e2154ba6a3a2435a632963b2e376fe33f608f0fa90d482a67986c7744"
@@ -397,9 +400,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "cec9b2e549e31031ff2473d860b6bb22c7d253ce44b70b93b1c54843fe28d9f7",
+    "llms.txt": "3c110b589d07d3bc50baea8de5da74c93c72bd6cae829dd6cd273b5a51e06a70",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "c57f6a97801ad4436e896adae03d7bc138237c4e80e0b4e74a244025fdba68e0"
+    "sitemap.xml": "e12f905ffa2c1a11a2b2c9b549b01216619355dd18181b30b80aefe43b9fddf2"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -459,7 +462,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7801,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7802,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
