@@ -260,6 +260,7 @@ Published 17 November 2026. Last checked 22 November 2026, the newest of the cal
 - Bonus withholding calculator The PAYG withheld from a 2026-27 pay that includes a bonus, commission or back payment, by the ATO’s Schedule 5 methods, step by step, with the tax the payment adds to the year.
 - Salary packaging calculator What packaging saves an employee of a charity, hospital or ambulance service, with the FBT cap, any FBT on the excess and the reportable amount.
 - Novated lease calculator A year of a novated car lease against paying from after-tax pay, with the electric car FBT exemption tested condition by condition.
+- Work expenses calculator Working from home by the fixed rate against actual cost, car expenses by cents per kilometre or log book, and self-education expenses, 2020-21 to 2026-27.
 
 ## Super contributions and retirement
 
@@ -284,6 +285,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Bonus withholding calculator: https://duguid.com.au/tools/individual-tax/bonus-withholding/
 - Salary packaging calculator: https://duguid.com.au/tools/individual-tax/salary-packaging/
 - Novated lease calculator: https://duguid.com.au/tools/individual-tax/novated-lease/
+- Work expenses calculator: https://duguid.com.au/tools/individual-tax/work-expenses/
 - Division 293 tax calculator: https://duguid.com.au/tools/individual-tax/division-293/
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/

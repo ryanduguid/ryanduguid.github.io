@@ -243,103 +243,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# Super co-contribution, LISTO and spouse offset calculator
-
-Source: https://duguid.com.au/tools/individual-tax/government-super/
-
-> The super co-contribution, the low income super tax offset (LISTO) and the spouse contribution tax offset for 2020-21 to 2026-27, with each condition met or not.
-
-# Super co-contribution, LISTO and spouse offset calculator
-
-Co-contribution, LISTO and spouse offset for 2020-21 to 2026-27.
-
-Published 22 November 2026. Last checked 22 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Amounts for one income year
-
-Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
-
-Personal contributions not deducted, received by your fund in the year Concessional contributions: employer, salary sacrifice and deducted personal Income from employment or a business, such as salary, director fees and business income before deductions Income from your return (whole dollars) Assessable income Taxable income Deductions against business income Reportable employer super contributions, IT2 Personal super contributions you deduct, D12 Reportable fringe benefits, other employers, IT1 W Reportable fringe benefits, section 57A employers, IT1 N Assessable FHSS released amount Excess concessional contributions for the year Net financial investment loss, IT5 Net rental property loss, IT6 Target foreign income, IT4 Tax-free government pensions, IT7 Child support you paid, IT8
-
-An Australian resident for the whole year Yes No
-
-A temporary visa at any time in the year No Yes
-
-Your tax return for the year is lodged Yes No
-
-Under 71 at the end of the year Yes No
-
-Non-concessional contributions within your cap Yes No Not known
-
-Total super balance at the previous 30 June below the transfer balance cap Yes No Not known
-
-You contributed to your spouse’s super in the year No Yes
-
-The amounts and answers are established for the year
-
-Choose Yes, I have checked them No or unsure
-
-Calculate
-
-Downsizer contributions do not count. Spouse contributions count only if made whilst you were spouses, both Australian residents and not living apart, to a complying fund, and not deductible.
-
-Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2023-24, assessable income $35,000.00, taxable income $35,000.00, eligible income $35,000.00, personal contributions $1,040.00, concessional contributions $0.00. Total income for the co-contribution $35,000.00 Income thresholds $43,445 and $58,445 Half the personal contributions $520.00 Maximum after the taper $500.00 Super co-contribution $500.00 Co-contribution paid, up to 5 cents $500.00 Adjusted taxable income $35,000.00 LISTO $0.00 LISTO paid, up to 5 cents $0.00 No LISTO: no concessional contributions. The ATO works out the co-contribution and LISTO from your return and your fund’s reports and pays them to your fund.
-
-## How the government super amounts calculator works
-
-The calculator works 3 amounts from the same answers. Total income for the co-contribution is your assessable income, less any FHSS released amount, plus reportable fringe benefits and reportable employer super contributions (less any excess concessional contributions), less business deductions. Adjusted taxable income, which decides LISTO, is taxable income without any FHSS released amount, plus adjusted fringe benefits, target foreign income, investment losses, tax-free pensions and reportable super contributions, less child support paid, as the income tests calculator works it.
-
-The super co-contribution is half your personal contributions, at most $500. Above the year’s lower income threshold the $500 falls by 3.333 cents for each dollar, to nil at the higher threshold, which is $15,000 above it. An amount under $20 is raised to $20. It needs total income below the higher threshold, at least 10% of total income before business deductions from employment or a business, a lodged return, non-concessional contributions within your cap, a total super balance below the general transfer balance cap, and an age under 71.
-
-The year’s thresholds are $39,837 and $54,837 for 2020-21, $41,112 and $56,112 for 2021-22, $42,016 and $57,016 for 2022-23, $43,445 and $58,445 for 2023-24, $45,400 and $60,400 for 2024-25, $47,488 and $62,488 for 2025-26, and $49,293 and $64,293 for 2026-27.
-
-LISTO is 15% of your concessional contributions, to the nearest cent, at most $500 and at least $10, where adjusted taxable income is $37,000 or less and the same 10% test is met. The ATO pays both amounts to your fund, rounded up to a multiple of 5 cents.
-
-The spouse contribution tax offset is 18% of your contributions for your spouse, counting at most $3,000, which falls by a dollar for each dollar of the spouse’s income above $37,000. It is nil when the spouse’s income is $40,000 or more, the spouse’s non-concessional contributions exceed the spouse’s cap, or the spouse’s total super balance has reached the general transfer balance cap. The most it can be is $540.
-
-## What the government super amounts calculator does not cover
-
-The calculator refuses a person who held a temporary visa at any time in the year: the exceptions for New Zealand citizens and some prescribed visas are not worked out. It also refuses a person not resident in Australia for the whole year, a cap or balance answer of not known where that answer decides an amount, and nil total income where a contribution leaves the 10% test to decide.
-
-It leaves out contributions your fund had not received by 30 June, LISTO the ATO estimates without a return, concessional contributions to constitutionally protected funds and other amounts LISTO disregards, a deceased person’s income, interest on late payments, and 2019-20 and earlier. It does not cover 2027-28, when the law changes LISTO and the co-contribution thresholds are not yet published. It takes each amount and answer as you enter them; confirm them with your fund, the ATO or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Super co-contribution, LISTO and spouse offset calculator
-
-Case | Inputs | Result
-Angelo: $35,000 salary, $1,040 personal contributions, $500 (ATO super co-contribution page) | 2023-24, assessable income $35,000, eligible income $35,000.00, personal contributions $1,040.00, concessional contributions $0.00 | Co-contribution $500.00, LISTO $0.00
-Julie: $31,000 adjusted taxable income, $3,360 employer SG, LISTO $500 (ATO LISTO page) | 2022-23, assessable income $32,000, taxable income $31,000, eligible income $32,000.00, personal contributions $0.00, concessional contributions $3,360.00 | Co-contribution $0.00, LISTO $500.00
-Robert and Judy: spouse income $19,000, $3,500 contributed, $540 (ATO super-related offsets, example 1) | 2021-22, assessable income $80,000, eligible income $80,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $19,000.00, spouse contributions $3,500.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $540.00
-Carmel and Adam: spouse income $38,000, $3,000 contributed, $360 (example 2) | 2021-22, assessable income $80,000, eligible income $80,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $38,000.00, spouse contributions $3,000.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $360.00
-Aleah and Lewis: spouse income $35,000, $2,000 contributed, $360 (example 3) | 2022-23, assessable income $80,000, eligible income $80,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $35,000.00, spouse contributions $2,000.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $360.00
-Taper: $2,512 above the 2025-26 lower threshold, $416.28 paid as $416.30 (s 10(1C), reg 15(2)) | 2025-26, assessable income $50,000, eligible income $50,000.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $416.30, LISTO $0.00
-$1 below the 2026-27 higher threshold: the $20 minimum (s 11) | 2026-27, assessable income $64,292, eligible income $64,292.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $20.00, LISTO $0.00
-At the 2026-27 higher threshold: no co-contribution (s 6(1)(c)) | 2026-27, assessable income $64,293, eligible income $64,293.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $0.00, LISTO $0.00
-$4,999 eligible of $50,000 fails the 10% test (s 6(1)(b)) | 2025-26, assessable income $50,000, eligible income $4,999.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $0.00, LISTO $0.00
-Business deductions: total income $40,000, the 10% test on $60,000 (s 8(2) and (3)) | 2025-26, assessable income $60,000, taxable income $40,000, business deductions $20,000, eligible income $60,000.00, personal contributions $1,000.00, concessional contributions $0.00 | Co-contribution $500.00, LISTO $0.00
-LISTO on $1,234.57: $185.19, paid $185.20 (s 12E(2), reg 15(2)) | 2025-26, assessable income $20,000, eligible income $20,000.00, personal contributions $0.00, concessional contributions $1,234.57 | Co-contribution $0.00, LISTO $185.20
-LISTO on $50: the $10 minimum (s 12E(2)(c)) | 2025-26, assessable income $20,000, eligible income $20,000.00, personal contributions $0.00, concessional contributions $50.00 | Co-contribution $0.00, LISTO $10.00
-LISTO at adjusted taxable income $37,001: nil (s 12C(1)(b)) | 2025-26, assessable income $37,001, eligible income $37,001.00, personal contributions $0.00, concessional contributions $4,000.00 | Co-contribution $0.00, LISTO $0.00
-Spouse income $39,999: 18% of $1 (s 290-235(1)) | 2025-26, assessable income $90,000, eligible income $90,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $39,999.00, spouse contributions $3,000.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $0.18
-
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
-
----
-
 # First home super saver (FHSS) calculator
 
 Source: https://duguid.com.au/tools/individual-tax/fhss/
@@ -435,6 +338,98 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - GN 2024/1, example 6: https://www.ato.gov.au/law/view/print?DocID=GDN%2FGDN20241%2FNAT%2FATO%2F00001
 - First Home Super Saver Tax Act 2017: https://www.legislation.gov.au/C2017A00133/asmade
 - Treasury Laws Amendment (2023 Measures No. 3) Act 2023, Schedule 4, items 28 and 30: https://www.legislation.gov.au/C2023A00075
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Work from home, car and self-education expenses calculator
+
+Source: https://duguid.com.au/tools/individual-tax/work-expenses/
+
+> Compare the working from home fixed rate with actual cost, and work out car and self-education expenses, for 2020-21 to 2026-27.
+
+# Work expenses calculator
+
+Work out working from home, car or self-education expenses for 2020-21 to 2026-27.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Work expenses for one income year
+
+Method Working from home Car, cents per kilometre Car, log book Self-education
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Working from home Hours worked from home, as recorded Additional running expenses, such as energy or phone, incurred from working from home Yes No
+
+Work-related amounts only, in dollars and cents. Enter 0 for an expense you did not have.
+
+Electricity and gas Mobile and home phone Internet Stationery and computer consumables Cleaning Decline in value of home office furniture and furnishings Decline in value of other assets, such as a computer or phone Repairs to those assets
+
+Reimbursed or paid by your employer or anyone else No Yes
+
+An allowance received for these expenses No Yes
+
+The hours, kilometres and amounts are your records’ work-related figures
+
+Choose Yes, I have checked them No or unsure
+
+Calculate
+
+The calculator applies the rates, caps and reductions to the figures you enter. It does not check your records, apportion an expense, work out decline in value or decide whether your home is a place of business.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Working from home, 2025-26, 843 hours, other expenses $0.00. Fixed rate, 843 hours at 70c $590.10 Expenses claimed beside the fixed rate $0.00 Fixed rate method $590.10 Actual cost method $0.00 Higher method Fixed rate Higher method, cents disregarded $590.00 The higher method is named for comparison only: each method needs its own records, and you choose one for the year.
+
+## How the work expenses calculator works
+
+For working from home, the calculator shows each method open to you beside the actual cost and names the higher. From 2022-23 the fixed rate is your recorded hours times 67c (2022-23 and 2023-24) or 70c (from 1 July 2024). It covers energy, phone, internet, stationery and computer consumables, so only cleaning, decline in value and repairs are added beside it (PCG 2023/1). For 2020-21 and 2021-22, the 52c rate needed a dedicated home office and covered energy, cleaning and the decline in value of home office furniture; phone, internet, stationery, other assets’ decline in value and repairs went beside it. The 80c shortcut covered every working from home expense. Every hourly rate needs at least one additional running expense incurred from working from home. The actual cost is the total of the work-related amounts you enter.
+
+For a car you owned or leased, the cents per kilometre method counts only the first 5,000 business kilometres, at 72c for 2020-21 and 2021-22, 78c for 2022-23, 85c for 2023-24, 88c for 2024-25 and 2025-26, and 91c for 2026-27 (section 28-25). The log book method takes the car expenses times the business use percentage, business kilometres over total kilometres (section 28-90). A log book serves the year it was kept and the next 4 years (section 28-115) and must cover at least 12 continuous weeks (section 28-120).
+
+For self-education, expenses count only when, at the time you incurred them, you were employed and the study kept up or improved the skills or knowledge for your current work, or was likely to increase your income from it. For 2021-22 and earlier, a prescribed course of education reduces category A by $250, less any category C, D and E expenses (section 82A). From 2022-23 there is no reduction. Each deduction is shown to the cent and again with the cents disregarded, as the ATO’s examples show the figure for the return.
+
+## What the work expenses calculator does not cover
+
+The calculator refuses an expense reimbursed or paid by an employer or anyone else, or covered by an allowance. It also refuses a car you did not own or lease, a log book kept more than 4 years before the claim year, one covering under 12 weeks and one that no longer represents the car’s use. It also refuses cents per kilometre expenses in category D beside log book car expenses in category A. It does not cover occupancy expenses such as rent, mortgage interest, rates and house insurance, or decide whether your home is a place of business. It also leaves out the substantiation rules and their exceptions, occupation-specific guidance, cars taken on hire or jointly owned, a new log book after an ATO notice or an added car, and the electric vehicle home charging rate. It does not work out decline in value, apportion an expense or work out the tax saved. Years before 2020-21 and after 2026-27 are not covered: no cents per kilometre rate had been determined for 2027-28 when the calculator was checked.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Work expenses calculator
+
+Case | Inputs | Result
+Keisha: 843 hours at 70c, $590 (ATO fixed rate method page) | 2025-26, working from home, 843 hours | Fixed rate $590.10, actual cost $0.00; higher fixed rate, $590.00 with cents disregarded
+Yang: 567 hours plus a $299 chair and a $250 desk, $945 (ATO fixed rate method page) | 2025-26, working from home, 567 hours, furniture decline $549.00 | Fixed rate $945.90, actual cost $549.00; higher fixed rate, $945.00 with cents disregarded
+Wanda: only the 136 recorded hours count, $95 (ATO fixed rate method page) | 2025-26, working from home, 136 hours | Fixed rate $95.20, actual cost $0.00; higher fixed rate, $95.00 with cents disregarded
+Gerry: 768 hours in 2024-25, $537 (PCG 2023/1 example 1) | 2024-25, working from home, 768 hours | Fixed rate $537.60, actual cost $0.00; higher fixed rate, $537.00 with cents disregarded
+Piruntha: 560 hours plus decline in value, $1,527 (PCG 2023/1 example 8) | 2024-25, working from home, 560 hours, furniture decline $439.20, other assets’ decline $696.52 | Fixed rate $1,527.72, actual cost $1,135.72; higher fixed rate, $1,527.00 with cents disregarded
+67c in 2023-24, the last year before 70c (PCG 2023/1 Table 1) | 2023-24, working from home, 100 hours | Fixed rate $67.00, actual cost $0.00; higher fixed rate, $67.00 with cents disregarded
+2021-22: the 52c rate with a dedicated home office, phone beside it, and the 80c shortcut | 2021-22, working from home, 1,000 hours, phone $120.00 | Fixed rate $640.00, shortcut $800.00, actual cost $120.00; higher shortcut, $800.00 with cents disregarded
+2021-22 without a dedicated home office: the shortcut and actual cost only | 2021-22, working from home, 1,000 hours, energy $900.00, no dedicated home office | Shortcut $800.00, actual cost $900.00; higher actual cost, $900.00 with cents disregarded
+Sergei: no additional running expenses, so actual cost only (PCG 2023/1 example 6) | 2025-26, working from home, 500 hours, other assets’ decline $50.00, no additional running expenses | Actual cost $50.00; higher actual cost, $50.00 with cents disregarded
+Johan: 2,514 km at 88c, $2,212 (ATO cents per kilometre page) | 2025-26, cents per kilometre, 2,514 business km | 2,514 km counted, deduction $2,212.32, $2,212.00 with cents disregarded
+Only the first 5,000 business kilometres count (s 28-25(2)), at 91c for 2026-27 | 2026-27, cents per kilometre, 5,085 business km | 5,000 km counted, deduction $4,550.00, $4,550.00 with cents disregarded
+72c for 2021-22, the rate continued from 2020-21 | 2021-22, cents per kilometre, 1,000 business km | 1,000 km counted, deduction $720.00, $720.00 with cents disregarded
+Lana: 69% business use of $17,275.33 decline in value, $11,919.98 (ATO logbook method page) | 2025-26, log book kept 2025-26 for 12 weeks, 6,900 of 10,000 km, car expenses $17,275.33 | Business use 69.00%, deduction $11,919.98, $11,919.00 with cents disregarded
+A log book kept in 2021-22 still serves 2025-26, its fifth year (s 28-115(2)) | 2025-26, log book kept 2021-22 for 12 weeks, 6,900 of 10,000 km, car expenses $17,275.33 | Business use 69.00%, deduction $11,919.98, $11,919.00 with cents disregarded
+Maureen: category A of $290 alone, $40 after the $250 reduction (ATO reduction page) | 2021-22, self-education, skills for current work, A $290.00, B $0.00, C $0.00, D $0.00, prescribed course, E $0.00 | Reduction $250.00, deduction $40.00
+Con: categories C, D and E above $250 leave no reduction, $750 (TR 98/9 paras 145 to 150) | 2020-21, self-education, skills for current work, A $350.00, B $200.00, C $100.00, D $100.00, prescribed course, E $500.00 | Reduction $0.00, deduction $750.00
+Con’s second year: category E alone above $250 leaves no reduction, $900 (TR 98/9 paras 151 to 155) | 2020-21, self-education, skills for current work, A $500.00, B $400.00, C $0.00, D $0.00, prescribed course, E $2,200.00 | Reduction $0.00, deduction $900.00
+A seminar is not a prescribed course, so no reduction in 2021-22 (TR 98/9 para 129) | 2021-22, self-education, skills for current work, A $290.00, B $0.00, C $0.00, D $0.00, not a prescribed course | Deduction $290.00
+From 2022-23 there is no $250 reduction (Act No. 84, 2022) | 2022-23, self-education, skills for current work, A $290.00, B $0.00, C $0.00, D $0.00 | Deduction $290.00
+Wendy: study for new employment is not deductible (ATO self-education page) | 2025-26, self-education, new employment, A $290.00, B $0.00, C $0.00, D $0.00 | Deduction $0.00, not deductible
+
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
 - fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---

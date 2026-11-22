@@ -1,0 +1,116 @@
+<section class="business-calculator" id="work-expenses">
+<form class="calculator-split" data-calculator="work-expenses">
+<fieldset disabled><legend>Work expenses for one income year</legend><div class="form-grid"><fieldset><legend>Method</legend>
+<label><input type="radio" name="method" value="home_office" checked /> Working from home</label>
+<label><input type="radio" name="method" value="car_cents_per_kilometre" /> Car, cents per kilometre</label>
+<label><input type="radio" name="method" value="car_log_book" /> Car, log book</label>
+<label><input type="radio" name="method" value="self_education" /> Self-education</label>
+</fieldset>
+<fieldset><legend>Income year</legend>
+<label><input type="radio" name="year" value="2026-27" /> 2026-27</label>
+<label><input type="radio" name="year" value="2025-26" checked /> 2025-26</label>
+<label><input type="radio" name="year" value="2024-25" /> 2024-25</label>
+<label><input type="radio" name="year" value="2023-24" /> 2023-24</label>
+<label><input type="radio" name="year" value="2022-23" /> 2022-23</label>
+<label><input type="radio" name="year" value="2021-22" /> 2021-22</label>
+<label><input type="radio" name="year" value="2020-21" /> 2020-21</label>
+</fieldset>
+<fieldset data-show-field="method" data-show-values="home_office"><legend>Working from home</legend>
+<label class="field" for="work-expenses-hours">Hours worked from home, as recorded<input id="work-expenses-hours" name="hours" type="number" inputmode="decimal" min="0" max="8784" step="0.01" value="843" required /></label>
+<fieldset><legend>Additional running expenses, such as energy or phone, incurred from working from home</legend>
+<label><input type="radio" name="running-expenses" value="yes" checked /> Yes</label>
+<label><input type="radio" name="running-expenses" value="no" /> No</label>
+</fieldset>
+<fieldset data-show-field="year" data-show-values="2020-21 2021-22" hidden disabled><legend>A dedicated home office (2020-21 and 2021-22)</legend>
+<label><input type="radio" name="dedicated" value="yes" checked /> Yes</label>
+<label><input type="radio" name="dedicated" value="no" /> No</label>
+</fieldset>
+<p class="field-note">Work-related amounts only, in dollars and cents. Enter 0 for an expense you did not have.</p>
+<label class="field" for="work-expenses-energy">Electricity and gas<input id="work-expenses-energy" name="energy" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-phone">Mobile and home phone<input id="work-expenses-phone" name="phone" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-internet">Internet<input id="work-expenses-internet" name="internet" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-stationery">Stationery and computer consumables<input id="work-expenses-stationery" name="stationery" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-cleaning">Cleaning<input id="work-expenses-cleaning" name="cleaning" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-furniture-decline">Decline in value of home office furniture and furnishings<input id="work-expenses-furniture-decline" name="furniture-decline" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-asset-decline">Decline in value of other assets, such as a computer or phone<input id="work-expenses-asset-decline" name="asset-decline" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-repairs">Repairs to those assets<input id="work-expenses-repairs" name="repairs" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+</fieldset>
+<fieldset data-show-field="method" data-show-values="car_cents_per_kilometre car_log_book" hidden disabled><legend>Car</legend>
+<fieldset><legend>A car you owned or leased</legend>
+<label><input type="radio" name="owned" value="yes" checked /> Yes</label>
+<label><input type="radio" name="owned" value="no" /> No</label>
+</fieldset>
+<label class="field" for="work-expenses-business-kilometres">Business kilometres in the year<input id="work-expenses-business-kilometres" name="business-kilometres" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="2514" required /></label>
+</fieldset>
+<fieldset data-show-field="method" data-show-values="car_log_book" hidden disabled><legend>Log book</legend>
+<label class="field" for="work-expenses-total-kilometres">Total kilometres in the year<input id="work-expenses-total-kilometres" name="total-kilometres" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="10000" required /></label>
+<label class="field" for="work-expenses-car-expenses">Car expenses, decline in value included (dollars and cents)<input id="work-expenses-car-expenses" name="car-expenses" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="17275.33" required /></label>
+<label class="field" for="work-expenses-log-book-year">Income year the log book was kept (YYYY-YY)<input id="work-expenses-log-book-year" name="log-book-year" type="text" inputmode="numeric" maxlength="7" pattern="[0-9]{4}-[0-9]{2}" value="2025-26" required /></label>
+<label class="field" for="work-expenses-log-book-weeks">Continuous weeks the log book covers<input id="work-expenses-log-book-weeks" name="log-book-weeks" type="number" inputmode="numeric" min="0" max="53" step="1" value="12" required /></label>
+<fieldset><legend>The log book still represents the car’s business use</legend>
+<label><input type="radio" name="representative" value="yes" checked /> Yes</label>
+<label><input type="radio" name="representative" value="no" /> No, after a change such as a new job or home</label>
+</fieldset>
+</fieldset>
+<fieldset data-show-field="method" data-show-values="self_education" hidden disabled><legend>Self-education</legend>
+<fieldset><legend>When the expenses were incurred, the study</legend>
+<label><input type="radio" name="connection" value="maintains_or_improves_skills" checked /> Maintained or improved skills or knowledge for my current work</label>
+<label><input type="radio" name="connection" value="increases_income" /> Was likely to increase my income from my current work</label>
+<label><input type="radio" name="connection" value="general_only" /> Related to my work only in a general way</label>
+<label><input type="radio" name="connection" value="new_employment" /> Was to get new employment</label>
+</fieldset>
+<fieldset><legend>Employed when the expenses were incurred</legend>
+<label><input type="radio" name="employed" value="yes" checked /> Yes</label>
+<label><input type="radio" name="employed" value="no" /> No</label>
+</fieldset>
+<label class="field" for="work-expenses-category-a">Category A: fees, books, stationery, fares and log book car expenses other than decline in value<input id="work-expenses-category-a" name="category-a" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="290" required /></label>
+<label class="field" for="work-expenses-category-b">Category B: decline in value<input id="work-expenses-category-b" name="category-b" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-category-c">Category C: repairs<input id="work-expenses-category-c" name="category-c" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-category-d">Category D: car expenses by cents per kilometre<input id="work-expenses-category-d" name="category-d" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<fieldset><legend>Category A includes log book car expenses</legend>
+<label><input type="radio" name="log-book-car" value="no" checked /> No</label>
+<label><input type="radio" name="log-book-car" value="yes" /> Yes</label>
+</fieldset>
+<fieldset data-show-field="year" data-show-values="2020-21 2021-22" hidden disabled><legend>A prescribed course of education (2020-21 and 2021-22)</legend>
+<label><input type="radio" name="prescribed" value="yes" checked /> Yes, a course at a school, college, university or other place of education</label>
+<label><input type="radio" name="prescribed" value="no" /> No, such as a seminar, conference or short refresher course</label>
+</fieldset>
+<fieldset data-show-field="year" data-show-values="2020-21 2021-22" hidden disabled><legend>Category E (2020-21 and 2021-22)</legend>
+<label class="field" for="work-expenses-category-e">Expenses incurred but not deductible, such as child care to attend<input id="work-expenses-category-e" name="category-e" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+</fieldset>
+</fieldset>
+<fieldset><legend>Reimbursed or paid by your employer or anyone else</legend>
+<label><input type="radio" name="reimbursed" value="no" checked /> No</label>
+<label><input type="radio" name="reimbursed" value="yes" /> Yes</label>
+</fieldset>
+<fieldset><legend>An allowance received for these expenses</legend>
+<label><input type="radio" name="allowance" value="no" checked /> No</label>
+<label><input type="radio" name="allowance" value="yes" /> Yes</label>
+</fieldset>
+<label class="field" for="work-expenses-scope">The hours, kilometres and amounts are your records’ work-related figures
+<select id="work-expenses-scope" name="scope" aria-describedby="work-expenses-scope-note" required>
+<option value="">Choose</option>
+<option value="yes">Yes, I have checked them</option>
+<option value="no">No or unsure</option>
+</select></label>
+</div>
+<button type="submit" class="button">Calculate</button>
+<p class="field-note" id="work-expenses-scope-note">The calculator applies the rates, caps and reductions to the figures you enter. It does not check your records, apportion an expense, work out decline in value or decide whether your home is a place of business.</p></fieldset>
+{% include calculator-example.html inputs="Working from home, 2025-26, 843 hours, other expenses $0.00" rows="Fixed rate, 843 hours at 70c|$590.10;Expenses claimed beside the fixed rate|$0.00;Fixed rate method|$590.10;Actual cost method|$0.00;Higher method|Fixed rate;Higher method, cents disregarded|$590.00" principal="5" note="The higher method is named for comparison only: each method needs its own records, and you choose one for the year" %}
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>Working from home: <a href="https://www.ato.gov.au/law/view/document?docid=COG/PCG20231/NAT/ATO/00001">PCG 2023/1</a>, paras 14, 15, 18, 23 to 26A and 49 to 59 (Table 1: 67c for 2022-23 and 2023-24, 70c from 1 July 2024); the ATO’s <a href="https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/working-from-home-expenses/fixed-rate-method">fixed rate method</a> (last updated 8 June 2026) and <a href="https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/working-from-home-expenses/actual-cost-method">actual cost method</a> pages; for 2020-21 and 2021-22, the ATO’s <a href="https://www.ato.gov.au/forms-and-instructions/fixed-rate-method-52-cents">fixed rate method, 52 cents</a> and <a href="https://www.ato.gov.au/forms-and-instructions/shortcut-method">shortcut method</a> pages (PCG 2020/3, 80c), last updated 25 June 2024. Read 22 November 2026.</li>
+<li>Car: ITAA 1997 sections <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19970038/28-25">28-25</a>, <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19970038/28-90">28-90</a>, <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19970038/28-115">28-115</a> and <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19970038/28-120">28-120</a>; the ATO’s <a href="https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/cars-transport-and-travel/motor-vehicle-and-car-expenses/expenses-for-a-car-you-own-or-lease/cents-per-kilometre-method">cents per kilometre method</a> page (last updated 12 August 2026) for the rate of each year, and the 2026-27 rate in the <a href="https://www.legislation.gov.au/F2026L00785/asmade/text">Cents per Kilometre Deduction Rate for Car Expenses Determination 2026</a>; the ATO’s <a href="https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/cars-transport-and-travel/motor-vehicle-and-car-expenses/expenses-for-a-car-you-own-or-lease/logbook-method">logbook method</a> page (last updated 12 June 2026). Read 22 November 2026.</li>
+<li>Self-education: ITAA 1997 section 8-1, TR 2024/3 and the ATO’s <a href="https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/education-training-and-seminars/self-education-expenses">self-education expenses</a> page; the $250 reduction of ITAA 1936 section 82A as the ATO’s <a href="https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/education-training-and-seminars/self-education-expenses/self-education-reduction-in-expenses">self-education reduction</a> page (last updated 8 June 2026) and <a href="https://www.ato.gov.au/law/view/document?docid=TXR/TR989/NAT/ATO/00001">TR 98/9</a> paras 119 to 155 apply it, repealed from 2022-23 by Schedule 3 to the Treasury Laws Amendment (2022 Measures No. 2) Act 2022. Read 22 November 2026.</li>
+<li>Supplied by you: the method, the year, the hours, kilometres and work-related amounts, and the answers about running expenses, the home office, the car, the log book, the study and any reimbursement or allowance.</li>
+</ul>
+</div>
+</form>
+<h2>How the work expenses calculator works</h2>
+<p>For working from home, the calculator shows each method open to you beside the actual cost and names the higher. From 2022-23 the fixed rate is your recorded hours times 67c (2022-23 and 2023-24) or 70c (from 1 July 2024). It covers energy, phone, internet, stationery and computer consumables, so only cleaning, decline in value and repairs are added beside it (PCG 2023/1). For 2020-21 and 2021-22, the 52c rate needed a dedicated home office and covered energy, cleaning and the decline in value of home office furniture; phone, internet, stationery, other assets’ decline in value and repairs went beside it. The 80c shortcut covered every working from home expense. Every hourly rate needs at least one additional running expense incurred from working from home. The actual cost is the total of the work-related amounts you enter.</p>
+<p>For a car you owned or leased, the cents per kilometre method counts only the first 5,000 business kilometres, at 72c for 2020-21 and 2021-22, 78c for 2022-23, 85c for 2023-24, 88c for 2024-25 and 2025-26, and 91c for 2026-27 (section 28-25). The log book method takes the car expenses times the business use percentage, business kilometres over total kilometres (section 28-90). A log book serves the year it was kept and the next 4 years (section 28-115) and must cover at least 12 continuous weeks (section 28-120).</p>
+<p>For self-education, expenses count only when, at the time you incurred them, you were employed and the study kept up or improved the skills or knowledge for your current work, or was likely to increase your income from it. For 2021-22 and earlier, a prescribed course of education reduces category A by $250, less any category C, D and E expenses (section 82A). From 2022-23 there is no reduction. Each deduction is shown to the cent and again with the cents disregarded, as the ATO’s examples show the figure for the return.</p>
+<h2>What the work expenses calculator does not cover</h2>
+<p>The calculator refuses an expense reimbursed or paid by an employer or anyone else, or covered by an allowance. It also refuses a car you did not own or lease, a log book kept more than 4 years before the claim year, one covering under 12 weeks and one that no longer represents the car’s use. It also refuses cents per kilometre expenses in category D beside log book car expenses in category A. It does not cover occupancy expenses such as rent, mortgage interest, rates and house insurance, or decide whether your home is a place of business. It also leaves out the substantiation rules and their exceptions, occupation-specific guidance, cars taken on hire or jointly owned, a new log book after an ATO notice or an added car, and the electric vehicle home charging rate. It does not work out decline in value, apportion an expense or work out the tax saved. Years before 2020-21 and after 2026-27 are not covered: no cents per kilometre rate had been determined for 2027-28 when the calculator was checked.</p>
+</section>

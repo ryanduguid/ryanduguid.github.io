@@ -9,7 +9,8 @@ const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 's
   'sole-trader': '$5,939.00', 'lump-sum-arrears': '$1,688.25', 'division-293': '$750.00', 'income-tests': '$73,810.00',
   'concessional-catch-up': '$97,500.00', 'bonus-withholding': '$641.00',
   'salary-packaging': '$5,291.50', 'novated-lease': '$6,047.48',
-  'super-projection': '$539,266.80', fhss: '$14,350.00', 'government-super': '$500.00' };
+  'super-projection': '$539,266.80', fhss: '$14,350.00', 'work-expenses': '$590.00',
+  'government-super': '$500.00' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -43,6 +44,7 @@ for (const id of Object.keys(CALCULATORS)) {
       await form.locator('input[name=withholding-basis][value=unable]').check();
       await form.locator('#fhss-debt-offset').fill('0');
     }
+    if (id === 'work-expenses') await form.locator('#work-expenses-scope').selectOption('yes');
     await form.getByRole('button', { name: 'Calculate', exact: true }).click();
     await expect(output.locator('.result-example')).toHaveCount(0);
     expect(await output.evaluate((element) => element.textContent)).toBe(example);
@@ -418,6 +420,45 @@ for (const [id, name, input, expected] of [
     expect(result).toMatchObject({ name, readOnly: true, output: expected });
   });
 }
+
+test('work expenses switches method and year, shows only their inputs and refuses an expired log book', async ({ page }) => {
+  await page.goto('/tools/individual-tax/work-expenses/');
+  const form = page.locator('#work-expenses form');
+  const output = form.locator('output');
+  const row = (label) => output.locator('.result-row').filter({ hasText: label }).locator('strong');
+  await waitForCalculator(form);
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  // Unconfirmed figures are refused, and the select takes focus.
+  await calculate.click();
+  await expect(form.locator('#work-expenses-scope')).toBeFocused();
+  await form.locator('#work-expenses-scope').selectOption('yes');
+  // 2021-22 shows the dedicated home office question; the 52c rate, the shortcut and actual cost all appear.
+  await form.locator('input[name=year][value="2021-22"]').check();
+  await expect(form.locator('input[name=dedicated][value=yes]')).toBeVisible();
+  await form.locator('#work-expenses-hours').fill('1000');
+  await form.locator('#work-expenses-phone').fill('120');
+  await calculate.click();
+  await expect(row('Fixed rate method')).toHaveText('$640.00');
+  await expect(row('Higher method, cents disregarded')).toHaveText('$800.00');
+  // Johan's 2,514 km at 88c in 2025-26.
+  await form.locator('input[name=year][value="2025-26"]').check();
+  await form.locator('input[name=method][value=car_cents_per_kilometre]').check();
+  await expect(form.locator('#work-expenses-hours')).toBeHidden();
+  await expect(form.locator('#work-expenses-total-kilometres')).toBeHidden();
+  await calculate.click();
+  await expect(row('Deduction, cents disregarded')).toHaveText('$2,212.00');
+  // A log book from 2020-21 does not serve 2025-26 (s 28-115(2)).
+  await form.locator('input[name=method][value=car_log_book]').check();
+  await form.locator('#work-expenses-log-book-year').fill('2020-21');
+  await calculate.click();
+  await expect(output).toContainText('serves that year and the next 4 only');
+  // Self-education in 2021-22 asks whether the course is prescribed and takes category E.
+  await form.locator('input[name=method][value=self_education]').check();
+  await form.locator('input[name=year][value="2021-22"]').check();
+  await expect(form.locator('#work-expenses-category-e')).toBeVisible();
+  await calculate.click();
+  await expect(row('Deduction, cents disregarded')).toHaveText('$40.00');
+});
 
 test('government super shows the spouse inputs on request and refuses a temporary visa and an unknown balance', async ({ page }) => {
   await page.goto('/tools/individual-tax/government-super/');
