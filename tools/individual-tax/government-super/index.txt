@@ -16,7 +16,7 @@ Amounts for one income year
 
 Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
 
-Personal super contributions you did not deduct, received by your fund in the year (dollars and cents) Concessional contributions for the year: employer, salary sacrifice and personal contributions you deduct (dollars and cents) Income from employment or carrying on a business, such as salary, wages, director fees and business income before deductions (dollars and cents) Income for the year from your return (whole dollars, 0 if none) Assessable income, before deductions Taxable income Deductions against business income Reportable employer super contributions, IT2 Personal super contributions you deduct, D12 Reportable fringe benefits from other employers, IT1 label W Reportable fringe benefits from employers exempt under section 57A, IT1 label N Assessable first home super saver (FHSS) released amount Excess concessional contributions for the year Net financial investment loss, IT5 Net rental property loss, IT6 Target foreign income, IT4 Tax-free government pensions or benefits, IT7 Child support you paid, IT8
+Personal contributions not deducted, received by your fund in the year Concessional contributions: employer, salary sacrifice and deducted personal Income from employment or a business, such as salary, director fees and business income before deductions Income from your return (whole dollars) Assessable income Taxable income Deductions against business income Reportable employer super contributions, IT2 Personal super contributions you deduct, D12 Reportable fringe benefits, other employers, IT1 W Reportable fringe benefits, section 57A employers, IT1 N Assessable FHSS released amount Excess concessional contributions for the year Net financial investment loss, IT5 Net rental property loss, IT6 Target foreign income, IT4 Tax-free government pensions, IT7 Child support you paid, IT8
 
 An Australian resident for the whole year Yes No
 
@@ -26,9 +26,9 @@ Your tax return for the year is lodged Yes No
 
 Under 71 at the end of the year Yes No
 
-Non-concessional contributions for the year within your cap Yes No Not known
+Non-concessional contributions within your cap Yes No Not known
 
-Total super balance on 30 June before the year below the general transfer balance cap Yes No Not known
+Total super balance at the previous 30 June below the transfer balance cap Yes No Not known
 
 You contributed to your spouse’s super in the year No Yes
 
@@ -38,7 +38,7 @@ Choose Yes, I have checked them No or unsure
 
 Calculate
 
-Personal contributions count only if your fund received them by 30 June and you did not deduct them; downsizer contributions do not count. Spouse contributions count only if you were spouses, both Australian residents and not living apart when you made them, to a complying fund, and you cannot deduct them.
+Downsizer contributions do not count. Spouse contributions count only if made whilst you were spouses, both Australian residents and not living apart, to a complying fund, and not deductible.
 
 Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2023-24, assessable income $35,000.00, taxable income $35,000.00, eligible income $35,000.00, personal contributions $1,040.00, concessional contributions $0.00. Total income for the co-contribution $35,000.00 Income thresholds $43,445 and $58,445 Half the personal contributions $520.00 Maximum after the taper $500.00 Super co-contribution $500.00 Co-contribution paid, up to 5 cents $500.00 Adjusted taxable income $35,000.00 LISTO $0.00 LISTO paid, up to 5 cents $0.00 No LISTO: no concessional contributions. The ATO works out the co-contribution and LISTO from your return and your fund’s reports and pays them to your fund.
 

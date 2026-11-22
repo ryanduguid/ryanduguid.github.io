@@ -299,6 +299,9 @@
     "tools/individual-tax/fhss/index.html": [
       "17dcd0204b9a84a38aab7dcd7e1270022b2fa898ce850c32dfa56c1e31723c07"
     ],
+    "tools/individual-tax/government-super/index.html": [
+      "a6c04ae01301516be667643b6b3b9ec122cacadea03403d4ac3cc38fb4187c19"
+    ],
     "tools/individual-tax/income-tax/index.html": [
       "98166cb8a84440b4e239297314c70117548772f9f32dbda73dbc66896875a06e"
     ],
@@ -391,9 +394,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "d2725de08e9476b4c672e073a20727aaca0fd4f4b1d43f266904f4e55c2d26d5",
+    "llms.txt": "882a121e0131e4b7f3bcc2f36812f36c71c828f9e030fd593d54e059061d28d3",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "ab59d67dad1defe3febcc156569a6eddcbc1432eb6e3af372a717eb5d93debad"
+    "sitemap.xml": "dfb4fbdf70d50b4a95560152c06c11458b09b36d3ab2d69382b21b4ff2beca50"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -453,7 +456,7 @@
     "rates/super-guarantee/index.html": "67633b6e3b70d778f09dca28e97d4dbc5b8293a1d45b0c318689bc40c80517d3"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7799,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7800,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

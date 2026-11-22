@@ -8,6 +8,13 @@
   <updated>2026-11-22T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new individual tax calculator, super co-contribution, LISTO and spouse…</title>
+    <link href="https://duguid.com.au/changelog/#entry-23128dbab90350fa" />
+    <id>https://duguid.com.au/changelog/#entry-23128dbab90350fa</id>
+    <updated>2026-11-22T00:00:00Z</updated>
+    <summary>A new individual tax calculator, super co-contribution, LISTO and spouse offset, works the government’s super co-contribution, the low income super tax offset and the spouse contribution tax offset for 2020-21 to 2026-27 from one set of answers. It applies each year’s income thresholds, the $500 maximum and 3.333 cent taper, the $20 minimum, LISTO’s 15% between $10 and $500, and the spouse offset’s 18% of up to $3,000, shows each condition met or not and rounds a payment up to 5 cents. It refuses temporary visa holders and an unknown cap or balance answer that would decide an amount.</summary>
+  </entry>
+  <entry>
     <title>A new business calculator works out luxury car tax on a tax period’s sales and…</title>
     <link href="https://duguid.com.au/changelog/#entry-3c0c4ebff9200929" />
     <id>https://duguid.com.au/changelog/#entry-3c0c4ebff9200929</id>
