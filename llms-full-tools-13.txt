@@ -60,7 +60,7 @@ An end before the start is refused | New South Wales, Wednesday 18 November 2026
 A Victorian date after 31 August 2027 is refused | Victoria, Wednesday 1 September 2027 to Thursday 30 September 2027 | Refused: this page has public holidays from 1 January 2026 to 31 August 2027 for Victoria; choose dates in that range
 Counting past 31 December 2027 is refused | New South Wales, 20 business days after Monday 20 December 2027 | Refused: this page has public holidays from 1 January 2026 to 31 December 2027 for New South Wales; choose dates in that range
 
-One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -68,7 +68,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -158,7 +158,7 @@ A sale to an associate is refused | Freehold, bought under the margin scheme, so
 A valuation for property acquired after 1 July 2000 is refused | Freehold, bought under the margin scheme; price $190,000.00 GST-inclusive, valuation $400,000.00, 200,000 of 2,000,000 | Refused: an approved valuation sets the margin only for property held since before 1 July 2000 (subsection 75-10(3)); use the consideration you paid for property acquired later
 A part larger than the whole is refused | Freehold, bought under the margin scheme; price $190,000.00 GST-inclusive, cost $400,000.00, 2,000,001 of 2,000,000 | Refused: this sale’s part cannot be more than the whole it is part of
 
-One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -166,7 +166,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
@@ -281,7 +281,7 @@ A room used to produce income from a day away, with the home chosen as the main 
 Shares an individual and associates own at least 10% of are refused, as section 115-45 can deny the discount | Individual, shares or units held at least 10%; bought 1 July 1997, sold 1 February 2026 for $496,000.00; price $144,000.00, buying $20,000.00 on 1 July 1997, cost $30,000.00 on 1 October 2025, selling $12,500.00, capital works $255.00; other income $90,000.00 | Refused: the gain on shares, or units or other fixed or voting interests in a trust, that you and your associates own at least 10% of is not a discount capital gain when most of the company’s or trust’s assets, by cost base and by net capital gain, were acquired in the 12 months before the sale (section 115-45): this page does not test that
 A home first rented on 21 September 1999 is refused, as section 118-192 moves its acquisition to that day | Individual, home; bought 1 March 1995, sold 14 April 2026 for $496,000.00; price $150,000.00; other income $90,000.00; settled 1 April 1995 and 14 April 2026, moved in 1 April 1995; away 21 September 1999 to 14 April 2026, rented; market value $200,000.00 | Refused: for an asset acquired on 21 September 1999, whether the cost base can be indexed turns on whether it was acquired by 11.45 am (sections 114-1 and 114-10): this page cannot tell
 
-One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -289,7 +289,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
