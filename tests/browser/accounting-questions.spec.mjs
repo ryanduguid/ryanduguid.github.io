@@ -1082,13 +1082,13 @@ test('depreciation pools page works each worksheet and a refusal offline', async
   await context.setOffline(true);
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output .result-row--principal')).toHaveText('Decline in value, the deduction: $1,986.38.');
-  await form.getByLabel('Work out').selectOption('small-business-pool');
+  await form.getByLabel('A general small business pool').check();
   await expect(form.locator('[name="previous"]')).toBeHidden();
   await expect(form.locator('[name="opening"]')).toBeVisible();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output .result-row--principal')).toHaveText('Deduction: $34,200.00.');
   await expect(form.locator('output')).toContainText('Closing pool balance: $85,800.00.');
-  await form.getByLabel('Work out').selectOption('capital-works');
+  await form.getByLabel('A capital works deduction').check();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output .result-row--principal')).toHaveText('Capital works deduction: $2,744.30.');
   await form.getByLabel('Date construction began').fill('1987-09-15');
