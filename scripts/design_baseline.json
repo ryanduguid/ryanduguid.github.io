@@ -125,6 +125,9 @@
     "tools/bas-due-dates/index.html": [
       "6f22173930285ac0d6c7aa02c77b70e02e8f693c73fd2853ffa9b9863e1598b2"
     ],
+    "tools/business-calculators/asic-fees/index.html": [
+      "1695328325c3bd061d256303275f3872f33eaa53076df801b420bfcb01529583"
+    ],
     "tools/business-calculators/borrowing-expenses/index.html": [
       "6f8f8003512eb912605cb8e0644a74b9a2716e82770a6faec7695fa7caa25a65"
     ],
@@ -263,9 +266,6 @@
     "tools/business-calculators/vehicle-class/index.html": [
       "947d30d0ffe985e4eff6376be1b13119f929aac22d94c20c3f73efb6b7d20abe"
     ],
-    "tools/business-calculators/wine-equalisation-tax/index.html": [
-      "544a2f33fca5326e27e6341259f0dc9a4c2dcb13261224967434c201ddbb6a53"
-    ],
     "tools/business-calculators/workers-compensation/index.html": [
       "6f47d11b2da7c30a21df1a4e85cb78b5d677afa084f84b31ca483e223e181a90"
     ],
@@ -385,9 +385,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "1655401ca74812c16b908716e77841be3beeac86d9ae261b417f443ece2cdfa9",
+    "llms.txt": "5510aecfe55b7879a0f8c460a76b8cce262399d4a014fd25f7a7519fc6d6ba93",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "d01971f9668769174094d715538e454d474de0a9e128174ebd192005f1994695"
+    "sitemap.xml": "465deb96c6ab890d87d3bbfe32e1097223bd3115ffa50eb459ad7b726cf88683"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

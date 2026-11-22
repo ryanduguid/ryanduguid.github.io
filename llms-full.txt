@@ -5560,7 +5560,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
-22 November 2026 | A new business calculator works out wine equalisation tax for a tax period’s dealings in 2023-24 to 2027-28: 29% of a wholesale sale’s price, of half the retail price or of the average wholesale price for retail sales and own use, of the purchase price for own use of wine bought under quote, and nil on a sale under quote. It gives the producer rebate on each dealing that meets the conditions of section 19-5, within the year’s cap of $350,000, or $400,000 for dealings from 1 July 2026, less the rebates already claimed, and labels 1C and 1D in whole dollars. It reproduces the ATO’s worked examples and rebate table, read on 22 November 2026, and agrees with the wine-equalisation-tax command of the australian-accounting calculators on every tested case.
+22 November 2026 | A new business calculator, ASIC fees, lists ASIC’s fees from 1 July 2026 to register a company, reserve a company name, pay the annual review fee and register or renew a business name, with no GST. For a due date and the day ASIC received a review fee payment or a document, both in 2026-27, it gives the late fee: $102 within one month after the due date and $428 after that, counting the month as section 2G of the Acts Interpretation Act 1901 does. It takes the due date as given and declines a case that a weekend due date or month end could change.
 21 November 2026 | The site's software now uses the Apache License 2.0. Ryan Duguid's original page text uses Creative Commons Attribution 4.0. The site licence notice identifies the terms for data, artwork and third-party material.
 20 November 2026 | A new business calculator keeps a company’s franking account for 2025-26 or 2026-27 under Division 205 of the Income Tax Assessment Act 1997: each credit and debit on its day with a running balance, the R&D deferral, refunds in the 3 months after the year’s end taken back into it, franking deficit tax and its offset with the 30% reduction worked only on the part the company’s own debits cause, the benchmark rule’s over-franking tax and under-franking debit in each franking period, the significant variation test and the franking return’s labels and due date. The Act and the ATO’s Franking account tax return 2026 instructions were read on 19 November 2026, and the page opens on the ATO’s example of EKW Ltd’s $62,000 offset.
 19 November 2026 | A super projection calculator. It projects one accumulation account from 2026-27 to retirement, a year at a time, with the 12% super guarantee up to the maximum contribution base, 15% contributions tax, fees and premiums and their tax deduction, and gives the balance in future dollars and at its present value. Its defaults follow ASIC’s Instrument 2022/603 (retirement at 67, today’s dollars at 3.7% a year) and ASIC’s own stated assumptions for returns, fees and premiums; each is listed with why it is reasonable and can be changed.
@@ -5779,6 +5779,7 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- ASIC fees: https://duguid.com.au/tools/business-calculators/asic-fees/
 - site licence notice: https://duguid.com.au/privacy/
 - FBT property: https://duguid.com.au/tools/business-calculators/fbt-property/
 - FBT expense payment: https://duguid.com.au/tools/business-calculators/fbt-expense-payment/
@@ -6390,12 +6391,11 @@ Published 11 September 2026. Last checked 22 November 2026, the newest of the ca
 - Long service leave calculator One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.
 - Workers compensation premium calculator A 2026-27 premium from the declared wages and the insurer’s rate under each state and territory’s scheme, with GST, duty and the actual wages adjustment, each step cited.
 
-## Objections, instalments, termination, land tax, duty and business days
+## Objections, instalments, termination, land tax, duty, business days and ASIC fees
 
 - Objection deadline checker The last day to object to an income tax or FBT assessment, an amended assessment or another ATO decision, with the weekend rule.
 - PAYG instalments calculator The quarterly PAYG instalment from the notified amount, a varied amount, instalment income times the rate, or a varied rate with its credit.
 - Fuel tax credit calculator A business’s fuel tax credits at the ATO’s rate for each day since 1 July 2022, by fuel and use, with label 7D and the small claimant methods.
-- Wine equalisation tax calculator WET on a tax period’s wholesale sales, retail sales, own use and sales under quote, the producer rebate within the year’s $350,000 or $400,000 cap, and labels 1C and 1D.
 - Redundancy and ETP withholding The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
 - Unused leave on termination Schedule 7 withholding and the lump sum A, B and type U amounts for unused leave paid on termination, for 2026-27.
 - Land tax calculator Land tax for a full year in each of the 7 states and territories that levy it, at the general or trust rates, with a foreign or absentee owner surcharge and WA’s metropolitan region improvement tax where chosen, before any exemption.
@@ -6403,6 +6403,7 @@ Published 11 September 2026. Last checked 22 November 2026, the newest of the ca
 - Payroll tax calculator One employer’s annual payroll tax for 2026-27 in any state or territory, for an employer outside a group, with each step cited.
 - Foreign purchaser surcharge calculator Foreign purchaser duty and the foreign owner land tax surcharge in each state and territory, with each one’s own test of who is foreign, the 2026-27 FIRB fee and the upfront total in all 8 side by side.
 - Business days calculator Business days between 2 dates, or the date a number of business days on or back, with each state’s public holidays for 2026 and 2027.
+- ASIC fees calculator ASIC’s 2026-27 fees and late fee tiers.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
@@ -6448,7 +6449,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
 - PAYG instalments calculator: https://duguid.com.au/tools/business-calculators/payg-instalments/
 - Fuel tax credit calculator: https://duguid.com.au/tools/business-calculators/fuel-tax-credits/
-- Wine equalisation tax calculator: https://duguid.com.au/tools/business-calculators/wine-equalisation-tax/
 - Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/
 - Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
 - Land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
@@ -6456,6 +6456,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
 - Foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
 - Business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
+- ASIC fees calculator: https://duguid.com.au/tools/business-calculators/asic-fees/
 
 ---
 
@@ -13620,108 +13621,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# Wine equalisation tax calculator: WET, producer rebate, 1C and 1D
-
-Source: https://duguid.com.au/tools/business-calculators/wine-equalisation-tax/
-
-> Wine equalisation tax at 29% by the price, half retail or average wholesale method, the producer rebate under its cap and BAS labels 1C and 1D.
-
-# Wine equalisation tax calculator
-
-WET on a tax period’s dealings in wine, the producer rebate within the year’s cap, and BAS labels 1C and 1D.
-
-Published 22 November 2026. Last checked 22 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-WET and the producer rebate for one tax period
-
-Rebates claimed earlier this financial year (AUD)
-
-Financial year of the dealings 2027-28 2026-27 2025-26 2024-25 2023-24
-
-## Dealings
-
-Each dealing takes the price its kind is valued on. Enter a wholesale sale or a sale under quote at its price excluding WET and GST; a retail sale or own use at its retail price including WET and GST (for own use, the price it would normally sell for by retail); and own use of wine bought under quote at the purchase price excluding GST. Prices are taken as stated: use the arm’s length price for a dealing that is not at arm’s length.
-
-Dealing 1 KindWholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
-
-Dealing 2 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
-
-Dealing 3 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
-
-## More dealings
-
-Dealings 4 to 6 take the same fields; choose No dealing to leave one out.
-
-Dealing 4 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
-
-Dealing 5 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
-
-Dealing 6 (optional) KindNo dealing Wholesale sale Retail sale Own use, such as tastings Sale under quote Own use of wine bought under quote Price (AUD) A retail sale or own use valued byThe half retail price method The average wholesale price method Quantity, for the average method, in the wholesale sales’ unit A sale under quote: the quote statesA taxable dealing of its own Using the wine in manufacture A GST-free supply, such as an export Selling it on under quote Producer rebateClaimed Not claimed
-
-## The average wholesale price method
-
-Only for grape wine, and only if at least 10% by value of the tax period’s sales of grape wine of the same vintage and the same variety or blend are wholesale sales (subsection 9-25(3)). Enter that period’s wholesale sales of it, excluding WET and GST; every dealing valued by this method uses them. The form takes 4 sales: enter any more as part of one of them, adding their quantities and prices, which leaves the average unchanged.
-
-Is the wine grape wine? Yes No Are at least 10% of those sales by value wholesale sales? Yes No Wholesale sale 1 Quantity Price excluding WET and GST (AUD) Wholesale sale 2 Quantity Price excluding WET and GST (AUD) Wholesale sale 3 Quantity Price excluding WET and GST (AUD) Wholesale sale 4 Quantity Price excluding WET and GST (AUD)
-
-## The producer rebate
-
-The answers below apply to every dealing that claims the rebate. Answer for the wine in those dealings, and work wine that differs separately.
-
-Are you the producer: you made the wine, or had it made from source product you owned? Yes No Did you own the source product, such as the grapes, for at least 85% of the wine by volume, from before crushing (or initial fermentation) until the wine was in its container? Yes No At each dealing, is the wine in a container of 5 litres or less (51 litres for cider or perry), suitable for retail sale and branded with a trade mark that identifies you, is owned by you or an associated producer and is registered, pending or used since 1 July 2015? Yes No Are you an associated producer of another producer (section 19-20)? If so, enter the group’s claims above No Yes
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; dealing 1: retail sale at a retail price of $20,000.00 including WET and GST, rebate claimed; dealing 2: wholesale sale at $30,000.00 excluding WET and GST, rebate claimed; dealing 3: sale under quote at $15,000.00 excluding WET and GST, quote states a taxable dealing of its own, rebate claimed; dealing 4: sale under quote at $20,000.00 excluding WET and GST, quote states a GST-free supply, such as an export, rebate claimed; dealing 5: own use at a retail price of $2,000.00 including WET and GST, rebate claimed; rebates claimed earlier this year $0.00. Wine tax for the period $11,890.00 Label 1C, WET payable, in whole dollars $11,890.00 Producer rebate earned on these dealings $16,240.00 Cap left for 2026-27, of $400,000 $400,000.00 Producer rebate within the cap $16,240.00 Label 1D, WET refundable, in whole dollars $16,240.00 The rebates already claimed reduce what is left of the year’s cap: the ATO accepts rebates claimed in the activity statement for the period the wine tax is attributed to (WETR 2009/2 paragraph 67). No rebate on dealing 4: a condition of subsection 19-5(1) is not met, or the quote states the purchaser will not make a taxable dealing (paragraph 5-50(1)(b)). Report 1C and 1D separately; do not net them.
-
-## How the wine equalisation tax calculator works
-
-Wine equalisation tax (WET) is 29% of the taxable value of each assessable dealing in wine (section 5-5). A wholesale sale’s taxable value is its price excluding WET and GST, and GST is then 10% of the price including WET: the ATO’s $120 dozen bears WET of $34.80 and GST of $15.48, $170.28 in all. A retail sale or own use, such as wine used for tastings, is valued at a notional wholesale selling price; own use of wine bought under quote is valued at its purchase price excluding GST (section 5-5, items AD3c and AD13c). By the half retail price method that is 50% of the retail price including WET and GST (section 9-35), so the ATO’s $140 dozen at the cellar door bears WET of $20.30. Grape wine may instead use the average wholesale price method, the weighted average of the tax period’s wholesale prices for wine of the same vintage and variety (section 9-40), but only if at least 10% by value of those sales are wholesale sales (subsection 9-25(3)); wine that is not grape wine must use half retail (section 9-30). A sale under quote bears no WET (section 7-10). Each amount is rounded half up to the cent.
-
-A producer that meets the conditions of section 19-5 earns a producer rebate of 29% of the wholesale price, or of the notional wholesale selling price, on each dealing it is liable for, and on a sale under quote unless the quote states the buyer will use the wine in manufacture, make a GST-free supply of it or sell it on under quote. The rebates for a financial year are capped, for the producer or for its group of associated producers together: $350,000 for dealings to 30 June 2026 and $400,000 from 1 July 2026 (subsections 19-15(2) and (3)). The calculator takes the rebates already claimed this year off the cap and gives what is left. The wine tax goes to label 1C and the rebate to label 1D of the business activity statement, each in whole dollars, never netted. It reproduces the ATO’s rebate table for 2026-27: WET of $11,890 and rebates of $16,240 on its retail, wholesale, quoted and tasting dealings.
-
-## What the wine equalisation tax calculator does not cover
-
-The calculator works dealings in the financial years 2023-24 to 2027-28 and refuses earlier years, which carry the transitional rebate rules for 2017 and earlier vintage wine. It refuses the average wholesale price method for wine that is not grape wine or without the 10% share of wholesale sales, and a rebate on own use of wine bought under quote. It takes each price as given, so it does not work out an arm’s length price (section 27-10) or the price of wine sold with other goods; it assumes GST applies to a sale and does not decide whether a supply is GST-free.
-
-Not covered: imports and other customs dealings, whose WET the Department of Home Affairs collects; the special valuations of section 9-45; wine tax credits other than the producer rebate, such as bad debts and overpaid WET; the reduction of a rebate for earlier producers’ rebates on wine used in a blend; New Zealand participants’ rebates; whether producers are associated (the group’s claims are taken as given); and the tax period a dealing belongs to. A value or total of $70 trillion or more is refused, as the page cannot show it to the cent. Rebates claimed above the cap are flagged, not worked out: section 19-25 makes the excess payable as wine tax at the end of the financial year. Have a registered tax agent confirm the result before you lodge.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Wine equalisation tax calculator
-
-Case | Inputs | Result
-QC22758 rebate table, 2026-27: WET $11,890, rebates $16,240 | 2026-27; dealing 1: retail sale at a retail price of $20,000.00 including WET and GST, rebate claimed; dealing 2: wholesale sale at $30,000.00 excluding WET and GST, rebate claimed; dealing 3: sale under quote at $15,000.00 excluding WET and GST, quote states a taxable dealing of its own, rebate claimed; dealing 4: sale under quote at $20,000.00 excluding WET and GST, quote states a GST-free supply, such as an export, rebate claimed; dealing 5: own use at a retail price of $2,000.00 including WET and GST, rebate claimed; rebates claimed earlier this year $0.00 | wine tax $11,890.00, label 1C $11,890.00, producer rebate $16,240.00, label 1D $16,240.00
-QC22750 Alison and the Library’s Swillo: WET $34.80 and $174.00 | 2026-27; dealing 1: wholesale sale at $120.00 excluding WET and GST; dealing 2: wholesale sale at $600.00 excluding WET and GST | wine tax $208.80, label 1C $208.00, producer rebate $0.00, label 1D $0.00
-QC22751 Happy Valley, WETR 2009/1 example 15 and para 159 | 2025-26; dealing 1: retail sale at a retail price of $140.00 including WET and GST; dealing 2: own use at a retail price of $11.67 including WET and GST; dealing 3: retail sale at a retail price of $22.00 including WET and GST; dealing 4: retail sale at a retail price of $150.00 including WET and GST | wine tax $46.93, label 1C $46.00, producer rebate $0.00, label 1D $0.00
-WETR 2009/1 example 16, QC22751 Good Wines: average $83, WET $24.07 | 2024-25; dealing 1: retail sale at a retail price of $190.00 including WET and GST, by the average wholesale price for 1; dealing 2: own use, by the average wholesale price for 1; the period’s wholesale sales 7 for $560.00 and 3 for $270.00 | wine tax $48.14, label 1C $48.00, producer rebate $0.00, label 1D $0.00
-Cap 2025-26: $340,000 claimed, $10,000 of $14,500 fits | 2025-26; dealing 1: wholesale sale at $50,000.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $340,000.00 | wine tax $14,500.00, label 1C $14,500.00, producer rebate $10,000.00, label 1D $10,000.00
-Cap 2026-27: $390,000 claimed, $10,000 of $14,500 fits | 2026-27; dealing 1: wholesale sale at $50,000.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $390,000.00 | wine tax $14,500.00, label 1C $14,500.00, producer rebate $10,000.00, label 1D $10,000.00
-Cap 2027-28: $390,000 claimed, $10,000 of $14,500 fits | 2027-28; dealing 1: wholesale sale at $50,000.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $390,000.00 | wine tax $14,500.00, label 1C $14,500.00, producer rebate $10,000.00, label 1D $10,000.00
-Cap 2023-24 reached at $350,000: no rebate | 2023-24; dealing 1: wholesale sale at $50,000.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $350,000.00 | wine tax $14,500.00, label 1C $14,500.00, producer rebate $0.00, label 1D $0.00
-Claims already above the cap: no rebate, s 19-25 flagged | 2026-27; dealing 1: wholesale sale at $100.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $410,000.00 | wine tax $29.00, label 1C $29.00, producer rebate $0.00, label 1D $0.00
-An associated producer shares the cap | 2026-27; dealing 1: wholesale sale at $100.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $0.00, an associated producer | wine tax $29.00, label 1C $29.00, producer rebate $29.00, label 1D $29.00
-Purchase price, the Library’s hamper and $12.995 rounding up | 2026-27; dealing 1: own use of wine bought under quote bought for $100.00 excluding GST; dealing 2: wholesale sale at $150.00 excluding WET and GST; dealing 3: retail sale at a retail price of $25.99 including WET and GST | wine tax $76.27, label 1C $76.00, producer rebate $0.00, label 1D $0.00
-A container condition not met: no rebate | 2026-27; dealing 1: wholesale sale at $1,000.00 excluding WET and GST, rebate claimed; rebates claimed earlier this year $0.00 | wine tax $290.00, label 1C $290.00, producer rebate $0.00, label 1D $0.00
-Average method for wine that is not grape wine is refused | 2026-27; dealing 1: retail sale at a retail price of $10.00 including WET and GST, by the average wholesale price for 1; the period’s wholesale sales 1 for $5.00 | Refused: dealing 1: wine that is not grape wine is valued by the half retail price method only (section 9-30); enter its retail price instead
-Average method without the 10% wholesale share is refused | 2026-27; dealing 1: retail sale at a retail price of $10.00 including WET and GST, by the average wholesale price for 1; the period’s wholesale sales 1 for $5.00 | Refused: dealing 1: the average wholesale price method is open only if at least 10% by value of the tax period’s sales of grape wine of that vintage and variety are wholesale sales (subsection 9-25(3)); use the half retail price method
-A rebate on own use of wine bought under quote is refused | 2026-27; dealing 1: own use of wine bought under quote bought for $1.00 excluding GST, rebate claimed; rebates claimed earlier this year $0.00 | Refused: dealing 1: own use of wine bought under quote earns no producer rebate (section 19-5): the producer is the seller
-2022-23 is refused | 2022-23; dealing 1: wholesale sale at $1.00 excluding WET and GST | Refused: choose a financial year from 2023-24 to 2027-28: earlier years carry the transitional producer rebate rules for 2017 and earlier vintage wine, which this calculator does not work out
-
-One of the forty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- forty-seven business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
 # Fuel tax credit calculator: every ATO rate since July 2022
 
 Source: https://duguid.com.au/tools/business-calculators/fuel-tax-credits/
@@ -14332,6 +14231,112 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - section 14: https://www.legislation.gov.au/F2015L01854/2025-11-01/2025-11-01/text/original/epub/OEBPS/document_1/document_1.html
 - transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
+- forty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# ASIC fees 2026-27 and late fee calculator
+
+Source: https://duguid.com.au/tools/business-calculators/asic-fees/
+
+> ASIC’s fees from 1 July 2026 for company registration, name reservation, annual reviews and business names, and the $102 or $428 late fee tier.
+
+# ASIC fees calculator
+
+ASIC’s 2026-27 fees and late fee tiers.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+ASIC fee and late fee tier for 2026-27
+
+FeeRegister a company with share capital Register a company without share capital Reserve a company name, or extend a reservation Annual review fee, proprietary company (not special purpose) Annual review fee, public company (not special purpose or a small transferring financial institution) Annual review fee, special purpose proprietary company Annual review fee, special purpose company that is not proprietary Register or renew a business name for 1 year Register or renew a business name for 3 years Late payment of an annual review fee Late lodgement of a document Late fees only: the due date Late fees only: the day ASIC received the payment or document
+
+Enter the due date from ASIC’s invoice or statement, or, for a document, the last day of the time allowed to lodge it, and the day ASIC received the payment or document, both from 1 July 2026 to 30 June 2027. The calculator does not work the due date out from a review date or move it for a weekend or holiday.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Thursday 15 October 2026. Last day of the first month after the due date Thursday 15 October 2026 Late fee tier Late, within one month after the due date Late fee, no GST $102.00 ASIC code LPF1_ETM; Corporations (Review Fees) Regulations 2003, Schedule 1 Part 3 items 1 and 2. A late fee is on top of the fee itself. Public holidays are not checked: if the due date or the last day of the first month is one where you pay or lodge, check ASIC’s invoice.
+
+## ASIC fees from 1 July 2026
+
+ASIC’s standard fees from 1 July 2026 are listed below as ASIC’s fee data and INFO 30 gave them on 22 November 2026. GST does not apply to ASIC fees.
+
+ASIC fees from 1 July 2026 (AUD, no GST)
+
+Fee | ASIC code | Amount | Imposed by
+Register a company with share capital | I02 | $636 | Corporations (Fees) Regulations 2001, Schedule 1 item 1(a)(i)
+Register a company without share capital | I01 | $524 | Schedule 1 item 1(a)(ii)
+Reserve a company name, or extend a reservation | R01 | $65 | Schedule 2 item 8
+Annual review fee, proprietary company (not a special purpose company) | A52 | $342 | Corporations (Review Fees) Regulations 2003, Schedule 1 Part 1 item 2
+Annual review fee, public company (not a special purpose company or small transferring financial institution) | A51 | $1,591 | Schedule 1 Part 1 item 1
+Annual review fee, special purpose company that is a proprietary company | A58 | $70 | Schedule 1 Part 1 item 5
+Annual review fee, special purpose company that is not a proprietary company | A53 | $65 | Schedule 1 Part 1 item 4
+Late payment of a review fee, within one month after the due date | LPF1_ETM | $102 | Schedule 1 Part 3 item 1
+Late payment of a review fee, more than one month after the due date | LPF2_ETM | $428 | Schedule 1 Part 3 item 2
+Late lodgement, within one month after the prescribed time | LPF1_ETM | $102 | Corporations (Fees) Regulations 2001, Schedule 2 item 14(a)
+Late lodgement, more than one month after the prescribed time | LPF2_ETM | $428 | Schedule 2 item 14(b)
+Register or renew a business name for 1 year | BZA, BZC | $47 | Business Names Registration (Fees) Regulations 2022, section 6 items 1 and 2
+Register or renew a business name for 3 years | BZB, BZD | $108 | Section 6 items 3 and 4
+
+The regulations state base amounts, and ASIC raises some of them each 1 July in line with the Consumer Price Index; the table gives ASIC’s indexed amounts. A special purpose company is defined in regulation 3 of the review fees regulations; it includes a company whose constitution prohibits distributions to its members and whose sole purpose is to act as trustee of a regulated superannuation fund. A company in liquidation and an entity registered with the Australian Charities and Not-for-profits Commission pay no review fee (Schedule 1 Part 1 items 10 and 11).
+
+## How the ASIC fees calculator works
+
+For a standard fee, the calculator returns ASIC’s 2026-27 amount. For a late fee, it compares the day ASIC received the payment or document with the due date you enter, as INFO 30 sets the tiers by the day ASIC receives them. A payment or document received on or before the due date is not late. A review fee paid after its due date but within one month after it costs $102, and later $428 (Schedule 1 Part 3 of the review fees regulations); a document lodged late attracts the same 2 amounts (Schedule 2 item 14 of the fees regulations). A late fee is on top of the fee itself, and ASIC can charge more than one late fee when several obligations are missed.
+
+The one month begins the day after the due date, which is not counted (item 6 of subsection 36(1) of the Acts Interpretation Act 1901). Under subsection 2G(1), a month runs to just before the same day of the next calendar month, or to the end of that month when it has no such day. A fee due on Tuesday 15 September 2026 is within one month if received by Thursday 15 October; one due on Monday 30 November 2026 is within one month if received by Thursday 31 December, because that month starts on 1 December.
+
+## What the ASIC fees calculator does not cover
+
+The calculator does not work out a due date. An annual review fee is due 2 months after the review date (subsection 1351(3) of the Corporations Act 2001), a review date can change, and a document’s lodgement period depends on the document, so you enter the due date shown by ASIC or the form’s rules. When a deadline falls on a weekend or public holiday, subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may allow the next business day. The calculator does not apply that. When the due date or the last day of the first month is a Saturday or Sunday, it declines to give a tier for a received date that such a move could change, up to the following Wednesday and, after a weekend due date, the end of the month that would follow the moved date. It does not check public holidays.
+
+Not covered: due dates and received dates before 1 July 2026 or after 30 June 2027, including a fee due in one financial year and received in the next, because the sources read do not settle which year’s indexed amount applies; upfront review fees; deregistration and the review fee exceptions in subsection 1351(4); registered schemes, notified foreign passport funds, small transferring financial institutions and CCIVs; registered Australian bodies and foreign companies; credit licensee late fees; fee waivers and reviews of a late fee; and the industry funding levy. Check the amount against ASIC’s invoice before you pay.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: ASIC fees calculator
+
+Case | Inputs | Result
+Received exactly one month after the due date: $102 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Thursday 15 October 2026 | First month ends Thursday 15 October 2026, within one month, fee $102.00
+Received on the due date: not late | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Tuesday 15 September 2026 | Not late, fee $0.00
+Received the day after the due date: $102 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Wednesday 16 September 2026 | First month ends Thursday 15 October 2026, within one month, fee $102.00
+Received the day after the first month: $428 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Friday 16 October 2026 | First month ends Thursday 15 October 2026, more than one month, fee $428.00
+Due on a month’s last day: the month runs to 31 December, s 2G(1)(b)(i) | Late lodgement of a document, due Monday 30 November 2026, document received by ASIC Thursday 31 December 2026 | First month ends Thursday 31 December 2026, within one month, fee $102.00
+Due on a month’s last day, received the day after the month: $428 | Late lodgement of a document, due Monday 30 November 2026, document received by ASIC Friday 1 January 2027 | First month ends Thursday 31 December 2026, more than one month, fee $428.00
+No 31 November: the month ends on 30 November, s 2G(1)(b)(ii) | Late payment of an annual review fee, due Friday 30 October 2026, payment received by ASIC Monday 30 November 2026 | First month ends Monday 30 November 2026, within one month, fee $102.00
+No 31 November, received on 1 December: $428 | Late payment of an annual review fee, due Friday 30 October 2026, payment received by ASIC Tuesday 1 December 2026 | First month ends Monday 30 November 2026, more than one month, fee $428.00
+No 30 February: the month ends on 28 February 2027 | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Sunday 28 February 2027 | First month ends Sunday 28 February 2027, within one month, fee $102.00
+A first month ending on a Sunday, received on the Monday: refused | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Monday 1 March 2027 | Refused: the first month after the due date ends on a Saturday or Sunday: subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may extend it; this page does not decide that. Check ASIC’s invoice
+A first month ending on a Sunday, received on the Thursday: $428 | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Thursday 4 March 2027 | First month ends Sunday 28 February 2027, more than one month, fee $428.00
+A due date on a Saturday, received on the Monday: refused | Late payment of an annual review fee, due Saturday 15 August 2026, payment received by ASIC Monday 17 August 2026 | Refused: the due date is a Saturday or Sunday, so subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may move it; this page does not decide that. Check ASIC’s invoice
+A due date on a Saturday, received on the Thursday: $102 | Late payment of an annual review fee, due Saturday 15 August 2026, payment received by ASIC Thursday 20 August 2026 | First month ends Tuesday 15 September 2026, within one month, fee $102.00
+A Saturday due date that may move to Wednesday 3 March, received on 1 April: refused | Late payment of an annual review fee, due Saturday 27 February 2027, payment received by ASIC Thursday 1 April 2027 | Refused: the due date is a Saturday or Sunday, so the first month after it may end later: subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may extend it; this page does not decide that. Check ASIC’s invoice
+The same due date, received on 8 April: $428 | Late payment of an annual review fee, due Saturday 27 February 2027, payment received by ASIC Thursday 8 April 2027 | First month ends Saturday 27 March 2027, more than one month, fee $428.00
+Due in 2025-26, received on 2 July 2026: refused, the year’s amount is not settled | Late payment of an annual review fee, due Monday 15 June 2026, payment received by ASIC Thursday 2 July 2026 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
+Received on 30 June 2026: refused, before 2026-27 | Late lodgement of a document, due Monday 15 June 2026, document received by ASIC Tuesday 30 June 2026 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
+Received on 30 June 2027: $102 | Late lodgement of a document, due Tuesday 15 June 2027, document received by ASIC Wednesday 30 June 2027 | First month ends Thursday 15 July 2027, within one month, fee $102.00
+Received on 1 July 2027: refused, after 2026-27 | Late lodgement of a document, due Tuesday 15 June 2027, document received by ASIC Thursday 1 July 2027 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
+Received the day before the due date: not late | Late lodgement of a document, due Tuesday 15 September 2026, document received by ASIC Monday 14 September 2026 | Not late, fee $0.00
+ASIC code I02 | Register a company with share capital | Fee $636.00, ASIC code I02
+ASIC code I01 | Register a company without share capital | Fee $524.00, ASIC code I01
+ASIC code R01 | Reserve a company name, or extend a reservation | Fee $65.00, ASIC code R01
+ASIC code A52 | Annual review fee, proprietary company (not a special purpose company) | Fee $342.00, ASIC code A52
+ASIC code A51 | Annual review fee, public company (not a special purpose company or small transferring financial institution) | Fee $1,591.00, ASIC code A51
+ASIC code A58 | Annual review fee, special purpose company that is a proprietary company | Fee $70.00, ASIC code A58
+ASIC code A53 | Annual review fee, special purpose company that is not a proprietary company | Fee $65.00, ASIC code A53
+ASIC code BZA or BZC | Register or renew a business name for 1 year | Fee $47.00, ASIC code BZA or BZC
+ASIC code BZB or BZD | Register or renew a business name for 3 years | Fee $108.00, ASIC code BZB or BZD
+
+One of the forty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
 - forty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---

@@ -52,7 +52,7 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Business calculators</li></ol></nav>
         <h1>Business calculators</h1>
-        <p class="lead-note">Forty-seven calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.</p>
+        <p class="lead-note">Forty-eight calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.</p>
         <p><a href="/tools/accounting-questions/">Find a question and prepare a checklist</a>.</p>
         <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.</p>
         {% assign checked = "" %}{% for calculator in site.data.calculator_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
@@ -110,7 +110,7 @@
           <li id="long-service-leave"><a class="collection-entry__title" href="/tools/business-calculators/long-service-leave/">Long service leave calculator</a> One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.</li>
           <li id="workers-compensation"><a class="collection-entry__title" href="/tools/business-calculators/workers-compensation/">Workers compensation premium calculator</a> A 2026-27 premium from the declared wages and the insurer’s rate under each state and territory’s scheme, with GST, duty and the actual wages adjustment, each step cited.</li>
         </ul>
-        <h2>Objections, instalments, termination, land tax, duty and business days</h2>
+        <h2>Objections, instalments, termination, land tax, duty, business days and ASIC fees</h2>
         <ul class="calculator-list">
           <li id="objection-deadline"><a class="collection-entry__title" href="/tools/business-calculators/objection-deadline/">Objection deadline checker</a> The last day to object to an income tax or FBT assessment, an amended assessment or another ATO decision, with the weekend rule.</li>
           <li id="payg-instalments"><a class="collection-entry__title" href="/tools/business-calculators/payg-instalments/">PAYG instalments calculator</a> The quarterly PAYG instalment from the notified amount, a varied amount, instalment income times the rate, or a varied rate with its credit.</li>
@@ -123,6 +123,7 @@
           <li id="payroll-tax"><a class="collection-entry__title" href="/tools/business-calculators/payroll-tax/">Payroll tax calculator</a> One employer’s annual payroll tax for 2026-27 in any state or territory, for an employer outside a group, with each step cited.</li>
           <li id="foreign-surcharge"><a class="collection-entry__title" href="/tools/business-calculators/foreign-surcharge/">Foreign purchaser surcharge calculator</a> Foreign purchaser duty and the foreign owner land tax surcharge in each state and territory, with each one’s own test of who is foreign, the 2026-27 FIRB fee and the upfront total in all 8 side by side.</li>
           <li id="business-days"><a class="collection-entry__title" href="/tools/business-calculators/business-days/">Business days calculator</a> Business days between 2 dates, or the date a number of business days on or back, with each state’s public holidays for 2026 and 2027.</li>
+          <li id="asic-fees"><a class="collection-entry__title" href="/tools/business-calculators/asic-fees/">ASIC fees calculator</a> ASIC’s 2026-27 fees and late fee tiers.</li>
         </ul>
       <p class="byline">
         Written by Ryan Duguid in his own time and on his own equipment.
