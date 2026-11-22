@@ -16,6 +16,8 @@ import { lumpSumArrears } from '../assets/lump-sum-arrears.mjs';
 import { SOLE_TRADER_YEARS, soleTraderSetAside } from '../assets/sole-trader.mjs';
 import { incomeTests, INCOME_TEST_PARTS } from '../assets/income-tests.mjs';
 import { CAP, concessionalCatchUp } from '../assets/concessional-catch-up.mjs';
+import { privateHealthRebate } from '../assets/private-health-rebate.mjs';
+import { beneficiaryOffset, invalidCarerOffset, zoneOffset } from '../assets/individual-offsets.mjs';
 import { superProjection } from '../assets/super-projection.mjs';
 import { fhss } from '../assets/fhss.mjs';
 import { fhssFormFacts, fhssResult } from '../assets/fhss-result.mjs';
@@ -1511,5 +1513,170 @@ test('catch-up agrees with the australian-accounting engine on every differentia
     for (const [year, value] of Object.entries(r.applied)) mine[`applied_${tag(year)}_in_${tag(call.year)}`] = value;
     assert.deepEqual(Object.fromEntries(Object.entries(mine).map(([key, value]) => [key, value.toFixed(2)])), amounts, source);
     assert.deepEqual(r.years.map((row) => ({ ...row, remaining: row.remaining.toFixed(2) })), expiry, source);
+  }
+});
+
+// The income tax page's offsets: the private health insurance rebate (australian-accounting
+// private-health-insurance-rebate) and the beneficiary, invalid and invalid carer, and zone and
+// overseas forces tax offsets (beneficiary-tax-offset, invalid-carer-tax-offset, zone-tax-offset).
+const incomeTaxHtml = readFileSync(new URL('../_includes/calculators/income-tax.html', import.meta.url), 'utf8');
+const incomeTaxPage = (fields) => {
+  const form = { ...formDefaults(incomeTaxHtml), ...fields };
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  return individualResult('income-tax', (name) => {
+    assert.ok(Object.hasOwn(form, name), `the income tax form has no ${name}`);
+    return form[name] ?? '';
+  }, aud);
+};
+const pageRow = (result, label) => result.rows.find(([name]) => name === label)?.[1];
+const pageCode = (fields) => {
+  try {
+    incomeTaxPage(fields);
+  } catch (error) {
+    return error.code ?? error.message;
+  }
+  return 'ok';
+};
+const NO_TAX = { year: '2025-26', income: '0', fringe: '0', uncovered: '0', withheld: '0' };
+
+test('the income tax page adds nothing for an offset left off', () => {
+  const plain = incomeTaxPage({});
+  const off = incomeTaxPage({ 'rebatable-benefit': '0', 'phi-lines': '30 1000 0', 'zone-days': '1', 'carer-income': '5' });
+  assert.deepEqual(off, plain);
+  assert.equal(plain.rows.length, 7);
+});
+
+test('the income tax page takes the beneficiary offset before the low income tax offset and never below nil', () => {
+  // 2025-26: $20,000 of taxable income is $288 of tax; a $20,000 benefit gives $2,100, which uses all of it.
+  const r = incomeTaxPage({ ...NO_TAX, income: '20000', 'rebatable-benefit': '20000' });
+  assert.deepEqual(r.rows.slice(0, 3), [['Tax on taxable income', '$288.00'], ['Beneficiary tax offset', '$288.00'],
+    ['Low income tax offset', '$0.00']]);
+  assert.equal(pageRow(r, 'Total tax, levies and repayment'), '$0.00');
+  assert.match(r.note, /The tax offsets exceed the tax on taxable income/);
+  assert.match(r.inputs, /, rebatable benefits \$20,000\.00$/);
+  // Without the benefit the low income tax offset takes the same $288.
+  assert.equal(pageRow(incomeTaxPage({ ...NO_TAX, income: '20000' }), 'Low income tax offset'), '$288.00');
+});
+
+test('the private health insurance offset is refundable and an excess is repaid with the tax (spec G1, Peta)', () => {
+  const g1 = incomeTaxPage({ ...NO_TAX, phi: 'yes', 'phi-lines': '30 1000 0' });
+  assert.equal(pageRow(g1, 'Private health insurance tax offset, refundable'), '$242.88');
+  assert.equal(pageRow(g1, 'Total tax, levies and repayment'), '-$242.88');
+  assert.equal(pageRow(g1, 'Refund estimate'), '$242.88');
+  assert.match(g1.note, /Private health insurance rebate: the base tier, on income for surcharge purposes of \$0 against singles thresholds of \$101,000, \$118,000, \$158,000/);
+  // Peta: $109,000, tier 1, repays $80.36 (ATO rebate rates page).
+  const peta = incomeTaxPage({ ...NO_TAX, income: '109000', phi: 'yes', 'phi-lines': '30 750 182\n31 250 60' });
+  assert.equal(pageRow(peta, 'Excess private health insurance rebate to repay'), '$80.36');
+  const plain = incomeTaxPage({ ...NO_TAX, income: '109000' });
+  assert.equal(peta.rows.length - plain.rows.length, 2);
+  const total = (r) => Number(pageRow(r, 'Total tax, levies and repayment').replace(/[$,]/g, ''));
+  assert.equal(Math.round((total(peta) - total(plain)) * 100), 8036);
+});
+
+test('the private health insurance rebate tests the family on the surcharge’s facts', () => {
+  const line = { ...NO_TAX, income: '150000', phi: 'yes', 'phi-lines': '30 1000 0' };
+  assert.match(incomeTaxPage(line).note, /tier 2, .* singles thresholds/);
+  assert.equal(pageCode({ ...line, children: '2' }), 'input.field_unknown');
+  assert.match(incomeTaxPage({ ...line, children: '2', 'phi-maintained': 'yes' }).note, /the base tier, .* family thresholds of \$203,500/);
+  assert.match(incomeTaxPage({ ...line, spouse: 'yes', 'spouse-income': '60000' }).note,
+    /tier 1, on income .* with the spouse’s against family thresholds of \$202,000/);
+});
+
+test('the income tax page refuses what the offsets’ commands refuse', () => {
+  const phi = { ...NO_TAX, phi: 'yes', 'phi-lines': '30 1000 0' };
+  assert.equal(pageCode({ ...phi, residency: 'foreign' }), 'input.field_unknown');
+  assert.equal(pageCode({ ...phi, residency: 'working-holiday' }), 'input.field_unknown');
+  assert.equal(pageCode({ ...phi, 'phi-loading': 'yes' }), 'private_health_insurance_rebate.lhc_loading');
+  assert.equal(pageCode({ ...phi, year: '2026-27', 'phi-lines': '31 1000 0' }), 'private_health_insurance_rebate.rate_unpublished');
+  for (const lines of ['', '30 1000', '32 1000 0', '30 1000 0 5', 'thirty 1000 0']) {
+    assert.equal(pageCode({ ...phi, 'phi-lines': lines }), 'private_health_insurance_rebate.lines_invalid', lines);
+  }
+  const carer = { ...NO_TAX, carer: 'yes' };
+  assert.equal(pageCode({ ...carer, year: '2026-27' }), 'invalid_carer_tax_offset.rate_unpublished');
+  assert.equal(pageCode({ ...carer, 'carer-case': 'shared' }), 'invalid_carer_tax_offset.shared_maintenance');
+  assert.equal(pageCode({ ...carer, 'carer-case': 'ftb' }), 'invalid_carer_tax_offset.ftb_shared_care');
+  assert.equal(pageCode({ ...carer, 'carer-case': 'spouses' }), 'invalid_carer_tax_offset.successive_spouses');
+  assert.equal(pageCode({ ...carer, 'carer-dependant': 'spouse' }), 'For a spouse who is the dependant, answer yes to having a spouse all year.');
+  const zone = { ...NO_TAX, zone: 'zone_a' };
+  assert.equal(pageCode({ ...zone, 'zone-shared': 'yes' }), 'zone_tax_offset.shared_maintenance');
+  assert.equal(pageCode({ ...zone, 'zone-sole-days': '365' }), 'zone_tax_offset.sole_parent_without_dependant');
+  assert.equal(pageCode({ ...zone, spouse: 'yes', 'zone-dependants': 'child 0', 'zone-sole-days': '365' }),
+    'The sole parent notional tax offset is for a person with no spouse (ITAA 1997 s 961-55).');
+  for (const dependants of ['niece 0', 'child', 'child 0 1 2']) {
+    assert.equal(pageCode({ ...zone, 'zone-dependants': dependants }), 'zone_tax_offset.dependants_invalid', dependants);
+  }
+  assert.equal(pageCode({ ...zone, year: '2023-24', 'zone-days': '183' }), 'zone_tax_offset.half_year_unclear');
+  const garry = { ...zone, 'zone-days': '92', 'zone-prior-year': '2020-21', 'zone-prior-days': '122' };
+  assert.equal(pageCode({ ...garry, 'zone-continuous': 'yes', 'zone-first-day': 'yes' }), 'zone_tax_offset.prior_year_unclear');
+  assert.equal(pageCode({ ...garry, 'zone-prior-days': '' }), 'input.field_unknown');
+});
+
+test('the zone offset counts the invalid carer offset and both come off the tax after the low income tax offset', () => {
+  // 2025-26, $100,000: Zone A with a $3,396 invalid carer offset is $338 + $1,698 = $2,036.
+  const r = incomeTaxPage({ ...NO_TAX, income: '100000', carer: 'yes', zone: 'zone_a' });
+  const plain = incomeTaxPage({ ...NO_TAX, income: '100000' });
+  assert.equal(pageRow(r, 'Invalid and invalid carer tax offset'), '$3,396.00');
+  assert.equal(pageRow(r, 'Zone tax offset'), '$2,036.00');
+  const index = (label) => r.rows.findIndex(([name]) => name === label);
+  assert.ok(index('Low income tax offset') < index('Invalid and invalid carer tax offset'));
+  assert.ok(index('Zone tax offset') < index('Medicare levy'));
+  assert.equal(pageRow(r, 'Medicare levy'), pageRow(plain, 'Medicare levy'));
+  assert.match(r.inputs, /, an invalid or invalid carer dependant who is another relative, with adjusted taxable income of \$0\.00, yours \$0\.00, Zone A for 365 days$/);
+  assert.match(r.note, /Zone tax offset: a resident of the area, more than one-half of the year/);
+  const forces = incomeTaxPage({ ...NO_TAX, income: '100000', zone: 'overseas_forces', 'zone-days': '100' });
+  assert.equal(pageRow(forces, 'Overseas forces tax offset'), '$184.00');
+  assert.match(forces.note, /Overseas forces: 100\/183 of the full amount of \$338/);
+  const ineligible = incomeTaxPage({ ...NO_TAX, income: '100000', carer: 'yes', 'carer-income': '120008' });
+  assert.equal(pageRow(ineligible, 'Invalid and invalid carer tax offset'), '$0.00');
+  assert.match(ineligible.note, /No invalid and invalid carer tax offset: income of \$120,008 is more than the FTB Part B limit of \$120,007/);
+});
+
+// The commands this page ports, run on the same cases: see the fixture's engine line.
+const OFFSET_COMMANDS = {
+  'private-health-insurance-rebate': (call) => {
+    const r = privateHealthRebate(call);
+    return { tier: r.tier, thresholds: r.families ? 'families' : 'singles', income_tested: r.income.toFixed(2),
+      share: r.share.toFixed(2), received: r.received.toFixed(2), offset: r.offset.toFixed(2), excess: r.excess.toFixed(2),
+      lines: r.lines.map((l) => [l.percentage.toFixed(3), l.share.toFixed(2), l.offset.toFixed(2), l.excess.toFixed(2)]) };
+  },
+  'beneficiary-tax-offset': (call) => {
+    const r = beneficiaryOffset(call);
+    return { amount: r.amount.toFixed(2), offset: r.offset.toFixed(2) };
+  },
+  'invalid-carer-tax-offset': (call) => {
+    const r = invalidCarerOffset(call);
+    return { eligible: r.eligible, tested: r.tested.toFixed(2), amount: r.amount.toFixed(2), reduction: r.reduction.toFixed(2),
+      offset: r.offset.toFixed(2) };
+  },
+  'personal-tax-estimate': (call) => {
+    const mls = call['medicare-levy-surcharge'];
+    const phi = call['private-health-insurance-rebate'];
+    const r = taxEstimate({ year: call.year, residency: 'resident', taxable: call.taxable_income, fringe: mls.reportable_fringe_benefits,
+      super: '0', losses: '0', foreign: '0', studyLoan: false, uncoveredDays: String(mls.days_without_cover), spouse: null,
+      children: '0', withheld: call.tax_withheld,
+      offsets: { privateHealth: { maintained: phi.maintained_dependent_person === true, lines: phi.lines } } });
+    return { basic: r.tax.toFixed(2), lito: r.offset.toFixed(2), medicare: r.medicare.toFixed(2), surcharge: r.surcharge.toFixed(2),
+      phi: r.privateHealth.offset.toFixed(2), excess: r.privateHealth.excess.toFixed(2), total: r.assessed.toFixed(2),
+      refund: Math.max(0, r.refund).toFixed(2), payable: Math.max(0, -r.refund).toFixed(2) };
+  },
+  'zone-tax-offset': (call) => {
+    const r = zoneOffset(call);
+    return { resident: r.resident, dependants: r.dependants.toFixed(2), sole: r.sole.toFixed(2), relevant: r.relevant.toFixed(2),
+      full: (Math.floor((Math.round(r.full * 1000) + 5) / 10) / 100).toFixed(2), offset: r.offset.toFixed(2) };
+  },
+};
+test('the income tax page’s offsets agree with the australian-accounting commands on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./income-tax-offsets-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length > 1000);
+  assert.match(incomeTaxHtml, new RegExp(`on ${cases.length.toLocaleString('en-AU')} cases`));
+  for (const command of Object.keys(OFFSET_COMMANDS)) {
+    assert.ok(cases.filter((c) => c.command === command && c.refused).length >= 1, command);
+  }
+  for (const { source, command, call, amounts, refused } of cases) {
+    if (refused) {
+      assert.throws(() => OFFSET_COMMANDS[command](call), (error) => error.code === refused, source);
+      continue;
+    }
+    assert.deepEqual(OFFSET_COMMANDS[command](call), amounts, source);
   }
 });

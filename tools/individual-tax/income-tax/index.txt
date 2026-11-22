@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/individual-tax/income-tax/
 
 # Income tax calculator
 
-Income tax, offsets, Medicare levy and surcharge and any study loan repayment for 2020-21 to 2026-27, and the refund or amount owing on the tax withheld.
+Income tax, offsets, Medicare levy and surcharge, the private health insurance rebate and any study loan repayment for 2020-21 to 2026-27, and the refund or amount owing on the tax withheld.
 
 Published 17 November 2026. Last checked 18 November 2026.
 
@@ -22,7 +22,11 @@ Taxable income (whole dollars) Reportable fringe benefits total (whole dollars) 
 
 Exempt foreign employment income, for a study loan (whole dollars) Days without private patient hospital cover, for you or, in a family, your spouse or a dependant Did you have a spouse all year? No Yes
 
-Spouse’s income for surcharge purposes, if you had one (whole dollars) Dependent children Tax withheld, from your income statements (dollars and cents)
+Spouse’s income for surcharge purposes, if you had one (whole dollars) Dependent children Tax withheld, from your income statements (dollars and cents) Rebatable benefits, such as JobSeeker Payment, for the beneficiary tax offset (dollars and cents) Claim the private health insurance rebate? No Yes
+
+Did you maintain an invalid or carer dependant? No Yes
+
+Zone or overseas forces tax offset None Zone A Zone B Special area in Zone A or B Overseas forces
 
 Taxable income is assessable income less deductions, as on a tax return; from 2026-27 those include the standard deduction of up to $1,000 for work-related expenses that the ATO applies. For a person who is not entitled to the seniors and pensioners tax offset. Enter 0 for any amount you do not have.
 
@@ -31,6 +35,8 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 ## How the income tax calculator works
 
 The income tax calculator works out one individual’s tax for a full income year from 2020-21 to 2026-27: the tax on taxable income at the year’s rates, the offsets, the Medicare levy and the Medicare levy surcharge. The offsets are the low income tax offset and, for 2020-21 and 2021-22, the low and middle income tax offset. It then takes that total, and any study or training loan repayment, from the tax withheld you enter, to estimate a refund or an amount owing.
+
+It can also work out the beneficiary tax offset, the invalid and invalid carer tax offset, the zone or overseas forces tax offset and the private health insurance rebate. The first 3 come off the tax but not below nil. The rebate is worked from your private health insurance statement: what you were entitled to at your tier, less the premium reduction you received, comes off the total and can make it negative; a premium reduction above your entitlement is added to the total.
 
 An Australian resident pays nothing on the first $18,200 and then each part of taxable income at its rate. The low income tax offset of up to $700 comes off a resident’s tax, but not below nil. The Medicare levy is 2% of a resident’s taxable income; up to the low-income threshold there is none, and from there to the phase-in limit it is 10% of the income over the threshold, if that is less. The ATO’s example on Medicare levy reduction for low-income earners, read 17 November 2026, gives Angie, single with $29,000 of taxable income in 2025-26, a levy of $98.90, as this calculator does.
 
@@ -43,8 +49,9 @@ For 2026-27 the Medicare levy thresholds are those the Act held on 17 November 2
 The calculator gives the tax of one person who was a resident, a foreign resident or a working holiday maker for the whole year. It does not compute:
 
 - the Medicare levy reduction for families, which depends on family taxable income and dependants, or a Medicare levy exemption;
-- the seniors and pensioners tax offset and its higher Medicare levy thresholds, or any other offset, such as for private health insurance, dependants or super contributions;
-- a change of family or cover status during the year beyond the days without cover, the private health insurance rebate, a spouse’s trust income that the surcharge test adds, the net amount on which family trust distribution tax has been paid, which counts in income for surcharge purposes and in the amount the surcharge is levied on, or exempt foreign employment income, which the ATO’s surcharge page adds to income for surcharge purposes when taxable income is $1 or more;
+- the seniors and pensioners tax offset and its higher Medicare levy thresholds, the net medical expenses tax offset, which ended after 2018-19, or any other offset, such as for super contributions or foreign income tax;
+- for the rebate, a lifetime health cover loading, a policy for dependants only, a claim of a spouse’s share, or dependent children for a person with no spouse who maintained no dependant; for the invalid carer offset, shared maintenance, Family Tax Benefit Part B shared care or successive spouses; for the zone offset, shared maintenance or more than one area;
+- a change of family or cover status during the year beyond the days without cover, a spouse’s trust income that the surcharge test adds, the net amount on which family trust distribution tax has been paid, which counts in income for surcharge purposes and in the amount the surcharge is levied on, or exempt foreign employment income, which the ATO’s surcharge page adds to income for surcharge purposes when taxable income is $1 or more;
 - a first home super saver released amount, which is taxed with a 30% offset but left out of repayment income and income for surcharge purposes, or, for 2023-24 and earlier, the taxed element of a super lump sum up to the low rate cap, which a person from preservation age to under 60 could leave out of income for surcharge purposes;
 - a study loan debt smaller than the repayment: the repayment cannot exceed what is still owed (section 154-20(1)(c) of the Higher Education Support Act 2003), which the calculator does not ask for;
 - a part-year resident’s reduced tax-free threshold, a working holiday maker who is an Australian resident, or one with other income besides working holiday taxable income;

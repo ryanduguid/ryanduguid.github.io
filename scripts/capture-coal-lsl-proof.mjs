@@ -141,10 +141,9 @@ export async function renderCoalLslProofPage(page, capture = COAL_LSL_PROOF.capt
 export async function writeCoalLslProof(image, mobile = false) {
   const output = mobile ? path.join(ROOT, 'assets', 'coal-lsl-calculator-mobile.webp') : PROOF_OUTPUT;
   const temporary = `${output}.${process.pid}.${randomUUID()}.tmp`;
-  try {
-    await writeFile(temporary, image, { flag: 'wx', mode: 0o600 });
-    await rename(temporary, output);
-  } finally {
-    await rm(temporary, { force: true });
-  }
+  // A promise's finally, not a try block: Codacy's ESLint rule security-node/detect-unhandled-async-errors
+  // crashes on a try without a catch, and that stops its analysis of other files.
+  await writeFile(temporary, image, { flag: 'wx', mode: 0o600 })
+    .then(() => rename(temporary, output))
+    .finally(() => rm(temporary, { force: true }));
 }

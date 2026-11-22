@@ -62,7 +62,7 @@ A producer that meets the conditions of section 19-5 earns a producer rebate of 
 
 The calculator works dealings in the financial years 2023-24 to 2027-28 and refuses earlier years, which carry the transitional rebate rules for 2017 and earlier vintage wine. It refuses the average wholesale price method for wine that is not grape wine or without the 10% share of wholesale sales, and a rebate on own use of wine bought under quote. It takes each price as given, so it does not work out an arm’s length price (section 27-10) or the price of wine sold with other goods; it assumes GST applies to a sale and does not decide whether a supply is GST-free.
 
-Not covered: imports and other customs dealings, whose WET the Department of Home Affairs collects; the special valuations of section 9-45; wine tax credits other than the producer rebate, such as bad debts and overpaid WET; the reduction of a rebate for earlier producers’ rebates on wine used in a blend; New Zealand participants’ rebates; whether producers are associated (the group’s claims are taken as given); and the tax period a dealing belongs to. A value or total of $70 trillion or more is refused, as the page cannot show it to the cent. Rebates claimed above the cap are flagged, not worked out: section 19-25 makes the excess payable as wine tax at the end of the financial year. Have a registered tax agent confirm the result before you lodge.
+Not covered: imports and other customs dealings, whose WET the Department of Home Affairs collects; the special valuations of section 9-45; wine tax credits other than the producer rebate, such as bad debts and overpaid WET; the reduction of a rebate for earlier producers’ rebates on wine used in a blend; New Zealand participants’ rebates; whether producers are associated (the group’s claims are taken as given); and the tax period a dealing belongs to. A value or total of $70,368,744,177,664 or more is refused, as the page cannot show it to the cent. Rebates claimed above the cap are flagged, not worked out: section 19-25 makes the excess payable as wine tax at the end of the financial year. Have a registered tax agent confirm the result before you lodge.
 
 ## Boundary cases
 
@@ -88,7 +88,7 @@ Average method without the 10% wholesale share is refused | 2026-27; dealing 1: 
 A rebate on own use of wine bought under quote is refused | 2026-27; dealing 1: own use of wine bought under quote bought for $1.00 excluding GST, rebate claimed; rebates claimed earlier this year $0.00 | Refused: dealing 1: own use of wine bought under quote earns no producer rebate (section 19-5): the producer is the seller
 2022-23 is refused | 2022-23; dealing 1: wholesale sale at $1.00 excluding WET and GST | Refused: choose a financial year from 2023-24 to 2027-28: earlier years carry the transitional producer rebate rules for 2017 and earlier vintage wine, which this calculator does not work out
 
-One of the fifty-two business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -96,4 +96,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fifty-two business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-three business calculators: https://duguid.com.au/tools/business-calculators/

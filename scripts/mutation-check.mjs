@@ -35,6 +35,8 @@ const arrears = { file: 'assets/lump-sum-arrears.mjs', test: individualTest };
 const soleTrader = { file: 'assets/sole-trader.mjs', test: individualTest };
 const incomeTests = { file: 'assets/income-tests.mjs', test: individualTest };
 const catchUp = { file: 'assets/concessional-catch-up.mjs', test: individualTest };
+const rebate = { file: 'assets/private-health-rebate.mjs', test: individualTest };
+const offsets = { file: 'assets/individual-offsets.mjs', test: individualTest };
 const governmentSuper = { file: 'assets/government-super.mjs', test: individualTest };
 const governmentSuperResult = { file: 'assets/government-super-result.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
@@ -63,6 +65,8 @@ const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
 const sbt = { ...business, file: 'assets/super-benefit-tax.mjs' };
 const wet = { ...business, file: 'assets/wine-equalisation-tax.mjs' };
+const rental = { ...business, file: 'assets/rental-property.mjs' };
+const rentalResult = { ...business, file: 'assets/rental-property-result.mjs' };
 const leave = { ...business, file: 'assets/unused-leave.mjs' };
 const asic = { ...business, file: 'assets/asic-fees.mjs' };
 const ato = { ...business, file: 'assets/ato-penalties-interest.mjs' };
@@ -347,6 +351,25 @@ const MUTATIONS = [
   { ...catchUp, name: 'the proposal is left out of what is applied', find: 'apply(window, Math.max(0, total - cap))', replace: 'apply(window, Math.max(0, concessional - cap))' },
   { ...catchUp, name: 'the applied amount is not limited to what was carried', find: 'Math.min(carried, Math.max(0, concessional - cap))', replace: 'Math.max(0, concessional - cap)' },
   { ...catchUp, name: 'an amount lapses a year early', find: 'expiresAtEndOf: label(unused.start + YEARS_CARRIED) }', replace: 'expiresAtEndOf: label(unused.start + YEARS_CARRIED - 1) }' },
+  { ...rebate, name: 'PHI income at a threshold reaches its tier', find: '.filter((threshold) => income > threshold)', replace: '.filter((threshold) => income >= threshold)' },
+  { ...rebate, name: 'PHI family thresholds rise for the first child', find: '1500 * Math.max(0, children - 1)', replace: '1500 * children' },
+  { ...rebate, name: 'PHI premiums from 1 April take the earlier percentages', find: 'Number(year.slice(0, 4)) + later;', replace: 'Number(year.slice(0, 4));' },
+  { ...rebate, name: 'PHI share truncates the cents', find: 'ratioCents(BigInt(premiums) * BigInt(pct), 100000n)', replace: '(BigInt(premiums) * BigInt(pct) / 100000n)' },
+  { ...rebate, name: 'PHI ignores a maintained dependant', find: '(families ? 2 * amount', replace: '(spouse !== null ? 2 * amount' },
+  { ...rebate, name: 'PHI nets the excess against the offset', find: 'offset: Math.max(0, share - received) / 100', replace: 'offset: (share - received) / 100' },
+  { ...offsets, name: 'beneficiary offset rounds half up', find: 'Math.ceil(cents / 100)', replace: 'Math.round(cents / 100)' },
+  { ...offsets, name: 'beneficiary offset drops the second 15%', find: ' + 15 * Math.max(0, amount - upper)', replace: '' },
+  { ...offsets, name: 'invalid carer limit excludes income at it', find: 'tested <= limit * 100', replace: 'tested < limit * 100' },
+  { ...offsets, name: 'invalid carer keeps an offset under $1', find: 'left >= 100', replace: 'left > 0' },
+  { ...offsets, name: 'income reduction from $286', find: 'income - 28200', replace: 'income - 28600' },
+  { ...offsets, name: 'zone residence at exactly half the year', find: 'if (days * 2 > yearDays) return [true', replace: 'if (days * 2 >= yearDays) return [true' },
+  { ...offsets, name: 'zone gives $376 for every child', find: 'children < 2 ? 376 : 282', replace: 'children < 2 ? 376 : 376' },
+  { ...offsets, name: 'overseas forces over the days in the year', find: 'BigInt(days) / 183n', replace: 'BigInt(days) / BigInt(yearDays)' },
+  { ...offsets, name: 'zone ignores a remote area allowance', find: 'Math.max(0, full - allowance * 10)', replace: 'full' },
+  { ...offsets, name: 'zone half shares of the relevant rebate amount', find: 'zone_a: [338, 5]', replace: 'zone_a: [338, 2]' },
+  { ...estimate, name: 'private health insurance offset not refunded', find: "\n    - cents(privateHealth?.offset ?? 0);", replace: ';' },
+  { ...estimate, name: 'beneficiary offset after the low income tax offset', find: 'beneficiary: apply(benefit?.offset ?? 0), offset: apply(base.offset)', replace: 'offset: apply(base.offset), beneficiary: apply(benefit?.offset ?? 0)' },
+  { ...estimate, name: 'zone offset leaves out the invalid carer offset', find: 'invalid_carer_tax_offset: carer ? carer.offset.toFixed(2) : undefined', replace: 'invalid_carer_tax_offset: undefined' },
   { ...incomeTax, name: '2026-27 starts at 16%', find: "'2026-27': [[18200, 15]", replace: "'2026-27': [[18200, 16]" },
   { ...incomeTax, name: 'foreign residents reach 37% at $120,000', find: '[[0, 30], [135000, 37]', replace: '[[0, 30], [120000, 37]' },
   { ...incomeTax, name: 'working holiday makers reach 30% at $37,000', find: '[[0, 15], [45000, 30]', replace: '[[0, 15], [37000, 30]' },
@@ -809,6 +832,23 @@ const MUTATIONS = [
   { ...wet, name: 'WET average method open without the 10% wholesale share', find: "if (!flag(value, item, 'wholesale_share_at_least_10_percent')) {", replace: "if (!flag(value, item, 'wholesale_share_at_least_10_percent') && false) {" },
   { ...wet, name: 'WET 2022-23 accepted', find: "export const WET_YEARS = ['2023-24',", replace: "export const WET_YEARS = ['2022-23', '2023-24'," },
   { ...wet, name: 'WET the form shares no wholesale sales', find: 'quantity: value(`quantity-${i}`), wholesale_sales: sales }', replace: 'quantity: value(`quantity-${i}`), wholesale_sales: sales.slice(0, 1) }' },
+  { ...rental, name: 'rental property capital works at 3%', find: 'const RATE_2_5 = [25n, -3];', replace: 'const RATE_2_5 = [3n, -2];' },
+  { ...rental, name: 'rental property 4% starts a day late', find: "if (before('1985-07-18')) {", replace: "if (before('1985-07-19')) {" },
+  { ...rental, name: 'rental property a structural improvement before 1992 deducted', find: "return before('1992-02-27') ? { rate: null,", replace: "return before('1902-02-27') ? { rate: null," },
+  { ...rental, name: 'rental property capital works past the undeducted expenditure', find: 'deduction: cents(cmp(full, undeducted) < 0 ? full : undeducted) };', replace: 'deduction: cents(full) };' },
+  { ...rental, name: 'rental property rental-only expenses apportioned by days', find: 'int(h.days)), mul(r, share)))]);', replace: 'int(h.days)), div(mul(mul(r, share), int(h.available)), int(h.days))))]);' },
+  { ...rental, name: 'rental property travel deducted', find: "out.push(['travel', 0n],", replace: "out.push(['travel', cents(mul(add(a, r), share))]," },
+  { ...rental, name: 'rental property interest ignores the principal split', find: 'cents(div(mul(div(mul(ofCents(charged), ofCents(rental)), ofCents(whole)), int(h.available)), int(h.days)))', replace: 'cents(div(mul(ofCents(charged), int(h.available)), int(h.days)))' },
+  { ...rental, name: 'rental property a redraw accepted', find: "if (itemFlag(fields, 'redrawn_in_year')) {", replace: "if (itemFlag(fields, 'redrawn_in_year') && false) {" },
+  { ...rental, name: 'rental property s 40-27 from 10 May 2017', find: "const NINE_MAY_2017 = /** @type {number} */ (dayOf('2017-05-09'));", replace: "const NINE_MAY_2017 = /** @type {number} */ (dayOf('2017-05-10'));" },
+  { ...rental, name: 'rental property private use not reduced', find: "if (needed(fields, 'residence_or_private_use', '')) return", replace: "if (needed(fields, 'residence_or_private_use', '') && false) return" },
+  { ...rental, name: 'rental property the new premises exception ignored', find: "if (needed(fields, 'new_premises_exception', ' you did not hold when it was first used or installed ready for use')) return null;", replace: "needed(fields, 'new_premises_exception', ' you did not hold when it was first used or installed ready for use');" },
+  { ...rental, name: 'rental property 2027-28 accepted', find: "'2024-25', '2025-26', '2026-27'];", replace: "'2024-25', '2025-26', '2026-27', '2027-28'];" },
+  { ...rental, name: 'rental property the effect on tax from 2023-24', find: 'if (year.first < 2024) {', replace: 'if (year.first < 2023) {' },
+  { ...rental, name: 'rental property the net rent with its cents', find: 'const dropped = (net / 100n) * 100n;', replace: 'const dropped = net;' },
+  { ...rental, name: 'rental property the 2^46 dollar limit dropped', find: 'if (steps.some(([, v]) => big(v)))', replace: 'if (steps.some(() => false))' },
+  { ...rentalResult, name: 'rental property the scope answer dropped', find: "if (value('scope') !== '') input.scope_confirmed = value('scope') === 'yes';", replace: '' },
+  { ...rentalResult, name: 'rental property the form passes an unanswered question as no', find: "const answered = (key, name) => (value(name) === '' ? {} : { [key]: yes(name) });", replace: 'const answered = (key, name) => ({ [key]: yes(name) });' },
   { ...leave, name: 'unused leave capped parts withheld at 30%', find: 'const FLAT_PERCENT = 32;', replace: 'const FLAT_PERCENT = 30;' },
   { ...leave, name: 'unused leave small payment limit at $200', find: 'const SMALL_PAYMENT = 30000;', replace: 'const SMALL_PAYMENT = 20000;' },
   { ...leave, name: 'unused leave small payment limit ignored', find: 'under300 ? roundDollars(', replace: 'false ? roundDollars(' },
@@ -1048,8 +1088,8 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/government-super-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/luxury-car-tax-engine-differential.json', 'scripts/depreciation-pools-engine-differential.json', 'scripts/ato-penalties-interest-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
-    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/wine-equalisation-tax-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/income-tax-offsets-engine-differential.json', 'scripts/government-super-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/luxury-car-tax-engine-differential.json', 'scripts/depreciation-pools-engine-differential.json', 'scripts/ato-penalties-interest-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/income-tax-offsets-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/wine-equalisation-tax-engine-differential.json', 'scripts/rental-property-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json', 'scripts/super-benefit-tax-engine-differential.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }

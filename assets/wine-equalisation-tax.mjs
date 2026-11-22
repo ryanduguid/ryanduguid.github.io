@@ -277,7 +277,7 @@ export function wineEqualisationTax(input) {
   });
   // Results are dollars as JavaScript numbers, which hold every cent only below 2^46 dollars: the page refuses larger figures.
   if ([largest, tax, earned].some((cents) => cents >= SAFE_CENTS)) {
-    refuse('input.amount_invalid', 'This calculator shows amounts to the cent only below $70 trillion; a value or total here is larger.');
+    refuse('input.amount_invalid', 'This calculator shows amounts to the cent only below $70,368,744,177,664; a value or total here is larger.');
   }
   const cap = BigInt(wetRebateCap(input.year)) * 100n;
   const left = earlier < cap ? cap - earlier : 0n;

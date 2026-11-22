@@ -95,6 +95,10 @@
 //! time, where the engine compares the year's total with what the cap leaves, and type the cap by year
 //! from WET Act s 19-15(2) and Act No. 12 of 2026 Sch 6.
 //!
+//! A further 160 seeded rental properties are worked line by line in exact ratios, each line half up
+//! to the cent, where the engine works in the australian-accounting command's 28-digit decimal context;
+//! the capital works limit compares numerators over one denominator.
+//!
 //! Every ASIC late fee case with a due date from 1 June 2026 to 30 June 2027 and a received date from
 //! 3 days before it to 75 days after it counts the month by the 2 branches of Acts Interpretation Act
 //! s 2G(1) with `jiff` and answers only when every reading of the weekend rules gives one tier, where the
@@ -8401,6 +8405,121 @@ fn the_wine_equalisation_tax_engine_agrees_with_the_oracle_on_every_seeded_case(
     let (cases, expected): (Vec<_>, Vec<_>) = (0..WET_CASES).map(|_| wet_case(&mut rng)).unzip();
     let actual = run_node(WET_HARNESS, &cases);
     assert_eq!(actual.len(), WET_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the rental property engine, as `HARNESS` runs the others.
+const RENTAL_HARNESS: &str = r"
+import { rentalProperty } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => {
+  const r = rentalProperty(one);
+  return { gross: String(r.grossRent), deductions: String(r.totalDeductions), net: String(r.netRent),
+    interest: String(r.amounts.interest), works: String(r.amounts.capital_works), decline: String(r.amounts.decline_in_value) };
+})));
+";
+
+const RENTAL_CASES: usize = 160;
+/// The legal interests the seeded cases take, as numerator and denominator.
+const RENTAL_SHARES: [(u128, u128); 5] = [(1, 1), (1, 2), (1, 4), (3, 4), (1, 3)];
+
+/// One seeded property held all of a 365-day year, worked line by line with exact ratios: each
+/// expense line's whole-period part times the legal interest and the days available over 365 plus
+/// its part solely for renting at the legal interest (the guide's time-based method); each loan's
+/// interest times the principal for the rental over the total, then the time-based share (TR 2000/2);
+/// one building's construction expenditure at 2.5% for the days available over 365, no more than
+/// what the days before the year leave undeducted (ss 43-25, 43-210 and 43-240); and one new asset's
+/// decline in value at the same shares. Each line is rounded half up to the cent.
+fn rental_case(rng: &mut Seeded) -> (Value, Value) {
+    let year = rng.pick(&["2024-25", "2025-26"]);
+    let first: i16 = year[..4].parse().unwrap();
+    let start = date(first, 7, 1);
+    let available = u128::from(rng.below(366));
+    let (sn, sd) = rng.pick(&RENTAL_SHARES);
+    let share = if sd == 3 {
+        "0.3333".to_string()
+    } else {
+        format!("{}", sn as f64 / sd as f64)
+    };
+    let (sn, sd) = if sd == 3 { (3333, 10_000) } else { (sn, sd) };
+    let rent = u128::from(rng.cents(10_000_000));
+    let gross = exact_half_up(rent * sn, sd);
+    let lines = [
+        "council_rates",
+        "insurance",
+        "repairs_and_maintenance",
+        "water_charges",
+    ];
+    let mut expenses = serde_json::Map::new();
+    let mut deductions = 0_u128;
+    for line in lines {
+        let whole = u128::from(rng.cents(2_000_000));
+        expenses.insert(line.into(), json!(dollars(u64::try_from(whole).unwrap())));
+        deductions += exact_half_up(whole * sn * available, sd * 365);
+    }
+    let agent = u128::from(rng.cents(500_000));
+    deductions += exact_half_up(agent * sn, sd);
+    let mut loans = Vec::new();
+    let mut interest = 0_u128;
+    for _ in 0..rng.below(3) {
+        let charged = u128::from(rng.cents(5_000_000));
+        let total = 1 + u128::from(rng.below(100_000_000));
+        let rental = u128::from(rng.below(u64::try_from(total).unwrap() + 1));
+        loans.push(json!({ "interest": dollars(u64::try_from(charged).unwrap()), "principal_for_rental": dollars(u64::try_from(rental).unwrap()),
+            "principal_total": dollars(u64::try_from(total).unwrap()), "redrawn_in_year": false }));
+        interest += exact_half_up(charged * rental * available, total * 365);
+    }
+    // A building begun after 26 February 1992 and first used when it began, 1 to 11,000 days before the year.
+    let cost = u128::from(rng.cents(100_000_000));
+    let before = 1 + u128::from(rng.below(11_000));
+    let first_used = start
+        .checked_sub(i64::try_from(before).unwrap().days())
+        .unwrap();
+    let began = first_used;
+    let (written_n, full_n, den) = (
+        cost * sn * 25 * before,
+        cost * sn * 25 * available,
+        sd * 1000 * 365,
+    );
+    let left_n = (cost * sn * 1000 * 365).saturating_sub(written_n);
+    let works = exact_half_up(full_n.min(left_n), den);
+    let decline_given = u128::from(rng.cents(1_000_000));
+    let decline = exact_half_up(decline_given * sn * available, sd * 365);
+    let total = deductions + interest + works + decline;
+    let input = json!({
+        "year": year, "ownership_share": share, "acquired": "2010-01-01", "disposed": null, "days_available": available,
+        "section_26_50_applies": false, "income": { "rental_income": dollars(u64::try_from(rent).unwrap()) },
+        "expenses": expenses, "rental_only_expenses": { "property_agent_fees": dollars(u64::try_from(agent).unwrap()) },
+        "loans": loans, "borrowing_expenses": "0",
+        "capital_works": [{ "construction_expenditure": dollars(u64::try_from(cost).unwrap()), "kind": "building",
+            "began": began.to_string(), "first_used": first_used.to_string(), "taken_to_begin_before_16_september_1987": false }],
+        "depreciating_assets": [{ "decline_in_value": dollars(u64::try_from(decline_given).unwrap()), "acquired": "2020-01-01",
+            "first_used": "2020-01-01", "held_when_first_used": true, "residence_or_private_use": false, "low_value_pool": false }],
+    });
+    let signed = |cents: u128| i128::try_from(cents).unwrap();
+    (
+        input,
+        json!({
+            "gross": shown_signed(signed(gross)), "deductions": shown_signed(signed(total)),
+            "net": shown_signed(signed(gross) - signed(total)), "interest": shown_signed(signed(interest)),
+            "works": shown_signed(signed(works)), "decline": shown_signed(signed(decline)),
+        }),
+    )
+}
+
+#[test]
+fn the_rental_property_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1122_0000_0B02);
+    let (cases, expected): (Vec<_>, Vec<_>) =
+        (0..RENTAL_CASES).map(|_| rental_case(&mut rng)).unzip();
+    let actual = run_node(RENTAL_HARNESS, &cases);
+    assert_eq!(actual.len(), RENTAL_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }
