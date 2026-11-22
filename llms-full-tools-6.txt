@@ -899,9 +899,11 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 One rental property, one owner, one income year
 
+Your legal interest as a decimal, such as 0.5 for half
+
 Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
 
-Your legal interest, as a decimal fraction (1 for a sole owner, 0.5 for half) Day you acquired the property Day you stopped holding it in the year (optional) Days in the year you held it that it was let or available for rent on commercial terms Your other taxable income, whole dollars, for the effect on tax from 2024-25 (optional, AUD) Is it a holiday home whose costs section 26-50 denies? No Yes
+Day you acquired the property Day you stopped holding it in the year (optional) Days in the year you held it that it was let or available for rent on commercial terms Your other taxable income, whole dollars, for the effect on tax from 2024-25 (optional, AUD) Is it a holiday home whose costs section 26-50 denies? No Yes
 
 ## Income, the whole property’s
 
@@ -915,7 +917,7 @@ Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AU
 
 ## Expenses solely for renting
 
-Such as agent commission, advertising for tenants and removing a tenant’s rubbish: not apportioned.
+Expenses that relate only to renting, such as agent commission and removing a tenant’s rubbish, are not apportioned.
 
 Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage (AUD) Water charges (AUD) Sundry rental expenses (AUD)
 
