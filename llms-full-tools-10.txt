@@ -73,7 +73,7 @@ Unused cap covers part of the excess | 2026-27: taxable income $210,000, fringe 
 2023-24: each part of Division 293 income | 2023-24: taxable income $200,000, fringe benefits $10,000, net investment loss $15,000, family trust distribution tax income $20,000, less FHSS $5,000; contributions $27,500.00 | Division 293 income $240,000.00, low tax contributions $27,500.00, taxable contributions $17,500.00, tax $2,625.00
 2021-22: a lump sum taxed at the zero rate comes off | 2021-22: taxable income $260,000, less zero-rate lump sum $30,000; contributions $27,500.00 | Division 293 income $230,000.00, low tax contributions $27,500.00, taxable contributions $7,500.00, tax $1,125.00
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -81,7 +81,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -145,7 +145,7 @@ Child support paid can take adjusted taxable income below nil | Resident all yea
 Pensions and target foreign income count in adjusted taxable income only | Resident all year, taxable $20,000, pensions $5,000, target foreign $3,000, child support $8,000, assessable $20,000 | Surcharge $20,000, Division 293 $20,000, rebate $20,000, repayment $20,000, adjusted taxable $20,000, co-contribution $20,000
 Business deductions come off co-contribution total income only | Resident all year, taxable $35,000, other fringe $2,000, employer super $1,000, assessable $40,000, business deductions $5,000 | Surcharge $38,000, Division 293 $37,000, rebate $38,000, repayment $38,000, adjusted taxable $38,000, co-contribution $38,000
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -155,7 +155,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - When you must repay your loan: https://www.ato.gov.au/individuals-and-families/study-and-training-support-loans/when-must-you-repay-your-loan
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -231,7 +231,7 @@ The present value at 2.5%, as the Instrument allows you to change it | Age 30 to
 A higher-fee fund: $150 and 0.85% | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $150.00 and 0.85%, premiums $599.00, growth 3.7%, present value at 3.7% | 37 years: $1,778,785.44, present value $463,777.40
 No insurance | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $59.00 and 0.11%, premiums $0.00, growth 3.7%, present value at 3.7% | 37 years: $2,178,481.86, present value $567,989.05
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -239,7 +239,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -325,7 +325,7 @@ Case | Inputs | Result
 Sue: ATO GN 2024/1 example 11, with a fictional determination date | ATO determination: concessional $8,500.00, non-concessional $5,000.00, earnings $850.00 | Maximum release $14,350.00, assessable $9,350.00, PAYG $1,589.00, after withholding $12,761.00, offset $2,805.00
 Partial release in the income year after determination | ATO determination: concessional $8,500.00, non-concessional $10,000.00, earnings $1,500.00, requested $15,000.00 on 2025-07-01, gross released $12,000.00 | Maximum release $20,000.00, assessable $2,000.00, PAYG $340.00, after withholding $11,660.00, offset $600.00
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -338,99 +338,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - GN 2024/1, example 6: https://www.ato.gov.au/law/view/print?DocID=GDN%2FGDN20241%2FNAT%2FATO%2F00001
 - First Home Super Saver Tax Act 2017: https://www.legislation.gov.au/C2017A00133/asmade
 - Treasury Laws Amendment (2023 Measures No. 3) Act 2023, Schedule 4, items 28 and 30: https://www.legislation.gov.au/C2023A00075
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
-
----
-
-# Work from home, car and self-education expenses calculator
-
-Source: https://duguid.com.au/tools/individual-tax/work-expenses/
-
-> Compare the working from home fixed rate with actual cost, and work out car and self-education expenses, for 2020-21 to 2026-27.
-
-# Work expenses calculator
-
-Work out working from home, car or self-education expenses for 2020-21 to 2026-27.
-
-Published 22 November 2026. Last checked 22 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Work expenses for one income year
-
-Method Working from home Car, cents per kilometre Car, log book Self-education
-
-Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
-
-Working from home Hours worked from home, as recorded Additional running expenses, such as energy or phone, incurred from working from home Yes No
-
-Work-related amounts only, in dollars and cents. Enter 0 for an expense you did not have.
-
-Electricity and gas Mobile and home phone Internet Stationery and computer consumables Cleaning Decline in value of home office furniture and furnishings Decline in value of other assets, such as a computer or phone Repairs to those assets
-
-Reimbursed or paid by your employer or anyone else No Yes
-
-An allowance received for these expenses No Yes
-
-The hours, kilometres and amounts are your records’ work-related figures
-
-Choose Yes, I have checked them No or unsure
-
-Calculate
-
-The calculator applies the rates, caps and reductions to the figures you enter. It does not check your records, apportion an expense, work out decline in value or decide whether your home is a place of business.
-
-Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Working from home, 2025-26, 843 hours, other expenses $0.00. Fixed rate, 843 hours at 70c $590.10 Expenses claimed beside the fixed rate $0.00 Fixed rate method $590.10 Actual cost method $0.00 Higher method Fixed rate Higher method, cents disregarded $590.00 The higher method is named for comparison only: each method needs its own records, and you choose one for the year.
-
-## How the work expenses calculator works
-
-For working from home, the calculator shows each method open to you beside the actual cost and names the higher. From 2022-23 the fixed rate is your recorded hours times 67c (2022-23 and 2023-24) or 70c (from 1 July 2024). It covers energy, phone, internet, stationery and computer consumables, so only cleaning, decline in value and repairs are added beside it (PCG 2023/1). For 2020-21 and 2021-22, the 52c rate needed a dedicated home office and covered energy, cleaning and the decline in value of home office furniture; phone, internet, stationery, other assets’ decline in value and repairs went beside it. The 80c shortcut covered every working from home expense. Every hourly rate needs at least one additional running expense incurred from working from home. The actual cost is the total of the work-related amounts you enter.
-
-For a car you owned or leased, the cents per kilometre method counts only the first 5,000 business kilometres, at 72c for 2020-21 and 2021-22, 78c for 2022-23, 85c for 2023-24, 88c for 2024-25 and 2025-26, and 91c for 2026-27 (section 28-25). The log book method takes the car expenses times the business use percentage, business kilometres over total kilometres (section 28-90). A log book serves the year it was kept and the next 4 years (section 28-115) and must cover at least 12 continuous weeks (section 28-120).
-
-For self-education, expenses count only when, at the time you incurred them, you were employed and the study kept up or improved the skills or knowledge for your current work, or was likely to increase your income from it. For 2021-22 and earlier, a prescribed course of education reduces category A by $250, less any category C, D and E expenses (section 82A). From 2022-23 there is no reduction. Each deduction is shown to the cent and again with the cents disregarded, as the ATO’s examples show the figure for the return.
-
-## What the work expenses calculator does not cover
-
-The calculator refuses an expense reimbursed or paid by an employer or anyone else, or covered by an allowance. It also refuses a car you did not own or lease, a log book kept more than 4 years before the claim year, one covering under 12 weeks and one that no longer represents the car’s use. It also refuses cents per kilometre expenses in category D beside log book car expenses in category A. It does not cover occupancy expenses such as rent, mortgage interest, rates and house insurance, or decide whether your home is a place of business. It also leaves out the substantiation rules and their exceptions, occupation-specific guidance, cars taken on hire or jointly owned, a new log book after an ATO notice or an added car, and the electric vehicle home charging rate. It does not work out decline in value, apportion an expense or work out the tax saved. Years before 2020-21 and after 2026-27 are not covered: no cents per kilometre rate had been determined for 2027-28 when the calculator was checked.
-
-## Boundary cases
-
-Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Work expenses calculator
-
-Case | Inputs | Result
-Keisha: 843 hours at 70c, $590 (ATO fixed rate method page) | 2025-26, working from home, 843 hours | Fixed rate $590.10, actual cost $0.00; higher fixed rate, $590.00 with cents disregarded
-Yang: 567 hours plus a $299 chair and a $250 desk, $945 (ATO fixed rate method page) | 2025-26, working from home, 567 hours, furniture decline $549.00 | Fixed rate $945.90, actual cost $549.00; higher fixed rate, $945.00 with cents disregarded
-Wanda: only the 136 recorded hours count, $95 (ATO fixed rate method page) | 2025-26, working from home, 136 hours | Fixed rate $95.20, actual cost $0.00; higher fixed rate, $95.00 with cents disregarded
-Gerry: 768 hours in 2024-25, $537 (PCG 2023/1 example 1) | 2024-25, working from home, 768 hours | Fixed rate $537.60, actual cost $0.00; higher fixed rate, $537.00 with cents disregarded
-Piruntha: 560 hours plus decline in value, $1,527 (PCG 2023/1 example 8) | 2024-25, working from home, 560 hours, furniture decline $439.20, other assets’ decline $696.52 | Fixed rate $1,527.72, actual cost $1,135.72; higher fixed rate, $1,527.00 with cents disregarded
-67c in 2023-24, the last year before 70c (PCG 2023/1 Table 1) | 2023-24, working from home, 100 hours | Fixed rate $67.00, actual cost $0.00; higher fixed rate, $67.00 with cents disregarded
-2021-22: the 52c rate with a dedicated home office, phone beside it, and the 80c shortcut | 2021-22, working from home, 1,000 hours, phone $120.00 | Fixed rate $640.00, shortcut $800.00, actual cost $120.00; higher shortcut, $800.00 with cents disregarded
-2021-22 without a dedicated home office: the shortcut and actual cost only | 2021-22, working from home, 1,000 hours, energy $900.00, no dedicated home office | Shortcut $800.00, actual cost $900.00; higher actual cost, $900.00 with cents disregarded
-Sergei: no additional running expenses, so actual cost only (PCG 2023/1 example 6) | 2025-26, working from home, 500 hours, other assets’ decline $50.00, no additional running expenses | Actual cost $50.00; higher actual cost, $50.00 with cents disregarded
-Johan: 2,514 km at 88c, $2,212 (ATO cents per kilometre page) | 2025-26, cents per kilometre, 2,514 business km | 2,514 km counted, deduction $2,212.32, $2,212.00 with cents disregarded
-Only the first 5,000 business kilometres count (s 28-25(2)), at 91c for 2026-27 | 2026-27, cents per kilometre, 5,085 business km | 5,000 km counted, deduction $4,550.00, $4,550.00 with cents disregarded
-72c for 2021-22, the rate continued from 2020-21 | 2021-22, cents per kilometre, 1,000 business km | 1,000 km counted, deduction $720.00, $720.00 with cents disregarded
-Lana: 69% business use of $17,275.33 decline in value, $11,919.98 (ATO logbook method page) | 2025-26, log book kept 2025-26 for 12 weeks, 6,900 of 10,000 km, car expenses $17,275.33 | Business use 69.00%, deduction $11,919.98, $11,919.00 with cents disregarded
-A log book kept in 2021-22 still serves 2025-26, its fifth year (s 28-115(2)) | 2025-26, log book kept 2021-22 for 12 weeks, 6,900 of 10,000 km, car expenses $17,275.33 | Business use 69.00%, deduction $11,919.98, $11,919.00 with cents disregarded
-Maureen: category A of $290 alone, $40 after the $250 reduction (ATO reduction page) | 2021-22, self-education, skills for current work, A $290.00, B $0.00, C $0.00, D $0.00, prescribed course, E $0.00 | Reduction $250.00, deduction $40.00
-Con: categories C, D and E above $250 leave no reduction, $750 (TR 98/9 paras 145 to 150) | 2020-21, self-education, skills for current work, A $350.00, B $200.00, C $100.00, D $100.00, prescribed course, E $500.00 | Reduction $0.00, deduction $750.00
-Con’s second year: category E alone above $250 leaves no reduction, $900 (TR 98/9 paras 151 to 155) | 2020-21, self-education, skills for current work, A $500.00, B $400.00, C $0.00, D $0.00, prescribed course, E $2,200.00 | Reduction $0.00, deduction $900.00
-A seminar is not a prescribed course, so no reduction in 2021-22 (TR 98/9 para 129) | 2021-22, self-education, skills for current work, A $290.00, B $0.00, C $0.00, D $0.00, not a prescribed course | Deduction $290.00
-From 2022-23 there is no $250 reduction (Act No. 84, 2022) | 2022-23, self-education, skills for current work, A $290.00, B $0.00, C $0.00, D $0.00 | Deduction $290.00
-Wendy: study for new employment is not deductible (ATO self-education page) | 2025-26, self-education, new employment, A $290.00, B $0.00, C $0.00, D $0.00 | Deduction $0.00, not deductible
-
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -517,7 +425,7 @@ B(ii): what earlier B(ii) payments had withheld comes off | fortnightly, scale 2
 B(ii): earlier withholding beyond the amount gives nil | fortnightly, scale 2, $1,800.00 this pay; B(ii): $2,480.00, $18,000.00 over 10 pays to date, earlier $1,000.00 with $9,999.00 withheld | Withheld $212.00: $212.00 on earnings, $0.00 by B(ii) (limit $1,165.60)
 ATO example 4: Bradley’s back pay over 2 years by B(i) and B(ii), with a Financial Supplement debt | monthly, scale 2, study loan, $7,000.00 this pay; B(i): $800.00 for each of 2 pays of $6,200.00 that had $1,257.00 withheld; B(ii): $8,800.00, $19,400.00 over 3 pays to date | Withheld $6,492.00: $1,634.00 on earnings, $754.00 by B(i), $4,104.00 by B(ii) (limit $4,136.00)
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -527,7 +435,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -603,7 +511,7 @@ The reportable amount brings on the surcharge and raises the study loan repaymen
 A foreign resident | 2026-27, charity, foreign, salary $70,000, Type 2 $15,899.93 | Gain $4,770.00: tax saved $4,770.00, FBT $0.00, reportable $29,999
 2022-23, before the standard deduction | 2022-23, charity, resident, salary $70,000, Type 2 $15,899.93 | Gain $5,674.00: tax saved $5,674.00, FBT $0.00, reportable $29,999
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -612,7 +520,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - novated lease calculator: https://duguid.com.au/tools/individual-tax/novated-lease/
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -708,7 +616,7 @@ Held over 4 years: two-thirds of the cost price | 2026-27, bev, first held and u
 Half a year available | 2026-27, bev, first held and used on 2022-07-01, sold 2026-27 at $60,000.00, 182 days, costs $15,000.00 with GST and $1,000.00 without, salary $100,000 | Exempt: value $5,983.56, saving $6,047.48, $3,762.72 without the exemption
 The reportable amount brings on the surcharge | 2026-27, bev, first held and used on 2022-07-01, sold 2026-27 at $60,000.00, 365 days, costs $15,000.00 with GST and $1,000.00 without, salary $120,000, no hospital cover | Exempt: value $12,000.00, saving $5,649.93, $1,502.97 without the exemption
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -716,7 +624,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -785,7 +693,7 @@ The Northern Territory, worked from the Act: the deduction tapers to $2,250,000 
 Australian wages below the state’s wages are refused | New South Wales, wages $2,000,000.00, Australian wages $1,000,000.00 | Refused: enter total Australian wages of at least the wages in the state or territory
 Negative wages are refused | New South Wales, wages -$1.00, Australian wages -$1.00 | Refused: enter an amount between 0 and 100000000000
 
-One of the forty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -794,4 +702,98 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - data file: https://duguid.com.au/tools/business-calculators/payroll-tax/payroll-tax-rates.csv
-- forty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Super guarantee charge and Payday Super due date calculator
+
+Source: https://duguid.com.au/tools/business-calculators/sgc-payday/
+
+> Payday Super due dates with business days, days late and the super guarantee charge for one employee: notional earnings, uplift and the old quarterly charge.
+
+# SGC and Payday Super calculator
+
+Payday Super due dates in business days, and the super guarantee charge for one employee, each step cited.
+
+Published 18 November 2026. Last checked 19 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Super guarantee charge inputs for one employee
+
+Law Payday Super, 2026-27 Quarterly, 2022-23 to 2025-26 Is any of the pay Norfolk Island salary or wages? No Yes: a Norfolk Island resident working there or overseas, or a Norfolk Island employer’s Australian resident employee working there Payday Time the fund has 7 business days 20 business days: first contribution to this fund Out of cycle ATO determination First contribution, out of cycle Out of cycle, ATO determination Next scheduled payday (only if regular qualifying earnings were paid that day) Determination date Qualifying earnings (AUD) Earlier earnings in 2026-27 (AUD) Received on time (AUD) Received late (AUD) Late receipt date Assessment date Disqualifying ATO assessment or estimate No Yes
+
+Choose Yes for an ATO action from 1 July 2026 through payday. Count a positive, unrevoked SGC estimate or a positive assessment still in force on payday, initiated by the ATO or prompted by an invalid section 33 disclosure.
+
+Approved voluntary disclosure before the assessment day None Lodged in the approved form Disclosure date GIC rate after 2026 (%) Income year 2022-23 (10.5%) 2023-24 (11%) 2024-25 (11.5%) 2025-26 (12%) Quarter July to September October to December January to March April to June Salary or wages (AUD) Ordinary time earnings (AUD) Contributions within 28 days (AUD) SGC statement lodged
+
+Business days are from the Payday Super calendar; GIC rates from the GIC table.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: payday 30 July 2026, the usual 7 business days, qualifying earnings $1,000.00, on time $0.00, late $120.00, assessment 1 December 2026, no disqualifying ATO assessment or estimate, no approved voluntary disclosure. Fund must receive it by (7 business days after payday) Tuesday 11 August 2026 SG amount, 12% $120.00 Late contributions received Tuesday 25 August 2026, 14 days late Business days from payday to receipt 17 Base shortfall $120.00 Late contributions applied $120.00 Final shortfall $0.00 Notional earnings, 14 days to 25 August 2026 $0.53 Administrative uplift, 40% $0.21 SG charge for the payday, before any choice loading $0.74
+
+## How the SGC and Payday Super calculator works
+
+From 1 July 2026, under Payday Super, an employer owes super guarantee for each payday, and the employee’s fund must receive it within 7 business days, or a longer period for a first contribution, out-of-cycle pay or an ATO determination. The calculator finds that due date from the site’s business days calendar, then works out the super guarantee charge for one employee if the fund received less than 12% of qualifying earnings by then: the final shortfall still unpaid at the assessment, notional earnings at the GIC rate on the amount that was late, and the administrative uplift, which may be reduced based on the employer’s qualifying assessment and estimate history and any approved disclosure lodged before the assessment day. A contribution counts from the day the fund received it with what it needs to allocate it to the employee. For a quarter that ended by 30 June 2026 it applies the old law instead: the shortfall at that year’s charge percentage, 10% nominal interest and the $20 administration component.
+
+## What the SGC and Payday Super calculator does not cover
+
+The calculator gives an estimate for one employee and one payday or quarter, and no advice. It does not cover:
+
+- the choice loading for not meeting choice of fund obligations;
+- the late payment offset under the old section 23A for quarterly contributions made late;
+- bunched contributions under section 18C(2) item 4;
+- a contribution made from 1 to 28 July 2026 that item 186 of the transition applies first to a shortfall for the quarter ending 30 June 2026: count only what is left of it;
+- a disclosed contribution with no receipt day, whose notional earnings section 36(3) works out as if the fund received it 7 business days after it was paid;
+- exemption certificates, and amounts paid that have not reached the fund;
+- GIC and penalties once the charge is payable;
+- Norfolk Island salary or wages, of which item 2(2) of Schedule 2 to the Tax and Superannuation Laws Amendment (Norfolk Island Reforms) Act 2015 (Compilation No. 1, 1 July 2026) for quarters to 30 June 2026, and item 189 of Schedule 1 to the Payday Superannuation Act for paydays in 2026-27, count only part, for a transitional rate of 7% to 10% for 2022-23 to 2025-26 and 11% for 2026-27 (Table 21 of the ATO’s key superannuation rates), both Acts read 19 November 2026: the calculator refuses them rather than apply the general rate;
+- paydays after 30 June 2027, whose maximum contributions base is not yet known, and quarters before July 2022.
+
+Confirm the figure with the ATO or a registered tax agent before relying on it.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: SGC and Payday Super calculator
+
+Case | Inputs | Result
+ATO’s 30 July 2026 payday, due a day later for NT Picnic Day, and paid 14 days late | Payday 30 July 2026; 7 business days; earnings $1,000.00; on time $0.00; late $120.00 received 25 August 2026; assessed 1 December 2026; no earlier ATO-initiated assessment; no disclosure | Due Tuesday 11 August 2026, 14 days of notional earnings, notional earnings $0.53, uplift 40%, uplift $0.21, SG charge $0.74
+ATO example 1: Hannah’s first contribution for a new employee, 9 July 2026 | Payday 9 July 2026; 20 business days for a first contribution; earnings $1,000.00; on time $120.00 | Due Friday 7 August 2026, 20 business days after payday, subsection 18C(2) item 1, SG charge $0.00
+ATO example 2: Floyd’s first contribution to a new fund, 7 August 2026 | Payday 7 August 2026; 20 business days for a first contribution; earnings $1,000.00; on time $120.00 | Due Friday 4 September 2026, 20 business days after payday, subsection 18C(2) item 1, SG charge $0.00
+ATO example 2: Floyd’s next payday, 4 September 2026 | Payday 4 September 2026; 7 business days; earnings $1,000.00; on time $120.00 | Due Tuesday 15 September 2026, 7 business days after payday, SG charge $0.00
+ATO example 3: Virgil’s Christmas bonus out of cycle, due with the 10 December payday | Payday 7 December 2026; out of cycle, next regular payday 10 December 2026; earnings $1,000.00; on time $120.00 | Due Monday 21 December 2026, 7 business days after the next regular payday, subsection 18C(2) item 2, SG charge $0.00
+ATO example 4: Priya’s back payment out of cycle, due with the 3 September payday | Payday 29 August 2026; out of cycle, next regular payday 3 September 2026; earnings $1,000.00; on time $120.00 | Due Monday 14 September 2026, 7 business days after the next regular payday, subsection 18C(2) item 2, SG charge $0.00
+ATO example 5: Christen’s 4 August payday, determination made 7 August | Payday 4 August 2026; determination made 7 August 2026; earnings $1,000.00; on time $120.00 | Due Friday 4 September 2026, the later of 20 business days after payday and after the determination, subsection 18C(2) item 3, SG charge $0.00
+ATO example 5: Christen’s 18 August payday under the same determination | Payday 18 August 2026; determination made 7 August 2026; earnings $1,000.00; on time $120.00 | Due Tuesday 15 September 2026, the later of 20 business days after payday and after the determination, subsection 18C(2) item 3, SG charge $0.00
+LCR 2026/2 Example 9’s pair: an out-of-cycle bonus under a determination is due at the later period’s end | Payday 7 August 2026; out of cycle, next regular payday 10 September 2026, determination made 7 August 2026; earnings $1,000.00; on time $120.00 | Due Monday 21 September 2026, 7 business days after the next regular payday, subsection 18C(2) item 2, SG charge $0.00
+Part paid late after an ATO-initiated assessment; disclosed on day 29 of the 30-day period, so 60% less 40 points | Payday 6 August 2026; 7 business days; earnings $6,500.00; on time $0.00; late $540.00 received 2 September 2026; assessed 10 December 2026; an earlier ATO-initiated assessment; disclosure lodged 4 September 2026 | Due Monday 17 August 2026, SG amount $780.00, base shortfall $780.00, final shortfall $240.00, 114 days of notional earnings, notional earnings $28.47, uplift 20%, uplift $53.69, SG charge $322.16
+The same, disclosed the next day, after the 30-day period: 60% less 35 points | Payday 6 August 2026; 7 business days; earnings $6,500.00; on time $0.00; late $540.00 received 2 September 2026; assessed 10 December 2026; an earlier ATO-initiated assessment; disclosure lodged 5 September 2026 | Notional earnings $28.47, uplift 25%, uplift $67.12, SG charge $335.59
+Earnings that pass the $270,830 base count only to it | Payday 3 September 2026; 7 business days; earnings $1,000.00; $270,000.00 earlier in 2026-27; on time $99.60 | Due Monday 14 September 2026, SG amount $99.60, base shortfall $0.00, SG charge $0.00
+Unpaid and assessed in 2027, with the assumed GIC rate after December 2026 | Payday 5 November 2026; 7 business days; earnings $2,000.00; on time $0.00; assessed 15 February 2027; no earlier ATO-initiated assessment; no disclosure; GIC 11.51% assumed after 2026 | Due Monday 16 November 2026, final shortfall $240.00, 90 days of notional earnings, 45 days at the assumed rate, notional earnings $6.91, uplift 40%, uplift $98.76, SG charge $345.67
+A contribution received on the due date | Payday 30 July 2026; 7 business days; earnings $1,000.00; on time $0.00; late $120.00 received 11 August 2026; assessed 1 December 2026; no earlier ATO-initiated assessment; no disclosure | Refused: a contribution the fund received by the due date is on time: add it to the on-time amount
+A contribution received on the assessment day | Payday 30 July 2026; 7 business days; earnings $1,000.00; on time $0.00; late $120.00 received 1 December 2026; assessed 1 December 2026; no earlier ATO-initiated assessment; no disclosure | Refused: a contribution the fund receives on or after the assessment day does not count for it: leave it out
+A payday before Payday Super began | Payday 30 June 2026; 7 business days; earnings $1,000.00; on time $0.00; late $120.00 received 25 August 2026; assessed 1 December 2026; no earlier ATO-initiated assessment; no disclosure | Refused: enter a payday from 1 July 2026 to 30 June 2027
+A due date past the business day calendar | Payday 30 June 2027; out of cycle, next regular payday 30 August 2027; earnings $1,000.00; on time $120.00 | Refused: that due date falls after 31 August 2027, where the business day calendar ends
+A voluntary disclosure lodged on the assessment day | Payday 30 July 2026; 7 business days; earnings $1,000.00; on time $0.00; late $120.00 received 25 August 2026; assessed 1 December 2026; no earlier ATO-initiated assessment; disclosure lodged 1 December 2026 | Refused: enter the day the approved voluntary disclosure statement was lodged from 30 July 2026 to 30 November 2026
+ATO module 6: one of Imogen’s 30 employees, quarter 1 of 2025-26, statement lodged before 28 November | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $10,000.00; contributions $0.00; lodged 20 November 2025 | Payable Friday 28 November 2025, shortfall $1,440.00, 150 days, nominal interest $59.18, administration component $20.00, SG charge $1,519.18
+Contributions of 6% of ordinary time earnings leave 6% of salary or wages, and interest runs to a late statement | Quarter 2 of 2025-26; salary or wages $12,000.00; ordinary time earnings $10,000.00; contributions $600.00; lodged 10 March 2026 | Payable Tuesday 10 March 2026, charge percentage 6.00%, shortfall $720.00, 160 days, nominal interest $31.56, administration component $20.00, SG charge $771.56
+Salary or wages above the $62,500 quarterly base count only to it | Quarter 4 of 2025-26; salary or wages $80,000.00; ordinary time earnings $80,000.00; contributions $0.00; lodged 20 August 2026 | Payable Friday 28 August 2026, shortfall $7,500.00, 149 days, nominal interest $306.16, administration component $20.00, SG charge $7,826.16
+Contributions of 11.5% of ordinary time earnings in 2024-25 leave no charge | Quarter 2 of 2024-25; salary or wages $10,000.00; ordinary time earnings $10,000.00; contributions $1,150.00; lodged 1 March 2025 | Charge percentage 0.00%, shortfall $0.00, SG charge $0.00
+Interest across 29 February 2024 | Quarter 3 of 2023-24; salary or wages $12,000.00; ordinary time earnings $10,000.00; contributions $0.00; lodged 20 May 2024 | Refused: the nominal interest period includes 29 February, and the ATO does not say whether that year has 365 or 366 days
+Contributions with no ordinary time earnings | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $0.00; contributions $100.00; lodged 20 November 2025 | Refused: enter the ordinary time earnings for the quarter: contributions reduce the charge percentage in proportion to them
+A statement lodged by the contribution due date | Quarter 1 of 2025-26; salary or wages $12,000.00; ordinary time earnings $10,000.00; contributions $0.00; lodged 28 October 2025 | Refused: enter the day the statement was or will be lodged from 29 October 2025 to 30 June 2031
+
+One of the forty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Payday Super calendar: https://duguid.com.au/tools/payday-super/business-days/
+- GIC table: https://duguid.com.au/rates/general-interest-charge/
+- Tax and Superannuation Laws Amendment (Norfolk Island Reforms) Act 2015: https://www.legislation.gov.au/C2015A00053/latest/text
+- forty-nine business calculators: https://duguid.com.au/tools/business-calculators/
