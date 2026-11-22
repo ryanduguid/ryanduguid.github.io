@@ -85,9 +85,10 @@
 //! engine multiplies the daily growth factors; and the quarterly shortfall and interest are
 //! worked from the old Act's formulas in their own units.
 //!
-//! Every ASIC late fee case with a due date from 1 June 2026 to 30 June 2027 and a payment from 3 days
-//! before it to 75 days after it counts the month by the 2 branches of Acts Interpretation Act s 2G(1)
-//! with `jiff`, where the engine adds a calendar month to the day after the due date in UTC milliseconds.
+//! Every ASIC late fee case with a due date from 1 June 2026 to 30 June 2027 and a received date from
+//! 3 days before it to 75 days after it counts the month by the 2 branches of Acts Interpretation Act
+//! s 2G(1) with `jiff` and answers only when every reading of the weekend rules gives one tier, where the
+//! engine adds a calendar month in UTC milliseconds and refuses the ranges a move could reach.
 //!
 //! A further 200 seeded GST margin scheme sales work the GST on a GST-exclusive price as 1/11 of
 //! the exact margin on the price it makes, where the engine takes a tenth of the price less the cost.
@@ -8075,34 +8076,46 @@ fn asic_first_month_ends(due: Date) -> Date {
     }
 }
 
-/// A payment after a Saturday or Sunday and by the Wednesday after it: the page refuses it.
-fn asic_after_weekend(boundary: Date, paid: Date) -> bool {
-    let wednesday = match boundary.weekday() {
-        Weekday::Saturday => boundary.checked_add(4.days()).unwrap(),
-        Weekday::Sunday => boundary.checked_add(3.days()).unwrap(),
-        _ => return false,
+/// A day and, if it is a Saturday or Sunday, each day after it to the Wednesday: the days a thing due
+/// then might be done on if AIA s 36(2) or Corporations Act s 105(3) moves it.
+fn asic_could_move_to(day: Date) -> Vec<Date> {
+    let last = match day.weekday() {
+        Weekday::Saturday => day.checked_add(4.days()).unwrap(),
+        Weekday::Sunday => day.checked_add(3.days()).unwrap(),
+        _ => day,
     };
-    paid > boundary && paid <= wednesday
+    day.series(1.day()).take_while(|d| *d <= last).collect()
 }
 
-fn asic_late_oracle(due: Date, paid: Date) -> Value {
-    if paid < date(2026, 7, 1) || paid > date(2027, 6, 30) {
+/// The tier under every reading of the weekend rules: each day the due date could move to, and each
+/// day that due date's first month could end on. The page answers only when every reading agrees.
+fn asic_late_oracle(due: Date, received: Date) -> Value {
+    let year = date(2026, 7, 1)..=date(2027, 6, 30);
+    if !year.contains(&due) || !year.contains(&received) {
         return json!({ "refused": "year" });
     }
-    if paid <= due {
-        return json!({ "amount": 0, "tier": "not late" });
+    let mut tiers = Vec::new();
+    for moved in asic_could_move_to(due) {
+        for ends in asic_could_move_to(asic_first_month_ends(moved)) {
+            tiers.push(if received <= moved {
+                0
+            } else if received <= ends {
+                102
+            } else {
+                428
+            });
+        }
     }
-    if asic_after_weekend(due, paid) {
-        return json!({ "refused": "due-weekend" });
+    if tiers.iter().all(|tier| *tier == tiers[0]) {
+        let tier = ["not late", "within one month", "more than one month"][match tiers[0] {
+            0 => 0,
+            102 => 1,
+            _ => 2,
+        }];
+        return json!({ "amount": tiers[0], "tier": tier });
     }
-    let ends = asic_first_month_ends(due);
-    if paid <= ends {
-        return json!({ "amount": 102, "tier": "within one month" });
-    }
-    if asic_after_weekend(ends, paid) {
-        return json!({ "refused": "month-weekend" });
-    }
-    json!({ "amount": 428, "tier": "more than one month" })
+    let weekend = matches!(due.weekday(), Weekday::Saturday | Weekday::Sunday);
+    json!({ "refused": if weekend || tiers.contains(&0) { "due-weekend" } else { "month-weekend" } })
 }
 
 #[test]
@@ -8132,13 +8145,15 @@ fn the_asic_fees_engine_agrees_with_the_oracle_on_every_due_and_payment_date() {
     }
     let mut due = date(2026, 6, 1);
     while due <= date(2027, 6, 30) {
-        let mut paid = due.checked_sub(3.days()).unwrap();
-        while paid <= due.checked_add(75.days()).unwrap() {
+        let mut received = due.checked_sub(3.days()).unwrap();
+        while received <= due.checked_add(75.days()).unwrap() {
             for fee in ["late-review-payment", "late-lodgement"] {
-                cases.push(json!({ "fee": fee, "due": due.to_string(), "paid": paid.to_string() }));
-                expected.push(asic_late_oracle(due, paid));
+                cases.push(
+                    json!({ "fee": fee, "due": due.to_string(), "received": received.to_string() }),
+                );
+                expected.push(asic_late_oracle(due, received));
             }
-            paid = paid.tomorrow().unwrap();
+            received = received.tomorrow().unwrap();
         }
         due = due.tomorrow().unwrap();
     }

@@ -5269,7 +5269,7 @@ test('fuel tax credits agree with the australian-accounting command on every dif
 // data read 22 November 2026 (SHA-256 03281f57...866da); the Rust oracle types them separately.
 const asicHtml = readFileSync(new URL('../_includes/calculators/asic-fees.html', import.meta.url), 'utf8');
 const asicAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
-const asicLate = (due, paid, fee = 'late-review-payment') => calculations.asicFee({ fee, due, paid });
+const asicLate = (due, received, fee = 'late-review-payment') => calculations.asicFee({ fee, due, received });
 
 test('the ASIC fees page opens on a payment exactly one month late and dates its sources', () => {
   const example = asicHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
@@ -5322,18 +5322,33 @@ test('ASIC late fees refuse what the page does not decide', () => {
     return 'computed';
   };
   for (const date of ['', '2026-02-30', '2026-9-15', '15/09/2026', 'NaN', '1899-12-31']) {
-    assert.equal(refused({ fee: 'late-lodgement', due: date, paid: '2026-10-01' }), 'Enter a real date as YYYY-MM-DD.', date);
-    assert.equal(refused({ fee: 'late-lodgement', due: '2026-09-15', paid: date }), 'Enter a real date as YYYY-MM-DD.', date);
+    assert.equal(refused({ fee: 'late-lodgement', due: date, received: '2026-10-01' }), 'Enter a real date as YYYY-MM-DD.', date);
+    assert.equal(refused({ fee: 'late-lodgement', due: '2026-09-15', received: date }), 'Enter a real date as YYYY-MM-DD.', date);
   }
   for (const fee of ['', 'late', 'toString', '__proto__']) assert.equal(refused({ fee }), 'Choose a fee.', fee);
+  // The boundaries themselves compute: the due date is not late and the month's last day is within it.
+  for (const received of ['2026-09-15', '2026-10-15']) {
+    assert.equal(refused({ fee: 'late-review-payment', due: '2026-09-15', received }), 'computed', received);
+  }
   // A Sunday due date refuses payments to the Wednesday after it; the Thursday is late.
-  assert.match(refused({ fee: 'late-review-payment', due: '2026-08-16', paid: '2026-08-19' }), /^The due date is a Saturday or Sunday/);
-  assert.equal(refused({ fee: 'late-review-payment', due: '2026-08-16', paid: '2026-08-20' }), 'computed');
+  assert.match(refused({ fee: 'late-review-payment', due: '2026-08-16', received: '2026-08-19' }), /^The due date is a Saturday or Sunday/);
+  assert.equal(refused({ fee: 'late-review-payment', due: '2026-08-16', received: '2026-08-20' }), 'computed');
   assert.deepEqual(asicLate('2026-08-16', '2026-08-20').amount, 102);
   // A Saturday month end refuses payments to the Wednesday after it (31 October 2026 is a Saturday).
-  assert.match(refused({ fee: 'late-review-payment', due: '2026-09-30', paid: '2026-11-04' }), /^The first month after the due date ends/);
-  assert.equal(refused({ fee: 'late-review-payment', due: '2026-09-30', paid: '2026-11-05' }), 'computed');
+  assert.match(refused({ fee: 'late-review-payment', due: '2026-09-30', received: '2026-11-04' }), /^The first month after the due date ends/);
+  assert.equal(refused({ fee: 'late-review-payment', due: '2026-09-30', received: '2026-11-05' }), 'computed');
   assert.deepEqual(asicLate('2026-09-30', '2026-11-05').amount, 428);
+  // A Saturday due date that moves to Wednesday 3 March 2027 would end the first month as late as
+  // Wednesday 7 April (3 April is a Saturday), so a receipt from 28 March to 7 April is refused.
+  assert.equal(asicLate('2027-02-27', '2027-03-27').amount, 102);
+  assert.match(refused({ fee: 'late-review-payment', due: '2027-02-27', received: '2027-04-01' }), /^The due date is a Saturday or Sunday, so the first month/);
+  assert.match(refused({ fee: 'late-review-payment', due: '2027-02-27', received: '2027-04-07' }), /^The due date is a Saturday or Sunday, so the first month/);
+  assert.equal(refused({ fee: 'late-review-payment', due: '2027-02-27', received: '2027-04-08' }), 'computed');
+  assert.equal(asicLate('2027-02-27', '2027-04-08').amount, 428);
+  // A due date and a received date either side of 1 July are refused.
+  assert.match(refused({ fee: 'late-review-payment', due: '2026-06-30', received: '2026-07-01' }), /^This page holds ASIC’s 2026-27 amounts/);
   // Fixed fees ignore the dates.
-  assert.equal(calculations.asicFee({ fee: 'business-name-3', due: 'x', paid: 'y' }).amount, 108);
+  assert.equal(calculations.asicFee({ fee: 'business-name-3', due: 'x', received: 'y' }).amount, 108);
+  const blank = calculations.asicFeesResult((name) => ({ fee: 'review-public', due: '', received: '' })[name] ?? '', asicAud);
+  assert.deepEqual(blank.rows, [['ASIC fee, no GST', '$1,591.00']]);
 });
