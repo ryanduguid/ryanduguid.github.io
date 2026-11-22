@@ -192,7 +192,8 @@ function parseDealing(value, n) {
 }
 
 const at29 = (/** @type {bigint} */ cents) => ratioCents(cents * 29n, 100n);
-const SAFE_CENTS = BigInt(Number.MAX_SAFE_INTEGER);
+// Below 2^46 dollars a JavaScript number is within $0.004 of every cent amount, so it rounds back to the cent.
+const SAFE_CENTS = 100n * (1n << 46n);
 
 /** @typedef {{dealing: number, kind: string, taxableValue: number, method: string, wineTax: number, gst: number | null,
  *   priceIncludingWetAndGst: number | null, intention: string | null, rebate: null | {conditions: boolean[], liable: boolean,
@@ -274,9 +275,9 @@ export function wineEqualisationTax(input) {
     largest = w.largest > largest ? w.largest : largest;
     return w.worked;
   });
-  // Results are JavaScript numbers, exact to the cent only up to 2^53 - 1 cents: the page refuses larger figures.
-  if ([largest, tax, earned].some((cents) => cents > SAFE_CENTS)) {
-    refuse('input.amount_invalid', 'This calculator shows amounts to the cent only up to $90 trillion; a value or total here is larger.');
+  // Results are dollars as JavaScript numbers, which hold every cent only below 2^46 dollars: the page refuses larger figures.
+  if ([largest, tax, earned].some((cents) => cents >= SAFE_CENTS)) {
+    refuse('input.amount_invalid', 'This calculator shows amounts to the cent only below $70 trillion; a value or total here is larger.');
   }
   const cap = BigInt(wetRebateCap(input.year)) * 100n;
   const left = earlier < cap ? cap - earlier : 0n;
