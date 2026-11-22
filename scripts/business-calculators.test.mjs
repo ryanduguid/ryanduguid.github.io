@@ -5360,6 +5360,10 @@ test('WET refuses what the command refuses, with its codes', () => {
     rebate_claimed_earlier_in_year: '0', associated_producer: false }), 'input.field_unknown');
   assert.equal(wetCode({ year: '2026-27', dealings: [{ ...wetSale('1.00'), rebate_conditions: { ...wetMet, producer: 'yes' } }],
     rebate_claimed_earlier_in_year: '0', associated_producer: false }), 'input.flag_invalid');
+  for (const scope of [false, 'yes']) {
+    assert.equal(wetCode({ year: '2026-27', dealings: [wetSale('1.00')], scope_confirmed: scope }), 'scope.not_confirmed');
+  }
+  assert.equal(calculations.wineEqualisationTax({ year: '2026-27', dealings: [wetSale('100.00')], scope_confirmed: true }).wineTax, 29);
 });
 
 test('the WET form shares one set of wholesale sales and rebate answers, and passes rebate inputs only with a claim', () => {
@@ -5380,6 +5384,11 @@ test('the WET form shares one set of wholesale sales and rebate answers, and pas
   assert.ok(unmet.dealings.every((d) => d.rebate_conditions.container_and_trade_mark === false));
   assert.equal(calculations.wineEqualisationTax(unmet).rebate, 0);
   assert.equal(input({ 'kind-6': 'wholesale_sale', 'price-6': '100' }).dealings.length, 6);
+  // A dealing switched to own use of wine bought under quote keeps its 'Claimed' answer, which the form leaves out.
+  const bought = input({ 'kind-1': 'own_use_purchased_under_quote', 'price-1': '100', 'rebate-1': 'yes' });
+  assert.equal(bought.dealings[0].rebate_conditions, undefined);
+  const worked = calculations.wineEqualisationTax(bought);
+  assert.deepEqual([worked.dealings[0].taxableValue, worked.dealings[0].wineTax, worked.dealings[0].rebate], [100, 29, null]);
 });
 
 // The command this page ports, run on the same cases: see the fixture's engine line.

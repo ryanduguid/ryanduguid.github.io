@@ -233,6 +233,11 @@ function workDealing(d, n) {
  * @returns {WetResult} */
 export function wineEqualisationTax(input) {
   known(/** @type {Record<string, unknown>} */ (input), 'The input', 'wine-equalisation-tax', INPUT_FIELDS);
+  // The page states the command's scope beside the form, so a call without scope_confirmed is taken as
+  // confirmed; given, it must be true, as the command requires.
+  if ('scope_confirmed' in input && input.scope_confirmed !== true) {
+    refuse('scope.not_confirmed', 'Establish all stated scope conditions before calculating.');
+  }
   if (!WET_YEARS.includes(input.year)) {
     refuse('period.unsupported', `Choose a financial year from ${WET_YEARS[0]} to ${WET_YEARS.at(-1)}: earlier years carry the transitional `
       + 'producer rebate rules for 2017 and earlier vintage wine, which this calculator does not work out.');
@@ -326,7 +331,8 @@ export function wetFormInput(value) {
       }
     }
     if (kind === 'quoted_sale') d.purchaser_intention = value(`intention-${i}`);
-    if (value(`rebate-${i}`) === 'yes') d.rebate_conditions = conditions;
+    // Own use of wine bought under quote earns no rebate, so its rebate answer is not passed on.
+    if (kind !== 'own_use_purchased_under_quote' && value(`rebate-${i}`) === 'yes') d.rebate_conditions = conditions;
     dealings.push(d);
   }
   /** @type {{year: string, dealings: Record<string, unknown>[], rebate_claimed_earlier_in_year?: string, associated_producer?: boolean}} */
