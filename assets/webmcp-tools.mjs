@@ -916,82 +916,8 @@ export function individualTaxTools({ taxEstimate, takeHomePay, soleTraderSetAsid
   novatedYears, superProjection }) {
   return {
     'income-tests': incomeTestsTool(incomeTests),
-    'income-tax': tool({
-      name: 'estimate_income_tax',
-      title: 'Income tax and refund estimate',
-      description: INCOME_TAX_DESCRIPTION,
-      inputSchema: record({
-        incomeYear: choice(incomeYears, `Income year, ${incomeYears.at(-1)} to ${incomeYears[0]}.`),
-        residency: RESIDENCY,
-        taxableIncome: whole(0, 1e9, 'Taxable income in whole AUD.'),
-        reportableFringeBenefits: dollarsOnly('Reportable fringe benefits total.'),
-        reportableSuperContributions: dollarsOnly('Reportable super contributions, including salary sacrificed to super.'),
-        totalNetInvestmentLoss: dollarsOnly('Total net investment loss.'),
-        exemptForeignEmploymentIncome: dollarsOnly('Exempt foreign employment income, which counts only for the study loan.'),
-        studyLoan: { type: 'boolean', description: 'true when the person has a HELP or other study or training loan.' },
-        daysWithoutHospitalCover: whole(0, 366, 'Days in the year without private patient hospital cover; 0 when omitted.'),
-        spouseIncome: whole(0, 1e9, 'A spouse all year: their income for surcharge purposes in whole AUD. Omit with no spouse.'),
-        dependentChildren: whole(0, 20, 'Dependent children; 0 when omitted.'),
-        taxWithheld: text('amount', 'Tax withheld over the year in AUD with at most 2 decimal places; "0" when omitted.'),
-      }, ['incomeYear', 'residency', 'taxableIncome']),
-      run({ incomeYear, residency, taxableIncome, reportableFringeBenefits = 0, reportableSuperContributions = 0,
-        totalNetInvestmentLoss = 0, exemptForeignEmploymentIncome = 0, studyLoan = false, daysWithoutHospitalCover = 0,
-        spouseIncome, dependentChildren = 0, taxWithheld = '0' }) {
-        const r = taxEstimate({ year: incomeYear, residency, taxable: String(taxableIncome),
-          fringe: String(reportableFringeBenefits), super: String(reportableSuperContributions),
-          losses: String(totalNetInvestmentLoss), foreign: String(exemptForeignEmploymentIncome), studyLoan,
-          uncoveredDays: String(daysWithoutHospitalCover), spouse: spouseIncome === undefined ? null : String(spouseIncome),
-          children: String(dependentChildren), withheld: taxWithheld });
-        return {
-          taxOnTaxableIncome: dollars(r.tax), lowIncomeTaxOffset: dollars(r.offset), lowAndMiddleIncomeTaxOffset: dollars(r.lmito),
-          medicareLevy: dollars(r.medicare), medicareLevySurcharge: dollars(r.surcharge), studyLoanRepayment: dollars(r.studyLoan),
-          total: dollars(r.assessed), taxWithheld: dollars(r.withheld), ...settled(r.refund), currency: 'AUD',
-          source: `${INDIVIDUAL}income-tax/`,
-        };
-      },
-    }),
-    'take-home-pay': tool({
-      name: 'calculate_take_home_pay',
-      title: 'Take-home pay calculator',
-      description: TAKE_HOME_DESCRIPTION,
-      inputSchema: record({
-        incomeYear: choice(payYears, `Income year, ${payYears.at(-1)} to ${payYears[0]}.`),
-        residency: RESIDENCY,
-        salary: text('amount', 'Salary for each pay period in AUD with at most 2 decimal places.'),
-        payPeriod: choice(['year', 'month', 'fortnight', 'week'], 'The period the salary and sacrifice are for; "year" when omitted.'),
-        includesSuper: { type: 'boolean', description: 'true when the salary is a package including super guarantee; false when omitted.' },
-        salarySacrifice: text('amount', 'Salary sacrificed to super each pay period in AUD; "0" when omitted.'),
-        studyLoan: { type: 'boolean', description: 'true when the person has a HELP or other study or training loan.' },
-        privateHospitalCover: { type: 'boolean', description: 'false when the person had no private patient hospital cover all year; true when omitted.' },
-        datedPay: { type: 'array', maxItems: 1000, description: 'Optional payments from one employer in the selected income year. '
-          + 'Gross salary must total the salary for the year and exclude employer super.',
-        items: record({
-          payday: text('date', 'Actual payday in YYYY-MM-DD form.'),
-          grossSalary: text('amount', 'Gross salary on this payment before salary sacrifice, excluding employer super.'),
-          superEarnings: text('amount', 'Ordinary time earnings through 2025-26 or qualifying earnings from 2026-27, in AUD.'),
-        }, ['payday', 'grossSalary', 'superEarnings']) },
-      }, ['incomeYear', 'residency', 'salary']),
-      run({ incomeYear, residency, salary, payPeriod = 'year', includesSuper = false, salarySacrifice = '0', studyLoan = false,
-        privateHospitalCover = true, datedPay }) {
-        const r = takeHomePay({ year: incomeYear, residency, salary, period: payPeriod, includesSuper,
-          sacrifice: salarySacrifice, studyLoan, hospitalCover: privateHospitalCover, datedPay });
-        const cents = (/** @type {number} */ value) => Math.round(value * 100);
-        return {
-          salaryForYear: dollars(r.salary), salarySacrificed: dollars(r.sacrifice), superGuarantee: dollars(r.superGuarantee),
-          ...(datedPay ? { superGuaranteeBasis: incomeYear < '2026-27' ? 'dated-quarterly-earnings' : 'dated-payday-earnings' } : {}),
-          standardDeduction: dollars(r.deduction), taxableIncome: dollars(r.taxable),
-          incomeTaxLessOffsets: dollars((cents(r.tax) - cents(r.offset) - cents(r.lmito)) / 100), medicareLevy: dollars(r.medicare),
-          medicareLevySurcharge: dollars(r.surcharge), studyLoanRepayment: dollars(r.studyLoan), takeHomeYear: dollars(r.net),
-          takeHomeMonth: dollars(r.monthly), takeHomeFortnight: dollars(r.fortnightly), takeHomeWeek: dollars(r.weekly),
-          concessionalOverCap: dollars(r.overCap), division293TaxableContributions: dollars(r.division293),
-          paygWithholding: r.withheld ? { eachPay: dollars(r.withheld.total), studyLoanComponent: dollars(r.withheld.studyLoan),
-            studyLoanComponentBefore24September2025: r.withheld.earlierStudyLoan === null ? null
-              : dollars(r.withheld.earlierStudyLoan),
-            year: dollars(r.withheld.year), ...settled(r.withheld.refund) } : null,
-          currency: 'AUD', source: `${INDIVIDUAL}take-home-pay/`,
-        };
-      },
-    }),
+    'income-tax': incomeTaxTool(taxEstimate, incomeYears),
+    'take-home-pay': takeHomePayTool(takeHomePay, payYears),
     'super-projection': superProjectionTool(superProjection),
     'sole-trader': soleTraderTool(soleTraderSetAside, soleTraderYears),
     'division-293': division293Tool({ division293Tax, division293Years }),
@@ -999,6 +925,92 @@ export function individualTaxTools({ taxEstimate, takeHomePay, soleTraderSetAsid
     'salary-packaging': salaryPackagingTool(salaryPackaging, packagingYears),
     'novated-lease': novatedLeaseTool(novatedLease, novatedYears),
   };
+}
+
+/** The WebMCP descriptor for the income tax estimate.
+ * @param {typeof import('./tax-estimate.mjs').taxEstimate} taxEstimate @param {string[]} incomeYears */
+function incomeTaxTool(taxEstimate, incomeYears) {
+  return tool({
+    name: 'estimate_income_tax',
+    title: 'Income tax and refund estimate',
+    description: INCOME_TAX_DESCRIPTION,
+    inputSchema: record({
+      incomeYear: choice(incomeYears, `Income year, ${incomeYears.at(-1)} to ${incomeYears[0]}.`),
+      residency: RESIDENCY,
+      taxableIncome: whole(0, 1e9, 'Taxable income in whole AUD.'),
+      reportableFringeBenefits: dollarsOnly('Reportable fringe benefits total.'),
+      reportableSuperContributions: dollarsOnly('Reportable super contributions, including salary sacrificed to super.'),
+      totalNetInvestmentLoss: dollarsOnly('Total net investment loss.'),
+      exemptForeignEmploymentIncome: dollarsOnly('Exempt foreign employment income, which counts only for the study loan.'),
+      studyLoan: { type: 'boolean', description: 'true when the person has a HELP or other study or training loan.' },
+      daysWithoutHospitalCover: whole(0, 366, 'Days in the year without private patient hospital cover; 0 when omitted.'),
+      spouseIncome: whole(0, 1e9, 'A spouse all year: their income for surcharge purposes in whole AUD. Omit with no spouse.'),
+      dependentChildren: whole(0, 20, 'Dependent children; 0 when omitted.'),
+      taxWithheld: text('amount', 'Tax withheld over the year in AUD with at most 2 decimal places; "0" when omitted.'),
+    }, ['incomeYear', 'residency', 'taxableIncome']),
+    run({ incomeYear, residency, taxableIncome, reportableFringeBenefits = 0, reportableSuperContributions = 0,
+      totalNetInvestmentLoss = 0, exemptForeignEmploymentIncome = 0, studyLoan = false, daysWithoutHospitalCover = 0,
+      spouseIncome, dependentChildren = 0, taxWithheld = '0' }) {
+      const r = taxEstimate({ year: incomeYear, residency, taxable: String(taxableIncome),
+        fringe: String(reportableFringeBenefits), super: String(reportableSuperContributions),
+        losses: String(totalNetInvestmentLoss), foreign: String(exemptForeignEmploymentIncome), studyLoan,
+        uncoveredDays: String(daysWithoutHospitalCover), spouse: spouseIncome === undefined ? null : String(spouseIncome),
+        children: String(dependentChildren), withheld: taxWithheld });
+      return {
+        taxOnTaxableIncome: dollars(r.tax), lowIncomeTaxOffset: dollars(r.offset), lowAndMiddleIncomeTaxOffset: dollars(r.lmito),
+        medicareLevy: dollars(r.medicare), medicareLevySurcharge: dollars(r.surcharge), studyLoanRepayment: dollars(r.studyLoan),
+        total: dollars(r.assessed), taxWithheld: dollars(r.withheld), ...settled(r.refund), currency: 'AUD',
+        source: `${INDIVIDUAL}income-tax/`,
+      };
+    },
+  });
+}
+
+/** The WebMCP descriptor for the take-home pay calculator.
+ * @param {typeof import('./take-home-pay.mjs').takeHomePay} takeHomePay @param {string[]} payYears */
+function takeHomePayTool(takeHomePay, payYears) {
+  return tool({
+    name: 'calculate_take_home_pay',
+    title: 'Take-home pay calculator',
+    description: TAKE_HOME_DESCRIPTION,
+    inputSchema: record({
+      incomeYear: choice(payYears, `Income year, ${payYears.at(-1)} to ${payYears[0]}.`),
+      residency: RESIDENCY,
+      salary: text('amount', 'Salary for each pay period in AUD with at most 2 decimal places.'),
+      payPeriod: choice(['year', 'month', 'fortnight', 'week'], 'The period the salary and sacrifice are for; "year" when omitted.'),
+      includesSuper: { type: 'boolean', description: 'true when the salary is a package including super guarantee; false when omitted.' },
+      salarySacrifice: text('amount', 'Salary sacrificed to super each pay period in AUD; "0" when omitted.'),
+      studyLoan: { type: 'boolean', description: 'true when the person has a HELP or other study or training loan.' },
+      privateHospitalCover: { type: 'boolean', description: 'false when the person had no private patient hospital cover all year; true when omitted.' },
+      datedPay: { type: 'array', maxItems: 1000, description: 'Optional payments from one employer in the selected income year. '
+        + 'Gross salary must total the salary for the year and exclude employer super.',
+      items: record({
+        payday: text('date', 'Actual payday in YYYY-MM-DD form.'),
+        grossSalary: text('amount', 'Gross salary on this payment before salary sacrifice, excluding employer super.'),
+        superEarnings: text('amount', 'Ordinary time earnings through 2025-26 or qualifying earnings from 2026-27, in AUD.'),
+      }, ['payday', 'grossSalary', 'superEarnings']) },
+    }, ['incomeYear', 'residency', 'salary']),
+    run({ incomeYear, residency, salary, payPeriod = 'year', includesSuper = false, salarySacrifice = '0', studyLoan = false,
+      privateHospitalCover = true, datedPay }) {
+      const r = takeHomePay({ year: incomeYear, residency, salary, period: payPeriod, includesSuper,
+        sacrifice: salarySacrifice, studyLoan, hospitalCover: privateHospitalCover, datedPay });
+      const cents = (/** @type {number} */ value) => Math.round(value * 100);
+      return {
+        salaryForYear: dollars(r.salary), salarySacrificed: dollars(r.sacrifice), superGuarantee: dollars(r.superGuarantee),
+        ...(datedPay ? { superGuaranteeBasis: incomeYear < '2026-27' ? 'dated-quarterly-earnings' : 'dated-payday-earnings' } : {}),
+        standardDeduction: dollars(r.deduction), taxableIncome: dollars(r.taxable),
+        incomeTaxLessOffsets: dollars((cents(r.tax) - cents(r.offset) - cents(r.lmito)) / 100), medicareLevy: dollars(r.medicare),
+        medicareLevySurcharge: dollars(r.surcharge), studyLoanRepayment: dollars(r.studyLoan), takeHomeYear: dollars(r.net),
+        takeHomeMonth: dollars(r.monthly), takeHomeFortnight: dollars(r.fortnightly), takeHomeWeek: dollars(r.weekly),
+        concessionalOverCap: dollars(r.overCap), division293TaxableContributions: dollars(r.division293),
+        paygWithholding: r.withheld ? { eachPay: dollars(r.withheld.total), studyLoanComponent: dollars(r.withheld.studyLoan),
+          studyLoanComponentBefore24September2025: r.withheld.earlierStudyLoan === null ? null
+            : dollars(r.withheld.earlierStudyLoan),
+          year: dollars(r.withheld.year), ...settled(r.withheld.refund) } : null,
+        currency: 'AUD', source: `${INDIVIDUAL}take-home-pay/`,
+      };
+    },
+  });
 }
 
 /** The WebMCP descriptor for the income tests calculator.

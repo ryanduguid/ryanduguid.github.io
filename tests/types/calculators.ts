@@ -342,6 +342,14 @@ calculate.capitalWorks({ year: '2025-26', construction_expenditure: '1', constru
   days_used: 365, taxable_use: '1', undeducted_construction_expenditure: '1' });
 void poolDeduction;
 void poolThreshold;
+const lctInput = { year: '2026-27', lines: [{ kind: 'sale', luxury_car_tax_value: '88000', fuel_consumption_litres_per_100km: null }] };
+const lctOnSales: number = calculate.luxuryCarTax(lctInput).onSales;
+// @ts-expect-error The tax period's year is a string such as '2026-27', as the form's select gives it.
+calculate.luxuryCarTax({ ...lctInput, year: 2026 });
+// @ts-expect-error Label 1E is whole dollars as a number, not text.
+const lctLabel: string = calculate.luxuryCarTax(lctInput).label1e;
+void lctOnSales;
+void lctLabel;
 const wetInput = { year: '2026-27', dealings: [{ kind: 'wholesale_sale', price_excluding_wet_and_gst: '120.00' }] };
 const wetLabel: number = calculate.wineEqualisationTax(wetInput).label1c;
 // @ts-expect-error The year is a financial year string, not a number.
