@@ -561,6 +561,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'long-service-leave':
             result = calculate.longServiceLeaveResult(value, aud);
             break;
+          case 'depreciation-pools':
+            result = calculate.depreciationPoolsResult(value, aud);
+            break;
           case 'fuel-tax-credits':
             result = calculate.fuelTaxCreditsResult(value, aud);
             break;

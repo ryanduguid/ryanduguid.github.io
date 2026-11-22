@@ -323,10 +323,10 @@ Published 11 September 2026. Last checked 22 November 2026, the newest of the ca
 - Hire purchase and chattel mortgage schedule The same schedule for a hire purchase agreement or chattel mortgage, with the interest by income year and a journal for each payment.
 - AASB 16 lease calculator A lessee’s lease liability, right-of-use asset, interest and depreciation by income year, with the journals, beside hire purchase and buying outright after GST and tax.
 - Borrowing expenses calculator Section 25-25 borrowing expenses by income year from 2017-18, spread by days, with the $100 rule, refinancing and an optional AASB 9 column.
+- Depreciation pools and capital works calculator A low-value pool at 18.75% and 37.5%, a general small business pool at 15% and 30% with the low pool value write-off, or a capital works deduction at 2.5% or 4%, for 2020-21 to 2026-27.
 
 ## Division 7A, FBT, professional firms and GIC
 
-- Rental property calculator One owner’s rental income and deductions for a year: expenses by days let, interest on a mixed-use loan, capital works and second-hand assets, the net rent and its effect on tax.
 - Division 7A loan calculator Minimum yearly repayment, interest and principal on one amalgamated loan.
 - FBT car calculator Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or operating cost method.
 - FBT car parking calculator Whether car parking fringe benefits arise against the $11.48 threshold, and their taxable value by any of the 5 methods, for the FBT year ending 31 March 2027.
@@ -394,7 +394,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Hire purchase and chattel mortgage schedule: https://duguid.com.au/tools/business-calculators/hire-purchase/
 - AASB 16 lease calculator: https://duguid.com.au/tools/business-calculators/lease/
 - Borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
-- Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
+- Depreciation pools and capital works calculator: https://duguid.com.au/tools/business-calculators/depreciation-pools/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - FBT car parking calculator: https://duguid.com.au/tools/business-calculators/fbt-car-parking/

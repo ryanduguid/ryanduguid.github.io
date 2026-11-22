@@ -152,6 +152,9 @@
     "tools/business-calculators/company-tax/index.html": [
       "155b3eeb04ab0ceebe1358bb675f36c70e7172272c21744cbe7fc35886380d55"
     ],
+    "tools/business-calculators/depreciation-pools/index.html": [
+      "e5037eba3039d5730d92e9ec6f1848e8537be915ac3693ef4ee57f341263ad14"
+    ],
     "tools/business-calculators/div7a-schedule/index.html": [
       "5669d109570ff27fcc7e428d73f432f8a2ca8cbc6b008ff56756d64e0874afda"
     ],
@@ -245,9 +248,6 @@
     "tools/business-calculators/psi-determination/index.html": [
       "bf990b5cb178852bf874916d90e3aee297a665284853f4ce7f06e785f09acc63"
     ],
-    "tools/business-calculators/rental-property/index.html": [
-      "e93fc40c23d0a1875c6b01c7f533ff159614a834ec6ffd549e3a31d49ffcb72a"
-    ],
     "tools/business-calculators/salary-dividend/index.html": [
       "aa561c195cfecb6fac29099845ae6b77ab9285263cc10b305dcac7a49033284e"
     ],
@@ -285,7 +285,7 @@
       "965f8288b5d2e33a4bf80989a07d4cdf6f2a31a9fbc1a2e6413016af297cdad3"
     ],
     "tools/depreciation-rates/index.html": [
-      "4b093d1b163d18db86ec4cd04284a6f3e810055781c60a4e325bd78f5b6b6075"
+      "6e5cc4539b61882181bb7233c05687c8212cf2b35562639d0d2b353f4665c777"
     ],
     "tools/index.html": [
       "a90b2d0af203356541db6ead18334c8e45fd761cda4e2a4d796d0dc632baaf7f"
@@ -397,9 +397,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "84a8ad7743330e73b3ce1f2a517b7a0837a66aa888509c81f0e23e86250358f2",
+    "llms.txt": "cec9b2e549e31031ff2473d860b6bb22c7d253ce44b70b93b1c54843fe28d9f7",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "ce915cc64cfd6f1f9cc7a9dac96c3f359e1fc8b628a6f448e1eacb69a72937e1"
+    "sitemap.xml": "422a3745ea2fe8393073c8c3417cbf993ae8f0653ea5136263569cb289cdf2db"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
