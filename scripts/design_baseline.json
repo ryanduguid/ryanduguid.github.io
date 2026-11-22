@@ -266,6 +266,9 @@
     "tools/business-calculators/vehicle-class/index.html": [
       "947d30d0ffe985e4eff6376be1b13119f929aac22d94c20c3f73efb6b7d20abe"
     ],
+    "tools/business-calculators/wine-equalisation-tax/index.html": [
+      "544a2f33fca5326e27e6341259f0dc9a4c2dcb13261224967434c201ddbb6a53"
+    ],
     "tools/business-calculators/workers-compensation/index.html": [
       "6f47d11b2da7c30a21df1a4e85cb78b5d677afa084f84b31ca483e223e181a90"
     ],
@@ -322,9 +325,6 @@
     ],
     "tools/individual-tax/take-home-pay/index.html": [
       "ad1615d9d73abc147cfc44d3968a996ae890882d52710b57eefcbd16450c74c2"
-    ],
-    "tools/individual-tax/work-expenses/index.html": [
-      "ac4e088b6dedf098a1162a2e64589e14a67fa7b53e48e12109df18e199741b6b"
     ],
     "tools/limitations/index.html": [
       "2fb56483ebb85fb2bf1aa5e3ebcc6f0d049811d657da388e9392e6c1bbbca43e"
@@ -388,9 +388,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "1adce55f0ad1292e797027d363d2f2a8036eb54594f4cfa17c9cd7496079deed",
+    "llms.txt": "fdc9f1af5cd04d95ef5b713b45bdea08547bcdcffd68b943b1a56bdfaee1016e",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "e011e076b838b22c5615aebe5d590c82e72ae4312c3982527576326f2fc88be8"
+    "sitemap.xml": "1cf18a6616e23b327578759a5ad78a2ef8358cd65eb44bea75058c17ad4226cd"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

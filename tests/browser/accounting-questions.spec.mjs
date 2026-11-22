@@ -1073,6 +1073,30 @@ test('fuel tax credit page works its example, a line from its cost and a refusal
   await expect(form.locator('output')).toContainText('Line 1: no published rate is held for fuel acquired after 31 January 2027');
 });
 
+// The ATO's rebate table for 2026-27 (QC22758) is the form's default; the average wholesale price method is
+// refused for wine that is not grape wine (section 9-30).
+test('wine equalisation tax page works the ATO’s rebate table, shows each dealing and refuses the average method for other wine offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/wine-equalisation-tax/');
+  const form = page.locator('#wine-equalisation-tax form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Label 1C, WET payable, in whole dollars: $11,890.00.');
+  await expect(form.locator('output')).toContainText('Label 1D, WET refundable, in whole dollars: $16,240.00.');
+  const dealings = form.locator('table[data-results="dealings"]');
+  await expect(dealings).toBeVisible();
+  await expect(dealings.locator('tbody tr')).toHaveCount(5);
+  await expect(dealings.locator('tbody tr').nth(2).locator('td').last()).toHaveText('$4,350.00');
+  await form.locator('[name="method-1"]').selectOption('average');
+  await form.locator('[name="quantity-1"]').fill('12');
+  await form.locator('[name="sale-quantity-1"]').fill('12');
+  await form.locator('[name="sale-price-1"]').fill('120');
+  await form.locator('input[name="grape-wine"][value="no"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Dealing 1: wine that is not grape wine is valued by the half retail price method only');
+  await expect(dealings).toBeHidden();
+});
+
 // Western Australia's Anastasia (serious misconduct after 12 years and 1 month: the 8 2/3 weeks accrued), the same
 // service still employed, and the Northern Territory death under 10 years the page refuses.
 test('long service leave page works a Western Australian example, the leave still to come and a refusal offline', async ({ page, context }) => {
@@ -1476,7 +1500,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'termination-payment', 'transfer-duty', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
-  'workers-compensation', 'fuel-tax-credits', 'lease', 'gst-margin-scheme', 'asic-fees'];
+  'workers-compensation', 'fuel-tax-credits', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

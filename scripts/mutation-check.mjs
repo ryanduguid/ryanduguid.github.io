@@ -57,6 +57,7 @@ const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
 const salaryDividend = { ...business, file: 'assets/salary-dividend.mjs' };
 const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
+const wet = { ...business, file: 'assets/wine-equalisation-tax.mjs' };
 const leave = { ...business, file: 'assets/unused-leave.mjs' };
 const asic = { ...business, file: 'assets/asic-fees.mjs' };
 const franking = { ...business, file: 'assets/franking-account.mjs' };
@@ -734,6 +735,23 @@ const MUTATIONS = [
   { ...ftc, name: 'FTC simplified methods pass without the small claimant test', find: 'if (!input.small_claimant) {', replace: 'if (false) {' },
   { ...ftc, name: 'FTC Method 1 takes LPG', find: "const LIQUID = ['diesel',", replace: "const LIQUID = ['lpg', 'diesel'," },
   { ...ftc, name: 'FTC the time limit runs 5 years', find: 'Number(acquired.slice(0, 4)) + 4}', replace: 'Number(acquired.slice(0, 4)) + 5}' },
+  { ...wet, name: 'WET at 28%', find: 'ratioCents(cents * 29n, 100n)', replace: 'ratioCents(cents * 28n, 100n)' },
+  { ...wet, name: 'WET half retail takes the whole retail price', find: 'ratioCents(v.price, 2n)', replace: 'v.price' },
+  { ...wet, name: 'WET average wholesale price ignores the dealing quantity', find: 'ratioCents(v.price * /** @type {bigint} */ (v.quantity),', replace: 'ratioCents(v.price,' },
+  { ...wet, name: 'WET charged on a sale under quote', find: "const tax = d.kind === 'quoted_sale' ? 0n : at29(value);", replace: "const tax = at29(value);" },
+  { ...wet, name: 'WET GST on the price before WET', find: 'gst = ratioCents(value + tax, 10n);', replace: 'gst = ratioCents(value, 10n);' },
+  { ...wet, name: 'WET GST in a retail price taken as a tenth', find: 'gst = ratioCents(d.retail, 11n);', replace: 'gst = ratioCents(d.retail, 10n);' },
+  { ...wet, name: 'WET rebate on a quote stating a GST-free supply', find: "const liable = d.intention === null || d.intention === 'taxable_dealing';", replace: "const liable = true;" },
+  { ...wet, name: 'WET rebate with one condition met', find: 'liable && d.conditions.every(Boolean)', replace: 'liable && d.conditions.some(Boolean)' },
+  { ...wet, name: 'WET $400,000 cap starts a year late', find: "(year >= '2026-27' ? 400000 : 350000)", replace: "(year >= '2027-28' ? 400000 : 350000)" },
+  { ...wet, name: 'WET cap before 1 July 2026 is $500,000', find: '? 400000 : 350000)', replace: '? 400000 : 500000)' },
+  { ...wet, name: 'WET earlier claims do not reduce the cap', find: 'const left = earlier < cap ? cap - earlier : 0n;', replace: 'const left = cap;' },
+  { ...wet, name: 'WET rebate not capped', find: 'const rebate = earned < left ? earned : left;', replace: 'const rebate = earned;' },
+  { ...wet, name: 'WET label 1C rounds to the nearest dollar', find: 'label1c: Number(tax / 100n)', replace: 'label1c: Math.round(Number(tax) / 100)' },
+  { ...wet, name: 'WET average method open to wine that is not grape wine', find: "if (!flag(value, item, 'grape_wine')) {", replace: "if (!flag(value, item, 'grape_wine') && false) {" },
+  { ...wet, name: 'WET average method open without the 10% wholesale share', find: "if (!flag(value, item, 'wholesale_share_at_least_10_percent')) {", replace: "if (!flag(value, item, 'wholesale_share_at_least_10_percent') && false) {" },
+  { ...wet, name: 'WET 2022-23 accepted', find: "export const WET_YEARS = ['2023-24',", replace: "export const WET_YEARS = ['2022-23', '2023-24'," },
+  { ...wet, name: 'WET the form shares no wholesale sales', find: 'quantity: value(`quantity-${i}`), wholesale_sales: sales }', replace: 'quantity: value(`quantity-${i}`), wholesale_sales: sales.slice(0, 1) }' },
   { ...leave, name: 'unused leave capped parts withheld at 30%', find: 'const FLAT_PERCENT = 32;', replace: 'const FLAT_PERCENT = 30;' },
   { ...leave, name: 'unused leave small payment limit at $200', find: 'const SMALL_PAYMENT = 30000;', replace: 'const SMALL_PAYMENT = 20000;' },
   { ...leave, name: 'unused leave small payment limit ignored', find: 'under300 ? roundDollars(', replace: 'false ? roundDollars(' },
@@ -878,7 +896,7 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/wine-equalisation-tax-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }
