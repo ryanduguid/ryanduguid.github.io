@@ -66,6 +66,8 @@ Asset 1 Decline in value (AUD) Day you acquired it, or entered into the contract
 
 Asset 2 (optional) Decline in value (AUD) Day you acquired it, or entered into the contract to Day it was first used or installed ready for use Did you hold it when it was first used or installed?Yes No Used in your home or for a private purpose, more than occasionally?No Yes In a low-value pool?No Yes Not held when first used: supplied with new residential premises (section 40-27(4) or (5))?Not answered Yes No Acquired before 9 May 2017: was anything deductible for it for 2016-17?Not answered Yes No
 
+## The calculator’s scope
+
 The property is a residential rental you hold as an investment, let at market rent, and none of the cases below appliesChoose Yes, I have checked them No or unsure
 
 Calculate
