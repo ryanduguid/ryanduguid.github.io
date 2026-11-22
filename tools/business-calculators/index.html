@@ -52,7 +52,7 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Business calculators</li></ol></nav>
         <h1>Business calculators</h1>
-        <p class="lead-note">Forty-nine calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.</p>
+        <p class="lead-note">Fifty calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.</p>
         <p><a href="/tools/accounting-questions/">Find a question and prepare a checklist</a>.</p>
         <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.</p>
         {% assign checked = "" %}{% for calculator in site.data.calculator_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
@@ -73,6 +73,7 @@
           <li id="hire-purchase"><a class="collection-entry__title" href="/tools/business-calculators/hire-purchase/">Hire purchase and chattel mortgage schedule</a> The same schedule for a hire purchase agreement or chattel mortgage, with the interest by income year and a journal for each payment.</li>
           <li id="lease"><a class="collection-entry__title" href="/tools/business-calculators/lease/">AASB 16 lease calculator</a> A lessee’s lease liability, right-of-use asset, interest and depreciation by income year, with the journals, beside hire purchase and buying outright after GST and tax.</li>
           <li id="borrowing-expenses"><a class="collection-entry__title" href="/tools/business-calculators/borrowing-expenses/">Borrowing expenses calculator</a> Section 25-25 borrowing expenses by income year from 2017-18, spread by days, with the $100 rule, refinancing and an optional AASB 9 column.</li>
+          <li id="depreciation-pools"><a class="collection-entry__title" href="/tools/business-calculators/depreciation-pools/">Depreciation pools and capital works calculator</a> A low-value pool at 18.75% and 37.5%, a general small business pool at 15% and 30% with the low pool value write-off, or a capital works deduction at 2.5% or 4%, for 2020-21 to 2026-27.</li>
         </ul>
         <h2>Division 7A, FBT, professional firms and GIC</h2>
         <ul class="calculator-list">
