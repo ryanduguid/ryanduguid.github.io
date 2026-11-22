@@ -153,6 +153,19 @@ test('the keyboard alone finds an asset and sends its life to the calculator', a
   await expect(page.getByLabel('Cost (AUD)')).toBeFocused();
 });
 
+test('a search sent with Enter is not drawn again once typing pauses', async ({ page }) => {
+  await page.goto(PAGE);
+  await expect(page.locator('#finder-status')).toHaveText('9,311 rows to search.');
+  await page.getByLabel('Asset', { exact: true }).focus();
+  await page.keyboard.type('desks');
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#finder-status')).toHaveText(/rows? match ‘desks’\.$/);
+  const use = await page.getByRole('button', { name: 'Use this life: 20 years, Desks' }).elementHandle();
+  // Typing schedules a search 150 ms after the last key; a redraw then would replace a row the reader had tabbed to.
+  await page.waitForTimeout(400);
+  expect(await use.evaluate((node) => node.isConnected)).toBe(true);
+});
+
 test('browsing opens an industry, then its rows in the determination order', async ({ page }) => {
   await page.goto(PAGE);
   const browse = page.locator('#browse-tables');
