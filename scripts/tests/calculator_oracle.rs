@@ -8276,7 +8276,8 @@ fn ato_gic_case(rng: &mut Seeded, quarters: &[(i64, i64, u64)]) -> (Value, Value
 /// against s 8AAD(1)), worked exactly and rounded half up once.
 fn ato_sic_case(rng: &mut Seeded, quarters: &[(i64, i64, u64)]) -> (Value, Value) {
     let (from, last_notice) = (day_number(2020, 7, 1), day_number(2027, 1, 1));
-    let notice = from + i64::try_from(rng.below(u64::try_from(last_notice - from + 1).unwrap())).unwrap();
+    let notice =
+        from + i64::try_from(rng.below(u64::try_from(last_notice - from + 1).unwrap())).unwrap();
     let any_days = rng.below(6000);
     let back = i64::try_from(rng.pick(&[0, 1, 90, 400, any_days])).unwrap();
     let due = (notice - back).max(day_number(2005, 4, 1));
@@ -8290,7 +8291,8 @@ fn ato_sic_case(rng: &mut Seeded, quarters: &[(i64, i64, u64)]) -> (Value, Value
             .2
             - 400;
         let year = civil(day).0;
-        let base = 10_000 * u64::try_from(day_number(year + 1, 1, 1) - day_number(year, 1, 1)).unwrap();
+        let base =
+            10_000 * u64::try_from(day_number(year + 1, 1, 1) - day_number(year, 1, 1)).unwrap();
         numerator *= base + rate;
         denominator *= base;
     }
