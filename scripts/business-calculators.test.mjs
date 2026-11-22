@@ -734,6 +734,16 @@ Object.assign(INPUTS, {
 });
 ENGINE_LABELS.fbtEvExemption = { exempt: (v) => (v ? 'exempt' : 'not exempt'), saleYear: (v) => `sale in ${v}`,
   threshold: (v) => (v === null ? 'after the FBT year' : `threshold ${dollars(v)}`) };
+// The ASIC fees page's rows (its tests are with the page's other tests below).
+Object.assign(INPUTS, { asicFee: (x) => calculations.asicFeeInputsText(x) });
+Object.assign(ENGINE_LABELS, { asicFee: { amount: (v) => `fee ${dollars(v)}`, code: (v) => `ASIC code ${v}`, tier: (v) => v,
+  firstMonthEnds: (v) => `first month ends ${longDay(v)}` } });
+
+// The wine equalisation tax page's rows (its tests are with the page's other tests below).
+Object.assign(INPUTS, { wineEqualisationTax: (x) => calculations.wetInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { wineEqualisationTax: { wineTax: (v) => `wine tax ${dollars(v)}`, label1c: (v) => `label 1C ${dollars(v)}`,
+  rebate: (v) => `producer rebate ${dollars(v)}`, label1d: (v) => `label 1D ${dollars(v)}` } });
 
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
@@ -1170,6 +1180,9 @@ Object.assign(FORM_CALLS, {
   fbtExpensePayment: (f) => [{ method: f.method, expenditure: f.expenditure, paid: f.paid, contribution: f.contribution,
     incomeUse: f['income-use'], portionDeduction: f['portion-deduction'], price: f.price, notional: f.notional, available: f.available }],
 });
+Object.assign(FORM_CALLS, { asicFee: (f) => [calculations.asicFeeFormInput((name) => f[name] ?? '')] });
+
+Object.assign(FORM_CALLS, { wineEqualisationTax: (f) => [calculations.wetFormInput((name) => f[name] ?? '')] });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -5257,6 +5270,250 @@ test('fuel tax credits agree with the australian-accounting command on every dif
     assert.deepEqual({ fuel_tax_credits: r.total.toFixed(2), label_7d: `${r.label7d}.00`, lines: r.lines.map((l) => l.credit.toFixed(2)),
       time_limit_lines: r.timeLimitLines?.map(String) ?? null }, amounts, source);
   }
+});
+
+// The wine equalisation tax page: how each call and result reads, the ATO's and the Library's worked
+// examples, the cap by year, the form's narrowing of the command's input and the command it ports.
+const wetHtml = readFileSync(new URL('../_includes/calculators/wine-equalisation-tax.html', import.meta.url), 'utf8');
+const wetAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const wet = (year, dealings, more = {}) => calculations.wineEqualisationTax({ year, dealings, ...more });
+const wetCode = (input) => {
+  try {
+    calculations.wineEqualisationTax(input);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+const wetMet = { producer: true, source_product_owned_85_percent: true, container_and_trade_mark: true };
+const wetSale = (price, more = {}) => ({ kind: 'wholesale_sale', price_excluding_wet_and_gst: price, ...more });
+const wetRetail = (price, more = {}) => ({ kind: 'retail_sale', retail_price_including_wet_and_gst: price, ...more });
+const wetRow = (r, n) => { const d = r.dealings[n]; return [d.taxableValue, d.wineTax, d.gst, d.priceIncludingWetAndGst]; };
+
+test('the WET page opens on the ATO’s rebate table and dates its sources', () => {
+  const example = wetHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(wetHtml);
+  const result = calculations.wineEqualisationTaxResult((name) => fields[name] ?? '', wetAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  assert.deepEqual(result.tables.dealings.map((row) => row.at(-1)), ['$2,900.00', '$8,700.00', '$4,350.00', '$0.00', '$290.00']);
+  for (const cited of ['raised the cap from $350,000 to $400,000 for assessable dealings on or after 1 July 2026, read on the Federal Register of Legislation 22 November 2026',
+    '(29% of the taxable value)', 'Producer rebate</a> (last updated 30 June 2026)', 'Instructions for completing your BAS</a> (last updated 14 September 2026), read 22 November 2026']) {
+    assert.ok(wetHtml.includes(cited), cited);
+  }
+});
+
+// QC22750 (Alison: $120.00, WET $34.80, GST $15.48, $170.28), QC22751 (Happy Valley: $140 a dozen, $70.00
+// and $20.30; a tasting bottle, $1.69), WETR 2009/1 examples 15 and 16 and para 159, and QC22751's Good
+// Wines ($83 average, WET $24.07, GST $17.27), read 22 November 2026.
+test('WET follows the ATO’s wholesale, half retail and average wholesale examples', () => {
+  const alison = wet('2026-27', [wetSale('120.00'), wetSale('600.00')]);
+  assert.deepEqual([wetRow(alison, 0), wetRow(alison, 1), alison.wineTax, alison.label1c], [[120, 34.8, 15.48, 170.28], [600, 174, 77.4, 851.4], 208.8, 208]);
+  const valley = wet('2025-26', [wetRetail('140.00'), { kind: 'own_use', retail_price_including_wet_and_gst: '11.67' }, wetRetail('22.00'), wetRetail('150.00')]);
+  assert.deepEqual(valley.dealings.map((d) => [d.taxableValue, d.wineTax]), [[70, 20.3], [5.84, 1.69], [11, 3.19], [75, 21.75]]);
+  assert.deepEqual([valley.dealings[1].gst, valley.dealings[2].gst, valley.wineTax, valley.label1c], [null, 2, 46.93, 46]);
+  const average = { grape_wine: true, wholesale_share_at_least_10_percent: true, quantity: '1',
+    wholesale_sales: [{ quantity: '7', price_excluding_wet_and_gst: '560.00' }, { quantity: '3', price_excluding_wet_and_gst: '270.00' }] };
+  const good = wet('2024-25', [wetRetail('190.00', { average_wholesale: average }), { kind: 'own_use', average_wholesale: average }]);
+  assert.deepEqual([wetRow(good, 0), good.dealings[1].wineTax, good.dealings[0].method], [[83, 24.07, 17.27, 190], 24.07, 'average_wholesale_price']);
+  // The Library's hamper (¶22-280) and $25.99 retail: $12.995 rounds up to $13.00.
+  const hamper = wet('2026-27', [{ kind: 'own_use_purchased_under_quote', purchase_price_excluding_gst: '100.00' }, wetSale('150.00'), wetRetail('25.99')]);
+  assert.deepEqual([hamper.dealings.map((d) => d.wineTax), hamper.dealings[2].taxableValue, hamper.label1c], [[29, 43.5, 3.77], 13, 76]);
+});
+
+// QC22758's table (last updated 2 July 2026), less its blend row, and the cap: $350,000 to 30 June 2026,
+// $400,000 from 1 July 2026 (s 19-15(2); Act No. 12 of 2026 Sch 6; QC22756).
+test('the producer rebate follows the ATO’s table and stops at the year’s cap', () => {
+  const claim = (d) => ({ ...d, rebate_conditions: wetMet });
+  const quoted = (price, intention) => claim({ kind: 'quoted_sale', price_excluding_wet_and_gst: price, purchaser_intention: intention });
+  const table = wet('2026-27', [claim(wetRetail('20000')), claim(wetSale('30000')), quoted('15000', 'taxable_dealing'), quoted('20000', 'gst_free_supply'),
+    claim({ kind: 'own_use', retail_price_including_wet_and_gst: '2000' })], { rebate_claimed_earlier_in_year: '0', associated_producer: false });
+  assert.deepEqual(table.dealings.map((d) => [d.wineTax, d.rebate.amount]), [[2900, 2900], [8700, 8700], [0, 4350], [0, 0], [290, 290]]);
+  assert.deepEqual([table.wineTax, table.rebate, table.label1c, table.label1d, table.cap, table.dealings[3].rebate.liable], [11890, 16240, 11890, 16240, 400000, false]);
+  assert.deepEqual(calculations.WET_YEARS.map((year) => wetRebateCapOf(year)), [350000, 350000, 350000, 400000, 400000]);
+  for (const [year, earlier] of [['2025-26', '340000'], ['2026-27', '390000'], ['2027-28', '390000']]) {
+    const r = wet(year, [claim(wetSale('50000'))], { rebate_claimed_earlier_in_year: earlier, associated_producer: false });
+    assert.deepEqual([r.rebateBeforeCap, r.rebate, r.rebateOverCap, r.label1d], [14500, 10000, 4500, 10000], year);
+  }
+  const full = wet('2023-24', [claim(wetSale('50000'))], { rebate_claimed_earlier_in_year: '350000', associated_producer: false });
+  assert.deepEqual([full.cap, full.rebate, full.capLeft], [350000, 0, 0]);
+  const over = wet('2026-27', [claim(wetSale('100'))], { rebate_claimed_earlier_in_year: '410000', associated_producer: true });
+  assert.match(over.warnings.join(' '), /section 19-25/);
+  assert.match(over.warnings.join(' '), /associated producer shares the \$400,000 cap/);
+  const unmet = wet('2026-27', [{ ...wetSale('1000'), rebate_conditions: { ...wetMet, container_and_trade_mark: false } }],
+    { rebate_claimed_earlier_in_year: '0', associated_producer: false });
+  assert.deepEqual([unmet.wineTax, unmet.rebate, unmet.dealings[0].rebate.allMet], [290, 0, false]);
+});
+const wetRebateCapOf = (year) => wet(year, [wetSale('1')]).cap;
+
+test('WET refuses what the command refuses, with its codes', () => {
+  const average = (grape, share, more = {}) => wetRetail('10.00', { average_wholesale: { grape_wine: grape, wholesale_share_at_least_10_percent: share,
+    quantity: '1', wholesale_sales: [{ quantity: '1', price_excluding_wet_and_gst: '5.00' }], ...more } });
+  assert.equal(wetCode({ year: '2022-23', dealings: [wetSale('1.00')] }), 'period.unsupported');
+  assert.equal(wetCode({ year: '2026-27', dealings: [average(false, true)] }), 'wine_equalisation_tax.method_unavailable');
+  assert.equal(wetCode({ year: '2026-27', dealings: [average(true, false)] }), 'wine_equalisation_tax.method_unavailable');
+  assert.equal(wetCode({ year: '2026-27', dealings: [average(true, true, { quantity: '0' })] }), 'wine_equalisation_tax.quantity_invalid');
+  assert.equal(wetCode({ year: '2026-27', dealings: [average(true, true, { wholesale_sales: [] })] }), 'wine_equalisation_tax.dealing_invalid');
+  assert.equal(wetCode({ year: '2026-27', dealings: [] }), 'wine_equalisation_tax.dealings_invalid');
+  assert.equal(wetCode({ year: '2026-27', dealings: [{ kind: 'export' }] }), 'wine_equalisation_tax.kind_invalid');
+  assert.equal(wetCode({ year: '2026-27', dealings: [{ kind: 'quoted_sale', price_excluding_wet_and_gst: '1.00', purchaser_intention: 'export' }] }),
+    'wine_equalisation_tax.intention_invalid');
+  assert.equal(wetCode({ year: '2026-27', dealings: [wetSale('1.005')] }), 'input.amount_invalid');
+  assert.equal(wetCode({ year: '2026-27', dealings: [{ kind: 'retail_sale' }] }), 'input.missing_field');
+  assert.equal(wetCode({ year: '2026-27', dealings: [{ ...wetSale('1.00'), rebate_conditions: wetMet }] }), 'input.missing_field');
+  assert.equal(wetCode({ year: '2026-27', dealings: [wetSale('1.00')], rebate_claimed_earlier_in_year: '0', associated_producer: false }), 'input.field_unknown');
+  assert.equal(wetCode({ year: '2026-27', dealings: [{ kind: 'own_use_purchased_under_quote', purchase_price_excluding_gst: '1.00', rebate_conditions: wetMet }],
+    rebate_claimed_earlier_in_year: '0', associated_producer: false }), 'input.field_unknown');
+  assert.equal(wetCode({ year: '2026-27', dealings: [{ ...wetSale('1.00'), rebate_conditions: { ...wetMet, producer: 'yes' } }],
+    rebate_claimed_earlier_in_year: '0', associated_producer: false }), 'input.flag_invalid');
+  for (const scope of [false, 'yes']) {
+    assert.equal(wetCode({ year: '2026-27', dealings: [wetSale('1.00')], scope_confirmed: scope }), 'scope.not_confirmed');
+  }
+  assert.equal(calculations.wineEqualisationTax({ year: '2026-27', dealings: [wetSale('100.00')], scope_confirmed: true }).wineTax, 29);
+  // From 2^46 dollars a JavaScript number can miss a cent, so the page refuses: $70,368,744,177,664.01 just past it, and
+  // $333,333,333,333,333.33 well past it; $70,368,744,177,663.99 just below it shows to the cent.
+  const near = (quantity) => ({ kind: 'own_use', average_wholesale: { grape_wine: true, wholesale_share_at_least_10_percent: true, quantity,
+    wholesale_sales: [{ quantity: '10000000000.0000', price_excluding_wet_and_gst: '1000000000000.00' }] } });
+  assert.equal(wetCode({ year: '2026-27', dealings: [near('703687441776.6401')] }), 'input.amount_invalid');
+  const below = calculations.wineEqualisationTax({ year: '2026-27', dealings: [near('703687441776.6399')] }).dealings[0];
+  assert.equal(below.taxableValue.toFixed(2), '70368744177663.99');
+  const huge = { kind: 'own_use', average_wholesale: { grape_wine: true, wholesale_share_at_least_10_percent: true, quantity: '0.1',
+    wholesale_sales: [{ quantity: '0.0003', price_excluding_wet_and_gst: '1000000000000' }] } };
+  assert.equal(wetCode({ year: '2026-27', dealings: [huge] }), 'input.amount_invalid');
+  const most = calculations.wineEqualisationTax({ year: '2026-27', dealings: Array(6).fill(wetSale('1000000000000.00')) });
+  assert.deepEqual([most.wineTax, most.label1c], [1740000000000, 1740000000000]);
+});
+
+test('the WET form shares one set of wholesale sales and rebate answers, and passes rebate inputs only with a claim', () => {
+  const fields = formDefaults(wetHtml);
+  const input = (change) => calculations.wetFormInput((name) => ({ ...fields, ...change })[name] ?? '');
+  assert.deepEqual(input({}).dealings.length, 5);
+  assert.deepEqual([input({}).rebate_claimed_earlier_in_year, input({}).associated_producer], ['0', false]);
+  const none = input({ 'rebate-1': 'no', 'rebate-2': 'no', 'rebate-3': 'no', 'rebate-4': 'no', 'rebate-5': 'no' });
+  assert.deepEqual([none.rebate_claimed_earlier_in_year, none.associated_producer, none.dealings[0].rebate_conditions], [undefined, undefined, undefined]);
+  const averaged = input({ 'method-1': 'average', 'quantity-1': '2', 'method-5': 'average', 'quantity-5': '1', 'sale-quantity-1': '10',
+    'sale-price-1': '800', 'sale-quantity-3': '5', 'sale-price-3': '450' });
+  assert.deepEqual(averaged.dealings[0].average_wholesale.wholesale_sales, [{ quantity: '10', price_excluding_wet_and_gst: '800' },
+    { quantity: '5', price_excluding_wet_and_gst: '450' }]);
+  assert.equal(averaged.dealings[0].retail_price_including_wet_and_gst, '20000');
+  assert.equal(averaged.dealings[4].retail_price_including_wet_and_gst, undefined);
+  assert.equal(calculations.wineEqualisationTax(averaged).dealings[0].taxableValue, 166.67);
+  const unmet = input({ container: 'no' });
+  assert.ok(unmet.dealings.every((d) => d.rebate_conditions.container_and_trade_mark === false));
+  assert.equal(calculations.wineEqualisationTax(unmet).rebate, 0);
+  assert.equal(input({ 'kind-6': 'wholesale_sale', 'price-6': '100' }).dealings.length, 6);
+  // A dealing switched to own use of wine bought under quote keeps its 'Claimed' answer, which the form leaves out.
+  const bought = input({ 'kind-1': 'own_use_purchased_under_quote', 'price-1': '100', 'rebate-1': 'yes' });
+  assert.equal(bought.dealings[0].rebate_conditions, undefined);
+  const worked = calculations.wineEqualisationTax(bought);
+  assert.deepEqual([worked.dealings[0].taxableValue, worked.dealings[0].wineTax, worked.dealings[0].rebate], [100, 29, null]);
+});
+
+// The command this page ports, run on the same cases: see the fixture's engine line.
+test('wine equalisation tax agrees with the australian-accounting command on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./wine-equalisation-tax-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length > 250);
+  const f = (v) => (v === null ? null : Number(v).toFixed(2));
+  for (const { source, call, amounts, refused } of cases) {
+    if (refused) {
+      assert.equal(wetCode(call), refused, source);
+      continue;
+    }
+    const r = calculations.wineEqualisationTax(call);
+    const { dealings, ...totals } = amounts;
+    assert.deepEqual({ wine_tax: f(r.wineTax), label_1c: `${r.label1c}.00`, producer_rebate_before_cap: f(r.rebateBeforeCap),
+      producer_rebate: f(r.rebate), rebate_over_cap: f(r.rebateOverCap), label_1d: `${r.label1d}.00`, producer_rebate_cap: String(r.cap) }, totals, source);
+    assert.deepEqual(r.dealings.map((d) => [d.taxableValue, d.wineTax, d.gst, d.priceIncludingWetAndGst, d.rebate ? d.rebate.amount : null].map(f)),
+      dealings.map((row) => row.map(f)), source);
+  }
+});
+
+// The ASIC fees page: its example, its fee table against the engine, the late fee month counted under
+// the Acts Interpretation Act 1901 s 2G(1) and s 36(1) item 6, and its refusals. Amounts are ASIC's fee
+// data read 22 November 2026 (SHA-256 03281f57...866da); the Rust oracle types them separately.
+const asicHtml = readFileSync(new URL('../_includes/calculators/asic-fees.html', import.meta.url), 'utf8');
+const asicAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const asicLate = (due, received, fee = 'late-review-payment') => calculations.asicFee({ fee, due, received });
+
+test('the ASIC fees page opens on a payment exactly one month late and dates its sources', () => {
+  const example = asicHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(asicHtml);
+  const result = calculations.asicFeesResult((name) => fields[name] ?? '', asicAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  for (const cited of ['(Compilation No. 11), Schedule 1 Part 3 items 1 and 2', '(Compilation No. 41), Schedule 2 item 14, read 22 November 2026',
+    'sections 2G and 36 of the', 'Both pages say GST does not apply to ASIC fees.', 'GST does not apply to ASIC fees.</p>']) {
+    assert.ok(asicHtml.includes(cited), cited);
+  }
+});
+
+test('the ASIC fees table and the form state the engine’s amounts and codes', () => {
+  const table = [...asicHtml.matchAll(/<tr><th scope="row">([^<]+)<\/th><td>([^<]+)<\/td><td>\$([\d,]+)<\/td>/g)]
+    .map(([, name, code, amount]) => [name, code.replace(', ', ' or '), Number(amount.replace(',', ''))]);
+  const fixed = Object.entries(calculations.ASIC_FEES).filter(([, fee]) => fee.amount !== null);
+  for (const [key, fee] of fixed) {
+    assert.ok(table.some(([name, code, amount]) => name === fee.name && code === fee.code && amount === fee.amount), key);
+    assert.match(asicHtml, new RegExp(`<option value="${key}"`), key);
+  }
+  const late = table.filter(([name]) => name.startsWith('Late'));
+  assert.deepEqual(late.map(([, code, amount]) => [code, amount]), [['LPF1_ETM', 102], ['LPF2_ETM', 428], ['LPF1_ETM', 102], ['LPF2_ETM', 428]]);
+  assert.deepEqual(calculations.ASIC_LATE_FEES, { within: 102, beyond: 428 });
+  assert.equal(table.length, fixed.length + late.length);
+});
+
+test('ASIC late fees count the month from the day after the due date, for every due date in 2026-27', () => {
+  // s 2G(1): a month starting on day d ends before day d of the next month, or at its end if it has none.
+  const iso = (time) => new Date(time).toISOString().slice(0, 10);
+  const day = 86400000;
+  for (let due = Date.UTC(2026, 5, 1); due <= Date.UTC(2027, 5, 30); due += day) {
+    const start = new Date(due + day);
+    const length = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 2, 0)).getUTCDate();
+    const ends = start.getUTCDate() <= length ? Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 1, start.getUTCDate()) - day
+      : Date.UTC(start.getUTCFullYear(), start.getUTCMonth() + 1, length);
+    assert.equal(iso(calculations.firstMonthEnds(due / day) * day), iso(ends), iso(due));
+  }
+  // A month-end due date: the month runs to the end of the next month, not to the same day number.
+  assert.deepEqual([asicLate('2026-11-30', '2026-12-31').amount, asicLate('2027-04-30', '2027-05-31').firstMonthEnds], [102, '2027-05-31']);
+  assert.equal(asicLate('2026-09-30', '2026-10-30').firstMonthEnds, '2026-10-31');
+});
+
+test('ASIC late fees refuse what the page does not decide', () => {
+  const refused = (call) => {
+    try {
+      calculations.asicFee(call);
+    } catch (error) {
+      return error.message;
+    }
+    return 'computed';
+  };
+  for (const date of ['', '2026-02-30', '2026-9-15', '15/09/2026', 'NaN', '1899-12-31']) {
+    assert.equal(refused({ fee: 'late-lodgement', due: date, received: '2026-10-01' }), 'Enter a real date as YYYY-MM-DD.', date);
+    assert.equal(refused({ fee: 'late-lodgement', due: '2026-09-15', received: date }), 'Enter a real date as YYYY-MM-DD.', date);
+  }
+  for (const fee of ['', 'late', 'toString', '__proto__']) assert.equal(refused({ fee }), 'Choose a fee.', fee);
+  // The boundaries themselves compute: the due date is not late and the month's last day is within it.
+  for (const received of ['2026-09-15', '2026-10-15']) {
+    assert.equal(refused({ fee: 'late-review-payment', due: '2026-09-15', received }), 'computed', received);
+  }
+  // A Sunday due date refuses payments to the Wednesday after it; the Thursday is late.
+  assert.match(refused({ fee: 'late-review-payment', due: '2026-08-16', received: '2026-08-19' }), /^The due date is a Saturday or Sunday/);
+  assert.equal(refused({ fee: 'late-review-payment', due: '2026-08-16', received: '2026-08-20' }), 'computed');
+  assert.deepEqual(asicLate('2026-08-16', '2026-08-20').amount, 102);
+  // A Saturday month end refuses payments to the Wednesday after it (31 October 2026 is a Saturday).
+  assert.match(refused({ fee: 'late-review-payment', due: '2026-09-30', received: '2026-11-04' }), /^The first month after the due date ends/);
+  assert.equal(refused({ fee: 'late-review-payment', due: '2026-09-30', received: '2026-11-05' }), 'computed');
+  assert.deepEqual(asicLate('2026-09-30', '2026-11-05').amount, 428);
+  // A Saturday due date that moves to Wednesday 3 March 2027 would end the first month as late as
+  // Wednesday 7 April (3 April is a Saturday), so a receipt from 28 March to 7 April is refused.
+  assert.equal(asicLate('2027-02-27', '2027-03-27').amount, 102);
+  assert.match(refused({ fee: 'late-review-payment', due: '2027-02-27', received: '2027-04-01' }), /^The due date is a Saturday or Sunday, so the first month/);
+  assert.match(refused({ fee: 'late-review-payment', due: '2027-02-27', received: '2027-04-07' }), /^The due date is a Saturday or Sunday, so the first month/);
+  assert.equal(refused({ fee: 'late-review-payment', due: '2027-02-27', received: '2027-04-08' }), 'computed');
+  assert.equal(asicLate('2027-02-27', '2027-04-08').amount, 428);
+  // A due date and a received date either side of 1 July are refused.
+  assert.match(refused({ fee: 'late-review-payment', due: '2026-06-30', received: '2026-07-01' }), /^This page holds ASIC’s 2026-27 amounts/);
+  // Fixed fees ignore the dates.
+  assert.equal(calculations.asicFee({ fee: 'business-name-3', due: 'x', received: 'y' }).amount, 108);
+  const blank = calculations.asicFeesResult((name) => ({ fee: 'review-public', due: '', received: '' })[name] ?? '', asicAud);
+  assert.deepEqual(blank.rows, [['ASIC fee, no GST', '$1,591.00']]);
 });
 
 // The luxury car tax page: how each call and result reads, its form, the thresholds the site's

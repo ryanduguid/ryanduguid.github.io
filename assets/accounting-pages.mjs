@@ -562,6 +562,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             break;
           case 'luxury-car-tax':
             result = calculate.luxuryCarTaxResult(value, aud);
+          case 'wine-equalisation-tax':
+            result = calculate.wineEqualisationTaxResult(value, aud);
+            showTables(result.tables);
             break;
           case 'unused-leave':
             result = calculate.unusedLeaveResult(value, aud);
@@ -632,6 +635,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             }
             break;
           }
+          case 'asic-fees':
+            result = calculate.asicFeesResult(value, aud);
+            break;
           case 'business-days':
             result = calculate.businessDaysResult({ mode: value('mode'), place: value('place'), start: value('start'), end: value('end'),
               count: value('count') }, calculate.parseHolidays(form.dataset.holidays));

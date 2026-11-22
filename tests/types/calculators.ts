@@ -339,6 +339,14 @@ calculate.luxuryCarTax({ ...lctInput, year: 2026 });
 const lctLabel: string = calculate.luxuryCarTax(lctInput).label1e;
 void lctOnSales;
 void lctLabel;
+const wetInput = { year: '2026-27', dealings: [{ kind: 'wholesale_sale', price_excluding_wet_and_gst: '120.00' }] };
+const wetLabel: number = calculate.wineEqualisationTax(wetInput).label1c;
+// @ts-expect-error The year is a financial year string, not a number.
+calculate.wineEqualisationTax({ ...wetInput, year: 2027 });
+// @ts-expect-error The cap is a number of dollars, not a string.
+const wetCap: string = calculate.wineEqualisationTax(wetInput).cap;
+void wetLabel;
+void wetCap;
 const leavePay = { annual: '0', loading: '0', longService: '22020', accrualStart: '1977-01-01', reason: 'normal', annualBefore1993: '',
   loadingBefore1993: '', lslBefore1978: '780', lsl1978To1993: '6420', payee: 'tfn', earnings: '1155', period: 'week' } as const;
 const leaveWithheld: number = calculate.unusedLeave(leavePay).withholding;
@@ -380,3 +388,13 @@ calculate.workersCompensation({ ...premiumInput, wages: 450000 });
 // @ts-expect-error The Queensland start is one of the form's 5 choices.
 calculate.workersCompensation({ ...premiumInput, qldStart: 'q5' });
 void premiumTotal;
+const asicLate = calculate.asicFee({ fee: 'late-review-payment', due: '2026-09-15', received: '2026-10-15' });
+const asicAmount: number = asicLate.amount;
+// @ts-expect-error The fee is one of the page's fee types.
+calculate.asicFee({ fee: 'late-payment' });
+// @ts-expect-error Dates are YYYY-MM-DD strings, as the form passes them.
+calculate.asicFee({ fee: 'late-lodgement', due: 20260915, received: '2026-10-15' });
+// @ts-expect-error The tier is a phrase or null, not a number.
+const asicTier: number = asicLate.tier;
+void asicAmount;
+void asicTier;

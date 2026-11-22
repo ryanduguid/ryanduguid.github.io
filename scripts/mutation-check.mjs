@@ -57,7 +57,9 @@ const salaryDividend = { ...business, file: 'assets/salary-dividend.mjs' };
 const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
+const wet = { ...business, file: 'assets/wine-equalisation-tax.mjs' };
 const leave = { ...business, file: 'assets/unused-leave.mjs' };
+const asic = { ...business, file: 'assets/asic-fees.mjs' };
 const franking = { ...business, file: 'assets/franking-account.mjs' };
 const borrow = { ...business, file: 'assets/borrowing-expenses.mjs' };
 const wc = { ...business, file: 'assets/workers-compensation.mjs' };
@@ -751,6 +753,23 @@ const MUTATIONS = [
   { ...lct, name: 'LCT 2 primary producer refunds pass', find: 'if (primary.length > 1) {', replace: 'if (primary.length > 2) {' },
   { ...lct, name: 'LCT a refund before 1 July 2019 passes', find: 'if (supplyYear(fields, n, year) < \'2019-20\') {', replace: 'if (supplyYear(fields, n, year) < \'2012-13\') {' },
   { ...lct, name: 'LCT an adjustment without its supply year takes the period', find: '&& !Object.hasOwn(fields, \'supplied_in\')) {\n    refuse(\'input.missing_field\'', replace: '&& false) {\n    refuse(\'input.missing_field\'' },
+  { ...wet, name: 'WET at 28%', find: 'ratioCents(cents * 29n, 100n)', replace: 'ratioCents(cents * 28n, 100n)' },
+  { ...wet, name: 'WET half retail takes the whole retail price', find: 'ratioCents(v.price, 2n)', replace: 'v.price' },
+  { ...wet, name: 'WET average wholesale price ignores the dealing quantity', find: 'ratioCents(v.price * /** @type {bigint} */ (v.quantity),', replace: 'ratioCents(v.price,' },
+  { ...wet, name: 'WET charged on a sale under quote', find: "const tax = d.kind === 'quoted_sale' ? 0n : at29(value);", replace: "const tax = at29(value);" },
+  { ...wet, name: 'WET GST on the price before WET', find: 'gst = ratioCents(value + tax, 10n);', replace: 'gst = ratioCents(value, 10n);' },
+  { ...wet, name: 'WET GST in a retail price taken as a tenth', find: 'gst = ratioCents(d.retail, 11n);', replace: 'gst = ratioCents(d.retail, 10n);' },
+  { ...wet, name: 'WET rebate on a quote stating a GST-free supply', find: "const liable = d.intention === null || d.intention === 'taxable_dealing';", replace: "const liable = true;" },
+  { ...wet, name: 'WET rebate with one condition met', find: 'liable && d.conditions.every(Boolean)', replace: 'liable && d.conditions.some(Boolean)' },
+  { ...wet, name: 'WET $400,000 cap starts a year late', find: "(year >= '2026-27' ? 400000 : 350000)", replace: "(year >= '2027-28' ? 400000 : 350000)" },
+  { ...wet, name: 'WET cap before 1 July 2026 is $500,000', find: '? 400000 : 350000)', replace: '? 400000 : 500000)' },
+  { ...wet, name: 'WET earlier claims do not reduce the cap', find: 'const left = earlier < cap ? cap - earlier : 0n;', replace: 'const left = cap;' },
+  { ...wet, name: 'WET rebate not capped', find: 'const rebate = earned < left ? earned : left;', replace: 'const rebate = earned;' },
+  { ...wet, name: 'WET label 1C rounds to the nearest dollar', find: 'label1c: Number(tax / 100n)', replace: 'label1c: Math.round(Number(tax) / 100)' },
+  { ...wet, name: 'WET average method open to wine that is not grape wine', find: "if (!flag(value, item, 'grape_wine')) {", replace: "if (!flag(value, item, 'grape_wine') && false) {" },
+  { ...wet, name: 'WET average method open without the 10% wholesale share', find: "if (!flag(value, item, 'wholesale_share_at_least_10_percent')) {", replace: "if (!flag(value, item, 'wholesale_share_at_least_10_percent') && false) {" },
+  { ...wet, name: 'WET 2022-23 accepted', find: "export const WET_YEARS = ['2023-24',", replace: "export const WET_YEARS = ['2022-23', '2023-24'," },
+  { ...wet, name: 'WET the form shares no wholesale sales', find: 'quantity: value(`quantity-${i}`), wholesale_sales: sales }', replace: 'quantity: value(`quantity-${i}`), wholesale_sales: sales.slice(0, 1) }' },
   { ...leave, name: 'unused leave capped parts withheld at 30%', find: 'const FLAT_PERCENT = 32;', replace: 'const FLAT_PERCENT = 30;' },
   { ...leave, name: 'unused leave small payment limit at $200', find: 'const SMALL_PAYMENT = 30000;', replace: 'const SMALL_PAYMENT = 20000;' },
   { ...leave, name: 'unused leave small payment limit ignored', find: 'under300 ? roundDollars(', replace: 'false ? roundDollars(' },
@@ -817,6 +836,26 @@ const MUTATIONS = [
   { ...wc, name: 'WC an SA group member passes', find: "['AU-NSW', 'AU-VIC', 'AU-QLD', 'AU-SA'].includes(x.place)", replace: "['AU-NSW', 'AU-VIC', 'AU-QLD'].includes(x.place)" },
   { ...wc, name: 'WC apprentice wages above the wages pass', find: 'if (apprentice > wages)', replace: 'if (apprentice > wages + 100n)' },
   { ...wc, name: 'WC private schemes leave out GST', find: 'premium, gst, duty: 0n, total: premium + gst, notes: [] };\n}\n\n/** The premium', replace: 'premium, gst, duty: 0n, total: premium, notes: [] };\n}\n\n/** The premium' },
+  { ...asic, name: 'ASIC month counted from the due date itself', find: 'const start = new Date((due + 1) * DAY);', replace: 'const start = new Date(due * DAY);' },
+  { ...asic, name: 'ASIC month ends on the same day number next month', find: 'if (corresponding <= length) return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), corresponding) / DAY - 1;', replace: 'if (corresponding <= length) return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), Math.min(new Date(due * DAY).getUTCDate(), length)) / DAY;' },
+  { ...asic, name: 'ASIC month with no corresponding day ends a day early', find: 'return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), length) / DAY;', replace: 'return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), length) / DAY - 1;' },
+  { ...asic, name: 'ASIC payment on the due date is late', find: 'if (receivedDay <= dueDay) return', replace: 'if (receivedDay < dueDay) return' },
+  { ...asic, name: 'ASIC payment on the last day of the month is in the higher tier', find: 'if (receivedDay <= ends) return result;', replace: 'if (receivedDay < ends) return result;' },
+  { ...asic, name: 'ASIC late fee within one month is $428', find: 'within: 102, beyond: 428', replace: 'within: 428, beyond: 428' },
+  { ...asic, name: 'ASIC late fee beyond one month is $102', find: 'within: 102, beyond: 428', replace: 'within: 102, beyond: 102' },
+  { ...asic, name: 'ASIC proprietary review fee is 2025-26’s $329', find: "Schedule 1 Part 1 item 2' },", replace: "Schedule 1 Part 1 item 2', amount: 329 }," },
+  { ...asic, name: 'ASIC share capital registration at $611', find: 'with share capital\', amount: 636,', replace: 'with share capital\', amount: 611,' },
+  { ...asic, name: 'ASIC 2026-27 starts on 30 June', find: "from: '2026-07-01'", replace: "from: '2026-06-30'" },
+  { ...asic, name: 'ASIC 2026-27 runs into July 2027', find: "to: '2027-06-30'", replace: "to: '2027-07-01'" },
+  { ...asic, name: 'ASIC weekend due date not refused', find: 'if (receivedDay <= dueMoves) {', replace: 'if (false) {' },
+  { ...asic, name: 'ASIC weekend month end not refused', find: 'if (receivedDay <= latest) {', replace: 'if (false) {' },
+  { ...asic, name: 'ASIC a moved due date does not move the month', find: 'for (let day = dueDay; day <= dueMoves; day += 1)', replace: 'for (let day = dueDay; day <= dueDay; day += 1)' },
+  { ...asic, name: 'ASIC a month end on a weekend does not move', find: 'latest = Math.max(latest, latestMove(firstMonthEnds(day)));', replace: 'latest = Math.max(latest, firstMonthEnds(day));' },
+  { ...asic, name: 'ASIC a due date in 2025-26 is accepted', find: 'if (Math.min(dueDay, receivedDay) < from', replace: 'if (receivedDay < from' },
+  { ...asic, name: 'ASIC weekend refusal stops on the Monday', find: 'weekday === 6 ? day + 4 : weekday === 0 ? day + 3 : null', replace: 'weekday === 6 ? day + 2 : weekday === 0 ? day + 1 : null' },
+  { ...asic, name: 'ASIC weekend refusal runs to the Thursday', find: 'weekday === 6 ? day + 4 : weekday === 0 ? day + 3 : null', replace: 'weekday === 6 ? day + 5 : weekday === 0 ? day + 4 : null' },
+  { ...asic, name: 'ASIC impossible dates roll over', find: '&& date.getUTCMonth() === month - 1 && date.getUTCDate() === day)', replace: ')' },
+  { ...asic, name: 'ASIC inherited keys pass as fees', find: 'const entry = Object.hasOwn(ASIC_FEES, fee) ? ASIC_FEES[fee] : null;', replace: '// @ts-ignore\n  const entry = ASIC_FEES[fee] ?? null;' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -839,6 +878,7 @@ try {
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
     'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/luxury-car-tax-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/wine-equalisation-tax-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
   }

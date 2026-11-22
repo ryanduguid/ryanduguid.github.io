@@ -26,7 +26,7 @@ The site publishes its pages as registers, each under one top-level path.
 - `/evaluate/` holds 3 reproducible evaluations with fabricated inputs and expected results.
 - `/rates/` holds maintained Australian rate tables with primary sources and review dates, each rendered by `_layouts/rate.html` from its front matter, and `/rates/register/register.json` is a versioned machine-readable register, which so far carries one series, the Coal LSL levy percentage. `/rates/` itself lists every table with its current value and Source checked date.
 - `/tools/accounting-questions/` indexes 100 question guides; each of the 10 topic pages under it carries 10 answers with search and checklist downloads. The pages are stubs rendered by `_layouts/question-topic.html` from `_data/accounting_questions.json`.
-- `/tools/business-calculators/` indexes 47 business calculators, one page each under it, rendered by `_layouts/calculator.html` from `_includes/calculators/`. The 13-week cash scenario, the loan schedule, the hire purchase schedule and the AASB 16 lease have CSV export.
+- `/tools/business-calculators/` indexes 49 business calculators, one page each under it, rendered by `_layouts/calculator.html` from `_includes/calculators/`. The 13-week cash scenario, the loan schedule, the hire purchase schedule and the AASB 16 lease have CSV export.
 - `/tools/individual-tax/` indexes 13 individual tax calculators, rendered the same way. It covers income tax with a refund estimate, take-home pay with PAYG withholding from 2021-22, study and training loan repayment, and a sole trader's tax and GST set-aside from 2020-21 to 2026-27. It also covers salary packaging with an FBT-exempt employer from 2022-23, novated leases with the electric car exemption from 2023-24, Division 293 tax from 2021-22 to 2026-27, the lump sum in arrears tax offset, income tests and concessional contributions cap with carry-forward from 2024-25 to 2026-27, Schedule 5 withholding for a 2026-27 bonus or back payment and a super projection from 2026-27 on ASIC's default assumptions. The first home super saver calculator uses an ATO determination or estimates the maximum from a voluntary contribution ledger and SIC rates through 31 December 2026. The published cases run in `scripts/individual-tax.test.mjs`. The independent tax table cases run in the `individual_tax_oracle` test.
 - `/tools/ozzit/` documents the Ozzit Excel function library, with one page per module under `functions/`, rendered by `site-tools build_ozzit_reference` from the function reference of the release `scripts/release_record.json` names.
 - `assets/hub-routes.mjs` forwards an old `#q12` or `#cash` bookmark on either index to the page that now holds it.
@@ -100,7 +100,7 @@ compression verified on GitHub Pages. Lighthouse uses this same server.
 - the rates register's shape, provenance, ordering and checksums, and a primary `source_url` and a `checked_at` date on every row of the rate CSVs, run with `site-tools check_rates_register` and `cargo test --test rates`
 - the business planning arithmetic and the boundary cases each calculator page shows from `_data/calculator_cases.json`, run with `node --test scripts/business-calculators.test.mjs`
 - named money errors applied to a temporary copy of the Coal LSL, business and individual tax engines, each of which must fail an assertion in those engines' tests. Run `node scripts/mutation-check.mjs` for the current count and results.
-- 5,710 seeded fictional cases for 28 engines (loan, Division 7A, FBT car, Coal LSL, fixed fee, transfer duty, first home buyer duty, objection deadline, PAYG instalment, ETP, PCG 2021/4, PCG 2021/4 allocation, GIC payment plan, land tax, vehicle classifier, payroll tax, FBT benefits, Division 7A schedule, Division 296, company tax, the GST margin scheme, capital gains tax, foreign purchaser surcharges, the Payday Super charge, the quarterly super guarantee charge, long service leave, workers compensation premiums and the AASB 16 lease), each worked by a different route, which the engines must match, run with `cargo test --test calculator_oracle`
+- 5,950 seeded fictional cases for 29 engines (loan, Division 7A, FBT car, Coal LSL, fixed fee, transfer duty, first home buyer duty, objection deadline, PAYG instalment, ETP, PCG 2021/4, PCG 2021/4 allocation, GIC payment plan, land tax, vehicle classifier, payroll tax, FBT benefits, Division 7A schedule, Division 296, company tax, the GST margin scheme, wine equalisation tax, capital gains tax, foreign purchaser surcharges, the Payday Super charge, the quarterly super guarantee charge, long service leave, workers compensation premiums and the AASB 16 lease), each worked by a different route, which the engines must match, run with `cargo test --test calculator_oracle`
 - the individual tax boundary cases from `_data/individual_tax_cases.json`, run with `node --test scripts/individual-tax.test.mjs`, and 6,284 seeded fictional income tax, Medicare levy surcharge, study loan, take-home, income test, sole trader, Division 293, bonus withholding, salary packaging, novated lease, super projection and salary against dividends cases worked from the ATO's printed tables and the Acts' definitions, run with `cargo test --test individual_tax_oracle`
 - every install command in the machine-readable files must name a package in the reviewed `scripts/agent_file_policy.json`, and a third-party one must name its version; those files must also carry no invisible or direction-control characters. Run with `site-tools check_agent_files` and `cargo test --test agent_files`
 - every `github.com/ryanduguid/...` link must resolve to that exact repository, not through a rename redirect, and must not resolve to an archived repository (looked up once per repository through the GitHub REST API)
@@ -335,25 +335,34 @@ site-tools render_about_portrait path/to/cutout.png
 
 The cutout's alpha channel is the silhouette, and the command refuses a photo
 without a transparent background. The head is found from the silhouette: its
-widest row, then the neck below it. The crop centres the head, keeps the hair
-and collar, and fades the shoulders out at the bottom and lower corners rather
-than ending on the photo's edges. The tone is CIE lightness with local contrast
-against its surroundings within the figure, a gentle gamma, a faint floor so
-the dark hair and suit still read, and a thin rim along the silhouette so the
-outline reads on the black canvas. Each cell of the 140-column grid is sampled
-as 6 rows by 4 columns and gets the glyph whose bitmap, drawn from the site's
-own Spline Sans Mono in the 0.6em by 1em cell the page draws, is closest.
-Floyd and Steinberg's error diffusion carries each cell's leftover tone to the
-cells not yet drawn, so even areas get an even texture. The glyphs are 21
-symbols and the space, none of which needs HTML escaping or can open a Liquid
-tag; `|` and `-` are left out because stacked rows join them into stripes.
-Running it again on the same photo reproduces the same text.
+widest row, then the neck below it. The crop centres the head across two thirds
+of the width, keeps the hair, collar and lapels, and fades the shoulders out at
+the bottom and lower corners rather than ending on the photo's edges. The tone
+is CIE lightness with local contrast against its surroundings within the
+figure, broad for the modelling of the face and fine for the eyes, teeth and
+hair. Its range is the head's alone, so the white shirt cannot set the white
+point and leave the face grey. A gentle gamma, a faint floor so the dark hair
+and suit still read, and a thin rim along the silhouette finish it. Each cell
+of the 140-column grid is sampled as 5 rows by 4 columns and gets the glyph
+whose bitmap, drawn from the site's own Spline Sans Mono in the 0.6em by 0.8em
+cell the page draws, is closest. Floyd and Steinberg's error diffusion carries
+each cell's leftover tone to the cells not yet drawn, alternate rows running
+right to left so it leaves no diagonal streaks. The glyphs are 23 symbols and
+the space, none of which needs HTML escaping or can open a Liquid tag; `|` and
+`-` are left out because stacked rows join them into stripes, `_` because it is
+drawn in the row below its own, and digits because a phone can link a run of
+them as a number to call. Running it again on the same photo reproduces the
+same text.
 
-The 85 rows are real text in a `pre`, with trailing spaces trimmed. A
+The 132 rows are real text in a `pre`, with trailing spaces trimmed. A
 `role="img"` wrapper carries the accessible name and the `pre` is
 `aria-hidden`, so screen readers and the text mirrors skip the characters.
-`.about-portrait pre` in `assets/site.css` sizes the font so 140 columns fill
-the frame and sets each row one em tall, the cell the art was sampled for.
+`.about-portrait pre` in `assets/site.css` sets each row 0.8em tall, the cell
+the art was sampled for, so the rows leave no dark gaps between them. A browser
+sets each row on a whole device pixel, and a row pitch between pixels draws
+bands across the face, so the type steps down to the nearest size whose rows
+are a whole number of device pixels apart: 5px in the full 26.25rem frame, where
+140 columns fill it, and a smaller size centred in a narrower one.
 
 ## Credential documents
 

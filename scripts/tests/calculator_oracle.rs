@@ -85,6 +85,15 @@
 //! engine multiplies the daily growth factors; and the quarterly shortfall and interest are
 //! worked from the old Act's formulas in their own units.
 //!
+//! A further 240 seeded wine equalisation tax periods fill the producer rebate cap one dealing at a
+//! time, where the engine compares the year's total with what the cap leaves, and type the cap by year
+//! from WET Act s 19-15(2) and Act No. 12 of 2026 Sch 6.
+//!
+//! Every ASIC late fee case with a due date from 1 June 2026 to 30 June 2027 and a received date from
+//! 3 days before it to 75 days after it counts the month by the 2 branches of Acts Interpretation Act
+//! s 2G(1) with `jiff` and answers only when every reading of the weekend rules gives one tier, where the
+//! engine adds a calendar month in UTC milliseconds and refuses the ranges a move could reach.
+//!
 //! A further 200 seeded GST margin scheme sales work the GST on a GST-exclusive price as 1/11 of
 //! the exact margin on the price it makes, where the engine takes a tenth of the price less the cost.
 //!
@@ -8020,6 +8029,314 @@ fn the_engine_agrees_with_the_oracle_on_every_seeded_lease() {
             > LEASE_CASES / 2
     );
     let actual = run_node(LEASE_HARNESS, &cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the wine equalisation tax engine, as `HARNESS` runs the others.
+const WET_HARNESS: &str = r"
+import { wineEqualisationTax } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const keys = ['wineTax', 'label1c', 'rebateBeforeCap', 'rebate', 'rebateOverCap', 'label1d', 'cap'];
+process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => {
+  const r = wineEqualisationTax(one);
+  return { ...Object.fromEntries(keys.map((key) => [key, String(r[key])])),
+    values: r.dealings.map((d) => String(d.taxableValue)), taxes: r.dealings.map((d) => String(d.wineTax)) };
+})));
+";
+
+const WET_CASES: usize = 240;
+/// The largest price the seeded dealings take, $10,000,000.00, in cents.
+const MAX_WET_CENTS: u64 = 1_000_000_000;
+
+/// One seeded dealing: its command input, its taxable value in cents and whether it earns a rebate.
+struct WetDealing {
+    input: Value,
+    value: u128,
+    taxed: bool,
+    earns: bool,
+}
+
+/// A wholesale sale, a retail sale or own use by half the retail price or the average wholesale price,
+/// a sale under quote or own use of wine bought under quote. The average wholesale price is the
+/// sales' total price over their total quantity, times this dealing's quantity (WET Act s 9-40).
+fn wet_dealing(rng: &mut Seeded) -> WetDealing {
+    let kind = rng.pick(&[
+        "wholesale_sale",
+        "retail_sale",
+        "own_use",
+        "quoted_sale",
+        "own_use_purchased_under_quote",
+    ]);
+    let price = rng.cents(MAX_WET_CENTS);
+    let claims = kind != "own_use_purchased_under_quote" && rng.below(2) == 0;
+    let all_met = rng.below(5) != 0;
+    let intention = rng.pick(&[
+        "taxable_dealing",
+        "manufacture",
+        "gst_free_supply",
+        "sale_under_quote",
+    ]);
+    let mut input = json!({ "kind": kind });
+    let value = match kind {
+        "wholesale_sale" | "quoted_sale" => {
+            input["price_excluding_wet_and_gst"] = json!(dollars(price));
+            u128::from(price)
+        }
+        "own_use_purchased_under_quote" => {
+            input["purchase_price_excluding_gst"] = json!(dollars(price));
+            u128::from(price)
+        }
+        _ if rng.below(3) == 0 => {
+            // Whole quantities, so the weights are exact.
+            let quantity = 1 + u128::from(rng.below(500));
+            let sales: Vec<(u128, u128)> = (0..1 + rng.below(4))
+                .map(|_| {
+                    (
+                        1 + u128::from(rng.below(1_000)),
+                        u128::from(rng.cents(MAX_WET_CENTS)),
+                    )
+                })
+                .collect();
+            let sold: u128 = sales.iter().map(|(q, _)| q).sum();
+            let numerator: u128 = sales.iter().map(|(_, p)| p * quantity).sum();
+            input["average_wholesale"] = json!({
+                "grape_wine": true, "wholesale_share_at_least_10_percent": true, "quantity": quantity.to_string(),
+                "wholesale_sales": sales.iter().map(|(q, p)| json!({
+                    "quantity": q.to_string(), "price_excluding_wet_and_gst": dollars(u64::try_from(*p).unwrap()) }))
+                    .collect::<Vec<_>>(),
+            });
+            if kind == "retail_sale" {
+                input["retail_price_including_wet_and_gst"] = json!(dollars(price));
+            }
+            exact_half_up(numerator, sold)
+        }
+        _ => {
+            input["retail_price_including_wet_and_gst"] = json!(dollars(price));
+            exact_half_up(u128::from(price), 2)
+        }
+    };
+    if kind == "quoted_sale" {
+        input["purchaser_intention"] = json!(intention);
+    }
+    if claims {
+        input["rebate_conditions"] = json!({
+            "producer": true, "source_product_owned_85_percent": true, "container_and_trade_mark": all_met });
+    }
+    let liable = kind != "quoted_sale" || intention == "taxable_dealing";
+    WetDealing {
+        input,
+        value,
+        taxed: kind != "quoted_sale",
+        earns: claims && all_met && liable,
+    }
+}
+
+/// The cap by year: $350,000 for dealings to 30 June 2026, $400,000 from 1 July 2026 (WET Act s 19-15(2);
+/// Act No. 12 of 2026 Sch 6; the ATO's 'Producer rebate', QC22756), typed here from those sources.
+fn wet_cap_cents(year: &str) -> u128 {
+    match year {
+        "2023-24" | "2024-25" | "2025-26" => 35_000_000,
+        _ => 40_000_000,
+    }
+}
+
+/// The period's wine tax and rebate: each 29% of a value, half up to the cent; the rebate fills what
+/// the year's cap leaves one dealing at a time, where the engine compares the total with it; labels
+/// 1C and 1D drop the cents.
+fn wet_case(rng: &mut Seeded) -> (Value, Value) {
+    let year = rng.pick(&["2023-24", "2024-25", "2025-26", "2026-27", "2027-28"]);
+    let dealings: Vec<WetDealing> = (0..1 + rng.below(6)).map(|_| wet_dealing(rng)).collect();
+    let mut input = json!({ "year": year, "dealings": dealings.iter().map(|d| d.input.clone()).collect::<Vec<_>>() });
+    let cap = wet_cap_cents(year);
+    let claimed = dealings
+        .iter()
+        .any(|d| d.input.get("rebate_conditions").is_some());
+    let earlier = if claimed {
+        let any = u128::from(rng.cents(45_000_000));
+        let earlier = rng.pick(&[0, any, cap, cap.saturating_sub(100_000), cap + 1]);
+        input["rebate_claimed_earlier_in_year"] = json!(dollars(u64::try_from(earlier).unwrap()));
+        input["associated_producer"] = json!(rng.below(4) == 0);
+        earlier
+    } else {
+        0
+    };
+    let tenth = |value: u128| exact_half_up(value * 29, 100);
+    let mut room = cap.saturating_sub(earlier);
+    let (mut tax, mut earned, mut rebate) = (0, 0, 0);
+    for d in &dealings {
+        if d.taxed {
+            tax += tenth(d.value);
+        }
+        if d.earns {
+            let amount = tenth(d.value);
+            earned += amount;
+            let fits = amount.min(room);
+            room -= fits;
+            rebate += fits;
+        }
+    }
+    let cents = |value: u128| shown(u64::try_from(value).unwrap());
+    let whole = |value: u128| (value / 100).to_string();
+    let values: Vec<String> = dealings.iter().map(|d| cents(d.value)).collect();
+    let taxes: Vec<String> = dealings
+        .iter()
+        .map(|d| cents(if d.taxed { tenth(d.value) } else { 0 }))
+        .collect();
+    (
+        input,
+        json!({
+            "wineTax": cents(tax), "label1c": whole(tax), "rebateBeforeCap": cents(earned), "rebate": cents(rebate),
+            "rebateOverCap": cents(earned - rebate), "label1d": whole(rebate), "cap": whole(cap),
+            "values": values, "taxes": taxes,
+        }),
+    )
+}
+
+#[test]
+fn the_wine_equalisation_tax_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1122_0000_0B0B);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..WET_CASES).map(|_| wet_case(&mut rng)).unzip();
+    let actual = run_node(WET_HARNESS, &cases);
+    assert_eq!(actual.len(), WET_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the ASIC fees engine, as `HARNESS` runs the others: each case's amount and tier, or which
+/// refusal it met.
+const ASIC_HARNESS: &str = r"
+import { asicFee } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const kinds = [['This page holds', 'year'], ['The due date is', 'due-weekend'], ['The first month', 'month-weekend']];
+process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => {
+  try {
+    const r = asicFee(one);
+    return { amount: r.amount, tier: r.tier };
+  } catch (error) {
+    return { refused: (kinds.find(([start]) => error.message.startsWith(start)) ?? ['', error.message])[1] };
+  }
+})));
+";
+
+/// ASIC's 2026-27 amounts, typed from its fee data (SHA-256 03281f57...866da, read 22 November
+/// 2026), not from the engine: I02, I01, R01, A52, A51, A58, A53, BZA and BZB.
+const ASIC_FIXED: [(&str, u64); 9] = [
+    ("company-share-capital", 636),
+    ("company-no-share-capital", 524),
+    ("name-reservation", 65),
+    ("review-proprietary", 342),
+    ("review-public", 1_591),
+    ("review-special-proprietary", 70),
+    ("review-special-public", 65),
+    ("business-name-1", 47),
+    ("business-name-3", 108),
+];
+
+/// The last day of the month starting the day after `due` (AIA s 36(1) item 6), by s 2G(1)'s 2
+/// branches: before the corresponding day of the next calendar month, or that month's last day.
+fn asic_first_month_ends(due: Date) -> Date {
+    let start = due.tomorrow().unwrap();
+    let next = start.first_of_month().checked_add(1.month()).unwrap();
+    if start.day() <= next.days_in_month() {
+        date(next.year(), next.month(), start.day())
+            .yesterday()
+            .unwrap()
+    } else {
+        next.last_of_month()
+    }
+}
+
+/// A day and, if it is a Saturday or Sunday, each day after it to the Wednesday: the days a thing due
+/// then might be done on if AIA s 36(2) or Corporations Act s 105(3) moves it.
+fn asic_could_move_to(day: Date) -> Vec<Date> {
+    let last = match day.weekday() {
+        Weekday::Saturday => day.checked_add(4.days()).unwrap(),
+        Weekday::Sunday => day.checked_add(3.days()).unwrap(),
+        _ => day,
+    };
+    day.series(1.day()).take_while(|d| *d <= last).collect()
+}
+
+/// The tier under every reading of the weekend rules: each day the due date could move to, and each
+/// day that due date's first month could end on. The page answers only when every reading agrees.
+fn asic_late_oracle(due: Date, received: Date) -> Value {
+    let year = date(2026, 7, 1)..=date(2027, 6, 30);
+    if !year.contains(&due) || !year.contains(&received) {
+        return json!({ "refused": "year" });
+    }
+    let mut tiers = Vec::new();
+    for moved in asic_could_move_to(due) {
+        for ends in asic_could_move_to(asic_first_month_ends(moved)) {
+            tiers.push(if received <= moved {
+                0
+            } else if received <= ends {
+                102
+            } else {
+                428
+            });
+        }
+    }
+    if tiers.iter().all(|tier| *tier == tiers[0]) {
+        let tier = ["not late", "within one month", "more than one month"][match tiers[0] {
+            0 => 0,
+            102 => 1,
+            _ => 2,
+        }];
+        return json!({ "amount": tiers[0], "tier": tier });
+    }
+    let weekend = matches!(due.weekday(), Weekday::Saturday | Weekday::Sunday);
+    json!({ "refused": if weekend || tiers.contains(&0) { "due-weekend" } else { "month-weekend" } })
+}
+
+#[test]
+fn the_asic_fees_oracle_counts_months_by_hand() {
+    // s 2G(1) example 1: a month starting on 15 December ends immediately before 15 January.
+    assert_eq!(asic_first_month_ends(date(2026, 12, 14)), date(2027, 1, 14));
+    // Example 2: a month starting on 31 August ends at the end of September.
+    assert_eq!(asic_first_month_ends(date(2026, 8, 30)), date(2026, 9, 30));
+    // A due date on a month's last day starts the month on the 1st, so it runs to the next month's end.
+    assert_eq!(
+        asic_first_month_ends(date(2026, 11, 30)),
+        date(2026, 12, 31)
+    );
+    assert_eq!(asic_first_month_ends(date(2027, 1, 29)), date(2027, 2, 28));
+}
+
+#[test]
+fn the_asic_fees_engine_agrees_with_the_oracle_on_every_due_and_payment_date() {
+    if !common::rendered() {
+        return;
+    }
+    let mut cases = Vec::new();
+    let mut expected = Vec::new();
+    for (fee, amount) in ASIC_FIXED {
+        cases.push(json!({ "fee": fee }));
+        expected.push(json!({ "amount": amount, "tier": null }));
+    }
+    let mut due = date(2026, 6, 1);
+    while due <= date(2027, 6, 30) {
+        let mut received = due.checked_sub(3.days()).unwrap();
+        while received <= due.checked_add(75.days()).unwrap() {
+            for fee in ["late-review-payment", "late-lodgement"] {
+                cases.push(
+                    json!({ "fee": fee, "due": due.to_string(), "received": received.to_string() }),
+                );
+                expected.push(asic_late_oracle(due, received));
+            }
+            received = received.tomorrow().unwrap();
+        }
+        due = due.tomorrow().unwrap();
+    }
+    let actual = run_node(ASIC_HARNESS, &cases);
     assert_eq!(actual.len(), cases.len());
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
