@@ -8243,11 +8243,20 @@ fn rental_case(rng: &mut Seeded) -> (Value, Value) {
     let start = date(first, 7, 1);
     let available = u128::from(rng.below(366));
     let (sn, sd) = rng.pick(&RENTAL_SHARES);
-    let share = if sd == 3 { "0.3333".to_string() } else { format!("{}", sn as f64 / sd as f64) };
+    let share = if sd == 3 {
+        "0.3333".to_string()
+    } else {
+        format!("{}", sn as f64 / sd as f64)
+    };
     let (sn, sd) = if sd == 3 { (3333, 10_000) } else { (sn, sd) };
     let rent = u128::from(rng.cents(10_000_000));
     let gross = exact_half_up(rent * sn, sd);
-    let lines = ["council_rates", "insurance", "repairs_and_maintenance", "water_charges"];
+    let lines = [
+        "council_rates",
+        "insurance",
+        "repairs_and_maintenance",
+        "water_charges",
+    ];
     let mut expenses = serde_json::Map::new();
     let mut deductions = 0_u128;
     for line in lines {
@@ -8270,9 +8279,15 @@ fn rental_case(rng: &mut Seeded) -> (Value, Value) {
     // A building begun after 26 February 1992 and first used when it began, 1 to 11,000 days before the year.
     let cost = u128::from(rng.cents(100_000_000));
     let before = 1 + u128::from(rng.below(11_000));
-    let first_used = start.checked_sub(i64::try_from(before).unwrap().days()).unwrap();
+    let first_used = start
+        .checked_sub(i64::try_from(before).unwrap().days())
+        .unwrap();
     let began = first_used;
-    let (written_n, full_n, den) = (cost * sn * 25 * before, cost * sn * 25 * available, sd * 1000 * 365);
+    let (written_n, full_n, den) = (
+        cost * sn * 25 * before,
+        cost * sn * 25 * available,
+        sd * 1000 * 365,
+    );
     let left_n = (cost * sn * 1000 * 365).saturating_sub(written_n);
     let works = exact_half_up(full_n.min(left_n), den);
     let decline_given = u128::from(rng.cents(1_000_000));
@@ -8305,7 +8320,8 @@ fn the_rental_property_engine_agrees_with_the_oracle_on_every_seeded_case() {
         return;
     }
     let mut rng = Seeded(0x2026_1122_0000_0B02);
-    let (cases, expected): (Vec<_>, Vec<_>) = (0..RENTAL_CASES).map(|_| rental_case(&mut rng)).unzip();
+    let (cases, expected): (Vec<_>, Vec<_>) =
+        (0..RENTAL_CASES).map(|_| rental_case(&mut rng)).unzip();
     let actual = run_node(RENTAL_HARNESS, &cases);
     assert_eq!(actual.len(), RENTAL_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {

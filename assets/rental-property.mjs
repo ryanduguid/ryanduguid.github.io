@@ -54,9 +54,9 @@ function refuse(code, message) {
   throw Object.assign(new Error(message), { code });
 }
 /** @param {string} message @returns {never} */
-const conflict = (message) => refuse('rental_property.fact_conflict', message);
+function conflict(message) { return refuse('rental_property.fact_conflict', message); }
 /** @param {string} message @returns {never} */
-const invalid = (message) => refuse('rental_property.fact_invalid', message);
+function invalid(message) { return refuse('rental_property.fact_invalid', message); }
 /** @param {unknown} value @returns {value is Record<string, unknown>} */
 const isObject = (value) => typeof value === 'object' && value !== null && !Array.isArray(value);
 /** Runs `work`, putting `label: ` before a refusal's message. @template T @param {string} label @param {() => T} work @returns {T} */

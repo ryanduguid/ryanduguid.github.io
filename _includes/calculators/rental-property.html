@@ -1,8 +1,8 @@
 <section class="business-calculator" id="rental-property">
 <form class="calculator-split" data-calculator="rental-property">
 <fieldset disabled><legend>One rental property, one owner, one income year</legend><div class="form-grid">
+<label class="field" for="rental-property-share">Your legal interest as a decimal, such as 0.5 for half<input id="rental-property-share" name="share" type="number" inputmode="decimal" min="0" max="1" step="any" value="1" required /></label>
 <div class="field"><label for="rental-property-year">Income year</label><select name="year" id="rental-property-year"><option value="2026-27">2026-27</option><option value="2025-26" selected>2025-26</option><option value="2024-25">2024-25</option><option value="2023-24">2023-24</option><option value="2022-23">2022-23</option><option value="2021-22">2021-22</option><option value="2020-21">2020-21</option></select></div>
-<label class="field" for="rental-property-share">Your legal interest, as a decimal fraction (1 for a sole owner, 0.5 for half)<input id="rental-property-share" name="share" type="number" inputmode="decimal" min="0" max="1" step="any" value="1" required /></label>
 <label class="field" for="rental-property-acquired">Day you acquired the property<input id="rental-property-acquired" name="acquired" type="date" min="1900-01-01" max="2100-12-31" value="2025-07-20" required /></label>
 <label class="field" for="rental-property-disposed">Day you stopped holding it in the year (optional)<input id="rental-property-disposed" name="disposed" type="date" min="1900-01-01" max="2100-12-31" /></label>
 <label class="field" for="rental-property-days">Days in the year you held it that it was let or available for rent on commercial terms<input id="rental-property-days" name="days" type="number" inputmode="numeric" min="0" max="366" step="1" value="346" required /></label>
@@ -34,7 +34,7 @@
 <label for="rental-property-exp-sundry">Sundry rental expenses (AUD)<input id="rental-property-exp-sundry" name="exp-sundry" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="95.00" aria-describedby="rental-property-expenses-note" /></label>
 </div>
 <h2>Expenses solely for renting</h2>
-<p class="field-note" id="rental-property-only-note">Such as agent commission, advertising for tenants and removing a tenant’s rubbish: not apportioned.</p>
+<p class="field-note" id="rental-property-only-note">Expenses that relate only to renting, such as agent commission and removing a tenant’s rubbish, are not apportioned.</p>
 <div class="form-grid">
 <label for="rental-property-only-advertising-for-tenants">Advertising for tenants (AUD)<input id="rental-property-only-advertising-for-tenants" name="only-advertising-for-tenants" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="48.00" aria-describedby="rental-property-only-note" /></label>
 <label for="rental-property-only-body-corporate-fees">Body corporate fees and charges (AUD)<input id="rental-property-only-body-corporate-fees" name="only-body-corporate-fees" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" aria-describedby="rental-property-only-note" /></label>
