@@ -261,8 +261,8 @@ const blank = (/** @type {string} */ text) => text.trim() === '';
 
 /** The command's input from the form: each line with a kind chosen, with only the fields its kind
  * shows. A blank optional amount is left out; a blank rating means the car has none. Lines are
- * filled in order, so the command's line numbers are the form's, and a refund's supply year,
- * which decides whether the refund applies, is never taken from the tax period.
+ * filled in order, so the command's line numbers are the form's. A refund without a supply year
+ * takes the tax period's, as the command does.
  * @param {(name: string) => string} value */
 export function lctFormInput(value) {
   const year = value('year');
@@ -284,7 +284,6 @@ export function lctFormInput(value) {
     const supplied = value(`supplied-${i}`);
     const dated = (kind === 'price_adjustment' || kind === 'change_of_use_increasing' || kind === 'refund') && supplied !== '';
     if (dated) line.supplied_in = supplied;
-    else if (kind === 'refund') throw new Error(`Line ${i}: choose the financial year the car was supplied or imported in: the refund is only for a car from 1 July 2019.`);
     if (kind !== 'change_of_use_decreasing' && kind !== 'refund') {
       take(kind === 'price_adjustment' ? 'corrected_luxury_car_tax_value' : 'luxury_car_tax_value', 'value');
       const rated = value(`rating-${i}`).trim();
