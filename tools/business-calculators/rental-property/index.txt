@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/business-calculators/rental-property/
 
-> A rental property's deductions by the ATO worksheet's lines, apportioned by days let, mixed-use loan interest, capital works, second-hand assets, net rent and tax effect.
+> Rental property deductions by the ATO worksheet lines: days let, mixed-use loan interest, capital works, second-hand assets, net rent and the effect on tax.
 
 # Rental property calculator
 
