@@ -78,7 +78,7 @@ No offset: $20,000 of profit on $70,000 of wages adds 30% tax and 2% Medicare le
 2023-24, other deductions take taxable income below the profit: the offset’s share stops at 1 | 2023-24, business $40,000 less $5,000, other deductions $3,000, invoice $1,000.00 | Offset $419.52, business tax $2,102.48; set aside $2,102.48 a year, $525.62 a quarter, 5.26% of each invoice
 2021-22, $25,000 of profit: the low and middle income offsets leave no tax for this offset | 2021-22, business $25,000 less $0, invoice $1,000.00 | Offset $0.00, business tax $163.50; set aside $163.50 a year, $40.88 a quarter, 0.65% of each invoice
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -88,7 +88,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - calculators and tools: https://www.ato.gov.au/calculators-and-tools
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -159,7 +159,7 @@ Unused cap covers part of the excess | 2026-27: taxable income $210,000, fringe 
 2023-24: each part of Division 293 income | 2023-24: taxable income $200,000, fringe benefits $10,000, net investment loss $15,000, family trust distribution tax income $20,000, less FHSS $5,000; contributions $27,500.00 | Division 293 income $240,000.00, low tax contributions $27,500.00, taxable contributions $17,500.00, tax $2,625.00
 2021-22: a lump sum taxed at the zero rate comes off | 2021-22: taxable income $260,000, less zero-rate lump sum $30,000; contributions $27,500.00 | Division 293 income $230,000.00, low tax contributions $27,500.00, taxable contributions $7,500.00, tax $1,125.00
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -167,7 +167,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -231,7 +231,7 @@ Child support paid can take adjusted taxable income below nil | Resident all yea
 Pensions and target foreign income count in adjusted taxable income only | Resident all year, taxable $20,000, pensions $5,000, target foreign $3,000, child support $8,000, assessable $20,000 | Surcharge $20,000, Division 293 $20,000, rebate $20,000, repayment $20,000, adjusted taxable $20,000, co-contribution $20,000
 Business deductions come off co-contribution total income only | Resident all year, taxable $35,000, other fringe $2,000, employer super $1,000, assessable $40,000, business deductions $5,000 | Surcharge $38,000, Division 293 $37,000, rebate $38,000, repayment $38,000, adjusted taxable $38,000, co-contribution $38,000
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -241,7 +241,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - When you must repay your loan: https://www.ato.gov.au/individuals-and-families/study-and-training-support-loans/when-must-you-repay-your-loan
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -317,7 +317,7 @@ The present value at 2.5%, as the Instrument allows you to change it | Age 30 to
 A higher-fee fund: $150 and 0.85% | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $150.00 and 0.85%, premiums $599.00, growth 3.7%, present value at 3.7% | 37 years: $1,778,785.44, present value $463,777.40
 No insurance | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $59.00 and 0.11%, premiums $0.00, growth 3.7%, present value at 3.7% | 37 years: $2,178,481.86, present value $567,989.05
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -325,7 +325,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -411,7 +411,7 @@ Case | Inputs | Result
 Sue: ATO GN 2024/1 example 11, with a fictional determination date | ATO determination: concessional $8,500.00, non-concessional $5,000.00, earnings $850.00 | Maximum release $14,350.00, assessable $9,350.00, PAYG $1,589.00, after withholding $12,761.00, offset $2,805.00
 Partial release in the income year after determination | ATO determination: concessional $8,500.00, non-concessional $10,000.00, earnings $1,500.00, requested $15,000.00 on 2025-07-01, gross released $12,000.00 | Maximum release $20,000.00, assessable $2,000.00, PAYG $340.00, after withholding $11,660.00, offset $600.00
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -424,7 +424,99 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - GN 2024/1, example 6: https://www.ato.gov.au/law/view/print?DocID=GDN%2FGDN20241%2FNAT%2FATO%2F00001
 - First Home Super Saver Tax Act 2017: https://www.legislation.gov.au/C2017A00133/asmade
 - Treasury Laws Amendment (2023 Measures No. 3) Act 2023, Schedule 4, items 28 and 30: https://www.legislation.gov.au/C2023A00075
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Work from home, car and self-education expenses calculator
+
+Source: https://duguid.com.au/tools/individual-tax/work-expenses/
+
+> Compare the working from home fixed rate with actual cost, and work out car and self-education expenses, for 2020-21 to 2026-27.
+
+# Work expenses calculator
+
+Work out working from home, car or self-education expenses for 2020-21 to 2026-27.
+
+Published 22 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Work expenses for one income year
+
+Method Working from home Car, cents per kilometre Car, log book Self-education
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Working from home Hours worked from home, as recorded Additional running expenses, such as energy or phone, incurred from working from home Yes No
+
+Work-related amounts only, in dollars and cents. Enter 0 for an expense you did not have.
+
+Electricity and gas Mobile and home phone Internet Stationery and computer consumables Cleaning Decline in value of home office furniture and furnishings Decline in value of other assets, such as a computer or phone Repairs to those assets
+
+Reimbursed or paid by your employer or anyone else No Yes
+
+An allowance received for these expenses No Yes
+
+The hours, kilometres and amounts are your records’ work-related figures
+
+Choose Yes, I have checked them No or unsure
+
+Calculate
+
+The calculator applies the rates, caps and reductions to the figures you enter. It does not check your records, apportion an expense, work out decline in value or decide whether your home is a place of business.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Working from home, 2025-26, 843 hours, other expenses $0.00. Fixed rate, 843 hours at 70c $590.10 Expenses claimed beside the fixed rate $0.00 Fixed rate method $590.10 Actual cost method $0.00 Higher method Fixed rate Higher method, cents disregarded $590.00 The higher method is named for comparison only: each method needs its own records, and you choose one for the year.
+
+## How the work expenses calculator works
+
+For working from home, the calculator shows each method open to you beside the actual cost and names the higher. From 2022-23 the fixed rate is your recorded hours times 67c (2022-23 and 2023-24) or 70c (from 1 July 2024). It covers energy, phone, internet, stationery and computer consumables, so only cleaning, decline in value and repairs are added beside it (PCG 2023/1). For 2020-21 and 2021-22, the 52c rate needed a dedicated home office and covered energy, cleaning and the decline in value of home office furniture; phone, internet, stationery, other assets’ decline in value and repairs went beside it. The 80c shortcut covered every working from home expense. Every hourly rate needs at least one additional running expense incurred from working from home. The actual cost is the total of the work-related amounts you enter.
+
+For a car you owned or leased, the cents per kilometre method counts only the first 5,000 business kilometres, at 72c for 2020-21 and 2021-22, 78c for 2022-23, 85c for 2023-24, 88c for 2024-25 and 2025-26, and 91c for 2026-27 (section 28-25). The log book method takes the car expenses times the business use percentage, business kilometres over total kilometres (section 28-90). A log book serves the year it was kept and the next 4 years (section 28-115) and must cover at least 12 continuous weeks (section 28-120).
+
+For self-education, expenses count only when, at the time you incurred them, you were employed and the study kept up or improved the skills or knowledge for your current work, or was likely to increase your income from it. For 2021-22 and earlier, a prescribed course of education reduces category A by $250, less any category C, D and E expenses (section 82A). From 2022-23 there is no reduction. Each deduction is shown to the cent and again with the cents disregarded, as the ATO’s examples show the figure for the return.
+
+## What the work expenses calculator does not cover
+
+The calculator refuses an expense reimbursed or paid by an employer or anyone else, or covered by an allowance. It also refuses a car you did not own or lease, a log book kept more than 4 years before the claim year, one covering under 12 weeks and one that no longer represents the car’s use. It also refuses cents per kilometre expenses in category D beside log book car expenses in category A. It does not cover occupancy expenses such as rent, mortgage interest, rates and house insurance, or decide whether your home is a place of business. It also leaves out the substantiation rules and their exceptions, occupation-specific guidance, cars taken on hire or jointly owned, a new log book after an ATO notice or an added car, and the electric vehicle home charging rate. It does not work out decline in value, apportion an expense or work out the tax saved. Years before 2020-21 and after 2026-27 are not covered: no cents per kilometre rate had been determined for 2027-28 when the calculator was checked.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Work expenses calculator
+
+Case | Inputs | Result
+Keisha: 843 hours at 70c, $590 (ATO fixed rate method page) | 2025-26, working from home, 843 hours | Fixed rate $590.10, actual cost $0.00; higher fixed rate, $590.00 with cents disregarded
+Yang: 567 hours plus a $299 chair and a $250 desk, $945 (ATO fixed rate method page) | 2025-26, working from home, 567 hours, furniture decline $549.00 | Fixed rate $945.90, actual cost $549.00; higher fixed rate, $945.00 with cents disregarded
+Wanda: only the 136 recorded hours count, $95 (ATO fixed rate method page) | 2025-26, working from home, 136 hours | Fixed rate $95.20, actual cost $0.00; higher fixed rate, $95.00 with cents disregarded
+Gerry: 768 hours in 2024-25, $537 (PCG 2023/1 example 1) | 2024-25, working from home, 768 hours | Fixed rate $537.60, actual cost $0.00; higher fixed rate, $537.00 with cents disregarded
+Piruntha: 560 hours plus decline in value, $1,527 (PCG 2023/1 example 8) | 2024-25, working from home, 560 hours, furniture decline $439.20, other assets’ decline $696.52 | Fixed rate $1,527.72, actual cost $1,135.72; higher fixed rate, $1,527.00 with cents disregarded
+67c in 2023-24, the last year before 70c (PCG 2023/1 Table 1) | 2023-24, working from home, 100 hours | Fixed rate $67.00, actual cost $0.00; higher fixed rate, $67.00 with cents disregarded
+2021-22: the 52c rate with a dedicated home office, phone beside it, and the 80c shortcut | 2021-22, working from home, 1,000 hours, phone $120.00 | Fixed rate $640.00, shortcut $800.00, actual cost $120.00; higher shortcut, $800.00 with cents disregarded
+2021-22 without a dedicated home office: the shortcut and actual cost only | 2021-22, working from home, 1,000 hours, energy $900.00, no dedicated home office | Shortcut $800.00, actual cost $900.00; higher actual cost, $900.00 with cents disregarded
+Sergei: no additional running expenses, so actual cost only (PCG 2023/1 example 6) | 2025-26, working from home, 500 hours, other assets’ decline $50.00, no additional running expenses | Actual cost $50.00; higher actual cost, $50.00 with cents disregarded
+Johan: 2,514 km at 88c, $2,212 (ATO cents per kilometre page) | 2025-26, cents per kilometre, 2,514 business km | 2,514 km counted, deduction $2,212.32, $2,212.00 with cents disregarded
+Only the first 5,000 business kilometres count (s 28-25(2)), at 91c for 2026-27 | 2026-27, cents per kilometre, 5,085 business km | 5,000 km counted, deduction $4,550.00, $4,550.00 with cents disregarded
+72c for 2021-22, the rate continued from 2020-21 | 2021-22, cents per kilometre, 1,000 business km | 1,000 km counted, deduction $720.00, $720.00 with cents disregarded
+Lana: 69% business use of $17,275.33 decline in value, $11,919.98 (ATO logbook method page) | 2025-26, log book kept 2025-26 for 12 weeks, 6,900 of 10,000 km, car expenses $17,275.33 | Business use 69.00%, deduction $11,919.98, $11,919.00 with cents disregarded
+A log book kept in 2021-22 still serves 2025-26, its fifth year (s 28-115(2)) | 2025-26, log book kept 2021-22 for 12 weeks, 6,900 of 10,000 km, car expenses $17,275.33 | Business use 69.00%, deduction $11,919.98, $11,919.00 with cents disregarded
+Maureen: category A of $290 alone, $40 after the $250 reduction (ATO reduction page) | 2021-22, self-education, skills for current work, A $290.00, B $0.00, C $0.00, D $0.00, prescribed course, E $0.00 | Reduction $250.00, deduction $40.00
+Con: categories C, D and E above $250 leave no reduction, $750 (TR 98/9 paras 145 to 150) | 2020-21, self-education, skills for current work, A $350.00, B $200.00, C $100.00, D $100.00, prescribed course, E $500.00 | Reduction $0.00, deduction $750.00
+Con’s second year: category E alone above $250 leaves no reduction, $900 (TR 98/9 paras 151 to 155) | 2020-21, self-education, skills for current work, A $500.00, B $400.00, C $0.00, D $0.00, prescribed course, E $2,200.00 | Reduction $0.00, deduction $900.00
+A seminar is not a prescribed course, so no reduction in 2021-22 (TR 98/9 para 129) | 2021-22, self-education, skills for current work, A $290.00, B $0.00, C $0.00, D $0.00, not a prescribed course | Deduction $290.00
+From 2022-23 there is no $250 reduction (Act No. 84, 2022) | 2022-23, self-education, skills for current work, A $290.00, B $0.00, C $0.00, D $0.00 | Deduction $290.00
+Wendy: study for new employment is not deductible (ATO self-education page) | 2025-26, self-education, new employment, A $290.00, B $0.00, C $0.00, D $0.00 | Deduction $0.00, not deductible
+
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -511,7 +603,7 @@ B(ii): what earlier B(ii) payments had withheld comes off | fortnightly, scale 2
 B(ii): earlier withholding beyond the amount gives nil | fortnightly, scale 2, $1,800.00 this pay; B(ii): $2,480.00, $18,000.00 over 10 pays to date, earlier $1,000.00 with $9,999.00 withheld | Withheld $212.00: $212.00 on earnings, $0.00 by B(ii) (limit $1,165.60)
 ATO example 4: Bradley’s back pay over 2 years by B(i) and B(ii), with a Financial Supplement debt | monthly, scale 2, study loan, $7,000.00 this pay; B(i): $800.00 for each of 2 pays of $6,200.00 that had $1,257.00 withheld; B(ii): $8,800.00, $19,400.00 over 3 pays to date | Withheld $6,492.00: $1,634.00 on earnings, $754.00 by B(i), $4,104.00 by B(ii) (limit $4,136.00)
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -521,7 +613,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -597,7 +689,7 @@ The reportable amount brings on the surcharge and raises the study loan repaymen
 A foreign resident | 2026-27, charity, foreign, salary $70,000, Type 2 $15,899.93 | Gain $4,770.00: tax saved $4,770.00, FBT $0.00, reportable $29,999
 2022-23, before the standard deduction | 2022-23, charity, resident, salary $70,000, Type 2 $15,899.93 | Gain $5,674.00: tax saved $5,674.00, FBT $0.00, reportable $29,999
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -606,7 +698,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - novated lease calculator: https://duguid.com.au/tools/individual-tax/novated-lease/
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -702,7 +794,7 @@ Held over 4 years: two-thirds of the cost price | 2026-27, bev, first held and u
 Half a year available | 2026-27, bev, first held and used on 2022-07-01, sold 2026-27 at $60,000.00, 182 days, costs $15,000.00 with GST and $1,000.00 without, salary $100,000 | Exempt: value $5,983.56, saving $6,047.48, $3,762.72 without the exemption
 The reportable amount brings on the surcharge | 2026-27, bev, first held and used on 2022-07-01, sold 2026-27 at $60,000.00, 365 days, costs $15,000.00 with GST and $1,000.00 without, salary $120,000, no hospital cover | Exempt: value $12,000.00, saving $5,649.93, $1,502.97 without the exemption
 
-One of the thirteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -710,82 +802,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- thirteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
-
----
-
-# Payroll tax calculator for every Australian state, 2026-27
-
-Source: https://duguid.com.au/tools/business-calculators/payroll-tax/
-
-> Annual payroll tax for 2026-27 for one employer outside a group, in all 8 states and territories, with each deduction, rate, surcharge and levy cited.
-
-# Payroll tax calculator
-
-One employer’s annual payroll tax for 2026-27 in any Australian state or territory, step by step, each step cited to its Act or revenue office.
-
-Published 17 November 2026. Last checked 20 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Payroll tax inputs for 2026-27
-
-State or territory New South Wales Victoria Victoria, regional employer (at least 85% of taxable wages paid to regional employees) Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
-
-Taxable wages in the state or territory for 2026-27 (AUD) Total Australian wages for 2026-27, taxable and interstate (AUD; leave blank if all are paid in that state or territory)
-
-Each revenue office decides which payments are taxable wages and where they are taxable. Enter the figures you have established; this page does not work them out. The figures it applies are in its data file, with each one’s source and the date it was read.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, taxable wages $1,500,000.00, total Australian wages $1,500,000.00. Deduction (Revenue NSW: threshold times NSW wages over Australian wages) $1,200,000.00 Taxable amount: wages less the deduction $300,000.00 Payroll tax at 5.45% on $300,000.00 (Revenue NSW: thresholds and rates) $16,350.00 Payroll tax $16,350.00 An estimate for 2026-27 for one employer that is not a member of a group and pays wages all year, before any exemption, rebate or discount.
-
-## How the payroll tax calculator works
-
-The payroll tax calculator estimates one employer’s payroll tax for the whole of 2026-27 in one state or territory. Each jurisdiction allows a deduction or tax-free threshold, which an employer that also pays wages elsewhere in Australia shares in proportion to its wages there. Victoria, Queensland, Western Australia and the Northern Territory reduce the deduction as Australian wages grow, until it reaches nil. The result shows the deduction, the amount taxed, the tax at each rate and, in Victoria and Queensland, each surcharge or levy on its own line, with the provision applied.
-
-Where a revenue office publishes worked figures, the tests hold them. Revenue NSW: $1,500,000 of NSW wages are taxed on $300,000, and $900,000 of $3,000,000 has a threshold of $360,000. The Victorian State Revenue Office: $80 million in Victoria and $70 million in New South Wales give surcharge thresholds of $5,333,333.33 and $53,333,333.33. The Queensland Revenue Office: $1,356,789 of $1,789,776 has a deduction of $932,460 to the dollar. RevenueWA: annual wages of $1,104,000 give $6,600; its other 2 examples round the deduction to the dollar and come out 1 and 3 cents lower than this calculator. RevenueSA: $800,000 of $1,600,000 has a deduction of $300,000 and $500,000 of $2,000,000 one of $150,000. The Tasmanian State Revenue Office: $2,400,000 gives $54,400, and $2,400,000 of $3,000,000 gives $72,800. The ACT Revenue Office and the Territory Revenue Office publish no worked figures that could be read, so the tests work examples from the Acts by hand: $84,375 on $3,000,000 in the Australian Capital Territory and $41,250 on $3,000,000 in the Northern Territory. This calculator opens on Revenue NSW’s first example.
-
-## What the payroll tax calculator does not compute
-
-The payroll tax calculator gives one annual estimate and no advice. It does not decide which payments are taxable wages or where they are taxable, and does not cover:
-
-- an employer that is a member of a group, whose threshold and rate depend on the group’s wages and which members share the deduction;
-- an employer that paid wages for only part of 2026-27, whose threshold every jurisdiction reduces by the days it employed;
-- monthly or other periodic returns, and the annual reconciliation of amounts already paid;
-- exemptions, rebates and discounts, such as Queensland’s apprentice and trainee rebate and its 1% discount for regional employers, claimed in the return, and the ACT’s 6.85% cap for an eligible university;
-- any year other than 2026-27.
-
-Confirm the figure with the revenue office or a registered tax agent before relying on it.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Payroll tax calculator
-
-Case | Inputs | Result
-Revenue NSW’s example: $1,500,000 of wages, all in NSW, for the full year | New South Wales, wages $1,500,000.00, Australian wages $1,500,000.00 | Deduction $1,200,000.00, taxable amount $300,000.00, payroll tax $16,350.00, total $16,350.00
-Revenue NSW’s interstate example: a threshold of $360,000 | New South Wales, wages $900,000.00, Australian wages $3,000,000.00 | Deduction $360,000.00, taxable amount $540,000.00, payroll tax $29,430.00, total $29,430.00
-At the NSW threshold: no tax | New South Wales, wages $1,200,000.00, Australian wages $1,200,000.00 | Deduction $1,200,000.00, taxable amount $0.00, payroll tax $0.00, total $0.00
-The Victorian surcharges example: $80 million of $150 million | Victoria, wages $80,000,000.00, Australian wages $150,000,000.00 | Deduction $0.00, taxable amount $80,000,000.00, payroll tax $3,880,000.00, first surcharge or levy $506,666.67, second surcharge or levy $506,666.67, total $4,893,333.34
-Victoria, deduction phased out to $400,000 at $4,200,000 | Victoria, wages $4,200,000.00, Australian wages $4,200,000.00 | Deduction $400,000.00, taxable amount $3,800,000.00, payroll tax $184,300.00, first surcharge or levy $0.00, second surcharge or levy $0.00, total $184,300.00
-Victoria, regional employer rate of 1.2125% | Victoria, regional employer, wages $4,200,000.00, Australian wages $4,200,000.00 | Deduction $400,000.00, taxable amount $3,800,000.00, payroll tax $46,075.00, first surcharge or levy $0.00, second surcharge or levy $0.00, total $46,075.00
-The Queensland Revenue Office’s deduction example: $932,460 to the dollar | Queensland, wages $1,356,789.00, Australian wages $1,789,776.00 | Deduction $932,459.64, taxable amount $424,329.36, payroll tax $20,155.64, first surcharge or levy $0.00, second surcharge or levy $0.00, total $20,155.64
-RevenueWA’s example: $6,600 on $1,104,000 | Western Australia, wages $1,104,000.00, Australian wages $1,104,000.00 | Deduction $984,000.00, taxable amount $120,000.00, payroll tax $6,600.00, total $6,600.00
-RevenueSA’s deduction example: $150,000 for $500,000 of $2,000,000 | South Australia, wages $500,000.00, Australian wages $2,000,000.00 | Deduction $150,000.00, taxable amount $350,000.00, payroll tax $17,325.00, total $17,325.00
-RevenueSA’s phased rate: 2.475% at $1,600,000 under the Act | South Australia, wages $800,000.00, Australian wages $1,600,000.00 | Deduction $300,000.00, taxable amount $500,000.00, payroll tax $12,375.00, total $12,375.00
-The Tasmanian State Revenue Office’s example 2: $72,800 | Tasmania, wages $2,400,000.00, Australian wages $3,000,000.00 | Deduction $1,000,000.00, taxable amount $1,400,000.00, payroll tax $72,800.00, total $72,800.00
-The ACT, worked from the Act: $3,000,000 at 6.75% | Australian Capital Territory, wages $3,000,000.00, Australian wages $3,000,000.00 | Deduction $1,750,000.00, taxable amount $1,250,000.00, payroll tax $84,375.00, total $84,375.00
-The Northern Territory, worked from the Act: the deduction tapers to $2,250,000 | Northern Territory, wages $3,000,000.00, Australian wages $3,000,000.00 | Deduction $2,250,000.00, taxable amount $750,000.00, payroll tax $41,250.00, total $41,250.00
-Australian wages below the state’s wages are refused | New South Wales, wages $2,000,000.00, Australian wages $1,000,000.00 | Refused: enter total Australian wages of at least the wages in the state or territory
-Negative wages are refused | New South Wales, wages -$1.00, Australian wages -$1.00 | Refused: enter an amount between 0 and 100000000000
-
-One of the fifty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- data file: https://duguid.com.au/tools/business-calculators/payroll-tax/payroll-tax-rates.csv
-- fifty business calculators: https://duguid.com.au/tools/business-calculators/
+- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/

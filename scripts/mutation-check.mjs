@@ -29,6 +29,7 @@ const projection = { file: 'assets/super-projection.mjs', test: individualTest }
 const packaging = { file: 'assets/salary-packaging.mjs', test: individualTest };
 const lease = { file: 'assets/novated-lease.mjs', test: individualTest };
 const bonus = { file: 'assets/bonus-withholding.mjs', test: individualTest };
+const workExpenses = { file: 'assets/work-expenses.mjs', test: individualTest };
 const d293 = { file: 'assets/division-293.mjs', test: individualTest };
 const arrears = { file: 'assets/lump-sum-arrears.mjs', test: individualTest };
 const soleTrader = { file: 'assets/sole-trader.mjs', test: individualTest };
@@ -880,6 +881,46 @@ const MUTATIONS = [
   { ...asic, name: 'ASIC weekend refusal runs to the Thursday', find: 'weekday === 6 ? day + 4 : weekday === 0 ? day + 3 : null', replace: 'weekday === 6 ? day + 5 : weekday === 0 ? day + 4 : null' },
   { ...asic, name: 'ASIC impossible dates roll over', find: '&& date.getUTCMonth() === month - 1 && date.getUTCDate() === day)', replace: ')' },
   { ...asic, name: 'ASIC inherited keys pass as fees', find: 'const entry = Object.hasOwn(ASIC_FEES, fee) ? ASIC_FEES[fee] : null;', replace: '// @ts-ignore\n  const entry = ASIC_FEES[fee] ?? null;' },
+  { ...workExpenses, name: 'work expenses fixed rate 70c from 2024-25 is 67c', find: '\'2024-25\': { fixed: 70 }', replace: '\'2024-25\': { fixed: 67 }' },
+  { ...workExpenses, name: 'work expenses 2022-23 keeps the 80c shortcut', find: '\'2022-23\': { fixed: 67 }', replace: '\'2022-23\': { fixed: 67, shortcut: 80 }' },
+  { ...workExpenses, name: 'work expenses 52c rate is 67c', find: '\'2021-22\': { fixed: 52, shortcut: 80 }', replace: '\'2021-22\': { fixed: 67, shortcut: 80 }' },
+  { ...workExpenses, name: 'work expenses 2026-27 cents per kilometre is 88c', find: '\'2026-27\': 91', replace: '\'2026-27\': 88' },
+  { ...workExpenses, name: 'work expenses 2022-23 cents per kilometre is 72c', find: '\'2022-23\': 78', replace: '\'2022-23\': 72' },
+  { ...workExpenses, name: 'work expenses kilometre cap is 5,085', find: 'export const KILOMETRE_CAP = 5000;', replace: 'export const KILOMETRE_CAP = 5085;' },
+  { ...workExpenses, name: 'work expenses kilometres past the cap count', find: 'const counted = kilometres < cap ? kilometres : cap;', replace: 'const counted = kilometres;' },
+  { ...workExpenses, name: 'work expenses reduction is $200', find: 'export const SELF_EDUCATION_REDUCTION = 250;', replace: 'export const SELF_EDUCATION_REDUCTION = 200;' },
+  { ...workExpenses, name: 'work expenses reduction runs into 2022-23', find: 'function selfEducation(facts, year, first) {\n  const early = first < 2022;', replace: 'function selfEducation(facts, year, first) {\n  const early = first < 2023;' },
+  { ...workExpenses, name: 'work expenses category E does not offset the $250', find: 'const offset = c + d + e;', replace: 'const offset = c + d;' },
+  { ...workExpenses, name: 'work expenses reduced category A goes negative', find: 'const reduced = a > reduction ? a - reduction : 0n;', replace: 'const reduced = a - reduction;' },
+  { ...workExpenses, name: 'work expenses general study is deductible', find: '[\'maintains_or_improves_skills\', \'increases_income\'].includes', replace: '[\'maintains_or_improves_skills\', \'increases_income\', \'general_only\'].includes' },
+  { ...workExpenses, name: 'work expenses not employed is deductible', find: 'const connected = employed && ', replace: 'const connected = ' },
+  { ...workExpenses, name: 'work expenses cleaning beside the 52c rate', find: '(early ? [\'phone\', \'internet\', \'stationery\', \'asset_decline\', \'repairs\']', replace: '(early ? [\'phone\', \'internet\', \'stationery\', \'cleaning\', \'asset_decline\', \'repairs\']' },
+  { ...workExpenses, name: 'work expenses energy beside the 70c rate', find: ': [\'cleaning\', \'furniture_decline\', \'asset_decline\', \'repairs\']).reduce', replace: ': [\'energy\', \'cleaning\', \'furniture_decline\', \'asset_decline\', \'repairs\']).reduce' },
+  { ...workExpenses, name: 'work expenses actual cost leaves out repairs', find: 'const HOME_AMOUNTS = [\'energy\', \'phone\', \'internet\', \'stationery\', \'cleaning\', \'furniture_decline\', \'asset_decline\', \'repairs\'];', replace: 'const HOME_AMOUNTS = [\'energy\', \'phone\', \'internet\', \'stationery\', \'cleaning\', \'furniture_decline\', \'asset_decline\'];' },
+  { ...workExpenses, name: 'work expenses hourly rate without running expenses', find: '  if (incurred && dedicated) {', replace: '  if (dedicated) {' },
+  { ...workExpenses, name: 'work expenses 52c without a dedicated home office', find: 'const dedicated = !early || flag(facts, \'dedicated_home_office\');', replace: 'const dedicated = true;' },
+  { ...workExpenses, name: 'work expenses running expense conflict not refused', find: 'if (!incurred && running.some((name) => x[name] !== 0n)) {', replace: 'if (false) {' },
+  { ...workExpenses, name: 'work expenses cleaning not a running expense before 2022-23', find: '...(early ? [\'cleaning\'] : [])', replace: '...([])' },
+  { ...workExpenses, name: 'work expenses a tie names the actual cost', find: '(m[1] > best[1] ? m : best)', replace: '(m[1] >= best[1] ? m : best)' },
+  { ...workExpenses, name: 'work expenses leap year has 365 days', find: 'const days = (first + 1) % 4 === 0 ? 366 : 365;', replace: 'const days = 365;' },
+  { ...workExpenses, name: 'work expenses log book serves 6 years', find: 'if (first - kept > 4) {', replace: 'if (first - kept > 5) {' },
+  { ...workExpenses, name: 'work expenses log book serves 4 years', find: 'if (first - kept > 4) {', replace: 'if (first - kept > 3) {' },
+  { ...workExpenses, name: 'work expenses 11 week log book', find: 'if (Number(weeks) < 12) {', replace: 'if (Number(weeks) < 11) {' },
+  { ...workExpenses, name: 'work expenses unrepresentative log book serves', find: 'if (!flag(facts, \'log_book_representative\')) {', replace: 'if (false) {' },
+  { ...workExpenses, name: 'work expenses later log book accepted', find: 'if (kept > first) refuseWorkExpenses', replace: 'if (kept > first + 1) refuseWorkExpenses' },
+  { ...workExpenses, name: 'work expenses car not held accepted', find: 'if (!flag(facts, \'owned_or_leased\')) {', replace: 'if (false) {' },
+  { ...workExpenses, name: 'work expenses business above total kilometres', find: 'if (total === 0n || business > total) {', replace: 'if (total === 0n) {' },
+  { ...workExpenses, name: 'work expenses return amount rounds', find: 'const wholeText = ({ num, den }) => `${num / den}.00`;', replace: 'const wholeText = ({ num, den }) => `${(2n * num + den) / (2n * den)}.00`;' },
+  { ...workExpenses, name: 'work expenses cents round down', find: 'const cents = (2n * num * 100n + den) / (2n * den);', replace: 'const cents = (num * 100n) / den;' },
+  { ...workExpenses, name: 'work expenses product keeps every digit', find: 'const product = significant({ c: expenses * percentage.c, e: percentage.e - 2 });', replace: 'const product = { c: expenses * percentage.c, e: percentage.e - 2 };' },
+  { ...workExpenses, name: 'work expenses reimbursed accepted', find: 'if (flag(facts, \'reimbursed\')) {', replace: 'if (false) {' },
+  { ...workExpenses, name: 'work expenses allowance accepted', find: 'if (flag(facts, \'allowance_received\')) {', replace: 'if (false) {' },
+  { ...workExpenses, name: 'work expenses amount cap raised', find: 'number(facts[name], { max: 1e12, money: true })', replace: 'number(facts[name], { max: 1e13, money: true })' },
+  { ...workExpenses, name: 'work expenses category D beside log book car accepted', find: 'if (d !== 0n && logBookCar) {', replace: 'if (false) {' },
+  { ...workExpenses, name: 'work expenses input for another method accepted', find: "if (extra) refuseWorkExpenses('input.field_unknown'", replace: "if (false) refuseWorkExpenses('input.field_unknown'" },
+  { ...workExpenses, name: 'work expenses dedicated office taken from 2022-23', find: "...(early ? ['dedicated_home_office'] : [])", replace: "'dedicated_home_office'" },
+  { ...workExpenses, name: 'work expenses category E taken without a prescribed course', find: "...(early && facts.prescribed_course === true ? ['category_e'] : [])", replace: "...(early ? ['category_e'] : [])" },
+  { ...workExpenses, name: 'work expenses 2027-28 accepted', find: '\'2025-26\', \'2026-27\'];\nexport const WORK_EXPENSES_METHODS', replace: '\'2025-26\', \'2026-27\', \'2027-28\'];\nexport const WORK_EXPENSES_METHODS' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -896,7 +937,7 @@ try {
   for (const name of readdirSync(join(root, 'assets')).filter((entry) => entry.endsWith('.mjs'))) {
     copyFileSync(join(root, 'assets', name), join(work, 'assets', name));
   }
-  for (const test of [levy.test, business.test, individualTest, 'scripts/fhss.test.mjs']) copyFileSync(join(root, test), join(work, test));
+  for (const test of [levy.test, business.test, individualTest, 'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs']) copyFileSync(join(root, test), join(work, test));
   for (const shared of ['rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators',
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
