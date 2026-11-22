@@ -1140,6 +1140,7 @@ test('rental property page works the guide’s Example 33, lists each deduction 
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toContainText('Section 26-50 denies the costs of owning a holiday home');
   await expect(deductions).toBeHidden();
+});
 
 // The super lump sum tax page's example (Schedule 12's Chloe), the member's fields that hide for a
 // death benefit, a preservation age case that asks for the low rate cap, and a refusal.
