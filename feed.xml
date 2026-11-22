@@ -8,6 +8,20 @@
   <updated>2026-11-22T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The income tax calculator now works out the private health insurance rebate…</title>
+    <link href="https://duguid.com.au/changelog/#entry-8cb888ba3e698959" />
+    <id>https://duguid.com.au/changelog/#entry-8cb888ba3e698959</id>
+    <updated>2026-11-22T00:00:00Z</updated>
+    <summary>The income tax calculator now works out the private health insurance rebate from the lines of a private health insurance statement for 2020-21 to 2026-27: the tier, each line’s percentage and entitlement, the refundable offset and any excess premium reduction to repay. It also adds the beneficiary tax offset, the invalid and invalid carer tax offset for 2020-21 to 2025-26 and the zone and overseas forces tax offsets, with the dependant and sole parent amounts they count, taken off the tax in the order the Act sets. They agree with the matching commands of the australian-accounting calculators on every tested case, and refuse what those commands refuse, such as the 2027 rebate percentages and the 2026-27 invalid carer amounts, which were not yet published. Results for the existing inputs are unchanged.</summary>
+  </entry>
+  <entry>
+    <title>A new individual tax calculator, super co-contribution, LISTO and spouse…</title>
+    <link href="https://duguid.com.au/changelog/#entry-23128dbab90350fa" />
+    <id>https://duguid.com.au/changelog/#entry-23128dbab90350fa</id>
+    <updated>2026-11-22T00:00:00Z</updated>
+    <summary>A new individual tax calculator, super co-contribution, LISTO and spouse offset, works the government’s super co-contribution, the low income super tax offset and the spouse contribution tax offset for 2020-21 to 2026-27 from one set of answers. It applies each year’s income thresholds, the $500 maximum and 3.333 cent taper, the $20 minimum, LISTO’s 15% between $10 and $500, and the spouse offset’s 18% of up to $3,000, shows each condition met or not and rounds a payment up to 5 cents. It refuses temporary visa holders and an unknown cap or balance answer that would decide an amount.</summary>
+  </entry>
+  <entry>
     <title>A new business calculator, ATO penalties and interest, works out one amount…</title>
     <link href="https://duguid.com.au/changelog/#entry-b268010fc47a1177" />
     <id>https://duguid.com.au/changelog/#entry-b268010fc47a1177</id>

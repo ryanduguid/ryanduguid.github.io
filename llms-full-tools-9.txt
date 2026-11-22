@@ -397,7 +397,7 @@ Source: https://duguid.com.au/tools/individual-tax/
 
 # Individual tax calculators
 
-Fourteen calculators for one person’s tax, pay and super, with sources for the rates and thresholds and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
+Fifteen calculators for one person’s tax, pay and super, with sources for the rates and thresholds and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
 
 Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22, salary packaging from 2022-23, novated leases from 2023-24, the withholding from a 2026-27 pay with a bonus or back payment, and super projected from 2026-27. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -422,6 +422,7 @@ Published 17 November 2026. Last checked 22 November 2026, the newest of the cal
 - Concessional catch-up calculator The concessional contributions cap with unused cap carried forward from the previous 5 years, earliest year first, and the year each amount lapses.
 - Super projection calculator Your super balance at retirement in future and today’s dollars, with every assumption stated and changeable.
 - First home super saver calculator The release, withholding and tax offset from an ATO determination, or a contribution ledger estimate with published shortfall interest charge rates.
+- Super co-contribution, LISTO and spouse offset calculator The government’s co-contribution and low income super tax offset, and the spouse contribution tax offset, for 2020-21 to 2026-27, with each condition met or not.
 
 For a business, see the business calculators.
 
@@ -443,6 +444,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
 - First home super saver calculator: https://duguid.com.au/tools/individual-tax/fhss/
+- Super co-contribution, LISTO and spouse offset calculator: https://duguid.com.au/tools/individual-tax/government-super/
 - business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
@@ -511,7 +513,7 @@ A balance a cent below $500,000 still carries forward | 2024-25, balance $499,99
 At a $500,000 balance nothing is carried forward and $10,000 is excess | 2024-25, balance $500,000.00, contributions $40,000.00; earlier 2019-20 $11,000.00, 2020-21 $12,000.00, 2021-22 $13,000.00, 2022-23 $14,000.00, 2023-24 $15,000.00 | Cap $30,000.00 with $67,500.00 unused from the previous 5 years, $0.00 applied, $10,000.00 excess; $14,000.00 lapses
 2026-27’s $32,500 cap with $17,500 carried forward, earliest first | 2026-27, balance $300,000.00, contributions $50,000.00; earlier 2021-22 $20,000.00, 2022-23 $20,000.00, 2023-24 $20,000.00, 2024-25 $20,000.00, 2025-26 $20,000.00 | Cap $75,000.00 with $42,500.00 unused from the previous 5 years, $17,500.00 applied, $0.00 excess; $0.00 lapses
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -519,7 +521,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -531,7 +533,7 @@ Source: https://duguid.com.au/tools/individual-tax/income-tax/
 
 # Income tax calculator
 
-Income tax, offsets, Medicare levy and surcharge and any study loan repayment for 2020-21 to 2026-27, and the refund or amount owing on the tax withheld.
+Income tax, offsets, Medicare levy and surcharge, the private health insurance rebate and any study loan repayment for 2020-21 to 2026-27, and the refund or amount owing on the tax withheld.
 
 Published 17 November 2026. Last checked 18 November 2026.
 
@@ -547,7 +549,11 @@ Taxable income (whole dollars) Reportable fringe benefits total (whole dollars) 
 
 Exempt foreign employment income, for a study loan (whole dollars) Days without private patient hospital cover, for you or, in a family, your spouse or a dependant Did you have a spouse all year? No Yes
 
-Spouse’s income for surcharge purposes, if you had one (whole dollars) Dependent children Tax withheld, from your income statements (dollars and cents)
+Spouse’s income for surcharge purposes, if you had one (whole dollars) Dependent children Tax withheld, from your income statements (dollars and cents) Rebatable benefits, such as JobSeeker Payment, for the beneficiary tax offset (dollars and cents) Claim the private health insurance rebate? No Yes
+
+Did you maintain an invalid or carer dependant? No Yes
+
+Zone or overseas forces tax offset None Zone A Zone B Special area in Zone A or B Overseas forces
 
 Taxable income is assessable income less deductions, as on a tax return; from 2026-27 those include the standard deduction of up to $1,000 for work-related expenses that the ATO applies. For a person who is not entitled to the seniors and pensioners tax offset. Enter 0 for any amount you do not have.
 
@@ -556,6 +562,8 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 ## How the income tax calculator works
 
 The income tax calculator works out one individual’s tax for a full income year from 2020-21 to 2026-27: the tax on taxable income at the year’s rates, the offsets, the Medicare levy and the Medicare levy surcharge. The offsets are the low income tax offset and, for 2020-21 and 2021-22, the low and middle income tax offset. It then takes that total, and any study or training loan repayment, from the tax withheld you enter, to estimate a refund or an amount owing.
+
+It can also work out the beneficiary tax offset, the invalid and invalid carer tax offset, the zone or overseas forces tax offset and the private health insurance rebate. The first 3 come off the tax but not below nil. The rebate is worked from your private health insurance statement: what you were entitled to at your tier, less the premium reduction you received, comes off the total and can make it negative; a premium reduction above your entitlement is added to the total.
 
 An Australian resident pays nothing on the first $18,200 and then each part of taxable income at its rate. The low income tax offset of up to $700 comes off a resident’s tax, but not below nil. The Medicare levy is 2% of a resident’s taxable income; up to the low-income threshold there is none, and from there to the phase-in limit it is 10% of the income over the threshold, if that is less. The ATO’s example on Medicare levy reduction for low-income earners, read 17 November 2026, gives Angie, single with $29,000 of taxable income in 2025-26, a levy of $98.90, as this calculator does.
 
@@ -568,8 +576,9 @@ For 2026-27 the Medicare levy thresholds are those the Act held on 17 November 2
 The calculator gives the tax of one person who was a resident, a foreign resident or a working holiday maker for the whole year. It does not compute:
 
 - the Medicare levy reduction for families, which depends on family taxable income and dependants, or a Medicare levy exemption;
-- the seniors and pensioners tax offset and its higher Medicare levy thresholds, or any other offset, such as for private health insurance, dependants or super contributions;
-- a change of family or cover status during the year beyond the days without cover, the private health insurance rebate, a spouse’s trust income that the surcharge test adds, the net amount on which family trust distribution tax has been paid, which counts in income for surcharge purposes and in the amount the surcharge is levied on, or exempt foreign employment income, which the ATO’s surcharge page adds to income for surcharge purposes when taxable income is $1 or more;
+- the seniors and pensioners tax offset and its higher Medicare levy thresholds, the net medical expenses tax offset, which ended after 2018-19, or any other offset, such as for super contributions or foreign income tax;
+- for the rebate, a lifetime health cover loading, a policy for dependants only, a claim of a spouse’s share, or dependent children for a person with no spouse who maintained no dependant; for the invalid carer offset, shared maintenance, Family Tax Benefit Part B shared care or successive spouses; for the zone offset, shared maintenance or more than one area;
+- a change of family or cover status during the year beyond the days without cover, a spouse’s trust income that the surcharge test adds, the net amount on which family trust distribution tax has been paid, which counts in income for surcharge purposes and in the amount the surcharge is levied on, or exempt foreign employment income, which the ATO’s surcharge page adds to income for surcharge purposes when taxable income is $1 or more;
 - a first home super saver released amount, which is taxed with a 30% offset but left out of repayment income and income for surcharge purposes, or, for 2023-24 and earlier, the taxed element of a super lump sum up to the low rate cap, which a person from preservation age to under 60 could leave out of income for surcharge purposes;
 - a study loan debt smaller than the repayment: the repayment cannot exceed what is still owed (section 154-20(1)(c) of the Higher Education Support Act 2003), which the calculator does not ask for;
 - a part-year resident’s reduced tax-free threshold, a working holiday maker who is an Australian resident, or one with other income besides working holiday taxable income;
@@ -611,7 +620,7 @@ Own income at the Medicare threshold amount: nil whatever the spouse earns | 202
 Foreign resident: no surcharge | 2026-27, foreign resident, taxable income $200,000, 365 days without hospital cover, withheld $0.00 | Tax $65,350.00, offset $0.00, Medicare levy $0.00, surcharge $0.00, total $65,350.00, owing $65,350.00
 Study loan with withholding short: an amount owing | 2026-27, Australian resident, taxable income $90,000, study loan, withheld $19,500.50 | Tax $17,520.00, offset $0.00, Medicare levy $1,800.00, surcharge $0.00, study loan $3,070.80, total $22,390.80, owing $2,890.30
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -621,7 +630,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -713,7 +722,7 @@ Above the cap and in Division 293 | 2026-27, Australian resident, $260,000 a yea
 2021-22 fortnightly: withholding leaves the low and middle income tax offset to the return | 2021-22, Australian resident, $3,000 a fortnight plus super | Take-home $62,123.00 a year, $2,389.35 a fortnight; super $7,800.00; withheld $670.00 a pay, refund $1,543.00
 2025-26 fortnightly with a study loan: Schedule 8 from 24 September 2025 | 2025-26, Australian resident, $3,000 a fortnight plus super, study loan | Take-home $60,602.00 a year, $2,330.85 a fortnight; super $9,360.00; withheld $672.00 a pay, refund $74.00
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -725,7 +734,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -792,7 +801,7 @@ A recent year that was a rebate year itself is adjusted both ways | 2025-26, tax
 2016-17’s arrears above $180,000 carry the 2% budget repair levy | 2025-26, taxable $100,000.00; 2016-17 $10,000.00 on $200,000.00 | Tax on arrears $3,000.00, notional tax $4,700.00, offset $0.00
 2026-27’s 15% band: $20,000 from 2024-25 at 16% and 30% against 30% and 37% | 2026-27, taxable $150,000.00; 2024-25 $20,000.00 on $30,000.00 | Tax on arrears $7,050.00, notional tax $3,900.00, offset $3,150.00
 
-One of the fourteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -800,4 +809,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- fourteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
