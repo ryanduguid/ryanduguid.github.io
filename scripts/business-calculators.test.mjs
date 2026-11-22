@@ -743,6 +743,18 @@ Object.assign(ENGINE_LABELS, { atoPenaltiesInterest: { gic: 'GIC', balance: 'bal
 Object.assign(ENGINE_LABELS, { asicFee: { amount: (v) => `fee ${dollars(v)}`, code: (v) => `ASIC code ${v}`, tier: (v) => v,
   firstMonthEnds: (v) => `first month ends ${longDay(v)}` } });
 
+// The depreciation pools page's rows (its tests are with the page's other tests below).
+const poolAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+Object.assign(INPUTS, Object.fromEntries(['lowValuePool', 'smallBusinessPool', 'capitalWorks']
+  .map((name) => [name, (x) => calculations.poolInputsText(name, x, poolAud)])));
+Object.assign(ENGINE_LABELS, {
+  lowValuePool: { declineInValue: (v) => `decline in value ${dollars(v)}`, closingPoolBalance: (v) => `closing pool balance ${dollars(v)}`,
+    assessableExcess: (v) => `assessable excess ${dollars(v)}` },
+  smallBusinessPool: { deduction: (v) => `deduction ${dollars(v)}`, assessableIncome: (v) => `assessable income ${dollars(v)}`,
+    closingPoolBalance: (v) => `closing pool balance ${dollars(v)}` },
+  capitalWorks: { deduction: (v) => `deduction ${dollars(v)}` },
+});
+
 // The wine equalisation tax page's rows (its tests are with the page's other tests below).
 Object.assign(INPUTS, { wineEqualisationTax: (x) => calculations.wetInputsText(x,
   (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
@@ -1186,6 +1198,8 @@ Object.assign(FORM_CALLS, {
 });
 Object.assign(FORM_CALLS, { asicFee: (f) => [calculations.asicFeeFormInput((name) => f[name] ?? '')] });
 Object.assign(FORM_CALLS, { atoPenaltiesInterest: (f) => [calculations.atoPenaltiesFormInput((name) => f[name] ?? '')] });
+
+Object.assign(FORM_CALLS, { lowValuePool: (f) => [calculations.poolFormInput((name) => f[name] ?? '').input] });
 
 Object.assign(FORM_CALLS, { wineEqualisationTax: (f) => [calculations.wetFormInput((name) => f[name] ?? '')] });
 
@@ -5341,6 +5355,178 @@ test('fuel tax credits agree with the australian-accounting command on every dif
     const r = calculations.fuelTaxCredits(call);
     assert.deepEqual({ fuel_tax_credits: r.total.toFixed(2), label_7d: `${r.label7d}.00`, lines: r.lines.map((l) => l.credit.toFixed(2)),
       time_limit_lines: r.timeLimitLines?.map(String) ?? null }, amounts, source);
+  }
+});
+
+// The depreciation pools page: the ATO's worked examples, each year's low pool value threshold, the rounding the
+// commands use, the form's narrowing of their input and the commands this page ports.
+const poolHtml = readFileSync(new URL('../_includes/calculators/depreciation-pools.html', import.meta.url), 'utf8');
+const lowPool = (year, previous, lowCost, lowValue = '0', second = '0', termination = '0') => calculations.lowValuePool({ year,
+  previous_closing_pool_balance: previous, low_cost_assets: lowCost, low_value_assets: lowValue, second_element_costs: second,
+  termination_values: termination });
+const sbPool = (year, opening, additions = '0', cost = '0', termination = '0') => calculations.smallBusinessPool({ year,
+  opening_pool_balance: opening, additions, cost_additions: cost, termination_values: termination });
+const works = (year, expenditure, start, four, days, use, undeducted) => calculations.capitalWorks({ year,
+  construction_expenditure: expenditure, construction_start: start, four_percent_manner: four, days_used: days, taxable_use: use,
+  undeducted_construction_expenditure: undeducted });
+const poolCode = (run) => {
+  try {
+    run();
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+
+test('the depreciation pools page opens on the ATO’s John and dates its sources', () => {
+  const example = poolHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(poolHtml);
+  const result = calculations.depreciationPoolsResult((name) => fields[name] ?? '', poolAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  for (const cited of ['Low-value pool</a> (last updated 26 June 2025)', 'Guide to depreciating assets 2026</a> (John’s printer), read 22 November 2026',
+    'Small business pool calculations</a> (last updated 16 June 2025)', 'LCR 2021/3</a> (example 13), read 22 November 2026',
+    '($20,000 for income years ending 1 July 2023 to 30 June 2026)', '(no limit for income years ending 6 October 2020 to 30 June 2023)',
+    'Treasury Laws Amendment (Tax Reform No. 2) Act 2026</a> ($20,000 for income years ending on or after 1 July 2026)']) {
+    assert.ok(poolHtml.includes(cited), cited);
+  }
+  assert.deepEqual(calculations.POOL_YEARS, [...poolHtml.match(/<select name="year"[^>]*>(.*?)<\/select>/s)[1].matchAll(/value="([^"]+)"/g)]
+    .map(([, year]) => year).reverse());
+});
+
+// Guide to depreciating assets 2026: John's $594 printer into a pool closing at $5,000 ('$111', '$1,875', '$1,986',
+// '$3,608'); the ATO's 'Low-value pool' examples 2 and 3 ('$1,353', '$300', '$1,955'), read 22 November 2026.
+test('the low-value pool follows the ATO’s examples and rounds the decline once', () => {
+  const john = lowPool('2025-26', '5000.00', '594.00');
+  assert.deepEqual([john.newAssetsDecline, john.poolDecline, john.declineInValue, john.closingPoolBalance], [111.38, 1875, 1986.38, 3607.62]);
+  const sale = lowPool('2021-22', '3608.00', '0', '0', '0', '300.00');
+  assert.deepEqual([sale.declineInValue, sale.closingBeforeDisposals, sale.closingPoolBalance, sale.assessableExcess], [1353, 2255, 1955, 0]);
+  const mixed = lowPool('2026-27', '1000.00', '0', '800.00', '400.00');
+  assert.deepEqual([mixed.newAssetsDecline, mixed.poolDecline, mixed.declineInValue, mixed.closingPoolBalance], [75, 675, 750, 1450]);
+  const excess = lowPool('2023-24', '1000.00', '0', '0', '0', '1000.00');
+  assert.deepEqual([excess.closingPoolBalance, excess.assessableExcess], [0, 375]);
+  // 0.1875 and 0.375 of a cent each round to nil, but their sum, 0.5625 of a cent, rounds to 1 cent.
+  const cent = lowPool('2025-26', '0.01', '0.01');
+  assert.deepEqual([cent.newAssetsDecline, cent.poolDecline, cent.declineInValue, cent.closingBeforeDisposals], [0, 0, 0.01, 0.01]);
+  assert.deepEqual([lowPool('2022-23', '1', '0').warnings.length, lowPool('2023-24', '1', '0').warnings.length], [1, 0]);
+});
+
+// ATO 'Small business pool calculations', example 2 (Loretta), the s 328-210 example (Cassidy's Gardens) and LCR 2021/3
+// example 13, read 22 November 2026.
+test('the small business pool follows the ATO’s examples and each year’s low pool value threshold', () => {
+  const loretta = sbPool('2025-26', '100000.00', '28000.00', '0', '8000.00');
+  assert.deepEqual([loretta.lowPoolValueAmount, loretta.poolDeduction, loretta.newAssetDeduction, loretta.deduction, loretta.closingPoolBalance],
+    [120000, 30000, 4200, 34200, 85800]);
+  const cassidy = sbPool('2024-25', '28500.00', '16800.00', '0', '29600.00');
+  assert.deepEqual([cassidy.outcome, cassidy.lowPoolValueDeduction, cassidy.closingPoolBalance], ['written_off', 15700, 0]);
+  assert.deepEqual([sbPool('2020-21', '200000.00').deduction, sbPool('2022-23', '1000000.00').outcome], [200000, 'written_off']);
+  for (const year of calculations.POOL_YEARS) {
+    const full = ['2020-21', '2021-22', '2022-23'].includes(year);
+    assert.equal(sbPool(year, '19999.99').outcome, 'written_off', year);
+    assert.equal(sbPool(year, '20000.00').outcome, full ? 'written_off' : 'rated', year);
+    assert.equal(sbPool(year, '20000.00').threshold, full ? null : 20000, year);
+  }
+  const below = sbPool('2026-27', '10000.00', '0', '0', '15000.00');
+  assert.deepEqual([below.outcome, below.deduction, below.assessableIncome, below.closingPoolBalance], ['below_zero', 0, 5000, 0]);
+  const over = sbPool('2026-27', '1000000.00', '0', '0', '950000.00');
+  assert.deepEqual([over.deduction, over.assessableIncome, over.closingPoolBalance], [300000, 250000, 0]);
+  // Each deduction is rounded to the cent before they are added: 6,000.015, 0.015 and 0.015 make 6,000.06, not 6,000.05.
+  const cents = sbPool('2026-27', '20000.05', '0.10', '0.10');
+  assert.deepEqual([cents.poolDeduction, cents.newAssetDeduction, cents.costAdditionDeduction, cents.deduction], [6000.02, 0.02, 0.02, 6000.06]);
+  assert.equal(poolCode(() => sbPool('2020-21', '0', '1000.00', '0', '1000.00')), 'depreciation_small_business_pool.backing_business_investment');
+  assert.equal(sbPool('2021-22', '0', '1000.00', '0', '1000.00').deduction, 150);
+});
+
+// ATO 'Rental properties 2026', example 29: '$115,800 × 346/365 × 2.5% = $2,744', read 22 November 2026.
+test('capital works follow the ATO’s example 29 and count days over 365', () => {
+  const example = works('2025-26', '115800.00', '1991-08-01', false, 346, '1', '20000.00');
+  assert.deepEqual([example.rateAmount, example.deduction, example.provision, example.rate], [2744.3, 2744.3, '43-215', '2.5']);
+  assert.equal(Math.round(example.deduction), 2744);
+  assert.equal(works('2023-24', '365000.00', '2010-01-01', false, 366, '1', '300000.00').deduction, 9150);
+  const four = works('2026-27', '1000000.00', '2024-01-01', true, 365, '0.5', '900000.00');
+  assert.deepEqual([four.rateAmount, four.reducedAmount, four.provision, four.rate], [40000, 20000, '43-210', '4']);
+  const limited = works('2025-26', '100000.00', '1990-01-01', false, 365, '1', '1000.00');
+  assert.deepEqual([limited.rateAmount, limited.deduction, limited.limited], [2500, 1000, true]);
+  // Works begun on 1 January 2025 can be used for at most the 181 days to 30 June 2025, and none in the year before.
+  assert.equal(works('2024-25', '100.00', '2025-01-01', false, 181, '1', '100.00').deduction, 1.24);
+  assert.equal(poolCode(() => works('2024-25', '100.00', '2025-01-01', false, 182, '1', '100.00')), 'input.day_count_invalid');
+  assert.equal(poolCode(() => works('2023-24', '100.00', '2025-01-01', false, 1, '1', '100.00')), 'input.day_count_invalid');
+  assert.equal(poolCode(() => works('2025-26', '100.00', '2000-01-01', false, 366, '1', '100.00')), 'input.day_count_invalid');
+  for (const [start, four, code] of [['1987-09-15', false, 'capital_works.begun_before_16_september_1987'], ['1987-09-16', false, 'computed'],
+    ['1992-02-26', true, 'capital_works.four_percent_before_27_february_1992'], ['1992-02-27', true, 'computed'], ['2023-02-29', false, 'input.date_invalid']]) {
+    assert.equal(poolCode(() => works('2025-26', '100.00', start, four, 365, '1', '100.00')), code, start);
+  }
+  assert.equal(works('2025-26', '100.00', '1992-02-26', false, 365, '1', '100.00').provision, '43-215');
+  assert.equal(works('2025-26', '100.00', '1992-02-27', false, 365, '1', '100.00').provision, '43-210');
+  assert.equal(poolCode(() => works('2025-26', '100.00', '2000-01-01', false, 365, '1.0001', '100.00')), 'input.fraction_invalid');
+  assert.equal(poolCode(() => works('2025-26', '100.00', '2000-01-01', false, 365, '0.123456789012345678901', '100.00')), 'capital_works.precision_exceeded');
+  assert.equal(poolCode(() => works('2025-26', '100.00', '2000-01-01', false, 365, '1', '100.01')), 'capital_works.undeducted_above_expenditure');
+});
+
+test('the depreciation pools worksheets refuse what the commands refuse', () => {
+  const base = { year: '2025-26', previous_closing_pool_balance: '1', low_cost_assets: '0', low_value_assets: '0', second_element_costs: '0', termination_values: '0' };
+  const code = (input) => poolCode(() => calculations.lowValuePool(input));
+  assert.equal(code(base), 'computed');
+  assert.equal(code({ ...base, scope_confirmed: true }), 'computed');
+  assert.equal(code({ ...base, scope_confirmed: false }), 'scope.not_confirmed');
+  assert.equal(code({ ...base, pool: '1' }), 'input.field_unknown');
+  const { termination_values: _, ...missing } = base;
+  assert.equal(code(missing), 'input.missing_field');
+  for (const year of ['2019-20', '2027-28']) assert.equal(code({ ...base, year }), 'period.unsupported', year);
+  for (const amount of ['-1.00', '1.001', '1000000000000.01']) assert.equal(code({ ...base, low_cost_assets: amount }), 'input.amount_invalid', amount);
+  assert.equal(code({ ...base, low_cost_assets: '1000000000000.00' }), 'computed');
+});
+
+test('the depreciation pools form passes each worksheet’s fields and reads them back', () => {
+  const fields = formDefaults(poolHtml);
+  const input = (more) => calculations.poolFormInput((name) => ({ ...fields, ...more })[name] ?? '');
+  assert.deepEqual(input({}), { worksheet: 'lowValuePool', input: { previous_closing_pool_balance: '5000', low_cost_assets: '594',
+    low_value_assets: '0', second_element_costs: '0', termination_values: '0', year: '2025-26' } });
+  assert.deepEqual(input({ worksheet: 'small-business-pool' }).input, { opening_pool_balance: '100000', additions: '28000',
+    cost_additions: '0', termination_values: '8000', year: '2025-26' });
+  const worksIn = input({ worksheet: 'capital-works' });
+  assert.deepEqual(worksIn.input, { construction_expenditure: '115800', construction_start: '1991-08-01', four_percent_manner: false,
+    days_used: 346, taxable_use: '1.0000', undeducted_construction_expenditure: '20000', year: '2025-26' });
+  for (const [use, fraction] of [['50', '0.5000'], ['12.34', '0.1234'], ['0', '0.0000'], ['100.01', '1.0001'], ['abc', ''], ['1.234', '']]) {
+    assert.equal(input({ worksheet: 'capital-works', use }).input.taxable_use, fraction, use);
+  }
+  assert.equal(input({ worksheet: 'capital-works', days: '3.5' }).input.days_used, '3.5');
+  const result = (more) => calculations.depreciationPoolsResult((name) => ({ ...fields, ...more })[name] ?? '', poolAud);
+  const sb = result({ worksheet: 'small-business-pool' });
+  assert.deepEqual([sb.rows[sb.principal], sb.note], [['Deduction', '$34,200.00'],
+    'The low pool value threshold for 2025-26 is $20,000: an amount above zero and below it is written off']);
+  const cw = result({ worksheet: 'capital-works', use: '50', manner: 'no' });
+  assert.equal(cw.inputs, '2025-26 capital works; construction expenditure $115,800.00, begun 1 August 1991, not used in the 4% manner, '
+    + '346 days used, taxable use 50%, undeducted construction expenditure $20,000.00');
+  assert.deepEqual([cw.rows[1], cw.rows[2], cw.note], [['Reduced to the taxable use of 50%', '$1,372.15'], ['Capital works deduction', '$1,372.15'],
+    'Worked under section 43-215']);
+  assert.throws(() => result({ worksheet: 'capital-works', use: '101' }), { message: 'Enter the taxable use from 0% to 100%.' });
+  assert.match(result({ year: '2021-22' }).note, /^2020-21 to 2022-23 are temporary full expensing years/);
+});
+
+// The commands this page ports, run on the same cases: see the fixture's engine line.
+test('depreciation pools agree with the australian-accounting commands on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./depreciation-pools-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length > 300);
+  const run = { 'depreciation-low-value-pool': calculations.lowValuePool, 'depreciation-small-business-pool': calculations.smallBusinessPool,
+    'capital-works': calculations.capitalWorks };
+  const f = (v) => Number(v).toFixed(2);
+  for (const { source, command, call, amounts, rates, refused } of cases) {
+    if (refused) {
+      assert.equal(poolCode(() => run[command](call)), refused, source);
+      continue;
+    }
+    const r = run[command](call);
+    const mine = {
+      'depreciation-low-value-pool': () => ({ new_assets_decline: r.newAssetsDecline, pool_decline: r.poolDecline, decline_in_value: r.declineInValue,
+        closing_before_disposals: r.closingBeforeDisposals, closing_pool_balance: r.closingPoolBalance, assessable_excess: r.assessableExcess }),
+      'depreciation-small-business-pool': () => ({ low_pool_value_amount: r.lowPoolValueAmount, low_pool_value_deduction: r.lowPoolValueDeduction,
+        pool_deduction: r.poolDeduction, new_asset_deduction: r.newAssetDeduction, cost_addition_deduction: r.costAdditionDeduction,
+        deduction: r.deduction, assessable_income: r.assessableIncome, closing_pool_balance: r.closingPoolBalance }),
+      'capital-works': () => ({ rate_amount: r.rateAmount, reduced_amount: r.reducedAmount, deduction: r.deduction }),
+    }[command]();
+    assert.deepEqual(Object.fromEntries(Object.entries(mine).map(([key, value]) => [key, f(value)])), amounts, source);
+    if (command === 'depreciation-small-business-pool') assert.equal(String(r.threshold ?? 'none'), rates.low_pool_value_threshold, source);
+    if (command === 'capital-works') assert.equal(Number(rates.rate) * 100, Number(r.rate), source);
   }
 });
 

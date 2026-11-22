@@ -10,7 +10,7 @@ The Income Tax Assessment (Effective Life of Depreciating Assets) Determination 
 
 General information, not tax advice. The search and the calculator run in your browser. The figures you enter stay there unless you open a link to the calculation. A search is kept in the page address so that it can be linked. An address holding a search or a calculation reaches this site’s host when it is opened.
 
-Published 14 November 2026. Last reviewed 14 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Last reviewed 22 November 2026. Sources checked 13 November 2026.
 
 On this page: find an asset, browse the tables, work out a year’s deduction, which determination applies, how a life becomes a rate, capped lives, pools, write-offs and the car limit, capital works, common questions, source and licence, changes and corrections and limits.
 
@@ -467,7 +467,7 @@ Tractor | Primary production sector | 6 2/3 years | 1 July 2007
 
 ## Pools, write-offs and the car limit
 
-Four rules can replace or limit a deduction worked out from an effective life. Each is stated from the law in force on 1 October 2026, with the ATO’s figure where one is named.
+Four rules can replace or limit a deduction worked out from an effective life. Each is stated from the law in force on 1 October 2026, with the ATO’s figure where one is named. The depreciation pools calculator works out a low-value pool or a general small business pool for 2020-21 to 2026-27.
 
 ### Low-value pool
 
@@ -493,7 +493,7 @@ The cost of a car designed mainly for carrying passengers is reduced to the car 
 
 Construction costs of capital works are deducted under Division 43 and not by effective life: 2.5% a year for works begun after 26 February 1992, or 4% for parts used in the ways Table 43-145 lists (section 43-25). Those uses include short-term traveller accommodation and industrial activities and, for works begun after 7:30 pm by legal time in the Australian Capital Territory on 9 May 2023, build to rent.
 
-Works begun before 27 February 1992 and used as Table 43-140 describes take 4% if begun after 21 August 1984 and before 16 September 1987, and 2.5% in any other case (subsection 43-25(2)). The ATO’s Rental properties 2026 guide shows no deduction for construction started before 22 August 1979. No deduction is available for a period before construction is complete (section 43-30).
+Works begun before 27 February 1992 and used as Table 43-140 describes take 4% if begun after 21 August 1984 and before 16 September 1987, and 2.5% in any other case (subsection 43-25(2)). The ATO’s Rental properties 2026 guide shows no deduction for construction started before 22 August 1979. No deduction is available for a period before construction is complete (section 43-30). The depreciation pools calculator works out a capital works deduction for works begun from 16 September 1987.
 
 ## Common questions
 
@@ -531,6 +531,7 @@ The rules beyond the tables were read on 13 November 2026 in the Income Tax Asse
 
 Changes to this page are listed here, newest first.
 
+- 22 November 2026: the pools and capital works sections link to the new depreciation pools calculator.
 - 14 November 2026: the calculator takes a taxable use percentage and shows both methods side by side, and a drawn schedule can be copied as a citation or a link, downloaded as CSV or printed; the citation gives the day the determination was read and what subsection 40-95(2) means for the start date. The page names the determination in full as LI 2025/20 and says when TR 2022/1 was withdrawn.
 - 14 November 2026: published with the 7,430 lives of the 2025 determination, read on 13 November 2026.
 
@@ -807,6 +808,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Effective life determinations, rulings and law: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/general-depreciation-rules-capital-allowances/effective-life-of-an-asset/effective-life-determinations-rulings-and-law
 - TR 2022/1W: https://www.ato.gov.au/law/view/document?docid=TXR/TR20221W/NAT/ATO/00001
 - LI 2025/20: https://www.ato.gov.au/law/view/document?docid=OPS/LI202520/00001
+- depreciation pools calculator: https://duguid.com.au/tools/business-calculators/depreciation-pools/
 - Car limit for depreciation: https://duguid.com.au/rates/car-limit/
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

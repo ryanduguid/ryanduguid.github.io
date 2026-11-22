@@ -128,9 +128,6 @@
     "tools/business-calculators/asic-fees/index.html": [
       "1695328325c3bd061d256303275f3872f33eaa53076df801b420bfcb01529583"
     ],
-    "tools/business-calculators/ato-penalties-interest/index.html": [
-      "592fbbb8d1e37a1adce4365603775eb8bd730e183acf22945fe43918924a9d15"
-    ],
     "tools/business-calculators/borrowing-expenses/index.html": [
       "6f8f8003512eb912605cb8e0644a74b9a2716e82770a6faec7695fa7caa25a65"
     ],
@@ -154,6 +151,9 @@
     ],
     "tools/business-calculators/company-tax/index.html": [
       "155b3eeb04ab0ceebe1358bb675f36c70e7172272c21744cbe7fc35886380d55"
+    ],
+    "tools/business-calculators/depreciation-pools/index.html": [
+      "e5037eba3039d5730d92e9ec6f1848e8537be915ac3693ef4ee57f341263ad14"
     ],
     "tools/business-calculators/div7a-schedule/index.html": [
       "5669d109570ff27fcc7e428d73f432f8a2ca8cbc6b008ff56756d64e0874afda"
@@ -285,7 +285,7 @@
       "965f8288b5d2e33a4bf80989a07d4cdf6f2a31a9fbc1a2e6413016af297cdad3"
     ],
     "tools/depreciation-rates/index.html": [
-      "4b093d1b163d18db86ec4cd04284a6f3e810055781c60a4e325bd78f5b6b6075"
+      "6e5cc4539b61882181bb7233c05687c8212cf2b35562639d0d2b353f4665c777"
     ],
     "tools/index.html": [
       "a90b2d0af203356541db6ead18334c8e45fd761cda4e2a4d796d0dc632baaf7f"
@@ -397,9 +397,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "fbfc7b339c50a08b6074db93ecb5580dde6b4011d8e18f4ce756fac1677dbd03",
+    "llms.txt": "cec9b2e549e31031ff2473d860b6bb22c7d253ce44b70b93b1c54843fe28d9f7",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "66bd5e1c29b215b1794c4ebcae625462e4871d35f4f60ea46355751461426d18"
+    "sitemap.xml": "422a3745ea2fe8393073c8c3417cbf993ae8f0653ea5136263569cb289cdf2db"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
