@@ -56,6 +56,7 @@ const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
 const salaryDividend = { ...business, file: 'assets/salary-dividend.mjs' };
 const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
+const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
 const wet = { ...business, file: 'assets/wine-equalisation-tax.mjs' };
 const leave = { ...business, file: 'assets/unused-leave.mjs' };
 const asic = { ...business, file: 'assets/asic-fees.mjs' };
@@ -734,6 +735,24 @@ const MUTATIONS = [
   { ...ftc, name: 'FTC simplified methods pass without the small claimant test', find: 'if (!input.small_claimant) {', replace: 'if (false) {' },
   { ...ftc, name: 'FTC Method 1 takes LPG', find: "const LIQUID = ['diesel',", replace: "const LIQUID = ['lpg', 'diesel'," },
   { ...ftc, name: 'FTC the time limit runs 5 years', find: 'Number(acquired.slice(0, 4)) + 4}', replace: 'Number(acquired.slice(0, 4)) + 5}' },
+  { ...lct, name: 'LCT rate at 30%', find: 'ratioCents(over * 330n, 1100n)', replace: 'ratioCents(over * 300n, 1100n)' },
+  { ...lct, name: 'LCT GST left in the value', find: 'ratioCents(over * 330n, 1100n)', replace: 'ratioCents(over * 33n, 100n)' },
+  { ...lct, name: 'LCT truncates the cents', find: 'ratioCents(over * 330n, 1100n)', replace: '(over * 330n) / 1100n' },
+  { ...lct, name: 'LCT a car at the threshold pays tax', find: 'const over = nil(c.value - t.cents);', replace: 'const over = nil(c.value - t.cents + 1n);' },
+  { ...lct, name: 'LCT the 7 litre rating continues from 1 July 2025', find: '&& !c.usedBefore ? 350n : 700n', replace: '&& !c.usedBefore ? 700n : 700n' },
+  { ...lct, name: 'LCT item 4(2) ignored', find: 'c.year >= \'2025-26\' && !c.usedBefore', replace: 'c.year >= \'2025-26\'' },
+  { ...lct, name: 'LCT a car rated exactly at the limit is not fuel efficient', find: 'c.rating !== null && c.rating <= limit', replace: 'c.rating !== null && c.rating < limit' },
+  { ...lct, name: 'LCT 2026-27 keeps the 2025-26 threshold', find: '[\'2026-27\', 91661, 80809]', replace: '[\'2026-27\', 91661, 80567]' },
+  { ...lct, name: 'LCT earlier tax on the car ignored on a sale', find: 'const payable = nil(tax - l.previous);\n        Object.assign(out, { payable:', replace: 'const payable = nil(tax);\n        Object.assign(out, { payable:' },
+  { ...lct, name: 'LCT importation tax reported at 1E', find: 'if (l.kind === \'importation\') sums.imports += tax;', replace: 'if (l.kind === \'importation\') sums.sales += tax;' },
+  { ...lct, name: 'LCT price adjustment sign reversed', find: 'if (change < 0n) {', replace: 'if (change > 0n) {' },
+  { ...lct, name: 'LCT label 1E rounds the cents', find: 'label1e: Number((sums.sales + sums.up) / 100n)', replace: 'label1e: Number((sums.sales + sums.up + 50n) / 100n)' },
+  { ...lct, name: 'LCT label 1F takes increasing adjustments', find: 'label1f: Number(sums.down / 100n)', replace: 'label1f: Number((sums.down + sums.up) / 100n)' },
+  { ...lct, name: 'LCT refund cap at $3,000', find: 'const REFUND_CAP = 1000000n;', replace: 'const REFUND_CAP = 300000n;' },
+  { ...lct, name: 'LCT refund for a car that is not refund-eligible', find: '!l.eligible ? 0n :', replace: 'false ? 0n :' },
+  { ...lct, name: 'LCT 2 primary producer refunds pass', find: 'if (primary.length > 1) {', replace: 'if (primary.length > 2) {' },
+  { ...lct, name: 'LCT a refund before 1 July 2019 passes', find: 'if (supplyYear(fields, n, year) < \'2019-20\') {', replace: 'if (supplyYear(fields, n, year) < \'2012-13\') {' },
+  { ...lct, name: 'LCT an adjustment without its supply year takes the period', find: '&& !Object.hasOwn(fields, \'supplied_in\')) {\n    refuse(\'input.missing_field\'', replace: '&& false) {\n    refuse(\'input.missing_field\'' },
   { ...wet, name: 'WET at 28%', find: 'ratioCents(cents * 29n, 100n)', replace: 'ratioCents(cents * 28n, 100n)' },
   { ...wet, name: 'WET half retail takes the whole retail price', find: 'ratioCents(v.price, 2n)', replace: 'v.price' },
   { ...wet, name: 'WET average wholesale price ignores the dealing quantity', find: 'ratioCents(v.price * /** @type {bigint} */ (v.quantity),', replace: 'ratioCents(v.price,' },
@@ -858,6 +877,7 @@ try {
     '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
     'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
     'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
+    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/luxury-car-tax-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/wine-equalisation-tax-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
     'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json']) {
     cpSync(join(root, shared), join(work, shared), { recursive: true });
