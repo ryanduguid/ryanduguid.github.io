@@ -39,6 +39,9 @@ const rebate = { file: 'assets/private-health-rebate.mjs', test: individualTest 
 const offsets = { file: 'assets/individual-offsets.mjs', test: individualTest };
 const governmentSuper = { file: 'assets/government-super.mjs', test: individualTest };
 const governmentSuperResult = { file: 'assets/government-super-result.mjs', test: individualTest };
+const tba = { file: 'assets/transfer-balance.mjs', test: 'scripts/transfer-balance.test.mjs' };
+const excess = { ...tba, file: 'assets/excess-contributions.mjs' };
+const tbaPage = { ...tba, file: 'assets/transfer-balance-result.mjs' };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -1088,6 +1091,25 @@ const MUTATIONS = [
   { ...governmentSuperResult, name: 'government super not known read as no', find: '(answer === \'unknown\' ? null : answer === \'yes\')', replace: '(answer === \'yes\')' },
   { ...governmentSuperResult, name: 'government super a non-resident passed as resident', find: 'yes(\'resident\') ? \'full_year_resident\' : \'part_year_resident\'', replace: '\'full_year_resident\'' },
   { ...governmentSuperResult, name: 'government super thresholds shown the wrong way', find: '`${whole(r.rates.lower_income_threshold)} and ${whole(r.rates.higher_income_threshold)}`', replace: '`${whole(r.rates.higher_income_threshold)} and ${whole(r.rates.lower_income_threshold)}`' },
+  { ...tba, name: 'TBA cap not indexed', find: 'raised = Math.trunc((increase * unused) / 100);', replace: 'raised = 0;' },
+  { ...tba, name: 'TBA unused cap percentage a point lower', find: '100 - Number((highest.cents * 100n)', replace: '99 - Number((highest.cents * 100n)' },
+  { ...tba, name: 'TBA indexed after an excess', find: "if (increase > 0 && exceeded) row.why = 'exceeded';", replace: "if (false) row.why = 'exceeded';" },
+  { ...tba, name: 'TBA earnings never credited', find: 'num += pending;', replace: 'num += 0n;' },
+  { ...tba, name: 'TBA earnings at the GIC rate less a point', find: 'const earned = over * BigInt(gic);', replace: 'const earned = over * BigInt(gic - 100);' },
+  { ...tba, name: 'TBA a later period taxed at 15%', find: 'const rate = second ? 30 : 15;', replace: 'const rate = 15;' },
+  { ...tba, name: 'TBA liable from a period before 1 July 2018', find: 'liable ||= p.from >= SECOND_RATE_FROM;', replace: 'liable = true;' },
+  { ...tba, name: 'TBA IT(TP)A s 294-30 ignored', find: 'if (over > 0n && !(disregard && day <= TRANSITION_END))', replace: 'if (over > 0n)' },
+  { ...tba, name: 'TBA IT(TP)A s 294-30 to $1.8 million', find: 'sum > 170000000n', replace: 'sum > 180000000n' },
+  { ...tba, name: 'TBA cents rounded half down', find: '(2n * magnitude + den) / (2n * den)', replace: '(2n * magnitude + den - 1n) / (2n * den)' },
+  { ...tba, name: 'TBA a reversionary income stream taken', find: "if (why !== undefined) refuse('transfer_balance.event_refused'", replace: "if (false) refuse('transfer_balance.event_refused'" },
+  { ...excess, name: 'excess charge at the SIC rate plus a point', find: 'rate - 400', replace: 'rate - 300' },
+  { ...excess, name: 'excess charge to the due day', find: 'day < due; day += 1', replace: 'day <= due; day += 1' },
+  { ...excess, name: 'excess charge after 2020-21', find: 'if (start >= 2021)', replace: 'if (start >= 2022)' },
+  { ...excess, name: 'excess proxy rate without 7 points', find: 'const n = BigInt(sum + 700 * days);', replace: 'const n = BigInt(sum + 600 * days);' },
+  { ...excess, name: 'excess release of 90% of the earnings', find: 'excess + earned * 85n', replace: 'excess + earned * 90n' },
+  { ...excess, name: 'excess earnings from 2 July', find: 'determination - firstDay(start) + 1', replace: 'determination - firstDay(start)' },
+  { ...tbaPage, name: 'TBA page principal is the balance', find: 'rows, principal: 5, note', replace: 'rows, principal: 0, note' },
+  { ...tbaPage, name: 'TBA form year of the day before', find: "year: last === null ? '' : label(yearOf(last))", replace: "year: last === null ? '' : label(yearOf(last - 1))" },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -1108,6 +1130,7 @@ const SHARED = [
   'scripts/income-tests-engine-differential.json',
   'scripts/income-tax-offsets-engine-differential.json',
   'scripts/government-super-engine-differential.json',
+  'scripts/transfer-balance-engine-differential.json',
   'scripts/concessional-catch-up-engine-differential.json',
   'scripts/unused-leave-engine-differential.json',
   'scripts/franking-account-engine-differential.json',
@@ -1126,7 +1149,7 @@ const SHARED = [
 
 const TEST_FILES = [
   levy.test, business.test, individualTest,
-  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs',
+  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', tba.test,
 ];
 
 const verdict = (cwd, test) => new Promise((resolve, reject) => {
