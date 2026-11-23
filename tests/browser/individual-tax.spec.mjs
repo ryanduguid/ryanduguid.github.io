@@ -500,7 +500,7 @@ test('transfer balance shows the account’s tables, and the charge and the rele
   const periods = form.locator('table[data-results="tba-periods"]');
   await expect(periods).toBeVisible();
   await expect(periods.locator('tbody tr').first().locator('td').last()).toHaveText('$26.80');
-  await expect(form.locator('table[data-results="tba-ledger"] tbody tr').nth(1).locator('td').last()).toHaveText('-$30,000.00');
+  await expect(form.locator('table[data-results="tba-ledger"] tbody tr').nth(1).locator('td').last()).toHaveText('−$30,000.00');
   // A 4th event: $20,000 commuted on 1 November 2019 leaves no excess at the last day.
   await form.locator('#transfer-balance-event-4-date').fill('2019-11-01');
   await form.locator('#transfer-balance-event-4-kind').selectOption('commutation');
