@@ -903,89 +903,89 @@ pub struct SocialCard {
     pub output: &'static str,
 }
 
-impl SocialCard {
-    const fn new(
-        id: &'static str,
-        label: &'static str,
-        heading: &'static [&'static str],
-        host: &'static str,
-        output: &'static str,
-    ) -> Self {
-        Self {
-            id,
-            label,
-            heading,
-            host,
-            output,
-        }
-    }
-}
-
 pub const SOCIAL_CARD_CONTEXTS: [SocialCard; 9] = [
-    SocialCard::new(
-        "site",
-        "Australian accounting",
-        &["Tools for", "Australian accountants"],
-        "duguid.com.au",
-        "social-card-site-20261123.png",
-    ),
-    SocialCard::new(
-        "tools",
-        "Accounting tools",
-        &["Accounting checks that", "show their working."],
-        "duguid.com.au/tools/",
-        "social-card-tools-20261123.png",
-    ),
-    SocialCard::new(
-        "evaluations",
-        "Reproducible evaluations",
-        &["Fictional inputs.", "Expected results.", "Visible limits."],
-        "duguid.com.au/evaluate/",
-        "social-card-evaluations-20261104b.png",
-    ),
-    SocialCard::new(
-        "rates",
-        "Maintained reference tables",
-        &["Australian rates,", "sources, and review dates."],
-        "duguid.com.au/rates/",
-        "social-card-rates-20261104b.png",
-    ),
-    SocialCard::new(
-        "evidence",
-        "Evidence register",
-        &["Claims linked to sources,", "releases, and tests."],
-        "duguid.com.au/evidence/",
-        "social-card-evidence-20261104b.png",
-    ),
-    SocialCard::new(
-        "calculators",
-        "Business calculators",
+    SocialCard {
+        id: "site",
+        label: "Australian accounting",
+        heading: &["Tools for", "Australian accountants"],
+        host: "duguid.com.au",
+        output: "social-card-site-20261123.png",
+    },
+    SocialCard {
+        id: "tools",
+        label: "Accounting tools",
+        heading: &["Accounting checks that", "show their working."],
+        host: "duguid.com.au/tools/",
+        output: "social-card-tools-20261123.png",
+    },
+    SocialCard {
+        id: "evaluations",
+        label: "Reproducible evaluations",
+        heading: &["Fictional inputs.", "Expected results.", "Visible limits."],
+        host: "duguid.com.au/evaluate/",
+        output: "social-card-evaluations-20261104b.png",
+    },
+    SocialCard {
+        id: "rates",
+        label: "Maintained reference tables",
+        heading: &["Australian rates,", "sources, and review dates."],
+        host: "duguid.com.au/rates/",
+        output: "social-card-rates-20261104b.png",
+    },
+    SocialCard {
+        id: "evidence",
+        label: "Evidence register",
+        heading: &["Claims linked to sources,", "releases, and tests."],
+        host: "duguid.com.au/evidence/",
+        output: "social-card-evidence-20261104b.png",
+    },
+    section_card(
+        ("calculators", "Business calculators"),
         &["54 Australian business", "and tax calculators."],
-        "duguid.com.au/tools/business-calculators/",
-        "social-card-calculators-20261123.png",
+        (
+            "duguid.com.au/tools/business-calculators/",
+            "social-card-calculators-20261123.png",
+        ),
     ),
-    SocialCard::new(
-        "individual-tax",
-        "Individual tax",
+    section_card(
+        ("individual-tax", "Individual tax"),
         &["Australian income tax,", "pay and super tools."],
-        "duguid.com.au/tools/individual-tax/",
-        "social-card-individual-tax-20261123.png",
+        (
+            "duguid.com.au/tools/individual-tax/",
+            "social-card-individual-tax-20261123.png",
+        ),
     ),
-    SocialCard::new(
-        "depreciation",
-        "Depreciation rates",
+    section_card(
+        ("depreciation", "Depreciation rates"),
         &["7,430 ATO effective", "lives in LI 2025/20."],
-        "duguid.com.au/tools/depreciation-rates/",
-        "social-card-depreciation-20261123.png",
+        (
+            "duguid.com.au/tools/depreciation-rates/",
+            "social-card-depreciation-20261123.png",
+        ),
     ),
-    SocialCard::new(
-        "questions",
-        "Accounting questions",
+    section_card(
+        ("questions", "Accounting questions"),
         &["100 Australian", "accounting questions."],
-        "duguid.com.au/tools/accounting-questions/",
-        "social-card-questions-20261123.png",
+        (
+            "duguid.com.au/tools/accounting-questions/",
+            "social-card-questions-20261123.png",
+        ),
     ),
 ];
+
+const fn section_card(
+    meta: (&'static str, &'static str),
+    heading: &'static [&'static str],
+    target: (&'static str, &'static str),
+) -> SocialCard {
+    SocialCard {
+        id: meta.0,
+        label: meta.1,
+        heading,
+        host: target.0,
+        output: target.1,
+    }
+}
 pub const SOCIAL_CARD_DIMENSIONS: (u32, u32) = (1200, 630);
 pub const SOCIAL_CARD_MAX_BYTES: usize = 50_000;
 pub const SOCIAL_CARD_COLOURS: [&str; 7] = [
