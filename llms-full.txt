@@ -12241,7 +12241,7 @@ Source: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 
 The components of a super lump sum and the most income tax each part can bear.
 
-Published 22 November 2026. Last checked 22 November 2026.
+Published 22 November 2026. Last checked 23 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
