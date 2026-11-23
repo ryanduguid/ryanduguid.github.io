@@ -53,9 +53,9 @@ function signedCents(value) {
 }
 
 /** An amount inside an earlier year: a decimal string of at most 32 characters, as a money amount. */
-function statedCents(/** @type {Record<string, unknown>} */ fields, /** @type {string} */ name, /** @type {string} */ key) {
-  if (!Object.hasOwn(fields, key)) refuse('input.missing_field', `${name}: ${key} is required`);
-  const value = fields[key];
+function statedCents(/** @type {Map<string, unknown>} */ fields, /** @type {string} */ name, /** @type {string} */ key) {
+  if (!fields.has(key)) refuse('input.missing_field', `${name}: ${key} is required`);
+  const value = fields.get(key);
   try {
     if (typeof value === 'string' && new TextEncoder().encode(value).length <= 32) return commandCents(value);
   } catch {
@@ -74,10 +74,11 @@ function earlierProfitYears(given) {
     if (year === null) return;
     if (typeof year !== 'object' || Array.isArray(year)) bad();
     const name = `earlier year ${i + 1}`;
-    const key = Object.keys(year).find((k) => k !== 'assessable_income' && k !== 'deductions');
+    const fields = new Map(Object.entries(year));
+    const key = [...fields.keys()].find((k) => k !== 'assessable_income' && k !== 'deductions');
     if (key !== undefined) refuse('input.field_unknown', `${name}: ${key} is not an input of an earlier year`);
-    const income = statedCents(year, name, 'assessable_income');
-    if (statedCents(year, name, 'deductions') < income) profits += 1;
+    const income = statedCents(fields, name, 'assessable_income');
+    if (statedCents(fields, name, 'deductions') < income) profits += 1;
   });
   return profits;
 }
@@ -89,11 +90,12 @@ function earlierProfitYears(given) {
 export function nonCommercialLosses(input) {
   const unknownKey = Object.keys(input).find((key) => !PARAMS.some(([name]) => name === key) && !OPTIONAL.includes(key));
   if (unknownKey !== undefined) refuse('input.field_unknown', `${unknownKey} is not an input of non-commercial-losses`);
+  const given = new Map(Object.entries(input));
   for (const [key, kind] of PARAMS) {
-    if (!Object.hasOwn(input, key)) refuse('input.missing_field', `${key} is required`);
-    if (kind === 'dec') readable(input[key]);
+    if (!given.has(key)) refuse('input.missing_field', `${key} is required`);
+    if (kind === 'dec') readable(given.get(key));
   }
-  for (const key of OPTIONAL) if (Object.hasOwn(input, key)) readable(input[key]);
+  for (const key of OPTIONAL) if (given.has(key)) readable(given.get(key));
   const year = /** @type {string} */ (input.year);
   if (!NCL_YEARS.includes(year)) refuse('period.unsupported', `Unsupported period ${String(year)}; supported: ${NCL_YEARS.join(', ')}.`);
   const activity = input.activity;

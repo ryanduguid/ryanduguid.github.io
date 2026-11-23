@@ -429,7 +429,7 @@ const MUTATIONS = [
   { ...nonCommercial, name: 'non-commercial other assets test below $100,000', find: 'otherAssets >= OTHER_ASSETS', replace: 'otherAssets > OTHER_ASSETS' },
   { ...nonCommercial, name: 'non-commercial profits test at 2 years', find: 'profitYears >= 3', replace: 'profitYears >= 2' },
   { ...nonCommercial, name: 'non-commercial this year not a profit year', find: 'earlierProfits + (deductions < income ? 1 : 0)', replace: 'earlierProfits' },
-  { ...nonCommercial, name: 'non-commercial earlier break-even a profit year', find: "if (statedCents(year, name, 'deductions') < income)", replace: "if (statedCents(year, name, 'deductions') <= income)" },
+  { ...nonCommercial, name: 'non-commercial earlier break-even a profit year', find: "if (statedCents(fields, name, 'deductions') < income)", replace: "if (statedCents(fields, name, 'deductions') <= income)" },
   { ...nonCommercial, name: 'non-commercial exception at $40,000', find: 'money(input.other_income) < OTHER_INCOME', replace: 'money(input.other_income) <= OTHER_INCOME' },
   { ...nonCommercial, name: 'non-commercial exception for any activity', find: 'const exception = excepted && ', replace: 'const exception = ' },
   { ...nonCommercial, name: 'non-commercial losses not added back', find: 'taxable + losses - fhss', replace: 'taxable - fhss' },
