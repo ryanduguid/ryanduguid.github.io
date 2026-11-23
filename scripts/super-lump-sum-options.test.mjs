@@ -119,6 +119,18 @@ test('the page shows each calculation’s result and dates the sources it adds',
   const w = result('withholding');
   assert.deepEqual(w.rows[w.principal], ['Amount to withhold, to the nearest dollar', '$13,600.00']);
   assert.ok(w.rows.some(([label, value]) => label === 'Untaxed element within the untaxed plan cap left, $80,000.00 at 17%' && value === '$13,600.00'));
+  const shown = (change) => superBenefitTaxResult(form({ calc: 'withholding', ...change }), aud);
+  const member = shown({ born: '1981-01-01', benefit: '10000.99', interest: '10000.99', 'interest-free': '0', untaxed: '0', tfn: 'no' });
+  assert.deepEqual(member.rows[member.principal], ['Amount to withhold, cents ignored', '$4,700.00']);
+  assert.match(member.note, /no TFN: 47% with no offsets or Medicare levy, cents ignored$/);
+  const tom = shown({ recipient: 'rollover', benefit: '1967000.99', interest: '1967000.99', 'interest-free': '0', untaxed: '1967000.99', 'plan-used': '0', tfn: 'no' });
+  assert.deepEqual(tom.rows[tom.principal], ['Amount to withhold, cents ignored', '$15,040.00']);
+  assert.ok(tom.rows.some(([label, value]) => label === 'Untaxed element above the untaxed plan cap left' && value === '$32,000.99'));
+  assert.match(tom.note, /nothing on the rest, cents ignored without a TFN$/);
+  // A member's untaxed element above the plan cap: withheld at 47%, stated once.
+  const above = shown({ benefit: '100000', interest: '100000', 'interest-free': '0', untaxed: '100000', 'plan-used': '1900000' });
+  assert.ok(above.rows.some(([label]) => /^Untaxed element above the untaxed plan cap left, \$[\d,.]+ at 47%$/.test(label)));
+  assert.ok(above.rows.every(([label]) => !label.includes('top marginal rate')));
   const d = result('dasp');
   assert.deepEqual(d.rows[d.principal], ['Departing Australia superannuation payment tax', '$5,950.00']);
   assert.equal(result('tax').rows.at(-2)[1], '$12,000.00');

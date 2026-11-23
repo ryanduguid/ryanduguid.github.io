@@ -854,6 +854,8 @@ const MUTATIONS = [
   { ...dasp, name: "DASP a working holiday maker's untaxed element at 45%", find: '? [65n, 65n] : [35n, 45n]', replace: '? [65n, 45n] : [35n, 45n]' },
   { ...dasp, name: 'DASP an unclaimed money roll-over with an untaxed element passes', find: '&& untaxed !== 0n) {', replace: '&& false) {' },
   { ...dasp, name: 'DASP 2027-28 left out', find: "'2026-27', '2027-28'];", replace: "'2026-27'];" },
+  { ...swh, name: 'SWH the result rounds to the dollar without a TFN', find: "input.tfn_provided ? 'Amount to withhold, to the nearest dollar'", replace: "true ? 'Amount to withhold, to the nearest dollar'" },
+  { ...swh, name: 'SWH a part row keeps the top marginal rate', find: "label.replace(', at the top marginal rate', '')", replace: 'label' },
   { ...wet, name: 'WET at 28%', find: 'ratioCents(cents * 29n, 100n)', replace: 'ratioCents(cents * 28n, 100n)' },
   { ...wet, name: 'WET half retail takes the whole retail price', find: 'ratioCents(v.price, 2n)', replace: 'v.price' },
   { ...wet, name: 'WET average wholesale price ignores the dealing quantity', find: 'ratioCents(v.price * /** @type {bigint} */ (v.quantity),', replace: 'ratioCents(v.price,' },

@@ -173,13 +173,13 @@ export function superWithholdingResult(value, aud) {
   }
   for (const [id, label] of Object.entries(PART_LABELS)) {
     if (amounts.has(`${id}_withholding`) && Number(amounts.get(id))) {
-      rows.push([`${label}, ${dollars(id)} at ${Math.round(Number(rates.get(`${id}_withholding_rate`)) * 100)}%`, dollars(`${id}_withholding`)]);
+      rows.push([`${label.replace(', at the top marginal rate', '')}, ${dollars(id)} at ${Math.round(Number(rates.get(`${id}_withholding_rate`)) * 100)}%`, dollars(`${id}_withholding`)]);
     }
   }
-  rows.push(['Amount to withhold, to the nearest dollar', aud(r.withholding)]);
+  rows.push([input.tfn_provided ? 'Amount to withhold, to the nearest dollar' : 'Amount to withhold, cents ignored', aud(r.withholding)]);
   const who = r.age === undefined ? '' : `Aged ${r.age} on the payment date, preservation age ${r.preservationAge}: `;
   const levy = input.foreign_resident ? 'without the Medicare levy for a foreign resident' : 'with the 2% Medicare levy';
-  const how = r.treatment === 'rollover' ? 'a roll-over: 47% of the untaxed element above the untaxed plan cap left, nothing on the rest'
+  const how = r.treatment === 'rollover' ? `a roll-over: 47% of the untaxed element above the untaxed plan cap left, nothing on the rest${input.tfn_provided ? '' : ', cents ignored without a TFN'}`
     : r.treatment === 'deceased_estate_trustee' ? 'nothing is withheld from a death benefit paid to the trustee of a deceased estate'
       : r.rates.no_tfn_rate === undefined && r.treatment in NIL_TREATMENTS ? `${TREATMENTS[r.treatment]}, so nothing is withheld`
         : !input.tfn_provided ? `no TFN: ${r.rates.no_tfn_rate === '0.45' ? 45 : 47}% with no offsets or Medicare levy, cents ignored`
