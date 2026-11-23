@@ -73,7 +73,9 @@ test('the non-commercial losses calculation agrees with the australian-accountin
       assert.throws(() => nonCommercialLosses(input), (error) => error.code === refused, source);
       continue;
     }
-    const m = nonCommercialLosses(input);
+    // A case the command accepts must not be refused here.
+    let m = /** @type {any} */ (null);
+    assert.doesNotThrow(() => { m = nonCommercialLosses(input); }, source);
     assert.deepEqual({ income_requirement_taxable_income: f2(m.requirementIncome), income_requirement_total: f2(m.requirementTotal),
       excess: f2(m.excess), deferred: f2(m.deferred), deductible_this_year: f2(m.deductible),
       ...(m.partYear ? { assessable_income_measured: f2(m.measured) } : {}), requirement_met: m.requirementMet, tests: m.tests,
