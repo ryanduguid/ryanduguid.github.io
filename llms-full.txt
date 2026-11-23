@@ -4168,7 +4168,7 @@ Source: https://duguid.com.au/tools/payday-super/business-days/
 
 Payday Super contributions must generally reach the fund within 7 business days after payday. The weekdays below, from 1 July 2026 to 31 August 2027, are not business days for any employer: each is a public holiday for the whole of a state or territory.
 
-Published 14 November 2026. Last reviewed 14 November 2026. Sources checked 14 November 2026.
+Published 14 November 2026. Last reviewed 23 November 2026. Calendar sources checked 14 November 2026.
 
 ## Weekday public holidays to 31 August 2027
 
@@ -4231,7 +4231,7 @@ The calendar covers 1 July 2026, when Payday Super began, to 31 August 2027, for
 It does not cover:
 
 - paydays before 1 July 2026, which follow the quarterly super guarantee rules
-- dates after 31 August 2027: Business Victoria still lists the 2027 Friday before the AFL Grand Final as ‘Subject to AFL schedule’, so the calendar stops before that holiday can fall
+- dates after 31 August 2027. The general business days calculator includes Victoria’s confirmed 1 October 2027 holiday. It counts full-day holidays for general use. A Payday Super deadline after August needs a verified calendar under the Payday Super rules.
 - a public holiday declared or moved after 14 November 2026, such as a one-off holiday, which would change the due dates around it; check the jurisdiction’s page before relying on a date
 - an earlier deadline in a fund’s rules, an award or an enterprise agreement, or the time a clearing house or fund takes to process a payment
 
@@ -4258,6 +4258,7 @@ Each source below was read on 14 November 2026.
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - Statutory Holidays Act 2000: https://www.legislation.tas.gov.au/view/whole/html/inforce/current/act-2000-096
 - Payday Super checker: https://duguid.com.au/tools/payday-super/
+- general business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
 - australian-accounting commit 701b3d4: https://github.com/ryanduguid/australian-accounting/blob/701b3d4425b62c1e2e707d46b754aee68470626e/packages/payday-super-checker/data/business_days.json
 - Payment deadlines for Payday Super: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super
 - Public holidays, school terms and daylight saving: https://www.act.gov.au/living-in-the-act/public-holidays-school-terms-and-daylight-saving
@@ -5579,6 +5580,8 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+23 November 2026 | The super lump sum tax calculator now also works the amount a fund withholds from a super lump sum under Schedule 12 for a payment from 13 October 2020, with or without a TFN and for a foreign resident, including a roll-over above the untaxed plan cap and a death benefit paid to a deceased estate. It also works the final tax on a departing Australia superannuation payment in 2025-26 to 2027-28: 35% on the taxed element and 45% on the untaxed element, or 65% on each where the payment includes working holiday maker contributions. Schedule 12 and the Departing Australia Superannuation Payments Tax Act were read on 23 November 2026, and the page agrees with the super-withholding and dasp-tax commands of the australian-accounting calculators on every tested case.
+23 November 2026 | Updated 2 accounting questions after the 23 November 2026 ATO source sweep: removed the withdrawn credit card newsroom link from general tax question 6, keeping the ATO’s How to pay page, and rechecked company and trust question 86 against the 20 November 2026 trustee resolutions checklist.
 23 November 2026 | The tool pages now link to licences by release or source revision, including the versions used in worked examples. The homepage and tool directory link to Lodgeit’s listing of the Coal LSL levy calculator and to the Australian capital gains tax guide on OpenAccountants, with each project’s review status.
 22 November 2026 | A new business calculator works out one residential rental property’s income and deductions for one owner and income year from 2020-21 to 2026-27: expenses apportioned by the days let or available, interest on a loan used partly for the rental, capital works at 2.5% or 4% within the undeducted construction expenditure, decline in value with section 40-27’s nil for second-hand assets, the net rent and, from 2024-25, its effect on tax at the resident scale. It reproduces the ATO’s Rental properties guide 2026 worked examples, read on 22 November 2026, and agrees with the rental-property command of the australian-accounting calculators on every tested case.
 22 November 2026 | The income tax calculator now works out the private health insurance rebate from the lines of a private health insurance statement for 2020-21 to 2026-27: the tier, each line’s percentage and entitlement, the refundable offset and any excess premium reduction to repay. It also adds the beneficiary tax offset, the invalid and invalid carer tax offset for 2020-21 to 2025-26 and the zone and overseas forces tax offsets, with the dependant and sole parent amounts they count, taken off the tax in the order the Act sets. They agree with the matching commands of the australian-accounting calculators on every tested case, and refuse what those commands refuse, such as the 2027 rebate percentages and the 2026-27 invalid carer amounts, which were not yet published. Results for the existing inputs are unchanged.
@@ -5809,6 +5812,9 @@ Published 30 August 2026. Last reviewed 23 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
+- general tax question 6: https://duguid.com.au/tools/accounting-questions/general-tax/
+- company and trust question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/
 - tool pages: https://duguid.com.au/tools/
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - super co-contribution, LISTO and spouse offset: https://duguid.com.au/tools/individual-tax/government-super/
@@ -7341,7 +7347,7 @@ Source: https://duguid.com.au/tools/accounting-questions/general-tax/
 
 Practical steps, records and official guidance on tax returns.
 
-10 of 10 answers checked between 27 September 2026 and 16 November 2026. Other guidance reviewed 11 September 2026. Page updated 16 November 2026.
+10 of 10 answers checked between 27 September 2026 and 23 November 2026. Other guidance reviewed 11 September 2026. Page updated 23 November 2026.
 
 Search or build a checklist
 
@@ -7453,9 +7459,9 @@ You can pay the ATO by BPAY, direct deposit, debit card, Government EasyPay, in 
 
 This website does not collect payments or supply bank details.
 
-Paying the ATO · How to pay · Changes to credit card payments
+Paying the ATO · How to pay
 
-The bold answer was checked on 29 October 2026.
+The bold answer was checked on 23 November 2026.
 
 Link to question 6
 
@@ -7566,7 +7572,6 @@ The linked repositories have different scopes and supported periods. A preparati
 - Link to question 5: https://duguid.com.au/tools/accounting-questions/general-tax/#q5
 - Paying the ATO: https://www.ato.gov.au/individuals-and-families/paying-the-ato
 - How to pay: https://www.ato.gov.au/individuals-and-families/paying-the-ato/how-to-pay
-- Changes to credit card payments: https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/changes-to-credit-card-payments
 - Link to question 6: https://duguid.com.au/tools/accounting-questions/general-tax/#q6
 - ATO income, deductions and records: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records
 - Income you must declare: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/income-you-must-declare
@@ -9306,7 +9311,7 @@ Source: https://duguid.com.au/tools/accounting-questions/company-compliance/
 
 Practical steps, records and official guidance on companies and trusts.
 
-10 of 10 answers checked between 27 September 2026 and 16 November 2026. Other guidance reviewed 11 September 2026. Page updated 16 November 2026.
+10 of 10 answers checked between 27 September 2026 and 23 November 2026. Other guidance reviewed 11 September 2026. Page updated 23 November 2026.
 
 Search or build a checklist
 
@@ -9420,7 +9425,7 @@ The tool cannot validate a deed or cure a late or ineffective trustee decision.
 
 Trusts · Trustee resolutions · Trust distributions example
 
-The bold answer was checked on 27 September 2026.
+The bold answer was checked on 23 November 2026.
 
 Link to question 86
 
@@ -12411,29 +12416,37 @@ Source: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 
 The components of a super lump sum and the most income tax each part can bear.
 
-Published 22 November 2026. Last checked 22 November 2026.
+Published 22 November 2026. Last checked 23 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
 One super lump sum from a complying fund
 
+Work out The most income tax on the lump sum The amount the fund withholds (Schedule 12) The tax on a departing Australia superannuation payment
+
+The lump sum
+
 Payment date
 
 Income year of the payment 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
 
-Paid to The member A death benefits dependant A non-dependant, after the member’s death
+Paid to The member A death benefits dependant A non-dependant, after the member’s death A roll-over of the member’s benefit (withholding only) The trustee of the member’s deceased estate (withholding only)
 
 Lump sum (AUD) Value of the super interest just before the payment (AUD) The interest’s tax free component (AUD) Element untaxed in the fund, in the lump sum (AUD)
 
 Untaxed element from service before 1 July 1983? Choose No Yes
 
-The member Date of birth Terminal medical condition?Choose No Yes Disability superannuation benefit?Choose No Yes Low rate cap amount used in earlier years (AUD) Other lump sums this income year at preservation age to 59?Choose No Yes Untaxed plan cap amount used, from this plan (AUD)
+The member Date of birth Terminal medical condition?Choose No Yes Disability superannuation benefit?Choose No Yes Low rate cap amount used in earlier years (AUD) Other lump sums this income year at preservation age to 59?Choose No Yes
+
+The member’s plan Untaxed plan cap amount used, from this plan (AUD)
 
 Calculate
 
 ## What the inputs need
 
-For one lump sum from a complying fund paid on a condition of release: not a roll-over, an income stream commutation or a payment in breach of the payment rules. The fund states the interest’s value and tax free component just before the payment, and the untaxed element.
+The most tax is what the lump sum can bear in the person’s return, before the Medicare levy. The amount withheld is what the fund takes out when it pays, under Schedule 12 of the withholding schedules; it is a credit against that tax. A departing Australia superannuation payment, to a former temporary resident who has left Australia, bears its own final tax.
+
+For one lump sum from a complying fund paid on a condition of release: not an income stream commutation or a payment in breach of the payment rules. A roll-over and a payment to the trustee of a deceased estate are worked only for withholding. The fund states the interest’s value and tax free component just before the payment, and the untaxed element.
 
 The lump sum’s tax free component is its share of the interest’s, rounded to the cent; the rest is taxable, taxed in the fund except the untaxed element. Leave that at 0 for a fund that pays tax on its income, as most do.
 
@@ -12445,17 +12458,25 @@ Two registered medical practitioners, one a specialist, certify death is likely 
 
 The low rate cap applies only at preservation age and under 60, which from 1 July 2024 no one is. Enter the amounts counted for earlier lump sums. Other lump sums at that age in the same year share the cap, so they are refused while any is left.
 
+### What the withholding and DASP inputs need
+
+Withholding is worked for payments from 13 October 2020. With a TFN, a resident’s rate for each part is its ceiling rate plus the 2% Medicare levy, and the total rounds to the nearest dollar. Without one, the fund withholds 47% (45% for a foreign resident) of the taxable component, or of the untaxed element at 60 or over, ignoring cents. Without a TFN the rate turns on the payee’s age, which the calculator does not take for a death benefit, and none is stated for a member benefit under $200, so a non-dependant’s death benefit and such a member benefit are refused. The calculator assumes the payment is taxable in Australia and applies no tax treaty.
+
+Take the components from the fund’s or the ATO’s statement. The working holiday maker rate applies when the payment includes amounts from contributions made whilst the person was a working holiday maker. An unclaimed money roll-over with an untaxed element is refused: section 5(2) taxes any excess untaxed roll-over amount in it at nil.
+
 Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; member; paid 1 October 2026; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00. Tax free component $30,000.00 Taxable component: element taxed in the fund $190,000.00 Taxable component: element untaxed in the fund $80,000.00 Untaxed element within the untaxed plan cap left, $80,000.00 at no more than 15% $12,000.00 Assessable income $80,000.00 Not assessable income and not exempt income $220,000.00 Most income tax on the lump sum, before Medicare levy $12,000.00 Untaxed plan cap amount counted $80,000.00 Aged 62 on the payment date, preservation age 59: 60 or over, so only the untaxed element is assessable (ss 301-10 and 301-95).
 
 ## How the super lump sum tax calculator works
 
 The super lump sum tax calculator splits one lump sum from a complying fund, paid from 1 July 2020 to 30 June 2027, into its components. It gives the most income tax each part can bear before the Medicare levy. A member’s treatment turns on age on the payment day and preservation age; a death benefit’s turns on whether the person receiving it is a death benefits dependant. Each rate is a ceiling: the offsets stop the tax on a part going above it, so a person on lower marginal rates pays less, and the Medicare levy is added on top.
 
-Its results match the super-benefit-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 532 test cases, refusals included.
+It also works the amount the fund withholds from the same lump sum under Schedule 12, for a payment from 13 October 2020, including from a roll-over and a death benefit paid to a deceased estate, and the final tax on a departing Australia superannuation payment in 2025-26 to 2027-28.
+
+Its results match the super-benefit-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 532 test cases, and its super-withholding and dasp-tax commands on 613 more, refusals included.
 
 ## What the super lump sum tax calculator does not cover
 
-The calculator does not work the tax at the person’s own marginal rates, the Medicare levy, the amount the fund withholds, income streams, roll-overs, departing Australia superannuation payments, death benefits paid to a deceased estate, or payments from a non-complying or foreign fund. It does not decide dependency, a terminal medical condition, the components or the elements: you state those. It refuses a disability superannuation benefit, an untaxed element from service before 1 July 1983, and other lump sums in the same year that share the low rate cap.
+The calculator does not work the tax at the person’s own marginal rates, the Medicare levy, income streams and their withholding (Schedule 13), the tax on a roll-over or a deceased estate, a tax treaty, or payments from a non-complying or foreign fund. It does not decide dependency, a terminal medical condition, the components or the elements: you state those. It refuses a disability superannuation benefit, an untaxed element from service before 1 July 1983, and other lump sums in the same year that share the low rate cap.
 
 Confirm the result with the fund, the ATO’s guidance on super lump sums or a registered tax agent before relying on it. The redundancy and ETP withholding calculator covers employment termination payments.
 
@@ -15736,7 +15757,7 @@ Source: https://duguid.com.au/tools/business-calculators/business-days/
 
 Business days between 2 dates, or the date a number of business days after or before one, skipping weekends and each state’s public holidays for 2026 and 2027.
 
-Published 18 November 2026. Last checked 18 November 2026.
+Published 18 November 2026. Last checked 23 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -15744,21 +15765,21 @@ Business days inputs, 2026 and 2027
 
 Work out Business days between 2 dates The date a number of business days after the start The date a number of business days before the start Public holidays of Australian Capital Territory New South Wales Northern Territory Queensland South Australia Tasmania Victoria Western Australia Any state or territory: skip a holiday that applies throughout any of them Start date End date, to count between 2 dates Number of business days, to find a date
 
-The count starts the day after the start date and includes the end date. Dates run from 1 January 2026 to 31 December 2027, and to 31 August 2027 for Victoria and for any state or territory.
+The count starts the day after the start date and includes the end date. Dates run from 1 January 2026 to 31 December 2027.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, start 21 December 2026, end 4 January 2027. Business days after the start, to and including the end 7 Weekday public holidays skipped 25 December 2026 (Christmas Day), 28 December 2026 (Boxing Day / Boxing Day (observed) / Proclamation Day (observed)), 1 January 2027 (New Year's Day) Part-day and regional holidays count as business days; where a local day replaces Melbourne Cup Day or the WA King’s Birthday, the state date is still skipped.
 
 ## How the business days calculator works
 
-The calculator skips Saturdays, Sundays and the public holidays of the state or territory you choose, using each government’s published dates for 2026 and 2027. Between 2 dates, it counts the business days after the start date up to and including the end date, so a Friday to the next Monday is 1. Forward or back, it finds the date that is that many business days after or before the start, and lists each weekday holiday it skipped.
+The calculator skips Saturdays, Sundays and the public holidays of the state or territory you choose, using the dates confirmed for 2026 and 2027. Between 2 dates, it counts the business days after the start date up to and including the end date, so a Friday to the next Monday is 1. Forward or back, it finds the date that is that many business days after or before the start, and lists each weekday holiday it skipped.
 
-‘Any state or territory’ skips a day that is a public holiday throughout any one of them, as the site’s Payday Super business days table counts them, and leaves out Melbourne Cup Day and the WA King’s Birthday because neither applies throughout its state.
+‘Any state or territory’ skips full-day public holidays that apply throughout at least one state or territory. It counts Melbourne Cup Day and the WA King’s Birthday as business days because regions can observe them on different dates.
 
 ## What the business days calculator does not cover
 
 Part-day holidays, such as the evenings of Christmas Eve and New Year’s Eve in South Australia and the Northern Territory, count as business days. So do regional holidays, among them the Royal Queensland Show in Brisbane, Tasmania’s Royal Hobart Regatta and Recreation Day, and show days, and days off for one group only, such as Tasmania’s Easter Tuesday for the public service. A council or region’s local substitute for Melbourne Cup Day or the WA King’s Birthday is not applied: the state date is still skipped.
 
-The calculator does not decide whether a law counts business days, clear days or calendar days, or which state’s holidays apply. Dates after 31 December 2027 are refused until the governments confirm the following year, and Victorian dates after 31 August 2027 until the AFL schedules its Grand Final. The calculator does not work out a superannuation guarantee or Payday Super due date.
+The calculator covers dates through 31 December 2027. Check the applicable law for which days and which place count towards a deadline. The separate SGC and Payday Super calculator works out those due dates within its own coverage period.
 
 ## Boundary cases
 
@@ -15777,7 +15798,7 @@ Any state or territory skips 9 March 2026, a holiday in 4 of them | Any state or
 10 business days on from 21 December 2026 in New South Wales | New South Wales, 10 business days after Monday 21 December 2026 | 10 business days, date Thursday 7 January 2027
 5 business days back from the Tuesday after Easter 2026 in New South Wales | New South Wales, 5 business days before Tuesday 7 April 2026 | 5 business days, date Friday 27 March 2026
 An end before the start is refused | New South Wales, Wednesday 18 November 2026 to Tuesday 17 November 2026 | Refused: the end date must not be before the start date
-A Victorian date after 31 August 2027 is refused | Victoria, Wednesday 1 September 2027 to Thursday 30 September 2027 | Refused: this page has public holidays from 1 January 2026 to 31 August 2027 for Victoria; choose dates in that range
+Victoria skips the Grand Final holiday | Victoria, Thursday 30 September 2027 to Friday 1 October 2027 | 0 business days
 Counting past 31 December 2027 is refused | New South Wales, 20 business days after Monday 20 December 2027 | Refused: this page has public holidays from 1 January 2026 to 31 December 2027 for New South Wales; choose dates in that range
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
@@ -15792,6 +15813,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
+- SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
 - Payday Super business days: https://duguid.com.au/tools/payday-super/business-days/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/

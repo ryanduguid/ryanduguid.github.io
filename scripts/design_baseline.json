@@ -93,13 +93,13 @@
       "12438b9691fecd3f3821f436c6ffa34d84f61bed426e37056e1b1b03c287ea1f"
     ],
     "tools/accounting-questions/company-compliance/index.html": [
-      "0b3a8387efcc68e8565e6ac64b74ecdab8da87330a4c9f32b45df8c7c18509ff"
+      "53bdb3796fdd3ee7e390c5fb3b96cdbcb7f3b3b418af6e9bff9b98e74f3bf9d5"
     ],
     "tools/accounting-questions/deductions/index.html": [
       "072ab8813a0f45fef86cc4e2dbc9d731a2ce7694ad3ab238d9c425abb313120b"
     ],
     "tools/accounting-questions/general-tax/index.html": [
-      "1d6db36da0ffcaf3705854e12947b5a0f8dc312b1a7f14728c7e1333041ca0e0"
+      "0d989b9825e20aee524584d8cd6429a7520dee2dfb2b3eb72b9dd1f4639c730c"
     ],
     "tools/accounting-questions/gst-bas/index.html": [
       "329623c88d03ce013ab19051ea05cbc58c42060ff707a5bb42cf1a2c462bc872"
@@ -138,7 +138,7 @@
       "a95518370c6a1baf91aad81773f22f6453e17b168bbb80f0519aacf93874fdfc"
     ],
     "tools/business-calculators/business-days/index.html": [
-      "d7ba180b7ba66c27b1cdf056948f61aebaea00ad0cc17604c508f8fae1d9be4f"
+      "1f072b6bdf74885cf2c3614d90958af6b33b7df935bb1408c37424dabb32c961"
     ],
     "tools/business-calculators/business-use/index.html": [
       "f49d0c7dc5722a6932eaae0fc74b4c72bfb129f7e481f1ff0afd147af5882e4b"
@@ -267,7 +267,7 @@
       "f6d27328541f0ed80446e56fbe3d59031e3686b15759b93994561c842531fb1e"
     ],
     "tools/business-calculators/super-benefit-tax/index.html": [
-      "c3b284f9d13a96d7193a8dc72a13728aa58e750d6ff482c71c06bf2c0747b20a"
+      "43025e01fc00922d799fda63d3e34838119ed949926ade7a2cc59dd92171eb9a"
     ],
     "tools/business-calculators/termination-payment/index.html": [
       "b055a3fecec1e12e11404b465cc1031bccc9254058bbd4566e22509430287508"
@@ -378,7 +378,7 @@
       "63fa03dadc108a31c27880991126a00dd5890a3a259d1613af8223a266e5650e"
     ],
     "tools/payday-super/business-days/index.html": [
-      "f079b1a110601d216daa4aa8499c8a9aa615d24cf59aaa0ca57238ef401a8393"
+      "6623ef0d7c96bd8b3d7e005b78c280616d8e0923434058067b53a0b8fa1b1df1"
     ],
     "tools/payday-super/index.html": [
       "249f650c2ab6ef18db7fa797a3f8b91cee4f0abd4c7da79933a2b70f92097ec1"
@@ -414,7 +414,7 @@
   "protected_files": {
     "llms.txt": "7b1ea096091ba6cfd3b01623f93af894467f41f0a18f2c89215cd1cc6290cd75",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "ec0e4c486ed3c2ccb1a60628f9e1d079e200805a8ed252eb42fb441da038ba9a"
+    "sitemap.xml": "fc75fd5d0d6e616055fbb6742abfa67af367376a16360b50ad37c01f325cc83f"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

@@ -202,12 +202,7 @@ jobs:
           version: "0.13.5"
           enable-cache: true
       - name: Install the pinned Rust toolchain
-        run: rustup toolchain install "$RUST_TOOLCHAIN" --profile minimal --component llvm-tools
-      - name: Install the pinned cargo-llvm-cov
-        uses: taiki-e/install-action@4a76afe23f9e08d2d9550fb56e556444e8611d21 # v2.90.4
-        with:
-          tool: cargo-llvm-cov@0.9.1
-          fallback: none
+        run: rustup toolchain install "$RUST_TOOLCHAIN" --profile minimal
       - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
         with:
           workspaces: scripts -> target
@@ -221,33 +216,13 @@ jobs:
           # Lifts the unauthenticated GitHub API rate limit for the
           # archived-repository lookups in site-tools check_links.
           GITHUB_TOKEN: ${{ github.token }}
-        # check_site runs each Rust suite through cargo test against the checked
-        # tree, built with coverage instrumentation so these runs are also the
-        # coverage run. Its site-tools commands run an uninstrumented copy, which
-        # the coverage clean leaves alone and which adds nothing to the measure.
+        # Run a copy outside scripts/target so cargo test inside check_site
+        # never replaces the running binary. Line coverage runs in parallel in
+        # the rust-coverage job.
         shell: bash
         run: |
           cp scripts/target/debug/site-tools "$RUNNER_TEMP/site-tools"
-          (cd scripts && cargo llvm-cov show-env --sh) > "$RUNNER_TEMP/llvm-cov.env"
-          source "$RUNNER_TEMP/llvm-cov.env"
-          (cd scripts && cargo llvm-cov clean --workspace)
-          "$RUNNER_TEMP/site-tools" check_site --ci | tee "$RUNNER_TEMP/check-site.log"
-      # Runs the test targets check_site did not, so each target cargo llvm-cov
-      # tests runs once; a suite absent from the log runs here. The floor is
-      # site-tools' measured line coverage, rounded down (80.54% on 3 November
-      # 2026). Raise it with the tests, never lower it to pass.
-      - name: Rust tests with line coverage
-        working-directory: scripts
-        shell: bash
-        run: |
-          source "$RUNNER_TEMP/llvm-cov.env"
-          suites=()
-          for suite in tests/*.rs; do
-            name="$(basename "$suite" .rs)"
-            grep -Eq -- "^running cargo test .*--test $name( |$)" "$RUNNER_TEMP/check-site.log" || suites+=(--test "$name")
-          done
-          cargo test --locked --lib --bins "${suites[@]}"
-          cargo llvm-cov report --fail-under-lines 80
+          "$RUNNER_TEMP/site-tools" check_site --ci
 
       - name: Package the validated Pages tree
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PAGES_VALIDATED_DEPLOYMENT == 'true' }}
@@ -273,6 +248,46 @@ jobs:
           if-no-files-found: error
           overwrite: true
           retention-days: 7
+
+  rust-coverage:
+    # Runs in parallel with checks so llvm-cov instrumentation and the suites
+    # check_site omits do not run serially after Site checks. The floor is
+    # site-tools' measured line coverage, rounded down (80.54% on 3 November
+    # 2026). Raise it with the tests, never lower it to pass.
+    timeout-minutes: 45
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - uses: ruby/setup-ruby@b3aaceaef7e0ee231b499e7b5f49c03fc1d32199 # v1.338.0
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.15"
+          allow-prereleases: true
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24"
+      - name: Install the pinned Rust toolchain
+        run: rustup toolchain install "$RUST_TOOLCHAIN" --profile minimal --component llvm-tools
+      - name: Install the pinned cargo-llvm-cov
+        uses: taiki-e/install-action@4a76afe23f9e08d2d9550fb56e556444e8611d21 # v2.90.4
+        with:
+          tool: cargo-llvm-cov@0.9.1
+          fallback: none
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          workspaces: scripts -> target/llvm-cov-target
+          shared-key: linux-llvm-cov
+          save-if: ${{ github.ref == 'refs/heads/main' }}
+      - name: Rust tests with line coverage
+        working-directory: scripts
+        shell: bash
+        run: cargo llvm-cov --locked --fail-under-lines 80
 
   browser:
     needs: tools
@@ -484,7 +499,7 @@ jobs:
     # unless every job it needs succeeded, when a job in this file is missing
     # from needs, or when a pull request removes a job without adding a
     # "# removed-jobs: <job>" comment to this file.
-    needs: [coal-lsl-service, lint, tools, rust-windows, checks, browser, lighthouse]
+    needs: [coal-lsl-service, lint, tools, rust-windows, checks, rust-coverage, browser, lighthouse]
     if: always()
     runs-on: ubuntu-24.04
     timeout-minutes: 15

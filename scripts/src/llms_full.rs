@@ -218,22 +218,26 @@ fn entry_title<'a>(url: &str, entry: &'a str) -> Result<&'a str, String> {
         .ok_or_else(|| format!("llms-full: {url} entry has no title line"))
 }
 
+/// Map a canonical site URL to its semantic `llms-full-<section>-N.txt` shard prefix.
+fn section_for_url(url: &str) -> &str {
+    let rel = url.strip_prefix(SITE).unwrap_or(url).trim_matches('/');
+    let mut segs = rel.split('/').filter(|s| !s.is_empty());
+    let first = segs.next().unwrap_or("home");
+    match (first, segs.next()) {
+        ("tools", Some("business-calculators")) => "calculators-business",
+        ("tools", Some("individual-tax")) => "calculators-individual",
+        ("tools", Some("accounting-questions")) => "questions",
+        ("tools", Some("ozzit")) => "ozzit",
+        ("tools", Some("depreciation-rates")) => "depreciation",
+        _ => first,
+    }
+}
+
 /// Section files keep complete page entries and their citations below 100 KB.
 pub fn section_parts(entries: &[(String, String)]) -> Result<Vec<Part>, String> {
     let mut sections = std::collections::BTreeMap::<String, Vec<(String, String)>>::new();
     for (url, entry) in entries {
-        let rel = url.strip_prefix(SITE).unwrap_or(url).trim_matches('/');
-        let mut segs = rel.split('/').filter(|s| !s.is_empty());
-        let first = segs.next().unwrap_or("home");
-        let second = segs.next();
-        let section = match (first, second) {
-            ("tools", Some("business-calculators")) => "calculators-business",
-            ("tools", Some("individual-tax")) => "calculators-individual",
-            ("tools", Some("accounting-questions")) => "questions",
-            ("tools", Some("ozzit")) => "ozzit",
-            ("tools", Some("depreciation-rates")) => "depreciation",
-            _ => first,
-        };
+        let section = section_for_url(url);
         let title = entry_title(url, entry)?;
         sections
             .entry(section.into())

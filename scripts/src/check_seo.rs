@@ -66,6 +66,42 @@ pub fn run(root: &Path) -> Result<u8, String> {
     Ok(0)
 }
 
+/// Collect normalized same-origin links from `html` that point to a page other than `page_url`.
+fn collect_inbound_links(page_url: &str, html: &str, inbound: &mut HashSet<String>) {
+    let tree = core::parse_structure(html);
+    for anchor in tree.descendants(core::Tree::ROOT, Some("a"), true) {
+        let Some(href) = tree.attr(anchor, "href") else {
+            continue;
+        };
+        if href.is_empty()
+            || href.starts_with('#')
+            || href.starts_with("mailto:")
+            || href.starts_with("tel:")
+            || href.starts_with("javascript:")
+        {
+            continue;
+        }
+        if let Ok(target) = crate::pyurl::urljoin(page_url, href)
+            && let Ok(parts) = crate::pyurl::urlsplit(&target)
+            && parts.scheme == "https"
+            && parts.netloc == "duguid.com.au"
+        {
+            let clean_path = parts
+                .path
+                .strip_suffix("/index.html")
+                .map(|p| format!("{p}/"))
+                .unwrap_or_else(|| parts.path.clone());
+            let mut norm = format!("https://duguid.com.au{clean_path}");
+            if !norm.ends_with('/') && !clean_path.rsplit('/').next().unwrap_or("").contains('.') {
+                norm.push('/');
+            }
+            if norm != page_url {
+                inbound.insert(norm);
+            }
+        }
+    }
+}
+
 /// Fail when any indexable core page other than the homepage has zero inbound HTML links.
 fn check_orphan_pages(
     paths: &[std::path::PathBuf],
@@ -84,48 +120,12 @@ fn check_orphan_pages(
             indexable.push(page_url.clone());
         }
         let html = crate::read(path)?;
-        let tree = core::parse_structure(&html);
-        for anchor in tree.descendants(core::Tree::ROOT, Some("a"), true) {
-            let Some(href) = tree.attr(anchor, "href") else {
-                continue;
-            };
-            if href.is_empty()
-                || href.starts_with('#')
-                || href.starts_with("mailto:")
-                || href.starts_with("tel:")
-                || href.starts_with("javascript:")
-            {
-                continue;
-            }
-            if let Ok(target) = crate::pyurl::urljoin(&page_url, href)
-                && let Ok(parts) = crate::pyurl::urlsplit(&target)
-                && parts.scheme == "https"
-                && parts.netloc == "duguid.com.au"
-            {
-                let clean_path = parts
-                    .path
-                    .strip_suffix("/index.html")
-                    .map(|p| format!("{p}/"))
-                    .unwrap_or_else(|| parts.path.clone());
-                let mut norm = format!("https://duguid.com.au{clean_path}");
-                if !norm.ends_with('/')
-                    && !clean_path.rsplit('/').next().unwrap_or("").contains('.')
-                {
-                    norm.push('/');
-                }
-                if norm != page_url {
-                    inbound.insert(norm);
-                }
-            }
-        }
+        collect_inbound_links(&page_url, &html, &mut inbound);
     }
-    let mut failures = Vec::new();
-    for url in indexable {
-        if !inbound.contains(&url) {
-            failures.push(format!(
-                "{url}: orphan page has no inbound internal HTML link"
-            ));
-        }
-    }
+    let failures = indexable
+        .into_iter()
+        .filter(|url| !inbound.contains(url))
+        .map(|url| format!("{url}: orphan page has no inbound internal HTML link"))
+        .collect();
     Ok(failures)
 }

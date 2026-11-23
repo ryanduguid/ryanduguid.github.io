@@ -28,7 +28,7 @@ if (form) {
       : `No tools match. Clear the search or choose All to show all ${entries.length}.`;
 
   // Seek, and ye shall find. Matthew 7:7 (KJV)
-  function filter() {
+  const filter = () => {
     const words = normalise(search.value).split(' ').filter(Boolean);
     const kinds = form.elements.delivery.value.split('|').filter(Boolean);
     for (const entry of entries) {
@@ -40,7 +40,7 @@ if (form) {
     // Announce once typing pauses rather than on every keystroke.
     clearTimeout(countTimer);
     countTimer = setTimeout(() => { count.textContent = describe(shown); }, 400);
-  }
+  };
 
   form.addEventListener('input', filter);
   form.addEventListener('submit', event => event.preventDefault());

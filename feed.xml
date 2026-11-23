@@ -8,6 +8,20 @@
   <updated>2026-11-23T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The super lump sum tax calculator now also works the amount a fund withholds…</title>
+    <link href="https://duguid.com.au/changelog/#entry-3788ddb8a47c23db" />
+    <id>https://duguid.com.au/changelog/#entry-3788ddb8a47c23db</id>
+    <updated>2026-11-23T00:00:00Z</updated>
+    <summary>The super lump sum tax calculator now also works the amount a fund withholds from a super lump sum under Schedule 12 for a payment from 13 October 2020, with or without a TFN and for a foreign resident, including a roll-over above the untaxed plan cap and a death benefit paid to a deceased estate. It also works the final tax on a departing Australia superannuation payment in 2025-26 to 2027-28: 35% on the taxed element and 45% on the untaxed element, or 65% on each where the payment includes working holiday maker contributions. Schedule 12 and the Departing Australia Superannuation Payments Tax Act were read on 23 November 2026, and the page agrees with the super-withholding and dasp-tax commands of the australian-accounting calculators on every tested case.</summary>
+  </entry>
+  <entry>
+    <title>Updated 2 accounting questions after the 23 November 2026 ATO source sweep…</title>
+    <link href="https://duguid.com.au/changelog/#entry-9d9acf724da17ebe" />
+    <id>https://duguid.com.au/changelog/#entry-9d9acf724da17ebe</id>
+    <updated>2026-11-23T00:00:00Z</updated>
+    <summary>Updated 2 accounting questions after the 23 November 2026 ATO source sweep: removed the withdrawn credit card newsroom link from general tax question 6, keeping the ATO’s How to pay page, and rechecked company and trust question 86 against the 20 November 2026 trustee resolutions checklist.</summary>
+  </entry>
+  <entry>
     <title>The tool pages now link to licences by release or source revision, including…</title>
     <link href="https://duguid.com.au/changelog/#entry-4926b38f2461dbdf" />
     <id>https://duguid.com.au/changelog/#entry-4926b38f2461dbdf</id>
