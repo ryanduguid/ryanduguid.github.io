@@ -305,6 +305,8 @@ Event 5 amount Work the account to the end of
 
 Liable for excess transfer balance tax for an earlier period starting on or after 1 July 2018 No Yes
 
+## What the inputs need
+
 Leave a row blank to skip it. The account starts with your first income stream credit; an income stream you held just before 1 July 2017 is credited on 1 July 2017 at its value then. The last day sets the income year, 2017-18 to 2026-27.
 
 Calculate
