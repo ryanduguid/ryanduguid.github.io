@@ -138,7 +138,7 @@
 </div>
 </fieldset>
 </fieldset>
-<p class="field-note" id="income-tax-income-note">Taxable income is assessable income less deductions, as on a tax return; from 2026-27 those include the standard deduction of up to $1,000 for work-related expenses that the ATO applies. For a person who is not entitled to the seniors and pensioners tax offset. Enter 0 for any amount you do not have.</p>
+<p class="field-note" id="income-tax-income-note">Taxable income is assessable income less deductions; from 2026-27 those include the standard deduction of up to $1,000 for work-related expenses that the ATO applies. For a person who is not entitled to the seniors and pensioners tax offset. Enter 0 for any amount you do not have.</p>
 <button type="submit" class="button">Calculate</button></fieldset>
 {% include calculator-example.html inputs="2026-27, Australian resident, taxable income $90,000.00, reportable fringe benefits $27,000.00, reportable super contributions $0.00, total net investment loss $0.00, no study or training loan, 365 days without private hospital cover, no spouse and no dependent children, tax withheld $21,000.00" rows="Tax on taxable income|$17,520.00;Low income tax offset|$0.00;Medicare levy|$1,800.00;Medicare levy surcharge|$1,170.00;Total tax, levies and repayment|$20,490.00;Tax withheld|$21,000.00;Refund estimate|$510.00" principal="6" note="Income for surcharge purposes $117,000 against a singles threshold of $105,000: 1% for the days without cover" %}
 <div class="sources-applied" hidden>
@@ -196,7 +196,7 @@
 </fieldset>
 <label class="field" for="mi-person">Excepted person<select name="mi-person" id="mi-person" aria-describedby="mi-person-help"><option value="none" selected>None of these</option><option value="full_time_occupation">In a full-time occupation on 30 June</option><option value="carer_allowance">Carer allowance payable on 30 June</option><option value="disability_support_pension">Disability support pension payable on 30 June</option><option value="disability_certificate">The ATO holds a disability certificate</option><option value="special_disability_trust">Principal beneficiary of a special disability trust</option><option value="double_orphan_pension">Double orphan pension payable on 30 June</option><option value="double_orphan_pension_s1003">Double orphan pension but for section 1003</option><option value="permanent_disability_certificate">Permanent disability certificate</option></select></label>
 <label class="field" for="mi-taxable">Taxable income (whole dollars)<input id="mi-taxable" name="mi-taxable" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="1000" required /></label>
-<label class="field" for="mi-other">Other assessable income, such as interest and dividends (dollars and cents)<input id="mi-other" name="mi-other" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" required aria-describedby="mi-income-help" /></label>
+<label class="field" for="mi-other">Other assessable income (dollars and cents)<input id="mi-other" name="mi-other" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" required aria-describedby="mi-income-help" /></label>
 <label class="field" for="mi-employment">Employment income (dollars and cents)<input id="mi-employment" name="mi-employment" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
 <label class="field" for="mi-business">Income from carrying on a business (dollars and cents)<input id="mi-business" name="mi-business" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
 <label class="field" for="mi-other-ground">Other excepted income<select name="mi-other-ground" id="mi-other-ground"><option value="damages_or_compensation" selected>Investing damages or compensation</option><option value="death_benefit">Investing a death benefit</option><option value="public_fund">Investing money from a public fund</option><option value="family_breakdown">Investing property from a family breakdown</option><option value="deceased_estate">From a deceased estate</option><option value="lottery_prize">A lottery prize or its investment</option><option value="partnership">A partnership share</option><option value="accumulations">Investing excepted income</option></select></label>
@@ -230,6 +230,7 @@
 <label><input type="radio" name="mi-ft-4" value="no" checked /> No</label>
 </fieldset>
 </div>
+<p class="field-note">The 3 months leave out a period followed later in the year by full-time education (section 102AC(7)).</p>
 </fieldset>
 <fieldset data-show-field="mi-person" data-show-values="double_orphan_pension double_orphan_pension_s1003 permanent_disability_certificate" hidden disabled><legend>Dependence on relatives</legend>
 <div class="form-grid">
@@ -239,8 +240,8 @@
 </fieldset>
 </div>
 </fieldset>
-<p class="field-note" id="mi-person-help">An excepted person is not taxed at the special rates (section 102AC(2)). For a double orphan pension or a permanent disability certificate, a minor who was wholly or substantially dependent on relatives, which living with them is taken to mean unless shown otherwise, is not excepted (section 102AC(3) to (5)). The full-time occupation test ignores a period followed later in the year by full-time education (section 102AC(7)).</p>
-<p class="field-note" id="mi-income-help">Other assessable income is the income taxed at the special rates: interest, dividends, rent and other income not listed as excepted (section 102AE). Of a trust share, give the part to which Division 6AA applies (sections 102AE(4) and 102AG); the rest is excepted. Excepted amounts are the amounts as the Act limits them.</p>
+<p class="field-note" id="mi-person-help">An excepted person is not taxed at the special rates (section 102AC(2)). On the double orphan and permanent disability grounds, a minor wholly or substantially dependent on relatives, as living with them is taken to show, is not excepted (section 102AC(3) to (5)).</p>
+<p class="field-note" id="mi-income-help">Other assessable income is income not excepted, such as interest, dividends and rent (section 102AE). Of a trust share, give the part to which Division 6AA applies (sections 102AE(4) and 102AG). Give excepted amounts as the Act limits them.</p>
 <p class="field-note" id="mi-deductions-help">Deductions only for the other assessable income come off it first, then the related part of other deductions, then a share of apportionable deductions (section 102AD).</p>
 <button type="submit" class="button">Calculate</button></fieldset>
 <output aria-live="polite">Enter the inputs and calculate.</output>
@@ -258,7 +259,7 @@
 </section>
 <section class="business-calculator" id="foreign-income-conversion">
 <h2>Foreign income conversion</h2>
-<p>Converts one foreign currency amount into Australian dollars for a return from 2020-21 to 2026-27, at the rate for the day the tax law names for that kind of amount, or at an average rate over a period of up to 12 months that includes it.</p>
+<p>Converts a foreign currency amount into Australian dollars for 2020-21 to 2026-27, at the rate for the day the tax law names for that kind of amount, or at an average rate over up to 12 months that includes it.</p>
 <form class="calculator-split" data-calculator="foreign-income-conversion">
 <fieldset disabled><legend>Foreign income conversion inputs</legend><div class="form-grid"><fieldset><legend>Income year</legend>
 <label><input type="radio" name="fx-year" value="2026-27" /> 2026-27</label>
