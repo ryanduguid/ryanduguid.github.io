@@ -19,7 +19,9 @@ const OUTPUTS = [
 
 test('renders all contextual social cards reproducibly without touching assets', async ({ browser }) => {
   const directory = await mkdtemp(path.join(os.tmpdir(), 'duguid-social-'));
-  try {
+  // A promise's finally, not a try block: Codacy's ESLint rule security-node/detect-unhandled-async-errors
+  // crashes on a try without a catch, and that stops its analysis of other files.
+  await (async () => {
     expect(await renderSocialCards(browser, directory)).toEqual(OUTPUTS);
 
     for (const output of OUTPUTS) {
@@ -29,7 +31,5 @@ test('renders all contextual social cards reproducibly without touching assets',
       );
       expect(rendered).toEqual(committed);
     }
-  } finally {
-    await rm(directory, { recursive: true, force: true });
-  }
+  })().finally(() => rm(directory, { recursive: true, force: true }));
 });
