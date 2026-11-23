@@ -18,6 +18,8 @@ Fifty-four free calculators that run in your browser with the formula, assumptio
 
 Published 11 September 2026. Last checked 23 November 2026, the newest of the calculators’ source checks.
 
+Search 54 calculators
+
 ## Pricing, planning and loans
 
 - GST calculator Work out GST, the GST-exclusive amount and the GST-inclusive amount for a wholly taxable supply at 10%, rounded once to cents.

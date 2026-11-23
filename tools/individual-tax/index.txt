@@ -10,6 +10,8 @@ Fifteen free calculators for one person’s tax, pay and super, grounded in legi
 
 Published 17 November 2026. Last checked 22 November 2026, the newest of the calculators’ source checks.
 
+Search 15 calculators
+
 ## Tax, pay and study loans
 
 - Income tax calculator Tax on taxable income, the offsets, the Medicare levy and surcharge and any study loan repayment, less the tax withheld, for an Australian resident, a foreign resident or a working holiday maker.

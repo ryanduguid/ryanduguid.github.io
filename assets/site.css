@@ -2660,6 +2660,17 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
     grid-column: 1 / -1;
   }
 
+  .article-toc > p,
+  .article-toc > h2 {
+    min-height: 2.75rem;
+    margin-bottom: 0;
+    padding-block: var(--space-2);
+  }
+
+  .article-toc > :not(p):not(h2):not(details) {
+    display: none;
+  }
+
   .toc-disclosure__list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }

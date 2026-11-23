@@ -13,7 +13,8 @@ if (form) {
   // An entry also matches its group's label, heading and optional keywords.
   const text = new Map(entries.map(entry => {
     const header = entry.closest('.collection-group').querySelector('header');
-    const keywords = entry.dataset.keywords || '';
+    const kwEl = entry.querySelector('[data-keywords]');
+    const keywords = entry.dataset.keywords || (kwEl ? kwEl.dataset.keywords : '') || '';
     return [entry, normalise(`${header.textContent} ${entry.textContent} ${keywords}`)];
   }));
   const delivery = new Map(entries.map(entry => {
