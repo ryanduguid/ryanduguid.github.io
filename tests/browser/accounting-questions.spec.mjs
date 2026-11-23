@@ -1176,7 +1176,7 @@ test('R&D tax offset page works Company V, a refundable offset and refuses a cla
   await waitForCalculator(form);
   await context.setOffline(true);
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
-  await expect(form.locator('output .result-row--principal')).toHaveText('R&D tax offset, non-refundable: $1,650,000.00.');
+  await expect(form.locator('output .result-row--principal')).toHaveText('Tax offset, non-refundable: $1,650,000.00.');
   await expect(form.locator('output')).toContainText('Included in assessable income in the present year, over 30%: $1,265,000.00.');
   await form.locator('[name="year"]').selectOption('2022-23');
   await form.locator('[name="notional"]').fill('1000000');
@@ -1185,7 +1185,7 @@ test('R&D tax offset page works Company V, a refundable offset and refuses a cla
   await form.locator('[name="present-bre"]').selectOption('yes');
   await form.locator('[name="recoupment"]').fill('500000');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
-  await expect(form.locator('output .result-row--principal')).toHaveText('R&D tax offset, refundable: $435,000.00.');
+  await expect(form.locator('output .result-row--principal')).toHaveText('Tax offset, refundable: $435,000.00.');
   await expect(form.locator('output')).toContainText('Included in assessable income in the present year, over 25%: $370,000.00.');
   await form.locator('[name="notional"]').fill('22000');
   await form.locator('[name="recoupment"]').fill('9000');

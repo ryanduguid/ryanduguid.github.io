@@ -245,7 +245,7 @@ export function rdTaxOffsetResult(value, aud) {
       ['Premium of 8.5% on the part up to 2% of total expenses', a('premium_tier_1')], ['Premium of 16.5% on the part above 2% of total expenses', a('premium_tier_2')]);
   }
   if (Number(r.amounts.excess_offset)) rows.push([`Above $150 million, at ${pct(r.rate)}`, a('excess_offset')]);
-  const principal = rows.push([r.refundable ? 'R&D tax offset, refundable' : 'R&D tax offset, non-refundable', a('tax_offset')]) - 1;
+  const principal = rows.push([r.refundable ? 'Tax offset, refundable' : 'Tax offset, non-refundable', a('tax_offset')]) - 1;
   if (r.clawbackAmount) {
     rows.push(['Clawback amount', a('clawback_amount')], ['Adjusted offset, on the notional deductions less the clawback amount', a('adjusted_offset')],
       [`Deduction amount, the clawback amount at ${pct(r.rate)}`, a('deduction_amount')],
