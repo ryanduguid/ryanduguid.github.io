@@ -396,7 +396,7 @@
       "153ff034133f020f096bf772fccb2ea6d19b78d0951f7e8f3f5130996f72cb81"
     ],
     "tools/workpaper-review-gate/index.html": [
-      "a76bdf27cc062185a0766ed66be6ee61b6bdaec670caae5230bcec1ca819ad13"
+      "cbfdf65e735865e5f1fed964048bc40c5f365ffd05f3f5f4d9bd43ccc45d5faa"
     ],
     "tools/xero-trial-balance/index.html": [
       "7bac99131efe214ca98570ec7ded479db63f9beb82ffcaea0be317f1aca580d9"
@@ -414,7 +414,7 @@
   "protected_files": {
     "llms.txt": "ce367e7c716e19f5b10317dad904505f8dfacea52e8530b0ca50237f0a165889",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "21bbb811fa93cbd644a45a088117723954f0fc95e6d110f27fb694c5db39a451"
+    "sitemap.xml": "e3111698b2a5b659bef5a4c29cd7a93be8f92dab055e853e5adf63a7c05172be"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
