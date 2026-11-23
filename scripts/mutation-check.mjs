@@ -10,9 +10,9 @@
 //
 // Run with: node scripts/mutation-check.mjs
 
-import { spawnSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { copyFileSync, cpSync, mkdtempSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { availableParallelism, tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -65,6 +65,8 @@ const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
 const fhog = { ...business, file: 'assets/first-home-owner-grant.mjs' };
 const sbt = { ...business, file: 'assets/super-benefit-tax.mjs' };
+const swh = { file: 'assets/super-withholding.mjs', test: 'scripts/super-lump-sum-options.test.mjs' };
+const dasp = { ...swh, file: 'assets/dasp-tax.mjs' };
 const wet = { ...business, file: 'assets/wine-equalisation-tax.mjs' };
 const rental = { ...business, file: 'assets/rental-property.mjs' };
 const rentalResult = { ...business, file: 'assets/rental-property-result.mjs' };
@@ -285,17 +287,21 @@ const MUTATIONS = [
   { ...concessions, name: 'CGT concessions allow the retirement exemption once the limit is used', find: 'used < RETIREMENT_LIMIT', replace: 'used <= RETIREMENT_LIMIT' },
   { ...concessions, name: 'CGT concessions end the replacement asset period after 1 year', find: "-02-28` : yearsLater(event, 2) };", replace: "-02-28` : yearsLater(event, 1) };" },
   { ...concessions, name: 'CGT concessions end a replacement period from 29 February on 1 March', find: "event.endsWith('-02-29') ? `", replace: "false ? `" },
-  { ...business, name: 'an activity statement figure rounds its cents', find: 'Math.floor(value / 100)', replace: 'Math.round(value / 100)' },
-  { ...business, name: 'a varied amount takes a fifth of estimated tax a quarter', find: 'BigInt(instalment), 4n', replace: 'BigInt(instalment), 5n' },
-  { ...business, name: 'credits claimed are not added back', find: 'return earlier - credits;', replace: 'return earlier;' },
-  { ...business, name: 'a varied amount below nil gives no credit', find: 'credit: wholeDollars(Math.max(0, -amount))', replace: 'credit: 0' },
+  { ...business, name: 'an activity statement figure rounds its cents', find: 'instalment: Math.floor(notified / 100)', replace: 'instalment: Math.round(notified / 100)' },
+  { ...business, name: 'a varied amount rounds its share of estimated tax to the cent', find: 'const share = BigInt(cents(inputs.estimatedTax)) * BigInt(instalment);', replace: 'const share = (BigInt(cents(inputs.estimatedTax)) * BigInt(instalment) + 2n) / 4n * 4n;' },
+  { ...business, name: 'a varied amount takes a fifth of estimated tax a quarter', find: 'const amount = share - 4n * net;', replace: 'const amount = share * 4n / 5n - 4n * net;' },
+  { ...business, name: 'credits claimed are not added back', find: 'return BigInt(earlier - credits);', replace: 'return BigInt(earlier);' },
+  { ...business, name: 'a varied amount below nil gives no credit', find: 'credit: Number(amount < 0n ? -amount / 400n : 0n)', replace: 'credit: 0' },
   { ...business, name: 'the first instalment takes earlier instalments', find: 'instalment === 1 && cents(inputs.earlier)', replace: 'false && cents(inputs.earlier)' },
   { ...business, name: 'the second instalment adds back credits', find: 'instalment < 3 && cents(inputs.credits)', replace: 'instalment < 2 && cents(inputs.credits)' },
   { ...business, name: 'the third instalment refuses credits', find: 'instalment < 3 && cents(inputs.credits)', replace: 'instalment < 4 && cents(inputs.credits)' },
   { ...business, name: 'a varied rate rounds to the nearest hundredth', find: 'tax * 10000n / yearIncome', replace: '(tax * 20000n + yearIncome) / (2n * yearIncome)' },
-  { ...business, name: 'a higher varied rate gives a credit', find: 'if (rate < given)', replace: 'if (rate !== given)' },
-  { ...business, name: 'the credit leaves out earlier instalment income', find: 'earlierLessCredits() - earlierAtRate', replace: 'earlierLessCredits()' },
-  { ...business, name: 'a varied rate is not applied to T1', find: 'BigInt(cents(inputs.income)) * BigInt(rate)', replace: 'BigInt(cents(inputs.income)) * BigInt(given)' },
+  { ...business, name: 'a higher varied rate gives a credit', find: 'if (rate < previous)', replace: 'if (rate !== previous)' },
+  { ...business, name: 'a varied rate is compared with T2', find: 'if (rate < previous)', replace: 'if (rate < hundredths(inputs.rate))' },
+  { ...business, name: 'the credit leaves out earlier instalment income', find: 'earlierLessCredits() * 10000n - BigInt(cents(inputs.earlierIncome)) * BigInt(rate)', replace: 'earlierLessCredits() * 10000n' },
+  { ...business, name: 'the credit rounds earlier income at the varied rate to the cent', find: 'earlierLessCredits() * 10000n - BigInt(cents(inputs.earlierIncome)) * BigInt(rate)', replace: 'earlierLessCredits() * 10000n - (BigInt(cents(inputs.earlierIncome)) * BigInt(rate) + 5000n) / 10000n * 10000n' },
+  { ...business, name: 'a varied rate is not applied to T1', find: 'const amount = BigInt(cents(inputs.income)) * BigInt(rate);', replace: 'const amount = BigInt(cents(inputs.income)) * BigInt(hundredths(inputs.rate));' },
+  { ...business, name: 'T1 times the rate rounds to the cent', find: 'const amount = BigInt(cents(inputs.income)) * BigInt(rate);', replace: 'const amount = (BigInt(cents(inputs.income)) * BigInt(rate) + 5000n) / 10000n * 10000n;' },
   { ...business, name: 'estimated tax above estimated income is accepted', find: 'if (tax > yearIncome)', replace: 'if (tax > 2n * yearIncome)' },
   { ...business, name: 'ETP tax-free limit leaves out the years of service', find: 'cents(year.serviceAmount) * number(', replace: '0 * number(' },
   { ...business, name: 'ETP tax-free part can exceed the redundancy payment', find: 'Math.min(redundancy, limit)', replace: 'limit' },
@@ -610,7 +616,7 @@ const MUTATIONS = [
   { ...businessDays, name: 'business days leave out Melbourne Cup Day and the WA King’s Birthday', find: '[...holidays, ...STATE_ONLY_HOLIDAYS]', replace: '[...holidays]' },
   { ...businessDays, name: 'any state or territory skips Melbourne Cup Day', find: "place === 'any' ? holidays :", replace: "place === 'any' ? [...holidays, ...STATE_ONLY_HOLIDAYS] :" },
   { ...businessDays, name: 'provisional public holidays are kept', find: 'rows.filter((row) => !row.provisional)', replace: 'rows' },
-  { ...businessDays, name: 'Victoria is covered after the AFL Grand Final eve is set', find: "VIC: '2027-08-31', ", replace: '' },
+  { ...businessDays, name: 'business days end before the 2027 Grand Final holiday', find: "until: '2027-12-31'", replace: "until: '2027-08-31'" },
   { ...businessDays, name: 'business days accept an end before the start', find: 'if (end < start) throw', replace: 'if (false) throw' },
   { ...businessDays, name: 'business days accept an impossible date', find: '&& toIso(toDay(value)) === value', replace: '' },
   { ...marginScheme, name: 'the margin scheme refuses no sale that is not taxable', find: 'if (!input.taxable) {', replace: 'if (false) {' },
@@ -836,6 +842,24 @@ const MUTATIONS = [
   { ...sbt, name: 'SBT under $200 is tax free without closing the interest', find: ': benefit < 20000n && benefit === interest ?', replace: ': benefit < 20000n ?' },
   { ...sbt, name: 'SBT 2023-24 keeps the 2022-23 low rate cap', find: "'2023-24': 235000 };", replace: "'2023-24': 230000 };" },
   { ...sbt, name: 'SBT the form sends the low rate cap at 60', find: 'if (age < 60 && age >= preservationAge(born)) {', replace: 'if (age <= 60 && age >= preservationAge(born)) {' },
+  { ...swh, name: 'SWH Schedule 12 read from a day later', find: "export const SWH_FIRST_DAY = '2020-10-13';", replace: "export const SWH_FIRST_DAY = '2020-10-14';" },
+  { ...swh, name: 'SWH Table A leaves out the Medicare levy', find: 'p.rate && p.rate + (foreign ? 0 : 2)', replace: 'p.rate && p.rate + (foreign ? 0 : 0)' },
+  { ...swh, name: 'SWH a foreign resident keeps the Medicare levy', find: 'p.rate && p.rate + (foreign ? 0 : 2)', replace: 'p.rate && p.rate + (foreign ? 2 : 2)' },
+  { ...swh, name: 'SWH the total rounds down', find: 'withholding: (sum + 5000n) / 10000n', replace: 'withholding: sum / 10000n' },
+  { ...swh, name: 'SWH a roll-over at 45%', find: 'tfn ? (above * 47n + 5000n) / 10000n', replace: 'tfn ? (above * 45n + 5000n) / 10000n' },
+  { ...swh, name: 'SWH a roll-over without a TFN keeps the cents', find: '((above / 100n) * 47n) / 100n', replace: '(above * 47n) / 10000n' },
+  { ...swh, name: 'SWH no TFN at 47% for a foreign resident', find: 'const rate = foreign ? 45n : 47n;', replace: 'const rate = foreign ? 47n : 47n;' },
+  { ...swh, name: 'SWH no TFN at 60 takes the taxable component', find: "(name === 'aged_60_or_over' ? c.untaxed : c.taxable) / 100n", replace: 'c.taxable / 100n' },
+  { ...swh, name: "SWH no TFN refuses a dependant's death benefit", find: "if (name === 'terminal_medical_condition' || name === 'death_benefits_dependant') return nil();", replace: "if (name === 'terminal_medical_condition') return nil();" },
+  { ...swh, name: 'SWH a member benefit under $200 is withheld from', find: 'under_200_closing_the_interest: 1, ', replace: '' },
+  { ...swh, name: 'SWH the form keeps member facts for a roll-over', find: "...(recipient === 'rollover' ? [", replace: "...(false ? [" },
+  { ...swh, name: 'SWH the form keeps the service answer for a deceased estate', find: "...(recipient === 'deceased_estate_trustee' ? ['service", replace: "...(false ? ['service" },
+  { ...dasp, name: 'DASP the taxed element at 30%', find: '? [65n, 65n] : [35n, 45n]', replace: '? [65n, 65n] : [30n, 45n]' },
+  { ...dasp, name: "DASP a working holiday maker's untaxed element at 45%", find: '? [65n, 65n] : [35n, 45n]', replace: '? [65n, 45n] : [35n, 45n]' },
+  { ...dasp, name: 'DASP an unclaimed money roll-over with an untaxed element passes', find: '&& untaxed !== 0n) {', replace: '&& false) {' },
+  { ...dasp, name: 'DASP 2027-28 left out', find: "'2026-27', '2027-28'];", replace: "'2026-27'];" },
+  { ...swh, name: 'SWH the result rounds to the dollar without a TFN', find: "input.tfn_provided ? 'Amount to withhold, to the nearest dollar'", replace: "true ? 'Amount to withhold, to the nearest dollar'" },
+  { ...swh, name: 'SWH a part row keeps the top marginal rate', find: "label.replace(', at the top marginal rate', '')", replace: 'label' },
   { ...wet, name: 'WET at 28%', find: 'ratioCents(cents * 29n, 100n)', replace: 'ratioCents(cents * 28n, 100n)' },
   { ...wet, name: 'WET half retail takes the whole retail price', find: 'ratioCents(v.price, 2n)', replace: 'v.price' },
   { ...wet, name: 'WET average wholesale price ignores the dealing quantity', find: 'ratioCents(v.price * /** @type {bigint} */ (v.quantity),', replace: 'ratioCents(v.price,' },
@@ -1096,57 +1120,148 @@ const CONTROLS = [
     replace: "import './no-such-module.mjs';\n// Planning arithmetic." },
 ];
 
+const SHARED = [
+  'rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators',
+  '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate',
+  'rates/general-interest-charge', '_data/individual_tax_cases.json', 'tools/individual-tax',
+  'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
+  'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt',
+  '.well-known/llms.txt', 'scripts/fbt-engine-differential.json',
+  'scripts/fbt-property-expense-engine-differential.json',
+  'scripts/lump-sum-arrears-engine-differential.json',
+  'scripts/income-tests-engine-differential.json',
+  'scripts/income-tax-offsets-engine-differential.json',
+  'scripts/government-super-engine-differential.json',
+  'scripts/concessional-catch-up-engine-differential.json',
+  'scripts/unused-leave-engine-differential.json',
+  'scripts/franking-account-engine-differential.json',
+  'scripts/fuel-tax-credits-engine-differential.json',
+  'scripts/luxury-car-tax-engine-differential.json',
+  'scripts/depreciation-pools-engine-differential.json',
+  'scripts/ato-penalties-interest-engine-differential.json',
+  'scripts/borrowing-expenses-engine-differential.json',
+  'scripts/wine-equalisation-tax-engine-differential.json',
+  'scripts/rental-property-engine-differential.json',
+  '_includes/duty-jurisdictions.html', '_includes/finance-fields.html',
+  '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+  'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json',
+  'scripts/super-benefit-tax-engine-differential.json',
+  'scripts/super-lump-sum-options-engine-differential.json',
+];
+
+const TEST_FILES = [
+  levy.test, business.test, individualTest,
+  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test,
+];
+
+const verdict = (cwd, test) => new Promise((resolve, reject) => {
+  const child = spawn(process.execPath, ['--test', '--test-reporter=tap', test], {
+    cwd,
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+  let stdout = '';
+  child.stdout.setEncoding('utf8');
+  child.stdout.on('data', (chunk) => { stdout += chunk; });
+  child.stderr.resume();
+  child.on('error', reject);
+  child.on('close', (status) => {
+    if (status === 0) resolve('survived');
+    else resolve(status === 1 && stdout.includes("code: 'ERR_ASSERTION'") ? 'caught' : 'invalid');
+  });
+});
+
+const allSettledOrThrow = async (promises) => {
+  const settled = await Promise.allSettled(promises);
+  const failed = settled.find((item) => item.status === 'rejected');
+  if (failed) throw failed.reason;
+  return settled.map((item) => item.value);
+};
+
 const work = mkdtempSync(join(tmpdir(), 'mutation-check-'));
 let failures = 0;
-try {
-  mkdirSync(join(work, 'assets'));
-  mkdirSync(join(work, 'scripts'));
+
+// A promise's finally, not a try block: Codacy's ESLint rule security-node/detect-unhandled-async-errors
+// crashes on a try without a catch, and that stops its analysis of other files.
+await (async () => {
+  const template = join(work, 'template');
+  mkdirSync(join(template, 'assets'), { recursive: true });
+  mkdirSync(join(template, 'scripts'), { recursive: true });
   for (const name of readdirSync(join(root, 'assets')).filter((entry) => entry.endsWith('.mjs'))) {
-    copyFileSync(join(root, 'assets', name), join(work, 'assets', name));
+    copyFileSync(join(root, 'assets', name), join(template, 'assets', name));
   }
-  for (const test of [levy.test, business.test, individualTest, 'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs']) copyFileSync(join(root, test), join(work, test));
-  for (const shared of ['rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators',
-    '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
-    'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
-    'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/income-tax-offsets-engine-differential.json', 'scripts/government-super-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/luxury-car-tax-engine-differential.json', 'scripts/depreciation-pools-engine-differential.json', 'scripts/ato-penalties-interest-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
-    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/income-tax-offsets-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/wine-equalisation-tax-engine-differential.json', 'scripts/rental-property-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
-    'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json', 'scripts/super-benefit-tax-engine-differential.json']) {
-    cpSync(join(root, shared), join(work, shared), { recursive: true });
+  for (const test of TEST_FILES) copyFileSync(join(root, test), join(template, test));
+  for (const shared of SHARED) {
+    cpSync(join(root, shared), join(template, shared), { recursive: true });
   }
 
-  const verdict = (test) => {
-    const run = spawnSync(process.execPath, ['--test', '--test-reporter=tap', test], { cwd: work, encoding: 'utf8' });
-    if (run.status === 0) return 'survived';
-    return run.status === 1 && run.stdout.includes("code: 'ERR_ASSERTION'") ? 'caught' : 'invalid';
-  };
-  for (const test of [levy.test, business.test, individualTest]) {
-    if (verdict(test) !== 'survived') throw new Error(`${test} fails before any mutation`);
+  const baselines = [levy.test, business.test, individualTest];
+  const baselineResults = await allSettledOrThrow(baselines.map((test) => verdict(template, test)));
+  for (let i = 0; i < baselines.length; i += 1) {
+    if (baselineResults[i] !== 'survived') throw new Error(`${baselines[i]} fails before any mutation`);
   }
-  const mutated = ({ file, test, find, replace }) => {
-    writeFileSync(join(work, file), readFileSync(join(root, file), 'utf8').replace(find, replace));
-    const result = verdict(test);
-    copyFileSync(join(root, file), join(work, file));
-    return result;
+
+  const sources = new Map();
+  const sourceOf = (file) => {
+    let text = sources.get(file);
+    if (text === undefined) {
+      text = readFileSync(join(root, file), 'utf8');
+      sources.set(file, text);
+    }
+    return text;
   };
+
+  const mutated = async (cwd, { file, test, find, replace }) => {
+    const target = join(cwd, file);
+    writeFileSync(target, sourceOf(file).replace(find, replace));
+    return verdict(cwd, test).finally(() => copyFileSync(join(template, file), target));
+  };
+
+  const workerCount = Math.min(availableParallelism(), 4, Math.max(1, MUTATIONS.length));
+  const workerDirs = Array.from({ length: workerCount }, (_, index) => {
+    const dir = join(work, `worker-${index}`);
+    cpSync(template, dir, { recursive: true });
+    return dir;
+  });
+
   for (const control of CONTROLS) {
-    const result = mutated(control);
+    const result = await mutated(workerDirs[0], control);
     console.log(`control   ${control.name}: ${result}`);
     if (result !== 'invalid') failures += 1;
   }
-  for (const { file, name, find, ...mutation } of MUTATIONS) {
-    const source = readFileSync(join(root, file), 'utf8');
-    if (source.split(find).length !== 2) {
+
+  const results = new Array(MUTATIONS.length);
+  const queue = [];
+  for (let i = 0; i < MUTATIONS.length; i += 1) {
+    const { file, find } = MUTATIONS[i];
+    if (sourceOf(file).split(find).length !== 2) {
+      results[i] = 'stale';
+    } else {
+      queue.push(i);
+    }
+  }
+
+  let next = 0;
+  await allSettledOrThrow(workerDirs.map(async (cwd) => {
+    while (next < queue.length) {
+      const index = queue[next];
+      next += 1;
+      results[index] = await mutated(cwd, MUTATIONS[index]);
+    }
+  }));
+
+  for (let i = 0; i < MUTATIONS.length; i += 1) {
+    const { file, name } = MUTATIONS[i];
+    const result = results[i];
+    if (result === 'stale') {
       console.log(`STALE     ${name}: the text to change is not in ${file} exactly once`);
       failures += 1;
-      continue;
+    } else {
+      console.log(`${result === 'caught' ? 'caught   ' : result.toUpperCase()} ${name}`);
+      if (result !== 'caught') failures += 1;
     }
-    const result = mutated({ file, find, ...mutation });
-    console.log(`${result === 'caught' ? 'caught   ' : result.toUpperCase()} ${name}`);
-    if (result !== 'caught') failures += 1;
   }
-} finally {
-  rmSync(work, { recursive: true, force: true });
-}
+})().finally(() => {
+  rmSync(work, { recursive: true, force: true, maxRetries: 3 });
+});
 console.log(failures ? `mutation check: ${failures} of ${MUTATIONS.length} need attention` : `mutation check: ${MUTATIONS.length} mutations accounted for`);
 process.exitCode = failures ? 1 : 0;

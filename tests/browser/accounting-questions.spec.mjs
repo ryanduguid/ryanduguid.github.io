@@ -1168,6 +1168,30 @@ test('super lump sum tax page works its example, a death benefit and a refusal o
   await expect(form.locator('output')).toContainText('The payment date must fall in the 2020-21 income year.');
 });
 
+// The same page's other calculations: Schedule 12 withholding on its example (Chloe, $13,600), a roll-over's
+// fields, and a departing Australia superannuation payment ($5,950, or $11,050 at the working holiday maker rate).
+test('super lump sum page works withholding and DASP tax offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/super-benefit-tax/');
+  const form = page.locator('#super-benefit-tax form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await expect(form.locator('[name="tfn"]')).toBeHidden();
+  await form.locator('[name="calc"][value="withholding"]').check();
+  await expect(form.locator('[name="tfn"]')).toBeVisible();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Amount to withhold, to the nearest dollar: $13,600.00.');
+  await form.locator('[name="recipient"]').selectOption('rollover');
+  await expect(form.locator('[name="born"]')).toBeHidden();
+  await expect(form.locator('[name="plan-used"]')).toBeVisible();
+  await form.locator('[name="calc"][value="dasp"]').check();
+  await expect(form.locator('[name="benefit"]')).toBeHidden();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Departing Australia superannuation payment tax: $5,950.00.');
+  await form.locator('[name="whm"]').selectOption('yes');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Departing Australia superannuation payment tax: $11,050.00.');
+});
+
 // Spec G9 is the form's default; the failure to lodge question shows its 28-day periods, and remission is refused.
 test('ATO penalties and interest page works GIC by quarter, a failure to lodge penalty and refuses remission offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/ato-penalties-interest/');
@@ -1615,7 +1639,7 @@ test('foreign purchaser surcharges add the FIRB fee, compare every state offline
 
 // Business Victoria lists Melbourne Cup Day, Tuesday 3 November 2026, for all of Victoria; the WA
 // Government's page lists no such day, so the same dates give 1 business day in Victoria and 2 in WA.
-test('business days skip Melbourne Cup Day in Victoria offline and refuse a date past the coverage', async ({ page, context }) => {
+test('business days skip Melbourne Cup Day and the Grand Final holiday offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/business-days/');
   const form = page.locator('#business-days form');
   await waitForCalculator(form);
@@ -1631,10 +1655,15 @@ test('business days skip Melbourne Cup Day in Victoria offline and refuse a date
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(output).toContainText('Business days after the start, to and including the end: 2.');
   await form.getByLabel('Victoria', { exact: true }).check();
-  await form.getByLabel('Start date', { exact: true }).fill('2027-09-01');
-  await form.getByLabel('End date, to count between 2 dates', { exact: true }).fill('2027-09-30');
+  await form.getByLabel('Start date', { exact: true }).fill('2027-09-30');
+  await form.getByLabel('End date, to count between 2 dates', { exact: true }).fill('2027-10-01');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
-  await expect(output).toHaveText('This page has public holidays from 1 January 2026 to 31 August 2027 for Victoria; choose dates in that range.');
+  await expect(output).toContainText('Business days after the start, to and including the end: 0.');
+  await expect(output).toContainText('Weekday public holidays skipped: 1 October 2027 (Friday before the AFL Grand Final).');
+  await form.getByLabel('The date a number of business days after the start').check();
+  await form.getByLabel('Start date', { exact: true }).fill('2027-12-31');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toHaveText('This page has public holidays from 1 January 2026 to 31 December 2027 for Victoria; choose dates in that range.');
 });
 
 // The first home owner grant page: its New South Wales example, Western Australia's northern cap
@@ -1825,18 +1854,23 @@ test('a varied PAYG instalment rate gives the instalment and its credit offline'
   await form.getByLabel('Varying only: estimated tax on instalment income for the year, T8 (AUD)').fill('10125');
   await form.getByLabel('Varied rate only: estimated instalment income for the year (AUD)').fill('82480');
   await form.getByLabel('Option 2: instalment income for the quarter at T1 (AUD)').fill('20620');
-  await form.getByLabel('Option 2: instalment rate at T2 (%)').fill('16.84');
+  await form.getByLabel('Option 2, not varied: instalment rate at T2 (%)').fill('20');
+  await form.getByLabel('Varied rate only: instalment rate used for the previous quarter (%)').fill('16.84');
   await form.getByLabel('Varying only: earlier instalments this income year, as at 5A (AUD)').fill('6944');
   await form.getByLabel('Varied rate only: instalment income of the earlier quarters (AUD)').fill('41240');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   // The ATO's example 2 rate; the instalment and credit are worked by hand: $20,620 × 12.27% = $2,530.07,
-  // and $6,944 − $41,240 × 12.27% ($5,060.15) = $1,883.85.
+  // and $6,944 − $41,240 × 12.27% ($5,060.148) = $1,883.852.
   expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
     'Inputs: varied instalment rate (option 2), estimated tax $10,125.00 on estimated instalment income $82,480.00 for the year, '
-    + 'instalment income $20,620.00 at T1, instalment rate 16.84% at T2, earlier instalments $6,944.00 less credits claimed $0.00, '
+    + 'instalment income $20,620.00 at T1, previous quarter’s rate 16.84%, earlier instalments $6,944.00 less credits claimed $0.00, '
     + 'on earlier instalment income $41,240.00. Varied rate at T3: 12.27%. T1 × T3: $2,530.07. '
     + 'Instalment at T11 and 5A, whole dollars: $2,530.00. Credit to claim at 5B, whole dollars: $1,883.00. '
-    + 'A credit applies only when the varied rate is lower than the rate at T2.');
+    + 'A credit applies only when the varied rate is lower than the rate used for the previous quarter.');
+  // A rate at or below the varied rate last quarter gives no credit, whatever T2 holds.
+  await form.getByLabel('Varied rate only: instalment rate used for the previous quarter (%)').fill('12.27');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Credit to claim at 5B, whole dollars: $0.00.');
   await form.getByLabel('Varying only: estimated tax on instalment income for the year, T8 (AUD)').fill('82480.01');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toHaveText('Estimated tax cannot exceed estimated instalment income.');

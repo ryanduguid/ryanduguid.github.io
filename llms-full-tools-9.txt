@@ -321,9 +321,9 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 PAYG instalment inputs for one quarter
 
-How this instalment is worked out Option 1: pay the instalment amount at T7 Option 1, varied: an amount from your estimated tax for the year Option 2: instalment income times the rate at T2 Option 2, varied: a rate from your estimates for the year Option 1: instalment amount at T7 (AUD) Option 2: instalment income for the quarter at T1 (AUD) Option 2: instalment rate at T2 (%) Varied amount only: which of this income year’s instalments is this? First: 25% of estimated tax Second: 50% Third: 75% Fourth: 100% Varying only: estimated tax on instalment income for the year, T8 (AUD) Varied rate only: estimated instalment income for the year (AUD) Varying only: earlier instalments this income year, as at 5A (AUD) Varying only: earlier credits this income year (AUD) Varied rate only: instalment income of the earlier quarters (AUD)
+How this instalment is worked out Option 1: pay the instalment amount at T7 Option 1, varied: an amount from your estimated tax for the year Option 2: instalment income times the rate at T2 Option 2, varied: a rate from your estimates for the year Option 1: instalment amount at T7 (AUD) Option 2: instalment income for the quarter at T1 (AUD) Option 2, not varied: instalment rate at T2 (%) Varied amount only: which of this income year’s instalments is this? First: 25% of estimated tax Second: 50% Third: 75% Fourth: 100% Varying only: estimated tax on instalment income for the year, T8 (AUD) Varied rate only: estimated instalment income for the year (AUD) Varying only: earlier instalments this income year, as at 5A (AUD) Varying only: earlier credits this income year (AUD) Varied rate only: instalment income of the earlier quarters (AUD) Varied rate only: instalment rate used for the previous quarter (%)The rate at T2 or the varied rate at T3 that worked out last quarter’s instalment in this income year, not a new rate the ATO has since given. Enter 0 for the year’s first instalment.
 
-Each option reads only its own fields. For a varied amount, earlier credits are those you were entitled to claim for earlier quarters, claimed or not; for a varied rate, those you claimed. Instalment income is generally gross business and investment income, excluding GST.
+Each option reads only its own fields. For a varied amount, earlier credits are those you were entitled to claim for earlier quarters, claimed or not; for a varied rate, those you claimed. A varied rate gives a credit only when it is lower than the rate used for the previous quarter. Instalment income is generally gross business and investment income, excluding GST.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: instalment rate (option 2), instalment income $20,100.00 at T1, instalment rate 1.7% at T2. T1 × T2 $341.70 Instalment at T11 and 5A, whole dollars $341.00
 
@@ -331,7 +331,7 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 
 The PAYG instalments calculator works out one quarterly pay as you go instalment by the method on the activity statement. Under option 1 the instalment is the amount the ATO notifies at T7. Varying it, the first instalment of the income year is 25% of the estimated tax for the year, the second 50%, the third 75% and the fourth 100%, each less the earlier instalments. The third and fourth add back any credits you were entitled to claim for earlier instalments, claimed or not; no credit can arise before the second, so the calculator refuses one entered for the first or second. A negative result is a credit to claim at 5B.
 
-Under option 2 the instalment is the quarter’s instalment income at T1 times the instalment rate at T2. A varied rate is the estimated tax for the year divided by the estimated instalment income, times 100. If the varied rate is lower than the earlier rate, the earlier instalments less any credits claimed, less the earlier instalment income times the varied rate, is a credit for 5B.
+Under option 2 the instalment is the quarter’s instalment income at T1 times the instalment rate at T2. A varied rate is the estimated tax for the year divided by the estimated instalment income, times 100. If the varied rate is lower than the rate used for the previous quarter, the earlier instalments less any credits claimed, less the earlier instalment income times the varied rate, is a credit for 5B. That comparison is with last quarter’s rate, not a new rate the ATO gives at T2. No step is rounded: only the instalment and the credit drop their cents, so 25% of an estimate of $399.99 is $99.9975, an instalment of $99.
 
 For 2026-27, the instalment amount the ATO notifies already includes its GDP adjustment of 5%, which raises the base year’s income to allow for growth; the adjustment does not change an instalment rate. The ATO’s own example: instalment income of $20,100 at a rate of 1.7% gives $341.70, entered as 341 at T11 and 5A.
 
@@ -353,9 +353,11 @@ The ATO’s varied amount for a third instalment | Varied amount, instalment 3; 
 The ATO’s varied amount for the fourth instalment | Varied amount, instalment 4; estimated tax $14,000.00, earlier instalments $10,500.00, credits $0.00 | Due by this instalment $14,000.00, amount $3,500.00, instalment $3,500.00
 A varied amount below nil is a credit | Varied amount, instalment 3; estimated tax $8,000.00, earlier instalments $10,000.00, credits $0.00 | Due by this instalment $6,000.00, amount -$4,000.00, instalment $0.00, credit $4,000.00
 Credits claimed are added back | Varied amount, instalment 4; estimated tax $8,000.00, earlier instalments $10,000.00, credits $4,000.00 | Due by this instalment $8,000.00, amount $2,000.00, instalment $2,000.00, credit $0.00
-The ATO’s varied rate, cut to 2 decimal places, with a credit | Varied rate from estimated tax $10,125.00 on $82,480.00; instalment income $20,620.00, rate at T2 16.84%; earlier instalments $6,944.00, credits $0.00, on $41,240.00 | Instalment rate 12.27%, amount $2,530.07, instalment $2,530.00, credit $1,883.00
-The ATO’s credit example at a 5% varied rate | Varied rate from estimated tax $2,000.00 on $40,000.00; instalment income $10,000.00, rate at T2 10%; earlier instalments $1,000.00, credits $0.00, on $10,000.00 | Instalment rate 5.00%, amount $500.00, instalment $500.00, credit $500.00
-A higher varied rate gives no credit | Varied rate from estimated tax $1,200.00 on $10,000.00; instalment income $10,000.00, rate at T2 10%; earlier instalments $2,000.00, credits $0.00, on $10,000.00 | Instalment rate 12.00%, amount $1,200.00, instalment $1,200.00, credit $0.00
+The ATO’s varied rate, cut to 2 decimal places, with a credit | Varied rate from estimated tax $10,125.00 on $82,480.00; instalment income $20,620.00, previous quarter’s rate 16.84%; earlier instalments $6,944.00, credits $0.00, on $41,240.00 | Instalment rate 12.27%, amount $2,530.07, instalment $2,530.00, credit $1,883.00
+The ATO’s credit example at a 5% varied rate | Varied rate from estimated tax $2,000.00 on $40,000.00; instalment income $10,000.00, previous quarter’s rate 10%; earlier instalments $1,000.00, credits $0.00, on $10,000.00 | Instalment rate 5.00%, amount $500.00, instalment $500.00, credit $500.00
+A higher varied rate gives no credit | Varied rate from estimated tax $1,200.00 on $10,000.00; instalment income $10,000.00, previous quarter’s rate 10%; earlier instalments $2,000.00, credits $0.00, on $10,000.00 | Instalment rate 12.00%, amount $1,200.00, instalment $1,200.00, credit $0.00
+A new rate at T2 does not decide the credit | Varied rate from estimated tax $800.00 on $10,000.00; instalment income $10,000.00, previous quarter’s rate 10%; earlier instalments $1,000.00, credits $0.00, on $10,000.00 | Instalment rate 8.00%, amount $800.00, instalment $800.00, credit $200.00
+25% of estimated tax keeps its fraction of a cent | Varied amount, instalment 1; estimated tax $399.99, earlier instalments $0.00, credits $0.00 | Due by this instalment $99.99, amount $99.99, instalment $99.00, credit $0.00
 A first instalment with earlier instalments is refused | Varied amount, instalment 1; estimated tax $8,000.00, earlier instalments $1,000.00, credits $0.00 | Refused: the first instalment of the year has no earlier instalments
 A credit for the second instalment is refused | Varied amount, instalment 2; estimated tax $8,000.00, earlier instalments $2,000.00, credits $500.00 | Refused: the first and second instalments of the year add back no credits
 
@@ -381,29 +383,37 @@ Source: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 
 The components of a super lump sum and the most income tax each part can bear.
 
-Published 22 November 2026. Last checked 22 November 2026.
+Published 22 November 2026. Last checked 23 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
 One super lump sum from a complying fund
 
+Work out The most income tax on the lump sum The amount the fund withholds (Schedule 12) The tax on a departing Australia superannuation payment
+
+The lump sum
+
 Payment date
 
 Income year of the payment 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
 
-Paid to The member A death benefits dependant A non-dependant, after the member’s death
+Paid to The member A death benefits dependant A non-dependant, after the member’s death A roll-over of the member’s benefit (withholding only) The trustee of the member’s deceased estate (withholding only)
 
 Lump sum (AUD) Value of the super interest just before the payment (AUD) The interest’s tax free component (AUD) Element untaxed in the fund, in the lump sum (AUD)
 
 Untaxed element from service before 1 July 1983? Choose No Yes
 
-The member Date of birth Terminal medical condition?Choose No Yes Disability superannuation benefit?Choose No Yes Low rate cap amount used in earlier years (AUD) Other lump sums this income year at preservation age to 59?Choose No Yes Untaxed plan cap amount used, from this plan (AUD)
+The member Date of birth Terminal medical condition?Choose No Yes Disability superannuation benefit?Choose No Yes Low rate cap amount used in earlier years (AUD) Other lump sums this income year at preservation age to 59?Choose No Yes
+
+The member’s plan Untaxed plan cap amount used, from this plan (AUD)
 
 Calculate
 
 ## What the inputs need
 
-For one lump sum from a complying fund paid on a condition of release: not a roll-over, an income stream commutation or a payment in breach of the payment rules. The fund states the interest’s value and tax free component just before the payment, and the untaxed element.
+The most tax is what the lump sum can bear in the person’s return, before the Medicare levy. The amount withheld is what the fund takes out when it pays, under Schedule 12 of the withholding schedules; it is a credit against that tax. A departing Australia superannuation payment, to a former temporary resident who has left Australia, bears its own final tax.
+
+For one lump sum from a complying fund paid on a condition of release: not an income stream commutation or a payment in breach of the payment rules. A roll-over and a payment to the trustee of a deceased estate are worked only for withholding. The fund states the interest’s value and tax free component just before the payment, and the untaxed element.
 
 The lump sum’s tax free component is its share of the interest’s, rounded to the cent; the rest is taxable, taxed in the fund except the untaxed element. Leave that at 0 for a fund that pays tax on its income, as most do.
 
@@ -415,17 +425,25 @@ Two registered medical practitioners, one a specialist, certify death is likely 
 
 The low rate cap applies only at preservation age and under 60, which from 1 July 2024 no one is. Enter the amounts counted for earlier lump sums. Other lump sums at that age in the same year share the cap, so they are refused while any is left.
 
+### What the withholding and DASP inputs need
+
+Withholding is worked for payments from 13 October 2020. With a TFN, a resident’s rate for each part is its ceiling rate plus the 2% Medicare levy, and the total rounds to the nearest dollar. Without one, the fund withholds 47% (45% for a foreign resident) of the taxable component, or of the untaxed element at 60 or over, ignoring cents. Without a TFN the rate turns on the payee’s age, which the calculator does not take for a death benefit, and none is stated for a member benefit under $200, so a non-dependant’s death benefit and such a member benefit are refused. The calculator assumes the payment is taxable in Australia and applies no tax treaty.
+
+Take the components from the fund’s or the ATO’s statement. The working holiday maker rate applies when the payment includes amounts from contributions made whilst the person was a working holiday maker. An unclaimed money roll-over with an untaxed element is refused: section 5(2) taxes any excess untaxed roll-over amount in it at nil.
+
 Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; member; paid 1 October 2026; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00. Tax free component $30,000.00 Taxable component: element taxed in the fund $190,000.00 Taxable component: element untaxed in the fund $80,000.00 Untaxed element within the untaxed plan cap left, $80,000.00 at no more than 15% $12,000.00 Assessable income $80,000.00 Not assessable income and not exempt income $220,000.00 Most income tax on the lump sum, before Medicare levy $12,000.00 Untaxed plan cap amount counted $80,000.00 Aged 62 on the payment date, preservation age 59: 60 or over, so only the untaxed element is assessable (ss 301-10 and 301-95).
 
 ## How the super lump sum tax calculator works
 
 The super lump sum tax calculator splits one lump sum from a complying fund, paid from 1 July 2020 to 30 June 2027, into its components. It gives the most income tax each part can bear before the Medicare levy. A member’s treatment turns on age on the payment day and preservation age; a death benefit’s turns on whether the person receiving it is a death benefits dependant. Each rate is a ceiling: the offsets stop the tax on a part going above it, so a person on lower marginal rates pays less, and the Medicare levy is added on top.
 
-Its results match the super-benefit-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 532 test cases, refusals included.
+It also works the amount the fund withholds from the same lump sum under Schedule 12, for a payment from 13 October 2020, including from a roll-over and a death benefit paid to a deceased estate, and the final tax on a departing Australia superannuation payment in 2025-26 to 2027-28.
+
+Its results match the super-benefit-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 532 test cases, and its super-withholding and dasp-tax commands on 613 more, refusals included.
 
 ## What the super lump sum tax calculator does not cover
 
-The calculator does not work the tax at the person’s own marginal rates, the Medicare levy, the amount the fund withholds, income streams, roll-overs, departing Australia superannuation payments, death benefits paid to a deceased estate, or payments from a non-complying or foreign fund. It does not decide dependency, a terminal medical condition, the components or the elements: you state those. It refuses a disability superannuation benefit, an untaxed element from service before 1 July 1983, and other lump sums in the same year that share the low rate cap.
+The calculator does not work the tax at the person’s own marginal rates, the Medicare levy, income streams and their withholding (Schedule 13), the tax on a roll-over or a deceased estate, a tax treaty, or payments from a non-complying or foreign fund. It does not decide dependency, a terminal medical condition, the components or the elements: you state those. It refuses a disability superannuation benefit, an untaxed element from service before 1 July 1983, and other lump sums in the same year that share the low rate cap.
 
 Confirm the result with the fund, the ATO’s guidance on super lump sums or a registered tax agent before relying on it. The redundancy and ETP withholding calculator covers employment termination payments.
 
