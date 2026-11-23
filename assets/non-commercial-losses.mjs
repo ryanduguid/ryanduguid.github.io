@@ -9,7 +9,7 @@
 // (1 October 2026) on 22 November 2026; Division 35 reads the same in Compilations No. 210 and 223.
 // Every amount is the person's figure for the activity; the Commissioner's discretion (s 35-55) is
 // never decided here.
-import { commandCents } from './money.mjs';
+import { commandCents, decimalParts } from './money.mjs';
 import { refuse } from './private-health-rebate.mjs';
 
 export const NCL_YEARS = ['2020-21', '2021-22', '2022-23', '2023-24', '2024-25', '2025-26', '2026-27'];
@@ -44,12 +44,12 @@ const money = (/** @type {unknown} */ value) => (typeof value === 'string' ? com
 /** An amount that may be negative, in cents: at most 2 decimal places and $1e12 either side of nil.
  * @param {unknown} value */
 function signedCents(value) {
-  const parts = typeof value === 'string' ? /^(-?)(\d+)(?:\.(\d{1,2}))?$/.exec(value.trim()) : null;
-  const size = parts ? BigInt(parts[2]) * 100n + BigInt((parts[3] ?? '').padEnd(2, '0')) : -1n;
+  const parts = typeof value === 'string' ? decimalParts(value.trim()) : null;
+  const size = parts && parts.fraction.length <= 2 ? BigInt(parts.whole) * 100n + BigInt(parts.fraction.padEnd(2, '0')) : -1n;
   if (size < 0n || size > 10n ** 14n) {
     refuse('input.signed_amount_invalid', 'Amounts that may be negative must be finite Decimals, at most 2dp and 1e12 either side of nil.');
   }
-  return parts?.[1] ? -size : size;
+  return parts?.negative ? -size : size;
 }
 
 /** An amount inside an earlier year: a decimal string of at most 32 characters, as a money amount. */
