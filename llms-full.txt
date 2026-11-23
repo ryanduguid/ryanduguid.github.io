@@ -5608,6 +5608,8 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+24 November 2026 | The sole trader page now says whether the non-commercial loss rules defer a business loss, for 2020-21 to 2026-27: the income requirement, the 4 tests, the exception for primary production and professional arts, and the amount deferred after net exempt income (Division 35). It agrees with the non-commercial-losses command of the australian-accounting calculators on every tested case it can meet.
+24 November 2026 | The income tax page now works out the tax on a minor’s unearned income for 2024-25 to 2026-27: interest, dividends and other income not excepted are taxed at the special rates for someone under 18 (Division 6AA), and work and other excepted income at ordinary rates. It agrees with the minors-income command of the australian-accounting calculators on every tested case.
 24 November 2026 | The income tax calculator now takes the foreign income tax offset for 2020-21 to 2026-27, up to its $1,000 default limit, a limit from income tax payable figures you give, or for 2024-25 to 2026-27 a limit worked out from the estimate, and the page converts a foreign currency amount into Australian dollars at the rate for the day the tax law names for it, or at an average rate over up to 12 months. They agree with the foreign-income-tax-offset and foreign-income-conversion commands of the australian-accounting calculators on every tested case.
 23 November 2026 | The income tax calculator page now works out the net medical expenses tax offset for a 2016-17, 2017-18 or 2018-19 return, the last year it ran: 20% of net medical expenses for disability aids, attendant care or aged care over the lower phase-in limit, or 10% over the higher limit above the singles or family income threshold. It agrees with the net-medical-expenses-tax-offset command of the australian-accounting calculators on every tested case and refuses 2019-20 and later years.
 23 November 2026 | Updated 2 accounting questions after the 23 November 2026 ATO source sweep: removed the withdrawn credit card newsroom link from general tax question 6, keeping the ATO’s How to pay page, and rechecked company and trust question 86 against the 20 November 2026 trustee resolutions checklist.
@@ -5841,6 +5843,8 @@ Published 30 August 2026. Last reviewed 23 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- sole trader page: https://duguid.com.au/tools/individual-tax/sole-trader/#non-commercial-losses
+- income tax page: https://duguid.com.au/tools/individual-tax/income-tax/#minors-income
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - general tax question 6: https://duguid.com.au/tools/accounting-questions/general-tax/
 - company and trust question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/
@@ -12909,16 +12913,38 @@ For 2026-27 the Medicare levy thresholds are those the Act held on 17 November 2
 The calculator gives the tax of one person who was a resident, a foreign resident or a working holiday maker for the whole year. It does not compute:
 
 - the Medicare levy reduction for families, which depends on family taxable income and dependants, or a Medicare levy exemption;
-- the seniors and pensioners tax offset and its higher Medicare levy thresholds, the net medical expenses tax offset, which ended after 2018-19 and is worked out on its own below, or any other offset, such as for super contributions;
+- the seniors and pensioners tax offset and its higher Medicare levy thresholds, the net medical expenses tax offset, worked out below for 2016-17 to 2018-19, or any other offset, such as for super contributions;
 - for the rebate, a lifetime health cover loading, a policy for dependants only, a claim of a spouse’s share, or dependent children for a person with no spouse who maintained no dependant; for the invalid carer offset, shared maintenance, Family Tax Benefit Part B shared care or successive spouses; for the zone offset, shared maintenance or more than one area;
 - a change of family or cover status during the year beyond the days without cover, a spouse’s trust income that the surcharge test adds, the net amount on which family trust distribution tax has been paid, which counts in income for surcharge purposes and in the amount the surcharge is levied on, or exempt foreign employment income, which the ATO’s surcharge page adds to income for surcharge purposes when taxable income is $1 or more;
 - a first home super saver released amount, which is taxed with a 30% offset but left out of repayment income and income for surcharge purposes, or, for 2023-24 and earlier, the taxed element of a super lump sum up to the low rate cap, which a person from preservation age to under 60 could leave out of income for surcharge purposes;
 - a study loan debt smaller than the repayment: the repayment cannot exceed what is still owed (section 154-20(1)(c) of the Higher Education Support Act 2003), which the calculator does not ask for;
 - a part-year resident’s reduced tax-free threshold, a working holiday maker who is an Australian resident, or one with other income besides working holiday taxable income;
-- tax on superannuation or employment termination remainders, income averaging, or a minor’s unearned income;
+- tax on superannuation or employment termination remainders, income averaging, or a minor’s unearned income, worked out below for 2024-25 to 2026-27;
 - Division 293 tax, excess contributions, PAYG instalments or other credits besides the tax withheld you enter.
 
 Confirm the figures with the ATO’s Simple tax calculator or a registered tax agent.
+
+## A minor’s unearned income, 2024-25 to 2026-27
+
+For someone under 18 on 30 June: the tax on unearned income such as interest, dividends and trust distributions, which is taxed at special rates (Division 6AA), with income from work and other excepted income taxed at ordinary rates. The result is basic income tax before offsets and the Medicare levy.
+
+Minor’s income inputs
+
+Income year 2026-27 2025-26 2024-25
+
+Residency for the whole year Australian resident Foreign resident
+
+Under 18 on 30 June? Yes No
+
+Excepted personNone of these In a full-time occupation on 30 June Carer allowance payable on 30 June Disability support pension payable on 30 June The ATO holds a disability certificate Principal beneficiary of a special disability trust Double orphan pension payable on 30 June Double orphan pension but for section 1003 Permanent disability certificate Taxable income (whole dollars) Other assessable income (dollars and cents) Employment income (dollars and cents) Income from carrying on a business (dollars and cents) Other excepted incomeInvesting damages or compensation Investing a death benefit Investing money from a public fund Investing property from a family breakdown From a deceased estate Income from investing a lottery prize A partnership share, as section 102AE(3) limits it Investing excepted income Other excepted income amount (dollars and cents) Share of trust net income (dollars and cents) The part of it not from excepted trust income (dollars and cents) Deductions only for the other assessable income (dollars and cents) Part of other deductions related to it (dollars and cents) Apportionable deductions, such as gifts (dollars and cents) Does taxable income include a special income component? No Yes
+
+An excepted person is not taxed at the special rates (section 102AC(2)). On the double orphan and permanent disability grounds, a minor wholly or substantially dependent on relatives, as living with them is taken to show, is not excepted (section 102AC(3) to (5)).
+
+Other assessable income is income not excepted, such as interest, dividends and rent (section 102AE). Of a trust share, give the part to which Division 6AA applies (sections 102AE(4) and 102AG). Give excepted amounts as the Act limits them.
+
+Deductions only for the other assessable income come off it first, then the related part of other deductions, then a share of apportionable deductions (section 102AD).
+
+Calculate Enter the inputs and calculate.
 
 ## Foreign income conversion
 
@@ -13307,7 +13333,7 @@ A business registered for GST also sets aside the GST on its income less its GST
 
 The calculator is for an Australian resident aged 18 or over with one business as a sole trader, a full year of income and no dependants. It does not compute:
 
-- a business loss, which the non-commercial loss rules in Division 35 may defer, or losses carried forward;
+- a business loss or losses carried forward; whether Division 35 defers a loss is worked out below;
 - personal services income rules, which can deny deductions: see the PSI rules checker;
 - GST-free or input-taxed sales, GST on a cash or accruals basis by period, or a GST refund when credits exceed the GST on income;
 - other income such as interest, dividends, rent or capital gains, or partnership and trust distributions, which change both the tax and the offset’s share, or reportable fringe benefits and salary sacrificed to super from the job, which count in repayment income and income for surcharge purposes;
@@ -13319,6 +13345,26 @@ The calculator is for an Australian resident aged 18 or over with one business a
 - 2027-28, whose working Australians tax offset (Subdivision 61-E, added by Act No. 49 of 2026) applies from that year.
 
 Confirm the figures with the ATO’s calculators and tools or a registered tax agent.
+
+## Non-commercial losses: is a business loss deferred?
+
+For a loss from a business activity: whether the non-commercial loss rules defer it to a later year instead of letting you deduct it from other income this year (Division 35), for 2020-21 to 2026-27.
+
+Non-commercial losses inputs
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Kind of business activity Other Primary production Professional arts
+
+The activity’s assessable income (dollars and cents) Its deductions for the year (dollars and cents) Its losses deferred from earlier years (dollars and cents) Started or stopped in the year? No Yes
+
+Profit years among the 4 before this one0 1 2 3 4 Real property used in it (dollars and cents) Other assets used in it (dollars and cents) Your taxable income, or a loss as a negative amount (dollars and cents) Business losses deducted in it (dollars and cents) First home super saver amount in it (dollars and cents) Reportable fringe benefits (dollars and cents) Reportable super contributions (dollars and cents) Total net investment loss (dollars and cents) Net exempt income (dollars and cents)
+
+A profit year is one in which the activity’s assessable income was more than its deductions (section 35-35). Value real property at its reduced cost base, or market value if higher, leaving out a private dwelling; value other assets as section 35-45 says, leaving out cars and motor cycles.
+
+The income requirement adds back the business losses and takes out the first home super saver amount (section 35-10(2E)).
+
+Calculate Enter the inputs and calculate.
 
 ## Boundary cases
 

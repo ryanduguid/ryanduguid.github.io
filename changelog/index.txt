@@ -13,6 +13,8 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+24 November 2026 | The sole trader page now says whether the non-commercial loss rules defer a business loss, for 2020-21 to 2026-27: the income requirement, the 4 tests, the exception for primary production and professional arts, and the amount deferred after net exempt income (Division 35). It agrees with the non-commercial-losses command of the australian-accounting calculators on every tested case it can meet.
+24 November 2026 | The income tax page now works out the tax on a minor’s unearned income for 2024-25 to 2026-27: interest, dividends and other income not excepted are taxed at the special rates for someone under 18 (Division 6AA), and work and other excepted income at ordinary rates. It agrees with the minors-income command of the australian-accounting calculators on every tested case.
 24 November 2026 | The income tax calculator now takes the foreign income tax offset for 2020-21 to 2026-27, up to its $1,000 default limit, a limit from income tax payable figures you give, or for 2024-25 to 2026-27 a limit worked out from the estimate, and the page converts a foreign currency amount into Australian dollars at the rate for the day the tax law names for it, or at an average rate over up to 12 months. They agree with the foreign-income-tax-offset and foreign-income-conversion commands of the australian-accounting calculators on every tested case.
 23 November 2026 | The income tax calculator page now works out the net medical expenses tax offset for a 2016-17, 2017-18 or 2018-19 return, the last year it ran: 20% of net medical expenses for disability aids, attendant care or aged care over the lower phase-in limit, or 10% over the higher limit above the singles or family income threshold. It agrees with the net-medical-expenses-tax-offset command of the australian-accounting calculators on every tested case and refuses 2019-20 and later years.
 23 November 2026 | Updated 2 accounting questions after the 23 November 2026 ATO source sweep: removed the withdrawn credit card newsroom link from general tax question 6, keeping the ATO’s How to pay page, and rechecked company and trust question 86 against the 20 November 2026 trustee resolutions checklist.
@@ -246,6 +248,8 @@ Published 30 August 2026. Last reviewed 23 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- sole trader page: https://duguid.com.au/tools/individual-tax/sole-trader/#non-commercial-losses
+- income tax page: https://duguid.com.au/tools/individual-tax/income-tax/#minors-income
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - general tax question 6: https://duguid.com.au/tools/accounting-questions/general-tax/
 - company and trust question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/

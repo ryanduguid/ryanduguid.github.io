@@ -299,16 +299,38 @@ For 2026-27 the Medicare levy thresholds are those the Act held on 17 November 2
 The calculator gives the tax of one person who was a resident, a foreign resident or a working holiday maker for the whole year. It does not compute:
 
 - the Medicare levy reduction for families, which depends on family taxable income and dependants, or a Medicare levy exemption;
-- the seniors and pensioners tax offset and its higher Medicare levy thresholds, the net medical expenses tax offset, which ended after 2018-19 and is worked out on its own below, or any other offset, such as for super contributions;
+- the seniors and pensioners tax offset and its higher Medicare levy thresholds, the net medical expenses tax offset, worked out below for 2016-17 to 2018-19, or any other offset, such as for super contributions;
 - for the rebate, a lifetime health cover loading, a policy for dependants only, a claim of a spouse’s share, or dependent children for a person with no spouse who maintained no dependant; for the invalid carer offset, shared maintenance, Family Tax Benefit Part B shared care or successive spouses; for the zone offset, shared maintenance or more than one area;
 - a change of family or cover status during the year beyond the days without cover, a spouse’s trust income that the surcharge test adds, the net amount on which family trust distribution tax has been paid, which counts in income for surcharge purposes and in the amount the surcharge is levied on, or exempt foreign employment income, which the ATO’s surcharge page adds to income for surcharge purposes when taxable income is $1 or more;
 - a first home super saver released amount, which is taxed with a 30% offset but left out of repayment income and income for surcharge purposes, or, for 2023-24 and earlier, the taxed element of a super lump sum up to the low rate cap, which a person from preservation age to under 60 could leave out of income for surcharge purposes;
 - a study loan debt smaller than the repayment: the repayment cannot exceed what is still owed (section 154-20(1)(c) of the Higher Education Support Act 2003), which the calculator does not ask for;
 - a part-year resident’s reduced tax-free threshold, a working holiday maker who is an Australian resident, or one with other income besides working holiday taxable income;
-- tax on superannuation or employment termination remainders, income averaging, or a minor’s unearned income;
+- tax on superannuation or employment termination remainders, income averaging, or a minor’s unearned income, worked out below for 2024-25 to 2026-27;
 - Division 293 tax, excess contributions, PAYG instalments or other credits besides the tax withheld you enter.
 
 Confirm the figures with the ATO’s Simple tax calculator or a registered tax agent.
+
+## A minor’s unearned income, 2024-25 to 2026-27
+
+For someone under 18 on 30 June: the tax on unearned income such as interest, dividends and trust distributions, which is taxed at special rates (Division 6AA), with income from work and other excepted income taxed at ordinary rates. The result is basic income tax before offsets and the Medicare levy.
+
+Minor’s income inputs
+
+Income year 2026-27 2025-26 2024-25
+
+Residency for the whole year Australian resident Foreign resident
+
+Under 18 on 30 June? Yes No
+
+Excepted personNone of these In a full-time occupation on 30 June Carer allowance payable on 30 June Disability support pension payable on 30 June The ATO holds a disability certificate Principal beneficiary of a special disability trust Double orphan pension payable on 30 June Double orphan pension but for section 1003 Permanent disability certificate Taxable income (whole dollars) Other assessable income (dollars and cents) Employment income (dollars and cents) Income from carrying on a business (dollars and cents) Other excepted incomeInvesting damages or compensation Investing a death benefit Investing money from a public fund Investing property from a family breakdown From a deceased estate Income from investing a lottery prize A partnership share, as section 102AE(3) limits it Investing excepted income Other excepted income amount (dollars and cents) Share of trust net income (dollars and cents) The part of it not from excepted trust income (dollars and cents) Deductions only for the other assessable income (dollars and cents) Part of other deductions related to it (dollars and cents) Apportionable deductions, such as gifts (dollars and cents) Does taxable income include a special income component? No Yes
+
+An excepted person is not taxed at the special rates (section 102AC(2)). On the double orphan and permanent disability grounds, a minor wholly or substantially dependent on relatives, as living with them is taken to show, is not excepted (section 102AC(3) to (5)).
+
+Other assessable income is income not excepted, such as interest, dividends and rent (section 102AE). Of a trust share, give the part to which Division 6AA applies (sections 102AE(4) and 102AG). Give excepted amounts as the Act limits them.
+
+Deductions only for the other assessable income come off it first, then the related part of other deductions, then a share of apportionable deductions (section 102AD).
+
+Calculate Enter the inputs and calculate.
 
 ## Foreign income conversion
 
@@ -697,7 +719,7 @@ A business registered for GST also sets aside the GST on its income less its GST
 
 The calculator is for an Australian resident aged 18 or over with one business as a sole trader, a full year of income and no dependants. It does not compute:
 
-- a business loss, which the non-commercial loss rules in Division 35 may defer, or losses carried forward;
+- a business loss or losses carried forward; whether Division 35 defers a loss is worked out below;
 - personal services income rules, which can deny deductions: see the PSI rules checker;
 - GST-free or input-taxed sales, GST on a cash or accruals basis by period, or a GST refund when credits exceed the GST on income;
 - other income such as interest, dividends, rent or capital gains, or partnership and trust distributions, which change both the tax and the offset’s share, or reportable fringe benefits and salary sacrificed to super from the job, which count in repayment income and income for surcharge purposes;
@@ -709,6 +731,26 @@ The calculator is for an Australian resident aged 18 or over with one business a
 - 2027-28, whose working Australians tax offset (Subdivision 61-E, added by Act No. 49 of 2026) applies from that year.
 
 Confirm the figures with the ATO’s calculators and tools or a registered tax agent.
+
+## Non-commercial losses: is a business loss deferred?
+
+For a loss from a business activity: whether the non-commercial loss rules defer it to a later year instead of letting you deduct it from other income this year (Division 35), for 2020-21 to 2026-27.
+
+Non-commercial losses inputs
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Kind of business activity Other Primary production Professional arts
+
+The activity’s assessable income (dollars and cents) Its deductions for the year (dollars and cents) Its losses deferred from earlier years (dollars and cents) Started or stopped in the year? No Yes
+
+Profit years among the 4 before this one0 1 2 3 4 Real property used in it (dollars and cents) Other assets used in it (dollars and cents) Your taxable income, or a loss as a negative amount (dollars and cents) Business losses deducted in it (dollars and cents) First home super saver amount in it (dollars and cents) Reportable fringe benefits (dollars and cents) Reportable super contributions (dollars and cents) Total net investment loss (dollars and cents) Net exempt income (dollars and cents)
+
+A profit year is one in which the activity’s assessable income was more than its deductions (section 35-35). Value real property at its reduced cost base, or market value if higher, leaving out a private dwelling; value other assets as section 35-45 says, leaving out cars and motor cycles.
+
+The income requirement adds back the business losses and takes out the first home super saver amount (section 35-10(2E)).
+
+Calculate Enter the inputs and calculate.
 
 ## Boundary cases
 
@@ -735,83 +777,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - calculators and tools: https://www.ato.gov.au/calculators-and-tools
-- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
-
----
-
-# Division 293 tax calculator 2021-22 to 2026-27
-
-Source: https://duguid.com.au/tools/individual-tax/division-293/
-
-> Division 293 tax on super contributions above the $250,000 threshold for 2021-22 to 2026-27, with excess contributions and carry-forward cap, cited.
-
-# Division 293 tax calculator
-
-The extra 15% tax on concessional super contributions when income and contributions exceed $250,000, for 2021-22 to 2026-27, each step shown.
-
-Published 19 November 2026. Last checked 19 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Division 293 tax inputs for one income year
-
-Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22
-
-Your super interests this year Accumulation interests only A defined benefit interest, a constitutionally protected fund or a Commonwealth judges’ pension scheme
-
-Taxable income, including any excess concessional contributions assessed (whole dollars) Reportable fringe benefits total (whole dollars) Total net investment loss, financial and rental (whole dollars) Income on which family trust distribution tax was paid (whole dollars) Assessable first home super saver released amount in taxable income (whole dollars) Super lump sum taxed at 0%, received from preservation age to under 60, to 2023-24 only (whole dollars) Concessional contributions for the financial year: employer, super guarantee, salary sacrifice and personal contributions you deduct (dollars and cents) Unused concessional cap from the previous 5 years not yet applied (dollars and cents) Total super balance just before the year began $500,000 or more Under $500,000, so unused cap carries forward
-
-Enter 0 for any part you do not have. Your tax return gives the income parts and your super fund’s statements the contributions; your ATO online account shows unused cap and your total super balance. Leave out contributions made under the super guarantee amnesty.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, accumulation interests only, taxable income $240,000.00, reportable fringe benefits $0.00, total net investment loss $0.00, family trust distribution tax income $0.00, assessable FHSS released amount $0.00, zero-rate super lump sum $0.00, concessional contributions $15,000.00, unused cap carried forward $0.00. Division 293 income: income for surcharge purposes less reportable super contributions $240,000.00 Concessional contributions $15,000.00 Concessional contributions cap for 2026-27 $32,500.00 Excess concessional contributions $0.00 Low tax contributions: the contributions less the excess $15,000.00 Division 293 income plus low tax contributions $255,000.00 Amount over the $250,000 threshold $5,000.00 Taxable contributions: the lesser of the low tax contributions and that amount $5,000.00 Division 293 tax at 15% $750.00 The ATO assesses it on a separate notice, payable 21 days after it is given (section 293-65).
-
-## How the Division 293 tax calculator works
-
-The Division 293 tax calculator works out the extra 15% tax on concessional super contributions for one income year when income and contributions together exceed $250,000. It adds up Division 293 income, the income measure used for the Medicare levy surcharge without reportable super contributions, then takes the contributions less any excess over the year’s cap, raised by unused cap carried forward when your total super balance allows it. Those are the low tax contributions. The taxable contributions are the lesser of the low tax contributions and the amount by which they and Division 293 income exceed $250,000, so only the part above the threshold is taxed, and never more than the contributions. Each step is shown, with the room left under the threshold when you are below it.
-
-Excess concessional contributions are not taxed by Division 293: they are added to your assessable income and taxed at your marginal rate less a 15% offset instead. A one-off event, such as a capital gain, an employment termination payment or back pay, can take you over the threshold for a single year. The ATO assesses Division 293 tax on its own notice once it has your return and your fund’s contribution reports. It is payable 21 days after the notice, and you can elect within 60 days to have it released from super.
-
-## What the Division 293 tax calculator does not compute
-
-The calculator covers 2021-22 to 2026-27, for contributions to accumulation interests. It does not compute:
-
-- defined benefit interests, whose defined benefit contributions the regulations work out and whose tax is deferred to a debt account (Subdivision 293-D), or the rules for State higher level office holders with constitutionally protected funds and for Commonwealth justices and judges (Subdivisions 293-E and 293-F);
-- contributions the Commissioner has disregarded or reallocated to another year, which stay in low tax contributions, or which contributions count: enter them as your fund reports them;
-- contributions that count differently for Division 293 than for the cap: a super guarantee amnesty amount the Commissioner paid to your fund, which is not a low tax contribution (section 293-30(4)(c)), and a contribution refunded under section 99G(6) of the Superannuation Industry (Supervision) Act 1993, which is not a concessional contribution (section 291-25(2)(e));
-- each part of Division 293 income, the unused cap or your total super balance, which you enter;
-- 2027-28 and later years, whose cap is not yet known, or years before 2021-22;
-- the refund for a former temporary resident who receives a departing Australia superannuation payment, interest, or the release from super itself.
-
-Confirm the figures with your Division 293 notice from the ATO or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Division 293 tax calculator
-
-Case | Inputs | Result
-The ATO’s example: Jan’s $240,000 and $15,000 give $5,000 taxed | 2026-27: taxable income $240,000; contributions $15,000.00 | Division 293 income $240,000.00, low tax contributions $15,000.00, taxable contributions $5,000.00, tax $750.00
-Below the threshold: $30,000 of room left | 2026-27: taxable income $200,000; contributions $20,000.00 | Division 293 income $200,000.00, low tax contributions $20,000.00, taxable contributions $0.00, tax $0.00
-Income alone over $250,000: all the contributions are taxed | 2026-27: taxable income $300,000; contributions $25,000.00 | Division 293 income $300,000.00, low tax contributions $25,000.00, taxable contributions $25,000.00, tax $3,750.00
-No low tax contributions, so no taxable contributions (s 293-20(2)) | 2026-27: taxable income $400,000; contributions $0.00 | Division 293 income $400,000.00, low tax contributions $0.00, taxable contributions $0.00, tax $0.00
-Exactly $250,000 does not exceed the threshold | 2026-27: taxable income $235,000; contributions $15,000.00 | Division 293 income $235,000.00, low tax contributions $15,000.00, taxable contributions $0.00, tax $0.00
-One cent over: 15% of a cent rounds to nil | 2026-27: taxable income $235,000; contributions $15,000.01 | Division 293 income $235,000.00, low tax contributions $15,000.01, taxable contributions $0.01, tax $0.00
-Ten cents over: 1.5 cents rounds half up to 2 | 2026-27: taxable income $235,000; contributions $15,000.10 | Division 293 income $235,000.00, low tax contributions $15,000.10, taxable contributions $0.10, tax $0.02
-Excess concessional contributions are left out | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00 | Division 293 income $243,000.00, low tax contributions $32,500.00 after $12,500.00 excess, taxable contributions $25,500.00, tax $3,825.00
-Unused cap carried forward covers the excess, so all of it counts | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00, unused cap $20,000.00, balance under | Division 293 income $243,000.00, low tax contributions $45,000.00, taxable contributions $38,000.00, tax $5,700.00
-Unused cap does not carry forward with a balance of $500,000 or more | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00, unused cap $20,000.00, balance $500,000 or more | Division 293 income $243,000.00, low tax contributions $32,500.00 after $12,500.00 excess, taxable contributions $25,500.00, tax $3,825.00
-Unused cap covers part of the excess | 2026-27: taxable income $210,000, fringe benefits $33,000; contributions $45,000.00, unused cap $5,000.00, balance under | Division 293 income $243,000.00, low tax contributions $37,500.00 after $7,500.00 excess, taxable contributions $30,500.00, tax $4,575.00
-2025-26, cap $30,000 | 2025-26: taxable income $230,000; contributions $35,000.00 | Division 293 income $230,000.00, low tax contributions $30,000.00 after $5,000.00 excess, taxable contributions $10,000.00, tax $1,500.00
-2023-24: each part of Division 293 income | 2023-24: taxable income $200,000, fringe benefits $10,000, net investment loss $15,000, family trust distribution tax income $20,000, less FHSS $5,000; contributions $27,500.00 | Division 293 income $240,000.00, low tax contributions $27,500.00, taxable contributions $17,500.00, tax $2,625.00
-2021-22: a lump sum taxed at the zero rate comes off | 2021-22: taxable income $260,000, less zero-rate lump sum $30,000; contributions $27,500.00 | Division 293 income $230,000.00, low tax contributions $27,500.00, taxable contributions $7,500.00, tax $1,125.00
-
-One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
 - fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/

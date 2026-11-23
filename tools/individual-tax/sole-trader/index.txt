@@ -42,7 +42,7 @@ A business registered for GST also sets aside the GST on its income less its GST
 
 The calculator is for an Australian resident aged 18 or over with one business as a sole trader, a full year of income and no dependants. It does not compute:
 
-- a business loss, which the non-commercial loss rules in Division 35 may defer, or losses carried forward;
+- a business loss or losses carried forward; whether Division 35 defers a loss is worked out below;
 - personal services income rules, which can deny deductions: see the PSI rules checker;
 - GST-free or input-taxed sales, GST on a cash or accruals basis by period, or a GST refund when credits exceed the GST on income;
 - other income such as interest, dividends, rent or capital gains, or partnership and trust distributions, which change both the tax and the offset’s share, or reportable fringe benefits and salary sacrificed to super from the job, which count in repayment income and income for surcharge purposes;
@@ -54,6 +54,26 @@ The calculator is for an Australian resident aged 18 or over with one business a
 - 2027-28, whose working Australians tax offset (Subdivision 61-E, added by Act No. 49 of 2026) applies from that year.
 
 Confirm the figures with the ATO’s calculators and tools or a registered tax agent.
+
+## Non-commercial losses: is a business loss deferred?
+
+For a loss from a business activity: whether the non-commercial loss rules defer it to a later year instead of letting you deduct it from other income this year (Division 35), for 2020-21 to 2026-27.
+
+Non-commercial losses inputs
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Kind of business activity Other Primary production Professional arts
+
+The activity’s assessable income (dollars and cents) Its deductions for the year (dollars and cents) Its losses deferred from earlier years (dollars and cents) Started or stopped in the year? No Yes
+
+Profit years among the 4 before this one0 1 2 3 4 Real property used in it (dollars and cents) Other assets used in it (dollars and cents) Your taxable income, or a loss as a negative amount (dollars and cents) Business losses deducted in it (dollars and cents) First home super saver amount in it (dollars and cents) Reportable fringe benefits (dollars and cents) Reportable super contributions (dollars and cents) Total net investment loss (dollars and cents) Net exempt income (dollars and cents)
+
+A profit year is one in which the activity’s assessable income was more than its deductions (section 35-35). Value real property at its reduced cost base, or market value if higher, leaving out a private dwelling; value other assets as section 35-45 says, leaving out cars and motor cycles.
+
+The income requirement adds back the business losses and takes out the first home super saver amount (section 35-10(2E)).
+
+Calculate Enter the inputs and calculate.
 
 ## Boundary cases
 
