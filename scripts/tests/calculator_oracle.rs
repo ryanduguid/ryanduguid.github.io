@@ -9472,14 +9472,26 @@ fn gst_case(rng: &mut Seeded) -> (Value, Value) {
             let amount = u128::from(rng.pick(&[any, any - any % 11, 1, 550, 1_100]));
             let supplier = rng.below(2) == 0;
             let recovered = rng.below(3) == 0;
-            let id = if supplier == recovered { "increasing_adjustment" } else { "decreasing_adjustment" };
+            let id = if supplier == recovered {
+                "increasing_adjustment"
+            } else {
+                "decreasing_adjustment"
+            };
             let mut call = json!({ "party": if supplier { "supplier" } else { "recipient" },
                 "event": if recovered { "recovered" } else { "written_off" }, "amount": gst_cents(amount),
                 "taxable_or_creditable": true, "cash_basis": false, "special_rule": "none", "year": year, "scope_confirmed": true });
-            call[if recovered { "prior_adjustment" } else { "attributed" }] = json!(true);
+            call[if recovered {
+                "prior_adjustment"
+            } else {
+                "attributed"
+            }] = json!(true);
             // Each reduction a percentage, or none: s 136-5 for the supplier, s 136-10(1) for the recipient.
             let mut factors = Vec::new();
-            let names: &[&str] = if supplier { &["taxable_proportion"] } else { &["creditable_purpose", "consideration_extent"] };
+            let names: &[&str] = if supplier {
+                &["taxable_proportion"]
+            } else {
+                &["creditable_purpose", "consideration_extent"]
+            };
             for name in names {
                 if rng.below(2) == 0 {
                     let percent = gst_percent(rng);
@@ -9498,8 +9510,15 @@ fn gst_case(rng: &mut Seeded) -> (Value, Value) {
             if !factors.is_empty() {
                 amounts["full_adjustment"] = json!(full);
             }
-            amounts[id] = json!(if factors.is_empty() { full } else { gst_cents(reduced) });
-            (json!(["bad-debt", call]), json!({ "amounts": amounts, "answer": true }))
+            amounts[id] = json!(if factors.is_empty() {
+                full
+            } else {
+                gst_cents(reduced)
+            });
+            (
+                json!(["bad-debt", call]),
+                json!({ "amounts": amounts, "answer": true }),
+            )
         }
         1 => {
             let consideration = u128::from(rng.pick(&[any, 30_000, 30_001, 1, any % 30_000]));
@@ -9514,13 +9533,21 @@ fn gst_case(rng: &mut Seeded) -> (Value, Value) {
                 // The GST on your resupply caps the credit when it is less than the 1/11 (s 66-10(1)(b)).
                 let gst = u128::from(rng.cents(u64::try_from(consideration / 5).unwrap()));
                 call["resupply_gst"] = json!(gst_cents(gst));
-                let credit = if 11 * gst < consideration { gst } else { eleventh };
+                let credit = if 11 * gst < consideration {
+                    gst
+                } else {
+                    eleventh
+                };
                 json!({ "one_eleventh_of_consideration": gst_cents(eleventh), "input_tax_credit": gst_cents(credit) })
             };
-            (json!(["second-hand-goods", call]), json!({ "amounts": amounts, "answer": true }))
+            (
+                json!(["second-hand-goods", call]),
+                json!({ "amounts": amounts, "answer": true }),
+            )
         }
         2 => {
-            let mut call = json!({ "gst_group": rng.below(2) == 0, "year": year, "scope_confirmed": true });
+            let mut call =
+                json!({ "gst_group": rng.below(2) == 0, "year": year, "scope_confirmed": true });
             let mut amounts = json!({});
             let mut exceeds = false;
             for name in ["current", "future"] {
@@ -9528,13 +9555,18 @@ fn gst_case(rng: &mut Seeded) -> (Value, Value) {
                 let total = u128::from(rng.pick(&[any, 150_000_000, 150_000_010]));
                 let tenth = total / 10;
                 let any = u128::from(rng.cents(u64::try_from(total.max(1)).unwrap()));
-                let financial = rng.pick(&[any, tenth, tenth + 1, total, 15_000_000, 15_000_001]).min(total);
+                let financial = rng
+                    .pick(&[any, tenth, tenth + 1, total, 15_000_000, 15_000_001])
+                    .min(total);
                 call[format!("{name}_financial_credits")] = json!(gst_cents(financial));
                 call[format!("{name}_total_credits")] = json!(gst_cents(total));
                 amounts[format!("{name}_ten_percent")] = json!(gst_cents(exact_half_up(total, 10)));
                 exceeds |= financial > 15_000_000 || 10 * financial > total;
             }
-            (json!(["financial-acquisitions", call]), json!({ "amounts": amounts, "answer": exceeds }))
+            (
+                json!(["financial-acquisitions", call]),
+                json!({ "amounts": amounts, "answer": exceeds }),
+            )
         }
         _ => {
             let gst = u128::from(any);
@@ -9544,8 +9576,16 @@ fn gst_case(rng: &mut Seeded) -> (Value, Value) {
                 "creditable_purpose": format!("0.{purpose:02}"), "car": false, "reduced_credit_acquisition": false,
                 "year": year, "scope_confirmed": true });
             // The non-input-taxed extent is at least the creditable purpose (s 11-15(2)(a)); 100% is left out.
-            let input_taxed = if rng.below(2) == 0 { 100 } else { purpose + u128::from(rng.below(u64::try_from(100 - purpose).unwrap())) };
-            let consideration = if rng.below(2) == 0 { 100 } else { u128::from(rng.below(99) + 1) };
+            let input_taxed = if rng.below(2) == 0 {
+                100
+            } else {
+                purpose + u128::from(rng.below(u64::try_from(100 - purpose).unwrap()))
+            };
+            let consideration = if rng.below(2) == 0 {
+                100
+            } else {
+                u128::from(rng.below(99) + 1)
+            };
             if input_taxed < 100 {
                 call["non_input_taxed_extent"] = json!(format!("0.{input_taxed:02}"));
             }
@@ -9557,7 +9597,10 @@ fn gst_case(rng: &mut Seeded) -> (Value, Value) {
             let amounts = json!({ "credit_without_annual_apportionment": gst_cents(exact_half_up(without, 10_000)),
                 "annual_apportionment_credit": gst_cents(exact_half_up(with, 10_000)),
                 "increasing_adjustment": gst_cents(exact_half_up(with - without, 10_000)) });
-            (json!(["annual-apportionment", call]), json!({ "amounts": amounts, "answer": true }))
+            (
+                json!(["annual-apportionment", call]),
+                json!({ "amounts": amounts, "answer": true }),
+            )
         }
     }
 }
@@ -9569,7 +9612,12 @@ fn the_gst_adjustments_engine_agrees_with_the_oracle_on_every_seeded_case() {
     }
     let mut rng = Seeded(0x2026_1123_0000_0B13);
     let (cases, expected): (Vec<_>, Vec<_>) = (0..GST_CASES).map(|_| gst_case(&mut rng)).unzip();
-    for worksheet in ["bad-debt", "second-hand-goods", "financial-acquisitions", "annual-apportionment"] {
+    for worksheet in [
+        "bad-debt",
+        "second-hand-goods",
+        "financial-acquisitions",
+        "annual-apportionment",
+    ] {
         assert!(cases.iter().any(|case| case[0] == worksheet), "{worksheet}");
     }
     assert!(expected.iter().any(|want| want["answer"] == json!(false)));
