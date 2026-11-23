@@ -4176,7 +4176,7 @@ Source: https://duguid.com.au/tools/payday-super/business-days/
 
 Payday Super contributions must generally reach the fund within 7 business days after payday. The weekdays below, from 1 July 2026 to 31 August 2027, are not business days for any employer: each is a public holiday for the whole of a state or territory.
 
-Published 14 November 2026. Last reviewed 14 November 2026. Sources checked 14 November 2026.
+Published 14 November 2026. Last reviewed 23 November 2026. Calendar sources checked 14 November 2026.
 
 ## Weekday public holidays to 31 August 2027
 
@@ -4239,7 +4239,7 @@ The calendar covers 1 July 2026, when Payday Super began, to 31 August 2027, for
 It does not cover:
 
 - paydays before 1 July 2026, which follow the quarterly super guarantee rules
-- dates after 31 August 2027: Business Victoria still lists the 2027 Friday before the AFL Grand Final as ‘Subject to AFL schedule’, so the calendar stops before that holiday can fall
+- dates after 31 August 2027. The general business days calculator includes Victoria’s confirmed 1 October 2027 holiday. It counts full-day holidays for general use. A Payday Super deadline after August needs a verified calendar under the Payday Super rules.
 - a public holiday declared or moved after 14 November 2026, such as a one-off holiday, which would change the due dates around it; check the jurisdiction’s page before relying on a date
 - an earlier deadline in a fund’s rules, an award or an enterprise agreement, or the time a clearing house or fund takes to process a payment
 
@@ -4268,6 +4268,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - Statutory Holidays Act 2000: https://www.legislation.tas.gov.au/view/whole/html/inforce/current/act-2000-096
 - Payday Super checker: https://duguid.com.au/tools/payday-super/
+- general business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
 - australian-accounting commit 701b3d4: https://github.com/ryanduguid/australian-accounting/blob/701b3d4425b62c1e2e707d46b754aee68470626e/packages/payday-super-checker/data/business_days.json
 - Payment deadlines for Payday Super: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super
 - Public holidays, school terms and daylight saving: https://www.act.gov.au/living-in-the-act/public-holidays-school-terms-and-daylight-saving
@@ -15332,7 +15333,7 @@ Source: https://duguid.com.au/tools/business-calculators/business-days/
 
 Business days between 2 dates, or the date a number of business days after or before one, skipping weekends and each state’s public holidays for 2026 and 2027.
 
-Published 18 November 2026. Last checked 18 November 2026.
+Published 18 November 2026. Last checked 23 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -15340,21 +15341,21 @@ Business days inputs, 2026 and 2027
 
 Work out Business days between 2 dates The date a number of business days after the start The date a number of business days before the start Public holidays of Australian Capital Territory New South Wales Northern Territory Queensland South Australia Tasmania Victoria Western Australia Any state or territory: skip a holiday that applies throughout any of them Start date End date, to count between 2 dates Number of business days, to find a date
 
-The count starts the day after the start date and includes the end date. Dates run from 1 January 2026 to 31 December 2027, and to 31 August 2027 for Victoria and for any state or territory.
+The count starts the day after the start date and includes the end date. Dates run from 1 January 2026 to 31 December 2027.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, start 21 December 2026, end 4 January 2027. Business days after the start, to and including the end 7 Weekday public holidays skipped 25 December 2026 (Christmas Day), 28 December 2026 (Boxing Day / Boxing Day (observed) / Proclamation Day (observed)), 1 January 2027 (New Year's Day) Part-day and regional holidays count as business days; where a local day replaces Melbourne Cup Day or the WA King’s Birthday, the state date is still skipped.
 
 ## How the business days calculator works
 
-The calculator skips Saturdays, Sundays and the public holidays of the state or territory you choose, using each government’s published dates for 2026 and 2027. Between 2 dates, it counts the business days after the start date up to and including the end date, so a Friday to the next Monday is 1. Forward or back, it finds the date that is that many business days after or before the start, and lists each weekday holiday it skipped.
+The calculator skips Saturdays, Sundays and the public holidays of the state or territory you choose, using the dates confirmed for 2026 and 2027. Between 2 dates, it counts the business days after the start date up to and including the end date, so a Friday to the next Monday is 1. Forward or back, it finds the date that is that many business days after or before the start, and lists each weekday holiday it skipped.
 
-‘Any state or territory’ skips a day that is a public holiday throughout any one of them, as the site’s Payday Super business days table counts them, and leaves out Melbourne Cup Day and the WA King’s Birthday because neither applies throughout its state.
+‘Any state or territory’ skips full-day public holidays that apply throughout at least one state or territory. It counts Melbourne Cup Day and the WA King’s Birthday as business days because regions can observe them on different dates.
 
 ## What the business days calculator does not cover
 
 Part-day holidays, such as the evenings of Christmas Eve and New Year’s Eve in South Australia and the Northern Territory, count as business days. So do regional holidays, among them the Royal Queensland Show in Brisbane, Tasmania’s Royal Hobart Regatta and Recreation Day, and show days, and days off for one group only, such as Tasmania’s Easter Tuesday for the public service. A council or region’s local substitute for Melbourne Cup Day or the WA King’s Birthday is not applied: the state date is still skipped.
 
-The calculator does not decide whether a law counts business days, clear days or calendar days, or which state’s holidays apply. Dates after 31 December 2027 are refused until the governments confirm the following year, and Victorian dates after 31 August 2027 until the AFL schedules its Grand Final. The calculator does not work out a superannuation guarantee or Payday Super due date.
+The calculator covers dates through 31 December 2027. Check the applicable law for which days and which place count towards a deadline. The separate SGC and Payday Super calculator works out those due dates within its own coverage period.
 
 ## Boundary cases
 
@@ -15373,7 +15374,7 @@ Any state or territory skips 9 March 2026, a holiday in 4 of them | Any state or
 10 business days on from 21 December 2026 in New South Wales | New South Wales, 10 business days after Monday 21 December 2026 | 10 business days, date Thursday 7 January 2027
 5 business days back from the Tuesday after Easter 2026 in New South Wales | New South Wales, 5 business days before Tuesday 7 April 2026 | 5 business days, date Friday 27 March 2026
 An end before the start is refused | New South Wales, Wednesday 18 November 2026 to Tuesday 17 November 2026 | Refused: the end date must not be before the start date
-A Victorian date after 31 August 2027 is refused | Victoria, Wednesday 1 September 2027 to Thursday 30 September 2027 | Refused: this page has public holidays from 1 January 2026 to 31 August 2027 for Victoria; choose dates in that range
+Victoria skips the Grand Final holiday | Victoria, Thursday 30 September 2027 to Friday 1 October 2027 | 0 business days
 Counting past 31 December 2027 is refused | New South Wales, 20 business days after Monday 20 December 2027 | Refused: this page has public holidays from 1 January 2026 to 31 December 2027 for New South Wales; choose dates in that range
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
@@ -15384,6 +15385,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
+- SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---

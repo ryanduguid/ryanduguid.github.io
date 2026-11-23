@@ -1007,7 +1007,7 @@ Source: https://duguid.com.au/tools/payday-super/business-days/
 
 Payday Super contributions must generally reach the fund within 7 business days after payday. The weekdays below, from 1 July 2026 to 31 August 2027, are not business days for any employer: each is a public holiday for the whole of a state or territory.
 
-Published 14 November 2026. Last reviewed 14 November 2026. Sources checked 14 November 2026.
+Published 14 November 2026. Last reviewed 23 November 2026. Calendar sources checked 14 November 2026.
 
 ## Weekday public holidays to 31 August 2027
 
@@ -1070,7 +1070,7 @@ The calendar covers 1 July 2026, when Payday Super began, to 31 August 2027, for
 It does not cover:
 
 - paydays before 1 July 2026, which follow the quarterly super guarantee rules
-- dates after 31 August 2027: Business Victoria still lists the 2027 Friday before the AFL Grand Final as ‘Subject to AFL schedule’, so the calendar stops before that holiday can fall
+- dates after 31 August 2027. The general business days calculator includes Victoria’s confirmed 1 October 2027 holiday. It counts full-day holidays for general use. A Payday Super deadline after August needs a verified calendar under the Payday Super rules.
 - a public holiday declared or moved after 14 November 2026, such as a one-off holiday, which would change the due dates around it; check the jurisdiction’s page before relying on a date
 - an earlier deadline in a fund’s rules, an award or an enterprise agreement, or the time a clearing house or fund takes to process a payment
 
@@ -1099,6 +1099,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - Statutory Holidays Act 2000: https://www.legislation.tas.gov.au/view/whole/html/inforce/current/act-2000-096
 - Payday Super checker: https://duguid.com.au/tools/payday-super/
+- general business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
 - australian-accounting commit 701b3d4: https://github.com/ryanduguid/australian-accounting/blob/701b3d4425b62c1e2e707d46b754aee68470626e/packages/payday-super-checker/data/business_days.json
 - Payment deadlines for Payday Super: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super
 - Public holidays, school terms and daylight saving: https://www.act.gov.au/living-in-the-act/public-holidays-school-terms-and-daylight-saving

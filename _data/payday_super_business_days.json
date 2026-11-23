@@ -14,7 +14,7 @@
     "TAS": "https://www.legislation.tas.gov.au/view/whole/html/inforce/current/act-2000-096",
     "VIC": "https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027",
     "WA": "https://www.wa.gov.au/service/employment/workplace-arrangements/public-holidays-western-australia",
-    "coverage_note": "Business Victoria says the exact 2027 grand-final holiday remains subject to the AFL schedule. The bundled completeness horizon therefore ends on 31 August 2027; later dates fail closed until the exact holiday is officially published or supplied by a reviewed override. The WA Government says 2028 dates will be published when confirmed, and the Public and Bank Holidays Amendment Bill 2025 remains at Legislative Council second reading."
+    "coverage_note": "The Payday Super coverage ends on 31 August 2027. The general business days calculator uses the confirmed full-day rows through 31 December 2027. Victoria's Friday 1 October 2027 holiday follows Gazette S 229 of 19 August 2015 and the AFL fixture for Saturday 2 October, checked 23 November 2026. The 2028 rows remain provisional for this calendar; the WA Government has published its dates under the Public and Bank Holiday Amendment Act 2026."
   },
   "non_business_days": [
     {
@@ -428,12 +428,12 @@
       "provisional": false
     },
     {
-      "date": "2027-09-24",
+      "date": "2027-10-01",
       "name": "Friday before the AFL Grand Final",
       "jurisdictions": [
         "VIC"
       ],
-      "provisional": true
+      "provisional": false
     },
     {
       "date": "2027-10-04",
