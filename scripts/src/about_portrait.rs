@@ -6,10 +6,11 @@
 //! The photo is not in the repository. It must be a PNG whose background is
 //! transparent: the alpha channel is the silhouette, so nothing has to guess
 //! where Ryan ends and the backdrop begins. Each character cell is sampled as
-//! 5 rows by 4 columns, and the glyph whose own bitmap, drawn from the site's
-//! Spline Sans Mono in the 0.6em by 0.8em cell the page draws, best matches the
-//! cell is chosen. Error diffusion carries each cell's leftover tone to its
-//! neighbours, so even areas such as the forehead get an even texture.
+//! 5 rows by 4 columns, and the `(tier, glyph)` pair whose Spline Sans Mono
+//! bitmap in the 0.6em by 0.8em cell best matches the cell's 2D tone patch is
+//! chosen across 5 existing OLED monochrome CSS tokens (`.t0` to `.t3`, with
+//! default `--colour-ink` for the brightest highlights). Every character stays
+//! pure printable ASCII inside `<pre>` so copying and pasting yields clean text.
 use ab_glyph_rasterizer::{Point, Rasterizer, point};
 use regex::Regex;
 use skrifa::{DrawMemory, PathSink, ScalerFont, font::Font};
@@ -272,7 +273,7 @@ fn crop(head: &Head) -> Result<([i64; 4], usize), String> {
     let rows = (crop_h / crop_w * COLUMNS as f64 * ADVANCE / LINE_HEIGHT).round() as usize;
     // A head far taller than it is wide is a bad cutout, and its grid would
     // need gigabytes of samples.
-    if rows > 2 * COLUMNS {
+    if rows == 0 || rows > 2 * COLUMNS {
         return Err(format!(
             "the head is {} by {} pixels, which would draw {rows} rows; check the cutout",
             head.width, head.height
@@ -292,11 +293,10 @@ fn local_contrast(value: &Grey, person: &Grey, sigma: f64, amount: f64) -> Grey 
 /// Local contrast, then the head's tonal range stretched to 0 to 1. The head
 /// is the first `head_rows` rows of samples.
 fn contrast(value: &Grey, person: &Grey, head_rows: usize) -> Result<Grey, String> {
-    // Broadly, so the shadowed cheek keeps its modelling and the lit one does
-    // not clip; then finely, so the eyes, teeth and hair keep their edges.
+    // A single gentle detail pass preserves eyes, brows and lips without
+    // blowing out skin mid-tones into static.
     let width = value.width as f64;
-    let value = local_contrast(value, person, 0.06 * width, 0.9);
-    let value = local_contrast(&value, person, 0.012 * width, 0.5);
+    let value = local_contrast(value, person, 0.018 * width, 0.42);
 
     // The range is the head's alone: the white shirt would otherwise set the
     // white point and leave the face grey.
@@ -312,37 +312,16 @@ fn contrast(value: &Grey, person: &Grey, head_rows: usize) -> Result<Grey, Strin
         return Err("the crop holds none of the figure; check the cutout".into());
     }
     inside.sort_by(f64::total_cmp);
-    let (low, high) = (percentile(&inside, 1.0), percentile(&inside, 99.0));
+    let (low, high) = (percentile(&inside, 1.0), percentile(&inside, 99.5));
     if high <= low {
         return Err("the figure has no tonal range to draw; check the photo".into());
     }
-    // A gentle gamma, and a faint floor so the dark hair and suit still read.
+    // Gentle mid-tone lift and a subtle dark floor so dark hair and jacket
+    // lapels stay legible in tier `.t0` without a chalk rim.
     Ok(value.map(|v| {
-        ((v - low) / (high - low))
-            .clamp(0.0, 1.0)
-            .powf(1.2)
-            .max(0.1)
+        let norm = ((v - low) / (high - low)).clamp(0.0, 1.0).powf(0.92);
+        0.06 + norm * 0.94
     }))
-}
-
-/// A rim along the silhouette, so the head's outline reads against the canvas.
-fn rim(person: &Grey) -> Grey {
-    let (width, height) = (person.width, person.height);
-    let mut rim = Grey::new(width, height);
-    for y in 0..height {
-        for x in 0..width {
-            let mut eroded = f64::INFINITY;
-            for dy in 0..SUB_Y {
-                for dx in 0..SUB_X {
-                    let sy = (y + dy).saturating_sub(SUB_Y / 2).min(height - 1);
-                    let sx = (x + dx).saturating_sub(SUB_X / 2).min(width - 1);
-                    eroded = eroded.min(person.at(sx, sy));
-                }
-            }
-            rim.data[y * width + x] = 0.7 * (person.at(x, y) - eroded).clamp(0.0, 1.0);
-        }
-    }
-    rim
 }
 
 /// Fade the bust out at the bottom and the lower corners rather than ending
@@ -365,9 +344,9 @@ fn fade(out: &mut Grey) {
     }
 }
 
-/// Tone to draw, 0 (canvas) to 1 (brightest glyph), at `SUB_X` by `SUB_Y`
-/// samples a cell, and the number of rows.
-fn tone(png: &[u8]) -> Result<(Grey, usize), String> {
+/// Tone to draw, 0 (canvas) to 1 (brightest highlight), the silhouette alpha
+/// plane at `SUB_X` by `SUB_Y` samples a cell, and the number of rows.
+fn tone(png: &[u8]) -> Result<(Grey, Grey, usize), String> {
     let (lightness, alpha) = lightness_and_alpha(png)?;
     // A cutout's background is a clear area around the figure, not a stray clear pixel.
     let clear = alpha.data.iter().filter(|&&a| a <= 0.5).count();
@@ -383,15 +362,13 @@ fn tone(png: &[u8]) -> Result<(Grey, usize), String> {
         .zip(&person, |v, m| if m > 1e-3 { v / m } else { 0.0 });
     let neck = (head.top + head.height - bounds[1] as f64) / (bounds[3] - bounds[1]) as f64;
     let value = contrast(&value, &person, (neck * height as f64) as usize)?;
-    let mut out = value
-        .zip(&rim(&person), f64::max)
-        .zip(&person, |v, m| v * m);
+    let mut out = value.zip(&person, |v, m| v * m);
     fade(&mut out);
-    Ok((out, rows))
+    Ok((out, person, rows))
 }
 
-/// A glyph's coverage at `SUB_X` by `SUB_Y` samples, unblurred and blurred.
-type Samples = (Vec<f64>, Vec<f64>);
+/// A glyph's coverage at `SUB_X` by `SUB_Y` samples.
+type Samples = Vec<f64>;
 
 /// A glyph outline in font units, kept until its bounds are known.
 #[derive(Default)]
@@ -453,17 +430,61 @@ impl PathSink for Outline {
     }
 }
 
+/// Rasterise one glyph outline into a `SUB_X` by `SUB_Y` coverage patch.
+fn rasterise_glyph(
+    outline: &Outline,
+    cell_w: usize,
+    cell_h: usize,
+    px: f32,
+    baseline: f32,
+) -> Samples {
+    let mut cell = Grey::new(cell_w, cell_h);
+    let (mut low, mut high) = (point(f32::MAX, f32::MAX), point(f32::MIN, f32::MIN));
+    for p in outline.points() {
+        low = point(low.x.min(p.x), low.y.min(p.y));
+        high = point(high.x.max(p.x), high.y.max(p.y));
+    }
+    if low.x < high.x && low.y < high.y {
+        let (whole, fraction) = (baseline.trunc(), baseline.fract());
+        let (min_x, max_x) = ((low.x * px).floor(), (high.x * px).ceil());
+        let min_y = (high.y * -px + fraction).floor() + whole;
+        let max_y = (low.y * -px + fraction).ceil() + whole;
+        let offset = point(-min_x, baseline - min_y);
+        let at = |p: Point| point(p.x * px + offset.x, p.y * -px + offset.y);
+        let mut raster = Rasterizer::new((max_x - min_x) as usize, (max_y - min_y) as usize);
+        for segment in &outline.segments {
+            match *segment {
+                Segment::Line(a, b) => raster.draw_line(at(a), at(b)),
+                Segment::Quad(a, b, c) => raster.draw_quad(at(a), at(b), at(c)),
+                Segment::Cubic(a, b, c, d) => raster.draw_cubic(at(a), at(b), at(c), at(d)),
+            }
+        }
+        raster.for_each_pixel_2d(|x, y, c| {
+            let x = min_x as i64 + i64::from(x);
+            let y = min_y as i64 + i64::from(y);
+            if (0..cell_w as i64).contains(&x) && (0..cell_h as i64).contains(&y) {
+                cell.data[y as usize * cell_w + x as usize] += f64::from(c);
+            }
+        });
+    }
+    crop_resize(
+        &cell.map(|c| c.min(1.0)),
+        [0, 0, cell_w as i64, cell_h as i64],
+        SUB_X,
+        SUB_Y,
+    )
+    .data
+}
+
 /// Each glyph's samples, in `GLYPHS` order.
 fn glyph_samples(font: &[u8]) -> Result<Vec<Samples>, String> {
     let ttf = wuff::decompress_woff2(font).map_err(|_| "could not decode the WOFF2 font")?;
     let face = Font::new(ttf, 0).ok_or("could not read the font")?;
     let line = face.metrics().h_line().ok_or("font has no line metrics")?;
-    // Drawn large, then averaged down to the samples.
     let size = 240usize;
     let cell_w = (size as f64 * ADVANCE).round() as usize;
     let cell_h = (size as f64 * LINE_HEIGHT).round() as usize;
     let px = size as f32 / f32::from(face.metrics().units_per_em);
-    // The content area is centred in the line box, which is the shorter of the two.
     let (ascent, descent) = (line.ascender.to_f32() * px, -line.descender.to_f32() * px);
     let baseline = (cell_h as f32 - (ascent + descent)) / 2.0 + ascent;
     let charmap = face.charmap();
@@ -471,125 +492,221 @@ fn glyph_samples(font: &[u8]) -> Result<Vec<Samples>, String> {
     GLYPHS
         .chars()
         .map(|ch| {
-            let mut cell = Grey::new(cell_w, cell_h);
             let mut outline = Outline::default();
             if let Some(glyph) = scaler.outline(charmap.map_unicode(ch).unwrap_or_default()) {
                 glyph
                     .draw(DrawMemory::Scratch, &mut outline)
                     .map_err(|e| format!("glyph {ch:?}: {e}"))?;
             }
-            let (mut low, mut high) = (point(f32::MAX, f32::MAX), point(f32::MIN, f32::MIN));
-            for p in outline.points() {
-                low = point(low.x.min(p.x), low.y.min(p.y));
-                high = point(high.x.max(p.x), high.y.max(p.y));
-            }
-            if low.x < high.x && low.y < high.y {
-                // Whole-pixel bounds round the scaled outline; font y grows up and
-                // pixel y down. The order of operations is ab_glyph's, which drew
-                // the portrait before, so each glyph's coverage is bit for bit the same.
-                let (whole, fraction) = (baseline.trunc(), baseline.fract());
-                let (min_x, max_x) = ((low.x * px).floor(), (high.x * px).ceil());
-                let min_y = (high.y * -px + fraction).floor() + whole;
-                let max_y = (low.y * -px + fraction).ceil() + whole;
-                let offset = point(-min_x, baseline - min_y);
-                let at = |p: Point| point(p.x * px + offset.x, p.y * -px + offset.y);
-                let mut raster =
-                    Rasterizer::new((max_x - min_x) as usize, (max_y - min_y) as usize);
-                for segment in &outline.segments {
-                    match *segment {
-                        Segment::Line(a, b) => raster.draw_line(at(a), at(b)),
-                        Segment::Quad(a, b, c) => raster.draw_quad(at(a), at(b), at(c)),
-                        Segment::Cubic(a, b, c, d) => {
-                            raster.draw_cubic(at(a), at(b), at(c), at(d));
-                        }
-                    }
-                }
-                raster.for_each_pixel_2d(|x, y, c| {
-                    let x = min_x as i64 + i64::from(x);
-                    // Ink past the top or bottom of the cell lands in the next
-                    // row, where a like glyph puts as much back.
-                    let y = (min_y as i64 + i64::from(y)).rem_euclid(cell_h as i64);
-                    if (0..cell_w as i64).contains(&x) {
-                        cell.data[y as usize * cell_w + x as usize] += f64::from(c);
-                    }
-                });
-            }
-            let samples = crop_resize(
-                &cell.map(|c| c.min(1.0)),
-                [0, 0, cell_w as i64, cell_h as i64],
-                SUB_X,
-                SUB_Y,
-            );
-            let blurred = blur(&samples, 0.6, true);
-            Ok((samples.data, blurred.data))
+            Ok(rasterise_glyph(&outline, cell_w, cell_h, px, baseline))
         })
         .collect()
 }
 
-/// The portrait text: each cell gets the glyph closest to its samples, and
-/// the difference in tone spreads to the cells not yet drawn, with Floyd and
-/// Steinberg's weights. Alternate rows run right to left, so the leftovers do
-/// not line up into diagonal streaks.
-pub fn render(png: &[u8], font: &[u8]) -> Result<String, String> {
-    let (target, rows) = tone(png)?;
-    let glyphs = glyph_samples(font)?;
-    let means: Vec<f64> = glyphs
-        .iter()
-        .map(|(g, _)| g.iter().sum::<f64>() / g.len() as f64)
-        .collect();
-    let brightest = means.iter().copied().fold(0.0, f64::max);
-    let target = blur(&target.map(|v| v * brightest), 0.6, true);
-    let mut picks = vec![0usize; rows * COLUMNS];
-    let mut error = vec![0.0f64; (rows + 1) * (COLUMNS + 2)];
-    let at = |r: usize, c: isize| r * (COLUMNS + 2) + (c + 1) as usize;
-    let mut cell = [0.0f64; SUB_X * SUB_Y];
-    for r in 0..rows {
-        let ahead: isize = if r % 2 == 0 { 1 } else { -1 };
-        for step in 0..COLUMNS {
-            let c = if ahead > 0 { step } else { COLUMNS - 1 - step };
-            let carried = error[at(r, c as isize)];
-            for (k, sample) in cell.iter_mut().enumerate() {
-                let (dy, dx) = (k / SUB_X, k % SUB_X);
-                *sample = target.at(c * SUB_X + dx, r * SUB_Y + dy) + carried;
-            }
-            // Leave the canvas empty where there is nothing to draw.
-            if cell.iter().all(|&v| v <= 0.01) && carried <= 0.02 {
-                continue;
-            }
-            let distance = |g: &[f64]| {
-                g.iter()
-                    .zip(&cell)
-                    .map(|(a, b)| (a - b).powi(2))
-                    .sum::<f64>()
-            };
-            let best = (0..glyphs.len())
-                .min_by(|&a, &b| distance(&glyphs[a].1).total_cmp(&distance(&glyphs[b].1)))
-                .unwrap_or(0);
-            picks[r * COLUMNS + c] = best;
-            let left_over = cell.iter().sum::<f64>() / cell.len() as f64 - means[best];
-            let c = c as isize;
-            error[at(r, c + ahead)] += left_over * 7.0 / 16.0;
-            error[at(r + 1, c - ahead)] += left_over * 3.0 / 16.0;
-            error[at(r + 1, c)] += left_over * 5.0 / 16.0;
-            error[at(r + 1, c + ahead)] += left_over / 16.0;
-        }
-    }
-    text(&picks)
+/// The 5 OLED monochrome tiers matching `--colour-rule`, `--colour-rule-strong`,
+/// `--colour-ink-soft`, `--colour-ink-mid` and `--colour-ink` (default `<pre>`).
+const TIERS: [f64; 5] = [
+    0x26 as f64 / 255.0,
+    0x60 as f64 / 255.0,
+    0x9a as f64 / 255.0,
+    0xc8 as f64 / 255.0,
+    1.0,
+];
+
+/// Normalised sub-cell shape vector and mean ink density for one glyph.
+struct GlyphTemplate {
+    norm_vec: Vec<f64>,
+    norm_mean: f64,
 }
 
-/// The picked glyphs as rows of text, trailing spaces and empty rows at either
-/// end trimmed.
-fn text(picks: &[usize]) -> Result<String, String> {
+fn templates(glyphs: &[Samples]) -> Vec<GlyphTemplate> {
+    let means: Vec<f64> = glyphs
+        .iter()
+        .map(|g| g.iter().sum::<f64>() / g.len() as f64)
+        .collect();
+    let brightest = means.iter().copied().fold(0.0, f64::max).max(1e-6);
+    glyphs
+        .iter()
+        .zip(means)
+        .map(|(raw, mean)| GlyphTemplate {
+            norm_vec: raw
+                .iter()
+                .map(|&v| (v / (brightest * 1.15)).min(1.35))
+                .collect(),
+            norm_mean: mean / brightest,
+        })
+        .collect()
+}
+
+/// Score one `(tier, glyph)` candidate against a target `SUB_X * SUB_Y` patch.
+fn score_cell(
+    patch: &[f64; SUB_X * SUB_Y],
+    mean: f64,
+    want_density: f64,
+    tl: f64,
+    g: &GlyphTemplate,
+) -> (f64, f64) {
+    let shape_err: f64 = g
+        .norm_vec
+        .iter()
+        .zip(patch)
+        .map(|(&p, &t)| (t - p * tl).powi(2))
+        .sum::<f64>()
+        / patch.len() as f64;
+    let eff = g.norm_mean * tl;
+    let mean_err = (mean - eff).powi(2);
+    let plain_err = (g.norm_mean - want_density).powi(2);
+    (
+        0.62 * shape_err + 0.32 * 2.2 * mean_err + 0.06 * plain_err,
+        eff,
+    )
+}
+
+/// Best `(tier, glyph_index, effective_luminance)` for one `SUB_X * SUB_Y` target patch.
+fn best_cell(
+    patch: &[f64; SUB_X * SUB_Y],
+    mean: f64,
+    avg_alpha: f64,
+    bank: &[GlyphTemplate],
+) -> (usize, usize, f64) {
+    let want_density = (mean * 1.02).clamp(0.06, 1.0);
+    let mut best = (0usize, 1usize, 0.0f64);
+    let mut best_err = f64::INFINITY;
+    let mut fallback = (0usize, 1usize, 0.0f64);
+    let mut fallback_err = f64::INFINITY;
+    for (tier, &tl) in TIERS.iter().enumerate() {
+        let tier_ok = mean <= tl + 0.16 && !(mean < tl * 0.18 && tier > 0);
+        for (gi, g) in bank.iter().enumerate() {
+            if gi == 0 && avg_alpha > 0.4 && mean >= 0.04 {
+                continue;
+            }
+            let (err, eff) = score_cell(patch, mean, want_density, tl, g);
+            if err < fallback_err {
+                fallback_err = err;
+                fallback = (tier, gi, eff);
+            }
+            if tier_ok && (g.norm_mean - want_density).abs() <= 0.30 && err < best_err {
+                best_err = err;
+                best = (tier, gi, eff);
+            }
+        }
+    }
+    if best_err.is_finite() { best } else { fallback }
+}
+
+/// Spread a subtle Atkinson fraction of cell tonal residual to upcoming cells
+/// so tier boundaries blend smoothly without grainy static.
+fn diffuse(error: &mut [f64], rows: usize, r: usize, c: usize, residual: f64) {
+    let step = residual * 0.30 / 8.0;
+    for (dr, dc) in [(0isize, 1isize), (0, 2), (1, -1), (1, 0), (1, 1), (2, 0)] {
+        let (nr, nc) = (r as isize + dr, c as isize + dc);
+        if (0..rows as isize).contains(&nr) && (0..COLUMNS as isize).contains(&nc) {
+            error[nr as usize * COLUMNS + nc as usize] += step;
+        }
+    }
+}
+
+/// The portrait markup: each cell gets the `(tier, glyph)` pair closest to its
+/// `SUB_X * SUB_Y` tone patch whilst keeping glyph density aligned with brightness
+/// so copying and pasting as plain text retains clean shading.
+pub fn render(png: &[u8], font: &[u8]) -> Result<String, String> {
+    let (target, person, rows) = tone(png)?;
+    let bank = templates(&glyph_samples(font)?);
+    let mut picks = vec![(4usize, 0usize); rows * COLUMNS];
+    let mut error = vec![0.0f64; rows * COLUMNS];
+    let mut patch = [0.0f64; SUB_X * SUB_Y];
+    for r in 0..rows {
+        for c in 0..COLUMNS {
+            let carry = error[r * COLUMNS + c].clamp(-0.12, 0.12);
+            let (mut a_sum, mut p_sum) = (0.0, 0.0);
+            for (k, sample) in patch.iter_mut().enumerate() {
+                let (dy, dx) = (k / SUB_X, k % SUB_X);
+                let (x, y) = (c * SUB_X + dx, r * SUB_Y + dy);
+                let a = person.at(x, y);
+                a_sum += a;
+                let raw = target.at(x, y);
+                let v = if a > 0.2 && raw > 0.01 {
+                    (raw + carry).clamp(0.0, 1.0)
+                } else {
+                    0.0
+                };
+                *sample = v;
+                p_sum += v;
+            }
+            let avg_a = a_sum / patch.len() as f64;
+            let p_mean = p_sum / patch.len() as f64;
+            if avg_a < 0.22 || p_mean <= 0.01 {
+                continue;
+            }
+            let (tier, gi, eff) = best_cell(&patch, p_mean, avg_a, &bank);
+            picks[r * COLUMNS + c] = (tier, gi);
+            diffuse(&mut error, rows, r, c, p_mean - eff);
+        }
+    }
+    markup(&picks)
+}
+
+/// Strip only the renderer's own `<span class="t0..t3">` and `</span>` tags
+/// in a single left-to-right pass to recover the plain copy-and-pasteable ASCII.
+pub fn plain_text(art: &str) -> String {
+    let mut out = String::with_capacity(art.len());
+    let mut rest = art;
+    while !rest.is_empty() {
+        if let Some(after) = rest.strip_prefix("</span>") {
+            rest = after;
+        } else if let Some(after) = rest.strip_prefix("<span class=\"t")
+            && matches!(after.as_bytes().first(), Some(b'0'..=b'3'))
+            && let Some(after) = after[1..].strip_prefix("\">")
+        {
+            rest = after;
+        } else if let Some(ch) = rest.chars().next() {
+            out.push(ch);
+            rest = &rest[ch.len_utf8()..];
+        }
+    }
+    out
+}
+
+/// Format one row with run-length `<span class="t0..t3">` wrappers; tier 4
+/// inherits `--colour-ink` from `<pre>` with no wrapper.
+fn format_row(row: &[(usize, usize)], glyph_chars: &[char]) -> String {
+    let last_ink = row.iter().rposition(|&(_, gi)| gi != 0);
+    let Some(end) = last_ink else {
+        return String::new();
+    };
+    let mut out = String::new();
+    let mut open_tier: Option<usize> = None;
+    for &(tier, gi) in &row[..=end] {
+        let ch = glyph_chars[gi];
+        let want = if gi == 0 || tier == 4 {
+            None
+        } else {
+            Some(tier)
+        };
+        if want != open_tier {
+            if open_tier.is_some() {
+                out.push_str("</span>");
+            }
+            if let Some(t) = want {
+                out.push_str(&format!("<span class=\"t{t}\">"));
+            }
+            open_tier = want;
+        }
+        out.push(ch);
+    }
+    if open_tier.is_some() {
+        out.push_str("</span>");
+    }
+    out
+}
+
+/// The picked `(tier, glyph)` cells as rows of HTML markup, empty rows at
+/// either end trimmed.
+fn markup(picks: &[(usize, usize)]) -> Result<String, String> {
     let glyph_chars: Vec<char> = GLYPHS.chars().collect();
     let lines: Vec<String> = picks
         .chunks(COLUMNS)
-        .map(|row| {
-            row.iter()
-                .map(|&k| glyph_chars[k])
-                .collect::<String>()
-                .trim_end()
-                .to_owned()
-        })
+        .map(|row| format_row(row, &glyph_chars))
         .collect();
     let first = lines.iter().position(|l| !l.is_empty());
     let last = lines.iter().rposition(|l| !l.is_empty());
@@ -626,7 +743,8 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
         format!("{}{art}{}", &m[1], &m[3])
     });
     std::fs::write(&page_path, updated.as_bytes()).map_err(|e| format!("{PAGE}: {e}"))?;
-    let lines: Vec<&str> = art.split('\n').collect();
+    let plain = plain_text(&art);
+    let lines: Vec<&str> = plain.split('\n').collect();
     let widest = lines.iter().map(|l| l.chars().count()).max().unwrap_or(0);
     crate::print_text(
         &format!(
