@@ -683,9 +683,9 @@ pub const COLLECTION_HUBS: [CollectionHub; 3] = [
 
 pub const CONTACT_MAILTO_HREFS: [&str; 1] =
     ["mailto:ryan@duguid.com.au?subject=Website%20or%20tool%20feedback"];
-pub const HOMEPAGE_HEADING: &str = "Open source tools for Australian accountants";
+pub const HOMEPAGE_HEADING: &str = "Tools for Australian accountants";
 pub const HOMEPAGE_HEADING_MARKUP: &str =
-    "<h1 id=\"home-title\">Open source tools for Australian accountants</h1>";
+    "<h1 id=\"home-title\">Tools for Australian accountants</h1>";
 pub const HOMEPAGE_SUPPORT: &str =
     "Check workpaper packs, explore cash shortfalls and inspect the calculations.";
 pub const HOMEPAGE_ACTIONS: [(&str, &str); 1] = [(
@@ -728,7 +728,7 @@ pub const HOMEPAGE_ROUTES: [(&str, &[&str]); 3] = [
     ("Review my work", &["/about/", "/evidence/"]),
 ];
 pub const HOMEPAGE_ANCHORS: [&str; 2] = ["adopt", "verify"];
-pub const ABOUT_OPENING: &str = "I\u{2019}m Ryan Duguid, a senior accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.";
+pub const ABOUT_OPENING: &str = "I\u{2019}m Ryan Duguid, a senior accountant in Newcastle, NSW. I build tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.";
 pub const EVIDENCE_HEADING: &str = "Evidence behind the tools";
 pub const EVIDENCE_OPENING: &str = "Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims.";
 pub const HOMEPAGE_REQUIRED_TEXT: [&str; 3] = [
@@ -736,8 +736,8 @@ pub const HOMEPAGE_REQUIRED_TEXT: [&str; 3] = [
     HOMEPAGE_SUPPORT,
     "Try each tool with fictional data first",
 ];
-pub const HOMEPAGE_TITLE: &str = "Open source tools for Australian accountants";
-pub const HOMEPAGE_DESCRIPTION: &str = "Personal index of open source Australian accounting tools for payroll, Xero, workpapers and AI workflows, with sources and working kept visible.";
+pub const HOMEPAGE_TITLE: &str = "Tools for Australian accountants";
+pub const HOMEPAGE_DESCRIPTION: &str = "Australian accounting tools for payroll, Xero, workpapers and AI workflows, with sources and working kept visible.";
 pub const HOMEPAGE_REQUIRED_HREFS: [&str; 4] = [
     "/evidence/",
     "/examples/profit-vs-cash-flow/",
@@ -901,16 +901,16 @@ pub const SOCIAL_CARD_CONTEXTS: [SocialCard; 5] = [
     SocialCard {
         id: "site",
         label: "Australian accounting",
-        heading: &["Open source tools for", "Australian accountants"],
+        heading: &["Tools for", "Australian accountants"],
         host: "duguid.com.au",
-        output: "social-card-site-20261104b.png",
+        output: "social-card-site-20261123.png",
     },
     SocialCard {
         id: "tools",
-        label: "Open source tools",
+        label: "Accounting tools",
         heading: &["Accounting checks that", "show their working."],
         host: "duguid.com.au/tools/",
-        output: "social-card-tools-20261104b.png",
+        output: "social-card-tools-20261123.png",
     },
     SocialCard {
         id: "evaluations",

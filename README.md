@@ -15,7 +15,7 @@
 
 </div>
 
-[duguid.com.au](https://duguid.com.au/) is [Ryan Duguid](https://duguid.com.au/)'s open source tool library for Australian accountants: calculators, rate tables with primary sources, engines, MCP servers, Excel LAMBDAs and agent workflows. This repository holds its source.
+[duguid.com.au](https://duguid.com.au/) is [Ryan Duguid](https://duguid.com.au/)'s tool library for Australian accountants: calculators, rate tables with primary sources, engines, MCP servers, Excel LAMBDAs and agent workflows. This repository holds its source.
 
 ## Site structure
 
@@ -42,7 +42,7 @@ The homepage is a short adoption path into those registers.
 
 **What data leaves the browser?** The calculators do not send the figures you enter to a server or save them in browser storage. The accounting-question search places its term and topic in the page address, so they appear in browser history and in any address you pass on. GitHub Pages and Cloudflare process technical information about visits, which may include IP addresses and request details. The [privacy notice](https://duguid.com.au/privacy/) gives the full account.
 
-**How is the site licensed?** Ryan Duguid’s software uses Apache-2.0 and his original page prose uses CC BY 4.0. See [Licence](#licence) for data, artwork and third-party material.
+**How is the site licensed?** The current website code uses Apache-2.0 and Ryan Duguid’s original page text uses CC BY 4.0. See [Licence](#licence) for data, artwork and third-party material.
 
 ## Alternatives
 
@@ -286,19 +286,20 @@ The 5 contexts cover the site, tools, evaluations, rates and evidence. They are 
 
 The current cards use dated filenames so preview crawlers receive a fresh image
 URL after a redesign. Earlier cards (the undated PNGs and the `-20260922`, `-20260924`, `-20261004`, `-20261013`, `-20261016` and `-20261104` sets)
-remain available for existing links; current page metadata points only to the
-`-20261104b` cards. Rebuild the cards
+remain available for existing links. The site and tool guides use the
+`-20261123` cards. The effective life tables keep their archived tool card.
+The evaluation, rate and evidence cards use `-20261104b`. Rebuild the cards
 with `node scripts/render-social-cards.mjs`, inspect all 5 outputs and update
 the hashes below. Advance the filename version in the context data, renderer,
 page metadata and contracts when changing published artwork. Messaging apps
 may retain a cached preview until they fetch the page again.
 
-Every card below shares one provenance record. Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: [Ryan Duguid Public Attribution Licence 1.0](LICENSE-DATA-AND-ARTWORK); renderer: Playwright 1.64.1, Chromium 156.0.8078.4 on Windows, device scale 1; a Linux render has identical pixels but different PNG bytes. Refresh when the template, context copy, embedded fonts or pinned browser changes.
+Every card below shares one provenance record. Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: [Ryan Duguid Public Attribution Licence 1.0](LICENSE-DATA-AND-ARTWORK); renderer: Playwright 1.65.1, Chromium 159.0.8154.6 on Windows, device scale 1; a Linux render has identical pixels but different PNG bytes. Refresh when the template, context copy, embedded fonts or pinned browser changes.
 
 | Asset | SHA-256 |
 | --- | --- |
-| `assets/social-card-site-20261104b.png` | `5667cb2a834027c521a6e74b5bfea62c736df655292f0ebae60642c0719da392` |
-| `assets/social-card-tools-20261104b.png` | `cbd56a715633ef15b473fe87017d7c2c5e5849f8be5c3416b8654e6f243f6220` |
+| `assets/social-card-site-20261123.png` | `5255646eb9216af0aa10ef323ab9e3f3405ef03da5d60a8100ae14db6a060a34` |
+| `assets/social-card-tools-20261123.png` | `bbd2bc9b244d9a53b0922634cb7c4eb7c1f944325eaa5fdc44ee8782e956121f` |
 | `assets/social-card-evaluations-20261104b.png` | `ddd78ec99d8694f70ce2397c79d11518e2bbb5b846e3ef90e0ce706c926cfaef` |
 | `assets/social-card-rates-20261104b.png` | `9ebf0ab19a41e4e0791a9ba56f5624532fab2b3bf4c5ac21dd3673a9f297518c` |
 | `assets/social-card-evidence-20261104b.png` | `21396f12f3a7856fc440f432807fad03ef31e33c01ffb2fdf370436bbb4ac67c` |
@@ -377,7 +378,7 @@ note records what evidence a Payroll or Migration badge would need first.
 
 ## Licence
 
-Ryan Duguid’s software is licensed under the [Apache License 2.0](LICENSE). Distributed derivatives retain applicable notices as section 4(d) specifies. His original page prose is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). His data compilations and artwork retain the [Public Attribution 1.0 terms](LICENSE-DATA-AND-ARTWORK). Earlier versions keep their published terms. [NOTICE](NOTICE) identifies applicable credits and third-party material.
+Ryan Duguid’s code for this website is licensed under the [Apache License 2.0](LICENSE). Distributed derivatives retain applicable notices as section 4(d) specifies. His original page prose is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). His data compilations and artwork retain the [Public Attribution 1.0 terms](LICENSE-DATA-AND-ARTWORK). For a linked tool, use the licence in its specific release or source revision. Earlier versions keep their published terms. [NOTICE](NOTICE) identifies applicable credits and third-party material.
 
 The licence grant does not extend to third-party material published here. The Besley,
 Public Sans and Spline Sans Mono subsets under `assets/fonts/` keep the SIL

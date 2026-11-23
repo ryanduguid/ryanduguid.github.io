@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>duguid.com.au changelog</title>
-  <subtitle>Site changes and tagged tool releases for Ryan Duguid's open source Australian accounting tools.</subtitle>
+  <subtitle>Site changes and tagged tool releases for Ryan Duguid's Australian accounting tools.</subtitle>
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-11-22T00:00:00Z</updated>
+  <updated>2026-11-23T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The tool pages now link to licences by release or source revision, including…</title>
+    <link href="https://duguid.com.au/changelog/#entry-4926b38f2461dbdf" />
+    <id>https://duguid.com.au/changelog/#entry-4926b38f2461dbdf</id>
+    <updated>2026-11-23T00:00:00Z</updated>
+    <summary>The tool pages now link to licences by release or source revision, including the versions used in worked examples. The homepage and tool directory link to Lodgeit’s listing of the Coal LSL levy calculator and to the Australian capital gains tax guide on OpenAccountants, with each project’s review status.</summary>
+  </entry>
   <entry>
     <title>A new business calculator works out one residential rental property’s income…</title>
     <link href="https://duguid.com.au/changelog/#entry-147ef5b5c7974011" />

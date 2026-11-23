@@ -21,4 +21,4 @@ links and browser evidence; report every required check that was not run.
 
 ## Reusing this code
 
-Ryan Duguid’s software uses Apache-2.0. Retain the applicable notices when distributing derivatives. Original page prose uses CC BY 4.0 and requires credit when shared. Data compilations, artwork and third-party material carry their own terms. See [LICENSE](LICENSE), [NOTICE](NOTICE) and [the data and artwork licence](LICENSE-DATA-AND-ARTWORK).
+Ryan Duguid’s software in this website repository uses Apache-2.0. Linked tools and earlier versions keep the licence supplied with each release. Retain the applicable notices when distributing derivatives. Original page prose uses CC BY 4.0 and requires credit when shared. Data compilations, artwork and third-party material carry their own terms. See [LICENSE](LICENSE), [NOTICE](NOTICE) and [the data and artwork licence](LICENSE-DATA-AND-ARTWORK).

@@ -14,11 +14,11 @@ Download the Excel example Compare the two cases
 
 To run the experiment, open the workbook, change Assumptions!B2 from 0 to 45 and compare quarterly profit with the lowest daily cash balance. Read the full steps.
 
-XLSX, 23,506 bytes. Needs desktop Excel with automatic calculation. The explanation and results below can be read without Excel.
+XLSX, 23,506 bytes. Source revision 386c7ff, MIT License. Needs desktop Excel with automatic calculation. The explanation and results below can be read without Excel.
 
 Lumbridge Services is fictional. Every business, customer, invoice, balance and date here is fictional, and all amounts are Australian dollars (AUD). No client outcome is described.
 
-Published 18 September 2026. Last reviewed 28 September 2026.
+Published 18 September 2026. Last reviewed 23 November 2026.
 
 One receipt arrives 45 days late. Weekly closing cash falls to ($25,160) against a $15,000 buffer. Compare both cases. Exported from Excel on 4 November 2026; capture record.
 
@@ -101,7 +101,7 @@ Whether the business should defer the purchase, arrange finance or accept the ri
 Needs desktop Excel with automatic calculation. No Xero login, add-in, macro or AI agent is used, and the workbook contains no macros and no external links.
 
 - Download the fictional Excel forecast (23,506 bytes).
-- Download the sample pack: the same workbook, the 6 source files, model notes, the management briefing, the trial guide, the fixed CSV exports and the source MIT licence.
+- Download the sample pack: the same workbook, the 6 source files, model notes, the management briefing, the trial guide, the fixed CSV exports and the MIT License from revision 386c7ff.
 - Read the sample record for the source commit, hash and verification.
 - Open the Model and Cash 13 weeks sheets and find quarterly profit and December closing cash.
 - Change Assumptions!B2 from 0 to 45. Trace invoice OPEN-V and watch the lowest daily balance and its date.
@@ -144,7 +144,7 @@ The Lumbridge case is a fictional demonstration, not a client result. No forecas
 - The output is not a complete forecast statutory balance sheet, and it does not calculate company income tax expense.
 - The example does not test when a super fund receives a contribution. Payday Super timing covers that question.
 
-Varrock and Falador are Old School RuneScape naming references. No game assets or prices are used, and no affiliation with Jagex is claimed. No game knowledge is needed.
+Varrock and Falador are Old School RuneScape naming references. No game assets or prices are used. No game knowledge is needed.
 
 ## Common questions
 
@@ -181,6 +181,7 @@ Cite as Duguid, R. (2026). Lumbridge Services fictional cash flow case [Data set
 - Download the Excel example: https://duguid.com.au/assets/examples/lumbridge/lumbridge.xlsx
 - Compare the two cases: https://duguid.com.au/examples/profit-vs-cash-flow/#results
 - Read the full steps: https://duguid.com.au/examples/profit-vs-cash-flow/#try
+- MIT License: https://github.com/ryanduguid/au-fpa-pack/blob/386c7ff31f7989b86445ef37d83a912fcb02bb47/LICENSE
 - capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
 - Read the results, definitions and source hashes (JSON): https://duguid.com.au/assets/examples/lumbridge/sensitivity.json
 - Download the sample pack: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip

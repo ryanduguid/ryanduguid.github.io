@@ -318,7 +318,7 @@ pub fn build(source: &str) -> Result<String, String> {
         "<?xml version=\"1.0\" encoding=\"utf-8\"?>".into(),
         "<feed xmlns=\"http://www.w3.org/2005/Atom\">".into(),
         "  <title>duguid.com.au changelog</title>".into(),
-        "  <subtitle>Site changes and tagged tool releases for Ryan Duguid's open source Australian accounting tools.</subtitle>".into(),
+        "  <subtitle>Site changes and tagged tool releases for Ryan Duguid's Australian accounting tools.</subtitle>".into(),
         "  <link href=\"https://duguid.com.au/feed.xml\" rel=\"self\" />".into(),
         format!("  <link href=\"{CHANGELOG_URL}\" />"), format!("  <id>{CHANGELOG_URL}</id>"),
         format!("  <updated>{latest}T00:00:00Z</updated>"), "  <author><name>Ryan Duguid</name></author>".into(),

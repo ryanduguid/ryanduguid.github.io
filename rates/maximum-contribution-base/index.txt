@@ -12,7 +12,7 @@ The maximum contribution base is $270,830 for 2026-27, now an annual figure that
 
 Once the qualifying earnings an employer has paid an employee for the year pass the base, that employer can stop paying super guarantee for that employee for the rest of the year. For quarters up to 30 June 2026 the base was set per quarter, $62,500 for 2025-26.
 
-Published 20 September 2026. Last reviewed 3 November 2026. Source checked 13 November 2026.
+Published 20 September 2026. Last reviewed 23 November 2026. Source checked 13 November 2026.
 
 Read on 20 September 2026 from the ATO’s super guarantee rates and thresholds page (Tables 23 and 24, last updated 17 April 2026), with the Superannuation Guarantee (Administration) Act 1992 as amended by the Treasury Laws Amendment (Payday Superannuation) Act 2025.
 
@@ -58,7 +58,7 @@ Concessional contributions cap, multiplied by 100, divided by the super guarante
 
 Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
 
-Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+Maintained by Ryan Duguid as part of his Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
 ## Related
 

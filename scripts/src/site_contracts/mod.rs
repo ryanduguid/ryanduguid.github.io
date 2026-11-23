@@ -43,8 +43,14 @@ pub fn social_metadata_for_page(rel: &str) -> (Option<String>, Option<String>) {
         return (None, None);
     };
     let card = social_card(context);
+    // Published effective life records retain the card in their generated document head.
+    let image = if crate::effective_life_pages::is_page(rel) {
+        crate::effective_life_pages::SOCIAL_CARD.to_owned()
+    } else {
+        format!("{SITE}/assets/{}", card.output)
+    };
     (
-        Some(format!("{SITE}/assets/{}", card.output)),
+        Some(image),
         Some(format!("OLED register card: {}", card.heading.join(" "))),
     )
 }

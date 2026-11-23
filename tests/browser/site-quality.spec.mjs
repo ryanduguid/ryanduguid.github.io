@@ -104,7 +104,8 @@ const representativeHeightBaseline = {
     // at 390px in Camofox. Add that measured content cost to the existing
     // ceiling; Chromium CI run 35598730192 confirms this limit passes.
     // The 29 October footer link adds 52px.
-    ['/tools/', 9385],
+    // The contribution credits and licence note measure 9,650px on a 390px phone.
+    ['/tools/', 9884],
     // The Xero certification record adds a badge, 4 dated facts and its
     // boundary note to Identity and credentials. The upstream summary then
     // gained the detection-is-not-prevention qualification on 18 September
@@ -361,7 +362,7 @@ test('home leads with one action, then 3 reader routes and the release register'
   await waitForVisualFonts(page);
   await expect(page.getByRole('heading', {
     level: 1,
-    name: 'Open source tools for Australian accountants',
+    name: 'Tools for Australian accountants',
     exact: true,
   })).toBeVisible();
 
@@ -406,7 +407,7 @@ test('the retired Engage hash redirects quietly to the homepage', async ({ page 
   await page.goto('/#engage');
   await expect(page).toHaveURL('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Open source tools for Australian accountants',
+    'Tools for Australian accountants',
   );
   health.assertHealthy();
 });

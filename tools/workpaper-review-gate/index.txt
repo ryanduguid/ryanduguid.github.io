@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/workpaper-review-gate/
 
 The Workpaper Review Gate inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED.
 
-Current release review-ready-gate v1.0.1, 14 November 2026, from the accounting-review-pipeline repository. Published 25 August 2026. Last reviewed 13 November 2026.
+Current release review-ready-gate v1.0.1, 14 November 2026, from the accounting-review-pipeline repository. Release licence: Ryan Duguid Public Attribution Licence 1.0. Published 25 August 2026. Last reviewed 23 November 2026.
 
 Delivery
 
@@ -71,7 +71,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output ../../../revi
 
 The output goes outside the clone on purpose. A readiness pack names a client’s file and its open findings, so it belongs outside version control rather than behind an ignore entry the next commit can waive. Releases v0.1.7 to v0.1.9 refuse an output inside a version control checkout. The path above leaves the clone, which is what you want when you run these commands from an ordinary directory. If you are already inside another checkout, point --output at a directory outside that one instead.
 
-Those commands reproduce the v0.1.3 example. The current release, review-ready-gate/v1.0.1, published on 14 November 2026, ships review-ready as an executable for Linux x86_64 and Windows x86_64, with signed provenance, that needs neither Python nor Rust. Its release guide shows how to verify a download.
+Those commands reproduce the v0.1.3 example under the MIT License. The current release, review-ready-gate/v1.0.1, published on 14 November 2026, ships review-ready as an executable for Linux x86_64 and Windows x86_64, with signed provenance, that needs neither Python nor Rust. The downloadable executables use the Ryan Duguid Public Attribution Licence 1.0. Its release guide shows how to verify a download.
 
 Source on GitHub
 
@@ -106,11 +106,13 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - v1.0.1: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.0.1
 - accounting-review-pipeline: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
+- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.1/packages/review-ready-gate/LICENSE
 - Download the generated findings.csv: https://duguid.com.au/assets/examples/review-gate/findings.csv
 - incomplete input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-not-ready
 - corrected input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-ready
 - generated cover sheet: https://duguid.com.au/assets/examples/review-gate/readiness-summary.md
 - fixed-release evaluation: https://duguid.com.au/evaluate/manager-review-gate/
+- MIT License: https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v0.1.3/packages/review-ready-gate/LICENSE
 - release guide: https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.1/packages/review-ready-gate/RELEASING.md
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/

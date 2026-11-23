@@ -15,7 +15,10 @@
     ],
     "delivery": "Python",
     "needs": "Python 3.14 or later",
-    "boundary": "A comparison is not an audit finding or compliance conclusion."
+    "boundary": "A comparison is not an audit finding or compliance conclusion.",
+    "licences": {
+      "0.2.2": "Apache License 2.0"
+    }
   },
   "australian-tax-ai-agents": {
     "name": "Aus Accounting MCP",
@@ -33,7 +36,10 @@
     ],
     "delivery": "MCP",
     "needs": "Python 3.14 or later and uv",
-    "boundary": "Human review required. Optional local library excerpts enter the assistant’s context; Division 7A scope stays limited."
+    "boundary": "Human review required. Optional local library excerpts enter the assistant’s context; Division 7A scope stays limited.",
+    "licences": {
+      "0.11.0": "Ryan Duguid Public Attribution Licence 1.0"
+    }
   },
   "coal-lsl-levy": {
     "name": "Coal LSL levy calculator",
@@ -49,7 +55,10 @@
     "sameAs": [],
     "delivery": "Browser",
     "needs": "A web browser; nothing to install",
-    "boundary": "No lodgement, storage or network transmission; verify the monthly return."
+    "boundary": "No lodgement, storage or network transmission; verify the monthly return.",
+    "licences": {
+      "0bd409dff58b08fca414d3aab027193c9385e501": "Ryan Duguid Public Attribution Licence 1.0"
+    }
   },
   "company-tax-franking": {
     "name": "Company tax and franking worksheets",
@@ -68,7 +77,10 @@
     ],
     "delivery": "Python",
     "needs": "Python 3.10 or later",
-    "boundary": "Requires verified income composition, distributions and ledger inputs."
+    "boundary": "Requires verified income composition, distributions and ledger inputs.",
+    "licences": {
+      "0.2.0": "Apache License 2.0"
+    }
   },
   "monthly-close-controls": {
     "name": "Monthly Close Controls",
@@ -86,7 +98,10 @@
     ],
     "delivery": "Rust",
     "needs": "Git and Rust 1.99.0",
-    "boundary": "PASS applies to the configured checks. A human approves the close."
+    "boundary": "PASS applies to the configured checks. A human approves the close.",
+    "licences": {
+      "1.1.0": "Ryan Duguid Public Attribution Licence 1.0"
+    }
   },
   "ozzit": {
     "name": "Ozzit",
@@ -103,7 +118,10 @@
     "sameAs": [],
     "delivery": "Excel workbook",
     "needs": "Microsoft 365 or Excel 2024 or later",
-    "boundary": "Calculates only. The reviewer decides the accounting treatment and the tax position."
+    "boundary": "Calculates only. The reviewer decides the accounting treatment and the tax position.",
+    "licences": {
+      "3.7.0": "Ryan Duguid Public Attribution Licence 1.0"
+    }
   },
   "payday-super": {
     "name": "Payday Super receipt evidence",
@@ -122,7 +140,10 @@
     ],
     "delivery": "Python",
     "needs": "uv, which fetches the pinned checker from PyPI",
-    "boundary": "Missing receipt evidence stays at risk; the tool does not infer payment."
+    "boundary": "Missing receipt evidence stays at risk; the tool does not infer payment.",
+    "licences": {
+      "0.2.3": "Apache License 2.0"
+    }
   },
   "subcontractor-ledgers": {
     "name": "Subcontractor ledger skills for construction and mining",
@@ -138,7 +159,10 @@
     "sameAs": [],
     "delivery": "Agent skills",
     "needs": "An AI coding agent such as Claude Code or Codex, and Node",
-    "boundary": "Requires human review of contracts, classifications and source records."
+    "boundary": "Requires human review of contracts, classifications and source records.",
+    "licences": {
+      "0.7.0": "Ryan Duguid Public Attribution Licence 1.0"
+    }
   },
   "trust-distributions": {
     "name": "Trust distribution worksheets for professional review",
@@ -157,7 +181,10 @@
     ],
     "delivery": "Python",
     "needs": "Python 3.10 or later",
-    "boundary": "Does not invent arrangements, intentions or beneficiary facts."
+    "boundary": "Does not invent arrangements, intentions or beneficiary facts.",
+    "licences": {
+      "0.3.2": "Apache License 2.0"
+    }
   },
   "wip-schedule": {
     "name": "TheWIPTally construction WIP schedule",
@@ -176,7 +203,10 @@
     ],
     "delivery": "Python",
     "needs": "Python 3.14 or later",
-    "boundary": "Review aid under AASB 15, not an accounting determination."
+    "boundary": "Review aid under AASB 15, not an accounting determination.",
+    "licences": {
+      "0.2.0": "Apache License 2.0"
+    }
   },
   "workpaper-review-gate": {
     "name": "Workpaper Review Gate",
@@ -194,7 +224,10 @@
     ],
     "delivery": "Rust",
     "needs": "Python 3.10 or later",
-    "boundary": "READY means ready for human review, not approved or signed off."
+    "boundary": "READY means ready for human review, not approved or signed off.",
+    "licences": {
+      "1.0.1": "Ryan Duguid Public Attribution Licence 1.0"
+    }
   },
   "xero-trial-balance": {
     "name": "Xero trial balance CSV export tool",
@@ -212,6 +245,9 @@
     ],
     "delivery": "Python",
     "needs": "Python 3.11 or later and a Xero developer app (free Starter plan: up to 5 connections, 1,000 API calls a day per organisation)",
-    "boundary": "Read-only Xero scope; no ledger writes."
+    "boundary": "Read-only Xero scope; no ledger writes.",
+    "licences": {
+      "0.1.15": "MIT License"
+    }
   }
 }

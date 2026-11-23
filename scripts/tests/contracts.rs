@@ -201,7 +201,7 @@ fn parked_consultancy_surface() {
     assert_ne!(bold, llms);
     assert_eq!(
         contracts::check_llms_authority_surface(&bold),
-        ["llms.txt: open source route boundary is incomplete"]
+        ["llms.txt: tool directory boundary is incomplete"]
     );
     let folded = site_tools::py::casefold(&llms);
     assert!(!folded.contains("firm workflow"));
@@ -252,7 +252,7 @@ fn geo_leftovers_surface() {
     if !rendered() {
         return;
     }
-    let homepage_title = "Open source tools for Australian accountants";
+    let homepage_title = "Tools for Australian accountants";
     let coal_title = "Coal LSL levy calculator and section 3B eligible wages";
     let coal_lead = "The coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base rate, annual salary and casual branches. The base rate branch uses the greater of Formula A and Formula B.";
     let home = read_text(root(), "index.html");
@@ -300,9 +300,9 @@ fn geo_leftovers_surface() {
         coal_page
             .get("dateModified")
             .unwrap()
-            .py_eq(&s("2026-10-21"))
+            .py_eq(&s("2026-11-23"))
     );
-    assert!(core::visible_text(&coal).contains("Last reviewed 21 October 2026."));
+    assert!(core::visible_text(&coal).contains("Last reviewed 23 November 2026."));
 
     let robots = read_text(root(), "robots.txt");
     assert!(robots.contains(
@@ -1038,6 +1038,47 @@ fn indexable_page_licences_point_to_the_scoped_statement() {
 }
 
 #[test]
+fn tool_headers_link_the_named_licence_for_the_documented_version() {
+    if !rendered() {
+        return;
+    }
+    let tools: serde_json::Value =
+        serde_json::from_str(include_str!("../../_data/tools.json")).unwrap();
+    let releases: serde_json::Value =
+        serde_json::from_str(include_str!("../../_data/tool_releases.json")).unwrap();
+    for (slug, tool) in tools.as_object().unwrap() {
+        let version = releases[slug]["version"].as_str().unwrap();
+        let name = tool["licences"][version]
+            .as_str()
+            .unwrap_or_else(|| panic!("{slug}: missing licence name for {version}"));
+        let rel = format!("tools/{slug}/index.html");
+        let html = read_text(root(), &rel);
+        let mut errors = Vec::new();
+        let blocks = core::json_ld_blocks(&html, &rel, &mut errors);
+        assert_clean(&rel, &errors);
+        let app = blocks
+            .iter()
+            .flat_map(core::nodes)
+            .find(|node| core::has_type(node, "SoftwareApplication"))
+            .unwrap();
+        let url = app.get("license").and_then(Json::as_str).unwrap();
+        let reference = releases[slug]["tag"].as_str().unwrap_or(version);
+        assert!(
+            url.contains(&format!("/blob/{reference}/")),
+            "{slug}: {url}"
+        );
+        let header = html
+            .split("</header>")
+            .find(|part| part.contains("class=\"page-meta\""))
+            .unwrap();
+        assert!(
+            header.contains(&format!(r#"<a href="{url}">{name}</a>"#)),
+            "{slug}: {version}"
+        );
+    }
+}
+
+#[test]
 fn rate_datasets_identify_licence_and_creator() {
     // The rate pages take their JSON-LD from `_layouts/rate.html`, so read them rendered.
     if !rendered() {
@@ -1367,7 +1408,7 @@ fn public_contracts_homepage_and_metadata_mutations() {
     for (label, old, new, expected) in [
         (
             "homepage title",
-            "<title>Open source tools for Australian accountants</title>",
+            "<title>Tools for Australian accountants</title>",
             "<title>Wrong homepage title</title>",
             "index.html: homepage title is",
         ),
@@ -1430,7 +1471,7 @@ fn public_contracts_homepage_and_metadata_mutations() {
         ),
         (
             "Twitter field",
-            "  <meta name=\"twitter:image:alt\" content=\"OLED register card: Open source tools for Australian accountants\" />\n",
+            "  <meta name=\"twitter:image:alt\" content=\"OLED register card: Tools for Australian accountants\" />\n",
             "",
             "expected exactly one non-empty twitter:image:alt",
         ),
@@ -1442,9 +1483,9 @@ fn public_contracts_homepage_and_metadata_mutations() {
         ),
         (
             "social-card context",
-            "<meta property=\"og:image\" content=\"https://duguid.com.au/assets/social-card-site-20261104b.png\" />",
-            "<meta property=\"og:image\" content=\"https://duguid.com.au/assets/social-card-tools-20261104b.png\" />",
-            "og:image is 'https://duguid.com.au/assets/social-card-tools-20261104b.png'",
+            "<meta property=\"og:image\" content=\"https://duguid.com.au/assets/social-card-site-20261123.png\" />",
+            "<meta property=\"og:image\" content=\"https://duguid.com.au/assets/social-card-tools-20261123.png\" />",
+            "og:image is 'https://duguid.com.au/assets/social-card-tools-20261123.png'",
         ),
         (
             "referrer policy",
@@ -1460,7 +1501,7 @@ fn public_contracts_homepage_and_metadata_mutations() {
         ),
         (
             "Twitter title mirror",
-            "<meta name=\"twitter:title\" content=\"Open source tools for Australian accountants\" />",
+            "<meta name=\"twitter:title\" content=\"Tools for Australian accountants\" />",
             "<meta name=\"twitter:title\" content=\"Different share title\" />",
             "twitter:title is 'Different share title'",
         ),
@@ -1734,7 +1775,7 @@ fn public_contracts_structure_and_assets() {
         "tools/index.html: ItemList count does not match visible entries",
     );
 
-    let card = "assets/social-card-site-20261104b.png";
+    let card = "assets/social-card-site-20261123.png";
     let site = copied_site();
     let path = site.path().join(card);
     let mut bytes = std::fs::read(&path).unwrap();

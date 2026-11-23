@@ -1,20 +1,25 @@
-# Open source Australian accounting tools
+# Australian accounting tools by task
 
 Source: https://duguid.com.au/tools/
 
-> Browse 12 open source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations and fixed-scope AI workflows.
+> Browse 12 accounting controls for payroll, Xero, workpapers, ledgers, tax calculations and fixed-scope AI workflows.
 
 # Tools
 
-Choose a task below to find an example, browser calculator or accounting workflow.
+Choose a task below to find an example, browser calculator or accounting workflow. Each tool page links to the licence for the version it describes.
 
-Last reviewed 22 November 2026.
+Last reviewed 23 November 2026.
 
 ## Start with what you came to do
 
 Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
 Browser: Coal LSL levy calculator, 54 business planning calculators, 15 individual tax calculators or depreciation rates and effective lives. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
+
+## Contributions to other projects
+
+- Lodgeit lists the Coal LSL levy calculator I built and host as its first external calculation engine. Revision 53ba9b8 is conformance-passed, awaiting practitioner review.
+- OpenAccountants credits me as the author of its Australian capital gains tax guide. The guide’s approval record names me as the approver on 3 November 2026.
 
 Extract
 
@@ -236,6 +241,10 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Works with Xero and Claude: https://duguid.com.au/works-with/
+- Lodgeit: https://lodgeit.net.au/ai-that-calculates/
+- conformance-passed: https://lodgeit.org/coal-lsl.html
+- OpenAccountants: https://www.openaccountants.com/
+- guide’s approval record: https://www.openaccountants.com/skills/au-capital-gains-2
 - Xero trial balance CSV export tool: https://duguid.com.au/tools/xero-trial-balance/
 - Try an example: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
@@ -271,7 +280,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - reproducible evaluations: https://duguid.com.au/evaluate/
 - What these tools refuse: https://duguid.com.au/tools/refusals/
 - Known limitations: https://duguid.com.au/tools/limitations/
-- Download Ozzit (Excel workbook): https://github.com/ryanduguid/Ozzit/releases/latest
+- Download Ozzit (Excel workbook): https://duguid.com.au/tools/ozzit/#download
 - Power Query and VBA ledger toolkit: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/adapters/accounting-excel-toolkit
 - Power BI accounting project: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/apps/australian-accounting-power-bi
 - Tax prompt guide and refusal examples: https://duguid.com.au/tools/refusals/#drdebits

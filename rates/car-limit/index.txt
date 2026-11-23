@@ -12,7 +12,7 @@ The car limit is $69,883 for a car first used or leased in 2026-27. It was $69,6
 
 The limit caps the cost you can depreciate for a passenger car designed to carry fewer than nine passengers and a load under one tonne, whatever was paid.
 
-Published 20 September 2026. Last reviewed 16 November 2026. Source checked 13 November 2026.
+Published 20 September 2026. Last reviewed 23 November 2026. Source checked 13 November 2026.
 
 Each figure below was read on 20 September 2026 from an ATO page: the 2026-27 car thresholds notice, the car limit list for 2021-22 to 2025-26 and the accelerated depreciation page for 2019-20 and 2020-21. The limit itself is section 40-230 of the Income Tax Assessment Act 1997.
 
@@ -56,7 +56,7 @@ Generally one-eleventh of the car limit: $6,353 for 2026-27. Luxury car tax paid
 
 Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
 
-Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+Maintained by Ryan Duguid as part of his Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
 ## Related
 

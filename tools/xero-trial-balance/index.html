@@ -20,7 +20,7 @@ tool: xero-trial-balance
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au/tools/xero-trial-balance/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
   <meta property="og:image:width" content="1200" />
@@ -28,7 +28,7 @@ tool: xero-trial-balance
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Export a Xero trial balance to CSV that balances" />
   <meta name="twitter:description" content="Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas." />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/xero-trial-balance/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -59,7 +59,7 @@ tool: xero-trial-balance
     </nav>
     <h1>{{ tool.name }}</h1>
     <p class="lead-note">The Xero trial balance export pulls the trial balance from Xero’s own reporting API and refuses to write the CSV unless both the month’s movement and the year-to-date figures balance.</p>
-    {% include tool-meta.html published="24 August 2026" reviewed="25 October 2026" %}
+    {% include tool-meta.html published="24 August 2026" reviewed="23 November 2026" %}
 {% include tool-facts.html %}
       </header>
       <div class="article-layout site-shell">
@@ -111,7 +111,7 @@ tool: xero-trial-balance
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
-    <p class="install-needs">Needs Python 3.11 or later and a Xero developer app, about 5 minutes of one-off setup. Xero’s free <a href="https://developer.xero.com/pricing">Starter plan</a> lets an app have up to 5 connections, at 1,000 API calls a day per organisation; <a href="/works-with/xero/">Works with Xero</a> covers the paid plans and Xero’s exemption for an integration built solely for your own practice or a single client. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.</p>
+    <p class="install-needs">The commands install v0.1.15 under the <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/xero-trial-balance-export/v0.1.15/packages/xero-trial-balance-export/LICENSE">MIT License</a>. Setup needs Python 3.11 or later and a Xero developer app, about 5 minutes of one-off setup. Xero’s free <a href="https://developer.xero.com/pricing">Starter plan</a> lets an app have up to 5 connections, at 1,000 API calls a day per organisation; <a href="/works-with/xero/">Works with Xero</a> covers the paid plans and Xero’s exemption for an integration built solely for your own practice or a single client. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.</p>
     <pre tabindex="0" role="region" aria-label="Installation commands"><code><span class="cmd">git clone https://github.com/ryanduguid/accounting-review-pipeline.git</span>
 <span class="cmd">git -C accounting-review-pipeline checkout xero-trial-balance-export/v0.1.15</span>
 <span class="cmd">cd accounting-review-pipeline/packages/xero-trial-balance-export</span>
@@ -214,7 +214,7 @@ tool: xero-trial-balance
       "description": "Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas.",
       "inLanguage": "en-AU",
       "datePublished": "2026-08-24",
-      "dateModified": "2026-10-25",
+      "dateModified": "2026-11-23",
       "license": "https://duguid.com.au/privacy/#licences",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"

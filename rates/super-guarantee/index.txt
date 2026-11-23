@@ -10,7 +10,7 @@ Source: https://duguid.com.au/rates/super-guarantee/
 
 The general super guarantee rate is 12%. It reached 12% on 1 July 2025 and no further increases are scheduled. Payday super, from 1 July 2026, changed when contributions must be paid, generally within 7 business days of each payday, and left the rate alone.
 
-Published 24 August 2026. Last reviewed 3 November 2026. Source checked 13 November 2026.
+Published 24 August 2026. Last reviewed 23 November 2026. Source checked 13 November 2026.
 
 Read on 30 August 2026 from the ATO’s super guarantee rate table, the Treasury Laws Amendment (Payday Superannuation) Act 2025 and the Superannuation Guarantee (Administration) Act 1992. The general SG rate table was rechecked against the ATO on 14 September 2026.
 
@@ -54,7 +54,7 @@ The last increase was to 12% on 1 July 2025. Earlier steps were annual each 1 Ju
 
 Rates here reflect the ATO page as at the Source checked date above. Check current ATO guidance before relying on a figure.
 
-Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+Maintained by Ryan Duguid as part of his Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
 ## Related
 

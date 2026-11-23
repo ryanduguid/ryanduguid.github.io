@@ -20,7 +20,7 @@ tool: monthly-close-controls
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au/tools/monthly-close-controls/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
   <meta property="og:image:width" content="1200" />
@@ -28,7 +28,7 @@ tool: monthly-close-controls
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Monthly Close Controls: Xero close exception report" />
   <meta name="twitter:description" content="Current release monthly-close-control-plane v{{ release.version }}. Compare Xero trial balance CSVs locally and flag exceptions for human review." />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/monthly-close-controls/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -59,7 +59,7 @@ tool: monthly-close-controls
         </nav>
         <h1>{{ tool.name }}</h1>
         <p class="lead-note">Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and writes an exception report for a human reviewer.</p>
-    {% include tool-meta.html published="11 September 2026" reviewed="13 November 2026" %}
+    {% include tool-meta.html published="11 September 2026" reviewed="23 November 2026" %}
 {% include tool-facts.html %}
         <div class="article-actions">
           <a class="button" href="#worked-example">Inspect the eight exceptions</a>
@@ -148,14 +148,14 @@ tool: monthly-close-controls
           </section>
           <section id="get-it" class="install-panel">
             <h2>Run the example</h2>
-            <p class="install-needs">Needs Git and Rust installed with rustup. The component pins Rust 1.99.0 in <code>rust-toolchain.toml</code>, which rustup uses in that directory. The first build downloads the crates locked in <code>Cargo.lock</code>. It needs no Xero account, API access or client files.</p>
+            <p class="install-needs">The example uses revision <code>1ce98d5</code> under <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/LICENSE">FSL-1.1-ALv2</a>. It needs Git and Rust installed with rustup. The component pins Rust 1.99.0 in <code>rust-toolchain.toml</code>, which rustup uses in that directory. The first build downloads the crates locked in <code>Cargo.lock</code>. It needs no Xero account, API access or client files.</p>
             <pre tabindex="0" role="region" aria-label="Get the pinned monthly close example"><code><span class="cmd">git clone https://github.com/ryanduguid/accounting-review-pipeline.git</span>
 <span class="cmd">cd accounting-review-pipeline</span>
 <span class="cmd">git checkout 1ce98d50f1c81d9f9873d47986a33a42f40f4e96</span>
 <span class="cmd">cd packages/monthly-close-control-plane</span></code></pre>
             <pre tabindex="0" role="region" aria-label="Run the fictional monthly close review"><code><span class="cmd">cargo run --locked --release --bin close-control -- review --current examples/current_trial_balance.csv --prior examples/prior_trial_balance.csv --mapping examples/account_mapping.csv --subledger examples/subledger_balances.csv --absolute-threshold 10000 --percentage-threshold 0.10 --reconciliation-tolerance 0.01 --review-note examples/review_note.json --output ../../../close-control-demo</span></code></pre>
             <p>After Cargo’s build messages, expect exit code 2 and <code>close-control: REVIEW; 8 exception(s); 6 client query(ies) drafted</code>, followed by the absolute path of each of the 4 pack files. The output directory is beside the checkout. Keep review packs outside version control; the command refuses an output directory inside a checkout.</p>
-            <p>The current release, <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.1.0">monthly-close-control-plane/v1.1.0</a>, published on 14 November 2026, ships <code>close-control</code> as an executable for Linux x86_64 and Windows x86_64, with signed provenance, that needs no Rust toolchain, under the Ryan Duguid Public Attribution Licence 1.0. Its <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/monthly-close-control-plane/v1.1.0/packages/monthly-close-control-plane/RELEASING.md">release guide</a> shows how to verify a download.</p>
+            <p>The current release, <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.1.0">monthly-close-control-plane/v1.1.0</a>, published on 14 November 2026, ships <code>close-control</code> as an executable for Linux x86_64 and Windows x86_64, with signed provenance, that needs no Rust toolchain, under the <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/monthly-close-control-plane/v1.1.0/packages/monthly-close-control-plane/LICENSE">Ryan Duguid Public Attribution Licence 1.0</a>. Its <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/monthly-close-control-plane/v1.1.0/packages/monthly-close-control-plane/RELEASING.md">release guide</a> shows how to verify a download.</p>
             <p><a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane">Source on GitHub</a></p>
             <p>Software issue using fictional data? <a href="https://github.com/ryanduguid/accounting-review-pipeline/issues">Open an issue</a>. Wrong rate, date or rule on this page? <a href="https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml">Report a correction</a>.</p>
           </section>
@@ -210,7 +210,7 @@ tool: monthly-close-controls
       "description": "Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fictional example, exact results and source.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-11-13",
+      "dateModified": "2026-11-23",
       "license": "https://duguid.com.au/privacy/#licences",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
