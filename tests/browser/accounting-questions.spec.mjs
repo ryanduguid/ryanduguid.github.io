@@ -1615,7 +1615,7 @@ test('foreign purchaser surcharges add the FIRB fee, compare every state offline
 
 // Business Victoria lists Melbourne Cup Day, Tuesday 3 November 2026, for all of Victoria; the WA
 // Government's page lists no such day, so the same dates give 1 business day in Victoria and 2 in WA.
-test('business days skip Melbourne Cup Day in Victoria offline and refuse a date past the coverage', async ({ page, context }) => {
+test('business days skip Melbourne Cup Day and the Grand Final holiday offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/business-days/');
   const form = page.locator('#business-days form');
   await waitForCalculator(form);
@@ -1631,10 +1631,15 @@ test('business days skip Melbourne Cup Day in Victoria offline and refuse a date
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(output).toContainText('Business days after the start, to and including the end: 2.');
   await form.getByLabel('Victoria', { exact: true }).check();
-  await form.getByLabel('Start date', { exact: true }).fill('2027-09-01');
-  await form.getByLabel('End date, to count between 2 dates', { exact: true }).fill('2027-09-30');
+  await form.getByLabel('Start date', { exact: true }).fill('2027-09-30');
+  await form.getByLabel('End date, to count between 2 dates', { exact: true }).fill('2027-10-01');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
-  await expect(output).toHaveText('This page has public holidays from 1 January 2026 to 31 August 2027 for Victoria; choose dates in that range.');
+  await expect(output).toContainText('Business days after the start, to and including the end: 0.');
+  await expect(output).toContainText('Weekday public holidays skipped: 1 October 2027 (Friday before the AFL Grand Final).');
+  await form.getByLabel('The date a number of business days after the start').check();
+  await form.getByLabel('Start date', { exact: true }).fill('2027-12-31');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(output).toHaveText('This page has public holidays from 1 January 2026 to 31 December 2027 for Victoria; choose dates in that range.');
 });
 
 // The first home owner grant page: its New South Wales example, Western Australia's northern cap
