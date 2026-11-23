@@ -332,6 +332,9 @@
     "tools/individual-tax/novated-lease/index.html": [
       "7886659bc910ffc82968d9a6d58cedfeeea1e70a9e13da98a75dc46e86c4c964"
     ],
+    "tools/individual-tax/pension-minimum/index.html": [
+      "a306f74c653003828de1649a1a282b238c4c32095325dcbeee9e09d94e8850a0"
+    ],
     "tools/individual-tax/salary-packaging/index.html": [
       "79df2afc8bdd8a9ee82ab1c9860fa4a827d4379a96f3f60dde93430d21d93a44"
     ],
@@ -412,9 +415,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "f910fdd02224145829c59c6499a482e3f8077f6d122adcbb8502de44de80abd2",
+    "llms.txt": "05a7506a6c9b96581c8a6b9877f5515c4ceed4b4a453e023eabecc31688436a8",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "7c4164f941e2308617de3e3a5160e8ad392685c8239f969ebbb76756ac2123a6"
+    "sitemap.xml": "c4669909d68752403f237b4eba90c1321a8973cecbb68a9b19d9bebfeeaf2cf5"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -474,7 +477,7 @@
     "rates/super-guarantee/index.html": "65a7c25c829e26f19de89315eaf770cd46a89b973a280dea81d6e000acb8b63b"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7806,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7807,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
