@@ -65,6 +65,8 @@ const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
 const fhog = { ...business, file: 'assets/first-home-owner-grant.mjs' };
 const sbt = { ...business, file: 'assets/super-benefit-tax.mjs' };
+const swh = { file: 'assets/super-withholding.mjs', test: 'scripts/super-lump-sum-options.test.mjs' };
+const dasp = { ...swh, file: 'assets/dasp-tax.mjs' };
 const wet = { ...business, file: 'assets/wine-equalisation-tax.mjs' };
 const rental = { ...business, file: 'assets/rental-property.mjs' };
 const rentalResult = { ...business, file: 'assets/rental-property-result.mjs' };
@@ -843,6 +845,24 @@ const MUTATIONS = [
   { ...sbt, name: 'SBT under $200 is tax free without closing the interest', find: ': benefit < 20000n && benefit === interest ?', replace: ': benefit < 20000n ?' },
   { ...sbt, name: 'SBT 2023-24 keeps the 2022-23 low rate cap', find: "'2023-24': 235000 };", replace: "'2023-24': 230000 };" },
   { ...sbt, name: 'SBT the form sends the low rate cap at 60', find: 'if (age < 60 && age >= preservationAge(born)) {', replace: 'if (age <= 60 && age >= preservationAge(born)) {' },
+  { ...swh, name: 'SWH Schedule 12 read from a day later', find: "export const SWH_FIRST_DAY = '2020-10-13';", replace: "export const SWH_FIRST_DAY = '2020-10-14';" },
+  { ...swh, name: 'SWH Table A leaves out the Medicare levy', find: 'p.rate && p.rate + (foreign ? 0 : 2)', replace: 'p.rate && p.rate + (foreign ? 0 : 0)' },
+  { ...swh, name: 'SWH a foreign resident keeps the Medicare levy', find: 'p.rate && p.rate + (foreign ? 0 : 2)', replace: 'p.rate && p.rate + (foreign ? 2 : 2)' },
+  { ...swh, name: 'SWH the total rounds down', find: 'withholding: (sum + 5000n) / 10000n', replace: 'withholding: sum / 10000n' },
+  { ...swh, name: 'SWH a roll-over at 45%', find: 'tfn ? (above * 47n + 5000n) / 10000n', replace: 'tfn ? (above * 45n + 5000n) / 10000n' },
+  { ...swh, name: 'SWH a roll-over without a TFN keeps the cents', find: '((above / 100n) * 47n) / 100n', replace: '(above * 47n) / 10000n' },
+  { ...swh, name: 'SWH no TFN at 47% for a foreign resident', find: 'const rate = foreign ? 45n : 47n;', replace: 'const rate = foreign ? 47n : 47n;' },
+  { ...swh, name: 'SWH no TFN at 60 takes the taxable component', find: "(name === 'aged_60_or_over' ? c.untaxed : c.taxable) / 100n", replace: 'c.taxable / 100n' },
+  { ...swh, name: "SWH no TFN refuses a dependant's death benefit", find: "if (name === 'terminal_medical_condition' || name === 'death_benefits_dependant') return nil();", replace: "if (name === 'terminal_medical_condition') return nil();" },
+  { ...swh, name: 'SWH a member benefit under $200 is withheld from', find: 'under_200_closing_the_interest: 1, ', replace: '' },
+  { ...swh, name: 'SWH the form keeps member facts for a roll-over', find: "...(recipient === 'rollover' ? [", replace: "...(false ? [" },
+  { ...swh, name: 'SWH the form keeps the service answer for a deceased estate', find: "...(recipient === 'deceased_estate_trustee' ? ['service", replace: "...(false ? ['service" },
+  { ...dasp, name: 'DASP the taxed element at 30%', find: '? [65n, 65n] : [35n, 45n]', replace: '? [65n, 65n] : [30n, 45n]' },
+  { ...dasp, name: "DASP a working holiday maker's untaxed element at 45%", find: '? [65n, 65n] : [35n, 45n]', replace: '? [65n, 45n] : [35n, 45n]' },
+  { ...dasp, name: 'DASP an unclaimed money roll-over with an untaxed element passes', find: '&& untaxed !== 0n) {', replace: '&& false) {' },
+  { ...dasp, name: 'DASP 2027-28 left out', find: "'2026-27', '2027-28'];", replace: "'2026-27'];" },
+  { ...swh, name: 'SWH the result rounds to the dollar without a TFN', find: "input.tfn_provided ? 'Amount to withhold, to the nearest dollar'", replace: "true ? 'Amount to withhold, to the nearest dollar'" },
+  { ...swh, name: 'SWH a part row keeps the top marginal rate', find: "label.replace(', at the top marginal rate', '')", replace: 'label' },
   { ...wet, name: 'WET at 28%', find: 'ratioCents(cents * 29n, 100n)', replace: 'ratioCents(cents * 28n, 100n)' },
   { ...wet, name: 'WET half retail takes the whole retail price', find: 'ratioCents(v.price, 2n)', replace: 'v.price' },
   { ...wet, name: 'WET average wholesale price ignores the dealing quantity', find: 'ratioCents(v.price * /** @type {bigint} */ (v.quantity),', replace: 'ratioCents(v.price,' },
@@ -1129,11 +1149,12 @@ const SHARED = [
   '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
   'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json',
   'scripts/super-benefit-tax-engine-differential.json',
+  'scripts/super-lump-sum-options-engine-differential.json',
 ];
 
 const TEST_FILES = [
   levy.test, business.test, individualTest,
-  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs',
+  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test,
 ];
 
 const verdict = (cwd, test) => new Promise((resolve, reject) => {
