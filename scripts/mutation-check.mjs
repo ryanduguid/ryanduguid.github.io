@@ -625,7 +625,7 @@ const MUTATIONS = [
   { ...businessDays, name: 'business days leave out Melbourne Cup Day and the WA King’s Birthday', find: '[...holidays, ...STATE_ONLY_HOLIDAYS]', replace: '[...holidays]' },
   { ...businessDays, name: 'any state or territory skips Melbourne Cup Day', find: "place === 'any' ? holidays :", replace: "place === 'any' ? [...holidays, ...STATE_ONLY_HOLIDAYS] :" },
   { ...businessDays, name: 'provisional public holidays are kept', find: 'rows.filter((row) => !row.provisional)', replace: 'rows' },
-  { ...businessDays, name: 'Victoria is covered after the AFL Grand Final eve is set', find: "VIC: '2027-08-31', ", replace: '' },
+  { ...businessDays, name: 'business days end before the 2027 Grand Final holiday', find: "until: '2027-12-31'", replace: "until: '2027-08-31'" },
   { ...businessDays, name: 'business days accept an end before the start', find: 'if (end < start) throw', replace: 'if (false) throw' },
   { ...businessDays, name: 'business days accept an impossible date', find: '&& toIso(toDay(value)) === value', replace: '' },
   { ...marginScheme, name: 'the margin scheme refuses no sale that is not taxable', find: 'if (!input.taxable) {', replace: 'if (false) {' },

@@ -684,7 +684,7 @@
     ]
   },
   "business-days": {
-    "checked": "2026-11-18",
+    "checked": "2026-11-23",
     "function": "businessDays",
     "rows": [
       {"case":"New South Wales over Christmas and New Year: 7","input":"New South Wales, Monday 21 December 2026 to Monday 4 January 2027","call":[{"mode":"count","place":"NSW","start":"2026-12-21","end":"2027-01-04","count":"10"}],"result":{"days":7},"output":"7 business days"},
@@ -697,7 +697,7 @@
       {"case":"10 business days on from 21 December 2026 in New South Wales","input":"New South Wales, 10 business days after Monday 21 December 2026","call":[{"mode":"add","place":"NSW","start":"2026-12-21","end":"2027-01-04","count":"10"}],"result":{"days":10,"date":"2027-01-07"},"output":"10 business days, date Thursday 7 January 2027"},
       {"case":"5 business days back from the Tuesday after Easter 2026 in New South Wales","input":"New South Wales, 5 business days before Tuesday 7 April 2026","call":[{"mode":"subtract","place":"NSW","start":"2026-04-07","end":"2026-04-07","count":"5"}],"result":{"days":5,"date":"2026-03-27"},"output":"5 business days, date Friday 27 March 2026"},
       {"case":"An end before the start is refused","input":"New South Wales, Wednesday 18 November 2026 to Tuesday 17 November 2026","call":[{"mode":"count","place":"NSW","start":"2026-11-18","end":"2026-11-17","count":"10"}],"refused":"The end date must not be before the start date.","output":"Refused: the end date must not be before the start date"},
-      {"case":"A Victorian date after 31 August 2027 is refused","input":"Victoria, Wednesday 1 September 2027 to Thursday 30 September 2027","call":[{"mode":"count","place":"VIC","start":"2027-09-01","end":"2027-09-30","count":"10"}],"refused":"This page has public holidays from 1 January 2026 to 31 August 2027 for Victoria; choose dates in that range.","output":"Refused: this page has public holidays from 1 January 2026 to 31 August 2027 for Victoria; choose dates in that range"},
+      {"case":"Victoria skips the Grand Final holiday","input":"Victoria, Thursday 30 September 2027 to Friday 1 October 2027","call":[{"mode":"count","place":"VIC","start":"2027-09-30","end":"2027-10-01","count":"10"}],"result":{"days":0},"output":"0 business days"},
       {"case":"Counting past 31 December 2027 is refused","input":"New South Wales, 20 business days after Monday 20 December 2027","call":[{"mode":"add","place":"NSW","start":"2027-12-20","end":"2027-12-20","count":"20"}],"refused":"This page has public holidays from 1 January 2026 to 31 December 2027 for New South Wales; choose dates in that range.","output":"Refused: this page has public holidays from 1 January 2026 to 31 December 2027 for New South Wales; choose dates in that range"}
     ]
   },
