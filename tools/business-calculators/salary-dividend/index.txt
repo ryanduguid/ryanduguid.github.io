@@ -1,4 +1,4 @@
-# Company owner salary vs dividends calculator, 2021-22 to 2026-27
+# Company owner salary vs dividends calculator (2026-27)
 
 Source: https://duguid.com.au/tools/business-calculators/salary-dividend/
 
@@ -54,9 +54,13 @@ A salary whose super guarantee the profit cannot pay is refused | 2026-27, profi
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Company tax and franking calculator
+- Individual income tax rates
+- Super guarantee rate history
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
@@ -66,3 +70,5 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - payroll tax: https://duguid.com.au/tools/business-calculators/payroll-tax/
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Individual income tax rates: https://duguid.com.au/rates/individual-income-tax/
+- Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/

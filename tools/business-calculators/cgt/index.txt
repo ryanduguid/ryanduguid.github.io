@@ -111,10 +111,27 @@ A home first rented on 21 September 1999 is refused, as section 118-192 moves it
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Common questions
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+### Which entities and contract dates does the capital gains tax calculator support?
+
+The capital gains tax calculator supports resident individuals, trusts, complying super funds and companies for a single disposal contract from 1 July 2020 to 30 June 2027.
+
+### Does it model the 50% CGT discount and main residence 6-year absence rule?
+
+Yes. It applies the 50% discount for eligible assets held more than 12 months, indexation where applicable, capital losses and the main residence absence and section 118-192 rules.
+
+## Related
+
+- Small business CGT concessions checker
+- Rental property calculator
+- Investments and NSW questions
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Small business CGT concessions checker: https://duguid.com.au/tools/business-calculators/cgt-concessions/
+- Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
+- Investments and NSW questions: https://duguid.com.au/tools/accounting-questions/investments-local/

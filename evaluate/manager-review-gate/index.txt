@@ -74,8 +74,6 @@ The evaluation tests configured gates against fictional inputs. It does not esta
 - Workpaper Review Gate
 - All evaluations
 
-Written by Ryan Duguid in his own time and on his own equipment.
-
 ## Links
 
 - Workpaper Review Gate page: https://duguid.com.au/tools/workpaper-review-gate/

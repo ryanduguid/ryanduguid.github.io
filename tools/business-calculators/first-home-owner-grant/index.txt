@@ -1,8 +1,8 @@
-# First home owner grant calculator for every state and territory
+# First home owner grant calculator: all 8 states (2026)
 
 Source: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 
-> First home owner grants in all 8 states and territories for contracts from 1 July 2025: amount and value cap by date, eligibility facts and first home buyer duty.
+> First home owner grants across all 8 states and territories from 1 July 2025: amount, value cap by contract date, eligibility facts and first home buyer duty.
 
 # First home owner grant calculator
 
@@ -91,11 +91,27 @@ An eligibility fact not stated is refused | New South Wales, contract 1 August 2
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Common questions
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+### Which contracts does this first home owner grant calculator cover?
+
+The first home owner grant calculator covers new homes bought or built under contracts made from 1 July 2025 across all 8 Australian states and territories, showing the grant amount, value cap and first home buyer transfer duty side by side.
+
+### Does the calculator decide whether an applicant is eligible for a grant?
+
+No. It checks the stated contract date, home type and value cap against each revenue office’s published rules; each revenue office determines final eligibility.
+
+## Related
+
+- Transfer duty calculator
+- First home super saver calculator
+- Transfer duty rates by state
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- First home super saver calculator: https://duguid.com.au/tools/individual-tax/fhss/
+- Transfer duty rates by state: https://duguid.com.au/rates/transfer-duty/

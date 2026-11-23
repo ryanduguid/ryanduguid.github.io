@@ -22,7 +22,7 @@ mod site;
 mod unique;
 
 pub use command::{Build, LLMS_REL, SITEMAP_REL, files, run};
-pub use head::{CARD as SOCIAL_CARD, DANGLING_WORDS, SYMBOLS};
+pub use head::{CARD as SOCIAL_CARD, DANGLING_WORDS, SYMBOLS, TITLE_MAX};
 use load::{Data, Group, Table};
 use map::AddressMap;
 pub use notes::guide_terms;

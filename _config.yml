@@ -16,6 +16,7 @@ include:
   - .well-known
 exclude:
   - geo-out
+  - requirements-lint.txt
   - AGENTS.md
   - CLAUDE.md
   - GATES.md

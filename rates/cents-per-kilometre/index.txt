@@ -14,7 +14,7 @@ One rate applies to every car, whatever its engine size, and no receipts have to
 
 Published 24 August 2026. Last reviewed 3 November 2026. Source checked 13 November 2026.
 
-Each rate below is taken from the determination that sets it, read on 14 September 2026: the 2026 determination (F2026L00785) and the 2024 determination (F2024L00697), both made under section 28-25 of the Income Tax Assessment Act 1997.
+Each rate below is taken from the determination that sets it, last checked on 13 November 2026: the 2026 determination (F2026L00785) and the 2024 determination (F2024L00697), both made under section 28-25 of the Income Tax Assessment Act 1997.
 
 ## The rate, by income year
 
@@ -35,7 +35,7 @@ The 2026 determination repealed it and is written for one year only. Section 6 s
 
 ## How the method works
 
-For business claims, the ATO limits this method to sole traders and partnerships with at least one individual partner, claiming for a car. Private travel does not qualify. This eligibility guidance was checked on 22 September 2026; the historical rate table review remains dated 14 September 2026.
+For business claims, the ATO limits this method to sole traders and partnerships with at least one individual partner, claiming for a car. Private travel does not qualify. Table rows were last checked on 13 November 2026.
 
 Section 28-25 of the Income Tax Assessment Act 1997 sets the calculation: business kilometres travelled by the car in the income year, multiplied by the rate determined for that year. Four features of it catch people out.
 
@@ -78,8 +78,6 @@ Rates here were read from the determinations on the date above. Check the curren
 - Division 7A benchmark interest rate
 - Australian tax tools for AI agents
 - About Ryan Duguid
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 

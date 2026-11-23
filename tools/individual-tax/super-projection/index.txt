@@ -72,10 +72,17 @@ No insurance | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6
 
 One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Super guarantee rate history
+- Concessional catch-up calculator
+- Super lump sum tax calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
+- Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
+- Super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/

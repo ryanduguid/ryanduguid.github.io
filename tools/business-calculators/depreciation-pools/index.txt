@@ -69,10 +69,17 @@ Works begun on 15 September 1987 are refused | 2025-26 capital works; constructi
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Depreciation rates and effective lives
+- Car limit for depreciation
+- Rental property calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
+- Car limit for depreciation: https://duguid.com.au/rates/car-limit/
+- Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/

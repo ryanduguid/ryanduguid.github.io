@@ -103,8 +103,6 @@ The integrity control does not prove completeness, classification, accounting tr
 - Xero trial balance CSV export
 - All evaluations
 
-Written by Ryan Duguid in his own time and on his own equipment.
-
 ## Links
 
 - Xero trial balance export page: https://duguid.com.au/tools/xero-trial-balance/

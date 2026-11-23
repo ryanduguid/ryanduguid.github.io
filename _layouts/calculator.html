@@ -15,16 +15,16 @@
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au{{ page.url }}" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
+{% if page.url contains '/tools/individual-tax/' %}{% assign social_card = 'social-card-individual-tax-20261123.png' %}{% assign social_alt = 'OLED register card: Australian income tax, pay and super tools.' %}{% else %}{% assign social_card = 'social-card-calculators-20261123.png' %}{% assign social_alt = 'OLED register card: 54 Australian business and tax calculators.' %}{% endif %}  <meta property="og:image" content="https://duguid.com.au/assets/{{ social_card }}" />
   <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:alt" content="{{ social_alt }}" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="{{ page.title }}" />
   <meta name="twitter:description" content="{{ page.description }}" />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
-  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/{{ social_card }}" />
+  <meta name="twitter:image:alt" content="{{ social_alt }}" />
   <link rel="canonical" href="https://duguid.com.au{{ page.url }}" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
@@ -39,9 +39,9 @@
   <link rel="modulepreload" href="/assets/business-calculators.mjs" />
   <link rel="modulepreload" href="/assets/field-errors.mjs" />
   <link rel="modulepreload" href="/assets/money.mjs" />
-  <link rel="modulepreload" href="/assets/fbt-benefits.mjs" />
+{% if page.calculator contains "fbt-" %}  <link rel="modulepreload" href="/assets/fbt-benefits.mjs" />
   <link rel="modulepreload" href="/assets/fbt-benefit-forms.mjs" />
-  <link rel="stylesheet" href="/assets/tokens.css?v={{ site.asset_version }}" />
+{% endif %}  <link rel="stylesheet" href="/assets/tokens.css?v={{ site.asset_version }}" />
   <link rel="stylesheet" href="/assets/site.css?v={{ site.asset_version }}" />
 
   <link rel="stylesheet" href="/assets/accounting-pages.css?v=20261007b" />
@@ -78,11 +78,15 @@
 {% if boundary.peer %}          <p>Official comparison on {{ boundary.peer.checked }}, on one fictional input: for {{ boundary.peer.input }}, the <a href="{{ boundary.peer.url }}">{{ boundary.peer.name }}</a> gave {{ boundary.peer.peer_result }}, and this calculator gave {{ boundary.peer.output }}. {{ boundary.peer.verdict }}. This records that date only and is not a standing match.</p>
 {% endif %}        </section>
         <p>One of the <a href="{{ hub_url }}">{{ hub_count }}</a>. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.{% if page.calculator == "cash" %} Use Save inputs to download a local scenario file, then Load inputs to resume it.{% endif %}</p>
+{% if page.faq %}        <section aria-labelledby="common-questions">
+          <h2 id="common-questions">Common questions</h2>
+          <div class="faq">
+{% for item in page.faq %}            <h3>{{ item.q }}</h3>
+            <p>{{ item.a }}</p>
+{% endfor %}          </div>
+        </section>
+{% endif %}        {% assign related_items = site.data.calculator_related[page.calculator] %}{% if related_items %}<nav class="calculator-related" aria-label="Related rates, questions and calculators"><h2>Related</h2><ul>{% for item in related_items %}<li><a href="{{ item.url }}">{{ item.label }}</a></li>{% endfor %}</ul></nav>{% endif %}
         <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up{% if page.calculator == "hourly" %}; the required hourly rate rounds up to the next cent{% endif %}{% if page.calculator == "fixed-fee" %}; the fee rounds up to the step you choose, and instalments round down to the cent with the rest in the first{% endif %}{% if page.calculator == "margin" or page.calculator == "variance" %}; percentages round to two decimal places, with exact halves rounded away from zero{% endif %}{% if page.calculator == "payg-instalments" %}; the instalment rounds down to whole dollars, as the activity statement takes it{% endif %}{% if page.calculator == "termination-payment" %}; each amount withheld rounds to the nearest dollar, with 50 cents rounded up{% endif %}{% if page.calculator == "company-tax" %}; franking credits round down to the cent, so a credit never exceeds the maximum{% endif %}.</p>
-      <p class="byline">
-        Written by Ryan Duguid in his own time and on his own equipment.
-        He is a Provisional CA ANZ Member.
-      </p>
 </div></article></main>
 {% include site-footer.html %}
 <script type="application/ld+json">
@@ -172,7 +176,14 @@
           "item": "https://duguid.com.au{{ page.url }}"
         }
       ]
-    }
+    }{% if page.faq %},
+    {
+      "@type": "FAQPage",
+      "@id": "https://duguid.com.au{{ page.url }}#faq",
+      "mainEntity": [
+{% for item in page.faq %}        { "@type": "Question", "name": {{ item.q | jsonify }}, "acceptedAnswer": { "@type": "Answer", "text": {{ item.a | strip_html | jsonify }} } }{% unless forloop.last %},{% endunless %}
+{% endfor %}      ]
+    }{% endif %}
   ]
 }
 </script></body></html>

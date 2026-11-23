@@ -10,10 +10,12 @@ if (form) {
   const groups = [...document.querySelectorAll('.collection-register .collection-group')];
   const entries = groups.flatMap(group => [...group.querySelectorAll('.collection-entry')]);
   const normalise = text => text.toLocaleLowerCase('en-AU').replace(/[^a-z0-9]+/g, ' ');
-  // An entry also matches its group's label and heading, so 'control' finds the Control tools.
+  // An entry also matches its group's label, heading and optional keywords.
   const text = new Map(entries.map(entry => {
     const header = entry.closest('.collection-group').querySelector('header');
-    return [entry, normalise(`${header.textContent} ${entry.textContent}`)];
+    const kwEl = entry.querySelector('[data-keywords]');
+    const keywords = entry.dataset.keywords || (kwEl ? kwEl.dataset.keywords : '') || '';
+    return [entry, normalise(`${header.textContent} ${entry.textContent} ${keywords}`)];
   }));
   const delivery = new Map(entries.map(entry => {
     const term = [...entry.querySelectorAll('dt')].find(dt => dt.textContent === 'Delivery');
@@ -27,7 +29,7 @@ if (form) {
       : `No tools match. Clear the search or choose All to show all ${entries.length}.`;
 
   // Seek, and ye shall find. Matthew 7:7 (KJV)
-  function filter() {
+  const filter = () => {
     const words = normalise(search.value).split(' ').filter(Boolean);
     const kinds = form.elements.delivery.value.split('|').filter(Boolean);
     for (const entry of entries) {
@@ -39,7 +41,7 @@ if (form) {
     // Announce once typing pauses rather than on every keystroke.
     clearTimeout(countTimer);
     countTimer = setTimeout(() => { count.textContent = describe(shown); }, 400);
-  }
+  };
 
   form.addEventListener('input', filter);
   form.addEventListener('submit', event => event.preventDefault());

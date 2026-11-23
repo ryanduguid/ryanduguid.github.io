@@ -639,8 +639,6 @@ The workbook help shows 1.
 - Ozzit Debt functions
 - Ozzit overview, download and release verification
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - Dates formula source: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/src/Dates.txt

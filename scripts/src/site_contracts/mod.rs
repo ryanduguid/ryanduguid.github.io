@@ -33,6 +33,14 @@ pub fn social_metadata_for_page(rel: &str) -> (Option<String>, Option<String>) {
         "site"
     } else if rel == EVIDENCE_REL {
         "evidence"
+    } else if rel.starts_with("tools/business-calculators/") {
+        "calculators"
+    } else if rel.starts_with("tools/individual-tax/") {
+        "individual-tax"
+    } else if rel == "tools/depreciation-rates/index.html" {
+        "depreciation"
+    } else if rel.starts_with("tools/accounting-questions/") {
+        "questions"
     } else if rel.starts_with("tools/") || rel.starts_with("works-with/") {
         "tools"
     } else if rel.starts_with("evaluate/") || rel.starts_with("examples/") {

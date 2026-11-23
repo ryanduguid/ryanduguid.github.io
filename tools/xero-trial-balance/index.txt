@@ -105,8 +105,6 @@ No file is written. The balance check runs before anything reaches disk, and bot
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - v0.1.15: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.15
