@@ -40,6 +40,7 @@ pub fn page(
                 "dateModified": SENTINEL_MODIFIED,
                 "license": LICENSE,
                 "isBasedOn": based_on,
+                "about": {"@id": format!("{ORIGIN}/tools/depreciation-rates/#dataset")},
                 "isPartOf": {"@id": format!("{ORIGIN}/#website")},
                 "author": {"@id": format!("{ORIGIN}/about/#person")},
                 "publisher": {"@id": format!("{ORIGIN}/about/#person")},

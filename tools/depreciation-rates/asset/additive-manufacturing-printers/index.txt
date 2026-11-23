@@ -1,4 +1,4 @@
-# Additive manufacturing printers effective life: 3 years, Table B
+# Additive manufacturing printers effective life: 3 years
 
 Source: https://duguid.com.au/tools/depreciation-rates/asset/additive-manufacturing-printers/
 
@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/depreciation-rates/asset/additive-manufactur
 
 ‘Additive manufacturing printers (including 3D printers)’ in Table B, which applies where no Table A row applies to the asset in its industry, has an effective life of 3 years (F2025L01097), last reviewed and determined on 1 July 2016.
 
-Published 14 November 2026. Page updated 21 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
