@@ -4,6 +4,7 @@
 // The GST adjustments calculator page: the form's fields read as one of the 6 commands' input, and the result shown.
 import { gstAnnualApportionment, gstBadDebt, gstCreditablePurposeChange, gstFinancialAcquisitionsThreshold, gstGoingConcern,
   gstSecondHandGoods, parseDay, refuse } from './gst-adjustments.mjs';
+/** @typedef {import('./gst-adjustments.mjs').Condition} Condition */
 
 // The page: one worksheet a calculation, its fields read as the command's input.
 const ENGINES = /** @type {const} */ ({ 'creditable-purpose': gstCreditablePurposeChange, 'annual-apportionment': gstAnnualApportionment,
