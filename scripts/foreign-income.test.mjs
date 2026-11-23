@@ -25,11 +25,12 @@ test('the income tax page takes the foreign income tax offset last, within its l
   assert.equal(row(r, 'Tax on taxable income'), '$2,068.80');
   assert.equal(row(r, 'Low income tax offset'), '$700.00');
   assert.equal(row(r, 'Medicare levy'), '$311.90');
-  // A limit of $2,119.90, of which only the $1,368.80 left after the low income tax offset is used.
-  assert.equal(row(r, 'Foreign income tax offset'), '$1,368.80');
-  assert.equal(row(r, 'Total tax, levies and repayment'), '$311.90');
+  // A limit of $2,119.90: the $1,368.80 of tax left after the low income tax offset and the $311.90 levy.
+  assert.equal(row(r, 'Foreign income tax offset'), '$1,680.70');
+  assert.equal(row(r, 'Total tax, levies and repayment'), '$0.00');
   assert.match(r.note, /Foreign income tax offset: \$3,400\.00 of foreign income tax against a limit of \$2,119\.90, from tax payable of \$2,380\.70 less \$260\.80 without the foreign income; the \$1,280\.10 above it is lost/);
-  assert.match(r.note, /The tax offsets exceed the tax on taxable income/);
+  assert.match(r.note, /; \$439\.20 of the offset is more than the tax, Medicare levy and surcharge and is not refunded/);
+  assert.doesNotMatch(r.note, /The tax offsets exceed the tax on taxable income/);
   assert.match(r.inputs, /, foreign income tax of \$3,400\.00 with the limit worked out$/);
   const rows = r.rows.map(([label]) => label);
   assert.ok(rows.indexOf('Foreign income tax offset') > rows.indexOf('Low income tax offset'));
@@ -52,6 +53,18 @@ test('the income tax page takes the foreign income tax offset last, within its l
     /from tax payable of \$20,490\.00 less /);
 });
 
+test('the foreign income tax offset left after the tax comes off the Medicare levy, then the surcharge, never below nil', () => {
+  // $26,788 of tax, a $2,400 levy and a $1,500 surcharge, against an offset of $40,000.
+  const r = incomeTax({ year: '2025-26', income: '120000', fringe: '0', uncovered: '365', withheld: '0', fito: 'yes',
+    'fito-paid': '40000', 'fito-method': 'stated', 'fito-payable': '100000', 'fito-payable-assumed': '0' });
+  assert.equal(row(r, 'Foreign income tax offset'), '$30,688.00');
+  assert.equal(row(r, 'Total tax, levies and repayment'), '$0.00');
+  // $27,788 stops $1,000 into the levy, leaving $1,400 of it and the surcharge.
+  const part = incomeTax({ year: '2025-26', income: '120000', fringe: '0', uncovered: '365', withheld: '0', fito: 'yes',
+    'fito-paid': '27788', 'fito-method': 'stated', 'fito-payable': '100000', 'fito-payable-assumed': '0' });
+  assert.equal(row(part, 'Total tax, levies and repayment'), '$2,900.00');
+});
+
 test('the worked foreign income tax offset limit is refused before 2024-25 and for a foreign resident', () => {
   const code = (fields) => {
     try { incomeTax({ fito: 'yes', 'fito-paid': '100', 'fito-method': 'worked', ...fields }); } catch (error) { return error.code ?? error.message; }
@@ -59,7 +72,8 @@ test('the worked foreign income tax offset limit is refused before 2024-25 and f
   };
   assert.equal(code({}), 'ok');
   assert.equal(code({ year: '2023-24' }), 'foreign_income_tax_offset.worked_year');
-  assert.equal(code({ residency: 'foreign' }), 'input.field_unknown');
+  assert.equal(code({ residency: 'foreign' }), 'foreign_income_tax_offset.worked_residency');
+  assert.equal(code({ residency: 'working-holiday' }), 'foreign_income_tax_offset.worked_residency');
   assert.equal(code({ 'fito-method': 'default', residency: 'foreign' }), 'ok');
 });
 

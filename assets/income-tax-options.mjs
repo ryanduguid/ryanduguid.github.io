@@ -130,10 +130,12 @@ export function optionNotes(r, spouse) {
       ? `tax payable of ${dollars(f.steps.tax_payable)} less ${dollars(f.steps.tax_payable_assumed)} without the foreign income`
       : f.method === 'stated' ? 'the income tax payable figures you gave' : 'the $1,000 default';
     notes.push(`Foreign income tax offset: ${dollars(f.offsetBeforeLimit)} of foreign income tax against a limit of `
-      + `${dollars(f.offsetLimit)}, from ${limit}${f.offsetAboveLimit > 0 ? `; the ${dollars(f.offsetAboveLimit)} above it is lost` : ''}`);
+      + `${dollars(f.offsetLimit)}, from ${limit}${f.offsetAboveLimit > 0 ? `; the ${dollars(f.offsetAboveLimit)} above it is lost` : ''}`
+      + `${r.foreignUnused > 0 ? `; ${dollars(r.foreignUnused)} of the offset is more than the tax, Medicare levy and surcharge `
+        + 'and is not refunded' : ''}`);
   }
-  const claimed = (r.benefit?.offset ?? 0) + (r.carer?.offset ?? 0) + (r.zone?.offset ?? 0) + (f?.offset ?? 0);
-  const used = r.beneficiary + r.carerOffset + r.zoneOffset + r.foreignOffset;
+  const claimed = (r.benefit?.offset ?? 0) + (r.carer?.offset ?? 0) + (r.zone?.offset ?? 0);
+  const used = r.beneficiary + r.carerOffset + r.zoneOffset;
   if (claimed > used + 0.001) notes.push('The tax offsets exceed the tax on taxable income: the rest is not refunded and does not reduce the Medicare levy');
   return notes;
 }
