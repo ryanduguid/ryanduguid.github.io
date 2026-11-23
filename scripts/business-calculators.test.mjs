@@ -6193,6 +6193,7 @@ test('the first home owner grant pays $10,000 for an NT established home bought 
   // gets $10,000; s 13(1)(a)(iv): a new home only from 1 October 2025. The replacement fact still applies.
   assert.equal(fhogGrant({ jurisdiction: 'AU-NT', date: '2025-07-01', home: 'established', value: '500000' }), '$10,000.00');
   assert.equal(fhogGrant({ jurisdiction: 'AU-NT', date: '2025-09-30', home: 'established', value: '500000' }), '$10,000.00');
+  assert.equal(fhogGrant({ jurisdiction: 'AU-NT', date: '2025-09-30', home: 'established', value: '10001' }), '$10,000.00');
   assert.equal(fhogGrant({ jurisdiction: 'AU-NT', date: '2025-10-01', home: 'established', value: '500000' }), '$0.00: the grant is for a new home only');
   assert.equal(fhogGrant({ jurisdiction: 'AU-NT', date: '2025-09-30', value: '500000' }), '$50,000.00');
   assert.throws(() => fhogResult({ jurisdiction: 'AU-NT', date: '2025-08-01', home: 'established', 'fact-nt': false }), /replaces none signed before 1 October 2024/);
