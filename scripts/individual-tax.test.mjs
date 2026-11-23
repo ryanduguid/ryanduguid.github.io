@@ -34,6 +34,7 @@ import { excessFormInput, tbaFormInput, transferBalanceResult } from '../assets/
 import './transfer-balance.test.mjs';
 import { pensionMinimum, pensionMinimumFormInput, pensionMinimumResult } from '../assets/pension-minimum.mjs';
 import './pension-minimum.test.mjs';
+import { NET_MEDICAL_DEFAULTS, netMedicalFixture } from './net-medical-expenses.test.mjs';
 
 import { bonusWithholding } from '../assets/bonus-withholding.mjs';
 import { salaryPackaging } from '../assets/salary-packaging.mjs';
@@ -1558,6 +1559,12 @@ const incomeTaxPage = (fields) => {
   }, aud);
 };
 const pageRow = (result, label) => result.rows.find(([name]) => name === label)?.[1];
+
+test('the net medical expenses form opens on the values its tests use and states its differential count', () => {
+  const form = incomeTaxHtml.slice(incomeTaxHtml.indexOf('<form class="calculator-split" data-calculator="net-medical-expenses">'));
+  assert.deepEqual(formDefaults(form.slice(0, form.indexOf('</form>'))), NET_MEDICAL_DEFAULTS);
+  assert.match(incomeTaxHtml, new RegExp(`net-medical-expenses-tax-offset on ${netMedicalFixture.cases.length.toLocaleString('en-AU')} cases`));
+});
 const pageCode = (fields) => {
   try {
     incomeTaxPage(fields);
