@@ -181,8 +181,8 @@ export function superWithholdingResult(value, aud) {
   const levy = input.foreign_resident ? 'without the Medicare levy for a foreign resident' : 'with the 2% Medicare levy';
   const how = r.treatment === 'rollover' ? `a roll-over: 47% of the untaxed element above the untaxed plan cap left, nothing on the rest${input.tfn_provided ? '' : ', cents ignored without a TFN'}`
     : r.treatment === 'deceased_estate_trustee' ? 'nothing is withheld from a death benefit paid to the trustee of a deceased estate'
-      : r.rates.no_tfn_rate === undefined && r.treatment in NIL_TREATMENTS ? `${TREATMENTS[r.treatment]}, so nothing is withheld`
-        : !input.tfn_provided ? `no TFN: ${r.rates.no_tfn_rate === '0.45' ? 45 : 47}% with no offsets or Medicare levy, cents ignored`
+      : !rates.has('no_tfn_rate') && r.treatment in NIL_TREATMENTS ? `${TREATMENTS[r.treatment]}, so nothing is withheld`
+        : !input.tfn_provided ? `no TFN: ${rates.get('no_tfn_rate') === '0.45' ? 45 : 47}% with no offsets or Medicare levy, cents ignored`
         : `${TREATMENTS[r.treatment]}; Table A’s rate for each part, ${levy}`;
   const payee = `${input.tfn_provided ? 'TFN given' : 'no TFN'}${input.foreign_resident ? ', foreign resident' : ''}`;
   return { inputs: `${sbtInputsText(input, aud)}; ${payee}`, rows, principal: rows.length - 1, note: `${who}${how}` };
