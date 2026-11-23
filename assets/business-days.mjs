@@ -9,8 +9,7 @@ import { number } from './money.mjs';
 // 18 November 2026, confirms for 2026 and 2027. A state's count also skips the 2 holidays that table
 // leaves out because a local day can replace them: Melbourne Cup Day (Business Victoria, 2026 and
 // 2027 pages) and Western Australia's King's Birthday (WA Government public holidays page, last
-// updated 5 November 2026). Victoria's 2027 Friday before the AFL Grand Final is 'subject to AFL
-// schedule', so Victoria, and any state or territory, stop at 31 August 2027.
+// updated 5 November 2026). Victoria's 1 October 2027 holiday follows Gazette S 229 and the AFL fixture.
 
 /** @typedef {{date: string, name: string, jurisdictions: string[]}} Holiday
  * @typedef {'count' | 'add' | 'subtract'} BusinessDaysMode
@@ -19,13 +18,14 @@ import { number } from './money.mjs';
 /** The table's codes and the names the page uses. */
 export const BUSINESS_DAY_PLACES = { ACT: 'Australian Capital Territory', NSW: 'New South Wales', NT: 'Northern Territory',
   QLD: 'Queensland', SA: 'South Australia', TAS: 'Tasmania', VIC: 'Victoria', WA: 'Western Australia' };
-/** The first and last day this page counts, by place; 'any' is any state or territory. */
-export const BUSINESS_DAYS_COVERAGE = { from: '2026-01-01', until: '2027-12-31', VIC: '2027-08-31', any: '2027-08-31' };
+/** The first and last day this page counts. */
+export const BUSINESS_DAYS_COVERAGE = { from: '2026-01-01', until: '2027-12-31' };
 /** @type {Holiday[]} */
 export const STATE_ONLY_HOLIDAYS = [
   { date: '2026-09-28', name: 'King’s Birthday', jurisdictions: ['WA'] },
   { date: '2026-11-03', name: 'Melbourne Cup Day', jurisdictions: ['VIC'] },
   { date: '2027-09-27', name: 'King’s Birthday', jurisdictions: ['WA'] },
+  { date: '2027-11-02', name: 'Melbourne Cup Day', jurisdictions: ['VIC'] },
 ];
 
 /** The holidays as the form carries them: the table's rows as JSON, of which the provisional ones,
@@ -64,8 +64,7 @@ export function businessDays(question, holidays) {
   const rows = place === 'any' ? holidays : [...holidays, ...STATE_ONLY_HOLIDAYS].filter((row) => row.jurisdictions.includes(place));
   const names = new Map();
   for (const row of rows) names.set(row.date, names.has(row.date) ? names.get(row.date) : row.name);
-  const [from, until] = [toDay(BUSINESS_DAYS_COVERAGE.from),
-    toDay(/** @type {Record<string, string>} */ (BUSINESS_DAYS_COVERAGE)[place] ?? BUSINESS_DAYS_COVERAGE.until)];
+  const [from, until] = [toDay(BUSINESS_DAYS_COVERAGE.from), toDay(BUSINESS_DAYS_COVERAGE.until)];
   const covered = (/** @type {number} */ day) => {
     if (day < from || day > until) {
       throw new Error(`This page has public holidays from ${longDate(toIso(from))} to ${longDate(toIso(until))}${place === 'any' ? ' for any state or territory' : ` for ${BUSINESS_DAY_PLACES[/** @type {keyof typeof BUSINESS_DAY_PLACES} */ (place)]}`}; choose dates in that range.`);
