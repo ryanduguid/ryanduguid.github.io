@@ -29,7 +29,7 @@ test('the income tax page takes the foreign income tax offset last, within its l
   assert.equal(row(r, 'Foreign income tax offset'), '$1,680.70');
   assert.equal(row(r, 'Total tax, levies and repayment'), '$0.00');
   assert.match(r.note, /Foreign income tax offset: \$3,400\.00 of foreign income tax against a limit of \$2,119\.90, from tax payable of \$2,380\.70 less \$260\.80 without the foreign income; the \$1,280\.10 above it is lost/);
-  assert.match(r.note, /; \$439\.20 of the offset is more than the tax, Medicare levy and surcharge and is not refunded/);
+  assert.match(r.note, /; \$439\.20 of the offset is more than the tax, Medicare levy and surcharge and is neither refunded nor carried forward/);
   assert.doesNotMatch(r.note, /The tax offsets exceed the tax on taxable income/);
   assert.match(r.inputs, /, foreign income tax of \$3,400\.00 with the limit worked out$/);
   const rows = r.rows.map(([label]) => label);
@@ -63,6 +63,12 @@ test('the foreign income tax offset left after the tax comes off the Medicare le
   const part = incomeTax({ year: '2025-26', income: '120000', fringe: '0', uncovered: '365', withheld: '0', fito: 'yes',
     'fito-paid': '27788', 'fito-method': 'stated', 'fito-payable': '100000', 'fito-payable-assumed': '0' });
   assert.equal(row(part, 'Total tax, levies and repayment'), '$2,900.00');
+  // $388 of tax after the low income offset, no levy below the low-income threshold and no surcharge:
+  // the rest of a $1,000 offset is unused.
+  const nil = incomeTax({ year: '2025-26', income: '25000', fringe: '0', uncovered: '0', withheld: '0', fito: 'yes',
+    'fito-paid': '1000', 'fito-method': 'default' });
+  assert.equal(row(nil, 'Total tax, levies and repayment'), '$0.00');
+  assert.match(nil.note, /\$612\.00 of the offset is more than the tax, Medicare levy and surcharge and is neither refunded nor carried forward/);
 });
 
 test('the worked foreign income tax offset limit is refused before 2024-25 and for a foreign resident', () => {

@@ -132,7 +132,7 @@ export function optionNotes(r, spouse) {
     notes.push(`Foreign income tax offset: ${dollars(f.offsetBeforeLimit)} of foreign income tax against a limit of `
       + `${dollars(f.offsetLimit)}, from ${limit}${f.offsetAboveLimit > 0 ? `; the ${dollars(f.offsetAboveLimit)} above it is lost` : ''}`
       + `${r.foreignUnused > 0 ? `; ${dollars(r.foreignUnused)} of the offset is more than the tax, Medicare levy and surcharge `
-        + 'and is not refunded' : ''}`);
+        + 'and is neither refunded nor carried forward' : ''}`);
   }
   const claimed = (r.benefit?.offset ?? 0) + (r.carer?.offset ?? 0) + (r.zone?.offset ?? 0);
   const used = r.beneficiary + r.carerOffset + r.zoneOffset;
