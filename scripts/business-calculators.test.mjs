@@ -6208,6 +6208,16 @@ test('the first home owner grant pays the lesser of the consideration and the am
   assert.equal(fhogGrant({ jurisdiction: 'AU-NT', value: '49999' }), '$49,999.00: the grant cannot be more than the consideration');
 });
 
+// The value entered is the price, which limits the grant (Qld s 20(1), WA s 19(2CA)); the unencumbered value
+// the Qld and WA caps also test (Qld s 5(7), WA s 14AC(2)) is assumed not higher, and never feeds the amount.
+test('the first home owner grant takes the price, not a higher unencumbered value, in Queensland and Western Australia', () => {
+  assert.equal(fhogGrant({ jurisdiction: 'AU-QLD', value: '20000' }), '$20,000.00: the grant cannot be more than the consideration');
+  assert.equal(fhogGrant({ jurisdiction: 'AU-WA', 'wa-location': 'south', value: '5000' }), '$5,000.00: the grant cannot be more than the consideration');
+  assert.match(fhogHtml, /the calculator takes the price you enter as the value and assumes the unencumbered value is not higher\./);
+  assert.match(fhogHtml, /the cap also tests the unencumbered value, which the calculator assumes is not higher than the price\./);
+  assert.doesNotMatch(fhogHtml, /the price or, if greater, the unencumbered value/);
+});
+
 test('the first home owner grant does not test a Victorian home built against $750,000 of land and building', () => {
   // Vic s 13(1A) and (7)(b): for a home built the cap is on the building work's consideration alone, so a land
   // and building total over $750,000 is not computed; a total within it is, and a home bought keeps the cap.
