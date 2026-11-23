@@ -143,6 +143,7 @@ jobs:
         if: runner.os == 'Linux' && github.event_name == 'pull_request'
         with:
           workspaces: scripts -> target
+          shared-key: linux-debug
           save-if: false
       - name: Build site-tools
         run: cargo build --locked --bin site-tools
@@ -160,6 +161,7 @@ jobs:
         env:
           CI_EVENT: ${{ github.event_name }}
         run: |
+          set -euo pipefail
           scripts/target/debug/site-tools check_site --ci-metadata-only > "$RUNNER_TEMP/ci-metadata-selection.txt"
           mapfile -t selection < "$RUNNER_TEMP/ci-metadata-selection.txt"
           if [[ ${#selection[@]} != 1 || ( ${selection[0]} != true && ${selection[0]} != false ) ]]; then
@@ -189,7 +191,7 @@ jobs:
           path: ${{ runner.temp }}/served-site.tar
           if-no-files-found: error
           overwrite: true
-          retention-days: 1
+          retention-days: 7
 
   rust-windows:
     # The site checks run every Rust suite on Linux against the rendered site.
@@ -250,6 +252,7 @@ jobs:
       - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
         with:
           workspaces: scripts -> target
+          shared-key: linux-debug
           save-if: ${{ github.ref == 'refs/heads/main' }}
       - name: Build site-tools
         working-directory: scripts
@@ -379,7 +382,7 @@ jobs:
           $serveDir = Join-Path $env:RUNNER_TEMP 'served-site'
           New-Item -ItemType Directory -Force -Path $serveDir | Out-Null
           tar.exe -xf (Join-Path $env:RUNNER_TEMP 'served-site-archive\served-site.tar') -C $serveDir
-          if ($LASTEXITCODE -ne 0 -or -not (Test-Path (Join-Path $serveDir 'index.html'))) {
+          if ($LASTEXITCODE -ne 0 -or -not (Test-Path -PathType Leaf (Join-Path $serveDir 'index.html'))) {
             throw 'Failed to unpack prebuilt site artifact'
           }
           "SITE_SERVE_DIR=$serveDir" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append

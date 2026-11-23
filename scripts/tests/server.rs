@@ -253,9 +253,15 @@ fn prebuilt_dir_validates_the_served_tree() {
         None
     );
     let empty = tempfile::tempdir().unwrap();
+    let absent = empty.path().join("absent");
+    assert!(
+        site_tools::serve_site::prebuilt_dir(Some(absent.as_os_str()))
+            .unwrap_err()
+            .contains("existing directory")
+    );
     let missing = site_tools::serve_site::prebuilt_dir(Some(empty.path().as_os_str()));
     assert!(
-        missing.is_err(),
+        missing.unwrap_err().contains("missing index.html"),
         "empty directory without index.html must fail"
     );
     std::fs::write(empty.path().join("index.html"), "<p>Built</p>").unwrap();

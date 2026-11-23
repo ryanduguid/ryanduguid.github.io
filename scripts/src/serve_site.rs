@@ -1073,7 +1073,13 @@ pub fn prebuilt_dir(value: Option<&std::ffi::OsStr>) -> Result<Option<PathBuf>, 
         return Ok(None);
     };
     let path = PathBuf::from(raw);
-    if !path.is_dir() || !path.join("index.html").is_file() {
+    if !path.is_dir() {
+        return Err(format!(
+            "SITE_SERVE_DIR '{}' does not name an existing directory",
+            path.display()
+        ));
+    }
+    if !path.join("index.html").is_file() {
         return Err(format!(
             "SITE_SERVE_DIR '{}' is not a built site directory (missing index.html)",
             path.display()
