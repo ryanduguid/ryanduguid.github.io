@@ -7618,11 +7618,12 @@ fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
     }
     match c.place {
         "AU-NSW" => {
-            // SIRA's Guidelines 2026 clause 6.7: small while the APP does not exceed $30,000;
+            // SIRA's Guidelines 2026 clause 6.7: small while the APP does not exceed $30,000,
+            // tested on wages × the rate before any rounding (icare, read 24 November 2026);
             // icare's $240 minimum; the dust diseases rate includes its GST.
             let app = cents_at(wages, c.rate);
             let premium = app - cents_at(app, c.reward) - cents_at(c.apprentice, c.rate);
-            if app > 3_000_000 || premium < 24_000 {
+            if wages * c.rate > 3_000_000 * 1_000_000 || premium < 24_000 {
                 return None;
             }
             Some([
@@ -7638,14 +7639,18 @@ fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
             }
             // Premiums Order (No. 34): remuneration to the dollar (clause 6(6)), the preliminary
             // premium in millionths of a dollar, and clause 11 as written, preliminary premium
-            // ÷ R × 15,500 × N ÷ 365 to the nearest cent (clause 6(4)); the WorkCover premium
-            // down to the cent and at least $400.
+            // ÷ R × 15,500 × N ÷ 365, N ÷ 365 to 6 decimal places (clause 6(1)), to the nearest
+            // cent (clause 6(4)); the WorkCover premium down to the cent and at least $400.
             let remuneration = wc_half(wages, 100);
             let preliminary = remuneration * c.rate;
             let deductible = if remuneration == 0 {
                 0
             } else {
-                wc_half(preliminary * 15_500 * c.days, remuneration * 365 * 10_000)
+                let share = wc_half(c.days * 1_000_000, 365);
+                wc_half(
+                    preliminary * 15_500 * share,
+                    remuneration * 1_000_000 * 10_000,
+                )
             };
             let workcover = ((preliminary - deductible * 10_000).max(0) / 10_000).max(40_000);
             let premium = workcover + if c.buyout { workcover / 10 } else { 0 };
@@ -7675,6 +7680,17 @@ fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
             // ReturnToWorkSA: BP × (1 − D) + C − A, D by the base premium's band in dollars,
             // C capped at 3 × D × BP, at least $200 and down to the whole dollar. Hundred-
             // millionths of a cent: wages × rate is the base premium in millionths of a cent.
+            // Its table ('under $10k') and its calculator ($9,999.99) part only above a bound
+            // less a cent and below the bound, which is refused.
+            let bounds = [10_000, 50_000, 100_000, 500_000, 1_000_000];
+            if !c.first_year
+                && bounds.iter().any(|dollars| {
+                    let bound = dollars * 100_000_000;
+                    wages * c.rate > bound - 1_000_000 && wages * c.rate < bound
+                })
+            {
+                return None;
+            }
             let d = if c.first_year {
                 0
             } else {
