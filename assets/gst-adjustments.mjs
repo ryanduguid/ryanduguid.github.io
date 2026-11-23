@@ -186,7 +186,11 @@ const failing = (rows) => rows.filter((row) => !row.met).map((row) => row.condit
 const amountsOf = (steps) => Object.fromEntries(steps.map(([id, v]) => [id, cents(v)]));
 
 /** `first` times each factor given: the product. @param {Dec} first @param {(Dec | undefined)[]} rest */
-const product = (first, rest) => rest.reduce((value, factor) => (factor ? mul(value, factor) : value), first);
+const product = (first, rest) => {
+  let value = first;
+  for (const factor of rest) if (factor) value = mul(value, factor);
+  return value;
+};
 
 const CP_KIND = "gst_creditable_purpose_change";
 const CP_INCREASING = "GST Act s 129-40(1) step 3 and s 129-70: the actual application is less than the intended or former application, so an increasing adjustment of the full input tax credit times the difference";
@@ -746,7 +750,7 @@ export function gstAdjustment(worksheet, input) {
 /** The page's result for the chosen worksheet. @param {(name: string) => string} value @param {(value: number) => string} aud */
 export function gstAdjustmentsResult(value, aud) {
   const { worksheet, input } = gstFormInput(value);
-  const r = gstAdjustment(worksheet, input);
+  const r = /** @type {Record<string, any>} */ (gstAdjustment(worksheet, input));
   const a = (/** @type {string} */ id) => aud(Number(r.amounts[id]));
   /** @type {[string, string][]} */
   const rows = [];
