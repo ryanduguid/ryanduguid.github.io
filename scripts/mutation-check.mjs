@@ -38,6 +38,8 @@ const catchUp = { file: 'assets/concessional-catch-up.mjs', test: individualTest
 const rebate = { file: 'assets/private-health-rebate.mjs', test: individualTest };
 const offsets = { file: 'assets/individual-offsets.mjs', test: individualTest };
 const medical = { file: 'assets/net-medical-expenses.mjs', test: individualTest };
+const fito = { file: 'assets/foreign-income-tax-offset.mjs', test: individualTest };
+const conversion = { file: 'assets/foreign-income-conversion.mjs', test: individualTest };
 const governmentSuper = { file: 'assets/government-super.mjs', test: individualTest };
 const governmentSuperResult = { file: 'assets/government-super-result.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
@@ -379,6 +381,29 @@ const MUTATIONS = [
   { ...medical, name: 'net medical 2019-20 refused without s 159P(1A)', find: 'Number(year.slice(0, 4)) >= 2019', replace: 'Number(year.slice(0, 4)) >= 2020' },
   { ...medical, name: 'net medical accepts an unknown field', find: 'if (unknown) refuse(', replace: 'if (false) refuse(' },
   { ...medical, name: 'net medical accepts fractional children', find: '!Number.isInteger(children) || children < 0', replace: 'children < 0' },
+  { ...fito, name: 'FITO limit without the $1,000 floor', find: 'if (payable - payableAssumed > limit) limit = payable - payableAssumed;', replace: 'limit = payable - payableAssumed;' },
+  { ...fito, name: 'FITO limit not raised by NANE tax', find: 'limit += nane * 1200n;', replace: '' },
+  { ...fito, name: 'FITO leaves out the NANE tax', find: 'const before = (paid + nane) * 1200n;', replace: 'const before = paid * 1200n;' },
+  { ...fito, name: 'FITO part-year threshold counts a month more', find: '(13464n * 12n + 4736n * BigInt(months)) * 100n', replace: '(13464n * 12n + 4736n * BigInt(months + 1)) * 100n' },
+  { ...fito, name: 'FITO eligible pensioner gets the part-year threshold', find: 'if (pensioner === true)', replace: 'if (false)' },
+  { ...fito, name: 'FITO assumed income below nil', find: 'taxable - income + deductions > 0n ?', replace: 'true ?' },
+  { ...fito, name: 'FITO worked limit for 2023-24', find: "WORKED_YEARS = ['2024-25', '2025-26', '2026-27']", replace: "WORKED_YEARS = ['2023-24', '2024-25', '2025-26', '2026-27']" },
+  { ...fito, name: 'FITO negative bands', find: 'if (ceiling > floor) tax +=', replace: 'tax +=' },
+  { ...fito, name: 'FITO taxable income in cents accepted', find: 'if (taxable % 100n !== 0n)', replace: 'if (false)' },
+  { ...fito, name: 'FITO last residency month not counted', find: 'm <= index(to); m++', replace: 'm < index(to); m++' },
+  { ...fito, name: 'FITO money with 3 decimal places', find: '{1,2}))?$/.exec(value.trim())', replace: '{1,3}))?$/.exec(value.trim())' },
+  { ...conversion, name: 'conversion asset paid on the day held takes payment', find: "earlier: 'satisfied', strict: true", replace: "earlier: 'satisfied', strict: false" },
+  { ...conversion, name: 'conversion ignores an earlier receipt', find: '(earlier < time || (earlier === time && !rule.strict))', replace: '(earlier === time && !rule.strict)' },
+  { ...conversion, name: 'conversion average of exactly 12 months', find: 'to >= yearOn', replace: 'to > yearOn' },
+  { ...conversion, name: 'conversion average need not contain the day', find: 'on < from || on > to', replace: 'on < from' },
+  { ...conversion, name: 'conversion rate for another day accepted', find: 'if (day !== on)', replace: 'if (false)' },
+  { ...conversion, name: 'conversion truncates to the cent', find: 'Number(ratioCents(amount * 10000n, rate))', replace: 'Number((amount * 10000n) / rate)' },
+  { ...conversion, name: 'conversion amount with 5 decimal places', find: 'fraction.length <= places', replace: 'fraction.length <= places + 1' },
+  { ...conversion, name: 'conversion accepts AUD', find: " || currency === 'AUD'", replace: '' },
+  { ...conversion, name: 'conversion deductions totalled as income', find: "deduction: 'deductions'", replace: "deduction: 'ordinary_income'" },
+  { ...estimate, name: 'foreign income tax offset before the zone offset', find: 'zoneOffset: apply(zone?.offset ?? 0), foreignOffset: apply(foreign?.offset ?? 0)', replace: 'foreignOffset: apply(foreign?.offset ?? 0), zoneOffset: apply(zone?.offset ?? 0)' },
+  { ...estimate, name: 'worked FITO limit leaves out the surcharge', find: '(cents(base.medicare) + cents(base.surcharge))', replace: '(cents(base.medicare))' },
+  { ...estimate, name: 'worked FITO limit for a foreign resident', find: "if (worked && r.residency !== 'resident')", replace: 'if (false)' },
   { ...estimate, name: 'private health insurance offset not refunded', find: "\n    - cents(privateHealth?.offset ?? 0);", replace: ';' },
   { ...estimate, name: 'beneficiary offset after the low income tax offset', find: 'beneficiary: apply(benefit?.offset ?? 0), offset: apply(base.offset)', replace: 'offset: apply(base.offset), beneficiary: apply(benefit?.offset ?? 0)' },
   { ...estimate, name: 'zone offset leaves out the invalid carer offset', find: 'invalid_carer_tax_offset: carer ? carer.offset.toFixed(2) : undefined', replace: 'invalid_carer_tax_offset: undefined' },
@@ -1119,6 +1144,7 @@ const SHARED = [
   'scripts/income-tests-engine-differential.json',
   'scripts/income-tax-offsets-engine-differential.json',
   'scripts/net-medical-expenses-engine-differential.json',
+  'scripts/foreign-income-engine-differential.json',
   'scripts/government-super-engine-differential.json',
   'scripts/concessional-catch-up-engine-differential.json',
   'scripts/unused-leave-engine-differential.json',

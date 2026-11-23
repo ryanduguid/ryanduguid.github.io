@@ -222,6 +222,31 @@ test('the net medical expenses offset works for a 2018-19 return beside the inco
   await expect(form.locator('.sources-applied')).toBeVisible();
 });
 
+test('foreign income converts beside the income tax calculator, and the offset asks only for its limit method’s figures, offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/income-tax/');
+  const fx = page.locator('#foreign-income-conversion form');
+  await waitForCalculator(fx);
+  await context.setOffline(true);
+  const row = (form, label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await fx.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(row(fx, 'Australian dollars')).toHaveText('$8,843.04');
+  // Each kind asks for its own dates.
+  await expect(fx.getByLabel('Date derived')).toBeVisible();
+  await fx.locator('input[name=fx-kind][value=deduction]').check();
+  await expect(fx.getByLabel('Date derived')).toBeHidden();
+  await expect(fx.getByLabel('Date it became deductible')).toBeVisible();
+  const form = page.locator('#income-tax form');
+  await expect(form.locator('#income-tax-fito-paid')).toBeHidden();
+  await form.locator('input[name=fito][value=yes]').check();
+  await expect(form.locator('#income-tax-fito-income')).toBeHidden();
+  await form.locator('input[name=fito-method][value=worked]').check();
+  await expect(form.locator('#income-tax-fito-income')).toBeVisible();
+  await expect(form.locator('#income-tax-fito-payable')).toBeHidden();
+  await form.locator('#income-tax-fito-paid').fill('5000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(row(form, 'Foreign income tax offset')).toHaveText('$2,970.00');
+});
+
 test('income tests count section 57A benefits at 53% and refuse a person not resident all year offline', async ({ page, context }) => {
   await page.goto('/tools/individual-tax/income-tests/');
   const form = page.locator('#income-tests form');

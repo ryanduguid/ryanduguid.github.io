@@ -80,6 +80,13 @@ export function incomeTaxOptions(value, spouse) {
     if (value('phi-loading') === 'yes') refuse('private_health_insurance_rebate.lhc_loading', LHC_LOADING);
     o.privateHealth = { maintained: value('phi-maintained') === 'yes', lines: statementLines(value('phi-lines')) };
   }
+  if (value('fito') === 'yes') {
+    const method = value('fito-method');
+    o.foreign = { foreign_tax_paid: value('fito-paid'), nane_foreign_tax: value('fito-nane'), limit_method: method,
+      ...(method === 'stated' ? { tax_payable: value('fito-payable'), tax_payable_assumed: value('fito-payable-assumed') } : {}),
+      ...(method === 'worked' ? { disregarded_income: value('fito-income'), disregarded_deductions: value('fito-deductions'),
+        medicare_levy_assumed: value('fito-levy-assumed') } : {}) };
+  }
   return Object.keys(o).length ? o : undefined;
 }
 
@@ -92,7 +99,8 @@ export function optionRows(r, aud) {
   return [
     r.benefit ? [['Beneficiary tax offset', aud(r.beneficiary)]] : [],
     [...(r.carer ? [['Invalid and invalid carer tax offset', aud(r.carerOffset)]] : []),
-      ...(r.zone ? [[zoneLabel, aud(r.zoneOffset)]] : [])],
+      ...(r.zone ? [[zoneLabel, aud(r.zoneOffset)]] : []),
+      ...(r.foreign ? [['Foreign income tax offset', aud(r.foreignOffset)]] : [])],
     r.privateHealth ? [['Private health insurance tax offset, refundable', aud(r.privateHealth.offset)],
       ['Excess private health insurance rebate to repay', aud(r.privateHealth.excess)]] : [],
   ];
@@ -115,8 +123,17 @@ export function optionNotes(r, spouse) {
     notes.push(`Private health insurance rebate: ${TIER_NAMES[p.tier]}, on income for surcharge purposes of ${whole(p.income)}`
       + `${spouse ? ' with the spouse’s' : ''} against ${p.families ? 'family' : 'singles'} thresholds of ${p.thresholds.map(whole).join(', ')}`);
   }
-  const claimed = (r.benefit?.offset ?? 0) + (r.carer?.offset ?? 0) + (r.zone?.offset ?? 0);
-  const used = r.beneficiary + r.carerOffset + r.zoneOffset;
+  const f = r.foreign;
+  if (f) {
+    const dollars = (/** @type {number} */ amount) => amount.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+    const limit = f.method === 'worked'
+      ? `tax payable of ${dollars(f.steps.tax_payable)} less ${dollars(f.steps.tax_payable_assumed)} without the foreign income`
+      : f.method === 'stated' ? 'the income tax payable figures you gave' : 'the $1,000 default';
+    notes.push(`Foreign income tax offset: ${dollars(f.offsetBeforeLimit)} of foreign income tax against a limit of `
+      + `${dollars(f.offsetLimit)}, from ${limit}${f.offsetAboveLimit > 0 ? `; the ${dollars(f.offsetAboveLimit)} above it is lost` : ''}`);
+  }
+  const claimed = (r.benefit?.offset ?? 0) + (r.carer?.offset ?? 0) + (r.zone?.offset ?? 0) + (f?.offset ?? 0);
+  const used = r.beneficiary + r.carerOffset + r.zoneOffset + r.foreignOffset;
   if (claimed > used + 0.001) notes.push('The tax offsets exceed the tax on taxable income: the rest is not refunded and does not reduce the Medicare levy');
   return notes;
 }
@@ -143,6 +160,12 @@ export function optionInputs(value, o, aud) {
     const n = o.privateHealth.lines.length;
     parts.push(`a private health insurance statement with ${n} line${n === 1 ? '' : 's'}`
       + `${value('phi-maintained') === 'yes' ? ', maintaining a dependent child or sibling' : ''}`);
+  }
+  if (o.foreign) {
+    const named = { default: 'the $1,000 limit', stated: 'stated income tax payable figures', worked: 'the limit worked out' };
+    parts.push(`foreign income tax of ${aud(Number(o.foreign.foreign_tax_paid))}`
+      + `${Number(o.foreign.nane_foreign_tax) > 0 ? ` and ${aud(Number(o.foreign.nane_foreign_tax))} on non-assessable non-exempt income` : ''}`
+      + ` with ${named[/** @type {'default' | 'stated' | 'worked'} */ (o.foreign.limit_method)] ?? 'a limit'}`);
   }
   return parts.length ? `, ${parts.join(', ')}` : '';
 }

@@ -9,6 +9,7 @@ import { INCOME_TAX_YEARS } from './income-tax.mjs';
 import { taxEstimate } from './tax-estimate.mjs';
 import { incomeTaxOptions, optionInputs, optionNotes, optionRows } from './income-tax-options.mjs';
 import { netMedicalResult } from './net-medical-expenses.mjs';
+import { foreignIncomeConversionResult } from './foreign-income-conversion.mjs';
 import { PACKAGING_YEARS, salaryPackaging } from './salary-packaging.mjs';
 import { NOVATED_YEARS, novatedLease } from './novated-lease.mjs';
 import { BONUS_YEAR, bonusWithholding } from './bonus-withholding.mjs';
@@ -517,7 +518,8 @@ function incomeTestsResult(value, aud) {
 const RESULTS = new Map([['income-tax', incomeTaxResult], ['take-home-pay', takeHomeResult], ['study-loan', studyLoanResult],
   ['sole-trader', soleTraderResult], ['lump-sum-arrears', lumpSumArrearsResult], ['division-293', division293Result], ['income-tests', incomeTestsResult], ['concessional-catch-up', catchUpResult],
   ['bonus-withholding', bonusResult], ['salary-packaging', salaryPackagingResult], ['novated-lease', novatedLeaseResult],
-  ['super-projection', superProjectionResult], ['net-medical-expenses', netMedicalResult]]);
+  ['super-projection', superProjectionResult], ['net-medical-expenses', netMedicalResult],
+  ['foreign-income-conversion', foreignIncomeConversionResult]]);
 
 /** The result of the individual tax calculator `kind`, or undefined for any other form.
  * @param {string} kind the form's data-calculator @param {(name: string) => string} value a field's value
