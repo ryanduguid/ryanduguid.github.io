@@ -381,29 +381,37 @@ Source: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 
 The components of a super lump sum and the most income tax each part can bear.
 
-Published 22 November 2026. Last checked 22 November 2026.
+Published 22 November 2026. Last checked 23 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
 One super lump sum from a complying fund
 
+Work out The most income tax on the lump sum The amount the fund withholds (Schedule 12) The tax on a departing Australia superannuation payment
+
+The lump sum
+
 Payment date
 
 Income year of the payment 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
 
-Paid to The member A death benefits dependant A non-dependant, after the member’s death
+Paid to The member A death benefits dependant A non-dependant, after the member’s death A roll-over of the member’s benefit (withholding only) The trustee of the member’s deceased estate (withholding only)
 
 Lump sum (AUD) Value of the super interest just before the payment (AUD) The interest’s tax free component (AUD) Element untaxed in the fund, in the lump sum (AUD)
 
 Untaxed element from service before 1 July 1983? Choose No Yes
 
-The member Date of birth Terminal medical condition?Choose No Yes Disability superannuation benefit?Choose No Yes Low rate cap amount used in earlier years (AUD) Other lump sums this income year at preservation age to 59?Choose No Yes Untaxed plan cap amount used, from this plan (AUD)
+The member Date of birth Terminal medical condition?Choose No Yes Disability superannuation benefit?Choose No Yes Low rate cap amount used in earlier years (AUD) Other lump sums this income year at preservation age to 59?Choose No Yes
+
+The member’s plan Untaxed plan cap amount used, from this plan (AUD)
 
 Calculate
 
 ## What the inputs need
 
-For one lump sum from a complying fund paid on a condition of release: not a roll-over, an income stream commutation or a payment in breach of the payment rules. The fund states the interest’s value and tax free component just before the payment, and the untaxed element.
+The most tax is what the lump sum can bear in the person’s return, before the Medicare levy. The amount withheld is what the fund takes out when it pays, under Schedule 12 of the withholding schedules; it is a credit against that tax. A departing Australia superannuation payment, to a former temporary resident who has left Australia, bears its own final tax.
+
+For one lump sum from a complying fund paid on a condition of release: not an income stream commutation or a payment in breach of the payment rules. A roll-over and a payment to the trustee of a deceased estate are worked only for withholding. The fund states the interest’s value and tax free component just before the payment, and the untaxed element.
 
 The lump sum’s tax free component is its share of the interest’s, rounded to the cent; the rest is taxable, taxed in the fund except the untaxed element. Leave that at 0 for a fund that pays tax on its income, as most do.
 
@@ -415,17 +423,25 @@ Two registered medical practitioners, one a specialist, certify death is likely 
 
 The low rate cap applies only at preservation age and under 60, which from 1 July 2024 no one is. Enter the amounts counted for earlier lump sums. Other lump sums at that age in the same year share the cap, so they are refused while any is left.
 
+### What the withholding and DASP inputs need
+
+Withholding is worked for payments from 13 October 2020. With a TFN, a resident’s rate for each part is its ceiling rate plus the 2% Medicare levy, and the total rounds to the nearest dollar. Without one, the fund withholds 47% (45% for a foreign resident) of the taxable component, or of the untaxed element at 60 or over, ignoring cents. Without a TFN the rate turns on the payee’s age, which the calculator does not take for a death benefit, and none is stated for a member benefit under $200, so a non-dependant’s death benefit and such a member benefit are refused. The calculator assumes the payment is taxable in Australia and applies no tax treaty.
+
+Take the components from the fund’s or the ATO’s statement. The working holiday maker rate applies when the payment includes amounts from contributions made whilst the person was a working holiday maker. An unclaimed money roll-over with an untaxed element is refused: section 5(2) taxes any excess untaxed roll-over amount in it at nil.
+
 Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; member; paid 1 October 2026; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00. Tax free component $30,000.00 Taxable component: element taxed in the fund $190,000.00 Taxable component: element untaxed in the fund $80,000.00 Untaxed element within the untaxed plan cap left, $80,000.00 at no more than 15% $12,000.00 Assessable income $80,000.00 Not assessable income and not exempt income $220,000.00 Most income tax on the lump sum, before Medicare levy $12,000.00 Untaxed plan cap amount counted $80,000.00 Aged 62 on the payment date, preservation age 59: 60 or over, so only the untaxed element is assessable (ss 301-10 and 301-95).
 
 ## How the super lump sum tax calculator works
 
 The super lump sum tax calculator splits one lump sum from a complying fund, paid from 1 July 2020 to 30 June 2027, into its components. It gives the most income tax each part can bear before the Medicare levy. A member’s treatment turns on age on the payment day and preservation age; a death benefit’s turns on whether the person receiving it is a death benefits dependant. Each rate is a ceiling: the offsets stop the tax on a part going above it, so a person on lower marginal rates pays less, and the Medicare levy is added on top.
 
-Its results match the super-benefit-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 532 test cases, refusals included.
+It also works the amount the fund withholds from the same lump sum under Schedule 12, for a payment from 13 October 2020, including from a roll-over and a death benefit paid to a deceased estate, and the final tax on a departing Australia superannuation payment in 2025-26 to 2027-28.
+
+Its results match the super-benefit-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 532 test cases, and its super-withholding and dasp-tax commands on 613 more, refusals included.
 
 ## What the super lump sum tax calculator does not cover
 
-The calculator does not work the tax at the person’s own marginal rates, the Medicare levy, the amount the fund withholds, income streams, roll-overs, departing Australia superannuation payments, death benefits paid to a deceased estate, or payments from a non-complying or foreign fund. It does not decide dependency, a terminal medical condition, the components or the elements: you state those. It refuses a disability superannuation benefit, an untaxed element from service before 1 July 1983, and other lump sums in the same year that share the low rate cap.
+The calculator does not work the tax at the person’s own marginal rates, the Medicare levy, income streams and their withholding (Schedule 13), the tax on a roll-over or a deceased estate, a tax treaty, or payments from a non-complying or foreign fund. It does not decide dependency, a terminal medical condition, the components or the elements: you state those. It refuses a disability superannuation benefit, an untaxed element from service before 1 July 1983, and other lump sums in the same year that share the low rate cap.
 
 Confirm the result with the fund, the ATO’s guidance on super lump sums or a registered tax agent before relying on it. The redundancy and ETP withholding calculator covers employment termination payments.
 
