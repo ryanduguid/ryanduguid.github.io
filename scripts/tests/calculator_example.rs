@@ -34,32 +34,36 @@ fn render_examples(items: &[serde_json::Value]) -> Vec<String> {
     let repo = common::repository();
     let template = repo.join("_includes/calculator-example.html");
     let gemfile = format!("--gemfile={}", repo.join("Gemfile").display());
-    let script = r#"
-require "liquid"
-require "json"
-template_path = ARGV[0]
-items = JSON.parse(STDIN.read)
-tpl = Liquid::Template.parse(File.read(template_path))
-rendered = items.map { |data| tpl.render({ "include" => data }) }
-print JSON.generate(rendered)
-"#;
+    let script = concat!(
+        "require \"liquid\"\n",
+        "require \"json\"\n",
+        "template_path = ARGV[0]\n",
+        "items = JSON.parse(STDIN.read)\n",
+        "tpl = Liquid::Template.parse(File.read(template_path))\n",
+        "rendered = items.map { |data| tpl.render({ \"include\" => data }) }\n",
+        "print JSON.generate(rendered)\n",
+    );
+    let mut script_file = tempfile::Builder::new()
+        .prefix("calculator-example-")
+        .suffix(".rb")
+        .tempfile()
+        .expect("create temporary Ruby helper");
+    use std::io::Write;
+    script_file
+        .write_all(script.as_bytes())
+        .expect("write temporary Ruby helper");
+    let script_path = script_file.into_temp_path();
     let payload = serde_json::to_string(items).unwrap();
     let mut child = Command::new(which("bundle"))
         .current_dir(&repo)
-        .args([
-            "exec",
-            &gemfile,
-            "ruby",
-            "-e",
-            script,
-            template.to_str().unwrap(),
-        ])
+        .args(["exec", &gemfile, "ruby"])
+        .arg(&script_path)
+        .arg(&template)
         .stdin(std::process::Stdio::piped())
         .stdout(std::process::Stdio::piped())
         .stderr(std::process::Stdio::piped())
         .spawn()
         .expect("bundle exec ruby");
-    use std::io::Write;
     child
         .stdin
         .take()
