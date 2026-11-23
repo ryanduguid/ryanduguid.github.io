@@ -8,6 +8,13 @@
   <updated>2026-11-24T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The income tax page now works out the tax on a minor’s unearned income for…</title>
+    <link href="https://duguid.com.au/changelog/#entry-34c7e279e51b630b" />
+    <id>https://duguid.com.au/changelog/#entry-34c7e279e51b630b</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>The income tax page now works out the tax on a minor’s unearned income for 2024-25 to 2026-27: interest, dividends and other income not excepted are taxed at the special rates for someone under 18 (Division 6AA), and work and other excepted income at ordinary rates. It agrees with the minors-income command of the australian-accounting calculators on every tested case.</summary>
+  </entry>
+  <entry>
     <title>The income tax calculator now takes the foreign income tax offset for 2020-21…</title>
     <link href="https://duguid.com.au/changelog/#entry-af4214fa35557702" />
     <id>https://duguid.com.au/changelog/#entry-af4214fa35557702</id>

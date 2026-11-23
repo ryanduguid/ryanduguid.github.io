@@ -299,16 +299,38 @@ For 2026-27 the Medicare levy thresholds are those the Act held on 17 November 2
 The calculator gives the tax of one person who was a resident, a foreign resident or a working holiday maker for the whole year. It does not compute:
 
 - the Medicare levy reduction for families, which depends on family taxable income and dependants, or a Medicare levy exemption;
-- the seniors and pensioners tax offset and its higher Medicare levy thresholds, the net medical expenses tax offset, which ended after 2018-19 and is worked out on its own below, or any other offset, such as for super contributions;
+- the seniors and pensioners tax offset and its higher Medicare levy thresholds, the net medical expenses tax offset, worked out below for 2016-17 to 2018-19, or any other offset, such as for super contributions;
 - for the rebate, a lifetime health cover loading, a policy for dependants only, a claim of a spouse’s share, or dependent children for a person with no spouse who maintained no dependant; for the invalid carer offset, shared maintenance, Family Tax Benefit Part B shared care or successive spouses; for the zone offset, shared maintenance or more than one area;
 - a change of family or cover status during the year beyond the days without cover, a spouse’s trust income that the surcharge test adds, the net amount on which family trust distribution tax has been paid, which counts in income for surcharge purposes and in the amount the surcharge is levied on, or exempt foreign employment income, which the ATO’s surcharge page adds to income for surcharge purposes when taxable income is $1 or more;
 - a first home super saver released amount, which is taxed with a 30% offset but left out of repayment income and income for surcharge purposes, or, for 2023-24 and earlier, the taxed element of a super lump sum up to the low rate cap, which a person from preservation age to under 60 could leave out of income for surcharge purposes;
 - a study loan debt smaller than the repayment: the repayment cannot exceed what is still owed (section 154-20(1)(c) of the Higher Education Support Act 2003), which the calculator does not ask for;
 - a part-year resident’s reduced tax-free threshold, a working holiday maker who is an Australian resident, or one with other income besides working holiday taxable income;
-- tax on superannuation or employment termination remainders, income averaging, or a minor’s unearned income;
+- tax on superannuation or employment termination remainders, income averaging, or a minor’s unearned income, worked out below for 2024-25 to 2026-27;
 - Division 293 tax, excess contributions, PAYG instalments or other credits besides the tax withheld you enter.
 
 Confirm the figures with the ATO’s Simple tax calculator or a registered tax agent.
+
+## A minor’s unearned income, 2024-25 to 2026-27
+
+For someone under 18 on 30 June: the tax on unearned income such as interest, dividends and trust distributions, which is taxed at special rates (Division 6AA), with income from work and other excepted income taxed at ordinary rates. The result is basic income tax before offsets and the Medicare levy.
+
+Minor’s income inputs
+
+Income year 2026-27 2025-26 2024-25
+
+Residency for the whole year Australian resident Foreign resident
+
+Under 18 on 30 June? Yes No
+
+Excepted personNone of these In a full-time occupation on 30 June Carer allowance payable on 30 June Disability support pension payable on 30 June The ATO holds a disability certificate Principal beneficiary of a special disability trust Double orphan pension payable on 30 June Double orphan pension but for section 1003 Permanent disability certificate Taxable income (whole dollars) Other assessable income (dollars and cents) Employment income (dollars and cents) Income from carrying on a business (dollars and cents) Other excepted incomeInvesting damages or compensation Investing a death benefit Investing money from a public fund Investing property from a family breakdown From a deceased estate Income from investing a lottery prize A partnership share, as section 102AE(3) limits it Investing excepted income Other excepted income amount (dollars and cents) Share of trust net income (dollars and cents) The part of it not from excepted trust income (dollars and cents) Deductions only for the other assessable income (dollars and cents) Part of other deductions related to it (dollars and cents) Apportionable deductions, such as gifts (dollars and cents) Does taxable income include a special income component? No Yes
+
+An excepted person is not taxed at the special rates (section 102AC(2)). On the double orphan and permanent disability grounds, a minor wholly or substantially dependent on relatives, as living with them is taken to show, is not excepted (section 102AC(3) to (5)).
+
+Other assessable income is income not excepted, such as interest, dividends and rent (section 102AE). Of a trust share, give the part to which Division 6AA applies (sections 102AE(4) and 102AG). Give excepted amounts as the Act limits them.
+
+Deductions only for the other assessable income come off it first, then the related part of other deductions, then a share of apportionable deductions (section 102AD).
+
+Calculate Enter the inputs and calculate.
 
 ## Foreign income conversion
 
