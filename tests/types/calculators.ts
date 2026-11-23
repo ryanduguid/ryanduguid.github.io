@@ -3,7 +3,13 @@
 
 // Compile only. Runtime validation and rounding have separate Node tests.
 import * as calculate from '../../assets/business-calculators.mjs';
-import { calculatorTools } from '../../assets/webmcp-tools.mjs';
+import {
+  calculatorTools, fhssTools, governmentSuperTools, individualTaxTools, workExpensesTools,
+} from '../../assets/webmcp-tools.mjs';
+import { fhss } from '../../assets/fhss.mjs';
+import { WORK_EXPENSES_YEARS, workExpenses } from '../../assets/work-expenses.mjs';
+import { GOVERNMENT_SUPER_YEARS, governmentSuperAmounts } from '../../assets/government-super.mjs';
+import { engines as individualEngines } from '../../assets/individual-tax-results.mjs';
 
 const result = calculate.gst('110.00', true);
 const tax: number = result.gst;
@@ -449,3 +455,22 @@ calculate.atoPenaltiesInterest({ ...atoInput, year: 2026 });
 const atoWarnings: number[] = calculate.atoPenaltiesInterest(atoInput).warnings;
 void atoYear;
 void atoWarnings;
+const individualSet = individualTaxTools(individualEngines);
+void individualSet['study-loan'].execute({ incomeYear: '2026-27', taxableIncome: 86380 });
+void individualSet['concessional-catch-up'].execute({ incomeYear: '2024-25', totalSuperBalance: '450000',
+  concessionalContributions: '97500', earlierYears: [] });
+void individualSet['lump-sum-arrears'].execute({ receiptYear: '2025-26', taxableIncome: 100000,
+  australianResidentAllYears: true, accrualYears: [] });
+void fhssTools({ fhss }).fhss.execute({ mode: 'stated', scopeConfirmed: true, determinationDate: '2025-06-20',
+  withholdingBasis: 'unable' });
+void workExpensesTools({ workExpenses, workExpensesYears: WORK_EXPENSES_YEARS })['work-expenses'].execute({
+  method: 'home_office', incomeYear: '2025-26', scopeConfirmed: true });
+void governmentSuperTools({ governmentSuperAmounts, governmentSuperYears: GOVERNMENT_SUPER_YEARS })['government-super'].execute({
+  incomeYear: '2023-24', scopeConfirmed: true, residency: 'full_year_resident', assessableIncome: 35000,
+  taxableIncome: 35000, eligibleIncome: '35000', returnLodged: true, under71: true });
+// @ts-expect-error fhssTools requires the fhss engine function.
+fhssTools({ fhss: () => ({ amounts: {} }) });
+// @ts-expect-error workExpensesTools requires workExpensesYears alongside workExpenses.
+workExpensesTools({ workExpenses });
+// @ts-expect-error governmentSuperTools requires governmentSuperYears alongside governmentSuperAmounts.
+governmentSuperTools({ governmentSuperAmounts });
