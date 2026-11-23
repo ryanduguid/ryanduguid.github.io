@@ -9475,9 +9475,9 @@ fn rd_case(rng: &mut Seeded) -> (Value, Value) {
     let clawback = if notional < 2_000_000 { 0 } else { u128::from(rng.pick(&[0, any])) };
     let any = up_to(rng, clawback);
     let feedstock = u128::from(rng.pick(&[0, any]));
-    let revenue = feedstock + u128::from(rng.pick(&[0, 1, 50_000]));
+    let revenue = feedstock + u128::from(rng.pick(&[0_u64, 1, 50_000]));
     let any = rng.cents(100_000_000_000);
-    let expenses = u128::from(rng.pick(&[0, any])) + notional * u128::from(rng.pick(&[0, 1, 50]));
+    let expenses = u128::from(rng.pick(&[0, any])) + notional * u128::from(rng.pick(&[0_u64, 1, 50]));
     let any = rng.cents(100_000_000_000);
     let turnover = u128::from(rng.pick(&[any, 1_999_999_999, 2_000_000_000]));
     let exempt = rng.below(5) == 0;
