@@ -30,13 +30,13 @@ const FIELDS = ['items', 'unused_tax_losses', 'opening_unused_tax_losses', 'unre
 const DECIMALS = FIELDS.slice(1, 11);
 
 /** Python's whitespace, which the command strips from a decimal before reading it. */
-const SPACE = /[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/;
+const SPACE = /[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/; // eslint-disable-line no-control-regex -- Python's whitespace includes U+001C to U+001F
 /** `text` without Python's whitespace at either end. @param {string} text */
 const stripSpace = (text) => {
   let start = 0;
   let end = text.length;
-  while (start < end && SPACE.test(text[start])) start += 1;
-  while (end > start && SPACE.test(text[end - 1])) end -= 1;
+  while (start < end && SPACE.test(text.charAt(start))) start += 1;
+  while (end > start && SPACE.test(text.charAt(end - 1))) end -= 1;
   return text.slice(start, end);
 };
 /** Rust's whitespace, which an item's label may not be made of. */
@@ -48,7 +48,7 @@ function readDecimal(value, unreadable) {
   if (typeof value !== 'string') return null;
   const text = stripSpace(value);
   if (/^[+-]?(inf|infinity|s?nan\d*)$/i.test(text)) return null;
-  const parts = /^(-?)(\d+)(?:\.(\d+))?$/.exec(text);
+  const parts = /^(-?)(\d+)(?:\.(\d+))?$/.exec(text); // eslint-disable-line security/detect-unsafe-regex -- anchored, with no repetition over overlapping characters: linear
   if (!parts) return unreadable();
   const negative = parts[1] === '-';
   // The command takes at most 2 places as written: 1.000 has 3.
@@ -126,7 +126,7 @@ function readItems(list) {
     if (fields.class !== 'asset' && fields.class !== 'liability') invalid(`Item ${n}: it must be an asset or a liability.`);
     const amounts = ITEM_FIELDS.slice(2).map((key) => {
       const unreadable = () => invalid(`Item ${n}: enter each amount as 0 or more with no more than 2 decimal places.`);
-      const v = readDecimal(fields[key], unreadable);
+      const v = readDecimal(fields[key], unreadable); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
       try {
         return money(v);
       } catch {
@@ -148,10 +148,10 @@ export function deferredTax(x) {
   for (const key of FIELDS) {
     if (!(key in x)) refuse('input.missing_field', `${key} is required.`);
     if (DECIMALS.includes(key)) {
-      if (typeof x[key] === 'string' && new TextEncoder().encode(/** @type {string} */ (x[key])).length > 8192) {
+      if (typeof x[key] === 'string' && new TextEncoder().encode(/** @type {string} */ (x[key])).length > 8192) { // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
         refuse('input.decimal_too_long', `${key}: the number has too many digits.`);
       }
-      dec[key] = readDecimal(x[key], () => refuse('input.decimal_unreadable', `${key}: enter a number in digits, such as 1250.50.`));
+      dec[key] = readDecimal(x[key], () => refuse('input.decimal_unreadable', `${key}: enter a number in digits, such as 1250.50.`)); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
     }
   }
   if (x.scope_confirmed !== true) refuse('scope.not_confirmed', 'Establish all stated scope conditions before calculating.');
@@ -172,10 +172,10 @@ export function deferredTax(x) {
       + 'entity, and partly later at 25%; measuring them needs a reversal schedule this worksheet does not take.');
   }
   const [losses, openingLosses, unrecognised, openingUnrecognised, used] = ['unused_tax_losses', 'opening_unused_tax_losses',
-    'unrecognised_deductible', 'opening_unrecognised_deductible', 'unrecognised_used'].map((key) => money(dec[key]));
+    'unrecognised_deductible', 'opening_unrecognised_deductible', 'unrecognised_used'].map((key) => money(dec[key])); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   const profit = signedMoney(dec.accounting_profit);
   const [nonDeductible, nonAssessable, taxableIncome, offsets] = ['non_deductible_expenses', 'non_assessable_income', 'taxable_income', 'tax_offsets']
-    .map((key) => money(dec[key]));
+    .map((key) => money(dec[key])); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   if (used > openingUnrecognised) {
     refuse('deferred_tax.unrecognised_used_above_opening', 'The previously unrecognised amount used in the year is more than the opening '
       + 'unrecognised amount: only amounts with no deferred tax asset at the start of the year can be used as previously unrecognised.');
@@ -269,7 +269,7 @@ export function deferredTaxFormInput(value) {
     const label = value(`item-${n}-label`);
     const amounts = AMOUNT_FIELDS.map(([field]) => value(`item-${n}-${field}`));
     if (!label.trim() && amounts.every((a) => !a.trim())) continue;
-    items.push({ label, class: value(`item-${n}-class`), ...Object.fromEntries(AMOUNT_FIELDS.map(([, key], i) => [key, amounts[i]])) });
+    items.push({ label, class: value(`item-${n}-class`), ...Object.fromEntries(AMOUNT_FIELDS.map(([, key], i) => [key, amounts[i]])) }); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   }
   const yes = (/** @type {string} */ name) => value(name) === 'yes';
   return { items, unused_tax_losses: value('losses'), opening_unused_tax_losses: value('opening-losses'),
@@ -289,14 +289,14 @@ export function deferredTaxInputsText(x, aud) {
   const money = (/** @type {unknown} */ text) => aud(Number(text));
   const items = Array.isArray(x.items) ? x.items.map((/** @type {Record<string, any>} */ it) => `${it.label} (${it.class}) ${money(it.carrying_amount)} `
     + `on ${money(it.tax_base)}, opening ${money(it.opening_carrying_amount)} on ${money(it.opening_tax_base)}`).join('; ') : '';
-  const given = (/** @type {string} */ key, /** @type {string} */ words) => (Number(x[key]) ? [`${words} ${money(x[key])}`] : []);
+  const given = (/** @type {string} */ key, /** @type {string} */ words) => (Number(x[key]) ? [`${words} ${money(x[key])}`] : []); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   const extras = [...given('unused_tax_losses', 'losses'), ...given('opening_unused_tax_losses', 'opening losses'),
     ...given('unrecognised_deductible', 'unrecognised'), ...given('opening_unrecognised_deductible', 'opening unrecognised'),
     ...given('unrecognised_used', 'used'), ...given('non_deductible_expenses', 'non-deductible'), ...given('non_assessable_income', 'non-assessable'),
     ...given('tax_offsets', 'offsets'),
     ...[['business_combination', 'a business combination'], ['uncertain_tax_treatment', 'an uncertain tax treatment'],
       ['tax_consolidated_group', 'a tax-consolidated group'], ['outside_profit_or_loss', 'items outside profit or loss']]
-      .filter(([key]) => x[key]).map(([, words]) => words)];
+      .filter(([key]) => x[key]).map(([, words]) => words)]; // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   return `${x.year}, ${x.base_rate_entity ? 'base rate entity' : 'not a base rate entity'}, rates ${rateWords(x.expected_rate)} (opening `
     + `${rateWords(x.opening_expected_rate)}); ${items}; profit ${money(x.accounting_profit)}, taxable income ${money(x.taxable_income)}`
     + `${extras.length ? `, ${extras.join(', ')}` : ''}`;
@@ -312,7 +312,7 @@ const RECONCILING = [['tax_at_applicable_rate', 'Accounting profit at the applic
 export function deferredTaxResult(value, aud) {
   const input = deferredTaxFormInput(value);
   const r = deferredTax(input);
-  const a = (/** @type {string} */ id) => aud(Number(r.amounts[id]));
+  const a = (/** @type {string} */ id) => aud(Number(r.amounts[id])); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   const pct = (/** @type {string} */ fraction) => `${(Number(fraction) * 100).toLocaleString('en-AU', { maximumFractionDigits: 2 })}%`;
   const rows = [[`Deferred tax liability, at ${pct(r.rates.closing_rate)}`, a('deferred_tax_liability')],
     [`Deferred tax asset, at ${pct(r.rates.closing_rate)}`, a('deferred_tax_asset')], ['Net deferred tax liability', a('net_deferred_tax_liability')],
