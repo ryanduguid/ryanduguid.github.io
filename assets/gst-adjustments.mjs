@@ -95,14 +95,22 @@ function cents(a) {
 const toNumber = (a) => Number(cents(a));
 
 /** Python's whitespace, which the commands strip from a decimal before reading it. */
-const SPACE = /^[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]+|[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]+$/g;
+const SPACE = /[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/;
+/** `text` without Python's whitespace at either end. @param {string} text */
+const stripSpace = (text) => {
+  let start = 0;
+  let end = text.length;
+  while (start < end && SPACE.test(text[start])) start += 1;
+  while (end > start && SPACE.test(text[end - 1])) end -= 1;
+  return text.slice(start, end);
+};
 
 /** A decimal input as the commands read it: a Dec, `null` for a value that is not finite or not a string, or a
  * refusal for text they cannot read. @param {string} key @param {unknown} value @returns {Dec | null} */
 function decimal(key, value) {
   if (typeof value !== 'string') return null;
   if (new TextEncoder().encode(value).length > 8192) refuse('input.decimal_too_long', `${key}: the number has too many digits.`);
-  const text = value.replace(SPACE, '');
+  const text = stripSpace(value);
   if (/^[+-]?(inf|infinity|s?nan\d*)$/i.test(text)) return null;
   const parts = /^(-?)(\d+(?:\.\d+)?)$/.exec(text);
   if (!parts) refuse('input.decimal_unreadable', `${key}: enter a number in digits, such as 1250.50.`);
@@ -614,7 +622,12 @@ function fractionPercent(text) {
   if (!v) return String(text);
   const n = mul(v, d('100'));
   const shown = n.e >= 0 ? String(n.c * TEN ** BigInt(n.e)) : String(n.c).padStart(1 - n.e, '0').replace(new RegExp(`(\\d{${-n.e}})$`), '.$1');
-  return `${shown.includes('.') ? shown.replace(/\.?0+$/, '') : shown}%`;
+  let trimmed = shown;
+  if (trimmed.includes('.')) {
+    while (trimmed.endsWith('0')) trimmed = trimmed.slice(0, -1);
+    if (trimmed.endsWith('.')) trimmed = trimmed.slice(0, -1);
+  }
+  return `${trimmed}%`;
 }
 /** @param {unknown} text */
 const longDate = (text) => (parseDay(text) !== null
