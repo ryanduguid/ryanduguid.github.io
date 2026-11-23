@@ -494,8 +494,6 @@ Download Ozzit v3.7.0 from the GitHub release page. It was published on 18 Novem
 - All tools
 - Evidence and Assurance
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - v3.7.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.7.0

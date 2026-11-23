@@ -37,3 +37,42 @@ if (link) {
     }
   }
 }
+
+const calcForm = document.getElementById('calc-filter');
+const calcInput = calcForm?.querySelector('#calc-search');
+const calcCount = calcForm?.querySelector('#calc-count');
+if (calcForm && calcInput && calcCount) {
+  const input = calcInput;
+  const count = calcCount;
+  const lists = [...document.querySelectorAll('.calculator-list')];
+  const items = lists.flatMap(list => [...list.querySelectorAll(':scope > li')]);
+  const normalise = text => text.toLocaleLowerCase('en-AU').replace(/[^a-z0-9]+/g, ' ');
+  const haystack = new Map(items.map(item => {
+    const list = item.closest('.calculator-list');
+    const heading = list?.previousElementSibling?.tagName === 'H2' ? list.previousElementSibling.textContent : '';
+    return [item, normalise(`${heading} ${item.textContent} ${item.dataset.keywords || ''}`)];
+  }));
+  const describe = shown => shown === items.length
+    ? `Showing all ${shown} calculators.`
+    : shown
+      ? `Showing ${shown} of ${items.length} calculators.`
+      : `No calculators match. Clear the search to show all ${items.length}.`;
+  let timer;
+  const filter = () => {
+    const words = normalise(input.value).split(' ').filter(Boolean);
+    for (const item of items) item.hidden = !words.every(word => haystack.get(item).includes(word));
+    for (const list of lists) {
+      const empty = !list.querySelector(':scope > li:not([hidden])');
+      list.hidden = empty;
+      if (list.previousElementSibling?.tagName === 'H2') list.previousElementSibling.hidden = empty;
+    }
+    const shown = items.filter(item => !item.hidden).length;
+    clearTimeout(timer);
+    timer = setTimeout(() => { count.textContent = describe(shown); }, 180);
+  };
+  input.addEventListener('input', filter);
+  calcForm.addEventListener('submit', event => event.preventDefault());
+  count.textContent = describe(items.length);
+  if (input.value) filter();
+  calcForm.hidden = false;
+}

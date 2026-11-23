@@ -364,8 +364,8 @@ fn design_contracts_text_mutations() {
         (
             "labels stay out of tracked capitals",
             "assets/site.css",
-            ".article-toc p {",
-            ".article-toc p {\n  text-transform: uppercase;\n  letter-spacing: 0.055em;",
+            ".article-toc p,\n.toc-disclosure > summary {",
+            ".article-toc p,\n.toc-disclosure > summary {\n  text-transform: uppercase;\n  letter-spacing: 0.055em;",
             "tracked capital label: .article-toc p",
         ),
         (

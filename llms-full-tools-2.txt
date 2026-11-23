@@ -116,8 +116,6 @@ Anything it does not implement, including trust capital gains and franked divide
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - v0.3.2: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.3.2
@@ -241,8 +239,6 @@ Under Division 203, a company must frank all distributions in a franking period 
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.2.0
@@ -346,8 +342,6 @@ Not as working figures. Each skill encodes the workflow, the tie-outs and the ex
 - When is payday super due
 - Evidence and Assurance
 - About Ryan Duguid
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -486,8 +480,6 @@ No. It is a review aid. Recognition over time versus at a point in time, whether
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.2.0
@@ -613,8 +605,6 @@ No file is written. The balance check runs before anything reaches disk, and bot
 - What the Xero trial balance export refuses
 - Evidence and Assurance
 - About Ryan Duguid
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -865,8 +855,6 @@ Yes. The listing name is io.github.ryanduguid/aus-accounting. The install comman
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - v0.11.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.11.0
@@ -1018,8 +1006,6 @@ No. It reads local files and writes a readiness pack. It cannot post, pay, lodge
 - What Workpaper Review Gate refuses
 - Evidence and Assurance
 - About Ryan Duguid
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -1194,8 +1180,6 @@ No. PASS means the configured checks passed on the supplied inputs. A human stil
 - What Monthly Close Controls refuses
 - Reproducible examples and evaluations
 - Evidence and Assurance
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 

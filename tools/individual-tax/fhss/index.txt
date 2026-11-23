@@ -82,9 +82,13 @@ Partial release in the income year after determination | ATO determination: conc
 
 One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- First home owner grant calculator
+- Transfer duty calculator
+- Concessional catch-up calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
@@ -94,3 +98,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - First Home Super Saver Tax Act 2017: https://www.legislation.gov.au/C2017A00133/asmade
 - Treasury Laws Amendment (2023 Measures No. 3) Act 2023, Schedule 4, items 28 and 30: https://www.legislation.gov.au/C2023A00075
 - fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- First home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
+- Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
+- Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/

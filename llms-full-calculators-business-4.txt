@@ -92,13 +92,20 @@ An agent’s payments are checked before a determination settles the question | 
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- PCG 2021/4 risk scorer
+- Sole trader tax set-aside calculator
+- Companies and trusts questions
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
+- Sole trader tax set-aside calculator: https://duguid.com.au/tools/individual-tax/sole-trader/
+- Companies and trusts questions: https://duguid.com.au/tools/accounting-questions/company-compliance/
 
 ---
 
@@ -146,15 +153,21 @@ Annual costs add before spreading | Wages $80,000.00, super $9,600.00, other $1,
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Super guarantee rate history
+- Payroll tax calculator
+- Workers compensation premium calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
 - Staff cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
+- Workers compensation premium calculator: https://duguid.com.au/tools/business-calculators/workers-compensation/
 
 ---
 
@@ -231,15 +244,21 @@ A receipt delayed into week 13 is not deferred | Opening -$50.00, buffer $100.00
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Profit vs cash flow worked example
+- Cash flow questions
+- 2026-27 BAS due dates
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
 - Lumbridge cash flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Cash flow questions: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
 
 ---
 
@@ -295,21 +314,28 @@ A first notice after the amended notice is refused | Amended FBT assessment, not
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- ATO penalties and interest calculator
+- Business days calculator
+- 2026-27 BAS due dates
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- ATO penalties and interest calculator: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
+- Business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
+- 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
 
 ---
 
-# PAYG instalments calculator: instalment amount and rate methods
+# PAYG instalments calculator: amount and rate methods
 
 Source: https://duguid.com.au/tools/business-calculators/payg-instalments/
 
-> One quarterly PAYG instalment by the ATO’s instalment amount or the instalment rate, notified or varied, with the credit to claim, as the activity statement asks.
+> Calculate a quarterly PAYG instalment by notified or varied amount or instalment rate, with any variation credit for your activity statement.
 
 # PAYG instalments calculator
 
@@ -363,17 +389,24 @@ A credit for the second instalment is refused | Varied amount, instalment 2; est
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the instalment rounds down to whole dollars, as the activity statement takes it.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- 2026-27 BAS due dates
+- GST and BAS questions
+- Sole trader tax set-aside calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the instalment rounds down to whole dollars, as the activity statement takes it.
 
 ## Links
 
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
+- GST and BAS questions: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Sole trader tax set-aside calculator: https://duguid.com.au/tools/individual-tax/sole-trader/
 
 ---
 
-# Super lump sum tax calculator: components, caps, death benefits
+# Super lump sum tax calculator: caps and death benefits
 
 Source: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 
@@ -467,15 +500,21 @@ Other lump sums in the same year share the low rate cap, which the page does not
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Super projection calculator
+- Division 296 tax calculator
+- Redundancy and ETP withholding
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - australian-accounting: https://github.com/ryanduguid/australian-accounting
 - redundancy and ETP withholding calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
+- Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/
 
 ---
 
@@ -532,14 +571,21 @@ Part years of service are refused | Redundancy payment $48,000.00 after 5.5 year
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; each amount withheld rounds to the nearest dollar, with 50 cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Unused leave on termination
+- Bonus withholding calculator
+- Payroll and super questions
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; each amount withheld rounds to the nearest dollar, with 50 cents rounded up.
 
 ## Links
 
 - Schedule 11: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-11-tax-table-for-employment-termination-payments
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
+- Bonus withholding calculator: https://duguid.com.au/tools/individual-tax/bonus-withholding/
+- Payroll and super questions: https://duguid.com.au/tools/accounting-questions/payroll-super/
 
 ---
 
@@ -547,7 +593,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/business-calculators/land-tax/
 
-> Land tax in the 7 states and territories that levy it, with trust rates and foreign owner surcharges, from primary sources read 16 November 2026. The NT has none.
+> Annual land tax in the 7 states and territories that levy it, with trust rates and foreign owner surcharges, checked 16 November 2026. The NT has no land tax.
 
 # Land tax calculator
 
@@ -634,9 +680,13 @@ Cents are refused | New South Wales, $1,100,000.50 | Refused: enter a whole numb
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Transfer duty calculator
+- Foreign purchaser surcharge calculator
+- Rental property calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
@@ -655,14 +705,16 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - land tax exemptions: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/land-tax-exemptions
 - when the foreign ownership surcharge applies: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/foreign-ownership-surcharge-for-land-tax
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
+- Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
 
 ---
 
-# Stamp duty calculator for every Australian state and territory
+# Stamp duty calculator: all 8 Australian states (2026-27)
 
 Source: https://duguid.com.au/tools/business-calculators/transfer-duty/
 
-> Transfer (stamp) duty on a residential purchase in all 8 states and territories, at the general rates or with each first home buyer concession, from primary sources.
+> Residential transfer (stamp) duty across all 8 Australian states and territories at general rates or with first home buyer concessions, primary sourced.
 
 # Transfer duty calculator
 
@@ -752,9 +804,23 @@ Cents are refused | New South Wales, $1,350,000.50 | Refused: enter a whole numb
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Common questions
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+### Does this stamp duty calculator cover all Australian states and territories?
+
+Yes. It covers NSW, Victoria, Queensland, Western Australia, South Australia, Tasmania, the ACT and the Northern Territory using each revenue office’s published general and first home buyer scales.
+
+### Are foreign purchaser surcharges included in the general stamp duty result?
+
+No. Foreign purchaser additional duty is calculated separately on the foreign purchaser surcharge calculator page.
+
+## Related
+
+- Transfer duty rates by state
+- First home owner grant calculator
+- Foreign purchaser surcharge calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 

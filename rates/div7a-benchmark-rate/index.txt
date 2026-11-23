@@ -80,8 +80,6 @@ These figures are derived from the Reserve Bank series the Act names, on the dat
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - section 109N(2) of the Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text

@@ -72,11 +72,17 @@ A foreign resident | 2026-27, charity, foreign, salary $70,000, Type 2 $15,899.9
 
 One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- FBT rate and gross-up rates
+- Novated lease calculator
+- Meal entertainment calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - novated lease calculator: https://duguid.com.au/tools/individual-tax/novated-lease/
 - fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
+- Meal entertainment calculator: https://duguid.com.au/tools/business-calculators/fbt-meal-entertainment/

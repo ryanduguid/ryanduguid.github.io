@@ -303,6 +303,10 @@ Every card below shares one provenance record. Sources: `assets/social-card-temp
 | `assets/social-card-evaluations-20261104b.png` | `ddd78ec99d8694f70ce2397c79d11518e2bbb5b846e3ef90e0ce706c926cfaef` |
 | `assets/social-card-rates-20261104b.png` | `9ebf0ab19a41e4e0791a9ba56f5624532fab2b3bf4c5ac21dd3673a9f297518c` |
 | `assets/social-card-evidence-20261104b.png` | `21396f12f3a7856fc440f432807fad03ef31e33c01ffb2fdf370436bbb4ac67c` |
+| `assets/social-card-calculators-20261123.png` | `203046e5edf30f904d2cbcbccb579c882f4d7ca2b7de22a4c723522b1701c729` |
+| `assets/social-card-individual-tax-20261123.png` | `c542d842571113969696e61bed6acad5e5abc8f102ae43c658dd14a1d816b78a` |
+| `assets/social-card-depreciation-20261123.png` | `98331e3226d7361f7663768d18e00858d03db38dc43ad7b9ead4fbf40e32bb46` |
+| `assets/social-card-questions-20261123.png` | `687d0087eb413a443a7d927cd1da623349d452c5fe8b0e3e55f8074369ba81fe` |
 
 ## Favicon provenance
 

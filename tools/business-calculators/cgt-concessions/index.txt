@@ -102,10 +102,17 @@ Owned more than 15 years and active for 2,738 days is refused | Individual; boug
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Capital gains tax calculator
+- Companies and trusts questions
+- Investments and NSW questions
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Capital gains tax calculator: https://duguid.com.au/tools/business-calculators/cgt/
+- Companies and trusts questions: https://duguid.com.au/tools/accounting-questions/company-compliance/
+- Investments and NSW questions: https://duguid.com.au/tools/accounting-questions/investments-local/

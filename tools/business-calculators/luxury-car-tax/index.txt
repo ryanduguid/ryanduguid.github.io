@@ -77,12 +77,18 @@ A primary producer is refunded for one car a financial year (section 18-5(4)) | 
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Car limit for depreciation
+- Vehicle classifier
+- FBT car calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - australian-accounting: https://github.com/ryanduguid/australian-accounting
 - vehicle classifier: https://duguid.com.au/tools/business-calculators/vehicle-class/
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Car limit for depreciation: https://duguid.com.au/rates/car-limit/
+- FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
