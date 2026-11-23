@@ -763,7 +763,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/docs/firm-assessment.md
 - evatt, the Xero Ledger Review Gate and the Workpaper Review Gate: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/docs/ai-register-entries.md
 - Australian Accounting Skills: https://github.com/ryanduguid/australian-accounting-skills/blob/main/docs/ai-register-entry.md
-- au-fpa-pack: https://github.com/ryanduguid/au-fpa-pack/blob/main/docs/ai-register-entry.md
+- au-fpa-pack: https://github.com/ryanduguid/OzFPA/blob/main/docs/ai-register-entry.md
 - DrDebits: https://github.com/ryanduguid/DrDebits/blob/main/docs/ai-register-entry.md
 
 ---
@@ -15879,15 +15879,15 @@ Cite as Duguid, R. (2026). Lumbridge Services fictional cash flow case [Data set
 - Download the Excel example: https://duguid.com.au/assets/examples/lumbridge/lumbridge.xlsx
 - Compare the two cases: https://duguid.com.au/examples/profit-vs-cash-flow/#results
 - Read the full steps: https://duguid.com.au/examples/profit-vs-cash-flow/#try
-- MIT License: https://github.com/ryanduguid/au-fpa-pack/blob/386c7ff31f7989b86445ef37d83a912fcb02bb47/LICENSE
+- MIT License: https://github.com/ryanduguid/OzFPA/blob/386c7ff31f7989b86445ef37d83a912fcb02bb47/LICENSE
 - capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
 - Read the results, definitions and source hashes (JSON): https://duguid.com.au/assets/examples/lumbridge/sensitivity.json
 - Download the sample pack: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
 - Read the sample record: https://duguid.com.au/assets/examples/lumbridge/README.txt
 - Jeff Brines / Guiderail’s openfpa: https://github.com/JeffBrines/openfpa
 - uv: https://docs.astral.sh/uv/
-- Read the source and assumptions at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
-- au-fpa-pack v0.7.0: https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.7.0
+- Read the source and assumptions at the captured commit: https://github.com/ryanduguid/OzFPA/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
+- au-fpa-pack v0.7.0: https://github.com/ryanduguid/OzFPA/releases/tag/v0.7.0
 - Payday Super timing: https://duguid.com.au/tools/payday-super/
 - Ozzit: Excel LAMBDA functions for Australian modelling: https://duguid.com.au/tools/ozzit/
 - Browser cash flow and planning calculators: https://duguid.com.au/tools/business-calculators/
