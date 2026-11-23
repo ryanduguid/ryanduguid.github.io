@@ -5608,6 +5608,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+24 November 2026 | A new business calculator, deferred tax, works a company’s AASB 112 tax effect worksheet for 2020-21 to 2026-27: temporary differences item by item, the deferred tax liability and asset at 25% or 30%, the year’s movement split into rate change, recognition and origination, current tax at the year’s rate and the reconciliation of income tax expense. Its results match the australian-accounting command on 389 cases.
 23 November 2026 | Updated 2 accounting questions after the 23 November 2026 ATO source sweep: removed the withdrawn credit card newsroom link from general tax question 6, keeping the ATO’s How to pay page, and rechecked company and trust question 86 against the 20 November 2026 trustee resolutions checklist.
 23 November 2026 | The tool pages now link to licences by release or source revision, including the versions used in worked examples. The homepage and tool directory link to Lodgeit’s listing of the Coal LSL levy calculator and to the Australian capital gains tax guide on OpenAccountants, with each project’s review status.
 22 November 2026 | A new business calculator works out one residential rental property’s income and deductions for one owner and income year from 2020-21 to 2026-27: expenses apportioned by the days let or available, interest on a loan used partly for the rental, capital works at 2.5% or 4% within the undeducted construction expenditure, decline in value with section 40-27’s nil for second-hand assets, the net rent and, from 2024-25, its effect on tax at the resident scale. It reproduces the ATO’s Rental properties guide 2026 worked examples, read on 22 November 2026, and agrees with the rental-property command of the australian-accounting calculators on every tested case.
@@ -5839,6 +5840,7 @@ Published 30 August 2026. Last reviewed 23 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- deferred tax: https://duguid.com.au/tools/business-calculators/deferred-tax/
 - general tax question 6: https://duguid.com.au/tools/accounting-questions/general-tax/
 - company and trust question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/
 - tool pages: https://duguid.com.au/tools/
@@ -6449,6 +6451,7 @@ Published 11 September 2026. Last checked 23 November 2026, the newest of the ca
 
 - Franking account calculator A company’s franking account for 2025-26 or 2026-27: franking deficit tax and its offset, the benchmark rule and the franking return’s labels and due date.
 - Company tax and franking calculator A company’s 25% or 30% rate from the base rate entity test, its rate for franking dividends, the maximum franking credit and a shareholder’s tax or refund.
+- Deferred tax calculator A company’s AASB 112 tax effect worksheet: deferred tax liability and asset, the movement, current tax and the reconciliation.
 - Salary against dividends calculator A company owner’s salary and super guarantee against fully franked dividends for 2021-22 to 2026-27: the cash and super kept after tax, and the split that keeps the most.
 
 ## Capital gains tax
@@ -6521,6 +6524,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - Franking account calculator: https://duguid.com.au/tools/business-calculators/franking-account/
 - Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
+- Deferred tax calculator: https://duguid.com.au/tools/business-calculators/deferred-tax/
 - Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/
 - Capital gains tax calculator: https://duguid.com.au/tools/business-calculators/cgt/
 - Small business CGT concessions checker: https://duguid.com.au/tools/business-calculators/cgt-concessions/
@@ -15017,6 +15021,122 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - company tax and franking worksheets: https://duguid.com.au/tools/company-tax-franking/
+- fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Deferred tax calculator: AASB 112 tax effect worksheet
+
+Source: https://duguid.com.au/tools/business-calculators/deferred-tax/
+
+> A company’s deferred tax liability and asset under AASB 112, the year’s movement, current tax at 25%, 26% or 30%, and the tax expense reconciliation.
+
+# Deferred tax calculator
+
+An AASB 112 tax effect worksheet for a company, 2020-21 to 2026-27.
+
+Published 24 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One company’s tax effect worksheet for an income year Profit, taxable income and offsets
+
+Accounting profit (a loss below nil) (AUD) Non-deductible expenses (AUD) Non-assessable income (AUD) Taxable income (AUD) Non-refundable tax offsets (AUD)
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Base rate entity this year No Yes
+
+Closing expected rate 30% 25%
+
+Opening expected rate 30% 25%
+
+Item 1
+
+Name
+
+Class Asset Liability
+
+Carrying amount, end (AUD) Tax base, end (AUD) Carrying amount, start (AUD) Tax base, start (AUD)
+
+Item 2
+
+Name
+
+Class Asset Liability
+
+Carrying amount, end (AUD) Tax base, end (AUD) Carrying amount, start (AUD) Tax base, start (AUD)
+
+Item 3
+
+Name
+
+Class Asset Liability
+
+Carrying amount, end (AUD) Tax base, end (AUD) Carrying amount, start (AUD) Tax base, start (AUD)
+
+Item 4
+
+Name
+
+Class Asset Liability
+
+Carrying amount, end (AUD) Tax base, end (AUD) Carrying amount, start (AUD) Tax base, start (AUD)
+
+Losses and amounts with no deferred tax asset
+
+Unused tax losses, end (AUD) Unused tax losses, start (AUD) Unrecognised deductible amounts, end (AUD) Unrecognised deductible amounts, start (AUD) Of those at the start, used in the year (AUD)
+
+Matters the worksheet refuses
+
+Business combination No Yes
+
+Uncertain tax treatment No Yes
+
+Tax-consolidated group member No Yes
+
+Tax outside profit or loss No Yes
+
+Calculate
+
+Enter amounts as established; a blank item is skipped. Expected rates apply on reversal: 25% for a base rate entity.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, not a base rate entity, rates 30% (opening 30%); Plant (asset) $70,000.00 on $50,000.00, opening $80,000.00 on $65,000.00; Leave provision (liability) $12,000.00 on $0.00, opening $10,000.00 on $0.00; Prepayment (asset) $3,000.00 on $0.00, opening $2,000.00 on $0.00; profit $100,000.00, taxable income $100,000.00, non-deductible $4,000.00. Deferred tax liability, at 30% $6,900.00 Deferred tax asset, at 30% $3,600.00 Net deferred tax liability $3,300.00 Deferred tax expense $1,200.00 Current tax, at 30% $30,000.00 Income tax expense $31,200.00 Average effective tax rate 31.2% The applicable rate is the year’s company rate under Income Tax Rates Act 1986 s 23(2).
+
+## How the deferred tax calculator works
+
+The calculator works one company’s tax effect worksheet under AASB 112 for an income year from 2020-21 to 2026-27. Each asset’s carrying amount less its tax base, or each liability’s tax base less its carrying amount, is a temporary difference: above nil it is taxable and below nil deductible. Taxable differences give a deferred tax liability. Deductible differences and unused tax losses, less those you say have no deferred tax asset because future taxable profit is not probable, give a deferred tax asset. Both are measured at the 25% or 30% you expect when they reverse, undiscounted.
+
+The year’s deferred tax expense is the change in the net balance, split into the rate change on the opening balances, the change in recognition, and origination and reversal. Current tax is taxable income at the year’s company rate, 25% for a base rate entity (26% in 2020-21) or 30%, less non-refundable offsets. The reconciliation starts from accounting profit at that rate and shows each reconciling line and the difference left. Every amount is exact and rounded to the cent where the worksheet rounds.
+
+## What the deferred tax calculator does not cover
+
+The calculator does not work out tax bases or carrying amounts, or judge whether future taxable profit is probable. You enter them as established. It refuses business combinations, uncertain tax treatments, tax-consolidated group members and tax on items outside profit or loss. It refuses a rate change it cannot split without a reversal schedule. It leaves out the initial recognition exception, investments in subsidiaries, branches, associates and joint arrangements, unused tax credits, Pillar Two top-up taxes and prior year adjustments to current tax. It does not decide how the balances are presented or offset. Results are planning estimates: check them against your records, the standard and the ATO’s guidance.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Deferred tax calculator
+
+Case | Inputs | Result
+Plant, a leave provision and a prepayment at 30%: deferred tax expense $1,200, income tax expense $31,200 | 2025-26, not a base rate entity, rates 30% (opening 30%); Plant (asset) $70,000.00 on $50,000.00, opening $80,000.00 on $65,000.00; Leave provision (liability) $12,000.00 on $0.00, opening $10,000.00 on $0.00; Prepayment (asset) $3,000.00 on $0.00, opening $2,000.00 on $0.00; profit $100,000.00, taxable income $100,000.00, non-deductible $4,000.00 | deferred tax liability $6,900.00, deferred tax asset $3,600.00, deferred tax expense $1,200.00, current tax $30,000.00, income tax expense $31,200.00
+Losses used and newly recognised at 25%, the opening balances at 30%: deferred tax income $250, expense $1,750 | 2024-25, base rate entity, rates 25% (opening 30%); Equipment (asset) $40,000.00 on $30,000.00, opening $50,000.00 on $45,000.00; profit $30,000.00, taxable income $8,000.00, losses $5,000.00, opening losses $20,000.00, opening unrecognised $20,000.00, used $15,000.00, non-assessable $2,000.00 | deferred tax liability $2,500.00, deferred tax asset $1,250.00, deferred tax expense -$250.00, current tax $2,000.00, income tax expense $1,750.00
+2020-21 base rate entity: current tax at 26%, a new difference at 25% | 2020-21, base rate entity, rates 25% (opening 30%); Software (asset) $10,000.00 on $0.00, opening $0.00 on $0.00; profit $50,000.00, taxable income $40,000.00 | deferred tax liability $2,500.00, deferred tax asset $0.00, deferred tax expense $2,500.00, current tax $10,400.00, income tax expense $12,900.00
+A $500 tax offset reduces current tax to $29,500 | 2025-26, not a base rate entity, rates 30% (opening 30%); Plant (asset) $70,000.00 on $50,000.00, opening $80,000.00 on $65,000.00; Leave provision (liability) $12,000.00 on $0.00, opening $10,000.00 on $0.00; Prepayment (asset) $3,000.00 on $0.00, opening $2,000.00 on $0.00; profit $100,000.00, taxable income $100,000.00, non-deductible $4,000.00, offsets $500.00 | deferred tax liability $6,900.00, deferred tax asset $3,600.00, deferred tax expense $1,200.00, current tax $29,500.00, income tax expense $30,700.00
+A liability whose tax base exceeds its carrying amount is a taxable difference | 2025-26, not a base rate entity, rates 30% (opening 30%); Deferred income (liability) $1,000.00 on $1,600.00, opening $0.00 on $0.00; profit $600.00, taxable income $0.00 | deferred tax liability $180.00, deferred tax asset $0.00, deferred tax expense $180.00, current tax $0.00, income tax expense $180.00
+A base rate entity in 2021-22: the opening balance remeasured from 30% to 25%, a $5,000 rate change | 2021-22, base rate entity, rates 25% (opening 30%); Equipment (asset) $150,000.00 on $100,000.00, opening $200,000.00 on $100,000.00; profit $50,000.00, taxable income $100,000.00 | deferred tax liability $12,500.00, deferred tax asset $0.00, deferred tax expense -$17,500.00, current tax $25,000.00, income tax expense $7,500.00
+The same company not a base rate entity: the year’s 30% is not the closing 25%, refused | 2021-22, not a base rate entity, rates 25% (opening 30%); Equipment (asset) $150,000.00 on $100,000.00, opening $200,000.00 on $100,000.00; profit $50,000.00, taxable income $100,000.00 | Refused: the expected rate changed while the year’s rate is not the closing rate: opening balances that reversed in the year did so at the year’s rate and only the rest is remeasured, which needs a reversal schedule this worksheet does not take
+Deferred tax arising in a business combination is refused | 2025-26, not a base rate entity, rates 30% (opening 30%); Plant (asset) $70,000.00 on $50,000.00, opening $80,000.00 on $65,000.00; Leave provision (liability) $12,000.00 on $0.00, opening $10,000.00 on $0.00; Prepayment (asset) $3,000.00 on $0.00, opening $2,000.00 on $0.00; profit $100,000.00, taxable income $100,000.00, non-deductible $4,000.00, a business combination | Refused: deferred tax arising in a business combination follows AASB 112 paras 19 and 66 to 68 and AASB 3, which this worksheet does not apply
+
+One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---

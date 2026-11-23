@@ -267,6 +267,122 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
+# Deferred tax calculator: AASB 112 tax effect worksheet
+
+Source: https://duguid.com.au/tools/business-calculators/deferred-tax/
+
+> A company’s deferred tax liability and asset under AASB 112, the year’s movement, current tax at 25%, 26% or 30%, and the tax expense reconciliation.
+
+# Deferred tax calculator
+
+An AASB 112 tax effect worksheet for a company, 2020-21 to 2026-27.
+
+Published 24 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One company’s tax effect worksheet for an income year Profit, taxable income and offsets
+
+Accounting profit (a loss below nil) (AUD) Non-deductible expenses (AUD) Non-assessable income (AUD) Taxable income (AUD) Non-refundable tax offsets (AUD)
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Base rate entity this year No Yes
+
+Closing expected rate 30% 25%
+
+Opening expected rate 30% 25%
+
+Item 1
+
+Name
+
+Class Asset Liability
+
+Carrying amount, end (AUD) Tax base, end (AUD) Carrying amount, start (AUD) Tax base, start (AUD)
+
+Item 2
+
+Name
+
+Class Asset Liability
+
+Carrying amount, end (AUD) Tax base, end (AUD) Carrying amount, start (AUD) Tax base, start (AUD)
+
+Item 3
+
+Name
+
+Class Asset Liability
+
+Carrying amount, end (AUD) Tax base, end (AUD) Carrying amount, start (AUD) Tax base, start (AUD)
+
+Item 4
+
+Name
+
+Class Asset Liability
+
+Carrying amount, end (AUD) Tax base, end (AUD) Carrying amount, start (AUD) Tax base, start (AUD)
+
+Losses and amounts with no deferred tax asset
+
+Unused tax losses, end (AUD) Unused tax losses, start (AUD) Unrecognised deductible amounts, end (AUD) Unrecognised deductible amounts, start (AUD) Of those at the start, used in the year (AUD)
+
+Matters the worksheet refuses
+
+Business combination No Yes
+
+Uncertain tax treatment No Yes
+
+Tax-consolidated group member No Yes
+
+Tax outside profit or loss No Yes
+
+Calculate
+
+Enter amounts as established; a blank item is skipped. Expected rates apply on reversal: 25% for a base rate entity.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26, not a base rate entity, rates 30% (opening 30%); Plant (asset) $70,000.00 on $50,000.00, opening $80,000.00 on $65,000.00; Leave provision (liability) $12,000.00 on $0.00, opening $10,000.00 on $0.00; Prepayment (asset) $3,000.00 on $0.00, opening $2,000.00 on $0.00; profit $100,000.00, taxable income $100,000.00, non-deductible $4,000.00. Deferred tax liability, at 30% $6,900.00 Deferred tax asset, at 30% $3,600.00 Net deferred tax liability $3,300.00 Deferred tax expense $1,200.00 Current tax, at 30% $30,000.00 Income tax expense $31,200.00 Average effective tax rate 31.2% The applicable rate is the year’s company rate under Income Tax Rates Act 1986 s 23(2).
+
+## How the deferred tax calculator works
+
+The calculator works one company’s tax effect worksheet under AASB 112 for an income year from 2020-21 to 2026-27. Each asset’s carrying amount less its tax base, or each liability’s tax base less its carrying amount, is a temporary difference: above nil it is taxable and below nil deductible. Taxable differences give a deferred tax liability. Deductible differences and unused tax losses, less those you say have no deferred tax asset because future taxable profit is not probable, give a deferred tax asset. Both are measured at the 25% or 30% you expect when they reverse, undiscounted.
+
+The year’s deferred tax expense is the change in the net balance, split into the rate change on the opening balances, the change in recognition, and origination and reversal. Current tax is taxable income at the year’s company rate, 25% for a base rate entity (26% in 2020-21) or 30%, less non-refundable offsets. The reconciliation starts from accounting profit at that rate and shows each reconciling line and the difference left. Every amount is exact and rounded to the cent where the worksheet rounds.
+
+## What the deferred tax calculator does not cover
+
+The calculator does not work out tax bases or carrying amounts, or judge whether future taxable profit is probable. You enter them as established. It refuses business combinations, uncertain tax treatments, tax-consolidated group members and tax on items outside profit or loss. It refuses a rate change it cannot split without a reversal schedule. It leaves out the initial recognition exception, investments in subsidiaries, branches, associates and joint arrangements, unused tax credits, Pillar Two top-up taxes and prior year adjustments to current tax. It does not decide how the balances are presented or offset. Results are planning estimates: check them against your records, the standard and the ATO’s guidance.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Deferred tax calculator
+
+Case | Inputs | Result
+Plant, a leave provision and a prepayment at 30%: deferred tax expense $1,200, income tax expense $31,200 | 2025-26, not a base rate entity, rates 30% (opening 30%); Plant (asset) $70,000.00 on $50,000.00, opening $80,000.00 on $65,000.00; Leave provision (liability) $12,000.00 on $0.00, opening $10,000.00 on $0.00; Prepayment (asset) $3,000.00 on $0.00, opening $2,000.00 on $0.00; profit $100,000.00, taxable income $100,000.00, non-deductible $4,000.00 | deferred tax liability $6,900.00, deferred tax asset $3,600.00, deferred tax expense $1,200.00, current tax $30,000.00, income tax expense $31,200.00
+Losses used and newly recognised at 25%, the opening balances at 30%: deferred tax income $250, expense $1,750 | 2024-25, base rate entity, rates 25% (opening 30%); Equipment (asset) $40,000.00 on $30,000.00, opening $50,000.00 on $45,000.00; profit $30,000.00, taxable income $8,000.00, losses $5,000.00, opening losses $20,000.00, opening unrecognised $20,000.00, used $15,000.00, non-assessable $2,000.00 | deferred tax liability $2,500.00, deferred tax asset $1,250.00, deferred tax expense -$250.00, current tax $2,000.00, income tax expense $1,750.00
+2020-21 base rate entity: current tax at 26%, a new difference at 25% | 2020-21, base rate entity, rates 25% (opening 30%); Software (asset) $10,000.00 on $0.00, opening $0.00 on $0.00; profit $50,000.00, taxable income $40,000.00 | deferred tax liability $2,500.00, deferred tax asset $0.00, deferred tax expense $2,500.00, current tax $10,400.00, income tax expense $12,900.00
+A $500 tax offset reduces current tax to $29,500 | 2025-26, not a base rate entity, rates 30% (opening 30%); Plant (asset) $70,000.00 on $50,000.00, opening $80,000.00 on $65,000.00; Leave provision (liability) $12,000.00 on $0.00, opening $10,000.00 on $0.00; Prepayment (asset) $3,000.00 on $0.00, opening $2,000.00 on $0.00; profit $100,000.00, taxable income $100,000.00, non-deductible $4,000.00, offsets $500.00 | deferred tax liability $6,900.00, deferred tax asset $3,600.00, deferred tax expense $1,200.00, current tax $29,500.00, income tax expense $30,700.00
+A liability whose tax base exceeds its carrying amount is a taxable difference | 2025-26, not a base rate entity, rates 30% (opening 30%); Deferred income (liability) $1,000.00 on $1,600.00, opening $0.00 on $0.00; profit $600.00, taxable income $0.00 | deferred tax liability $180.00, deferred tax asset $0.00, deferred tax expense $180.00, current tax $0.00, income tax expense $180.00
+A base rate entity in 2021-22: the opening balance remeasured from 30% to 25%, a $5,000 rate change | 2021-22, base rate entity, rates 25% (opening 30%); Equipment (asset) $150,000.00 on $100,000.00, opening $200,000.00 on $100,000.00; profit $50,000.00, taxable income $100,000.00 | deferred tax liability $12,500.00, deferred tax asset $0.00, deferred tax expense -$17,500.00, current tax $25,000.00, income tax expense $7,500.00
+The same company not a base rate entity: the year’s 30% is not the closing 25%, refused | 2021-22, not a base rate entity, rates 25% (opening 30%); Equipment (asset) $150,000.00 on $100,000.00, opening $200,000.00 on $100,000.00; profit $50,000.00, taxable income $100,000.00 | Refused: the expected rate changed while the year’s rate is not the closing rate: opening balances that reversed in the year did so at the year’s rate and only the rest is remeasured, which needs a reversal schedule this worksheet does not take
+Deferred tax arising in a business combination is refused | 2025-26, not a base rate entity, rates 30% (opening 30%); Plant (asset) $70,000.00 on $50,000.00, opening $80,000.00 on $65,000.00; Leave provision (liability) $12,000.00 on $0.00, opening $10,000.00 on $0.00; Prepayment (asset) $3,000.00 on $0.00, opening $2,000.00 on $0.00; profit $100,000.00, taxable income $100,000.00, non-deductible $4,000.00, a business combination | Refused: deferred tax arising in a business combination follows AASB 112 paras 19 and 66 to 68 and AASB 3, which this worksheet does not apply
+
+One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
 # Company owner salary vs dividends calculator, 2021-22 to 2026-27
 
 Source: https://duguid.com.au/tools/business-calculators/salary-dividend/
@@ -441,110 +557,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - section 14: https://www.legislation.gov.au/F2015L01854/2025-11-01/2025-11-01/text/original/epub/OEBPS/document_1/document_1.html
 - transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
-- fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# ASIC fees 2026-27 and late fee calculator
-
-Source: https://duguid.com.au/tools/business-calculators/asic-fees/
-
-> ASIC’s fees from 1 July 2026 for company registration, name reservation, annual reviews and business names, and the $102 or $428 late fee tier.
-
-# ASIC fees calculator
-
-ASIC’s 2026-27 fees and late fee tiers.
-
-Published 22 November 2026. Last checked 22 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-ASIC fee and late fee tier for 2026-27
-
-FeeRegister a company with share capital Register a company without share capital Reserve a company name, or extend a reservation Annual review fee, proprietary company (not special purpose) Annual review fee, public company (not special purpose or a small transferring financial institution) Annual review fee, special purpose proprietary company Annual review fee, special purpose company that is not proprietary Register or renew a business name for 1 year Register or renew a business name for 3 years Late payment of an annual review fee Late lodgement of a document Late fees only: the due date Late fees only: the day ASIC received the payment or document
-
-Enter the due date from ASIC’s invoice or statement, or, for a document, the last day of the time allowed to lodge it, and the day ASIC received the payment or document, both from 1 July 2026 to 30 June 2027. The calculator does not work the due date out from a review date or move it for a weekend or holiday.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Thursday 15 October 2026. Last day of the first month after the due date Thursday 15 October 2026 Late fee tier Late, within one month after the due date Late fee, no GST $102.00 ASIC code LPF1_ETM; Corporations (Review Fees) Regulations 2003, Schedule 1 Part 3 items 1 and 2. A late fee is on top of the fee itself. Public holidays are not checked: if the due date or the last day of the first month is one where you pay or lodge, check ASIC’s invoice.
-
-## ASIC fees from 1 July 2026
-
-ASIC’s standard fees from 1 July 2026 are listed below as ASIC’s fee data and INFO 30 gave them on 22 November 2026. GST does not apply to ASIC fees.
-
-ASIC fees from 1 July 2026 (AUD, no GST)
-
-Fee | ASIC code | Amount | Imposed by
-Register a company with share capital | I02 | $636 | Corporations (Fees) Regulations 2001, Schedule 1 item 1(a)(i)
-Register a company without share capital | I01 | $524 | Schedule 1 item 1(a)(ii)
-Reserve a company name, or extend a reservation | R01 | $65 | Schedule 2 item 8
-Annual review fee, proprietary company (not a special purpose company) | A52 | $342 | Corporations (Review Fees) Regulations 2003, Schedule 1 Part 1 item 2
-Annual review fee, public company (not a special purpose company or small transferring financial institution) | A51 | $1,591 | Schedule 1 Part 1 item 1
-Annual review fee, special purpose company that is a proprietary company | A58 | $70 | Schedule 1 Part 1 item 5
-Annual review fee, special purpose company that is not a proprietary company | A53 | $65 | Schedule 1 Part 1 item 4
-Late payment of a review fee, within one month after the due date | LPF1_ETM | $102 | Schedule 1 Part 3 item 1
-Late payment of a review fee, more than one month after the due date | LPF2_ETM | $428 | Schedule 1 Part 3 item 2
-Late lodgement, within one month after the prescribed time | LPF1_ETM | $102 | Corporations (Fees) Regulations 2001, Schedule 2 item 14(a)
-Late lodgement, more than one month after the prescribed time | LPF2_ETM | $428 | Schedule 2 item 14(b)
-Register or renew a business name for 1 year | BZA, BZC | $47 | Business Names Registration (Fees) Regulations 2022, section 6 items 1 and 2
-Register or renew a business name for 3 years | BZB, BZD | $108 | Section 6 items 3 and 4
-
-The regulations state base amounts, and ASIC raises some of them each 1 July in line with the Consumer Price Index; the table gives ASIC’s indexed amounts. A special purpose company is defined in regulation 3 of the review fees regulations; it includes a company whose constitution prohibits distributions to its members and whose sole purpose is to act as trustee of a regulated superannuation fund. A company in liquidation and an entity registered with the Australian Charities and Not-for-profits Commission pay no review fee (Schedule 1 Part 1 items 10 and 11).
-
-## How the ASIC fees calculator works
-
-For a standard fee, the calculator returns ASIC’s 2026-27 amount. For a late fee, it compares the day ASIC received the payment or document with the due date you enter, as INFO 30 sets the tiers by the day ASIC receives them. A payment or document received on or before the due date is not late. A review fee paid after its due date but within one month after it costs $102, and later $428 (Schedule 1 Part 3 of the review fees regulations); a document lodged late attracts the same 2 amounts (Schedule 2 item 14 of the fees regulations). A late fee is on top of the fee itself, and ASIC can charge more than one late fee when several obligations are missed.
-
-The one month begins the day after the due date, which is not counted (item 6 of subsection 36(1) of the Acts Interpretation Act 1901). Under subsection 2G(1), a month runs to just before the same day of the next calendar month, or to the end of that month when it has no such day. A fee due on Tuesday 15 September 2026 is within one month if received by Thursday 15 October; one due on Monday 30 November 2026 is within one month if received by Thursday 31 December, because that month starts on 1 December.
-
-## What the ASIC fees calculator does not cover
-
-The calculator does not work out a due date. An annual review fee is due 2 months after the review date (subsection 1351(3) of the Corporations Act 2001), a review date can change, and a document’s lodgement period depends on the document, so you enter the due date shown by ASIC or the form’s rules. When a deadline falls on a weekend or public holiday, subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may allow the next business day. The calculator does not apply that. When the due date or the last day of the first month is a Saturday or Sunday, it declines to give a tier for a received date that such a move could change, up to the following Wednesday and, after a weekend due date, the end of the month that would follow the moved date. It does not check public holidays.
-
-Not covered: due dates and received dates before 1 July 2026 or after 30 June 2027, including a fee due in one financial year and received in the next, because the sources read do not settle which year’s indexed amount applies; upfront review fees; deregistration and the review fee exceptions in subsection 1351(4); registered schemes, notified foreign passport funds, small transferring financial institutions and CCIVs; registered Australian bodies and foreign companies; credit licensee late fees; fee waivers and reviews of a late fee; and the industry funding levy. Check the amount against ASIC’s invoice before you pay.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: ASIC fees calculator
-
-Case | Inputs | Result
-Received exactly one month after the due date: $102 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Thursday 15 October 2026 | First month ends Thursday 15 October 2026, within one month, fee $102.00
-Received on the due date: not late | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Tuesday 15 September 2026 | Not late, fee $0.00
-Received the day after the due date: $102 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Wednesday 16 September 2026 | First month ends Thursday 15 October 2026, within one month, fee $102.00
-Received the day after the first month: $428 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Friday 16 October 2026 | First month ends Thursday 15 October 2026, more than one month, fee $428.00
-Due on a month’s last day: the month runs to 31 December, s 2G(1)(b)(i) | Late lodgement of a document, due Monday 30 November 2026, document received by ASIC Thursday 31 December 2026 | First month ends Thursday 31 December 2026, within one month, fee $102.00
-Due on a month’s last day, received the day after the month: $428 | Late lodgement of a document, due Monday 30 November 2026, document received by ASIC Friday 1 January 2027 | First month ends Thursday 31 December 2026, more than one month, fee $428.00
-No 31 November: the month ends on 30 November, s 2G(1)(b)(ii) | Late payment of an annual review fee, due Friday 30 October 2026, payment received by ASIC Monday 30 November 2026 | First month ends Monday 30 November 2026, within one month, fee $102.00
-No 31 November, received on 1 December: $428 | Late payment of an annual review fee, due Friday 30 October 2026, payment received by ASIC Tuesday 1 December 2026 | First month ends Monday 30 November 2026, more than one month, fee $428.00
-No 30 February: the month ends on 28 February 2027 | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Sunday 28 February 2027 | First month ends Sunday 28 February 2027, within one month, fee $102.00
-A first month ending on a Sunday, received on the Monday: refused | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Monday 1 March 2027 | Refused: the first month after the due date ends on a Saturday or Sunday: subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may extend it; this page does not decide that. Check ASIC’s invoice
-A first month ending on a Sunday, received on the Thursday: $428 | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Thursday 4 March 2027 | First month ends Sunday 28 February 2027, more than one month, fee $428.00
-A due date on a Saturday, received on the Monday: refused | Late payment of an annual review fee, due Saturday 15 August 2026, payment received by ASIC Monday 17 August 2026 | Refused: the due date is a Saturday or Sunday, so subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may move it; this page does not decide that. Check ASIC’s invoice
-A due date on a Saturday, received on the Thursday: $102 | Late payment of an annual review fee, due Saturday 15 August 2026, payment received by ASIC Thursday 20 August 2026 | First month ends Tuesday 15 September 2026, within one month, fee $102.00
-A Saturday due date that may move to Wednesday 3 March, received on 1 April: refused | Late payment of an annual review fee, due Saturday 27 February 2027, payment received by ASIC Thursday 1 April 2027 | Refused: the due date is a Saturday or Sunday, so the first month after it may end later: subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may extend it; this page does not decide that. Check ASIC’s invoice
-The same due date, received on 8 April: $428 | Late payment of an annual review fee, due Saturday 27 February 2027, payment received by ASIC Thursday 8 April 2027 | First month ends Saturday 27 March 2027, more than one month, fee $428.00
-Due in 2025-26, received on 2 July 2026: refused, the year’s amount is not settled | Late payment of an annual review fee, due Monday 15 June 2026, payment received by ASIC Thursday 2 July 2026 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
-Received on 30 June 2026: refused, before 2026-27 | Late lodgement of a document, due Monday 15 June 2026, document received by ASIC Tuesday 30 June 2026 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
-Received on 30 June 2027: $102 | Late lodgement of a document, due Tuesday 15 June 2027, document received by ASIC Wednesday 30 June 2027 | First month ends Thursday 15 July 2027, within one month, fee $102.00
-Received on 1 July 2027: refused, after 2026-27 | Late lodgement of a document, due Tuesday 15 June 2027, document received by ASIC Thursday 1 July 2027 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
-Received the day before the due date: not late | Late lodgement of a document, due Tuesday 15 September 2026, document received by ASIC Monday 14 September 2026 | Not late, fee $0.00
-ASIC code I02 | Register a company with share capital | Fee $636.00, ASIC code I02
-ASIC code I01 | Register a company without share capital | Fee $524.00, ASIC code I01
-ASIC code R01 | Reserve a company name, or extend a reservation | Fee $65.00, ASIC code R01
-ASIC code A52 | Annual review fee, proprietary company (not a special purpose company) | Fee $342.00, ASIC code A52
-ASIC code A51 | Annual review fee, public company (not a special purpose company or small transferring financial institution) | Fee $1,591.00, ASIC code A51
-ASIC code A58 | Annual review fee, special purpose company that is a proprietary company | Fee $70.00, ASIC code A58
-ASIC code A53 | Annual review fee, special purpose company that is not a proprietary company | Fee $65.00, ASIC code A53
-ASIC code BZA or BZC | Register or renew a business name for 1 year | Fee $47.00, ASIC code BZA or BZC
-ASIC code BZB or BZD | Register or renew a business name for 3 years | Fee $108.00, ASIC code BZB or BZD
-
-One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
