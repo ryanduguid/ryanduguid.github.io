@@ -409,7 +409,7 @@
     ]
   },
   "first-home-owner-grant": {
-    "checked": "2026-11-24",
+    "checked": "2026-11-23",
     "function": "firstHomeOwnerGrant",
     "rows": [
       {"case":"The opening example: a new home bought in New South Wales at the $600,000 cap","input":"New South Wales, contract 1 August 2026, new home bought, total value $600,000.00, every eligibility fact stated","call":[{"place":"AU-NSW","date":"2026-08-01","home":"bought","value":"600000","facts":{"person":true,"citizen":true,"first":true,"residence":true,"contract":false,"nt":false,"tas":false}}],"result":{"grant":10000},"output":"Grant $10,000.00"},
