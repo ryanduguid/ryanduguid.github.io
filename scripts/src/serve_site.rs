@@ -1067,10 +1067,37 @@ pub fn serve(listener: TcpListener, directory: &Path) -> io::Result<()> {
     Ok(())
 }
 
+/// Validates a prebuilt site directory supplied through `SITE_SERVE_DIR`.
+pub fn prebuilt_dir(value: Option<&std::ffi::OsStr>) -> Result<Option<PathBuf>, String> {
+    let Some(raw) = value.filter(|v| !v.is_empty()) else {
+        return Ok(None);
+    };
+    let path = PathBuf::from(raw);
+    if !path.is_dir() {
+        return Err(format!(
+            "SITE_SERVE_DIR '{}' does not name an existing directory",
+            path.display()
+        ));
+    }
+    if !path.join("index.html").is_file() {
+        return Err(format!(
+            "SITE_SERVE_DIR '{}' is not a built site directory (missing index.html)",
+            path.display()
+        ));
+    }
+    Ok(Some(path))
+}
+
 pub fn run(root: &Path) -> Result<u8, String> {
-    let site = crate::build_site::build(root, root)?;
-    // The browser and Lighthouse checks see the minified files the deploy publishes.
-    crate::minify_site::minify_tree(&site)?;
+    let site = match prebuilt_dir(std::env::var_os("SITE_SERVE_DIR").as_deref())? {
+        Some(prebuilt) => prebuilt,
+        None => {
+            let built = crate::build_site::build(root, root)?;
+            // The browser and Lighthouse checks see the minified files the deploy publishes.
+            crate::minify_site::minify_tree(&built)?;
+            built
+        }
+    };
     let listener = create_server(PORT).map_err(|e| e.to_string())?;
     let port = listener.local_addr().map_err(|e| e.to_string())?.port();
     crate::print_text(&format!("Serving HTTP on {HOST} port {port}\n"), false)
