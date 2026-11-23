@@ -1,4 +1,4 @@
-# Steam humidifiers effective life: 5 years, Humidifier assets
+# Steam humidifiers effective life: 5 years
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/steam-humidifiers/
 
@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/electronic-infor
 
 ‘Humidifier assets: Steam humidifiers (including steam generators)’, for an asset used in Electronic information storage services, has an effective life of 5 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2017.
 
-Published 14 November 2026. Page updated 21 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 

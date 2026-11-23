@@ -1,4 +1,4 @@
-# Storage tanks effective life: 20 years, Product and raw …
+# Storage tanks (including jacketed tanks) effective life: 20 years
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/storage-tanks/
 
@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta
 
 ‘Product and raw material receiving and handling assets: Storage tanks (including jacketed tanks)’, for an asset used in Cereal and pasta product manufacturing, has an effective life of 20 years (F2025L01097), last reviewed and determined on 1 July 2008.
 
-Published 14 November 2026. Page updated 21 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
