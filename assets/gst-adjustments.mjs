@@ -21,7 +21,7 @@
 export const GST_ADJUSTMENT_YEARS = ['2020-21', '2021-22', '2022-23', '2023-24', '2024-25', '2025-26', '2026-27'];
 
 /** A refusal with the command's code. @param {string} code @param {string} message @returns {never} */
-function refuse(code, message) {
+export function refuse(code, message) {
   throw Object.assign(new Error(message), { code });
 }
 
@@ -64,7 +64,6 @@ const aligned = (a, b) => {
 /** @param {Dec} a @param {Dec} b */
 const sub = (a, b) => { const [x, y, e] = aligned(a, b); return rounded(x - y, e); };
 /** @param {Dec} a @param {Dec} b */
-const add = (a, b) => { const [x, y, e] = aligned(a, b); return rounded(x + y, e); };
 /** The quotient rounded half even to 40 digits. @param {Dec} a @param {Dec} b */
 function div(a, b) {
   const shift = Math.max(PRECISION + 2 + digits(b.c) - digits(a.c), 0);
@@ -92,16 +91,15 @@ function cents(a) {
   return `${a.c < 0n ? '-' : ''}${q / 100n}.${String(q % 100n).padStart(2, '0')}`;
 }
 /** A decimal's value as a JavaScript number, for display. @param {Dec} a */
-const toNumber = (a) => Number(cents(a));
 
 /** Python's whitespace, which the commands strip from a decimal before reading it. */
-const SPACE = /[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/;
+const SPACE = /[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/; // eslint-disable-line no-control-regex -- Python's whitespace includes U+001C to U+001F
 /** `text` without Python's whitespace at either end. @param {string} text */
 const stripSpace = (text) => {
   let start = 0;
   let end = text.length;
-  while (start < end && SPACE.test(text[start])) start += 1;
-  while (end > start && SPACE.test(text[end - 1])) end -= 1;
+  while (start < end && SPACE.test(text.charAt(start))) start += 1;
+  while (end > start && SPACE.test(text.charAt(end - 1))) end -= 1;
   return text.slice(start, end);
 };
 
@@ -112,7 +110,7 @@ function decimal(key, value) {
   if (new TextEncoder().encode(value).length > 8192) refuse('input.decimal_too_long', `${key}: the number has too many digits.`);
   const text = stripSpace(value);
   if (/^[+-]?(inf|infinity|s?nan\d*)$/i.test(text)) return null;
-  const parts = /^(-?)(\d+(?:\.\d+)?)$/.exec(text);
+  const parts = /^(-?)(\d+(?:\.\d+)?)$/.exec(text); // eslint-disable-line security/detect-unsafe-regex -- anchored, with no repetition over overlapping characters: linear
   if (!parts) refuse('input.decimal_unreadable', `${key}: enter a number in digits, such as 1250.50.`);
   const v = d(parts[2]);
   return parts[1] ? { c: -v.c, e: v.e } : v;
@@ -140,7 +138,7 @@ function flag(value, name) {
 
 const DAY = 86400000;
 /** A YYYY-MM-DD date from 1900 to 2100 as a day number, or null. @param {unknown} text */
-function parseDay(text) {
+export function parseDay(text) {
   if (typeof text !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(text)) return null;
   const [y, m, dd] = text.split('-').map(Number);
   if (y < 1900 || y > 2100 || m < 1 || m > 12 || dd < 1 || dd > new Date(Date.UTC(y, m, 0)).getUTCDate()) return null;
@@ -175,7 +173,7 @@ function checked(input, command, required, decimals, optional) {
       if (required.includes(key)) refuse('input.missing_field', `${key} is required.`);
       continue;
     }
-    if (decimals.includes(key)) dec[key] = decimal(key, input[key]);
+    if (decimals.includes(key)) dec[key] = decimal(key, input[key]); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   }
   if (input.scope_confirmed !== true) refuse('scope.not_confirmed', 'Establish all stated scope conditions before calculating.');
   const year = input.year;
@@ -200,37 +198,23 @@ const product = (first, rest) => {
   return value;
 };
 
-const CP_KIND = "gst_creditable_purpose_change";
-const CP_INCREASING = "GST Act s 129-40(1) step 3 and s 129-70: the actual application is less than the intended or former application, so an increasing adjustment of the full input tax credit times the difference";
-const CP_DECREASING = "GST Act s 129-40(1) step 4 and s 129-75: the actual application is greater than the intended or former application, so a decreasing adjustment of the full input tax credit times the difference";
-const CP_NOT_INCREASING = "GST Act s 129-40(1) steps 3 to 5: the actual application is not less than the intended or former application";
-const CP_NOT_DECREASING = "GST Act s 129-40(1) steps 3 to 5: the actual application is not greater than the intended or former application";
 const CP_BELOW_FINANCE = "GST Act s 129-10(1): no adjustment for an acquisition that relates to business finance unless its GST exclusive value is more than $10,000";
 const CP_BELOW_OTHER = "GST Act s 129-10(2): no adjustment for an acquisition that does not relate to business finance unless its GST exclusive value is more than $1,000";
 const CP_TOO_EARLY = "GST Act s 129-20(1)(a): the tax period starts less than 12 months after the end of the tax period the acquisition is attributable to, so it is not an adjustment period";
 const CP_TOO_LATE = "GST Act s 129-20(2) and (3): the tax period is after the last of the adjustment periods the GST exclusive value allows";
 const CP_AFTER_END = "GST Act s 129-25(1): the thing was disposed of, lost, stolen or destroyed, or its period expired, and the next tax period ending on 30 June after that was the last adjustment period";
 const CP_AFTER_132 = "GST Act s 129-25(2): the thing was disposed of with a Division 132 decreasing adjustment, and the last adjustment period is the last to end before the disposal";
-const AA_KIND = "gst_annual_apportionment";
 const AA_TURNOVER_THRESHOLD = "2000000";
 const AA_ENTITY = "GST Act s 131-5(1)(a): a small business entity (other than because of ITAA 1997 s 328-110(4)) for the income year, or an entity that does not carry on a business with a GST turnover not over the $2 million annual apportionment turnover threshold (s 131-5(2))";
 const AA_NO_INSTALMENTS = "GST Act s 131-5(1)(b): no election to pay GST by instalments (s 162-15) in effect";
 const AA_NO_ANNUAL_PERIOD = "GST Act s 131-5(1)(c): no annual tax period election (s 151-10) in effect";
-const AA_WITHOUT = "GST Act s 11-30(3): the full input tax credit times the extent of creditable purpose times the extent of consideration";
-const AA_FULL = "GST Act s 131-40(1): with an annual apportionment election in effect at the end of the tax period the credit is attributable to, the credit equals the GST payable on the supply";
-const AA_PART = "GST Act s 131-40(2): the acquisition relates to making input taxed supplies or only part of the consideration is provided, so the full input tax credit times the extent of non-input-taxed purpose times the extent of consideration";
-const AA_NOT_APPLYING = "GST Act s 131-40(1)(a): no annual apportionment election has effect, so the credit is the s 11-30 amount";
-const AA_ADJUSTMENT = "GST Act s 131-55(1) and (2): an increasing adjustment of the difference between the credit worked out under Division 131 and the credit without it";
-const AA_ID = "annual_apportionment_credit";
 const AA_ATTRIBUTION = "The increasing adjustment is attributable to the tax period in which the income tax return for the income year in which the credit's tax period starts is due, or to the tax period with 31 December of the next financial year without a return, or to an earlier tax period you choose (GST Act s 131-60(1)); to the tax period in which a revocation or disallowance during the financial year takes effect (s 131-60(2)).";
 const AA_CEASES = "An election ceases on revocation, disallowance, not being a small business entity for an income year (from the start of the tax period with that income year's first day) or failing s 131-5(1)(a)(ii) on 31 July (from that tax period) (GST Act s 131-20).";
 const AA_NOT_ELIGIBLE = "The entity is not eligible to make an annual apportionment election (GST Act s 131-5), so the credit is apportioned in the tax period it is attributable to (s 11-30).";
 const AA_NO_ELECTION = "No annual apportionment election is made, so the credit is apportioned in the tax period it is attributable to (GST Act s 11-30).";
-const FAT_KIND = "gst_financial_acquisitions_threshold";
 const FAT_AMOUNT_LIMIT = "150000";
 const FAT_EXCEEDS = "The entity exceeds the financial acquisitions threshold (GSTR 2003/9 para 13: either test is enough): an acquisition is not for a creditable purpose to the extent it relates to making input taxed financial supplies (GST Act s 11-15(2)(a)), apart from reduced credit acquisitions (Division 70), and changes in applying things to financial supplies count for Division 129 (s 129-5(2)).";
 const FAT_WITHIN = "The entity does not exceed the financial acquisitions threshold: an acquisition relating to making financial supplies is not, for that reason alone, outside a creditable purpose (GST Act s 11-15(4)), and Division 129 disregards changes in applying things to financial supplies (s 129-5(2)).";
-const GC_KIND = "gst_going_concern";
 const GC_CONSIDERATION = "GST Act s 38-325(1)(a): the supply is for consideration";
 const GC_REGISTERED = "GST Act s 38-325(1)(b): the recipient is registered or required to be registered";
 const GC_AGREED = "GST Act s 38-325(1)(c): the supplier and the recipient have agreed in writing that the supply is of a going concern, on or before the day of the supply (GSTR 2002/5 para 182)";
@@ -238,7 +222,6 @@ const GC_ALL_THINGS = "GST Act s 38-325(2)(a): under the arrangement the supplie
 const GC_CARRIED_ON = "GST Act s 38-325(2)(b): the supplier carries on, or will carry on, the enterprise until the day of the supply (whether or not as part of a larger enterprise)";
 const GC_NOT_GST_FREE = "The supply is not GST-free under s 38-325; whether it, or each part of it, is taxable, input taxed or GST-free under another provision is not decided here.";
 const GC_GST_FREE = ["The supply of the going concern is GST-free (GST Act s 38-325(1)).", "A recipient that intends some supplies made through the enterprise to be neither taxable nor GST-free has an increasing adjustment under s 135-5, and Division 129 applies to later changes in that proportion under s 135-10 (GSTR 2002/5 paras 13 and 14)."];
-const SHG_KIND = "gst_second_hand_goods";
 const SHG_LIMIT = "300";
 const SHG_FOR_SALE = "GST Act s 66-5(1): the second-hand goods are acquired for sale or exchange (but not for manufacture) in the ordinary course of business";
 const SHG_GOODS = "GST Act s 195-1 'second-hand goods': the goods are not animals or plants";
@@ -248,7 +231,6 @@ const SHG_HIRE = "GST Act s 66-5(2)(c): the supply of the goods to you was not b
 const SHG_RESUPPLY = "GST Act s 66-5(2)(e): you do not make a supply of the goods that is not a taxable supply";
 const SHG_NOT_APPLIES = "Subdivision 66-A gives no input tax credit for this acquisition; whether another provision does is not decided here.";
 const SHG_APPLIES = ["The acquisition is a creditable acquisition despite the supply to you not being taxable (GST Act s 66-5(1)); keep the record s 66-17 requires: the supplier's name and address, the goods and their quantity, and the date and consideration of the acquisition.", "Where the consideration is more than $300, or you choose, the credit is attributable to the tax period in which any consideration for your taxable supply of the goods is received, or an earlier invoice is issued (s 66-15(1)); on a cash basis, to the extent the consideration is received (s 66-15(2)). Otherwise s 29-10 attributes it."];
-const BD_KIND = "gst_bad_debt";
 const BD_QUALIFIES_SUPPLIER = "GST Act s 21-5(1)(a): you made a taxable supply";
 const BD_QUALIFIES_RECIPIENT = "GST Act s 21-15(1)(a): you made a creditable acquisition for consideration";
 const BD_ATTRIBUTED_SUPPLIER = "GSTR 2000/2 para 15: the GST on the supply was attributed to an earlier tax period, or is attributed to the one in which the debt is written off";
@@ -256,8 +238,6 @@ const BD_ATTRIBUTED_RECIPIENT = "GSTR 2000/2 para 21: the input tax credit was a
 const BD_WRITTEN_OFF = "GST Act ss 21-5(1)(c) and 21-15(1)(c): the debt is written off as bad, or has been overdue for 12 months or more (s 195-1 'overdue')";
 const BD_NOT_CASH = "GST Act ss 21-5(2) and 21-15(2): you do not account on a cash basis";
 const BD_PRIOR = "GST Act ss 21-10(a) and 21-20(a): you had the earlier adjustment under s 21-5 or s 21-15 for the debt";
-const BD_PARTLY_TAXABLE = "GST Act s 136-5: the full adjustment times the taxable proportion";
-const BD_PARTLY_CREDITABLE = "GST Act s 136-10(1): the full adjustment times the extent of creditable purpose times the extent of consideration";
 
 const FAT_PROVISIONS = {
   current: ["GST Act s 189-5(1)(a): the input tax credits for the financial acquisitions of the 12 months ending at the end of the month, treated as solely for a creditable purpose, do not exceed $150,000",
@@ -542,7 +522,7 @@ export function gstBadDebt(x) {
   const recovered = event === 'recovered';
   const rule = typeof x.special_rule === 'string' && Object.hasOwn(BD_SPECIAL, x.special_rule) ? x.special_rule : null;
   if (rule === null) refuse('gst_bad_debt.fact_invalid', `special_rule must be one of ${Object.keys(BD_SPECIAL).join(', ')}.`);
-  if (rule !== 'none') refuse('gst_bad_debt.special_rule', BD_SPECIAL[rule]);
+  if (rule !== 'none') refuse('gst_bad_debt.special_rule', BD_SPECIAL[rule]); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   if (recovered && flag(x.cash_basis, 'cash_basis')) {
     refuse('gst_bad_debt.accounting_basis_changed', 'A recovery or payment on a cash basis: the earlier adjustment needed a non-cash basis '
       + '(ss 21-5(2) and 21-15(2)), so the basis has changed, which Division 159 governs.');
@@ -551,13 +531,13 @@ export function gstBadDebt(x) {
     + 'section 136-10(2) reduces the adjustment by the percentage credit reduction of Division 70, which this calculator does not work.'],
   ['annual_apportionment', 'gst_bad_debt.annual_apportionment', 'The credit was worked out under Division 131: section 136-10(3) turns on '
     + 'whether the adjustment is attributable to a tax period no later than the section 131-55 adjustment’s, which this calculator does not work.']]) {
-    if (field(x, name, !supplier, !supplier) && flag(x[name], name)) refuse(code, why);
+    if (field(x, name, !supplier, !supplier) && flag(x[name], name)) refuse(code, why); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   }
   const amount = money(dec.amount, 'the amount');
   /** @param {string} name @param {boolean} used @returns {Dec | undefined} */
   const reduction = (name, used) => {
     if (!field(x, name, used, false)) return undefined;
-    const v = fraction(dec[name], name);
+    const v = fraction(dec[name], name); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
     if (cmp(v, ZERO) === 0) {
       refuse('gst_bad_debt.fact_conflict', `${name} of nil contradicts taxable_or_creditable: omit it for a wholly taxable supply or creditable acquisition.`);
     }
@@ -598,203 +578,4 @@ export function gstBadDebt(x) {
   }
   return { period: year, amounts: amountsOf(steps), rates: {}, applies, direction: increasing ? 'increasing' : 'decreasing',
     failing_conditions: failed, conditions: rows, consequences: [applies ? BD_APPLIES : BD_NOT_APPLIES] };
-}
-
-// The page: one worksheet a calculation, its fields read as the command's input.
-const ENGINES = /** @type {const} */ ({ 'creditable-purpose': gstCreditablePurposeChange, 'annual-apportionment': gstAnnualApportionment,
-  'financial-acquisitions': gstFinancialAcquisitionsThreshold, 'going-concern': gstGoingConcern, 'second-hand-goods': gstSecondHandGoods,
-  'bad-debt': gstBadDebt });
-/** @typedef {keyof typeof ENGINES} GstWorksheet */
-export const GST_WORKSHEETS = Object.keys(ENGINES);
-
-/** A percentage as the command's fraction, exact: 12.5 is 0.125. An entry that is not one passes on blank, which the command
- * refuses. @param {string} percent */
-function percentFraction(percent) {
-  const parts = /^(\d+)(?:\.(\d+))?$/.exec(percent.trim());
-  if (!parts) return '';
-  const places = (parts[2] ?? '').length + 2;
-  const text = String(BigInt(parts[1] + (parts[2] ?? ''))).padStart(places + 1, '0');
-  return `${text.slice(0, -places)}.${text.slice(-places)}`;
-}
-/** The command's fraction as the percentage the page shows: 0.125 is 12.5%. @param {unknown} text */
-function fractionPercent(text) {
-  const v = typeof text === 'string' && /^\d+(\.\d+)?$/.test(text) ? d(text) : null;
-  if (!v) return String(text);
-  const n = mul(v, d('100'));
-  const shown = n.e >= 0 ? String(n.c * TEN ** BigInt(n.e)) : String(n.c).padStart(1 - n.e, '0').replace(new RegExp(`(\\d{${-n.e}})$`), '.$1');
-  let trimmed = shown;
-  if (trimmed.includes('.')) {
-    while (trimmed.endsWith('0')) trimmed = trimmed.slice(0, -1);
-    if (trimmed.endsWith('.')) trimmed = trimmed.slice(0, -1);
-  }
-  return `${trimmed}%`;
-}
-/** @param {unknown} text */
-const longDate = (text) => (parseDay(text) !== null
-  ? new Date(`${text}T00:00:00Z`).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }) : String(text));
-
-/** The worksheet the form names and the command's input from its fields. @param {(name: string) => string} value
- * @returns {{worksheet: GstWorksheet, input: Record<string, unknown>}} */
-export function gstFormInput(value) {
-  const chosen = value('worksheet');
-  const worksheet = /** @type {GstWorksheet} */ (chosen in ENGINES ? chosen : 'creditable-purpose');
-  const yes = (/** @type {string} */ name) => value(name) === 'yes';
-  const given = (/** @type {string} */ name) => value(name).trim() !== '';
-  const common = { year: value('year'), scope_confirmed: true };
-  if (worksheet === 'creditable-purpose') {
-    const months = value('cp-months');
-    return { worksheet, input: { gst_exclusive_value: value('cp-value'), relates_to_business_finance: yes('cp-finance'),
-      full_input_tax_credit: value('cp-credit'), intended_or_former_application: percentFraction(value('cp-former')),
-      actual_application: percentFraction(value('cp-actual')), application_basis: value('cp-basis'), attributed_period_end: value('cp-attributed'),
-      tax_period_months: /^\d{1,2}$/.test(months) ? Number(months) : months,
-      ...(given('cp-ended') ? { ended_on: value('cp-ended'), division_132_disposal: yes('cp-disposal') } : {}), ...common } };
-  }
-  if (worksheet === 'annual-apportionment') {
-    return { worksheet, input: { small_business_entity: yes('aa-small'), carries_on_business: yes('aa-business'),
-      instalment_election: yes('aa-instalments'), annual_tax_period_election: yes('aa-annual'), election_made: yes('aa-elected'),
-      gst_on_acquisition: value('aa-gst'), creditable_purpose: percentFraction(value('aa-purpose')), car: yes('aa-car'),
-      reduced_credit_acquisition: yes('aa-reduced'),
-      ...(!yes('aa-small') && !yes('aa-business') ? { gst_turnover: value('aa-turnover') } : {}),
-      ...(given('aa-input-taxed') ? { non_input_taxed_extent: percentFraction(value('aa-input-taxed')) } : {}),
-      ...(given('aa-consideration') ? { consideration_extent: percentFraction(value('aa-consideration')) } : {}), ...common } };
-  }
-  if (worksheet === 'financial-acquisitions') {
-    return { worksheet, input: { current_financial_credits: value('fat-current-financial'), current_total_credits: value('fat-current-total'),
-      future_financial_credits: value('fat-future-financial'), future_total_credits: value('fat-future-total'), gst_group: yes('fat-group'), ...common } };
-  }
-  if (worksheet === 'going-concern') {
-    return { worksheet, input: { for_consideration: yes('gc-consideration'), recipient_registration: value('gc-registration'),
-      written_agreement: value('gc-agreement'), all_things_necessary: yes('gc-all-things'), carried_on_until_supply: yes('gc-carried-on'),
-      farm_land: yes('gc-farm-land'), part_outside_arrangement: yes('gc-part-outside'), ...common } };
-  }
-  if (worksheet === 'second-hand-goods') {
-    const over = /^\d+(\.\d+)?$/.test(value('shg-consideration').trim()) && Number(value('shg-consideration')) > 300;
-    return { worksheet, input: { consideration: value('shg-consideration'), acquired_for_sale_or_exchange: yes('shg-for-sale'),
-      animals_or_plants: yes('shg-animals'), supply_to_you: value('shg-supply'), imported: yes('shg-imported'), by_way_of_hire: yes('shg-hire'),
-      resupply_taxable: yes('shg-resupply-taxable'), divided_for_resupply: yes('shg-divided'), valuable_metal: yes('shg-metal'),
-      leased_before_sale: yes('shg-leased'), ...(over ? { resupply_gst: value('shg-resupply-gst') } : {}), ...common } };
-  }
-  const supplier = value('bd-party') === 'supplier';
-  const event = value('bd-event');
-  return { worksheet, input: { party: value('bd-party'), event, amount: value('bd-amount'), taxable_or_creditable: yes('bd-qualifies'),
-    cash_basis: yes('bd-cash'), special_rule: value('bd-special'),
-    ...(event === 'recovered' ? { prior_adjustment: yes('bd-prior') } : { attributed: yes('bd-attributed') }),
-    ...(event === 'overdue_12_months' ? { overdue_from: value('bd-from'), as_at: value('bd-as-at') } : {}),
-    ...(supplier && given('bd-proportion') ? { taxable_proportion: percentFraction(value('bd-proportion')) } : {}),
-    ...(!supplier && given('bd-purpose') ? { creditable_purpose: percentFraction(value('bd-purpose')) } : {}),
-    ...(!supplier && given('bd-extent') ? { consideration_extent: percentFraction(value('bd-extent')) } : {}),
-    ...(!supplier ? { reduced_credit_acquisition: yes('bd-reduced'), annual_apportionment: yes('bd-annual') } : {}), ...common } };
-}
-
-const WORDS = /** @type {Record<string, string>} */ ({ registered: 'registered', required_to_be_registered: 'required to be registered',
-  on_or_before_supply_day: 'on or before the day of supply', after_supply_day: 'after the day of supply', none: 'none',
-  taxable: 'taxable', gst_free: 'GST-free', written_off: 'written off', overdue_12_months: 'overdue 12 months', recovered: 'recovered',
-  supplier: 'supplier', recipient: 'recipient' });
-/** @param {unknown} v */
-const word = (v) => (typeof v === 'string' ? WORDS[v] ?? v.replaceAll('_', ' ') : String(v));
-
-/** How the page writes each worksheet's input.
- * @param {string} worksheet @param {Record<string, any>} x @param {(value: number) => string} aud */
-export function gstInputsText(worksheet, x, aud) {
-  const money = (/** @type {unknown} */ text) => aud(Number(text));
-  const yn = (/** @type {unknown} */ v, /** @type {string} */ what) => `${v ? '' : 'not '}${what}`;
-  if (worksheet === 'creditable-purpose') {
-    return `${x.year} creditable purpose change; GST exclusive value ${money(x.gst_exclusive_value)}, ${yn(x.relates_to_business_finance,
-      'business finance')}, full input tax credit ${money(x.full_input_tax_credit)}, intended or former ${fractionPercent(
-      x.intended_or_former_application)}, actual ${fractionPercent(x.actual_application)}, basis ‘${x.application_basis}’, attributed to the `
-      + `period ending ${longDate(x.attributed_period_end)}, ${x.tax_period_months} month tax periods${'ended_on' in x ? `, application ended `
-      + `${longDate(x.ended_on)}${x.division_132_disposal ? ' by a Division 132 supply' : ''}` : ''}`;
-  }
-  if (worksheet === 'annual-apportionment') {
-    return `${x.year} annual apportionment; ${yn(x.small_business_entity, 'a small business entity')}, ${yn(x.carries_on_business,
-      'carrying on a business')}${'gst_turnover' in x ? `, GST turnover ${money(x.gst_turnover)}` : ''}, ${yn(x.instalment_election,
-      'paying by instalments')}, ${yn(x.annual_tax_period_election, 'with annual tax periods')}, election ${x.election_made ? 'made' : 'not made'}, `
-      + `GST ${money(x.gst_on_acquisition)}, creditable purpose ${fractionPercent(x.creditable_purpose)}${'non_input_taxed_extent' in x
-        ? `, not for input taxed supplies ${fractionPercent(x.non_input_taxed_extent)}` : ''}${'consideration_extent' in x ? `, consideration provided `
-        + `${fractionPercent(x.consideration_extent)}` : ''}, ${yn(x.car, 'a car')}, ${yn(x.reduced_credit_acquisition, 'reduced credit')}`;
-  }
-  if (worksheet === 'financial-acquisitions') {
-    return `${x.year} financial acquisitions threshold; ${yn(x.gst_group, 'a GST group')}, past 12 months ${money(x.current_financial_credits)} `
-      + `of ${money(x.current_total_credits)}, next 12 months ${money(x.future_financial_credits)} of ${money(x.future_total_credits)}`;
-  }
-  if (worksheet === 'going-concern') {
-    return `${x.year} going concern; ${yn(x.for_consideration, 'for consideration')}, recipient ${x.recipient_registration === 'neither' ? 'neither registered nor required to be' : word(x.recipient_registration)}, written `
-      + `agreement ${word(x.written_agreement)}, ${yn(x.all_things_necessary, 'all things necessary')}, ${yn(x.carried_on_until_supply,
-        'carried on until the supply')}, ${yn(x.farm_land, 'farm land')}, ${yn(x.part_outside_arrangement, 'part outside the arrangement')}`;
-  }
-  if (worksheet === 'second-hand-goods') {
-    return `${x.year} second-hand goods; consideration ${money(x.consideration)}, ${yn(x.acquired_for_sale_or_exchange, 'for sale or exchange')}, `
-      + `${yn(x.animals_or_plants, 'animals or plants')}, supply to you ${x.supply_to_you === 'neither' ? 'neither taxable nor GST-free' : word(x.supply_to_you)}, ${yn(x.imported, 'imported')}, ${yn(
-        x.by_way_of_hire, 'by hire')}, ${yn(x.resupply_taxable, 'resupply taxable')}, ${yn(x.divided_for_resupply, 'divided')}, ${yn(
-        x.valuable_metal, 'valuable metal')}, ${yn(x.leased_before_sale, 'leased first')}${'resupply_gst' in x ? `, GST on the resupply `
-        + `${money(x.resupply_gst)}` : ''}`;
-  }
-  const extent = [['taxable_proportion', 'taxable proportion'], ['creditable_purpose', 'creditable purpose'],
-    ['consideration_extent', 'consideration provided']].filter(([k]) => k in x).map(([k, label]) => `, ${label} ${fractionPercent(x[k])}`).join('');
-  return `${x.year} bad debt; ${word(x.party)}, ${word(x.event)}, ${money(x.amount)}, ${yn(x.taxable_or_creditable, x.party === 'supplier'
-    ? 'a taxable supply' : 'a creditable acquisition')}, ${yn(x.cash_basis, 'cash basis')}, special rule ${word(x.special_rule)}${'attributed' in x
-    ? `, ${yn(x.attributed, 'attributed')}` : ''}${'prior_adjustment' in x ? `, ${yn(x.prior_adjustment, 'earlier adjustment made')}` : ''}${
-    'overdue_from' in x ? `, overdue from ${longDate(x.overdue_from)} to ${longDate(x.as_at)}` : ''}${extent}${'reduced_credit_acquisition' in x
-    ? `, ${yn(x.reduced_credit_acquisition, 'reduced credit')}, ${yn(x.annual_apportionment, 'annually apportioned')}` : ''}`;
-}
-
-/** The command's result with the page's outcome and principal amount (null when the answer is not an amount).
- * @param {string} worksheet @param {Record<string, unknown>} input */
-export function gstAdjustment(worksheet, input) {
-  if (!(worksheet in ENGINES)) refuse('input.field_unknown', `${worksheet} is not a worksheet of this calculator.`);
-  const r = /** @type {Record<string, any>} */ (ENGINES[/** @type {GstWorksheet} */ (worksheet)](input));
-  const amount = (/** @type {string} */ id) => (id in r.amounts ? Number(r.amounts[id]) : null);
-  if (worksheet === 'creditable-purpose') {
-    const [inc, dec] = [amount('increasing_adjustment') ?? 0, amount('decreasing_adjustment') ?? 0];
-    return { ...r, outcome: inc ? 'increasing adjustment' : dec ? 'decreasing adjustment' : 'no adjustment', amount: inc || dec };
-  }
-  if (worksheet === 'annual-apportionment') {
-    return { ...r, outcome: r.applies ? 'increasing adjustment' : r.eligible ? 'eligible, no election' : 'not eligible',
-      amount: amount('increasing_adjustment') };
-  }
-  if (worksheet === 'financial-acquisitions') return { ...r, outcome: r.exceeds_threshold ? 'threshold exceeded' : 'threshold not exceeded', amount: null };
-  if (worksheet === 'going-concern') return { ...r, outcome: r.gst_free ? 'GST-free' : 'not GST-free', amount: null };
-  if (worksheet === 'second-hand-goods') {
-    return { ...r, outcome: r.applies ? 'input tax credit' : 'no credit under Subdivision 66-A', amount: amount('input_tax_credit') };
-  }
-  return { ...r, outcome: r.applies ? `${r.direction} adjustment` : 'no adjustment', amount: amount(`${r.direction}_adjustment`) };
-}
-
-/** The page's result for the chosen worksheet. @param {(name: string) => string} value @param {(value: number) => string} aud */
-export function gstAdjustmentsResult(value, aud) {
-  const { worksheet, input } = gstFormInput(value);
-  const r = /** @type {Record<string, any>} */ (gstAdjustment(worksheet, input));
-  const a = (/** @type {string} */ id) => aud(Number(r.amounts[id]));
-  /** @type {[string, string][]} */
-  const rows = [];
-  let principal = 0;
-  let notes = /** @type {string[]} */ (r.consequences ?? []);
-  if (worksheet === 'creditable-purpose') {
-    const p = r.adjustment_period;
-    rows.push(['Adjustment period', p.is_adjustment_period ? `${p.number} of ${p.of}` : `none of ${p.of}`],
-      ['Increasing adjustment', a('increasing_adjustment')], ['Decreasing adjustment', a('decreasing_adjustment')]);
-    principal = r.outcome === 'decreasing adjustment' ? 2 : 1;
-    notes = [r.no_adjustment_reason ?? `The first adjustment period is ${p.first}`];
-  } else if (worksheet === 'annual-apportionment') {
-    rows.push(['Credit without annual apportionment (s 11-30)', a('credit_without_annual_apportionment')],
-      ['Credit with annual apportionment (s 131-40)', a('annual_apportionment_credit')], ['Increasing adjustment (s 131-55)', a('increasing_adjustment')]);
-    principal = 2;
-  } else if (worksheet === 'financial-acquisitions') {
-    principal = rows.push(['10% of the past 12 months’ total credits', a('current_ten_percent')],
-      ['10% of the next 12 months’ total credits', a('future_ten_percent')],
-      ['Financial acquisitions threshold', r.exceeds_threshold ? 'Exceeded' : 'Not exceeded']) - 1;
-  } else if (worksheet === 'going-concern') {
-    rows.push(['Supply of a going concern', r.gst_free ? 'GST-free' : 'Not GST-free under s 38-325']);
-  } else if (worksheet === 'second-hand-goods') {
-    if ('one_eleventh_of_consideration' in r.amounts) rows.push(['One eleventh of the consideration', a('one_eleventh_of_consideration')]);
-    principal = rows.push(['Input tax credit (s 66-10)', r.applies ? a('input_tax_credit') : 'None under Subdivision 66-A']) - 1;
-  } else {
-    if ('full_adjustment' in r.amounts) rows.push(['Full adjustment, 1/11 of the amount', a('full_adjustment')]);
-    const id = `${r.direction}_adjustment`;
-    principal = rows.push([r.direction === 'increasing' ? 'Increasing adjustment' : 'Decreasing adjustment', r.applies ? a(id) : 'None under Division 21']) - 1;
-  }
-  /** @type {Record<string, string[][]>} */
-  const tables = {};
-  if (r.conditions) tables.conditions = r.conditions.map((/** @type {Condition} */ c) => [c.authority, c.met ? 'Met' : 'Not met']);
-  return { inputs: gstInputsText(worksheet, input, aud), rows, principal, note: notes.map((n) => n.replace(/\.$/, '').replaceAll('this command', 'this calculator')).join('. '), tables };
 }
