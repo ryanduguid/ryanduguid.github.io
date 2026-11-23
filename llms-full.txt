@@ -12283,7 +12283,7 @@ Two registered medical practitioners, one a specialist, certify death is likely 
 
 The low rate cap applies only at preservation age and under 60, which from 1 July 2024 no one is. Enter the amounts counted for earlier lump sums. Other lump sums at that age in the same year share the cap, so they are refused while any is left.
 
-Withholding is worked for payments from 13 October 2020. With a TFN, a resident’s rate for each part is its ceiling rate plus the 2% Medicare levy, and the total rounds to the nearest dollar. Without one, the fund withholds 47% (45% for a foreign resident) of the taxable component, or of the untaxed element at 60 or over, ignoring cents; no rate is stated for a non-dependant’s death benefit or a member benefit under $200, so those are refused. The calculator assumes the payment is taxable in Australia and applies no tax treaty.
+Withholding is worked for payments from 13 October 2020. With a TFN, a resident’s rate for each part is its ceiling rate plus the 2% Medicare levy, and the total rounds to the nearest dollar. Without one, the fund withholds 47% (45% for a foreign resident) of the taxable component, or of the untaxed element at 60 or over, ignoring cents. Without a TFN the rate turns on the payee’s age, which the calculator does not take for a death benefit, and none is stated for a member benefit under $200, so a non-dependant’s death benefit and such a member benefit are refused. The calculator assumes the payment is taxable in Australia and applies no tax treaty.
 
 Take the components from the fund’s or the ATO’s statement. The working holiday maker rate applies when the payment includes amounts from contributions made whilst the person was a working holiday maker. An unclaimed money roll-over with an untaxed element is refused: section 5(2) taxes any excess untaxed roll-over amount in it at nil.
 
@@ -12299,7 +12299,7 @@ Its results match the super-benefit-tax command of Ryan Duguid’s australian-ac
 
 ## What the super lump sum tax calculator does not cover
 
-The calculator does not work the tax at the person’s own marginal rates, the Medicare levy, withholding from income streams (Schedule 13), the tax on a roll-over or a deceased estate, a tax treaty, or payments from a non-complying or foreign fund. It does not decide dependency, a terminal medical condition, the components or the elements: you state those. It refuses a disability superannuation benefit, an untaxed element from service before 1 July 1983, and other lump sums in the same year that share the low rate cap.
+The calculator does not work the tax at the person’s own marginal rates, the Medicare levy, income streams and their withholding (Schedule 13), the tax on a roll-over or a deceased estate, a tax treaty, or payments from a non-complying or foreign fund. It does not decide dependency, a terminal medical condition, the components or the elements: you state those. It refuses a disability superannuation benefit, an untaxed element from service before 1 July 1983, and other lump sums in the same year that share the low rate cap.
 
 Confirm the result with the fund, the ATO’s guidance on super lump sums or a registered tax agent before relying on it. The redundancy and ETP withholding calculator covers employment termination payments.
 
