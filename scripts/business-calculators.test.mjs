@@ -6213,7 +6213,7 @@ test('the first home owner grant pays the lesser of the consideration and the am
 test('the first home owner grant takes the price, not a higher unencumbered value, in Queensland and Western Australia', () => {
   assert.equal(fhogGrant({ jurisdiction: 'AU-QLD', value: '20000' }), '$20,000.00: the grant cannot be more than the consideration');
   assert.equal(fhogGrant({ jurisdiction: 'AU-WA', 'wa-location': 'south', value: '5000' }), '$5,000.00: the grant cannot be more than the consideration');
-  assert.match(fhogHtml, /the calculator takes the price you enter as the value and assumes the unencumbered value is not higher\./);
+  assert.match(fhogHtml, /The cap also tests the home and land’s unencumbered value; the calculator takes the price you enter and assumes that value is not higher\./);
   assert.match(fhogHtml, /the cap also tests the unencumbered value, which the calculator assumes is not higher than the price\./);
   assert.doesNotMatch(fhogHtml, /the price or, if greater, the unencumbered value/);
 });
