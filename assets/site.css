@@ -515,6 +515,22 @@ main p {
   line-height: 0.8;
 }
 
+.about-portrait .t0 {
+  color: var(--colour-rule);
+}
+
+.about-portrait .t1 {
+  color: var(--colour-rule-strong);
+}
+
+.about-portrait .t2 {
+  color: var(--colour-ink-soft);
+}
+
+.about-portrait .t3 {
+  color: var(--colour-ink-mid);
+}
+
 @media (min-resolution: 1.25dppx) {
   .about-portrait pre {
     font-size: round(down, calc(100cqi / 84 + 0.01px), 1px);
@@ -3018,6 +3034,13 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
   .about-portrait pre {
     color: var(--colour-print-ink);
     white-space: pre;
+  }
+
+  .about-portrait .t0,
+  .about-portrait .t1,
+  .about-portrait .t2,
+  .about-portrait .t3 {
+    color: inherit;
   }
 
   .skip-link,
