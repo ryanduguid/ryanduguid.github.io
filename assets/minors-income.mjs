@@ -57,12 +57,12 @@ const q = (n, d = 1n) => {
 const add = (/** @type {Q} */ [a, b], /** @type {Q} */ [c, e]) => q(a * e + c * b, b * e);
 const sub = (/** @type {Q} */ x, /** @type {Q} */ [c, e]) => add(x, [-c, e]);
 const mul = (/** @type {Q} */ [a, b], /** @type {Q} */ [c, e]) => q(a * c, b * e);
-const div = (/** @type {Q} */ [a, b], /** @type {Q} */ [c, e]) => (c < 0n ? q(-a * e, -b * c) : q(a * e, b * c));
 const gt = (/** @type {Q} */ [a, b], /** @type {Q} */ [c, e]) => a * e > c * b;
 const min = (/** @type {Q} */ x, /** @type {Q} */ y) => (gt(x, y) ? y : x);
 const max = (/** @type {Q} */ x, /** @type {Q} */ y) => (gt(y, x) ? y : x);
 const percent = (/** @type {number} */ rate) => q(BigInt(rate), 100n);
 const ZERO = q(0n);
+const SCALES = new Map(Object.entries(RESIDENT_SCALES));
 /** Cents, half up (away from zero), as a number. @param {Q} value */
 const toCents = ([n, d]) => {
   const whole = ((n < 0n ? -n : n) * 2n + d) / (2n * d);
@@ -72,8 +72,8 @@ const toCents = ([n, d]) => {
 /** The tax at a scale of [dollars the band starts above, rate per cent] on an amount in cents. */
 function scaleTax(/** @type {number[][]} */ scale, /** @type {Q} */ income) {
   return scale.reduce((tax, [low, rate], i) => {
-    const high = scale[i + 1]?.[0];
-    const ceiling = high === undefined ? income : min(income, q(BigInt(high) * 100n));
+    const next = scale.at(i + 1);
+    const ceiling = next ? min(income, q(BigInt(next[0]) * 100n)) : income;
     return add(tax, mul(max(ZERO, sub(ceiling, q(BigInt(low) * 100n))), percent(rate)));
   }, ZERO);
 }
@@ -103,9 +103,9 @@ const money = (/** @type {unknown} */ value) => (typeof value === 'string' ? com
   : refuse('input.amount_invalid', 'Amounts must be finite non-negative Decimals, at most 2dp and 1e12.'));
 
 /** An amount inside an item: a decimal string of at most 32 characters, as a money amount. */
-function statedCents(/** @type {Record<string, unknown>} */ fields, /** @type {string} */ name, /** @type {string} */ key) {
-  if (!Object.hasOwn(fields, key)) refuse('input.missing_field', `${name}: ${key} is required`);
-  const value = fields[key];
+function statedCents(/** @type {Map<string, unknown>} */ fields, /** @type {string} */ name, /** @type {string} */ key) {
+  if (!fields.has(key)) refuse('input.missing_field', `${name}: ${key} is required`);
+  const value = fields.get(key);
   try {
     if (typeof value === 'string' && new TextEncoder().encode(value).length <= 32) return commandCents(value);
   } catch {
@@ -114,14 +114,16 @@ function statedCents(/** @type {Record<string, unknown>} */ fields, /** @type {s
   return refuse('input.amount_invalid', `${name}: ${key} must be a decimal string, finite and non-negative, at most 2dp and 1e12.`);
 }
 
-function knownKeys(/** @type {Record<string, unknown>} */ fields, /** @type {string} */ name, /** @type {string[]} */ allowed) {
-  const key = Object.keys(fields).find((k) => !allowed.includes(k));
+function knownKeys(/** @type {Map<string, unknown>} */ fields, /** @type {string} */ name, /** @type {string[]} */ allowed) {
+  const key = [...fields.keys()].find((k) => !allowed.includes(k));
   if (key !== undefined) refuse('input.field_unknown', `${name}: ${key} is not an input of this item`);
 }
 
-/** A list of at most 50 objects, or the refusal code. @returns {Record<string, unknown>[]} */
+/** A list of at most 50 objects, each as a map of its fields, or the refusal code. @returns {Map<string, unknown>[]} */
 function items(/** @type {unknown} */ given, /** @type {string} */ code, /** @type {string} */ what) {
-  if (Array.isArray(given) && given.length <= MAX_ITEMS && given.every(isObject)) return given;
+  if (Array.isArray(given) && given.length <= MAX_ITEMS && given.every(isObject)) {
+    return given.map((item) => new Map(Object.entries(item)));
+  }
   return refuse(code, `${what} must be a list of at most ${MAX_ITEMS} objects.`);
 }
 
@@ -131,23 +133,24 @@ function fullTimeTest(/** @type {unknown} */ given) {
   if (!isObject(given)) {
     refuse('input.missing_field', 'full_time_occupation must be an object with the 4 facts of the test.');
   }
-  const fields = /** @type {Record<string, unknown>} */ (given);
+  const fields = new Map(Object.entries(/** @type {object} */ (given)));
   knownKeys(fields, 'full_time_occupation', FULL_TIME_FACTS);
   const [onLastDay, threeMonths, occupationNext, educationNext] = FULL_TIME_FACTS.map((key) => {
-    if (!Object.hasOwn(fields, key)) refuse('input.missing_field', `full_time_occupation: ${key} is required`);
-    return typeof fields[key] === 'boolean' ? fields[key]
+    if (!fields.has(key)) refuse('input.missing_field', `full_time_occupation: ${key} is required`);
+    const fact = fields.get(key);
+    return typeof fact === 'boolean' ? fact
       : refuse('input.flag_invalid', `full_time_occupation: ${key} must be a boolean.`);
   });
   return (onLastDay || threeMonths) && occupationNext && !educationNext;
 }
 
 /** The excepted person ground's paragraph and whether it holds, or null when no ground applies. */
-function exceptedPerson(/** @type {Record<string, unknown>} */ input, /** @type {boolean} */ under18) {
-  const ground = input.excepted_person;
-  const [fullTime, dependent] = OPTIONAL.map((key) => input[key]);
+function exceptedPerson(/** @type {Map<string, unknown>} */ given, /** @type {boolean} */ under18) {
+  const ground = given.get('excepted_person');
+  const [fullTime, dependent] = OPTIONAL.map((key) => given.get(key));
   if (ground === 'none') {
-    const given = OPTIONAL.find((key) => input[key] !== undefined);
-    if (given) unknown(given, 'an excepted person ground');
+    const stated = OPTIONAL.find((key) => given.get(key) !== undefined);
+    if (stated) unknown(stated, 'an excepted person ground');
     return null;
   }
   const citation = typeof ground === 'string' ? PERSON_GROUNDS.get(ground) : undefined;
@@ -173,9 +176,10 @@ function exceptedPerson(/** @type {Record<string, unknown>} */ input, /** @type 
 export function minorsIncome(input) {
   const unknownKey = Object.keys(input).find((key) => !PARAMS.some(([name]) => name === key) && !OPTIONAL.includes(key));
   if (unknownKey !== undefined) refuse('input.field_unknown', `${unknownKey} is not an input of minors-income`);
+  const given = new Map(Object.entries(input));
   for (const [key, kind] of PARAMS) {
-    if (!Object.hasOwn(input, key)) refuse('input.missing_field', `${key} is required`);
-    if (kind === 'dec') readable(input[key]);
+    if (!given.has(key)) refuse('input.missing_field', `${key} is required`);
+    if (kind === 'dec') readable(given.get(key));
   }
   const year = /** @type {string} */ (input.year);
   if (!MINORS_YEARS.includes(year)) {
@@ -193,15 +197,15 @@ export function minorsIncome(input) {
   const taxableCents = money(input.taxable_income);
   if (taxableCents % 100n !== 0n) refuse('input.amount_not_whole_dollars', 'Supply established whole-dollar taxable income.');
   const under18 = flag(input.under_18_on_30_june, 'under_18_on_30_june');
-  const person = exceptedPerson(input, under18);
+  const person = exceptedPerson(given, under18);
   const prescribed = under18 && !person?.holds;
 
   let excepted = 0n;
   items(input.excepted_income, 'minors_income.excepted_income_invalid', 'excepted_income').forEach((fields, i) => {
     const name = `excepted income item ${i + 1}`;
     knownKeys(fields, name, ['ground', 'amount']);
-    if (!Object.hasOwn(fields, 'ground')) refuse('input.missing_field', `${name}: ground is required`);
-    if (!INCOME_GROUNDS.includes(/** @type {string} */ (fields.ground))) {
+    if (!fields.has('ground')) refuse('input.missing_field', `${name}: ground is required`);
+    if (!INCOME_GROUNDS.includes(/** @type {string} */ (fields.get('ground')))) {
       refuse('minors_income.excepted_income_invalid', `${name}: ground must be one of ITAA 1936 s 102AE(2).`);
     }
     excepted += statedCents(fields, name, 'amount');
@@ -221,7 +225,7 @@ export function minorsIncome(input) {
   const [exceptedTotal, eligibleAssessable] = prescribed ? [excepted + trustExcepted, other + trustEligible]
     : [excepted + trustExcepted + trustEligible, other];
   const [exclusive, related, apportionable] = ['deductions_exclusive', 'deductions_related', 'apportionable_deductions']
-    .map((key) => money(input[key]));
+    .map((key) => money(given.get(key)));
   if (taxableCents > eligibleAssessable + exceptedTotal) {
     refuse('minors_income.facts_inconsistent', 'taxable_income exceeds the assessable income given.');
   }
@@ -242,9 +246,10 @@ export function minorsIncome(input) {
   }
 
   // ITRA s 13, s 15 and Schedule 11.
-  const scale = resident ? RESIDENT_SCALES[year] : FOREIGN_SCALE;
+  const residentScale = /** @type {number[][]} */ (SCALES.get(year));
+  const scale = resident ? residentScale : FOREIGN_SCALE;
   const limit = phaseOut(scale, resident);
-  const secondRate = RESIDENT_SCALES[year][1][1];
+  const secondRate = residentScale[1][1];
   const rest = sub(taxable, eligible);
   const taxOther = scaleTax(scale, rest);
   const top = sub(scaleTax(scale, taxable), taxOther);

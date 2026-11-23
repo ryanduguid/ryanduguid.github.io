@@ -408,7 +408,7 @@ const MUTATIONS = [
   { ...minors, name: 'minors phase-out rounds up', find: 'Math.floor(NIL_BAND', replace: 'Math.ceil(NIL_BAND' },
   { ...minors, name: 'minors foreign phase-out takes the resident formula', find: '(resident ? PHASE_IN : PHASE_IN - scale[0][1])', replace: '(PHASE_IN)' },
   { ...minors, name: 'minors cap ignores the top slice', find: 'min(atSpecial, max(floor, top))', replace: 'min(atSpecial, floor)' },
-  { ...minors, name: 'minors second resident rate from the first band', find: 'RESIDENT_SCALES[year][1][1]', replace: 'RESIDENT_SCALES[year][0][1]' },
+  { ...minors, name: 'minors second resident rate from the first band', find: 'residentScale[1][1]', replace: 'residentScale[0][1]' },
   { ...minors, name: 'minors apportions over taxable income alone', find: 'const base = taxableCents + apportionable;', replace: 'const base = taxableCents;' },
   { ...minors, name: 'minors leaves out related deductions', find: 'eligibleAssessable - exclusive - related', replace: 'eligibleAssessable - exclusive' },
   { ...minors, name: 'minors adult trust share eligible', find: '[excepted + trustExcepted + trustEligible, other]', replace: '[excepted + trustExcepted, other + trustEligible]' },
