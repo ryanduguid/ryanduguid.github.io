@@ -9467,28 +9467,47 @@ fn rd_offset(total: u128, rsp_crc: u128, expenses: u128, refundable: bool, rate:
 /// One seeded company: no refusal, so every clawback leaves at least $20,000.
 fn rd_case(rng: &mut Seeded) -> (Value, Value) {
     let any = rng.cents(30_000_000_000);
-    let notional = u128::from(rng.pick(&[any, 1_999_999, 2_000_000, 15_000_000_000, 15_000_000_001]));
-    let up_to = |rng: &mut Seeded, limit: u128| if limit == 0 { 0 } else { rng.cents(u64::try_from(limit).unwrap()) };
+    let notional =
+        u128::from(rng.pick(&[any, 1_999_999, 2_000_000, 15_000_000_000, 15_000_000_001]));
+    let up_to = |rng: &mut Seeded, limit: u128| {
+        if limit == 0 {
+            0
+        } else {
+            rng.cents(u64::try_from(limit).unwrap())
+        }
+    };
     let any = up_to(rng, notional);
     let rsp = u128::from(rng.pick(&[0, any]));
     let any = up_to(rng, notional.saturating_sub(2_000_000));
-    let clawback = if notional < 2_000_000 { 0 } else { u128::from(rng.pick(&[0, any])) };
+    let clawback = if notional < 2_000_000 {
+        0
+    } else {
+        u128::from(rng.pick(&[0, any]))
+    };
     let any = up_to(rng, clawback);
     let feedstock = u128::from(rng.pick(&[0, any]));
     let revenue = feedstock + u128::from(rng.pick(&[0_u64, 1, 50_000]));
     let any = rng.cents(100_000_000_000);
-    let expenses = u128::from(rng.pick(&[0, any])) + notional * u128::from(rng.pick(&[0_u64, 1, 50]));
+    let expenses =
+        u128::from(rng.pick(&[0, any])) + notional * u128::from(rng.pick(&[0_u64, 1, 50]));
     let any = rng.cents(100_000_000_000);
     let turnover = u128::from(rng.pick(&[any, 1_999_999_999, 2_000_000_000]));
     let exempt = rng.below(5) == 0;
     let (bre, present_bre) = (rng.below(2) == 0, rng.below(2) == 0);
-    let (rate, present) = (if bre { 2_500 } else { 3_000 }, if present_bre { 2_500 } else { 3_000 });
+    let (rate, present) = (
+        if bre { 2_500 } else { 3_000 },
+        if present_bre { 2_500 } else { 3_000 },
+    );
     let refundable = turnover < 2_000_000_000 && !exempt;
     let starting = rd_offset(notional, rsp, expenses, refundable, rate);
     let adjusted = rd_offset(notional - clawback, rsp, expenses, refundable, rate);
     let deduction = 100 * clawback * rate;
     let figure = |numerator: u128| rd_shown(exact_half_up(numerator, 1_000_000));
-    let (refunded, kept) = if refundable { (starting, 0) } else { (0, starting) };
+    let (refunded, kept) = if refundable {
+        (starting, 0)
+    } else {
+        (0, starting)
+    };
     (
         json!({ "notional_deductions": rd_money(notional), "rsp_crc_expenditure": rd_money(rsp),
             "aggregated_turnover": rd_money(turnover), "exempt_entity_controlled": exempt, "base_rate_entity": bre,
@@ -9519,8 +9538,14 @@ fn the_rd_tax_offset_engine_agrees_with_the_oracle_on_every_seeded_case() {
     }
     let mut rng = Seeded(0x2026_1123_0000_0B10);
     let (cases, expected): (Vec<_>, Vec<_>) = (0..RD_CASES).map(|_| rd_case(&mut rng)).unzip();
-    let figure = |key: &str| expected.iter().any(|want| want[key].as_str().is_some_and(|value| value != "0"));
-    assert!(figure("refundableOffset") && figure("nonRefundableOffset") && figure("clawbackIncome"));
+    let figure = |key: &str| {
+        expected
+            .iter()
+            .any(|want| want[key].as_str().is_some_and(|value| value != "0"))
+    };
+    assert!(
+        figure("refundableOffset") && figure("nonRefundableOffset") && figure("clawbackIncome")
+    );
     let actual = run_node(RD_HARNESS, &cases);
     assert_eq!(actual.len(), RD_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
