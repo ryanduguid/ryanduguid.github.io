@@ -184,7 +184,9 @@ export function deferredTax(x) {
     return { label, class: liability ? 'liability' : 'asset', temporary_difference: text(closing), nature: nature(closing),
       opening_temporary_difference: text(opening), opening_nature: nature(opening) };
   });
-  for (const [ded, loss, unrec, when] of [[deductible, losses, unrecognised, 'end'], [openingDeductible, openingLosses, openingUnrecognised, 'start']]) {
+  /** @type {[bigint, bigint, bigint, string][]} */
+  const dates = [[deductible, losses, unrecognised, 'end'], [openingDeductible, openingLosses, openingUnrecognised, 'start']];
+  for (const [ded, loss, unrec, when] of dates) {
     if (unrec > ded + loss) {
       refuse('deferred_tax.unrecognised_above_deductible', `The unrecognised amount at the ${when} of the year is more than that date’s `
         + 'deductible temporary differences and unused tax losses.');
@@ -248,7 +250,7 @@ export function deferredTax(x) {
 }
 
 // The page: up to 5 items, the year's amounts and the matters the worksheet refuses, read as the command's input.
-export const DEFERRED_TAX_ROWS = 5;
+export const DEFERRED_TAX_ROWS = 4;
 const AMOUNT_FIELDS = [['carrying', 'carrying_amount'], ['base', 'tax_base'], ['opening-carrying', 'opening_carrying_amount'], ['opening-base', 'opening_tax_base']];
 
 /** The command's input from the form's fields: each item row with a name or an amount, in order.
@@ -273,20 +275,23 @@ export function deferredTaxFormInput(value) {
 /** @param {unknown} rate */
 const rateWords = (rate) => (rate === 'base_rate_entity' ? '25%' : rate === 'standard' ? '30%' : String(rate));
 
-/** How the page writes the input. @param {Record<string, any>} x @param {(value: number) => string} aud */
+/** How the page writes the input; nil losses, unrecognised amounts and offsets are left out. @param {Record<string, any>} x
+ * @param {(value: number) => string} aud */
 export function deferredTaxInputsText(x, aud) {
   const money = (/** @type {unknown} */ text) => aud(Number(text));
   const items = Array.isArray(x.items) ? x.items.map((/** @type {Record<string, any>} */ it) => `${it.label} (${it.class}) ${money(it.carrying_amount)} `
-    + `against ${money(it.tax_base)}, opening ${money(it.opening_carrying_amount)} against ${money(it.opening_tax_base)}`).join('; ') : '';
-  const excluded = [['business_combination', 'a business combination'], ['uncertain_tax_treatment', 'an uncertain tax treatment'],
-    ['tax_consolidated_group', 'a tax-consolidated group'], ['outside_profit_or_loss', 'items outside profit or loss']]
-    .filter(([key]) => x[key]).map(([, words]) => words);
-  return `${x.year}, ${x.base_rate_entity ? 'a base rate entity' : 'not a base rate entity'}, deferred at ${rateWords(x.expected_rate)} `
-    + `(opening ${rateWords(x.opening_expected_rate)}); ${items}; unused tax losses ${money(x.unused_tax_losses)} (opening `
-    + `${money(x.opening_unused_tax_losses)}), unrecognised ${money(x.unrecognised_deductible)} (opening ${money(x.opening_unrecognised_deductible)}, `
-    + `used ${money(x.unrecognised_used)}); profit ${money(x.accounting_profit)}, non-deductible ${money(x.non_deductible_expenses)}, `
-    + `non-assessable ${money(x.non_assessable_income)}, taxable income ${money(x.taxable_income)}, offsets ${money(x.tax_offsets)}`
-    + `${excluded.length ? `; ${excluded.join(', ')}` : ''}`;
+    + `on ${money(it.tax_base)}, opening ${money(it.opening_carrying_amount)} on ${money(it.opening_tax_base)}`).join('; ') : '';
+  const given = (/** @type {string} */ key, /** @type {string} */ words) => (Number(x[key]) ? [`${words} ${money(x[key])}`] : []);
+  const extras = [...given('unused_tax_losses', 'losses'), ...given('opening_unused_tax_losses', 'opening losses'),
+    ...given('unrecognised_deductible', 'unrecognised'), ...given('opening_unrecognised_deductible', 'opening unrecognised'),
+    ...given('unrecognised_used', 'used'), ...given('non_deductible_expenses', 'non-deductible'), ...given('non_assessable_income', 'non-assessable'),
+    ...given('tax_offsets', 'offsets'),
+    ...[['business_combination', 'a business combination'], ['uncertain_tax_treatment', 'an uncertain tax treatment'],
+      ['tax_consolidated_group', 'a tax-consolidated group'], ['outside_profit_or_loss', 'items outside profit or loss']]
+      .filter(([key]) => x[key]).map(([, words]) => words)];
+  return `${x.year}, ${x.base_rate_entity ? 'base rate entity' : 'not a base rate entity'}, rates ${rateWords(x.expected_rate)} (opening `
+    + `${rateWords(x.opening_expected_rate)}); ${items}; profit ${money(x.accounting_profit)}, taxable income ${money(x.taxable_income)}`
+    + `${extras.length ? `, ${extras.join(', ')}` : ''}`;
 }
 
 const RECONCILING = [['tax_at_applicable_rate', 'Accounting profit at the applicable rate'], ['non_deductible_expenses_effect', 'Non-deductible expenses'],

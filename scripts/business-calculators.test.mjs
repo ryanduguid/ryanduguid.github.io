@@ -6613,7 +6613,7 @@ test('the deferred tax form sends the rows with a name or an amount, in order', 
   const form = (more) => calculations.deferredTaxFormInput((name) => ({ ...fields, ...more })[name] ?? '');
   assert.deepEqual(form({}).items.map((it) => it.label), ['Plant', 'Leave provision', 'Prepayment']);
   assert.deepEqual(form({ 'item-2-label': '', 'item-2-carrying': '', 'item-2-base': '', 'item-2-opening-carrying': '', 'item-2-opening-base': '',
-    'item-5-label': 'Lease' }).items.map((it) => it.label), ['Plant', 'Prepayment', 'Lease']);
+    'item-4-label': 'Lease' }).items.map((it) => it.label), ['Plant', 'Prepayment', 'Lease']);
   assert.throws(() => calculations.deferredTaxResult((name) => ({ ...fields, 'item-4-carrying': '5' })[name] ?? '', deferredAud),
     { code: 'deferred_tax.item_invalid' });
   const result = calculations.deferredTaxResult((name) => ({ ...fields, 'taxable-income': '99000' })[name] ?? '', deferredAud);
