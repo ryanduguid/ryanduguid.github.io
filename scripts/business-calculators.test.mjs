@@ -3398,12 +3398,11 @@ test('foreign surcharges refuse what each Commissioner decides and answers they 
 });
 
 test('provisional public holidays fall outside the business days coverage, and the state-only days are not in the table', () => {
-  const { until, ...shorter } = BUSINESS_DAYS_COVERAGE;
+  const { until } = BUSINESS_DAYS_COVERAGE;
   const provisional = businessDayRows.filter((row) => row.provisional);
   assert.ok(provisional.length > 0);
   for (const row of provisional) {
-    assert.ok(row.date > shorter.any, row.date);
-    for (const place of row.jurisdictions) assert.ok(row.date > (shorter[place] ?? until), `${row.date} ${place}`);
+    assert.ok(row.date > until, row.date);
   }
   for (const { date, jurisdictions } of STATE_ONLY_HOLIDAYS) {
     assert.ok(!businessDayRows.some((row) => row.date === date && row.jurisdictions.some((place) => jurisdictions.includes(place))), date);
@@ -3419,6 +3418,27 @@ test('the calendar records Tasmania’s Easter Sunday public holiday from 2027',
   assert.equal(tasmanianEasterSunday('2026-04-05'), false);
   assert.equal(tasmanianEasterSunday('2027-03-28'), true);
   assert.equal(tasmanianEasterSunday('2028-04-16'), true);
+});
+
+test('Victoria and national business days cover the confirmed 2027 Grand Final holiday', () => {
+  const count = (place, start, end) =>
+    calculations.businessDays({ mode: 'count', place, start, end, count: '1' }, businessDayHolidays);
+  for (const place of ['VIC', 'any']) {
+    assert.equal(count(place, '2027-08-31', '2027-09-01').days, 1);
+    assert.equal(count(place, '2027-09-23', '2027-09-24').days, 1);
+    const grandFinal = count(place, '2027-09-30', '2027-10-01');
+    assert.equal(grandFinal.days, 0);
+    assert.deepEqual(grandFinal.skipped, [{ date: '2027-10-01', name: 'Friday before the AFL Grand Final' }]);
+    const forward = calculations.businessDays({
+      mode: 'add', place, start: '2027-09-30', end: '2027-09-30', count: '1',
+    }, businessDayHolidays);
+    assert.equal(forward.date, place === 'VIC' ? '2027-10-04' : '2027-10-05');
+    assert.equal(count(place, '2027-12-30', '2027-12-31').days, 1);
+    assert.throws(() => count(place, '2027-12-31', '2028-01-01'), { message: /to 31 December 2027/ });
+  }
+  assert.equal(count('NSW', '2027-09-30', '2027-10-01').days, 1);
+  assert.equal(count('VIC', '2027-11-01', '2027-11-02').days, 0);
+  assert.equal(count('any', '2027-11-01', '2027-11-02').days, 1);
 });
 
 test('business days refuse an unusable table, an impossible date and a count they cannot work', () => {
