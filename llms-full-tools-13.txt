@@ -267,6 +267,87 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
+# R&D tax offset calculator: refundable, tiers and clawback
+
+Source: https://duguid.com.au/tools/business-calculators/rd-tax-offset/
+
+> A company’s R&D tax offset, refundable at 43.5% or 48.5% or non-refundable with the 8.5% and 16.5% premium tiers, and the clawback of grants and feedstock.
+
+# R&D tax offset calculator
+
+The R&D tax incentive offset and its clawback, 2021-22 to 2026-27.
+
+Published 23 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One company’s R&D tax offset for an income year
+
+Notional R&D deductions for the year (AUD)
+
+Income year (the offset year) 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22
+
+Of those, expenditure to research service providers that are not associates and CRC contributions (AUD) Aggregated turnover for the year (AUD)
+
+Exempt entities control the company (section 355-100(1) item 2) No Yes
+
+A base rate entity for the year, taxed at 25% No, 30% Yes, 25%
+
+Total expenses for the year (section 355-115) (AUD)
+
+Clawback attributable to the offset year (enter 0 for none)
+
+Recoupment clawback amount (section 355-440) (AUD) Feedstock revenue (section 355-445(4)) (AUD) Feedstock expenditure taken into this year’s offset (section 355-445(2)(b)) (AUD)
+
+A base rate entity in the present year, when the clawback arises No, 30% Yes, 25%
+
+Calculate
+
+Enter the amounts as established for the company. Notional deductions are those under sections 355-205, 355-305, 355-480, 355-520 and 355-580. Below $20,000 of notional deductions, only expenditure to research service providers and CRC contributions counts (section 355-100(2)).
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2021-22; notional deductions $3,600,000.00, aggregated turnover $60,000,000.00, not a base rate entity, total expenses $15,000,000.00; recoupment clawback $2,300,000.00, not a base rate entity in the present year. Offset base: the notional deductions $3,600,000.00 At 30%, the corporate tax rate, up to $150 million $1,080,000.00 Premium of 8.5% on the part up to 2% of total expenses $25,500.00 Premium of 16.5% on the part above 2% of total expenses $544,500.00 R& D tax offset, non-refundable $1,650,000.00 Clawback amount $2,300,000.00 Adjusted offset, on the notional deductions less the clawback amount $580,500.00 Deduction amount, the clawback amount at 30% $690,000.00 Included in assessable income in the present year, over 30% $1,265,000.00 Turnover of $20 million or more, or exempt entity control: a non-refundable offset, which may be carried forward (Division 65).
+
+## How the R&D tax offset calculator works
+
+The calculator works one company’s research and development tax offset under section 355-100 for an income year from 2021-22 to 2026-27. The offset is worked on the notional deductions, or, where they total less than $20,000, on the part paid to research service providers that are not associates and as CRC contributions. A company with aggregated turnover under $20 million that exempt entities do not control gets its corporate tax rate plus 18.5 percentage points, and the offset is refundable. Any other company gets its corporate tax rate plus a premium of 8.5% on the part up to 2% of its total expenses and 16.5% on the part above, and the offset is non-refundable. The corporate tax rate is 25% for a base rate entity and 30% otherwise. Notional deductions above $150 million get the corporate tax rate only.
+
+A clawback amount is the recoupment amount you enter plus the lesser of the feedstock revenue and the feedstock expenditure. Section 355-450 works the offset again on the notional deductions less the clawback amount, and takes the clawback amount at the corporate tax rate as the deduction amount. The offset less the adjusted offset and the deduction amount, divided by the corporate tax rate for the present year, is included in assessable income in that year. Each amount is worked exactly and rounded to the cent once.
+
+## What the R&D tax offset calculator does not cover
+
+The calculator does not decide whether activities are core or supporting R&D activities, whether they are registered with AusIndustry, whether the company is an R&D entity, or which expenditure it can deduct. You enter the notional deductions, total expenses, turnover, control and clawback amounts as established. It does not work out the recoupment amount itself, including the grant cap and repayments, balancing adjustment clawbacks or catch up deductions. It assumes no earlier clawback or catch up amount for the offset year, and covers only companies and income years starting on or after 1 July 2021. It refuses a clawback amount when the notional deductions, or the notional deductions less the clawback, are under $20,000, because the Act and the ATO’s example do not settle how the threshold applies then. It does not carry a non-refundable offset forward. Results are planning estimates: check them against your records and the ATO’s guidance.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: R&D tax offset calculator
+
+Case | Inputs | Result
+The ATO’s Company V: a $2.3 million grant on $3.6 million, non-refundable $1,650,000, $1,265,000 included | 2021-22; notional deductions $3,600,000.00, aggregated turnover $60,000,000.00, not a base rate entity, total expenses $15,000,000.00; recoupment clawback $2,300,000.00, not a base rate entity in the present year | R&D tax offset $1,650,000.00, non-refundable $1,650,000.00, included in assessable income $1,265,000.00
+The ATO’s Company F: $1 million at 43.5% refundable, $500,000 reimbursed, $370,000 included | 2022-23; notional deductions $1,000,000.00, aggregated turnover $10,000,000.00, a base rate entity, total expenses $0.00; recoupment clawback $500,000.00, a base rate entity in the present year | R&D tax offset $435,000.00, refundable $435,000.00, included in assessable income $370,000.00
+The ATO’s Company Q: a $9,000 capped grant on $100,000, $6,660 included | 2024-25; notional deductions $100,000.00, aggregated turnover $10,000,000.00, a base rate entity, total expenses $0.00; recoupment clawback $9,000.00, a base rate entity in the present year | R&D tax offset $43,500.00, refundable $43,500.00, included in assessable income $6,660.00
+Feedstock: the lesser of $9,000 revenue and $10,000 expenditure is clawed back on $122,000 | 2024-25; notional deductions $122,000.00, aggregated turnover $10,000,000.00, a base rate entity, total expenses $0.00; feedstock revenue $9,000.00 and expenditure $10,000.00, a base rate entity in the present year | R&D tax offset $53,070.00, refundable $53,070.00, included in assessable income $6,660.00
+Non-refundable above the $150 million cap: base, both tiers and the excess at 30% (schedule Part E) | 2025-26; notional deductions $200,000,000.00, aggregated turnover $500,000,000.00, not a base rate entity, total expenses $2,000,000,000.00 | R&D tax offset $81,550,000.00, non-refundable $81,550,000.00
+Refundable above the cap: the $10 million excess at 25% only | 2025-26; notional deductions $160,000,000.00, aggregated turnover $19,000,000.00, a base rate entity, total expenses $0.00 | R&D tax offset $67,750,000.00, refundable $67,750,000.00
+Under $20,000: only the $12,000 of research service provider and CRC expenditure counts | 2025-26; notional deductions $15,000.00, research service provider and CRC expenditure $12,000.00, aggregated turnover $1,000,000.00, a base rate entity, total expenses $0.00 | R&D tax offset $5,220.00, refundable $5,220.00
+Turnover of exactly $20 million: non-refundable with the premium tiers | 2024-25; notional deductions $100,000.00, aggregated turnover $20,000,000.00, a base rate entity, total expenses $1,000,000.00 | R&D tax offset $39,900.00, non-refundable $39,900.00
+Exempt entity control under $20 million turnover: non-refundable | 2024-25; notional deductions $100,000.00, aggregated turnover $5,000,000.00, controlled by exempt entities, a base rate entity, total expenses $10,000,000.00 | R&D tax offset $33,500.00, non-refundable $33,500.00
+The ATO’s Landscape Supplies: a clawback leaving $13,000 is refused | 2024-25; notional deductions $22,000.00, aggregated turnover $10,000,000.00, a base rate entity, total expenses $0.00; feedstock revenue $9,000.00 and expenditure $10,000.00, a base rate entity in the present year | Refused: with a clawback amount, the notional deductions or the adjusted total is under $20,000: section 355-100(2) then limits the adjusted offset to research service provider and CRC expenditure, but neither section 355-450 nor the ATO says how the clawback reduces that expenditure, and the ATO’s feedstock example applies the full rate below $20,000; this calculator does not choose between them
+2020-21 is refused: the earlier rates and clawback rules | 2020-21; notional deductions $100,000.00, aggregated turnover $10,000,000.00, a base rate entity, total expenses $0.00 | Refused: choose an income year from 2021-22 to 2026-27. Income years starting before 1 July 2021 used the earlier R&D offset rates, cap and clawback rules, replaced by Act No. 92 of 2020 (Sch 4 item 14, Sch 5 item 56(3)); this calculator does not hold them
+
+One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
 # Company owner salary vs dividends calculator, 2021-22 to 2026-27
 
 Source: https://duguid.com.au/tools/business-calculators/salary-dividend/
@@ -441,110 +522,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - section 14: https://www.legislation.gov.au/F2015L01854/2025-11-01/2025-11-01/text/original/epub/OEBPS/document_1/document_1.html
 - transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
-- fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# ASIC fees 2026-27 and late fee calculator
-
-Source: https://duguid.com.au/tools/business-calculators/asic-fees/
-
-> ASIC’s fees from 1 July 2026 for company registration, name reservation, annual reviews and business names, and the $102 or $428 late fee tier.
-
-# ASIC fees calculator
-
-ASIC’s 2026-27 fees and late fee tiers.
-
-Published 22 November 2026. Last checked 22 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-ASIC fee and late fee tier for 2026-27
-
-FeeRegister a company with share capital Register a company without share capital Reserve a company name, or extend a reservation Annual review fee, proprietary company (not special purpose) Annual review fee, public company (not special purpose or a small transferring financial institution) Annual review fee, special purpose proprietary company Annual review fee, special purpose company that is not proprietary Register or renew a business name for 1 year Register or renew a business name for 3 years Late payment of an annual review fee Late lodgement of a document Late fees only: the due date Late fees only: the day ASIC received the payment or document
-
-Enter the due date from ASIC’s invoice or statement, or, for a document, the last day of the time allowed to lodge it, and the day ASIC received the payment or document, both from 1 July 2026 to 30 June 2027. The calculator does not work the due date out from a review date or move it for a weekend or holiday.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Thursday 15 October 2026. Last day of the first month after the due date Thursday 15 October 2026 Late fee tier Late, within one month after the due date Late fee, no GST $102.00 ASIC code LPF1_ETM; Corporations (Review Fees) Regulations 2003, Schedule 1 Part 3 items 1 and 2. A late fee is on top of the fee itself. Public holidays are not checked: if the due date or the last day of the first month is one where you pay or lodge, check ASIC’s invoice.
-
-## ASIC fees from 1 July 2026
-
-ASIC’s standard fees from 1 July 2026 are listed below as ASIC’s fee data and INFO 30 gave them on 22 November 2026. GST does not apply to ASIC fees.
-
-ASIC fees from 1 July 2026 (AUD, no GST)
-
-Fee | ASIC code | Amount | Imposed by
-Register a company with share capital | I02 | $636 | Corporations (Fees) Regulations 2001, Schedule 1 item 1(a)(i)
-Register a company without share capital | I01 | $524 | Schedule 1 item 1(a)(ii)
-Reserve a company name, or extend a reservation | R01 | $65 | Schedule 2 item 8
-Annual review fee, proprietary company (not a special purpose company) | A52 | $342 | Corporations (Review Fees) Regulations 2003, Schedule 1 Part 1 item 2
-Annual review fee, public company (not a special purpose company or small transferring financial institution) | A51 | $1,591 | Schedule 1 Part 1 item 1
-Annual review fee, special purpose company that is a proprietary company | A58 | $70 | Schedule 1 Part 1 item 5
-Annual review fee, special purpose company that is not a proprietary company | A53 | $65 | Schedule 1 Part 1 item 4
-Late payment of a review fee, within one month after the due date | LPF1_ETM | $102 | Schedule 1 Part 3 item 1
-Late payment of a review fee, more than one month after the due date | LPF2_ETM | $428 | Schedule 1 Part 3 item 2
-Late lodgement, within one month after the prescribed time | LPF1_ETM | $102 | Corporations (Fees) Regulations 2001, Schedule 2 item 14(a)
-Late lodgement, more than one month after the prescribed time | LPF2_ETM | $428 | Schedule 2 item 14(b)
-Register or renew a business name for 1 year | BZA, BZC | $47 | Business Names Registration (Fees) Regulations 2022, section 6 items 1 and 2
-Register or renew a business name for 3 years | BZB, BZD | $108 | Section 6 items 3 and 4
-
-The regulations state base amounts, and ASIC raises some of them each 1 July in line with the Consumer Price Index; the table gives ASIC’s indexed amounts. A special purpose company is defined in regulation 3 of the review fees regulations; it includes a company whose constitution prohibits distributions to its members and whose sole purpose is to act as trustee of a regulated superannuation fund. A company in liquidation and an entity registered with the Australian Charities and Not-for-profits Commission pay no review fee (Schedule 1 Part 1 items 10 and 11).
-
-## How the ASIC fees calculator works
-
-For a standard fee, the calculator returns ASIC’s 2026-27 amount. For a late fee, it compares the day ASIC received the payment or document with the due date you enter, as INFO 30 sets the tiers by the day ASIC receives them. A payment or document received on or before the due date is not late. A review fee paid after its due date but within one month after it costs $102, and later $428 (Schedule 1 Part 3 of the review fees regulations); a document lodged late attracts the same 2 amounts (Schedule 2 item 14 of the fees regulations). A late fee is on top of the fee itself, and ASIC can charge more than one late fee when several obligations are missed.
-
-The one month begins the day after the due date, which is not counted (item 6 of subsection 36(1) of the Acts Interpretation Act 1901). Under subsection 2G(1), a month runs to just before the same day of the next calendar month, or to the end of that month when it has no such day. A fee due on Tuesday 15 September 2026 is within one month if received by Thursday 15 October; one due on Monday 30 November 2026 is within one month if received by Thursday 31 December, because that month starts on 1 December.
-
-## What the ASIC fees calculator does not cover
-
-The calculator does not work out a due date. An annual review fee is due 2 months after the review date (subsection 1351(3) of the Corporations Act 2001), a review date can change, and a document’s lodgement period depends on the document, so you enter the due date shown by ASIC or the form’s rules. When a deadline falls on a weekend or public holiday, subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may allow the next business day. The calculator does not apply that. When the due date or the last day of the first month is a Saturday or Sunday, it declines to give a tier for a received date that such a move could change, up to the following Wednesday and, after a weekend due date, the end of the month that would follow the moved date. It does not check public holidays.
-
-Not covered: due dates and received dates before 1 July 2026 or after 30 June 2027, including a fee due in one financial year and received in the next, because the sources read do not settle which year’s indexed amount applies; upfront review fees; deregistration and the review fee exceptions in subsection 1351(4); registered schemes, notified foreign passport funds, small transferring financial institutions and CCIVs; registered Australian bodies and foreign companies; credit licensee late fees; fee waivers and reviews of a late fee; and the industry funding levy. Check the amount against ASIC’s invoice before you pay.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: ASIC fees calculator
-
-Case | Inputs | Result
-Received exactly one month after the due date: $102 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Thursday 15 October 2026 | First month ends Thursday 15 October 2026, within one month, fee $102.00
-Received on the due date: not late | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Tuesday 15 September 2026 | Not late, fee $0.00
-Received the day after the due date: $102 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Wednesday 16 September 2026 | First month ends Thursday 15 October 2026, within one month, fee $102.00
-Received the day after the first month: $428 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Friday 16 October 2026 | First month ends Thursday 15 October 2026, more than one month, fee $428.00
-Due on a month’s last day: the month runs to 31 December, s 2G(1)(b)(i) | Late lodgement of a document, due Monday 30 November 2026, document received by ASIC Thursday 31 December 2026 | First month ends Thursday 31 December 2026, within one month, fee $102.00
-Due on a month’s last day, received the day after the month: $428 | Late lodgement of a document, due Monday 30 November 2026, document received by ASIC Friday 1 January 2027 | First month ends Thursday 31 December 2026, more than one month, fee $428.00
-No 31 November: the month ends on 30 November, s 2G(1)(b)(ii) | Late payment of an annual review fee, due Friday 30 October 2026, payment received by ASIC Monday 30 November 2026 | First month ends Monday 30 November 2026, within one month, fee $102.00
-No 31 November, received on 1 December: $428 | Late payment of an annual review fee, due Friday 30 October 2026, payment received by ASIC Tuesday 1 December 2026 | First month ends Monday 30 November 2026, more than one month, fee $428.00
-No 30 February: the month ends on 28 February 2027 | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Sunday 28 February 2027 | First month ends Sunday 28 February 2027, within one month, fee $102.00
-A first month ending on a Sunday, received on the Monday: refused | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Monday 1 March 2027 | Refused: the first month after the due date ends on a Saturday or Sunday: subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may extend it; this page does not decide that. Check ASIC’s invoice
-A first month ending on a Sunday, received on the Thursday: $428 | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Thursday 4 March 2027 | First month ends Sunday 28 February 2027, more than one month, fee $428.00
-A due date on a Saturday, received on the Monday: refused | Late payment of an annual review fee, due Saturday 15 August 2026, payment received by ASIC Monday 17 August 2026 | Refused: the due date is a Saturday or Sunday, so subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may move it; this page does not decide that. Check ASIC’s invoice
-A due date on a Saturday, received on the Thursday: $102 | Late payment of an annual review fee, due Saturday 15 August 2026, payment received by ASIC Thursday 20 August 2026 | First month ends Tuesday 15 September 2026, within one month, fee $102.00
-A Saturday due date that may move to Wednesday 3 March, received on 1 April: refused | Late payment of an annual review fee, due Saturday 27 February 2027, payment received by ASIC Thursday 1 April 2027 | Refused: the due date is a Saturday or Sunday, so the first month after it may end later: subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may extend it; this page does not decide that. Check ASIC’s invoice
-The same due date, received on 8 April: $428 | Late payment of an annual review fee, due Saturday 27 February 2027, payment received by ASIC Thursday 8 April 2027 | First month ends Saturday 27 March 2027, more than one month, fee $428.00
-Due in 2025-26, received on 2 July 2026: refused, the year’s amount is not settled | Late payment of an annual review fee, due Monday 15 June 2026, payment received by ASIC Thursday 2 July 2026 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
-Received on 30 June 2026: refused, before 2026-27 | Late lodgement of a document, due Monday 15 June 2026, document received by ASIC Tuesday 30 June 2026 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
-Received on 30 June 2027: $102 | Late lodgement of a document, due Tuesday 15 June 2027, document received by ASIC Wednesday 30 June 2027 | First month ends Thursday 15 July 2027, within one month, fee $102.00
-Received on 1 July 2027: refused, after 2026-27 | Late lodgement of a document, due Tuesday 15 June 2027, document received by ASIC Thursday 1 July 2027 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
-Received the day before the due date: not late | Late lodgement of a document, due Tuesday 15 September 2026, document received by ASIC Monday 14 September 2026 | Not late, fee $0.00
-ASIC code I02 | Register a company with share capital | Fee $636.00, ASIC code I02
-ASIC code I01 | Register a company without share capital | Fee $524.00, ASIC code I01
-ASIC code R01 | Reserve a company name, or extend a reservation | Fee $65.00, ASIC code R01
-ASIC code A52 | Annual review fee, proprietary company (not a special purpose company) | Fee $342.00, ASIC code A52
-ASIC code A51 | Annual review fee, public company (not a special purpose company or small transferring financial institution) | Fee $1,591.00, ASIC code A51
-ASIC code A58 | Annual review fee, special purpose company that is a proprietary company | Fee $70.00, ASIC code A58
-ASIC code A53 | Annual review fee, special purpose company that is not a proprietary company | Fee $65.00, ASIC code A53
-ASIC code BZA or BZC | Register or renew a business name for 1 year | Fee $47.00, ASIC code BZA or BZC
-ASIC code BZB or BZD | Register or renew a business name for 3 years | Fee $108.00, ASIC code BZB or BZD
-
-One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/

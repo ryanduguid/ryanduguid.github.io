@@ -1,0 +1,78 @@
+# R&D tax offset calculator: refundable, tiers and clawback
+
+Source: https://duguid.com.au/tools/business-calculators/rd-tax-offset/
+
+> A company’s R&D tax offset, refundable at 43.5% or 48.5% or non-refundable with the 8.5% and 16.5% premium tiers, and the clawback of grants and feedstock.
+
+# R&D tax offset calculator
+
+The R&D tax incentive offset and its clawback, 2021-22 to 2026-27.
+
+Published 23 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One company’s R&D tax offset for an income year
+
+Notional R&D deductions for the year (AUD)
+
+Income year (the offset year) 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22
+
+Of those, expenditure to research service providers that are not associates and CRC contributions (AUD) Aggregated turnover for the year (AUD)
+
+Exempt entities control the company (section 355-100(1) item 2) No Yes
+
+A base rate entity for the year, taxed at 25% No, 30% Yes, 25%
+
+Total expenses for the year (section 355-115) (AUD)
+
+Clawback attributable to the offset year (enter 0 for none)
+
+Recoupment clawback amount (section 355-440) (AUD) Feedstock revenue (section 355-445(4)) (AUD) Feedstock expenditure taken into this year’s offset (section 355-445(2)(b)) (AUD)
+
+A base rate entity in the present year, when the clawback arises No, 30% Yes, 25%
+
+Calculate
+
+Enter the amounts as established for the company. Notional deductions are those under sections 355-205, 355-305, 355-480, 355-520 and 355-580. Below $20,000 of notional deductions, only expenditure to research service providers and CRC contributions counts (section 355-100(2)).
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2021-22; notional deductions $3,600,000.00, aggregated turnover $60,000,000.00, not a base rate entity, total expenses $15,000,000.00; recoupment clawback $2,300,000.00, not a base rate entity in the present year. Offset base: the notional deductions $3,600,000.00 At 30%, the corporate tax rate, up to $150 million $1,080,000.00 Premium of 8.5% on the part up to 2% of total expenses $25,500.00 Premium of 16.5% on the part above 2% of total expenses $544,500.00 R& D tax offset, non-refundable $1,650,000.00 Clawback amount $2,300,000.00 Adjusted offset, on the notional deductions less the clawback amount $580,500.00 Deduction amount, the clawback amount at 30% $690,000.00 Included in assessable income in the present year, over 30% $1,265,000.00 Turnover of $20 million or more, or exempt entity control: a non-refundable offset, which may be carried forward (Division 65).
+
+## How the R&D tax offset calculator works
+
+The calculator works one company’s research and development tax offset under section 355-100 for an income year from 2021-22 to 2026-27. The offset is worked on the notional deductions, or, where they total less than $20,000, on the part paid to research service providers that are not associates and as CRC contributions. A company with aggregated turnover under $20 million that exempt entities do not control gets its corporate tax rate plus 18.5 percentage points, and the offset is refundable. Any other company gets its corporate tax rate plus a premium of 8.5% on the part up to 2% of its total expenses and 16.5% on the part above, and the offset is non-refundable. The corporate tax rate is 25% for a base rate entity and 30% otherwise. Notional deductions above $150 million get the corporate tax rate only.
+
+A clawback amount is the recoupment amount you enter plus the lesser of the feedstock revenue and the feedstock expenditure. Section 355-450 works the offset again on the notional deductions less the clawback amount, and takes the clawback amount at the corporate tax rate as the deduction amount. The offset less the adjusted offset and the deduction amount, divided by the corporate tax rate for the present year, is included in assessable income in that year. Each amount is worked exactly and rounded to the cent once.
+
+## What the R&D tax offset calculator does not cover
+
+The calculator does not decide whether activities are core or supporting R&D activities, whether they are registered with AusIndustry, whether the company is an R&D entity, or which expenditure it can deduct. You enter the notional deductions, total expenses, turnover, control and clawback amounts as established. It does not work out the recoupment amount itself, including the grant cap and repayments, balancing adjustment clawbacks or catch up deductions. It assumes no earlier clawback or catch up amount for the offset year, and covers only companies and income years starting on or after 1 July 2021. It refuses a clawback amount when the notional deductions, or the notional deductions less the clawback, are under $20,000, because the Act and the ATO’s example do not settle how the threshold applies then. It does not carry a non-refundable offset forward. Results are planning estimates: check them against your records and the ATO’s guidance.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: R&D tax offset calculator
+
+Case | Inputs | Result
+The ATO’s Company V: a $2.3 million grant on $3.6 million, non-refundable $1,650,000, $1,265,000 included | 2021-22; notional deductions $3,600,000.00, aggregated turnover $60,000,000.00, not a base rate entity, total expenses $15,000,000.00; recoupment clawback $2,300,000.00, not a base rate entity in the present year | R&D tax offset $1,650,000.00, non-refundable $1,650,000.00, included in assessable income $1,265,000.00
+The ATO’s Company F: $1 million at 43.5% refundable, $500,000 reimbursed, $370,000 included | 2022-23; notional deductions $1,000,000.00, aggregated turnover $10,000,000.00, a base rate entity, total expenses $0.00; recoupment clawback $500,000.00, a base rate entity in the present year | R&D tax offset $435,000.00, refundable $435,000.00, included in assessable income $370,000.00
+The ATO’s Company Q: a $9,000 capped grant on $100,000, $6,660 included | 2024-25; notional deductions $100,000.00, aggregated turnover $10,000,000.00, a base rate entity, total expenses $0.00; recoupment clawback $9,000.00, a base rate entity in the present year | R&D tax offset $43,500.00, refundable $43,500.00, included in assessable income $6,660.00
+Feedstock: the lesser of $9,000 revenue and $10,000 expenditure is clawed back on $122,000 | 2024-25; notional deductions $122,000.00, aggregated turnover $10,000,000.00, a base rate entity, total expenses $0.00; feedstock revenue $9,000.00 and expenditure $10,000.00, a base rate entity in the present year | R&D tax offset $53,070.00, refundable $53,070.00, included in assessable income $6,660.00
+Non-refundable above the $150 million cap: base, both tiers and the excess at 30% (schedule Part E) | 2025-26; notional deductions $200,000,000.00, aggregated turnover $500,000,000.00, not a base rate entity, total expenses $2,000,000,000.00 | R&D tax offset $81,550,000.00, non-refundable $81,550,000.00
+Refundable above the cap: the $10 million excess at 25% only | 2025-26; notional deductions $160,000,000.00, aggregated turnover $19,000,000.00, a base rate entity, total expenses $0.00 | R&D tax offset $67,750,000.00, refundable $67,750,000.00
+Under $20,000: only the $12,000 of research service provider and CRC expenditure counts | 2025-26; notional deductions $15,000.00, research service provider and CRC expenditure $12,000.00, aggregated turnover $1,000,000.00, a base rate entity, total expenses $0.00 | R&D tax offset $5,220.00, refundable $5,220.00
+Turnover of exactly $20 million: non-refundable with the premium tiers | 2024-25; notional deductions $100,000.00, aggregated turnover $20,000,000.00, a base rate entity, total expenses $1,000,000.00 | R&D tax offset $39,900.00, non-refundable $39,900.00
+Exempt entity control under $20 million turnover: non-refundable | 2024-25; notional deductions $100,000.00, aggregated turnover $5,000,000.00, controlled by exempt entities, a base rate entity, total expenses $10,000,000.00 | R&D tax offset $33,500.00, non-refundable $33,500.00
+The ATO’s Landscape Supplies: a clawback leaving $13,000 is refused | 2024-25; notional deductions $22,000.00, aggregated turnover $10,000,000.00, a base rate entity, total expenses $0.00; feedstock revenue $9,000.00 and expenditure $10,000.00, a base rate entity in the present year | Refused: with a clawback amount, the notional deductions or the adjusted total is under $20,000: section 355-100(2) then limits the adjusted offset to research service provider and CRC expenditure, but neither section 355-450 nor the ATO says how the clawback reduces that expenditure, and the ATO’s feedstock example applies the full rate below $20,000; this calculator does not choose between them
+2020-21 is refused: the earlier rates and clawback rules | 2020-21; notional deductions $100,000.00, aggregated turnover $10,000,000.00, a base rate entity, total expenses $0.00 | Refused: choose an income year from 2021-22 to 2026-27. Income years starting before 1 July 2021 used the earlier R&D offset rates, cap and clawback rules, replaced by Act No. 92 of 2020 (Sch 4 item 14, Sch 5 item 56(3)); this calculator does not hold them
+
+One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- fifty-four business calculators: https://duguid.com.au/tools/business-calculators/

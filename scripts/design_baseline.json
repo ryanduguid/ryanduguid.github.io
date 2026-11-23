@@ -254,6 +254,9 @@
     "tools/business-calculators/psi-determination/index.html": [
       "bf990b5cb178852bf874916d90e3aee297a665284853f4ce7f06e785f09acc63"
     ],
+    "tools/business-calculators/rd-tax-offset/index.html": [
+      "8b593f24ee34fe2c824615df3876f4573b99ccd2b199803806098571f8bdd851"
+    ],
     "tools/business-calculators/rental-property/index.html": [
       "e93fc40c23d0a1875c6b01c7f533ff159614a834ec6ffd549e3a31d49ffcb72a"
     ],
@@ -412,9 +415,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "f910fdd02224145829c59c6499a482e3f8077f6d122adcbb8502de44de80abd2",
+    "llms.txt": "5580fe425ded61f1c0e9312d01856325187cbce7c6317f0c30119e85ec280db1",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "7c4164f941e2308617de3e3a5160e8ad392685c8239f969ebbb76756ac2123a6"
+    "sitemap.xml": "ae30906b884288ad3502f564564b2774d95884546fbd9d756e188552faa33ef5"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -474,7 +477,7 @@
     "rates/super-guarantee/index.html": "65a7c25c829e26f19de89315eaf770cd46a89b973a280dea81d6e000acb8b63b"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7806,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7807,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
