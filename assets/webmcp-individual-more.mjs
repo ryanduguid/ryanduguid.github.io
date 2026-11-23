@@ -230,17 +230,17 @@ export function fhssTool(kit, fhss) {
       mode: choice(['stated', 'estimate'], '"stated" for amounts from an ATO determination, or "estimate" for a contribution ledger estimate.'),
       scopeConfirmed: { type: 'boolean', description: 'true to confirm eligible Australian tax resident, eligible accumulation funds and single release; false refuses.' },
       determinationDate: text('date', 'Determination date as YYYY-MM-DD, on or after 2018-07-01 (and through 2026-12-31 for estimate mode).'),
-      concessional: text('largeAmount', 'Stated mode: concessional component on the ATO determination (already reduced to 85%), in AUD.'),
-      nonConcessional: text('largeAmount', 'Stated mode: non-concessional component on the ATO determination, in AUD.'),
-      associatedEarnings: text('largeAmount', 'Stated mode: associated earnings on the ATO determination, in AUD.'),
-      actualRelease: text('largeAmount', 'Stated mode: optional actual gross release before withholding and debt offsets, in AUD (requires releaseRequestDate).'),
+      concessional: text('cost', 'Stated mode: concessional component on the ATO determination (already reduced to 85%), in AUD.'),
+      nonConcessional: text('cost', 'Stated mode: non-concessional component on the ATO determination, in AUD.'),
+      associatedEarnings: text('cost', 'Stated mode: associated earnings on the ATO determination, in AUD.'),
+      actualRelease: text('cost', 'Stated mode: optional actual gross release before withholding and debt offsets, in AUD (requires releaseRequestDate).'),
       determinationRequested: text('date', 'Estimate mode: determination request date as YYYY-MM-DD, from 2018-07-01 to determinationDate.'),
       contributions: {
         type: 'array', maxItems: 10000,
         description: 'Estimate mode: 1 to 10,000 eligible voluntary contributions from 2017-07-01 to determinationDate.',
         items: record({
           date: text('date', 'Contribution date as YYYY-MM-DD.'),
-          amount: text('largeAmount', 'Contribution amount above zero in AUD with at most 2 decimal places.'),
+          amount: text('cost', 'Contribution amount above zero in AUD with at most 2 decimal places.'),
           kind: choice(['personal', 'employer_voluntary'], '"personal" or "employer_voluntary" (salary sacrifice).'),
         }, ['date', 'amount', 'kind']),
       },
@@ -249,21 +249,22 @@ export function fhssTool(kit, fhss) {
         description: 'Estimate mode: optional personal deductions claimed for personal contributions, at most one per financial year.',
         items: record({
           financialYear: choice(FHSS_DEDUCTION_YEARS, 'Income year of the personal deduction, 2017-18 to 2026-27.'),
-          amount: text('largeAmount', 'Personal deduction amount in AUD with at most 2 decimal places.'),
+          amount: text('cost', 'Personal deduction amount in AUD with at most 2 decimal places.'),
         }, ['financialYear', 'amount']),
       },
-      requestedAmount: text('largeAmount', 'Optional amount requested for release in AUD; defaults to maximum release amount.'),
+      requestedAmount: text('cost', 'Optional amount requested for release in AUD; defaults to maximum release amount.'),
       releaseRequestDate: text('date', 'Optional release request date as YYYY-MM-DD, on or after determinationDate.'),
       withholdingBasis: choice(['marginal', 'unable', 'supplied_estimate', 'actual', 'unknown'],
         'PAYG withholding basis: "marginal" (marginal rate + 2% Medicare levy - 30% offset), "unable" (17%), "supplied_estimate", "actual" or "unknown".'),
-      marginalPercent: text('marginalPercent', 'Required for withholdingBasis "marginal": estimated marginal tax rate from 0 to 45 per cent, for example "30".'),
-      withholdingAmount: text('largeAmount', 'Required for withholdingBasis "supplied_estimate" or "actual": amount withheld in AUD.'),
-      debtOffset: text('largeAmount', 'Optional Commonwealth debt offset in AUD; omit if unknown.'),
+      marginalPercent: text('percent', 'Required for withholdingBasis "marginal": estimated marginal tax rate from 0 to 45 per cent, for example "30".'),
+      withholdingAmount: text('cost', 'Required for withholdingBasis "supplied_estimate" or "actual": amount withheld in AUD.'),
+      debtOffset: text('cost', 'Optional Commonwealth debt offset in AUD; omit if unknown.'),
       transition: choice(['ordinary', 'item30'], 'Optional transitional rule for determinations before 2024-09-15: "ordinary" or "item30".'),
     }, ['mode', 'scopeConfirmed', 'determinationDate', 'withholdingBasis']),
     run(input) {
       const forbidden = input.mode === 'stated' ? FHSS_ESTIMATE_FIELDS : FHSS_STATED_FIELDS;
-      const wrong = forbidden.find((key) => input[key] !== undefined);
+      const supplied = new Map(Object.entries(input));
+      const wrong = forbidden.find((key) => supplied.get(key) !== undefined);
       if (wrong) throw new Error(`${wrong} applies only when mode is "${input.mode === 'stated' ? 'estimate' : 'stated'}".`);
       if (input.marginalPercent !== undefined && input.withholdingBasis !== 'marginal') {
         throw new Error('marginalPercent applies only when withholdingBasis is "marginal".');
@@ -323,30 +324,34 @@ const WORK_EXPENSE_FIELDS = /** @type {const} */ ([
 const HOME_EXPENSE_DEFAULTS = ['energy', 'phone', 'internet', 'stationery', 'cleaning', 'furniture_decline', 'asset_decline', 'repairs'];
 const EDUCATION_CATEGORY_DEFAULTS = ['category_a', 'category_b', 'category_c', 'category_d'];
 
-const WORK_EXPENSE_DEFAULTS = /** @type {Record<string, string[]>} */ ({
-  home_office: HOME_EXPENSE_DEFAULTS,
-  self_education: EDUCATION_CATEGORY_DEFAULTS,
-});
+const WORK_EXPENSE_DEFAULTS = new Map([
+  ['home_office', HOME_EXPENSE_DEFAULTS],
+  ['self_education', EDUCATION_CATEGORY_DEFAULTS],
+]);
 
 /**
  * @param {Record<string, any>} input
  * @returns {import('./work-expenses.mjs').WorkExpensesFacts}
  */
 function workExpensesFacts(input) {
-  /** @type {import('./work-expenses.mjs').WorkExpensesFacts} */
-  const facts = {
-    method: input.method, year: input.incomeYear, scope_confirmed: input.scopeConfirmed,
-    reimbursed: input.reimbursed ?? false, allowance_received: input.allowanceReceived ?? false,
-  };
+  const supplied = new Map(Object.entries(input));
+  /** @type {Map<string, unknown>} */
+  const out = new Map([
+    ['method', input.method], ['year', input.incomeYear], ['scope_confirmed', input.scopeConfirmed],
+    ['reimbursed', input.reimbursed ?? false], ['allowance_received', input.allowanceReceived ?? false],
+  ]);
   for (const [prop, key] of WORK_EXPENSE_FIELDS) {
-    if (input[prop] !== undefined) facts[key] = input[prop];
+    const value = supplied.get(prop);
+    if (value !== undefined) out.set(key, value);
   }
-  if (input.logBookWeeks !== undefined) facts.log_book_weeks = String(input.logBookWeeks);
-  for (const key of WORK_EXPENSE_DEFAULTS[input.method] ?? []) facts[key] ??= '0';
+  if (input.logBookWeeks !== undefined) out.set('log_book_weeks', String(input.logBookWeeks));
+  for (const key of WORK_EXPENSE_DEFAULTS.get(input.method) ?? []) {
+    if (out.get(key) === undefined) out.set(key, '0');
+  }
   if (input.method === 'self_education' && ['2020-21', '2021-22'].includes(input.incomeYear) && input.prescribedCourse === true) {
-    facts.category_e ??= '0';
+    if (out.get('category_e') === undefined) out.set('category_e', '0');
   }
-  return facts;
+  return /** @type {import('./work-expenses.mjs').WorkExpensesFacts} */ (Object.fromEntries(out));
 }
 
 /** @param {ReturnType<typeof import('./work-expenses.mjs').workExpenses>} r @param {string} source */
@@ -390,31 +395,31 @@ export function workExpensesTool(kit, workExpenses, workExpensesYears) {
       hours: text('amount', 'home_office: recorded hours worked from home (up to 2 decimal places).'),
       runningExpensesIncurred: { type: 'boolean', description: 'home_office: true when additional running expenses were incurred from working from home.' },
       dedicatedHomeOffice: { type: 'boolean', description: 'home_office, 2020-21 and 2021-22 only: true when there was a dedicated home office.' },
-      energy: text('largeAmount', 'home_office: work-related electricity and gas in AUD; "0" when omitted.'),
-      phone: text('largeAmount', 'home_office: work-related mobile and home phone in AUD; "0" when omitted.'),
-      internet: text('largeAmount', 'home_office: work-related internet in AUD; "0" when omitted.'),
-      stationery: text('largeAmount', 'home_office: work-related stationery and consumables in AUD; "0" when omitted.'),
-      cleaning: text('largeAmount', 'home_office: work-related cleaning in AUD; "0" when omitted.'),
-      furnitureDecline: text('largeAmount', 'home_office: work-related decline in value of home office furniture in AUD; "0" when omitted.'),
-      assetDecline: text('largeAmount', 'home_office: work-related decline in value of other assets in AUD; "0" when omitted.'),
-      repairs: text('largeAmount', 'home_office: work-related repairs to those assets in AUD; "0" when omitted.'),
+      energy: text('cost', 'home_office: work-related electricity and gas in AUD; "0" when omitted.'),
+      phone: text('cost', 'home_office: work-related mobile and home phone in AUD; "0" when omitted.'),
+      internet: text('cost', 'home_office: work-related internet in AUD; "0" when omitted.'),
+      stationery: text('cost', 'home_office: work-related stationery and consumables in AUD; "0" when omitted.'),
+      cleaning: text('cost', 'home_office: work-related cleaning in AUD; "0" when omitted.'),
+      furnitureDecline: text('cost', 'home_office: work-related decline in value of home office furniture in AUD; "0" when omitted.'),
+      assetDecline: text('cost', 'home_office: work-related decline in value of other assets in AUD; "0" when omitted.'),
+      repairs: text('cost', 'home_office: work-related repairs to those assets in AUD; "0" when omitted.'),
       ownedOrLeased: { type: 'boolean', description: 'car_cents_per_kilometre or car_log_book: true when the car was owned or leased; false refuses.' },
-      businessKilometres: text('largeAmount', 'car_cents_per_kilometre or car_log_book: business kilometres in the year (up to 2 decimal places).'),
-      totalKilometres: text('largeAmount', 'car_log_book: total kilometres in the year (up to 2 decimal places).'),
-      carExpenses: text('largeAmount', 'car_log_book: deductible car expenses including decline in value in AUD.'),
+      businessKilometres: text('cost', 'car_cents_per_kilometre or car_log_book: business kilometres in the year (up to 2 decimal places).'),
+      totalKilometres: text('cost', 'car_log_book: total kilometres in the year (up to 2 decimal places).'),
+      carExpenses: text('cost', 'car_log_book: deductible car expenses including decline in value in AUD.'),
       logBookYear: text('incomeYear', 'car_log_book: income year the log book was kept as YYYY-YY, serving that year and the next 4.'),
       logBookWeeks: whole(12, 53, 'car_log_book: continuous whole weeks the log book covers, 12 to 53.'),
       logBookRepresentative: { type: 'boolean', description: 'car_log_book: true when the log book still represents the car\'s business use; false refuses.' },
       connection: choice(['maintains_or_improves_skills', 'increases_income', 'general_only', 'new_employment'],
         'self_education: how the study related to current employment when incurred.'),
       employedWhenIncurred: { type: 'boolean', description: 'self_education: true when employed at the time the expenses were incurred.' },
-      categoryA: text('largeAmount', 'self_education: Category A expenses (fees, books, stationery, fares, log book car costs other than decline in value) in AUD; "0" when omitted.'),
-      categoryB: text('largeAmount', 'self_education: Category B decline in value in AUD; "0" when omitted.'),
-      categoryC: text('largeAmount', 'self_education: Category C repairs in AUD; "0" when omitted.'),
-      categoryD: text('largeAmount', 'self_education: Category D cents per kilometre car expenses in AUD; "0" when omitted.'),
+      categoryA: text('cost', 'self_education: Category A expenses (fees, books, stationery, fares, log book car costs other than decline in value) in AUD; "0" when omitted.'),
+      categoryB: text('cost', 'self_education: Category B decline in value in AUD; "0" when omitted.'),
+      categoryC: text('cost', 'self_education: Category C repairs in AUD; "0" when omitted.'),
+      categoryD: text('cost', 'self_education: Category D cents per kilometre car expenses in AUD; "0" when omitted.'),
       logBookCarInCategoryA: { type: 'boolean', description: 'self_education: true when Category A includes log book car expenses (required when categoryD > 0).' },
       prescribedCourse: { type: 'boolean', description: 'self_education, 2020-21 and 2021-22 only: true for a prescribed course of education.' },
-      categoryE: text('largeAmount', 'self_education, 2020-21 and 2021-22 with prescribedCourse true only: non-deductible Category E expenses in AUD; "0" when omitted.'),
+      categoryE: text('cost', 'self_education, 2020-21 and 2021-22 with prescribedCourse true only: non-deductible Category E expenses in AUD; "0" when omitted.'),
     }, ['method', 'incomeYear', 'scopeConfirmed']),
     run(input) {
       const r = workExpenses(workExpensesFacts(input));
@@ -458,9 +463,9 @@ export function governmentSuperTool(kit, governmentSuperAmounts, governmentSuper
         'Residency status: only "full_year_resident" computes; other values refuse.'),
       temporaryVisaHeld: { type: 'boolean', description: 'true if a temporary visa was held at any time in the year (refused); false when omitted.' },
       ...incomeSchema,
-      eligibleIncome: text('largeAmount', 'Income from employment or carrying on a business before business deductions, in AUD.'),
-      personalContributions: text('largeAmount', 'Personal non-deducted super contributions received by the fund in the year, in AUD; "0" when omitted.'),
-      concessionalContributions: text('largeAmount', 'Concessional contributions (employer, salary sacrifice and deducted personal) for LISTO, in AUD; "0" when omitted.'),
+      eligibleIncome: text('cost', 'Income from employment or carrying on a business before business deductions, in AUD.'),
+      personalContributions: text('cost', 'Personal non-deducted super contributions received by the fund in the year, in AUD; "0" when omitted.'),
+      concessionalContributions: text('cost', 'Concessional contributions (employer, salary sacrifice and deducted personal) for LISTO, in AUD; "0" when omitted.'),
       returnLodged: { type: 'boolean', description: 'true when the tax return for the year is lodged.' },
       under71: { type: 'boolean', description: 'true when under age 71 at the end of the income year.' },
       nonConcessionalWithinCap: choice(['yes', 'no', 'unknown'],
@@ -468,20 +473,21 @@ export function governmentSuperTool(kit, governmentSuperAmounts, governmentSuper
       totalSuperBalanceBelowCap: choice(['yes', 'no', 'unknown'],
         'Whether total super balance on 30 June before the year was below the general transfer balance cap: "yes", "no" or "unknown" ("unknown" when omitted; refused if it decides co-contribution).'),
       spouse: record({
-        contributions: text('largeAmount', 'Non-deductible contributions made to the spouse\'s super fund in AUD.'),
-        assessableIncome: text('largeAmount', 'Spouse\'s assessable income in AUD.'),
-        assessableFhssReleasedAmount: text('largeAmount', 'Spouse\'s assessable FHSS released amount in AUD; "0" when omitted.'),
-        reportableFringeBenefitsTotal: text('largeAmount', 'Spouse\'s reportable fringe benefits total in AUD; "0" when omitted.'),
-        reportableEmployerSuperContributions: text('largeAmount', 'Spouse\'s reportable employer super contributions in AUD; "0" when omitted.'),
-        excessConcessionalContributions: text('largeAmount', 'Spouse\'s excess concessional contributions in AUD; "0" when omitted.'),
+        contributions: text('cost', 'Non-deductible contributions made to the spouse\'s super fund in AUD.'),
+        assessableIncome: text('cost', 'Spouse\'s assessable income in AUD.'),
+        assessableFhssReleasedAmount: text('cost', 'Spouse\'s assessable FHSS released amount in AUD; "0" when omitted.'),
+        reportableFringeBenefitsTotal: text('cost', 'Spouse\'s reportable fringe benefits total in AUD; "0" when omitted.'),
+        reportableEmployerSuperContributions: text('cost', 'Spouse\'s reportable employer super contributions in AUD; "0" when omitted.'),
+        excessConcessionalContributions: text('cost', 'Spouse\'s excess concessional contributions in AUD; "0" when omitted.'),
         nonConcessionalWithinCap: choice(['yes', 'no', 'unknown'], 'Whether the spouse\'s non-concessional contributions are within cap; "unknown" when omitted.'),
         totalSuperBalanceBelowCap: choice(['yes', 'no', 'unknown'], 'Whether the spouse\'s prior 30 June total super balance was below the general transfer balance cap; "unknown" when omitted.'),
       }, ['contributions', 'assessableIncome']),
     }, ['incomeYear', 'scopeConfirmed', 'residency', 'assessableIncome', 'taxableIncome', 'eligibleIncome', 'returnLodged', 'under71']),
     run(input) {
+      const supplied = new Map(Object.entries(input));
       /** @type {import('./government-super.mjs').GovernmentSuperFacts} */
       const facts = {
-        ...Object.fromEntries(Object.entries(GOV_SUPER_INCOME_KEYS).map(([prop, key]) => [key, String(input[prop] ?? 0)])),
+        ...Object.fromEntries(Object.entries(GOV_SUPER_INCOME_KEYS).map(([prop, key]) => [key, String(supplied.get(prop) ?? 0)])),
         year: input.incomeYear, scope_confirmed: input.scopeConfirmed, residency: input.residency,
         temporary_visa_held: input.temporaryVisaHeld ?? false, eligible_income: input.eligibleIncome,
         personal_contributions: input.personalContributions ?? '0', concessional_contributions: input.concessionalContributions ?? '0',

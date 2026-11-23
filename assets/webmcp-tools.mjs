@@ -28,8 +28,6 @@ const PATTERNS = {
   quantity: /^\d{1,12}(?:\.\d{1,4})?$/,
   consumption: /^\d{1,3}(?:\.\d{1,6})?$/,
   incomeYear: /^\d{4}-\d{2}$/,
-  largeAmount: /^\d{1,12}(?:\.\d{1,2})?$/,
-  marginalPercent: /^\d{1,2}(?:\.\d{1,12})?$/,
 };
 
 /**
