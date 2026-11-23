@@ -2301,7 +2301,13 @@ fn payg_oracle(quarter: &Quarter) -> Result<Instalment, &'static str> {
             }
             let amount = signed(share) - 4 * signed(net);
             let whole = |quarters: i128| u128::try_from(quarters.max(0)).unwrap() / 400;
-            Ok((amount / 4, whole(amount), whole(-amount), Some(share / 4), None))
+            Ok((
+                amount / 4,
+                whole(amount),
+                whole(-amount),
+                Some(share / 4),
+                None,
+            ))
         }
         _ => {
             let (rate, credit) = if quarter.method == "varied-rate" {
@@ -2311,7 +2317,8 @@ fn payg_oracle(quarter: &Quarter) -> Result<Instalment, &'static str> {
                 let rate = varied_rate(quarter.estimated_tax, quarter.estimated_income);
                 let credit = if rate < quarter.previous_rate {
                     // In 1/10,000 cent.
-                    (net_earlier()? * 10_000).saturating_sub(quarter.earlier_income * rate) / 1_000_000
+                    (net_earlier()? * 10_000).saturating_sub(quarter.earlier_income * rate)
+                        / 1_000_000
                 } else {
                     0
                 };
@@ -2320,7 +2327,13 @@ fn payg_oracle(quarter: &Quarter) -> Result<Instalment, &'static str> {
                 (quarter.rate, 0)
             };
             let amount = quarter.income * rate;
-            Ok((signed(amount / 10_000), amount / 1_000_000, credit, None, Some(rate)))
+            Ok((
+                signed(amount / 10_000),
+                amount / 1_000_000,
+                credit,
+                None,
+                Some(rate),
+            ))
         }
     }
 }
