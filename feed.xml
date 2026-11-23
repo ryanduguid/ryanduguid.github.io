@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-11-23T00:00:00Z</updated>
+  <updated>2026-11-24T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>Added the transfer balance and excess contributions calculator: a transfer…</title>
+    <link href="https://duguid.com.au/changelog/#entry-6c0eacc62d353961" />
+    <id>https://duguid.com.au/changelog/#entry-6c0eacc62d353961</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>Added the transfer balance and excess contributions calculator: a transfer balance account from its credits and debits, with the personal cap and proportional indexation, excess transfer balance earnings and tax, the excess concessional contributions charge for 2013-14 to 2020-21, and the release of excess non-concessional contributions. It agrees with the australian-accounting transfer-balance and excess-contributions commands on 585 test cases.</summary>
+  </entry>
   <entry>
     <title>Updated 2 accounting questions after the 23 November 2026 ATO source sweep…</title>
     <link href="https://duguid.com.au/changelog/#entry-9d9acf724da17ebe" />

@@ -261,6 +261,104 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
+# Transfer balance account and excess contributions calculator
+
+Source: https://duguid.com.au/tools/individual-tax/transfer-balance/
+
+> Work out your transfer balance account, personal transfer balance cap with proportional indexation, excess transfer balance earnings and tax, the excess concessional contributions charge, or the release of excess non-concessional contributions.
+
+# Transfer balance and excess contributions calculator
+
+Your transfer balance account, cap, excess and tax from 2017-18, and the charge or release for excess contributions.
+
+Published 24 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Your transfer balance account or excess contributions
+
+Work out The transfer balance account, its excess and the tax The excess concessional contributions charge, 2013-14 to 2020-21 The release of excess non-concessional contributions
+
+Credits and debits, from 1 July 2017
+
+Event 1 date
+
+Event 1 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
+
+Event 1 amount Event 2 date
+
+Event 2 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
+
+Event 2 amount Event 3 date
+
+Event 3 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
+
+Event 3 amount Event 4 date
+
+Event 4 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
+
+Event 4 amount Event 5 date
+
+Event 5 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
+
+Event 5 amount Work the account to the end of
+
+Liable for excess transfer balance tax for an earlier period starting on or after 1 July 2018 No Yes
+
+Leave a row blank to skip it. The account starts with your first income stream credit; an income stream you held just before 1 July 2017 is credited on 1 July 2017 at its value then. The last day sets the income year, 2017-18 to 2026-27.
+
+Calculate
+
+Each figure estimates what the ATO’s determination or assessment would state. The calculator takes no determination, commutation authority or notice of the Commissioner’s.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2019-20; 3 events to 31 December 2019. Transfer balance at the end of 31 December 2019 $1,610,176.42 Personal transfer balance cap $1,600,000.00 Cap space $0.00 Excess transfer balance $10,176.42 Excess transfer balance earnings $178.65 Excess transfer balance tax $26.80 In excess at the end of 31 December 2019: earnings keep accruing until the excess is removed; an estimate: the ATO’s determination may differ by cents, and it stops the earnings from its date.
+
+## How the transfer balance calculator works
+
+Your transfer balance account starts when you first become the recipient of a retirement phase income stream, on 1 July 2017 at the earliest. A new income stream credits its value on the day it starts, and a limited recourse borrowing repayment credits the increase in value. A commutation, a fraud or bankruptcy loss, a family law payment split or an income stream leaving the retirement phase debits the account. A negative balance has no effect.
+
+Your personal cap is the general cap for the year the account starts: $1.6 million to 2020-21, $1.7 million for 2021-22 and 2022-23, $1.9 million for 2023-24 and 2024-25, $2 million for 2025-26 and $2.1 million for 2026-27. When the general cap rises, your cap rises by the unused percentage of the increase: 100% less your highest balance at the end of a day, as a whole percentage of your cap then, rounded down. Once your balance has exceeded your cap at the end of a day, your cap is no longer indexed.
+
+At the end of each day the balance is above your cap, the excess earns that day’s general interest charge rate, credited to the account the next day, so it compounds. Excess transfer balance tax is 15% of the earnings for each run of days in excess, or 30% for a later run starting on or after 1 July 2018 once you have been liable for one. An income stream held on 30 June 2017 above $1.6 million but at most $1.7 million, reduced by the excess by 31 December 2017, gave no excess in those 6 months.
+
+The excess concessional contributions charge applied to the extra income tax from an excess for 2013-14 to 2020-21, compounding daily from 1 July of the year to the day before the tax was due, at the base interest rate plus 3 points. Releasing excess non-concessional contributions adds associated earnings: the excess compounded daily from 1 July of the contributions year to the ATO’s first determination at the proxy rate, the year’s average base interest rate plus 7 points, rounded down to the dollar. The release is the excess and 85% of the earnings; the earnings are assessable income with a 15% tax offset.
+
+## What the transfer balance calculator does not cover
+
+The calculator refuses reversionary income streams, a child recipient’s cap, capped defined benefit income streams, structured settlement contributions, credits and debits under regulations, and the ATO’s determinations, commutation authorities and notices. It takes no determination, so it credits every day’s earnings; the ATO’s own figures stop at its determination and can differ by cents. It works days to 31 December 2026, the last GIC rate the ATO has published, and no day from 1 July 2027.
+
+The charge ended for 2021-22 and later years; the release needs every base rate of the contributions year, so 2026-27 is not yet worked. A partial release, ENCC tax on amounts not released and the interest on unpaid amounts are not covered. Confirm the result with your fund, the ATO or a registered tax agent before relying on it.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Transfer balance and excess contributions calculator
+
+Case | Inputs | Result
+Elisabeth: a negative balance after a commutation, then $10,000 of excess from 12 October 2019 (ATO transfer balance account page) | 2017-08-02 new income stream $1,600,000.00, 2019-09-07 commutation $1,630,000.00, 2019-10-12 new income stream $1,640,000.00; to 2019-12-31 | Balance $1,610,176.42, cap $1,600,000.00, excess $10,176.42, earnings $178.65, tax $26.80
+Nina: indexed by 25%, then 5% of each increase (ATO personal transfer balance cap page) | 2018-10-01 new income stream $1,200,000.00, 2023-10-01 new income stream $400,000.00; to 2026-07-01 | Balance $1,600,000.00, cap $1,685,000.00, excess $0.00, earnings $0.00, tax $0.00
+Leanne: $1 million from 1 October 2025, $200,000 commuted; her 2026-27 cap is $2.05 million (same page) | 2025-10-01 new income stream $1,000,000.00, 2026-05-13 commutation $200,000.00; to 2026-07-01 | Balance $800,000.00, cap $2,050,000.00, excess $0.00, earnings $0.00, tax $0.00
+Simon: $100,000 over his $2 million cap on 1 July 2026, earnings to 31 July 2026 (same page) | 2025-07-01 new income stream $2,000,000.00, 2026-06-30 commutation $2,000,000.00, 2026-07-01 new income stream $2,100,000.00; to 2026-07-31 | Balance $2,100,943.73, cap $2,000,000.00, excess $100,943.73, earnings $975.34, tax $146.30
+Paolo: $350,000 over on 1 July 2017, commuted on 1 August 2017 (ATO excess transfer balance page) | 2017-07-01 existing income stream $1,950,000.00, 2017-08-01 commutation $353,000.00; to 2017-08-31 | Balance $1,599,604.41, cap $1,600,000.00, excess $0.00, earnings $2,604.41, tax $390.66
+$1.65 million held on 30 June 2017, $50,000 commuted by 31 December 2017: no excess (IT(TP)A s 294-30) | 2017-07-01 existing income stream $1,650,000.00, 2017-12-01 commutation $50,000.00; to 2018-06-30 | Balance $1,600,000.00, cap $1,600,000.00, excess $0.00, earnings $0.00, tax $0.00
+Excess concessional contributions charge on $1,000 for 2020-21, tax due 1 December 2021 | 2020-21 charge on $1,000.00, tax due 2021-12-01 | Charge $44.17
+The charge on $2,500.50 for 2013-14, the first year, tax due 21 November 2014 | 2013-14 charge on $2,500.50, tax due 2014-11-21 | Charge $205.03
+Releasing a $100,000 excess for 2024-25, determined 15 September 2025 | 2024-25 release of $100,000.00, determination 2025-09-15 | Earnings $14,663.00, release $112,463.55, offset $2,199.45
+Releasing a $50,000 excess for 2020-21, determined 30 November 2021 | 2020-21 release of $50,000.00, determination 2021-11-30 | Earnings $5,251.00, release $54,463.35, offset $787.65
+
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
 # First home super saver (FHSS) calculator
 
 Source: https://duguid.com.au/tools/individual-tax/fhss/
@@ -735,81 +833,3 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
-
----
-
-# Payroll tax calculator for every Australian state, 2026-27
-
-Source: https://duguid.com.au/tools/business-calculators/payroll-tax/
-
-> Annual payroll tax for 2026-27 for one employer outside a group, in all 8 states and territories, with each deduction, rate, surcharge and levy cited.
-
-# Payroll tax calculator
-
-One employer’s annual payroll tax for 2026-27 in any Australian state or territory, step by step, each step cited to its Act or revenue office.
-
-Published 17 November 2026. Last checked 20 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Payroll tax inputs for 2026-27
-
-State or territory New South Wales Victoria Victoria, regional employer (at least 85% of taxable wages paid to regional employees) Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
-
-Taxable wages in the state or territory for 2026-27 (AUD) Total Australian wages for 2026-27, taxable and interstate (AUD; leave blank if all are paid in that state or territory)
-
-Each revenue office decides which payments are taxable wages and where they are taxable. Enter the figures you have established; this page does not work them out. The figures it applies are in its data file, with each one’s source and the date it was read.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, taxable wages $1,500,000.00, total Australian wages $1,500,000.00. Deduction (Revenue NSW: threshold times NSW wages over Australian wages) $1,200,000.00 Taxable amount: wages less the deduction $300,000.00 Payroll tax at 5.45% on $300,000.00 (Revenue NSW: thresholds and rates) $16,350.00 Payroll tax $16,350.00 An estimate for 2026-27 for one employer that is not a member of a group and pays wages all year, before any exemption, rebate or discount.
-
-## How the payroll tax calculator works
-
-The payroll tax calculator estimates one employer’s payroll tax for the whole of 2026-27 in one state or territory. Each jurisdiction allows a deduction or tax-free threshold, which an employer that also pays wages elsewhere in Australia shares in proportion to its wages there. Victoria, Queensland, Western Australia and the Northern Territory reduce the deduction as Australian wages grow, until it reaches nil. The result shows the deduction, the amount taxed, the tax at each rate and, in Victoria and Queensland, each surcharge or levy on its own line, with the provision applied.
-
-Where a revenue office publishes worked figures, the tests hold them. Revenue NSW: $1,500,000 of NSW wages are taxed on $300,000, and $900,000 of $3,000,000 has a threshold of $360,000. The Victorian State Revenue Office: $80 million in Victoria and $70 million in New South Wales give surcharge thresholds of $5,333,333.33 and $53,333,333.33. The Queensland Revenue Office: $1,356,789 of $1,789,776 has a deduction of $932,460 to the dollar. RevenueWA: annual wages of $1,104,000 give $6,600; its other 2 examples round the deduction to the dollar and come out 1 and 3 cents lower than this calculator. RevenueSA: $800,000 of $1,600,000 has a deduction of $300,000 and $500,000 of $2,000,000 one of $150,000. The Tasmanian State Revenue Office: $2,400,000 gives $54,400, and $2,400,000 of $3,000,000 gives $72,800. The ACT Revenue Office and the Territory Revenue Office publish no worked figures that could be read, so the tests work examples from the Acts by hand: $84,375 on $3,000,000 in the Australian Capital Territory and $41,250 on $3,000,000 in the Northern Territory. This calculator opens on Revenue NSW’s first example.
-
-## What the payroll tax calculator does not compute
-
-The payroll tax calculator gives one annual estimate and no advice. It does not decide which payments are taxable wages or where they are taxable, and does not cover:
-
-- an employer that is a member of a group, whose threshold and rate depend on the group’s wages and which members share the deduction;
-- an employer that paid wages for only part of 2026-27, whose threshold every jurisdiction reduces by the days it employed;
-- monthly or other periodic returns, and the annual reconciliation of amounts already paid;
-- exemptions, rebates and discounts, such as Queensland’s apprentice and trainee rebate and its 1% discount for regional employers, claimed in the return, and the ACT’s 6.85% cap for an eligible university;
-- any year other than 2026-27.
-
-Confirm the figure with the revenue office or a registered tax agent before relying on it.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Payroll tax calculator
-
-Case | Inputs | Result
-Revenue NSW’s example: $1,500,000 of wages, all in NSW, for the full year | New South Wales, wages $1,500,000.00, Australian wages $1,500,000.00 | Deduction $1,200,000.00, taxable amount $300,000.00, payroll tax $16,350.00, total $16,350.00
-Revenue NSW’s interstate example: a threshold of $360,000 | New South Wales, wages $900,000.00, Australian wages $3,000,000.00 | Deduction $360,000.00, taxable amount $540,000.00, payroll tax $29,430.00, total $29,430.00
-At the NSW threshold: no tax | New South Wales, wages $1,200,000.00, Australian wages $1,200,000.00 | Deduction $1,200,000.00, taxable amount $0.00, payroll tax $0.00, total $0.00
-The Victorian surcharges example: $80 million of $150 million | Victoria, wages $80,000,000.00, Australian wages $150,000,000.00 | Deduction $0.00, taxable amount $80,000,000.00, payroll tax $3,880,000.00, first surcharge or levy $506,666.67, second surcharge or levy $506,666.67, total $4,893,333.34
-Victoria, deduction phased out to $400,000 at $4,200,000 | Victoria, wages $4,200,000.00, Australian wages $4,200,000.00 | Deduction $400,000.00, taxable amount $3,800,000.00, payroll tax $184,300.00, first surcharge or levy $0.00, second surcharge or levy $0.00, total $184,300.00
-Victoria, regional employer rate of 1.2125% | Victoria, regional employer, wages $4,200,000.00, Australian wages $4,200,000.00 | Deduction $400,000.00, taxable amount $3,800,000.00, payroll tax $46,075.00, first surcharge or levy $0.00, second surcharge or levy $0.00, total $46,075.00
-The Queensland Revenue Office’s deduction example: $932,460 to the dollar | Queensland, wages $1,356,789.00, Australian wages $1,789,776.00 | Deduction $932,459.64, taxable amount $424,329.36, payroll tax $20,155.64, first surcharge or levy $0.00, second surcharge or levy $0.00, total $20,155.64
-RevenueWA’s example: $6,600 on $1,104,000 | Western Australia, wages $1,104,000.00, Australian wages $1,104,000.00 | Deduction $984,000.00, taxable amount $120,000.00, payroll tax $6,600.00, total $6,600.00
-RevenueSA’s deduction example: $150,000 for $500,000 of $2,000,000 | South Australia, wages $500,000.00, Australian wages $2,000,000.00 | Deduction $150,000.00, taxable amount $350,000.00, payroll tax $17,325.00, total $17,325.00
-RevenueSA’s phased rate: 2.475% at $1,600,000 under the Act | South Australia, wages $800,000.00, Australian wages $1,600,000.00 | Deduction $300,000.00, taxable amount $500,000.00, payroll tax $12,375.00, total $12,375.00
-The Tasmanian State Revenue Office’s example 2: $72,800 | Tasmania, wages $2,400,000.00, Australian wages $3,000,000.00 | Deduction $1,000,000.00, taxable amount $1,400,000.00, payroll tax $72,800.00, total $72,800.00
-The ACT, worked from the Act: $3,000,000 at 6.75% | Australian Capital Territory, wages $3,000,000.00, Australian wages $3,000,000.00 | Deduction $1,750,000.00, taxable amount $1,250,000.00, payroll tax $84,375.00, total $84,375.00
-The Northern Territory, worked from the Act: the deduction tapers to $2,250,000 | Northern Territory, wages $3,000,000.00, Australian wages $3,000,000.00 | Deduction $2,250,000.00, taxable amount $750,000.00, payroll tax $41,250.00, total $41,250.00
-Australian wages below the state’s wages are refused | New South Wales, wages $2,000,000.00, Australian wages $1,000,000.00 | Refused: enter total Australian wages of at least the wages in the state or territory
-Negative wages are refused | New South Wales, wages -$1.00, Australian wages -$1.00 | Refused: enter an amount between 0 and 100000000000
-
-One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
-## Links
-
-- data file: https://duguid.com.au/tools/business-calculators/payroll-tax/payroll-tax-rates.csv
-- fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
