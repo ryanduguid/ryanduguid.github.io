@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-11-23T00:00:00Z</updated>
+  <updated>2026-11-24T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>A new business calculator, GST adjustments, works 6 GST adjustments and tests…</title>
+    <link href="https://duguid.com.au/changelog/#entry-4466dd6b03ba18a9" />
+    <id>https://duguid.com.au/changelog/#entry-4466dd6b03ba18a9</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>A new business calculator, GST adjustments, works 6 GST adjustments and tests for 2020-21 to 2026-27, each condition with its authority: a change in creditable purpose under Division 129, annual apportionment under Division 131, the financial acquisitions threshold, a going concern, second-hand goods and bad debts. Its results match the australian-accounting commands on 568 cases.</summary>
+  </entry>
   <entry>
     <title>Updated 2 accounting questions after the 23 November 2026 ATO source sweep…</title>
     <link href="https://duguid.com.au/changelog/#entry-9d9acf724da17ebe" />
