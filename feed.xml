@@ -8,6 +8,13 @@
   <updated>2026-11-23T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The income tax calculator page now works out the net medical expenses tax…</title>
+    <link href="https://duguid.com.au/changelog/#entry-5184ac5e9bd26ef8" />
+    <id>https://duguid.com.au/changelog/#entry-5184ac5e9bd26ef8</id>
+    <updated>2026-11-23T00:00:00Z</updated>
+    <summary>The income tax calculator page now works out the net medical expenses tax offset for a 2016-17, 2017-18 or 2018-19 return, the last year it ran: 20% of net medical expenses for disability aids, attendant care or aged care over the lower phase-in limit, or 10% over the higher limit above the singles or family income threshold. It agrees with the net-medical-expenses-tax-offset command of the australian-accounting calculators on every tested case and refuses 2019-20 and later years.</summary>
+  </entry>
+  <entry>
     <title>The super lump sum tax calculator now also works the amount a fund withholds…</title>
     <link href="https://duguid.com.au/changelog/#entry-3788ddb8a47c23db" />
     <id>https://duguid.com.au/changelog/#entry-3788ddb8a47c23db</id>
