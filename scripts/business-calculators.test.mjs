@@ -1324,7 +1324,8 @@ test('PAYG instalments work each step unrounded and drop cents only from the ins
 });
 
 test('PAYG instalments read only the fields of the chosen method', () => {
-  const unused = { notified: 'x', instalment: 'x', estimatedTax: 'x', earlier: 'x', credits: 'x', estimatedIncome: 'x', earlierIncome: 'x' };
+  const unused = { notified: 'x', instalment: 'x', estimatedTax: 'x', earlier: 'x', credits: 'x', estimatedIncome: 'x', earlierIncome: 'x',
+    previousRate: 'x' };
   assert.equal(instalment({ ...unused, income: '1000', rate: '10' }).instalment, 100);
   assert.equal(instalment({ ...unused, method: 'amount', notified: '99.99' }).instalment, 99);
   // A higher varied rate reads no earlier figures, as no credit can arise.
