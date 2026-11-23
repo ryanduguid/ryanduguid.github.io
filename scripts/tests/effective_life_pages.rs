@@ -1300,3 +1300,28 @@ fn a_shown_cut_keeps_the_instrument_s_punctuation_and_stray_brackets() {
         "openers, vent cutters etc)"
     );
 }
+
+#[test]
+fn table_b_headings_do_not_stutter_and_pages_link_to_dataset() {
+    let build = built();
+    let computers = &build.files["tools/depreciation-rates/asset/computers-and-computer-equipment/computers-and-computer-equipment/index.html"];
+    let h1 = site_tools::html::unescape(between(computers, "<h1>", "</h1>"));
+    assert!(
+        !h1.starts_with("Computers and computer equipment: Computers"),
+        "stuttering H1: {h1}"
+    );
+    let monitors = &build.files["tools/depreciation-rates/asset/computers-and-computer-equipment/computer-monitors/index.html"];
+    let monitors_title = site_tools::html::unescape(between(monitors, "<title>", "</title>"));
+    assert!(
+        !monitors_title.contains('\u{2026}'),
+        "clean unique title should not carry an ellipsis: {monitors_title}"
+    );
+    for (rel, html) in pages(build) {
+        assert!(
+            html.contains(
+                "\"about\": {\n        \"@id\": \"https://duguid.com.au/tools/depreciation-rates/#dataset\"\n      }"
+            ),
+            "{rel}: WebPage JSON-LD must link to the LI 2025/20 Dataset"
+        );
+    }
+}

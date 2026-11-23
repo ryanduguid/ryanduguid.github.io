@@ -44,11 +44,23 @@ fn headings(group: &Group, entry: &Entry) -> Vec<String> {
         .collect()
 }
 
+/// Whether `text` already opens with `heading` (case-insensitively at a non-alphanumeric boundary),
+/// so prepending `heading: ` would stutter (`Computers: Computers generally`).
+fn redundant_heading(heading: &str, text: &str) -> bool {
+    let h = heading.trim().to_lowercase();
+    let t = text.trim().to_lowercase();
+    t.strip_prefix(&h)
+        .is_some_and(|rest| !rest.chars().next().is_some_and(char::is_alphanumeric))
+}
+
 /// The page's plainest label: the nearest heading and the row, as the instrument sets them.
 fn label(group: &Group, entry: &Entry) -> String {
+    let entry_name = name(entry);
     match headings(group, entry).last() {
-        Some(heading) => format!("{heading}: {}", name(entry)),
-        None => name(entry),
+        Some(heading) if !redundant_heading(heading, &entry_name) => {
+            format!("{heading}: {entry_name}")
+        }
+        _ => entry_name,
     }
 }
 
@@ -88,20 +100,39 @@ pub fn h1_candidates(group: &Group, entry: &Entry) -> Vec<String> {
 /// much of the extra as keeps a whole word, or none; then the extra with up to half the
 /// room left by the tail and the subject cut to the rest, as the extra may be what tells
 /// the row apart. An ellipsis shows each cut but that of a closing aside.
-fn titled(subject: &str, tail: &str, extra: &str) -> Vec<String> {
+fn titled(subject: &str, tail: &str, extra: &str, prefer_bare: bool) -> Vec<String> {
     let keep = TITLE_MAX.saturating_sub(tail.chars().count());
+    let mut out = Vec::new();
+    let size = subject.chars().count();
+    if size + extra.chars().count() <= keep {
+        if prefer_bare && size <= keep {
+            out.push(format!("{subject}{tail}"));
+        }
+        out.push(format!("{subject}{tail}{extra}"));
+        return out;
+    }
+    // Prefer the uncut bare subject over an ellipsised context suffix whenever it is unique.
+    if prefer_bare && size <= keep {
+        out.push(format!("{subject}{tail}"));
+    }
     if let Some(title) = with_extra(subject, tail, extra, keep) {
-        return vec![title];
+        out.push(title);
+        return out;
     }
     let core = shown_core(subject);
     let bare = core.trim_end_matches([' ', '\u{2026}']);
     let aside = closing_aside(subject, bare);
     let shown = if aside { bare } else { core.as_str() };
-    let mut out = Vec::new();
     if shown.chars().count() <= keep {
-        out.push(with_extra(shown, tail, extra, keep).unwrap_or_else(|| format!("{shown}{tail}")));
+        if prefer_bare {
+            out.push(format!("{shown}{tail}"));
+        }
+        if let Some(title) = with_extra(shown, tail, extra, keep) {
+            out.push(title);
+        } else if !prefer_bare {
+            out.push(format!("{shown}{tail}"));
+        }
     }
-    let size = subject.chars().count();
     let extra_room = keep.saturating_sub(size.min(keep / 2));
     let extra = if extra.chars().count() > extra_room {
         let kept = cut(extra.trim_start_matches(", "), extra_room.saturating_sub(2));
@@ -175,16 +206,32 @@ pub fn title_candidates(group: &Group, entry: &Entry, life: &Life) -> Vec<String
     let place = format!(", {}", place(group));
     let mut out = Vec::new();
     if let Some(heading) = headings(group, entry).last() {
-        out.extend(titled(row, &tail, &format!(", {heading}")));
-        out.extend(titled(&format!("{heading}: {row}"), &tail, &place));
+        let redundant = redundant_heading(heading, row);
+        out.extend(titled(
+            row,
+            &tail,
+            &format!(", {heading}"),
+            redundant
+                || row.chars().count() + heading.chars().count() + 2
+                    > TITLE_MAX.saturating_sub(tail.chars().count()),
+        ));
+        if !redundant {
+            out.extend(titled(&format!("{heading}: {row}"), &tail, &place, false));
+        }
     }
-    out.extend(titled(row, &tail, &place));
+    out.extend(titled(
+        row,
+        &tail,
+        &place,
+        headings(group, entry).is_empty(),
+    ));
     let all = headings(group, entry);
     if all.len() > 1 {
         out.extend(titled(
             &format!("{}: {row}", all.join(" / ")),
             &tail,
             &place,
+            false,
         ));
     }
     // The row first, then 1 or 2 parts of its context: where the forms above cut away the
@@ -192,9 +239,9 @@ pub fn title_candidates(group: &Group, entry: &Entry, life: &Life) -> Vec<String
     let context = context(group, entry);
     let row = name(entry);
     for (i, first) in context.iter().enumerate() {
-        out.extend(titled(&row, &tail, &format!(", {first}")));
+        out.extend(titled(&row, &tail, &format!(", {first}"), false));
         for second in &context[i + 1..] {
-            out.extend(titled(&row, &tail, &format!(", {first}, {second}")));
+            out.extend(titled(&row, &tail, &format!(", {first}, {second}"), false));
         }
     }
     // Last, rows that differ only in their closing words ('... with gas insulated
@@ -207,8 +254,8 @@ pub fn title_candidates(group: &Group, entry: &Entry, life: &Life) -> Vec<String
             out.push(format!("{end}{tail}{extra}"));
         }
     }
-    out.retain(|title| title.chars().count() <= TITLE_MAX);
-    out.dedup();
+    let mut seen = std::collections::HashSet::new();
+    out.retain(|title| title.chars().count() <= TITLE_MAX && seen.insert(title.clone()));
     out
 }
 
