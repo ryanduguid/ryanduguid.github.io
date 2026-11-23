@@ -62,6 +62,7 @@ const salaryDividend = { ...business, file: 'assets/salary-dividend.mjs' };
 const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
+const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
 const fhog = { ...business, file: 'assets/first-home-owner-grant.mjs' };
 const sbt = { ...business, file: 'assets/super-benefit-tax.mjs' };
@@ -956,6 +957,19 @@ const MUTATIONS = [
   { ...pools, name: 'Capital works over 366 days', find: 'const reducedBottom = rateDivisor * 365n * scale;', replace: 'const reducedBottom = rateDivisor * 366n * scale;' },
   { ...pools, name: 'Capital works 4% allowed before 27 February 1992', find: 'if (four && before1992) {', replace: 'if (false) {' },
   { ...pools, name: 'Capital works taxable use ignored', find: 'const reducedTop = product * use;', replace: 'const reducedTop = product * scale;' },
+  { ...rdOffset, name: 'R&D refundable premium 18.5 points dropped', find: 'capped * (e.rate + 185n) * 1000n', replace: 'capped * e.rate * 1000n' },
+  { ...rdOffset, name: 'R&D threshold $20,000 counted as under it', find: 'const base = total < THRESHOLD ? e.rspCrc : total;', replace: 'const base = total <= THRESHOLD ? e.rspCrc : total;' },
+  { ...rdOffset, name: 'R&D cap at $100 million', find: 'const CAP = 15000000000n;', replace: 'const CAP = 10000000000n;' },
+  { ...rdOffset, name: 'R&D tier 1 at 16.5%', find: 'min(capped * 1000n, twoPercent) * 85n', replace: 'min(capped * 1000n, twoPercent) * 165n' },
+  { ...rdOffset, name: 'R&D tier split at 3% of total expenses', find: 'const twoPercent = e.totalExpenses * 20n;', replace: 'const twoPercent = e.totalExpenses * 30n;' },
+  { ...rdOffset, name: 'R&D excess over the cap given no offset', find: 'const excess = max(base - CAP, 0n) * e.rate * 1000n;', replace: 'const excess = 0n;' },
+  { ...rdOffset, name: 'R&D turnover of $20 million refundable', find: 'turnover < 2000000000n && !exempt', replace: 'turnover <= 2000000000n && !exempt' },
+  { ...rdOffset, name: 'R&D exempt entity control ignored', find: 'turnover < 2000000000n && !exempt', replace: 'turnover < 2000000000n' },
+  { ...rdOffset, name: 'R&D base rate entity at 30%', find: 'const corporateRate = (bre) => (bre ? 250n : 300n);', replace: 'const corporateRate = (bre) => (bre ? 300n : 300n);' },
+  { ...rdOffset, name: 'R&D feedstock clawback the greater amount', find: 'const clawback = recoupment + min(revenue, expenditure);', replace: 'const clawback = recoupment + max(revenue, expenditure);' },
+  { ...rdOffset, name: 'R&D deduction amount not subtracted', find: 'const income = offset - adjusted[6] - deduction;', replace: 'const income = offset - adjusted[6];' },
+  { ...rdOffset, name: 'R&D clawback income over the offset year rate', find: 'ratioCents((income < 0n ? -income : income), presentRate * 1000n)', replace: 'ratioCents((income < 0n ? -income : income), e.rate * 1000n)' },
+  { ...rdOffset, name: 'R&D clawback below the threshold allowed', find: 'if (clawback !== 0n && e.notional - clawback < THRESHOLD) {', replace: 'if (false) {' },
   { ...asic, name: 'ASIC month counted from the due date itself', find: 'const start = new Date((due + 1) * DAY);', replace: 'const start = new Date(due * DAY);' },
   { ...asic, name: 'ASIC month ends on the same day number next month', find: 'if (corresponding <= length) return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), corresponding) / DAY - 1;', replace: 'if (corresponding <= length) return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), Math.min(new Date(due * DAY).getUTCDate(), length)) / DAY;' },
   { ...asic, name: 'ASIC month with no corresponding day ends a day early', find: 'return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), length) / DAY;', replace: 'return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), length) / DAY - 1;' },
@@ -1114,6 +1128,7 @@ const SHARED = [
   'scripts/fuel-tax-credits-engine-differential.json',
   'scripts/luxury-car-tax-engine-differential.json',
   'scripts/depreciation-pools-engine-differential.json',
+  'scripts/rd-tax-offset-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',
   'scripts/borrowing-expenses-engine-differential.json',
   'scripts/wine-equalisation-tax-engine-differential.json',

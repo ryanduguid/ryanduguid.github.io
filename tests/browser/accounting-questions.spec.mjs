@@ -1169,6 +1169,30 @@ test('super lump sum tax page works its example, a death benefit and a refusal o
 });
 
 // Spec G9 is the form's default; the failure to lodge question shows its 28-day periods, and remission is refused.
+// The ATO's Company V is the form's default; Company F is refundable, and a clawback leaving under $20,000 is refused.
+test('R&D tax offset page works Company V, a refundable offset and refuses a clawback under the threshold offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/rd-tax-offset/');
+  const form = page.locator('#rd-tax-offset form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('R&D tax offset, non-refundable: $1,650,000.00.');
+  await expect(form.locator('output')).toContainText('Included in assessable income in the present year, over 30%: $1,265,000.00.');
+  await form.locator('[name="year"]').selectOption('2022-23');
+  await form.locator('[name="notional"]').fill('1000000');
+  await form.locator('[name="turnover"]').fill('10000000');
+  await form.locator('[name="bre"]').selectOption('yes');
+  await form.locator('[name="present-bre"]').selectOption('yes');
+  await form.locator('[name="recoupment"]').fill('500000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('R&D tax offset, refundable: $435,000.00.');
+  await expect(form.locator('output')).toContainText('Included in assessable income in the present year, over 25%: $370,000.00.');
+  await form.locator('[name="notional"]').fill('22000');
+  await form.locator('[name="recoupment"]').fill('9000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('does not choose between them');
+});
+
 test('ATO penalties and interest page works GIC by quarter, a failure to lodge penalty and refuses remission offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/ato-penalties-interest/');
   const form = page.locator('#ato-penalties-interest form');
@@ -1671,7 +1695,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'termination-payment', 'transfer-duty', 'first-home-owner-grant', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
-  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property'];
+  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
