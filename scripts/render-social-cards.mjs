@@ -287,8 +287,25 @@ export async function renderSocialCards(browser, outputDirectory) {
   });
 }
 
+function resolveCliOutputDirectory(argument) {
+  if (!argument) return ASSETS;
+  const resolved = path.resolve(argument);
+  const repoPrefix = ROOT.endsWith(path.sep) ? ROOT : `${ROOT}${path.sep}`;
+  const tmpRoot = path.resolve(os.tmpdir());
+  const tmpPrefix = tmpRoot.endsWith(path.sep) ? tmpRoot : `${tmpRoot}${path.sep}`;
+  if (
+    resolved !== ROOT
+    && !resolved.startsWith(repoPrefix)
+    && resolved !== tmpRoot
+    && !resolved.startsWith(tmpPrefix)
+  ) {
+    throw new RangeError('Output directory must stay inside the repository or temp directory');
+  }
+  return resolved;
+}
+
 async function runCli() {
-  const outputDirectory = path.resolve(process.argv[2] || ASSETS);
+  const outputDirectory = resolveCliOutputDirectory(process.argv[2]);
   const browser = await chromium.launch();
   await renderSocialCards(browser, outputDirectory)
     .then((outputs) => {
