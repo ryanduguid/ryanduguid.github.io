@@ -401,7 +401,7 @@ const MUTATIONS = [
   { ...conversion, name: 'conversion accepts AUD', find: " || currency === 'AUD'", replace: '' },
   { ...conversion, name: 'conversion deductions totalled as income', find: "deduction: 'deductions'", replace: "deduction: 'ordinary_income'" },
   { ...conversion, name: 'conversion NaN called invalid', find: 'if (text !== null && /^[+-]?s?nan', replace: 'if (false && /^[+-]?s?nan' },
-  { ...conversion, name: 'conversion accepts a minus sign', find: '(parts?.[1] && scaled > 0n) || (positive', replace: '(positive' },
+  { ...conversion, name: 'conversion accepts a minus sign', find: '(parts?.negative && scaled > 0n) || (positive', replace: '(positive' },
   { ...conversion, name: 'conversion refuses surrounding spaces', find: 'fields[key].trim() : null', replace: 'fields[key] : null' },
   { ...estimate, name: 'foreign income tax offset before the zone offset', find: '  const applied = { beneficiary:', replace: '  left -= Math.min(left, cents(foreign?.offset ?? 0));\n  const applied = { beneficiary:' },
   { ...estimate, name: 'foreign income tax offset not taken off the levy', find: '[take(left), take(cents(base.medicare))]', replace: '[take(left), 0]' },
