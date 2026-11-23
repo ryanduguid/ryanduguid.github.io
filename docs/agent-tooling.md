@@ -27,7 +27,11 @@ The calculator pages listed below each offer one tool to a browser's built-in ag
 through the draft [WebMCP](https://webmachinelearning.github.io/webmcp/)
 `modelContext` API: `calculate_gst`, `calculate_div7a_minimum_repayment`,
 `calculate_loan_schedule`, `calculate_hire_purchase_schedule`, `calculate_lease_schedule`, `calculate_break_even`, `calculate_company_tax`,
-`calculate_foreign_purchaser_surcharges`, `calculate_long_service_leave`, `calculate_fuel_tax_credits` and `calculate_borrowing_expenses` on the business calculator pages,
+`calculate_foreign_purchaser_surcharges`, `calculate_long_service_leave`, `calculate_fuel_tax_credits`, `calculate_borrowing_expenses`,
+`calculate_asic_fee`, `calculate_ato_penalties_interest`, `calculate_business_use_share`, `calculate_fixed_fee`,
+`calculate_franking_account`, `calculate_gic_payment_plan`, `calculate_gst_margin_scheme`, `calculate_hourly_rate`,
+`calculate_luxury_car_tax`, `calculate_margin_and_markup`, `calculate_objection_deadline`, `calculate_budget_variance`,
+`classify_vehicle` and `calculate_wine_equalisation_tax` on the business calculator pages,
 `estimate_income_tax`, `calculate_take_home_pay`, `calculate_study_loan_repayment`, `calculate_sole_trader_set_aside`,
 `calculate_lump_sum_arrears`, `calculate_division_293_tax`, `calculate_income_tests`, `calculate_concessional_catch_up`,
 `calculate_bonus_withholding`, `calculate_salary_packaging`, `calculate_novated_lease`, `project_super_balance`,
@@ -63,9 +67,9 @@ signal from Firefox or Safari; the specification was a W3C Community Group draft
 dated 13 November 2026. No origin-trial token is committed; registering one is an
 account action for the site owner. No trial with a real agent is recorded for
 any tool here, the GST pilot included. The earlier rule was to add calculators only after that
-trial; the 27 tools beyond GST were added without it: 5 on 15 November 2026,
+trial; the 41 tools beyond GST were added without it: 5 on 15 November 2026,
 4 on 18 November, 12 on 19 November (when the loan payment tool became the loan and
-hire purchase schedule tools, and the Division 293, income tests, long service leave, bonus withholding, salary packaging, novated lease, fuel tax credit, borrowing expenses, AASB 16 lease and super projection tools were added) and 6 on 24 November (study loan repayment, concessional catch-up, lump sum in arrears, FHSS, work expenses and government super amounts). Only the Node tests and browser tests with a
+hire purchase schedule tools, and the Division 293, income tests, long service leave, bonus withholding, salary packaging, novated lease, fuel tax credit, borrowing expenses, AASB 16 lease and super projection tools were added), 6 on 24 November (study loan repayment, concessional catch-up, lump sum in arrears, FHSS, work expenses and government super amounts) and 14 more on 24 November (ASIC fees, ATO penalties and interest, business use share, fixed fee, franking account, GIC payment plan, GST margin scheme, hourly pricing, luxury car tax, margin and markup, objection deadline, budget variance, vehicle classifier and wine equalisation tax). Only the Node tests and browser tests with a
 stand-in `modelContext` check them.
 Cloudflare's WebMCP toggle is a separate edge-injected bridge and stays off:
 its packs cover image provenance and a same-origin `/mcp` endpoint, and this
