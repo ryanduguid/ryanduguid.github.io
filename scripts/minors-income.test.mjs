@@ -78,7 +78,9 @@ test('the minors’ income calculation agrees with the australian-accounting com
       assert.throws(() => minorsIncome(input), (error) => error.code === refused, source);
       continue;
     }
-    const m = minorsIncome(input);
+    // A case the command accepts must not be refused here.
+    let m = /** @type {any} */ (null);
+    assert.doesNotThrow(() => { m = minorsIncome(input); }, source);
     assert.deepEqual({ excepted_assessable_income: f2(m.exceptedTotal), eligible_assessable_income: f2(m.eligibleAssessable),
       apportioned_deductions: f2(m.apportioned), eligible_taxable_income: f2(m.eligible), other_taxable_income: f2(m.otherIncome),
       tax_on_other_income: f2(m.taxOther), tax_on_eligible_income: f2(m.taxEligible), basic_income_tax: f2(m.total),
