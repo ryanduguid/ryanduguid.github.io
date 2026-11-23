@@ -507,11 +507,11 @@ test('transfer balance shows the account’s tables, and the charge and the rele
   await form.locator('#transfer-balance-event-4-amount').fill('20000');
   await calculate.click();
   await expect(output.locator('.result-row').filter({ has: page.getByText('Excess transfer balance', { exact: true }) }).locator('strong')).toHaveText('$0.00');
-  await form.locator('#transfer-balance-calc').selectOption('charge');
+  await form.locator('[name="calc"][value="charge"]').check();
   await expect(form.locator('#transfer-balance-event-1-date')).toBeHidden();
   await calculate.click();
   await expect(output.locator('.result-row--principal strong')).toHaveText('$44.17');
-  await form.locator('#transfer-balance-calc').selectOption('release');
+  await form.locator('[name="calc"][value="release"]').check();
   await calculate.click();
   await expect(output.locator('.result-row--principal strong')).toHaveText('$112,463.55');
   await form.locator('#transfer-balance-release-year').selectOption('2020-21');

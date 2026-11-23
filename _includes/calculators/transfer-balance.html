@@ -2,7 +2,11 @@
 <form class="calculator-split" data-calculator="transfer-balance">
 <fieldset disabled><legend>Your transfer balance account or excess contributions</legend>
 <div class="form-grid">
-<div class="field"><label for="transfer-balance-calc">Work out</label><select name="calc" id="transfer-balance-calc" aria-describedby="transfer-balance-calc-note"><option value="transfer" selected>The transfer balance account, its excess and the tax</option><option value="charge">The excess concessional contributions charge, 2013-14 to 2020-21</option><option value="release">The release of excess non-concessional contributions</option></select></div>
+<fieldset class="field" aria-describedby="transfer-balance-calc-note"><legend>Work out</legend>
+<label><input type="radio" name="calc" value="transfer" checked /> The transfer balance account, its excess and the tax</label>
+<label><input type="radio" name="calc" value="charge" /> The excess concessional contributions charge, 2013-14 to 2020-21</label>
+<label><input type="radio" name="calc" value="release" /> The release of excess non-concessional contributions</label>
+</fieldset>
 </div>
 <fieldset data-show-field="calc" data-show-values="transfer"><legend>Credits and debits, from 1 July 2017</legend>
 <div class="form-grid">

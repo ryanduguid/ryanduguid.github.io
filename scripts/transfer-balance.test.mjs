@@ -137,7 +137,7 @@ test('the form sends the rows it has, the year of the last day, and each questio
 
 test('the page shows the account’s caps, ledger and excess periods, and each question’s result', () => {
   const defaults = new Map();
-  for (const [tag] of page.matchAll(/<input\b[^>]*>/g)) defaults.set(tag.match(/\bname="([^"]+)"/)[1], tag.match(/\bvalue="([^"]*)"/)?.[1] ?? '');
+  for (const [tag] of page.matchAll(/<input\b[^>]*>/g)) if (!tag.includes('type="radio"') || tag.includes(' checked')) defaults.set(tag.match(/\bname="([^"]+)"/)[1], tag.match(/\bvalue="([^"]*)"/)?.[1] ?? '');
   for (const [, name, body] of page.matchAll(/<select\b[^>]*\bname="([^"]+)"[^>]*>(.*?)<\/select>/gs)) {
     const options = [...body.matchAll(/<option\b([^>]*)>/g)].map(([, a]) => a);
     defaults.set(name, (options.find((a) => /\bselected\b/.test(a)) ?? options[0]).match(/\bvalue="([^"]*)"/)[1]);
