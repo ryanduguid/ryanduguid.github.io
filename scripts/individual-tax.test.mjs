@@ -30,6 +30,7 @@ import { governmentSuperFormFacts, governmentSuperResult } from '../assets/gover
 import './government-super-amounts.test.mjs';
 import { foreignIncomeFixture, foreignIncomeFormTests } from './foreign-income.test.mjs';
 import { minorsFixture, minorsFormTests } from './minors-income.test.mjs';
+import { nonCommercialFixture, nonCommercialFormTests } from './non-commercial-losses.test.mjs';
 import { NET_MEDICAL_DEFAULTS, netMedicalFixture } from './net-medical-expenses.test.mjs';
 
 import { bonusWithholding } from '../assets/bonus-withholding.mjs';
@@ -1562,6 +1563,24 @@ const minorsPage = (fields = {}) => {
   }, aud);
 };
 minorsFormTests(minorsPage);
+
+const soleTraderHtml = readFileSync(new URL('../_includes/calculators/sole-trader.html', import.meta.url), 'utf8');
+const nonCommercialPage = (fields = {}) => {
+  const start = soleTraderHtml.indexOf('<form class="calculator-split" data-calculator="non-commercial-losses">');
+  const html = soleTraderHtml.slice(start, soleTraderHtml.indexOf('</form>', start));
+  const selects = [...html.matchAll(/<select name="([^"]+)"[\s\S]*?<option value="([^"]+)" selected>/g)].map(([, name, value]) => [name, value]);
+  const form = { ...formDefaults(html), ...Object.fromEntries(selects), ...fields };
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  return individualResult('non-commercial-losses', (name) => {
+    assert.ok(Object.hasOwn(form, name), `the non-commercial losses form has no ${name}`);
+    return form[name] ?? '';
+  }, aud);
+};
+nonCommercialFormTests(nonCommercialPage);
+
+test('the sole trader page states the non-commercial losses differential count', () => {
+  assert.match(soleTraderHtml, new RegExp(`non-commercial-losses on ${nonCommercialFixture.cases.length.toLocaleString('en-AU')} cases`));
+});
 
 test('the income tax page states the minors’ income differential count', () => {
   assert.match(incomeTaxHtml, new RegExp(`minors-income on ${minorsFixture.cases.length.toLocaleString('en-AU')} cases`));

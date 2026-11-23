@@ -41,6 +41,7 @@ const medical = { file: 'assets/net-medical-expenses.mjs', test: individualTest 
 const fito = { file: 'assets/foreign-income-tax-offset.mjs', test: individualTest };
 const conversion = { file: 'assets/foreign-income-conversion.mjs', test: individualTest };
 const minors = { file: 'assets/minors-income.mjs', test: individualTest };
+const nonCommercial = { file: 'assets/non-commercial-losses.mjs', test: individualTest };
 const governmentSuper = { file: 'assets/government-super.mjs', test: individualTest };
 const governmentSuperResult = { file: 'assets/government-super-result.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
@@ -422,6 +423,25 @@ const MUTATIONS = [
   { ...minors, name: 'minors trust part above the share', find: 'if (part > amount)', replace: 'if (false)' },
   { ...minors, name: 'minors foreign nil band at the phase-in rate', find: 'capped(mul(percent(secondRate), eligible))', replace: 'capped(mul(percent(PHASE_IN), eligible))' },
   { ...minors, name: 'minors taxable income in cents', find: 'if (taxableCents % 100n !== 0n)', replace: 'if (false)' },
+  { ...nonCommercial, name: 'non-commercial income requirement at $250,000 met', find: 'requirementTotal < INCOME_REQUIREMENT', replace: 'requirementTotal <= INCOME_REQUIREMENT' },
+  { ...nonCommercial, name: 'non-commercial assessable income test below $20,000', find: 'measured >= ASSESSABLE_INCOME', replace: 'measured > ASSESSABLE_INCOME' },
+  { ...nonCommercial, name: 'non-commercial real property test below $500,000', find: 'realProperty >= REAL_PROPERTY', replace: 'realProperty > REAL_PROPERTY' },
+  { ...nonCommercial, name: 'non-commercial other assets test below $100,000', find: 'otherAssets >= OTHER_ASSETS', replace: 'otherAssets > OTHER_ASSETS' },
+  { ...nonCommercial, name: 'non-commercial profits test at 2 years', find: 'profitYears >= 3', replace: 'profitYears >= 2' },
+  { ...nonCommercial, name: 'non-commercial this year not a profit year', find: 'earlierProfits + (deductions < income ? 1 : 0)', replace: 'earlierProfits' },
+  { ...nonCommercial, name: 'non-commercial earlier break-even a profit year', find: "if (statedCents(year, name, 'deductions') < income)", replace: "if (statedCents(year, name, 'deductions') <= income)" },
+  { ...nonCommercial, name: 'non-commercial exception at $40,000', find: 'money(input.other_income) < OTHER_INCOME', replace: 'money(input.other_income) <= OTHER_INCOME' },
+  { ...nonCommercial, name: 'non-commercial exception for any activity', find: 'const exception = excepted && ', replace: 'const exception = ' },
+  { ...nonCommercial, name: 'non-commercial losses not added back', find: 'taxable + losses - fhss', replace: 'taxable - fhss' },
+  { ...nonCommercial, name: 'non-commercial FHSS amount kept', find: 'taxable + losses - fhss', replace: 'taxable + losses' },
+  { ...nonCommercial, name: 'non-commercial taxable loss counted', find: 'withoutLosses < 0n ? 0n : withoutLosses', replace: 'withoutLosses' },
+  { ...nonCommercial, name: 'non-commercial part-year estimate ignored', find: 'if (estimate > income) measured = estimate;', replace: '' },
+  { ...nonCommercial, name: 'non-commercial brought forward left out', find: 'deductions + broughtForward - income', replace: 'deductions - income' },
+  { ...nonCommercial, name: 'non-commercial exempt income not taken off', find: 'excess > exempt ? excess - exempt : 0n', replace: 'excess' },
+  { ...nonCommercial, name: 'non-commercial rule ignores the income requirement', find: '!(requirementMet && Object.values(tests).some(Boolean))', replace: '!Object.values(tests).some(Boolean)' },
+  { ...nonCommercial, name: 'non-commercial signed amount with 3 places', find: '{1,2}))?$/.exec(value.trim()) : null;', replace: '{1,3}))?$/.exec(value.trim()) : null;' },
+  { ...nonCommercial, name: 'non-commercial 3 earlier years taken', find: 'given.length !== 4', replace: 'given.length > 4' },
+  { ...nonCommercial, name: 'non-commercial estimate taken without a part year', find: 'if (!wanted && Object.hasOwn(input, key))', replace: 'if (false)' },
   { ...conversion, name: 'conversion NaN called invalid', find: 'if (text !== null && /^[+-]?s?nan', replace: 'if (false && /^[+-]?s?nan' },
   { ...conversion, name: 'conversion accepts a minus sign', find: '(parts?.[1] && scaled > 0n) || (positive', replace: '(positive' },
   { ...conversion, name: 'conversion refuses surrounding spaces', find: 'fields[key].trim() : null', replace: 'fields[key] : null' },
@@ -1177,6 +1197,7 @@ const SHARED = [
   'scripts/net-medical-expenses-engine-differential.json',
   'scripts/foreign-income-engine-differential.json',
   'scripts/minors-income-engine-differential.json',
+  'scripts/non-commercial-losses-engine-differential.json',
   'scripts/government-super-engine-differential.json',
   'scripts/concessional-catch-up-engine-differential.json',
   'scripts/unused-leave-engine-differential.json',
@@ -1198,6 +1219,7 @@ const TEST_FILES = [
   levy.test, business.test, individualTest,
   'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs',
   'scripts/net-medical-expenses.test.mjs', 'scripts/foreign-income.test.mjs', 'scripts/minors-income.test.mjs',
+  'scripts/non-commercial-losses.test.mjs',
 ];
 
 const verdict = (cwd, test) => new Promise((resolve, reject) => {

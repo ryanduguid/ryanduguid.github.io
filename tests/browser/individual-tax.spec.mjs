@@ -274,6 +274,33 @@ test('a minor’s unearned income is taxed beside the income tax calculator, wit
   await expect(form.locator('.sources-applied')).toBeVisible();
 });
 
+test('the sole trader page says whether a non-commercial loss is deferred, asking for an estimate only in a part year, offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/sole-trader/');
+  const form = page.locator('#non-commercial-losses form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await calculate.click();
+  await expect(row('Deferred')).toHaveText('$1,000.00');
+  const estimate = form.locator('#ncl-estimate');
+  const otherIncome = form.locator('#ncl-other-income');
+  await expect(estimate).toBeHidden();
+  await expect(otherIncome).toBeHidden();
+  await form.locator('input[name=ncl-part-year][value=yes]').check();
+  await form.locator('#ncl-income').fill('8000');
+  await estimate.fill('22000');
+  await calculate.click();
+  await expect(row('Deductible this year')).toHaveText('$2,000.00');
+  await form.locator('input[name=ncl-part-year][value=no]').check();
+  await expect(estimate).toBeHidden();
+  await form.locator('input[name=ncl-activity][value=primary_production]').check();
+  await otherIncome.fill('39999.99');
+  await calculate.click();
+  await expect(row('Deferred')).toHaveText('$0.00');
+  await expect(form.locator('.sources-applied')).toBeVisible();
+});
+
 test('income tests count section 57A benefits at 53% and refuse a person not resident all year offline', async ({ page, context }) => {
   await page.goto('/tools/individual-tax/income-tests/');
   const form = page.locator('#income-tests form');
