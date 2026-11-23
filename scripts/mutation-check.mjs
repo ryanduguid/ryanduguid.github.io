@@ -10,9 +10,9 @@
 //
 // Run with: node scripts/mutation-check.mjs
 
-import { spawnSync } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { copyFileSync, cpSync, mkdtempSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { availableParallelism, tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -1096,57 +1096,147 @@ const CONTROLS = [
     replace: "import './no-such-module.mjs';\n// Planning arithmetic." },
 ];
 
+const SHARED = [
+  'rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators',
+  '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate',
+  'rates/general-interest-charge', '_data/individual_tax_cases.json', 'tools/individual-tax',
+  'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
+  'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt',
+  '.well-known/llms.txt', 'scripts/fbt-engine-differential.json',
+  'scripts/fbt-property-expense-engine-differential.json',
+  'scripts/lump-sum-arrears-engine-differential.json',
+  'scripts/income-tests-engine-differential.json',
+  'scripts/income-tax-offsets-engine-differential.json',
+  'scripts/government-super-engine-differential.json',
+  'scripts/concessional-catch-up-engine-differential.json',
+  'scripts/unused-leave-engine-differential.json',
+  'scripts/franking-account-engine-differential.json',
+  'scripts/fuel-tax-credits-engine-differential.json',
+  'scripts/luxury-car-tax-engine-differential.json',
+  'scripts/depreciation-pools-engine-differential.json',
+  'scripts/ato-penalties-interest-engine-differential.json',
+  'scripts/borrowing-expenses-engine-differential.json',
+  'scripts/wine-equalisation-tax-engine-differential.json',
+  'scripts/rental-property-engine-differential.json',
+  '_includes/duty-jurisdictions.html', '_includes/finance-fields.html',
+  '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
+  'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json',
+  'scripts/super-benefit-tax-engine-differential.json',
+];
+
+const TEST_FILES = [
+  levy.test, business.test, individualTest,
+  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs',
+];
+
+const verdict = (cwd, test) => new Promise((resolve, reject) => {
+  const child = spawn(process.execPath, ['--test', '--test-reporter=tap', test], {
+    cwd,
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+  let stdout = '';
+  child.stdout.setEncoding('utf8');
+  child.stdout.on('data', (chunk) => { stdout += chunk; });
+  child.stderr.resume();
+  child.on('error', reject);
+  child.on('close', (status) => {
+    if (status === 0) resolve('survived');
+    else resolve(status === 1 && stdout.includes("code: 'ERR_ASSERTION'") ? 'caught' : 'invalid');
+  });
+});
+
+const allSettledOrThrow = async (promises) => {
+  const settled = await Promise.allSettled(promises);
+  const failed = settled.find((item) => item.status === 'rejected');
+  if (failed) throw failed.reason;
+  return settled.map((item) => item.value);
+};
+
 const work = mkdtempSync(join(tmpdir(), 'mutation-check-'));
 let failures = 0;
-try {
-  mkdirSync(join(work, 'assets'));
-  mkdirSync(join(work, 'scripts'));
+
+// A promise's finally, not a try block: Codacy's ESLint rule security-node/detect-unhandled-async-errors
+// crashes on a try without a catch, and that stops its analysis of other files.
+await (async () => {
+  const template = join(work, 'template');
+  mkdirSync(join(template, 'assets'), { recursive: true });
+  mkdirSync(join(template, 'scripts'), { recursive: true });
   for (const name of readdirSync(join(root, 'assets')).filter((entry) => entry.endsWith('.mjs'))) {
-    copyFileSync(join(root, 'assets', name), join(work, 'assets', name));
+    copyFileSync(join(root, 'assets', name), join(template, 'assets', name));
   }
-  for (const test of [levy.test, business.test, individualTest, 'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs']) copyFileSync(join(root, test), join(work, test));
-  for (const shared of ['rates/register/series', '_data/calculator_cases.json', 'tools/business-calculators',
-    '_includes/calculators', 'rates/div7a-benchmark-rate', 'rates/transfer-duty', 'rates/fbt-rate', 'rates/general-interest-charge', '_data/individual_tax_cases.json',
-    'tools/individual-tax', 'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
-    'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt', '.well-known/llms.txt',
-    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/income-tax-offsets-engine-differential.json', 'scripts/government-super-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/luxury-car-tax-engine-differential.json', 'scripts/depreciation-pools-engine-differential.json', 'scripts/ato-penalties-interest-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
-    'scripts/fbt-engine-differential.json', 'scripts/fbt-property-expense-engine-differential.json', 'scripts/lump-sum-arrears-engine-differential.json', 'scripts/income-tests-engine-differential.json', 'scripts/income-tax-offsets-engine-differential.json', 'scripts/concessional-catch-up-engine-differential.json', 'scripts/unused-leave-engine-differential.json', 'scripts/franking-account-engine-differential.json', 'scripts/fuel-tax-credits-engine-differential.json', 'scripts/wine-equalisation-tax-engine-differential.json', 'scripts/rental-property-engine-differential.json', 'scripts/borrowing-expenses-engine-differential.json', '_includes/duty-jurisdictions.html', '_includes/finance-fields.html', '_data/payday_super_business_days.json', 'scripts/payg-withholding-sample.json',
-    'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json', 'scripts/super-benefit-tax-engine-differential.json']) {
-    cpSync(join(root, shared), join(work, shared), { recursive: true });
+  for (const test of TEST_FILES) copyFileSync(join(root, test), join(template, test));
+  for (const shared of SHARED) {
+    cpSync(join(root, shared), join(template, shared), { recursive: true });
   }
 
-  const verdict = (test) => {
-    const run = spawnSync(process.execPath, ['--test', '--test-reporter=tap', test], { cwd: work, encoding: 'utf8' });
-    if (run.status === 0) return 'survived';
-    return run.status === 1 && run.stdout.includes("code: 'ERR_ASSERTION'") ? 'caught' : 'invalid';
-  };
-  for (const test of [levy.test, business.test, individualTest]) {
-    if (verdict(test) !== 'survived') throw new Error(`${test} fails before any mutation`);
+  const baselines = [levy.test, business.test, individualTest];
+  const baselineResults = await allSettledOrThrow(baselines.map((test) => verdict(template, test)));
+  for (let i = 0; i < baselines.length; i += 1) {
+    if (baselineResults[i] !== 'survived') throw new Error(`${baselines[i]} fails before any mutation`);
   }
-  const mutated = ({ file, test, find, replace }) => {
-    writeFileSync(join(work, file), readFileSync(join(root, file), 'utf8').replace(find, replace));
-    const result = verdict(test);
-    copyFileSync(join(root, file), join(work, file));
-    return result;
+
+  const sources = new Map();
+  const sourceOf = (file) => {
+    let text = sources.get(file);
+    if (text === undefined) {
+      text = readFileSync(join(root, file), 'utf8');
+      sources.set(file, text);
+    }
+    return text;
   };
+
+  const mutated = async (cwd, { file, test, find, replace }) => {
+    const target = join(cwd, file);
+    writeFileSync(target, sourceOf(file).replace(find, replace));
+    return verdict(cwd, test).finally(() => copyFileSync(join(template, file), target));
+  };
+
+  const workerCount = Math.min(availableParallelism(), 4, Math.max(1, MUTATIONS.length));
+  const workerDirs = Array.from({ length: workerCount }, (_, index) => {
+    const dir = join(work, `worker-${index}`);
+    cpSync(template, dir, { recursive: true });
+    return dir;
+  });
+
   for (const control of CONTROLS) {
-    const result = mutated(control);
+    const result = await mutated(workerDirs[0], control);
     console.log(`control   ${control.name}: ${result}`);
     if (result !== 'invalid') failures += 1;
   }
-  for (const { file, name, find, ...mutation } of MUTATIONS) {
-    const source = readFileSync(join(root, file), 'utf8');
-    if (source.split(find).length !== 2) {
+
+  const results = new Array(MUTATIONS.length);
+  const queue = [];
+  for (let i = 0; i < MUTATIONS.length; i += 1) {
+    const { file, find } = MUTATIONS[i];
+    if (sourceOf(file).split(find).length !== 2) {
+      results[i] = 'stale';
+    } else {
+      queue.push(i);
+    }
+  }
+
+  let next = 0;
+  await allSettledOrThrow(workerDirs.map(async (cwd) => {
+    while (next < queue.length) {
+      const index = queue[next];
+      next += 1;
+      results[index] = await mutated(cwd, MUTATIONS[index]);
+    }
+  }));
+
+  for (let i = 0; i < MUTATIONS.length; i += 1) {
+    const { file, name } = MUTATIONS[i];
+    const result = results[i];
+    if (result === 'stale') {
       console.log(`STALE     ${name}: the text to change is not in ${file} exactly once`);
       failures += 1;
-      continue;
+    } else {
+      console.log(`${result === 'caught' ? 'caught   ' : result.toUpperCase()} ${name}`);
+      if (result !== 'caught') failures += 1;
     }
-    const result = mutated({ file, find, ...mutation });
-    console.log(`${result === 'caught' ? 'caught   ' : result.toUpperCase()} ${name}`);
-    if (result !== 'caught') failures += 1;
   }
-} finally {
-  rmSync(work, { recursive: true, force: true });
-}
+})().finally(() => {
+  rmSync(work, { recursive: true, force: true, maxRetries: 3 });
+});
 console.log(failures ? `mutation check: ${failures} of ${MUTATIONS.length} need attention` : `mutation check: ${MUTATIONS.length} mutations accounted for`);
 process.exitCode = failures ? 1 : 0;
