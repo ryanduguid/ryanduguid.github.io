@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { randomUUID } from 'node:crypto';
-import { lstatSync, realpathSync } from 'node:fs';
 import {
   copyFile,
   mkdir,
@@ -288,47 +287,12 @@ export async function renderSocialCards(browser, outputDirectory) {
   });
 }
 
-function canonicalisePath(targetPath) {
-  const resolved = path.resolve(targetPath);
-  const tail = [];
-  let cursor = resolved;
-  while (!lstatSync(cursor, { throwIfNoEntry: false })) {
-    const parent = path.dirname(cursor);
-    if (parent === cursor) break;
-    tail.unshift(path.basename(cursor));
-    cursor = parent;
-  }
-  const base = lstatSync(cursor, { throwIfNoEntry: false })
-    ? realpathSync.native(cursor)
-    : cursor;
-  return tail.length ? path.join(base, ...tail) : base;
-}
-
-function resolveCliOutputDirectory(argument) {
-  if (!argument) return ASSETS;
-  const resolved = canonicalisePath(argument);
-  const repoRoot = realpathSync.native(ROOT);
-  const tmpRoot = realpathSync.native(os.tmpdir());
-  const repoPrefix = repoRoot.endsWith(path.sep) ? repoRoot : `${repoRoot}${path.sep}`;
-  const tmpPrefix = tmpRoot.endsWith(path.sep) ? tmpRoot : `${tmpRoot}${path.sep}`;
-  const inRepo = resolved === repoRoot || resolved.startsWith(repoPrefix)
-    || (process.platform === 'win32'
-      && (resolved.toLowerCase() === repoRoot.toLowerCase()
-        || resolved.toLowerCase().startsWith(repoPrefix.toLowerCase())));
-  const inTmp = resolved === tmpRoot || resolved.startsWith(tmpPrefix)
-    || (process.platform === 'win32'
-      && (resolved.toLowerCase() === tmpRoot.toLowerCase()
-        || resolved.toLowerCase().startsWith(tmpPrefix.toLowerCase())));
-  if (!inRepo && !inTmp) {
-    throw new RangeError('Output directory must stay inside the repository or temp directory');
-  }
-  return resolved;
-}
-
 async function runCli() {
-  const outputDirectory = resolveCliOutputDirectory(process.argv[2]);
+  if (process.argv.length > 2) {
+    throw new RangeError('render-social-cards.mjs takes no arguments and writes to assets/');
+  }
   const browser = await chromium.launch();
-  await renderSocialCards(browser, outputDirectory)
+  await renderSocialCards(browser, ASSETS)
     .then((outputs) => {
       console.log(
         `Rendered ${outputs.length} cards with Chromium ${browser.version()} at device scale 1.`,
