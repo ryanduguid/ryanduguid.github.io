@@ -2,7 +2,11 @@
 <form class="calculator-split" data-calculator="super-benefit-tax">
 <fieldset disabled><legend>One super lump sum from a complying fund</legend>
 <div class="form-grid">
-<div class="field"><label for="super-benefit-tax-calc">Work out</label><select name="calc" id="super-benefit-tax-calc" aria-describedby="super-benefit-tax-calc-note"><option value="tax" selected>The most income tax on the lump sum</option><option value="withholding">The amount the fund withholds (Schedule 12)</option><option value="dasp">The tax on a departing Australia superannuation payment</option></select></div>
+<fieldset class="field" aria-describedby="super-benefit-tax-calc-note"><legend>Work out</legend>
+<label><input type="radio" name="calc" value="tax" checked /> The most income tax on the lump sum</label>
+<label><input type="radio" name="calc" value="withholding" /> The amount the fund withholds (Schedule 12)</label>
+<label><input type="radio" name="calc" value="dasp" /> The tax on a departing Australia superannuation payment</label>
+</fieldset>
 </div>
 <fieldset data-show-field="calc" data-show-values="tax withholding"><legend>The lump sum</legend>
 <div class="form-grid">

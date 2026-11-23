@@ -19,10 +19,10 @@ const fixture = createRequire(import.meta.url)('./super-lump-sum-options-engine-
 const page = readFileSync('_includes/calculators/super-benefit-tax.html', 'utf8');
 const aud = (v) => `$${v.toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-/** The form's opening values: each input's value and each select's selected option. */
+/** The form's opening values: each input's value, the checked radio's and each select's selected option. */
 const defaults = () => {
   const fields = new Map();
-  for (const [tag] of page.matchAll(/<input\b[^>]*>/g)) fields.set(tag.match(/\bname="([^"]+)"/)[1], tag.match(/\bvalue="([^"]*)"/)?.[1] ?? '');
+  for (const [tag] of page.matchAll(/<input\b[^>]*>/g)) if (!tag.includes('type="radio"') || tag.includes(' checked')) fields.set(tag.match(/\bname="([^"]+)"/)[1], tag.match(/\bvalue="([^"]*)"/)?.[1] ?? '');
   for (const [, name, body] of page.matchAll(/<select\b[^>]*\bname="([^"]+)"[^>]*>(.*?)<\/select>/gs)) {
     const options = [...body.matchAll(/<option\b([^>]*)>/g)].map(([, attributes]) => attributes);
     fields.set(name, (options.find((attributes) => /\bselected\b/.test(attributes)) ?? options[0]).match(/\bvalue="([^"]*)"/)[1]);

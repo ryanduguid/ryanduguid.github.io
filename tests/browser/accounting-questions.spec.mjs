@@ -1176,14 +1176,14 @@ test('super lump sum page works withholding and DASP tax offline', async ({ page
   await waitForCalculator(form);
   await context.setOffline(true);
   await expect(form.locator('[name="tfn"]')).toBeHidden();
-  await form.locator('[name="calc"]').selectOption('withholding');
+  await form.locator('[name="calc"][value="withholding"]').check();
   await expect(form.locator('[name="tfn"]')).toBeVisible();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output .result-row--principal')).toHaveText('Amount to withhold, to the nearest dollar: $13,600.00.');
   await form.locator('[name="recipient"]').selectOption('rollover');
   await expect(form.locator('[name="born"]')).toBeHidden();
   await expect(form.locator('[name="plan-used"]')).toBeVisible();
-  await form.locator('[name="calc"]').selectOption('dasp');
+  await form.locator('[name="calc"][value="dasp"]').check();
   await expect(form.locator('[name="benefit"]')).toBeHidden();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output .result-row--principal')).toHaveText('Departing Australia superannuation payment tax: $5,950.00.');
