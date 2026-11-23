@@ -2927,7 +2927,7 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
   .home-register a,
   .collection-entry__title,
   .collection-entry__links a,
-  .article-toc a,
+  .toc-disclosure a,
   .related > li > a,
   .article-body .sources > li > a,
   .legal-content .sources > li > a,
