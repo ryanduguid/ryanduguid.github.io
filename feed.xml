@@ -8,6 +8,13 @@
   <updated>2026-11-23T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new business calculator, R&amp;D tax offset, works one company’s research and…</title>
+    <link href="https://duguid.com.au/changelog/#entry-0f4d87722a405783" />
+    <id>https://duguid.com.au/changelog/#entry-0f4d87722a405783</id>
+    <updated>2026-11-23T00:00:00Z</updated>
+    <summary>A new business calculator, R&amp;D tax offset, works one company’s research and development tax incentive offset for 2021-22 to 2026-27: refundable at its corporate tax rate plus 18.5 percentage points under $20 million turnover, otherwise with the 8.5% and 16.5% premium tiers at 2% of total expenses, the $20,000 threshold and the $150 million cap, and the amount a grant or feedstock clawback includes in assessable income under section 355-450. It agrees with the rd-tax-offset command of the australian-accounting calculators on every tested case and reproduces the ATO’s clawback examples.</summary>
+  </entry>
+  <entry>
     <title>The super lump sum tax calculator now also works the amount a fund withholds…</title>
     <link href="https://duguid.com.au/changelog/#entry-3788ddb8a47c23db" />
     <id>https://duguid.com.au/changelog/#entry-3788ddb8a47c23db</id>

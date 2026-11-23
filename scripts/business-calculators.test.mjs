@@ -767,6 +767,12 @@ Object.assign(INPUTS, { rentalProperty: (x) => calculations.rentalInputsText(x,
 Object.assign(ENGINE_LABELS, { rentalProperty: { grossRent: (v) => `gross rent ${dollars(v)}`,
   totalDeductions: (v) => `total deductions ${dollars(v)}`, netRent: (v) => `net rent ${dollars(v)}` } });
 
+// The R&D tax offset page's rows (its tests are with the page's other tests below).
+Object.assign(INPUTS, { rdTaxOffset: (x) => calculations.rdInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { rdTaxOffset: { taxOffset: 'R&D tax offset', refundableOffset: 'refundable',
+  nonRefundableOffset: 'non-refundable', clawbackIncome: 'included in assessable income' } });
+
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
     test(`${page} official comparison states what this calculator returns`, () => {
@@ -1210,6 +1216,8 @@ Object.assign(FORM_CALLS, { lowValuePool: (f) => [calculations.poolFormInput((na
 Object.assign(FORM_CALLS, { wineEqualisationTax: (f) => [calculations.wetFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { rentalProperty: (f) => [calculations.rentalFormInput((name) => f[name] ?? '')] });
+
+Object.assign(FORM_CALLS, { rdTaxOffset: (f) => [calculations.rdFormInput((name) => f[name] ?? '')] });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -6507,4 +6515,107 @@ test('the ATO penalties page refuses figures a JavaScript number cannot hold to 
   const parts = Array.from({ length: 100 }, () => ({ shortfall_amount: '1000000000000', behaviour: 'intentional_disregard', increase: true }));
   assert.equal(atoCode({ question: 'statement_penalty', year: '2025-26', statement_date: '2026-03-15', significant_global_entity: true, parts }), 'input.amount_invalid');
   assert.equal(atoCode({ question: 'statement_penalty', year: '2025-26', statement_date: '2026-03-15', significant_global_entity: true, parts: parts.slice(0, 1) }), 'computed');
+});
+
+// The R&D tax offset page: its example, the command it ports, the spec's vectors and boundaries and the refusals. The rules
+// and vectors are the build 10 spec of 22 November 2026 (ITAA 1997 ss 355-100, 355-115 and 355-440 to 355-450 on the ATO's
+// legal database; the ATO's 'Calculate the clawback adjustment' and 'Clawback of feedstock adjustments', last updated 13 May 2026).
+const rdHtml = readFileSync(new URL('../_includes/calculators/rd-tax-offset.html', import.meta.url), 'utf8');
+const rdAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const rdBase = { notional_deductions: '0.00', rsp_crc_expenditure: '0.00', aggregated_turnover: '10000000.00', exempt_entity_controlled: false,
+  base_rate_entity: true, total_expenses: '0.00', recoupment_clawback: '0.00', feedstock_revenue: '0.00', feedstock_expenditure: '0.00',
+  present_year_base_rate_entity: true, year: '2024-25', scope_confirmed: true };
+const rd = (more) => calculations.rdTaxOffset({ ...rdBase, ...more });
+const rdCode = (input) => {
+  try {
+    calculations.rdTaxOffset(input);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+const rdFour = (r) => ['tax_offset', 'adjusted_offset', 'deduction_amount', 'clawback_income'].map((key) => r.amounts[key]);
+
+test('the R&D tax offset page opens on the ATO’s Company V and dates its sources', () => {
+  const example = rdHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(rdHtml);
+  const result = calculations.rdTaxOffsetResult((name) => fields[name] ?? '', rdAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';').replaceAll('R&D', 'R&amp;D'), String(result.principal), result.note],
+    example.slice(1));
+  for (const cited of ['Rates of R&amp;D tax incentive offset</a> (last updated 13 May 2026)', 'Clawback of feedstock adjustments</a> (both last updated 13 May 2026), read 22 November 2026',
+    'PAC/19970038/355-100', 'PAC/19970038/355-450', 'PAC/19860107/23', 'C2020A00092']) {
+    assert.ok(rdHtml.includes(cited), cited);
+  }
+});
+
+test('the R&D tax offset agrees with the australian-accounting command on every differential case', () => {
+  const { engine, cases } = JSON.parse(readFileSync(new URL('./rd-tax-offset-engine-differential.json', import.meta.url), 'utf8'));
+  assert.match(engine, /58076d30b6dc9aa4a0a8135c322770b257871481/);
+  assert.equal(cases.filter((c) => c.source.startsWith('AA test')).length, 68);
+  assert.equal(cases.length, 368);
+  let refused = 0;
+  for (const { source, call, period, amounts, rates, refused: code } of cases) {
+    if (code) {
+      refused += 1;
+      assert.equal(rdCode(call), code, source);
+      continue;
+    }
+    const r = calculations.rdTaxOffset(call);
+    assert.deepEqual({ period: r.year, amounts: r.amounts, rates: r.rates }, { period, amounts, rates }, source);
+    assert.deepEqual(Object.keys(r.amounts), Object.keys(amounts), source);
+  }
+  assert.equal(refused, 82);
+});
+
+test('the R&D tax offset reproduces the ATO’s clawback examples', () => {
+  // Calculate the clawback adjustment: Company Y in 2023-24 and 2024-25, its alternative, L, J and J recalculated.
+  for (const [year, notional, clawback, expected] of [['2023-24', '350000.00', '150000.00', ['152250.00', '87000.00', '37500.00', '111000.00']],
+    ['2024-25', '150000.00', '50000.00', ['65250.00', '43500.00', '12500.00', '37000.00']],
+    ['2023-24', '1000000.00', '300000.00', ['435000.00', '304500.00', '75000.00', '222000.00']],
+    ['2024-25', '1500000.00', '100000.00', ['652500.00', '609000.00', '25000.00', '74000.00']],
+    ['2023-24', '700000.00', '250000.00', ['304500.00', '195750.00', '62500.00', '185000.00']],
+    ['2023-24', '400000.00', '200000.00', ['174000.00', '87000.00', '50000.00', '148000.00']],
+    ['2023-24', '400000.00', '50000.00', ['174000.00', '152250.00', '12500.00', '37000.00']]]) {
+    assert.deepEqual(rdFour(rd({ year, notional_deductions: notional, recoupment_clawback: clawback })), expected, `${year} ${notional}`);
+  }
+  // Across the tier split and across the cap at 30% (spec b10, changes after review round 1).
+  const thirty = { aggregated_turnover: '60000000.00', base_rate_entity: false, present_year_base_rate_entity: false };
+  assert.deepEqual(rdFour(rd({ ...thirty, notional_deductions: '300000.00', total_expenses: '10000000.00', recoupment_clawback: '150000.00' })),
+    ['123500.00', '57750.00', '45000.00', '69166.67']);
+  assert.deepEqual(rdFour(rd({ ...thirty, notional_deductions: '160000000.00', total_expenses: '2000000000.00', recoupment_clawback: '20000000.00' })),
+    ['69550000.00', '61900000.00', '6000000.00', '5500000.00']);
+  // A 25% offset year clawed back in a 30% present year divides by 30%.
+  assert.equal(rd({ notional_deductions: '1000000.00', recoupment_clawback: '500000.00', present_year_base_rate_entity: false }).amounts.clawback_income, '308333.33');
+});
+
+test('the R&D tax offset turns at $20,000, $20 million, 2% of total expenses and $150 million', () => {
+  assert.equal(rd({ notional_deductions: '20000.00' }).amounts.tax_offset, '8700.00');
+  assert.equal(rd({ notional_deductions: '19999.99' }).amounts.tax_offset, '0.00');
+  assert.equal(rd({ notional_deductions: '100000.00', total_expenses: '1000000.00', aggregated_turnover: '19999999.99' }).refundableOffset, 43500);
+  assert.equal(rd({ notional_deductions: '100000.00', total_expenses: '1000000.00', aggregated_turnover: '20000000.00' }).nonRefundableOffset, 39900);
+  const at2 = rd({ notional_deductions: '200000.00', total_expenses: '10000000.00', aggregated_turnover: '60000000.00', base_rate_entity: false });
+  assert.deepEqual([at2.amounts.premium_tier_1, at2.amounts.premium_tier_2, at2.taxOffset], ['17000.00', '0.00', 77000]);
+  const cap = rd({ year: '2025-26', notional_deductions: '150000000.00', aggregated_turnover: '19000000.00' });
+  assert.deepEqual([cap.taxOffset, cap.amounts.excess_offset], [65250000, '0.00']);
+  assert.equal(rd({ notional_deductions: '150000000.00', total_expenses: '2000000000.00', aggregated_turnover: '60000000.00', base_rate_entity: false }).taxOffset, 66550000);
+  assert.deepEqual(['2021-22', '2026-27', '2020-21', '2027-28'].map((year) => rdCode({ ...rdBase, year })), ['computed', 'computed', 'period.unsupported', 'period.unsupported']);
+});
+
+test('the R&D tax offset refuses as the command does, in its order', () => {
+  assert.equal(rdCode({ ...rdBase, turnover: '1' }), 'input.field_unknown');
+  const missing = { ...rdBase, year: '2020-21' };
+  delete missing.total_expenses;
+  assert.equal(rdCode(missing), 'input.missing_field');
+  assert.equal(rdCode({ ...rdBase, total_expenses: '1e3', year: '2020-21' }), 'input.decimal_unreadable');
+  assert.equal(rdCode({ ...rdBase, scope_confirmed: false, notional_deductions: '-1' }), 'scope.not_confirmed');
+  for (const value of ['-0.01', '1.001', 'NaN', '-Infinity', '1000000000000.01', 5]) {
+    assert.equal(rdCode({ ...rdBase, notional_deductions: value }), 'input.amount_invalid', String(value));
+  }
+  assert.equal(rdCode({ ...rdBase, notional_deductions: '-0' }), 'computed');
+  assert.equal(rdCode({ ...rdBase, base_rate_entity: 'yes' }), 'input.flag_invalid');
+  assert.equal(rdCode({ ...rdBase, notional_deductions: '1000.00', rsp_crc_expenditure: '1000.01' }), 'rd_tax_offset.threshold_expenditure_above_total');
+  assert.equal(rdCode({ ...rdBase, notional_deductions: '100000.00', feedstock_expenditure: '100000.01' }), 'rd_tax_offset.feedstock_expenditure_above_total');
+  assert.equal(rdCode({ ...rdBase, notional_deductions: '100000.00', recoupment_clawback: '100000.01' }), 'rd_tax_offset.clawback_above_total');
+  assert.equal(rdCode({ ...rdBase, notional_deductions: '100000.00', recoupment_clawback: '80000.01' }), 'rd_tax_offset.clawback_below_threshold');
+  assert.equal(rdCode({ ...rdBase, notional_deductions: '100000.00', recoupment_clawback: '80000.00' }), 'computed');
 });

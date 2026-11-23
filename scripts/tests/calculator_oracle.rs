@@ -91,6 +91,11 @@
 //! 2026, and count capital works days between calendar dates, where the engine works in sixteenths, tenths
 //! and twentieths of a cent and counts days from the epoch.
 //!
+//! A further 240 seeded R&D tax offsets, from their own seed, integrate marginal rates in basis
+//! points over slices of the notional deductions in hundredths of a cent (s 355-100(1), (1A) and (3)),
+//! where the engine works each step's product in thousandths, and divide the clawback by the present
+//! year's rate in basis points.
+//!
 //! A further 240 seeded wine equalisation tax periods fill the producer rebate cap one dealing at a
 //! time, where the engine compares the year's total with what the cap leaves, and type the cap by year
 //! from WET Act s 19-15(2) and Act No. 12 of 2026 Sch 6.
@@ -9448,6 +9453,129 @@ fn the_first_home_owner_grant_engine_agrees_with_the_oracle_on_every_boundary() 
     }
     let actual = run_node(FHOG_HARNESS, &cases);
     assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the R&D tax offset engine, as `HARNESS` runs the others, and returns its figures as text.
+const RD_HARNESS: &str = r"
+import { rdTaxOffset } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const keys = ['taxOffset', 'refundableOffset', 'nonRefundableOffset', 'clawbackAmount', 'adjustedOffset', 'deductionAmount', 'clawbackIncome', 'rate', 'presentRate'];
+process.stdout.write(JSON.stringify(JSON.parse(input).map((call) => {
+  const r = rdTaxOffset(call);
+  return Object.fromEntries(keys.map((key) => [key, String(r[key])]));
+})));
+";
+
+const RD_CASES: usize = 240;
+const RD_YEARS: [&str; 6] = [
+    "2021-22", "2022-23", "2023-24", "2024-25", "2025-26", "2026-27",
+];
+
+/// ITAA 1997 s 355-100 as marginal rates in basis points on slices of the total in hundredths of a
+/// cent: refundable, the corporate rate plus 1,850 up to $150 million (item 1); otherwise plus 850 up
+/// to 2% of total expenses and plus 1,650 above it, to $150 million (s 355-100(1A)); the corporate
+/// rate alone above $150 million (s 355-100(3)). The sum is in millionths of a cent.
+fn rd_offset(total: u128, rsp_crc: u128, expenses: u128, refundable: bool, rate: u128) -> u128 {
+    let base = 100 * if total < 2_000_000 { rsp_crc } else { total };
+    let cap = 100 * 15_000_000_000;
+    let split = (2 * expenses).min(cap);
+    let slice = |from: u128, to: u128| to.min(base).saturating_sub(from);
+    let above = slice(cap, u128::MAX) * rate;
+    if refundable {
+        slice(0, cap) * (rate + 1_850) + above
+    } else {
+        slice(0, split) * (rate + 850) + slice(split, cap) * (rate + 1_650) + above
+    }
+}
+
+/// One seeded company: no refusal, so every clawback leaves at least $20,000.
+fn rd_case(rng: &mut Seeded) -> (Value, Value) {
+    let any = rng.cents(30_000_000_000);
+    let notional =
+        u128::from(rng.pick(&[any, 1_999_999, 2_000_000, 15_000_000_000, 15_000_000_001]));
+    let up_to = |rng: &mut Seeded, limit: u128| {
+        if limit == 0 {
+            0
+        } else {
+            rng.cents(u64::try_from(limit).unwrap())
+        }
+    };
+    let any = up_to(rng, notional);
+    let rsp = u128::from(rng.pick(&[0, any]));
+    let any = up_to(rng, notional.saturating_sub(2_000_000));
+    let clawback = if notional < 2_000_000 {
+        0
+    } else {
+        u128::from(rng.pick(&[0, any]))
+    };
+    let any = up_to(rng, clawback);
+    let feedstock = u128::from(rng.pick(&[0, any]));
+    let revenue = feedstock + u128::from(rng.pick(&[0_u64, 1, 50_000]));
+    let any = rng.cents(100_000_000_000);
+    let expenses =
+        u128::from(rng.pick(&[0, any])) + notional * u128::from(rng.pick(&[0_u64, 1, 50]));
+    let any = rng.cents(100_000_000_000);
+    let turnover = u128::from(rng.pick(&[any, 1_999_999_999, 2_000_000_000]));
+    let exempt = rng.below(5) == 0;
+    let (bre, present_bre) = (rng.below(2) == 0, rng.below(2) == 0);
+    let (rate, present) = (
+        if bre { 2_500 } else { 3_000 },
+        if present_bre { 2_500 } else { 3_000 },
+    );
+    let refundable = turnover < 2_000_000_000 && !exempt;
+    let starting = rd_offset(notional, rsp, expenses, refundable, rate);
+    let adjusted = rd_offset(notional - clawback, rsp, expenses, refundable, rate);
+    let deduction = 100 * clawback * rate;
+    let figure = |numerator: u128| rd_shown(exact_half_up(numerator, 1_000_000));
+    let (refunded, kept) = if refundable {
+        (starting, 0)
+    } else {
+        (0, starting)
+    };
+    (
+        json!({ "notional_deductions": rd_money(notional), "rsp_crc_expenditure": rd_money(rsp),
+            "aggregated_turnover": rd_money(turnover), "exempt_entity_controlled": exempt, "base_rate_entity": bre,
+            "total_expenses": rd_money(expenses), "recoupment_clawback": rd_money(clawback - feedstock),
+            "feedstock_revenue": rd_money(revenue), "feedstock_expenditure": rd_money(feedstock),
+            "present_year_base_rate_entity": present_bre, "year": rng.pick(&RD_YEARS), "scope_confirmed": true }),
+        json!({ "taxOffset": figure(starting), "refundableOffset": figure(refunded), "nonRefundableOffset": figure(kept),
+            "clawbackAmount": rd_shown(clawback), "adjustedOffset": figure(adjusted), "deductionAmount": figure(deduction),
+            "clawbackIncome": rd_shown(exact_half_up(starting - adjusted - deduction, 100 * present)),
+            "rate": (rate / 100).to_string(), "presentRate": (present / 100).to_string() }),
+    )
+}
+
+/// Cents as the page's dollars text.
+fn rd_money(value: u128) -> String {
+    dollars(u64::try_from(value).unwrap())
+}
+
+/// Cents as the engine's number reads as text.
+fn rd_shown(value: u128) -> String {
+    shown(u64::try_from(value).unwrap())
+}
+
+#[test]
+fn the_rd_tax_offset_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1123_0000_0B10);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..RD_CASES).map(|_| rd_case(&mut rng)).unzip();
+    let figure = |key: &str| {
+        expected
+            .iter()
+            .any(|want| want[key].as_str().is_some_and(|value| value != "0"))
+    };
+    assert!(
+        figure("refundableOffset") && figure("nonRefundableOffset") && figure("clawbackIncome")
+    );
+    let actual = run_node(RD_HARNESS, &cases);
+    assert_eq!(actual.len(), RD_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }
