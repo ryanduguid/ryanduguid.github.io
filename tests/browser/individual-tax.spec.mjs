@@ -432,6 +432,30 @@ for (const [id, name, input, expected] of [
   ['income-tests', 'calculate_income_tests', { taxableIncome: 90000, reportableFringeBenefitsOther: 27000, assessableIncome: 90000 },
     { incomeForSurchargePurposes: '117000.00' }],
   ['super-projection', 'project_super_balance', { age: 66, balance: '50000', salary: 80000 }, { balanceAtRetirement: '60829.25' }],
+  ['study-loan', 'calculate_study_loan_repayment', { incomeYear: '2026-27', taxableIncome: 60470, reportableFringeBenefits: 5400,
+    totalNetInvestmentLoss: 1330, reportableSuperContributions: 16500, exemptForeignEmploymentIncome: 2680 },
+  { compulsoryRepayment: '2527.80' }],
+  ['concessional-catch-up', 'calculate_concessional_catch_up', { incomeYear: '2024-25', totalSuperBalance: '450000',
+    concessionalContributions: '97500', earlierYears: [
+      { year: '2019-20', contributions: '11000' }, { year: '2020-21', contributions: '12000' },
+      { year: '2021-22', contributions: '13000' }, { year: '2022-23', contributions: '14000' },
+      { year: '2023-24', contributions: '15000' },
+    ] }, { availableCap: '97500.00' }],
+  ['lump-sum-arrears', 'calculate_lump_sum_arrears', { receiptYear: '2025-26', taxableIncome: 100000,
+    australianResidentAllYears: true, accrualYears: [
+      { year: '2023-24', arrears: 3000, taxableIncome: 30000 }, { year: '2022-23', arrears: 2500, taxableIncome: 17000 },
+      { year: '2021-22', arrears: 1400 }, { year: '2020-21', arrears: 1700 },
+      { year: '2019-20', arrears: 1400 }, { year: '2018-19', arrears: 1000 },
+    ] }, { offset: '1688.25' }],
+  ['fhss', 'calculate_fhss_release', { mode: 'stated', scopeConfirmed: true, determinationDate: '2025-06-20',
+    concessional: '8500', nonConcessional: '5000', associatedEarnings: '850', withholdingBasis: 'unable', debtOffset: '0' },
+  { maximumReleaseAmount: '14350.00' }],
+  ['work-expenses', 'calculate_work_expenses', { method: 'home_office', incomeYear: '2025-26', scopeConfirmed: true,
+    hours: '843', runningExpensesIncurred: true }, { amounts: { fixed_rate_return_amount: '590.00' } }],
+  ['government-super', 'calculate_government_super_amounts', { incomeYear: '2023-24', scopeConfirmed: true,
+    residency: 'full_year_resident', assessableIncome: 35000, taxableIncome: 35000, eligibleIncome: '35000',
+    personalContributions: '1040', returnLodged: true, under71: true, nonConcessionalWithinCap: 'yes',
+    totalSuperBalanceBelowCap: 'yes' }, { amounts: { co_contribution_paid: '500.00' } }],
 ]) {
   test(`${id} registers ${name} where the browser offers modelContext`, async ({ page }) => {
     await page.addInitScript(() => {
