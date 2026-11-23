@@ -13651,7 +13651,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/individual-tax/pension-minimum/
 
-> Work out the minimum annual payment from an account-based pension: the factor for your age, a first year pro-rated from the start day, and rounding to the nearest $10.
+> Work out the minimum annual payment from an account-based pension, with the factor for your age, a pro-rated first year and rounding to $10.
 
 # Pension minimum calculator
 
