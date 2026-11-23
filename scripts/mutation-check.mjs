@@ -379,6 +379,10 @@ const MUTATIONS = [
   { ...medical, name: 'net medical 2019-20 refused without s 159P(1A)', find: 'Number(year.slice(0, 4)) >= 2019', replace: 'Number(year.slice(0, 4)) >= 2020' },
   { ...medical, name: 'net medical accepts an unknown field', find: 'if (unknown) refuse(', replace: 'if (false) refuse(' },
   { ...medical, name: 'net medical accepts fractional children', find: '!Number.isInteger(children) || children < 0', replace: 'children < 0' },
+  { ...money, test: individualTest, name: 'command amounts with 3 decimal places', find: 'fraction.length <= 2', replace: 'fraction.length <= 3' },
+  { ...money, test: individualTest, name: 'command amounts accept a minus sign', find: '(parts?.[1] && scaled > 0n)', replace: 'false' },
+  { ...money, test: individualTest, name: 'command amounts above $1e12', find: 'scaled > 10n ** 14n', replace: 'scaled > 10n ** 15n' },
+  { ...money, test: individualTest, name: 'command amounts unreadable called invalid', find: 'if (!parts && !/^', replace: 'if (false && !/^' },
   { ...estimate, name: 'private health insurance offset not refunded', find: "\n    - cents(privateHealth?.offset ?? 0);", replace: ';' },
   { ...estimate, name: 'beneficiary offset after the low income tax offset', find: 'beneficiary: apply(benefit?.offset ?? 0), offset: apply(base.offset)', replace: 'offset: apply(base.offset), beneficiary: apply(benefit?.offset ?? 0)' },
   { ...estimate, name: 'zone offset leaves out the invalid carer offset', find: 'invalid_carer_tax_offset: carer ? carer.offset.toFixed(2) : undefined', replace: 'invalid_carer_tax_offset: undefined' },
@@ -1139,6 +1143,7 @@ const SHARED = [
 const TEST_FILES = [
   levy.test, business.test, individualTest,
   'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs',
+  'scripts/net-medical-expenses.test.mjs',
 ];
 
 const verdict = (cwd, test) => new Promise((resolve, reject) => {

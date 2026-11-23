@@ -5,7 +5,7 @@
 // individual for 2016-17, 2017-18 or 2018-19, the last year it ran (s 159P(1A)). Ported from the
 // australian-accounting command net-medical-expenses-tax-offset, with its refusal codes. The phase-in
 // limits are the ATO's, from its T5 return instructions for 2017, 2018 and 2019. Amounts are in cents.
-import { number, ratioCents } from './money.mjs';
+import { commandCents, ratioCents } from './money.mjs';
 import { refuse } from './private-health-rebate.mjs';
 
 // ITAA 1936 s 159Q(5) and (6), indexed: the lower and higher phase-in limits in dollars.
@@ -16,8 +16,8 @@ const FIELDS = ['year', 'net_medical_expenses', 'adjusted_taxable_income', 'spou
 /** @typedef {{year: string, net_medical_expenses: string, adjusted_taxable_income: string,
  *   spouse_adjusted_taxable_income?: string, dependent_children?: number}} MedicalInput */
 
-/** An amount from 0 to $1 billion, to the cent, in cents. @param {unknown} value */
-const toCents = (value) => Math.round(number(value, { max: 1e9, money: true }) * 100);
+/** An amount in cents, as the command reads one. @param {unknown} value */
+const toCents = (value) => Number(commandCents(value));
 
 /** The year, refusing 2019-20 and later with the reason the offset ended. @param {unknown} year */
 function medicalYear(year) {
@@ -31,9 +31,9 @@ function medicalYear(year) {
 
 /** The offset: 20% of the net medical expenses over the lower phase-in limit, or 10% over the
  * higher limit where the income tested exceeds the threshold (s 159P(3AA)). The income tested is
- * the person's adjusted taxable income for rebates, with a spouse's for a person married on 30 June
- * (s 159Q(1) and (2)); the threshold is $90,000, or $180,000 plus $1,500 for each dependent child
- * after the first for a person with a spouse or a dependant. Half a cent rounds up.
+ * the person's adjusted taxable income for rebates, with a spouse's for a person with a spouse on 30
+ * June (s 159Q(1) and (2)); the threshold is $90,000, or $180,000 plus $1,500 for each dependent child
+ * after the first for a person with a spouse or a dependent child. Half a cent rounds up.
  * @param {MedicalInput} input */
 export function netMedicalOffset(input) {
   const unknown = Object.keys(input).find((key) => !FIELDS.includes(key));
@@ -66,7 +66,7 @@ export function netMedicalResult(value, aud) {
   const whole = (/** @type {number} */ amount) => aud(amount).replace(/\.00$/, '');
   return {
     inputs: `${value('nme-year')}, net medical expenses ${aud(r.net)}, adjusted taxable income ${aud(Number(value('nme-income')))}, `
-      + `${spouse ? `married on 30 June, spouse’s adjusted taxable income ${aud(Number(value('nme-spouse-income')))}` : 'not married on 30 June'}`
+      + `${spouse ? `a spouse on 30 June with adjusted taxable income of ${aud(Number(value('nme-spouse-income')))}` : 'no spouse on 30 June'}`
       + ` and ${children === 1 ? '1 dependent child' : `${children || 'no'} dependent children`}`,
     principal: 4,
     rows: [[spouse ? 'Income tested, yours and your spouse’s' : 'Income tested', aud(r.tested)],

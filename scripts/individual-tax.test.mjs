@@ -28,7 +28,7 @@ import './work-expenses.test.mjs';
 import { governmentSuperAmounts } from '../assets/government-super.mjs';
 import { governmentSuperFormFacts, governmentSuperResult } from '../assets/government-super-result.mjs';
 import './government-super-amounts.test.mjs';
-import './net-medical-expenses.test.mjs';
+import { NET_MEDICAL_DEFAULTS, netMedicalFixture } from './net-medical-expenses.test.mjs';
 
 import { bonusWithholding } from '../assets/bonus-withholding.mjs';
 import { salaryPackaging } from '../assets/salary-packaging.mjs';
@@ -1530,6 +1530,12 @@ const incomeTaxPage = (fields) => {
   }, aud);
 };
 const pageRow = (result, label) => result.rows.find(([name]) => name === label)?.[1];
+
+test('the net medical expenses form opens on the values its tests use and states its differential count', () => {
+  const form = incomeTaxHtml.slice(incomeTaxHtml.indexOf('<form class="calculator-split" data-calculator="net-medical-expenses">'));
+  assert.deepEqual(formDefaults(form.slice(0, form.indexOf('</form>'))), NET_MEDICAL_DEFAULTS);
+  assert.match(incomeTaxHtml, new RegExp(`net-medical-expenses-tax-offset on ${netMedicalFixture.cases.length.toLocaleString('en-AU')} cases`));
+});
 const pageCode = (fields) => {
   try {
     incomeTaxPage(fields);
