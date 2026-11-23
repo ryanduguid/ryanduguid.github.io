@@ -10,7 +10,7 @@ const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 's
   'concessional-catch-up': '$97,500.00', 'bonus-withholding': '$641.00',
   'salary-packaging': '$5,291.50', 'novated-lease': '$6,047.48',
   'super-projection': '$539,266.80', fhss: '$14,350.00', 'work-expenses': '$590.00',
-  'government-super': '$500.00' };
+  'government-super': '$500.00', 'transfer-balance': '$26.80' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -487,6 +487,37 @@ test('work expenses switches method and year, shows only their inputs and refuse
   await expect(form.locator('#work-expenses-category-e')).toBeVisible();
   await calculate.click();
   await expect(row('Deduction, cents disregarded')).toHaveText('$40.00');
+});
+
+test('transfer balance shows the account’s tables, and the charge and the release on request', async ({ page }) => {
+  await page.goto('/tools/individual-tax/transfer-balance/');
+  const form = page.locator('#transfer-balance form');
+  const output = form.locator('output');
+  await waitForCalculator(form);
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  await calculate.click();
+  await expect(output.locator('.result-row--principal strong')).toHaveText('$26.80');
+  const periods = form.locator('table[data-results="tba-periods"]');
+  await expect(periods).toBeVisible();
+  await expect(periods.locator('tbody tr').first().locator('td').last()).toHaveText('$26.80');
+  await expect(form.locator('table[data-results="tba-ledger"] tbody tr').nth(1).locator('td').last()).toHaveText('−$30,000.00');
+  // A 4th event: $20,000 commuted on 1 November 2019 leaves no excess at the last day.
+  await form.locator('#transfer-balance-event-4-date').fill('2019-11-01');
+  await form.locator('#transfer-balance-event-4-kind').selectOption('commutation');
+  await form.locator('#transfer-balance-event-4-amount').fill('20000');
+  await calculate.click();
+  await expect(output.locator('.result-row').filter({ has: page.getByText('Excess transfer balance', { exact: true }) }).locator('strong')).toHaveText('$0.00');
+  await form.locator('[name="calc"][value="charge"]').check();
+  await expect(form.locator('#transfer-balance-event-1-date')).toBeHidden();
+  await calculate.click();
+  await expect(output.locator('.result-row--principal strong')).toHaveText('$44.17');
+  await form.locator('[name="calc"][value="release"]').check();
+  await calculate.click();
+  await expect(output.locator('.result-row--principal strong')).toHaveText('$112,463.55');
+  await form.locator('#transfer-balance-release-year').selectOption('2020-21');
+  await form.locator('#transfer-balance-determination-date').fill('2020-06-30');
+  await calculate.click();
+  await expect(output).toContainText('on or after 1 July of the contributions year');
 });
 
 test('government super shows the spouse inputs on request and refuses a temporary visa and an unknown balance', async ({ page }) => {

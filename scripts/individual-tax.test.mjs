@@ -28,13 +28,18 @@ import './work-expenses.test.mjs';
 import { governmentSuperAmounts } from '../assets/government-super.mjs';
 import { governmentSuperFormFacts, governmentSuperResult } from '../assets/government-super-result.mjs';
 import './government-super-amounts.test.mjs';
+import { excessContributions } from '../assets/excess-contributions.mjs';
+import { transferBalance } from '../assets/transfer-balance.mjs';
+import { excessFormInput, tbaFormInput, transferBalanceResult } from '../assets/transfer-balance-result.mjs';
+import './transfer-balance.test.mjs';
 
 import { bonusWithholding } from '../assets/bonus-withholding.mjs';
 import { salaryPackaging } from '../assets/salary-packaging.mjs';
 import { FUEL_EFFICIENT_THRESHOLD, novatedLease } from '../assets/novated-lease.mjs';
 const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAside, lumpSumArrears, division293Tax, incomeTests, concessionalCatchUp,
   bonusWithholding, salaryPackaging, novatedLease, superProjection, fhssAmounts: (facts) => fhss(facts).amounts,
-  workExpenses, governmentSuperAmounts };
+  workExpenses, governmentSuperAmounts,
+  transferBalanceCases: (command, input) => (command === 'transfer-balance' ? transferBalance(input) : excessContributions(input)).amounts };
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -74,6 +79,10 @@ const INPUTS = {
       + `A ${dollars(f.category_a)}, B ${dollars(f.category_b)}, C ${dollars(f.category_c)}, D ${dollars(f.category_d)}`
       + `${f.prescribed_course === undefined ? '' : f.prescribed_course ? `, prescribed course, E ${dollars(f.category_e)}` : ', not a prescribed course'}`,
   })[f.method](),
+  transferBalanceCases: (command, f) => (command === 'transfer-balance'
+    ? `${f.events.map((e) => `${e.date} ${e.kind.replaceAll('_', ' ')} ${dollars(e.amount)}`).join(', ')}; to ${f.to}${f.previously_liable ? ', previously liable' : ''}`
+    : f.question === 'concessional_charge' ? `${f.year} charge on ${dollars(f.additional_tax)}, tax due ${f.tax_due_date}`
+      : `${f.year} release of ${dollars(f.excess)}, determination ${f.determination_date}`),
   governmentSuperAmounts: (f) => `${f.year}, assessable income ${whole(f.assessable_income)}`
     + (f.taxable_income === f.assessable_income ? '' : `, taxable income ${whole(f.taxable_income)}`)
     + (f.business_deductions === '0' ? '' : `, business deductions ${whole(f.business_deductions)}`)
@@ -142,6 +151,11 @@ const OUTPUTS = {
     self_education: () => `${r.reductionApplies ? `Reduction ${dollars(r.amounts.reduction)}, deduction` : 'Deduction'} `
       + `${dollars(r.amounts.deduction)}${r.deductible ? '' : ', not deductible'}`,
   })[r.method](),
+  transferBalanceCases: (r, command, f) => (command === 'transfer-balance'
+    ? `Balance ${dollars(r.transfer_balance)}, cap ${dollars(r.transfer_balance_cap)}, excess ${dollars(r.excess_transfer_balance)}, `
+      + `earnings ${dollars(r.notional_earnings)}, tax ${dollars(r.excess_transfer_balance_tax)}`
+    : f.question === 'concessional_charge' ? `Charge ${dollars(r.excess_concessional_contributions_charge)}`
+      : `Earnings ${dollars(r.associated_earnings)}, release ${dollars(r.total_release_amount)}, offset ${dollars(r.associated_earnings_tax_offset)}`),
   governmentSuperAmounts: (r) => `Co-contribution ${dollars(r.amounts.co_contribution_paid)}, LISTO ${dollars(r.amounts.listo_paid)}`
     + (r.amounts.spouse_contribution_offset === undefined ? '' : `, spouse offset ${dollars(r.amounts.spouse_contribution_offset)}`),
   fhssAmounts: (r) => `Maximum release ${dollars(r.maximum_release_amount)}, assessable ${dollars(r.assessable_fhss_released_amount)}, `
@@ -207,6 +221,11 @@ const formDefaults = (html) => {
   for (const [, name, text] of html.matchAll(/<textarea\b[^>]*\bname="([^"]+)"[^>]*>([\s\S]*?)<\/textarea>/g)) {
     fields[name] = text;
   }
+  // A select opens on its selected option, or its first.
+  for (const [, name, body] of html.matchAll(/<select\b[^>]*\bname="([^"]+)"[^>]*>([\s\S]*?)<\/select>/g)) {
+    const options = [...body.matchAll(/<option\b([^>]*)>/g)].map(([, attributes]) => attributes);
+    fields[name] ??= (options.find((attributes) => /\bselected\b/.test(attributes)) ?? options[0])?.match(/\bvalue="([^"]*)"/)?.[1];
+  }
   return fields;
 };
 // How assets/individual-tax-results.mjs passes each form's fields to its engine.
@@ -214,6 +233,8 @@ const fhssExampleFields = fields => ({ ...fields, scope: 'yes', 'withholding-bas
 const FORM_CALLS = {
   workExpenses: (f) => [workExpensesFormFacts((name) => ({ ...f, scope: 'yes' })[name] ?? '')],
   governmentSuperAmounts: (f) => [governmentSuperFormFacts((name) => ({ ...f, scope: 'yes' })[name] ?? '')],
+  transferBalanceCases: (f) => (f.calc === 'transfer' ? ['transfer-balance', tbaFormInput((name) => f[name] ?? '')]
+    : ['excess-contributions', excessFormInput((name) => f[name] ?? '')]),
   fhssAmounts: (f) => {
     const fixture = fhssExampleFields(f);
     return [Object.fromEntries(Object.entries(fhssFormFacts(name => fixture[name] ?? '')).filter(([, value]) => value !== ''))];
@@ -693,6 +714,7 @@ for (const page of Object.keys(shownCases)) {
     };
     const result = page === 'fhss' ? fhssResult(value, aud) : page === 'work-expenses' ? workExpensesResult(value, aud)
       : page === 'government-super' ? governmentSuperResult(value, aud)
+      : page === 'transfer-balance' ? transferBalanceResult(value, aud)
       : individualResult(page, value, aud);
     assert.equal(result.inputs, example[1]);
     assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);
