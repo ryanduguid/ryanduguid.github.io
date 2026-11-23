@@ -657,3 +657,6 @@ export { asicFee, asicFeesResult, asicFeeFormInput, asicFeeInputsText, firstMont
 export { salaryDividend, salaryDividendResult } from './salary-dividend.mjs';
 export { firbApplicationFee, firbFee, foreignSurcharge, foreignSurchargeResult } from './foreign-surcharge.mjs';
 export { businessDays, businessDaysResult, parseHolidays } from './business-days.mjs';
+export { gstCreditablePurposeChange, gstAnnualApportionment, gstFinancialAcquisitionsThreshold, gstGoingConcern, gstSecondHandGoods, gstBadDebt,
+  GST_ADJUSTMENT_YEARS } from './gst-adjustments.mjs';
+export { gstAdjustment, gstAdjustmentsResult, gstFormInput, gstInputsText, GST_WORKSHEETS } from './gst-adjustments-page.mjs';

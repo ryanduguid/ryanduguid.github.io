@@ -459,3 +459,12 @@ calculate.rdTaxOffset({ ...rdInput, base_rate_entity: 'yes' });
 const rdAmounts: Record<string, number> = calculate.rdTaxOffset(rdInput).amounts;
 void rdOffset;
 void rdAmounts;
+const gstBdInput = { party: 'supplier', event: 'written_off', amount: '550.00', taxable_or_creditable: true, cash_basis: false,
+  special_rule: 'none', attributed: true, year: '2025-26', scope_confirmed: true };
+const gstApplies: boolean = calculate.gstBadDebt(gstBdInput).applies;
+// @ts-expect-error The command's amounts are decimal text, not numbers.
+const gstAmounts: Record<string, number> = calculate.gstBadDebt(gstBdInput).amounts;
+const gstOutcome: string = calculate.gstAdjustment('bad-debt', gstBdInput).outcome;
+void gstApplies;
+void gstAmounts;
+void gstOutcome;

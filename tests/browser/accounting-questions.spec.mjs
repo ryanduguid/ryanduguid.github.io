@@ -1217,6 +1217,29 @@ test('R&D tax offset page works Company V, a refundable offset and refuses a cla
   await expect(form.locator('output')).toContainText('does not choose between them');
 });
 
+// GSTR 2000/24's Bill is the form's default; the bad debt worksheet shows its own fields and the conditions table.
+test('GST adjustments page works Bill, a recipient bad debt and refuses a margin scheme debt offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/gst-adjustments/');
+  const form = page.locator('#gst-adjustments form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Increasing adjustment: $90.00.');
+  await form.getByLabel('A bad debt (Division 21)').check();
+  await expect(form.locator('[name="cp-value"]')).toBeHidden();
+  await form.locator('[name="bd-party"]').selectOption('recipient');
+  await form.locator('[name="bd-event"]').selectOption('written_off');
+  await expect(form.locator('[name="bd-from"]')).toBeHidden();
+  await form.locator('[name="bd-amount"]').fill('1100');
+  await form.locator('[name="bd-purpose"]').fill('60');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Increasing adjustment: $60.00.');
+  await expect(form.locator('table[data-results="conditions"] tbody tr')).toHaveCount(4);
+  await form.locator('[name="bd-special"]').selectOption('taxable_at_less_than_one_eleventh');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Subdivision 136-B works the adjustment');
+});
+
 test('ATO penalties and interest page works GIC by quarter, a failure to lodge penalty and refuses remission offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/ato-penalties-interest/');
   const form = page.locator('#ato-penalties-interest form');
@@ -1719,7 +1742,8 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'termination-payment', 'transfer-duty', 'first-home-owner-grant', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
-  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset'];
+  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset',
+  'gst-adjustments'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

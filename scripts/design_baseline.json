@@ -203,6 +203,9 @@
     "tools/business-calculators/gic-payment-plan/index.html": [
       "d17f601564a0be1ac4f0694b8e231a204a9ca54296fa4a55e5effe5f998dacfe"
     ],
+    "tools/business-calculators/gst-adjustments/index.html": [
+      "b2e447b651b47e0d70992137ebbc8d4be3b6ab3cbc514878c01ed53a126db4fa"
+    ],
     "tools/business-calculators/gst-margin-scheme/index.html": [
       "ec555031c5a0e1514ebd29f37e8e3448f7627e7db8e11ab56ef27b65819b7694"
     ],
@@ -216,7 +219,7 @@
       "1ee789e07f991caadaf17f3e165e8bc60550a06242fe627a485241855184f7b5"
     ],
     "tools/business-calculators/index.html": [
-      "fa0900c00a6279c77c76c7e2b3bb5ec5205a490563421754432c741555c3c718"
+      "fd5c89f120eb327bb635d30654a9c42e5d9b64e68d958ce1bd1dc4fba55ffe8c"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "90b1d2897a81b87c05cb1a74bb0937f468ac5e1806fa0b19603b5fff589b9e09"

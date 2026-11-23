@@ -96,6 +96,10 @@
 //! where the engine works each step's product in thousandths, and divide the clawback by the present
 //! year's rate in basis points.
 //!
+//! A further 240 seeded GST adjustments, from their own seed, work bad debts, second-hand goods credits,
+//! the financial acquisitions threshold and annual apportionment as exact ratios of whole percentages and
+//! cents rounded half up once, where the engine works in a 40-digit decimal context.
+//!
 //! A further 240 seeded wine equalisation tax periods fill the producer rebate cap one dealing at a
 //! time, where the engine compares the year's total with what the cap leaves, and type the cap by year
 //! from WET Act s 19-15(2) and Act No. 12 of 2026 Sch 6.
@@ -9576,6 +9580,205 @@ fn the_rd_tax_offset_engine_agrees_with_the_oracle_on_every_seeded_case() {
     );
     let actual = run_node(RD_HARNESS, &cases);
     assert_eq!(actual.len(), RD_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the GST adjustments engine, as `HARNESS` runs the others, and returns each worksheet's amounts and its
+/// yes or no answer: applies, or exceeds the threshold.
+const GST_HARNESS: &str = r"
+import { gstAdjustment } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+process.stdout.write(JSON.stringify(JSON.parse(input).map(([worksheet, call]) => {
+  const r = gstAdjustment(worksheet, call);
+  return { amounts: r.amounts, answer: r.exceeds_threshold ?? r.applies };
+})));
+";
+
+const GST_CASES: usize = 240;
+const GST_YEARS: [&str; 7] = [
+    "2020-21", "2021-22", "2022-23", "2023-24", "2024-25", "2025-26", "2026-27",
+];
+
+/// Cents as the command's amount text, always to the cent.
+fn gst_cents(value: u128) -> String {
+    dollars(u64::try_from(value).unwrap())
+}
+
+/// A whole percentage from 1 to 99 that 11 does not divide, so no product is a tie after the 1/11.
+fn gst_percent(rng: &mut Seeded) -> u128 {
+    loop {
+        let percent = u128::from(rng.below(99) + 1);
+        if percent % 11 != 0 {
+            return percent;
+        }
+    }
+}
+
+/// One seeded worksheet that no condition or refusal stops: a bad debt (GST Act ss 21-5 to 21-20 with
+/// ss 136-5 and 136-10(1)), second-hand goods (s 66-10), the financial acquisitions threshold (ss 189-5 and
+/// 189-10) or annual apportionment (ss 131-40, 11-30 and 131-55), each worked as an exact ratio rounded half up.
+fn gst_case(rng: &mut Seeded) -> (Value, Value) {
+    let year = rng.pick(&GST_YEARS);
+    let any = rng.cents(10_000_000_000);
+    match rng.below(4) {
+        0 => {
+            let amount = u128::from(rng.pick(&[any, any - any % 11, 1, 550, 1_100]));
+            let supplier = rng.below(2) == 0;
+            let recovered = rng.below(3) == 0;
+            let id = if supplier == recovered {
+                "increasing_adjustment"
+            } else {
+                "decreasing_adjustment"
+            };
+            let mut call = json!({ "party": if supplier { "supplier" } else { "recipient" },
+                "event": if recovered { "recovered" } else { "written_off" }, "amount": gst_cents(amount),
+                "taxable_or_creditable": true, "cash_basis": false, "special_rule": "none", "year": year, "scope_confirmed": true });
+            call[if recovered {
+                "prior_adjustment"
+            } else {
+                "attributed"
+            }] = json!(true);
+            // Each reduction a percentage, or none: s 136-5 for the supplier, s 136-10(1) for the recipient.
+            let mut factors = Vec::new();
+            let names: &[&str] = if supplier {
+                &["taxable_proportion"]
+            } else {
+                &["creditable_purpose", "consideration_extent"]
+            };
+            for name in names {
+                if rng.below(2) == 0 {
+                    let percent = gst_percent(rng);
+                    call[*name] = json!(format!("0.{percent:02}"));
+                    factors.push(percent);
+                }
+            }
+            if !supplier {
+                call["reduced_credit_acquisition"] = json!(false);
+                call["annual_apportionment"] = json!(false);
+            }
+            let full = gst_cents(exact_half_up(amount, 11));
+            let scale = 100_u128.pow(u32::try_from(factors.len()).unwrap());
+            let reduced = exact_half_up(amount * factors.iter().product::<u128>(), 11 * scale);
+            let mut amounts = json!({});
+            if !factors.is_empty() {
+                amounts["full_adjustment"] = json!(full);
+            }
+            amounts[id] = json!(if factors.is_empty() {
+                full
+            } else {
+                gst_cents(reduced)
+            });
+            (
+                json!(["bad-debt", call]),
+                json!({ "amounts": amounts, "answer": true }),
+            )
+        }
+        1 => {
+            let consideration = u128::from(rng.pick(&[any, 30_000, 30_001, 1, any % 30_000]));
+            let mut call = json!({ "consideration": gst_cents(consideration), "acquired_for_sale_or_exchange": true,
+                "animals_or_plants": false, "supply_to_you": "neither", "imported": false, "by_way_of_hire": false,
+                "resupply_taxable": true, "divided_for_resupply": false, "valuable_metal": false, "leased_before_sale": false,
+                "year": year, "scope_confirmed": true });
+            let eleventh = exact_half_up(consideration, 11);
+            let amounts = if consideration <= 30_000 {
+                json!({ "input_tax_credit": gst_cents(eleventh) })
+            } else {
+                // The GST on your resupply caps the credit when it is less than the 1/11 (s 66-10(1)(b)).
+                let gst = u128::from(rng.cents(u64::try_from(consideration / 5).unwrap()));
+                call["resupply_gst"] = json!(gst_cents(gst));
+                let credit = if 11 * gst < consideration {
+                    gst
+                } else {
+                    eleventh
+                };
+                json!({ "one_eleventh_of_consideration": gst_cents(eleventh), "input_tax_credit": gst_cents(credit) })
+            };
+            (
+                json!(["second-hand-goods", call]),
+                json!({ "amounts": amounts, "answer": true }),
+            )
+        }
+        2 => {
+            let mut call =
+                json!({ "gst_group": rng.below(2) == 0, "year": year, "scope_confirmed": true });
+            let mut amounts = json!({});
+            let mut exceeds = false;
+            for name in ["current", "future"] {
+                let any = u128::from(rng.cents(10_000_000_000));
+                let total = rng.pick(&[any, 150_000_000, 150_000_010]);
+                let tenth = total / 10;
+                let any = u128::from(rng.cents(u64::try_from(total.max(1)).unwrap()));
+                let financial = rng
+                    .pick(&[any, tenth, tenth + 1, total, 15_000_000, 15_000_001])
+                    .min(total);
+                call[format!("{name}_financial_credits")] = json!(gst_cents(financial));
+                call[format!("{name}_total_credits")] = json!(gst_cents(total));
+                amounts[format!("{name}_ten_percent")] = json!(gst_cents(exact_half_up(total, 10)));
+                exceeds |= financial > 15_000_000 || 10 * financial > total;
+            }
+            (
+                json!(["financial-acquisitions", call]),
+                json!({ "amounts": amounts, "answer": exceeds }),
+            )
+        }
+        _ => {
+            let gst = u128::from(any);
+            let purpose = gst_percent(rng);
+            let mut call = json!({ "small_business_entity": true, "carries_on_business": true, "instalment_election": false,
+                "annual_tax_period_election": false, "election_made": true, "gst_on_acquisition": gst_cents(gst),
+                "creditable_purpose": format!("0.{purpose:02}"), "car": false, "reduced_credit_acquisition": false,
+                "year": year, "scope_confirmed": true });
+            // The non-input-taxed extent is at least the creditable purpose (s 11-15(2)(a)); 100% is left out.
+            let input_taxed = if rng.below(2) == 0 {
+                100
+            } else {
+                purpose + u128::from(rng.below(u64::try_from(100 - purpose).unwrap()))
+            };
+            let consideration = if rng.below(2) == 0 {
+                100
+            } else {
+                u128::from(rng.below(99) + 1)
+            };
+            if input_taxed < 100 {
+                call["non_input_taxed_extent"] = json!(format!("0.{input_taxed:02}"));
+            }
+            if consideration < 100 {
+                call["consideration_extent"] = json!(format!("0.{consideration:02}"));
+            }
+            let without = gst * purpose * consideration;
+            let with = gst * input_taxed * consideration;
+            let amounts = json!({ "credit_without_annual_apportionment": gst_cents(exact_half_up(without, 10_000)),
+                "annual_apportionment_credit": gst_cents(exact_half_up(with, 10_000)),
+                "increasing_adjustment": gst_cents(exact_half_up(with - without, 10_000)) });
+            (
+                json!(["annual-apportionment", call]),
+                json!({ "amounts": amounts, "answer": true }),
+            )
+        }
+    }
+}
+
+#[test]
+fn the_gst_adjustments_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1123_0000_0B13);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..GST_CASES).map(|_| gst_case(&mut rng)).unzip();
+    for worksheet in [
+        "bad-debt",
+        "second-hand-goods",
+        "financial-acquisitions",
+        "annual-apportionment",
+    ] {
+        assert!(cases.iter().any(|case| case[0] == worksheet), "{worksheet}");
+    }
+    assert!(expected.iter().any(|want| want["answer"] == json!(false)));
+    let actual = run_node(GST_HARNESS, &cases);
+    assert_eq!(actual.len(), GST_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }

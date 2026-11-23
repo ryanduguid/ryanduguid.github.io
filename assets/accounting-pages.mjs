@@ -657,6 +657,10 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             }
             break;
           }
+          case 'gst-adjustments':
+            result = calculate.gstAdjustmentsResult(value, aud);
+            showTables(result.tables);
+            break;
           case 'asic-fees':
             result = calculate.asicFeesResult(value, aud);
             break;

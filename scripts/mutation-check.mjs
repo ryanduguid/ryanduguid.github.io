@@ -63,6 +63,7 @@ const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
+const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
 const fhog = { ...business, file: 'assets/first-home-owner-grant.mjs' };
 const sbt = { ...business, file: 'assets/super-benefit-tax.mjs' };
@@ -994,6 +995,23 @@ const MUTATIONS = [
   { ...rdOffset, name: 'R&D deduction amount not subtracted', find: 'const income = offset - adjusted[6] - deduction;', replace: 'const income = offset - adjusted[6];' },
   { ...rdOffset, name: 'R&D clawback income over the offset year rate', find: 'ratioCents((income < 0n ? -income : income), presentRate * 1000n)', replace: 'ratioCents((income < 0n ? -income : income), e.rate * 1000n)' },
   { ...rdOffset, name: 'R&D clawback below the threshold allowed', find: 'if (clawback !== 0n && e.notional - clawback < THRESHOLD) {', replace: 'if (false) {' },
+  { ...gstAdjustments, name: 'GST creditable purpose threshold counted as over it', find: 'cmp(value, d(finance ? \'10000\' : \'1000\')) <= 0', replace: 'cmp(value, d(finance ? \'10000\' : \'1000\')) < 0' },
+  { ...gstAdjustments, name: 'GST 5 adjustment periods at $5,000 or less', find: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 2];', replace: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 5];' },
+  { ...gstAdjustments, name: 'GST $500,000 given 5 adjustment periods', find: 'cmp(value, d(\'500000\')) < 0 ? 5 : 10', replace: 'cmp(value, d(\'500000\')) <= 0 ? 5 : 10' },
+  { ...gstAdjustments, name: 'GST adjustment period without the 12 months', find: 'const earliest = addMonths(attributed + 1, 12);', replace: 'const earliest = addMonths(attributed + 1, 0);' },
+  { ...gstAdjustments, name: 'GST increasing adjustment reversed', find: 'mul(full, sub(former, actual))', replace: 'mul(full, sub(actual, former))' },
+  { ...gstAdjustments, name: 'GST $2 million turnover threshold exclusive', find: 'd(AA_TURNOVER_THRESHOLD)) <= 0', replace: 'd(AA_TURNOVER_THRESHOLD)) < 0' },
+  { ...gstAdjustments, name: 'GST s 11-30 credit without the consideration extent', find: 'const without = product(gst, [purpose, consideration]);', replace: 'const without = product(gst, [purpose]);' },
+  { ...gstAdjustments, name: 'GST s 131-55 adjustment reversed', find: '[\'increasing_adjustment\', sub(withIt, without)]', replace: '[\'increasing_adjustment\', sub(without, withIt)]' },
+  { ...gstAdjustments, name: 'GST financial acquisitions at 20%', find: 'const tenth = mul(total, d(\'0.10\'));', replace: 'const tenth = mul(total, d(\'0.20\'));' },
+  { ...gstAdjustments, name: 'GST $150,000 limit exclusive', find: 'cmp(financial, d(FAT_AMOUNT_LIMIT)) <= 0', replace: 'cmp(financial, d(FAT_AMOUNT_LIMIT)) < 0' },
+  { ...gstAdjustments, name: 'GST going concern late agreement accepted', find: 'agreement === \'on_or_before_supply_day\'', replace: 'agreement !== \'none\'' },
+  { ...gstAdjustments, name: 'GST second-hand $300 cap from $300', find: 'cmp(consideration, d(SHG_LIMIT)) > 0', replace: 'cmp(consideration, d(SHG_LIMIT)) >= 0' },
+  { ...gstAdjustments, name: 'GST second-hand credit the greater', find: 'cmp(gst, eleventh) < 0 ? gst : eleventh', replace: 'cmp(gst, eleventh) > 0 ? gst : eleventh' },
+  { ...gstAdjustments, name: 'GST bad debt overdue 11 months', find: 'due = tested >= addMonths(start, 12);', replace: 'due = tested >= addMonths(start, 11);' },
+  { ...gstAdjustments, name: 'GST bad debt direction reversed', find: 'const increasing = supplier === recovered;', replace: 'const increasing = supplier !== recovered;' },
+  { ...gstAdjustments, name: 'GST bad debt consideration extent ignored', find: 'product(full, [purpose, extent])', replace: 'product(full, [purpose])' },
+  { ...gstAdjustments, name: 'GST bad debt at 1/10', find: 'const full = div(amount, d(\'11\'));', replace: 'const full = div(amount, d(\'10\'));' },
   { ...asic, name: 'ASIC month counted from the due date itself', find: 'const start = new Date((due + 1) * DAY);', replace: 'const start = new Date(due * DAY);' },
   { ...asic, name: 'ASIC month ends on the same day number next month', find: 'if (corresponding <= length) return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), corresponding) / DAY - 1;', replace: 'if (corresponding <= length) return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), Math.min(new Date(due * DAY).getUTCDate(), length)) / DAY;' },
   { ...asic, name: 'ASIC month with no corresponding day ends a day early', find: 'return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), length) / DAY;', replace: 'return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), length) / DAY - 1;' },
@@ -1153,6 +1171,7 @@ const SHARED = [
   'scripts/luxury-car-tax-engine-differential.json',
   'scripts/depreciation-pools-engine-differential.json',
   'scripts/rd-tax-offset-engine-differential.json',
+  'scripts/gst-adjustments-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',
   'scripts/borrowing-expenses-engine-differential.json',
   'scripts/wine-equalisation-tax-engine-differential.json',

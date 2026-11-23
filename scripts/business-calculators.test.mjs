@@ -773,6 +773,11 @@ Object.assign(INPUTS, { rdTaxOffset: (x) => calculations.rdInputsText(x,
 Object.assign(ENGINE_LABELS, { rdTaxOffset: { taxOffset: 'R&D tax offset', refundableOffset: 'refundable',
   nonRefundableOffset: 'non-refundable', clawbackIncome: 'included in assessable income' } });
 
+// The GST adjustments page's rows (its tests are with the page's other tests below): a worksheet and its input.
+Object.assign(INPUTS, { gstAdjustment: (worksheet, x) => calculations.gstInputsText(worksheet, x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { gstAdjustment: { outcome: (v) => v, amount: (v) => dollars(v) } });
+
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
     test(`${page} official comparison states what this calculator returns`, () => {
@@ -1218,6 +1223,11 @@ Object.assign(FORM_CALLS, { wineEqualisationTax: (f) => [calculations.wetFormInp
 Object.assign(FORM_CALLS, { rentalProperty: (f) => [calculations.rentalFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { rdTaxOffset: (f) => [calculations.rdFormInput((name) => f[name] ?? '')] });
+
+Object.assign(FORM_CALLS, { gstAdjustment: (f) => {
+  const { worksheet, input } = calculations.gstFormInput((name) => f[name] ?? '');
+  return [worksheet, input];
+} });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -6618,4 +6628,175 @@ test('the R&D tax offset refuses as the command does, in its order', () => {
   assert.equal(rdCode({ ...rdBase, notional_deductions: '100000.00', recoupment_clawback: '100000.01' }), 'rd_tax_offset.clawback_above_total');
   assert.equal(rdCode({ ...rdBase, notional_deductions: '100000.00', recoupment_clawback: '80000.01' }), 'rd_tax_offset.clawback_below_threshold');
   assert.equal(rdCode({ ...rdBase, notional_deductions: '100000.00', recoupment_clawback: '80000.00' }), 'computed');
+});
+
+// The GST adjustments page: its example, the 6 commands it ports, the spec's vectors and boundaries, the refusals and the
+// form. The rules and vectors are the build 13 spec of 22 November 2026 (GST Act compilations 96 and 82 on the Federal
+// Register of Legislation; GSTR 2000/24, GSTR 2003/9, GSTR 2002/5, GSTD 2012/6 and GSTR 2000/2).
+const gstHtml = readFileSync(new URL('../_includes/calculators/gst-adjustments.html', import.meta.url), 'utf8');
+const gstAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const gstCommands = { 'gst-creditable-purpose-change': calculations.gstCreditablePurposeChange,
+  'gst-annual-apportionment': calculations.gstAnnualApportionment, 'gst-financial-acquisitions-threshold': calculations.gstFinancialAcquisitionsThreshold,
+  'gst-going-concern': calculations.gstGoingConcern, 'gst-second-hand-goods': calculations.gstSecondHandGoods, 'gst-bad-debt': calculations.gstBadDebt };
+const gstCode = (command, input) => {
+  try {
+    gstCommands[command](input);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+const gstCp = (more) => ({ gst_exclusive_value: '3000.00', relates_to_business_finance: false, full_input_tax_credit: '300.00',
+  intended_or_former_application: '0.90', actual_application: '0.60', application_basis: 'Hours logged', attributed_period_end: '2021-03-31',
+  tax_period_months: 3, year: '2021-22', scope_confirmed: true, ...more });
+const gstAa = (more) => ({ small_business_entity: true, carries_on_business: true, instalment_election: false, annual_tax_period_election: false,
+  election_made: true, gst_on_acquisition: '100.00', creditable_purpose: '0.10', car: false, reduced_credit_acquisition: false, year: '2025-26',
+  scope_confirmed: true, ...more });
+const gstBd = (more) => ({ party: 'supplier', event: 'written_off', amount: '550.00', taxable_or_creditable: true, cash_basis: false, special_rule: 'none',
+  attributed: true, year: '2025-26', scope_confirmed: true, ...more });
+const gstShg = (more) => ({ consideration: '5500.00', acquired_for_sale_or_exchange: true, animals_or_plants: false, supply_to_you: 'neither', imported: false,
+  by_way_of_hire: false, resupply_taxable: true, divided_for_resupply: false, valuable_metal: false, leased_before_sale: false, year: '2025-26',
+  scope_confirmed: true, ...more });
+
+test('the GST adjustments page opens on GSTR 2000/24’s Bill and dates its sources', () => {
+  const example = gstHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(gstHtml);
+  const result = calculations.gstAdjustmentsResult((name) => fields[name] ?? '', gstAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  for (const cited of ['C2004A00446/2026-01-01/2026-01-01/text/original/epub/OEBPS/document_1', 'C2004A00446/2026-01-01/2026-01-01/text/original/epub/OEBPS/document_2',
+    'C2004A00446/2020-04-01/2020-04-01/text/original/epub/OEBPS/document_1', 'C2004A00446/2020-04-01/2020-04-01/text/original/epub/OEBPS/document_2',
+    'F2019L00417', 'GSTR200024', 'GSTR20039', 'GSTR20025', 'GSTD20126', 'GSTR20002', 'annual-private-apportionment-of-gst/eligibility',
+    'read 22 November 2026']) {
+    assert.ok(gstHtml.includes(cited), cited);
+  }
+});
+
+test('the GST adjustments agree with the australian-accounting commands on every differential case', () => {
+  const { engine, cases } = JSON.parse(readFileSync(new URL('./gst-adjustments-engine-differential.json', import.meta.url), 'utf8'));
+  assert.match(engine, /58076d30b6dc9aa4a0a8135c322770b257871481/);
+  assert.equal(cases.filter((c) => c.source.startsWith('AA test')).length, 268);
+  assert.equal(cases.length, 568);
+  let refused = 0;
+  for (const { source, command, call, refused: code, ...want } of cases) {
+    if (code) {
+      refused += 1;
+      assert.equal(gstCode(command, call), code, source);
+      continue;
+    }
+    assert.deepEqual(gstCommands[command](call), want, source);
+  }
+  assert.equal(refused, 236);
+  for (const command of Object.keys(gstCommands)) assert.ok(cases.some((c) => c.command === command && !c.refused), command);
+});
+
+test('the GST adjustments work the spec’s vectors', () => {
+  // GSTR 2000/24's Elizabeth, paras 75 to 78: a $2,400 full credit, 90% intended, 50% actual.
+  assert.equal(calculations.gstCreditablePurposeChange(gstCp({ full_input_tax_credit: '2400.00', actual_application: '0.50' })).amounts.increasing_adjustment, '960.00');
+  // Farmco, paras 30, 31 and 36: $100,000 gives 5 adjustment periods, the first ending 30 June 2022; the 6th is none.
+  const farmco = (year) => calculations.gstCreditablePurposeChange(gstCp({ gst_exclusive_value: '100000.00', year })).adjustment_period;
+  assert.deepEqual(farmco('2021-22'), { is_adjustment_period: true, number: 1, of: 5, first: 'the tax period ending 30 June 2022' });
+  assert.equal(farmco('2025-26').number, 5);
+  assert.equal(farmco('2026-27').is_adjustment_period, false);
+  // Isabelle, para 42: destroyed on 15 March 2022, so the quarter to 30 June 2022 is the last.
+  const isabelle = (year) => calculations.gstCreditablePurposeChange(gstCp({ gst_exclusive_value: '10000.00', attributed_period_end: '2020-09-30',
+    ended_on: '2022-03-15', year })).adjustment_period.is_adjustment_period;
+  assert.deepEqual([isabelle('2021-22'), isabelle('2022-23')], [true, false]);
+  // The section 131-55 example after a $10 Division 19 and a $60 Division 21 adjustment: $50 at 10%, increasing $45.
+  assert.equal(calculations.gstAnnualApportionment(gstAa({ gst_on_acquisition: '50.00' })).amounts.increasing_adjustment, '45.00');
+  // GSTR 2003/9's ABC group, examples 13 and 14: the future test exceeds at more than $9,900.
+  const abc = calculations.gstFinancialAcquisitionsThreshold({ current_financial_credits: '3600.00', current_total_credits: '69000.00',
+    future_financial_credits: '10200.00', future_total_credits: '99000.00', gst_group: true, year: '2025-26', scope_confirmed: true });
+  assert.deepEqual([abc.exceeds_threshold, abc.failing_conditions], [true, ['future_within_ten_percent']]);
+  assert.match(abc.conditions[0].authority, /^GST Act s 189-5\(2\)\(a\)/);
+  // GSTR 2000/2's Y, para 72: $4,400 with 25% of the consideration provided, increasing $100.
+  assert.equal(calculations.gstBadDebt(gstBd({ party: 'recipient', amount: '4400.00', consideration_extent: '0.25', reduced_credit_acquisition: false,
+    annual_apportionment: false })).amounts.increasing_adjustment, '100.00');
+  // Second-hand goods resold for $8,800: the 1/11 of $500 is under the $800 GST.
+  assert.equal(calculations.gstSecondHandGoods(gstShg({ resupply_gst: '800.00' })).amounts.input_tax_credit, '500.00');
+});
+
+test('the GST adjustments turn at their thresholds', () => {
+  const cp = (value, finance) => calculations.gstCreditablePurposeChange(gstCp({ gst_exclusive_value: value, relates_to_business_finance: finance }));
+  assert.deepEqual(['1000.00', '1000.01'].map((v) => cp(v, false).amounts.increasing_adjustment), ['0.00', '90.00']);
+  assert.deepEqual(['10000.00', '10000.01'].map((v) => cp(v, true).amounts.increasing_adjustment), ['0.00', '90.00']);
+  const periods = (value, finance) => cp(value, finance).rates.adjustment_periods;
+  assert.deepEqual([periods('5000.00', false), periods('5000.01', false), periods('499999.99', false), periods('500000.00', false)], ['2', '5', '5', '10']);
+  assert.deepEqual([periods('50000.00', true), periods('50000.01', true)], ['1', '5']);
+  const turnover = (amount) => calculations.gstAnnualApportionment(gstAa({ small_business_entity: false, carries_on_business: false,
+    gst_turnover: amount, election_made: false })).eligible;
+  assert.deepEqual([turnover('2000000.00'), turnover('2000000.01')], [true, false]);
+  const fat = (financial, total) => calculations.gstFinancialAcquisitionsThreshold({ current_financial_credits: financial, current_total_credits: total,
+    future_financial_credits: '0.00', future_total_credits: '0.00', gst_group: false, year: '2025-26', scope_confirmed: true }).exceeds_threshold;
+  assert.deepEqual([fat('150000.00', '1500000.00'), fat('150000.01', '1500000.10'), fat('100.00', '1000.00'), fat('100.01', '1000.00')],
+    [false, true, false, true]);
+  const shg = (consideration) => calculations.gstSecondHandGoods(gstShg({ consideration, ...(Number(consideration) > 300 ? { resupply_gst: '1.00' } : {}) }));
+  assert.deepEqual([shg('300.00').amounts, shg('300.01').amounts], [{ input_tax_credit: '27.27' }, { one_eleventh_of_consideration: '27.27', input_tax_credit: '1.00' }]);
+  const overdue = (asAt) => calculations.gstBadDebt(gstBd({ event: 'overdue_12_months', overdue_from: '2024-02-29', as_at: asAt })).applies;
+  assert.deepEqual([overdue('2025-02-27'), overdue('2025-02-28')], [false, true]);
+  assert.deepEqual(['2020-21', '2026-27', '2019-20', '2027-28'].map((year) => gstCode('gst-going-concern', { for_consideration: true,
+    recipient_registration: 'registered', written_agreement: 'none', all_things_necessary: true, carried_on_until_supply: true, farm_land: false,
+    part_outside_arrangement: false, year, scope_confirmed: true })), ['computed', 'computed', 'period.unsupported', 'period.unsupported']);
+});
+
+test('the GST adjustments refuse as the commands do, in their order', () => {
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ surplus: '1', year: '2019-20' })), 'input.field_unknown');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ gst_exclusive_value: '1e3', scope_confirmed: false })), 'input.decimal_unreadable');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ gst_exclusive_value: '\u2028 3000 \u0085' })), 'computed');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ gst_exclusive_value: '\ufeff3000' })), 'input.decimal_unreadable');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ gst_exclusive_value: 'é'.repeat(4097) })), 'input.decimal_too_long');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ scope_confirmed: false, year: '2019-20' })), 'scope.not_confirmed');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ actual_application: '1.01' })), 'input.fraction_invalid');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ application_basis: ' ' })), 'gst_creditable_purpose_change.basis_missing');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ tax_period_months: '3' })), 'gst_creditable_purpose_change.tax_period_unsupported');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ attributed_period_end: '2021-03-30' })), 'gst_creditable_purpose_change.period_end_invalid');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ division_132_disposal: true })), 'input.missing_field');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ ended_on: '2022-05-01', year: '2021-22' })), 'gst_creditable_purpose_change.last_period_unsettled');
+  for (const [more, code] of [[{ car: true, gst_on_acquisition: '-1' }, 'gst_annual_apportionment.car'],
+    [{ reduced_credit_acquisition: true }, 'gst_annual_apportionment.reduced_credit_acquisition'],
+    [{ carries_on_business: false }, 'gst_annual_apportionment.fact_conflict'],
+    [{ gst_turnover: '1.00' }, 'input.field_unknown'],
+    [{ creditable_purpose: '0.50', non_input_taxed_extent: '0.40' }, 'gst_annual_apportionment.fact_conflict'],
+    [{ creditable_purpose: '1' }, 'gst_annual_apportionment.not_partly_creditable'],
+    [{ small_business_entity: false, instalment_election: true }, 'gst_annual_apportionment.election_status_unsettled']]) {
+    assert.equal(gstCode('gst-annual-apportionment', gstAa(more)), code, JSON.stringify(more));
+  }
+  assert.equal(gstCode('gst-financial-acquisitions-threshold', { current_financial_credits: '2.00', current_total_credits: '1.00',
+    future_financial_credits: '0.00', future_total_credits: '0.00', gst_group: false, year: '2025-26', scope_confirmed: true }),
+  'gst_financial_acquisitions_threshold.fact_conflict');
+  assert.equal(gstCode('gst-second-hand-goods', gstShg({ divided_for_resupply: true, leased_before_sale: true })), 'gst_second_hand_goods.divided_for_resupply');
+  assert.equal(gstCode('gst-second-hand-goods', gstShg({})), 'input.missing_field');
+  assert.equal(gstCode('gst-second-hand-goods', gstShg({ consideration: '300.00', resupply_gst: '1.00' })), 'input.field_unknown');
+  assert.equal(gstCode('gst-second-hand-goods', gstShg({ imported: true, consideration: '300.00', resupply_gst: '1.00' })), 'computed');
+  for (const [more, code] of [[{ special_rule: 'debt_assigned', cash_basis: true, event: 'recovered' }, 'gst_bad_debt.special_rule'],
+    [{ event: 'recovered', cash_basis: true }, 'gst_bad_debt.accounting_basis_changed'],
+    [{ party: 'recipient', reduced_credit_acquisition: true, annual_apportionment: false }, 'gst_bad_debt.reduced_credit_acquisition'],
+    [{ taxable_proportion: '0' }, 'gst_bad_debt.fact_conflict'],
+    [{ creditable_purpose: '0.5' }, 'input.field_unknown'],
+    [{ event: 'overdue_12_months', overdue_from: '2024-02-01', as_at: '2024-01-31' }, 'gst_bad_debt.dates_invalid'],
+    [{ event: 'recovered' }, 'input.missing_field'], [{ event: 'recovered', prior_adjustment: true }, 'input.field_unknown']]) {
+    assert.equal(gstCode('gst-bad-debt', gstBd(more)), code, JSON.stringify(more));
+  }
+});
+
+test('the GST adjustments form sends each worksheet’s inputs and leaves out the ones it does not take', () => {
+  const fields = formDefaults(gstHtml);
+  const form = (more) => calculations.gstFormInput((name) => ({ ...fields, ...more })[name] ?? '');
+  assert.equal(form({ 'cp-former': '12.5' }).input.intended_or_former_application, '0.125');
+  assert.equal(form({ 'cp-former': '100' }).input.intended_or_former_application, '1.00');
+  assert.equal(form({ 'cp-former': 'x' }).input.intended_or_former_application, '');
+  assert.deepEqual([form({ 'cp-ended': '2022-03-15', 'cp-disposal': 'yes' }).input.ended_on, form({}).input.ended_on], ['2022-03-15', undefined]);
+  const aa = (more) => form({ worksheet: 'annual-apportionment', ...more }).input;
+  assert.deepEqual([aa({}).gst_turnover, aa({ 'aa-small': 'no', 'aa-business': 'no', 'aa-turnover': '100' }).gst_turnover], [undefined, '100']);
+  assert.deepEqual([aa({}).consideration_extent, aa({ 'aa-consideration': '50' }).consideration_extent], [undefined, '0.50']);
+  const shg = (more) => form({ worksheet: 'second-hand-goods', ...more }).input.resupply_gst;
+  assert.deepEqual([shg({}), shg({ 'shg-consideration': '300' })], ['300', undefined]);
+  const bd = (more) => form({ worksheet: 'bad-debt', ...more }).input;
+  assert.deepEqual(Object.keys(bd({ 'bd-party': 'recipient', 'bd-event': 'recovered' })).filter((k) => !['party', 'event', 'amount',
+    'taxable_or_creditable', 'cash_basis', 'special_rule', 'year', 'scope_confirmed'].includes(k)), ['prior_adjustment', 'reduced_credit_acquisition', 'annual_apportionment']);
+  assert.deepEqual([bd({}).overdue_from, bd({ 'bd-event': 'written_off' }).overdue_from], ['2021-04-16', undefined]);
+  for (const worksheet of calculations.GST_WORKSHEETS) {
+    const result = calculations.gstAdjustmentsResult((name) => ({ ...fields, worksheet })[name] ?? '', gstAud);
+    assert.ok(result.rows.length > 0 && result.note && !/this command/.test(result.note), worksheet);
+  }
+  assert.throws(() => calculations.gstAdjustment('vat', {}), { code: 'input.field_unknown' });
 });
