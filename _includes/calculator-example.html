@@ -6,22 +6,51 @@ _data/calculator_cases.json, worked for the inputs the form opens with. rows is
 to emphasise. The browser suite checks that Calculate gives the same text.
 {%- endcomment -%}
 <output aria-live="polite" data-example><span class="result-inputs result-example"><strong>Fictional example:</strong> the first boundary case below. Change the inputs and calculate your own.</span><span class="result-inputs">Inputs: {{ include.inputs }}.</span><span class="result-rows">
+{%- assign named_entities = ",amp,AMP,lt,LT,gt,GT,quot,QUOT,apos,nbsp,ndash,mdash,minus,times,divide,plusmn,lsquo,rsquo,ldquo,rdquo,hellip,copy,COPY,reg,REG,trade,TRADE,sect,para,deg,middot,bull,thinsp,ensp,emsp,frac12,frac14,frac34,le,ge,ne,rarr,larr,harr,euro,pound,yen,cent,percnt,approx,shy,zwj,zwnj," -%}
+{%- assign ends_with_semi = false -%}
+{%- assign rows_last = include.rows | slice: -1 -%}
+{%- if rows_last == ";" -%}
+{%- assign ends_with_semi = true -%}
+{%- endif -%}
 {%- assign raw_rows = include.rows | split: ";" -%}
 {%- assign carry = "" -%}
 {%- assign row_index = 0 -%}
 {%- for piece in raw_rows -%}
 {%- assign is_entity = false -%}
 {%- assign last_char = piece | slice: -1 -%}
-{%- if forloop.last == false and piece contains "&" and last_char != "&" -%}
+{%- if piece contains "&" and last_char != "&" -%}
 {%- assign after_amp = piece | split: "&" | last -%}
-{%- unless after_amp == "" or after_amp contains " " or after_amp contains "|" -%}
+{%- assign entity_needle = "," | append: after_amp | append: "," -%}
+{%- if after_amp contains "," -%}
+{%- elsif named_entities contains entity_needle -%}
 {%- assign is_entity = true -%}
-{%- endunless -%}
+{%- else -%}
+{%- assign first_ch = after_amp | slice: 0 -%}
+{%- if first_ch == "#" and after_amp.size > 1 -%}
+{%- assign num = after_amp | slice: 1, after_amp.size -%}
+{%- assign num_head = num | slice: 0 -%}
+{%- if num_head == "x" or num_head == "X" -%}
+{%- assign digits = num | slice: 1, num.size -%}
+{%- assign rem = digits | downcase | remove: "0" | remove: "1" | remove: "2" | remove: "3" | remove: "4" | remove: "5" | remove: "6" | remove: "7" | remove: "8" | remove: "9" | remove: "a" | remove: "b" | remove: "c" | remove: "d" | remove: "e" | remove: "f" -%}
+{%- if digits != "" and rem == "" -%}
+{%- assign is_entity = true -%}
 {%- endif -%}
-{%- if is_entity -%}
+{%- else -%}
+{%- assign rem = num | remove: "0" | remove: "1" | remove: "2" | remove: "3" | remove: "4" | remove: "5" | remove: "6" | remove: "7" | remove: "8" | remove: "9" -%}
+{%- if num != "" and rem == "" -%}
+{%- assign is_entity = true -%}
+{%- endif -%}
+{%- endif -%}
+{%- endif -%}
+{%- endif -%}
+{%- endif -%}
+{%- if forloop.last == false and is_entity -%}
 {%- assign carry = carry | append: piece | append: ";" -%}
 {%- else -%}
 {%- assign row = carry | append: piece -%}
+{%- if forloop.last and is_entity and ends_with_semi -%}
+{%- assign row = row | append: ";" -%}
+{%- endif -%}
 {%- assign carry = "" -%}
 {%- assign cells = row | split: "|" -%}
 {%- capture index %}{{ row_index }}{% endcapture %} <span class="result-row{% if index == include.principal %} result-row--principal{% endif %}{% if cells[1] contains " " %} result-row--stacked{% endif %}"><span class="result-label">{{ cells[0] }}</span><span class="visually-hidden">:</span> <strong>{{ cells[1] }}</strong><span class="visually-hidden">.</span></span>

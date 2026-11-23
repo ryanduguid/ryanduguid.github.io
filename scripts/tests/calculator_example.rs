@@ -81,14 +81,29 @@ fn render_examples(items: &[serde_json::Value]) -> Vec<String> {
 
 #[test]
 fn calculator_example_preserves_html_entities_inside_rows() {
-    let rendered = render_examples(&[serde_json::json!({
-        "inputs": "R&amp;D expenditure $100,000.00",
-        "rows": "R&amp;D tax offset|$43,500.00;Refundable &amp; non-refundable|$100.00 &ndash; $200.00;Numeric &#38; hex &#x26; check|$1.00",
-        "principal": "0",
-        "note": serde_json::Value::Null,
-    })]);
-    let html = &rendered[0];
+    let rendered = render_examples(&[
+        serde_json::json!({
+            "inputs": "R&amp;D expenditure $100,000.00",
+            "rows": "R&amp;D tax offset|$43,500.00;Refundable &amp; non-refundable|$100.00 &ndash; $200.00;Numeric &#38; hex &#x26; check|$1.00",
+            "principal": "0",
+            "note": serde_json::Value::Null,
+        }),
+        serde_json::json!({
+            "inputs": "Bare ampersand check",
+            "rows": "Label|R&D;Comma|&amp,AMP;Next|$2",
+            "principal": "0",
+            "note": serde_json::Value::Null,
+        }),
+        serde_json::json!({
+            "inputs": "Trailing entity check",
+            "rows": "First|Value &amp;;Second|Value &amp;",
+            "principal": "0",
+            "note": serde_json::Value::Null,
+        }),
+    ]);
     let row_open = regex::Regex::new(r#"<span class="result-row(?:\s|")"#).unwrap();
+
+    let html = &rendered[0];
     assert_eq!(row_open.find_iter(html).count(), 3, "{html}");
     assert!(
         html.contains(r#"<span class="result-row result-row--principal"><span class="result-label">R&amp;D tax offset</span><span class="visually-hidden">:</span> <strong>$43,500.00</strong><span class="visually-hidden">.</span></span>"#),
@@ -101,6 +116,34 @@ fn calculator_example_preserves_html_entities_inside_rows() {
     assert!(
         html.contains(r#"<span class="result-row"><span class="result-label">Numeric &#38; hex &#x26; check</span><span class="visually-hidden">:</span> <strong>$1.00</strong><span class="visually-hidden">.</span></span>"#),
         "{html}"
+    );
+
+    // S1: bare ampersand + text before ';' must still separate rows.
+    let bare = &rendered[1];
+    assert_eq!(row_open.find_iter(bare).count(), 3, "{bare}");
+    assert!(
+        bare.contains(r#"<span class="result-label">Label</span><span class="visually-hidden">:</span> <strong>R&D</strong>"#),
+        "{bare}"
+    );
+    assert!(
+        bare.contains(r#"<span class="result-label">Comma</span><span class="visually-hidden">:</span> <strong>&amp,AMP</strong>"#),
+        "{bare}"
+    );
+    assert!(
+        bare.contains(r#"<span class="result-label">Next</span><span class="visually-hidden">:</span> <strong>$2</strong>"#),
+        "{bare}"
+    );
+
+    // S2: entity ending right before a row separator and at the very end of rows.
+    let trailing = &rendered[2];
+    assert_eq!(row_open.find_iter(trailing).count(), 2, "{trailing}");
+    assert!(
+        trailing.contains(r#"<span class="result-label">First</span><span class="visually-hidden">:</span> <strong>Value &amp;</strong>"#),
+        "{trailing}"
+    );
+    assert!(
+        trailing.contains(r#"<span class="result-label">Second</span><span class="visually-hidden">:</span> <strong>Value &amp;</strong>"#),
+        "{trailing}"
     );
 }
 
