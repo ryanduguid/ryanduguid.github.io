@@ -504,7 +504,8 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             const method = value('method');
             const r = calculate.paygInstalment({ method, notified: value('notified'), instalment: value('instalment'),
               estimatedTax: value('estimated-tax'), earlier: value('earlier'), credits: value('credits'), income: value('income'),
-              rate: value('rate'), estimatedIncome: value('estimated-income'), earlierIncome: value('earlier-income') });
+              rate: value('rate'), estimatedIncome: value('estimated-income'), earlierIncome: value('earlier-income'),
+              previousRate: value('previous-rate') });
             const earlier = `earlier instalments ${money('earlier')} less ${method === 'varied-amount' ? 'earlier credits' : 'credits claimed'} ${money('credits')}`;
             const credit = ['Credit to claim at 5B, whole dollars', aud(r.credit)];
             if (method === 'amount') {
@@ -521,11 +522,11 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
                 principal: 1, rows: [['T1 × T2', aud(r.amount)], ['Instalment at T11 and 5A, whole dollars', aud(r.instalment)]] };
             } else {
               result = { inputs: `varied instalment rate (option 2), estimated tax ${money('estimated-tax')} on estimated instalment income `
-                + `${money('estimated-income')} for the year, instalment income ${money('income')} at T1, instalment rate ${value('rate')}% at T2, `
+                + `${money('estimated-income')} for the year, instalment income ${money('income')} at T1, previous quarter’s rate ${value('previous-rate')}%, `
                 + `${earlier}, on earlier instalment income ${money('earlier-income')}`, principal: 2,
               rows: [['Varied rate at T3', `${r.instalmentRate.toFixed(2)}%`], ['T1 × T3', aud(r.amount)],
                 ['Instalment at T11 and 5A, whole dollars', aud(r.instalment)], credit],
-              note: 'A credit applies only when the varied rate is lower than the rate at T2' };
+              note: 'A credit applies only when the varied rate is lower than the rate used for the previous quarter' };
             }
             break;
           }

@@ -86,7 +86,7 @@ void psiReligious;
 void psiRule;
 void psiResults;
 const payg = { method: 'rate', notified: '0', instalment: '1', estimatedTax: '0', earlier: '0', credits: '0', income: '20100',
-  rate: '1.7', estimatedIncome: '0', earlierIncome: '0' } as const;
+  rate: '1.7', estimatedIncome: '0', earlierIncome: '0', previousRate: '0' } as const;
 const instalment: number = calculate.paygInstalment(payg).instalment;
 // @ts-expect-error Annual instalments are not one of the methods the calculator covers.
 calculate.paygInstalment({ ...payg, method: 'annual' });
