@@ -166,12 +166,14 @@ fn merge_decision(before: &str, after: &str, path: &str, other: Option<(&str, &s
 }
 
 #[test]
-fn real_page_wording_only_merges_use_offline_checks() {
-    for path in [
-        "about/index.html",
-        "evidence/index.html",
-        "tools/index.html",
-        "index.html",
+fn real_page_wording_only_merges_follow_their_include_policy() {
+    for (path, offline) in [
+        ("about/index.html", true),
+        ("evidence/index.html", true),
+        ("privacy/index.html", true),
+        // These pages also include links from the external contributions section.
+        ("tools/index.html", false),
+        ("index.html", false),
     ] {
         let source = site_tools::read(&repository().join(path)).unwrap();
         // CI compares source pages; rendered pages would hide their Liquid.
@@ -182,7 +184,11 @@ fn real_page_wording_only_merges_use_offline_checks() {
             "{path}"
         );
         let changed = source.replacen("</p>", " Updated wording.</p>", 1);
-        assert!(merge_decision(&source, &changed, path, None), "{path}");
+        assert_eq!(
+            merge_decision(&source, &changed, path, None),
+            offline,
+            "{path}"
+        );
     }
 }
 

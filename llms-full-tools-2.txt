@@ -16,7 +16,7 @@ Source: https://duguid.com.au/tools/trust-distributions/
 
 The software compares supplied flags with its implemented PCG 2022/2 zone criteria and calculates conditional Division 6 and section 99B amounts.
 
-Current release solomons-sword v0.3.2, 20 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 21 October 2026.
+Current release solomons-sword v0.3.2, 20 October 2026, from the australian-accounting repository. Release licence: Apache License 2.0. Published 24 August 2026. Last reviewed 23 November 2026.
 
 Delivery
 
@@ -46,7 +46,7 @@ Where the tool does not implement a rule, such as trust capital gains and franke
 
 ## Get it
 
-Needs Python 3.10 or later. Install the reference release in your Python environment.
+Needs Python 3.10 or later. The command installs v0.1.9 under the MIT License.
 
 ```
 python -m pip install "solomons-sword==0.1.9"
@@ -122,7 +122,9 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - v0.3.2: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.3.2
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
+- Apache License 2.0: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.3.2/packages/solomons-sword/LICENSE
 - guideline PCG 2022/2: https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001
+- MIT License: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.9/packages/solomons-sword/LICENSE
 - Published package: https://pypi.org/project/solomons-sword/0.1.9/
 - release instructions: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.9/packages/solomons-sword/README.md#quickstart
 - uv installed: https://docs.astral.sh/uv/
@@ -148,7 +150,7 @@ Source: https://duguid.com.au/tools/company-tax-franking/
 
 The company tax and franking worksheets run the base rate entity test, track the franking account and check the Division 203 benchmark rule.
 
-Current release the-exchequer-tally v0.2.0, 19 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 21 October 2026.
+Current release the-exchequer-tally v0.2.0, 19 October 2026, from the australian-accounting repository. Release licence: Apache License 2.0. Published 24 August 2026. Last reviewed 23 November 2026.
 
 Delivery
 
@@ -180,7 +182,7 @@ The examples assume supplied facts, and nothing this engine produces is an asses
 
 ## Get it
 
-Needs Python 3.10 or later. Install the reference release in your Python environment.
+Needs Python 3.10 or later. The command installs v0.1.7 under the MIT License.
 
 ```
 python -m pip install "the-exchequer-tally==0.1.7"
@@ -245,6 +247,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.2.0
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
+- Apache License 2.0: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.2.0/packages/the-exchequer-tally/LICENSE
+- MIT License: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.7/packages/the-exchequer-tally/LICENSE
 - Published package: https://pypi.org/project/the-exchequer-tally/0.1.7/
 - release instructions: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.7/packages/the-exchequer-tally/README.md#quickstart
 - ATO company tax rates: https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates
@@ -272,7 +276,7 @@ Source: https://duguid.com.au/tools/subcontractor-ledgers/
 
 The subcontractor ledger skills for Claude Code cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
-Current release australian-accounting-skills v0.7.0, 14 November 2026, from the australian-accounting-skills repository. Published 24 August 2026. Last reviewed 13 November 2026.
+Current release australian-accounting-skills v0.7.0, 14 November 2026, from the australian-accounting-skills repository. Release licence: Ryan Duguid Public Attribution Licence 1.0. Published 24 August 2026. Last reviewed 23 November 2026.
 
 Delivery
 
@@ -314,7 +318,7 @@ This method measures adherence to visible instructions. It does not test indepen
 
 Needs an AI coding agent such as Claude Code or Codex, and Node.
 
-Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 72 of its 76 validation cards have confirmed results from a whole-card model run; the four core failure cards it adds have no recorded live verdict. Release v0.5.0 has 76 skills and moves the pack from Apache-2.0 to FSL-1.1-ALv2, with Apache-2.0 as the future licence. The current release, v0.7.0, published on 14 November 2026, has 107 skills, still including these 10 workflows, under the Ryan Duguid Public Attribution Licence 1.0; human-confirmed verdicts cover 95 of its 235 validation cards. In v0.5.0, contractor-super-tpar points to the provision or ATO page for figures that change instead of stating them, so its cards need a rerun at the revised commit, and wip-over-under-billing gains steps for verifying and citing a local AASB corpus snapshot. Use Adopt for the v0.4.0 tagged installation or its separate development option. The v0.4.0 installation guide covers that historical tag. The contracting workflows are included in this unified pack.
+Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 72 of its 76 validation cards have confirmed results from a whole-card model run; the four core failure cards it adds have no recorded live verdict. Release v0.5.0 has 76 skills and moves the pack from Apache-2.0 to FSL-1.1-ALv2, with Apache-2.0 as the future licence. The current release, v0.7.0, published on 14 November 2026, has 107 skills, still including these 10 workflows, under the Ryan Duguid Public Attribution Licence 1.0; human-confirmed verdicts cover 95 of its 235 validation cards. In v0.5.0, contractor-super-tpar points to the provision or ATO page for figures that change instead of stating them, so its cards need a rerun at the revised commit, and wip-over-under-billing gains steps for verifying and citing a local AASB corpus snapshot. Use Adopt for the v0.4.0 installation under the Apache License 2.0 or its separate development option. The v0.4.0 installation guide covers that historical tag. The contracting workflows are included in this unified pack.
 
 Source on GitHub
 
@@ -349,9 +353,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - v0.7.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.7.0
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills/tree/main
+- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.7.0/LICENSE
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
 - evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
 - Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Apache License 2.0: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.4.0/LICENSE
 - v0.4.0 installation guide: https://github.com/ryanduguid/australian-accounting-skills/blob/2e16e47016c6451c0fe8fc8af8a47cf7e7fc3034/docs/installation.md#tagged-65-workflow-release
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills
 - Open an issue: https://github.com/ryanduguid/australian-accounting-skills/issues
@@ -375,7 +381,7 @@ Source: https://duguid.com.au/tools/wip-schedule/
 
 TheWIPTally reads one row per unit of account and produces a cost-to-cost work-in-progress schedule: earned revenue after AASB 15 para B19 exclusions, constrained unapproved variations, and a contract asset or contract liability per job.
 
-Current release the-wip-tally v0.2.0, 19 October 2026, from the australian-accounting repository. Published 25 August 2026. Last reviewed 21 October 2026.
+Current release the-wip-tally v0.2.0, 19 October 2026, from the australian-accounting repository. Release licence: Apache License 2.0. Published 25 August 2026. Last reviewed 23 November 2026.
 
 Delivery
 
@@ -415,6 +421,8 @@ A person must confirm that the recognition basis, contract terms and estimates s
 
 ### Reproduce this exact example
 
+This example uses v0.1.2 under the MIT License.
+
 In a fresh folder, with Git and uv installed, run the test at the release used above:
 
 ```
@@ -433,7 +441,7 @@ Outputs are not an accounting opinion, an audit conclusion or an AASB 15 determi
 
 ## Get it
 
-Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. These commands install release 0.2.0, the last Python release; the default branch now holds an unreleased Rust rewrite that pip does not install.
+Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. These commands install v0.2.0 under the Apache License 2.0. This is the last Python release; the default branch now holds an unreleased Rust rewrite that pip does not install.
 
 ```
 git clone https://github.com/ryanduguid/australian-accounting.git
@@ -484,8 +492,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.2.0
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
+- Apache License 2.0: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.2.0/packages/the-wip-tally/LICENSE
 - subcontractor ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
 - cost-to-cost underbilling test in the-wip-tally v0.1.2: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/tests/test_schedule.py
+- MIT License: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/LICENSE
 - uv: https://docs.astral.sh/uv/
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
@@ -507,7 +517,7 @@ Source: https://duguid.com.au/tools/xero-trial-balance/
 
 The Xero trial balance export pulls the trial balance from Xero’s own reporting API and refuses to write the CSV unless both the month’s movement and the year-to-date figures balance.
 
-Current release xero-trial-balance-export v0.1.15, 12 October 2026, from the accounting-review-pipeline repository. Published 24 August 2026. Last reviewed 25 October 2026.
+Current release xero-trial-balance-export v0.1.15, 12 October 2026, from the accounting-review-pipeline repository. Release licence: MIT License. Published 24 August 2026. Last reviewed 23 November 2026.
 
 Delivery
 
@@ -542,7 +552,7 @@ MIT-licensed utility code, no warranty; outputs feed professional review like an
 
 ## Get it
 
-Needs Python 3.11 or later and a Xero developer app, about 5 minutes of one-off setup. Xero’s free Starter plan lets an app have up to 5 connections, at 1,000 API calls a day per organisation; Works with Xero covers the paid plans and Xero’s exemption for an integration built solely for your own practice or a single client. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.
+The commands install v0.1.15 under the MIT License. Setup needs Python 3.11 or later and a Xero developer app, about 5 minutes of one-off setup. Xero’s free Starter plan lets an app have up to 5 connections, at 1,000 API calls a day per organisation; Works with Xero covers the paid plans and Xero’s exemption for an integration built solely for your own practice or a single client. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.
 
 ```
 git clone https://github.com/ryanduguid/accounting-review-pipeline.git
@@ -610,6 +620,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - v0.1.15: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.15
 - accounting-review-pipeline: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
+- MIT License: https://github.com/ryanduguid/accounting-review-pipeline/blob/xero-trial-balance-export/v0.1.15/packages/xero-trial-balance-export/LICENSE
 - XeroAPI accepted my correction to its command-line report flags: https://github.com/XeroAPI/xero-command-line/pull/44
 - Read the accepted-work record: https://duguid.com.au/evidence/#accepted-upstream-work
 - Starter plan: https://developer.xero.com/pricing
@@ -641,7 +652,7 @@ Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
 Aus Accounting MCP is a local Model Context Protocol server for Australian accounting checks: ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 66 tax and super worksheet kinds with the calculators executable.
 
-Current release aus-accounting-mcp v0.11.0, 21 November 2026, from the australian-accounting repository. Published 25 August 2026. Last reviewed 22 November 2026.
+Current release aus-accounting-mcp v0.11.0, 21 November 2026, from the australian-accounting repository. Release licence: Ryan Duguid Public Attribution Licence 1.0. Published 25 August 2026. Last reviewed 23 November 2026.
 
 Delivery
 
@@ -705,7 +716,7 @@ uvx --from aus-accounting-mcp==0.2.8 aus-accounting-mcp-demo
 
 Expected: exit 0 and a JSON transcript containing generate_synthetic_sbr_fixture and review_div7a_loan. The demonstration calls the local tools with fictional facts. It needs no credentials, performs no lodgement and does not evaluate an agent’s behaviour.
 
-The transcript’s first line shows the source-checkout command, uv run --locked aus-accounting-mcp-demo. The command above runs the published 0.2.8 package. Its full output includes the engine’s caveats; retain those with any extracted result.
+The transcript’s first line shows the source-checkout command, uv run --locked aus-accounting-mcp-demo. The command above runs the published v0.2.8 package under the MIT License. Its full output includes the engine’s caveats; retain those with any extracted result.
 
 ## Adopt
 
@@ -735,7 +746,7 @@ Open the fictional Excel forecast in desktop Excel, or send a reproducible evalu
 
 Claude Code
 
-Needs Python 3.14 or later and uv for the current release.
+Needs Python 3.14 or later and uv. Release v0.11.0 uses the Ryan Duguid Public Attribution Licence 1.0. Check the version uvx installs.
 
 ```
 # Australian Accounting & Tax MCP server for Claude Code
@@ -744,7 +755,7 @@ claude mcp add aus-accounting -- uvx aus-accounting-mcp
 
 Codex
 
-Needs Python 3.14 or later and uv for the current release.
+Needs Python 3.14 or later and uv. Release v0.11.0 uses the Ryan Duguid Public Attribution Licence 1.0. Check the version uvx installs.
 
 ```
 # Australian Accounting & Tax MCP server for Codex
@@ -753,7 +764,7 @@ codex mcp add aus-accounting -- uvx aus-accounting-mcp
 
 Skills
 
-Needs Git and Node. Start with the 65 workflows at the published v0.4.0 tag.
+Needs Git and Node. This installs the 65 workflows in v0.4.0 under the Apache License 2.0.
 
 ```
 # Run from the project where you want the released skills
@@ -794,7 +805,7 @@ A fresh clone includes both runtime copies and needs no synchronisation. For ano
 
 The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two tool calls reproduces release 0.2.8, and each evaluation keeps the release it was run against.
 
-The Skills commands pin the installer to version 1.5.22. The primary Skills installation uses the published v0.4.0 tag. The current Skills release is v0.7.0, published on 14 November 2026, with 107 workflows under the Ryan Duguid Public Attribution Licence 1.0. The development Skills and GitHub workflow commands install the default branch, which can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
+The Skills commands pin the installer to version 1.5.22. The primary Skills installation uses the Apache-licensed v0.4.0 tag. The current Skills release is v0.7.0, published on 14 November 2026, with 107 workflows under the Ryan Duguid Public Attribution Licence 1.0. For development installs, check the licence in the checkout. The development Skills and GitHub workflow commands install the default branch, which can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
 
 aus-accounting-mcp is published on PyPI and from its source repository. Source on GitHub, PyPI and registry record. payday-super-checker is already on PyPI. The official Model Context Protocol registry lists this server as io.github.ryanduguid/aus-accounting.
 
@@ -860,6 +871,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - v0.11.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.11.0
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
+- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.11.0/apps/aus-accounting-mcp/LICENSE
 - current release: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - current README: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp/README.md
 - ato-mcp: https://github.com/william-laverty/ato-mcp
@@ -876,12 +888,14 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
 - uv installed: https://docs.astral.sh/uv/
+- MIT License: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.8/apps/aus-accounting-mcp/LICENSE
 - calculator release 1.1.0: https://github.com/ryanduguid/australian-accounting/releases/tag/australian-tax-calculators/v1.1.0
 - v0.10.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.10.0
 - v0.9.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.9.0
 - Excel cash flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - browser calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - reproducible evaluation: https://duguid.com.au/evaluate/
+- Apache License 2.0: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.4.0/LICENSE
 - Try two tool calls: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
 - v0.7.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.7.0
 - PyPI: https://pypi.org/project/aus-accounting-mcp/
@@ -913,7 +927,7 @@ Source: https://duguid.com.au/tools/workpaper-review-gate/
 
 The Workpaper Review Gate inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED.
 
-Current release review-ready-gate v1.0.1, 14 November 2026, from the accounting-review-pipeline repository. Published 25 August 2026. Last reviewed 23 November 2026.
+Current release review-ready-gate v1.0.1, 14 November 2026, from the accounting-review-pipeline repository. Release licence: Ryan Duguid Public Attribution Licence 1.0. Published 25 August 2026. Last reviewed 23 November 2026.
 
 Delivery
 
@@ -962,11 +976,11 @@ Release v1.0.0 is under the Ryan Duguid Public Attribution Licence 1.0; earlier 
 
 ## Get it
 
-Download review-ready-gate/v1.0.1 for Windows x86_64 or Linux x86_64. The review-ready executable runs without Python or Rust. The release guide shows how to verify the download and its signed provenance.
+Download review-ready-gate/v1.0.1 for Windows x86_64 or Linux x86_64 under the Ryan Duguid Public Attribution Licence 1.0. The review-ready executable runs without Python or Rust. The release guide shows how to verify the download and its signed provenance.
 
 ### Reproduce the v0.1.3 example
 
-The evaluation of 2 fictional BAS packs uses v0.1.3. To run its corrected pack with the commands below, install Git and Python 3.10 or later.
+The evaluation of 2 fictional BAS packs uses v0.1.3 under the MIT License. To run its corrected pack with the commands below, install Git and Python 3.10 or later.
 
 ```
 git clone https://github.com/ryanduguid/accounting-review-pipeline.git
@@ -1011,12 +1025,14 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - v1.0.1: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.0.1
 - accounting-review-pipeline: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
+- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.1/packages/review-ready-gate/LICENSE
 - Download the generated findings.csv: https://duguid.com.au/assets/examples/review-gate/findings.csv
 - incomplete input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-not-ready
 - corrected input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-ready
 - generated cover sheet: https://duguid.com.au/assets/examples/review-gate/readiness-summary.md
 - fixed-release evaluation: https://duguid.com.au/evaluate/manager-review-gate/
 - release guide: https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.1/packages/review-ready-gate/RELEASING.md
+- MIT License: https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v0.1.3/packages/review-ready-gate/LICENSE
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/
 - Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
@@ -1038,7 +1054,7 @@ Source: https://duguid.com.au/tools/monthly-close-controls/
 
 Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and writes an exception report for a human reviewer.
 
-Current release monthly-close-control-plane v1.1.0, 14 November 2026, from the accounting-review-pipeline repository. Published 11 September 2026. Last reviewed 13 November 2026.
+Current release monthly-close-control-plane v1.1.0, 14 November 2026, from the accounting-review-pipeline repository. Release licence: Ryan Duguid Public Attribution Licence 1.0. Published 11 September 2026. Last reviewed 23 November 2026.
 
 Delivery
 
@@ -1118,7 +1134,7 @@ PASS means the configured checks passed on the supplied files. REVIEW or BLOCKED
 
 ## Run the example
 
-Needs Git and Rust installed with rustup. The component pins Rust 1.99.0 in rust-toolchain.toml, which rustup uses in that directory. The first build downloads the crates locked in Cargo.lock. It needs no Xero account, API access or client files.
+The example uses revision 1ce98d5 under FSL-1.1-ALv2. It needs Git and Rust installed with rustup. The component pins Rust 1.99.0 in rust-toolchain.toml, which rustup uses in that directory. The first build downloads the crates locked in Cargo.lock. It needs no Xero account, API access or client files.
 
 ```
 git clone https://github.com/ryanduguid/accounting-review-pipeline.git
@@ -1185,6 +1201,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - v1.1.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.1.0
 - accounting-review-pipeline: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
+- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/accounting-review-pipeline/blob/monthly-close-control-plane/v1.1.0/packages/monthly-close-control-plane/LICENSE
 - Inspect the eight exceptions: https://duguid.com.au/tools/monthly-close-controls/#worked-example
 - Run the example: https://duguid.com.au/tools/monthly-close-controls/#get-it
 - Download the generated exceptions.csv: https://duguid.com.au/assets/examples/monthly-close/exceptions.csv
@@ -1193,6 +1210,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - captured manager case study: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/docs/manager-case-study.md
 - Xero trial balance exporter: https://duguid.com.au/tools/xero-trial-balance/
 - pinned source documentation: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/README.md
+- FSL-1.1-ALv2: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/LICENSE
 - release guide: https://github.com/ryanduguid/accounting-review-pipeline/blob/monthly-close-control-plane/v1.1.0/packages/monthly-close-control-plane/RELEASING.md
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml

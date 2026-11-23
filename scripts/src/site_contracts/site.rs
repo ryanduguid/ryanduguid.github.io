@@ -301,7 +301,7 @@ pub fn check_llms_authority_surface(llms: &str) -> Vec<String> {
         .is_match(&route_section)
     });
     let boundaries = [
-        "personal index of open source accounting tools",
+        "personal index of accounting tools",
         "not a practice",
         "not accepting professional engagements through this site",
     ];
@@ -309,7 +309,7 @@ pub fn check_llms_authority_surface(llms: &str) -> Vec<String> {
         || route_section.contains("[Engage]")
         || llms.contains("/#engage");
     if !complete || retired || boundaries.iter().any(|b| !llms.contains(b)) {
-        vec!["llms.txt: open source route boundary is incomplete".into()]
+        vec!["llms.txt: tool directory boundary is incomplete".into()]
     } else {
         vec![]
     }
@@ -1710,7 +1710,7 @@ pub fn check_social_cards_for(root: &Path, homepage_heading: &str) -> Result<Vec
         "assets/social-card-template.svg",
         "assets/social-cards.json",
         "Ryan Duguid Public Attribution Licence 1.0",
-        "Playwright 1.64.1",
+        "Playwright 1.65.1",
         "Chromium",
         "device scale 1",
         "Refresh when",

@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/trust-distributions/
 
 The software compares supplied flags with its implemented PCG 2022/2 zone criteria and calculates conditional Division 6 and section 99B amounts.
 
-Current release solomons-sword v0.3.2, 20 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 21 October 2026.
+Current release solomons-sword v0.3.2, 20 October 2026, from the australian-accounting repository. Release licence: Apache License 2.0. Published 24 August 2026. Last reviewed 23 November 2026.
 
 Delivery
 
@@ -38,7 +38,7 @@ Where the tool does not implement a rule, such as trust capital gains and franke
 
 ## Get it
 
-Needs Python 3.10 or later. Install the reference release in your Python environment.
+Needs Python 3.10 or later. The command installs v0.1.9 under the MIT License.
 
 ```
 python -m pip install "solomons-sword==0.1.9"
@@ -114,7 +114,9 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - v0.3.2: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.3.2
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
+- Apache License 2.0: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.3.2/packages/solomons-sword/LICENSE
 - guideline PCG 2022/2: https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001
+- MIT License: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.9/packages/solomons-sword/LICENSE
 - Published package: https://pypi.org/project/solomons-sword/0.1.9/
 - release instructions: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.9/packages/solomons-sword/README.md#quickstart
 - uv installed: https://docs.astral.sh/uv/

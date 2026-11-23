@@ -5,7 +5,7 @@
 use crate::html::escape;
 
 pub const ORIGIN: &str = "https://duguid.com.au";
-const CARD: &str = "https://duguid.com.au/assets/social-card-tools-20261104b.png";
+pub const CARD: &str = "https://duguid.com.au/assets/social-card-tools-20261104b.png";
 const CARD_ALT: &str = "OLED register card: Accounting checks that show their working.";
 const CSP: &str = "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; \
     font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'";

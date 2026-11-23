@@ -12,7 +12,7 @@ Of the 27 selected Budget and MYEFO measures below, the ATO summary shows 8 TBD 
 
 TBD and Various are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
 
-Published 20 September 2026. Last reviewed 5 November 2026. Source checked 13 November 2026 for legislated measures. Source checked 20 November 2026 for pending measures. Reform provisions reviewed 22 September 2026.
+Published 20 September 2026. Last reviewed 23 November 2026. Source checked 13 November 2026 for legislated measures. Source checked 20 November 2026 for pending measures. Reform provisions reviewed 22 September 2026.
 
 Read from the ATO’s latest news on tax and superannuation law and policy (QC43473): the pending measures on 20 November 2026 and the legislated measures on 13 November 2026, both after the ATO’s 9 November 2026 update. The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
 
@@ -109,7 +109,7 @@ At the events in the rates register’s review cadence: the 1 July rollover, the
 
 Statuses repeat the ATO page as at the date above. Check the ATO page and the Federal Register before relying on a measure.
 
-Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+Maintained by Ryan Duguid as part of his Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
 ## Related
 

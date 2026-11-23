@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/payday-super/
 
 The checker keeps each super contribution at risk until its fund receipt evidence proves it arrived on time.
 
-Current release payday-super-checker v0.2.3, 30 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 31 October 2026.
+Current release payday-super-checker v0.2.3, 30 October 2026, from the australian-accounting repository. Release licence: Apache License 2.0. Published 24 August 2026. Last reviewed 23 November 2026.
 
 ## Fictional worked example
 
@@ -54,7 +54,7 @@ With uv installed, download the fictional CSV as timely_remittance_no_receipt.cs
 uvx --from payday-super-checker==0.1.9 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv
 ```
 
-The command downloads the pinned checker from PyPI and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17. The current release needs Python 3.14 or later and is Apache-2.0.
+The command downloads v0.1.9 from PyPI under the MIT License and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17. The current release needs Python 3.14 or later and is Apache-2.0.
 
 Check the matching evidence before relying on the exported file. If employee identifiers or pay period columns are missing, the join degrades and which super payment matches which payday can change. The current checker carries structural matching warnings into the report’s caveats column. Keep the console output with a historical report that omits them. Reconcile affected matches before using a verdict; a row labelled ON_TIME is not reliable evidence of the match itself. See Known limitations (PSC-2).
 
@@ -110,6 +110,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - v0.2.3: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.2.3
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
+- Apache License 2.0: https://github.com/ryanduguid/australian-accounting/blob/payday-super-checker/v0.2.3/packages/payday-super-checker/LICENSE
 - Inspect the exact fixture: https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv
 - Read the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
@@ -118,6 +119,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - 22 September verification record: https://github.com/ryanduguid/australian-accounting/blob/9cc29537e8675478d400b64863b01fcae2704887/packages/payday-super-checker/docs/release-parity-review-2026-09-22.md
 - uv installed: https://docs.astral.sh/uv/
 - download the fictional CSV: https://duguid.com.au/assets/examples/payday/timely_remittance_no_receipt.csv
+- MIT License: https://github.com/ryanduguid/australian-accounting/blob/payday-super-checker/v0.1.9/packages/payday-super-checker/LICENSE
 - Known limitations: https://duguid.com.au/tools/limitations/
 - recorded public evaluation: https://duguid.com.au/evaluate/payday-super-evidence/#reproduce
 - CLI change: https://github.com/ryanduguid/australian-accounting/pull/147

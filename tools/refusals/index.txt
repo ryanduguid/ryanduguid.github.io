@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/refusals/
 
-> Each refusal the open source accounting tools give, with exact command output from fictional fixtures where a command exists, and the human step that follows.
+> Each refusal the accounting tools give, with exact command output from fictional fixtures where a command exists, and the human step that follows.
 
 # What these tools refuse
 
@@ -12,7 +12,7 @@ One section quotes the refusal scenarios from DrDebits, an external prompt guide
 
 Each refusal below is recorded against the release named beside it. Where a newer release exists, the refusal was not rechecked against it; the changelog lists current releases.
 
-Published 4 September 2026. Last reviewed 20 September 2026.
+Published 4 September 2026. Last reviewed 23 November 2026.
 
 ## Fictional inputs
 

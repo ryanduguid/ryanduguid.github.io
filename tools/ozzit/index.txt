@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/ozzit/
 
 The Ozzit workbook holds 151 functions and 5 help tables for GST, financial years, depreciation, loans and leases, and every definition is visible in Excel.
 
-Current release Ozzit v3.7.0, 18 November 2026, from the Ozzit repository. Published 18 September 2026. Last reviewed 19 November 2026.
+Current release Ozzit v3.7.0, 18 November 2026, from the Ozzit repository. Release licence: Ryan Duguid Public Attribution Licence 1.0. Published 18 September 2026. Last reviewed 23 November 2026.
 
 Delivery
 
@@ -55,7 +55,7 @@ What the workbook needs. Scroll sideways on small screens.
 Requires | Microsoft 365 or Excel 2024 or later, with LAMBDA and dynamic arrays
 Does not run in | LibreOffice and Excel versions before 2024, which cannot evaluate the functions
 Contains | No VBA, no macros, no add-in and no external link
-Licence | Ryan Duguid Public Attribution Licence 1.0 from v3.6.0: FSL-1.1-ALv2 plus a public attribution condition. v3.5.0 stays under the Apache License 2.0, and v3.4.2 and earlier releases under MIT
+Licence | Ryan Duguid Public Attribution Licence 1.0 for v3.6.0 and v3.7.0 (FSL-1.1-ALv2 with an additional public attribution condition). Version 3.5.0 uses Apache License 2.0. The workbooks in v3.2.0 to v3.4.2 use the MIT License.
 Author | Ryan Duguid. Built from scratch, with provenance recorded in the repository
 
 ## Ten worked formulas
@@ -434,13 +434,15 @@ The 15 November 2026 native Excel record evaluates this formula against the exac
 
 ## Download and use it
 
+For an older workbook, check the licence at its tag. The v3.7.0 README describes releases through v3.4.2 as MIT. The v3.1.0 grant covers the tooling and documentation and excludes the workbook and formula sources. The v3.2.0 grant explicitly includes them.
+
 Needs Microsoft 365 or Excel 2024 or later. Nothing is installed.
 
-- Download the v3.7.0 workbook. The release page also publishes SHA256SUMS and a provenance record.
+- Download the v3.7.0 workbook under the Ryan Duguid Public Attribution Licence 1.0. The release page also publishes SHA256SUMS and a provenance record.
 - Check the file before you trust it: the v3.7.0 asset is 492,757 bytes with SHA-256 0ed09fc130d30394c97f6a41e40ab72d3f68093b65a5e109adf11bd901f006bd.
 - Read the source, guides and changelog, or start with the guide to opening the workbook and copying functions.
 
-To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook’s name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in the v3.7.0 CITATION.cff, which names the release this page documents. The default branch may already carry a later version.
+To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook’s name manager into your model. The copied definition travels with your workbook under the licence for the Ozzit release you copied. Cite the library with the metadata in the v3.7.0 CITATION.cff, which names the release this page documents. The default branch may already carry a later version.
 
 ## Release verification
 
@@ -498,10 +500,13 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - v3.7.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.7.0
 - Ozzit: https://github.com/ryanduguid/Ozzit/tree/main
+- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/LICENSE
 - Download Ozzit v3.7.0: https://github.com/ryanduguid/Ozzit/releases/download/v3.7.0/ozzit.xlsx
 - Browse worked formulas: https://duguid.com.au/tools/ozzit/#functions
 - Read the workings, the Excel check and the limits: https://duguid.com.au/tools/ozzit/#worked-example
 - oz.PAYGWithholding λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-paygwithholding
+- Apache License 2.0: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/LICENSE
+- MIT License: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/LICENCE
 - Read the inputs and raw results: https://duguid.com.au/assets/ozzit-reference-v3.6.0.json
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-gstextract
 - Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/src/Financial.txt
@@ -683,6 +688,9 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - oz.InterestLRV λ (CFADS, DSCR, Principal, InterestRate): https://duguid.com.au/tools/ozzit/functions/debt/#oz-interestlrv
 - Released Debt source: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/src/Debt.txt
 - historical v3.2.0 screenshot record: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/docs/native-gst-capture.md
+- v3.7.0 README: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/README.md
+- v3.1.0 grant: https://github.com/ryanduguid/Ozzit/blob/v3.1.0/ATTRIBUTION.md
+- v3.2.0 grant: https://github.com/ryanduguid/Ozzit/blob/v3.2.0/ATTRIBUTION.md
 - Read the source, guides and changelog: https://github.com/ryanduguid/Ozzit
 - guide to opening the workbook and copying functions: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/docs/workbook-use.md
 - the v3.7.0 CITATION.cff: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/CITATION.cff

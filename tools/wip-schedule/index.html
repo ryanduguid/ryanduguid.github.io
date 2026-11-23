@@ -20,7 +20,7 @@ tool: wip-schedule
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au/tools/wip-schedule/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
   <meta property="og:image:width" content="1200" />
@@ -28,7 +28,7 @@ tool: wip-schedule
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Construction WIP under AASB 15: over- or under-billed?" />
   <meta name="twitter:description" content="AASB 15 construction WIP from a contract CSV: cost-to-cost progress, per-contract assets and liabilities, and profit fade. Review aid, not a determination." />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/wip-schedule/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -62,7 +62,7 @@ tool: wip-schedule
       work-in-progress schedule: earned revenue after AASB 15 para B19
       exclusions, constrained unapproved variations, and a contract asset or
       contract liability per job.</p>
-    {% include tool-meta.html published="25 August 2026" reviewed="21 October 2026" %}
+    {% include tool-meta.html published="25 August 2026" reviewed="23 November 2026" %}
 {% include tool-facts.html %}
       </header>
       <div class="article-layout site-shell">
@@ -111,6 +111,7 @@ tool: wip-schedule
     <p>Progress is $400,000 ÷ ($400,000 + $400,000) = <strong>50%</strong>. Revenue to date is 50% × $1,000,000 = $500,000. Deducting $450,000 of certified billings leaves a <strong>$50,000 contract asset</strong> and no contract liability.</p>
     <p>A person must confirm that the recognition basis, contract terms and estimates support this calculation. The test’s conditional retention does not change this revenue-minus-billings result; retention classification and final sign-off still need review.</p>
     <h3>Reproduce this exact example</h3>
+    <p>This example uses v0.1.2 under the <a href="https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/LICENSE">MIT License</a>.</p>
     <p>In a fresh folder, with Git and <a href="https://docs.astral.sh/uv/">uv</a> installed, run the test at the release used above:</p>
     <pre tabindex="0" role="region" aria-label="Pinned the-wip-tally example test"><code>git clone https://github.com/ryanduguid/australian-accounting.git
 cd australian-accounting
@@ -133,7 +134,7 @@ uv run --locked --extra dev --python 3.12 pytest -q tests/test_schedule.py::test
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
-    <p class="install-needs">Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. These commands install release 0.2.0, the last Python release; the default branch now holds an unreleased Rust rewrite that pip does not install.</p>
+    <p class="install-needs">Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. These commands install v0.2.0 under the <a href="https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.2.0/packages/the-wip-tally/LICENSE">Apache License 2.0</a>. This is the last Python release; the default branch now holds an unreleased Rust rewrite that pip does not install.</p>
     <pre tabindex="0" role="region" aria-label="Installation commands"><code>git clone https://github.com/ryanduguid/australian-accounting.git
 git -C australian-accounting checkout the-wip-tally/v0.2.0
 cd australian-accounting/packages/the-wip-tally &amp;&amp; pip install .
@@ -192,7 +193,7 @@ wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
       "description": "AASB 15 construction WIP from a contract CSV: cost-to-cost progress, per-contract assets and liabilities, and profit fade. Review aid, not a determination.",
       "inLanguage": "en-AU",
       "datePublished": "2026-08-25",
-      "dateModified": "2026-10-21",
+      "dateModified": "2026-11-23",
       "license": "https://duguid.com.au/privacy/#licences",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"

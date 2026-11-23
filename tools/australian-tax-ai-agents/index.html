@@ -20,7 +20,7 @@ tool: australian-tax-ai-agents
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au/tools/australian-tax-ai-agents/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
   <meta property="og:image:width" content="1200" />
@@ -28,7 +28,7 @@ tool: australian-tax-ai-agents
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Australian tax MCP server: Aus Accounting MCP" />
   <meta name="twitter:description" content="Aus Accounting MCP v{{ release.version }}: a local MCP server for ATO benchmarks, Payday Super timing, GST review and 66 worksheets with the calculators executable." />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/australian-tax-ai-agents/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -59,7 +59,7 @@ tool: australian-tax-ai-agents
     </nav>
     <h1>{{ tool.name }}</h1>
     <p class="lead-note">Aus Accounting MCP is a local Model Context Protocol server for Australian accounting checks: ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 66 tax and super worksheet kinds with the calculators executable.</p>
-    {% include tool-meta.html published="25 August 2026" reviewed="22 November 2026" %}
+    {% include tool-meta.html published="25 August 2026" reviewed="23 November 2026" %}
 {% include tool-facts.html %}
       </header>
       <div class="article-layout site-shell">
@@ -171,7 +171,7 @@ tool: australian-tax-ai-agents
     <p>With <a href="https://docs.astral.sh/uv/">uv installed</a>, run the published demonstration without configuring an AI client:</p>
     <pre tabindex="0" role="region" aria-label="Pinned MCP demonstration command"><code>uvx --from aus-accounting-mcp==0.2.8 aus-accounting-mcp-demo</code></pre>
     <p>Expected: exit 0 and a JSON transcript containing <code>generate_synthetic_sbr_fixture</code> and <code>review_div7a_loan</code>. The demonstration calls the local tools with fictional facts. It needs no credentials, performs no lodgement and does not evaluate an agent’s behaviour.</p>
-    <p>The transcript’s first line shows the source-checkout command, <code>uv run --locked aus-accounting-mcp-demo</code>. The command above runs the published 0.2.8 package. Its full output includes the engine’s caveats; retain those with any extracted result.</p>
+    <p>The transcript’s first line shows the source-checkout command, <code>uv run --locked aus-accounting-mcp-demo</code>. The command above runs the published v0.2.8 package under the <a href="https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.8/apps/aus-accounting-mcp/LICENSE">MIT License</a>. Its full output includes the engine’s caveats; retain those with any extracted result.</p>
     </section>
     <section id="install" class="install-panel">
     <h2>Adopt</h2>
@@ -195,21 +195,21 @@ tool: australian-tax-ai-agents
         <input class="adopt-input" type="radio" name="adopt-route" id="adopt-claude" />
         <label class="adopt-tab" for="adopt-claude">Claude Code</label>
         <div class="adopt-panel">
-          <p class="install-needs">Needs Python 3.14 or later and uv for the current release.</p>
+          <p class="install-needs">Needs Python 3.14 or later and uv. Release v0.11.0 uses the <a href="https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.11.0/apps/aus-accounting-mcp/LICENSE">Ryan Duguid Public Attribution Licence 1.0</a>. Check the version uvx installs.</p>
           <pre tabindex="0" role="region" aria-label="Claude Code install command"><code><span class="comment"># Australian Accounting &amp; Tax MCP server for Claude Code</span>
 <span class="cmd">claude mcp add aus-accounting -- uvx aus-accounting-mcp</span></code></pre>
         </div>
         <input class="adopt-input" type="radio" name="adopt-route" id="adopt-codex" />
         <label class="adopt-tab" for="adopt-codex">Codex</label>
         <div class="adopt-panel">
-          <p class="install-needs">Needs Python 3.14 or later and uv for the current release.</p>
+          <p class="install-needs">Needs Python 3.14 or later and uv. Release v0.11.0 uses the <a href="https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.11.0/apps/aus-accounting-mcp/LICENSE">Ryan Duguid Public Attribution Licence 1.0</a>. Check the version uvx installs.</p>
           <pre tabindex="0" role="region" aria-label="Codex install command"><code><span class="comment"># Australian Accounting &amp; Tax MCP server for Codex</span>
 <span class="cmd">codex mcp add aus-accounting -- uvx aus-accounting-mcp</span></code></pre>
         </div>
         <input class="adopt-input" type="radio" name="adopt-route" id="adopt-skills" />
         <label class="adopt-tab" for="adopt-skills">Skills</label>
         <div class="adopt-panel">
-          <p class="install-needs">Needs Git and Node. Start with the 65 workflows at the published v0.4.0 tag.</p>
+          <p class="install-needs">Needs Git and Node. This installs the 65 workflows in v0.4.0 under the <a href="https://github.com/ryanduguid/australian-accounting-skills/blob/v0.4.0/LICENSE">Apache License 2.0</a>.</p>
           <pre tabindex="0" role="region" aria-label="Skills install command"><code><span class="comment"># Run from the project where you want the released skills</span>
 <span class="cmd">git clone https://github.com/ryanduguid/australian-accounting-skills.git accounting-skills-release</span>
 <span class="cmd">git -C accounting-skills-release checkout --detach v0.4.0</span>
@@ -246,7 +246,7 @@ tool: australian-tax-ai-agents
       reproduces release 0.2.8, and each <a href="/evaluate/">evaluation</a>
       keeps the release it was run against.
     </p>
-    <p>The Skills commands pin the installer to version 1.5.22. The primary Skills installation uses the published v0.4.0 tag. The current Skills release is <a href="https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.7.0">v0.7.0</a>, published on 14 November 2026, with 107 workflows under the Ryan Duguid Public Attribution Licence 1.0. The development Skills and GitHub workflow commands install the default branch, which can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.</p>
+    <p>The Skills commands pin the installer to version 1.5.22. The primary Skills installation uses the Apache-licensed v0.4.0 tag. The current Skills release is <a href="https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.7.0">v0.7.0</a>, published on 14 November 2026, with 107 workflows under the Ryan Duguid Public Attribution Licence 1.0. For development installs, check the licence in the checkout. The development Skills and GitHub workflow commands install the default branch, which can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.</p>
     <p>
       aus-accounting-mcp is published on PyPI and from its source repository.
       <a href="https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp">Source on GitHub</a>,
@@ -331,7 +331,7 @@ tool: australian-tax-ai-agents
       "description": "Guide to Aus Accounting MCP v0.2.8 and published v0.11.0, with worksheet scope, GST review and installation.",
       "inLanguage": "en-AU",
       "datePublished": "2026-08-25",
-      "dateModified": "2026-11-22",
+      "dateModified": "2026-11-23",
       "license": "https://duguid.com.au/privacy/#licences",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
@@ -364,7 +364,7 @@ tool: australian-tax-ai-agents
       "description": "Guide to Aus Accounting MCP v0.2.8 and published v0.11.0, with worksheet scope, GST review and installation.",
       "inLanguage": "en-AU",
       "datePublished": "2026-08-25",
-      "dateModified": "2026-11-22",
+      "dateModified": "2026-11-23",
       "license": "https://duguid.com.au/privacy/#licences",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"

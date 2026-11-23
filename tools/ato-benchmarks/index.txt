@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/ato-benchmarks/
 
 The ATO small business benchmark comparison tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range.
 
-Current release ato-benchmark-compare v0.2.2, 20 October 2026, from the australian-accounting repository. Published 24 August 2026. Last reviewed 21 October 2026.
+Current release ato-benchmark-compare v0.2.2, 20 October 2026, from the australian-accounting repository. Release licence: Apache License 2.0. Published 24 August 2026. Last reviewed 23 November 2026.
 
 Delivery
 
@@ -50,6 +50,8 @@ A person must review the mapping and select the relevant industry, year and turn
 
 ### Reproduce this exact example
 
+This example uses v0.1.6 under the MIT License.
+
 In a fresh folder, with Git and uv installed, run the test at the release used above:
 
 ```
@@ -68,7 +70,7 @@ Sitting outside a range is not a finding that anything is wrong. The ATO publish
 
 ## Get it
 
-Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. These commands install release 0.2.2, the last Python release; the default branch now holds an unreleased Rust rewrite that pip does not install.
+Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. These commands install v0.2.2 under the Apache License 2.0. This is the last Python release; the default branch now holds an unreleased Rust rewrite that pip does not install.
 
 ```
 git clone https://github.com/ryanduguid/australian-accounting.git
@@ -114,7 +116,9 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - v0.2.2: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.2.2
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
+- Apache License 2.0: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.2.2/packages/ato-benchmark-compare/LICENSE
 - ratio tests in ato-benchmark-compare v0.1.6: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/tests/test_ratios.py
+- MIT License: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/LICENSE
 - uv: https://docs.astral.sh/uv/
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
 - Known limitations: https://duguid.com.au/tools/limitations/

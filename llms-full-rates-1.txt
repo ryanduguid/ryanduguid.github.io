@@ -562,7 +562,7 @@ Of the 27 selected Budget and MYEFO measures below, the ATO summary shows 8 TBD 
 
 TBD and Various are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
 
-Published 20 September 2026. Last reviewed 5 November 2026. Source checked 13 November 2026 for legislated measures. Source checked 20 November 2026 for pending measures. Reform provisions reviewed 22 September 2026.
+Published 20 September 2026. Last reviewed 23 November 2026. Source checked 13 November 2026 for legislated measures. Source checked 20 November 2026 for pending measures. Reform provisions reviewed 22 September 2026.
 
 Read from the ATO’s latest news on tax and superannuation law and policy (QC43473): the pending measures on 20 November 2026 and the legislated measures on 13 November 2026, both after the ATO’s 9 November 2026 update. The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
 
@@ -659,7 +659,7 @@ At the events in the rates register’s review cadence: the 1 July rollover, the
 
 Statuses repeat the ATO page as at the date above. Check the ATO page and the Federal Register before relying on a measure.
 
-Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+Maintained by Ryan Duguid as part of his Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
 ## Related
 
@@ -714,7 +714,7 @@ Source: https://duguid.com.au/rates/super-guarantee/
 
 The general super guarantee rate is 12%. It reached 12% on 1 July 2025 and no further increases are scheduled. Payday super, from 1 July 2026, changed when contributions must be paid, generally within 7 business days of each payday, and left the rate alone.
 
-Published 24 August 2026. Last reviewed 3 November 2026. Source checked 13 November 2026.
+Published 24 August 2026. Last reviewed 23 November 2026. Source checked 13 November 2026.
 
 Read on 30 August 2026 from the ATO’s super guarantee rate table, the Treasury Laws Amendment (Payday Superannuation) Act 2025 and the Superannuation Guarantee (Administration) Act 1992. The general SG rate table was rechecked against the ATO on 14 September 2026.
 
@@ -758,7 +758,7 @@ The last increase was to 12% on 1 July 2025. Earlier steps were annual each 1 Ju
 
 Rates here reflect the ATO page as at the Source checked date above. Check current ATO guidance before relying on a figure.
 
-Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+Maintained by Ryan Duguid as part of his Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
 ## Related
 
@@ -997,7 +997,7 @@ The maximum contribution base is $270,830 for 2026-27, now an annual figure that
 
 Once the qualifying earnings an employer has paid an employee for the year pass the base, that employer can stop paying super guarantee for that employee for the rest of the year. For quarters up to 30 June 2026 the base was set per quarter, $62,500 for 2025-26.
 
-Published 20 September 2026. Last reviewed 3 November 2026. Source checked 13 November 2026.
+Published 20 September 2026. Last reviewed 23 November 2026. Source checked 13 November 2026.
 
 Read on 20 September 2026 from the ATO’s super guarantee rates and thresholds page (Tables 23 and 24, last updated 17 April 2026), with the Superannuation Guarantee (Administration) Act 1992 as amended by the Treasury Laws Amendment (Payday Superannuation) Act 2025.
 
@@ -1043,7 +1043,7 @@ Concessional contributions cap, multiplied by 100, divided by the super guarante
 
 Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
 
-Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+Maintained by Ryan Duguid as part of his Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
 ## Related
 
@@ -1081,7 +1081,7 @@ The car limit is $69,883 for a car first used or leased in 2026-27. It was $69,6
 
 The limit caps the cost you can depreciate for a passenger car designed to carry fewer than nine passengers and a load under one tonne, whatever was paid.
 
-Published 20 September 2026. Last reviewed 16 November 2026. Source checked 13 November 2026.
+Published 20 September 2026. Last reviewed 23 November 2026. Source checked 13 November 2026.
 
 Each figure below was read on 20 September 2026 from an ATO page: the 2026-27 car thresholds notice, the car limit list for 2021-22 to 2025-26 and the accelerated depreciation page for 2019-20 and 2020-21. The limit itself is section 40-230 of the Income Tax Assessment Act 1997.
 
@@ -1125,7 +1125,7 @@ Generally one-eleventh of the car limit: $6,353 for 2026-27. Luxury car tax paid
 
 Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
 
-Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+Maintained by Ryan Duguid as part of his Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
 ## Related
 
@@ -1166,7 +1166,7 @@ The fringe benefits tax rate is 47% for the FBT year ending 31 March 2027, as it
 
 The FBT year runs from 1 April to 31 March.
 
-Published 20 September 2026. Last reviewed 3 November 2026. Source checked 13 November 2026. The rate-setting Act citation was corrected on 22 September 2026.
+Published 20 September 2026. Last reviewed 23 November 2026. Source checked 13 November 2026. The rate-setting Act citation was corrected on 22 September 2026.
 
 Read on 20 September 2026 from the ATO’s FBT rates and thresholds page (last updated 20 May 2026) for the years ending 31 March 2023 to 2027, and its historical rates and thresholds page (last updated 1 April 2026) for the years ending 31 March 2018 to 2022. The 47% rate is set by section 6 of the Fringe Benefits Tax Act 1986, checked 22 September 2026. This citation check does not renew the historical table review.
 
@@ -1212,7 +1212,7 @@ The lower Type 2 rate, whether or not the benefit itself was Type 1. The reporti
 
 Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
 
-Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+Maintained by Ryan Duguid as part of his Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
 ## Related
 
@@ -1251,7 +1251,7 @@ Source: https://duguid.com.au/rates/individual-income-tax/
 
 These are the ATO’s rates for someone who was an Australian resident for tax purposes for the full year and is entitled to the full tax-free threshold. They do not include the 2% Medicare levy. When checked on 17 November 2026 the ATO had published Medicare levy low-income thresholds to 2025-26 only, so the 2026-27 thresholds are the Medicare Levy Act’s.
 
-Published 14 November 2026. Last reviewed 17 November 2026. Source checked 14 November 2026. Source checked 17 November 2026 for the 2026-27 Medicare levy thresholds.
+Published 14 November 2026. Last reviewed 23 November 2026. Source checked 14 November 2026. Source checked 17 November 2026 for the 2026-27 Medicare levy thresholds.
 
 Read on 14 November 2026 from the ATO’s Tax rates: Australian resident page (last updated 13 August 2026), its Medicare levy reduction for low-income earners page (last updated 30 June 2026) and its myTax Medicare levy reduction or exemption instructions for 2020-21 to 2024-25. The 2026-27 Medicare levy thresholds were read from the Medicare Levy Act 1986 on 17 November 2026.
 
@@ -1328,7 +1328,7 @@ No. The ATO gives them for someone who was an Australian resident for tax purpos
 
 Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
 
-Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+Maintained by Ryan Duguid as part of his Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
 ## Related
 
@@ -1365,7 +1365,7 @@ $69,528 for 2026-27. No compulsory repayment is due on repayment income up to th
 
 From 2025-26 the rates apply only to repayment income above each threshold, until repayment income reaches the top threshold, when the repayment is 10% of all of it. For 2024-25 and earlier one rate applied to the whole repayment income. The same thresholds cover HELP, VET Student Loans, SFSS, Student Start-up Loans, ABSTUDY SSL and Australian Apprenticeship Support Loans.
 
-Published 14 November 2026. Last reviewed 14 November 2026. Source checked 14 November 2026.
+Published 14 November 2026. Last reviewed 23 November 2026. Source checked 14 November 2026.
 
 Read on 14 November 2026 from the ATO’s Study and training loan repayment thresholds and rates page (Tables 1 to 7, last updated 30 June 2026).
 
@@ -1433,7 +1433,7 @@ HELP, VET Student Loans, SFSS, Student Start-up Loans, ABSTUDY Student Start-up 
 
 Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
 
-Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+Maintained by Ryan Duguid as part of his Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
 ## Related
 
@@ -1466,7 +1466,7 @@ $362 a week. For a payee who claims the tax-free threshold (scale 2), the ATO gi
 
 Schedule 1 applies to payments made from 1 July 2026. Withholding is y = ax − b, where x is the whole dollars of weekly earnings plus 99 cents and a and b come from the row whose range holds x. The result is rounded to the nearest dollar, with 50 cents rounding up.
 
-Published 14 November 2026. Last reviewed 14 November 2026. Source checked 14 November 2026.
+Published 14 November 2026. Last reviewed 23 November 2026. Source checked 14 November 2026.
 
 Read on 14 November 2026 from the ATO’s Schedule 1 coefficients page and its About this schedule (applies to payments made from 1 July 2026), Using a formula, Working out the weekly earnings and Withholding amounts sample data pages (each published 17 June 2026). The sample data shows nil scale 2 withholding on weekly earnings of $361.
 
@@ -1526,7 +1526,7 @@ Scales 1, 2, 4 and 6 include it; scale 4 includes it for resident payees only. S
 
 Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
 
-Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+Maintained by Ryan Duguid as part of his Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
 ## Related
 

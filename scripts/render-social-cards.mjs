@@ -70,7 +70,8 @@ function validateCards(value) {
     ) {
       throw new TypeError(`Social-card ${id} heading must contain two or three fitted lines`);
     }
-    const expectedOutput = `social-card-${id}-20261104b.png`;
+    const revision = ['site', 'tools'].includes(id) ? '20261123' : '20261104b';
+    const expectedOutput = `social-card-${id}-${revision}.png`;
     if (card.output !== expectedOutput) {
       throw new Error(`Social-card ${id} output must be ${expectedOutput}`);
     }

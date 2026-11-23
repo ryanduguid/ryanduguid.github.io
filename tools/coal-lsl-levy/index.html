@@ -20,7 +20,7 @@ tool: coal-lsl-levy
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au/tools/coal-lsl-levy/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
   <meta property="og:image:width" content="1200" />
@@ -28,7 +28,7 @@ tool: coal-lsl-levy
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Coal LSL levy calculator and section 3B eligible wages" />
   <meta name="twitter:description" content="Estimate the Coal LSL payroll levy on eligible wages, including the Formula A and Formula B greater-of test for base rate employees." />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/coal-lsl-levy/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -62,7 +62,8 @@ tool: coal-lsl-levy
     </nav>
     <h1>{{ tool.name }}</h1>
     <p class="short-answer">The coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base rate, annual salary and casual branches. The base rate branch uses the greater of Formula A and Formula B.</p>
-{% include tool-meta.html published="24 August 2026" reviewed="21 October 2026" %}
+{% include tool-meta.html published="24 August 2026" reviewed="23 November 2026" %}
+        <p class="field-note">The current website code uses the <a href="https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE">Apache License 2.0</a>.</p>
     </header>
 
     <div class="calculator-workspace site-shell">
@@ -217,6 +218,7 @@ tool: coal-lsl-levy
       </div>
 
       <h2 class="section-title" id="api">HTTP API</h2>
+        <p><a href="https://lodgeit.org/coal-lsl.html">Lodgeit’s listing</a> credits Ryan Duguid as the builder and records revision <code>53ba9b8</code> as conformance-passed. Practitioner review is pending.</p>
       <p>The same calculation runs as a JSON API with no key or sign-up, at <code>https://coal-lsl-levy.coal-lsl-levy-service.workers.dev</code>, from this page's engine, <code>assets/levy.mjs</code>. Its source and tests are in <a href="https://github.com/ryanduguid/ryanduguid.github.io/tree/main/service/coal-lsl-levy"><code>service/coal-lsl-levy</code></a>.</p>
       <ul>
         <li><a href="https://coal-lsl-levy.coal-lsl-levy-service.workers.dev/v1/calculators"><code>GET /v1/calculators</code></a> lists the calculator, its supported reporting months, its limits and the path to post a calculation to.</li>
@@ -399,7 +401,7 @@ tool: coal-lsl-levy
       "description": "Work out the Coal LSL payroll levy on eligible wages, including the Formula A and Formula B greater-of test for base rate employees. Estimate only.",
       "inLanguage": "en-AU",
       "datePublished": "2026-08-24",
-      "dateModified": "2026-10-21",
+      "dateModified": "2026-11-23",
       "license": "https://duguid.com.au/privacy/#licences",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"

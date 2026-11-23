@@ -10,8 +10,8 @@ import { expect, test } from '@playwright/test';
 import { renderSocialCards } from './render-social-cards.mjs';
 
 const OUTPUTS = [
-  'social-card-site-20261104b.png',
-  'social-card-tools-20261104b.png',
+  'social-card-site-20261123.png',
+  'social-card-tools-20261123.png',
   'social-card-evaluations-20261104b.png',
   'social-card-rates-20261104b.png',
   'social-card-evidence-20261104b.png',

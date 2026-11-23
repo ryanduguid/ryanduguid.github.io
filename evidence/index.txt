@@ -8,7 +8,7 @@ Source: https://duguid.com.au/evidence/
 
 Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims.
 
-Last reviewed 22 November 2026.
+Last reviewed 23 November 2026.
 
 ## Results you can check
 
@@ -114,12 +114,12 @@ View certificate (PDF) Xero trial balance export and review workflow
 
 Install commands are under Adopt. The package, release, compatibility and licence links below point to maintained records.
 
-- Aus Accounting MCP: MCP Registry, PyPI, repository, releases, engine compatibility source and licence.
-- payday-super-checker: PyPI, repository, releases, release records and licence.
-- ATO benchmarks, trust distributions and company tax: ato-benchmark-compare repository, releases and licence; Solomon’s Sword repository, releases and licence; The Exchequer Tally repository, releases and licence.
-- Agent skills and construction WIP: Australian Accounting Skills, releases and licence; Hardhat Ledger, releases and licence; TheWIPTally repository and licence.
-- Xero export and Workpaper Review Gate: xero-trial-balance-export repository, releases, release and compatibility record and licence; Workpaper Review Gate repository, release record and licence.
-- Coal LSL calculator: site repository and licence.
+- Aus Accounting MCP: MCP Registry, PyPI, repository, releases, engine compatibility source and Ryan Duguid Public Attribution Licence 1.0 (v0.11.0).
+- payday-super-checker: PyPI, repository, releases, release records and Apache License 2.0 (v0.2.3).
+- ATO benchmarks, trust distributions and company tax: ato-benchmark-compare repository, releases and Apache License 2.0 (v0.2.2); Solomon’s Sword repository, releases and Apache License 2.0 (v0.3.2); The Exchequer Tally repository, releases and Apache License 2.0 (v0.2.0).
+- Agent skills and construction WIP: Australian Accounting Skills, releases and Ryan Duguid Public Attribution Licence 1.0 (v0.7.0); Hardhat Ledger, releases and Ryan Duguid Public Attribution Licence 1.0 (v0.7.0); TheWIPTally repository and Apache License 2.0 (v0.2.0).
+- Xero export and Workpaper Review Gate: xero-trial-balance-export repository, releases, release and compatibility record and MIT License (v0.1.15); Workpaper Review Gate repository, release record and Ryan Duguid Public Attribution Licence 1.0 (v1.0.1).
+- Coal LSL calculator: site repository and Ryan Duguid Public Attribution Licence 1.0 (0bd409d).
 
 ## Sources and review dates
 
@@ -231,31 +231,31 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - repository: https://github.com/ryanduguid/australian-accounting
 - releases: https://github.com/ryanduguid/australian-accounting/releases
 - engine compatibility source: https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/pyproject.toml
-- licence: https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/LICENSE
+- Ryan Duguid Public Attribution Licence 1.0 (v0.11.0): https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.11.0/apps/aus-accounting-mcp/LICENSE
 - PyPI: https://pypi.org/project/payday-super-checker/
 - repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - release records: https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/RELEASE_NOTES.md
-- licence: https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/LICENSE
+- Apache License 2.0 (v0.2.3): https://github.com/ryanduguid/australian-accounting/blob/payday-super-checker/v0.2.3/packages/payday-super-checker/LICENSE
 - ato-benchmark-compare repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
-- licence: https://github.com/ryanduguid/australian-accounting/blob/main/packages/ato-benchmark-compare/LICENSE
+- Apache License 2.0 (v0.2.2): https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.2.2/packages/ato-benchmark-compare/LICENSE
 - Solomon’s Sword repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
-- licence: https://github.com/ryanduguid/australian-accounting/blob/main/packages/solomons-sword/LICENSE
+- Apache License 2.0 (v0.3.2): https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.3.2/packages/solomons-sword/LICENSE
 - The Exchequer Tally repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
-- licence: https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-exchequer-tally/LICENSE
+- Apache License 2.0 (v0.2.0): https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.2.0/packages/the-exchequer-tally/LICENSE
 - Australian Accounting Skills: https://github.com/ryanduguid/australian-accounting-skills
 - releases: https://github.com/ryanduguid/australian-accounting-skills/releases
-- licence: https://github.com/ryanduguid/australian-accounting-skills/blob/main/LICENSE
+- Ryan Duguid Public Attribution Licence 1.0 (v0.7.0): https://github.com/ryanduguid/australian-accounting-skills/blob/v0.7.0/LICENSE
 - TheWIPTally repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
-- licence: https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-wip-tally/LICENSE
+- Apache License 2.0 (v0.2.0): https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.2.0/packages/the-wip-tally/LICENSE
 - xero-trial-balance-export repository: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
 - releases: https://github.com/ryanduguid/accounting-review-pipeline/releases
 - release and compatibility record: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/RELEASE_NOTES.md
-- licence: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/LICENSE
+- MIT License (v0.1.15): https://github.com/ryanduguid/accounting-review-pipeline/blob/xero-trial-balance-export/v0.1.15/packages/xero-trial-balance-export/LICENSE
 - Workpaper Review Gate repository: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - release record: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/RELEASE_NOTES.md
-- licence: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/LICENSE
+- Ryan Duguid Public Attribution Licence 1.0 (v1.0.1): https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.1/packages/review-ready-gate/LICENSE
 - site repository: https://github.com/ryanduguid/ryanduguid.github.io
-- licence: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
+- Ryan Duguid Public Attribution Licence 1.0 (0bd409d): https://github.com/ryanduguid/ryanduguid.github.io/blob/0bd409dff58b08fca414d3aab027193c9385e501/LICENSE
 - Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
 - Regulator material: https://www.ato.gov.au/
 - accounting standards (AASB portal archived 16 October 2026): https://web.archive.org/web/20261016153419/https://standards.aasb.gov.au/

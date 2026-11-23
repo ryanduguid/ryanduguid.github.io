@@ -20,7 +20,7 @@ tool: ozzit
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au/tools/ozzit/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
   <meta property="og:image:width" content="1200" />
@@ -28,7 +28,7 @@ tool: ozzit
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Ozzit: Excel LAMBDA functions for Australian modelling" />
   <meta name="twitter:description" content="A free Excel workbook of 151 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation." />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/ozzit/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -60,7 +60,7 @@ tool: ozzit
         <div class="article-intro">
           <h1>{{ tool.name }}</h1>
           <p class="lead-note">The Ozzit workbook holds 151 functions and 5 help tables for GST, financial years, depreciation, loans and leases, and every definition is visible in Excel.</p>
-    {% include tool-meta.html published="18 September 2026" reviewed="19 November 2026" %}
+    {% include tool-meta.html published="18 September 2026" reviewed="23 November 2026" %}
 {% include tool-facts.html %}
           <div class="article-actions">
             <a class="button" href="https://github.com/ryanduguid/Ozzit/releases/download/v3.7.0/ozzit.xlsx">Download Ozzit v3.7.0</a>
@@ -109,7 +109,7 @@ tool: ozzit
                   <tr><th scope="row">Requires</th><td>Microsoft 365 or Excel 2024 or later, with <code>LAMBDA</code> and dynamic arrays</td></tr>
                   <tr><th scope="row">Does not run in</th><td>LibreOffice and Excel versions before 2024, which cannot evaluate the functions</td></tr>
                   <tr><th scope="row">Contains</th><td>No VBA, no macros, no add-in and no external link</td></tr>
-                  <tr><th scope="row">Licence</th><td>Ryan Duguid Public Attribution Licence 1.0 from v3.6.0: FSL-1.1-ALv2 plus a public attribution condition. v3.5.0 stays under the Apache License 2.0, and v3.4.2 and earlier releases under MIT</td></tr>
+                  <tr><th scope="row">Licence</th><td><a href="https://github.com/ryanduguid/Ozzit/blob/v3.7.0/LICENSE">Ryan Duguid Public Attribution Licence 1.0</a> for v3.6.0 and v3.7.0 (FSL-1.1-ALv2 with an additional public attribution condition). Version 3.5.0 uses <a href="https://github.com/ryanduguid/Ozzit/blob/v3.5.0/LICENSE">Apache License 2.0</a>. The workbooks in v3.2.0 to v3.4.2 use the <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/LICENCE">MIT License</a>.</td></tr>
                   <tr><th scope="row">Author</th><td>Ryan Duguid. Built from scratch, with provenance recorded in the repository</td></tr>
                 </tbody>
               </table>
@@ -142,13 +142,14 @@ tool: ozzit
 
           <section id="download">
             <h2>Download and use it</h2>
+            <p>For an older workbook, check the licence at its tag. The <a href="https://github.com/ryanduguid/Ozzit/blob/v3.7.0/README.md">v3.7.0 README</a> describes releases through v3.4.2 as MIT. The <a href="https://github.com/ryanduguid/Ozzit/blob/v3.1.0/ATTRIBUTION.md">v3.1.0 grant</a> covers the tooling and documentation and excludes the workbook and formula sources. The <a href="https://github.com/ryanduguid/Ozzit/blob/v3.2.0/ATTRIBUTION.md">v3.2.0 grant</a> explicitly includes them.</p>
             <p class="install-needs">Needs Microsoft 365 or Excel 2024 or later. Nothing is installed.</p>
             <ul>
-              <li><a href="https://github.com/ryanduguid/Ozzit/releases/download/v3.7.0/ozzit.xlsx">Download the v3.7.0 workbook</a>. The <a href="https://github.com/ryanduguid/Ozzit/releases/tag/v3.7.0">release page</a> also publishes <code>SHA256SUMS</code> and a provenance record.</li>
+              <li><a href="https://github.com/ryanduguid/Ozzit/releases/download/v3.7.0/ozzit.xlsx">Download the v3.7.0 workbook</a> under the <a href="https://github.com/ryanduguid/Ozzit/blob/v3.7.0/LICENSE">Ryan Duguid Public Attribution Licence 1.0</a>. The <a href="https://github.com/ryanduguid/Ozzit/releases/tag/v3.7.0">release page</a> also publishes <code>SHA256SUMS</code> and a provenance record.</li>
               <li>Check the file before you trust it: the v3.7.0 asset is 492,757 bytes with SHA-256 <code>0ed09fc130d30394c97f6a41e40ab72d3f68093b65a5e109adf11bd901f006bd</code>.</li>
               <li><a href="https://github.com/ryanduguid/Ozzit">Read the source, guides and changelog</a>, or start with the <a href="https://github.com/ryanduguid/Ozzit/blob/v3.7.0/docs/workbook-use.md">guide to opening the workbook and copying functions</a>.</li>
             </ul>
-            <p>To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook’s name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in <a href="https://github.com/ryanduguid/Ozzit/blob/v3.7.0/CITATION.cff">the v3.7.0 CITATION.cff</a>, which names the release this page documents. The default branch may already carry a later version.</p>
+            <p>To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook’s name manager into your model. The copied definition travels with your workbook under the licence for the Ozzit release you copied. Cite the library with the metadata in <a href="https://github.com/ryanduguid/Ozzit/blob/v3.7.0/CITATION.cff">the v3.7.0 CITATION.cff</a>, which names the release this page documents. The default branch may already carry a later version.</p>
           </section>
 
           <section id="verification">
@@ -226,7 +227,7 @@ tool: ozzit
       "description": "A free Excel workbook of 151 native LAMBDA functions and 5 help tables for Australian financial modelling, with GST, financial year, depreciation and AASB 16 lessee helpers.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-18",
-      "dateModified": "2026-11-19",
+      "dateModified": "2026-11-23",
       "license": "https://duguid.com.au/privacy/#licences",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
@@ -259,7 +260,7 @@ tool: ozzit
       "description": "A free Excel workbook of 151 native LAMBDA functions and 5 help tables for Australian financial modelling, with GST, financial year, depreciation and AASB 16 lessee helpers.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-18",
-      "dateModified": "2026-11-19",
+      "dateModified": "2026-11-23",
       "license": "https://duguid.com.au/privacy/#licences",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"

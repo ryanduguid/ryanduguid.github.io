@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/subcontractor-ledgers/
 
 The subcontractor ledger skills for Claude Code cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
-Current release australian-accounting-skills v0.7.0, 14 November 2026, from the australian-accounting-skills repository. Published 24 August 2026. Last reviewed 13 November 2026.
+Current release australian-accounting-skills v0.7.0, 14 November 2026, from the australian-accounting-skills repository. Release licence: Ryan Duguid Public Attribution Licence 1.0. Published 24 August 2026. Last reviewed 23 November 2026.
 
 Delivery
 
@@ -50,7 +50,7 @@ This method measures adherence to visible instructions. It does not test indepen
 
 Needs an AI coding agent such as Claude Code or Codex, and Node.
 
-Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 72 of its 76 validation cards have confirmed results from a whole-card model run; the four core failure cards it adds have no recorded live verdict. Release v0.5.0 has 76 skills and moves the pack from Apache-2.0 to FSL-1.1-ALv2, with Apache-2.0 as the future licence. The current release, v0.7.0, published on 14 November 2026, has 107 skills, still including these 10 workflows, under the Ryan Duguid Public Attribution Licence 1.0; human-confirmed verdicts cover 95 of its 235 validation cards. In v0.5.0, contractor-super-tpar points to the provision or ATO page for figures that change instead of stating them, so its cards need a rerun at the revised commit, and wip-over-under-billing gains steps for verifying and citing a local AASB corpus snapshot. Use Adopt for the v0.4.0 tagged installation or its separate development option. The v0.4.0 installation guide covers that historical tag. The contracting workflows are included in this unified pack.
+Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 72 of its 76 validation cards have confirmed results from a whole-card model run; the four core failure cards it adds have no recorded live verdict. Release v0.5.0 has 76 skills and moves the pack from Apache-2.0 to FSL-1.1-ALv2, with Apache-2.0 as the future licence. The current release, v0.7.0, published on 14 November 2026, has 107 skills, still including these 10 workflows, under the Ryan Duguid Public Attribution Licence 1.0; human-confirmed verdicts cover 95 of its 235 validation cards. In v0.5.0, contractor-super-tpar points to the provision or ATO page for figures that change instead of stating them, so its cards need a rerun at the revised commit, and wip-over-under-billing gains steps for verifying and citing a local AASB corpus snapshot. Use Adopt for the v0.4.0 installation under the Apache License 2.0 or its separate development option. The v0.4.0 installation guide covers that historical tag. The contracting workflows are included in this unified pack.
 
 Source on GitHub
 
@@ -85,9 +85,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - v0.7.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.7.0
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills/tree/main
+- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.7.0/LICENSE
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
 - evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
 - Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Apache License 2.0: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.4.0/LICENSE
 - v0.4.0 installation guide: https://github.com/ryanduguid/australian-accounting-skills/blob/2e16e47016c6451c0fe8fc8af8a47cf7e7fc3034/docs/installation.md#tagged-65-workflow-release
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills
 - Open an issue: https://github.com/ryanduguid/australian-accounting-skills/issues

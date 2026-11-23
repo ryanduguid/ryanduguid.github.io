@@ -20,7 +20,7 @@ tool: ato-benchmarks
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au/tools/ato-benchmarks/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
   <meta property="og:image:width" content="1200" />
@@ -28,7 +28,7 @@ tool: ato-benchmarks
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="How does this business compare to ATO benchmarks?" />
   <meta name="twitter:description" content="Current release ato-benchmark-compare v{{ release.version }}. Compare profit and loss with ATO benchmark ranges locally. Review aid." />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261104b.png" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/ato-benchmarks/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -59,7 +59,7 @@ tool: ato-benchmarks
     </nav>
     <h1>{{ tool.name }}</h1>
     <p class="lead-note">The ATO small business benchmark comparison tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range.</p>
-    {% include tool-meta.html published="24 August 2026" reviewed="21 October 2026" %}
+    {% include tool-meta.html published="24 August 2026" reviewed="23 November 2026" %}
 {% include tool-facts.html %}
       </header>
       <div class="article-layout site-shell">
@@ -112,6 +112,7 @@ tool: ato-benchmarks
     <p>The cost of sales ratio is $30,000 ÷ $100,000 = <strong>30%</strong>. The $10,000 of wages remains in reported total expenses, which are $40,000 in this example.</p>
     <p>A person must review the mapping and select the relevant industry, year and turnover band before comparing that 30% with an ATO range. This example does not establish whether a business falls within a benchmark.</p>
     <h3>Reproduce this exact example</h3>
+    <p>This example uses v0.1.6 under the <a href="https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/LICENSE">MIT License</a>.</p>
     <p>In a fresh folder, with Git and <a href="https://docs.astral.sh/uv/">uv</a> installed, run the test at the release used above:</p>
     <pre tabindex="0" role="region" aria-label="Pinned ato-benchmark-compare example test"><code>git clone https://github.com/ryanduguid/australian-accounting.git
 cd australian-accounting
@@ -131,7 +132,7 @@ uv run --locked --extra dev --python 3.12 pytest -q tests/test_ratios.py::test_c
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
-    <p class="install-needs">Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. These commands install release 0.2.2, the last Python release; the default branch now holds an unreleased Rust rewrite that pip does not install.</p>
+    <p class="install-needs">Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. These commands install v0.2.2 under the <a href="https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.2.2/packages/ato-benchmark-compare/LICENSE">Apache License 2.0</a>. This is the last Python release; the default branch now holds an unreleased Rust rewrite that pip does not install.</p>
     <pre tabindex="0" role="region" aria-label="Installation commands"><code>git clone https://github.com/ryanduguid/australian-accounting.git
 git -C australian-accounting checkout ato-benchmark-compare/v0.2.2
 cd australian-accounting/packages/ato-benchmark-compare
@@ -184,7 +185,7 @@ pip install .</code></pre>
       "description": "Compare a profit and loss against the ATO’s own published small business benchmark ranges, on your own machine, with the working shown.",
       "inLanguage": "en-AU",
       "datePublished": "2026-08-24",
-      "dateModified": "2026-10-21",
+      "dateModified": "2026-11-23",
       "license": "https://duguid.com.au/privacy/#licences",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"

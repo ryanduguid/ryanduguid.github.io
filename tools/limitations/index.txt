@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/limitations/
 
-> Cases where these open source accounting tools return a figure you should not read at face value, with the trigger and what stays correct.
+> Cases where these accounting tools return a figure you should not read at face value, with the trigger and what stays correct.
 
 # Known limitations
 
@@ -10,7 +10,7 @@ A refusal is a question handed back. A limitation is an answer you should not re
 
 Each entry names the trigger, what it affects, what stays correct and the step that settles it.
 
-Published 16 September 2026. Last reviewed 22 November 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
+Published 16 September 2026. Last reviewed 23 November 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
 
 ## What belongs here
 

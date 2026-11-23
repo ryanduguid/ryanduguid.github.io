@@ -2,21 +2,21 @@
   "site": {
     "label": "Australian accounting",
     "heading": [
-      "Open source tools for",
+      "Tools for",
       "Australian accountants"
     ],
     "host": "duguid.com.au",
-    "output": "social-card-site-20261104b.png",
-    "alt": "OLED register card: Open source tools for Australian accountants"
+    "output": "social-card-site-20261123.png",
+    "alt": "OLED register card: Tools for Australian accountants"
   },
   "tools": {
-    "label": "Open source tools",
+    "label": "Accounting tools",
     "heading": [
       "Accounting checks that",
       "show their working."
     ],
     "host": "duguid.com.au/tools/",
-    "output": "social-card-tools-20261104b.png",
+    "output": "social-card-tools-20261123.png",
     "alt": "OLED register card: Accounting checks that show their working."
   },
   "evaluations": {

@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/monthly-close-controls/
 
 Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and writes an exception report for a human reviewer.
 
-Current release monthly-close-control-plane v1.1.0, 14 November 2026, from the accounting-review-pipeline repository. Published 11 September 2026. Last reviewed 13 November 2026.
+Current release monthly-close-control-plane v1.1.0, 14 November 2026, from the accounting-review-pipeline repository. Release licence: Ryan Duguid Public Attribution Licence 1.0. Published 11 September 2026. Last reviewed 23 November 2026.
 
 Delivery
 
@@ -88,7 +88,7 @@ PASS means the configured checks passed on the supplied files. REVIEW or BLOCKED
 
 ## Run the example
 
-Needs Git and Rust installed with rustup. The component pins Rust 1.99.0 in rust-toolchain.toml, which rustup uses in that directory. The first build downloads the crates locked in Cargo.lock. It needs no Xero account, API access or client files.
+The example uses revision 1ce98d5 under FSL-1.1-ALv2. It needs Git and Rust installed with rustup. The component pins Rust 1.99.0 in rust-toolchain.toml, which rustup uses in that directory. The first build downloads the crates locked in Cargo.lock. It needs no Xero account, API access or client files.
 
 ```
 git clone https://github.com/ryanduguid/accounting-review-pipeline.git
@@ -155,6 +155,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - v1.1.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.1.0
 - accounting-review-pipeline: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
+- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/accounting-review-pipeline/blob/monthly-close-control-plane/v1.1.0/packages/monthly-close-control-plane/LICENSE
 - Inspect the eight exceptions: https://duguid.com.au/tools/monthly-close-controls/#worked-example
 - Run the example: https://duguid.com.au/tools/monthly-close-controls/#get-it
 - Download the generated exceptions.csv: https://duguid.com.au/assets/examples/monthly-close/exceptions.csv
@@ -163,6 +164,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - captured manager case study: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/docs/manager-case-study.md
 - Xero trial balance exporter: https://duguid.com.au/tools/xero-trial-balance/
 - pinned source documentation: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/README.md
+- FSL-1.1-ALv2: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/LICENSE
 - release guide: https://github.com/ryanduguid/accounting-review-pipeline/blob/monthly-close-control-plane/v1.1.0/packages/monthly-close-control-plane/RELEASING.md
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml

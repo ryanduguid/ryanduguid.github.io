@@ -80,8 +80,7 @@ where something needs action. Its rules:
   Contact, and evaluation pages mark Tools as their location.
 - Every page title is the page's own name, with no site suffix.
 - The About lead states 'Provisional CA ANZ Member', 'Xero Certified
-  Specialist, Level 3', the LinkedIn profile and the CA ANZ non-endorsement
-  statement within the first screen at 1440 by 900.
+  Specialist, Level 3' and the LinkedIn profile within the first screen at 1440 by 900.
 - The cash chart's closing-cash line is platinum (`#E5E4E2`), 16.53:1 against
   black; the green line it replaces measured 2.07:1.
 - Red `#E7162F` is no longer reserved for diagrams. Ryan decided on
@@ -378,7 +377,7 @@ use scroll snapping.
 
 ### Hero and cash case
 
-The hero states 'Open source tools for Australian accountants' with one
+The hero states 'Tools for Australian accountants' with one
 supporting line, one action ('Explore the cash flow example'), the byline and
 the review date. The cash case follows: 'Compare profit with cash flow' with the
 Lumbridge workbook chart, which sits beside it on wide screens and below it on
@@ -448,7 +447,7 @@ it prevents ambiguity, as the Australian Government Style Manual advises. Preser
 quotations, command output, identifiers, and official titles. Keep the About
 page in the first person. Use Ryan's supplied credential labels exactly:
 'Provisional CA ANZ Member' and 'Xero Certified Specialist, Level 3'. State them
-directly and retain the CA ANZ non-endorsement statement. Never append bare
+directly. Never append bare
 'CA' to Ryan's name or invent credentials, rates, endorsements, customers,
 or outcomes.
 

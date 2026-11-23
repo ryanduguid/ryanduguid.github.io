@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/contact/
 
-> Project links for Ryan Duguid’s independently built open source accounting tools. This personal index is not an accounting practice.
+> Project links for Ryan Duguid’s independently built accounting tools. This personal index is not an accounting practice.
 
 # Contact
 
@@ -27,9 +27,9 @@ GitHub | github.com/ryanduguid
 Based in | Newcastle, NSW, Australia
 LinkedIn | linkedin.com/in/ryan-duguid
 
-I build these open source accounting tools in my own time, on my own equipment. This is not a practice: I do not accept professional engagements through this site or take requests for advice, return preparation or lodgement.
+I build these accounting tools in my own time, on my own equipment. This is not a practice: I do not accept professional engagements through this site or take requests for advice, return preparation or lodgement.
 
-Published 30 August 2026. Last reviewed 26 September 2026.
+Published 30 August 2026. Last reviewed 23 November 2026.
 
 ## Links
 

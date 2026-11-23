@@ -12,7 +12,7 @@ Source: https://duguid.com.au/rates/transfer-duty/
 
 These are the general scales only, before any concession, exemption, first home buyer scheme or foreign purchaser surcharge. Each revenue office decides what is dutiable and the dutiable value.
 
-Published 15 November 2026. Last reviewed 15 November 2026. Source checked 15 November 2026.
+Published 15 November 2026. Last reviewed 23 November 2026. Source checked 15 November 2026.
 
 Read on 15 November 2026 from Revenue NSW, the State Revenue Office Victoria, the Queensland Revenue Office, the Western Australian Department of Treasury and Finance, RevenueSA, the State Revenue Office Tasmania, the ACT duty determination DI2026-155 and the Northern Territory Stamp Duty Act 1978. Each table names its source.
 
@@ -139,7 +139,7 @@ New South Wales, Queensland, Western Australia, South Australia, Tasmania and th
 
 Figures here reflect the sources named above as at the dates given. Check current revenue office guidance or the legislation before relying on a figure.
 
-Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+Maintained by Ryan Duguid as part of his Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
 ## Related
 

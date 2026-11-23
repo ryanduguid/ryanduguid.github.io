@@ -12,7 +12,7 @@ Source: https://duguid.com.au/rates/individual-income-tax/
 
 These are the ATO’s rates for someone who was an Australian resident for tax purposes for the full year and is entitled to the full tax-free threshold. They do not include the 2% Medicare levy. When checked on 17 November 2026 the ATO had published Medicare levy low-income thresholds to 2025-26 only, so the 2026-27 thresholds are the Medicare Levy Act’s.
 
-Published 14 November 2026. Last reviewed 17 November 2026. Source checked 14 November 2026. Source checked 17 November 2026 for the 2026-27 Medicare levy thresholds.
+Published 14 November 2026. Last reviewed 23 November 2026. Source checked 14 November 2026. Source checked 17 November 2026 for the 2026-27 Medicare levy thresholds.
 
 Read on 14 November 2026 from the ATO’s Tax rates: Australian resident page (last updated 13 August 2026), its Medicare levy reduction for low-income earners page (last updated 30 June 2026) and its myTax Medicare levy reduction or exemption instructions for 2020-21 to 2024-25. The 2026-27 Medicare levy thresholds were read from the Medicare Levy Act 1986 on 17 November 2026.
 
@@ -89,7 +89,7 @@ No. The ATO gives them for someone who was an Australian resident for tax purpos
 
 Figures here reflect the sources named above as at the dates given. Check current ATO guidance or the legislation before relying on a figure.
 
-Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
+Maintained by Ryan Duguid as part of his Australian computational accounting tools. He is a Provisional CA ANZ Member. Source and contact.
 
 ## Related
 
