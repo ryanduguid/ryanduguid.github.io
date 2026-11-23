@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 
 The first home owner grant in each Australian state and territory for a new home bought or built, by contract date and value cap, beside the transfer duty for an eligible first home buyer.
 
-Published 22 November 2026. Last checked 23 November 2026.
+Published 22 November 2026. Last checked 24 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -30,15 +30,15 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 
 ## How the first home owner grant calculator works
 
-The first home owner grant calculator gives the grant for a first home buyer who buys or builds a new home under a contract made from 1 July 2025 to 22 November 2026, beside the transfer duty the same buyer pays. It takes the amount and the value cap in force on the contract date, and pays nothing above the cap or for an established home.
+The first home owner grant calculator gives the grant for a first home buyer who buys or builds a new home under a contract made from 1 July 2025 to 22 November 2026, beside the transfer duty the same buyer pays. It takes the amount and the value cap in force on the contract date, and pays nothing above the cap or for an established home, except a Northern Territory one bought before 1 October 2025.
 
 - New South Wales: $10,000; the price must not exceed $600,000 for a home bought, and the land and building contract $750,000 for a home built.
-- Victoria: $10,000 for a home worth up to $750,000.
+- Victoria: $10,000, or the consideration if less, for a home worth up to $750,000. For a home built the cap is on the building contract alone, so a land and building total over $750,000 is not computed.
 - Queensland: $30,000, or the consideration if less, for a home worth under $750,000.
-- Western Australia: $10,000. The cap is $800,000 south of the 26th parallel for contracts from 7 May 2026, $750,000 before, and $1,000,000 north of it.
+- Western Australia: $10,000, or the consideration if less. The cap is $800,000 south of the 26th parallel for contracts from 7 May 2026, $750,000 before, and $1,000,000 north of it.
 - South Australia: $15,000, or the consideration if less, with no value cap.
 - Tasmania: $30,000 for contracts from 1 July 2025 to 30 June 2026, then $20,000 to 30 June 2027, or the consideration if less, with no value cap. The transaction must be completed within 24 months, or a period the Commissioner extends, and not replace a transaction for the same property, between or benefiting substantially the same parties, entered before 1 July 2025 for a 2025-26 contract or 1 July 2026 for a 2026-27 contract.
-- Northern Territory: the HomeGrown Territory Grant of $50,000, with no value cap. The contract must not replace one signed before 1 October 2024.
+- Northern Territory: the HomeGrown Territory Grant of $50,000, or the consideration if less, with no value cap. An established home bought under a contract from 1 July to 30 September 2025 gets $10,000, or the consideration if less. The contract must not replace one signed before 1 October 2024.
 - Australian Capital Territory: no grant since 1 July 2019. The territory’s Home Buyer Concession Scheme is a duty concession, and the duty result applies it.
 
 ## Eligibility facts and transfer duty
@@ -53,7 +53,7 @@ The sources read state these rules. New South Wales: no applicant or spouse owne
 
 ## What the first home owner grant calculator does not compute
 
-The calculator refuses a contract dated before 1 July 2025 or after 22 November 2026, and a value below the grant amount outside Queensland, South Australia and Tasmania, where the sources read did not confirm the rule. For a home built it needs the building contract price to be at least the grant, so it does not compute a smaller grant on a cheaper contract. It does not cover owner-builders, substantially renovated homes, the ADF and family violence exemptions, the Commissioner’s discretion over the residence requirement, or schemes that are not first home owner grants, such as regional building grants, shared equity schemes and Commonwealth deposit schemes. For a home built, the duty falls on the land, and the first home buyer concessions on vacant land are not computed. Confirm the grant with the revenue office or an approved agent before relying on it.
+The calculator refuses a contract dated before 1 July 2025 or after 22 November 2026, and a value below the grant amount in New South Wales, where the source read did not confirm the rule. It also refuses a Victorian home built whose land and building total is over $750,000, since Victoria caps the building contract alone. For a home built it needs the building contract price to be at least the grant, so it does not compute a smaller grant on a cheaper contract. It does not cover owner-builders, substantially renovated homes, the ADF and family violence exemptions, the Commissioner’s discretion over the residence requirement, or schemes that are not first home owner grants, such as regional building grants, shared equity schemes and Commonwealth deposit schemes. For a home built, the duty falls on the land, and the first home buyer concessions on vacant land are not computed. Confirm the grant with the revenue office or an approved agent before relying on it.
 
 ## Boundary cases
 
@@ -86,8 +86,14 @@ A Northern Territory contract must be stated not to replace an earlier one | Nor
 The Australian Capital Territory has paid no grant since 1 July 2019 | Australian Capital Territory, contract 1 September 2026, new home bought, total value $600,000.00, every eligibility fact stated | Grant $0.00, the Australian Capital Territory has paid none since 1 July 2019
 A contract before 1 July 2025 is not covered | New South Wales, contract 30 June 2025, new home bought, total value $500,000.00, every eligibility fact stated | Refused: not computed: choose a contract date from 1 July 2025 to 22 November 2026, the day the grant rules were read
 A contract after the day the rules were read is not covered | New South Wales, contract 23 November 2026, new home bought, total value $500,000.00, every eligibility fact stated | Refused: not computed: choose a contract date from 1 July 2025 to 22 November 2026, the day the grant rules were read
-A value below the grant outside Queensland, South Australia and Tasmania is refused | New South Wales, contract 1 August 2026, new home bought, total value $5,000.00, every eligibility fact stated | Refused: not computed: a value below the $10,000 grant; the New South Wales rule for that case was not confirmed
+A value below the grant in New South Wales is refused | New South Wales, contract 1 August 2026, new home bought, total value $5,000.00, every eligibility fact stated | Refused: not computed: a value below the $10,000 grant; the New South Wales rule for that case was not confirmed
 An eligibility fact not stated is refused | New South Wales, contract 1 August 2026, new home bought, total value $500,000.00, not stated: the residence requirement will be met | Refused: not computed: the grant and the first home buyer duty need every eligibility fact stated; not stated: the residence requirement will be met
+An NT established home bought from 1 July to 30 September 2025 gets $10,000 (sections 13(1)(a)(iii) and 18(3D)(b)) | Northern Territory, contract 30 September 2025, established home, total value $500,000.00, every eligibility fact stated | Grant $10,000.00
+An NT established home bought from 1 October 2025 gets nothing (section 13(1)(a)(iv)) | Northern Territory, contract 1 October 2025, established home, total value $500,000.00, every eligibility fact stated | Grant $0.00, the grant is for a new home only
+Victoria pays the consideration if it is less than $10,000 (section 18(1A)) | Victoria, contract 1 January 2026, new home bought, total value $8,000.00, every eligibility fact stated | Grant $8,000.00, the grant cannot be more than the consideration
+Western Australia pays the consideration if it is less than $10,000 (section 19(2CA)) | Western Australia, contract 1 January 2026, new home bought, south of the 26th parallel, total value $8,000.00, every eligibility fact stated | Grant $8,000.00, the grant cannot be more than the consideration
+The Northern Territory pays the consideration if it is less than $50,000 (section 18(1)) | Northern Territory, contract 1 January 2026, new home bought, total value $49,999.00, every eligibility fact stated | Grant $49,999.00, the grant cannot be more than the consideration
+A Victorian home built over $750,000 of land and building is refused, as the cap is on the building work (sections 13(1A) and 13(7)(b)) | Victoria, contract 1 January 2026, new home built under a contract, total value $750,001.00, every eligibility fact stated | Refused: not computed: the Victorian cap applies to the consideration for the building work (First Home Owner Grant and Home Buyer Schemes Act 2000 (Vic) s 13(1A) and (7)(b)), not the land and building total entered
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
