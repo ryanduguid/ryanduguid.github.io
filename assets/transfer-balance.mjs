@@ -125,10 +125,11 @@ export function required(fields, item, key) {
  * @param {string} text */
 export function decimalParts(text) {
   const negative = text.startsWith('-');
-  const [whole, decimals, extra] = (negative ? text.slice(1) : text).split('.');
+  const pieces = (negative ? text.slice(1) : text).split('.');
   const digits = /^\d+$/;
-  if (extra !== undefined || !digits.test(whole) || (decimals !== undefined && !digits.test(decimals))) return null;
-  return { negative, whole, decimals: decimals ?? '' };
+  if (pieces.length > 2 || !pieces.every((piece) => digits.test(piece))) return null;
+  const [whole, decimals = ''] = pieces;
+  return { negative, whole, decimals };
 }
 /** The range stated for an amount the command then refuses at nil. */
 export const ABOVE_NIL = 'above nil, up to 1,000,000,000,000';
@@ -216,22 +217,28 @@ function transitional(list, to) {
 /** @typedef {{year: string, to: string, amounts: Record<string, string>, rates: Record<string, string>, caps: CapRow[],
  *   ledger: LedgerRow[], periods: PeriodRow[], inExcess: boolean}} TbaWorked */
 
+/** The last day as a day number, checked against the year, after which the liability flag is checked.
+ * @param {Record<string, unknown>} input @param {string} year */
+function lastDay(input, year) {
+  const to = dayOf(input.to);
+  if (to === null) factInvalid('Enter the last day as a date.');
+  if (label(yearOf(to)) !== year) refuse('transfer_balance.year_mismatch', `The last day is in ${label(yearOf(to))}, not ${year}.`);
+  if (typeof input.previously_liable !== 'boolean') refuse('input.flag_invalid', 'Say whether you were liable for an earlier period.');
+  return to;
+}
+
 /** The account: the command's input in, its amounts, caps, ledger and excess periods out.
  * @param {unknown} given @returns {TbaWorked} */
 export function transferBalance(given) {
   const input = readInput(given, INPUTS);
   const year = scope(input, TBA_YEARS);
-  const to = dayOf(input.to);
-  if (to === null) factInvalid('Enter the last day as a date.');
-  if (label(yearOf(to)) !== year) refuse('transfer_balance.year_mismatch', `The last day is in ${label(yearOf(to))}, not ${year}.`);
-  if (typeof input.previously_liable !== 'boolean') refuse('input.flag_invalid', 'Say whether you were liable for an earlier period.');
+  const to = lastDay(input, year);
   const list = events(input.events, to);
   const disregard = transitional(list, to);
   let [num, den, pending] = [0n, 1n, 0n];
   let start = yearOf(list[0].day);
   let cap = generalCap(start);
-  let exceeded = false;
-  let open = false;
+  let [exceeded, open] = [false, false];
   /** @type {{cents: bigint, day: number, cap: number} | null} */
   let highest = null;
   /** @type {CapRow[]} */
@@ -287,7 +294,7 @@ export function transferBalance(given) {
       pending = earned;
     } else open = false;
   }
-  const taxed = taxPeriods(periods, den, input.previously_liable);
+  const taxed = taxPeriods(periods, den, input.previously_liable === true);
   return { year, to: isoOf(to), amounts: totals(num, den, cap, taxed), rates: { general_transfer_balance_cap: String(generalCap(yearOf(to))) },
     caps, ledger, periods: taxed.rows, inExcess: open };
 }

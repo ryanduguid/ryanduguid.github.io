@@ -33,7 +33,7 @@ const account = (list, to, liable = false) => transferBalance({ events: events(l
 /** A form's value reader over the given fields. */
 const ask = (fields) => (name) => new Map(Object.entries(fields)).get(name) ?? '';
 /** The option values of a select, in page order. */
-const options = (name) => [...page.split(`<select name="${name}"`)[1].split('</select>')[0].matchAll(/value="([^"]+)"/g)].map(([, y]) => y);
+const options = (select) => [...page.match(select)[1].matchAll(/value="([^"]+)"/g)].map(([, y]) => y);
 const capIn = (r, year) => r.caps.find((c) => c.year === year)?.cap;
 
 test('the page agrees with the australian-accounting commands on every differential case', () => {
@@ -130,8 +130,8 @@ test('the form sends the rows it has, the year of the last day, and each questio
   assert.equal(tbaFormInput(ask({ ...fields, to: '' })).year, '');
   assert.deepEqual(excessFormInput(ask({ calc: 'charge', 'charge-year': '2020-21', 'additional-tax': '5', 'due-date': '2021-12-01' })),
     { question: 'concessional_charge', year: '2020-21', scope_confirmed: true, additional_tax: '5', tax_due_date: '2021-12-01' });
-  assert.deepEqual(options('charge-year'), [...CHARGE_YEARS].reverse());
-  assert.deepEqual(options('release-year'), [...RELEASE_YEARS].reverse());
+  assert.deepEqual(options(/<select name="charge-year"[^>]*>(.*?)<\/select>/s), [...CHARGE_YEARS].reverse());
+  assert.deepEqual(options(/<select name="release-year"[^>]*>(.*?)<\/select>/s), [...RELEASE_YEARS].reverse());
   assert.equal(TBA_YEARS.at(-1), '2026-27');
 });
 
