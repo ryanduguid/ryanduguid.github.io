@@ -57,7 +57,8 @@ function renderResult(output, result) {
 }
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
-function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }, { fhssResult }, { workExpensesResult }, { transferBalanceResult }, { governmentSuperResult }]) {
+function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }, { fhssResult }, { workExpensesResult }, { transferBalanceResult }, { pensionMinimumResult },
+  { governmentSuperResult }]) {
   for (const form of forms) {
     const output = form.querySelector('output');
     if (output.textContent.startsWith('Calculators could not load')) output.textContent = 'Enter the inputs and calculate.';
@@ -690,6 +691,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             result = transferBalanceResult(value, aud);
             showTables(result.tables);
             break;
+          case 'pension-minimum':
+            result = pensionMinimumResult(value, aud);
+            break;
           default: result = individualResult(form.dataset.calculator, value, aud) ?? fbtForms.fbtBenefitResult(form, calculate, { aud, value, money });
         }
         renderResult(output, result);
@@ -719,6 +723,7 @@ function loadCalculators(retryForm) {
     forms.some((f) => f.dataset.calculator === 'fhss') ? import(`./fhss-result.mjs${suffix}`) : {},
     forms.some((f) => f.dataset.calculator === 'work-expenses') ? import(`./work-expenses-result.mjs${suffix}`) : {},
     forms.some((f) => f.dataset.calculator === 'transfer-balance') ? import(`./transfer-balance-result.mjs${suffix}`) : {},
+    forms.some((f) => f.dataset.calculator === 'pension-minimum') ? import(`./pension-minimum.mjs${suffix}`) : {},
     forms.some((f) => f.dataset.calculator === 'government-super') ? import(`./government-super-result.mjs${suffix}`) : {}]).then(initialiseCalculators)
     .then(() => { if (retryForm) retryForm.querySelector('input, select').focus(); })
     .catch(() => {

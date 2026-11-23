@@ -52,7 +52,7 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Individual tax calculators</li></ol></nav>
         <h1>Individual tax calculators</h1>
-        <p class="lead-note">Sixteen free calculators for one person’s tax, pay and super, grounded in legislation and ATO worked examples. They run in your browser with no sign-up.</p>
+        <p class="lead-note">Seventeen free calculators for one person’s tax, pay and super, grounded in legislation and ATO worked examples. They run in your browser with no sign-up.</p>
         {% assign checked = "" %}{% for calculator in site.data.individual_tax_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
         <p class="page-meta">Published 17 November 2026. Last checked <time datetime="{{ checked }}">{{ checked | date: "%-d %B %Y" }}</time>, the newest of the calculators’ source checks.</p>
       </header>
@@ -81,6 +81,8 @@
           <li id="super-projection"><a class="collection-entry__title" href="/tools/individual-tax/super-projection/">Super projection calculator</a> Your super balance at retirement in future and today’s dollars, with every assumption stated and changeable.</li>
           <li id="fhss"><a class="collection-entry__title" href="/tools/individual-tax/fhss/">First home super saver calculator</a> The release, withholding and tax offset from an ATO determination, or a contribution ledger estimate with published shortfall interest charge rates.</li>
           <li id="government-super"><a class="collection-entry__title" href="/tools/individual-tax/government-super/">Super co-contribution, LISTO and spouse offset calculator</a> The government’s co-contribution and low income super tax offset, and the spouse contribution tax offset, for 2020-21 to 2026-27, with each condition met or not.</li>
+          <li id="transfer-balance"><a class="collection-entry__title" href="/tools/individual-tax/transfer-balance/">Transfer balance calculator</a> Your transfer balance account and personal cap with proportional indexation, excess transfer balance earnings and tax, the excess concessional contributions charge, and the release of excess non-concessional contributions.</li>
+          <li id="pension-minimum"><a class="collection-entry__title" href="/tools/individual-tax/pension-minimum/">Pension minimum calculator</a> The minimum annual payment from an account-based pension for 2024-25 to 2027-28, with the first year pro-rated from the start day and rounding to the nearest $10.</li>
         </ul>
         <p>For a business, see the <a href="/tools/business-calculators/">54 business calculators</a>, <a href="/tools/depreciation-rates/">depreciation rates</a> and <a href="/rates/individual-income-tax/">individual income tax rate tables</a>.</p>
         <p class="field-note">Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22, salary packaging from 2022-23, novated leases from 2023-24, the withholding from a 2026-27 pay with a bonus or back payment, and super projected from 2026-27. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.</p>
