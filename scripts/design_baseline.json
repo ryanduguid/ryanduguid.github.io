@@ -336,7 +336,7 @@
       "79df2afc8bdd8a9ee82ab1c9860fa4a827d4379a96f3f60dde93430d21d93a44"
     ],
     "tools/individual-tax/sole-trader/index.html": [
-      "44aa86c5ba6314ff97879a5e029f0059a504030fa8baeb4288efa489acc9bd04"
+      "ceb5789430dd82e4e0fbdb8bb12c49469b13fe40d98fdc03fe04c8a527a9e8cb"
     ],
     "tools/individual-tax/study-loan/index.html": [
       "2422468bac5a44d932965ff881e3dc336c4a593ea7d1289e9815a78e80315d60"
@@ -412,9 +412,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "f910fdd02224145829c59c6499a482e3f8077f6d122adcbb8502de44de80abd2",
+    "llms.txt": "92b56cef022f771a5069137ec61f394d57863500832d03fff58b777682fefadd",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "694c88ebde634565a7f4d90282596da2fc8dfa0defe33e997ce10d4befd8399a"
+    "sitemap.xml": "d67b7a03db25bf28d7bf625cb38068a420c13946d3f63af5d334e85df099625d"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
