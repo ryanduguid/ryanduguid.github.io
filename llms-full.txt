@@ -5607,6 +5607,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+23 November 2026 | Updated 2 accounting questions after the 23 November 2026 ATO source sweep: removed the withdrawn credit card newsroom link from general tax question 6, keeping the ATO’s How to pay page, and rechecked company and trust question 86 against the 20 November 2026 trustee resolutions checklist.
 23 November 2026 | The tool pages now link to licences by release or source revision, including the versions used in worked examples. The homepage and tool directory link to Lodgeit’s listing of the Coal LSL levy calculator and to the Australian capital gains tax guide on OpenAccountants, with each project’s review status.
 22 November 2026 | A new business calculator works out one residential rental property’s income and deductions for one owner and income year from 2020-21 to 2026-27: expenses apportioned by the days let or available, interest on a loan used partly for the rental, capital works at 2.5% or 4% within the undeducted construction expenditure, decline in value with section 40-27’s nil for second-hand assets, the net rent and, from 2024-25, its effect on tax at the resident scale. It reproduces the ATO’s Rental properties guide 2026 worked examples, read on 22 November 2026, and agrees with the rental-property command of the australian-accounting calculators on every tested case.
 22 November 2026 | The income tax calculator now works out the private health insurance rebate from the lines of a private health insurance statement for 2020-21 to 2026-27: the tier, each line’s percentage and entitlement, the refundable offset and any excess premium reduction to repay. It also adds the beneficiary tax offset, the invalid and invalid carer tax offset for 2020-21 to 2025-26 and the zone and overseas forces tax offsets, with the dependant and sole parent amounts they count, taken off the tax in the order the Act sets. They agree with the matching commands of the australian-accounting calculators on every tested case, and refuse what those commands refuse, such as the 2027 rebate percentages and the 2026-27 invalid carer amounts, which were not yet published. Results for the existing inputs are unchanged.
@@ -5837,6 +5838,8 @@ Published 30 August 2026. Last reviewed 23 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- general tax question 6: https://duguid.com.au/tools/accounting-questions/general-tax/
+- company and trust question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/
 - tool pages: https://duguid.com.au/tools/
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - super co-contribution, LISTO and spouse offset: https://duguid.com.au/tools/individual-tax/government-super/
@@ -7376,7 +7379,7 @@ Source: https://duguid.com.au/tools/accounting-questions/general-tax/
 
 Practical steps, records and official guidance on tax returns.
 
-10 of 10 answers checked between 27 September 2026 and 16 November 2026. Other guidance reviewed 11 September 2026. Page updated 16 November 2026.
+10 of 10 answers checked between 27 September 2026 and 23 November 2026. Other guidance reviewed 11 September 2026. Page updated 23 November 2026.
 
 Search or build a checklist
 
@@ -7488,9 +7491,9 @@ You can pay the ATO by BPAY, direct deposit, debit card, Government EasyPay, in 
 
 This website does not collect payments or supply bank details.
 
-Paying the ATO · How to pay · Changes to credit card payments
+Paying the ATO · How to pay
 
-The bold answer was checked on 29 October 2026.
+The bold answer was checked on 23 November 2026.
 
 Link to question 6
 
@@ -7603,7 +7606,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 5: https://duguid.com.au/tools/accounting-questions/general-tax/#q5
 - Paying the ATO: https://www.ato.gov.au/individuals-and-families/paying-the-ato
 - How to pay: https://www.ato.gov.au/individuals-and-families/paying-the-ato/how-to-pay
-- Changes to credit card payments: https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/changes-to-credit-card-payments
 - Link to question 6: https://duguid.com.au/tools/accounting-questions/general-tax/#q6
 - ATO income, deductions and records: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records
 - Income you must declare: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/income-you-must-declare
@@ -9357,7 +9359,7 @@ Source: https://duguid.com.au/tools/accounting-questions/company-compliance/
 
 Practical steps, records and official guidance on companies and trusts.
 
-10 of 10 answers checked between 27 September 2026 and 16 November 2026. Other guidance reviewed 11 September 2026. Page updated 16 November 2026.
+10 of 10 answers checked between 27 September 2026 and 23 November 2026. Other guidance reviewed 11 September 2026. Page updated 23 November 2026.
 
 Search or build a checklist
 
@@ -9471,7 +9473,7 @@ The tool cannot validate a deed or cure a late or ineffective trustee decision.
 
 Trusts · Trustee resolutions · Trust distributions example
 
-The bold answer was checked on 27 September 2026.
+The bold answer was checked on 23 November 2026.
 
 Link to question 86
 
