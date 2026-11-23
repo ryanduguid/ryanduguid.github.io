@@ -25,6 +25,12 @@ test('the income tax page takes the foreign income tax offset last, within its l
   assert.equal(row(r, 'Tax on taxable income'), '$2,068.80');
   assert.equal(row(r, 'Low income tax offset'), '$700.00');
   assert.equal(row(r, 'Medicare levy'), '$311.90');
+  // The command agrees: given this levy it gives the same limit, and given the guide's $390.80 the guide's $2,198.80.
+  const command = (source) => foreignIncomeFixture.cases.find((c) => c.source.endsWith(source)).amounts;
+  const ours = command('2025-26 Medicare levy of 311.90 that medicare-levy gives at the $28,011 threshold');
+  const guide = command('T3: FITO26 Example 16, Anna');
+  assert.deepEqual([ours.tax_payable, ours.offset_limit], ['2380.70', '2119.90']);
+  assert.deepEqual([guide.tax_payable, guide.offset_limit], ['2459.60', '2198.80']);
   // A limit of $2,119.90: the $1,368.80 of tax left after the low income tax offset and the $311.90 levy.
   assert.equal(row(r, 'Foreign income tax offset'), '$1,680.70');
   assert.equal(row(r, 'Total tax, levies and repayment'), '$0.00');
