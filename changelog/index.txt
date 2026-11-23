@@ -13,6 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+23 November 2026 | The super lump sum tax calculator now also works the amount a fund withholds from a super lump sum under Schedule 12 for a payment from 13 October 2020, with or without a TFN and for a foreign resident, including a roll-over above the untaxed plan cap and a death benefit paid to a deceased estate. It also works the final tax on a departing Australia superannuation payment in 2025-26 to 2027-28: 35% on the taxed element and 45% on the untaxed element, or 65% on each where the payment includes working holiday maker contributions. Schedule 12 and the Departing Australia Superannuation Payments Tax Act were read on 23 November 2026, and the page agrees with the super-withholding and dasp-tax commands of the australian-accounting calculators on every tested case.
 23 November 2026 | Updated 2 accounting questions after the 23 November 2026 ATO source sweep: removed the withdrawn credit card newsroom link from general tax question 6, keeping the ATO’s How to pay page, and rechecked company and trust question 86 against the 20 November 2026 trustee resolutions checklist.
 23 November 2026 | The tool pages now link to licences by release or source revision, including the versions used in worked examples. The homepage and tool directory link to Lodgeit’s listing of the Coal LSL levy calculator and to the Australian capital gains tax guide on OpenAccountants, with each project’s review status.
 22 November 2026 | A new business calculator works out one residential rental property’s income and deductions for one owner and income year from 2020-21 to 2026-27: expenses apportioned by the days let or available, interest on a loan used partly for the rental, capital works at 2.5% or 4% within the undeducted construction expenditure, decline in value with section 40-27’s nil for second-hand assets, the net rent and, from 2024-25, its effect on tax at the resident scale. It reproduces the ATO’s Rental properties guide 2026 worked examples, read on 22 November 2026, and agrees with the rental-property command of the australian-accounting calculators on every tested case.
@@ -244,6 +245,7 @@ Published 30 August 2026. Last reviewed 23 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 - general tax question 6: https://duguid.com.au/tools/accounting-questions/general-tax/
 - company and trust question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/
 - tool pages: https://duguid.com.au/tools/

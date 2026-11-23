@@ -25,14 +25,15 @@ export const SBT_LOW_RATE_CAP = { '2020-21': 215000, '2021-22': 225000, '2022-23
 /** Table 10: the untaxed plan cap amount (s 307-350). */
 export const SBT_UNTAXED_PLAN_CAP = { '2020-21': 1565000, '2021-22': 1615000, '2022-23': 1650000, '2023-24': 1705000,
   '2024-25': 1780000, '2025-26': 1865000, '2026-27': 1935000 };
-export const SBT_RECIPIENTS = { member: 'member', death_benefits_dependant: 'death benefits dependant', non_dependant: 'non-dependant' };
+export const SBT_RECIPIENTS = { member: 'member', death_benefits_dependant: 'death benefits dependant', non_dependant: 'non-dependant',
+  rollover: 'roll-over', deceased_estate_trustee: 'trustee of a deceased estate' };
 
 const REQUIRED = ['benefit', 'interest_value', 'interest_tax_free_component', 'untaxed_element', 'recipient', 'payment_date',
   'year', 'scope_confirmed'];
 const OPTIONAL = ['date_of_birth', 'terminal_medical_condition', 'disability_superannuation_benefit', 'service_before_july_1983',
   'low_rate_cap_used', 'untaxed_plan_cap_used', 'other_lump_sums_this_year'];
 const DECIMALS = new Set(['benefit', 'interest_value', 'interest_tax_free_component', 'untaxed_element', 'low_rate_cap_used',
-  'untaxed_plan_cap_used']);
+  'untaxed_plan_cap_used', 'tax_free_component', 'taxed_element']);
 const WORDS = /** @type {Record<string, string>} */ ({ benefit: 'the lump sum', interest_value: 'the value of the super interest',
   interest_tax_free_component: 'the interest’s tax free component', untaxed_element: 'the element untaxed in the fund',
   low_rate_cap_used: 'the low rate cap amount used', untaxed_plan_cap_used: 'the untaxed plan cap amount used',
@@ -41,11 +42,15 @@ const WORDS = /** @type {Record<string, string>} */ ({ benefit: 'the lump sum', 
   terminal_medical_condition: 'whether the member has a terminal medical condition',
   disability_superannuation_benefit: 'whether the benefit is a disability superannuation benefit',
   service_before_july_1983: 'whether the untaxed element relates to service before 1 July 1983',
-  other_lump_sums_this_year: 'whether the member received other lump sums this income year' });
+  other_lump_sums_this_year: 'whether the member received other lump sums this income year',
+  tfn_provided: 'whether the payee gave the fund a TFN', foreign_resident: 'whether the payee is a foreign resident',
+  tax_free_component: 'the payment’s tax free component', taxed_element: 'the element taxed in the fund',
+  working_holiday_maker_contributions: 'whether the payment includes contributions made whilst a working holiday maker',
+  unclaimed_money_rollover: 'whether the payment is an unclaimed money roll-over' });
 const MAX = 10n ** 14n;
 
 /** A refusal with the command's code. @param {string} code @param {string} message @returns {never} */
-function refuse(code, message) {
+export function refuse(code, message) {
   throw Object.assign(new Error(message), { code });
 }
 
@@ -66,19 +71,19 @@ function decimal(key, value) {
 }
 
 /** @param {string} key @param {bigint | null} cents @returns {bigint} */
-function money(key, cents) {
+export function money(key, cents) {
   if (cents === null) refuse('input.amount_invalid', `Enter ${WORDS[key]} as an amount of 0 or more with no more than 2 decimal places.`);
   return cents;
 }
 
 /** @param {string} key @param {unknown} value @returns {boolean} */
-function flag(key, value) {
+export function flag(key, value) {
   if (typeof value !== 'boolean') refuse('input.flag_invalid', `Answer ${WORDS[key]} yes or no.`);
   return value;
 }
 
 /** A YYYY-MM-DD date from 1900 to 2100 as [year, month, day], or null. @param {unknown} value */
-function civil(value) {
+export function civil(value) {
   const parts = typeof value === 'string' ? /^(\d{4})-(\d{2})-(\d{2})$/.exec(value) : null;
   if (!parts) return null;
   const [y, m, d] = parts.slice(1).map(Number);
@@ -93,7 +98,7 @@ function date(key, value) {
   return /** @type {[number, number, number]} */ (day);
 }
 
-const dayText = (/** @type {number[]} */ [y, m, d]) => `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+export const dayText = (/** @type {number[]} */ [y, m, d]) => `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
 
 /** Completed years on `day`; a 29 February birthday falls on 1 March in a common year.
  * @param {number[]} born @param {number[]} day */
@@ -109,7 +114,7 @@ export function preservationAge([year, month]) {
 
 /** `given` when `needed`, refused when given and not needed. @param {boolean} needed
  * @param {Record<string, unknown>} input @param {string} key @param {string} why */
-function when(needed, input, key, why) {
+export function when(needed, input, key, why) {
   const given = Object.hasOwn(input, key);
   if (needed && !given) refuse('input.missing_field', `Enter ${WORDS[key]}: it is needed ${why}.`);
   if (!needed && given) refuse('input.field_unknown', `Leave out ${WORDS[key]}: it is an input only ${why}.`);
@@ -117,7 +122,7 @@ function when(needed, input, key, why) {
 }
 
 const conflict = (/** @type {string} */ message) => refuse('super_benefit_tax.fact_conflict', message);
-const min = (/** @type {bigint} */ a, /** @type {bigint} */ b) => (a < b ? a : b);
+export const min = (/** @type {bigint} */ a, /** @type {bigint} */ b) => (a < b ? a : b);
 /** Cents times a rate in hundredths, half up to the cent. @param {bigint} cents @param {bigint} hundredths */
 const atRate = (cents, hundredths) => ratioCents(cents * hundredths, 100n);
 const RATE_TEXT = /** @type {Record<string, string>} */ ({ 0: '0', 15: '0.15', 20: '0.20', 30: '0.30', 45: '0.45' });
@@ -130,16 +135,17 @@ const RATE_TEXT = /** @type {Record<string, string>} */ ({ 0: '0', 15: '0.15', 2
  *   caps: {lowRateCapLeft?: number, untaxedPlanCapLeft?: number, lowRateCapCounted?: number, untaxedPlanCapCounted?: number}, rates: Record<string, string>, assessable: number, notAssessable: number, maximumTax: number,
  *   age?: number, preservationAge?: number}} SbtWorked */
 
-/** The input's keys, required fields and decimals, refused as the command's reader refuses them.
- * @param {Record<string, unknown>} input */
-function read(input) {
-  const unknown = Object.keys(input).find((key) => !REQUIRED.includes(key) && !OPTIONAL.includes(key));
+/** The input's keys, required fields and decimals, refused as the command's reader refuses them: the
+ * required fields in the command's order, then the optional ones.
+ * @param {Record<string, unknown>} input @param {string[]} required @param {string[]} optional */
+export function read(input, required = REQUIRED, optional = OPTIONAL) {
+  const unknown = Object.keys(input).find((key) => !required.includes(key) && !optional.includes(key));
   if (unknown !== undefined) refuse('input.field_unknown', `${unknown} is not an input of this calculator.`);
   /** @type {Record<string, bigint | null>} */
   const amounts = {};
-  for (const key of [...REQUIRED, ...OPTIONAL]) {
+  for (const key of [...required, ...optional]) {
     if (!Object.hasOwn(input, key)) {
-      if (REQUIRED.includes(key)) refuse('input.missing_field', `Enter ${WORDS[key]}.`);
+      if (required.includes(key)) refuse('input.missing_field', `Enter ${new Map(Object.entries(WORDS)).get(key)}.`);
       continue;
     }
     if (DECIMALS.has(key)) amounts[key] = decimal(key, input[key]);
@@ -147,9 +153,8 @@ function read(input) {
   return amounts;
 }
 
-/** The income year, the payment date inside it and the components (ss 307-125 and 307-275).
- * @param {Record<string, unknown>} input @param {Record<string, bigint | null>} amounts */
-function components(input, amounts) {
+/** The income year and the payment date inside it. @param {Record<string, unknown>} input */
+export function period(input) {
   if (input.scope_confirmed !== true) refuse('scope.not_confirmed', 'Confirm the facts the calculator takes as given.');
   const year = /** @type {string} */ (input.year);
   if (!SBT_YEARS.includes(year)) {
@@ -158,6 +163,17 @@ function components(input, amounts) {
   const paid = date('payment_date', input.payment_date);
   const first = Number(year.slice(0, 4));
   if (dayText(paid) < `${first}-07-01` || dayText(paid) > `${first + 1}-06-30`) conflict(`The payment date must fall in the ${year} income year.`);
+  return { year, paid };
+}
+
+/** The income year, the payment date inside it and the components.
+ * @param {Record<string, unknown>} input @param {Record<string, bigint | null>} amounts */
+function components(input, amounts) {
+  return { ...period(input), ...lumpSum(amounts) };
+}
+
+/** The lump sum's components (ss 307-125 and 307-275). @param {Record<string, bigint | null>} amounts */
+export function lumpSum(amounts) {
   const [benefit, interest, interestFree, untaxed] = ['benefit', 'interest_value', 'interest_tax_free_component', 'untaxed_element']
     .map((key) => money(key, amounts[key]));
   if (benefit === 0n || interest === 0n) refuse('super_benefit_tax.benefit_nil', 'The lump sum and the value of the super interest must each be more than nil.');
@@ -166,12 +182,12 @@ function components(input, amounts) {
   const taxFree = ratioCents(benefit * interestFree, interest);
   const taxable = benefit - taxFree;
   if (untaxed > taxable) conflict('The element untaxed in the fund cannot exceed the taxable component the proportioning rule gives.');
-  return { year, paid, benefit, interest, c: { taxFree, taxable, taxed: taxable - untaxed, untaxed } };
+  return { benefit, interest, c: { taxFree, taxable, taxed: taxable - untaxed, untaxed } };
 }
 
 /** The recipient's treatment, with a member's age and preservation age.
  * @param {Record<string, unknown>} input @param {{paid: number[], benefit: bigint, interest: bigint}} facts */
-function treatment(input, { paid, benefit, interest }) {
+export function treatment(input, { paid, benefit, interest }) {
   const member = input.recipient === 'member';
   if (!member && input.recipient !== 'death_benefits_dependant' && input.recipient !== 'non_dependant') {
     refuse('super_benefit_tax.recipient_invalid', 'Choose who receives the benefit: the member, a death benefits dependant or a non-dependant.');
@@ -205,7 +221,7 @@ function capLeft(input, amounts, key, cap) {
 /** The parts, rates and caps one lump sum builds up, with the steps that add to them.
  * @param {Record<string, unknown>} input @param {Record<string, bigint | null>} amounts @param {string} year
  * @param {{taxed: bigint, untaxed: bigint}} c */
-function ledger(input, amounts, year, c) {
+export function ledger(input, amounts, year, c) {
   /** @type {SbtPart[]} */
   const parts = [];
   /** @type {Record<string, string>} */
@@ -240,7 +256,7 @@ function ledger(input, amounts, year, c) {
 /** A member taxed by age (ss 301-10 to 301-115), the low rate cap first used by the taxed element.
  * @param {ReturnType<typeof ledger>} l @param {Record<string, unknown>} input @param {Record<string, bigint | null>} amounts
  * @param {string} year @param {{taxed: bigint}} c @param {string} name */
-function memberParts(l, input, amounts, year, c, name) {
+export function memberParts(l, input, amounts, year, c, name) {
   const why = 'for a member at or above preservation age and under 60';
   const needed = name === 'preservation_age_to_59';
   const lowGiven = when(needed, input, 'low_rate_cap_used', why);
@@ -265,7 +281,7 @@ function memberParts(l, input, amounts, year, c, name) {
 
 /** A death benefit, or a member benefit the whole of which is tax free; refuses the caps it does not use.
  * @param {ReturnType<typeof ledger>} l @param {Record<string, unknown>} input @param {{taxed: bigint, untaxed: bigint}} c @param {string} name */
-function otherParts(l, input, c, name) {
+export function otherParts(l, input, c, name) {
   if (name === 'non_dependant') {
     l.part('taxed_element_part', c.taxed, 15);
     l.part('untaxed_element_part', c.untaxed, 30);
@@ -279,8 +295,17 @@ function otherParts(l, input, c, name) {
   when(false, input, 'other_lump_sums_this_year', why);
 }
 
-const MEMBER_BANDS = ['aged_60_or_over', 'preservation_age_to_59', 'under_preservation_age'];
-const inDollars = (/** @type {bigint} */ cents) => Number(cents) / 100;
+export const MEMBER_BANDS = ['aged_60_or_over', 'preservation_age_to_59', 'under_preservation_age'];
+export const inDollars = (/** @type {bigint} */ cents) => Number(cents) / 100;
+
+/** Section 307-150's modification for service before 1 July 1983, which the command does not take, refused.
+ * @param {Record<string, unknown>} input @param {{untaxed: bigint}} c */
+export function refusePre1983(input, c) {
+  if (when(c.untaxed !== 0n, input, 'service_before_july_1983', 'with an element untaxed in the fund')
+    && flag('service_before_july_1983', input.service_before_july_1983)) {
+    refuse('super_benefit_tax.pre_july_1983_service', 'An element untaxed in the fund that relates to service before 1 July 1983 moves part of it to the tax free component under ITAA 1997 s 307-150, which this calculator does not take.');
+  }
+}
 
 /**
  * The tax on one superannuation lump sum, as the `super-benefit-tax` command works it.
@@ -294,10 +319,7 @@ export function superBenefitTax(given) {
   const facts = components(input, amounts);
   const { year, c } = facts;
   const t = treatment(input, facts);
-  if (when(c.untaxed !== 0n, input, 'service_before_july_1983', 'with an element untaxed in the fund')
-    && flag('service_before_july_1983', input.service_before_july_1983)) {
-    refuse('super_benefit_tax.pre_july_1983_service', 'An element untaxed in the fund that relates to service before 1 July 1983 moves part of it to the tax free component under ITAA 1997 s 307-150, which this calculator does not take.');
-  }
+  refusePre1983(input, c);
   const l = ledger(input, amounts, year, c);
   const member = MEMBER_BANDS.includes(t.name);
   if (member) memberParts(l, input, amounts, year, c, t.name);
@@ -312,7 +334,7 @@ export function superBenefitTax(given) {
     ...(t.age === undefined ? {} : { age: t.age, preservationAge: t.preservation }) };
 }
 
-const PART_LABELS = /** @type {Record<string, string>} */ ({
+export const PART_LABELS = /** @type {Record<string, string>} */ ({
   taxed_within_low_rate_cap: 'Taxed element within the low rate cap left',
   taxed_above_low_rate_cap: 'Taxed element above the low rate cap left',
   taxed_element_part: 'Taxed element',
@@ -321,7 +343,7 @@ const PART_LABELS = /** @type {Record<string, string>} */ ({
   untaxed_above_plan_cap: 'Untaxed element above the untaxed plan cap left, at the top marginal rate',
   untaxed_element_part: 'Untaxed element',
 });
-const TREATMENTS = /** @type {Record<string, string>} */ ({
+export const TREATMENTS = /** @type {Record<string, string>} */ ({
   aged_60_or_over: '60 or over, so only the untaxed element is assessable (ss 301-10 and 301-95)',
   preservation_age_to_59: 'at or above preservation age and under 60 (ss 301-15, 301-20 and 301-105)',
   under_preservation_age: 'under preservation age (ss 301-30, 301-35 and 301-115)',
@@ -368,7 +390,7 @@ export function sbtFormInput(value) {
   return input;
 }
 
-const plainDate = (/** @type {string} */ iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU',
+export const plainDate = (/** @type {string} */ iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU',
   { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
 /** The inputs as the page states them. @param {Record<string, any>} input @param {(value: number) => string} aud */
@@ -386,9 +408,9 @@ export function sbtInputsText(input, aud) {
   return parts.join('; ');
 }
 
-/** The page's result: the components, each part's ceiling rate and tax, and the most tax.
+/** The page's result for the most tax: the components, each part's ceiling rate and tax, and the most tax.
  * @param {(name: string) => string} value @param {(value: number) => string} aud */
-export function superBenefitTaxResult(value, aud) {
+export function sbtTaxResult(value, aud) {
   const input = sbtFormInput(value);
   const r = superBenefitTax(input);
   const rows = [['Tax free component', aud(r.taxFree)], ['Taxable component: element taxed in the fund', aud(r.taxed)],
