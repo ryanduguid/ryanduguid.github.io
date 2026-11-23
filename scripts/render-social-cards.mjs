@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { randomUUID } from 'node:crypto';
+import { lstatSync, realpathSync } from 'node:fs';
 import {
   copyFile,
   mkdir,
@@ -287,18 +288,38 @@ export async function renderSocialCards(browser, outputDirectory) {
   });
 }
 
+function canonicalisePath(targetPath) {
+  const resolved = path.resolve(targetPath);
+  const tail = [];
+  let cursor = resolved;
+  while (!lstatSync(cursor, { throwIfNoEntry: false })) {
+    const parent = path.dirname(cursor);
+    if (parent === cursor) break;
+    tail.unshift(path.basename(cursor));
+    cursor = parent;
+  }
+  const base = lstatSync(cursor, { throwIfNoEntry: false })
+    ? realpathSync.native(cursor)
+    : cursor;
+  return tail.length ? path.join(base, ...tail) : base;
+}
+
 function resolveCliOutputDirectory(argument) {
   if (!argument) return ASSETS;
-  const resolved = path.resolve(argument);
-  const repoPrefix = ROOT.endsWith(path.sep) ? ROOT : `${ROOT}${path.sep}`;
-  const tmpRoot = path.resolve(os.tmpdir());
+  const resolved = canonicalisePath(argument);
+  const repoRoot = realpathSync.native(ROOT);
+  const tmpRoot = realpathSync.native(os.tmpdir());
+  const repoPrefix = repoRoot.endsWith(path.sep) ? repoRoot : `${repoRoot}${path.sep}`;
   const tmpPrefix = tmpRoot.endsWith(path.sep) ? tmpRoot : `${tmpRoot}${path.sep}`;
-  if (
-    resolved !== ROOT
-    && !resolved.startsWith(repoPrefix)
-    && resolved !== tmpRoot
-    && !resolved.startsWith(tmpPrefix)
-  ) {
+  const inRepo = resolved === repoRoot || resolved.startsWith(repoPrefix)
+    || (process.platform === 'win32'
+      && (resolved.toLowerCase() === repoRoot.toLowerCase()
+        || resolved.toLowerCase().startsWith(repoPrefix.toLowerCase())));
+  const inTmp = resolved === tmpRoot || resolved.startsWith(tmpPrefix)
+    || (process.platform === 'win32'
+      && (resolved.toLowerCase() === tmpRoot.toLowerCase()
+        || resolved.toLowerCase().startsWith(tmpPrefix.toLowerCase())));
+  if (!inRepo && !inTmp) {
     throw new RangeError('Output directory must stay inside the repository or temp directory');
   }
   return resolved;
