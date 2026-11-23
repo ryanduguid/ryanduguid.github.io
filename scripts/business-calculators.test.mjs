@@ -6241,14 +6241,38 @@ test('the first home owner grant pays the lesser of the consideration and the am
   assert.equal(fhogGrant({ jurisdiction: 'AU-NT', value: '49999' }), '$49,999.00: the grant cannot be more than the consideration');
 });
 
-// The value entered is the price, which limits the grant (Qld s 20(1), WA s 19(2CA)); the unencumbered value
-// the Qld and WA caps also test (Qld s 5(7), WA s 14AC(2)) is assumed not higher, and never feeds the amount.
-test('the first home owner grant takes the price, not a higher unencumbered value, in Queensland and Western Australia', () => {
-  assert.equal(fhogGrant({ jurisdiction: 'AU-QLD', value: '20000' }), '$20,000.00: the grant cannot be more than the consideration');
-  assert.equal(fhogGrant({ jurisdiction: 'AU-WA', 'wa-location': 'south', value: '5000' }), '$5,000.00: the grant cannot be more than the consideration');
-  assert.match(fhogHtml, /The cap also tests the home and land’s unencumbered value; the calculator takes the price you enter and assumes that value is not higher\./);
-  assert.match(fhogHtml, /the cap also tests the unencumbered value, which the calculator assumes is not higher than the price\./);
-  assert.doesNotMatch(fhogHtml, /the price or, if greater, the unencumbered value/);
+// Qld s 5(6) to (8) and WA s 14AC(2) and (3) test the cap on a value that can differ from the consideration,
+// which still limits the grant (Qld s 20(1), WA s 19(2CA)). The vectors are australian-accounting PR 836's
+// (head b81fa1c1, the_cap_value_is_kept_apart_from_the_consideration), all dated 1 August 2026.
+test('the first home owner grant tests the Qld and WA caps on the value given, and limits the grant to the consideration', () => {
+  const lesser = 'the grant cannot be more than the consideration';
+  const qld = (home, value, cap) => fhogGrant({ jurisdiction: 'AU-QLD', home, value: String(value), 'cap-value': String(cap) });
+  const wa = (home, value, cap) => fhogGrant({ jurisdiction: 'AU-WA', 'wa-location': 'south', home, value: String(value), 'cap-value': String(cap) });
+  // A value above the price raises no grant above the consideration.
+  assert.equal(qld('bought', 20000, 100000), `$20,000.00: ${lesser}`);
+  assert.equal(wa('bought', 5000, 100000), `$5,000.00: ${lesser}`);
+  // Qld s 5(7): a price under $750,000 on a home and land valued at $750,000 or more.
+  assert.equal(qld('bought', 700000, 750000), '$0.00: the value is $750,000 or more');
+  assert.equal(qld('bought', 700000, 749999), '$30,000.00');
+  // A home bought is tested on the greater of the price and the value.
+  assert.equal(qld('bought', 750000, 600000), '$0.00: the value is $750,000 or more');
+  assert.equal(wa('bought', 800001, 700000), '$0.00: the value is over the Western Australia cap');
+  assert.equal(wa('bought', 700000, 800001), '$0.00: the value is over the Western Australia cap');
+  assert.equal(wa('bought', 700000, 800000), '$10,000.00');
+  // A home built is tested on the value given alone: the contract and the land's value.
+  assert.equal(qld('built', 760000, 740000), '$30,000.00');
+  assert.equal(qld('built', 700000, 750000), '$0.00: the value is $750,000 or more');
+  assert.equal(wa('built', 820000, 800000), '$10,000.00');
+  assert.equal(wa('built', 700000, 800001), '$0.00: the value is over the Western Australia cap');
+  // Without a value the total value is tested, as before.
+  assert.equal(fhogGrant({ jurisdiction: 'AU-QLD', value: '20000' }), `$20,000.00: ${lesser}`);
+  // Elsewhere the value is refused, as the command refuses it; it must be a whole number of dollars.
+  assert.throws(() => fhogResult({ 'cap-value': '700000' }), /the value the cap tests is taken only in Queensland and Western Australia; clear it for New South Wales/);
+  for (const cap of ['0', '1000000001', '700000.50', '-1']) {
+    assert.throws(() => fhogResult({ jurisdiction: 'AU-QLD', 'cap-value': cap }), { message: 'Enter a whole number between 1 and 1000000000.' }, cap);
+  }
+  assert.match(fhogResult({ jurisdiction: 'AU-QLD', 'cap-value': '700000' }).inputs, /total value \$600,000\.00, value the cap tests \$700,000\.00, /);
+  assert.match(fhogHtml, /The cap tests the greater of the price and the unencumbered value of the home and land, or for a home built the contract and the land’s value; enter that value where it differs\./);
 });
 
 test('the first home owner grant does not test a Victorian home built against $750,000 of land and building', () => {

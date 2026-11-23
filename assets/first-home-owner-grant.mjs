@@ -14,6 +14,10 @@ import { number } from './money.mjs';
 //   building work's consideration alone, so a land and building total over it is not computed.
 // - Qld: First Home Owner Grant and Other Home Owner Grants Act 2000 s 20: the lesser of the
 //   consideration and $30,000; s 5(6) to (8): not eligible at $750,000 or more.
+// - Qld and WA: s 5(6) to (8) and s 14AC(2) and (3) test the cap on a value that can differ from the
+//   consideration: for a home bought, the greater of the price and the unencumbered value of the home
+//   and land; for a home built, the contract and the land's value. The page takes that value as
+//   `capValue` where it differs; the consideration still limits the grant (Qld s 20(1), WA s 19(2CA)).
 // - WA: Department of Treasury and Finance fact sheet as at 28 July 2026: $10,000; caps of $750,000
 //   south and $1,000,000 north of the 26th parallel to 6 May 2026, $800,000 south from 7 May 2026;
 //   First Home Owner Grant Act 2000 (as at 22 October 2026, read 24 November 2026) s 19(2CA): the lesser of
@@ -81,12 +85,13 @@ const longDate = (/** @type {string} */ iso) => new Date(`${iso}T00:00:00Z`).toL
 
 /**
  * The first home owner grant for one transaction, for applicants who state every eligibility fact.
- * @param {{place: string, date: string, home: string, value: string, north?: boolean, facts: Record<string, boolean>}} input
- *   `date` is the contract date as YYYY-MM-DD and `value` the total value in whole dollars; `north`
- *   is required in Western Australia.
+ * @param {{place: string, date: string, home: string, value: string, north?: boolean, capValue?: string, facts: Record<string, boolean>}} input
+ *   `date` is the contract date as YYYY-MM-DD and `value` the total value in whole dollars, the consideration;
+ *   `north` is required in Western Australia; `capValue`, taken only in Queensland and Western Australia, is the
+ *   value their caps test where it differs from `value`.
  * @returns {{grant: number, reason: string, cap: string, residence: string, dutyFrom: string}}
  */
-export function firstHomeOwnerGrant({ place, date, home, value, north, facts }) {
+export function firstHomeOwnerGrant({ place, date, home, value, north, capValue, facts }) {
   if (!Object.hasOwn(FHOG, place)) throw new Error('Choose a state or territory.');
   if (!FHOG_HOMES.includes(home)) throw new Error('Choose a home bought, built or established.');
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || date < FHOG_FIRST || date > FHOG_LAST) {
@@ -95,7 +100,14 @@ export function firstHomeOwnerGrant({ place, date, home, value, north, facts }) 
   const missing = FHOG_FACTS.filter((f) => facts?.[f] !== true);
   if (missing.length) throw new Error(`Not computed: the grant and the first home buyer duty need every eligibility fact stated; not stated: ${missing.map((f) => FACT_NAMES[f]).join('; ')}.`);
   const dollars = number(value, { min: 1, max: 1e9, integer: true, money: true });
+  const capDollars = capValue ? number(capValue, { min: 1, max: 1e9, integer: true, money: true }) : undefined;
   const scheme = FHOG[place];
+  if (capDollars !== undefined && place !== 'AU-QLD' && place !== 'AU-WA') {
+    throw new Error(`Not computed: the value the cap tests is taken only in Queensland and Western Australia; clear it for ${scheme.name}.`);
+  }
+  // Qld s 5(6) to (8), WA s 14AC(2) and (3): a home bought is tested on the greater of the price and the value,
+  // a home built on the value given.
+  const tested = capDollars === undefined ? dollars : home === 'built' ? capDollars : Math.max(dollars, capDollars);
   const out = { residence: scheme.residence, dutyFrom: DUTY_FROM[place] };
   const rule = scheme.rules.find((r) => r.from <= date && date <= r.to);
   if (!rule) throw new Error(`Not computed: no ${scheme.name} grant rule covers that date.`);
@@ -109,7 +121,7 @@ export function firstHomeOwnerGrant({ place, date, home, value, north, facts }) 
   // An established home has no cap: only the NT's pays, and its rule has none.
   const limit = place === 'AU-WA' && north ? rule.north : home === 'built' ? rule.built : home === 'bought' ? rule.bought : undefined;
   const cap = limit === undefined ? 'none' : place === 'AU-QLD' ? 'under $750,000' : `up to ${whole(limit)}`;
-  if (limit !== undefined && dollars > limit) {
+  if (limit !== undefined && tested > limit) {
     if (place === 'AU-VIC' && home === 'built') {
       throw new Error('Not computed: the Victorian cap applies to the consideration for the building work (First Home Owner Grant and Home Buyer Schemes Act 2000 (Vic) s 13(1A) and (7)(b)), not the land and building total entered.');
     }
@@ -127,18 +139,21 @@ export function firstHomeOwnerGrant({ place, date, home, value, north, facts }) 
  * @param {(name: string) => string} value @param {(name: string) => boolean} checked */
 export function fhogFormInput(value, checked) {
   const location = value('wa-location');
+  const capValue = value('cap-value');
   return { place: value('jurisdiction'), date: value('date'), home: value('home'), value: value('value'), ...(location ? { north: location === 'north' } : {}),
+    ...(capValue ? { capValue } : {}),
     facts: Object.fromEntries([...FHOG_FACTS, ...FHOG_CASE_FACTS].map((f) => [f, checked(`fact-${f}`)])) };
 }
 
 /** How an input reads above its result.
- * @param {{place: string, date: string, home: string, value: string, north?: boolean, facts: Record<string, boolean>}} input
+ * @param {{place: string, date: string, home: string, value: string, north?: boolean, capValue?: string, facts: Record<string, boolean>}} input
  * @param {(n: number) => string} aud */
 export function fhogInputsText(input, aud) {
   const homeText = { bought: 'new home bought', built: 'new home built under a contract', established: 'established home' }[input.home];
   const north = input.place !== 'AU-WA' ? '' : input.north === undefined ? ', location not stated' : `, ${input.north ? 'north' : 'south'} of the 26th parallel`;
   const missing = FHOG_FACTS.filter((f) => input.facts?.[f] !== true);
   return `${FHOG[input.place]?.name ?? input.place}, contract ${longDate(input.date)}, ${homeText}${north}, total value ${aud(Number(input.value))}, `
+    + (input.capValue ? `value the cap tests ${aud(Number(input.capValue))}, ` : '')
     + (missing.length ? `not stated: ${missing.map((f) => FACT_NAMES[f]).join('; ')}` : 'every eligibility fact stated');
 }
 
