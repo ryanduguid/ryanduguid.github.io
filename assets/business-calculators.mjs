@@ -15,8 +15,11 @@ export { CALENDAR_END, NON_BUSINESS_WEEKDAYS, compoundedEarnings, paydaySuperDue
 export { LSL_ACTS, LSL_REASONS, longServiceLeave, longServiceLeaveResult, lslReasonText } from './long-service-leave.mjs';
 export { FTC_FUELS, FTC_PERIODS, FTC_USES, fuelFormInput, fuelInputsText, fuelTaxCredits, fuelTaxCreditsResult } from './fuel-tax-credits.mjs';
 export { DUTY_FROM, FHOG, FHOG_CASE_FACTS, FHOG_FACTS, FHOG_FIRST, FHOG_HOMES, FHOG_LAST, fhogFormInput, fhogInputsText, firstHomeOwnerGrant, firstHomeOwnerGrantResult } from './first-home-owner-grant.mjs';
-export { SBT_LOW_RATE_CAP, SBT_RECIPIENTS, SBT_UNTAXED_PLAN_CAP, SBT_YEARS, sbtFormInput, sbtInputsText, superBenefitTax, superBenefitTaxResult }
+export { SBT_LOW_RATE_CAP, SBT_RECIPIENTS, SBT_UNTAXED_PLAN_CAP, SBT_YEARS, sbtFormInput, sbtInputsText, superBenefitTax }
   from './super-benefit-tax.mjs';
+export { SWH_FIRST_DAY, superWithholding, swhFormInput } from './super-withholding.mjs';
+export { DASP_YEARS, daspFormInput, daspTax } from './dasp-tax.mjs';
+export { superBenefitTaxResult } from './super-lump-sum.mjs';
 export { LCT_CLAIMANTS, LCT_KINDS, LCT_THRESHOLDS, LCT_YEARS, lctFormInput, lctInputsText, luxuryCarTax, luxuryCarTaxResult } from './luxury-car-tax.mjs';
 export { unusedLeave, unusedLeaveResult } from './unused-leave.mjs';
 export { FRANKING_EVENTS, frankingAccount, frankingAccountResult, frankingInput } from './franking-account.mjs';
