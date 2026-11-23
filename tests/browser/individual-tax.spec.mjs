@@ -266,9 +266,9 @@ test('a minor’s unearned income is taxed beside the income tax calculator, wit
   await calculate.click();
   await expect(row('Basic income tax')).toHaveText('$0.00');
   await form.getByLabel('Excepted person').selectOption('none');
-  await form.getByLabel('Taxable income (whole dollars)').fill('30000');
-  await form.getByLabel('Employment income (dollars and cents)').fill('28000');
-  await form.getByLabel('Other assessable income (dollars and cents)').fill('2000');
+  await form.getByLabel('Taxable income (whole dollars)', { exact: true }).fill('30000');
+  await form.getByLabel('Employment income (dollars and cents)', { exact: true }).fill('28000');
+  await form.getByLabel('Other assessable income (dollars and cents)', { exact: true }).fill('2000');
   await calculate.click();
   await expect(row('Basic income tax')).toHaveText('$2,468.00');
   await expect(form.locator('.sources-applied')).toBeVisible();
