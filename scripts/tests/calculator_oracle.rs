@@ -100,6 +100,10 @@
 //! the financial acquisitions threshold and annual apportionment as exact ratios of whole percentages and
 //! cents rounded half up once, where the engine works in a 40-digit decimal context.
 //!
+//! A further 240 seeded deferred tax worksheets, from their own seed, sign each item's difference and measure
+//! the balances, movement, current tax and reconciliation in cents times whole percentages rounded half away
+//! from nil, where the engine works item by item in cents.
+//!
 //! A further 240 seeded wine equalisation tax periods fill the producer rebate cap one dealing at a
 //! time, where the engine compares the year's total with what the cap leaves, and type the cap by year
 //! from WET Act s 19-15(2) and Act No. 12 of 2026 Sch 6.
@@ -9779,6 +9783,169 @@ fn the_gst_adjustments_engine_agrees_with_the_oracle_on_every_seeded_case() {
     assert!(expected.iter().any(|want| want["answer"] == json!(false)));
     let actual = run_node(GST_HARNESS, &cases);
     assert_eq!(actual.len(), GST_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the deferred tax engine, as `HARNESS` runs the others, and returns the figures the oracle works.
+const DT_HARNESS: &str = r"
+import { deferredTax } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const keys = ['deferred_tax_liability', 'deferred_tax_asset', 'deferred_tax_expense', 'recognition_change_effect', 'current_tax',
+  'income_tax_expense', 'deferred_rate_difference', 'reconciliation_difference', 'taxable_income_difference'];
+process.stdout.write(JSON.stringify(JSON.parse(input).map((call) => {
+  const r = deferredTax(call);
+  return { ...Object.fromEntries(keys.map((key) => [key, r.amounts[key]])), effective: r.rates.effective_tax_rate ?? null };
+})));
+";
+
+const DT_CASES: usize = 240;
+const DT_YEARS: [&str; 7] = [
+    "2020-21", "2021-22", "2022-23", "2023-24", "2024-25", "2025-26", "2026-27",
+];
+
+/// `n / d` rounded half away from nil.
+fn dt_half_up(n: i128, d: i128) -> i128 {
+    let q = (2 * n.abs() + d.abs()) / (2 * d.abs());
+    if (n < 0) == (d < 0) { q } else { -q }
+}
+
+/// Cents as the engine's amount text.
+fn dt_cents(c: i128) -> String {
+    let sign = if c < 0 { "-" } else { "" };
+    format!("{sign}{}.{:02}", c.abs() / 100, c.abs() % 100)
+}
+
+/// One seeded worksheet with the same expected rate at both dates, so no reversal schedule is needed: AASB 112
+/// paras 5, 7 and 8 sign each item, paras 15, 24, 34 and 47 measure the balances, para 80 splits the movement,
+/// ITRA s 23(2) gives the year's rate and para 81(c)(i) reconciles, each figure rounded half away from nil.
+fn dt_case(rng: &mut Seeded) -> (Value, Value) {
+    let year = rng.pick(&DT_YEARS);
+    let bre = rng.below(2) == 0;
+    let applicable: i128 = match (bre, year) {
+        (false, _) => 30,
+        (true, "2020-21") => 26,
+        (true, _) => 25,
+    };
+    // 2020-21 opening balances at 25% are refused, so that year is measured at 30%.
+    let base_rate = year != "2020-21" && rng.below(2) == 0;
+    let rate: i128 = if base_rate { 25 } else { 30 };
+    let mut items = Vec::new();
+    let (mut taxable, mut deductible, mut opening_taxable, mut opening_deductible) =
+        (0_i128, 0_i128, 0_i128, 0_i128);
+    for n in 0..=rng.below(4) {
+        let liability = rng.below(3) == 0;
+        let amounts: Vec<i128> = (0..4)
+            .map(|_| i128::from(rng.cents(10_000_000_000)))
+            .collect();
+        let sign = |carrying: i128, base: i128| {
+            if liability {
+                base - carrying
+            } else {
+                carrying - base
+            }
+        };
+        let (closing, opening) = (sign(amounts[0], amounts[1]), sign(amounts[2], amounts[3]));
+        taxable += closing.max(0);
+        deductible += (-closing).max(0);
+        opening_taxable += opening.max(0);
+        opening_deductible += (-opening).max(0);
+        items.push(json!({ "label": format!("Item {n}"), "class": if liability { "liability" } else { "asset" },
+            "carrying_amount": dt_cents(amounts[0]), "tax_base": dt_cents(amounts[1]),
+            "opening_carrying_amount": dt_cents(amounts[2]), "opening_tax_base": dt_cents(amounts[3]) }));
+    }
+    let any = rng.cents(1_000_000_000);
+    let losses = i128::from(rng.pick(&[0, any]));
+    let any = rng.cents(1_000_000_000);
+    let opening_losses = i128::from(rng.pick(&[0, any]));
+    let unrecognised = i128::from(rng.below(u64::try_from(deductible + losses).unwrap() + 1))
+        * i128::from(rng.below(2));
+    let opening_unrecognised =
+        i128::from(rng.below(u64::try_from(opening_deductible + opening_losses).unwrap() + 1))
+            * i128::from(rng.below(2));
+    let used = i128::from(rng.below(u64::try_from(opening_unrecognised).unwrap() + 1))
+        * i128::from(rng.below(2));
+    // A loss in about 1 case in 6, and a nil profit, which has no effective rate, in about 1 in 20.
+    let magnitude = i128::from(rng.cents(10_000_000_000)) * i128::from(rng.below(20) != 0);
+    let profit = if rng.below(6) == 0 {
+        -magnitude
+    } else {
+        magnitude
+    };
+    let any = rng.cents(100_000_000);
+    let non_deductible = i128::from(rng.pick(&[0, any]));
+    let any = rng.cents(100_000_000);
+    let non_assessable = i128::from(rng.pick(&[0, any]));
+    let taxable_income = i128::from(rng.cents(10_000_000_000));
+    let before = dt_half_up(taxable_income * applicable, 100);
+    let offsets = rng.pick(&[0, before / 2, before]);
+    let rate_text = if base_rate {
+        "base_rate_entity"
+    } else {
+        "standard"
+    };
+    let call = json!({ "items": items, "unused_tax_losses": dt_cents(losses), "opening_unused_tax_losses": dt_cents(opening_losses),
+        "unrecognised_deductible": dt_cents(unrecognised), "opening_unrecognised_deductible": dt_cents(opening_unrecognised),
+        "unrecognised_used": dt_cents(used), "accounting_profit": dt_cents(profit), "non_deductible_expenses": dt_cents(non_deductible),
+        "non_assessable_income": dt_cents(non_assessable), "taxable_income": dt_cents(taxable_income), "tax_offsets": dt_cents(offsets),
+        "base_rate_entity": bre, "expected_rate": rate_text, "opening_expected_rate": rate_text, "business_combination": false,
+        "uncertain_tax_treatment": false, "tax_consolidated_group": false, "outside_profit_or_loss": false, "year": year,
+        "scope_confirmed": true });
+    let at = |c: i128, r: i128| dt_half_up(c * r, 100);
+    let liability = at(taxable, rate);
+    let asset = at(deductible + losses - unrecognised, rate);
+    let opening_net_balance = at(opening_taxable, rate)
+        - at(
+            opening_deductible + opening_losses - opening_unrecognised,
+            rate,
+        );
+    let deferred = liability - asset - opening_net_balance;
+    let recognition = at(unrecognised - opening_unrecognised + used, rate);
+    let current = before - offsets;
+    let expense = current + deferred;
+    let change =
+        (taxable - deductible - losses) - (opening_taxable - opening_deductible - opening_losses);
+    let rate_gap = dt_half_up(change * (rate - applicable), 100);
+    let lines = at(profit, applicable) + at(non_deductible, applicable)
+        - at(non_assessable, applicable)
+        + rate_gap
+        + recognition
+        - at(used, rate)
+        - offsets;
+    let effective = (profit != 0).then(|| {
+        let ratio = dt_half_up(expense * 10_000, profit);
+        let sign = if (expense < 0) != (profit < 0) {
+            "-"
+        } else {
+            ""
+        };
+        format!("{sign}{}.{:04}", ratio.abs() / 10_000, ratio.abs() % 10_000)
+    });
+    let expected = json!({ "deferred_tax_liability": dt_cents(liability), "deferred_tax_asset": dt_cents(asset),
+        "deferred_tax_expense": dt_cents(deferred), "recognition_change_effect": dt_cents(recognition), "current_tax": dt_cents(current),
+        "income_tax_expense": dt_cents(expense), "deferred_rate_difference": dt_cents(rate_gap),
+        "reconciliation_difference": dt_cents(expense - lines),
+        "taxable_income_difference": dt_cents(taxable_income - (profit + non_deductible - non_assessable - change)), "effective": effective });
+    (call, expected)
+}
+
+#[test]
+fn the_deferred_tax_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1124_0000_0B14);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..DT_CASES).map(|_| dt_case(&mut rng)).unzip();
+    assert!(expected.iter().any(|want| want["effective"].is_null()));
+    assert!(
+        expected
+            .iter()
+            .any(|want| want["deferred_rate_difference"] != json!("0.00"))
+    );
+    let actual = run_node(DT_HARNESS, &cases);
+    assert_eq!(actual.len(), DT_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }

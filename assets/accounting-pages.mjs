@@ -661,6 +661,10 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             result = calculate.gstAdjustmentsResult(value, aud);
             showTables(result.tables);
             break;
+          case 'deferred-tax':
+            result = calculate.deferredTaxResult(value, aud);
+            showTables(result.tables);
+            break;
           case 'asic-fees':
             result = calculate.asicFeesResult(value, aud);
             break;

@@ -8,6 +8,13 @@
   <updated>2026-11-24T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new business calculator, deferred tax, works a company’s AASB 112 tax effect…</title>
+    <link href="https://duguid.com.au/changelog/#entry-933a140bd212f535" />
+    <id>https://duguid.com.au/changelog/#entry-933a140bd212f535</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>A new business calculator, deferred tax, works a company’s AASB 112 tax effect worksheet for 2020-21 to 2026-27: temporary differences item by item, the deferred tax liability and asset at 25% or 30%, the year’s movement split into rate change, recognition and origination, current tax at the year’s rate and the reconciliation of income tax expense. Its results match the australian-accounting command on 389 cases.</summary>
+  </entry>
+  <entry>
     <title>A new business calculator, GST adjustments, works 6 GST adjustments and tests…</title>
     <link href="https://duguid.com.au/changelog/#entry-4466dd6b03ba18a9" />
     <id>https://duguid.com.au/changelog/#entry-4466dd6b03ba18a9</id>
