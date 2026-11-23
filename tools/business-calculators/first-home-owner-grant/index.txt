@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 
 The first home owner grant in each Australian state and territory for a new home bought or built, by contract date and value cap, beside the transfer duty for an eligible first home buyer.
 
-Published 22 November 2026. Last checked 24 November 2026.
+Published 22 November 2026. Last checked 23 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
