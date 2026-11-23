@@ -5607,6 +5607,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+23 November 2026 | The income tax calculator page now works out the net medical expenses tax offset for a 2016-17, 2017-18 or 2018-19 return, the last year it ran: 20% of net medical expenses for disability aids, attendant care or aged care over the lower phase-in limit, or 10% over the higher limit above the singles or family income threshold. It agrees with the net-medical-expenses-tax-offset command of the australian-accounting calculators on every tested case and refuses 2019-20 and later years.
 23 November 2026 | Updated 2 accounting questions after the 23 November 2026 ATO source sweep: removed the withdrawn credit card newsroom link from general tax question 6, keeping the ATO’s How to pay page, and rechecked company and trust question 86 against the 20 November 2026 trustee resolutions checklist.
 23 November 2026 | The tool pages now link to licences by release or source revision, including the versions used in worked examples. The homepage and tool directory link to Lodgeit’s listing of the Coal LSL levy calculator and to the Australian capital gains tax guide on OpenAccountants, with each project’s review status.
 22 November 2026 | A new business calculator works out one residential rental property’s income and deductions for one owner and income year from 2020-21 to 2026-27: expenses apportioned by the days let or available, interest on a loan used partly for the rental, capital works at 2.5% or 4% within the undeducted construction expenditure, decline in value with section 40-27’s nil for second-hand assets, the net rent and, from 2024-25, its effect on tax at the resident scale. It reproduces the ATO’s Rental properties guide 2026 worked examples, read on 22 November 2026, and agrees with the rental-property command of the australian-accounting calculators on every tested case.
@@ -5838,10 +5839,10 @@ Published 30 August 2026. Last reviewed 23 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - general tax question 6: https://duguid.com.au/tools/accounting-questions/general-tax/
 - company and trust question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/
 - tool pages: https://duguid.com.au/tools/
-- income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - super co-contribution, LISTO and spouse offset: https://duguid.com.au/tools/individual-tax/government-super/
 - ATO penalties and interest: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
 - work expenses: https://duguid.com.au/tools/individual-tax/work-expenses/
@@ -12904,7 +12905,7 @@ For 2026-27 the Medicare levy thresholds are those the Act held on 17 November 2
 The calculator gives the tax of one person who was a resident, a foreign resident or a working holiday maker for the whole year. It does not compute:
 
 - the Medicare levy reduction for families, which depends on family taxable income and dependants, or a Medicare levy exemption;
-- the seniors and pensioners tax offset and its higher Medicare levy thresholds, the net medical expenses tax offset, which ended after 2018-19, or any other offset, such as for super contributions or foreign income tax;
+- the seniors and pensioners tax offset and its higher Medicare levy thresholds, the net medical expenses tax offset, which ended after 2018-19 and is worked out on its own below, or any other offset, such as for super contributions or foreign income tax;
 - for the rebate, a lifetime health cover loading, a policy for dependants only, a claim of a spouse’s share, or dependent children for a person with no spouse who maintained no dependant; for the invalid carer offset, shared maintenance, Family Tax Benefit Part B shared care or successive spouses; for the zone offset, shared maintenance or more than one area;
 - a change of family or cover status during the year beyond the days without cover, a spouse’s trust income that the surcharge test adds, the net amount on which family trust distribution tax has been paid, which counts in income for surcharge purposes and in the amount the surcharge is levied on, or exempt foreign employment income, which the ATO’s surcharge page adds to income for surcharge purposes when taxable income is $1 or more;
 - a first home super saver released amount, which is taxed with a 30% offset but left out of repayment income and income for surcharge purposes, or, for 2023-24 and earlier, the taxed element of a super lump sum up to the low rate cap, which a person from preservation age to under 60 could leave out of income for surcharge purposes;
@@ -12914,6 +12915,22 @@ The calculator gives the tax of one person who was a resident, a foreign residen
 - Division 293 tax, excess contributions, PAYG instalments or other credits besides the tax withheld you enter.
 
 Confirm the figures with the ATO’s Simple tax calculator or a registered tax agent.
+
+## Net medical expenses tax offset, 2016-17 to 2018-19
+
+For a return for 2016-17, 2017-18 or 2018-19: the offset for net medical expenses for disability aids, attendant care or aged care. It ended after 2018-19, so the income tax calculator above does not include it.
+
+Net medical expenses tax offset inputs
+
+Income year 2018-19 2017-18 2016-17
+
+Net medical expenses for disability aids, attendant care or aged care (dollars and cents) Your adjusted taxable income for rebates (dollars and cents) Were you married on 30 June? No Yes
+
+Dependent children
+
+Net medical expenses are what you paid in the year for yourself or a dependant who was an Australian resident, less what a government, a public authority, or a society, association or fund, such as Medicare or a health fund, paid or must pay back for them (section 159P(1)). Only disability aids, attendant care for a person with a disability and aged care from an approved provider count. For a person who died in the year, give the spouse’s income on the day of death.
+
+Calculate Enter the inputs and calculate.
 
 ## Boundary cases
 
