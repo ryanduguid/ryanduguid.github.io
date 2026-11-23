@@ -4492,14 +4492,17 @@ test('long service leave refuses the endings and transitions an Act leaves to fa
   assert.throws(() => lsl({ place: 'AU-SA', start: '2018-01-01', end: '2025-06-30', mode: 'ends', reason: 'no-notice' }),
     { message: /^Under 10 years, paragraph 5\(4\)\(b\) pays nothing if the worker unlawfully terminated the contract/ });
   assert.equal(lsl({ place: 'AU-SA', start: '2013-01-01', end: '2025-06-30', mode: 'ends', reason: 'no-notice' }).weeks, 15.6);
-  // Tas Schedule 3 cl 2(4): leave taken with service from before 1 July 2012 may have used up a period's old entitlement.
+  // Tas Schedule 3 cl 2(4): leave taken may have used up an entitlement under the Act before 1 July 2012, which
+  // s 8(2)(a) gave only on 15 years, so an employee with 15 years by 30 June 2012 is refused when leave was taken.
   for (const mode of ['employed', 'ends']) {
-    assert.throws(() => lsl({ place: 'AU-TAS', start: '2012-06-30', end: '2025-12-31', taken: '1', mode }),
+    assert.throws(() => lsl({ place: 'AU-TAS', start: '1997-07-01', end: '2025-12-31', taken: '1', mode }),
       { message: /^Tasmania’s Schedule 3 clause 2\(4\) gives no new leave/ }, mode);
-    assert.equal(lsl({ place: 'AU-TAS', start: '2012-07-01', end: '2025-12-31', taken: '1', mode }).taken, 1, mode);
+    for (const start of ['1997-07-02', '2012-06-30']) {
+      assert.equal(lsl({ place: 'AU-TAS', start, end: '2025-12-31', taken: '1', mode }).taken, 1, `${mode} ${start}`);
+    }
   }
-  assert.equal(lsl({ place: 'AU-TAS', start: '2012-06-30', end: '2025-12-31' }).weeks, 8.6667);
-  assert.equal(lsl({ place: 'AU-NSW', start: '2012-06-30', end: '2025-12-31', taken: '1' }).taken, 1);
+  assert.equal(lsl({ place: 'AU-TAS', start: '1997-07-01', end: '2025-12-31' }).years, 28);
+  assert.equal(lsl({ place: 'AU-NSW', start: '1997-07-01', end: '2025-12-31', taken: '1' }).taken, 1);
 });
 
 test('Queensland pays the 8.6667 weeks subsection 95(2) and (7) state, not 8 2/3', () => {

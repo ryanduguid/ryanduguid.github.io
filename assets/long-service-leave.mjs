@@ -106,7 +106,9 @@ const CONDITIONS = {
 const DAY = 86400000;
 /** @param {string} iso */
 const dayOf = (iso) => Date.parse(`${iso}T00:00:00Z`) / DAY;
-/** The 2011 transition day, when Tasmania's Long Service Leave Amendment Act 2011 applied. */
+/** The 2011 transition day, when Tasmania's Long Service Leave Amendment Act 2011 applied. Before it,
+ * s 8(2)(a) of the Act gave leave only on completing 15 years (13 weeks for the first 15), so only an
+ * employee who had completed 15 years by then can have used up leave under the earlier Act. */
 const TAS_2011_TRANSITION = dayOf('2012-07-01');
 /** @param {number} day */
 const isoOf = (day) => new Date(day * DAY).toISOString().slice(0, 10);
@@ -288,8 +290,9 @@ function checked(input) {
  * @param {LslInput} input */
 export function longServiceLeave(input) {
   const { place, start, excluded, until, taken, pay } = checked(input);
-  if (place === 'AU-TAS' && taken > 0n && start < TAS_2011_TRANSITION) {
-    throw new Error('Tasmania’s Schedule 3 clause 2(4) gives no new leave for a period whose leave under the Act before 1 July 2012 was used up, and leave taken in weeks does not show which periods that was: this calculator does not decide it.');
+  // Excluded days are not dated, so the 15 years are counted without them: a conservative refusal.
+  if (place === 'AU-TAS' && taken > 0n && anniversary(start, 15) <= TAS_2011_TRANSITION) {
+    throw new Error('Tasmania’s Schedule 3 clause 2(4) gives no new leave for a period whose leave under the Act before 1 July 2012 was used up, and with 15 years of service by then, leave taken in weeks does not show which periods that was: this calculator does not decide it.');
   }
   const service = measure(start, until);
   const outcome = input.mode === 'ends' ? onEnding(place, service, input.reason, until, start) : available(place, service);

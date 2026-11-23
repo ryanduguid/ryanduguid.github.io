@@ -7388,9 +7388,9 @@ fn lsl_oracle(
     if until <= start {
         return json!({"refused": true});
     }
-    // Tas Schedule 3 cl 2(4): leave taken with service from before 1 July 2012 may have used up
-    // a period's old entitlement, which weeks alone do not show.
-    if act.place == "AU-TAS" && taken > 0 && start < day_number(2012, 7, 1) {
+    // Tas Schedule 3 cl 2(4): leave taken may have used up an entitlement under the Act before
+    // 1 July 2012, which s 8(2)(a) gave on completing 15 years, so weeks alone do not show it.
+    if act.place == "AU-TAS" && taken > 0 && lsl_anniversary(start, 15, 0) <= day_number(2012, 7, 1) {
         return json!({"refused": true});
     }
     let Some((n, d)) = lsl_weeks(act, start, until, reason) else {
