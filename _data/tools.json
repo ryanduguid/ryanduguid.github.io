@@ -223,7 +223,7 @@
       "https://pypi.org/project/review-ready-gate/"
     ],
     "delivery": "Rust",
-    "needs": "Python 3.10 or later",
+    "needs": "Windows x86_64 or Linux x86_64. The executable runs without Python or Rust.",
     "boundary": "READY means ready for human review, not approved or signed off.",
     "licences": {
       "1.0.1": "Ryan Duguid Public Attribution Licence 1.0"
