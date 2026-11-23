@@ -909,6 +909,14 @@ test('SGC page works a Payday Super charge, an old-law quarter and a refusal off
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output .result-row--principal')).toHaveText('SG charge for the payday, before any choice loading: $322.16.');
   await expect(form.locator('output')).toContainText('Administrative uplift, 20%: $53.69.');
+  await form.getByLabel('Payday', { exact: true }).fill('2026-12-21');
+  await form.getByLabel('Late receipt date').fill('2027-01-05');
+  await form.getByLabel('Assessment date').fill('2027-02-01');
+  await form.getByLabel('Disclosure date').fill('2027-01-10');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText('This Payday Super deadline depends on part-day holidays. Possible dates are 4 January 2027, 5 January 2027 and 6 January 2027.');
+  await expect(form.locator('output .result-row--principal')).toHaveCount(0);
+  await form.getByLabel('Payday', { exact: true }).fill('2026-08-06');
   // A contribution received on the due date is refused, not counted as late.
   await form.getByLabel('Late receipt date').fill('2026-08-17');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();

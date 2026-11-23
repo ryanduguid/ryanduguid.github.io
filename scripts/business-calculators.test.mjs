@@ -3522,11 +3522,14 @@ Object.assign(ENGINE_LABELS, {
 });
 
 test('Payday Super due dates count business days from the site’s calendar, to its last verified day', () => {
-  const csv = readFileSync(new URL('../tools/payday-super/business-days/payday-super-business-days.csv', import.meta.url), 'utf8')
-    .trim().split(/\r?\n/).slice(1).map((line) => line.split(',')[0]);
-  assert.deepEqual(calculations.NON_BUSINESS_WEEKDAYS, csv);
+  const csv = readFileSync(new URL('../tools/payday-super/business-days/payday-super-business-days-v2.csv', import.meta.url), 'utf8')
+    .trim().split(/\r?\n/).slice(1).map((line) => line.split(',', 4));
   const calendar = JSON.parse(readFileSync(new URL('../_data/payday_super_business_days.json', import.meta.url), 'utf8'));
   assert.equal(calculations.CALENDAR_END, calendar.verified_until);
+  assert.deepEqual(csv.filter(([, , , reason]) => reason === 'FULL_DAY_PUBLIC_HOLIDAY').map(([day]) => day),
+    calculations.NON_BUSINESS_WEEKDAYS);
+  assert.deepEqual(csv.filter(([, , status]) => status === 'UNKNOWN').map(([day]) => day),
+    calendar.unresolved_part_days.map(({ date }) => date));
   const due = (payday, timing = 'standard', nextPayday = '', determination = '') =>
     calculations.paydaySuperDue({ payday, timing, nextPayday, determination }).due;
   // 3 August 2026 (NT Picnic Day) is not a business day; a weekend is not either.
@@ -3552,6 +3555,33 @@ test('Payday Super due dates count business days from the site’s calendar, to 
   assert.equal(due('2026-07-09', 'first-out-of-cycle', '2026-08-06'), '2026-08-17');
   for (const day of ['2026-02-30', '30/07/2026', '', '2027-07-01']) {
     assert.throws(() => due(day), { message: 'Enter a payday from 1 July 2026 to 30 June 2027.' }, day);
+  }
+});
+
+test('Payday Super withholds deadlines that depend on part-day holidays', () => {
+  const due = (payday, timing = 'standard', nextPayday = '', determination = '') =>
+    calculations.paydaySuperDue({ payday, timing, nextPayday, determination }).due;
+  assert.equal(due('2026-12-14'), '2026-12-23');
+  assert.throws(() => due('2026-12-15'), /part-day holidays.*24 December 2026.*29 December 2026/);
+  assert.throws(() => due('2026-12-21'), /part-day holidays.*4 January 2027.*5 January 2027.*6 January 2027/);
+  assert.throws(() => due('2026-12-24'), /part-day holidays.*7 January 2027.*8 January 2027/);
+  assert.equal(due('2026-12-31'), '2027-01-12');
+  assert.throws(() => due('2026-12-01', 'first'), /part-day holidays.*31 December 2026.*4 January 2027.*5 January 2027/);
+  assert.throws(() => due('2026-12-01', 'out-of-cycle', '2026-12-21'), /part-day holidays.*6 January 2027/);
+  assert.throws(() => due('2026-12-01', 'exceptional', '', '2026-12-09'), /part-day holidays/);
+  assert.equal(due('2026-12-21', 'out-of-cycle', '2027-01-08'), '2027-01-19');
+});
+
+test('Payday Super preserves an invariant charge and omits an ambiguous business-day count', () => {
+  const inputs = { payday: '2026-12-14', timing: 'standard', nextPayday: '', determination: '',
+    earnings: '1000', earlier: '0', onTime: '0', late: '120', received: '2026-12-24',
+    assessment: '2027-02-01', assessed: 'no', disclosure: 'none', lodged: '', assumedRate: '11.51' };
+  const result = calculations.paydaySuperCharge(inputs);
+  assert.deepEqual([result.due, result.businessDays, result.daysLate, result.days], ['2026-12-23', null, 1, 1]);
+  assert.deepEqual([result.notional, result.charge], [0.04, 0.06]);
+  for (const received of ['2027-01-04', '2027-01-05', '2027-01-06', '2027-01-07']) {
+    assert.throws(() => calculations.paydaySuperCharge({ ...inputs, payday: '2026-12-21', received }),
+      /part-day holidays.*4 January 2027.*6 January 2027/);
   }
 });
 
