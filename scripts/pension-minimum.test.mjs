@@ -23,6 +23,8 @@ const code = (run) => {
   }
   return 'computed';
 };
+/** A form's value reader over the given fields. */
+const ask = (fields) => (name) => new Map(Object.entries(fields)).get(name) ?? '';
 const minimum = (year, balance, age, days) => pensionMinimum({ account_balance: balance, age, days, year, scope_confirmed: true }).amounts;
 
 test('the page agrees with the australian-accounting command on every differential case', () => {
@@ -58,7 +60,7 @@ test('the factors, the first year, the last 30 days and rounding to $10', () => 
 });
 
 test('the form counts the days from the start day to 30 June', () => {
-  const input = (fields) => pensionMinimumFormInput((name) => ({ year: '2027-28', balance: '1000', age: '70', ...fields })[name] ?? '');
+  const input = (fields) => pensionMinimumFormInput(ask({ year: '2027-28', balance: '1000', age: '70', ...fields }));
   assert.equal(input({ started: '' }).days, 366);
   assert.equal(input({ started: '2028-01-01' }).days, 182);
   assert.equal(input({ started: '2028-06-30' }).days, 1);
@@ -66,10 +68,10 @@ test('the form counts the days from the start day to 30 June', () => {
   assert.equal(input({ age: '' }).age, '');
   const years = [...page.match(/<select name="year"[^>]*>(.*?)<\/select>/s)[1].matchAll(/value="([^"]+)"/g)].map(([, y]) => y);
   assert.deepEqual(years, [...PENSION_MINIMUM_YEARS].reverse());
-  const shown = pensionMinimumResult((name) => ({ year: '2024-25', balance: '250000', age: '66', started: '2025-01-01' })[name] ?? '', aud);
+  const shown = pensionMinimumResult(ask({ year: '2024-25', balance: '250000', age: '66', started: '2025-01-01' }), aud);
   assert.deepEqual(shown.rows[shown.principal], ['Minimum annual payment, to the nearest $10', '$6,200.00']);
   assert.deepEqual(shown.rows[2], ['Days counted', '181 of 365']);
   assert.match(shown.note, /^Pro-rated from the start day, 1 January 2025/);
-  const late = (name) => ({ year: '2025-26', balance: '1000', age: '70', started: '2026-07-01' })[name] ?? '';
+  const late = ask({ year: '2025-26', balance: '1000', age: '70', started: '2026-07-01' });
   assert.throws(() => pensionMinimumResult(late, aud), { code: 'input.day_count_invalid', message: 'Enter a start day from 1 July 2025 to 30 June 2026, or leave it blank.' });
 });

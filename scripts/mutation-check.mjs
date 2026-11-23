@@ -1094,7 +1094,7 @@ const MUTATIONS = [
   { ...pm, name: 'pension $5 rounded down', find: '(2n * num + 1000n * den) / (2000n * den)', replace: '(2n * num + 999n * den) / (2000n * den)' },
   { ...pm, name: 'pension no 366-day year', find: "whole(input.get('days'), daysInYear)", replace: "whole(input.get('days'), 365)" },
   { ...pm, name: 'pension first year over 365 days', find: 'BigInt(days), 100n * BigInt(daysInYear)', replace: 'BigInt(days), 36500n' },
-  { ...pm, name: 'pension negative balance taken', find: "(parts[1] === '-' && cents !== 0n) || ", replace: '' },
+  { ...pm, name: 'pension negative balance taken', find: '(parts.negative && cents !== 0n) || ', replace: '' },
   { ...pm, name: 'pension scope not needed', find: "if (input.get('scope_confirmed') !== true) refuse", replace: 'if (false) refuse' },
   { ...pm, name: 'pension age to 149', find: "whole(input.get('age'), 150)", replace: "whole(input.get('age'), 149)" },
   { ...pm, name: 'pension form counts to 29 June', find: 'Date.UTC(second, 5, 30)', replace: 'Date.UTC(second, 5, 29)' },

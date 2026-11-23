@@ -22,12 +22,22 @@ function refuse(code, message) {
   throw Object.assign(new Error(message), { code });
 }
 
+/** A decimal's sign, whole digits and decimal digits, or null unless it reads as -?digits(.digits)?.
+ * @param {string} text */
+function decimalParts(text) {
+  const negative = text.startsWith('-');
+  const [whole, decimals, extra] = (negative ? text.slice(1) : text).split('.');
+  const digits = /^\d+$/;
+  if (extra !== undefined || !digits.test(whole) || (decimals !== undefined && !digits.test(decimals))) return null;
+  return { negative, whole, decimals: decimals ?? '' };
+}
+
 /** A decimal string as the command's reader parses it: its sign, whole and decimal digits, or null for
  * Infinity or NaN, which it reads and leaves to the amount check. @param {string} value */
 function decimal(value) {
   if (new TextEncoder().encode(value).length > 8192) refuse('input.decimal_too_long', 'The account balance is too long.');
   const text = value.trim();
-  const parts = /^(-?)(\d+)(?:\.(\d+))?$/.exec(text);
+  const parts = decimalParts(text);
   if (parts === null && !/^[+-]?(inf|infinity|s?nan\d*)$/i.test(text)) {
     refuse('input.decimal_unreadable', 'Enter the account balance as a number, such as 250000.00.');
   }
@@ -38,9 +48,8 @@ function decimal(value) {
 function balanceCents(value) {
   const parts = typeof value === 'string' ? decimal(value) : null;
   if (parts === null) refuse('input.amount_invalid', 'Enter a finite account balance in dollars and cents.');
-  const decimals = parts[3] ?? '';
-  const cents = decimals.length <= 2 ? BigInt(parts[2] + decimals.padEnd(2, '0')) : null;
-  if (cents === null || (parts[1] === '-' && cents !== 0n) || cents > 100000000000000n) {
+  const cents = parts.decimals.length <= 2 ? BigInt(parts.whole + parts.decimals.padEnd(2, '0')) : null;
+  if (cents === null || (parts.negative && cents !== 0n) || cents > 100000000000000n) {
     refuse('input.amount_invalid', 'Enter an account balance from 0 to 1,000,000,000,000, to the cent.');
   }
   return cents;
