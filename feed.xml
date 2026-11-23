@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-11-23T00:00:00Z</updated>
+  <updated>2026-11-24T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>Added the pension minimum calculator: the minimum annual payment from an…</title>
+    <link href="https://duguid.com.au/changelog/#entry-ec451c5c4d341de7" />
+    <id>https://duguid.com.au/changelog/#entry-ec451c5c4d341de7</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>Added the pension minimum calculator: the minimum annual payment from an account-based pension for 2024-25 to 2027-28, with the percentage factor for the member’s age, the first year pro-rated from the start day, nothing for a pension starting in the last 30 days, and rounding to the nearest $10. It agrees with the australian-accounting pension-minimum command on 1,194 test cases.</summary>
+  </entry>
   <entry>
     <title>The super lump sum tax calculator now also works the amount a fund withholds…</title>
     <link href="https://duguid.com.au/changelog/#entry-3788ddb8a47c23db" />

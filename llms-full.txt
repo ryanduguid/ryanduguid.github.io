@@ -5608,6 +5608,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+24 November 2026 | Added the pension minimum calculator: the minimum annual payment from an account-based pension for 2024-25 to 2027-28, with the percentage factor for the member’s age, the first year pro-rated from the start day, nothing for a pension starting in the last 30 days, and rounding to the nearest $10. It agrees with the australian-accounting pension-minimum command on 1,194 test cases.
 23 November 2026 | The super lump sum tax calculator now also works the amount a fund withholds from a super lump sum under Schedule 12 for a payment from 13 October 2020, with or without a TFN and for a foreign resident, including a roll-over above the untaxed plan cap and a death benefit paid to a deceased estate. It also works the final tax on a departing Australia superannuation payment in 2025-26 to 2027-28: 35% on the taxed element and 45% on the untaxed element, or 65% on each where the payment includes working holiday maker contributions. Schedule 12 and the Departing Australia Superannuation Payments Tax Act were read on 23 November 2026, and the page agrees with the super-withholding and dasp-tax commands of the australian-accounting calculators on every tested case.
 23 November 2026 | Updated 2 accounting questions after the 23 November 2026 ATO source sweep: removed the withdrawn credit card newsroom link from general tax question 6, keeping the ATO’s How to pay page, and rechecked company and trust question 86 against the 20 November 2026 trustee resolutions checklist.
 23 November 2026 | The tool pages now link to licences by release or source revision, including the versions used in worked examples. The homepage and tool directory link to Lodgeit’s listing of the Coal LSL levy calculator and to the Australian capital gains tax guide on OpenAccountants, with each project’s review status.
@@ -5840,6 +5841,7 @@ Published 30 August 2026. Last reviewed 23 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- pension minimum calculator: https://duguid.com.au/tools/individual-tax/pension-minimum/
 - super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 - general tax question 6: https://duguid.com.au/tools/accounting-questions/general-tax/
 - company and trust question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/
@@ -12744,11 +12746,11 @@ Source: https://duguid.com.au/tools/individual-tax/
 
 # Individual tax calculators
 
-Fifteen calculators for one person’s tax, pay and super, with sources for the rates and thresholds and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
+Sixteen calculators for one person’s tax, pay and super, with sources for the rates and thresholds and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
 
-Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22, salary packaging from 2022-23, novated leases from 2023-24, the withholding from a 2026-27 pay with a bonus or back payment, and super projected from 2026-27. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
+Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22, salary packaging from 2022-23, novated leases from 2023-24, the withholding from a 2026-27 pay with a bonus or back payment, super projected from 2026-27, and the account-based pension minimum for 2024-25 to 2027-28. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
 
-Published 17 November 2026. Last checked 22 November 2026, the newest of the calculators’ source checks.
+Published 17 November 2026. Last checked 24 November 2026, the newest of the calculators’ source checks.
 
 ## Tax, pay and study loans
 
@@ -12770,6 +12772,7 @@ Published 17 November 2026. Last checked 22 November 2026, the newest of the cal
 - Super projection calculator Your super balance at retirement in future and today’s dollars, with every assumption stated and changeable.
 - First home super saver calculator The release, withholding and tax offset from an ATO determination, or a contribution ledger estimate with published shortfall interest charge rates.
 - Super co-contribution, LISTO and spouse offset calculator The government’s co-contribution and low income super tax offset, and the spouse contribution tax offset, for 2020-21 to 2026-27, with each condition met or not.
+- Pension minimum calculator The minimum annual payment from an account-based pension for 2024-25 to 2027-28, with the first year pro-rated from the start day and rounding to the nearest $10.
 
 For a business, see the business calculators.
 
@@ -12792,6 +12795,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
 - First home super saver calculator: https://duguid.com.au/tools/individual-tax/fhss/
 - Super co-contribution, LISTO and spouse offset calculator: https://duguid.com.au/tools/individual-tax/government-super/
+- Pension minimum calculator: https://duguid.com.au/tools/individual-tax/pension-minimum/
 - business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
@@ -13657,6 +13661,70 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Account-based pension minimum payment calculator
+
+Source: https://duguid.com.au/tools/individual-tax/pension-minimum/
+
+> Work out the minimum annual payment from an account-based pension, with the factor for your age, a pro-rated first year and rounding to $10.
+
+# Pension minimum calculator
+
+The minimum annual payment from an account-based pension for 2024-25 to 2027-28, including the first year.
+
+Published 24 November 2026. Last checked 24 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+An account-based pension for one income year
+
+Income year 2027-28 2026-27 2025-26 2024-25
+
+Account balance on 1 July, or on the start day in the first year Age in whole years on the same day Start day, if the pension started during the year
+
+Leave the start day blank for a pension running on 1 July. A start day must fall in the income year; the first year counts the days from the start day to 30 June.
+
+Calculate
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; balance $600,000.00; age 67; held on 1 July. Account balance $600,000.00 Percentage factor at your age 5% Days counted All 365 Minimum before rounding $30,000.00 Minimum annual payment, to the nearest $10 $30,000.00 The whole year from 1 July; $5 rounds up.
+
+## How the pension minimum calculator works
+
+The minimum annual payment from an account-based pension is the account balance on 1 July times the percentage factor for your age on that day: 4% under 65, 5% from 65 to 74, 6% from 75 to 79, 7% from 80 to 84, 9% from 85 to 89, 11% from 90 to 94 and 14% at 95 or more. It is rounded to the nearest $10, and an amount ending in exactly $5 rounds up.
+
+In the year a pension starts, the balance and age are taken on the start day, and the minimum is the same percentage of the balance times the days from the start day to 30 June over the days in the year, 366 when the year includes 29 February. A pension starting on or after 1 June, in the year’s last 30 days, needs no payment that year.
+
+## What the pension minimum calculator does not cover
+
+The calculator works 2024-25 to 2027-28 with the factors from 2023-24; it does not apply the halved factors of 2019-20 to 2022-23. It does not cover market-linked or other non-account-based pensions, transition to retirement maximums, the year a member dies, or payments that fall short. It takes the balance, age and start day as you enter them; confirm them with your fund, the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Pension minimum calculator
+
+Case | Inputs | Result
+$600,000 at 67 held all 2026-27: 5%, $30,000 (the form’s example) | 2026-27, balance $600,000.00, age 67, 365 days | Before rounding $30,000.00, minimum $30,000.00
+The ATO’s Thavi pro-rated in 2024-25: $250,000 at 66 from 1 January 2025, 181 days at 5%, $6,198.63 paid as $6,200 | 2024-25, balance $250,000.00, age 66, 181 days | Before rounding $6,198.63, minimum $6,200.00
+Started on 1 June: the last 30 days need nothing (cl 4) | 2025-26, balance $250,000.00, age 66, 30 days | Before rounding $0.00, minimum $0.00
+Started on 31 May: 31 days pro-rated (cl 3) | 2025-26, balance $250,000.00, age 66, 31 days | Before rounding $1,061.64, minimum $1,060.00
+$5 rounds up: $100,125 at 60 is $4,005, paid as $4,010 (cl 5) | 2025-26, balance $100,125.00, age 60, 365 days | Before rounding $4,005.00, minimum $4,010.00
+At 65 the factor rises from 4% to 5% | 2025-26, balance $100,000.00, age 65, 365 days | Before rounding $5,000.00, minimum $5,000.00
+At 95 or more, 14% | 2026-27, balance $500,000.00, age 95, 365 days | Before rounding $70,000.00, minimum $70,000.00
+2027-28 has 366 days, with 29 February 2028 | 2027-28, balance $300,000.00, age 80, 366 days | Before rounding $21,000.00, minimum $21,000.00
+
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
 - fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
