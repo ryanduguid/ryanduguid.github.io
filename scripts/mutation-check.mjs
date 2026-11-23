@@ -391,7 +391,6 @@ const MUTATIONS = [
   { ...fito, name: 'FITO negative bands', find: 'if (ceiling > floor) tax +=', replace: 'tax +=' },
   { ...fito, name: 'FITO taxable income in cents accepted', find: 'if (taxable % 100n !== 0n)', replace: 'if (false)' },
   { ...fito, name: 'FITO last residency month not counted', find: 'm <= index(to); m++', replace: 'm < index(to); m++' },
-  { ...fito, name: 'FITO money with 3 decimal places', find: '{1,2}))?$/.exec(value.trim())', replace: '{1,3}))?$/.exec(value.trim())' },
   { ...conversion, name: 'conversion asset paid on the day held takes payment', find: "earlier: 'satisfied', strict: true", replace: "earlier: 'satisfied', strict: false" },
   { ...conversion, name: 'conversion ignores an earlier receipt', find: '(earlier < time || (earlier === time && !rule.strict))', replace: '(earlier === time && !rule.strict)' },
   { ...conversion, name: 'conversion average of exactly 12 months', find: 'to >= yearOn', replace: 'to > yearOn' },
@@ -401,9 +400,16 @@ const MUTATIONS = [
   { ...conversion, name: 'conversion amount with 5 decimal places', find: 'fraction.length <= places', replace: 'fraction.length <= places + 1' },
   { ...conversion, name: 'conversion accepts AUD', find: " || currency === 'AUD'", replace: '' },
   { ...conversion, name: 'conversion deductions totalled as income', find: "deduction: 'deductions'", replace: "deduction: 'ordinary_income'" },
+  { ...conversion, name: 'conversion NaN called invalid', find: 'if (text !== null && /^[+-]?s?nan', replace: 'if (false && /^[+-]?s?nan' },
+  { ...conversion, name: 'conversion accepts a minus sign', find: '(parts?.[1] && scaled > 0n) || (positive', replace: '(positive' },
+  { ...conversion, name: 'conversion refuses surrounding spaces', find: 'fields[key].trim() : null', replace: 'fields[key] : null' },
   { ...estimate, name: 'foreign income tax offset before the zone offset', find: 'zoneOffset: apply(zone?.offset ?? 0), foreignOffset: apply(foreign?.offset ?? 0)', replace: 'foreignOffset: apply(foreign?.offset ?? 0), zoneOffset: apply(zone?.offset ?? 0)' },
   { ...estimate, name: 'worked FITO limit leaves out the surcharge', find: '(cents(base.medicare) + cents(base.surcharge))', replace: '(cents(base.medicare))' },
   { ...estimate, name: 'worked FITO limit for a foreign resident', find: "if (worked && r.residency !== 'resident')", replace: 'if (false)' },
+  { ...money, test: individualTest, name: 'command amounts with 3 decimal places', find: 'fraction.length <= 2', replace: 'fraction.length <= 3' },
+  { ...money, test: individualTest, name: 'command amounts accept a minus sign', find: '(parts?.[1] && scaled > 0n)', replace: 'false' },
+  { ...money, test: individualTest, name: 'command amounts above $1e12', find: 'scaled > 10n ** 14n', replace: 'scaled > 10n ** 15n' },
+  { ...money, test: individualTest, name: 'command amounts unreadable called invalid', find: 'if (!parts && !/^', replace: 'if (false && !/^' },
   { ...estimate, name: 'private health insurance offset not refunded', find: "\n    - cents(privateHealth?.offset ?? 0);", replace: ';' },
   { ...estimate, name: 'beneficiary offset after the low income tax offset', find: 'beneficiary: apply(benefit?.offset ?? 0), offset: apply(base.offset)', replace: 'offset: apply(base.offset), beneficiary: apply(benefit?.offset ?? 0)' },
   { ...estimate, name: 'zone offset leaves out the invalid carer offset', find: 'invalid_carer_tax_offset: carer ? carer.offset.toFixed(2) : undefined', replace: 'invalid_carer_tax_offset: undefined' },
@@ -1165,6 +1171,7 @@ const SHARED = [
 const TEST_FILES = [
   levy.test, business.test, individualTest,
   'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs',
+  'scripts/net-medical-expenses.test.mjs', 'scripts/foreign-income.test.mjs',
 ];
 
 const verdict = (cwd, test) => new Promise((resolve, reject) => {

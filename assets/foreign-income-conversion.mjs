@@ -33,12 +33,14 @@ const COMMON = ['kind', 'currency', 'amount', 'rate', 'basis', 'rate_source'];
  * @param {string} key @param {number} places @param {boolean} positive @returns {bigint} */
 function decimal(fields, name, key, places, positive) {
   if (!(key in fields)) refuse('input.missing_field', `${name}: ${key} is required`);
-  const text = fields[key];
-  const parts = typeof text === 'string' && text.length <= 32 ? /^(\d+)(?:\.(\d+))?$/.exec(text) : null;
-  const fraction = parts?.[2] ?? '';
-  // Trailing zeros count as places, as a decimal's exponent does.
-  const scaled = parts && fraction.length <= places ? BigInt(parts[1] + fraction.padEnd(places, '0')) : null;
-  if (scaled === null || (positive ? scaled <= 0n : scaled < 0n) || scaled > 10n ** BigInt(12 + places)) {
+  const text = typeof fields[key] === 'string' && fields[key].length <= 32 ? fields[key].trim() : null;
+  // The command's comparisons raise on a NaN.
+  if (text !== null && /^[+-]?s?nan\d*$/i.test(text)) refuse('decimal.invalid_operation', `${name}: ${key} is not a number`);
+  const parts = text === null ? null : /^(-?)(\d+)(?:\.(\d+))?$/.exec(text);
+  const fraction = parts?.[3] ?? '';
+  // Trailing zeros count as places, as a decimal's exponent does; -0 is zero.
+  const scaled = parts && fraction.length <= places ? BigInt(parts[2] + fraction.padEnd(places, '0')) : null;
+  if (scaled === null || (parts?.[1] && scaled > 0n) || (positive && scaled === 0n) || scaled > 10n ** BigInt(12 + places)) {
     refuse('input.amount_invalid', `${name}: ${key} must be a decimal string${positive ? ' above zero' : ', not negative'}, `
       + `at most ${places}dp and 1e12.`);
   }

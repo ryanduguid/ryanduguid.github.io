@@ -28,8 +28,8 @@ import './work-expenses.test.mjs';
 import { governmentSuperAmounts } from '../assets/government-super.mjs';
 import { governmentSuperFormFacts, governmentSuperResult } from '../assets/government-super-result.mjs';
 import './government-super-amounts.test.mjs';
-import './net-medical-expenses.test.mjs';
-import './foreign-income.test.mjs';
+import { foreignIncomeFixture, foreignIncomeFormTests } from './foreign-income.test.mjs';
+import { NET_MEDICAL_DEFAULTS, netMedicalFixture } from './net-medical-expenses.test.mjs';
 
 import { bonusWithholding } from '../assets/bonus-withholding.mjs';
 import { salaryPackaging } from '../assets/salary-packaging.mjs';
@@ -1531,6 +1531,30 @@ const incomeTaxPage = (fields) => {
   }, aud);
 };
 const pageRow = (result, label) => result.rows.find(([name]) => name === label)?.[1];
+
+test('the net medical expenses form opens on the values its tests use and states its differential count', () => {
+  const form = incomeTaxHtml.slice(incomeTaxHtml.indexOf('<form class="calculator-split" data-calculator="net-medical-expenses">'));
+  assert.deepEqual(formDefaults(form.slice(0, form.indexOf('</form>'))), NET_MEDICAL_DEFAULTS);
+  assert.match(incomeTaxHtml, new RegExp(`net-medical-expenses-tax-offset on ${netMedicalFixture.cases.length.toLocaleString('en-AU')} cases`));
+});
+
+const conversionPage = (fields = {}) => {
+  const start = incomeTaxHtml.indexOf('<form class="calculator-split" data-calculator="foreign-income-conversion">');
+  const form = { ...formDefaults(incomeTaxHtml.slice(start, incomeTaxHtml.indexOf('</form>', start))), ...fields };
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  return individualResult('foreign-income-conversion', (name) => {
+    assert.ok(Object.hasOwn(form, name), `the foreign income conversion form has no ${name}`);
+    return form[name] ?? '';
+  }, aud);
+};
+foreignIncomeFormTests(incomeTaxPage, conversionPage);
+
+test('the income tax page states the foreign income differential counts', () => {
+  for (const command of ['foreign-income-tax-offset', 'foreign-income-conversion']) {
+    const count = foreignIncomeFixture.cases.filter((c) => c.command === command).length;
+    assert.match(incomeTaxHtml, new RegExp(`${command} on ${count.toLocaleString('en-AU')} cases`));
+  }
+});
 const pageCode = (fields) => {
   try {
     incomeTaxPage(fields);

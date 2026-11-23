@@ -9,7 +9,7 @@
 // australian-accounting command foreign-income-tax-offset, with its refusal codes. Sources read 22
 // November 2026: ITAA 1997 Compilations No. 210 and 268, the Rates Act Compilations No. 55 and 66 and
 // the ATO's Guide to foreign income tax offset rules for 2024, 2025 and 2026.
-import { ratioCents } from './money.mjs';
+import { commandCents, ratioCents } from './money.mjs';
 import { RESIDENT_SCALES } from './income-tax.mjs';
 import { refuse, supportedYear } from './private-health-rebate.mjs';
 
@@ -26,16 +26,6 @@ const METHODS = {
 // The worked limit's years: those with the resident rates of the australian-accounting command resident-tax.
 export const WORKED_YEARS = ['2024-25', '2025-26', '2026-27'];
 const MAX_PERIODS = 12;
-
-/** A money input in cents: a decimal string, not negative, at most 2 decimal places and $1e12,
- * as the command reads one. @param {unknown} value */
-export function moneyCents(value) {
-  const parts = typeof value === 'string' ? /^(\d+)(?:\.(\d{1,2}))?$/.exec(value.trim()) : null;
-  if (!parts || BigInt(parts[1]) > 10n ** 12n || (BigInt(parts[1]) === 10n ** 12n && Number(parts[2] ?? 0) > 0)) {
-    return refuse('input.amount_invalid', 'Amounts must be finite non-negative Decimals, at most 2dp and 1e12.');
-  }
-  return BigInt(parts[1]) * 100n + BigInt((parts[2] ?? '').padEnd(2, '0'));
-}
 
 /** Days since 1970-01-01 for a valid YYYY-MM-DD date from 1900 to 2100, else null. @param {unknown} text */
 export function parseDate(text) {
@@ -99,7 +89,7 @@ function worked(input, year) {
       + `2024-25 to 2026-27, not ${year}; give tax_payable and tax_payable_assumed with the stated method.`);
   }
   const [taxable, income, deductions, levy, levyAssumed] = ['taxable_income', 'disregarded_income', 'disregarded_deductions',
-    'medicare_levy', 'medicare_levy_assumed'].map((key) => moneyCents(input[key]));
+    'medicare_levy', 'medicare_levy_assumed'].map((key) => commandCents(input[key]));
   if (taxable % 100n !== 0n) refuse('input.amount_not_whole_dollars', 'Supply established whole-dollar taxable income.');
   // The threshold in 1/12ths of a cent: $18,200, or (18,200 - 4,736) + 4,736 x months / 12 (s 20(1)).
   let threshold = 18200n * 1200n;
@@ -132,8 +122,8 @@ export function foreignTaxOffset(input) {
   const missing = REQUIRED.find((key) => input[key] === undefined);
   if (missing) refuse('input.missing_field', `${missing} is required`);
   const year = supportedYear(/** @type {string} */ (input.year));
-  const paid = moneyCents(input.foreign_tax_paid);
-  const nane = moneyCents(input.nane_foreign_tax);
+  const paid = commandCents(input.foreign_tax_paid);
+  const nane = commandCents(input.nane_foreign_tax);
   const method = /** @type {string} */ (input.limit_method);
   const facts = Object.hasOwn(METHODS, method) ? METHODS[method] : refuse('foreign_income_tax_offset.limit_method_invalid',
     'limit_method must be default, stated or worked.');
@@ -155,8 +145,8 @@ export function foreignTaxOffset(input) {
     let payable;
     let payableAssumed;
     if (method === 'stated') {
-      payable = moneyCents(input.tax_payable) * 1200n;
-      payableAssumed = moneyCents(input.tax_payable_assumed) * 1200n;
+      payable = commandCents(input.tax_payable) * 1200n;
+      payableAssumed = commandCents(input.tax_payable_assumed) * 1200n;
     } else {
       const w = worked(input, year);
       ({ months, payable, payableAssumed } = w);

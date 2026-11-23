@@ -4,33 +4,17 @@
 // The income tax page's foreign income tax offset option and foreign income conversion form
 // (australian-accounting foreign-income-tax-offset and foreign-income-conversion).
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import test from 'node:test';
 import { foreignTaxOffset } from '../assets/foreign-income-tax-offset.mjs';
 import { foreignIncomeConversion } from '../assets/foreign-income-conversion.mjs';
-import { individualResult } from '../assets/individual-tax-results.mjs';
 
-const html = readFileSync(new URL('../_includes/calculators/income-tax.html', import.meta.url), 'utf8');
-/** The values a form opens with. @param {string} from the form's opening tag */
-const defaults = (from) => {
-  const start = html.indexOf(from);
-  const form = html.slice(start, html.indexOf('</form>', start));
-  return Object.fromEntries([...form.matchAll(/<(?:input|textarea)\b[^>]*>/g)].map(([tag]) => tag)
-    .filter((tag) => !/\btype="radio"/.test(tag) || /\bchecked\b/.test(tag))
-    .map((tag) => [tag.match(/\bname="([^"]+)"/)?.[1], tag.match(/\bvalue="([^"]*)"/)?.[1] ?? '']));
-};
-const aud = (/** @type {number} */ value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
-const run = (kind, from, fields) => {
-  const values = { ...defaults(from), ...fields };
-  return individualResult(kind, (name) => {
-    assert.ok(Object.hasOwn(values, name), `the form has no ${name}`);
-    return values[name];
-  }, aud);
-};
-const incomeTax = (fields = {}) => run('income-tax', 'data-calculator="income-tax"', fields);
-const conversion = (fields = {}) => run('foreign-income-conversion', 'data-calculator="foreign-income-conversion"', fields);
+export const foreignIncomeFixture = createRequire(import.meta.url)('./foreign-income-engine-differential.json');
 const row = (result, label) => result.rows.find(([name]) => name === label)?.[1];
 
+/** The tests that work the page's forms; individual-tax.test.mjs runs them with its form readers.
+ * @param {(fields?: object) => any} incomeTax @param {(fields?: object) => any} conversion */
+export const foreignIncomeFormTests = (incomeTax, conversion) => {
 test('the income tax page takes the foreign income tax offset last, within its limit and not below nil', () => {
   // FITO26 Example 16, Anna: $31,130 in 2025-26, $12,000 of foreign income and $700 of deductions left out,
   // $3,400 of foreign tax. The estimate's own Medicare levy of $311.90, at the 2025-26 threshold of $28,011,
@@ -95,35 +79,37 @@ test('the foreign income conversion form opens on the spec’s US dollar income 
   assert.equal(row(early, 'Translated on'), '2026-01-10');
   assert.match(conversion({ 'fx-kind': 'cgt_event', 'fx-event': '2026-01-15' }).note, /large capital asset/);
 });
+};
+
 
 const f2 = (/** @type {number} */ n) => n.toFixed(2);
-const COMMANDS = /** @type {Record<string, (call: any) => object>} */ ({
-  'foreign-income-tax-offset': (call) => {
+const COMMANDS = /** @type {Map<string, (call: any) => object>} */ (new Map([
+  ['foreign-income-tax-offset', (call) => {
     const o = foreignTaxOffset(call);
     return { ...Object.fromEntries(Object.entries(o.steps).map(([k, v]) => [k, f2(v)])), offset_before_limit: f2(o.offsetBeforeLimit),
       offset_limit: f2(o.offsetLimit), offset: f2(o.offset), offset_above_limit: f2(o.offsetAboveLimit) };
-  },
-  'foreign-income-conversion': (call) => {
+  }],
+  ['foreign-income-conversion', (call) => {
     const c = foreignIncomeConversion(call);
     return { ...Object.fromEntries(Object.entries(c.totals).map(([k, v]) => [k, f2(v)])),
       items: c.items.map((i) => ({ kind: i.kind, translated_on: i.translatedOn, item: i.item, basis: i.basis, aud: f2(i.aud) })),
       average: c.average, average_capital: c.averageCapital };
-  },
-});
+  }],
+]));
 
 test('the foreign income options agree with the australian-accounting commands on every differential case', () => {
-  const { cases } = JSON.parse(readFileSync(new URL('./foreign-income-engine-differential.json', import.meta.url), 'utf8'));
-  for (const command of Object.keys(COMMANDS)) {
+  const { cases } = foreignIncomeFixture;
+  for (const command of COMMANDS.keys()) {
     const mine = cases.filter((c) => c.command === command);
     assert.ok(mine.length > 150, command);
     assert.ok(mine.filter((c) => c.refused).length >= 10, command);
-    assert.match(html, new RegExp(`${command} on ${mine.length.toLocaleString('en-AU')} cases`));
   }
   for (const { source, command, call, amounts, refused } of cases) {
     if (refused) {
-      assert.throws(() => COMMANDS[command](call), (error) => error.code === refused, source);
+      assert.throws(() => COMMANDS.get(command)(call), (error) => error.code === refused, source);
       continue;
     }
-    assert.deepEqual(COMMANDS[command](call), amounts, source);
+    // The commands keep the sign of an amount entered as -0, which is zero.
+    assert.deepEqual(COMMANDS.get(command)(call), JSON.parse(JSON.stringify(amounts).replaceAll('"-0.00"', '"0.00"')), source);
   }
 });
