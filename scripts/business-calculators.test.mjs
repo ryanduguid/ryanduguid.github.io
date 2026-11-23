@@ -6230,9 +6230,7 @@ test('the first home owner grant refuses an unstated fact, a date outside the so
   }
   assert.throws(() => calculations.firstHomeOwnerGrant({ place: 'AU-NSW', date: '2026-08-01', home: 'bought', value: '500000' }), /not stated: every applicant/);
   for (const date of ['2025-06-30', '2026-11-23', '', '2026-8-1']) assert.throws(() => fhogResult({ date }), /choose a contract date from 1 July 2025 to 22 November 2026/, date);
-  for (const place of ['AU-NSW', 'AU-VIC', 'AU-WA', 'AU-NT']) {
-    assert.throws(() => fhogResult({ jurisdiction: place, value: '9999' }), /a value below the \$\d+,000 grant/, place);
-  }
+  assert.throws(() => fhogResult({ value: '9999' }), /a value below the \$10,000 grant; the New South Wales rule for that case was not confirmed/);
   // Tasmania's section 18(1) gives the lesser of the consideration and the amount.
   const tasmania = () => fhogResult({ jurisdiction: 'AU-TAS', value: '19999' }).rows[0][1];
   assert.doesNotThrow(tasmania);
@@ -6244,6 +6242,71 @@ test('the first home owner grant refuses an unstated fact, a date outside the so
   assert.equal(fhogResult({ jurisdiction: 'AU-ACT', value: '1' }).rows[0][1], '$0.00: the Australian Capital Territory has paid none since 1 July 2019');
   assert.throws(() => fhogResult({ value: '600000.50' }), { message: 'Enter a whole number between 1 and 1000000000.' });
   assert.throws(() => fhogResult({ home: 'vacant' }), { message: 'Choose a home bought, built or established.' });
+});
+
+// Where the Victorian, Western Australian and Northern Territory Acts, read 24 November 2026, give what the
+// page refused or paid nil for (found comparing australian-accounting PR 836's command over 8,640 cases).
+const fhogGrant = (change) => fhogResult(change).rows[0][1];
+test('the first home owner grant pays $10,000 for an NT established home bought from 1 July to 30 September 2025', () => {
+  // NT s 13(1)(a)(iii) and s 18(3D)(b): an established home bought from 1 October 2024 to 30 September 2025
+  // gets $10,000; s 13(1)(a)(iv): a new home only from 1 October 2025. The replacement fact still applies.
+  assert.equal(fhogGrant({ jurisdiction: 'AU-NT', date: '2025-07-01', home: 'established', value: '500000' }), '$10,000.00');
+  assert.equal(fhogGrant({ jurisdiction: 'AU-NT', date: '2025-09-30', home: 'established', value: '500000' }), '$10,000.00');
+  assert.equal(fhogGrant({ jurisdiction: 'AU-NT', date: '2025-09-30', home: 'established', value: '10001' }), '$10,000.00');
+  assert.equal(fhogGrant({ jurisdiction: 'AU-NT', date: '2025-10-01', home: 'established', value: '500000' }), '$0.00: the grant is for a new home only');
+  assert.equal(fhogGrant({ jurisdiction: 'AU-NT', date: '2025-09-30', value: '500000' }), '$50,000.00');
+  assert.throws(() => fhogResult({ jurisdiction: 'AU-NT', date: '2025-08-01', home: 'established', 'fact-nt': false }), /replaces none signed before 1 October 2024/);
+});
+
+test('the first home owner grant pays the lesser of the consideration and the amount in Victoria, Western Australia and the NT', () => {
+  // Vic s 18(1A), WA s 19(2CA) and NT s 18(1).
+  for (const change of [{ jurisdiction: 'AU-VIC' }, { jurisdiction: 'AU-WA', 'wa-location': 'north' }, { jurisdiction: 'AU-NT' },
+    { jurisdiction: 'AU-NT', date: '2025-08-01', home: 'established' }]) {
+    assert.equal(fhogGrant({ ...change, value: '8000' }), '$8,000.00: the grant cannot be more than the consideration', JSON.stringify(change));
+  }
+  assert.equal(fhogGrant({ jurisdiction: 'AU-NT', value: '49999' }), '$49,999.00: the grant cannot be more than the consideration');
+});
+
+// Qld s 5(6) to (8) and WA s 14AC(2) and (3) test the cap on a value that can differ from the consideration,
+// which still limits the grant (Qld s 20(1), WA s 19(2CA)). The vectors are australian-accounting PR 836's
+// (head b81fa1c1, the_cap_value_is_kept_apart_from_the_consideration), all dated 1 August 2026.
+test('the first home owner grant tests the Qld and WA caps on the value given, and limits the grant to the consideration', () => {
+  const lesser = 'the grant cannot be more than the consideration';
+  const qld = (home, value, cap) => fhogGrant({ jurisdiction: 'AU-QLD', home, value: String(value), 'cap-value': String(cap) });
+  const wa = (home, value, cap) => fhogGrant({ jurisdiction: 'AU-WA', 'wa-location': 'south', home, value: String(value), 'cap-value': String(cap) });
+  // A value above the price raises no grant above the consideration.
+  assert.equal(qld('bought', 20000, 100000), `$20,000.00: ${lesser}`);
+  assert.equal(wa('bought', 5000, 100000), `$5,000.00: ${lesser}`);
+  // Qld s 5(7): a price under $750,000 on a home and land valued at $750,000 or more.
+  assert.equal(qld('bought', 700000, 750000), '$0.00: the value is $750,000 or more');
+  assert.equal(qld('bought', 700000, 749999), '$30,000.00');
+  // A home bought is tested on the greater of the price and the value.
+  assert.equal(qld('bought', 750000, 600000), '$0.00: the value is $750,000 or more');
+  assert.equal(wa('bought', 800001, 700000), '$0.00: the value is over the Western Australia cap');
+  assert.equal(wa('bought', 700000, 800001), '$0.00: the value is over the Western Australia cap');
+  assert.equal(wa('bought', 700000, 800000), '$10,000.00');
+  // A home built is tested on the value given alone: the contract and the land's value.
+  assert.equal(qld('built', 760000, 740000), '$30,000.00');
+  assert.equal(qld('built', 700000, 750000), '$0.00: the value is $750,000 or more');
+  assert.equal(wa('built', 820000, 800000), '$10,000.00');
+  assert.equal(wa('built', 700000, 800001), '$0.00: the value is over the Western Australia cap');
+  // Without a value the total value is tested, as before.
+  assert.equal(fhogGrant({ jurisdiction: 'AU-QLD', value: '20000' }), `$20,000.00: ${lesser}`);
+  // Elsewhere the value is refused, as the command refuses it; it must be a whole number of dollars.
+  assert.throws(() => fhogResult({ 'cap-value': '700000' }), /the value the cap tests is taken only in Queensland and Western Australia; clear it for New South Wales/);
+  for (const cap of ['0', '1000000001', '700000.50', '-1']) {
+    assert.throws(() => fhogResult({ jurisdiction: 'AU-QLD', 'cap-value': cap }), { message: 'Enter a whole number between 1 and 1000000000.' }, cap);
+  }
+  assert.match(fhogResult({ jurisdiction: 'AU-QLD', 'cap-value': '700000' }).inputs, /total value \$600,000\.00, value the cap tests \$700,000\.00, /);
+  assert.match(fhogHtml, /The cap tests the greater of the price and the unencumbered value of the home and land, or for a home built the contract and the land’s value; enter that value where it differs\./);
+});
+
+test('the first home owner grant does not test a Victorian home built against $750,000 of land and building', () => {
+  // Vic s 13(1A) and (7)(b): for a home built the cap is on the building work's consideration alone, so a land
+  // and building total over $750,000 is not computed; a total within it is, and a home bought keeps the cap.
+  assert.throws(() => fhogResult({ jurisdiction: 'AU-VIC', home: 'built', value: '750001' }), /the Victorian cap applies to the consideration for the building work/);
+  assert.equal(fhogGrant({ jurisdiction: 'AU-VIC', home: 'built', value: '750000' }), '$10,000.00');
+  assert.equal(fhogGrant({ jurisdiction: 'AU-VIC', value: '750001' }), '$0.00: the value is over the Victoria cap');
 });
 
 // Review findings S1 to S4 and G2 on PR 705: the facts a transaction turns on are asked for, never assumed.

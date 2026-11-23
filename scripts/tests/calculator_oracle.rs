@@ -9165,29 +9165,39 @@ process.stdout.write(JSON.stringify(JSON.parse(input).map(({ place, date, home, 
 ///   <https://legislation.nsw.gov.au/view/whole/html/inforce/current/act-2000-021> (through
 ///   Firecrawl): $10,000 from 1 January 2016; caps $600,000 bought and $750,000 built.
 /// - Vic: <https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/first-home-owner-grant-current-rates>:
-///   $10,000 up to $750,000.
+///   $10,000 up to $750,000; First Home Owner Grant and Home Buyer Schemes Act 2000, authorised
+///   version 053 (read 24 November 2026), s 18(1A): the lesser of the consideration and $10,000;
+///   s 13(1A) and (7)(b): for a home built the cap is on the building work alone, so the page
+///   refuses a land and building total over $750,000.
 /// - Qld: First Home Owner Grant and Other Home Owner Grants Act 2000 ss 5(6) to (8) and 20,
 ///   <https://www.legislation.qld.gov.au/view/pdf/current/act-2000-014>: the lesser of the
 ///   consideration and $30,000; none at $750,000 or more.
 /// - WA: <https://www.wa.gov.au/system/files/2026-10/first-home-owner-grant.pdf>: $10,000; caps
-///   $750,000 south and $1,000,000 north to 6 May 2026, $800,000 south from 7 May 2026.
+///   $750,000 south and $1,000,000 north to 6 May 2026, $800,000 south from 7 May 2026; First Home
+///   Owner Grant Act 2000 as at 22 October 2026 (read 24 November 2026) s 19(2CA): the lesser of
+///   $10,000 and the consideration.
 /// - SA: <https://www.revenuesa.sa.gov.au/FHOG/grant-details>: $15,000, not more than the
 ///   consideration; no cap from 6 June 2024.
 /// - Tas: First Home Owner Grant Act 2000 ss 7, 18, 18L and 18M, authorised version as at 9 October
 ///   2026, <https://www.legislation.tas.gov.au/view/html/inforce/current/act-2000-019> (read 23
 ///   November 2026), and <https://www.sro.tas.gov.au/first-home-owner/eligibility>: the lesser of
 ///   the consideration and $30,000 to 30 June 2026 or $20,000 from 1 July 2026; no value cap.
-/// - NT: <https://nt.gov.au/property/home-owner-assistance/buy-build-new-home>: $50,000, no cap.
+/// - NT: <https://nt.gov.au/property/home-owner-assistance/buy-build-new-home>: $50,000, no cap;
+///   First Home Owner Grant Act 2000 as in force at 1 July 2026 (read 24 November 2026) s 18(1):
+///   the lesser of the consideration and the amount; s 13(1)(a)(iii) and s 18(3D)(b): $10,000 for
+///   an established home bought from 1 October 2024 to 30 September 2025.
 /// - ACT: <https://www.revenue.act.gov.au/home-buyer-assistance/first-home-owner-grant>: $0.
 ///
 /// The page covers contracts from 1 July 2025 to 22 November 2026, and refuses a value below the
-/// grant where the source read gives no lesser-of rule. With every fact stated, a home built has a
-/// building contract price of at least the grant, so a total value below the grant is refused.
+/// grant where the source read gives no lesser-of rule (New South Wales). With every fact stated, a
+/// home built has a building contract price of at least the grant, so a total value below the grant
+/// is refused.
 fn fhog_oracle(place: &str, day: Date, home: &str, dollars: u64, north: bool) -> Option<u64> {
     if day < date(2025, 7, 1) || day > date(2026, 11, 22) {
         return None;
     }
-    if place == "AU-ACT" || home == "established" {
+    let nt_established = place == "AU-NT" && home == "established" && day <= date(2025, 9, 30);
+    if place == "AU-ACT" || (home == "established" && !nt_established) {
         return Some(0);
     }
     let amount = match place {
@@ -9195,6 +9205,7 @@ fn fhog_oracle(place: &str, day: Date, home: &str, dollars: u64, north: bool) ->
         "AU-SA" => 15_000,
         "AU-TAS" if day <= date(2026, 6, 30) => 30_000,
         "AU-TAS" => 20_000,
+        "AU-NT" if nt_established => 10_000,
         "AU-NT" => 50_000,
         _ => 10_000,
     };
@@ -9208,11 +9219,10 @@ fn fhog_oracle(place: &str, day: Date, home: &str, dollars: u64, north: bool) ->
         _ => None,
     };
     if cap.is_some_and(|cap| dollars > cap) {
-        return Some(0);
+        return (place != "AU-VIC" || home != "built").then_some(0);
     }
     if dollars < amount {
-        return (home == "bought" && matches!(place, "AU-QLD" | "AU-SA" | "AU-TAS"))
-            .then_some(dollars);
+        return (home != "built" && place != "AU-NSW").then_some(dollars);
     }
     Some(amount)
 }
@@ -9374,6 +9384,60 @@ fn the_first_home_owner_grant_oracle_gives_the_published_figures() {
             "HomeGrown Territory Grant",
         ),
         (
+            "AU-NT",
+            date(2025, 9, 30),
+            "established",
+            500_000,
+            false,
+            Some(10_000),
+            "NT ss 13(1)(a)(iii), 18(3D)(b)",
+        ),
+        (
+            "AU-NT",
+            date(2025, 10, 1),
+            "established",
+            500_000,
+            false,
+            Some(0),
+            "NT s 13(1)(a)(iv)",
+        ),
+        (
+            "AU-VIC",
+            date(2026, 1, 1),
+            "bought",
+            8_000,
+            false,
+            Some(8_000),
+            "Vic s 18(1A)",
+        ),
+        (
+            "AU-WA",
+            date(2026, 1, 1),
+            "bought",
+            8_000,
+            false,
+            Some(8_000),
+            "WA s 19(2CA)",
+        ),
+        (
+            "AU-NT",
+            date(2026, 1, 1),
+            "bought",
+            49_999,
+            false,
+            Some(49_999),
+            "NT s 18(1)",
+        ),
+        (
+            "AU-VIC",
+            date(2026, 1, 1),
+            "built",
+            750_001,
+            false,
+            None,
+            "Vic ss 13(1A), 13(7)(b)",
+        ),
+        (
             "AU-ACT",
             date(2026, 9, 1),
             "bought",
@@ -9426,6 +9490,8 @@ fn the_first_home_owner_grant_engine_agrees_with_the_oracle_on_every_boundary() 
     let days = [
         date(2025, 6, 30),
         date(2025, 7, 1),
+        date(2025, 9, 30),
+        date(2025, 10, 1),
         date(2026, 5, 6),
         date(2026, 5, 7),
         date(2026, 6, 30),
@@ -9435,7 +9501,7 @@ fn the_first_home_owner_grant_engine_agrees_with_the_oracle_on_every_boundary() 
     ];
     let mut values = vec![1, 1_000_000_000];
     for edge in [
-        10_000, 15_000, 20_000, 30_000, 50_000, 600_000, 750_000, 800_000, 1_000_000,
+        8_000, 10_000, 15_000, 20_000, 30_000, 50_000, 600_000, 750_000, 800_000, 1_000_000,
     ] {
         values.extend([edge - 1, edge, edge + 1]);
     }
