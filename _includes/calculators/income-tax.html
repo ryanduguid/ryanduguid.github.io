@@ -199,13 +199,13 @@
 <label class="field" for="mi-other">Other assessable income (dollars and cents)<input id="mi-other" name="mi-other" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" required aria-describedby="mi-income-help" /></label>
 <label class="field" for="mi-employment">Employment income (dollars and cents)<input id="mi-employment" name="mi-employment" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
 <label class="field" for="mi-business">Income from carrying on a business (dollars and cents)<input id="mi-business" name="mi-business" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
-<label class="field" for="mi-other-ground">Other excepted income<select name="mi-other-ground" id="mi-other-ground"><option value="damages_or_compensation" selected>Investing damages or compensation</option><option value="death_benefit">Investing a death benefit</option><option value="public_fund">Investing money from a public fund</option><option value="family_breakdown">Investing property from a family breakdown</option><option value="deceased_estate">From a deceased estate</option><option value="lottery_prize">A lottery prize or its investment</option><option value="partnership">A partnership share</option><option value="accumulations">Investing excepted income</option></select></label>
+<label class="field" for="mi-other-ground">Other excepted income<select name="mi-other-ground" id="mi-other-ground"><option value="damages_or_compensation" selected>Investing damages or compensation</option><option value="death_benefit">Investing a death benefit</option><option value="public_fund">Investing money from a public fund</option><option value="family_breakdown">Investing property from a family breakdown</option><option value="deceased_estate">From a deceased estate</option><option value="lottery_prize">Income from investing a lottery prize</option><option value="partnership">A partnership share, as section 102AE(3) limits it</option><option value="accumulations">Investing excepted income</option></select></label>
 <label class="field" for="mi-other-amount">Other excepted income amount (dollars and cents)<input id="mi-other-amount" name="mi-other-amount" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
-<label class="field" for="mi-trust">Share of trust net income (dollars and cents)<input id="mi-trust" name="mi-trust" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
-<label class="field" for="mi-trust-part">The part of it not from excepted trust income (dollars and cents)<input id="mi-trust-part" name="mi-trust-part" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="mi-trust">Share of trust net income (dollars and cents)<input id="mi-trust" name="mi-trust" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required aria-describedby="mi-income-help" /></label>
+<label class="field" for="mi-trust-part">The part of it not from excepted trust income (dollars and cents)<input id="mi-trust-part" name="mi-trust-part" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required aria-describedby="mi-income-help" /></label>
 <label class="field" for="mi-exclusive">Deductions only for the other assessable income (dollars and cents)<input id="mi-exclusive" name="mi-exclusive" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required aria-describedby="mi-deductions-help" /></label>
-<label class="field" for="mi-related">Part of other deductions related to it (dollars and cents)<input id="mi-related" name="mi-related" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
-<label class="field" for="mi-apportionable">Apportionable deductions, such as gifts (dollars and cents)<input id="mi-apportionable" name="mi-apportionable" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="mi-related">Part of other deductions related to it (dollars and cents)<input id="mi-related" name="mi-related" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required aria-describedby="mi-deductions-help" /></label>
+<label class="field" for="mi-apportionable">Apportionable deductions, such as gifts (dollars and cents)<input id="mi-apportionable" name="mi-apportionable" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required aria-describedby="mi-deductions-help" /></label>
 <fieldset><legend>Does taxable income include a special income component?</legend>
 <label><input type="radio" name="mi-special" value="no" checked /> No</label>
 <label><input type="radio" name="mi-special" value="yes" /> Yes</label>
@@ -217,7 +217,7 @@
 <label><input type="radio" name="mi-ft-1" value="yes" checked /> Yes</label>
 <label><input type="radio" name="mi-ft-1" value="no" /> No</label>
 </fieldset>
-<fieldset><legend>In one for periods totalling 3 months or more in the year?</legend>
+<fieldset aria-describedby="mi-ft-help"><legend>In one for periods totalling 3 months or more in the year?</legend>
 <label><input type="radio" name="mi-ft-2" value="yes" /> Yes</label>
 <label><input type="radio" name="mi-ft-2" value="no" checked /> No</label>
 </fieldset>
@@ -230,7 +230,7 @@
 <label><input type="radio" name="mi-ft-4" value="no" checked /> No</label>
 </fieldset>
 </div>
-<p class="field-note">The 3 months leave out a period followed later in the year by full-time education (section 102AC(7)).</p>
+<p class="field-note" id="mi-ft-help">The 3 months leave out a period followed later in the year by full-time education (section 102AC(7)).</p>
 </fieldset>
 <fieldset data-show-field="mi-person" data-show-values="double_orphan_pension double_orphan_pension_s1003 permanent_disability_certificate" hidden disabled><legend>Dependence on relatives</legend>
 <div class="form-grid">
