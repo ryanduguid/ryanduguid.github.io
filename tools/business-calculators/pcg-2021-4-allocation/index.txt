@@ -1,4 +1,4 @@
-# PCG 2021/4 profit allocation and effective tax rate calculator
+# PCG 2021/4 profit allocation and effective tax calculator
 
 Source: https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/
 
@@ -61,10 +61,17 @@ A failed Gateway 2 is refused | 2020-21 rates; Gateway 2 failed; IPP $330,000.00
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- PCG 2021/4 risk scorer
+- Individual income tax rates
+- Salary against dividends calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
+- Individual income tax rates: https://duguid.com.au/rates/individual-income-tax/
+- Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/

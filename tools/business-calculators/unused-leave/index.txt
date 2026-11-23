@@ -1,8 +1,8 @@
-# Unused leave on termination withholding calculator for 2026-27
+# Unused leave on termination withholding calculator 2026-27
 
 Source: https://duguid.com.au/tools/business-calculators/unused-leave/
 
-> Schedule 7 withholding from unused annual leave, leave loading and long service leave paid on termination, with the 30% cap, the 5% pre-1978 share and STP labels.
+> Schedule 7 withholding from unused annual leave, leave loading and long service leave on termination, with the 30% cap, 5% pre-1978 share and STP labels.
 
 # Unused leave on termination
 
@@ -69,12 +69,18 @@ Under $300 with pre-16 August 1978 leave is refused | Annual leave $100.00 ($0.0
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Redundancy and ETP withholding
+- Long service leave calculator
+- PAYG withholding coefficients
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - redundancy and ETP withholding calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
 - Schedule 7: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-7-tax-table-for-unused-leave-payments-on-termination-of-employment
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Long service leave calculator: https://duguid.com.au/tools/business-calculators/long-service-leave/
+- PAYG withholding coefficients: https://duguid.com.au/rates/payg-withholding/

@@ -1,8 +1,8 @@
-# Company tax and franking credit calculator: base rate entity test
+# Company tax and franking calculator: 25% vs 30% rate
 
 Source: https://duguid.com.au/tools/business-calculators/company-tax/
 
-> Base rate entity test, 25% or 30% company tax, the corporate tax rate for imputation purposes, the maximum franking credit and a shareholder's top-up tax or refund.
+> Base rate entity test, 25% or 30% company tax, corporate tax rate for imputation, maximum franking credit and shareholder top-up tax or refund.
 
 # Company tax and franking calculator
 
@@ -58,11 +58,18 @@ Passive income above assessable income is refused | Turnover $100,000.00, passiv
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; franking credits round down to the cent, so a credit never exceeds the maximum.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Franking account calculator
+- Salary against dividends calculator
+- Division 7A loan calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; franking credits round down to the cent, so a credit never exceeds the maximum.
 
 ## Links
 
 - company tax and franking worksheets: https://duguid.com.au/tools/company-tax-franking/
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Franking account calculator: https://duguid.com.au/tools/business-calculators/franking-account/
+- Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/
+- Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/

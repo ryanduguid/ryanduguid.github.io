@@ -1,4 +1,4 @@
-# Franking account calculator: deficit tax, offset, benchmark rule
+# Franking account calculator: deficit tax and offset
 
 Source: https://duguid.com.au/tools/business-calculators/franking-account/
 
@@ -89,12 +89,18 @@ Distributions out of date order are refused | 2025-26, not a private company, 30
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Company tax and franking calculator
+- Salary against dividends calculator
+- Company tax and franking worksheets
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
 - ATO’s instructions: https://www.ato.gov.au/forms-and-instructions/franking-account-tax-return-2026-instructions/instructions-to-complete-the-franking-account-tax-return-2026
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/
+- Company tax and franking worksheets: https://duguid.com.au/tools/company-tax-franking/

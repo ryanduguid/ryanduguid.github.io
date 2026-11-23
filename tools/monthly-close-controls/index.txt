@@ -149,8 +149,6 @@ No. PASS means the configured checks passed on the supplied inputs. A human stil
 - Reproducible examples and evaluations
 - Evidence and Assurance
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - v1.1.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.1.0

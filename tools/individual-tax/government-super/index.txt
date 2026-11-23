@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/individual-tax/government-super/
 
-> The super co-contribution, the low income super tax offset (LISTO) and the spouse contribution tax offset for 2020-21 to 2026-27, with each condition met or not.
+> Super co-contribution, low income super tax offset (LISTO) and spouse contribution tax offset for 2020-21 to 2026-27, showing each eligibility test.
 
 # Super co-contribution, LISTO and spouse offset calculator
 
@@ -84,11 +84,17 @@ Spouse income $39,999: 18% of $1 (s 290-235(1)) | 2025-26, assessable income $90
 
 One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Concessional catch-up calculator
+- Income tests calculator
+- Super projection calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
 - fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
+- Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/

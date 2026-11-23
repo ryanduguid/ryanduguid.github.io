@@ -48,11 +48,18 @@ A deduction above the interest accrued is refused | Daily balances $18,250,000.0
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- FBT rate and gross-up rates
+- Division 7A loan calculator
+- FBT expense payment calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00009
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
+- Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
+- FBT expense payment calculator: https://duguid.com.au/tools/business-calculators/fbt-expense-payment/

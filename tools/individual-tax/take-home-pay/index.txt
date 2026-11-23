@@ -88,9 +88,23 @@ Above the cap and in Division 293 | 2026-27, Australian resident, $260,000 a yea
 
 One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Common questions
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+### Does the take-home pay calculator include the 12% super guarantee rate?
+
+Yes. From 1 July 2025 the general super guarantee rate is 12%, and earlier years from 2021-22 use each income year’s published statutory rate.
+
+### Which PAYG withholding schedules does it use?
+
+The take-home pay calculator applies the ATO’s Schedule 1 and Schedule 8 coefficients for weekly, fortnightly and monthly pay periods from 2021-22 to 2026-27.
+
+## Related
+
+- PAYG withholding coefficients
+- Income tax calculator
+- Super guarantee rate history
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
@@ -99,3 +113,5 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
 - fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- PAYG withholding coefficients: https://duguid.com.au/rates/payg-withholding/
+- Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/

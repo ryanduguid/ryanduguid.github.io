@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/business-calculators/fixed-fee/
 
-> Price a fixed fee from hours at a rate or a cost and margin, with GST, monthly instalments that add up to the cent and the effective hourly rate, in your browser.
+> Price a fixed fee from hours or cost and margin, with GST, monthly instalments adding to the cent and the effective hourly rate, calculated in your browser.
 
 # Fixed fee pricing calculator
 
@@ -46,11 +46,17 @@ A margin of 100% is refused | 10 hours at $100.00 an hour, 100% margin, rounded 
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the fee rounds up to the step you choose, and instalments round down to the cent with the rest in the first.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Hourly pricing calculator
+- Margin and markup calculator
+- GST calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the fee rounds up to the step you choose, and instalments round down to the cent with the rest in the first.
 
 ## Links
 
 - hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Margin and markup calculator: https://duguid.com.au/tools/business-calculators/margin/
+- GST calculator: https://duguid.com.au/tools/business-calculators/gst/

@@ -43,9 +43,13 @@ Official comparison on 5 November 2026, on one fictional input: for $20.15 exclu
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- GST and BAS questions
+- 2026-27 BAS due dates
+- GST margin scheme calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
@@ -53,3 +57,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - A New Tax System (Goods and Services Tax) Act 1999: https://www.legislation.gov.au/C2004A00446/latest/text
 - Moneysmart GST calculator: https://moneysmart.gov.au/work-and-tax/gst-calculator
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- GST and BAS questions: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
+- GST margin scheme calculator: https://duguid.com.au/tools/business-calculators/gst-margin-scheme/

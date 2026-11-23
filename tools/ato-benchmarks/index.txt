@@ -110,8 +110,6 @@ Because no account name on its own tells you whether wages went to an associated
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - v0.2.2: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.2.2

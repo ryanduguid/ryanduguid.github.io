@@ -113,8 +113,6 @@ No. It is a review aid. Recognition over time versus at a point in time, whether
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.2.0

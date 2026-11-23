@@ -1,8 +1,8 @@
-# Foreign buyer duty and land tax surcharge calculator, all states
+# Foreign buyer duty and land tax surcharge: all 8 states
 
 Source: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
 
-> Foreign purchaser duty and land tax surcharges in all 8 states and territories, each one's foreign person test, the 2026-27 FIRB fee and an upfront total by state.
+> Foreign purchaser duty and land tax surcharges across all 8 states and territories, each foreign person test, the 2026-27 FIRB fee and upfront totals.
 
 # Foreign buyer surcharge calculator
 
@@ -91,9 +91,13 @@ Above $40 million the fee stops at its maximum | Residential land without an est
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Transfer duty calculator
+- Land tax calculator
+- Transfer duty rates by state
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 

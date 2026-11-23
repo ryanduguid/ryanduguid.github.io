@@ -221,8 +221,6 @@ Yes. The listing name is io.github.ryanduguid/aus-accounting. The install comman
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - v0.11.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.11.0

@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 
-> Score an IPP’s profit allocation under PCG 2021/4: the 2 gateways, the 3 risk assessment factors and the green, amber or red zone, as the guideline sets them out.
+> Score an individual professional practitioner's profit allocation under PCG 2021/4: both gateways, the 3 risk factors and the green, amber or red risk zone.
 
 # PCG 2021/4 risk scorer
 
@@ -49,11 +49,17 @@ A failed Gateway 2 is refused | Gateway 2 failed; entitlement $600,000.00, retur
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- PCG 2021/4 allocation calculator
+- PSI rules checker
+- Companies and trusts questions
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - PCG 2021/4 allocation calculator: https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
+- Companies and trusts questions: https://duguid.com.au/tools/accounting-questions/company-compliance/

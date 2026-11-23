@@ -1,0 +1,484 @@
+# Related rate tables, questions and sibling calculators shown below each calculator.
+gst:
+  - label: GST and BAS questions
+    url: /tools/accounting-questions/gst-bas/
+  - label: 2026-27 BAS due dates
+    url: /tools/bas-due-dates/
+  - label: GST margin scheme calculator
+    url: /tools/business-calculators/gst-margin-scheme/
+gst-margin-scheme:
+  - label: GST calculator
+    url: /tools/business-calculators/gst/
+  - label: Transfer duty calculator
+    url: /tools/business-calculators/transfer-duty/
+  - label: GST and BAS questions
+    url: /tools/accounting-questions/gst-bas/
+business-use:
+  - label: Deductions questions
+    url: /tools/accounting-questions/deductions/
+  - label: Work expenses calculator
+    url: /tools/individual-tax/work-expenses/
+  - label: Cents per kilometre rate
+    url: /rates/cents-per-kilometre/
+margin:
+  - label: Break-even sales calculator
+    url: /tools/business-calculators/break-even/
+  - label: Budget variance calculator
+    url: /tools/business-calculators/variance/
+  - label: Management reporting questions
+    url: /tools/accounting-questions/management-reporting/
+break-even:
+  - label: Margin and markup calculator
+    url: /tools/business-calculators/margin/
+  - label: Hourly pricing calculator
+    url: /tools/business-calculators/hourly/
+  - label: Management reporting questions
+    url: /tools/accounting-questions/management-reporting/
+hourly:
+  - label: Fixed fee pricing calculator
+    url: /tools/business-calculators/fixed-fee/
+  - label: Staff cost calculator
+    url: /tools/business-calculators/staff/
+  - label: Break-even sales calculator
+    url: /tools/business-calculators/break-even/
+fixed-fee:
+  - label: Hourly pricing calculator
+    url: /tools/business-calculators/hourly/
+  - label: Margin and markup calculator
+    url: /tools/business-calculators/margin/
+  - label: GST calculator
+    url: /tools/business-calculators/gst/
+variance:
+  - label: Margin and markup calculator
+    url: /tools/business-calculators/margin/
+  - label: 13-week cash forecast
+    url: /tools/business-calculators/cash/
+  - label: Management reporting questions
+    url: /tools/accounting-questions/management-reporting/
+loan:
+  - label: Hire purchase and chattel mortgage schedule
+    url: /tools/business-calculators/hire-purchase/
+  - label: AASB 16 lease calculator
+    url: /tools/business-calculators/lease/
+  - label: Borrowing expenses calculator
+    url: /tools/business-calculators/borrowing-expenses/
+hire-purchase:
+  - label: Loan repayment schedule calculator
+    url: /tools/business-calculators/loan/
+  - label: AASB 16 lease calculator
+    url: /tools/business-calculators/lease/
+  - label: Car limit for depreciation
+    url: /rates/car-limit/
+lease:
+  - label: Hire purchase and chattel mortgage schedule
+    url: /tools/business-calculators/hire-purchase/
+  - label: Loan repayment schedule calculator
+    url: /tools/business-calculators/loan/
+  - label: Borrowing expenses calculator
+    url: /tools/business-calculators/borrowing-expenses/
+borrowing-expenses:
+  - label: Rental property calculator
+    url: /tools/business-calculators/rental-property/
+  - label: Loan repayment schedule calculator
+    url: /tools/business-calculators/loan/
+  - label: Deductions questions
+    url: /tools/accounting-questions/deductions/
+depreciation-pools:
+  - label: Depreciation rates and effective lives
+    url: /tools/depreciation-rates/
+  - label: Car limit for depreciation
+    url: /rates/car-limit/
+  - label: Rental property calculator
+    url: /tools/business-calculators/rental-property/
+rental-property:
+  - label: Depreciation pools and capital works calculator
+    url: /tools/business-calculators/depreciation-pools/
+  - label: Borrowing expenses calculator
+    url: /tools/business-calculators/borrowing-expenses/
+  - label: Land tax calculator
+    url: /tools/business-calculators/land-tax/
+div7a:
+  - label: Division 7A benchmark interest rate
+    url: /rates/div7a-benchmark-rate/
+  - label: Division 7A loan schedule calculator
+    url: /tools/business-calculators/div7a-schedule/
+  - label: Companies and trusts questions
+    url: /tools/accounting-questions/company-compliance/
+div7a-schedule:
+  - label: Division 7A benchmark interest rate
+    url: /rates/div7a-benchmark-rate/
+  - label: Division 7A loan calculator
+    url: /tools/business-calculators/div7a/
+  - label: Company tax and franking calculator
+    url: /tools/business-calculators/company-tax/
+fbt-car:
+  - label: FBT rate and gross-up rates
+    url: /rates/fbt-rate/
+  - label: Vehicle classifier
+    url: /tools/business-calculators/vehicle-class/
+  - label: Novated lease calculator
+    url: /tools/individual-tax/novated-lease/
+fbt-car-parking:
+  - label: FBT rate and gross-up rates
+    url: /rates/fbt-rate/
+  - label: FBT car calculator
+    url: /tools/business-calculators/fbt-car/
+  - label: FBT expense payment calculator
+    url: /tools/business-calculators/fbt-expense-payment/
+fbt-expense-payment:
+  - label: FBT rate and gross-up rates
+    url: /rates/fbt-rate/
+  - label: FBT property calculator
+    url: /tools/business-calculators/fbt-property/
+  - label: FBT loan calculator
+    url: /tools/business-calculators/fbt-loan/
+fbt-loan:
+  - label: FBT rate and gross-up rates
+    url: /rates/fbt-rate/
+  - label: Division 7A loan calculator
+    url: /tools/business-calculators/div7a/
+  - label: FBT expense payment calculator
+    url: /tools/business-calculators/fbt-expense-payment/
+fbt-meal-entertainment:
+  - label: FBT rate and gross-up rates
+    url: /rates/fbt-rate/
+  - label: Salary packaging calculator
+    url: /tools/individual-tax/salary-packaging/
+  - label: FBT property calculator
+    url: /tools/business-calculators/fbt-property/
+fbt-property:
+  - label: FBT rate and gross-up rates
+    url: /rates/fbt-rate/
+  - label: FBT expense payment calculator
+    url: /tools/business-calculators/fbt-expense-payment/
+  - label: Meal entertainment calculator
+    url: /tools/business-calculators/fbt-meal-entertainment/
+vehicle-class:
+  - label: Car limit for depreciation
+    url: /rates/car-limit/
+  - label: Luxury car tax calculator
+    url: /tools/business-calculators/luxury-car-tax/
+  - label: FBT car calculator
+    url: /tools/business-calculators/fbt-car/
+pcg-2021-4:
+  - label: PCG 2021/4 allocation calculator
+    url: /tools/business-calculators/pcg-2021-4-allocation/
+  - label: PSI rules checker
+    url: /tools/business-calculators/psi-determination/
+  - label: Companies and trusts questions
+    url: /tools/accounting-questions/company-compliance/
+pcg-2021-4-allocation:
+  - label: PCG 2021/4 risk scorer
+    url: /tools/business-calculators/pcg-2021-4/
+  - label: Individual income tax rates
+    url: /rates/individual-income-tax/
+  - label: Salary against dividends calculator
+    url: /tools/business-calculators/salary-dividend/
+gic-payment-plan:
+  - label: General interest charge rate
+    url: /rates/general-interest-charge/
+  - label: ATO penalties and interest calculator
+    url: /tools/business-calculators/ato-penalties-interest/
+  - label: 13-week cash forecast
+    url: /tools/business-calculators/cash/
+ato-penalties-interest:
+  - label: General interest charge rate
+    url: /rates/general-interest-charge/
+  - label: GIC payment plan calculator
+    url: /tools/business-calculators/gic-payment-plan/
+  - label: Objection deadline checker
+    url: /tools/business-calculators/objection-deadline/
+division-296:
+  - label: Announced tax measures and enacted law
+    url: /rates/announced-not-yet-law/
+  - label: Division 293 tax calculator
+    url: /tools/individual-tax/division-293/
+  - label: Super lump sum tax calculator
+    url: /tools/business-calculators/super-benefit-tax/
+psi-determination:
+  - label: PCG 2021/4 risk scorer
+    url: /tools/business-calculators/pcg-2021-4/
+  - label: Sole trader tax set-aside calculator
+    url: /tools/individual-tax/sole-trader/
+  - label: Companies and trusts questions
+    url: /tools/accounting-questions/company-compliance/
+franking-account:
+  - label: Company tax and franking calculator
+    url: /tools/business-calculators/company-tax/
+  - label: Salary against dividends calculator
+    url: /tools/business-calculators/salary-dividend/
+  - label: Company tax and franking worksheets
+    url: /tools/company-tax-franking/
+company-tax:
+  - label: Franking account calculator
+    url: /tools/business-calculators/franking-account/
+  - label: Salary against dividends calculator
+    url: /tools/business-calculators/salary-dividend/
+  - label: Division 7A loan calculator
+    url: /tools/business-calculators/div7a/
+salary-dividend:
+  - label: Company tax and franking calculator
+    url: /tools/business-calculators/company-tax/
+  - label: Individual income tax rates
+    url: /rates/individual-income-tax/
+  - label: Super guarantee rate history
+    url: /rates/super-guarantee/
+cgt:
+  - label: Small business CGT concessions checker
+    url: /tools/business-calculators/cgt-concessions/
+  - label: Rental property calculator
+    url: /tools/business-calculators/rental-property/
+  - label: Investments and NSW questions
+    url: /tools/accounting-questions/investments-local/
+cgt-concessions:
+  - label: Capital gains tax calculator
+    url: /tools/business-calculators/cgt/
+  - label: Companies and trusts questions
+    url: /tools/accounting-questions/company-compliance/
+  - label: Investments and NSW questions
+    url: /tools/accounting-questions/investments-local/
+staff:
+  - label: Super guarantee rate history
+    url: /rates/super-guarantee/
+  - label: Payroll tax calculator
+    url: /tools/business-calculators/payroll-tax/
+  - label: Workers compensation premium calculator
+    url: /tools/business-calculators/workers-compensation/
+cash:
+  - label: Profit vs cash flow worked example
+    url: /examples/profit-vs-cash-flow/
+  - label: Cash flow questions
+    url: /tools/accounting-questions/cash-flow/
+  - label: 2026-27 BAS due dates
+    url: /tools/bas-due-dates/
+sgc-payday:
+  - label: Super guarantee rate history
+    url: /rates/super-guarantee/
+  - label: Payday Super business days
+    url: /tools/payday-super/business-days/
+  - label: Maximum super contribution base
+    url: /rates/maximum-contribution-base/
+long-service-leave:
+  - label: Coal LSL levy calculator
+    url: /tools/coal-lsl-levy/
+  - label: Unused leave on termination
+    url: /tools/business-calculators/unused-leave/
+  - label: Payroll and super questions
+    url: /tools/accounting-questions/payroll-super/
+workers-compensation:
+  - label: Staff cost calculator
+    url: /tools/business-calculators/staff/
+  - label: Payroll tax calculator
+    url: /tools/business-calculators/payroll-tax/
+  - label: Payroll and super questions
+    url: /tools/accounting-questions/payroll-super/
+super-benefit-tax:
+  - label: Super projection calculator
+    url: /tools/individual-tax/super-projection/
+  - label: Division 296 tax calculator
+    url: /tools/business-calculators/division-296/
+  - label: Redundancy and ETP withholding
+    url: /tools/business-calculators/termination-payment/
+termination-payment:
+  - label: Unused leave on termination
+    url: /tools/business-calculators/unused-leave/
+  - label: Bonus withholding calculator
+    url: /tools/individual-tax/bonus-withholding/
+  - label: Payroll and super questions
+    url: /tools/accounting-questions/payroll-super/
+unused-leave:
+  - label: Redundancy and ETP withholding
+    url: /tools/business-calculators/termination-payment/
+  - label: Long service leave calculator
+    url: /tools/business-calculators/long-service-leave/
+  - label: PAYG withholding coefficients
+    url: /rates/payg-withholding/
+objection-deadline:
+  - label: ATO penalties and interest calculator
+    url: /tools/business-calculators/ato-penalties-interest/
+  - label: Business days calculator
+    url: /tools/business-calculators/business-days/
+  - label: 2026-27 BAS due dates
+    url: /tools/bas-due-dates/
+payg-instalments:
+  - label: 2026-27 BAS due dates
+    url: /tools/bas-due-dates/
+  - label: GST and BAS questions
+    url: /tools/accounting-questions/gst-bas/
+  - label: Sole trader tax set-aside calculator
+    url: /tools/individual-tax/sole-trader/
+fuel-tax-credits:
+  - label: 2026-27 BAS due dates
+    url: /tools/bas-due-dates/
+  - label: Subcontractor ledger skills
+    url: /tools/subcontractor-ledgers/
+  - label: GST and BAS questions
+    url: /tools/accounting-questions/gst-bas/
+luxury-car-tax:
+  - label: Car limit for depreciation
+    url: /rates/car-limit/
+  - label: Vehicle classifier
+    url: /tools/business-calculators/vehicle-class/
+  - label: FBT car calculator
+    url: /tools/business-calculators/fbt-car/
+wine-equalisation-tax:
+  - label: GST calculator
+    url: /tools/business-calculators/gst/
+  - label: 2026-27 BAS due dates
+    url: /tools/bas-due-dates/
+  - label: GST and BAS questions
+    url: /tools/accounting-questions/gst-bas/
+land-tax:
+  - label: Transfer duty calculator
+    url: /tools/business-calculators/transfer-duty/
+  - label: Foreign purchaser surcharge calculator
+    url: /tools/business-calculators/foreign-surcharge/
+  - label: Rental property calculator
+    url: /tools/business-calculators/rental-property/
+transfer-duty:
+  - label: Transfer duty rates by state
+    url: /rates/transfer-duty/
+  - label: First home owner grant calculator
+    url: /tools/business-calculators/first-home-owner-grant/
+  - label: Foreign purchaser surcharge calculator
+    url: /tools/business-calculators/foreign-surcharge/
+first-home-owner-grant:
+  - label: Transfer duty calculator
+    url: /tools/business-calculators/transfer-duty/
+  - label: First home super saver calculator
+    url: /tools/individual-tax/fhss/
+  - label: Transfer duty rates by state
+    url: /rates/transfer-duty/
+payroll-tax:
+  - label: Staff cost calculator
+    url: /tools/business-calculators/staff/
+  - label: Workers compensation premium calculator
+    url: /tools/business-calculators/workers-compensation/
+  - label: Payroll and super questions
+    url: /tools/accounting-questions/payroll-super/
+foreign-surcharge:
+  - label: Transfer duty calculator
+    url: /tools/business-calculators/transfer-duty/
+  - label: Land tax calculator
+    url: /tools/business-calculators/land-tax/
+  - label: Transfer duty rates by state
+    url: /rates/transfer-duty/
+business-days:
+  - label: Payday Super business days
+    url: /tools/payday-super/business-days/
+  - label: Objection deadline checker
+    url: /tools/business-calculators/objection-deadline/
+  - label: 2026-27 BAS due dates
+    url: /tools/bas-due-dates/
+asic-fees:
+  - label: Starting a business questions
+    url: /tools/accounting-questions/business-setup/
+  - label: Companies and trusts questions
+    url: /tools/accounting-questions/company-compliance/
+  - label: Company tax and franking calculator
+    url: /tools/business-calculators/company-tax/
+income-tax:
+  - label: Individual income tax rates
+    url: /rates/individual-income-tax/
+  - label: Take-home pay calculator
+    url: /tools/individual-tax/take-home-pay/
+  - label: Income tests calculator
+    url: /tools/individual-tax/income-tests/
+take-home-pay:
+  - label: PAYG withholding coefficients
+    url: /rates/payg-withholding/
+  - label: Income tax calculator
+    url: /tools/individual-tax/income-tax/
+  - label: Super guarantee rate history
+    url: /rates/super-guarantee/
+study-loan:
+  - label: Study loan repayment thresholds
+    url: /rates/study-loan-repayment/
+  - label: Take-home pay calculator
+    url: /tools/individual-tax/take-home-pay/
+  - label: Income tests calculator
+    url: /tools/individual-tax/income-tests/
+sole-trader:
+  - label: Income tax calculator
+    url: /tools/individual-tax/income-tax/
+  - label: PAYG instalments calculator
+    url: /tools/business-calculators/payg-instalments/
+  - label: GST calculator
+    url: /tools/business-calculators/gst/
+lump-sum-arrears:
+  - label: Income tax calculator
+    url: /tools/individual-tax/income-tax/
+  - label: Bonus withholding calculator
+    url: /tools/individual-tax/bonus-withholding/
+  - label: Individual income tax rates
+    url: /rates/individual-income-tax/
+income-tests:
+  - label: Income tax calculator
+    url: /tools/individual-tax/income-tax/
+  - label: Division 293 tax calculator
+    url: /tools/individual-tax/division-293/
+  - label: Study and training loan calculator
+    url: /tools/individual-tax/study-loan/
+bonus-withholding:
+  - label: Take-home pay calculator
+    url: /tools/individual-tax/take-home-pay/
+  - label: PAYG withholding coefficients
+    url: /rates/payg-withholding/
+  - label: Redundancy and ETP withholding
+    url: /tools/business-calculators/termination-payment/
+salary-packaging:
+  - label: FBT rate and gross-up rates
+    url: /rates/fbt-rate/
+  - label: Novated lease calculator
+    url: /tools/individual-tax/novated-lease/
+  - label: Meal entertainment calculator
+    url: /tools/business-calculators/fbt-meal-entertainment/
+novated-lease:
+  - label: FBT car calculator
+    url: /tools/business-calculators/fbt-car/
+  - label: Car limit for depreciation
+    url: /rates/car-limit/
+  - label: Salary packaging calculator
+    url: /tools/individual-tax/salary-packaging/
+work-expenses:
+  - label: Cents per kilometre rate
+    url: /rates/cents-per-kilometre/
+  - label: Deductions questions
+    url: /tools/accounting-questions/deductions/
+  - label: Depreciation rates and effective lives
+    url: /tools/depreciation-rates/
+division-293:
+  - label: Concessional catch-up calculator
+    url: /tools/individual-tax/concessional-catch-up/
+  - label: Income tests calculator
+    url: /tools/individual-tax/income-tests/
+  - label: Maximum super contribution base
+    url: /rates/maximum-contribution-base/
+concessional-catch-up:
+  - label: Division 293 tax calculator
+    url: /tools/individual-tax/division-293/
+  - label: Super projection calculator
+    url: /tools/individual-tax/super-projection/
+  - label: Super co-contribution, LISTO and spouse offset calculator
+    url: /tools/individual-tax/government-super/
+super-projection:
+  - label: Super guarantee rate history
+    url: /rates/super-guarantee/
+  - label: Concessional catch-up calculator
+    url: /tools/individual-tax/concessional-catch-up/
+  - label: Super lump sum tax calculator
+    url: /tools/business-calculators/super-benefit-tax/
+fhss:
+  - label: First home owner grant calculator
+    url: /tools/business-calculators/first-home-owner-grant/
+  - label: Transfer duty calculator
+    url: /tools/business-calculators/transfer-duty/
+  - label: Concessional catch-up calculator
+    url: /tools/individual-tax/concessional-catch-up/
+government-super:
+  - label: Concessional catch-up calculator
+    url: /tools/individual-tax/concessional-catch-up/
+  - label: Income tests calculator
+    url: /tools/individual-tax/income-tests/
+  - label: Super projection calculator
+    url: /tools/individual-tax/super-projection/
