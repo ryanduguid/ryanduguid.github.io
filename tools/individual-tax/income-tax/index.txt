@@ -68,9 +68,9 @@ Net medical expenses tax offset inputs
 
 Income year 2018-19 2017-18 2016-17
 
-Net medical expenses for disability aids, attendant care or aged care (dollars and cents) Your adjusted taxable income for rebates (dollars and cents) Were you married on 30 June? No Yes
+Net medical expenses for disability aids, attendant care or aged care (dollars and cents) Your adjusted taxable income for rebates (dollars and cents) Did you have a spouse, married or de facto, on 30 June, or on the day of death? No Yes
 
-Dependent children
+Dependent children at any time in the year
 
 Net medical expenses are what you paid in the year for yourself or a dependant who was an Australian resident, less what a government, a public authority, or a society, association or fund, such as Medicare or a health fund, paid or must pay back for them (section 159P(1)). Only disability aids, attendant care for a person with a disability and aged care from an approved provider count. For a person who died in the year, give the spouse’s income on the day of death.
 
