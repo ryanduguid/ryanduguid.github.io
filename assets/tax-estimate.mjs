@@ -62,7 +62,9 @@ export function taxEstimate(r) {
  * comes off the total, which it can take below nil; an excess premium reduction is added to it
  * (Private Health Insurance Act 2007 s 282-18(6)). A foreign resident gets no private health
  * insurance offset here: the estimate does not test that every person insured is an eligible
- * person (ITAA 1997 s 61-205(1)(c)). The foreign income tax offset (s 63-10(1) item 22) comes off last;
+ * person (ITAA 1997 s 61-205(1)(c)). The foreign income tax offset (s 63-10(1) item 22) comes off last,
+ * and what the tax on taxable income cannot take comes off the Medicare levy and then the surcharge,
+ * never below nil (the ATO's Guide to foreign income tax offset rules 2026, 'About the FITO limit');
  * its worked limit takes this estimate's taxable income and its Medicare levy and surcharge as the
  * levy on that income (s 770-75(3)), and works only for a resident.
  * @template {{tax: number, offset: number, lmito: number, medicare: number, surcharge: number, studyLoan: number,
@@ -89,7 +91,7 @@ function withOffsets(base, r, o) {
   if (o.foreign) {
     const worked = o.foreign.limit_method === 'worked';
     if (worked && r.residency !== 'resident') {
-      refuse('input.field_unknown', 'The worked foreign income tax offset limit uses the resident rates; for a foreign resident '
+      refuse('foreign_income_tax_offset.worked_residency', 'The worked foreign income tax offset limit uses the resident rates; for a foreign resident '
         + 'or working holiday maker, give the income tax payable figures instead.');
     }
     foreign = foreignTaxOffset({ ...o.foreign, year: r.year, ...(worked ? { taxable_income: r.taxable,
@@ -102,11 +104,21 @@ function withOffsets(base, r, o) {
     return applied / 100;
   };
   const applied = { beneficiary: apply(benefit?.offset ?? 0), offset: apply(base.offset), lmito: apply(base.lmito),
-    carerOffset: apply(carer?.offset ?? 0), zoneOffset: apply(zone?.offset ?? 0), foreignOffset: apply(foreign?.offset ?? 0) };
-  const total = left + cents(base.medicare);
-  const assessed = total + cents(base.surcharge) + cents(base.studyLoan) + cents(privateHealth?.excess ?? 0)
+    carerOffset: apply(carer?.offset ?? 0), zoneOffset: apply(zone?.offset ?? 0) };
+  let unusedForeign = cents(foreign?.offset ?? 0);
+  const take = (/** @type {number} */ from) => {
+    const taken = Math.min(from, unusedForeign);
+    unusedForeign -= taken;
+    return taken;
+  };
+  const [fromTax, fromLevy] = [take(left), take(cents(base.medicare))];
+  const fromSurcharge = take(cents(base.surcharge));
+  left -= fromTax;
+  const total = left + cents(base.medicare) - fromLevy;
+  const assessed = total + cents(base.surcharge) - fromSurcharge + cents(base.studyLoan) + cents(privateHealth?.excess ?? 0)
     - cents(privateHealth?.offset ?? 0);
   const withheld = cents(base.withheld);
-  return { ...base, ...applied, netTax: left / 100, total: total / 100, assessed: assessed / 100,
+  return { ...base, ...applied, foreignOffset: (fromTax + fromLevy + fromSurcharge) / 100, foreignUnused: unusedForeign / 100,
+    netTax: left / 100, total: total / 100, assessed: assessed / 100,
     refund: (withheld - assessed) / 100, benefit, carer, zone, privateHealth, foreign };
 }
