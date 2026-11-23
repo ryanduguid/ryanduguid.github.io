@@ -219,12 +219,12 @@ async function publishCandidates(candidateDirectory, outputDirectory, outputs) {
       `.${output}.${process.pid}.${randomUUID()}.tmp`,
     ),
   }));
-  try {
+  // A promise's finally, not a try block: Codacy's ESLint rule security-node/detect-unhandled-async-errors
+  // crashes on a try without a catch, and that stops its analysis of other files.
+  await (async () => {
     for (const item of pending) await copyFile(item.candidate, item.temporary);
     for (const item of pending) await rename(item.temporary, item.final);
-  } finally {
-    await Promise.all(pending.map((item) => rm(item.temporary, { force: true })));
-  }
+  })().finally(() => Promise.all(pending.map((item) => rm(item.temporary, { force: true }))));
 }
 
 export async function renderSocialCards(browser, outputDirectory) {
@@ -241,7 +241,7 @@ export async function renderSocialCards(browser, outputDirectory) {
     viewport: { width: WIDTH, height: HEIGHT },
     deviceScaleFactor: 1,
   });
-  try {
+  return (async () => {
     const page = await context.newPage();
     for (const card of sources.cards) {
       const svg = renderSvg(sources.template, sources.fonts, card);
@@ -281,23 +281,20 @@ export async function renderSocialCards(browser, outputDirectory) {
     }
     await publishCandidates(candidateDirectory, path.resolve(outputDirectory), outputs);
     return outputs;
-  } finally {
-    await context.close();
-    await rm(candidateDirectory, { recursive: true, force: true });
-  }
+  })().finally(() => context.close()
+    .finally(() => rm(candidateDirectory, { recursive: true, force: true })));
 }
 
 async function runCli() {
   const outputDirectory = path.resolve(process.argv[2] || ASSETS);
   const browser = await chromium.launch();
-  try {
-    const outputs = await renderSocialCards(browser, outputDirectory);
-    console.log(
-      `Rendered ${outputs.length} cards with Chromium ${browser.version()} at device scale 1.`,
-    );
-  } finally {
-    await browser.close();
-  }
+  await renderSocialCards(browser, outputDirectory)
+    .then((outputs) => {
+      console.log(
+        `Rendered ${outputs.length} cards with Chromium ${browser.version()} at device scale 1.`,
+      );
+    })
+    .finally(() => browser.close());
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
