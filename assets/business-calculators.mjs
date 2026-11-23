@@ -638,3 +638,5 @@ export { asicFee, asicFeesResult, asicFeeFormInput, asicFeeInputsText, firstMont
 export { salaryDividend, salaryDividendResult } from './salary-dividend.mjs';
 export { firbApplicationFee, firbFee, foreignSurcharge, foreignSurchargeResult } from './foreign-surcharge.mjs';
 export { businessDays, businessDaysResult, parseHolidays } from './business-days.mjs';
+export { deferredTax, deferredTaxResult, deferredTaxFormInput, deferredTaxInputsText, DEFERRED_TAX_YEARS, DEFERRED_TAX_ROWS,
+  DEFERRED_TAX_MISMATCH } from './deferred-tax.mjs';

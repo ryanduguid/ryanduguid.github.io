@@ -767,6 +767,12 @@ Object.assign(INPUTS, { rentalProperty: (x) => calculations.rentalInputsText(x,
 Object.assign(ENGINE_LABELS, { rentalProperty: { grossRent: (v) => `gross rent ${dollars(v)}`,
   totalDeductions: (v) => `total deductions ${dollars(v)}`, netRent: (v) => `net rent ${dollars(v)}` } });
 
+// The deferred tax page's rows (its tests are with the page's other tests below).
+Object.assign(INPUTS, { deferredTax: (x) => calculations.deferredTaxInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { deferredTax: { deferredTaxLiability: 'deferred tax liability', deferredTaxAsset: 'deferred tax asset',
+  deferredTaxExpense: 'deferred tax expense', currentTax: 'current tax', incomeTaxExpense: 'income tax expense' } });
+
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
     test(`${page} official comparison states what this calculator returns`, () => {
@@ -1210,6 +1216,8 @@ Object.assign(FORM_CALLS, { lowValuePool: (f) => [calculations.poolFormInput((na
 Object.assign(FORM_CALLS, { wineEqualisationTax: (f) => [calculations.wetFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { rentalProperty: (f) => [calculations.rentalFormInput((name) => f[name] ?? '')] });
+
+Object.assign(FORM_CALLS, { deferredTax: (f) => [calculations.deferredTaxFormInput((name) => f[name] ?? '')] });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -6474,4 +6482,142 @@ test('the ATO penalties page refuses figures a JavaScript number cannot hold to 
   const parts = Array.from({ length: 100 }, () => ({ shortfall_amount: '1000000000000', behaviour: 'intentional_disregard', increase: true }));
   assert.equal(atoCode({ question: 'statement_penalty', year: '2025-26', statement_date: '2026-03-15', significant_global_entity: true, parts }), 'input.amount_invalid');
   assert.equal(atoCode({ question: 'statement_penalty', year: '2025-26', statement_date: '2026-03-15', significant_global_entity: true, parts: parts.slice(0, 1) }), 'computed');
+});
+
+// The deferred tax page: its example, the command it ports, the spec's vectors and boundaries, the refusals and the
+// form. The rules and vectors are the build 14 spec of 22 November 2026 (AASB 112, the March 2020 and September 2023
+// compilations; Income Tax Rates Act 1986 s 23(2); the ATO's company tax rate pages), its own figures.
+const deferredHtml = readFileSync(new URL('../_includes/calculators/deferred-tax.html', import.meta.url), 'utf8');
+const deferredAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const dtItem = (label, cls, carrying, base, openingCarrying, openingBase) => ({ label, class: cls, carrying_amount: carrying, tax_base: base,
+  opening_carrying_amount: openingCarrying, opening_tax_base: openingBase });
+const dtBase = (more) => ({ items: [dtItem('Plant', 'asset', '70000.00', '50000.00', '80000.00', '65000.00'),
+  dtItem('Leave provision', 'liability', '12000.00', '0.00', '10000.00', '0.00'), dtItem('Prepayment', 'asset', '3000.00', '0.00', '2000.00', '0.00')],
+unused_tax_losses: '0.00', opening_unused_tax_losses: '0.00', unrecognised_deductible: '0.00', opening_unrecognised_deductible: '0.00',
+unrecognised_used: '0.00', accounting_profit: '100000.00', non_deductible_expenses: '4000.00', non_assessable_income: '0.00',
+taxable_income: '100000.00', tax_offsets: '0.00', base_rate_entity: false, expected_rate: 'standard', opening_expected_rate: 'standard',
+business_combination: false, uncertain_tax_treatment: false, tax_consolidated_group: false, outside_profit_or_loss: false, year: '2025-26',
+scope_confirmed: true, ...more });
+const dtCode = (input) => {
+  try {
+    calculations.deferredTax(input);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+
+test('the deferred tax page opens on 3 items at 30% and dates its sources', () => {
+  const example = deferredHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(deferredHtml);
+  const result = calculations.deferredTaxResult((name) => fields[name] ?? '', deferredAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  for (const cited of ['aasb-112-sep-2023', 'AASB112_08-15_COMPmar20_07-21.pdf', 'AASB18_06-24_AppendixD_0.pdf', 'ad-aasb-112-12-12-dec-2012',
+    'C2004A03348/2026-07-01', 'tax-rates-201112-to-202021', 'tax-rates-2025-26', 'read 22 November 2026']) {
+    assert.ok(deferredHtml.includes(cited), cited);
+  }
+});
+
+test('the deferred tax worksheet agrees with the australian-accounting command on every differential case', () => {
+  const { engine, cases } = JSON.parse(readFileSync(new URL('./deferred-tax-engine-differential.json', import.meta.url), 'utf8'));
+  assert.match(engine, /58076d30b6dc9aa4a0a8135c322770b257871481/);
+  assert.equal(cases.filter((c) => c.source.startsWith('AA test')).length, 89);
+  assert.equal(cases.length, 389);
+  let refused = 0;
+  for (const { source, command, call, refused: code, ...want } of cases) {
+    assert.equal(command, 'deferred-tax');
+    if (code) {
+      refused += 1;
+      assert.equal(dtCode(call), code, source);
+      continue;
+    }
+    const r = calculations.deferredTax(call);
+    assert.deepEqual(Object.fromEntries(Object.keys(want).map((key) => [key, r[key]])), want, source);
+    assert.deepEqual(Object.keys(r.amounts), Object.keys(want.amounts), source);
+  }
+  assert.equal(refused, 166);
+});
+
+test('the deferred tax worksheet works the spec’s vectors', () => {
+  const v1 = calculations.deferredTax(dtBase({}));
+  assert.deepEqual([v1.amounts.taxable_temporary_differences, v1.amounts.deductible_temporary_differences, v1.amounts.net_deferred_tax_liability,
+    v1.amounts.origination_and_reversal, v1.rates.effective_tax_rate], ['23000.00', '12000.00', '3300.00', '1200.00', '0.3120']);
+  assert.deepEqual(v1.warnings, []);
+  // V4: taxable income $1,000 short of what the inputs explain.
+  const v4 = calculations.deferredTax(dtBase({ taxable_income: '99000.00' }));
+  assert.deepEqual([v4.amounts.taxable_income_difference, v4.amounts.reconciliation_difference], ['-1000.00', '-300.00']);
+  assert.deepEqual(v4.warnings, [calculations.DEFERRED_TAX_MISMATCH]);
+  // V2 with the losses used: recognition -$1,250 and the used amount's -$3,750 line.
+  const v2 = calculations.deferredTax(dtBase({ year: '2024-25', base_rate_entity: true, expected_rate: 'base_rate_entity',
+    items: [dtItem('Equipment', 'asset', '40000.00', '30000.00', '50000.00', '45000.00')], unused_tax_losses: '5000.00',
+    opening_unused_tax_losses: '20000.00', opening_unrecognised_deductible: '20000.00', unrecognised_used: '15000.00', accounting_profit: '30000.00',
+    non_deductible_expenses: '0.00', non_assessable_income: '2000.00', taxable_income: '8000.00' }));
+  assert.deepEqual(['rate_change_effect', 'recognition_change_effect', 'origination_and_reversal', 'unrecognised_used_effect', 'reconciliation_difference']
+    .map((id) => v2.amounts[id]), ['-250.00', '-1250.00', '1250.00', '-3750.00', '0.00']);
+  assert.equal(v2.rates.effective_tax_rate, '0.0583');
+  // The spec's rounding vector: each line rounded to the cent leaves 2 cents.
+  const cents = calculations.deferredTax(dtBase({ year: '2020-21', base_rate_entity: true, expected_rate: 'base_rate_entity',
+    items: [dtItem('Asset', 'asset', '10000.02', '0.00', '0.00', '0.00'), dtItem('Liability', 'liability', '2000.01', '0.00', '0.00', '0.00')],
+    accounting_profit: '50000.01', non_deductible_expenses: '1000.01', non_assessable_income: '500.02', taxable_income: '42499.99' }));
+  assert.deepEqual([cents.amounts.taxable_income_difference, cents.amounts.reconciliation_difference], ['0.00', '0.02']);
+  // V6: a liability's tax base above its carrying amount is taxable.
+  assert.equal(calculations.deferredTax(dtBase({ items: [dtItem('Income', 'liability', '1000.00', '1600.00', '0.00', '0.00')] })).items[0]
+    .temporary_difference, '600.00');
+});
+
+test('the deferred tax worksheet turns on the year, the rates and a nil profit', () => {
+  const rate = (year, bre) => calculations.deferredTax(dtBase({ year, base_rate_entity: bre })).rates.applicable_rate;
+  assert.deepEqual([rate('2020-21', true), rate('2021-22', true), rate('2026-27', true), rate('2020-21', false)], ['0.26', '0.25', '0.25', '0.30']);
+  assert.deepEqual(['2019-20', '2027-28'].map((year) => dtCode(dtBase({ year }))), ['period.unsupported', 'period.unsupported']);
+  assert.equal('effective_tax_rate' in calculations.deferredTax(dtBase({ accounting_profit: '-0' })).rates, false);
+  // A nil expense over a loss keeps the quotient's sign, as the command writes it.
+  const nil = calculations.deferredTax(dtBase({ items: [dtItem('Cash', 'asset', '1.00', '1.00', '1.00', '1.00')], accounting_profit: '-100.00',
+    non_deductible_expenses: '0.00', taxable_income: '0.00' }));
+  assert.equal(nil.rates.effective_tax_rate, '-0.0000');
+  // The rate change is accepted when the year's rate is the closing rate, or the opening balances are nil.
+  const change = { year: '2021-22', expected_rate: 'base_rate_entity' };
+  assert.equal(dtCode(dtBase({ ...change, base_rate_entity: true })), 'computed');
+  assert.equal(dtCode(dtBase(change)), 'deferred_tax.rate_change_unscheduled');
+  assert.equal(dtCode(dtBase({ ...change, items: [dtItem('New', 'asset', '10.00', '0.00', '0.00', '0.00')] })), 'computed');
+});
+
+test('the deferred tax worksheet refuses as the command does, in its order', () => {
+  assert.equal(dtCode(dtBase({ surplus: '1', year: '2019-20' })), 'input.field_unknown');
+  const missing = dtBase({ year: '2019-20' });
+  delete missing.tax_offsets;
+  assert.equal(dtCode(missing), 'input.missing_field');
+  assert.equal(dtCode(dtBase({ taxable_income: '1e3', scope_confirmed: false })), 'input.decimal_unreadable');
+  assert.equal(dtCode(dtBase({ scope_confirmed: false, business_combination: true })), 'scope.not_confirmed');
+  assert.equal(dtCode(dtBase({ business_combination: true, uncertain_tax_treatment: true, items: [] })), 'deferred_tax.business_combination');
+  assert.equal(dtCode(dtBase({ outside_profit_or_loss: true, items: [] })), 'deferred_tax.outside_profit_or_loss');
+  for (const items of [[], {}, [{ label: ' ', class: 'asset', carrying_amount: '1', tax_base: '1', opening_carrying_amount: '1', opening_tax_base: '1' }],
+    [dtItem('A', 'equity', '1', '1', '1', '1')], [dtItem('A', 'asset', '1.001', '1', '1', '1')], [dtItem('A', 'asset', '-1', '1', '1', '1')],
+    [{ ...dtItem('A', 'asset', '1', '1', '1', '1'), note: 'x' }], [dtItem('x'.repeat(201), 'asset', '1', '1', '1', '1')]]) {
+    assert.equal(dtCode(dtBase({ items, base_rate_entity: 'yes' })), 'deferred_tax.item_invalid', JSON.stringify(items).slice(0, 60));
+  }
+  assert.equal(dtCode(dtBase({ items: [dtItem('A', 'asset', ' 1 ', '-0', '1', '1')] })), 'computed');
+  assert.equal(dtCode(dtBase({ base_rate_entity: 'yes', expected_rate: 'high' })), 'input.flag_invalid');
+  assert.equal(dtCode(dtBase({ expected_rate: 'high' })), 'deferred_tax.expected_rate_invalid');
+  assert.equal(dtCode(dtBase({ year: '2020-21', opening_expected_rate: 'base_rate_entity', unused_tax_losses: '-1' })), 'deferred_tax.opening_rate_unscheduled');
+  assert.equal(dtCode(dtBase({ unused_tax_losses: '-1', accounting_profit: '1.001' })), 'input.amount_invalid');
+  assert.equal(dtCode(dtBase({ accounting_profit: '1.001' })), 'input.signed_amount_invalid');
+  assert.equal(dtCode(dtBase({ accounting_profit: '-1000000000000.00' })), 'computed');
+  assert.equal(dtCode(dtBase({ unrecognised_used: '0.01', unrecognised_deductible: '99999999' })), 'deferred_tax.unrecognised_used_above_opening');
+  assert.equal(dtCode(dtBase({ unrecognised_deductible: '12000.01' })), 'deferred_tax.unrecognised_above_deductible');
+  assert.equal(dtCode(dtBase({ unrecognised_deductible: '12000.00' })), 'computed');
+  assert.equal(dtCode(dtBase({ tax_offsets: '30000.01' })), 'deferred_tax.offsets_above_tax');
+});
+
+test('the deferred tax form sends the rows with a name or an amount, in order', () => {
+  const fields = formDefaults(deferredHtml);
+  const form = (more) => calculations.deferredTaxFormInput((name) => ({ ...fields, ...more })[name] ?? '');
+  assert.deepEqual(form({}).items.map((it) => it.label), ['Plant', 'Leave provision', 'Prepayment']);
+  assert.deepEqual(form({ 'item-2-label': '', 'item-2-carrying': '', 'item-2-base': '', 'item-2-opening-carrying': '', 'item-2-opening-base': '',
+    'item-5-label': 'Lease' }).items.map((it) => it.label), ['Plant', 'Prepayment', 'Lease']);
+  assert.throws(() => calculations.deferredTaxResult((name) => ({ ...fields, 'item-4-carrying': '5' })[name] ?? '', deferredAud),
+    { code: 'deferred_tax.item_invalid' });
+  const result = calculations.deferredTaxResult((name) => ({ ...fields, 'taxable-income': '99000' })[name] ?? '', deferredAud);
+  assert.match(result.note, /do not explain taxable income/);
+  assert.deepEqual(result.tables.reconciliation.at(-2), ['Difference left', '-$300.00']);
+  assert.deepEqual(result.tables.differences[1], ['Leave provision', 'liability', '-$12,000.00', 'deductible', '-$10,000.00']);
 });

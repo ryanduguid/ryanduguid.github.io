@@ -1169,6 +1169,28 @@ test('super lump sum tax page works its example, a death benefit and a refusal o
 });
 
 // Spec G9 is the form's default; the failure to lodge question shows its 28-day periods, and remission is refused.
+// The form opens on 3 items at 30%; a fourth item and a business combination change the result.
+test('Deferred tax page works its example, a further item and refuses a business combination offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/deferred-tax/');
+  const form = page.locator('#deferred-tax form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Income tax expense: $31,200.00.');
+  await expect(form.locator('table[data-results="differences"] tbody tr')).toHaveCount(3);
+  await form.locator('[name="item-4-label"]').fill('Lease liability');
+  await form.locator('[name="item-4-class"]').selectOption('liability');
+  for (const [field, value] of [['carrying', '5000'], ['base', '0'], ['opening-carrying', '0'], ['opening-base', '0']]) {
+    await form.locator(`[name="item-4-${field}"]`).fill(value);
+  }
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Income tax expense: $29,700.00.');
+  await expect(form.locator('table[data-results="differences"] tbody tr')).toHaveCount(4);
+  await form.locator('[name="business-combination"]').selectOption('yes');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('business combination');
+});
+
 test('ATO penalties and interest page works GIC by quarter, a failure to lodge penalty and refuses remission offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/ato-penalties-interest/');
   const form = page.locator('#ato-penalties-interest form');
@@ -1671,7 +1693,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'termination-payment', 'transfer-duty', 'first-home-owner-grant', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
-  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property'];
+  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'deferred-tax'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

@@ -62,6 +62,7 @@ const salaryDividend = { ...business, file: 'assets/salary-dividend.mjs' };
 const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
+const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
 const fhog = { ...business, file: 'assets/first-home-owner-grant.mjs' };
 const sbt = { ...business, file: 'assets/super-benefit-tax.mjs' };
@@ -956,6 +957,18 @@ const MUTATIONS = [
   { ...pools, name: 'Capital works over 366 days', find: 'const reducedBottom = rateDivisor * 365n * scale;', replace: 'const reducedBottom = rateDivisor * 366n * scale;' },
   { ...pools, name: 'Capital works 4% allowed before 27 February 1992', find: 'if (four && before1992) {', replace: 'if (false) {' },
   { ...pools, name: 'Capital works taxable use ignored', find: 'const reducedTop = product * use;', replace: 'const reducedTop = product * scale;' },
+  { ...deferredTaxEngine, name: 'Deferred tax liability differences signed as assets', find: 'const closing = liability ? base - carrying : carrying - base;', replace: 'const closing = carrying - base;' },
+  { ...deferredTaxEngine, name: 'Deferred tax asset not reduced by unrecognised amounts', find: 'const asset = at(deductible + losses - unrecognised, closingRate);', replace: 'const asset = at(deductible + losses, closingRate);' },
+  { ...deferredTaxEngine, name: 'Deferred tax opening liability at the closing rate', find: 'const openingLiability = at(openingTaxable, openingRate);', replace: 'const openingLiability = at(openingTaxable, closingRate);' },
+  { ...deferredTaxEngine, name: 'Deferred tax 2020-21 base rate entity at 25%', find: '(!bre ? 30n : year === \'2020-21\' ? 26n : 25n)', replace: '(!bre ? 30n : 25n)' },
+  { ...deferredTaxEngine, name: 'Deferred tax rate change without opening unrecognised', find: '(openingNet + openingUnrecognised) * (closingRate - openingRate)', replace: 'openingNet * (closingRate - openingRate)' },
+  { ...deferredTaxEngine, name: 'Deferred tax recognition change without amounts used', find: 'at(unrecognised - openingUnrecognised + used, closingRate)', replace: 'at(unrecognised - openingUnrecognised, closingRate)' },
+  { ...deferredTaxEngine, name: 'Deferred tax offsets not deducted', find: 'const current = before - offsets;', replace: 'const current = before;' },
+  { ...deferredTaxEngine, name: 'Deferred tax reconciliation without the rate gap', find: 'halfUp(change * (closingRate - applicable), 100n)', replace: '0n' },
+  { ...deferredTaxEngine, name: 'Deferred tax effective rate truncated', find: 'const ratio = halfUp(expense * 10000n, profit);', replace: 'const ratio = expense * 10000n / profit;' },
+  { ...deferredTaxEngine, name: 'Deferred tax unscheduled rate change accepted', find: 'if (openingRate !== closingRate && applicable !== closingRate && (openingLiability !== 0n || openingAsset !== 0n)) {', replace: 'if (false) {' },
+  { ...deferredTaxEngine, name: 'Deferred tax half up taken as half down', find: 'const q = (2n * a + b) / (2n * b);', replace: 'const q = (2n * a + b - 1n) / (2n * b);' },
+  { ...deferredTaxEngine, name: 'Deferred tax unrecognised above deductible allowed', find: 'if (unrec > ded + loss) {', replace: 'if (unrec > ded + loss + 1000000n) {' },
   { ...asic, name: 'ASIC month counted from the due date itself', find: 'const start = new Date((due + 1) * DAY);', replace: 'const start = new Date(due * DAY);' },
   { ...asic, name: 'ASIC month ends on the same day number next month', find: 'if (corresponding <= length) return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), corresponding) / DAY - 1;', replace: 'if (corresponding <= length) return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), Math.min(new Date(due * DAY).getUTCDate(), length)) / DAY;' },
   { ...asic, name: 'ASIC month with no corresponding day ends a day early', find: 'return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), length) / DAY;', replace: 'return Date.UTC(next.getUTCFullYear(), next.getUTCMonth(), length) / DAY - 1;' },
@@ -1114,6 +1127,7 @@ const SHARED = [
   'scripts/fuel-tax-credits-engine-differential.json',
   'scripts/luxury-car-tax-engine-differential.json',
   'scripts/depreciation-pools-engine-differential.json',
+  'scripts/deferred-tax-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',
   'scripts/borrowing-expenses-engine-differential.json',
   'scripts/wine-equalisation-tax-engine-differential.json',
