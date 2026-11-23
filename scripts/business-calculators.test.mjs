@@ -4375,7 +4375,7 @@ test('the long service leave page opens on the result its calculation gives, and
 test('long service leave becomes available on the day each Act’s qualifying period completes, not the day before', () => {
   // Each Act's full entitlement at its qualifying period: 8 2/3 weeks for 10 years in NSW, Qld, WA
   // and Tas; 13 weeks in SA and the NT; 1/60th of 2,557 days in Victoria; 7 × 1/5 of a month in the ACT.
-  for (const [place, years, weeks, value] of [['AU-NSW', 10, 8.6667, 13000], ['AU-VIC', 7, 6.0881, 9132.14], ['AU-QLD', 10, 8.6667, 13000],
+  for (const [place, years, weeks, value] of [['AU-NSW', 10, 8.6667, 13000], ['AU-VIC', 7, 6.0881, 9132.14], ['AU-QLD', 10, 8.6667, 13000.05],
     ['AU-WA', 10, 8.6667, 13000], ['AU-SA', 10, 13, 19500], ['AU-TAS', 10, 8.6667, 13000], ['AU-ACT', 7, 6.0667, 9100], ['AU-NT', 10, 13, 19500]]) {
     const last = `${2015 + years}-12-31`;
     assert.deepEqual([lsl({ place, end: `${2015 + years}-12-30` }).weeks, lsl({ place, end: last }).weeks, lsl({ place, end: last }).value],
@@ -4479,9 +4479,39 @@ test('long service leave words each Act’s misconduct test and states the condi
     `value="misconduct" /> Dismissal for serious misconduct ${wilful}`]) {
     assert.ok(lslHtml.includes(label), label);
   }
-  // SA s 5(4)(b): leaving without the required notice is an unlawful termination only where the notice was required.
-  assert.ok(ends('AU-SA', 'no-notice').rule.endsWith('if the employer waived the notice, choose resignation'));
   assert.ok(ends('AU-SA', 'resign').weeks > 0);
+});
+
+test('long service leave refuses the endings and transitions an Act leaves to facts the page does not ask', () => {
+  // Qld s 95(4)(d): a fixed term ending before 10 years pays only on 2 facts the page does not take. Under 7 years nothing is payable either way.
+  assert.throws(() => lsl({ place: 'AU-QLD', start: '2017-01-01', end: '2025-12-31', mode: 'ends', reason: 'fixed-term' }),
+    { message: /^Under 10 years, paragraph 95\(4\)\(d\) pays on a fixed term ending only if/ });
+  assert.equal(lsl({ place: 'AU-QLD', start: '2020-01-01', end: '2025-12-31', mode: 'ends', reason: 'fixed-term' }).weeks, 0);
+  assert.equal(lsl({ place: 'AU-QLD', start: '2015-01-01', end: '2025-12-31', mode: 'ends', reason: 'fixed-term' }).weeks, 9.5334);
+  // SA s 5(4)(b): leaving without the required notice may or may not be an unlawful termination by the worker.
+  assert.throws(() => lsl({ place: 'AU-SA', start: '2018-01-01', end: '2025-06-30', mode: 'ends', reason: 'no-notice' }),
+    { message: /^Under 10 years, paragraph 5\(4\)\(b\) pays nothing if the worker unlawfully terminated the contract/ });
+  assert.equal(lsl({ place: 'AU-SA', start: '2013-01-01', end: '2025-06-30', mode: 'ends', reason: 'no-notice' }).weeks, 15.6);
+  // Tas Schedule 3 cl 2(4): leave taken with service from before 1 July 2012 may have used up a period's old entitlement.
+  for (const mode of ['employed', 'ends']) {
+    assert.throws(() => lsl({ place: 'AU-TAS', start: '2012-06-30', end: '2025-12-31', taken: '1', mode }),
+      { message: /^Tasmania’s Schedule 3 clause 2\(4\) gives no new leave/ }, mode);
+    assert.equal(lsl({ place: 'AU-TAS', start: '2012-07-01', end: '2025-12-31', taken: '1', mode }).taken, 1, mode);
+  }
+  assert.equal(lsl({ place: 'AU-TAS', start: '2012-06-30', end: '2025-12-31' }).weeks, 8.6667);
+  assert.equal(lsl({ place: 'AU-NSW', start: '2012-06-30', end: '2025-12-31', taken: '1' }).taken, 1);
+});
+
+test('Queensland pays the 8.6667 weeks subsection 95(2) and (7) state, not 8 2/3', () => {
+  // Business Queensland's 18 years, 3 months and 16 days: 15.8548 weeks either way, $23,782.23 on the Act's figure.
+  assert.equal(lsl({ place: 'AU-QLD', start: '2007-01-01', end: '2025-04-16' }).value, 23782.23);
+  const later = lsl({ place: 'AU-QLD', start: '2010-01-01', end: '2026-06-30' });
+  assert.deepEqual([later.weeks, later.value], [14.3001, 21450.08]);
+  // Pro rata at 8 years for a redundancy: 8 × 8.6667 / 10 weeks.
+  const redundancy = lsl({ place: 'AU-QLD', start: '2018-01-01', end: '2025-12-31', mode: 'ends' });
+  assert.deepEqual([redundancy.weeks, redundancy.value, redundancy.rule], [6.9334, 10400.04, 'Pro rata on 8.6667 weeks for 10 years, subsection 95(4)']);
+  const twelve = lsl({ place: 'AU-QLD', start: '2014-01-01', end: '2025-12-31' });
+  assert.deepEqual([twelve.value, twelve.next], [13000.05, { years: 15, date: '2028-12-31', weeks: 13.0001 }]);
 });
 
 // The franking account page: how each call and result reads. Its rules come from ITAA 1997 Division 205,
