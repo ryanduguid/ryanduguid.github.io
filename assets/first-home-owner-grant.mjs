@@ -8,11 +8,16 @@ import { number } from './money.mjs';
 // lists the sources):
 // - NSW: First Home Owner Grant and Shared Equity Act 2000 No 21: $10,000 from 1 January 2016;
 //   eligibility caps of $600,000 for a home bought and $750,000 for a home built.
-// - Vic: State Revenue Office: $10,000 from 1 July 2013 for a home worth up to $750,000.
+// - Vic: State Revenue Office: $10,000 from 1 July 2013 for a home worth up to $750,000; First Home Owner
+//   Grant and Home Buyer Schemes Act 2000 (authorised version 053, read 24 November 2026) s 18(1A): the lesser
+//   of the consideration and $10,000; s 13(1A) and (7)(b): the $750,000 cap on a home built is on the
+//   building work's consideration alone, so a land and building total over it is not computed.
 // - Qld: First Home Owner Grant and Other Home Owner Grants Act 2000 s 20: the lesser of the
 //   consideration and $30,000; s 5(6) to (8): not eligible at $750,000 or more.
 // - WA: Department of Treasury and Finance fact sheet as at 28 July 2026: $10,000; caps of $750,000
-//   south and $1,000,000 north of the 26th parallel to 6 May 2026, $800,000 south from 7 May 2026.
+//   south and $1,000,000 north of the 26th parallel to 6 May 2026, $800,000 south from 7 May 2026;
+//   First Home Owner Grant Act 2000 (as at 22 October 2026, read 24 November 2026) s 19(2CA): the lesser of
+//   $10,000 and the consideration.
 // - SA: RevenueSA: $15,000 but not more than the consideration; no cap from 6 June 2024.
 // - Tas: First Home Owner Grant Act 2000 (authorised version as at 9 October 2026) s 18: the lesser
 //   of the consideration and $30,000 from 1 July 2025 to 30 June 2026 (s 18L) or $20,000 from 1 July
@@ -20,7 +25,9 @@ import { number } from './money.mjs';
 //   Commissioner extends, that replaces no transaction for the same property between or benefiting
 //   substantially the same parties entered before the 1 July starting its period; s 7 sets no value cap. The State Revenue Office's table gives the same amounts.
 // - NT: HomeGrown Territory Grant: $50,000 for contracts from 1 October 2024 to 30 September 2027,
-//   with no cap.
+//   with no cap; First Home Owner Grant Act 2000 (as in force at 1 July 2026, read 24 November 2026)
+//   s 18(1): the lesser of the consideration and the amount; s 13(1)(a)(iii) and s 18(3D)(b): $10,000
+//   for an established home bought from 1 October 2024 to 30 September 2025; s 13(1)(a)(iv): a new home only after.
 // - ACT: ACT Revenue Office: no grant from 1 July 2019.
 
 export const FHOG_FIRST = '2025-07-01';
@@ -36,26 +43,28 @@ const FACT_NAMES = { person: 'every applicant is a person aged 18 or over', citi
   contract: 'the building contract price is at least the grant', nt: 'the contract replaces none signed before 1 October 2024',
   tas: 'the transaction completes within 24 months or a period the Commissioner extends, and replaces no transaction for the same property, between or benefiting substantially the same parties, entered into before 1 July 2025 (for a 2025-26 contract) or 1 July 2026 (for a 2026-27 contract)' };
 
-/** @typedef {{from: string, to: string, amount: number, bought?: number, built?: number, north?: number, lesser?: boolean}} GrantRule
- * `bought`, `built` and `north` are the highest eligible whole-dollar value; a rule without them has no cap. */
+/** @typedef {{from: string, to: string, amount: number, established?: number, bought?: number, built?: number, north?: number, lesser?: boolean}} GrantRule
+ * `bought`, `built` and `north` are the highest eligible whole-dollar value; a rule without them has no cap.
+ * `established` is the amount for an established home; a rule without it pays none. */
 /** @type {Record<string, {name: string, residence: string, rules: GrantRule[]}>} */
 export const FHOG = {
   'AU-NSW': { name: 'New South Wales', residence: 'each applicant lives in the home for 12 continuous months, starting within 12 months',
     rules: [{ from: '2016-01-01', to: '9999-12-31', amount: 10000, bought: 600000, built: 750000 }] },
   'AU-VIC': { name: 'Victoria', residence: 'at least one applicant lives in the home for 12 months, starting within 12 months',
-    rules: [{ from: '2013-07-01', to: '9999-12-31', amount: 10000, bought: 750000, built: 750000 }] },
+    rules: [{ from: '2013-07-01', to: '9999-12-31', amount: 10000, bought: 750000, built: 750000, lesser: true }] },
   // $750,000 or more is not eligible, so the highest whole-dollar value is $749,999.
   'AU-QLD': { name: 'Queensland', residence: 'each applicant lives in the home for 6 continuous months, starting within 1 year',
     rules: [{ from: '2023-11-20', to: '9999-12-31', amount: 30000, bought: 749999, built: 749999, lesser: true }] },
   'AU-WA': { name: 'Western Australia', residence: 'each applicant lives in the home for 6 continuous months, starting within 12 months',
-    rules: [{ from: '2000-07-01', to: '2026-05-06', amount: 10000, bought: 750000, built: 750000, north: 1000000 },
-      { from: '2026-05-07', to: '9999-12-31', amount: 10000, bought: 800000, built: 800000, north: 1000000 }] },
+    rules: [{ from: '2000-07-01', to: '2026-05-06', amount: 10000, bought: 750000, built: 750000, north: 1000000, lesser: true },
+      { from: '2026-05-07', to: '9999-12-31', amount: 10000, bought: 800000, built: 800000, north: 1000000, lesser: true }] },
   'AU-SA': { name: 'South Australia', residence: 'all applicants live in the home for 6 continuous months, starting within 12 months',
     rules: [{ from: '2024-06-06', to: '9999-12-31', amount: 15000, lesser: true }] },
   'AU-TAS': { name: 'Tasmania', residence: 'each applicant lives in the home for 6 continuous months, starting within 12 months',
     rules: [{ from: '2025-07-01', to: '2026-06-30', amount: 30000, lesser: true }, { from: '2026-07-01', to: '2027-06-30', amount: 20000, lesser: true }] },
   'AU-NT': { name: 'Northern Territory', residence: 'the applicants live in the home for at least 12 months after taking possession or completion',
-    rules: [{ from: '2024-10-01', to: '2027-09-30', amount: 50000 }] },
+    rules: [{ from: '2024-10-01', to: '2025-09-30', amount: 50000, established: 10000, lesser: true },
+      { from: '2025-10-01', to: '2027-09-30', amount: 50000, lesser: true }] },
   'AU-ACT': { name: 'Australian Capital Territory', residence: 'none, as no grant is paid', rules: [{ from: '2019-07-01', to: '9999-12-31', amount: 0 }] },
 };
 
@@ -91,20 +100,27 @@ export function firstHomeOwnerGrant({ place, date, home, value, north, facts }) 
   const rule = scheme.rules.find((r) => r.from <= date && date <= r.to);
   if (!rule) throw new Error(`Not computed: no ${scheme.name} grant rule covers that date.`);
   if (rule.amount === 0) return { ...out, grant: 0, cap: 'none', reason: `the ${scheme.name} has paid none since ${longDate(rule.from)}` };
-  if (home === 'established') return { ...out, grant: 0, cap: 'none', reason: 'the grant is for a new home only' };
+  const amount = home === 'established' ? rule.established ?? 0 : rule.amount;
+  if (amount === 0) return { ...out, grant: 0, cap: 'none', reason: 'the grant is for a new home only' };
   const unstated = FHOG_CASE_FACTS.filter((f) => facts?.[f] !== true
     && (f === 'contract' ? home === 'built' : place === (f === 'nt' ? 'AU-NT' : 'AU-TAS')));
   if (unstated.length) throw new Error(`Not computed: the ${scheme.name} grant for this home needs another fact stated: ${unstated.map((f) => FACT_NAMES[f]).join('; ')}.`);
   if (place === 'AU-WA' && typeof north !== 'boolean') throw new Error('Not computed: choose where the Western Australian home is, south or north of the 26th parallel.');
-  const limit = place === 'AU-WA' && north ? rule.north : rule[/** @type {'bought' | 'built'} */ (home)];
+  // The NT's established home rule has no cap, and only the NT pays for an established home.
+  const limit = place === 'AU-WA' && north ? rule.north : home === 'established' ? undefined : rule[/** @type {'bought' | 'built'} */ (home)];
   const cap = limit === undefined ? 'none' : place === 'AU-QLD' ? 'under $750,000' : `up to ${whole(limit)}`;
-  if (limit !== undefined && dollars > limit) return { ...out, grant: 0, cap, reason: place === 'AU-QLD' ? 'the value is $750,000 or more' : `the value is over the ${scheme.name} cap` };
-  if (dollars < rule.amount) {
-    if (home === 'built') throw new Error(`Not computed: a total value below the ${whole(rule.amount)} grant cannot hold a building contract price of at least the grant.`);
-    if (!rule.lesser) throw new Error(`Not computed: a value below the ${whole(rule.amount)} grant; the ${scheme.name} rule for that case was not confirmed.`);
+  if (limit !== undefined && dollars > limit) {
+    if (place === 'AU-VIC' && home === 'built') {
+      throw new Error('Not computed: the Victorian cap applies to the consideration for the building work (First Home Owner Grant and Home Buyer Schemes Act 2000 (Vic) s 13(1A) and (7)(b)), not the land and building total entered.');
+    }
+    return { ...out, grant: 0, cap, reason: place === 'AU-QLD' ? 'the value is $750,000 or more' : `the value is over the ${scheme.name} cap` };
+  }
+  if (dollars < amount) {
+    if (home === 'built') throw new Error(`Not computed: a total value below the ${whole(amount)} grant cannot hold a building contract price of at least the grant.`);
+    if (!rule.lesser) throw new Error(`Not computed: a value below the ${whole(amount)} grant; the ${scheme.name} rule for that case was not confirmed.`);
     return { ...out, grant: dollars, cap, reason: 'the grant cannot be more than the consideration' };
   }
-  return { ...out, grant: rule.amount, cap, reason: '' };
+  return { ...out, grant: amount, cap, reason: '' };
 }
 
 /** The engine's input from the form: `value` gives a field's value and `checked` a checkbox's state.
