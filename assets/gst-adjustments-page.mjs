@@ -72,7 +72,7 @@ export function gstFormInput(value) {
       farm_land: yes('gc-farm-land'), part_outside_arrangement: yes('gc-part-outside'), ...common } };
   }
   if (worksheet === 'second-hand-goods') {
-    const over = /^\d+(\.\d+)?$/.test(value('shg-consideration').trim()) && Number(value('shg-consideration')) > 300;
+    const over = /^\d+(\.\d+)?$/.test(value('shg-consideration').trim()) && Number(value('shg-consideration')) > 300; // eslint-disable-line security/detect-unsafe-regex -- anchored, with no repetition over overlapping characters: linear
     return { worksheet, input: { consideration: value('shg-consideration'), acquired_for_sale_or_exchange: yes('shg-for-sale'),
       animals_or_plants: yes('shg-animals'), supply_to_you: value('shg-supply'), imported: yes('shg-imported'), by_way_of_hire: yes('shg-hire'),
       resupply_taxable: yes('shg-resupply-taxable'), divided_for_resupply: yes('shg-divided'), valuable_metal: yes('shg-metal'),
@@ -95,7 +95,7 @@ const WORDS = /** @type {Record<string, string>} */ ({ registered: 'registered',
   taxable: 'taxable', gst_free: 'GST-free', written_off: 'written off', overdue_12_months: 'overdue 12 months', recovered: 'recovered',
   supplier: 'supplier', recipient: 'recipient' });
 /** @param {unknown} v */
-const word = (v) => (typeof v === 'string' ? WORDS[v] ?? v.replaceAll('_', ' ') : String(v));
+const word = (v) => (typeof v === 'string' ? WORDS[v] ?? v.replaceAll('_', ' ') : String(v)); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
 
 /** How the page writes each worksheet's input.
  * @param {string} worksheet @param {Record<string, any>} x @param {(value: number) => string} aud */
@@ -134,7 +134,7 @@ export function gstInputsText(worksheet, x, aud) {
         + `${money(x.resupply_gst)}` : ''}`;
   }
   const extent = [['taxable_proportion', 'taxable proportion'], ['creditable_purpose', 'creditable purpose'],
-    ['consideration_extent', 'consideration provided']].filter(([k]) => k in x).map(([k, label]) => `, ${label} ${fractionPercent(x[k])}`).join('');
+    ['consideration_extent', 'consideration provided']].filter(([k]) => k in x).map(([k, label]) => `, ${label} ${fractionPercent(x[k])}`).join(''); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   return `${x.year} bad debt; ${word(x.party)}, ${word(x.event)}, ${money(x.amount)}, ${yn(x.taxable_or_creditable, x.party === 'supplier'
     ? 'a taxable supply' : 'a creditable acquisition')}, ${yn(x.cash_basis, 'cash basis')}, special rule ${word(x.special_rule)}${'attributed' in x
     ? `, ${yn(x.attributed, 'attributed')}` : ''}${'prior_adjustment' in x ? `, ${yn(x.prior_adjustment, 'earlier adjustment made')}` : ''}${
@@ -147,8 +147,9 @@ export function gstInputsText(worksheet, x, aud) {
 export function gstAdjustment(worksheet, input) {
   if (!Object.hasOwn(ENGINES, worksheet)) refuse('input.field_unknown', `${worksheet} is not a worksheet of this calculator.`);
   // nosemgrep: javascript.lang.security.audit.unsafe-dynamic-method.unsafe-dynamic-method -- the worksheet is checked against ENGINES' own keys above
-  const r = /** @type {Record<string, any>} */ (ENGINES[/** @type {GstWorksheet} */ (worksheet)](input));
-  const amount = (/** @type {string} */ id) => (id in r.amounts ? Number(r.amounts[id]) : null);
+  // nosemgrep: javascript.lang.security.audit.unsafe-dynamic-method.unsafe-dynamic-method -- the worksheet is checked against ENGINES' own keys above
+  const r = /** @type {Record<string, any>} */ (ENGINES[/** @type {GstWorksheet} */ (worksheet)](input)); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
+  const amount = (/** @type {string} */ id) => (id in r.amounts ? Number(r.amounts[id]) : null); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   if (worksheet === 'creditable-purpose') {
     const [inc, dec] = [amount('increasing_adjustment') ?? 0, amount('decreasing_adjustment') ?? 0];
     return { ...r, outcome: inc ? 'increasing adjustment' : dec ? 'decreasing adjustment' : 'no adjustment', amount: inc || dec };
@@ -169,7 +170,7 @@ export function gstAdjustment(worksheet, input) {
 export function gstAdjustmentsResult(value, aud) {
   const { worksheet, input } = gstFormInput(value);
   const r = /** @type {Record<string, any>} */ (gstAdjustment(worksheet, input));
-  const a = (/** @type {string} */ id) => aud(Number(r.amounts[id]));
+  const a = (/** @type {string} */ id) => aud(Number(r.amounts[id])); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   /** @type {[string, string][]} */
   const rows = [];
   let principal = 0;

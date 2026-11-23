@@ -9552,7 +9552,7 @@ fn gst_case(rng: &mut Seeded) -> (Value, Value) {
             let mut exceeds = false;
             for name in ["current", "future"] {
                 let any = u128::from(rng.cents(10_000_000_000));
-                let total = u128::from(rng.pick(&[any, 150_000_000, 150_000_010]));
+                let total = rng.pick(&[any, 150_000_000, 150_000_010]);
                 let tenth = total / 10;
                 let any = u128::from(rng.cents(u64::try_from(total.max(1)).unwrap()));
                 let financial = rng
