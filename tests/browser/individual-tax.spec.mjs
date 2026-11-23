@@ -10,7 +10,7 @@ const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 's
   'concessional-catch-up': '$97,500.00', 'bonus-withholding': '$641.00',
   'salary-packaging': '$5,291.50', 'novated-lease': '$6,047.48',
   'super-projection': '$539,266.80', fhss: '$14,350.00', 'work-expenses': '$590.00',
-  'government-super': '$500.00' };
+  'government-super': '$500.00', 'pension-minimum': '$30,000.00' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -487,6 +487,24 @@ test('work expenses switches method and year, shows only their inputs and refuse
   await expect(form.locator('#work-expenses-category-e')).toBeVisible();
   await calculate.click();
   await expect(row('Deduction, cents disregarded')).toHaveText('$40.00');
+});
+
+test('pension minimum pro-rates a first year from the start day and refuses a day outside the year', async ({ page }) => {
+  await page.goto('/tools/individual-tax/pension-minimum/');
+  const form = page.locator('#pension-minimum form');
+  const output = form.locator('output');
+  await waitForCalculator(form);
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  await form.locator('#pension-minimum-year').selectOption('2024-25');
+  await form.locator('#pension-minimum-balance').fill('250000');
+  await form.locator('#pension-minimum-age').fill('66');
+  await form.locator('#pension-minimum-started').fill('2025-01-01');
+  await calculate.click();
+  await expect(output.locator('.result-row--principal strong')).toHaveText('$6,200.00');
+  await expect(output).toContainText('181 of 365');
+  await form.locator('#pension-minimum-started').fill('2025-07-01');
+  await calculate.click();
+  await expect(output).toHaveText('Enter a start day from 1 July 2024 to 30 June 2025, or leave it blank.');
 });
 
 test('government super shows the spouse inputs on request and refuses a temporary visa and an unknown balance', async ({ page }) => {

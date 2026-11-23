@@ -39,6 +39,7 @@ const rebate = { file: 'assets/private-health-rebate.mjs', test: individualTest 
 const offsets = { file: 'assets/individual-offsets.mjs', test: individualTest };
 const governmentSuper = { file: 'assets/government-super.mjs', test: individualTest };
 const governmentSuperResult = { file: 'assets/government-super-result.mjs', test: individualTest };
+const pm = { file: 'assets/pension-minimum.mjs', test: 'scripts/pension-minimum.test.mjs' };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -1088,6 +1089,16 @@ const MUTATIONS = [
   { ...governmentSuperResult, name: 'government super not known read as no', find: '(answer === \'unknown\' ? null : answer === \'yes\')', replace: '(answer === \'yes\')' },
   { ...governmentSuperResult, name: 'government super a non-resident passed as resident', find: 'yes(\'resident\') ? \'full_year_resident\' : \'part_year_resident\'', replace: '\'full_year_resident\'' },
   { ...governmentSuperResult, name: 'government super thresholds shown the wrong way', find: '`${whole(r.rates.lower_income_threshold)} and ${whole(r.rates.higher_income_threshold)}`', replace: '`${whole(r.rates.higher_income_threshold)} and ${whole(r.rates.lower_income_threshold)}`' },
+  { ...pm, name: 'pension 65 at 4%', find: '[65, 5n]', replace: '[66, 5n]' },
+  { ...pm, name: 'pension nil for the last 31 days', find: 'days <= 30 ?', replace: 'days <= 31 ?' },
+  { ...pm, name: 'pension $5 rounded down', find: '(2n * num + 1000n * den) / (2000n * den)', replace: '(2n * num + 999n * den) / (2000n * den)' },
+  { ...pm, name: 'pension no 366-day year', find: "whole(input.get('days'), daysInYear)", replace: "whole(input.get('days'), 365)" },
+  { ...pm, name: 'pension first year over 365 days', find: 'BigInt(days), 100n * BigInt(daysInYear)', replace: 'BigInt(days), 36500n' },
+  { ...pm, name: 'pension negative balance taken', find: "(parts[1] === '-' && cents !== 0n) || ", replace: '' },
+  { ...pm, name: 'pension scope not needed', find: "if (input.get('scope_confirmed') !== true) refuse", replace: 'if (false) refuse' },
+  { ...pm, name: 'pension age to 149', find: "whole(input.get('age'), 150)", replace: "whole(input.get('age'), 149)" },
+  { ...pm, name: 'pension form counts to 29 June', find: 'Date.UTC(second, 5, 30)', replace: 'Date.UTC(second, 5, 29)' },
+  { ...pm, name: 'pension page principal is the balance', find: 'rows, principal: 4, note', replace: 'rows, principal: 0, note' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -1108,6 +1119,7 @@ const SHARED = [
   'scripts/income-tests-engine-differential.json',
   'scripts/income-tax-offsets-engine-differential.json',
   'scripts/government-super-engine-differential.json',
+  'scripts/pension-minimum-engine-differential.json',
   'scripts/concessional-catch-up-engine-differential.json',
   'scripts/unused-leave-engine-differential.json',
   'scripts/franking-account-engine-differential.json',
@@ -1126,7 +1138,7 @@ const SHARED = [
 
 const TEST_FILES = [
   levy.test, business.test, individualTest,
-  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs',
+  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', pm.test,
 ];
 
 const verdict = (cwd, test) => new Promise((resolve, reject) => {

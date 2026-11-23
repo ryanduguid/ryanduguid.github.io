@@ -25,6 +25,20 @@
       {"case": "Wendy: study for new employment is not deductible (ATO self-education page)", "call": [{"method": "self_education", "year": "2025-26", "scope_confirmed": true, "reimbursed": false, "allowance_received": false, "connection": "new_employment", "employed_when_incurred": true, "category_a": "290", "category_b": "0", "category_c": "0", "category_d": "0", "log_book_car_in_category_a": false}], "input": "2025-26, self-education, new employment, A $290.00, B $0.00, C $0.00, D $0.00", "output": "Deduction $0.00, not deductible", "result": {"method": "self_education", "year": "2025-26", "amounts": {"deduction": "0.00", "return_amount": "0.00"}, "rates": {}, "deductible": false, "reductionApplies": false}}
     ]
   },
+  "pension-minimum": {
+    "function": "pensionMinimumAmounts",
+    "checked": "2026-11-24",
+    "rows": [
+      {"case":"$600,000 at 67 held all 2026-27: 5%, $30,000 (the form’s example)","call":[{"account_balance":"600000","age":67,"days":365,"year":"2026-27","scope_confirmed":true}],"input":"2026-27, balance $600,000.00, age 67, 365 days","result":{"account_balance_used":"600000.00","minimum_before_rounding":"30000.00","minimum_payment":"30000.00"},"output":"Before rounding $30,000.00, minimum $30,000.00"},
+      {"case":"The ATO’s Thavi pro-rated in 2024-25: $250,000 at 66 from 1 January 2025, 181 days at 5%, $6,198.63 paid as $6,200","call":[{"account_balance":"250000","age":66,"days":181,"year":"2024-25","scope_confirmed":true}],"input":"2024-25, balance $250,000.00, age 66, 181 days","result":{"account_balance_used":"250000.00","minimum_before_rounding":"6198.63","minimum_payment":"6200.00"},"output":"Before rounding $6,198.63, minimum $6,200.00"},
+      {"case":"Started on 1 June: the last 30 days need nothing (cl 4)","call":[{"account_balance":"250000","age":66,"days":30,"year":"2025-26","scope_confirmed":true}],"input":"2025-26, balance $250,000.00, age 66, 30 days","result":{"account_balance_used":"250000.00","minimum_before_rounding":"0.00","minimum_payment":"0.00"},"output":"Before rounding $0.00, minimum $0.00"},
+      {"case":"Started on 31 May: 31 days pro-rated (cl 3)","call":[{"account_balance":"250000","age":66,"days":31,"year":"2025-26","scope_confirmed":true}],"input":"2025-26, balance $250,000.00, age 66, 31 days","result":{"account_balance_used":"250000.00","minimum_before_rounding":"1061.64","minimum_payment":"1060.00"},"output":"Before rounding $1,061.64, minimum $1,060.00"},
+      {"case":"$5 rounds up: $100,125 at 60 is $4,005, paid as $4,010 (cl 5)","call":[{"account_balance":"100125","age":60,"days":365,"year":"2025-26","scope_confirmed":true}],"input":"2025-26, balance $100,125.00, age 60, 365 days","result":{"account_balance_used":"100125.00","minimum_before_rounding":"4005.00","minimum_payment":"4010.00"},"output":"Before rounding $4,005.00, minimum $4,010.00"},
+      {"case":"At 65 the factor rises from 4% to 5%","call":[{"account_balance":"100000","age":65,"days":365,"year":"2025-26","scope_confirmed":true}],"input":"2025-26, balance $100,000.00, age 65, 365 days","result":{"account_balance_used":"100000.00","minimum_before_rounding":"5000.00","minimum_payment":"5000.00"},"output":"Before rounding $5,000.00, minimum $5,000.00"},
+      {"case":"At 95 or more, 14%","call":[{"account_balance":"500000","age":95,"days":365,"year":"2026-27","scope_confirmed":true}],"input":"2026-27, balance $500,000.00, age 95, 365 days","result":{"account_balance_used":"500000.00","minimum_before_rounding":"70000.00","minimum_payment":"70000.00"},"output":"Before rounding $70,000.00, minimum $70,000.00"},
+      {"case":"2027-28 has 366 days, with 29 February 2028","call":[{"account_balance":"300000","age":80,"days":366,"year":"2027-28","scope_confirmed":true}],"input":"2027-28, balance $300,000.00, age 80, 366 days","result":{"account_balance_used":"300000.00","minimum_before_rounding":"21000.00","minimum_payment":"21000.00"},"output":"Before rounding $21,000.00, minimum $21,000.00"}
+    ]
+  },
   "government-super": {
     "function": "governmentSuperAmounts",
     "checked": "2026-11-22",
