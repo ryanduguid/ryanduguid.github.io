@@ -242,3 +242,25 @@ fn directories_with_an_encoded_trailing_slash_keep_standard_behaviour() {
     assert_eq!(redirect.status, 301);
     assert_eq!(redirect.header("Location"), Some("/tools/"));
 }
+
+/// `SITE_SERVE_DIR` selects a prebuilt site only when it points to a directory holding index.html.
+#[test]
+fn prebuilt_dir_validates_the_served_tree() {
+    use std::ffi::OsStr;
+    assert_eq!(site_tools::serve_site::prebuilt_dir(None).unwrap(), None);
+    assert_eq!(
+        site_tools::serve_site::prebuilt_dir(Some(OsStr::new(""))).unwrap(),
+        None
+    );
+    let empty = tempfile::tempdir().unwrap();
+    let missing = site_tools::serve_site::prebuilt_dir(Some(empty.path().as_os_str()));
+    assert!(
+        missing.is_err(),
+        "empty directory without index.html must fail"
+    );
+    std::fs::write(empty.path().join("index.html"), "<p>Built</p>").unwrap();
+    assert_eq!(
+        site_tools::serve_site::prebuilt_dir(Some(empty.path().as_os_str())).unwrap(),
+        Some(empty.path().to_path_buf())
+    );
+}
