@@ -30,6 +30,18 @@ Boundary
 
 Does not invent arrangements, intentions or beneficiary facts.
 
+Install solomons-sword Read the worked example
+
+## Check a section 99B receipt
+
+```
+uvx --from solomons-sword==0.1.9 solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000 --resident-during-year
+```
+
+$100,000.00 assessable under s99B
+
+Fictional $150,000 gross receipt less $50,000 corpus exemption in v0.1.9. See the full output and refusal check.
+
 PCG 2022/2 sorts section 100A arrangements into white, green and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. The software does not establish the underlying facts or give tax clearance.
 
 Section 100A can treat a trust distribution as a reimbursement agreement and tax it at the top rate instead of the beneficiary’s own rate. The ATO’s finalised guideline PCG 2022/2 says where the risk sits.
@@ -121,6 +133,8 @@ Anything it does not implement, including trust capital gains and franked divide
 - v0.3.2: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.3.2
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
 - Apache License 2.0: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.3.2/packages/solomons-sword/LICENSE
+- Install solomons-sword: https://duguid.com.au/tools/trust-distributions/#get-it
+- Read the worked example: https://duguid.com.au/tools/trust-distributions/#worked-example
 - guideline PCG 2022/2: https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001
 - MIT License: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.9/packages/solomons-sword/LICENSE
 - Published package: https://pypi.org/project/solomons-sword/0.1.9/
@@ -161,6 +175,18 @@ Python 3.10 or later
 Boundary
 
 Requires verified income composition, distributions and ledger inputs.
+
+Install the-exchequer-tally Read the worked example
+
+## Test base rate entity status
+
+```
+uvx --from the-exchequer-tally==0.1.7 the-exchequer-tally bre-test --fy 2025 --turnover 4500000 --assessable 800000 --passive 120000
+```
+
+25.0% applicable rate (15.00% passive income)
+
+Fictional 2025 inputs in v0.1.7; exits 0 and does not set a franking rate. See the full output and refusal check.
 
 A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year’s threshold, and no more than 80% of assessable income being base rate entity passive income. Get that test wrong and the company pays the wrong income tax for the year. The rate used to frank a dividend is a separate imputation question that turns on prior-year facts, not this year’s test; this tool keeps the two apart and the worked example below does not determine a maximum franking rate.
 
@@ -244,6 +270,8 @@ Under Division 203, a company must frank all distributions in a franking period 
 - v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.2.0
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
 - Apache License 2.0: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.2.0/packages/the-exchequer-tally/LICENSE
+- Install the-exchequer-tally: https://duguid.com.au/tools/company-tax-franking/#get-it
+- Read the worked example: https://duguid.com.au/tools/company-tax-franking/#worked-example
 - MIT License: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.7/packages/the-exchequer-tally/LICENSE
 - Published package: https://pypi.org/project/the-exchequer-tally/0.1.7/
 - release instructions: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.7/packages/the-exchequer-tally/README.md#quickstart
@@ -285,6 +313,19 @@ An AI coding agent such as Claude Code or Codex, and Node
 Boundary
 
 Requires human review of contracts, classifications and source records.
+
+Get the skill pack Repeat the evaluation
+
+## Subcontractor skill pack scope
+
+```
+australian-accounting-skills v0.7.0
+contractor-super-tpar · wip-over-under-billing
+```
+
+10 workflows in the 107-skill pack
+
+Human-confirmed verdicts cover 95 of 235 validation cards in v0.7.0. Repeat the evaluation procedure.
 
 The subcontract ledger workflows are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first.
 
@@ -348,6 +389,8 @@ Not as working figures. Each skill encodes the workflow, the tie-outs and the ex
 - v0.7.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.7.0
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills/tree/main
 - Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.7.0/LICENSE
+- Get the skill pack: https://duguid.com.au/tools/subcontractor-ledgers/#get-it
+- Repeat the evaluation: https://duguid.com.au/tools/subcontractor-ledgers/#reproduce
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
 - evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
 - Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install
@@ -388,6 +431,18 @@ Python 3.14 or later
 Boundary
 
 Review aid under AASB 15, not an accounting determination.
+
+Install the-wip-tally Read the worked example
+
+## Cost-to-cost underbilling check
+
+```
+uv run --locked --extra dev --python 3.12 pytest -q tests/test_schedule.py::test_clean_cost_to_cost_underbilling
+```
+
+$50,000 contract asset at 50% complete
+
+Revenue to date ($500,000) less $450,000 certified billings in v0.1.2. Read the fictional inputs and setup steps.
 
 Assets and liabilities are never netted. Review aid, not a determination.
 
@@ -485,6 +540,8 @@ No. It is a review aid. Recognition over time versus at a point in time, whether
 - v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.2.0
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
 - Apache License 2.0: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.2.0/packages/the-wip-tally/LICENSE
+- Install the-wip-tally: https://duguid.com.au/tools/wip-schedule/#get-it
+- Read the worked example: https://duguid.com.au/tools/wip-schedule/#worked-example
 - subcontractor ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
 - cost-to-cost underbilling test in the-wip-tally v0.1.2: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/tests/test_schedule.py
 - MIT License: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/LICENSE
@@ -522,6 +579,18 @@ Python 3.11 or later and a Xero developer app (free Starter plan: up to 5 connec
 Boundary
 
 Read-only Xero scope; no ledger writes.
+
+Install the exporter Read the worked example
+
+## Export a dated trial balance
+
+```
+python export_tb.py --date 2026-06-30
+```
+
+CSV written only when movement and YTD balance
+
+Unbalanced YTD figures exit 1 and write no CSV file in v0.1.6 tests. Compare both fictional outcomes.
 
 The export asks Xero for report reading scope only, so it cannot write anything back to a ledger.
 
@@ -611,12 +680,13 @@ No file is written. The balance check runs before anything reaches disk, and bot
 - v0.1.15: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.15
 - accounting-review-pipeline: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
 - MIT License: https://github.com/ryanduguid/accounting-review-pipeline/blob/xero-trial-balance-export/v0.1.15/packages/xero-trial-balance-export/LICENSE
+- Install the exporter: https://duguid.com.au/tools/xero-trial-balance/#get-it
+- Read the worked example: https://duguid.com.au/tools/xero-trial-balance/#synthetic-worked-example
 - XeroAPI accepted my correction to its command-line report flags: https://github.com/XeroAPI/xero-command-line/pull/44
 - Read the accepted-work record: https://duguid.com.au/evidence/#accepted-upstream-work
 - Starter plan: https://developer.xero.com/pricing
 - Works with Xero: https://duguid.com.au/works-with/xero/
 - its source: https://github.com/ryanduguid/accounting-review-pipeline/tree/xero-trial-balance-export/v0.1.15/packages/xero-trial-balance-export
-- fictional worked example: https://duguid.com.au/tools/xero-trial-balance/#synthetic-worked-example
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/
 - Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
@@ -655,6 +725,18 @@ Python 3.14 or later and uv
 Boundary
 
 Human review required. Optional local library excerpts enter the assistant’s context; Division 7A scope stays limited.
+
+Adopt Aus Accounting MCP Try 2 tool calls
+
+## Run the pinned MCP demo
+
+```
+uvx --from aus-accounting-mcp==0.2.8 aus-accounting-mcp-demo
+```
+
+Exit 0 JSON transcript of 2 local tool calls
+
+Runs the pinned v0.2.8 demonstration with fictional facts and no credentials. Inspect the demo output and caveats.
 
 The server runs on your machine and lodges nothing. Outputs need human review.
 
@@ -860,7 +942,8 @@ Yes. The listing name is io.github.ryanduguid/aus-accounting. The install comman
 - v0.11.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.11.0
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.11.0/apps/aus-accounting-mcp/LICENSE
-- current release: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Adopt Aus Accounting MCP: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Try 2 tool calls: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
 - current README: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp/README.md
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
@@ -884,7 +967,6 @@ Yes. The listing name is io.github.ryanduguid/aus-accounting. The install comman
 - browser calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - reproducible evaluation: https://duguid.com.au/evaluate/
 - Apache License 2.0: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.4.0/LICENSE
-- Try two tool calls: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
 - v0.7.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.7.0
 - PyPI: https://pypi.org/project/aus-accounting-mcp/
 - registry record: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest
@@ -928,6 +1010,18 @@ Windows x86_64 or Linux x86_64. The executable runs without Python or Rust.
 Boundary
 
 READY means ready for human review, not approved or signed off.
+
+Get review-ready-gate Inspect the fictional BAS pack
+
+## Gate a corrected BAS pack
+
+```
+review-ready gate --profile bas --pack examples/bas-ready --output ../../../review-ready-demo/bas-ready
+```
+
+Overall status: READY (0 findings)
+
+Incomplete BAS fixture returns NOT_READY with 3 findings in v0.1.3. Inspect both fictional packs.
 
 A missing GST control export, an unsigned self-review or a trial balance that does not balance never reaches the manager.
 
@@ -1012,6 +1106,8 @@ No. It reads local files and writes a readiness pack. It cannot post, pay, lodge
 - v1.0.1: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.0.1
 - accounting-review-pipeline: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.1/packages/review-ready-gate/LICENSE
+- Get review-ready-gate: https://duguid.com.au/tools/workpaper-review-gate/#get-it
+- Inspect the fictional BAS pack: https://duguid.com.au/tools/workpaper-review-gate/#worked-example
 - Download the generated findings.csv: https://duguid.com.au/assets/examples/review-gate/findings.csv
 - incomplete input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-not-ready
 - corrected input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-ready
@@ -1057,6 +1153,16 @@ PASS applies to the configured checks. A human approves the close.
 Inspect the eight exceptions Run the example
 
 Fictional July close: REVIEW, including a $250 creditors difference. Read it in your browser; reproducing it needs Git and Rust.
+
+## Fictional July close output
+
+```
+close-control: REVIEW; 8 exception(s); 6 client query(ies) drafted
+```
+
+Exit 2 (REVIEW) with a $250 creditors difference
+
+Compares 31 July 2026 with 30 June 2026 at $10,000 and 10% thresholds. Inspect the 8 exceptions and CSVs.
 
 It flags material movements, missing mappings and supplied subledger differences. It runs on local files without connecting to Xero.
 
