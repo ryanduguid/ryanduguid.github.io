@@ -8,6 +8,27 @@
   <updated>2026-11-24T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The sole trader page now says whether the non-commercial loss rules defer a…</title>
+    <link href="https://duguid.com.au/changelog/#entry-cbc7825110e406e7" />
+    <id>https://duguid.com.au/changelog/#entry-cbc7825110e406e7</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>The sole trader page now says whether the non-commercial loss rules defer a business loss, for 2020-21 to 2026-27: the income requirement, the 4 tests, the exception for primary production and professional arts, and the amount deferred after net exempt income (Division 35). It agrees with the non-commercial-losses command of the australian-accounting calculators on every tested case it can meet.</summary>
+  </entry>
+  <entry>
+    <title>The income tax page now works out the tax on a minor’s unearned income for…</title>
+    <link href="https://duguid.com.au/changelog/#entry-34c7e279e51b630b" />
+    <id>https://duguid.com.au/changelog/#entry-34c7e279e51b630b</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>The income tax page now works out the tax on a minor’s unearned income for 2024-25 to 2026-27: interest, dividends and other income not excepted are taxed at the special rates for someone under 18 (Division 6AA), and work and other excepted income at ordinary rates. It agrees with the minors-income command of the australian-accounting calculators on every tested case.</summary>
+  </entry>
+  <entry>
+    <title>The income tax calculator now takes the foreign income tax offset for 2020-21…</title>
+    <link href="https://duguid.com.au/changelog/#entry-af4214fa35557702" />
+    <id>https://duguid.com.au/changelog/#entry-af4214fa35557702</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>The income tax calculator now takes the foreign income tax offset for 2020-21 to 2026-27, up to its $1,000 default limit, a limit from income tax payable figures you give, or for 2024-25 to 2026-27 a limit worked out from the estimate, and the page converts a foreign currency amount into Australian dollars at the rate for the day the tax law names for it, or at an average rate over up to 12 months. They agree with the foreign-income-tax-offset and foreign-income-conversion commands of the australian-accounting calculators on every tested case.</summary>
+  </entry>
+  <entry>
     <title>Added the pension minimum calculator: the minimum annual payment from an…</title>
     <link href="https://duguid.com.au/changelog/#entry-ec451c5c4d341de7" />
     <id>https://duguid.com.au/changelog/#entry-ec451c5c4d341de7</id>

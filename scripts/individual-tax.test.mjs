@@ -34,6 +34,9 @@ import { excessFormInput, tbaFormInput, transferBalanceResult } from '../assets/
 import './transfer-balance.test.mjs';
 import { pensionMinimum, pensionMinimumFormInput, pensionMinimumResult } from '../assets/pension-minimum.mjs';
 import './pension-minimum.test.mjs';
+import { foreignIncomeFixture, foreignIncomeFormTests } from './foreign-income.test.mjs';
+import { minorsFixture, minorsFormTests } from './minors-income.test.mjs';
+import { nonCommercialFixture, nonCommercialFormTests } from './non-commercial-losses.test.mjs';
 import { NET_MEDICAL_DEFAULTS, netMedicalFixture } from './net-medical-expenses.test.mjs';
 
 import { bonusWithholding } from '../assets/bonus-withholding.mjs';
@@ -1564,6 +1567,59 @@ test('the net medical expenses form opens on the values its tests use and states
   const form = incomeTaxHtml.slice(incomeTaxHtml.indexOf('<form class="calculator-split" data-calculator="net-medical-expenses">'));
   assert.deepEqual(formDefaults(form.slice(0, form.indexOf('</form>'))), NET_MEDICAL_DEFAULTS);
   assert.match(incomeTaxHtml, new RegExp(`net-medical-expenses-tax-offset on ${netMedicalFixture.cases.length.toLocaleString('en-AU')} cases`));
+});
+
+const conversionPage = (fields = {}) => {
+  const start = incomeTaxHtml.indexOf('<form class="calculator-split" data-calculator="foreign-income-conversion">');
+  const form = { ...formDefaults(incomeTaxHtml.slice(start, incomeTaxHtml.indexOf('</form>', start))), ...fields };
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  return individualResult('foreign-income-conversion', (name) => {
+    assert.ok(Object.hasOwn(form, name), `the foreign income conversion form has no ${name}`);
+    return form[name] ?? '';
+  }, aud);
+};
+foreignIncomeFormTests(incomeTaxPage, conversionPage);
+
+const minorsPage = (fields = {}) => {
+  const start = incomeTaxHtml.indexOf('<form class="calculator-split" data-calculator="minors-income">');
+  const html = incomeTaxHtml.slice(start, incomeTaxHtml.indexOf('</form>', start));
+  const selects = [...html.matchAll(/<select name="([^"]+)"[\s\S]*?<option value="([^"]+)" selected>/g)].map(([, name, value]) => [name, value]);
+  const form = { ...formDefaults(html), ...Object.fromEntries(selects), ...fields };
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  return individualResult('minors-income', (name) => {
+    assert.ok(Object.hasOwn(form, name), `the minors’ income form has no ${name}`);
+    return form[name] ?? '';
+  }, aud);
+};
+minorsFormTests(minorsPage);
+
+const soleTraderHtml = readFileSync(new URL('../_includes/calculators/sole-trader.html', import.meta.url), 'utf8');
+const nonCommercialPage = (fields = {}) => {
+  const start = soleTraderHtml.indexOf('<form class="calculator-split" data-calculator="non-commercial-losses">');
+  const html = soleTraderHtml.slice(start, soleTraderHtml.indexOf('</form>', start));
+  const selects = [...html.matchAll(/<select name="([^"]+)"[\s\S]*?<option value="([^"]+)" selected>/g)].map(([, name, value]) => [name, value]);
+  const form = { ...formDefaults(html), ...Object.fromEntries(selects), ...fields };
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  return individualResult('non-commercial-losses', (name) => {
+    assert.ok(Object.hasOwn(form, name), `the non-commercial losses form has no ${name}`);
+    return form[name] ?? '';
+  }, aud);
+};
+nonCommercialFormTests(nonCommercialPage);
+
+test('the sole trader page states the non-commercial losses differential count', () => {
+  assert.match(soleTraderHtml, new RegExp(`non-commercial-losses on ${nonCommercialFixture.cases.length.toLocaleString('en-AU')} cases`));
+});
+
+test('the income tax page states the minors’ income differential count', () => {
+  assert.match(incomeTaxHtml, new RegExp(`minors-income on ${minorsFixture.cases.length.toLocaleString('en-AU')} cases`));
+});
+
+test('the income tax page states the foreign income differential counts', () => {
+  for (const command of ['foreign-income-tax-offset', 'foreign-income-conversion']) {
+    const count = foreignIncomeFixture.cases.filter((c) => c.command === command).length;
+    assert.match(incomeTaxHtml, new RegExp(`${command} on ${count.toLocaleString('en-AU')} cases`));
+  }
 });
 const pageCode = (fields) => {
   try {

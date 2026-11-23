@@ -222,6 +222,85 @@ test('the net medical expenses offset works for a 2018-19 return beside the inco
   await expect(form.locator('.sources-applied')).toBeVisible();
 });
 
+test('foreign income converts beside the income tax calculator, and the offset asks only for its limit method’s figures, offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/income-tax/');
+  const fx = page.locator('#foreign-income-conversion form');
+  await waitForCalculator(fx);
+  await context.setOffline(true);
+  const row = (form, label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await fx.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(row(fx, 'Australian dollars')).toHaveText('$8,843.04');
+  // Each kind asks for its own dates.
+  await expect(fx.getByLabel('Date derived')).toBeVisible();
+  await fx.locator('input[name=fx-kind][value=deduction]').check();
+  await expect(fx.getByLabel('Date derived')).toBeHidden();
+  await expect(fx.getByLabel('Date it became deductible')).toBeVisible();
+  const form = page.locator('#income-tax form');
+  await expect(form.locator('#income-tax-fito-paid')).toBeHidden();
+  await form.locator('input[name=fito][value=yes]').check();
+  await expect(form.locator('#income-tax-fito-income')).toBeHidden();
+  await form.locator('input[name=fito-method][value=worked]').check();
+  await expect(form.locator('#income-tax-fito-income')).toBeVisible();
+  await expect(form.locator('#income-tax-fito-payable')).toBeHidden();
+  await form.locator('#income-tax-fito-paid').fill('5000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(row(form, 'Foreign income tax offset')).toHaveText('$2,970.00');
+});
+
+test('a minor’s unearned income is taxed beside the income tax calculator, with each ground’s facts asked only for it, offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/income-tax/');
+  const form = page.locator('#minors-income form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await calculate.click();
+  await expect(row('Basic income tax')).toHaveText('$385.44');
+  await expect(form.locator('input[name=mi-ft-4][value=yes]')).toBeHidden();
+  await form.getByLabel('Excepted person').selectOption('full_time_occupation');
+  await expect(form.locator('input[name=mi-dependent][value=yes]')).toBeHidden();
+  await form.locator('input[name=mi-ft-4][value=yes]').check();
+  await calculate.click();
+  await expect(row('Basic income tax')).toHaveText('$385.44');
+  await form.locator('input[name=mi-ft-4][value=no]').check();
+  await calculate.click();
+  await expect(row('Basic income tax')).toHaveText('$0.00');
+  await form.getByLabel('Excepted person').selectOption('none');
+  await form.getByLabel('Taxable income (whole dollars)', { exact: true }).fill('30000');
+  await form.getByLabel('Employment income (dollars and cents)', { exact: true }).fill('28000');
+  await form.getByLabel('Other assessable income (dollars and cents)', { exact: true }).fill('2000');
+  await calculate.click();
+  await expect(row('Basic income tax')).toHaveText('$2,468.00');
+  await expect(form.locator('.sources-applied')).toBeVisible();
+});
+
+test('the sole trader page says whether a non-commercial loss is deferred, asking for an estimate only in a part year, offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/sole-trader/');
+  const form = page.locator('#non-commercial-losses form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await calculate.click();
+  await expect(row('Deferred')).toHaveText('$1,000.00');
+  const estimate = form.locator('#ncl-estimate');
+  const otherIncome = form.locator('#ncl-other-income');
+  await expect(estimate).toBeHidden();
+  await expect(otherIncome).toBeHidden();
+  await form.locator('input[name=ncl-part-year][value=yes]').check();
+  await form.locator('#ncl-income').fill('8000');
+  await estimate.fill('22000');
+  await calculate.click();
+  await expect(row('Deductible this year')).toHaveText('$2,000.00');
+  await form.locator('input[name=ncl-part-year][value=no]').check();
+  await expect(estimate).toBeHidden();
+  await form.locator('input[name=ncl-activity][value=primary_production]').check();
+  await otherIncome.fill('39999.99');
+  await calculate.click();
+  await expect(row('Deferred')).toHaveText('$0.00');
+  await expect(form.locator('.sources-applied')).toBeVisible();
+});
+
 test('income tests count section 57A benefits at 53% and refuse a person not resident all year offline', async ({ page, context }) => {
   await page.goto('/tools/individual-tax/income-tests/');
   const form = page.locator('#income-tests form');
