@@ -32,7 +32,7 @@ Published 17 November 2026. Last checked 22 November 2026, the newest of the cal
 - Super projection calculator Your super balance at retirement in future and today’s dollars, with every assumption stated and changeable.
 - First home super saver calculator The release, withholding and tax offset from an ATO determination, or a contribution ledger estimate with published shortfall interest charge rates.
 - Super co-contribution, LISTO and spouse offset calculator The government’s co-contribution and low income super tax offset, and the spouse contribution tax offset, for 2020-21 to 2026-27, with each condition met or not.
-- Transfer balance and excess contributions calculator Your transfer balance account and personal cap with proportional indexation, excess transfer balance earnings and tax, the excess concessional contributions charge, and the release of excess non-concessional contributions.
+- Transfer balance calculator Your transfer balance account and personal cap with proportional indexation, excess transfer balance earnings and tax, the excess concessional contributions charge, and the release of excess non-concessional contributions.
 
 For a business, see the business calculators.
 
@@ -55,5 +55,5 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
 - First home super saver calculator: https://duguid.com.au/tools/individual-tax/fhss/
 - Super co-contribution, LISTO and spouse offset calculator: https://duguid.com.au/tools/individual-tax/government-super/
-- Transfer balance and excess contributions calculator: https://duguid.com.au/tools/individual-tax/transfer-balance/
+- Transfer balance calculator: https://duguid.com.au/tools/individual-tax/transfer-balance/
 - business calculators: https://duguid.com.au/tools/business-calculators/

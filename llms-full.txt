@@ -12754,7 +12754,7 @@ Published 17 November 2026. Last checked 22 November 2026, the newest of the cal
 - Super projection calculator Your super balance at retirement in future and today’s dollars, with every assumption stated and changeable.
 - First home super saver calculator The release, withholding and tax offset from an ATO determination, or a contribution ledger estimate with published shortfall interest charge rates.
 - Super co-contribution, LISTO and spouse offset calculator The government’s co-contribution and low income super tax offset, and the spouse contribution tax offset, for 2020-21 to 2026-27, with each condition met or not.
-- Transfer balance and excess contributions calculator Your transfer balance account and personal cap with proportional indexation, excess transfer balance earnings and tax, the excess concessional contributions charge, and the release of excess non-concessional contributions.
+- Transfer balance calculator Your transfer balance account and personal cap with proportional indexation, excess transfer balance earnings and tax, the excess concessional contributions charge, and the release of excess non-concessional contributions.
 
 For a business, see the business calculators.
 
@@ -12777,7 +12777,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
 - First home super saver calculator: https://duguid.com.au/tools/individual-tax/fhss/
 - Super co-contribution, LISTO and spouse offset calculator: https://duguid.com.au/tools/individual-tax/government-super/
-- Transfer balance and excess contributions calculator: https://duguid.com.au/tools/individual-tax/transfer-balance/
+- Transfer balance calculator: https://duguid.com.au/tools/individual-tax/transfer-balance/
 - business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
@@ -13653,9 +13653,9 @@ Source: https://duguid.com.au/tools/individual-tax/transfer-balance/
 
 > Work out a transfer balance account, its cap with proportional indexation and excess earnings tax, the excess concessional contributions charge, or a non-concessional release.
 
-# Transfer balance and excess contributions calculator
+# Transfer balance calculator
 
-Your transfer balance account, cap, excess and tax from 2017-18, and the charge or release for excess contributions.
+Your transfer balance account and excess tax from 2017-18, and excess contributions.
 
 Published 24 November 2026. Last checked 22 November 2026.
 
@@ -13719,7 +13719,7 @@ The charge ended for 2021-22 and later years; the release needs every base rate 
 
 Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
 
-Boundary cases: Transfer balance and excess contributions calculator
+Boundary cases: Transfer balance calculator
 
 Case | Inputs | Result
 Elisabeth: a negative balance after a commutation, then $10,000 of excess from 12 October 2019 (ATO transfer balance account page) | 2017-08-02 new income stream $1,600,000.00, 2019-09-07 commutation $1,630,000.00, 2019-10-12 new income stream $1,640,000.00; to 2019-12-31 | Balance $1,610,176.42, cap $1,600,000.00, excess $10,176.42, earnings $178.65, tax $26.80
