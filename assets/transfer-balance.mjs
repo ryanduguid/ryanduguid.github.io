@@ -32,7 +32,7 @@ export const GENERAL_CAPS = /** @type {Record<string, number>} */ ({
 export const TBA_KINDS = /** @type {const} */ ([
   ['existing_income_stream', true, 'Income stream held just before 1 July 2017 (credit)'],
   ['new_income_stream', true, 'New retirement phase income stream (credit)'],
-  ['lrba_repayment', true, 'Limited recourse borrowing repayment (credit)'],
+  ['lrba_repayment', true, 'Limited recourse borrowing repayment, arrangement from 1 July 2017 (credit)'],
   ['commutation', false, 'Commutation (debit)'],
   ['reduced_super', false, 'Fraud, dishonesty or bankruptcy loss (debit)'],
   ['payment_split', false, 'Family law payment split (debit)'],
@@ -116,14 +116,16 @@ export function required(fields, item, key) {
 }
 /** A stated amount in cents: a decimal string of at most 32 bytes, finite, from 0 to 1,000,000,000,000,
  * at most 2 decimal places, as the command's reader takes it. @param {Record<string, unknown>} fields
- * @param {string} item @param {string} key */
-export function statedAmount(fields, item, key) {
+ * @param {string} item @param {string} key @param {string} [range] the range the message states */
+/** The range stated for an amount the command then refuses at nil. */
+export const ABOVE_NIL = 'above nil, up to 1,000,000,000,000';
+export function statedAmount(fields, item, key, range = 'from 0 to 1,000,000,000,000') {
   const value = required(fields, item, key);
   const parts = typeof value === 'string' && new TextEncoder().encode(value).length <= 32 ? /^(-?)(\d+)(?:\.(\d+))?$/.exec(value.trim()) : null;
   const decimals = parts?.[3] ?? '';
   const cents = parts && decimals.length <= 2 ? BigInt(parts[2] + decimals.padEnd(2, '0')) : null;
   if (cents === null || (parts?.[1] === '-' && cents !== 0n) || cents > 100000000000000n) {
-    refuse('input.amount_invalid', `${item}: enter ${key.replaceAll('_', ' ')} in dollars and cents, from 0 to 1,000,000,000,000.`);
+    refuse('input.amount_invalid', `${item}: enter ${key.replaceAll('_', ' ')} in dollars and cents, ${range}.`);
   }
   return cents;
 }
@@ -155,7 +157,7 @@ function event(value, item) {
   if (why !== undefined) refuse('transfer_balance.event_refused', `${item}: ${why}`);
   const kind = TBA_KINDS.find(([k]) => k === name);
   if (kind === undefined) factInvalid(`${item}: choose a credit or debit the calculator takes.`);
-  const cents = statedAmount(value, item, 'amount');
+  const cents = statedAmount(value, item, 'amount', ABOVE_NIL);
   if (cents <= 0n) factInvalid(`${item}: the amount must be above nil.`);
   return { day, kind: kind[0], credit: kind[1], cents };
 }

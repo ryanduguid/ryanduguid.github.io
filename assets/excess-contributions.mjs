@@ -1,7 +1,7 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: Apache-2.0
 
-import { GIC_TABLE_END, dayOf, dollarsText, gicOn, isoOf, knownKeys, readInput, refuse, required, scope, statedAmount,
+import { ABOVE_NIL, GIC_TABLE_END, dayOf, dollarsText, gicOn, isoOf, knownKeys, readInput, refuse, required, scope, statedAmount,
   yearLength } from './transfer-balance.mjs';
 
 // The excess concessional contributions charge for 2013-14 to 2020-21, and the release of excess
@@ -99,7 +99,7 @@ function proxy(start) {
 function nonConcessionalRelease(facts, year) {
   const item = 'question non_concessional_release';
   knownKeys(facts, item, 'non_concessional_release', ['excess', 'determination_date']);
-  const excess = statedAmount(facts, item, 'excess');
+  const excess = statedAmount(facts, item, 'excess', ABOVE_NIL);
   if (excess <= 0n) refuse('excess_contributions.fact_invalid', `${item}: the excess must be above nil.`);
   const determination = factDate(facts, item, 'determination_date');
   const start = Number(year.slice(0, 4));
