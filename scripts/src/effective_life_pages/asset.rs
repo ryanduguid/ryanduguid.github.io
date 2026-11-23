@@ -5,7 +5,7 @@
 use super::address::shown_core;
 use super::figures::{date, diminishing_value, prime_cost, years};
 use super::group::{ending, opening, trail_to_group, trail_to_index};
-use super::head::{TITLE_MAX, cut, esc, fit, fit_end};
+use super::head::{TITLE_MAX, cut, esc, fit_end, titled};
 use super::load::{Entry, Group, Source, Table};
 use super::site::{RowRef, Site, group_name, key};
 use super::{Trail, notes};
@@ -94,102 +94,6 @@ pub fn h1_candidates(group: &Group, entry: &Entry) -> Vec<String> {
     ]
 }
 
-/// '<subject> effective life: <years><extra>', where `extra` is ', <heading>' or
-/// ', <industry>'. The subject stays whole when it fits with at least the first whole
-/// word of the extra. Else, first, the subject without its asides, if it fits, with as
-/// much of the extra as keeps a whole word, or none; then the extra with up to half the
-/// room left by the tail and the subject cut to the rest, as the extra may be what tells
-/// the row apart. An ellipsis shows each cut but that of a closing aside.
-fn titled(subject: &str, tail: &str, extra: &str, prefer_bare: bool) -> Vec<String> {
-    let keep = TITLE_MAX.saturating_sub(tail.chars().count());
-    let mut out = Vec::new();
-    let size = subject.chars().count();
-    if size + extra.chars().count() <= keep {
-        if prefer_bare && size <= keep {
-            out.push(format!("{subject}{tail}"));
-        }
-        out.push(format!("{subject}{tail}{extra}"));
-        return out;
-    }
-    // Prefer the uncut bare subject over an ellipsised context suffix whenever it is unique.
-    if prefer_bare && size <= keep {
-        out.push(format!("{subject}{tail}"));
-    }
-    if let Some(title) = with_extra(subject, tail, extra, keep) {
-        out.push(title);
-        return out;
-    }
-    let core = shown_core(subject);
-    let bare = core.trim_end_matches([' ', '\u{2026}']);
-    let aside = closing_aside(subject, bare);
-    let shown = if aside { bare } else { core.as_str() };
-    if shown.chars().count() <= keep {
-        if prefer_bare {
-            out.push(format!("{shown}{tail}"));
-        }
-        if let Some(title) = with_extra(shown, tail, extra, keep) {
-            out.push(title);
-        } else if !prefer_bare {
-            out.push(format!("{shown}{tail}"));
-        }
-    }
-    let extra_room = keep.saturating_sub(size.min(keep / 2));
-    let extra = if extra.chars().count() > extra_room {
-        let kept = cut(extra.trim_start_matches(", "), extra_room.saturating_sub(2));
-        if kept == "\u{2026}" {
-            String::new()
-        } else {
-            format!(", {kept}")
-        }
-    } else {
-        extra.to_owned()
-    };
-    let room = keep.saturating_sub(extra.chars().count());
-    out.push(format!(
-        "{}{tail}{extra}",
-        cut(if aside { bare } else { subject }, room)
-    ));
-    out
-}
-
-/// `subject`, `tail` and `extra` whole, or with the extra's leading whole words and an
-/// ellipsis, in `keep` characters besides the tail; `None` if not a word of it fits.
-fn with_extra(subject: &str, tail: &str, extra: &str, keep: usize) -> Option<String> {
-    let size = subject.chars().count();
-    if size + extra.chars().count() <= keep {
-        return Some(format!("{subject}{tail}{extra}"));
-    }
-    let body = extra.trim_start_matches(", ");
-    let words = fit(body, keep.saturating_sub(size + 4));
-    let at_word = body
-        .strip_prefix(words.as_str())
-        .is_some_and(|rest| rest.starts_with([' ', ',', ';', ':']));
-    (!words.is_empty() && at_word).then(|| format!("{subject}{tail}, {words} \u{2026}"))
-}
-
-/// Whether `text` is `kept` and one bracketed aside that closes it: a title may drop
-/// that aside unmarked, as it qualifies the row rather than names it.
-fn closing_aside(text: &str, kept: &str) -> bool {
-    let Some(rest) = text.strip_prefix(kept).map(str::trim) else {
-        return false;
-    };
-    let mut depth = 0usize;
-    for (at, c) in rest.char_indices() {
-        match c {
-            '(' => depth += 1,
-            ')' if depth > 0 => {
-                depth -= 1;
-                if depth == 0 {
-                    return at + 1 == rest.len();
-                }
-            }
-            _ if depth == 0 => return false,
-            _ => {}
-        }
-    }
-    false
-}
-
 /// What sets a row apart beyond its wording: its headings, nearest first, its industry
 /// or 'Table B' and its ANZSIC codes. No 2 rows share their wording and all of these.
 fn context(group: &Group, entry: &Entry) -> Vec<String> {
@@ -199,53 +103,16 @@ fn context(group: &Group, entry: &Entry) -> Vec<String> {
     out
 }
 
-/// Titles from plainest to most specific, each at most 65 characters.
-pub fn title_candidates(group: &Group, entry: &Entry, life: &Life) -> Vec<String> {
-    let tail = format!(" effective life: {}", years(life));
-    let row = entry.text();
-    let place = format!(", {}", place(group));
-    let mut out = Vec::new();
-    if let Some(heading) = headings(group, entry).last() {
-        let redundant = redundant_heading(heading, row);
-        out.extend(titled(
-            row,
-            &tail,
-            &format!(", {heading}"),
-            redundant
-                || row.chars().count() + heading.chars().count() + 2
-                    > TITLE_MAX.saturating_sub(tail.chars().count()),
-        ));
-        if !redundant {
-            out.extend(titled(&format!("{heading}: {row}"), &tail, &place, false));
-        }
-    }
-    out.extend(titled(
-        row,
-        &tail,
-        &place,
-        headings(group, entry).is_empty(),
-    ));
-    let all = headings(group, entry);
-    if all.len() > 1 {
-        out.extend(titled(
-            &format!("{}: {row}", all.join(" / ")),
-            &tail,
-            &place,
-            false,
-        ));
-    }
-    // The row first, then 1 or 2 parts of its context: where the forms above cut away the
-    // part that tells 2 rows apart, one of these keeps it.
+/// Context-qualified and end-fitted fallback title candidates when simpler forms collide.
+fn push_context_titles(group: &Group, entry: &Entry, tail: &str, out: &mut Vec<String>) {
     let context = context(group, entry);
     let row = name(entry);
     for (i, first) in context.iter().enumerate() {
-        out.extend(titled(&row, &tail, &format!(", {first}"), false));
+        out.extend(titled(&row, tail, &format!(", {first}"), false));
         for second in &context[i + 1..] {
-            out.extend(titled(&row, &tail, &format!(", {first}, {second}"), false));
+            out.extend(titled(&row, tail, &format!(", {first}, {second}"), false));
         }
     }
-    // Last, rows that differ only in their closing words ('... with gas insulated
-    // switchgear'): the end of the wording, after an ellipsis, and one context part.
     for part in &context {
         let extra = format!(", {part}");
         let room = TITLE_MAX.saturating_sub(tail.chars().count() + extra.chars().count());
@@ -254,6 +121,35 @@ pub fn title_candidates(group: &Group, entry: &Entry, life: &Life) -> Vec<String
             out.push(format!("{end}{tail}{extra}"));
         }
     }
+}
+
+/// Titles from plainest to most specific, each at most 65 characters.
+pub fn title_candidates(group: &Group, entry: &Entry, life: &Life) -> Vec<String> {
+    let tail = format!(" effective life: {}", years(life));
+    let row = entry.text();
+    let place = format!(", {}", place(group));
+    let all = headings(group, entry);
+    let mut out = Vec::new();
+    if let Some(heading) = all.last() {
+        let redundant = redundant_heading(heading, row);
+        let too_long = row.chars().count() + heading.chars().count() + 2
+            > TITLE_MAX.saturating_sub(tail.chars().count());
+        out.extend(titled(
+            row,
+            &tail,
+            &format!(", {heading}"),
+            redundant || too_long,
+        ));
+        if !redundant {
+            out.extend(titled(&format!("{heading}: {row}"), &tail, &place, false));
+        }
+    }
+    out.extend(titled(row, &tail, &place, all.is_empty()));
+    if all.len() > 1 {
+        let joined = format!("{}: {row}", all.join(" / "));
+        out.extend(titled(&joined, &tail, &place, false));
+    }
+    push_context_titles(group, entry, &tail, &mut out);
     let mut seen = std::collections::HashSet::new();
     out.retain(|title| title.chars().count() <= TITLE_MAX && seen.insert(title.clone()));
     out
