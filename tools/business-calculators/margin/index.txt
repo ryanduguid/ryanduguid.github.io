@@ -43,12 +43,19 @@ Official comparison on 13 November 2026, on one fictional input: for $450,000 to
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Break-even sales calculator
+- Budget variance calculator
+- Management reporting questions
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
 ## Links
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Break-even sales calculator: https://duguid.com.au/tools/business-calculators/break-even/
+- Budget variance calculator: https://duguid.com.au/tools/business-calculators/variance/
+- Management reporting questions: https://duguid.com.au/tools/accounting-questions/management-reporting/

@@ -1,4 +1,4 @@
-# Business days calculator for all Australian states, 2026 and 2027
+# Australian business days calculator: 2026 and 2027
 
 Source: https://duguid.com.au/tools/business-calculators/business-days/
 
@@ -54,11 +54,18 @@ Counting past 31 December 2027 is refused | New South Wales, 20 business days af
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Payday Super business days
+- Objection deadline checker
+- 2026-27 BAS due dates
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Payday Super business days: https://duguid.com.au/tools/payday-super/business-days/
+- Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
+- 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/

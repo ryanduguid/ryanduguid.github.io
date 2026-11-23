@@ -79,8 +79,6 @@ Each ATO page below was read on 15 November 2026.
 - ATO, Two week lodgment concession: terms and conditions, last updated 18 August 2025: who gets the online dates.
 - ATO, BAS agent lodgment program 2026-27, last updated 1 July 2026: the agent dates and their conditions.
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - Download both tables as CSV: https://duguid.com.au/tools/bas-due-dates/bas-due-dates-2026-27.csv

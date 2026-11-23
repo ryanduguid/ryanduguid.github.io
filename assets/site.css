@@ -515,6 +515,22 @@ main p {
   line-height: 0.8;
 }
 
+.about-portrait .t0 {
+  color: var(--colour-rule);
+}
+
+.about-portrait .t1 {
+  color: var(--colour-rule-strong);
+}
+
+.about-portrait .t2 {
+  color: var(--colour-ink-soft);
+}
+
+.about-portrait .t3 {
+  color: var(--colour-ink-mid);
+}
+
 @media (min-resolution: 1.25dppx) {
   .about-portrait pre {
     font-size: round(down, calc(100cqi / 84 + 0.01px), 1px);
@@ -589,10 +605,47 @@ main p {
 }
 
 /* The label sets apart from the links by weight and ink, not capitals. */
-.article-toc p {
+.article-toc p,
+.toc-disclosure > summary {
   margin-bottom: var(--space-2);
   color: var(--colour-ink);
   font-weight: 600;
+}
+
+.toc-disclosure > summary {
+  min-height: 2.75rem;
+  padding-block: var(--space-2);
+  cursor: pointer;
+}
+
+.toc-disclosure:not([open]) > summary {
+  margin-bottom: 0;
+}
+
+.toc-disclosure__list {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.calculator-related {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: var(--rule-thin) solid var(--colour-rule-strong);
+}
+
+.calculator-related ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.calculator-list[hidden],
+.calculator-list > li[hidden],
+.accounting-content > h2[hidden] {
+  display: none;
 }
 
 .article-toc a {
@@ -629,8 +682,13 @@ main p {
    takes the 32px gap the other pages have there. */
 .article-header + .site-shell > .article-body > h2:first-child,
 .article-header + .accounting-content > h2:first-child,
+.article-header + .accounting-content > #calc-filter[hidden] + h2,
 .article-header + .accounting-content > section:first-child > h2:first-child {
   margin-top: var(--space-6);
+}
+
+#calc-filter {
+  margin-block: var(--space-5) var(--space-6);
 }
 
 .evaluation-summary {
@@ -1685,7 +1743,7 @@ caption {
 
 .chart-dialog {
   max-width: calc(100vw - 2 * var(--space-4));
-  max-height: calc(100vh - 2 * var(--space-4));
+  max-height: calc(100dvh - 2 * var(--space-4));
   padding: var(--space-3);
   border: var(--rule-thin) solid var(--colour-rule-strong);
   color: var(--colour-ink);
@@ -1705,7 +1763,7 @@ caption {
   display: block;
   width: auto;
   max-width: 100%;
-  max-height: calc(100vh - 8rem);
+  max-height: calc(100dvh - 8rem);
   height: auto;
 }
 
@@ -2227,6 +2285,7 @@ fieldset label,
 
 input[type="radio"],
 input[type="checkbox"] {
+  flex-shrink: 0;
   inline-size: 1.25rem;
   block-size: 1.25rem;
   min-height: auto;
@@ -2612,8 +2671,24 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
     border-bottom: var(--rule-thin) solid var(--colour-rule);
   }
 
-  .article-toc p {
+  .article-toc p,
+  .article-toc .toc-disclosure {
     grid-column: 1 / -1;
+  }
+
+  .article-toc > p,
+  .article-toc > h2 {
+    min-height: 2.75rem;
+    margin-bottom: 0;
+    padding-block: var(--space-2);
+  }
+
+  .article-toc > :not(p, h2, details) {
+    display: none;
+  }
+
+  .toc-disclosure__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .collection-layout {
@@ -2868,7 +2943,7 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
   .home-register a,
   .collection-entry__title,
   .collection-entry__links a,
-  .article-toc a,
+  .toc-disclosure a,
   .related > li > a,
   .article-body .sources > li > a,
   .legal-content .sources > li > a,
@@ -2897,8 +2972,9 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
   }
 
   /* The 44px target overlaps the plain text above and below it, so the crumb
-     line keeps its height and the page below does not move. */
-  .article-crumb a {
+     and metadata lines keep their height and the page below does not move. */
+  .article-crumb a,
+  .page-meta a {
     display: inline-flex;
     min-width: 2.75rem;
     min-height: 2.75rem;
@@ -2958,6 +3034,13 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
   .about-portrait pre {
     color: var(--colour-print-ink);
     white-space: pre;
+  }
+
+  .about-portrait .t0,
+  .about-portrait .t1,
+  .about-portrait .t2,
+  .about-portrait .t3 {
+    color: inherit;
   }
 
   .skip-link,
@@ -3211,7 +3294,7 @@ html[data-view-mode="machine"] body {
   overscroll-behavior: contain;
   color: var(--colour-machine-ink);
   background: var(--colour-machine-canvas);
-  font: 13px / 1.7 var(--font-mono);
+  font: 0.8125rem / 1.7 var(--font-mono);
 }
 
 /* The view fills the window, so its focus ring is drawn inside the edge

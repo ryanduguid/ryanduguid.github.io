@@ -1,4 +1,4 @@
-# Division 7A loan schedule: minimum repayments over 7 or 25 years
+# Division 7A loan schedule: 7-year and 25-year repayments
 
 Source: https://duguid.com.au/tools/business-calculators/div7a-schedule/
 
@@ -61,9 +61,13 @@ More repayments than years of the term | Made 2022-10-01, $100,000.00, 7 years, 
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Division 7A benchmark interest rate
+- Division 7A loan calculator
+- Company tax and franking calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
@@ -71,3 +75,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A minimum yearly repayment calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/

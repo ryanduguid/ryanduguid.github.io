@@ -51,11 +51,18 @@ Part years of service are refused | Redundancy payment $48,000.00 after 5.5 year
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; each amount withheld rounds to the nearest dollar, with 50 cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Unused leave on termination
+- Bonus withholding calculator
+- Payroll and super questions
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; each amount withheld rounds to the nearest dollar, with 50 cents rounded up.
 
 ## Links
 
 - Schedule 11: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-11-tax-table-for-employment-termination-payments
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
+- Bonus withholding calculator: https://duguid.com.au/tools/individual-tax/bonus-withholding/
+- Payroll and super questions: https://duguid.com.au/tools/accounting-questions/payroll-super/

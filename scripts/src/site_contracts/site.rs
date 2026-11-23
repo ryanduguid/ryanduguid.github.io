@@ -1542,7 +1542,7 @@ pub fn forbidden_identity_url_labels(text: &str) -> Result<Vec<&'static str>, St
     Ok(labels)
 }
 
-/// Require five reproducible OLED register cards and their provenance.
+/// Require nine reproducible OLED register cards and their provenance.
 pub fn check_social_cards(root: &Path) -> Result<Vec<String>, String> {
     check_social_cards_for(root, HOMEPAGE_HEADING)
 }

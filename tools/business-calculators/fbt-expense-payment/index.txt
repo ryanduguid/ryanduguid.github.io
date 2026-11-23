@@ -1,8 +1,8 @@
-# FBT expense payment calculator with the otherwise deductible rule
+# FBT expense payment calculator: otherwise deductible rule
 
 Source: https://duguid.com.au/tools/business-calculators/fbt-expense-payment/
 
-> An expense payment fringe benefit’s taxable value for the FBT year ending 31 March 2027: the payment less the otherwise deductible amount, or by the in-house rules.
+> Taxable value of an expense payment fringe benefit for the year ending 31 March 2027, after the otherwise deductible rule or in-house valuation rules.
 
 # FBT expense payment calculator
 
@@ -51,11 +51,18 @@ The otherwise deductible rule for an in-house expense payment is refused, not ap
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- FBT rate and gross-up rates
+- FBT property calculator
+- FBT loan calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00010
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
+- FBT property calculator: https://duguid.com.au/tools/business-calculators/fbt-property/
+- FBT loan calculator: https://duguid.com.au/tools/business-calculators/fbt-loan/

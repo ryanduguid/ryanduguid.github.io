@@ -60,7 +60,7 @@ const noCurrentNavigationRoutes = ['/examples/profit-vs-cash-flow/', '/contact/'
 // One destination from each reader route, plus the task routes they lead with.
 const homepagePreviewRoutes = [
   ['Calculate a Coal LSL levy', '/tools/coal-lsl-levy/', 'calc-form'],
-  ['Check a BAS pack before manager review', '/evaluate/manager-review-gate/', 'accounting-problem'],
+  ['Check a BAS pack before manager review', '/tools/workpaper-review-gate/', 'worked-example'],
   ['Use accounting functions in Excel', '/tools/ozzit/', 'worked-example'],
   ['Maintained rate tables', '/rates/', 'excel'],
   ['Evidence behind the tools', '/evidence/', 'identity-and-credentials'],
@@ -90,8 +90,12 @@ const homeHeightBaseline = {
   // 2,136px desktop; both ceilings drop to that plus the 234px guard.
   // Contribution links with 44px tap targets take the mobile page from
   // 3,850px to 3,947px. Keep its 10px allowance.
-  mobile: 3957,
-  desktop: 2370,
+  // On 23 November 2026 the homepage adds 4 direct route links (business
+  // calculators, individual tax, depreciation rates and BAS due dates) and
+  // 3 footer links. Measured at 4,293px mobile and 2,515px desktop; keep the
+  // 234px guard.
+  mobile: 4527,
+  desktop: 2749,
 };
 
 const representativeHeightBaseline = {
@@ -1040,6 +1044,19 @@ test('a minus sign stays on the line of its amount at 320px', async ({ page }, t
     });
     expect(split, path).toEqual([]);
   }
+});
+
+test('radio and checkbox controls stay square beside wrapping labels', async ({ page }) => {
+  await page.goto('/tools/business-calculators/first-home-owner-grant/');
+  await waitForVisualFonts(page);
+  const squashed = await page.locator('main input[type="radio"], main input[type="checkbox"]').evaluateAll((inputs) =>
+    inputs
+      .map((input) => {
+        const rect = input.getBoundingClientRect();
+        return { value: input.value, width: rect.width, height: rect.height };
+      })
+      .filter((item) => item.width > 0 && item.height > 0 && Math.abs(item.width - item.height) > 1));
+  expect(squashed).toEqual([]);
 });
 
 test('the test server is given time for a cold Jekyll build', () => {

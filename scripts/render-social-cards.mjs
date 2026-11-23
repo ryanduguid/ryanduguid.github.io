@@ -21,7 +21,7 @@ const ROOT = path.resolve(import.meta.dirname, '..');
 const ASSETS = path.join(ROOT, 'assets');
 const TEMPLATE_PATH = path.join(ASSETS, 'social-card-template.svg');
 const DATA_PATH = path.join(ASSETS, 'social-cards.json');
-const CARD_IDS = Object.freeze(['site', 'tools', 'evaluations', 'rates', 'evidence']);
+const CARD_IDS = Object.freeze(['site', 'tools', 'evaluations', 'rates', 'evidence', 'calculators', 'individual-tax', 'depreciation', 'questions']);
 const CARD_FIELDS = Object.freeze(['alt', 'heading', 'host', 'label', 'output']);
 const WIDTH = 1200;
 const HEIGHT = 630;
@@ -70,7 +70,7 @@ function validateCards(value) {
     ) {
       throw new TypeError(`Social-card ${id} heading must contain two or three fitted lines`);
     }
-    const revision = ['site', 'tools'].includes(id) ? '20261123' : '20261104b';
+    const revision = ['evaluations', 'rates', 'evidence'].includes(id) ? '20261104b' : '20261123';
     const expectedOutput = `social-card-${id}-${revision}.png`;
     if (card.output !== expectedOutput) {
       throw new Error(`Social-card ${id} output must be ${expectedOutput}`);

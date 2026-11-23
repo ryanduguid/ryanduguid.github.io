@@ -15,6 +15,10 @@ const OUTPUTS = [
   'social-card-evaluations-20261104b.png',
   'social-card-rates-20261104b.png',
   'social-card-evidence-20261104b.png',
+  'social-card-calculators-20261123.png',
+  'social-card-individual-tax-20261123.png',
+  'social-card-depreciation-20261123.png',
+  'social-card-questions-20261123.png',
 ];
 
 test('renders all contextual social cards reproducibly without touching assets', async ({ browser }) => {

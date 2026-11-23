@@ -193,8 +193,6 @@ Human review remains mandatory before posting, payment, lodgement, approval or p
 
 I publish evaluations of fixed releases on the Evaluations page. I use feedback only with recorded permission. Each evaluation states its scope and method. It is not regulatory approval or evidence beyond that evaluation.
 
-Written by Ryan Duguid in his own time and on his own equipment.
-
 ## Links
 
 - repository README: https://github.com/ryanduguid/australian-accounting#readme

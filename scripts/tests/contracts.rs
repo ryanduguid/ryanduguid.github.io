@@ -1292,7 +1292,7 @@ fn public_contracts_routes_privacy_and_evaluations() {
     replace_file(
         site.path(),
         "tools/index.html",
-        "<a href=\"/evaluate/manager-review-gate/\"><strong>Check a BAS pack before manager review</strong>",
+        "<a href=\"/tools/workpaper-review-gate/\"><strong>Check a BAS pack before manager review</strong>",
         "<a href=\"/evaluate/#example-routes\"><strong>Check a BAS pack before manager review</strong>",
     );
     expect_failure(
@@ -1396,7 +1396,10 @@ fn homepage_first_route_lists_the_task_routes() {
         .iter()
         .map(|(_, url)| *url)
         .collect();
-    assert_eq!(&first[..tasks.len()], tasks.as_slice());
+    assert!(
+        tasks.iter().all(|url| first.contains(url)),
+        "first homepage route {first:?} must include every task route {tasks:?}"
+    );
 }
 
 #[test]

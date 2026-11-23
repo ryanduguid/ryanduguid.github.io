@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/business-calculators/land-tax/
 
-> Land tax in the 7 states and territories that levy it, with trust rates and foreign owner surcharges, from primary sources read 16 November 2026. The NT has none.
+> Annual land tax in the 7 states and territories that levy it, with trust rates and foreign owner surcharges, checked 16 November 2026. The NT has no land tax.
 
 # Land tax calculator
 
@@ -89,9 +89,13 @@ Cents are refused | New South Wales, $1,100,000.50 | Refused: enter a whole numb
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Transfer duty calculator
+- Foreign purchaser surcharge calculator
+- Rental property calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
@@ -110,3 +114,5 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - land tax exemptions: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/land-tax-exemptions
 - when the foreign ownership surcharge applies: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/foreign-ownership-surcharge-for-land-tax
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
+- Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
