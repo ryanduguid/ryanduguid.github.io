@@ -8,7 +8,7 @@
 // Income Tax Assessment (1997 Act) Regulations 2021 (from 2021-22). Ported from the
 // australian-accounting command foreign-income-conversion, with its refusal codes. Sources read 22
 // November 2026.
-import { ratioCents } from './money.mjs';
+import { decimalParts, ratioCents } from './money.mjs';
 import { parseDate } from './foreign-income-tax-offset.mjs';
 import { refuse, supportedYear } from './private-health-rebate.mjs';
 
@@ -36,11 +36,11 @@ function decimal(fields, name, key, places, positive) {
   const text = typeof fields[key] === 'string' && fields[key].length <= 32 ? fields[key].trim() : null;
   // The command's comparisons raise on a NaN.
   if (text !== null && /^[+-]?s?nan\d*$/i.test(text)) refuse('decimal.invalid_operation', `${name}: ${key} is not a number`);
-  const parts = text === null ? null : /^(-?)(\d+)(?:\.(\d+))?$/.exec(text);
-  const fraction = parts?.[3] ?? '';
+  const parts = text === null ? null : decimalParts(text);
+  const fraction = parts?.fraction ?? '';
   // Trailing zeros count as places, as a decimal's exponent does; -0 is zero.
-  const scaled = parts && fraction.length <= places ? BigInt(parts[2] + fraction.padEnd(places, '0')) : null;
-  if (scaled === null || (parts?.[1] && scaled > 0n) || (positive && scaled === 0n) || scaled > 10n ** BigInt(12 + places)) {
+  const scaled = parts && fraction.length <= places ? BigInt(parts.whole + fraction.padEnd(places, '0')) : null;
+  if (scaled === null || (parts?.negative && scaled > 0n) || (positive && scaled === 0n) || scaled > 10n ** BigInt(12 + places)) {
     refuse('input.amount_invalid', `${name}: ${key} must be a decimal string${positive ? ' above zero' : ', not negative'}, `
       + `at most ${places}dp and 1e12.`);
   }

@@ -24,19 +24,30 @@ export function number(value, { min = 0, max = 1e9, places = 2, integer = false,
   return result;
 }
 
+/** Digits with an optional minus sign and decimal part, such as '-12.30', split into those parts;
+ * null for anything else, '1.' and '.5' included.
+ * @param {string} text */
+export function decimalParts(text) {
+  const negative = text.startsWith('-');
+  const [whole, fraction, extra] = text.slice(negative ? 1 : 0).split('.');
+  const digits = /^\d+$/;
+  return extra === undefined && digits.test(whole) && (fraction === undefined || digits.test(fraction))
+    ? { negative, whole, fraction: fraction ?? '' }
+    : null;
+}
+
 /** An amount as the australian-accounting commands read one, in cents. Text that is not digits,
  * with an optional minus sign and decimal part, is input.decimal_unreadable; an infinity or NaN,
  * a negative amount, more than 2 decimal places or more than $1e12 is input.amount_invalid.
  * @param {unknown} value */
 export function commandCents(value) {
   const text = String(value).trim();
-  const parts = /^(-?)(\d+)(?:\.(\d+))?$/.exec(text);
+  const parts = decimalParts(text);
   if (!parts && !/^[+-]?(?:inf(?:inity)?|s?nan\d*)$/i.test(text)) {
     throw Object.assign(new Error(`${text} is not a number`), { code: 'input.decimal_unreadable' });
   }
-  const fraction = parts?.[3] ?? '';
-  const scaled = parts && fraction.length <= 2 ? BigInt(parts[2]) * 100n + BigInt(fraction.padEnd(2, '0')) : -1n;
-  if (scaled < 0n || (parts?.[1] && scaled > 0n) || scaled > 10n ** 14n) {
+  const scaled = parts && parts.fraction.length <= 2 ? BigInt(parts.whole) * 100n + BigInt(parts.fraction.padEnd(2, '0')) : -1n;
+  if (scaled < 0n || (parts?.negative && scaled > 0n) || scaled > 10n ** 14n) {
     throw Object.assign(new Error('Amounts must be finite non-negative Decimals, at most 2dp and 1e12.'), { code: 'input.amount_invalid' });
   }
   return scaled;
