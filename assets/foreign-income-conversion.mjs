@@ -27,13 +27,15 @@ const TOTALS = /** @type {Record<string, string>} */ ({ ordinary_income: 'ordina
   deduction: 'deductions', depreciating_asset_cost: 'depreciating_asset_costs', cgt_event: 'cgt_amounts',
   foreign_tax_paid: 'foreign_tax_paid' });
 const COMMON = ['kind', 'currency', 'amount', 'rate', 'basis', 'rate_source'];
+const KIND_RULES = new Map(Object.entries(KINDS));
 
 /** A decimal string from 0 (or above 0) to 1e12 with at most `places` decimal places, as
- * [digits, places] of a scaled integer. @param {Record<string, unknown>} fields @param {string} name
+ * [digits, places] of a scaled integer. @param {Map<string, unknown>} fields @param {string} name
  * @param {string} key @param {number} places @param {boolean} positive @returns {bigint} */
 function decimal(fields, name, key, places, positive) {
-  if (!(key in fields)) refuse('input.missing_field', `${name}: ${key} is required`);
-  const text = typeof fields[key] === 'string' && fields[key].length <= 32 ? fields[key].trim() : null;
+  if (!fields.has(key)) refuse('input.missing_field', `${name}: ${key} is required`);
+  const given = fields.get(key);
+  const text = typeof given === 'string' && given.length <= 32 ? given.trim() : null;
   // The command's comparisons raise on a NaN.
   if (text !== null && /^[+-]?s?nan\d*$/i.test(text)) refuse('decimal.invalid_operation', `${name}: ${key} is not a number`);
   const parts = text === null ? null : decimalParts(text);
@@ -47,17 +49,47 @@ function decimal(fields, name, key, places, positive) {
   return /** @type {bigint} */ (scaled);
 }
 
-/** @param {Record<string, unknown>} fields @param {string} name @param {string} key */
+/** @param {Map<string, unknown>} fields @param {string} name @param {string} key */
 function date(fields, name, key) {
-  if (!(key in fields)) return null;
-  return parseDate(fields[key]) ?? refuse('input.date_invalid', `${name}: ${key} must be a YYYY-MM-DD date from 1900 to 2100.`);
+  if (!fields.has(key)) return null;
+  return parseDate(fields.get(key)) ?? refuse('input.date_invalid', `${name}: ${key} must be a YYYY-MM-DD date from 1900 to 2100.`);
 }
 
-/** @param {Record<string, unknown>} fields @param {string} name @param {string} key */
+/** @param {Map<string, unknown>} fields @param {string} name @param {string} key */
 const required = (fields, name, key) => date(fields, name, key) ?? refuse('input.missing_field', `${name}: ${key} is required`);
 
 /** @param {number} day */
 const iso = (day) => new Date(day * 86400000).toISOString().slice(0, 10);
+
+/** The rate's basis: a specific day's rate, which must be for the day the amount is translated on,
+ * or an average over a period of at most 12 months that contains it.
+ * @param {Map<string, unknown>} fields @param {string} name @param {string} kind @param {number} on */
+function readBasis(fields, name, kind, on) {
+  const basis = fields.get('basis');
+  if (basis === 'specific') {
+    const day = required(fields, name, 'rate_date');
+    if (day !== on) {
+      refuse('foreign_income_conversion.rate_date', `${name}: the rate is for ${iso(day)}, but the ${kind} rule translates at `
+        + `the rate applicable on ${iso(on)}. State that day's rate, or an average rate.`);
+    }
+    return { basis: 'specific', date: iso(day) };
+  }
+  if (basis !== 'average') refuse('foreign_income_conversion.basis_invalid', `${name}: basis must be specific or average.`);
+  const from = required(fields, name, 'average_from');
+  const to = required(fields, name, 'average_to');
+  // A year on: the same day 12 months later, or that month's last day where it has fewer.
+  const start = new Date(from * 86400000);
+  const [y, m] = [start.getUTCFullYear() + 1, start.getUTCMonth()];
+  const yearOn = Date.UTC(y, m, Math.min(start.getUTCDate(), new Date(Date.UTC(y, m + 1, 0)).getUTCDate())) / 86400000;
+  const why = to < from ? 'average_to is before average_from'
+    : to >= yearOn ? 'the averaging period is longer than 12 months'
+      : on < from || on > to ? 'the averaging period does not contain the day the amount is translated on' : null;
+  if (why) {
+    refuse('foreign_income_conversion.average_period', `${name}: ${why} (an average is of the rates during a period not `
+      + 'exceeding 12 months, used for amounts relating to that period).');
+  }
+  return { basis: 'average', from: iso(from), to: iso(to) };
+}
 
 /** One amount: the day its rule names, the rate's basis and the Australian dollar amount in cents.
  * @param {unknown} value @param {string} name */
@@ -65,47 +97,22 @@ function readItem(value, name) {
   if (value === null || typeof value !== 'object' || Array.isArray(value)) {
     refuse('foreign_income_conversion.items_invalid', `${name} must be an object.`);
   }
-  const fields = /** @type {Record<string, unknown>} */ (value);
-  const kind = /** @type {string} */ (fields.kind);
-  const rule = typeof kind === 'string' && Object.hasOwn(KINDS, kind) ? KINDS[/** @type {keyof typeof KINDS} */ (kind)]
-    : refuse('foreign_income_conversion.kind_invalid', `${name}: kind must be ordinary_income, statutory_income, deduction, `
+  const fields = new Map(Object.entries(/** @type {object} */ (value)));
+  const kind = /** @type {string} */ (fields.get('kind'));
+  const rule = (typeof kind === 'string' ? KIND_RULES.get(kind) : undefined)
+    ?? refuse('foreign_income_conversion.kind_invalid', `${name}: kind must be ordinary_income, statutory_income, deduction, `
       + 'depreciating_asset_cost, cgt_event or foreign_tax_paid.');
   const allowed = [...COMMON, rule.time, ...(rule.earlier ? [rule.earlier] : []),
-    ...(fields.basis === 'average' ? ['average_from', 'average_to'] : ['rate_date'])];
-  const unknown = Object.keys(fields).find((key) => !allowed.includes(key));
+    ...(fields.get('basis') === 'average' ? ['average_from', 'average_to'] : ['rate_date'])];
+  const unknown = [...fields.keys()].find((key) => !allowed.includes(key));
   if (unknown) refuse('input.field_unknown', `${name}: ${unknown} is not an input of this kind and basis`);
   const time = required(fields, name, rule.time);
   const earlier = rule.earlier ? date(fields, name, rule.earlier) : null;
   const atEarlier = earlier !== null && (earlier < time || (earlier === time && !rule.strict));
   const on = atEarlier ? earlier : time;
-  let basis;
-  if (fields.basis === 'specific') {
-    const day = required(fields, name, 'rate_date');
-    if (day !== on) {
-      refuse('foreign_income_conversion.rate_date', `${name}: the rate is for ${iso(day)}, but the ${kind} rule translates at `
-        + `the rate applicable on ${iso(on)}. State that day's rate, or an average rate.`);
-    }
-    basis = { basis: 'specific', date: iso(day) };
-  } else if (fields.basis === 'average') {
-    const from = required(fields, name, 'average_from');
-    const to = required(fields, name, 'average_to');
-    // A year on: the same day 12 months later, or that month's last day where it has fewer.
-    const start = new Date(from * 86400000);
-    const [y, m] = [start.getUTCFullYear() + 1, start.getUTCMonth()];
-    const yearOn = Date.UTC(y, m, Math.min(start.getUTCDate(), new Date(Date.UTC(y, m + 1, 0)).getUTCDate())) / 86400000;
-    const why = to < from ? 'average_to is before average_from'
-      : to >= yearOn ? 'the averaging period is longer than 12 months'
-        : on < from || on > to ? 'the averaging period does not contain the day the amount is translated on' : null;
-    if (why) {
-      refuse('foreign_income_conversion.average_period', `${name}: ${why} (an average is of the rates during a period not `
-        + 'exceeding 12 months, used for amounts relating to that period).');
-    }
-    basis = { basis: 'average', from: iso(from), to: iso(to) };
-  } else {
-    refuse('foreign_income_conversion.basis_invalid', `${name}: basis must be specific or average.`);
-  }
-  const currency = fields.currency;
-  if (!('currency' in fields)) refuse('input.missing_field', `${name}: currency is required`);
+  const basis = readBasis(fields, name, kind, on);
+  const currency = fields.get('currency');
+  if (!fields.has('currency')) refuse('input.missing_field', `${name}: currency is required`);
   if (typeof currency !== 'string' || !/^[A-Z]{3}$/.test(currency) || currency === 'AUD') {
     refuse('foreign_income_conversion.currency_invalid', `${name}: currency must be a 3-letter code other than AUD, such as NZD.`);
   }
@@ -113,8 +120,8 @@ function readItem(value, name) {
   const rate = decimal(fields, name, 'rate', 6, true);
   // amount / 10^4 over rate / 10^6, in cents, half up.
   const aud = Number(ratioCents(amount * 10000n, rate));
-  const source = fields.rate_source;
-  if (!('rate_source' in fields)) refuse('input.missing_field', `${name}: rate_source is required`);
+  const source = fields.get('rate_source');
+  if (!fields.has('rate_source')) refuse('input.missing_field', `${name}: rate_source is required`);
   if (typeof source !== 'string' || source.trim() === '' || [...source].length > 200) {
     refuse('foreign_income_conversion.text_invalid', `${name}: rate_source must be text of 1 to 200 characters.`);
   }
@@ -140,19 +147,19 @@ export function foreignIncomeConversion(input) {
 }
 
 // The page's form: one amount, with the dates its kind's rule names.
-const FORM_DATES = /** @type {Record<string, string[]>} */ ({ ordinary_income: ['fx-derived', 'fx-received'],
+const FORM_DATES = new Map(Object.entries({ ordinary_income: ['fx-derived', 'fx-received'],
   statutory_income: ['fx-included', 'fx-included-received'], deduction: ['fx-deductible', 'fx-paid'],
-  depreciating_asset_cost: ['fx-held', 'fx-satisfied'], cgt_event: ['fx-event'], foreign_tax_paid: ['fx-tax-paid'] });
-const KIND_NAMES = /** @type {Record<string, string>} */ ({ ordinary_income: 'ordinary income', statutory_income: 'statutory income',
+  depreciating_asset_cost: ['fx-held', 'fx-satisfied'], cgt_event: ['fx-event'], foreign_tax_paid: ['fx-tax-paid'] }));
+const KIND_NAMES = new Map(Object.entries({ ordinary_income: 'ordinary income', statutory_income: 'statutory income',
   deduction: 'a deduction', depreciating_asset_cost: 'a depreciating asset’s cost', cgt_event: 'a CGT amount',
-  foreign_tax_paid: 'foreign income tax paid' });
+  foreign_tax_paid: 'foreign income tax paid' }));
 
 /** The result for the page's foreign income conversion form.
  * @param {(name: string) => string} value a field's value @param {(amount: number) => string} aud */
 export function foreignIncomeConversionResult(value, aud) {
   const kind = value('fx-kind');
-  const rule = KINDS[/** @type {keyof typeof KINDS} */ (kind)];
-  const [timeField, earlierField] = FORM_DATES[kind] ?? [];
+  const rule = KIND_RULES.get(kind);
+  const [timeField, earlierField] = FORM_DATES.get(kind) ?? [];
   const item = /** @type {Record<string, string>} */ ({ kind, currency: value('fx-currency').trim().toUpperCase(),
     amount: value('fx-amount').trim(), rate: value('fx-rate').trim(), rate_source: value('fx-source'), basis: value('fx-basis') });
   if (rule) {
@@ -167,7 +174,7 @@ export function foreignIncomeConversionResult(value, aud) {
   if (i.basis === 'average') notes.push(`An average rate for ${i.from} to ${i.to}, which item 12 allows only where it reasonably approximates that day’s rate`);
   if (i.averageCapital) notes.push('The ATO says an average rate would not reasonably approximate the rate for a one-off purchase or sale of a large capital asset');
   return {
-    inputs: `${value('fx-year')}, ${KIND_NAMES[kind]} of ${item.amount} ${i.currency} at ${item.rate} ${i.currency} to A$1 `
+    inputs: `${value('fx-year')}, ${KIND_NAMES.get(kind)} of ${item.amount} ${i.currency} at ${item.rate} ${i.currency} to A$1 `
       + `(${i.basis === 'average' ? `average for ${i.from} to ${i.to}` : `rate for ${i.date}`}), from ${item.rate_source.trim()}`,
     principal: 3,
     rows: [['Translated on', i.translatedOn], ['Rule', `Section 960-50(6) ${i.item}`],

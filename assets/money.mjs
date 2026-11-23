@@ -29,10 +29,10 @@ export function number(value, { min = 0, max = 1e9, places = 2, integer = false,
  * @param {string} text */
 export function decimalParts(text) {
   const negative = text.startsWith('-');
-  const [whole, fraction, extra] = text.slice(negative ? 1 : 0).split('.');
+  const pieces = text.slice(negative ? 1 : 0).split('.');
   const digits = /^\d+$/;
-  return extra === undefined && digits.test(whole) && (fraction === undefined || digits.test(fraction))
-    ? { negative, whole, fraction: fraction ?? '' }
+  return pieces.length <= 2 && pieces.every((piece) => digits.test(piece))
+    ? { negative, whole: pieces[0], fraction: pieces.at(1) ?? '' }
     : null;
 }
 

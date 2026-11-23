@@ -60,7 +60,8 @@ test('the net medical expenses offset ended after 2018-19 (ITAA 1936 s 159P(1A))
 
 test('the net medical expenses form reads amounts as the command does', () => {
   for (const [amount, code] of [['-1', 'amount'], ['1.001', 'amount'], ['1.000', 'amount'], ['NaN', 'amount'],
-    ['1000000000000.01', 'amount'], ['10,000', 'decimal'], ['$10000', 'decimal'], ['1e4', 'decimal'], ['', 'decimal'], ['+5', 'decimal']]) {
+    ['1000000000000.01', 'amount'], ['10,000', 'decimal'], ['$10000', 'decimal'], ['1e4', 'decimal'], ['', 'decimal'], ['+5', 'decimal'],
+    ['1.2.3', 'decimal'], ['5.', 'decimal'], ['.5', 'decimal']]) {
     assert.throws(() => netMedicalOffset({ year: '2018-19', net_medical_expenses: amount, adjusted_taxable_income: '90000' }),
       (error) => error.code === (code === 'amount' ? 'input.amount_invalid' : 'input.decimal_unreadable'), amount);
   }
