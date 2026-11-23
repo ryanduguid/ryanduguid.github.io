@@ -27,8 +27,8 @@ ASIC’s standard fees from 1 July 2026 are listed below as ASIC’s fee data an
 ASIC fees from 1 July 2026 (AUD, no GST)
 
 Fee | ASIC code | Amount | Imposed by
-Register a company with share capital | I02 | $636 | Corporations (Fees) Regulations 2001, Schedule 1 item 1(a)(i)
-Register a company without share capital | I01 | $524 | Schedule 1 item 1(a)(ii)
+Register a company with share capital | I02 | $636 | Corporations (Fees) Regulations 2001, Schedule 2 item 1(a)(i)
+Register a company without share capital | I01 | $524 | Schedule 2 item 1(a)(ii)
 Reserve a company name, or extend a reservation | R01 | $65 | Schedule 2 item 8
 Annual review fee, proprietary company (not a special purpose company) | A52 | $342 | Corporations (Review Fees) Regulations 2003, Schedule 1 Part 1 item 2
 Annual review fee, public company (not a special purpose company or small transferring financial institution) | A51 | $1,591 | Schedule 1 Part 1 item 1
