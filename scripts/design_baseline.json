@@ -348,7 +348,7 @@
       "ad1615d9d73abc147cfc44d3968a996ae890882d52710b57eefcbd16450c74c2"
     ],
     "tools/individual-tax/transfer-balance/index.html": [
-      "7bb64dccb23a7711e465b2456c6c7b274a12dc86579f933fb6e338b1dce53193"
+      "e0d0a02dffd0c34b8e9ace629be8b8b563ef32217e0ad15d3ba6b9b1ca077404"
     ],
     "tools/individual-tax/work-expenses/index.html": [
       "ac4e088b6dedf098a1162a2e64589e14a67fa7b53e48e12109df18e199741b6b"
@@ -415,7 +415,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "5fcf92c4755e5f38a180c3ccb0af7484a0fa720d2a622d40ce88917f70f20edc",
+    "llms.txt": "28b0c5b32f33ded0ac393553fab31e571ede646a4b1443be55213db87ce5255c",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
     "sitemap.xml": "0ddd1d86be1166887810cebe5b900ae86022cff7d4fd77f4641dceb172a7a8a5"
   },

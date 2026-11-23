@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/individual-tax/transfer-balance/
 
-> Work out your transfer balance account, personal transfer balance cap with proportional indexation, excess transfer balance earnings and tax, the excess concessional contributions charge, or the release of excess non-concessional contributions.
+> Work out a transfer balance account, its cap with proportional indexation and excess earnings tax, the excess concessional contributions charge, or a non-concessional release.
 
 # Transfer balance and excess contributions calculator
 
@@ -20,23 +20,23 @@ Credits and debits, from 1 July 2017
 
 Event 1 date
 
-Event 1 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
+Event 1 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment, arrangement from 1 July 2017 (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
 
 Event 1 amount Event 2 date
 
-Event 2 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
+Event 2 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment, arrangement from 1 July 2017 (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
 
 Event 2 amount Event 3 date
 
-Event 3 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
+Event 3 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment, arrangement from 1 July 2017 (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
 
 Event 3 amount Event 4 date
 
-Event 4 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
+Event 4 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment, arrangement from 1 July 2017 (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
 
 Event 4 amount Event 5 date
 
-Event 5 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
+Event 5 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment, arrangement from 1 July 2017 (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
 
 Event 5 amount Work the account to the end of
 
@@ -52,7 +52,7 @@ Fictional example: the first boundary case below. Change the inputs and calculat
 
 ## How the transfer balance calculator works
 
-Your transfer balance account starts when you first become the recipient of a retirement phase income stream, on 1 July 2017 at the earliest. A new income stream credits its value on the day it starts, and a limited recourse borrowing repayment credits the increase in value. A commutation, a fraud or bankruptcy loss, a family law payment split or an income stream leaving the retirement phase debits the account. A negative balance has no effect.
+Your transfer balance account starts when you first become the recipient of a retirement phase income stream, on 1 July 2017 at the earliest. A new income stream credits its value on the day it starts, and a repayment under a limited recourse borrowing arrangement entered into from 1 July 2017 credits the increase in value (IT(TP)A s 294-55). A commutation, a fraud or bankruptcy loss, a family law payment split or an income stream leaving the retirement phase debits the account. A negative balance has no effect.
 
 Your personal cap is the general cap for the year the account starts: $1.6 million to 2020-21, $1.7 million for 2021-22 and 2022-23, $1.9 million for 2023-24 and 2024-25, $2 million for 2025-26 and $2.1 million for 2026-27. When the general cap rises, your cap rises by the unused percentage of the increase: 100% less your highest balance at the end of a day, as a whole percentage of your cap then, rounded down. Once your balance has exceeded your cap at the end of a day, your cap is no longer indexed.
 
