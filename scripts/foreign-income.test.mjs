@@ -124,7 +124,7 @@ test('the foreign income options agree with the australian-accounting commands o
       continue;
     }
     // A case the command accepts must not be refused here.
-    let got;
+    let got = /** @type {any} */ (null);
     assert.doesNotThrow(() => { got = COMMANDS.get(command)(call); }, source);
     // The commands keep the sign of an amount entered as -0, which is zero.
     assert.deepEqual(got, JSON.parse(JSON.stringify(amounts).replaceAll('"-0.00"', '"0.00"')), source);
