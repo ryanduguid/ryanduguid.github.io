@@ -265,7 +265,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/individual-tax/transfer-balance/
 
-> Work out a transfer balance account, its cap with proportional indexation and excess earnings tax, the excess concessional contributions charge, or a non-concessional release.
+> Work out a transfer balance account, its indexed cap and excess transfer balance tax, or the excess contributions charge and non-concessional release.
 
 # Transfer balance calculator
 
