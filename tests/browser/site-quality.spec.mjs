@@ -88,7 +88,9 @@ const homeHeightBaseline = {
   // On 4 November reader routes and one release register replace the Coal
   // LSL proof and the 3 closing sections. Home measures 3,626px mobile and
   // 2,136px desktop; both ceilings drop to that plus the 234px guard.
-  mobile: 3860,
+  // Contribution links with 44px tap targets take the mobile page from
+  // 3,850px to 3,947px. Keep its 10px allowance.
+  mobile: 3957,
   desktop: 2370,
 };
 
