@@ -9474,11 +9474,20 @@ fn dt_case(rng: &mut Seeded) -> (Value, Value) {
     let base_rate = year != "2020-21" && rng.below(2) == 0;
     let rate: i128 = if base_rate { 25 } else { 30 };
     let mut items = Vec::new();
-    let (mut taxable, mut deductible, mut opening_taxable, mut opening_deductible) = (0_i128, 0_i128, 0_i128, 0_i128);
+    let (mut taxable, mut deductible, mut opening_taxable, mut opening_deductible) =
+        (0_i128, 0_i128, 0_i128, 0_i128);
     for n in 0..=rng.below(4) {
         let liability = rng.below(3) == 0;
-        let amounts: Vec<i128> = (0..4).map(|_| i128::from(rng.cents(10_000_000_000))).collect();
-        let sign = |carrying: i128, base: i128| if liability { base - carrying } else { carrying - base };
+        let amounts: Vec<i128> = (0..4)
+            .map(|_| i128::from(rng.cents(10_000_000_000)))
+            .collect();
+        let sign = |carrying: i128, base: i128| {
+            if liability {
+                base - carrying
+            } else {
+                carrying - base
+            }
+        };
         let (closing, opening) = (sign(amounts[0], amounts[1]), sign(amounts[2], amounts[3]));
         taxable += closing.max(0);
         deductible += (-closing).max(0);
@@ -9492,12 +9501,20 @@ fn dt_case(rng: &mut Seeded) -> (Value, Value) {
     let losses = i128::from(rng.pick(&[0, any]));
     let any = rng.cents(1_000_000_000);
     let opening_losses = i128::from(rng.pick(&[0, any]));
-    let unrecognised = i128::from(rng.below(u64::try_from(deductible + losses).unwrap() + 1)) * i128::from(rng.below(2));
-    let opening_unrecognised = i128::from(rng.below(u64::try_from(opening_deductible + opening_losses).unwrap() + 1)) * i128::from(rng.below(2));
-    let used = i128::from(rng.below(u64::try_from(opening_unrecognised).unwrap() + 1)) * i128::from(rng.below(2));
+    let unrecognised = i128::from(rng.below(u64::try_from(deductible + losses).unwrap() + 1))
+        * i128::from(rng.below(2));
+    let opening_unrecognised =
+        i128::from(rng.below(u64::try_from(opening_deductible + opening_losses).unwrap() + 1))
+            * i128::from(rng.below(2));
+    let used = i128::from(rng.below(u64::try_from(opening_unrecognised).unwrap() + 1))
+        * i128::from(rng.below(2));
     // A loss in about 1 case in 6, and a nil profit, which has no effective rate, in about 1 in 20.
     let magnitude = i128::from(rng.cents(10_000_000_000)) * i128::from(rng.below(20) != 0);
-    let profit = if rng.below(6) == 0 { -magnitude } else { magnitude };
+    let profit = if rng.below(6) == 0 {
+        -magnitude
+    } else {
+        magnitude
+    };
     let any = rng.cents(100_000_000);
     let non_deductible = i128::from(rng.pick(&[0, any]));
     let any = rng.cents(100_000_000);
@@ -9505,7 +9522,11 @@ fn dt_case(rng: &mut Seeded) -> (Value, Value) {
     let taxable_income = i128::from(rng.cents(10_000_000_000));
     let before = dt_half_up(taxable_income * applicable, 100);
     let offsets = rng.pick(&[0, before / 2, before]);
-    let rate_text = if base_rate { "base_rate_entity" } else { "standard" };
+    let rate_text = if base_rate {
+        "base_rate_entity"
+    } else {
+        "standard"
+    };
     let call = json!({ "items": items, "unused_tax_losses": dt_cents(losses), "opening_unused_tax_losses": dt_cents(opening_losses),
         "unrecognised_deductible": dt_cents(unrecognised), "opening_unrecognised_deductible": dt_cents(opening_unrecognised),
         "unrecognised_used": dt_cents(used), "accounting_profit": dt_cents(profit), "non_deductible_expenses": dt_cents(non_deductible),
@@ -9516,18 +9537,31 @@ fn dt_case(rng: &mut Seeded) -> (Value, Value) {
     let at = |c: i128, r: i128| dt_half_up(c * r, 100);
     let liability = at(taxable, rate);
     let asset = at(deductible + losses - unrecognised, rate);
-    let opening_net_balance = at(opening_taxable, rate) - at(opening_deductible + opening_losses - opening_unrecognised, rate);
+    let opening_net_balance = at(opening_taxable, rate)
+        - at(
+            opening_deductible + opening_losses - opening_unrecognised,
+            rate,
+        );
     let deferred = liability - asset - opening_net_balance;
     let recognition = at(unrecognised - opening_unrecognised + used, rate);
     let current = before - offsets;
     let expense = current + deferred;
-    let change = (taxable - deductible - losses) - (opening_taxable - opening_deductible - opening_losses);
+    let change =
+        (taxable - deductible - losses) - (opening_taxable - opening_deductible - opening_losses);
     let rate_gap = dt_half_up(change * (rate - applicable), 100);
-    let lines = at(profit, applicable) + at(non_deductible, applicable) - at(non_assessable, applicable) + rate_gap + recognition
-        - at(used, rate) - offsets;
+    let lines = at(profit, applicable) + at(non_deductible, applicable)
+        - at(non_assessable, applicable)
+        + rate_gap
+        + recognition
+        - at(used, rate)
+        - offsets;
     let effective = (profit != 0).then(|| {
         let ratio = dt_half_up(expense * 10_000, profit);
-        let sign = if (expense < 0) != (profit < 0) { "-" } else { "" };
+        let sign = if (expense < 0) != (profit < 0) {
+            "-"
+        } else {
+            ""
+        };
         format!("{sign}{}.{:04}", ratio.abs() / 10_000, ratio.abs() % 10_000)
     });
     let expected = json!({ "deferred_tax_liability": dt_cents(liability), "deferred_tax_asset": dt_cents(asset),
@@ -9546,7 +9580,11 @@ fn the_deferred_tax_engine_agrees_with_the_oracle_on_every_seeded_case() {
     let mut rng = Seeded(0x2026_1124_0000_0B14);
     let (cases, expected): (Vec<_>, Vec<_>) = (0..DT_CASES).map(|_| dt_case(&mut rng)).unzip();
     assert!(expected.iter().any(|want| want["effective"].is_null()));
-    assert!(expected.iter().any(|want| want["deferred_rate_difference"] != json!("0.00")));
+    assert!(
+        expected
+            .iter()
+            .any(|want| want["deferred_rate_difference"] != json!("0.00"))
+    );
     let actual = run_node(DT_HARNESS, &cases);
     assert_eq!(actual.len(), DT_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
