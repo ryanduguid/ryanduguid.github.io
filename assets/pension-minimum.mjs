@@ -26,10 +26,11 @@ function refuse(code, message) {
  * @param {string} text */
 function decimalParts(text) {
   const negative = text.startsWith('-');
-  const [whole, decimals, extra] = (negative ? text.slice(1) : text).split('.');
+  const pieces = (negative ? text.slice(1) : text).split('.');
   const digits = /^\d+$/;
-  if (extra !== undefined || !digits.test(whole) || (decimals !== undefined && !digits.test(decimals))) return null;
-  return { negative, whole, decimals: decimals ?? '' };
+  if (pieces.length > 2 || !pieces.every((piece) => digits.test(piece))) return null;
+  const [whole, decimals = ''] = pieces;
+  return { negative, whole, decimals };
 }
 
 /** A decimal string as the command's reader parses it: its sign, whole and decimal digits, or null for
