@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { fhss, FHSS_ESTIMATE_NOTE, FHSS_TRANSITION_NOTE } from './fhss.mjs';
+export { fhss };
 
 const WITHHOLDING = {
   marginal: 'marginal rate plus the ordinary Medicare levy, less the 30% offset',
