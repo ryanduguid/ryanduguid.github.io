@@ -1,6 +1,14 @@
 <section class="business-calculator" id="deferred-tax">
 <form class="calculator-split" data-calculator="deferred-tax">
-<fieldset disabled><legend>One company’s tax effect worksheet for an income year</legend><div class="form-grid">
+<fieldset disabled><legend>One company’s tax effect worksheet for an income year</legend>
+<fieldset><legend>Profit, taxable income and offsets</legend><div class="form-grid">
+<label class="field" for="deferred-tax-profit">Accounting profit before tax (a loss below nil) (AUD)<input id="deferred-tax-profit" name="profit" type="number" inputmode="decimal" min="-1000000000000" max="1000000000000" step=".01" value="100000" required /></label>
+<label class="field" for="deferred-tax-non-deductible">Expenses not deductible for tax (AUD)<input id="deferred-tax-non-deductible" name="non-deductible" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="4000" required /></label>
+<label class="field" for="deferred-tax-non-assessable">Income not assessable (AUD)<input id="deferred-tax-non-assessable" name="non-assessable" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" required /></label>
+<label class="field" for="deferred-tax-taxable-income">Taxable income (AUD)<input id="deferred-tax-taxable-income" name="taxable-income" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="100000" required /></label>
+<label class="field" for="deferred-tax-offsets">Non-refundable tax offsets (AUD)<input id="deferred-tax-offsets" name="offsets" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" required /></label>
+</div></fieldset>
+<div class="form-grid">
 <div class="field"><label for="deferred-tax-year">Income year</label><select name="year" id="deferred-tax-year"><option value="2026-27">2026-27</option><option value="2025-26" selected>2025-26</option><option value="2024-25">2024-25</option><option value="2023-24">2023-24</option><option value="2022-23">2022-23</option><option value="2021-22">2021-22</option><option value="2020-21">2020-21</option></select></div>
 <div class="field"><label for="deferred-tax-bre">A base rate entity for the year (section 23AA)</label><select name="bre" id="deferred-tax-bre"><option value="no" selected>No</option><option value="yes">Yes</option></select></div>
 <div class="field"><label for="deferred-tax-expected-rate">Rate expected when the closing differences reverse</label><select name="expected-rate" id="deferred-tax-expected-rate"><option value="standard" selected>30%, not a base rate entity</option><option value="base_rate_entity">25%, a base rate entity</option></select></div>
@@ -52,13 +60,6 @@
 <label class="field" for="deferred-tax-unrecognised">Deductible differences and losses with no deferred tax asset, at the end (AUD)<input id="deferred-tax-unrecognised" name="unrecognised" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" required /></label>
 <label class="field" for="deferred-tax-opening-unrecognised">The same at the start of the year (AUD)<input id="deferred-tax-opening-unrecognised" name="opening-unrecognised" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" required /></label>
 <label class="field" for="deferred-tax-used">Of those at the start, the amount used in the year (AUD)<input id="deferred-tax-used" name="used" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" required /></label>
-</div></fieldset>
-<fieldset><legend>Profit, taxable income and offsets</legend><div class="form-grid">
-<label class="field" for="deferred-tax-profit">Accounting profit before tax (a loss below nil) (AUD)<input id="deferred-tax-profit" name="profit" type="number" inputmode="decimal" min="-1000000000000" max="1000000000000" step=".01" value="100000" required /></label>
-<label class="field" for="deferred-tax-non-deductible">Expenses not deductible for tax (AUD)<input id="deferred-tax-non-deductible" name="non-deductible" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="4000" required /></label>
-<label class="field" for="deferred-tax-non-assessable">Income not assessable (AUD)<input id="deferred-tax-non-assessable" name="non-assessable" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" required /></label>
-<label class="field" for="deferred-tax-taxable-income">Taxable income (AUD)<input id="deferred-tax-taxable-income" name="taxable-income" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="100000" required /></label>
-<label class="field" for="deferred-tax-offsets">Non-refundable tax offsets (AUD)<input id="deferred-tax-offsets" name="offsets" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" required /></label>
 </div></fieldset>
 <fieldset><legend>Matters the worksheet refuses</legend><div class="form-grid">
 <div class="field"><label for="deferred-tax-business-combination">Deferred tax arising in a business combination</label><select name="business-combination" id="deferred-tax-business-combination"><option value="no" selected>No</option><option value="yes">Yes</option></select></div>
