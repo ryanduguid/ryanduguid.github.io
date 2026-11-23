@@ -808,7 +808,7 @@ const MUTATIONS = [
   { ...fhog, name: 'FHOG Western Australia pays the amount on a smaller consideration', find: 'north: 1000000, lesser: true }] }', replace: 'north: 1000000 }] }' },
   { ...fhog, name: 'FHOG NT pays the amount on a smaller consideration', find: "to: '2027-09-30', amount: 50000, lesser: true", replace: "to: '2027-09-30', amount: 50000" },
   { ...fhog, name: 'FHOG a Victorian home built tests land and building against the cap', find: "if (place === 'AU-VIC' && home === 'built') {", replace: 'if (false) {' },
-  { ...fhog, name: 'FHOG a value at the cap is refused the grant', find: 'dollars > limit) return', replace: 'dollars >= limit) return' },
+  { ...fhog, name: 'FHOG a value at the cap is refused the grant', find: 'dollars > limit) {', replace: 'dollars >= limit) {' },
   { ...fhog, name: 'FHOG a home built needs no contract fact', find: "(f === 'contract' ? home === 'built'", replace: "(f === 'contract' ? false" },
   { ...fhog, name: 'FHOG Western Australia assumes south', find: "if (place === 'AU-WA' && typeof north !== 'boolean') throw", replace: 'if (false) throw' },
   { ...fhog, name: 'FHOG Tasmania pays the amount on a smaller consideration', find: "amount: 20000, lesser: true", replace: 'amount: 20000' },
