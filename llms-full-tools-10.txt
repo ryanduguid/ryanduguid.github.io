@@ -120,7 +120,7 @@ Source: https://duguid.com.au/tools/individual-tax/
 
 Sixteen calculators for one person’s tax, pay and super, with sources for the rates and thresholds and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
 
-Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22, salary packaging from 2022-23, novated leases from 2023-24, the withholding from a 2026-27 pay with a bonus or back payment, and super projected from 2026-27. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
+Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22, salary packaging from 2022-23, novated leases from 2023-24, the withholding from a 2026-27 pay with a bonus or back payment, super projected from 2026-27, and the account-based pension minimum for 2024-25 to 2027-28. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
 
 Published 17 November 2026. Last checked 24 November 2026, the newest of the calculators’ source checks.
 

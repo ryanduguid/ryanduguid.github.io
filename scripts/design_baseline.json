@@ -333,7 +333,7 @@
       "7886659bc910ffc82968d9a6d58cedfeeea1e70a9e13da98a75dc46e86c4c964"
     ],
     "tools/individual-tax/pension-minimum/index.html": [
-      "a306f74c653003828de1649a1a282b238c4c32095325dcbeee9e09d94e8850a0"
+      "c262598b836df694e0f75c1f87ef8c148aa4d6f1a958a5f6bbd400b3bb799ada"
     ],
     "tools/individual-tax/salary-packaging/index.html": [
       "79df2afc8bdd8a9ee82ab1c9860fa4a827d4379a96f3f60dde93430d21d93a44"
@@ -415,7 +415,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "05a7506a6c9b96581c8a6b9877f5515c4ceed4b4a453e023eabecc31688436a8",
+    "llms.txt": "a6219a93df72f319410fbae3b0c82ff734cf6cae04338fc1ce8dad25c4bc7707",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
     "sitemap.xml": "c4669909d68752403f237b4eba90c1321a8973cecbb68a9b19d9bebfeeaf2cf5"
   },
