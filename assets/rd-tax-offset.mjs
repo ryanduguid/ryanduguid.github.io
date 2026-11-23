@@ -42,13 +42,13 @@ function refuse(code, message) {
 }
 
 /** Python's whitespace, which the command strips from a decimal before reading it. */
-const SPACE = /[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/;
+const SPACE = /[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/; // eslint-disable-line no-control-regex -- Python's whitespace includes U+001C to U+001F
 /** `text` without Python's whitespace at either end. @param {string} text */
 const stripSpace = (text) => {
   let start = 0;
   let end = text.length;
-  while (start < end && SPACE.test(text[start])) start += 1;
-  while (end > start && SPACE.test(text[end - 1])) end -= 1;
+  while (start < end && SPACE.test(text.charAt(start))) start += 1;
+  while (end > start && SPACE.test(text.charAt(end - 1))) end -= 1;
   return text.slice(start, end);
 };
 
@@ -57,11 +57,11 @@ const stripSpace = (text) => {
  * @param {string} key @param {unknown} value @returns {bigint | null} */
 function decimal(key, value) {
   if (typeof value !== 'string') return null;
-  if (new TextEncoder().encode(value).length > 8192) refuse('input.decimal_too_long', `Enter ${WORDS[key]} with fewer digits.`);
+  if (new TextEncoder().encode(value).length > 8192) refuse('input.decimal_too_long', `Enter ${WORDS[key]} with fewer digits.`); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   const text = stripSpace(value);
   if (/^[+-]?(inf|infinity|s?nan\d*)$/i.test(text)) return null;
-  const parts = /^(-?)(\d+)(?:\.(\d+))?$/.exec(text);
-  if (!parts) refuse('input.decimal_unreadable', `Enter ${WORDS[key]} as an amount in digits, such as 1250.50.`);
+  const parts = /^(-?)(\d+)(?:\.(\d+))?$/.exec(text); // eslint-disable-line security/detect-unsafe-regex -- anchored, with no repetition over overlapping characters: linear
+  if (!parts) refuse('input.decimal_unreadable', `Enter ${WORDS[key]} as an amount in digits, such as 1250.50.`); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   if ((parts[3] ?? '').length > 2) return null;
   const cents = BigInt(parts[2] + (parts[3] ?? '').padEnd(2, '0'));
   return (parts[1] && cents > 0n) || cents > MAX ? null : cents;
@@ -69,13 +69,13 @@ function decimal(key, value) {
 
 /** @param {string} key @param {bigint | null} cents @returns {bigint} */
 function money(key, cents) {
-  if (cents === null) refuse('input.amount_invalid', `Enter ${WORDS[key]} as an amount of 0 or more with no more than 2 decimal places.`);
+  if (cents === null) refuse('input.amount_invalid', `Enter ${WORDS[key]} as an amount of 0 or more with no more than 2 decimal places.`); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   return cents;
 }
 
 /** @param {string} key @param {unknown} value @returns {boolean} */
 function flag(key, value) {
-  if (typeof value !== 'boolean') refuse('input.flag_invalid', `Answer ${WORDS[key]} yes or no.`);
+  if (typeof value !== 'boolean') refuse('input.flag_invalid', `Answer ${WORDS[key]} yes or no.`); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   return value;
 }
 
@@ -121,7 +121,7 @@ function read(input) {
   const cents = {};
   for (const key of FIELDS) {
     if (!(key in input)) refuse('input.missing_field', `${key} is required.`);
-    if (DECIMALS.has(key)) cents[key] = decimal(key, input[key]);
+    if (DECIMALS.has(key)) cents[key] = decimal(key, input[key]); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   }
   if (input.scope_confirmed !== true) refuse('scope.not_confirmed', 'Establish all stated scope conditions before calculating.');
   const year = input.year;
@@ -129,7 +129,7 @@ function read(input) {
     const earlier = typeof year === 'string' && EARLIER_YEARS.includes(year) ? ` ${EARLIER_RATES}` : '';
     refuse('period.unsupported', `Choose an income year from ${RD_YEARS[0]} to ${RD_YEARS.at(-1)}.${earlier}`);
   }
-  const amount = (/** @type {string} */ key) => money(key, cents[key]);
+  const amount = (/** @type {string} */ key) => money(key, cents[key]); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   const notional = amount('notional_deductions');
   const rspCrc = amount('rsp_crc_expenditure');
   const turnover = amount('aggregated_turnover');
@@ -192,15 +192,15 @@ export function rdTaxOffset(given) {
   const incomeCents = (income < 0n ? -1n : 1n) * ratioCents((income < 0n ? -income : income), presentRate * 1000n);
   /** @type {Record<string, string>} */
   const amounts = {};
-  STARTING.forEach((id, k) => { amounts[id] = shown(starting[k]); });
+  STARTING.forEach((id, k) => { amounts[id] = shown(starting[k]); }); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   amounts.refundable_offset = shown(e.refundable ? offset : 0n);
   amounts.non_refundable_offset = shown(e.refundable ? 0n : offset);
   amounts.clawback_amount = shown(clawback * 1000000n);
-  ADJUSTED.forEach((id, k) => { amounts[id] = shown(adjusted[k]); });
+  ADJUSTED.forEach((id, k) => { amounts[id] = shown(adjusted[k]); }); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   amounts.deduction_amount = shown(deduction);
   amounts.clawback_income = shown(incomeCents * 1000000n);
   const ratio = (/** @type {bigint} */ r) => (r === 250n ? '0.25' : '0.30');
-  const dollars = (/** @type {string} */ id) => Number(amounts[id]);
+  const dollars = (/** @type {string} */ id) => Number(amounts[id]); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   return { year, refundable: e.refundable, rate: Number(e.rate) / 10, presentRate: Number(presentRate) / 10, amounts,
     rates: { corporate_tax_rate: ratio(e.rate), present_year_corporate_tax_rate: ratio(presentRate) },
     taxOffset: dollars('tax_offset'), refundableOffset: dollars('refundable_offset'), nonRefundableOffset: dollars('non_refundable_offset'),
@@ -235,7 +235,7 @@ export function rdInputsText(x, aud) {
 export function rdTaxOffsetResult(value, aud) {
   const input = rdFormInput(value);
   const r = rdTaxOffset(input);
-  const a = (/** @type {string} */ id) => aud(Number(r.amounts[id]));
+  const a = (/** @type {string} */ id) => aud(Number(r.amounts[id])); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   const pct = (/** @type {number} */ n) => `${n.toLocaleString('en-AU', { maximumFractionDigits: 1 })}%`;
   const below = Number(input.notional_deductions) < 20000;
   const rows = [[below ? 'Offset base: research service provider and CRC expenditure, the total being under $20,000' : 'Offset base: the notional deductions', a('offset_base')]];
