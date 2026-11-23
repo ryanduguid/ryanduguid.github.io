@@ -83,11 +83,29 @@ function earlierProfitYears(given) {
   return profits;
 }
 
-/**
- * The command's result for its inputs, without scope_confirmed: amounts in cents.
- * @param {Record<string, unknown>} input
- */
-export function nonCommercialLosses(input) {
+/** s 35-10(2E): taxable income without the business losses (a loss counts as nil) or the FHSS amount,
+ * then the other 3 amounts, in cents. @param {Record<string, unknown>} input */
+function incomeRequirement(input) {
+  const taxable = signedCents(input.taxable_income);
+  const [losses, fhss] = [input.business_losses, input.assessable_fhss_released_amount].map(money);
+  const withoutLosses = taxable + losses - fhss;
+  const requirementIncome = withoutLosses < 0n ? 0n : withoutLosses;
+  const requirementTotal = requirementIncome + [input.reportable_fringe_benefits, input.reportable_super_contributions,
+    input.total_net_investment_loss].map(money).reduce((a, b) => a + b, 0n);
+  return { requirementIncome, requirementTotal };
+}
+
+/** The command's outcome code. @param {bigint} excess @param {boolean} ruleApplies @param {bigint} deferred */
+function outcomeOf(excess, ruleApplies, deferred) {
+  if (excess === 0n) return 'no_excess';
+  if (!ruleApplies) return 'not_deferred';
+  if (deferred === 0n) return 'exempt_income_absorbs';
+  return deferred < excess ? 'deferred_less_exempt_income' : 'deferred';
+}
+
+/** The command's first pass: unknown keys, then each parameter present and each decimal readable.
+ * @param {Record<string, unknown>} input */
+function readParams(input) {
   const unknownKey = Object.keys(input).find((key) => !PARAMS.some(([name]) => name === key) && !OPTIONAL.includes(key));
   if (unknownKey !== undefined) refuse('input.field_unknown', `${unknownKey} is not an input of non-commercial-losses`);
   const given = new Map(Object.entries(input));
@@ -96,6 +114,14 @@ export function nonCommercialLosses(input) {
     if (kind === 'dec') readable(given.get(key));
   }
   for (const key of OPTIONAL) if (given.has(key)) readable(given.get(key));
+}
+
+/**
+ * The command's result for its inputs, without scope_confirmed: amounts in cents.
+ * @param {Record<string, unknown>} input
+ */
+export function nonCommercialLosses(input) {
+  readParams(input);
   const year = /** @type {string} */ (input.year);
   if (!NCL_YEARS.includes(year)) refuse('period.unsupported', `Unsupported period ${String(year)}; supported: ${NCL_YEARS.join(', ')}.`);
   const activity = input.activity;
@@ -105,22 +131,14 @@ export function nonCommercialLosses(input) {
   const excepted = activity !== 'other';
   if (typeof input.part_year !== 'boolean') refuse('input.flag_invalid', 'part_year must be a boolean.');
   const partYear = input.part_year;
-  OPTIONAL.forEach((key, i) => {
-    const wanted = [partYear, excepted][i];
+  [[OPTIONAL[0], partYear], [OPTIONAL[1], excepted]].forEach(([key, wanted]) => {
     if (wanted && !Object.hasOwn(input, key)) refuse('input.missing_field', `${key} is required for these facts.`);
     if (!wanted && Object.hasOwn(input, key)) refuse('input.field_unknown', `${key} is not an input for these facts`);
   });
   const [income, deductions, broughtForward] = [input.assessable_income, input.deductions, input.brought_forward].map(money);
   const earlierProfits = earlierProfitYears(input.earlier_years);
 
-  // s 35-10(2E): taxable income without the business losses (a loss counts as nil) or the FHSS amount,
-  // then the other 3 amounts.
-  const taxable = signedCents(input.taxable_income);
-  const [losses, fhss] = [input.business_losses, input.assessable_fhss_released_amount].map(money);
-  const withoutLosses = taxable + losses - fhss;
-  const requirementIncome = withoutLosses < 0n ? 0n : withoutLosses;
-  const requirementTotal = requirementIncome + [input.reportable_fringe_benefits, input.reportable_super_contributions,
-    input.total_net_investment_loss].map(money).reduce((a, b) => a + b, 0n);
+  const { requirementIncome, requirementTotal } = incomeRequirement(input);
   const requirementMet = requirementTotal < INCOME_REQUIREMENT;
 
   // s 35-30: for a part year, the larger of the year's income and a reasonable full-year estimate.
@@ -147,11 +165,7 @@ export function nonCommercialLosses(input) {
   const exempt = money(input.net_exempt_income);
   const deferred = ruleApplies ? (excess > exempt ? excess - exempt : 0n) : 0n;
   const deductible = ruleApplies ? 0n : excess;
-  let outcome;
-  if (excess === 0n) outcome = 'no_excess';
-  else if (!ruleApplies) outcome = 'not_deferred';
-  else if (deferred === 0n) outcome = 'exempt_income_absorbs';
-  else outcome = deferred < excess ? 'deferred_less_exempt_income' : 'deferred';
+  const outcome = outcomeOf(excess, ruleApplies, deferred);
   return {
     year, partYear, excepted, requirementMet, tests, profitYears, exception, ruleApplies, outcome,
     requirementIncome: Number(requirementIncome), requirementTotal: Number(requirementTotal), excess: Number(excess),
