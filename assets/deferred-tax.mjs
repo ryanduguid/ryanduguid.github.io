@@ -257,7 +257,7 @@ export function deferredTax(x) {
     deferredTaxExpense: dollars(deferred), currentTax: dollars(current), incomeTaxExpense: dollars(expense) };
 }
 
-// The page: up to 5 items, the year's amounts and the matters the worksheet refuses, read as the command's input.
+// The page: up to 4 items, the year's amounts and the matters the worksheet refuses, read as the command's input.
 export const DEFERRED_TAX_ROWS = 4;
 const AMOUNT_FIELDS = [['carrying', 'carrying_amount'], ['base', 'tax_base'], ['opening-carrying', 'opening_carrying_amount'], ['opening-base', 'opening_tax_base']];
 
@@ -313,7 +313,7 @@ export function deferredTaxResult(value, aud) {
   const input = deferredTaxFormInput(value);
   const r = deferredTax(input);
   const a = (/** @type {string} */ id) => aud(Number(r.amounts[id])); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
-  const pct = (/** @type {string} */ fraction) => `${(Number(fraction) * 100).toLocaleString('en-AU', { maximumFractionDigits: 2 })}%`;
+  const pct = (/** @type {string} */ fraction) => `${(Number(fraction) * 100 || 0).toLocaleString('en-AU', { maximumFractionDigits: 2 })}%`;
   const rows = [[`Deferred tax liability, at ${pct(r.rates.closing_rate)}`, a('deferred_tax_liability')],
     [`Deferred tax asset, at ${pct(r.rates.closing_rate)}`, a('deferred_tax_asset')], ['Net deferred tax liability', a('net_deferred_tax_liability')],
     ['Deferred tax expense', a('deferred_tax_expense')], [`Current tax, at ${pct(r.rates.applicable_rate)}`, a('current_tax')],
