@@ -2667,7 +2667,7 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
     padding-block: var(--space-2);
   }
 
-  .article-toc > :not(p):not(h2):not(details) {
+  .article-toc > :not(p, h2, details) {
     display: none;
   }
 
