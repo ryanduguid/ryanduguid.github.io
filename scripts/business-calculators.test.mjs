@@ -6620,4 +6620,11 @@ test('the deferred tax form sends the rows with a name or an amount, in order', 
   assert.match(result.note, /do not explain taxable income/);
   assert.deepEqual(result.tables.reconciliation.at(-2), ['Difference left', '-$300.00']);
   assert.deepEqual(result.tables.differences[1], ['Leave provision', 'liability', '-$12,000.00', 'deductible', '-$10,000.00']);
+  // A nil expense over a loss is the command's '-0.0000': the page shows 0%, not -0%.
+  const nil = { profit: '-50000', 'taxable-income': '0', 'non-deductible': '0', 'item-1-carrying': '0', 'item-1-base': '0',
+    'item-1-opening-carrying': '0', 'item-1-opening-base': '0' };
+  for (const n of [2, 3]) Object.assign(nil, { [`item-${n}-label`]: '', [`item-${n}-carrying`]: '', [`item-${n}-base`]: '',
+    [`item-${n}-opening-carrying`]: '', [`item-${n}-opening-base`]: '' });
+  const loss = calculations.deferredTaxResult((name) => ({ ...fields, ...nil })[name] ?? '', deferredAud);
+  assert.deepEqual(loss.rows.at(-1), ['Average effective tax rate', '0%']);
 });
