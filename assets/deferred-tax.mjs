@@ -30,7 +30,15 @@ const FIELDS = ['items', 'unused_tax_losses', 'opening_unused_tax_losses', 'unre
 const DECIMALS = FIELDS.slice(1, 11);
 
 /** Python's whitespace, which the command strips from a decimal before reading it. */
-const SPACE = /^[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]+|[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]+$/g;
+const SPACE = /[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/;
+/** `text` without Python's whitespace at either end. @param {string} text */
+const stripSpace = (text) => {
+  let start = 0;
+  let end = text.length;
+  while (start < end && SPACE.test(text[start])) start += 1;
+  while (end > start && SPACE.test(text[end - 1])) end -= 1;
+  return text.slice(start, end);
+};
 /** Rust's whitespace, which an item's label may not be made of. */
 const LABEL_SPACE = /^[\t\n\v\f\r \x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]*$/;
 
@@ -38,7 +46,7 @@ const LABEL_SPACE = /^[\t\n\v\f\r \x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\
  * @param {unknown} value @param {() => never} unreadable @returns {{negative: boolean, cents: bigint} | {negative: boolean, excess: true} | null} */
 function readDecimal(value, unreadable) {
   if (typeof value !== 'string') return null;
-  const text = value.replace(SPACE, '');
+  const text = stripSpace(value);
   if (/^[+-]?(inf|infinity|s?nan\d*)$/i.test(text)) return null;
   const parts = /^(-?)(\d+)(?:\.(\d+))?$/.exec(text);
   if (!parts) return unreadable();
@@ -310,7 +318,7 @@ export function deferredTaxResult(value, aud) {
     [`Deferred tax asset, at ${pct(r.rates.closing_rate)}`, a('deferred_tax_asset')], ['Net deferred tax liability', a('net_deferred_tax_liability')],
     ['Deferred tax expense', a('deferred_tax_expense')], [`Current tax, at ${pct(r.rates.applicable_rate)}`, a('current_tax')],
     ['Income tax expense', a('income_tax_expense')]];
-  if (r.rates.effective_tax_rate !== undefined) rows.push(['Average effective tax rate', pct(r.rates.effective_tax_rate)]);
+  if ('effective_tax_rate' in r.rates) rows.push(['Average effective tax rate', pct(r.rates.effective_tax_rate)]);
   const tables = {
     differences: r.items.map((it) => [it.label, it.class, aud(Number(it.temporary_difference)), it.nature, aud(Number(it.opening_temporary_difference))]),
     movement: [['Opening net deferred tax liability', aud(Number(r.amounts.opening_deferred_tax_liability) - Number(r.amounts.opening_deferred_tax_asset))],
