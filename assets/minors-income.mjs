@@ -169,37 +169,9 @@ function exceptedPerson(/** @type {Map<string, unknown>} */ given, /** @type {bo
   return { citation, holds: needsDependency ? !flag(dependent, 'dependent_on_relatives') : true };
 }
 
-/**
- * The command's result for its inputs, without scope_confirmed: amounts in cents, rounded half up.
- * @param {Record<string, unknown>} input
- */
-export function minorsIncome(input) {
-  const unknownKey = Object.keys(input).find((key) => !PARAMS.some(([name]) => name === key) && !OPTIONAL.includes(key));
-  if (unknownKey !== undefined) refuse('input.field_unknown', `${unknownKey} is not an input of minors-income`);
-  const given = new Map(Object.entries(input));
-  for (const [key, kind] of PARAMS) {
-    if (!given.has(key)) refuse('input.missing_field', `${key} is required`);
-    if (kind === 'dec') readable(given.get(key));
-  }
-  const year = /** @type {string} */ (input.year);
-  if (!MINORS_YEARS.includes(year)) {
-    refuse('period.unsupported', `Unsupported period ${String(year)}; supported: ${MINORS_YEARS.join(', ')}.`);
-  }
-  if (flag(input.special_income_component, 'special_income_component')) {
-    refuse('minors_income.special_income_component', 'Taxable income that includes a special income component (an '
-      + 'abnormal income amount, Income Tax Rates Act 1986 s 3(1)) is taxed under Schedule 11 clause 3’s formula, '
-      + 'which this calculator does not take.');
-  }
-  if (input.residency !== 'resident' && input.residency !== 'foreign_resident') {
-    refuse('minors_income.residency_invalid', 'residency must be resident or foreign_resident.');
-  }
-  const resident = input.residency === 'resident';
-  const taxableCents = money(input.taxable_income);
-  if (taxableCents % 100n !== 0n) refuse('input.amount_not_whole_dollars', 'Supply established whole-dollar taxable income.');
-  const under18 = flag(input.under_18_on_30_june, 'under_18_on_30_june');
-  const person = exceptedPerson(given, under18);
-  const prescribed = under18 && !person?.holds;
-
+/** The excepted income items and trust shares (s 102AE, s 102AG), in cents.
+ * @param {Record<string, unknown>} input */
+function exceptedItems(input) {
   let excepted = 0n;
   items(input.excepted_income, 'minors_income.excepted_income_invalid', 'excepted_income').forEach((fields, i) => {
     const name = `excepted income item ${i + 1}`;
@@ -220,32 +192,12 @@ export function minorsIncome(input) {
     trustExcepted += amount - part;
     trustEligible += part;
   });
-  const other = money(input.other_assessable_income);
-  // s 102AG(1) applies only to a prescribed beneficiary; otherwise the whole share is excepted.
-  const [exceptedTotal, eligibleAssessable] = prescribed ? [excepted + trustExcepted, other + trustEligible]
-    : [excepted + trustExcepted + trustEligible, other];
-  const [exclusive, related, apportionable] = ['deductions_exclusive', 'deductions_related', 'apportionable_deductions']
-    .map((key) => money(given.get(key)));
-  if (taxableCents > eligibleAssessable + exceptedTotal) {
-    refuse('minors_income.facts_inconsistent', 'taxable_income exceeds the assessable income given.');
-  }
+  return { excepted, trustExcepted, trustEligible };
+}
 
-  // s 102AD: eligible assessable income less the deductions in (a) and (b), then the apportioned
-  // part of apportionable deductions in (c), nil if negative.
-  const taxable = q(taxableCents);
-  let [apportioned, eligible] = [ZERO, ZERO];
-  const before = eligibleAssessable - exclusive - related;
-  if (prescribed && before > 0n) {
-    const base = taxableCents + apportionable;
-    apportioned = base === 0n ? ZERO : q(apportionable * before, base);
-    eligible = max(ZERO, sub(q(before), apportioned));
-  }
-  if (gt(eligible, taxable)) {
-    refuse('minors_income.facts_inconsistent', 'Eligible taxable income exceeds taxable income: a loss or deduction '
-      + 'against excepted income, which this calculator does not take.');
-  }
-
-  // ITRA s 13, s 15 and Schedule 11.
+/** ITRA s 13, s 15 and Schedule 11: the rule that applies and the tax on eligible taxable income.
+ * @param {string} year @param {boolean} resident @param {Q} taxable @param {Q} eligible */
+function specialTax(year, resident, taxable, eligible) {
   const residentScale = /** @type {number[][]} */ (SCALES.get(year));
   const scale = resident ? residentScale : FOREIGN_SCALE;
   const limit = phaseOut(scale, resident);
@@ -271,6 +223,80 @@ export function minorsIncome(input) {
   } else {
     [rule, taxEligible] = ['special', atSpecial];
   }
+  return { limit, secondRate, rest, taxOther, rule, taxEligible };
+}
+
+/** s 102AD(c): the share of apportionable deductions and eligible taxable income, nil if negative.
+ * @param {bigint} before eligible assessable income less the (a) and (b) deductions, in cents
+ * @param {bigint} taxableCents @param {bigint} apportionable @returns {[Q, Q]} */
+function apportion(before, taxableCents, apportionable) {
+  if (before <= 0n) return [ZERO, ZERO];
+  const base = taxableCents + apportionable;
+  const apportioned = base === 0n ? ZERO : q(apportionable * before, base);
+  return [apportioned, max(ZERO, sub(q(before), apportioned))];
+}
+
+/** The year, a special income component (refused) and the residency, in the command's order.
+ * @param {Record<string, unknown>} input */
+function yearAndResidency(input) {
+  const year = /** @type {string} */ (input.year);
+  if (!MINORS_YEARS.includes(year)) {
+    refuse('period.unsupported', `Unsupported period ${String(year)}; supported: ${MINORS_YEARS.join(', ')}.`);
+  }
+  if (flag(input.special_income_component, 'special_income_component')) {
+    refuse('minors_income.special_income_component', 'Taxable income that includes a special income component (an '
+      + 'abnormal income amount, Income Tax Rates Act 1986 s 3(1)) is taxed under Schedule 11 clause 3’s formula, '
+      + 'which this calculator does not take.');
+  }
+  if (input.residency !== 'resident' && input.residency !== 'foreign_resident') {
+    refuse('minors_income.residency_invalid', 'residency must be resident or foreign_resident.');
+  }
+  const resident = input.residency === 'resident';
+  return { year, resident };
+}
+
+/**
+ * The command's result for its inputs, without scope_confirmed: amounts in cents, rounded half up.
+ * @param {Record<string, unknown>} input
+ */
+export function minorsIncome(input) {
+  const unknownKey = Object.keys(input).find((key) => !PARAMS.some(([name]) => name === key) && !OPTIONAL.includes(key));
+  if (unknownKey !== undefined) refuse('input.field_unknown', `${unknownKey} is not an input of minors-income`);
+  const given = new Map(Object.entries(input));
+  for (const [key, kind] of PARAMS) {
+    if (!given.has(key)) refuse('input.missing_field', `${key} is required`);
+    if (kind === 'dec') readable(given.get(key));
+  }
+  const { year, resident } = yearAndResidency(input);
+  const taxableCents = money(input.taxable_income);
+  if (taxableCents % 100n !== 0n) refuse('input.amount_not_whole_dollars', 'Supply established whole-dollar taxable income.');
+  const under18 = flag(input.under_18_on_30_june, 'under_18_on_30_june');
+  const person = exceptedPerson(given, under18);
+  const prescribed = under18 && !person?.holds;
+
+  const { excepted, trustExcepted, trustEligible } = exceptedItems(input);
+  const other = money(input.other_assessable_income);
+  // s 102AG(1) applies only to a prescribed beneficiary; otherwise the whole share is excepted.
+  const [exceptedTotal, eligibleAssessable] = prescribed ? [excepted + trustExcepted, other + trustEligible]
+    : [excepted + trustExcepted + trustEligible, other];
+  const [exclusive, related, apportionable] = ['deductions_exclusive', 'deductions_related', 'apportionable_deductions']
+    .map((key) => money(given.get(key)));
+  if (taxableCents > eligibleAssessable + exceptedTotal) {
+    refuse('minors_income.facts_inconsistent', 'taxable_income exceeds the assessable income given.');
+  }
+
+  // s 102AD: eligible assessable income less the deductions in (a) and (b), then the apportioned
+  // part of apportionable deductions in (c), nil if negative.
+  const taxable = q(taxableCents);
+  const [apportioned, eligible] = prescribed
+    ? apportion(eligibleAssessable - exclusive - related, taxableCents, apportionable) : [ZERO, ZERO];
+  if (gt(eligible, taxable)) {
+    refuse('minors_income.facts_inconsistent', 'Eligible taxable income exceeds taxable income: a loss or deduction '
+      + 'against excepted income, which this calculator does not take.');
+  }
+
+  // ITRA s 13, s 15 and Schedule 11.
+  const { limit, secondRate, rest, taxOther, rule, taxEligible } = specialTax(year, resident, taxable, eligible);
   return {
     year, resident, under18, person, prescribed, rule, phaseOutLimit: limit, secondRate,
     exceptedTotal: Number(exceptedTotal), eligibleAssessable: Number(eligibleAssessable), apportioned: toCents(apportioned),
