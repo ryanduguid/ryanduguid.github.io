@@ -449,3 +449,12 @@ calculate.atoPenaltiesInterest({ ...atoInput, year: 2026 });
 const atoWarnings: number[] = calculate.atoPenaltiesInterest(atoInput).warnings;
 void atoYear;
 void atoWarnings;
+const gstBdInput = { party: 'supplier', event: 'written_off', amount: '550.00', taxable_or_creditable: true, cash_basis: false,
+  special_rule: 'none', attributed: true, year: '2025-26', scope_confirmed: true };
+const gstApplies: boolean = calculate.gstBadDebt(gstBdInput).applies;
+// @ts-expect-error The command's amounts are decimal text, not numbers.
+const gstAmounts: Record<string, number> = calculate.gstBadDebt(gstBdInput).amounts;
+const gstOutcome: string = calculate.gstAdjustment('bad-debt', gstBdInput).outcome;
+void gstApplies;
+void gstAmounts;
+void gstOutcome;
