@@ -2227,12 +2227,6 @@ fn the_objection_engine_agrees_with_the_oracle_on_every_seeded_case() {
 
 const PAYG_CASES: usize = 240;
 
-/// Half up from the quotient and remainder, where the engine adds half the divisor first.
-fn nearest(numerator: u128, denominator: u128) -> u128 {
-    let (quotient, remainder) = (numerator / denominator, numerator % denominator);
-    quotient + u128::from(2 * remainder >= denominator)
-}
-
 /// Estimated tax over estimated instalment income in hundredths of a per cent, by long
 /// division to 2 decimal places, dropping the rest as the ATO's example 2 does. Nil income
 /// varies the rate to nil.
@@ -2249,7 +2243,7 @@ fn varied_rate(tax: u128, income: u128) -> u128 {
     rate
 }
 
-/// One quarter's inputs, money in cents and the rate in hundredths of a per cent.
+/// One quarter's inputs, money in cents and rates in hundredths of a per cent.
 struct Quarter {
     method: &'static str,
     notified: u128,
@@ -2261,10 +2255,12 @@ struct Quarter {
     rate: u128,
     estimated_income: u128,
     earlier_income: u128,
+    previous_rate: u128,
 }
 
-/// The amount in cents, the instalment and credit in whole dollars (cents dropped, as the
-/// BAS instructions say), the amount due by this instalment and the rate applied.
+/// The amount and the amount due by this instalment in cents, each cut toward nil from the
+/// exact figure; the instalment and credit in whole dollars (cents dropped, as the BAS
+/// instructions say); and the rate applied.
 type Instalment = (i128, u128, u128, Option<u128>, Option<u128>);
 
 fn signed(cents: u128) -> i128 {
@@ -2274,7 +2270,8 @@ fn signed(cents: u128) -> i128 {
 /// The instalment under Schedule 1 to the Taxation Administration Act 1953: s 45-112 (the
 /// notified amount), s 45-410 (a quarter's share of estimated tax less earlier instalments net
 /// of credits), s 45-110 (instalment income times the rate) and s 45-205 with s 45-215 (a
-/// varied rate, and a credit when it is lower than the rate the earlier quarters used).
+/// varied rate, and a credit when it is lower than the rate used for the previous quarter).
+/// No step rounds: only the instalment and credit drop their cents.
 fn payg_oracle(quarter: &Quarter) -> Result<Instalment, &'static str> {
     let net_earlier = || {
         quarter
@@ -2291,8 +2288,8 @@ fn payg_oracle(quarter: &Quarter) -> Result<Instalment, &'static str> {
             None,
         )),
         "varied-amount" => {
-            // 25% a quarter, so the fourth instalment is 100%.
-            let due = nearest(quarter.estimated_tax * 25 * quarter.instalment, 100);
+            // 25% a quarter, so the fourth instalment is 100%; in quarter cents.
+            let share = quarter.estimated_tax * quarter.instalment;
             if quarter.instalment == 1 && quarter.earlier > 0 {
                 return Err("The first instalment of the year has no earlier instalments.");
             }
@@ -2302,9 +2299,9 @@ fn payg_oracle(quarter: &Quarter) -> Result<Instalment, &'static str> {
             if quarter.instalment < 3 && quarter.credits > 0 {
                 return Err("The first and second instalments of the year add back no credits.");
             }
-            let amount = signed(due) - signed(net);
-            let whole = |cents: i128| u128::try_from(cents.max(0)).unwrap() / 100;
-            Ok((amount, whole(amount), whole(-amount), Some(due), None))
+            let amount = signed(share) - 4 * signed(net);
+            let whole = |quarters: i128| u128::try_from(quarters.max(0)).unwrap() / 400;
+            Ok((amount / 4, whole(amount), whole(-amount), Some(share / 4), None))
         }
         _ => {
             let (rate, credit) = if quarter.method == "varied-rate" {
@@ -2312,9 +2309,9 @@ fn payg_oracle(quarter: &Quarter) -> Result<Instalment, &'static str> {
                     return Err("Estimated tax cannot exceed estimated instalment income.");
                 }
                 let rate = varied_rate(quarter.estimated_tax, quarter.estimated_income);
-                let credit = if rate < quarter.rate {
-                    let at_rate = nearest(quarter.earlier_income * rate, 10_000);
-                    net_earlier()?.saturating_sub(at_rate) / 100
+                let credit = if rate < quarter.previous_rate {
+                    // In 1/10,000 cent.
+                    (net_earlier()? * 10_000).saturating_sub(quarter.earlier_income * rate) / 1_000_000
                 } else {
                     0
                 };
@@ -2322,8 +2319,8 @@ fn payg_oracle(quarter: &Quarter) -> Result<Instalment, &'static str> {
             } else {
                 (quarter.rate, 0)
             };
-            let amount = nearest(quarter.income * rate, 10_000);
-            Ok((signed(amount), amount / 100, credit, None, Some(rate)))
+            let amount = quarter.income * rate;
+            Ok((signed(amount / 10_000), amount / 1_000_000, credit, None, Some(rate)))
         }
     }
 }
@@ -2350,6 +2347,7 @@ fn payg_case(rng: &mut Seeded) -> (Value, Value) {
     let estimated_income = u128::from(rng.cents(MAX_PRINCIPAL));
     let earlier = u128::from(rng.cents(MAX_PRINCIPAL));
     let any_rate = u128::from(rng.below(10_001));
+    let rate = rng.pick(&[0, 1, 170, 1100, 1684, 10_000, any_rate, any_rate]);
     let instalment = u128::from(1 + rng.below(4));
     let quarter = Quarter {
         method,
@@ -2364,9 +2362,11 @@ fn payg_case(rng: &mut Seeded) -> (Value, Value) {
         },
         credits: near(rng, earlier),
         income: u128::from(rng.cents(MAX_PRINCIPAL)),
-        rate: rng.pick(&[0, 1, 170, 1100, 1684, 10_000, any_rate, any_rate]),
+        rate,
         estimated_income,
         earlier_income: u128::from(rng.cents(MAX_PRINCIPAL)),
+        // The previous quarter's rate: often the rate at T2, otherwise any other.
+        previous_rate: rng.pick(&[rate, rate, 0, 1_227, 10_000, any_rate]),
     };
     let money = |cents: u128| dollars(u64::try_from(cents).unwrap());
     let case = json!({"kind": "payg", "inputs": {
@@ -2377,6 +2377,7 @@ fn payg_case(rng: &mut Seeded) -> (Value, Value) {
         "rate": format!("{}.{:02}", quarter.rate / 100, quarter.rate % 100),
         "estimatedIncome": money(quarter.estimated_income),
         "earlierIncome": money(quarter.earlier_income),
+        "previousRate": format!("{}.{:02}", quarter.previous_rate / 100, quarter.previous_rate % 100),
     }});
     let figure = |hundredths: u128| shown(u64::try_from(hundredths).unwrap());
     let result = match payg_oracle(&quarter) {
@@ -2401,6 +2402,7 @@ fn blank(method: &'static str) -> Quarter {
         rate: 0,
         estimated_income: 0,
         earlier_income: 0,
+        previous_rate: 0,
     }
 }
 
@@ -2444,14 +2446,27 @@ fn the_payg_oracle_works_the_atos_examples_by_hand() {
         estimated_tax: 50_000,
         estimated_income: 1_000_000,
         income: 1_000_000,
-        rate: 1_000,
+        previous_rate: 1_000,
         earlier: 100_000,
         earlier_income: 1_000_000,
         ..blank("varied-rate")
     };
     assert_eq!(payg_oracle(&bill), Ok((50_000, 500, 500, None, Some(500))));
-    // 1.5 cents rounds up and 1.4999 cents down.
-    assert_eq!((nearest(15, 10), nearest(14_999, 10_000)), (2, 1));
+    // A new rate at T2 does not change the comparison: 5% against the previous quarter's 4%.
+    assert_eq!(
+        payg_oracle(&Quarter {
+            rate: 1_000,
+            previous_rate: 400,
+            ..bill
+        }),
+        Ok((50_000, 500, 0, None, Some(500)))
+    );
+    // 25% of $399.99 is $99.9975: shown as $99.99, an instalment of $99.
+    let share = Quarter {
+        estimated_tax: 39_999,
+        ..blank("varied-amount")
+    };
+    assert_eq!(payg_oracle(&share), Ok((9_999, 99, 0, Some(9_999), None)));
 }
 
 #[test]

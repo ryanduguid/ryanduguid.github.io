@@ -638,7 +638,7 @@ const INPUTS = {
       + `earlier instalments ${dollars(f.earlier)}, credits ${dollars(f.credits)}`,
     rate: `Instalment income ${dollars(f.income)} at ${f.rate}%`,
     'varied-rate': `Varied rate from estimated tax ${dollars(f.estimatedTax)} on ${dollars(f.estimatedIncome)}; `
-      + `instalment income ${dollars(f.income)}, rate at T2 ${f.rate}%; earlier instalments ${dollars(f.earlier)}, `
+      + `instalment income ${dollars(f.income)}, previous quarter’s rate ${f.previousRate}%; earlier instalments ${dollars(f.earlier)}, `
       + `credits ${dollars(f.credits)}, on ${dollars(f.earlierIncome)}`,
   })[f.method],
 };
@@ -1162,7 +1162,7 @@ const FORM_CALLS = {
   objectionDeadline: (f) => [f.decision, f.group, f.notice, f.first],
   paygInstalment: (f) => [{ method: f.method, notified: f.notified, instalment: f.instalment, estimatedTax: f['estimated-tax'],
     earlier: f.earlier, credits: f.credits, income: f.income, rate: f.rate, estimatedIncome: f['estimated-income'],
-    earlierIncome: f['earlier-income'] }],
+    earlierIncome: f['earlier-income'], previousRate: f['previous-rate'] }],
 };
 // The radio's scales are read by the tests below, so the call names the jurisdiction; the choices
 // a row leaves at the form's opening values are left out.
@@ -1278,7 +1278,7 @@ test('objection deadline refuses an unknown decision or item and an impossible d
 //   (last updated 23 June 2026): example 1, Cari, '$14,000 × 75% = $10,500', '$10,500 − ($5,000 + $5,000) = $500',
 //   '$14,000 − ($5,000 + $5,000 + $500) = $3,500'; example 2, Harmander, '($10,125 ÷ $82,480) × 100 = 12.27%'.
 const instalment = (fields) => calculations.paygInstalment({ method: 'rate', notified: '0', instalment: '1', estimatedTax: '0',
-  earlier: '0', credits: '0', income: '0', rate: '0', estimatedIncome: '0', earlierIncome: '0', ...fields });
+  earlier: '0', credits: '0', income: '0', rate: '0', estimatedIncome: '0', earlierIncome: '0', previousRate: '0', ...fields });
 test('PAYG instalments agree with the ATO’s worked examples', () => {
   const sophia = instalment({ income: '20100', rate: '1.7' });
   assert.deepEqual([sophia.amount, sophia.instalment], [341.7, 341]);
@@ -1286,9 +1286,41 @@ test('PAYG instalments agree with the ATO’s worked examples', () => {
   assert.equal(instalment({ method: 'varied-amount', instalment: '3', estimatedTax: '14000', earlier: '10000' }).instalment, 500);
   assert.equal(instalment({ method: 'varied-amount', instalment: '4', estimatedTax: '14000', earlier: '10500' }).instalment, 3500);
   assert.equal(instalment({ method: 'varied-rate', estimatedTax: '10125', estimatedIncome: '82480', rate: '16.84' }).instalmentRate, 12.27);
-  const bill = instalment({ method: 'varied-rate', estimatedTax: '500', estimatedIncome: '10000', income: '10000', rate: '10',
+  const bill = instalment({ method: 'varied-rate', estimatedTax: '500', estimatedIncome: '10000', income: '10000', previousRate: '10',
     earlier: '1000', earlierIncome: '10000' });
   assert.deepEqual([bill.instalmentRate, bill.instalment, bill.credit], [5, 500, 500]);
+});
+
+// Section 45-215(1)(b) in Schedule 1 to the Taxation Administration Act 1953, Compilation No. 227 (1 October 2026),
+// read 24 November 2026: the credit needs a varied rate 'lower than the instalment rate you used to work out the amount
+// of your instalment for the previous instalment quarter'. Once the Commissioner gives a new rate at T2, that differs
+// from the previous quarter's rate, and section 45-205(2) Note 2 keeps a chosen rate even then.
+const PREVIOUS_RATE_REFUSED = 'Enter the rate used for the previous quarter as a per cent from 0 to 100, with no more than 2 decimal places.';
+test('PAYG instalments compare a varied rate with the previous quarter’s rate, not T2', () => {
+  const varied = { method: 'varied-rate', estimatedTax: '800', estimatedIncome: '10000', income: '10000', earlier: '1000',
+    earlierIncome: '10000' };
+  // 8% against 10% used last quarter: $1,000 − $10,000 × 8% = $200, whatever the new rate at T2.
+  assert.equal(instalment({ ...varied, rate: '5', previousRate: '10' }).credit, 200);
+  assert.equal(instalment({ ...varied, rate: '10', previousRate: '5' }).credit, 0);
+  assert.equal(instalment({ ...varied, previousRate: '8' }).credit, 0);
+  assert.throws(() => instalment({ ...varied, previousRate: '100.01' }), { message: PREVIOUS_RATE_REFUSED });
+  assert.throws(() => instalment({ ...varied, previousRate: '' }), { message: PREVIOUS_RATE_REFUSED });
+});
+
+// Neither the Act nor the ATO rounds a step: s 45-410(2) takes '25% of the estimate', s 45-110 multiplies by the rate and
+// s 45-215 step 3 multiplies earlier income by the rate. Only the activity statement drops cents. 25% of $399.99 is
+// $99.9975, so the instalment is $99; rounding that share to $100.00 first gave $100.
+test('PAYG instalments work each step unrounded and drop cents only from the instalment and credit', () => {
+  const first = instalment({ method: 'varied-amount', instalment: '1', estimatedTax: '399.99' });
+  assert.deepEqual([first.due, first.amount, first.instalment, first.credit], [99.99, 99.99, 99, 0]);
+  const second = instalment({ method: 'varied-amount', instalment: '2', estimatedTax: '0.01', earlier: '100' });
+  assert.deepEqual([second.due, second.amount, second.instalment, second.credit], [0, -99.99, 0, 99]);
+  const rate = instalment({ income: '399.99', rate: '25' });
+  assert.deepEqual([rate.amount, rate.instalment], [99.99, 99]);
+  // $1,000 less $0.04 × 10% ($0.004) leaves $999.996, a $999 credit; rounding $0.004 to nil first gave $1,000.
+  const credit = instalment({ method: 'varied-rate', estimatedTax: '1000', estimatedIncome: '10000', income: '0',
+    previousRate: '20', earlier: '1000', earlierIncome: '0.04' });
+  assert.deepEqual([credit.instalmentRate, credit.credit], [10, 999]);
 });
 
 test('PAYG instalments read only the fields of the chosen method', () => {
@@ -1297,7 +1329,7 @@ test('PAYG instalments read only the fields of the chosen method', () => {
   assert.equal(instalment({ ...unused, method: 'amount', notified: '99.99' }).instalment, 99);
   // A higher varied rate reads no earlier figures, as no credit can arise.
   assert.equal(instalment({ ...unused, method: 'varied-rate', estimatedTax: '30', estimatedIncome: '100', income: '1000',
-    rate: '10' }).instalment, 300);
+    rate: 'x', previousRate: '10' }).instalment, 300);
 });
 
 test('PAYG instalments refuse what the activity statement cannot hold', () => {
@@ -1321,7 +1353,7 @@ test('PAYG instalments refuse what the activity statement cannot hold', () => {
 //   estimated tax.'
 test('PAYG instalments vary the rate to nil on nil estimated income, whatever tax is entered', () => {
   for (const estimatedTax of ['500', 'x']) {
-    const nil = instalment({ method: 'varied-rate', estimatedTax, income: '1000', rate: '10' });
+    const nil = instalment({ method: 'varied-rate', estimatedTax, income: '1000', previousRate: '10' });
     assert.deepEqual([nil.instalmentRate, nil.instalment, nil.credit], [0, 0, 0]);
   }
 });

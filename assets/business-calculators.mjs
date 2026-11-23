@@ -412,59 +412,74 @@ export function objectionDeadline(decision, group, notice, first) {
 
 /** @typedef {'amount' | 'varied-amount' | 'rate' | 'varied-rate'} InstalmentMethod
  * @typedef {{method: InstalmentMethod, notified: string, instalment: string, estimatedTax: string, earlier: string,
- *   credits: string, income: string, rate: string, estimatedIncome: string, earlierIncome: string}} InstalmentInputs */
-/** Cents down to whole dollars, as an activity statement takes them. @param {number} value cents, not negative */
-const wholeDollars = (value) => Math.floor(value / 100);
+ *   credits: string, income: string, rate: string, estimatedIncome: string, earlierIncome: string,
+ *   previousRate: string}} InstalmentInputs */
+/** An exact amount in units of 1/scale cent shown to the cent toward nil, so it never shows more than the
+ * instalment or credit cut from it. @param {bigint} units @param {bigint} scale */
+const shownCents = (units, scale) => Number(units / scale) / 100;
+/** A rate in whole hundredths of a per cent. @param {string} text */
+const hundredths = (text) => Math.round(number(text, { max: 100 }) * 100);
 
 /** One quarterly PAYG instalment under Division 45 in Schedule 1 to the Taxation Administration
  * Act 1953, worked as the ATO's activity statement steps work it: the notified amount (s 45-112),
  * an amount varied from estimated tax (s 45-410), instalment income times the rate (s 45-110), or
- * times a varied rate (s 45-205) with any credit for earlier quarters (s 45-215). Each method reads
- * only its own fields. Money rounds half up to the cent; a figure for the activity statement then
- * drops its cents, and a varied rate drops what follows its second decimal place.
+ * times a varied rate (s 45-205) with any credit for earlier quarters when it is lower than the rate
+ * used for the previous quarter (s 45-215(1)(b)). Each method reads only its own fields. Neither the
+ * Act nor the ATO rounds a step, so each is exact: the instalment and credit drop their cents, as the
+ * activity statement takes them, other amounts show to the cent toward nil, and a varied rate drops
+ * what follows its second decimal place.
  * @param {InstalmentInputs} inputs
  * @returns {{amount: number, instalment: number, credit: number, due: number | null, instalmentRate: number | null}} */
 export function paygInstalment(inputs) {
   const { method } = inputs;
   if (method === 'amount') {
     const notified = cents(inputs.notified);
-    return { amount: notified / 100, instalment: wholeDollars(notified), credit: 0, due: null, instalmentRate: null };
+    return { amount: notified / 100, instalment: Math.floor(notified / 100), credit: 0, due: null, instalmentRate: null };
   }
   const earlierLessCredits = () => {
     const [earlier, credits] = [cents(inputs.earlier), cents(inputs.credits)];
     if (credits > earlier) throw new Error('Earlier credits cannot exceed the earlier instalments.');
-    return earlier - credits;
+    return BigInt(earlier - credits);
   };
   if (method === 'varied-amount') {
     const instalment = number(inputs.instalment, { min: 1, max: 4, integer: true });
     // 25%, 50%, 75% or 100% of estimated tax, less earlier instalments net of credits claimed. Only the
     // third and fourth add back credits (s 45-410(4) and (5)); none can exist before the second.
-    const due = Number(ratioCents(BigInt(cents(inputs.estimatedTax)) * BigInt(instalment), 4n));
+    const share = BigInt(cents(inputs.estimatedTax)) * BigInt(instalment);
     if (instalment === 1 && cents(inputs.earlier)) throw new Error('The first instalment of the year has no earlier instalments.');
     const net = earlierLessCredits();
     if (instalment < 3 && cents(inputs.credits)) throw new Error('The first and second instalments of the year add back no credits.');
-    const amount = due - net;
-    return { amount: amount / 100, instalment: wholeDollars(Math.max(0, amount)), credit: wholeDollars(Math.max(0, -amount)),
-      due: due / 100, instalmentRate: null };
+    // In quarter cents; BigInt division drops the rest toward nil.
+    const amount = share - 4n * net;
+    return { amount: shownCents(amount, 4n), instalment: Number(amount > 0n ? amount / 400n : 0n),
+      credit: Number(amount < 0n ? -amount / 400n : 0n), due: shownCents(share, 4n), instalmentRate: null };
   }
   if (method !== 'rate' && method !== 'varied-rate') throw new Error('Choose how this instalment is worked out.');
-  // Rates are whole hundredths of a per cent.
-  const given = Math.round(number(inputs.rate, { max: 100 }) * 100);
-  let rate = given;
+  let rate;
   let credit = 0;
   if (method === 'varied-rate') {
+    let previous;
+    try {
+      previous = hundredths(inputs.previousRate);
+    } catch {
+      throw new Error('Enter the rate used for the previous quarter as a per cent from 0 to 100, with no more than 2 decimal places.');
+    }
     // Nil estimated instalment income varies the rate to nil with no tax estimate, which is then not read.
     const yearIncome = BigInt(cents(inputs.estimatedIncome));
     const tax = yearIncome ? BigInt(cents(inputs.estimatedTax)) : 0n;
     if (tax > yearIncome) throw new Error('Estimated tax cannot exceed estimated instalment income.');
     rate = yearIncome ? Number(tax * 10000n / yearIncome) : 0;
-    if (rate < given) {
-      const earlierAtRate = Number(ratioCents(BigInt(cents(inputs.earlierIncome)) * BigInt(rate), 10000n));
-      credit = wholeDollars(Math.max(0, earlierLessCredits() - earlierAtRate));
+    if (rate < previous) {
+      // Earlier instalments less credits claimed, less earlier income at the varied rate, in 1/10,000 cent.
+      const left = earlierLessCredits() * 10000n - BigInt(cents(inputs.earlierIncome)) * BigInt(rate);
+      credit = Number(left > 0n ? left / 1000000n : 0n);
     }
+  } else {
+    rate = hundredths(inputs.rate);
   }
-  const amount = Number(ratioCents(BigInt(cents(inputs.income)) * BigInt(rate), 10000n));
-  return { amount: amount / 100, instalment: wholeDollars(amount), credit, due: null, instalmentRate: rate / 100 };
+  // Cents times hundredths of a per cent: 1/10,000 cent.
+  const amount = BigInt(cents(inputs.income)) * BigInt(rate);
+  return { amount: shownCents(amount, 10000n), instalment: Number(amount / 1000000n), credit, due: null, instalmentRate: rate / 100 };
 }
 
 /**
