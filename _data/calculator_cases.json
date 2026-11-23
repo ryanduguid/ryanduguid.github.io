@@ -841,7 +841,7 @@
     ]
   },
   "super-benefit-tax": {
-    "checked": "2026-11-22",
+    "checked": "2026-11-23",
     "function": "superBenefitTax",
     "rows": [
       {"case":"Schedule 12’s Chloe, 62, takes $300,000 in 2026-27 with an $80,000 untaxed element: $12,000 at 15% before the Medicare levy","input":"2026-27; member; paid 1 October 2026; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00","call":[{"benefit":"300000","interest_value":"300000","interest_tax_free_component":"30000","untaxed_element":"80000","recipient":"member","payment_date":"2026-10-01","year":"2026-27","scope_confirmed":true,"service_before_july_1983":false,"date_of_birth":"1964-05-01","terminal_medical_condition":false,"disability_superannuation_benefit":false,"untaxed_plan_cap_used":"0"}],"result":{"maximumTax":12000,"assessable":80000,"notAssessable":220000},"output":"most tax $12,000.00, assessable $80,000.00, not assessable $220,000.00"},

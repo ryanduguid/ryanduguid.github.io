@@ -267,7 +267,7 @@
       "f6d27328541f0ed80446e56fbe3d59031e3686b15759b93994561c842531fb1e"
     ],
     "tools/business-calculators/super-benefit-tax/index.html": [
-      "b54a2e9cc9083504d09e481bf839f90a700dc3aa54e13a6016342ed16dab0147"
+      "6347d57fc9bc5620f23d14d912ce3869aac2bff845451eabc1050a194796e762"
     ],
     "tools/business-calculators/termination-payment/index.html": [
       "b055a3fecec1e12e11404b465cc1031bccc9254058bbd4566e22509430287508"
@@ -318,7 +318,7 @@
       "a6c04ae01301516be667643b6b3b9ec122cacadea03403d4ac3cc38fb4187c19"
     ],
     "tools/individual-tax/income-tax/index.html": [
-      "b4fe1c1891eea73eeb7b31abdb0cd0fa172ed404a0f8628590e87f796e8b49d4"
+      "bba858972dd984c6ffbaba30ec511be8d047d3adfd9e523e9ec3d24fdfb8336c"
     ],
     "tools/individual-tax/income-tests/index.html": [
       "2b60af6e2154ba6a3a2435a632963b2e376fe33f608f0fa90d482a67986c7744"
@@ -414,7 +414,7 @@
   "protected_files": {
     "llms.txt": "f910fdd02224145829c59c6499a482e3f8077f6d122adcbb8502de44de80abd2",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "4d8bc1f25883de6a5397dac8ec87d16e8dffe285e2049c6bf4eeab85ee4ced89"
+    "sitemap.xml": "694c88ebde634565a7f4d90282596da2fc8dfa0defe33e997ce10d4befd8399a"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

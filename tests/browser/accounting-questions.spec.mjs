@@ -1168,6 +1168,30 @@ test('super lump sum tax page works its example, a death benefit and a refusal o
   await expect(form.locator('output')).toContainText('The payment date must fall in the 2020-21 income year.');
 });
 
+// The same page's other calculations: Schedule 12 withholding on its example (Chloe, $13,600), a roll-over's
+// fields, and a departing Australia superannuation payment ($5,950, or $11,050 at the working holiday maker rate).
+test('super lump sum page works withholding and DASP tax offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/super-benefit-tax/');
+  const form = page.locator('#super-benefit-tax form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await expect(form.locator('[name="tfn"]')).toBeHidden();
+  await form.locator('[name="calc"][value="withholding"]').check();
+  await expect(form.locator('[name="tfn"]')).toBeVisible();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Amount to withhold, to the nearest dollar: $13,600.00.');
+  await form.locator('[name="recipient"]').selectOption('rollover');
+  await expect(form.locator('[name="born"]')).toBeHidden();
+  await expect(form.locator('[name="plan-used"]')).toBeVisible();
+  await form.locator('[name="calc"][value="dasp"]').check();
+  await expect(form.locator('[name="benefit"]')).toBeHidden();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Departing Australia superannuation payment tax: $5,950.00.');
+  await form.locator('[name="whm"]').selectOption('yes');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Departing Australia superannuation payment tax: $11,050.00.');
+});
+
 // Spec G9 is the form's default; the failure to lodge question shows its 28-day periods, and remission is refused.
 test('ATO penalties and interest page works GIC by quarter, a failure to lodge penalty and refuses remission offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/ato-penalties-interest/');
