@@ -68,12 +68,71 @@ fn the_glyphs_are_symbols_the_page_can_hold_verbatim() {
     }
 }
 
+/// Verify per-line balanced, non-nested, non-empty `<span class="t0..t3">`
+/// markup with no spaces inside spans, and return which tiers appeared.
+fn assert_valid_portrait_markup(art: &str) -> [usize; 4] {
+    let mut tiers = [0usize; 4];
+    for line in art.split('\n') {
+        let mut rest = line;
+        let mut open = false;
+        let mut span_len = 0usize;
+        while !rest.is_empty() {
+            if let Some(after) = rest.strip_prefix("</span>") {
+                assert!(open, "closing span without open span: {line:?}");
+                assert!(span_len > 0, "empty span: {line:?}");
+                open = false;
+                span_len = 0;
+                rest = after;
+            } else if let Some(after) = rest.strip_prefix("<span class=\"t")
+                && let Some(&b) = after.as_bytes().first()
+                && (b'0'..=b'3').contains(&b)
+                && let Some(after) = after[1..].strip_prefix("\">")
+            {
+                assert!(!open, "nested span: {line:?}");
+                open = true;
+                span_len = 0;
+                tiers[(b - b'0') as usize] += 1;
+                rest = after;
+            } else {
+                let ch = rest.chars().next().unwrap();
+                assert!(GLYPHS.contains(ch), "unexpected char {ch:?} in {line:?}");
+                if open {
+                    assert_ne!(ch, ' ', "space inside tier span: {line:?}");
+                    span_len += 1;
+                }
+                rest = &rest[ch.len_utf8()..];
+            }
+        }
+        assert!(!open, "unclosed span at end of line: {line:?}");
+    }
+    tiers
+}
+
+#[test]
+fn plain_text_strips_only_valid_tier_spans_in_one_pass() {
+    assert_eq!(
+        about_portrait::plain_text("<span class=\"t0\">.:</span><span class=\"t3\">#@</span>!"),
+        ".:#@!"
+    );
+    // Split/malformed tags and unknown tiers must not collapse into stripped markup.
+    assert_eq!(
+        about_portrait::plain_text("<<span class=\"t0\">/span><span class=\"t4\">@</span><b>!</b>"),
+        "</span><span class=\"t4\">@<b>!</b>"
+    );
+}
+
 #[test]
 fn the_page_holds_a_portrait_from_this_glyph_set_and_grid() {
     let page = std::fs::read_to_string(site().join(PAGE)).unwrap();
     let (_, rest) = page.split_once("<pre aria-hidden=\"true\">\n").unwrap();
     let (art, _) = rest.split_once("</pre></div>").unwrap();
-    let lines: Vec<&str> = art.split('\n').collect();
+    let tiers = assert_valid_portrait_markup(art);
+    assert!(
+        tiers.iter().all(|&count| count > 0),
+        "expected all 4 tier spans to appear: {tiers:?}"
+    );
+    let plain = about_portrait::plain_text(art);
+    let lines: Vec<&str> = plain.split('\n').collect();
     // A head and shoulders in 0.8em rows: more rows than columns across the head.
     assert!(lines.len() > 100, "{} rows", lines.len());
     for line in &lines {
@@ -90,7 +149,7 @@ fn white_clothes_leave_the_head_as_it_was() {
         about_portrait::render(&encode(300, 300, &bust(false, clothes)), &font()).unwrap()
     };
     let (dark, white) = (render(30.0), render(250.0));
-    let head = |art: &str| art.split('\n').take(60).collect::<Vec<_>>().join("\n");
+    let head = |art: &str| art.split('\n').take(80).collect::<Vec<_>>().join("\n");
     assert_eq!(head(&dark), head(&white));
     assert_ne!(dark, white);
 }
@@ -102,7 +161,13 @@ fn a_cutout_renders_the_same_text_every_time_within_the_grid() {
         art,
         about_portrait::render(&cutout(false), &font()).unwrap()
     );
-    let lines: Vec<&str> = art.split('\n').collect();
+    let tiers = assert_valid_portrait_markup(&art);
+    assert!(
+        tiers.iter().filter(|&&count| count > 0).count() >= 3,
+        "expected multi-tone spans on synthetic cutout: {tiers:?}"
+    );
+    let plain = about_portrait::plain_text(&art);
+    let lines: Vec<&str> = plain.split('\n').collect();
     assert!(lines.len() > 40, "{} rows", lines.len());
     assert!(!lines[0].is_empty() && !lines[lines.len() - 1].is_empty());
     for line in &lines {
@@ -111,7 +176,7 @@ fn a_cutout_renders_the_same_text_every_time_within_the_grid() {
         assert!(line.chars().all(|c| GLYPHS.contains(c)), "{line:?}");
     }
     // The figure is drawn and the transparent background around the head stays empty.
-    let inked = art.chars().filter(|c| !c.is_whitespace()).count();
+    let inked = plain.chars().filter(|c| !c.is_whitespace()).count();
     assert!(inked > 1000, "{inked} glyphs");
     assert!(lines[0].starts_with("        "), "{:?}", lines[0]);
 }
