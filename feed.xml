@@ -5,14 +5,14 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-11-24T00:00:00Z</updated>
+  <updated>2026-11-23T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
-    <title>Added the transfer balance and excess contributions calculator: a transfer…</title>
-    <link href="https://duguid.com.au/changelog/#entry-6c0eacc62d353961" />
-    <id>https://duguid.com.au/changelog/#entry-6c0eacc62d353961</id>
-    <updated>2026-11-24T00:00:00Z</updated>
-    <summary>Added the transfer balance and excess contributions calculator: a transfer balance account from its credits and debits, with the personal cap and proportional indexation, excess transfer balance earnings and tax, the excess concessional contributions charge for 2013-14 to 2020-21, and the release of excess non-concessional contributions. It agrees with the australian-accounting transfer-balance and excess-contributions commands on 585 test cases.</summary>
+    <title>The super lump sum tax calculator now also works the amount a fund withholds…</title>
+    <link href="https://duguid.com.au/changelog/#entry-3788ddb8a47c23db" />
+    <id>https://duguid.com.au/changelog/#entry-3788ddb8a47c23db</id>
+    <updated>2026-11-23T00:00:00Z</updated>
+    <summary>The super lump sum tax calculator now also works the amount a fund withholds from a super lump sum under Schedule 12 for a payment from 13 October 2020, with or without a TFN and for a foreign resident, including a roll-over above the untaxed plan cap and a death benefit paid to a deceased estate. It also works the final tax on a departing Australia superannuation payment in 2025-26 to 2027-28: 35% on the taxed element and 45% on the untaxed element, or 65% on each where the payment includes working holiday maker contributions. Schedule 12 and the Departing Australia Superannuation Payments Tax Act were read on 23 November 2026, and the page agrees with the super-withholding and dasp-tax commands of the australian-accounting calculators on every tested case.</summary>
   </entry>
   <entry>
     <title>Updated 2 accounting questions after the 23 November 2026 ATO source sweep…</title>
