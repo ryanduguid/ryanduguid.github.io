@@ -37,6 +37,7 @@ const incomeTests = { file: 'assets/income-tests.mjs', test: individualTest };
 const catchUp = { file: 'assets/concessional-catch-up.mjs', test: individualTest };
 const rebate = { file: 'assets/private-health-rebate.mjs', test: individualTest };
 const offsets = { file: 'assets/individual-offsets.mjs', test: individualTest };
+const medical = { file: 'assets/net-medical-expenses.mjs', test: individualTest };
 const governmentSuper = { file: 'assets/government-super.mjs', test: individualTest };
 const governmentSuperResult = { file: 'assets/government-super-result.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
@@ -368,6 +369,16 @@ const MUTATIONS = [
   { ...offsets, name: 'overseas forces over the days in the year', find: 'BigInt(days) / 183n', replace: 'BigInt(days) / BigInt(yearDays)' },
   { ...offsets, name: 'zone ignores a remote area allowance', find: 'Math.max(0, full - allowance * 10)', replace: 'full' },
   { ...offsets, name: 'zone half shares of the relevant rebate amount', find: 'zone_a: [338, 5]', replace: 'zone_a: [338, 2]' },
+  { ...medical, name: 'net medical income at the threshold takes the higher limit', find: 'tested > threshold * 100', replace: 'tested >= threshold * 100' },
+  { ...medical, name: 'net medical family threshold rises for the first child', find: '1500 * Math.max(0, children - 1)', replace: '1500 * children' },
+  { ...medical, name: 'net medical children do not make a family', find: 'spouse !== null || children > 0', replace: 'spouse !== null' },
+  { ...medical, name: 'net medical leaves out the spouse’s income', find: 'own + (spouse ?? 0)', replace: 'own' },
+  { ...medical, name: 'net medical takes 20% over the higher limit', find: 'BigInt(higherApplies ? 10 : 20)', replace: 'BigInt(20)' },
+  { ...medical, name: 'net medical 2018-19 higher limit wrong', find: "['2018-19', [2377, 5609]]", replace: "['2018-19', [2377, 5604]]" },
+  { ...medical, name: 'net medical truncates half cents', find: 'Number(ratioCents(BigInt(excess) * BigInt(higherApplies ? 10 : 20), 100n))', replace: 'Math.floor((excess * (higherApplies ? 10 : 20)) / 100)' },
+  { ...medical, name: 'net medical 2019-20 refused without s 159P(1A)', find: 'Number(year.slice(0, 4)) >= 2019', replace: 'Number(year.slice(0, 4)) >= 2020' },
+  { ...medical, name: 'net medical accepts an unknown field', find: 'if (unknown) refuse(', replace: 'if (false) refuse(' },
+  { ...medical, name: 'net medical accepts fractional children', find: '!Number.isInteger(children) || children < 0', replace: 'children < 0' },
   { ...estimate, name: 'private health insurance offset not refunded', find: "\n    - cents(privateHealth?.offset ?? 0);", replace: ';' },
   { ...estimate, name: 'beneficiary offset after the low income tax offset', find: 'beneficiary: apply(benefit?.offset ?? 0), offset: apply(base.offset)', replace: 'offset: apply(base.offset), beneficiary: apply(benefit?.offset ?? 0)' },
   { ...estimate, name: 'zone offset leaves out the invalid carer offset', find: 'invalid_carer_tax_offset: carer ? carer.offset.toFixed(2) : undefined', replace: 'invalid_carer_tax_offset: undefined' },
@@ -1107,6 +1118,7 @@ const SHARED = [
   'scripts/lump-sum-arrears-engine-differential.json',
   'scripts/income-tests-engine-differential.json',
   'scripts/income-tax-offsets-engine-differential.json',
+  'scripts/net-medical-expenses-engine-differential.json',
   'scripts/government-super-engine-differential.json',
   'scripts/concessional-catch-up-engine-differential.json',
   'scripts/unused-leave-engine-differential.json',

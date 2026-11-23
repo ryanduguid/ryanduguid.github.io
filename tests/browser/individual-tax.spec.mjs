@@ -202,6 +202,26 @@ test('the private health insurance rebate refunds at nil income, the zone questi
   await expect(form.locator('output')).toContainText('Lifetime health cover loading is outside the rebate');
 });
 
+test('the net medical expenses offset works for a 2018-19 return beside the income tax calculator offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/income-tax/');
+  const form = page.locator('#net-medical-expenses form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await calculate.click();
+  await expect(row('Net medical expenses tax offset')).toHaveText('$1,524.60');
+  // A spouse's income is asked for only when married on 30 June, and counts with your own.
+  await expect(form.getByLabel('Your spouse’s adjusted taxable income for rebates (dollars and cents)')).toBeHidden();
+  await form.locator('input[name=nme-spouse][value=yes]').check();
+  await form.getByLabel('Your adjusted taxable income for rebates (dollars and cents)').fill('100000');
+  await form.getByLabel('Your spouse’s adjusted taxable income for rebates (dollars and cents)').fill('80001');
+  await calculate.click();
+  await expect(row('Net medical expenses tax offset')).toHaveText('$439.10');
+  await expect(row('Threshold, family')).toHaveText('$180,000');
+  await expect(form.locator('.sources-applied')).toBeVisible();
+});
+
 test('income tests count section 57A benefits at 53% and refuse a person not resident all year offline', async ({ page, context }) => {
   await page.goto('/tools/individual-tax/income-tests/');
   const form = page.locator('#income-tests form');
