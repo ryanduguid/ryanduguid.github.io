@@ -297,11 +297,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/ozzit/
 
-> A free Excel workbook of 150 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation.
+> A free Excel workbook of 151 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation.
 
 # Ozzit
 
-The Ozzit workbook holds 150 functions and 5 help tables for GST, financial years, depreciation, loans and leases, and every definition is visible in Excel.
+The Ozzit workbook holds 151 functions and 5 help tables for GST, financial years, depreciation, loans and leases, and every definition is visible in Excel.
 
 Current release Ozzit v3.7.0, 18 November 2026, from the Ozzit repository. Published 18 September 2026. Last reviewed 19 November 2026.
 
@@ -317,9 +317,9 @@ Boundary
 
 Calculates only. The reviewer decides the accounting treatment and the tax position.
 
-Download Ozzit v3.6.0 Browse worked formulas
+Download Ozzit v3.7.0 Browse worked formulas
 
-XLSX, 485,256 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or macro.
+XLSX, 492,757 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or macro.
 
 ## Extract GST from $1,100
 
@@ -335,11 +335,11 @@ Assumes a wholly taxable, GST-inclusive amount at 10%. Read the workings, the Ex
 
 An Excel workbook, not a program. Open it, copy a function into your own model, and the formula travels with the file. Every definition is a native LAMBDA stored as a defined name, so the arithmetic stays inside the workbook where a reviewer can read it.
 
-The v3.6.0 workbook carries 155 named formulas: 150 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository’s src/ folder and indexed in functions.csv.
+The v3.7.0 workbook carries 156 named formulas: 151 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository’s src/ folder and indexed in functions.csv.
 
 The Australian helpers are deliberately small: GST addition and extraction with a 10% default rate, a 1 July financial year label, 5 helpers for the ATO’s small business benchmark ratios, 2 modelling depreciation schedules and 4 AASB 16 lessee schedules. The rest of the library is general financial modelling.
 
-Release v3.6.0 adds 7 functions: oz.Varianceλ and oz.VariancePctλ for budget variance, oz.FinancialMonthλ, oz.FinancialQuarterλ and oz.YearToDateλ for financial-year periods, oz.LevelPaymentλ for a level loan payment when each period has its own rate, and oz.CorkscrewRateλ for a corkscrew whose interest runs on the average of each period’s opening and closing balances. Each has its entry in the index below.
+Release v3.7.0 adds oz.PAYGWithholdingλ for ATO Schedule 1 withholding from a coefficient table you supply. It fixes 3 known v3.6.0 issues affecting reversal flags, corkscrew inputs and module imports.
 
 ## Who it is for and what it needs
 
@@ -355,9 +355,9 @@ Author | Ryan Duguid. Built from scratch, with provenance recorded in the reposi
 
 ## Ten worked formulas
 
-Open an example for its arguments, formula, expected display and limits. These examples describe v3.6.0 and need Microsoft 365 or Excel 2024 or later. Enter them in the Ozzit workbook with space for any spilled result.
+Open an example for its arguments, formula, expected display and limits. These examples use v3.6.0 and need Microsoft 365 or Excel 2024 or later. Enter them in the Ozzit workbook with space for any spilled result.
 
-All ten were evaluated in Excel 16.0 build 20625 on 15 November 2026 against the unchanged released workbook. Read the inputs and raw results. The check verifies these calculations, not an accounting treatment.
+All ten were evaluated in Excel 16.0 build 20625 on 15 November 2026 against the unchanged v3.6.0 release workbook. Read the inputs and raw results. The check verifies these calculations, not an accounting treatment.
 
 ### Extract GST from an inclusive amount
 
@@ -519,13 +519,13 @@ Limits: One outflow of 1,000 followed by an inflow of 1,100 one year later. Othe
 
 Link to this example · Released formula source
 
-## All 155 named formulas
+## All 156 named formulas
 
-Each module below lists the names its source file defines in the v3.6.0 workbook, with the released signature of each. Square brackets mark optional arguments. Each name links to its entry on a module page with its parameters, notes and worked examples: Dates, Essentials, Financial, Ratios, Utilities and Debt.
+Each module below lists the names its source file defines in the v3.7.0 workbook, with the released signature of each. Square brackets mark optional arguments. Each name links to its entry on a module page with its parameters, notes and worked examples: Dates, Essentials, Financial, Ratios, Utilities and Debt.
 
-Download the full v3.6.0 function index (CSV) for a one-line description of each, or read it on GitHub.
+Download the full v3.7.0 function index (CSV) for a one-line description of each, or read it on GitHub.
 
-### Financial, 51 named formulas
+### Financial, 52 named formulas
 
 - oz.AboutFinancialλ
 - oz.Allocateλ(Amounts, [FromInterval], [ToInterval])
@@ -555,6 +555,7 @@ Download the full v3.6.0 function index (CSV) for a one-line description of each
 - oz.LeaseScheduleλ(Payments, Rate, [InAdvance])
 - oz.LevelPaymentλ(Principal, Rates, [Balloon])
 - oz.Movementλ( [BeginningValues], Values)
+- oz.PAYGWithholdingλ(Earnings, Coefficients, [Period])
 - oz.PeriodDiffλ(StartDate, EndDate, Interval)
 - oz.PeriodRateλ(AnnualRate, [PeriodsPerYear])
 - oz.PeriodStartλ(AnyPeriodStart, MonthsPerPeriod, DateOfInterest)
@@ -730,21 +731,21 @@ The 15 November 2026 native Excel record evaluates this formula against the exac
 
 Needs Microsoft 365 or Excel 2024 or later. Nothing is installed.
 
-- Download the v3.6.0 workbook. The release page also publishes SHA256SUMS and a provenance record.
-- Check the file before you trust it: the v3.6.0 asset is 485,256 bytes with SHA-256 95006168d685496f27b04ab95099a7c103d3013cf031178046ffcbfcfd88d65b.
+- Download the v3.7.0 workbook. The release page also publishes SHA256SUMS and a provenance record.
+- Check the file before you trust it: the v3.7.0 asset is 492,757 bytes with SHA-256 0ed09fc130d30394c97f6a41e40ab72d3f68093b65a5e109adf11bd901f006bd.
 - Read the source, guides and changelog, or start with the guide to opening the workbook and copying functions.
 
-To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook’s name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in the v3.6.0 CITATION.cff, which names the release this page documents. The default branch may already carry a later version.
+To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook’s name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in the v3.7.0 CITATION.cff, which names the release this page documents. The default branch may already carry a later version.
 
 ## Release verification
 
-Release v3.6.0 was built from a signed tag. Its provenance record lists the static gates it passed:
+Release v3.7.0 was built from a signed tag. Its provenance record lists the static gates it passed:
 
-- The published formula source reproduced all 155 named formulas in the workbook.
-- All 155 rows of the function index matched the workbook and the source modules.
-- All 147 signatures, parameter tables and example blocks described their own function.
+- The published formula source reproduced all 156 named formulas in the workbook.
+- All 156 rows of the function index matched the workbook and the source modules.
+- All 148 signatures, parameter tables and example blocks described their own function.
 
-The repository’s release process requires a native Excel run before publication: 1,129 formulas recalculated with 0 in error, 1,294 assertions with 0 failures (951 written by hand, 23 of them randomised, and 343 generated from the workbook’s own help), and every cached value equal to what its formula produces. The provenance record does not include those native results, so this page does not state when they ran or in which Excel build. On 15 November 2026 the ten worked formulas above returned the same results against the v3.6.0 workbook as against v3.5.0.
+The repository’s release process requires a native Excel run before publication to recalculate formulas, run assertions and check cached values. The published provenance records the static checks. On 15 November 2026 the ten worked formulas above returned the same results against the v3.6.0 workbook as against v3.5.0.
 
 Those checks establish that the workbook calculates what its definitions say. They do not establish that a given accounting treatment is correct.
 
@@ -764,7 +765,7 @@ The functions calculate; a person decides the accounting treatment and signs off
 
 ### What is Ozzit?
 
-An Excel workbook containing 150 native LAMBDA functions and 5 help tables for financial modelling under Australian conventions, published free under the Ryan Duguid Public Attribution Licence 1.0. It has no add-in, macro or external dependency.
+An Excel workbook containing 151 native LAMBDA functions and 5 help tables for financial modelling under Australian conventions, published free under the Ryan Duguid Public Attribution Licence 1.0. It has no add-in, macro or external dependency.
 
 ### Which Excel versions can run it?
 
@@ -772,11 +773,11 @@ Microsoft 365 or Excel 2024 or later, which support LAMBDA and dynamic arrays. L
 
 ### Does Ozzit calculate Australian tax?
 
-No. It performs 10% GST arithmetic and labels Australian financial years, and its depreciation and lease functions are modelling schedules rather than ATO or standard-setting methods. It contains no income tax, Medicare levy or Division 7A calculations.
+Ozzit applies 10% GST by default, labels Australian financial years and calculates PAYG withholding from supplied coefficients. Its depreciation and lease functions are modelling schedules. It contains no individual income tax, Medicare levy or Division 7A calculations.
 
 ### Where do I get the current release?
 
-Release v3.7.0, published on 18 November 2026, is the current published release; this page documents v3.6.0, published on 14 November 2026. v3.7.0 adds a PAYG withholding function, which returns the amount to withhold from a weekly, fortnightly, monthly or quarterly payment under the ATO’s Schedule 1 formulas from a coefficient table you supply, bringing the total to 151, and fixes 3 known issues in v3.6.0. Read the v3.7.0 release page. v3.6.0 adds 7 functions, bringing the total to 150, and is the first release under the Ryan Duguid Public Attribution Licence 1.0; v3.5.0 stays under the Apache License 2.0. Each release ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file’s SHA-256 with the published value before use. Read the v3.6.0 release page.
+Download Ozzit v3.7.0 from the GitHub release page. It was published on 18 November 2026. The release includes ozzit.xlsx, SHA256SUMS and a provenance record. Compare the downloaded workbook’s SHA-256 with the published value before use.
 
 ## Related
 
@@ -792,15 +793,16 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - v3.7.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.7.0
 - Ozzit: https://github.com/ryanduguid/Ozzit/tree/main
-- Download Ozzit v3.6.0: https://github.com/ryanduguid/Ozzit/releases/download/v3.6.0/ozzit.xlsx
+- Download Ozzit v3.7.0: https://github.com/ryanduguid/Ozzit/releases/download/v3.7.0/ozzit.xlsx
 - Browse worked formulas: https://duguid.com.au/tools/ozzit/#functions
 - Read the workings, the Excel check and the limits: https://duguid.com.au/tools/ozzit/#worked-example
+- oz.PAYGWithholding λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-paygwithholding
 - Read the inputs and raw results: https://duguid.com.au/assets/ozzit-reference-v3.6.0.json
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-gstextract
-- Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Financial.txt
+- Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/src/Financial.txt
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-gstadd
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-financialyear
-- Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Dates.txt
+- Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/src/Dates.txt
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-primecost
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-diminishingvalue
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-amortise
@@ -814,8 +816,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Ratios: https://duguid.com.au/tools/ozzit/functions/ratios/
 - Utilities: https://duguid.com.au/tools/ozzit/functions/utilities/
 - Debt: https://duguid.com.au/tools/ozzit/functions/debt/
-- Download the full v3.6.0 function index (CSV): https://duguid.com.au/assets/ozzit-functions-v3.6.0.csv
-- read it on GitHub: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/functions.csv
+- Download the full v3.7.0 function index (CSV): https://duguid.com.au/assets/ozzit-functions-v3.7.0.csv
+- read it on GitHub: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/functions.csv
 - oz.AboutFinancial λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-aboutfinancial
 - oz.Allocate λ (Amounts, [FromInterval], [ToInterval]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-allocate
 - oz.Amortise λ ( Principals, APRs, Terms, StartDates, [Timeline], [FinalPeriodEnd]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-amortise
@@ -915,7 +917,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - oz.RetentionRatio λ ( RetainedEarnings, NetIncome ): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-retentionratio
 - oz.WIPDays λ (WIP, RelatedFlow, [Days]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-wipdays
 - oz.WorkingCapitalTurnoverRatio λ ( NetAnnualSales, WorkingCapital): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-workingcapitalturnoverratio
-- Released Ratios source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Ratios.txt
+- Released Ratios source: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/src/Ratios.txt
 - oz.AboutDates λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-aboutdates
 - oz.CountDOW λ (Starts, Ends, DayOfWeek): https://duguid.com.au/tools/ozzit/functions/dates/#oz-countdow
 - oz.DateDif λ (StartDate, EndDate, [Unit]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-datedif
@@ -950,7 +952,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - oz.RangeToDAE λ (Range, [Rows], [Columns]): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-rangetodae
 - oz.SumCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-sumcols
 - oz.SumRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-sumrows
-- Released Essentials source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Essentials.txt
+- Released Essentials source: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/src/Essentials.txt
 - oz.AboutUtilities λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-aboututilities
 - oz.AvgColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-avgcolsu
 - oz.AvgRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-avgrowsu
@@ -968,20 +970,19 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - oz.RangeToDAU λ (Range, [Rows], [Columns]): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-rangetodau
 - oz.SumColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-sumcolsu
 - oz.SumRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-sumrowsu
-- Released Utilities source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Utilities.txt
+- Released Utilities source: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/src/Utilities.txt
 - oz.AmortiseB λ (Principal, APR, Term, ModelPeriods, [StartPeriod], [MonthsPerPeriod]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-amortiseb
 - oz.DebtSculptFixed λ ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptfixed
 - oz.DebtSculptVariableLRV λ ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptvariablelrv
 - oz.DebtSculptVariable λ ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptvariable
 - oz.InterestLRV λ (CFADS, DSCR, Principal, InterestRate): https://duguid.com.au/tools/ozzit/functions/debt/#oz-interestlrv
-- Released Debt source: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/src/Debt.txt
+- Released Debt source: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/src/Debt.txt
 - historical v3.2.0 screenshot record: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/docs/native-gst-capture.md
-- release page: https://github.com/ryanduguid/Ozzit/releases/tag/v3.6.0
 - Read the source, guides and changelog: https://github.com/ryanduguid/Ozzit
-- guide to opening the workbook and copying functions: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/docs/workbook-use.md
-- the v3.6.0 CITATION.cff: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/CITATION.cff
-- provenance record: https://github.com/ryanduguid/Ozzit/releases/download/v3.6.0/provenance.json
-- release process: https://github.com/ryanduguid/Ozzit/blob/v3.6.0/RELEASING.md
+- guide to opening the workbook and copying functions: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/docs/workbook-use.md
+- the v3.7.0 CITATION.cff: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/CITATION.cff
+- provenance record: https://github.com/ryanduguid/Ozzit/releases/download/v3.7.0/provenance.json
+- release process: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/RELEASING.md
 - Profit vs cash flow: an Australian Excel worked example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Browser calculators, nothing to install: https://duguid.com.au/tools/business-calculators/
 - Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/
