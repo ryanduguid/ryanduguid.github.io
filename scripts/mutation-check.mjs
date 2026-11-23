@@ -805,7 +805,7 @@ const MUTATIONS = [
   { ...fhog, name: 'FHOG an established home gets the grant', find: "home === 'established' ? rule.established ?? 0 : rule.amount", replace: 'rule.amount' },
   { ...fhog, name: 'FHOG NT established home window a day late', find: "to: '2025-09-30', amount: 50000, established: 10000", replace: "to: '2025-10-01', amount: 50000, established: 10000" },
   { ...fhog, name: 'FHOG NT established home at $50,000', find: 'established: 10000, lesser: true', replace: 'established: 50000, lesser: true' },
-  { ...fhog, name: 'FHOG NT established home value taken as a cap', find: "home === 'established' ? undefined : rule[", replace: 'false ? undefined : rule[' },
+  { ...fhog, name: 'FHOG NT established home value taken as a cap', find: "home === 'bought' ? rule.bought : undefined;", replace: "home === 'bought' ? rule.bought : rule.established;" },
   { ...fhog, name: 'FHOG Victoria pays the amount on a smaller consideration', find: 'bought: 750000, built: 750000, lesser: true }', replace: 'bought: 750000, built: 750000 }' },
   { ...fhog, name: 'FHOG Western Australia pays the amount on a smaller consideration', find: 'north: 1000000, lesser: true }] }', replace: 'north: 1000000 }] }' },
   { ...fhog, name: 'FHOG NT pays the amount on a smaller consideration', find: "to: '2027-09-30', amount: 50000, lesser: true", replace: "to: '2027-09-30', amount: 50000" },

@@ -106,8 +106,8 @@ export function firstHomeOwnerGrant({ place, date, home, value, north, facts }) 
     && (f === 'contract' ? home === 'built' : place === (f === 'nt' ? 'AU-NT' : 'AU-TAS')));
   if (unstated.length) throw new Error(`Not computed: the ${scheme.name} grant for this home needs another fact stated: ${unstated.map((f) => FACT_NAMES[f]).join('; ')}.`);
   if (place === 'AU-WA' && typeof north !== 'boolean') throw new Error('Not computed: choose where the Western Australian home is, south or north of the 26th parallel.');
-  // The NT's established home rule has no cap, and only the NT pays for an established home.
-  const limit = place === 'AU-WA' && north ? rule.north : home === 'established' ? undefined : rule[/** @type {'bought' | 'built'} */ (home)];
+  // An established home has no cap: only the NT's pays, and its rule has none.
+  const limit = place === 'AU-WA' && north ? rule.north : home === 'built' ? rule.built : home === 'bought' ? rule.bought : undefined;
   const cap = limit === undefined ? 'none' : place === 'AU-QLD' ? 'under $750,000' : `up to ${whole(limit)}`;
   if (limit !== undefined && dollars > limit) {
     if (place === 'AU-VIC' && home === 'built') {
