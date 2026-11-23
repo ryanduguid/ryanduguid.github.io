@@ -93,13 +93,13 @@
       "12438b9691fecd3f3821f436c6ffa34d84f61bed426e37056e1b1b03c287ea1f"
     ],
     "tools/accounting-questions/company-compliance/index.html": [
-      "0b3a8387efcc68e8565e6ac64b74ecdab8da87330a4c9f32b45df8c7c18509ff"
+      "53bdb3796fdd3ee7e390c5fb3b96cdbcb7f3b3b418af6e9bff9b98e74f3bf9d5"
     ],
     "tools/accounting-questions/deductions/index.html": [
       "072ab8813a0f45fef86cc4e2dbc9d731a2ce7694ad3ab238d9c425abb313120b"
     ],
     "tools/accounting-questions/general-tax/index.html": [
-      "1d6db36da0ffcaf3705854e12947b5a0f8dc312b1a7f14728c7e1333041ca0e0"
+      "0d989b9825e20aee524584d8cd6429a7520dee2dfb2b3eb72b9dd1f4639c730c"
     ],
     "tools/accounting-questions/gst-bas/index.html": [
       "329623c88d03ce013ab19051ea05cbc58c42060ff707a5bb42cf1a2c462bc872"
@@ -414,7 +414,7 @@
   "protected_files": {
     "llms.txt": "f910fdd02224145829c59c6499a482e3f8077f6d122adcbb8502de44de80abd2",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "7d1912e0f9e02ba0b814a7c83c6b5e1945db546f1fadcfe01c4aa706a97c6977"
+    "sitemap.xml": "7c4164f941e2308617de3e3a5160e8ad392685c8239f969ebbb76756ac2123a6"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
