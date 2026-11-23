@@ -100,8 +100,6 @@ No. It reads local files and writes a readiness pack. It cannot post, pay, lodge
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - v1.0.1: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.0.1

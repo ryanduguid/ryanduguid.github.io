@@ -1,4 +1,4 @@
-# Wine equalisation tax calculator: WET, producer rebate, 1C and 1D
+# Wine equalisation tax calculator: WET, rebate, 1C and 1D
 
 Source: https://duguid.com.au/tools/business-calculators/wine-equalisation-tax/
 
@@ -90,10 +90,17 @@ A rebate on own use of wine bought under quote is refused | 2026-27; dealing 1: 
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- GST calculator
+- 2026-27 BAS due dates
+- GST and BAS questions
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- GST calculator: https://duguid.com.au/tools/business-calculators/gst/
+- 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
+- GST and BAS questions: https://duguid.com.au/tools/accounting-questions/gst-bas/

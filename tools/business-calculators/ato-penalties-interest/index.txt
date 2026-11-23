@@ -1,4 +1,4 @@
-# ATO penalties and interest calculator: GIC, SIC and penalties
+# ATO penalties and interest calculator: GIC, SIC and FTL
 
 Source: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
 
@@ -57,10 +57,17 @@ Remission is the Commissioner’s discretion | Remission of a charge or penalty 
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- General interest charge rate
+- GIC payment plan calculator
+- Objection deadline checker
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- General interest charge rate: https://duguid.com.au/rates/general-interest-charge/
+- GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
+- Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/

@@ -92,8 +92,6 @@ Each source below was read on 14 November 2026.
 - VIC: Business Victoria, public holidays for 2026, last updated 21 May 2026, and 2027, last updated 2 December 2025.
 - WA: WA Government, Public holidays in Western Australia, last updated 5 November 2026.
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - Download the table as CSV: https://duguid.com.au/tools/payday-super/business-days/payday-super-business-days.csv

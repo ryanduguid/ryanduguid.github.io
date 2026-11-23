@@ -9,9 +9,10 @@ test('mobile discovery links have room to tap without horizontal scrolling', asy
   const routes = [
     ['/', '.home-hero__actions a, .home-tool-preview a, .home-register a'],
     ['/tools/', '.task-routes a, .related > li > a, .collection-entry__title, .collection-entry__links a'],
-    ['/tools/ozzit/', '.article-toc a'],
-    ['/evaluate/manager-review-gate/', '.article-toc a'],
-    ['/examples/profit-vs-cash-flow/', '.article-toc a'],
+    ['/tools/ozzit/', '.article-toc a', '.article-toc details'],
+    ['/evaluate/manager-review-gate/', '.article-toc a', '.article-toc details'],
+    ['/examples/profit-vs-cash-flow/', '.article-toc a', '.article-toc details'],
+    ['/tools/depreciation-rates/', '#every-life summary'],
     // Source link rows sit in closed disclosures; at 375px 18 of 28 on this
     // topic page were under 24px high (10 November 2026).
     ['/tools/accounting-questions/gst-bas/', '.question-links > a', 'details.question'],

@@ -6,19 +6,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/
 
 # Depreciation rates and effective lives
 
-The Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (LI 2025/20, F2025L01097), registered on 15 September 2025 and unamended on 13 November 2026, sets the 7,430 effective lives this page searches, each with both rates and the date it was last set.
-
-General information, not tax advice. The search and the calculator run in your browser. The figures you enter stay there unless you open a link to the calculation. A search is kept in the page address so that it can be linked. An address holding a search or a calculation reaches this site’s host when it is opened.
+Search all 7,430 effective lives in the Commissioner’s 2025 determination (LI 2025/20, F2025L01097, registered 15 September 2025, unamended 13 November 2026), with both rates and a year’s deduction worked out in your browser.
 
 Published 14 November 2026. Last reviewed 23 November 2026. Sources checked 13 November 2026.
 
-On this page: find an asset, browse the tables, work out a year’s deduction, which determination applies, how a life becomes a rate, capped lives, pools, write-offs and the car limit, capital works, common questions, source and licence, changes and corrections and limits.
-
 ## Find an asset
-
-Type an asset to search both tables of the determination at once, or choose your industry to see its rows first. Table A lists assets by industry and Table B lists assets used across industries.
-
-Under section 6 of the determination, an asset used in an industry named in Table A takes that industry’s life where a row describes the asset or its function. Table B applies where Table A does not.
 
 JavaScript is required to search and to work out a deduction. Every row is in the data file and in the registered determination; the rules and sources remain below.
 
@@ -27,6 +19,12 @@ Asset Industry (Table A)All industries
 For example laptop, forklift, carpet or solar. Every word you type must appear in the row, the headings above it or its industry.
 
 Search
+
+Type an asset to search both tables of the determination at once, or choose your industry to see its rows first. Table A lists assets by industry and Table B lists assets used across industries. Under section 6 of the determination, an asset used in an industry named in Table A takes that industry’s life where a row describes the asset or its function; Table B applies where Table A does not.
+
+General information, not tax advice. The search and the calculator run in your browser. The figures you enter stay there unless you open a link to the calculation. A search is kept in the page address so that it can be linked. An address holding a search or a calculation reaches this site’s host when it is opened.
+
+On this page: find an asset, browse the tables, work out a year’s deduction, which determination applies, how a life becomes a rate, capped lives, pools, write-offs and the car limit, capital works, common questions, source and licence, changes and corrections and limits.
 
 ## Browse the tables
 
@@ -545,10 +543,10 @@ The page does not decide whether something is a depreciating asset, who holds it
 
 The calculator leaves out balancing adjustments, second elements of cost, a taxable use that changes from year to year, pooling, the car limit, capped lives you have not entered and any rule that replaces these methods for a period. Diminishing value is not available for some assets, such as in-house software, intellectual property other than copyright in a film, and spectrum licences (subsection 40-72(2)). Section 40-27 can take away the deduction for a previously used asset in residential rental premises where the letting is not a business. A life the Commissioner has not listed can be worked out under section 40-105 or requested with the ATO’s effective life review application form.
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
+- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- registered determination: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
 - find an asset: https://duguid.com.au/tools/depreciation-rates/#find
 - browse the tables: https://duguid.com.au/tools/depreciation-rates/#browse
 - work out a year’s deduction: https://duguid.com.au/tools/depreciation-rates/#deduction
@@ -561,8 +559,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - source and licence: https://duguid.com.au/tools/depreciation-rates/#source
 - changes and corrections: https://duguid.com.au/tools/depreciation-rates/#changes
 - limits: https://duguid.com.au/tools/depreciation-rates/#limits
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- registered determination: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
 - Table A: effective lives by industry: https://duguid.com.au/tools/depreciation-rates/industry/
 - AGRICULTURE, FORESTRY AND FISHING: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/
 - Agriculture: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/

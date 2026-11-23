@@ -222,14 +222,18 @@ fn entry_title<'a>(url: &str, entry: &'a str) -> Result<&'a str, String> {
 pub fn section_parts(entries: &[(String, String)]) -> Result<Vec<Part>, String> {
     let mut sections = std::collections::BTreeMap::<String, Vec<(String, String)>>::new();
     for (url, entry) in entries {
-        let section = url
-            .strip_prefix(SITE)
-            .unwrap_or(url)
-            .trim_matches('/')
-            .split('/')
-            .next()
-            .filter(|s| !s.is_empty())
-            .unwrap_or("home");
+        let rel = url.strip_prefix(SITE).unwrap_or(url).trim_matches('/');
+        let mut segs = rel.split('/').filter(|s| !s.is_empty());
+        let first = segs.next().unwrap_or("home");
+        let second = segs.next();
+        let section = match (first, second) {
+            ("tools", Some("business-calculators")) => "calculators-business",
+            ("tools", Some("individual-tax")) => "calculators-individual",
+            ("tools", Some("accounting-questions")) => "questions",
+            ("tools", Some("ozzit")) => "ozzit",
+            ("tools", Some("depreciation-rates")) => "depreciation",
+            _ => first,
+        };
         let title = entry_title(url, entry)?;
         sections
             .entry(section.into())
@@ -366,11 +370,26 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     let index = with_part_index(&current, &parts)?.into_bytes();
     let output = root.join("llms-full.txt");
     let alias = root.join(".well-known/llms.txt");
+    let expected_parts: HashSet<&str> = parts.iter().map(|p| p.name.as_str()).collect();
+    let stale_parts: Vec<String> = std::fs::read_dir(root)
+        .map_err(|e| py::oserror_str(&e, &root.to_string_lossy(), py::OsStyle::Errno))?
+        .filter_map(|entry| entry.ok())
+        .filter_map(|entry| entry.file_name().into_string().ok())
+        .filter(|name| {
+            name.starts_with("llms-full-")
+                && name.ends_with(".txt")
+                && !expected_parts.contains(name.as_str())
+        })
+        .collect();
     if args.iter().any(|a| a == "--write") {
         write(&index_path, &index)?;
         write(&output, built.as_bytes())?;
         for Part { name, text, .. } in &parts {
             write(&root.join(name), text.as_bytes())?;
+        }
+        for old in &stale_parts {
+            std::fs::remove_file(root.join(old))
+                .map_err(|e| py::oserror_str(&e, old, py::OsStyle::Errno))?;
         }
         for (url, entry) in &entries {
             write(&page_path(url, root, "index.txt"), entry.as_bytes())?;
@@ -384,6 +403,13 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
             entries.len()
         ))?;
         return Ok(0);
+    }
+    if !stale_parts.is_empty() {
+        say(&format!(
+            "stale section part(s) present ({}): {RERUN}\n",
+            stale_parts.join(", ")
+        ))?;
+        return Ok(1);
     }
     if current.as_bytes() != index {
         say(&format!("llms.txt part index is stale: {RERUN}\n"))?;

@@ -78,12 +78,19 @@ Fuel acquired outside the income year chosen | 2025-26; line 1: 100 litres of di
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- 2026-27 BAS due dates
+- Subcontractor ledger skills
+- GST and BAS questions
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - Australian Institute of Petroleum’s weekly average retail (pump) prices: https://aip.com.au/pricing/pump-prices-retail/
 - fuel tax credit tools: https://www.ato.gov.au/calculators-and-tools/fuel-tax-credit-tools
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
+- Subcontractor ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
+- GST and BAS questions: https://duguid.com.au/tools/accounting-questions/gst-bas/

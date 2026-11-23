@@ -51,10 +51,17 @@ A negative balance is refused | Balance -$1.00, earnings $100,000.00 | Refused: 
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Announced tax measures and enacted law
+- Division 293 tax calculator
+- Super lump sum tax calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Announced tax measures and enacted law: https://duguid.com.au/rates/announced-not-yet-law/
+- Division 293 tax calculator: https://duguid.com.au/tools/individual-tax/division-293/
+- Super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/

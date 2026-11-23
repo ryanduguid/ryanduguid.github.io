@@ -10,10 +10,11 @@ if (form) {
   const groups = [...document.querySelectorAll('.collection-register .collection-group')];
   const entries = groups.flatMap(group => [...group.querySelectorAll('.collection-entry')]);
   const normalise = text => text.toLocaleLowerCase('en-AU').replace(/[^a-z0-9]+/g, ' ');
-  // An entry also matches its group's label and heading, so 'control' finds the Control tools.
+  // An entry also matches its group's label, heading and optional keywords.
   const text = new Map(entries.map(entry => {
     const header = entry.closest('.collection-group').querySelector('header');
-    return [entry, normalise(`${header.textContent} ${entry.textContent}`)];
+    const keywords = entry.dataset.keywords || '';
+    return [entry, normalise(`${header.textContent} ${entry.textContent} ${keywords}`)];
   }));
   const delivery = new Map(entries.map(entry => {
     const term = [...entry.querySelectorAll('dt')].find(dt => dt.textContent === 'Delivery');

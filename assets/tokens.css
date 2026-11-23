@@ -173,6 +173,7 @@
     --colour-ink-mid: #fffff0;
     --colour-ink-soft: #fffff0;
     --colour-rule: #606060;
+    --colour-rule-strong: #fffff0;
     --rule-thin: 0.125rem;
   }
 }

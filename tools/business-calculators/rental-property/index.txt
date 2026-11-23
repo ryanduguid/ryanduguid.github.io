@@ -1,4 +1,4 @@
-# Rental property calculator: deductions, capital works, net rent
+# Rental property calculator: deductions and net rent
 
 Source: https://duguid.com.au/tools/business-calculators/rental-property/
 
@@ -120,11 +120,17 @@ The effect on tax before 2024-25 is refused | 2023-24; legal interest 1; held fr
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Depreciation pools and capital works calculator
+- Borrowing expenses calculator
+- Land tax calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Depreciation pools and capital works calculator: https://duguid.com.au/tools/business-calculators/depreciation-pools/
+- Land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/

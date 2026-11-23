@@ -1,4 +1,4 @@
-# Super lump sum tax calculator: components, caps, death benefits
+# Super lump sum tax calculator: caps and death benefits
 
 Source: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 
@@ -76,12 +76,18 @@ Other lump sums in the same year share the low rate cap, which the page does not
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Super projection calculator
+- Division 296 tax calculator
+- Redundancy and ETP withholding
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - australian-accounting: https://github.com/ryanduguid/australian-accounting
 - redundancy and ETP withholding calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
+- Division 296 tax calculator: https://duguid.com.au/tools/business-calculators/division-296/

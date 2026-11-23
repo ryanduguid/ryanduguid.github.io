@@ -51,11 +51,18 @@ A register first valid 5 years back has lapsed | Register, expenses $1,500.00, $
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- FBT rate and gross-up rates
+- Salary packaging calculator
+- FBT property calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00015
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
+- Salary packaging calculator: https://duguid.com.au/tools/individual-tax/salary-packaging/
+- FBT property calculator: https://duguid.com.au/tools/business-calculators/fbt-property/

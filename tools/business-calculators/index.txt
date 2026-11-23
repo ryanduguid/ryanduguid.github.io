@@ -6,11 +6,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Fifty-four calculators, each on its own page with the formula, assumptions and source beside the inputs. The calculator code runs in your browser. It does not send your inputs to a server or save them automatically.
-
-Find a question and prepare a checklist.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.
+Fifty-four free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
 Published 11 September 2026. Last checked 23 November 2026, the newest of the calculators’ source checks.
 
@@ -60,7 +56,7 @@ Published 11 September 2026. Last checked 23 November 2026, the newest of the ca
 - Capital gains tax calculator The capital gain or loss on one sale to 30 June 2027: discount or indexation, losses, and the main residence and 6-year rules, each step cited.
 - Small business CGT concessions checker Which of the 4 small business CGT concessions in Division 152 are open for one capital gain, each with the provision that decides it.
 
-## Staff and cash
+## Staff, payroll and termination
 
 - Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
@@ -68,32 +64,33 @@ Published 11 September 2026. Last checked 23 November 2026, the newest of the ca
 - Long service leave calculator One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.
 - Workers compensation premium calculator A 2026-27 premium from the declared wages and the insurer’s rate under each state and territory’s scheme, with GST, duty and the actual wages adjustment, each step cited.
 - Super lump sum tax The components of a super lump sum and the most tax each part can bear, for members and death benefits, 2020-21 to 2026-27.
+- Redundancy and ETP withholding The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
+- Unused leave on termination Schedule 7 withholding and the lump sum A, B and type U amounts for unused leave paid on termination, for 2026-27.
 
-## Objections, instalments, termination, land tax, duty, business days and ASIC fees
+## State taxes, property and first home buyers
 
-- Objection deadline checker The last day to object to an income tax or FBT assessment, an amended assessment or another ATO decision, with the weekend rule.
+- Transfer duty calculator General transfer (stamp) duty on a residential purchase in each of the 8 states and territories, and the duty for an eligible first home buyer of a home.
+- First home owner grant calculator The grant in each of the 8 states and territories for a new home, by contract date and value cap, beside the first home buyer transfer duty.
+- Land tax calculator Land tax for a full year in each of the 7 states and territories that levy it, at the general or trust rates, with a foreign or absentee owner surcharge and WA’s metropolitan region improvement tax where chosen, before any exemption.
+- Foreign purchaser surcharge calculator Foreign purchaser duty and the foreign owner land tax surcharge in each state and territory, with each one’s own test of who is foreign, the 2026-27 FIRB fee and the upfront total in all 8 side by side.
+- Payroll tax calculator One employer’s annual payroll tax for 2026-27 in any state or territory, for an employer outside a group, with each step cited.
+
+## Indirect taxes, ATO deadlines and ASIC
+
 - PAYG instalments calculator The quarterly PAYG instalment from the notified amount, a varied amount, instalment income times the rate, or a varied rate with its credit.
+- Objection deadline checker The last day to object to an income tax or FBT assessment, an amended assessment or another ATO decision, with the weekend rule.
 - Fuel tax credit calculator A business’s fuel tax credits at the ATO’s rate for each day since 1 July 2022, by fuel and use, with label 7D and the small claimant methods.
 - Luxury car tax calculator Luxury car tax, its adjustments and refunds for 2019-20 to 2026-27.
 - Wine equalisation tax calculator WET on a tax period’s wholesale sales, retail sales, own use and sales under quote, the producer rebate within the year’s $350,000 or $400,000 cap, and labels 1C and 1D.
-- Redundancy and ETP withholding The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
-- Unused leave on termination Schedule 7 withholding and the lump sum A, B and type U amounts for unused leave paid on termination, for 2026-27.
-- Land tax calculator Land tax for a full year in each of the 7 states and territories that levy it, at the general or trust rates, with a foreign or absentee owner surcharge and WA’s metropolitan region improvement tax where chosen, before any exemption.
-- Transfer duty calculator General transfer (stamp) duty on a residential purchase in each of the 8 states and territories, and the duty for an eligible first home buyer of a home.
-- Payroll tax calculator One employer’s annual payroll tax for 2026-27 in any state or territory, for an employer outside a group, with each step cited.
-- Foreign purchaser surcharge calculator Foreign purchaser duty and the foreign owner land tax surcharge in each state and territory, with each one’s own test of who is foreign, the 2026-27 FIRB fee and the upfront total in all 8 side by side.
 - Business days calculator Business days between 2 dates, or the date a number of business days on or back, with each state’s public holidays for 2026 and 2027.
 - ASIC fees calculator ASIC’s 2026-27 fees and late fee tiers.
 
-## First home buyers
+See also 15 individual tax calculators, depreciation rates and effective lives, 2026-27 BAS due dates and 100 accounting questions.
 
-- First home owner grant calculator The grant in each of the 8 states and territories for a new home, by contract date and value cap, beside the first home buyer transfer duty.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.
 
 ## Links
 
-- Find a question and prepare a checklist: https://duguid.com.au/tools/accounting-questions/
 - GST calculator: https://duguid.com.au/tools/business-calculators/gst/
 - GST margin scheme calculator: https://duguid.com.au/tools/business-calculators/gst-margin-scheme/
 - Business use share calculator: https://duguid.com.au/tools/business-calculators/business-use/
@@ -134,17 +131,21 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Long service leave calculator: https://duguid.com.au/tools/business-calculators/long-service-leave/
 - Workers compensation premium calculator: https://duguid.com.au/tools/business-calculators/workers-compensation/
 - Super lump sum tax: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
-- Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
+- Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/
+- Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
+- Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
+- First home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
+- Land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
+- Foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
+- Payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
 - PAYG instalments calculator: https://duguid.com.au/tools/business-calculators/payg-instalments/
+- Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
 - Fuel tax credit calculator: https://duguid.com.au/tools/business-calculators/fuel-tax-credits/
 - Luxury car tax calculator: https://duguid.com.au/tools/business-calculators/luxury-car-tax/
 - Wine equalisation tax calculator: https://duguid.com.au/tools/business-calculators/wine-equalisation-tax/
-- Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/
-- Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
-- Land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
-- Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
-- Payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
-- Foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
 - Business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
 - ASIC fees calculator: https://duguid.com.au/tools/business-calculators/asic-fees/
-- First home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
+- 15 individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
+- 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
+- 100 accounting questions: https://duguid.com.au/tools/accounting-questions/

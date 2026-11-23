@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/individual-tax/income-tax/
 
-> Income tax, offsets, Medicare levy and surcharge, study loan and a refund estimate from your tax withheld, for 2020-21 to 2026-27, each step cited to its source.
+> Calculate Australian income tax, offsets, Medicare levy, MLS, HELP repayment and refund estimate for 2020-21 to 2026-27, with each step cited to legislation.
 
 # Income tax calculator
 
@@ -95,12 +95,29 @@ Study loan with withholding short: an amount owing | 2026-27, Australian residen
 
 One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Common questions
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+### Which income years does this Australian income tax calculator support?
+
+The income tax calculator covers 2020-21 to 2026-27 for Australian residents, foreign residents and working holiday makers, applying each year’s statutory brackets, LITO, Medicare levy and HELP thresholds.
+
+### Does the calculator send my income figures to a server?
+
+No. All calculations run locally in your browser with no sign-up and no network requests.
+
+## Related
+
+- Individual income tax rates
+- Take-home pay calculator
+- Income tests calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
 - fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- Individual income tax rates: https://duguid.com.au/rates/individual-income-tax/
+- Take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
+- Income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/

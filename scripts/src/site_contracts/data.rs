@@ -686,8 +686,7 @@ pub const CONTACT_MAILTO_HREFS: [&str; 1] =
 pub const HOMEPAGE_HEADING: &str = "Tools for Australian accountants";
 pub const HOMEPAGE_HEADING_MARKUP: &str =
     "<h1 id=\"home-title\">Tools for Australian accountants</h1>";
-pub const HOMEPAGE_SUPPORT: &str =
-    "Check workpaper packs, explore cash shortfalls and inspect the calculations.";
+pub const HOMEPAGE_SUPPORT: &str = "Free browser calculators, maintained ATO rate tables and open source review tools. No sign-up; inputs stay in your browser.";
 pub const HOMEPAGE_ACTIONS: [(&str, &str); 1] = [(
     "/examples/profit-vs-cash-flow/",
     "Explore the cash flow example",
@@ -704,26 +703,33 @@ pub const TASK_ROUTE_ENTRIES: [(&str, &str); 5] = [
     ("Calculate a Coal LSL levy", "/tools/coal-lsl-levy/"),
     (
         "Check a BAS pack before manager review",
-        "/evaluate/manager-review-gate/",
+        "/tools/workpaper-review-gate/",
     ),
 ];
 /// The homepage router, one row per reader: its heading and the destinations
-/// it lists, in order. The first row lists TASK_ROUTE_ENTRIES after the cash
-/// case, then the full Tools register.
+/// it lists, in order. The first row lists the calculator hubs, TASK_ROUTE_ENTRIES
+/// after the cash case, then the full Tools register.
 pub const HOMEPAGE_ROUTES: [(&str, &[&str]); 3] = [
     (
         "Check a pack or calculate",
         &[
+            "/tools/business-calculators/",
+            "/tools/individual-tax/",
+            "/tools/depreciation-rates/",
             "/tools/ozzit/",
             "/tools/monthly-close-controls/",
             "/tools/coal-lsl-levy/",
-            "/evaluate/manager-review-gate/",
+            "/tools/workpaper-review-gate/",
             "/tools/",
         ],
     ),
     (
         "Answer a tax or payroll question",
-        &["/tools/accounting-questions/", "/rates/"],
+        &[
+            "/tools/accounting-questions/",
+            "/rates/",
+            "/tools/bas-due-dates/",
+        ],
     ),
     ("Review my work", &["/about/", "/evidence/"]),
 ];
@@ -737,7 +743,7 @@ pub const HOMEPAGE_REQUIRED_TEXT: [&str; 3] = [
     "Try each tool with fictional data first",
 ];
 pub const HOMEPAGE_TITLE: &str = "Tools for Australian accountants";
-pub const HOMEPAGE_DESCRIPTION: &str = "Australian accounting tools for payroll, Xero, workpapers and AI workflows, with sources and working kept visible.";
+pub const HOMEPAGE_DESCRIPTION: &str = "Free Australian tax and business calculators, 12 ATO rate tables, 7,430 depreciation effective lives and accounting review tools, with sources kept visible.";
 pub const HOMEPAGE_REQUIRED_HREFS: [&str; 4] = [
     "/evidence/",
     "/examples/profit-vs-cash-flow/",
@@ -897,7 +903,7 @@ pub struct SocialCard {
     pub output: &'static str,
 }
 
-pub const SOCIAL_CARD_CONTEXTS: [SocialCard; 5] = [
+pub const SOCIAL_CARD_CONTEXTS: [SocialCard; 9] = [
     SocialCard {
         id: "site",
         label: "Australian accounting",
@@ -932,6 +938,34 @@ pub const SOCIAL_CARD_CONTEXTS: [SocialCard; 5] = [
         heading: &["Claims linked to sources,", "releases, and tests."],
         host: "duguid.com.au/evidence/",
         output: "social-card-evidence-20261104b.png",
+    },
+    SocialCard {
+        id: "calculators",
+        label: "Business calculators",
+        heading: &["54 Australian business", "and tax calculators."],
+        host: "duguid.com.au/tools/business-calculators/",
+        output: "social-card-calculators-20261123.png",
+    },
+    SocialCard {
+        id: "individual-tax",
+        label: "Individual tax",
+        heading: &["Australian income tax,", "pay and super tools."],
+        host: "duguid.com.au/tools/individual-tax/",
+        output: "social-card-individual-tax-20261123.png",
+    },
+    SocialCard {
+        id: "depreciation",
+        label: "Depreciation rates",
+        heading: &["7,430 ATO effective", "lives in LI 2025/20."],
+        host: "duguid.com.au/tools/depreciation-rates/",
+        output: "social-card-depreciation-20261123.png",
+    },
+    SocialCard {
+        id: "questions",
+        label: "Accounting questions",
+        heading: &["100 Australian", "accounting questions."],
+        host: "duguid.com.au/tools/accounting-questions/",
+        output: "social-card-questions-20261123.png",
     },
 ];
 pub const SOCIAL_CARD_DIMENSIONS: (u32, u32) = (1200, 630);

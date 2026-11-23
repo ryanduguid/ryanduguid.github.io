@@ -11,11 +11,12 @@ require_front_matter: true
 readme_index:
   enabled: false
 theme: null
-asset_version: "20261122c"
+asset_version: "20261123a"
 include:
   - .well-known
 exclude:
   - geo-out
+  - requirements-lint.txt
   - AGENTS.md
   - CLAUDE.md
   - GATES.md

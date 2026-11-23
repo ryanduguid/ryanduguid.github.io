@@ -78,12 +78,19 @@ An income year after 2027-28 | 2028-29; loan 1: $1,600.00 of borrowing expenses 
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- Rental property calculator
+- Loan repayment schedule calculator
+- Deductions questions
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - Section 26-102: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land/land-vacant-land-and-subdividing/deductions-for-vacant-land
 - Borrowing expenses: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land/residential-rental-properties/rental-expenses/borrowing-expenses
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
+- Loan repayment schedule calculator: https://duguid.com.au/tools/business-calculators/loan/
+- Deductions questions: https://duguid.com.au/tools/accounting-questions/deductions/

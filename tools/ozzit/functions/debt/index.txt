@@ -274,8 +274,6 @@ Previous name: nabla.debt.InterestLRVλ.
 - Ozzit Utilities functions
 - Ozzit overview, download and release verification
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - Debt formula source: https://github.com/ryanduguid/Ozzit/blob/v3.7.0/src/Debt.txt

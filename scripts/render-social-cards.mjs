@@ -21,7 +21,17 @@ const ROOT = path.resolve(import.meta.dirname, '..');
 const ASSETS = path.join(ROOT, 'assets');
 const TEMPLATE_PATH = path.join(ASSETS, 'social-card-template.svg');
 const DATA_PATH = path.join(ASSETS, 'social-cards.json');
-const CARD_IDS = Object.freeze(['site', 'tools', 'evaluations', 'rates', 'evidence']);
+const CARD_IDS = Object.freeze([
+  'site',
+  'tools',
+  'evaluations',
+  'rates',
+  'evidence',
+  'calculators',
+  'individual-tax',
+  'depreciation',
+  'questions',
+]);
 const CARD_FIELDS = Object.freeze(['alt', 'heading', 'host', 'label', 'output']);
 const WIDTH = 1200;
 const HEIGHT = 630;
@@ -70,7 +80,7 @@ function validateCards(value) {
     ) {
       throw new TypeError(`Social-card ${id} heading must contain two or three fitted lines`);
     }
-    const revision = ['site', 'tools'].includes(id) ? '20261123' : '20261104b';
+    const revision = ['evaluations', 'rates', 'evidence'].includes(id) ? '20261104b' : '20261123';
     const expectedOutput = `social-card-${id}-${revision}.png`;
     if (card.output !== expectedOutput) {
       throw new Error(`Social-card ${id} output must be ${expectedOutput}`);
@@ -219,12 +229,10 @@ async function publishCandidates(candidateDirectory, outputDirectory, outputs) {
       `.${output}.${process.pid}.${randomUUID()}.tmp`,
     ),
   }));
-  try {
+  return (async () => {
     for (const item of pending) await copyFile(item.candidate, item.temporary);
     for (const item of pending) await rename(item.temporary, item.final);
-  } finally {
-    await Promise.all(pending.map((item) => rm(item.temporary, { force: true })));
-  }
+  })().finally(() => Promise.all(pending.map((item) => rm(item.temporary, { force: true }))));
 }
 
 export async function renderSocialCards(browser, outputDirectory) {
@@ -237,11 +245,12 @@ export async function renderSocialCards(browser, outputDirectory) {
 
   const sources = await loadSources();
   const candidateDirectory = await mkdtemp(path.join(os.tmpdir(), 'duguid-social-render-'));
-  const context = await browser.newContext({
-    viewport: { width: WIDTH, height: HEIGHT },
-    deviceScaleFactor: 1,
-  });
-  try {
+  let context;
+  return (async () => {
+    context = await browser.newContext({
+      viewport: { width: WIDTH, height: HEIGHT },
+      deviceScaleFactor: 1,
+    });
     const page = await context.newPage();
     for (const card of sources.cards) {
       const svg = renderSvg(sources.template, sources.fonts, card);
@@ -281,23 +290,24 @@ export async function renderSocialCards(browser, outputDirectory) {
     }
     await publishCandidates(candidateDirectory, path.resolve(outputDirectory), outputs);
     return outputs;
-  } finally {
-    await context.close();
-    await rm(candidateDirectory, { recursive: true, force: true });
-  }
+  })().finally(async () => {
+    await Promise.allSettled([
+      context?.close(),
+      rm(candidateDirectory, { recursive: true, force: true }),
+    ]);
+  });
 }
 
 async function runCli() {
   const outputDirectory = path.resolve(process.argv[2] || ASSETS);
   const browser = await chromium.launch();
-  try {
-    const outputs = await renderSocialCards(browser, outputDirectory);
-    console.log(
-      `Rendered ${outputs.length} cards with Chromium ${browser.version()} at device scale 1.`,
-    );
-  } finally {
-    await browser.close();
-  }
+  return renderSocialCards(browser, outputDirectory)
+    .then((outputs) => {
+      console.log(
+        `Rendered ${outputs.length} cards with Chromium ${browser.version()} at device scale 1.`,
+      );
+    })
+    .finally(() => browser.close());
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

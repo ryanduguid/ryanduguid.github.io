@@ -1,8 +1,8 @@
-# PAYG instalments calculator: instalment amount and rate methods
+# PAYG instalments calculator: amount and rate methods
 
 Source: https://duguid.com.au/tools/business-calculators/payg-instalments/
 
-> One quarterly PAYG instalment by the ATO’s instalment amount or the instalment rate, notified or varied, with the credit to claim, as the activity statement asks.
+> Calculate a quarterly PAYG instalment by notified or varied amount or instalment rate, with any variation credit for your activity statement.
 
 # PAYG instalments calculator
 
@@ -54,10 +54,17 @@ A credit for the second instalment is refused | Varied amount, instalment 2; est
 
 One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the instalment rounds down to whole dollars, as the activity statement takes it.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- 2026-27 BAS due dates
+- GST and BAS questions
+- Sole trader tax set-aside calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the instalment rounds down to whole dollars, as the activity statement takes it.
 
 ## Links
 
 - fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
+- GST and BAS questions: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Sole trader tax set-aside calculator: https://duguid.com.au/tools/individual-tax/sole-trader/

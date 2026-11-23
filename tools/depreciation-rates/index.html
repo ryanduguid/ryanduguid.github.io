@@ -17,16 +17,16 @@
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au/tools/depreciation-rates/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-depreciation-20261123.png" />
   <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:alt" content="OLED register card: 7,430 ATO effective lives in LI 2025/20." />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Depreciation rates: ATO effective lives in LI 2025/20" />
   <meta name="twitter:description" content="Every effective life in LI 2025/20 (F2025L01097), the Commissioner’s current determination, with both rates and a year’s deduction worked out." />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
-  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-depreciation-20261123.png" />
+  <meta name="twitter:image:alt" content="OLED register card: 7,430 ATO effective lives in LI 2025/20." />
   <link rel="canonical" href="https://duguid.com.au/tools/depreciation-rates/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
@@ -47,7 +47,7 @@
   <link rel="stylesheet" href="/assets/tokens.css?v={{ site.asset_version }}" />
   <link rel="stylesheet" href="/assets/site.css?v={{ site.asset_version }}" />
   <link rel="stylesheet" href="/assets/accounting-pages.css?v=20261007b" />
-  <link rel="stylesheet" href="/assets/depreciation-rates.css?v=20261121a" />
+  <link rel="stylesheet" href="/assets/depreciation-rates.css?v=20261123a" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -57,18 +57,12 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Depreciation rates and effective lives</li></ol></nav>
         <h1>Depreciation rates and effective lives</h1>
-        <p class="lead-note">The Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (LI 2025/20, F2025L01097), registered on 15 September 2025 and unamended on 13 November 2026, sets the 7,430 effective lives this page searches, each with both rates and the date it was last set.</p>
-        <p class="field-note">General information, not tax advice. The search and the calculator run in your browser. The figures you enter stay there unless you open a link to the calculation. A search is kept in the page address so that it can be linked. An address holding a search or a calculation reaches this site’s host when it is opened.</p>
+        <p class="lead-note">Search all 7,430 effective lives in the Commissioner’s 2025 determination (LI 2025/20, F2025L01097, registered 15 September 2025, unamended 13 November 2026), with both rates and a year’s deduction worked out in your browser.</p>
         <p class="page-meta">Published 14 November 2026. Last reviewed 23 November 2026. Sources checked 13 November 2026.</p>
       </header>
       <div class="site-shell accounting-content">
-        <nav class="page-jumps" aria-label="On this page">
-          <p>On this page: <a href="#find">find an asset</a>, <a href="#browse">browse the tables</a>, <a href="#deduction">work out a year’s deduction</a>, <a href="#which-determination">which determination applies</a>, <a href="#rates-from-life">how a life becomes a rate</a>, <a href="#capped-lives">capped lives</a>, <a href="#pools-and-write-offs">pools, write-offs and the car limit</a>, <a href="#capital-works">capital works</a>, <a href="#common-questions">common questions</a>, <a href="#source">source and licence</a>, <a href="#changes">changes and corrections</a> and <a href="#limits">limits</a>.</p>
-        </nav>
         <section id="find">
         <h2>Find an asset</h2>
-        <p>Type an asset to search both tables of the determination at once, or choose your industry to see its rows first. Table A lists assets by industry and Table B lists assets used across industries.</p>
-        <p>Under section 6 of the determination, an asset used in an industry named in Table A takes that industry’s life where a row describes the asset or its function. Table B applies where Table A does not.</p>
         <noscript><p>JavaScript is required to search and to work out a deduction. Every row is in the <a href="/tools/depreciation-rates/effective-life.json">data file</a> and in the <a href="https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text">registered determination</a>; the rules and sources remain below.</p></noscript>
         <form id="finder" method="get" action="/tools/depreciation-rates/" role="search" aria-label="Effective lives">
           <div class="form-grid">
@@ -80,7 +74,12 @@
         </form>
         <p id="finder-status" role="status"></p>
         <div id="finder-results"></div>
+        <p>Type an asset to search both tables of the determination at once, or choose your industry to see its rows first. Table A lists assets by industry and Table B lists assets used across industries. Under section 6 of the determination, an asset used in an industry named in Table A takes that industry’s life where a row describes the asset or its function; Table B applies where Table A does not.</p>
+        <p class="field-note">General information, not tax advice. The search and the calculator run in your browser. The figures you enter stay there unless you open a link to the calculation. A search is kept in the page address so that it can be linked. An address holding a search or a calculation reaches this site’s host when it is opened.</p>
         </section>
+        <nav class="page-jumps" aria-label="On this page">
+          <p>On this page: <a href="#find">find an asset</a>, <a href="#browse">browse the tables</a>, <a href="#deduction">work out a year’s deduction</a>, <a href="#which-determination">which determination applies</a>, <a href="#rates-from-life">how a life becomes a rate</a>, <a href="#capped-lives">capped lives</a>, <a href="#pools-and-write-offs">pools, write-offs and the car limit</a>, <a href="#capital-works">capital works</a>, <a href="#common-questions">common questions</a>, <a href="#source">source and licence</a>, <a href="#changes">changes and corrections</a> and <a href="#limits">limits</a>.</p>
+        </nav>
 
         <section id="browse">
         <h2>Browse the tables</h2>
@@ -234,10 +233,6 @@
         <p>The page does not decide whether something is a depreciating asset, who holds it, what it cost or how far it is used for a taxable purpose. Check a life against the registered determination before relying on it.</p>
         <p>The calculator leaves out balancing adjustments, second elements of cost, a taxable use that changes from year to year, pooling, the car limit, capped lives you have not entered and any rule that replaces these methods for a period. Diminishing value is not available for some assets, such as in-house software, intellectual property other than copyright in a film, and spectrum licences (subsection 40-72(2)). Section 40-27 can take away the deduction for a previously used asset in residential rental premises where the letting is not a business. A life the Commissioner has not listed can be worked out under section 40-105 or requested with the ATO’s <a href="https://www.ato.gov.au/forms-and-instructions/effective-life-review-application-form">effective life review application form</a>.</p>
         </section>
-      <p class="byline">
-        Written by Ryan Duguid in his own time and on his own equipment.
-        He is a Provisional CA ANZ Member.
-      </p>
 </div></article></main>
 {% include site-footer.html %}
 <script type="module" src="/assets/depreciation-rates-page.mjs"></script>

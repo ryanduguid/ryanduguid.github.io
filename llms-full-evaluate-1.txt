@@ -258,8 +258,6 @@ The evaluation tests configured gates against fictional inputs. It does not esta
 - Workpaper Review Gate
 - All evaluations
 
-Written by Ryan Duguid in his own time and on his own equipment.
-
 ## Links
 
 - Workpaper Review Gate page: https://duguid.com.au/tools/workpaper-review-gate/
@@ -379,8 +377,6 @@ The integrity control does not prove completeness, classification, accounting tr
 - Xero trial balance CSV export
 - All evaluations
 
-Written by Ryan Duguid in his own time and on his own equipment.
-
 ## Links
 
 - Xero trial balance export page: https://duguid.com.au/tools/xero-trial-balance/
@@ -495,8 +491,6 @@ Experimental review aid. Not a compliance determination. This evaluation does no
 - Payday Super timing
 - Super guarantee rate history
 - All evaluations
-
-Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
