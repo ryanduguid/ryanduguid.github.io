@@ -40,6 +40,7 @@ const offsets = { file: 'assets/individual-offsets.mjs', test: individualTest };
 const medical = { file: 'assets/net-medical-expenses.mjs', test: individualTest };
 const fito = { file: 'assets/foreign-income-tax-offset.mjs', test: individualTest };
 const conversion = { file: 'assets/foreign-income-conversion.mjs', test: individualTest };
+const minors = { file: 'assets/minors-income.mjs', test: individualTest };
 const governmentSuper = { file: 'assets/government-super.mjs', test: individualTest };
 const governmentSuperResult = { file: 'assets/government-super-result.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
@@ -400,6 +401,27 @@ const MUTATIONS = [
   { ...conversion, name: 'conversion amount with 5 decimal places', find: 'fraction.length <= places', replace: 'fraction.length <= places + 1' },
   { ...conversion, name: 'conversion accepts AUD', find: " || currency === 'AUD'", replace: '' },
   { ...conversion, name: 'conversion deductions totalled as income', find: "deduction: 'deductions'", replace: "deduction: 'ordinary_income'" },
+  { ...minors, name: 'minors nil band $417', find: 'const NIL_BAND = 416;', replace: 'const NIL_BAND = 417;' },
+  { ...minors, name: 'minors phase-in at 67%', find: 'const PHASE_IN = 66;', replace: 'const PHASE_IN = 67;' },
+  { ...minors, name: 'minors special rate 47%', find: 'const SPECIAL_RATE = 45;', replace: 'const SPECIAL_RATE = 47;' },
+  { ...minors, name: 'minors resident nil band exclusive', find: '(resident && !gt(eligible, nilBand))', replace: '(resident && gt(nilBand, eligible))' },
+  { ...minors, name: 'minors phase-out rounds up', find: 'Math.floor(NIL_BAND', replace: 'Math.ceil(NIL_BAND' },
+  { ...minors, name: 'minors foreign phase-out takes the resident formula', find: '(resident ? PHASE_IN : PHASE_IN - scale[0][1])', replace: '(PHASE_IN)' },
+  { ...minors, name: 'minors cap ignores the top slice', find: 'min(atSpecial, max(floor, top))', replace: 'min(atSpecial, floor)' },
+  { ...minors, name: 'minors second resident rate from the first band', find: 'RESIDENT_SCALES[year][1][1]', replace: 'RESIDENT_SCALES[year][0][1]' },
+  { ...minors, name: 'minors apportions over taxable income alone', find: 'const base = taxableCents + apportionable;', replace: 'const base = taxableCents;' },
+  { ...minors, name: 'minors leaves out related deductions', find: 'eligibleAssessable - exclusive - related', replace: 'eligibleAssessable - exclusive' },
+  { ...minors, name: 'minors adult trust share eligible', find: '[excepted + trustExcepted + trustEligible, other]', replace: '[excepted + trustExcepted, other + trustEligible]' },
+  { ...minors, name: 'minors ignores dependence on relatives', find: "holds: needsDependency ? !flag(dependent, 'dependent_on_relatives') : true", replace: 'holds: true' },
+  { ...minors, name: 'minors full-time test ignores study', find: '&& occupationNext && !educationNext', replace: '&& occupationNext' },
+  { ...minors, name: 'minors tests an adult’s ground', find: '  if (!under18) return null;\n', replace: '' },
+  { ...minors, name: 'minors truncates half cents', find: '((n < 0n ? -n : n) * 2n + d) / (2n * d)', replace: '(n < 0n ? -n : n) / d' },
+  { ...minors, name: 'minors total of rounded parts', find: 'total: toCents(add(taxOther, taxEligible))', replace: 'total: toCents(taxOther) + toCents(taxEligible)' },
+  { ...minors, name: 'minors taxable income above assessable income', find: 'if (taxableCents > eligibleAssessable + exceptedTotal)', replace: 'if (false)' },
+  { ...minors, name: 'minors takes 51 items', find: 'given.length <= MAX_ITEMS', replace: 'given.length <= MAX_ITEMS + 1' },
+  { ...minors, name: 'minors trust part above the share', find: 'if (part > amount)', replace: 'if (false)' },
+  { ...minors, name: 'minors foreign nil band at the phase-in rate', find: 'capped(mul(percent(secondRate), eligible))', replace: 'capped(mul(percent(PHASE_IN), eligible))' },
+  { ...minors, name: 'minors taxable income in cents', find: 'if (taxableCents % 100n !== 0n)', replace: 'if (false)' },
   { ...conversion, name: 'conversion NaN called invalid', find: 'if (text !== null && /^[+-]?s?nan', replace: 'if (false && /^[+-]?s?nan' },
   { ...conversion, name: 'conversion accepts a minus sign', find: '(parts?.[1] && scaled > 0n) || (positive', replace: '(positive' },
   { ...conversion, name: 'conversion refuses surrounding spaces', find: 'fields[key].trim() : null', replace: 'fields[key] : null' },
@@ -1151,6 +1173,7 @@ const SHARED = [
   'scripts/income-tax-offsets-engine-differential.json',
   'scripts/net-medical-expenses-engine-differential.json',
   'scripts/foreign-income-engine-differential.json',
+  'scripts/minors-income-engine-differential.json',
   'scripts/government-super-engine-differential.json',
   'scripts/concessional-catch-up-engine-differential.json',
   'scripts/unused-leave-engine-differential.json',
@@ -1171,7 +1194,7 @@ const SHARED = [
 const TEST_FILES = [
   levy.test, business.test, individualTest,
   'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs',
-  'scripts/net-medical-expenses.test.mjs', 'scripts/foreign-income.test.mjs',
+  'scripts/net-medical-expenses.test.mjs', 'scripts/foreign-income.test.mjs', 'scripts/minors-income.test.mjs',
 ];
 
 const verdict = (cwd, test) => new Promise((resolve, reject) => {

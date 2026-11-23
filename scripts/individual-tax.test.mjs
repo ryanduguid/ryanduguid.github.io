@@ -29,6 +29,7 @@ import { governmentSuperAmounts } from '../assets/government-super.mjs';
 import { governmentSuperFormFacts, governmentSuperResult } from '../assets/government-super-result.mjs';
 import './government-super-amounts.test.mjs';
 import { foreignIncomeFixture, foreignIncomeFormTests } from './foreign-income.test.mjs';
+import { minorsFixture, minorsFormTests } from './minors-income.test.mjs';
 import { NET_MEDICAL_DEFAULTS, netMedicalFixture } from './net-medical-expenses.test.mjs';
 
 import { bonusWithholding } from '../assets/bonus-withholding.mjs';
@@ -1548,6 +1549,23 @@ const conversionPage = (fields = {}) => {
   }, aud);
 };
 foreignIncomeFormTests(incomeTaxPage, conversionPage);
+
+const minorsPage = (fields = {}) => {
+  const start = incomeTaxHtml.indexOf('<form class="calculator-split" data-calculator="minors-income">');
+  const html = incomeTaxHtml.slice(start, incomeTaxHtml.indexOf('</form>', start));
+  const selects = [...html.matchAll(/<select name="([^"]+)"[\s\S]*?<option value="([^"]+)" selected>/g)].map(([, name, value]) => [name, value]);
+  const form = { ...formDefaults(html), ...Object.fromEntries(selects), ...fields };
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  return individualResult('minors-income', (name) => {
+    assert.ok(Object.hasOwn(form, name), `the minors’ income form has no ${name}`);
+    return form[name] ?? '';
+  }, aud);
+};
+minorsFormTests(minorsPage);
+
+test('the income tax page states the minors’ income differential count', () => {
+  assert.match(incomeTaxHtml, new RegExp(`minors-income on ${minorsFixture.cases.length.toLocaleString('en-AU')} cases`));
+});
 
 test('the income tax page states the foreign income differential counts', () => {
   for (const command of ['foreign-income-tax-offset', 'foreign-income-conversion']) {

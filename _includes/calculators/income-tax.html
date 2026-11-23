@@ -172,10 +172,89 @@
 <li>a first home super saver released amount, which is taxed with a 30% offset but left out of repayment income and income for surcharge purposes, or, for 2023-24 and earlier, the taxed element of a super lump sum up to the low rate cap, which a person from preservation age to under 60 could leave out of income for surcharge purposes;</li>
 <li>a study loan debt smaller than the repayment: the repayment cannot exceed what is still owed (section 154-20(1)(c) of the Higher Education Support Act 2003), which the calculator does not ask for;</li>
 <li>a part-year resident’s reduced tax-free threshold, a working holiday maker who is an Australian resident, or one with other income besides working holiday taxable income;</li>
-<li>tax on superannuation or employment termination remainders, income averaging, or a minor’s unearned income;</li>
+<li>tax on superannuation or employment termination remainders, income averaging, or a minor’s unearned income, which is worked out on its own below for 2024-25 to 2026-27;</li>
 <li>Division 293 tax, excess contributions, PAYG instalments or other credits besides the tax withheld you enter.</li>
 </ul>
 <p>Confirm the figures with the ATO’s <a href="https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator">Simple tax calculator</a> or a registered tax agent.</p>
+</section>
+<section class="business-calculator" id="minors-income">
+<h2>A minor’s unearned income, 2024-25 to 2026-27</h2>
+<p>For someone under 18 on 30 June: the tax on unearned income such as interest, dividends and trust distributions, which is taxed at special rates (Division 6AA), with income from work and other excepted income taxed at ordinary rates. The result is basic income tax before offsets and the Medicare levy.</p>
+<form class="calculator-split" data-calculator="minors-income">
+<fieldset disabled><legend>Minor’s income inputs</legend><div class="form-grid"><fieldset><legend>Income year</legend>
+<label><input type="radio" name="mi-year" value="2026-27" /> 2026-27</label>
+<label><input type="radio" name="mi-year" value="2025-26" checked /> 2025-26</label>
+<label><input type="radio" name="mi-year" value="2024-25" /> 2024-25</label>
+</fieldset>
+<fieldset><legend>Residency for the whole year</legend>
+<label><input type="radio" name="mi-residency" value="resident" checked /> Australian resident</label>
+<label><input type="radio" name="mi-residency" value="foreign_resident" /> Foreign resident</label>
+</fieldset>
+<fieldset><legend>Under 18 on 30 June?</legend>
+<label><input type="radio" name="mi-under-18" value="yes" checked /> Yes</label>
+<label><input type="radio" name="mi-under-18" value="no" /> No</label>
+</fieldset>
+<label class="field" for="mi-person">Excepted person<select name="mi-person" id="mi-person" aria-describedby="mi-person-help"><option value="none" selected>None of these</option><option value="full_time_occupation">In a full-time occupation on 30 June</option><option value="carer_allowance">Carer allowance payable on 30 June</option><option value="disability_support_pension">Disability support pension payable on 30 June</option><option value="disability_certificate">The ATO holds a disability certificate</option><option value="special_disability_trust">Principal beneficiary of a special disability trust</option><option value="double_orphan_pension">Double orphan pension payable on 30 June</option><option value="double_orphan_pension_s1003">Double orphan pension but for section 1003</option><option value="permanent_disability_certificate">Permanent disability certificate</option></select></label>
+<label class="field" for="mi-taxable">Taxable income (whole dollars)<input id="mi-taxable" name="mi-taxable" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="1000" required /></label>
+<label class="field" for="mi-other">Other assessable income, such as interest and dividends (dollars and cents)<input id="mi-other" name="mi-other" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" required aria-describedby="mi-income-help" /></label>
+<label class="field" for="mi-employment">Employment income (dollars and cents)<input id="mi-employment" name="mi-employment" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="mi-business">Income from carrying on a business (dollars and cents)<input id="mi-business" name="mi-business" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="mi-other-ground">Other excepted income<select name="mi-other-ground" id="mi-other-ground"><option value="damages_or_compensation" selected>Investing damages or compensation</option><option value="death_benefit">Investing a death benefit</option><option value="public_fund">Investing money from a public fund</option><option value="family_breakdown">Investing property from a family breakdown</option><option value="deceased_estate">From a deceased estate</option><option value="lottery_prize">A lottery prize or its investment</option><option value="partnership">A partnership share</option><option value="accumulations">Investing excepted income</option></select></label>
+<label class="field" for="mi-other-amount">Other excepted income amount (dollars and cents)<input id="mi-other-amount" name="mi-other-amount" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="mi-trust">Share of trust net income (dollars and cents)<input id="mi-trust" name="mi-trust" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="mi-trust-part">The part of it not from excepted trust income (dollars and cents)<input id="mi-trust-part" name="mi-trust-part" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="mi-exclusive">Deductions only for the other assessable income (dollars and cents)<input id="mi-exclusive" name="mi-exclusive" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required aria-describedby="mi-deductions-help" /></label>
+<label class="field" for="mi-related">Part of other deductions related to it (dollars and cents)<input id="mi-related" name="mi-related" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="mi-apportionable">Apportionable deductions, such as gifts (dollars and cents)<input id="mi-apportionable" name="mi-apportionable" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<fieldset><legend>Does taxable income include a special income component?</legend>
+<label><input type="radio" name="mi-special" value="no" checked /> No</label>
+<label><input type="radio" name="mi-special" value="yes" /> Yes</label>
+</fieldset>
+</div>
+<fieldset data-show-field="mi-person" data-show-values="full_time_occupation" hidden disabled><legend>Full-time occupation</legend>
+<div class="form-grid">
+<fieldset><legend>In a full-time occupation on 30 June?</legend>
+<label><input type="radio" name="mi-ft-1" value="yes" checked /> Yes</label>
+<label><input type="radio" name="mi-ft-1" value="no" /> No</label>
+</fieldset>
+<fieldset><legend>In one for periods totalling 3 months or more in the year?</legend>
+<label><input type="radio" name="mi-ft-2" value="yes" /> Yes</label>
+<label><input type="radio" name="mi-ft-2" value="no" checked /> No</label>
+</fieldset>
+<fieldset><legend>On 30 June, intending one for all or most of next year?</legend>
+<label><input type="radio" name="mi-ft-3" value="yes" checked /> Yes</label>
+<label><input type="radio" name="mi-ft-3" value="no" /> No</label>
+</fieldset>
+<fieldset><legend>On 30 June, intending full-time education at any time next year?</legend>
+<label><input type="radio" name="mi-ft-4" value="yes" /> Yes</label>
+<label><input type="radio" name="mi-ft-4" value="no" checked /> No</label>
+</fieldset>
+</div>
+</fieldset>
+<fieldset data-show-field="mi-person" data-show-values="double_orphan_pension double_orphan_pension_s1003 permanent_disability_certificate" hidden disabled><legend>Dependence on relatives</legend>
+<div class="form-grid">
+<fieldset><legend>Wholly or substantially dependent on relatives for the whole period?</legend>
+<label><input type="radio" name="mi-dependent" value="no" checked /> No</label>
+<label><input type="radio" name="mi-dependent" value="yes" /> Yes</label>
+</fieldset>
+</div>
+</fieldset>
+<p class="field-note" id="mi-person-help">An excepted person is not taxed at the special rates (section 102AC(2)). For a double orphan pension or a permanent disability certificate, a minor who was wholly or substantially dependent on relatives, which living with them is taken to mean unless shown otherwise, is not excepted (section 102AC(3) to (5)). The full-time occupation test ignores a period followed later in the year by full-time education (section 102AC(7)).</p>
+<p class="field-note" id="mi-income-help">Other assessable income is the income taxed at the special rates: interest, dividends, rent and other income not listed as excepted (section 102AE). Of a trust share, give the part to which Division 6AA applies (sections 102AE(4) and 102AG); the rest is excepted. Excepted amounts are the amounts as the Act limits them.</p>
+<p class="field-note" id="mi-deductions-help">Deductions only for the other assessable income come off it first, then the related part of other deductions, then a share of apportionable deductions (section 102AD).</p>
+<button type="submit" class="button">Calculate</button></fieldset>
+<output aria-live="polite">Enter the inputs and calculate.</output>
+<div class="sources-applied" hidden>
+<h3>Sources applied</h3>
+<ul class="sources">
+<li>Who is taxed at the special rates and on what: Division 6AA of Part III (sections 102AA to 102AGA) of the <a href="https://www.legislation.gov.au/C1936A00027/2026-10-01/2026-10-01/text/original/epub/OEBPS/document_2/document_2.html">Income Tax Assessment Act 1936</a> (Compilation No. 193, 1 October 2026), read 22 November 2026, which reads the same in <a href="https://www.legislation.gov.au/C1936A00027/2020-07-01/2020-07-01/text/original/epub/OEBPS/document_2/document_2.html">Compilation No. 169</a> (1 July 2020): a person under 18 on 30 June who is not an excepted person (section 102AC), and eligible taxable income, which is assessable income that is not excepted, less the deductions in section 102AD.</li>
+<li>Rates: sections 3, 13 and 15 and Schedules 7 and 11 of the <a href="https://www.legislation.gov.au/C2004A03348/2026-07-01/2026-07-01/text/original/epub/OEBPS/document_1/document_1.html">Income Tax Rates Act 1986</a> (Compilation No. 66, 1 July 2026), read 22 November 2026, which read the same but for editorial changes in <a href="https://www.legislation.gov.au/C2004A03348/2020-07-01/2020-07-01/text/original/epub/OEBPS/document_1/document_1.html">Compilation No. 55</a> (1 July 2020). For a resident, no special rate on eligible taxable income of $416 or less; above it, 45%, but up to the phase-out limit of $1,307 no more than the greater of 66% of the excess over $416 and the top slice of ordinary tax. For a foreign resident, 45%, but no more than the greater of the top slice of ordinary tax and 30% of eligible taxable income up to $416, or $124.80 plus 66% of the excess over $416 up to the phase-out limit of $713. The rest of taxable income is taxed at ordinary rates as if it were all the taxable income. Apportionable deductions: section 995-1 of the <a href="https://www.legislation.gov.au/C2004A05138/2026-10-01/2026-10-01/text/original/epub/OEBPS/document_2/document_2.html">Income Tax Assessment Act 1997</a> (Compilation No. 268, 1 October 2026).</li>
+<li>The ATO’s <a href="https://www.ato.gov.au/tax-rates-and-codes/tax-rates-if-you-re-under-18-years-old">Tax rates if you’re under 18 years old</a> (last updated 1 June 2026), <a href="https://www.ato.gov.au/forms-and-instructions/individual-tax-return-2026-instructions/adjustment-questions-a1-a4-individual-tax-return-2026/a1-under-18-2026">A1 Under 18 2026</a> (last updated 30 May 2026) and <a href="https://www.ato.gov.au/law/view/document?docid=TXR/TR9212/NAT/ATO/00001">TR 92/12</a> Example 5A, read 22 November 2026. A prescribed person’s low income tax offset cannot exceed the tax on other taxable income (section 61-115(2) and (3) of the 1997 Act); no offset is applied here.</li>
+<li>Checked: the tax agrees with the australian-accounting command minors-income on 829 cases, including every case of its tests and each refusal this form can meet.</li>
+<li>Supplied by you: the year, residency, whether the person was under 18 on 30 June and any excepted person ground with its facts, taxable income, each kind of income and the deductions. Whether a ground applies, which income is excepted and each amount the Act leaves to the Commissioner are not worked out here. A special income component, a part-year resident and a trustee assessed under section 98 are not covered; years before 2024-25 are not covered.</li>
+</ul>
+</div>
+</form>
 </section>
 <section class="business-calculator" id="foreign-income-conversion">
 <h2>Foreign income conversion</h2>

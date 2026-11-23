@@ -247,6 +247,33 @@ test('foreign income converts beside the income tax calculator, and the offset a
   await expect(row(form, 'Foreign income tax offset')).toHaveText('$2,970.00');
 });
 
+test('a minor’s unearned income is taxed beside the income tax calculator, with each ground’s facts asked only for it, offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/income-tax/');
+  const form = page.locator('#minors-income form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await calculate.click();
+  await expect(row('Basic income tax')).toHaveText('$385.44');
+  await expect(form.locator('input[name=mi-ft-4][value=yes]')).toBeHidden();
+  await form.getByLabel('Excepted person').selectOption('full_time_occupation');
+  await expect(form.locator('input[name=mi-dependent][value=yes]')).toBeHidden();
+  await form.locator('input[name=mi-ft-4][value=yes]').check();
+  await calculate.click();
+  await expect(row('Basic income tax')).toHaveText('$385.44');
+  await form.locator('input[name=mi-ft-4][value=no]').check();
+  await calculate.click();
+  await expect(row('Basic income tax')).toHaveText('$0.00');
+  await form.getByLabel('Excepted person').selectOption('none');
+  await form.getByLabel('Taxable income (whole dollars)').fill('30000');
+  await form.getByLabel('Employment income (dollars and cents)').fill('28000');
+  await form.getByLabel('Other assessable income, such as interest and dividends (dollars and cents)').fill('2000');
+  await calculate.click();
+  await expect(row('Basic income tax')).toHaveText('$2,468.00');
+  await expect(form.locator('.sources-applied')).toBeVisible();
+});
+
 test('income tests count section 57A benefits at 53% and refuse a person not resident all year offline', async ({ page, context }) => {
   await page.goto('/tools/individual-tax/income-tests/');
   const form = page.locator('#income-tests form');
