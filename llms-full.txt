@@ -5608,6 +5608,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+24 November 2026 | Added the transfer balance and excess contributions calculator: a transfer balance account from its credits and debits, with the personal cap and proportional indexation, excess transfer balance earnings and tax, the excess concessional contributions charge for 2013-14 to 2020-21, and the release of excess non-concessional contributions. It agrees with the australian-accounting transfer-balance and excess-contributions commands on 585 test cases.
 23 November 2026 | The super lump sum tax calculator now also works the amount a fund withholds from a super lump sum under Schedule 12 for a payment from 13 October 2020, with or without a TFN and for a foreign resident, including a roll-over above the untaxed plan cap and a death benefit paid to a deceased estate. It also works the final tax on a departing Australia superannuation payment in 2025-26 to 2027-28: 35% on the taxed element and 45% on the untaxed element, or 65% on each where the payment includes working holiday maker contributions. Schedule 12 and the Departing Australia Superannuation Payments Tax Act were read on 23 November 2026, and the page agrees with the super-withholding and dasp-tax commands of the australian-accounting calculators on every tested case.
 23 November 2026 | Updated 2 accounting questions after the 23 November 2026 ATO source sweep: removed the withdrawn credit card newsroom link from general tax question 6, keeping the ATO’s How to pay page, and rechecked company and trust question 86 against the 20 November 2026 trustee resolutions checklist.
 23 November 2026 | The tool pages now link to licences by release or source revision, including the versions used in worked examples. The homepage and tool directory link to Lodgeit’s listing of the Coal LSL levy calculator and to the Australian capital gains tax guide on OpenAccountants, with each project’s review status.
@@ -5840,6 +5841,7 @@ Published 30 August 2026. Last reviewed 23 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- transfer balance and excess contributions calculator: https://duguid.com.au/tools/individual-tax/transfer-balance/
 - super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 - general tax question 6: https://duguid.com.au/tools/accounting-questions/general-tax/
 - company and trust question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/
@@ -12744,9 +12746,9 @@ Source: https://duguid.com.au/tools/individual-tax/
 
 # Individual tax calculators
 
-Fifteen calculators for one person’s tax, pay and super, with sources for the rates and thresholds and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
+Sixteen calculators for one person’s tax, pay and super, with sources for the rates and thresholds and the ATO’s worked examples among the tested cases. They run in your browser and do not send or save your inputs.
 
-Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22, salary packaging from 2022-23, novated leases from 2023-24, the withholding from a 2026-27 pay with a bonus or back payment, and super projected from 2026-27. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
+Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22, salary packaging from 2022-23, novated leases from 2023-24, the withholding from a 2026-27 pay with a bonus or back payment, super projected from 2026-27, a transfer balance account from 2017-18, and the excess concessional contributions charge for 2013-14 to 2020-21. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
 
 Published 17 November 2026. Last checked 22 November 2026, the newest of the calculators’ source checks.
 
@@ -12770,6 +12772,7 @@ Published 17 November 2026. Last checked 22 November 2026, the newest of the cal
 - Super projection calculator Your super balance at retirement in future and today’s dollars, with every assumption stated and changeable.
 - First home super saver calculator The release, withholding and tax offset from an ATO determination, or a contribution ledger estimate with published shortfall interest charge rates.
 - Super co-contribution, LISTO and spouse offset calculator The government’s co-contribution and low income super tax offset, and the spouse contribution tax offset, for 2020-21 to 2026-27, with each condition met or not.
+- Transfer balance calculator Your transfer balance account and personal cap with proportional indexation, excess transfer balance earnings and tax, the excess concessional contributions charge, and the release of excess non-concessional contributions.
 
 For a business, see the business calculators.
 
@@ -12792,6 +12795,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
 - First home super saver calculator: https://duguid.com.au/tools/individual-tax/fhss/
 - Super co-contribution, LISTO and spouse offset calculator: https://duguid.com.au/tools/individual-tax/government-super/
+- Transfer balance calculator: https://duguid.com.au/tools/individual-tax/transfer-balance/
 - business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
@@ -13657,6 +13661,104 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
+- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Transfer balance account and excess contributions calculator
+
+Source: https://duguid.com.au/tools/individual-tax/transfer-balance/
+
+> Work out a transfer balance account, its indexed cap and excess transfer balance tax, or the excess contributions charge and non-concessional release.
+
+# Transfer balance calculator
+
+Your transfer balance account and excess tax from 2017-18, and excess contributions.
+
+Published 24 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Your transfer balance account or excess contributions
+
+Work out The transfer balance account, its excess and the tax The excess concessional contributions charge, 2013-14 to 2020-21 The release of excess non-concessional contributions
+
+Credits and debits, from 1 July 2017
+
+Event 1 date
+
+Event 1 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment, arrangement from 1 July 2017 (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
+
+Event 1 amount Event 2 date
+
+Event 2 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment, arrangement from 1 July 2017 (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
+
+Event 2 amount Event 3 date
+
+Event 3 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment, arrangement from 1 July 2017 (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
+
+Event 3 amount Event 4 date
+
+Event 4 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment, arrangement from 1 July 2017 (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
+
+Event 4 amount Event 5 date
+
+Event 5 Income stream held just before 1 July 2017 (credit) New retirement phase income stream (credit) Limited recourse borrowing repayment, arrangement from 1 July 2017 (credit) Commutation (debit) Fraud, dishonesty or bankruptcy loss (debit) Family law payment split (debit) Income stream stopped being in the retirement phase (debit)
+
+Event 5 amount Work the account to the end of
+
+Liable for excess transfer balance tax for an earlier period starting on or after 1 July 2018 No Yes
+
+Leave a row blank to skip it. The account starts with your first income stream credit; an income stream you held just before 1 July 2017 is credited on 1 July 2017 at its value then. The last day sets the income year, 2017-18 to 2026-27.
+
+Calculate
+
+Each figure estimates what the ATO’s determination or assessment would state. The calculator takes no determination, commutation authority or notice of the Commissioner’s.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2019-20; 3 events to 31 December 2019. Transfer balance at the end of 31 December 2019 $1,610,176.42 Personal transfer balance cap $1,600,000.00 Cap space $0.00 Excess transfer balance $10,176.42 Excess transfer balance earnings $178.65 Excess transfer balance tax $26.80 In excess at the end of 31 December 2019: earnings keep accruing until the excess is removed; an estimate: the ATO’s determination may differ by cents, and it stops the earnings from its date.
+
+## How the transfer balance calculator works
+
+Your transfer balance account starts when you first become the recipient of a retirement phase income stream, on 1 July 2017 at the earliest. A new income stream credits its value on the day it starts, and a repayment under a limited recourse borrowing arrangement entered into from 1 July 2017 credits the increase in value (IT(TP)A s 294-55). A commutation, a fraud or bankruptcy loss, a family law payment split or an income stream leaving the retirement phase debits the account. A negative balance has no effect.
+
+Your personal cap is the general cap for the year the account starts: $1.6 million to 2020-21, $1.7 million for 2021-22 and 2022-23, $1.9 million for 2023-24 and 2024-25, $2 million for 2025-26 and $2.1 million for 2026-27. When the general cap rises, your cap rises by the unused percentage of the increase: 100% less your highest balance at the end of a day, as a whole percentage of your cap then, rounded down. Once your balance has exceeded your cap at the end of a day, your cap is no longer indexed.
+
+At the end of each day the balance is above your cap, the excess earns that day’s general interest charge rate, credited to the account the next day, so it compounds. Excess transfer balance tax is 15% of the earnings for each run of days in excess, or 30% for a later run starting on or after 1 July 2018 once you have been liable for one. An income stream held on 30 June 2017 above $1.6 million but at most $1.7 million, reduced by the excess by 31 December 2017, gave no excess in those 6 months.
+
+The excess concessional contributions charge applied to the extra income tax from an excess for 2013-14 to 2020-21, compounding daily from 1 July of the year to the day before the tax was due, at the base interest rate plus 3 points. Releasing excess non-concessional contributions adds associated earnings: the excess compounded daily from 1 July of the contributions year to the ATO’s first determination at the proxy rate, the year’s average base interest rate plus 7 points, rounded down to the dollar. The release is the excess and 85% of the earnings; the earnings are assessable income with a 15% tax offset.
+
+## What the transfer balance calculator does not cover
+
+The calculator refuses reversionary income streams, a child recipient’s cap, capped defined benefit income streams, structured settlement contributions, credits and debits under regulations, and the ATO’s determinations, commutation authorities and notices. It takes no determination, so it credits every day’s earnings; the ATO’s own figures stop at its determination and can differ by cents. It works days to 31 December 2026, the last GIC rate the ATO has published, and no day from 1 July 2027.
+
+The charge ended for 2021-22 and later years; the release needs every base rate of the contributions year, so 2026-27 is not yet worked. A partial release, ENCC tax on amounts not released and the interest on unpaid amounts are not covered. Confirm the result with your fund, the ATO or a registered tax agent before relying on it.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Transfer balance calculator
+
+Case | Inputs | Result
+Elisabeth: a negative balance after a commutation, then $10,000 of excess from 12 October 2019 (ATO transfer balance account page) | 2017-08-02 new income stream $1,600,000.00, 2019-09-07 commutation $1,630,000.00, 2019-10-12 new income stream $1,640,000.00; to 2019-12-31 | Balance $1,610,176.42, cap $1,600,000.00, excess $10,176.42, earnings $178.65, tax $26.80
+Nina: indexed by 25%, then 5% of each increase (ATO personal transfer balance cap page) | 2018-10-01 new income stream $1,200,000.00, 2023-10-01 new income stream $400,000.00; to 2026-07-01 | Balance $1,600,000.00, cap $1,685,000.00, excess $0.00, earnings $0.00, tax $0.00
+Leanne: $1 million from 1 October 2025, $200,000 commuted; her 2026-27 cap is $2.05 million (same page) | 2025-10-01 new income stream $1,000,000.00, 2026-05-13 commutation $200,000.00; to 2026-07-01 | Balance $800,000.00, cap $2,050,000.00, excess $0.00, earnings $0.00, tax $0.00
+Simon: $100,000 over his $2 million cap on 1 July 2026, earnings to 31 July 2026 (same page) | 2025-07-01 new income stream $2,000,000.00, 2026-06-30 commutation $2,000,000.00, 2026-07-01 new income stream $2,100,000.00; to 2026-07-31 | Balance $2,100,943.73, cap $2,000,000.00, excess $100,943.73, earnings $975.34, tax $146.30
+Paolo: $350,000 over on 1 July 2017, commuted on 1 August 2017 (ATO excess transfer balance page) | 2017-07-01 existing income stream $1,950,000.00, 2017-08-01 commutation $353,000.00; to 2017-08-31 | Balance $1,599,604.41, cap $1,600,000.00, excess $0.00, earnings $2,604.41, tax $390.66
+$1.65 million held on 30 June 2017, $50,000 commuted by 31 December 2017: no excess (IT(TP)A s 294-30) | 2017-07-01 existing income stream $1,650,000.00, 2017-12-01 commutation $50,000.00; to 2018-06-30 | Balance $1,600,000.00, cap $1,600,000.00, excess $0.00, earnings $0.00, tax $0.00
+Excess concessional contributions charge on $1,000 for 2020-21, tax due 1 December 2021 | 2020-21 charge on $1,000.00, tax due 2021-12-01 | Charge $44.17
+The charge on $2,500.50 for 2013-14, the first year, tax due 21 November 2014 | 2013-14 charge on $2,500.50, tax due 2014-11-21 | Charge $205.03
+Releasing a $100,000 excess for 2024-25, determined 15 September 2025 | 2024-25 release of $100,000.00, determination 2025-09-15 | Earnings $14,663.00, release $112,463.55, offset $2,199.45
+Releasing a $50,000 excess for 2020-21, determined 30 November 2021 | 2020-21 release of $50,000.00, determination 2021-11-30 | Earnings $5,251.00, release $54,463.35, offset $787.65
+
+One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
 - fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
