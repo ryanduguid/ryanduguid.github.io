@@ -1260,7 +1260,7 @@ export const createTapTracker = ({ collectPassed = false } = {}) => {
 
   const handleYamlLine = (line) => {
     if (line === `${block.keyIndent}...`) {
-      if (block.hasTestCodeFailure && block.hasAssertion) {
+      if (block.hasTestCodeFailure && block.hasAssertion && block.hasAssertionName && block.hasOperator) {
         caught = true;
         if (block.topLevel) killer = block.name;
       }
@@ -1269,6 +1269,10 @@ export const createTapTracker = ({ collectPassed = false } = {}) => {
       block.hasTestCodeFailure = true;
     } else if (line === `${block.keyIndent}code: 'ERR_ASSERTION'`) {
       block.hasAssertion = true;
+    } else if (line === `${block.keyIndent}name: 'AssertionError'`) {
+      block.hasAssertionName = true;
+    } else if (line.startsWith(`${block.keyIndent}operator: `)) {
+      block.hasOperator = true;
     }
   };
 
@@ -1294,6 +1298,8 @@ export const createTapTracker = ({ collectPassed = false } = {}) => {
         inYaml: false,
         hasTestCodeFailure: false,
         hasAssertion: false,
+        hasAssertionName: false,
+        hasOperator: false,
       };
       return;
     }

@@ -1,5 +1,6 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: Apache-2.0
+/* eslint-disable security/detect-non-literal-fs-filename -- fixture paths are fixed names under mkdtempSync(tmpdir()) */
 
 import assert from 'node:assert/strict';
 import { copyFileSync, mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -61,10 +62,17 @@ test('createTapTracker recognises real assertion failures across split chunks an
     "      code: 'ERR_ASSERTION'",
     "  code: 'ERR_TEST_FAILURE'",
     '  ...',
-    'not ok 2 - real \\# killer \\\\ test',
+    'not ok 2 - crafted error code',
     '  ---',
     "  failureType: 'testCodeFailure'",
     "  code: 'ERR_ASSERTION'",
+    '  ...',
+    'not ok 3 - real \\# killer \\\\ test',
+    '  ---',
+    "  failureType: 'testCodeFailure'",
+    "  code: 'ERR_ASSERTION'",
+    "  name: 'AssertionError'",
+    "  operator: 'strictEqual'",
     '  ...',
     '',
   ].join('\r\n');
@@ -107,7 +115,7 @@ const withFixture = async (fn) => {
     "import { add, mul } from '../assets/calc.mjs';",
     "test('add returns sum ($1 + $2)', () => { assert.equal(add(1, 2), 3); });",
     "test('mul returns product', () => { assert.equal(mul(3, 4), 12); });",
-    "test('slow tail test', async () => { await new Promise((r) => setTimeout(r, 400)); assert.equal(1, 1); });",
+    "test('tail test', () => { assert.equal(1, 1); });",
     '',
   ].join('\n');
   writeFileSync(join(template, 'assets/calc.mjs'), engine);
@@ -154,17 +162,14 @@ test('verdict and checkMutation handle caught, survived, invalid controls, fail-
     }, killers);
     assert.equal(refErr, 'invalid');
 
-    // Real mutation is caught, fails fast before slow tail, and populates killer cache
-    const t0 = performance.now();
+    // Real mutation is caught and populates killer cache
     const caughtAdd = await checkMutation(worker, template, engine, {
       file: 'assets/calc.mjs',
       test: 'scripts/calc.test.mjs',
       find: 'a + b',
       replace: 'a - b',
     }, killers);
-    const elapsed = performance.now() - t0;
     assert.equal(caughtAdd, 'caught');
-    assert.ok(elapsed < 380, `expected fail-fast before 400 ms tail test, took ${Math.round(elapsed)} ms`);
     assert.deepEqual([...killers.get('assets/calc.mjs\0scripts/calc.test.mjs')], ['add returns sum ($1 + $2)']);
 
     // Different mutation misses cached killer, falls back to full suite, catches and learns second killer
@@ -219,7 +224,7 @@ test('verdict collects passed top-level test names when collectPassed is true', 
     assert.deepEqual(base.passed, [
       'add returns sum ($1 + $2)',
       'mul returns product',
-      'slow tail test',
+      'tail test',
     ]);
   });
 });
@@ -241,5 +246,63 @@ test('verdict and checkMutation invalidate per-worker compile cache across mutat
       replace: 'a + b',
     }, null, null, cacheDir);
     assert.equal(survived, 'survived');
+  });
+});
+
+test('verdict rejects crafted ERR_ASSERTION errors, module-load assertions and top-level throws as invalid', async () => {
+  await withFixture(async ({ worker }) => {
+    writeFileSync(join(worker, 'scripts/crafted.test.mjs'), [
+      "import test from 'node:test';",
+      "test('crafted error', () => { throw Object.assign(new Error('broken'), { code: 'ERR_ASSERTION' }); });",
+      '',
+    ].join('\n'));
+    assert.deepEqual(await verdict(worker, 'scripts/crafted.test.mjs'), {
+      status: 'invalid',
+      killer: null,
+      passed: [],
+    });
+
+    writeFileSync(join(worker, 'scripts/top-assert.test.mjs'), [
+      "import assert from 'node:assert/strict';",
+      'assert.equal(1, 2);',
+      '',
+    ].join('\n'));
+    assert.deepEqual(await verdict(worker, 'scripts/top-assert.test.mjs'), {
+      status: 'invalid',
+      killer: null,
+      passed: [],
+    });
+
+    writeFileSync(join(worker, 'scripts/top-throw.test.mjs'), 'noSuchBinding();\n');
+    assert.deepEqual(await verdict(worker, 'scripts/top-throw.test.mjs'), {
+      status: 'invalid',
+      killer: null,
+      passed: [],
+    });
+  });
+});
+
+test('verdict fail-fast stops a slow async tail and leaves no live child process behind', async () => {
+  await withFixture(async ({ worker }) => {
+    const pidFile = join(worker, 'child.pid');
+    const tailMarker = join(worker, 'tail-ran.txt');
+    writeFileSync(join(worker, 'scripts/lifecycle.test.mjs'), [
+      "import assert from 'node:assert/strict';",
+      "import { writeFileSync } from 'node:fs';",
+      "import test from 'node:test';",
+      `writeFileSync(${JSON.stringify(pidFile)}, String(process.pid));`,
+      "test('fails immediately', () => { assert.equal(1, 2); });",
+      `test('slow tail', async () => { await new Promise((r) => setTimeout(r, 3000)); writeFileSync(${JSON.stringify(tailMarker)}, 'ran'); });`,
+      '',
+    ].join('\n'));
+    const t0 = performance.now();
+    const res = await verdict(worker, 'scripts/lifecycle.test.mjs');
+    const elapsed = performance.now() - t0;
+    assert.equal(res.status, 'caught');
+    assert.equal(res.killer, 'fails immediately');
+    assert.ok(elapsed < 1500, `expected fail-fast before 3000 ms tail, took ${Math.round(elapsed)} ms`);
+    const pid = Number.parseInt(readFileSync(pidFile, 'utf8'), 10);
+    assert.throws(() => process.kill(pid, 0), { code: 'ESRCH' });
+    assert.throws(() => readFileSync(tailMarker, 'utf8'), { code: 'ENOENT' });
   });
 });
