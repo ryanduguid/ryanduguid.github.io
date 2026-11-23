@@ -423,6 +423,8 @@ Two registered medical practitioners, one a specialist, certify death is likely 
 
 The low rate cap applies only at preservation age and under 60, which from 1 July 2024 no one is. Enter the amounts counted for earlier lump sums. Other lump sums at that age in the same year share the cap, so they are refused while any is left.
 
+### What the withholding and DASP inputs need
+
 Withholding is worked for payments from 13 October 2020. With a TFN, a resident’s rate for each part is its ceiling rate plus the 2% Medicare levy, and the total rounds to the nearest dollar. Without one, the fund withholds 47% (45% for a foreign resident) of the taxable component, or of the untaxed element at 60 or over, ignoring cents. Without a TFN the rate turns on the payee’s age, which the calculator does not take for a death benefit, and none is stated for a member benefit under $200, so a non-dependant’s death benefit and such a member benefit are refused. The calculator assumes the payment is taxable in Australia and applies no tax treaty.
 
 Take the components from the fund’s or the ATO’s statement. The working holiday maker rate applies when the payment includes amounts from contributions made whilst the person was a working holiday maker. An unclaimed money roll-over with an untaxed element is refused: section 5(2) taxes any excess untaxed roll-over amount in it at nil.
