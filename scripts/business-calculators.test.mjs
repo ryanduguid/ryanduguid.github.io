@@ -3539,7 +3539,9 @@ test('Payday Super due dates count business days from the site’s calendar, to 
   assert.throws(() => due('2027-06-30', 'out-of-cycle', '2027-08-24'),
     { message: 'That due date falls after 31 August 2027, where the business day calendar ends.' });
   assert.throws(() => due('2026-09-03', 'out-of-cycle', '2026-09-03'), { message: 'The next regular payday must be after the out-of-cycle payday.' });
-  assert.throws(() => due('2026-09-03', 'weekly'), { message: 'Choose how long the fund has to receive the contribution.' });
+  for (const timing of ['weekly', '__proto__', 'constructor', 'toString']) {
+    assert.throws(() => due('2026-09-03', timing), { message: 'Choose how long the fund has to receive the contribution.' }, timing);
+  }
   // Where more than one longer period applies, the fund has to the end of the latest (ATO LCR 2026/2
   // Example 9). An out-of-cycle bonus on Friday 7 August 2026 under a determination made on 7 August:
   // item 3 runs to 4 September; with the next regular payday on 10 September, item 2 runs to 21 September.

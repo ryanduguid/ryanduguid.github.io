@@ -95,30 +95,37 @@ function businessDaysAfter(day, n, excluded) {
  * @returns {{due: string, rule: string}} */
 export function paydaySuperDue({ payday, timing, nextPayday, determination }) {
   const qe = dateField(payday, 'a payday', '2026-07-01', '2027-06-30');
-  const items = { standard: [], first: ['first'], 'out-of-cycle': ['out-of-cycle'], exceptional: ['exceptional'],
-    'first-out-of-cycle': ['first', 'out-of-cycle'], 'out-of-cycle-exceptional': ['out-of-cycle', 'exceptional'] }[timing];
+  const items = new Map([
+    ['standard', []],
+    ['first', ['first']],
+    ['out-of-cycle', ['out-of-cycle']],
+    ['exceptional', ['exceptional']],
+    ['first-out-of-cycle', ['first', 'out-of-cycle']],
+    ['out-of-cycle-exceptional', ['out-of-cycle', 'exceptional']],
+  ]).get(timing);
   if (!items) throw new Error('Choose how long the fund has to receive the contribution.');
 
   const deadlines = PART_DAY_SCENARIOS.map((excluded) => {
     /** @param {number} day @param {number} days */
     const after = (day, days) => businessDaysAfter(day, days, excluded);
-    /** @type {Record<string, () => [number, string]>} */
-    const periods = {
-      first: () => [after(qe, 20), '20 business days after payday, subsection 18C(2) item 1'],
-      'out-of-cycle': () => {
+    /** @type {[string, () => [number, string]][]} */
+    const periods = [
+      ['first', () => [after(qe, 20), '20 business days after payday, subsection 18C(2) item 1']],
+      ['out-of-cycle', () => {
         const next = dateField(nextPayday, 'the next regular payday', '2026-07-01', CALENDAR_END);
         if (next <= qe) throw new Error('The next regular payday must be after the out-of-cycle payday.');
         return [after(next, 7), '7 business days after the next regular payday, subsection 18C(2) item 2'];
-      },
-      exceptional: () => {
+      }],
+      ['exceptional', () => {
         const made = dateField(determination, 'the day the determination was made', '2026-07-01', CALENDAR_END);
         return [Math.max(after(qe, 20), after(made, 20)),
           'the later of 20 business days after payday and after the determination, subsection 18C(2) item 3'];
-      },
-    };
+      }],
+    ];
     /** @type {[number, string]} */
     const usual = [after(qe, 7), '7 business days after payday'];
-    return items.map((item) => periods[item]()).reduce((latest, period) => (period[0] > latest[0] ? period : latest), usual);
+    return periods.filter(([item]) => items.includes(item)).map(([, calculate]) => calculate())
+      .reduce((latest, period) => (period[0] > latest[0] ? period : latest), usual);
   });
   // Compare final deadlines so an earlier, uncertain period does not suppress a later fixed one.
   const possibleDays = [...new Set(deadlines.map(([day]) => day))].sort((a, b) => a - b);
