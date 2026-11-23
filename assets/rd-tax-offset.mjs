@@ -42,7 +42,15 @@ function refuse(code, message) {
 }
 
 /** Python's whitespace, which the command strips from a decimal before reading it. */
-const SPACE = /^[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]+|[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]+$/g;
+const SPACE = /[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/;
+/** `text` without Python's whitespace at either end. @param {string} text */
+const stripSpace = (text) => {
+  let start = 0;
+  let end = text.length;
+  while (start < end && SPACE.test(text[start])) start += 1;
+  while (end > start && SPACE.test(text[end - 1])) end -= 1;
+  return text.slice(start, end);
+};
 
 /** A decimal input as the command reads it: cents, or null when readable but not an amount it takes
  * (not a string, not finite, below nil, above $1,000,000,000,000 or with more than 2 places).
@@ -50,7 +58,7 @@ const SPACE = /^[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202
 function decimal(key, value) {
   if (typeof value !== 'string') return null;
   if (new TextEncoder().encode(value).length > 8192) refuse('input.decimal_too_long', `Enter ${WORDS[key]} with fewer digits.`);
-  const text = value.replace(SPACE, '');
+  const text = stripSpace(value);
   if (/^[+-]?(inf|infinity|s?nan\d*)$/i.test(text)) return null;
   const parts = /^(-?)(\d+)(?:\.(\d+))?$/.exec(text);
   if (!parts) refuse('input.decimal_unreadable', `Enter ${WORDS[key]} as an amount in digits, such as 1250.50.`);
