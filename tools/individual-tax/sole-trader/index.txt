@@ -67,7 +67,7 @@ Kind of business activity Other Primary production Professional arts
 
 The activity’s assessable income (dollars and cents) Its deductions for the year (dollars and cents) Its losses deferred from earlier years (dollars and cents) Started or stopped in the year? No Yes
 
-Profit years among the 4 before this one0 1 2 3 4 Real property used in it (dollars and cents) Other assets used in it (dollars and cents) Your taxable income, or a loss as a negative amount (dollars and cents) Business losses deducted in it (dollars and cents) First home super saver amount in it (dollars and cents) Reportable fringe benefits (dollars and cents) Reportable super contributions (dollars and cents) Total net investment loss (dollars and cents) Net exempt income (dollars and cents)
+Profit years among the 4 before this one0 1 2 3 4 Real property used in it (dollars and cents) Other assets used in it (dollars and cents) Your taxable income, or a loss as a negative amount (dollars and cents) Business activity losses deducted in that taxable income (dollars and cents) First home super saver amount in it (dollars and cents) Reportable fringe benefits (dollars and cents) Reportable super contributions (dollars and cents) Total net investment loss (dollars and cents) Net exempt income (dollars and cents)
 
 A profit year is one in which the activity’s assessable income was more than its deductions (section 35-35). Value real property at its reduced cost base, or market value if higher, leaving out a private dwelling; value other assets as section 35-45 says, leaving out cars and motor cycles.
 
