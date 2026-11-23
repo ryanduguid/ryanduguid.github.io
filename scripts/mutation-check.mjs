@@ -1145,6 +1145,13 @@ const verdict = (cwd, test) => new Promise((resolve, reject) => {
   });
 });
 
+const allSettledOrThrow = async (promises) => {
+  const settled = await Promise.allSettled(promises);
+  const failed = settled.find((item) => item.status === 'rejected');
+  if (failed) throw failed.reason;
+  return settled.map((item) => item.value);
+};
+
 const work = mkdtempSync(join(tmpdir(), 'mutation-check-'));
 let failures = 0;
 
@@ -1163,7 +1170,7 @@ await (async () => {
   }
 
   const baselines = [levy.test, business.test, individualTest];
-  const baselineResults = await Promise.all(baselines.map((test) => verdict(template, test)));
+  const baselineResults = await allSettledOrThrow(baselines.map((test) => verdict(template, test)));
   for (let i = 0; i < baselines.length; i += 1) {
     if (baselineResults[i] !== 'survived') throw new Error(`${baselines[i]} fails before any mutation`);
   }
@@ -1209,7 +1216,7 @@ await (async () => {
   }
 
   let next = 0;
-  await Promise.all(workerDirs.map(async (cwd) => {
+  await allSettledOrThrow(workerDirs.map(async (cwd) => {
     while (next < queue.length) {
       const index = queue[next];
       next += 1;

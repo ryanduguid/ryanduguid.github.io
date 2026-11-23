@@ -281,8 +281,10 @@ export async function renderSocialCards(browser, outputDirectory) {
     }
     await publishCandidates(candidateDirectory, path.resolve(outputDirectory), outputs);
     return outputs;
-  })().finally(() => context.close()
-    .finally(() => rm(candidateDirectory, { recursive: true, force: true })));
+  })().finally(async () => {
+    await context.close();
+    await rm(candidateDirectory, { recursive: true, force: true });
+  });
 }
 
 async function runCli() {
