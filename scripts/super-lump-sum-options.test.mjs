@@ -15,22 +15,23 @@ import { superBenefitTaxResult } from '../assets/super-lump-sum.mjs';
 import { superWithholding, swhFormInput } from '../assets/super-withholding.mjs';
 
 const fixture = createRequire(import.meta.url)('./super-lump-sum-options-engine-differential.json');
-const html = readFileSync(new URL('../_includes/calculators/super-benefit-tax.html', import.meta.url), 'utf8');
+// Every runner (check_site, mutation-check and `node --test scripts/`) starts in the site's root.
+const page = readFileSync('_includes/calculators/super-benefit-tax.html', 'utf8');
 const aud = (v) => `$${v.toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
 /** The form's opening values: each input's value and each select's selected option. */
 const defaults = () => {
-  const fields = {};
-  for (const [tag] of html.matchAll(/<input\b[^>]*>/g)) fields[tag.match(/\bname="([^"]+)"/)[1]] = tag.match(/\bvalue="([^"]*)"/)?.[1] ?? '';
-  for (const [, name, body] of html.matchAll(/<select\b[^>]*\bname="([^"]+)"[^>]*>(.*?)<\/select>/gs)) {
+  const fields = new Map();
+  for (const [tag] of page.matchAll(/<input\b[^>]*>/g)) fields.set(tag.match(/\bname="([^"]+)"/)[1], tag.match(/\bvalue="([^"]*)"/)?.[1] ?? '');
+  for (const [, name, body] of page.matchAll(/<select\b[^>]*\bname="([^"]+)"[^>]*>(.*?)<\/select>/gs)) {
     const options = [...body.matchAll(/<option\b([^>]*)>/g)].map(([, attributes]) => attributes);
-    fields[name] = (options.find((attributes) => /\bselected\b/.test(attributes)) ?? options[0]).match(/\bvalue="([^"]*)"/)[1];
+    fields.set(name, (options.find((attributes) => /\bselected\b/.test(attributes)) ?? options[0]).match(/\bvalue="([^"]*)"/)[1]);
   }
   return fields;
 };
 const form = (change = {}) => {
-  const fields = { ...defaults(), ...change };
-  return (name) => fields[name] ?? '';
+  const fields = new Map([...defaults(), ...Object.entries(change)]);
+  return (name) => fields.get(name) ?? '';
 };
 const code = (run) => {
   try {
@@ -69,7 +70,7 @@ test('withholding and DASP tax agree with the australian-accounting commands on 
     assert.deepEqual(got, want, c.source);
   }
   assert.equal(fixture.cases.length, 613);
-  assert.match(html, new RegExp(`super-withholding</code> and <code>dasp-tax</code> commands on ${fixture.cases.length} more`));
+  assert.ok(page.includes(`super-withholding</code> and <code>dasp-tax</code> commands on ${fixture.cases.length} more`));
 });
 
 test('Schedule 12 examples: Tom’s roll-overs, Chloe, Heather and Dean', () => {
@@ -109,7 +110,7 @@ test('DASP tax: the Act’s rates, a working holiday maker’s 65% and the refus
     tax({ 'dasp-free': '1000', 'dasp-taxed': '10000', 'dasp-untaxed': '20000', whm: 'yes' }).tax], [12500, 19500]);
   assert.equal(code(() => tax({ 'dasp-untaxed': '50', unclaimed: 'yes' })), 'dasp_tax.unclaimed_money_rollover');
   assert.equal(code(() => tax({ 'dasp-free': '0', 'dasp-taxed': '0' })), 'dasp_tax.payment_nil');
-  const years = [...html.match(/<select name="dasp-year"[^>]*>(.*?)<\/select>/s)[1].matchAll(/value="([^"]+)"/g)].map(([, y]) => y);
+  const years = [...page.match(/<select name="dasp-year"[^>]*>(.*?)<\/select>/s)[1].matchAll(/value="([^"]+)"/g)].map(([, y]) => y);
   assert.deepEqual(years, [...DASP_YEARS].reverse());
 });
 
@@ -121,6 +122,6 @@ test('the page shows each calculation’s result and dates the sources it adds',
   const d = result('dasp');
   assert.deepEqual(d.rows[d.principal], ['Departing Australia superannuation payment tax', '$5,950.00']);
   assert.equal(result('tax').rows.at(-2)[1], '$12,000.00');
-  assert.equal((html.match(/read 23 November 2026/g) ?? []).length, 2);
-  assert.match(html, /read again on 23 November 2026/);
+  assert.equal((page.match(/read 23 November 2026/g) ?? []).length, 2);
+  assert.ok(page.includes('read again on 23 November 2026'));
 });

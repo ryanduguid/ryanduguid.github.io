@@ -33,7 +33,9 @@ export function daspTax(given) {
   const amounts = read(input, REQUIRED, []);
   if (input.scope_confirmed !== true) refuse('scope.not_confirmed', 'Confirm the facts the calculator takes as given.');
   if (!DASP_YEARS.includes(/** @type {string} */ (input.year))) refuse('period.unsupported', 'Choose an income year from 2025-26 to 2027-28.');
-  const [free, taxed, untaxed] = ['tax_free_component', 'taxed_element', 'untaxed_element'].map((key) => money(key, amounts[key]));
+  const free = money('tax_free_component', amounts.tax_free_component);
+  const taxed = money('taxed_element', amounts.taxed_element);
+  const untaxed = money('untaxed_element', amounts.untaxed_element);
   const whm = flag('working_holiday_maker_contributions', input.working_holiday_maker_contributions);
   if (flag('unclaimed_money_rollover', input.unclaimed_money_rollover) && untaxed !== 0n) {
     refuse('dasp_tax.unclaimed_money_rollover', 'The element untaxed in the fund of an unclaimed money roll-over bears nil on any excess untaxed roll-over amount (DASP Tax Act s 5(2)), which this calculator does not take.');
@@ -57,10 +59,9 @@ export function daspFormInput(value) {
   /** @type {Record<string, unknown>} */
   const input = { tax_free_component: text('dasp-free'), taxed_element: text('dasp-taxed'),
     untaxed_element: text('dasp-untaxed') === '' ? '0' : text('dasp-untaxed'), year: text('dasp-year'), scope_confirmed: true };
-  for (const [key, name] of [['working_holiday_maker_contributions', 'whm'], ['unclaimed_money_rollover', 'unclaimed']]) {
-    if (text(name) !== '') input[key] = text(name) === 'yes';
-  }
-  return input;
+  const yes = (/** @type {string} */ name) => (text(name) === '' ? undefined : text(name) === 'yes');
+  const answers = { working_holiday_maker_contributions: yes('whm'), unclaimed_money_rollover: yes('unclaimed') };
+  return Object.fromEntries(Object.entries({ ...input, ...answers }).filter(([, v]) => v !== undefined));
 }
 
 /** The page's result for a departing Australia superannuation payment.
@@ -68,10 +69,10 @@ export function daspFormInput(value) {
 export function daspTaxResult(value, aud) {
   const input = daspFormInput(value);
   const r = daspTax(input);
-  const rate = (/** @type {string} */ key) => `${Math.round(Number(r.rates[key]) * 100)}%`;
+  const rate = (/** @type {string} */ share) => `${Math.round(Number(share) * 100)}%`;
   const rows = [['Payment', aud(r.payment)], ['Tax free component, at 0%', aud(r.taxFreeTax)],
-    [`Element taxed in the fund, at ${rate('taxed_element_rate')}`, aud(r.taxedTax)],
-    [`Element untaxed in the fund, at ${rate('untaxed_element_rate')}`, aud(r.untaxedTax)],
+    [`Element taxed in the fund, at ${rate(r.rates.taxed_element_rate)}`, aud(r.taxedTax)],
+    [`Element untaxed in the fund, at ${rate(r.rates.untaxed_element_rate)}`, aud(r.untaxedTax)],
     ['Departing Australia superannuation payment tax', aud(r.tax)], ['Net payment', aud(r.net)]];
   const whm = r.rateBasis === 'working_holiday_maker';
   const inputs = [input.year, `tax free component ${aud(Number(input.tax_free_component))}`, `taxed element ${aud(Number(input.taxed_element))}`,

@@ -122,7 +122,7 @@ export function when(needed, input, key, why) {
 }
 
 const conflict = (/** @type {string} */ message) => refuse('super_benefit_tax.fact_conflict', message);
-export const min =(/** @type {bigint} */ a, /** @type {bigint} */ b) => (a < b ? a : b);
+export const min = (/** @type {bigint} */ a, /** @type {bigint} */ b) => (a < b ? a : b);
 /** Cents times a rate in hundredths, half up to the cent. @param {bigint} cents @param {bigint} hundredths */
 const atRate = (cents, hundredths) => ratioCents(cents * hundredths, 100n);
 const RATE_TEXT = /** @type {Record<string, string>} */ ({ 0: '0', 15: '0.15', 20: '0.20', 30: '0.30', 45: '0.45' });
@@ -145,7 +145,7 @@ export function read(input, required = REQUIRED, optional = OPTIONAL) {
   const amounts = {};
   for (const key of [...required, ...optional]) {
     if (!Object.hasOwn(input, key)) {
-      if (required.includes(key)) refuse('input.missing_field', `Enter ${WORDS[key]}.`);
+      if (required.includes(key)) refuse('input.missing_field', `Enter ${new Map(Object.entries(WORDS)).get(key)}.`);
       continue;
     }
     if (DECIMALS.has(key)) amounts[key] = decimal(key, input[key]);

@@ -145,19 +145,16 @@ export function superWithholding(given) {
  * @param {(name: string) => string} value */
 export function swhFormInput(value) {
   const recipient = value('recipient').trim();
-  const input = sbtFormInput((name) => (name === 'recipient' && recipient === 'rollover' ? 'member' : value(name)));
-  input.recipient = recipient;
-  const drop = (/** @type {string[]} */ keys) => keys.forEach((key) => delete input[key]);
-  if (recipient === 'rollover') drop([...MEMBER_FACTS, 'low_rate_cap_used', 'other_lump_sums_this_year']);
-  if (recipient === 'deceased_estate_trustee') drop(['service_before_july_1983']);
-  for (const [key, name] of [['tfn_provided', 'tfn'], ['foreign_resident', 'foreign']]) {
-    const answer = value(name).trim();
-    if (answer !== '') input[key] = answer === 'yes';
-  }
+  const yes = (/** @type {string} */ name) => (value(name).trim() === '' ? undefined : value(name).trim() === 'yes');
+  /** @type {Record<string, unknown>} */
+  const input = { ...sbtFormInput((name) => (name === 'recipient' && recipient === 'rollover' ? 'member' : value(name))), recipient,
+    tfn_provided: yes('tfn'), foreign_resident: yes('foreign') };
   const free = input.terminal_medical_condition === true
     || (Number(input.benefit) === Number(input.interest_value) && Number(input.benefit) < 200);
-  if (recipient === 'member' && (input.tfn_provided === false || free)) drop(CAPS);
-  return input;
+  const drop = [...(recipient === 'rollover' ? [...MEMBER_FACTS, 'low_rate_cap_used', 'other_lump_sums_this_year'] : []),
+    ...(recipient === 'deceased_estate_trustee' ? ['service_before_july_1983'] : []),
+    ...(recipient === 'member' && (input.tfn_provided === false || free) ? CAPS : [])];
+  return Object.fromEntries(Object.entries(input).filter(([key, v]) => v !== undefined && !drop.includes(key)));
 }
 
 /** The page's result for the amount to withhold: the components, each part at Table A's rate and the
@@ -165,16 +162,18 @@ export function swhFormInput(value) {
 export function superWithholdingResult(value, aud) {
   const input = swhFormInput(value);
   const r = superWithholding(input);
-  const dollars = (/** @type {string} */ id) => aud(Number(r.amounts[id]));
+  const amounts = new Map(Object.entries(r.amounts));
+  const rates = new Map(Object.entries(r.rates));
+  const dollars = (/** @type {string} */ id) => aud(Number(amounts.get(id)));
   const rows = [['Tax free component', aud(r.taxFree)], ['Taxable component: element taxed in the fund', aud(r.taxed)],
     ['Taxable component: element untaxed in the fund', aud(r.untaxed)]];
-  if (r.amounts.withheld_from !== undefined) rows.push(['Amount withheld from, cents ignored', dollars('withheld_from')]);
-  if (r.treatment === 'rollover' && r.amounts.untaxed_above_plan_cap !== undefined) {
+  if (amounts.has('withheld_from')) rows.push(['Amount withheld from, cents ignored', dollars('withheld_from')]);
+  if (r.treatment === 'rollover' && amounts.has('untaxed_above_plan_cap')) {
     rows.push(['Untaxed element above the untaxed plan cap left', dollars('untaxed_above_plan_cap')]);
   }
   for (const [id, label] of Object.entries(PART_LABELS)) {
-    if (r.amounts[`${id}_withholding`] !== undefined && Number(r.amounts[id])) {
-      rows.push([`${label}, ${dollars(id)} at ${Math.round(Number(r.rates[`${id}_withholding_rate`]) * 100)}%`, dollars(`${id}_withholding`)]);
+    if (amounts.has(`${id}_withholding`) && Number(amounts.get(id))) {
+      rows.push([`${label}, ${dollars(id)} at ${Math.round(Number(rates.get(`${id}_withholding_rate`)) * 100)}%`, dollars(`${id}_withholding`)]);
     }
   }
   rows.push(['Amount to withhold, to the nearest dollar', aud(r.withholding)]);
@@ -183,7 +182,7 @@ export function superWithholdingResult(value, aud) {
   const how = r.treatment === 'rollover' ? 'a roll-over: 47% of the untaxed element above the untaxed plan cap left, nothing on the rest'
     : r.treatment === 'deceased_estate_trustee' ? 'nothing is withheld from a death benefit paid to the trustee of a deceased estate'
       : r.rates.no_tfn_rate === undefined && r.treatment in NIL_TREATMENTS ? `${TREATMENTS[r.treatment]}, so nothing is withheld`
-        : input.tfn_provided === false ? `no TFN: ${r.rates.no_tfn_rate === '0.45' ? 45 : 47}% with no offsets or Medicare levy, cents ignored`
+        : !input.tfn_provided ? `no TFN: ${r.rates.no_tfn_rate === '0.45' ? 45 : 47}% with no offsets or Medicare levy, cents ignored`
         : `${TREATMENTS[r.treatment]}; Table A’s rate for each part, ${levy}`;
   const payee = `${input.tfn_provided ? 'TFN given' : 'no TFN'}${input.foreign_resident ? ', foreign resident' : ''}`;
   return { inputs: `${sbtInputsText(input, aud)}; ${payee}`, rows, principal: rows.length - 1, note: `${who}${how}` };
