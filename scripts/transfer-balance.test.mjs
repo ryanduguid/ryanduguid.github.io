@@ -30,6 +30,10 @@ const events = (list) => list.map(([date, kind, amount]) => ({ date, kind, amoun
 const account = (list, to, liable = false) => transferBalance({ events: events(list), to, previously_liable: liable,
   year: `${Number(to.slice(0, 4)) - (Number(to.slice(5, 7)) < 7 ? 1 : 0)}-${String((Number(to.slice(0, 4)) + (Number(to.slice(5, 7)) < 7 ? 0 : 1)) % 100).padStart(2, '0')}`,
   scope_confirmed: true });
+/** A form's value reader over the given fields. */
+const ask = (fields) => (name) => new Map(Object.entries(fields)).get(name) ?? '';
+/** The option values of a select, in page order. */
+const options = (name) => [...page.split(`<select name="${name}"`)[1].split('</select>')[0].matchAll(/value="([^"]+)"/g)].map(([, y]) => y);
 const capIn = (r, year) => r.caps.find((c) => c.year === year)?.cap;
 
 test('the page agrees with the australian-accounting commands on every differential case', () => {
@@ -120,15 +124,14 @@ test('the excess concessional contributions charge and the release of excess non
 test('the form sends the rows it has, the year of the last day, and each question’s facts', () => {
   const fields = { 'event-1-date': '2025-10-01', 'event-1-kind': 'new_income_stream', 'event-1-amount': '1000000', 'event-3-date': '2026-05-13',
     'event-3-kind': 'commutation', 'event-3-amount': '200000', to: '2026-07-01', liable: 'no' };
-  const input = tbaFormInput((name) => fields[name] ?? '');
+  const input = tbaFormInput(ask(fields));
   assert.deepEqual(input, { events: [{ date: '2025-10-01', kind: 'new_income_stream', amount: '1000000' },
     { date: '2026-05-13', kind: 'commutation', amount: '200000' }], to: '2026-07-01', previously_liable: false, year: '2026-27', scope_confirmed: true });
-  assert.equal(tbaFormInput((name) => ({ ...fields, to: '' })[name] ?? '').year, '');
-  assert.deepEqual(excessFormInput((name) => ({ calc: 'charge', 'charge-year': '2020-21', 'additional-tax': '5', 'due-date': '2021-12-01' })[name] ?? ''),
+  assert.equal(tbaFormInput(ask({ ...fields, to: '' })).year, '');
+  assert.deepEqual(excessFormInput(ask({ calc: 'charge', 'charge-year': '2020-21', 'additional-tax': '5', 'due-date': '2021-12-01' })),
     { question: 'concessional_charge', year: '2020-21', scope_confirmed: true, additional_tax: '5', tax_due_date: '2021-12-01' });
-  const years = (name) => [...page.match(new RegExp(`<select name="${name}"[^>]*>(.*?)</select>`, 's'))[1].matchAll(/value="([^"]+)"/g)].map(([, y]) => y);
-  assert.deepEqual(years('charge-year'), [...CHARGE_YEARS].reverse());
-  assert.deepEqual(years('release-year'), [...RELEASE_YEARS].reverse());
+  assert.deepEqual(options('charge-year'), [...CHARGE_YEARS].reverse());
+  assert.deepEqual(options('release-year'), [...RELEASE_YEARS].reverse());
   assert.equal(TBA_YEARS.at(-1), '2026-27');
 });
 

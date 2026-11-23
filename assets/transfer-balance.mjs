@@ -89,8 +89,12 @@ export function gicOn(day) {
   table ??= { rows: GIC_QUARTERS.map(([from, rate]) => [/** @type {number} */ (dayOf(from)), Math.round(Number(rate) * 100)]),
     end: /** @type {number} */ (dayOf(GIC_TABLE_END)) };
   if (day > table.end) return null;
-  for (let i = table.rows.length - 1; i >= 0; i -= 1) if (table.rows[i][0] <= day) return table.rows[i][1];
-  return null;
+  let found = null;
+  for (const [from, rate] of table.rows) {
+    if (from > day) break;
+    found = rate;
+  }
+  return found;
 }
 export { GIC_TABLE_END };
 
@@ -117,14 +121,22 @@ export function required(fields, item, key) {
 /** A stated amount in cents: a decimal string of at most 32 bytes, finite, from 0 to 1,000,000,000,000,
  * at most 2 decimal places, as the command's reader takes it. @param {Record<string, unknown>} fields
  * @param {string} item @param {string} key @param {string} [range] the range the message states */
+/** A decimal's sign, whole digits and decimal digits, or null unless it reads as -?digits(.digits)?.
+ * @param {string} text */
+export function decimalParts(text) {
+  const negative = text.startsWith('-');
+  const [whole, decimals, extra] = (negative ? text.slice(1) : text).split('.');
+  const digits = /^\d+$/;
+  if (extra !== undefined || !digits.test(whole) || (decimals !== undefined && !digits.test(decimals))) return null;
+  return { negative, whole, decimals: decimals ?? '' };
+}
 /** The range stated for an amount the command then refuses at nil. */
 export const ABOVE_NIL = 'above nil, up to 1,000,000,000,000';
 export function statedAmount(fields, item, key, range = 'from 0 to 1,000,000,000,000') {
   const value = required(fields, item, key);
-  const parts = typeof value === 'string' && new TextEncoder().encode(value).length <= 32 ? /^(-?)(\d+)(?:\.(\d+))?$/.exec(value.trim()) : null;
-  const decimals = parts?.[3] ?? '';
-  const cents = parts && decimals.length <= 2 ? BigInt(parts[2] + decimals.padEnd(2, '0')) : null;
-  if (cents === null || (parts?.[1] === '-' && cents !== 0n) || cents > 100000000000000n) {
+  const parts = typeof value === 'string' && new TextEncoder().encode(value).length <= 32 ? decimalParts(value.trim()) : null;
+  const cents = parts && parts.decimals.length <= 2 ? BigInt(parts.whole + parts.decimals.padEnd(2, '0')) : null;
+  if (cents === null || (parts?.negative && cents !== 0n) || cents > 100000000000000n) {
     refuse('input.amount_invalid', `${item}: enter ${key.replaceAll('_', ' ')} in dollars and cents, ${range}.`);
   }
   return cents;
@@ -275,7 +287,15 @@ export function transferBalance(given) {
       pending = earned;
     } else open = false;
   }
-  let liable = input.previously_liable;
+  const taxed = taxPeriods(periods, den, input.previously_liable);
+  return { year, to: isoOf(to), amounts: totals(num, den, cap, taxed), rates: { general_transfer_balance_cap: String(generalCap(yearOf(to))) },
+    caps, ledger, periods: taxed.rows, inExcess: open };
+}
+
+/** Each excess period's earnings and tax: 15%, or 30% for a period from 1 July 2018 once liable for an earlier one.
+ * @param {{from: number, to: number, earnings: bigint}[]} periods @param {bigint} den @param {boolean} wasLiable */
+function taxPeriods(periods, den, wasLiable) {
+  let liable = wasLiable;
   let [earnings, tax] = [0n, 0n];
   const rows = periods.map((p) => {
     const second = liable && p.from >= SECOND_RATE_FROM;
@@ -287,12 +307,16 @@ export function transferBalance(given) {
     return { from: isoOf(p.from), to: isoOf(p.to), days: p.to - p.from + 1, earnings: dollarsText(p.earnings, den), rate,
       tax: dollarsText(owed, den * 100n) };
   });
+  return { rows, earnings, tax };
+}
+
+/** The command's amounts from the balance over `den` and the cap in dollars.
+ * @param {bigint} num @param {bigint} den @param {number} cap @param {{earnings: bigint, tax: bigint}} taxed */
+function totals(num, den, cap, taxed) {
   const capUnits = BigInt(cap * 100) * den;
-  const amounts = {
+  return {
     transfer_balance: dollarsText(num, den), transfer_balance_cap: `${cap}.00`,
     cap_space: dollarsText(capUnits > num ? capUnits - num : 0n, den), excess_transfer_balance: dollarsText(num > capUnits ? num - capUnits : 0n, den),
-    notional_earnings: dollarsText(earnings, den), excess_transfer_balance_tax: dollarsText(tax, den * 100n),
+    notional_earnings: dollarsText(taxed.earnings, den), excess_transfer_balance_tax: dollarsText(taxed.tax, den * 100n),
   };
-  return { year, to: isoOf(to), amounts, rates: { general_transfer_balance_cap: String(generalCap(yearOf(to))) }, caps, ledger,
-    periods: rows, inExcess: open };
 }
