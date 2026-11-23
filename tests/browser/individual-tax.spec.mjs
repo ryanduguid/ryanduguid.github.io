@@ -495,7 +495,7 @@ test('pension minimum pro-rates a first year from the start day and refuses a da
   const output = form.locator('output');
   await waitForCalculator(form);
   const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
-  await form.locator('#pension-minimum-year').selectOption('2024-25');
+  await form.locator('[name="year"][value="2024-25"]').check();
   await form.locator('#pension-minimum-balance').fill('250000');
   await form.locator('#pension-minimum-age').fill('66');
   await form.locator('#pension-minimum-started').fill('2025-01-01');

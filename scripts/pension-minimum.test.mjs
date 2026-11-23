@@ -66,7 +66,7 @@ test('the form counts the days from the start day to 30 June', () => {
   assert.equal(input({ started: '2028-06-30' }).days, 1);
   assert.equal(input({ started: '2027-06-30' }).days, 367);
   assert.equal(input({ age: '' }).age, '');
-  const years = [...page.match(/<select name="year"[^>]*>(.*?)<\/select>/s)[1].matchAll(/value="([^"]+)"/g)].map(([, y]) => y);
+  const years = [...page.matchAll(/name="year" value="([^"]+)"/g)].map(([, y]) => y);
   assert.deepEqual(years, [...PENSION_MINIMUM_YEARS].reverse());
   const shown = pensionMinimumResult(ask({ year: '2024-25', balance: '250000', age: '66', started: '2025-01-01' }), aud);
   assert.deepEqual(shown.rows[shown.principal], ['Minimum annual payment, to the nearest $10', '$6,200.00']);

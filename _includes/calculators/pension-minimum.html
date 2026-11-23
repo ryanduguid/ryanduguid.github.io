@@ -2,7 +2,12 @@
 <form class="calculator-split" data-calculator="pension-minimum">
 <fieldset disabled><legend>An account-based pension for one income year</legend>
 <div class="form-grid">
-<div class="field"><label for="pension-minimum-year">Income year</label><select name="year" id="pension-minimum-year"><option value="2027-28">2027-28</option><option value="2026-27" selected>2026-27</option><option value="2025-26">2025-26</option><option value="2024-25">2024-25</option></select></div>
+<fieldset class="field"><legend>Income year</legend>
+<label><input type="radio" name="year" value="2027-28" /> 2027-28</label>
+<label><input type="radio" name="year" value="2026-27" checked /> 2026-27</label>
+<label><input type="radio" name="year" value="2025-26" /> 2025-26</label>
+<label><input type="radio" name="year" value="2024-25" /> 2024-25</label>
+</fieldset>
 <label class="field" for="pension-minimum-balance">Account balance on 1 July, or on the start day in the first year<input id="pension-minimum-balance" name="balance" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="600000" required /></label>
 <label class="field" for="pension-minimum-age">Age in whole years on the same day<input id="pension-minimum-age" name="age" type="number" inputmode="numeric" min="0" max="150" step="1" value="67" required /></label>
 <label class="field" for="pension-minimum-started">Start day, if the pension started during the year<input id="pension-minimum-started" name="started" type="date" min="2024-07-01" max="2028-06-30" value="" aria-describedby="pension-minimum-started-note" /></label>
