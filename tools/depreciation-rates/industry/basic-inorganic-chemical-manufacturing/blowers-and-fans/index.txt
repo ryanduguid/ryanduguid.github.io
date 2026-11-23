@@ -1,4 +1,4 @@
-# Blowers and fans (generally) effective life: 20 years, Support …
+# Blowers and fans (generally) effective life: 20 years
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/blowers-and-fans/
 
@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-
 
 ‘Support assets: Blowers and fans (generally)’, for an asset used in Basic inorganic chemical manufacturing, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2013.
 
-Published 14 November 2026. Page updated 21 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 

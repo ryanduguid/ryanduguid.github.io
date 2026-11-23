@@ -676,3 +676,41 @@ jobs:
             -o "$RUNNER_TEMP/deployment.json"
           python3 -c 'import json,os,pathlib; assert json.loads((pathlib.Path(os.environ["RUNNER_TEMP"])/"deployment.json").read_text())["sha"] == os.environ["GITHUB_SHA"]'
           "$RUNNER_TEMP/site-tools/site-tools" check_production --source-root "$RUNNER_TEMP/validated-site"
+      - name: Notify IndexNow of recently updated URLs
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY' > "$RUNNER_TEMP/indexnow.json"
+          import datetime, json, os, pathlib, xml.etree.ElementTree as ET
+
+          root = pathlib.Path(os.environ["RUNNER_TEMP"]) / "validated-site"
+          key = (root / "d8fee9bfe727ec519b462f3401e7a0ae.txt").read_text(encoding="utf-8").strip()
+          cutoff = (datetime.date.today() - datetime.timedelta(days=7)).isoformat()
+          ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+          by_url = {}
+          for rel in ("sitemap.xml", "tools/depreciation-rates/sitemap.xml"):
+              path = root / rel
+              if not path.is_file():
+                  continue
+              tree = ET.parse(path)
+              for node in tree.findall("sm:url", ns):
+                  loc = node.findtext("sm:loc", default="", namespaces=ns).strip()
+                  lastmod = node.findtext("sm:lastmod", default="", namespaces=ns).strip()
+                  if loc.startswith("https://duguid.com.au/") and lastmod >= cutoff:
+                      if lastmod > by_url.get(loc, ""):
+                          by_url[loc] = lastmod
+          urls = [loc for loc, _ in sorted(by_url.items(), key=lambda item: (item[1], item[0]), reverse=True)][:10000]
+          if not urls:
+              urls = ["https://duguid.com.au/"]
+          print(json.dumps({
+              "host": "duguid.com.au",
+              "key": key,
+              "keyLocation": f"https://duguid.com.au/{key}.txt",
+              "urlList": urls,
+          }))
+          PY
+          curl --proto '=https' --proto-redir '=https' --fail --silent --show-error --max-time 30 \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -X POST "https://api.indexnow.org/indexnow" \
+            --data @"$RUNNER_TEMP/indexnow.json"
