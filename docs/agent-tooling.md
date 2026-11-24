@@ -40,7 +40,7 @@ through the draft [WebMCP](https://webmachinelearning.github.io/webmcp/)
 `estimate_income_tax`, `calculate_take_home_pay`, `calculate_study_loan_repayment`, `calculate_sole_trader_set_aside`,
 `calculate_lump_sum_arrears`, `calculate_division_293_tax`, `calculate_income_tests`, `calculate_concessional_catch_up`,
 `calculate_bonus_withholding`, `calculate_salary_packaging`, `calculate_novated_lease`, `project_super_balance`,
-`calculate_fhss_release`, `calculate_work_expenses` and `calculate_government_super_amounts` on the 15 individual tax
+`calculate_fhss_release`, `calculate_work_expenses` and `calculate_government_super_amounts` on 15 of the 17 individual tax
 calculator pages, `calculate_decline_in_value` on the depreciation rates page and
 `calculate_coal_lsl_levy` on the Coal LSL levy calculator.
 `assets/accounting-pages.mjs`, `assets/depreciation-calculator-page.mjs` and
