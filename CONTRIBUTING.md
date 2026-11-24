@@ -212,8 +212,10 @@ update the front matter, the page's CSV note and the `/rates/` entry together.
 Last reviewed is this page's editorial check. `date_modified` is the day the
 content last changed; it sets `dateModified`, and the sitemap date matches it.
 
-`scripts/design_baseline.json` pins digests of the machine-readable files, the
-rates pages and every page's JSON-LD. After a content edit, run
+`scripts/design_baseline.json` pins digests of `robots.txt`, `sitemap.xml`, the
+rates pages and every page's JSON-LD (`llms.txt` is verified structurally by
+`scripts/tests/llms.rs`, `check_design`, `build_llms_full --check` and
+`scripts/webmcp-tools.test.mjs` so concurrent PRs do not conflict on a whole-file hash). After a content edit, run
 `site-tools check_design --update-baseline` and check that the diff
 touches only the pages you changed. It also pins the JSON-LD of a new page, and
 after `site-tools build_site` it recounts the protected footer text in `_site`;
@@ -319,7 +321,7 @@ differs from the index. The ordinary site checks
 require the generated include to match both inputs. They also require every
 formula to match the native Excel inputs and results. When the documented release
 and the Excel check differ, the reference record's `example_evidence` names the
-checked release and workbook hash. The v3.7.0 reference points to the v3.6.0
+checked release and workbook hash. The v3.8.0 reference points to the v3.6.0
 record in `assets/ozzit-reference-v3.6.0.json`. Each example records its result shape and a
 Python format template. The generator formats every recorded result and requires
 that display to equal the reviewed expected text, including array values and totals.
@@ -657,4 +659,4 @@ they do not establish billed minutes or savings.
 
 Read the component’s licence at the new tag or source revision. Record its name against that version in `_data/tools.json` and point the product’s software JSON-LD licence to the same file. Keep install instructions that use an older version linked to that version’s licence.
 
-Run `site-tools stamp_source_freshness --write-tool-releases` to read published stable GitHub release tags and refresh `_data/tool_releases.json`, the twelve tool pages' software JSON-LD, `sitemap.xml`, names in `tools/index.html` and the current MCP version in `llms.txt`. `--build` performs the same source refresh and then runs the ordinary Jekyll build. Review capability prose and update each changed document's review date before committing; the refresh preserves document dates and uses them for sitemap `lastmod`, whilst software entries use the release date. Each tagged release in `_data/tool_releases.json` needs a Tool releases row in `changelog/index.html` with the same date and release link; write it by hand, since `site-tools build_feed` refuses the changelog without one. Regenerate text mirrors with `site-tools build_llms_full --write`. Offline builds use the checked snapshot. Tool identity and source paths live in `_data/tools.json`; the browser Coal LSL calculator has no release tag and records its own source revision instead. Dates use Australia/Sydney.
+Run `site-tools stamp_source_freshness --write-tool-releases` to read published stable GitHub release tags and refresh `_data/tool_releases.json`, the twelve tool pages' software JSON-LD, `sitemap.xml`, names in `tools/index.html` and the current MCP version in `llms.txt`. `--build` performs the same source refresh and then runs the ordinary Jekyll build. After editing `_data/tool_releases.json`, `changelog/index.html` or capability prose offline, run `site-tools stamp_source_freshness --sync-releases` to stamp the tool pages, `sitemap.xml`, `tools/index.html`, sorted `index.html` latest releases and `llms.txt`, then rebuild `feed.xml`, `llms-full*.txt` and `scripts/design_baseline.json` in one pass. Review capability prose and update each changed document's review date before committing; the refresh preserves document dates and uses them for sitemap `lastmod`, whilst software entries use the release date. Each tagged release in `_data/tool_releases.json` needs a Tool releases row in `changelog/index.html` with the same date and release link; write it by hand, since `site-tools build_feed` refuses the changelog without one. Regenerate text mirrors with `site-tools build_llms_full --write`. Offline builds use the checked snapshot. Tool identity and source paths live in `_data/tools.json`; the browser Coal LSL calculator has no release tag and records its own source revision instead. Dates use Australia/Sydney.

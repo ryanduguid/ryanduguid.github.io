@@ -6,7 +6,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/about/</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/works-with/</loc>
@@ -146,7 +146,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/australian-tax-ai-agents/</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/workpaper-review-gate/</loc>
@@ -158,7 +158,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/changelog/</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/monthly-close-controls/</loc>
@@ -170,7 +170,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/depreciation-rates/</loc>
@@ -318,7 +318,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/division-296/</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-24</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/div7a-schedule/</loc>
@@ -346,7 +346,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/payg-instalments/</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/super-benefit-tax/</loc>
@@ -370,7 +370,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/individual-tax/</loc>
-    <lastmod>2026-11-22</lastmod>
+    <lastmod>2026-11-24</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/individual-tax/concessional-catch-up/</loc>
@@ -378,7 +378,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/individual-tax/income-tax/</loc>
-    <lastmod>2026-11-22</lastmod>
+    <lastmod>2026-11-24</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/individual-tax/take-home-pay/</loc>
@@ -394,7 +394,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/individual-tax/sole-trader/</loc>
-    <lastmod>2026-11-19</lastmod>
+    <lastmod>2026-11-24</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/individual-tax/division-293/</loc>
@@ -411,6 +411,14 @@
   <url>
     <loc>https://duguid.com.au/tools/individual-tax/government-super/</loc>
     <lastmod>2026-11-22</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/individual-tax/transfer-balance/</loc>
+    <lastmod>2026-11-24</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/individual-tax/pension-minimum/</loc>
+    <lastmod>2026-11-24</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/individual-tax/fhss/</loc>
@@ -473,6 +481,14 @@
     <lastmod>2026-11-18</lastmod>
   </url>
   <url>
+    <loc>https://duguid.com.au/tools/business-calculators/rd-tax-offset/</loc>
+    <lastmod>2026-11-24</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/deferred-tax/</loc>
+    <lastmod>2026-11-24</lastmod>
+  </url>
+  <url>
     <loc>https://duguid.com.au/tools/business-calculators/salary-dividend/</loc>
     <lastmod>2026-11-19</lastmod>
   </url>
@@ -493,12 +509,16 @@
     <lastmod>2026-11-21</lastmod>
   </url>
   <url>
+    <loc>https://duguid.com.au/tools/business-calculators/gst-adjustments/</loc>
+    <lastmod>2026-11-24</lastmod>
+  </url>
+  <url>
     <loc>https://duguid.com.au/tools/business-calculators/cgt/</loc>
     <lastmod>2026-11-19</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/privacy/</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/examples/profit-vs-cash-flow/</loc>
@@ -506,7 +526,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/ozzit/</loc>
-    <lastmod>2026-11-23</lastmod>
+    <lastmod>2026-11-24</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/ozzit/functions/dates/</loc>

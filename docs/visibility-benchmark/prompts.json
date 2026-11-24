@@ -21,7 +21,7 @@
         },
         {
           "id": "F2-credential",
-          "fact": "A Provisional CA ANZ Member. CA ANZ has not endorsed the site or its tools.",
+          "fact": "A Provisional CA ANZ Member.",
           "source": "https://duguid.com.au/about/"
         },
         {
@@ -58,11 +58,11 @@
         },
         {
           "id": "F5-tools",
-          "fact": "The current published release, v0.11.0, covers ATO small-business benchmark comparison, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, 66 worksheet kinds with the 1.1.0 calculators executable and optional search of a local Markdown library or a configured ATO rulings copy. The guide's reproducible v0.2.8 example has 7 worksheets.",
+          "fact": "The current published release, v0.12.0, covers ATO small-business benchmark comparison, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, 102 worksheet kinds with the 1.2.0 calculators executable and optional search of a local Markdown library or a configured ATO rulings copy. The guide's reproducible v0.2.8 example has 7 worksheets.",
           "source": "https://duguid.com.au/tools/australian-tax-ai-agents/",
           "release_basis": {
             "component": "aus-accounting-mcp",
-            "version": "0.11.0"
+            "version": "0.12.0"
           }
         },
         {
@@ -155,7 +155,7 @@
       "expected_facts": [
         {
           "id": "F12-count",
-          "fact": "Ozzit is one Apache-2.0-licensed Excel workbook with 143 native LAMBDA functions and 5 help tables.",
+          "fact": "Ozzit is one Apache-2.0-licensed Excel workbook with 165 native LAMBDA functions and 5 help tables.",
           "source": "https://duguid.com.au/tools/ozzit/"
         },
         {
@@ -165,7 +165,7 @@
         },
         {
           "id": "F14-scope",
-          "fact": "Its Australian helpers are GST arithmetic at 10%, financial-year labels, modelling depreciation schedules and AASB 16 lessee schedules. It calculates no income tax.",
+          "fact": "Its Australian helpers cover GST arithmetic at 10%, financial-year labels, modelling depreciation schedules and pools, AASB 16 lessee schedules, general-rate income tax (2024-25 to 2026-27), Division 7A minimum repayments, CGT parcels, margin scheme GST and FBT gross-up. It leaves out the Medicare levy, tax offsets and tax advice.",
           "source": "https://duguid.com.au/tools/ozzit/"
         }
       ],
@@ -176,7 +176,7 @@
         },
         {
           "id": "E12-tax-engine",
-          "error": "Claims it calculates Australian income tax, Division 7A interest or a BAS."
+          "error": "Claims it calculates the Medicare levy, tax offsets, Division 7A interest or a BAS."
         },
         {
           "id": "E13-version",

@@ -28,13 +28,25 @@ import './work-expenses.test.mjs';
 import { governmentSuperAmounts } from '../assets/government-super.mjs';
 import { governmentSuperFormFacts, governmentSuperResult } from '../assets/government-super-result.mjs';
 import './government-super-amounts.test.mjs';
+import { excessContributions } from '../assets/excess-contributions.mjs';
+import { transferBalance } from '../assets/transfer-balance.mjs';
+import { excessFormInput, tbaFormInput, transferBalanceResult } from '../assets/transfer-balance-result.mjs';
+import './transfer-balance.test.mjs';
+import { pensionMinimum, pensionMinimumFormInput, pensionMinimumResult } from '../assets/pension-minimum.mjs';
+import './pension-minimum.test.mjs';
+import { foreignIncomeFixture, foreignIncomeFormTests } from './foreign-income.test.mjs';
+import { minorsFixture, minorsFormTests } from './minors-income.test.mjs';
+import { nonCommercialFixture, nonCommercialFormTests } from './non-commercial-losses.test.mjs';
+import { NET_MEDICAL_DEFAULTS, netMedicalFixture } from './net-medical-expenses.test.mjs';
 
 import { bonusWithholding } from '../assets/bonus-withholding.mjs';
 import { salaryPackaging } from '../assets/salary-packaging.mjs';
 import { FUEL_EFFICIENT_THRESHOLD, novatedLease } from '../assets/novated-lease.mjs';
 const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAside, lumpSumArrears, division293Tax, incomeTests, concessionalCatchUp,
   bonusWithholding, salaryPackaging, novatedLease, superProjection, fhssAmounts: (facts) => fhss(facts).amounts,
-  workExpenses, governmentSuperAmounts };
+  workExpenses, governmentSuperAmounts,
+  transferBalanceCases: (command, input) => (command === 'transfer-balance' ? transferBalance(input) : excessContributions(input)).amounts,
+  pensionMinimumAmounts: (input) => pensionMinimum(input).amounts };
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -74,6 +86,11 @@ const INPUTS = {
       + `A ${dollars(f.category_a)}, B ${dollars(f.category_b)}, C ${dollars(f.category_c)}, D ${dollars(f.category_d)}`
       + `${f.prescribed_course === undefined ? '' : f.prescribed_course ? `, prescribed course, E ${dollars(f.category_e)}` : ', not a prescribed course'}`,
   })[f.method](),
+  transferBalanceCases: (command, f) => (command === 'transfer-balance'
+    ? `${f.events.map((e) => `${e.date} ${e.kind.replaceAll('_', ' ')} ${dollars(e.amount)}`).join(', ')}; to ${f.to}${f.previously_liable ? ', previously liable' : ''}`
+    : f.question === 'concessional_charge' ? `${f.year} charge on ${dollars(f.additional_tax)}, tax due ${f.tax_due_date}`
+      : `${f.year} release of ${dollars(f.excess)}, determination ${f.determination_date}`),
+  pensionMinimumAmounts: (f) => `${f.year}, balance ${dollars(f.account_balance)}, age ${f.age}, ${f.days} days`,
   governmentSuperAmounts: (f) => `${f.year}, assessable income ${whole(f.assessable_income)}`
     + (f.taxable_income === f.assessable_income ? '' : `, taxable income ${whole(f.taxable_income)}`)
     + (f.business_deductions === '0' ? '' : `, business deductions ${whole(f.business_deductions)}`)
@@ -142,6 +159,12 @@ const OUTPUTS = {
     self_education: () => `${r.reductionApplies ? `Reduction ${dollars(r.amounts.reduction)}, deduction` : 'Deduction'} `
       + `${dollars(r.amounts.deduction)}${r.deductible ? '' : ', not deductible'}`,
   })[r.method](),
+  transferBalanceCases: (r, command, f) => (command === 'transfer-balance'
+    ? `Balance ${dollars(r.transfer_balance)}, cap ${dollars(r.transfer_balance_cap)}, excess ${dollars(r.excess_transfer_balance)}, `
+      + `earnings ${dollars(r.notional_earnings)}, tax ${dollars(r.excess_transfer_balance_tax)}`
+    : f.question === 'concessional_charge' ? `Charge ${dollars(r.excess_concessional_contributions_charge)}`
+      : `Earnings ${dollars(r.associated_earnings)}, release ${dollars(r.total_release_amount)}, offset ${dollars(r.associated_earnings_tax_offset)}`),
+  pensionMinimumAmounts: (r) => `Before rounding ${dollars(r.minimum_before_rounding)}, minimum ${dollars(r.minimum_payment)}`,
   governmentSuperAmounts: (r) => `Co-contribution ${dollars(r.amounts.co_contribution_paid)}, LISTO ${dollars(r.amounts.listo_paid)}`
     + (r.amounts.spouse_contribution_offset === undefined ? '' : `, spouse offset ${dollars(r.amounts.spouse_contribution_offset)}`),
   fhssAmounts: (r) => `Maximum release ${dollars(r.maximum_release_amount)}, assessable ${dollars(r.assessable_fhss_released_amount)}, `
@@ -207,6 +230,11 @@ const formDefaults = (html) => {
   for (const [, name, text] of html.matchAll(/<textarea\b[^>]*\bname="([^"]+)"[^>]*>([\s\S]*?)<\/textarea>/g)) {
     fields[name] = text;
   }
+  // A select opens on its selected option, or its first.
+  for (const [, name, body] of html.matchAll(/<select\b[^>]*\bname="([^"]+)"[^>]*>([\s\S]*?)<\/select>/g)) {
+    const options = [...body.matchAll(/<option\b([^>]*)>/g)].map(([, attributes]) => attributes);
+    fields[name] ??= (options.find((attributes) => /\bselected\b/.test(attributes)) ?? options[0])?.match(/\bvalue="([^"]*)"/)?.[1];
+  }
   return fields;
 };
 // How assets/individual-tax-results.mjs passes each form's fields to its engine.
@@ -214,6 +242,9 @@ const fhssExampleFields = fields => ({ ...fields, scope: 'yes', 'withholding-bas
 const FORM_CALLS = {
   workExpenses: (f) => [workExpensesFormFacts((name) => ({ ...f, scope: 'yes' })[name] ?? '')],
   governmentSuperAmounts: (f) => [governmentSuperFormFacts((name) => ({ ...f, scope: 'yes' })[name] ?? '')],
+  transferBalanceCases: (f) => (f.calc === 'transfer' ? ['transfer-balance', tbaFormInput((name) => f[name] ?? '')]
+    : ['excess-contributions', excessFormInput((name) => f[name] ?? '')]),
+  pensionMinimumAmounts: (f) => [pensionMinimumFormInput((name) => f[name] ?? '')],
   fhssAmounts: (f) => {
     const fixture = fhssExampleFields(f);
     return [Object.fromEntries(Object.entries(fhssFormFacts(name => fixture[name] ?? '')).filter(([, value]) => value !== ''))];
@@ -693,6 +724,8 @@ for (const page of Object.keys(shownCases)) {
     };
     const result = page === 'fhss' ? fhssResult(value, aud) : page === 'work-expenses' ? workExpensesResult(value, aud)
       : page === 'government-super' ? governmentSuperResult(value, aud)
+      : page === 'transfer-balance' ? transferBalanceResult(value, aud)
+      : page === 'pension-minimum' ? pensionMinimumResult(value, aud)
       : individualResult(page, value, aud);
     assert.equal(result.inputs, example[1]);
     assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);
@@ -1529,6 +1562,65 @@ const incomeTaxPage = (fields) => {
   }, aud);
 };
 const pageRow = (result, label) => result.rows.find(([name]) => name === label)?.[1];
+
+test('the net medical expenses form opens on the values its tests use and states its differential count', () => {
+  const form = incomeTaxHtml.slice(incomeTaxHtml.indexOf('<form class="calculator-split" data-calculator="net-medical-expenses">'));
+  assert.deepEqual(formDefaults(form.slice(0, form.indexOf('</form>'))), NET_MEDICAL_DEFAULTS);
+  assert.match(incomeTaxHtml, new RegExp(`net-medical-expenses-tax-offset on ${netMedicalFixture.cases.length.toLocaleString('en-AU')} cases`));
+});
+
+const conversionPage = (fields = {}) => {
+  const start = incomeTaxHtml.indexOf('<form class="calculator-split" data-calculator="foreign-income-conversion">');
+  const form = { ...formDefaults(incomeTaxHtml.slice(start, incomeTaxHtml.indexOf('</form>', start))), ...fields };
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  return individualResult('foreign-income-conversion', (name) => {
+    assert.ok(Object.hasOwn(form, name), `the foreign income conversion form has no ${name}`);
+    return form[name] ?? '';
+  }, aud);
+};
+foreignIncomeFormTests(incomeTaxPage, conversionPage);
+
+const minorsPage = (fields = {}) => {
+  const start = incomeTaxHtml.indexOf('<form class="calculator-split" data-calculator="minors-income">');
+  const html = incomeTaxHtml.slice(start, incomeTaxHtml.indexOf('</form>', start));
+  const selects = [...html.matchAll(/<select name="([^"]+)"[\s\S]*?<option value="([^"]+)" selected>/g)].map(([, name, value]) => [name, value]);
+  const form = { ...formDefaults(html), ...Object.fromEntries(selects), ...fields };
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  return individualResult('minors-income', (name) => {
+    assert.ok(Object.hasOwn(form, name), `the minors’ income form has no ${name}`);
+    return form[name] ?? '';
+  }, aud);
+};
+minorsFormTests(minorsPage);
+
+const soleTraderHtml = readFileSync(new URL('../_includes/calculators/sole-trader.html', import.meta.url), 'utf8');
+const nonCommercialPage = (fields = {}) => {
+  const start = soleTraderHtml.indexOf('<form class="calculator-split" data-calculator="non-commercial-losses">');
+  const html = soleTraderHtml.slice(start, soleTraderHtml.indexOf('</form>', start));
+  const selects = [...html.matchAll(/<select name="([^"]+)"[\s\S]*?<option value="([^"]+)" selected>/g)].map(([, name, value]) => [name, value]);
+  const form = { ...formDefaults(html), ...Object.fromEntries(selects), ...fields };
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  return individualResult('non-commercial-losses', (name) => {
+    assert.ok(Object.hasOwn(form, name), `the non-commercial losses form has no ${name}`);
+    return form[name] ?? '';
+  }, aud);
+};
+nonCommercialFormTests(nonCommercialPage);
+
+test('the sole trader page states the non-commercial losses differential count', () => {
+  assert.match(soleTraderHtml, new RegExp(`non-commercial-losses on ${nonCommercialFixture.cases.length.toLocaleString('en-AU')} cases`));
+});
+
+test('the income tax page states the minors’ income differential count', () => {
+  assert.match(incomeTaxHtml, new RegExp(`minors-income on ${minorsFixture.cases.length.toLocaleString('en-AU')} cases`));
+});
+
+test('the income tax page states the foreign income differential counts', () => {
+  for (const command of ['foreign-income-tax-offset', 'foreign-income-conversion']) {
+    const count = foreignIncomeFixture.cases.filter((c) => c.command === command).length;
+    assert.match(incomeTaxHtml, new RegExp(`${command} on ${count.toLocaleString('en-AU')} cases`));
+  }
+});
 const pageCode = (fields) => {
   try {
     incomeTaxPage(fields);

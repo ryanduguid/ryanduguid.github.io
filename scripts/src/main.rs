@@ -16,8 +16,9 @@ const WRITING_COMMANDS: [&str; 6] = [
 ];
 
 /// Arguments that make any other command write.
-const WRITING_FLAGS: [&str; 4] = [
+const WRITING_FLAGS: [&str; 5] = [
     "--build",
+    "--sync-releases",
     "--update-baseline",
     "--write",
     "--write-tool-releases",
