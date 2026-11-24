@@ -7725,9 +7725,13 @@ fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
         "AU-NSW" => {
             // SIRA's Guidelines 2026 clause 6.7: small while the APP does not exceed $30,000,
             // tested on wages × the rate before any rounding (icare, read 24 November 2026);
-            // icare's $240 minimum; the dust diseases rate includes its GST.
+            // icare's $240 minimum; the dust diseases rate includes its GST. The apprentice
+            // incentive is refused: icare does not say whether it comes off before or after GST.
+            if c.apprentice != 0 {
+                return None;
+            }
             let app = cents_at(wages, c.rate);
-            let premium = app - cents_at(app, c.reward) - cents_at(c.apprentice, c.rate);
+            let premium = app - cents_at(app, c.reward);
             if wages * c.rate > 3_000_000 * 1_000_000 || premium < 24_000 {
                 return None;
             }
@@ -7746,17 +7750,17 @@ fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
             // premium in millionths of a dollar, and clause 11 as written, preliminary premium
             // ÷ R × 15,500 × N ÷ 365, N ÷ 365 to 6 decimal places (clause 6(1)), to the nearest
             // cent (clause 6(4)); the WorkCover premium down to the cent and at least $400.
+            // Nil remuneration: clause 11 divides by it, so the Order gives no figure.
             let remuneration = wc_half(wages, 100);
+            if remuneration == 0 {
+                return None;
+            }
             let preliminary = remuneration * c.rate;
-            let deductible = if remuneration == 0 {
-                0
-            } else {
-                let share = wc_half(c.days * 1_000_000, 365);
-                wc_half(
-                    preliminary * 15_500 * share,
-                    remuneration * 1_000_000 * 10_000,
-                )
-            };
+            let share = wc_half(c.days * 1_000_000, 365);
+            let deductible = wc_half(
+                preliminary * 15_500 * share,
+                remuneration * 1_000_000 * 10_000,
+            );
             let workcover = ((preliminary - deductible * 10_000).max(0) / 10_000).max(40_000);
             let premium = workcover + if c.buyout { workcover / 10 } else { 0 };
             Some([premium, gst(premium), 0, premium + gst(premium)])
@@ -7836,7 +7840,11 @@ fn wc_oracle(c: &WcCase) -> Value {
     let refused = json!({"refused": true});
     let state = ["AU-NSW", "AU-VIC", "AU-QLD", "AU-SA"].contains(&c.place);
     let apprentices = ["AU-NSW", "AU-QLD", "AU-SA"].contains(&c.place);
-    if (c.group && state) || (!apprentices && c.apprentice != 0) {
+    // Queensland's Notice (No. 1) of 2026 sets no 2026-27 adjustment on actual wages.
+    if (c.group && state)
+        || (!apprentices && c.apprentice != 0)
+        || (c.place == "AU-QLD" && c.actual.is_some())
+    {
         return refused;
     }
     let Some([premium, gst, duty, total]) = wc_premium(c, c.wages) else {
