@@ -12,7 +12,7 @@
   },
   "json_ld": {
     "about/index.html": [
-      "026786bafec8ad606d40e1186526bef171f6c36e1477a31a4236ea293c582b94"
+      "412e43ed9511beb0f8c70b2e3689836785d091153d7bdf8aadbc114360e3ec88"
     ],
     "changelog/index.html": [
       "29539fcf63a44c93b1c04160e7d92ba0840f0588a4b38bf52c99a33dbc06da1c"
@@ -39,7 +39,7 @@
       "4f34b9a4a4eb565c428d51639eb7a42c1692eced3ac67482a156fb5ddfa636bb"
     ],
     "index.html": [
-      "ee80aec4525d6ff44ab445a68b9bc2fc36f96839e40a49b2856200597b614686"
+      "16929a90de3958f1511c55811fb8d9354a46584574312d2ed7648e66e316a137"
     ],
     "privacy/index.html": [
       "dabe19f4f720b7d61a2993c85ad4ea6f5ba29a4f6109f90a3b9267b611902a15"
@@ -412,9 +412,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "7f3b459888805f7feb9eef1cb6d1494a5a66844c7ae28fa93cf8faa04c76919b",
+    "llms.txt": "eeb856e4f2aaa997b35866abca6a63cd64bc1169d54edf8ab0844b0bdbe584f0",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "6298d8363762b2307f6725190a18ea637e1f2897bd8f69182627398effe5a976"
+    "sitemap.xml": "85c3f791479da93a1b617d7c82865e96192af96d76697e1c87f6bfc44e333d6f"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -475,7 +475,7 @@
   },
   "protected_text": {
     "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7806,
-    "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 0,
-    "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 0
+    "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
+    "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
 }

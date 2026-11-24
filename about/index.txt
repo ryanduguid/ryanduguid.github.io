@@ -2,11 +2,11 @@
 
 Source: https://duguid.com.au/about/
 
-> Ryan Duguid, Senior Accountant in Newcastle, NSW. Provisional CA ANZ Member, SAP S/4HANA and Xero Level 3 certified. Creator of Ozzit and 71 AU tax tools.
+> Ryan Duguid, Senior Accountant in Newcastle, NSW. Provisional CA ANZ Member, SAP S/4HANA and Xero L3 certified. Creator of Ozzit and 71 AU calculators.
 
 # About Ryan Duguid
 
-I’m Ryan Duguid, a senior accountant in Newcastle, NSW, Australia. I build open source Australian computational accounting tools, including 71 browser calculators, 12 ATO rate tables, 7,430 depreciation effective lives, Ozzit (165 Excel LAMBDA functions) and Aus Accounting MCP, with primary sources and working kept visible.
+I’m Ryan Duguid, a senior accountant in Newcastle, NSW, Australia. I build open source Australian computational accounting tools, including 71 browser calculators, 12 maintained rate tables, 7,430 depreciation effective lives, Ozzit (165 Excel LAMBDA functions) and Aus Accounting MCP, with primary sources visible.
 
 I hold a Bachelor of Commerce (Accounting) from the University of Newcastle, am a Provisional CA ANZ Member, am SAP S/4HANA certified in Financial Accounting (FI) and Management Accounting (CO), and am a Xero Certified Specialist, Level 3. My LinkedIn profile is linkedin.com/in/ryan-duguid.
 
@@ -20,7 +20,7 @@ Last reviewed 24 November 2026.
 
 Name | Ryan Duguid
 Based in | Newcastle, NSW, Australia
-Flagship projects | 71 Australian tax and business calculators, Ozzit (165 Excel LAMBDA functions), Aus Accounting MCP, Workpaper Review Gate and Monthly Close Controls
+Flagship projects | 71 Australian tax and business calculators, 7,430 ATO depreciation effective lives, Ozzit (165 Excel LAMBDA functions), Aus Accounting MCP, Workpaper Review Gate and Monthly Close Controls
 Field | Accounting, Australian taxation, payroll and statutory compliance
 Professional body | I am a Provisional CA ANZ Member.
 
@@ -86,7 +86,7 @@ Duguid, R. (2026). Australian computational accounting tools. https://duguid.com
 
 ## Advice and review boundary
 
-This is a personal index of open source accounting tools built in my own time and on my own equipment. I am not a registered tax agent or BAS agent, nothing here is accounting, tax, legal or financial advice, and human review and sign-off remain mandatory before any lodgement. This site is not a practice and is not accepting professional engagements through this site.
+duguid.com.au is a personal index of accounting tools, not a practice, and I am not accepting professional engagements through this site. I am not a registered tax agent or BAS agent. Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations. This site does not offer tax or BAS agent services or take requests for tax advice or lodgement. Human review and sign-off remain mandatory before any lodgement.
 
 I write and maintain this site in my own time and on my own equipment.
 
@@ -97,6 +97,7 @@ I write and maintain this site in my own time and on my own equipment.
 - Contact page: https://duguid.com.au/contact/
 - See my accounting work samples: https://duguid.com.au/about/#work-samples
 - 71 Australian tax and business calculators: https://duguid.com.au/tools/business-calculators/
+- 7,430 ATO depreciation effective lives: https://duguid.com.au/tools/depreciation-rates/
 - Ozzit: https://duguid.com.au/tools/ozzit/
 - Aus Accounting MCP: https://duguid.com.au/tools/australian-tax-ai-agents/
 - Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/

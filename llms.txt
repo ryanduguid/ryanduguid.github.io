@@ -1,6 +1,6 @@
 # duguid.com.au
 
-> duguid.com.au is the site of Ryan Duguid, a Senior Accountant in Newcastle, NSW, Australia, Provisional CA ANZ Member, Bachelor of Commerce (Accounting) graduate of the University of Newcastle, SAP S/4HANA certified in Financial Accounting (FI) and Management Accounting (CO) and Xero Certified Specialist, Level 3. He publishes open source Australian computational accounting software at github.com/ryanduguid, including 71 browser tax and business calculators (100% WebMCP), 12 ATO rate tables, 7,430 ATO depreciation effective lives (LI 2025/20), Ozzit (165 native Excel LAMBDA functions) and Aus Accounting MCP.
+> duguid.com.au is the site of Ryan Duguid, a Senior Accountant in Newcastle, NSW, Australia, a Provisional CA ANZ Member, a Bachelor of Commerce (Accounting) graduate of the University of Newcastle, SAP S/4HANA certified in Financial Accounting (FI) and Management Accounting (CO) and a Xero Certified Specialist, Level 3. He publishes open source Australian computational accounting software at github.com/ryanduguid, including 71 browser tax and business calculators (100% WebMCP), 12 maintained rate tables, 7,430 ATO depreciation effective lives (LI 2025/20), Ozzit (165 native Excel LAMBDA functions) and Aus Accounting MCP.
 
 Canonical machine index: https://duguid.com.au/llms.txt
 
@@ -16,7 +16,7 @@ The route list below gives the 5 starting routes on the homepage and Tools page,
 
 Every page names the primary source it is grounded in: Commonwealth legislation, ATO rulings and rate schedules, or the accounting standard. Calculation methods and rounding rules are documented with each tool. The browser business loan calculator uses fixed monthly rates and rounds each result to the nearest cent. Lender rounding and daily accrual can differ. Public fixtures and examples use fictional data. Calculation engines run locally. A cloud-backed AI host may send supplied arguments, tool results and library excerpts to its model provider; optional integrations have separate network boundaries. Human review remains mandatory before posting, payment, lodgement, approval or period lock. Figures are free to cite with attribution and should be verified against current guidance before anyone relies on them.
 
-Scope: this site is a personal index of accounting tools built in Ryan Duguid's own time and on his own equipment. Ryan Duguid is not a registered tax agent or BAS agent, nothing here is tax, legal or financial advice, and this site is not a practice and is not accepting professional engagements through this site. Project support is limited to software issues reproduced with fictional data.
+Scope: duguid.com.au is a personal index of accounting tools. Ryan Duguid is not a registered tax agent or BAS agent, nothing here is tax, legal or financial advice, and this site is not a practice and is not accepting professional engagements through this site. Project support is limited to software issues reproduced with fictional data. Do not send taxpayer information or client files, or request advice, return preparation, tax-treatment confirmation or lodgement.
 
 ## Choose a route
 
