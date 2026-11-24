@@ -89,9 +89,8 @@ function buildEvFacts(vehicleKind, ev) {
  * @param {string} source
  */
 function formatCarResult(r, ev, meta, dollars, source) {
-  const exempt = ev?.exempt === true;
-  const shown = (/** @type {number} */ amount) => dollars(exempt ? 0 : amount);
-  const evBlock = ev && {
+  const exempt = ev !== null && ev.exempt === true;
+  const evBlock = ev === null ? null : {
     exempt: ev.exempt,
     saleYear: ev.saleYear,
     fuelEfficientThreshold: ev.threshold === null ? null : dollars(ev.threshold),
@@ -108,9 +107,9 @@ function formatCarResult(r, ev, meta, dollars, source) {
     operatingTaxableValue: r.operating === null ? null : dollars(r.operating),
     statutoryLowerApplied: meta.operating && r.operating !== null && r.statutory < r.operating,
     taxableValueBeforeExemption: exempt ? dollars(r.taxableValue) : null,
-    taxableValue: shown(r.taxableValue),
-    grossedUpTaxableValue: shown(r.grossedUp),
-    fbt: shown(r.fbt),
+    taxableValue: dollars(exempt ? 0 : r.taxableValue),
+    grossedUpTaxableValue: dollars(exempt ? 0 : r.grossedUp),
+    fbt: dollars(exempt ? 0 : r.fbt),
     evExemption: evBlock,
     currency: 'AUD',
     source,

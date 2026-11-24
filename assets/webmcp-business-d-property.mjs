@@ -85,10 +85,11 @@ export function landTaxTool(kit, landTaxYear) {
       surchargeLandValue: whole(0, 1000000000, 'AU-NSW and AU-TAS only (when foreignOrAbsentee is true): land value the foreign surcharge applies to in whole AUD.'),
       perthMetropolitanRegion: { type: 'boolean', description: 'AU-WA only: true when all the land is in the Perth metropolitan region (adds 0.14% MRIT over $300,000); false when omitted.' },
     }, ['place', 'taxableLandValue']),
-    run({
-      place, taxableLandValue, rates = 'general', foreignOrAbsentee = false,
-      surchargeLandValue, perthMetropolitanRegion = false,
-    }) {
+    run(input) {
+      const {
+        place, taxableLandValue, rates = 'general', foreignOrAbsentee = false,
+        surchargeLandValue, perthMetropolitanRegion = false,
+      } = input;
       const placeData = LAND_TAX_PLACES.get(place);
       if (!placeData) throw new Error('Choose a state or territory.');
       const separate = foreignOrAbsentee && placeData.surchargeBase === 'separate';
