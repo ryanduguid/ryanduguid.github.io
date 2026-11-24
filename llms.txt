@@ -272,8 +272,8 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 - [llms-full-examples-1.txt](https://duguid.com.au/llms-full-examples-1.txt): Profit vs cash flow: an Australian Excel worked example
 - [llms-full-home-1.txt](https://duguid.com.au/llms-full-home-1.txt): Tools for Australian accountants
 - [llms-full-ozzit-1.txt](https://duguid.com.au/llms-full-ozzit-1.txt): Ozzit: Excel LAMBDA functions for Australian modelling; Ozzit Dates functions: Excel LAMBDA reference; Ozzit Essentials functions: Excel LAMBDA reference
-- [llms-full-ozzit-2.txt](https://duguid.com.au/llms-full-ozzit-2.txt): Ozzit Financial functions: Excel LAMBDA reference; Ozzit Ratios functions: Excel LAMBDA reference
-- [llms-full-ozzit-3.txt](https://duguid.com.au/llms-full-ozzit-3.txt): Ozzit Utilities functions: Excel LAMBDA reference; Ozzit Debt functions: Excel LAMBDA reference
+- [llms-full-ozzit-2.txt](https://duguid.com.au/llms-full-ozzit-2.txt): Ozzit Financial functions: Excel LAMBDA reference
+- [llms-full-ozzit-3.txt](https://duguid.com.au/llms-full-ozzit-3.txt): Ozzit Ratios functions: Excel LAMBDA reference; Ozzit Utilities functions: Excel LAMBDA reference; Ozzit Debt functions: Excel LAMBDA reference
 - [llms-full-privacy-1.txt](https://duguid.com.au/llms-full-privacy-1.txt): Privacy and site use
 - [llms-full-questions-1.txt](https://duguid.com.au/llms-full-questions-1.txt): 100 Australian accounting questions; Tax returns: 10 Australian accounting questions; Deductions: 10 Australian accounting questions; Starting a business: 10 Australian accounting questions; GST and BAS: 10 Australian accounting questions
 - [llms-full-questions-2.txt](https://duguid.com.au/llms-full-questions-2.txt): Payroll and super: 10 Australian accounting questions; Bookkeeping and close: 10 Australian accounting questions; Cash flow: 10 Australian accounting questions; Management reporting: 10 Australian accounting questions; Companies and trusts: 10 Australian accounting questions; Investments and NSW: 10 Australian accounting questions
