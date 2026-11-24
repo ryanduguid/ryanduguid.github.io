@@ -22,6 +22,18 @@ Boundary
 
 READY means ready for human review, not approved or signed off.
 
+Get review-ready-gate Inspect the fictional BAS pack
+
+## Gate a corrected BAS pack
+
+```
+review-ready gate --profile bas --pack examples/bas-ready --output ../../../review-ready-demo/bas-ready
+```
+
+Overall status: READY (0 findings)
+
+Incomplete BAS fixture returns NOT_READY with 3 findings in v0.1.3. Inspect both fictional packs.
+
 A missing GST control export, an unsigned self-review or a trial balance that does not balance never reaches the manager.
 
 ## Inspect a fictional BAS pack
@@ -105,6 +117,8 @@ No. It reads local files and writes a readiness pack. It cannot post, pay, lodge
 - v1.0.1: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.0.1
 - accounting-review-pipeline: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.1/packages/review-ready-gate/LICENSE
+- Get review-ready-gate: https://duguid.com.au/tools/workpaper-review-gate/#get-it
+- Inspect the fictional BAS pack: https://duguid.com.au/tools/workpaper-review-gate/#worked-example
 - Download the generated findings.csv: https://duguid.com.au/assets/examples/review-gate/findings.csv
 - incomplete input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-not-ready
 - corrected input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-ready

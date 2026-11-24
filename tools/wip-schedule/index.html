@@ -49,21 +49,33 @@ tool: wip-schedule
 {% include site-header.html %}
   <main id="main" class="site-main">
     <article class="article">
-      <header class="article-header site-shell">
-    <nav class="article-crumb" aria-label="Breadcrumb">
-      <ol>
-        <li><a href="/">Home</a></li>
-        <li><a href="/tools/">Tools</a></li>
-        <li aria-current="page">Construction WIP schedule</li>
-      </ol>
-    </nav>
-    <h1>{{ tool.name }}</h1>
-    <p class="lead-note">TheWIPTally reads one row per unit of account and produces a cost-to-cost
+      <header class="article-header article-header--preview site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li aria-current="page">Construction WIP schedule</li>
+          </ol>
+        </nav>
+        <div class="article-intro">
+          <h1>{{ tool.name }}</h1>
+          <p class="lead-note">TheWIPTally reads one row per unit of account and produces a cost-to-cost
       work-in-progress schedule: earned revenue after AASB 15 para B19
       exclusions, constrained unapproved variations, and a contract asset or
       contract liability per job.</p>
     {% include tool-meta.html published="25 August 2026" reviewed="23 November 2026" %}
 {% include tool-facts.html %}
+          <div class="article-actions">
+            <a class="button" href="#get-it">Install the-wip-tally</a>
+            <a href="#worked-example">Read the worked example</a>
+          </div>
+        </div>
+        <section class="article-preview" aria-labelledby="wip-preview-title">
+          <h2 id="wip-preview-title">Cost-to-cost underbilling check</h2>
+          <pre class="copyable" tabindex="0" role="region" aria-label="Cost-to-cost underbilling example test"><code>uv run --locked --extra dev --python 3.12 pytest -q tests/test_schedule.py::test_clean_cost_to_cost_underbilling</code></pre>
+          <p class="preview-result"><strong>$50,000 contract asset</strong> at 50% complete</p>
+          <p>Revenue to date ($500,000) less $450,000 certified billings in v0.1.2. <a href="#worked-example">Read the fictional inputs and setup steps</a>.</p>
+        </section>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">

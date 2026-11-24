@@ -1,7 +1,8 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: Apache-2.0
 
-import { CENTS_PER_KILOMETRE, HOME_OFFICE_RATES, workExpenses } from './work-expenses.mjs';
+import { CENTS_PER_KILOMETRE, HOME_OFFICE_RATES, WORK_EXPENSES_YEARS, workExpenses } from './work-expenses.mjs';
+export { workExpenses, WORK_EXPENSES_YEARS as workExpensesYears };
 
 const METHOD_NAMES = /** @type {Record<string, string>} */ ({
   home_office: 'Working from home', car_cents_per_kilometre: 'Car, cents per kilometre', car_log_book: 'Car, log book',

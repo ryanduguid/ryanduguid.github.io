@@ -1,14 +1,14 @@
-# Safes (portable) effective life: 40 years, Safes
+# Safes (portable) effective life: 40 years
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/banking-building-society-and-credit/safes/
 
-> Safes: Safes (portable): effective life 40 years, prime cost 2.50%, diminishing value 5.00%, last updated 1 July 2019 (Table A, 2025 determination).
+> Safes (portable): effective life 40 years, prime cost 2.50%, diminishing value 5.00%, last updated 1 July 2019 (Table A, 2025 determination).
 
-# Safes: Safes (portable)
+# Safes (portable)
 
-‘Safes: Safes (portable)’, for an asset used in Banking, building society and credit union operations, has an effective life of 40 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2019.
+‘Safes (portable)’, for an asset used in Banking, building society and credit union operations, has an effective life of 40 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2019.
 
-Published 14 November 2026. Page updated 21 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
