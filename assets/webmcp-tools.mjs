@@ -2,6 +2,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { POSITIVE_FRACTION } from './money.mjs';
+import { businessCohortATools } from './webmcp-business-a.mjs';
+import { businessCohortBTools } from './webmcp-business-b.mjs';
+import {
+  concessionalCatchUpTool, fhssTool, governmentSuperTool, lumpSumArrearsTool, studyLoanTool, workExpensesTool,
+} from './webmcp-individual-more.mjs';
 
 // WebMCP tool descriptors for the site's calculators. Each tool calls the same module
 // function as its page's form, reads nothing from the form and sends nothing anywhere.
@@ -24,6 +29,8 @@ const PATTERNS = {
   share: /^(?:0(?:\.\d{1,12})?|1(?:\.0{1,12})?)$/,
   quantity: /^\d{1,12}(?:\.\d{1,4})?$/,
   consumption: /^\d{1,3}(?:\.\d{1,6})?$/,
+  incomeYear: /^\d{4}-\d{2}$/,
+  signedCost: /^-?\d{1,10}$|^-?\d{1,10}\.\d{1,2}$/,
 };
 
 /**
@@ -530,8 +537,14 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
 /** Tools keyed by the `data-calculator` name of the form whose page registers them.
  * @param {Pick<typeof import('./business-calculators.mjs'), 'gst' | 'div7aMinimumRepayment' | 'financeSchedule' | 'interestByIncomeYear'
  *   | 'lease' | 'breakEven' | 'companyTax' | 'foreignSurcharge' | 'firbApplicationFee' | 'longServiceLeave'
- *   | 'fuelTaxCredits' | 'borrowingSchedule'
- *   | 'BORROWING_YEARS'>} calculate */
+ *   | 'fuelTaxCredits' | 'borrowingSchedule' | 'BORROWING_YEARS'
+ *   | 'asicFee' | 'ASIC_FEES' | 'atoPenaltiesInterest' | 'ATO_PENALTY_YEARS' | 'businessUse' | 'fixedFee'
+ *   | 'frankingAccount' | 'FRANKING_EVENTS' | 'gicPaymentPlan' | 'gstMarginScheme' | 'hourlyRate'
+ *   | 'luxuryCarTax' | 'LCT_YEARS' | 'LCT_THRESHOLDS' | 'margin' | 'objectionDeadline' | 'variance'
+ *   | 'vehicleClass' | 'wineEqualisationTax' | 'WET_YEARS'
+ *   | 'cashForecast' | 'cashWeekDates' | 'lowValuePool' | 'smallBusinessPool' | 'capitalWorks' | 'POOL_YEARS'
+ *   | 'div7aSchedule' | 'firstHomeOwnerGrant' | 'firstHomeDuty' | 'FHOG' | 'FHOG_FIRST' | 'FHOG_LAST' | 'FHOG_HOMES'
+ *   | 'paygInstalment' | 'payrollTax' | 'salaryDividend' | 'paydaySuperCharge' | 'quarterlySgCharge' | 'staffCost'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -545,6 +558,8 @@ export function calculatorTools(calculate) {
     'long-service-leave': longServiceLeaveTool(calculate.longServiceLeave),
     'fuel-tax-credits': fuelTaxCreditsTool(calculate.fuelTaxCredits),
     'borrowing-expenses': borrowingTool(calculate.borrowingSchedule, calculate.BORROWING_YEARS),
+    ...businessCohortATools(TOOL_KIT, calculate),
+    ...businessCohortBTools(TOOL_KIT, calculate),
   };
 }
 
@@ -897,34 +912,74 @@ const NOVATED_LEASE_DESCRIPTION = 'A novated car lease in AUD for one year again
   + `or other income. Sources on ${INDIVIDUAL}novated-lease/.`;
 
 /**
- * WebMCP descriptors for the income tax estimate, take-home pay, sole trader set-aside, Division 293, income
- * tests, bonus withholding, salary packaging, novated lease and super projection calculators, keyed by the
- * `data-calculator` name of the form whose page registers them.
+ * Shared schema and formatting helpers passed to cohort WebMCP tool modules.
+ * @typedef {{
+ *   text: typeof text, choice: typeof choice, whole: typeof whole, record: typeof record,
+ *   tool: typeof tool, dollars: typeof dollars, dollarsOnly: typeof dollarsOnly,
+ *   centsText: typeof centsText, CALCULATORS: string, INDIVIDUAL: string, INCOME_TEST_INPUTS: typeof INCOME_TEST_INPUTS
+ * }} ToolKit
+ */
+const TOOL_KIT = { text, choice, whole, record, tool, dollars, dollarsOnly, centsText, CALCULATORS, INDIVIDUAL, INCOME_TEST_INPUTS };
+
+/**
+ * WebMCP descriptors for the 12 individual tax calculators wired through assets/individual-tax-results.mjs,
+ * keyed by the `data-calculator` name of the form whose page registers them.
  * @param {{taxEstimate: typeof import('./tax-estimate.mjs').taxEstimate,
  *   takeHomePay: typeof import('./take-home-pay.mjs').takeHomePay,
+ *   studyLoanRepayment: typeof import('./study-loan.mjs').studyLoanRepayment, studyLoanYears: string[],
  *   soleTraderSetAside: typeof import('./sole-trader.mjs').soleTraderSetAside,
+ *   lumpSumArrears: typeof import('./lump-sum-arrears.mjs').lumpSumArrears, receiptYears: string[],
  *   division293Tax: typeof import('./division-293.mjs').division293Tax,
- *   incomeTests: typeof import('./income-tests.mjs').incomeTests, incomeYears: string[], payYears: string[],
- *   soleTraderYears: string[], division293Years: string[],
+ *   incomeTests: typeof import('./income-tests.mjs').incomeTests,
+ *   concessionalCatchUp: typeof import('./concessional-catch-up.mjs').concessionalCatchUp, catchUpYears: string[],
+ *   incomeYears: string[], payYears: string[], soleTraderYears: string[], division293Years: string[],
  *   bonusWithholding: typeof import('./bonus-withholding.mjs').bonusWithholding,
  *   salaryPackaging: typeof import('./salary-packaging.mjs').salaryPackaging,
  *   novatedLease: typeof import('./novated-lease.mjs').novatedLease, packagingYears: string[],
  *   novatedYears: string[], superProjection: typeof import('./super-projection.mjs').superProjection}} engines
  */
-export function individualTaxTools({ taxEstimate, takeHomePay, soleTraderSetAside, division293Tax, incomeTests, incomeYears,
+export function individualTaxTools({ taxEstimate, takeHomePay, studyLoanRepayment, studyLoanYears, soleTraderSetAside,
+  lumpSumArrears, receiptYears, division293Tax, incomeTests, concessionalCatchUp, catchUpYears, incomeYears,
   payYears, soleTraderYears, division293Years, bonusWithholding, salaryPackaging, novatedLease, packagingYears,
   novatedYears, superProjection }) {
   return {
     'income-tests': incomeTestsTool(incomeTests),
     'income-tax': incomeTaxTool(taxEstimate, incomeYears),
     'take-home-pay': takeHomePayTool(takeHomePay, payYears),
+    'study-loan': studyLoanTool(TOOL_KIT, studyLoanRepayment, studyLoanYears),
     'super-projection': superProjectionTool(superProjection),
     'sole-trader': soleTraderTool(soleTraderSetAside, soleTraderYears),
+    'lump-sum-arrears': lumpSumArrearsTool(TOOL_KIT, lumpSumArrears, receiptYears),
     'division-293': division293Tool({ division293Tax, division293Years }),
+    'concessional-catch-up': concessionalCatchUpTool(TOOL_KIT, concessionalCatchUp, catchUpYears),
     'bonus-withholding': bonusWithholdingTool(bonusWithholding),
     'salary-packaging': salaryPackagingTool(salaryPackaging, packagingYears),
     'novated-lease': novatedLeaseTool(novatedLease, novatedYears),
   };
+}
+
+/**
+ * WebMCP descriptor for the first home super saver calculator.
+ * @param {{fhss: typeof import('./fhss.mjs').fhss}} engine
+ */
+export function fhssTools({ fhss }) {
+  return { fhss: fhssTool(TOOL_KIT, fhss) };
+}
+
+/**
+ * WebMCP descriptor for the work expenses calculator.
+ * @param {{workExpenses: typeof import('./work-expenses.mjs').workExpenses, workExpensesYears: string[]}} engine
+ */
+export function workExpensesTools({ workExpenses, workExpensesYears }) {
+  return { 'work-expenses': workExpensesTool(TOOL_KIT, workExpenses, workExpensesYears) };
+}
+
+/**
+ * WebMCP descriptor for the government super amounts calculator.
+ * @param {{governmentSuperAmounts: typeof import('./government-super.mjs').governmentSuperAmounts, governmentSuperYears: string[]}} engine
+ */
+export function governmentSuperTools({ governmentSuperAmounts, governmentSuperYears }) {
+  return { 'government-super': governmentSuperTool(TOOL_KIT, governmentSuperAmounts, governmentSuperYears) };
 }
 
 /** The WebMCP descriptor for the income tax estimate.

@@ -22,6 +22,19 @@ Boundary
 
 Requires human review of contracts, classifications and source records.
 
+Get the skill pack Repeat the evaluation
+
+## Subcontractor skill pack scope
+
+```
+australian-accounting-skills v0.7.0
+contractor-super-tpar · wip-over-under-billing
+```
+
+10 workflows in the 107-skill pack
+
+Human-confirmed verdicts cover 95 of 235 validation cards in v0.7.0. Repeat the evaluation procedure.
+
 The subcontract ledger workflows are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first.
 
 Each skill encodes the workflow: the steps, the tie-outs and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
@@ -84,6 +97,8 @@ Not as working figures. Each skill encodes the workflow, the tie-outs and the ex
 - v0.7.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.7.0
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills/tree/main
 - Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.7.0/LICENSE
+- Get the skill pack: https://duguid.com.au/tools/subcontractor-ledgers/#get-it
+- Repeat the evaluation: https://duguid.com.au/tools/subcontractor-ledgers/#reproduce
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
 - evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
 - Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install

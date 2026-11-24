@@ -22,6 +22,18 @@ Boundary
 
 Human review required. Optional local library excerpts enter the assistant’s context; Division 7A scope stays limited.
 
+Adopt Aus Accounting MCP Try 2 tool calls
+
+## Run the pinned MCP demo
+
+```
+uvx --from aus-accounting-mcp==0.2.8 aus-accounting-mcp-demo
+```
+
+Exit 0 JSON transcript of 2 local tool calls
+
+Runs the pinned v0.2.8 demonstration with fictional facts and no credentials. Inspect the demo output and caveats.
+
 The server runs on your machine and lodges nothing. Outputs need human review.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup or an accounting workflow. Ryan Duguid, a senior accountant in Newcastle, NSW, publishes the local engines and the MCP server that runs them. Aus Accounting MCP is a separate project from ato-mcp, the document-retrieval service compared below. The server ships no ATO document library and does not retrieve rulings from the web.
@@ -226,7 +238,8 @@ Yes. The listing name is io.github.ryanduguid/aus-accounting. The install comman
 - v0.11.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.11.0
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.11.0/apps/aus-accounting-mcp/LICENSE
-- current release: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Adopt Aus Accounting MCP: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Try 2 tool calls: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
 - current README: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp/README.md
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
@@ -250,7 +263,6 @@ Yes. The listing name is io.github.ryanduguid/aus-accounting. The install comman
 - browser calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - reproducible evaluation: https://duguid.com.au/evaluate/
 - Apache License 2.0: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.4.0/LICENSE
-- Try two tool calls: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
 - v0.7.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.7.0
 - PyPI: https://pypi.org/project/aus-accounting-mcp/
 - registry record: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest
