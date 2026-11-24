@@ -6366,37 +6366,41 @@ test('the first home owner grant does not test a Victorian home built against $7
 test('the first home owner grant pays a home built its contract price when that is below the grant', () => {
   const priced = (place, price, change = {}) => fhogResult({ jurisdiction: place, home: 'built', value: '400000', 'contract-price': String(price),
     'fact-contract': false, ...change }).rows[0][1];
+  const paid = (place, price, expected, change = {}) => {
+    assert.doesNotThrow(() => priced(place, price, change), `${place} ${price}`);
+    assert.equal(priced(place, price, change), expected, `${place} ${price}`);
+  };
   const lesser = (n) => `$${n.toLocaleString('en-AU')}.00: the grant cannot be more than the consideration`;
   const paying = [['AU-QLD', 30000], ['AU-VIC', 10000], ['AU-WA', 10000], ['AU-SA', 15000], ['AU-TAS', 20000], ['AU-NT', 50000]];
   for (const [place, amount] of paying) {
-    assert.equal(priced(place, 1), lesser(1), place);
-    assert.equal(priced(place, amount - 1), lesser(amount - 1), place);
-    assert.equal(priced(place, amount), `$${amount.toLocaleString('en-AU')}.00`, place);
-    assert.equal(priced(place, amount + 1), `$${amount.toLocaleString('en-AU')}.00`, place);
+    paid(place, 1, lesser(1));
+    paid(place, amount - 1, lesser(amount - 1));
+    paid(place, amount, `$${amount.toLocaleString('en-AU')}.00`);
+    paid(place, amount + 1, `$${amount.toLocaleString('en-AU')}.00`);
   }
-  assert.equal(priced('AU-TAS', 29999, { date: '2026-06-01' }), lesser(29999));
-  assert.equal(priced('AU-ACT', 5000), '$0.00: the Australian Capital Territory has paid none since 1 July 2019');
+  paid('AU-TAS', 29999, lesser(29999), { date: '2026-06-01' });
+  paid('AU-ACT', 5000, '$0.00: the Australian Capital Territory has paid none since 1 July 2019');
   assert.throws(() => priced('AU-NSW', 9999), /a value below the \$10,000 grant; the New South Wales rule for that case was not confirmed/);
-  assert.equal(priced('AU-NSW', 10000), '$10,000.00');
+  paid('AU-NSW', 10000, '$10,000.00');
   // Vic s 13(1A): the cap tests the contract price, so $900,000 of land and building is computed with it.
-  assert.equal(priced('AU-VIC', 750000, { value: '900000' }), '$10,000.00');
-  assert.equal(priced('AU-VIC', 750001, { value: '900000' }), '$0.00: the value is over the Victoria cap');
+  paid('AU-VIC', 750000, '$10,000.00', { value: '900000' });
+  paid('AU-VIC', 750001, '$0.00: the value is over the Victoria cap', { value: '900000' });
   // The land and contract total still meets the NSW, Qld and WA caps.
-  assert.equal(priced('AU-NSW', 400000, { value: '750001' }), '$0.00: the value is over the New South Wales cap');
-  assert.equal(priced('AU-QLD', 20000, { value: '750000' }), '$0.00: the value is $750,000 or more');
-  assert.equal(priced('AU-WA', 5000, { value: '800001' }), '$0.00: the value is over the Western Australia cap');
+  paid('AU-NSW', 400000, '$0.00: the value is over the New South Wales cap', { value: '750001' });
+  paid('AU-QLD', 20000, '$0.00: the value is $750,000 or more', { value: '750000' });
+  paid('AU-WA', 5000, '$0.00: the value is over the Western Australia cap', { value: '800001' });
   assert.match(fhogResult({ home: 'built', 'contract-price': '300000' }).inputs, /building contract price \$300,000\.00, /);
   assert.throws(() => priced('AU-SA', 400001), /cannot be more than the total value, which includes it/);
   assert.throws(() => priced('AU-SA', 5000, { home: 'bought' }), /taken only for a home built/);
   assert.throws(() => priced('AU-SA', 5000, { 'fact-contract': true }), /below the \$15,000 grant, so it is not at least the grant as stated/);
-  assert.equal(priced('AU-SA', 15000, { 'fact-contract': true }), '$15,000.00');
+  paid('AU-SA', 15000, '$15,000.00', { 'fact-contract': true });
   // Review S2: the value the Qld and WA caps test includes the contract price, so it cannot be lower.
   assert.throws(() => priced('AU-QLD', 750000, { value: '900000', 'cap-value': '749999' }), /more than the value the cap tests, which includes it/);
   assert.throws(() => priced('AU-WA', 800001, { value: '900000', 'cap-value': '800000' }), /more than the value the cap tests, which includes it/);
   // Review S1: the Northern Territory pays on the amount actually paid, and the field says so.
   assert.match(fhogHtml, /home built only; in the Northern Territory, the amount of it actually paid\)<input id="first-home-owner-grant-contract-price"/);
   // Review I1: a total that is all contract price, and the same total without the price.
-  assert.equal(priced('AU-SA', 5000, { value: '5000' }), lesser(5000));
+  paid('AU-SA', 5000, lesser(5000), { value: '5000' });
   assert.throws(() => fhogResult({ jurisdiction: 'AU-SA', home: 'built', value: '5000' }), /cannot hold a building contract price of at least the grant/);
   assert.throws(() => priced('AU-SA', '5000.50'), { message: 'Enter a whole number between 1 and 1000000000.' });
   assert.match(fhogHtml, /<input id="first-home-owner-grant-contract-price" name="contract-price" type="number"[^>]* min="1" max="1000000000" step="1"/);
