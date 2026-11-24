@@ -40,7 +40,7 @@ export const FOREIGN_SURCHARGES = {
   'AU-NSW': { name: 'New South Wales', duty: '9', land: '0,0,5,0,excess', landOn: 'residential' },
   'AU-VIC': { name: 'Victoria', duty: '8', land: '0,0,0,0,excess;50000,0,4,0,excess',
     trustLand: '0,0,0,0,excess;25000,0,4,0,excess', landOn: 'all' },
-  'AU-QLD': { name: 'Queensland', duty: '8', land: '0,0,0,0,excess;350000,0,3,350000,excess', landOn: 'all' },
+  'AU-QLD': { name: 'Queensland', duty: '8', land: '0,0,0,0,excess;350000,0,3,349999,excess', landOn: 'all' },
   'AU-WA': { name: 'Western Australia', duty: '7' },
   'AU-SA': { name: 'South Australia', duty: '7' },
   'AU-TAS': { name: 'Tasmania', duty: '8', primary: '1.5', land: '0,0,2,0,excess', landOn: 'residential' },

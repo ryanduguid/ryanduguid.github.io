@@ -2883,16 +2883,18 @@ test('land tax radios carry a scale for each of the 7 jurisdictions that levy la
   assert.deepEqual(holding('trustScale'), ['AU-NSW', 'AU-VIC', 'AU-QLD', 'AU-SA']);
   assert.deepEqual(holding('absenteeScale'), ['AU-QLD']);
   assert.deepEqual(holding('surcharge'), ['AU-NSW', 'AU-VIC', 'AU-QLD', 'AU-TAS', 'AU-ACT']);
-  assert.deepEqual(holding('trustSurcharge'), ['AU-VIC']);
+  assert.deepEqual(holding('absenteeTrust'), ['AU-VIC']);
+  assert.deepEqual(holding('payable'), ['AU-SA', 'AU-TAS']);
   assert.deepEqual(holding('surchargeBase'), ['AU-NSW', 'AU-TAS']);
   assert.deepEqual(holding('mrit'), ['AU-WA']);
   assert.deepEqual(landTaxRadios.flatMap(({ data }) => Object.keys(data)).filter((key, index, keys) => keys.indexOf(key) === index).sort(),
-    ['absenteeScale', 'fixed', 'mrit', 'name', 'scale', 'surcharge', 'surchargeBase', 'trustScale', 'trustSurcharge']);
+    ['absenteeScale', 'absenteeTrust', 'fixed', 'mrit', 'name', 'payable', 'scale', 'surcharge', 'surchargeBase', 'trustScale']);
   assert.equal(landTaxPlaces['AU-ACT'].data.fixed, '1778');
   assert.match(landTaxHtml, /The Northern Territory has no land tax\./);
-  // Each scale's land tax year, and RevenueSA's $20 rule, are stated on the page.
+  // Each scale's land tax year, SA's s 6 rule and Tas's s 7 rounding are stated on the page.
   assert.match(landTaxHtml, /the 2026 calendar year in New South Wales and Victoria, and the 2026-27 financial year in Queensland, Western Australia, South Australia, Tasmania and the Australian Capital Territory\./);
-  assert.match(landTaxHtml, /RevenueSA issues no assessment where the calculated land tax is under \$20/);
+  assert.match(landTaxHtml, /under section 6 of the Land Tax Act 1936 \(SA\) no land tax is payable where the calculated amount is under \$20/);
+  assert.match(landTaxHtml, /section 7 of the Land Tax Rating Act 2000 \(Tas\)/);
   // The indexes describe what the page computes: trust rates and surcharges, not only the general scale.
   for (const index of ['../llms.txt', '../.well-known/llms.txt', '../tools/business-calculators/index.html']) {
     const entry = readFileSync(new URL(index, import.meta.url), 'utf8').split('\n').find((line) => line.includes('/land-tax/'));
@@ -2914,20 +2916,30 @@ test('land tax applies trust rates, surcharges and MRIT from their first value a
     // Victorian trust surcharge rates: $82 from $25,000, and 1.1072% of $1,199,999 is 13,286.388928 dollars.
     ['24999', 'AU-VIC', { trust: true }, [0, 0, 0, 0]], ['25000', 'AU-VIC', { trust: true }, [82, 0, 0, 82]],
     ['2999999', 'AU-VIC', { trust: true }, [31649.39, 0, 0, 31649.39]],
-    // Victorian absentee owner surcharge: 4% of the whole value from $50,000, or from $25,000 at trust rates.
+    // Victorian absentee owner surcharge: 4% of the whole value from $50,000 at general rates; absentee trusts are refused under s 46IA.
     ['49999', 'AU-VIC', { foreign: true }, [0, 0, 0, 0]], ['50000', 'AU-VIC', { foreign: true }, [500, 2000, 0, 2500]],
-    ['25000', 'AU-VIC', { trust: true, foreign: true }, [82, 1000, 0, 1082]],
-    // Queensland: the absentee rates and 3% over $350,000; a foreign company or trustee pays the company rates.
-    ['350000', 'AU-QLD', { foreign: true }, [1450, 0, 0, 1450]],
-    ['10000000', 'AU-QLD', { foreign: true }, [175000, 289500, 0, 464500]],
-    ['10000000', 'AU-QLD', { trust: true, foreign: true }, [187500, 289500, 0, 477000]],
+    // Queensland: the absentee rates and 3.0c per $1 over $349,999 (Land Tax Act 2010 Schs 2 and 3); a foreign company or trustee pays the company rates.
+    ['349999', 'AU-QLD', { foreign: true }, [0, 0, 0, 0]],
+    ['350000', 'AU-QLD', { foreign: true }, [1450, 0.03, 0, 1450.03]],
+    ['10000000', 'AU-QLD', { foreign: true }, [175000, 289500.03, 0, 464500.03]],
+    ['10000000', 'AU-QLD', { trust: true, foreign: true }, [187500, 289500.03, 0, 477000.03]],
     // WA MRIT: nil to $300,000, then 0.14 cents a dollar, so $4 over is 0.56 cents, which rounds to 1 cent.
     ['300000', 'AU-WA', { metro: true }, [0, 0, 0, 0]], ['300004', 'AU-WA', { metro: true }, [300, 0, 0.01, 300.01]],
     // South Australian trust rates: $125 plus 50 cents for each $100 or part over $25,000.
     ['25000', 'AU-SA', { trust: true }, [0, 0, 0, 0]], ['25001', 'AU-SA', { trust: true }, [125.5, 0, 0, 125.5]],
     ['936001', 'AU-SA', { trust: true }, [4681, 0, 0, 4681]],
-    // Tasmania: 2% of the surcharge value, whatever the land tax value.
+    // Tasmania: 2% of the surcharge value, rounded to 10 cents (s 7), up to the taxable land value.
     ['600000', 'AU-TAS', { foreign: true, surchargeValue: '0' }, [3237.5, 0, 0, 3237.5]],
+    ['125011', 'AU-TAS', {}, [50, 0, 0, 50]],
+    ['125012', 'AU-TAS', {}, [50.1, 0, 0, 50.1]],
+    ['125100', 'AU-TAS', {}, [50.4, 0, 0, 50.4]],
+    ['500003', 'AU-TAS', {}, [1737.5, 0, 0, 1737.5]],
+    ['500004', 'AU-TAS', {}, [1737.6, 0, 0, 1737.6]],
+    ['400000', 'AU-TAS', { foreign: true, surchargeValue: '400000' }, [1287.5, 8000, 0, 9287.5]],
+    // South Australia s 6: calculated land tax under $20 is nil; $20.00 is payable.
+    ['936001', 'AU-SA', {}, [0, 0, 0, 0]],
+    ['939900', 'AU-SA', {}, [0, 0, 0, 0]],
+    ['939901', 'AU-SA', {}, [20, 0, 0, 20]],
     // The ACT: 0.75% of $1 is 0.75 cents, so 1 cent.
     ['1', 'AU-ACT', { foreign: true }, [1778.01, 0.01, 0, 1778.02]],
   ]) {
@@ -2940,10 +2952,16 @@ test('land tax applies trust rates, surcharges and MRIT from their first value a
     ['AU-WA', { foreign: true }, 'This calculator has no foreign or absentee owner rates for Western Australia.'],
     ['AU-NSW', { metro: true }, 'The metropolitan region improvement tax applies only in Western Australia.'],
     ['AU-NSW', { foreign: true }, 'Enter the surcharge value as a whole number between 0 and 1000000000.'],
+    ['AU-VIC', { trust: true, foreign: true }, 'A Victorian absentee trust’s surcharge turns on its absentee beneficiaries’ interests (section 46IA of the Land Tax Act 2005 (Vic)), which this calculator does not take.'],
     ['AU-TAS', { foreign: true, surchargeValue: '1.5' }, 'Enter the surcharge value as a whole number between 0 and 1000000000.'],
+    ['AU-TAS', { foreign: true, surchargeValue: '1000001' }, 'Surcharge value cannot exceed the taxable land value in Tasmania: the foreign investor land tax applies to residential general land, part of the owner’s taxable land.'],
   ]) {
     assert.throws(() => year('1000000', place, choices), { message }, `${place} ${JSON.stringify(choices)}`);
   }
+  assert.throws(() => year('125008', 'AU-TAS', { foreign: true, surchargeValue: '2' }),
+    { message: 'Rounding the land tax and the foreign investor land tax to 10 cents each gives a different total from rounding their sum; which section 7 of the Land Tax Rating Act 2000 (Tas) requires is unsettled.' });
+  assert.throws(() => calculations.landTaxYear('1000000', { ...landTaxPlaces['AU-NSW'].data, payable: 'unknown' }),
+    { message: 'This jurisdiction’s rate table is not usable.' });
 });
 
 // Worked by hand from the scales read on 16 November 2026: a band applies from its first value.
@@ -3349,7 +3367,12 @@ test('company tax refuses an unanswered question and figures it cannot work', ()
 test('each foreign owner land tax surcharge scale is the land tax calculator’s', () => {
   for (const [code, law] of Object.entries(FOREIGN_SURCHARGES)) {
     assert.equal(law.land, landTaxPlaces[code]?.data.surcharge, code);
-    assert.equal(law.trustLand, landTaxPlaces[code]?.data.trustSurcharge, code);
+    if (code === 'AU-VIC') {
+      assert.equal(law.trustLand, '0,0,0,0,excess;25000,0,4,0,excess');
+      assert.equal(landTaxPlaces[code]?.data.absenteeTrust, 'unsupported');
+    } else {
+      assert.equal(law.trustLand, undefined, code);
+    }
     assert.equal(law.name, PLACES[code]);
   }
 });
@@ -3401,7 +3424,7 @@ test('each jurisdiction tests an individual, a company and a super fund its own 
   assert.equal(surcharge({ type: 'trust', largest: '100', combined: '100', absentee: '25' }, 'AU-VIC').land, 10000);
   // Queensland's land tax surcharge on an individual is the absentee test, on 30 June.
   assert.equal(surcharge({ absent: false }, 'AU-QLD').land, 0);
-  assert.equal(surcharge({ absent: true }, 'AU-QLD').land, 19500);
+  assert.equal(surcharge({ absent: true }, 'AU-QLD').land, 19500.03);
   assert.equal(surcharge({ absent: true, resides: true }, 'AU-QLD').land, 0);
   // A company: 50% or more in Queensland, more than 50% in Victoria, 20% for one person in NSW.
   const company = (combined, largest = combined) => ({ type: 'company', largest, combined });
@@ -5971,6 +5994,12 @@ test('the ASIC fees table and the form state the engine’s amounts and codes', 
   assert.deepEqual(late.map(([, code, amount]) => [code, amount]), [['LPF1_ETM', 102], ['LPF2_ETM', 428], ['LPF1_ETM', 102], ['LPF2_ETM', 428]]);
   assert.deepEqual(calculations.ASIC_LATE_FEES, { within: 102, beyond: 428 });
   assert.equal(table.length, fixed.length + late.length);
+  // Corporations (Fees) Regulations 2001 (Compilation No. 41) Sch 2 item 1(a) covers company registration I01/I02.
+  assert.equal(calculations.ASIC_FEES['company-share-capital'].item, 'Corporations (Fees) Regulations 2001, Schedule 2 item 1(a)(i)');
+  assert.equal(calculations.ASIC_FEES['company-no-share-capital'].item, 'Corporations (Fees) Regulations 2001, Schedule 2 item 1(a)(ii)');
+  assert.match(asicHtml, /Corporations \(Fees\) Regulations 2001, Schedule 2 item 1\(a\)\(i\)/);
+  assert.match(asicHtml, /Schedule 2 item 1\(a\)\(ii\)/);
+  assert.doesNotMatch(asicHtml, /Schedule 1 item 1\(a\)/);
 });
 
 test('ASIC late fees count the month from the day after the due date, for every due date in 2026-27', () => {
