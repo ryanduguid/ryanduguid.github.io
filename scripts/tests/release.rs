@@ -6,7 +6,7 @@
 //! stubbed sources.
 mod common;
 
-use common::{assert_clean, copied_site, expect_failure, rendered, replace_file, root};
+use common::{SavedFile, assert_clean, copied_site, expect_failure, rendered, replace_file, root};
 use site_tools::pyformat::format_value;
 use site_tools::pyjson::{self, Json};
 use site_tools::release_record::{
@@ -136,68 +136,78 @@ fn release_claims() {
         .unwrap()
         .py_str();
 
-    // A lag must name the difference; the same lag without that sentence fails.
+    // Share one private copy across all sequential mutations in this test, restoring
+    // each mutated file on scope exit.
     let site = copied_site();
-    let mut lagging = record.clone();
-    *at(
-        &mut lagging,
-        &["components", "aus-accounting-mcp", "published", "version"],
-    ) = s("9.9.9");
-    replace_file(
-        site.path(),
-        MCP_REL,
-        "<p class=\"page-meta\">",
-        "<p>A different component has current published release 9.9.9.</p>\n<p class=\"page-meta\">",
-    );
-    expect_failure(
-        "unlabelled release lag",
-        &check(site.path(), &lagging),
-        "without naming the difference",
-    );
 
-    let site = copied_site();
-    let mut lagging = record.clone();
-    *at(
-        &mut lagging,
-        &["components", "aus-accounting-mcp", "published", "version"],
-    ) = s("9.9.9");
-    *at(
-        &mut lagging,
-        &[
-            "components",
-            "aus-accounting-mcp",
-            "published",
-            "release_url",
-        ],
-    ) = s(
-        "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v9.9.9",
-    );
-    replace_file(
-        site.path(),
-        MCP_REL,
-        "<p class=\"page-meta\">",
-        "<p>Release 9.9.9 is the current published release; this page still documents 0.9.0.</p>\n    <p class=\"page-meta\">",
-    );
-    let failures = check(site.path(), &lagging);
-    assert!(
-        !failures
-            .iter()
-            .any(|f| f.contains("without naming the difference")),
-        "a labelled lag must pass: {failures:?}"
-    );
+    // A lag must name the difference; the same lag without that sentence fails.
+    {
+        let _saved = SavedFile::capture(site.path(), MCP_REL);
+        let mut lagging = record.clone();
+        *at(
+            &mut lagging,
+            &["components", "aus-accounting-mcp", "published", "version"],
+        ) = s("9.9.9");
+        replace_file(
+            site.path(),
+            MCP_REL,
+            "<p class=\"page-meta\">",
+            "<p>A different component has current published release 9.9.9.</p>\n<p class=\"page-meta\">",
+        );
+        expect_failure(
+            "unlabelled release lag",
+            &check(site.path(), &lagging),
+            "without naming the difference",
+        );
+    }
+
+    {
+        let _saved = SavedFile::capture(site.path(), MCP_REL);
+        let mut lagging = record.clone();
+        *at(
+            &mut lagging,
+            &["components", "aus-accounting-mcp", "published", "version"],
+        ) = s("9.9.9");
+        *at(
+            &mut lagging,
+            &[
+                "components",
+                "aus-accounting-mcp",
+                "published",
+                "release_url",
+            ],
+        ) = s(
+            "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v9.9.9",
+        );
+        replace_file(
+            site.path(),
+            MCP_REL,
+            "<p class=\"page-meta\">",
+            "<p>Release 9.9.9 is the current published release; this page still documents 0.9.0.</p>\n    <p class=\"page-meta\">",
+        );
+        let failures = check(site.path(), &lagging);
+        assert!(
+            !failures
+                .iter()
+                .any(|f| f.contains("without naming the difference")),
+            "a labelled lag must pass: {failures:?}"
+        );
+    }
 
     // A preserved evaluation keeps the release it reproduced.
-    let site = copied_site();
-    rewrite(
-        site.path(),
-        "evaluate/manager-review-gate/index.html",
-        |t| t.replace("0.1.3", "0.1.6"),
-    );
-    expect_failure(
-        "historical evaluation release replaced",
-        &check(site.path(), &record),
-        "must keep release 0.1.3 visible",
-    );
+    {
+        let _saved = SavedFile::capture(site.path(), "evaluate/manager-review-gate/index.html");
+        rewrite(
+            site.path(),
+            "evaluate/manager-review-gate/index.html",
+            |t| t.replace("0.1.3", "0.1.6"),
+        );
+        expect_failure(
+            "historical evaluation release replaced",
+            &check(site.path(), &record),
+            "must keep release 0.1.3 visible",
+        );
+    }
 
     // An unreleased default-branch version must not be offered as a download.
     let mut unreleased = record.clone();
@@ -206,64 +216,71 @@ fn release_claims() {
         &["components", "ozzit", "unreleased_default_branch"],
     ) = pyjson::loads(r#"{"version": "3.6.1", "observed": "2026-09-20", "note": "Test fixture."}"#)
         .unwrap();
-    let site = copied_site();
-    replace_file(
-        site.path(),
-        "tools/ozzit/index.html",
-        &ozzit_release,
-        "https://github.com/ryanduguid/Ozzit/releases/tag/v3.6.1",
-    );
-    expect_failure(
-        "unreleased download offered",
-        &check(site.path(), &unreleased),
-        "which is not published",
-    );
+    {
+        let _saved = SavedFile::capture(site.path(), "tools/ozzit/index.html");
+        replace_file(
+            site.path(),
+            "tools/ozzit/index.html",
+            &ozzit_release,
+            "https://github.com/ryanduguid/Ozzit/releases/tag/v3.6.1",
+        );
+        expect_failure(
+            "unreleased download offered",
+            &check(site.path(), &unreleased),
+            "which is not published",
+        );
+    }
 
     // Structured data must describe the release the page documents.
-    let site = copied_site();
-    replace_file(
-        site.path(),
-        MCP_REL,
-        "\"softwareVersion\": \"0.12.0\"",
-        "\"softwareVersion\": \"0.2.0\"",
-    );
-    expect_failure(
-        "structured version drift",
-        &check(site.path(), &record),
-        "structured softwareVersion is",
-    );
+    {
+        let _saved = SavedFile::capture(site.path(), MCP_REL);
+        replace_file(
+            site.path(),
+            MCP_REL,
+            "\"softwareVersion\": \"0.12.0\"",
+            "\"softwareVersion\": \"0.2.0\"",
+        );
+        expect_failure(
+            "structured version drift",
+            &check(site.path(), &record),
+            "structured softwareVersion is",
+        );
+    }
 
     // An unpinned adoption command must stay labelled as tracking the package.
-    let site = copied_site();
-    replace_file(
-        site.path(),
-        MCP_REL,
-        "The MCP install commands above are unpinned. uvx may reuse a cached environment or an",
-        "Each command above installs the latest release every time it runs, and",
-    );
-    expect_failure(
-        "unpinned command promising the latest release",
-        &check(site.path(), &record),
-        "must say they are unpinned",
-    );
+    {
+        let _saved = SavedFile::capture(site.path(), MCP_REL);
+        replace_file(
+            site.path(),
+            MCP_REL,
+            "The MCP install commands above are unpinned. uvx may reuse a cached environment or an",
+            "Each command above installs the latest release every time it runs, and",
+        );
+        expect_failure(
+            "unpinned command promising the latest release",
+            &check(site.path(), &record),
+            "must say they are unpinned",
+        );
+    }
 
     // A lag the record claims must be a release the page actually names.
-    let site = copied_site();
-    let mut lagging = record.clone();
-    *at(
-        &mut lagging,
-        &["components", "aus-accounting-mcp", "documented", "version"],
-    ) = s("0.1.0");
-    remove(
-        &mut lagging,
-        &["components", "aus-accounting-mcp", "documented"],
-        "software_version",
-    );
-    expect_failure(
-        "documented release the page never names",
-        &check(site.path(), &lagging),
-        "without naming the difference",
-    );
+    {
+        let mut lagging = record.clone();
+        *at(
+            &mut lagging,
+            &["components", "aus-accounting-mcp", "documented", "version"],
+        ) = s("0.1.0");
+        remove(
+            &mut lagging,
+            &["components", "aus-accounting-mcp", "documented"],
+            "software_version",
+        );
+        expect_failure(
+            "documented release the page never names",
+            &check(site.path(), &lagging),
+            "without naming the difference",
+        );
+    }
 
     // A stale download hash or size on the page is a failure, not a lag. The asset
     // check applies to a page documenting the published release, so publish the
@@ -311,7 +328,7 @@ fn release_claims() {
             "does not link the published download",
         ),
     ] {
-        let site = copied_site();
+        let _saved = SavedFile::capture(site.path(), "tools/ozzit/index.html");
         rewrite(site.path(), "tools/ozzit/index.html", |t| {
             t.replace(&stale, "0")
         });
@@ -330,85 +347,95 @@ fn release_claims() {
         Json::Str(url) => url.clone(),
         _ => panic!("release_url"),
     };
-    let site = copied_site();
-    rewrite(site.path(), "tools/ozzit/index.html", |t| {
-        t.replace(&format!("href=\"{url}\""), &format!("data-was=\"{url}\""))
-    });
-    expect_failure(
-        "release record mentioned but not linked",
-        &check(site.path(), &record),
-        "does not link the published release record",
-    );
+    {
+        let _saved = SavedFile::capture(site.path(), "tools/ozzit/index.html");
+        rewrite(site.path(), "tools/ozzit/index.html", |t| {
+            t.replace(&format!("href=\"{url}\""), &format!("data-was=\"{url}\""))
+        });
+        expect_failure(
+            "release record mentioned but not linked",
+            &check(site.path(), &record),
+            "does not link the published release record",
+        );
+    }
 
     // When the documented release is current, its engine pins must agree.
-    let site = copied_site();
-    let mut current = record.clone();
-    *at(
-        &mut current,
-        &["components", "aus-accounting-mcp", "published", "version"],
-    ) = s("0.9.0");
-    *at(
-        &mut current,
-        &[
-            "components",
-            "aus-accounting-mcp",
-            "published",
-            "release_url",
-        ],
-    ) = s(
-        "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.9.0",
-    );
-    let pins = at(
-        &mut current,
-        &[
-            "components",
-            "aus-accounting-mcp",
-            "documented",
-            "pinned_engines",
-        ],
-    )
-    .clone();
-    *at(
-        &mut current,
-        &["components", "aus-accounting-mcp", "pinned_engines"],
-    ) = pins;
-    // The limitations page names the real published release; name the documented one.
-    rewrite(site.path(), "tools/limitations/index.html", |t| {
-        t.replace(
-            "aus-accounting-mcp 0.12.0, pins",
-            "aus-accounting-mcp 0.9.0, pins",
+    {
+        let _saved_limits = SavedFile::capture(site.path(), "tools/limitations/index.html");
+        let _saved_mcp = SavedFile::capture(site.path(), MCP_REL);
+        let mut current = record.clone();
+        *at(
+            &mut current,
+            &["components", "aus-accounting-mcp", "published", "version"],
+        ) = s("0.9.0");
+        *at(
+            &mut current,
+            &[
+                "components",
+                "aus-accounting-mcp",
+                "published",
+                "release_url",
+            ],
+        ) = s(
+            "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.9.0",
+        );
+        let pins = at(
+            &mut current,
+            &[
+                "components",
+                "aus-accounting-mcp",
+                "documented",
+                "pinned_engines",
+            ],
         )
-    });
-    assert_clean("matching engine pins", &check(site.path(), &current));
-    replace_file(
-        site.path(),
-        MCP_REL,
-        "australian-tax-calculators 0.2.0",
-        "australian-tax-calculators 0.1.4",
-    );
-    expect_failure(
-        "engine pin drift",
-        &check(site.path(), &current),
-        "but aus-accounting-mcp 0.9.0 pins 0.2.0",
-    );
+        .clone();
+        *at(
+            &mut current,
+            &["components", "aus-accounting-mcp", "pinned_engines"],
+        ) = pins;
+        // The limitations page names the real published release; name the documented one.
+        rewrite(site.path(), "tools/limitations/index.html", |t| {
+            t.replace(
+                "aus-accounting-mcp 0.12.0, pins",
+                "aus-accounting-mcp 0.9.0, pins",
+            )
+        });
+        assert_clean("matching engine pins", &check(site.path(), &current));
+        replace_file(
+            site.path(),
+            MCP_REL,
+            "australian-tax-calculators 0.2.0",
+            "australian-tax-calculators 0.1.4",
+        );
+        expect_failure(
+            "engine pin drift",
+            &check(site.path(), &current),
+            "but aus-accounting-mcp 0.9.0 pins 0.2.0",
+        );
+    }
 
     // An evaluation's label names its component, so an unrelated number cannot pass.
-    let site = copied_site();
-    rewrite(
-        site.path(),
-        "evaluate/xero-trial-balance-integrity/index.html",
-        |t| {
-            t.replace(
-                "xero-trial-balance-export/v0.1.6",
-                "some-other-package/v0.1.6",
-            )
-        },
-    );
-    expect_failure(
-        "evaluation label replaced by a bare version",
-        &check(site.path(), &record),
-        "must keep release 0.1.6 visible",
-    );
+    {
+        let _saved = SavedFile::capture(
+            site.path(),
+            "evaluate/xero-trial-balance-integrity/index.html",
+        );
+        rewrite(
+            site.path(),
+            "evaluate/xero-trial-balance-integrity/index.html",
+            |t| {
+                t.replace(
+                    "xero-trial-balance-export/v0.1.6",
+                    "some-other-package/v0.1.6",
+                )
+            },
+        );
+        expect_failure(
+            "evaluation label replaced by a bare version",
+            &check(site.path(), &record),
+            "must keep release 0.1.6 visible",
+        );
+    }
 
     // A release URL hidden from readers does not satisfy the link contract.
     for markup in [
@@ -417,7 +444,7 @@ fn release_claims() {
         format!("<span data-source=\"{url}\">see the release</span>"),
         format!("<p hidden><a href=\"{url}\">Release</a></p>"),
     ] {
-        let site = copied_site();
+        let _saved = SavedFile::capture(site.path(), "tools/ozzit/index.html");
         rewrite(site.path(), "tools/ozzit/index.html", |t| {
             t.replace(
                 &format!("href=\"{url}\""),
@@ -433,24 +460,26 @@ fn release_claims() {
     }
 
     // Another repository's identical version number is not this unreleased download.
-    let site = copied_site();
-    rewrite(site.path(), "tools/ozzit/index.html", |t| {
-        t.replace(
-            "</main>",
-            "<p><a href=\"https://github.com/example/other/releases/tag/v3.6.1\">Another project's v3.6.1</a></p></main>",
-        )
-    });
-    let unrelated: Vec<String> = check(site.path(), &unreleased)
-        .into_iter()
-        .filter(|f| f.contains("not published"))
-        .collect();
-    assert_clean("unrelated repository sharing a version number", &unrelated);
+    {
+        let _saved = SavedFile::capture(site.path(), "tools/ozzit/index.html");
+        rewrite(site.path(), "tools/ozzit/index.html", |t| {
+            t.replace(
+                "</main>",
+                "<p><a href=\"https://github.com/example/other/releases/tag/v3.6.1\">Another project's v3.6.1</a></p></main>",
+            )
+        });
+        let unrelated: Vec<String> = check(site.path(), &unreleased)
+            .into_iter()
+            .filter(|f| f.contains("not published"))
+            .collect();
+        assert_clean("unrelated repository sharing a version number", &unrelated);
+    }
 
     // A release-specific supporting file must be read at the documented release.
     let citation = format!("https://github.com/ryanduguid/Ozzit/blob/{tag}/CITATION.cff");
     let citation_failure = format!("CITATION.cff must be linked at {tag}");
     for replacement in ["main", "v3.6.1"] {
-        let site = copied_site();
+        let _saved = SavedFile::capture(site.path(), "tools/ozzit/index.html");
         rewrite(site.path(), "tools/ozzit/index.html", |t| {
             t.replace(
                 &citation,
@@ -463,20 +492,21 @@ fn release_claims() {
             &citation_failure,
         );
     }
-    let site = copied_site();
-    rewrite(site.path(), "tools/ozzit/index.html", |t| {
-        t.replace(
-            &format!("href=\"{citation}\""),
-            "href=\"https://example.org/elsewhere\"",
-        )
-        .replace("</main>", &format!("<!-- {citation} --></main>"))
-    });
-    expect_failure(
-        "supporting evidence only in a comment",
-        &check(site.path(), &record),
-        &citation_failure,
-    );
-    let site = copied_site();
+    {
+        let _saved = SavedFile::capture(site.path(), "tools/ozzit/index.html");
+        rewrite(site.path(), "tools/ozzit/index.html", |t| {
+            t.replace(
+                &format!("href=\"{citation}\""),
+                "href=\"https://example.org/elsewhere\"",
+            )
+            .replace("</main>", &format!("<!-- {citation} --></main>"))
+        });
+        expect_failure(
+            "supporting evidence only in a comment",
+            &check(site.path(), &record),
+            &citation_failure,
+        );
+    }
     let unpinned: Vec<String> = check(site.path(), &record)
         .into_iter()
         .filter(|f| f.contains("github.com/ryanduguid/Ozzit\""))

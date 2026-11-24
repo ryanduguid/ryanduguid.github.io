@@ -3,7 +3,7 @@
 
 //! Coverage tests for site_contracts, seo_core, rates_register, release_record
 //! and agent_skills failure branches.
-mod common;
+use crate::common;
 
 use site_tools::agent_skills;
 use site_tools::py::Date;

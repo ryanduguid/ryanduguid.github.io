@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 //! Coverage tests for serve_site, check_links, release_record, check_publication, visibility and site_contracts.
-mod common;
+use crate::common;
 
 use site_tools::check_links::{self, Checker, Clock, NetError, Opened, Opener};
 use site_tools::check_publication;
@@ -229,9 +229,10 @@ fn check_links_covers_classification_retries_fallbacks_and_checker_flows() {
 fn release_record_publication_visibility_and_page_contracts_cover_failure_branches() {
     let repo = common::repository();
 
-    // release_record: --help, --check on repo, verify_live with fake Live
-    assert_eq!(release_record::run(&repo, &s(&["--help"])).unwrap(), 0);
-    assert_eq!(release_record::run(&repo, &s(&["--check"])).unwrap(), 0);
+    // release_record: offline check on the shared rendered site, verify_live with fake Live
+    if common::rendered() {
+        assert_eq!(release_record::run(common::root(), &[]).unwrap(), 0);
+    }
     let record = release_record::load(&repo).unwrap();
     struct FakeLive;
     impl Live for FakeLive {

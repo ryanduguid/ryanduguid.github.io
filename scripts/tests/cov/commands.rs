@@ -5,7 +5,7 @@
 //! `fetch`, `pin_rates`, `effective_life::command`, `effective_life_pages::command`,
 //! `agent_skills`, `extract_xero_badge`, `favicon_render`, `cash_chart_webp`,
 //! `rates_json`, `ozzit_reference` and `build_site`.
-mod common;
+use crate::common;
 
 use site_tools::{
     agent_skills, build_site, cash_chart_webp, effective_life, effective_life_pages,

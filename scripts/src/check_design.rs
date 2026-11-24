@@ -652,16 +652,23 @@ fn pages_rendered_text(root: &Path) -> Result<(Vec<String>, bool), String> {
         .collect();
     for path in core::html_files(root) {
         let raw = crate::read(&path)?;
-        uses_symbol_font = uses_symbol_font || raw.contains(SYMBOL_OPEN);
-        let shown = markups
-            .iter()
-            .fold(raw.clone(), |text, markup| text.replace(markup, ""));
+        let has_symbol = raw.contains(SYMBOL_OPEN);
+        uses_symbol_font = uses_symbol_font || has_symbol;
+        let shown: std::borrow::Cow<'_, str> = if has_symbol {
+            std::borrow::Cow::Owned(
+                markups
+                    .iter()
+                    .fold(raw.clone(), |text, markup| text.replace(markup, "")),
+            )
+        } else {
+            std::borrow::Cow::Borrowed(&raw)
+        };
         if crate::effective_life_pages::is_page(&core::rel(&path, root)) {
             // These pages quote the determination in their head and structured data too,
             // which no web font draws; only the body is rendered text.
             let body = shown
                 .find("<body>")
-                .map_or(shown.as_str(), |at| &shown[at..]);
+                .map_or(shown.as_ref(), |at| &shown[at..]);
             rendered_text.push(core::raw_text(body));
         } else {
             rendered_text.push(core::raw_text(&shown));
