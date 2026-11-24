@@ -16,7 +16,12 @@ use std::sync::LazyLock;
 pub static SITE: LazyLock<Option<PathBuf>> = LazyLock::new(|| {
     if let Some(prepared) = std::env::var_os("SITE_CHECKED") {
         let path = PathBuf::from(prepared);
-        return path.is_dir().then_some(path);
+        assert!(
+            path.is_dir(),
+            "SITE_CHECKED does not name an existing directory: {}",
+            path.display()
+        );
+        return Some(path);
     }
     let repository = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
     let renders = Path::new(env!("CARGO_TARGET_TMPDIR")).join("site-checked");
@@ -108,26 +113,27 @@ fn render(repository: &Path, renders: &Path, kept: &Path, complete: &Path) -> Op
             std::fs::copy(&from, &to).unwrap();
         }
     }
-    // Keep only the newest render; a partial copy never takes the final name.
-    if let Ok(entries) = std::fs::read_dir(renders) {
-        for entry in entries.flatten() {
-            let path = entry.path();
-            if path == partial || path == kept || path == complete {
-                continue;
-            }
-            let _ = if path.is_dir() {
-                std::fs::remove_dir_all(&path)
-            } else {
-                std::fs::remove_file(&path)
-            };
+    // Replace an incomplete target (present without `.complete`) so rename succeeds,
+    // without pruning other fingerprint generations that concurrent suites may read.
+    if kept.exists() && !complete.is_file() {
+        let _ = if kept.is_dir() {
+            std::fs::remove_dir_all(kept)
+        } else {
+            std::fs::remove_file(kept)
+        };
+    }
+    if let Err(err) = std::fs::rename(&partial, kept) {
+        let _ = std::fs::remove_dir_all(&partial);
+        if kept.is_dir() && complete.is_file() {
+            return Some(kept.to_path_buf());
         }
+        panic!(
+            "failed to publish rendered site at {}: {err}",
+            kept.display()
+        );
     }
-    if std::fs::rename(&partial, kept).is_ok() {
-        let _ = std::fs::write(complete, "");
-        return Some(kept.to_path_buf());
-    }
-    let _ = std::fs::remove_dir_all(&partial);
-    (kept.is_dir() && complete.is_file()).then(|| kept.to_path_buf())
+    std::fs::write(complete, "").unwrap();
+    Some(kept.to_path_buf())
 }
 
 /// Directories no check reads: version control, dependencies, build output and caches.
@@ -266,16 +272,22 @@ impl SavedFile {
 
 impl Drop for SavedFile {
     fn drop(&mut self) {
-        match &self.original {
-            Some(bytes) => {
-                if let Some(parent) = self.path.parent() {
-                    let _ = std::fs::create_dir_all(parent);
-                }
-                let _ = std::fs::write(&self.path, bytes);
-            }
-            None => {
-                let _ = std::fs::remove_file(&self.path);
-            }
+        let result = match &self.original {
+            Some(bytes) => self
+                .path
+                .parent()
+                .map_or(Ok(()), std::fs::create_dir_all)
+                .and_then(|()| std::fs::write(&self.path, bytes)),
+            None => match std::fs::remove_file(&self.path) {
+                Ok(()) => Ok(()),
+                Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(()),
+                Err(e) => Err(e),
+            },
+        };
+        if let Err(err) = result
+            && !std::thread::panicking()
+        {
+            panic!("failed to restore {}: {err}", self.path.display());
         }
     }
 }

@@ -443,3 +443,40 @@ fn pytime_iso_weeks_compact_dates_and_fractions() {
         assert!(pytime::datetime_fromisoformat(bad).is_none(), "{bad}");
     }
 }
+
+#[test]
+fn saved_file_restores_overwrite_delete_creation_and_unwind() {
+    let dir = tempfile::tempdir().unwrap();
+    let root = dir.path();
+    std::fs::write(root.join("a.txt"), b"original").unwrap();
+
+    // Overwrite restores exact original bytes.
+    {
+        let _saved = crate::common::SavedFile::capture(root, "a.txt");
+        std::fs::write(root.join("a.txt"), b"mutated").unwrap();
+    }
+    assert_eq!(std::fs::read(root.join("a.txt")).unwrap(), b"original");
+
+    // Deletion restores the deleted file.
+    {
+        let _saved = crate::common::SavedFile::capture(root, "a.txt");
+        std::fs::remove_file(root.join("a.txt")).unwrap();
+    }
+    assert_eq!(std::fs::read(root.join("a.txt")).unwrap(), b"original");
+
+    // Creation of a previously absent file removes it on drop.
+    {
+        let _saved = crate::common::SavedFile::capture(root, "created.txt");
+        std::fs::write(root.join("created.txt"), b"temp").unwrap();
+    }
+    assert!(!root.join("created.txt").exists());
+
+    // Panic unwinding still restores the original file.
+    let unwound = std::panic::catch_unwind(|| {
+        let _saved = crate::common::SavedFile::capture(root, "a.txt");
+        std::fs::write(root.join("a.txt"), b"during-panic").unwrap();
+        panic!("simulated failure");
+    });
+    assert!(unwound.is_err());
+    assert_eq!(std::fs::read(root.join("a.txt")).unwrap(), b"original");
+}
