@@ -39,11 +39,11 @@ through the draft [WebMCP](https://webmachinelearning.github.io/webmcp/)
 `calculate_workers_compensation_premium`, `calculate_business_days`, `calculate_division_296_tax`,
 `calculate_fbt_car`, `calculate_fbt_car_parking`, `calculate_fbt_expense_payment`, `calculate_fbt_loan`,
 `calculate_fbt_meal_entertainment`, `calculate_fbt_property`, `calculate_land_tax`,
-`calculate_termination_payment` and `calculate_transfer_duty` on the 54 business calculator pages,
+`calculate_termination_payment` and `calculate_transfer_duty` on 54 of the 57 business calculator pages,
 `estimate_income_tax`, `calculate_take_home_pay`, `calculate_study_loan_repayment`, `calculate_sole_trader_set_aside`,
 `calculate_lump_sum_arrears`, `calculate_division_293_tax`, `calculate_income_tests`, `calculate_concessional_catch_up`,
 `calculate_bonus_withholding`, `calculate_salary_packaging`, `calculate_novated_lease`, `project_super_balance`,
-`calculate_fhss_release`, `calculate_work_expenses` and `calculate_government_super_amounts` on the 15 individual tax
+`calculate_fhss_release`, `calculate_work_expenses` and `calculate_government_super_amounts` on 15 of the 17 individual tax
 calculator pages, `calculate_decline_in_value` on the depreciation rates page and
 `calculate_coal_lsl_levy` on the Coal LSL levy calculator.
 `assets/accounting-pages.mjs`, `assets/depreciation-calculator-page.mjs` and
@@ -57,7 +57,7 @@ pattern, range or list, or a name the schema does not declare, rather than
 converting it. `scripts/webmcp-tools.test.mjs` covers each tool, with a refused
 input for each, and the WebMCP tests in `tests/browser/calculator.spec.mjs`
 cover registration on the GST, Division 7A, long service leave, fuel tax credit, borrowing expenses, depreciation rates and
-Coal LSL pages; `tests/browser/individual-tax.spec.mjs` covers the 15 individual tax pages.
+Coal LSL pages; `tests/browser/individual-tax.spec.mjs` covers the 17 individual tax pages.
 
 The 6 Ozzit module pages offer a second read-only tool, `ozzit_function`, through
 `assets/ozzit-tools.mjs`. It looks up one formula by name in the published

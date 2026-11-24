@@ -121,6 +121,7 @@ fn a_stale_binary_refuses_every_writing_invocation() {
         &["check_design", "--update-baseline"],
         &["stamp_source_freshness", "--write"],
         &["stamp_source_freshness", "--write-tool-releases"],
+        &["stamp_source_freshness", "--sync-releases"],
         &["favicon_render"],
         &["render_about_portrait", "cutout.png"],
         &[
