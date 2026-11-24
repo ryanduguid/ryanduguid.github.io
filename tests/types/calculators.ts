@@ -455,6 +455,35 @@ calculate.atoPenaltiesInterest({ ...atoInput, year: 2026 });
 const atoWarnings: number[] = calculate.atoPenaltiesInterest(atoInput).warnings;
 void atoYear;
 void atoWarnings;
+const rdInput = { notional_deductions: '100000.00', rsp_crc_expenditure: '0', aggregated_turnover: '1000000', exempt_entity_controlled: false,
+  base_rate_entity: true, total_expenses: '0', recoupment_clawback: '0', feedstock_revenue: '0', feedstock_expenditure: '0',
+  present_year_base_rate_entity: true, year: '2025-26', scope_confirmed: true };
+const rdOffset: number = calculate.rdTaxOffset(rdInput).taxOffset;
+// @ts-expect-error An answer is a boolean, not 'yes'.
+calculate.rdTaxOffset({ ...rdInput, base_rate_entity: 'yes' });
+// @ts-expect-error The command's amounts are decimal text, not numbers.
+const rdAmounts: Record<string, number> = calculate.rdTaxOffset(rdInput).amounts;
+void rdOffset;
+void rdAmounts;
+const gstBdInput = { party: 'supplier', event: 'written_off', amount: '550.00', taxable_or_creditable: true, cash_basis: false,
+  special_rule: 'none', attributed: true, year: '2025-26', scope_confirmed: true };
+const gstApplies: boolean = calculate.gstBadDebt(gstBdInput).applies;
+// @ts-expect-error The command's amounts are decimal text, not numbers.
+const gstAmounts: Record<string, number> = calculate.gstBadDebt(gstBdInput).amounts;
+const gstOutcome: string = calculate.gstAdjustment('bad-debt', gstBdInput).outcome;
+void gstApplies;
+void gstAmounts;
+void gstOutcome;
+const dtInput = { items: [{ label: 'Plant', class: 'asset', carrying_amount: '70000', tax_base: '50000', opening_carrying_amount: '0',
+  opening_tax_base: '0' }], unused_tax_losses: '0', opening_unused_tax_losses: '0', unrecognised_deductible: '0', opening_unrecognised_deductible: '0',
+  unrecognised_used: '0', accounting_profit: '100000', non_deductible_expenses: '0', non_assessable_income: '0', taxable_income: '100000',
+  tax_offsets: '0', base_rate_entity: false, expected_rate: 'standard', opening_expected_rate: 'standard', business_combination: false,
+  uncertain_tax_treatment: false, tax_consolidated_group: false, outside_profit_or_loss: false, year: '2025-26', scope_confirmed: true };
+const dtExpense: number = calculate.deferredTax(dtInput).incomeTaxExpense;
+// @ts-expect-error The command's amounts are decimal text, not numbers.
+const dtAmounts: Record<string, number> = calculate.deferredTax(dtInput).amounts;
+void dtExpense;
+void dtAmounts;
 const individualSet = individualTaxTools(individualEngines);
 void individualSet['study-loan'].execute({ incomeYear: '2026-27', taxableIncome: 86380 });
 void individualSet['concessional-catch-up'].execute({ incomeYear: '2024-25', totalSuperBalance: '450000',
