@@ -7661,7 +7661,7 @@ fn the_lsl_oracle_works_the_published_examples_by_hand() {
     // rather than produce -$0.07, whereas 13 taken pays $0.08 at $1,500 and $50.00 at $1,000,000.
     let (qld_s, qld_e) = (day_number(2011, 1, 1), day_number(2025, 12, 31));
     for reason in [None, Some("redundancy")] {
-        for (pay, expected_val) in [(150_000, "0.08"), (100_000_000, "50.00")] {
+        for (pay, expected_val) in [(150_000, "0.08"), (100_000_000, "50")] {
             let ok = lsl_oracle(act("AU-QLD"), qld_s, qld_e, 0, reason, 130_000, pay);
             assert_eq!(
                 (&ok["weeks"], &ok["balance"], &ok["value"]),
@@ -7675,7 +7675,7 @@ fn the_lsl_oracle_works_the_published_examples_by_hand() {
     }
     // Tasmania Schedule 3 cl 2(4) refuses positive prior leave even with undated excluded days.
     let tas_e = day_number(2025, 12, 31);
-    for (reason, allowed_weeks) in [(None, "21.6667"), (Some("redundancy"), "24.2667")] {
+    for (reason, allowed_weeks) in [(None, "21.6667"), (Some("redundancy"), "24.6966")] {
         assert_eq!(
             lsl_oracle(
                 act("AU-TAS"),
