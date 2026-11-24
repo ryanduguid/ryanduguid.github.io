@@ -15,7 +15,7 @@
       "be0954d3a3d09936d13d9c80cfe5715e9a8b918938c3dfb9a9282ed7071dd894"
     ],
     "changelog/index.html": [
-      "c86cc57ef6c4f86619f3ef2fa791d098e9f6b6fe296e3624d2c550efc6527796"
+      "29539fcf63a44c93b1c04160e7d92ba0840f0588a4b38bf52c99a33dbc06da1c"
     ],
     "contact/index.html": [
       "3a1f5ed9376406b3013c03dc3bb99f7158f5a117ebe247d35af9bef174f8f7bd"
@@ -39,10 +39,10 @@
       "4f34b9a4a4eb565c428d51639eb7a42c1692eced3ac67482a156fb5ddfa636bb"
     ],
     "index.html": [
-      "6fe69aab0e75a5bc571ad8c4d97d5339ddede524e9de3737b3db4340cd4bd7b1"
+      "173ef94c2842052e81a3fe0ee55c9dbfe65755cc63c5af1b1601de73a7d47f93"
     ],
     "privacy/index.html": [
-      "a8a632baad7498c8424ba37a1dd93f54bdb5b23269402e8d7b55c2351dd2adce"
+      "dabe19f4f720b7d61a2993c85ad4ea6f5ba29a4f6109f90a3b9267b611902a15"
     ],
     "rates/announced-not-yet-law/index.html": [
       "5b107f4661a2197470b31cf0239ac379fd2ca848774b4ef37924e0200422d158"
@@ -120,7 +120,7 @@
       "d3bb32f91ccb8dcecbc8c94df472198daef269f401c2f98dc1a88dc8347a1be5"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "07c397b14654b8d82d3de67907990724e270aeb4c2817a157fa54f0f8ee57b75"
+      "d71f51f1796587ddc50bcd839c9dfdd6005ef3668ff359c9ea7d1a789b21c843"
     ],
     "tools/bas-due-dates/index.html": [
       "6f22173930285ac0d6c7aa02c77b70e02e8f693c73fd2853ffa9b9863e1598b2"
@@ -366,7 +366,7 @@
       "5b46717b5d9cd7c711a55c64a7c61d6587893f255046d0a2ba8bcaa2dd311437"
     ],
     "tools/ozzit/functions/financial/index.html": [
-      "5b1635960dd43d3b5e84b4dac4acf20fbe08b52c8800ccf66e7f1784369ef279"
+      "5fde64bac117550290ba28a5c4980e31256381ed255ca990d9724c550ee9c669"
     ],
     "tools/ozzit/functions/ratios/index.html": [
       "6e7f2e93e4e19123789d89cf5a8bb66e3a1e02d73bfefb2d7bbc0974d464e926"
@@ -375,7 +375,7 @@
       "9d439aa0458d7e24125c52d2c1d7a4d4c3e7692996b93d836c8411034c3d0a0b"
     ],
     "tools/ozzit/index.html": [
-      "63fa03dadc108a31c27880991126a00dd5890a3a259d1613af8223a266e5650e"
+      "53b27e0fd75107ca5d7a95a9e398802b35ce0e0c9aa88787ae67c2a36864e032"
     ],
     "tools/payday-super/business-days/index.html": [
       "6623ef0d7c96bd8b3d7e005b78c280616d8e0923434058067b53a0b8fa1b1df1"
@@ -412,9 +412,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "dedbabb3a38347626220d42c0edaaa57c4064c33377a561d0ac4eea20e33e13b",
+    "llms.txt": "0145d113855d54cb99ccc26827c78a13fad8158829128b0e7e4973ea14cdacb5",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "fc75fd5d0d6e616055fbb6742abfa67af367376a16360b50ad37c01f325cc83f"
+    "sitemap.xml": "888a0bf81462ae04f63f9f63f4176cce38067a2389c6713f528e29866aadff23"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

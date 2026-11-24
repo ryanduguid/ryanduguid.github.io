@@ -4654,8 +4654,12 @@ let input = '';
 for await (const chunk of process.stdin) input += chunk;
 process.stdout.write(JSON.stringify(JSON.parse(input).map(({ value, place, choices }) => {
   if (!places[place]) return { missing: place };
-  const r = landTaxYear(value, places[place], choices);
-  return { tax: String(r.tax), surcharge: String(r.surcharge), mrit: String(r.mrit), total: String(r.total) };
+  try {
+    const r = landTaxYear(value, places[place], choices);
+    return { tax: String(r.tax), surcharge: String(r.surcharge), mrit: String(r.mrit), total: String(r.total) };
+  } catch (error) {
+    return { refused: error.message };
+  }
 })));
 "#;
 
@@ -4897,20 +4901,34 @@ fn every_land_scale() -> Vec<(&'static str, &'static [LandBand])> {
     scales
 }
 
-/// Tax in cents on a whole-dollar value from one scale: the band whose range holds it.
-fn band_tax(bands: &[LandBand], dollars: u64) -> u64 {
+/// Exact tax as a rational number of cents (`num / den`) on a whole-dollar value from one scale.
+fn band_tax_exact(bands: &[LandBand], dollars: u64) -> (u128, u128) {
     let band = bands
         .iter()
         .find(|band| band.low <= dollars && dollars <= band.high)
         .unwrap();
     let excess = u128::from(dollars - band.over);
     let rate = u128::from(band.rate);
-    let charge = if band.per_hundred {
-        exact_half_up(rate * excess.div_ceil(100), 100)
+    let base = u128::from(band.base);
+    if band.per_hundred {
+        (base * 100 + rate * excess.div_ceil(100), 100)
     } else {
-        exact_half_up(rate * excess, 10_000)
-    };
-    band.base + u64::try_from(charge).unwrap()
+        (base * 10_000 + rate * excess, 10_000)
+    }
+}
+/// Land Tax Rating Act 2000 (Tas) s 7: cents not divisible by 10 round up to the next 10 cents
+/// only if more than 5 cents remain, otherwise down.
+fn tas_ten_cents(num: u128, den: u128) -> u64 {
+    let ten = 10 * den;
+    let rest = num % ten;
+    let kept = (num - rest) / den;
+    let rounded = if rest > 5 * den { kept + 10 } else { kept };
+    u64::try_from(rounded).unwrap()
+}
+/// Tax in cents on a whole-dollar value from one scale: the band whose range holds it.
+fn band_tax(bands: &[LandBand], dollars: u64) -> u64 {
+    let (num, den) = band_tax_exact(bands, dollars);
+    u64::try_from(exact_half_up(num, den)).unwrap()
 }
 
 /// What a land tax page offers beside the value: trust rates, a foreign or absentee owner,
@@ -4928,8 +4946,16 @@ fn per_cent(hundredths: u128, dollars: u64) -> u64 {
     u64::try_from(exact_half_up(hundredths * u128::from(dollars), 100)).unwrap()
 }
 
-/// A full year's land tax, foreign or absentee owner surcharge and MRIT in cents.
-fn land_tax_oracle(place: &str, dollars: u64, choices: LandChoices) -> [u64; 3] {
+/// A full year's land tax, foreign or absentee owner surcharge and MRIT in cents, or `Err` when
+/// the Act makes the case outside what the calculator takes.
+fn land_tax_oracle(
+    place: &str,
+    dollars: u64,
+    choices: LandChoices,
+) -> Result<[u64; 3], &'static str> {
+    if place == "AU-VIC" && choices.trust && choices.foreign {
+        return Err("absentee_trust_unsupported");
+    }
     let (_, fixed, general) = LAND_TAX_SCALES.iter().find(|(p, ..)| *p == place).unwrap();
     let main = if choices.trust {
         LAND_TAX_TRUST_SCALES
@@ -4942,24 +4968,46 @@ fn land_tax_oracle(place: &str, dollars: u64, choices: LandChoices) -> [u64; 3] 
     } else {
         general
     };
-    let tax = fixed + band_tax(main, dollars);
+    let (land_num, land_den) = band_tax_exact(main, dollars);
+    let mut tax = if place == "AU-TAS" {
+        tas_ten_cents(land_num + u128::from(*fixed) * land_den, land_den)
+    } else {
+        fixed + u64::try_from(exact_half_up(land_num, land_den)).unwrap()
+    };
+    // Land Tax Act 1936 (SA) s 6: land tax under $20 is nil.
+    if place == "AU-SA" && tax < 2_000 {
+        tax = 0;
+    }
     let surcharge = match (choices.foreign, place) {
         (false, _) => 0,
         // Revenue NSW: 5% of the land value of the residential land, with no threshold.
         (true, "AU-NSW") => per_cent(500, choices.separate),
-        // SRO Victoria: its table with the absentee owner surcharge less the table without it.
-        (true, "AU-VIC") => {
-            let with = if choices.trust {
-                VIC_TRUST_AOS
+        // SRO Victoria: general rates with the absentee owner surcharge less general rates.
+        (true, "AU-VIC") => band_tax(VIC_GENERAL_AOS, dollars) - band_tax(main, dollars),
+        // Land Tax Act 2010 (Qld) Sch 2 Pt 2 & Sch 3 Pt 2: 3.0c for each $1 over $349,999.
+        (true, "AU-QLD") => {
+            if dollars >= 350_000 {
+                per_cent(300, dollars - 349_999)
             } else {
-                VIC_GENERAL_AOS
-            };
-            band_tax(with, dollars) - band_tax(main, dollars)
+                0
+            }
         }
-        // QRO: (taxable value - $350,000) x 3%, from $350,000.
-        (true, "AU-QLD") => per_cent(300, dollars.saturating_sub(350_000)),
-        // SRO Tasmania: 2% of the assessed land value of the foreign-owned share.
-        (true, "AU-TAS") => per_cent(200, choices.separate),
+        // Land Tax Rating Act 2000 (Tas) s 6A(2) & s 7: 2% of residential general land (part of
+        // taxable land), rounded to 10 cents; refused when rounding apart and together differ.
+        (true, "AU-TAS") => {
+            if choices.separate > dollars {
+                return Err("surcharge_above_taxable");
+            }
+            let sur_num = u128::from(choices.separate) * 2 * 10_000;
+            let sur_den = 10_000u128;
+            let sur_ten = tas_ten_cents(sur_num, sur_den);
+            let together =
+                tas_ten_cents(land_num * sur_den + sur_num * land_den, land_den * sur_den);
+            if tax + sur_ten != together {
+                return Err("rounding_unsettled");
+            }
+            sur_ten
+        }
         // DI2026-152 section 7: 0.75% of the base value.
         (true, "AU-ACT") => per_cent(75, dollars),
         (true, _) => unreachable!("{place} has no surcharge"),
@@ -4970,7 +5018,7 @@ fn land_tax_oracle(place: &str, dollars: u64, choices: LandChoices) -> [u64; 3] 
     } else {
         0
     };
-    [tax, surcharge, mrit]
+    Ok([tax, surcharge, mrit])
 }
 
 /// Each revenue office's own worked figure, read 16 November 2026, and hand-worked figures
@@ -5042,16 +5090,7 @@ fn the_land_tax_oracle_gives_the_revenue_offices_worked_figures() {
             [465_000, 4_000_000, 0],
             "SRO Victoria general rates with the absentee owner surcharge, $44,650",
         ),
-        (
-            "AU-VIC",
-            1_800_000,
-            LandChoices {
-                trust: true,
-                ..foreign
-            },
-            [1_836_300, 7_200_000, 0],
-            "SRO Victoria trust rates with the absentee owner surcharge, $90,363",
-        ),
+        // Land Tax Act 2005 (Vic) s 46IA: Victorian absentee trusts are refused below.
         (
             "AU-QLD",
             680_000,
@@ -5084,8 +5123,8 @@ fn the_land_tax_oracle_gives_the_revenue_offices_worked_figures() {
             "AU-QLD",
             400_000,
             foreign,
-            [230_000, 150_000, 0],
-            "QRO absentee example",
+            [230_000, 150_003, 0],
+            "QRO absentee example at statutory $349,999 threshold",
         ),
         (
             "AU-QLD",
@@ -5094,8 +5133,8 @@ fn the_land_tax_oracle_gives_the_revenue_offices_worked_figures() {
                 trust: true,
                 ..foreign
             },
-            [230_000, 150_000, 0],
-            "QRO foreign company example",
+            [230_000, 150_003, 0],
+            "QRO foreign company example at statutory $349,999 threshold",
         ),
         (
             "AU-SA",
@@ -5147,10 +5186,45 @@ fn the_land_tax_oracle_gives_the_revenue_offices_worked_figures() {
     ] {
         assert_eq!(
             land_tax_oracle(place, dollars, choices),
-            cents,
+            Ok(cents),
             "{place} {dollars}: {source}"
         );
     }
+    assert_eq!(
+        land_tax_oracle(
+            "AU-VIC",
+            1_800_000,
+            LandChoices {
+                trust: true,
+                ..foreign
+            }
+        ),
+        Err("absentee_trust_unsupported")
+    );
+    assert_eq!(land_tax_oracle("AU-SA", 939_900, general), Ok([0, 0, 0]));
+    assert_eq!(
+        land_tax_oracle("AU-SA", 939_901, general),
+        Ok([2_000, 0, 0])
+    );
+    assert_eq!(
+        land_tax_oracle("AU-TAS", 125_011, general),
+        Ok([5_000, 0, 0])
+    );
+    assert_eq!(
+        land_tax_oracle("AU-TAS", 125_012, general),
+        Ok([5_010, 0, 0])
+    );
+    assert_eq!(
+        land_tax_oracle(
+            "AU-TAS",
+            125_000,
+            LandChoices {
+                separate: 125_001,
+                ..foreign
+            }
+        ),
+        Err("surcharge_above_taxable")
+    );
 }
 
 /// Every combination of choices a jurisdiction computes: trust rates where it has them, a
@@ -5206,10 +5280,17 @@ fn the_land_tax_engine_agrees_with_the_oracle_at_every_band_boundary() {
     let mut expected = Vec::new();
     for (place, dollars) in values {
         for mut choices in land_choice_sets(place) {
-            if choices.foreign && ["AU-NSW", "AU-TAS"].contains(&place) {
+            if choices.foreign && place == "AU-NSW" {
                 choices.separate = rng.cents(1_000_000_000);
+            } else if choices.foreign && place == "AU-TAS" {
+                choices.separate = if rng.below(5) == 0 {
+                    dollars.saturating_add(1).min(1_000_000_000)
+                } else if dollars == 0 {
+                    0
+                } else {
+                    rng.cents(dollars)
+                };
             }
-            let [tax, surcharge, mrit] = land_tax_oracle(place, dollars, choices);
             cases.push(json!({
                 "value": dollars.to_string(),
                 "place": place,
@@ -5220,18 +5301,36 @@ fn the_land_tax_engine_agrees_with_the_oracle_at_every_band_boundary() {
                     "metro": choices.metro,
                 },
             }));
-            expected.push(json!({
-                "tax": shown(tax),
-                "surcharge": shown(surcharge),
-                "mrit": shown(mrit),
-                "total": shown(tax + surcharge + mrit),
-            }));
+            expected.push(match land_tax_oracle(place, dollars, choices) {
+                Ok([tax, surcharge, mrit]) => json!({
+                    "tax": shown(tax),
+                    "surcharge": shown(surcharge),
+                    "mrit": shown(mrit),
+                    "total": shown(tax + surcharge + mrit),
+                }),
+                Err(kind) => json!({ "refused": kind }),
+            });
         }
     }
     let actual = run_node(LAND_TAX_HARNESS, &cases);
     assert_eq!(actual.len(), cases.len());
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
-        assert_eq!(got, want, "{case}");
+        if let Some(kind) = want.get("refused").and_then(Value::as_str) {
+            let msg = got
+                .get("refused")
+                .and_then(Value::as_str)
+                .unwrap_or_else(|| panic!("expected refusal {kind} for {case}, got {got}"));
+            match kind {
+                "absentee_trust_unsupported" => assert!(msg.contains("46IA"), "{msg}"),
+                "surcharge_above_taxable" => {
+                    assert!(msg.contains("exceed the taxable land value"), "{msg}")
+                }
+                "rounding_unsettled" => assert!(msg.contains("section 7"), "{msg}"),
+                _ => unreachable!("{kind}"),
+            }
+        } else {
+            assert_eq!(got, want, "{case}");
+        }
     }
 }
 
@@ -6173,7 +6272,13 @@ fn surcharge_oracle(
             }
             _ => 0,
         },
-        ("AU-QLD", _) => land.saturating_sub(350_000) * 3,
+        ("AU-QLD", _) => {
+            if land >= 350_000 {
+                (land - 349_999) * 3
+            } else {
+                0
+            }
+        }
         ("AU-TAS", true) => land * 2,
         ("AU-ACT", true) => exact_half_up(land * 75, 100),
         _ => 0,
@@ -6266,7 +6371,7 @@ fn the_company_tax_and_surcharge_oracles_work_the_published_examples() {
     );
     assert_eq!(
         surcharge_oracle("AU-QLD", true, false, 400_000, 400_000, None),
-        json!({"duty": "32000", "land": "1500"})
+        json!({"duty": "32000", "land": "1500.03"})
     );
     assert_eq!(
         surcharge_oracle("AU-ACT", true, false, 600_000, 600_000, None),

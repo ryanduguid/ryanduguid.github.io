@@ -39,9 +39,9 @@ export const ASIC_LATE_FEES = { within: 102, beyond: 428 };
  * @type {Record<AsicFeeType, {code: string, name: string, amount: number | null, item: string}>} */
 export const ASIC_FEES = {
   'company-share-capital': { code: 'I02', name: 'Register a company with share capital', amount: 636,
-    item: 'Corporations (Fees) Regulations 2001, Schedule 1 item 1(a)(i)' },
+    item: 'Corporations (Fees) Regulations 2001, Schedule 2 item 1(a)(i)' },
   'company-no-share-capital': { code: 'I01', name: 'Register a company without share capital', amount: 524,
-    item: 'Corporations (Fees) Regulations 2001, Schedule 1 item 1(a)(ii)' },
+    item: 'Corporations (Fees) Regulations 2001, Schedule 2 item 1(a)(ii)' },
   'name-reservation': { code: 'R01', name: 'Reserve a company name, or extend a reservation', amount: 65,
     item: 'Corporations (Fees) Regulations 2001, Schedule 2 item 8' },
   'review-proprietary': { code: 'A52', name: 'Annual review fee, proprietary company (not a special purpose company)', amount: 342,
