@@ -4,6 +4,7 @@
 import { POSITIVE_FRACTION } from './money.mjs';
 import { businessCohortATools } from './webmcp-business-a.mjs';
 import { businessCohortBTools } from './webmcp-business-b.mjs';
+import { businessCohortCTools } from './webmcp-business-c.mjs';
 import {
   concessionalCatchUpTool, fhssTool, governmentSuperTool, lumpSumArrearsTool, studyLoanTool, workExpensesTool,
 } from './webmcp-individual-more.mjs';
@@ -544,7 +545,10 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
  *   | 'vehicleClass' | 'wineEqualisationTax' | 'WET_YEARS'
  *   | 'cashForecast' | 'cashWeekDates' | 'lowValuePool' | 'smallBusinessPool' | 'capitalWorks' | 'POOL_YEARS'
  *   | 'div7aSchedule' | 'firstHomeOwnerGrant' | 'firstHomeDuty' | 'FHOG' | 'FHOG_FIRST' | 'FHOG_LAST' | 'FHOG_HOMES'
- *   | 'paygInstalment' | 'payrollTax' | 'salaryDividend' | 'paydaySuperCharge' | 'quarterlySgCharge' | 'staffCost'>} calculate */
+ *   | 'paygInstalment' | 'payrollTax' | 'salaryDividend' | 'paydaySuperCharge' | 'quarterlySgCharge' | 'staffCost'
+ *   | 'capitalGain' | 'cgtConcessions' | 'pcgRisk' | 'pcgAllocation' | 'psiDetermination' | 'RENTAL_YEARS'
+ *   | 'rentalProperty' | 'SBT_YEARS' | 'superBenefitTax' | 'SWH_FIRST_DAY' | 'superWithholding' | 'DASP_YEARS'
+ *   | 'daspTax' | 'unusedLeave' | 'WC_SCHEMES' | 'workersCompensation'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -560,6 +564,7 @@ export function calculatorTools(calculate) {
     'borrowing-expenses': borrowingTool(calculate.borrowingSchedule, calculate.BORROWING_YEARS),
     ...businessCohortATools(TOOL_KIT, calculate),
     ...businessCohortBTools(TOOL_KIT, calculate),
+    ...businessCohortCTools(TOOL_KIT, calculate),
   };
 }
 
