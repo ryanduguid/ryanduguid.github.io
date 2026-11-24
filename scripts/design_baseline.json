@@ -412,7 +412,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "7b1ea096091ba6cfd3b01623f93af894467f41f0a18f2c89215cd1cc6290cd75",
+    "llms.txt": "dedbabb3a38347626220d42c0edaaa57c4064c33377a561d0ac4eea20e33e13b",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
     "sitemap.xml": "fc75fd5d0d6e616055fbb6742abfa67af367376a16360b50ad37c01f325cc83f"
   },

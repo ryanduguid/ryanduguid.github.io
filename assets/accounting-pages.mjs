@@ -57,7 +57,10 @@ function renderResult(output, result) {
 }
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
-function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }, { fhssResult }, { workExpensesResult }, { governmentSuperResult }]) {
+function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }, fhssMod, workExpensesMod, governmentSuperMod]) {
+  const { fhssResult } = fhssMod;
+  const { workExpensesResult } = workExpensesMod;
+  const { governmentSuperResult } = governmentSuperMod;
   for (const form of forms) {
     const output = form.querySelector('output');
     if (output.textContent.startsWith('Calculators could not load')) output.textContent = 'Enter the inputs and calculate.';
@@ -66,8 +69,14 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
   // modelContext on document; early Chrome builds used navigator. Other browsers skip the import.
   const modelContext = document.modelContext ?? navigator.modelContext;
   // A failed import or registration leaves the form itself untouched; the warning keeps the cause.
-  if (modelContext?.registerTool) import('./webmcp-tools.mjs').then(async ({ calculatorTools, individualTaxTools }) => {
-    const tools = { ...calculatorTools(calculate), ...(engines ? individualTaxTools(engines) : {}) };
+  if (modelContext?.registerTool) import('./webmcp-tools.mjs').then(async ({ calculatorTools, individualTaxTools, fhssTools, workExpensesTools, governmentSuperTools }) => {
+    const tools = {
+      ...calculatorTools(calculate),
+      ...(engines ? individualTaxTools(engines) : {}),
+      ...(fhssMod.fhss ? fhssTools(fhssMod) : {}),
+      ...(workExpensesMod.workExpenses ? workExpensesTools(workExpensesMod) : {}),
+      ...(governmentSuperMod.governmentSuperAmounts ? governmentSuperTools(governmentSuperMod) : {}),
+    };
     for (const form of forms) {
       const tool = tools[form.dataset.calculator];
       if (tool) await modelContext.registerTool(tool);
