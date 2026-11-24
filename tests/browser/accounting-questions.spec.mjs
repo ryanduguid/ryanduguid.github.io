@@ -1193,6 +1193,75 @@ test('super lump sum page works withholding and DASP tax offline', async ({ page
 });
 
 // Spec G9 is the form's default; the failure to lodge question shows its 28-day periods, and remission is refused.
+// The ATO's Company V is the form's default; Company F is refundable, and a clawback leaving under $20,000 is refused.
+test('R&D tax offset page works Company V, a refundable offset and refuses a clawback under the threshold offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/rd-tax-offset/');
+  const form = page.locator('#rd-tax-offset form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Tax offset, non-refundable: $1,650,000.00.');
+  await expect(form.locator('output')).toContainText('Included in assessable income in the present year, over 30%: $1,265,000.00.');
+  await form.locator('[name="year"]').selectOption('2022-23');
+  await form.locator('[name="notional"]').fill('1000000');
+  await form.locator('[name="turnover"]').fill('10000000');
+  await form.locator('[name="bre"]').selectOption('yes');
+  await form.locator('[name="present-bre"]').selectOption('yes');
+  await form.locator('[name="recoupment"]').fill('500000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Tax offset, refundable: $435,000.00.');
+  await expect(form.locator('output')).toContainText('Included in assessable income in the present year, over 25%: $370,000.00.');
+  await form.locator('[name="notional"]').fill('22000');
+  await form.locator('[name="recoupment"]').fill('9000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('does not choose between them');
+});
+
+// GSTR 2000/24's Bill is the form's default; the bad debt worksheet shows its own fields and the conditions table.
+test('GST adjustments page works Bill, a recipient bad debt and refuses a margin scheme debt offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/gst-adjustments/');
+  const form = page.locator('#gst-adjustments form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Increasing adjustment: $90.00.');
+  await form.getByLabel('A bad debt (Division 21)').check();
+  await expect(form.locator('[name="cp-value"]')).toBeHidden();
+  await form.locator('[name="bd-party"]').selectOption('recipient');
+  await form.locator('[name="bd-event"]').selectOption('written_off');
+  await expect(form.locator('[name="bd-from"]')).toBeHidden();
+  await form.locator('[name="bd-amount"]').fill('1100');
+  await form.locator('[name="bd-purpose"]').fill('60');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Increasing adjustment: $60.00.');
+  await expect(form.locator('table[data-results="conditions"] tbody tr')).toHaveCount(4);
+  await form.locator('[name="bd-special"]').selectOption('taxable_at_less_than_one_eleventh');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Subdivision 136-B works the adjustment');
+});
+
+// The form opens on 3 items at 30%; a fourth item and a business combination change the result.
+test('Deferred tax page works its example, a further item and refuses a business combination offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/deferred-tax/');
+  const form = page.locator('#deferred-tax form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Income tax expense: $31,200.00.');
+  await expect(form.locator('table[data-results="differences"] tbody tr')).toHaveCount(3);
+  await form.locator('[name="item-4-label"]').fill('Lease liability');
+  await form.locator('[name="item-4-class"]').selectOption('liability');
+  for (const [field, value] of [['carrying', '5000'], ['base', '0'], ['opening-carrying', '0'], ['opening-base', '0']]) {
+    await form.locator(`[name="item-4-${field}"]`).fill(value);
+  }
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Income tax expense: $29,700.00.');
+  await expect(form.locator('table[data-results="differences"] tbody tr')).toHaveCount(4);
+  await form.locator('[name="business-combination"]').selectOption('yes');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('business combination');
+});
+
 test('ATO penalties and interest page works GIC by quarter, a failure to lodge penalty and refuses remission offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/ato-penalties-interest/');
   const form = page.locator('#ato-penalties-interest form');
@@ -1695,7 +1764,8 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'termination-payment', 'transfer-duty', 'first-home-owner-grant', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
-  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property'];
+  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset',
+  'gst-adjustments', 'deferred-tax'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -1918,27 +1988,23 @@ test('land tax adds a foreign owner surcharge and MRIT from the radios and check
     + 'Metropolitan region improvement tax: $1,680.00. Total for the year: $7,930.00.');
 });
 
-test('land tax says RevenueSA assesses nothing under $20 only when the South Australian figure is under $20', async ({ page }) => {
+test('South Australian land tax under $20 is nil under section 6', async ({ page }) => {
   await page.goto('/tools/business-calculators/land-tax/');
   const form = page.locator('#land-tax form');
   await waitForCalculator(form);
-  const note = form.locator('output .result-note');
   await form.getByLabel('South Australia', { exact: true }).check();
-  // $50 over the threshold is a whole $100 at 50 cents; $939,900 is 39 lots of $100, $19.50.
-  for (const [value, shown] of [['936050', '$0.50'], ['939900', '$19.50']]) {
+  // $936,050 ($0.50 calculated) and $939,900 ($19.50 calculated) are both under $20, so nil.
+  for (const value of ['936050', '939900']) {
     await form.getByLabel('Total taxable land value (whole dollars)').fill(value);
     await form.getByRole('button', { name: 'Calculate', exact: true }).click();
-    await expect(form.locator('output .result-row strong').first()).toHaveText(shown);
-    await expect(note).toHaveText('RevenueSA issues no land tax assessment where the calculated land tax is under $20.');
+    await expect(form.locator('output .result-row strong').first()).toHaveText('$0.00');
   }
-  // $940,000 is 40 lots of $100, $20.00, and New South Wales has no such rule.
-  await form.getByLabel('Total taxable land value (whole dollars)').fill('940000');
+  // $939,901 is 40 lots of $100, $20.00, which is payable.
+  await form.getByLabel('Total taxable land value (whole dollars)').fill('939901');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output .result-row strong').first()).toHaveText('$20.00');
-  await expect(note).toHaveCount(0);
   await form.getByLabel('New South Wales', { exact: true }).check();
   await form.getByLabel('Total taxable land value (whole dollars)').fill('1075001');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output .result-row strong').first()).toHaveText('$100.02');
-  await expect(note).toHaveCount(0);
 });

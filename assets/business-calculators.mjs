@@ -650,9 +650,15 @@ export { payrollTax, payrollTaxResult } from './payroll-tax.mjs';
 export { companyTax, companyTaxResult } from './company-tax.mjs';
 export { gstMarginScheme, gstMarginSchemeResult } from './gst-margin-scheme.mjs';
 export { lowValuePool, smallBusinessPool, capitalWorks, depreciationPoolsResult, poolFormInput, poolInputsText, POOL_YEARS } from './depreciation-pools.mjs';
+export { rdTaxOffset, rdTaxOffsetResult, rdFormInput, rdInputsText, RD_YEARS } from './rd-tax-offset.mjs';
 export { wineEqualisationTax, wineEqualisationTaxResult, wetFormInput, wetInputsText, WET_YEARS } from './wine-equalisation-tax.mjs';
 export { atoPenaltiesInterest, atoPenaltiesFormInput, atoPenaltiesInputsText, atoPenaltiesInterestResult, ATO_PENALTY_YEARS, PENALTY_UNITS } from './ato-penalties-interest.mjs';
 export { asicFee, asicFeesResult, asicFeeFormInput, asicFeeInputsText, firstMonthEnds, ASIC_FEES, ASIC_LATE_FEES } from './asic-fees.mjs';
 export { salaryDividend, salaryDividendResult } from './salary-dividend.mjs';
 export { firbApplicationFee, firbFee, foreignSurcharge, foreignSurchargeResult } from './foreign-surcharge.mjs';
 export { businessDays, businessDaysResult, parseHolidays } from './business-days.mjs';
+export { gstCreditablePurposeChange, gstAnnualApportionment, gstFinancialAcquisitionsThreshold, gstGoingConcern, gstSecondHandGoods, gstBadDebt,
+  GST_ADJUSTMENT_YEARS } from './gst-adjustments.mjs';
+export { gstAdjustment, gstAdjustmentsResult, gstFormInput, gstInputsText, GST_WORKSHEETS } from './gst-adjustments-page.mjs';
+export { deferredTax, deferredTaxResult, deferredTaxFormInput, deferredTaxInputsText, DEFERRED_TAX_YEARS, DEFERRED_TAX_ROWS,
+  DEFERRED_TAX_MISMATCH } from './deferred-tax.mjs';

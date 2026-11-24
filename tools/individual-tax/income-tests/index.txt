@@ -58,7 +58,7 @@ Child support paid can take adjusted taxable income below nil | Resident all yea
 Pensions and target foreign income count in adjusted taxable income only | Resident all year, taxable $20,000, pensions $5,000, target foreign $3,000, child support $8,000, assessable $20,000 | Surcharge $20,000, Division 293 $20,000, rebate $20,000, repayment $20,000, adjusted taxable $20,000, co-contribution $20,000
 Business deductions come off co-contribution total income only | Resident all year, taxable $35,000, other fringe $2,000, employer super $1,000, assessable $40,000, business deductions $5,000 | Surcharge $38,000, Division 293 $37,000, rebate $38,000, repayment $38,000, adjusted taxable $38,000, co-contribution $38,000
 
-One of the fifteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -72,6 +72,6 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - When you must repay your loan: https://www.ato.gov.au/individuals-and-families/study-and-training-support-loans/when-must-you-repay-your-loan
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
-- fifteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Division 293 tax calculator: https://duguid.com.au/tools/individual-tax/division-293/
 - Study and training loan calculator: https://duguid.com.au/tools/individual-tax/study-loan/

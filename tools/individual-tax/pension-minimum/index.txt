@@ -1,0 +1,59 @@
+# Account-based pension minimum payment calculator
+
+Source: https://duguid.com.au/tools/individual-tax/pension-minimum/
+
+> Work out the minimum annual payment from an account-based pension, with the factor for your age, a pro-rated first year and rounding to $10.
+
+# Pension minimum calculator
+
+The minimum annual payment from an account-based pension for 2024-25 to 2027-28, including the first year.
+
+Published 24 November 2026. Last checked 24 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+An account-based pension for one income year
+
+Income year 2027-28 2026-27 2025-26 2024-25
+
+Account balance on 1 July, or on the start day in the first year Age in whole years on the same day Start day, if the pension started during the year
+
+Leave the start day blank for a pension running on 1 July. A start day must fall in the income year; the first year counts the days from the start day to 30 June.
+
+Calculate
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; balance $600,000.00; age 67; held on 1 July. Account balance $600,000.00 Percentage factor at your age 5% Days counted All 365 Minimum before rounding $30,000.00 Minimum annual payment, to the nearest $10 $30,000.00 The whole year from 1 July; $5 rounds up.
+
+## How the pension minimum calculator works
+
+The minimum annual payment from an account-based pension is the account balance on 1 July times the percentage factor for your age on that day. The factor is 4% under 65, 5% from 65 to 74, 6% from 75 to 79, 7% from 80 to 84, 9% from 85 to 89, 11% from 90 to 94 and 14% at 95 or more. It is rounded to the nearest $10, and an amount ending in exactly $5 rounds up.
+
+In the year a pension starts, the balance and age are taken on the start day, and the minimum is the same percentage of the balance times the days from the start day to 30 June over the days in the year, 366 when the year includes 29 February. A pension starting on or after 1 June, in the year’s last 30 days, needs no payment that year.
+
+## What the pension minimum calculator does not cover
+
+The calculator works 2024-25 to 2027-28 with the factors from 2023-24; it does not apply the halved factors of 2019-20 to 2022-23. It does not cover market-linked or other non-account-based pensions, transition to retirement maximums, the year a member dies, or payments that fall short. It takes the balance, age and start day as you enter them; confirm them with your fund, the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Pension minimum calculator
+
+Case | Inputs | Result
+$600,000 at 67 held all 2026-27: 5%, $30,000 (the form’s example) | 2026-27, balance $600,000.00, age 67, 365 days | Before rounding $30,000.00, minimum $30,000.00
+The ATO’s Thavi pro-rated in 2024-25: $250,000 at 66 from 1 January 2025, 181 days at 5%, $6,198.63 paid as $6,200 | 2024-25, balance $250,000.00, age 66, 181 days | Before rounding $6,198.63, minimum $6,200.00
+Started on 1 June: the last 30 days need nothing (cl 4) | 2025-26, balance $250,000.00, age 66, 30 days | Before rounding $0.00, minimum $0.00
+Started on 31 May: 31 days pro-rated (cl 3) | 2025-26, balance $250,000.00, age 66, 31 days | Before rounding $1,061.64, minimum $1,060.00
+$5 rounds up: $100,125 at 60 is $4,005, paid as $4,010 (cl 5) | 2025-26, balance $100,125.00, age 60, 365 days | Before rounding $4,005.00, minimum $4,010.00
+At 65 the factor rises from 4% to 5% | 2025-26, balance $100,000.00, age 65, 365 days | Before rounding $5,000.00, minimum $5,000.00
+At 95 or more, 14% | 2026-27, balance $500,000.00, age 95, 365 days | Before rounding $70,000.00, minimum $70,000.00
+2027-28 has 366 days, with 29 February 2028 | 2027-28, balance $300,000.00, age 80, 366 days | Before rounding $21,000.00, minimum $21,000.00
+
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/

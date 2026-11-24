@@ -98,7 +98,7 @@ Queensland tests the cap on a home and land valued at $750,000 or more, whatever
 A Queensland home valued above its price still gets no more than the consideration (section 20(1)) | Queensland, contract 1 August 2026, new home bought, total value $20,000.00, value the cap tests $100,000.00, every eligibility fact stated | Grant $20,000.00, the grant cannot be more than the consideration
 A Western Australian home valued above its price still gets no more than the consideration (section 19(2CA)) | Western Australia, contract 1 August 2026, new home bought, south of the 26th parallel, total value $5,000.00, value the cap tests $100,000.00, every eligibility fact stated | Grant $5,000.00, the grant cannot be more than the consideration
 
-One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Common questions
 
@@ -120,6 +120,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - First home super saver calculator: https://duguid.com.au/tools/individual-tax/fhss/
 - Transfer duty rates by state: https://duguid.com.au/rates/transfer-duty/

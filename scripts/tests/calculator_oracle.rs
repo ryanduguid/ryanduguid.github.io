@@ -91,6 +91,19 @@
 //! 2026, and count capital works days between calendar dates, where the engine works in sixteenths, tenths
 //! and twentieths of a cent and counts days from the epoch.
 //!
+//! A further 240 seeded R&D tax offsets, from their own seed, integrate marginal rates in basis
+//! points over slices of the notional deductions in hundredths of a cent (s 355-100(1), (1A) and (3)),
+//! where the engine works each step's product in thousandths, and divide the clawback by the present
+//! year's rate in basis points.
+//!
+//! A further 240 seeded GST adjustments, from their own seed, work bad debts, second-hand goods credits,
+//! the financial acquisitions threshold and annual apportionment as exact ratios of whole percentages and
+//! cents rounded half up once, where the engine works in a 40-digit decimal context.
+//!
+//! A further 240 seeded deferred tax worksheets, from their own seed, sign each item's difference and measure
+//! the balances, movement, current tax and reconciliation in cents times whole percentages rounded half away
+//! from nil, where the engine works item by item in cents.
+//!
 //! A further 240 seeded wine equalisation tax periods fill the producer rebate cap one dealing at a
 //! time, where the engine compares the year's total with what the cap leaves, and type the cap by year
 //! from WET Act s 19-15(2) and Act No. 12 of 2026 Sch 6.
@@ -4654,8 +4667,12 @@ let input = '';
 for await (const chunk of process.stdin) input += chunk;
 process.stdout.write(JSON.stringify(JSON.parse(input).map(({ value, place, choices }) => {
   if (!places[place]) return { missing: place };
-  const r = landTaxYear(value, places[place], choices);
-  return { tax: String(r.tax), surcharge: String(r.surcharge), mrit: String(r.mrit), total: String(r.total) };
+  try {
+    const r = landTaxYear(value, places[place], choices);
+    return { tax: String(r.tax), surcharge: String(r.surcharge), mrit: String(r.mrit), total: String(r.total) };
+  } catch (error) {
+    return { refused: error.message };
+  }
 })));
 "#;
 
@@ -4897,20 +4914,34 @@ fn every_land_scale() -> Vec<(&'static str, &'static [LandBand])> {
     scales
 }
 
-/// Tax in cents on a whole-dollar value from one scale: the band whose range holds it.
-fn band_tax(bands: &[LandBand], dollars: u64) -> u64 {
+/// Exact tax as a rational number of cents (`num / den`) on a whole-dollar value from one scale.
+fn band_tax_exact(bands: &[LandBand], dollars: u64) -> (u128, u128) {
     let band = bands
         .iter()
         .find(|band| band.low <= dollars && dollars <= band.high)
         .unwrap();
     let excess = u128::from(dollars - band.over);
     let rate = u128::from(band.rate);
-    let charge = if band.per_hundred {
-        exact_half_up(rate * excess.div_ceil(100), 100)
+    let base = u128::from(band.base);
+    if band.per_hundred {
+        (base * 100 + rate * excess.div_ceil(100), 100)
     } else {
-        exact_half_up(rate * excess, 10_000)
-    };
-    band.base + u64::try_from(charge).unwrap()
+        (base * 10_000 + rate * excess, 10_000)
+    }
+}
+/// Land Tax Rating Act 2000 (Tas) s 7: cents not divisible by 10 round up to the next 10 cents
+/// only if more than 5 cents remain, otherwise down.
+fn tas_ten_cents(num: u128, den: u128) -> u64 {
+    let ten = 10 * den;
+    let rest = num % ten;
+    let kept = (num - rest) / den;
+    let rounded = if rest > 5 * den { kept + 10 } else { kept };
+    u64::try_from(rounded).unwrap()
+}
+/// Tax in cents on a whole-dollar value from one scale: the band whose range holds it.
+fn band_tax(bands: &[LandBand], dollars: u64) -> u64 {
+    let (num, den) = band_tax_exact(bands, dollars);
+    u64::try_from(exact_half_up(num, den)).unwrap()
 }
 
 /// What a land tax page offers beside the value: trust rates, a foreign or absentee owner,
@@ -4928,8 +4959,16 @@ fn per_cent(hundredths: u128, dollars: u64) -> u64 {
     u64::try_from(exact_half_up(hundredths * u128::from(dollars), 100)).unwrap()
 }
 
-/// A full year's land tax, foreign or absentee owner surcharge and MRIT in cents.
-fn land_tax_oracle(place: &str, dollars: u64, choices: LandChoices) -> [u64; 3] {
+/// A full year's land tax, foreign or absentee owner surcharge and MRIT in cents, or `Err` when
+/// the Act makes the case outside what the calculator takes.
+fn land_tax_oracle(
+    place: &str,
+    dollars: u64,
+    choices: LandChoices,
+) -> Result<[u64; 3], &'static str> {
+    if place == "AU-VIC" && choices.trust && choices.foreign {
+        return Err("absentee_trust_unsupported");
+    }
     let (_, fixed, general) = LAND_TAX_SCALES.iter().find(|(p, ..)| *p == place).unwrap();
     let main = if choices.trust {
         LAND_TAX_TRUST_SCALES
@@ -4942,24 +4981,46 @@ fn land_tax_oracle(place: &str, dollars: u64, choices: LandChoices) -> [u64; 3] 
     } else {
         general
     };
-    let tax = fixed + band_tax(main, dollars);
+    let (land_num, land_den) = band_tax_exact(main, dollars);
+    let mut tax = if place == "AU-TAS" {
+        tas_ten_cents(land_num + u128::from(*fixed) * land_den, land_den)
+    } else {
+        fixed + u64::try_from(exact_half_up(land_num, land_den)).unwrap()
+    };
+    // Land Tax Act 1936 (SA) s 6: land tax under $20 is nil.
+    if place == "AU-SA" && tax < 2_000 {
+        tax = 0;
+    }
     let surcharge = match (choices.foreign, place) {
         (false, _) => 0,
         // Revenue NSW: 5% of the land value of the residential land, with no threshold.
         (true, "AU-NSW") => per_cent(500, choices.separate),
-        // SRO Victoria: its table with the absentee owner surcharge less the table without it.
-        (true, "AU-VIC") => {
-            let with = if choices.trust {
-                VIC_TRUST_AOS
+        // SRO Victoria: general rates with the absentee owner surcharge less general rates.
+        (true, "AU-VIC") => band_tax(VIC_GENERAL_AOS, dollars) - band_tax(main, dollars),
+        // Land Tax Act 2010 (Qld) Sch 2 Pt 2 & Sch 3 Pt 2: 3.0c for each $1 over $349,999.
+        (true, "AU-QLD") => {
+            if dollars >= 350_000 {
+                per_cent(300, dollars - 349_999)
             } else {
-                VIC_GENERAL_AOS
-            };
-            band_tax(with, dollars) - band_tax(main, dollars)
+                0
+            }
         }
-        // QRO: (taxable value - $350,000) x 3%, from $350,000.
-        (true, "AU-QLD") => per_cent(300, dollars.saturating_sub(350_000)),
-        // SRO Tasmania: 2% of the assessed land value of the foreign-owned share.
-        (true, "AU-TAS") => per_cent(200, choices.separate),
+        // Land Tax Rating Act 2000 (Tas) s 6A(2) & s 7: 2% of residential general land (part of
+        // taxable land), rounded to 10 cents; refused when rounding apart and together differ.
+        (true, "AU-TAS") => {
+            if choices.separate > dollars {
+                return Err("surcharge_above_taxable");
+            }
+            let sur_num = u128::from(choices.separate) * 2 * 10_000;
+            let sur_den = 10_000u128;
+            let sur_ten = tas_ten_cents(sur_num, sur_den);
+            let together =
+                tas_ten_cents(land_num * sur_den + sur_num * land_den, land_den * sur_den);
+            if tax + sur_ten != together {
+                return Err("rounding_unsettled");
+            }
+            sur_ten
+        }
         // DI2026-152 section 7: 0.75% of the base value.
         (true, "AU-ACT") => per_cent(75, dollars),
         (true, _) => unreachable!("{place} has no surcharge"),
@@ -4970,7 +5031,7 @@ fn land_tax_oracle(place: &str, dollars: u64, choices: LandChoices) -> [u64; 3] 
     } else {
         0
     };
-    [tax, surcharge, mrit]
+    Ok([tax, surcharge, mrit])
 }
 
 /// Each revenue office's own worked figure, read 16 November 2026, and hand-worked figures
@@ -5042,16 +5103,7 @@ fn the_land_tax_oracle_gives_the_revenue_offices_worked_figures() {
             [465_000, 4_000_000, 0],
             "SRO Victoria general rates with the absentee owner surcharge, $44,650",
         ),
-        (
-            "AU-VIC",
-            1_800_000,
-            LandChoices {
-                trust: true,
-                ..foreign
-            },
-            [1_836_300, 7_200_000, 0],
-            "SRO Victoria trust rates with the absentee owner surcharge, $90,363",
-        ),
+        // Land Tax Act 2005 (Vic) s 46IA: Victorian absentee trusts are refused below.
         (
             "AU-QLD",
             680_000,
@@ -5084,8 +5136,8 @@ fn the_land_tax_oracle_gives_the_revenue_offices_worked_figures() {
             "AU-QLD",
             400_000,
             foreign,
-            [230_000, 150_000, 0],
-            "QRO absentee example",
+            [230_000, 150_003, 0],
+            "QRO absentee example at statutory $349,999 threshold",
         ),
         (
             "AU-QLD",
@@ -5094,8 +5146,8 @@ fn the_land_tax_oracle_gives_the_revenue_offices_worked_figures() {
                 trust: true,
                 ..foreign
             },
-            [230_000, 150_000, 0],
-            "QRO foreign company example",
+            [230_000, 150_003, 0],
+            "QRO foreign company example at statutory $349,999 threshold",
         ),
         (
             "AU-SA",
@@ -5147,10 +5199,45 @@ fn the_land_tax_oracle_gives_the_revenue_offices_worked_figures() {
     ] {
         assert_eq!(
             land_tax_oracle(place, dollars, choices),
-            cents,
+            Ok(cents),
             "{place} {dollars}: {source}"
         );
     }
+    assert_eq!(
+        land_tax_oracle(
+            "AU-VIC",
+            1_800_000,
+            LandChoices {
+                trust: true,
+                ..foreign
+            }
+        ),
+        Err("absentee_trust_unsupported")
+    );
+    assert_eq!(land_tax_oracle("AU-SA", 939_900, general), Ok([0, 0, 0]));
+    assert_eq!(
+        land_tax_oracle("AU-SA", 939_901, general),
+        Ok([2_000, 0, 0])
+    );
+    assert_eq!(
+        land_tax_oracle("AU-TAS", 125_011, general),
+        Ok([5_000, 0, 0])
+    );
+    assert_eq!(
+        land_tax_oracle("AU-TAS", 125_012, general),
+        Ok([5_010, 0, 0])
+    );
+    assert_eq!(
+        land_tax_oracle(
+            "AU-TAS",
+            125_000,
+            LandChoices {
+                separate: 125_001,
+                ..foreign
+            }
+        ),
+        Err("surcharge_above_taxable")
+    );
 }
 
 /// Every combination of choices a jurisdiction computes: trust rates where it has them, a
@@ -5206,10 +5293,17 @@ fn the_land_tax_engine_agrees_with_the_oracle_at_every_band_boundary() {
     let mut expected = Vec::new();
     for (place, dollars) in values {
         for mut choices in land_choice_sets(place) {
-            if choices.foreign && ["AU-NSW", "AU-TAS"].contains(&place) {
+            if choices.foreign && place == "AU-NSW" {
                 choices.separate = rng.cents(1_000_000_000);
+            } else if choices.foreign && place == "AU-TAS" {
+                choices.separate = if rng.below(5) == 0 {
+                    dollars.saturating_add(1).min(1_000_000_000)
+                } else if dollars == 0 {
+                    0
+                } else {
+                    rng.cents(dollars)
+                };
             }
-            let [tax, surcharge, mrit] = land_tax_oracle(place, dollars, choices);
             cases.push(json!({
                 "value": dollars.to_string(),
                 "place": place,
@@ -5220,18 +5314,36 @@ fn the_land_tax_engine_agrees_with_the_oracle_at_every_band_boundary() {
                     "metro": choices.metro,
                 },
             }));
-            expected.push(json!({
-                "tax": shown(tax),
-                "surcharge": shown(surcharge),
-                "mrit": shown(mrit),
-                "total": shown(tax + surcharge + mrit),
-            }));
+            expected.push(match land_tax_oracle(place, dollars, choices) {
+                Ok([tax, surcharge, mrit]) => json!({
+                    "tax": shown(tax),
+                    "surcharge": shown(surcharge),
+                    "mrit": shown(mrit),
+                    "total": shown(tax + surcharge + mrit),
+                }),
+                Err(kind) => json!({ "refused": kind }),
+            });
         }
     }
     let actual = run_node(LAND_TAX_HARNESS, &cases);
     assert_eq!(actual.len(), cases.len());
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
-        assert_eq!(got, want, "{case}");
+        if let Some(kind) = want.get("refused").and_then(Value::as_str) {
+            let msg = got
+                .get("refused")
+                .and_then(Value::as_str)
+                .unwrap_or_else(|| panic!("expected refusal {kind} for {case}, got {got}"));
+            match kind {
+                "absentee_trust_unsupported" => assert!(msg.contains("46IA"), "{msg}"),
+                "surcharge_above_taxable" => {
+                    assert!(msg.contains("exceed the taxable land value"), "{msg}")
+                }
+                "rounding_unsettled" => assert!(msg.contains("section 7"), "{msg}"),
+                _ => unreachable!("{kind}"),
+            }
+        } else {
+            assert_eq!(got, want, "{case}");
+        }
     }
 }
 
@@ -6173,7 +6285,13 @@ fn surcharge_oracle(
             }
             _ => 0,
         },
-        ("AU-QLD", _) => land.saturating_sub(350_000) * 3,
+        ("AU-QLD", _) => {
+            if land >= 350_000 {
+                (land - 349_999) * 3
+            } else {
+                0
+            }
+        }
         ("AU-TAS", true) => land * 2,
         ("AU-ACT", true) => exact_half_up(land * 75, 100),
         _ => 0,
@@ -6266,7 +6384,7 @@ fn the_company_tax_and_surcharge_oracles_work_the_published_examples() {
     );
     assert_eq!(
         surcharge_oracle("AU-QLD", true, false, 400_000, 400_000, None),
-        json!({"duty": "32000", "land": "1500"})
+        json!({"duty": "32000", "land": "1500.03"})
     );
     assert_eq!(
         surcharge_oracle("AU-ACT", true, false, 600_000, 600_000, None),
@@ -7618,11 +7736,12 @@ fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
     }
     match c.place {
         "AU-NSW" => {
-            // SIRA's Guidelines 2026 clause 6.7: small while the APP does not exceed $30,000;
+            // SIRA's Guidelines 2026 clause 6.7: small while the APP does not exceed $30,000,
+            // tested on wages × the rate before any rounding (icare, read 24 November 2026);
             // icare's $240 minimum; the dust diseases rate includes its GST.
             let app = cents_at(wages, c.rate);
             let premium = app - cents_at(app, c.reward) - cents_at(c.apprentice, c.rate);
-            if app > 3_000_000 || premium < 24_000 {
+            if wages * c.rate > 3_000_000 * 1_000_000 || premium < 24_000 {
                 return None;
             }
             Some([
@@ -7638,14 +7757,18 @@ fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
             }
             // Premiums Order (No. 34): remuneration to the dollar (clause 6(6)), the preliminary
             // premium in millionths of a dollar, and clause 11 as written, preliminary premium
-            // ÷ R × 15,500 × N ÷ 365 to the nearest cent (clause 6(4)); the WorkCover premium
-            // down to the cent and at least $400.
+            // ÷ R × 15,500 × N ÷ 365, N ÷ 365 to 6 decimal places (clause 6(1)), to the nearest
+            // cent (clause 6(4)); the WorkCover premium down to the cent and at least $400.
             let remuneration = wc_half(wages, 100);
             let preliminary = remuneration * c.rate;
             let deductible = if remuneration == 0 {
                 0
             } else {
-                wc_half(preliminary * 15_500 * c.days, remuneration * 365 * 10_000)
+                let share = wc_half(c.days * 1_000_000, 365);
+                wc_half(
+                    preliminary * 15_500 * share,
+                    remuneration * 1_000_000 * 10_000,
+                )
             };
             let workcover = ((preliminary - deductible * 10_000).max(0) / 10_000).max(40_000);
             let premium = workcover + if c.buyout { workcover / 10 } else { 0 };
@@ -7675,6 +7798,17 @@ fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
             // ReturnToWorkSA: BP × (1 − D) + C − A, D by the base premium's band in dollars,
             // C capped at 3 × D × BP, at least $200 and down to the whole dollar. Hundred-
             // millionths of a cent: wages × rate is the base premium in millionths of a cent.
+            // Its table ('under $10k') and its calculator ($9,999.99) part only above a bound
+            // less a cent and below the bound, which is refused.
+            let bounds = [10_000, 50_000, 100_000, 500_000, 1_000_000];
+            if !c.first_year
+                && bounds.iter().any(|dollars| {
+                    let bound = dollars * 100_000_000;
+                    wages * c.rate > bound - 1_000_000 && wages * c.rate < bound
+                })
+            {
+                return None;
+            }
             let d = if c.first_year {
                 0
             } else {
@@ -9514,6 +9648,491 @@ fn the_first_home_owner_grant_engine_agrees_with_the_oracle_on_every_boundary() 
     }
     let actual = run_node(FHOG_HARNESS, &cases);
     assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the R&D tax offset engine, as `HARNESS` runs the others, and returns its figures as text.
+const RD_HARNESS: &str = r"
+import { rdTaxOffset } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const keys = ['taxOffset', 'refundableOffset', 'nonRefundableOffset', 'clawbackAmount', 'adjustedOffset', 'deductionAmount', 'clawbackIncome', 'rate', 'presentRate'];
+process.stdout.write(JSON.stringify(JSON.parse(input).map((call) => {
+  const r = rdTaxOffset(call);
+  return Object.fromEntries(keys.map((key) => [key, String(r[key])]));
+})));
+";
+
+const RD_CASES: usize = 240;
+const RD_YEARS: [&str; 6] = [
+    "2021-22", "2022-23", "2023-24", "2024-25", "2025-26", "2026-27",
+];
+
+/// ITAA 1997 s 355-100 as marginal rates in basis points on slices of the total in hundredths of a
+/// cent: refundable, the corporate rate plus 1,850 up to $150 million (item 1); otherwise plus 850 up
+/// to 2% of total expenses and plus 1,650 above it, to $150 million (s 355-100(1A)); the corporate
+/// rate alone above $150 million (s 355-100(3)). The sum is in millionths of a cent.
+fn rd_offset(total: u128, rsp_crc: u128, expenses: u128, refundable: bool, rate: u128) -> u128 {
+    let base = 100 * if total < 2_000_000 { rsp_crc } else { total };
+    let cap = 100 * 15_000_000_000;
+    let split = (2 * expenses).min(cap);
+    let slice = |from: u128, to: u128| to.min(base).saturating_sub(from);
+    let above = slice(cap, u128::MAX) * rate;
+    if refundable {
+        slice(0, cap) * (rate + 1_850) + above
+    } else {
+        slice(0, split) * (rate + 850) + slice(split, cap) * (rate + 1_650) + above
+    }
+}
+
+/// One seeded company: no refusal, so every clawback leaves at least $20,000.
+fn rd_case(rng: &mut Seeded) -> (Value, Value) {
+    let any = rng.cents(30_000_000_000);
+    let notional =
+        u128::from(rng.pick(&[any, 1_999_999, 2_000_000, 15_000_000_000, 15_000_000_001]));
+    let up_to = |rng: &mut Seeded, limit: u128| {
+        if limit == 0 {
+            0
+        } else {
+            rng.cents(u64::try_from(limit).unwrap())
+        }
+    };
+    let any = up_to(rng, notional);
+    let rsp = u128::from(rng.pick(&[0, any]));
+    let any = up_to(rng, notional.saturating_sub(2_000_000));
+    let clawback = if notional < 2_000_000 {
+        0
+    } else {
+        u128::from(rng.pick(&[0, any]))
+    };
+    let any = up_to(rng, clawback);
+    let feedstock = u128::from(rng.pick(&[0, any]));
+    let revenue = feedstock + u128::from(rng.pick(&[0_u64, 1, 50_000]));
+    let any = rng.cents(100_000_000_000);
+    let expenses =
+        u128::from(rng.pick(&[0, any])) + notional * u128::from(rng.pick(&[0_u64, 1, 50]));
+    let any = rng.cents(100_000_000_000);
+    let turnover = u128::from(rng.pick(&[any, 1_999_999_999, 2_000_000_000]));
+    let exempt = rng.below(5) == 0;
+    let (bre, present_bre) = (rng.below(2) == 0, rng.below(2) == 0);
+    let (rate, present) = (
+        if bre { 2_500 } else { 3_000 },
+        if present_bre { 2_500 } else { 3_000 },
+    );
+    let refundable = turnover < 2_000_000_000 && !exempt;
+    let starting = rd_offset(notional, rsp, expenses, refundable, rate);
+    let adjusted = rd_offset(notional - clawback, rsp, expenses, refundable, rate);
+    let deduction = 100 * clawback * rate;
+    let figure = |numerator: u128| rd_shown(exact_half_up(numerator, 1_000_000));
+    let (refunded, kept) = if refundable {
+        (starting, 0)
+    } else {
+        (0, starting)
+    };
+    (
+        json!({ "notional_deductions": rd_money(notional), "rsp_crc_expenditure": rd_money(rsp),
+            "aggregated_turnover": rd_money(turnover), "exempt_entity_controlled": exempt, "base_rate_entity": bre,
+            "total_expenses": rd_money(expenses), "recoupment_clawback": rd_money(clawback - feedstock),
+            "feedstock_revenue": rd_money(revenue), "feedstock_expenditure": rd_money(feedstock),
+            "present_year_base_rate_entity": present_bre, "year": rng.pick(&RD_YEARS), "scope_confirmed": true }),
+        json!({ "taxOffset": figure(starting), "refundableOffset": figure(refunded), "nonRefundableOffset": figure(kept),
+            "clawbackAmount": rd_shown(clawback), "adjustedOffset": figure(adjusted), "deductionAmount": figure(deduction),
+            "clawbackIncome": rd_shown(exact_half_up(starting - adjusted - deduction, 100 * present)),
+            "rate": (rate / 100).to_string(), "presentRate": (present / 100).to_string() }),
+    )
+}
+
+/// Cents as the page's dollars text.
+fn rd_money(value: u128) -> String {
+    dollars(u64::try_from(value).unwrap())
+}
+
+/// Cents as the engine's number reads as text.
+fn rd_shown(value: u128) -> String {
+    shown(u64::try_from(value).unwrap())
+}
+
+#[test]
+fn the_rd_tax_offset_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1123_0000_0B10);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..RD_CASES).map(|_| rd_case(&mut rng)).unzip();
+    let figure = |key: &str| {
+        expected
+            .iter()
+            .any(|want| want[key].as_str().is_some_and(|value| value != "0"))
+    };
+    assert!(
+        figure("refundableOffset") && figure("nonRefundableOffset") && figure("clawbackIncome")
+    );
+    let actual = run_node(RD_HARNESS, &cases);
+    assert_eq!(actual.len(), RD_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the GST adjustments engine, as `HARNESS` runs the others, and returns each worksheet's amounts and its
+/// yes or no answer: applies, or exceeds the threshold.
+const GST_HARNESS: &str = r"
+import { gstAdjustment } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+process.stdout.write(JSON.stringify(JSON.parse(input).map(([worksheet, call]) => {
+  const r = gstAdjustment(worksheet, call);
+  return { amounts: r.amounts, answer: r.exceeds_threshold ?? r.applies };
+})));
+";
+
+const GST_CASES: usize = 240;
+const GST_YEARS: [&str; 7] = [
+    "2020-21", "2021-22", "2022-23", "2023-24", "2024-25", "2025-26", "2026-27",
+];
+
+/// Cents as the command's amount text, always to the cent.
+fn gst_cents(value: u128) -> String {
+    dollars(u64::try_from(value).unwrap())
+}
+
+/// A whole percentage from 1 to 99 that 11 does not divide, so no product is a tie after the 1/11.
+fn gst_percent(rng: &mut Seeded) -> u128 {
+    loop {
+        let percent = u128::from(rng.below(99) + 1);
+        if percent % 11 != 0 {
+            return percent;
+        }
+    }
+}
+
+/// One seeded worksheet that no condition or refusal stops: a bad debt (GST Act ss 21-5 to 21-20 with
+/// ss 136-5 and 136-10(1)), second-hand goods (s 66-10), the financial acquisitions threshold (ss 189-5 and
+/// 189-10) or annual apportionment (ss 131-40, 11-30 and 131-55), each worked as an exact ratio rounded half up.
+fn gst_case(rng: &mut Seeded) -> (Value, Value) {
+    let year = rng.pick(&GST_YEARS);
+    let any = rng.cents(10_000_000_000);
+    match rng.below(4) {
+        0 => {
+            let amount = u128::from(rng.pick(&[any, any - any % 11, 1, 550, 1_100]));
+            let supplier = rng.below(2) == 0;
+            let recovered = rng.below(3) == 0;
+            let id = if supplier == recovered {
+                "increasing_adjustment"
+            } else {
+                "decreasing_adjustment"
+            };
+            let mut call = json!({ "party": if supplier { "supplier" } else { "recipient" },
+                "event": if recovered { "recovered" } else { "written_off" }, "amount": gst_cents(amount),
+                "taxable_or_creditable": true, "cash_basis": false, "special_rule": "none", "year": year, "scope_confirmed": true });
+            call[if recovered {
+                "prior_adjustment"
+            } else {
+                "attributed"
+            }] = json!(true);
+            // Each reduction a percentage, or none: s 136-5 for the supplier, s 136-10(1) for the recipient.
+            let mut factors = Vec::new();
+            let names: &[&str] = if supplier {
+                &["taxable_proportion"]
+            } else {
+                &["creditable_purpose", "consideration_extent"]
+            };
+            for name in names {
+                if rng.below(2) == 0 {
+                    let percent = gst_percent(rng);
+                    call[*name] = json!(format!("0.{percent:02}"));
+                    factors.push(percent);
+                }
+            }
+            if !supplier {
+                call["reduced_credit_acquisition"] = json!(false);
+                call["annual_apportionment"] = json!(false);
+            }
+            let full = gst_cents(exact_half_up(amount, 11));
+            let scale = 100_u128.pow(u32::try_from(factors.len()).unwrap());
+            let reduced = exact_half_up(amount * factors.iter().product::<u128>(), 11 * scale);
+            let mut amounts = json!({});
+            if !factors.is_empty() {
+                amounts["full_adjustment"] = json!(full);
+            }
+            amounts[id] = json!(if factors.is_empty() {
+                full
+            } else {
+                gst_cents(reduced)
+            });
+            (
+                json!(["bad-debt", call]),
+                json!({ "amounts": amounts, "answer": true }),
+            )
+        }
+        1 => {
+            let consideration = u128::from(rng.pick(&[any, 30_000, 30_001, 1, any % 30_000]));
+            let mut call = json!({ "consideration": gst_cents(consideration), "acquired_for_sale_or_exchange": true,
+                "animals_or_plants": false, "supply_to_you": "neither", "imported": false, "by_way_of_hire": false,
+                "resupply_taxable": true, "divided_for_resupply": false, "valuable_metal": false, "leased_before_sale": false,
+                "year": year, "scope_confirmed": true });
+            let eleventh = exact_half_up(consideration, 11);
+            let amounts = if consideration <= 30_000 {
+                json!({ "input_tax_credit": gst_cents(eleventh) })
+            } else {
+                // The GST on your resupply caps the credit when it is less than the 1/11 (s 66-10(1)(b)).
+                let gst = u128::from(rng.cents(u64::try_from(consideration / 5).unwrap()));
+                call["resupply_gst"] = json!(gst_cents(gst));
+                let credit = if 11 * gst < consideration {
+                    gst
+                } else {
+                    eleventh
+                };
+                json!({ "one_eleventh_of_consideration": gst_cents(eleventh), "input_tax_credit": gst_cents(credit) })
+            };
+            (
+                json!(["second-hand-goods", call]),
+                json!({ "amounts": amounts, "answer": true }),
+            )
+        }
+        2 => {
+            let mut call =
+                json!({ "gst_group": rng.below(2) == 0, "year": year, "scope_confirmed": true });
+            let mut amounts = json!({});
+            let mut exceeds = false;
+            for name in ["current", "future"] {
+                let any = u128::from(rng.cents(10_000_000_000));
+                let total = rng.pick(&[any, 150_000_000, 150_000_010]);
+                let tenth = total / 10;
+                let any = u128::from(rng.cents(u64::try_from(total.max(1)).unwrap()));
+                let financial = rng
+                    .pick(&[any, tenth, tenth + 1, total, 15_000_000, 15_000_001])
+                    .min(total);
+                call[format!("{name}_financial_credits")] = json!(gst_cents(financial));
+                call[format!("{name}_total_credits")] = json!(gst_cents(total));
+                amounts[format!("{name}_ten_percent")] = json!(gst_cents(exact_half_up(total, 10)));
+                exceeds |= financial > 15_000_000 || 10 * financial > total;
+            }
+            (
+                json!(["financial-acquisitions", call]),
+                json!({ "amounts": amounts, "answer": exceeds }),
+            )
+        }
+        _ => {
+            let gst = u128::from(any);
+            let purpose = gst_percent(rng);
+            let mut call = json!({ "small_business_entity": true, "carries_on_business": true, "instalment_election": false,
+                "annual_tax_period_election": false, "election_made": true, "gst_on_acquisition": gst_cents(gst),
+                "creditable_purpose": format!("0.{purpose:02}"), "car": false, "reduced_credit_acquisition": false,
+                "year": year, "scope_confirmed": true });
+            // The non-input-taxed extent is at least the creditable purpose (s 11-15(2)(a)); 100% is left out.
+            let input_taxed = if rng.below(2) == 0 {
+                100
+            } else {
+                purpose + u128::from(rng.below(u64::try_from(100 - purpose).unwrap()))
+            };
+            let consideration = if rng.below(2) == 0 {
+                100
+            } else {
+                u128::from(rng.below(99) + 1)
+            };
+            if input_taxed < 100 {
+                call["non_input_taxed_extent"] = json!(format!("0.{input_taxed:02}"));
+            }
+            if consideration < 100 {
+                call["consideration_extent"] = json!(format!("0.{consideration:02}"));
+            }
+            let without = gst * purpose * consideration;
+            let with = gst * input_taxed * consideration;
+            let amounts = json!({ "credit_without_annual_apportionment": gst_cents(exact_half_up(without, 10_000)),
+                "annual_apportionment_credit": gst_cents(exact_half_up(with, 10_000)),
+                "increasing_adjustment": gst_cents(exact_half_up(with - without, 10_000)) });
+            (
+                json!(["annual-apportionment", call]),
+                json!({ "amounts": amounts, "answer": true }),
+            )
+        }
+    }
+}
+
+#[test]
+fn the_gst_adjustments_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1123_0000_0B13);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..GST_CASES).map(|_| gst_case(&mut rng)).unzip();
+    for worksheet in [
+        "bad-debt",
+        "second-hand-goods",
+        "financial-acquisitions",
+        "annual-apportionment",
+    ] {
+        assert!(cases.iter().any(|case| case[0] == worksheet), "{worksheet}");
+    }
+    assert!(expected.iter().any(|want| want["answer"] == json!(false)));
+    let actual = run_node(GST_HARNESS, &cases);
+    assert_eq!(actual.len(), GST_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the deferred tax engine, as `HARNESS` runs the others, and returns the figures the oracle works.
+const DT_HARNESS: &str = r"
+import { deferredTax } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const keys = ['deferred_tax_liability', 'deferred_tax_asset', 'deferred_tax_expense', 'recognition_change_effect', 'current_tax',
+  'income_tax_expense', 'deferred_rate_difference', 'reconciliation_difference', 'taxable_income_difference'];
+process.stdout.write(JSON.stringify(JSON.parse(input).map((call) => {
+  const r = deferredTax(call);
+  return { ...Object.fromEntries(keys.map((key) => [key, r.amounts[key]])), effective: r.rates.effective_tax_rate ?? null };
+})));
+";
+
+const DT_CASES: usize = 240;
+const DT_YEARS: [&str; 7] = [
+    "2020-21", "2021-22", "2022-23", "2023-24", "2024-25", "2025-26", "2026-27",
+];
+
+/// `n / d` rounded half away from nil.
+fn dt_half_up(n: i128, d: i128) -> i128 {
+    let q = (2 * n.abs() + d.abs()) / (2 * d.abs());
+    if (n < 0) == (d < 0) { q } else { -q }
+}
+
+/// Cents as the engine's amount text.
+fn dt_cents(c: i128) -> String {
+    let sign = if c < 0 { "-" } else { "" };
+    format!("{sign}{}.{:02}", c.abs() / 100, c.abs() % 100)
+}
+
+/// One seeded worksheet with the same expected rate at both dates, so no reversal schedule is needed: AASB 112
+/// paras 5, 7 and 8 sign each item, paras 15, 24, 34 and 47 measure the balances, para 80 splits the movement,
+/// ITRA s 23(2) gives the year's rate and para 81(c)(i) reconciles, each figure rounded half away from nil.
+fn dt_case(rng: &mut Seeded) -> (Value, Value) {
+    let year = rng.pick(&DT_YEARS);
+    let bre = rng.below(2) == 0;
+    let applicable: i128 = match (bre, year) {
+        (false, _) => 30,
+        (true, "2020-21") => 26,
+        (true, _) => 25,
+    };
+    // 2020-21 opening balances at 25% are refused, so that year is measured at 30%.
+    let base_rate = year != "2020-21" && rng.below(2) == 0;
+    let rate: i128 = if base_rate { 25 } else { 30 };
+    let mut items = Vec::new();
+    let (mut taxable, mut deductible, mut opening_taxable, mut opening_deductible) =
+        (0_i128, 0_i128, 0_i128, 0_i128);
+    for n in 0..=rng.below(4) {
+        let liability = rng.below(3) == 0;
+        let amounts: Vec<i128> = (0..4)
+            .map(|_| i128::from(rng.cents(10_000_000_000)))
+            .collect();
+        let sign = |carrying: i128, base: i128| {
+            if liability {
+                base - carrying
+            } else {
+                carrying - base
+            }
+        };
+        let (closing, opening) = (sign(amounts[0], amounts[1]), sign(amounts[2], amounts[3]));
+        taxable += closing.max(0);
+        deductible += (-closing).max(0);
+        opening_taxable += opening.max(0);
+        opening_deductible += (-opening).max(0);
+        items.push(json!({ "label": format!("Item {n}"), "class": if liability { "liability" } else { "asset" },
+            "carrying_amount": dt_cents(amounts[0]), "tax_base": dt_cents(amounts[1]),
+            "opening_carrying_amount": dt_cents(amounts[2]), "opening_tax_base": dt_cents(amounts[3]) }));
+    }
+    let any = rng.cents(1_000_000_000);
+    let losses = i128::from(rng.pick(&[0, any]));
+    let any = rng.cents(1_000_000_000);
+    let opening_losses = i128::from(rng.pick(&[0, any]));
+    let unrecognised = i128::from(rng.below(u64::try_from(deductible + losses).unwrap() + 1))
+        * i128::from(rng.below(2));
+    let opening_unrecognised =
+        i128::from(rng.below(u64::try_from(opening_deductible + opening_losses).unwrap() + 1))
+            * i128::from(rng.below(2));
+    let used = i128::from(rng.below(u64::try_from(opening_unrecognised).unwrap() + 1))
+        * i128::from(rng.below(2));
+    // A loss in about 1 case in 6, and a nil profit, which has no effective rate, in about 1 in 20.
+    let magnitude = i128::from(rng.cents(10_000_000_000)) * i128::from(rng.below(20) != 0);
+    let profit = if rng.below(6) == 0 {
+        -magnitude
+    } else {
+        magnitude
+    };
+    let any = rng.cents(100_000_000);
+    let non_deductible = i128::from(rng.pick(&[0, any]));
+    let any = rng.cents(100_000_000);
+    let non_assessable = i128::from(rng.pick(&[0, any]));
+    let taxable_income = i128::from(rng.cents(10_000_000_000));
+    let before = dt_half_up(taxable_income * applicable, 100);
+    let offsets = rng.pick(&[0, before / 2, before]);
+    let rate_text = if base_rate {
+        "base_rate_entity"
+    } else {
+        "standard"
+    };
+    let call = json!({ "items": items, "unused_tax_losses": dt_cents(losses), "opening_unused_tax_losses": dt_cents(opening_losses),
+        "unrecognised_deductible": dt_cents(unrecognised), "opening_unrecognised_deductible": dt_cents(opening_unrecognised),
+        "unrecognised_used": dt_cents(used), "accounting_profit": dt_cents(profit), "non_deductible_expenses": dt_cents(non_deductible),
+        "non_assessable_income": dt_cents(non_assessable), "taxable_income": dt_cents(taxable_income), "tax_offsets": dt_cents(offsets),
+        "base_rate_entity": bre, "expected_rate": rate_text, "opening_expected_rate": rate_text, "business_combination": false,
+        "uncertain_tax_treatment": false, "tax_consolidated_group": false, "outside_profit_or_loss": false, "year": year,
+        "scope_confirmed": true });
+    let at = |c: i128, r: i128| dt_half_up(c * r, 100);
+    let liability = at(taxable, rate);
+    let asset = at(deductible + losses - unrecognised, rate);
+    let opening_net_balance = at(opening_taxable, rate)
+        - at(
+            opening_deductible + opening_losses - opening_unrecognised,
+            rate,
+        );
+    let deferred = liability - asset - opening_net_balance;
+    let recognition = at(unrecognised - opening_unrecognised + used, rate);
+    let current = before - offsets;
+    let expense = current + deferred;
+    let change =
+        (taxable - deductible - losses) - (opening_taxable - opening_deductible - opening_losses);
+    let rate_gap = dt_half_up(change * (rate - applicable), 100);
+    let lines = at(profit, applicable) + at(non_deductible, applicable)
+        - at(non_assessable, applicable)
+        + rate_gap
+        + recognition
+        - at(used, rate)
+        - offsets;
+    let effective = (profit != 0).then(|| {
+        let ratio = dt_half_up(expense * 10_000, profit);
+        let sign = if (expense < 0) != (profit < 0) {
+            "-"
+        } else {
+            ""
+        };
+        format!("{sign}{}.{:04}", ratio.abs() / 10_000, ratio.abs() % 10_000)
+    });
+    let expected = json!({ "deferred_tax_liability": dt_cents(liability), "deferred_tax_asset": dt_cents(asset),
+        "deferred_tax_expense": dt_cents(deferred), "recognition_change_effect": dt_cents(recognition), "current_tax": dt_cents(current),
+        "income_tax_expense": dt_cents(expense), "deferred_rate_difference": dt_cents(rate_gap),
+        "reconciliation_difference": dt_cents(expense - lines),
+        "taxable_income_difference": dt_cents(taxable_income - (profit + non_deductible - non_assessable - change)), "effective": effective });
+    (call, expected)
+}
+
+#[test]
+fn the_deferred_tax_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1124_0000_0B14);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..DT_CASES).map(|_| dt_case(&mut rng)).unzip();
+    assert!(expected.iter().any(|want| want["effective"].is_null()));
+    assert!(
+        expected
+            .iter()
+            .any(|want| want["deferred_rate_difference"] != json!("0.00"))
+    );
+    let actual = run_node(DT_HARNESS, &cases);
+    assert_eq!(actual.len(), DT_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }

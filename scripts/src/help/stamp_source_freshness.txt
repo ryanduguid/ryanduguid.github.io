@@ -1,4 +1,4 @@
-usage: site-tools stamp_source_freshness [-h] [--write | --check-releases | --write-tool-releases | --build]
+usage: site-tools stamp_source_freshness [-h] [--write | --check-releases | --write-tool-releases | --sync-releases | --build]
 
 Check or refresh the tool source freshness stamps and release references.
 With no option, check the stamps in tools/index.html.
@@ -8,4 +8,5 @@ options:
   --write                refresh the stamps from each source's last commit date on GitHub
   --check-releases       check the changelog and tool pages against the published GitHub releases
   --write-tool-releases  refresh _data/tool_releases.json and the pages that name a release
+  --sync-releases        apply _data/tool_releases.json offline, rebuild feed.xml and llms-full, and update scripts/design_baseline.json
   --build                --write-tool-releases, then build the site

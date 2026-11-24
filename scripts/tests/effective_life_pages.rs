@@ -847,7 +847,8 @@ fn masked_build() -> &'static Build {
 /// its lead in words: what the generator's choices about a row decide. Counts, not
 /// order, as lists sorted by name reorder when the names are masked.
 fn shape(html: &str) -> Shape {
-    let tags = regex::Regex::new(r"<(/?[a-z0-9]+)[^>]*>").unwrap();
+    static TAGS: OnceLock<regex::Regex> = OnceLock::new();
+    let tags = TAGS.get_or_init(|| regex::Regex::new(r"<(/?[a-z0-9]+)[^>]*>").unwrap());
     let mut counts: std::collections::BTreeMap<&str, usize> = std::collections::BTreeMap::new();
     for found in tags.captures_iter(html) {
         *counts.entry(found.get(1).unwrap().as_str()).or_default() += 1;
@@ -868,19 +869,33 @@ fn masking_the_instrument_keeps_every_page_shape() {
     let html = |build: &'static Build, url: &str| {
         &build.files[&format!("{}index.html", url.trim_start_matches('/'))]
     };
-    let differ: Vec<(&String, Shape, Shape)> = real
-        .pages
-        .iter()
-        .zip(&masked.pages)
-        .map(|(a, b)| {
-            (
-                &a.url,
-                shape(html(built(), &a.url)),
-                shape(html(masked_build(), &b.url)),
-            )
-        })
-        .filter(|(_, a, b)| a != b)
-        .collect();
+    let pairs: Vec<_> = real.pages.iter().zip(&masked.pages).collect();
+    let workers = std::thread::available_parallelism().map_or(2, |n| n.get().min(8));
+    let chunk_size = pairs.len().div_ceil(workers);
+    let differ: Vec<(&String, Shape, Shape)> = std::thread::scope(|scope| {
+        let handles: Vec<_> = pairs
+            .chunks(chunk_size)
+            .map(|chunk| {
+                scope.spawn(move || {
+                    chunk
+                        .iter()
+                        .map(|(a, b)| {
+                            (
+                                &a.url,
+                                shape(html(built(), &a.url)),
+                                shape(html(masked_build(), &b.url)),
+                            )
+                        })
+                        .filter(|(_, a, b)| a != b)
+                        .collect::<Vec<_>>()
+                })
+            })
+            .collect();
+        handles
+            .into_iter()
+            .flat_map(|h| h.join().unwrap())
+            .collect()
+    });
     let report: Vec<String> = differ
         .iter()
         .take(5)
@@ -938,9 +953,26 @@ fn wording_failures(rel: &str, html: &str) -> Vec<String> {
 #[test]
 fn the_pages_own_wording_keeps_the_site_copy_and_passage_rules() {
     let build = masked_build();
-    let failures: Vec<String> = pages(build)
-        .flat_map(|(rel, html)| wording_failures(rel, html))
-        .collect();
+    let list: Vec<(&String, &String)> = pages(build).collect();
+    let workers = std::thread::available_parallelism().map_or(2, |n| n.get().min(8));
+    let chunk_size = list.len().div_ceil(workers);
+    let failures: Vec<String> = std::thread::scope(|scope| {
+        let handles: Vec<_> = list
+            .chunks(chunk_size)
+            .map(|chunk| {
+                scope.spawn(move || {
+                    chunk
+                        .iter()
+                        .flat_map(|(rel, html)| wording_failures(rel, html))
+                        .collect::<Vec<_>>()
+                })
+            })
+            .collect();
+        handles
+            .into_iter()
+            .flat_map(|h| h.join().unwrap())
+            .collect()
+    });
     assert!(
         failures.is_empty(),
         "{} failures, such as {:?}",

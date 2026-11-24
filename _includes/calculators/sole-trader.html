@@ -53,7 +53,7 @@
 <h2>How the sole trader tax set-aside calculator works</h2><p>The calculator takes a year’s business income and expenses, any wages from a job and any tax agent fees, gifts or personal super contributions you claim. It works out the year’s income tax, the offsets, the Medicare levy, any Medicare levy surcharge and any study or training loan repayment. It then works the same on the wages alone. The difference is the tax the business adds, which nobody withholds, so it is the amount to set aside from business income.</p><p>The small business income tax offset is worked as section 328-360 sets it: 16% of the share of the tax on taxable income that the business profit makes up. On arrival the example shows it below its $1,000 cap: $20,000 of profit is 20/79 of $79,000 of taxable income, so the offset is 16% of 20/79 of $14,220, which is $576.00. The business also costs the low income tax offset the wages alone would have had, $115.00, which the difference picks up.</p><p>A business registered for GST also sets aside the GST on its income less its GST credits, paid with each activity statement. The calculator gives one share to keep from every invoice, covering both, and the year’s amount split by quarter, month and week. It also gives the tax as a share of the business income excluding GST, which as a PAYG instalment rate would cover this year’s tax on it.</p>
 <h2>What the sole trader tax set-aside calculator does not compute</h2><p>The calculator is for an Australian resident aged 18 or over with one business as a sole trader, a full year of income and no dependants. It does not compute:</p>
 <ul>
-<li>a business loss, which the non-commercial loss rules in Division 35 may defer, or losses carried forward;</li>
+<li>a business loss or losses carried forward; whether Division 35 defers a loss is worked out below;</li>
 <li>personal services income rules, which can deny deductions: see the <a href="/tools/business-calculators/psi-determination/">PSI rules checker</a>;</li>
 <li>GST-free or input-taxed sales, GST on a cash or accruals basis by period, or a GST refund when credits exceed the GST on income;</li>
 <li>other income such as interest, dividends, rent or capital gains, or partnership and trust distributions, which change both the tax and the offset’s share, or reportable fringe benefits and salary sacrificed to super from the job, which count in repayment income and income for surcharge purposes;</li>
@@ -65,4 +65,65 @@
 <li>2027-28, whose working Australians tax offset (Subdivision 61-E, added by Act No. 49 of 2026) applies from that year.</li>
 </ul>
 <p>Confirm the figures with the ATO’s <a href="https://www.ato.gov.au/calculators-and-tools">calculators and tools</a> or a registered tax agent.</p>
+</section>
+<section class="business-calculator" id="non-commercial-losses">
+<h2>Non-commercial losses: is a business loss deferred?</h2>
+<p>For a loss from a business activity: whether the non-commercial loss rules defer it to a later year instead of letting you deduct it from other income this year (Division 35), for 2020-21 to 2026-27.</p>
+<form class="calculator-split" data-calculator="non-commercial-losses">
+<fieldset disabled><legend>Non-commercial losses inputs</legend><div class="form-grid"><fieldset><legend>Income year</legend>
+<label><input type="radio" name="ncl-year" value="2026-27" /> 2026-27</label>
+<label><input type="radio" name="ncl-year" value="2025-26" checked /> 2025-26</label>
+<label><input type="radio" name="ncl-year" value="2024-25" /> 2024-25</label>
+<label><input type="radio" name="ncl-year" value="2023-24" /> 2023-24</label>
+<label><input type="radio" name="ncl-year" value="2022-23" /> 2022-23</label>
+<label><input type="radio" name="ncl-year" value="2021-22" /> 2021-22</label>
+<label><input type="radio" name="ncl-year" value="2020-21" /> 2020-21</label>
+</fieldset>
+<fieldset><legend>Kind of business activity</legend>
+<label><input type="radio" name="ncl-activity" value="other" checked /> Other</label>
+<label><input type="radio" name="ncl-activity" value="primary_production" /> Primary production</label>
+<label><input type="radio" name="ncl-activity" value="professional_arts" /> Professional arts</label>
+</fieldset>
+<label class="field" for="ncl-income">The activity’s assessable income (dollars and cents)<input id="ncl-income" name="ncl-income" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="9000" required /></label>
+<label class="field" for="ncl-deductions">Its deductions for the year (dollars and cents)<input id="ncl-deductions" name="ncl-deductions" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="10000" required /></label>
+<label class="field" for="ncl-brought-forward">Its losses deferred from earlier years (dollars and cents)<input id="ncl-brought-forward" name="ncl-brought-forward" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<fieldset><legend>Started or stopped in the year?</legend>
+<label><input type="radio" name="ncl-part-year" value="no" checked /> No</label>
+<label><input type="radio" name="ncl-part-year" value="yes" /> Yes</label>
+</fieldset>
+<label class="field" for="ncl-profit-years">Profit years among the 4 before this one<select name="ncl-profit-years" id="ncl-profit-years" aria-describedby="ncl-tests-help"><option value="0" selected>0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
+<label class="field" for="ncl-real-property">Real property used in it (dollars and cents)<input id="ncl-real-property" name="ncl-real-property" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required aria-describedby="ncl-tests-help" /></label>
+<label class="field" for="ncl-other-assets">Other assets used in it (dollars and cents)<input id="ncl-other-assets" name="ncl-other-assets" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required aria-describedby="ncl-tests-help" /></label>
+<label class="field" for="ncl-taxable">Your taxable income, or a loss as a negative amount (dollars and cents)<input id="ncl-taxable" name="ncl-taxable" type="number" inputmode="decimal" min="-1000000000" max="1000000000" step="0.01" value="50000" required aria-describedby="ncl-income-help" /></label>
+<label class="field" for="ncl-losses">Business activity losses deducted in that taxable income (dollars and cents)<input id="ncl-losses" name="ncl-losses" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" required aria-describedby="ncl-income-help" /></label>
+<label class="field" for="ncl-fhss">First home super saver amount in it (dollars and cents)<input id="ncl-fhss" name="ncl-fhss" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required aria-describedby="ncl-income-help" /></label>
+<label class="field" for="ncl-fringe">Reportable fringe benefits (dollars and cents)<input id="ncl-fringe" name="ncl-fringe" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="ncl-super">Reportable super contributions (dollars and cents)<input id="ncl-super" name="ncl-super" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="ncl-investment-loss">Total net investment loss (dollars and cents)<input id="ncl-investment-loss" name="ncl-investment-loss" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="ncl-exempt">Net exempt income (dollars and cents)<input id="ncl-exempt" name="ncl-exempt" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+</div>
+<fieldset data-show-field="ncl-part-year" data-show-values="yes" hidden disabled><legend>A part year</legend>
+<div class="form-grid">
+<label class="field" for="ncl-estimate">A reasonable estimate of its assessable income for a full year (dollars and cents)<input id="ncl-estimate" name="ncl-estimate" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+</div>
+</fieldset>
+<fieldset data-show-field="ncl-activity" data-show-values="primary_production professional_arts" hidden disabled><legend>Income from other sources</legend>
+<div class="form-grid">
+<label class="field" for="ncl-other-income">Assessable income from other sources, not counting a net capital gain (dollars and cents)<input id="ncl-other-income" name="ncl-other-income" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+</div>
+</fieldset>
+<p class="field-note" id="ncl-tests-help">A profit year is one in which the activity’s assessable income was more than its deductions (section 35-35). Value real property at its reduced cost base, or market value if higher, leaving out a private dwelling; value other assets as section 35-45 says, leaving out cars and motor cycles.</p>
+<p class="field-note" id="ncl-income-help">The income requirement adds back the business losses and takes out the first home super saver amount (section 35-10(2E)).</p>
+<button type="submit" class="button">Calculate</button></fieldset>
+<output aria-live="polite">Enter the inputs and calculate.</output>
+<div class="sources-applied" hidden>
+<h3>Sources applied</h3>
+<ul class="sources">
+<li>Non-commercial losses: Division 35 (sections 35-10 to 35-55) of the <a href="https://www.legislation.gov.au/C2004A05138/2026-10-01/2026-10-01/text/original/epub/OEBPS/document_1/document_1.html">Income Tax Assessment Act 1997</a> (Compilation No. 268, 1 October 2026), read 22 November 2026, which reads the same in <a href="https://www.legislation.gov.au/C2004A05138/2020-07-01/2020-07-01/text/original/epub/OEBPS/document_1/document_1.html">Compilation No. 210</a> (1 July 2020) and <a href="https://www.legislation.gov.au/C2004A05138/2021-07-01/2021-07-01/text/original/epub/OEBPS/document_1/document_1.html">No. 223</a> (1 July 2021). The loss is deferred unless the income requirement is met (under $250,000) and one test is passed: assessable income of at least $20,000, or a full-year estimate for a part year (section 35-30); profits in 3 of the past 5 years, this one included (section 35-35); real property of at least $500,000 (section 35-40); or other assets of at least $100,000 (section 35-45). A primary production or professional arts business with under $40,000 of other income is excepted (section 35-10(4)). The amount deferred is the deductions, with losses deferred from earlier years, over the activity’s assessable income (section 35-10(2)), less net exempt income (section 35-15).</li>
+<li>The ATO’s <a href="https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/losses/non-commercial-losses/offset-or-defer-the-loss-individuals-or-sole-traders/four-tests">Four tests</a>, <a href="https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/losses/non-commercial-losses/offset-or-defer-the-loss-individuals-or-sole-traders/the-income-requirement">The income requirement</a>, <a href="https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/losses/non-commercial-losses/offset-or-defer-the-loss-individuals-or-sole-traders/excepted-business-activities">Excepted business activities</a> and <a href="https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/losses/non-commercial-losses/how-to-defer-your-losses">How to defer your losses</a> (each last updated 7 April 2025), read 22 November 2026: a negative taxable income counts as nil in the income requirement.</li>
+<li>Checked: the result agrees with the australian-accounting command non-commercial-losses on 485 cases, including every case of its tests except the one that checks a confirmation this form does not ask for, and each refusal this form can meet.</li>
+<li>Supplied by you: the year, the kind of activity, its income, deductions, deferred losses, profit years and assets, your taxable income and the amounts the income requirement adds, net exempt income and, for an excepted activity, other income. A partner’s share (section 35-25), apportionment between activities (section 35-50), bankruptcy (section 35-20) and capital expenditure under section 40-880 are not worked out, and whether the Commissioner would use the discretion in section 35-55 is not decided.</li>
+</ul>
+</div>
+</form>
 </section>

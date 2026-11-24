@@ -57,7 +57,8 @@ function renderResult(output, result) {
 }
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
-function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }, fhssMod, workExpensesMod, governmentSuperMod]) {
+function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }, fhssMod, workExpensesMod, { transferBalanceResult },
+  { pensionMinimumResult }, governmentSuperMod]) {
   const { fhssResult } = fhssMod;
   const { workExpensesResult } = workExpensesMod;
   const { governmentSuperResult } = governmentSuperMod;
@@ -574,6 +575,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'depreciation-pools':
             result = calculate.depreciationPoolsResult(value, aud);
             break;
+          case 'rd-tax-offset':
+            result = calculate.rdTaxOffsetResult(value, aud);
+            break;
           case 'fuel-tax-credits':
             result = calculate.fuelTaxCreditsResult(value, aud);
             break;
@@ -663,6 +667,14 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             }
             break;
           }
+          case 'gst-adjustments':
+            result = calculate.gstAdjustmentsResult(value, aud);
+            showTables(result.tables);
+            break;
+          case 'deferred-tax':
+            result = calculate.deferredTaxResult(value, aud);
+            showTables(result.tables);
+            break;
           case 'asic-fees':
             result = calculate.asicFeesResult(value, aud);
             break;
@@ -683,6 +695,13 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             break;
           case 'government-super':
             result = governmentSuperResult(value, aud);
+            break;
+          case 'transfer-balance':
+            result = transferBalanceResult(value, aud);
+            showTables(result.tables);
+            break;
+          case 'pension-minimum':
+            result = pensionMinimumResult(value, aud);
             break;
           default: result = individualResult(form.dataset.calculator, value, aud) ?? fbtForms.fbtBenefitResult(form, calculate, { aud, value, money });
         }
@@ -712,6 +731,8 @@ function loadCalculators(retryForm) {
     forms.some((f) => ['income-tax', 'take-home-pay', 'study-loan', 'sole-trader', 'lump-sum-arrears', 'division-293', 'income-tests', 'concessional-catch-up', 'bonus-withholding', 'salary-packaging', 'novated-lease', 'super-projection'].includes(f.dataset.calculator ?? '')) ? import(`./individual-tax-results.mjs${suffix}`) : { individualResult: () => undefined },
     forms.some((f) => f.dataset.calculator === 'fhss') ? import(`./fhss-result.mjs${suffix}`) : {},
     forms.some((f) => f.dataset.calculator === 'work-expenses') ? import(`./work-expenses-result.mjs${suffix}`) : {},
+    forms.some((f) => f.dataset.calculator === 'transfer-balance') ? import(`./transfer-balance-result.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
+    forms.some((f) => f.dataset.calculator === 'pension-minimum') ? import(`./pension-minimum.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
     forms.some((f) => f.dataset.calculator === 'government-super') ? import(`./government-super-result.mjs${suffix}`) : {}]).then(initialiseCalculators)
     .then(() => { if (retryForm) retryForm.querySelector('input, select').focus(); })
     .catch(() => {
