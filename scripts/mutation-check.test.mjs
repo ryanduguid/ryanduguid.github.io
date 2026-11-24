@@ -290,9 +290,9 @@ test('verdict fail-fast stops a slow async tail and leaves no live child process
       "import assert from 'node:assert/strict';",
       "import { writeFileSync } from 'node:fs';",
       "import test from 'node:test';",
-      `writeFileSync(${JSON.stringify(pidFile)}, String(process.pid));`,
+      "writeFileSync('child.pid', String(process.pid));",
       "test('fails immediately', () => { assert.equal(1, 2); });",
-      `test('slow tail', async () => { await new Promise((r) => setTimeout(r, 3000)); writeFileSync(${JSON.stringify(tailMarker)}, 'ran'); });`,
+      "test('slow tail', async () => { await new Promise((r) => setTimeout(r, 3000)); writeFileSync('tail-ran.txt', 'ran'); });",
       '',
     ].join('\n'));
     const t0 = performance.now();
