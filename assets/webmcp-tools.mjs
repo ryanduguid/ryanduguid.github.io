@@ -5,6 +5,7 @@ import { POSITIVE_FRACTION } from './money.mjs';
 import { businessCohortATools } from './webmcp-business-a.mjs';
 import { businessCohortBTools } from './webmcp-business-b.mjs';
 import { businessCohortCTools } from './webmcp-business-c.mjs';
+import { businessCohortDTools } from './webmcp-business-d.mjs';
 import {
   concessionalCatchUpTool, fhssTool, governmentSuperTool, lumpSumArrearsTool, studyLoanTool, workExpensesTool,
 } from './webmcp-individual-more.mjs';
@@ -32,6 +33,7 @@ const PATTERNS = {
   consumption: /^\d{1,3}(?:\.\d{1,6})?$/,
   incomeYear: /^\d{4}-\d{2}$/,
   signedCost: /^-?\d{1,10}$|^-?\d{1,10}\.\d{1,2}$/,
+  trillionCost: /^\d{1,13}$|^\d{1,13}\.\d{1,2}$/,
 };
 
 /**
@@ -548,7 +550,9 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
  *   | 'paygInstalment' | 'payrollTax' | 'salaryDividend' | 'paydaySuperCharge' | 'quarterlySgCharge' | 'staffCost'
  *   | 'capitalGain' | 'cgtConcessions' | 'pcgRisk' | 'pcgAllocation' | 'psiDetermination' | 'RENTAL_YEARS'
  *   | 'rentalProperty' | 'SBT_YEARS' | 'superBenefitTax' | 'SWH_FIRST_DAY' | 'superWithholding' | 'DASP_YEARS'
- *   | 'daspTax' | 'unusedLeave' | 'WC_SCHEMES' | 'workersCompensation'>} calculate */
+ *   | 'daspTax' | 'unusedLeave' | 'WC_SCHEMES' | 'workersCompensation'
+ *   | 'businessDays' | 'division296' | 'fbtCar' | 'fbtEvExemption' | 'fbtCarParking' | 'fbtExpensePayment'
+ *   | 'fbtLoan' | 'fbtMealEntertainment' | 'fbtProperty' | 'landTaxYear' | 'terminationPayment' | 'transferDuty'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -565,6 +569,7 @@ export function calculatorTools(calculate) {
     ...businessCohortATools(TOOL_KIT, calculate),
     ...businessCohortBTools(TOOL_KIT, calculate),
     ...businessCohortCTools(TOOL_KIT, calculate),
+    ...businessCohortDTools(TOOL_KIT, calculate),
   };
 }
 
