@@ -319,7 +319,7 @@ differs from the index. The ordinary site checks
 require the generated include to match both inputs. They also require every
 formula to match the native Excel inputs and results. When the documented release
 and the Excel check differ, the reference record's `example_evidence` names the
-checked release and workbook hash. The v3.7.0 reference points to the v3.6.0
+checked release and workbook hash. The v3.8.0 reference points to the v3.6.0
 record in `assets/ozzit-reference-v3.6.0.json`. Each example records its result shape and a
 Python format template. The generator formats every recorded result and requires
 that display to equal the reviewed expected text, including array values and totals.
