@@ -15,9 +15,14 @@ use site_tools::pyjson::{self, Json};
 use site_tools::rates_register;
 use site_tools::release_record::{self, Live, LiveError};
 use site_tools::visibility;
-use std::io::{Read, Write};
-use std::net::TcpListener;
+use std::io::{ErrorKind, Read, Write};
+use std::net::{TcpListener, TcpStream};
 use std::path::Path;
+use std::sync::{
+    Arc,
+    atomic::{AtomicBool, Ordering},
+};
+use std::time::{Duration, Instant};
 
 fn s(items: &[&str]) -> Vec<String> {
     items.iter().map(|v| (*v).to_owned()).collect()
@@ -31,138 +36,271 @@ fn write(root: &Path, rel: &str, text: &str) {
     std::fs::write(path, text).unwrap();
 }
 
-/// Spawn a local HTTP server on 127.0.0.1 until `/shutdown` is requested.
-fn start_local_http() -> (u16, std::thread::JoinHandle<()>) {
-    let listener = TcpListener::bind(("127.0.0.1", 0)).unwrap();
-    let port = listener.local_addr().unwrap().port();
-    let handle = std::thread::spawn(move || {
-        while let Ok((mut stream, _)) = listener.accept() {
-            let mut buf = [0u8; 2048];
-            let n = stream.read(&mut buf).unwrap_or(0);
-            let req = String::from_utf8_lossy(&buf[..n]);
-            let first = req.lines().next().unwrap_or("");
-            let path = first.split_whitespace().nth(1).unwrap_or("/");
-            let response = match path {
-                "/ok" | "/shutdown" => {
-                    "HTTP/1.1 200 OK\r\nContent-Length: 2\r\nConnection: close\r\n\r\nok"
+/// Loopback HTTP server that reads complete request headers with bounded I/O and
+/// tears down cleanly on drop without relying on a `/shutdown` request.
+struct LocalHttpServer {
+    port: u16,
+    stop: Arc<AtomicBool>,
+    handle: Option<std::thread::JoinHandle<()>>,
+}
+
+impl LocalHttpServer {
+    fn start() -> Self {
+        let listener = TcpListener::bind(("127.0.0.1", 0)).unwrap();
+        let port = listener.local_addr().unwrap().port();
+        listener.set_nonblocking(true).unwrap();
+        let stop = Arc::new(AtomicBool::new(false));
+        let thread_stop = Arc::clone(&stop);
+        let handle = std::thread::spawn(move || {
+            while !thread_stop.load(Ordering::Acquire) {
+                match listener.accept() {
+                    Ok((mut stream, _)) => {
+                        let _ = stream.set_nonblocking(false);
+                        let _ = stream.set_read_timeout(Some(Duration::from_millis(50)));
+                        let _ = stream.set_write_timeout(Some(Duration::from_secs(2)));
+                        let Some(req) = read_http_headers(&mut stream, &thread_stop) else {
+                            continue;
+                        };
+                        let first = req.lines().next().unwrap_or("");
+                        let path = first.split_whitespace().nth(1).unwrap_or("/");
+                        let response = match path {
+                            "/ok" => {
+                                "HTTP/1.1 200 OK\r\nContent-Length: 2\r\nConnection: close\r\n\r\nok"
+                            }
+                            "/json" => {
+                                "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: 9\r\nConnection: close\r\n\r\n{\"a\":123}"
+                            }
+                            "/badjson" => {
+                                "HTTP/1.1 200 OK\r\nContent-Length: 3\r\nConnection: close\r\n\r\n{{{"
+                            }
+                            "/retry" => {
+                                "HTTP/1.1 429 Too Many Requests\r\nRetry-After: 0\r\nContent-Length: 0\r\nConnection: close\r\n\r\n"
+                            }
+                            _ => {
+                                "HTTP/1.1 404 Not Found\r\nContent-Length: 0\r\nConnection: close\r\n\r\n"
+                            }
+                        };
+                        let _ = stream.write_all(response.as_bytes());
+                        let _ = stream.flush();
+                    }
+                    Err(err) if err.kind() == ErrorKind::WouldBlock => {
+                        std::thread::sleep(Duration::from_millis(10));
+                    }
+                    Err(_) => break,
                 }
-                "/json" => {
-                    "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: 9\r\nConnection: close\r\n\r\n{\"a\":123}"
-                }
-                "/badjson" => {
-                    "HTTP/1.1 200 OK\r\nContent-Length: 3\r\nConnection: close\r\n\r\n{{{"
-                }
-                "/retry" => {
-                    "HTTP/1.1 429 Too Many Requests\r\nRetry-After: 0\r\nContent-Length: 0\r\nConnection: close\r\n\r\n"
-                }
-                _ => "HTTP/1.1 404 Not Found\r\nContent-Length: 0\r\nConnection: close\r\n\r\n",
-            };
-            let _ = stream.write_all(response.as_bytes());
-            let _ = stream.flush();
-            if path == "/shutdown" {
-                break;
             }
+        });
+        Self {
+            port,
+            stop,
+            handle: Some(handle),
         }
-    });
-    (port, handle)
+    }
+
+    fn port(&self) -> u16 {
+        self.port
+    }
+}
+
+impl Drop for LocalHttpServer {
+    fn drop(&mut self) {
+        self.stop.store(true, Ordering::Release);
+        if let Some(handle) = self.handle.take() {
+            let _ = handle.join();
+        }
+    }
+}
+
+fn read_http_headers(stream: &mut TcpStream, stop: &AtomicBool) -> Option<String> {
+    const MAX_HEADER_BYTES: usize = 8192;
+    let deadline = Instant::now() + Duration::from_secs(2);
+    let mut req = Vec::new();
+    let mut chunk = [0u8; 512];
+    while req.len() < MAX_HEADER_BYTES {
+        if stop.load(Ordering::Acquire) || Instant::now() >= deadline {
+            return None;
+        }
+        match stream.read(&mut chunk) {
+            Ok(0) => break,
+            Ok(n) => {
+                req.extend_from_slice(&chunk[..n]);
+                if req.windows(4).any(|w| w == b"\r\n\r\n") || req.windows(2).any(|w| w == b"\n\n")
+                {
+                    break;
+                }
+            }
+            Err(err) if matches!(err.kind(), ErrorKind::WouldBlock | ErrorKind::TimedOut) => {
+                continue;
+            }
+            Err(_) => return None,
+        }
+    }
+    (!req.is_empty()).then(|| String::from_utf8_lossy(&req).into_owned())
+}
+
+#[test]
+fn local_http_server_handles_fragmented_requests_idle_clients_and_proxy_isolation() {
+    let server = LocalHttpServer::start();
+    let port = server.port();
+
+    // Fragmented TCP request must assemble complete headers and route /ok.
+    let mut frag = TcpStream::connect(("127.0.0.1", port)).unwrap();
+    frag.set_read_timeout(Some(Duration::from_secs(2))).unwrap();
+    frag.write_all(b"GET ").unwrap();
+    frag.flush().unwrap();
+    std::thread::sleep(Duration::from_millis(20));
+    frag.write_all(b"/ok HTTP/1.1\r\nHost: localhost\r\n\r\n")
+        .unwrap();
+    frag.flush().unwrap();
+    let mut reply = String::new();
+    frag.read_to_string(&mut reply).unwrap();
+    assert!(reply.starts_with("HTTP/1.1 200 OK"), "reply: {reply:?}");
+    assert!(reply.ends_with("\r\n\r\nok"), "reply: {reply:?}");
+
+    // An idle open client must not block bounded teardown on Drop.
+    let _idle = TcpStream::connect(("127.0.0.1", port)).unwrap();
+    std::thread::sleep(Duration::from_millis(20));
+    let drop_start = Instant::now();
+    drop(server);
+    assert!(
+        drop_start.elapsed() < Duration::from_secs(2),
+        "server teardown exceeded bound: {:?}",
+        drop_start.elapsed()
+    );
+
+    // Configuring a recording proxy in a parent process must not be contacted by isolated
+    // loopback-Network tests.
+    let proxy = TcpListener::bind(("127.0.0.1", 0)).unwrap();
+    let proxy_port = proxy.local_addr().unwrap().port();
+    proxy.set_nonblocking(true).unwrap();
+    let proxy_url = format!("http://127.0.0.1:{proxy_port}");
+    let exe = std::env::current_exe().unwrap();
+    let output = std::process::Command::new(exe)
+        .args([
+            "--exact",
+            "pass2_validators::release_record_network_covers_json_bytes_and_http_errors",
+            "--nocapture",
+            "--test-threads=1",
+        ])
+        .env_remove("SITE_TOOLS_ISOLATED_TEST_CHILD")
+        .env("HTTP_PROXY", &proxy_url)
+        .env("http_proxy", &proxy_url)
+        .env("ALL_PROXY", &proxy_url)
+        .env("all_proxy", &proxy_url)
+        .output()
+        .unwrap();
+    assert!(
+        output.status.success(),
+        "proxy-isolated test failed:\nstdout:\n{}\nstderr:\n{}",
+        String::from_utf8_lossy(&output.stdout),
+        String::from_utf8_lossy(&output.stderr),
+    );
+    assert!(
+        matches!(proxy.accept(), Err(ref e) if e.kind() == ErrorKind::WouldBlock),
+        "loopback Network test contacted the parent proxy"
+    );
 }
 
 #[test]
 fn check_links_covers_network_opener_self_check_offline_and_local_live_run() {
-    // Network::open against local HTTP server (200, 429+Retry-After, 404, non-http scheme)
-    let (port, handle) = start_local_http();
-    let mut net = check_links::Network;
-    assert!(matches!(
-        net.open("ftp://example.com/x", &[]),
-        Err(NetError::Url(_))
-    ));
-    let opened = net
-        .open(
-            &format!("http://127.0.0.1:{port}/ok"),
-            &[("User-Agent", "test".into())],
-        )
-        .unwrap();
-    assert_eq!(opened.status, 200);
-    assert_eq!(opened.body, b"ok");
-    let retry_err = net
-        .open(&format!("http://127.0.0.1:{port}/retry"), &[])
-        .unwrap_err();
-    assert!(matches!(
-        retry_err,
-        NetError::Http {
-            code: 429,
-            retry_after: Some(_),
-            ..
-        }
-    ));
-    assert!(matches!(
-        net.open(&format!("http://127.0.0.1:{port}/missing"), &[]),
-        Err(NetError::Http { code: 404, .. })
-    ));
+    crate::run_in_isolated_child(
+        "pass2_validators::check_links_covers_network_opener_self_check_offline_and_local_live_run",
+        &[],
+        || {
+            // Network::open against local HTTP server (200, 429+Retry-After, 404, non-http scheme)
+            let server = LocalHttpServer::start();
+            let port = server.port();
+            let mut net = check_links::Network;
+            assert!(matches!(
+                net.open("ftp://example.com/x", &[]),
+                Err(NetError::Url(_))
+            ));
+            let opened = net
+                .open(
+                    &format!("http://127.0.0.1:{port}/ok"),
+                    &[("User-Agent", "test".into())],
+                )
+                .unwrap();
+            assert_eq!(opened.status, 200);
+            assert_eq!(opened.body, b"ok");
+            let retry_err = net
+                .open(&format!("http://127.0.0.1:{port}/retry"), &[])
+                .unwrap_err();
+            assert!(matches!(
+                retry_err,
+                NetError::Http {
+                    code: 429,
+                    retry_after: Some(_),
+                    ..
+                }
+            ));
+            assert!(matches!(
+                net.open(&format!("http://127.0.0.1:{port}/missing"), &[]),
+                Err(NetError::Http { code: 404, .. })
+            ));
 
-    // self_check failure when index.html / 404.html missing
-    let empty = tempfile::tempdir().unwrap();
-    assert!(check_links::run(empty.path(), &s(&["--offline"])).is_err());
+            // self_check failure when index.html / 404.html missing
+            let empty = tempfile::tempdir().unwrap();
+            assert!(check_links::run(empty.path(), &s(&["--offline"])).is_err());
 
-    // Offline pass + online pass against local server (using localhost so odd_spelling accepts the host)
-    let ok_dir = tempfile::tempdir().unwrap();
-    write(
-        ok_dir.path(),
-        "index.html",
-        &format!(
-            "<html><body><a href=\"/404.html#sec\">404</a><a href=\"http://localhost:{port}/ok\">ok</a></body></html>"
-        ),
-    );
-    write(
-        ok_dir.path(),
-        "404.html",
-        "<html><body><p id=\"sec\">Not found</p></body></html>",
-    );
-    write(
-        ok_dir.path(),
-        "llms.txt",
-        &format!("[ok](http://localhost:{port}/ok)\n"),
-    );
-    assert_eq!(
-        check_links::run(ok_dir.path(), &s(&["--offline"])).unwrap(),
-        0
-    );
-    assert_eq!(check_links::run(ok_dir.path(), &[]).unwrap(), 0);
+            // Offline pass + online pass against local server (using localhost so odd_spelling accepts the host)
+            let ok_dir = tempfile::tempdir().unwrap();
+            write(
+                ok_dir.path(),
+                "index.html",
+                &format!(
+                    "<html><body><a href=\"/404.html#sec\">404</a><a href=\"http://localhost:{port}/ok\">ok</a></body></html>"
+                ),
+            );
+            write(
+                ok_dir.path(),
+                "404.html",
+                "<html><body><p id=\"sec\">Not found</p></body></html>",
+            );
+            write(
+                ok_dir.path(),
+                "llms.txt",
+                &format!("[ok](http://localhost:{port}/ok)\n"),
+            );
+            assert_eq!(
+                check_links::run(ok_dir.path(), &s(&["--offline"])).unwrap(),
+                0
+            );
+            assert_eq!(check_links::run(ok_dir.path(), &[]).unwrap(), 0);
 
-    // Offline failures: empty href, retired repo name, em/en dashes, broken link, Liquid fragment target
-    let bad_dir = tempfile::tempdir().unwrap();
-    write(
-        bad_dir.path(),
-        "index.html",
-        "<html><body><a href=\"\">empty</a><a href=\"/404.html#any\">liq</a><p>EquityBot \u{2014} \u{2013}</p><a href=\"/nope/\">nope</a></body></html>",
-    );
-    write(
-        bad_dir.path(),
-        "404.html",
-        "<html><body>{% assign x = 1 %}{{ x }}</body></html>",
-    );
-    write(bad_dir.path(), "llms.txt", "");
-    assert_eq!(
-        check_links::run(bad_dir.path(), &s(&["--offline"])).unwrap(),
-        1
-    );
+            // Offline failures: empty href, retired repo name, em/en dashes, broken link, Liquid fragment target
+            let bad_dir = tempfile::tempdir().unwrap();
+            write(
+                bad_dir.path(),
+                "index.html",
+                "<html><body><a href=\"\">empty</a><a href=\"/404.html#any\">liq</a><p>EquityBot \u{2014} \u{2013}</p><a href=\"/nope/\">nope</a></body></html>",
+            );
+            write(
+                bad_dir.path(),
+                "404.html",
+                "<html><body>{% assign x = 1 %}{{ x }}</body></html>",
+            );
+            write(bad_dir.path(), "llms.txt", "");
+            assert_eq!(
+                check_links::run(bad_dir.path(), &s(&["--offline"])).unwrap(),
+                1
+            );
 
-    // Online failure via local 404
-    let live_bad = tempfile::tempdir().unwrap();
-    write(
-        live_bad.path(),
-        "index.html",
-        &format!("<a href=\"http://localhost:{port}/missing\">bad</a>"),
+            // Online failure via local 404
+            let live_bad = tempfile::tempdir().unwrap();
+            write(
+                live_bad.path(),
+                "index.html",
+                &format!("<a href=\"http://localhost:{port}/missing\">bad</a>"),
+            );
+            write(live_bad.path(), "404.html", "<p>404</p>");
+            write(live_bad.path(), "llms.txt", "");
+            assert_eq!(
+                check_links::run(live_bad.path(), &s(&["--transient-warnings"])).unwrap(),
+                1
+            );
+        },
     );
-    write(live_bad.path(), "404.html", "<p>404</p>");
-    write(live_bad.path(), "llms.txt", "");
-    assert_eq!(
-        check_links::run(live_bad.path(), &s(&["--transient-warnings"])).unwrap(),
-        1
-    );
-
-    let _ = net.open(&format!("http://127.0.0.1:{port}/shutdown"), &[]);
-    let _ = handle.join();
 }
 
 #[test]
@@ -255,16 +393,37 @@ fn check_design_covers_stylesheets_fonts_security_homepage_dates_repository_and_
     assert!(hf.iter().any(|m| m.contains("decorative ordinal")));
 
     // check_opening_review_dates: bad pattern, invalid date, missing dateModified, non-ISO, mismatch
-    let rel = "about/index.html";
-    for html in [
-        "<main><p class=\"page-meta\">Wrong date format</p></main>",
-        "<main><p class=\"page-meta\">Last reviewed 31 February 2026.</p></main>",
-        "<main><p class=\"page-meta\">Last reviewed 24 November 2026.</p></main>",
-        r#"<script type="application/ld+json">{"dateModified":"not-iso"}</script><main><p class="page-meta">Last reviewed 24 November 2026.</p></main>"#,
-        r#"<script type="application/ld+json">{"dateModified":"2026-10-01"}</script><main><p class="page-meta">Last reviewed 24 November 2026.</p></main>"#,
+    let rel = "tools/index.html";
+    for (label, html, expected) in [
+        (
+            "bad review date pattern",
+            "<div class=\"article-header\"><p class=\"page-meta\">Wrong date format</p></div>",
+            "tools/index.html: opening page-meta must use 'Last reviewed D Month YYYY.'",
+        ),
+        (
+            "invalid calendar date",
+            "<div class=\"article-header\"><p class=\"page-meta\">Last reviewed 31 February 2026.</p></div>",
+            "tools/index.html: opening page-meta contains an invalid date",
+        ),
+        (
+            "missing JSON-LD dateModified",
+            "<div class=\"article-header\"><p class=\"page-meta\">Last reviewed 24 November 2026.</p></div>",
+            "tools/index.html: expected exactly one JSON-LD dateModified",
+        ),
+        (
+            "non-ISO JSON-LD dateModified",
+            r#"<script type="application/ld+json">{"dateModified":"not-iso"}</script><div class="article-header"><p class="page-meta">Last reviewed 24 November 2026.</p></div>"#,
+            "tools/index.html: JSON-LD dateModified must be an ISO date",
+        ),
+        (
+            "mismatched JSON-LD dateModified",
+            r#"<script type="application/ld+json">{"dateModified":"2026-10-01"}</script><div class="article-header"><p class="page-meta">Last reviewed 24 November 2026.</p></div>"#,
+            "tools/index.html: opening review date 2026-11-24 does not match JSON-LD dateModified 2026-10-01",
+        ),
     ] {
         write(root, rel, html);
-        let _ = check_design::check_opening_review_dates(root).unwrap();
+        let failures = check_design::check_opening_review_dates(root).unwrap();
+        common::expect_failure(label, &failures, expected);
     }
 
     // check_repository: non-object baseline error, then object baseline with missing/changed entries + bad proof images
@@ -493,26 +652,36 @@ fn rates_register_covers_all_row_series_and_register_error_branches() {
 }
 
 #[test]
-fn release_record_covers_network_probes_assets_lag_and_error_paths() {
-    // Network::json and Network::bytes against local HTTP server
-    let (port, handle) = start_local_http();
-    let mut net = release_record::Network;
-    assert!(net.json(&format!("http://127.0.0.1:{port}/json")).is_ok());
-    assert!(
-        net.json(&format!("http://127.0.0.1:{port}/badjson"))
-            .is_err()
+fn release_record_network_covers_json_bytes_and_http_errors() {
+    crate::run_in_isolated_child(
+        "pass2_validators::release_record_network_covers_json_bytes_and_http_errors",
+        &[],
+        || {
+            let server = LocalHttpServer::start();
+            let port = server.port();
+            let mut net = release_record::Network;
+            assert_eq!(
+                net.json(&format!("http://127.0.0.1:{port}/json")).unwrap(),
+                pyjson::loads(r#"{"a":123}"#).unwrap()
+            );
+            assert!(
+                net.json(&format!("http://127.0.0.1:{port}/badjson"))
+                    .is_err()
+            );
+            assert!(matches!(
+                net.json(&format!("http://127.0.0.1:{port}/missing")),
+                Err(LiveError::Http(404))
+            ));
+            assert_eq!(
+                net.bytes(&format!("http://127.0.0.1:{port}/ok")).unwrap(),
+                b"ok"
+            );
+        },
     );
-    assert!(matches!(
-        net.json(&format!("http://127.0.0.1:{port}/missing")),
-        Err(LiveError::Http(404))
-    ));
-    assert_eq!(
-        net.bytes(&format!("http://127.0.0.1:{port}/ok")).unwrap(),
-        b"ok"
-    );
-    let _ = net.bytes(&format!("http://127.0.0.1:{port}/shutdown"));
-    let _ = handle.join();
+}
 
+#[test]
+fn release_record_covers_probes_assets_lag_and_error_paths() {
     // live_versions + live_asset + verify_live across matching, drift, absent, changed, lag, inconclusive
     let record = pyjson::loads(
         r#"{
@@ -523,8 +692,8 @@ fn release_record_covers_network_probes_assets_lag_and_error_paths() {
                         "version": "1.2.0",
                         "release_url": "https://github.com/ryanduguid/demo/releases/tag/v1.2.0",
                         "pypi_url": "https://pypi.org/project/demo/",
-                        "registry_url": "https://registry.modelcontextprotocol.io/v0/servers?search=demo",
-                        "registry_lag": {"version": "1.1.0", "note": "lagging"},
+                        "registry_url": "https://registry.modelcontextprotocol.io/v0/servers/demo/versions/latest",
+                        "registry_lag": {"version": "1.1.0", "sentence": "The MCP registry still lists 1.1.0."},
                         "download_url": "https://example.com/a.zip",
                         "asset_bytes": 4,
                         "asset_sha256": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
@@ -574,9 +743,7 @@ fn release_record_covers_network_probes_assets_lag_and_error_paths() {
         tags: vec!["v1.1.0".into(), "v1.2.0".into()],
         tag_ok: true,
         pypi: Ok(pyjson::loads(r#"{"info":{"version":"1.2.0"}}"#).unwrap()),
-        reg: Ok(
-            pyjson::loads(r#"{"servers":[{"server":{"name":"demo","version":"1.1.0"}}]}"#).unwrap(),
-        ),
+        reg: Ok(pyjson::loads(r#"{"server":{"name":"demo","version":"1.1.0"}}"#).unwrap()),
     };
     let mut out1 = Vec::new();
     let code1 = release_record::verify_live(
@@ -590,9 +757,41 @@ fn release_record_covers_network_probes_assets_lag_and_error_paths() {
     )
     .unwrap();
     assert_eq!(code1, 0, "{out1:?}");
+    assert!(
+        out1.iter()
+            .any(|l| l == "pkg: registry reports 1.1.0, record says the registry lags at 1.1.0 per registry_lag (matches)"),
+        "{out1:?}"
+    );
     assert!(out1.iter().any(|l| l.contains("asset matches")));
 
-    // 2. Asset changed (wrong bytes, wrong sha256) + HTTP 500 inconclusive + HTTP 404 absent
+    // 1b. Registry catching up to 1.2.0 whilst registry_lag pins 1.1.0 must report DRIFT (exit 1)
+    let mut live_drift = MockLive {
+        asset: Ok(b"test".to_vec()),
+        tags: vec!["v1.1.0".into(), "v1.2.0".into()],
+        tag_ok: true,
+        pypi: Ok(pyjson::loads(r#"{"info":{"version":"1.2.0"}}"#).unwrap()),
+        reg: Ok(pyjson::loads(r#"{"server":{"name":"demo","version":"1.2.0"}}"#).unwrap()),
+    };
+    let mut out_drift = Vec::new();
+    let code_drift = release_record::verify_live(
+        &record,
+        &mut live_drift,
+        &mut release_record::live_versions,
+        &mut |l| {
+            out_drift.push(l.to_owned());
+            Ok(())
+        },
+    )
+    .unwrap();
+    assert_eq!(code_drift, 1, "{out_drift:?}");
+    assert!(
+        out_drift.iter().any(|l| {
+            l == "pkg: registry reports 1.2.0, record says the registry lags at 1.1.0 per registry_lag (DRIFT)"
+        }),
+        "{out_drift:?}"
+    );
+
+    // 2. Asset changed (wrong bytes, wrong sha256) + HTTP 500 inconclusive + HTTP 404 absent + URLError
     let pub_obj = record
         .get("components")
         .unwrap()
@@ -600,12 +799,32 @@ fn release_record_covers_network_probes_assets_lag_and_error_paths() {
         .unwrap()
         .get("published")
         .unwrap();
-    for asset_res in [
-        Ok(b"wrong-len".to_vec()),
-        Ok(b"xxxx".to_vec()),
-        Err(LiveError::Http(500)),
-        Err(LiveError::Http(404)),
-        Err(LiveError::Error("URLError".into(), "boom".into())),
+    for (asset_res, expected_state, expected_detail) in [
+        (
+            Ok(b"wrong-len".to_vec()),
+            release_record::CHANGED,
+            "9 bytes, record says 4",
+        ),
+        (
+            Ok(b"xxxx".to_vec()),
+            release_record::CHANGED,
+            "SHA-256 differs from the record",
+        ),
+        (
+            Err(LiveError::Http(500)),
+            release_record::INCONCLUSIVE,
+            "HTTP 500",
+        ),
+        (
+            Err(LiveError::Http(404)),
+            release_record::ABSENT,
+            "HTTP 404, the recorded asset is not served",
+        ),
+        (
+            Err(LiveError::Error("URLError".into(), "boom".into())),
+            release_record::INCONCLUSIVE,
+            "URLError: boom",
+        ),
     ] {
         let mut live = MockLive {
             asset: asset_res,
@@ -614,11 +833,12 @@ fn release_record_covers_network_probes_assets_lag_and_error_paths() {
             pypi: Err(LiveError::Http(503)),
             reg: Err(LiveError::Http(503)),
         };
-        assert!(
-            release_record::live_asset(&mut live, pub_obj)
-                .unwrap()
-                .is_some()
-        );
+        let probe = release_record::live_asset(&mut live, pub_obj)
+            .unwrap()
+            .expect("asset probe expected");
+        assert_eq!(probe.source, "asset");
+        assert_eq!(probe.state, expected_state, "{probe:?}");
+        assert_eq!(probe.detail, expected_detail, "{probe:?}");
     }
 
     // 3. All probes inconclusive -> exit code 2
@@ -650,13 +870,20 @@ fn release_record_covers_network_probes_assets_lag_and_error_paths() {
     )
     .unwrap();
     let probes = release_record::live_versions(&mut live_outage, &bad_comp).unwrap();
-    assert!(!probes.is_empty());
+    assert_eq!(probes.len(), 2);
+    assert!(
+        probes
+            .iter()
+            .all(|p| p.state == release_record::INCONCLUSIVE)
+    );
     let bad_ver = pyjson::loads(
         r#"{"repository":"https://github.com/ryanduguid/x","published":{"version":null,"release_url":"https://github.com/ryanduguid/x/releases/tag/v1"}}"#,
     )
     .unwrap();
     let probes2 = release_record::live_versions(&mut live_outage, &bad_ver).unwrap();
-    assert!(!probes2.is_empty());
+    assert_eq!(probes2.len(), 2);
+    assert_eq!(probes2[0].state, release_record::INCONCLUSIVE);
+    assert!(probes2[0].detail.contains("TypeError"));
 
     // 5. Malformed download_url in live_asset
     let bad_dl = pyjson::loads(r#"{"download_url":"/relative"}"#).unwrap();
@@ -671,8 +898,8 @@ fn release_record_covers_network_probes_assets_lag_and_error_paths() {
         tmp.path().join("scripts/release_record.json"),
     )
     .unwrap();
-    // Minimal missing pages causes check_record to either Err or fail
-    let _ = release_record::run(tmp.path(), &[]);
+    // Missing site pages in the isolated tempdir must fail check_record with exit code 1.
+    assert_eq!(release_record::run(tmp.path(), &[]).unwrap(), 1);
 }
 
 #[test]
@@ -1110,6 +1337,11 @@ fn validators_pass2b_covers_design_favicon_rates_supersedes_release_lag_ozzit_an
     // Non-object register & schema, plus py_sorted numeric and incomparable types
     write(&reg, "schema/register.schema.json", "[]");
     assert!(rates_register::check_register(&reg, Some(Date::new(2026, 11, 24).unwrap())).is_err());
+    write(
+        &reg,
+        "schema/register.schema.json",
+        r#"{"$id":"https://wrong"}"#,
+    );
     write(&reg, "register.json", "[]");
     assert!(rates_register::check_register(&reg, Some(Date::new(2026, 11, 24).unwrap())).is_err());
     write(
@@ -1117,7 +1349,13 @@ fn validators_pass2b_covers_design_favicon_rates_supersedes_release_lag_ozzit_an
         "register.json",
         r#"{"schema_version":1,"register_version":"2026.11.24","advice_status":"x","series":[2, 1.5, true]}"#,
     );
-    let _ = rates_register::check_register(&reg, Some(Date::new(2026, 11, 24).unwrap()));
+    let num_failures =
+        rates_register::check_register(&reg, Some(Date::new(2026, 11, 24).unwrap())).unwrap();
+    common::expect_failure(
+        "numeric series mismatch",
+        &num_failures,
+        "register.json: series list [True, 1.5, 2] does not match",
+    );
     write(
         &reg,
         "register.json",
@@ -1183,15 +1421,29 @@ fn validators_pass2b_covers_design_favicon_rates_supersedes_release_lag_ozzit_an
         r#"{"repository":"https://github.com/ryanduguid/demo","published":{"version":"1.0.0","release_url":"https://github.com/ryanduguid/demo/releases/tag/v1.0.0","pypi_url":"https://pypi.org/project/demo/","registry_url":"https://registry.modelcontextprotocol.io/v0/servers?search=demo","download_url":"https://example.com/a.zip"}}"#,
     )
     .unwrap();
-    for bad in [
-        Json::Array(vec![]),
-        Json::str_obj("str"),
-        Json::Int(1.into()),
+    for (bad, expected_github_state) in [
+        (Json::Array(vec![]), release_record::FOUND),
+        (Json::str_obj("str"), release_record::INCONCLUSIVE),
+        (Json::Int(1.into()), release_record::INCONCLUSIVE),
     ] {
         let mut live = BadJsonLive(bad);
-        let _ = release_record::live_versions(&mut live, &probe_comp).unwrap();
-        let _ =
-            release_record::live_asset(&mut live, probe_comp.get("published").unwrap()).unwrap();
+        let probes = release_record::live_versions(&mut live, &probe_comp).unwrap();
+        assert_eq!(probes.len(), 4, "{probes:?}");
+        assert_eq!(probes[0].source, "pypi");
+        assert_eq!(probes[0].state, release_record::INCONCLUSIVE);
+        assert_eq!(probes[1].source, "registry");
+        assert_eq!(probes[1].state, release_record::INCONCLUSIVE);
+        assert_eq!(probes[2].source, "github");
+        assert_eq!(probes[2].state, expected_github_state);
+        assert_eq!(probes[3].source, "github recorded tag");
+        assert_eq!(probes[3].state, release_record::FOUND);
+        let asset_probe =
+            release_record::live_asset(&mut live, probe_comp.get("published").unwrap())
+                .unwrap()
+                .expect("asset probe expected");
+        assert_eq!(asset_probe.source, "asset");
+        assert_eq!(asset_probe.state, release_record::INCONCLUSIVE);
+        assert_eq!(asset_probe.detail, "mismatch");
     }
 
     // 4. ozzit_reference::render error branches (example_evidence bad tag, bad cases, bad count, bad shape/template)
@@ -1260,7 +1512,7 @@ fn validators_pass2b_covers_design_favicon_rates_supersedes_release_lag_ozzit_an
         assert!(ozzit_reference::render(&oz).is_err());
     }
 
-    // 5. check_links: SystemClock, invalid redirect URLs, transient-warnings passing with 0 failures
+    // 5. check_links: SystemClock and invalid redirect URLs
     let mut sys_clock = check_links::SystemClock;
     sys_clock.sleep(0.0);
     assert!(sys_clock.now() > 0.0);
@@ -1272,20 +1524,28 @@ fn validators_pass2b_covers_design_favicon_rates_supersedes_release_lag_ozzit_an
         "https://github.com/ryanduguid/Ozzit/issues/new",
         "http://[invalid"
     ));
-    let (port, handle) = start_local_http();
-    let warn_dir = tmp.path().join("warn-links");
-    write(
-        &warn_dir,
-        "index.html",
-        &format!("<a href=\"http://localhost:{port}/retry\">r</a>"),
+}
+
+#[test]
+fn check_links_transient_warnings_passes_against_local_server() {
+    crate::run_in_isolated_child(
+        "pass2_validators::check_links_transient_warnings_passes_against_local_server",
+        &[],
+        || {
+            let server = LocalHttpServer::start();
+            let port = server.port();
+            let warn_dir = tempfile::tempdir().unwrap();
+            write(
+                warn_dir.path(),
+                "index.html",
+                &format!("<a href=\"http://localhost:{port}/retry\">r</a>"),
+            );
+            write(warn_dir.path(), "404.html", "<p>404</p>");
+            write(warn_dir.path(), "llms.txt", "");
+            assert_eq!(
+                check_links::run(warn_dir.path(), &s(&["--transient-warnings"])).unwrap(),
+                0
+            );
+        },
     );
-    write(&warn_dir, "404.html", "<p>404</p>");
-    write(&warn_dir, "llms.txt", "");
-    assert_eq!(
-        check_links::run(&warn_dir, &s(&["--transient-warnings"])).unwrap(),
-        0
-    );
-    let mut net = check_links::Network;
-    let _ = net.open(&format!("http://127.0.0.1:{port}/shutdown"), &[]);
-    let _ = handle.join();
 }

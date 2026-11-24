@@ -33,8 +33,8 @@ fn site_contracts_pages_cover_article_calculator_shell_and_breadcrumb_failures()
         "tools/australian-tax-ai-agents/index.html",
         &mut f,
     );
-    assert!(f.iter().any(|m| m.contains("inside the article")));
-    assert!(f.iter().any(|m| m.contains("at least one local link")));
+    common::expect_failure("TOC outside article", &f, "inside the article");
+    common::expect_failure("empty TOC", &f, "at least one local link");
 
     let mut f = Vec::new();
     let (ext_rel, (ext_href, ext_label, _ext_prev)) = contracts::ARTICLE_TOC_EXTERNAL_LINKS[0];
@@ -45,21 +45,23 @@ fn site_contracts_pages_cover_article_calculator_shell_and_breadcrumb_failures()
          </nav><a href=\"{ext_href}\">dup</a></article>"
     );
     contracts::check_article_pattern(&bad_toc_html, ext_rel, &mut f);
-    assert!(f.iter().any(|m| m.contains("must appear once across")));
-    assert!(f.iter().any(|m| m.contains("must have label")));
-    assert!(
-        f.iter()
-            .any(|m| m.contains("local contents target does not exist"))
+    common::expect_failure("duplicate external link", &f, "must appear once across");
+    common::expect_failure("wrong external link label", &f, "must have label");
+    common::expect_failure(
+        "broken local TOC target",
+        &f,
+        "local contents target does not exist",
     );
-    assert!(
-        f.iter()
-            .any(|m| m.contains("at least one valid local link"))
-    );
+    common::expect_failure("no valid local link", &f, "at least one valid local link");
 
     let mut f = Vec::new();
     let missing_ext_html = "<article><nav aria-label=\"On this page\"><a href=\"#ok\">Ok</a></nav><h2 id=\"ok\">Ok</h2></article>";
     contracts::check_article_pattern(missing_ext_html, ext_rel, &mut f);
-    assert!(f.iter().any(|m| m.contains("external On this page link")));
+    common::expect_failure(
+        "missing external TOC link",
+        &f,
+        "external On this page link",
+    );
 
     let mut f = Vec::new();
     let bad_order_html = format!(
@@ -69,7 +71,7 @@ fn site_contracts_pages_cover_article_calculator_shell_and_breadcrumb_failures()
          </nav><h2 id=\"ok\">Ok</h2></article>"
     );
     contracts::check_article_pattern(&bad_order_html, ext_rel, &mut f);
-    assert!(f.iter().any(|m| m.contains("must immediately follow")));
+    common::expect_failure("external TOC link order", &f, "must immediately follow");
 
     // check_calculator_contract: submit count, bonus template sub-elements, result region, id contract
     let mut f = Vec::new();
@@ -401,19 +403,25 @@ fn site_contracts_site_covers_person_evidence_examples_evaluations_hubs_cards_an
         ),
     );
     let sc2 = contracts::check_social_cards_for(root, contracts::HOMEPAGE_HEADING).unwrap();
-    assert!(
-        sc2.iter()
-            .any(|m| m.contains("template dimensions changed"))
+    common::expect_failure(
+        "social card template dimensions",
+        &sc2,
+        "assets/social-card-template.svg: template dimensions changed",
     );
-    assert!(sc2.iter().any(|m| m.contains("OLED palette is incomplete")));
-    assert!(sc2.iter().any(|m| m.contains("portrait imagery")));
-    assert!(
-        sc2.iter()
-            .any(|m| m.contains("missing renderer placeholders"))
+    common::expect_failure("social card palette", &sc2, "OLED palette is incomplete");
+    common::expect_failure("social card portrait", &sc2, "portrait imagery");
+    common::expect_failure(
+        "social card placeholders",
+        &sc2,
+        "missing renderer placeholders",
     );
-    assert!(sc2.iter().any(|m| m.contains("dimensions changed")));
-    assert!(sc2.iter().any(|m| m.contains("under 50,000 bytes")));
-    assert!(sc2.iter().any(|m| m.contains("stale checksum")));
+    common::expect_failure(
+        "social card PNG dimensions",
+        &sc2,
+        &format!("assets/{}: social card dimensions changed", card0.output),
+    );
+    common::expect_failure("social card size budget", &sc2, "under 50,000 bytes");
+    common::expect_failure("social card checksum", &sc2, "stale checksum");
 
     // 7. check_task_routes: non-iterable itemListElement TypeError + mismatched routes
     write(

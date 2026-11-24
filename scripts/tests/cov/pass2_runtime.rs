@@ -14,8 +14,8 @@ use site_tools::pytime;
 use site_tools::pyurl;
 use site_tools::serve_site;
 use std::ffi::OsStr;
-use std::io::{Read, Write};
-use std::net::TcpStream;
+use std::io::{self, Read, Write};
+use std::net::{TcpListener, TcpStream};
 use std::time::Duration;
 
 fn jint(n: i64) -> Json {
@@ -152,7 +152,7 @@ fn pyformat_covers_remaining_repr_ascii_spec_attr_item_and_sum_branches() {
 }
 
 #[test]
-fn serve_site_covers_http_date_edge_cases_prebuilt_dir_and_protocol_errors() {
+fn serve_site_covers_http_date_edge_cases_and_prebuilt_dir() {
     // parse_http_date branches
     assert!(serve_site::parse_http_date("").is_none());
     assert!(serve_site::parse_http_date("Mon,06 Nov 1994 08:49:37 GMT").is_some());
@@ -183,59 +183,134 @@ fn serve_site_covers_http_date_edge_cases_prebuilt_dir_and_protocol_errors() {
         serve_site::prebuilt_dir(Some(tmp.path().as_os_str())).unwrap(),
         Some(tmp.path().to_path_buf())
     );
+}
 
-    // HTTP server protocol error & edge branches
-    std::fs::write(tmp.path().join("data.txt"), "hello").unwrap();
-    let listener = serve_site::create_server(0).unwrap();
-    let addr = listener.local_addr().unwrap();
-    let dir_clone = tmp.path().to_path_buf();
-    std::thread::spawn(move || {
-        let _ = serve_site::serve(listener, &dir_clone);
-    });
-    let send = |raw: &[u8]| -> String {
-        let mut s = TcpStream::connect(addr).unwrap();
-        s.set_read_timeout(Some(Duration::from_secs(3))).unwrap();
-        s.write_all(raw).unwrap();
-        let _ = s.shutdown(std::net::Shutdown::Write);
-        let mut buf = Vec::new();
-        let _ = s.read_to_end(&mut buf);
-        String::from_utf8_lossy(&buf).into_owned()
-    };
-
-    assert!(send(b"GET / HTTP/2.0\r\nHost: localhost\r\n\r\n").contains("505"));
-    assert!(send(b"GET / NOTHTTP\r\nHost: localhost\r\n\r\n").contains("400"));
-    assert!(send(b"ONLYONE\r\n\r\n").contains("400"));
-    assert!(send(b"POST /\r\n").contains("400"));
-    // HTTP/0.9 triggers plain_headers -> accepts_gzip AttributeError and drops connection
-    assert!(send(b"GET /\r\n").is_empty());
-    // Gzip response and directory listing
-    std::fs::create_dir_all(tmp.path().join("listdir/nested")).unwrap();
-    assert!(
-        send(b"GET /data.txt HTTP/1.1\r\nHost: localhost\r\nAccept-Encoding: gzip\r\nConnection: close\r\n\r\n")
-            .contains("Content-Encoding: gzip")
-    );
-    assert!(
-        send(b"GET /listdir/ HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n")
-            .contains("Directory listing for /listdir/")
-    );
-    assert!(
-        send(
-            b"GET //data.txt HTTP/1.1\r\nHost: localhost\r\nExpect: 100-continue\r\nX-Fold: a\r\n b\r\nFrom someone\r\nConnection: close\r\n\r\n"
-        )
-        .contains("100 Continue")
-    );
-    let long_hdr = format!("GET / HTTP/1.1\r\nX-Big: {}\r\n\r\n", "a".repeat(66_000));
-    assert!(send(long_hdr.as_bytes()).contains("431"));
-    let mut many_hdrs = String::from("GET / HTTP/1.1\r\n");
-    for i in 0..105 {
-        many_hdrs.push_str(&format!("X-H{i}: v\r\n"));
+fn send_raw_http(addr: std::net::SocketAddr, raw: &[u8], timeout: Duration) -> io::Result<String> {
+    let mut s = TcpStream::connect(addr)?;
+    s.set_read_timeout(Some(timeout))?;
+    s.write_all(raw)?;
+    let _ = s.shutdown(std::net::Shutdown::Write);
+    let mut buf = Vec::new();
+    match s.read_to_end(&mut buf) {
+        Ok(_) => Ok(String::from_utf8_lossy(&buf).into_owned()),
+        Err(err)
+            if matches!(
+                err.kind(),
+                io::ErrorKind::ConnectionReset
+                    | io::ErrorKind::ConnectionAborted
+                    | io::ErrorKind::BrokenPipe
+            ) =>
+        {
+            Ok(String::from_utf8_lossy(&buf).into_owned())
+        }
+        Err(err) => Err(err),
     }
-    many_hdrs.push_str("\r\n");
-    assert!(send(many_hdrs.as_bytes()).contains("431"));
-    let long_req = format!("GET /{} HTTP/1.1\r\n\r\n", "a".repeat(66_000));
-    assert!(send(long_req.as_bytes()).contains("414"));
-    // Embedded NUL byte triggers reject_nul error path cleanly without panicking
-    let _ = send(b"GET /a%00b HTTP/1.1\r\nConnection: close\r\n\r\n");
+}
+
+#[test]
+fn serve_site_http_protocol_errors_and_edges_close_listener_on_exit() {
+    const PORT_FILE_ENV: &str = "SITE_TOOLS_SERVE_PORT_FILE";
+    let port_dir = tempfile::tempdir().unwrap();
+    let port_file = port_dir.path().join("port.txt");
+    let is_child = std::env::var_os("SITE_TOOLS_ISOLATED_TEST_CHILD").is_some();
+
+    crate::run_in_isolated_child(
+        "pass2_runtime::serve_site_http_protocol_errors_and_edges_close_listener_on_exit",
+        &[(PORT_FILE_ENV, port_file.as_os_str())],
+        || {
+            // A deliberately stalled server must fail with a timeout error rather than
+            // masquerading as an empty response.
+            let stalled = TcpListener::bind(("127.0.0.1", 0)).unwrap();
+            let stalled_addr = stalled.local_addr().unwrap();
+            let hold = std::thread::spawn(move || {
+                let _held = stalled.accept().ok();
+                std::thread::sleep(Duration::from_millis(300));
+            });
+            let stalled_err = send_raw_http(
+                stalled_addr,
+                b"GET / HTTP/1.1\r\nHost: localhost\r\n\r\n",
+                Duration::from_millis(100),
+            )
+            .unwrap_err();
+            assert!(
+                matches!(
+                    stalled_err.kind(),
+                    io::ErrorKind::TimedOut | io::ErrorKind::WouldBlock
+                ),
+                "expected timeout on stalled server, got: {stalled_err:?}"
+            );
+            let _ = hold.join();
+
+            let tmp = tempfile::tempdir().unwrap();
+            std::fs::write(tmp.path().join("index.html"), "<p>ok</p>").unwrap();
+            std::fs::write(tmp.path().join("data.txt"), "hello").unwrap();
+            let listener = serve_site::create_server(0).unwrap();
+            let addr = listener.local_addr().unwrap();
+            if let Some(path) = std::env::var_os(PORT_FILE_ENV) {
+                std::fs::write(path, addr.port().to_string()).unwrap();
+            }
+            let dir_clone = tmp.path().to_path_buf();
+            std::thread::spawn(move || {
+                let _ = serve_site::serve(listener, &dir_clone);
+            });
+            let send = |raw: &[u8]| send_raw_http(addr, raw, Duration::from_secs(3)).unwrap();
+
+            assert!(send(b"GET / HTTP/2.0\r\nHost: localhost\r\n\r\n").contains("505"));
+            assert!(send(b"GET / NOTHTTP\r\nHost: localhost\r\n\r\n").contains("400"));
+            assert!(send(b"ONLYONE\r\n\r\n").contains("400"));
+            assert!(send(b"POST /\r\n").contains("400"));
+            // HTTP/0.9 triggers plain_headers -> accepts_gzip AttributeError and drops connection
+            assert!(send(b"GET /\r\n").is_empty());
+            // Gzip response and directory listing
+            std::fs::create_dir_all(tmp.path().join("listdir/nested")).unwrap();
+            assert!(
+                send(
+                    b"GET /data.txt HTTP/1.1\r\nHost: localhost\r\nAccept-Encoding: gzip\r\nConnection: close\r\n\r\n"
+                )
+                .contains("Content-Encoding: gzip")
+            );
+            assert!(
+                send(b"GET /listdir/ HTTP/1.1\r\nHost: localhost\r\nConnection: close\r\n\r\n")
+                    .contains("Directory listing for /listdir/")
+            );
+            assert!(
+                send(
+                    b"GET //data.txt HTTP/1.1\r\nHost: localhost\r\nExpect: 100-continue\r\nX-Fold: a\r\n b\r\nFrom someone\r\nConnection: close\r\n\r\n"
+                )
+                .contains("100 Continue")
+            );
+            let long_hdr = format!("GET / HTTP/1.1\r\nX-Big: {}\r\n\r\n", "a".repeat(66_000));
+            assert!(send(long_hdr.as_bytes()).contains("431"));
+            let mut many_hdrs = String::from("GET / HTTP/1.1\r\n");
+            for i in 0..105 {
+                many_hdrs.push_str(&format!("X-H{i}: v\r\n"));
+            }
+            many_hdrs.push_str("\r\n");
+            assert!(send(many_hdrs.as_bytes()).contains("431"));
+            let long_req = format!("GET /{} HTTP/1.1\r\n\r\n", "a".repeat(66_000));
+            assert!(send(long_req.as_bytes()).contains("414"));
+            // Embedded NUL byte triggers reject_nul error path and drops connection cleanly
+            let nul_resp = send(b"GET /a%00b HTTP/1.1\r\nConnection: close\r\n\r\n");
+            assert!(
+                nul_resp.is_empty(),
+                "expected empty response on embedded NUL, got: {nul_resp:?}"
+            );
+        },
+    );
+
+    if !is_child {
+        let port: u16 = std::fs::read_to_string(&port_file)
+            .unwrap()
+            .trim()
+            .parse()
+            .unwrap();
+        let err = TcpStream::connect(("127.0.0.1", port)).unwrap_err();
+        assert_eq!(
+            err.kind(),
+            io::ErrorKind::ConnectionRefused,
+            "listener port {port} remained open after isolated child exited: {err:?}"
+        );
+    }
 }
 
 #[test]
@@ -468,7 +543,6 @@ fn pytime_pyurl_merge_driver_badge_favicon_and_effective_life_helpers_cover_edge
 #[test]
 fn runtime_pass2b_covers_node_pyjson_pyre_pycsv_pyval_pyargs_and_favicon_bigint() {
     use site_tools::{html, node, py, pyargs, pycsv, pyjson, pyre, pyval};
-    use std::io;
     use std::path::Path;
 
     // 1. node: decode_uri invalid UTF-8, number formatting, template, fs_error, resolve, fetch_failure
@@ -502,20 +576,61 @@ fn runtime_pass2b_covers_node_pyjson_pyre_pycsv_pyval_pyargs_and_favicon_bigint(
     }
     let resolved = node::resolve(Path::new("./a/../b"));
     assert!(resolved.ends_with("b"));
-    for err in [
-        ureq::Error::Timeout(ureq::Timeout::Global),
-        ureq::Error::HostNotFound,
-        ureq::Error::ConnectionFailed,
-        ureq::Error::Io(io::Error::new(io::ErrorKind::ConnectionRefused, "refused")),
-        ureq::Error::Io(io::Error::new(io::ErrorKind::ConnectionReset, "reset")),
-        ureq::Error::Io(io::Error::new(io::ErrorKind::ConnectionAborted, "aborted")),
-        ureq::Error::Io(io::Error::new(io::ErrorKind::TimedOut, "timedout")),
-        ureq::Error::Io(io::Error::new(io::ErrorKind::UnexpectedEof, "eof")),
-        ureq::Error::Io(io::Error::other("other")),
-        ureq::Error::StatusCode(500),
+    for (err, expected_msg, expected_code) in [
+        (
+            ureq::Error::Timeout(ureq::Timeout::Global),
+            "The operation was aborted due to timeout",
+            None,
+        ),
+        (ureq::Error::HostNotFound, "fetch failed", Some("ENOTFOUND")),
+        (
+            ureq::Error::ConnectionFailed,
+            "fetch failed",
+            Some("ECONNREFUSED"),
+        ),
+        (
+            ureq::Error::Io(io::Error::new(io::ErrorKind::ConnectionRefused, "refused")),
+            "fetch failed",
+            Some("ECONNREFUSED"),
+        ),
+        (
+            ureq::Error::Io(io::Error::new(io::ErrorKind::ConnectionReset, "reset")),
+            "fetch failed",
+            Some("ECONNRESET"),
+        ),
+        (
+            ureq::Error::Io(io::Error::new(io::ErrorKind::ConnectionAborted, "aborted")),
+            "fetch failed",
+            Some("ECONNABORTED"),
+        ),
+        (
+            ureq::Error::Io(io::Error::new(io::ErrorKind::TimedOut, "timedout")),
+            "fetch failed",
+            Some("ETIMEDOUT"),
+        ),
+        (
+            ureq::Error::Io(io::Error::new(io::ErrorKind::UnexpectedEof, "eof")),
+            "fetch failed",
+            Some("UND_ERR_SOCKET"),
+        ),
+        (
+            ureq::Error::Io(io::Error::other("other")),
+            "fetch failed",
+            Some("other"),
+        ),
     ] {
-        let _ = node::fetch_failure(&err);
+        assert_eq!(
+            node::fetch_failure(&err),
+            (expected_msg, expected_code.map(str::to_owned)),
+            "unexpected fetch_failure for {err:?}"
+        );
     }
+    let (status_msg, status_code) = node::fetch_failure(&ureq::Error::StatusCode(500));
+    assert_eq!(status_msg, "fetch failed");
+    assert!(
+        status_code.as_deref().is_some_and(|c| c.contains("500")),
+        "expected status code in {status_code:?}"
+    );
 
     // 2. pyjson: NaN/Infinity/-Infinity, scientific notation, UTF-16/UTF-32 BOM decoding
     assert!(matches!(pyjson::loads("NaN").unwrap(), Json::Float(f) if f.is_nan()));
