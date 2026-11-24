@@ -21,6 +21,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+24 November 2026 | Updated the Aus Accounting MCP guide, Ozzit reference and machine indexes for published releases aus-accounting-mcp v0.12.0 (102 worksheet kinds with calculators 1.2.0, AGPL-3.0-or-later, listed as latest on the official MCP Registry) and Ozzit v3.8.0 (165 functions and 5 help tables, Apache License 2.0, plus the Homebrew tap).
 23 November 2026 | The super lump sum tax calculator now also works the amount a fund withholds from a super lump sum under Schedule 12 for a payment from 13 October 2020, with or without a TFN and for a foreign resident, including a roll-over above the untaxed plan cap and a death benefit paid to a deceased estate. It also works the final tax on a departing Australia superannuation payment in 2025-26 to 2027-28: 35% on the taxed element and 45% on the untaxed element, or 65% on each where the payment includes working holiday maker contributions. Schedule 12 and the Departing Australia Superannuation Payments Tax Act were read on 23 November 2026, and the page agrees with the super-withholding and dasp-tax commands of the australian-accounting calculators on every tested case.
 23 November 2026 | Updated 2 accounting questions after the 23 November 2026 ATO source sweep: removed the withdrawn credit card newsroom link from general tax question 6, keeping the ATO’s How to pay page, and rechecked company and trust question 86 against the 20 November 2026 trustee resolutions checklist.
 23 November 2026 | The tool pages now link to licences by release or source revision, including the versions used in worked examples. The homepage and tool directory link to Lodgeit’s listing of the Coal LSL levy calculator and to the Australian capital gains tax guide on OpenAccountants, with each project’s review status.
@@ -171,6 +172,8 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+24 November 2026 | Ozzit | v3.8.0
+23 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.12.0
 21 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.11.0
 19 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.10.0
 18 November 2026 | Ozzit | v3.7.0
@@ -248,11 +251,16 @@ Date | Tool | Release
 
 Each release links its tagged source. The evaluations record which releases were tested against fictional inputs, and the evidence register records identity, source and release assurance.
 
-Published 30 August 2026. Last reviewed 23 November 2026.
+Published 30 August 2026. Last reviewed 24 November 2026.
 
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- Aus Accounting MCP guide: https://duguid.com.au/tools/australian-tax-ai-agents/
+- Ozzit reference: https://duguid.com.au/tools/ozzit/
+- aus-accounting-mcp v0.12.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.12.0
+- Ozzit v3.8.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.8.0
+- Homebrew tap: https://github.com/ryanduguid/homebrew-tap
 - super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 - general tax question 6: https://duguid.com.au/tools/accounting-questions/general-tax/
 - company and trust question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/
