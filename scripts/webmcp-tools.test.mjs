@@ -1220,7 +1220,7 @@ test('first home owner grant tool returns the page worked example, matches form 
   assert.deepEqual([r.grant, r.valueCap, r.transferDuty.computed, r.transferDuty.firstHomeBuyerDuty, r.transferDuty.generalDuty, r.currency, r.source],
     ['10000.00', 'up to $600,000', true, '0.00', '21187.00', 'AUD', 'https://duguid.com.au/tools/business-calculators/first-home-owner-grant/']);
   assert.doesNotThrow(() => JSON.stringify(r));
-  const scalesHtml = readFileSync(new URL('../_includes/duty-jurisdictions.html', import.meta.url), 'utf8');
+  const scalesHtml = readFileSync('_includes/duty-jurisdictions.html', 'utf8');
   for (const [, place, scaleStr] of scalesHtml.matchAll(/value="(AU-[A-Z]+)"[^>]*data-scale="([^"]+)"/g)) {
     const scale = scaleStr.split(';').map((row) => row.split(','));
     const extra = place === 'AU-WA' ? { northOf26thParallel: false } : {};
