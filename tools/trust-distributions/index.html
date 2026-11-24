@@ -49,18 +49,30 @@ tool: trust-distributions
 {% include site-header.html %}
   <main id="main" class="site-main">
     <article class="article">
-      <header class="article-header site-shell">
-    <nav class="article-crumb" aria-label="Breadcrumb">
-      <ol>
-        <li><a href="/">Home</a></li>
-        <li><a href="/tools/">Tools</a></li>
-        <li aria-current="page">Trust distribution checks</li>
-      </ol>
-    </nav>
-    <h1>{{ tool.name }}</h1>
-    <p class="lead-note">The software compares supplied flags with its implemented PCG 2022/2 zone criteria and calculates conditional Division 6 and section 99B amounts.</p>
+      <header class="article-header article-header--preview site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li aria-current="page">Trust distribution checks</li>
+          </ol>
+        </nav>
+        <div class="article-intro">
+          <h1>{{ tool.name }}</h1>
+          <p class="lead-note">The software compares supplied flags with its implemented PCG 2022/2 zone criteria and calculates conditional Division 6 and section 99B amounts.</p>
     {% include tool-meta.html published="24 August 2026" reviewed="23 November 2026" %}
 {% include tool-facts.html %}
+          <div class="article-actions">
+            <a class="button" href="#get-it">Install solomons-sword</a>
+            <a href="#worked-example">Read the worked example</a>
+          </div>
+        </div>
+        <section class="article-preview" aria-labelledby="s99b-preview-title">
+          <h2 id="s99b-preview-title">Check a section 99B receipt</h2>
+          <pre class="copyable" tabindex="0" role="region" aria-label="Section 99B check preview command"><code>uvx --from solomons-sword==0.1.9 solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000 --resident-during-year</code></pre>
+          <p class="preview-result"><strong>$100,000.00</strong> assessable under s99B</p>
+          <p>Fictional $150,000 gross receipt less $50,000 corpus exemption in v0.1.9. <a href="#worked-example">See the full output and refusal check</a>.</p>
+        </section>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
