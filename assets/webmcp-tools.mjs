@@ -2,6 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { POSITIVE_FRACTION } from './money.mjs';
+import { businessCohortATools } from './webmcp-business-a.mjs';
+import { businessCohortBTools } from './webmcp-business-b.mjs';
+import { businessCohortCTools } from './webmcp-business-c.mjs';
 import {
   concessionalCatchUpTool, fhssTool, governmentSuperTool, lumpSumArrearsTool, studyLoanTool, workExpensesTool,
 } from './webmcp-individual-more.mjs';
@@ -28,6 +31,7 @@ const PATTERNS = {
   quantity: /^\d{1,12}(?:\.\d{1,4})?$/,
   consumption: /^\d{1,3}(?:\.\d{1,6})?$/,
   incomeYear: /^\d{4}-\d{2}$/,
+  signedCost: /^-?\d{1,10}$|^-?\d{1,10}\.\d{1,2}$/,
 };
 
 /**
@@ -534,8 +538,17 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
 /** Tools keyed by the `data-calculator` name of the form whose page registers them.
  * @param {Pick<typeof import('./business-calculators.mjs'), 'gst' | 'div7aMinimumRepayment' | 'financeSchedule' | 'interestByIncomeYear'
  *   | 'lease' | 'breakEven' | 'companyTax' | 'foreignSurcharge' | 'firbApplicationFee' | 'longServiceLeave'
- *   | 'fuelTaxCredits' | 'borrowingSchedule'
- *   | 'BORROWING_YEARS'>} calculate */
+ *   | 'fuelTaxCredits' | 'borrowingSchedule' | 'BORROWING_YEARS'
+ *   | 'asicFee' | 'ASIC_FEES' | 'atoPenaltiesInterest' | 'ATO_PENALTY_YEARS' | 'businessUse' | 'fixedFee'
+ *   | 'frankingAccount' | 'FRANKING_EVENTS' | 'gicPaymentPlan' | 'gstMarginScheme' | 'hourlyRate'
+ *   | 'luxuryCarTax' | 'LCT_YEARS' | 'LCT_THRESHOLDS' | 'margin' | 'objectionDeadline' | 'variance'
+ *   | 'vehicleClass' | 'wineEqualisationTax' | 'WET_YEARS'
+ *   | 'cashForecast' | 'cashWeekDates' | 'lowValuePool' | 'smallBusinessPool' | 'capitalWorks' | 'POOL_YEARS'
+ *   | 'div7aSchedule' | 'firstHomeOwnerGrant' | 'firstHomeDuty' | 'FHOG' | 'FHOG_FIRST' | 'FHOG_LAST' | 'FHOG_HOMES'
+ *   | 'paygInstalment' | 'payrollTax' | 'salaryDividend' | 'paydaySuperCharge' | 'quarterlySgCharge' | 'staffCost'
+ *   | 'capitalGain' | 'cgtConcessions' | 'pcgRisk' | 'pcgAllocation' | 'psiDetermination' | 'RENTAL_YEARS'
+ *   | 'rentalProperty' | 'SBT_YEARS' | 'superBenefitTax' | 'SWH_FIRST_DAY' | 'superWithholding' | 'DASP_YEARS'
+ *   | 'daspTax' | 'unusedLeave' | 'WC_SCHEMES' | 'workersCompensation'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -549,6 +562,9 @@ export function calculatorTools(calculate) {
     'long-service-leave': longServiceLeaveTool(calculate.longServiceLeave),
     'fuel-tax-credits': fuelTaxCreditsTool(calculate.fuelTaxCredits),
     'borrowing-expenses': borrowingTool(calculate.borrowingSchedule, calculate.BORROWING_YEARS),
+    ...businessCohortATools(TOOL_KIT, calculate),
+    ...businessCohortBTools(TOOL_KIT, calculate),
+    ...businessCohortCTools(TOOL_KIT, calculate),
   };
 }
 
@@ -901,14 +917,14 @@ const NOVATED_LEASE_DESCRIPTION = 'A novated car lease in AUD for one year again
   + `or other income. Sources on ${INDIVIDUAL}novated-lease/.`;
 
 /**
- * Shared schema and formatting helpers passed to assets/webmcp-individual-more.mjs.
+ * Shared schema and formatting helpers passed to cohort WebMCP tool modules.
  * @typedef {{
  *   text: typeof text, choice: typeof choice, whole: typeof whole, record: typeof record,
  *   tool: typeof tool, dollars: typeof dollars, dollarsOnly: typeof dollarsOnly,
- *   centsText: typeof centsText, INDIVIDUAL: string, INCOME_TEST_INPUTS: typeof INCOME_TEST_INPUTS
+ *   centsText: typeof centsText, CALCULATORS: string, INDIVIDUAL: string, INCOME_TEST_INPUTS: typeof INCOME_TEST_INPUTS
  * }} ToolKit
  */
-const TOOL_KIT = { text, choice, whole, record, tool, dollars, dollarsOnly, centsText, INDIVIDUAL, INCOME_TEST_INPUTS };
+const TOOL_KIT = { text, choice, whole, record, tool, dollars, dollarsOnly, centsText, CALCULATORS, INDIVIDUAL, INCOME_TEST_INPUTS };
 
 /**
  * WebMCP descriptors for the 12 individual tax calculators wired through assets/individual-tax-results.mjs,

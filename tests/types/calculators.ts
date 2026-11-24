@@ -474,3 +474,49 @@ fhssTools({ fhss: () => ({ amounts: {} }) });
 workExpensesTools({ workExpenses });
 // @ts-expect-error governmentSuperTools requires governmentSuperYears alongside governmentSuperAmounts.
 governmentSuperTools({ governmentSuperAmounts });
+const businessSet = calculatorTools(calculate);
+void businessSet['asic-fees'].execute({ fee: 'company-share-capital' });
+void businessSet['ato-penalties-interest'].execute({ question: 'gic', incomeYear: '2025-26', amount: '10000', dueDate: '2025-11-21', toDate: '2026-06-30' });
+void businessSet['business-use'].execute({ cost: '20.15', businessUsePercent: '50' });
+void businessSet['fixed-fee'].execute({ hours: '18.5', rate: '95' });
+void businessSet['franking-account'].execute({ incomeYear: '2025-26', entity: 'public', imputationRatePercent: '30', openingBalance: '10000' });
+void businessSet['gic-payment-plan'].execute({ debt: '1000', startDate: '2026-10-01', instalments: 3, frequency: 'monthly' });
+void businessSet['gst-margin-scheme'].execute({ interest: 'freehold', taxable: true, agreedInWriting: true, acquired: 'margin',
+  method: 'consideration', price: '190000', priceBasis: 'inclusive', cost: '400000' });
+void businessSet.hourly.execute({ annualCosts: '20.15', targetProfit: '0', billableHours: '2' });
+void businessSet['luxury-car-tax'].execute({ incomeYear: '2026-27', lines: [{ kind: 'sale', luxuryCarTaxValue: '88000' }] });
+void businessSet.margin.execute({ sales: '100', directCost: '80' });
+void businessSet['objection-deadline'].execute({ decision: 'assessment', reviewPeriodYears: '2', noticeDate: '2026-11-18' });
+void businessSet.variance.execute({ actual: '110', budget: '100', kind: 'income' });
+void businessSet['vehicle-class'].execute({ incomeYear: '2026-27', body: 'passenger', seats: 5, grossVehicleMassKg: 3000, kerbWeightKg: 2135,
+  price: '75000', gstCredit: 'full', fuelConsumption: 'other', privateUse: 'limited' });
+void businessSet['wine-equalisation-tax'].execute({ incomeYear: '2026-27', dealings: [{ kind: 'wholesale_sale', priceExcludingWetAndGst: '120.00' }] });
+void businessSet.cash.execute({ opening: '-50', buffer: '100', weeks: Array.from({ length: 13 }, () => ({ receipts: '0', payments: '0' })) });
+void businessSet['depreciation-pools'].execute({ worksheet: 'low-value-pool', incomeYear: '2025-26',
+  previousClosingPoolBalance: '5000', lowCostAssets: '594', lowValueAssets: '0', secondElementCosts: '0', terminationValues: '0' });
+void businessSet['div7a-schedule'].execute({ madeDate: '2022-10-01', amount: '100000', termYears: '7', assumedBenchmarkRate: '8.77' });
+void businessSet['first-home-owner-grant'].execute({ place: 'AU-NSW', contractDate: '2026-08-01', home: 'bought', value: 600000,
+  facts: { person: true, citizen: true, first: true, residence: true } });
+void businessSet['payg-instalments'].execute({ method: 'rate', instalmentIncome: '20100', instalmentRatePercent: '1.7' });
+void businessSet['payroll-tax'].execute({ place: 'AU-NSW', wages: '1500000' });
+void businessSet['salary-dividend'].execute({ incomeYear: '2026-27', companyProfit: '200000', baseRateEntity: true, salary: '100000' });
+void businessSet['sgc-payday'].execute({ regime: 'payday', payday: '2026-07-30', qualifyingEarnings: '1000', receivedOnTime: '120' });
+void businessSet.staff.execute({ wages: '51.30', superAmount: '0', otherCosts: '0' });
+void businessSet.cgt.execute({ entity: 'individual', assetKind: 'investment', purchaseContractDate: '1997-07-01',
+  saleContractDate: '2026-02-01', proceeds: '496000', purchasePrice: '144000' });
+void businessSet['cgt-concessions'].execute({ entity: 'individual', assetKind: 'business', purchaseContractDate: '2014-03-03',
+  saleContractDate: '2026-02-02', businessInSaleYear: 'yes', likelyTurnover: '2100000', actualTurnover: '1950000',
+  netAssetValue: '6200000', activeDays: 3000, dateOfBirth: '1975-08-14', retirementChoiceDate: '2026-10-31' });
+void businessSet['pcg-2021-4'].execute({ gateway1Passed: true, gateway2Passed: true, profitEntitlement: '600000',
+  returnedByIpp: '330000', taxPaid: '189367' });
+void businessSet['pcg-2021-4-allocation'].execute({ incomeYear: '2020-21', gateway1Passed: true, gateway2Passed: true,
+  ipp: { firmIncome: '330000' }, associates: [{ kind: 'base-rate-company', firmIncome: '270000' }] });
+void businessSet['psi-determination'].execute({ earner: 'sole-trader', mainlyPersonalEfforts: true,
+  payers: [{ amount: '18000', paidForResult: true, suppliesTools: true, liableForDefects: true }] });
+void businessSet['rental-property'].execute({ incomeYear: '2025-26', ownershipShare: '1', acquiredDate: '2025-07-20',
+  daysAvailable: 346 });
+void businessSet['super-benefit-tax'].execute({ calculation: 'dasp', incomeYear: '2026-27', taxFreeComponent: '25000',
+  taxedElement: '17000', workingHolidayMakerContributions: false, unclaimedMoneyRollover: false });
+void businessSet['unused-leave'].execute({ longServiceLeave: '22020', accrualStartDate: '1977-01-01', reason: 'normal',
+  lslBefore16August1978: '780', lsl16August1978To17August1993: '6420', payee: 'tfn', normalGrossEarnings: '1155', payPeriod: 'week' });
+void businessSet['workers-compensation'].execute({ place: 'AU-NT', estimatedWages: '400000', ratePercent: '3.5', actualWages: '500000' });
