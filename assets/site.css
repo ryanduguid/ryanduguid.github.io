@@ -1496,18 +1496,6 @@ caption {
   font-size: var(--text-caption);
 }
 
-.route-action-type {
-  color: var(--colour-ink-soft);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-}
-
-.route-terminus {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-}
-
 /* Copy sits under its block, beside the status line, so a long line of code
    never runs beneath the button. */
 .copy-wrap {
@@ -2116,59 +2104,13 @@ caption {
   min-width: 0;
 }
 
-.principles-section,
 .more-index {
   padding-block: var(--space-8);
 }
 
-.principles-section > h2,
 .more-index > h2 {
   padding-bottom: var(--space-5);
   border-bottom: var(--rule-strong) solid var(--colour-ink);
-}
-
-.principles-list {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) repeat(2, minmax(0, 1fr));
-  border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
-}
-
-/* The lead cell sits on the shell edge like the heading above it and centres
-   its statement in the two-row height instead of leaving the lower half
-   empty; its description reads at body size to match that weight. */
-.principles-list > div:first-child {
-  grid-row: span 2;
-  align-content: center;
-  padding-inline-start: 0;
-}
-
-.principles-list > div:first-child span {
-  font-size: var(--text-body);
-}
-
-.principles-list > div {
-  padding: var(--space-5);
-  border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
-}
-
-.principles-list > div + div {
-  border-left: var(--rule-thin) solid var(--colour-rule-strong);
-}
-
-.principles-list strong,
-.principles-list span {
-  display: block;
-}
-
-.principles-list strong {
-  font-family: var(--font-display);
-  font-size: var(--text-lead);
-}
-
-.principles-list span {
-  margin-top: var(--space-3);
-  color: var(--colour-ink-soft);
-  font-size: var(--text-small);
 }
 
 .more-index__links {
@@ -2389,7 +2331,7 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
    inside the scroll box. */
 @media screen and (min-width: 56.0625rem) and (min-height: 30.0625rem) {
   .calculator-result {
-    max-height: calc(100vh - var(--header-height) - var(--space-5));
+    max-height: calc(100dvh - var(--header-height) - var(--space-5));
     overflow-y: auto;
     padding-inline: var(--space-2);
   }
@@ -2600,23 +2542,6 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3) var(--space-5);
-}
-
-@media (max-width: 70rem) {
-  .principles-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .principles-list > div:first-child {
-    grid-column: 1 / -1;
-    grid-row: auto;
-  }
-
-  .principles-list > div:nth-child(2),
-  .principles-list > div:nth-child(4) {
-    padding-inline-start: 0;
-    border-left: 0;
-  }
 }
 
 @media (max-width: 56rem) {
@@ -2869,10 +2794,6 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
     grid-column: 1;
   }
 
-  .principles-list {
-    grid-template-columns: 1fr;
-  }
-
   .home-tool-preview__entry {
     grid-template-columns: 1fr;
   }
@@ -2896,15 +2817,6 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
   .credential-card__facts > div {
     grid-template-columns: minmax(5.5rem, auto) minmax(0, 1fr);
     gap: var(--space-3);
-  }
-
-  .principles-list > div + div {
-    border-left: 0;
-    border-top: var(--rule-thin) solid var(--colour-rule-strong);
-  }
-
-  .principles-list > div {
-    padding-inline: 0;
   }
 
   .site-footer__links {
@@ -3312,7 +3224,7 @@ html[data-view-mode="machine"] body {
 .machine-view__title {
   margin: 0 0 32px;
   color: var(--colour-ink-soft);
-  font-size: 14px;
+  font-size: 0.875rem;
   letter-spacing: 0.02em;
 }
 

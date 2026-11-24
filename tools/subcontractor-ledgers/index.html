@@ -49,18 +49,31 @@ tool: subcontractor-ledgers
 {% include site-header.html %}
   <main id="main" class="site-main">
     <article class="article">
-      <header class="article-header site-shell">
-    <nav class="article-crumb" aria-label="Breadcrumb">
-      <ol>
-        <li><a href="/">Home</a></li>
-        <li><a href="/tools/">Tools</a></li>
-        <li aria-current="page">Subcontract ledger skills</li>
-      </ol>
-    </nav>
-    <h1>{{ tool.name }}</h1>
-    <p class="lead-note">The subcontractor ledger skills for Claude Code cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.</p>
+      <header class="article-header article-header--preview site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li aria-current="page">Subcontract ledger skills</li>
+          </ol>
+        </nav>
+        <div class="article-intro">
+          <h1>{{ tool.name }}</h1>
+          <p class="lead-note">The subcontractor ledger skills for Claude Code cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.</p>
     {% include tool-meta.html published="24 August 2026" reviewed="23 November 2026" %}
 {% include tool-facts.html %}
+          <div class="article-actions">
+            <a class="button" href="#get-it">Get the skill pack</a>
+            <a href="#reproduce">Repeat the evaluation</a>
+          </div>
+        </div>
+        <section class="article-preview" aria-labelledby="subcontract-preview-title">
+          <h2 id="subcontract-preview-title">Subcontractor skill pack scope</h2>
+          <pre class="copyable" tabindex="0" role="region" aria-label="Pinned skill pack identifier"><code>australian-accounting-skills v0.7.0
+contractor-super-tpar · wip-over-under-billing</code></pre>
+          <p class="preview-result"><strong>10 workflows</strong> in the 107-skill pack</p>
+          <p>Human-confirmed verdicts cover 95 of 235 validation cards in v0.7.0. <a href="#reproduce">Repeat the evaluation procedure</a>.</p>
+        </section>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
