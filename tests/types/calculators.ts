@@ -474,3 +474,20 @@ fhssTools({ fhss: () => ({ amounts: {} }) });
 workExpensesTools({ workExpenses });
 // @ts-expect-error governmentSuperTools requires governmentSuperYears alongside governmentSuperAmounts.
 governmentSuperTools({ governmentSuperAmounts });
+const businessSet = calculatorTools(calculate);
+void businessSet['asic-fees'].execute({ fee: 'company-share-capital' });
+void businessSet['ato-penalties-interest'].execute({ question: 'gic', incomeYear: '2025-26', amount: '10000', dueDate: '2025-11-21', toDate: '2026-06-30' });
+void businessSet['business-use'].execute({ cost: '20.15', businessUsePercent: '50' });
+void businessSet['fixed-fee'].execute({ hours: '18.5', rate: '95' });
+void businessSet['franking-account'].execute({ incomeYear: '2025-26', entity: 'public', imputationRatePercent: '30', openingBalance: '10000' });
+void businessSet['gic-payment-plan'].execute({ debt: '1000', startDate: '2026-10-01', instalments: 3, frequency: 'monthly' });
+void businessSet['gst-margin-scheme'].execute({ interest: 'freehold', taxable: true, agreedInWriting: true, acquired: 'margin',
+  method: 'consideration', price: '190000', priceBasis: 'inclusive', cost: '400000' });
+void businessSet.hourly.execute({ annualCosts: '20.15', targetProfit: '0', billableHours: '2' });
+void businessSet['luxury-car-tax'].execute({ incomeYear: '2026-27', lines: [{ kind: 'sale', luxuryCarTaxValue: '88000' }] });
+void businessSet.margin.execute({ sales: '100', directCost: '80' });
+void businessSet['objection-deadline'].execute({ decision: 'assessment', reviewPeriodYears: '2', noticeDate: '2026-11-18' });
+void businessSet.variance.execute({ actual: '110', budget: '100', kind: 'income' });
+void businessSet['vehicle-class'].execute({ incomeYear: '2026-27', body: 'passenger', seats: 5, grossVehicleMassKg: 3000, kerbWeightKg: 2135,
+  price: '75000', gstCredit: 'full', fuelConsumption: 'other', privateUse: 'limited' });
+void businessSet['wine-equalisation-tax'].execute({ incomeYear: '2026-27', dealings: [{ kind: 'wholesale_sale', priceExcludingWetAndGst: '120.00' }] });
