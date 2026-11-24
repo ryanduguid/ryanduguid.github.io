@@ -9,6 +9,12 @@ mod common;
 mod cli_and_io;
 #[path = "cov/commands.rs"]
 mod commands;
+#[path = "cov/pass2_contracts.rs"]
+mod pass2_contracts;
+#[path = "cov/pass2_runtime.rs"]
+mod pass2_runtime;
+#[path = "cov/pass2_validators.rs"]
+mod pass2_validators;
 #[path = "cov/py_format_json.rs"]
 mod py_format_json;
 #[path = "cov/py_helpers.rs"]
