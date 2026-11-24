@@ -502,3 +502,21 @@ void businessSet['payroll-tax'].execute({ place: 'AU-NSW', wages: '1500000' });
 void businessSet['salary-dividend'].execute({ incomeYear: '2026-27', companyProfit: '200000', baseRateEntity: true, salary: '100000' });
 void businessSet['sgc-payday'].execute({ regime: 'payday', payday: '2026-07-30', qualifyingEarnings: '1000', receivedOnTime: '120' });
 void businessSet.staff.execute({ wages: '51.30', superAmount: '0', otherCosts: '0' });
+void businessSet.cgt.execute({ entity: 'individual', assetKind: 'investment', purchaseContractDate: '1997-07-01',
+  saleContractDate: '2026-02-01', proceeds: '496000', purchasePrice: '144000' });
+void businessSet['cgt-concessions'].execute({ entity: 'individual', assetKind: 'business', purchaseContractDate: '2014-03-03',
+  saleContractDate: '2026-02-02', businessInSaleYear: 'yes', likelyTurnover: '2100000', actualTurnover: '1950000',
+  netAssetValue: '6200000', activeDays: 3000, dateOfBirth: '1975-08-14', retirementChoiceDate: '2026-10-31' });
+void businessSet['pcg-2021-4'].execute({ gateway1Passed: true, gateway2Passed: true, profitEntitlement: '600000',
+  returnedByIpp: '330000', taxPaid: '189367' });
+void businessSet['pcg-2021-4-allocation'].execute({ incomeYear: '2020-21', gateway1Passed: true, gateway2Passed: true,
+  ipp: { firmIncome: '330000' }, associates: [{ kind: 'base-rate-company', firmIncome: '270000' }] });
+void businessSet['psi-determination'].execute({ earner: 'sole-trader', mainlyPersonalEfforts: true,
+  payers: [{ amount: '18000', paidForResult: true, suppliesTools: true, liableForDefects: true }] });
+void businessSet['rental-property'].execute({ incomeYear: '2025-26', ownershipShare: '1', acquiredDate: '2025-07-20',
+  daysAvailable: 346 });
+void businessSet['super-benefit-tax'].execute({ calculation: 'dasp', incomeYear: '2026-27', taxFreeComponent: '25000',
+  taxedElement: '17000', workingHolidayMakerContributions: false, unclaimedMoneyRollover: false });
+void businessSet['unused-leave'].execute({ longServiceLeave: '22020', accrualStartDate: '1977-01-01', reason: 'normal',
+  lslBefore16August1978: '780', lsl16August1978To17August1993: '6420', payee: 'tfn', normalGrossEarnings: '1155', payPeriod: 'week' });
+void businessSet['workers-compensation'].execute({ place: 'AU-NT', estimatedWages: '400000', ratePercent: '3.5', actualWages: '500000' });
