@@ -120,13 +120,14 @@ fn read_http_headers(stream: &mut TcpStream, stop: &AtomicBool) -> Option<String
         if stop.load(Ordering::Acquire) || Instant::now() >= deadline {
             return None;
         }
-        match stream.read(&mut chunk) {
-            Ok(0) => break,
+        let max_read = (MAX_HEADER_BYTES - req.len()).min(chunk.len());
+        match stream.read(&mut chunk[..max_read]) {
+            Ok(0) => return None,
             Ok(n) => {
                 req.extend_from_slice(&chunk[..n]);
                 if req.windows(4).any(|w| w == b"\r\n\r\n") || req.windows(2).any(|w| w == b"\n\n")
                 {
-                    break;
+                    return Some(String::from_utf8_lossy(&req).into_owned());
                 }
             }
             Err(err) if matches!(err.kind(), ErrorKind::WouldBlock | ErrorKind::TimedOut) => {
@@ -135,7 +136,7 @@ fn read_http_headers(stream: &mut TcpStream, stop: &AtomicBool) -> Option<String
             Err(_) => return None,
         }
     }
-    (!req.is_empty()).then(|| String::from_utf8_lossy(&req).into_owned())
+    None
 }
 
 #[test]
@@ -156,6 +157,45 @@ fn local_http_server_handles_fragmented_requests_idle_clients_and_proxy_isolatio
     frag.read_to_string(&mut reply).unwrap();
     assert!(reply.starts_with("HTTP/1.1 200 OK"), "reply: {reply:?}");
     assert!(reply.ends_with("\r\n\r\nok"), "reply: {reply:?}");
+
+    // Unterminated headers ending at EOF must be rejected without serving 200 OK.
+    let mut partial_eof = TcpStream::connect(("127.0.0.1", port)).unwrap();
+    partial_eof
+        .set_read_timeout(Some(Duration::from_secs(2)))
+        .unwrap();
+    partial_eof.write_all(b"GET /ok HTTP/1.1\r\n").unwrap();
+    partial_eof.shutdown(std::net::Shutdown::Write).unwrap();
+    let mut eof_reply = String::new();
+    match partial_eof.read_to_string(&mut eof_reply) {
+        Ok(_) => {}
+        Err(err)
+            if matches!(
+                err.kind(),
+                ErrorKind::ConnectionReset | ErrorKind::ConnectionAborted | ErrorKind::BrokenPipe
+            ) => {}
+        Err(err) => panic!("unexpected partial EOF read error: {err:?}"),
+    }
+    assert!(eof_reply.is_empty(), "partial EOF reply: {eof_reply:?}");
+
+    // Oversized (> 8 KiB) unterminated headers must be rejected without serving 200 OK.
+    let mut oversized = TcpStream::connect(("127.0.0.1", port)).unwrap();
+    oversized
+        .set_read_timeout(Some(Duration::from_secs(2)))
+        .unwrap();
+    let big_req = format!("GET /ok HTTP/1.1\r\nX-Pad: {}", "a".repeat(8300));
+    let _ = oversized.write_all(big_req.as_bytes());
+    let _ = oversized.shutdown(std::net::Shutdown::Write);
+    let mut big_reply = String::new();
+    match oversized.read_to_string(&mut big_reply) {
+        Ok(_) => {}
+        Err(err)
+            if matches!(
+                err.kind(),
+                ErrorKind::ConnectionReset | ErrorKind::ConnectionAborted | ErrorKind::BrokenPipe
+            ) => {}
+        Err(err) => panic!("unexpected oversized read error: {err:?}"),
+    }
+    assert!(big_reply.is_empty(), "oversized reply: {big_reply:?}");
 
     // An idle open client must not block bounded teardown on Drop.
     let _idle = TcpStream::connect(("127.0.0.1", port)).unwrap();

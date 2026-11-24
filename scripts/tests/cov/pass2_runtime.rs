@@ -219,19 +219,23 @@ fn serve_site_http_protocol_errors_and_edges_close_listener_on_exit() {
         &[(PORT_FILE_ENV, port_file.as_os_str())],
         || {
             // A deliberately stalled server must fail with a timeout error rather than
-            // masquerading as an empty response.
+            // masquerading as an empty response; release the accepted socket via channel
+            // only after the client read returns so scheduling pauses cannot race.
             let stalled = TcpListener::bind(("127.0.0.1", 0)).unwrap();
             let stalled_addr = stalled.local_addr().unwrap();
+            let (release_tx, release_rx) = std::sync::mpsc::channel::<()>();
             let hold = std::thread::spawn(move || {
                 let _held = stalled.accept().ok();
-                std::thread::sleep(Duration::from_millis(300));
+                let _ = release_rx.recv();
             });
-            let stalled_err = send_raw_http(
+            let stalled_res = send_raw_http(
                 stalled_addr,
                 b"GET / HTTP/1.1\r\nHost: localhost\r\n\r\n",
                 Duration::from_millis(100),
-            )
-            .unwrap_err();
+            );
+            let _ = release_tx.send(());
+            let _ = hold.join();
+            let stalled_err = stalled_res.unwrap_err();
             assert!(
                 matches!(
                     stalled_err.kind(),
@@ -239,7 +243,6 @@ fn serve_site_http_protocol_errors_and_edges_close_listener_on_exit() {
                 ),
                 "expected timeout on stalled server, got: {stalled_err:?}"
             );
-            let _ = hold.join();
 
             let tmp = tempfile::tempdir().unwrap();
             std::fs::write(tmp.path().join("index.html"), "<p>ok</p>").unwrap();
