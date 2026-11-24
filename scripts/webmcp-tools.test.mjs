@@ -5,9 +5,14 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import * as calculate from '../assets/business-calculators.mjs';
 import { readFileSync, readdirSync } from 'node:fs';
-import { calculatorTools, depreciationTools, levyTools, ozzitTools } from '../assets/webmcp-tools.mjs';
-import { individualTaxTools } from '../assets/webmcp-tools.mjs';
+import {
+  calculatorTools, depreciationTools, fhssTools, governmentSuperTools, individualTaxTools, levyTools, ozzitTools,
+  workExpensesTools,
+} from '../assets/webmcp-tools.mjs';
 import { engines as individualEngines } from '../assets/individual-tax-results.mjs';
+import { fhss } from '../assets/fhss-result.mjs';
+import { workExpenses, workExpensesYears } from '../assets/work-expenses-result.mjs';
+import { governmentSuperAmounts, governmentSuperYears } from '../assets/government-super-result.mjs';
 import * as depreciation from '../assets/depreciation-rates.mjs';
 import { computeEntry } from '../assets/levy-form.mjs';
 import { levyCents } from '../assets/levy.mjs';
@@ -68,8 +73,13 @@ test('each business calculator tool is keyed by the form that registers it', () 
 test('every calculator tool is read-only, refuses unknown inputs and has its own name', () => {
   const all = [...Object.values(tools), declineInValue, levy];
   assert.deepEqual(all.map(t => t.name), ['calculate_gst', 'calculate_div7a_minimum_repayment', 'calculate_loan_schedule',
-    'calculate_hire_purchase_schedule', 'calculate_lease_schedule', 'calculate_break_even', 'calculate_company_tax', 'calculate_foreign_purchaser_surcharges', 'calculate_long_service_leave', 'calculate_fuel_tax_credits', 'calculate_borrowing_expenses', 'calculate_decline_in_value',
-    'calculate_coal_lsl_levy']);
+    'calculate_hire_purchase_schedule', 'calculate_lease_schedule', 'calculate_break_even', 'calculate_company_tax',
+    'calculate_foreign_purchaser_surcharges', 'calculate_long_service_leave', 'calculate_fuel_tax_credits',
+    'calculate_borrowing_expenses', 'calculate_asic_fee', 'calculate_ato_penalties_interest',
+    'calculate_business_use_share', 'calculate_fixed_fee', 'calculate_franking_account', 'calculate_gic_payment_plan',
+    'calculate_gst_margin_scheme', 'calculate_hourly_rate', 'calculate_luxury_car_tax', 'calculate_margin_and_markup',
+    'calculate_objection_deadline', 'calculate_budget_variance', 'classify_vehicle', 'calculate_wine_equalisation_tax',
+    'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
     assert.equal(t.inputSchema.additionalProperties, false, t.name);
@@ -423,18 +433,26 @@ test('borrowing expenses tool returns the page worked example and a refinancing,
   await assert.rejects(tool.execute({ year: '2024-25', loans: [{ ...peter, accounting: true }] }), /accounting is not an input of this tool/);
 });
 
-const individual = individualTaxTools(individualEngines);
+const individual = {
+  ...individualTaxTools(individualEngines),
+  ...fhssTools({ fhss }),
+  ...workExpensesTools({ workExpenses, workExpensesYears }),
+  ...governmentSuperTools({ governmentSuperAmounts, governmentSuperYears }),
+};
 
 test('each individual tax tool is keyed by the form that registers it and is read-only', () => {
   assert.deepEqual(Object.values(individual).map(t => t.name), ['calculate_income_tests', 'estimate_income_tax',
-    'calculate_take_home_pay', 'project_super_balance', 'calculate_sole_trader_set_aside', 'calculate_division_293_tax',
-    'calculate_bonus_withholding', 'calculate_salary_packaging',
-    'calculate_novated_lease']);
+    'calculate_take_home_pay', 'calculate_study_loan_repayment', 'project_super_balance',
+    'calculate_sole_trader_set_aside', 'calculate_lump_sum_arrears', 'calculate_division_293_tax',
+    'calculate_concessional_catch_up', 'calculate_bonus_withholding', 'calculate_salary_packaging',
+    'calculate_novated_lease', 'calculate_fhss_release', 'calculate_work_expenses',
+    'calculate_government_super_amounts']);
   for (const [key, t] of Object.entries(individual)) {
     const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`), key);
     assert.equal(t.annotations.readOnlyHint, true, t.name);
     assert.equal(t.inputSchema.additionalProperties, false, t.name);
+    for (const name of t.inputSchema.required) assert.ok(name in t.inputSchema.properties, `${t.name} ${name}`);
     assert.match(t.description, /\bAUD\b/, t.name);
     assert.match(t.description, / General information only, not advice\.$/, t.name);
   }
@@ -687,4 +705,432 @@ test('fuel tax credit tool returns the page worked example and the basic method,
   await assert.rejects(tool.execute(base), /no published rate is held/);
   await assert.rejects(tool.execute({ ...base, lines: [{ ...base.lines[0], quantity: 100 }] }), /quantity does not match its description/);
   await assert.rejects(tool.execute({ ...base, vehicle: 'truck' }), /vehicle is not an input of this tool/);
+});
+
+test('study loan tool returns the page worked examples and refuses invalid or unknown inputs', async () => {
+  const tool = individual['study-loan'];
+  const marginal = await tool.execute({ incomeYear: '2026-27', taxableIncome: 60470, reportableFringeBenefits: 5400,
+    totalNetInvestmentLoss: 1330, reportableSuperContributions: 16500, exemptForeignEmploymentIncome: 2680 });
+  assert.deepEqual([marginal.repaymentIncome, marginal.compulsoryRepayment, marginal.method, marginal.currency, marginal.source],
+    ['86380.00', '2527.80', 'marginal', 'AUD', 'https://duguid.com.au/tools/individual-tax/study-loan/']);
+  const branson = await tool.execute({ incomeYear: '2024-25', taxableIncome: 99736 });
+  assert.deepEqual([branson.compulsoryRepayment, branson.method], ['5485.48', 'percent-of-income']);
+  await assert.rejects(tool.execute({ incomeYear: '2019-20', taxableIncome: 70000 }), /incomeYear does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', taxableIncome: '70000' }), /taxableIncome must be a whole number/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', taxableIncome: 70000, debtBalance: 10000 }), /debtBalance is not an input of this tool/);
+});
+
+test('concessional catch-up tool returns Sam’s example, enforces the $500k cap and refuses invalid or unknown inputs', async () => {
+  const tool = individual['concessional-catch-up'];
+  const earlierYears = [
+    { year: '2019-20', contributions: '11000' }, { year: '2020-21', contributions: '12000' },
+    { year: '2021-22', contributions: '13000' }, { year: '2022-23', contributions: '14000' },
+    { year: '2023-24', contributions: '15000' },
+  ];
+  const sam = await tool.execute({ incomeYear: '2024-25', totalSuperBalance: '450000', concessionalContributions: '97500', earlierYears });
+  assert.deepEqual([sam.generalCap, sam.carriesForward, sam.unusedCapCarriedForward, sam.availableCap, sam.remainingCap,
+    sam.excessConcessionalContributions, sam.source],
+  ['30000.00', true, '67500.00', '97500.00', '0.00', '0.00', 'https://duguid.com.au/tools/individual-tax/concessional-catch-up/']);
+  const over = await tool.execute({ incomeYear: '2024-25', totalSuperBalance: '500000', concessionalContributions: '40000',
+    proposedContribution: '5000', earlierYears });
+  assert.deepEqual([over.carriesForward, over.availableCap, over.excessConcessionalContributions, over.withProposal, over.excessWithProposal],
+    [false, '30000.00', '10000.00', '45000.00', '15000.00']);
+  await assert.rejects(tool.execute({ incomeYear: '2024-25', totalSuperBalance: '450000', concessionalContributions: '30000',
+    definedBenefit: true, earlierYears }), /Subdivision 291-C/);
+  await assert.rejects(tool.execute({ incomeYear: '2024-25', totalSuperBalance: 450000, concessionalContributions: '30000', earlierYears }),
+    /totalSuperBalance does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2024-25', totalSuperBalance: '450000', concessionalContributions: '30000',
+    earlierYears, extraField: true }), /extraField is not an input of this tool/);
+});
+
+test('lump sum arrears tool returns the page worked example, nil below 10% and refuses invalid or unknown inputs', async () => {
+  const tool = individual['lump-sum-arrears'];
+  const accrualYears = [
+    { year: '2023-24', arrears: 3000, taxableIncome: 30000 }, { year: '2022-23', arrears: 2500, taxableIncome: 17000 },
+    { year: '2021-22', arrears: 1400 }, { year: '2020-21', arrears: 1700 },
+    { year: '2019-20', arrears: 1400 }, { year: '2018-19', arrears: 1000 },
+  ];
+  const r = await tool.execute({ receiptYear: '2025-26', taxableIncome: 100000, australianResidentAllYears: true, accrualYears });
+  assert.deepEqual([r.totalArrears, r.taxOnArrears, r.notionalTaxTotal, r.offset, r.distantYears.amount, r.recentRatesPercent.average, r.source],
+    ['11000.00', '3300.00', '1611.75', '1688.25', '794.75', '14.45', 'https://duguid.com.au/tools/individual-tax/lump-sum-arrears/']);
+  const below = await tool.execute({ receiptYear: '2025-26', taxableIncome: 1000000, australianResidentAllYears: true, accrualYears });
+  assert.deepEqual([below.thresholdMet, below.offset, below.taxOnArrears], [false, '0.00', null]);
+  await assert.rejects(tool.execute({ receiptYear: '2025-26', taxableIncome: 100000, australianResidentAllYears: false, accrualYears }),
+    /resident in Australia for the whole/);
+  await assert.rejects(tool.execute({ receiptYear: '2025-26', taxableIncome: 100000, australianResidentAllYears: true,
+    hasOtherExcludedAmounts: true, accrualYears }), /employment termination payment/);
+  await assert.rejects(tool.execute({ receiptYear: '2025-26', taxableIncome: 100000, australianResidentAllYears: true,
+    accrualYears, resident: true }), /resident is not an input of this tool/);
+});
+
+test('FHSS tool handles stated and estimate modes, serialises JSON cleanly and refuses invalid or unknown inputs', async () => {
+  const tool = individual.fhss;
+  const stated = await tool.execute({ mode: 'stated', scopeConfirmed: true, determinationDate: '2025-06-20',
+    concessional: '8500', nonConcessional: '5000', associatedEarnings: '850', withholdingBasis: 'unable', debtOffset: '0' });
+  assert.deepEqual([stated.maximumReleaseAmount, stated.assessableFhssReleasedAmount, stated.taxWithheld, stated.paidToYou,
+    stated.fhssTaxOffset, stated.fhssTaxIfNotUsed, stated.recontributionRequired, stated.source],
+  ['14350.00', '9350.00', '1589.00', '12761.00', '2805.00', '1870.00', '7761.00', 'https://duguid.com.au/tools/individual-tax/fhss/']);
+  const est = await tool.execute({ mode: 'estimate', scopeConfirmed: true, determinationDate: '2024-01-02',
+    determinationRequested: '2024-01-02', withholdingBasis: 'unable',
+    contributions: [{ date: '2024-01-01', amount: '7000', kind: 'personal' }, { date: '2024-01-02', amount: '7000', kind: 'personal' }] });
+  assert.deepEqual([est.maximumReleaseAmount, est.contributions.length, est.contributions[0].counted], ['14004.00', 2, '7000.00']);
+  assert.doesNotThrow(() => JSON.stringify(est));
+  const split = await tool.execute({ mode: 'estimate', scopeConfirmed: true, determinationDate: '2024-01-02',
+    determinationRequested: '2024-01-02', withholdingBasis: 'marginal', marginalPercent: '32.5',
+    contributions: [{ date: '2023-09-01', amount: '10000', kind: 'personal' }],
+    deductions: [{ financialYear: '2023-24', amount: '4000' }] });
+  assert.equal(split.contributions.length, 2);
+  assert.equal(split.contributions[0].row, split.contributions[1].row);
+  assert.notEqual(split.contributions[0].deemedEarnings, null);
+  assert.equal(split.contributions[1].deemedEarnings, null);
+  await assert.rejects(tool.execute({ mode: 'stated', scopeConfirmed: false, determinationDate: '2025-06-20',
+    concessional: '8500', nonConcessional: '5000', associatedEarnings: '850', withholdingBasis: 'unable' }), /scope conditions/);
+  await assert.rejects(tool.execute({ mode: 'stated', scopeConfirmed: true, determinationDate: '2025-06-20',
+    concessional: '8500', nonConcessional: '5000', associatedEarnings: '850', withholdingBasis: 'unable',
+    contributions: [{ date: '2024-01-01', amount: '7000', kind: 'personal' }] }), /applies only when mode is "estimate"/);
+  await assert.rejects(tool.execute({ mode: 'estimate', scopeConfirmed: true, determinationDate: '2024-01-02',
+    determinationRequested: '2024-01-02', withholdingBasis: 'unable', concessional: '5000',
+    contributions: [{ date: '2024-01-01', amount: '7000', kind: 'personal' }] }), /applies only when mode is "stated"/);
+  await assert.rejects(tool.execute({ mode: 'stated', scopeConfirmed: true, determinationDate: '2025-06-20',
+    concessional: '8500', nonConcessional: '5000', associatedEarnings: '850', withholdingBasis: 'unable', marginalPercent: '30' }),
+  /marginalPercent applies only when withholdingBasis is "marginal"/);
+  await assert.rejects(tool.execute({ mode: 'stated', scopeConfirmed: true, determinationDate: '2025-06-20',
+    concessional: '8500', nonConcessional: '5000', associatedEarnings: '850', withholdingBasis: 'unable', withholdingAmount: '500' }),
+  /withholdingAmount applies only when withholdingBasis is "supplied_estimate" or "actual"/);
+  await assert.rejects(tool.execute({ mode: 'stated', scopeConfirmed: true, determinationDate: '2025-06-20',
+    concessional: '8500', nonConcessional: '5000', associatedEarnings: '850', withholdingBasis: 'unable', transition: 'ordinary' }),
+  /transition applies only to determinations before 2024-09-15/);
+  await assert.rejects(tool.execute({ mode: 'stated', scopeConfirmed: true, determinationDate: '2025-06-20',
+    concessional: '8500', nonConcessional: '5000', associatedEarnings: '850', withholdingBasis: 'unable', unknownKey: 1 }),
+  /unknownKey is not an input of this tool/);
+});
+
+test('work expenses tool covers all 4 methods and refuses cross-method, expired or unknown inputs', async () => {
+  const tool = individual['work-expenses'];
+  const wfh = await tool.execute({ method: 'home_office', incomeYear: '2025-26', scopeConfirmed: true, hours: '843',
+    runningExpensesIncurred: true });
+  assert.deepEqual([wfh.amounts.fixed_rate_method, wfh.amounts.fixed_rate_return_amount, wfh.higherMethod, wfh.source],
+    ['590.10', '590.00', 'fixed_rate', 'https://duguid.com.au/tools/individual-tax/work-expenses/']);
+  const cpk = await tool.execute({ method: 'car_cents_per_kilometre', incomeYear: '2025-26', scopeConfirmed: true,
+    ownedOrLeased: true, businessKilometres: '2514' });
+  assert.deepEqual([cpk.amounts.return_amount, cpk.kilometresDiscarded], ['2212.00', false]);
+  const log = await tool.execute({ method: 'car_log_book', incomeYear: '2025-26', scopeConfirmed: true, ownedOrLeased: true,
+    businessKilometres: '2514', totalKilometres: '10000', carExpenses: '17275.33', logBookYear: '2025-26', logBookWeeks: 12,
+    logBookRepresentative: true });
+  assert.deepEqual([log.amounts.business_use_percentage, log.logBookValidTo], ['25.14', '2029-30']);
+  const edu = await tool.execute({ method: 'self_education', incomeYear: '2021-22', scopeConfirmed: true,
+    connection: 'maintains_or_improves_skills', employedWhenIncurred: true, categoryA: '290', prescribedCourse: true });
+  assert.deepEqual([edu.amounts.return_amount, edu.reductionApplies], ['40.00', true]);
+  await assert.rejects(tool.execute({ method: 'home_office', incomeYear: '2025-26', scopeConfirmed: true, hours: '843',
+    runningExpensesIncurred: true, businessKilometres: '100' }), /is not an input of work-expenses/);
+  await assert.rejects(tool.execute({ method: 'car_log_book', incomeYear: '2025-26', scopeConfirmed: true, ownedOrLeased: true,
+    businessKilometres: '2514', totalKilometres: '10000', carExpenses: '1000', logBookYear: '2020-21', logBookWeeks: 12,
+    logBookRepresentative: true }), /serves that year and the next 4 only/);
+  await assert.rejects(tool.execute({ method: 'car_log_book', incomeYear: '2025-26', scopeConfirmed: true, ownedOrLeased: true,
+    businessKilometres: '2514', totalKilometres: '10000', carExpenses: '1000', logBookYear: '2025-26', logBookWeeks: 11,
+    logBookRepresentative: true }), /logBookWeeks must be a whole number from 12 to 53/);
+  await assert.rejects(tool.execute({ method: 'home_office', incomeYear: '2025-26', scopeConfirmed: true, hours: '843',
+    runningExpensesIncurred: true, rent: '500' }), /rent is not an input of this tool/);
+});
+
+test('government super tool returns co-contribution, LISTO and spouse offset and refuses invalid or unknown inputs', async () => {
+  const tool = individual['government-super'];
+  const base = { incomeYear: '2023-24', scopeConfirmed: true, residency: 'full_year_resident', assessableIncome: 35000,
+    taxableIncome: 35000, eligibleIncome: '35000', personalContributions: '1040', returnLodged: true, under71: true,
+    nonConcessionalWithinCap: 'yes', totalSuperBalanceBelowCap: 'yes' };
+  const r = await tool.execute(base);
+  assert.deepEqual([r.amounts.co_contribution, r.amounts.co_contribution_paid, r.amounts.listo, r.thresholds.lowerIncomeThreshold, r.source],
+    ['500.00', '500.00', '0.00', '43445', 'https://duguid.com.au/tools/individual-tax/government-super/']);
+  const withSpouse = await tool.execute({ ...base, incomeYear: '2025-26', assessableIncome: 50000, taxableIncome: 50000,
+    eligibleIncome: '50000', personalContributions: '1000', spouse: { contributions: '3000', assessableIncome: '39999',
+      nonConcessionalWithinCap: 'yes', totalSuperBalanceBelowCap: 'yes' } });
+  assert.deepEqual([withSpouse.amounts.co_contribution, withSpouse.amounts.co_contribution_paid, withSpouse.amounts.spouse_contribution_offset],
+    ['416.28', '416.30', '0.18']);
+  await assert.rejects(tool.execute({ ...base, temporaryVisaHeld: true }), /New Zealand citizens/);
+  await assert.rejects(tool.execute({ ...base, totalSuperBalanceBelowCap: 'unknown' }), /was not given/);
+  await assert.rejects(tool.execute({ ...base, residency: 'foreign_resident' }), /whole year only/);
+  await assert.rejects(tool.execute({ ...base, superFund: 'example' }), /superFund is not an input of this tool/);
+});
+
+test('ASIC fees tool returns standard and late fee worked examples and refuses invalid or mismatched inputs', async () => {
+  const tool = tools['asic-fees'];
+  const late = await tool.execute({ fee: 'late-review-payment', dueDate: '2026-09-15', receivedDate: '2026-10-15' });
+  assert.deepEqual([late.code, late.amount, late.tier, late.firstMonthEnds, late.gstApplies, late.currency, late.source],
+    ['LPF1_ETM', '102.00', 'within one month', '2026-10-15', false, 'AUD', 'https://duguid.com.au/tools/business-calculators/asic-fees/']);
+  assert.doesNotThrow(() => JSON.stringify(late));
+  const reg = await tool.execute({ fee: 'company-share-capital' });
+  assert.deepEqual([reg.code, reg.amount, reg.tier, reg.firstMonthEnds], ['I02', '636.00', null, null]);
+  await assert.rejects(tool.execute({ fee: 'company-share-capital', dueDate: '2026-09-15' }), /apply only to late-review-payment/);
+  await assert.rejects(tool.execute({ fee: 'late-lodgement', dueDate: '2026-09-15' }), /dueDate and receivedDate are required/);
+  await assert.rejects(tool.execute({ fee: 'late-payment' }), /fee does not match/);
+  await assert.rejects(tool.execute({ fee: 'company-share-capital', gst: true }), /gst is not an input of this tool/);
+});
+
+test('ATO penalties and interest tool covers all 6 questions and refuses cross-question or unknown inputs', async () => {
+  const tool = tools['ato-penalties-interest'];
+  const gic = await tool.execute({ question: 'gic', incomeYear: '2025-26', amount: '10000', dueDate: '2025-11-21', toDate: '2026-06-30' });
+  assert.deepEqual([gic.gic, gic.paid, gic.balance, gic.days, gic.currency, gic.source],
+    ['676.86', '0.00', '10676.86', 222, 'AUD', 'https://duguid.com.au/tools/business-calculators/ato-penalties-interest/']);
+  assert.doesNotThrow(() => JSON.stringify(gic));
+  const sic = await tool.execute({ question: 'sic', incomeYear: '2025-26', amount: '10000', dueDate: '2025-11-21', noticeDate: '2026-05-20' });
+  assert.equal(sic.days, 180);
+  assert.doesNotThrow(() => JSON.stringify(sic));
+  const ftl = await tool.execute({ question: 'failure_to_lodge', incomeYear: '2026-27', dueDate: '2026-07-15', givenOn: '2026-08-20', entitySize: 'medium' });
+  assert.deepEqual([ftl.penaltyUnits, ftl.multiplier, ftl.basePenaltyAmount, ftl.penalty], [2, 2, '728.00', '1456.00']);
+  const stmt = await tool.execute({ question: 'statement_penalty', incomeYear: '2026-27', statementDate: '2026-08-01',
+    significantGlobalEntity: false, parts: [{ shortfallAmount: '10000', behaviour: 'recklessness' }] });
+  assert.deepEqual([stmt.basePenaltyAmount, stmt.penalty], ['5000.00', '5000.00']);
+  const epi = await tool.execute({ question: 'early_payment_interest', incomeYear: '2025-26', amount: '5000',
+    liability: 'income_tax', paidOn: '2025-10-01', dueDate: '2025-11-21', fullSelfAssessment: true });
+  assert.equal(epi.entitled, true);
+  const opi = await tool.execute({ question: 'overpayment_interest', incomeYear: '2025-26',
+    payments: [{ date: '2025-10-01', amount: '5000' }], refunded: '2000', refundedOn: '2026-02-01',
+    noticeIssued: '2025-10-15', relevantTax: true, decisionToWhichActApplies: true });
+  assert.equal(opi.refunded, '2000.00');
+  assert.doesNotThrow(() => JSON.stringify(opi));
+  await assert.rejects(tool.execute({ question: 'sic', incomeYear: '2025-26', amount: '10000', dueDate: '2025-11-21',
+    noticeDate: '2026-05-20', entitySize: 'small' }), /is not an input of sic/);
+  await assert.rejects(tool.execute({ question: 'remission', incomeYear: '2025-26' }), /question does not match/);
+  await assert.rejects(tool.execute({ question: 'gic', incomeYear: '2025-26', amount: '10000', dueDate: '2025-11-21',
+    toDate: '2026-06-30', extra: 1 }), /extra is not an input of this tool/);
+});
+
+test('business use tool returns the page worked example and refuses invalid or unknown inputs', async () => {
+  const tool = tools['business-use'];
+  const r = await tool.execute({ cost: '20.15', businessUsePercent: '50' });
+  assert.deepEqual([r.businessUseShare, r.currency, r.source],
+    ['10.08', 'AUD', 'https://duguid.com.au/tools/business-calculators/business-use/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  await assert.rejects(tool.execute({ cost: '20.15', businessUsePercent: '101' }), /100/);
+  await assert.rejects(tool.execute({ cost: 20.15, businessUsePercent: '50' }), /cost does not match/);
+  await assert.rejects(tool.execute({ cost: '20.15', businessUsePercent: '50', gst: true }), /gst is not an input of this tool/);
+});
+
+test('fixed fee tool returns the page worked example and refuses invalid or unknown inputs', async () => {
+  const tool = tools['fixed-fee'];
+  const r = await tool.execute({ hours: '18.5', rate: '95', marginPercent: '40', roundTo: '10', addGst: true, instalments: 12 });
+  assert.deepEqual([r.feeBeforeGst, r.gst, r.feeIncludingGst, r.firstInstalment, r.remainingInstalment, r.effectiveHourlyRate, r.currency, r.source],
+    ['2930.00', '293.00', '3223.00', '268.62', '268.58', '158.38', 'AUD', 'https://duguid.com.au/tools/business-calculators/fixed-fee/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const once = await tool.execute({ hours: '10', rate: '100' });
+  assert.deepEqual([once.feeIncludingGst, once.remainingInstalment], ['1000.00', null]);
+  await assert.rejects(tool.execute({ hours: '10', rate: '100', roundTo: '5' }), /roundTo does not match/);
+  await assert.rejects(tool.execute({ hours: '10', rate: '100', instalments: 25 }), /instalments must be a whole number/);
+  await assert.rejects(tool.execute({ hours: '10', rate: '100', discount: '5' }), /discount is not an input of this tool/);
+});
+
+test('franking account tool returns the page worked example, handles opening deficits and refuses invalid or unknown inputs', async () => {
+  const tool = tools['franking-account'];
+  const r = await tool.execute({
+    incomeYear: '2025-26', entity: 'public', imputationRatePercent: '30', openingBalance: '10000',
+    events: [
+      { date: '2025-10-28', type: 'payg_instalment', amount: '125000' },
+      { date: '2025-11-15', type: 'income_tax_refund', amount: '60000' },
+      { date: '2026-02-28', type: 'payg_instalment', amount: '125000' },
+      { date: '2026-03-31', type: 'streaming_determination', amount: '20000' },
+      { date: '2026-04-28', type: 'payg_instalment', amount: '250000' },
+    ],
+    distributions: [{ date: '2025-09-30', amount: '1190000', frankingCredit: '510000' }],
+  });
+  assert.deepEqual([r.credits, r.debits, r.closingBalance, r.balanceCode, r.frankingDeficitTax, r.offsetReduction,
+    r.frankingDeficitTaxOffset, r.labelK, r.frankingTaxPayable, r.dueDate, r.significantVariation, r.source],
+  ['500000.00', '590000.00', '-80000.00', 'D', '80000.00', '18000.00', '62000.00', '20000.00', '80000.00',
+    '2026-07-31', false, 'https://duguid.com.au/tools/business-calculators/franking-account/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const deficit = await tool.execute({ incomeYear: '2026-27', entity: 'private', imputationRatePercent: '25', openingBalance: '-5000' });
+  assert.deepEqual([deficit.credits, deficit.closingBalance], ['5000.00', '0.00']);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', entity: 'trust', imputationRatePercent: '30', openingBalance: '0' }),
+    /entity does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', entity: 'public', imputationRatePercent: '30', openingBalance: '0',
+    lastBenchmarkPercent: '50' }), /franking periods/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', entity: 'public', imputationRatePercent: '30', openingBalance: '0',
+    extra: true }), /extra is not an input of this tool/);
+});
+
+test('GIC payment plan tool returns the page worked example and requires assumedAnnualRate after 2026', async () => {
+  const tool = tools['gic-payment-plan'];
+  const r = await tool.execute({ debt: '1000', startDate: '2026-10-01', instalments: 3, frequency: 'monthly', assumedAnnualRate: '11.51' });
+  assert.deepEqual([r.instalment, r.finalInstalment, r.lastDate, r.totalPaid, r.gic, r.assumedDays, r.currency, r.source],
+    ['336.56', '336.56', '2026-12-01', '1009.68', '9.68', 0, 'AUD', 'https://duguid.com.au/tools/business-calculators/gic-payment-plan/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const noAssumed = await tool.execute({ debt: '1000', startDate: '2026-10-01', instalments: 3, frequency: 'monthly' });
+  assert.equal(noAssumed.gic, '9.68');
+  await assert.rejects(tool.execute({ debt: '1000', startDate: '2026-11-01', instalments: 4, frequency: 'monthly' }),
+    /assumedAnnualRate is required when the plan runs after 2026-12-31/);
+  await assert.rejects(tool.execute({ debt: '1000', startDate: '2026-10-01', instalments: 3, frequency: 'quarterly' }),
+    /frequency does not match/);
+  await assert.rejects(tool.execute({ debt: '1000', startDate: '2026-10-01', instalments: 3, frequency: 'monthly', fee: '10' }),
+    /fee is not an input of this tool/);
+});
+
+test('GST margin scheme tool returns the page worked example, checks valuation dates and refuses mismatched or unknown inputs', async () => {
+  const tool = tools['gst-margin-scheme'];
+  const r = await tool.execute({
+    interest: 'freehold', taxable: true, agreedInWriting: true, acquired: 'margin',
+    method: 'consideration', price: '190000', priceBasis: 'inclusive', cost: '400000', part: '200000', whole: '2000000',
+  });
+  assert.deepEqual([r.applies, r.acquisitionShare, r.margin, r.marginSchemeGst, r.gstWithoutScheme, r.gstSaving, r.gstPayable, r.currency, r.source],
+    [true, '40000.00', '150000.00', '13636.36', '17272.73', '3636.37', '13636.36', 'AUD', 'https://duguid.com.au/tools/business-calculators/gst-margin-scheme/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const val = await tool.execute({
+    interest: 'freehold', taxable: true, agreedInWriting: true, acquired: 'before-2000',
+    method: 'valuation', price: '500000', priceBasis: 'inclusive', cost: '280000',
+    valuationDay: '2000-07-01', registrationAtTransition: 'yes', valuationProperty: 'improved',
+  });
+  assert.equal(val.marginSchemeGst, '20000.00');
+  await assert.rejects(tool.execute({
+    interest: 'freehold', taxable: true, agreedInWriting: true, acquired: 'margin',
+    method: 'consideration', price: '190000', priceBasis: 'inclusive', cost: '400000', valuationDay: '2000-07-01',
+  }), /valuationDay applies only when method is "valuation"/);
+  await assert.rejects(tool.execute({
+    interest: 'freehold', taxable: true, agreedInWriting: true, acquired: 'margin',
+    method: 'consideration', price: '190000', priceBasis: 'inclusive', cost: '400000', part: '1',
+  }), /Supply both part and whole/);
+  await assert.rejects(tool.execute({
+    interest: 'freehold', taxable: true, agreedInWriting: true, acquired: 'margin', buyerIsAssociate: true,
+    method: 'consideration', price: '190000', priceBasis: 'inclusive', cost: '400000',
+  }), /section 75-13/);
+  await assert.rejects(tool.execute({
+    interest: 'freehold', taxable: true, agreedInWriting: true, acquired: 'margin',
+    method: 'consideration', price: '190000', priceBasis: 'inclusive', cost: '400000', stampDuty: '1000',
+  }), /stampDuty is not an input of this tool/);
+});
+
+test('hourly rate tool returns the page worked example and refuses invalid or unknown inputs', async () => {
+  const tool = tools.hourly;
+  const r = await tool.execute({ annualCosts: '20.15', targetProfit: '0', billableHours: '2' });
+  assert.deepEqual([r.requiredHourlyRate, r.currency, r.source],
+    ['10.08', 'AUD', 'https://duguid.com.au/tools/business-calculators/hourly/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  await assert.rejects(tool.execute({ annualCosts: '20.15', targetProfit: '0', billableHours: '0' }), /0\.01/);
+  await assert.rejects(tool.execute({ annualCosts: '20.15', targetProfit: '0', billableHours: '2', gst: true }),
+    /gst is not an input of this tool/);
+});
+
+test('luxury car tax tool returns the page worked example, handles refunds and refuses invalid or unknown inputs', async () => {
+  const tool = tools['luxury-car-tax'];
+  const r = await tool.execute({
+    incomeYear: '2026-27',
+    lines: [{ kind: 'sale', luxuryCarTaxValue: '88000' }, { kind: 'importation', luxuryCarTaxValue: '101500' }],
+  });
+  assert.deepEqual([r.onSales, r.label1e, r.label1f, r.onImportations, r.threshold, r.fuelEfficientLimit, r.currency, r.source],
+    ['2157.30', '2157', '0', '6207.30', '80809.00', '91661.00', 'AUD', 'https://duguid.com.au/tools/business-calculators/luxury-car-tax/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const refund = await tool.execute({
+    incomeYear: '2026-27',
+    lines: [{ kind: 'refund', claimant: 'primary_producer', refundEligibleCar: true, lctBorne: '12500' }],
+  });
+  assert.equal(refund.refunds, '10000.00');
+  await assert.rejects(tool.execute({
+    incomeYear: '2026-27',
+    lines: [{ kind: 'refund', claimant: 'primary_producer', refundEligibleCar: true, lctBorne: '5000', fuelConsumptionLitresPer100km: '5' }],
+  }), /is not an input of a refund/);
+  await assert.rejects(tool.execute({ incomeYear: '2018-19', lines: [{ kind: 'sale', luxuryCarTaxValue: '88000' }] }),
+    /incomeYear does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', lines: [{ kind: 'sale', luxuryCarTaxValue: '88000' }], extra: 1 }),
+    /extra is not an input of this tool/);
+});
+
+test('margin and markup tool returns the page worked example, null on zero base and refuses invalid or unknown inputs', async () => {
+  const tool = tools.margin;
+  const r = await tool.execute({ sales: '100', directCost: '80' });
+  assert.deepEqual([r.grossProfit, r.marginPercent, r.markupPercent, r.currency, r.source],
+    ['20.00', '20.00', '25.00', 'AUD', 'https://duguid.com.au/tools/business-calculators/margin/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const zeroCost = await tool.execute({ sales: '100', directCost: '0' });
+  assert.deepEqual([zeroCost.marginPercent, zeroCost.markupPercent], ['100.00', null]);
+  await assert.rejects(tool.execute({ sales: '-100', directCost: '80' }), /sales does not match/);
+  await assert.rejects(tool.execute({ sales: '100', directCost: '80', gst: false }), /gst is not an input of this tool/);
+});
+
+test('objection deadline tool returns the page worked example, checks amended assessments and refuses mismatched or unknown inputs', async () => {
+  const tool = tools['objection-deadline'];
+  const r = await tool.execute({ decision: 'assessment', reviewPeriodYears: '2', noticeDate: '2026-11-18' });
+  assert.deepEqual([r.rule, r.periodEnds, r.lastDay, r.amendedEnds, r.firstEnds, r.source],
+    ['subparagraph 14ZW(1)(aa)(i)', '2028-11-18', '2028-11-20', null, null, 'https://duguid.com.au/tools/business-calculators/objection-deadline/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const amended = await tool.execute({ decision: 'amended', reviewPeriodYears: '2', noticeDate: '2026-11-18', firstNoticeDate: '2025-11-18' });
+  assert.deepEqual([amended.rule, amended.amendedEnds, amended.firstEnds], ['subsection 14ZW(1BA)', '2027-01-17', '2027-11-18']);
+  await assert.rejects(tool.execute({ decision: 'assessment', noticeDate: '2026-11-18' }), /reviewPeriodYears is required/);
+  await assert.rejects(tool.execute({ decision: 'fbt', reviewPeriodYears: '4', noticeDate: '2026-11-18' }), /reviewPeriodYears applies only/);
+  await assert.rejects(tool.execute({ decision: 'assessment', reviewPeriodYears: '2', noticeDate: '2026-11-18', firstNoticeDate: '2025-11-18' }),
+    /firstNoticeDate applies only/);
+  await assert.rejects(tool.execute({ decision: 'ruling', noticeDate: '2026-11-18' }), /decision does not match/);
+  await assert.rejects(tool.execute({ decision: 'other', noticeDate: '2026-11-18', state: 'NSW' }), /state is not an input of this tool/);
+});
+
+test('budget variance tool returns the page worked example, supports negative values and refuses invalid or unknown inputs', async () => {
+  const tool = tools.variance;
+  const r = await tool.execute({ actual: '110', budget: '100', kind: 'income' });
+  assert.deepEqual([r.difference, r.percentOfAbsoluteBudget, r.effect, r.currency, r.source],
+    ['10.00', '10.00', 'Favourable', 'AUD', 'https://duguid.com.au/tools/business-calculators/variance/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const neg = await tool.execute({ actual: '-110', budget: '-100', kind: 'cost' });
+  assert.deepEqual([neg.difference, neg.percentOfAbsoluteBudget, neg.effect], ['-10.00', '-10.00', 'Favourable']);
+  const zero = await tool.execute({ actual: '50', budget: '0', kind: 'cost' });
+  assert.deepEqual([zero.percentOfAbsoluteBudget, zero.effect], [null, 'Unfavourable']);
+  await assert.rejects(tool.execute({ actual: '110', budget: '100', kind: 'expense' }), /kind does not match/);
+  await assert.rejects(tool.execute({ actual: '1,100', budget: '100', kind: 'income' }), /actual does not match/);
+  await assert.rejects(tool.execute({ actual: '110', budget: '100', kind: 'income', extra: 1 }), /extra is not an input of this tool/);
+});
+
+test('vehicle classifier tool returns the page worked example, matches form year limits and refuses invalid or unknown inputs', async () => {
+  const tool = tools['vehicle-class'];
+  const base = {
+    incomeYear: '2026-27', body: 'passenger', seats: 5, grossVehicleMassKg: 3000, kerbWeightKg: 2135,
+    price: '75000', gstCredit: 'full', fuelConsumption: 'other', privateUse: 'limited',
+  };
+  const r = await tool.execute(base);
+  assert.deepEqual([r.designedLoadKg, r.isCar, r.designedForPassengers, r.carLimitApplies, r.carLimit, r.gstCredit,
+    r.firstElementOfCost, r.luxuryCarTaxStatus, r.luxuryCarTaxThreshold, r.fbtTreatment, r.fbtExemptOnStatedUse, r.source],
+  [865, true, true, true, '69883.00', '6353.00', '68647.00', 'under', '80809.00', 'car-benefit', false,
+    'https://duguid.com.au/tools/business-calculators/vehicle-class/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const form = readFileSync('_includes/calculators/vehicle-class.html', 'utf8');
+  for (const [, year, limit, efficient, other] of form.matchAll(/name="year" value="(\d{4}-\d{2})" data-car-limit="(\d+)" data-fuel-efficient="(\d+)" data-other="(\d+)"/g)) {
+    const check = await tool.execute({ ...base, incomeYear: year, fuelConsumption: 'efficient' });
+    assert.deepEqual([check.carLimit, check.luxuryCarTaxThreshold], [`${limit}.00`, `${efficient}.00`], year);
+    const checkOther = await tool.execute({ ...base, incomeYear: year, fuelConsumption: 'other' });
+    assert.equal(checkOther.luxuryCarTaxThreshold, `${other}.00`, year);
+  }
+  await assert.rejects(tool.execute({ ...base, modified: 'unplated' }), /compliance plate/);
+  await assert.rejects(tool.execute({ ...base, body: 'truck' }), /body does not match/);
+  await assert.rejects(tool.execute({ ...base, engine: 'diesel' }), /engine is not an input of this tool/);
+});
+
+test('wine equalisation tax tool returns the page worked example, supports average wholesale and refuses invalid or unknown inputs', async () => {
+  const tool = tools['wine-equalisation-tax'];
+  const rc = { producer: true, sourceProductOwned85Percent: true, containerAndTradeMark: true };
+  const r = await tool.execute({
+    incomeYear: '2026-27',
+    dealings: [
+      { kind: 'retail_sale', retailPriceIncludingWetAndGst: '20000', rebateConditions: rc },
+      { kind: 'wholesale_sale', priceExcludingWetAndGst: '30000', rebateConditions: rc },
+      { kind: 'quoted_sale', priceExcludingWetAndGst: '15000', purchaserIntention: 'taxable_dealing', rebateConditions: rc },
+      { kind: 'quoted_sale', priceExcludingWetAndGst: '20000', purchaserIntention: 'gst_free_supply', rebateConditions: rc },
+      { kind: 'own_use', retailPriceIncludingWetAndGst: '2000', rebateConditions: rc },
+    ],
+    rebateClaimedEarlierInYear: '0',
+    associatedProducer: false,
+  });
+  assert.deepEqual([r.wineTax, r.label1c, r.rebateBeforeCap, r.rebate, r.label1d, r.cap, r.capLeft, r.currency, r.source],
+    ['11890.00', '11890', '16240.00', '16240.00', '16240', '400000.00', '400000.00', 'AUD', 'https://duguid.com.au/tools/business-calculators/wine-equalisation-tax/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const avg = await tool.execute({
+    incomeYear: '2026-27',
+    dealings: [{
+      kind: 'own_use',
+      averageWholesale: {
+        grapeWine: true, wholesaleShareAtLeast10Percent: true, quantity: '10',
+        wholesaleSales: [{ quantity: '100', priceExcludingWetAndGst: '1000' }],
+      },
+    }],
+  });
+  assert.deepEqual([avg.wineTax, avg.dealings[0].taxableValue], ['29.00', '100.00']);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', scopeConfirmed: false,
+    dealings: [{ kind: 'wholesale_sale', priceExcludingWetAndGst: '100' }] }), /scope conditions/);
+  await assert.rejects(tool.execute({ incomeYear: '2022-23',
+    dealings: [{ kind: 'wholesale_sale', priceExcludingWetAndGst: '100' }] }), /incomeYear does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27',
+    dealings: [{ kind: 'wholesale_sale', priceExcludingWetAndGst: '100' }], extra: true }), /extra is not an input of this tool/);
 });

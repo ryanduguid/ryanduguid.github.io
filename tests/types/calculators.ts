@@ -3,7 +3,13 @@
 
 // Compile only. Runtime validation and rounding have separate Node tests.
 import * as calculate from '../../assets/business-calculators.mjs';
-import { calculatorTools } from '../../assets/webmcp-tools.mjs';
+import {
+  calculatorTools, fhssTools, governmentSuperTools, individualTaxTools, workExpensesTools,
+} from '../../assets/webmcp-tools.mjs';
+import { fhss } from '../../assets/fhss.mjs';
+import { WORK_EXPENSES_YEARS, workExpenses } from '../../assets/work-expenses.mjs';
+import { GOVERNMENT_SUPER_YEARS, governmentSuperAmounts } from '../../assets/government-super.mjs';
+import { engines as individualEngines } from '../../assets/individual-tax-results.mjs';
 
 const result = calculate.gst('110.00', true);
 const tax: number = result.gst;
@@ -478,3 +484,39 @@ const dtExpense: number = calculate.deferredTax(dtInput).incomeTaxExpense;
 const dtAmounts: Record<string, number> = calculate.deferredTax(dtInput).amounts;
 void dtExpense;
 void dtAmounts;
+const individualSet = individualTaxTools(individualEngines);
+void individualSet['study-loan'].execute({ incomeYear: '2026-27', taxableIncome: 86380 });
+void individualSet['concessional-catch-up'].execute({ incomeYear: '2024-25', totalSuperBalance: '450000',
+  concessionalContributions: '97500', earlierYears: [] });
+void individualSet['lump-sum-arrears'].execute({ receiptYear: '2025-26', taxableIncome: 100000,
+  australianResidentAllYears: true, accrualYears: [] });
+void fhssTools({ fhss }).fhss.execute({ mode: 'stated', scopeConfirmed: true, determinationDate: '2025-06-20',
+  withholdingBasis: 'unable' });
+void workExpensesTools({ workExpenses, workExpensesYears: WORK_EXPENSES_YEARS })['work-expenses'].execute({
+  method: 'home_office', incomeYear: '2025-26', scopeConfirmed: true });
+void governmentSuperTools({ governmentSuperAmounts, governmentSuperYears: GOVERNMENT_SUPER_YEARS })['government-super'].execute({
+  incomeYear: '2023-24', scopeConfirmed: true, residency: 'full_year_resident', assessableIncome: 35000,
+  taxableIncome: 35000, eligibleIncome: '35000', returnLodged: true, under71: true });
+// @ts-expect-error fhssTools requires the fhss engine function.
+fhssTools({ fhss: () => ({ amounts: {} }) });
+// @ts-expect-error workExpensesTools requires workExpensesYears alongside workExpenses.
+workExpensesTools({ workExpenses });
+// @ts-expect-error governmentSuperTools requires governmentSuperYears alongside governmentSuperAmounts.
+governmentSuperTools({ governmentSuperAmounts });
+const businessSet = calculatorTools(calculate);
+void businessSet['asic-fees'].execute({ fee: 'company-share-capital' });
+void businessSet['ato-penalties-interest'].execute({ question: 'gic', incomeYear: '2025-26', amount: '10000', dueDate: '2025-11-21', toDate: '2026-06-30' });
+void businessSet['business-use'].execute({ cost: '20.15', businessUsePercent: '50' });
+void businessSet['fixed-fee'].execute({ hours: '18.5', rate: '95' });
+void businessSet['franking-account'].execute({ incomeYear: '2025-26', entity: 'public', imputationRatePercent: '30', openingBalance: '10000' });
+void businessSet['gic-payment-plan'].execute({ debt: '1000', startDate: '2026-10-01', instalments: 3, frequency: 'monthly' });
+void businessSet['gst-margin-scheme'].execute({ interest: 'freehold', taxable: true, agreedInWriting: true, acquired: 'margin',
+  method: 'consideration', price: '190000', priceBasis: 'inclusive', cost: '400000' });
+void businessSet.hourly.execute({ annualCosts: '20.15', targetProfit: '0', billableHours: '2' });
+void businessSet['luxury-car-tax'].execute({ incomeYear: '2026-27', lines: [{ kind: 'sale', luxuryCarTaxValue: '88000' }] });
+void businessSet.margin.execute({ sales: '100', directCost: '80' });
+void businessSet['objection-deadline'].execute({ decision: 'assessment', reviewPeriodYears: '2', noticeDate: '2026-11-18' });
+void businessSet.variance.execute({ actual: '110', budget: '100', kind: 'income' });
+void businessSet['vehicle-class'].execute({ incomeYear: '2026-27', body: 'passenger', seats: 5, grossVehicleMassKg: 3000, kerbWeightKg: 2135,
+  price: '75000', gstCredit: 'full', fuelConsumption: 'other', privateUse: 'limited' });
+void businessSet['wine-equalisation-tax'].execute({ incomeYear: '2026-27', dealings: [{ kind: 'wholesale_sale', priceExcludingWetAndGst: '120.00' }] });

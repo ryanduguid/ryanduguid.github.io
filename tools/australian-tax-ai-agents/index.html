@@ -49,18 +49,30 @@ tool: australian-tax-ai-agents
 {% include site-header.html %}
   <main id="main" class="site-main">
     <article class="article">
-      <header class="article-header site-shell">
-    <nav class="article-crumb" aria-label="Breadcrumb">
-      <ol>
-        <li><a href="/">Home</a></li>
-        <li><a href="/tools/">Tools</a></li>
-        <li aria-current="page">Australian tax MCP server: Aus Accounting MCP</li>
-      </ol>
-    </nav>
-    <h1>{{ tool.name }}</h1>
-    <p class="lead-note">Aus Accounting MCP is a local Model Context Protocol server for Australian accounting checks: ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 66 tax and super worksheet kinds with the calculators executable.</p>
+      <header class="article-header article-header--preview site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li aria-current="page">Australian tax MCP server: Aus Accounting MCP</li>
+          </ol>
+        </nav>
+        <div class="article-intro">
+          <h1>{{ tool.name }}</h1>
+          <p class="lead-note">Aus Accounting MCP is a local Model Context Protocol server for Australian accounting checks: ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 66 tax and super worksheet kinds with the calculators executable.</p>
     {% include tool-meta.html published="25 August 2026" reviewed="23 November 2026" %}
 {% include tool-facts.html %}
+          <div class="article-actions">
+            <a class="button" href="#install">Adopt Aus Accounting MCP</a>
+            <a href="#try-example">Try 2 tool calls</a>
+          </div>
+        </div>
+        <section class="article-preview" aria-labelledby="mcp-preview-title">
+          <h2 id="mcp-preview-title">Run the pinned MCP demo</h2>
+          <pre class="copyable" tabindex="0" role="region" aria-label="Pinned Aus Accounting MCP demo command"><code>uvx --from aus-accounting-mcp==0.2.8 aus-accounting-mcp-demo</code></pre>
+          <p class="preview-result"><strong>Exit 0</strong> JSON transcript of 2 local tool calls</p>
+          <p>Runs the pinned v0.2.8 demonstration with fictional facts and no credentials. <a href="#try-example">Inspect the demo output and caveats</a>.</p>
+        </section>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">

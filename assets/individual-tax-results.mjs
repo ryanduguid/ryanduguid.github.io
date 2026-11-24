@@ -17,10 +17,10 @@ import { NOVATED_YEARS, novatedLease } from './novated-lease.mjs';
 import { BONUS_YEAR, bonusWithholding } from './bonus-withholding.mjs';
 import { PAYS } from './payg-withholding.mjs';
 import { DIVISION_293_YEARS, division293Tax } from './division-293.mjs';
-import { lumpSumArrears } from './lump-sum-arrears.mjs';
+import { RECEIPT_YEARS, lumpSumArrears } from './lump-sum-arrears.mjs';
 import { SOLE_TRADER_YEARS, soleTraderSetAside } from './sole-trader.mjs';
 import { incomeTests } from './income-tests.mjs';
-import { CAP, concessionalCatchUp } from './concessional-catch-up.mjs';
+import { CAP, CATCH_UP_YEARS, concessionalCatchUp } from './concessional-catch-up.mjs';
 import { superProjection } from './super-projection.mjs';
 
 /** @typedef {{inputs: string, rows: string[][], principal: number, note?: string}} Result */
@@ -109,7 +109,7 @@ function takeHomeResult(value, aud) {
       ['PAYG withheld over the year', aud(r.withheld.year)], settle(r.withheld.refund, aud));
     notes.push(`The take-home rows spread the year’s tax evenly; PAYG withheld is what the ${year} Schedule 1`
       + `${loan ? ' and Schedule 8' : ''} take from each pay, and the refund or amount owing is the difference over the year`);
-    if (loan && year === '2025-26') {
+    if (loan && year === '2025-26' && r.withheld.earlierStudyLoan !== null) {
       notes.push(`Pays before 24 September 2025 had ${aud(r.withheld.earlierStudyLoan)} withheld for the study loan each `
         + `${period} under the earlier Schedule 8, not ${aud(r.withheld.studyLoan)}; the year’s figures use the later one for `
         + 'every pay');
@@ -138,12 +138,12 @@ function studyLoanResult(value, aud) {
     foreign: value('foreign') };
   const r = studyLoanRepayment(parts, year);
   const { minimum, top } = STUDY_LOAN_YEARS[year];
-  const note = {
+  const note = /** @type {Record<string, string>} */ ({
     nil: `Repayment income does not exceed the minimum repayment income of ${whole(minimum)}`,
     marginal: `15% of repayment income over ${whole(minimum)} up to ${whole(top ?? 0)}, and 17% of any part above it`,
     'ten-percent': `10% of all repayment income, which is less than 15% and 17% of the parts over ${whole(minimum)}`,
     'percent-of-income': `The ${year} rate for this repayment income, applied to all of it`,
-  }[r.method];
+  })[r.method];
   return { inputs: `${year}, taxable income ${aud(Number(parts.taxable))}, reportable fringe benefits ${aud(Number(parts.fringe))}, `
     + `total net investment loss ${aud(Number(parts.losses))}, reportable super contributions ${aud(Number(parts.super))}, `
     + `exempt foreign employment income ${aud(Number(parts.foreign))}`, principal: 1,
@@ -532,7 +532,9 @@ export function individualResult(kind, value, aud) {
 }
 
 /** The engines and years assets/webmcp-tools.mjs offers as this page's WebMCP tools. */
-export const engines = { taxEstimate, takeHomePay, soleTraderSetAside, division293Tax, incomeTests, incomeYears: INCOME_TAX_YEARS,
+export const engines = { taxEstimate, takeHomePay, studyLoanRepayment, studyLoanYears: Object.keys(STUDY_LOAN_YEARS),
+  soleTraderSetAside, lumpSumArrears, receiptYears: RECEIPT_YEARS, division293Tax, incomeTests,
+  concessionalCatchUp, catchUpYears: CATCH_UP_YEARS, incomeYears: INCOME_TAX_YEARS,
   payYears: Object.keys(SUPER_GUARANTEE), soleTraderYears: SOLE_TRADER_YEARS, division293Years: DIVISION_293_YEARS,
   bonusWithholding, salaryPackaging, novatedLease, packagingYears: PACKAGING_YEARS, novatedYears: NOVATED_YEARS,
   superProjection };

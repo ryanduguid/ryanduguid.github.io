@@ -1,7 +1,8 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: Apache-2.0
 
-import { governmentSuperAmounts, INCOME_INPUTS, SPOUSE_INPUTS } from './government-super.mjs';
+import { GOVERNMENT_SUPER_YEARS, governmentSuperAmounts, INCOME_INPUTS, SPOUSE_INPUTS } from './government-super.mjs';
+export { governmentSuperAmounts, GOVERNMENT_SUPER_YEARS as governmentSuperYears };
 
 /** Each income field the form asks for, by the command's input name; the rest are nil. */
 const INCOME_FIELDS = /** @type {Record<string, string>} */ ({
