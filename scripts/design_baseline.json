@@ -120,7 +120,7 @@
       "d3bb32f91ccb8dcecbc8c94df472198daef269f401c2f98dc1a88dc8347a1be5"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "08c89f601e6748cafa3842cf6ea1992d02ad1fca2df37ead19c53ecef2dcaa40"
+      "d71f51f1796587ddc50bcd839c9dfdd6005ef3668ff359c9ea7d1a789b21c843"
     ],
     "tools/bas-due-dates/index.html": [
       "6f22173930285ac0d6c7aa02c77b70e02e8f693c73fd2853ffa9b9863e1598b2"
@@ -412,7 +412,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "04bd37bace950479e974d3166b46094f141555c78c75c68cc4544eee96f2c905",
+    "llms.txt": "36d9627f9e91ad9cb05af07430178eda73b0545d72d244e2b9cd7b47419357ce",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
     "sitemap.xml": "888a0bf81462ae04f63f9f63f4176cce38067a2389c6713f528e29866aadff23"
   },

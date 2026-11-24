@@ -3,6 +3,7 @@
 
 import { POSITIVE_FRACTION } from './money.mjs';
 import { businessCohortATools } from './webmcp-business-a.mjs';
+import { businessCohortBTools } from './webmcp-business-b.mjs';
 import {
   concessionalCatchUpTool, fhssTool, governmentSuperTool, lumpSumArrearsTool, studyLoanTool, workExpensesTool,
 } from './webmcp-individual-more.mjs';
@@ -540,7 +541,10 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
  *   | 'asicFee' | 'ASIC_FEES' | 'atoPenaltiesInterest' | 'ATO_PENALTY_YEARS' | 'businessUse' | 'fixedFee'
  *   | 'frankingAccount' | 'FRANKING_EVENTS' | 'gicPaymentPlan' | 'gstMarginScheme' | 'hourlyRate'
  *   | 'luxuryCarTax' | 'LCT_YEARS' | 'LCT_THRESHOLDS' | 'margin' | 'objectionDeadline' | 'variance'
- *   | 'vehicleClass' | 'wineEqualisationTax' | 'WET_YEARS'>} calculate */
+ *   | 'vehicleClass' | 'wineEqualisationTax' | 'WET_YEARS'
+ *   | 'cashForecast' | 'cashWeekDates' | 'lowValuePool' | 'smallBusinessPool' | 'capitalWorks' | 'POOL_YEARS'
+ *   | 'div7aSchedule' | 'firstHomeOwnerGrant' | 'firstHomeDuty' | 'FHOG' | 'FHOG_FIRST' | 'FHOG_LAST' | 'FHOG_HOMES'
+ *   | 'paygInstalment' | 'payrollTax' | 'salaryDividend' | 'paydaySuperCharge' | 'quarterlySgCharge' | 'staffCost'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -555,6 +559,7 @@ export function calculatorTools(calculate) {
     'fuel-tax-credits': fuelTaxCreditsTool(calculate.fuelTaxCredits),
     'borrowing-expenses': borrowingTool(calculate.borrowingSchedule, calculate.BORROWING_YEARS),
     ...businessCohortATools(TOOL_KIT, calculate),
+    ...businessCohortBTools(TOOL_KIT, calculate),
   };
 }
 
@@ -907,7 +912,7 @@ const NOVATED_LEASE_DESCRIPTION = 'A novated car lease in AUD for one year again
   + `or other income. Sources on ${INDIVIDUAL}novated-lease/.`;
 
 /**
- * Shared schema and formatting helpers passed to assets/webmcp-individual-more.mjs and assets/webmcp-business-a.mjs.
+ * Shared schema and formatting helpers passed to cohort WebMCP tool modules.
  * @typedef {{
  *   text: typeof text, choice: typeof choice, whole: typeof whole, record: typeof record,
  *   tool: typeof tool, dollars: typeof dollars, dollarsOnly: typeof dollarsOnly,

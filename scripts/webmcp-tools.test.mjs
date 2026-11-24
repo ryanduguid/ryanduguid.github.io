@@ -66,7 +66,8 @@ const levy = levyTools({ computeEntry, levyCents }).levy;
 test('each business calculator tool is keyed by the form that registers it', () => {
   for (const key of Object.keys(tools)) {
     const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
-    assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`), key);
+    assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`)
+      || form.includes(`<form data-calculator="${key}">`), key);
   }
 });
 
@@ -79,6 +80,9 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_business_use_share', 'calculate_fixed_fee', 'calculate_franking_account', 'calculate_gic_payment_plan',
     'calculate_gst_margin_scheme', 'calculate_hourly_rate', 'calculate_luxury_car_tax', 'calculate_margin_and_markup',
     'calculate_objection_deadline', 'calculate_budget_variance', 'classify_vehicle', 'calculate_wine_equalisation_tax',
+    'calculate_cash_forecast', 'calculate_depreciation_pool', 'calculate_div7a_schedule',
+    'calculate_first_home_owner_grant', 'calculate_payg_instalment', 'calculate_payroll_tax',
+    'calculate_salary_vs_dividend', 'calculate_sgc_payday', 'calculate_staff_cost',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -1133,4 +1137,204 @@ test('wine equalisation tax tool returns the page worked example, supports avera
     dealings: [{ kind: 'wholesale_sale', priceExcludingWetAndGst: '100' }] }), /incomeYear does not match/);
   await assert.rejects(tool.execute({ incomeYear: '2026-27',
     dealings: [{ kind: 'wholesale_sale', priceExcludingWetAndGst: '100' }], extra: true }), /extra is not an input of this tool/);
+});
+
+test('cash forecast tool returns the page worked example, supports startDate and refuses invalid or unknown inputs', async () => {
+  const tool = tools.cash;
+  const weeks = Array.from({ length: 13 }, (_, i) => ({ receipts: i === 12 ? '1000' : '0', payments: '0' }));
+  const r = await tool.execute({
+    startDate: '2026-07-06', opening: '-50', buffer: '100', weeks,
+    delayedReceipt: { week: 13, amount: '600', delayWeeks: 1 },
+  });
+  assert.deepEqual([r.closingCash, r.lowestBalance, r.fundingGap, r.deferredBeyondWeek13, r.currency, r.source],
+    ['350.00', '-50.00', '150.00', '600.00', 'AUD', 'https://duguid.com.au/tools/business-calculators/cash/']);
+  assert.deepEqual([r.weeks[0].startDate, r.weeks[0].endDate, r.weeks[12].closing], ['2026-07-06', '2026-07-12', '350.00']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  await assert.rejects(tool.execute({ opening: '0', buffer: '0', weeks: weeks.slice(0, 12) }), /Enter all 13 weeks/);
+  await assert.rejects(tool.execute({ opening: '0', buffer: '0', weeks, delayedReceipt: { week: 13, amount: '1001', delayWeeks: 1 } }),
+    /cannot exceed that week's receipts/);
+  await assert.rejects(tool.execute({ opening: '0', buffer: '0', weeks, extra: 1 }), /extra is not an input of this tool/);
+});
+
+test('depreciation pools tool returns all 3 page worked examples and refuses mismatched or unknown inputs', async () => {
+  const tool = tools['depreciation-pools'];
+  const lvp = await tool.execute({
+    worksheet: 'low-value-pool', incomeYear: '2025-26',
+    previousClosingPoolBalance: '5000', lowCostAssets: '594', lowValueAssets: '0', secondElementCosts: '0', terminationValues: '0',
+  });
+  assert.deepEqual([lvp.newAssetsDecline, lvp.poolDecline, lvp.declineInValue, lvp.closingPoolBalance, lvp.currency, lvp.source],
+    ['111.38', '1875.00', '1986.38', '3607.62', 'AUD', 'https://duguid.com.au/tools/business-calculators/depreciation-pools/']);
+  assert.doesNotThrow(() => JSON.stringify(lvp));
+  const sbp = await tool.execute({
+    worksheet: 'small-business-pool', incomeYear: '2025-26',
+    openingPoolBalance: '100000', additions: '28000', costAdditions: '0', terminationValues: '8000',
+  });
+  assert.deepEqual([sbp.outcome, sbp.deduction, sbp.closingPoolBalance, sbp.lowPoolValueThreshold],
+    ['rated', '34200.00', '85800.00', '20000.00']);
+  assert.doesNotThrow(() => JSON.stringify(sbp));
+  const cw = await tool.execute({
+    worksheet: 'capital-works', incomeYear: '2025-26', constructionExpenditure: '115800', constructionStart: '1991-08-01',
+    fourPercentManner: false, daysUsed: 346, taxableUse: '1', undeductedConstructionExpenditure: '20000',
+  });
+  assert.deepEqual([cw.ratePercent, cw.provision, cw.deduction, cw.limitedToUndeducted], ['2.5', '43-215', '2744.30', false]);
+  assert.doesNotThrow(() => JSON.stringify(cw));
+  await assert.rejects(tool.execute({
+    worksheet: 'low-value-pool', incomeYear: '2025-26', openingPoolBalance: '100',
+    previousClosingPoolBalance: '5000', lowCostAssets: '0', lowValueAssets: '0', secondElementCosts: '0', terminationValues: '0',
+  }), /openingPoolBalance does not apply/);
+  await assert.rejects(tool.execute({
+    worksheet: 'capital-works', incomeYear: '2025-26', constructionExpenditure: '115800', constructionStart: '1991-08-01',
+    fourPercentManner: true, daysUsed: 346, taxableUse: '1', undeductedConstructionExpenditure: '20000',
+  }), /before 27 February 1992/);
+  await assert.rejects(tool.execute({ worksheet: 'low-value-pool', incomeYear: '2025-26', extra: 1 }),
+    /extra is not an input of this tool/);
+});
+
+test('Division 7A schedule tool returns the page worked example, supports custom repayments and refuses invalid or unknown inputs', async () => {
+  const tool = tools['div7a-schedule'];
+  const r = await tool.execute({ madeDate: '2022-10-01', amount: '100000', termYears: '7', assumedBenchmarkRate: '8.77' });
+  assert.deepEqual([r.firstMinimumRepayment, r.totalRepaid, r.totalInterest, r.closingBalance, r.shortfall, r.projectedFrom, r.currency, r.source],
+    ['19384.96', '137086.99', '37086.99', '0.00', '0.00', '2027-28', 'AUD', 'https://duguid.com.au/tools/business-calculators/div7a-schedule/']);
+  assert.equal(r.years.length, 7);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const funded = await tool.execute({
+    madeDate: '2022-10-01', amount: '100000', termYears: '7', assumedBenchmarkRate: '8.77',
+    repayments: [{ yearNumber: 1, amount: '30000' }], marginalRate: '47', franking: '25',
+  });
+  assert.equal(funded.years[0].repayment, '30000.00');
+  assert.ok(funded.years[0].fundingDividend !== null);
+  await assert.rejects(tool.execute({ madeDate: '2022-10-01', amount: '100000', termYears: '7' }),
+    /assumedBenchmarkRate is required/);
+  await assert.rejects(tool.execute({ madeDate: '2022-10-01', amount: '100000', termYears: '7', assumedBenchmarkRate: '8.77', franking: '25' }),
+    /franking applies only when marginalRate is supplied/);
+  await assert.rejects(tool.execute({ madeDate: '2022-10-01', amount: '100000', termYears: '7', assumedBenchmarkRate: '8.77', interposedEntity: true }),
+    /interposed entity/);
+  await assert.rejects(tool.execute({ madeDate: '2022-10-01', amount: '100000', termYears: '7', assumedBenchmarkRate: '8.77', extra: 1 }),
+    /extra is not an input of this tool/);
+});
+
+test('first home owner grant tool returns the page worked example, matches form duty scales and refuses invalid or unknown inputs', async () => {
+  const tool = tools['first-home-owner-grant'];
+  const facts = { person: true, citizen: true, first: true, residence: true };
+  const r = await tool.execute({ place: 'AU-NSW', contractDate: '2026-08-01', home: 'bought', value: 600000, facts });
+  assert.deepEqual([r.grant, r.valueCap, r.transferDuty.computed, r.transferDuty.firstHomeBuyerDuty, r.transferDuty.generalDuty, r.currency, r.source],
+    ['10000.00', 'up to $600,000', true, '0.00', '21187.00', 'AUD', 'https://duguid.com.au/tools/business-calculators/first-home-owner-grant/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const scalesText = readFileSync('_includes/duty-jurisdictions.html', 'utf8');
+  for (const [, place, scaleStr] of scalesText.matchAll(/value="(AU-[A-Z]+)"[^>]*data-scale="([^"]+)"/g)) {
+    const scale = scaleStr.split(';').map((row) => row.split(','));
+    const extra = place === 'AU-WA' ? { northOf26thParallel: false } : {};
+    const check = await tool.execute({
+      place, contractDate: '2026-08-01', home: 'established', value: 500000, ...extra, facts,
+    });
+    const expected = calculate.firstHomeDuty('500000', scale, place, 'established');
+    assert.deepEqual([check.transferDuty.firstHomeBuyerDuty, check.transferDuty.generalDuty],
+      [expected.duty.toFixed(2), expected.general.toFixed(2)], place);
+  }
+  await assert.rejects(tool.execute({ place: 'AU-NSW', contractDate: '2026-02-30', home: 'bought', value: 600000, facts }),
+    /real calendar date/);
+  await assert.rejects(tool.execute({ place: 'AU-NSW', contractDate: '2026-08-01', home: 'bought', value: 600000, northOf26thParallel: true, facts }),
+    /northOf26thParallel applies only to Western Australia/);
+  await assert.rejects(tool.execute({ place: 'AU-NSW', contractDate: '2026-08-01', home: 'bought', value: 600000, facts: { ...facts, person: false } }),
+    /Not computed/);
+  await assert.rejects(tool.execute({ place: 'AU-NSW', contractDate: '2026-08-01', home: 'bought', value: 600000, facts, extra: 1 }),
+    /extra is not an input of this tool/);
+});
+
+test('PAYG instalments tool returns the page worked example, supports all 4 methods and refuses mismatched or unknown inputs', async () => {
+  const tool = tools['payg-instalments'];
+  const r = await tool.execute({ method: 'rate', instalmentIncome: '20100', instalmentRatePercent: '1.7' });
+  assert.deepEqual([r.calculatedAmount, r.instalmentWholeDollars, r.creditWholeDollars, r.instalmentRatePercent, r.currency, r.source],
+    ['341.70', '341', '0', '1.70', 'AUD', 'https://duguid.com.au/tools/business-calculators/payg-instalments/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const varied = await tool.execute({
+    method: 'varied-amount', instalmentNumber: 2, estimatedTax: '4000', earlierInstalments: '1500',
+  });
+  assert.deepEqual([varied.dueToDate, varied.instalmentWholeDollars, varied.creditWholeDollars], ['2000.00', '500', '0']);
+  const variedRate = await tool.execute({
+    method: 'varied-rate', instalmentIncome: '20000', estimatedTax: '10125', estimatedIncome: '82480',
+    previousRatePercent: '15', earlierInstalments: '3000', earlierIncome: '20000',
+  });
+  assert.equal(variedRate.instalmentRatePercent, '12.27');
+  await assert.rejects(tool.execute({ method: 'rate', instalmentIncome: '20100', instalmentRatePercent: '1.7', notifiedAmount: '100' }),
+    /notifiedAmount does not apply/);
+  await assert.rejects(tool.execute({ method: 'amount' }), /notifiedAmount is required/);
+  await assert.rejects(tool.execute({ method: 'annual' }), /method does not match/);
+  await assert.rejects(tool.execute({ method: 'amount', notifiedAmount: '500', extra: 1 }), /extra is not an input of this tool/);
+});
+
+test('payroll tax tool returns the page worked example, supports interstate wages and refuses invalid or unknown inputs', async () => {
+  const tool = tools['payroll-tax'];
+  const r = await tool.execute({ place: 'AU-NSW', wages: '1500000' });
+  assert.deepEqual([r.incomeYear, r.deduction, r.taxableWages, r.payrollTax, r.total, r.currency, r.source],
+    ['2026-27', '1200000.00', '300000.00', '16350.00', '16350.00', 'AUD', 'https://duguid.com.au/tools/business-calculators/payroll-tax/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const vic = await tool.execute({ place: 'AU-VIC', wages: '80000000', australianWages: '150000000' });
+  assert.ok(Number(vic.levy) > 0 && Number(vic.extraLevy) > 0);
+  await assert.rejects(tool.execute({ place: 'AU-NSW', wages: '2000000', australianWages: '1000000' }), /total Australian wages/);
+  await assert.rejects(tool.execute({ place: 'NSW', wages: '1500000' }), /place does not match/);
+  await assert.rejects(tool.execute({ place: 'AU-NSW', wages: '1500000', extra: 1 }), /extra is not an input of this tool/);
+});
+
+test('salary against dividends tool returns the page worked example and refuses invalid or unknown inputs', async () => {
+  const tool = tools['salary-dividend'];
+  const r = await tool.execute({
+    incomeYear: '2026-27', companyProfit: '200000', baseRateEntity: true, salary: '100000', otherTaxableIncome: '0',
+  });
+  assert.deepEqual([r.superGuarantee, r.companyTax, r.dividend, r.frankingCredit, r.ownerTaxableIncome, r.ownerExtraTax,
+    r.superTax, r.cashKept, r.superKept, r.totalKept, r.bestSplit.salary, r.bestSplit.totalKept, r.currency, r.source],
+  ['12000.00', '22000.00', '66000.00', '22000.00', '187000.00', '32000.00', '1800.00', '134000.00', '10200.00',
+    '144200.00', '178571.43', '146463.02', 'AUD', 'https://duguid.com.au/tools/business-calculators/salary-dividend/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', companyProfit: '200000', baseRateEntity: true, salary: '200000' }),
+    /pays its super guarantee/);
+  await assert.rejects(tool.execute({ incomeYear: '2020-21', companyProfit: '200000', baseRateEntity: true, salary: '100000' }),
+    /incomeYear does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', companyProfit: '200000', baseRateEntity: true, salary: '100000', extra: 1 }),
+    /extra is not an input of this tool/);
+});
+
+test('SGC and Payday Super tool returns the page worked example, supports quarterly law and refuses mismatched or unknown inputs', async () => {
+  const tool = tools['sgc-payday'];
+  const r = await tool.execute({
+    regime: 'payday', payday: '2026-07-30', qualifyingEarnings: '1000', receivedLate: '120',
+    lateReceiptDate: '2026-08-25', assessmentDate: '2026-12-01',
+  });
+  assert.deepEqual([r.dueDate, r.sgAmount, r.daysLate, r.businessDaysToReceipt, r.baseShortfall, r.finalShortfall,
+    r.notionalEarnings, r.upliftPercent, r.administrativeUplift, r.sgCharge, r.currency, r.source],
+  ['2026-08-11', '120.00', 14, 17, '120.00', '0.00', '0.53', 40, '0.21', '0.74', 'AUD',
+    'https://duguid.com.au/tools/business-calculators/sgc-payday/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const q = await tool.execute({
+    regime: 'quarter', incomeYear: '2025-26', quarter: '1', salaryOrWages: '12000',
+    ordinaryTimeEarnings: '10000', contributionsOnTime: '0', statementLodgedDate: '2025-11-20',
+  });
+  assert.equal(q.regime, 'quarter');
+  assert.equal(q.shortfall, '1440.00');
+  assert.doesNotThrow(() => JSON.stringify(q));
+  await assert.rejects(tool.execute({
+    regime: 'payday', payday: '2026-07-30', qualifyingEarnings: '1000', norfolkIsland: true,
+  }), /Norfolk Island/);
+  await assert.rejects(tool.execute({
+    regime: 'payday', payday: '2026-07-30', qualifyingEarnings: '1000', quarter: '1',
+  }), /quarter does not apply/);
+  await assert.rejects(tool.execute({
+    regime: 'payday', payday: '2026-07-30', qualifyingEarnings: '1000', nextPayday: '2026-08-13',
+  }), /nextPayday applies only to out-of-cycle/);
+  await assert.rejects(tool.execute({
+    regime: 'payday', payday: '2026-07-30', qualifyingEarnings: '1000', assessmentDate: '2027-02-01',
+  }), /assumedGicRate is required/);
+  await assert.rejects(tool.execute({
+    regime: 'payday', payday: '2026-07-30', qualifyingEarnings: '1000', extra: 1,
+  }), /extra is not an input of this tool/);
+});
+
+test('staff cost tool returns the page worked example and refuses invalid or unknown inputs', async () => {
+  const tool = tools.staff;
+  const r = await tool.execute({ wages: '51.30', superAmount: '0', otherCosts: '0' });
+  assert.deepEqual([r.annualCost, r.monthlyAverage, r.currency, r.source],
+    ['51.30', '4.28', 'AUD', 'https://duguid.com.au/tools/business-calculators/staff/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  await assert.rejects(tool.execute({ wages: '-51.30' }), /wages does not match/);
+  await assert.rejects(tool.execute({ wages: '51.30', extra: 1 }), /extra is not an input of this tool/);
 });
