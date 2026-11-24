@@ -1086,7 +1086,7 @@ test('vehicle classifier tool returns the page worked example, matches form year
   [865, true, true, true, '69883.00', '6353.00', '68647.00', 'under', '80809.00', 'car-benefit', false,
     'https://duguid.com.au/tools/business-calculators/vehicle-class/']);
   assert.doesNotThrow(() => JSON.stringify(r));
-  const form = readFileSync(new URL('../_includes/calculators/vehicle-class.html', import.meta.url), 'utf8');
+  const form = readFileSync('_includes/calculators/vehicle-class.html', 'utf8');
   for (const [, year, limit, efficient, other] of form.matchAll(/name="year" value="(\d{4}-\d{2})" data-car-limit="(\d+)" data-fuel-efficient="(\d+)" data-other="(\d+)"/g)) {
     const check = await tool.execute({ ...base, incomeYear: year, fuelConsumption: 'efficient' });
     assert.deepEqual([check.carLimit, check.luxuryCarTaxThreshold], [`${limit}.00`, `${efficient}.00`], year);
