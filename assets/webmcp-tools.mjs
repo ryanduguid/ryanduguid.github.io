@@ -400,7 +400,7 @@ const longServiceLeaveTool = (longServiceLeave) => tool({
   description: 'One employee\'s long service leave under the general Act of an Australian state or territory: the service counted, '
     + 'the weeks the employee can take while employment continues or the weeks payable when it ends for a given reason, less leave '
     + 'already taken or paid, and their value in AUD at the weekly ordinary pay, with the provision applied. Service runs from the '
-    + 'first day to the end of the last day, less the excluded days. It refuses a reason an Act leaves unsettled and Tasmanian leave taken after 15 years of service by 1 July 2012, and does not '
+    + 'first day to the end of the last day, less the excluded days. It refuses a reason an Act leaves unsettled, and does not '
     + 'decide which Act or award applies, continuity of service, ordinary pay averaging, portable schemes or tax.',
   inputSchema: record({
     place: choice(SURCHARGE_PLACES, 'State or territory whose Act applies, for example "AU-NSW".'),
