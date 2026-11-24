@@ -546,6 +546,19 @@ fn duty_oracle(place: &str, dollars: u64) -> u64 {
         .rev()
         .find(|band| dollars > band_over(**band))
         .unwrap_or(&bands[0]);
+    // Duties Act 2000 (Vic) s 28(1), read 24 November 2026: the exact duty to the nearest
+    // whole dollar, 50 cents down. Victoria's bands are all a percentage, so the exact duty
+    // is a whole number of hundredths of a cent.
+    if place == "AU-VIC" {
+        let hundredths = match band {
+            Band::Excess { over, base, points } => {
+                u128::from(base) * 10_000 + u128::from(points) * u128::from(dollars - over)
+            }
+            Band::Whole { points, .. } => u128::from(points) * u128::from(dollars),
+            Band::PerHundred { .. } => unreachable!("Victoria has no per $100 band"),
+        };
+        return u64::try_from((hundredths + 4_999) / 10_000 * 100).unwrap();
+    }
     let cents = match band {
         Band::PerHundred { over, base, cents } => {
             base * 100 + cents * (dollars - over).div_ceil(100)
@@ -1605,6 +1618,10 @@ fn the_duty_oracle_gives_the_revenue_offices_worked_figures() {
             1_907_000,
             "SRO Victoria standard rate example",
         ),
+        // Duties Act 2000 (Vic) s 28(1): 1.4% of $393 is $5.502, $6; 1.4% of $2,250 is
+        // exactly $31.50, $31.
+        ("AU-VIC", 393, 600, "s 28(1), over 50 cents"),
+        ("AU-VIC", 2_250, 3_100, "s 28(1), 50 cents down"),
         ("AU-QLD", 850_000, 3_127_500, "QRO calculation example"),
         (
             "AU-SA",
