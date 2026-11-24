@@ -53,10 +53,14 @@ codegen-units = 1
 lto = true
 
 # CI runs every site check with a debug build of site-tools, over thousands of pages;
-# level 1 runs them about 3 times faster than level 0.
+# level 1 runs them about 3 times faster than level 0. Line-table debug info keeps
+# panic backtraces readable without generating full PDB streams for every test binary.
 [profile.dev]
 opt-level = 1
+debug = "line-tables-only"
 
-# The regex engines dominate test time; optimise dependencies in debug builds.
+# The regex engines dominate test time; optimise dependencies in debug builds and
+# omit their debug info so Windows MSVC link steps and caches stay lean.
 [profile.dev.package."*"]
 opt-level = 3
+debug = 0
