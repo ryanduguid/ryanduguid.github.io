@@ -11,9 +11,9 @@
 // Run with: node scripts/mutation-check.mjs
 
 import { spawn } from 'node:child_process';
-import { copyFileSync, cpSync, mkdtempSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { copyFileSync, cpSync, existsSync, mkdtempSync, mkdirSync, readdirSync, readFileSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
 import { availableParallelism, tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { basename, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
@@ -1154,19 +1154,255 @@ const TEST_FILES = [
   'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test,
 ];
 
-const verdict = (cwd, test) => new Promise((resolve, reject) => {
-  const child = spawn(process.execPath, ['--test', '--test-reporter=tap', test], {
+const MAX_PATTERN_LENGTH = 12000;
+const MAX_CANDIDATE_TESTS = 60;
+const MIN_CANDIDATE_SCORE = 10;
+const MIN_SUITE_FOR_TARGETING = 40;
+const FORCE_KILL_DELAY_MS = 2000;
+
+const STOP_WORDS = new Set([
+  'the', 'and', 'for', 'from', 'with', 'that', 'this', 'not', 'are', 'its', 'has', 'have', 'was',
+  'can', 'per', 'off', 'out', 'all', 'one', 'two', 'uses', 'used', 'does', 'when', 'than', 'into',
+  'over', 'only', 'each', 'more', 'less', 'also', 'without', 'instead', 'before', 'after', 'under',
+  'above', 'below', 'between', 'returns', 'gives', 'takes', 'keeps', 'leaves', 'adds', 'drops',
+  'skips', 'accepted', 'refused', 'page', 'result', 'amount', 'amounts', 'rate', 'rates',
+]);
+
+export const resolveWorkerCount = (envValue, parallelism, taskCount) => {
+  const raw = envValue === undefined ? '' : String(envValue).trim();
+  let requested = Math.max(1, parallelism);
+  if (raw !== '') {
+    if (!/^[1-9]\d*$/.test(raw)) {
+      throw new RangeError(`MUTATION_WORKERS must be a positive integer, got ${JSON.stringify(envValue)}`);
+    }
+    requested = Number.parseInt(raw, 10);
+    if (!Number.isSafeInteger(requested)) {
+      throw new RangeError(`MUTATION_WORKERS must be a safe positive integer, got ${JSON.stringify(envValue)}`);
+    }
+  }
+  return Math.min(requested, Math.max(1, taskCount));
+};
+
+const escapeRegex = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+export const buildNamePattern = (names, maxLength = MAX_PATTERN_LENGTH) => {
+  const parts = [];
+  let length = 6; // ^(?:)$
+  for (const name of names) {
+    const escaped = escapeRegex(name);
+    const added = escaped.length + (parts.length > 0 ? 1 : 0);
+    if (length + added > maxLength) break;
+    parts.push(escaped);
+    length += added;
+  }
+  return parts.length > 0 ? `^(?:${parts.join('|')})$` : null;
+};
+
+const tokenize = (text) => {
+  const words = text.replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase().match(/[a-z0-9]+/g) ?? [];
+  return [...new Set(words.filter((token) => token.length >= 2 && !STOP_WORDS.has(token)))];
+};
+
+export const indexSuiteTests = (names) => names.map((name) => ({
+  name,
+  lower: name.toLowerCase(),
+  tokens: new Set(tokenize(name)),
+}));
+
+const scoreTokens = (entry, tokens, exactWeight, partialWeight) => {
+  let score = 0;
+  for (const token of tokens) {
+    if (entry.tokens.has(token)) score += exactWeight;
+    else if (partialWeight > 0 && token.length >= 4 && entry.lower.includes(token)) score += partialWeight;
+  }
+  return score;
+};
+
+const scoreEntry = (entry, killers, criteria) => {
+  let score = killers?.has(entry.name) ? 200 : 0;
+  if (criteria.fileSlug && (entry.lower.includes(criteria.fileSlug) || entry.lower.includes(criteria.filePhrase))) {
+    score += 15;
+  }
+  score += scoreTokens(entry, criteria.nameTokens, 12, 5);
+  score += scoreTokens(entry, criteria.fileTokens, 6, 3);
+  score += scoreTokens(entry, criteria.findTokens, 4, 0);
+  return score;
+};
+
+export const rankCandidateTests = (entries, mutation, killers = null, limit = MAX_CANDIDATE_TESTS) => {
+  if (!entries || entries.length === 0) return [];
+  const rawStem = basename(mutation.file, '.mjs').replace(/-result$/, '').toLowerCase();
+  const specific = rawStem !== 'business-calculators';
+  const criteria = {
+    fileSlug: specific ? rawStem : '',
+    filePhrase: specific ? rawStem.replace(/-/g, ' ') : '',
+    fileTokens: specific ? tokenize(rawStem) : [],
+    nameTokens: tokenize(mutation.name ?? ''),
+    findTokens: tokenize(mutation.find ?? '').filter((token) => token.length >= 4),
+  };
+  const scored = [];
+  for (const entry of entries) {
+    const score = scoreEntry(entry, killers, criteria);
+    if (score >= MIN_CANDIDATE_SCORE) scored.push({ name: entry.name, score });
+  }
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, limit).map((item) => item.name);
+};
+
+const unescapeTapName = (raw) => raw.replace(/\\([\\#])/g, '$1');
+
+export const createTapTracker = ({ collectPassed = false } = {}) => {
+  let buffer = '';
+  let block = null;
+  let caught = false;
+  let killer = null;
+  const passed = [];
+
+  const handleYamlLine = (line) => {
+    if (line === `${block.keyIndent}...`) {
+      if (block.hasTestCodeFailure && block.hasAssertion && block.hasAssertionName && block.hasOperator) {
+        caught = true;
+        if (block.topLevel) killer = block.name;
+      }
+      block = null;
+    } else if (line === `${block.keyIndent}failureType: 'testCodeFailure'`) {
+      block.hasTestCodeFailure = true;
+    } else if (line === `${block.keyIndent}code: 'ERR_ASSERTION'`) {
+      block.hasAssertion = true;
+    } else if (line === `${block.keyIndent}name: 'AssertionError'`) {
+      block.hasAssertionName = true;
+    } else if (line.startsWith(`${block.keyIndent}operator: `)) {
+      block.hasOperator = true;
+    }
+  };
+
+  const processLine = (line) => {
+    if (caught) return;
+    if (block?.inYaml) {
+      handleYamlLine(line);
+      return;
+    }
+    const ok = collectPassed ? /^ok \d+ - (.+)$/.exec(line) : null;
+    if (ok) {
+      passed.push(unescapeTapName(ok[1]));
+      block = null;
+      return;
+    }
+    const notOk = /^(\s*)not ok \d+ - (.+)$/.exec(line);
+    if (notOk) {
+      const indent = notOk[1];
+      block = {
+        name: unescapeTapName(notOk[2]),
+        topLevel: indent.length === 0,
+        keyIndent: `${indent}  `,
+        inYaml: false,
+        hasTestCodeFailure: false,
+        hasAssertion: false,
+        hasAssertionName: false,
+        hasOperator: false,
+      };
+      return;
+    }
+    if (block) {
+      block.inYaml = line === `${block.keyIndent}---`;
+      if (!block.inYaml) block = null;
+    }
+  };
+
+  const feed = (chunk) => {
+    buffer += chunk;
+    let newline = buffer.indexOf('\n');
+    while (newline !== -1) {
+      const line = buffer.slice(0, newline).replace(/\r$/, '');
+      buffer = buffer.slice(newline + 1);
+      processLine(line);
+      newline = buffer.indexOf('\n');
+    }
+    return caught;
+  };
+
+  const flush = () => {
+    if (buffer.length > 0) {
+      const line = buffer.replace(/\r$/, '');
+      buffer = '';
+      processLine(line);
+    }
+    return { caught, killer, passed };
+  };
+
+  return { feed, flush };
+};
+
+export const interleaveQueue = (indices, mutations) => {
+  const groups = new Map();
+  for (const index of indices) {
+    const { file, test } = mutations[index];
+    const key = `${file}\0${test}`;
+    const bucket = groups.get(key) ?? [];
+    if (bucket.length === 0) groups.set(key, bucket);
+    bucket.push(index);
+  }
+  const ordered = [];
+  let round = 0;
+  let added = true;
+  while (added) {
+    added = false;
+    for (const bucket of groups.values()) {
+      if (round < bucket.length) {
+        ordered.push(bucket[round]);
+        added = true;
+      }
+    }
+    round += 1;
+  }
+  return ordered;
+};
+
+const childEnvFor = (compileCache) => {
+  const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => key !== 'NODE_TEST_CONTEXT'));
+  if (compileCache) env.NODE_COMPILE_CACHE = compileCache;
+  return env;
+};
+
+export const verdict = (
+  cwd,
+  test,
+  { namePattern = null, failFast = true, collectPassed = false, compileCache = null } = {},
+) => new Promise((resolve, reject) => {
+  const args = ['--test', '--test-isolation=none', '--test-reporter=tap'];
+  if (namePattern) args.push(`--test-name-pattern=${namePattern}`);
+  args.push(test);
+
+  const child = spawn(process.execPath, args, {
     cwd,
+    env: childEnvFor(compileCache),
     stdio: ['ignore', 'pipe', 'pipe'],
   });
-  let stdout = '';
+  const tracker = createTapTracker({ collectPassed });
+  let earlyStop = false;
+  let forceKillTimer = null;
+
   child.stdout.setEncoding('utf8');
-  child.stdout.on('data', (chunk) => { stdout += chunk; });
+  child.stdout.on('data', (chunk) => {
+    if (tracker.feed(chunk) && failFast && !earlyStop) {
+      earlyStop = true;
+      child.kill();
+      forceKillTimer = setTimeout(() => child.kill('SIGKILL'), FORCE_KILL_DELAY_MS);
+      forceKillTimer.unref();
+    }
+  });
   child.stderr.resume();
-  child.on('error', reject);
+  child.on('error', (error) => {
+    clearTimeout(forceKillTimer);
+    reject(error);
+  });
   child.on('close', (status) => {
-    if (status === 0) resolve('survived');
-    else resolve(status === 1 && stdout.includes("code: 'ERR_ASSERTION'") ? 'caught' : 'invalid');
+    clearTimeout(forceKillTimer);
+    const { caught, killer, passed } = tracker.flush();
+    if (earlyStop) resolve({ status: 'caught', killer, passed });
+    else if (status === 0) resolve({ status: 'survived', killer: null, passed });
+    else if (status === 1 && caught) resolve({ status: 'caught', killer, passed });
+    else resolve({ status: 'invalid', killer: null, passed });
   });
 });
 
@@ -1177,12 +1413,47 @@ const allSettledOrThrow = async (promises) => {
   return settled.map((item) => item.value);
 };
 
-const work = mkdtempSync(join(tmpdir(), 'mutation-check-'));
-let failures = 0;
+const selectTargetPattern = (mutation, killers, suiteIndex) => {
+  const key = `${mutation.file}\0${mutation.test}`;
+  const known = killers?.get(key);
+  const entries = suiteIndex?.get(mutation.test);
+  if (entries && entries.length > MIN_SUITE_FOR_TARGETING) {
+    const ranked = rankCandidateTests(entries, mutation, known);
+    if (ranked.length > 0 && ranked.length < entries.length) {
+      return buildNamePattern(ranked);
+    }
+  }
+  return known && known.size > 0 ? buildNamePattern(known) : null;
+};
 
-// A promise's finally, not a try block: Codacy's ESLint rule security-node/detect-unhandled-async-errors
-// crashes on a try without a catch, and that stops its analysis of other files.
-await (async () => {
+const recordKiller = (killers, key, killer) => {
+  if (!killers || !killer) return;
+  let set = killers.get(key);
+  if (!set) {
+    set = new Set();
+    killers.set(key, set);
+  }
+  set.add(killer);
+};
+
+export const checkMutation = async (cwd, template, source, mutation, killers = null, suiteIndex = null, compileCache = null) => {
+  const { file, test, find, replace } = mutation;
+  const target = join(cwd, file);
+  writeFileSync(target, source.replace(find, replace));
+  return (async () => {
+    const key = `${file}\0${test}`;
+    const namePattern = killers || suiteIndex ? selectTargetPattern(mutation, killers, suiteIndex) : null;
+    if (namePattern) {
+      const fast = await verdict(cwd, test, { namePattern, compileCache });
+      if (fast.status === 'caught') return 'caught';
+    }
+    const full = await verdict(cwd, test, { compileCache });
+    if (full.status === 'caught') recordKiller(killers, key, full.killer);
+    return full.status;
+  })().finally(() => copyFileSync(join(template, file), target));
+};
+
+const prepareTemplate = (work) => {
   const template = join(work, 'template');
   mkdirSync(join(template, 'assets'), { recursive: true });
   mkdirSync(join(template, 'scripts'), { recursive: true });
@@ -1193,62 +1464,38 @@ await (async () => {
   for (const shared of SHARED) {
     cpSync(join(root, shared), join(template, shared), { recursive: true });
   }
+  return template;
+};
 
-  const baselines = [levy.test, business.test, individualTest];
-  const baselineResults = await allSettledOrThrow(baselines.map((test) => verdict(template, test)));
+const runBaselines = async (template) => {
+  const baselines = [...new Set([levy.test, business.test, individualTest, ...MUTATIONS.map((entry) => entry.test)])];
+  const results = await allSettledOrThrow(
+    baselines.map((test) => verdict(template, test, { failFast: false, collectPassed: true })),
+  );
+  const suiteIndex = new Map();
   for (let i = 0; i < baselines.length; i += 1) {
-    if (baselineResults[i] !== 'survived') throw new Error(`${baselines[i]} fails before any mutation`);
+    if (results[i].status !== 'survived') throw new Error(`${baselines[i]} fails before any mutation`);
+    suiteIndex.set(baselines[i], indexSuiteTests(results[i].passed));
   }
+  return suiteIndex;
+};
 
-  const sources = new Map();
-  const sourceOf = (file) => {
-    let text = sources.get(file);
-    if (text === undefined) {
-      text = readFileSync(join(root, file), 'utf8');
-      sources.set(file, text);
-    }
-    return text;
-  };
-
-  const mutated = async (cwd, { file, test, find, replace }) => {
-    const target = join(cwd, file);
-    writeFileSync(target, sourceOf(file).replace(find, replace));
-    return verdict(cwd, test).finally(() => copyFileSync(join(template, file), target));
-  };
-
-  const workerCount = Math.min(availableParallelism(), 4, Math.max(1, MUTATIONS.length));
-  const workerDirs = Array.from({ length: workerCount }, (_, index) => {
-    const dir = join(work, `worker-${index}`);
-    cpSync(template, dir, { recursive: true });
-    return dir;
-  });
-
-  for (const control of CONTROLS) {
-    const result = await mutated(workerDirs[0], control);
-    console.log(`control   ${control.name}: ${result}`);
-    if (result !== 'invalid') failures += 1;
-  }
-
+const collectQueue = (sourceOf) => {
   const results = new Array(MUTATIONS.length);
-  const queue = [];
+  const rawQueue = [];
   for (let i = 0; i < MUTATIONS.length; i += 1) {
     const { file, find } = MUTATIONS[i];
     if (sourceOf(file).split(find).length !== 2) {
       results[i] = 'stale';
     } else {
-      queue.push(i);
+      rawQueue.push(i);
     }
   }
+  return { results, queue: interleaveQueue(rawQueue, MUTATIONS) };
+};
 
-  let next = 0;
-  await allSettledOrThrow(workerDirs.map(async (cwd) => {
-    while (next < queue.length) {
-      const index = queue[next];
-      next += 1;
-      results[index] = await mutated(cwd, MUTATIONS[index]);
-    }
-  }));
-
+const reportResults = (results) => {
+  let failures = 0;
   for (let i = 0; i < MUTATIONS.length; i += 1) {
     const { file, name } = MUTATIONS[i];
     const result = results[i];
@@ -1260,8 +1507,72 @@ await (async () => {
       if (result !== 'caught') failures += 1;
     }
   }
-})().finally(() => {
-  rmSync(work, { recursive: true, force: true, maxRetries: 3 });
-});
-console.log(failures ? `mutation check: ${failures} of ${MUTATIONS.length} need attention` : `mutation check: ${MUTATIONS.length} mutations accounted for`);
-process.exitCode = failures ? 1 : 0;
+  return failures;
+};
+
+const main = async () => {
+  const configuredWorkers = resolveWorkerCount(process.env.MUTATION_WORKERS, availableParallelism(), MUTATIONS.length);
+  const work = mkdtempSync(join(tmpdir(), 'mutation-check-'));
+  let failures = 0;
+
+  // A promise's finally, not a try block: Codacy's ESLint rule security-node/detect-unhandled-async-errors
+  // crashes on a try without a catch, and that stops its analysis of other files.
+  await (async () => {
+    const template = prepareTemplate(work);
+    const suiteIndex = await runBaselines(template);
+    const sources = new Map();
+    const sourceOf = (file) => {
+      let text = sources.get(file);
+      if (text === undefined) {
+        text = readFileSync(join(root, file), 'utf8');
+        sources.set(file, text);
+      }
+      return text;
+    };
+
+    const { results, queue } = collectQueue(sourceOf);
+    const workerCount = Math.min(configuredWorkers, Math.max(1, queue.length));
+    const workers = Array.from({ length: workerCount }, (_, index) => {
+      const cwd = join(work, `worker-${index}`);
+      cpSync(template, cwd, { recursive: true });
+      return { cwd, compileCache: join(work, `cache-${index}`) };
+    });
+
+    for (const control of CONTROLS) {
+      const result = await checkMutation(workers[0].cwd, template, sourceOf(control.file), control);
+      console.log(`control   ${control.name}: ${result}`);
+      if (result !== 'invalid') failures += 1;
+    }
+
+    const killers = new Map();
+    let next = 0;
+    await allSettledOrThrow(workers.map(async ({ cwd, compileCache }) => {
+      while (next < queue.length) {
+        const index = queue[next];
+        next += 1;
+        const mutation = MUTATIONS[index];
+        results[index] = await checkMutation(
+          cwd,
+          template,
+          sourceOf(mutation.file),
+          mutation,
+          killers,
+          suiteIndex,
+          compileCache,
+        );
+      }
+    }));
+
+    failures += reportResults(results);
+  })().finally(() => {
+    rmSync(work, { recursive: true, force: true, maxRetries: 3 });
+  });
+  console.log(failures ? `mutation check: ${failures} of ${MUTATIONS.length} need attention` : `mutation check: ${MUTATIONS.length} mutations accounted for`);
+  process.exitCode = failures ? 1 : 0;
+};
+
+const isMain = Boolean(process.argv[1]) && existsSync(process.argv[1])
+  && realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url));
+if (isMain) {
+  await main();
+}
