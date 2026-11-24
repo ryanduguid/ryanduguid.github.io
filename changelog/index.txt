@@ -13,6 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+24 November 2026 | The first home owner grant calculator now follows the Victorian, Western Australian and Northern Territory Acts: it pays the consideration where that is less than the grant, $10,000 for a Northern Territory established home bought from 1 July to 30 September 2025, and no longer tests a Victorian home built against $750,000 of land and building, since Victoria caps the building contract alone.
 23 November 2026 | The super lump sum tax calculator now also works the amount a fund withholds from a super lump sum under Schedule 12 for a payment from 13 October 2020, with or without a TFN and for a foreign resident, including a roll-over above the untaxed plan cap and a death benefit paid to a deceased estate. It also works the final tax on a departing Australia superannuation payment in 2025-26 to 2027-28: 35% on the taxed element and 45% on the untaxed element, or 65% on each where the payment includes working holiday maker contributions. Schedule 12 and the Departing Australia Superannuation Payments Tax Act were read on 23 November 2026, and the page agrees with the super-withholding and dasp-tax commands of the australian-accounting calculators on every tested case.
 23 November 2026 | Updated 2 accounting questions after the 23 November 2026 ATO source sweep: removed the withdrawn credit card newsroom link from general tax question 6, keeping the ATO’s How to pay page, and rechecked company and trust question 86 against the 20 November 2026 trustee resolutions checklist.
 23 November 2026 | The tool pages now link to licences by release or source revision, including the versions used in worked examples. The homepage and tool directory link to Lodgeit’s listing of the Coal LSL levy calculator and to the Australian capital gains tax guide on OpenAccountants, with each project’s review status.
@@ -245,6 +246,7 @@ Published 30 August 2026. Last reviewed 23 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- first home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 - super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 - general tax question 6: https://duguid.com.au/tools/accounting-questions/general-tax/
 - company and trust question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/
@@ -253,7 +255,6 @@ Published 30 August 2026. Last reviewed 23 November 2026.
 - super co-contribution, LISTO and spouse offset: https://duguid.com.au/tools/individual-tax/government-super/
 - ATO penalties and interest: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
 - work expenses: https://duguid.com.au/tools/individual-tax/work-expenses/
-- first home owner grant: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 - ASIC fees: https://duguid.com.au/tools/business-calculators/asic-fees/
 - site licence notice: https://duguid.com.au/privacy/
 - FBT property: https://duguid.com.au/tools/business-calculators/fbt-property/
