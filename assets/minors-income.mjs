@@ -96,7 +96,7 @@ function readable(/** @type {unknown} */ value) {
   try {
     commandCents(value);
   } catch (error) {
-    if (error.code === 'input.decimal_unreadable') throw error;
+    if (/** @type {{ code?: string }} */ (error).code === 'input.decimal_unreadable') throw error;
   }
 }
 const money = (/** @type {unknown} */ value) => (typeof value === 'string' ? commandCents(value)
@@ -350,7 +350,7 @@ export function minorsIncomeResult(value, aud) {
       ['Apportioned deductions', cents(r.apportioned)], ['Eligible taxable income', cents(r.eligible)],
       ['Other taxable income', cents(r.otherIncome)], ['Tax on other taxable income', cents(r.taxOther)],
       ['Tax on eligible taxable income', cents(r.taxEligible)], ['Basic income tax', cents(r.total)]],
-    note: `${why}. ${r.prescribed ? `${RULES[r.rule]}.` : 'Ordinary rates apply to all taxable income.'} This is basic income tax `
+    note: `${why}. ${r.prescribed ? `${RULES[/** @type {keyof typeof RULES} */ (r.rule)]}.` : 'Ordinary rates apply to all taxable income.'} This is basic income tax `
       + 'before offsets and the Medicare levy; a prescribed person’s low income tax offset cannot exceed the tax on other '
       + 'taxable income (ITAA 1997 s 61-115(2) and (3))',
   };

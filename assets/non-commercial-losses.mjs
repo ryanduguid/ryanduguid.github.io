@@ -35,7 +35,7 @@ function readable(value) {
   try {
     commandCents(value);
   } catch (error) {
-    if (error.code === 'input.decimal_unreadable') throw error;
+    if (/** @type {{ code?: string }} */ (error).code === 'input.decimal_unreadable') throw error;
   }
 }
 const money = (/** @type {unknown} */ value) => (typeof value === 'string' ? commandCents(value)
@@ -131,7 +131,7 @@ export function nonCommercialLosses(input) {
   const excepted = activity !== 'other';
   if (typeof input.part_year !== 'boolean') refuse('input.flag_invalid', 'part_year must be a boolean.');
   const partYear = input.part_year;
-  [[OPTIONAL[0], partYear], [OPTIONAL[1], excepted]].forEach(([key, wanted]) => {
+  /** @type {[string, boolean][]} */ ([[OPTIONAL[0], partYear], [OPTIONAL[1], excepted]]).forEach(([key, wanted]) => {
     if (wanted && !Object.hasOwn(input, key)) refuse('input.missing_field', `${key} is required for these facts.`);
     if (!wanted && Object.hasOwn(input, key)) refuse('input.field_unknown', `${key} is not an input for these facts`);
   });
@@ -212,7 +212,7 @@ export function nonCommercialLossesResult(value, aud) {
       ['Real property test', met(r.tests.real_property_test)], ['Other assets test', met(r.tests.other_assets_test)],
       ['Excess of deductions over assessable income', cents(r.excess)], ['Deductible this year', cents(r.deductible)],
       ['Deferred', cents(r.deferred)]],
-    note: `${OUTCOMES[r.outcome]}. ${r.exception ? 'The primary production and professional arts exception applies (section 35-10(4)). '
+    note: `${OUTCOMES[/** @type {keyof typeof OUTCOMES} */ (r.outcome)]}. ${r.exception ? 'The primary production and professional arts exception applies (section 35-10(4)). '
       : !r.requirementMet ? 'The income requirement is not met (section 35-10(2E)), so passing a test does not help. '
         : passed ? '' : 'No test is passed (sections 35-30 to 35-45). '}Whether the Commissioner would use the discretion in section 35-55 is not decided here`,
   };
