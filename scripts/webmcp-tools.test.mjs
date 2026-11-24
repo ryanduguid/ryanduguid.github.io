@@ -1454,8 +1454,8 @@ test('PCG 2021/4 allocation tool returns the page worked example, matches form s
   ['119167.00', '85(a)', '70200.00', '85(a)', '600000.00', '189367.00', '55.00', 4, '31.56', 3, 7, 'green',
     'AUD', 'https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/']);
   assert.doesNotThrow(() => JSON.stringify(r));
-  const formHtml = readFileSync('_includes/calculators/pcg-2021-4-allocation.html', 'utf8');
-  for (const [, year, scale, baseRate, companyRate] of formHtml.matchAll(
+  const formText = readFileSync('_includes/calculators/pcg-2021-4-allocation.html', 'utf8');
+  for (const [, year, scale, baseRate, companyRate] of formText.matchAll(
     /name="year" value="(\d{4}-\d{2})" data-scale="([^"]+)" data-base-rate="([^"]+)" data-company-rate="([^"]+)"/g,
   )) {
     const res = await tool.execute({
