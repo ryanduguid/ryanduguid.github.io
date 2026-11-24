@@ -491,3 +491,14 @@ void businessSet.variance.execute({ actual: '110', budget: '100', kind: 'income'
 void businessSet['vehicle-class'].execute({ incomeYear: '2026-27', body: 'passenger', seats: 5, grossVehicleMassKg: 3000, kerbWeightKg: 2135,
   price: '75000', gstCredit: 'full', fuelConsumption: 'other', privateUse: 'limited' });
 void businessSet['wine-equalisation-tax'].execute({ incomeYear: '2026-27', dealings: [{ kind: 'wholesale_sale', priceExcludingWetAndGst: '120.00' }] });
+void businessSet.cash.execute({ opening: '-50', buffer: '100', weeks: Array.from({ length: 13 }, () => ({ receipts: '0', payments: '0' })) });
+void businessSet['depreciation-pools'].execute({ worksheet: 'low-value-pool', incomeYear: '2025-26',
+  previousClosingPoolBalance: '5000', lowCostAssets: '594', lowValueAssets: '0', secondElementCosts: '0', terminationValues: '0' });
+void businessSet['div7a-schedule'].execute({ madeDate: '2022-10-01', amount: '100000', termYears: '7', assumedBenchmarkRate: '8.77' });
+void businessSet['first-home-owner-grant'].execute({ place: 'AU-NSW', contractDate: '2026-08-01', home: 'bought', value: 600000,
+  facts: { person: true, citizen: true, first: true, residence: true } });
+void businessSet['payg-instalments'].execute({ method: 'rate', instalmentIncome: '20100', instalmentRatePercent: '1.7' });
+void businessSet['payroll-tax'].execute({ place: 'AU-NSW', wages: '1500000' });
+void businessSet['salary-dividend'].execute({ incomeYear: '2026-27', companyProfit: '200000', baseRateEntity: true, salary: '100000' });
+void businessSet['sgc-payday'].execute({ regime: 'payday', payday: '2026-07-30', qualifyingEarnings: '1000', receivedOnTime: '120' });
+void businessSet.staff.execute({ wages: '51.30', superAmount: '0', otherCosts: '0' });
