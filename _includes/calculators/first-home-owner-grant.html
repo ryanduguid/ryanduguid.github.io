@@ -8,26 +8,26 @@
 <label><input type="radio" name="home" value="built" /> New home built under a comprehensive home building contract, including a house and land package</label>
 <label><input type="radio" name="home" value="established" /> Established home</label>
 </fieldset>
-<label class="field" for="first-home-owner-grant-date">Date the contract was made<input id="first-home-owner-grant-date" name="date" type="date" min="2025-07-01" max="2026-11-22" value="2026-08-01" required aria-describedby="first-home-owner-grant-date-note" /></label>
+<label class="field" for="first-home-owner-grant-date">Contract date<input id="first-home-owner-grant-date" name="date" type="date" min="2025-07-01" max="2026-11-22" value="2026-08-01" required aria-describedby="first-home-owner-grant-date-note" /></label>
 <label class="field" for="first-home-owner-grant-value">Total value of the home and land (whole dollars)<input id="first-home-owner-grant-value" name="value" type="number" inputmode="numeric" min="1" max="1000000000" step="1" value="600000" required aria-describedby="first-home-owner-grant-value-note" /></label>
-<label class="field" for="first-home-owner-grant-cap-value">Value the cap tests, if different (Queensland and Western Australia only)<input id="first-home-owner-grant-cap-value" name="cap-value" type="number" inputmode="numeric" min="1" max="1000000000" step="1" aria-describedby="first-home-owner-grant-value-note" /></label>
-<label class="field" for="first-home-owner-grant-contract-price">Building contract price without the land, if known (home built only; in the Northern Territory, the amount of it actually paid)<input id="first-home-owner-grant-contract-price" name="contract-price" type="number" inputmode="numeric" min="1" max="1000000000" step="1" aria-describedby="first-home-owner-grant-value-note" /></label>
-<fieldset><legend>Western Australia only: where the home is</legend>
+<label class="field" for="first-home-owner-grant-cap-value">Value the cap tests, if different (Qld and WA only)<input id="first-home-owner-grant-cap-value" name="cap-value" type="number" inputmode="numeric" min="1" max="1000000000" step="1" aria-describedby="first-home-owner-grant-value-note" /></label>
+<label class="field" for="first-home-owner-grant-contract-price">Building contract price, if known (home built only; in the Northern Territory, the amount of it actually paid)<input id="first-home-owner-grant-contract-price" name="contract-price" type="number" inputmode="numeric" min="1" max="1000000000" step="1" aria-describedby="first-home-owner-grant-value-note" /></label>
+<fieldset><legend>Western Australia: home location</legend>
 <label><input type="radio" name="wa-location" value="south" /> South of the 26th parallel, including all of Perth</label>
 <label><input type="radio" name="wa-location" value="north" /> North of the 26th parallel</label>
 </fieldset>
-<fieldset><legend>Facts you state (untick any that is not true)</legend>
+<fieldset><legend>Facts you state (untick if false)</legend>
 <label class="check-field"><input type="checkbox" name="fact-person" checked /> Every applicant is a person, not a company or trust, aged 18 or over</label>
 <label class="check-field"><input type="checkbox" name="fact-citizen" checked /> At least one applicant is an Australian citizen or permanent resident</label>
-<label class="check-field"><input type="checkbox" name="fact-first" checked /> No applicant or spouse is excluded by the prior ownership rules below</label>
-<label class="check-field"><input type="checkbox" name="fact-residence" checked /> The applicants will meet the jurisdiction’s residence requirement, shown with the result</label>
-<label class="check-field"><input type="checkbox" name="fact-contract" /> For a home built without its contract price entered: the building contract price, without the land, is at least the grant</label>
-<label class="check-field"><input type="checkbox" name="fact-nt" /> Northern Territory only: the contract does not replace one signed before 1 October 2024</label>
+<label class="check-field"><input type="checkbox" name="fact-first" checked /> No applicant or spouse excluded by prior ownership rules below</label>
+<label class="check-field"><input type="checkbox" name="fact-residence" checked /> Applicants will meet the jurisdiction’s residence requirement, shown with result</label>
+<label class="check-field"><input type="checkbox" name="fact-contract" /> Built without contract price entered: building contract price, excluding land, is at least the grant</label>
+<label class="check-field"><input type="checkbox" name="fact-nt" /> Northern Territory: contract does not replace one signed before 1 October 2024</label>
 <label class="check-field"><input type="checkbox" name="fact-tas" /> Tasmania only: the transaction meets the completion and replacement conditions set out for Tasmania below</label>
 </fieldset>
 </div>
-<p class="field-note" id="first-home-owner-grant-date-note">Contracts from 1 July 2025 to 22 November 2026, the day the rules were read. Owner-builders and substantially renovated homes are not covered.</p>
-<p class="field-note" id="first-home-owner-grant-value-note">Bought: the price (in Victoria, the contract price off the plan), which limits the grant. Built: land plus contract; the land never limits the grant, and a building contract price below the grant is the grant (except in New South Wales).</p>
+<p class="field-note" id="first-home-owner-grant-date-note">Contracts 1 July 2025 to 22 November 2026 (rules read); owner-builders and substantially renovated homes excluded.</p>
+<p class="field-note" id="first-home-owner-grant-value-note">Bought: price (Victoria: off-the-plan contract price), which limits the grant. Built: land plus contract; the land never limits the grant, and a lower contract price is the grant (except NSW).</p>
 <button type="submit" class="button">Calculate</button></fieldset>
 {% include calculator-example.html inputs="New South Wales, contract 1 August 2026, new home bought, total value $600,000.00, every eligibility fact stated" rows="First home owner grant|$10,000.00;Value cap|up to $600,000;Residence requirement you stated|each applicant lives in the home for 12 continuous months, starting within 12 months;Transfer duty for an eligible first home buyer|$0.00;General transfer duty on the same value|$21,187.00" principal="0" %}
 <div class="sources-applied" hidden>
@@ -46,16 +46,16 @@
 </ul>
 </div>
 </form>
-<h2>How the first home owner grant calculator works</h2><p>The first home owner grant calculator gives the grant for a first home buyer who buys or builds a new home under a contract made from 1 July 2025 to 22 November 2026, beside the transfer duty the same buyer pays. It takes the amount and the value cap in force on the contract date, and pays nothing above the cap or for an established home, except a Northern Territory one bought before 1 October 2025.</p>
+<h2>How the first home owner grant calculator works</h2><p>The first home owner grant calculator gives the grant for a first home buyer who buys or builds a new home under a contract made from 1 July 2025 to 22 November 2026, beside the transfer duty the same buyer pays. It applies the contract-date grant and cap, paying nothing above the cap or for established homes except in the Northern Territory before 1 October 2025.</p>
 <ul>
-<li>New South Wales: $10,000; the price must not exceed $600,000 for a home bought, and the land and building contract $750,000 for a home built.</li>
-<li>Victoria: $10,000, or the consideration if less, for a home worth up to $750,000. For a home built the cap is on the building contract alone, so a land and building total over $750,000 is computed only with the building contract price entered.</li>
+<li>New South Wales: $10,000; cap $600,000 for a home bought, $750,000 land and building contract built.</li>
+<li>Victoria: $10,000, or consideration if less, up to $750,000. For a home built the cap tests the building contract alone, so totals over $750,000 need that price entered.</li>
 <li>Queensland: $30,000, or the consideration if less, for a home worth under $750,000. The cap tests the greater of the price and the unencumbered value of the home and land, or for a home built the contract and the land’s value; enter that value where it differs.</li>
-<li>Western Australia: $10,000, or the consideration if less. The cap is $800,000 south of the 26th parallel for contracts from 7 May 2026, $750,000 before, and $1,000,000 north of it. As in Queensland, enter the value the cap tests where it differs from the total value.</li>
+<li>Western Australia: $10,000, or consideration if less. Cap is $800,000 south of the 26th parallel from 7 May 2026 ($750,000 before) and $1,000,000 north; enter any different cap value.</li>
 <li>South Australia: $15,000, or the consideration if less, with no value cap.</li>
 <li>Tasmania: $30,000 for contracts from 1 July 2025 to 30 June 2026, then $20,000 to 30 June 2027, or the consideration if less, with no value cap. The transaction must be completed within 24 months, or a period the Commissioner extends, and not replace a transaction for the same property, between or benefiting substantially the same parties, entered before 1 July 2025 for a 2025-26 contract or 1 July 2026 for a 2026-27 contract.</li>
-<li>Northern Territory: the HomeGrown Territory Grant of $50,000, or the consideration if less, with no value cap. An established home bought under a contract from 1 July to 30 September 2025 gets $10,000, or the consideration if less. The contract must not replace one signed before 1 October 2024.</li>
-<li>Australian Capital Territory: no grant since 1 July 2019. The territory’s Home Buyer Concession Scheme is a duty concession, and the duty result applies it.</li>
+<li>Northern Territory: HomeGrown Territory Grant $50,000, or consideration if less, no cap. Established homes bought 1 July to 30 September 2025 get $10,000, or consideration if less. Must not replace a pre-1 October 2024 contract.</li>
+<li>Australian Capital Territory: $0 since 1 July 2019; the duty result applies the Home Buyer Concession Scheme.</li>
 </ul>
 <h2>Eligibility facts and transfer duty</h2><p>Each grant needs 4 facts, which you state and the calculator does not test. Every applicant is a person aged 18 or over. At least one applicant is an Australian citizen or permanent resident. No applicant or spouse is excluded by the prior ownership rules below. The applicants meet the residence requirement: 12 continuous months starting within 12 months in New South Wales; 12 months for at least one applicant in Victoria; 6 continuous months starting within 12 months in Queensland, Western Australia, South Australia and Tasmania; and 12 months after taking possession or completion in the Northern Territory. A home built also needs its building contract price, without the land, to be at least the grant, since no grant exceeds that consideration. A Northern Territory contract must not replace one signed before 1 October 2024. A Tasmanian transaction must be completed within 24 months, or a period the Commissioner extends, and not replace a transaction for the same property, between or benefiting substantially the same parties, entered before the 1 July starting its grant period. The calculator computes nothing until the facts a transaction needs are stated, and in Western Australia until you choose where the home is.</p>
 <p>For a home bought, the result adds the transfer duty calculator’s duty for an eligible first home buyer and its general duty on the same value, for contracts its rates cover: from 1 July 2025 in Victoria, Queensland, South Australia and the Northern Territory, from 7 May 2026 in Western Australia, and from 1 July 2026 in New South Wales, Tasmania and the Australian Capital Territory. Earlier contracts there get the grant without the duty.</p>

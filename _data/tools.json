@@ -38,7 +38,7 @@
     "needs": "Python 3.14 or later and uv",
     "boundary": "Human review required. Optional local library excerpts enter the assistant’s context; Division 7A scope stays limited.",
     "licences": {
-      "0.11.0": "Ryan Duguid Public Attribution Licence 1.0"
+      "0.12.0": "GNU Affero General Public License v3.0 or later"
     }
   },
   "coal-lsl-levy": {
@@ -120,7 +120,7 @@
     "needs": "Microsoft 365 or Excel 2024 or later",
     "boundary": "Calculates only. The reviewer decides the accounting treatment and the tax position.",
     "licences": {
-      "3.7.0": "Ryan Duguid Public Attribution Licence 1.0"
+      "3.8.0": "Apache License 2.0"
     }
   },
   "payday-super": {

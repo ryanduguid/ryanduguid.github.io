@@ -12,10 +12,10 @@
   },
   "json_ld": {
     "about/index.html": [
-      "be0954d3a3d09936d13d9c80cfe5715e9a8b918938c3dfb9a9282ed7071dd894"
+      "57862ec335d7f4838993145322f6cbba18f33f2484c1c929ce2d0f09de52ad48"
     ],
     "changelog/index.html": [
-      "c86cc57ef6c4f86619f3ef2fa791d098e9f6b6fe296e3624d2c550efc6527796"
+      "29539fcf63a44c93b1c04160e7d92ba0840f0588a4b38bf52c99a33dbc06da1c"
     ],
     "contact/index.html": [
       "3a1f5ed9376406b3013c03dc3bb99f7158f5a117ebe247d35af9bef174f8f7bd"
@@ -39,10 +39,10 @@
       "4f34b9a4a4eb565c428d51639eb7a42c1692eced3ac67482a156fb5ddfa636bb"
     ],
     "index.html": [
-      "6fe69aab0e75a5bc571ad8c4d97d5339ddede524e9de3737b3db4340cd4bd7b1"
+      "8c2f6882783be03b4bf63a6a5e473de15c319267ad7c6ef437c35a498279efec"
     ],
     "privacy/index.html": [
-      "a8a632baad7498c8424ba37a1dd93f54bdb5b23269402e8d7b55c2351dd2adce"
+      "dabe19f4f720b7d61a2993c85ad4ea6f5ba29a4f6109f90a3b9267b611902a15"
     ],
     "rates/announced-not-yet-law/index.html": [
       "5b107f4661a2197470b31cf0239ac379fd2ca848774b4ef37924e0200422d158"
@@ -120,7 +120,7 @@
       "d3bb32f91ccb8dcecbc8c94df472198daef269f401c2f98dc1a88dc8347a1be5"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "07c397b14654b8d82d3de67907990724e270aeb4c2817a157fa54f0f8ee57b75"
+      "d71f51f1796587ddc50bcd839c9dfdd6005ef3668ff359c9ea7d1a789b21c843"
     ],
     "tools/bas-due-dates/index.html": [
       "6f22173930285ac0d6c7aa02c77b70e02e8f693c73fd2853ffa9b9863e1598b2"
@@ -155,6 +155,9 @@
     "tools/business-calculators/company-tax/index.html": [
       "7f1f2296cde2493c9d8685d9dc7eeea5adf9d79886f6d0a4c5b92ec2de556617"
     ],
+    "tools/business-calculators/deferred-tax/index.html": [
+      "4598153e3de4d4e8f381b58e21340d5fdf9982a0051e66d915b230a6d6e7ff7e"
+    ],
     "tools/business-calculators/depreciation-pools/index.html": [
       "e5037eba3039d5730d92e9ec6f1848e8537be915ac3693ef4ee57f341263ad14"
     ],
@@ -165,7 +168,7 @@
       "213f49ae1905d4c7bb39f0c1393f0d9a29afbb291a4ad0ad633a97a9cc4408f3"
     ],
     "tools/business-calculators/division-296/index.html": [
-      "cd63760b4d73c323f21f4310a792904f1f3787e588c28fe8b6e1b02d542616ac"
+      "0f8901ddc477b2b88b75fa23ad2a4f03f98c9d3f03dd3eae3c60a2b122cdf17d"
     ],
     "tools/business-calculators/fbt-car-parking/index.html": [
       "4d0c2ea02f477db67b64837efa1187a793fed96b49f925403982bb0de0c3b0d3"
@@ -203,6 +206,9 @@
     "tools/business-calculators/gic-payment-plan/index.html": [
       "d17f601564a0be1ac4f0694b8e231a204a9ca54296fa4a55e5effe5f998dacfe"
     ],
+    "tools/business-calculators/gst-adjustments/index.html": [
+      "b2e447b651b47e0d70992137ebbc8d4be3b6ab3cbc514878c01ed53a126db4fa"
+    ],
     "tools/business-calculators/gst-margin-scheme/index.html": [
       "ec555031c5a0e1514ebd29f37e8e3448f7627e7db8e11ab56ef27b65819b7694"
     ],
@@ -216,7 +222,7 @@
       "1ee789e07f991caadaf17f3e165e8bc60550a06242fe627a485241855184f7b5"
     ],
     "tools/business-calculators/index.html": [
-      "fa0900c00a6279c77c76c7e2b3bb5ec5205a490563421754432c741555c3c718"
+      "fd5c89f120eb327bb635d30654a9c42e5d9b64e68d958ce1bd1dc4fba55ffe8c"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "90b1d2897a81b87c05cb1a74bb0937f468ac5e1806fa0b19603b5fff589b9e09"
@@ -240,7 +246,7 @@
       "dcab5352be0982423e6e11cacecd9470e3a531468a34a6db716c40ff237e308a"
     ],
     "tools/business-calculators/payg-instalments/index.html": [
-      "68727d5bb6a3a4ae974e41ceccc9325989d054a85011d58ef81a7d44496b2f42"
+      "53bdce1e630ba7b97a352724618a68773c9fa941b0c4afb52464ce86f2b42e14"
     ],
     "tools/business-calculators/payroll-tax/index.html": [
       "3f882e4911396cb2d5dbdc3980ad6fe9248ef346ef9971e4c1482aca6c07aee8"
@@ -253,6 +259,9 @@
     ],
     "tools/business-calculators/psi-determination/index.html": [
       "bf990b5cb178852bf874916d90e3aee297a665284853f4ce7f06e785f09acc63"
+    ],
+    "tools/business-calculators/rd-tax-offset/index.html": [
+      "ba20c885e6f2d379bdf64d82496107f93de2f704ac8a217638441754cfe65dac"
     ],
     "tools/business-calculators/rental-property/index.html": [
       "c32598b6cff21efad5a091d1d915e4eb9090035c530ae74a8dd000783c43c7cc"
@@ -318,13 +327,13 @@
       "28564a618992191fa1018a10a7c53c69ccb7662ead7d91e60e95151e4281782d"
     ],
     "tools/individual-tax/income-tax/index.html": [
-      "dbffb02aeac17baca819a8901aa2e05d027d07a44893b810684e8635ab3411fe"
+      "b3aa07550f26ff4da3544c729203392390613afb4a9e37f0dd8cf2dfefefe744"
     ],
     "tools/individual-tax/income-tests/index.html": [
       "059533df889c6b9692655ac27555927c1e20d392ad12b8b670235c930b8ffc41"
     ],
     "tools/individual-tax/index.html": [
-      "ed2d41a35617b8e6852ff92721e09852439d30602d1be9db707b6fc5391cbfb8"
+      "dbe58721e66d522e3a9a7afae10026d59eec94c9a2c9ae4138b207c5f1ad5efe"
     ],
     "tools/individual-tax/lump-sum-arrears/index.html": [
       "e48ebf6f7c2c40451845c76eacef0036080e9ca73f6c39b9a565e4c92a16357f"
@@ -332,11 +341,14 @@
     "tools/individual-tax/novated-lease/index.html": [
       "7886659bc910ffc82968d9a6d58cedfeeea1e70a9e13da98a75dc46e86c4c964"
     ],
+    "tools/individual-tax/pension-minimum/index.html": [
+      "8a8e799e7b2b0469bad560084a8677f3e41667528f9aae312c0951a6ad17b78d"
+    ],
     "tools/individual-tax/salary-packaging/index.html": [
       "79df2afc8bdd8a9ee82ab1c9860fa4a827d4379a96f3f60dde93430d21d93a44"
     ],
     "tools/individual-tax/sole-trader/index.html": [
-      "966f10a4f185cf523e53e9b085ad0186dcbf04db6190468b9b1b52247a8ec383"
+      "91e68a1a86cd5447660abf9d10dfa0b1f0c3779ff86f958dfe08d2aacb3b7fd7"
     ],
     "tools/individual-tax/study-loan/index.html": [
       "2422468bac5a44d932965ff881e3dc336c4a593ea7d1289e9815a78e80315d60"
@@ -346,6 +358,9 @@
     ],
     "tools/individual-tax/take-home-pay/index.html": [
       "4698b9de32a5ec8b4fa3efd6736076763dc002677604e33cac417f00c300b999"
+    ],
+    "tools/individual-tax/transfer-balance/index.html": [
+      "86f319f0e1517405a60f0ea061da7fdf0430ddbd5336e690a70d25a89b25b316"
     ],
     "tools/individual-tax/work-expenses/index.html": [
       "ac4e088b6dedf098a1162a2e64589e14a67fa7b53e48e12109df18e199741b6b"
@@ -366,7 +381,7 @@
       "5b46717b5d9cd7c711a55c64a7c61d6587893f255046d0a2ba8bcaa2dd311437"
     ],
     "tools/ozzit/functions/financial/index.html": [
-      "5b1635960dd43d3b5e84b4dac4acf20fbe08b52c8800ccf66e7f1784369ef279"
+      "5fde64bac117550290ba28a5c4980e31256381ed255ca990d9724c550ee9c669"
     ],
     "tools/ozzit/functions/ratios/index.html": [
       "6e7f2e93e4e19123789d89cf5a8bb66e3a1e02d73bfefb2d7bbc0974d464e926"
@@ -375,7 +390,7 @@
       "9d439aa0458d7e24125c52d2c1d7a4d4c3e7692996b93d836c8411034c3d0a0b"
     ],
     "tools/ozzit/index.html": [
-      "63fa03dadc108a31c27880991126a00dd5890a3a259d1613af8223a266e5650e"
+      "53b27e0fd75107ca5d7a95a9e398802b35ce0e0c9aa88787ae67c2a36864e032"
     ],
     "tools/payday-super/business-days/index.html": [
       "6623ef0d7c96bd8b3d7e005b78c280616d8e0923434058067b53a0b8fa1b1df1"
@@ -412,9 +427,8 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "a441e4fc11fca61f578ad9e30a0bbba38486d7ab2c4acb2a69420ff203dbcd83",
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "fc75fd5d0d6e616055fbb6742abfa67af367376a16360b50ad37c01f325cc83f"
+    "sitemap.xml": "3071e87babd2b2718d8e17223f848371224f943e13c28618f5189bde83531fc7"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -474,7 +488,7 @@
     "rates/super-guarantee/index.html": "a5d7321076de35ab9916764165ca7cdc369eef5a36ae35762be3e2ed93c6dc56"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7806,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7811,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

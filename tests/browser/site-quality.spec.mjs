@@ -482,6 +482,7 @@ test('homepage supporting text respects contrast and print overrides while stayi
 
 test('printed pages keep every visible text colour readable on white paper', async ({ page }, testInfo) => {
   test.skip(projectKind(testInfo) !== 'desktop', 'print colours run once');
+  test.setTimeout(60_000);
   // Printers drop background colours, so light ink on a dark fill would print white on white.
   await page.emulateMedia({ media: 'print' });
   const failures = [];

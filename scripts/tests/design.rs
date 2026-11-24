@@ -768,20 +768,21 @@ fn design_contracts_text_mutations() {
             "index.html: expected one favicon link",
         ),
     ];
-    // Each mutation checks its own copy of the site, so they run on every core; the
-    // results are then checked in order.
+    // Each worker keeps its own copy of the site and restores the single mutated file
+    // after each case; the results are then checked in order.
     let next = std::sync::atomic::AtomicUsize::new(0);
     let found = std::sync::Mutex::new(vec![Vec::new(); mutations.len()]);
     let workers = std::thread::available_parallelism().map_or(2, |n| n.get().min(8));
     std::thread::scope(|scope| {
         for _ in 0..workers {
             scope.spawn(|| {
+                let site = copied_site();
                 loop {
                     let index = next.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
                     let Some((_, rel, old, new, _)) = mutations.get(index) else {
                         return;
                     };
-                    let site = copied_site();
+                    let _saved = SavedFile::capture(site.path(), rel);
                     replace_file(site.path(), rel, old, new);
                     let failures = repository(site.path());
                     found.lock().unwrap()[index] = failures;
@@ -800,10 +801,11 @@ fn design_contracts_review_dates_and_assets() {
     if !rendered() {
         return;
     }
+    let site = copied_site();
     let review = regex::Regex::new(r"Last reviewed ([0-9]{1,2} [A-Z][a-z]+ [0-9]{4})\.").unwrap();
     for rel in ["index.html", "tools/index.html", "evidence/index.html"] {
         // Mutate whatever review date the page carries today.
-        let html = std::fs::read_to_string(copied_site().path().join(rel)).unwrap();
+        let html = std::fs::read_to_string(root().join(rel)).unwrap();
         let visible = review
             .captures(&html)
             .unwrap_or_else(|| panic!("{rel}: no review date"))[1]
@@ -811,91 +813,98 @@ fn design_contracts_review_dates_and_assets() {
         let structured = site_tools::pytime::strptime_day_month_year(&visible)
             .unwrap()
             .isoformat();
-        let site = copied_site();
-        replace_file(
+        {
+            let _saved = SavedFile::capture(site.path(), rel);
+            replace_file(
+                site.path(),
+                rel,
+                &format!("Last reviewed {visible}."),
+                "Last reviewed 1 September 2026.",
+            );
+            expect_failure(
+                rel,
+                &design::check_opening_review_dates(site.path()).unwrap(),
+                "does not match JSON-LD dateModified",
+            );
+            replace_file(
+                site.path(),
+                rel,
+                &format!("\"dateModified\": \"{structured}\""),
+                "\"dateModified\": \"2026-09-01\"",
+            );
+            assert_clean(
+                rel,
+                &design::check_opening_review_dates(site.path()).unwrap(),
+            );
+        }
+    }
+    {
+        let _saved = SavedFile::capture(site.path(), "assets/site.css");
+        append_file(
             site.path(),
-            rel,
-            &format!("Last reviewed {visible}."),
-            "Last reviewed 1 September 2026.",
+            "assets/site.css",
+            "\n.mutation-gradient { background: linear-gradient(#000, #fff); }\n",
         );
         expect_failure(
-            rel,
-            &design::check_opening_review_dates(site.path()).unwrap(),
-            "does not match JSON-LD dateModified",
-        );
-        let site = copied_site();
-        replace_file(
-            site.path(),
-            rel,
-            &format!("Last reviewed {visible}."),
-            "Last reviewed 1 September 2026.",
-        );
-        replace_file(
-            site.path(),
-            rel,
-            &format!("\"dateModified\": \"{structured}\""),
-            "\"dateModified\": \"2026-09-01\"",
-        );
-        assert_clean(
-            rel,
-            &design::check_opening_review_dates(site.path()).unwrap(),
+            "banned gradient",
+            &repository(site.path()),
+            "banned CSS pattern linear-gradient",
         );
     }
-    let site = copied_site();
-    append_file(
-        site.path(),
-        "assets/site.css",
-        "\n.mutation-gradient { background: linear-gradient(#000, #fff); }\n",
-    );
-    expect_failure(
-        "banned gradient",
-        &repository(site.path()),
-        "banned CSS pattern linear-gradient",
-    );
-    let site = copied_site();
-    std::fs::write(
-        site.path().join("assets/coal-lsl-calculator.webp"),
-        b"not-a-webp",
-    )
-    .unwrap();
-    expect_failure(
-        "invalid proof image",
-        &repository(site.path()),
-        "assets/coal-lsl-calculator.webp: proof image is not a WebP container",
-    );
-    let site = copied_site();
-    std::fs::remove_file(site.path().join("assets/fonts/Besley-Regular.woff2")).unwrap();
-    expect_failure(
-        "protected font removed",
-        &repository(site.path()),
-        "protected font missing: assets/fonts/Besley-Regular.woff2",
-    );
-    let site = copied_site();
-    std::fs::remove_file(site.path().join(".well-known/security.txt")).unwrap();
-    expect_failure(
-        "security contact file removed",
-        &repository(site.path()),
-        ".well-known/security.txt: security.txt missing",
-    );
-    let site = copied_site();
-    replace_file(
-        site.path(),
-        ".well-known/security.txt",
-        "Expires: 2027-08-31T14:00:00.000Z",
-        "Expires: 2020-01-01T00:00:00.000Z",
-    );
-    expect_failure(
-        "security contact file expired",
-        &repository(site.path()),
-        ".well-known/security.txt: Expires has passed; refresh the file",
-    );
-    let site = copied_site();
-    replace_file(site.path(), "_config.yml", "  - .well-known\n", "");
-    expect_failure(
-        "security contact file unpublished",
-        &repository(site.path()),
-        "_config.yml: must include .well-known so Pages publishes security.txt",
-    );
+    {
+        let _saved = SavedFile::capture(site.path(), "assets/coal-lsl-calculator.webp");
+        std::fs::write(
+            site.path().join("assets/coal-lsl-calculator.webp"),
+            b"not-a-webp",
+        )
+        .unwrap();
+        expect_failure(
+            "invalid proof image",
+            &repository(site.path()),
+            "assets/coal-lsl-calculator.webp: proof image is not a WebP container",
+        );
+    }
+    {
+        let _saved = SavedFile::capture(site.path(), "assets/fonts/Besley-Regular.woff2");
+        std::fs::remove_file(site.path().join("assets/fonts/Besley-Regular.woff2")).unwrap();
+        expect_failure(
+            "protected font removed",
+            &repository(site.path()),
+            "protected font missing: assets/fonts/Besley-Regular.woff2",
+        );
+    }
+    {
+        let _saved = SavedFile::capture(site.path(), ".well-known/security.txt");
+        std::fs::remove_file(site.path().join(".well-known/security.txt")).unwrap();
+        expect_failure(
+            "security contact file removed",
+            &repository(site.path()),
+            ".well-known/security.txt: security.txt missing",
+        );
+    }
+    {
+        let _saved = SavedFile::capture(site.path(), ".well-known/security.txt");
+        replace_file(
+            site.path(),
+            ".well-known/security.txt",
+            "Expires: 2027-08-31T14:00:00.000Z",
+            "Expires: 2020-01-01T00:00:00.000Z",
+        );
+        expect_failure(
+            "security contact file expired",
+            &repository(site.path()),
+            ".well-known/security.txt: Expires has passed; refresh the file",
+        );
+    }
+    {
+        let _saved = SavedFile::capture(site.path(), "_config.yml");
+        replace_file(site.path(), "_config.yml", "  - .well-known\n", "");
+        expect_failure(
+            "security contact file unpublished",
+            &repository(site.path()),
+            "_config.yml: must include .well-known so Pages publishes security.txt",
+        );
+    }
 }
 
 fn png(data: &[u8], level: u32, header: &[u8]) -> Vec<u8> {

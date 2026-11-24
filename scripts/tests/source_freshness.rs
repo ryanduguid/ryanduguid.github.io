@@ -208,7 +208,7 @@ fn check_fails_loudly_if_the_card_markup_stops_matching() {
 #[test]
 fn the_committed_tools_register_is_stamped_and_consistent() {
     let html = site_tools::read(&common::repository().join("tools/index.html")).unwrap();
-    let today = jiff::Timestamp::now().strftime("%Y-%m-%d").to_string();
+    let today = site_tools::rates_register::today().isoformat();
     assert_eq!(check_html(&html, &today), Vec::<String>::new());
 }
 
@@ -423,6 +423,8 @@ struct Fake {
     env: Vec<(&'static str, &'static str)>,
     said: Vec<(String, bool)>,
     built: bool,
+    synced: bool,
+    sync_error: Option<String>,
 }
 
 impl Fake {
@@ -433,6 +435,8 @@ impl Fake {
             env: Vec::new(),
             said: Vec::new(),
             built: false,
+            synced: false,
+            sync_error: None,
         }
     }
 }
@@ -454,6 +458,13 @@ impl Host for Fake {
     }
     fn build_site(&mut self, _root: &Path) -> Result<(), String> {
         self.built = true;
+        Ok(())
+    }
+    fn sync_derived(&mut self, _root: &Path) -> Result<(), String> {
+        if let Some(error) = &self.sync_error {
+            return Err(error.clone());
+        }
+        self.synced = true;
         Ok(())
     }
     fn say(&mut self, text: &str, stderr: bool) {
@@ -1176,6 +1187,180 @@ fn a_tool_release_refresh_from_the_snapshot_reproduces_the_snapshot() {
         site_tools::read(&root.path().join("_data/tool_releases.json")).unwrap(),
         site_tools::read(&repository.join("_data/tool_releases.json")).unwrap()
     );
+}
+
+#[test]
+fn offline_release_sync_reproduces_stamped_pages_without_gh_and_reports_derived_failure() {
+    let repository = common::repository();
+    let root = tempfile::tempdir().unwrap();
+    for rel in REFRESHED {
+        let to = root.path().join(rel);
+        std::fs::create_dir_all(to.parent().unwrap()).unwrap();
+        std::fs::copy(repository.join(rel), to).unwrap();
+    }
+    let tool_data = object(&repository.join("_data/tools.json"));
+    for slug in tool_data.keys() {
+        let rel = format!("tools/{slug}/index.html");
+        std::fs::create_dir_all(root.path().join(format!("tools/{slug}"))).unwrap();
+        std::fs::copy(repository.join(&rel), root.path().join(&rel)).unwrap();
+    }
+    // Perturb stamped outputs before syncing so assertions prove apply_tool_releases rewrote them.
+    let home_path = root.path().join("index.html");
+    let home = site_tools::read(&home_path).unwrap();
+    let ozzit_release = &object(&repository.join("_data/tool_releases.json"))["ozzit"];
+    let ozzit_ver = ozzit_release["version"].as_str().unwrap();
+    std::fs::write(
+        &home_path,
+        home.replacen(&format!("Ozzit v{ozzit_ver}"), "Ozzit v0.0.1", 1),
+    )
+    .unwrap();
+    let llms_path = root.path().join("llms.txt");
+    let llms = site_tools::read(&llms_path).unwrap();
+    let mcp_release =
+        &object(&repository.join("_data/tool_releases.json"))["australian-tax-ai-agents"];
+    let mcp_ver = mcp_release["version"].as_str().unwrap();
+    std::fs::write(
+        &llms_path,
+        llms.replacen(
+            &format!("current release v{mcp_ver}"),
+            "current release v0.0.1",
+            1,
+        ),
+    )
+    .unwrap();
+    let ozzit_page = root.path().join("tools/ozzit/index.html");
+    let ozzit_html = site_tools::read(&ozzit_page).unwrap();
+    std::fs::write(
+        &ozzit_page,
+        ozzit_html.replacen(
+            &format!(r#""softwareVersion": "{ozzit_ver}""#),
+            r#""softwareVersion": "0.0.1""#,
+            1,
+        ),
+    )
+    .unwrap();
+
+    let mut host = Fake::new(|_| Err("gh should not be called".into()));
+    assert_eq!(
+        main_with(root.path(), &["--sync-releases".to_owned()], &mut host),
+        0,
+        "{:?}",
+        host.said
+    );
+    assert!(host.asked.is_empty());
+    assert!(host.synced);
+    assert_eq!(
+        host.said,
+        [(
+            "release metadata, feed, llms-full and design baseline synced offline".to_owned(),
+            false
+        )]
+    );
+    for rel in ["tools/index.html", "sitemap.xml", "index.html", "llms.txt"] {
+        assert_eq!(
+            site_tools::read(&root.path().join(rel)).unwrap(),
+            site_tools::read(&repository.join(rel)).unwrap(),
+            "{rel}"
+        );
+    }
+    for slug in tool_data.keys() {
+        let rel = format!("tools/{slug}/index.html");
+        assert_eq!(
+            site_tools::read(&root.path().join(&rel)).unwrap(),
+            site_tools::read(&repository.join(&rel)).unwrap(),
+            "{rel}"
+        );
+    }
+
+    let mut failing = Fake::new(|_| Err("gh should not be called".into()));
+    failing.sync_error = Some("build_feed --write exited with status 1".into());
+    assert_eq!(
+        main_with(root.path(), &["--sync-releases".to_owned()], &mut failing),
+        2
+    );
+    assert!(failing.asked.is_empty());
+    assert_eq!(
+        failing.said,
+        [("build_feed --write exited with status 1".to_owned(), true)]
+    );
+}
+
+#[test]
+fn default_sync_derived_updates_feed_llms_full_and_baseline_and_stops_on_nonzero() {
+    struct DefaultSyncHost;
+    impl Host for DefaultSyncHost {
+        fn gh(&mut self, _: &[&str], _: Option<Duration>) -> Result<String, String> {
+            Err("gh should not be called".into())
+        }
+        fn env(&self, _: &str) -> Option<String> {
+            None
+        }
+        fn today(&self) -> String {
+            "2026-11-24".into()
+        }
+        fn build_site(&mut self, _: &Path) -> Result<(), String> {
+            Ok(())
+        }
+        fn say(&mut self, _: &str, _: bool) {}
+    }
+
+    let root = tempfile::tempdir().unwrap();
+    for dir in ["_data", "changelog", "scripts"] {
+        std::fs::create_dir_all(root.path().join(dir)).unwrap();
+    }
+    std::fs::write(root.path().join("_data/tool_releases.json"), "{}\n").unwrap();
+    std::fs::write(
+        root.path().join("changelog/index.html"),
+        "<!doctype html><html><body><main><h1>Changelog</h1><section aria-labelledby=\"site-changes\"><h2 id=\"site-changes\">Site changes</h2><table><tbody><tr><th scope=\"row\">24 November 2026</th><td>Home</td><td>Added example</td></tr></tbody></table></section></main></body></html>\n",
+    )
+    .unwrap();
+    std::fs::write(root.path().join("robots.txt"), "User-agent: *\nAllow: /\n").unwrap();
+    std::fs::write(
+        root.path().join("sitemap.xml"),
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url><loc>https://duguid.com.au/</loc><lastmod>2026-11-24</lastmod></url>\n</urlset>\n",
+    )
+    .unwrap();
+    std::fs::write(
+        root.path().join("index.html"),
+        "<!doctype html><html><head><title>Home</title></head><body><main><h1>Home</h1><p>Content.</p></main></body></html>\n",
+    )
+    .unwrap();
+    std::fs::write(
+        root.path().join("llms.txt"),
+        "# Site\n\n## Pages\n\n- [Home](https://duguid.com.au/): Home page.\n\n## Full text by section\n\nPlaceholder.\n",
+    )
+    .unwrap();
+    std::fs::write(
+        root.path().join("scripts/design_baseline.json"),
+        "{\n  \"protected_files\": {\n    \"robots.txt\": \"stale\"\n  },\n  \"protected_main_text\": {\n    \"index.html\": \"stale\"\n  }\n}\n",
+    )
+    .unwrap();
+
+    let mut host = DefaultSyncHost;
+    host.sync_derived(root.path()).unwrap();
+    assert!(root.path().join("feed.xml").is_file());
+    assert!(root.path().join("llms-full.txt").is_file());
+    assert_eq!(
+        site_tools::read(&root.path().join(".well-known/llms.txt")).unwrap(),
+        site_tools::read(&root.path().join("llms.txt")).unwrap()
+    );
+    let baseline = object(&root.path().join("scripts/design_baseline.json"));
+    assert_ne!(baseline["protected_files"]["robots.txt"], "stale");
+    assert_ne!(baseline["protected_main_text"]["index.html"], "stale");
+
+    // A non-sitemap page missing <main> lets llms_full succeed and makes check_design --update-baseline exit 1.
+    std::fs::write(
+        root.path().join("extra.html"),
+        "<!doctype html><html><body><p>No main.</p></body></html>\n",
+    )
+    .unwrap();
+    std::fs::write(
+        root.path().join("scripts/design_baseline.json"),
+        "{\n  \"protected_files\": {\n    \"robots.txt\": \"stale\"\n  },\n  \"protected_main_text\": {\n    \"extra.html\": \"stale\"\n  }\n}\n",
+    )
+    .unwrap();
+    let err = host.sync_derived(root.path()).unwrap_err();
+    assert_eq!(err, "check_design --update-baseline exited with status 1");
 }
 
 #[cfg(unix)]
