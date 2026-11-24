@@ -877,8 +877,21 @@ test('transfer duty at the top of a band uses that band and rejects a broken tab
   // NT: (0.06571441 x 525^2) + 15 x 525 = 25,987.53425625, then 4.95% of the whole value.
   assert.equal(transferDuty('525000', transferDutyScales['AU-NT']).duty, 25987.53);
   assert.equal(transferDuty('525001', transferDutyScales['AU-NT']).duty, 25987.55);
-  // Victoria rounds nothing before the cent: 2.4% of $25,001 - $25,000 is 2.4 cents.
-  assert.equal(transferDuty('25001', transferDutyScales['AU-VIC']).duty, 350.02);
+  // Duties Act 2000 (Vic) s 28(1), read 24 November 2026: to the nearest whole dollar, 50 cents down.
+  // $350 + 2.4% of $1 is $350.024, so $350; 1.4% of $25 is $0.35, so nil; 1.4% of $50 is $0.70, so $1.
+  assert.equal(transferDuty('25001', transferDutyScales['AU-VIC']).duty, 350);
+  assert.equal(transferDuty('25', transferDutyScales['AU-VIC']).duty, 0);
+  assert.equal(transferDuty('50', transferDutyScales['AU-VIC']).duty, 1);
+  // 1.4% of $2,125 is $29.75, up to $30; 1.4% of $2,175 is $30.45, down to $30; 1.4% of $2,250 is
+  // exactly $31.50, which s 28(1) takes down to $31.
+  assert.equal(transferDuty('2125', transferDutyScales['AU-VIC']).duty, 30);
+  assert.equal(transferDuty('2175', transferDutyScales['AU-VIC']).duty, 30);
+  assert.equal(transferDuty('2250', transferDutyScales['AU-VIC']).duty, 31);
+  // 1.4% of $393 is $5.502: over 50 cents, so $6, though it is $5.50 to the cent.
+  assert.equal(transferDuty('393', transferDutyScales['AU-VIC']).duty, 6);
+  // 5.5% of $960,010 is $52,800.55, to $52,801; the premium band's $110,000 + 6.5% of $10 is $110,000.65, to $110,001.
+  assert.equal(transferDuty('960010', transferDutyScales['AU-VIC']).duty, 52801);
+  assert.equal(transferDuty('2000010', transferDutyScales['AU-VIC']).duty, 110001);
   assert.throws(() => transferDuty('0', transferDutyScales['AU-NSW']), { message: 'Enter a whole number between 1 and 1000000000.' });
   const nsw = transferDutyScales['AU-NSW'];
   for (const broken of [[], nsw.slice(1), nsw.slice(0, -1), [...nsw.slice(0, 2), ...nsw.slice(3)],
@@ -916,9 +929,9 @@ test('first home buyer duty matches the revenue offices’ figures either side o
     ['799999', 20115], ['800000', 21850], ['850000', 24100]]) {
     assert.equal(duty(value, 'AU-QLD').duty, expected, value);
   }
-  // By hand: Victoria's general duty on $600,001 is $31,070.06, times $1 / $150,000, and on
-  // $700,000 $37,070 times 100,000 / 150,000. Western Australia: $16.15 for each $100, or part.
-  for (const [value, expected] of [['600000', 0], ['600001', 0.21], ['700000', 24713.33], ['750000', 40070], ['750001', 40070.06]]) {
+  // By hand: Victoria's general duty on $600,001 is $31,070.06, $31,070 to the dollar (s 28(1)), times
+  // $1 / $150,000, and on $700,000 $37,070 times 100,000 / 150,000. Western Australia: $16.15 for each $100, or part.
+  for (const [value, expected] of [['600000', 0], ['600001', 0.21], ['700000', 24713.33], ['750000', 40070], ['750001', 40070]]) {
     assert.equal(duty(value, 'AU-VIC').duty, expected, value);
   }
   for (const [value, expected] of [['600000', 0], ['600001', 16.15], ['700000', 16150], ['800000', 32300], ['800001', 32320.65]]) {
@@ -5041,9 +5054,10 @@ test('workers compensation applies each scheme’s thresholds, rounding and mini
   // icare's $240 minimum: $12,000 at 2% is exactly $240 and stands; a cent of premium less is refused.
   assert.equal(ok({ place: 'AU-NSW', wages: '12000', rate: '2' }).premium, 240);
   assert.throws(() => wc({ place: 'AU-NSW', wages: '11999.5', rate: '2' }), /\$239\.99 is below icare’s minimum premium of \$240/);
-  // NSW: the apprentice incentive is apprentice wages × the WIC rate, and the dust diseases rate already includes GST.
-  const nsw = ok({ place: 'AU-NSW', wages: '500000', rate: '2', apprentice: '50000', dust: '0.044' });
-  assert.deepEqual([nsw.premium, nsw.gst, nsw.total], [9000, 900, 10120]);
+  // NSW: the dust diseases rate already includes GST; an apprentice incentive is refused, as icare does not
+  // say whether it comes off before or after GST.
+  const nsw = ok({ place: 'AU-NSW', wages: '500000', rate: '2', dust: '0.044' });
+  assert.deepEqual([nsw.premium, nsw.gst, nsw.total], [10000, 1000, 11220]);
   // ReturnToWorkSA's discount bands: 5% under $10,000 up to 30% at $1,000,000, each from its lower bound.
   for (const [base, band] of [['9999.99', 5], ['10000', 10], ['49999.99', 10], ['50000', 15], ['99999.99', 15], ['100000', 20],
     ['499999.99', 20], ['500000', 25], ['999999.99', 25], ['1000000', 30]]) {
@@ -5100,7 +5114,10 @@ test('workers compensation refuses what only the insurer decides and malformed i
     [{ place: 'AU-VIC', vicEmployer: 'other' }, /performance-rated premium/],
     [{ place: 'AU-QLD', qldStart: 'existing' }, /simplified or experience-based model/],
     [{ place: 'AU-SA', group: 'yes' }, /group’s wages or premiums together/],
-    [{ place: 'AU-NSW', apprentice: '400000.01' }, 'Apprentice wages are part of the wages: enter no more than the wages.'],
+    [{ place: 'AU-QLD', apprentice: '400000.01' }, 'Apprentice wages are part of the wages: enter no more than the wages.'],
+    [{ place: 'AU-NSW', apprentice: '0.01' }, /Error: icare discounts the apprentice incentive ‘after premium payable is calculated’/],
+    [{ place: 'AU-QLD', actual: '400000' }, /Error: WorkCover Queensland Notice \(No\. 1\) of 2026 sets no year-end adjustment/],
+    [{ place: 'AU-VIC', wages: '0.49' }, /Error: The remuneration rounds to \$0, and clause 11’s deductible divides by it/],
     [{ place: 'AU-WA', apprentice: '1' }, 'There is no apprentice deduction for Western Australia here: enter 0 apprentice wages.'],
     [{ rate: '0' }, rate], [{ rate: '1.00001' }, rate], [{ rate: '' }, rate],
     [{ wages: '' }, 'Enter the estimated wages in dollars and cents, from $0 to $10,000,000,000.'],
@@ -5111,6 +5128,8 @@ test('workers compensation refuses what only the insurer decides and malformed i
     [{ place: 'AU-NSW', wages: '1000000', rate: '2', actual: '1600000' }, /Error: On the actual wages, the average performance premium of \$32,000\.00/]]) {
     assert.throws(() => wc(change), message instanceof RegExp ? message : { message }, JSON.stringify(change));
   }
+  // 50 cents of Victorian remuneration rounds to $1 (clause 6(6)), so clause 11 divides and the $400 minimum applies.
+  assert.equal(wc({ place: 'AU-VIC', wages: '0.5' }).premium, 400);
   // A group does not change a privately set rate × wages, and only the chosen scheme's own answers are read.
   assert.equal(wc({ group: 'yes' }).total, 15400);
   assert.equal(wc({ dust: 'x', days: 'x', claims: 'x', vicEmployer: 'x', qldStart: 'x', firstYear: 'x' }).total, 15400);

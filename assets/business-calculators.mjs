@@ -126,7 +126,8 @@ export { FREQUENCIES, financeSchedule, financeResult, interestByIncomeYear } fro
 export { lease, leaseComparison, leaseResult } from './lease.mjs';
 export { div7aMinimumRepayment, div7aSchedule, div7aScheduleResult } from './div7a.mjs';
 
-const TRANSFER_DUTY_RULES = ['excess-rounded-up-to-100', 'excess', 'whole-value', 'nt-formula'];
+const TRANSFER_DUTY_RULES = ['excess-rounded-up-to-100', 'excess', 'whole-value', 'nt-formula', 'excess-to-dollar',
+  'whole-value-to-dollar'];
 
 /** General transfer (stamp) duty on one dutiable value, from one jurisdiction's scale in
  * rates/transfer-duty/transfer-duty-rates.csv. A bracket covers values above `over` up to and
@@ -136,7 +137,8 @@ const TRANSFER_DUTY_RULES = ['excess-rounded-up-to-100', 'excess', 'whole-value'
  * whole-value: the rate per cent of the whole value;
  * nt-formula: Stamp Duty Act 1978 (NT) Schedule 1 clause 1(2)(a): (0.06571441 x V squared)
  * + 15V, V being the value divided by 1,000.
- * A fraction of a cent rounds half up.
+ * A fraction of a cent rounds half up. A rule ending -to-dollar then takes the duty to the nearest
+ * whole dollar, 50 cents down (Duties Act 2000 (Vic) s 28(1), read 24 November 2026).
  * @param {string} value the dutiable value in whole dollars
  * @param {readonly (readonly string[])[]} scale
  *   [over, to, base, rate per cent, rule] for each bracket, lowest first */
@@ -146,19 +148,28 @@ export function transferDuty(value, scale) {
     TRANSFER_DUTY_RULES.includes(rule) && over === (index ? scale[index - 1][1] : '0')
       && (index === scale.length - 1 ? to === '' : /^\d+$/.test(to) && Number(to) > Number(over)));
   if (!contiguous) throw new Error('This jurisdiction’s rate table is not usable.');
-  const bracket = scale.findIndex(([, to]) => to === '' || dollars <= Number(to));
-  const [over, , base, rate, rule] = scale[bracket];
+  // The last band is open (to === ''), so a band always matches.
+  const row = /** @type {readonly string[]} */ (scale.find(([, to]) => to === '' || dollars <= Number(to)));
+  const bracket = scale.indexOf(row);
+  const [over, , base, rate, named] = row;
+  const toDollar = named.endsWith('-to-dollar');
+  const rule = toDollar ? named.slice(0, -'-to-dollar'.length) : named;
   const whole = BigInt(dollars);
   const excess = whole - BigInt(over);
   // A rate has at most 2 decimal places: whole hundredths of 1%, or cents for every $100.
   const hundredths = BigInt(Math.round(number(rate, { max: 100 }) * 100));
   const baseCents = BigInt(number(base, { integer: true })) * 100n;
-  let duty;
-  if (rule === 'excess-rounded-up-to-100') duty = baseCents + hundredths * ((excess + 99n) / 100n);
-  else if (rule === 'excess') duty = baseCents + ratioCents(hundredths * excess, 100n);
-  else if (rule === 'whole-value') duty = ratioCents(hundredths * whole, 100n);
+  // The exact duty in cents as numerator / denominator.
+  let exact;
+  if (rule === 'excess-rounded-up-to-100') exact = [baseCents + hundredths * ((excess + 99n) / 100n), 1n];
+  else if (rule === 'excess') exact = [baseCents * 100n + hundredths * excess, 100n];
+  else if (rule === 'whole-value') exact = [hundredths * whole, 100n];
   // (0.06571441 V^2 + 15 V) dollars with V = value / 1,000 is (6571441 value^2 + 15 x 10^11 value) / 10^12 cents.
-  else duty = ratioCents(6571441n * whole * whole + 1500000000000n * whole, 1000000000000n);
+  else exact = [6571441n * whole * whole + 1500000000000n * whole, 1000000000000n];
+  const [numerator, denominator] = exact;
+  // To the dollar, 50 cents down: the whole dollars above (cents - 50) / 100.
+  const duty = toDollar ? (numerator + 50n * denominator - 1n) / (100n * denominator) * 100n
+    : ratioCents(numerator, denominator);
   return { duty: Number(duty) / 100, bracket };
 }
 

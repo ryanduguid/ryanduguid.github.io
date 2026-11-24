@@ -559,6 +559,19 @@ fn duty_oracle(place: &str, dollars: u64) -> u64 {
         .rev()
         .find(|band| dollars > band_over(**band))
         .unwrap_or(&bands[0]);
+    // Duties Act 2000 (Vic) s 28(1), read 24 November 2026: the exact duty to the nearest
+    // whole dollar, 50 cents down. Victoria's bands are all a percentage, so the exact duty
+    // is a whole number of hundredths of a cent.
+    if place == "AU-VIC" {
+        let hundredths = match band {
+            Band::Excess { over, base, points } => {
+                u128::from(base) * 10_000 + u128::from(points) * u128::from(dollars - over)
+            }
+            Band::Whole { points, .. } => u128::from(points) * u128::from(dollars),
+            Band::PerHundred { .. } => unreachable!("Victoria has no per $100 band"),
+        };
+        return u64::try_from((hundredths + 4_999) / 10_000 * 100).unwrap();
+    }
     let cents = match band {
         Band::PerHundred { over, base, cents } => {
             base * 100 + cents * (dollars - over).div_ceil(100)
@@ -1618,6 +1631,10 @@ fn the_duty_oracle_gives_the_revenue_offices_worked_figures() {
             1_907_000,
             "SRO Victoria standard rate example",
         ),
+        // Duties Act 2000 (Vic) s 28(1): 1.4% of $393 is $5.502, $6; 1.4% of $2,250 is
+        // exactly $31.50, $31.
+        ("AU-VIC", 393, 600, "s 28(1), over 50 cents"),
+        ("AU-VIC", 2_250, 3_100, "s 28(1), 50 cents down"),
         ("AU-QLD", 850_000, 3_127_500, "QRO calculation example"),
         (
             "AU-SA",
@@ -7738,9 +7755,13 @@ fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
         "AU-NSW" => {
             // SIRA's Guidelines 2026 clause 6.7: small while the APP does not exceed $30,000,
             // tested on wages × the rate before any rounding (icare, read 24 November 2026);
-            // icare's $240 minimum; the dust diseases rate includes its GST.
+            // icare's $240 minimum; the dust diseases rate includes its GST. The apprentice
+            // incentive is refused: icare does not say whether it comes off before or after GST.
+            if c.apprentice != 0 {
+                return None;
+            }
             let app = cents_at(wages, c.rate);
-            let premium = app - cents_at(app, c.reward) - cents_at(c.apprentice, c.rate);
+            let premium = app - cents_at(app, c.reward);
             if wages * c.rate > 3_000_000 * 1_000_000 || premium < 24_000 {
                 return None;
             }
@@ -7759,17 +7780,17 @@ fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
             // premium in millionths of a dollar, and clause 11 as written, preliminary premium
             // ÷ R × 15,500 × N ÷ 365, N ÷ 365 to 6 decimal places (clause 6(1)), to the nearest
             // cent (clause 6(4)); the WorkCover premium down to the cent and at least $400.
+            // Nil remuneration: clause 11 divides by it, so the Order gives no figure.
             let remuneration = wc_half(wages, 100);
+            if remuneration == 0 {
+                return None;
+            }
             let preliminary = remuneration * c.rate;
-            let deductible = if remuneration == 0 {
-                0
-            } else {
-                let share = wc_half(c.days * 1_000_000, 365);
-                wc_half(
-                    preliminary * 15_500 * share,
-                    remuneration * 1_000_000 * 10_000,
-                )
-            };
+            let share = wc_half(c.days * 1_000_000, 365);
+            let deductible = wc_half(
+                preliminary * 15_500 * share,
+                remuneration * 1_000_000 * 10_000,
+            );
             let workcover = ((preliminary - deductible * 10_000).max(0) / 10_000).max(40_000);
             let premium = workcover + if c.buyout { workcover / 10 } else { 0 };
             Some([premium, gst(premium), 0, premium + gst(premium)])
@@ -7849,7 +7870,11 @@ fn wc_oracle(c: &WcCase) -> Value {
     let refused = json!({"refused": true});
     let state = ["AU-NSW", "AU-VIC", "AU-QLD", "AU-SA"].contains(&c.place);
     let apprentices = ["AU-NSW", "AU-QLD", "AU-SA"].contains(&c.place);
-    if (c.group && state) || (!apprentices && c.apprentice != 0) {
+    // Queensland's Notice (No. 1) of 2026 sets no 2026-27 adjustment on actual wages.
+    if (c.group && state)
+        || (!apprentices && c.apprentice != 0)
+        || (c.place == "AU-QLD" && c.actual.is_some())
+    {
         return refused;
     }
     let Some([premium, gst, duty, total]) = wc_premium(c, c.wages) else {

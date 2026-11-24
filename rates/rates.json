@@ -3136,8 +3136,8 @@
           "value_to": "25000",
           "base_amount": "0",
           "rate_percent": "1.4",
-          "rule": "excess",
-          "notes": "General (non-principal place of residence) rates for contracts from 1 July 2021",
+          "rule": "excess-to-dollar",
+          "notes": "General (non-principal place of residence) rates for contracts from 1 July 2021; duty to the nearest whole dollar with 50 cents down (Duties Act 2000 (Vic) s 28(1))",
           "source_url": "https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates",
           "checked_at": "2026-11-15"
         },
@@ -3148,7 +3148,7 @@
           "value_to": "130000",
           "base_amount": "350",
           "rate_percent": "2.4",
-          "rule": "excess",
+          "rule": "excess-to-dollar",
           "notes": "",
           "source_url": "https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates",
           "checked_at": "2026-11-15"
@@ -3160,7 +3160,7 @@
           "value_to": "960000",
           "base_amount": "2870",
           "rate_percent": "6",
-          "rule": "excess",
+          "rule": "excess-to-dollar",
           "notes": "",
           "source_url": "https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates",
           "checked_at": "2026-11-15"
@@ -3172,7 +3172,7 @@
           "value_to": "2000000",
           "base_amount": "0",
           "rate_percent": "5.5",
-          "rule": "whole-value",
+          "rule": "whole-value-to-dollar",
           "notes": "5.5% of the whole dutiable value",
           "source_url": "https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates",
           "checked_at": "2026-11-15"
@@ -3184,7 +3184,7 @@
           "value_to": "",
           "base_amount": "110000",
           "rate_percent": "6.5",
-          "rule": "excess",
+          "rule": "excess-to-dollar",
           "notes": "Premium rate over $2 million",
           "source_url": "https://www.sro.vic.gov.au/about-us/rates-and-statistics/current-rates/land-transfer-duty-non-principal-place-residence-current-rates",
           "checked_at": "2026-11-15"
