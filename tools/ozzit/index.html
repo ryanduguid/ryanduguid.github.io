@@ -12,10 +12,10 @@ tool: ozzit
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <title>Ozzit: Excel LAMBDA functions for Australian modelling</title>
-  <meta name="description" content="A free Excel workbook of 151 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation." />
+  <meta name="description" content="A free Excel workbook of 165 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="Ozzit: Excel LAMBDA functions for Australian modelling" />
-  <meta property="og:description" content="A free Excel workbook of 151 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation." />
+  <meta property="og:description" content="A free Excel workbook of 165 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -27,7 +27,7 @@ tool: ozzit
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Ozzit: Excel LAMBDA functions for Australian modelling" />
-  <meta name="twitter:description" content="A free Excel workbook of 151 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation." />
+  <meta name="twitter:description" content="A free Excel workbook of 165 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261123.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/ozzit/" />
@@ -59,14 +59,14 @@ tool: ozzit
         </nav>
         <div class="article-intro">
           <h1>{{ tool.name }}</h1>
-          <p class="lead-note">The Ozzit workbook holds 151 functions and 5 help tables for GST, financial years, depreciation, loans and leases, and every definition is visible in Excel.</p>
-    {% include tool-meta.html published="18 September 2026" reviewed="23 November 2026" %}
+          <p class="lead-note">The Ozzit workbook holds 165 functions and 5 help tables for GST, financial years, depreciation, loans and leases, and every definition is visible in Excel.</p>
+    {% include tool-meta.html published="18 September 2026" reviewed="24 November 2026" %}
 {% include tool-facts.html %}
           <div class="article-actions">
-            <a class="button" href="https://github.com/ryanduguid/Ozzit/releases/download/v3.7.0/ozzit.xlsx">Download Ozzit v3.7.0</a>
+            <a class="button" href="https://github.com/ryanduguid/Ozzit/releases/download/v3.8.0/ozzit.xlsx">Download Ozzit v3.8.0</a>
             <a href="#functions">Browse worked formulas</a>
           </div>
-          <p class="field-note">XLSX, 492,757 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or macro.</p>
+          <p class="field-note">XLSX, 553,054 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or macro.</p>
         </div>
         <section class="article-preview" aria-labelledby="gst-preview-title">
           <h2 id="gst-preview-title">Extract GST from $1,100</h2>
@@ -81,7 +81,7 @@ tool: ozzit
           <a href="#what-it-is">What Ozzit is</a>
           <a href="#compatibility">Who it is for and what it needs</a>
           <a href="#functions">Ten worked formulas</a>
-          <a href="#function-index">All 156 named formulas</a>
+          <a href="#function-index">All 170 named formulas</a>
           <a href="#worked-example">One worked example</a>
           <a href="#download">Download and use it</a>
           <a href="#verification">Release verification</a>
@@ -94,9 +94,9 @@ tool: ozzit
           <section id="what-it-is">
             <h2>What Ozzit is</h2>
             <p>An Excel workbook, not a program. Open it, copy a function into your own model, and the formula travels with the file. Every definition is a native <code>LAMBDA</code> stored as a defined name, so the arithmetic stays inside the workbook where a reviewer can read it.</p>
-            <p>The v3.7.0 workbook carries 156 named formulas: 151 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository’s <code>src/</code> folder and indexed in <code>functions.csv</code>.</p>
-            <p>The Australian helpers are deliberately small: GST addition and extraction with a 10% default rate, a 1 July financial year label, 5 helpers for the ATO’s small business benchmark ratios, 2 modelling depreciation schedules and 4 AASB 16 lessee schedules. The rest of the library is general financial modelling.</p>
-            <p>Release v3.7.0 adds <a href="/tools/ozzit/functions/financial/#oz-paygwithholding"><code>oz.PAYGWithholding<span class="function-symbol">λ</span></code></a> for ATO Schedule 1 withholding from a coefficient table you supply. It fixes 3 known v3.6.0 issues affecting reversal flags, corkscrew inputs and module imports.</p>
+            <p>The v3.8.0 workbook carries 170 named formulas: 165 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository’s <code>src/</code> folder and indexed in <code>functions.csv</code>.</p>
+            <p>The Australian helpers cover GST addition and extraction with a 10% default rate, 1 July financial year labels, 5 ATO small business benchmark ratio helpers, modelling depreciation schedules and pools, AASB 16 lessee schedules and journals, PAYG withholding, hire purchase, CGT parcels, general income tax rates, Division 7A minimum repayments, margin scheme GST and FBT gross-up. The rest of the library is general financial modelling.</p>
+            <p>Release v3.8.0 adds 14 functions (<a href="/tools/ozzit/functions/financial/#oz-leasejournal"><code>oz.LeaseJournal<span class="function-symbol">λ</span></code></a>, <code>oz.HPSchedule<span class="function-symbol">λ</span></code>, <code>oz.HPJournal<span class="function-symbol">λ</span></code>, <code>oz.FinanceCompare<span class="function-symbol">λ</span></code>, <code>oz.CGTParcels<span class="function-symbol">λ</span></code>, <code>oz.NetCapitalGain<span class="function-symbol">λ</span></code>, <code>oz.IncomeTax<span class="function-symbol">λ</span></code>, <code>oz.Div7AMinRepayment<span class="function-symbol">λ</span></code>, <code>oz.MarginSchemeGST<span class="function-symbol">λ</span></code>, <code>oz.FBTGrossUp<span class="function-symbol">λ</span></code>, <code>oz.LowValuePool<span class="function-symbol">λ</span></code>, <code>oz.SmallBusinessPool<span class="function-symbol">λ</span></code>, <code>oz.IndexFactor<span class="function-symbol">λ</span></code> and <code>oz.BulletLoan<span class="function-symbol">λ</span></code>), moves Ryan Duguid’s original work to the Apache License 2.0 and adds native <code>workbook_source</code> and <code>audit</code> CLI commands.</p>
           </section>
 
           <section id="compatibility">
@@ -109,7 +109,7 @@ tool: ozzit
                   <tr><th scope="row">Requires</th><td>Microsoft 365 or Excel 2024 or later, with <code>LAMBDA</code> and dynamic arrays</td></tr>
                   <tr><th scope="row">Does not run in</th><td>LibreOffice and Excel versions before 2024, which cannot evaluate the functions</td></tr>
                   <tr><th scope="row">Contains</th><td>No VBA, no macros, no add-in and no external link</td></tr>
-                  <tr><th scope="row">Licence</th><td><a href="https://github.com/ryanduguid/Ozzit/blob/v3.7.0/LICENSE">Ryan Duguid Public Attribution Licence 1.0</a> for v3.6.0 and v3.7.0 (FSL-1.1-ALv2 with an additional public attribution condition). Version 3.5.0 uses <a href="https://github.com/ryanduguid/Ozzit/blob/v3.5.0/LICENSE">Apache License 2.0</a>. The workbooks in v3.2.0 to v3.4.2 use the <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/LICENCE">MIT License</a>.</td></tr>
+                  <tr><th scope="row">Licence</th><td><a href="https://github.com/ryanduguid/Ozzit/blob/v3.8.0/LICENSE">Apache License 2.0</a> for v3.8.0 and v3.5.0. Releases v3.6.0 and v3.7.0 use the <a href="https://github.com/ryanduguid/Ozzit/blob/v3.7.0/LICENSE">Ryan Duguid Public Attribution Licence 1.0</a>. The workbooks in v3.2.0 to v3.4.2 use the <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/LICENCE">MIT License</a>.</td></tr>
                   <tr><th scope="row">Author</th><td>Ryan Duguid. Built from scratch, with provenance recorded in the repository</td></tr>
                 </tbody>
               </table>
@@ -124,9 +124,9 @@ tool: ozzit
           </section>
 
           <section id="function-index">
-            <h2>All 156 named formulas</h2>
-            <p>Each module below lists the names its source file defines in the v3.7.0 workbook, with the released signature of each. Square brackets mark optional arguments. Each name links to its entry on a module page with its parameters, notes and worked examples: <a href="/tools/ozzit/functions/dates/">Dates</a>, <a href="/tools/ozzit/functions/essentials/">Essentials</a>, <a href="/tools/ozzit/functions/financial/">Financial</a>, <a href="/tools/ozzit/functions/ratios/">Ratios</a>, <a href="/tools/ozzit/functions/utilities/">Utilities</a> and <a href="/tools/ozzit/functions/debt/">Debt</a>.</p>
-            <p><a href="/assets/ozzit-functions-v3.7.0.csv" download>Download the full v3.7.0 function index (CSV)</a> for a one-line description of each, or <a href="https://github.com/ryanduguid/Ozzit/blob/v3.7.0/functions.csv">read it on GitHub</a>.</p>
+            <h2>All 170 named formulas</h2>
+            <p>Each module below lists the names its source file defines in the v3.8.0 workbook, with the released signature of each. Square brackets mark optional arguments. Each name links to its entry on a module page with its parameters, notes and worked examples: <a href="/tools/ozzit/functions/dates/">Dates</a>, <a href="/tools/ozzit/functions/essentials/">Essentials</a>, <a href="/tools/ozzit/functions/financial/">Financial</a>, <a href="/tools/ozzit/functions/ratios/">Ratios</a>, <a href="/tools/ozzit/functions/utilities/">Utilities</a> and <a href="/tools/ozzit/functions/debt/">Debt</a>.</p>
+            <p><a href="/assets/ozzit-functions-v3.8.0.csv" download>Download the full v3.8.0 function index (CSV)</a> for a one-line description of each, or <a href="https://github.com/ryanduguid/Ozzit/blob/v3.8.0/functions.csv">read it on GitHub</a>.</p>
 {% include ozzit-function-index.html %}
           </section>
 
@@ -142,25 +142,26 @@ tool: ozzit
 
           <section id="download">
             <h2>Download and use it</h2>
-            <p>For an older workbook, check the licence at its tag. The <a href="https://github.com/ryanduguid/Ozzit/blob/v3.7.0/README.md">v3.7.0 README</a> describes releases through v3.4.2 as MIT. The <a href="https://github.com/ryanduguid/Ozzit/blob/v3.1.0/ATTRIBUTION.md">v3.1.0 grant</a> covers the tooling and documentation and excludes the workbook and formula sources. The <a href="https://github.com/ryanduguid/Ozzit/blob/v3.2.0/ATTRIBUTION.md">v3.2.0 grant</a> explicitly includes them.</p>
-            <p class="install-needs">Needs Microsoft 365 or Excel 2024 or later. Nothing is installed.</p>
+            <p>For an older workbook, check the licence at its tag. The <a href="https://github.com/ryanduguid/Ozzit/blob/v3.8.0/README.md">v3.8.0 README</a> describes releases through v3.4.2 as MIT. The <a href="https://github.com/ryanduguid/Ozzit/blob/v3.1.0/ATTRIBUTION.md">v3.1.0 grant</a> covers the tooling and documentation and excludes the workbook and formula sources. The <a href="https://github.com/ryanduguid/Ozzit/blob/v3.2.0/ATTRIBUTION.md">v3.2.0 grant</a> explicitly includes them.</p>
+            <p class="install-needs">Needs Microsoft 365 or Excel 2024 or later. Nothing is installed for the workbook alone, or install the workbook and CLI via Homebrew.</p>
             <ul>
-              <li><a href="https://github.com/ryanduguid/Ozzit/releases/download/v3.7.0/ozzit.xlsx">Download the v3.7.0 workbook</a> under the <a href="https://github.com/ryanduguid/Ozzit/blob/v3.7.0/LICENSE">Ryan Duguid Public Attribution Licence 1.0</a>. The <a href="https://github.com/ryanduguid/Ozzit/releases/tag/v3.7.0">release page</a> also publishes <code>SHA256SUMS</code> and a provenance record.</li>
-              <li>Check the file before you trust it: the v3.7.0 asset is 492,757 bytes with SHA-256 <code>0ed09fc130d30394c97f6a41e40ab72d3f68093b65a5e109adf11bd901f006bd</code>.</li>
-              <li><a href="https://github.com/ryanduguid/Ozzit">Read the source, guides and changelog</a>, or start with the <a href="https://github.com/ryanduguid/Ozzit/blob/v3.7.0/docs/workbook-use.md">guide to opening the workbook and copying functions</a>.</li>
+              <li><a href="https://github.com/ryanduguid/Ozzit/releases/download/v3.8.0/ozzit.xlsx">Download the v3.8.0 workbook</a> under the <a href="https://github.com/ryanduguid/Ozzit/blob/v3.8.0/LICENSE">Apache License 2.0</a>. The <a href="https://github.com/ryanduguid/Ozzit/releases/tag/v3.8.0">release page</a> also publishes <code>SHA256SUMS</code>, a provenance record and a Sigstore attestation bundle.</li>
+              <li>Or install via the <a href="https://github.com/ryanduguid/homebrew-tap">Homebrew tap</a>: <code>brew tap ryanduguid/tap &amp;&amp; brew install ozzit</code> (installs the <code>ozzit</code> CLI and places <code>ozzit.xlsx</code>, <code>oz.txt</code> and <code>functions.csv</code> under <code>$(brew --prefix)/share/ozzit</code>).</li>
+              <li>Check the file before you trust it: the v3.8.0 asset is 553,054 bytes with SHA-256 <code>6395c321ec12a1c77ae5a62c79cb9784f3bf99a408b8c1f97df278d15b13499a</code>.</li>
+              <li><a href="https://github.com/ryanduguid/Ozzit">Read the source, guides and changelog</a>, or start with the <a href="https://github.com/ryanduguid/Ozzit/blob/v3.8.0/docs/workbook-use.md">guide to opening the workbook and copying functions</a>.</li>
             </ul>
-            <p>To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook’s name manager into your model. The copied definition travels with your workbook under the licence for the Ozzit release you copied. Cite the library with the metadata in <a href="https://github.com/ryanduguid/Ozzit/blob/v3.7.0/CITATION.cff">the v3.7.0 CITATION.cff</a>, which names the release this page documents. The default branch may already carry a later version.</p>
+            <p>To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook’s name manager into your model. The copied definition travels with your workbook under the licence for the Ozzit release you copied. Cite the library with the metadata in <a href="https://github.com/ryanduguid/Ozzit/blob/v3.8.0/CITATION.cff">the v3.8.0 CITATION.cff</a>, which names the release this page documents. The default branch may already carry a later version.</p>
           </section>
 
           <section id="verification">
             <h2>Release verification</h2>
-            <p>Release v3.7.0 was built from a signed tag. Its <a href="https://github.com/ryanduguid/Ozzit/releases/download/v3.7.0/provenance.json">provenance record</a> lists the static gates it passed:</p>
+            <p>Release v3.8.0 was built from a signed tag. Its <a href="https://github.com/ryanduguid/Ozzit/releases/download/v3.8.0/provenance.json">provenance record</a> lists the static gates it passed:</p>
             <ul>
-              <li>The published formula source reproduced all 156 named formulas in the workbook.</li>
-              <li>All 156 rows of the function index matched the workbook and the source modules.</li>
-              <li>All 148 signatures, parameter tables and example blocks described their own function.</li>
+              <li>The published formula source reproduced all 170 named formulas in the workbook.</li>
+              <li>All 170 rows of the function index matched the workbook and the source modules.</li>
+              <li>All 162 signatures, parameter tables and example blocks described their own function.</li>
             </ul>
-            <p>The repository’s <a href="https://github.com/ryanduguid/Ozzit/blob/v3.7.0/RELEASING.md">release process</a> requires a native Excel run before publication to recalculate formulas, run assertions and check cached values. The published provenance records the static checks. On 15 November 2026 the ten worked formulas above returned the same results against the v3.6.0 workbook as against v3.5.0.</p>
+            <p>The repository’s <a href="https://github.com/ryanduguid/Ozzit/blob/v3.8.0/RELEASING.md">release process</a> requires a native Excel run before publication to recalculate formulas, run assertions and check cached values. The published provenance records the static checks. On 15 November 2026 the ten worked formulas above returned the same results against the v3.6.0 workbook as against v3.5.0.</p>
             <p>Those checks establish that the workbook calculates what its definitions say. They do not establish that a given accounting treatment is correct.</p>
           </section>
 
@@ -174,7 +175,7 @@ tool: ozzit
               <li>The ATO benchmark ratio helpers restate the ATO’s arithmetic for amounts you supply. They ship no benchmark ranges and do not read a tax return.</li>
               <li><code>oz.PrimeCost<span class="function-symbol">λ</span></code> and <code>oz.DiminishingValue<span class="function-symbol">λ</span></code> are modelling schedules. They are not ATO Division 40 methods and they do not implement immediate write-off or low-value pools.</li>
               <li>The AASB 16 functions are lessee arithmetic. They do not decide the lease term, what counts as a lease payment or whether an arrangement contains a lease, and they do not cover lessor accounting or the short-term and low-value exemptions.</li>
-              <li>The library contains no individual income tax, Medicare levy, Division 7A interest or tax rate cards.</li>
+              <li>The library leaves out the Medicare levy, tax offsets, Division 7A interest and part-year resident, working holiday maker or special income tax schedules beyond full-year resident and foreign-resident general rates.</li>
               <li>The 13-week cash flow, practice calculator and retention reconciliation workbooks in the repository’s templates folder are separate templates, not functions in this library.</li>
               <li>Known defects are listed in the repository’s changelog and issues. Check a schedule against an independent calculation before relying on it.</li>
             </ul>
@@ -184,13 +185,13 @@ tool: ozzit
             <h2>Common questions</h2>
             <div class="faq">
               <h3>What is Ozzit?</h3>
-              <p>An Excel workbook containing 151 native LAMBDA functions and 5 help tables for financial modelling under Australian conventions, published free under the Ryan Duguid Public Attribution Licence 1.0. It has no add-in, macro or external dependency.</p>
+              <p>An Excel workbook containing 165 native LAMBDA functions and 5 help tables for financial modelling under Australian conventions, published free under the Apache License 2.0. It has no add-in, macro or external dependency.</p>
               <h3>Which Excel versions can run it?</h3>
               <p>Microsoft 365 or Excel 2024 or later, which support LAMBDA and dynamic arrays. LibreOffice and earlier Excel versions cannot evaluate the functions.</p>
               <h3>Does Ozzit calculate Australian tax?</h3>
-              <p>Ozzit applies 10% GST by default, labels Australian financial years and calculates PAYG withholding from supplied coefficients. Its depreciation and lease functions are modelling schedules. It contains no individual income tax, Medicare levy or Division 7A calculations.</p>
+              <p>Ozzit applies 10% GST by default, labels Australian financial years, calculates PAYG withholding from supplied coefficients, and from v3.8.0 covers general-rate income tax (2024-25 to 2026-27), Division 7A minimum repayments, CGT parcels, margin scheme GST, FBT gross-up and depreciation pools. It leaves out the Medicare levy, tax offsets and tax advice.</p>
               <h3>Where do I get the current release?</h3>
-              <p>Download Ozzit v3.7.0 from the <a href="https://github.com/ryanduguid/Ozzit/releases/tag/v3.7.0">GitHub release page.</a> It was published on 18 November 2026. The release includes ozzit.xlsx, SHA256SUMS and a provenance record. Compare the downloaded workbook’s SHA-256 with the published value before use.</p>
+              <p>Download Ozzit v3.8.0 from the <a href="https://github.com/ryanduguid/Ozzit/releases/tag/v3.8.0">GitHub release page</a> or the <a href="https://github.com/ryanduguid/homebrew-tap">Homebrew tap</a> (published 24 November 2026). The release includes ozzit.xlsx, SHA256SUMS, a provenance record and a Sigstore attestation bundle. Compare the downloaded workbook’s SHA-256 with the published value before use.</p>
             </div>
           </section>
 
@@ -220,10 +221,10 @@ tool: ozzit
       "url": "https://duguid.com.au/tools/ozzit/",
       "headline": "Ozzit: Excel LAMBDA functions for Australian modelling",
       "name": "Ozzit: Excel LAMBDA functions for Australian modelling",
-      "description": "A free Excel workbook of 151 native LAMBDA functions and 5 help tables for Australian financial modelling, with GST, financial year, depreciation and AASB 16 lessee helpers.",
+      "description": "A free Excel workbook of 165 native LAMBDA functions and 5 help tables for Australian financial modelling, with GST, financial year, depreciation and AASB 16 lessee helpers.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-18",
-      "dateModified": "2026-11-23",
+      "dateModified": "2026-11-24",
       "license": "https://duguid.com.au/privacy/#licences",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
@@ -253,10 +254,10 @@ tool: ozzit
       "@id": "https://duguid.com.au/tools/ozzit/#webpage",
       "url": "https://duguid.com.au/tools/ozzit/",
       "name": "Ozzit: Excel LAMBDA functions for Australian modelling",
-      "description": "A free Excel workbook of 151 native LAMBDA functions and 5 help tables for Australian financial modelling, with GST, financial year, depreciation and AASB 16 lessee helpers.",
+      "description": "A free Excel workbook of 165 native LAMBDA functions and 5 help tables for Australian financial modelling, with GST, financial year, depreciation and AASB 16 lessee helpers.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-18",
-      "dateModified": "2026-11-23",
+      "dateModified": "2026-11-24",
       "license": "https://duguid.com.au/privacy/#licences",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
@@ -310,17 +311,17 @@ tool: ozzit
         "ozzit.xlsx",
         "Ozzit"
       ],
-      "description": "An Excel workbook of 151 native LAMBDA functions and 5 help tables for dynamic-array financial modelling under Australian conventions. No VBA, add-in or external dependency.",
+      "description": "An Excel workbook of 165 native LAMBDA functions and 5 help tables for dynamic-array financial modelling under Australian conventions. No VBA, add-in or external dependency.",
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Windows, macOS",
       "softwareRequirements": "Microsoft 365 or Excel 2024 or later, with LAMBDA and dynamic arrays",
       "url": "https://duguid.com.au/tools/ozzit/",
-      "downloadUrl": "https://github.com/ryanduguid/Ozzit/releases/download/v3.7.0/ozzit.xlsx",
+      "downloadUrl": "https://github.com/ryanduguid/Ozzit/releases/download/v3.8.0/ozzit.xlsx",
       "codeRepository": "https://github.com/ryanduguid/Ozzit/tree/main",
-      "softwareVersion": "3.7.0",
+      "softwareVersion": "3.8.0",
       "datePublished": "2026-10-19",
-      "dateModified": "2026-11-18",
-      "license": "https://github.com/ryanduguid/Ozzit/blob/v3.7.0/LICENSE",
+      "dateModified": "2026-11-24",
+      "license": "https://github.com/ryanduguid/Ozzit/blob/v3.8.0/LICENSE",
       "author": {
         "@id": "https://duguid.com.au/about/#person"
       },
@@ -344,7 +345,7 @@ tool: ozzit
           "name": "What is Ozzit?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "An Excel workbook containing 151 native LAMBDA functions and 5 help tables for financial modelling under Australian conventions, published free under the Ryan Duguid Public Attribution Licence 1.0. It has no add-in, macro or external dependency."
+            "text": "An Excel workbook containing 165 native LAMBDA functions and 5 help tables for financial modelling under Australian conventions, published free under the Apache License 2.0. It has no add-in, macro or external dependency."
           }
         },
         {
@@ -360,7 +361,7 @@ tool: ozzit
           "name": "Does Ozzit calculate Australian tax?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Ozzit applies 10% GST by default, labels Australian financial years and calculates PAYG withholding from supplied coefficients. Its depreciation and lease functions are modelling schedules. It contains no individual income tax, Medicare levy or Division 7A calculations."
+            "text": "Ozzit applies 10% GST by default, labels Australian financial years, calculates PAYG withholding from supplied coefficients, and from v3.8.0 covers general-rate income tax (2024-25 to 2026-27), Division 7A minimum repayments, CGT parcels, margin scheme GST, FBT gross-up and depreciation pools. It leaves out the Medicare levy, tax offsets and tax advice."
           }
         },
         {
@@ -368,7 +369,7 @@ tool: ozzit
           "name": "Where do I get the current release?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Download Ozzit v3.7.0 from the GitHub release page. It was published on 18 November 2026. The release includes ozzit.xlsx, SHA256SUMS and a provenance record. Compare the downloaded workbook’s SHA-256 with the published value before use."
+            "text": "Download Ozzit v3.8.0 from the GitHub release page or the Homebrew tap (published 24 November 2026). The release includes ozzit.xlsx, SHA256SUMS, a provenance record and a Sigstore attestation bundle. Compare the downloaded workbook’s SHA-256 with the published value before use."
           }
         }
       ]
