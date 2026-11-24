@@ -5062,6 +5062,22 @@ test('workers compensation applies each scheme’s thresholds, rounding and mini
   assert.equal(ok({ place: 'AU-QLD', wages: '13500', rate: '1.343' }).total, 209.41);
 });
 
+test('workers compensation tests the exact NSW premium, takes Victoria’s N ÷ 365 to 6 places and refuses an SA band gap', () => {
+  // icare: the APP is wages × the WIC rate, unrounded at the $30,000 test. $1,000,000.01 at 3% is $30,000.0003.
+  assert.throws(() => wc({ place: 'AU-NSW', wages: '1000000.01', rate: '3' }),
+    { message: /^The average performance premium \(wages × WIC rate, before rounding to \$30,000\.00\) is more than \$30,000/ });
+  assert.throws(() => wc({ place: 'AU-NSW', wages: '1000000', rate: '3', actual: '1000000.01' }), { message: /^On the actual wages, the average performance premium/ });
+  // Premiums Order (No. 34) clause 6(1): 1 ÷ 365 is 0.002740 to 6 places, so 7.123% × $15,500 × 0.002740 is a
+  // deductible of $3.03 (the exact fraction gives $3.02), a WorkCover premium of $10,681.47 and $11,749.62 with GST.
+  const vic = ok({ place: 'AU-VIC', wages: '150000', rate: '7.123', days: '1' });
+  assert.deepEqual([vic.lines[1][1], vic.premium, vic.gst, vic.total], [-303n, 10681.47, 1068.15, 11749.62]);
+  // ReturnToWorkSA: its table's 'under $10k' and its calculator's $9,999.99 disagree only on a base premium between them.
+  for (const [wages, edge] of [['499999.75', '$9,999.99 and below $10,000.00'], ['2499999.75', '$49,999.99 and below $50,000.00']]) {
+    assert.throws(() => wc({ place: 'AU-SA', wages, rate: '2' }), (error) => error.message.startsWith(`The base premium is above ${edge}:`), wages);
+  }
+  assert.equal(ok({ place: 'AU-SA', wages: '499999.75', rate: '2', firstYear: 'yes' }).premium, 9999);
+});
+
 test('workers compensation refuses what only the insurer decides and malformed input instead of guessing', () => {
   const rate = 'Enter the rate as a percentage from 0.0001% to 100%, to no more than 4 decimal places.';
   for (const [change, message] of [[{ place: 'AU-CTH' }, 'Choose the state or territory whose scheme insures the workers.'],
