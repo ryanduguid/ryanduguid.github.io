@@ -4412,7 +4412,10 @@ test('the long service leave page opens on the result its calculation gives, and
     '(reprint current from 1 January 2026), read 19 November 2026','(official version 04-m0-00, as at 31 January 2025), read 19 November 2026',
     '(version of 1 July 2017), read 19 November 2026', '(version current from 10 December 2018), read 19 November 2026',
     '(republication R29, effective 19 November 2025), read 19 November 2026', '(reprint as in force at 14 October 2015), read 19 November 2026',
-    '(last updated 13 May 2026), read the same day', '(last updated 3 October 2024), read the same day']) {
+    '(last updated 13 May 2026), read the same day', '(last updated 3 October 2024), read 19 November 2026',
+    'Business Queensland tables</a>, read 19 November 2026', 'Guide to long service leave</a>, read 19 November 2026',
+    'Acts read 19 November 2026; Queensland, South Australia and Tasmania rechecked 24 November 2026',
+    'Refuses positive prior leave where 15 years could have been completed by the end of 30 June 2012; undated excluded periods are not deducted for this screen']) {
     assert.ok(lslHtml.includes(cited), cited);
   }
   const radios = [...lslHtml.matchAll(/name="jurisdiction" value="([^"]+)"(?: checked)? \/> ([^<]+)</g)].map(([, code, name]) => [code, name]);
@@ -4542,12 +4545,16 @@ test('long service leave refuses the endings and transitions an Act leaves to fa
     { message: /^Under 10 years, paragraph 5\(4\)\(b\) pays nothing if the worker unlawfully terminated the contract/ });
   assert.equal(lsl({ place: 'AU-SA', start: '2013-01-01', end: '2025-06-30', mode: 'ends', reason: 'no-notice' }).weeks, 15.6);
   // Tas Schedule 3 cl 2(4): leave taken may have used up an entitlement under the Act before 1 July 2012, which
-  // s 8(2)(a) gave only on 15 years, so an employee with 15 years by 30 June 2012 is refused when leave was taken.
+  // s 8(2)(a) gave only on 15 years; undated excluded periods are not deducted for this screen.
   for (const mode of ['employed', 'ends']) {
-    assert.throws(() => lsl({ place: 'AU-TAS', start: '1997-07-01', end: '2025-12-31', taken: '1', mode }),
-      { message: /^Tasmania’s Schedule 3 clause 2\(4\) gives no new leave/ }, mode);
-    for (const start of ['1997-07-02', '2012-06-30']) {
-      assert.doesNotThrow(() => assert.equal(lsl({ place: 'AU-TAS', start, end: '2025-12-31', taken: '1', mode }).taken, 1), `${mode} ${start}`);
+    for (const [excluded, taken] of [['0', '1'], ['1', '0.0001']]) {
+      assert.throws(() => lsl({ place: 'AU-TAS', start: '1997-07-01', end: '2025-12-31', excluded, taken, mode }),
+        { message: /^Tasmania’s Schedule 3 clause 2\(4\) gives no new leave.*Refuses positive prior leave where 15 years could have been completed by the end of 30 June 2012; undated excluded periods are not deducted for this screen\./ },
+        `${mode} excluded=${excluded}`);
+    }
+    for (const [start, excluded, taken] of [['1997-07-02', '0', '1'], ['1997-07-02', '1', '0.0001'], ['2012-06-30', '0', '1']]) {
+      assert.doesNotThrow(() => assert.equal(lsl({ place: 'AU-TAS', start, end: '2025-12-31', excluded, taken, mode }).taken, Number(taken)),
+        `${mode} ${start} excluded=${excluded}`);
     }
   }
   assert.equal(lsl({ place: 'AU-TAS', start: '1997-07-01', end: '2025-12-31' }).years, 28);
@@ -4564,6 +4571,15 @@ test('Queensland pays the 8.6667 weeks subsection 95(2) and (7) state, not 8 2/3
   assert.deepEqual([redundancy.weeks, redundancy.value, redundancy.rule], [6.9334, 10400.04, 'Pro rata on 8.6667 weeks for 10 years, subsection 95(4)']);
   const twelve = lsl({ place: 'AU-QLD', start: '2014-01-01', end: '2025-12-31' });
   assert.deepEqual([twelve.value, twelve.next], [13000.05, { years: 15, date: '2028-12-31', weeks: 13.0001 }]);
+  // Exact entitlement at 15 years is 13.00005 weeks (rounded 13.0001): taken 13.0001 must refuse rather than pay -$0.07.
+  for (const mode of ['employed', 'ends']) {
+    for (const [pay, value] of [['1500', 0.08], ['1000000', 50]]) {
+      const ok = lsl({ place: 'AU-QLD', start: '2011-01-01', end: '2025-12-31', taken: '13', pay, mode });
+      assert.deepEqual([ok.weeks, ok.taken, ok.balance, ok.value], [13.0001, 13, 0.0001, value], `${mode} ${pay}`);
+      assert.throws(() => lsl({ place: 'AU-QLD', start: '2011-01-01', end: '2025-12-31', taken: '13.0001', pay, mode }),
+        { message: /Leave taken or paid is more than this entitlement/ }, `${mode} ${pay} excess`);
+    }
+  }
 });
 
 // The franking account page: how each call and result reads. Its rules come from ITAA 1997 Division 205,

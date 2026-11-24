@@ -3,13 +3,13 @@
 
 import { cents, number } from './money.mjs';
 
-// Long service leave under each state and territory's general Act, read 19 November 2026:
+// Long service leave under each state and territory's general Act, read 19 November 2026 (Queensland, South Australia and Tasmania rechecked 24 November 2026):
 // - NSW: Long Service Leave Act 1955, version for 1 July 2025 to date, s 4(2)(a) and (a3) (a month is 4 1/3 weeks).
 // - Vic: Long Service Leave Act 2018, Authorised Version No. 006 (12 December 2025), ss 6, 9 and 10.
 // - Qld: Industrial Relations Act 2016, reprint current from 1 January 2026, s 95 (not seasonal employees, ss 106 to 109),
 //   whose 8.6667 weeks for 10 years (s 95(2)(a) and (7)) is the figure used, not 8 2/3 (read again 24 November 2026).
 // - WA: Long Service Leave Act 1958, official version 04-m0-00 (31 January 2025), s 8(2) and (3).
-// - SA: Long Service Leave Act 1987, version of 1 July 2017, s 5.
+// - SA: Long Service Leave Act 1987, version of 1 July 2017, s 5 (read again 24 November 2026).
 // - Tas: Long Service Leave Act 1976, version current from 10 December 2018, ss 8 and 9 (not mining employees, s 8A),
 //   and Schedule 3 cl 2(4) (read 24 November 2026).
 // - ACT: Long Service Leave Act 1976, republication R29 (19 November 2025), ss 3, 4, 11A and 11C.
@@ -292,16 +292,16 @@ export function longServiceLeave(input) {
   const { place, start, excluded, until, taken, pay } = checked(input);
   // Excluded days are not dated, so the 15 years are counted without them: a conservative refusal.
   if (place === 'AU-TAS' && taken > 0n && anniversary(start, 15) <= TAS_2011_TRANSITION) {
-    throw new Error('Tasmania’s Schedule 3 clause 2(4) gives no new leave for a period whose leave under the Act before 1 July 2012 was used up, and with 15 years of service by then, leave taken in weeks does not show which periods that was: this calculator does not decide it.');
+    throw new Error('Tasmania’s Schedule 3 clause 2(4) gives no new leave for a period whose leave under the Act before 1 July 2012 was used up. Refuses positive prior leave where 15 years could have been completed by the end of 30 June 2012; undated excluded periods are not deducted for this screen.');
   }
   const service = measure(start, until);
   const outcome = input.mode === 'ends' ? onEnding(place, service, input.reason, until, start) : available(place, service);
-  const weeks = tenThousandths(outcome.weeks);
-  if (taken > weeks) {
+  const [n, d] = outcome.weeks;
+  if (taken * d > n * 10000n) {
     throw new Error('Leave taken or paid is more than this entitlement: the Acts treat leave taken in advance differently, and this calculator does not cover it.');
   }
+  const weeks = tenThousandths(outcome.weeks);
   const balance = weeks - taken;
-  const [n, d] = outcome.weeks;
   const next = input.mode === 'employed' ? nextMilestone(place, service) : null;
   const nextDay = next === null ? null : anniversary(start, next) - 1 + excluded;
   return {

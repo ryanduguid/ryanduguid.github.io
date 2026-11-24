@@ -400,7 +400,8 @@ const longServiceLeaveTool = (longServiceLeave) => tool({
   description: 'One employee\'s long service leave under the general Act of an Australian state or territory: the service counted, '
     + 'the weeks the employee can take while employment continues or the weeks payable when it ends for a given reason, less leave '
     + 'already taken or paid, and their value in AUD at the weekly ordinary pay, with the provision applied. Service runs from the '
-    + 'first day to the end of the last day, less the excluded days. It refuses a reason an Act leaves unsettled and Tasmanian leave taken after 15 years of service by 1 July 2012, and does not '
+    + 'first day to the end of the last day, less the excluded days. It refuses a reason an Act leaves unsettled. Refuses positive prior leave '
+    + 'where 15 years could have been completed by the end of 30 June 2012; undated excluded periods are not deducted for this screen. It does not '
     + 'decide which Act or award applies, continuity of service, ordinary pay averaging, portable schemes or tax.',
   inputSchema: record({
     place: choice(SURCHARGE_PLACES, 'State or territory whose Act applies, for example "AU-NSW".'),
@@ -425,7 +426,7 @@ const longServiceLeaveTool = (longServiceLeave) => tool({
       years: r.years, months: r.months, days: r.days, daysCounted: r.counted, rule: r.rule, weeks: r.weeks.toFixed(4),
       takenWeeks: r.taken.toFixed(4), weeksLeft: r.balance.toFixed(4), value: dollars(r.value), currency: 'AUD',
       next: r.next && { years: r.next.years, date: r.next.date, weeks: r.next.weeks.toFixed(4) },
-      basis: 'Each state and territory\'s general long service leave Act as read 19 November 2026. Weeks round half up to 4 decimal places; '
+      basis: 'Acts read 19 November 2026; Queensland, South Australia and Tasmania rechecked 24 November 2026. Weeks round half up to 4 decimal places; '
         + 'the value is the exact weeks times the pay, rounded half up to the cent.',
       source: `${CALCULATORS}long-service-leave/`,
     };

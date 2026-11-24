@@ -7515,10 +7515,10 @@ fn lsl_oracle(
     let Some((n, d)) = lsl_weeks(act, start, until, reason) else {
         return json!({"refused": true});
     };
-    let weeks = lsl_ten_thousandths((n, d));
-    if taken > weeks {
+    if u128::from(taken) * d > n * 10_000 {
         return json!({"refused": true});
     }
+    let weeks = lsl_ten_thousandths((n, d));
     let (years, months, days) = lsl_service(start, until);
     let left = BigUint::from(n * 10_000 - u128::from(taken) * d);
     let value = half_up(&(left * pay), &BigUint::from(d * 10_000));
@@ -7657,6 +7657,49 @@ fn the_lsl_oracle_works_the_published_examples_by_hand() {
         lsl_anniversary(day_number(2025, 1, 31), 0, 1),
         day_number(2025, 3, 1)
     );
+    // Qld at 15 years gives 13.00005 exact weeks (13.0001 shown): 13.0001 taken must refuse
+    // rather than produce -$0.07, whereas 13 taken pays $0.08 at $1,500 and $50.00 at $1,000,000.
+    let (qld_s, qld_e) = (day_number(2011, 1, 1), day_number(2025, 12, 31));
+    for reason in [None, Some("redundancy")] {
+        for (pay, expected_val) in [(150_000, "0.08"), (100_000_000, "50.00")] {
+            let ok = lsl_oracle(act("AU-QLD"), qld_s, qld_e, 0, reason, 130_000, pay);
+            assert_eq!(
+                (&ok["weeks"], &ok["balance"], &ok["value"]),
+                (&json!("13.0001"), &json!("0.0001"), &json!(expected_val))
+            );
+            assert_eq!(
+                lsl_oracle(act("AU-QLD"), qld_s, qld_e, 0, reason, 130_001, pay)["refused"],
+                json!(true)
+            );
+        }
+    }
+    // Tasmania Schedule 3 cl 2(4) refuses positive prior leave even with undated excluded days.
+    let tas_e = day_number(2025, 12, 31);
+    for (reason, allowed_weeks) in [(None, "21.6667"), (Some("redundancy"), "24.2667")] {
+        assert_eq!(
+            lsl_oracle(
+                act("AU-TAS"),
+                day_number(1997, 7, 1),
+                tas_e,
+                1,
+                reason,
+                1,
+                100_000
+            )["refused"],
+            json!(true)
+        );
+        let permitted = lsl_oracle(
+            act("AU-TAS"),
+            day_number(1997, 7, 2),
+            tas_e,
+            1,
+            reason,
+            1,
+            100_000,
+        );
+        assert_eq!(permitted["weeks"], json!(allowed_weeks));
+        assert!(permitted["refused"].is_null());
+    }
 }
 
 #[test]
