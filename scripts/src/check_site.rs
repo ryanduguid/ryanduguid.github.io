@@ -76,7 +76,7 @@ pub const CHECKS: &[Check] = &[
     Check::Tool(&["check_links"]),
     Check::External(&["node", "--test", "scripts/levy.test.mjs"]),
     Check::External(&["node", "--test", "scripts/business-calculators.test.mjs"]),
-    Check::External(&["node", "--test", "scripts/first-home-owner-grant-built.test.mjs"]),
+    Check::External(&["node", "--test", "scripts/first-home-grant.test.mjs"]),
     Check::External(&["node", "scripts/mutation-check.mjs"]),
     Check::Tests(&["calculator_oracle"]),
     Check::External(&["node", "--test", "scripts/individual-tax.test.mjs"]),
