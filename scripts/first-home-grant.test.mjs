@@ -28,3 +28,13 @@ test('the first home owner grant keeps the land out of a home built’s consider
   // The ACT has paid none since 1 July 2019.
   assert.equal(built('AU-ACT', 405000, false).grant, 0);
 });
+
+test('the first home owner grant refuses a contract date that is not on the calendar', () => {
+  const bought = (date) => firstHomeOwnerGrant({ place: 'AU-QLD', date, home: 'bought', value: '500000', north: false,
+    facts: { ...facts, contract: true } });
+  assert.equal(bought('2026-02-28').grant, 30000);
+  // Date.parse rolls 30 February 2026 on to 2 March, inside the dates the rules cover; day 99 and month 00 parse to NaN.
+  for (const date of ['2026-02-29', '2026-02-30', '2026-04-31', '2025-09-31', '2026-02-99', '2026-00-10']) {
+    assert.throws(() => bought(date), { message: `Not computed: ${date} is not a calendar date.` });
+  }
+});

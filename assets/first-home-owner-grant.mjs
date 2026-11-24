@@ -104,6 +104,9 @@ export function firstHomeOwnerGrant({ place, date, home, value, north, capValue,
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || date < FHOG_FIRST || date > FHOG_LAST) {
     throw new Error(`Not computed: choose a contract date from ${longDate(FHOG_FIRST)} to ${longDate(FHOG_LAST)}, the day the grant rules were read.`);
   }
+  // Date.parse rolls an impossible day such as 30 February on into the next month and gives NaN for day 99.
+  const day = Date.parse(`${date}T00:00:00Z`);
+  if (!Number.isFinite(day) || new Date(day).toISOString().slice(0, 10) !== date) throw new Error(`Not computed: ${date} is not a calendar date.`);
   const missing = FHOG_FACTS.filter((f) => facts?.[f] !== true);
   if (missing.length) throw new Error(`Not computed: the grant and the first home buyer duty need every eligibility fact stated; not stated: ${missing.map((f) => FACT_NAMES[f]).join('; ')}.`);
   const dollars = number(value, { min: 1, max: 1e9, integer: true, money: true });
