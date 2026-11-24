@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 //! Coverage tests for rates_register, check_design, agent_files and check_site.
-mod common;
+use crate::common;
 
 use site_tools::agent_files;
 use site_tools::check_design;
