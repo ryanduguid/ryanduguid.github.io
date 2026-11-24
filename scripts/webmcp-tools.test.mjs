@@ -1871,7 +1871,8 @@ test('land tax tool returns worked examples, matches form scales 1:1 and refuses
     assert.equal(placeData.trustScale, attrs.get('data-trust-scale'), `${code} trustScale`);
     assert.equal(placeData.absenteeScale, attrs.get('data-absentee-scale'), `${code} absenteeScale`);
     assert.equal(placeData.surcharge, attrs.get('data-surcharge'), `${code} surcharge`);
-    assert.equal(placeData.trustSurcharge, attrs.get('data-trust-surcharge'), `${code} trustSurcharge`);
+    assert.equal(placeData.absenteeTrust, attrs.get('data-absentee-trust'), `${code} absenteeTrust`);
+    assert.equal(placeData.payable, attrs.get('data-payable'), `${code} payable`);
     assert.equal(placeData.surchargeBase, attrs.get('data-surcharge-base'), `${code} surchargeBase`);
     assert.equal(placeData.mrit, attrs.get('data-mrit'), `${code} mrit`);
     assert.equal(placeData.fixed, attrs.get('data-fixed'), `${code} fixed`);
@@ -1885,6 +1886,11 @@ test('land tax tool returns worked examples, matches form scales 1:1 and refuses
   assert.deepEqual([wa.landTax, wa.metropolitanRegionImprovementTax, wa.total], ['6250.00', '1680.00', '7930.00']);
   const act = await tool.execute({ place: 'AU-ACT', taxableLandValue: 600000, foreignOrAbsentee: true });
   assert.deepEqual([act.landTax, act.foreignSurcharge, act.total], ['7418.00', '4500.00', '11918.00']);
+  const saNil = await tool.execute({ place: 'AU-SA', taxableLandValue: 936100 });
+  assert.deepEqual([saNil.landTax, saNil.total], ['0.00', '0.00']);
+  const qldAbs = await tool.execute({ place: 'AU-QLD', taxableLandValue: 350000, foreignOrAbsentee: true });
+  assert.equal(qldAbs.foreignSurcharge, '0.03');
+  await assert.rejects(tool.execute({ place: 'AU-VIC', taxableLandValue: 1000000, rates: 'trust', foreignOrAbsentee: true }), /section 46IA/);
   await assert.rejects(tool.execute({ place: 'AU-NSW', taxableLandValue: 1100000, foreignOrAbsentee: true }), /surchargeLandValue is required/);
   await assert.rejects(tool.execute({ place: 'AU-VIC', taxableLandValue: 1000000, foreignOrAbsentee: true, surchargeLandValue: 1000000 }), /surchargeLandValue applies only/);
   await assert.rejects(tool.execute({ place: 'AU-NT', taxableLandValue: 1000000 }), /place does not match/);
