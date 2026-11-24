@@ -1918,27 +1918,23 @@ test('land tax adds a foreign owner surcharge and MRIT from the radios and check
     + 'Metropolitan region improvement tax: $1,680.00. Total for the year: $7,930.00.');
 });
 
-test('land tax says RevenueSA assesses nothing under $20 only when the South Australian figure is under $20', async ({ page }) => {
+test('South Australian land tax under $20 is nil under section 6', async ({ page }) => {
   await page.goto('/tools/business-calculators/land-tax/');
   const form = page.locator('#land-tax form');
   await waitForCalculator(form);
-  const note = form.locator('output .result-note');
   await form.getByLabel('South Australia', { exact: true }).check();
-  // $50 over the threshold is a whole $100 at 50 cents; $939,900 is 39 lots of $100, $19.50.
-  for (const [value, shown] of [['936050', '$0.50'], ['939900', '$19.50']]) {
+  // $936,050 ($0.50 calculated) and $939,900 ($19.50 calculated) are both under $20, so nil.
+  for (const value of ['936050', '939900']) {
     await form.getByLabel('Total taxable land value (whole dollars)').fill(value);
     await form.getByRole('button', { name: 'Calculate', exact: true }).click();
-    await expect(form.locator('output .result-row strong').first()).toHaveText(shown);
-    await expect(note).toHaveText('RevenueSA issues no land tax assessment where the calculated land tax is under $20.');
+    await expect(form.locator('output .result-row strong').first()).toHaveText('$0.00');
   }
-  // $940,000 is 40 lots of $100, $20.00, and New South Wales has no such rule.
-  await form.getByLabel('Total taxable land value (whole dollars)').fill('940000');
+  // $939,901 is 40 lots of $100, $20.00, which is payable.
+  await form.getByLabel('Total taxable land value (whole dollars)').fill('939901');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output .result-row strong').first()).toHaveText('$20.00');
-  await expect(note).toHaveCount(0);
   await form.getByLabel('New South Wales', { exact: true }).check();
   await form.getByLabel('Total taxable land value (whole dollars)').fill('1075001');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output .result-row strong').first()).toHaveText('$100.02');
-  await expect(note).toHaveCount(0);
 });
