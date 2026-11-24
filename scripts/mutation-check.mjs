@@ -831,6 +831,7 @@ const MUTATIONS = [
   { ...fhog, name: 'FHOG a contract price outside Victoria feeds the cap', find: "price !== undefined && place === 'AU-VIC' ? price", replace: 'price !== undefined ? price' },
   { ...fhog, name: 'FHOG a contract price taken for a home bought', find: "if (price !== undefined && home !== 'built') throw", replace: 'if (false) throw' },
   { ...fhog, name: 'FHOG a contract price above the total value', find: 'if (price !== undefined && price > dollars) throw', replace: 'if (false) throw' },
+  { ...fhog, name: 'FHOG a contract price above the value the cap tests', find: 'if (price !== undefined && capDollars !== undefined && price > capDollars) {', replace: 'if (false) {' },
   { ...fhog, name: 'FHOG the contract fact disagrees with the contract price', find: 'facts?.contract === true && price < amount) {', replace: 'false) {' },
   { ...fhog, name: 'FHOG a priced home built still needs the contract fact', find: "home === 'built' && price === undefined : place", replace: "home === 'built' : place" },
   { ...fhog, name: 'FHOG a priced Victorian home built over the cap refused', find: "if (place === 'AU-VIC' && home === 'built' && price === undefined) {", replace: "if (place === 'AU-VIC' && home === 'built') {" },

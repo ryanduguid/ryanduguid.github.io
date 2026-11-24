@@ -115,6 +115,9 @@ export function firstHomeOwnerGrant({ place, date, home, value, north, capValue,
   const price = contractPrice ? number(contractPrice, { min: 1, max: 1e9, integer: true, money: true }) : undefined;
   if (price !== undefined && home !== 'built') throw new Error('Not computed: the building contract price is taken only for a home built; clear it.');
   if (price !== undefined && price > dollars) throw new Error('Not computed: the building contract price cannot be more than the total value, which includes it.');
+  if (price !== undefined && capDollars !== undefined && price > capDollars) {
+    throw new Error('Not computed: the building contract price cannot be more than the value the cap tests, which includes it.');
+  }
   // Qld s 5(6) to (8), WA s 14AC(2) and (3): a home bought is tested on the greater of the price and the value,
   // a home built on the value given; Vic s 13(1A) and (7)(b): a home built on its contract price.
   const tested = price !== undefined && place === 'AU-VIC' ? price
