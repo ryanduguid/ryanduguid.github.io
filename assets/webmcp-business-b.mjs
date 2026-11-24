@@ -97,6 +97,32 @@ export function cashForecastTool(kit, cashForecast, cashWeekDates) {
 
 /**
  * @param {Record<string, any>} input
+ * @param {BusinessCalculators['capitalWorks']} capitalWorks
+ * @param {{scope_confirmed?: boolean}} scope
+ * @param {(value: number) => string} dollars
+ * @param {string} source
+ */
+function runCapitalWorks(input, capitalWorks, scope, dollars, source) {
+  const r = capitalWorks({
+    year: input.incomeYear,
+    construction_expenditure: input.constructionExpenditure,
+    construction_start: input.constructionStart,
+    four_percent_manner: input.fourPercentManner,
+    days_used: input.daysUsed,
+    taxable_use: input.taxableUse,
+    undeducted_construction_expenditure: input.undeductedConstructionExpenditure,
+    ...scope,
+  });
+  return {
+    worksheet: 'capital-works', incomeYear: r.year, ratePercent: r.rate, provision: r.provision,
+    rateAmount: dollars(r.rateAmount), reducedAmount: dollars(r.reducedAmount),
+    deduction: dollars(r.deduction), limitedToUndeducted: r.limited,
+    currency: 'AUD', source,
+  };
+}
+
+/**
+ * @param {Record<string, any>} input
  * @param {Pick<BusinessCalculators, 'lowValuePool' | 'smallBusinessPool' | 'capitalWorks'>} engines
  * @param {(value: number) => string} dollars
  * @param {string} source
@@ -144,22 +170,7 @@ function runDepreciationWorksheet(input, { lowValuePool, smallBusinessPool, capi
       warnings: r.warnings, currency: 'AUD', source,
     };
   }
-  const r = capitalWorks({
-    year: input.incomeYear,
-    construction_expenditure: input.constructionExpenditure,
-    construction_start: input.constructionStart,
-    four_percent_manner: input.fourPercentManner,
-    days_used: input.daysUsed,
-    taxable_use: input.taxableUse,
-    undeducted_construction_expenditure: input.undeductedConstructionExpenditure,
-    ...scope,
-  });
-  return {
-    worksheet: 'capital-works', incomeYear: r.year, ratePercent: r.rate, provision: r.provision,
-    rateAmount: dollars(r.rateAmount), reducedAmount: dollars(r.reducedAmount),
-    deduction: dollars(r.deduction), limitedToUndeducted: r.limited,
-    currency: 'AUD', source,
-  };
+  return runCapitalWorks(input, capitalWorks, scope, dollars, source);
 }
 
 /**
