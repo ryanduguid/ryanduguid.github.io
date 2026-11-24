@@ -113,27 +113,53 @@ fn render(repository: &Path, renders: &Path, kept: &Path, complete: &Path) -> Op
             std::fs::copy(&from, &to).unwrap();
         }
     }
-    // Replace an incomplete target (present without `.complete`) so rename succeeds,
-    // without pruning other fingerprint generations that concurrent suites may read.
-    if kept.exists() && !complete.is_file() {
-        let _ = if kept.is_dir() {
+    // Serialise cleanup and publication per fingerprint so two competing processes
+    // cannot interleave rename, completion-marker write and incomplete-target removal.
+    Some(publish_directory(&partial, kept, complete))
+}
+
+/// Publish `partial` to `kept` and mark `complete` under a per-fingerprint lock file.
+/// If another process already published `kept` before this caller acquired the lock,
+/// `partial` is discarded and `kept` is returned untouched.
+pub fn publish_directory(partial: &Path, kept: &Path, complete: &Path) -> PathBuf {
+    let lock_path = kept.with_extension("lock");
+    if let Some(parent) = lock_path.parent() {
+        std::fs::create_dir_all(parent).unwrap();
+    }
+    let lock_file = std::fs::OpenOptions::new()
+        .create(true)
+        .truncate(false)
+        .write(true)
+        .open(&lock_path)
+        .unwrap();
+    lock_file.lock().unwrap();
+    if kept.is_dir() && complete.is_file() {
+        let _ = std::fs::remove_dir_all(partial);
+        return kept.to_path_buf();
+    }
+    if kept.exists() {
+        let remove = if kept.is_dir() {
             std::fs::remove_dir_all(kept)
         } else {
             std::fs::remove_file(kept)
         };
-    }
-    if let Err(err) = std::fs::rename(&partial, kept) {
-        let _ = std::fs::remove_dir_all(&partial);
-        if kept.is_dir() && complete.is_file() {
-            return Some(kept.to_path_buf());
+        if let Err(err) = remove {
+            let _ = std::fs::remove_dir_all(partial);
+            panic!(
+                "failed to remove incomplete render at {}: {err}",
+                kept.display()
+            );
         }
+    }
+    if let Err(err) = std::fs::rename(partial, kept) {
+        let _ = std::fs::remove_dir_all(partial);
         panic!(
             "failed to publish rendered site at {}: {err}",
             kept.display()
         );
     }
     std::fs::write(complete, "").unwrap();
-    Some(kept.to_path_buf())
+    kept.to_path_buf()
 }
 
 /// Directories no check reads: version control, dependencies, build output and caches.

@@ -479,4 +479,81 @@ fn saved_file_restores_overwrite_delete_creation_and_unwind() {
     });
     assert!(unwound.is_err());
     assert_eq!(std::fs::read(root.join("a.txt")).unwrap(), b"original");
+
+    // Restoration failure panics on normal drop when the path becomes a directory.
+    let drop_fail = std::panic::catch_unwind(|| {
+        let _saved = crate::common::SavedFile::capture(root, "a.txt");
+        std::fs::remove_file(root.join("a.txt")).unwrap();
+        std::fs::create_dir(root.join("a.txt")).unwrap();
+    });
+    assert!(drop_fail.is_err());
+    std::fs::remove_dir(root.join("a.txt")).unwrap();
+    std::fs::write(root.join("a.txt"), b"original").unwrap();
+
+    // During unwind, restoration failure does not double-panic and preserves the original panic.
+    let unwind_fail = std::panic::catch_unwind(|| {
+        let _saved = crate::common::SavedFile::capture(root, "a.txt");
+        std::fs::remove_file(root.join("a.txt")).unwrap();
+        std::fs::create_dir(root.join("a.txt")).unwrap();
+        panic!("original panic");
+    });
+    let payload = unwind_fail.unwrap_err();
+    let msg = payload
+        .downcast_ref::<&str>()
+        .copied()
+        .or_else(|| payload.downcast_ref::<String>().map(String::as_str))
+        .unwrap_or("");
+    assert_eq!(msg, "original panic");
+    std::fs::remove_dir(root.join("a.txt")).unwrap();
+}
+
+#[test]
+fn publish_directory_serialises_competing_publishers_and_replaces_incomplete() {
+    let dir = tempfile::tempdir().unwrap();
+    let kept = dir.path().join("abc123");
+    let complete = kept.with_extension("complete");
+
+    // Incomplete target without `.complete` is replaced cleanly.
+    std::fs::create_dir_all(&kept).unwrap();
+    std::fs::write(kept.join("stale.txt"), b"stale").unwrap();
+    let first = dir.path().join("partial-first");
+    std::fs::create_dir_all(&first).unwrap();
+    std::fs::write(first.join("index.html"), b"fresh").unwrap();
+    assert_eq!(
+        crate::common::publish_directory(&first, &kept, &complete),
+        kept
+    );
+    assert!(complete.is_file());
+    assert_eq!(std::fs::read(kept.join("index.html")).unwrap(), b"fresh");
+    assert!(!kept.join("stale.txt").exists());
+
+    // Competing publishers on a fresh fingerprint both succeed and keep one intact tree.
+    let race_kept = dir.path().join("race999");
+    let race_complete = race_kept.with_extension("complete");
+    let barrier = std::sync::Barrier::new(2);
+    std::thread::scope(|scope| {
+        let handles: Vec<_> = (0..2)
+            .map(|id| {
+                let p = dir.path().join(format!("partial-{id}"));
+                std::fs::create_dir_all(&p).unwrap();
+                std::fs::write(p.join("index.html"), format!("publisher-{id}")).unwrap();
+                let b = &barrier;
+                let k = &race_kept;
+                let c = &race_complete;
+                scope.spawn(move || {
+                    b.wait();
+                    crate::common::publish_directory(&p, k, c)
+                })
+            })
+            .collect();
+        for handle in handles {
+            assert_eq!(handle.join().unwrap(), race_kept);
+        }
+    });
+    assert!(race_complete.is_file());
+    let winner = std::fs::read_to_string(race_kept.join("index.html")).unwrap();
+    assert!(
+        winner == "publisher-0" || winner == "publisher-1",
+        "{winner}"
+    );
 }
