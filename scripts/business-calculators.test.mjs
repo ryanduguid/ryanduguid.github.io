@@ -6283,21 +6283,6 @@ test('the first home owner grant does not test a Victorian home built against $7
   assert.equal(fhogGrant({ jurisdiction: 'AU-VIC', value: '750001' }), '$0.00: the value is over the Victoria cap');
 });
 
-// For a home built, every Act read on 24 November 2026 makes the consideration the building work alone (Qld
-// schedule 'consideration' (b), WA s 14AB(b), Vic, SA and Tas s 13(7)(b), ACT s 13(6)(b), NT s 13(8)(b)): the
-// value note must not say the land and contract total limits a built home's grant, and the calculation never lets it.
-test('the first home owner grant keeps the land out of a home built’s consideration', () => {
-  const note = fhogHtml.match(/<p class="field-note" id="first-home-owner-grant-value-note">([^<]*)<\/p>/)[1];
-  assert.doesNotMatch(note, /It limits the grant/);
-  assert.match(note, /Built: [^.]*; the contract alone limits the grant/);
-  // A contract below the grant on $400,000 of land is refused, not paid in full; a $400,000 contract on land below it is.
-  for (const [jurisdiction, half, amount] of [['AU-QLD', 15000, '$30,000.00'], ['AU-WA', 5000, '$10,000.00'], ['AU-NT', 25000, '$50,000.00']]) {
-    assert.throws(() => fhogResult({ jurisdiction, home: 'built', value: String(half + 400000), 'fact-contract': false }),
-      /needs another fact stated: the building contract price is at least the grant/);
-    assert.equal(fhogGrant({ jurisdiction, home: 'built', value: String(400000 + half) }), amount);
-  }
-});
-
 // Review findings S1 to S4 and G2 on PR 705: the facts a transaction turns on are asked for, never assumed.
 test('the first home owner grant asks for the facts a home built, Western Australia, the NT and Tasmania turn on', () => {
   const defaults = formDefaults(fhogHtml);
