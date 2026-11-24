@@ -6502,7 +6502,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 Fifty-four free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
-Published 11 September 2026. Last checked 24 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 23 November 2026, the newest of the calculators’ source checks.
 
 Search 54 calculators
 
@@ -14809,7 +14809,7 @@ Source: https://duguid.com.au/tools/business-calculators/long-service-leave/
 
 Long service leave under the Act of any Australian state or territory: the leave to take now, or what is paid when employment ends and why, each step cited.
 
-Published 19 November 2026. Last checked 24 November 2026.
+Published 19 November 2026. Last checked 19 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 

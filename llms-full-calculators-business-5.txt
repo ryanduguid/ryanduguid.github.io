@@ -321,7 +321,7 @@ Source: https://duguid.com.au/tools/business-calculators/long-service-leave/
 
 Long service leave under the Act of any Australian state or territory: the leave to take now, or what is paid when employment ends and why, each step cited.
 
-Published 19 November 2026. Last checked 24 November 2026.
+Published 19 November 2026. Last checked 19 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 

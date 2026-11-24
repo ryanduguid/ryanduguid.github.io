@@ -859,7 +859,7 @@
     ]
   },
   "long-service-leave": {
-    "checked": "2026-11-24",
+    "checked": "2026-11-19",
     "function": "longServiceLeave",
     "rows": [
       {"case":"Redundancy after 12 years and 6 months in New South Wales: a proportion on 3 months for 15 years","input":"New South Wales, 1 February 2014 to 31 July 2026, ends by redundancy or another dismissal not about the employee’s conduct, capacity or performance, pay $1,500.00 a week","call":[{"place":"AU-NSW","start":"2014-02-01","end":"2026-07-31","excluded":"0","taken":"0","mode":"ends","reason":"redundancy","pay":"1500"}],"result":{"rule":"Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii)","weeks":10.8333,"value":16250},"output":"Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii), 10.8333 weeks, payment $16,250.00"},
