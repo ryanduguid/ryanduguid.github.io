@@ -6,6 +6,10 @@
 // validation helpers. Imported by assets/webmcp-business-c.mjs and
 // assets/webmcp-business-c-rental.mjs.
 
+import { checkModeFields } from './webmcp-business-b-payroll.mjs';
+
+export { checkModeFields };
+
 /** @typedef {import('./webmcp-tools.mjs').ToolKit} ToolKit */
 /** @typedef {typeof import('./business-calculators.mjs')} BusinessCalculators */
 
@@ -58,29 +62,6 @@ const WC_REQUIRED = new Map([
   ['AU-ACT', []],
   ['AU-NT', []],
 ]);
-
-/**
- * Refuses fields belonging to another mode and ensures every required field for this mode is supplied.
- * @param {Record<string, unknown>} input
- * @param {string} mode
- * @param {Map<string, Set<string>>} allowedMap
- * @param {Map<string, string[]>} requiredMap
- * @param {Set<string>} commonKeys
- */
-export function checkModeFields(input, mode, allowedMap, requiredMap, commonKeys) {
-  const allowed = allowedMap.get(mode) ?? new Set();
-  const supplied = new Map(Object.entries(input));
-  for (const key of supplied.keys()) {
-    if (!commonKeys.has(key) && !allowed.has(key)) {
-      throw new Error(`${key} does not apply when using "${mode}".`);
-    }
-  }
-  for (const key of requiredMap.get(mode) ?? []) {
-    if (supplied.get(key) === undefined) {
-      throw new Error(`${key} is required for "${mode}".`);
-    }
-  }
-}
 
 /**
  * Requires `value` when `needed` is true and refuses it when `needed` is false.
