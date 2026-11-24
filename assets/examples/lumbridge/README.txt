@@ -19,7 +19,7 @@ SOURCE AND REPRODUCTION
 
 The Australian FP&A pack extends Jeff Brines / Guiderail's openfpa.
 Source commit: 386c7ff31f7989b86445ef37d83a912fcb02bb47
-https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
+https://github.com/ryanduguid/OzFPA/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
 Upstream: https://github.com/JeffBrines/openfpa
 The ZIP includes the source repository's MIT licence with both copyright notices.
 
@@ -52,8 +52,7 @@ compensation, tax instalments and loan terms are supplied scenario assumptions.
 Read the source README for their full definitions. The output is not a complete
 forecast statutory balance sheet and does not model intraday bank liquidity.
 
-Varrock and Falador are Old School RuneScape naming references. No game assets
-are used and no affiliation with Jagex is claimed.
+Varrock and Falador are Old School RuneScape naming references; no game assets are used.
 
 FEEDBACK
 
