@@ -839,6 +839,7 @@ const MUTATIONS = [
   { ...fhog, name: 'FHOG the form drops the contract price', find: "...(contractPrice ? { contractPrice } : {}),", replace: '' },
   { ...fhog, name: 'FHOG an unstated fact passes', find: 'facts?.[f] !== true);\n  if (missing.length)', replace: 'facts?.[f] === undefined);\n  if (missing.length)' },
   { ...fhog, name: 'FHOG a contract before 1 July 2025 passes', find: "export const FHOG_FIRST = '2025-07-01';", replace: "export const FHOG_FIRST = '2025-01-01';" },
+  { ...fhog, name: 'FHOG a contract date off the calendar passes', find: 'if (!Number.isFinite(day) || new Date(day).toISOString().slice(0, 10) !== date) throw', replace: 'if (!Number.isFinite(day)) throw' },
   { ...fhog, name: 'FHOG WA duty before the first home owner rate', find: "'AU-WA': '2026-05-07'", replace: "'AU-WA': '2025-07-01'" },
   { ...fhog, name: 'FHOG duty for a built home', find: "if (input.home === 'built') {", replace: 'if (false) {' },
   { ...fhog, name: 'FHOG an established home takes the new home duty', find: "input.home === 'bought' ? 'new' : 'established'", replace: "'new'" },
