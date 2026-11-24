@@ -252,7 +252,7 @@ fn geo_leftovers_surface() {
     if !rendered() {
         return;
     }
-    let homepage_title = "Tools for Australian accountants";
+    let homepage_title = "Ryan Duguid: Tools for Australian accountants";
     let coal_title = "Coal LSL levy calculator and section 3B eligible wages";
     let coal_lead = "The coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base rate, annual salary and casual branches. The base rate branch uses the greater of Formula A and Formula B.";
     let home = read_text(root(), "index.html");
@@ -1411,7 +1411,7 @@ fn public_contracts_homepage_and_metadata_mutations() {
     for (label, old, new, expected) in [
         (
             "homepage title",
-            "<title>Tools for Australian accountants</title>",
+            "<title>Ryan Duguid: Tools for Australian accountants</title>",
             "<title>Wrong homepage title</title>",
             "index.html: homepage title is",
         ),
@@ -1504,7 +1504,7 @@ fn public_contracts_homepage_and_metadata_mutations() {
         ),
         (
             "Twitter title mirror",
-            "<meta name=\"twitter:title\" content=\"Tools for Australian accountants\" />",
+            "<meta name=\"twitter:title\" content=\"Ryan Duguid: Tools for Australian accountants\" />",
             "<meta name=\"twitter:title\" content=\"Different share title\" />",
             "twitter:title is 'Different share title'",
         ),
