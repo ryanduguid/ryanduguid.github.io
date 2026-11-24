@@ -6291,6 +6291,7 @@ test('the first home owner grant pays the lesser of the consideration and the am
   // Vic s 18(1A), WA s 19(2CA) and NT s 18(1).
   for (const change of [{ jurisdiction: 'AU-VIC' }, { jurisdiction: 'AU-WA', 'wa-location': 'north' }, { jurisdiction: 'AU-NT' },
     { jurisdiction: 'AU-NT', date: '2025-08-01', home: 'established' }]) {
+    assert.doesNotThrow(() => fhogGrant({ ...change, value: '8000' }), JSON.stringify(change));
     assert.equal(fhogGrant({ ...change, value: '8000' }), '$8,000.00: the grant cannot be more than the consideration', JSON.stringify(change));
   }
   assert.equal(fhogGrant({ jurisdiction: 'AU-NT', value: '49999' }), '$49,999.00: the grant cannot be more than the consideration');
