@@ -860,8 +860,19 @@ test('transfer duty at the top of a band uses that band and rejects a broken tab
   // NT: (0.06571441 x 525^2) + 15 x 525 = 25,987.53425625, then 4.95% of the whole value.
   assert.equal(transferDuty('525000', transferDutyScales['AU-NT']).duty, 25987.53);
   assert.equal(transferDuty('525001', transferDutyScales['AU-NT']).duty, 25987.55);
-  // Victoria rounds nothing before the cent: 2.4% of $25,001 - $25,000 is 2.4 cents.
-  assert.equal(transferDuty('25001', transferDutyScales['AU-VIC']).duty, 350.02);
+  // Duties Act 2000 (Vic) s 28(1), read 24 November 2026: to the nearest whole dollar, 50 cents down.
+  // $350 + 2.4% of $1 is $350.024, so $350; 1.4% of $25 is $0.35, so nil; 1.4% of $50 is $0.70, so $1.
+  assert.equal(transferDuty('25001', transferDutyScales['AU-VIC']).duty, 350);
+  assert.equal(transferDuty('25', transferDutyScales['AU-VIC']).duty, 0);
+  assert.equal(transferDuty('50', transferDutyScales['AU-VIC']).duty, 1);
+  // 1.4% of $2,125 is $29.75, up to $30; 1.4% of $2,175 is $30.45, down to $30; 1.4% of $2,250 is
+  // exactly $31.50, which s 28(1) takes down to $31.
+  assert.equal(transferDuty('2125', transferDutyScales['AU-VIC']).duty, 30);
+  assert.equal(transferDuty('2175', transferDutyScales['AU-VIC']).duty, 30);
+  assert.equal(transferDuty('2250', transferDutyScales['AU-VIC']).duty, 31);
+  // 5.5% of $960,010 is $52,800.55, to $52,801; the premium band's $110,000 + 6.5% of $10 is $110,000.65, to $110,001.
+  assert.equal(transferDuty('960010', transferDutyScales['AU-VIC']).duty, 52801);
+  assert.equal(transferDuty('2000010', transferDutyScales['AU-VIC']).duty, 110001);
   assert.throws(() => transferDuty('0', transferDutyScales['AU-NSW']), { message: 'Enter a whole number between 1 and 1000000000.' });
   const nsw = transferDutyScales['AU-NSW'];
   for (const broken of [[], nsw.slice(1), nsw.slice(0, -1), [...nsw.slice(0, 2), ...nsw.slice(3)],
@@ -899,9 +910,9 @@ test('first home buyer duty matches the revenue offices’ figures either side o
     ['799999', 20115], ['800000', 21850], ['850000', 24100]]) {
     assert.equal(duty(value, 'AU-QLD').duty, expected, value);
   }
-  // By hand: Victoria's general duty on $600,001 is $31,070.06, times $1 / $150,000, and on
-  // $700,000 $37,070 times 100,000 / 150,000. Western Australia: $16.15 for each $100, or part.
-  for (const [value, expected] of [['600000', 0], ['600001', 0.21], ['700000', 24713.33], ['750000', 40070], ['750001', 40070.06]]) {
+  // By hand: Victoria's general duty on $600,001 is $31,070.06, $31,070 to the dollar (s 28(1)), times
+  // $1 / $150,000, and on $700,000 $37,070 times 100,000 / 150,000. Western Australia: $16.15 for each $100, or part.
+  for (const [value, expected] of [['600000', 0], ['600001', 0.21], ['700000', 24713.33], ['750000', 40070], ['750001', 40070]]) {
     assert.equal(duty(value, 'AU-VIC').duty, expected, value);
   }
   for (const [value, expected] of [['600000', 0], ['600001', 16.15], ['700000', 16150], ['800000', 32300], ['800001', 32320.65]]) {

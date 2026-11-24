@@ -305,7 +305,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             const place = form.querySelector('input[name="jurisdiction"]:checked');
             const scale = place.dataset.scale.split(';').map(row => row.split(','));
             const r = calculate.transferDuty(value('value'), scale);
-            const [over, , base, rate, rule] = scale[r.bracket];
+            const [over, , base, rate, named] = scale[r.bracket];
+            const toDollar = named.endsWith('-to-dollar');
+            const rule = toDollar ? named.slice(0, -'-to-dollar'.length) : named;
             const whole = text => `$${Number(text).toLocaleString('en-AU')}`;
             const plus = Number(base) ? `${whole(base)} plus ` : '';
             let ruleText = {
@@ -315,6 +317,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
               'nt-formula': '(0.06571441 × V × V) + 15V, where V is the value ÷ 1,000',
             }[rule];
             if (rule !== 'nt-formula' && Number(rate) === 0) ruleText = Number(base) ? `a fixed ${whole(base)}` : 'nil';
+            if (toDollar) ruleText += ', to the nearest whole dollar (50 cents down)';
             result = { inputs: `${place.dataset.name}, dutiable value ${money('value')}`, principal: 0,
               rows: [['General transfer duty', aud(r.duty)], ['Rate applied', ruleText]] };
             // NSW premium duty, the scale's last bracket, applies to residential land only.
