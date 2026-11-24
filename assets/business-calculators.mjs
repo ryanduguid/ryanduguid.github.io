@@ -148,8 +148,10 @@ export function transferDuty(value, scale) {
     TRANSFER_DUTY_RULES.includes(rule) && over === (index ? scale[index - 1][1] : '0')
       && (index === scale.length - 1 ? to === '' : /^\d+$/.test(to) && Number(to) > Number(over)));
   if (!contiguous) throw new Error('This jurisdiction’s rate table is not usable.');
-  const bracket = scale.findIndex(([, to]) => to === '' || dollars <= Number(to));
-  const [over, , base, rate, named] = scale[bracket];
+  // The last band is open (to === ''), so a band always matches.
+  const row = /** @type {readonly string[]} */ (scale.find(([, to]) => to === '' || dollars <= Number(to)));
+  const bracket = scale.indexOf(row);
+  const [over, , base, rate, named] = row;
   const toDollar = named.endsWith('-to-dollar');
   const rule = toDollar ? named.slice(0, -'-to-dollar'.length) : named;
   const whole = BigInt(dollars);
