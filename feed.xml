@@ -15,6 +15,13 @@
     <summary>Updated the Aus Accounting MCP guide, Ozzit reference and machine indexes for published releases aus-accounting-mcp v0.12.0 (102 worksheet kinds with calculators 1.2.0, AGPL-3.0-or-later, listed as latest on the official MCP Registry) and Ozzit v3.8.0 (165 functions and 5 help tables, Apache License 2.0, plus the Homebrew tap).</summary>
   </entry>
   <entry>
+    <title>The first home owner grant calculator now takes the building contract price of…</title>
+    <link href="https://duguid.com.au/changelog/#entry-bf0880e6b0f8da76" />
+    <id>https://duguid.com.au/changelog/#entry-bf0880e6b0f8da76</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>The first home owner grant calculator now takes the building contract price of a home built. Below the grant it pays the contract price in Victoria, Queensland, Western Australia, South Australia, Tasmania and the Northern Territory, whose Acts pay the lesser of the consideration and the grant, and in Victoria the $750,000 cap tests the contract price, so a larger land and building total is computed. A New South Wales contract price below the grant is still not computed.</summary>
+  </entry>
+  <entry>
     <title>The first home owner grant calculator now follows the Victorian, Western…</title>
     <link href="https://duguid.com.au/changelog/#entry-d72c42a53adcec12" />
     <id>https://duguid.com.au/changelog/#entry-d72c42a53adcec12</id>
