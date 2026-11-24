@@ -88,8 +88,8 @@ const longDate = (/** @type {string} */ iso) => new Date(`${iso}T00:00:00Z`).toL
  * @param {{place: string, date: string, home: string, value: string, north?: boolean, capValue?: string, facts: Record<string, boolean>}} input
  *   `date` is the contract date as YYYY-MM-DD and `value` the total value in whole dollars: for a home bought the
  *   price, the consideration; for a home built the land and contract, whose consideration is the contract alone
- *   (Qld schedule 'consideration' (b), WA s 14AB(b), s 13 elsewhere), which the `contract` fact puts at the grant
- *   or more, so `value` never limits a built home's grant;
+ *   (Qld schedule 'consideration' (b), WA s 14AB(b), s 13 in Vic, SA, Tas, ACT and NT; the NSW Act was not read),
+ *   which the `contract` fact puts at the grant or more, so `value` never limits a built home's grant;
  *   `north` is required in Western Australia; `capValue`, taken only in Queensland and Western Australia, is the
  *   value their caps test where it differs from `value`.
  * @returns {{grant: number, reason: string, cap: string, residence: string, dutyFrom: string}}
