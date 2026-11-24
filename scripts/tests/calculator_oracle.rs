@@ -7281,7 +7281,8 @@ const LSL_REASONS: [&str; 10] = [
 /// Each Act's years for the full entitlement and for a pro rata payment, and the reasons that
 /// earn the pro rata payment, typed from the Acts read on 19 November 2026: NSW s 4(2)(a)(iii),
 /// Qld s 95(4), WA s 8(3), SA s 5(3) and (4), Tas s 8(3), ACT s 11C(1) and NT s 10(2). Victoria
-/// pays nothing before 7 years. 'Unsettled' reasons are refused before the full period.
+/// pays nothing before 7 years. 'Unsettled' reasons are refused before the full period: Qld
+/// s 95(4)(d) and SA s 5(4)(b), read 24 November 2026, among them.
 struct LslAct {
     place: &'static str,
     full: i64,
@@ -7315,14 +7316,8 @@ const LSL_ACTS: [LslAct; 8] = [
         place: "AU-QLD",
         full: 10,
         early: 7,
-        pays_early: &[
-            "redundancy",
-            "illness-dismissal",
-            "pressing",
-            "fixed-term",
-            "death",
-        ],
-        unsettled: &[],
+        pays_early: &["redundancy", "illness-dismissal", "pressing", "death"],
+        unsettled: &["fixed-term"],
     },
     LslAct {
         place: "AU-WA",
@@ -7355,7 +7350,7 @@ const LSL_ACTS: [LslAct; 8] = [
             "fixed-term",
             "death",
         ],
-        unsettled: &[],
+        unsettled: &["no-notice"],
     },
     LslAct {
         place: "AU-TAS",
@@ -7427,8 +7422,9 @@ fn lsl_service(start: i64, until: i64) -> (i64, i64, i64) {
     (years, months, until - lsl_anniversary(start, years, months))
 }
 
-/// Weeks as a ratio: 8 2/3 weeks a 10 years is 13/15 a year, 1.3 weeks a year 13/10, and
-/// 1/60th of the employment the days over 420. A part year is its months over 12 and its days
+/// Weeks as a ratio: 8 2/3 weeks a 10 years is 13/15 a year (in Queensland the 8.6667 weeks
+/// s 95(2) and (7) state, 86,667/100,000), 1.3 weeks a year 13/10, and 1/60th of the
+/// employment the days over 420. A part year is its months over 12 and its days
 /// over 365.25, all over 438,300 (12 × 36,525); in Queensland its days are over 364, all over
 /// 1,092 (12 × 91), as Business Queensland's tables count them.
 fn lsl_weeks(act: &LslAct, start: i64, until: i64, reason: Option<&str>) -> Option<(u128, u128)> {
@@ -7443,7 +7439,13 @@ fn lsl_weeks(act: &LslAct, start: i64, until: i64, reason: Option<&str>) -> Opti
             438_300,
         )
     };
-    let thirteen_fifteenths = |(n, d): (u128, u128)| (13 * n, 15 * d);
+    let thirteen_fifteenths = |(n, d): (u128, u128)| {
+        if act.place == "AU-QLD" {
+            (86_667 * n, 100_000 * d)
+        } else {
+            (13 * n, 15 * d)
+        }
+    };
     let marked = if years >= 10 {
         10 + (years - 10) / 5 * 5
     } else {
@@ -7457,7 +7459,7 @@ fn lsl_weeks(act: &LslAct, start: i64, until: i64, reason: Option<&str>) -> Opti
         }
         return Some(match act.place {
             "AU-VIC" => (total, 420),
-            "AU-QLD" if years < 15 => (26, 3),
+            "AU-QLD" if years < 15 => (86_667, 10_000),
             "AU-QLD" => thirteen_fifteenths(exact),
             "AU-SA" => (13 * y, 10),
             "AU-ACT" => thirteen_fifteenths((y, 1)),
@@ -7521,13 +7523,19 @@ fn lsl_oracle(
     if until <= start {
         return json!({"refused": true});
     }
+    // Tas Schedule 3 cl 2(4): leave taken may have used up an entitlement under the Act before
+    // 1 July 2012, which s 8(2)(a) gave on completing 15 years, so weeks alone do not show it.
+    if act.place == "AU-TAS" && taken > 0 && lsl_anniversary(start, 15, 0) <= day_number(2012, 7, 1)
+    {
+        return json!({"refused": true});
+    }
     let Some((n, d)) = lsl_weeks(act, start, until, reason) else {
         return json!({"refused": true});
     };
-    let weeks = lsl_ten_thousandths((n, d));
-    if taken > weeks {
+    if u128::from(taken) * d > n * 10_000 {
         return json!({"refused": true});
     }
+    let weeks = lsl_ten_thousandths((n, d));
     let (years, months, days) = lsl_service(start, until);
     let left = BigUint::from(n * 10_000 - u128::from(taken) * d);
     let value = half_up(&(left * pay), &BigUint::from(d * 10_000));
@@ -7666,6 +7674,49 @@ fn the_lsl_oracle_works_the_published_examples_by_hand() {
         lsl_anniversary(day_number(2025, 1, 31), 0, 1),
         day_number(2025, 3, 1)
     );
+    // Qld at 15 years gives 13.00005 exact weeks (13.0001 shown): 13.0001 taken must refuse
+    // rather than produce -$0.07, whereas 13 taken pays $0.08 at $1,500 and $50.00 at $1,000,000.
+    let (qld_s, qld_e) = (day_number(2011, 1, 1), day_number(2025, 12, 31));
+    for reason in [None, Some("redundancy")] {
+        for (pay, expected_val) in [(150_000, "0.08"), (100_000_000, "50")] {
+            let ok = lsl_oracle(act("AU-QLD"), qld_s, qld_e, 0, reason, 130_000, pay);
+            assert_eq!(
+                (&ok["weeks"], &ok["balance"], &ok["value"]),
+                (&json!("13.0001"), &json!("0.0001"), &json!(expected_val))
+            );
+            assert_eq!(
+                lsl_oracle(act("AU-QLD"), qld_s, qld_e, 0, reason, 130_001, pay)["refused"],
+                json!(true)
+            );
+        }
+    }
+    // Tasmania Schedule 3 cl 2(4) refuses positive prior leave even with undated excluded days.
+    let tas_e = day_number(2025, 12, 31);
+    for (reason, allowed_weeks) in [(None, "21.6667"), (Some("redundancy"), "24.6966")] {
+        assert_eq!(
+            lsl_oracle(
+                act("AU-TAS"),
+                day_number(1997, 7, 1),
+                tas_e,
+                1,
+                reason,
+                1,
+                100_000
+            )["refused"],
+            json!(true)
+        );
+        let permitted = lsl_oracle(
+            act("AU-TAS"),
+            day_number(1997, 7, 2),
+            tas_e,
+            1,
+            reason,
+            1,
+            100_000,
+        );
+        assert_eq!(permitted["weeks"], json!(allowed_weeks));
+        assert!(permitted["refused"].is_null());
+    }
 }
 
 #[test]

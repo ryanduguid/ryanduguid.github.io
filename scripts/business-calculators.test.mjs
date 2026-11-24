@@ -4425,7 +4425,10 @@ test('the long service leave page opens on the result its calculation gives, and
     '(reprint current from 1 January 2026), read 19 November 2026','(official version 04-m0-00, as at 31 January 2025), read 19 November 2026',
     '(version of 1 July 2017), read 19 November 2026', '(version current from 10 December 2018), read 19 November 2026',
     '(republication R29, effective 19 November 2025), read 19 November 2026', '(reprint as in force at 14 October 2015), read 19 November 2026',
-    '(last updated 13 May 2026), read the same day', '(last updated 3 October 2024), read the same day']) {
+    '(last updated 13 May 2026), read the same day', '(last updated 3 October 2024), read 19 November 2026',
+    'Business Queensland tables</a>, read 19 November 2026', 'Guide to long service leave</a>, read 19 November 2026',
+    'Acts read 19 November 2026; Queensland, South Australia and Tasmania rechecked 24 November 2026',
+    'Refuses positive prior leave where 15 years could have been completed by the end of 30 June 2012; undated excluded periods are not deducted for this screen']) {
     assert.ok(lslHtml.includes(cited), cited);
   }
   const radios = [...lslHtml.matchAll(/name="jurisdiction" value="([^"]+)"(?: checked)? \/> ([^<]+)</g)].map(([, code, name]) => [code, name]);
@@ -4437,7 +4440,7 @@ test('the long service leave page opens on the result its calculation gives, and
 test('long service leave becomes available on the day each Act’s qualifying period completes, not the day before', () => {
   // Each Act's full entitlement at its qualifying period: 8 2/3 weeks for 10 years in NSW, Qld, WA
   // and Tas; 13 weeks in SA and the NT; 1/60th of 2,557 days in Victoria; 7 × 1/5 of a month in the ACT.
-  for (const [place, years, weeks, value] of [['AU-NSW', 10, 8.6667, 13000], ['AU-VIC', 7, 6.0881, 9132.14], ['AU-QLD', 10, 8.6667, 13000],
+  for (const [place, years, weeks, value] of [['AU-NSW', 10, 8.6667, 13000], ['AU-VIC', 7, 6.0881, 9132.14], ['AU-QLD', 10, 8.6667, 13000.05],
     ['AU-WA', 10, 8.6667, 13000], ['AU-SA', 10, 13, 19500], ['AU-TAS', 10, 8.6667, 13000], ['AU-ACT', 7, 6.0667, 9100], ['AU-NT', 10, 13, 19500]]) {
     const last = `${2015 + years}-12-31`;
     assert.deepEqual([lsl({ place, end: `${2015 + years}-12-30` }).weeks, lsl({ place, end: last }).weeks, lsl({ place, end: last }).value],
@@ -4541,9 +4544,55 @@ test('long service leave words each Act’s misconduct test and states the condi
     `value="misconduct" /> Dismissal for serious misconduct ${wilful}`]) {
     assert.ok(lslHtml.includes(label), label);
   }
-  // SA s 5(4)(b): leaving without the required notice is an unlawful termination only where the notice was required.
-  assert.ok(ends('AU-SA', 'no-notice').rule.endsWith('if the employer waived the notice, choose resignation'));
   assert.ok(ends('AU-SA', 'resign').weeks > 0);
+});
+
+test('long service leave refuses the endings and transitions an Act leaves to facts the page does not ask', () => {
+  // Qld s 95(4)(d): a fixed term ending before 10 years pays only on 2 facts the page does not take. Under 7 years nothing is payable either way.
+  assert.throws(() => lsl({ place: 'AU-QLD', start: '2017-01-01', end: '2025-12-31', mode: 'ends', reason: 'fixed-term' }),
+    { message: /^Under 10 years, paragraph 95\(4\)\(d\) pays on a fixed term ending only if/ });
+  assert.equal(lsl({ place: 'AU-QLD', start: '2020-01-01', end: '2025-12-31', mode: 'ends', reason: 'fixed-term' }).weeks, 0);
+  assert.equal(lsl({ place: 'AU-QLD', start: '2015-01-01', end: '2025-12-31', mode: 'ends', reason: 'fixed-term' }).weeks, 9.5334);
+  // SA s 5(4)(b): leaving without the required notice may or may not be an unlawful termination by the worker.
+  assert.throws(() => lsl({ place: 'AU-SA', start: '2018-01-01', end: '2025-06-30', mode: 'ends', reason: 'no-notice' }),
+    { message: /^Under 10 years, paragraph 5\(4\)\(b\) pays nothing if the worker unlawfully terminated the contract/ });
+  assert.equal(lsl({ place: 'AU-SA', start: '2013-01-01', end: '2025-06-30', mode: 'ends', reason: 'no-notice' }).weeks, 15.6);
+  // Tas Schedule 3 cl 2(4): leave taken may have used up an entitlement under the Act before 1 July 2012, which
+  // s 8(2)(a) gave only on 15 years; undated excluded periods are not deducted for this screen.
+  for (const mode of ['employed', 'ends']) {
+    for (const [excluded, taken] of [['0', '1'], ['1', '0.0001']]) {
+      assert.throws(() => lsl({ place: 'AU-TAS', start: '1997-07-01', end: '2025-12-31', excluded, taken, mode }),
+        { message: /^Tasmania’s Schedule 3 clause 2\(4\) gives no new leave.*Refuses positive prior leave where 15 years could have been completed by the end of 30 June 2012; undated excluded periods are not deducted for this screen\./ },
+        `${mode} excluded=${excluded}`);
+    }
+    for (const [start, excluded, taken] of [['1997-07-02', '0', '1'], ['1997-07-02', '1', '0.0001'], ['2012-06-30', '0', '1']]) {
+      assert.doesNotThrow(() => assert.equal(lsl({ place: 'AU-TAS', start, end: '2025-12-31', excluded, taken, mode }).taken, Number(taken)),
+        `${mode} ${start} excluded=${excluded}`);
+    }
+  }
+  assert.equal(lsl({ place: 'AU-TAS', start: '1997-07-01', end: '2025-12-31' }).years, 28);
+  assert.equal(lsl({ place: 'AU-NSW', start: '1997-07-01', end: '2025-12-31', taken: '1' }).taken, 1);
+});
+
+test('Queensland pays the 8.6667 weeks subsection 95(2) and (7) state, not 8 2/3', () => {
+  // Business Queensland's 18 years, 3 months and 16 days: 15.8548 weeks either way, $23,782.23 on the Act's figure.
+  assert.equal(lsl({ place: 'AU-QLD', start: '2007-01-01', end: '2025-04-16' }).value, 23782.23);
+  const later = lsl({ place: 'AU-QLD', start: '2010-01-01', end: '2026-06-30' });
+  assert.deepEqual([later.weeks, later.value], [14.3001, 21450.08]);
+  // Pro rata at 8 years for a redundancy: 8 × 8.6667 / 10 weeks.
+  const redundancy = lsl({ place: 'AU-QLD', start: '2018-01-01', end: '2025-12-31', mode: 'ends' });
+  assert.deepEqual([redundancy.weeks, redundancy.value, redundancy.rule], [6.9334, 10400.04, 'Pro rata on 8.6667 weeks for 10 years, subsection 95(4)']);
+  const twelve = lsl({ place: 'AU-QLD', start: '2014-01-01', end: '2025-12-31' });
+  assert.deepEqual([twelve.value, twelve.next], [13000.05, { years: 15, date: '2028-12-31', weeks: 13.0001 }]);
+  // Exact entitlement at 15 years is 13.00005 weeks (rounded 13.0001): taken 13.0001 must refuse rather than pay -$0.07.
+  for (const mode of ['employed', 'ends']) {
+    for (const [pay, value] of [['1500', 0.08], ['1000000', 50]]) {
+      const ok = lsl({ place: 'AU-QLD', start: '2011-01-01', end: '2025-12-31', taken: '13', pay, mode });
+      assert.deepEqual([ok.weeks, ok.taken, ok.balance, ok.value], [13.0001, 13, 0.0001, value], `${mode} ${pay}`);
+      assert.throws(() => lsl({ place: 'AU-QLD', start: '2011-01-01', end: '2025-12-31', taken: '13.0001', pay, mode }),
+        { message: /Leave taken or paid is more than this entitlement/ }, `${mode} ${pay} excess`);
+    }
+  }
 });
 
 // The franking account page: how each call and result reads. Its rules come from ITAA 1997 Division 205,
