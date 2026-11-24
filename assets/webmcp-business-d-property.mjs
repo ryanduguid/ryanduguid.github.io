@@ -111,7 +111,7 @@ export function landTaxTool(kit, landTaxYear) {
         foreignSurcharge: dollars(r.surcharge),
         metropolitanRegionImprovementTax: dollars(r.mrit),
         total: dollars(r.total),
-        saBelow20AssessmentThreshold: place === 'AU-SA' && r.tax > 0 && r.tax < 20,
+        saBelow20AssessmentThreshold: place === 'AU-SA' && r.tax > 0 && 20 > r.tax,
         band: { from, base, rate, over, rule },
         currency: 'AUD',
         source: `${CALCULATORS}land-tax/`,

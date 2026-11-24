@@ -105,7 +105,7 @@ function formatCarResult(r, ev, meta, dollars, source) {
     baseValue: dollars(r.baseValue),
     statutoryTaxableValue: dollars(r.statutory),
     operatingTaxableValue: r.operating === null ? null : dollars(r.operating),
-    statutoryLowerApplied: meta.operating && r.operating !== null && r.statutory < r.operating,
+    statutoryLowerApplied: meta.operating && r.operating !== null && r.operating > r.statutory,
     taxableValueBeforeExemption: exempt ? dollars(r.taxableValue) : null,
     taxableValue: dollars(exempt ? 0 : r.taxableValue),
     grossedUpTaxableValue: dollars(exempt ? 0 : r.grossedUp),
