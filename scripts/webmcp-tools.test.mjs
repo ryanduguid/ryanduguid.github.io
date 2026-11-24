@@ -1687,8 +1687,8 @@ test('business days tool returns the page worked example, matches holiday JSON a
 
 test('Division 296 tool returns EM examples, matches form attributes and refuses invalid or unknown inputs', async () => {
   const tool = tools['division-296'];
-  const formHtml = readFileSync('_includes/calculators/division-296.html', 'utf8');
-  const match = formHtml.match(
+  const formText = readFileSync('_includes/calculators/division-296.html', 'utf8');
+  const match = formText.match(
     /data-large-threshold="([^"]+)" data-very-large-threshold="([^"]+)" data-rate="([^"]+)" data-very-large-rate="([^"]+)"/,
   );
   assert.ok(match);
@@ -1708,10 +1708,10 @@ test('Division 296 tool returns EM examples, matches form attributes and refuses
 
 test('FBT car tool returns worked example, checks EV exemption, matches form attributes and refuses mismatched inputs', async () => {
   const tool = tools['fbt-car'];
-  const formHtml = readFileSync('_includes/calculators/fbt-car.html', 'utf8');
-  const formMatch = formHtml.match(/data-year-days="([^"]+)" data-fbt-rate="([^"]+)" data-year-ended="([^"]+)"/);
-  const t1 = formHtml.match(/name="type" value="1" data-gross-up="([^"]+)"/);
-  const t2 = formHtml.match(/name="type" value="2" data-gross-up="([^"]+)"/);
+  const formText = readFileSync('_includes/calculators/fbt-car.html', 'utf8');
+  const formMatch = formText.match(/data-year-days="([^"]+)" data-fbt-rate="([^"]+)" data-year-ended="([^"]+)"/);
+  const t1 = formText.match(/name="type" value="1" data-gross-up="([^"]+)"/);
+  const t2 = formText.match(/name="type" value="2" data-gross-up="([^"]+)"/);
   assert.ok(formMatch && t1 && t2);
   assert.deepEqual(FBT_CAR_YEAR, {
     days: formMatch[1], fbtRate: formMatch[2], ended: formMatch[3], type1GrossUp: t1[1], type2GrossUp: t2[1],
@@ -1749,8 +1749,8 @@ test('FBT car tool returns worked example, checks EV exemption, matches form att
 
 test('FBT car parking tool covers methods, matches form attributes and refuses mismatched or unknown inputs', async () => {
   const tool = tools['fbt-car-parking'];
-  const formHtml = readFileSync('_includes/calculators/fbt-car-parking.html', 'utf8');
-  const match = formHtml.match(/data-threshold="([^"]+)" data-year-days="([^"]+)" data-year-ended="([^"]+)"/);
+  const formText = readFileSync('_includes/calculators/fbt-car-parking.html', 'utf8');
+  const match = formText.match(/data-threshold="([^"]+)" data-year-days="([^"]+)" data-year-ended="([^"]+)"/);
   assert.ok(match);
   assert.deepEqual(FBT_PARKING_YEAR, { threshold: match[1], days: match[2], ended: match[3] });
   const r = await tool.execute({
@@ -1803,8 +1803,8 @@ test('FBT expense payment tool covers external and in-house examples and refuses
 
 test('FBT loan tool returns worked example, matches form attributes and refuses invalid or unknown inputs', async () => {
   const tool = tools['fbt-loan'];
-  const formHtml = readFileSync('_includes/calculators/fbt-loan.html', 'utf8');
-  const match = formHtml.match(/data-year-days="([^"]+)" data-statutory-rate="([^"]+)"/);
+  const formText = readFileSync('_includes/calculators/fbt-loan.html', 'utf8');
+  const match = formText.match(/data-year-days="([^"]+)" data-statutory-rate="([^"]+)"/);
   assert.ok(match);
   assert.deepEqual(FBT_LOAN_YEAR, { days: match[1], rate: match[2] });
   const r = await tool.execute({
@@ -1821,8 +1821,8 @@ test('FBT loan tool returns worked example, matches form attributes and refuses 
 
 test('FBT meal entertainment tool covers split and register methods, matches form attributes and refuses invalid inputs', async () => {
   const tool = tools['fbt-meal-entertainment'];
-  const formHtml = readFileSync('_includes/calculators/fbt-meal-entertainment.html', 'utf8');
-  const match = formHtml.match(/data-year-ended="([^"]+)"/);
+  const formText = readFileSync('_includes/calculators/fbt-meal-entertainment.html', 'utf8');
+  const match = formText.match(/data-year-ended="([^"]+)"/);
   assert.ok(match);
   assert.deepEqual(FBT_MEAL_YEAR, { ended: match[1] });
   const split = await tool.execute({ method: 'split', expenses: '4000' });
@@ -1857,9 +1857,9 @@ test('FBT property tool returns worked example and refuses mismatched or unknown
 
 test('land tax tool returns worked examples, matches form scales 1:1 and refuses mismatched or unknown inputs', async () => {
   const tool = tools['land-tax'];
-  const formHtml = readFileSync('_includes/calculators/land-tax.html', 'utf8');
+  const formText = readFileSync('_includes/calculators/land-tax.html', 'utf8');
   const seen = [];
-  for (const [, tag] of formHtml.matchAll(/<input type="radio" name="jurisdiction"([^>]+)>/g)) {
+  for (const [, tag] of formText.matchAll(/<input type="radio" name="jurisdiction"([^>]+)>/g)) {
     const attrs = new Map(Array.from(tag.matchAll(/(value|data-[a-z-]+)="([^"]+)"/g), ([, k, v]) => [k, v]));
     const code = attrs.get('value');
     assert.ok(code);
@@ -1893,8 +1893,8 @@ test('land tax tool returns worked examples, matches form scales 1:1 and refuses
 
 test('termination payment tool returns Schedule 11 example 4, matches form attributes and refuses invalid or unknown inputs', async () => {
   const tool = tools['termination-payment'];
-  const formHtml = readFileSync('_includes/calculators/termination-payment.html', 'utf8');
-  const match = formHtml.match(
+  const formText = readFileSync('_includes/calculators/termination-payment.html', 'utf8');
+  const match = formText.match(
     /data-year-end="([^"]+)" data-etp-cap="([^"]+)" data-whole-of-income-cap="([^"]+)" data-base-amount="([^"]+)" data-service-amount="([^"]+)" data-rate-under="([^"]+)" data-rate-reached="([^"]+)" data-rate-above="([^"]+)"/,
   );
   assert.ok(match);
@@ -1918,9 +1918,9 @@ test('termination payment tool returns Schedule 11 example 4, matches form attri
 
 test('transfer duty tool returns worked examples, matches duty-jurisdictions.html 1:1 and refuses invalid or unknown inputs', async () => {
   const tool = tools['transfer-duty'];
-  const dutyHtml = readFileSync('_includes/duty-jurisdictions.html', 'utf8');
+  const dutyText = readFileSync('_includes/duty-jurisdictions.html', 'utf8');
   const seen = [];
-  for (const [, code, scaleText] of dutyHtml.matchAll(/name="jurisdiction" value="([^"]+)"[^>]*data-scale="([^"]+)"/g)) {
+  for (const [, code, scaleText] of dutyText.matchAll(/name="jurisdiction" value="([^"]+)"[^>]*data-scale="([^"]+)"/g)) {
     seen.push(code);
     assert.deepEqual(DUTY_SCALES.get(code), scaleText.split(';').map((row) => row.split(',')), code);
   }
