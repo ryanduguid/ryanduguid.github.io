@@ -4498,7 +4498,7 @@ test('long service leave refuses the endings and transitions an Act leaves to fa
     assert.throws(() => lsl({ place: 'AU-TAS', start: '1997-07-01', end: '2025-12-31', taken: '1', mode }),
       { message: /^Tasmania’s Schedule 3 clause 2\(4\) gives no new leave/ }, mode);
     for (const start of ['1997-07-02', '2012-06-30']) {
-      assert.equal(lsl({ place: 'AU-TAS', start, end: '2025-12-31', taken: '1', mode }).taken, 1, `${mode} ${start}`);
+      assert.doesNotThrow(() => assert.equal(lsl({ place: 'AU-TAS', start, end: '2025-12-31', taken: '1', mode }).taken, 1), `${mode} ${start}`);
     }
   }
   assert.equal(lsl({ place: 'AU-TAS', start: '1997-07-01', end: '2025-12-31' }).years, 28);
