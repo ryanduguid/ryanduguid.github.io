@@ -85,16 +85,20 @@ const longDate = (/** @type {string} */ iso) => new Date(`${iso}T00:00:00Z`).toL
 
 /**
  * The first home owner grant for one transaction, for applicants who state every eligibility fact.
- * @param {{place: string, date: string, home: string, value: string, north?: boolean, capValue?: string, facts: Record<string, boolean>}} input
+ * @param {{place: string, date: string, home: string, value: string, north?: boolean, capValue?: string, contractPrice?: string, facts: Record<string, boolean>}} input
  *   `date` is the contract date as YYYY-MM-DD and `value` the total value in whole dollars: for a home bought the
  *   price, the consideration; for a home built the land and contract, whose consideration is the contract alone
  *   (Qld schedule 'consideration' (b), WA s 14AB(b), s 13 in Vic, SA, Tas, ACT and NT; the NSW Act was not read),
  *   which the `contract` fact puts at the grant or more, so `value` never limits a built home's grant;
  *   `north` is required in Western Australia; `capValue`, taken only in Queensland and Western Australia, is the
- *   value their caps test where it differs from `value`.
+//   value their caps test where it differs from `value`.
+ *   `contractPrice`, taken only for a home built, is the building contract's price, its consideration (the total
+ *   payable for the building work; in the NT the amount actually paid, s 18(1)(a)): below the amount it is the grant
+ *   (Qld s 20(1), Vic s 18(1A), WA s 19(2CA), SA, Tas and NT s 18(1)), and in Victoria it is what the s 13(1A) cap
+ *   tests. It replaces the `contract` fact. A NSW price below the grant is not computed: that Act was not read.
  * @returns {{grant: number, reason: string, cap: string, residence: string, dutyFrom: string}}
  */
-export function firstHomeOwnerGrant({ place, date, home, value, north, capValue, facts }) {
+export function firstHomeOwnerGrant({ place, date, home, value, north, capValue, contractPrice, facts }) {
   if (!Object.hasOwn(FHOG, place)) throw new Error('Choose a state or territory.');
   if (!FHOG_HOMES.includes(home)) throw new Error('Choose a home bought, built or established.');
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || date < FHOG_FIRST || date > FHOG_LAST) {
@@ -108,9 +112,16 @@ export function firstHomeOwnerGrant({ place, date, home, value, north, capValue,
   if (capDollars !== undefined && place !== 'AU-QLD' && place !== 'AU-WA') {
     throw new Error(`Not computed: the value the cap tests is taken only in Queensland and Western Australia; clear it for ${scheme.name}.`);
   }
+  const price = contractPrice ? number(contractPrice, { min: 1, max: 1e9, integer: true, money: true }) : undefined;
+  if (price !== undefined && home !== 'built') throw new Error('Not computed: the building contract price is taken only for a home built; clear it.');
+  if (price !== undefined && price > dollars) throw new Error('Not computed: the building contract price cannot be more than the total value, which includes it.');
+  if (price !== undefined && capDollars !== undefined && price > capDollars) {
+    throw new Error('Not computed: the building contract price cannot be more than the value the cap tests, which includes it.');
+  }
   // Qld s 5(6) to (8), WA s 14AC(2) and (3): a home bought is tested on the greater of the price and the value,
-  // a home built on the value given.
-  const tested = capDollars === undefined ? dollars : home === 'built' ? capDollars : Math.max(dollars, capDollars);
+  // a home built on the value given; Vic s 13(1A) and (7)(b): a home built on its contract price.
+  const tested = price !== undefined && place === 'AU-VIC' ? price
+    : capDollars === undefined ? dollars : home === 'built' ? capDollars : Math.max(dollars, capDollars);
   const out = { residence: scheme.residence, dutyFrom: DUTY_FROM[place] };
   const rule = scheme.rules.find((r) => r.from <= date && date <= r.to);
   if (!rule) throw new Error(`Not computed: no ${scheme.name} grant rule covers that date.`);
@@ -118,22 +129,27 @@ export function firstHomeOwnerGrant({ place, date, home, value, north, capValue,
   const amount = home === 'established' ? rule.established ?? 0 : rule.amount;
   if (amount === 0) return { ...out, grant: 0, cap: 'none', reason: 'the grant is for a new home only' };
   const unstated = FHOG_CASE_FACTS.filter((f) => facts?.[f] !== true
-    && (f === 'contract' ? home === 'built' : place === (f === 'nt' ? 'AU-NT' : 'AU-TAS')));
+    && (f === 'contract' ? home === 'built' && price === undefined : place === (f === 'nt' ? 'AU-NT' : 'AU-TAS')));
+  if (price !== undefined && facts?.contract === true && price < amount) {
+    throw new Error(`Not computed: the building contract price is below the ${whole(amount)} grant, so it is not at least the grant as stated.`);
+  }
   if (unstated.length) throw new Error(`Not computed: the ${scheme.name} grant for this home needs another fact stated: ${unstated.map((f) => FACT_NAMES[f]).join('; ')}.`);
   if (place === 'AU-WA' && typeof north !== 'boolean') throw new Error('Not computed: choose where the Western Australian home is, south or north of the 26th parallel.');
   // An established home has no cap: only the NT's pays, and its rule has none.
   const limit = place === 'AU-WA' && north ? rule.north : home === 'built' ? rule.built : home === 'bought' ? rule.bought : undefined;
   const cap = limit === undefined ? 'none' : place === 'AU-QLD' ? 'under $750,000' : `up to ${whole(limit)}`;
   if (limit !== undefined && tested > limit) {
-    if (place === 'AU-VIC' && home === 'built') {
+    if (place === 'AU-VIC' && home === 'built' && price === undefined) {
       throw new Error('Not computed: the Victorian cap applies to the consideration for the building work (First Home Owner Grant and Home Buyer Schemes Act 2000 (Vic) s 13(1A) and (7)(b)), not the land and building total entered.');
     }
     return { ...out, grant: 0, cap, reason: place === 'AU-QLD' ? 'the value is $750,000 or more' : `the value is over the ${scheme.name} cap` };
   }
-  if (dollars < amount) {
-    if (home === 'built') throw new Error(`Not computed: a total value below the ${whole(amount)} grant cannot hold a building contract price of at least the grant.`);
+  // The consideration: a home built's contract price, which without it is known only to be at least the amount.
+  const consideration = price ?? dollars;
+  if (consideration < amount) {
+    if (home === 'built' && price === undefined) throw new Error(`Not computed: a total value below the ${whole(amount)} grant cannot hold a building contract price of at least the grant.`);
     if (!rule.lesser) throw new Error(`Not computed: a value below the ${whole(amount)} grant; the ${scheme.name} rule for that case was not confirmed.`);
-    return { ...out, grant: dollars, cap, reason: 'the grant cannot be more than the consideration' };
+    return { ...out, grant: consideration, cap, reason: 'the grant cannot be more than the consideration' };
   }
   return { ...out, grant: amount, cap, reason: '' };
 }
@@ -143,13 +159,14 @@ export function firstHomeOwnerGrant({ place, date, home, value, north, capValue,
 export function fhogFormInput(value, checked) {
   const location = value('wa-location');
   const capValue = value('cap-value');
+  const contractPrice = value('contract-price');
   return { place: value('jurisdiction'), date: value('date'), home: value('home'), value: value('value'), ...(location ? { north: location === 'north' } : {}),
-    ...(capValue ? { capValue } : {}),
+    ...(capValue ? { capValue } : {}), ...(contractPrice ? { contractPrice } : {}),
     facts: Object.fromEntries([...FHOG_FACTS, ...FHOG_CASE_FACTS].map((f) => [f, checked(`fact-${f}`)])) };
 }
 
 /** How an input reads above its result.
- * @param {{place: string, date: string, home: string, value: string, north?: boolean, capValue?: string, facts: Record<string, boolean>}} input
+ * @param {{place: string, date: string, home: string, value: string, north?: boolean, capValue?: string, contractPrice?: string, facts: Record<string, boolean>}} input
  * @param {(n: number) => string} aud */
 export function fhogInputsText(input, aud) {
   const homeText = { bought: 'new home bought', built: 'new home built under a contract', established: 'established home' }[input.home];
@@ -157,6 +174,7 @@ export function fhogInputsText(input, aud) {
   const missing = FHOG_FACTS.filter((f) => input.facts?.[f] !== true);
   return `${FHOG[input.place]?.name ?? input.place}, contract ${longDate(input.date)}, ${homeText}${north}, total value ${aud(Number(input.value))}, `
     + (input.capValue ? `value the cap tests ${aud(Number(input.capValue))}, ` : '')
+    + (input.contractPrice ? `building contract price ${aud(Number(input.contractPrice))}, ` : '')
     + (missing.length ? `not stated: ${missing.map((f) => FACT_NAMES[f]).join('; ')}` : 'every eligibility fact stated');
 }
 
