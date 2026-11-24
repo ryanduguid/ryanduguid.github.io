@@ -6262,6 +6262,11 @@ test('the first home owner grant page opens on the result its calculation gives,
   assert.deepEqual([...fhogHtml.matchAll(/name="home" value="([a-z]+)"/g)].map(([, h]) => h), [...calculations.FHOG_HOMES]);
 });
 
+test('the first home owner grant page gives no result for a contract date not on the calendar', () => {
+  // A browser without a date picker passes the typed text; the page shows the thrown message in place of a result.
+  assert.throws(() => fhogResult({ date: '2026-02-30' }), { message: 'Not computed: 2026-02-30 is not a calendar date.' });
+});
+
 test('the first home owner grant shows the transfer duty calculator’s first home buyer figures beside it', () => {
   const duty = (result) => result.rows.slice(3).map((row) => row.join('|'));
   // NSW 2026-27 reduced rate table: $9,796.75 on $850,000; general duty $32,437.

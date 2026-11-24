@@ -83,6 +83,16 @@ export const DUTY_FROM = { 'AU-NSW': '2026-07-01', 'AU-VIC': '2025-07-01', 'AU-Q
 const whole = (/** @type {number} */ n) => `$${n.toLocaleString('en-AU')}`;
 const longDate = (/** @type {string} */ iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
+/** Refuses a contract date outside the rules read or not on the calendar. @param {string} date YYYY-MM-DD */
+function contractDate(date) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || date < FHOG_FIRST || date > FHOG_LAST) {
+    throw new Error(`Not computed: choose a contract date from ${longDate(FHOG_FIRST)} to ${longDate(FHOG_LAST)}, the day the grant rules were read.`);
+  }
+  // Date.parse rolls an impossible day such as 30 February on into the next month and gives NaN for day 99.
+  const day = Date.parse(`${date}T00:00:00Z`);
+  if (!Number.isFinite(day) || new Date(day).toISOString().slice(0, 10) !== date) throw new Error(`Not computed: ${date} is not a calendar date.`);
+}
+
 /**
  * The first home owner grant for one transaction, for applicants who state every eligibility fact.
  * @param {{place: string, date: string, home: string, value: string, north?: boolean, capValue?: string, contractPrice?: string, facts: Record<string, boolean>}} input
@@ -101,9 +111,7 @@ const longDate = (/** @type {string} */ iso) => new Date(`${iso}T00:00:00Z`).toL
 export function firstHomeOwnerGrant({ place, date, home, value, north, capValue, contractPrice, facts }) {
   if (!Object.hasOwn(FHOG, place)) throw new Error('Choose a state or territory.');
   if (!FHOG_HOMES.includes(home)) throw new Error('Choose a home bought, built or established.');
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || date < FHOG_FIRST || date > FHOG_LAST) {
-    throw new Error(`Not computed: choose a contract date from ${longDate(FHOG_FIRST)} to ${longDate(FHOG_LAST)}, the day the grant rules were read.`);
-  }
+  contractDate(date);
   const missing = FHOG_FACTS.filter((f) => facts?.[f] !== true);
   if (missing.length) throw new Error(`Not computed: the grant and the first home buyer duty need every eligibility fact stated; not stated: ${missing.map((f) => FACT_NAMES[f]).join('; ')}.`);
   const dollars = number(value, { min: 1, max: 1e9, integer: true, money: true });
