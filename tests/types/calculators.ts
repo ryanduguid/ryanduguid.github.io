@@ -549,3 +549,14 @@ void businessSet['super-benefit-tax'].execute({ calculation: 'dasp', incomeYear:
 void businessSet['unused-leave'].execute({ longServiceLeave: '22020', accrualStartDate: '1977-01-01', reason: 'normal',
   lslBefore16August1978: '780', lsl16August1978To17August1993: '6420', payee: 'tfn', normalGrossEarnings: '1155', payPeriod: 'week' });
 void businessSet['workers-compensation'].execute({ place: 'AU-NT', estimatedWages: '400000', ratePercent: '3.5', actualWages: '500000' });
+void businessSet['business-days'].execute({ mode: 'count', place: 'NSW', startDate: '2026-12-21', endDate: '2027-01-04' });
+void businessSet['division-296'].execute({ totalSuperBalance: '4000000', totalSuperEarnings: '100000' });
+void businessSet['fbt-car'].execute({ method: 'statutory', costPrice: '60000', daysAvailable: 182, gstCreditEntitled: true });
+void businessSet['fbt-car-parking'].execute({ method: 'station', firstBusinessDayFee: '12.36', benefits: 22, feePerBenefit: '12.36' });
+void businessSet['fbt-expense-payment'].execute({ method: 'external', expenditure: '500', paidOrReimbursed: '250', incomeUsePercent: '80', portionDeduction: '200' });
+void businessSet['fbt-loan'].execute({ totalDailyBalances: '18250000', interestAccrued: '2000', incomeUsePercent: '60', deductionForAccruedInterest: '1200' });
+void businessSet['fbt-meal-entertainment'].execute({ method: 'split', expenses: '4000' });
+void businessSet['fbt-property'].execute({ method: 'in-house-public-price', price: '900', employeeContribution: '500' });
+void businessSet['land-tax'].execute({ place: 'AU-NSW', taxableLandValue: 1100000 });
+void businessSet['termination-payment'].execute({ genuineRedundancyPayment: '48000', completedYearsOfService: 5, codeOTaxableComponent: '17678', otherTaxablePayments: '140000', dateOfBirth: '1996-08-01' });
+void businessSet['transfer-duty'].execute({ place: 'AU-NSW', dutiableValue: 1350000 });

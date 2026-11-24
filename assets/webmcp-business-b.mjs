@@ -26,7 +26,7 @@ const POOL_REQUIRED = new Map([
   ['capital-works', ['constructionExpenditure', 'constructionStart', 'fourPercentManner', 'daysUsed', 'taxableUse', 'undeductedConstructionExpenditure']],
 ]);
 
-const DUTY_SCALES = new Map([
+export const DUTY_SCALES = new Map([
   ['AU-NSW', '0,1600,20,0,excess-rounded-up-to-100;1600,18000,20,1.25,excess-rounded-up-to-100;18000,38000,225,1.5,excess-rounded-up-to-100;38000,103000,525,1.75,excess-rounded-up-to-100;103000,387000,1662,3.5,excess-rounded-up-to-100;387000,1290000,11602,4.5,excess-rounded-up-to-100;1290000,3870000,52237,5.5,excess-rounded-up-to-100;3870000,,194137,7,excess-rounded-up-to-100'],
   ['AU-VIC', '0,25000,0,1.4,excess;25000,130000,350,2.4,excess;130000,960000,2870,6,excess;960000,2000000,0,5.5,whole-value;2000000,,110000,6.5,excess'],
   ['AU-QLD', '0,5000,0,0,excess-rounded-up-to-100;5000,75000,0,1.5,excess-rounded-up-to-100;75000,540000,1050,3.5,excess-rounded-up-to-100;540000,1000000,17325,4.5,excess-rounded-up-to-100;1000000,,38025,5.75,excess-rounded-up-to-100'],
