@@ -479,7 +479,7 @@ The functions calculate; a person decides the accounting treatment and signs off
 - The ATO benchmark ratio helpers restate the ATO’s arithmetic for amounts you supply. They ship no benchmark ranges and do not read a tax return.
 - oz.PrimeCostλ and oz.DiminishingValueλ are modelling schedules. They are not ATO Division 40 methods and they do not implement immediate write-off or low-value pools.
 - The AASB 16 functions are lessee arithmetic. They do not decide the lease term, what counts as a lease payment or whether an arrangement contains a lease, and they do not cover lessor accounting or the short-term and low-value exemptions.
-- The library leaves out the Medicare levy, tax offsets, Division 7A interest and non-resident or special income tax schedules beyond general rates.
+- The library leaves out the Medicare levy, tax offsets, Division 7A interest and part-year resident, working holiday maker or special income tax schedules beyond full-year resident and foreign-resident general rates.
 - The 13-week cash flow, practice calculator and retention reconciliation workbooks in the repository’s templates folder are separate templates, not functions in this library.
 - Known defects are listed in the repository’s changelog and issues. Check a schedule against an independent calculation before relying on it.
 
