@@ -212,6 +212,17 @@ jobs:
           ruby-version: "3.3"
           bundler-cache: true
           working-directory: .
+      - name: Render site for tests
+        working-directory: .
+        run: |
+          set -euo pipefail
+          checked="$RUNNER_TEMP/site-checked"
+          rm -rf "$checked"
+          bundle exec jekyll build --destination "$checked"
+          cp -r scripts .agents docs "$checked/"
+          cp README.md _config.yml "$checked/"
+          cp assets/social-card-template.svg assets/social-cards.json "$checked/assets/"
+          printf 'SITE_CHECKED=%s\n' "$(cygpath -w "$checked")" >> "$GITHUB_ENV"
       - name: Install the pinned Rust toolchain
         run: rustup toolchain install "$RUST_TOOLCHAIN" --profile minimal
       - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3

@@ -29,7 +29,7 @@ export const RESIDENT_SCALES = {
 // Part II clause 1, the table for 2024-25 or a later year: the second and third resident personal
 // tax rates (30% and 37%, items 2 and 3 of Part I) to $135,000 and $190,000, then 45%. Before
 // 2024-25, the ATO's 'Tax rates – foreign resident' (last updated 1 June 2026), read 18 November 2026.
-const FOREIGN_SCALE = [[0, 30], [135000, 37], [190000, 45]];
+export const FOREIGN_SCALE = [[0, 30], [135000, 37], [190000, 45]];
 const FOREIGN_SCALE_TO_2023_24 = [[0, 32.5], [120000, 37], [180000, 45]];
 // Part III clause 1, the table for 2024-25 or a later year, on working holiday taxable income.
 // Before 2024-25, the ATO's 'Tax rates – working holiday maker' (last updated 1 June 2026), read

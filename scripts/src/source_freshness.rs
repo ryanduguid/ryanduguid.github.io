@@ -7,7 +7,8 @@
 //! --write refreshes them through gh, which holds its own credentials.
 //! --check-releases reads release records through gh and flags changelog drift.
 //! --write-tool-releases refreshes the tool release snapshot and the pages it feeds;
-//! --build does the same and then builds the site.
+//! --sync-releases applies the committed snapshot offline and rebuilds feed, llms-full
+//! and design_baseline.json; --build refreshes from GitHub and then builds the site.
 //!
 //! Exit 1 means the check ran and found something; exit 2 means it could not finish (an
 //! API failure, say), so a caller can tell drift from an outage.
@@ -134,6 +135,26 @@ pub trait Host {
     /// Today's UTC date as YYYY-MM-DD.
     fn today(&self) -> String;
     fn build_site(&mut self, root: &Path) -> Result<(), String>;
+    fn sync_derived(&mut self, root: &Path) -> Result<(), String> {
+        let write = ["--write".to_owned()];
+        let check = |name: &str, code: u8| -> Result<(), String> {
+            if code == 0 {
+                Ok(())
+            } else {
+                Err(format!("{name} exited with status {code}"))
+            }
+        };
+        check("build_feed --write", crate::feed::run(root, &write)?)?;
+        check(
+            "build_llms_full --write",
+            crate::llms_full::run(root, &write)?,
+        )?;
+        check(
+            "check_design --update-baseline",
+            crate::check_design::run(root, &["--update-baseline".to_owned()])?,
+        )?;
+        Ok(())
+    }
     fn say(&mut self, text: &str, stderr: bool);
 }
 
@@ -786,30 +807,18 @@ fn parse_object(path: &Path) -> Result<Map<String, Value>, String> {
     }
 }
 
-fn write_tool_releases(root: &Path, host: &mut dyn Host, build: bool) -> Result<u8, String> {
-    let tools = parse_object(&root.join("_data/tools.json"))?;
-    let mut data = build_tool_release_data(&tools, &mut |r| fetch_releases(host, r))?;
-    let (sha, revision_date) = build_calculator_revision(host)?;
-    let date = sydney_date(&revision_date)?;
-    let sha_text = node::template(Some(&sha));
-    let mut levy = Map::new();
-    levy.insert("version".into(), sha);
-    levy.insert("date".into(), date.clone().into());
-    levy.insert("dateLabel".into(), format_date(&date).into());
-    levy.insert(
-        "url".into(),
-        format!("https://github.com/{SITE_REPOSITORY}/commit/{sha_text}").into(),
-    );
-    data.insert("coal-lsl-levy".into(), Value::Object(levy));
-    node::write(
-        &root.join("_data/tool_releases.json"),
-        &format!("{}\n", node::stringify(&Value::Object(data.clone()))),
-    )?;
+/// Stamp the committed tool pages, sitemap, register, homepage and `llms.txt` from
+/// `_data/tools.json` and `_data/tool_releases.json` without talking to GitHub.
+pub fn apply_tool_releases(
+    root: &Path,
+    tools: &Map<String, Value>,
+    data: &Map<String, Value>,
+) -> Result<(), String> {
     let register_path = root.join("tools").join("index.html");
     let sitemap_path = root.join("sitemap.xml");
     let mut sitemap = node::read(&sitemap_path)?;
     let mut register = node::read(&register_path)?;
-    for (slug, tool) in &tools {
+    for (slug, tool) in tools {
         let source = root.join("tools").join(slug).join("index.html");
         let html = stamp_tool_metadata(&node::read(&source)?, tool, data.get(slug))?;
         node::write(&source, &html)?;
@@ -842,13 +851,36 @@ fn write_tool_releases(root: &Path, host: &mut dyn Host, build: bool) -> Result<
     let home = root.join("index.html");
     node::write(
         &home,
-        &stamp_latest_releases(&node::read(&home)?, &tools, &data, 3)?,
+        &stamp_latest_releases(&node::read(&home)?, tools, data, 3)?,
     )?;
     let index = root.join("llms.txt");
     node::write(
         &index,
         &stamp_mcp_index(&node::read(&index)?, data.get("australian-tax-ai-agents"))?,
     )?;
+    Ok(())
+}
+
+fn write_tool_releases(root: &Path, host: &mut dyn Host, build: bool) -> Result<u8, String> {
+    let tools = parse_object(&root.join("_data/tools.json"))?;
+    let mut data = build_tool_release_data(&tools, &mut |r| fetch_releases(host, r))?;
+    let (sha, revision_date) = build_calculator_revision(host)?;
+    let date = sydney_date(&revision_date)?;
+    let sha_text = node::template(Some(&sha));
+    let mut levy = Map::new();
+    levy.insert("version".into(), sha);
+    levy.insert("date".into(), date.clone().into());
+    levy.insert("dateLabel".into(), format_date(&date).into());
+    levy.insert(
+        "url".into(),
+        format!("https://github.com/{SITE_REPOSITORY}/commit/{sha_text}").into(),
+    );
+    data.insert("coal-lsl-levy".into(), Value::Object(levy));
+    node::write(
+        &root.join("_data/tool_releases.json"),
+        &format!("{}\n", node::stringify(&Value::Object(data.clone()))),
+    )?;
+    apply_tool_releases(root, &tools, &data)?;
     host.say(
         "tool releases refreshed from published GitHub tags; browser levy from source revision",
         false,
@@ -856,6 +888,18 @@ fn write_tool_releases(root: &Path, host: &mut dyn Host, build: bool) -> Result<
     if build {
         host.build_site(root)?;
     }
+    Ok(0)
+}
+
+fn sync_releases(root: &Path, host: &mut dyn Host) -> Result<u8, String> {
+    let tools = parse_object(&root.join("_data/tools.json"))?;
+    let data = parse_object(&root.join("_data/tool_releases.json"))?;
+    apply_tool_releases(root, &tools, &data)?;
+    host.sync_derived(root)?;
+    host.say(
+        "release metadata, feed, llms-full and design baseline synced offline",
+        false,
+    );
     Ok(0)
 }
 
@@ -884,9 +928,10 @@ fn check_current_releases(root: &Path, host: &mut dyn Host) -> Result<u8, String
 }
 
 const HELP: &str = include_str!("help/stamp_source_freshness.txt");
-const FLAGS: [&str; 4] = [
+const FLAGS: [&str; 5] = [
     "--build",
     "--check-releases",
+    "--sync-releases",
     "--write",
     "--write-tool-releases",
 ];
@@ -905,6 +950,9 @@ fn freshness(root: &Path, args: &[String], host: &mut dyn Host) -> Result<u8, St
     let given = |flag: &str| args.iter().any(|a| a == flag);
     if given("--build") || given("--write-tool-releases") {
         return write_tool_releases(root, host, given("--build"));
+    }
+    if given("--sync-releases") {
+        return sync_releases(root, host);
     }
     if given("--check-releases") {
         return check_current_releases(root, host);
