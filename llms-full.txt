@@ -13022,7 +13022,7 @@ Facts you state (untick any that is not true) Every applicant is a person, not a
 
 Contracts from 1 July 2025 to 22 November 2026, the day the rules were read. Owner-builders and substantially renovated homes are not covered.
 
-Bought: the price (in Victoria, the contract price off the plan). Built: the land plus the building contract and variations. It limits the grant and sets duty.
+Bought: the price (in Victoria, the contract price off the plan), which limits the grant. Built: land plus contract; the land never limits the grant.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, contract 1 August 2026, new home bought, total value $600,000.00, every eligibility fact stated. First home owner grant $10,000.00 Value cap up to $600,000 Residence requirement you stated each applicant lives in the home for 12 continuous months, starting within 12 months Transfer duty for an eligible first home buyer $0.00 General transfer duty on the same value $21,187.00
 
