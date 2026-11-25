@@ -38,7 +38,7 @@
     "needs": "Python 3.14 or later and uv",
     "boundary": "Human review required. Optional local library excerpts enter the assistant’s context; Division 7A scope stays limited.",
     "licences": {
-      "0.12.0": "GNU Affero General Public License v3.0 or later"
+      "0.13.0": "GNU Affero General Public License v3.0 or later"
     }
   },
   "coal-lsl-levy": {
@@ -75,11 +75,11 @@
     "sameAs": [
       "https://pypi.org/project/the-exchequer-tally/"
     ],
-    "delivery": "Python",
-    "needs": "Python 3.10 or later",
+    "delivery": "Rust",
+    "needs": "Windows x86_64 or Linux x86_64. The executable runs without Python or Rust.",
     "boundary": "Requires verified income composition, distributions and ledger inputs.",
     "licences": {
-      "0.2.0": "Apache License 2.0"
+      "1.0.0": "GNU Affero General Public License v3.0 or later"
     }
   },
   "monthly-close-controls": {
@@ -100,7 +100,7 @@
     "needs": "Git and Rust 1.99.0",
     "boundary": "PASS applies to the configured checks. A human approves the close.",
     "licences": {
-      "1.1.0": "Ryan Duguid Public Attribution Licence 1.0"
+      "1.2.0": "GNU Affero General Public License v3.0 or later"
     }
   },
   "ozzit": {
@@ -161,7 +161,7 @@
     "needs": "An AI coding agent such as Claude Code or Codex, and Node",
     "boundary": "Requires human review of contracts, classifications and source records.",
     "licences": {
-      "0.7.0": "Ryan Duguid Public Attribution Licence 1.0"
+      "0.8.1": "Apache License 2.0"
     }
   },
   "trust-distributions": {
@@ -179,11 +179,11 @@
     "sameAs": [
       "https://pypi.org/project/solomons-sword/"
     ],
-    "delivery": "Python",
-    "needs": "Python 3.10 or later",
+    "delivery": "Rust",
+    "needs": "Windows x86_64 or Linux x86_64. The executable runs without Python or Rust.",
     "boundary": "Does not invent arrangements, intentions or beneficiary facts.",
     "licences": {
-      "0.3.2": "Apache License 2.0"
+      "1.0.0": "GNU Affero General Public License v3.0 or later"
     }
   },
   "wip-schedule": {
@@ -223,10 +223,10 @@
       "https://pypi.org/project/review-ready-gate/"
     ],
     "delivery": "Rust",
-    "needs": "Windows x86_64 or Linux x86_64. The executable runs without Python or Rust.",
+    "needs": "Windows, Linux or macOS on x86_64 or aarch64. The executable runs without Python or Rust.",
     "boundary": "READY means ready for human review, not approved or signed off.",
     "licences": {
-      "1.0.1": "Ryan Duguid Public Attribution Licence 1.0"
+      "1.1.0": "GNU Affero General Public License v3.0 or later"
     }
   },
   "xero-trial-balance": {
