@@ -5704,6 +5704,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+26 November 2026 | A new business calculator, trust streaming, shares a resident discretionary trust’s net income between up to 4 beneficiaries by present entitlement under Division 6, streams a capital gain and franked distributions to the beneficiaries specifically entitled to them under Subdivisions 115-C and 207-B with Division 6E, and works the trustee’s 45% tax under section 99A on income no beneficiary is presently entitled to, tested against the ATO’s worked examples.
 25 November 2026 | Updated general tax question 8 after the ATO updated its How to lodge your tax return page from 12 to 10 business days for returns lodged online, matching its progress page.
 24 November 2026 | The first home owner grant calculator now takes the building contract price of a home built. Below the grant it pays the contract price in Victoria, Queensland, Western Australia, South Australia, Tasmania and the Northern Territory, whose Acts pay the lesser of the consideration and the grant, and in Victoria the $750,000 cap tests the contract price, so a larger land and building total is computed. A New South Wales contract price below the grant is still not computed.
 24 November 2026 | Updated the Aus Accounting MCP guide, Ozzit reference and machine indexes for published releases aus-accounting-mcp v0.12.0 (102 worksheet kinds with calculators 1.2.0, AGPL-3.0-or-later, listed as latest on the official MCP Registry) and Ozzit v3.8.0 (165 functions and 5 help tables, Apache License 2.0, plus the Homebrew tap).
@@ -5951,6 +5952,7 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- trust streaming: https://duguid.com.au/tools/business-calculators/trust-streaming/
 - general tax question 8: https://duguid.com.au/tools/accounting-questions/general-tax/
 - first home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 - Aus Accounting MCP guide: https://duguid.com.au/tools/australian-tax-ai-agents/
@@ -6535,9 +6537,9 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 Fifty-seven free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
-Published 11 September 2026. Last checked 24 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
-Search 57 calculators
+Search 58 calculators
 
 ## Pricing, planning and loans
 
@@ -6582,6 +6584,7 @@ Search 57 calculators
 - R&D tax offset calculator A company’s R&D tax incentive offset for 2021-22 to 2026-27, refundable or with the premium tiers, and the amount a grant or feedstock clawback includes in assessable income.
 - Deferred tax calculator A company’s AASB 112 tax effect worksheet: deferred tax liability and asset, the movement, current tax and the reconciliation.
 - Salary against dividends calculator A company owner’s salary and super guarantee against fully franked dividends for 2021-22 to 2026-27: the cash and super kept after tax, and the split that keeps the most.
+- Trust streaming calculator A discretionary trust’s net income shared by present entitlement, with capital gains and franked distributions streamed to the beneficiaries specifically entitled, and the trustee’s 45% tax under section 99A.
 
 ## Capital gains tax
 
@@ -6658,6 +6661,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - R&D tax offset calculator: https://duguid.com.au/tools/business-calculators/rd-tax-offset/
 - Deferred tax calculator: https://duguid.com.au/tools/business-calculators/deferred-tax/
 - Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/
+- Trust streaming calculator: https://duguid.com.au/tools/business-calculators/trust-streaming/
 - Capital gains tax calculator: https://duguid.com.au/tools/business-calculators/cgt/
 - Small business CGT concessions checker: https://duguid.com.au/tools/business-calculators/cgt-concessions/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
@@ -15947,6 +15951,111 @@ Turnover of exactly $20 million: non-refundable with the premium tiers | 2024-25
 Exempt entity control under $20 million turnover: non-refundable | 2024-25; notional deductions $100,000.00, aggregated turnover $5,000,000.00, controlled by exempt entities, a base rate entity, total expenses $10,000,000.00 | R&D tax offset $33,500.00, non-refundable $33,500.00
 The ATO’s feedstock example: a clawback leaving $13,000 is refused | 2024-25; notional deductions $22,000.00, aggregated turnover $10,000,000.00, a base rate entity, total expenses $0.00; feedstock revenue $9,000.00 and expenditure $10,000.00, a base rate entity in the present year | Refused: with a clawback amount, the notional deductions or the adjusted total is under $20,000: section 355-100(2) then limits the adjusted offset to research service provider and CRC expenditure, but neither section 355-450 nor the ATO says how the clawback reduces that expenditure, and the ATO’s feedstock example applies the full rate below $20,000; this calculator does not choose between them
 2020-21 is refused: the earlier rates and clawback rules | 2020-21; notional deductions $100,000.00, aggregated turnover $10,000,000.00, a base rate entity, total expenses $0.00 | Refused: choose an income year from 2021-22 to 2026-27. Income years starting before 1 July 2021 used the earlier R&D offset rates, cap and clawback rules, replaced by Act No. 92 of 2020 (Sch 4 item 14, Sch 5 item 56(3)); this calculator does not hold them
+
+One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Trust streaming calculator: Division 6, 6E and section 99A
+
+Source: https://duguid.com.au/tools/business-calculators/trust-streaming/
+
+> Each beneficiary’s share of a discretionary trust’s net income by present entitlement, capital gains and franked distributions streamed to those specifically entitled, and the trustee’s 45% tax under section 99A.
+
+# Trust streaming calculator
+
+A discretionary trust’s net income shared between beneficiaries, with capital gains and franked distributions streamed.
+
+Published 26 November 2026. Last checked 26 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+A resident discretionary trust’s net income for one income year Other income
+
+Other trust income after expenses (a loss below nil) (AUD) Other net income: no capital gain, franked distributions or credits (a loss below nil) (AUD)
+
+Franked distributions
+
+Franked distributions (AUD) Franking credits (AUD) Directly relevant deductions (AUD)
+
+Capital gain
+
+Capital gain before losses and concessions (AUD) Gain after losses and concessions (AUD)
+
+Concessions applied None 50% CGT discount Small business 50% reduction Both
+
+Gain in trust income (AUD)
+
+Beneficiary 1
+
+Name
+
+Kind Individual Company Trust
+
+Entitlement (AUD) Of it, capital gain (AUD) Of it, franked (AUD)
+
+Beneficiary 2
+
+Name
+
+Kind Individual Company Trust
+
+Entitlement (AUD) Of it, capital gain (AUD) Of it, franked (AUD)
+
+Beneficiary 3
+
+Name
+
+Kind Individual Company Trust
+
+Entitlement (AUD) Of it, capital gain (AUD) Of it, franked (AUD)
+
+Beneficiary 4
+
+Name
+
+Kind Individual Company Trust
+
+Entitlement (AUD) Of it, capital gain (AUD) Of it, franked (AUD)
+
+Calculate
+
+A blank beneficiary is skipped. Entitlement is present entitlement to trust income; each ‘of it’ is the part specifically entitled to (sections 115-228 and 207-58). Income nobody is entitled to is the trustee’s.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: other trust income $80,000.00, other net income $80,000.00; franked distributions $70,000.00 with franking credits $30,000.00; capital gain $100,000.00, $50,000.00 after losses and the 50% CGT discount, $100,000.00 in trust income; beneficiaries: Alex (an individual) entitled to $120,000.00, $100,000.00 of it from the capital gain; Bea Pty Ltd (a company) entitled to $80,000.00, $50,000.00 of it from franked distributions. Net income of the trust $230,000.00 Division 6E net income, shared by present entitlement $80,000.00 Beneficiaries’ assessable income from the trust, together $175,714.29 Trustee assessed under s 99A(4A), no beneficiary presently entitled $54,285.71 Trustee’s tax at 45% $24,428.57 Less the trustee’s franking credit offset $4,285.71 Trustee’s tax after the offset $20,142.86 Each extra capital gain is the attributable gain times 2, reversing the 50% CGT discount; the net capital gain assumes the beneficiary has no other gains or losses. Assessable income here is the Division 6 share, the net capital gain, the attributable franked distribution and the franking credit.
+
+## How the trust streaming calculator works
+
+The calculator shares a resident discretionary trust’s net income for one income year between up to 4 beneficiaries and the trustee. A beneficiary specifically entitled to part of a capital gain or franked distribution is treated as entitled to the gain or distribution times the benefit they receive over the net benefit referable to it. The part nobody is specifically entitled to is shared by adjusted Division 6 percentage: present entitlement less the amounts specifically entitled to, over trust income less all such amounts, as the ATO’s examples work it. A share of the capital gain over the gain, times the gain remaining after losses and concessions, is the attributable gain. The beneficiary has an extra capital gain of twice that for a gain the trust discounted or reduced by the small business 50% reduction, or 4 times for both, and then applies their own discount. A share of the franked distributions gives the same share of the distributions less directly relevant deductions, and of the franking credits. Where net income without franking credits is less than the net capital gain and net franked distributions together, both are reduced rateably. Division 6E takes the capital gain, franked distributions and franking credits out of income and net income, and each beneficiary is assessed on the rest of the net income in proportion to their present entitlement to the rest of the income. The trustee is assessed under section 99A at 45% on the part no beneficiary is presently entitled to, with its share of a discounted gain grossed up, and gets its share of the franking credits as a tax offset. Each amount is worked exactly and rounded to the cent once.
+
+## What the trust streaming calculator does not cover
+
+The calculator does not decide whether a beneficiary is presently or specifically entitled, whether the deed allows streaming, or whether a resolution was made in time: you enter the entitlements as established. It takes one capital gain and treats the franked distributions as one class (section 207-59); a trust with several gains needs each worked separately. It assumes every beneficiary is a resident not under a legal disability and assessed under section 97, so it leaves out section 98 assessments for minors, beneficiaries under a legal disability and non-residents, Division 6AA, and the trustee’s choice to be assessed on a capital gain (section 115-230). It does not apply section 99 to deceased estates or other section 99A(2) trusts, and does not cover non-resident trusts, managed investment trusts, AMITs, public trading trusts or trust losses. It does not work out the capital gain, losses, discount, trust income or net income, the 45-day holding rule or other franking integrity rules, the Medicare levy, or any beneficiary’s own tax. It gives no advice on section 100A reimbursement agreements, family trust elections or family trust distribution tax, or distributions to a bucket company and Division 7A: those are out of scope. Results are planning estimates: check them against the trust deed, the resolutions and the ATO’s guidance.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Trust streaming calculator
+
+Case | Inputs | Result
+A gain streamed to Alex and franked distributions to Bea Pty Ltd, the rest to the trustee at 45%: trustee’s tax after the offset $20,142.86 | other trust income $80,000.00, other net income $80,000.00; franked distributions $70,000.00 with franking credits $30,000.00; capital gain $100,000.00, $50,000.00 after losses and the 50% CGT discount, $100,000.00 in trust income; beneficiaries: Alex (an individual) entitled to $120,000.00, $100,000.00 of it from the capital gain; Bea Pty Ltd (a company) entitled to $80,000.00, $50,000.00 of it from franked distributions | beneficiary 1 assessable $71,714.29, beneficiary 2 assessable $104,000.00, trustee assessed under s 99A $54,285.71, trustee’s tax after the offset $20,142.86
+The ATO’s Trailerpark Trust: Julian specifically entitled to $110,000 of the gain; the ATO, rounding its percentages, shows $8,316 and $61,684 | other trust income $50,000.00, other net income $50,000.00; capital gain $150,000.00, $70,000.00 after losses and the 50% CGT discount, $140,000.00 in trust income; beneficiaries: Ricky (an individual) entitled to $40,000.00; Julian (an individual) entitled to $150,000.00, $110,000.00 of it from the capital gain | beneficiary 1 attributable gain $8,316.83, beneficiary 1 extra capital gain $16,633.66, beneficiary 2 attributable gain $61,683.17, beneficiary 2 extra capital gain $123,366.34
+The ATO’s rateable reduction: net income $60,000 short of the $70,000 net capital gain; the ATO shows $10,590 and $49,410 | other trust income -$10,000.00, other net income -$10,000.00; capital gain $150,000.00, $70,000.00 after losses and the 50% CGT discount, $140,000.00 in trust income; beneficiaries: Ricky (an individual) entitled to $10,000.00; Julian (an individual) entitled to $120,000.00, $110,000.00 of it from the capital gain | net income $60,000.00, beneficiary 1 attributable gain $10,588.24, beneficiary 2 attributable gain $49,411.76
+The ATO’s Lang Trust: Hannah specifically entitled to $50,000 of a $70,000 franked distribution, shares $15,000 and $55,000 | other trust income $80,000.00, other net income $80,000.00; franked distributions $70,000.00 with franking credits $30,000.00; beneficiaries: Lucy (an individual) entitled to $75,000.00; Hannah (an individual) entitled to $75,000.00, $50,000.00 of it from franked distributions | beneficiary 1 attributable franked distribution $15,000.00, beneficiary 1 franking credit $6,428.57, beneficiary 2 attributable franked distribution $55,000.00, beneficiary 2 franking credit $23,571.43, beneficiary 1 assessable $81,428.57, beneficiary 2 assessable $98,571.43
+The ATO’s Tudor Trust: Division 6E leaves Henry $100,000 of other income; Anne and Jane are taxed on the streamed amounts only | other trust income $100,000.00, other net income $100,000.00; franked distributions $70,000.00 with franking credits $30,000.00; capital gain $300,000.00, $100,000.00 after losses and the 50% CGT discount, $300,000.00 in trust income; beneficiaries: Henry (an individual) entitled to $100,000.00; Anne (an individual) entitled to $70,000.00, $70,000.00 of it from franked distributions; Jane (an individual) entitled to $300,000.00, $300,000.00 of it from the capital gain | beneficiary 1 Division 6 share $100,000.00, beneficiary 2 Division 6 share $0.00, beneficiary 2 assessable $100,000.00, beneficiary 3 Division 6 share $0.00, beneficiary 3 extra capital gain $200,000.00, beneficiary 3 assessable $100,000.00
+No beneficiary presently entitled: a $200 gain discounted to $100 is grossed back up for section 99A | other trust income $10,000.00, other net income $10,000.00; capital gain $200.00, $100.00 after losses and the 50% CGT discount, $200.00 in trust income; no beneficiary presently entitled | trustee assessed under s 99A $10,200.00, trustee’s tax at 45% $4,590.00
+A company specifically entitled to the gain cannot discount its extra capital gain | other trust income $50,000.00, other net income $50,000.00; capital gain $150,000.00, $70,000.00 after losses and the 50% CGT discount, $140,000.00 in trust income; beneficiaries: Ricky (an individual) entitled to $40,000.00; Julian Pty Ltd (a company) entitled to $150,000.00, $110,000.00 of it from the capital gain | beneficiary 2 extra capital gain $123,366.34, beneficiary 2 assessable $150,000.00
+Both the CGT discount and the small business 50% reduction: the gain is grossed up 4 times | other trust income $0.00, other net income $0.00; capital gain $400,000.00, $100,000.00 after losses and the CGT discount and the small business 50% reduction, $400,000.00 in trust income; beneficiaries: Kim (an individual) entitled to $400,000.00, $400,000.00 of it from the capital gain | beneficiary 1 extra capital gain $400,000.00, beneficiary 1 assessable $100,000.00
+Present entitlements above the trust’s income: refused | other trust income $100.00, other net income $100.00; beneficiaries: Lee (an individual) entitled to $100.01 | Refused: present entitlements cannot exceed the trust’s income
+No net income: refused, Division 6 assesses nobody | other trust income $100.00, other net income -$100.00; beneficiaries: Lee (an individual) entitled to $100.00 | Refused: the trust has no net income, so Division 6 assesses nobody on it
+Franking credits above 30/70 of the distributions: refused | other trust income $0.00, other net income $0.00; franked distributions $70.00 with franking credits $30.02; beneficiaries: Lee (an individual) entitled to $70.00 | Refused: franking credits cannot exceed 30/70 of the franked distributions
 
 One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 

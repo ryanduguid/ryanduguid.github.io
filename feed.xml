@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-11-25T00:00:00Z</updated>
+  <updated>2026-11-26T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>A new business calculator, trust streaming, shares a resident discretionary…</title>
+    <link href="https://duguid.com.au/changelog/#entry-4e806f300e78a4e8" />
+    <id>https://duguid.com.au/changelog/#entry-4e806f300e78a4e8</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>A new business calculator, trust streaming, shares a resident discretionary trust’s net income between up to 4 beneficiaries by present entitlement under Division 6, streams a capital gain and franked distributions to the beneficiaries specifically entitled to them under Subdivisions 115-C and 207-B with Division 6E, and works the trustee’s 45% tax under section 99A on income no beneficiary is presently entitled to, tested against the ATO’s worked examples.</summary>
+  </entry>
   <entry>
     <title>Updated general tax question 8 after the ATO updated its How to lodge your tax…</title>
     <link href="https://duguid.com.au/changelog/#entry-062afadb39b84c69" />
