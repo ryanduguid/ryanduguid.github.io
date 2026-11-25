@@ -8,6 +8,13 @@
   <updated>2026-11-26T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>Added the 183-day residency day count: the days in Australia in an income year…</title>
+    <link href="https://duguid.com.au/changelog/#entry-dee48b60e3e7dd02" />
+    <id>https://duguid.com.au/changelog/#entry-dee48b60e3e7dd02</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>Added the 183-day residency day count: the days in Australia in an income year from 2020-21 to 2026-27, added up from arrival and departure days, against the 183-day test and its exception. It does not decide residency, and agrees with the australian-accounting residency-tests command on 667 test cases.</summary>
+  </entry>
+  <entry>
     <title>The tool pages, changelog, release record and machine indexes name the releases…</title>
     <link href="https://duguid.com.au/changelog/#entry-82c2fe0f98e0f02a" />
     <id>https://duguid.com.au/changelog/#entry-82c2fe0f98e0f02a</id>
