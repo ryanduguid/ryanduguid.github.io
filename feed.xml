@@ -8,6 +8,13 @@
   <updated>2026-11-26T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new business calculator, Payday Super cashflow, lists each payday’s super…</title>
+    <link href="https://duguid.com.au/changelog/#entry-d02fe11c16ea41c0" />
+    <id>https://duguid.com.au/changelog/#entry-d02fe11c16ea41c0</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>A new business calculator, Payday Super cashflow, lists each payday’s super guarantee in a quarter of 2026-27 with the date the fund must receive it, 7 business days after payday, against the old quarterly date 28 days after the quarter, and the peak extra working capital, the quarter’s whole super guarantee, held from the last payday’s due date to the quarterly date.</summary>
+  </entry>
+  <entry>
     <title>The tool pages, changelog, release record and machine indexes name the releases…</title>
     <link href="https://duguid.com.au/changelog/#entry-82c2fe0f98e0f02a" />
     <id>https://duguid.com.au/changelog/#entry-82c2fe0f98e0f02a</id>
