@@ -56,13 +56,20 @@ A payment before commencement and the restoration estimate add to the asset, qua
 Incentives as large as the rest of the cost are refused | 60 monthly payments of $1,000.00, 7.5% a year, incentives $60,000.00, from 2026-07-01 | Refused: the incentives received are as much as the rest of the right-of-use asset’s cost, which leaves it nothing to depreciate
 Ownership transferring without a useful life is refused | 60 monthly payments of $1,000.00, 7.5% a year, residual $5,000.00, from 2026-07-01, ownership transfers | Refused: enter the asset’s useful life in months: with ownership transferring, the asset is depreciated over it
 
-One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+## Related
+
+- Hire purchase and chattel mortgage schedule
+- Loan repayment schedule calculator
+- Borrowing expenses calculator
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
 - depreciation rates page: https://duguid.com.au/tools/depreciation-rates/
-- fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- Hire purchase and chattel mortgage schedule: https://duguid.com.au/tools/business-calculators/hire-purchase/
+- Loan repayment schedule calculator: https://duguid.com.au/tools/business-calculators/loan/
+- Borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/

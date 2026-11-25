@@ -16,7 +16,7 @@ Source: https://duguid.com.au/privacy/
 
 The duguid.com.au privacy notice explains how the site handles browser calculations, hosting and feedback.
 
-Published 12 September 2026. Last reviewed 23 November 2026.
+Published 12 September 2026. Last reviewed 24 November 2026.
 
 ## Browser calculations
 
@@ -62,7 +62,7 @@ Read the advice and review boundary before relying on a tool or example. Check e
 
 The code Ryan Duguid wrote for this website uses the Apache License 2.0 and his original page text uses CC BY 4.0. His original data compilations and artwork use the Ryan Duguid Public Attribution Licence 1.0. Third-party material keeps its own terms.
 
-Each tool page links to the licence for its release or source revision. For example, Ozzit v3.7.0 uses the Ryan Duguid Public Attribution Licence 1.0. Earlier releases keep the terms they shipped with. When copying a formula or integrating a package, use the licence supplied with the version you take.
+Each tool page links to the licence for its release or source revision. For example, Ozzit v3.8.0 uses the Apache License 2.0. Earlier releases keep the terms they shipped with. When copying a formula or integrating a package, use the licence supplied with the version you take.
 
 ## Accessibility
 
@@ -85,4 +85,4 @@ Automated checks find only some barriers. I have not tested the site with screen
 - CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
 - Ryan Duguid Public Attribution Licence 1.0: https://duguid.com.au/LICENSE-DATA-AND-ARTWORK
 - tool page: https://duguid.com.au/tools/
-- Ozzit v3.7.0: https://duguid.com.au/tools/ozzit/#download
+- Ozzit v3.8.0: https://duguid.com.au/tools/ozzit/#download

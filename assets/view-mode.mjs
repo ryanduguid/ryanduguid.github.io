@@ -77,5 +77,27 @@
     });
     setMode(mode);
     toggle.parentElement.hidden = false;
+
+    // Collapse long in-page contents lists on phones whilst keeping them open on desktop.
+    const toc = document.querySelector('.article-toc');
+    if (toc && !toc.querySelector('details')) {
+      const heading = toc.querySelector(':scope > p, :scope > h2');
+      const items = [...toc.children].filter(child => child !== heading);
+      if (items.length) {
+        const details = document.createElement('details');
+        details.className = 'toc-disclosure';
+        const summary = document.createElement('summary');
+        summary.textContent = heading ? heading.textContent.trim() : 'On this page';
+        const desktop = window.matchMedia('(min-width: 56.0625rem)');
+        details.open = desktop.matches;
+        desktop.addEventListener('change', event => { details.open = event.matches; });
+        const list = document.createElement('div');
+        list.className = 'toc-disclosure__list';
+        list.append(...items);
+        if (heading) heading.remove();
+        details.append(summary, list);
+        toc.append(details);
+      }
+    }
   });
 })();

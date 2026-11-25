@@ -10,7 +10,7 @@ const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 's
   'concessional-catch-up': '$97,500.00', 'bonus-withholding': '$641.00',
   'salary-packaging': '$5,291.50', 'novated-lease': '$6,047.48',
   'super-projection': '$539,266.80', fhss: '$14,350.00', 'work-expenses': '$590.00',
-  'government-super': '$500.00' };
+  'government-super': '$500.00', 'transfer-balance': '$26.80', 'pension-minimum': '$30,000.00' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -200,6 +200,105 @@ test('the private health insurance rebate refunds at nil income, the zone questi
   await form.locator('input[name=phi-loading][value=yes]').check();
   await calculate.click();
   await expect(form.locator('output')).toContainText('Lifetime health cover loading is outside the rebate');
+});
+
+test('the net medical expenses offset works for a 2018-19 return beside the income tax calculator offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/income-tax/');
+  const form = page.locator('#net-medical-expenses form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await calculate.click();
+  await expect(row('Net medical expenses tax offset')).toHaveText('$1,524.60');
+  // A spouse's income is asked for only when married on 30 June, and counts with your own.
+  await expect(form.getByLabel('Your spouse’s adjusted taxable income for rebates (dollars and cents)')).toBeHidden();
+  await form.locator('input[name=nme-spouse][value=yes]').check();
+  await form.getByLabel('Your adjusted taxable income for rebates (dollars and cents)').fill('100000');
+  await form.getByLabel('Your spouse’s adjusted taxable income for rebates (dollars and cents)').fill('80001');
+  await calculate.click();
+  await expect(row('Net medical expenses tax offset')).toHaveText('$439.10');
+  await expect(row('Threshold, family')).toHaveText('$180,000');
+  await expect(form.locator('.sources-applied')).toBeVisible();
+});
+
+test('foreign income converts beside the income tax calculator, and the offset asks only for its limit method’s figures, offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/income-tax/');
+  const fx = page.locator('#foreign-income-conversion form');
+  await waitForCalculator(fx);
+  await context.setOffline(true);
+  const row = (form, label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await fx.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(row(fx, 'Australian dollars')).toHaveText('$8,843.04');
+  // Each kind asks for its own dates.
+  await expect(fx.getByLabel('Date derived')).toBeVisible();
+  await fx.locator('input[name=fx-kind][value=deduction]').check();
+  await expect(fx.getByLabel('Date derived')).toBeHidden();
+  await expect(fx.getByLabel('Date it became deductible')).toBeVisible();
+  const form = page.locator('#income-tax form');
+  await expect(form.locator('#income-tax-fito-paid')).toBeHidden();
+  await form.locator('input[name=fito][value=yes]').check();
+  await expect(form.locator('#income-tax-fito-income')).toBeHidden();
+  await form.locator('input[name=fito-method][value=worked]').check();
+  await expect(form.locator('#income-tax-fito-income')).toBeVisible();
+  await expect(form.locator('#income-tax-fito-payable')).toBeHidden();
+  await form.locator('#income-tax-fito-paid').fill('5000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(row(form, 'Foreign income tax offset')).toHaveText('$2,970.00');
+});
+
+test('a minor’s unearned income is taxed beside the income tax calculator, with each ground’s facts asked only for it, offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/income-tax/');
+  const form = page.locator('#minors-income form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await calculate.click();
+  await expect(row('Basic income tax')).toHaveText('$385.44');
+  await expect(form.locator('input[name=mi-ft-4][value=yes]')).toBeHidden();
+  await form.getByLabel('Excepted person').selectOption('full_time_occupation');
+  await expect(form.locator('input[name=mi-dependent][value=yes]')).toBeHidden();
+  await form.locator('input[name=mi-ft-4][value=yes]').check();
+  await calculate.click();
+  await expect(row('Basic income tax')).toHaveText('$385.44');
+  await form.locator('input[name=mi-ft-4][value=no]').check();
+  await calculate.click();
+  await expect(row('Basic income tax')).toHaveText('$0.00');
+  await form.getByLabel('Excepted person').selectOption('none');
+  await form.getByLabel('Taxable income (whole dollars)', { exact: true }).fill('30000');
+  await form.getByLabel('Employment income (dollars and cents)', { exact: true }).fill('28000');
+  await form.getByLabel('Other assessable income (dollars and cents)', { exact: true }).fill('2000');
+  await calculate.click();
+  await expect(row('Basic income tax')).toHaveText('$2,468.00');
+  await expect(form.locator('.sources-applied')).toBeVisible();
+});
+
+test('the sole trader page says whether a non-commercial loss is deferred, asking for an estimate only in a part year, offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/sole-trader/');
+  const form = page.locator('#non-commercial-losses form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await calculate.click();
+  await expect(row('Deferred')).toHaveText('$1,000.00');
+  const estimate = form.locator('#ncl-estimate');
+  const otherIncome = form.locator('#ncl-other-income');
+  await expect(estimate).toBeHidden();
+  await expect(otherIncome).toBeHidden();
+  await form.locator('input[name=ncl-part-year][value=yes]').check();
+  await form.locator('#ncl-income').fill('8000');
+  await estimate.fill('22000');
+  await calculate.click();
+  await expect(row('Deductible this year')).toHaveText('$2,000.00');
+  await form.locator('input[name=ncl-part-year][value=no]').check();
+  await expect(estimate).toBeHidden();
+  await form.locator('input[name=ncl-activity][value=primary_production]').check();
+  await otherIncome.fill('39999.99');
+  await calculate.click();
+  await expect(row('Deferred')).toHaveText('$0.00');
+  await expect(form.locator('.sources-applied')).toBeVisible();
 });
 
 test('income tests count section 57A benefits at 53% and refuse a person not resident all year offline', async ({ page, context }) => {
@@ -432,6 +531,34 @@ for (const [id, name, input, expected] of [
   ['income-tests', 'calculate_income_tests', { taxableIncome: 90000, reportableFringeBenefitsOther: 27000, assessableIncome: 90000 },
     { incomeForSurchargePurposes: '117000.00' }],
   ['super-projection', 'project_super_balance', { age: 66, balance: '50000', salary: 80000 }, { balanceAtRetirement: '60829.25' }],
+  ['study-loan', 'calculate_study_loan_repayment', { incomeYear: '2026-27', taxableIncome: 60470, reportableFringeBenefits: 5400,
+    totalNetInvestmentLoss: 1330, reportableSuperContributions: 16500, exemptForeignEmploymentIncome: 2680 },
+  { compulsoryRepayment: '2527.80' }],
+  ['concessional-catch-up', 'calculate_concessional_catch_up', { incomeYear: '2024-25', totalSuperBalance: '450000',
+    concessionalContributions: '97500', earlierYears: [
+      { year: '2019-20', contributions: '11000' }, { year: '2020-21', contributions: '12000' },
+      { year: '2021-22', contributions: '13000' }, { year: '2022-23', contributions: '14000' },
+      { year: '2023-24', contributions: '15000' },
+    ] }, { availableCap: '97500.00' }],
+  ['lump-sum-arrears', 'calculate_lump_sum_arrears', { receiptYear: '2025-26', taxableIncome: 100000,
+    australianResidentAllYears: true, accrualYears: [
+      { year: '2023-24', arrears: 3000, taxableIncome: 30000 }, { year: '2022-23', arrears: 2500, taxableIncome: 17000 },
+      { year: '2021-22', arrears: 1400 }, { year: '2020-21', arrears: 1700 },
+      { year: '2019-20', arrears: 1400 }, { year: '2018-19', arrears: 1000 },
+    ] }, { offset: '1688.25' }],
+  ['fhss', 'calculate_fhss_release', { mode: 'stated', scopeConfirmed: true, determinationDate: '2025-06-20',
+    concessional: '8500', nonConcessional: '5000', associatedEarnings: '850', withholdingBasis: 'unable', debtOffset: '0' },
+  { maximumReleaseAmount: '14350.00' }],
+  ['work-expenses', 'calculate_work_expenses', { method: 'home_office', incomeYear: '2025-26', scopeConfirmed: true,
+    hours: '843', runningExpensesIncurred: true }, { amounts: { fixed_rate_return_amount: '590.00' } }],
+  ['government-super', 'calculate_government_super_amounts', { incomeYear: '2023-24', scopeConfirmed: true,
+    residency: 'full_year_resident', assessableIncome: 35000, taxableIncome: 35000, eligibleIncome: '35000',
+    personalContributions: '1040', returnLodged: true, under71: true, nonConcessionalWithinCap: 'yes',
+    totalSuperBalanceBelowCap: 'yes' }, { amounts: { co_contribution_paid: '500.00' } }],
+  ['pension-minimum', 'calculate_pension_minimum', { incomeYear: '2026-27', accountBalance: '600000', age: 67 },
+    { minimumPayment: '30000.00' }],
+  ['transfer-balance', 'calculate_transfer_balance', { calculation: 'concessional_charge', incomeYear: '2020-21',
+    additionalTax: '1000', taxDueDate: '2021-12-01' }, { excessConcessionalContributionsCharge: '44.17' }],
 ]) {
   test(`${id} registers ${name} where the browser offers modelContext`, async ({ page }) => {
     await page.addInitScript(() => {
@@ -487,6 +614,55 @@ test('work expenses switches method and year, shows only their inputs and refuse
   await expect(form.locator('#work-expenses-category-e')).toBeVisible();
   await calculate.click();
   await expect(row('Deduction, cents disregarded')).toHaveText('$40.00');
+});
+
+test('transfer balance shows the account’s tables, and the charge and the release on request', async ({ page }) => {
+  await page.goto('/tools/individual-tax/transfer-balance/');
+  const form = page.locator('#transfer-balance form');
+  const output = form.locator('output');
+  await waitForCalculator(form);
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  await calculate.click();
+  await expect(output.locator('.result-row--principal strong')).toHaveText('$26.80');
+  const periods = form.locator('table[data-results="tba-periods"]');
+  await expect(periods).toBeVisible();
+  await expect(periods.locator('tbody tr').first().locator('td').last()).toHaveText('$26.80');
+  await expect(form.locator('table[data-results="tba-ledger"] tbody tr').nth(1).locator('td').last()).toHaveText('−$30,000.00');
+  // A 4th event: $20,000 commuted on 1 November 2019 leaves no excess at the last day.
+  await form.locator('#transfer-balance-event-4-date').fill('2019-11-01');
+  await form.locator('#transfer-balance-event-4-kind').selectOption('commutation');
+  await form.locator('#transfer-balance-event-4-amount').fill('20000');
+  await calculate.click();
+  await expect(output.locator('.result-row').filter({ has: page.getByText('Excess transfer balance', { exact: true }) }).locator('strong')).toHaveText('$0.00');
+  await form.locator('[name="calc"][value="charge"]').check();
+  await expect(form.locator('#transfer-balance-event-1-date')).toBeHidden();
+  await calculate.click();
+  await expect(output.locator('.result-row--principal strong')).toHaveText('$44.17');
+  await form.locator('[name="calc"][value="release"]').check();
+  await calculate.click();
+  await expect(output.locator('.result-row--principal strong')).toHaveText('$112,463.55');
+  await form.locator('#transfer-balance-release-year').selectOption('2020-21');
+  await form.locator('#transfer-balance-determination-date').fill('2020-06-30');
+  await calculate.click();
+  await expect(output).toContainText('on or after 1 July of the contributions year');
+});
+
+test('pension minimum pro-rates a first year from the start day and refuses a day outside the year', async ({ page }) => {
+  await page.goto('/tools/individual-tax/pension-minimum/');
+  const form = page.locator('#pension-minimum form');
+  const output = form.locator('output');
+  await waitForCalculator(form);
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  await form.locator('[name="year"][value="2024-25"]').check();
+  await form.locator('#pension-minimum-balance').fill('250000');
+  await form.locator('#pension-minimum-age').fill('66');
+  await form.locator('#pension-minimum-started').fill('2025-01-01');
+  await calculate.click();
+  await expect(output.locator('.result-row--principal strong')).toHaveText('$6,200.00');
+  await expect(output).toContainText('181 of 365');
+  await form.locator('#pension-minimum-started').fill('2025-07-01');
+  await calculate.click();
+  await expect(output).toHaveText('Enter a start day from 1 July 2024 to 30 June 2025, or leave it blank.');
 });
 
 test('government super shows the spouse inputs on request and refuses a temporary visa and an unknown balance', async ({ page }) => {

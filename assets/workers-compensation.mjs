@@ -95,19 +95,21 @@ const choice = (value, choices, message) => {
 };
 
 /** New South Wales, a small employer: the average performance premium, less the Safe Employer
- * Reward on it and the apprentice incentive, plus GST, with the dust diseases contribution
+ * Reward on it (an apprentice incentive is refused before this), plus GST, with the dust diseases contribution
  * (its rate includes GST) added after.
  * @param {bigint} wages @param {bigint} rate @param {bigint} apprentice @param {WcInput} x @returns {WcPremium} */
 function nsw(wages, rate, apprentice, x) {
   const dust = rateOf(x.dust, 'the dust diseases rate', { max: 10 });
   const reward = rateOf(x.reward, 'the Safe Employer Reward', { max: 100 });
   const app = at(wages, rate);
-  if (app > NSW_SMALL_LIMIT) {
-    throw new Error(`The average performance premium of ${dollarsText(app)} is more than $30,000, so icare experience-rates the premium on its claims model (Market Practice and Premiums Guidelines 2026, clause 6.7): use the renewal notice.`);
+  // icare's APP is wages × the WIC rate, with no rounding before the $30,000 test, so the
+  // exact product is tested: $1,000,000.01 at 3% is over it, though it rounds to $30,000.00.
+  if (wages * rate > NSW_SMALL_LIMIT * 1000000n) {
+    const amount = app > NSW_SMALL_LIMIT ? `of ${dollarsText(app)}` : `(wages × WIC rate, before rounding to ${dollarsText(app)})`;
+    throw new Error(`The average performance premium ${amount} is more than $30,000, so icare experience-rates the premium on its claims model (Market Practice and Premiums Guidelines 2026, clause 6.7): use the renewal notice.`);
   }
   const ser = at(app, reward);
-  const incentive = at(apprentice, rate);
-  const premium = app - ser - incentive;
+  const premium = app - ser;
   if (premium < NSW_MINIMUM) {
     throw new Error(`The premium of ${dollarsText(premium)} is below icare’s minimum premium of $240, and icare does not say whether the minimum includes GST: use the renewal notice.`);
   }
@@ -116,10 +118,9 @@ function nsw(wages, rate, apprentice, x) {
   /** @type {WcLine[]} */
   const lines = [[`Average performance premium: wages × WIC rate of ${rateText(rate)}`, app]];
   if (ser) lines.push([`Less Safe Employer Reward at ${rateText(reward)} of it`, -ser]);
-  if (incentive) lines.push(['Less apprentice incentive: apprentice wages × WIC rate (Guidelines clause 6.10)', -incentive]);
   lines.push(['Premium before GST', premium], ['GST at 10%', gst],
     [`Dust diseases contribution: wages × ${rateText(dust)}, including GST`, contribution]);
-  const notes = wages <= NSW_EXEMPTION && !apprentice
+  const notes = wages <= NSW_EXEMPTION
     ? ['Wages of $7,500 or less with no apprentice or trainee, outside a group: the employer may be exempt from holding a policy'] : [];
   return { lines, premium, gst, duty: 0n, total: premium + gst + contribution, notes };
 }
@@ -138,11 +139,17 @@ function victoria(wages, rate, x) {
     throw new Error('Enter the days in 2026-27 the employer is registered, from 1 to 365.');
   }
   const remuneration = half(wages, 100n); // clause 6(6): to the nearest dollar
+  // Clause 11 divides the preliminary premium by the remuneration, so nil gives no figure.
+  if (remuneration === 0n) {
+    throw new Error('The remuneration rounds to $0, and clause 11’s deductible divides by it: the Premiums Order gives no figure, so use WorkSafe’s premium notice.');
+  }
   // Clause 9(2): R × premium rate, in millionths of a dollar, as the rate is in millionths of 1;
   // clause 11: preliminary premium ÷ R × 15,500 × N ÷ 365, which is the premium rate × 15,500
-  // × N ÷ 365, rounded to the nearest cent (clause 6(4)).
+  // × N ÷ 365, with N ÷ 365 rounded to 6 decimal places as clause 6(1) rounds all numbers, and
+  // the deductible to the nearest cent (clause 6(4)).
   const preliminary = remuneration * rate;
-  const deductible = half(rate * VIC_DEDUCTIBLE_DOLLARS * days, 365n * 10000n);
+  const share = half(days * 1000000n, 365n); // N ÷ 365 in millionths
+  const deductible = half(rate * VIC_DEDUCTIBLE_DOLLARS * share, 10000n * 1000000n);
   const worked = (preliminary - deductible * 10000n) / 10000n; // below $400 whenever negative
   const minimum = worked < VIC_MINIMUM;
   const workcover = minimum ? VIC_MINIMUM : worked;
@@ -151,7 +158,7 @@ function victoria(wages, rate, x) {
   /** @type {WcLine[]} */
   const lines = [[`Preliminary premium: remuneration of ${dollarsText(remuneration * 100n)} × premium rate of ${rateText(rate)} (clause 9(2))`,
     half(preliminary, 10000n)],
-  [`Less deductible benefit: premium rate × $15,500 × ${days} days ÷ 365, to the cent (clauses 11 and 6(4))`, -deductible],
+  [`Less deductible benefit: premium rate × $15,500 × ${days} days ÷ 365 (to 6 decimal places), to the cent (clauses 11 and 6)`, -deductible],
   [minimum ? 'WorkCover premium: the minimum premium of $400 (clause 9(1)(b))' : 'WorkCover premium, rounded down to the cent (clause 9(1))', workcover]];
   if (buyout) lines.push(['Excess buy-out premium: 0.1 × WorkCover premium (clause 10)', buyout]);
   lines.push(['GST at 10% (clause 8)', gst]);
@@ -199,6 +206,13 @@ function southAustralia(wages, rate, apprentice, x) {
   const unit = 100000000n;
   const base = wages * rate * 100n;
   const apprenticeBase = apprentice * rate * 100n;
+  // ReturnToWorkSA's table puts a base premium 'under $10k' in the lower band; its calculator
+  // looks the band up against $9,999.99, putting one above that and below $10,000 in the higher.
+  // The Premium Order that settles it was not readable, so a base premium in that gap is refused.
+  const edge = first ? undefined : SA_BANDS.find(([below]) => base > (below - 1n) * unit && below * unit > base);
+  if (edge) {
+    throw new Error(`The base premium is above ${dollarsText(edge[0] - 1n)} and below ${dollarsText(edge[0])}: ReturnToWorkSA’s table puts it in the lower discount band and its premium calculator in the higher one, so this calculator does not decide it.`);
+  }
   const band = first ? 0n : (SA_BANDS.find(([below]) => base < below * unit)?.[1] ?? SA_TOP_BAND);
   const discount = wages * rate * band;
   const cap = 3n * discount;
@@ -259,8 +273,18 @@ export function workersCompensation(x) {
   if (!usesApprentices && x.apprentice.trim() !== '' && moneyCents(x.apprentice, 'the apprentice wages') !== 0n) {
     throw new Error(`There is no apprentice deduction for ${WC_SCHEMES[x.place].name} here: enter 0 apprentice wages${x.place === 'AU-VIC' ? ', and leave exempt apprentice and trainee pay out of the remuneration' : ''}.`);
   }
+  // icare takes the incentive off 'after premium payable is calculated' without saying whether before
+  // or after GST, and SIRA's Guidelines, which would settle it, were not readable on 24 November 2026.
+  if (x.place === 'AU-NSW' && apprentice > 0n) {
+    throw new Error('icare discounts the apprentice incentive ‘after premium payable is calculated’ and does not say whether before or after GST: use the renewal notice.');
+  }
   const estimate = premiumOn(x, wages, rate, apprentice);
   const actualWages = x.actual.trim() === '' ? null : moneyCents(x.actual, 'the actual wages');
+  // The Notice (No. 1) of 2026 works the 2026-27 estimate and the 2025-26 actual premium (sections 5
+  // and 6); the 2026-27 actual premium is for a later notice.
+  if (x.place === 'AU-QLD' && actualWages !== null) {
+    throw new Error('WorkCover Queensland Notice (No. 1) of 2026 sets no year-end adjustment on actual wages for a policy commencing in 2026-27: leave the actual wages blank.');
+  }
   let actual = null;
   if (actualWages !== null) {
     try {

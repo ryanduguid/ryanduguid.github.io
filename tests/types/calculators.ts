@@ -3,7 +3,19 @@
 
 // Compile only. Runtime validation and rounding have separate Node tests.
 import * as calculate from '../../assets/business-calculators.mjs';
-import { calculatorTools } from '../../assets/webmcp-tools.mjs';
+import {
+  calculatorTools, fhssTools, governmentSuperTools, individualTaxTools, pensionMinimumTools, transferBalanceTools,
+  workExpensesTools,
+} from '../../assets/webmcp-tools.mjs';
+import { PENSION_MINIMUM_YEARS, pensionMinimum } from '../../assets/pension-minimum.mjs';
+import {
+  ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance,
+  yearOf,
+} from '../../assets/transfer-balance-result.mjs';
+import { fhss } from '../../assets/fhss.mjs';
+import { WORK_EXPENSES_YEARS, workExpenses } from '../../assets/work-expenses.mjs';
+import { GOVERNMENT_SUPER_YEARS, governmentSuperAmounts } from '../../assets/government-super.mjs';
+import { engines as individualEngines } from '../../assets/individual-tax-results.mjs';
 
 const result = calculate.gst('110.00', true);
 const tax: number = result.gst;
@@ -86,7 +98,7 @@ void psiReligious;
 void psiRule;
 void psiResults;
 const payg = { method: 'rate', notified: '0', instalment: '1', estimatedTax: '0', earlier: '0', credits: '0', income: '20100',
-  rate: '1.7', estimatedIncome: '0', earlierIncome: '0' } as const;
+  rate: '1.7', estimatedIncome: '0', earlierIncome: '0', previousRate: '0' } as const;
 const instalment: number = calculate.paygInstalment(payg).instalment;
 // @ts-expect-error Annual instalments are not one of the methods the calculator covers.
 calculate.paygInstalment({ ...payg, method: 'annual' });
@@ -449,3 +461,115 @@ calculate.atoPenaltiesInterest({ ...atoInput, year: 2026 });
 const atoWarnings: number[] = calculate.atoPenaltiesInterest(atoInput).warnings;
 void atoYear;
 void atoWarnings;
+const rdInput = { notional_deductions: '100000.00', rsp_crc_expenditure: '0', aggregated_turnover: '1000000', exempt_entity_controlled: false,
+  base_rate_entity: true, total_expenses: '0', recoupment_clawback: '0', feedstock_revenue: '0', feedstock_expenditure: '0',
+  present_year_base_rate_entity: true, year: '2025-26', scope_confirmed: true };
+const rdOffset: number = calculate.rdTaxOffset(rdInput).taxOffset;
+// @ts-expect-error An answer is a boolean, not 'yes'.
+calculate.rdTaxOffset({ ...rdInput, base_rate_entity: 'yes' });
+// @ts-expect-error The command's amounts are decimal text, not numbers.
+const rdAmounts: Record<string, number> = calculate.rdTaxOffset(rdInput).amounts;
+void rdOffset;
+void rdAmounts;
+const gstBdInput = { party: 'supplier', event: 'written_off', amount: '550.00', taxable_or_creditable: true, cash_basis: false,
+  special_rule: 'none', attributed: true, year: '2025-26', scope_confirmed: true };
+const gstApplies: boolean = calculate.gstBadDebt(gstBdInput).applies;
+// @ts-expect-error The command's amounts are decimal text, not numbers.
+const gstAmounts: Record<string, number> = calculate.gstBadDebt(gstBdInput).amounts;
+const gstOutcome: string = calculate.gstAdjustment('bad-debt', gstBdInput).outcome;
+void gstApplies;
+void gstAmounts;
+void gstOutcome;
+const dtInput = { items: [{ label: 'Plant', class: 'asset', carrying_amount: '70000', tax_base: '50000', opening_carrying_amount: '0',
+  opening_tax_base: '0' }], unused_tax_losses: '0', opening_unused_tax_losses: '0', unrecognised_deductible: '0', opening_unrecognised_deductible: '0',
+  unrecognised_used: '0', accounting_profit: '100000', non_deductible_expenses: '0', non_assessable_income: '0', taxable_income: '100000',
+  tax_offsets: '0', base_rate_entity: false, expected_rate: 'standard', opening_expected_rate: 'standard', business_combination: false,
+  uncertain_tax_treatment: false, tax_consolidated_group: false, outside_profit_or_loss: false, year: '2025-26', scope_confirmed: true };
+const dtExpense: number = calculate.deferredTax(dtInput).incomeTaxExpense;
+// @ts-expect-error The command's amounts are decimal text, not numbers.
+const dtAmounts: Record<string, number> = calculate.deferredTax(dtInput).amounts;
+void dtExpense;
+void dtAmounts;
+const individualSet = individualTaxTools(individualEngines);
+void individualSet['study-loan'].execute({ incomeYear: '2026-27', taxableIncome: 86380 });
+void individualSet['concessional-catch-up'].execute({ incomeYear: '2024-25', totalSuperBalance: '450000',
+  concessionalContributions: '97500', earlierYears: [] });
+void individualSet['lump-sum-arrears'].execute({ receiptYear: '2025-26', taxableIncome: 100000,
+  australianResidentAllYears: true, accrualYears: [] });
+void fhssTools({ fhss }).fhss.execute({ mode: 'stated', scopeConfirmed: true, determinationDate: '2025-06-20',
+  withholdingBasis: 'unable' });
+void workExpensesTools({ workExpenses, workExpensesYears: WORK_EXPENSES_YEARS })['work-expenses'].execute({
+  method: 'home_office', incomeYear: '2025-26', scopeConfirmed: true });
+void governmentSuperTools({ governmentSuperAmounts, governmentSuperYears: GOVERNMENT_SUPER_YEARS })['government-super'].execute({
+  incomeYear: '2023-24', scopeConfirmed: true, residency: 'full_year_resident', assessableIncome: 35000,
+  taxableIncome: 35000, eligibleIncome: '35000', returnLodged: true, under71: true });
+// @ts-expect-error fhssTools requires the fhss engine function.
+fhssTools({ fhss: () => ({ amounts: {} }) });
+// @ts-expect-error workExpensesTools requires workExpensesYears alongside workExpenses.
+workExpensesTools({ workExpenses });
+// @ts-expect-error governmentSuperTools requires governmentSuperYears alongside governmentSuperAmounts.
+governmentSuperTools({ governmentSuperAmounts });
+const businessSet = calculatorTools(calculate);
+void businessSet['asic-fees'].execute({ fee: 'company-share-capital' });
+void businessSet['ato-penalties-interest'].execute({ question: 'gic', incomeYear: '2025-26', amount: '10000', dueDate: '2025-11-21', toDate: '2026-06-30' });
+void businessSet['business-use'].execute({ cost: '20.15', businessUsePercent: '50' });
+void businessSet['fixed-fee'].execute({ hours: '18.5', rate: '95' });
+void businessSet['franking-account'].execute({ incomeYear: '2025-26', entity: 'public', imputationRatePercent: '30', openingBalance: '10000' });
+void businessSet['gic-payment-plan'].execute({ debt: '1000', startDate: '2026-10-01', instalments: 3, frequency: 'monthly' });
+void businessSet['gst-margin-scheme'].execute({ interest: 'freehold', taxable: true, agreedInWriting: true, acquired: 'margin',
+  method: 'consideration', price: '190000', priceBasis: 'inclusive', cost: '400000' });
+void businessSet.hourly.execute({ annualCosts: '20.15', targetProfit: '0', billableHours: '2' });
+void businessSet['luxury-car-tax'].execute({ incomeYear: '2026-27', lines: [{ kind: 'sale', luxuryCarTaxValue: '88000' }] });
+void businessSet.margin.execute({ sales: '100', directCost: '80' });
+void businessSet['objection-deadline'].execute({ decision: 'assessment', reviewPeriodYears: '2', noticeDate: '2026-11-18' });
+void businessSet.variance.execute({ actual: '110', budget: '100', kind: 'income' });
+void businessSet['vehicle-class'].execute({ incomeYear: '2026-27', body: 'passenger', seats: 5, grossVehicleMassKg: 3000, kerbWeightKg: 2135,
+  price: '75000', gstCredit: 'full', fuelConsumption: 'other', privateUse: 'limited' });
+void businessSet['wine-equalisation-tax'].execute({ incomeYear: '2026-27', dealings: [{ kind: 'wholesale_sale', priceExcludingWetAndGst: '120.00' }] });
+void businessSet.cash.execute({ opening: '-50', buffer: '100', weeks: Array.from({ length: 13 }, () => ({ receipts: '0', payments: '0' })) });
+void businessSet['depreciation-pools'].execute({ worksheet: 'low-value-pool', incomeYear: '2025-26',
+  previousClosingPoolBalance: '5000', lowCostAssets: '594', lowValueAssets: '0', secondElementCosts: '0', terminationValues: '0' });
+void businessSet['div7a-schedule'].execute({ madeDate: '2022-10-01', amount: '100000', termYears: '7', assumedBenchmarkRate: '8.77' });
+void businessSet['first-home-owner-grant'].execute({ place: 'AU-NSW', contractDate: '2026-08-01', home: 'bought', value: 600000,
+  facts: { person: true, citizen: true, first: true, residence: true } });
+void businessSet['payg-instalments'].execute({ method: 'rate', instalmentIncome: '20100', instalmentRatePercent: '1.7' });
+void businessSet['payroll-tax'].execute({ place: 'AU-NSW', wages: '1500000' });
+void businessSet['salary-dividend'].execute({ incomeYear: '2026-27', companyProfit: '200000', baseRateEntity: true, salary: '100000' });
+void businessSet['sgc-payday'].execute({ regime: 'payday', payday: '2026-07-30', qualifyingEarnings: '1000', receivedOnTime: '120' });
+void businessSet.staff.execute({ wages: '51.30', superAmount: '0', otherCosts: '0' });
+void businessSet.cgt.execute({ entity: 'individual', assetKind: 'investment', purchaseContractDate: '1997-07-01',
+  saleContractDate: '2026-02-01', proceeds: '496000', purchasePrice: '144000' });
+void businessSet['cgt-concessions'].execute({ entity: 'individual', assetKind: 'business', purchaseContractDate: '2014-03-03',
+  saleContractDate: '2026-02-02', businessInSaleYear: 'yes', likelyTurnover: '2100000', actualTurnover: '1950000',
+  netAssetValue: '6200000', activeDays: 3000, dateOfBirth: '1975-08-14', retirementChoiceDate: '2026-10-31' });
+void businessSet['pcg-2021-4'].execute({ gateway1Passed: true, gateway2Passed: true, profitEntitlement: '600000',
+  returnedByIpp: '330000', taxPaid: '189367' });
+void businessSet['pcg-2021-4-allocation'].execute({ incomeYear: '2020-21', gateway1Passed: true, gateway2Passed: true,
+  ipp: { firmIncome: '330000' }, associates: [{ kind: 'base-rate-company', firmIncome: '270000' }] });
+void businessSet['psi-determination'].execute({ earner: 'sole-trader', mainlyPersonalEfforts: true,
+  payers: [{ amount: '18000', paidForResult: true, suppliesTools: true, liableForDefects: true }] });
+void businessSet['rental-property'].execute({ incomeYear: '2025-26', ownershipShare: '1', acquiredDate: '2025-07-20',
+  daysAvailable: 346 });
+void businessSet['super-benefit-tax'].execute({ calculation: 'dasp', incomeYear: '2026-27', taxFreeComponent: '25000',
+  taxedElement: '17000', workingHolidayMakerContributions: false, unclaimedMoneyRollover: false });
+void businessSet['unused-leave'].execute({ longServiceLeave: '22020', accrualStartDate: '1977-01-01', reason: 'normal',
+  lslBefore16August1978: '780', lsl16August1978To17August1993: '6420', payee: 'tfn', normalGrossEarnings: '1155', payPeriod: 'week' });
+void businessSet['workers-compensation'].execute({ place: 'AU-NT', estimatedWages: '400000', ratePercent: '3.5', actualWages: '500000' });
+void businessSet['business-days'].execute({ mode: 'count', place: 'NSW', startDate: '2026-12-21', endDate: '2027-01-04' });
+void businessSet['division-296'].execute({ totalSuperBalance: '4000000', totalSuperEarnings: '100000' });
+void businessSet['fbt-car'].execute({ method: 'statutory', costPrice: '60000', daysAvailable: 182, gstCreditEntitled: true });
+void businessSet['fbt-car-parking'].execute({ method: 'station', firstBusinessDayFee: '12.36', benefits: 22, feePerBenefit: '12.36' });
+void businessSet['fbt-expense-payment'].execute({ method: 'external', expenditure: '500', paidOrReimbursed: '250', incomeUsePercent: '80', portionDeduction: '200' });
+void businessSet['fbt-loan'].execute({ totalDailyBalances: '18250000', interestAccrued: '2000', incomeUsePercent: '60', deductionForAccruedInterest: '1200' });
+void businessSet['fbt-meal-entertainment'].execute({ method: 'split', expenses: '4000' });
+void businessSet['fbt-property'].execute({ method: 'in-house-public-price', price: '900', employeeContribution: '500' });
+void businessSet['land-tax'].execute({ place: 'AU-NSW', taxableLandValue: 1100000 });
+void businessSet['termination-payment'].execute({ genuineRedundancyPayment: '48000', completedYearsOfService: 5, codeOTaxableComponent: '17678', otherTaxablePayments: '140000', dateOfBirth: '1996-08-01' });
+void businessSet['transfer-duty'].execute({ place: 'AU-NSW', dutiableValue: 1350000 });
+void businessSet['rd-tax-offset'].execute({ incomeYear: '2025-26', notionalDeductions: '100000', aggregatedTurnover: '10000000', totalExpenses: '100000' });
+void businessSet['gst-adjustments'].execute({ worksheet: 'going-concern', year: '2025-26', forConsideration: true, recipientRegistration: 'registered', writtenAgreement: 'on_or_before_supply_day', allThingsNecessary: true, carriedOnUntilSupply: true });
+void businessSet['deferred-tax'].execute({ incomeYear: '2025-26', items: [{ label: 'Plant', class: 'asset', carryingAmount: '70000', taxBase: '50000', openingCarryingAmount: '0', openingTaxBase: '0' }], accountingProfit: '100000', taxableIncome: '100000' });
+void pensionMinimumTools({ pensionMinimum, PENSION_MINIMUM_YEARS })['pension-minimum'].execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67 });
+void transferBalanceTools({ ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance, yearOf })['transfer-balance'].execute({ calculation: 'concessional_charge', incomeYear: '2020-21', additionalTax: '1000', taxDueDate: '2021-12-01' });
+// @ts-expect-error pensionMinimumTools requires PENSION_MINIMUM_YEARS alongside pensionMinimum.
+pensionMinimumTools({ pensionMinimum });

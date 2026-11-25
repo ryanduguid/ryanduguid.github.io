@@ -5,8 +5,106 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-11-23T00:00:00Z</updated>
+  <updated>2026-11-24T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The first home owner grant calculator now takes the building contract price of…</title>
+    <link href="https://duguid.com.au/changelog/#entry-bf0880e6b0f8da76" />
+    <id>https://duguid.com.au/changelog/#entry-bf0880e6b0f8da76</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>The first home owner grant calculator now takes the building contract price of a home built. Below the grant it pays the contract price in Victoria, Queensland, Western Australia, South Australia, Tasmania and the Northern Territory, whose Acts pay the lesser of the consideration and the grant, and in Victoria the $750,000 cap tests the contract price, so a larger land and building total is computed. A New South Wales contract price below the grant is still not computed.</summary>
+  </entry>
+  <entry>
+    <title>Updated the Aus Accounting MCP guide, Ozzit reference and machine indexes for…</title>
+    <link href="https://duguid.com.au/changelog/#entry-8392386f94509fe4" />
+    <id>https://duguid.com.au/changelog/#entry-8392386f94509fe4</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>Updated the Aus Accounting MCP guide, Ozzit reference and machine indexes for published releases aus-accounting-mcp v0.12.0 (102 worksheet kinds with calculators 1.2.0, AGPL-3.0-or-later, listed as latest on the official MCP Registry) and Ozzit v3.8.0 (165 functions and 5 help tables, Apache License 2.0, plus the Homebrew tap).</summary>
+  </entry>
+  <entry>
+    <title>The first home owner grant calculator now follows the Victorian, Western…</title>
+    <link href="https://duguid.com.au/changelog/#entry-d72c42a53adcec12" />
+    <id>https://duguid.com.au/changelog/#entry-d72c42a53adcec12</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>The first home owner grant calculator now follows the Victorian, Western Australian and Northern Territory Acts: it pays the consideration where that is less than the grant, $10,000 for a Northern Territory established home bought from 1 July to 30 September 2025, and no longer tests a Victorian home built against $750,000 of land and building, since Victoria caps the building contract alone.</summary>
+  </entry>
+  <entry>
+    <title>The sole trader page now says whether the non-commercial loss rules defer a…</title>
+    <link href="https://duguid.com.au/changelog/#entry-cbc7825110e406e7" />
+    <id>https://duguid.com.au/changelog/#entry-cbc7825110e406e7</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>The sole trader page now says whether the non-commercial loss rules defer a business loss, for 2020-21 to 2026-27: the income requirement, the 4 tests, the exception for primary production and professional arts, and the amount deferred after net exempt income (Division 35). It agrees with the non-commercial-losses command of the australian-accounting calculators on every tested case it can meet.</summary>
+  </entry>
+  <entry>
+    <title>The income tax page now works out the tax on a minor’s unearned income for…</title>
+    <link href="https://duguid.com.au/changelog/#entry-34c7e279e51b630b" />
+    <id>https://duguid.com.au/changelog/#entry-34c7e279e51b630b</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>The income tax page now works out the tax on a minor’s unearned income for 2024-25 to 2026-27: interest, dividends and other income not excepted are taxed at the special rates for someone under 18 (Division 6AA), and work and other excepted income at ordinary rates. It agrees with the minors-income command of the australian-accounting calculators on every tested case.</summary>
+  </entry>
+  <entry>
+    <title>The income tax calculator now takes the foreign income tax offset for 2020-21…</title>
+    <link href="https://duguid.com.au/changelog/#entry-af4214fa35557702" />
+    <id>https://duguid.com.au/changelog/#entry-af4214fa35557702</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>The income tax calculator now takes the foreign income tax offset for 2020-21 to 2026-27, up to its $1,000 default limit, a limit from income tax payable figures you give, or for 2024-25 to 2026-27 a limit worked out from the estimate, and the page converts a foreign currency amount into Australian dollars at the rate for the day the tax law names for it, or at an average rate over up to 12 months. They agree with the foreign-income-tax-offset and foreign-income-conversion commands of the australian-accounting calculators on every tested case.</summary>
+  </entry>
+  <entry>
+    <title>Added the pension minimum calculator: the minimum annual payment from an…</title>
+    <link href="https://duguid.com.au/changelog/#entry-ec451c5c4d341de7" />
+    <id>https://duguid.com.au/changelog/#entry-ec451c5c4d341de7</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>Added the pension minimum calculator: the minimum annual payment from an account-based pension for 2024-25 to 2027-28, with the percentage factor for the member’s age, the first year pro-rated from the start day, nothing for a pension starting in the last 30 days, and rounding to the nearest $10. It agrees with the australian-accounting pension-minimum command on 1,194 test cases.</summary>
+  </entry>
+  <entry>
+    <title>Added the transfer balance and excess contributions calculator: a transfer…</title>
+    <link href="https://duguid.com.au/changelog/#entry-6c0eacc62d353961" />
+    <id>https://duguid.com.au/changelog/#entry-6c0eacc62d353961</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>Added the transfer balance and excess contributions calculator: a transfer balance account from its credits and debits, with the personal cap and proportional indexation, excess transfer balance earnings and tax, the excess concessional contributions charge for 2013-14 to 2020-21, and the release of excess non-concessional contributions. It agrees with the australian-accounting transfer-balance and excess-contributions commands on 585 test cases.</summary>
+  </entry>
+  <entry>
+    <title>A new business calculator, deferred tax, works a company’s AASB 112 tax effect…</title>
+    <link href="https://duguid.com.au/changelog/#entry-933a140bd212f535" />
+    <id>https://duguid.com.au/changelog/#entry-933a140bd212f535</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>A new business calculator, deferred tax, works a company’s AASB 112 tax effect worksheet for 2020-21 to 2026-27: temporary differences item by item, the deferred tax liability and asset at 25% or 30%, the year’s movement split into rate change, recognition and origination, current tax at the year’s rate and the reconciliation of income tax expense. Its results match the australian-accounting command on 389 cases.</summary>
+  </entry>
+  <entry>
+    <title>A new business calculator, GST adjustments, works 6 GST adjustments and tests…</title>
+    <link href="https://duguid.com.au/changelog/#entry-4466dd6b03ba18a9" />
+    <id>https://duguid.com.au/changelog/#entry-4466dd6b03ba18a9</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>A new business calculator, GST adjustments, works 6 GST adjustments and tests for 2020-21 to 2026-27, each condition with its authority: a change in creditable purpose under Division 129, annual apportionment under Division 131, the financial acquisitions threshold, a going concern, second-hand goods and bad debts. Its results match the australian-accounting commands on 568 cases.</summary>
+  </entry>
+  <entry>
+    <title>A new business calculator, R&amp;D tax offset, works one company’s research and…</title>
+    <link href="https://duguid.com.au/changelog/#entry-0f4d87722a405783" />
+    <id>https://duguid.com.au/changelog/#entry-0f4d87722a405783</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>A new business calculator, R&amp;D tax offset, works one company’s research and development tax incentive offset for 2021-22 to 2026-27: refundable at its corporate tax rate plus 18.5 percentage points under $20 million turnover, otherwise with the 8.5% and 16.5% premium tiers at 2% of total expenses, the $20,000 threshold and the $150 million cap, and the amount a grant or feedstock clawback includes in assessable income under section 355-450. It agrees with the rd-tax-offset command of the australian-accounting calculators on every tested case and reproduces the ATO’s clawback examples.</summary>
+  </entry>
+  <entry>
+    <title>The income tax calculator page now works out the net medical expenses tax…</title>
+    <link href="https://duguid.com.au/changelog/#entry-5184ac5e9bd26ef8" />
+    <id>https://duguid.com.au/changelog/#entry-5184ac5e9bd26ef8</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>The income tax calculator page now works out the net medical expenses tax offset for a 2016-17, 2017-18 or 2018-19 return, the last year it ran: 20% of net medical expenses for disability aids, attendant care or aged care over the lower phase-in limit, or 10% over the higher limit above the singles or family income threshold. It agrees with the net-medical-expenses-tax-offset command of the australian-accounting calculators on every tested case and refuses 2019-20 and later years.</summary>
+  </entry>
+  <entry>
+    <title>Ozzit v3.8.0</title>
+    <link href="https://github.com/ryanduguid/Ozzit/releases/tag/v3.8.0" />
+    <id>https://duguid.com.au/changelog/#entry-53f0e02fbbff68f9</id>
+    <updated>2026-11-24T00:00:00Z</updated>
+    <summary>Ozzit: release v3.8.0.</summary>
+  </entry>
+  <entry>
+    <title>The super lump sum tax calculator now also works the amount a fund withholds…</title>
+    <link href="https://duguid.com.au/changelog/#entry-3788ddb8a47c23db" />
+    <id>https://duguid.com.au/changelog/#entry-3788ddb8a47c23db</id>
+    <updated>2026-11-23T00:00:00Z</updated>
+    <summary>The super lump sum tax calculator now also works the amount a fund withholds from a super lump sum under Schedule 12 for a payment from 13 October 2020, with or without a TFN and for a foreign resident, including a roll-over above the untaxed plan cap and a death benefit paid to a deceased estate. It also works the final tax on a departing Australia superannuation payment in 2025-26 to 2027-28: 35% on the taxed element and 45% on the untaxed element, or 65% on each where the payment includes working holiday maker contributions. Schedule 12 and the Departing Australia Superannuation Payments Tax Act were read on 23 November 2026, and the page agrees with the super-withholding and dasp-tax commands of the australian-accounting calculators on every tested case.</summary>
+  </entry>
   <entry>
     <title>Updated 2 accounting questions after the 23 November 2026 ATO source sweep…</title>
     <link href="https://duguid.com.au/changelog/#entry-9d9acf724da17ebe" />
@@ -20,6 +118,13 @@
     <id>https://duguid.com.au/changelog/#entry-4926b38f2461dbdf</id>
     <updated>2026-11-23T00:00:00Z</updated>
     <summary>The tool pages now link to licences by release or source revision, including the versions used in worked examples. The homepage and tool directory link to Lodgeit’s listing of the Coal LSL levy calculator and to the Australian capital gains tax guide on OpenAccountants, with each project’s review status.</summary>
+  </entry>
+  <entry>
+    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.12.0</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.12.0" />
+    <id>https://duguid.com.au/changelog/#entry-347ed12c713954e0</id>
+    <updated>2026-11-23T00:00:00Z</updated>
+    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.12.0.</summary>
   </entry>
   <entry>
     <title>A new business calculator works out one residential rental property’s income…</title>

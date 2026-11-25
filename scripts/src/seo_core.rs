@@ -22,7 +22,7 @@ pub const GENERATED_HTML_DIRECTORIES: [&str; 6] = [
     "_layouts",
     "vendor",
 ];
-pub const TITLE_MAX: usize = 65;
+pub const TITLE_MAX: usize = 60;
 pub const DESC_MIN: usize = 50;
 pub const DESC_MAX: usize = 200;
 pub const DESC_WARN: usize = 165;
@@ -116,9 +116,14 @@ pub fn check_file_metadata(
         ));
     } else {
         let rendered = py::char_len(&unescape(py::strip(&titles[0])));
-        if rendered > TITLE_MAX {
+        let title_limit = if crate::effective_life_pages::is_page(&rel) {
+            crate::effective_life_pages::TITLE_MAX
+        } else {
+            TITLE_MAX
+        };
+        if rendered > title_limit {
             failures.push(format!(
-                "{rel}: title is {rendered} characters, over the {TITLE_MAX} limit"
+                "{rel}: title is {rendered} characters, over the {title_limit} limit"
             ));
         }
     }

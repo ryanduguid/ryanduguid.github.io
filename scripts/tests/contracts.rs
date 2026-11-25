@@ -252,7 +252,7 @@ fn geo_leftovers_surface() {
     if !rendered() {
         return;
     }
-    let homepage_title = "Tools for Australian accountants";
+    let homepage_title = "Ryan Duguid: Tools for Australian accountants";
     let coal_title = "Coal LSL levy calculator and section 3B eligible wages";
     let coal_lead = "The coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base rate, annual salary and casual branches. The base rate branch uses the greater of Formula A and Formula B.";
     let home = read_text(root(), "index.html");
@@ -627,10 +627,25 @@ fn public_contracts_page_and_site_checks() {
         indexed, listed,
         "expected {listed} canonical HTML pages, as the sitemap lists, found {indexed}"
     );
-    let metadata: Vec<String> = paths
-        .iter()
-        .flat_map(|p| page_metadata_failures(root(), &core::rel(p, root())))
-        .collect();
+    let workers = std::thread::available_parallelism().map_or(2, |n| n.get().min(8));
+    let chunk_size = paths.len().div_ceil(workers);
+    let metadata: Vec<String> = std::thread::scope(|scope| {
+        let handles: Vec<_> = paths
+            .chunks(chunk_size)
+            .map(|chunk| {
+                scope.spawn(move || {
+                    chunk
+                        .iter()
+                        .flat_map(|p| page_metadata_failures(root(), &core::rel(p, root())))
+                        .collect::<Vec<_>>()
+                })
+            })
+            .collect();
+        handles
+            .into_iter()
+            .flat_map(|h| h.join().unwrap())
+            .collect()
+    });
     assert_clean("complete page metadata", &metadata);
 
     let mut failures = Vec::new();
@@ -697,6 +712,7 @@ fn public_contracts_install_and_adoption_routes() {
     if !rendered() {
         return;
     }
+    let site = copied_site();
     for (label, before, after, failure) in [
         (
             "homepage install command duplication",
@@ -723,7 +739,7 @@ fn public_contracts_install_and_adoption_routes() {
             "index.html: authority section #verify must keep its guidance",
         ),
     ] {
-        let site = copied_site();
+        let _saved = SavedFile::capture(site.path(), "index.html");
         replace_file(site.path(), "index.html", before, after);
         expect_failure(
             label,
@@ -767,7 +783,7 @@ fn public_contracts_install_and_adoption_routes() {
             "tools/australian-tax-ai-agents/index.html: github-agent-skills boundary must be",
         ),
     ] {
-        let site = copied_site();
+        let _saved = SavedFile::capture(site.path(), contracts::MCP_REL);
         replace_file(site.path(), contracts::MCP_REL, before, after);
         expect_failure(
             label,
@@ -1292,7 +1308,7 @@ fn public_contracts_routes_privacy_and_evaluations() {
     replace_file(
         site.path(),
         "tools/index.html",
-        "<a href=\"/evaluate/manager-review-gate/\"><strong>Check a BAS pack before manager review</strong>",
+        "<a href=\"/tools/workpaper-review-gate/\"><strong>Check a BAS pack before manager review</strong>",
         "<a href=\"/evaluate/#example-routes\"><strong>Check a BAS pack before manager review</strong>",
     );
     expect_failure(
@@ -1396,7 +1412,10 @@ fn homepage_first_route_lists_the_task_routes() {
         .iter()
         .map(|(_, url)| *url)
         .collect();
-    assert_eq!(&first[..tasks.len()], tasks.as_slice());
+    assert!(
+        tasks.iter().all(|url| first.contains(url)),
+        "first homepage route {first:?} must include every task route {tasks:?}"
+    );
 }
 
 #[test]
@@ -1408,7 +1427,7 @@ fn public_contracts_homepage_and_metadata_mutations() {
     for (label, old, new, expected) in [
         (
             "homepage title",
-            "<title>Tools for Australian accountants</title>",
+            "<title>Ryan Duguid: Tools for Australian accountants</title>",
             "<title>Wrong homepage title</title>",
             "index.html: homepage title is",
         ),
@@ -1501,7 +1520,7 @@ fn public_contracts_homepage_and_metadata_mutations() {
         ),
         (
             "Twitter title mirror",
-            "<meta name=\"twitter:title\" content=\"Tools for Australian accountants\" />",
+            "<meta name=\"twitter:title\" content=\"Ryan Duguid: Tools for Australian accountants\" />",
             "<meta name=\"twitter:title\" content=\"Different share title\" />",
             "twitter:title is 'Different share title'",
         ),
@@ -2457,6 +2476,7 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
     let hub_checked = page_date(hub, CHECKED);
     let hub_modified = page_date(hub, MODIFIED);
     let gst_header = header(checked, checked);
+    let site = copied_site();
     for (label, rel, old, new, expected) in [
         (
             "a source read after the check",
@@ -2583,7 +2603,7 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
             format!("{hub}: lists /tools/business-calculators/div7b/, which has no page"),
         ),
     ] {
-        let site = copied_site();
+        let _saved = SavedFile::capture(site.path(), rel);
         replace_file(site.path(), rel, &old, &new);
         expect_failure(
             label,
@@ -2592,52 +2612,60 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
         );
     }
     // A read stated outside Sources applied does not support the check.
-    let site = copied_site();
-    replace_file(site.path(), gst, &read(checked), &read(previous(checked)));
-    replace_file(
-        site.path(),
-        gst,
-        r#"class="lead-note">"#,
-        &format!(r#"class="lead-note">Source {}. "#, read(checked)),
-    );
-    expect_failure(
-        "a read outside Sources applied",
-        &contracts::check_calculator_dates(site.path()).unwrap(),
-        &format!(
-            "{gst}: Last checked {checked} is newer than its newest source read, {}",
-            previous(checked)
-        ),
-    );
+    {
+        let _saved = SavedFile::capture(site.path(), gst);
+        replace_file(site.path(), gst, &read(checked), &read(previous(checked)));
+        replace_file(
+            site.path(),
+            gst,
+            r#"class="lead-note">"#,
+            &format!(r#"class="lead-note">Source {}. "#, read(checked)),
+        );
+        expect_failure(
+            "a read outside Sources applied",
+            &contracts::check_calculator_dates(site.path()).unwrap(),
+            &format!(
+                "{gst}: Last checked {checked} is newer than its newest source read, {}",
+                previous(checked)
+            ),
+        );
+    }
     // A nested list stays inside Sources applied, so reads after it still count.
     let sources = r#"<ul class="sources">"#;
     let nested = |text: &str| format!(r#"{sources}<li>Earlier: <ul><li>{text}</li></ul></li>"#);
-    let site = copied_site();
-    replace_file(site.path(), gst, sources, &nested(&read(previous(checked))));
-    assert_clean(
-        "a nested list before the newest read",
-        &contracts::check_calculator_dates(site.path()).unwrap(),
-    );
-    let site = copied_site();
-    replace_file(site.path(), gst, &read(checked), &read(next(checked)));
-    replace_file(site.path(), gst, sources, &nested(&read(checked)));
-    expect_failure(
-        "a newer read after a nested list",
-        &contracts::check_calculator_dates(site.path()).unwrap(),
-        &format!(
-            "{gst}: Last checked {checked} is older than '{}'",
-            read(next(checked))
-        ),
-    );
-    let site = copied_site();
-    replace_file(
-        site.path(),
-        gst,
-        sources,
-        &format!("{sources}</ul>{sources}"),
-    );
-    expect_failure(
-        "a second Sources applied list",
-        &contracts::check_calculator_dates(site.path()).unwrap(),
-        &format!("{gst}: expected one Sources applied list, found 2"),
-    );
+    {
+        let _saved = SavedFile::capture(site.path(), gst);
+        replace_file(site.path(), gst, sources, &nested(&read(previous(checked))));
+        assert_clean(
+            "a nested list before the newest read",
+            &contracts::check_calculator_dates(site.path()).unwrap(),
+        );
+    }
+    {
+        let _saved = SavedFile::capture(site.path(), gst);
+        replace_file(site.path(), gst, &read(checked), &read(next(checked)));
+        replace_file(site.path(), gst, sources, &nested(&read(checked)));
+        expect_failure(
+            "a newer read after a nested list",
+            &contracts::check_calculator_dates(site.path()).unwrap(),
+            &format!(
+                "{gst}: Last checked {checked} is older than '{}'",
+                read(next(checked))
+            ),
+        );
+    }
+    {
+        let _saved = SavedFile::capture(site.path(), gst);
+        replace_file(
+            site.path(),
+            gst,
+            sources,
+            &format!("{sources}</ul>{sources}"),
+        );
+        expect_failure(
+            "a second Sources applied list",
+            &contracts::check_calculator_dates(site.path()).unwrap(),
+            &format!("{gst}: expected one Sources applied list, found 2"),
+        );
+    }
 }

@@ -1,8 +1,8 @@
-# FBT expense payment calculator with the otherwise deductible rule
+# FBT expense payment calculator: otherwise deductible rule
 
 Source: https://duguid.com.au/tools/business-calculators/fbt-expense-payment/
 
-> An expense payment fringe benefit’s taxable value for the FBT year ending 31 March 2027: the payment less the otherwise deductible amount, or by the in-house rules.
+> Taxable value of an expense payment fringe benefit for the year ending 31 March 2027, after the otherwise deductible rule or in-house valuation rules.
 
 # FBT expense payment calculator
 
@@ -49,13 +49,20 @@ A payment above the expenditure is refused | external, expenditure $100.00, paid
 A deduction above the part the employee bore is refused | external, expenditure $100.00, paid $60.00, contribution $10.00, income use 0%, deduction $50.01, price $0.00, notional value $0.00, in-house reduction left $0.00 | Refused: the deduction for the recipient’s portion cannot be more than that portion, the expenditure less the payment net of the contribution
 The otherwise deductible rule for an in-house expense payment is refused, not applied | in-house-other, expenditure $100.00, paid $100.00, contribution $0.00, income use 50%, deduction $0.00, price $0.00, notional value $100.00, in-house reduction left $0.00 | Refused: this calculator does not apply the otherwise deductible rule to an in-house expense payment (subparagraph 24(1)(b)(i)): enter 0% income use and no deduction
 
-One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+## Related
+
+- FBT rate and gross-up rates
+- FBT property calculator
+- FBT loan calculator
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00010
-- fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
+- FBT property calculator: https://duguid.com.au/tools/business-calculators/fbt-property/
+- FBT loan calculator: https://duguid.com.au/tools/business-calculators/fbt-loan/

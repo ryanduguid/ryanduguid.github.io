@@ -12,6 +12,12 @@
   border-top: var(--rule-thin) solid var(--colour-rule-strong);
 }
 
+.depreciation-page .accounting-content > section#find:first-child {
+  margin-top: var(--space-5);
+  padding-top: 0;
+  border-top: 0;
+}
+
 .depreciation-page .accounting-content > section > * + * {
   margin-top: var(--space-5);
 }
@@ -168,11 +174,14 @@
 }
 
 /* Browse: an industry opens to its sub-industries, each of which opens to its rows. */
-.depreciation-page #browse-tables details {
+.depreciation-page #browse-tables details,
+.depreciation-page #every-life details {
   border-bottom: var(--rule-thin) solid var(--colour-rule);
 }
 
-.depreciation-page #browse-tables summary {
+.depreciation-page #browse-tables summary,
+.depreciation-page #every-life summary {
+  min-height: 2.75rem;
   padding-block: var(--space-3);
   cursor: pointer;
 }

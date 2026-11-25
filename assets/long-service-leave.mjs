@@ -3,13 +3,15 @@
 
 import { cents, number } from './money.mjs';
 
-// Long service leave under each state and territory's general Act, read 19 November 2026:
+// Long service leave under each state and territory's general Act, read 19 November 2026 (Queensland, South Australia and Tasmania rechecked 24 November 2026):
 // - NSW: Long Service Leave Act 1955, version for 1 July 2025 to date, s 4(2)(a) and (a3) (a month is 4 1/3 weeks).
 // - Vic: Long Service Leave Act 2018, Authorised Version No. 006 (12 December 2025), ss 6, 9 and 10.
-// - Qld: Industrial Relations Act 2016, reprint current from 1 January 2026, s 95 (not seasonal employees, ss 106 to 109).
+// - Qld: Industrial Relations Act 2016, reprint current from 1 January 2026, s 95 (not seasonal employees, ss 106 to 109),
+//   whose 8.6667 weeks for 10 years (s 95(2)(a) and (7)) is the figure used, not 8 2/3 (read again 24 November 2026).
 // - WA: Long Service Leave Act 1958, official version 04-m0-00 (31 January 2025), s 8(2) and (3).
-// - SA: Long Service Leave Act 1987, version of 1 July 2017, s 5.
-// - Tas: Long Service Leave Act 1976, version current from 10 December 2018, ss 8 and 9 (not mining employees, s 8A).
+// - SA: Long Service Leave Act 1987, version of 1 July 2017, s 5 (read again 24 November 2026).
+// - Tas: Long Service Leave Act 1976, version current from 10 December 2018, ss 8 and 9 (not mining employees, s 8A),
+//   and Schedule 3 cl 2(4) (read 24 November 2026).
 // - ACT: Long Service Leave Act 1976, republication R29 (19 November 2025), ss 3, 4, 11A and 11C.
 // - NT: Long Service Leave Act 1981, reprint REPL021 as in force at 14 October 2015, ss 8 and 10.
 // What counts as service, the reason employment ended and ordinary pay are the user's facts.
@@ -72,7 +74,7 @@ export const lslReasonText = (place, reason) => (WILFUL.includes(place) && (reas
  * @type {Partial<Record<LslPlace, [LslReason[], string]>>} */
 const EARLY = {
   'AU-NSW': [['redundancy', 'illness-dismissal', 'performance', 'pressing', 'death'], 'subparagraph 4(2)(a)(iii)'],
-  'AU-QLD': [['redundancy', 'illness-dismissal', 'pressing', 'fixed-term', 'death'], 'subsection 95(4)'],
+  'AU-QLD': [['redundancy', 'illness-dismissal', 'pressing', 'death'], 'subsection 95(4)'],
   'AU-WA': [['resign', 'pressing', 'no-notice', 'retire', 'redundancy', 'illness-dismissal', 'performance', 'fixed-term', 'death'],
     'subsection 8(3)'],
   'AU-SA': [['resign', 'pressing', 'retire', 'redundancy', 'illness-dismissal', 'performance', 'fixed-term', 'death'], 'subsections 5(3) and (4)'],
@@ -85,6 +87,8 @@ const EARLY = {
  * @type {Partial<Record<LslPlace, Partial<Record<LslReason, string>>>>} */
 const UNSETTLED = {
   'AU-NSW': { 'fixed-term': 'The NSW Act pays pro rata leave under 10 years when the employer ends the employment, and does not say whether a fixed term ending is that: this calculator does not decide it.' },
+  'AU-QLD': { 'fixed-term': 'Under 10 years, paragraph 95(4)(d) pays on a fixed term ending only if the employee reasonably expected the employment to continue to 10 years and was prepared to continue it: this calculator does not decide those facts.' },
+  'AU-SA': { 'no-notice': 'Under 10 years, paragraph 5(4)(b) pays nothing if the worker unlawfully terminated the contract, and leaving without the notice the contract requires may or may not be that: this calculator does not decide it. If the employer waived the notice, choose resignation.' },
   'AU-TAS': { 'fixed-term': 'The Tasmanian Act pays pro rata leave under 10 years when the employer ends the employment, and does not say whether a fixed term ending is that: this calculator does not decide it.' },
   'AU-ACT': { 'fixed-term': 'The ACT Act pays pro rata leave under 7 years when the employer ends the employment, and does not say whether a fixed term ending is that: this calculator does not decide it.' },
   'AU-NT': { 'fixed-term': 'The NT Act pays pro rata leave under 10 years when the employer ends the employment, and does not say whether a fixed term ending is that: this calculator does not decide it.',
@@ -97,12 +101,15 @@ const UNFAIR = ', unless the dismissal was unfair, which subparagraph 95(4)(c)(i
  * @type {Partial<Record<LslPlace, Partial<Record<LslReason, string>>>>} */
 const CONDITIONS = {
   'AU-QLD': { performance: UNFAIR, misconduct: UNFAIR },
-  'AU-SA': { 'no-notice': ', as SafeWork SA reads leaving without the required notice as an unlawful termination by the worker: if the employer waived the notice, choose resignation' },
 };
 
 const DAY = 86400000;
 /** @param {string} iso */
 const dayOf = (iso) => Date.parse(`${iso}T00:00:00Z`) / DAY;
+/** The 2011 transition day, when Tasmania's Long Service Leave Amendment Act 2011 applied. Before it,
+ * s 8(2)(a) of the Act gave leave only on completing 15 years (13 weeks for the first 15), so only an
+ * employee who had completed 15 years by then can have used up leave under the earlier Act. */
+const TAS_2011_TRANSITION = dayOf('2012-07-01');
 /** @param {number} day */
 const isoOf = (day) => new Date(day * DAY).toISOString().slice(0, 10);
 /** @param {number} day @returns {string} '19 November 2026' */
@@ -156,6 +163,8 @@ const completedMonths = (s) => [BigInt(s.years * 12 + s.months), 12n];
 const at = ([y, by], n, d) => [y * n, by * d];
 /** 8 2/3 weeks for 10 years (2 months of 4 1/3 weeks, or 1/5 of a month a year): 13/15 weeks a year. */
 const twoMonths = (/** @type {Fraction} */ years) => at(years, 13n, 15n);
+/** Queensland's 8.6667 weeks for 10 years, as subsection 95(2) and (7) state it. */
+const queensland = (/** @type {Fraction} */ years) => at(years, 86667n, 100000n);
 /** 1.3 weeks a year. */
 const thirteen = (/** @type {Fraction} */ years) => at(years, 13n, 10n);
 /** 1 week for every 60 weeks of the days given. @param {number} days @returns {Fraction} */
@@ -180,8 +189,8 @@ function available(place, s) {
   if (s.years < full) return outcomeOf([0n, 1n], `Under ${full} years: no leave to take yet`);
   switch (place) {
     case 'AU-VIC': return outcomeOf(sixtieth(s.total), '1/60th of the period of continuous employment, section 6');
-    case 'AU-QLD': if (s.years < 15) return outcomeOf([26n, 3n], '8.6667 weeks for 10 years, paragraph 95(2)(a)');
-      return outcomeOf(twoMonths(exactYears(s, place)), '8.6667 weeks for 10 years and the same proportion for the further period, subsection 95(2)');
+    case 'AU-QLD': if (s.years < 15) return outcomeOf([86667n, 10000n], '8.6667 weeks for 10 years, paragraph 95(2)(a)');
+      return outcomeOf(queensland(exactYears(s, place)), '8.6667 weeks for 10 years and the same proportion for the further period, subsection 95(2)');
     case 'AU-SA': return outcomeOf(thirteen(completedYears(s)), '13 weeks for 10 years and 1.3 weeks for each completed year after, section 5');
     case 'AU-ACT': return outcomeOf(twoMonths(completedYears(s)), '1/5 of a month for each completed year, sections 3 and 4');
     case 'AU-NT': return outcomeOf(thirteen([10n + 5n * blocks(s), 1n]), '1.3 weeks a year for 10 years and each completed 5 years after, section 8');
@@ -218,8 +227,8 @@ function proRata(place, s, reason) {
   if (place === 'AU-TAS' && reason === 'death') {
     return outcomeOf(sixtieth(s.total), '1/60th of the period of continuous employment, paragraph 9(2)(b)');
   }
-  return outcomeOf(twoMonths(exactYears(s, place)), `Pro rata on 8 2/3 weeks for 10 years, ${provision}`
-    + `${place === 'AU-QLD' && reason === 'fixed-term' ? ', if the employee reasonably expected to complete 10 years and was prepared to stay' : ''}`);
+  if (place === 'AU-QLD') return outcomeOf(queensland(exactYears(s, place)), `Pro rata on 8.6667 weeks for 10 years, ${provision}`);
+  return outcomeOf(twoMonths(exactYears(s, place)), `Pro rata on 8 2/3 weeks for 10 years, ${provision}`);
 }
 
 /** What an Act pays after its full qualifying period.
@@ -230,7 +239,7 @@ function afterFull(place, s, reason, until, start) {
     case 'AU-NSW': if (s.years < 15) return outcomeOf(twoMonths(exactYears(s, place)),'Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii)');
       return outcomeOf(twoMonths(completedYears(s)), 'Each completed year at 2 months for 10 years, any reason, subparagraph 4(2)(a)(i)');
     case 'AU-VIC': return outcomeOf(sixtieth(s.total), '1/60th of the period of continuous employment, any reason, sections 6, 9 and 10');
-    case 'AU-QLD': return outcomeOf(twoMonths(exactYears(s, place)),'Proportionate payment on 8.6667 weeks for 10 years, any reason, subsection 95(3)');
+    case 'AU-QLD': return outcomeOf(queensland(exactYears(s, place)),'Proportionate payment on 8.6667 weeks for 10 years, any reason, subsection 95(3)');
     case 'AU-WA': if (reason === 'misconduct') return outcomeOf(blockWeeks(s), 'Leave already accrued only, after dismissal for serious misconduct, subsection 8(2)');
       return outcomeOf(twoMonths(completedYears(s)), 'Each completed year at 8 2/3 weeks for 10 years, subsection 8(2)');
     case 'AU-SA': return outcomeOf(thirteen(completedYears(s)), '13 weeks for 10 years and 1.3 weeks for each completed year after, any reason, section 5');
@@ -281,14 +290,18 @@ function checked(input) {
  * @param {LslInput} input */
 export function longServiceLeave(input) {
   const { place, start, excluded, until, taken, pay } = checked(input);
+  // Excluded days are not dated, so the 15 years are counted without them: a conservative refusal.
+  if (place === 'AU-TAS' && taken > 0n && anniversary(start, 15) <= TAS_2011_TRANSITION) {
+    throw new Error('Tasmania’s Schedule 3 clause 2(4) gives no new leave for a period whose leave under the Act before 1 July 2012 was used up. Refuses positive prior leave where 15 years could have been completed by the end of 30 June 2012; undated excluded periods are not deducted for this screen.');
+  }
   const service = measure(start, until);
   const outcome = input.mode === 'ends' ? onEnding(place, service, input.reason, until, start) : available(place, service);
-  const weeks = tenThousandths(outcome.weeks);
-  if (taken > weeks) {
+  const [n, d] = outcome.weeks;
+  if (taken * d > n * 10000n) {
     throw new Error('Leave taken or paid is more than this entitlement: the Acts treat leave taken in advance differently, and this calculator does not cover it.');
   }
+  const weeks = tenThousandths(outcome.weeks);
   const balance = weeks - taken;
-  const [n, d] = outcome.weeks;
   const next = input.mode === 'employed' ? nextMilestone(place, service) : null;
   const nextDay = next === null ? null : anniversary(start, next) - 1 + excluded;
   return {

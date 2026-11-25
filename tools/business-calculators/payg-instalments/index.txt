@@ -1,8 +1,8 @@
-# PAYG instalments calculator: instalment amount and rate methods
+# PAYG instalments calculator: amount and rate methods
 
 Source: https://duguid.com.au/tools/business-calculators/payg-instalments/
 
-> One quarterly PAYG instalment by the ATO’s instalment amount or the instalment rate, notified or varied, with the credit to claim, as the activity statement asks.
+> Calculate a quarterly PAYG instalment by notified or varied amount or instalment rate, with any variation credit for your activity statement.
 
 # PAYG instalments calculator
 
@@ -14,9 +14,9 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 PAYG instalment inputs for one quarter
 
-How this instalment is worked out Option 1: pay the instalment amount at T7 Option 1, varied: an amount from your estimated tax for the year Option 2: instalment income times the rate at T2 Option 2, varied: a rate from your estimates for the year Option 1: instalment amount at T7 (AUD) Option 2: instalment income for the quarter at T1 (AUD) Option 2: instalment rate at T2 (%) Varied amount only: which of this income year’s instalments is this? First: 25% of estimated tax Second: 50% Third: 75% Fourth: 100% Varying only: estimated tax on instalment income for the year, T8 (AUD) Varied rate only: estimated instalment income for the year (AUD) Varying only: earlier instalments this income year, as at 5A (AUD) Varying only: earlier credits this income year (AUD) Varied rate only: instalment income of the earlier quarters (AUD)
+How this instalment is worked out Option 1: pay the instalment amount at T7 Option 1, varied: an amount from your estimated tax for the year Option 2: instalment income times the rate at T2 Option 2, varied: a rate from your estimates for the year Option 1: instalment amount at T7 (AUD) Option 2: instalment income for the quarter at T1 (AUD) Option 2, not varied: instalment rate at T2 (%) Varied amount only: which of this income year’s instalments is this? First: 25% of estimated tax Second: 50% Third: 75% Fourth: 100% Varying only: estimated tax on instalment income for the year, T8 (AUD) Varied rate only: estimated instalment income for the year (AUD) Varying only: earlier instalments this income year, as at 5A (AUD) Varying only: earlier credits this income year (AUD) Varied rate only: instalment income of the earlier quarters (AUD) Varied rate only: instalment rate used for the previous quarter (%)The rate at T2 or the varied rate at T3 that worked out last quarter’s instalment in this income year, not a new rate the ATO has since given. Enter 0 for the year’s first instalment.
 
-Each option reads only its own fields. For a varied amount, earlier credits are those you were entitled to claim for earlier quarters, claimed or not; for a varied rate, those you claimed. Instalment income is generally gross business and investment income, excluding GST.
+Each option reads only its own fields. For a varied amount, earlier credits are those you were entitled to claim for earlier quarters, claimed or not; for a varied rate, those you claimed. A varied rate gives a credit only when it is lower than the rate used for the previous quarter. Instalment income is generally gross business and investment income, excluding GST.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: instalment rate (option 2), instalment income $20,100.00 at T1, instalment rate 1.7% at T2. T1 × T2 $341.70 Instalment at T11 and 5A, whole dollars $341.00
 
@@ -24,7 +24,7 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 
 The PAYG instalments calculator works out one quarterly pay as you go instalment by the method on the activity statement. Under option 1 the instalment is the amount the ATO notifies at T7. Varying it, the first instalment of the income year is 25% of the estimated tax for the year, the second 50%, the third 75% and the fourth 100%, each less the earlier instalments. The third and fourth add back any credits you were entitled to claim for earlier instalments, claimed or not; no credit can arise before the second, so the calculator refuses one entered for the first or second. A negative result is a credit to claim at 5B.
 
-Under option 2 the instalment is the quarter’s instalment income at T1 times the instalment rate at T2. A varied rate is the estimated tax for the year divided by the estimated instalment income, times 100. If the varied rate is lower than the earlier rate, the earlier instalments less any credits claimed, less the earlier instalment income times the varied rate, is a credit for 5B.
+Under option 2 the instalment is the quarter’s instalment income at T1 times the instalment rate at T2. A varied rate is the estimated tax for the year divided by the estimated instalment income, times 100. If the varied rate is lower than the rate used for the previous quarter, the earlier instalments less any credits claimed, less the earlier instalment income times the varied rate, is a credit for 5B. That comparison is with last quarter’s rate, not a new rate the ATO gives at T2. No step is rounded: only the instalment and the credit drop their cents, so 25% of an estimate of $399.99 is $99.9975, an instalment of $99.
 
 For 2026-27, the instalment amount the ATO notifies already includes its GDP adjustment of 5%, which raises the base year’s income to allow for growth; the adjustment does not change an instalment rate. The ATO’s own example: instalment income of $20,100 at a rate of 1.7% gives $341.70, entered as 341 at T11 and 5A.
 
@@ -46,18 +46,27 @@ The ATO’s varied amount for a third instalment | Varied amount, instalment 3; 
 The ATO’s varied amount for the fourth instalment | Varied amount, instalment 4; estimated tax $14,000.00, earlier instalments $10,500.00, credits $0.00 | Due by this instalment $14,000.00, amount $3,500.00, instalment $3,500.00
 A varied amount below nil is a credit | Varied amount, instalment 3; estimated tax $8,000.00, earlier instalments $10,000.00, credits $0.00 | Due by this instalment $6,000.00, amount -$4,000.00, instalment $0.00, credit $4,000.00
 Credits claimed are added back | Varied amount, instalment 4; estimated tax $8,000.00, earlier instalments $10,000.00, credits $4,000.00 | Due by this instalment $8,000.00, amount $2,000.00, instalment $2,000.00, credit $0.00
-The ATO’s varied rate, cut to 2 decimal places, with a credit | Varied rate from estimated tax $10,125.00 on $82,480.00; instalment income $20,620.00, rate at T2 16.84%; earlier instalments $6,944.00, credits $0.00, on $41,240.00 | Instalment rate 12.27%, amount $2,530.07, instalment $2,530.00, credit $1,883.00
-The ATO’s credit example at a 5% varied rate | Varied rate from estimated tax $2,000.00 on $40,000.00; instalment income $10,000.00, rate at T2 10%; earlier instalments $1,000.00, credits $0.00, on $10,000.00 | Instalment rate 5.00%, amount $500.00, instalment $500.00, credit $500.00
-A higher varied rate gives no credit | Varied rate from estimated tax $1,200.00 on $10,000.00; instalment income $10,000.00, rate at T2 10%; earlier instalments $2,000.00, credits $0.00, on $10,000.00 | Instalment rate 12.00%, amount $1,200.00, instalment $1,200.00, credit $0.00
+The ATO’s varied rate, cut to 2 decimal places, with a credit | Varied rate from estimated tax $10,125.00 on $82,480.00; instalment income $20,620.00, previous quarter’s rate 16.84%; earlier instalments $6,944.00, credits $0.00, on $41,240.00 | Instalment rate 12.27%, amount $2,530.07, instalment $2,530.00, credit $1,883.00
+The ATO’s credit example at a 5% varied rate | Varied rate from estimated tax $2,000.00 on $40,000.00; instalment income $10,000.00, previous quarter’s rate 10%; earlier instalments $1,000.00, credits $0.00, on $10,000.00 | Instalment rate 5.00%, amount $500.00, instalment $500.00, credit $500.00
+A higher varied rate gives no credit | Varied rate from estimated tax $1,200.00 on $10,000.00; instalment income $10,000.00, previous quarter’s rate 10%; earlier instalments $2,000.00, credits $0.00, on $10,000.00 | Instalment rate 12.00%, amount $1,200.00, instalment $1,200.00, credit $0.00
+A new rate at T2 does not decide the credit | Varied rate from estimated tax $800.00 on $10,000.00; instalment income $10,000.00, previous quarter’s rate 10%; earlier instalments $1,000.00, credits $0.00, on $10,000.00 | Instalment rate 8.00%, amount $800.00, instalment $800.00, credit $200.00
+25% of estimated tax keeps its fraction of a cent | Varied amount, instalment 1; estimated tax $399.99, earlier instalments $0.00, credits $0.00 | Due by this instalment $99.99, amount $99.99, instalment $99.00, credit $0.00
 A first instalment with earlier instalments is refused | Varied amount, instalment 1; estimated tax $8,000.00, earlier instalments $1,000.00, credits $0.00 | Refused: the first instalment of the year has no earlier instalments
 A credit for the second instalment is refused | Varied amount, instalment 2; estimated tax $8,000.00, earlier instalments $2,000.00, credits $500.00 | Refused: the first and second instalments of the year add back no credits
 
-One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the instalment rounds down to whole dollars, as the activity statement takes it.
+## Related
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+- 2026-27 BAS due dates
+- GST and BAS questions
+- Sole trader tax set-aside calculator
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. No step rounds: amounts show cut to the cent, toward nil, and the instalment and any credit drop their cents, as the activity statement takes them.
 
 ## Links
 
-- fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
+- GST and BAS questions: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Sole trader tax set-aside calculator: https://duguid.com.au/tools/individual-tax/sole-trader/

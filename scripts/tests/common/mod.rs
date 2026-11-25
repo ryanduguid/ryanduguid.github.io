@@ -9,16 +9,19 @@ use std::path::{Path, PathBuf};
 use std::sync::LazyLock;
 
 /// The checked tree `site-tools check_site` runs these tests in: the Jekyll-rendered site
-/// plus the tooling and fixtures it adds. SITE_CHECKED names a prepared one; otherwise
-/// the site is rendered with `bundle exec jekyll build` when the locked gems are
-/// installed. The first suite to render keeps the tree in Cargo's test scratch
-/// directory, keyed by the source it rendered, and later suites reuse it.
-pub static SITE: LazyLock<Option<tempfile::TempDir>> = LazyLock::new(|| {
-    let checked = tempfile::tempdir().unwrap();
-    remove_at_exit(checked.path());
+/// plus the tooling and fixtures it adds. `SITE_CHECKED` names a prepared tree used
+/// read-only; otherwise the site is rendered once with `bundle exec jekyll build` into
+/// Cargo's test scratch directory, keyed by the source it rendered, and later suites
+/// read that tree directly. Tests that mutate files must use `copied_site()`.
+pub static SITE: LazyLock<Option<PathBuf>> = LazyLock::new(|| {
     if let Some(prepared) = std::env::var_os("SITE_CHECKED") {
-        copy_tree(Path::new(&prepared), checked.path());
-        return Some(checked);
+        let path = PathBuf::from(prepared);
+        assert!(
+            path.is_dir(),
+            "SITE_CHECKED does not name an existing directory: {}",
+            path.display()
+        );
+        return Some(path);
     }
     let repository = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
     let renders = Path::new(env!("CARGO_TARGET_TMPDIR")).join("site-checked");
@@ -27,47 +30,10 @@ pub static SITE: LazyLock<Option<tempfile::TempDir>> = LazyLock::new(|| {
     // only with the mark written after it took its final name.
     let complete = kept.with_extension("complete");
     if kept.is_dir() && complete.is_file() {
-        copy_tree(&kept, checked.path());
-        return Some(checked);
+        return Some(kept);
     }
-    let checked = render(&repository, checked)?;
-    // Keep only the newest render; a partial copy never takes the final name.
-    let _ = std::fs::remove_dir_all(&renders);
-    let partial = renders.join("partial");
-    copy_tree(checked.path(), &partial);
-    if std::fs::rename(&partial, &kept).is_ok() {
-        let _ = std::fs::write(&complete, "");
-    }
-    Some(checked)
+    render(&repository, &renders, &kept, &complete)
 });
-
-/// The copy `SITE` holds. A static is never dropped, so its `TempDir` cannot remove the
-/// copy itself; without this every test binary would leave a whole site in the
-/// temporary directory.
-static SITE_COPY: std::sync::OnceLock<PathBuf> = std::sync::OnceLock::new();
-
-unsafe extern "C" {
-    /// The C library's exit hook, run when the test binary returns from `main` or calls
-    /// `std::process::exit`, as the test harness does after a failure.
-    fn atexit(callback: extern "C" fn()) -> std::ffi::c_int;
-}
-
-extern "C" fn remove_site_copy() {
-    if let Some(path) = SITE_COPY.get() {
-        let _ = std::fs::remove_dir_all(path);
-    }
-}
-
-fn remove_at_exit(path: &Path) {
-    SITE_COPY.set(path.to_path_buf()).unwrap();
-    // SAFETY: `atexit` only records the function pointer, which is a plain `extern "C"`
-    // function with no arguments that stays valid for the life of the process.
-    assert_eq!(
-        unsafe { atexit(remove_site_copy) },
-        0,
-        "atexit refused the hook"
-    );
-}
 
 /// A digest of every file the render reads from the repository.
 fn fingerprint(repository: &Path) -> String {
@@ -102,10 +68,10 @@ fn fingerprint(repository: &Path) -> String {
         .collect()
 }
 
-fn render(repository: &Path, checked: tempfile::TempDir) -> Option<tempfile::TempDir> {
-    let source = tempfile::tempdir().unwrap();
-    copy_tree(repository, source.path());
-    let rendered = source.path().join("_site");
+fn render(repository: &Path, renders: &Path, kept: &Path, complete: &Path) -> Option<PathBuf> {
+    std::fs::create_dir_all(renders).unwrap();
+    let partial = renders.join(format!("partial-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&partial);
     let built = std::process::Command::new(if cfg!(windows) {
         "bundle.bat"
     } else {
@@ -117,16 +83,16 @@ fn render(repository: &Path, checked: tempfile::TempDir) -> Option<tempfile::Tem
         repository.join("Gemfile").display()
     ))
     .args(["jekyll", "build", "--source"])
-    .arg(source.path())
+    .arg(repository)
     .arg("--destination")
-    .arg(&rendered)
-    .current_dir(source.path())
+    .arg(&partial)
+    .current_dir(repository)
     .output()
     .is_ok_and(|o| o.status.success());
     if !built {
+        let _ = std::fs::remove_dir_all(&partial);
         return None;
     }
-    copy_tree(&rendered, checked.path());
     for name in [
         "scripts",
         ".agents",
@@ -136,15 +102,64 @@ fn render(repository: &Path, checked: tempfile::TempDir) -> Option<tempfile::Tem
         "assets/social-card-template.svg",
         "assets/social-cards.json",
     ] {
-        let from = source.path().join(name);
-        let to = checked.path().join(name);
+        let from = repository.join(name);
+        let to = partial.join(name);
         if from.is_dir() {
             copy_tree(&from, &to);
         } else {
+            if let Some(parent) = to.parent() {
+                std::fs::create_dir_all(parent).unwrap();
+            }
             std::fs::copy(&from, &to).unwrap();
         }
     }
-    Some(checked)
+    // Serialise cleanup and publication per fingerprint so two competing processes
+    // cannot interleave rename, completion-marker write and incomplete-target removal.
+    Some(publish_directory(&partial, kept, complete))
+}
+
+/// Publish `partial` to `kept` and mark `complete` under a per-fingerprint lock file.
+/// If another process already published `kept` before this caller acquired the lock,
+/// `partial` is discarded and `kept` is returned untouched.
+pub fn publish_directory(partial: &Path, kept: &Path, complete: &Path) -> PathBuf {
+    let lock_path = kept.with_extension("lock");
+    if let Some(parent) = lock_path.parent() {
+        std::fs::create_dir_all(parent).unwrap();
+    }
+    let lock_file = std::fs::OpenOptions::new()
+        .create(true)
+        .truncate(false)
+        .write(true)
+        .open(&lock_path)
+        .unwrap();
+    lock_file.lock().unwrap();
+    if kept.is_dir() && complete.is_file() {
+        let _ = std::fs::remove_dir_all(partial);
+        return kept.to_path_buf();
+    }
+    if kept.exists() {
+        let remove = if kept.is_dir() {
+            std::fs::remove_dir_all(kept)
+        } else {
+            std::fs::remove_file(kept)
+        };
+        if let Err(err) = remove {
+            let _ = std::fs::remove_dir_all(partial);
+            panic!(
+                "failed to remove incomplete render at {}: {err}",
+                kept.display()
+            );
+        }
+    }
+    if let Err(err) = std::fs::rename(partial, kept) {
+        let _ = std::fs::remove_dir_all(partial);
+        panic!(
+            "failed to publish rendered site at {}: {err}",
+            kept.display()
+        );
+    }
+    std::fs::write(complete, "").unwrap();
+    kept.to_path_buf()
 }
 
 /// Directories no check reads: version control, dependencies, build output and caches.
@@ -192,7 +207,7 @@ fn copy_tree_skipping(source: &Path, destination: &Path, skip: &dyn Fn(&Path) ->
 }
 
 pub fn root() -> &'static Path {
-    SITE.as_ref().expect("guarded by rendered()").path()
+    SITE.as_ref().expect("guarded by rendered()").as_path()
 }
 
 const DESIGN_BASELINE: &str = "scripts/design_baseline.json";
@@ -264,6 +279,43 @@ pub fn changed_text(source: &str, old: &str, new: &str) -> String {
 pub fn replace_file(root: &Path, rel: &str, old: &str, new: &str) {
     let path = root.join(rel);
     std::fs::write(&path, changed_text(&read_text(root, rel), old, new)).unwrap();
+}
+
+/// Captures a file's bytes (or absence) and restores them on drop so sequential
+/// mutation checks can share one `copied_site()` without copying the tree per case.
+pub struct SavedFile {
+    path: PathBuf,
+    original: Option<Vec<u8>>,
+}
+
+impl SavedFile {
+    pub fn capture(root: &Path, rel: &str) -> Self {
+        let path = root.join(rel);
+        let original = std::fs::read(&path).ok();
+        Self { path, original }
+    }
+}
+
+impl Drop for SavedFile {
+    fn drop(&mut self) {
+        let result = match &self.original {
+            Some(bytes) => self
+                .path
+                .parent()
+                .map_or(Ok(()), std::fs::create_dir_all)
+                .and_then(|()| std::fs::write(&self.path, bytes)),
+            None => match std::fs::remove_file(&self.path) {
+                Ok(()) => Ok(()),
+                Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(()),
+                Err(e) => Err(e),
+            },
+        };
+        if let Err(err) = result
+            && !std::thread::panicking()
+        {
+            panic!("failed to restore {}: {err}", self.path.display());
+        }
+    }
 }
 
 pub fn expect_failure(label: &str, failures: &[String], expected: &str) {

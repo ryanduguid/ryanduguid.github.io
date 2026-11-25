@@ -25,7 +25,7 @@ const startingRoutes = [
   ["Use accounting functions in Excel", "/tools/ozzit/"],
   ["Review a month-end close", "/tools/monthly-close-controls/"],
   ["Calculate a Coal LSL levy", "/tools/coal-lsl-levy/"],
-  ["Check a BAS pack before manager review", "/evaluate/manager-review-gate/"],
+  ["Check a BAS pack before manager review", "/tools/workpaper-review-gate/"],
 ];
 
 test('starting routes lead to the promised activity on both pages', async ({ page }) => {

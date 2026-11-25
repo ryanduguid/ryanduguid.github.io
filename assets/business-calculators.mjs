@@ -15,8 +15,11 @@ export { CALENDAR_END, NON_BUSINESS_WEEKDAYS, compoundedEarnings, paydaySuperDue
 export { LSL_ACTS, LSL_REASONS, longServiceLeave, longServiceLeaveResult, lslReasonText } from './long-service-leave.mjs';
 export { FTC_FUELS, FTC_PERIODS, FTC_USES, fuelFormInput, fuelInputsText, fuelTaxCredits, fuelTaxCreditsResult } from './fuel-tax-credits.mjs';
 export { DUTY_FROM, FHOG, FHOG_CASE_FACTS, FHOG_FACTS, FHOG_FIRST, FHOG_HOMES, FHOG_LAST, fhogFormInput, fhogInputsText, firstHomeOwnerGrant, firstHomeOwnerGrantResult } from './first-home-owner-grant.mjs';
-export { SBT_LOW_RATE_CAP, SBT_RECIPIENTS, SBT_UNTAXED_PLAN_CAP, SBT_YEARS, sbtFormInput, sbtInputsText, superBenefitTax, superBenefitTaxResult }
+export { SBT_LOW_RATE_CAP, SBT_RECIPIENTS, SBT_UNTAXED_PLAN_CAP, SBT_YEARS, sbtFormInput, sbtInputsText, superBenefitTax }
   from './super-benefit-tax.mjs';
+export { SWH_FIRST_DAY, superWithholding, swhFormInput } from './super-withholding.mjs';
+export { DASP_YEARS, daspFormInput, daspTax } from './dasp-tax.mjs';
+export { superBenefitTaxResult } from './super-lump-sum.mjs';
 export { LCT_CLAIMANTS, LCT_KINDS, LCT_THRESHOLDS, LCT_YEARS, lctFormInput, lctInputsText, luxuryCarTax, luxuryCarTaxResult } from './luxury-car-tax.mjs';
 export { unusedLeave, unusedLeaveResult } from './unused-leave.mjs';
 export { FRANKING_EVENTS, frankingAccount, frankingAccountResult, frankingInput } from './franking-account.mjs';
@@ -123,7 +126,8 @@ export { FREQUENCIES, financeSchedule, financeResult, interestByIncomeYear } fro
 export { lease, leaseComparison, leaseResult } from './lease.mjs';
 export { div7aMinimumRepayment, div7aSchedule, div7aScheduleResult } from './div7a.mjs';
 
-const TRANSFER_DUTY_RULES = ['excess-rounded-up-to-100', 'excess', 'whole-value', 'nt-formula'];
+const TRANSFER_DUTY_RULES = ['excess-rounded-up-to-100', 'excess', 'whole-value', 'nt-formula', 'excess-to-dollar',
+  'whole-value-to-dollar'];
 
 /** General transfer (stamp) duty on one dutiable value, from one jurisdiction's scale in
  * rates/transfer-duty/transfer-duty-rates.csv. A bracket covers values above `over` up to and
@@ -133,7 +137,8 @@ const TRANSFER_DUTY_RULES = ['excess-rounded-up-to-100', 'excess', 'whole-value'
  * whole-value: the rate per cent of the whole value;
  * nt-formula: Stamp Duty Act 1978 (NT) Schedule 1 clause 1(2)(a): (0.06571441 x V squared)
  * + 15V, V being the value divided by 1,000.
- * A fraction of a cent rounds half up.
+ * A fraction of a cent rounds half up. A rule ending -to-dollar then takes the duty to the nearest
+ * whole dollar, 50 cents down (Duties Act 2000 (Vic) s 28(1), read 24 November 2026).
  * @param {string} value the dutiable value in whole dollars
  * @param {readonly (readonly string[])[]} scale
  *   [over, to, base, rate per cent, rule] for each bracket, lowest first */
@@ -143,19 +148,28 @@ export function transferDuty(value, scale) {
     TRANSFER_DUTY_RULES.includes(rule) && over === (index ? scale[index - 1][1] : '0')
       && (index === scale.length - 1 ? to === '' : /^\d+$/.test(to) && Number(to) > Number(over)));
   if (!contiguous) throw new Error('This jurisdiction’s rate table is not usable.');
-  const bracket = scale.findIndex(([, to]) => to === '' || dollars <= Number(to));
-  const [over, , base, rate, rule] = scale[bracket];
+  // The last band is open (to === ''), so a band always matches.
+  const row = /** @type {readonly string[]} */ (scale.find(([, to]) => to === '' || dollars <= Number(to)));
+  const bracket = scale.indexOf(row);
+  const [over, , base, rate, named] = row;
+  const toDollar = named.endsWith('-to-dollar');
+  const rule = toDollar ? named.slice(0, -'-to-dollar'.length) : named;
   const whole = BigInt(dollars);
   const excess = whole - BigInt(over);
   // A rate has at most 2 decimal places: whole hundredths of 1%, or cents for every $100.
   const hundredths = BigInt(Math.round(number(rate, { max: 100 }) * 100));
   const baseCents = BigInt(number(base, { integer: true })) * 100n;
-  let duty;
-  if (rule === 'excess-rounded-up-to-100') duty = baseCents + hundredths * ((excess + 99n) / 100n);
-  else if (rule === 'excess') duty = baseCents + ratioCents(hundredths * excess, 100n);
-  else if (rule === 'whole-value') duty = ratioCents(hundredths * whole, 100n);
+  // The exact duty in cents as numerator / denominator.
+  let exact;
+  if (rule === 'excess-rounded-up-to-100') exact = [baseCents + hundredths * ((excess + 99n) / 100n), 1n];
+  else if (rule === 'excess') exact = [baseCents * 100n + hundredths * excess, 100n];
+  else if (rule === 'whole-value') exact = [hundredths * whole, 100n];
   // (0.06571441 V^2 + 15 V) dollars with V = value / 1,000 is (6571441 value^2 + 15 x 10^11 value) / 10^12 cents.
-  else duty = ratioCents(6571441n * whole * whole + 1500000000000n * whole, 1000000000000n);
+  else exact = [6571441n * whole * whole + 1500000000000n * whole, 1000000000000n];
+  const [numerator, denominator] = exact;
+  // To the dollar, 50 cents down: the whole dollars above (cents - 50) / 100.
+  const duty = toDollar ? (numerator + 50n * denominator - 1n) / (100n * denominator) * 100n
+    : ratioCents(numerator, denominator);
   return { duty: Number(duty) / 100, bracket };
 }
 
@@ -412,59 +426,74 @@ export function objectionDeadline(decision, group, notice, first) {
 
 /** @typedef {'amount' | 'varied-amount' | 'rate' | 'varied-rate'} InstalmentMethod
  * @typedef {{method: InstalmentMethod, notified: string, instalment: string, estimatedTax: string, earlier: string,
- *   credits: string, income: string, rate: string, estimatedIncome: string, earlierIncome: string}} InstalmentInputs */
-/** Cents down to whole dollars, as an activity statement takes them. @param {number} value cents, not negative */
-const wholeDollars = (value) => Math.floor(value / 100);
+ *   credits: string, income: string, rate: string, estimatedIncome: string, earlierIncome: string,
+ *   previousRate: string}} InstalmentInputs */
+/** An exact amount in units of 1/scale cent shown to the cent toward nil, so it never shows more than the
+ * instalment or credit cut from it. @param {bigint} units @param {bigint} scale */
+const shownCents = (units, scale) => Number(units / scale) / 100;
+/** A rate in whole hundredths of a per cent. @param {string} text */
+const hundredths = (text) => Math.round(number(text, { max: 100 }) * 100);
 
 /** One quarterly PAYG instalment under Division 45 in Schedule 1 to the Taxation Administration
  * Act 1953, worked as the ATO's activity statement steps work it: the notified amount (s 45-112),
  * an amount varied from estimated tax (s 45-410), instalment income times the rate (s 45-110), or
- * times a varied rate (s 45-205) with any credit for earlier quarters (s 45-215). Each method reads
- * only its own fields. Money rounds half up to the cent; a figure for the activity statement then
- * drops its cents, and a varied rate drops what follows its second decimal place.
+ * times a varied rate (s 45-205) with any credit for earlier quarters when it is lower than the rate
+ * used for the previous quarter (s 45-215(1)(b)). Each method reads only its own fields. Neither the
+ * Act nor the ATO rounds a step, so each is exact: the instalment and credit drop their cents, as the
+ * activity statement takes them, other amounts show to the cent toward nil, and a varied rate drops
+ * what follows its second decimal place.
  * @param {InstalmentInputs} inputs
  * @returns {{amount: number, instalment: number, credit: number, due: number | null, instalmentRate: number | null}} */
 export function paygInstalment(inputs) {
   const { method } = inputs;
   if (method === 'amount') {
     const notified = cents(inputs.notified);
-    return { amount: notified / 100, instalment: wholeDollars(notified), credit: 0, due: null, instalmentRate: null };
+    return { amount: notified / 100, instalment: Math.floor(notified / 100), credit: 0, due: null, instalmentRate: null };
   }
   const earlierLessCredits = () => {
     const [earlier, credits] = [cents(inputs.earlier), cents(inputs.credits)];
     if (credits > earlier) throw new Error('Earlier credits cannot exceed the earlier instalments.');
-    return earlier - credits;
+    return BigInt(earlier - credits);
   };
   if (method === 'varied-amount') {
     const instalment = number(inputs.instalment, { min: 1, max: 4, integer: true });
     // 25%, 50%, 75% or 100% of estimated tax, less earlier instalments net of credits claimed. Only the
     // third and fourth add back credits (s 45-410(4) and (5)); none can exist before the second.
-    const due = Number(ratioCents(BigInt(cents(inputs.estimatedTax)) * BigInt(instalment), 4n));
+    const share = BigInt(cents(inputs.estimatedTax)) * BigInt(instalment);
     if (instalment === 1 && cents(inputs.earlier)) throw new Error('The first instalment of the year has no earlier instalments.');
     const net = earlierLessCredits();
     if (instalment < 3 && cents(inputs.credits)) throw new Error('The first and second instalments of the year add back no credits.');
-    const amount = due - net;
-    return { amount: amount / 100, instalment: wholeDollars(Math.max(0, amount)), credit: wholeDollars(Math.max(0, -amount)),
-      due: due / 100, instalmentRate: null };
+    // In quarter cents; BigInt division drops the rest toward nil.
+    const amount = share - 4n * net;
+    return { amount: shownCents(amount, 4n), instalment: Number(amount > 0n ? amount / 400n : 0n),
+      credit: Number(amount < 0n ? -amount / 400n : 0n), due: shownCents(share, 4n), instalmentRate: null };
   }
   if (method !== 'rate' && method !== 'varied-rate') throw new Error('Choose how this instalment is worked out.');
-  // Rates are whole hundredths of a per cent.
-  const given = Math.round(number(inputs.rate, { max: 100 }) * 100);
-  let rate = given;
+  let rate;
   let credit = 0;
   if (method === 'varied-rate') {
+    let previous;
+    try {
+      previous = hundredths(inputs.previousRate);
+    } catch {
+      throw new Error('Enter the rate used for the previous quarter as a per cent from 0 to 100, with no more than 2 decimal places.');
+    }
     // Nil estimated instalment income varies the rate to nil with no tax estimate, which is then not read.
     const yearIncome = BigInt(cents(inputs.estimatedIncome));
     const tax = yearIncome ? BigInt(cents(inputs.estimatedTax)) : 0n;
     if (tax > yearIncome) throw new Error('Estimated tax cannot exceed estimated instalment income.');
     rate = yearIncome ? Number(tax * 10000n / yearIncome) : 0;
-    if (rate < given) {
-      const earlierAtRate = Number(ratioCents(BigInt(cents(inputs.earlierIncome)) * BigInt(rate), 10000n));
-      credit = wholeDollars(Math.max(0, earlierLessCredits() - earlierAtRate));
+    if (rate < previous) {
+      // Earlier instalments less credits claimed, less earlier income at the varied rate, in 1/10,000 cent.
+      const left = earlierLessCredits() * 10000n - BigInt(cents(inputs.earlierIncome)) * BigInt(rate);
+      credit = Number(left > 0n ? left / 1000000n : 0n);
     }
+  } else {
+    rate = hundredths(inputs.rate);
   }
-  const amount = Number(ratioCents(BigInt(cents(inputs.income)) * BigInt(rate), 10000n));
-  return { amount: amount / 100, instalment: wholeDollars(amount), credit, due: null, instalmentRate: rate / 100 };
+  // Cents times hundredths of a per cent: 1/10,000 cent.
+  const amount = BigInt(cents(inputs.income)) * BigInt(rate);
+  return { amount: shownCents(amount, 10000n), instalment: Number(amount / 1000000n), credit, due: null, instalmentRate: rate / 100 };
 }
 
 /**
@@ -632,9 +661,15 @@ export { payrollTax, payrollTaxResult } from './payroll-tax.mjs';
 export { companyTax, companyTaxResult } from './company-tax.mjs';
 export { gstMarginScheme, gstMarginSchemeResult } from './gst-margin-scheme.mjs';
 export { lowValuePool, smallBusinessPool, capitalWorks, depreciationPoolsResult, poolFormInput, poolInputsText, POOL_YEARS } from './depreciation-pools.mjs';
+export { rdTaxOffset, rdTaxOffsetResult, rdFormInput, rdInputsText, RD_YEARS } from './rd-tax-offset.mjs';
 export { wineEqualisationTax, wineEqualisationTaxResult, wetFormInput, wetInputsText, WET_YEARS } from './wine-equalisation-tax.mjs';
 export { atoPenaltiesInterest, atoPenaltiesFormInput, atoPenaltiesInputsText, atoPenaltiesInterestResult, ATO_PENALTY_YEARS, PENALTY_UNITS } from './ato-penalties-interest.mjs';
 export { asicFee, asicFeesResult, asicFeeFormInput, asicFeeInputsText, firstMonthEnds, ASIC_FEES, ASIC_LATE_FEES } from './asic-fees.mjs';
 export { salaryDividend, salaryDividendResult } from './salary-dividend.mjs';
 export { firbApplicationFee, firbFee, foreignSurcharge, foreignSurchargeResult } from './foreign-surcharge.mjs';
 export { businessDays, businessDaysResult, parseHolidays } from './business-days.mjs';
+export { gstCreditablePurposeChange, gstAnnualApportionment, gstFinancialAcquisitionsThreshold, gstGoingConcern, gstSecondHandGoods, gstBadDebt,
+  GST_ADJUSTMENT_YEARS } from './gst-adjustments.mjs';
+export { gstAdjustment, gstAdjustmentsResult, gstFormInput, gstInputsText, percentFraction, GST_WORKSHEETS } from './gst-adjustments-page.mjs';
+export { deferredTax, deferredTaxResult, deferredTaxFormInput, deferredTaxInputsText, DEFERRED_TAX_YEARS, DEFERRED_TAX_ROWS,
+  DEFERRED_TAX_MISMATCH } from './deferred-tax.mjs';

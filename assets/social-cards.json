@@ -49,5 +49,45 @@
     "host": "duguid.com.au/evidence/",
     "output": "social-card-evidence-20261104b.png",
     "alt": "OLED register card: Claims linked to sources, releases, and tests."
+  },
+  "calculators": {
+    "label": "Business calculators",
+    "heading": [
+      "54 Australian business",
+      "and tax calculators."
+    ],
+    "host": "duguid.com.au/tools/business-calculators/",
+    "output": "social-card-calculators-20261123.png",
+    "alt": "OLED register card: 54 Australian business and tax calculators."
+  },
+  "individual-tax": {
+    "label": "Individual tax",
+    "heading": [
+      "Australian income tax,",
+      "pay and super tools."
+    ],
+    "host": "duguid.com.au/tools/individual-tax/",
+    "output": "social-card-individual-tax-20261123.png",
+    "alt": "OLED register card: Australian income tax, pay and super tools."
+  },
+  "depreciation": {
+    "label": "Depreciation rates",
+    "heading": [
+      "7,430 ATO effective",
+      "lives in LI 2025/20."
+    ],
+    "host": "duguid.com.au/tools/depreciation-rates/",
+    "output": "social-card-depreciation-20261123.png",
+    "alt": "OLED register card: 7,430 ATO effective lives in LI 2025/20."
+  },
+  "questions": {
+    "label": "Accounting questions",
+    "heading": [
+      "100 Australian",
+      "accounting questions."
+    ],
+    "host": "duguid.com.au/tools/accounting-questions/",
+    "output": "social-card-questions-20261123.png",
+    "alt": "OLED register card: 100 Australian accounting questions."
   }
 }

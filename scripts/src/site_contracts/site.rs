@@ -862,15 +862,16 @@ pub fn check_worked_examples(root: &Path) -> Result<Vec<String>, String> {
         let rel = example.rel;
         let html = crate::read(&site_path(root, rel))?;
         let visible = strip_non_rendered(&html);
-        let heading = re(
-            r"<h([1-6])\b[^>]*>.*?\bfictional\s+worked\s+example\b.*?</h\1>",
-            S | I,
-        )
-        .search(&visible)
-        .map(|m| {
-            let whole = m.get(0).expect("group 0");
-            (whole.start(), whole.end())
-        });
+        let heading = re(r"<h([1-6])\b[^>]*>(.*?)</h\1>", S | I)
+            .captures_iter(&visible)
+            .find(|m| {
+                let inner = m.get(2).map_or("", |g| g.as_str());
+                re(r"\bfictional\s+worked\s+example\b", I).is_match(&core::visible_text(inner))
+            })
+            .map(|m| {
+                let whole = m.get(0).expect("group 0");
+                (whole.start(), whole.end())
+            });
         let example_html = match heading {
             None => {
                 failures.push(format!(
@@ -1542,7 +1543,7 @@ pub fn forbidden_identity_url_labels(text: &str) -> Result<Vec<&'static str>, St
     Ok(labels)
 }
 
-/// Require five reproducible OLED register cards and their provenance.
+/// Require nine reproducible OLED register cards and their provenance.
 pub fn check_social_cards(root: &Path) -> Result<Vec<String>, String> {
     check_social_cards_for(root, HOMEPAGE_HEADING)
 }

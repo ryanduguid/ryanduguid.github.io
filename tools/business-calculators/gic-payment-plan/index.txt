@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
 
-> Compare paying a tax debt now with equal weekly, fortnightly or monthly instalments, with the general interest charge compounding daily at each quarter’s ATO rate.
+> Compare paying an ATO tax debt now against weekly, fortnightly or monthly instalments, with general interest charge compounding daily at each quarter's rate.
 
 # GIC payment plan calculator
 
@@ -49,13 +49,19 @@ A start before July 1999 has no published rate | $1,000.00 from 1999-06-30, 3 mo
 A nil debt has nothing to pay by instalments | $0.00 from 2026-10-01, 3 monthly instalments, 11.51% assumed after the table | Refused: enter a debt above nil
 More than 120 instalments | $1,000.00 from 2026-10-01, 121 weekly instalments, 11.51% assumed after the table | Refused: enter a whole number between 1 and 120
 
-One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+## Related
+
+- General interest charge rate
+- ATO penalties and interest calculator
+- 13-week cash forecast
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
 - quarterly GIC rate table: https://duguid.com.au/rates/general-interest-charge/
-- fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- ATO penalties and interest calculator: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
+- 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/

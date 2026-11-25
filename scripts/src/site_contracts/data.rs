@@ -139,7 +139,7 @@ pub const CURRENT_SOFTWARE_REPOSITORIES: [(&str, &str, &str, &str); 10] = [
         "Ozzit",
         "ozzit",
         "https://github.com/ryanduguid/Ozzit",
-        "151 native Excel LAMBDA functions plus five help tables for AU modelling and GST arithmetic.",
+        "165 native Excel LAMBDA functions plus five help tables for AU modelling and GST arithmetic.",
     ),
     (
         "accounting-excel-toolkit",
@@ -686,8 +686,7 @@ pub const CONTACT_MAILTO_HREFS: [&str; 1] =
 pub const HOMEPAGE_HEADING: &str = "Tools for Australian accountants";
 pub const HOMEPAGE_HEADING_MARKUP: &str =
     "<h1 id=\"home-title\">Tools for Australian accountants</h1>";
-pub const HOMEPAGE_SUPPORT: &str =
-    "Check workpaper packs, explore cash shortfalls and inspect the calculations.";
+pub const HOMEPAGE_SUPPORT: &str = "Free browser calculators, maintained ATO rate tables and open source review tools. No sign-up; inputs stay in your browser.";
 pub const HOMEPAGE_ACTIONS: [(&str, &str); 1] = [(
     "/examples/profit-vs-cash-flow/",
     "Explore the cash flow example",
@@ -704,31 +703,38 @@ pub const TASK_ROUTE_ENTRIES: [(&str, &str); 5] = [
     ("Calculate a Coal LSL levy", "/tools/coal-lsl-levy/"),
     (
         "Check a BAS pack before manager review",
-        "/evaluate/manager-review-gate/",
+        "/tools/workpaper-review-gate/",
     ),
 ];
 /// The homepage router, one row per reader: its heading and the destinations
-/// it lists, in order. The first row lists TASK_ROUTE_ENTRIES after the cash
-/// case, then the full Tools register.
+/// it lists, in order. The first row lists the calculator hubs, TASK_ROUTE_ENTRIES
+/// after the cash case, then the full Tools register.
 pub const HOMEPAGE_ROUTES: [(&str, &[&str]); 3] = [
     (
         "Check a pack or calculate",
         &[
+            "/tools/business-calculators/",
+            "/tools/individual-tax/",
+            "/tools/depreciation-rates/",
             "/tools/ozzit/",
             "/tools/monthly-close-controls/",
             "/tools/coal-lsl-levy/",
-            "/evaluate/manager-review-gate/",
+            "/tools/workpaper-review-gate/",
             "/tools/",
         ],
     ),
     (
         "Answer a tax or payroll question",
-        &["/tools/accounting-questions/", "/rates/"],
+        &[
+            "/tools/accounting-questions/",
+            "/rates/",
+            "/tools/bas-due-dates/",
+        ],
     ),
     ("Review my work", &["/about/", "/evidence/"]),
 ];
 pub const HOMEPAGE_ANCHORS: [&str; 2] = ["adopt", "verify"];
-pub const ABOUT_OPENING: &str = "I\u{2019}m Ryan Duguid, a senior accountant in Newcastle, NSW. I build tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.";
+pub const ABOUT_OPENING: &str = "I\u{2019}m Ryan Duguid, a senior accountant in Newcastle, NSW, Australia. I build open source Australian computational accounting tools, including 76 browser calculators, 12 maintained rate tables, 7,430 depreciation effective lives, Ozzit (165 Excel LAMBDA functions) and Aus Accounting MCP, with primary sources visible.";
 pub const EVIDENCE_HEADING: &str = "Evidence behind the tools";
 pub const EVIDENCE_OPENING: &str = "Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims.";
 pub const HOMEPAGE_REQUIRED_TEXT: [&str; 3] = [
@@ -736,8 +742,8 @@ pub const HOMEPAGE_REQUIRED_TEXT: [&str; 3] = [
     HOMEPAGE_SUPPORT,
     "Try each tool with fictional data first",
 ];
-pub const HOMEPAGE_TITLE: &str = "Tools for Australian accountants";
-pub const HOMEPAGE_DESCRIPTION: &str = "Australian accounting tools for payroll, Xero, workpapers and AI workflows, with sources and working kept visible.";
+pub const HOMEPAGE_TITLE: &str = "Ryan Duguid: Tools for Australian accountants";
+pub const HOMEPAGE_DESCRIPTION: &str = "Ryan Duguid\u{2019}s 76 free Australian tax and business calculators, 12 maintained rate tables, 7,430 depreciation effective lives, Ozzit and open source tools.";
 pub const HOMEPAGE_REQUIRED_HREFS: [&str; 4] = [
     "/evidence/",
     "/examples/profit-vs-cash-flow/",
@@ -897,7 +903,7 @@ pub struct SocialCard {
     pub output: &'static str,
 }
 
-pub const SOCIAL_CARD_CONTEXTS: [SocialCard; 5] = [
+pub const SOCIAL_CARD_CONTEXTS: [SocialCard; 9] = [
     SocialCard {
         id: "site",
         label: "Australian accounting",
@@ -933,7 +939,53 @@ pub const SOCIAL_CARD_CONTEXTS: [SocialCard; 5] = [
         host: "duguid.com.au/evidence/",
         output: "social-card-evidence-20261104b.png",
     },
+    section_card(
+        ("calculators", "Business calculators"),
+        &["54 Australian business", "and tax calculators."],
+        (
+            "duguid.com.au/tools/business-calculators/",
+            "social-card-calculators-20261123.png",
+        ),
+    ),
+    section_card(
+        ("individual-tax", "Individual tax"),
+        &["Australian income tax,", "pay and super tools."],
+        (
+            "duguid.com.au/tools/individual-tax/",
+            "social-card-individual-tax-20261123.png",
+        ),
+    ),
+    section_card(
+        ("depreciation", "Depreciation rates"),
+        &["7,430 ATO effective", "lives in LI 2025/20."],
+        (
+            "duguid.com.au/tools/depreciation-rates/",
+            "social-card-depreciation-20261123.png",
+        ),
+    ),
+    section_card(
+        ("questions", "Accounting questions"),
+        &["100 Australian", "accounting questions."],
+        (
+            "duguid.com.au/tools/accounting-questions/",
+            "social-card-questions-20261123.png",
+        ),
+    ),
 ];
+
+const fn section_card(
+    meta: (&'static str, &'static str),
+    heading: &'static [&'static str],
+    target: (&'static str, &'static str),
+) -> SocialCard {
+    SocialCard {
+        id: meta.0,
+        label: meta.1,
+        heading,
+        host: target.0,
+        output: target.1,
+    }
+}
 pub const SOCIAL_CARD_DIMENSIONS: (u32, u32) = (1200, 630);
 pub const SOCIAL_CARD_MAX_BYTES: usize = 50_000;
 pub const SOCIAL_CARD_COLOURS: [&str; 7] = [

@@ -49,18 +49,30 @@ tool: xero-trial-balance
 {% include site-header.html %}
   <main id="main" class="site-main">
     <article class="article">
-      <header class="article-header site-shell">
-    <nav class="article-crumb" aria-label="Breadcrumb">
-      <ol>
-        <li><a href="/">Home</a></li>
-        <li><a href="/tools/">Tools</a></li>
-        <li aria-current="page">Xero trial balance CSV export</li>
-      </ol>
-    </nav>
-    <h1>{{ tool.name }}</h1>
-    <p class="lead-note">The Xero trial balance export pulls the trial balance from Xero’s own reporting API and refuses to write the CSV unless both the month’s movement and the year-to-date figures balance.</p>
+      <header class="article-header article-header--preview site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li aria-current="page">Xero trial balance CSV export</li>
+          </ol>
+        </nav>
+        <div class="article-intro">
+          <h1>{{ tool.name }}</h1>
+          <p class="lead-note">The Xero trial balance export pulls the trial balance from Xero’s own reporting API and refuses to write the CSV unless both the month’s movement and the year-to-date figures balance.</p>
     {% include tool-meta.html published="24 August 2026" reviewed="23 November 2026" %}
 {% include tool-facts.html %}
+          <div class="article-actions">
+            <a class="button" href="#get-it">Install the exporter</a>
+            <a href="#synthetic-worked-example">Read the worked example</a>
+          </div>
+        </div>
+        <section class="article-preview" aria-labelledby="xero-tb-preview-title">
+          <h2 id="xero-tb-preview-title">Export a dated trial balance</h2>
+          <pre class="copyable" tabindex="0" role="region" aria-label="Dated Xero trial balance export command"><code>python export_tb.py --date 2026-06-30</code></pre>
+          <p class="preview-result"><strong>CSV written</strong> only when movement and YTD balance</p>
+          <p>Unbalanced YTD figures exit 1 and write no CSV file in v0.1.6 tests. <a href="#synthetic-worked-example">Compare both fictional outcomes</a>.</p>
+        </section>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -193,10 +205,6 @@ tool: xero-trial-balance
       <li><a href="/about/">About Ryan Duguid</a></li>
     </ul>
     </section>
-    <p class="byline">
-      Written by Ryan Duguid in his own time and on his own equipment.
-      He is a Provisional CA ANZ Member.
-    </p>
         </div>
       </div>
     </article>

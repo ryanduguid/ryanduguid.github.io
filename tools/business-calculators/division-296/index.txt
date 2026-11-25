@@ -30,7 +30,7 @@ The Explanatory Memorandum to the Treasury Laws Amendment (Building a Stronger a
 
 The calculator works out one year from the balance and earnings you supply. It does not project a balance, compare a withdrawal or set tax inside super against tax outside it: those turn on future earnings, contributions and withdrawals that no source states, and choosing between them is financial advice. It covers 2026-27 only. From 2027-28 the thresholds are indexed (paragraphs 296-30(b) and 296-35(b)) and the balance just before the start of the year counts too, and those figures are not yet published.
 
-It does not work out the total superannuation balance, a fund’s Division 296 fund earnings or how they are attributed to each interest (sections 296-55 to 296-75), or the earnings of defined benefit and other interests under section 296-70, whose tax can be deferred to a debt account. It does not cover temporary residents who depart Australia (sections 296-195 to 296-205), the notice of assessment, payment or release authorities. The ATO assesses the tax from what funds report, and the notice of assessment sets the amount. Confirm the figures with the ATO or a registered tax agent.
+It does not work out the total superannuation balance, a fund’s Division 296 fund earnings or how they are attributed to each interest (sections 296-55 to 296-75), or the earnings of defined benefit and other interests under section 296-70. Only tax attributable to a defined benefit interest can be deferred to a debt account. It does not cover temporary residents who depart Australia (sections 296-195 to 296-205), the notice of assessment, payment or release authorities. The ATO assesses the tax from what funds report, and the notice of assessment sets the amount. Confirm the figures with the ATO or a registered tax agent.
 
 ## Boundary cases
 
@@ -49,12 +49,19 @@ A child recipient has taxable earnings but no liability | Balance $4,000,000.00,
 Death by 30 June 2027 makes the balance nil | Balance $12,000,000.00, earnings $500,000.00, died by 30 June 2027 | Not liable: died, 0.00% above $3,000,000, 0.00% above $10,000,000, taxable earnings $0.00, very large component $0.00, 15% tax $0.00, 10% tax $0.00, Division 296 tax $0.00
 A negative balance is refused | Balance -$1.00, earnings $100,000.00 | Refused: enter an amount between 0 and 1000000000
 
-One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+## Related
+
+- Announced tax measures and enacted law
+- Division 293 tax calculator
+- Super lump sum tax calculator
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
-- fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- Announced tax measures and enacted law: https://duguid.com.au/rates/announced-not-yet-law/
+- Division 293 tax calculator: https://duguid.com.au/tools/individual-tax/division-293/
+- Super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/

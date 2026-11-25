@@ -638,7 +638,7 @@ const INPUTS = {
       + `earlier instalments ${dollars(f.earlier)}, credits ${dollars(f.credits)}`,
     rate: `Instalment income ${dollars(f.income)} at ${f.rate}%`,
     'varied-rate': `Varied rate from estimated tax ${dollars(f.estimatedTax)} on ${dollars(f.estimatedIncome)}; `
-      + `instalment income ${dollars(f.income)}, rate at T2 ${f.rate}%; earlier instalments ${dollars(f.earlier)}, `
+      + `instalment income ${dollars(f.income)}, previous quarter’s rate ${f.previousRate}%; earlier instalments ${dollars(f.earlier)}, `
       + `credits ${dollars(f.credits)}, on ${dollars(f.earlierIncome)}`,
   })[f.method],
 };
@@ -767,6 +767,23 @@ Object.assign(INPUTS, { rentalProperty: (x) => calculations.rentalInputsText(x,
 Object.assign(ENGINE_LABELS, { rentalProperty: { grossRent: (v) => `gross rent ${dollars(v)}`,
   totalDeductions: (v) => `total deductions ${dollars(v)}`, netRent: (v) => `net rent ${dollars(v)}` } });
 
+// The R&D tax offset page's rows (its tests are with the page's other tests below).
+Object.assign(INPUTS, { rdTaxOffset: (x) => calculations.rdInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { rdTaxOffset: { taxOffset: 'R&D tax offset', refundableOffset: 'refundable',
+  nonRefundableOffset: 'non-refundable', clawbackIncome: 'included in assessable income' } });
+
+// The GST adjustments page's rows (its tests are with the page's other tests below): a worksheet and its input.
+Object.assign(INPUTS, { gstAdjustment: (worksheet, x) => calculations.gstInputsText(worksheet, x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { gstAdjustment: { outcome: (v) => v, amount: (v) => dollars(v) } });
+
+// The deferred tax page's rows (its tests are with the page's other tests below).
+Object.assign(INPUTS, { deferredTax: (x) => calculations.deferredTaxInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { deferredTax: { deferredTaxLiability: 'deferred tax liability', deferredTaxAsset: 'deferred tax asset',
+  deferredTaxExpense: 'deferred tax expense', currentTax: 'current tax', incomeTaxExpense: 'income tax expense' } });
+
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
     test(`${page} official comparison states what this calculator returns`, () => {
@@ -860,8 +877,21 @@ test('transfer duty at the top of a band uses that band and rejects a broken tab
   // NT: (0.06571441 x 525^2) + 15 x 525 = 25,987.53425625, then 4.95% of the whole value.
   assert.equal(transferDuty('525000', transferDutyScales['AU-NT']).duty, 25987.53);
   assert.equal(transferDuty('525001', transferDutyScales['AU-NT']).duty, 25987.55);
-  // Victoria rounds nothing before the cent: 2.4% of $25,001 - $25,000 is 2.4 cents.
-  assert.equal(transferDuty('25001', transferDutyScales['AU-VIC']).duty, 350.02);
+  // Duties Act 2000 (Vic) s 28(1), read 24 November 2026: to the nearest whole dollar, 50 cents down.
+  // $350 + 2.4% of $1 is $350.024, so $350; 1.4% of $25 is $0.35, so nil; 1.4% of $50 is $0.70, so $1.
+  assert.equal(transferDuty('25001', transferDutyScales['AU-VIC']).duty, 350);
+  assert.equal(transferDuty('25', transferDutyScales['AU-VIC']).duty, 0);
+  assert.equal(transferDuty('50', transferDutyScales['AU-VIC']).duty, 1);
+  // 1.4% of $2,125 is $29.75, up to $30; 1.4% of $2,175 is $30.45, down to $30; 1.4% of $2,250 is
+  // exactly $31.50, which s 28(1) takes down to $31.
+  assert.equal(transferDuty('2125', transferDutyScales['AU-VIC']).duty, 30);
+  assert.equal(transferDuty('2175', transferDutyScales['AU-VIC']).duty, 30);
+  assert.equal(transferDuty('2250', transferDutyScales['AU-VIC']).duty, 31);
+  // 1.4% of $393 is $5.502: over 50 cents, so $6, though it is $5.50 to the cent.
+  assert.equal(transferDuty('393', transferDutyScales['AU-VIC']).duty, 6);
+  // 5.5% of $960,010 is $52,800.55, to $52,801; the premium band's $110,000 + 6.5% of $10 is $110,000.65, to $110,001.
+  assert.equal(transferDuty('960010', transferDutyScales['AU-VIC']).duty, 52801);
+  assert.equal(transferDuty('2000010', transferDutyScales['AU-VIC']).duty, 110001);
   assert.throws(() => transferDuty('0', transferDutyScales['AU-NSW']), { message: 'Enter a whole number between 1 and 1000000000.' });
   const nsw = transferDutyScales['AU-NSW'];
   for (const broken of [[], nsw.slice(1), nsw.slice(0, -1), [...nsw.slice(0, 2), ...nsw.slice(3)],
@@ -899,9 +929,9 @@ test('first home buyer duty matches the revenue offices’ figures either side o
     ['799999', 20115], ['800000', 21850], ['850000', 24100]]) {
     assert.equal(duty(value, 'AU-QLD').duty, expected, value);
   }
-  // By hand: Victoria's general duty on $600,001 is $31,070.06, times $1 / $150,000, and on
-  // $700,000 $37,070 times 100,000 / 150,000. Western Australia: $16.15 for each $100, or part.
-  for (const [value, expected] of [['600000', 0], ['600001', 0.21], ['700000', 24713.33], ['750000', 40070], ['750001', 40070.06]]) {
+  // By hand: Victoria's general duty on $600,001 is $31,070.06, $31,070 to the dollar (s 28(1)), times
+  // $1 / $150,000, and on $700,000 $37,070 times 100,000 / 150,000. Western Australia: $16.15 for each $100, or part.
+  for (const [value, expected] of [['600000', 0], ['600001', 0.21], ['700000', 24713.33], ['750000', 40070], ['750001', 40070]]) {
     assert.equal(duty(value, 'AU-VIC').duty, expected, value);
   }
   for (const [value, expected] of [['600000', 0], ['600001', 16.15], ['700000', 16150], ['800000', 32300], ['800001', 32320.65]]) {
@@ -1162,7 +1192,7 @@ const FORM_CALLS = {
   objectionDeadline: (f) => [f.decision, f.group, f.notice, f.first],
   paygInstalment: (f) => [{ method: f.method, notified: f.notified, instalment: f.instalment, estimatedTax: f['estimated-tax'],
     earlier: f.earlier, credits: f.credits, income: f.income, rate: f.rate, estimatedIncome: f['estimated-income'],
-    earlierIncome: f['earlier-income'] }],
+    earlierIncome: f['earlier-income'], previousRate: f['previous-rate'] }],
 };
 // The radio's scales are read by the tests below, so the call names the jurisdiction; the choices
 // a row leaves at the form's opening values are left out.
@@ -1210,6 +1240,15 @@ Object.assign(FORM_CALLS, { lowValuePool: (f) => [calculations.poolFormInput((na
 Object.assign(FORM_CALLS, { wineEqualisationTax: (f) => [calculations.wetFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { rentalProperty: (f) => [calculations.rentalFormInput((name) => f[name] ?? '')] });
+
+Object.assign(FORM_CALLS, { rdTaxOffset: (f) => [calculations.rdFormInput((name) => f[name] ?? '')] });
+
+Object.assign(FORM_CALLS, { gstAdjustment: (f) => {
+  const { worksheet, input } = calculations.gstFormInput((name) => f[name] ?? '');
+  return [worksheet, input];
+} });
+
+Object.assign(FORM_CALLS, { deferredTax: (f) => [calculations.deferredTaxFormInput((name) => f[name] ?? '')] });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -1278,7 +1317,7 @@ test('objection deadline refuses an unknown decision or item and an impossible d
 //   (last updated 23 June 2026): example 1, Cari, '$14,000 × 75% = $10,500', '$10,500 − ($5,000 + $5,000) = $500',
 //   '$14,000 − ($5,000 + $5,000 + $500) = $3,500'; example 2, Harmander, '($10,125 ÷ $82,480) × 100 = 12.27%'.
 const instalment = (fields) => calculations.paygInstalment({ method: 'rate', notified: '0', instalment: '1', estimatedTax: '0',
-  earlier: '0', credits: '0', income: '0', rate: '0', estimatedIncome: '0', earlierIncome: '0', ...fields });
+  earlier: '0', credits: '0', income: '0', rate: '0', estimatedIncome: '0', earlierIncome: '0', previousRate: '0', ...fields });
 test('PAYG instalments agree with the ATO’s worked examples', () => {
   const sophia = instalment({ income: '20100', rate: '1.7' });
   assert.deepEqual([sophia.amount, sophia.instalment], [341.7, 341]);
@@ -1286,18 +1325,51 @@ test('PAYG instalments agree with the ATO’s worked examples', () => {
   assert.equal(instalment({ method: 'varied-amount', instalment: '3', estimatedTax: '14000', earlier: '10000' }).instalment, 500);
   assert.equal(instalment({ method: 'varied-amount', instalment: '4', estimatedTax: '14000', earlier: '10500' }).instalment, 3500);
   assert.equal(instalment({ method: 'varied-rate', estimatedTax: '10125', estimatedIncome: '82480', rate: '16.84' }).instalmentRate, 12.27);
-  const bill = instalment({ method: 'varied-rate', estimatedTax: '500', estimatedIncome: '10000', income: '10000', rate: '10',
+  const bill = instalment({ method: 'varied-rate', estimatedTax: '500', estimatedIncome: '10000', income: '10000', previousRate: '10',
     earlier: '1000', earlierIncome: '10000' });
   assert.deepEqual([bill.instalmentRate, bill.instalment, bill.credit], [5, 500, 500]);
 });
 
+// Section 45-215(1)(b) in Schedule 1 to the Taxation Administration Act 1953, Compilation No. 227 (1 October 2026),
+// read 24 November 2026: the credit needs a varied rate 'lower than the instalment rate you used to work out the amount
+// of your instalment for the previous instalment quarter'. Once the Commissioner gives a new rate at T2, that differs
+// from the previous quarter's rate, and section 45-205(2) Note 2 keeps a chosen rate even then.
+const PREVIOUS_RATE_REFUSED = 'Enter the rate used for the previous quarter as a per cent from 0 to 100, with no more than 2 decimal places.';
+test('PAYG instalments compare a varied rate with the previous quarter’s rate, not T2', () => {
+  const varied = { method: 'varied-rate', estimatedTax: '800', estimatedIncome: '10000', income: '10000', earlier: '1000',
+    earlierIncome: '10000' };
+  // 8% against 10% used last quarter: $1,000 − $10,000 × 8% = $200, whatever the new rate at T2.
+  assert.equal(instalment({ ...varied, rate: '5', previousRate: '10' }).credit, 200);
+  assert.equal(instalment({ ...varied, rate: '10', previousRate: '5' }).credit, 0);
+  assert.equal(instalment({ ...varied, previousRate: '8' }).credit, 0);
+  assert.throws(() => instalment({ ...varied, previousRate: '100.01' }), { message: PREVIOUS_RATE_REFUSED });
+  assert.throws(() => instalment({ ...varied, previousRate: '' }), { message: PREVIOUS_RATE_REFUSED });
+});
+
+// Neither the Act nor the ATO rounds a step: s 45-410(2) takes '25% of the estimate', s 45-110 multiplies by the rate and
+// s 45-215 step 3 multiplies earlier income by the rate. Only the activity statement drops cents. 25% of $399.99 is
+// $99.9975, so the instalment is $99; rounding that share to $100.00 first gave $100.
+test('PAYG instalments work each step unrounded and drop cents only from the instalment and credit', () => {
+  const first = instalment({ method: 'varied-amount', instalment: '1', estimatedTax: '399.99' });
+  assert.deepEqual([first.due, first.amount, first.instalment, first.credit], [99.99, 99.99, 99, 0]);
+  const second = instalment({ method: 'varied-amount', instalment: '2', estimatedTax: '0.01', earlier: '100' });
+  assert.deepEqual([second.due, second.amount, second.instalment, second.credit], [0, -99.99, 0, 99]);
+  const rate = instalment({ income: '399.99', rate: '25' });
+  assert.deepEqual([rate.amount, rate.instalment], [99.99, 99]);
+  // $1,000 less $0.04 × 10% ($0.004) leaves $999.996, a $999 credit; rounding $0.004 to nil first gave $1,000.
+  const credit = instalment({ method: 'varied-rate', estimatedTax: '1000', estimatedIncome: '10000', income: '0',
+    previousRate: '20', earlier: '1000', earlierIncome: '0.04' });
+  assert.deepEqual([credit.instalmentRate, credit.credit], [10, 999]);
+});
+
 test('PAYG instalments read only the fields of the chosen method', () => {
-  const unused = { notified: 'x', instalment: 'x', estimatedTax: 'x', earlier: 'x', credits: 'x', estimatedIncome: 'x', earlierIncome: 'x' };
+  const unused = { notified: 'x', instalment: 'x', estimatedTax: 'x', earlier: 'x', credits: 'x', estimatedIncome: 'x', earlierIncome: 'x',
+    previousRate: 'x' };
   assert.equal(instalment({ ...unused, income: '1000', rate: '10' }).instalment, 100);
   assert.equal(instalment({ ...unused, method: 'amount', notified: '99.99' }).instalment, 99);
   // A higher varied rate reads no earlier figures, as no credit can arise.
   assert.equal(instalment({ ...unused, method: 'varied-rate', estimatedTax: '30', estimatedIncome: '100', income: '1000',
-    rate: '10' }).instalment, 300);
+    rate: 'x', previousRate: '10' }).instalment, 300);
 });
 
 test('PAYG instalments refuse what the activity statement cannot hold', () => {
@@ -1321,7 +1393,7 @@ test('PAYG instalments refuse what the activity statement cannot hold', () => {
 //   estimated tax.'
 test('PAYG instalments vary the rate to nil on nil estimated income, whatever tax is entered', () => {
   for (const estimatedTax of ['500', 'x']) {
-    const nil = instalment({ method: 'varied-rate', estimatedTax, income: '1000', rate: '10' });
+    const nil = instalment({ method: 'varied-rate', estimatedTax, income: '1000', previousRate: '10' });
     assert.deepEqual([nil.instalmentRate, nil.instalment, nil.credit], [0, 0, 0]);
   }
 });
@@ -2850,16 +2922,18 @@ test('land tax radios carry a scale for each of the 7 jurisdictions that levy la
   assert.deepEqual(holding('trustScale'), ['AU-NSW', 'AU-VIC', 'AU-QLD', 'AU-SA']);
   assert.deepEqual(holding('absenteeScale'), ['AU-QLD']);
   assert.deepEqual(holding('surcharge'), ['AU-NSW', 'AU-VIC', 'AU-QLD', 'AU-TAS', 'AU-ACT']);
-  assert.deepEqual(holding('trustSurcharge'), ['AU-VIC']);
+  assert.deepEqual(holding('absenteeTrust'), ['AU-VIC']);
+  assert.deepEqual(holding('payable'), ['AU-SA', 'AU-TAS']);
   assert.deepEqual(holding('surchargeBase'), ['AU-NSW', 'AU-TAS']);
   assert.deepEqual(holding('mrit'), ['AU-WA']);
   assert.deepEqual(landTaxRadios.flatMap(({ data }) => Object.keys(data)).filter((key, index, keys) => keys.indexOf(key) === index).sort(),
-    ['absenteeScale', 'fixed', 'mrit', 'name', 'scale', 'surcharge', 'surchargeBase', 'trustScale', 'trustSurcharge']);
+    ['absenteeScale', 'absenteeTrust', 'fixed', 'mrit', 'name', 'payable', 'scale', 'surcharge', 'surchargeBase', 'trustScale']);
   assert.equal(landTaxPlaces['AU-ACT'].data.fixed, '1778');
   assert.match(landTaxHtml, /The Northern Territory has no land tax\./);
-  // Each scale's land tax year, and RevenueSA's $20 rule, are stated on the page.
+  // Each scale's land tax year, SA's s 6 rule and Tas's s 7 rounding are stated on the page.
   assert.match(landTaxHtml, /the 2026 calendar year in New South Wales and Victoria, and the 2026-27 financial year in Queensland, Western Australia, South Australia, Tasmania and the Australian Capital Territory\./);
-  assert.match(landTaxHtml, /RevenueSA issues no assessment where the calculated land tax is under \$20/);
+  assert.match(landTaxHtml, /under section 6 of the Land Tax Act 1936 \(SA\) no land tax is payable where the calculated amount is under \$20/);
+  assert.match(landTaxHtml, /section 7 of the Land Tax Rating Act 2000 \(Tas\)/);
   // The indexes describe what the page computes: trust rates and surcharges, not only the general scale.
   for (const index of ['../llms.txt', '../.well-known/llms.txt', '../tools/business-calculators/index.html']) {
     const entry = readFileSync(new URL(index, import.meta.url), 'utf8').split('\n').find((line) => line.includes('/land-tax/'));
@@ -2881,20 +2955,30 @@ test('land tax applies trust rates, surcharges and MRIT from their first value a
     // Victorian trust surcharge rates: $82 from $25,000, and 1.1072% of $1,199,999 is 13,286.388928 dollars.
     ['24999', 'AU-VIC', { trust: true }, [0, 0, 0, 0]], ['25000', 'AU-VIC', { trust: true }, [82, 0, 0, 82]],
     ['2999999', 'AU-VIC', { trust: true }, [31649.39, 0, 0, 31649.39]],
-    // Victorian absentee owner surcharge: 4% of the whole value from $50,000, or from $25,000 at trust rates.
+    // Victorian absentee owner surcharge: 4% of the whole value from $50,000 at general rates; absentee trusts are refused under s 46IA.
     ['49999', 'AU-VIC', { foreign: true }, [0, 0, 0, 0]], ['50000', 'AU-VIC', { foreign: true }, [500, 2000, 0, 2500]],
-    ['25000', 'AU-VIC', { trust: true, foreign: true }, [82, 1000, 0, 1082]],
-    // Queensland: the absentee rates and 3% over $350,000; a foreign company or trustee pays the company rates.
-    ['350000', 'AU-QLD', { foreign: true }, [1450, 0, 0, 1450]],
-    ['10000000', 'AU-QLD', { foreign: true }, [175000, 289500, 0, 464500]],
-    ['10000000', 'AU-QLD', { trust: true, foreign: true }, [187500, 289500, 0, 477000]],
+    // Queensland: the absentee rates and 3.0c per $1 over $349,999 (Land Tax Act 2010 Schs 2 and 3); a foreign company or trustee pays the company rates.
+    ['349999', 'AU-QLD', { foreign: true }, [0, 0, 0, 0]],
+    ['350000', 'AU-QLD', { foreign: true }, [1450, 0.03, 0, 1450.03]],
+    ['10000000', 'AU-QLD', { foreign: true }, [175000, 289500.03, 0, 464500.03]],
+    ['10000000', 'AU-QLD', { trust: true, foreign: true }, [187500, 289500.03, 0, 477000.03]],
     // WA MRIT: nil to $300,000, then 0.14 cents a dollar, so $4 over is 0.56 cents, which rounds to 1 cent.
     ['300000', 'AU-WA', { metro: true }, [0, 0, 0, 0]], ['300004', 'AU-WA', { metro: true }, [300, 0, 0.01, 300.01]],
     // South Australian trust rates: $125 plus 50 cents for each $100 or part over $25,000.
     ['25000', 'AU-SA', { trust: true }, [0, 0, 0, 0]], ['25001', 'AU-SA', { trust: true }, [125.5, 0, 0, 125.5]],
     ['936001', 'AU-SA', { trust: true }, [4681, 0, 0, 4681]],
-    // Tasmania: 2% of the surcharge value, whatever the land tax value.
+    // Tasmania: 2% of the surcharge value, rounded to 10 cents (s 7), up to the taxable land value.
     ['600000', 'AU-TAS', { foreign: true, surchargeValue: '0' }, [3237.5, 0, 0, 3237.5]],
+    ['125011', 'AU-TAS', {}, [50, 0, 0, 50]],
+    ['125012', 'AU-TAS', {}, [50.1, 0, 0, 50.1]],
+    ['125100', 'AU-TAS', {}, [50.4, 0, 0, 50.4]],
+    ['500003', 'AU-TAS', {}, [1737.5, 0, 0, 1737.5]],
+    ['500004', 'AU-TAS', {}, [1737.6, 0, 0, 1737.6]],
+    ['400000', 'AU-TAS', { foreign: true, surchargeValue: '400000' }, [1287.5, 8000, 0, 9287.5]],
+    // South Australia s 6: calculated land tax under $20 is nil; $20.00 is payable.
+    ['936001', 'AU-SA', {}, [0, 0, 0, 0]],
+    ['939900', 'AU-SA', {}, [0, 0, 0, 0]],
+    ['939901', 'AU-SA', {}, [20, 0, 0, 20]],
     // The ACT: 0.75% of $1 is 0.75 cents, so 1 cent.
     ['1', 'AU-ACT', { foreign: true }, [1778.01, 0.01, 0, 1778.02]],
   ]) {
@@ -2907,10 +2991,16 @@ test('land tax applies trust rates, surcharges and MRIT from their first value a
     ['AU-WA', { foreign: true }, 'This calculator has no foreign or absentee owner rates for Western Australia.'],
     ['AU-NSW', { metro: true }, 'The metropolitan region improvement tax applies only in Western Australia.'],
     ['AU-NSW', { foreign: true }, 'Enter the surcharge value as a whole number between 0 and 1000000000.'],
+    ['AU-VIC', { trust: true, foreign: true }, 'A Victorian absentee trust’s surcharge turns on its absentee beneficiaries’ interests (section 46IA of the Land Tax Act 2005 (Vic)), which this calculator does not take.'],
     ['AU-TAS', { foreign: true, surchargeValue: '1.5' }, 'Enter the surcharge value as a whole number between 0 and 1000000000.'],
+    ['AU-TAS', { foreign: true, surchargeValue: '1000001' }, 'Surcharge value cannot exceed the taxable land value in Tasmania: the foreign investor land tax applies to residential general land, part of the owner’s taxable land.'],
   ]) {
     assert.throws(() => year('1000000', place, choices), { message }, `${place} ${JSON.stringify(choices)}`);
   }
+  assert.throws(() => year('125008', 'AU-TAS', { foreign: true, surchargeValue: '2' }),
+    { message: 'Rounding the land tax and the foreign investor land tax to 10 cents each gives a different total from rounding their sum; which section 7 of the Land Tax Rating Act 2000 (Tas) requires is unsettled.' });
+  assert.throws(() => calculations.landTaxYear('1000000', { ...landTaxPlaces['AU-NSW'].data, payable: 'unknown' }),
+    { message: 'This jurisdiction’s rate table is not usable.' });
 });
 
 // Worked by hand from the scales read on 16 November 2026: a band applies from its first value.
@@ -3316,7 +3406,12 @@ test('company tax refuses an unanswered question and figures it cannot work', ()
 test('each foreign owner land tax surcharge scale is the land tax calculator’s', () => {
   for (const [code, law] of Object.entries(FOREIGN_SURCHARGES)) {
     assert.equal(law.land, landTaxPlaces[code]?.data.surcharge, code);
-    assert.equal(law.trustLand, landTaxPlaces[code]?.data.trustSurcharge, code);
+    if (code === 'AU-VIC') {
+      assert.equal(law.trustLand, '0,0,0,0,excess;25000,0,4,0,excess');
+      assert.equal(landTaxPlaces[code]?.data.absenteeTrust, 'unsupported');
+    } else {
+      assert.equal(law.trustLand, undefined, code);
+    }
     assert.equal(law.name, PLACES[code]);
   }
 });
@@ -3368,7 +3463,7 @@ test('each jurisdiction tests an individual, a company and a super fund its own 
   assert.equal(surcharge({ type: 'trust', largest: '100', combined: '100', absentee: '25' }, 'AU-VIC').land, 10000);
   // Queensland's land tax surcharge on an individual is the absentee test, on 30 June.
   assert.equal(surcharge({ absent: false }, 'AU-QLD').land, 0);
-  assert.equal(surcharge({ absent: true }, 'AU-QLD').land, 19500);
+  assert.equal(surcharge({ absent: true }, 'AU-QLD').land, 19500.03);
   assert.equal(surcharge({ absent: true, resides: true }, 'AU-QLD').land, 0);
   // A company: 50% or more in Queensland, more than 50% in Victoria, 20% for one person in NSW.
   const company = (combined, largest = combined) => ({ type: 'company', largest, combined });
@@ -4362,7 +4457,10 @@ test('the long service leave page opens on the result its calculation gives, and
     '(reprint current from 1 January 2026), read 19 November 2026','(official version 04-m0-00, as at 31 January 2025), read 19 November 2026',
     '(version of 1 July 2017), read 19 November 2026', '(version current from 10 December 2018), read 19 November 2026',
     '(republication R29, effective 19 November 2025), read 19 November 2026', '(reprint as in force at 14 October 2015), read 19 November 2026',
-    '(last updated 13 May 2026), read the same day', '(last updated 3 October 2024), read the same day']) {
+    '(last updated 13 May 2026), read the same day', '(last updated 3 October 2024), read 19 November 2026',
+    'Business Queensland tables</a>, read 19 November 2026', 'Guide to long service leave</a>, read 19 November 2026',
+    'Acts read 19 November 2026; Queensland, South Australia and Tasmania rechecked 24 November 2026',
+    'Refuses positive prior leave where 15 years could have been completed by the end of 30 June 2012; undated excluded periods are not deducted for this screen']) {
     assert.ok(lslHtml.includes(cited), cited);
   }
   const radios = [...lslHtml.matchAll(/name="jurisdiction" value="([^"]+)"(?: checked)? \/> ([^<]+)</g)].map(([, code, name]) => [code, name]);
@@ -4374,7 +4472,7 @@ test('the long service leave page opens on the result its calculation gives, and
 test('long service leave becomes available on the day each Act’s qualifying period completes, not the day before', () => {
   // Each Act's full entitlement at its qualifying period: 8 2/3 weeks for 10 years in NSW, Qld, WA
   // and Tas; 13 weeks in SA and the NT; 1/60th of 2,557 days in Victoria; 7 × 1/5 of a month in the ACT.
-  for (const [place, years, weeks, value] of [['AU-NSW', 10, 8.6667, 13000], ['AU-VIC', 7, 6.0881, 9132.14], ['AU-QLD', 10, 8.6667, 13000],
+  for (const [place, years, weeks, value] of [['AU-NSW', 10, 8.6667, 13000], ['AU-VIC', 7, 6.0881, 9132.14], ['AU-QLD', 10, 8.6667, 13000.05],
     ['AU-WA', 10, 8.6667, 13000], ['AU-SA', 10, 13, 19500], ['AU-TAS', 10, 8.6667, 13000], ['AU-ACT', 7, 6.0667, 9100], ['AU-NT', 10, 13, 19500]]) {
     const last = `${2015 + years}-12-31`;
     assert.deepEqual([lsl({ place, end: `${2015 + years}-12-30` }).weeks, lsl({ place, end: last }).weeks, lsl({ place, end: last }).value],
@@ -4478,9 +4576,55 @@ test('long service leave words each Act’s misconduct test and states the condi
     `value="misconduct" /> Dismissal for serious misconduct ${wilful}`]) {
     assert.ok(lslHtml.includes(label), label);
   }
-  // SA s 5(4)(b): leaving without the required notice is an unlawful termination only where the notice was required.
-  assert.ok(ends('AU-SA', 'no-notice').rule.endsWith('if the employer waived the notice, choose resignation'));
   assert.ok(ends('AU-SA', 'resign').weeks > 0);
+});
+
+test('long service leave refuses the endings and transitions an Act leaves to facts the page does not ask', () => {
+  // Qld s 95(4)(d): a fixed term ending before 10 years pays only on 2 facts the page does not take. Under 7 years nothing is payable either way.
+  assert.throws(() => lsl({ place: 'AU-QLD', start: '2017-01-01', end: '2025-12-31', mode: 'ends', reason: 'fixed-term' }),
+    { message: /^Under 10 years, paragraph 95\(4\)\(d\) pays on a fixed term ending only if/ });
+  assert.equal(lsl({ place: 'AU-QLD', start: '2020-01-01', end: '2025-12-31', mode: 'ends', reason: 'fixed-term' }).weeks, 0);
+  assert.equal(lsl({ place: 'AU-QLD', start: '2015-01-01', end: '2025-12-31', mode: 'ends', reason: 'fixed-term' }).weeks, 9.5334);
+  // SA s 5(4)(b): leaving without the required notice may or may not be an unlawful termination by the worker.
+  assert.throws(() => lsl({ place: 'AU-SA', start: '2018-01-01', end: '2025-06-30', mode: 'ends', reason: 'no-notice' }),
+    { message: /^Under 10 years, paragraph 5\(4\)\(b\) pays nothing if the worker unlawfully terminated the contract/ });
+  assert.equal(lsl({ place: 'AU-SA', start: '2013-01-01', end: '2025-06-30', mode: 'ends', reason: 'no-notice' }).weeks, 15.6);
+  // Tas Schedule 3 cl 2(4): leave taken may have used up an entitlement under the Act before 1 July 2012, which
+  // s 8(2)(a) gave only on 15 years; undated excluded periods are not deducted for this screen.
+  for (const mode of ['employed', 'ends']) {
+    for (const [excluded, taken] of [['0', '1'], ['1', '0.0001']]) {
+      assert.throws(() => lsl({ place: 'AU-TAS', start: '1997-07-01', end: '2025-12-31', excluded, taken, mode }),
+        { message: /^Tasmania’s Schedule 3 clause 2\(4\) gives no new leave.*Refuses positive prior leave where 15 years could have been completed by the end of 30 June 2012; undated excluded periods are not deducted for this screen\./ },
+        `${mode} excluded=${excluded}`);
+    }
+    for (const [start, excluded, taken] of [['1997-07-02', '0', '1'], ['1997-07-02', '1', '0.0001'], ['2012-06-30', '0', '1']]) {
+      assert.doesNotThrow(() => assert.equal(lsl({ place: 'AU-TAS', start, end: '2025-12-31', excluded, taken, mode }).taken, Number(taken)),
+        `${mode} ${start} excluded=${excluded}`);
+    }
+  }
+  assert.equal(lsl({ place: 'AU-TAS', start: '1997-07-01', end: '2025-12-31' }).years, 28);
+  assert.equal(lsl({ place: 'AU-NSW', start: '1997-07-01', end: '2025-12-31', taken: '1' }).taken, 1);
+});
+
+test('Queensland pays the 8.6667 weeks subsection 95(2) and (7) state, not 8 2/3', () => {
+  // Business Queensland's 18 years, 3 months and 16 days: 15.8548 weeks either way, $23,782.23 on the Act's figure.
+  assert.equal(lsl({ place: 'AU-QLD', start: '2007-01-01', end: '2025-04-16' }).value, 23782.23);
+  const later = lsl({ place: 'AU-QLD', start: '2010-01-01', end: '2026-06-30' });
+  assert.deepEqual([later.weeks, later.value], [14.3001, 21450.08]);
+  // Pro rata at 8 years for a redundancy: 8 × 8.6667 / 10 weeks.
+  const redundancy = lsl({ place: 'AU-QLD', start: '2018-01-01', end: '2025-12-31', mode: 'ends' });
+  assert.deepEqual([redundancy.weeks, redundancy.value, redundancy.rule], [6.9334, 10400.04, 'Pro rata on 8.6667 weeks for 10 years, subsection 95(4)']);
+  const twelve = lsl({ place: 'AU-QLD', start: '2014-01-01', end: '2025-12-31' });
+  assert.deepEqual([twelve.value, twelve.next], [13000.05, { years: 15, date: '2028-12-31', weeks: 13.0001 }]);
+  // Exact entitlement at 15 years is 13.00005 weeks (rounded 13.0001): taken 13.0001 must refuse rather than pay -$0.07.
+  for (const mode of ['employed', 'ends']) {
+    for (const [pay, value] of [['1500', 0.08], ['1000000', 50]]) {
+      const ok = lsl({ place: 'AU-QLD', start: '2011-01-01', end: '2025-12-31', taken: '13', pay, mode });
+      assert.deepEqual([ok.weeks, ok.taken, ok.balance, ok.value], [13.0001, 13, 0.0001, value], `${mode} ${pay}`);
+      assert.throws(() => lsl({ place: 'AU-QLD', start: '2011-01-01', end: '2025-12-31', taken: '13.0001', pay, mode }),
+        { message: /Leave taken or paid is more than this entitlement/ }, `${mode} ${pay} excess`);
+    }
+  }
 });
 
 // The franking account page: how each call and result reads. Its rules come from ITAA 1997 Division 205,
@@ -4991,9 +5135,10 @@ test('workers compensation applies each scheme’s thresholds, rounding and mini
   // icare's $240 minimum: $12,000 at 2% is exactly $240 and stands; a cent of premium less is refused.
   assert.equal(ok({ place: 'AU-NSW', wages: '12000', rate: '2' }).premium, 240);
   assert.throws(() => wc({ place: 'AU-NSW', wages: '11999.5', rate: '2' }), /\$239\.99 is below icare’s minimum premium of \$240/);
-  // NSW: the apprentice incentive is apprentice wages × the WIC rate, and the dust diseases rate already includes GST.
-  const nsw = ok({ place: 'AU-NSW', wages: '500000', rate: '2', apprentice: '50000', dust: '0.044' });
-  assert.deepEqual([nsw.premium, nsw.gst, nsw.total], [9000, 900, 10120]);
+  // NSW: the dust diseases rate already includes GST; an apprentice incentive is refused, as icare does not
+  // say whether it comes off before or after GST.
+  const nsw = ok({ place: 'AU-NSW', wages: '500000', rate: '2', dust: '0.044' });
+  assert.deepEqual([nsw.premium, nsw.gst, nsw.total], [10000, 1000, 11220]);
   // ReturnToWorkSA's discount bands: 5% under $10,000 up to 30% at $1,000,000, each from its lower bound.
   for (const [base, band] of [['9999.99', 5], ['10000', 10], ['49999.99', 10], ['50000', 15], ['99999.99', 15], ['100000', 20],
     ['499999.99', 20], ['500000', 25], ['999999.99', 25], ['1000000', 30]]) {
@@ -5027,6 +5172,22 @@ test('workers compensation applies each scheme’s thresholds, rounding and mini
   assert.equal(ok({ place: 'AU-QLD', wages: '13500', rate: '1.343' }).total, 209.41);
 });
 
+test('workers compensation tests the exact NSW premium, takes Victoria’s N ÷ 365 to 6 places and refuses an SA band gap', () => {
+  // icare: the APP is wages × the WIC rate, unrounded at the $30,000 test. $1,000,000.01 at 3% is $30,000.0003.
+  assert.throws(() => wc({ place: 'AU-NSW', wages: '1000000.01', rate: '3' }),
+    { message: /^The average performance premium \(wages × WIC rate, before rounding to \$30,000\.00\) is more than \$30,000/ });
+  assert.throws(() => wc({ place: 'AU-NSW', wages: '1000000', rate: '3', actual: '1000000.01' }), { message: /^On the actual wages, the average performance premium/ });
+  // Premiums Order (No. 34) clause 6(1): 1 ÷ 365 is 0.002740 to 6 places, so 7.123% × $15,500 × 0.002740 is a
+  // deductible of $3.03 (the exact fraction gives $3.02), a WorkCover premium of $10,681.47 and $11,749.62 with GST.
+  const vic = ok({ place: 'AU-VIC', wages: '150000', rate: '7.123', days: '1' });
+  assert.deepEqual([vic.lines[1][1], vic.premium, vic.gst, vic.total], [-303n, 10681.47, 1068.15, 11749.62]);
+  // ReturnToWorkSA: its table's 'under $10k' and its calculator's $9,999.99 disagree only on a base premium between them.
+  for (const [wages, edge] of [['499999.75', '$9,999.99 and below $10,000.00'], ['2499999.75', '$49,999.99 and below $50,000.00']]) {
+    assert.throws(() => wc({ place: 'AU-SA', wages, rate: '2' }), (error) => error.message.startsWith(`The base premium is above ${edge}:`), wages);
+  }
+  assert.equal(ok({ place: 'AU-SA', wages: '499999.75', rate: '2', firstYear: 'yes' }).premium, 9999);
+});
+
 test('workers compensation refuses what only the insurer decides and malformed input instead of guessing', () => {
   const rate = 'Enter the rate as a percentage from 0.0001% to 100%, to no more than 4 decimal places.';
   for (const [change, message] of [[{ place: 'AU-CTH' }, 'Choose the state or territory whose scheme insures the workers.'],
@@ -5034,7 +5195,10 @@ test('workers compensation refuses what only the insurer decides and malformed i
     [{ place: 'AU-VIC', vicEmployer: 'other' }, /performance-rated premium/],
     [{ place: 'AU-QLD', qldStart: 'existing' }, /simplified or experience-based model/],
     [{ place: 'AU-SA', group: 'yes' }, /group’s wages or premiums together/],
-    [{ place: 'AU-NSW', apprentice: '400000.01' }, 'Apprentice wages are part of the wages: enter no more than the wages.'],
+    [{ place: 'AU-QLD', apprentice: '400000.01' }, 'Apprentice wages are part of the wages: enter no more than the wages.'],
+    [{ place: 'AU-NSW', apprentice: '0.01' }, /Error: icare discounts the apprentice incentive ‘after premium payable is calculated’/],
+    [{ place: 'AU-QLD', actual: '400000' }, /Error: WorkCover Queensland Notice \(No\. 1\) of 2026 sets no year-end adjustment/],
+    [{ place: 'AU-VIC', wages: '0.49' }, /Error: The remuneration rounds to \$0, and clause 11’s deductible divides by it/],
     [{ place: 'AU-WA', apprentice: '1' }, 'There is no apprentice deduction for Western Australia here: enter 0 apprentice wages.'],
     [{ rate: '0' }, rate], [{ rate: '1.00001' }, rate], [{ rate: '' }, rate],
     [{ wages: '' }, 'Enter the estimated wages in dollars and cents, from $0 to $10,000,000,000.'],
@@ -5045,6 +5209,8 @@ test('workers compensation refuses what only the insurer decides and malformed i
     [{ place: 'AU-NSW', wages: '1000000', rate: '2', actual: '1600000' }, /Error: On the actual wages, the average performance premium of \$32,000\.00/]]) {
     assert.throws(() => wc(change), message instanceof RegExp ? message : { message }, JSON.stringify(change));
   }
+  // 50 cents of Victorian remuneration rounds to $1 (clause 6(6)), so clause 11 divides and the $400 minimum applies.
+  assert.equal(wc({ place: 'AU-VIC', wages: '0.5' }).premium, 400);
   // A group does not change a privately set rate × wages, and only the chosen scheme's own answers are read.
   assert.equal(wc({ group: 'yes' }).total, 15400);
   assert.equal(wc({ dust: 'x', days: 'x', claims: 'x', vicEmployer: 'x', qldStart: 'x', firstYear: 'x' }).total, 15400);
@@ -5970,6 +6136,12 @@ test('the ASIC fees table and the form state the engine’s amounts and codes', 
   assert.deepEqual(late.map(([, code, amount]) => [code, amount]), [['LPF1_ETM', 102], ['LPF2_ETM', 428], ['LPF1_ETM', 102], ['LPF2_ETM', 428]]);
   assert.deepEqual(calculations.ASIC_LATE_FEES, { within: 102, beyond: 428 });
   assert.equal(table.length, fixed.length + late.length);
+  // Corporations (Fees) Regulations 2001 (Compilation No. 41) Sch 2 item 1(a) covers company registration I01/I02.
+  assert.equal(calculations.ASIC_FEES['company-share-capital'].item, 'Corporations (Fees) Regulations 2001, Schedule 2 item 1(a)(i)');
+  assert.equal(calculations.ASIC_FEES['company-no-share-capital'].item, 'Corporations (Fees) Regulations 2001, Schedule 2 item 1(a)(ii)');
+  assert.match(asicHtml, /Corporations \(Fees\) Regulations 2001, Schedule 2 item 1\(a\)\(i\)/);
+  assert.match(asicHtml, /Schedule 2 item 1\(a\)\(ii\)/);
+  assert.doesNotMatch(asicHtml, /Schedule 1 item 1\(a\)/);
 });
 
 test('ASIC late fees count the month from the day after the due date, for every due date in 2026-27', () => {
@@ -6171,6 +6343,11 @@ test('the first home owner grant page opens on the result its calculation gives,
   assert.deepEqual([...fhogHtml.matchAll(/name="home" value="([a-z]+)"/g)].map(([, h]) => h), [...calculations.FHOG_HOMES]);
 });
 
+test('the first home owner grant page gives no result for a contract date not on the calendar', () => {
+  // A browser without a date picker passes the typed text; the page shows the thrown message in place of a result.
+  assert.throws(() => fhogResult({ date: '2026-02-30' }), { message: 'Not computed: 2026-02-30 is not a calendar date.' });
+});
+
 test('the first home owner grant shows the transfer duty calculator’s first home buyer figures beside it', () => {
   const duty = (result) => result.rows.slice(3).map((row) => row.join('|'));
   // NSW 2026-27 reduced rate table: $9,796.75 on $850,000; general duty $32,437.
@@ -6203,9 +6380,7 @@ test('the first home owner grant refuses an unstated fact, a date outside the so
   }
   assert.throws(() => calculations.firstHomeOwnerGrant({ place: 'AU-NSW', date: '2026-08-01', home: 'bought', value: '500000' }), /not stated: every applicant/);
   for (const date of ['2025-06-30', '2026-11-23', '', '2026-8-1']) assert.throws(() => fhogResult({ date }), /choose a contract date from 1 July 2025 to 22 November 2026/, date);
-  for (const place of ['AU-NSW', 'AU-VIC', 'AU-WA', 'AU-NT']) {
-    assert.throws(() => fhogResult({ jurisdiction: place, value: '9999' }), /a value below the \$\d+,000 grant/, place);
-  }
+  assert.throws(() => fhogResult({ value: '9999' }), /a value below the \$10,000 grant; the New South Wales rule for that case was not confirmed/);
   // Tasmania's section 18(1) gives the lesser of the consideration and the amount.
   const tasmania = () => fhogResult({ jurisdiction: 'AU-TAS', value: '19999' }).rows[0][1];
   assert.doesNotThrow(tasmania);
@@ -6217,6 +6392,118 @@ test('the first home owner grant refuses an unstated fact, a date outside the so
   assert.equal(fhogResult({ jurisdiction: 'AU-ACT', value: '1' }).rows[0][1], '$0.00: the Australian Capital Territory has paid none since 1 July 2019');
   assert.throws(() => fhogResult({ value: '600000.50' }), { message: 'Enter a whole number between 1 and 1000000000.' });
   assert.throws(() => fhogResult({ home: 'vacant' }), { message: 'Choose a home bought, built or established.' });
+});
+
+// Where the Victorian, Western Australian and Northern Territory Acts, read 24 November 2026, give what the
+// page refused or paid nil for (found comparing australian-accounting PR 836's command over 8,640 cases).
+const fhogGrant = (change) => fhogResult(change).rows[0][1];
+test('the first home owner grant pays $10,000 for an NT established home bought from 1 July to 30 September 2025', () => {
+  // NT s 13(1)(a)(iii) and s 18(3D)(b): an established home bought from 1 October 2024 to 30 September 2025
+  // gets $10,000; s 13(1)(a)(iv): a new home only from 1 October 2025. The replacement fact still applies.
+  assert.equal(fhogGrant({ jurisdiction: 'AU-NT', date: '2025-07-01', home: 'established', value: '500000' }), '$10,000.00');
+  assert.equal(fhogGrant({ jurisdiction: 'AU-NT', date: '2025-09-30', home: 'established', value: '500000' }), '$10,000.00');
+  assert.equal(fhogGrant({ jurisdiction: 'AU-NT', date: '2025-09-30', home: 'established', value: '10001' }), '$10,000.00');
+  assert.equal(fhogGrant({ jurisdiction: 'AU-NT', date: '2025-10-01', home: 'established', value: '500000' }), '$0.00: the grant is for a new home only');
+  assert.equal(fhogGrant({ jurisdiction: 'AU-NT', date: '2025-09-30', value: '500000' }), '$50,000.00');
+  assert.throws(() => fhogResult({ jurisdiction: 'AU-NT', date: '2025-08-01', home: 'established', 'fact-nt': false }), /replaces none signed before 1 October 2024/);
+});
+
+test('the first home owner grant pays the lesser of the consideration and the amount in Victoria, Western Australia and the NT', () => {
+  // Vic s 18(1A), WA s 19(2CA) and NT s 18(1).
+  for (const change of [{ jurisdiction: 'AU-VIC' }, { jurisdiction: 'AU-WA', 'wa-location': 'north' }, { jurisdiction: 'AU-NT' },
+    { jurisdiction: 'AU-NT', date: '2025-08-01', home: 'established' }]) {
+    assert.doesNotThrow(() => fhogGrant({ ...change, value: '8000' }), JSON.stringify(change));
+    assert.equal(fhogGrant({ ...change, value: '8000' }), '$8,000.00: the grant cannot be more than the consideration', JSON.stringify(change));
+  }
+  assert.equal(fhogGrant({ jurisdiction: 'AU-NT', value: '49999' }), '$49,999.00: the grant cannot be more than the consideration');
+});
+
+// Qld s 5(6) to (8) and WA s 14AC(2) and (3) test the cap on a value that can differ from the consideration,
+// which still limits the grant (Qld s 20(1), WA s 19(2CA)). The vectors are australian-accounting PR 836's
+// (head b81fa1c1, the_cap_value_is_kept_apart_from_the_consideration), all dated 1 August 2026.
+test('the first home owner grant tests the Qld and WA caps on the value given, and limits the grant to the consideration', () => {
+  const lesser = 'the grant cannot be more than the consideration';
+  const qld = (home, value, cap) => fhogGrant({ jurisdiction: 'AU-QLD', home, value: String(value), 'cap-value': String(cap) });
+  const wa = (home, value, cap) => fhogGrant({ jurisdiction: 'AU-WA', 'wa-location': 'south', home, value: String(value), 'cap-value': String(cap) });
+  // A value above the price raises no grant above the consideration.
+  assert.equal(qld('bought', 20000, 100000), `$20,000.00: ${lesser}`);
+  assert.equal(wa('bought', 5000, 100000), `$5,000.00: ${lesser}`);
+  // Qld s 5(7): a price under $750,000 on a home and land valued at $750,000 or more.
+  assert.equal(qld('bought', 700000, 750000), '$0.00: the value is $750,000 or more');
+  assert.equal(qld('bought', 700000, 749999), '$30,000.00');
+  // A home bought is tested on the greater of the price and the value.
+  assert.equal(qld('bought', 750000, 600000), '$0.00: the value is $750,000 or more');
+  assert.equal(wa('bought', 800001, 700000), '$0.00: the value is over the Western Australia cap');
+  assert.equal(wa('bought', 700000, 800001), '$0.00: the value is over the Western Australia cap');
+  assert.equal(wa('bought', 700000, 800000), '$10,000.00');
+  // A home built is tested on the value given alone: the contract and the land's value.
+  assert.equal(qld('built', 760000, 740000), '$30,000.00');
+  assert.equal(qld('built', 700000, 750000), '$0.00: the value is $750,000 or more');
+  assert.equal(wa('built', 820000, 800000), '$10,000.00');
+  assert.equal(wa('built', 700000, 800001), '$0.00: the value is over the Western Australia cap');
+  // Without a value the total value is tested, as before.
+  assert.equal(fhogGrant({ jurisdiction: 'AU-QLD', value: '20000' }), `$20,000.00: ${lesser}`);
+  // Elsewhere the value is refused, as the command refuses it; it must be a whole number of dollars.
+  assert.throws(() => fhogResult({ 'cap-value': '700000' }), /the value the cap tests is taken only in Queensland and Western Australia; clear it for New South Wales/);
+  for (const cap of ['0', '1000000001', '700000.50', '-1']) {
+    assert.throws(() => fhogResult({ jurisdiction: 'AU-QLD', 'cap-value': cap }), { message: 'Enter a whole number between 1 and 1000000000.' }, cap);
+  }
+  assert.match(fhogResult({ jurisdiction: 'AU-QLD', 'cap-value': '700000' }).inputs, /total value \$600,000\.00, value the cap tests \$700,000\.00, /);
+  assert.match(fhogHtml, /The cap tests the greater of the price and the unencumbered value of the home and land, or for a home built the contract and the land’s value; enter that value where it differs\./);
+});
+
+test('the first home owner grant does not test a Victorian home built against $750,000 of land and building', () => {
+  // Vic s 13(1A) and (7)(b): for a home built the cap is on the building work's consideration alone, so a land
+  // and building total over $750,000 is not computed; a total within it is, and a home bought keeps the cap.
+  assert.throws(() => fhogResult({ jurisdiction: 'AU-VIC', home: 'built', value: '750001' }), /the Victorian cap applies to the consideration for the building work/);
+  assert.equal(fhogGrant({ jurisdiction: 'AU-VIC', home: 'built', value: '750000' }), '$10,000.00');
+  assert.equal(fhogGrant({ jurisdiction: 'AU-VIC', value: '750001' }), '$0.00: the value is over the Victoria cap');
+});
+
+// A home built's consideration is the total payable for the building work (Qld schedule 'consideration' (b),
+// WA s 14AB(b), Vic, SA and Tas s 13(7)(b), NT s 13(8)(b)), and each Act read on 24 November 2026 pays the lesser
+// of it and the amount (Qld s 20(1), Vic s 18(1A), WA s 19(2CA), SA, Tas and NT s 18(1)); the NSW Act was not read.
+test('the first home owner grant pays a home built its contract price when that is below the grant', () => {
+  const priced = (place, price, change = {}) => fhogResult({ jurisdiction: place, home: 'built', value: '400000', 'contract-price': String(price),
+    'fact-contract': false, ...change }).rows[0][1];
+  const paid = (place, price, expected, change = {}) => {
+    assert.doesNotThrow(() => priced(place, price, change), `${place} ${price}`);
+    assert.equal(priced(place, price, change), expected, `${place} ${price}`);
+  };
+  const lesser = (n) => `$${n.toLocaleString('en-AU')}.00: the grant cannot be more than the consideration`;
+  const paying = [['AU-QLD', 30000], ['AU-VIC', 10000], ['AU-WA', 10000], ['AU-SA', 15000], ['AU-TAS', 20000], ['AU-NT', 50000]];
+  for (const [place, amount] of paying) {
+    paid(place, 1, lesser(1));
+    paid(place, amount - 1, lesser(amount - 1));
+    paid(place, amount, `$${amount.toLocaleString('en-AU')}.00`);
+    paid(place, amount + 1, `$${amount.toLocaleString('en-AU')}.00`);
+  }
+  paid('AU-TAS', 29999, lesser(29999), { date: '2026-06-01' });
+  paid('AU-ACT', 5000, '$0.00: the Australian Capital Territory has paid none since 1 July 2019');
+  assert.throws(() => priced('AU-NSW', 9999), /a value below the \$10,000 grant; the New South Wales rule for that case was not confirmed/);
+  paid('AU-NSW', 10000, '$10,000.00');
+  // Vic s 13(1A): the cap tests the contract price, so $900,000 of land and building is computed with it.
+  paid('AU-VIC', 750000, '$10,000.00', { value: '900000' });
+  paid('AU-VIC', 750001, '$0.00: the value is over the Victoria cap', { value: '900000' });
+  // The land and contract total still meets the NSW, Qld and WA caps.
+  paid('AU-NSW', 400000, '$0.00: the value is over the New South Wales cap', { value: '750001' });
+  paid('AU-QLD', 20000, '$0.00: the value is $750,000 or more', { value: '750000' });
+  paid('AU-WA', 5000, '$0.00: the value is over the Western Australia cap', { value: '800001' });
+  assert.match(fhogResult({ home: 'built', 'contract-price': '300000' }).inputs, /building contract price \$300,000\.00, /);
+  assert.throws(() => priced('AU-SA', 400001), /cannot be more than the total value, which includes it/);
+  assert.throws(() => priced('AU-SA', 5000, { home: 'bought' }), /taken only for a home built/);
+  assert.throws(() => priced('AU-SA', 5000, { 'fact-contract': true }), /below the \$15,000 grant, so it is not at least the grant as stated/);
+  paid('AU-SA', 15000, '$15,000.00', { 'fact-contract': true });
+  // Review S2: the value the Qld and WA caps test includes the contract price, so it cannot be lower.
+  assert.throws(() => priced('AU-QLD', 750000, { value: '900000', 'cap-value': '749999' }), /more than the value the cap tests, which includes it/);
+  assert.throws(() => priced('AU-WA', 800001, { value: '900000', 'cap-value': '800000' }), /more than the value the cap tests, which includes it/);
+  // Review S1: the Northern Territory pays on the amount actually paid, and the field says so.
+  assert.match(fhogHtml, /home built only; in the Northern Territory, the amount of it actually paid\)<input id="first-home-owner-grant-contract-price"/);
+  // Review I1: a total that is all contract price, and the same total without the price.
+  paid('AU-SA', 5000, lesser(5000), { value: '5000' });
+  assert.throws(() => fhogResult({ jurisdiction: 'AU-SA', home: 'built', value: '5000' }), /cannot hold a building contract price of at least the grant/);
+  assert.throws(() => priced('AU-SA', '5000.50'), { message: 'Enter a whole number between 1 and 1000000000.' });
+  assert.match(fhogHtml, /<input id="first-home-owner-grant-contract-price" name="contract-price" type="number"[^>]* min="1" max="1000000000" step="1"/);
 });
 
 // Review findings S1 to S4 and G2 on PR 705: the facts a transaction turns on are asked for, never assumed.
@@ -6506,4 +6793,423 @@ test('the ATO penalties page refuses figures a JavaScript number cannot hold to 
   const parts = Array.from({ length: 100 }, () => ({ shortfall_amount: '1000000000000', behaviour: 'intentional_disregard', increase: true }));
   assert.equal(atoCode({ question: 'statement_penalty', year: '2025-26', statement_date: '2026-03-15', significant_global_entity: true, parts }), 'input.amount_invalid');
   assert.equal(atoCode({ question: 'statement_penalty', year: '2025-26', statement_date: '2026-03-15', significant_global_entity: true, parts: parts.slice(0, 1) }), 'computed');
+});
+
+// The R&D tax offset page: its example, the command it ports, the spec's vectors and boundaries and the refusals. The rules
+// and vectors are the build 10 spec of 22 November 2026 (ITAA 1997 ss 355-100, 355-115 and 355-440 to 355-450 on the ATO's
+// legal database; the ATO's 'Calculate the clawback adjustment' and 'Clawback of feedstock adjustments', last updated 13 May 2026).
+const rdHtml = readFileSync(new URL('../_includes/calculators/rd-tax-offset.html', import.meta.url), 'utf8');
+const rdAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const rdBase = { notional_deductions: '0.00', rsp_crc_expenditure: '0.00', aggregated_turnover: '10000000.00', exempt_entity_controlled: false,
+  base_rate_entity: true, total_expenses: '0.00', recoupment_clawback: '0.00', feedstock_revenue: '0.00', feedstock_expenditure: '0.00',
+  present_year_base_rate_entity: true, year: '2024-25', scope_confirmed: true };
+const rd = (more) => calculations.rdTaxOffset({ ...rdBase, ...more });
+const rdCode = (input) => {
+  try {
+    calculations.rdTaxOffset(input);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+const rdFour = (r) => ['tax_offset', 'adjusted_offset', 'deduction_amount', 'clawback_income'].map((key) => r.amounts[key]);
+
+test('the R&D tax offset page opens on the ATO’s Company V and dates its sources', () => {
+  const example = rdHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(rdHtml);
+  const result = calculations.rdTaxOffsetResult((name) => fields[name] ?? '', rdAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';').replaceAll('R&D', 'R&amp;D'), String(result.principal), result.note],
+    example.slice(1));
+  for (const cited of ['Rates of R&amp;D tax incentive offset</a> (last updated 13 May 2026)', 'Clawback of feedstock adjustments</a> (both last updated 13 May 2026), read 22 November 2026',
+    'PAC/19970038/355-100', 'PAC/19970038/355-450', 'PAC/19860107/23', 'C2020A00092']) {
+    assert.ok(rdHtml.includes(cited), cited);
+  }
+});
+
+test('the R&D tax offset agrees with the australian-accounting command on every differential case', () => {
+  const { engine, cases } = JSON.parse(readFileSync(new URL('./rd-tax-offset-engine-differential.json', import.meta.url), 'utf8'));
+  assert.match(engine, /58076d30b6dc9aa4a0a8135c322770b257871481/);
+  assert.equal(cases.filter((c) => c.source.startsWith('AA test')).length, 68);
+  assert.equal(cases.length, 368);
+  let refused = 0;
+  for (const { source, call, period, amounts, rates, refused: code } of cases) {
+    if (code) {
+      refused += 1;
+      assert.equal(rdCode(call), code, source);
+      continue;
+    }
+    const r = calculations.rdTaxOffset(call);
+    assert.deepEqual({ period: r.year, amounts: r.amounts, rates: r.rates }, { period, amounts, rates }, source);
+    assert.deepEqual(Object.keys(r.amounts), Object.keys(amounts), source);
+  }
+  assert.equal(refused, 82);
+});
+
+test('the R&D tax offset reproduces the ATO’s clawback examples', () => {
+  // Calculate the clawback adjustment: Company Y in 2023-24 and 2024-25, its alternative, L, J and J recalculated.
+  for (const [year, notional, clawback, expected] of [['2023-24', '350000.00', '150000.00', ['152250.00', '87000.00', '37500.00', '111000.00']],
+    ['2024-25', '150000.00', '50000.00', ['65250.00', '43500.00', '12500.00', '37000.00']],
+    ['2023-24', '1000000.00', '300000.00', ['435000.00', '304500.00', '75000.00', '222000.00']],
+    ['2024-25', '1500000.00', '100000.00', ['652500.00', '609000.00', '25000.00', '74000.00']],
+    ['2023-24', '700000.00', '250000.00', ['304500.00', '195750.00', '62500.00', '185000.00']],
+    ['2023-24', '400000.00', '200000.00', ['174000.00', '87000.00', '50000.00', '148000.00']],
+    ['2023-24', '400000.00', '50000.00', ['174000.00', '152250.00', '12500.00', '37000.00']]]) {
+    assert.deepEqual(rdFour(rd({ year, notional_deductions: notional, recoupment_clawback: clawback })), expected, `${year} ${notional}`);
+  }
+  // Across the tier split and across the cap at 30% (spec b10, changes after review round 1).
+  const thirty = { aggregated_turnover: '60000000.00', base_rate_entity: false, present_year_base_rate_entity: false };
+  assert.deepEqual(rdFour(rd({ ...thirty, notional_deductions: '300000.00', total_expenses: '10000000.00', recoupment_clawback: '150000.00' })),
+    ['123500.00', '57750.00', '45000.00', '69166.67']);
+  assert.deepEqual(rdFour(rd({ ...thirty, notional_deductions: '160000000.00', total_expenses: '2000000000.00', recoupment_clawback: '20000000.00' })),
+    ['69550000.00', '61900000.00', '6000000.00', '5500000.00']);
+  // A 25% offset year clawed back in a 30% present year divides by 30%.
+  assert.equal(rd({ notional_deductions: '1000000.00', recoupment_clawback: '500000.00', present_year_base_rate_entity: false }).amounts.clawback_income, '308333.33');
+});
+
+test('the R&D tax offset turns at $20,000, $20 million, 2% of total expenses and $150 million', () => {
+  assert.equal(rd({ notional_deductions: '20000.00' }).amounts.tax_offset, '8700.00');
+  assert.equal(rd({ notional_deductions: '19999.99' }).amounts.tax_offset, '0.00');
+  assert.equal(rd({ notional_deductions: '100000.00', total_expenses: '1000000.00', aggregated_turnover: '19999999.99' }).refundableOffset, 43500);
+  assert.equal(rd({ notional_deductions: '100000.00', total_expenses: '1000000.00', aggregated_turnover: '20000000.00' }).nonRefundableOffset, 39900);
+  const at2 = rd({ notional_deductions: '200000.00', total_expenses: '10000000.00', aggregated_turnover: '60000000.00', base_rate_entity: false });
+  assert.deepEqual([at2.amounts.premium_tier_1, at2.amounts.premium_tier_2, at2.taxOffset], ['17000.00', '0.00', 77000]);
+  const cap = rd({ year: '2025-26', notional_deductions: '150000000.00', aggregated_turnover: '19000000.00' });
+  assert.deepEqual([cap.taxOffset, cap.amounts.excess_offset], [65250000, '0.00']);
+  assert.equal(rd({ notional_deductions: '150000000.00', total_expenses: '2000000000.00', aggregated_turnover: '60000000.00', base_rate_entity: false }).taxOffset, 66550000);
+  assert.deepEqual(['2021-22', '2026-27', '2020-21', '2027-28'].map((year) => rdCode({ ...rdBase, year })), ['computed', 'computed', 'period.unsupported', 'period.unsupported']);
+});
+
+test('the R&D tax offset refuses as the command does, in its order', () => {
+  assert.equal(rdCode({ ...rdBase, turnover: '1' }), 'input.field_unknown');
+  const missing = { ...rdBase, year: '2020-21' };
+  delete missing.total_expenses;
+  assert.equal(rdCode(missing), 'input.missing_field');
+  assert.equal(rdCode({ ...rdBase, total_expenses: '1e3', year: '2020-21' }), 'input.decimal_unreadable');
+  assert.equal(rdCode({ ...rdBase, scope_confirmed: false, notional_deductions: '-1' }), 'scope.not_confirmed');
+  for (const value of ['-0.01', '1.001', 'NaN', '-Infinity', '1000000000000.01', 5]) {
+    assert.equal(rdCode({ ...rdBase, notional_deductions: value }), 'input.amount_invalid', String(value));
+  }
+  assert.equal(rdCode({ ...rdBase, notional_deductions: '-0' }), 'computed');
+  assert.equal(rdCode({ ...rdBase, base_rate_entity: 'yes' }), 'input.flag_invalid');
+  assert.equal(rdCode({ ...rdBase, notional_deductions: '1000.00', rsp_crc_expenditure: '1000.01' }), 'rd_tax_offset.threshold_expenditure_above_total');
+  assert.equal(rdCode({ ...rdBase, notional_deductions: '100000.00', feedstock_expenditure: '100000.01' }), 'rd_tax_offset.feedstock_expenditure_above_total');
+  assert.equal(rdCode({ ...rdBase, notional_deductions: '100000.00', recoupment_clawback: '100000.01' }), 'rd_tax_offset.clawback_above_total');
+  assert.equal(rdCode({ ...rdBase, notional_deductions: '100000.00', recoupment_clawback: '80000.01' }), 'rd_tax_offset.clawback_below_threshold');
+  assert.equal(rdCode({ ...rdBase, notional_deductions: '100000.00', recoupment_clawback: '80000.00' }), 'computed');
+});
+
+// The GST adjustments page: its example, the 6 commands it ports, the spec's vectors and boundaries, the refusals and the
+// form. The rules and vectors are the build 13 spec of 22 November 2026 (GST Act compilations 96 and 82 on the Federal
+// Register of Legislation; GSTR 2000/24, GSTR 2003/9, GSTR 2002/5, GSTD 2012/6 and GSTR 2000/2).
+const gstHtml = readFileSync(new URL('../_includes/calculators/gst-adjustments.html', import.meta.url), 'utf8');
+const gstAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const gstCommands = { 'gst-creditable-purpose-change': calculations.gstCreditablePurposeChange,
+  'gst-annual-apportionment': calculations.gstAnnualApportionment, 'gst-financial-acquisitions-threshold': calculations.gstFinancialAcquisitionsThreshold,
+  'gst-going-concern': calculations.gstGoingConcern, 'gst-second-hand-goods': calculations.gstSecondHandGoods, 'gst-bad-debt': calculations.gstBadDebt };
+const gstCode = (command, input) => {
+  try {
+    gstCommands[command](input);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+const gstCp = (more) => ({ gst_exclusive_value: '3000.00', relates_to_business_finance: false, full_input_tax_credit: '300.00',
+  intended_or_former_application: '0.90', actual_application: '0.60', application_basis: 'Hours logged', attributed_period_end: '2021-03-31',
+  tax_period_months: 3, year: '2021-22', scope_confirmed: true, ...more });
+const gstAa = (more) => ({ small_business_entity: true, carries_on_business: true, instalment_election: false, annual_tax_period_election: false,
+  election_made: true, gst_on_acquisition: '100.00', creditable_purpose: '0.10', car: false, reduced_credit_acquisition: false, year: '2025-26',
+  scope_confirmed: true, ...more });
+const gstBd = (more) => ({ party: 'supplier', event: 'written_off', amount: '550.00', taxable_or_creditable: true, cash_basis: false, special_rule: 'none',
+  attributed: true, year: '2025-26', scope_confirmed: true, ...more });
+const gstShg = (more) => ({ consideration: '5500.00', acquired_for_sale_or_exchange: true, animals_or_plants: false, supply_to_you: 'neither', imported: false,
+  by_way_of_hire: false, resupply_taxable: true, divided_for_resupply: false, valuable_metal: false, leased_before_sale: false, year: '2025-26',
+  scope_confirmed: true, ...more });
+
+test('the GST adjustments page opens on GSTR 2000/24’s Bill and dates its sources', () => {
+  const example = gstHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(gstHtml);
+  const result = calculations.gstAdjustmentsResult((name) => fields[name] ?? '', gstAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  for (const cited of ['C2004A00446/2026-01-01/2026-01-01/text/original/epub/OEBPS/document_1', 'C2004A00446/2026-01-01/2026-01-01/text/original/epub/OEBPS/document_2',
+    'C2004A00446/2020-04-01/2020-04-01/text/original/epub/OEBPS/document_1', 'C2004A00446/2020-04-01/2020-04-01/text/original/epub/OEBPS/document_2',
+    'F2019L00417', 'GSTR200024', 'GSTR20039', 'GSTR20025', 'GSTD20126', 'GSTR20002', 'annual-private-apportionment-of-gst/eligibility',
+    'read 22 November 2026']) {
+    assert.ok(gstHtml.includes(cited), cited);
+  }
+});
+
+test('the GST adjustments agree with the australian-accounting commands on every differential case', () => {
+  const { engine, cases } = JSON.parse(readFileSync(new URL('./gst-adjustments-engine-differential.json', import.meta.url), 'utf8'));
+  assert.match(engine, /58076d30b6dc9aa4a0a8135c322770b257871481/);
+  assert.equal(cases.filter((c) => c.source.startsWith('AA test')).length, 268);
+  assert.equal(cases.length, 568);
+  let refused = 0;
+  for (const { source, command, call, refused: code, ...want } of cases) {
+    if (code) {
+      refused += 1;
+      assert.equal(gstCode(command, call), code, source);
+      continue;
+    }
+    assert.deepEqual(gstCommands[command](call), want, source);
+  }
+  assert.equal(refused, 236);
+  for (const command of Object.keys(gstCommands)) assert.ok(cases.some((c) => c.command === command && !c.refused), command);
+});
+
+test('the GST adjustments work the spec’s vectors', () => {
+  // GSTR 2000/24's Elizabeth, paras 75 to 78: a $2,400 full credit, 90% intended, 50% actual.
+  assert.equal(calculations.gstCreditablePurposeChange(gstCp({ full_input_tax_credit: '2400.00', actual_application: '0.50' })).amounts.increasing_adjustment, '960.00');
+  // Farmco, paras 30, 31 and 36: $100,000 gives 5 adjustment periods, the first ending 30 June 2022; the 6th is none.
+  const farmco = (year) => calculations.gstCreditablePurposeChange(gstCp({ gst_exclusive_value: '100000.00', year })).adjustment_period;
+  assert.deepEqual(farmco('2021-22'), { is_adjustment_period: true, number: 1, of: 5, first: 'the tax period ending 30 June 2022' });
+  assert.equal(farmco('2025-26').number, 5);
+  assert.equal(farmco('2026-27').is_adjustment_period, false);
+  // Isabelle, para 42: destroyed on 15 March 2022, so the quarter to 30 June 2022 is the last.
+  const isabelle = (year) => calculations.gstCreditablePurposeChange(gstCp({ gst_exclusive_value: '10000.00', attributed_period_end: '2020-09-30',
+    ended_on: '2022-03-15', year })).adjustment_period.is_adjustment_period;
+  assert.deepEqual([isabelle('2021-22'), isabelle('2022-23')], [true, false]);
+  // The section 131-55 example after a $10 Division 19 and a $60 Division 21 adjustment: $50 at 10%, increasing $45.
+  assert.equal(calculations.gstAnnualApportionment(gstAa({ gst_on_acquisition: '50.00' })).amounts.increasing_adjustment, '45.00');
+  // GSTR 2003/9's ABC group, examples 13 and 14: the future test exceeds at more than $9,900.
+  const abc = calculations.gstFinancialAcquisitionsThreshold({ current_financial_credits: '3600.00', current_total_credits: '69000.00',
+    future_financial_credits: '10200.00', future_total_credits: '99000.00', gst_group: true, year: '2025-26', scope_confirmed: true });
+  assert.deepEqual([abc.exceeds_threshold, abc.failing_conditions], [true, ['future_within_ten_percent']]);
+  assert.match(abc.conditions[0].authority, /^GST Act s 189-5\(2\)\(a\)/);
+  // GSTR 2000/2's Y, para 72: $4,400 with 25% of the consideration provided, increasing $100.
+  assert.equal(calculations.gstBadDebt(gstBd({ party: 'recipient', amount: '4400.00', consideration_extent: '0.25', reduced_credit_acquisition: false,
+    annual_apportionment: false })).amounts.increasing_adjustment, '100.00');
+  // Second-hand goods resold for $8,800: the 1/11 of $500 is under the $800 GST.
+  assert.equal(calculations.gstSecondHandGoods(gstShg({ resupply_gst: '800.00' })).amounts.input_tax_credit, '500.00');
+});
+
+test('the GST adjustments turn at their thresholds', () => {
+  const cp = (value, finance) => calculations.gstCreditablePurposeChange(gstCp({ gst_exclusive_value: value, relates_to_business_finance: finance }));
+  assert.deepEqual(['1000.00', '1000.01'].map((v) => cp(v, false).amounts.increasing_adjustment), ['0.00', '90.00']);
+  assert.deepEqual(['10000.00', '10000.01'].map((v) => cp(v, true).amounts.increasing_adjustment), ['0.00', '90.00']);
+  const periods = (value, finance) => cp(value, finance).rates.adjustment_periods;
+  assert.deepEqual([periods('5000.00', false), periods('5000.01', false), periods('499999.99', false), periods('500000.00', false)], ['2', '5', '5', '10']);
+  assert.deepEqual([periods('50000.00', true), periods('50000.01', true)], ['1', '5']);
+  const turnover = (amount) => calculations.gstAnnualApportionment(gstAa({ small_business_entity: false, carries_on_business: false,
+    gst_turnover: amount, election_made: false })).eligible;
+  assert.deepEqual([turnover('2000000.00'), turnover('2000000.01')], [true, false]);
+  const fat = (financial, total) => calculations.gstFinancialAcquisitionsThreshold({ current_financial_credits: financial, current_total_credits: total,
+    future_financial_credits: '0.00', future_total_credits: '0.00', gst_group: false, year: '2025-26', scope_confirmed: true }).exceeds_threshold;
+  assert.deepEqual([fat('150000.00', '1500000.00'), fat('150000.01', '1500000.10'), fat('100.00', '1000.00'), fat('100.01', '1000.00')],
+    [false, true, false, true]);
+  const shg = (consideration) => calculations.gstSecondHandGoods(gstShg({ consideration, ...(Number(consideration) > 300 ? { resupply_gst: '1.00' } : {}) }));
+  assert.deepEqual([shg('300.00').amounts, shg('300.01').amounts], [{ input_tax_credit: '27.27' }, { one_eleventh_of_consideration: '27.27', input_tax_credit: '1.00' }]);
+  const overdue = (asAt) => calculations.gstBadDebt(gstBd({ event: 'overdue_12_months', overdue_from: '2024-02-29', as_at: asAt })).applies;
+  assert.deepEqual([overdue('2025-02-27'), overdue('2025-02-28')], [false, true]);
+  assert.deepEqual(['2020-21', '2026-27', '2019-20', '2027-28'].map((year) => gstCode('gst-going-concern', { for_consideration: true,
+    recipient_registration: 'registered', written_agreement: 'none', all_things_necessary: true, carried_on_until_supply: true, farm_land: false,
+    part_outside_arrangement: false, year, scope_confirmed: true })), ['computed', 'computed', 'period.unsupported', 'period.unsupported']);
+});
+
+test('the GST adjustments refuse as the commands do, in their order', () => {
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ surplus: '1', year: '2019-20' })), 'input.field_unknown');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ gst_exclusive_value: '1e3', scope_confirmed: false })), 'input.decimal_unreadable');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ gst_exclusive_value: '\u2028 3000 \u0085' })), 'computed');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ gst_exclusive_value: '\ufeff3000' })), 'input.decimal_unreadable');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ gst_exclusive_value: 'é'.repeat(4097) })), 'input.decimal_too_long');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ scope_confirmed: false, year: '2019-20' })), 'scope.not_confirmed');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ actual_application: '1.01' })), 'input.fraction_invalid');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ application_basis: ' ' })), 'gst_creditable_purpose_change.basis_missing');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ tax_period_months: '3' })), 'gst_creditable_purpose_change.tax_period_unsupported');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ attributed_period_end: '2021-03-30' })), 'gst_creditable_purpose_change.period_end_invalid');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ division_132_disposal: true })), 'input.missing_field');
+  assert.equal(gstCode('gst-creditable-purpose-change', gstCp({ ended_on: '2022-05-01', year: '2021-22' })), 'gst_creditable_purpose_change.last_period_unsettled');
+  for (const [more, code] of [[{ car: true, gst_on_acquisition: '-1' }, 'gst_annual_apportionment.car'],
+    [{ reduced_credit_acquisition: true }, 'gst_annual_apportionment.reduced_credit_acquisition'],
+    [{ carries_on_business: false }, 'gst_annual_apportionment.fact_conflict'],
+    [{ gst_turnover: '1.00' }, 'input.field_unknown'],
+    [{ creditable_purpose: '0.50', non_input_taxed_extent: '0.40' }, 'gst_annual_apportionment.fact_conflict'],
+    [{ creditable_purpose: '1' }, 'gst_annual_apportionment.not_partly_creditable'],
+    [{ small_business_entity: false, instalment_election: true }, 'gst_annual_apportionment.election_status_unsettled']]) {
+    assert.equal(gstCode('gst-annual-apportionment', gstAa(more)), code, JSON.stringify(more));
+  }
+  assert.equal(gstCode('gst-financial-acquisitions-threshold', { current_financial_credits: '2.00', current_total_credits: '1.00',
+    future_financial_credits: '0.00', future_total_credits: '0.00', gst_group: false, year: '2025-26', scope_confirmed: true }),
+  'gst_financial_acquisitions_threshold.fact_conflict');
+  assert.equal(gstCode('gst-second-hand-goods', gstShg({ divided_for_resupply: true, leased_before_sale: true })), 'gst_second_hand_goods.divided_for_resupply');
+  assert.equal(gstCode('gst-second-hand-goods', gstShg({})), 'input.missing_field');
+  assert.equal(gstCode('gst-second-hand-goods', gstShg({ consideration: '300.00', resupply_gst: '1.00' })), 'input.field_unknown');
+  assert.equal(gstCode('gst-second-hand-goods', gstShg({ imported: true, consideration: '300.00', resupply_gst: '1.00' })), 'computed');
+  for (const [more, code] of [[{ special_rule: 'debt_assigned', cash_basis: true, event: 'recovered' }, 'gst_bad_debt.special_rule'],
+    [{ event: 'recovered', cash_basis: true }, 'gst_bad_debt.accounting_basis_changed'],
+    [{ party: 'recipient', reduced_credit_acquisition: true, annual_apportionment: false }, 'gst_bad_debt.reduced_credit_acquisition'],
+    [{ taxable_proportion: '0' }, 'gst_bad_debt.fact_conflict'],
+    [{ creditable_purpose: '0.5' }, 'input.field_unknown'],
+    [{ event: 'overdue_12_months', overdue_from: '2024-02-01', as_at: '2024-01-31' }, 'gst_bad_debt.dates_invalid'],
+    [{ event: 'recovered' }, 'input.missing_field'], [{ event: 'recovered', prior_adjustment: true }, 'input.field_unknown']]) {
+    assert.equal(gstCode('gst-bad-debt', gstBd(more)), code, JSON.stringify(more));
+  }
+});
+
+test('the GST adjustments form sends each worksheet’s inputs and leaves out the ones it does not take', () => {
+  const fields = formDefaults(gstHtml);
+  const form = (more) => calculations.gstFormInput((name) => ({ ...fields, ...more })[name] ?? '');
+  assert.equal(form({ 'cp-former': '12.5' }).input.intended_or_former_application, '0.125');
+  assert.equal(form({ 'cp-former': '100' }).input.intended_or_former_application, '1.00');
+  assert.equal(form({ 'cp-former': 'x' }).input.intended_or_former_application, '');
+  assert.deepEqual([form({ 'cp-ended': '2022-03-15', 'cp-disposal': 'yes' }).input.ended_on, form({}).input.ended_on], ['2022-03-15', undefined]);
+  const aa = (more) => form({ worksheet: 'annual-apportionment', ...more }).input;
+  assert.deepEqual([aa({}).gst_turnover, aa({ 'aa-small': 'no', 'aa-business': 'no', 'aa-turnover': '100' }).gst_turnover], [undefined, '100']);
+  assert.deepEqual([aa({}).consideration_extent, aa({ 'aa-consideration': '50' }).consideration_extent], [undefined, '0.50']);
+  const shg = (more) => form({ worksheet: 'second-hand-goods', ...more }).input.resupply_gst;
+  assert.deepEqual([shg({}), shg({ 'shg-consideration': '300' })], ['300', undefined]);
+  const bd = (more) => form({ worksheet: 'bad-debt', ...more }).input;
+  assert.deepEqual(Object.keys(bd({ 'bd-party': 'recipient', 'bd-event': 'recovered' })).filter((k) => !['party', 'event', 'amount',
+    'taxable_or_creditable', 'cash_basis', 'special_rule', 'year', 'scope_confirmed'].includes(k)), ['prior_adjustment', 'reduced_credit_acquisition', 'annual_apportionment']);
+  assert.deepEqual([bd({}).overdue_from, bd({ 'bd-event': 'written_off' }).overdue_from], ['2021-04-16', undefined]);
+  for (const worksheet of calculations.GST_WORKSHEETS) {
+    const result = calculations.gstAdjustmentsResult((name) => ({ ...fields, worksheet })[name] ?? '', gstAud);
+    assert.ok(result.rows.length > 0 && result.note && !/this command/.test(result.note), worksheet);
+  }
+  assert.throws(() => calculations.gstAdjustment('vat', {}), { code: 'input.field_unknown' });
+});
+
+// The deferred tax page: its example, the command it ports, the spec's vectors and boundaries, the refusals and the
+// form. The rules and vectors are the build 14 spec of 22 November 2026 (AASB 112, the March 2020 and September 2023
+// compilations; Income Tax Rates Act 1986 s 23(2); the ATO's company tax rate pages), its own figures.
+const deferredHtml = readFileSync(new URL('../_includes/calculators/deferred-tax.html', import.meta.url), 'utf8');
+const deferredAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const dtItem = (label, cls, carrying, base, openingCarrying, openingBase) => ({ label, class: cls, carrying_amount: carrying, tax_base: base,
+  opening_carrying_amount: openingCarrying, opening_tax_base: openingBase });
+const dtBase = (more) => ({ items: [dtItem('Plant', 'asset', '70000.00', '50000.00', '80000.00', '65000.00'),
+  dtItem('Leave provision', 'liability', '12000.00', '0.00', '10000.00', '0.00'), dtItem('Prepayment', 'asset', '3000.00', '0.00', '2000.00', '0.00')],
+unused_tax_losses: '0.00', opening_unused_tax_losses: '0.00', unrecognised_deductible: '0.00', opening_unrecognised_deductible: '0.00',
+unrecognised_used: '0.00', accounting_profit: '100000.00', non_deductible_expenses: '4000.00', non_assessable_income: '0.00',
+taxable_income: '100000.00', tax_offsets: '0.00', base_rate_entity: false, expected_rate: 'standard', opening_expected_rate: 'standard',
+business_combination: false, uncertain_tax_treatment: false, tax_consolidated_group: false, outside_profit_or_loss: false, year: '2025-26',
+scope_confirmed: true, ...more });
+const dtCode = (input) => {
+  try {
+    calculations.deferredTax(input);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+
+test('the deferred tax page opens on 3 items at 30% and dates its sources', () => {
+  const example = deferredHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(deferredHtml);
+  const result = calculations.deferredTaxResult((name) => fields[name] ?? '', deferredAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  for (const cited of ['aasb-112-sep-2023', 'AASB112_08-15_COMPmar20_07-21.pdf', 'AASB18_06-24_AppendixD_0.pdf', 'ad-aasb-112-12-12-dec-2012',
+    'C2004A03348/2026-07-01', 'tax-rates-201112-to-202021', 'tax-rates-2025-26', 'read 22 November 2026']) {
+    assert.ok(deferredHtml.includes(cited), cited);
+  }
+});
+
+test('the deferred tax worksheet agrees with the australian-accounting command on every differential case', () => {
+  const { engine, cases } = JSON.parse(readFileSync(new URL('./deferred-tax-engine-differential.json', import.meta.url), 'utf8'));
+  assert.match(engine, /58076d30b6dc9aa4a0a8135c322770b257871481/);
+  assert.equal(cases.filter((c) => c.source.startsWith('AA test')).length, 89);
+  assert.equal(cases.length, 389);
+  let refused = 0;
+  for (const { source, command, call, refused: code, ...want } of cases) {
+    assert.equal(command, 'deferred-tax');
+    if (code) {
+      refused += 1;
+      assert.equal(dtCode(call), code, source);
+      continue;
+    }
+    const r = calculations.deferredTax(call);
+    assert.deepEqual(Object.fromEntries(Object.keys(want).map((key) => [key, r[key]])), want, source);
+    assert.deepEqual(Object.keys(r.amounts), Object.keys(want.amounts), source);
+  }
+  assert.equal(refused, 166);
+});
+
+test('the deferred tax worksheet works the spec’s vectors', () => {
+  const v1 = calculations.deferredTax(dtBase({}));
+  assert.deepEqual([v1.amounts.taxable_temporary_differences, v1.amounts.deductible_temporary_differences, v1.amounts.net_deferred_tax_liability,
+    v1.amounts.origination_and_reversal, v1.rates.effective_tax_rate], ['23000.00', '12000.00', '3300.00', '1200.00', '0.3120']);
+  assert.deepEqual(v1.warnings, []);
+  // V4: taxable income $1,000 short of what the inputs explain.
+  const v4 = calculations.deferredTax(dtBase({ taxable_income: '99000.00' }));
+  assert.deepEqual([v4.amounts.taxable_income_difference, v4.amounts.reconciliation_difference], ['-1000.00', '-300.00']);
+  assert.deepEqual(v4.warnings, [calculations.DEFERRED_TAX_MISMATCH]);
+  // V2 with the losses used: recognition -$1,250 and the used amount's -$3,750 line.
+  const v2 = calculations.deferredTax(dtBase({ year: '2024-25', base_rate_entity: true, expected_rate: 'base_rate_entity',
+    items: [dtItem('Equipment', 'asset', '40000.00', '30000.00', '50000.00', '45000.00')], unused_tax_losses: '5000.00',
+    opening_unused_tax_losses: '20000.00', opening_unrecognised_deductible: '20000.00', unrecognised_used: '15000.00', accounting_profit: '30000.00',
+    non_deductible_expenses: '0.00', non_assessable_income: '2000.00', taxable_income: '8000.00' }));
+  assert.deepEqual(['rate_change_effect', 'recognition_change_effect', 'origination_and_reversal', 'unrecognised_used_effect', 'reconciliation_difference']
+    .map((id) => v2.amounts[id]), ['-250.00', '-1250.00', '1250.00', '-3750.00', '0.00']);
+  assert.equal(v2.rates.effective_tax_rate, '0.0583');
+  // The spec's rounding vector: each line rounded to the cent leaves 2 cents.
+  const cents = calculations.deferredTax(dtBase({ year: '2020-21', base_rate_entity: true, expected_rate: 'base_rate_entity',
+    items: [dtItem('Asset', 'asset', '10000.02', '0.00', '0.00', '0.00'), dtItem('Liability', 'liability', '2000.01', '0.00', '0.00', '0.00')],
+    accounting_profit: '50000.01', non_deductible_expenses: '1000.01', non_assessable_income: '500.02', taxable_income: '42499.99' }));
+  assert.deepEqual([cents.amounts.taxable_income_difference, cents.amounts.reconciliation_difference], ['0.00', '0.02']);
+  // V6: a liability's tax base above its carrying amount is taxable.
+  assert.equal(calculations.deferredTax(dtBase({ items: [dtItem('Income', 'liability', '1000.00', '1600.00', '0.00', '0.00')] })).items[0]
+    .temporary_difference, '600.00');
+});
+
+test('the deferred tax worksheet turns on the year, the rates and a nil profit', () => {
+  const rate = (year, bre) => calculations.deferredTax(dtBase({ year, base_rate_entity: bre })).rates.applicable_rate;
+  assert.deepEqual([rate('2020-21', true), rate('2021-22', true), rate('2026-27', true), rate('2020-21', false)], ['0.26', '0.25', '0.25', '0.30']);
+  assert.deepEqual(['2019-20', '2027-28'].map((year) => dtCode(dtBase({ year }))), ['period.unsupported', 'period.unsupported']);
+  assert.equal('effective_tax_rate' in calculations.deferredTax(dtBase({ accounting_profit: '-0' })).rates, false);
+  // A nil expense over a loss keeps the quotient's sign, as the command writes it.
+  const nil = calculations.deferredTax(dtBase({ items: [dtItem('Cash', 'asset', '1.00', '1.00', '1.00', '1.00')], accounting_profit: '-100.00',
+    non_deductible_expenses: '0.00', taxable_income: '0.00' }));
+  assert.equal(nil.rates.effective_tax_rate, '-0.0000');
+  // The rate change is accepted when the year's rate is the closing rate, or the opening balances are nil.
+  const change = { year: '2021-22', expected_rate: 'base_rate_entity' };
+  assert.equal(dtCode(dtBase({ ...change, base_rate_entity: true })), 'computed');
+  assert.equal(dtCode(dtBase(change)), 'deferred_tax.rate_change_unscheduled');
+  assert.equal(dtCode(dtBase({ ...change, items: [dtItem('New', 'asset', '10.00', '0.00', '0.00', '0.00')] })), 'computed');
+});
+
+test('the deferred tax worksheet refuses as the command does, in its order', () => {
+  assert.equal(dtCode(dtBase({ surplus: '1', year: '2019-20' })), 'input.field_unknown');
+  const missing = dtBase({ year: '2019-20' });
+  delete missing.tax_offsets;
+  assert.equal(dtCode(missing), 'input.missing_field');
+  assert.equal(dtCode(dtBase({ taxable_income: '1e3', scope_confirmed: false })), 'input.decimal_unreadable');
+  assert.equal(dtCode(dtBase({ scope_confirmed: false, business_combination: true })), 'scope.not_confirmed');
+  assert.equal(dtCode(dtBase({ business_combination: true, uncertain_tax_treatment: true, items: [] })), 'deferred_tax.business_combination');
+  assert.equal(dtCode(dtBase({ outside_profit_or_loss: true, items: [] })), 'deferred_tax.outside_profit_or_loss');
+  for (const items of [[], {}, [{ label: ' ', class: 'asset', carrying_amount: '1', tax_base: '1', opening_carrying_amount: '1', opening_tax_base: '1' }],
+    [dtItem('A', 'equity', '1', '1', '1', '1')], [dtItem('A', 'asset', '1.001', '1', '1', '1')], [dtItem('A', 'asset', '-1', '1', '1', '1')],
+    [{ ...dtItem('A', 'asset', '1', '1', '1', '1'), note: 'x' }], [dtItem('x'.repeat(201), 'asset', '1', '1', '1', '1')]]) {
+    assert.equal(dtCode(dtBase({ items, base_rate_entity: 'yes' })), 'deferred_tax.item_invalid', JSON.stringify(items).slice(0, 60));
+  }
+  assert.equal(dtCode(dtBase({ items: [dtItem('A', 'asset', ' 1 ', '-0', '1', '1')] })), 'computed');
+  assert.equal(dtCode(dtBase({ base_rate_entity: 'yes', expected_rate: 'high' })), 'input.flag_invalid');
+  assert.equal(dtCode(dtBase({ expected_rate: 'high' })), 'deferred_tax.expected_rate_invalid');
+  assert.equal(dtCode(dtBase({ year: '2020-21', opening_expected_rate: 'base_rate_entity', unused_tax_losses: '-1' })), 'deferred_tax.opening_rate_unscheduled');
+  assert.equal(dtCode(dtBase({ unused_tax_losses: '-1', accounting_profit: '1.001' })), 'input.amount_invalid');
+  assert.equal(dtCode(dtBase({ accounting_profit: '1.001' })), 'input.signed_amount_invalid');
+  assert.equal(dtCode(dtBase({ accounting_profit: '-1000000000000.00' })), 'computed');
+  assert.equal(dtCode(dtBase({ unrecognised_used: '0.01', unrecognised_deductible: '99999999' })), 'deferred_tax.unrecognised_used_above_opening');
+  assert.equal(dtCode(dtBase({ unrecognised_deductible: '12000.01' })), 'deferred_tax.unrecognised_above_deductible');
+  assert.equal(dtCode(dtBase({ unrecognised_deductible: '12000.00' })), 'computed');
+  assert.equal(dtCode(dtBase({ tax_offsets: '30000.01' })), 'deferred_tax.offsets_above_tax');
+});
+
+test('the deferred tax form sends the rows with a name or an amount, in order', () => {
+  const fields = formDefaults(deferredHtml);
+  const form = (more) => calculations.deferredTaxFormInput((name) => ({ ...fields, ...more })[name] ?? '');
+  assert.deepEqual(form({}).items.map((it) => it.label), ['Plant', 'Leave provision', 'Prepayment']);
+  assert.deepEqual(form({ 'item-2-label': '', 'item-2-carrying': '', 'item-2-base': '', 'item-2-opening-carrying': '', 'item-2-opening-base': '',
+    'item-4-label': 'Lease' }).items.map((it) => it.label), ['Plant', 'Prepayment', 'Lease']);
+  assert.throws(() => calculations.deferredTaxResult((name) => ({ ...fields, 'item-4-carrying': '5' })[name] ?? '', deferredAud),
+    { code: 'deferred_tax.item_invalid' });
+  const result = calculations.deferredTaxResult((name) => ({ ...fields, 'taxable-income': '99000' })[name] ?? '', deferredAud);
+  assert.match(result.note, /do not explain taxable income/);
+  assert.deepEqual(result.tables.reconciliation.at(-2), ['Difference left', '-$300.00']);
+  assert.deepEqual(result.tables.differences[1], ['Leave provision', 'liability', '-$12,000.00', 'deductible', '-$10,000.00']);
+  // A nil expense over a loss is the command's '-0.0000': the page shows 0%, not -0%.
+  const nil = { profit: '-50000', 'taxable-income': '0', 'non-deductible': '0', 'item-1-carrying': '0', 'item-1-base': '0',
+    'item-1-opening-carrying': '0', 'item-1-opening-base': '0' };
+  for (const n of [2, 3]) Object.assign(nil, { [`item-${n}-label`]: '', [`item-${n}-carrying`]: '', [`item-${n}-base`]: '',
+    [`item-${n}-opening-carrying`]: '', [`item-${n}-opening-base`]: '' });
+  const loss = calculations.deferredTaxResult((name) => ({ ...fields, ...nil })[name] ?? '', deferredAud);
+  assert.deepEqual(loss.rows.at(-1), ['Average effective tax rate', '0%']);
 });

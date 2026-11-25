@@ -1,12 +1,12 @@
-# Tools for Australian accountants
+# Ryan Duguid: Tools for Australian accountants
 
 Source: https://duguid.com.au/
 
-> Australian accounting tools for payroll, Xero, workpapers and AI workflows, with sources and working kept visible.
+> Ryan Duguid’s 76 free Australian tax and business calculators, 12 maintained rate tables, 7,430 depreciation effective lives, Ozzit and open source tools.
 
 # Tools for Australian accountants
 
-Check workpaper packs, explore cash shortfalls and inspect the calculations.
+Free browser calculators, maintained ATO rate tables and open source review tools. No sign-up; inputs stay in your browser.
 
 Explore the cash flow example
 
@@ -26,6 +26,9 @@ Lumbridge Services is a fictional Newcastle maintenance business. Delay one cust
 
 Each tool runs on a fictional example first and keeps its working visible.
 
+- 57 business calculators (GST, FBT, CGT, duty, payroll tax)
+- 17 individual tax, pay and super calculators
+- Depreciation rates (7,430 ATO effective lives)
 - Use accounting functions in Excel
 - Review a month-end close
 - Calculate a Coal LSL levy
@@ -38,6 +41,7 @@ Find the records, calculations and steps for a question, then check the current 
 
 - 100 accounting questions
 - Maintained rate tables
+- 2026-27 BAS due dates
 
 ### Review my work
 
@@ -59,21 +63,25 @@ Browse reproducible evaluations Set up AI tools
 
 ### Latest tool releases
 
-- Aus Accounting MCP v0.11.0 21 November 2026
-- Ozzit v3.7.0 18 November 2026
+- Ozzit v3.8.0 24 November 2026
+- Aus Accounting MCP v0.12.0 23 November 2026
 - Workpaper Review Gate v1.0.1 14 November 2026
 
 ## Links
 
 - Explore the cash flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
+- 57 business calculators (GST, FBT, CGT, duty, payroll tax): https://duguid.com.au/tools/business-calculators/
+- 17 individual tax, pay and super calculators: https://duguid.com.au/tools/individual-tax/
+- Depreciation rates (7,430 ATO effective lives): https://duguid.com.au/tools/depreciation-rates/
 - Use accounting functions in Excel: https://duguid.com.au/tools/ozzit/
 - Review a month-end close: https://duguid.com.au/tools/monthly-close-controls/
 - Calculate a Coal LSL levy: https://duguid.com.au/tools/coal-lsl-levy/
-- Check a BAS pack before manager review: https://duguid.com.au/evaluate/manager-review-gate/
+- Check a BAS pack before manager review: https://duguid.com.au/tools/workpaper-review-gate/
 - All tools by accounting task: https://duguid.com.au/tools/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Maintained rate tables: https://duguid.com.au/rates/
+- 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
 - About Ryan Duguid: https://duguid.com.au/about/
 - Evidence behind the tools: https://duguid.com.au/evidence/
 - Lodgeit: https://lodgeit.net.au/ai-that-calculates/
@@ -82,5 +90,4 @@ Browse reproducible evaluations Set up AI tools
 - guide’s approval record: https://www.openaccountants.com/skills/au-capital-gains-2
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - Set up AI tools: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- Aus Accounting MCP v0.11.0: https://duguid.com.au/tools/australian-tax-ai-agents/
-- Workpaper Review Gate v1.0.1: https://duguid.com.au/tools/workpaper-review-gate/
+- Aus Accounting MCP v0.12.0: https://duguid.com.au/tools/australian-tax-ai-agents/

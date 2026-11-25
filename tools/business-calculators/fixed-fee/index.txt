@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/business-calculators/fixed-fee/
 
-> Price a fixed fee from hours at a rate or a cost and margin, with GST, monthly instalments that add up to the cent and the effective hourly rate, in your browser.
+> Price a fixed fee from hours or cost and margin, with GST, monthly instalments adding to the cent and the effective hourly rate, calculated in your browser.
 
 # Fixed fee pricing calculator
 
@@ -44,13 +44,19 @@ The first instalment carries the cents left over | 3 hours at $100.00 an hour, 0
 A margin fee rounds up, not to the nearest cent | 1 hour at $120.00 an hour, 45% margin, rounded up to the cent, no GST, 1 instalment | Fee $218.19, GST $0.00, total $218.19, first instalment $218.19, each later instalment $218.19, effective rate $218.19
 A margin of 100% is refused | 10 hours at $100.00 an hour, 100% margin, rounded up to $10, GST added, 12 instalments | Refused: enter an amount between 0 and 99.99
 
-One of the fifty-four business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+## Related
+
+- Hourly pricing calculator
+- Margin and markup calculator
+- GST calculator
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the fee rounds up to the step you choose, and instalments round down to the cent with the rest in the first.
-
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
 - hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
-- fifty-four business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- Margin and markup calculator: https://duguid.com.au/tools/business-calculators/margin/
+- GST calculator: https://duguid.com.au/tools/business-calculators/gst/

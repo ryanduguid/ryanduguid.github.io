@@ -22,6 +22,18 @@ Boundary
 
 Does not invent arrangements, intentions or beneficiary facts.
 
+Install solomons-sword Read the worked example
+
+## Check a section 99B receipt
+
+```
+uvx --from solomons-sword==0.1.9 solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000 --resident-during-year
+```
+
+$100,000.00 assessable under s99B
+
+Fictional $150,000 gross receipt less $50,000 corpus exemption in v0.1.9. See the full output and refusal check.
+
 PCG 2022/2 sorts section 100A arrangements into white, green and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. The software does not establish the underlying facts or give tax clearance.
 
 Section 100A can treat a trust distribution as a reimbursement agreement and tax it at the top rate instead of the beneficiary’s own rate. The ATO’s finalised guideline PCG 2022/2 says where the risk sits.
@@ -108,13 +120,13 @@ Anything it does not implement, including trust capital gains and franked divide
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - v0.3.2: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.3.2
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
 - Apache License 2.0: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.3.2/packages/solomons-sword/LICENSE
+- Install solomons-sword: https://duguid.com.au/tools/trust-distributions/#get-it
+- Read the worked example: https://duguid.com.au/tools/trust-distributions/#worked-example
 - guideline PCG 2022/2: https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001
 - MIT License: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.9/packages/solomons-sword/LICENSE
 - Published package: https://pypi.org/project/solomons-sword/0.1.9/

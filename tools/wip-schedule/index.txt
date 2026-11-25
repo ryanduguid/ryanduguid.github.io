@@ -22,6 +22,18 @@ Boundary
 
 Review aid under AASB 15, not an accounting determination.
 
+Install the-wip-tally Read the worked example
+
+## Cost-to-cost underbilling check
+
+```
+uv run --locked --extra dev --python 3.12 pytest -q tests/test_schedule.py::test_clean_cost_to_cost_underbilling
+```
+
+$50,000 contract asset at 50% complete
+
+Revenue to date ($500,000) less $450,000 certified billings in v0.1.2. Read the fictional inputs and setup steps.
+
 Assets and liabilities are never netted. Review aid, not a determination.
 
 Construction month-end turns on the WIP schedule. The formula is easy. Applying it the same way every month is the work: strip waste from percentage complete without dropping it from margin, book uninstalled materials at cost, constrain unapproved claims and present each contract as an asset or a liability, never a portfolio net.
@@ -113,13 +125,13 @@ No. It is a review aid. Recognition over time versus at a point in time, whether
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.2.0
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
 - Apache License 2.0: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.2.0/packages/the-wip-tally/LICENSE
+- Install the-wip-tally: https://duguid.com.au/tools/wip-schedule/#get-it
+- Read the worked example: https://duguid.com.au/tools/wip-schedule/#worked-example
 - subcontractor ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
 - cost-to-cost underbilling test in the-wip-tally v0.1.2: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/tests/test_schedule.py
 - MIT License: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/LICENSE

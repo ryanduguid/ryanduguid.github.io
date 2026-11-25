@@ -57,7 +57,13 @@ function renderResult(output, result) {
 }
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
-function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }, { fhssResult }, { workExpensesResult }, { governmentSuperResult }]) {
+function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }, fhssMod, workExpensesMod, transferBalanceMod,
+  pensionMinimumMod, governmentSuperMod]) {
+  const { fhssResult } = fhssMod;
+  const { workExpensesResult } = workExpensesMod;
+  const { transferBalanceResult } = transferBalanceMod;
+  const { pensionMinimumResult } = pensionMinimumMod;
+  const { governmentSuperResult } = governmentSuperMod;
   for (const form of forms) {
     const output = form.querySelector('output');
     if (output.textContent.startsWith('Calculators could not load')) output.textContent = 'Enter the inputs and calculate.';
@@ -66,8 +72,19 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
   // modelContext on document; early Chrome builds used navigator. Other browsers skip the import.
   const modelContext = document.modelContext ?? navigator.modelContext;
   // A failed import or registration leaves the form itself untouched; the warning keeps the cause.
-  if (modelContext?.registerTool) import('./webmcp-tools.mjs').then(async ({ calculatorTools, individualTaxTools }) => {
-    const tools = { ...calculatorTools(calculate), ...(engines ? individualTaxTools(engines) : {}) };
+  if (modelContext?.registerTool) import('./webmcp-tools.mjs').then(async ({
+    calculatorTools, individualTaxTools, fhssTools, workExpensesTools, governmentSuperTools, pensionMinimumTools,
+    transferBalanceTools,
+  }) => {
+    const tools = {
+      ...calculatorTools(calculate),
+      ...(engines ? individualTaxTools(engines) : {}),
+      ...(fhssMod.fhss ? fhssTools(fhssMod) : {}),
+      ...(workExpensesMod.workExpenses ? workExpensesTools(workExpensesMod) : {}),
+      ...(transferBalanceMod.transferBalance ? transferBalanceTools(transferBalanceMod) : {}),
+      ...(pensionMinimumMod.pensionMinimum ? pensionMinimumTools(pensionMinimumMod) : {}),
+      ...(governmentSuperMod.governmentSuperAmounts ? governmentSuperTools(governmentSuperMod) : {}),
+    };
     for (const form of forms) {
       const tool = tools[form.dataset.calculator];
       if (tool) await modelContext.registerTool(tool);
@@ -296,7 +313,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             const place = form.querySelector('input[name="jurisdiction"]:checked');
             const scale = place.dataset.scale.split(';').map(row => row.split(','));
             const r = calculate.transferDuty(value('value'), scale);
-            const [over, , base, rate, rule] = scale[r.bracket];
+            const [over, , base, rate, named] = scale[r.bracket];
+            const toDollar = named.endsWith('-to-dollar');
+            const rule = toDollar ? named.slice(0, -'-to-dollar'.length) : named;
             const whole = text => `$${Number(text).toLocaleString('en-AU')}`;
             const plus = Number(base) ? `${whole(base)} plus ` : '';
             let ruleText = {
@@ -306,6 +325,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
               'nt-formula': '(0.06571441 × V × V) + 15V, where V is the value ÷ 1,000',
             }[rule];
             if (rule !== 'nt-formula' && Number(rate) === 0) ruleText = Number(base) ? `a fixed ${whole(base)}` : 'nil';
+            if (toDollar) ruleText += ', to the nearest whole dollar (50 cents down)';
             result = { inputs: `${place.dataset.name}, dutiable value ${money('value')}`, principal: 0,
               rows: [['General transfer duty', aud(r.duty)], ['Rate applied', ruleText]] };
             // NSW premium duty, the scale's last bracket, applies to residential land only.
@@ -504,7 +524,8 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             const method = value('method');
             const r = calculate.paygInstalment({ method, notified: value('notified'), instalment: value('instalment'),
               estimatedTax: value('estimated-tax'), earlier: value('earlier'), credits: value('credits'), income: value('income'),
-              rate: value('rate'), estimatedIncome: value('estimated-income'), earlierIncome: value('earlier-income') });
+              rate: value('rate'), estimatedIncome: value('estimated-income'), earlierIncome: value('earlier-income'),
+              previousRate: value('previous-rate') });
             const earlier = `earlier instalments ${money('earlier')} less ${method === 'varied-amount' ? 'earlier credits' : 'credits claimed'} ${money('credits')}`;
             const credit = ['Credit to claim at 5B, whole dollars', aud(r.credit)];
             if (method === 'amount') {
@@ -521,11 +542,11 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
                 principal: 1, rows: [['T1 × T2', aud(r.amount)], ['Instalment at T11 and 5A, whole dollars', aud(r.instalment)]] };
             } else {
               result = { inputs: `varied instalment rate (option 2), estimated tax ${money('estimated-tax')} on estimated instalment income `
-                + `${money('estimated-income')} for the year, instalment income ${money('income')} at T1, instalment rate ${value('rate')}% at T2, `
+                + `${money('estimated-income')} for the year, instalment income ${money('income')} at T1, previous quarter’s rate ${value('previous-rate')}%, `
                 + `${earlier}, on earlier instalment income ${money('earlier-income')}`, principal: 2,
               rows: [['Varied rate at T3', `${r.instalmentRate.toFixed(2)}%`], ['T1 × T3', aud(r.amount)],
                 ['Instalment at T11 and 5A, whole dollars', aud(r.instalment)], credit],
-              note: 'A credit applies only when the varied rate is lower than the rate at T2' };
+              note: 'A credit applies only when the varied rate is lower than the rate used for the previous quarter' };
             }
             break;
           }
@@ -563,6 +584,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             break;
           case 'depreciation-pools':
             result = calculate.depreciationPoolsResult(value, aud);
+            break;
+          case 'rd-tax-offset':
+            result = calculate.rdTaxOffsetResult(value, aud);
             break;
           case 'fuel-tax-credits':
             result = calculate.fuelTaxCreditsResult(value, aud);
@@ -653,6 +677,14 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             }
             break;
           }
+          case 'gst-adjustments':
+            result = calculate.gstAdjustmentsResult(value, aud);
+            showTables(result.tables);
+            break;
+          case 'deferred-tax':
+            result = calculate.deferredTaxResult(value, aud);
+            showTables(result.tables);
+            break;
           case 'asic-fees':
             result = calculate.asicFeesResult(value, aud);
             break;
@@ -673,6 +705,13 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             break;
           case 'government-super':
             result = governmentSuperResult(value, aud);
+            break;
+          case 'transfer-balance':
+            result = transferBalanceResult(value, aud);
+            showTables(result.tables);
+            break;
+          case 'pension-minimum':
+            result = pensionMinimumResult(value, aud);
             break;
           default: result = individualResult(form.dataset.calculator, value, aud) ?? fbtForms.fbtBenefitResult(form, calculate, { aud, value, money });
         }
@@ -698,10 +737,12 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
 function loadCalculators(retryForm) {
   // A failed module import can remain cached, so a manual retry uses fresh URLs.
   const suffix = retryForm ? `?retry=${Date.now()}` : '';
-  Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`), import(`./fbt-benefit-forms.mjs${suffix}`),
+  Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`), forms.some((f) => (f.dataset.calculator ?? '').startsWith('fbt-')) ? import(`./fbt-benefit-forms.mjs${suffix}`) : {},
     forms.some((f) => ['income-tax', 'take-home-pay', 'study-loan', 'sole-trader', 'lump-sum-arrears', 'division-293', 'income-tests', 'concessional-catch-up', 'bonus-withholding', 'salary-packaging', 'novated-lease', 'super-projection'].includes(f.dataset.calculator ?? '')) ? import(`./individual-tax-results.mjs${suffix}`) : { individualResult: () => undefined },
     forms.some((f) => f.dataset.calculator === 'fhss') ? import(`./fhss-result.mjs${suffix}`) : {},
     forms.some((f) => f.dataset.calculator === 'work-expenses') ? import(`./work-expenses-result.mjs${suffix}`) : {},
+    forms.some((f) => f.dataset.calculator === 'transfer-balance') ? import(`./transfer-balance-result.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
+    forms.some((f) => f.dataset.calculator === 'pension-minimum') ? import(`./pension-minimum.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
     forms.some((f) => f.dataset.calculator === 'government-super') ? import(`./government-super-result.mjs${suffix}`) : {}]).then(initialiseCalculators)
     .then(() => { if (retryForm) retryForm.querySelector('input, select').focus(); })
     .catch(() => {

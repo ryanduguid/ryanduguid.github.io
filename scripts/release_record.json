@@ -20,10 +20,10 @@
       "application_path": "apps/aus-accounting-mcp",
       "registry_identity": "io.github.ryanduguid/aus-accounting",
       "published": {
-        "version": "0.11.0",
-        "released_utc": "2026-11-20T18:56:03Z",
-        "verified": "2026-11-22",
-        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.11.0",
+        "version": "0.12.0",
+        "released_utc": "2026-11-22T20:22:18Z",
+        "verified": "2026-11-24",
+        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.12.0",
         "pypi_url": "https://pypi.org/project/aus-accounting-mcp/",
         "registry_url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest",
         "registry_status": "active, latest"
@@ -31,8 +31,8 @@
       "documented": {
         "page": "tools/australian-tax-ai-agents/index.html",
         "version": "0.9.0",
-        "visible_label": "Current release aus-accounting-mcp v0.11.0",
-        "software_version": "0.11.0",
+        "visible_label": "Current release aus-accounting-mcp v0.12.0",
+        "software_version": "0.12.0",
         "pinned_engines": {
           "payday-super-checker": "0.2.3",
           "ato-benchmark-compare": "0.2.2",
@@ -46,7 +46,7 @@
         "payday-super-checker": "0.2.3",
         "ato-benchmark-compare": "0.2.2",
         "div7a-loan-review": "0.3.2",
-        "australian-tax-calculators": "1.1.0",
+        "australian-tax-calculators": "1.2.0",
         "gst-review": "0.1.0",
         "lodgment-calendar": "0.2.0"
       },
@@ -64,15 +64,16 @@
         }
       ],
       "notes": [
-        "GitHub, PyPI and the MCP registry publish 0.11.0, verified on 22 November 2026. It requires Python 3.14 or later; 0.3.0 remains available for Python 3.11 to 3.13 and 0.2.12 for Python 3.10.",
+        "GitHub, PyPI and the MCP registry publish 0.12.0, verified on 24 November 2026. It requires Python 3.14 or later; 0.3.0 remains available for Python 3.11 to 3.13 and 0.2.12 for Python 3.10.",
         "0.6.0 adds GST coding review and BAS reconciliation through gst-review 0.1.0 and pins the Apache-2.0 releases of the payday, benchmark and Division 7A engines, which change no check, comparison or review.",
-        "The guide retains the 0.9.0 release history and the demonstration pinned to 0.2.8. The published 0.11.0 overview records the separately verified calculator requirements.",
+        "The guide retains the 0.9.0 release history and the demonstration pinned to 0.2.8. The published 0.12.0 overview records the separately verified calculator requirements.",
         "0.7.0 adds lodgment due-date lookup through lodgment-calendar 0.1.0 and a bundled-data freshness report. Missing facts or recorded periods remain UNKNOWN.",
         "0.7.1 pins payday-super-checker 0.2.3, whose only change is to its Employment Hero export profile. The server imports no vendor export, so no tool output changes except engine_version, now 0.2.3 for the payday tools.",
         "0.8.0 moves to the Ryan Duguid Public Attribution Licence 1.0 and lists 25 tools, up from 22, adding get_reviewed_rate, validate_abn and validate_acn. Its searches match whole words only and search_tax_rates leaves out superseded rows by default, both breaking changes. Engine pins are unchanged.",
         "0.9.0 adds no tool. review_div7a_loan refuses a remaining term longer than the Act allows, so a call that returned a figure in 0.8.0 can be refused; get_reviewed_rate adds the Division 296 rates. Engine pins are unchanged.",
         "0.10.0 adds validate_bsb_format and validate_account_number_format. Its tax worksheets run the separately installed australian-tax-calculators 1.0.0 executable instead of the Python 0.2.0 package; without it they refuse and every other tool works as before. contribution_caps reports a smaller carry_forward_applied in some cases. Other engine pins are unchanged.",
-        "0.11.0 advertises 66 calculator worksheet kinds with calculators 1.1.0, verifies the calculator executable by SHA-256 and pins lodgment-calendar 0.2.0."
+        "0.11.0 advertises 66 calculator worksheet kinds with calculators 1.1.0, verifies the calculator executable by SHA-256 and pins lodgment-calendar 0.2.0.",
+        "0.12.0 advertises 102 calculator worksheet kinds with calculators 1.2.0, moves to AGPL-3.0-or-later and is published as latest on the official MCP Registry."
       ]
     },
     "ozzit": {
@@ -80,38 +81,38 @@
       "distribution": "ozzit.xlsx",
       "repository": "https://github.com/ryanduguid/Ozzit",
       "published": {
-        "version": "3.7.0",
-        "released_utc": "2026-11-18T05:16:03Z",
-        "verified": "2026-11-19",
-        "release_url": "https://github.com/ryanduguid/Ozzit/releases/tag/v3.7.0",
-        "download_url": "https://github.com/ryanduguid/Ozzit/releases/download/v3.7.0/ozzit.xlsx",
-        "asset_sha256": "0ed09fc130d30394c97f6a41e40ab72d3f68093b65a5e109adf11bd901f006bd",
-        "asset_bytes": 492757
+        "version": "3.8.0",
+        "released_utc": "2026-11-23T23:58:45Z",
+        "verified": "2026-11-24",
+        "release_url": "https://github.com/ryanduguid/Ozzit/releases/tag/v3.8.0",
+        "download_url": "https://github.com/ryanduguid/Ozzit/releases/download/v3.8.0/ozzit.xlsx",
+        "asset_sha256": "6395c321ec12a1c77ae5a62c79cb9784f3bf99a408b8c1f97df278d15b13499a",
+        "asset_bytes": 553054
       },
       "documented": {
         "page": "tools/ozzit/index.html",
-        "version": "3.7.0",
-        "visible_label": "Current release Ozzit v3.7.0",
-        "software_version": "3.7.0",
-        "tag": "v3.7.0",
+        "version": "3.8.0",
+        "visible_label": "Current release Ozzit v3.8.0",
+        "software_version": "3.8.0",
+        "tag": "v3.8.0",
         "supporting_files": [
           "CITATION.cff",
           "functions.csv",
           "docs/workbook-use.md"
         ],
-        "asset_sha256": "0ed09fc130d30394c97f6a41e40ab72d3f68093b65a5e109adf11bd901f006bd",
-        "asset_bytes": 492757
+        "asset_sha256": "6395c321ec12a1c77ae5a62c79cb9784f3bf99a408b8c1f97df278d15b13499a",
+        "asset_bytes": 553054
       }
     },
     "au-fpa-pack": {
       "product": "Australian FP&A pack",
       "distribution": "au-fpa-pack",
-      "repository": "https://github.com/ryanduguid/au-fpa-pack",
+      "repository": "https://github.com/ryanduguid/OzFPA",
       "published": {
         "version": "0.7.0",
         "released_utc": "2026-11-16T12:49:05Z",
         "verified": "2026-11-17",
-        "release_url": "https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.7.0",
+        "release_url": "https://github.com/ryanduguid/OzFPA/releases/tag/v0.7.0",
         "pypi_url": "https://pypi.org/project/au-fpa-pack/"
       },
       "documented": {

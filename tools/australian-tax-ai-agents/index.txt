@@ -2,13 +2,13 @@
 
 Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
-> Aus Accounting MCP v0.11.0: a local MCP server for ATO benchmarks, Payday Super timing, GST review and 66 worksheets with the calculators executable.
+> Aus Accounting MCP v0.12.0: a local MCP server for ATO benchmarks, Payday Super timing, GST review and 102 worksheets with the calculators executable.
 
 # Aus Accounting MCP
 
-Aus Accounting MCP is a local Model Context Protocol server for Australian accounting checks: ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 66 tax and super worksheet kinds with the calculators executable.
+Aus Accounting MCP is a local Model Context Protocol server for Australian accounting checks: ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 102 tax and super worksheet kinds with the calculators executable.
 
-Current release aus-accounting-mcp v0.11.0, 21 November 2026, from the australian-accounting repository. Release licence: Ryan Duguid Public Attribution Licence 1.0. Published 25 August 2026. Last reviewed 23 November 2026.
+Current release aus-accounting-mcp v0.12.0, 23 November 2026, from the australian-accounting repository. Release licence: GNU Affero General Public License v3.0 or later. Published 25 August 2026. Last reviewed 24 November 2026.
 
 Delivery
 
@@ -22,13 +22,25 @@ Boundary
 
 Human review required. Optional local library excerpts enter the assistant’s context; Division 7A scope stays limited.
 
+Adopt Aus Accounting MCP Try 2 tool calls
+
+## Run the pinned MCP demo
+
+```
+uvx --from aus-accounting-mcp==0.2.8 aus-accounting-mcp-demo
+```
+
+Exit 0 JSON transcript of 2 local tool calls
+
+Runs the pinned v0.2.8 demonstration with fictional facts and no credentials. Inspect the demo output and caveats.
+
 The server runs on your machine and lodges nothing. Outputs need human review.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup or an accounting workflow. Ryan Duguid, a senior accountant in Newcastle, NSW, publishes the local engines and the MCP server that runs them. Aus Accounting MCP is a separate project from ato-mcp, the document-retrieval service compared below. The server ships no ATO document library and does not retrieve rulings from the web.
 
 ## The split, in one table
 
-The comparisons and capability list below describe reference release v0.2.8, so the worked example’s figures stay reproducible. The current release serves 66 worksheet kinds with the published 1.1.0 calculators executable. Use the current README for its complete scope.
+The comparisons and capability list below describe reference release v0.2.8, so the worked example’s figures stay reproducible. The current release serves 102 worksheet kinds with the published 1.2.0 calculators executable. Use the current README for its complete scope.
 
 Job | What to install | Where it runs | What it will not do
 Apply a statutory test to your own figures | Aus Accounting MCP | Local stdio MCP: Claude Code, Cursor, Claude Desktop, Codex | No hosted ATO corpus, formation of Division 7A amalgamated loans or lodgement.
@@ -76,9 +88,9 @@ The transcript’s first line shows the source-checkout command, uv run --locked
 
 ## Adopt
 
-The current published release is aus-accounting-mcp/v0.11.0, published on 21 November 2026 and verified on GitHub, PyPI and the MCP registry on 22 November 2026. With calculator release 1.1.0, the server exposes 66 worksheet kinds. Read aus-accounting://scope for each worksheet’s periods, scope and required inputs. The v0.9.0 release history and v0.2.8 demonstration are preserved below.
+The current published release is aus-accounting-mcp/v0.12.0, published on 23 November 2026 and verified on GitHub, PyPI and the MCP registry on 24 November 2026. With calculator release 1.2.0, the server exposes 102 worksheet kinds. Read aus-accounting://scope for each worksheet’s periods, scope and required inputs. The v0.11.0 release served 66 worksheet kinds with calculators 1.1.0; the v0.9.0 release history and v0.2.8 demonstration are preserved below.
 
-Install the calculator separately for Claude Code or Codex. Put it on PATH or set AUS_TAX_CALCULATORS_BIN to its absolute path. The server verifies the executable’s SHA-256. It recognises the released x86-64 Linux and Windows digests. For a source build, set AUS_TAX_CALCULATORS_SHA256 to its verified digest. The server needs permission to run the verified copy from its temporary directory. The v0.11.0 Claude Desktop bundle includes the calculator on x86-64 Linux and Windows.
+Install the calculator separately for Claude Code or Codex. Put it on PATH or set AUS_TAX_CALCULATORS_BIN to its absolute path. The server verifies the executable’s SHA-256. It recognises the released x86-64 Linux and Windows digests. For a source build, set AUS_TAX_CALCULATORS_SHA256 to its verified digest. The server needs permission to run the verified copy from its temporary directory. The v0.12.0 Claude Desktop bundle includes the calculator on x86-64 Linux and Windows.
 
 ### Release v0.10.0
 
@@ -102,7 +114,7 @@ Open the fictional Excel forecast in desktop Excel, or send a reproducible evalu
 
 Claude Code
 
-Needs Python 3.14 or later and uv. Release v0.11.0 uses the Ryan Duguid Public Attribution Licence 1.0. Check the version uvx installs.
+Needs Python 3.14 or later and uv. Release v0.12.0 uses the GNU Affero General Public License v3.0 or later. Check the version uvx installs.
 
 ```
 # Australian Accounting & Tax MCP server for Claude Code
@@ -111,7 +123,7 @@ claude mcp add aus-accounting -- uvx aus-accounting-mcp
 
 Codex
 
-Needs Python 3.14 or later and uv. Release v0.11.0 uses the Ryan Duguid Public Attribution Licence 1.0. Check the version uvx installs.
+Needs Python 3.14 or later and uv. Release v0.12.0 uses the GNU Affero General Public License v3.0 or later. Check the version uvx installs.
 
 ```
 # Australian Accounting & Tax MCP server for Codex
@@ -181,7 +193,7 @@ The tools calculate and refuse. Professional judgement and lodgement stay human.
 
 ### What is aus-accounting-mcp?
 
-A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. The reference example uses v0.2.8 and its 7 worksheets. Published v0.11.0 serves 66 worksheet kinds with the 1.1.0 calculators executable, alongside GST coding and BAS reconciliation review. Outputs need human review.
+A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. The reference example uses v0.2.8 and its 7 worksheets. Published v0.12.0 serves 102 worksheet kinds with the 1.2.0 calculators executable, alongside GST coding and BAS reconciliation review. Outputs need human review.
 
 ### Is aus-accounting-mcp a hosted ATO document library?
 
@@ -221,14 +233,13 @@ Yes. The listing name is io.github.ryanduguid/aus-accounting. The install comman
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
-- v0.11.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.11.0
+- v0.12.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.12.0
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
-- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.11.0/apps/aus-accounting-mcp/LICENSE
-- current release: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- GNU Affero General Public License v3.0 or later: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.12.0/apps/aus-accounting-mcp/LICENSE
+- Adopt Aus Accounting MCP: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Try 2 tool calls: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
 - current README: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp/README.md
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
@@ -245,14 +256,13 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
 - uv installed: https://docs.astral.sh/uv/
 - MIT License: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.8/apps/aus-accounting-mcp/LICENSE
-- calculator release 1.1.0: https://github.com/ryanduguid/australian-accounting/releases/tag/australian-tax-calculators/v1.1.0
+- calculator release 1.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/australian-tax-calculators/v1.2.0
 - v0.10.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.10.0
 - v0.9.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.9.0
 - Excel cash flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - browser calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - reproducible evaluation: https://duguid.com.au/evaluate/
 - Apache License 2.0: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.4.0/LICENSE
-- Try two tool calls: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
 - v0.7.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.7.0
 - PyPI: https://pypi.org/project/aus-accounting-mcp/
 - registry record: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest

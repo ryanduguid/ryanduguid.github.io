@@ -1,4 +1,4 @@
-# Chick counters effective life: 20 years, Poultry hatcheries
+# Chick counters effective life: 20 years
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/chick-counters/
 
@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheri
 
 ‘Chick counters’, for an asset used in Poultry hatcheries, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2007.
 
-Published 14 November 2026. Page updated 21 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 

@@ -2,13 +2,13 @@
 
 Source: https://duguid.com.au/rates/
 
-> Maintained Australian income tax, study loan, PAYG withholding, super guarantee, Division 7A, GIC, car and FBT rates with source-checked dates and primary sources.
+> Australian income tax, HELP, PAYG withholding, super guarantee, Division 7A, GIC, car, FBT and transfer duty rates with source-checked dates and CSVs.
 
 # Rates
 
-Twelve maintained Australian reference tables with the current value, source-checked date and primary material kept together.
+Twelve maintained Australian reference tables with the current value, source-checked date and primary material kept together. See also depreciation effective lives (LI 2025/20) and 2026-27 BAS due dates.
 
-Last reviewed 15 November 2026.
+Last reviewed 23 November 2026.
 
 ## Super guarantee rate history
 
@@ -498,6 +498,8 @@ Follow updates with the Atom feed. It covers this site’s recorded changes and 
 
 ## Links
 
+- depreciation effective lives (LI 2025/20): https://duguid.com.au/tools/depreciation-rates/
+- 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
 - Primary source: https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee
 - Download CSV: https://duguid.com.au/rates/super-guarantee/super-guarantee-rates.csv
