@@ -789,7 +789,7 @@ Object.assign(INPUTS, { trustStreaming: (x) => calculations.trustStreamingInputs
   (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
 Object.assign(ENGINE_LABELS, { trustStreaming: { netIncome: 'net income', trusteeAssessable: 'trustee assessed under s 99A',
   trusteeTax: 'trustee’s tax at 45%', trusteeTaxAfterOffset: 'trustee’s tax after the offset',
-  ...Object.fromEntries([1, 2, 3, 4, 5, 6].flatMap((n) => [['Division6', 'Division 6 share'], ['AttributableGain', 'attributable gain'],
+  ...Object.fromEntries([1, 2, 3, 4].flatMap((n) => [['Division6', 'Division 6 share'], ['AttributableGain', 'attributable gain'],
     ['ExtraCapitalGain', 'extra capital gain'], ['AttributableFranked', 'attributable franked distribution'], ['FrankingCredit', 'franking credit'],
     ['Assessable', 'assessable']].map(([field, words]) => [`b${n}${field}`, `beneficiary ${n} ${words}`]))) } });
 
@@ -7328,10 +7328,12 @@ test('trust streaming refuses inputs it cannot settle', () => {
     /capital gain in trust income/);
   refused({ capital_gain_concessions: 'indexation' }, /Choose the concessions/);
   refused({ beneficiaries: [{ ...trustPerson('A', '1'), kind: 'partnership' }] }, /choose individual, company or trust/);
-  refused({ beneficiaries: Array.from({ length: 7 }, (_, i) => trustPerson(`P${i}`, '1')) }, /at most 6/);
+  refused({ beneficiaries: Array.from({ length: 5 }, (_, i) => trustPerson(`P${i}`, '1')) }, /at most 4/);
   refused({ other_net_income: '-80', franked_distributions: '70', franking_credits: '30' }, /rateable reduction/);
   // A specific entitlement in tax dollars above the beneficiary's present entitlement leaves a negative adjusted percentage.
   refused({ other_trust_income: '0', other_net_income: '0', capital_gain: '150', capital_gain_remaining: '70', capital_gain_concessions: 'discount',
     capital_gain_trust_income: '140', beneficiaries: [trustPerson('A', '110', '110'), trustPerson('B', '30')] }, /below nil, so the adjusted/);
   assert.equal(calculations.trustStreaming({ ...trustZero, other_trust_income: '100', other_net_income: '100' }).trustee.assessable, 100);
+  // Trust income below nil with net income above it: nobody is entitled and the trustee is assessed on it all.
+  assert.equal(calculations.trustStreaming({ ...trustZero, other_trust_income: '-50', other_net_income: '100' }).trustee.assessable, 100);
 });

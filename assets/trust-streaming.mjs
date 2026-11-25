@@ -19,7 +19,7 @@
 
 import { cents } from './money.mjs';
 
-export const TRUST_STREAMING_ROWS = 6;
+export const TRUST_STREAMING_ROWS = 4;
 export const CONCESSIONS = /** @type {const} */ (['none', 'discount', 'small_business', 'both']);
 export const BENEFICIARY_KINDS = /** @type {const} */ (['individual', 'company', 'trust']);
 const GROSS_UP = { none: 1n, discount: 2n, small_business: 2n, both: 4n };
@@ -120,7 +120,8 @@ export function trustStreaming(input) {
   if (total((b) => b.frankedBenefit) > netFranked) {
     refuse('Specific entitlements to the franked distributions cannot exceed them, less directly relevant deductions.');
   }
-  const unentitled = trustIncome - total((b) => b.entitlement);
+  // Trust income below nil leaves nothing to be entitled to.
+  const unentitled = (trustIncome > 0n ? trustIncome : 0n) - total((b) => b.entitlement);
   if (unentitled < 0n) refuse('Present entitlements cannot exceed the trust’s income.');
 
   // ss 115-228(1), 207-58(1): the gain or distribution times the share of its net financial benefit.

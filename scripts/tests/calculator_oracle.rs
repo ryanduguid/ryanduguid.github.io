@@ -10277,35 +10277,85 @@ fn trust_text(cents: i64) -> String {
 
 /// One trust: other income and net income (sometimes below nil), a franked distribution with a credit of at most
 /// 30/70 of it and some directly relevant deductions, one capital gain with its remaining amount and concessions,
-/// and up to 6 beneficiaries whose entitlements fit inside trust income and whose specific entitlements fit inside
+/// and up to 4 beneficiaries whose entitlements fit inside trust income and whose specific entitlements fit inside
 /// theirs. The expected figures follow Division 6, 6E, Subdivisions 115-C and 207-B and s 99A as read on
 /// 26 November 2026, worked here from the sections rather than from the engine.
 #[allow(clippy::too_many_lines)]
 fn trust_case(rng: &mut Seeded) -> (Value, Value) {
-    let amount = |rng: &mut Seeded, top: u64| i64::try_from(rng.below(top) * 100 + rng.below(100)).unwrap();
-    let other_income = amount(rng, 200_000) - if rng.below(5) == 0 { amount(rng, 250_000) } else { 0 };
+    let amount =
+        |rng: &mut Seeded, top: u64| i64::try_from(rng.below(top) * 100 + rng.below(100)).unwrap();
+    let other_income = amount(rng, 200_000)
+        - if rng.below(5) == 0 {
+            amount(rng, 250_000)
+        } else {
+            0
+        };
     let other_net = other_income + amount(rng, 20_000) - amount(rng, 20_000);
-    let franked = if rng.below(4) == 0 { 0 } else { amount(rng, 150_000) };
-    let credits = if franked == 0 { 0 } else { franked * 3 / 7 * i64::try_from(rng.below(2)).unwrap() };
-    let franked_deductions = if franked == 0 || rng.below(2) == 0 { 0 } else { franked / 10 };
-    let gain = if rng.below(4) == 0 { 0 } else { amount(rng, 300_000) + 100 };
+    let franked = if rng.below(4) == 0 {
+        0
+    } else {
+        amount(rng, 150_000)
+    };
+    let credits = if franked == 0 {
+        0
+    } else {
+        franked * 3 / 7 * i64::try_from(rng.below(2)).unwrap()
+    };
+    let franked_deductions = if franked == 0 || rng.below(2) == 0 {
+        0
+    } else {
+        franked / 10
+    };
+    let gain = if rng.below(4) == 0 {
+        0
+    } else {
+        amount(rng, 300_000) + 100
+    };
     let concessions = rng.pick(&["none", "discount", "small_business", "both"]);
-    let gross: i64 = match concessions { "none" => 1, "both" => 4, _ => 2 };
-    let remaining = if gain == 0 { 0 } else { (gain / gross - i64::try_from(rng.below(50)).unwrap() * 100).max(1) };
-    let gain_income = if gain == 0 { 0 } else { gain - i64::try_from(rng.below(3)).unwrap() * gain / 10 };
+    let gross: i64 = match concessions {
+        "none" => 1,
+        "both" => 4,
+        _ => 2,
+    };
+    let remaining = if gain == 0 {
+        0
+    } else {
+        (gain / gross - i64::try_from(rng.below(50)).unwrap() * 100).max(1)
+    };
+    let gain_income = if gain == 0 {
+        0
+    } else {
+        gain - i64::try_from(rng.below(3)).unwrap() * gain / 10
+    };
     let net_franked = franked - franked_deductions;
     let trust_income = other_income + gain_income + net_franked;
-    let count = rng.below(7);
-    let (mut left, mut gain_left, mut franked_left) = (trust_income.max(0), gain_income, net_franked);
+    let count = rng.below(5);
+    let (mut left, mut gain_left, mut franked_left) =
+        (trust_income.max(0), gain_income, net_franked);
     let mut people = Vec::new();
     for n in 0..count {
         let present = i64::try_from(rng.below(u64::try_from(left).unwrap() + 1)).unwrap();
-        let g = if gain_left > 0 && rng.below(2) == 0 { i64::try_from(rng.below(u64::try_from(gain_left.min(present)).unwrap() + 1)).unwrap() } else { 0 };
-        let f = if franked_left > 0 && rng.below(2) == 0 { i64::try_from(rng.below(u64::try_from(franked_left.min(present - g)).unwrap() + 1)).unwrap() } else { 0 };
+        let g = if gain_left > 0 && rng.below(2) == 0 {
+            i64::try_from(rng.below(u64::try_from(gain_left.min(present)).unwrap() + 1)).unwrap()
+        } else {
+            0
+        };
+        let f = if franked_left > 0 && rng.below(2) == 0 {
+            i64::try_from(rng.below(u64::try_from(franked_left.min(present - g)).unwrap() + 1))
+                .unwrap()
+        } else {
+            0
+        };
         left -= present;
         gain_left -= g;
         franked_left -= f;
-        people.push((format!("P{n}"), rng.pick(&["individual", "company", "trust"]), present, g, f));
+        people.push((
+            format!("P{n}"),
+            rng.pick(&["individual", "company", "trust"]),
+            present,
+            g,
+            f,
+        ));
     }
     let call = json!({ "other_trust_income": trust_text(other_income), "other_net_income": trust_text(other_net),
         "franked_distributions": trust_text(franked), "franking_credits": trust_text(credits), "franked_deductions": trust_text(franked_deductions),
@@ -10313,13 +10363,37 @@ fn trust_case(rng: &mut Seeded) -> (Value, Value) {
         "capital_gain_trust_income": trust_text(gain_income),
         "beneficiaries": people.iter().map(|(name, kind, p, g, f)| json!({ "name": name, "kind": kind,
             "present_entitlement": trust_text(*p), "capital_gain_entitled": trust_text(*g), "franked_entitled": trust_text(*f) })).collect::<Vec<_>>() });
-    (call, trust_oracle(other_income, other_net, franked, credits, net_franked, gain, remaining, gross, gain_income, concessions, &people))
+    (
+        call,
+        trust_oracle(
+            other_income,
+            other_net,
+            franked,
+            credits,
+            net_franked,
+            gain,
+            remaining,
+            gross,
+            gain_income,
+            concessions,
+            &people,
+        ),
+    )
 }
 
 #[allow(clippy::too_many_arguments, clippy::too_many_lines)]
 fn trust_oracle(
-    other_income: i64, other_net: i64, franked: i64, credits: i64, net_franked: i64, gain: i64, remaining: i64, gross: i64,
-    gain_income: i64, concessions: &str, people: &[(String, &str, i64, i64, i64)],
+    other_income: i64,
+    other_net: i64,
+    franked: i64,
+    credits: i64,
+    net_franked: i64,
+    gain: i64,
+    remaining: i64,
+    gross: i64,
+    gain_income: i64,
+    concessions: &str,
+    people: &[(String, &str, i64, i64, i64)],
 ) -> Value {
     let zero = || tq(0);
     let net_income = other_net + remaining + net_franked + credits;
@@ -10330,13 +10404,34 @@ fn trust_oracle(
         return json!("refused");
     }
     // ss 115-228(1), 207-58(1).
-    let spec_gain: Vec<Q> = people.iter().map(|p| if gain_income > 0 { tq(gain).times(&tq(p.3)).over(&tq(gain_income)) } else { zero() }).collect();
-    let spec_franked: Vec<Q> = people.iter().map(|p| if net_franked > 0 { tq(franked).times(&tq(p.4)).over(&tq(net_franked)) } else { zero() }).collect();
+    let spec_gain: Vec<Q> = people
+        .iter()
+        .map(|p| {
+            if gain_income > 0 {
+                tq(gain).times(&tq(p.3)).over(&tq(gain_income))
+            } else {
+                zero()
+            }
+        })
+        .collect();
+    let spec_franked: Vec<Q> = people
+        .iter()
+        .map(|p| {
+            if net_franked > 0 {
+                tq(franked).times(&tq(p.4)).over(&tq(net_franked))
+            } else {
+                zero()
+            }
+        })
+        .collect();
     let unspec_gain = spec_gain.iter().fold(tq(gain), |t, s| t.minus(s));
     let unspec_franked = spec_franked.iter().fold(tq(franked), |t, s| t.minus(s));
-    let unentitled = trust_income - people.iter().map(|p| p.2).sum::<i64>();
+    let unentitled = trust_income.max(0) - people.iter().map(|p| p.2).sum::<i64>();
     // s 95(1) adjusted Division 6 percentage, as the ATO's examples work it.
-    let base = spec_gain.iter().chain(&spec_franked).fold(tq(trust_income), |t, s| t.minus(s));
+    let base = spec_gain
+        .iter()
+        .chain(&spec_franked)
+        .fold(tq(trust_income), |t, s| t.minus(s));
     let needed = Q::of(0).below(&unspec_gain) || Q::of(0).below(&unspec_franked);
     let mut adjusted = vec![zero(); people.len()];
     let mut trustee_adjusted = zero();
@@ -10355,19 +10450,51 @@ fn trust_oracle(
     }
     // ss 115-225(2), (3), 207-37(2), (3).
     let streamed = remaining + net_franked;
-    let reduce = |x: i64| if without_credits < streamed { tq(x).times(&tq(without_credits)).over(&tq(streamed)) } else { tq(x) };
+    let reduce = |x: i64| {
+        if without_credits < streamed {
+            tq(x).times(&tq(without_credits)).over(&tq(streamed))
+        } else {
+            tq(x)
+        }
+    };
     let (gain_net, franked_net) = (reduce(remaining), reduce(net_franked));
     // (share of the gain, share of the distribution) for each beneficiary, then the trustee.
     let mut shares: Vec<(Q, Q)> = (0..people.len())
-        .map(|i| (spec_gain[i].plus(&unspec_gain.times(&adjusted[i])), spec_franked[i].plus(&unspec_franked.times(&adjusted[i]))))
+        .map(|i| {
+            (
+                spec_gain[i].plus(&unspec_gain.times(&adjusted[i])),
+                spec_franked[i].plus(&unspec_franked.times(&adjusted[i])),
+            )
+        })
         .collect();
-    shares.push((unspec_gain.times(&trustee_adjusted), unspec_franked.times(&trustee_adjusted)));
-    let per = |share: &Q, whole_amount: i64, of: &Q| if whole_amount > 0 { of.times(share).over(&tq(whole_amount)) } else { zero() };
-    let attributable: Vec<Q> = shares.iter().map(|(g, _)| per(g, gain, &gain_net)).collect();
-    let franked_attr: Vec<Q> = shares.iter().map(|(_, f)| per(f, franked, &franked_net)).collect();
-    let credit: Vec<Q> = shares.iter().map(|(_, f)| per(f, franked, &tq(credits))).collect();
+    shares.push((
+        unspec_gain.times(&trustee_adjusted),
+        unspec_franked.times(&trustee_adjusted),
+    ));
+    let per = |share: &Q, whole_amount: i64, of: &Q| {
+        if whole_amount > 0 {
+            of.times(share).over(&tq(whole_amount))
+        } else {
+            zero()
+        }
+    };
+    let attributable: Vec<Q> = shares
+        .iter()
+        .map(|(g, _)| per(g, gain, &gain_net))
+        .collect();
+    let franked_attr: Vec<Q> = shares
+        .iter()
+        .map(|(_, f)| per(f, franked, &franked_net))
+        .collect();
+    let credit: Vec<Q> = shares
+        .iter()
+        .map(|(_, f)| per(f, franked, &tq(credits)))
+        .collect();
     // s 102UY(4): present entitlement less the parts of the shares that were trust income.
-    let in_income: Vec<Q> = shares.iter().map(|(g, f)| per(g, gain, &tq(gain_income)).plus(&per(f, franked, &tq(net_franked)))).collect();
+    let in_income: Vec<Q> = shares
+        .iter()
+        .map(|(g, f)| per(g, gain, &tq(gain_income)).plus(&per(f, franked, &tq(net_franked))))
+        .collect();
     let income_6e = other_income.max(0);
     let net_6e = tq(other_net.max(0));
     let mut division6 = Vec::new();
@@ -10376,32 +10503,69 @@ fn trust_oracle(
         if income_6e > 0 && e.below(&Q::of(0)) {
             return json!("refused");
         }
-        division6.push(if income_6e > 0 { net_6e.times(&e).over(&tq(income_6e)) } else { zero() });
+        division6.push(if income_6e > 0 {
+            net_6e.times(&e).over(&tq(income_6e))
+        } else {
+            zero()
+        });
     }
-    if income_6e > 0 && tq(unentitled).minus(&in_income[people.len()]).below(&Q::of(0)) {
+    if income_6e > 0
+        && tq(unentitled)
+            .minus(&in_income[people.len()])
+            .below(&Q::of(0))
+    {
         return json!("refused");
     }
     let trustee_division6 = division6.iter().fold(net_6e.clone(), |t, d| t.minus(d));
     let half = Q(1.into(), 2.into());
-    let b: Vec<Value> = people.iter().enumerate().map(|(i, p)| {
-        let extra = attributable[i].times(&tq(gross));
-        let mut own = extra.clone();
-        if matches!(concessions, "discount" | "both") && p.1 != "company" {
-            own = own.times(&half);
-        }
-        if matches!(concessions, "small_business" | "both") {
-            own = own.times(&half);
-        }
-        let assessable = division6[i].plus(&own).plus(&franked_attr[i]).plus(&credit[i]);
-        json!([&division6[i], &attributable[i], &extra, &own, &franked_attr[i], &credit[i], &assessable].map(|q| shown(q.cents())))
-    }).collect();
+    let b: Vec<Value> = people
+        .iter()
+        .enumerate()
+        .map(|(i, p)| {
+            let extra = attributable[i].times(&tq(gross));
+            let mut own = extra.clone();
+            if matches!(concessions, "discount" | "both") && p.1 != "company" {
+                own = own.times(&half);
+            }
+            if matches!(concessions, "small_business" | "both") {
+                own = own.times(&half);
+            }
+            let assessable = division6[i]
+                .plus(&own)
+                .plus(&franked_attr[i])
+                .plus(&credit[i]);
+            let figures = [
+                &division6[i],
+                &attributable[i],
+                &extra,
+                &own,
+                &franked_attr[i],
+                &credit[i],
+                &assessable,
+            ]
+            .map(|q| shown(q.cents()));
+            json!(figures)
+        })
+        .collect();
     let n = people.len();
     let trustee_gain = attributable[n].times(&tq(gross));
-    let trustee = trustee_division6.plus(&trustee_gain).plus(&franked_attr[n]).plus(&credit[n]);
+    let trustee = trustee_division6
+        .plus(&trustee_gain)
+        .plus(&franked_attr[n])
+        .plus(&credit[n]);
     let tax = trustee.times(&Q(45.into(), 100.into()));
     let after = tax.minus(&credit[n]).at_least_nil();
-    json!({ "net": shown(u64::try_from(net_income).unwrap()), "b": b,
-        "t": [&trustee_division6, &trustee_gain, &franked_attr[n], &credit[n], &trustee, &tax, &after].map(|q| shown(q.cents())) })
+    let t = [
+        &trustee_division6,
+        &trustee_gain,
+        &franked_attr[n],
+        &credit[n],
+        &trustee,
+        &tax,
+        &after,
+    ]
+    .map(|q| shown(q.cents()));
+    json!({ "net": shown(u64::try_from(net_income).unwrap()), "b": b, "t": t })
 }
 
 #[test]
@@ -10410,9 +10574,16 @@ fn the_trust_streaming_engine_agrees_with_the_oracle_on_every_seeded_case() {
         return;
     }
     let mut rng = Seeded(0x2026_1126_0000_0B15);
-    let (cases, expected): (Vec<_>, Vec<_>) = (0..TRUST_CASES).map(|_| trust_case(&mut rng)).unzip();
-    let refused = expected.iter().filter(|want| *want == &json!("refused")).count();
-    assert!(refused > 0 && refused < TRUST_CASES / 2, "{refused} refused");
+    let (cases, expected): (Vec<_>, Vec<_>) =
+        (0..TRUST_CASES).map(|_| trust_case(&mut rng)).unzip();
+    let refused = expected
+        .iter()
+        .filter(|want| *want == &json!("refused"))
+        .count();
+    assert!(
+        refused > 0 && refused < TRUST_CASES / 2,
+        "{refused} refused"
+    );
     assert!(expected.iter().any(|want| want["t"][4] != json!("0")));
     let actual = run_node(TRUST_HARNESS, &cases);
     assert_eq!(actual.len(), TRUST_CASES);
