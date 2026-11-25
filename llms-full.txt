@@ -5709,6 +5709,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+26 November 2026 | A new business calculator, casual and overtime pay, works one employee’s gross pay for a pay period from the base hourly rate, casual loading and penalty and overtime rates you enter, and the 12% super guarantee on ordinary time earnings, leaving overtime out and keeping the casual loading in, for paydays from 1 July 2025 to 30 June 2027. It holds no award rates: the Fair Work Ombudsman’s pay guides and Pay and Conditions Tool give them.
 26 November 2026 | The tool pages, changelog, release record and machine indexes name the releases of 24 and 25 November: aus-accounting-mcp v0.13.0 (148 worksheet kinds with calculators 1.4.0, 29 tools), Australian Accounting Skills v0.8.1 (112 skills, Apache License 2.0), monthly-close-control-plane v1.2.0 and review-ready-gate v1.1.0 (both now under the GNU Affero General Public License v3.0 or later, with executables for 6 targets), and solomons-sword v1.0.0 and the-exchequer-tally v1.0.0, now standalone executables under the same licence; the trust distribution and company tax pages keep their pinned Python examples. The profit and cash flow case states that GitHub holds au-fpa-pack v0.8.0 whilst PyPI still serves 0.7.0.
 25 November 2026 | Updated general tax question 8 after the ATO updated its How to lodge your tax return page from 12 to 10 business days for returns lodged online, matching its progress page.
 24 November 2026 | The first home owner grant calculator now takes the building contract price of a home built. Below the grant it pays the contract price in Victoria, Queensland, Western Australia, South Australia, Tasmania and the Northern Territory, whose Acts pay the lesser of the consideration and the grant, and in Victoria the $750,000 cap tests the contract price, so a larger land and building total is computed. A New South Wales contract price below the grant is still not computed.
@@ -5963,6 +5964,7 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- casual and overtime pay: https://duguid.com.au/tools/business-calculators/casual-overtime/
 - aus-accounting-mcp v0.13.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.13.0
 - general tax question 8: https://duguid.com.au/tools/accounting-questions/general-tax/
 - first home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
@@ -6553,7 +6555,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 Fifty-seven free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
-Published 11 September 2026. Last checked 24 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
 Search 57 calculators
 
@@ -6609,6 +6611,7 @@ Search 57 calculators
 ## Staff, payroll and termination
 
 - Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
+- Casual and overtime pay calculator Gross pay from the base rate, casual loading and penalty and overtime rates you enter, and the super guarantee on ordinary time earnings.
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 - SGC and Payday Super calculator When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.
 - Long service leave calculator One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.
@@ -6679,6 +6682,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Capital gains tax calculator: https://duguid.com.au/tools/business-calculators/cgt/
 - Small business CGT concessions checker: https://duguid.com.au/tools/business-calculators/cgt-concessions/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
+- Casual and overtime pay calculator: https://duguid.com.au/tools/business-calculators/casual-overtime/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
 - Long service leave calculator: https://duguid.com.au/tools/business-calculators/long-service-leave/
@@ -12295,6 +12299,95 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - Sole trader tax set-aside calculator: https://duguid.com.au/tools/individual-tax/sole-trader/
 - Companies and trusts questions: https://duguid.com.au/tools/accounting-questions/company-compliance/
+
+---
+
+# Casual loading and overtime pay calculator with super
+
+Source: https://duguid.com.au/tools/business-calculators/casual-overtime/
+
+> Gross pay from the base hourly rate, casual loading, penalty and overtime rates you enter, and the 12% super guarantee on ordinary time earnings, overtime left out.
+
+# Casual and overtime pay calculator
+
+Gross pay and super guarantee from the rates you enter.
+
+Published 26 November 2026. Last checked 26 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One pay period at the rates you enter
+
+Payday Base hourly rate (AUD) Casual loading on ordinary hours (%; 0 if not casual) Ordinary hours at the base rate
+
+Penalty or overtime hours (0 hours for an unused line)
+
+Line 1 hours Line 1 rate (% of the base rate)
+
+Line 1 hours are Ordinary hours Overtime
+
+Line 2 hours Line 2 rate (% of the base rate)
+
+Line 2 hours are Ordinary hours Overtime
+
+Line 3 hours Line 3 rate (% of the base rate)
+
+Line 3 hours are Ordinary hours Overtime
+
+Line 4 hours Line 4 rate (% of the base rate)
+
+Line 4 hours are Ordinary hours Overtime
+
+Paid annual leave in this pay (not for a casual; enter 0 for none)
+
+Hours of annual leave at the base rate Annual leave loading (%)
+
+The loading is paid for overtime the employee would have worked No Yes
+
+Calculate
+
+This calculator applies no award, agreement or minimum rate. Enter each rate as the award, enterprise agreement or contract sets it; the Fair Work Ombudsman’s pay guides and Pay and Conditions Tool give award rates. Some pay guides state a casual penalty rate with the loading already in it.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: payday 10 July 2026; base rate $30.00 an hour; casual loading 25%; 30 ordinary hours; 5 hours at 150%, ordinary hours; 3 hours at 175%, overtime. Ordinary hours at the base rate $900.00 Casual loading of 25% $225.00 5 hours at 150%, ordinary hours $225.00 3 hours at 175%, overtime, not ordinary time earnings $157.50 Gross pay $1,507.50 Qualifying earnings, the ordinary time earnings in this pay $1,350.00 Super guarantee at 12% of qualifying earnings $162.00 Paid from 1 July 2026: the super guarantee is due for this payday under Payday Super, on qualifying earnings.
+
+## How the casual and overtime pay calculator works
+
+The calculator works one employee’s gross pay for one pay period from the rates you enter, then the super guarantee on the part that is ordinary time earnings. Ordinary hours are paid at the base hourly rate, plus the casual loading as a percentage of it for a casual. Each penalty or overtime line is its hours at the percentage of the base rate you enter, such as 150% for time and a half. Annual leave is paid at the base rate with any leave loading. Each amount is worked exactly and rounded to the cent once.
+
+Ordinary time earnings are the pay for ordinary hours, the casual loading, penalty rates and shift loadings on ordinary hours, paid leave and a leave loading, unless the loading is paid for overtime the employee would have worked. Pay for overtime hours is not ordinary time earnings. For a payday from 1 July 2026, the super guarantee is 12% of qualifying earnings, which here are the ordinary time earnings in the pay; for a payday from 1 July 2025 to 30 June 2026, it is 12% of the ordinary time earnings under the quarterly rules. The calculator refuses a pay whose ordinary time earnings alone exceed the maximum contribution base.
+
+## What the casual and overtime pay calculator does not cover
+
+The calculator applies no award, enterprise agreement or minimum rate, and does not check that the rates you enter meet one: the Fair Work Ombudsman’s pay guides and Pay and Conditions Tool give award rates. It does not decide which hours are ordinary hours or overtime, whether a casual loading compounds with a penalty rate, or how an award rounds its rates; enter those as your award or agreement states them. It does not check whether the employee or the earnings are excluded from the super guarantee. It leaves out allowances, commission, bonuses, salary sacrifice, other qualifying earnings, PAYG withholding, payroll tax and workers compensation, and it does not track the maximum contribution base across a quarter or year: it assumes earlier pays have not reached it. Paydays before 1 July 2025 or after 30 June 2027 are refused. The ATO’s draft qualifying earnings ruling may change when it is finalised. Results are planning estimates: check them against the award or agreement and the ATO’s guidance.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Casual and overtime pay calculator
+
+Case | Inputs | Result
+A casual’s ordinary hours, casual loading and a Saturday penalty are ordinary time earnings; overtime is not | payday 10 July 2026; base rate $30.00 an hour; casual loading 25%; 30 ordinary hours; 5 hours at 150%, ordinary hours; 3 hours at 175%, overtime | gross pay $1,507.50, ordinary time earnings $1,350.00, super guarantee $162.00
+Full-time, paid by 30 June 2026: 4 hours of overtime at 150% are left out of ordinary time earnings | payday 12 March 2026; base rate $40.00 an hour; 38 ordinary hours; 4 hours at 150%, overtime | gross pay $1,760.00, ordinary time earnings $1,520.00, super guarantee $182.40
+Annual leave loading of 17.5% paid for overtime lost on leave is not ordinary time earnings | payday 12 March 2026; base rate $40.00 an hour; 38 ordinary hours; 38 hours of annual leave with 17.5% loading for lost overtime | gross pay $3,306.00, ordinary time earnings $3,040.00, super guarantee $364.80
+Any other annual leave loading is ordinary time earnings | payday 12 March 2026; base rate $40.00 an hour; 38 ordinary hours; 38 hours of annual leave with 17.5% loading | gross pay $3,306.00, ordinary time earnings $3,306.00, super guarantee $396.72
+A night shift loading on ordinary hours counts: super of $124.392 rounds to $124.39 | payday 3 September 2026; base rate $35.50 an hour; 20 ordinary hours; 8 hours at 115%, ordinary hours | gross pay $1,036.60, ordinary time earnings $1,036.60, super guarantee $124.39
+Each line rounds half up once: $249.975 and $62.49375, then super of $37.4964 | payday 15 October 2026; base rate $33.33 an hour; casual loading 25%; 7.5 ordinary hours | gross pay $312.47, ordinary time earnings $312.47, super guarantee $37.50
+A casual whose every hour is overtime has no ordinary time earnings and no super guarantee | payday 1 July 2025; base rate $28.00 an hour; casual loading 25%; 0 ordinary hours; 10 hours at 187.5%, overtime | gross pay $525.00, ordinary time earnings $0.00, super guarantee $0.00
+Ordinary time earnings of exactly the $270,830 annual maximum contribution base for 2026-27 | payday 1 July 2026; base rate $2,708.30 an hour; 100 ordinary hours | gross pay $270,830.00, ordinary time earnings $270,830.00, super guarantee $32,499.60
+Above the $62,500 quarterly maximum contribution base is refused | payday 30 June 2026; base rate $10,000.00 an hour; 7 ordinary hours | Refused: the ordinary time earnings for this pay alone exceed the quarterly maximum contribution base of $62,500; this calculator does not apply the base
+A casual loading and paid annual leave together are refused | payday 10 July 2026; base rate $30.00 an hour; casual loading 25%; 10 ordinary hours; 8 hours of annual leave | Refused: a casual employee’s loading is paid instead of paid leave: enter either a casual loading or hours of paid annual leave, not both
+A payday before 1 July 2025 is refused | payday 30 June 2025; base rate $30.00 an hour; 38 ordinary hours | Refused: enter a payday from 1 July 2025 to 30 June 2027, the paydays this calculator holds the 12% super guarantee and maximum contribution base for
+
+One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- pay guides: https://www.fairwork.gov.au/pay-and-wages/minimum-wages/pay-guides
+- Pay and Conditions Tool: https://calculate.fairwork.gov.au/
+- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 

@@ -8,6 +8,13 @@
   <updated>2026-11-26T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new business calculator, casual and overtime pay, works one employee’s gross…</title>
+    <link href="https://duguid.com.au/changelog/#entry-890f807124bbdaf8" />
+    <id>https://duguid.com.au/changelog/#entry-890f807124bbdaf8</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>A new business calculator, casual and overtime pay, works one employee’s gross pay for a pay period from the base hourly rate, casual loading and penalty and overtime rates you enter, and the 12% super guarantee on ordinary time earnings, leaving overtime out and keeping the casual loading in, for paydays from 1 July 2025 to 30 June 2027. It holds no award rates: the Fair Work Ombudsman’s pay guides and Pay and Conditions Tool give them.</summary>
+  </entry>
+  <entry>
     <title>The tool pages, changelog, release record and machine indexes name the releases…</title>
     <link href="https://duguid.com.au/changelog/#entry-82c2fe0f98e0f02a" />
     <id>https://duguid.com.au/changelog/#entry-82c2fe0f98e0f02a</id>
