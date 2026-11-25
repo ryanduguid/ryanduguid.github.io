@@ -28,11 +28,12 @@ description = "Placeholder passwords in URLs the source checks' tests expect the
 targetRules = ["generic-credential-uri"]
 condition = "AND"
 paths = [
-  # The ato_sources and rates tests, and their earlier versions in history.
-  '''^scripts/(?:tests/(?:ato_sources|rates)\.rs|check_ato_sources\.test\.mjs|test_rates_register\.py)$''',
+  # The ato_sources, rates and search_console tests, and their earlier
+  # versions in history.
+  '''^scripts/(?:tests/(?:ato_sources|rates|search_console)\.rs|check_ato_sources\.test\.mjs|test_rates_register\.py)$''',
 ]
 regexes = [
-  # https://user:password@... and https://user:pw@..., URLs carrying
-  # credentials the checks must reject.
-  '''^(?:password|pw)$''',
+  # https://user:password@..., https://user:pw@... and https://:pass@...,
+  # URLs carrying credentials the checks must reject.
+  '''^(?:password|pw|pass)$''',
 ]
