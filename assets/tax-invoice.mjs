@@ -168,7 +168,7 @@ export function taxInvoice(x) {
   if (rcti) checks.push(['GST payable by the supplier (s 29-70(1)(c)(vii))', gst > 0n ? 'Stated' : 'No GST is payable']);
 
   return {
-    heading, issued: x.issued, invoiceNumber, rcti, prices: x.prices, rounding: x.rounding, supplier: { ...supplier, abn: supplierAbn.formatted },
+    heading, issued: x.issued, invoiceNumber, rcti, prices: x.prices, rounding: x.rounding, supplier: { ...supplier, abn: supplierAbn.formatted ?? '' },
     recipient: { ...recipient, abn: recipientAbn?.formatted ?? '' }, recipientRequired, lines: shown,
     amount: money(amount), gst: money(gst), totalPrice: money(totalPrice), taxableAmount: money(taxableAmount), statements, checks,
   };

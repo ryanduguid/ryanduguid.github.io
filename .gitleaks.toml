@@ -24,6 +24,16 @@ regexes = [
 ]
 
 [[allowlists]]
+description = "Published worked examples the tax invoice generator and its tests use"
+targetRules = ["au-business-number"]
+regexes = [
+  # ABN Lookup's worked example in 'Format of the ABN', and the same number with its last digit changed.
+  '''^51[ -]?824[ -]?753[ -]?55[67]$''',
+  # ASIC's worked example ACN 004 085 616 with the 2 check digits that make it a valid ABN.
+  '''^53[ -]?004[ -]?085[ -]?616$''',
+]
+
+[[allowlists]]
 description = "Placeholder passwords in URLs the source checks' tests expect them to refuse"
 targetRules = ["generic-credential-uri"]
 condition = "AND"

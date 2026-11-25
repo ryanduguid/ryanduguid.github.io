@@ -10294,7 +10294,10 @@ fn ti_abn(rng: &mut Seeded) -> (String, bool) {
     };
     let digits: String = format!("{prefix}")
         .chars()
-        .chain(body.iter().map(|d| char::from(b'0' + u8::try_from(*d).unwrap())))
+        .chain(
+            body.iter()
+                .map(|d| char::from(b'0' + u8::try_from(*d).unwrap())),
+        )
         .collect();
     (
         format!(
@@ -10361,7 +10364,8 @@ fn ti_case(rng: &mut Seeded) -> (Value, Value) {
         ));
     }
     if !named && !taxable.is_empty() && total >= 100_000 {
-        problems.push("the recipient’s name or ABN, as the total price is $1,000 or more".to_string());
+        problems
+            .push("the recipient’s name or ABN, as the total price is $1,000 or more".to_string());
     }
     if !problems.is_empty() {
         let refused = format!("To be a tax invoice, enter {}.", problems.join("; "));
@@ -10395,13 +10399,16 @@ fn the_tax_invoice_engine_agrees_with_the_oracle_on_every_seeded_case() {
     let mut rng = Seeded(0x2026_1126_0000_7A11);
     let (cases, expected): (Vec<_>, Vec<_>) = (0..TI_CASES).map(|_| ti_case(&mut rng)).unzip();
     for kind in ["refused", "gst"] {
-        assert!(expected.iter().any(|want| want.get(kind).is_some()), "{kind}");
+        assert!(
+            expected.iter().any(|want| want.get(kind).is_some()),
+            "{kind}"
+        );
     }
-    assert!(
-        expected
-            .iter()
-            .any(|want| want["lines"].as_array().is_some_and(|l| l.iter().any(|x| x[1].is_null())))
-    );
+    assert!(expected.iter().any(|want| {
+        want["lines"]
+            .as_array()
+            .is_some_and(|l| l.iter().any(|x| x[1].is_null()))
+    }));
     let actual = run_node(TI_HARNESS, &cases);
     assert_eq!(actual.len(), TI_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
