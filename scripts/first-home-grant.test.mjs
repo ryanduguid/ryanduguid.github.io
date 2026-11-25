@@ -18,7 +18,9 @@ test('the first home owner grant keeps the land out of a home built’s consider
   const note = include.match(/<p class="field-note" id="first-home-owner-grant-value-note">([^<]*)<\/p>/)[1];
   assert.doesNotMatch(note, /It limits the grant/);
   assert.doesNotMatch(note, /below the grant is the grant/);
-  assert.match(note, /Built: [^.]*; the land never limits the grant, and where the contract price is below the grant, the grant is limited to that price \(NSW refuses it\)/);
+  assert.doesNotMatch(note, /the land never limits the grant/);
+  assert.match(note, /^Bought: price \(Victoria: off-the-plan contract price\), which tests any value cap and limits the grant where lower \(NSW refuses it\)\./);
+  assert.match(note, /Built: land plus building contract tests any value cap \(Victoria caps the building contract alone\); land is excluded from the lower-consideration rule, so where the building contract price is below the grant, the grant is limited to that price \(NSW refuses it\)\.$/);
   assert.match(include, /Without the building contract price entered, a home built also needs/);
   // A contract below the grant on $400,000 of land is refused, not paid in full; a $400,000 contract on land below it is.
   const paying = [['AU-NSW', 5000, 10000], ['AU-VIC', 5000, 10000], ['AU-QLD', 15000, 30000], ['AU-WA', 5000, 10000],
