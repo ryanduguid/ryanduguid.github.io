@@ -3,7 +3,7 @@
   "fictional": true,
   "currency": "AUD",
   "source_commit": "386c7ff31f7989b86445ef37d83a912fcb02bb47",
-  "source": "https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services",
+  "source": "https://github.com/ryanduguid/OzFPA/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services",
   "method": "Python forecast(delay_days=N), independently reconciled to dated source receipts and payments for every daily balance. No workbook was changed or recalculated in Excel for this capture.",
   "definition": "days_negative counts daily closing balances below zero across 2 October to 31 December 2026. Separate negative periods are added together. No bank flows occur on 1 October. Same-day flows are netted; intraday liquidity is not measured.",
   "inputs_sha256": {
