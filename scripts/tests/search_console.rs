@@ -528,3 +528,91 @@ fn cli_json_stdin_file_and_shaping_subcommands() {
         Some(0)
     );
 }
+
+#[test]
+fn overflow_infinity_sort_bigint_float_and_large_cli_ints() {
+    let inf_sort = r#"{"current":[{"keys":["/a"],"clicks":0,"impressions":1e308},{"keys":["/b"],"clicks":0,"impressions":5}],"previous":[{"keys":["/a"],"clicks":0,"impressions":-1e308},{"keys":["/b"],"clicks":0,"impressions":0}],"dimensions":["page"]}"#;
+    let inf_out = run_cli(&["compare_search_rows"], Some(inf_sort));
+    assert_eq!(inf_out.status.code(), Some(0));
+    let inf_text = String::from_utf8(inf_out.stdout).unwrap();
+    let pos_a = inf_text.find("\"/a\"").unwrap();
+    let pos_b = inf_text.find("\"/b\"").unwrap();
+    assert!(pos_a < pos_b);
+    assert!(inf_text.contains("\"impressions\": Infinity"));
+
+    let big_pow = format!("1{}", "0".repeat(400));
+    let bigint_err_payload = format!(
+        r#"{{"current":[{{"keys":["/a"],"clicks":0,"impressions":{big_pow}}}],"previous":[{{"keys":["/a"],"clicks":0,"impressions":1.0}}],"dimensions":["page"]}}"#
+    );
+    let err_out = run_cli(&["compare_search_rows"], Some(&bigint_err_payload));
+    assert_eq!(err_out.status.code(), Some(1));
+    assert!(
+        String::from_utf8(err_out.stderr)
+            .unwrap()
+            .contains("OverflowError")
+    );
+
+    let neg_bigint_err_payload = format!(
+        r#"{{"current":[{{"keys":["/a"],"clicks":0,"impressions":-{big_pow}}}],"previous":[{{"keys":["/a"],"clicks":0,"impressions":1.0}}],"dimensions":["page"]}}"#
+    );
+    let neg_err_out = run_cli(&["compare_search_rows"], Some(&neg_bigint_err_payload));
+    assert_eq!(neg_err_out.status.code(), Some(1));
+    assert!(
+        String::from_utf8(neg_err_out.stderr)
+            .unwrap()
+            .contains("OverflowError")
+    );
+
+    let bad_days = run_cli(
+        &[
+            "comparison_windows",
+            "--end-date",
+            "2026-08-28",
+            "--days",
+            "99999999999999999999999",
+        ],
+        None,
+    );
+    assert_eq!(bad_days.status.code(), Some(1));
+    assert!(
+        String::from_utf8(bad_days.stderr)
+            .unwrap()
+            .contains("days must be an integer from 1 to 90")
+    );
+
+    let bad_rows = run_cli(
+        &[
+            "build_search_request",
+            "--start-date",
+            "2026-08-01",
+            "--end-date",
+            "2026-08-28",
+            "--dimensions",
+            "page",
+            "--row-limit",
+            "-99999999999999999999999",
+        ],
+        None,
+    );
+    assert_eq!(bad_rows.status.code(), Some(1));
+    assert!(
+        String::from_utf8(bad_rows.stderr)
+            .unwrap()
+            .contains("row_limit must be an integer from 1 to 1,000")
+    );
+    assert_eq!(
+        run_cli(
+            &[
+                "comparison_windows",
+                "--end-date",
+                "2026-08-28",
+                "--days",
+                "abc"
+            ],
+            None,
+        )
+        .status
+        .code(),
+        Some(2)
+    );
+}

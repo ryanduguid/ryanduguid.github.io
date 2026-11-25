@@ -8,7 +8,7 @@
 use crate::py::{self, Date};
 use crate::pyjson::{self, Dump, Json};
 use crate::pyurl;
-use num_bigint::{BigInt, BigUint};
+use num_bigint::{BigInt, BigUint, Sign};
 use num_traits::{FromPrimitive, ToPrimitive, Zero};
 use std::cmp::Ordering;
 use std::collections::{HashMap, HashSet};
@@ -55,17 +55,20 @@ impl Metric {
         }
     }
 
-    fn as_f64(&self) -> f64 {
+    fn as_f64(&self) -> Result<f64> {
         match self {
-            Self::Int(n) => n.to_f64().unwrap_or(f64::INFINITY),
-            Self::Float(f) => *f,
+            Self::Int(n) => n
+                .to_f64()
+                .filter(|f| f.is_finite())
+                .ok_or_else(|| "OverflowError: int too large to convert to float".to_owned()),
+            Self::Float(f) => Ok(*f),
         }
     }
 
-    fn sub(&self, rhs: &Self) -> Self {
+    fn sub(&self, rhs: &Self) -> Result<Self> {
         match (self, rhs) {
-            (Self::Int(a), Self::Int(b)) => Self::Int(a - b),
-            _ => Self::Float(self.as_f64() - rhs.as_f64()),
+            (Self::Int(a), Self::Int(b)) => Ok(Self::Int(a - b)),
+            _ => Ok(Self::Float(self.as_f64()? - rhs.as_f64()?)),
         }
     }
 
@@ -87,6 +90,9 @@ impl Metric {
 }
 
 fn cmp_biguint_abs_f64(mag: &BigUint, val: f64) -> Ordering {
+    if !val.is_finite() {
+        return Ordering::Less;
+    }
     let whole = BigInt::from_f64(val.trunc()).expect("finite non-negative f64");
     match mag.cmp(whole.magnitude()) {
         Ordering::Equal if val.fract() > 0.0 => Ordering::Less,
@@ -251,8 +257,8 @@ pub fn compare_search_rows(
         let cur_impressions = Metric::from_row(cur_row, "impressions")?;
         let prev_clicks = Metric::from_row(prev_row, "clicks")?;
         let prev_impressions = Metric::from_row(prev_row, "impressions")?;
-        let delta_clicks = cur_clicks.sub(&prev_clicks);
-        let delta_impressions = cur_impressions.sub(&prev_impressions);
+        let delta_clicks = cur_clicks.sub(&prev_clicks)?;
+        let delta_impressions = cur_impressions.sub(&prev_impressions)?;
 
         let mut pairs: Vec<(String, Json)> = selected
             .iter()
@@ -462,16 +468,22 @@ fn is_option_token(arg: &str) -> bool {
 }
 
 fn parse_int_arg(sub: &str, flag: &str, raw: &str) -> std::result::Result<i64, u8> {
-    py::parse_int(raw, 10)
-        .ok()
-        .and_then(|v| v.to_i64())
-        .ok_or_else(|| {
+    match py::parse_int(raw, 10) {
+        Ok(v) => Ok(v.to_i64().unwrap_or_else(|| {
+            if v.sign() == Sign::Minus {
+                i64::MIN
+            } else {
+                i64::MAX
+            }
+        })),
+        Err(_) => {
             let _ = usage_error(
                 Some(sub),
                 &format!("argument {flag}: invalid int value: {}", py::repr_str(raw)),
             );
-            2
-        })
+            Err(2)
+        }
+    }
 }
 
 fn next_flag_value(
