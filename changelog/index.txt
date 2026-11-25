@@ -13,6 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+25 November 2026 | Updated general tax question 8 after the ATO updated its How to lodge your tax return page from 12 to 10 business days for returns lodged online, matching its progress page.
 24 November 2026 | The first home owner grant calculator now takes the building contract price of a home built. Below the grant it pays the contract price in Victoria, Queensland, Western Australia, South Australia, Tasmania and the Northern Territory, whose Acts pay the lesser of the consideration and the grant, and in Victoria the $750,000 cap tests the contract price, so a larger land and building total is computed. A New South Wales contract price below the grant is still not computed.
 24 November 2026 | Updated the Aus Accounting MCP guide, Ozzit reference and machine indexes for published releases aus-accounting-mcp v0.12.0 (102 worksheet kinds with calculators 1.2.0, AGPL-3.0-or-later, listed as latest on the official MCP Registry) and Ozzit v3.8.0 (165 functions and 5 help tables, Apache License 2.0, plus the Homebrew tap).
 24 November 2026 | The first home owner grant calculator now follows the Victorian, Western Australian and Northern Territory Acts: it pays the consideration where that is less than the grant, $10,000 for a Northern Territory established home bought from 1 July to 30 September 2025, and no longer tests a Victorian home built against $750,000 of land and building, since Victoria caps the building contract alone.
@@ -259,6 +260,7 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- general tax question 8: https://duguid.com.au/tools/accounting-questions/general-tax/
 - first home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 - Aus Accounting MCP guide: https://duguid.com.au/tools/australian-tax-ai-agents/
 - Ozzit reference: https://duguid.com.au/tools/ozzit/
@@ -274,7 +276,6 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 - GST adjustments: https://duguid.com.au/tools/business-calculators/gst-adjustments/
 - R&D tax offset: https://duguid.com.au/tools/business-calculators/rd-tax-offset/
 - super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
-- general tax question 6: https://duguid.com.au/tools/accounting-questions/general-tax/
 - company and trust question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/
 - tool pages: https://duguid.com.au/tools/
 - super co-contribution, LISTO and spouse offset: https://duguid.com.au/tools/individual-tax/government-super/

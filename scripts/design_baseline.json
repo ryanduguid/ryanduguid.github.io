@@ -99,7 +99,7 @@
       "072ab8813a0f45fef86cc4e2dbc9d731a2ce7694ad3ab238d9c425abb313120b"
     ],
     "tools/accounting-questions/general-tax/index.html": [
-      "0d989b9825e20aee524584d8cd6429a7520dee2dfb2b3eb72b9dd1f4639c730c"
+      "3e801730af100f1cfda16b7a35ef2780f978648a0d0777c87e90abcdccd1dc87"
     ],
     "tools/accounting-questions/gst-bas/index.html": [
       "329623c88d03ce013ab19051ea05cbc58c42060ff707a5bb42cf1a2c462bc872"
@@ -428,7 +428,7 @@
   },
   "protected_files": {
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "3ea8dafc59eec9dd4e219851dcb96614cf7eb32468ed3f04867da7f8c2e861e6"
+    "sitemap.xml": "af75527f473eefe312ba3dd333fe6821cc86e56d63f9986c5c2f260a1198fa48"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
