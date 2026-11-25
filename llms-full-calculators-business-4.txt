@@ -171,6 +171,124 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ---
 
+# Contractor against employee calculator: cost, take-home and super
+
+Source: https://duguid.com.au/tools/business-calculators/contractor-employee/
+
+> Compare what the same person costs a business and takes home as an employee or a contractor, with leave, payroll tax, workers compensation, GST and super under section 12(3).
+
+# Contractor against employee calculator
+
+The cost and take-home pay of the same person as an employee or a contractor, 2021-22 to 2026-27.
+
+Published 26 November 2026. Last checked 26 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+The same person and hours, engaged as an employee and as a contractor
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22
+
+Hours worked each week
+
+Private patient hospital cover all year Yes No
+
+A study or training loan No Yes
+
+As an employee
+
+Salary a year for those hours, including paid leave (AUD) Weeks of paid annual leave a year Leave loading on annual leave (%)
+
+The leave loading is ordinary time earnings Yes No, it stands for lost overtime
+
+Weeks of other paid leave taken: personal leave and public holidays Payroll tax rate on these wages (%; 0 below the threshold)
+
+Payroll tax counts super as wages Yes No
+
+Workers compensation premium rate on these wages (%)
+
+The premium counts super as wages No Yes
+
+As a contractor, for the hours the employee would work
+
+Rate an hour, excluding GST (AUD) Part of the year’s fee for something other than labour, such as equipment or materials (AUD) Contractor’s deductible business expenses a year, excluding GST (AUD) Contractor’s own super contributions claimed as a deduction (AUD)
+
+The contractor is registered for GST Yes No
+
+The business claims that GST back in full Yes No
+
+The contractor qualifies for the small business income tax offset No Yes
+
+The payments are wages for payroll tax (a relevant contract) No Yes
+
+The contractor is a worker for workers compensation No Yes
+
+The contract, for section 12(3) of the Superannuation Guarantee (Administration) Act 1992
+
+The contract is with the person as an individual, not their company, trust or partnership Yes No
+
+The contract gives a right to delegate, subcontract or assign the work No Yes
+
+The contract is to produce a result and pays for that result No Yes
+
+Calculate
+
+Enter the leave and loading the person’s award, agreement or contract gives; this page holds no award rates. The National Employment Standards give at least 4 weeks of paid annual leave and 10 days of paid personal leave a year, and do not give a loading.
+
+Section 12(3) needs all 4: a contract with the person, no right to delegate, no contract for a result, and labour as the main part of the fee. This page takes labour worth more than half the fee as the main part.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; 38 hours a week; employee salary $100,000.00, 4 weeks of annual leave with 0% loading (ordinary time earnings), 0 weeks of other paid leave; payroll tax 5.45% (super included), workers compensation 1.5% (super excluded); contractor $70.00 an hour, non-labour part $0.00, expenses $2,000.00, own super $0.00, registered for GST, full credit; contract with the person, no right to delegate, not for a result; contractor outside payroll tax and outside workers compensation; no small business income tax offset; hospital cover, no study loan. Hours worked in the year, 48 weeks 1,824 Employee: salary, including paid leave $100,000.00 Employee: leave loading $0.00 Employee: super guarantee at 12% $12,000.00 Employee: payroll tax $6,104.00 Employee: workers compensation $1,500.00 Employee: cost to the business $119,604.00 Employee: cost for each hour worked $65.57 Contractor: fee, excluding GST $127,680.00 Contractor: GST, claimed back as a credit $12,768.00 Contractor: super guarantee under section 12(3), at 12% of the labour part $15,321.60 Contractor: payroll tax $0.00 Contractor: workers compensation $0.00 Contractor: cost to the business $143,001.60 Contractor: cost for each hour worked $78.40 Cost to the business: employee less contractor -$23,397.60 Employee: tax, Medicare levy and any surcharge or study loan repayment $22,200.00 Employee: take-home pay $77,800.00 Contractor: profit after business expenses $125,680.00 Contractor: tax, Medicare levy and any surcharge or study loan repayment $30,737.60 Contractor: take-home after own super and tax $94,942.40 Take-home: employee less contractor -$17,142.40 Super: employee $12,000.00 Super: contractor, super guarantee and own contributions $15,321.60 Section 12(3) applies on these answers: the contract is with the person, who must do the work personally, it is not for a result and labour is 100% of the fee, so the business owes the super guarantee on the labour part as though the contractor were an employee.
+
+## How the contractor against employee calculator works
+
+The calculator takes one person doing the same work for the same hours for a full income year, engaged first as an employee and then as a contractor. As an employee, the person is paid the salary, which includes paid leave. Annual leave pay is the salary for the weeks of annual leave, a 52nd of the salary for each week, and the leave loading is the stated rate on it. The super guarantee is the year’s rate on the salary and, when it is ordinary time earnings, the loading, up to the year’s maximum contributions base. Payroll tax and the workers compensation premium are the rates you state on the salary and loading, with the super guarantee when you say it counts.
+
+The contractor is paid the hourly rate for the hours the employee would work: the hours a week times the 52 weeks of the year less the annual and other paid leave. The business pays GST on top when the contractor is registered, and its cost includes that GST only when it cannot claim it back. Under section 12(3) of the Superannuation Guarantee (Administration) Act 1992, a person who works under a contract that is wholly or principally for their labour is an employee of the other party for the super guarantee, even with an ABN. TR 2023/4 says this needs a contract with the person as an individual, gives no right to delegate, subcontract or assign the work, is not a contract for a result and is mainly for labour. When all 4 hold on your answers, the business owes the super guarantee on the labour part of the fee, which section 10A(1)(d) makes qualifying earnings. Payroll tax and workers compensation apply to the labour part only when you say the state’s law reaches the contractor.
+
+The take-home figures are for an Australian resident with no other income, using this site’s income tax engines. The employee’s salary and loading take income tax, the Medicare levy and any surcharge or study loan repayment, after the $1,000 standard deduction from 2026-27. The contractor’s fee less business expenses and their own deductible super is taxed the same way as a sole trader’s profit, with the small business income tax offset when you say it applies. Each amount is worked exactly and rounded to the cent once.
+
+## Employee or contractor: what decides it
+
+The calculator does not decide whether the person is an employee: it works both answers from your facts. Whether a person is an employee in the ordinary meaning depends on the whole relationship between the parties. Section 15AA of the Fair Work Act 2009 and the ATO’s TR 2023/4 set out the tests, and the ATO’s Employee or independent contractor pages include its decision tool. A contractor who is an employee in the ordinary meaning is owed the super guarantee on all of their ordinary time earnings, whatever section 12(3) says. Payroll tax and workers compensation each have their own tests in each state and territory. For income tax, see the personal services income checker: the PSI rules can deny a contractor deductions and the small business income tax offset.
+
+## What the contractor against employee calculator does not cover
+
+The calculator does not decide whether the person is an employee, whether section 12(3) applies when labour is the largest part of the fee without being more than half, or whether a contractor is in payroll tax or workers compensation: you answer those. It holds no award or agreement rates: the leave, loading, payroll tax rate and workers compensation rate are what you enter. It does not work payroll tax thresholds, grouping or deductions (see the payroll tax calculator), workers compensation by industry (see the workers compensation calculator), overtime, penalty rates, allowances, long service leave, notice or redundancy pay, or leave paid out when employment ends. It leaves out the PSI rules, Division 293 tax, excess concessional contributions, salary sacrifice, contributions tax in the fund, PAYG withholding and instalments, other income, part years, non-residents, contracts through a company or trust, labour hire and domestic or private work of 30 hours a week or less (section 12(11)). A year is taken as 52 weeks. Results are planning estimates: check them against the contract, your records and the ATO’s guidance.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Contractor against employee calculator
+
+Case | Inputs | Result
+Labour only, with the person, no right to delegate, not for a result: section 12(3) adds 12% of the fee | 2026-27; 38 hours a week; employee salary $100,000.00, 4 weeks of annual leave with 0% loading (ordinary time earnings), 0 weeks of other paid leave; payroll tax 5.45% (super included), workers compensation 1.5% (super excluded); contractor $70.00 an hour, non-labour part $0.00, expenses $2,000.00, own super $0.00, registered for GST, full credit; contract with the person, no right to delegate, not for a result; contractor outside payroll tax and outside workers compensation; no small business income tax offset; hospital cover, no study loan | employee cost $119,604.00, section 12(3) super guarantee $15,321.60, contractor cost $143,001.60, difference -$23,397.60, employee take-home $77,800.00, contractor take-home $94,942.40
+A right to delegate: no section 12(3) super; 17.5% loading, 2 weeks of other leave and a fee of $75,000 or more unregistered for GST | 2026-27; 38 hours a week; employee salary $100,000.00, 4 weeks of annual leave with 17.5% loading (ordinary time earnings), 2 weeks of other paid leave; payroll tax 5.45% (super included), workers compensation 1.5% (super excluded); contractor $70.00 an hour, non-labour part $0.00, expenses $2,000.00, own super $0.00, not registered for GST; contract with the person, right to delegate, not for a result; contractor outside payroll tax and outside workers compensation; no small business income tax offset; hospital cover, no study loan | employee cost $121,214.05, section 12(3) super guarantee $0.00, contractor cost $122,360.00, difference -$1,145.95, employee take-home $78,715.43, contractor take-home $91,324.80
+Labour exactly half the fee is not principally labour: no super guarantee | 2026-27; 38 hours a week; employee salary $100,000.00, 4 weeks of annual leave with 0% loading (ordinary time earnings), 0 weeks of other paid leave; payroll tax 5.45% (super included), workers compensation 1.5% (super excluded); contractor $70.00 an hour, non-labour part $63,840.00, expenses $2,000.00, own super $0.00, registered for GST, full credit; contract with the person, no right to delegate, not for a result; contractor outside payroll tax and outside workers compensation; no small business income tax offset; hospital cover, no study loan | employee cost $119,604.00, section 12(3) super guarantee $0.00, contractor cost $127,680.00, difference -$8,076.00, employee take-home $77,800.00, contractor take-home $94,942.40
+Labour a cent over half the fee: super guarantee on the labour part | 2026-27; 38 hours a week; employee salary $100,000.00, 4 weeks of annual leave with 0% loading (ordinary time earnings), 0 weeks of other paid leave; payroll tax 5.45% (super included), workers compensation 1.5% (super excluded); contractor $70.00 an hour, non-labour part $63,839.99, expenses $2,000.00, own super $0.00, registered for GST, full credit; contract with the person, no right to delegate, not for a result; contractor outside payroll tax and outside workers compensation; no small business income tax offset; hospital cover, no study loan | employee cost $119,604.00, section 12(3) super guarantee $7,660.80, contractor cost $135,340.80, difference -$15,736.80, employee take-home $77,800.00, contractor take-home $94,942.40
+A salary above the 2026-27 maximum contributions base of $270,830 | 2026-27; 38 hours a week; employee salary $300,000.00, 4 weeks of annual leave with 0% loading (ordinary time earnings), 0 weeks of other paid leave; payroll tax 5.45% (super included), workers compensation 1.5% (super excluded); contractor $200.00 an hour, non-labour part $0.00, expenses $2,000.00, own super $0.00, registered for GST, full credit; contract with the person, no right to delegate, not for a result; contractor outside payroll tax and outside workers compensation; no small business income tax offset; hospital cover, no study loan | employee cost $355,120.83, section 12(3) super guarantee $32,499.60, contractor cost $397,299.60, difference -$42,178.77, employee take-home $193,600.00, contractor take-home $226,414.00
+2024-25 at 11.5%, the contractor in payroll tax and workers compensation | 2024-25; 38 hours a week; employee salary $100,000.00, 4 weeks of annual leave with 0% loading (ordinary time earnings), 0 weeks of other paid leave; payroll tax 5.45% (super included), workers compensation 1.5% (super included); contractor $70.00 an hour, non-labour part $0.00, expenses $2,000.00, own super $0.00, registered for GST, full credit; contract with the person, no right to delegate, not for a result; contractor in payroll tax and in workers compensation; no small business income tax offset; hospital cover, no study loan | employee cost $119,249.25, section 12(3) super guarantee $14,683.20, contractor cost $152,257.44, difference -$33,008.19, employee take-home $77,212.00, contractor take-home $94,674.40
+A contract with the person’s company: no section 12(3) super | 2026-27; 38 hours a week; employee salary $100,000.00, 4 weeks of annual leave with 0% loading (ordinary time earnings), 0 weeks of other paid leave; payroll tax 5.45% (super included), workers compensation 1.5% (super excluded); contractor $70.00 an hour, non-labour part $0.00, expenses $2,000.00, own super $0.00, registered for GST, full credit; contract not with the person as an individual, no right to delegate, not for a result; contractor outside payroll tax and outside workers compensation; no small business income tax offset; hospital cover, no study loan | employee cost $119,604.00, section 12(3) super guarantee $0.00, contractor cost $127,680.00, difference -$8,076.00, employee take-home $77,800.00, contractor take-home $94,942.40
+GST the business cannot claim back adds to its cost; a contract for a result | 2026-27; 38 hours a week; employee salary $100,000.00, 4 weeks of annual leave with 0% loading (ordinary time earnings), 0 weeks of other paid leave; payroll tax 5.45% (super included), workers compensation 1.5% (super excluded); contractor $70.00 an hour, non-labour part $0.00, expenses $2,000.00, own super $0.00, registered for GST, no credit; contract with the person, no right to delegate, for a result; contractor outside payroll tax and outside workers compensation; no small business income tax offset; hospital cover, no study loan | employee cost $119,604.00, section 12(3) super guarantee $0.00, contractor cost $140,448.00, difference -$20,844.00, employee take-home $77,800.00, contractor take-home $94,942.40
+Leave loading that stands for lost overtime is not ordinary time earnings | 2026-27; 38 hours a week; employee salary $100,000.00, 4 weeks of annual leave with 17.5% loading (not ordinary time earnings), 0 weeks of other paid leave; payroll tax 5.45% (super included), workers compensation 1.5% (super excluded); contractor $70.00 an hour, non-labour part $0.00, expenses $2,000.00, own super $0.00, registered for GST, full credit; contract with the person, no right to delegate, not for a result; contractor outside payroll tax and outside workers compensation; no small business income tax offset; hospital cover, no study loan | employee cost $121,043.71, section 12(3) super guarantee $15,321.60, contractor cost $143,001.60, difference -$21,957.89, employee take-home $78,715.43, contractor take-home $94,942.40
+The small business income tax offset and own super of $10,000 | 2026-27; 38 hours a week; employee salary $100,000.00, 4 weeks of annual leave with 0% loading (ordinary time earnings), 0 weeks of other paid leave; payroll tax 5.45% (super included), workers compensation 1.5% (super excluded); contractor $70.00 an hour, non-labour part $0.00, expenses $2,000.00, own super $10,000.00, registered for GST, full credit; contract with the person, right to delegate, not for a result; contractor outside payroll tax and outside workers compensation; small business income tax offset; hospital cover, no study loan | employee cost $119,604.00, section 12(3) super guarantee $0.00, contractor cost $127,680.00, difference -$8,076.00, employee take-home $77,800.00, contractor take-home $89,142.40
+Own super above the concessional cap with the super guarantee: refused | 2026-27; 38 hours a week; employee salary $100,000.00, 4 weeks of annual leave with 0% loading (ordinary time earnings), 0 weeks of other paid leave; payroll tax 5.45% (super included), workers compensation 1.5% (super excluded); contractor $70.00 an hour, non-labour part $0.00, expenses $2,000.00, own super $20,000.00, registered for GST, full credit; contract with the person, no right to delegate, not for a result; contractor outside payroll tax and outside workers compensation; no small business income tax offset; hospital cover, no study loan | Refused: enter the contractor’s own super so that it and any super guarantee total no more than the 2026-27 concessional contributions cap of $32,500: excess contributions are not worked here
+Leave of 52 weeks: refused | 2026-27; 38 hours a week; employee salary $100,000.00, 50 weeks of annual leave with 0% loading (ordinary time earnings), 2 weeks of other paid leave; payroll tax 5.45% (super included), workers compensation 1.5% (super excluded); contractor $70.00 an hour, non-labour part $0.00, expenses $2,000.00, own super $0.00, registered for GST, full credit; contract with the person, no right to delegate, not for a result; contractor outside payroll tax and outside workers compensation; no small business income tax offset; hospital cover, no study loan | Refused: enter leave of fewer than 52 weeks in all
+
+One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- Employee or independent contractor: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/employee-or-independent-contractor
+- personal services income checker: https://duguid.com.au/tools/business-calculators/psi-determination/
+- payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
+- workers compensation calculator: https://duguid.com.au/tools/business-calculators/workers-compensation/
+- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
 # 13-week cash forecast calculator with CSV export
 
 Source: https://duguid.com.au/tools/business-calculators/cash/
@@ -707,132 +825,3 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
-
----
-
-# Stamp duty calculator: all 8 Australian states (2026-27)
-
-Source: https://duguid.com.au/tools/business-calculators/transfer-duty/
-
-> Residential transfer (stamp) duty across all 8 Australian states and territories at general rates or with first home buyer concessions, primary sourced.
-
-# Transfer duty calculator
-
-General transfer (stamp) duty on a residential purchase in any Australian state or territory, from each revenue office’s current rates, and the duty for an eligible first home buyer.
-
-Published 15 November 2026. Last checked 16 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Transfer duty inputs
-
-State or territory New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
-
-Buyer General rates Eligible first home buyer, established home Eligible first home buyer, new home
-
-Dutiable value (whole dollars)
-
-Each revenue office decides what the dutiable value is. Revenue NSW, for example, uses the higher of the price you agreed to pay and the market value. The rates are those in the transfer duty rate table.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, dutiable value $1,350,000.00. General transfer duty $55,537.00 Rate applied $52,237 plus $5.50 for every $100, or part of $100, over $1,290,000
-
-## How the transfer duty calculator works
-
-The transfer duty calculator applies one state or territory’s general rates to a dutiable value. Most scales charge a base amount plus a rate for every $100, or part of $100, over a threshold, so the excess is rounded up to the next $100. Victoria takes a percentage of the excess without rounding it, and 5.5% of the whole value from $960,000 to $2 million. The Australian Capital Territory takes $4.54 per $100 of the whole value above $1,455,000. The Northern Territory uses a formula up to $525,000 and a single percentage of the whole value above it.
-
-Where a revenue office publishes worked figures, the calculator gives the same amount. Revenue NSW’s worked examples give $55,537 on $1,350,000, $14,437 on $450,000 and $203,237 on $4,000,000; its Transfer of Land or Business Calculator gave $14,441.50 on $450,050 when tried on 15 November 2026. The Victorian State Revenue Office gives $28,070 at the standard rate on $550,000 and $19,070 on $400,000. The Queensland Revenue Office gives $31,275 on $850,000. RevenueSA’s foreign ownership surcharge example gives stamp duty of $26,830 on $600,000. The Tasmanian duty calculator gave $18,247.50 on $500,000 on 15 November 2026. For Western Australia, the Australian Capital Territory and the Northern Territory the tests work examples by hand from the published rates: $32,315.50 on $800,000 in Western Australia, $17,880 on $650,000 in the Australian Capital Territory and $23,928.60 on $500,000 in the Northern Territory.
-
-## Duty for a first home buyer
-
-For an eligible first home buyer, the calculator applies the state or territory’s first home buyer concession on a home, new or established, bought to live in. Each scheme’s conditions, such as citizenship or residency, never having owned a home, age and moving in within a set time, are in the sources listed and are not tested.
-
-- New South Wales: no duty up to $800,000. Below $1 million, the duty on $800,000, scaled down evenly to nil at $1 million, comes off the general duty, with the $20 minimum.
-- Victoria: no duty up to $600,000. Up to $750,000, the general duty multiplied by the value over $600,000 and divided by $150,000.
-- Queensland: the home concession rate less the first home concession amount for the value’s $10,000 band, from $17,350 below $710,000 down to nil from $800,000, so no duty up to $700,000. No duty on a new home, whatever its value.
-- Western Australia: no duty up to $600,000. Up to $800,000, $16.15 for every $100, or part of $100, over $600,000.
-- South Australia: no duty on a new home, whatever its value. An established home pays the general rate.
-- Australian Capital Territory: no duty under the Home Buyer Concession Scheme, whatever the value. The scheme is open to buyers who have not owned property in the past 5 years, not only first home buyers.
-- Tasmania and the Northern Territory: no first home buyer duty concession on a home, so the general rate applies. Tasmania’s exemption for established homes ended with settlements on 30 June 2026.
-
-The NSW Government’s 2026-27 table gives $9,796.75 on $850,000, $19,593.50 on $900,000, $29,390.25 on $950,000 and $37,227.65 on $990,000. Revenue NSW’s First Home Buyers Assistance calculator gave $38,991.06 on $999,000 and $20 on $800,001 when tried on 16 November 2026. The Queensland Revenue Office gives $6,555 on $730,000 and $24,100 on $850,000 for an established first home. For Victoria and Western Australia the tests work examples by hand: $24,713.33 on $700,000 in Victoria and $16,150 on $700,000 in Western Australia.
-
-First home owner grants are payments to the buyer, not duty concessions; the first home owner grant calculator works them out beside this duty. The sources: New South Wales, Victoria, Queensland, Western Australia, South Australia, Tasmania, the Northern Territory’s HomeGrown Territory Grant, and the Australian Capital Territory’s First Home Owner Grant, which stopped on 1 July 2019.
-
-## What the transfer duty calculator does not compute
-
-The transfer duty calculator gives general transfer duty, and duty for an eligible first home buyer of a home. It applies no other concession, exemption or surcharge, does not test whether a buyer is eligible, and does not decide whether a transaction is dutiable or what its dutiable value is; the foreign purchaser surcharge calculator works out the foreign purchaser duty surcharge. These are not computed:
-
-- New South Wales: duty on land other than residential land over $3,870,000, which the premium rate does not reach (the calculator applies it and says so in its result), the First Home Buyers Assistance Scheme on vacant land, surcharge purchaser duty for foreign persons, including foreign trusts and companies, and landholder duty.
-- Victoria: the principal place of residence concession, the first home buyer concession on vacant land, the off-the-plan concession, the City of Melbourne new residential property concession and exemption, the pensioner exemption and concession, and foreign purchaser additional duty.
-- Queensland: the home concession for a buyer who is not a first home buyer, the first home vacant land concession, and additional foreign acquirer duty, which also reaches companies and trusts.
-- Western Australia: the concessional rate for a principal place of residence or WA business asset up to $200,000, the first home owner rate on vacant land, the off-the-plan concession or rebate, and foreign transfer duty.
-- South Australia: stamp duty relief for eligible first home buyers on vacant land, seniors downsizing stamp duty relief, home buyer ex gratia relief for victim-survivors of family, domestic or sexual violence, and the foreign ownership surcharge.
-- Tasmania: concessions and exemptions, and the foreign investor duty surcharge.
-- Australian Capital Territory: the lower rate for an eligible owner occupier transaction (Table 1 of the determination), the Home Buyer Concession Scheme on vacant land, and the rates for commercial property.
-- Northern Territory: the house and land package exemption and the home incentive schemes in Part 5 of the Act.
-
-Duty on a trust acquisition, a landholder or corporate trustee acquisition, a lease premium or a business sale, and the land tax that follows a purchase, are not computed either. Confirm the figure with the revenue office’s own calculator or a conveyancer before relying on it.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Transfer duty calculator
-
-Case | Inputs | Result
-Revenue NSW’s auction example | New South Wales, $1,350,000.00 | Duty $55,537.00
-Part of $100 counts as a whole $100, as Revenue NSW’s calculator gave | New South Wales, $450,050.00 | Duty $14,441.50
-The $20 minimum | New South Wales, $1,000.00 | Duty $20.00
-Premium duty on residential land, Revenue NSW’s example | New South Wales, $4,000,000.00 | Duty $203,237.00
-The Victorian SRO’s standard-rate example | Victoria, $550,000.00 | Duty $28,070.00
-5.5% of the whole value from $960,000 in Victoria | Victoria, $1,000,000.00 | Duty $55,000.00
-The Queensland Revenue Office’s example | Queensland, $850,000.00 | Duty $31,275.00
-Western Australia’s top rate, worked by hand | Western Australia, $800,000.00 | Duty $32,315.50
-RevenueSA’s example | South Australia, $600,000.00 | Duty $26,830.00
-As Tasmania’s duty calculator gave | Tasmania, $500,000.00 | Duty $18,247.50
-The ACT’s flat rate on the whole value, worked by hand | Australian Capital Territory, $1,500,000.00 | Duty $68,100.00
-The Northern Territory formula, worked by hand | Northern Territory, $500,000.00 | Duty $23,928.60
-The NSW Government’s 2026-27 first home example | New South Wales, $900,000.00, first home buyer, established home | Duty $19,593.50, general duty $34,687.00
-Revenue NSW’s calculator rounds the concession to the cent | New South Wales, $999,000.00, first home buyer, new home | Duty $38,991.06, general duty $39,142.00
-Victoria’s first home concession, worked by hand | Victoria, $700,000.00, first home buyer, established home | Duty $24,713.33, general duty $37,070.00
-The Queensland Revenue Office’s first home example | Queensland, $730,000.00, first home buyer, established home | Duty $6,555.00, general duty $25,875.00
-Western Australia’s first home owner rate, worked by hand | Western Australia, $700,000.00, first home buyer, established home | Duty $16,150.00, general duty $27,265.00
-South Australia’s relief on a new home | South Australia, $600,000.00, first home buyer, new home | Duty $0.00, general duty $26,830.00
-No first home buyer concession in Tasmania | Tasmania, $500,000.00, first home buyer, established home | Duty $18,247.50, general duty $18,247.50
-The ACT Home Buyer Concession Scheme has no value limit | Australian Capital Territory, $1,500,000.00, first home buyer, established home | Duty $0.00, general duty $68,100.00
-Cents are refused | New South Wales, $1,350,000.50 | Refused: enter a whole number between 1 and 1000000000
-
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-## Common questions
-
-### Does this stamp duty calculator cover all Australian states and territories?
-
-Yes. It covers NSW, Victoria, Queensland, Western Australia, South Australia, Tasmania, the ACT and the Northern Territory using each revenue office’s published general and first home buyer scales.
-
-### Are foreign purchaser surcharges included in the general stamp duty result?
-
-No. Foreign purchaser additional duty is calculated separately on the foreign purchaser surcharge calculator page.
-
-## Related
-
-- Transfer duty rates by state
-- First home owner grant calculator
-- Foreign purchaser surcharge calculator
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-## Links
-
-- transfer duty rate table: https://duguid.com.au/rates/transfer-duty/
-- first home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
-- New South Wales: https://www.revenue.nsw.gov.au/grants-schemes/first-home-owner-new-homes-grant
-- Victoria: https://www.sro.vic.gov.au/first-home-owner
-- Queensland: https://qro.qld.gov.au/property-concessions-grants/first-home-grant/
-- Western Australia: https://www.wa.gov.au/government/publications/about-the-first-home-owner-grant
-- South Australia: https://www.revenuesa.sa.gov.au/grants-and-concessions/first-home-owners
-- Tasmania: https://www.sro.tas.gov.au/first-home-owner
-- HomeGrown Territory Grant: https://nt.gov.au/property/home-owner-assistance/buy-build-new-home
-- First Home Owner Grant: https://www.revenue.act.gov.au/home-buyer-assistance/first-home-owner-grant
-- foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/

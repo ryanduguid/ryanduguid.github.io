@@ -209,14 +209,10 @@ export function contractorEmployeeResult(value, aud) {
     ['Contractor: cost to the business', aud(r.contractorCost)],
     ['Contractor: cost for each hour worked', aud(r.contractorCostPerHour)],
     ['Cost to the business: employee less contractor', signed(r.costDifference)],
-    ['Employee: tax, Medicare levy and any surcharge or study loan repayment', aud(r.employeeTax)],
-    ['Employee: take-home pay', aud(r.employeeTakeHome)],
+    ['Employee: take-home pay after income tax and levies', aud(r.employeeTakeHome)],
     ['Contractor: profit after business expenses', aud(r.profit)],
-    ['Contractor: tax, Medicare levy and any surcharge or study loan repayment', aud(r.contractorTax)],
-    ['Contractor: take-home after own super and tax', aud(r.contractorTakeHome)],
+    ['Contractor: take-home after income tax, levies and own super', aud(r.contractorTakeHome)],
     ['Take-home: employee less contractor', signed(r.takeHomeDifference)],
-    ['Super: employee', aud(r.employeeSuperGuarantee)],
-    ['Super: contractor, super guarantee and own contributions', aud(r.contractorSuper)],
   ];
   const notes = [section12Note(r)];
   if (r.mustRegister) {
@@ -228,16 +224,15 @@ export function contractorEmployeeResult(value, aud) {
 
 /** How the page writes the input. @param {Engagement} x @param {(value: number) => string} aud */
 export function contractorInputsText(x, aud) {
-  const yesNo = (/** @type {boolean} */ flag, /** @type {string} */ yes, /** @type {string} */ no) => (flag ? yes : no);
-  return `${x.year}; ${x.hours} hours a week; employee salary ${aud(Number(x.salary))}, ${x.annualLeave} weeks of annual leave `
-    + `with ${x.loading}% loading (${yesNo(x.loadingQualifying, 'ordinary time earnings', 'not ordinary time earnings')}), `
-    + `${x.otherLeave} weeks of other paid leave; payroll tax ${x.payrollRate}% (${yesNo(x.payrollSuper, 'super included', 'super excluded')}), `
-    + `workers compensation ${x.wcRate}% (${yesNo(x.wcSuper, 'super included', 'super excluded')}); contractor ${aud(Number(x.rate))} an hour, `
-    + `non-labour part ${aud(Number(x.nonLabour))}, expenses ${aud(Number(x.expenses))}, own super ${aud(Number(x.ownSuper))}, `
-    + `${yesNo(x.gst, 'registered for GST', 'not registered for GST')}${x.gst ? yesNo(x.credits, ', full credit', ', no credit') : ''}; `
-    + `contract ${yesNo(x.individual, 'with the person', 'not with the person as an individual')}, `
-    + `${yesNo(x.delegate, 'right to delegate', 'no right to delegate')}, ${yesNo(x.result, 'for a result', 'not for a result')}; `
-    + `contractor ${yesNo(x.contractorPayroll, 'in', 'outside')} payroll tax and ${yesNo(x.contractorWc, 'in', 'outside')} workers compensation; `
-    + `${yesNo(x.smallBusinessOffset, 'small business income tax offset', 'no small business income tax offset')}; `
-    + `${yesNo(x.hospitalCover, 'hospital cover', 'no hospital cover')}, ${yesNo(x.studyLoan, 'study loan', 'no study loan')}`;
+  const pick = (/** @type {boolean} */ flag, /** @type {string} */ yes, /** @type {string} */ no) => (flag ? yes : no);
+  const gst = x.gst ? pick(x.credits, 'GST registered, credit claimed', 'GST registered, no credit') : 'not GST registered';
+  return `${x.year}; ${x.hours} hours a week; salary ${aud(Number(x.salary))}, ${x.annualLeave} weeks annual leave, `
+    + `${x.loading}% loading${pick(x.loadingQualifying, '', ' (not ordinary time earnings)')}, ${x.otherLeave} weeks other leave; `
+    + `payroll tax ${x.payrollRate}% ${pick(x.payrollSuper, 'with', 'without')} super, workers compensation ${x.wcRate}% `
+    + `${pick(x.wcSuper, 'with', 'without')} super; contractor ${aud(Number(x.rate))} an hour, non-labour ${aud(Number(x.nonLabour))}, `
+    + `expenses ${aud(Number(x.expenses))}, own super ${aud(Number(x.ownSuper))}, ${gst}; `
+    + `${pick(x.individual, 'with the person', 'with an entity')}, ${pick(x.delegate, 'may delegate', 'no delegation')}, `
+    + `${pick(x.result, 'for a result', 'not for a result')}; contractor ${pick(x.contractorPayroll, 'in', 'not in')} payroll tax, `
+    + `${pick(x.contractorWc, 'in', 'not in')} workers compensation, ${pick(x.smallBusinessOffset, 'small business offset', 'no small business offset')}; `
+    + `${pick(x.hospitalCover, 'hospital cover', 'no hospital cover')}, ${pick(x.studyLoan, 'study loan', 'no study loan')}`;
 }
