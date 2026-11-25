@@ -171,7 +171,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ---
 
-# Contractor against employee calculator: cost, take-home and super
+# Contractor against employee: cost, take-home and super
 
 Source: https://duguid.com.au/tools/business-calculators/contractor-employee/
 

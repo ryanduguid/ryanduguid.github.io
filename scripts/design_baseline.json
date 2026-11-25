@@ -156,7 +156,7 @@
       "7f1f2296cde2493c9d8685d9dc7eeea5adf9d79886f6d0a4c5b92ec2de556617"
     ],
     "tools/business-calculators/contractor-employee/index.html": [
-      "e70f62b274dd0f285b2d0fdacc78bacd5cbd3471d8fd6c519b5f2c7f6faeeef4"
+      "913c46c481af4e726a0cf11fdd7fac749feea0c1071af5ab391ca8d7260cae15"
     ],
     "tools/business-calculators/deferred-tax/index.html": [
       "4598153e3de4d4e8f381b58e21340d5fdf9982a0051e66d915b230a6d6e7ff7e"
@@ -225,7 +225,7 @@
       "1ee789e07f991caadaf17f3e165e8bc60550a06242fe627a485241855184f7b5"
     ],
     "tools/business-calculators/index.html": [
-      "fd5c89f120eb327bb635d30654a9c42e5d9b64e68d958ce1bd1dc4fba55ffe8c"
+      "017c5417aec4fa67cac2cd5aee9d90d5bf40f8378532c09cf3038cbc263bc7d0"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "90b1d2897a81b87c05cb1a74bb0937f468ac5e1806fa0b19603b5fff589b9e09"
@@ -431,7 +431,7 @@
   },
   "protected_files": {
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "a5c1f1eada380cef0c5028230d54a6d6556370ffbd5b4088afc93ce6095c07d3"
+    "sitemap.xml": "794fec7c35aead44e77b3e132f19646edad704685200f5f95a6890c1b17d484e"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

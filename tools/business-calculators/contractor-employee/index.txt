@@ -1,4 +1,4 @@
-# Contractor against employee calculator: cost, take-home and super
+# Contractor against employee: cost, take-home and super
 
 Source: https://duguid.com.au/tools/business-calculators/contractor-employee/
 
