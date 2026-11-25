@@ -2396,7 +2396,7 @@ fn aud_text(cents: u64) -> String {
     let dollars = (cents / 100).to_string();
     let mut grouped = String::new();
     for (index, digit) in dollars.chars().enumerate() {
-        if index > 0 && (dollars.len() - index) % 3 == 0 {
+        if index > 0 && (dollars.len() - index).is_multiple_of(3) {
             grouped.push(',');
         }
         grouped.push(digit);
@@ -2411,7 +2411,14 @@ fn aud_text(cents: u64) -> String {
 /// profit after tax, the rest retained; the owner's tax on the salary (less up to $1,000 from
 /// 2026-27), the dividend and its credit, to the dollar, less the credit; the top-up is that less the
 /// tax on the salary alone; super tax 15% of the super guarantee and of its part over $250,000.
-fn structures_oracle(year: &str, profit: u64, taken: u64, salary: u64, base_rate: bool, offset: bool) -> Value {
+fn structures_oracle(
+    year: &str,
+    profit: u64,
+    taken: u64,
+    salary: u64,
+    base_rate: bool,
+    offset: bool,
+) -> Value {
     let o = Owner {
         year,
         profit,
@@ -2437,11 +2444,17 @@ fn structures_oracle(year: &str, profit: u64, taken: u64, salary: u64, base_rate
     }
     let dividend = taken - salary;
     let credit = dividend * rate / (100 - rate);
-    let deduction = if year == "2026-27" { salary.min(100_000) } else { 0 };
+    let deduction = if year == "2026-27" {
+        salary.min(100_000)
+    } else {
+        0
+    };
     let owner_taxable = (salary + dividend + credit - deduction) / 100;
     let salary_tax = resident_total((salary - deduction) / 100, year);
     let top_up = resident_total(owner_taxable, year) - salary_tax - credit as i64;
-    let excess = (owner_taxable * 100 + sg).saturating_sub(25_000_000).min(sg);
+    let excess = (owner_taxable * 100 + sg)
+        .saturating_sub(25_000_000)
+        .min(sg);
     let division_293 = half_up(excess * 15, 100);
     let super_tax = half_up(sg * 15, 100) + division_293;
     let total = company_tax as i64 + salary_tax + top_up + super_tax as i64;
@@ -2480,10 +2493,26 @@ fn the_sole_trader_company_oracle_works_the_page_example_by_hand() {
     assert_eq!(r["soleTotal"], json!(3_857_000));
     assert_eq!(r["smallBusinessOffset"], json!(100_000));
     assert_eq!(
-        [&r["companyTax"], &r["credit"], &r["retained"], &r["salaryTax"], &r["topUp"], &r["superTax"],
-            &r["companyTotal"], &r["difference"]],
-        [&json!(2_070_000), &json!(1_333_333), &json!(2_210_000), &json!(928_500), &json!(384_823),
-            &json!(108_000), &json!(3_491_323), &json!(-365_677)]
+        [
+            &r["companyTax"],
+            &r["credit"],
+            &r["retained"],
+            &r["salaryTax"],
+            &r["topUp"],
+            &r["superTax"],
+            &r["companyTotal"],
+            &r["difference"]
+        ],
+        [
+            &json!(2_070_000),
+            &json!(1_333_333),
+            &json!(2_210_000),
+            &json!(928_500),
+            &json!(384_823),
+            &json!(108_000),
+            &json!(3_491_323),
+            &json!(-365_677)
+        ]
     );
     assert_eq!(aud_text(123_456_789), "$1,234,567.89");
     assert_eq!(aud_text(5_000), "$50.00");

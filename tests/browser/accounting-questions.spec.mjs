@@ -1602,7 +1602,7 @@ test('sole trader against company works a 2021-22 payout offline and refuses an 
   await context.setOffline(true);
   const fill = async (profit, takenOut, salary) => {
     await form.getByLabel('Business profit before the owner’s pay (AUD)', { exact: true }).fill(profit);
-    await form.getByLabel('Amount the owner takes out in the year, salary and dividend (AUD)', { exact: true }).fill(takenOut);
+    await form.getByLabel('Amount the owner takes out (AUD)', { exact: true }).fill(takenOut);
     await form.getByLabel('Through a company: salary paid to the owner (AUD)', { exact: true }).fill(salary);
     await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   };

@@ -108,8 +108,8 @@ export function soleTraderCompany(s) {
 export function soleTraderCompanyResult(s, aud) {
   const r = soleTraderCompany(s);
   const { rate } = SUPER_GUARANTEE[s.year];
-  const notes = ['Neither total is advice on a structure: the company figures leave the retained profit to be taxed '
-    + 'again when it is paid out, and super stays in the fund until retirement'];
+  const notes = ['Neither total is advice on a structure. Retained profit is taxed again when paid out, and super stays '
+    + 'in the fund until retirement'];
   if (!s.offset) notes.push('The sole trader gets no small business income tax offset, as you said the business does not qualify');
   if (r.division293) notes.push('Division 293 tax is counted in the super tax');
   if (r.superGuarantee && r.ownerTaxable <= 37000) {
@@ -119,7 +119,7 @@ export function soleTraderCompanyResult(s, aud) {
   return { inputs: `${s.year}, business profit ${aud(Number(s.profit))}, taken out by the owner ${aud(Number(s.takenOut))}, `
     + `salary ${aud(Number(s.salary))}, company tax at ${s.baseRate ? '25% (a base rate entity)' : '30%'}, `
     + `${s.offset ? 'qualifies' : 'does not qualify'} for the small business income tax offset`,
-  rows: [['Sole trader: income tax on the profit before offsets', aud(r.soleTax)],
+  rows: [['Sole trader: income tax before offsets', aud(r.soleTax)],
     ['Sole trader: low income tax offsets', aud(r.soleOffsets)],
     ['Sole trader: small business income tax offset', aud(r.smallBusinessOffset)],
     ['Sole trader: Medicare levy', aud(r.soleMedicare)],
