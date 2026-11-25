@@ -77,30 +77,58 @@ const superGuarantee = (earnings, sg) => nearest(Math.min(earnings, sg.cap * 100
  * @param {Engagement} e */
 export function contractorEmployee(e) {
   if (!CONTRACTOR_YEARS.includes(e.year)) throw new Error('Choose an income year from 2021-22 to 2026-27.');
-  for (const [field, question] of QUESTIONS) if (typeof e[field] !== 'boolean') throw new Error(question);
-  const sg = SUPER_GUARANTEE[e.year];
+  const unanswered = QUESTIONS.find(([field]) => typeof Reflect.get(e, field) !== 'boolean');
+  if (unanswered) throw new Error(unanswered[1]);
   const hours = scaled(e.hours, 2, 168);
   if (!hours) throw new Error('Enter the hours worked each week.');
   const [annual, other] = [scaled(e.annualLeave, 2, 52), scaled(e.otherLeave, 2, 52)];
   const worked = WEEKS * 100 - annual - other;
   if (worked <= 0) throw new Error('Enter leave of fewer than 52 weeks in all.');
-  const salary = money(e.salary);
-  const [loadingRate, payrollRate, wcRate] = [scaled(e.loading, 3, 100), scaled(e.payrollRate, 3, 100), scaled(e.wcRate, 3, 100)];
+  const common = { sg: SUPER_GUARANTEE[e.year], hours, worked, annual, payrollRate: scaled(e.payrollRate, 3, 100),
+    wcRate: scaled(e.wcRate, 3, 100) };
+  const employee = employeeSide(e, common);
+  const contractor = contractorSide(e, common);
+  const perHour = (/** @type {number} */ cost) => nearest(BigInt(cost) * 10000n, BigInt(hours) * BigInt(worked)) / 100;
+  const m = (/** @type {number} */ value) => value / 100;
+  return {
+    year: e.year, sgRate: common.sg.rate, hoursWorked: hours * worked / 10000, weeksWorked: worked / 100,
+    salary: m(employee.salary), loading: m(employee.loading), wages: m(employee.wages), employeeSuperGuarantee: m(employee.sg),
+    employeePayrollTax: m(employee.payroll), employeeWorkersCompensation: m(employee.wc), employeeCost: m(employee.cost),
+    employeeCostPerHour: perHour(employee.cost), employeeTax: m(employee.tax), employeeTakeHome: m(employee.takeHome),
+    fee: m(contractor.fee), labour: m(contractor.labour), labourShare: contractor.fee ? ratioPercent(contractor.labour, contractor.fee) : 0,
+    gst: m(contractor.gst), gstCost: m(contractor.gstCost), contractorSuperGuarantee: m(contractor.sg),
+    contractorPayrollTax: m(contractor.payroll), contractorWorkersCompensation: m(contractor.wc), contractorCost: m(contractor.cost),
+    contractorCostPerHour: perHour(contractor.cost), expenses: m(contractor.expenses), profit: m(contractor.profit),
+    contractorTax: m(contractor.tax), smallBusinessOffset: contractor.smallBusinessOffset, ownSuper: m(contractor.ownSuper),
+    contractorTakeHome: m(contractor.takeHome), contractorSuper: m(contractor.sg + contractor.ownSuper),
+    mustRegister: !e.gst && contractor.fee >= GST_THRESHOLD, section12: contractor.section12, elements: contractor.elements,
+    costDifference: m(employee.cost - contractor.cost), takeHomeDifference: m(employee.takeHome - contractor.takeHome),
+  };
+}
 
-  // Employee. Annual leave pay is the salary for those weeks; the loading is a rate on it.
+/** @typedef {{sg: {rate: number, cap: number}, hours: number, worked: number, annual: number, payrollRate: number,
+ *   wcRate: number}} Common */
+
+/** The employee's cost and take-home, in cents. Annual leave pay is the salary for those weeks; the loading is a
+ * rate on it. @param {Engagement} e @param {Common} c */
+function employeeSide(e, { sg, annual, payrollRate, wcRate }) {
+  const salary = money(e.salary);
+  const loadingRate = scaled(e.loading, 3, 100);
   const loading = nearest(BigInt(salary) * BigInt(annual) * BigInt(loadingRate), BigInt(WEEKS * 100 * 100000));
   const wages = salary + loading;
   const employeeSg = superGuarantee(salary + (e.loadingQualifying ? loading : 0), sg);
-  const employeePayroll = atRate(wages + (e.payrollSuper ? employeeSg : 0), payrollRate);
-  const employeeWc = atRate(wages + (e.wcSuper ? employeeSg : 0), wcRate);
-  const employeeCost = wages + employeeSg + employeePayroll + employeeWc;
+  const payroll = atRate(wages + (e.payrollSuper ? employeeSg : 0), payrollRate);
+  const wc = atRate(wages + (e.wcSuper ? employeeSg : 0), wcRate);
   const pay = takeHomePay({ year: e.year, residency: 'resident', salary: (wages / 100).toFixed(2), period: 'year',
     includesSuper: false, sacrifice: '0', studyLoan: e.studyLoan, hospitalCover: e.hospitalCover });
-  const employeeTax = wages - Math.round(pay.net * 100);
+  const takeHome = Math.round(pay.net * 100);
+  return { salary, loading, wages, sg: employeeSg, payroll, wc, cost: wages + employeeSg + payroll + wc, tax: wages - takeHome, takeHome };
+}
 
-  // Contractor, for the same hours: hours a week times weeks worked, both in hundredths.
-  const rate = money(e.rate);
-  const fee = nearest(BigInt(rate) * BigInt(hours) * BigInt(worked), 10000n);
+/** The contractor's cost and take-home for the same hours, in cents: hours a week times weeks worked, both in
+ * hundredths. @param {Engagement} e @param {Common} c */
+function contractorSide(e, { sg, hours, worked, payrollRate, wcRate }) {
+  const fee = nearest(BigInt(money(e.rate)) * BigInt(hours) * BigInt(worked), 10000n);
   const nonLabour = money(e.nonLabour);
   if (nonLabour > fee) throw new Error('Enter a non-labour part no more than the contractor’s fee.');
   const labour = fee - nonLabour;
@@ -110,39 +138,21 @@ export function contractorEmployee(e) {
   const contractorSg = section12 ? superGuarantee(labour, sg) : 0;
   const gst = e.gst ? nearest(fee, 10) : 0;
   const gstCost = e.credits ? 0 : gst;
-  const contractorPayroll = e.contractorPayroll ? atRate(labour + (e.payrollSuper ? contractorSg : 0), payrollRate) : 0;
-  const contractorWc = e.contractorWc ? atRate(labour + (e.wcSuper ? contractorSg : 0), wcRate) : 0;
-  const contractorCost = fee + gstCost + contractorSg + contractorPayroll + contractorWc;
-
-  const expenses = money(e.expenses);
-  const ownSuper = money(e.ownSuper);
-  if (contractorSg + ownSuper > CONCESSIONAL_CAP[e.year] * 100 && ownSuper) {
+  const payroll = e.contractorPayroll ? atRate(labour + (e.payrollSuper ? contractorSg : 0), payrollRate) : 0;
+  const wc = e.contractorWc ? atRate(labour + (e.wcSuper ? contractorSg : 0), wcRate) : 0;
+  const [expenses, ownSuper] = [money(e.expenses), money(e.ownSuper)];
+  const cap = CONCESSIONAL_CAP[e.year];
+  if (ownSuper && contractorSg + ownSuper > cap * 100) {
     throw new Error(`Enter the contractor’s own super so that it and any super guarantee total no more than the ${e.year} `
-      + `concessional contributions cap of $${CONCESSIONAL_CAP[e.year].toLocaleString('en-AU')}: excess contributions are not worked here.`);
+      + `concessional contributions cap of $${cap.toLocaleString('en-AU')}: excess contributions are not worked here.`);
   }
   const business = soleTraderSetAside({ year: e.year, income: (fee / 100).toFixed(2), expenses: (expenses / 100).toFixed(2),
     wages: '0', deductions: '0', super: (ownSuper / 100).toFixed(2), offset: e.smallBusinessOffset, studyLoan: e.studyLoan,
     hospitalCover: e.hospitalCover, gst: false, credits: '0', invoice: '0' });
-  const contractorTax = Math.round(business.total * 100);
+  const tax = Math.round(business.total * 100);
   const profit = fee - expenses;
-  const contractorTakeHome = profit - ownSuper - contractorTax;
-
-  const hoursWorked = hours * worked / 10000;
-  const perHour = (/** @type {number} */ cost) => nearest(BigInt(cost) * 10000n, BigInt(hours) * BigInt(worked)) / 100;
-  const m = (/** @type {number} */ value) => value / 100;
-  return {
-    year: e.year, sgRate: sg.rate, hoursWorked, weeksWorked: worked / 100,
-    salary: m(salary), loading: m(loading), wages: m(wages), employeeSuperGuarantee: m(employeeSg),
-    employeePayrollTax: m(employeePayroll), employeeWorkersCompensation: m(employeeWc), employeeCost: m(employeeCost),
-    employeeCostPerHour: perHour(employeeCost), employeeTax: m(employeeTax), employeeTakeHome: pay.net,
-    fee: m(fee), labour: m(labour), labourShare: fee ? ratioPercent(labour, fee) : 0, gst: m(gst), gstCost: m(gstCost),
-    contractorSuperGuarantee: m(contractorSg), contractorPayrollTax: m(contractorPayroll),
-    contractorWorkersCompensation: m(contractorWc), contractorCost: m(contractorCost), contractorCostPerHour: perHour(contractorCost),
-    expenses: m(expenses), profit: m(profit), contractorTax: m(contractorTax), smallBusinessOffset: business.smallBusinessOffset,
-    ownSuper: m(ownSuper), contractorTakeHome: m(contractorTakeHome), contractorSuper: m(contractorSg + ownSuper),
-    mustRegister: !e.gst && fee >= GST_THRESHOLD, section12, elements,
-    costDifference: m(employeeCost - contractorCost), takeHomeDifference: m(Math.round(pay.net * 100) - contractorTakeHome),
-  };
+  return { fee, labour, elements, section12, sg: contractorSg, gst, gstCost, payroll, wc, cost: fee + gstCost + contractorSg + payroll + wc,
+    expenses, ownSuper, profit, tax, smallBusinessOffset: business.smallBusinessOffset, takeHome: profit - ownSuper - tax };
 }
 
 /** The form's input. @param {(name: string) => string} value @returns {Engagement} */
