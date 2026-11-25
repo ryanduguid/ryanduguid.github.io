@@ -1202,6 +1202,22 @@ test('super lump sum page works withholding and DASP tax offline', async ({ page
 
 // Spec G9 is the form's default; the failure to lodge question shows its 28-day periods, and remission is refused.
 // The ATO's Company V is the form's default; Company F is refundable, and a clawback leaving under $20,000 is refused.
+// The form's default has section 12(3) apply; a right to delegate takes it away and leaves the GST registration note.
+test('contractor against employee page works its example, drops section 12(3) on a right to delegate offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/contractor-employee/');
+  const form = page.locator('#contractor-employee form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Cost to the business: employee less contractor: -$23,397.60.');
+  await expect(form.locator('output')).toContainText('Contractor: super guarantee under section 12(3), at 12% of the labour part: $15,321.60.');
+  await form.locator('[name="delegate"]').selectOption('yes');
+  await form.locator('[name="gst"]').selectOption('no');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Contractor: super guarantee under section 12(3), not owed: $0.00.');
+  await expect(form.locator('output')).toContainText('so the contractor must register for GST');
+});
+
 test('R&D tax offset page works Company V, a refundable offset and refuses a clawback under the threshold offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/rd-tax-offset/');
   const form = page.locator('#rd-tax-offset form');
@@ -1772,7 +1788,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'termination-payment', 'transfer-duty', 'first-home-owner-grant', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
-  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset',
+  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset', 'contractor-employee',
   'gst-adjustments', 'deferred-tax'];
 
 test.describe('before any script runs', () => {

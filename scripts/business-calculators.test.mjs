@@ -784,6 +784,12 @@ Object.assign(INPUTS, { deferredTax: (x) => calculations.deferredTaxInputsText(x
 Object.assign(ENGINE_LABELS, { deferredTax: { deferredTaxLiability: 'deferred tax liability', deferredTaxAsset: 'deferred tax asset',
   deferredTaxExpense: 'deferred tax expense', currentTax: 'current tax', incomeTaxExpense: 'income tax expense' } });
 
+// The contractor against employee page's rows (its tests are with the page's other tests below).
+Object.assign(INPUTS, { contractorEmployee: (x) => calculations.contractorInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { contractorEmployee: { employeeCost: 'employee cost', contractorSuperGuarantee: 'section 12(3) super guarantee',
+  contractorCost: 'contractor cost', costDifference: 'difference', employeeTakeHome: 'employee take-home', contractorTakeHome: 'contractor take-home' } });
+
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
     test(`${page} official comparison states what this calculator returns`, () => {
@@ -1242,6 +1248,8 @@ Object.assign(FORM_CALLS, { wineEqualisationTax: (f) => [calculations.wetFormInp
 Object.assign(FORM_CALLS, { rentalProperty: (f) => [calculations.rentalFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { rdTaxOffset: (f) => [calculations.rdFormInput((name) => f[name] ?? '')] });
+
+Object.assign(FORM_CALLS, { contractorEmployee: (f) => [calculations.contractorFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { gstAdjustment: (f) => {
   const { worksheet, input } = calculations.gstFormInput((name) => f[name] ?? '');
@@ -7212,4 +7220,72 @@ test('the deferred tax form sends the rows with a name or an amount, in order', 
     [`item-${n}-opening-carrying`]: '', [`item-${n}-opening-base`]: '' });
   const loss = calculations.deferredTaxResult((name) => ({ ...fields, ...nil })[name] ?? '', deferredAud);
   assert.deepEqual(loss.rows.at(-1), ['Average effective tax rate', '0%']);
+});
+
+// The contractor against employee page: its example, the section 12(3) elements, hand-worked figures and the refusals.
+// SGAA 1992 ss 10A(1)(d) and 12(3) (Compilation No. 78, 1 July 2026) and TR 2023/4 Appendix 2, paragraphs 93 to 111, read 26 November 2026.
+const ceHtml = readFileSync(new URL('../_includes/calculators/contractor-employee.html', import.meta.url), 'utf8');
+const ceAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const ceBase = calculations.contractorFormInput((name) => formDefaults(ceHtml)[name] ?? '');
+const ce = (more) => calculations.contractorEmployee({ ...ceBase, ...more });
+
+test('the contractor against employee page shows its engine’s example and dates its sources', () => {
+  const example = ceHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(ceHtml);
+  const result = calculations.contractorEmployeeResult((name) => fields[name] ?? '', ceAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  assert.equal(result.rows[result.principal][0], 'Cost to the business: employee less contractor');
+  for (const cited of ['C2004A04402', 'TXR/TR20234', 'Compilation No. 78, 1 July 2026', 'C2009A00028', 'Compilation No. 73, 7 July 2026',
+    'both read 26 November 2026', 'does not decide whether the person is an employee']) {
+    assert.ok(ceHtml.includes(cited), cited);
+  }
+  assert.doesNotMatch(ceHtml, /not (?:endorsed|affiliated)/);
+});
+
+test('contractor against employee works the default by hand', () => {
+  const r = ce({});
+  // 38 hours for 48 weeks; employee: 12% of $100,000, 5.45% of $112,000 and 1.5% of $100,000.
+  assert.equal(r.hoursWorked, 1824);
+  assert.deepEqual([r.employeeSuperGuarantee, r.employeePayrollTax, r.employeeWorkersCompensation, r.employeeCost], [12000, 6104, 1500, 119604]);
+  // Contractor: 1,824 hours at $70, GST a tenth and claimed back, 12% of the fee under s 12(3).
+  assert.deepEqual([r.fee, r.gst, r.gstCost, r.contractorSuperGuarantee, r.contractorCost], [127680, 12768, 0, 15321.6, 143001.6]);
+  // 2026-27 resident: on $99,000 after the $1,000 standard deduction, $4,020 + 30% over $45,000 + 2% levy = $22,200;
+  // the contractor's $125,680 profit takes no standard deduction: $4,020 + $24,204 + $2,513.60.
+  assert.deepEqual([r.employeeTax, r.employeeTakeHome, r.contractorTax, r.contractorTakeHome], [22200, 77800, 30737.6, 94942.4]);
+  assert.equal(r.employeeCostPerHour, 65.57);
+});
+
+test('contractor against employee applies section 12(3) only when all 4 elements hold', () => {
+  for (const more of [{ individual: false }, { delegate: true }, { result: true }, { nonLabour: '63840' }]) {
+    const r = ce(more);
+    assert.equal(r.section12, false, JSON.stringify(more));
+    assert.equal(r.contractorSuperGuarantee, 0);
+  }
+  // A cent over half the fee is labour: 12% of $63,840.01.
+  const over = ce({ nonLabour: '63839.99' });
+  assert.deepEqual([over.section12, over.labourShare, over.contractorSuperGuarantee], [true, 50, 7660.8]);
+  assert.match(calculations.contractorEmployeeResult((name) => ({ ...formDefaults(ceHtml), delegate: 'yes' })[name] ?? '', ceAud).note,
+    /^Section 12\(3\) does not apply on these answers: the contract gives a right to delegate, subcontract or assign the work\. The super guarantee is still owed if the person is an employee in the ordinary meaning/);
+});
+
+test('contractor against employee caps the super guarantee and loading at the stated rules', () => {
+  // The 2026-27 maximum contributions base: 12% of $270,830 = $32,499.60 on both sides.
+  const high = ce({ salary: '300000', rate: '200' });
+  assert.deepEqual([high.employeeSuperGuarantee, high.contractorSuperGuarantee], [32499.6, 32499.6]);
+  // 17.5% on 4 weeks of $100,000: $1,346.15; super on it only when it is ordinary time earnings.
+  assert.deepEqual([ce({ loading: '17.5' }).loading, ce({ loading: '17.5' }).employeeSuperGuarantee], [1346.15, 12161.54]);
+  assert.equal(ce({ loading: '17.5', loadingQualifying: false }).employeeSuperGuarantee, 12000);
+  // GST the business cannot claim joins its cost; an unregistered contractor over $75,000 is told to register.
+  assert.equal(ce({ credits: false }).contractorCost, 127680 + 12768 + 15321.6);
+  assert.equal(ce({ gst: false }).mustRegister, true);
+  assert.equal(ce({ gst: false, rate: '40' }).mustRegister, false);
+});
+
+test('contractor against employee refuses what it does not work', () => {
+  assert.throws(() => ce({ year: '2020-21' }), /2021-22 to 2026-27/);
+  assert.throws(() => ce({ annualLeave: '50', otherLeave: '2' }), /fewer than 52 weeks/);
+  assert.throws(() => ce({ nonLabour: '200000' }), /non-labour part/);
+  assert.throws(() => ce({ ownSuper: '20000' }), /concessional contributions cap of \$32,500/);
+  assert.throws(() => ce({ delegate: 'no' }), /right to delegate/);
+  assert.throws(() => ce({ hours: '0' }), /hours worked/);
 });

@@ -97,7 +97,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_business_days', 'calculate_division_296_tax', 'calculate_fbt_car', 'calculate_fbt_car_parking',
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
-    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax',
+    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_contractor_employee',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -1675,7 +1675,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 76);
+  assert.equal(registered.length + 2, 77);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
@@ -2163,4 +2163,20 @@ test('transfer balance tool runs transfer, charge and release modes and refuses 
   await assert.rejects(tool.execute({
     calculation: 'transfer', events: [{ date: '2017-08-02', kind: 'new_income_stream', amount: '1600000' }], toDate: '2019-12-31', extra: 1,
   }), /extra is not an input of this tool/);
+});
+
+test('contractor against employee tool works the page default, section 12(3) and its refusals', async () => {
+  const tool = tools['contractor-employee'];
+  const base = { incomeYear: '2026-27', hoursPerWeek: '38', salary: '100000', payrollTaxPercent: '5.45', workersCompensationPercent: '1.5',
+    contractorHourlyRate: '70', contractorExpenses: '2000' };
+  const r = await tool.execute(base);
+  assert.deepEqual([r.hoursWorked, r.section12_3Applies, r.employee.cost, r.employee.takeHome, r.contractor.superGuarantee, r.contractor.cost,
+    r.contractor.takeHome, r.costDifference, r.currency, r.source],
+  [1824, true, '119604.00', '77800.00', '15321.60', '143001.60', '94942.40', '-23397.60', 'AUD', 'https://duguid.com.au/tools/business-calculators/contractor-employee/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const delegated = await tool.execute({ ...base, rightToDelegate: true });
+  assert.deepEqual([delegated.section12_3Applies, delegated.section12_3Elements.personal, delegated.contractor.superGuarantee], [false, false, '0.00']);
+  await assert.rejects(tool.execute({ ...base, incomeYear: '2020-21' }), /incomeYear/);
+  await assert.rejects(tool.execute({ ...base, annualLeaveWeeks: '50', otherLeaveWeeks: '2' }), /fewer than 52 weeks/);
+  await assert.rejects(tool.execute({ ...base, awardRate: '30' }), /awardRate is not an input of this tool/);
 });

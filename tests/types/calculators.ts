@@ -471,6 +471,17 @@ calculate.rdTaxOffset({ ...rdInput, base_rate_entity: 'yes' });
 const rdAmounts: Record<string, number> = calculate.rdTaxOffset(rdInput).amounts;
 void rdOffset;
 void rdAmounts;
+const ceInput = { year: '2026-27', hours: '38', salary: '100000', annualLeave: '4', otherLeave: '0', loading: '0', loadingQualifying: true,
+  payrollRate: '0', payrollSuper: true, wcRate: '0', wcSuper: false, rate: '70', nonLabour: '0', expenses: '0', ownSuper: '0',
+  gst: true, credits: true, individual: true, delegate: false, result: false, contractorPayroll: false, contractorWc: false,
+  smallBusinessOffset: false, hospitalCover: true, studyLoan: false };
+const ceCost: number = calculate.contractorEmployee(ceInput).contractorCost;
+// @ts-expect-error An answer is a boolean, not 'yes'.
+calculate.contractorEmployee({ ...ceInput, delegate: 'no' });
+// @ts-expect-error Section 12(3)'s answer is a boolean.
+const ceSection: string = calculate.contractorEmployee(ceInput).section12;
+void ceCost;
+void ceSection;
 const gstBdInput = { party: 'supplier', event: 'written_off', amount: '550.00', taxable_or_creditable: true, cash_basis: false,
   special_rule: 'none', attributed: true, year: '2025-26', scope_confirmed: true };
 const gstApplies: boolean = calculate.gstBadDebt(gstBdInput).applies;
@@ -566,6 +577,7 @@ void businessSet['fbt-property'].execute({ method: 'in-house-public-price', pric
 void businessSet['land-tax'].execute({ place: 'AU-NSW', taxableLandValue: 1100000 });
 void businessSet['termination-payment'].execute({ genuineRedundancyPayment: '48000', completedYearsOfService: 5, codeOTaxableComponent: '17678', otherTaxablePayments: '140000', dateOfBirth: '1996-08-01' });
 void businessSet['transfer-duty'].execute({ place: 'AU-NSW', dutiableValue: 1350000 });
+void businessSet['contractor-employee'].execute({ incomeYear: '2026-27', hoursPerWeek: '38', salary: '100000', contractorHourlyRate: '70' });
 void businessSet['rd-tax-offset'].execute({ incomeYear: '2025-26', notionalDeductions: '100000', aggregatedTurnover: '10000000', totalExpenses: '100000' });
 void businessSet['gst-adjustments'].execute({ worksheet: 'going-concern', year: '2025-26', forConsideration: true, recipientRegistration: 'registered', writtenAgreement: 'on_or_before_supply_day', allThingsNecessary: true, carriedOnUntilSupply: true });
 void businessSet['deferred-tax'].execute({ incomeYear: '2025-26', items: [{ label: 'Plant', class: 'asset', carryingAmount: '70000', taxBase: '50000', openingCarryingAmount: '0', openingTaxBase: '0' }], accountingProfit: '100000', taxableIncome: '100000' });

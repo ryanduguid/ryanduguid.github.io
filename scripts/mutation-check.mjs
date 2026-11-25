@@ -72,6 +72,7 @@ const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
+const contractor = { ...business, file: 'assets/contractor-employee.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
@@ -1132,6 +1133,15 @@ const MUTATIONS = [
   { ...rdOffset, name: 'R&D deduction amount not subtracted', find: 'const income = offset - adjusted[6] - deduction;', replace: 'const income = offset - adjusted[6];' },
   { ...rdOffset, name: 'R&D clawback income over the offset year rate', find: 'ratioCents((income < 0n ? -income : income), presentRate * 1000n)', replace: 'ratioCents((income < 0n ? -income : income), e.rate * 1000n)' },
   { ...rdOffset, name: 'R&D clawback below the threshold allowed', find: 'if (clawback !== 0n && e.notional - clawback < THRESHOLD) {', replace: 'if (false) {' },
+  { ...contractor, name: 'Contractor labour of exactly half counted as principally', find: 'const principally = 2 * labour > fee;', replace: 'const principally = 2 * labour >= fee;' },
+  { ...contractor, name: 'Contractor right to delegate ignored', find: 'personal: !e.delegate,', replace: 'personal: true,' },
+  { ...contractor, name: 'Contractor result contract ignored', find: 'notResult: !e.result,', replace: 'notResult: true,' },
+  { ...contractor, name: 'Contractor company contract treated as individual', find: 'const elements = { individual: e.individual,', replace: 'const elements = { individual: true,' },
+  { ...contractor, name: 'Super guarantee base cap ignored', find: 'Math.min(earnings, sg.cap * 100)', replace: 'earnings' },
+  { ...contractor, name: 'Leave loading always ordinary time earnings', find: 'superGuarantee(salary + (e.loadingQualifying ? loading : 0), sg)', replace: 'superGuarantee(salary + loading, sg)' },
+  { ...contractor, name: 'Unclaimable GST left out of the cost', find: 'const gstCost = e.credits ? 0 : gst;', replace: 'const gstCost = 0;' },
+  { ...contractor, name: 'Other paid leave not taken off the hours', find: 'WEEKS * 100 - annual - other', replace: 'WEEKS * 100 - annual' },
+  { ...contractor, name: 'Payroll tax always without super', find: 'atRate(wages + (e.payrollSuper ? employeeSg : 0), payrollRate)', replace: 'atRate(wages, payrollRate)' },
   { ...gstAdjustments, name: 'GST creditable purpose threshold counted as over it', find: 'cmp(value, d(finance ? \'10000\' : \'1000\')) <= 0', replace: 'cmp(value, d(finance ? \'10000\' : \'1000\')) < 0' },
   { ...gstAdjustments, name: 'GST 5 adjustment periods at $5,000 or less', find: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 2];', replace: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 5];' },
   { ...gstAdjustments, name: 'GST $500,000 given 5 adjustment periods', find: 'cmp(value, d(\'500000\')) < 0 ? 5 : 10', replace: 'cmp(value, d(\'500000\')) <= 0 ? 5 : 10' },
