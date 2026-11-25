@@ -784,6 +784,11 @@ Object.assign(INPUTS, { deferredTax: (x) => calculations.deferredTaxInputsText(x
 Object.assign(ENGINE_LABELS, { deferredTax: { deferredTaxLiability: 'deferred tax liability', deferredTaxAsset: 'deferred tax asset',
   deferredTaxExpense: 'deferred tax expense', currentTax: 'current tax', incomeTaxExpense: 'income tax expense' } });
 
+// The casual and overtime pay page's rows (its tests are with the page's other tests below).
+Object.assign(INPUTS, { casualOvertime: (x) => calculations.casualOvertimeInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { casualOvertime: { grossPay: 'gross pay', ote: 'ordinary time earnings', superGuarantee: 'super guarantee' } });
+
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
     test(`${page} official comparison states what this calculator returns`, () => {
@@ -1240,6 +1245,8 @@ Object.assign(FORM_CALLS, { lowValuePool: (f) => [calculations.poolFormInput((na
 Object.assign(FORM_CALLS, { wineEqualisationTax: (f) => [calculations.wetFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { rentalProperty: (f) => [calculations.rentalFormInput((name) => f[name] ?? '')] });
+
+Object.assign(FORM_CALLS, { casualOvertime: (f) => [calculations.casualOvertimeFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { rdTaxOffset: (f) => [calculations.rdFormInput((name) => f[name] ?? '')] });
 
@@ -7212,4 +7219,65 @@ test('the deferred tax form sends the rows with a name or an amount, in order', 
     [`item-${n}-opening-carrying`]: '', [`item-${n}-opening-base`]: '' });
   const loss = calculations.deferredTaxResult((name) => ({ ...fields, ...nil })[name] ?? '', deferredAud);
   assert.deepEqual(loss.rows.at(-1), ['Average effective tax rate', '0%']);
+});
+
+// The casual and overtime pay page: its example and sources, then the rules it applies. Hand-worked figures; the rules
+// are SGAA s 6(1) and s 17A(2) (Compilation No. 78), SGR 2009/2 paras 22, 27, 35, 41 and 42 and draft LCR 2026/D1
+// paras 63 and 64, read 26 November 2026.
+const coHtml = readFileSync(new URL('../_includes/calculators/casual-overtime.html', import.meta.url), 'utf8');
+const coAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const coBase = { payday: '2026-07-10', base_rate: '30.00', casual_loading: '0', ordinary_hours: '0', lines: [], leave_hours: '0',
+  leave_loading: '0', leave_loading_overtime: false };
+const co = (more) => calculations.casualOvertime({ ...coBase, ...more });
+const coRefusal = (more) => {
+  try {
+    co(more);
+  } catch (error) {
+    return error.message;
+  }
+  return 'computed';
+};
+
+test('the casual and overtime pay page opens on its first case, names the Fair Work tools and dates its sources', () => {
+  const example = coHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(coHtml);
+  const result = calculations.casualOvertimeResult((name) => fields[name] ?? '', coAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  for (const cited of ['https://calculate.fairwork.gov.au/', 'https://www.fairwork.gov.au/pay-and-wages/minimum-wages/pay-guides',
+    'C2004A04402', 'SGR/SGR20092/NAT/ATO/00001', 'LCR2026D1', '(last updated 2 September 2026)', 'applies no award']) {
+    assert.ok(coHtml.includes(cited), cited);
+  }
+});
+
+test('casual and overtime pay counts the casual loading and ordinary-hour penalties as ordinary time earnings, not overtime', () => {
+  const r = co({ casual_loading: '25', ordinary_hours: '10', lines: [{ hours: '2', percent: '200', overtime: false }, { hours: '2', percent: '200', overtime: true }] });
+  assert.deepEqual([r.ordinaryPay, r.casualLoading, r.penaltyPay, r.overtimePay, r.grossPay, r.ote, r.notOte, r.superGuarantee],
+    [300, 75, 120, 120, 615, 495, 120, 59.4]);
+  assert.equal(co({ ordinary_hours: '1', lines: [{ hours: '1', percent: '150', overtime: true }] }).superGuarantee, 3.6);
+});
+
+test('casual and overtime pay switches to qualifying earnings on 1 July 2026 and refuses paydays outside its 2 years', () => {
+  assert.deepEqual(['2025-07-01', '2026-06-30', '2026-07-01', '2027-06-30'].map((payday) => co({ payday, ordinary_hours: '1' }).rules),
+    ['quarterly', 'quarterly', 'payday', 'payday']);
+  for (const payday of ['2025-06-30', '2027-07-01', '2026-02-30', '10/07/2026']) assert.match(coRefusal({ payday }), /1 July 2025 to 30 June 2027/, payday);
+});
+
+test('casual and overtime pay refuses ordinary time earnings above the maximum contribution base, one cent over', () => {
+  assert.equal(co({ payday: '2026-06-30', base_rate: '625.00', ordinary_hours: '100' }).ote, 62500);
+  assert.match(coRefusal({ payday: '2026-06-30', base_rate: '625.01', ordinary_hours: '100' }), /quarterly maximum contribution base of \$62,500/);
+  assert.match(coRefusal({ payday: '2026-07-01', base_rate: '2708.31', ordinary_hours: '100' }), /annual maximum contribution base of \$270,830/);
+  // Overtime does not count towards the base.
+  assert.equal(co({ payday: '2026-06-30', base_rate: '625.00', ordinary_hours: '100', lines: [{ hours: '10', percent: '150', overtime: true }] }).overtimePay, 9375);
+});
+
+test('casual and overtime pay refuses unreadable rates, hours and lines', () => {
+  for (const [more, message] of [[{ base_rate: '0' }, /base hourly rate/], [{ base_rate: '10000.01' }, /base hourly rate/],
+    [{ base_rate: '30.001' }, /base hourly rate/], [{ casual_loading: '100.01' }, /casual loading/], [{ ordinary_hours: '-1' }, /ordinary hours/],
+    [{ ordinary_hours: '1000.01' }, /ordinary hours/], [{ lines: [{ hours: '0', percent: '150', overtime: true }] }, /hours on line 1/],
+    [{ lines: [{ hours: '1', percent: '0', overtime: true }] }, /percentage of the base rate on line 1/],
+    [{ lines: [{ hours: '1', percent: '150' }] }, /line 1 is overtime/], [{ lines: Array(9).fill({ hours: '1', percent: '100', overtime: false }) }, /at most 8/],
+    [{ leave_loading_overtime: 'no' }, /leave loading/], [{ casual_loading: '25', leave_hours: '1' }, /not both/]]) {
+    assert.match(coRefusal(more), message, JSON.stringify(more));
+  }
+  assert.equal(coRefusal({ ordinary_hours: '1000', lines: Array(8).fill({ hours: '1000', percent: '1000', overtime: true }) }), 'computed');
 });

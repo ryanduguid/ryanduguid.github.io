@@ -72,6 +72,7 @@ const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
+const casualOt = { ...business, file: 'assets/casual-overtime.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
@@ -1119,6 +1120,17 @@ const MUTATIONS = [
   { ...pools, name: 'Capital works over 366 days', find: 'const reducedBottom = rateDivisor * 365n * scale;', replace: 'const reducedBottom = rateDivisor * 366n * scale;' },
   { ...pools, name: 'Capital works 4% allowed before 27 February 1992', find: 'if (four && before1992) {', replace: 'if (false) {' },
   { ...pools, name: 'Capital works taxable use ignored', find: 'const reducedTop = product * use;', replace: 'const reducedTop = product * scale;' },
+  { ...casualOt, name: 'Casual loading left out of OTE', find: 'const ote = ordinaryPay + casualLoading + penaltyPay', replace: 'const ote = ordinaryPay + penaltyPay' },
+  { ...casualOt, name: 'Overtime counted as OTE', find: 'const ote = ordinaryPay + casualLoading + penaltyPay + leavePay', replace: 'const ote = ordinaryPay + casualLoading + penaltyPay + overtimePay + leavePay' },
+  { ...casualOt, name: 'Ordinary-hour penalties left out of OTE', find: 'const ote = ordinaryPay + casualLoading + penaltyPay + leavePay', replace: 'const ote = ordinaryPay + casualLoading + leavePay' },
+  { ...casualOt, name: 'Leave loading for lost overtime counted as OTE', find: '(x.leave_loading_overtime ? 0n : leaveLoading)', replace: 'leaveLoading' },
+  { ...casualOt, name: 'Super guarantee at 11.5%', find: 'superGuarantee: dollars(ratioCents(ote * 12n, 100n))', replace: 'superGuarantee: dollars(ratioCents(ote * 115n, 1000n))' },
+  { ...casualOt, name: 'Super guarantee on gross pay', find: 'superGuarantee: dollars(ratioCents(ote * 12n, 100n))', replace: 'superGuarantee: dollars(ratioCents(grossPay * 12n, 100n))' },
+  { ...casualOt, name: 'Casual loading on the penalty lines too', find: 'return { hours, percent, overtime: line.overtime, pay: ratioCents(rate * hours * percent, 1000000n) };', replace: 'return { hours, percent, overtime: line.overtime, pay: ratioCents(rate * hours * (percent + casual), 1000000n) };' },
+  { ...casualOt, name: 'Payday Super from 1 July 2025', find: "const QUARTERLY_LAST = '2026-06-30';", replace: "const QUARTERLY_LAST = '2025-06-30';" },
+  { ...casualOt, name: 'Quarterly base $60,000', find: 'const QUARTERLY_BASE = 6250000n;', replace: 'const QUARTERLY_BASE = 6000000n;' },
+  { ...casualOt, name: 'Base exceeded only above a cent more', find: 'if (ote > base) {', replace: 'if (ote > base + 1n) {' },
+  { ...casualOt, name: 'Casual on leave allowed', find: 'if (casual > 0n && leaveHours > 0n) {', replace: 'if (false) {' },
   { ...rdOffset, name: 'R&D refundable premium 18.5 points dropped', find: 'capped * (e.rate + 185n) * 1000n', replace: 'capped * e.rate * 1000n' },
   { ...rdOffset, name: 'R&D threshold $20,000 counted as under it', find: 'const base = total < THRESHOLD ? e.rspCrc : total;', replace: 'const base = total <= THRESHOLD ? e.rspCrc : total;' },
   { ...rdOffset, name: 'R&D cap at $100 million', find: 'const CAP = 15000000000n;', replace: 'const CAP = 10000000000n;' },

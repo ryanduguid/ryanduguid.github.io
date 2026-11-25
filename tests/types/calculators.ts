@@ -573,3 +573,11 @@ void pensionMinimumTools({ pensionMinimum, PENSION_MINIMUM_YEARS })['pension-min
 void transferBalanceTools({ ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance, yearOf })['transfer-balance'].execute({ calculation: 'concessional_charge', incomeYear: '2020-21', additionalTax: '1000', taxDueDate: '2021-12-01' });
 // @ts-expect-error pensionMinimumTools requires PENSION_MINIMUM_YEARS alongside pensionMinimum.
 pensionMinimumTools({ pensionMinimum });
+const coInput = { payday: '2026-07-10', base_rate: '30.00', casual_loading: '25', ordinary_hours: '30',
+  lines: [{ hours: '3', percent: '175', overtime: true }], leave_hours: '0', leave_loading: '0', leave_loading_overtime: false };
+const coSuper: number = calculate.casualOvertime(coInput).superGuarantee;
+// @ts-expect-error A line says whether it is overtime with a boolean, not 'overtime'.
+calculate.casualOvertime({ ...coInput, lines: [{ hours: '3', percent: '175', overtime: 'overtime' }] });
+// @ts-expect-error Rates and hours are decimal text, not numbers.
+calculate.casualOvertime({ ...coInput, base_rate: 30 });
+void coSuper;

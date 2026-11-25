@@ -585,6 +585,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'depreciation-pools':
             result = calculate.depreciationPoolsResult(value, aud);
             break;
+          case 'casual-overtime':
+            result = calculate.casualOvertimeResult(value, aud);
+            break;
           case 'rd-tax-offset':
             result = calculate.rdTaxOffsetResult(value, aud);
             break;

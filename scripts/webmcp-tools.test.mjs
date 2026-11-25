@@ -97,7 +97,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_business_days', 'calculate_division_296_tax', 'calculate_fbt_car', 'calculate_fbt_car_parking',
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
-    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax',
+    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_casual_overtime_pay',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -1675,7 +1675,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 76);
+  assert.equal(registered.length + 2, 77);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
@@ -2163,4 +2163,21 @@ test('transfer balance tool runs transfer, charge and release modes and refuses 
   await assert.rejects(tool.execute({
     calculation: 'transfer', events: [{ date: '2017-08-02', kind: 'new_income_stream', amount: '1600000' }], toDate: '2019-12-31', extra: 1,
   }), /extra is not an input of this tool/);
+});
+
+test('casual and overtime pay tool returns the page example, Payday Super and quarterly rules, leave loading and refusals', async () => {
+  const tool = tools['casual-overtime'];
+  const r = await tool.execute({ payday: '2026-07-10', baseRate: '30.00', casualLoadingPercent: '25', ordinaryHours: '30',
+    lines: [{ hours: '5', percentOfBaseRate: '150', overtime: false }, { hours: '3', percentOfBaseRate: '175', overtime: true }] });
+  assert.deepEqual([r.rules, r.grossPay, r.ordinaryTimeEarnings, r.notOrdinaryTimeEarnings, r.superGuarantee, r.awardApplied, r.currency, r.source],
+    ['payday', '1507.50', '1350.00', '157.50', '162.00', false, 'AUD', 'https://duguid.com.au/tools/business-calculators/casual-overtime/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const leave = await tool.execute({ payday: '2026-03-12', baseRate: '40', ordinaryHours: '38', annualLeaveHours: '38',
+    leaveLoadingPercent: '17.5', leaveLoadingForLostOvertime: true });
+  assert.deepEqual([leave.rules, leave.leaveLoading, leave.grossPay, leave.ordinaryTimeEarnings, leave.superGuarantee],
+    ['quarterly', '266.00', '3306.00', '3040.00', '364.80']);
+  await assert.rejects(tool.execute({ payday: '2025-06-30', baseRate: '30', ordinaryHours: '1' }), /1 July 2025 to 30 June 2027/);
+  await assert.rejects(tool.execute({ payday: '2026-07-10', baseRate: '30', ordinaryHours: '1', casualLoadingPercent: '25', annualLeaveHours: '1' }), /not both/);
+  await assert.rejects(tool.execute({ payday: '2026-07-10', baseRate: '30', ordinaryHours: '1', extra: 1 }), /extra is not an input of this tool/);
+  await assert.rejects(tool.execute({ payday: '2026-07-10', baseRate: '30', ordinaryHours: '1', lines: [{ hours: '1', percentOfBaseRate: '150' }] }), /overtime is required/);
 });
