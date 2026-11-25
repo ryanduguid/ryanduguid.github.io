@@ -108,8 +108,8 @@ export function soleTraderCompany(s) {
 export function soleTraderCompanyResult(s, aud) {
   const r = soleTraderCompany(s);
   const { rate } = SUPER_GUARANTEE[s.year];
-  const notes = ['Neither total is advice on a structure. Retained profit is taxed again when paid out, and super stays '
-    + 'in the fund until retirement'];
+  const notes = ['Neither total is advice on a structure. Retained profit may bring more personal tax or a refund '
+    + 'when paid out, and super stays in the fund until retirement'];
   if (!s.offset) notes.push('The sole trader gets no small business income tax offset, as you said the business does not qualify');
   if (r.division293) notes.push('Division 293 tax is counted in the super tax');
   if (r.superGuarantee && r.ownerTaxable <= 37000) {
