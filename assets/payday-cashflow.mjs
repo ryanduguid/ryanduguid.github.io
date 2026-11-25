@@ -26,6 +26,8 @@ const DAY = 86400000;
 const dayOf = (iso) => Date.parse(`${iso}T00:00:00Z`) / DAY;
 /** @param {number} day */
 const isoOf = (day) => new Date(day * DAY).toISOString().slice(0, 10);
+/** @param {unknown} value */
+const isDate = (value) => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && isoOf(dayOf(value)) === value;
 
 /** Each quarter of 2026-27: its first and last day and the quarterly rule's due date. */
 export const CASHFLOW_QUARTERS = {
@@ -34,32 +36,39 @@ export const CASHFLOW_QUARTERS = {
   3: { from: '2027-01-01', to: '2027-03-31', due: '2027-04-28', name: 'January to March 2027' },
   4: { from: '2027-04-01', to: '2027-06-30', due: '2027-07-28', name: 'April to June 2027' },
 };
-const CYCLE_DAYS = { weekly: 7, fortnightly: 14 };
+// Days between paydays (0 for monthly) and the span of the quarter the first payday must fall in.
+const CYCLES = new Map([['weekly', { step: 7, span: '7 days' }], ['fortnightly', { step: 14, span: '14 days' }],
+  ['monthly', { step: 0, span: 'month' }]]);
+/** @param {string} key */
+const quarterOf = (key) => new Map(Object.entries(CASHFLOW_QUARTERS)).get(key);
 // The site's calendar as business-days.mjs reads a holiday table: every listed weekday is skipped.
 // business-calculators.mjs re-exports this module and sgc-payday.mjs imports it back, so on a
 // retried load sgc-payday.mjs may not have run yet: read its list inside the function only.
 const calendar = () => NON_BUSINESS_WEEKDAYS.map((date) => ({ date, name: 'public holiday', jurisdictions: [] }));
 
-/** The paydays in the quarter: every 7 or 14 days from the first, or the same day each month,
- * moved back to the month's last day where the month is shorter.
+/** The same date `months` later, or that month's last day where the month is shorter.
+ * @param {string} first @param {number} months */
+function monthLater(first, months) {
+  const [year, month, date] = first.split('-').map(Number);
+  const last = new Date(Date.UTC(year, month + months, 0)).getUTCDate();
+  return isoOf(Date.UTC(year, month - 1 + months, Math.min(date, last)) / DAY);
+}
+
+/** The paydays in the quarter: every 7 or 14 days from the first, or the same date each month.
  * @param {{from: string, to: string}} quarter @param {PayCycle} cycle @param {string} first @returns {string[]} */
 function paydaysIn(quarter, cycle, first) {
-  const valid = /^\d{4}-\d{2}-\d{2}$/.test(first ?? '') && isoOf(dayOf(first)) === first;
-  const opening = cycle === 'monthly' ? quarter.from.slice(0, 8) + '31' : isoOf(dayOf(quarter.from) + (CYCLE_DAYS[cycle] ?? 0) - 1);
-  if (!Object.hasOwn(CYCLE_DAYS, cycle) && cycle !== 'monthly') throw new Error('Choose weekly, fortnightly or monthly pay.');
-  if (!valid || first < quarter.from || first > opening) {
-    throw new Error(`Enter the first payday of the quarter: a date in its first ${cycle === 'monthly' ? 'month' : `${CYCLE_DAYS[cycle]} days`}.`);
+  const rule = CYCLES.get(cycle);
+  if (!rule) throw new Error('Choose weekly, fortnightly or monthly pay.');
+  const { step, span } = rule;
+  // The last day the first payday can fall on: the end of the first week, fortnight or month.
+  const latest = step ? isoOf(dayOf(quarter.from) + step - 1)
+    : isoOf(Date.UTC(Number(quarter.from.slice(0, 4)), Number(quarter.from.slice(5, 7)), 0) / DAY);
+  if (!isDate(first) || first < quarter.from || first > latest) {
+    throw new Error(`Enter the first payday of the quarter: a date in its first ${span}.`);
   }
+  if (!step) return [0, 1, 2].map((months) => monthLater(first, months));
   const paydays = [];
-  if (cycle === 'monthly') {
-    const [year, month, date] = first.split('-').map(Number);
-    for (let i = 0; i < 3; i += 1) {
-      const last = new Date(Date.UTC(year, month + i, 0)).getUTCDate();
-      paydays.push(isoOf(Date.UTC(year, month - 1 + i, Math.min(date, last)) / DAY));
-    }
-    return paydays;
-  }
-  for (let day = dayOf(first); day <= dayOf(quarter.to); day += CYCLE_DAYS[cycle]) paydays.push(isoOf(day));
+  for (let day = dayOf(first); day <= dayOf(quarter.to); day += step) paydays.push(isoOf(day));
   return paydays;
 }
 
@@ -68,8 +77,8 @@ function paydaysIn(quarter, cycle, first) {
  * left the business by each due date but would still be held under the quarterly rule.
  * @param {CashflowInputs} inputs @returns {CashflowResult} */
 export function paydayCashflow(inputs) {
-  const quarter = CASHFLOW_QUARTERS[/** @type {1 | 2 | 3 | 4} */ (Number(inputs.quarter))];
-  if (!quarter || !/^[1-4]$/.test(inputs.quarter)) throw new Error('Choose a quarter of 2026-27.');
+  const quarter = quarterOf(inputs.quarter);
+  if (!quarter) throw new Error('Choose a quarter of 2026-27.');
   // Section 17A(2): 12% of the qualifying earnings, rounded half up to the cent.
   const sg = Number(ratioCents(BigInt(cents(inputs.earnings)) * 12n, 100n));
   if (sg === 0) throw new Error('Enter ordinary time earnings of at least $0.05 each payday, so that 12% of them is a cent or more.');
@@ -109,7 +118,7 @@ const count = (n, word) => `${n.toLocaleString('en-AU')} ${word}${n === 1 ? '' :
 /** The inputs as the page states them.
  * @param {CashflowInputs} inputs @param {(amount: number) => string} aud */
 export function cashflowInputsText(inputs, aud) {
-  const quarter = CASHFLOW_QUARTERS[/** @type {1 | 2 | 3 | 4} */ (Number(inputs.quarter))];
+  const quarter = quarterOf(inputs.quarter);
   return `${quarter?.name ?? inputs.quarter}, paid ${inputs.cycle} from ${plainDay(dayOf(inputs.firstPayday))}, `
     + `ordinary time earnings ${aud(cents(inputs.earnings) / 100)} each payday`;
 }

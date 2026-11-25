@@ -749,7 +749,7 @@ const MUTATIONS = [
   { ...cashflowEngine, name: 'Payday cashflow at 11%', find: 'BigInt(cents(inputs.earnings)) * 12n', replace: 'BigInt(cents(inputs.earnings)) * 11n' },
   { ...cashflowEngine, name: 'Payday cashflow quarterly date a day late', find: "due: '2026-10-28'", replace: "due: '2026-10-29'" },
   { ...cashflowEngine, name: 'Payday cashflow part-day dates not flagged', find: 'partDay = true;', replace: 'partDay = false;' },
-  { ...cashflowEngine, name: 'Payday cashflow fortnights of 15 days', find: '{ weekly: 7, fortnightly: 14 }', replace: '{ weekly: 7, fortnightly: 15 }' },
+  { ...cashflowEngine, name: 'Payday cashflow fortnights of 15 days', find: "['fortnightly', { step: 14,", replace: "['fortnightly', { step: 15," },
   { ...cashflowEngine, name: 'Payday cashflow monthly date not moved to a shorter month end', find: 'Math.min(date, last)', replace: 'date' },
   { ...cashflowEngine, name: 'Payday cashflow average not weighted by amount', find: 'weighted += sg * daysEarlier;', replace: 'weighted += daysEarlier;' },
   { ...sgc, name: 'SGC notional earnings run on the final shortfall', find: 'const notional = compoundedEarnings(base, rates);', replace: 'const notional = compoundedEarnings(final, rates);' },
