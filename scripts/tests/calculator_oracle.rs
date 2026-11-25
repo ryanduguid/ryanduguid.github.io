@@ -10276,20 +10276,15 @@ fn co_text(hundredths: u128) -> String {
 /// s 6(1); SGR 2009/2 paras 27, 35 and 41); the super guarantee is 3/25 of their cents, rounded half up.
 fn co_case(rng: &mut Seeded) -> (Value, Value) {
     let rate = 1 + u128::from(rng.below(10_000));
-    let casual = u128::from(rng.pick(&[0, 0, 2_500, 2_000, 1_900, rng.below(10_001)]));
+    let any = rng.below(10_001);
+    let casual = u128::from(rng.pick(&[0, 0, 2_500, 2_000, 1_900, any]));
     let ordinary = u128::from(rng.below(8_001));
     let mut lines = Vec::new();
     let (mut penalty, mut overtime) = (0_u128, 0_u128);
     for _ in 0..rng.below(5) {
         let hours = 1 + u128::from(rng.below(2_000));
-        let percent = u128::from(rng.pick(&[
-            11_500,
-            15_000,
-            17_500,
-            20_000,
-            25_000,
-            10_000 + rng.below(20_001),
-        ]));
+        let any = 10_000 + rng.below(20_001);
+        let percent = u128::from(rng.pick(&[11_500, 15_000, 17_500, 20_000, 25_000, any]));
         let is_overtime = rng.below(2) == 0;
         let pay = exact_half_up(rate * hours * percent, 1_000_000);
         if is_overtime {
@@ -10299,12 +10294,14 @@ fn co_case(rng: &mut Seeded) -> (Value, Value) {
         }
         lines.push(json!({ "hours": co_text(hours), "percent": co_text(percent), "overtime": is_overtime }));
     }
+    let any = rng.below(4_001);
     let leave = if casual == 0 {
-        u128::from(rng.pick(&[0, rng.below(4_001)]))
+        u128::from(rng.pick(&[0, any]))
     } else {
         0
     };
-    let leave_rate = u128::from(rng.pick(&[0, 1_750, rng.below(10_001)]));
+    let any = rng.below(10_001);
+    let leave_rate = u128::from(rng.pick(&[0, 1_750, any]));
     let lost_overtime = rng.below(2) == 0;
     let payday = rng.pick(&[
         "2025-07-01",

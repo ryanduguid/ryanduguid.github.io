@@ -40,7 +40,7 @@ const MAX_LINES = 8;
 /** Digits with up to 2 decimal places as hundredths, refused outside `low` to `high` hundredths.
  * @param {unknown} value @param {string} what @param {bigint} low @param {bigint} high @returns {bigint} */
 function hundredths(value, what, low, high) {
-  const parts = typeof value === 'string' ? /^(\d{1,9})(?:\.(\d{1,2}))?$/.exec(value.trim()) : null;
+  const parts = typeof value === 'string' ? /^(\d{1,9})(?:\.(\d{1,2}))?$/.exec(value.trim()) : null; // eslint-disable-line security/detect-unsafe-regex -- anchored, bounded repetition over distinct characters: linear
   const n = parts ? BigInt(parts[1] + (parts[2] ?? '').padEnd(2, '0')) : -1n;
   if (n < low || n > high) {
     const words = (/** @type {bigint} */ x) => `${x / 100n}${x % 100n ? `.${String(x % 100n).padStart(2, '0')}` : ''}`;
