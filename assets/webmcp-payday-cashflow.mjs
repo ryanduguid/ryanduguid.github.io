@@ -17,7 +17,8 @@ export function paydayCashflowTool(kit, paydayCashflow) {
       + '(qualifying earnings, SGAA s 17A) and the date the fund must receive it under Payday Super, 7 business days after '
       + 'payday on the site\'s Payday Super calendar (the earliest possible date where 24 or 31 December decides it), against '
       + 'the old quarterly due date 28 days after the quarter (old s 23(6)), with the days earlier, the running extra working '
-      + 'capital and its peak. Same earnings each payday; no longer due periods, maximum contributions base or Norfolk Island rate.',
+      + 'capital and its peak. It assumes the same earnings each payday and does not apply the longer due periods, the '
+      + 'maximum contributions base or the Norfolk Island rate.',
     inputSchema: record({
       quarter: choice(['1', '2', '3', '4'], 'Quarter of 2026-27: "1" July to September 2026, "2" October to December 2026, '
         + '"3" January to March 2027, "4" April to June 2027.'),
