@@ -877,8 +877,21 @@ test('transfer duty at the top of a band uses that band and rejects a broken tab
   // NT: (0.06571441 x 525^2) + 15 x 525 = 25,987.53425625, then 4.95% of the whole value.
   assert.equal(transferDuty('525000', transferDutyScales['AU-NT']).duty, 25987.53);
   assert.equal(transferDuty('525001', transferDutyScales['AU-NT']).duty, 25987.55);
-  // Victoria rounds nothing before the cent: 2.4% of $25,001 - $25,000 is 2.4 cents.
-  assert.equal(transferDuty('25001', transferDutyScales['AU-VIC']).duty, 350.02);
+  // Duties Act 2000 (Vic) s 28(1), read 24 November 2026: to the nearest whole dollar, 50 cents down.
+  // $350 + 2.4% of $1 is $350.024, so $350; 1.4% of $25 is $0.35, so nil; 1.4% of $50 is $0.70, so $1.
+  assert.equal(transferDuty('25001', transferDutyScales['AU-VIC']).duty, 350);
+  assert.equal(transferDuty('25', transferDutyScales['AU-VIC']).duty, 0);
+  assert.equal(transferDuty('50', transferDutyScales['AU-VIC']).duty, 1);
+  // 1.4% of $2,125 is $29.75, up to $30; 1.4% of $2,175 is $30.45, down to $30; 1.4% of $2,250 is
+  // exactly $31.50, which s 28(1) takes down to $31.
+  assert.equal(transferDuty('2125', transferDutyScales['AU-VIC']).duty, 30);
+  assert.equal(transferDuty('2175', transferDutyScales['AU-VIC']).duty, 30);
+  assert.equal(transferDuty('2250', transferDutyScales['AU-VIC']).duty, 31);
+  // 1.4% of $393 is $5.502: over 50 cents, so $6, though it is $5.50 to the cent.
+  assert.equal(transferDuty('393', transferDutyScales['AU-VIC']).duty, 6);
+  // 5.5% of $960,010 is $52,800.55, to $52,801; the premium band's $110,000 + 6.5% of $10 is $110,000.65, to $110,001.
+  assert.equal(transferDuty('960010', transferDutyScales['AU-VIC']).duty, 52801);
+  assert.equal(transferDuty('2000010', transferDutyScales['AU-VIC']).duty, 110001);
   assert.throws(() => transferDuty('0', transferDutyScales['AU-NSW']), { message: 'Enter a whole number between 1 and 1000000000.' });
   const nsw = transferDutyScales['AU-NSW'];
   for (const broken of [[], nsw.slice(1), nsw.slice(0, -1), [...nsw.slice(0, 2), ...nsw.slice(3)],
@@ -916,9 +929,9 @@ test('first home buyer duty matches the revenue offices’ figures either side o
     ['799999', 20115], ['800000', 21850], ['850000', 24100]]) {
     assert.equal(duty(value, 'AU-QLD').duty, expected, value);
   }
-  // By hand: Victoria's general duty on $600,001 is $31,070.06, times $1 / $150,000, and on
-  // $700,000 $37,070 times 100,000 / 150,000. Western Australia: $16.15 for each $100, or part.
-  for (const [value, expected] of [['600000', 0], ['600001', 0.21], ['700000', 24713.33], ['750000', 40070], ['750001', 40070.06]]) {
+  // By hand: Victoria's general duty on $600,001 is $31,070.06, $31,070 to the dollar (s 28(1)), times
+  // $1 / $150,000, and on $700,000 $37,070 times 100,000 / 150,000. Western Australia: $16.15 for each $100, or part.
+  for (const [value, expected] of [['600000', 0], ['600001', 0.21], ['700000', 24713.33], ['750000', 40070], ['750001', 40070]]) {
     assert.equal(duty(value, 'AU-VIC').duty, expected, value);
   }
   for (const [value, expected] of [['600000', 0], ['600001', 16.15], ['700000', 16150], ['800000', 32300], ['800001', 32320.65]]) {
@@ -4412,7 +4425,10 @@ test('the long service leave page opens on the result its calculation gives, and
     '(reprint current from 1 January 2026), read 19 November 2026','(official version 04-m0-00, as at 31 January 2025), read 19 November 2026',
     '(version of 1 July 2017), read 19 November 2026', '(version current from 10 December 2018), read 19 November 2026',
     '(republication R29, effective 19 November 2025), read 19 November 2026', '(reprint as in force at 14 October 2015), read 19 November 2026',
-    '(last updated 13 May 2026), read the same day', '(last updated 3 October 2024), read the same day']) {
+    '(last updated 13 May 2026), read the same day', '(last updated 3 October 2024), read 19 November 2026',
+    'Business Queensland tables</a>, read 19 November 2026', 'Guide to long service leave</a>, read 19 November 2026',
+    'Acts read 19 November 2026; Queensland, South Australia and Tasmania rechecked 24 November 2026',
+    'Refuses positive prior leave where 15 years could have been completed by the end of 30 June 2012; undated excluded periods are not deducted for this screen']) {
     assert.ok(lslHtml.includes(cited), cited);
   }
   const radios = [...lslHtml.matchAll(/name="jurisdiction" value="([^"]+)"(?: checked)? \/> ([^<]+)</g)].map(([, code, name]) => [code, name]);
@@ -4424,7 +4440,7 @@ test('the long service leave page opens on the result its calculation gives, and
 test('long service leave becomes available on the day each Act’s qualifying period completes, not the day before', () => {
   // Each Act's full entitlement at its qualifying period: 8 2/3 weeks for 10 years in NSW, Qld, WA
   // and Tas; 13 weeks in SA and the NT; 1/60th of 2,557 days in Victoria; 7 × 1/5 of a month in the ACT.
-  for (const [place, years, weeks, value] of [['AU-NSW', 10, 8.6667, 13000], ['AU-VIC', 7, 6.0881, 9132.14], ['AU-QLD', 10, 8.6667, 13000],
+  for (const [place, years, weeks, value] of [['AU-NSW', 10, 8.6667, 13000], ['AU-VIC', 7, 6.0881, 9132.14], ['AU-QLD', 10, 8.6667, 13000.05],
     ['AU-WA', 10, 8.6667, 13000], ['AU-SA', 10, 13, 19500], ['AU-TAS', 10, 8.6667, 13000], ['AU-ACT', 7, 6.0667, 9100], ['AU-NT', 10, 13, 19500]]) {
     const last = `${2015 + years}-12-31`;
     assert.deepEqual([lsl({ place, end: `${2015 + years}-12-30` }).weeks, lsl({ place, end: last }).weeks, lsl({ place, end: last }).value],
@@ -4528,9 +4544,55 @@ test('long service leave words each Act’s misconduct test and states the condi
     `value="misconduct" /> Dismissal for serious misconduct ${wilful}`]) {
     assert.ok(lslHtml.includes(label), label);
   }
-  // SA s 5(4)(b): leaving without the required notice is an unlawful termination only where the notice was required.
-  assert.ok(ends('AU-SA', 'no-notice').rule.endsWith('if the employer waived the notice, choose resignation'));
   assert.ok(ends('AU-SA', 'resign').weeks > 0);
+});
+
+test('long service leave refuses the endings and transitions an Act leaves to facts the page does not ask', () => {
+  // Qld s 95(4)(d): a fixed term ending before 10 years pays only on 2 facts the page does not take. Under 7 years nothing is payable either way.
+  assert.throws(() => lsl({ place: 'AU-QLD', start: '2017-01-01', end: '2025-12-31', mode: 'ends', reason: 'fixed-term' }),
+    { message: /^Under 10 years, paragraph 95\(4\)\(d\) pays on a fixed term ending only if/ });
+  assert.equal(lsl({ place: 'AU-QLD', start: '2020-01-01', end: '2025-12-31', mode: 'ends', reason: 'fixed-term' }).weeks, 0);
+  assert.equal(lsl({ place: 'AU-QLD', start: '2015-01-01', end: '2025-12-31', mode: 'ends', reason: 'fixed-term' }).weeks, 9.5334);
+  // SA s 5(4)(b): leaving without the required notice may or may not be an unlawful termination by the worker.
+  assert.throws(() => lsl({ place: 'AU-SA', start: '2018-01-01', end: '2025-06-30', mode: 'ends', reason: 'no-notice' }),
+    { message: /^Under 10 years, paragraph 5\(4\)\(b\) pays nothing if the worker unlawfully terminated the contract/ });
+  assert.equal(lsl({ place: 'AU-SA', start: '2013-01-01', end: '2025-06-30', mode: 'ends', reason: 'no-notice' }).weeks, 15.6);
+  // Tas Schedule 3 cl 2(4): leave taken may have used up an entitlement under the Act before 1 July 2012, which
+  // s 8(2)(a) gave only on 15 years; undated excluded periods are not deducted for this screen.
+  for (const mode of ['employed', 'ends']) {
+    for (const [excluded, taken] of [['0', '1'], ['1', '0.0001']]) {
+      assert.throws(() => lsl({ place: 'AU-TAS', start: '1997-07-01', end: '2025-12-31', excluded, taken, mode }),
+        { message: /^Tasmania’s Schedule 3 clause 2\(4\) gives no new leave.*Refuses positive prior leave where 15 years could have been completed by the end of 30 June 2012; undated excluded periods are not deducted for this screen\./ },
+        `${mode} excluded=${excluded}`);
+    }
+    for (const [start, excluded, taken] of [['1997-07-02', '0', '1'], ['1997-07-02', '1', '0.0001'], ['2012-06-30', '0', '1']]) {
+      assert.doesNotThrow(() => assert.equal(lsl({ place: 'AU-TAS', start, end: '2025-12-31', excluded, taken, mode }).taken, Number(taken)),
+        `${mode} ${start} excluded=${excluded}`);
+    }
+  }
+  assert.equal(lsl({ place: 'AU-TAS', start: '1997-07-01', end: '2025-12-31' }).years, 28);
+  assert.equal(lsl({ place: 'AU-NSW', start: '1997-07-01', end: '2025-12-31', taken: '1' }).taken, 1);
+});
+
+test('Queensland pays the 8.6667 weeks subsection 95(2) and (7) state, not 8 2/3', () => {
+  // Business Queensland's 18 years, 3 months and 16 days: 15.8548 weeks either way, $23,782.23 on the Act's figure.
+  assert.equal(lsl({ place: 'AU-QLD', start: '2007-01-01', end: '2025-04-16' }).value, 23782.23);
+  const later = lsl({ place: 'AU-QLD', start: '2010-01-01', end: '2026-06-30' });
+  assert.deepEqual([later.weeks, later.value], [14.3001, 21450.08]);
+  // Pro rata at 8 years for a redundancy: 8 × 8.6667 / 10 weeks.
+  const redundancy = lsl({ place: 'AU-QLD', start: '2018-01-01', end: '2025-12-31', mode: 'ends' });
+  assert.deepEqual([redundancy.weeks, redundancy.value, redundancy.rule], [6.9334, 10400.04, 'Pro rata on 8.6667 weeks for 10 years, subsection 95(4)']);
+  const twelve = lsl({ place: 'AU-QLD', start: '2014-01-01', end: '2025-12-31' });
+  assert.deepEqual([twelve.value, twelve.next], [13000.05, { years: 15, date: '2028-12-31', weeks: 13.0001 }]);
+  // Exact entitlement at 15 years is 13.00005 weeks (rounded 13.0001): taken 13.0001 must refuse rather than pay -$0.07.
+  for (const mode of ['employed', 'ends']) {
+    for (const [pay, value] of [['1500', 0.08], ['1000000', 50]]) {
+      const ok = lsl({ place: 'AU-QLD', start: '2011-01-01', end: '2025-12-31', taken: '13', pay, mode });
+      assert.deepEqual([ok.weeks, ok.taken, ok.balance, ok.value], [13.0001, 13, 0.0001, value], `${mode} ${pay}`);
+      assert.throws(() => lsl({ place: 'AU-QLD', start: '2011-01-01', end: '2025-12-31', taken: '13.0001', pay, mode }),
+        { message: /Leave taken or paid is more than this entitlement/ }, `${mode} ${pay} excess`);
+    }
+  }
 });
 
 // The franking account page: how each call and result reads. Its rules come from ITAA 1997 Division 205,
@@ -5041,9 +5103,10 @@ test('workers compensation applies each scheme’s thresholds, rounding and mini
   // icare's $240 minimum: $12,000 at 2% is exactly $240 and stands; a cent of premium less is refused.
   assert.equal(ok({ place: 'AU-NSW', wages: '12000', rate: '2' }).premium, 240);
   assert.throws(() => wc({ place: 'AU-NSW', wages: '11999.5', rate: '2' }), /\$239\.99 is below icare’s minimum premium of \$240/);
-  // NSW: the apprentice incentive is apprentice wages × the WIC rate, and the dust diseases rate already includes GST.
-  const nsw = ok({ place: 'AU-NSW', wages: '500000', rate: '2', apprentice: '50000', dust: '0.044' });
-  assert.deepEqual([nsw.premium, nsw.gst, nsw.total], [9000, 900, 10120]);
+  // NSW: the dust diseases rate already includes GST; an apprentice incentive is refused, as icare does not
+  // say whether it comes off before or after GST.
+  const nsw = ok({ place: 'AU-NSW', wages: '500000', rate: '2', dust: '0.044' });
+  assert.deepEqual([nsw.premium, nsw.gst, nsw.total], [10000, 1000, 11220]);
   // ReturnToWorkSA's discount bands: 5% under $10,000 up to 30% at $1,000,000, each from its lower bound.
   for (const [base, band] of [['9999.99', 5], ['10000', 10], ['49999.99', 10], ['50000', 15], ['99999.99', 15], ['100000', 20],
     ['499999.99', 20], ['500000', 25], ['999999.99', 25], ['1000000', 30]]) {
@@ -5100,7 +5163,10 @@ test('workers compensation refuses what only the insurer decides and malformed i
     [{ place: 'AU-VIC', vicEmployer: 'other' }, /performance-rated premium/],
     [{ place: 'AU-QLD', qldStart: 'existing' }, /simplified or experience-based model/],
     [{ place: 'AU-SA', group: 'yes' }, /group’s wages or premiums together/],
-    [{ place: 'AU-NSW', apprentice: '400000.01' }, 'Apprentice wages are part of the wages: enter no more than the wages.'],
+    [{ place: 'AU-QLD', apprentice: '400000.01' }, 'Apprentice wages are part of the wages: enter no more than the wages.'],
+    [{ place: 'AU-NSW', apprentice: '0.01' }, /Error: icare discounts the apprentice incentive ‘after premium payable is calculated’/],
+    [{ place: 'AU-QLD', actual: '400000' }, /Error: WorkCover Queensland Notice \(No\. 1\) of 2026 sets no year-end adjustment/],
+    [{ place: 'AU-VIC', wages: '0.49' }, /Error: The remuneration rounds to \$0, and clause 11’s deductible divides by it/],
     [{ place: 'AU-WA', apprentice: '1' }, 'There is no apprentice deduction for Western Australia here: enter 0 apprentice wages.'],
     [{ rate: '0' }, rate], [{ rate: '1.00001' }, rate], [{ rate: '' }, rate],
     [{ wages: '' }, 'Enter the estimated wages in dollars and cents, from $0 to $10,000,000,000.'],
@@ -5111,6 +5177,8 @@ test('workers compensation refuses what only the insurer decides and malformed i
     [{ place: 'AU-NSW', wages: '1000000', rate: '2', actual: '1600000' }, /Error: On the actual wages, the average performance premium of \$32,000\.00/]]) {
     assert.throws(() => wc(change), message instanceof RegExp ? message : { message }, JSON.stringify(change));
   }
+  // 50 cents of Victorian remuneration rounds to $1 (clause 6(6)), so clause 11 divides and the $400 minimum applies.
+  assert.equal(wc({ place: 'AU-VIC', wages: '0.5' }).premium, 400);
   // A group does not change a privately set rate × wages, and only the chosen scheme's own answers are read.
   assert.equal(wc({ group: 'yes' }).total, 15400);
   assert.equal(wc({ dust: 'x', days: 'x', claims: 'x', vicEmployer: 'x', qldStart: 'x', firstYear: 'x' }).total, 15400);
@@ -6243,6 +6311,11 @@ test('the first home owner grant page opens on the result its calculation gives,
   assert.deepEqual([...fhogHtml.matchAll(/name="home" value="([a-z]+)"/g)].map(([, h]) => h), [...calculations.FHOG_HOMES]);
 });
 
+test('the first home owner grant page gives no result for a contract date not on the calendar', () => {
+  // A browser without a date picker passes the typed text; the page shows the thrown message in place of a result.
+  assert.throws(() => fhogResult({ date: '2026-02-30' }), { message: 'Not computed: 2026-02-30 is not a calendar date.' });
+});
+
 test('the first home owner grant shows the transfer duty calculator’s first home buyer figures beside it', () => {
   const duty = (result) => result.rows.slice(3).map((row) => row.join('|'));
   // NSW 2026-27 reduced rate table: $9,796.75 on $850,000; general duty $32,437.
@@ -6353,6 +6426,52 @@ test('the first home owner grant does not test a Victorian home built against $7
   assert.throws(() => fhogResult({ jurisdiction: 'AU-VIC', home: 'built', value: '750001' }), /the Victorian cap applies to the consideration for the building work/);
   assert.equal(fhogGrant({ jurisdiction: 'AU-VIC', home: 'built', value: '750000' }), '$10,000.00');
   assert.equal(fhogGrant({ jurisdiction: 'AU-VIC', value: '750001' }), '$0.00: the value is over the Victoria cap');
+});
+
+// A home built's consideration is the total payable for the building work (Qld schedule 'consideration' (b),
+// WA s 14AB(b), Vic, SA and Tas s 13(7)(b), NT s 13(8)(b)), and each Act read on 24 November 2026 pays the lesser
+// of it and the amount (Qld s 20(1), Vic s 18(1A), WA s 19(2CA), SA, Tas and NT s 18(1)); the NSW Act was not read.
+test('the first home owner grant pays a home built its contract price when that is below the grant', () => {
+  const priced = (place, price, change = {}) => fhogResult({ jurisdiction: place, home: 'built', value: '400000', 'contract-price': String(price),
+    'fact-contract': false, ...change }).rows[0][1];
+  const paid = (place, price, expected, change = {}) => {
+    assert.doesNotThrow(() => priced(place, price, change), `${place} ${price}`);
+    assert.equal(priced(place, price, change), expected, `${place} ${price}`);
+  };
+  const lesser = (n) => `$${n.toLocaleString('en-AU')}.00: the grant cannot be more than the consideration`;
+  const paying = [['AU-QLD', 30000], ['AU-VIC', 10000], ['AU-WA', 10000], ['AU-SA', 15000], ['AU-TAS', 20000], ['AU-NT', 50000]];
+  for (const [place, amount] of paying) {
+    paid(place, 1, lesser(1));
+    paid(place, amount - 1, lesser(amount - 1));
+    paid(place, amount, `$${amount.toLocaleString('en-AU')}.00`);
+    paid(place, amount + 1, `$${amount.toLocaleString('en-AU')}.00`);
+  }
+  paid('AU-TAS', 29999, lesser(29999), { date: '2026-06-01' });
+  paid('AU-ACT', 5000, '$0.00: the Australian Capital Territory has paid none since 1 July 2019');
+  assert.throws(() => priced('AU-NSW', 9999), /a value below the \$10,000 grant; the New South Wales rule for that case was not confirmed/);
+  paid('AU-NSW', 10000, '$10,000.00');
+  // Vic s 13(1A): the cap tests the contract price, so $900,000 of land and building is computed with it.
+  paid('AU-VIC', 750000, '$10,000.00', { value: '900000' });
+  paid('AU-VIC', 750001, '$0.00: the value is over the Victoria cap', { value: '900000' });
+  // The land and contract total still meets the NSW, Qld and WA caps.
+  paid('AU-NSW', 400000, '$0.00: the value is over the New South Wales cap', { value: '750001' });
+  paid('AU-QLD', 20000, '$0.00: the value is $750,000 or more', { value: '750000' });
+  paid('AU-WA', 5000, '$0.00: the value is over the Western Australia cap', { value: '800001' });
+  assert.match(fhogResult({ home: 'built', 'contract-price': '300000' }).inputs, /building contract price \$300,000\.00, /);
+  assert.throws(() => priced('AU-SA', 400001), /cannot be more than the total value, which includes it/);
+  assert.throws(() => priced('AU-SA', 5000, { home: 'bought' }), /taken only for a home built/);
+  assert.throws(() => priced('AU-SA', 5000, { 'fact-contract': true }), /below the \$15,000 grant, so it is not at least the grant as stated/);
+  paid('AU-SA', 15000, '$15,000.00', { 'fact-contract': true });
+  // Review S2: the value the Qld and WA caps test includes the contract price, so it cannot be lower.
+  assert.throws(() => priced('AU-QLD', 750000, { value: '900000', 'cap-value': '749999' }), /more than the value the cap tests, which includes it/);
+  assert.throws(() => priced('AU-WA', 800001, { value: '900000', 'cap-value': '800000' }), /more than the value the cap tests, which includes it/);
+  // Review S1: the Northern Territory pays on the amount actually paid, and the field says so.
+  assert.match(fhogHtml, /home built only; in the Northern Territory, the amount of it actually paid\)<input id="first-home-owner-grant-contract-price"/);
+  // Review I1: a total that is all contract price, and the same total without the price.
+  paid('AU-SA', 5000, lesser(5000), { value: '5000' });
+  assert.throws(() => fhogResult({ jurisdiction: 'AU-SA', home: 'built', value: '5000' }), /cannot hold a building contract price of at least the grant/);
+  assert.throws(() => priced('AU-SA', '5000.50'), { message: 'Enter a whole number between 1 and 1000000000.' });
+  assert.match(fhogHtml, /<input id="first-home-owner-grant-contract-price" name="contract-price" type="number"[^>]* min="1" max="1000000000" step="1"/);
 });
 
 // Review findings S1 to S4 and G2 on PR 705: the facts a transaction turns on are asked for, never assumed.

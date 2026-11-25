@@ -559,6 +559,19 @@ fn duty_oracle(place: &str, dollars: u64) -> u64 {
         .rev()
         .find(|band| dollars > band_over(**band))
         .unwrap_or(&bands[0]);
+    // Duties Act 2000 (Vic) s 28(1), read 24 November 2026: the exact duty to the nearest
+    // whole dollar, 50 cents down. Victoria's bands are all a percentage, so the exact duty
+    // is a whole number of hundredths of a cent.
+    if place == "AU-VIC" {
+        let hundredths = match band {
+            Band::Excess { over, base, points } => {
+                u128::from(base) * 10_000 + u128::from(points) * u128::from(dollars - over)
+            }
+            Band::Whole { points, .. } => u128::from(points) * u128::from(dollars),
+            Band::PerHundred { .. } => unreachable!("Victoria has no per $100 band"),
+        };
+        return u64::try_from((hundredths + 4_999) / 10_000 * 100).unwrap();
+    }
     let cents = match band {
         Band::PerHundred { over, base, cents } => {
             base * 100 + cents * (dollars - over).div_ceil(100)
@@ -1618,6 +1631,10 @@ fn the_duty_oracle_gives_the_revenue_offices_worked_figures() {
             1_907_000,
             "SRO Victoria standard rate example",
         ),
+        // Duties Act 2000 (Vic) s 28(1): 1.4% of $393 is $5.502, $6; 1.4% of $2,250 is
+        // exactly $31.50, $31.
+        ("AU-VIC", 393, 600, "s 28(1), over 50 cents"),
+        ("AU-VIC", 2_250, 3_100, "s 28(1), 50 cents down"),
         ("AU-QLD", 850_000, 3_127_500, "QRO calculation example"),
         (
             "AU-SA",
@@ -7264,7 +7281,8 @@ const LSL_REASONS: [&str; 10] = [
 /// Each Act's years for the full entitlement and for a pro rata payment, and the reasons that
 /// earn the pro rata payment, typed from the Acts read on 19 November 2026: NSW s 4(2)(a)(iii),
 /// Qld s 95(4), WA s 8(3), SA s 5(3) and (4), Tas s 8(3), ACT s 11C(1) and NT s 10(2). Victoria
-/// pays nothing before 7 years. 'Unsettled' reasons are refused before the full period.
+/// pays nothing before 7 years. 'Unsettled' reasons are refused before the full period: Qld
+/// s 95(4)(d) and SA s 5(4)(b), read 24 November 2026, among them.
 struct LslAct {
     place: &'static str,
     full: i64,
@@ -7298,14 +7316,8 @@ const LSL_ACTS: [LslAct; 8] = [
         place: "AU-QLD",
         full: 10,
         early: 7,
-        pays_early: &[
-            "redundancy",
-            "illness-dismissal",
-            "pressing",
-            "fixed-term",
-            "death",
-        ],
-        unsettled: &[],
+        pays_early: &["redundancy", "illness-dismissal", "pressing", "death"],
+        unsettled: &["fixed-term"],
     },
     LslAct {
         place: "AU-WA",
@@ -7338,7 +7350,7 @@ const LSL_ACTS: [LslAct; 8] = [
             "fixed-term",
             "death",
         ],
-        unsettled: &[],
+        unsettled: &["no-notice"],
     },
     LslAct {
         place: "AU-TAS",
@@ -7410,8 +7422,9 @@ fn lsl_service(start: i64, until: i64) -> (i64, i64, i64) {
     (years, months, until - lsl_anniversary(start, years, months))
 }
 
-/// Weeks as a ratio: 8 2/3 weeks a 10 years is 13/15 a year, 1.3 weeks a year 13/10, and
-/// 1/60th of the employment the days over 420. A part year is its months over 12 and its days
+/// Weeks as a ratio: 8 2/3 weeks a 10 years is 13/15 a year (in Queensland the 8.6667 weeks
+/// s 95(2) and (7) state, 86,667/100,000), 1.3 weeks a year 13/10, and 1/60th of the
+/// employment the days over 420. A part year is its months over 12 and its days
 /// over 365.25, all over 438,300 (12 × 36,525); in Queensland its days are over 364, all over
 /// 1,092 (12 × 91), as Business Queensland's tables count them.
 fn lsl_weeks(act: &LslAct, start: i64, until: i64, reason: Option<&str>) -> Option<(u128, u128)> {
@@ -7426,7 +7439,13 @@ fn lsl_weeks(act: &LslAct, start: i64, until: i64, reason: Option<&str>) -> Opti
             438_300,
         )
     };
-    let thirteen_fifteenths = |(n, d): (u128, u128)| (13 * n, 15 * d);
+    let thirteen_fifteenths = |(n, d): (u128, u128)| {
+        if act.place == "AU-QLD" {
+            (86_667 * n, 100_000 * d)
+        } else {
+            (13 * n, 15 * d)
+        }
+    };
     let marked = if years >= 10 {
         10 + (years - 10) / 5 * 5
     } else {
@@ -7440,7 +7459,7 @@ fn lsl_weeks(act: &LslAct, start: i64, until: i64, reason: Option<&str>) -> Opti
         }
         return Some(match act.place {
             "AU-VIC" => (total, 420),
-            "AU-QLD" if years < 15 => (26, 3),
+            "AU-QLD" if years < 15 => (86_667, 10_000),
             "AU-QLD" => thirteen_fifteenths(exact),
             "AU-SA" => (13 * y, 10),
             "AU-ACT" => thirteen_fifteenths((y, 1)),
@@ -7504,13 +7523,19 @@ fn lsl_oracle(
     if until <= start {
         return json!({"refused": true});
     }
+    // Tas Schedule 3 cl 2(4): leave taken may have used up an entitlement under the Act before
+    // 1 July 2012, which s 8(2)(a) gave on completing 15 years, so weeks alone do not show it.
+    if act.place == "AU-TAS" && taken > 0 && lsl_anniversary(start, 15, 0) <= day_number(2012, 7, 1)
+    {
+        return json!({"refused": true});
+    }
     let Some((n, d)) = lsl_weeks(act, start, until, reason) else {
         return json!({"refused": true});
     };
-    let weeks = lsl_ten_thousandths((n, d));
-    if taken > weeks {
+    if u128::from(taken) * d > n * 10_000 {
         return json!({"refused": true});
     }
+    let weeks = lsl_ten_thousandths((n, d));
     let (years, months, days) = lsl_service(start, until);
     let left = BigUint::from(n * 10_000 - u128::from(taken) * d);
     let value = half_up(&(left * pay), &BigUint::from(d * 10_000));
@@ -7649,6 +7674,49 @@ fn the_lsl_oracle_works_the_published_examples_by_hand() {
         lsl_anniversary(day_number(2025, 1, 31), 0, 1),
         day_number(2025, 3, 1)
     );
+    // Qld at 15 years gives 13.00005 exact weeks (13.0001 shown): 13.0001 taken must refuse
+    // rather than produce -$0.07, whereas 13 taken pays $0.08 at $1,500 and $50.00 at $1,000,000.
+    let (qld_s, qld_e) = (day_number(2011, 1, 1), day_number(2025, 12, 31));
+    for reason in [None, Some("redundancy")] {
+        for (pay, expected_val) in [(150_000, "0.08"), (100_000_000, "50")] {
+            let ok = lsl_oracle(act("AU-QLD"), qld_s, qld_e, 0, reason, 130_000, pay);
+            assert_eq!(
+                (&ok["weeks"], &ok["balance"], &ok["value"]),
+                (&json!("13.0001"), &json!("0.0001"), &json!(expected_val))
+            );
+            assert_eq!(
+                lsl_oracle(act("AU-QLD"), qld_s, qld_e, 0, reason, 130_001, pay)["refused"],
+                json!(true)
+            );
+        }
+    }
+    // Tasmania Schedule 3 cl 2(4) refuses positive prior leave even with undated excluded days.
+    let tas_e = day_number(2025, 12, 31);
+    for (reason, allowed_weeks) in [(None, "21.6667"), (Some("redundancy"), "24.6966")] {
+        assert_eq!(
+            lsl_oracle(
+                act("AU-TAS"),
+                day_number(1997, 7, 1),
+                tas_e,
+                1,
+                reason,
+                1,
+                100_000
+            )["refused"],
+            json!(true)
+        );
+        let permitted = lsl_oracle(
+            act("AU-TAS"),
+            day_number(1997, 7, 2),
+            tas_e,
+            1,
+            reason,
+            1,
+            100_000,
+        );
+        assert_eq!(permitted["weeks"], json!(allowed_weeks));
+        assert!(permitted["refused"].is_null());
+    }
 }
 
 #[test]
@@ -7738,9 +7806,13 @@ fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
         "AU-NSW" => {
             // SIRA's Guidelines 2026 clause 6.7: small while the APP does not exceed $30,000,
             // tested on wages × the rate before any rounding (icare, read 24 November 2026);
-            // icare's $240 minimum; the dust diseases rate includes its GST.
+            // icare's $240 minimum; the dust diseases rate includes its GST. The apprentice
+            // incentive is refused: icare does not say whether it comes off before or after GST.
+            if c.apprentice != 0 {
+                return None;
+            }
             let app = cents_at(wages, c.rate);
-            let premium = app - cents_at(app, c.reward) - cents_at(c.apprentice, c.rate);
+            let premium = app - cents_at(app, c.reward);
             if wages * c.rate > 3_000_000 * 1_000_000 || premium < 24_000 {
                 return None;
             }
@@ -7759,17 +7831,17 @@ fn wc_premium(c: &WcCase, wages: i128) -> Option<[i128; 4]> {
             // premium in millionths of a dollar, and clause 11 as written, preliminary premium
             // ÷ R × 15,500 × N ÷ 365, N ÷ 365 to 6 decimal places (clause 6(1)), to the nearest
             // cent (clause 6(4)); the WorkCover premium down to the cent and at least $400.
+            // Nil remuneration: clause 11 divides by it, so the Order gives no figure.
             let remuneration = wc_half(wages, 100);
+            if remuneration == 0 {
+                return None;
+            }
             let preliminary = remuneration * c.rate;
-            let deductible = if remuneration == 0 {
-                0
-            } else {
-                let share = wc_half(c.days * 1_000_000, 365);
-                wc_half(
-                    preliminary * 15_500 * share,
-                    remuneration * 1_000_000 * 10_000,
-                )
-            };
+            let share = wc_half(c.days * 1_000_000, 365);
+            let deductible = wc_half(
+                preliminary * 15_500 * share,
+                remuneration * 1_000_000 * 10_000,
+            );
             let workcover = ((preliminary - deductible * 10_000).max(0) / 10_000).max(40_000);
             let premium = workcover + if c.buyout { workcover / 10 } else { 0 };
             Some([premium, gst(premium), 0, premium + gst(premium)])
@@ -7849,7 +7921,11 @@ fn wc_oracle(c: &WcCase) -> Value {
     let refused = json!({"refused": true});
     let state = ["AU-NSW", "AU-VIC", "AU-QLD", "AU-SA"].contains(&c.place);
     let apprentices = ["AU-NSW", "AU-QLD", "AU-SA"].contains(&c.place);
-    if (c.group && state) || (!apprentices && c.apprentice != 0) {
+    // Queensland's Notice (No. 1) of 2026 sets no 2026-27 adjustment on actual wages.
+    if (c.group && state)
+        || (!apprentices && c.apprentice != 0)
+        || (c.place == "AU-QLD" && c.actual.is_some())
+    {
         return refused;
     }
     let Some([premium, gst, duty, total]) = wc_premium(c, c.wages) else {

@@ -410,6 +410,9 @@ test('long service leave tool returns the page worked example and passes the for
   assert.deepEqual([r.years, r.months, r.days, r.daysCounted, r.weeks, r.weeksLeft, r.value, r.currency, r.next],
     [12, 6, 0, 4564, '10.8333', '10.8333', '16250.00', 'AUD', null]);
   assert.equal(r.rule, 'Pro rata on 3 months for 15 years, any reason, subparagraph 4(2)(a)(ii)');
+  assert.equal(r.basis, 'Acts read 19 November 2026; Queensland, South Australia and Tasmania rechecked 24 November 2026. '
+    + 'Weeks round half up to 4 decimal places; the value is the exact weeks times the pay, rounded half up to the cent.');
+  assert.match(tool.description, /Refuses positive prior leave where 15 years could have been completed by the end of 30 June 2012; undated excluded periods are not deducted for this screen\./);
   assert.equal(r.source, 'https://duguid.com.au/tools/business-calculators/long-service-leave/');
   const liam = await tool.execute({ place: 'AU-SA', firstDay: '2013-01-01', lastDay: '2025-12-31', employment: 'employed',
     takenWeeks: '10', excludedDays: 0, weeklyPay: '1000' });

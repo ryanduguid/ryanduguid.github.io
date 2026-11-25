@@ -13,6 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+24 November 2026 | The first home owner grant calculator now takes the building contract price of a home built. Below the grant it pays the contract price in Victoria, Queensland, Western Australia, South Australia, Tasmania and the Northern Territory, whose Acts pay the lesser of the consideration and the grant, and in Victoria the $750,000 cap tests the contract price, so a larger land and building total is computed. A New South Wales contract price below the grant is still not computed.
 24 November 2026 | Updated the Aus Accounting MCP guide, Ozzit reference and machine indexes for published releases aus-accounting-mcp v0.12.0 (102 worksheet kinds with calculators 1.2.0, AGPL-3.0-or-later, listed as latest on the official MCP Registry) and Ozzit v3.8.0 (165 functions and 5 help tables, Apache License 2.0, plus the Homebrew tap).
 24 November 2026 | The first home owner grant calculator now follows the Victorian, Western Australian and Northern Territory Acts: it pays the consideration where that is less than the grant, $10,000 for a Northern Territory established home bought from 1 July to 30 September 2025, and no longer tests a Victorian home built against $750,000 of land and building, since Victoria caps the building contract alone.
 24 November 2026 | The sole trader page now says whether the non-commercial loss rules defer a business loss, for 2020-21 to 2026-27: the income requirement, the 4 tests, the exception for primary production and professional arts, and the amount deferred after net exempt income (Division 35). It agrees with the non-commercial-losses command of the australian-accounting calculators on every tested case it can meet.
@@ -258,12 +259,12 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- first home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 - Aus Accounting MCP guide: https://duguid.com.au/tools/australian-tax-ai-agents/
 - Ozzit reference: https://duguid.com.au/tools/ozzit/
 - aus-accounting-mcp v0.12.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.12.0
 - Ozzit v3.8.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.8.0
 - Homebrew tap: https://github.com/ryanduguid/homebrew-tap
-- first home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 - sole trader page: https://duguid.com.au/tools/individual-tax/sole-trader/#non-commercial-losses
 - income tax page: https://duguid.com.au/tools/individual-tax/income-tax/#minors-income
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
