@@ -96,16 +96,19 @@ function contractDate(date) {
 /**
  * The first home owner grant for one transaction, for applicants who state every eligibility fact.
  * @param {{place: string, date: string, home: string, value: string, north?: boolean, capValue?: string, contractPrice?: string, facts: Record<string, boolean>}} input
- *   `date` is the contract date as YYYY-MM-DD and `value` the total value in whole dollars: for a home bought the
- *   price, the consideration; for a home built the land and contract, whose consideration is the contract alone
- *   (Qld schedule 'consideration' (b), WA s 14AB(b), s 13 in Vic, SA, Tas, ACT and NT; the NSW Act was not read),
- *   which the `contract` fact puts at the grant or more, so `value` never limits a built home's grant;
+ *   `date` is the contract date as YYYY-MM-DD and `value` the total value in whole dollars: for a home bought, the
+ *   purchase price (the consideration), which tests any value cap and limits the grant where below it; for a home
+ *   built, land plus building contract, which tests any value cap (Victoria caps the building contract alone), whilst
+ *   the consideration for the lower-consideration rule is the building contract alone (Qld schedule 'consideration'
+ *   (b), WA s 14AB(b), s 13 in Vic, SA, Tas, ACT and NT; the NSW Act was not read), so land is excluded from the
+ *   lower-consideration limit and the `contract` fact states that the building contract price is at least the grant;
  *   `north` is required in Western Australia; `capValue`, taken only in Queensland and Western Australia, is the
-//   value their caps test where it differs from `value`.
+ *   value their caps test where it differs from `value`.
  *   `contractPrice`, taken only for a home built, is the building contract's price, its consideration (the total
- *   payable for the building work; in the NT the amount actually paid, s 18(1)(a)): below the amount it is the grant
- *   (Qld s 20(1), Vic s 18(1A), WA s 19(2CA), SA, Tas and NT s 18(1)), and in Victoria it is what the s 13(1A) cap
- *   tests. It replaces the `contract` fact. A NSW price below the grant is not computed: that Act was not read.
+ *   payable for the building work; in the NT the amount actually paid, s 18(1)(a)): where below the grant amount, the
+ *   grant is limited to that price (Qld s 20(1), Vic s 18(1A), WA s 19(2CA), SA, Tas and NT s 18(1)), and in Victoria
+ *   it is what the s 13(1A) cap tests. It replaces the `contract` fact. A NSW price below the grant is refused: that
+ *   Act was not read.
  * @returns {{grant: number, reason: string, cap: string, residence: string, dutyFrom: string}}
  */
 export function firstHomeOwnerGrant({ place, date, home, value, north, capValue, contractPrice, facts }) {

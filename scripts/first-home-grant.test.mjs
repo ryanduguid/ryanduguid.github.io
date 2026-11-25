@@ -1,9 +1,10 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: Apache-2.0
 
-// For a home built, every First Home Owner Grant Act read on 24 November 2026 makes the consideration the building
-// work alone (Qld schedule 'consideration' (b), WA s 14AB(b), Vic, SA and Tas s 13(7)(b), ACT s 13(6)(b), NT
-// s 13(8)(b)): the land is tested against the cap but never limits the grant.
+// For a home built, land plus building contract tests any value cap (Victoria caps the building contract alone),
+// whilst every First Home Owner Grant Act read on 24 November 2026 makes the consideration the building work alone
+// (Qld schedule 'consideration' (b), WA s 14AB(b), Vic, SA and Tas s 13(7)(b), ACT s 13(6)(b), NT s 13(8)(b)), so
+// land is excluded from the lower-consideration rule.
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
