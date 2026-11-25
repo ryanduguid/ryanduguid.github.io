@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/business-calculators/payday-cashflow/
 
-> Each payday’s super guarantee due date under Payday Super from 1 July 2026 against the old quarterly due date, the days earlier and the peak extra working capital for a quarter.
+> Each payday’s super guarantee due date under Payday Super from 1 July 2026 against the old quarterly date, with the days earlier and the peak extra working capital.
 
 # Payday Super cashflow calculator
 

@@ -6211,8 +6211,11 @@ const run = (inputs) => {
 process.stdout.write(JSON.stringify(JSON.parse(input).map(run)));
 ";
 
+/// A quarter's key and its first and last month as (year, month).
+type CashflowQuarter = (&'static str, (i64, i64), (i64, i64));
+
 /// The quarters of 2026-27 by their first and last month.
-const CASHFLOW_QUARTERS: [(&str, (i64, i64), (i64, i64)); 4] = [
+const CASHFLOW_QUARTERS: [CashflowQuarter; 4] = [
     ("1", (2026, 7), (2026, 9)),
     ("2", (2026, 10), (2026, 12)),
     ("3", (2027, 1), (2027, 3)),
@@ -6277,7 +6280,7 @@ fn cashflow_oracle(
         ]));
     }
     let tenths = exact_half_up(weighted * 10, u128::from(ahead));
-    let average = if tenths % 10 == 0 {
+    let average = if tenths.is_multiple_of(10) {
         (tenths / 10).to_string()
     } else {
         format!("{}.{}", tenths / 10, tenths % 10)
