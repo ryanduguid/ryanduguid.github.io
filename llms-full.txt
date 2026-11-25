@@ -5704,6 +5704,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+26 November 2026 | A new business calculator, Payday Super cashflow, lists each payday’s super guarantee in a quarter of 2026-27 with the date the fund must receive it, 7 business days after payday, against the old quarterly date 28 days after the quarter, and the peak extra working capital, the quarter’s whole super guarantee, held from the last payday’s due date to the quarterly date.
 25 November 2026 | Updated general tax question 8 after the ATO updated its How to lodge your tax return page from 12 to 10 business days for returns lodged online, matching its progress page.
 24 November 2026 | The first home owner grant calculator now takes the building contract price of a home built. Below the grant it pays the contract price in Victoria, Queensland, Western Australia, South Australia, Tasmania and the Northern Territory, whose Acts pay the lesser of the consideration and the grant, and in Victoria the $750,000 cap tests the contract price, so a larger land and building total is computed. A New South Wales contract price below the grant is still not computed.
 24 November 2026 | Updated the Aus Accounting MCP guide, Ozzit reference and machine indexes for published releases aus-accounting-mcp v0.12.0 (102 worksheet kinds with calculators 1.2.0, AGPL-3.0-or-later, listed as latest on the official MCP Registry) and Ozzit v3.8.0 (165 functions and 5 help tables, Apache License 2.0, plus the Homebrew tap).
@@ -5951,6 +5952,7 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- Payday Super cashflow: https://duguid.com.au/tools/business-calculators/payday-cashflow/
 - general tax question 8: https://duguid.com.au/tools/accounting-questions/general-tax/
 - first home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 - Aus Accounting MCP guide: https://duguid.com.au/tools/australian-tax-ai-agents/
@@ -6535,7 +6537,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 Fifty-seven free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
-Published 11 September 2026. Last checked 24 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
 Search 57 calculators
 
@@ -6593,6 +6595,7 @@ Search 57 calculators
 - Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 - SGC and Payday Super calculator When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.
+- Payday Super cashflow calculator Each payday’s super guarantee due date under Payday Super against the old quarterly date, and the peak extra working capital for a quarter of 2026-27.
 - Long service leave calculator One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.
 - Workers compensation premium calculator A 2026-27 premium from the declared wages and the insurer’s rate under each state and territory’s scheme, with GST, duty and the actual wages adjustment, each step cited.
 - Super lump sum tax The components of a super lump sum and the most tax each part can bear, for members and death benefits, 2020-21 to 2026-27.
@@ -6663,6 +6666,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
+- Payday Super cashflow calculator: https://duguid.com.au/tools/business-calculators/payday-cashflow/
 - Long service leave calculator: https://duguid.com.au/tools/business-calculators/long-service-leave/
 - Workers compensation premium calculator: https://duguid.com.au/tools/business-calculators/workers-compensation/
 - Super lump sum tax: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
@@ -15095,6 +15099,78 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
 - Maximum super contribution base: https://duguid.com.au/rates/maximum-contribution-base/
+
+---
+
+# Payday Super cashflow calculator: quarterly to payday
+
+Source: https://duguid.com.au/tools/business-calculators/payday-cashflow/
+
+> Each payday’s super guarantee due date under Payday Super from 1 July 2026 against the old quarterly due date, the days earlier and the peak extra working capital for a quarter.
+
+# Payday Super cashflow calculator
+
+How much sooner super guarantee leaves the business under Payday Super than under the quarterly rule, and the peak extra working capital.
+
+Published 26 November 2026. Last checked 26 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Super guarantee cash timing for one quarter of 2026-27
+
+Quarter July to September 2026 October to December 2026 January to March 2027 April to June 2027 Pay cycle Weekly Fortnightly Monthly First payday in the quarter
+
+A date in the quarter’s first 7 days for weekly pay, first 14 days for fortnightly pay or first month for monthly pay. Monthly paydays fall on the same date each month, or the month’s last day if it is shorter.
+
+Ordinary time earnings each payday, all employees (AUD)
+
+Include salary sacrificed to super and any other qualifying earnings under section 10A(1), such as an eligible contractor’s labour payments.
+
+Due dates are from the Payday Super calendar, as the SGC and Payday Super calculator works them.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: July to September 2026, paid fortnightly from 2 July 2026, ordinary time earnings $10,000.00 each payday. Payday 2 July 2026: $1,200.00, fund must receive it by Monday 13 July 2026, 107 days before the quarterly date Payday 16 July 2026: $1,200.00, fund must receive it by Monday 27 July 2026, 93 days before the quarterly date Payday 30 July 2026: $1,200.00, fund must receive it by Tuesday 11 August 2026, 78 days before the quarterly date Payday 13 August 2026: $1,200.00, fund must receive it by Monday 24 August 2026, 65 days before the quarterly date Payday 27 August 2026: $1,200.00, fund must receive it by Monday 7 September 2026, 51 days before the quarterly date Payday 10 September 2026: $1,200.00, fund must receive it by Monday 21 September 2026, 37 days before the quarterly date Payday 24 September 2026: $1,200.00, fund must receive it by Wednesday 7 October 2026, 21 days before the quarterly date Quarterly rule: $8,400.00 for the quarter, fund to receive it by Wednesday 28 October 2026 Average days earlier, weighted by amount 64.6 Peak held 7 October 2026 to 27 October 2026, 21 days Peak extra working capital $8,400.00
+
+## How the Payday Super cashflow calculator works
+
+Until 30 June 2026 an employer could hold a quarter’s super guarantee until 28 days after the quarter ended. From 1 July 2026, under Payday Super, the employee’s fund must receive 12% of each payday’s qualifying earnings within 7 business days of that payday. The calculator lists the paydays in the chosen quarter of 2026-27, each payday’s super guarantee and the date the fund must receive it, and how many days earlier that is than the quarterly date would have been. The extra working capital is what has already gone to funds but would still be in the business under the quarterly rule. It builds with each payday and peaks at the whole quarter’s super guarantee from the last payday’s due date until the day before the quarterly date. The average days earlier weighs each payday’s amount by how much sooner it leaves. Both dates are when the fund must receive the money, so allow for a clearing house’s processing time before each. In the first quarter, July to September 2026, the April to June 2026 contributions, still due by 28 July 2026, also fall due alongside the first paydays under the new rule.
+
+## What the Payday Super cashflow calculator does not cover
+
+The calculator is an estimate for planning and gives no advice. It does not cover:
+
+- the longer periods for a first contribution for a new employee or to a new fund, out-of-cycle pay, an ATO exceptional circumstances determination or bunched contributions: use the SGC and Payday Super calculator for those due dates;
+- earnings that change from one payday to the next, extra or irregular paydays, and the April to June 2026 quarter’s contributions;
+- each employee’s maximum contributions base of $270,830 for 2026-27: enter only earnings on which super guarantee is payable;
+- Norfolk Island salary or wages, which have a transitional rate of 11% for 2026-27;
+- the cost of the extra working capital, such as interest on an overdraft, and any super above the minimum;
+- paydays outside 2026-27.
+
+Confirm the figures with the ATO or a registered tax agent before relying on them.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Payday Super cashflow calculator
+
+Case | Inputs | Result
+Fortnightly from 2 July 2026: the whole quarter’s $8,400 is with funds from 7 October, 21 days before 28 October | July to September 2026, paid fortnightly from 2 July 2026, ordinary time earnings $10,000.00 each payday | Quarterly date Wednesday 28 October 2026, quarter $8,400.00, peak $8,400.00, peak from Wednesday 7 October 2026, 64.6 days earlier on average
+ATO example 3’s weekly 10 December payday is due 21 December; 17 and 24 December take the earliest part-day date | October to December 2026, paid weekly from 1 October 2026, ordinary time earnings $10,000.00 each payday | Quarterly date Thursday 28 January 2027, quarter $16,800.00, peak $16,800.00, peak from Tuesday 12 January 2027, 62.0 days earlier on average
+ATO example 4’s fortnightly 3 September payday is due 14 September; each payday rounds to the cent | July to September 2026, paid fortnightly from 9 July 2026, ordinary time earnings $4,321.07 each payday | Quarterly date Wednesday 28 October 2026, quarter $3,111.18, peak $3,111.18, peak from Tuesday 29 September 2026, 64.7 days earlier on average
+Monthly on the 31st falls on 28 February and 31 March | January to March 2027, paid monthly from 31 January 2027, ordinary time earnings $5,000.00 each payday | Quarterly date Wednesday 28 April 2027, quarter $1,800.00, peak $1,800.00, peak from Friday 9 April 2027, 48.3 days earlier on average
+The smallest earnings with a cent of super guarantee, weekly to 30 June 2027 | April to June 2027, paid weekly from 7 April 2027, ordinary time earnings $0.05 each payday | Quarterly date Wednesday 28 July 2027, quarter $0.13, peak $0.13, peak from Friday 9 July 2027, 59.6 days earlier on average
+A first weekly payday after the quarter’s first 7 days is refused | July to September 2026, paid weekly from 8 July 2026, ordinary time earnings $10,000.00 each payday | Refused: enter the first payday of the quarter: a date in its first 7 days
+Earnings whose 12% rounds to nil are refused | July to September 2026, paid fortnightly from 2 July 2026, ordinary time earnings $0.04 each payday | Refused: enter ordinary time earnings of at least $0.05 each payday, so that 12% of them is a cent or more
+
+One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- Payday Super calendar: https://duguid.com.au/tools/payday-super/business-days/
+- SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
+- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 

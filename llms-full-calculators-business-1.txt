@@ -16,7 +16,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 Fifty-seven free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
-Published 11 September 2026. Last checked 24 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
 Search 57 calculators
 
@@ -74,6 +74,7 @@ Search 57 calculators
 - Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 - SGC and Payday Super calculator When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.
+- Payday Super cashflow calculator Each payday’s super guarantee due date under Payday Super against the old quarterly date, and the peak extra working capital for a quarter of 2026-27.
 - Long service leave calculator One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.
 - Workers compensation premium calculator A 2026-27 premium from the declared wages and the insurer’s rate under each state and territory’s scheme, with GST, duty and the actual wages adjustment, each step cited.
 - Super lump sum tax The components of a super lump sum and the most tax each part can bear, for members and death benefits, 2020-21 to 2026-27.
@@ -144,6 +145,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
+- Payday Super cashflow calculator: https://duguid.com.au/tools/business-calculators/payday-cashflow/
 - Long service leave calculator: https://duguid.com.au/tools/business-calculators/long-service-leave/
 - Workers compensation premium calculator: https://duguid.com.au/tools/business-calculators/workers-compensation/
 - Super lump sum tax: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
