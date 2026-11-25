@@ -72,6 +72,7 @@ const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
+const invoice = { ...business, file: 'assets/tax-invoice.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
@@ -1132,6 +1133,19 @@ const MUTATIONS = [
   { ...rdOffset, name: 'R&D deduction amount not subtracted', find: 'const income = offset - adjusted[6] - deduction;', replace: 'const income = offset - adjusted[6];' },
   { ...rdOffset, name: 'R&D clawback income over the offset year rate', find: 'ratioCents((income < 0n ? -income : income), presentRate * 1000n)', replace: 'ratioCents((income < 0n ? -income : income), e.rate * 1000n)' },
   { ...rdOffset, name: 'R&D clawback below the threshold allowed', find: 'if (clawback !== 0n && e.notional - clawback < THRESHOLD) {', replace: 'if (false) {' },
+  { ...invoice, name: 'Tax invoice recipient needed from $1,001', find: 'const RECIPIENT_THRESHOLD = 100000n;', replace: 'const RECIPIENT_THRESHOLD = 100100n;' },
+  { ...invoice, name: 'Tax invoice $1,000 itself not enough for the recipient rule', find: 'totalPrice >= RECIPIENT_THRESHOLD', replace: 'totalPrice > RECIPIENT_THRESHOLD' },
+  { ...invoice, name: 'Tax invoice recipient needed with no taxable supply', find: '(hasTaxable && totalPrice', replace: '(true && totalPrice' },
+  { ...invoice, name: 'Tax invoice GST-inclusive prices taken as 10%', find: 'const divisor = inclusive ? 11n : 10n;', replace: 'const divisor = inclusive ? 10n : 10n;' },
+  { ...invoice, name: 'Tax invoice taxable supply rule ignored', find: "x.rounding === 'invoice' || taxable.length < 2", replace: 'true' },
+  { ...invoice, name: 'Tax invoice GST-exclusive total leaves out the GST', find: 'const totalPrice = inclusive ? amount : amount + gst;', replace: 'const totalPrice = amount;' },
+  { ...invoice, name: 'Tax invoice line amount truncated', find: 'ratioCents(BigInt(Math.round(quantity * 1000)) * BigInt(unit), 1000n)', replace: 'BigInt(Math.floor(quantity * unit))' },
+  { ...invoice, name: 'ABN first digit not reduced by 1', find: '(i === 0 ? digit - 1 : digit)', replace: 'digit' },
+  { ...invoice, name: 'ABN leading zero accepted', find: 'digits[0] !== 0 && total % 89 === 0', replace: 'total % 89 === 0' },
+  { ...invoice, name: 'ABN last 2 weights swapped', find: 'const ABN_WEIGHTS = [10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19];', replace: 'const ABN_WEIGHTS = [10, 1, 3, 5, 7, 9, 11, 13, 15, 19, 17];' },
+  { ...invoice, name: 'RCTI issued without the Determination confirmed', find: 'if (x.rcti_conditions_met !== true)', replace: 'if (false)' },
+  { ...invoice, name: 'RCTI omits that the supplier pays the GST', find: 'if (rcti && gst > 0n) statements.push', replace: 'if (false) statements.push' },
+  { ...invoice, name: 'Tax invoice download leaves angle brackets unescaped', find: 'text.replace(/[&<>"\']/g,', replace: 'text.replace(/[&"\']/g,' },
   { ...gstAdjustments, name: 'GST creditable purpose threshold counted as over it', find: 'cmp(value, d(finance ? \'10000\' : \'1000\')) <= 0', replace: 'cmp(value, d(finance ? \'10000\' : \'1000\')) < 0' },
   { ...gstAdjustments, name: 'GST 5 adjustment periods at $5,000 or less', find: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 2];', replace: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 5];' },
   { ...gstAdjustments, name: 'GST $500,000 given 5 adjustment periods', find: 'cmp(value, d(\'500000\')) < 0 ? 5 : 10', replace: 'cmp(value, d(\'500000\')) <= 0 ? 5 : 10' },

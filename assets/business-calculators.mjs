@@ -662,6 +662,7 @@ export { companyTax, companyTaxResult } from './company-tax.mjs';
 export { gstMarginScheme, gstMarginSchemeResult } from './gst-margin-scheme.mjs';
 export { lowValuePool, smallBusinessPool, capitalWorks, depreciationPoolsResult, poolFormInput, poolInputsText, POOL_YEARS } from './depreciation-pools.mjs';
 export { rdTaxOffset, rdTaxOffsetResult, rdFormInput, rdInputsText, RD_YEARS } from './rd-tax-offset.mjs';
+export { abnCheck, taxInvoice, taxInvoiceResult, taxInvoiceFormInput, taxInvoiceInputsText, invoiceAsHtml, TREATMENTS, MAX_LINES } from './tax-invoice.mjs';
 export { wineEqualisationTax, wineEqualisationTaxResult, wetFormInput, wetInputsText, WET_YEARS } from './wine-equalisation-tax.mjs';
 export { atoPenaltiesInterest, atoPenaltiesFormInput, atoPenaltiesInputsText, atoPenaltiesInterestResult, ATO_PENALTY_YEARS, PENALTY_UNITS } from './ato-penalties-interest.mjs';
 export { asicFee, asicFeesResult, asicFeeFormInput, asicFeeInputsText, firstMonthEnds, ASIC_FEES, ASIC_LATE_FEES } from './asic-fees.mjs';

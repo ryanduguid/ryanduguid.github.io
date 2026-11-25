@@ -471,6 +471,16 @@ calculate.rdTaxOffset({ ...rdInput, base_rate_entity: 'yes' });
 const rdAmounts: Record<string, number> = calculate.rdTaxOffset(rdInput).amounts;
 void rdOffset;
 void rdAmounts;
+const ABR_EXAMPLE = '51 824 753 556';
+const invoiceInput = { issuer: 'supplier', supplier_name: 'Example Stationery Pty Ltd', supplier_business_number: ABR_EXAMPLE, issued: '2026-11-26',
+  prices: 'inclusive', rounding: 'invoice', lines: [{ description: 'Pens', quantity: '20', unit_price: '1.10', treatment: 'taxable' }] };
+const invoiceGst: number = calculate.taxInvoice(invoiceInput).gst;
+// @ts-expect-error A line's quantity is decimal text, not a number.
+calculate.taxInvoice({ ...invoiceInput, lines: [{ description: 'Pens', quantity: 20, unit_price: '1.10', treatment: 'taxable' }] });
+// @ts-expect-error The check digit test returns an outcome and the formatted number, not a boolean.
+const abnPasses: boolean = calculate.abnCheck('51 824 753 556');
+void invoiceGst;
+void abnPasses;
 const gstBdInput = { party: 'supplier', event: 'written_off', amount: '550.00', taxable_or_creditable: true, cash_basis: false,
   special_rule: 'none', attributed: true, year: '2025-26', scope_confirmed: true };
 const gstApplies: boolean = calculate.gstBadDebt(gstBdInput).applies;
@@ -567,6 +577,7 @@ void businessSet['land-tax'].execute({ place: 'AU-NSW', taxableLandValue: 110000
 void businessSet['termination-payment'].execute({ genuineRedundancyPayment: '48000', completedYearsOfService: 5, codeOTaxableComponent: '17678', otherTaxablePayments: '140000', dateOfBirth: '1996-08-01' });
 void businessSet['transfer-duty'].execute({ place: 'AU-NSW', dutiableValue: 1350000 });
 void businessSet['rd-tax-offset'].execute({ incomeYear: '2025-26', notionalDeductions: '100000', aggregatedTurnover: '10000000', totalExpenses: '100000' });
+void businessSet['tax-invoice'].execute({ supplierName: 'Example Stationery Pty Ltd', supplierAbn: '51 824 753 556', issued: '2026-11-26', lines: [{ description: 'Pens', quantity: '20', unitPrice: '1.10', treatment: 'taxable' }] });
 void businessSet['gst-adjustments'].execute({ worksheet: 'going-concern', year: '2025-26', forConsideration: true, recipientRegistration: 'registered', writtenAgreement: 'on_or_before_supply_day', allThingsNecessary: true, carriedOnUntilSupply: true });
 void businessSet['deferred-tax'].execute({ incomeYear: '2025-26', items: [{ label: 'Plant', class: 'asset', carryingAmount: '70000', taxBase: '50000', openingCarryingAmount: '0', openingTaxBase: '0' }], accountingProfit: '100000', taxableIncome: '100000' });
 void pensionMinimumTools({ pensionMinimum, PENSION_MINIMUM_YEARS })['pension-minimum'].execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67 });

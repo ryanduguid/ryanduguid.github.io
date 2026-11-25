@@ -1225,6 +1225,40 @@ test('R&D tax offset page works Company V, a refundable offset and refuses a cla
   await expect(form.locator('output')).toContainText('does not choose between them');
 });
 
+// GSTR 2013/1 example 2 is the form's default; a GST-free line makes it mixed, the download is the invoice itself,
+// and $1,000 without the recipient is refused.
+test('tax invoice page works GSTR 2013/1 example 2, a mixed invoice and its download, and refuses $1,000 without the recipient offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/tax-invoice/');
+  const form = page.locator('#tax-invoice form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('GST: $17.00.');
+  await expect(form.locator('table[data-results="checks"] tbody tr')).toHaveCount(7);
+  await form.locator('[name="line-4-description"]').fill('Bread');
+  await form.locator('[name="line-4-quantity"]').fill('2');
+  await form.locator('[name="line-4-price"]').fill('4.50');
+  await form.locator('[name="line-4-treatment"]').selectOption('gst-free');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('* Taxable supply: the price includes GST.');
+  await expect(form.locator('table[data-results="lines"] tbody tr').nth(3)).toContainText('GST-free');
+  const download = page.waitForEvent('download');
+  await form.getByRole('button', { name: 'Download the invoice to print' }).click();
+  const file = await download;
+  expect(file.suggestedFilename()).toBe('tax-invoice.html');
+  const html = await readFile(await file.path(), 'utf8');
+  expect(html).toContain('<h1>Tax invoice</h1>');
+  const abrExample = '51 824 753 556';
+  expect(html).toContain(`ABN ${abrExample}`);
+  expect(html).toContain('$196.00');
+  expect(html).not.toContain('<script');
+  await form.locator('[name="recipient-name"]').fill('');
+  await form.locator('[name="line-4-price"]').fill('500');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText(/recipient’s name or ABN, as the total price is \$1,000 or more/);
+  await expect(form.getByRole('button', { name: 'Download the invoice to print' })).toBeDisabled();
+});
+
 // GSTR 2000/24's Bill is the form's default; the bad debt worksheet shows its own fields and the conditions table.
 test('GST adjustments page works Bill, a recipient bad debt and refuses a margin scheme debt offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/gst-adjustments/');
@@ -1773,7 +1807,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
   'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset',
-  'gst-adjustments', 'deferred-tax'];
+  'gst-adjustments', 'deferred-tax', 'tax-invoice'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
