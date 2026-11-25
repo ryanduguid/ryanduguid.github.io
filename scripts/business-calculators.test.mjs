@@ -7269,6 +7269,28 @@ test('trust streaming reduces the gain rateably when net income falls short, as 
   assert.equal(trailerpark({}).amounts.reduced, false);
 });
 
+test('trust streaming reduces a gain and franked distributions together, worked by hand from ss 115-225(3) and 207-37(3)', () => {
+  // Trust income $57,000; net income $10,000, $7,000 without credits, short of the $20,000 gain and $7,000 franked
+  // distributions, so each is scaled by 7/27. Bea is specifically entitled to half the franked distributions; the rest is
+  // shared by adjusted Division 6 percentage over $13,500: Bea 6,500/13,500 and the trustee 7,000/13,500. Bea's share of the
+  // distribution is 20/27 and the trustee's 7/27.
+  const r = calculations.trustStreaming({ ...trustZero, other_trust_income: '10000', other_net_income: '-20000', franked_distributions: '7000',
+    franking_credits: '3000', capital_gain: '40000', capital_gain_remaining: '20000', capital_gain_concessions: 'discount',
+    capital_gain_trust_income: '40000', beneficiaries: [trustPerson('Alex', '40000', '40000'), trustPerson('Bea', '10000', '0', '3500', 'company')] });
+  assert.deepEqual([r.netIncome, r.amounts.reduced], [10000, true]);
+  // Alex: $20,000 x 7/27 = $5,185.19, grossed up to $10,370.37 and halved again by Alex's own discount.
+  assert.deepEqual([r.beneficiaries[0].attributableGain, r.beneficiaries[0].extraCapitalGain, r.beneficiaries[0].netCapitalGain],
+    [5185.19, 10370.37, 5185.19]);
+  // Bea: $7,000 x 7/27 x 20/27 = $1,344.31 and credits $3,000 x 20/27 = $2,222.22, not reduced.
+  assert.deepEqual([r.beneficiaries[1].attributableFranked, r.beneficiaries[1].frankingCredit, r.beneficiaries[1].assessable], [1344.31, 2222.22, 3566.53]);
+  // Trustee: $7,000 x 7/27 x 7/27 = $470.51 and credits $777.78, s 99A(4A) amount $1,248.29, tax $561.73 less the offset, nil.
+  assert.deepEqual([r.trustee.provision, r.trustee.assessable, r.trustee.tax, r.trustee.offset, r.trustee.taxAfterOffset],
+    ['s 99A(4A)', 1248.29, 561.73, 777.78, 0]);
+  // Division 6E net income is nil, so no Division 6 share; the 3 assessments are the net income.
+  assert.deepEqual(r.beneficiaries.map((b) => b.division6), [0, 0]);
+  assert.equal(Math.round((5185.185185 + 3566.529492 + 1248.285322) * 100) / 100, r.netIncome);
+});
+
 test('trust streaming shares franked distributions and credits as the ATO Lang Trust example does', () => {
   const lang = (more) => calculations.trustStreaming({ ...trustZero, other_trust_income: '80000', other_net_income: '80000',
     franked_distributions: '70000', franking_credits: '30000', beneficiaries: [trustPerson('Lucy', '75000'), trustPerson('Hannah', '75000', '0', '50000')],
@@ -7330,6 +7352,13 @@ test('trust streaming refuses inputs it cannot settle', () => {
   refused({ beneficiaries: [{ ...trustPerson('A', '1'), kind: 'partnership' }] }, /choose individual, company or trust/);
   refused({ beneficiaries: Array.from({ length: 5 }, (_, i) => trustPerson(`P${i}`, '1')) }, /at most 4/);
   refused({ other_net_income: '-80', franked_distributions: '70', franking_credits: '30' }, /rateable reduction/);
+  // Credits above 30/70 of the distribution rounded to the nearest cent are refused; the rounded limit is accepted.
+  refused({ franked_distributions: '70', franking_credits: '30.01' }, /30\/70/);
+  refused({ franked_distributions: '100000', franking_credits: '42857.15' }, /30\/70/);
+  for (const [franked, credits] of [['70', '30'], ['100000', '42857.14'], ['1', '0.43']]) {
+    assert.doesNotThrow(() => calculations.trustStreaming({ ...trustZero, other_trust_income: '100', other_net_income: '100',
+      franked_distributions: franked, franking_credits: credits }), `${franked} ${credits}`);
+  }
   // A specific entitlement in tax dollars above the beneficiary's present entitlement leaves a negative adjusted percentage.
   refused({ other_trust_income: '0', other_net_income: '0', capital_gain: '150', capital_gain_remaining: '70', capital_gain_concessions: 'discount',
     capital_gain_trust_income: '140', beneficiaries: [trustPerson('A', '110', '110'), trustPerson('B', '30')] }, /below nil, so the adjusted/);

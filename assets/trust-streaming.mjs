@@ -89,8 +89,8 @@ export function trustStreaming(input) {
   if (rows.length > TRUST_STREAMING_ROWS) refuse(`Enter at most ${TRUST_STREAMING_ROWS} beneficiaries.`);
 
   if (frankedDeductions > franked) refuse('Deductions directly relevant to the franked distributions cannot exceed them.');
-  // A franking credit is at most the distribution grossed up at the 30% corporate tax rate: 30/70 of it (s 202-60).
-  if (7n * credits > 3n * franked + 7n) refuse('Franking credits cannot exceed 30/70 of the franked distributions.');
+  // A franking credit is at most 30/70 of the distribution (s 202-60), allowing that limit rounded to the nearest cent.
+  if (14n * credits > 6n * franked + 7n) refuse('Franking credits cannot exceed 30/70 of the franked distributions.');
   if (gain === 0n && (remaining > 0n || gainIncome > 0n)) refuse('Enter the capital gain before losses and concessions, or nil for all 3 capital gain amounts.');
   if (gain > 0n && (remaining === 0n || remaining > gain)) {
     refuse('The capital gain remaining after losses and concessions must be above nil and no more than the capital gain.');

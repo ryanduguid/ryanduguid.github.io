@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/business-calculators/trust-streaming/
 
-> Each beneficiary’s share of a discretionary trust’s net income by present entitlement, capital gains and franked distributions streamed to those specifically entitled, and the trustee’s 45% tax under section 99A.
+> Each beneficiary’s share of a discretionary trust’s net income, with capital gains and franked distributions streamed, and the trustee’s 45% tax under section 99A.
 
 # Trust streaming calculator
 
