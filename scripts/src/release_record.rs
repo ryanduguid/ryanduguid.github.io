@@ -1084,10 +1084,9 @@ pub fn verify_live(
                 _ => None,
             };
             let (expected, said) = match &lag {
-                Some(((version, _), said)) => (
-                    Json::Str(version.clone()),
-                    said.replace("{}", version),
-                ),
+                Some(((version, _), said)) => {
+                    (Json::Str(version.clone()), said.replace("{}", version))
+                }
                 None => (recorded_value.clone(), recorded.clone()),
             };
             let matches = Json::Str(detail.clone()).py_eq(&expected)

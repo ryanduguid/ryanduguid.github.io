@@ -1162,6 +1162,8 @@ fn verify_live_holds_a_recorded_pypi_lag_until_pypi_catches_up() {
             other => panic!("version {other:?}"),
         }
     };
+    // The committed record already holds the lag; start from the unrecorded case.
+    remove(&mut record, &["components", FPA, "published"], "pypi_lag");
     let run = |record: &Json, pypi: &str| {
         let mut live = stub(|_| Ok(Json::Null));
         let mut printed = Vec::new();
@@ -1200,7 +1202,9 @@ fn verify_live_holds_a_recorded_pypi_lag_until_pypi_catches_up() {
     let (code, printed) = run(&record, "0.0.1");
     assert_eq!(code, 1, "PyPI behind an unrecorded lag is drift: {printed}");
     assert!(
-        printed.contains(&format!("{FPA}: pypi reports 0.0.1, record says {version} (DRIFT)")),
+        printed.contains(&format!(
+            "{FPA}: pypi reports 0.0.1, record says {version} (DRIFT)"
+        )),
         "{printed}"
     );
 
@@ -1209,7 +1213,9 @@ fn verify_live_holds_a_recorded_pypi_lag_until_pypi_catches_up() {
     let (code, printed) = run(&record, "0.0.1");
     assert_eq!(code, 0, "the recorded lag holds: {printed}");
     assert!(
-        printed.contains(&format!("{FPA}: pypi reports 0.0.1, record says PyPI lags at 0.0.1 per pypi_lag (matches)")),
+        printed.contains(&format!(
+            "{FPA}: pypi reports 0.0.1, record says PyPI lags at 0.0.1 per pypi_lag (matches)"
+        )),
         "{printed}"
     );
 
@@ -1239,7 +1245,9 @@ fn a_recorded_pypi_lag_must_be_stated_and_differ() {
     expect_failure(
         "unstated PyPI lag",
         &check(site.path(), &record),
-        &format!("{page}: does not state the recorded PyPI lag 'PyPI still serves au-fpa-pack 0.0.1.'"),
+        &format!(
+            "{page}: does not state the recorded PyPI lag 'PyPI still serves au-fpa-pack 0.0.1.'"
+        ),
     );
 
     let version = match record
@@ -1251,8 +1259,10 @@ fn a_recorded_pypi_lag_must_be_stated_and_differ() {
         Some(Json::Str(version)) => version.clone(),
         other => panic!("version {other:?}"),
     };
-    *at(&mut record, &["components", FPA, "published", "pypi_lag", "version"]) =
-        Json::Str(version.clone());
+    *at(
+        &mut record,
+        &["components", FPA, "published", "pypi_lag", "version"],
+    ) = Json::Str(version.clone());
     expect_failure(
         "PyPI lag equal to the published version",
         &check(site.path(), &record),
