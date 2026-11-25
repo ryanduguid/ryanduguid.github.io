@@ -784,6 +784,12 @@ Object.assign(INPUTS, { deferredTax: (x) => calculations.deferredTaxInputsText(x
 Object.assign(ENGINE_LABELS, { deferredTax: { deferredTaxLiability: 'deferred tax liability', deferredTaxAsset: 'deferred tax asset',
   deferredTaxExpense: 'deferred tax expense', currentTax: 'current tax', incomeTaxExpense: 'income tax expense' } });
 
+// The Payday Super cashflow page's rows (its tests are with the SGC page's below).
+Object.assign(INPUTS, { paydayCashflow: (x) => calculations.cashflowInputsText(x, dollars) });
+Object.assign(ENGINE_LABELS, { paydayCashflow: { quarterlyDue: (v) => `quarterly date ${longDay(v)}`, total: (v) => `quarter ${dollars(v)}`,
+  peak: (v) => `peak ${dollars(v)}`, peakFrom: (v) => `peak from ${longDay(v)}`,
+  averageDaysEarlier: (v) => `${v.toFixed(1)} days earlier on average` } });
+
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
     test(`${page} official comparison states what this calculator returns`, () => {
@@ -1249,6 +1255,8 @@ Object.assign(FORM_CALLS, { gstAdjustment: (f) => {
 } });
 
 Object.assign(FORM_CALLS, { deferredTax: (f) => [calculations.deferredTaxFormInput((name) => f[name] ?? '')] });
+Object.assign(FORM_CALLS, { paydayCashflow: (f) => [{ quarter: f.quarter, cycle: f.cycle, firstPayday: f['first-payday'],
+  earnings: f.earnings }] });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -3748,13 +3756,7 @@ test('the administrative uplift falls by the regulation 13C and 13D points, to n
     { message: 'Choose whether an approved voluntary disclosure statement was lodged before the assessment day.' });
 });
 
-// The Payday Super cashflow page: how each call and result reads, and its schedule.
-Object.assign(INPUTS, { paydayCashflow: (x) => calculations.cashflowInputsText(x, dollars) });
-Object.assign(FORM_CALLS, { paydayCashflow: (f) => [{ quarter: f.quarter, cycle: f.cycle, firstPayday: f['first-payday'],
-  earnings: f.earnings }] });
-Object.assign(ENGINE_LABELS, { paydayCashflow: { quarterlyDue: (v) => `quarterly date ${longDay(v)}`, total: (v) => `quarter ${dollars(v)}`,
-  peak: (v) => `peak ${dollars(v)}`, peakFrom: (v) => `peak from ${longDay(v)}`,
-  averageDaysEarlier: (v) => `${v.toFixed(1)} days earlier on average` } });
+// The Payday Super cashflow page's schedule (its rows' reading is set beside the deferred tax page's).
 const cashflow = (more) => calculations.paydayCashflow({ quarter: '1', cycle: 'fortnightly', firstPayday: '2026-07-02', earnings: '10000', ...more });
 
 // ATO, 'Payment deadlines for Payday Super' (last updated 29 September 2026), read 26 November 2026:
@@ -3810,6 +3812,16 @@ test('Payday Super cashflow builds the extra working capital payday by payday to
     assert.throws(() => cashflow(more), { message }, JSON.stringify(more));
   }
   for (const earnings of ['', 'abc', '-1', '1e3', '100.001', '1000000001']) assert.throws(() => cashflow({ earnings }), Error, earnings);
+});
+
+// A retried page load can reach payday-cashflow.mjs through sgc-payday.mjs before that module has run.
+test('Payday Super cashflow loads when sgc-payday.mjs is the first module imported', async () => {
+  const { execFileSync } = await import('node:child_process');
+  const out = execFileSync(process.execPath, ['--input-type=module', '-e',
+    "const m = await import('./assets/sgc-payday.mjs'); const c = await import('./assets/payday-cashflow.mjs'); "
+    + "process.stdout.write(String(c.paydayCashflow({ quarter: '2', cycle: 'weekly', firstPayday: '2026-10-01', earnings: '1' }).paydays.length))"],
+  { cwd: new URL('..', import.meta.url), encoding: 'utf8' });
+  assert.equal(out, '14');
 });
 
 test('the Payday Super cashflow page opens on the result its calculation gives', () => {

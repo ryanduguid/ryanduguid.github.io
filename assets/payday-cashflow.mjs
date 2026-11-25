@@ -36,7 +36,9 @@ export const CASHFLOW_QUARTERS = {
 };
 const CYCLE_DAYS = { weekly: 7, fortnightly: 14 };
 // The site's calendar as business-days.mjs reads a holiday table: every listed weekday is skipped.
-const CALENDAR = NON_BUSINESS_WEEKDAYS.map((date) => ({ date, name: 'public holiday', jurisdictions: [] }));
+// business-calculators.mjs re-exports this module and sgc-payday.mjs imports it back, so on a
+// retried load sgc-payday.mjs may not have run yet: read its list inside the function only.
+const calendar = () => NON_BUSINESS_WEEKDAYS.map((date) => ({ date, name: 'public holiday', jurisdictions: [] }));
 
 /** The paydays in the quarter: every 7 or 14 days from the first, or the same day each month,
  * moved back to the month's last day where the month is shorter.
@@ -82,7 +84,7 @@ export function paydayCashflow(inputs) {
     } catch (error) {
       if (!String(/** @type {Error} */ (error).message).startsWith('This Payday Super deadline depends on part-day holidays')) throw error;
       // Counting 24 and 31 December as business days gives the earliest of the possible dates.
-      due = /** @type {string} */ (businessDays({ mode: 'add', place: 'any', start: payday, end: '', count: '7' }, CALENDAR).date);
+      due = /** @type {string} */ (businessDays({ mode: 'add', place: 'any', start: payday, end: '', count: '7' }, calendar()).date);
       partDay = true;
     }
     const daysEarlier = quarterlyDue - dayOf(due);

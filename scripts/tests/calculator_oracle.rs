@@ -6267,8 +6267,14 @@ fn cashflow_oracle(
         ahead += sg;
         weighted += u128::from(sg) * u128::try_from(earlier).unwrap();
         last = due;
-        rows.push(json!([iso_day(payday), iso_day(due), dues.iter().any(|d| *d != due), earlier,
-            shown(sg), shown(ahead)]));
+        rows.push(json!([
+            iso_day(payday),
+            iso_day(due),
+            dues.iter().any(|d| *d != due),
+            earlier,
+            shown(sg),
+            shown(ahead)
+        ]));
     }
     let tenths = exact_half_up(weighted * 10, u128::from(ahead));
     let average = if tenths % 10 == 0 {
@@ -6295,13 +6301,19 @@ fn the_payday_cashflow_engine_agrees_with_the_oracle_on_every_first_payday() {
             for first in from - 1..from + 32 {
                 let any = rng.cents(100_000_000_000);
                 let earnings = rng.pick(&[4, 5, any, any, any, any]);
-                cases.push(json!({ "quarter": name, "cycle": cycle, "firstPayday": iso_day(first),
-                    "earnings": dollars(earnings) }));
+                cases.push(
+                    json!({ "quarter": name, "cycle": cycle, "firstPayday": iso_day(first),
+                    "earnings": dollars(earnings) }),
+                );
                 expected.push(cashflow_oracle(&scenarios, quarter, cycle, first, earnings));
             }
         }
     }
-    assert!(expected.iter().any(|want| want["paydays"].as_array().is_some_and(|rows| rows.iter().any(|row| row[2] == true))));
+    assert!(expected.iter().any(|want| {
+        want["paydays"]
+            .as_array()
+            .is_some_and(|rows| rows.iter().any(|row| row[2] == true))
+    }));
     let actual = run_node(CASHFLOW_HARNESS, &cases);
     assert_eq!(actual.len(), cases.len());
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
