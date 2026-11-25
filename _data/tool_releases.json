@@ -7,25 +7,25 @@
     "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.2.2"
   },
   "australian-tax-ai-agents": {
-    "version": "0.12.0",
-    "tag": "aus-accounting-mcp/v0.12.0",
-    "date": "2026-11-23",
-    "dateLabel": "23 November 2026",
-    "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.12.0"
+    "version": "0.13.0",
+    "tag": "aus-accounting-mcp/v0.13.0",
+    "date": "2026-11-25",
+    "dateLabel": "25 November 2026",
+    "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.13.0"
   },
   "company-tax-franking": {
-    "version": "0.2.0",
-    "tag": "the-exchequer-tally/v0.2.0",
-    "date": "2026-10-19",
-    "dateLabel": "19 October 2026",
-    "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.2.0"
+    "version": "1.0.0",
+    "tag": "the-exchequer-tally/v1.0.0",
+    "date": "2026-11-25",
+    "dateLabel": "25 November 2026",
+    "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v1.0.0"
   },
   "monthly-close-controls": {
-    "version": "1.1.0",
-    "tag": "monthly-close-control-plane/v1.1.0",
-    "date": "2026-11-14",
-    "dateLabel": "14 November 2026",
-    "url": "https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.1.0"
+    "version": "1.2.0",
+    "tag": "monthly-close-control-plane/v1.2.0",
+    "date": "2026-11-25",
+    "dateLabel": "25 November 2026",
+    "url": "https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.2.0"
   },
   "ozzit": {
     "version": "3.8.0",
@@ -42,18 +42,18 @@
     "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.2.3"
   },
   "subcontractor-ledgers": {
-    "version": "0.7.0",
-    "tag": "v0.7.0",
-    "date": "2026-11-14",
-    "dateLabel": "14 November 2026",
-    "url": "https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.7.0"
+    "version": "0.8.1",
+    "tag": "v0.8.1",
+    "date": "2026-11-25",
+    "dateLabel": "25 November 2026",
+    "url": "https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.8.1"
   },
   "trust-distributions": {
-    "version": "0.3.2",
-    "tag": "solomons-sword/v0.3.2",
-    "date": "2026-10-20",
-    "dateLabel": "20 October 2026",
-    "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.3.2"
+    "version": "1.0.0",
+    "tag": "solomons-sword/v1.0.0",
+    "date": "2026-11-25",
+    "dateLabel": "25 November 2026",
+    "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v1.0.0"
   },
   "wip-schedule": {
     "version": "0.2.0",
@@ -63,11 +63,11 @@
     "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.2.0"
   },
   "workpaper-review-gate": {
-    "version": "1.0.1",
-    "tag": "review-ready-gate/v1.0.1",
-    "date": "2026-11-14",
-    "dateLabel": "14 November 2026",
-    "url": "https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.0.1"
+    "version": "1.1.0",
+    "tag": "review-ready-gate/v1.1.0",
+    "date": "2026-11-25",
+    "dateLabel": "25 November 2026",
+    "url": "https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.1.0"
   },
   "xero-trial-balance": {
     "version": "0.1.15",
