@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-11-24T00:00:00Z</updated>
+  <updated>2026-11-25T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>Updated general tax question 8 after the ATO updated its How to lodge your tax…</title>
+    <link href="https://duguid.com.au/changelog/#entry-062afadb39b84c69" />
+    <id>https://duguid.com.au/changelog/#entry-062afadb39b84c69</id>
+    <updated>2026-11-25T00:00:00Z</updated>
+    <summary>Updated general tax question 8 after the ATO updated its How to lodge your tax return page from 12 to 10 business days for returns lodged online, matching its progress page.</summary>
+  </entry>
   <entry>
     <title>The first home owner grant calculator now takes the building contract price of…</title>
     <link href="https://duguid.com.au/changelog/#entry-bf0880e6b0f8da76" />
