@@ -1135,7 +1135,7 @@ const MUTATIONS = [
   { ...rdOffset, name: 'R&D clawback below the threshold allowed', find: 'if (clawback !== 0n && e.notional - clawback < THRESHOLD) {', replace: 'if (false) {' },
   { ...invoice, name: 'Tax invoice recipient needed from $1,001', find: 'const RECIPIENT_THRESHOLD = 100000n;', replace: 'const RECIPIENT_THRESHOLD = 100100n;' },
   { ...invoice, name: 'Tax invoice $1,000 itself not enough for the recipient rule', find: 'totalPrice >= RECIPIENT_THRESHOLD', replace: 'totalPrice > RECIPIENT_THRESHOLD' },
-  { ...invoice, name: 'Tax invoice recipient needed with no taxable supply', find: '(taxable.length > 0 && totalPrice', replace: '(true && totalPrice' },
+  { ...invoice, name: 'Tax invoice recipient needed with no taxable supply', find: '(hasTaxable && totalPrice', replace: '(true && totalPrice' },
   { ...invoice, name: 'Tax invoice GST-inclusive prices taken as 10%', find: 'const divisor = inclusive ? 11n : 10n;', replace: 'const divisor = inclusive ? 10n : 10n;' },
   { ...invoice, name: 'Tax invoice taxable supply rule ignored', find: "x.rounding === 'invoice' || taxable.length < 2", replace: 'true' },
   { ...invoice, name: 'Tax invoice GST-exclusive total leaves out the GST', find: 'const totalPrice = inclusive ? amount : amount + gst;', replace: 'const totalPrice = amount;' },

@@ -592,7 +592,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             result = calculate.taxInvoiceResult(value, aud);
             showTables(result.tables);
             // The download is the invoice itself, a page to print or save as PDF.
-            csv = result.html;
+            csv = result.html; // eslint-disable-line xss/no-mixed-html -- the invoice file is downloaded, never inserted into this page
             csvDownload.disabled = false;
             break;
           case 'fuel-tax-credits':

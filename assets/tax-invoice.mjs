@@ -59,29 +59,23 @@ const dateFormat = new Intl.DateTimeFormat('en-AU', { day: 'numeric', month: 'lo
 export const invoiceDate = (iso) => dateFormat.format(new Date(`${iso}T00:00:00Z`));
 const money = (/** @type {bigint} */ value) => Number(value) / 100;
 
-/**
- * The invoice's figures, wording and checks. A detail section 29-70(1) needs and the input lacks is refused,
- * every such detail named at once.
- * @param {TaxInvoiceInput} x
- */
-export function taxInvoice(x) {
+/** Refuses an unknown setting or an issue date the calculator does not cover. @param {TaxInvoiceInput} x */
+function checkSettings(x) {
   if (!['supplier', 'recipient'].includes(x.issuer)) throw new Error('Choose who issues the invoice.');
   if (!['inclusive', 'exclusive'].includes(x.prices)) throw new Error('Choose whether prices include GST.');
   if (!['invoice', 'supply'].includes(x.rounding)) throw new Error('Choose a rounding rule.');
-  const rcti = x.issuer === 'recipient';
-  const inclusive = x.prices === 'inclusive';
   if (!/^\d{4}-\d{2}-\d{2}$/.test(x.issued ?? '') || Number.isNaN(Date.parse(`${x.issued}T00:00:00Z`))
     || new Date(`${x.issued}T00:00:00Z`).toISOString().slice(0, 10) !== x.issued) throw new Error('Enter the date the invoice is issued.');
   if (x.issued < '2000-07-01') throw new Error('GST started on 1 July 2000: enter an issue date from then.');
   // The 2023 determination commenced the day after its registration on 14 June 2023 and replaced the earlier ones.
-  if (rcti && x.issued < '2023-06-15') throw new Error('This calculator applies the Recipient Created Tax Invoice Determination 2023, in force from 15 June 2023: enter an issue date from then.');
-  const supplier = { name: words(x.supplier_name, 'the supplier’s name', 200), address: words(x.supplier_address, 'the supplier’s address', 300) };
-  const recipient = { name: words(x.recipient_name, 'the recipient’s name', 200), address: words(x.recipient_address, 'the recipient’s address', 300) };
-  const invoiceNumber = words(x.invoice_number, 'the invoice number', 60);
+  if (x.issuer === 'recipient' && x.issued < '2023-06-15') throw new Error('This calculator applies the Recipient Created Tax Invoice Determination 2023, in force from 15 June 2023: enter an issue date from then.');
+}
+
+/** Each line as entered: description, quantity, unit price in cents, amount and treatment. @param {TaxInvoiceInput} x */
+function invoiceLines(x) {
   if (!Array.isArray(x.lines) || !x.lines.length) throw new Error('Enter at least one line: what is supplied, its quantity and price.');
   if (x.lines.length > MAX_LINES) throw new Error(`Enter no more than ${MAX_LINES} lines.`);
-
-  const lines = x.lines.map((line, i) => {
+  return x.lines.map((line, i) => {
     const description = words(line.description, `line ${i + 1}’s description`, 200);
     if (!description) throw new Error(`Describe what line ${i + 1} supplies.`);
     if (!TREATMENTS.includes(/** @type {any} */ (line.treatment))) throw new Error(`Choose whether line ${i + 1} is taxable, GST-free or input taxed.`);
@@ -96,6 +90,94 @@ export function taxInvoice(x) {
     const amount = ratioCents(BigInt(Math.round(quantity * 1000)) * BigInt(unit), 1000n);
     return { description, quantity: String(quantity), unit: BigInt(unit), amount, treatment: line.treatment };
   });
+}
+
+/**
+ * The ABNs checked, and whether the recipient must be shown. Every detail section 29-70(1) needs and the
+ * input lacks is refused, named at once.
+ * @param {TaxInvoiceInput} x @param {{name: string}} supplier @param {{name: string}} recipient
+ * @param {boolean} hasTaxable @param {bigint} totalPrice
+ */
+function checkParties(x, supplier, recipient, hasTaxable, totalPrice) {
+  const rcti = x.issuer === 'recipient';
+  const problems = [];
+  const supplierAbn = abnCheck(x.supplier_abn ?? '');
+  if (!supplier.name) problems.push('the supplier’s name');
+  if (supplierAbn.result === 'MALFORMED') problems.push('the supplier’s ABN as 11 digits');
+  else if (supplierAbn.result === 'CHECK_DIGIT_INVALID') problems.push(`a supplier ABN that passes the check digit test (${supplierAbn.formatted} fails it)`);
+  const recipientAbnText = (x.recipient_abn ?? '').trim();
+  const recipientAbn = recipientAbnText ? abnCheck(recipientAbnText) : null;
+  if (recipientAbn?.result === 'MALFORMED') problems.push('the recipient’s ABN as 11 digits, or leave it blank');
+  else if (recipientAbn?.result === 'CHECK_DIGIT_INVALID') problems.push(`a recipient ABN that passes the check digit test (${recipientAbn.formatted} fails it)`);
+  // Only a tax invoice needs the recipient: one with a taxable supply, whose supplies total $1,000 or more.
+  const recipientRequired = rcti || (hasTaxable && totalPrice >= RECIPIENT_THRESHOLD);
+  if (rcti) {
+    // s 29-70(1)(c)(ii) asks for the recipient's identity or ABN; the ATO's page asks an RCTI for both parties' ABNs.
+    if (!recipient.name) problems.push('the recipient’s name, as the recipient issues an RCTI');
+    if (!recipientAbn) problems.push('the recipient’s ABN, which the ATO requires on an RCTI');
+    if (!hasTaxable) problems.push('at least one taxable line, as an RCTI is for a taxable supply');
+    if (x.rcti_conditions_met !== true) problems.push('confirmation that the Recipient Created Tax Invoice Determination 2023 allows this RCTI');
+  } else if (recipientRequired && !recipient.name && !recipientAbn) {
+    problems.push('the recipient’s name or ABN, as the total price is $1,000 or more');
+  }
+  if (problems.length) throw new Error(`To be a ${rcti ? 'recipient created tax invoice' : 'tax invoice'}, enter ${problems.join('; ')}.`);
+  return { supplierAbn, recipientAbn, recipientRequired };
+}
+
+/**
+ * The wording for taxable, GST-free and mixed invoices, and an RCTI's statement that the supplier pays the GST.
+ * @param {boolean} rcti @param {boolean} inclusive @param {boolean} hasTaxable @param {boolean} mixed @param {bigint} gst
+ */
+function invoiceStatements(rcti, inclusive, hasTaxable, mixed, gst) {
+  const statements = [];
+  if (!hasTaxable) statements.push('No GST: each supply is GST-free or input taxed, and the total price includes no GST.');
+  else if (!mixed && inclusive) statements.push('Each supply is taxable. Total price includes GST.');
+  else if (!mixed) statements.push('Each supply is taxable. Prices exclude GST; the GST is added.');
+  else {
+    statements.push(inclusive ? '* Taxable supply: the price includes GST.' : '* Taxable supply: the price excludes GST; the GST is added.');
+    statements.push('Other supplies are GST-free or input taxed, as marked, and include no GST.');
+  }
+  if (rcti && gst > 0n) statements.push('The GST shown is payable by the supplier.');
+  return statements;
+}
+
+/**
+ * One row for each detail section 29-70(1) requires, and how the invoice shows it.
+ * @param {{rcti: boolean, heading: string, issued: string, rounding: string, supplier: {name: string, abn: string},
+ *   recipient: {name: string, abn: string}, recipientRequired: boolean, lineCount: number, taxableCount: number,
+ *   mixed: boolean, statement: string, gst: bigint, showLineGst: boolean}} c
+ */
+function invoiceChecks(c) {
+  const recipientLine = [c.recipient.name, c.recipient.abn && `ABN ${c.recipient.abn}`].filter(Boolean).join(', ');
+  const checks = [
+    [`Shows it is intended to be a ${c.rcti ? 'recipient created tax invoice' : 'tax invoice'} (s 29-70(1)(d))`,
+      c.taxableCount ? `Headed ‘${c.heading}’` : 'Not needed: no supply is taxable, so the document is headed ‘Invoice’'],
+    ['Supplier’s identity and ABN (s 29-70(1)(c)(i))', `${c.supplier.name}, ABN ${c.supplier.abn}, which passes the check digit test`],
+    ['Recipient’s identity or ABN (s 29-70(1)(c)(ii))', c.recipientRequired ? recipientLine
+      : `Not required: the total price is under $1,000${recipientLine ? `; shown: ${recipientLine}` : ''}`],
+    ['What is supplied, with quantity and price (s 29-70(1)(c)(iii))', `${c.lineCount} ${c.lineCount === 1 ? 'line' : 'lines'}, each with its description, quantity, unit price and amount`],
+    ['Extent each supply is taxable (s 29-70(1)(c)(iv))', c.mixed ? 'Each taxable supply is marked * and each other supply is labelled GST-free or input taxed' : c.statement],
+    ['Date issued (s 29-70(1)(c)(v))', invoiceDate(c.issued)],
+    ['GST payable (s 29-70(1)(c)(vi))', `${c.taxableCount ? `${dollarsText(c.gst)} in total, by the ${RULE_WORDS[/** @type {'invoice' | 'supply'} */ (c.rounding)]}` : 'None'}`
+      + `${c.showLineGst && c.taxableCount > 1 ? ', with each taxable line’s GST shown' : ''}`],
+  ];
+  if (c.rcti) checks.push(['GST payable by the supplier (s 29-70(1)(c)(vii))', c.gst > 0n ? 'Stated' : 'No GST is payable']);
+  return checks;
+}
+
+/**
+ * The invoice's figures, wording and checks. A detail section 29-70(1) needs and the input lacks is refused,
+ * every such detail named at once.
+ * @param {TaxInvoiceInput} x
+ */
+export function taxInvoice(x) {
+  const rcti = x.issuer === 'recipient';
+  const inclusive = x.prices === 'inclusive';
+  checkSettings(x);
+  const supplier = { name: words(x.supplier_name, 'the supplier’s name', 200), address: words(x.supplier_address, 'the supplier’s address', 300) };
+  const recipient = { name: words(x.recipient_name, 'the recipient’s name', 200), address: words(x.recipient_address, 'the recipient’s address', 300) };
+  const invoiceNumber = words(x.invoice_number, 'the invoice number', 60);
+  const lines = invoiceLines(x);
 
   // GST on a taxable line is one-eleventh of a GST-inclusive price (s 9-75: 10% of the price less GST)
   // or 10% of a GST-exclusive one. The total invoice rule rounds the total once; the taxable supply rule
@@ -112,38 +194,9 @@ export function taxInvoice(x) {
   const mixed = taxable.length > 0 && taxable.length < lines.length;
   const showLineGst = x.rounding === 'supply' || taxable.length < 2;
 
-  const problems = [];
-  const supplierAbn = abnCheck(x.supplier_abn ?? '');
-  if (!supplier.name) problems.push('the supplier’s name');
-  if (supplierAbn.result === 'MALFORMED') problems.push('the supplier’s ABN as 11 digits');
-  else if (supplierAbn.result === 'CHECK_DIGIT_INVALID') problems.push(`a supplier ABN that passes the check digit test (${supplierAbn.formatted} fails it)`);
-  const recipientAbnText = (x.recipient_abn ?? '').trim();
-  const recipientAbn = recipientAbnText ? abnCheck(recipientAbnText) : null;
-  if (recipientAbn?.result === 'MALFORMED') problems.push('the recipient’s ABN as 11 digits, or leave it blank');
-  else if (recipientAbn?.result === 'CHECK_DIGIT_INVALID') problems.push(`a recipient ABN that passes the check digit test (${recipientAbn.formatted} fails it)`);
-  // Only a tax invoice needs the recipient: one with a taxable supply, whose supplies total $1,000 or more.
-  const recipientRequired = rcti || (taxable.length > 0 && totalPrice >= RECIPIENT_THRESHOLD);
-  if (rcti) {
-    // s 29-70(1)(c)(ii) asks for the recipient's identity or ABN; the ATO's page asks an RCTI for both parties' ABNs.
-    if (!recipient.name) problems.push('the recipient’s name, as the recipient issues an RCTI');
-    if (!recipientAbn) problems.push('the recipient’s ABN, which the ATO requires on an RCTI');
-    if (!taxable.length) problems.push('at least one taxable line, as an RCTI is for a taxable supply');
-    if (x.rcti_conditions_met !== true) problems.push('confirmation that the Recipient Created Tax Invoice Determination 2023 allows this RCTI');
-  } else if (recipientRequired && !recipient.name && !recipientAbn) {
-    problems.push('the recipient’s name or ABN, as the total price is $1,000 or more');
-  }
-  if (problems.length) throw new Error(`To be a ${rcti ? 'recipient created tax invoice' : 'tax invoice'}, enter ${problems.join('; ')}.`);
-
+  const { supplierAbn, recipientAbn, recipientRequired } = checkParties(x, supplier, recipient, taxable.length > 0, totalPrice);
   const heading = rcti ? 'Recipient created tax invoice' : taxable.length ? 'Tax invoice' : 'Invoice';
-  const statements = [];
-  if (!taxable.length) statements.push('No GST: each supply is GST-free or input taxed, and the total price includes no GST.');
-  else if (!mixed && inclusive) statements.push('Each supply is taxable. Total price includes GST.');
-  else if (!mixed) statements.push('Each supply is taxable. Prices exclude GST; the GST is added.');
-  else {
-    statements.push(inclusive ? '* Taxable supply: the price includes GST.' : '* Taxable supply: the price excludes GST; the GST is added.');
-    statements.push('Other supplies are GST-free or input taxed, as marked, and include no GST.');
-  }
-  if (rcti && gst > 0n) statements.push('The GST shown is payable by the supplier.');
+  const statements = invoiceStatements(rcti, inclusive, taxable.length > 0, mixed, gst);
 
   /** @type {TaxInvoiceLine[]} */
   const shown = lines.map((line) => ({
@@ -152,24 +205,14 @@ export function taxInvoice(x) {
     gst: line.treatment !== 'taxable' ? 0 : showLineGst ? money(lineGst(line.amount)) : null,
   }));
 
-  const recipientLine = [recipient.name, recipientAbn && `ABN ${recipientAbn.formatted}`].filter(Boolean).join(', ');
-  const checks = [
-    [`Shows it is intended to be a ${rcti ? 'recipient created tax invoice' : 'tax invoice'} (s 29-70(1)(d))`,
-      taxable.length ? `Headed ‘${heading}’` : 'Not needed: no supply is taxable, so the document is headed ‘Invoice’'],
-    ['Supplier’s identity and ABN (s 29-70(1)(c)(i))', `${supplier.name}, ABN ${supplierAbn.formatted}, which passes the check digit test`],
-    ['Recipient’s identity or ABN (s 29-70(1)(c)(ii))', recipientRequired ? recipientLine
-      : `Not required: the total price is under $1,000${recipientLine ? `; shown: ${recipientLine}` : ''}`],
-    ['What is supplied, with quantity and price (s 29-70(1)(c)(iii))', `${lines.length} ${lines.length === 1 ? 'line' : 'lines'}, each with its description, quantity, unit price and amount`],
-    ['Extent each supply is taxable (s 29-70(1)(c)(iv))', mixed ? 'Each taxable supply is marked * and each other supply is labelled GST-free or input taxed' : statements[0]],
-    ['Date issued (s 29-70(1)(c)(v))', invoiceDate(x.issued)],
-    ['GST payable (s 29-70(1)(c)(vi))', `${taxable.length ? `${dollarsText(gst)} in total, by the ${RULE_WORDS[/** @type {'invoice' | 'supply'} */ (x.rounding)]}` : 'None'}`
-      + `${showLineGst && taxable.length > 1 ? ', with each taxable line’s GST shown' : ''}`],
-  ];
-  if (rcti) checks.push(['GST payable by the supplier (s 29-70(1)(c)(vii))', gst > 0n ? 'Stated' : 'No GST is payable']);
+  const supplierShown = { ...supplier, abn: supplierAbn.formatted ?? '' };
+  const recipientShown = { ...recipient, abn: recipientAbn?.formatted ?? '' };
+  const checks = invoiceChecks({ rcti, heading, issued: x.issued, rounding: x.rounding, supplier: supplierShown, recipient: recipientShown,
+    recipientRequired, lineCount: lines.length, taxableCount: taxable.length, mixed, statement: statements[0], gst, showLineGst });
 
   return {
-    heading, issued: x.issued, invoiceNumber, rcti, prices: x.prices, rounding: x.rounding, supplier: { ...supplier, abn: supplierAbn.formatted ?? '' },
-    recipient: { ...recipient, abn: recipientAbn?.formatted ?? '' }, recipientRequired, lines: shown,
+    heading, issued: x.issued, invoiceNumber, rcti, prices: x.prices, rounding: x.rounding, supplier: supplierShown,
+    recipient: recipientShown, recipientRequired, lines: shown,
     amount: money(amount), gst: money(gst), totalPrice: money(totalPrice), taxableAmount: money(taxableAmount), statements, checks,
   };
 }
@@ -207,8 +250,8 @@ const escape = (text) => text.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`
  * The invoice as a standalone HTML file to print or save as PDF: no script, and a policy that loads nothing.
  * @param {ReturnType<typeof taxInvoice>} r @param {(value: number) => string} aud
  */
-export function invoiceHtml(r, aud) {
-  const party = (/** @type {string} */ title, /** @type {{name: string, abn: string, address: string}} */ p) => (p.name || p.abn
+export function invoiceAsHtml(r, aud) {
+  const partyAsHtml = (/** @type {string} */ title, /** @type {{name: string, abn: string, address: string}} */ p) => (p.name || p.abn
     ? `<section><h2>${title}</h2><p>${[p.name, p.abn && `ABN ${p.abn}`, p.address].filter(Boolean).map(escape).join('<br>')}</p></section>` : '');
   const priceWord = r.prices === 'inclusive' ? 'including GST' : 'excluding GST';
   const rows = r.lines.map((l) => `<tr><td>${escape(`${l.marked ? '* ' : ''}${l.description}`)}</td><td class="n">${escape(l.quantity)}</td>`
@@ -224,7 +267,7 @@ table{width:100%;border-collapse:collapse;margin-top:6mm}th,td{border-bottom:1px
 tfoot th{text-align:right}@page{margin:12mm}</style></head>
 <body><h1>${r.heading}</h1>
 <p>${r.invoiceNumber ? `Invoice number: ${escape(r.invoiceNumber)}<br>` : ''}Date issued: ${invoiceDate(r.issued)}</p>
-${party('Supplier', r.supplier)}${party('Recipient', r.recipient)}
+${partyAsHtml('Supplier', r.supplier)}${partyAsHtml('Recipient', r.recipient)}
 <table><thead><tr><th>Description</th><th class="n">Quantity</th><th class="n">Unit price (${priceWord})</th><th class="n">Amount (${priceWord})</th><th>Supply</th><th class="n">GST</th></tr></thead>
 <tbody>${rows}</tbody><tfoot>${totals}</tfoot></table>
 ${r.statements.map((s) => `<p>${escape(s)}</p>`).join('')}
@@ -242,6 +285,6 @@ export function taxInvoiceResult(value, aud) {
       TREATMENT_WORDS[/** @type {'taxable'} */ (l.treatment)], l.gst === null ? 'In total' : aud(l.gst)]),
     checks: r.checks,
   };
-  return { inputs: taxInvoiceInputsText(input), rows, principal: 1, tables, html: invoiceHtml(r, aud),
+  return { inputs: taxInvoiceInputsText(input), rows, principal: 1, tables, html: invoiceAsHtml(r, aud),
     note: 'Each detail section 29-70(1) requires is shown; download the invoice to print it or save it as PDF. A valid check digit does not show an ABN is active or registered for GST' };
 }

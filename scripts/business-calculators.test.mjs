@@ -7341,7 +7341,7 @@ test('the tax invoice generator refuses what section 29-70(1) needs and the inpu
 test('the downloaded invoice escapes every entered text and loads nothing', () => {
   const r = invoice({ supplier_name: '<script>alert(1)</script> & Co', invoice_number: '"7"',
     lines: [{ ...invoiceLine('11.00'), description: '<img src=x onerror=alert(1)>' }, invoiceLine('7.00', 'gst-free')] });
-  const html = calculations.invoiceHtml(r, invoiceAud);
+  const html = calculations.invoiceAsHtml(r, invoiceAud);
   assert.ok(!/<script|<img/i.test(html));
   assert.ok(html.includes('&#60;script&#62;alert(1)&#60;/script&#62; &#38; Co'));
   assert.ok(html.includes("content=\"default-src 'none'; style-src 'unsafe-inline'\""));
