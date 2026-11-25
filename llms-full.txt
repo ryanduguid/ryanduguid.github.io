@@ -12368,7 +12368,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 Source: https://duguid.com.au/tools/business-calculators/contractor-employee/
 
-> Compare what the same person costs a business and takes home as an employee or a contractor, with leave, payroll tax, workers compensation, GST and super under section 12(3).
+> Compare what one person costs a business and takes home as an employee or a contractor, with leave, payroll tax, workers compensation, GST and section 12(3) super.
 
 # Contractor against employee calculator
 
