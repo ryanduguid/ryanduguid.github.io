@@ -50,8 +50,8 @@ const badPresence = (why) => refuse('residency_tests.presence_invalid',
 
 /** The periods given, each [from, to] inclusive. @param {unknown} given @returns {[number, number][]} */
 function periods(given) {
-  if (!Array.isArray(given)) badPresence('not a list');
-  if (given.length > MAX_PERIODS) badPresence('too many periods');
+  if (!Array.isArray(given)) return badPresence('not a list');
+  if (given.length > MAX_PERIODS) return badPresence('too many periods');
   return given.map((item, i) => {
     const name = `period ${i + 1}`;
     if (typeof item !== 'object' || item === null || Array.isArray(item)) badPresence(`${name} is not an object`);
