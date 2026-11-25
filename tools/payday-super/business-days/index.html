@@ -64,6 +64,7 @@ source_commit: 701b3d4425b62c1e2e707d46b754aee68470626e
           <p>On this page</p>
           <a href="#calendar">Weekday public holidays</a>
           <a href="#business-day">What counts as a business day</a>
+          <a href="#part-days">Part-day holidays</a>
           <a href="#due-dates">Counting a due date</a>
           <a href="#coverage">What the calendar covers</a>
           <a href="#sources">Sources</a>
@@ -71,7 +72,7 @@ source_commit: 701b3d4425b62c1e2e707d46b754aee68470626e
         <div class="article-body">
           <section aria-labelledby="calendar">
             <h2 id="calendar">Weekday public holidays to 31 August 2027</h2>
-            <p>A weekday in this table is not a business day anywhere in Australia. Every other weekday from 1 July 2026 to 31 August 2027 is a business day.</p>
+            <p>A weekday in this table is not a business day anywhere in Australia. The 2 part-day holidays below have unresolved status. The other weekdays in the coverage period are business days.</p>
             <div class="table-scroll" role="region" aria-label="Weekdays that are not Payday Super business days" tabindex="0">
 <table>
 <caption>Weekdays that are not Payday Super business days, 1 July 2026 to 31 August 2027</caption>
@@ -89,7 +90,7 @@ source_commit: 701b3d4425b62c1e2e707d46b754aee68470626e
 </table>
 </div>
             <p>Holidays that fall on a Saturday or Sunday are left out, because a weekend day is never a business day.</p>
-            <p><a href="/tools/payday-super/business-days/payday-super-business-days.csv">Download the table as CSV</a>: one row per date, with its weekday, holiday names, jurisdictions and the date the row was checked (<code>checked_at</code>).</p>
+            <p><a href="/tools/payday-super/business-days/payday-super-business-days-v2.csv">Download the daily calendar as CSV</a>. Each date has a <code>BUSINESS</code>, <code>NON_BUSINESS</code> or <code>UNKNOWN</code> status, its reason where applicable and a <code>checked_at</code> date. Treat <code>UNKNOWN</code> as requiring review for any definitive deadline that depends on it. This file supersedes the earlier holiday-only download.</p>
           </section>
 
           <section aria-labelledby="business-day">
@@ -98,7 +99,6 @@ source_commit: 701b3d4425b62c1e2e707d46b754aee68470626e
             <p>One national calendar applies to every employer. The ATO says a state or territory-wide public holiday is not a business day ‘even if you are not in that state or territory’, so Western Australia Day on 7 June 2027 stops the clock for an employer in Sydney.</p>
             <p>A public holiday for only part of a state or territory does not count; the ATO’s example is Royal Hobart Show Day. For the same reason, these days are business days and are not in the table:</p>
             <ul>
-              <li>part-day holidays: Christmas Eve evening in SA, QLD and the NT, and New Year’s Eve evening in SA and the NT</li>
               <li>regional show days and other local holidays, such as Royal Hobart Regatta in southern Tasmania (8 February 2027) and the Royal Queensland Show day for the Brisbane area (12 August 2026 and 11 August 2027)</li>
               <li>Melbourne Cup Day (3 November 2026), which a non-metropolitan Victorian council can replace with a local holiday</li>
               <li>King’s Birthday in WA (28 September 2026), which Karratha and Port Hedland observed on 3 August 2026 instead</li>
@@ -106,6 +106,17 @@ source_commit: 701b3d4425b62c1e2e707d46b754aee68470626e
               <li>Easter Tuesday in Tasmania (30 March 2027), which section 6 of the <a href="https://www.legislation.tas.gov.au/view/whole/html/inforce/current/act-2000-096"><em>Statutory Holidays Act 2000</em></a> gives only to certain employees</li>
             </ul>
             <p>The bank holiday on the first Monday in August in NSW and the ACT does not count either: NSW says it is not a declared public holiday. In 2026 and 2027 that Monday is NT Picnic Day, so it is in the table anyway.</p>
+          </section>
+
+          <section aria-labelledby="part-days">
+            <h2 id="part-days">Part-day holidays with unresolved status</h2>
+            <p>The ATO Payday Super guidance leaves the treatment of statewide part-day holidays open. The calendar marks these 2 weekdays as <code>UNKNOWN</code>.</p>
+            <ul>
+              {%- for day in calendar.unresolved_part_days %}
+              <li><time datetime="{{ day.date }}">{{ day.date | date: "%-d %B %Y" }}</time> ({{ day.name }}, {{ day.jurisdictions | join: ", " }})</li>
+              {%- endfor %}
+            </ul>
+            <p>For ordinary qualifying earnings paid on 21 December 2026, the 7-business-day deadline would be 4 January 2027 if both days count, 5 January if exactly one counts or 6 January if neither counts. The <a href="/tools/business-calculators/sgc-payday/">SGC and Payday Super calculator</a> withholds the deadline and charge when the scenarios differ.</p>
           </section>
 
           <section aria-labelledby="due-dates">
@@ -125,7 +136,7 @@ source_commit: 701b3d4425b62c1e2e707d46b754aee68470626e
               <li>a public holiday declared or moved after 14 November 2026, such as a one-off holiday, which would change the due dates around it; check the jurisdiction’s page before relying on a date</li>
               <li>an earlier deadline in a fund’s rules, an award or an enterprise agreement, or the time a clearing house or fund takes to process a payment</li>
             </ul>
-            <p>The table and CSV are the confirmed weekday rows inside that period of <code>data/business_days.json</code> in payday-super-checker, copied from <a href="{{ source_file }}">australian-accounting commit {{ page.source_commit | truncate: 7, '' }}</a>. Release v0.2.3 ships the same file. That file records its own source check on 15 August 2026; each row here was checked again against the sources below on 14 November 2026.</p>
+            <p>The full-day holiday table uses the confirmed weekday rows inside that period of <code>data/business_days.json</code> in payday-super-checker, copied from <a href="{{ source_file }}">australian-accounting commit {{ page.source_commit | truncate: 7, '' }}</a>. Release v0.2.3 ships the same file. That file records its own source check on 15 August 2026; each full-day holiday row was checked again against the sources below on 14 November 2026. The part-day holiday review on 23 November used the <a href="https://www.legislation.qld.gov.au/view/whole/html/inforce/current/act-1983-018">Queensland Holidays Act 1983</a>, the <a href="https://www.legislation.sa.gov.au/lz?path=/c/a/public%20holidays%20act%202023">South Australian Public Holidays Act 2023</a> and the <a href="https://legislation.nt.gov.au/en/Legislation/PUBLIC-HOLIDAYS-ACT-1981">Northern Territory Public Holidays Act 1981</a>.</p>
           </section>
 
           <section aria-labelledby="sources">

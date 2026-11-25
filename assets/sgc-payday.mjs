@@ -62,18 +62,22 @@ export const NON_BUSINESS_WEEKDAYS = ['2026-08-03', '2026-09-25', '2026-10-05', 
   '2027-01-01', '2027-01-26', '2027-03-01', '2027-03-08', '2027-03-26', '2027-03-29', '2027-04-26', '2027-05-03',
   '2027-05-31', '2027-06-07', '2027-06-14', '2027-08-02'];
 const HOLIDAYS = new Set(NON_BUSINESS_WEEKDAYS.map(dayOf));
+// ATO Payday Super guidance does not settle the treatment of these statewide part-day holidays.
+const PART_DAYS = ['2026-12-24', '2026-12-31'].map(dayOf);
+const [christmasEve, newYearsEve] = PART_DAYS;
+const PART_DAY_SCENARIOS = [[], [christmasEve], [newYearsEve], PART_DAYS];
 /** @param {number} day */
 const businessDay = (day) => ![0, 6].includes(new Date(day * DAY).getUTCDay()) && !HOLIDAYS.has(day);
 
 /** The nth business day after `day`; the day itself does not count.
- * @param {number} day @param {number} n */
-function businessDaysAfter(day, n) {
+ * @param {number} day @param {number} n @param {number[]} excluded */
+function businessDaysAfter(day, n, excluded) {
   for (let found = 0; found < n;) {
     day += 1;
     if (day > dayOf(CALENDAR_END)) {
       throw new Error('That due date falls after 31 August 2027, where the business day calendar ends.');
     }
-    if (businessDay(day)) found += 1;
+    if (businessDay(day) && !excluded.includes(day)) found += 1;
   }
   return day;
 }
@@ -91,27 +95,47 @@ function businessDaysAfter(day, n) {
  * @returns {{due: string, rule: string}} */
 export function paydaySuperDue({ payday, timing, nextPayday, determination }) {
   const qe = dateField(payday, 'a payday', '2026-07-01', '2027-06-30');
-  /** @type {Record<string, () => [number, string]>} */
-  const ITEMS = {
-    first: () => [businessDaysAfter(qe, 20), '20 business days after payday, subsection 18C(2) item 1'],
-    'out-of-cycle': () => {
-      const next = dateField(nextPayday, 'the next regular payday', '2026-07-01', CALENDAR_END);
-      if (next <= qe) throw new Error('The next regular payday must be after the out-of-cycle payday.');
-      return [businessDaysAfter(next, 7), '7 business days after the next regular payday, subsection 18C(2) item 2'];
-    },
-    exceptional: () => {
-      const made = dateField(determination, 'the day the determination was made', '2026-07-01', CALENDAR_END);
-      return [Math.max(businessDaysAfter(qe, 20), businessDaysAfter(made, 20)),
-        'the later of 20 business days after payday and after the determination, subsection 18C(2) item 3'];
-    },
-  };
-  const items = { standard: [], first: ['first'], 'out-of-cycle': ['out-of-cycle'], exceptional: ['exceptional'],
-    'first-out-of-cycle': ['first', 'out-of-cycle'], 'out-of-cycle-exceptional': ['out-of-cycle', 'exceptional'] }[timing];
+  const items = new Map([
+    ['standard', []],
+    ['first', ['first']],
+    ['out-of-cycle', ['out-of-cycle']],
+    ['exceptional', ['exceptional']],
+    ['first-out-of-cycle', ['first', 'out-of-cycle']],
+    ['out-of-cycle-exceptional', ['out-of-cycle', 'exceptional']],
+  ]).get(timing);
   if (!items) throw new Error('Choose how long the fund has to receive the contribution.');
-  /** @type {[number, string]} */
-  const usual = [businessDaysAfter(qe, 7), '7 business days after payday'];
-  const [day, rule] = items.map((item) => ITEMS[item]()).reduce((latest, period) => (period[0] > latest[0] ? period : latest), usual);
-  return { due: isoOf(day), rule };
+
+  const deadlines = PART_DAY_SCENARIOS.map((excluded) => {
+    /** @param {number} day @param {number} days */
+    const after = (day, days) => businessDaysAfter(day, days, excluded);
+    /** @type {[string, () => [number, string]][]} */
+    const periods = [
+      ['first', () => [after(qe, 20), '20 business days after payday, subsection 18C(2) item 1']],
+      ['out-of-cycle', () => {
+        const next = dateField(nextPayday, 'the next regular payday', '2026-07-01', CALENDAR_END);
+        if (next <= qe) throw new Error('The next regular payday must be after the out-of-cycle payday.');
+        return [after(next, 7), '7 business days after the next regular payday, subsection 18C(2) item 2'];
+      }],
+      ['exceptional', () => {
+        const made = dateField(determination, 'the day the determination was made', '2026-07-01', CALENDAR_END);
+        return [Math.max(after(qe, 20), after(made, 20)),
+          'the later of 20 business days after payday and after the determination, subsection 18C(2) item 3'];
+      }],
+    ];
+    /** @type {[number, string]} */
+    const usual = [after(qe, 7), '7 business days after payday'];
+    return periods.filter(([item]) => items.includes(item)).map(([, calculate]) => calculate())
+      .reduce((latest, period) => (period[0] > latest[0] ? period : latest), usual);
+  });
+  // Compare final deadlines so an earlier, uncertain period does not suppress a later fixed one.
+  const possibleDays = [...new Set(deadlines.map(([day]) => day))].sort((a, b) => a - b);
+  if (possibleDays.length > 1) {
+    const dates = new Intl.ListFormat('en-AU').format(possibleDays.map(plainDay));
+    throw new Error('This Payday Super deadline depends on part-day holidays. Possible dates are ' + dates + '.');
+  }
+  const [day, rule] = deadlines[0];
+  return { due: isoOf(day), rule: deadlines.every(([, candidate]) => candidate === rule)
+    ? rule : 'the latest applicable period, subsection 18C(2)' };
 }
 
 /** Notional earnings on a base shortfall, compounding daily: each day adds the day's GIC rate
@@ -202,6 +226,7 @@ export function paydaySuperCharge(inputs) {
   const uplift = Number(ratioCents(BigInt(final + notional) * BigInt(upliftPercent), 100n));
   return { due, rule, sgAmount: sgAmount / 100, base: base / 100, applied: applied / 100, final: final / 100,
     businessDays: received !== null && received <= dayOf(CALENDAR_END)
+      && !PART_DAYS.some((day) => qe < day && day <= received)
       ? Array.from({ length: received - qe }, (_, i) => qe + 1 + i).filter(businessDay).length : null,
     daysLate: received === null ? null : received - dueDay,
     earningsTo: last > dueDay ? isoOf(last) : null,

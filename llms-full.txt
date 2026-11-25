@@ -4174,7 +4174,7 @@ Published 14 November 2026. Last reviewed 23 November 2026. Calendar sources che
 
 ## Weekday public holidays to 31 August 2027
 
-A weekday in this table is not a business day anywhere in Australia. Every other weekday from 1 July 2026 to 31 August 2027 is a business day.
+A weekday in this table is not a business day anywhere in Australia. The 2 part-day holidays below have unresolved status. The other weekdays in the coverage period are business days.
 
 Weekdays that are not Payday Super business days, 1 July 2026 to 31 August 2027
 
@@ -4199,7 +4199,7 @@ Mon 2 Aug 2027 | Picnic Day | NT
 
 Holidays that fall on a Saturday or Sunday are left out, because a weekend day is never a business day.
 
-Download the table as CSV: one row per date, with its weekday, holiday names, jurisdictions and the date the row was checked (checked_at).
+Download the daily calendar as CSV. Each date has a BUSINESS, NON_BUSINESS or UNKNOWN status, its reason where applicable and a checked_at date. Treat UNKNOWN as requiring review for any definitive deadline that depends on it. This file supersedes the earlier holiday-only download.
 
 ## What counts as a business day
 
@@ -4209,7 +4209,6 @@ One national calendar applies to every employer. The ATO says a state or territo
 
 A public holiday for only part of a state or territory does not count; the ATO’s example is Royal Hobart Show Day. For the same reason, these days are business days and are not in the table:
 
-- part-day holidays: Christmas Eve evening in SA, QLD and the NT, and New Year’s Eve evening in SA and the NT
 - regional show days and other local holidays, such as Royal Hobart Regatta in southern Tasmania (8 February 2027) and the Royal Queensland Show day for the Brisbane area (12 August 2026 and 11 August 2027)
 - Melbourne Cup Day (3 November 2026), which a non-metropolitan Victorian council can replace with a local holiday
 - King’s Birthday in WA (28 September 2026), which Karratha and Port Hedland observed on 3 August 2026 instead
@@ -4217,6 +4216,15 @@ A public holiday for only part of a state or territory does not count; the ATO�
 - Easter Tuesday in Tasmania (30 March 2027), which section 6 of the Statutory Holidays Act 2000 gives only to certain employees
 
 The bank holiday on the first Monday in August in NSW and the ACT does not count either: NSW says it is not a declared public holiday. In 2026 and 2027 that Monday is NT Picnic Day, so it is in the table anyway.
+
+## Part-day holidays with unresolved status
+
+The ATO Payday Super guidance leaves the treatment of statewide part-day holidays open. The calendar marks these 2 weekdays as UNKNOWN.
+
+- 24 December 2026 (Christmas Eve evening, NT, QLD, SA)
+- 31 December 2026 (New Year’s Eve evening, NT, SA)
+
+For ordinary qualifying earnings paid on 21 December 2026, the 7-business-day deadline would be 4 January 2027 if both days count, 5 January if exactly one counts or 6 January if neither counts. The SGC and Payday Super calculator withholds the deadline and charge when the scenarios differ.
 
 ## Counting a due date
 
@@ -4237,7 +4245,7 @@ It does not cover:
 - a public holiday declared or moved after 14 November 2026, such as a one-off holiday, which would change the due dates around it; check the jurisdiction’s page before relying on a date
 - an earlier deadline in a fund’s rules, an award or an enterprise agreement, or the time a clearing house or fund takes to process a payment
 
-The table and CSV are the confirmed weekday rows inside that period of data/business_days.json in payday-super-checker, copied from australian-accounting commit 701b3d4. Release v0.2.3 ships the same file. That file records its own source check on 15 August 2026; each row here was checked again against the sources below on 14 November 2026.
+The full-day holiday table uses the confirmed weekday rows inside that period of data/business_days.json in payday-super-checker, copied from australian-accounting commit 701b3d4. Release v0.2.3 ships the same file. That file records its own source check on 15 August 2026; each full-day holiday row was checked again against the sources below on 14 November 2026. The part-day holiday review on 23 November used the Queensland Holidays Act 1983, the South Australian Public Holidays Act 2023 and the Northern Territory Public Holidays Act 1981.
 
 ## Sources
 
@@ -4256,12 +4264,16 @@ Each source below was read on 14 November 2026.
 
 ## Links
 
-- Download the table as CSV: https://duguid.com.au/tools/payday-super/business-days/payday-super-business-days.csv
+- Download the daily calendar as CSV: https://duguid.com.au/tools/payday-super/business-days/payday-super-business-days-v2.csv
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - Statutory Holidays Act 2000: https://www.legislation.tas.gov.au/view/whole/html/inforce/current/act-2000-096
+- SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
 - Payday Super checker: https://duguid.com.au/tools/payday-super/
 - general business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
 - australian-accounting commit 701b3d4: https://github.com/ryanduguid/australian-accounting/blob/701b3d4425b62c1e2e707d46b754aee68470626e/packages/payday-super-checker/data/business_days.json
+- Queensland Holidays Act 1983: https://www.legislation.qld.gov.au/view/whole/html/inforce/current/act-1983-018
+- South Australian Public Holidays Act 2023: https://www.legislation.sa.gov.au/lz?path=/c/a/public%20holidays%20act%202023
+- Northern Territory Public Holidays Act 1981: https://legislation.nt.gov.au/en/Legislation/PUBLIC-HOLIDAYS-ACT-1981
 - Payment deadlines for Payday Super: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super
 - Public holidays, school terms and daylight saving: https://www.act.gov.au/living-in-the-act/public-holidays-school-terms-and-daylight-saving
 - NSW public holidays: https://www.nsw.gov.au/about-nsw/public-holidays
@@ -15013,7 +15025,7 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 
 ## How the SGC and Payday Super calculator works
 
-From 1 July 2026, under Payday Super, an employer owes super guarantee for each payday, and the employee’s fund must receive it within 7 business days, or a longer period for a first contribution, out-of-cycle pay or an ATO determination. The calculator finds that due date from the site’s business days calendar, then works out the super guarantee charge for one employee if the fund received less than 12% of qualifying earnings by then: the final shortfall still unpaid at the assessment, notional earnings at the GIC rate on the amount that was late, and the administrative uplift, which may be reduced based on the employer’s qualifying assessment and estimate history and any approved disclosure lodged before the assessment day. A contribution counts from the day the fund received it with what it needs to allocate it to the employee. For a quarter that ended by 30 June 2026 it applies the old law instead: the shortfall at that year’s charge percentage, 10% nominal interest and the $20 administration component.
+From 1 July 2026, under Payday Super, an employer owes super guarantee for each payday, and the employee’s fund must receive it within 7 business days, or a longer period for a first contribution, out-of-cycle pay or an ATO determination. The calculator finds that due date from the site’s business days calendar, then works out the super guarantee charge for one employee if the fund received less than 12% of qualifying earnings by then: the final shortfall still unpaid at the assessment, notional earnings at the GIC rate on the amount that was late, and the administrative uplift, which may be reduced based on the employer’s qualifying assessment and estimate history and any approved disclosure lodged before the assessment day. A contribution counts from the day the fund received it with what it needs to allocate it to the employee. If an unresolved part-day holiday changes the due date, the calculator shows the possible dates and withholds the charge. For a quarter that ended by 30 June 2026 it applies the old law instead: the shortfall at that year’s charge percentage, 10% nominal interest and the $20 administration component.
 
 ## What the SGC and Payday Super calculator does not cover
 
