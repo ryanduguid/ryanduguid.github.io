@@ -6,6 +6,7 @@
 // Imported by assets/webmcp-tools.mjs.
 
 import { gstAdjustmentsTool } from './webmcp-gst-adjustments.mjs';
+import { soleTraderCompanyTool } from './webmcp-sole-trader-company.mjs';
 
 /** @typedef {import('./webmcp-tools.mjs').ToolKit} ToolKit */
 /** @typedef {typeof import('./business-calculators.mjs')} BusinessCalculators */
@@ -150,15 +151,18 @@ export function deferredTaxTool(kit, deferredTax, dtYears) {
 }
 
 /**
- * Business Calculators Cohort E (the 3 tools added 25 November 2026), keyed by each form's `data-calculator` slug.
+ * Business Calculators Cohort E (the 3 tools added 25 November 2026 and sole trader against company,
+ * 26 November), keyed by each form's `data-calculator` slug.
  * @param {ToolKit} kit
  * @param {Pick<BusinessCalculators, 'rdTaxOffset' | 'RD_YEARS' | 'gstAdjustment' | 'percentFraction'
- *   | 'GST_WORKSHEETS' | 'GST_ADJUSTMENT_YEARS' | 'deferredTax' | 'DEFERRED_TAX_YEARS'>} calculate
+ *   | 'GST_WORKSHEETS' | 'GST_ADJUSTMENT_YEARS' | 'deferredTax' | 'DEFERRED_TAX_YEARS' | 'soleTraderCompany'
+ *   | 'SOLE_TRADER_COMPANY_YEARS'>} calculate
  */
 export function businessCohortETools(kit, calculate) {
   return {
     'rd-tax-offset': rdTaxOffsetTool(kit, calculate.rdTaxOffset, calculate.RD_YEARS),
     'gst-adjustments': gstAdjustmentsTool(kit, calculate),
     'deferred-tax': deferredTaxTool(kit, calculate.deferredTax, calculate.DEFERRED_TAX_YEARS),
+    'sole-trader-company': soleTraderCompanyTool(kit, calculate.soleTraderCompany, calculate.SOLE_TRADER_COMPANY_YEARS),
   };
 }

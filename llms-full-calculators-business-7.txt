@@ -83,6 +83,78 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ---
 
+# Sole trader vs company tax calculator (2026-27)
+
+Source: https://duguid.com.au/tools/business-calculators/sole-trader-company/
+
+> Compare the tax on one business profit as a sole trader, with the small business income tax offset, and through a company paying salary, super and franked dividends.
+
+# Sole trader against company calculator
+
+Put one business profit through a sole trader and through a company, and compare the total tax.
+
+Published 26 November 2026. Last checked 26 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Sole trader against company inputs for one owner
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 Business profit before the owner’s pay (AUD) Amount the owner takes out (AUD) Through a company: salary paid to the owner (AUD) Through a company: is it a base rate entity this year and last year? Yes: tax and franking at 25% No: tax and franking at 30% As a sole trader: is aggregated turnover under $5 million? Yes No
+
+Profit is taxable income before the owner is paid. The owner is an Australian resident with no other income, private patient hospital cover and no study loan, and is the company’s only director and shareholder. Through a company the amount taken out is the salary plus a fully franked dividend, and the rest stays in the company. Use the company tax and franking calculator to settle the company’s rate.
+
+Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, business profit $150,000.00, taken out by the owner $100,000.00, salary $60,000.00, company tax at 25% (a base rate entity), qualifies for the small business income tax offset. Sole trader: income tax before offsets $36,570.00 Sole trader: low income tax offsets $0.00 Sole trader: small business income tax offset $1,000.00 Sole trader: Medicare levy $3,000.00 Sole trader: total tax $38,570.00 Sole trader: profit left after tax $111,430.00 Company: super guarantee at 12% of the salary $7,200.00 Company: tax at 25% on $82,800.00 $20,700.00 Company: fully franked dividend $40,000.00 Company: franking credit on it $13,333.33 Company: profit kept in the company after tax $22,100.00 Owner: income tax and Medicare levy on the salary $9,285.00 Owner: top-up tax on the dividend after the franking credit $3,848.23 Super fund: contributions tax and Division 293 tax $1,080.00 Company structure: total tax $34,913.23 Company structure: owner’s cash after tax $86,866.77 Company structure: super after tax $6,120.00 Company total is less by $3,656.77 Neither total is advice on a structure. Retained profit may bring more personal tax or a refund when paid out, and super stays in the fund until retirement.
+
+## How the sole trader against company calculator works
+
+As a sole trader the owner is taxed on the whole profit at the resident rates, less the low income tax offsets and the small business income tax offset, plus the Medicare levy. Drawings are not deductible, so the amount taken out changes nothing. Through a company the profit is split: the company pays the salary you enter and the super guarantee on it, both deductible, and pays company tax on the rest. The amount taken out less the salary is paid as a fully franked dividend from the profit after company tax, and whatever is left stays in the company. The owner pays tax and the Medicare levy on the salary (less the $1,000 standard deduction from 2026-27), the dividend and its franking credit, less the credit: the top-up tax is that tax less the tax on the salary alone, and is a refund where the credit is larger. The super fund pays 15% on the super guarantee, and Division 293 tax where taxable income and the contributions pass $250,000.
+
+Each structure’s total adds those amounts for the one year. The 2 totals do not leave the money in the same place: the sole trader holds all the profit after tax, whilst the company structure leaves some in super and any profit not taken out in the company, whose later dividend may bring more personal tax or a refund. The calculator states each figure and the difference; it does not say which structure suits a business.
+
+In the example, a $150,000 profit is taxed $38,570.00 as a sole trader, after the full $1,000 offset. Through a base rate entity paying a $60,000 salary and a $40,000 dividend, the total is $34,913.23, with $22,100.00 kept in the company and $6,120.00 in super.
+
+## What the sole trader against company calculator does not cover
+
+The calculator does not apply the personal services income rules: where the profit is mainly a reward for the owner’s personal efforts, Part 2-42 can tax it to the owner whatever the company pays (see the PSI rules checker). It does not apply Division 7A: a payment, loan or debt forgiveness to the owner that is not salary or a declared dividend can be an unfranked deemed dividend (see the Division 7A calculator). It does not cover the small business CGT concessions or the CGT discount, which a company cannot claim; state taxes such as payroll tax, land tax and duty; or the cost of running a company, such as ASIC fees, its own tax return and its accounts.
+
+It also leaves out the tax on profit kept in the company once it is paid out, the company’s franking account and a year in which the franking rate, set from last year’s figures, differs from the tax rate; other income of the owner, a spouse or family members, trusts and partnerships; GST, PAYG instalments and losses; the Medicare levy surcharge, study loan repayments and the low income super tax offset; a non-resident owner; and income years before 2021-22. Super counts at its value after tax, though it stays in the fund until retirement. Have a registered tax agent review any change of structure before relying on a result.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Sole trader against company calculator
+
+Case | Inputs | Result
+The page’s example: $150,000 of profit, $100,000 taken out, $60,000 as salary | 2026-27, profit $150,000.00, taken out $100,000.00, salary $60,000.00, 25% company, with the offset | Sole trader tax $38,570.00, small business offset $1,000.00, company tax $20,700.00, franking credit $13,333.33, kept in the company $22,100.00, super tax $1,080.00, company structure tax $34,913.23, top-up tax $3,848.23, company less by $3,656.77
+Only the salary taken out: the rest stays in the company | 2026-27, profit $150,000.00, taken out $60,000.00, salary $60,000.00, 25% company, with the offset | Sole trader tax $38,570.00, small business offset $1,000.00, company tax $20,700.00, franking credit $0.00, kept in the company $62,100.00, super tax $1,080.00, company structure tax $31,065.00, top-up tax $0.00, company less by $7,505.00
+A small profit: the offset is 16% of the tax, and the franking credit is refunded | 2026-27, profit $40,000.00, taken out $30,000.00, salary $0.00, 25% company, with the offset | Sole trader tax $2,971.80, small business offset $523.20, company tax $10,000.00, franking credit $10,000.00, kept in the company $0.00, super tax $0.00, company structure tax $3,495.00, refund on the dividend $6,505.00, company more by $523.20
+A 30% company in 2021-22, and a business that does not qualify for the offset | 2021-22, profit $90,000.00, taken out $63,000.00, salary $0.00, 30% company, without the offset | Sole trader tax $20,017.00, small business offset $0.00, company tax $27,000.00, franking credit $27,000.00, kept in the company $0.00, super tax $0.00, company structure tax $20,017.00, refund on the dividend $6,983.00, totals equal
+Salary at the 2026-27 super guarantee base, with Division 293 tax | 2026-27, profit $600,000.00, taken out $400,000.00, salary $270,830.00, 25% company, with the offset | Sole trader tax $246,870.00, small business offset $1,000.00, company tax $74,167.60, franking credit $43,056.66, kept in the company $93,332.80, super tax $9,749.88, company structure tax $214,497.14, top-up tax $37,889.56, company less by $32,372.86
+A salary whose super guarantee the profit cannot pay is refused | 2026-27, profit $100,000.00, taken out $95,000.00, salary $95,000.00, 25% company, with the offset | Refused: enter a salary of no more than $89,285.71: the profit also pays its super guarantee
+Taking out more than the salary and the profit after company tax is refused | 2025-26, profit $80,000.00, taken out $80,000.00, salary $0.00, 30% company, with the offset | Refused: enter an amount taken out of no more than $56,000.00: the salary and the profit left after company tax
+
+One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+## Related
+
+- Sole trader tax set-aside calculator
+- Salary against dividends calculator
+- PSI rules checker
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
+- PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
+- Division 7A calculator: https://duguid.com.au/tools/business-calculators/div7a/
+- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- Sole trader tax set-aside calculator: https://duguid.com.au/tools/individual-tax/sole-trader/
+- Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/
+
+---
+
 # Foreign buyer duty and land tax surcharge: all 8 states
 
 Source: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
