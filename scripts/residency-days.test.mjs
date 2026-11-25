@@ -32,13 +32,15 @@ test('the page agrees with the australian-accounting command on every differenti
     let got;
     try {
       const r = residencyTests(c.call);
-      got = { resident: r.resident, met_by: r.met_by, income_year: r.income_year, tests: r.tests };
+      // The command states the exception only once the days reach more than one-half.
+      const exception = r.tests.days_in_australia >= r.tests.days_needed ? r.visitor : null;
+      got = { resident: r.resident, met_by: r.met_by, income_year: r.income_year, tests: r.tests, exception_applies: exception };
     } catch (error) {
       if (!error.code) throw error;
       got = { refused: error.code };
     }
     const want = c.refused ? { refused: c.refused }
-      : { resident: c.resident, met_by: c.met_by, income_year: c.income_year, tests: c.tests };
+      : { resident: c.resident, met_by: c.met_by, income_year: c.income_year, tests: c.tests, exception_applies: c.exception_applies };
     assert.deepEqual(got, want, c.source);
   }
   assert.equal(fixture.cases.length, 667);
@@ -85,6 +87,20 @@ test('the form fills a blank arrival or departure from the year and shows only t
   const visitor = residencyDaysResult(ask({ year: '2025-26', 'arrived-1': '2025-08-01', 'departed-1': '2026-04-30',
     'usual-abode-outside': 'yes', 'intends-residence': 'no' }));
   assert.deepEqual(visitor.rows.map(([, v]) => v), ['273 of 365', '183 days or more', 'Yes, as you answered', 'Not met']);
+  // A row with one date on the far side of the year is named, not refused as inverted.
+  assert.throws(() => residencyDaysResult(ask({ year: '2025-26', 'departed-2': '2025-06-30' })),
+    { message: 'Period 2’s departure is before 1 July 2025: enter the arrival too, or choose the right year.' });
+  assert.throws(() => residencyDaysResult(ask({ year: '2025-26', 'arrived-3': '2026-07-01' })),
+    { message: 'Period 3’s arrival is after 30 June 2026: enter the departure too, or choose the right year.' });
+  // A period with no day in the year is refused; days entered outside it are counted in the note.
+  const moved = { 'arrived-1': '2025-07-01', 'departed-1': '2025-09-30', 'arrived-2': '2025-11-15', 'departed-2': '2026-03-31' };
+  assert.throws(() => residencyDaysResult(ask({ year: '2026-27', ...moved })),
+    { code: 'residency_tests.presence_outside', message: 'Period 1 falls outside 2026-27 (1 July 2026 to 30 June 2027): check the dates or the income year.' });
+  const crossing = residencyDaysResult(ask({ year: '2025-26', 'arrived-1': '2025-06-01', 'departed-1': '2025-07-10',
+    'arrived-2': '2025-06-20', 'departed-2': '2025-07-05', 'arrived-4': '2026-06-30', 'departed-4': '2026-07-01' }));
+  assert.deepEqual(crossing.rows[0], ['Days in Australia in the income year', '11 of 365']);
+  assert.equal(crossing.note, 'Fewer than 183 days: the test is not met whatever the abode and intention; 31 of the days you entered fall outside 2025-26 and are not counted');
+  assert.match(residencyDaysResult(ask({ year: '2025-26', 'arrived-1': '2025-06-30', 'departed-1': '2025-07-01' })).note, /; 1 of the days you entered falls outside 2025-26 and is not counted$/);
   // The page names the other 3 tests and leaves them to the reader.
   for (const words of ['ordinary concepts', 'domicile', 'Commonwealth superannuation', 'TR 2023/1', 'does not decide whether you are an Australian resident']) {
     assert.ok(page.includes(words), words);

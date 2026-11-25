@@ -134,25 +134,64 @@ export function residencyDays(year, presence, usualOutside, intends, scopeConfir
     resident_elsewhere: false, year, scope_confirmed: scopeConfirmed });
 }
 
-/** The form's rows: each with an arrival or a departure; a blank arrival is 1 July and a blank departure
- * 30 June of the year. @param {(name: string) => string} value @param {number} rows */
-export function residencyFormPresence(value, rows = 6) {
-  const year = value('year');
-  const start = Number(year.slice(0, 4));
+/** The form's rows with a date: each row number, its 2 days as entered and its period, a blank arrival
+ * being 1 July and a blank departure 30 June of the year. @param {(name: string) => string} value @param {number} rows */
+function formRows(value, rows) {
+  const start = Number(value('year').slice(0, 4));
   const out = [];
-  for (let i = 1; i <= rows; i += 1) {
-    const [from, to] = [value(`arrived-${i}`).trim(), value(`departed-${i}`).trim()];
-    if (from === '' && to === '') continue;
-    out.push({ from: from || `${start}-07-01`, to: to || `${start + 1}-06-30` });
+  for (let n = 1; n <= rows; n += 1) {
+    const [arrived, departed] = [value(`arrived-${n}`).trim(), value(`departed-${n}`).trim()];
+    if (arrived === '' && departed === '') continue;
+    out.push({ n, arrived, departed, period: { from: arrived || `${start}-07-01`, to: departed || `${start + 1}-06-30` } });
   }
   return out;
+}
+
+/** The command's presence list from the form's rows. @param {(name: string) => string} value @param {number} rows */
+export function residencyFormPresence(value, rows = 6) {
+  return formRows(value, rows).map((row) => row.period);
+}
+
+/** A day number's date in words. @param {number} dayNumber */
+const words = (dayNumber) => new Date(dayNumber * DAY).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+/** Refuses a row whose one date is on the far side of the year, before the command fills it into an inverted
+ * period. @param {ReturnType<typeof formRows>} rows @param {number} first @param {number} last */
+function checkOneDateRows(rows, first, last) {
+  for (const { n, arrived, departed } of rows) {
+    const [from, to] = [dayOf(arrived), dayOf(departed)];
+    if (arrived === '' && to !== null && to < first) {
+      refuse('residency_tests.presence_invalid', `Period ${n}’s departure is before ${words(first)}: enter the arrival too, or choose the right year.`);
+    }
+    if (departed === '' && from !== null && from > last) {
+      refuse('residency_tests.presence_invalid', `Period ${n}’s arrival is after ${words(last)}: enter the departure too, or choose the right year.`);
+    }
+  }
+}
+
+/** The distinct days entered outside the year; refuses a period with no day in it. Runs after the command has
+ * accepted every date. @param {ReturnType<typeof formRows>} rows @param {number} first @param {number} last @param {string} year */
+function daysOutside(rows, first, last, year) {
+  const outside = new Set();
+  for (const { n, period } of rows) {
+    const [from, to] = [/** @type {number} */ (dayOf(period.from)), /** @type {number} */ (dayOf(period.to))];
+    if (to < first || from > last) {
+      refuse('residency_tests.presence_outside', `Period ${n} falls outside ${year} (${words(first)} to ${words(last)}): check the dates or the income year.`);
+    }
+    for (let d = from; d < first; d += 1) outside.add(d);
+    for (let d = last + 1; d <= to; d += 1) outside.add(d);
+  }
+  return outside.size;
 }
 
 /** The page's result. @param {(name: string) => string} value */
 export function residencyDaysResult(value) {
   const year = value('year');
-  const presence = residencyFormPresence(value);
+  const rows = formRows(value, 6);
+  const presence = rows.map((row) => row.period);
   if (presence.length === 0) refuse('residency_tests.presence_empty', 'Enter at least one period in Australia: an arrival or a departure day.');
+  const start = Number(year.slice(0, 4));
+  if (RESIDENCY_YEARS.includes(year)) checkOneDateRows(rows, Date.UTC(start, 6, 1) / DAY, Date.UTC(start + 1, 5, 30) / DAY);
   const yes = (/** @type {string} */ name) => value(name) === 'yes';
   let r;
   try {
@@ -161,22 +200,25 @@ export function residencyDaysResult(value) {
     const code = /** @type {{code?: string}} */ (error).code;
     const why = /** @type {Error} */ (error).message;
     if (code === 'residency_tests.presence_invalid' && why.endsWith('ends before it starts')) {
-      refuse(code, `Period ${why.match(/period (\d+)/)?.[1]} leaves before it arrives: enter the departure on or after the arrival.`);
+      refuse(code, `Period ${rows[Number(why.match(/period (\d+)/)?.[1]) - 1]?.n} leaves before it arrives: enter the departure on or after the arrival.`);
     }
     if (code === 'residency_tests.presence_invalid') refuse(code, 'Enter each day as a date from 1900 to 2100.');
     throw error;
   }
+  const [first, last] = [/** @type {number} */ (dayOf(r.income_year.first_day)), /** @type {number} */ (dayOf(r.income_year.last_day))];
+  const dropped = daysOutside(rows, first, last, year);
   const t = r.tests;
   const reached = t.days_in_australia >= t.days_needed;
-  const day = (/** @type {string} */ iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
-  const rows = [['Days in Australia in the income year', `${t.days_in_australia} of ${r.income_year.days}`],
+  const table = [['Days in Australia in the income year', `${t.days_in_australia} of ${r.income_year.days}`],
     ['More than one-half of the year', `${t.days_needed} days or more`],
     ['Usual place of abode outside Australia and no intention to take up residence', r.visitor ? 'Yes, as you answered' : 'No, as you answered'],
     ['183-day test', t.days_183 ? 'Met' : 'Not met']];
-  const note = !reached ? `Fewer than ${t.days_needed} days: the test is not met whatever the abode and intention`
+  const verdict = !reached ? `Fewer than ${t.days_needed} days: the test is not met whatever the abode and intention`
     : r.visitor ? 'Enough days, but the exception applies on your answers, so the test is not met'
       : 'Enough days, and the exception does not apply on your answers';
-  return { inputs: `${year} (${day(r.income_year.first_day)} to ${day(r.income_year.last_day)}); ${presence.length} ${presence.length === 1 ? 'period' : 'periods'} `
+  const note = dropped === 0 ? verdict
+    : `${verdict}; ${dropped} of the days you entered ${dropped === 1 ? 'falls' : 'fall'} outside ${year} and ${dropped === 1 ? 'is' : 'are'} not counted`;
+  return { inputs: `${year} (${words(first)} to ${words(last)}); ${presence.length} ${presence.length === 1 ? 'period' : 'periods'} `
     + `in Australia; usual place of abode outside Australia: ${yes('usual-abode-outside') ? 'yes' : 'no'}; intends to take up residence: `
-    + `${yes('intends-residence') ? 'yes' : 'no'}`, rows, principal: 3, note };
+    + `${yes('intends-residence') ? 'yes' : 'no'}`, rows: table, principal: 3, note };
 }

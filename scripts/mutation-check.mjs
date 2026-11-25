@@ -1331,7 +1331,7 @@ const MUTATIONS = [
   { ...rd, name: 'residency treaty refusal dropped', find: 'metBy.length > 0 && elsewhere', replace: 'false' },
   { ...rd, name: 'residency scope not needed', find: "if (input.get('scope_confirmed') !== true) refuse", replace: 'if (false) refuse' },
   { ...rd, name: 'residency form blank departure is 29 June', find: '`${start + 1}-06-30`', replace: '`${start + 1}-06-29`' },
-  { ...rd, name: 'residency page principal is the count', find: 'rows, principal: 3, note', replace: 'rows, principal: 0, note' },
+  { ...rd, name: 'residency page principal is the count', find: 'rows: table, principal: 3, note', replace: 'rows: table, principal: 0, note' },
 ];
 
 // Runs that must read as invalid, not as caught.

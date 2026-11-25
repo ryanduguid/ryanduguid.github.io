@@ -23,13 +23,14 @@ export function residencyDaysTool(kit, { RESIDENCY_YEARS, MAX_PERIODS, residency
     description: 'Counts the distinct days present in Australia in an income year (1 July to 30 June, '
       + `${RESIDENCY_YEARS[0]} to ${RESIDENCY_YEARS.at(-1)}) from arrival and departure dates, part days counted whole `
       + '(TR 2023/1 paragraphs 86 and 87), and reports the 183-day test in ITAA 1936 s 6(1) resident (a)(ii): more than '
-      + 'one-half of the year (183 days, 184 in a leap year), unless the usual place of abode is outside Australia and there '
-      + 'is no intention to take up residence, both as stated. Does not decide residency: the ordinary concepts, domicile '
-      + 'and Commonwealth superannuation tests, treaties and part-year residency are excluded.',
+      + 'one-half of the year (183 days, 184 in a leap year), unless the Commissioner is satisfied that the usual place of abode '
+      + 'is outside Australia and there is no intention to take up residence; the stated answers stand in for that '
+      + 'satisfaction. Does not decide residency: the ordinary concepts, domicile and Commonwealth superannuation tests, '
+      + 'treaties and part-year residency are excluded.',
     inputSchema: record({
       incomeYear: choice(RESIDENCY_YEARS, `Income year, ${RESIDENCY_YEARS[0]} to ${RESIDENCY_YEARS.at(-1)}.`),
       periods: { type: 'array', maxItems: MAX_PERIODS, items: period,
-        description: `Up to ${MAX_PERIODS} periods in Australia; days outside the income year and overlaps are not counted twice.` },
+        description: `Up to ${MAX_PERIODS} periods in Australia; days outside the income year are not counted, and overlapping days count once.` },
       usualPlaceOfAbodeOutsideAustralia: { type: 'boolean', description: 'Stated: the usual place of abode is outside Australia.' },
       intendsToTakeUpResidence: { type: 'boolean', description: 'Stated: intends to take up residence in Australia.' },
       scopeConfirmed: { type: 'boolean', description: 'Optional scope confirmation; false refuses.' },
