@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-11-25T00:00:00Z</updated>
+  <updated>2026-11-26T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>A new business calculator, tax invoice generator, makes a printable tax invoice…</title>
+    <link href="https://duguid.com.au/changelog/#entry-6fa99c5ee8f14b1b" />
+    <id>https://duguid.com.au/changelog/#entry-6fa99c5ee8f14b1b</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>A new business calculator, tax invoice generator, makes a printable tax invoice or recipient created tax invoice in the browser, storing and sending nothing, and checks it against section 29-70 of the GST Act: GST at one-eleventh with the total invoice and taxable supply rounding rules, the wording for taxable, GST-free and mixed invoices, the ABN check digit and the $1,000 recipient rule.</summary>
+  </entry>
   <entry>
     <title>Updated general tax question 8 after the ATO updated its How to lodge your tax…</title>
     <link href="https://duguid.com.au/changelog/#entry-062afadb39b84c69" />

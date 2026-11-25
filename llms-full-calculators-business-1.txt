@@ -16,7 +16,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 Fifty-seven free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
-Published 11 September 2026. Last checked 24 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
 Search 57 calculators
 
@@ -92,6 +92,7 @@ Search 57 calculators
 
 - PAYG instalments calculator The quarterly PAYG instalment from the notified amount, a varied amount, instalment income times the rate, or a varied rate with its credit.
 - Objection deadline checker The last day to object to an income tax or FBT assessment, an amended assessment or another ATO decision, with the weekend rule.
+- Tax invoice generator A printable tax invoice or RCTI made in your browser and checked against section 29-70 of the GST Act: GST at one-eleventh with the rounding rules, the ABN check digit and the $1,000 recipient rule.
 - Fuel tax credit calculator A business’s fuel tax credits at the ATO’s rate for each day since 1 July 2022, by fuel and use, with label 7D and the small claimant methods.
 - Luxury car tax calculator Luxury car tax, its adjustments and refunds for 2019-20 to 2026-27.
 - Wine equalisation tax calculator WET on a tax period’s wholesale sales, retail sales, own use and sales under quote, the producer rebate within the year’s $350,000 or $400,000 cap, and labels 1C and 1D.
@@ -156,6 +157,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
 - PAYG instalments calculator: https://duguid.com.au/tools/business-calculators/payg-instalments/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
+- Tax invoice generator: https://duguid.com.au/tools/business-calculators/tax-invoice/
 - Fuel tax credit calculator: https://duguid.com.au/tools/business-calculators/fuel-tax-credits/
 - Luxury car tax calculator: https://duguid.com.au/tools/business-calculators/luxury-car-tax/
 - Wine equalisation tax calculator: https://duguid.com.au/tools/business-calculators/wine-equalisation-tax/
