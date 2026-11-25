@@ -5754,27 +5754,37 @@ const SGC_YEARS: [(&str, u64, u64); 4] = [
     ("2025-26", 120, 6_250_000),
 ];
 
-/// Every business day from 1 July 2026 to the calendar's last verified day: the weekdays not
-/// listed in the published CSV, which the oracle reads instead of the engine's copy.
-fn sgc_business_days() -> Vec<i64> {
+/// Build the calendar interpretations from the published daily CSV.
+fn sgc_calendar_scenarios() -> Vec<Vec<i64>> {
     let site = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
     let csv = std::fs::read_to_string(
-        site.join("tools/payday-super/business-days/payday-super-business-days.csv"),
+        site.join("tools/payday-super/business-days/payday-super-business-days-v2.csv"),
     )
     .unwrap();
-    let holidays: Vec<i64> = csv
-        .lines()
-        .skip(1)
-        .map(|line| parse_iso(line.split(',').next().unwrap()))
-        .collect();
-    let calendar: Value = serde_json::from_str(
-        &std::fs::read_to_string(site.join("_data/payday_super_business_days.json")).unwrap(),
-    )
-    .unwrap();
-    let end = parse_iso(calendar["verified_until"].as_str().unwrap());
-    // Day 0, 1 January 1970, was a Thursday: (day + 3) mod 7 counts from Monday.
-    (day_number(2026, 7, 1)..=end)
-        .filter(|day| (day + 3).rem_euclid(7) < 5 && !holidays.contains(day))
+    let mut business = Vec::new();
+    let mut unknown = Vec::new();
+    for line in csv.lines().skip(1) {
+        let fields: Vec<_> = line.splitn(4, ',').collect();
+        let date = parse_iso(fields[0]);
+        match fields[2] {
+            "BUSINESS" => business.push(date),
+            "UNKNOWN" => unknown.push(date),
+            "NON_BUSINESS" => {}
+            status => panic!("unrecognised calendar status {status}"),
+        }
+    }
+    (0..(1 << unknown.len()))
+        .map(|mask| {
+            let mut days = business.clone();
+            days.extend(
+                unknown
+                    .iter()
+                    .enumerate()
+                    .filter_map(|(index, date)| (mask & (1 << index) == 0).then_some(*date)),
+            );
+            days.sort_unstable();
+            days
+        })
         .collect()
 }
 
@@ -5834,10 +5844,32 @@ fn sgc_due(business: &[i64], p: &Payday) -> Option<i64> {
 }
 
 /// What the payday engine must return, each value as JavaScript prints it.
-fn sgc_payday_oracle(business: &[i64], quarters: &[(i64, i64, u64)], p: &Payday) -> Value {
-    let Some(due) = sgc_due(business, p) else {
+fn sgc_payday_oracle(scenarios: &[Vec<i64>], quarters: &[(i64, i64, u64)], p: &Payday) -> Value {
+    let Some(dates) = scenarios
+        .iter()
+        .map(|days| sgc_due(days, p))
+        .collect::<Option<std::collections::BTreeSet<_>>>()
+    else {
         return json!({"refused": "That due date falls after 31 August 2027, where the business day calendar ends."});
     };
+    if dates.len() > 1 {
+        let mut shown: Vec<_> = dates
+            .iter()
+            .map(|day| {
+                iso_day(*day)
+                    .parse::<jiff::civil::Date>()
+                    .unwrap()
+                    .strftime("%-d %B %Y")
+                    .to_string()
+            })
+            .collect();
+        let last = shown.pop().unwrap();
+        return json!({"refused": format!(
+            "This Payday Super deadline depends on part-day holidays. Possible dates are {} and {last}.",
+            shown.join(", ")
+        )});
+    }
+    let due = *dates.first().unwrap();
     let counted = p.earnings.min(SGC_MAXIMUM_BASE.saturating_sub(p.earlier));
     let sg = half_up(&BigUint::from(counted * 12), &BigUint::from(100_u8));
     let base = sg.saturating_sub(p.on_time);
@@ -5902,9 +5934,10 @@ fn sgc_payday_oracle(business: &[i64], quarters: &[(i64, i64, u64)], p: &Payday)
 
 fn sgc_payday_case(
     rng: &mut Seeded,
-    business: &[i64],
+    scenarios: &[Vec<i64>],
     quarters: &[(i64, i64, u64)],
 ) -> (Value, Value) {
+    let business = &scenarios[0];
     let start = day_number(2026, 7, 1);
     let end = *business.last().unwrap();
     let latest = day_number(SGC_LATEST.0, SGC_LATEST.1, SGC_LATEST.2);
@@ -5977,7 +6010,7 @@ fn sgc_payday_case(
     });
     (
         json!({"kind": "payday", "inputs": inputs}),
-        sgc_payday_oracle(business, quarters, &p),
+        sgc_payday_oracle(scenarios, quarters, &p),
     )
 }
 
@@ -6081,18 +6114,19 @@ fn sgc_quarter_case(rng: &mut Seeded) -> (Value, Value) {
 
 #[test]
 fn the_sgc_oracle_works_the_ato_examples_by_hand() {
-    let business = sgc_business_days();
+    let scenarios = sgc_calendar_scenarios();
+    let business = &scenarios[0];
     // ATO, Payment deadlines for Payday Super: Hannah's 30 July 2026 payday is due 11 August,
     // after NT Picnic Day; Floyd's first contribution on 7 August, 4 September.
     assert_eq!(
-        iso_day(sgc_after(&business, day_number(2026, 7, 30), 7).unwrap()),
+        iso_day(sgc_after(business, day_number(2026, 7, 30), 7).unwrap()),
         "2026-08-11"
     );
     assert_eq!(
-        iso_day(sgc_after(&business, day_number(2026, 8, 7), 20).unwrap()),
+        iso_day(sgc_after(business, day_number(2026, 8, 7), 20).unwrap()),
         "2026-09-04"
     );
-    assert_eq!(sgc_after(&business, day_number(2027, 8, 30), 7), None);
+    assert_eq!(sgc_after(business, day_number(2027, 8, 30), 7), None);
     // ATO, Making a voluntary disclosure for Payday Super: Juliet's $3,600 at 10% earns $24.74
     // over 25 days and $49.65 over 50.
     assert_eq!(sgc_notional(360_000, &[(1000, 365); 25]), 2474);
@@ -6126,7 +6160,7 @@ fn the_sgc_oracle_works_the_ato_examples_by_hand() {
         lodged: None,
         assumed: 1151,
     };
-    let result = sgc_payday_oracle(&business, &gic_quarters(), &opening);
+    let result = sgc_payday_oracle(&scenarios, &gic_quarters(), &opening);
     for (key, want) in [
         ("due", "2026-08-11"),
         ("days", "14"),
@@ -6144,10 +6178,10 @@ fn the_sgc_engines_agree_with_the_oracle_on_every_seeded_case() {
     if !common::rendered() {
         return;
     }
-    let (business, quarters) = (sgc_business_days(), gic_quarters());
+    let (scenarios, quarters) = (sgc_calendar_scenarios(), gic_quarters());
     let mut rng = Seeded(0x2026_1118_0000_5C6C);
     let mut pairs: Vec<_> = (0..SGC_PAYDAY_CASES)
-        .map(|_| sgc_payday_case(&mut rng, &business, &quarters))
+        .map(|_| sgc_payday_case(&mut rng, &scenarios, &quarters))
         .collect();
     pairs.extend((0..SGC_QUARTER_CASES).map(|_| sgc_quarter_case(&mut rng)));
     let (cases, expected): (Vec<_>, Vec<_>) = pairs.into_iter().unzip();

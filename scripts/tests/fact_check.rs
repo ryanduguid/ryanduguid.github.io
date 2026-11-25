@@ -449,67 +449,81 @@ fn measure_csv_matches_visible_tables() {
     }
 }
 
-/// The Payday Super calendar page publishes the confirmed weekday rows of its copy of
-/// the checker's calendar, inside the period that copy is complete for. The CSV must
-/// hold exactly those rows, in order, and the rendered table must show the same dates.
+/// The daily CSV preserves the published calendar’s 3 states and coverage.
+/// The rendered holiday table shows the confirmed weekday holidays.
 #[test]
 fn payday_business_days_csv_matches_the_calendar_copy() {
     let repository = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
     let source = |rel: &str| site_tools::read(&repository.join(rel)).unwrap();
     let calendar = pyjson::loads(&source("_data/payday_super_business_days.json")).unwrap();
-    let from = text_of(get(&calendar, "verified_from"));
-    let until = text_of(get(&calendar, "verified_until"));
+    let from = site_tools::iso_day(&text_of(get(&calendar, "verified_from"))).unwrap();
+    let until = site_tools::iso_day(&text_of(get(&calendar, "verified_until"))).unwrap();
     let Json::Array(days) = get(&calendar, "non_business_days") else {
         panic!("non_business_days must be a list");
     };
-    let expected: Vec<(String, jiff::civil::Date, String, Vec<String>)> = days
+    let Json::Array(unknown) = get(&calendar, "unresolved_part_days") else {
+        panic!("unresolved_part_days must be a list");
+    };
+    let holidays: Vec<_> = days
         .iter()
-        .filter_map(|day| {
-            let date = text_of(get(day, "date"));
-            let parsed = site_tools::iso_day(&date).unwrap();
-            let provisional = matches!(day.get("provisional"), Some(Json::Bool(true)));
-            let weekday = parsed.weekday().to_monday_one_offset() <= 5;
-            (from <= date && date <= until && weekday && !provisional).then(|| {
-                let Json::Array(places) = get(day, "jurisdictions") else {
-                    panic!("{date}: jurisdictions must be a list");
-                };
-                let places = places.iter().map(text_of).collect();
-                (date, parsed, text_of(get(day, "name")), places)
-            })
-        })
+        .filter(|day| !matches!(day.get("provisional"), Some(Json::Bool(true))))
         .collect();
-    assert!(!expected.is_empty());
-
-    let csv = source("tools/payday-super/business-days/payday-super-business-days.csv");
+    let csv = source("tools/payday-super/business-days/payday-super-business-days-v2.csv");
     let records = pycsv::dict_reader(&csv).unwrap();
-    assert_eq!(
-        records.len(),
-        expected.len(),
-        "CSV rows against the calendar copy"
-    );
-    for (record, (date, parsed, name, places)) in records.iter().zip(&expected) {
-        assert_eq!(field(record, "date"), date);
-        assert_eq!(
-            field(record, "weekday"),
-            parsed.strftime("%A").to_string(),
-            "{date}"
+    let mut date = from;
+    let mut visible_holidays = Vec::new();
+    let mut unknown_dates = Vec::new();
+    for record in &records {
+        let iso = date.to_string();
+        assert!(date <= until, "unexpected {iso} beyond coverage");
+        assert_eq!(field(record, "date"), iso);
+        assert_eq!(field(record, "weekday"), date.strftime("%A").to_string());
+        let full_day = holidays
+            .iter()
+            .copied()
+            .find(|day| text_of(get(day, "date")) == iso);
+        let part_day = unknown.iter().find(|day| text_of(get(day, "date")) == iso);
+        let weekend = date.weekday().to_monday_one_offset() > 5;
+        let (status, reason) = if weekend {
+            ("NON_BUSINESS", "WEEKEND")
+        } else if let Some(day) = full_day {
+            visible_holidays.push((date, day));
+            ("NON_BUSINESS", "FULL_DAY_PUBLIC_HOLIDAY")
+        } else if part_day.is_some() {
+            unknown_dates.push(iso.clone());
+            ("UNKNOWN", "PART_DAY_UNRESOLVED")
+        } else {
+            ("BUSINESS", "")
+        };
+        assert_eq!(field(record, "status"), status, "{iso}");
+        assert_eq!(field(record, "reason"), reason, "{iso}");
+        if let Some(day) = full_day.or(part_day) {
+            let Json::Array(places) = get(day, "jurisdictions") else {
+                panic!("{iso}: jurisdictions must be a list");
+            };
+            assert_eq!(field(record, "holiday"), text_of(get(day, "name")), "{iso}");
+            let places: Vec<_> = places.iter().map(text_of).collect();
+            assert_eq!(field(record, "jurisdictions"), places.join(";"), "{iso}");
+        } else {
+            assert!(field(record, "holiday").is_empty(), "{iso}");
+            assert!(field(record, "jurisdictions").is_empty(), "{iso}");
+        }
+        let checked = part_day.map_or_else(
+            || "2026-11-14".to_string(),
+            |day| text_of(get(day, "checked_at")),
         );
-        assert_eq!(field(record, "holiday"), name, "{date}");
-        assert_eq!(field(record, "jurisdictions"), places.join(";"), "{date}");
-        let checked = site_tools::py::Date::fromisoformat(field(record, "checked_at"));
-        assert!(checked.is_some(), "{date}: checked_at must be an ISO date");
+        assert_eq!(field(record, "checked_at"), checked, "{iso}");
+        date = date.tomorrow().unwrap();
     }
+    assert_eq!(date, until.tomorrow().unwrap(), "complete daily coverage");
+    assert_eq!(unknown_dates, ["2026-12-24", "2026-12-31"]);
 
     if !rendered() {
         return;
     }
     let html = read("tools/payday-super/business-days/index.html");
     let visible = measure_rows(&html);
-    assert_eq!(
-        visible.len(),
-        expected.len(),
-        "table rows against the calendar copy"
-    );
+    assert_eq!(visible.len(), visible_holidays.len());
     let tree = parse_structure(&html);
     let times: Vec<&str> = tree
         .descendants(Tree::ROOT, Some("tbody"), false)
@@ -517,12 +531,24 @@ fn payday_business_days_csv_matches_the_calendar_copy() {
         .flat_map(|body| tree.descendants(body, Some("time"), false))
         .filter_map(|time| tree.attr(time, "datetime"))
         .collect();
-    let dates: Vec<&str> = expected.iter().map(|(date, ..)| date.as_str()).collect();
+    let dates: Vec<_> = visible_holidays
+        .iter()
+        .map(|(date, _)| date.to_string())
+        .collect();
     assert_eq!(times, dates);
-    for (cells, (date, parsed, name, places)) in visible.iter().zip(&expected) {
-        let shown = parsed.strftime("%a %-d %b %Y").to_string();
-        assert_eq!(cells, &[shown, name.clone(), places.join(", ")], "{date}");
+    for (cells, (date, day)) in visible.iter().zip(visible_holidays) {
+        let shown = date.strftime("%a %-d %b %Y").to_string();
+        let Json::Array(places) = get(day, "jurisdictions") else {
+            panic!("{date}: jurisdictions must be a list");
+        };
+        let places: Vec<_> = places.iter().map(text_of).collect();
+        assert_eq!(
+            cells,
+            &[shown, text_of(get(day, "name")), places.join(", ")],
+            "{date}"
+        );
     }
+    assert!(html.contains("PART_DAY_UNRESOLVED") || html.contains("<code>UNKNOWN</code>"));
 }
 
 const BAS_DUE_SOURCE: &str = "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/due-dates-for-lodging-and-paying-your-bas";
