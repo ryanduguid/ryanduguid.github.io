@@ -101,7 +101,7 @@ export function contractorEmployee(e) {
     contractorCostPerHour: perHour(contractor.cost), expenses: m(contractor.expenses), profit: m(contractor.profit),
     contractorTax: m(contractor.tax), smallBusinessOffset: contractor.smallBusinessOffset, ownSuper: m(contractor.ownSuper),
     contractorTakeHome: m(contractor.takeHome), contractorSuper: m(contractor.sg + contractor.ownSuper),
-    mustRegister: !e.gst && contractor.fee >= GST_THRESHOLD, section12: contractor.section12, elements: contractor.elements,
+    gstThresholdReached: !e.gst && contractor.fee >= GST_THRESHOLD, section12: contractor.section12, elements: contractor.elements,
     costDifference: m(employee.cost - contractor.cost), takeHomeDifference: m(employee.takeHome - contractor.takeHome),
   };
 }
@@ -167,20 +167,23 @@ export function contractorFormInput(value) {
     hospitalCover: yes('hospital'), studyLoan: yes('study-loan') };
 }
 
-/** Why section 12(3) does or does not apply, in the order of the elements.
- * @param {ReturnType<typeof contractorEmployee>} r */
+/** What the page's section 12(3) screen indicates on the answers, in the order of the elements. The labour share
+ * is described by the exact comparison, never a rounded percentage. @param {ReturnType<typeof contractorEmployee>} r */
 export function section12Note(r) {
-  const share = `labour is ${r.labourShare.toLocaleString('en-AU')}% of the fee`;
+  const share = `labour is ${r.elements.principally ? 'more' : 'not more'} than half the fee`;
   if (r.section12) {
-    return `Section 12(3) applies on these answers: the contract is with the person, who must do the work personally, it is not `
-      + `for a result and ${share}, so the business owes the super guarantee on the labour part as though the contractor were an employee`;
+    return 'On these answers the section 12(3) screen indicates the super guarantee is owed on the labour part: the contract is '
+      + `with the person, gives no right to delegate, is not for a result and ${share}. What counts is the value of what the `
+      + 'contract is for, not how an invoice splits it';
   }
   const fails = [!r.elements.individual && 'the contract is not with the person as an individual',
     !r.elements.personal && 'the contract gives a right to delegate, subcontract or assign the work',
     !r.elements.notResult && 'the contract is for a result',
-    !r.elements.principally && `${share}, not more than half`].filter(Boolean);
-  return `Section 12(3) does not apply on these answers: ${fails.join('; ')}. The super guarantee is still owed if the person `
-    + 'is an employee in the ordinary meaning';
+    !r.elements.principally && share].filter(Boolean);
+  const largest = r.elements.individual && r.elements.personal && r.elements.notResult
+    ? '. If labour is still the main thing the contract is for, section 12(3) may apply: this page does not decide that' : '';
+  return `On these answers the section 12(3) screen indicates no super guarantee: ${fails.join('; ')}${largest}. `
+    + 'The super guarantee is still owed if the person is an employee in the ordinary meaning';
 }
 
 /** The page's result. @param {(name: string) => string} value @param {(value: number) => string} aud */
@@ -215,9 +218,9 @@ export function contractorEmployeeResult(value, aud) {
     ['Take-home: employee less contractor', signed(r.takeHomeDifference)],
   ];
   const notes = [section12Note(r)];
-  if (r.mustRegister) {
-    notes.push('A fee of $75,000 or more a year is GST turnover at the registration threshold, so the contractor must register for GST '
-      + '(GST Act section 23-5)');
+  if (r.gstThresholdReached) {
+    notes.push('This engagement alone pays $75,000 or more a year, so GST registration may be required: check the contractor’s '
+      + 'current and projected GST turnover from all their activities against the $75,000 threshold (GST Act section 23-15)');
   }
   return { inputs: contractorInputsText(input, aud), rows, principal: 15, note: notes.join('. ') };
 }

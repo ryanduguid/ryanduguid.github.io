@@ -1215,7 +1215,7 @@ test('contractor against employee page works its example, drops section 12(3) on
   await form.locator('[name="gst"]').selectOption('no');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toContainText('Contractor: super guarantee under section 12(3), not owed: $0.00.');
-  await expect(form.locator('output')).toContainText('so the contractor must register for GST');
+  await expect(form.locator('output')).toContainText('GST registration may be required');
 });
 
 test('R&D tax offset page works Company V, a refundable offset and refuses a clawback under the threshold offline', async ({ page, context }) => {

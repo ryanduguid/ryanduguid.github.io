@@ -50,7 +50,8 @@ export function contractorEmployeeTool(kit, calculate) {
       + 'to 2026-27: each side\'s cost to the business (salary, stated leave loading, super guarantee, stated payroll tax '
       + 'and workers compensation rates, unclaimable GST) and take-home pay for a resident with no other income. The '
       + 'super guarantee is owed on a contractor\'s labour part under SGAA 1992 s 12(3) when the contract is with the '
-      + 'person as an individual, has no right to delegate, is not for a result and labour is more than half the fee. '
+      + 'person as an individual, has no right to delegate, is not for a result and labour is more than half the fee, a '
+      + 'screen, not a decision. Payroll tax and workers compensation on a contractor use the labour part, a simplification. '
       + 'It does not decide whether the person is an employee and holds no award rates.',
     inputSchema: schema(kit, calculate.CONTRACTOR_YEARS),
     run(input) {
@@ -79,7 +80,7 @@ export function contractorEmployeeTool(kit, calculate) {
           workersCompensation: dollars(r.contractorWorkersCompensation), cost: dollars(r.contractorCost),
           costPerHour: dollars(r.contractorCostPerHour), profit: dollars(r.profit), taxAndLevies: dollars(r.contractorTax),
           smallBusinessOffset: dollars(r.smallBusinessOffset), takeHome: dollars(r.contractorTakeHome), super: dollars(r.contractorSuper),
-          mustRegisterForGst: r.mustRegister },
+          gstThresholdReached: r.gstThresholdReached },
         costDifference: dollars(r.costDifference), takeHomeDifference: dollars(r.takeHomeDifference),
         currency: 'AUD', source: `${CALCULATORS}contractor-employee/`,
       };

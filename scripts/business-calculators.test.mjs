@@ -7263,9 +7263,14 @@ test('contractor against employee applies section 12(3) only when all 4 elements
   }
   // A cent over half the fee is labour: 12% of $63,840.01.
   const over = ce({ nonLabour: '63839.99' });
-  assert.deepEqual([over.section12, over.labourShare, over.contractorSuperGuarantee], [true, 50, 7660.8]);
+  assert.deepEqual([over.section12, over.contractorSuperGuarantee], [true, 7660.8]);
+  // The share rounds to 50%, so the note states the exact comparison instead.
+  assert.match(calculations.contractorEmployeeResult((name) => ({ ...formDefaults(ceHtml), 'non-labour': '63839.99' })[name] ?? '', ceAud).note,
+    /labour is more than half the fee/);
+  assert.match(calculations.contractorEmployeeResult((name) => ({ ...formDefaults(ceHtml), 'non-labour': '63840' })[name] ?? '', ceAud).note,
+    /labour is not more than half the fee\. If labour is still the main thing the contract is for, section 12\(3\) may apply/);
   assert.match(calculations.contractorEmployeeResult((name) => ({ ...formDefaults(ceHtml), delegate: 'yes' })[name] ?? '', ceAud).note,
-    /^Section 12\(3\) does not apply on these answers: the contract gives a right to delegate, subcontract or assign the work\. The super guarantee is still owed if the person is an employee in the ordinary meaning/);
+    /^On these answers the section 12\(3\) screen indicates no super guarantee: the contract gives a right to delegate, subcontract or assign the work\. The super guarantee is still owed if the person is an employee in the ordinary meaning$/);
 });
 
 test('contractor against employee caps the super guarantee and loading at the stated rules', () => {
@@ -7277,8 +7282,8 @@ test('contractor against employee caps the super guarantee and loading at the st
   assert.equal(ce({ loading: '17.5', loadingQualifying: false }).employeeSuperGuarantee, 12000);
   // GST the business cannot claim joins its cost; an unregistered contractor over $75,000 is told to register.
   assert.equal(ce({ credits: false }).contractorCost, 127680 + 12768 + 15321.6);
-  assert.equal(ce({ gst: false }).mustRegister, true);
-  assert.equal(ce({ gst: false, rate: '40' }).mustRegister, false);
+  assert.equal(ce({ gst: false }).gstThresholdReached, true);
+  assert.equal(ce({ gst: false, rate: '40' }).gstThresholdReached, false);
 });
 
 test('contractor against employee refuses what it does not work', () => {
