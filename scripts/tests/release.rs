@@ -237,7 +237,7 @@ fn release_claims() {
         replace_file(
             site.path(),
             MCP_REL,
-            "\"softwareVersion\": \"0.12.0\"",
+            "\"softwareVersion\": \"0.13.0\"",
             "\"softwareVersion\": \"0.2.0\"",
         );
         expect_failure(
@@ -396,7 +396,7 @@ fn release_claims() {
         // The limitations page names the real published release; name the documented one.
         rewrite(site.path(), "tools/limitations/index.html", |t| {
             t.replace(
-                "aus-accounting-mcp 0.12.0, pins",
+                "aus-accounting-mcp 0.13.0, pins",
                 "aus-accounting-mcp 0.9.0, pins",
             )
         });
@@ -1145,4 +1145,127 @@ fn verify_live_reports_a_registry_that_caught_up() {
     );
     let (code, printed) = run(&record, "0.8.0");
     assert_eq!(code, 1, "an unrecorded lag is drift: {printed}");
+}
+
+const FPA: &str = "au-fpa-pack";
+
+/// GitHub can hold a newer release than PyPI whilst the owner publishes it. A recorded
+/// `pypi_lag` is what PyPI should keep serving; PyPI catching up is drift, so the page's
+/// sentence is removed with it.
+#[test]
+fn verify_live_holds_a_recorded_pypi_lag_until_pypi_catches_up() {
+    let mut record = current_record();
+    let version = {
+        let component = record.get("components").and_then(|c| c.get(FPA)).unwrap();
+        match component.get("published").and_then(|p| p.get("version")) {
+            Some(Json::Str(version)) => version.clone(),
+            other => panic!("version {other:?}"),
+        }
+    };
+    // The committed record already holds the lag; start from the unrecorded case.
+    remove(&mut record, &["components", FPA, "published"], "pypi_lag");
+    let run = |record: &Json, pypi: &str| {
+        let mut live = stub(|_| Ok(Json::Null));
+        let mut printed = Vec::new();
+        let code = verify_live(
+            record,
+            &mut live,
+            &mut |_, component: &Json| {
+                let own = match component.get("published").and_then(|p| p.get("version")) {
+                    Some(Json::Str(version)) => version.clone(),
+                    other => panic!("version {other:?}"),
+                };
+                let is_fpa = component.get("distribution") == Some(&s(FPA));
+                let mut probes = vec![Probe {
+                    source: "github".into(),
+                    state: FOUND,
+                    detail: own.clone(),
+                }];
+                if is_fpa {
+                    probes.push(Probe {
+                        source: "pypi".into(),
+                        state: FOUND,
+                        detail: pypi.to_owned(),
+                    });
+                }
+                Ok(probes)
+            },
+            &mut |line| {
+                printed.push(line.to_owned());
+                Ok(())
+            },
+        )
+        .unwrap();
+        (code, printed.join("\n"))
+    };
+
+    let (code, printed) = run(&record, "0.0.1");
+    assert_eq!(code, 1, "PyPI behind an unrecorded lag is drift: {printed}");
+    assert!(
+        printed.contains(&format!(
+            "{FPA}: pypi reports 0.0.1, record says {version} (DRIFT)"
+        )),
+        "{printed}"
+    );
+
+    *at(&mut record, &["components", FPA, "published", "pypi_lag"]) =
+        json(r#"{"version": "0.0.1", "sentence": "PyPI still serves au-fpa-pack 0.0.1."}"#);
+    let (code, printed) = run(&record, "0.0.1");
+    assert_eq!(code, 0, "the recorded lag holds: {printed}");
+    assert!(
+        printed.contains(&format!(
+            "{FPA}: pypi reports 0.0.1, record says PyPI lags at 0.0.1 per pypi_lag (matches)"
+        )),
+        "{printed}"
+    );
+
+    let (code, printed) = run(&record, &version);
+    assert_eq!(code, 1, "PyPI caught up: {printed}");
+    assert!(
+        printed.contains("(DRIFT)") && printed.contains("pypi_lag"),
+        "{printed}"
+    );
+}
+
+#[test]
+fn a_recorded_pypi_lag_must_be_stated_and_differ() {
+    let mut record = current_record();
+    let page = match record
+        .get("components")
+        .and_then(|c| c.get(FPA))
+        .and_then(|c| c.get("documented"))
+        .and_then(|d| d.get("page"))
+    {
+        Some(Json::Str(page)) => page.clone(),
+        other => panic!("page {other:?}"),
+    };
+    *at(&mut record, &["components", FPA, "published", "pypi_lag"]) =
+        json(r#"{"version": "0.0.1", "sentence": "PyPI still serves au-fpa-pack 0.0.1."}"#);
+    let site = fixture(&[(&page, "The release is on GitHub.")]);
+    expect_failure(
+        "unstated PyPI lag",
+        &check(site.path(), &record),
+        &format!(
+            "{page}: does not state the recorded PyPI lag 'PyPI still serves au-fpa-pack 0.0.1.'"
+        ),
+    );
+
+    let version = match record
+        .get("components")
+        .and_then(|c| c.get(FPA))
+        .and_then(|c| c.get("published"))
+        .and_then(|p| p.get("version"))
+    {
+        Some(Json::Str(version)) => version.clone(),
+        other => panic!("version {other:?}"),
+    };
+    *at(
+        &mut record,
+        &["components", FPA, "published", "pypi_lag", "version"],
+    ) = Json::Str(version.clone());
+    expect_failure(
+        "PyPI lag equal to the published version",
+        &check(site.path(), &record),
+        &format!("{FPA}: pypi_lag names {version}, the published version"),
+    );
 }
