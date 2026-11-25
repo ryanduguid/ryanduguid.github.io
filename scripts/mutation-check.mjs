@@ -48,6 +48,7 @@ const tba = { file: 'assets/transfer-balance.mjs', test: 'scripts/transfer-balan
 const excess = { ...tba, file: 'assets/excess-contributions.mjs' };
 const tbaPage = { ...tba, file: 'assets/transfer-balance-result.mjs' };
 const pm = { file: 'assets/pension-minimum.mjs', test: 'scripts/pension-minimum.test.mjs' };
+const rd = { file: 'assets/residency-days.mjs', test: 'scripts/residency-days.test.mjs' };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -1322,6 +1323,15 @@ const MUTATIONS = [
   { ...pm, name: 'pension age to 149', find: "whole(input.get('age'), 150)", replace: "whole(input.get('age'), 149)" },
   { ...pm, name: 'pension form counts to 29 June', find: 'Date.UTC(second, 5, 30)', replace: 'Date.UTC(second, 5, 29)' },
   { ...pm, name: 'pension page principal is the balance', find: 'rows, principal: 4, note', replace: 'rows, principal: 0, note' },
+  { ...rd, name: 'residency one-half enough', find: 'Math.floor(yearDays / 2) + 1', replace: 'Math.floor(yearDays / 2)' },
+  { ...rd, name: 'residency exception on the abode alone', find: 'usualOutside && !intends', replace: 'usualOutside' },
+  { ...rd, name: 'residency departure day not counted', find: 'Math.min(to, last) - first + 1', replace: 'Math.min(to, last) - first' },
+  { ...rd, name: 'residency days before 1 July counted', find: 'Math.max(from, first) - first', replace: '0' },
+  { ...rd, name: 'residency 30 June dropped', find: 'Date.UTC(start + 1, 5, 30) / DAY]', replace: 'Date.UTC(start + 1, 5, 29) / DAY]' },
+  { ...rd, name: 'residency treaty refusal dropped', find: 'metBy.length > 0 && elsewhere', replace: 'false' },
+  { ...rd, name: 'residency scope not needed', find: "if (input.get('scope_confirmed') !== true) refuse", replace: 'if (false) refuse' },
+  { ...rd, name: 'residency form blank departure is 29 June', find: '`${start + 1}-06-30`', replace: '`${start + 1}-06-29`' },
+  { ...rd, name: 'residency page principal is the count', find: 'rows, principal: 3, note', replace: 'rows, principal: 0, note' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -1348,6 +1358,7 @@ const SHARED = [
   'scripts/government-super-engine-differential.json',
   'scripts/transfer-balance-engine-differential.json',
   'scripts/pension-minimum-engine-differential.json',
+  'scripts/residency-days-engine-differential.json',
   'scripts/concessional-catch-up-engine-differential.json',
   'scripts/unused-leave-engine-differential.json',
   'scripts/franking-account-engine-differential.json',
@@ -1370,7 +1381,7 @@ const SHARED = [
 
 const TEST_FILES = [
   levy.test, business.test, individualTest,
-  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test,
+  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test,
   'scripts/net-medical-expenses.test.mjs',
   'scripts/foreign-income.test.mjs',
   'scripts/minors-income.test.mjs',
