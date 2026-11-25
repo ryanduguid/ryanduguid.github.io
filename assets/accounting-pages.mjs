@@ -685,6 +685,10 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             result = calculate.deferredTaxResult(value, aud);
             showTables(result.tables);
             break;
+          case 'trust-streaming':
+            result = calculate.trustStreamingResult(value, aud);
+            showTables(result.tables);
+            break;
           case 'asic-fees':
             result = calculate.asicFeesResult(value, aud);
             break;

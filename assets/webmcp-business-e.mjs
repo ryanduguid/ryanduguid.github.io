@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // WebMCP tool descriptors for Business Calculators Cohort E (the 3 calculators
-// added on 24 November 2026): R&D tax offset, GST adjustments and deferred tax.
+// added on 24 November 2026: R&D tax offset, GST adjustments and deferred tax;
+// and trust streaming, added on 26 November 2026).
 // Imported by assets/webmcp-tools.mjs.
 
 import { gstAdjustmentsTool } from './webmcp-gst-adjustments.mjs';
@@ -149,16 +150,64 @@ export function deferredTaxTool(kit, deferredTax, dtYears) {
   });
 }
 
+/** @param {ToolKit} kit @param {BusinessCalculators['trustStreaming']} trustStreaming @param {number} rows */
+export function trustStreamingTool(kit, trustStreaming, rows) {
+  const { tool, text, choice, record, CALCULATORS } = kit;
+  const beneficiary = record({
+    name: { type: 'string', description: 'Beneficiary name (up to 200 characters); blank gives "Beneficiary n".' },
+    kind: choice(['individual', 'company', 'trust'], 'Kind of beneficiary; decides whether it applies the CGT discount to its extra capital gain.'),
+    presentEntitlement: text('amount', 'Present entitlement to the trust\'s income in AUD, including any amounts specifically entitled to.'),
+    capitalGainEntitled: text('amount', 'Of that, the financial benefit referable to the capital gain the beneficiary is specifically entitled to (s 115-228), AUD; "0" when omitted.'),
+    frankedEntitled: text('amount', 'Of that, the financial benefit referable to the franked distributions the beneficiary is specifically entitled to (s 207-58), AUD; "0" when omitted.'),
+  }, ['kind', 'presentEntitlement']);
+  return tool({
+    name: 'calculate_trust_streaming',
+    title: 'Trust streaming calculator',
+    description: 'A resident discretionary trust\'s net income for one income year in AUD: each resident beneficiary\'s '
+      + 'Division 6 share (ITAA 1936) of net income other than capital gains, franked distributions and franking credits '
+      + 'by Division 6E present entitlement; capital gains streamed under Subdivision 115-C and franked distributions and '
+      + 'franking credits under Subdivision 207-B ITAA 1997 to beneficiaries specifically entitled, the rest by adjusted '
+      + 'Division 6 percentage, with the rateable reduction; and the trustee\'s s 99A assessment at 45% with its franking '
+      + 'credit offset. One capital gain; no s 98 beneficiaries, s 115-230 choice, s 100A, family trust or bucket company advice.',
+    inputSchema: record({
+      otherTrustIncome: text('signedCost', 'Trust income other than the capital gain and franked distributions, after expenses charged against it, AUD (may be negative).'),
+      otherNetIncome: text('signedCost', 'Net income other than the capital gain, franked distributions and franking credits, AUD (may be negative).'),
+      frankedDistributions: text('amount', 'Franked distributions received, AUD; "0" when omitted.'),
+      frankingCredits: text('amount', 'Franking credits attached, AUD; "0" when omitted.'),
+      frankedDeductions: text('amount', 'Deductions directly relevant to the franked distributions, AUD; "0" when omitted.'),
+      capitalGain: text('amount', 'The capital gain before capital losses and concessions, AUD; "0" when omitted.'),
+      capitalGainRemaining: text('amount', 'The gain remaining after steps 1 to 6 of the s 102-5(1) method statement, AUD; "0" when omitted.'),
+      capitalGainConcessions: choice(['none', 'discount', 'small_business', 'both'], 'Concessions the trust applied to the gain; "none" when omitted.'),
+      capitalGainTrustIncome: text('amount', 'Amount of the gain included in the trust\'s income, AUD; "0" when omitted.'),
+      beneficiaries: { type: 'array', maxItems: rows, items: beneficiary, description: `Up to ${rows} presently entitled beneficiaries, each a resident not under a legal disability.` },
+    }, ['otherTrustIncome', 'otherNetIncome', 'beneficiaries']),
+    run(input) {
+      const r = trustStreaming({
+        other_trust_income: input.otherTrustIncome, other_net_income: input.otherNetIncome,
+        franked_distributions: input.frankedDistributions ?? '0', franking_credits: input.frankingCredits ?? '0',
+        franked_deductions: input.frankedDeductions ?? '0', capital_gain: input.capitalGain ?? '0',
+        capital_gain_remaining: input.capitalGainRemaining ?? '0', capital_gain_concessions: input.capitalGainConcessions ?? 'none',
+        capital_gain_trust_income: input.capitalGainTrustIncome ?? '0',
+        beneficiaries: input.beneficiaries.map((/** @type {Record<string, string>} */ b) => ({ name: b.name ?? '', kind: b.kind,
+          present_entitlement: b.presentEntitlement, capital_gain_entitled: b.capitalGainEntitled ?? '0', franked_entitled: b.frankedEntitled ?? '0' })),
+      });
+      return { ...r.amounts, grossUp: r.grossUp, beneficiaries: r.beneficiaries, trustee: r.trustee, currency: 'AUD',
+        source: `${CALCULATORS}trust-streaming/` };
+    },
+  });
+}
+
 /**
- * Business Calculators Cohort E (the 3 tools added 25 November 2026), keyed by each form's `data-calculator` slug.
+ * Business Calculators Cohort E (the 3 tools added 25 November 2026 and trust streaming, 26 November), keyed by each form's `data-calculator` slug.
  * @param {ToolKit} kit
  * @param {Pick<BusinessCalculators, 'rdTaxOffset' | 'RD_YEARS' | 'gstAdjustment' | 'percentFraction'
- *   | 'GST_WORKSHEETS' | 'GST_ADJUSTMENT_YEARS' | 'deferredTax' | 'DEFERRED_TAX_YEARS'>} calculate
+ *   | 'GST_WORKSHEETS' | 'GST_ADJUSTMENT_YEARS' | 'deferredTax' | 'DEFERRED_TAX_YEARS' | 'trustStreaming' | 'TRUST_STREAMING_ROWS'>} calculate
  */
 export function businessCohortETools(kit, calculate) {
   return {
     'rd-tax-offset': rdTaxOffsetTool(kit, calculate.rdTaxOffset, calculate.RD_YEARS),
     'gst-adjustments': gstAdjustmentsTool(kit, calculate),
     'deferred-tax': deferredTaxTool(kit, calculate.deferredTax, calculate.DEFERRED_TAX_YEARS),
+    'trust-streaming': trustStreamingTool(kit, calculate.trustStreaming, calculate.TRUST_STREAMING_ROWS),
   };
 }
