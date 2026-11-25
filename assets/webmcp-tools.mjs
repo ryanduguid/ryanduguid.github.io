@@ -6,9 +6,11 @@ import { businessCohortATools } from './webmcp-business-a.mjs';
 import { businessCohortBTools } from './webmcp-business-b.mjs';
 import { businessCohortCTools } from './webmcp-business-c.mjs';
 import { businessCohortDTools } from './webmcp-business-d.mjs';
+import { businessCohortETools } from './webmcp-business-e.mjs';
 import {
   concessionalCatchUpTool, fhssTool, governmentSuperTool, lumpSumArrearsTool, studyLoanTool, workExpensesTool,
 } from './webmcp-individual-more.mjs';
+import { pensionMinimumTool, transferBalanceTool } from './webmcp-individual-retirement.mjs';
 
 // WebMCP tool descriptors for the site's calculators. Each tool calls the same module
 // function as its page's form, reads nothing from the form and sends nothing anywhere.
@@ -34,6 +36,7 @@ const PATTERNS = {
   incomeYear: /^\d{4}-\d{2}$/,
   signedCost: /^-?\d{1,10}$|^-?\d{1,10}\.\d{1,2}$/,
   trillionCost: /^\d{1,13}$|^\d{1,13}\.\d{1,2}$/,
+  signedTrillionCost: /^-?\d{1,13}$|^-?\d{1,13}\.\d{1,2}$/,
 };
 
 /**
@@ -553,7 +556,9 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
  *   | 'rentalProperty' | 'SBT_YEARS' | 'superBenefitTax' | 'SWH_FIRST_DAY' | 'superWithholding' | 'DASP_YEARS'
  *   | 'daspTax' | 'unusedLeave' | 'WC_SCHEMES' | 'workersCompensation'
  *   | 'businessDays' | 'division296' | 'fbtCar' | 'fbtEvExemption' | 'fbtCarParking' | 'fbtExpensePayment'
- *   | 'fbtLoan' | 'fbtMealEntertainment' | 'fbtProperty' | 'landTaxYear' | 'terminationPayment' | 'transferDuty'>} calculate */
+ *   | 'fbtLoan' | 'fbtMealEntertainment' | 'fbtProperty' | 'landTaxYear' | 'terminationPayment' | 'transferDuty'
+ *   | 'rdTaxOffset' | 'RD_YEARS' | 'gstAdjustment' | 'percentFraction' | 'GST_WORKSHEETS' | 'GST_ADJUSTMENT_YEARS'
+ *   | 'deferredTax' | 'DEFERRED_TAX_YEARS'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -571,6 +576,7 @@ export function calculatorTools(calculate) {
     ...businessCohortBTools(TOOL_KIT, calculate),
     ...businessCohortCTools(TOOL_KIT, calculate),
     ...businessCohortDTools(TOOL_KIT, calculate),
+    ...businessCohortETools(TOOL_KIT, calculate),
   };
 }
 
@@ -991,6 +997,22 @@ export function workExpensesTools({ workExpenses, workExpensesYears }) {
  */
 export function governmentSuperTools({ governmentSuperAmounts, governmentSuperYears }) {
   return { 'government-super': governmentSuperTool(TOOL_KIT, governmentSuperAmounts, governmentSuperYears) };
+}
+
+/**
+ * WebMCP descriptor for the account-based pension minimum payment calculator.
+ * @param {import('./webmcp-individual-retirement.mjs').PensionEngine} engine
+ */
+export function pensionMinimumTools(engine) {
+  return { 'pension-minimum': pensionMinimumTool(TOOL_KIT, engine) };
+}
+
+/**
+ * WebMCP descriptor for the transfer balance account and excess contributions calculator.
+ * @param {import('./webmcp-individual-retirement.mjs').TransferBalanceEngine} engine
+ */
+export function transferBalanceTools(engine) {
+  return { 'transfer-balance': transferBalanceTool(TOOL_KIT, engine) };
 }
 
 /** The WebMCP descriptor for the income tax estimate.

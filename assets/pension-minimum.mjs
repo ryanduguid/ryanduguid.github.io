@@ -121,8 +121,9 @@ export function pensionMinimumResult(value, aud) {
     r = pensionMinimum(input);
   } catch (error) {
     const first = Number(input.year.slice(0, 4));
-    if (/** @type {{code?: string}} */ (error).code === 'input.day_count_invalid' && started !== '') {
-      refuse(error.code, `Enter a start day from 1 July ${first} to 30 June ${first + 1}, or leave it blank.`);
+    const code = /** @type {{code?: string}} */ (error).code;
+    if (code === 'input.day_count_invalid' && started !== '') {
+      refuse(code, `Enter a start day from 1 July ${first} to 30 June ${first + 1}, or leave it blank.`);
     }
     throw error;
   }

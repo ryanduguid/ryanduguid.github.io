@@ -1,8 +1,10 @@
 // Copyright 2026 Ryan Duguid
 // SPDX-License-Identifier: Apache-2.0
 
-import { ATO_TABLE_5, excessContributions } from './excess-contributions.mjs';
-import { TBA_KINDS, dayOf, label, transferBalance, yearOf } from './transfer-balance.mjs';
+import { ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, excessContributions } from './excess-contributions.mjs';
+import { TBA_KINDS, TBA_YEARS, dayOf, label, transferBalance, yearOf } from './transfer-balance.mjs';
+
+export { ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance, yearOf };
 
 // The transfer balance page's form and results: the account, the excess concessional contributions
 // charge, or the release of excess non-concessional contributions, each from the input the
@@ -10,6 +12,7 @@ import { TBA_KINDS, dayOf, label, transferBalance, yearOf } from './transfer-bal
 
 /** The event rows the form shows. */
 export const TBA_EVENT_ROWS = 5;
+/** @type {ReadonlyMap<string, string>} */
 const KIND_NAMES = new Map(TBA_KINDS.map(([kind, , name]) => [kind, name]));
 const day = (/** @type {string} */ iso) => new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 

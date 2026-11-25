@@ -15,7 +15,7 @@ export const GST_WORKSHEETS = Object.keys(ENGINES);
 
 /** A percentage as the command's fraction, exact: 12.5 is 0.125. An entry that is not one passes on blank, which the command
  * refuses. @param {string} percent */
-function percentFraction(percent) {
+export function percentFraction(percent) {
   const parts = /^(\d+)(?:\.(\d+))?$/.exec(percent.trim()); // eslint-disable-line security/detect-unsafe-regex -- anchored, with no repetition over overlapping characters: linear
   if (!parts) return '';
   const places = (parts[2] ?? '').length + 2;
