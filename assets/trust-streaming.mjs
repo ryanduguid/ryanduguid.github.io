@@ -73,8 +73,107 @@ function amount(value, words, min = 0) {
  *   capital_gain_trust_income: string, beneficiaries: TrustBeneficiaryInput[] }} TrustStreamingInput
  */
 
-/** Each beneficiary's and the trustee's assessment. @param {TrustStreamingInput} input */
-export function trustStreaming(input) {
+/** One beneficiary's row, checked, with its specific entitlements in tax dollars.
+ * @param {TrustBeneficiaryInput} b @param {number} i @param {Fraction} G @param {Fraction} F @param {bigint} gainIncome
+ * @param {bigint} netFranked */
+function trustPerson(b, i, G, F, gainIncome, netFranked) {
+  const label = String(b?.name ?? '').trim() || `Beneficiary ${i + 1}`;
+  if (!BENEFICIARY_KINDS.includes(/** @type {any} */ (b?.kind))) refuse(`${label}: choose individual, company or trust.`);
+  const entitlement = amount(b.present_entitlement, `${label}, present entitlement`);
+  const gainBenefit = amount(b.capital_gain_entitled, `${label}, capital gain specifically entitled to`);
+  const frankedBenefit = amount(b.franked_entitled, `${label}, franked distributions specifically entitled to`);
+  if (gainBenefit + frankedBenefit > entitlement) {
+    refuse(`${label}: the amounts specifically entitled to are part of the present entitlement, so cannot exceed it.`);
+  }
+  return { name: label, kind: String(b.kind), entitlement, gainBenefit, frankedBenefit,
+    // ss 115-228(1), 207-58(1): the gain or distribution times the share of its net financial benefit.
+    specificGain: gainIncome ? div(mul(G, whole(gainBenefit)), whole(gainIncome)) : ZERO,
+    specificFranked: netFranked ? div(mul(F, whole(frankedBenefit)), whole(netFranked)) : ZERO };
+}
+
+const KIND_DISCOUNT = { individual: true, trust: true, company: false };
+
+/** A beneficiary's figures, rounded.
+ * @param {any} p @param {Fraction} gross @param {keyof typeof GROSS_UP} concessions @param {boolean} needed */
+function personResult(p, gross, concessions, needed) {
+  const extra = mul(p.attributable, gross);
+  // s 115-215(4): the beneficiary's own discount if it can have one, then the small business 50% reduction.
+  let ownNet = extra;
+  if ((concessions === 'discount' || concessions === 'both') && KIND_DISCOUNT[/** @type {'individual'} */ (p.kind)]) ownNet = div(ownNet, whole(2n));
+  if (concessions === 'small_business' || concessions === 'both') ownNet = div(ownNet, whole(2n));
+  const assessable = add(add(add(p.division6, ownNet), p.frankedAttributable), p.credit);
+  return {
+    name: p.name, kind: p.kind, presentEntitlement: money(whole(p.entitlement)),
+    specificGain: money(p.specificGain), specificFranked: money(p.specificFranked),
+    adjustedPercentage: needed ? percent(p.adjusted) : null,
+    division6EPercentage: percent(p.percentage6E), division6: money(p.division6),
+    gainShare: money(p.gainShare), attributableGain: money(p.attributable), extraCapitalGain: money(extra), netCapitalGain: money(ownNet),
+    frankedShare: money(p.frankedShare), attributableFranked: money(p.frankedAttributable), frankingCredit: money(p.credit),
+    assessable: money(assessable),
+  };
+}
+
+/** A share of the gain and of the franked distribution, reduced, with its credit and the part in trust income.
+ * @param {Fraction} gainShare @param {Fraction} frankedShare @param {any} c */
+function streams(gainShare, frankedShare, c) {
+  const { gain, G, gainNet, franked, F, frankedNet, credits, gainIncome, netFranked } = c;
+  return {
+    gainShare,
+    attributable: gain ? div(mul(gainNet, gainShare), G) : ZERO,
+    frankedShare,
+    frankedAttributable: franked ? div(mul(frankedNet, frankedShare), F) : ZERO,
+    credit: franked ? div(mul(whole(credits), frankedShare), F) : ZERO,
+    // s 102UY(4): the part of the share that was in the trust's income.
+    inIncome: add(gain ? div(mul(gainShare, whole(gainIncome)), G) : ZERO, franked ? div(mul(frankedShare, whole(netFranked)), F) : ZERO),
+  };
+}
+
+/** A beneficiary's streamed shares and Division 6 share.
+ * @param {any} p @param {any} t the trust's figures */
+function personShares(p, t) {
+  const { needed, base, gainLeft, frankedLeft, income6E, net6E, c } = t;
+  const part = sub(sub(whole(p.entitlement), p.specificGain), p.specificFranked);
+  if (needed && sign(part) < 0) {
+    refuse(`${p.name}: present entitlement less the amounts specifically entitled to is below nil, so the adjusted Division 6 percentage is not settled.`);
+  }
+  const adjusted = needed ? div(part, base) : ZERO;
+  const s = streams(add(p.specificGain, mul(gainLeft, adjusted)), add(p.specificFranked, mul(frankedLeft, adjusted)), c);
+  const entitled6E = sub(whole(p.entitlement), s.inIncome);
+  if (income6E > 0n && sign(entitled6E) < 0) refuse(`${p.name}: the Division 6E present entitlement is below nil, which the calculator does not settle.`);
+  const percentage6E = income6E > 0n ? div(entitled6E, whole(income6E)) : ZERO;
+  return { ...p, ...s, adjusted, percentage6E, division6: mul(net6E, percentage6E) };
+}
+
+/** The trustee's s 99A figures.
+ * @param {any} trusteeShares @param {Fraction} trusteeDivision6 @param {any[]} shared @param {Fraction} gross
+ * @param {Fraction | null} trusteeAdjusted @param {bigint} unentitled */
+function trusteeResult(trusteeShares, trusteeDivision6, shared, gross, trusteeAdjusted, unentitled) {
+  const trusteeGain = mul(trusteeShares.attributable, gross);
+  const trusteeAmount = add(add(add(trusteeDivision6, trusteeGain), trusteeShares.frankedAttributable), trusteeShares.credit);
+  const tax = mul(trusteeAmount, [45n, 100n]);
+  const afterOffset = sub(tax, trusteeShares.credit);
+  const beneficiaryAmounts = shared.flatMap((p) => [p.division6, p.attributable, p.frankedAttributable]);
+  return {
+    unentitledIncome: money(whole(unentitled)), adjustedPercentage: trusteeAdjusted ? percent(trusteeAdjusted) : null,
+    division6: money(trusteeDivision6), gainShare: money(trusteeShares.gainShare), attributableGain: money(trusteeShares.attributable),
+    grossedUpGain: money(trusteeGain), frankedShare: money(trusteeShares.frankedShare), attributableFranked: money(trusteeShares.frankedAttributable),
+    frankingCredit: money(trusteeShares.credit), assessable: money(trusteeAmount),
+    // s 99A(4) when no part of the net income is a beneficiary's, (4A) when part is.
+    provision: sign(trusteeAmount) <= 0 ? null : beneficiaryAmounts.some((a) => sign(a) > 0) ? 's 99A(4A)' : 's 99A(4)',
+    tax: money(tax), offset: money(trusteeShares.credit), taxAfterOffset: money(sign(afterOffset) > 0 ? afterOffset : ZERO),
+  };
+}
+
+/** @param {any[]} out */
+function flatFigures(out) {
+  // Flat figures for the boundary cases: beneficiary n's as b<n>..., then the trust's and the trustee's.
+  return Object.fromEntries(out.flatMap((b, i) => [[`b${i + 1}Division6`, b.division6], [`b${i + 1}AttributableGain`, b.attributableGain],
+    [`b${i + 1}ExtraCapitalGain`, b.extraCapitalGain], [`b${i + 1}AttributableFranked`, b.attributableFranked],
+    [`b${i + 1}FrankingCredit`, b.frankingCredit], [`b${i + 1}Assessable`, b.assessable]]));
+}
+
+/** The trust's amounts, checked. @param {TrustStreamingInput} input */
+function trustAmounts(input) {
   const otherIncome = amount(input.other_trust_income, 'Other trust income', -MAX);
   const otherNet = amount(input.other_net_income, 'Other net income', -MAX);
   const franked = amount(input.franked_distributions, 'Franked distributions');
@@ -96,62 +195,40 @@ export function trustStreaming(input) {
     refuse('The capital gain remaining after losses and concessions must be above nil and no more than the capital gain.');
   }
   const netFranked = franked - frankedDeductions;
-  const trustIncome = otherIncome + gainIncome + netFranked;
   const netIncome = otherNet + remaining + netFranked + credits;
   if (netIncome <= 0n) refuse('The trust has no net income, so Division 6 assesses nobody on it.');
-  const withoutCredits = netIncome - credits;
-  if (withoutCredits <= 0n && remaining + netFranked > 0n) {
+  if (netIncome - credits <= 0n && remaining + netFranked > 0n) {
     refuse('Net income without franking credits is nil or below: the rateable reduction in sections 115-225(3) and 207-37(3) is not settled for that case.');
   }
+  return { otherIncome, otherNet, franked, credits, gain, remaining, gainIncome, concessions, rows, netFranked,
+    trustIncome: otherIncome + gainIncome + netFranked, netIncome, withoutCredits: netIncome - credits };
+}
 
-  const beneficiaries = rows.map((b, i) => {
-    const label = String(b?.name ?? '').trim() || `Beneficiary ${i + 1}`;
-    if (!BENEFICIARY_KINDS.includes(/** @type {any} */ (b?.kind))) refuse(`${label}: choose individual, company or trust.`);
-    const entitlement = amount(b.present_entitlement, `${label}, present entitlement`);
-    const gainBenefit = amount(b.capital_gain_entitled, `${label}, capital gain specifically entitled to`);
-    const frankedBenefit = amount(b.franked_entitled, `${label}, franked distributions specifically entitled to`);
-    if (gainBenefit + frankedBenefit > entitlement) {
-      refuse(`${label}: the amounts specifically entitled to are part of the present entitlement, so cannot exceed it.`);
-    }
-    return { name: label, kind: String(b.kind), entitlement, gainBenefit, frankedBenefit };
-  });
-  const total = (/** @type {(b: typeof beneficiaries[number]) => bigint} */ f) => beneficiaries.reduce((t, b) => t + f(b), 0n);
-  if (total((b) => b.gainBenefit) > gainIncome) refuse('Specific entitlements to the capital gain cannot exceed the capital gain in trust income.');
-  if (total((b) => b.frankedBenefit) > netFranked) {
+/** Each beneficiary's and the trustee's assessment. @param {TrustStreamingInput} input */
+export function trustStreaming(input) {
+  const { otherIncome, otherNet, franked, credits, gain, remaining, gainIncome, concessions, rows, netFranked, trustIncome, netIncome,
+    withoutCredits } = trustAmounts(input);
+  const G = whole(gain);
+  const F = whole(franked);
+  const people = rows.map((b, i) => trustPerson(b, i, G, F, gainIncome, netFranked));
+  const total = (/** @type {(p: typeof people[number]) => bigint} */ f) => people.reduce((t, p) => t + f(p), 0n);
+  if (total((p) => p.gainBenefit) > gainIncome) refuse('Specific entitlements to the capital gain cannot exceed the capital gain in trust income.');
+  if (total((p) => p.frankedBenefit) > netFranked) {
     refuse('Specific entitlements to the franked distributions cannot exceed them, less directly relevant deductions.');
   }
   // Trust income below nil leaves nothing to be entitled to.
-  const unentitled = (trustIncome > 0n ? trustIncome : 0n) - total((b) => b.entitlement);
+  const unentitled = (trustIncome > 0n ? trustIncome : 0n) - total((p) => p.entitlement);
   if (unentitled < 0n) refuse('Present entitlements cannot exceed the trust’s income.');
-
-  // ss 115-228(1), 207-58(1): the gain or distribution times the share of its net financial benefit.
-  const G = whole(gain);
-  const F = whole(franked);
-  const specific = beneficiaries.map((b) => ({
-    gain: gainIncome ? div(mul(G, whole(b.gainBenefit)), whole(gainIncome)) : ZERO,
-    franked: netFranked ? div(mul(F, whole(b.frankedBenefit)), whole(netFranked)) : ZERO,
-  }));
-  const gainLeft = specific.reduce((t, s) => sub(t, s.gain), G);
-  const frankedLeft = specific.reduce((t, s) => sub(t, s.franked), F);
+  const gainLeft = people.reduce((t, p) => sub(t, p.specificGain), G);
+  const frankedLeft = people.reduce((t, p) => sub(t, p.specificFranked), F);
 
   // s 95(1): adjusted Division 6 percentages, needed only for a part nobody is specifically entitled to.
-  const base = specific.reduce((t, s) => sub(sub(t, s.gain), s.franked), whole(trustIncome));
+  const base = people.reduce((t, p) => sub(sub(t, p.specificGain), p.specificFranked), whole(trustIncome));
   const needed = sign(gainLeft) > 0 || sign(frankedLeft) > 0;
-  let adjusted = beneficiaries.map(() => ZERO);
-  let trusteeAdjusted = ZERO;
-  if (needed) {
-    if (sign(base) <= 0) {
-      refuse('Trust income less the amounts specifically entitled to is nil or below, so the adjusted Division 6 percentage of the rest of the capital gain or franked distributions is not defined.');
-    }
-    adjusted = beneficiaries.map((b, i) => {
-      const part = sub(sub(whole(b.entitlement), specific[i].gain), specific[i].franked);
-      if (sign(part) < 0) {
-        refuse(`${b.name}: present entitlement less the amounts specifically entitled to is below nil, so the adjusted Division 6 percentage is not settled.`);
-      }
-      return div(part, base);
-    });
-    trusteeAdjusted = div(whole(unentitled), base);
+  if (needed && sign(base) <= 0) {
+    refuse('Trust income less the amounts specifically entitled to is nil or below, so the adjusted Division 6 percentage of the rest of the capital gain or franked distributions is not defined.');
   }
+  const trusteeAdjusted = needed ? div(whole(unentitled), base) : ZERO;
 
   // ss 115-225(2), (3) and 207-37(2), (3): the rateable reduction.
   const streamed = remaining + netFranked;
@@ -160,76 +237,22 @@ export function trustStreaming(input) {
   const frankedNet = mul(whole(netFranked), scale);
   const gross = whole(GROSS_UP[concessions]); // eslint-disable-line security/detect-object-injection -- a checked choice
 
-  /** @param {Fraction} gainShare @param {Fraction} frankedShare */
-  const streams = (gainShare, frankedShare) => ({
-    gainShare,
-    attributable: gain ? div(mul(gainNet, gainShare), G) : ZERO,
-    frankedShare,
-    frankedAttributable: franked ? div(mul(frankedNet, frankedShare), F) : ZERO,
-    credit: franked ? div(mul(whole(credits), frankedShare), F) : ZERO,
-    // s 102UY(4): the part of the share that was in the trust's income.
-    inIncome: add(gain ? div(mul(gainShare, whole(gainIncome)), G) : ZERO, franked ? div(mul(frankedShare, whole(netFranked)), F) : ZERO),
-  });
-  const shares = beneficiaries.map((b, i) => streams(add(specific[i].gain, mul(gainLeft, adjusted[i])),
-    add(specific[i].franked, mul(frankedLeft, adjusted[i]))));
-  const trusteeShares = streams(mul(gainLeft, trusteeAdjusted), mul(frankedLeft, trusteeAdjusted));
-
+  const c = { gain, G, gainNet, franked, F, frankedNet, credits, gainIncome, netFranked };
   // Division 6E: income and net income without the streamed amounts, and present entitlements without them.
   const income6E = otherIncome > 0n ? otherIncome : 0n;
   const net6E = whole(otherNet > 0n ? otherNet : 0n);
-  const entitled6E = beneficiaries.map((b, i) => sub(whole(b.entitlement), shares[i].inIncome));
-  if (income6E > 0n) {
-    entitled6E.forEach((e, i) => {
-      if (sign(e) < 0) refuse(`${beneficiaries[i].name}: the Division 6E present entitlement is below nil, which the calculator does not settle.`);
-    });
-    if (sign(sub(whole(unentitled), trusteeShares.inIncome)) < 0) {
-      refuse('The income no beneficiary is presently entitled to, less the trustee’s share of the streamed amounts, is below nil, which the calculator does not settle.');
-    }
+  const shared = people.map((p) => personShares(p, { needed, base, gainLeft, frankedLeft, income6E, net6E, c }));
+  const trusteeShares = streams(mul(gainLeft, trusteeAdjusted), mul(frankedLeft, trusteeAdjusted), c);
+  if (income6E > 0n && sign(sub(whole(unentitled), trusteeShares.inIncome)) < 0) {
+    refuse('The income no beneficiary is presently entitled to, less the trustee’s share of the streamed amounts, is below nil, which the calculator does not settle.');
   }
-  const percentage6E = entitled6E.map((e) => (income6E > 0n ? div(e, whole(income6E)) : ZERO));
-  const division6 = percentage6E.map((p) => mul(net6E, p));
-  const trusteeDivision6 = division6.reduce((t, d) => sub(t, d), net6E);
+  const trusteeDivision6 = shared.reduce((t, p) => sub(t, p.division6), net6E);
 
-  const KIND_DISCOUNT = { individual: true, trust: true, company: false };
-  const out = beneficiaries.map((b, i) => {
-    const s = shares[i];
-    const extra = mul(s.attributable, gross);
-    // s 115-215(4): the beneficiary's own discount if it can have one, then the small business 50% reduction.
-    let ownNet = extra;
-    if ((concessions === 'discount' || concessions === 'both') && KIND_DISCOUNT[/** @type {'individual'} */ (b.kind)]) ownNet = div(ownNet, whole(2n));
-    if (concessions === 'small_business' || concessions === 'both') ownNet = div(ownNet, whole(2n));
-    const assessable = add(add(add(division6[i], ownNet), s.frankedAttributable), s.credit);
-    return {
-      name: b.name, kind: b.kind, presentEntitlement: money(whole(b.entitlement)),
-      specificGain: money(specific[i].gain), specificFranked: money(specific[i].franked),
-      adjustedPercentage: needed ? percent(adjusted[i]) : null,
-      division6EPercentage: percent(percentage6E[i]), division6: money(division6[i]),
-      gainShare: money(s.gainShare), attributableGain: money(s.attributable), extraCapitalGain: money(extra), netCapitalGain: money(ownNet),
-      frankedShare: money(s.frankedShare), attributableFranked: money(s.frankedAttributable), frankingCredit: money(s.credit),
-      assessable: money(assessable),
-    };
-  });
+  const out = shared.map((p) => personResult(p, gross, concessions, needed));
 
-  const trusteeGain = mul(trusteeShares.attributable, gross);
-  const trusteeAmount = add(add(add(trusteeDivision6, trusteeGain), trusteeShares.frankedAttributable), trusteeShares.credit);
-  const tax = mul(trusteeAmount, [45n, 100n]);
-  const afterOffset = sub(tax, trusteeShares.credit);
-  const beneficiaryAmounts = [...division6, ...shares.map((s) => s.attributable), ...shares.map((s) => s.frankedAttributable)];
-  const trustee = {
-    unentitledIncome: money(whole(unentitled)), adjustedPercentage: needed ? percent(trusteeAdjusted) : null,
-    division6: money(trusteeDivision6), gainShare: money(trusteeShares.gainShare), attributableGain: money(trusteeShares.attributable),
-    grossedUpGain: money(trusteeGain), frankedShare: money(trusteeShares.frankedShare), attributableFranked: money(trusteeShares.frankedAttributable),
-    frankingCredit: money(trusteeShares.credit), assessable: money(trusteeAmount),
-    // s 99A(4) when no part of the net income is a beneficiary's, (4A) when part is.
-    provision: sign(trusteeAmount) <= 0 ? null : beneficiaryAmounts.some((a) => sign(a) > 0) ? 's 99A(4A)' : 's 99A(4)',
-    tax: money(tax), offset: money(trusteeShares.credit), taxAfterOffset: money(sign(afterOffset) > 0 ? afterOffset : ZERO),
-  };
-  // Flat figures for the boundary cases: beneficiary n's as b<n>..., then the trust's and the trustee's.
-  const flat = Object.fromEntries(out.flatMap((b, i) => [[`b${i + 1}Division6`, b.division6], [`b${i + 1}AttributableGain`, b.attributableGain],
-    [`b${i + 1}ExtraCapitalGain`, b.extraCapitalGain], [`b${i + 1}AttributableFranked`, b.attributableFranked],
-    [`b${i + 1}FrankingCredit`, b.frankingCredit], [`b${i + 1}Assessable`, b.assessable]]));
+  const trustee = trusteeResult(trusteeShares, trusteeDivision6, shared, gross, needed ? trusteeAdjusted : null, unentitled);
   return {
-    ...flat, netIncome: money(whole(netIncome)), trusteeAssessable: trustee.assessable, trusteeTax: trustee.tax,
+    ...flatFigures(out), netIncome: money(whole(netIncome)), trusteeAssessable: trustee.assessable, trusteeTax: trustee.tax,
     trusteeTaxAfterOffset: trustee.taxAfterOffset,
     amounts: {
       trustIncome: money(whole(trustIncome)), netIncome: money(whole(netIncome)), division6EIncome: money(whole(income6E)),

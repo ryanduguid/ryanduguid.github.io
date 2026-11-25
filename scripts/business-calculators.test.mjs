@@ -7288,7 +7288,9 @@ test('trust streaming reduces a gain and franked distributions together, worked 
     ['s 99A(4A)', 1248.29, 561.73, 777.78, 0]);
   // Division 6E net income is nil, so no Division 6 share; the 3 assessments are the net income.
   assert.deepEqual(r.beneficiaries.map((b) => b.division6), [0, 0]);
-  assert.equal(Math.round((5185.185185 + 3566.529492 + 1248.285322) * 100) / 100, r.netIncome);
+  const assessed = r.beneficiaries.reduce((t, b) => t + b.division6 + b.attributableGain + b.attributableFranked + b.frankingCredit, r.trustee.assessable);
+  // Each figure is rounded once, so the rounded figures may differ from net income by a cent or 2.
+  assert.ok(Math.abs(assessed - r.netIncome) <= 0.02, `${assessed}`);
 });
 
 test('trust streaming shares franked distributions and credits as the ATO Lang Trust example does', () => {
