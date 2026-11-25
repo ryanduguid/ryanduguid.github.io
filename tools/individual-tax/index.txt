@@ -6,11 +6,11 @@ Source: https://duguid.com.au/tools/individual-tax/
 
 # Individual tax calculators
 
-Seventeen free calculators for one person’s tax, pay and super, grounded in legislation and ATO worked examples. They run in your browser with no sign-up.
+Eighteen free calculators for one person’s tax, pay and super, grounded in legislation and ATO worked examples. They run in your browser with no sign-up.
 
 Published 17 November 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
-Search 17 calculators
+Search 18 calculators
 
 ## Tax, pay and study loans
 
