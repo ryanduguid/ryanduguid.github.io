@@ -492,7 +492,11 @@ When the MCP registry still lists an older version than the published one, recor
 it as `published.registry_lag` with that version and the sentence the documented
 page uses; `--verify-live` then reports drift once the registry catches up, and the
 offline check refuses a documented page that says the registry still lists, shows
-or has not caught up with a version whilst the record holds no lag. Other pages
+or has not caught up with a version whilst the record holds no lag. When GitHub holds a newer
+release than PyPI, because the owner has yet to publish it, record the older version as
+`published.pypi_lag` with the sentence the documented page uses; `--verify-live` then expects
+PyPI to serve that version, reports drift once it catches up, and the offline check refuses a
+documented page that lacks the sentence. Other pages
 that name the published release are listed in the component's
 `published_mentions`, each with the text the page must show, where `{version}` is
 the published version and `{<engine>}` that engine's pin in the component's
