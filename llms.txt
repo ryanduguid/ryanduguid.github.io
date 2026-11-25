@@ -1,6 +1,6 @@
 # duguid.com.au
 
-> duguid.com.au is the site of Ryan Duguid, a Senior Accountant in Newcastle, NSW, Australia, a Provisional CA ANZ Member, a Bachelor of Commerce (Accounting) graduate of the University of Newcastle, SAP S/4HANA certified in Financial Accounting (FI) and Management Accounting (CO) and a Xero Certified Specialist, Level 3. He publishes open source Australian computational accounting software at github.com/ryanduguid, including 76 browser tax and business calculators, 12 maintained rate tables, 7,430 ATO depreciation effective lives (LI 2025/20), Ozzit (165 native Excel LAMBDA functions) and Aus Accounting MCP.
+> duguid.com.au is the site of Ryan Duguid, a Senior Accountant in Newcastle, NSW, Australia, a Provisional CA ANZ Member, a Bachelor of Commerce (Accounting) graduate of the University of Newcastle, SAP S/4HANA certified in Financial Accounting (FI) and Management Accounting (CO) and a Xero Certified Specialist, Level 3. He publishes open source Australian computational accounting software at github.com/ryanduguid, including 77 browser tax and business calculators, 12 maintained rate tables, 7,430 ATO depreciation effective lives (LI 2025/20), Ozzit (165 native Excel LAMBDA functions) and Aus Accounting MCP.
 
 Canonical machine index: https://duguid.com.au/llms.txt
 
