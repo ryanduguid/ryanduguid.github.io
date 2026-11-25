@@ -97,7 +97,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_business_days', 'calculate_division_296_tax', 'calculate_fbt_car', 'calculate_fbt_car_parking',
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
-    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax',
+    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'check_tax_invoice',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -1675,7 +1675,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 76);
+  assert.equal(registered.length + 2, 77);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
@@ -2163,4 +2163,35 @@ test('transfer balance tool runs transfer, charge and release modes and refuses 
   await assert.rejects(tool.execute({
     calculation: 'transfer', events: [{ date: '2017-08-02', kind: 'new_income_stream', amount: '1600000' }], toDate: '2019-12-31', extra: 1,
   }), /extra is not an input of this tool/);
+});
+
+// The tax invoice page's example (GSTR 2013/1 example 2), a mixed invoice by the taxable supply rule, an RCTI and refusals.
+test('tax invoice tool returns the page example, a mixed invoice and an RCTI, and refuses what the page refuses', async () => {
+  const tool = tools['tax-invoice'];
+  const base = { supplierName: 'Example Stationery Pty Ltd', supplierAbn: '51 824 753 556', recipientName: 'Jim', issued: '2026-11-26',
+    lines: [{ description: 'Pens', quantity: '20', unitPrice: '1.10', treatment: 'taxable' },
+      { description: 'Boxes of staples', quantity: '10', unitPrice: '1.10', treatment: 'taxable' },
+      { description: 'Staplers', quantity: '4', unitPrice: '38.50', treatment: 'taxable' }] };
+  const r = await tool.execute(base);
+  assert.deepEqual([r.heading, r.totalPrice, r.gst, r.statements, r.checks.length, r.currency, r.source],
+    ['Tax invoice', '187.00', '17.00', ['Each supply is taxable. Total price includes GST.'], 7, 'AUD',
+      'https://duguid.com.au/tools/business-calculators/tax-invoice/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const mixed = await tool.execute({ ...base, rounding: 'supply', pricesIncludeGst: false,
+    lines: [{ description: 'Consulting', quantity: '1', unitPrice: '100.05', treatment: 'taxable' },
+      { description: 'Postage', quantity: '1', unitPrice: '0.05', treatment: 'taxable' },
+      { description: 'Bread', quantity: '1', unitPrice: '4.00', treatment: 'gst-free' }] });
+  assert.deepEqual([mixed.gst, mixed.totalPrice, mixed.lines.map((l) => [l.gst, l.markedTaxable])],
+    ['10.02', '114.12', [['10.01', true], ['0.01', true], ['0.00', false]]]);
+  const rcti = await tool.execute({ ...base, issuedBy: 'recipient', recipientName: 'Example Processor Pty Ltd', recipientAbn: '53 004 085 616',
+    rctiConditionsMet: true });
+  assert.equal(rcti.heading, 'Recipient created tax invoice');
+  assert.ok(rcti.statements.includes('The GST shown is payable by the supplier.'));
+  await assert.rejects(tool.execute({ ...base, issuedBy: 'recipient', recipientAbn: '53 004 085 616' }), /Determination 2023 allows this RCTI/);
+  await assert.rejects(tool.execute({ ...base, supplierAbn: '51 824 753 557' }), /passes the check digit test/);
+  const { recipientName: _jim, ...noRecipient } = base;
+  await assert.rejects(tool.execute({ ...noRecipient, lines: [{ ...base.lines[2], quantity: '26' }] }), /\$1,000 or more/);
+  await assert.rejects(tool.execute({ ...base, lines: [{ ...base.lines[0], unitPrice: 1.1 }] }), /unitPrice does not match its description/);
+  await assert.rejects(tool.execute({ ...base, lines: [{ ...base.lines[0], treatment: 'exempt' }] }), /treatment does not match its description/);
+  await assert.rejects(tool.execute({ ...base, extra: 1 }), /extra is not an input of this tool/);
 });

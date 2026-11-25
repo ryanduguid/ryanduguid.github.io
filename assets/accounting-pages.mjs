@@ -197,7 +197,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
       if (csv) download(csv, 'cash-forecast.csv', 'text/csv;charset=utf-8');
     });
     if (csvDownload) csvDownload.addEventListener('click', () => {
-      if (csv) download(csv, csvDownload.dataset.csv, 'text/csv;charset=utf-8');
+      if (csv) download(csv, csvDownload.dataset.csv, csvDownload.dataset.type ?? 'text/csv;charset=utf-8');
     });
 
     // Each table's rows: a label cell, then figures; a table the result has no rows for stays hidden.
@@ -587,6 +587,13 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             break;
           case 'rd-tax-offset':
             result = calculate.rdTaxOffsetResult(value, aud);
+            break;
+          case 'tax-invoice':
+            result = calculate.taxInvoiceResult(value, aud);
+            showTables(result.tables);
+            // The download is the invoice itself, a page to print or save as PDF.
+            csv = result.html;
+            csvDownload.disabled = false;
             break;
           case 'fuel-tax-credits':
             result = calculate.fuelTaxCreditsResult(value, aud);

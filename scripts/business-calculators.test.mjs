@@ -7213,3 +7213,149 @@ test('the deferred tax form sends the rows with a name or an amount, in order', 
   const loss = calculations.deferredTaxResult((name) => ({ ...fields, ...nil })[name] ?? '', deferredAud);
   assert.deepEqual(loss.rows.at(-1), ['Average effective tax rate', '0%']);
 });
+
+// The tax invoice generator: GST Act s 29-70(1) (Compilation No. 96, 1 January 2026), the ATO's 'Tax invoices'
+// (last updated 18 September 2026), GSTR 2013/1 paragraphs 17 to 38 and the Recipient Created Tax Invoice
+// Determination 2023, all read 26 November 2026.
+Object.assign(INPUTS, { taxInvoice: (x) => calculations.taxInvoiceInputsText(x) });
+Object.assign(ENGINE_LABELS, { taxInvoice: { heading: (v) => v, totalPrice: 'total price' } });
+Object.assign(FORM_CALLS, { taxInvoice: (f) => [calculations.taxInvoiceFormInput((name) => f[name] ?? '')] });
+const invoiceHtmlSource = readFileSync(new URL('../_includes/calculators/tax-invoice.html', import.meta.url), 'utf8');
+const invoiceAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const invoiceBase = { issuer: 'supplier', supplier_name: 'Example Stationery Pty Ltd', supplier_abn: '51 824 753 556', issued: '2026-11-26',
+  prices: 'inclusive', rounding: 'invoice', lines: [{ description: 'Desk', quantity: '1', unit_price: '110.00', treatment: 'taxable' }] };
+const invoice = (more) => calculations.taxInvoice({ ...invoiceBase, ...more });
+const invoiceLine = (unit_price, treatment = 'taxable', quantity = '1') => ({ description: 'Item', quantity, unit_price, treatment });
+
+test('the tax invoice page opens on GSTR 2013/1 example 2 and dates its sources', () => {
+  const example = invoiceHtmlSource.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(invoiceHtmlSource);
+  const result = calculations.taxInvoiceResult((name) => fields[name] ?? '', invoiceAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  for (const cited of ['C2004A00446/2026-01-01/text', '(last updated 18 September 2026)', 'GSTR20131', 'F2023L00785', 'Help/AbnFormat',
+    'read 26 November 2026']) {
+    assert.ok(invoiceHtmlSource.includes(cited), cited);
+  }
+});
+
+// The ABN cases of apps/aus-accounting-mcp/tests/test_identifiers.py in ryanduguid/australian-accounting
+// (main at 704cbd9e, 26 November 2026), which `validate_abn` must pass: ABR's worked example however it is
+// spaced, a wrong digit, a leading zero whose sum still divides by 89, and malformed text never cleaned up.
+test('ABN check digits agree with every ABN case australian-accounting tests validate_abn on', () => {
+  for (const value of ['51 824 753 556', '51824753556', ' 51 824 753 556 ']) {
+    assert.deepEqual(calculations.abnCheck(value), { result: 'CHECK_DIGIT_VALID', formatted: '51 824 753 556' }, value);
+  }
+  for (const value of ['51 824 753 557', '41 824 753 556', '61 824 753 556']) {
+    assert.deepEqual(calculations.abnCheck(value), { result: 'CHECK_DIGIT_INVALID', formatted: value }, value);
+  }
+  for (const value of ['00000090000', '00 000 000 000']) assert.equal(calculations.abnCheck(value).result, 'CHECK_DIGIT_INVALID', value);
+  for (const value of ['\t51824753556', '51824753556\n', '51824753556\r', '\u00a051824753556', '\u200751824753556', '\u202f51824753556',
+    '51824753556-', '51824753556A', '51-824-753-556', '5182475355A', '5182475355', '518247535566', '', '   ', '\u0665\u0661824753556']) {
+    assert.deepEqual(calculations.abnCheck(value), { result: 'MALFORMED', formatted: null }, JSON.stringify(value));
+  }
+});
+
+test('ABN check digits follow ABN Lookup’s worked example and every single-digit change fails', () => {
+  // 'Subtract 1 from the first (left-most) digit (5) to give 41 824 753 556 ... a total of 534 ... 6 with zero remainder.'
+  const digits = [...'51824753556'].map(Number);
+  assert.equal(digits.reduce((sum, d, i) => sum + (i ? d : d - 1) * [10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19][i], 0), 534);
+  for (let i = 0; i < 11; i += 1) {
+    for (let d = 0; d < 10; d += 1) {
+      if (d === digits[i]) continue;
+      const changed = digits.with(i, d).join('');
+      assert.equal(calculations.abnCheck(changed).result, 'CHECK_DIGIT_INVALID', changed);
+    }
+  }
+});
+
+test('the recipient’s identity or ABN is needed from a total price of $1,000, including non-taxable lines', () => {
+  assert.equal(invoice({ lines: [invoiceLine('999.99')] }).recipientRequired, false);
+  assert.throws(() => invoice({ lines: [invoiceLine('1000.00')] }), /recipient’s name or ABN, as the total price is \$1,000 or more/);
+  assert.throws(() => invoice({ lines: [invoiceLine('500.00'), invoiceLine('500.00', 'gst-free')] }), /\$1,000 or more/);
+  // Prices excluding GST: $909.09 plus $90.91 GST is $1,000.00; $909.08 plus $90.91 is $999.99.
+  assert.throws(() => invoice({ prices: 'exclusive', lines: [invoiceLine('909.09')] }), /\$1,000 or more/);
+  assert.equal(invoice({ prices: 'exclusive', lines: [invoiceLine('909.08')] }).totalPrice, 999.99);
+  assert.equal(invoice({ recipient_abn: '53 004 085 616', lines: [invoiceLine('1000.00')] }).recipient.abn, '53 004 085 616');
+  assert.equal(invoice({ recipient_name: 'Jim', lines: [invoiceLine('1000.00')] }).recipient.name, 'Jim');
+  // No taxable supply: no tax invoice, so no recipient is needed.
+  assert.equal(invoice({ recipient_name: 'Jim', lines: [invoiceLine('5000.00', 'gst-free')] }).recipientRequired, false);
+  assert.equal(invoice({ lines: [invoiceLine('5000.00', 'gst-free')] }).heading, 'Invoice');
+});
+
+test('GST is one-eleventh or 10%, rounded half up once by the total invoice rule or per line by the taxable supply rule', () => {
+  // One line: 55 cents carries exactly 5 cents of GST; 10% of 5 cents is half a cent, which rounds up; of 4 cents, down.
+  assert.equal(invoice({ lines: [invoiceLine('0.55')] }).gst, 0.05);
+  assert.equal(invoice({ prices: 'exclusive', lines: [invoiceLine('0.05')] }).gst, 0.01);
+  assert.equal(invoice({ prices: 'exclusive', lines: [invoiceLine('0.04')] }).gst, 0);
+  // 3 lines of 6 cents: 18/11 = 1.64 cents in total, but 6/11 = 0.55 cents rounds to 1 cent on each line.
+  const sixes = Array.from({ length: 3 }, () => invoiceLine('0.06'));
+  assert.equal(invoice({ lines: sixes }).gst, 0.02);
+  assert.equal(invoice({ lines: sixes, rounding: 'supply' }).gst, 0.03);
+  // A line's amount is quantity times unit price, rounded half up to the cent: 2.5 at $0.33 is $0.825, so $0.83.
+  assert.equal(invoice({ lines: [invoiceLine('0.33', 'taxable', '2.5')] }).lines[0].amount, 0.83);
+  // GST-free and input taxed lines carry no GST.
+  const mixed = invoice({ lines: [invoiceLine('11.00'), invoiceLine('7.00', 'gst-free'), invoiceLine('3.00', 'input-taxed')] });
+  assert.deepEqual([mixed.gst, mixed.totalPrice, mixed.lines.map((l) => [l.marked, l.gst])], [1, 21, [[true, 1], [false, 0], [false, 0]]]);
+});
+
+test('the invoice states the extent each supply is taxable in the ATO’s and GSTR 2013/1’s words', () => {
+  assert.deepEqual(invoice({}).statements, ['Each supply is taxable. Total price includes GST.']);
+  assert.deepEqual(invoice({ prices: 'exclusive' }).statements, ['Each supply is taxable. Prices exclude GST; the GST is added.']);
+  assert.deepEqual(invoice({ lines: [invoiceLine('11.00'), invoiceLine('7.00', 'gst-free')] }).statements,
+    ['* Taxable supply: the price includes GST.', 'Other supplies are GST-free or input taxed, as marked, and include no GST.']);
+  assert.deepEqual(invoice({ lines: [invoiceLine('7.00', 'input-taxed')] }).statements,
+    ['No GST: each supply is GST-free or input taxed, and the total price includes no GST.']);
+});
+
+test('an RCTI needs both ABNs, the recipient, a taxable line and the Determination, and says who pays the GST', () => {
+  const rcti = { issuer: 'recipient', recipient_name: 'Example Processor Pty Ltd', recipient_abn: '53 004 085 616', rcti_conditions_met: true };
+  const r = invoice(rcti);
+  assert.equal(r.heading, 'Recipient created tax invoice');
+  assert.equal(r.recipientRequired, true);
+  assert.ok(r.statements.includes('The GST shown is payable by the supplier.'));
+  assert.equal(r.checks.at(-1)[0], 'GST payable by the supplier (s 29-70(1)(c)(vii))');
+  assert.throws(() => invoice({ ...rcti, recipient_abn: '' }), /recipient’s ABN, which the ATO requires on an RCTI/);
+  assert.throws(() => invoice({ ...rcti, recipient_name: '' }), /recipient’s name, as the recipient issues an RCTI/);
+  assert.throws(() => invoice({ ...rcti, rcti_conditions_met: false }), /Determination 2023 allows this RCTI/);
+  assert.throws(() => invoice({ ...rcti, lines: [invoiceLine('10.00', 'gst-free')] }), /at least one taxable line/);
+  assert.throws(() => invoice({ ...rcti, issued: '2023-06-14' }), /in force from 15 June 2023/);
+  assert.equal(invoice({ ...rcti, issued: '2023-06-15' }).heading, 'Recipient created tax invoice');
+});
+
+test('the tax invoice generator refuses what section 29-70(1) needs and the input lacks, naming each detail', () => {
+  assert.throws(() => invoice({ supplier_name: ' ', supplier_abn: '12' }), /enter the supplier’s name; the supplier’s ABN as 11 digits\./);
+  assert.throws(() => invoice({ recipient_abn: '51 824 753 557' }), /recipient ABN that passes the check digit test \(51 824 753 557 fails it\)/);
+  assert.throws(() => invoice({ lines: [] }), /at least one line/);
+  assert.throws(() => invoice({ lines: Array.from({ length: 21 }, () => invoiceLine('1.00')) }), /no more than 20 lines/);
+  assert.throws(() => invoice({ lines: [{ ...invoiceLine('1.00'), description: '' }] }), /Describe what line 1 supplies/);
+  assert.throws(() => invoice({ lines: [invoiceLine('1.00', 'exempt')] }), /line 1 is taxable, GST-free or input taxed/);
+  assert.throws(() => invoice({ lines: [invoiceLine('1.001')] }), /Line 1: Enter a number with no more than 2 decimal places/);
+  assert.throws(() => invoice({ lines: [invoiceLine('-1.00')] }), /Line 1:/);
+  assert.throws(() => invoice({ lines: [invoiceLine('1.00', 'taxable', '0')] }), /Line 1:/);
+  assert.throws(() => invoice({ issued: '2026-02-30' }), /date the invoice is issued/);
+  assert.throws(() => invoice({ issued: '2000-06-30' }), /GST started on 1 July 2000/);
+  assert.throws(() => invoice({ prices: 'both' }), /whether prices include GST/);
+  assert.throws(() => invoice({ rounding: 'nearest' }), /rounding rule/);
+});
+
+test('the downloaded invoice escapes every entered text and loads nothing', () => {
+  const r = invoice({ supplier_name: '<script>alert(1)</script> & Co', invoice_number: '"7"',
+    lines: [{ ...invoiceLine('11.00'), description: '<img src=x onerror=alert(1)>' }, invoiceLine('7.00', 'gst-free')] });
+  const html = calculations.invoiceHtml(r, invoiceAud);
+  assert.ok(!/<script|<img/i.test(html));
+  assert.ok(html.includes('&#60;script&#62;alert(1)&#60;/script&#62; &#38; Co'));
+  assert.ok(html.includes("content=\"default-src 'none'; style-src 'unsafe-inline'\""));
+  assert.ok(html.includes('<h1>Tax invoice</h1>') && html.includes('Date issued: 26 November 2026'));
+  assert.ok(html.includes('* Taxable supply: the price includes GST.'));
+});
+
+test('the tax invoice form skips empty rows and reads each line row', () => {
+  const fields = { ...formDefaults(invoiceHtmlSource), 'line-2-description': '', 'line-2-quantity': '', 'line-2-price': '',
+    'line-5-description': 'Delivery', 'line-5-quantity': '1', 'line-5-price': '9.90', 'line-5-treatment': 'gst-free' };
+  const input = calculations.taxInvoiceFormInput((name) => fields[name] ?? '');
+  assert.deepEqual(input.lines.map((l) => l.description), ['Pens', 'Staplers', 'Delivery']);
+  assert.equal(input.lines[2].treatment, 'gst-free');
+  const result = calculations.taxInvoiceResult((name) => fields[name] ?? '', invoiceAud);
+  assert.deepEqual(result.tables.lines.map((row) => row[0]), ['* Pens', '* Staplers', 'Delivery']);
+  assert.equal(result.tables.checks.length, 7);
+});

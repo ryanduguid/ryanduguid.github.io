@@ -10247,3 +10247,164 @@ fn the_deferred_tax_engine_agrees_with_the_oracle_on_every_seeded_case() {
         assert_eq!(got, want, "{case}");
     }
 }
+
+/// The tax invoice engine under Node: its GST, total price and each line's amount and GST, or its refusal.
+const TI_HARNESS: &str = r"
+import { taxInvoice } from './assets/tax-invoice.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+process.stdout.write(JSON.stringify(JSON.parse(input).map((one) => {
+  try {
+    const r = taxInvoice(one);
+    return { gst: r.gst.toFixed(2), total: r.totalPrice.toFixed(2),
+      lines: r.lines.map((l) => [l.amount.toFixed(2), l.gst === null ? null : l.gst.toFixed(2)]) };
+  } catch (error) {
+    return { refused: error.message };
+  }
+})));
+";
+
+const TI_CASES: usize = 120;
+
+/// ABN Lookup's weights, 'Format of the ABN' (version 9.9.7), read 26 November 2026.
+const TI_ABN_WEIGHTS: [u64; 11] = [10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19];
+
+/// A seeded ABN and whether it is valid. The oracle builds a valid one from its 9 body digits: the 2 leading
+/// digits are those for which the body's weighted sum, with the first leading digit less 1, divides by 89.
+/// The engine instead takes the whole number and tests the sum.
+fn ti_abn(rng: &mut Seeded) -> (String, bool) {
+    let body: Vec<u64> = (0..9).map(|_| rng.below(10)).collect();
+    let rest: u64 = body
+        .iter()
+        .zip(&TI_ABN_WEIGHTS[2..])
+        .map(|(d, w)| d * w)
+        .sum();
+    let passes = |p: u64| ((p / 10 - 1) * 10 + p % 10 + rest) % 89 == 0;
+    let valid: Vec<u64> = (10..100).filter(|&p| passes(p)).collect();
+    let want_valid = !valid.is_empty() && rng.below(4) != 0;
+    let prefix = if want_valid {
+        valid[usize::try_from(rng.below(valid.len() as u64)).unwrap()]
+    } else {
+        loop {
+            let p = 10 + rng.below(90);
+            if !passes(p) {
+                break p;
+            }
+        }
+    };
+    let digits: String = format!("{prefix}")
+        .chars()
+        .chain(body.iter().map(|d| char::from(b'0' + u8::try_from(*d).unwrap())))
+        .collect();
+    (
+        format!(
+            "{} {} {} {}",
+            &digits[..2],
+            &digits[2..5],
+            &digits[5..8],
+            &digits[8..]
+        ),
+        want_valid,
+    )
+}
+
+/// One seeded invoice from a supplier, worked from section 29-70(1) and the ATO's 'Tax invoices' (last updated
+/// 18 September 2026), both read 26 November 2026: each line's amount is the quantity times the unit price,
+/// half up to the cent; GST is one-eleventh of a GST-inclusive taxable amount or 10% of an exclusive one; the
+/// total invoice rule rounds the exact total once and the taxable supply rule rounds each line and adds them,
+/// each half up; and with a taxable line and a total price of $1,000 or more the recipient's name or ABN is
+/// required.
+fn ti_case(rng: &mut Seeded) -> (Value, Value) {
+    let inclusive = rng.below(2) == 0;
+    let by_invoice = rng.below(2) == 0;
+    let divisor: u128 = if inclusive { 11 } else { 10 };
+    let (abn, abn_valid) = ti_abn(rng);
+    let named = rng.below(3) != 0;
+    let mut lines = Vec::new();
+    let mut amounts = Vec::new();
+    for _ in 0..=rng.below(6) {
+        let any = 1 + rng.below(100_000);
+        let milli = rng.pick(&[1000, 2000, 2500, 333, any]);
+        let unit = rng.cents(20_000_000);
+        let treatment = rng.pick(&["taxable", "taxable", "gst-free", "input-taxed"]);
+        lines.push(json!({ "description": "Item", "quantity": format!("{}.{:03}", milli / 1000, milli % 1000),
+            "unit_price": dollars(unit), "treatment": treatment }));
+        amounts.push((
+            exact_half_up(u128::from(milli) * u128::from(unit), 1000),
+            treatment == "taxable",
+        ));
+    }
+    let taxable: Vec<u128> = amounts
+        .iter()
+        .filter(|(_, t)| *t)
+        .map(|(a, _)| *a)
+        .collect();
+    let gst = if by_invoice || taxable.len() < 2 {
+        exact_half_up(taxable.iter().sum(), divisor)
+    } else {
+        taxable.iter().map(|a| exact_half_up(*a, divisor)).sum()
+    };
+    let sum: u128 = amounts.iter().map(|(a, _)| a).sum();
+    let total = if inclusive { sum } else { sum + gst };
+    let input = json!({ "issuer": "supplier", "supplier_name": "Example Supplies Pty Ltd", "supplier_abn": abn,
+        "recipient_name": if named { "Jim" } else { "" }, "issued": "2026-11-26",
+        "prices": if inclusive { "inclusive" } else { "exclusive" }, "rounding": if by_invoice { "invoice" } else { "supply" },
+        "lines": lines });
+    let cents = |value: u128| {
+        let value = u64::try_from(value).unwrap();
+        format!("{}.{:02}", value / 100, value % 100)
+    };
+    let mut problems = Vec::new();
+    if !abn_valid {
+        problems.push(format!(
+            "a supplier ABN that passes the check digit test ({abn} fails it)"
+        ));
+    }
+    if !named && !taxable.is_empty() && total >= 100_000 {
+        problems.push("the recipient’s name or ABN, as the total price is $1,000 or more".to_string());
+    }
+    if !problems.is_empty() {
+        let refused = format!("To be a tax invoice, enter {}.", problems.join("; "));
+        return (input, json!({ "refused": refused }));
+    }
+    let per_line = !by_invoice || taxable.len() < 2;
+    let shown: Vec<Value> = amounts
+        .iter()
+        .map(|&(a, t)| {
+            let line_gst = if !t {
+                json!("0.00")
+            } else if per_line {
+                json!(cents(exact_half_up(a, divisor)))
+            } else {
+                Value::Null
+            };
+            json!([cents(a), line_gst])
+        })
+        .collect();
+    (
+        input,
+        json!({ "gst": cents(gst), "total": cents(total), "lines": shown }),
+    )
+}
+
+#[test]
+fn the_tax_invoice_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1126_0000_7A11);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..TI_CASES).map(|_| ti_case(&mut rng)).unzip();
+    for kind in ["refused", "gst"] {
+        assert!(expected.iter().any(|want| want.get(kind).is_some()), "{kind}");
+    }
+    assert!(
+        expected
+            .iter()
+            .any(|want| want["lines"].as_array().is_some_and(|l| l.iter().any(|x| x[1].is_null())))
+    );
+    let actual = run_node(TI_HARNESS, &cases);
+    assert_eq!(actual.len(), TI_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
