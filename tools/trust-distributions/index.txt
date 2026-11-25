@@ -8,15 +8,15 @@ Source: https://duguid.com.au/tools/trust-distributions/
 
 The software compares supplied flags with its implemented PCG 2022/2 zone criteria and calculates conditional Division 6 and section 99B amounts.
 
-Current release solomons-sword v0.3.2, 20 October 2026, from the australian-accounting repository. Release licence: Apache License 2.0. Published 24 August 2026. Last reviewed 23 November 2026.
+Current release solomons-sword v1.0.0, 25 November 2026, from the australian-accounting repository. Release licence: GNU Affero General Public License v3.0 or later. Published 24 August 2026. Last reviewed 26 November 2026.
 
 Delivery
 
-Python
+Rust
 
 Needs
 
-Python 3.10 or later
+Windows x86_64 or Linux x86_64. The executable runs without Python or Rust.
 
 Boundary
 
@@ -57,6 +57,8 @@ python -m pip install "solomons-sword==0.1.9"
 ```
 
 Published package and release instructions.
+
+The current release, solomons-sword/v1.0.0, published on 25 November 2026, replaces the Python package with an executable for Linux x86_64 and Windows x86_64, with provenance attestations, under the GNU Affero General Public License v3.0 or later. It needs no Python. Run on 26 November 2026, it printed this page’s assessment figures and its refusal for this page’s inputs with the same message and exit code as the pinned release. The command above stays pinned to the Python release so the example stays reproducible.
 
 ## Fictional worked example
 
@@ -122,9 +124,9 @@ Anything it does not implement, including trust capital gains and franked divide
 
 ## Links
 
-- v0.3.2: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.3.2
+- v1.0.0: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v1.0.0
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
-- Apache License 2.0: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.3.2/packages/solomons-sword/LICENSE
+- GNU Affero General Public License v3.0 or later: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v1.0.0/packages/solomons-sword/LICENSE
 - Install solomons-sword: https://duguid.com.au/tools/trust-distributions/#get-it
 - Read the worked example: https://duguid.com.au/tools/trust-distributions/#worked-example
 - guideline PCG 2022/2: https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001

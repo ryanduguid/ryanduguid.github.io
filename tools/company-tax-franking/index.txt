@@ -8,15 +8,15 @@ Source: https://duguid.com.au/tools/company-tax-franking/
 
 The company tax and franking worksheets run the base rate entity test, track the franking account and check the Division 203 benchmark rule.
 
-Current release the-exchequer-tally v0.2.0, 19 October 2026, from the australian-accounting repository. Release licence: Apache License 2.0. Published 24 August 2026. Last reviewed 23 November 2026.
+Current release the-exchequer-tally v1.0.0, 25 November 2026, from the australian-accounting repository. Release licence: GNU Affero General Public License v3.0 or later. Published 24 August 2026. Last reviewed 26 November 2026.
 
 Delivery
 
-Python
+Rust
 
 Needs
 
-Python 3.10 or later
+Windows x86_64 or Linux x86_64. The executable runs without Python or Rust.
 
 Boundary
 
@@ -59,6 +59,8 @@ python -m pip install "the-exchequer-tally==0.1.7"
 ```
 
 Published package and release instructions.
+
+The current release, the-exchequer-tally/v1.0.0, published on 25 November 2026, replaces the Python package with an executable for Linux x86_64 and Windows x86_64, with provenance attestations, under the GNU Affero General Public License v3.0 or later. It needs no Python. Run on 26 November 2026, it printed this page’s rate test and its refusal for this page’s inputs with the same message and exit code as the pinned release. The command above stays pinned to the Python release so the example stays reproducible.
 
 Source on GitHub · Primary sources: ATO company tax rates and Division 203 of the Income Tax Assessment Act 1997.
 
@@ -113,9 +115,9 @@ Under Division 203, a company must frank all distributions in a franking period 
 
 ## Links
 
-- v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.2.0
+- v1.0.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v1.0.0
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
-- Apache License 2.0: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.2.0/packages/the-exchequer-tally/LICENSE
+- GNU Affero General Public License v3.0 or later: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v1.0.0/packages/the-exchequer-tally/LICENSE
 - Install the-exchequer-tally: https://duguid.com.au/tools/company-tax-franking/#get-it
 - Read the worked example: https://duguid.com.au/tools/company-tax-franking/#worked-example
 - MIT License: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.7/packages/the-exchequer-tally/LICENSE
