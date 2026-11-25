@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/trust-distributions/
 
 The software compares supplied flags with its implemented PCG 2022/2 zone criteria and calculates conditional Division 6 and section 99B amounts.
 
-Current release solomons-sword v1.0.0, 25 November 2026, from the australian-accounting repository. Release licence: GNU Affero General Public License v3.0 or later. Published 24 August 2026. Last reviewed 26 November 2026.
+Current release solomons-sword v1.0.0, 25 November 2026, from the australian-accounting repository. Release licence: GNU Affero General Public License v3.0 or later. Published 24 August 2026. Last reviewed 23 November 2026.
 
 Delivery
 
