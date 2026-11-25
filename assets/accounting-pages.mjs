@@ -743,12 +743,12 @@ function loadCalculators(retryForm) {
   // A failed module import can remain cached, so a manual retry uses fresh URLs.
   const suffix = retryForm ? `?retry=${Date.now()}` : '';
   Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`), forms.some((f) => (f.dataset.calculator ?? '').startsWith('fbt-')) ? import(`./fbt-benefit-forms.mjs${suffix}`) : {},
-    forms.some((f) => ['income-tax', 'take-home-pay', 'study-loan', 'sole-trader', 'lump-sum-arrears', 'division-293', 'income-tests', 'concessional-catch-up', 'bonus-withholding', 'salary-packaging', 'novated-lease', 'super-projection'].includes(f.dataset.calculator ?? '')) ? import(`./individual-tax-results.mjs${suffix}`) : { individualResult: () => undefined },
+    forms.some((f) => ['income-tax', 'take-home-pay', 'study-loan', 'sole-trader', 'lump-sum-arrears', 'division-293', 'income-tests', 'concessional-catch-up', 'bonus-withholding', 'salary-packaging', 'novated-lease', 'super-projection'].includes(f.dataset.calculator ?? '')) ? import(`./individual-tax-results.mjs${suffix}`) : { individualResult: () => undefined }, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
     forms.some((f) => f.dataset.calculator === 'fhss') ? import(`./fhss-result.mjs${suffix}`) : {},
     forms.some((f) => f.dataset.calculator === 'work-expenses') ? import(`./work-expenses-result.mjs${suffix}`) : {},
     forms.some((f) => f.dataset.calculator === 'transfer-balance') ? import(`./transfer-balance-result.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
     forms.some((f) => f.dataset.calculator === 'pension-minimum') ? import(`./pension-minimum.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
-    forms.some((f) => f.dataset.calculator === 'government-super') ? import(`./government-super-result.mjs${suffix}`) : {},
+    forms.some((f) => f.dataset.calculator === 'government-super') ? import(`./government-super-result.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
     forms.some((f) => f.dataset.calculator === 'residency-days') ? import(`./residency-days.mjs${suffix}`) : {}]).then(initialiseCalculators) // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
     .then(() => { if (retryForm) retryForm.querySelector('input, select').focus(); })
     .catch(() => {

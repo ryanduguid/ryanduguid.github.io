@@ -57,9 +57,10 @@ function periods(given) {
     if (typeof item !== 'object' || item === null || Array.isArray(item)) badPresence(`${name} is not an object`);
     const unknown = Object.keys(item).find((key) => key !== 'from' && key !== 'to');
     if (unknown !== undefined) refuse('input.field_unknown', `${name}: ${unknown} is not an input of a period`);
+    const fields = new Map(Object.entries(item));
     const date = (/** @type {'from' | 'to'} */ key) => {
-      if (!Object.hasOwn(item, key)) refuse('input.missing_field', `${name}: ${key} is required`);
-      return dayOf(item[key]) ?? badPresence(`${name}: ${key} is not a date`);
+      if (!fields.has(key)) refuse('input.missing_field', `${name}: ${key} is required`);
+      return dayOf(fields.get(key)) ?? badPresence(`${name}: ${key} is not a date`);
     };
     const [from, to] = [date('from'), date('to')];
     if (to < from) badPresence(`${name} ends before it starts`);
@@ -87,7 +88,7 @@ function daysPresent(spans, first, last) {
 export function residencyTests(given) {
   if (typeof given !== 'object' || given === null || Array.isArray(given)) refuse('input.not_object', 'input must be a JSON object');
   const input = new Map(Object.entries(given));
-  const unknown = [...input.keys()].sort().find((key) => !INPUTS.includes(key));
+  const unknown = [...input.keys()].find((key) => !INPUTS.includes(key));
   if (unknown !== undefined) refuse('input.field_unknown', `${unknown} is not an input of residency-tests`);
   const missing = INPUTS.find((key) => !input.has(key));
   if (missing !== undefined) refuse('input.missing_field', `${missing} is required`);
@@ -114,7 +115,8 @@ export function residencyTests(given) {
   const visitor = usualOutside && !intends;
   const tests = { ordinary_concepts: resides, domicile: domicile && !permanentOutside, days_in_australia: days, days_needed: needed,
     days_183: days >= needed && !visitor, commonwealth_super: fund !== 'none' };
-  const metBy = /** @type {const} */ (['ordinary_concepts', 'domicile', 'days_183', 'commonwealth_super']).filter((name) => tests[name]);
+  const metBy = /** @type {[string, boolean][]} */ ([['ordinary_concepts', tests.ordinary_concepts], ['domicile', tests.domicile],
+    ['days_183', tests.days_183], ['commonwealth_super', tests.commonwealth_super]]).filter(([, met]) => met).map(([name]) => name);
   if (metBy.length > 0 && elsewhere) {
     refuse('residency_tests.treaty_tie_breaker', 'A resident here and also of another country: a tax treaty\'s tie-breaker rules may allocate '
       + 'residence for the treaty\'s purposes (TR 2023/1 paragraph 108). This calculator does not apply treaties.');
