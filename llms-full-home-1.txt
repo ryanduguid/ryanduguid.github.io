@@ -71,9 +71,9 @@ Browse reproducible evaluations Set up AI tools
 
 ### Latest tool releases
 
-- Ozzit v3.8.0 24 November 2026
-- Aus Accounting MCP v0.12.0 23 November 2026
-- Workpaper Review Gate v1.0.1 14 November 2026
+- Workpaper Review Gate v1.1.0 25 November 2026
+- Trust distribution worksheets for professional review v1.0.0 25 November 2026
+- Subcontractor ledger skills for construction and mining v0.8.1 25 November 2026
 
 ## Links
 
@@ -98,4 +98,5 @@ Browse reproducible evaluations Set up AI tools
 - guide’s approval record: https://www.openaccountants.com/skills/au-capital-gains-2
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - Set up AI tools: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- Aus Accounting MCP v0.12.0: https://duguid.com.au/tools/australian-tax-ai-agents/
+- Trust distribution worksheets for professional review v1.0.0: https://duguid.com.au/tools/trust-distributions/
+- Subcontractor ledger skills for construction and mining v0.8.1: https://duguid.com.au/tools/subcontractor-ledgers/

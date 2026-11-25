@@ -121,7 +121,7 @@ Classifies PCG 2022/2 zones and calculates Division 6 shares and a section 99B a
 
 Delivery
 
-Python
+Rust
 
 Boundary
 
@@ -135,7 +135,7 @@ Applies the base rate entity test and keeps franking account movements and defic
 
 Delivery
 
-Python
+Rust
 
 Boundary
 
