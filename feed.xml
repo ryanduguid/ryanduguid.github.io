@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-11-25T00:00:00Z</updated>
+  <updated>2026-11-26T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>Added the 183-day residency day count: the days in Australia in an income year…</title>
+    <link href="https://duguid.com.au/changelog/#entry-dee48b60e3e7dd02" />
+    <id>https://duguid.com.au/changelog/#entry-dee48b60e3e7dd02</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>Added the 183-day residency day count: the days in Australia in an income year from 2020-21 to 2026-27, added up from arrival and departure days, against the 183-day test and its exception. It does not decide residency, and agrees with the australian-accounting residency-tests command on 667 test cases.</summary>
+  </entry>
   <entry>
     <title>Updated general tax question 8 after the ATO updated its How to lodge your tax…</title>
     <link href="https://duguid.com.au/changelog/#entry-062afadb39b84c69" />

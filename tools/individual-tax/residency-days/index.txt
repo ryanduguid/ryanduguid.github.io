@@ -1,0 +1,67 @@
+# 183-day tax residency test day count calculator
+
+Source: https://duguid.com.au/tools/individual-tax/residency-days/
+
+> Add up the days you were in Australia between 1 July and 30 June from your arrival and departure days, and see whether you meet the 183-day residency test.
+
+# 183-day residency day count
+
+Count your days in Australia in an income year from 2020-21 to 2026-27 and check them against the 183-day test for tax residency.
+
+Published 26 November 2026. Last checked 26 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Your days in Australia in one income year
+
+Income year, 1 July to 30 June 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Periods in Australia
+
+Period 1 arrival day Period 1 departure day Period 2 arrival day Period 2 departure day Period 3 arrival day Period 3 departure day Period 4 arrival day Period 4 departure day Period 5 arrival day Period 5 departure day Period 6 arrival day Period 6 departure day
+
+Enter each stay in Australia from the day you arrived to the day you left; both days count. Leave the arrival blank if you were already here on 1 July, the departure blank if you were still here on 30 June, and both blank to skip a row. Overlapping periods count each day once.
+
+Is your usual place of abode outside Australia? No Yes
+
+Do you intend to take up residence in Australia? No Yes
+
+The test is not met, however many days, only when both are true: your usual place of abode is outside Australia and you do not intend to take up residence here. These are your answers; the calculator does not test them.
+
+Calculate
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26 (1 July 2025 to 30 June 2026); 2 periods in Australia; usual place of abode outside Australia: no; intends to take up residence: no. Days in Australia in the income year 229 of 365 More than one-half of the year 183 days or more Usual place of abode outside Australia and no intention to take up residence No, as you answered 183-day test Met Enough days, and the exception does not apply on your answers.
+
+## How the 183-day residency day count works
+
+Under paragraph (a)(ii) of the definition of ‘resident’ in s 6(1) of the Income Tax Assessment Act 1936, you are a resident if you have been in Australia, continuously or intermittently, for more than one-half of the income year. The calculator adds up the distinct days you were in Australia between 1 July and 30 June, counting the day you arrived and the day you left as whole days. More than one-half is 183 days, or 184 in a year that includes 29 February.
+
+The test has one exception, which needs both of 2 facts: your usual place of abode is outside Australia, and you do not intend to take up residence in Australia. If both are true, you are not a resident under this test however many days you spent here. TR 2023/1 says a person on an extended holiday is the usual case.
+
+## What the 183-day residency day count does not cover
+
+The calculator does not decide whether you are an Australian resident. The 183-day test is one of 4. You are also a resident if you reside in Australia according to ordinary concepts, if your domicile is in Australia and your permanent place of abode is not outside Australia, or if you are a member of a Commonwealth superannuation scheme the definition names (the PSS or CSS), or the spouse or child under 16 of one. Those tests turn on facts and judgements this page does not ask for; read TR 2023/1 for each. Nor does it test your usual place of abode or intention, apply a tax treaty’s tie-breaker rules for a person resident in 2 countries, or work out part-year residency or the tax that follows. Confirm your residency with the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: 183-day residency day count
+
+Case | Inputs | Result
+Two stays in 2025-26, 1 July to 30 September and 15 November to 31 March: 92 + 137 = 229 days (the form’s example) | 2025-26, 2025-07-01 to 2025-09-30, 2025-11-15 to 2026-03-31 | 229 days, 183 needed: met
+TR 2023/1 example 5, Conchita: 9 months on holiday with her abode in Mexico, 273 days, the exception applies | 2025-26, 2025-08-01 to 2026-04-30, usual abode outside Australia | 273 days, 183 needed, exception applies: not met
+Abode outside Australia but intending to take up residence: the exception needs both, so 273 days meet the test | 2025-26, 2025-08-01 to 2026-04-30, usual abode outside Australia, intends to take up residence | 273 days, 183 needed: met
+183 days in 2025-26, 1 July to 30 December: more than one-half of 365 | 2025-26, 2025-07-01 to 2025-12-30 | 183 days, 183 needed: met
+182 days in 2025-26, 1 July to 29 December: one short | 2025-26, 2025-07-01 to 2025-12-29 | 182 days, 183 needed: not met
+183 days in 2023-24, which includes 29 February 2024: 184 needed (TR 2023/1 footnote 51) | 2023-24, 2023-07-01 to 2023-12-30 | 183 days, 184 needed: not met
+A stay from 1 January 2024 to 31 July 2024 counted in 2024-25: only 1 to 31 July falls in the year; an overlapping stay counts once | 2024-25, 2024-01-01 to 2024-07-31, 2024-07-15 to 2024-07-20 | 31 days, 183 needed: not met
+
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- TR 2023/1: https://www.ato.gov.au/law/view/document?docid=TXR/TR20231/NAT/ATO/00001
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
