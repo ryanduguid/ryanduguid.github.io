@@ -320,6 +320,14 @@ fn check_component(root: &Path, name: &str, component: &Json) -> Result<Vec<Stri
         }
         _ => {}
     }
+    if let Some((_, sentence)) = pypi_lag(published)?
+        && !visible.contains(&sentence)
+    {
+        failures.push(format!(
+            "{rel}: does not state the recorded PyPI lag {}",
+            py::repr_str(&sentence)
+        ));
+    }
     let published_version = item(published, "version")?;
     let documented_version = get_key(documented, "version")?.filter(|v| !matches!(v, Json::Null));
     if let Some(version) = documented_version
@@ -581,7 +589,17 @@ pub fn registry_claims(published: &Json) -> Result<std::result::Result<Vec<Strin
 /// `published.registry_lag`: the older version the MCP registry still lists, and the
 /// sentence in which the documented page says so.
 fn registry_lag(published: &Json) -> Result<Option<(String, String)>> {
-    let Some(lag) = get_key(published, "registry_lag")?.filter(|l| !matches!(l, Json::Null)) else {
+    lag(published, "registry_lag")
+}
+
+/// `published.pypi_lag`: the older version PyPI still serves whilst GitHub holds the
+/// newer release, and the sentence in which the documented page says so.
+fn pypi_lag(published: &Json) -> Result<Option<(String, String)>> {
+    lag(published, "pypi_lag")
+}
+
+fn lag(published: &Json, key: &str) -> Result<Option<(String, String)>> {
+    let Some(lag) = get_key(published, key)?.filter(|l| !matches!(l, Json::Null)) else {
         return Ok(None);
     };
     Ok(Some((
@@ -591,16 +609,23 @@ fn registry_lag(published: &Json) -> Result<Option<(String, String)>> {
 }
 
 /// A recorded lag must be a different version, named in its own sentence, on a component
-/// whose registry `--verify-live` probes and whose documented page shows the sentence.
+/// whose registry (`registry_lag`) or PyPI project (`pypi_lag`) `--verify-live` probes and
+/// whose documented page shows the sentence.
 fn check_registry_lag(name: &str, component: &Json) -> Result<Vec<String>> {
+    let mut failures = check_lag(name, component, "registry_lag", "registry_url")?;
+    failures.extend(check_lag(name, component, "pypi_lag", "pypi_url")?);
+    Ok(failures)
+}
+
+fn check_lag(name: &str, component: &Json, key: &str, url_key: &str) -> Result<Vec<String>> {
     let published = item(component, "published")?;
-    let Some((version, sentence)) = registry_lag(published)? else {
+    let Some((version, sentence)) = lag(published, key)? else {
         return Ok(Vec::new());
     };
     let mut failures = Vec::new();
-    if !get_key(published, "registry_url")?.is_some_and(Json::truthy) {
+    if !get_key(published, url_key)?.is_some_and(Json::truthy) {
         failures.push(format!(
-            "{name}: registry_lag needs published.registry_url, or no run checks it"
+            "{name}: {key} needs published.{url_key}, or no run checks it"
         ));
     }
     let documented_page = get_key(component, "documented")?
@@ -609,16 +634,16 @@ fn check_registry_lag(name: &str, component: &Json) -> Result<Vec<String>> {
         .transpose()?;
     if documented_page != Some(true) {
         failures.push(format!(
-            "{name}: registry_lag needs documented.page to show its sentence"
+            "{name}: {key} needs documented.page to show its sentence"
         ));
     }
     if Json::Str(version.clone()).py_eq(item(published, "version")?) {
         failures.push(format!(
-            "{name}: registry_lag names {version}, the published version; remove it"
+            "{name}: {key} names {version}, the published version; remove it"
         ));
     }
     if !sentence.contains(&version) {
-        failures.push(format!("{name}: registry_lag sentence must name {version}"));
+        failures.push(format!("{name}: {key} sentence must name {version}"));
     }
     Ok(failures)
 }
@@ -1052,13 +1077,16 @@ pub fn verify_live(
             // A recorded registry lag is what the registry should report; the registry
             // catching up is drift, so the page's lag sentence is removed with it.
             let lag = match source.as_str() {
-                "registry" => registry_lag(item(component, "published")?)?,
+                "registry" => registry_lag(item(component, "published")?)?
+                    .map(|l| (l, "the registry lags at {} per registry_lag")),
+                "pypi" => pypi_lag(item(component, "published")?)?
+                    .map(|l| (l, "PyPI lags at {} per pypi_lag")),
                 _ => None,
             };
             let (expected, said) = match &lag {
-                Some((version, _)) => (
+                Some(((version, _), said)) => (
                     Json::Str(version.clone()),
-                    format!("the registry lags at {version} per registry_lag"),
+                    said.replace("{}", version),
                 ),
                 None => (recorded_value.clone(), recorded.clone()),
             };
