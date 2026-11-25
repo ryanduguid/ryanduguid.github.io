@@ -615,4 +615,63 @@ fn overflow_infinity_sort_bigint_float_and_large_cli_ints() {
         .code(),
         Some(2)
     );
+
+    let abbrev_win = run_cli(
+        &["comparison_windows", "--end=2026-08-28", "--da", "7"],
+        None,
+    );
+    assert_eq!(abbrev_win.status.code(), Some(0));
+    let abbrev_text = String::from_utf8(abbrev_win.stdout).unwrap();
+    assert!(abbrev_text.contains("\"start_date\": \"2026-08-22\""));
+
+    let help_abbrev = run_cli(&["comparison_windows", "--h"], None);
+    assert_eq!(help_abbrev.status.code(), Some(0));
+
+    let help_explicit_abbrev = run_cli(&["comparison_windows", "--he=nope"], None);
+    assert_eq!(help_explicit_abbrev.status.code(), Some(2));
+    assert!(
+        String::from_utf8(help_explicit_abbrev.stderr)
+            .unwrap()
+            .contains("ignored explicit argument")
+    );
+
+    let ambiguous = run_cli(&["compare_requests", "--d", "5"], None);
+    assert_eq!(ambiguous.status.code(), Some(2));
+    assert!(
+        String::from_utf8(ambiguous.stderr)
+            .unwrap()
+            .contains("ambiguous option: --d could match --days, --dimensions")
+    );
+
+    let early_dims = run_cli(
+        &[
+            "compare_search_rows",
+            "--dim",
+            "bogus",
+            "--input",
+            "/does/not/exist.json",
+        ],
+        None,
+    );
+    assert_eq!(early_dims.status.code(), Some(1));
+    assert!(
+        String::from_utf8(early_dims.stderr)
+            .unwrap()
+            .contains("unknown Search Console dimension: bogus")
+    );
+}
+
+#[cfg(unix)]
+#[test]
+fn main_rejects_non_utf8_arg_without_panicking() {
+    use std::ffi::OsStr;
+    use std::os::unix::ffi::OsStrExt;
+    let bad = OsStr::from_bytes(b"search_\xff");
+    let out = Command::new(env!("CARGO_BIN_EXE_site-tools"))
+        .arg(bad)
+        .output()
+        .unwrap();
+    assert_eq!(out.status.code(), Some(2));
+    let stderr = String::from_utf8_lossy(&out.stderr);
+    assert!(stderr.contains("non-UTF-8 argument"), "stderr={stderr}");
 }

@@ -526,7 +526,35 @@ fn parse_cli(sub: &str, args: &[String], allowed_flags: &[&str]) -> ParsedCli {
             Some((n, v)) if arg.starts_with("--") => (n, Some(v.to_owned())),
             _ => (arg.as_str(), None),
         };
-        if matches!(name, "-h" | "--help") {
+        let option = if name == "-h" {
+            Some("--help")
+        } else if name.len() > 2 && name.starts_with("--") {
+            let all = std::iter::once("--help").chain(allowed_flags.iter().copied());
+            let exact = all.clone().find(|option| *option == name);
+            let matches: Vec<&str> = all.filter(|option| option.starts_with(name)).collect();
+            match (exact, matches.as_slice()) {
+                (Some(exact), _) => Some(exact),
+                (None, [one]) => Some(*one),
+                (None, []) => None,
+                (None, many) => {
+                    return ParsedCli::Exit(
+                        usage_error(
+                            Some(sub),
+                            &format!("ambiguous option: {name} could match {}", many.join(", ")),
+                        )
+                        .unwrap_or(2),
+                    );
+                }
+            }
+        } else {
+            None
+        };
+        let Some(option) = option else {
+            return ParsedCli::Exit(
+                usage_error(Some(sub), &format!("unrecognized arguments: {arg}")).unwrap_or(2),
+            );
+        };
+        if option == "--help" {
             if let Some(val) = explicit {
                 return ParsedCli::Exit(
                     usage_error(
@@ -542,12 +570,7 @@ fn parse_cli(sub: &str, args: &[String], allowed_flags: &[&str]) -> ParsedCli {
             let _ = crate::print_text(HELP, false);
             return ParsedCli::Exit(0);
         }
-        if !allowed_flags.contains(&name) {
-            return ParsedCli::Exit(
-                usage_error(Some(sub), &format!("unrecognized arguments: {arg}")).unwrap_or(2),
-            );
-        }
-        match name {
+        match option {
             "--dimensions" => {
                 let mut dims = Vec::new();
                 if let Some(val) = explicit {
@@ -561,23 +584,23 @@ fn parse_cli(sub: &str, args: &[String], allowed_flags: &[&str]) -> ParsedCli {
                 opts.dimensions = Some(dims);
             }
             "--end-date" | "--start-date" | "--input" => {
-                let Ok(val) = next_flag_value(sub, name, explicit, args, &mut idx) else {
+                let Ok(val) = next_flag_value(sub, option, explicit, args, &mut idx) else {
                     return ParsedCli::Exit(2);
                 };
-                match name {
+                match option {
                     "--end-date" => opts.end_date = Some(val),
                     "--start-date" => opts.start_date = Some(val),
                     _ => opts.input = Some(val),
                 }
             }
             "--days" | "--row-limit" => {
-                let Ok(val) = next_flag_value(sub, name, explicit, args, &mut idx) else {
+                let Ok(val) = next_flag_value(sub, option, explicit, args, &mut idx) else {
                     return ParsedCli::Exit(2);
                 };
-                let Ok(parsed) = parse_int_arg(sub, name, &val) else {
+                let Ok(parsed) = parse_int_arg(sub, option, &val) else {
                     return ParsedCli::Exit(2);
                 };
-                if name == "--days" {
+                if option == "--days" {
                     opts.days = Some(parsed);
                 } else {
                     opts.row_limit = Some(parsed);
@@ -760,6 +783,9 @@ fn run_compare_search_rows(args: &[String]) -> Result<u8> {
     };
     if reject_positionals("compare_search_rows", &opts).is_err() {
         return Ok(2);
+    }
+    if let Some(ref dims) = opts.dimensions {
+        let _ = validate_dimensions(dims)?;
     }
     let payload = read_input_json(opts.input.as_deref())?;
     if !matches!(payload, Json::Object(_)) {
