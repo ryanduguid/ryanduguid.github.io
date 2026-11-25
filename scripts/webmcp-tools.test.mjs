@@ -2177,6 +2177,8 @@ test('casual and overtime pay tool returns the page example, Payday Super and qu
   assert.deepEqual([leave.rules, leave.leaveLoading, leave.grossPay, leave.ordinaryTimeEarnings, leave.superGuarantee],
     ['quarterly', '266.00', '3306.00', '3040.00', '364.80']);
   await assert.rejects(tool.execute({ payday: '2025-06-30', baseRate: '30', ordinaryHours: '1' }), /1 July 2025 to 30 June 2027/);
+  await assert.rejects(tool.execute({ payday: '2026-07-01', baseRate: '2708.31', ordinaryHours: '100' }), /annual maximum contribution base of \$270,830/);
+  assert.equal((await tool.execute({ payday: '2026-07-01', baseRate: '2708.30', ordinaryHours: '100' })).superGuarantee, '32499.60');
   await assert.rejects(tool.execute({ payday: '2026-07-10', baseRate: '30', ordinaryHours: '1', casualLoadingPercent: '25', annualLeaveHours: '1' }), /not both/);
   await assert.rejects(tool.execute({ payday: '2026-07-10', baseRate: '30', ordinaryHours: '1', extra: 1 }), /extra is not an input of this tool/);
   await assert.rejects(tool.execute({ payday: '2026-07-10', baseRate: '30', ordinaryHours: '1', lines: [{ hours: '1', percentOfBaseRate: '150' }] }), /overtime is required/);

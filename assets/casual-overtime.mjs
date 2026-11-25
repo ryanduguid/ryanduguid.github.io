@@ -12,6 +12,8 @@
 //   ordinary hours are OTE; overtime is not; leave loading for lost overtime is not), withdrawn from
 //   1 July 2026 by SGR 2009/2W, whose views draft LCR 2026/D1 paras 63 and 64 carry into qualifying
 //   earnings; the ATO's 'What payments are qualifying earnings' (last updated 2 September 2026).
+// - The ATO's interim decision impact statement on Department of Education v Commissioner of Taxation [2026] FCA 898
+//   (5 August 2026): appealed; the Commissioner keeps the views in LCR 2026/D1 meanwhile.
 // - The ATO's 'Super guarantee' rates and thresholds (last updated 17 April 2026): 12% from 1 July 2025,
 //   the quarterly maximum contribution base of $62,500 for 2025-26 (Table 24) and $270,830 a year for
 //   2026-27 (Table 23).
@@ -146,7 +148,7 @@ export function casualOvertimeResult(value, aud) {
     [r.rules === 'payday' ? 'Qualifying earnings, the ordinary time earnings in this pay' : 'Ordinary time earnings', aud(r.ote)]);
   const principal = rows.push([`Super guarantee at ${r.sgRate}% of ${base}`, aud(r.superGuarantee)]) - 1;
   const note = r.rules === 'payday'
-    ? 'Paid from 1 July 2026: the super guarantee is due for this payday under Payday Super, on qualifying earnings'
+    ? 'Paid from 1 July 2026: under Payday Super the super guarantee amount arises on this payday, on qualifying earnings'
     : 'Paid by 30 June 2026: the quarterly super guarantee rules apply to this pay';
   return { inputs: casualOvertimeInputsText(input, aud), rows, principal, note };
 }

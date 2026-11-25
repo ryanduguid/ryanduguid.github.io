@@ -7244,7 +7244,9 @@ test('the casual and overtime pay page opens on its first case, names the Fair W
   const result = calculations.casualOvertimeResult((name) => fields[name] ?? '', coAud);
   assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
   for (const cited of ['https://calculate.fairwork.gov.au/', 'https://www.fairwork.gov.au/pay-and-wages/minimum-wages/pay-guides',
-    'C2004A04402', 'SGR/SGR20092/NAT/ATO/00001', 'LCR2026D1', '(last updated 2 September 2026)', 'applies no award']) {
+    'C2004A04402', 'SGR/SGR20092/NAT/ATO/00001', 'LCR2026D1', '(last updated 2 September 2026)', 'applies no award', 'VID204of2025',
+    // Review round 1: no hour counted twice, and only a loading wholly for lost overtime is left out.
+    'leaving out hours on the lines below', 'not also counted above', 'The whole loading is paid for overtime']) {
     assert.ok(coHtml.includes(cited), cited);
   }
 });
