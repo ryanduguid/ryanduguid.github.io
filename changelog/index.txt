@@ -13,7 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
-26 November 2026 | Added the 183-day residency day count: the days in Australia in an income year from 2020-21 to 2026-27, added up from arrival and departure days, against the 183-day test and its exception. It does not decide residency, and agrees with the australian-accounting residency-tests command on 667 test cases.
+26 November 2026 | The tool pages, changelog, release record and machine indexes name the releases of 24 and 25 November: aus-accounting-mcp v0.13.0 (148 worksheet kinds with calculators 1.4.0, 29 tools), Australian Accounting Skills v0.8.1 (112 skills, Apache License 2.0), monthly-close-control-plane v1.2.0 and review-ready-gate v1.1.0 (both now under the GNU Affero General Public License v3.0 or later, with executables for 6 targets), and solomons-sword v1.0.0 and the-exchequer-tally v1.0.0, now standalone executables under the same licence; the trust distribution and company tax pages keep their pinned Python examples. The profit and cash flow case states that GitHub holds au-fpa-pack v0.8.0 whilst PyPI still serves 0.7.0.
 25 November 2026 | Updated general tax question 8 after the ATO updated its How to lodge your tax return page from 12 to 10 business days for returns lodged online, matching its progress page.
 24 November 2026 | The first home owner grant calculator now takes the building contract price of a home built. Below the grant it pays the contract price in Victoria, Queensland, Western Australia, South Australia, Tasmania and the Northern Territory, whose Acts pay the lesser of the consideration and the grant, and in Victoria the $750,000 cap tests the contract price, so a larger land and building total is computed. A New South Wales contract price below the grant is still not computed.
 24 November 2026 | Updated the Aus Accounting MCP guide, Ozzit reference and machine indexes for published releases aus-accounting-mcp v0.12.0 (102 worksheet kinds with calculators 1.2.0, AGPL-3.0-or-later, listed as latest on the official MCP Registry) and Ozzit v3.8.0 (165 functions and 5 help tables, Apache License 2.0, plus the Homebrew tap).
@@ -177,6 +177,12 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+25 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.13.0
+25 November 2026 | Subcontract ledger skills | v0.8.1
+25 November 2026 | Monthly Close Controls | monthly-close-control-plane/v1.2.0
+25 November 2026 | Workpaper Review Gate | review-ready-gate/v1.1.0
+25 November 2026 | Trust distribution checks | solomons-sword/v1.0.0
+25 November 2026 | Company tax and franking checks | the-exchequer-tally/v1.0.0
 24 November 2026 | Ozzit | v3.8.0
 23 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.12.0
 21 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.11.0
@@ -261,7 +267,7 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
-- 183-day residency day count: https://duguid.com.au/tools/individual-tax/residency-days/
+- aus-accounting-mcp v0.13.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.13.0
 - general tax question 8: https://duguid.com.au/tools/accounting-questions/general-tax/
 - first home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 - Aus Accounting MCP guide: https://duguid.com.au/tools/australian-tax-ai-agents/
@@ -287,6 +293,11 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 - site licence notice: https://duguid.com.au/privacy/
 - FBT property: https://duguid.com.au/tools/business-calculators/fbt-property/
 - FBT expense payment: https://duguid.com.au/tools/business-calculators/fbt-expense-payment/
+- v0.8.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.8.1
+- monthly-close-control-plane/v1.2.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.2.0
+- review-ready-gate/v1.1.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.1.0
+- solomons-sword/v1.0.0: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v1.0.0
+- the-exchequer-tally/v1.0.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v1.0.0
 - aus-accounting-mcp/v0.11.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.11.0
 - aus-accounting-mcp/v0.10.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.10.0
 - v3.7.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.7.0

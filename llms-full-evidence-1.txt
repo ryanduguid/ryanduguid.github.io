@@ -24,7 +24,7 @@ Australian Accounting’s Division 7A, Payday Super and MCP results below each c
 
 - Division 7A. On 7 October 2026 the minimum yearly repayment function of the ATO’s Division 7A calculator and decision tool and the div7a-loan-review Python 0.2.0 source agreed to the cent on 12,800 fictional cases with no repayments, for 2019-20 to 2026-27. Its repayment code and rate table are unchanged to the published 0.3.2, but the comparison was not rerun on later releases or the unreleased Rust port. It covers the repayment figure only, not the calculator’s interest or closing balance (record and limits).
 - Payday Super. For wages paid on 30 July 2026, payday-super-check 0.2.3 gives a due date of 11 August 2026, because NT Picnic Day on 3 August is not a business day. The ATO’s worked example gives the same date on the usual 7 business day path. Run and read 5 November 2026.
-- MCP tools. Aus Accounting MCP 0.12.0, the published release, lists 27 tools and serves 102 worksheet kinds with the 1.2.0 calculators executable. Release 0.11.0 served 66 worksheet kinds with calculators 1.1.0. Release 0.10.0 added validate_bsb_format and validate_account_number_format. 0.9.0 added no tool to 0.8.0, which listed 25 local tools on 13 November 2026, including get_reviewed_rate, validate_abn and validate_acn.
+- MCP tools. Aus Accounting MCP 0.13.0, the published release, lists 29 tools, the 27 of 0.12.0 plus find_citing_provisions and itr_label, and serves 148 worksheet kinds with the 1.4.0 calculators executable. Release 0.12.0 served 102 worksheet kinds with calculators 1.2.0 and 0.11.0 served 66 with calculators 1.1.0. Release 0.10.0 added validate_bsb_format and validate_account_number_format. 0.9.0 added no tool to 0.8.0, which listed 25 local tools on 13 November 2026, including get_reviewed_rate, validate_abn and validate_acn.
 
 ## From monthly close to a cash forecast
 
@@ -122,11 +122,11 @@ View certificate (PDF) Xero trial balance export and review workflow
 
 Install commands are under Adopt. The package, release, compatibility and licence links below point to maintained records.
 
-- Aus Accounting MCP: MCP Registry, PyPI, repository, releases, engine compatibility source and GNU Affero General Public License v3.0 or later (v0.12.0).
+- Aus Accounting MCP: MCP Registry, PyPI, repository, releases, engine compatibility source and GNU Affero General Public License v3.0 or later (v0.13.0).
 - payday-super-checker: PyPI, repository, releases, release records and Apache License 2.0 (v0.2.3).
-- ATO benchmarks, trust distributions and company tax: ato-benchmark-compare repository, releases and Apache License 2.0 (v0.2.2); Solomon’s Sword repository, releases and Apache License 2.0 (v0.3.2); The Exchequer Tally repository, releases and Apache License 2.0 (v0.2.0).
-- Agent skills and construction WIP: Australian Accounting Skills, releases and Ryan Duguid Public Attribution Licence 1.0 (v0.7.0); Hardhat Ledger, releases and Ryan Duguid Public Attribution Licence 1.0 (v0.7.0); TheWIPTally repository and Apache License 2.0 (v0.2.0).
-- Xero export and Workpaper Review Gate: xero-trial-balance-export repository, releases, release and compatibility record and MIT License (v0.1.15); Workpaper Review Gate repository, release record and Ryan Duguid Public Attribution Licence 1.0 (v1.0.1).
+- ATO benchmarks, trust distributions and company tax: ato-benchmark-compare repository, releases and Apache License 2.0 (v0.2.2); Solomon’s Sword repository, releases and GNU Affero General Public License v3.0 or later (v1.0.0); The Exchequer Tally repository, releases and GNU Affero General Public License v3.0 or later (v1.0.0).
+- Agent skills and construction WIP: Australian Accounting Skills, releases and Apache License 2.0 (v0.8.1); Hardhat Ledger, releases and Apache License 2.0 (v0.8.1); TheWIPTally repository and Apache License 2.0 (v0.2.0).
+- Xero export and Workpaper Review Gate: xero-trial-balance-export repository, releases, release and compatibility record and MIT License (v0.1.15); Workpaper Review Gate repository, release record and GNU Affero General Public License v3.0 or later (v1.1.0).
 - Coal LSL calculator: site repository and Ryan Duguid Public Attribution Licence 1.0 (0bd409d).
 
 ## Sources and review dates
@@ -237,7 +237,7 @@ I publish evaluations of fixed releases on the Evaluations page. I use feedback 
 - repository: https://github.com/ryanduguid/australian-accounting
 - releases: https://github.com/ryanduguid/australian-accounting/releases
 - engine compatibility source: https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/pyproject.toml
-- GNU Affero General Public License v3.0 or later (v0.12.0): https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.12.0/apps/aus-accounting-mcp/LICENSE
+- GNU Affero General Public License v3.0 or later (v0.13.0): https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.13.0/apps/aus-accounting-mcp/LICENSE
 - PyPI: https://pypi.org/project/payday-super-checker/
 - repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - release records: https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/RELEASE_NOTES.md
@@ -245,12 +245,12 @@ I publish evaluations of fixed releases on the Evaluations page. I use feedback 
 - ato-benchmark-compare repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - Apache License 2.0 (v0.2.2): https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.2.2/packages/ato-benchmark-compare/LICENSE
 - Solomon’s Sword repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
-- Apache License 2.0 (v0.3.2): https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.3.2/packages/solomons-sword/LICENSE
+- GNU Affero General Public License v3.0 or later (v1.0.0): https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v1.0.0/packages/solomons-sword/LICENSE
 - The Exchequer Tally repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
-- Apache License 2.0 (v0.2.0): https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.2.0/packages/the-exchequer-tally/LICENSE
+- GNU Affero General Public License v3.0 or later (v1.0.0): https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v1.0.0/packages/the-exchequer-tally/LICENSE
 - Australian Accounting Skills: https://github.com/ryanduguid/australian-accounting-skills
 - releases: https://github.com/ryanduguid/australian-accounting-skills/releases
-- Ryan Duguid Public Attribution Licence 1.0 (v0.7.0): https://github.com/ryanduguid/australian-accounting-skills/blob/v0.7.0/LICENSE
+- Apache License 2.0 (v0.8.1): https://github.com/ryanduguid/australian-accounting-skills/blob/v0.8.1/LICENSE
 - TheWIPTally repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
 - Apache License 2.0 (v0.2.0): https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.2.0/packages/the-wip-tally/LICENSE
 - xero-trial-balance-export repository: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
@@ -259,7 +259,7 @@ I publish evaluations of fixed releases on the Evaluations page. I use feedback 
 - MIT License (v0.1.15): https://github.com/ryanduguid/accounting-review-pipeline/blob/xero-trial-balance-export/v0.1.15/packages/xero-trial-balance-export/LICENSE
 - Workpaper Review Gate repository: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - release record: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/RELEASE_NOTES.md
-- Ryan Duguid Public Attribution Licence 1.0 (v1.0.1): https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.1/packages/review-ready-gate/LICENSE
+- GNU Affero General Public License v3.0 or later (v1.1.0): https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.1.0/packages/review-ready-gate/LICENSE
 - site repository: https://github.com/ryanduguid/ryanduguid.github.io
 - Ryan Duguid Public Attribution Licence 1.0 (0bd409d): https://github.com/ryanduguid/ryanduguid.github.io/blob/0bd409dff58b08fca414d3aab027193c9385e501/LICENSE
 - Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text

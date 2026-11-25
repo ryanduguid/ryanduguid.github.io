@@ -71,9 +71,9 @@ Browse reproducible evaluations Set up AI tools
 
 ### Latest tool releases
 
-- Ozzit v3.8.0 24 November 2026
-- Aus Accounting MCP v0.12.0 23 November 2026
-- Workpaper Review Gate v1.0.1 14 November 2026
+- Workpaper Review Gate v1.1.0 25 November 2026
+- Trust distribution worksheets for professional review v1.0.0 25 November 2026
+- Subcontractor ledger skills for construction and mining v0.8.1 25 November 2026
 
 ## Links
 
@@ -98,7 +98,8 @@ Browse reproducible evaluations Set up AI tools
 - guide’s approval record: https://www.openaccountants.com/skills/au-capital-gains-2
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - Set up AI tools: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- Aus Accounting MCP v0.12.0: https://duguid.com.au/tools/australian-tax-ai-agents/
+- Trust distribution worksheets for professional review v1.0.0: https://duguid.com.au/tools/trust-distributions/
+- Subcontractor ledger skills for construction and mining v0.8.1: https://duguid.com.au/tools/subcontractor-ledgers/
 
 ---
 
@@ -401,13 +402,13 @@ Published 25 October 2026. Last reviewed 25 October 2026.
 
 ### Calculations through Aus Accounting MCP
 
-Aus Accounting MCP gives a compatible Claude client a local set of calculation and review tools, including ATO benchmark comparison, Payday Super timing and bounded tax worksheets. The current release is v0.12.0.
+Aus Accounting MCP gives a compatible Claude client a local set of calculation and review tools, including ATO benchmark comparison, Payday Super timing and bounded tax worksheets. The current release is v0.13.0.
 
 Use Claude Code or Claude Desktop with a local stdio server. This server has no hosted endpoint that you can paste into Claude’s web app. The released client integration guide shows the local configuration.
 
 ### Preparation through accounting skills
 
-The released Australian Accounting Skills v0.7.0 gives Claude Code workflows for preparing and checking workpapers. The subcontract ledger guide covers progress claims, retentions and WIP preparation.
+The released Australian Accounting Skills v0.8.1 gives Claude Code workflows for preparing and checking workpapers. The subcontract ledger guide covers progress claims, retentions and WIP preparation.
 
 Skills are instructions used by the agent. They do not disable the agent’s other tools or enforce its permissions. Review the agent’s file, command and external-service access separately.
 
@@ -445,9 +446,9 @@ For Xero report access, use the separate Xero exporter guide. Return to Works wi
 ## Links
 
 - Aus Accounting MCP: https://duguid.com.au/tools/australian-tax-ai-agents/
-- v0.12.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.12.0
+- v0.13.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.13.0
 - released client integration guide: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.6.0/apps/aus-accounting-mcp/README.md#client-integration
-- Australian Accounting Skills v0.7.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.7.0
+- Australian Accounting Skills v0.8.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.8.1
 - subcontract ledger guide: https://duguid.com.au/tools/subcontractor-ledgers/
 - installation guide: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - fictional MCP demonstration: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
@@ -478,7 +479,7 @@ Australian Accounting’s Division 7A, Payday Super and MCP results below each c
 
 - Division 7A. On 7 October 2026 the minimum yearly repayment function of the ATO’s Division 7A calculator and decision tool and the div7a-loan-review Python 0.2.0 source agreed to the cent on 12,800 fictional cases with no repayments, for 2019-20 to 2026-27. Its repayment code and rate table are unchanged to the published 0.3.2, but the comparison was not rerun on later releases or the unreleased Rust port. It covers the repayment figure only, not the calculator’s interest or closing balance (record and limits).
 - Payday Super. For wages paid on 30 July 2026, payday-super-check 0.2.3 gives a due date of 11 August 2026, because NT Picnic Day on 3 August is not a business day. The ATO’s worked example gives the same date on the usual 7 business day path. Run and read 5 November 2026.
-- MCP tools. Aus Accounting MCP 0.12.0, the published release, lists 27 tools and serves 102 worksheet kinds with the 1.2.0 calculators executable. Release 0.11.0 served 66 worksheet kinds with calculators 1.1.0. Release 0.10.0 added validate_bsb_format and validate_account_number_format. 0.9.0 added no tool to 0.8.0, which listed 25 local tools on 13 November 2026, including get_reviewed_rate, validate_abn and validate_acn.
+- MCP tools. Aus Accounting MCP 0.13.0, the published release, lists 29 tools, the 27 of 0.12.0 plus find_citing_provisions and itr_label, and serves 148 worksheet kinds with the 1.4.0 calculators executable. Release 0.12.0 served 102 worksheet kinds with calculators 1.2.0 and 0.11.0 served 66 with calculators 1.1.0. Release 0.10.0 added validate_bsb_format and validate_account_number_format. 0.9.0 added no tool to 0.8.0, which listed 25 local tools on 13 November 2026, including get_reviewed_rate, validate_abn and validate_acn.
 
 ## From monthly close to a cash forecast
 
@@ -576,11 +577,11 @@ View certificate (PDF) Xero trial balance export and review workflow
 
 Install commands are under Adopt. The package, release, compatibility and licence links below point to maintained records.
 
-- Aus Accounting MCP: MCP Registry, PyPI, repository, releases, engine compatibility source and GNU Affero General Public License v3.0 or later (v0.12.0).
+- Aus Accounting MCP: MCP Registry, PyPI, repository, releases, engine compatibility source and GNU Affero General Public License v3.0 or later (v0.13.0).
 - payday-super-checker: PyPI, repository, releases, release records and Apache License 2.0 (v0.2.3).
-- ATO benchmarks, trust distributions and company tax: ato-benchmark-compare repository, releases and Apache License 2.0 (v0.2.2); Solomon’s Sword repository, releases and Apache License 2.0 (v0.3.2); The Exchequer Tally repository, releases and Apache License 2.0 (v0.2.0).
-- Agent skills and construction WIP: Australian Accounting Skills, releases and Ryan Duguid Public Attribution Licence 1.0 (v0.7.0); Hardhat Ledger, releases and Ryan Duguid Public Attribution Licence 1.0 (v0.7.0); TheWIPTally repository and Apache License 2.0 (v0.2.0).
-- Xero export and Workpaper Review Gate: xero-trial-balance-export repository, releases, release and compatibility record and MIT License (v0.1.15); Workpaper Review Gate repository, release record and Ryan Duguid Public Attribution Licence 1.0 (v1.0.1).
+- ATO benchmarks, trust distributions and company tax: ato-benchmark-compare repository, releases and Apache License 2.0 (v0.2.2); Solomon’s Sword repository, releases and GNU Affero General Public License v3.0 or later (v1.0.0); The Exchequer Tally repository, releases and GNU Affero General Public License v3.0 or later (v1.0.0).
+- Agent skills and construction WIP: Australian Accounting Skills, releases and Apache License 2.0 (v0.8.1); Hardhat Ledger, releases and Apache License 2.0 (v0.8.1); TheWIPTally repository and Apache License 2.0 (v0.2.0).
+- Xero export and Workpaper Review Gate: xero-trial-balance-export repository, releases, release and compatibility record and MIT License (v0.1.15); Workpaper Review Gate repository, release record and GNU Affero General Public License v3.0 or later (v1.1.0).
 - Coal LSL calculator: site repository and Ryan Duguid Public Attribution Licence 1.0 (0bd409d).
 
 ## Sources and review dates
@@ -691,7 +692,7 @@ I publish evaluations of fixed releases on the Evaluations page. I use feedback 
 - repository: https://github.com/ryanduguid/australian-accounting
 - releases: https://github.com/ryanduguid/australian-accounting/releases
 - engine compatibility source: https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/pyproject.toml
-- GNU Affero General Public License v3.0 or later (v0.12.0): https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.12.0/apps/aus-accounting-mcp/LICENSE
+- GNU Affero General Public License v3.0 or later (v0.13.0): https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.13.0/apps/aus-accounting-mcp/LICENSE
 - PyPI: https://pypi.org/project/payday-super-checker/
 - repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - release records: https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/RELEASE_NOTES.md
@@ -699,12 +700,12 @@ I publish evaluations of fixed releases on the Evaluations page. I use feedback 
 - ato-benchmark-compare repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - Apache License 2.0 (v0.2.2): https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.2.2/packages/ato-benchmark-compare/LICENSE
 - Solomon’s Sword repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
-- Apache License 2.0 (v0.3.2): https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.3.2/packages/solomons-sword/LICENSE
+- GNU Affero General Public License v3.0 or later (v1.0.0): https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v1.0.0/packages/solomons-sword/LICENSE
 - The Exchequer Tally repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
-- Apache License 2.0 (v0.2.0): https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.2.0/packages/the-exchequer-tally/LICENSE
+- GNU Affero General Public License v3.0 or later (v1.0.0): https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v1.0.0/packages/the-exchequer-tally/LICENSE
 - Australian Accounting Skills: https://github.com/ryanduguid/australian-accounting-skills
 - releases: https://github.com/ryanduguid/australian-accounting-skills/releases
-- Ryan Duguid Public Attribution Licence 1.0 (v0.7.0): https://github.com/ryanduguid/australian-accounting-skills/blob/v0.7.0/LICENSE
+- Apache License 2.0 (v0.8.1): https://github.com/ryanduguid/australian-accounting-skills/blob/v0.8.1/LICENSE
 - TheWIPTally repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
 - Apache License 2.0 (v0.2.0): https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.2.0/packages/the-wip-tally/LICENSE
 - xero-trial-balance-export repository: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
@@ -713,7 +714,7 @@ I publish evaluations of fixed releases on the Evaluations page. I use feedback 
 - MIT License (v0.1.15): https://github.com/ryanduguid/accounting-review-pipeline/blob/xero-trial-balance-export/v0.1.15/packages/xero-trial-balance-export/LICENSE
 - Workpaper Review Gate repository: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - release record: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/RELEASE_NOTES.md
-- Ryan Duguid Public Attribution Licence 1.0 (v1.0.1): https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.1/packages/review-ready-gate/LICENSE
+- GNU Affero General Public License v3.0 or later (v1.1.0): https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.1.0/packages/review-ready-gate/LICENSE
 - site repository: https://github.com/ryanduguid/ryanduguid.github.io
 - Ryan Duguid Public Attribution Licence 1.0 (0bd409d): https://github.com/ryanduguid/ryanduguid.github.io/blob/0bd409dff58b08fca414d3aab027193c9385e501/LICENSE
 - Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
@@ -3297,7 +3298,7 @@ Classifies PCG 2022/2 zones and calculates Division 6 shares and a section 99B a
 
 Delivery
 
-Python
+Rust
 
 Boundary
 
@@ -3311,7 +3312,7 @@ Applies the base rate entity test and keeps franking account movements and defic
 
 Delivery
 
-Python
+Rust
 
 Boundary
 
@@ -3745,7 +3746,7 @@ Every entry below is declared at runtime by the tool that carries it, so a reade
 Recorded as PSC-1 against release payday-super-checker/v0.1.4. Release payday-super-checker/v0.1.6 (20 September 2026) makes the extrapolation an opt-in: a default run withholds the estimate for the row instead.
 
 Field | Detail
-Trigger | Any day in the notional earnings period falls after the last quarter recorded in the tool’s general interest charge table, and the run was started with --allow-stale-gic. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.12.0, pins checker 0.2.3, so a result it returns never carries an extrapolated figure. The tagged 0.1.6 Excel workbook differs: it extrapolates after 31 December 2026. The workbook version note records the 0.1.7 correction and verification scope.
+Trigger | Any day in the notional earnings period falls after the last quarter recorded in the tool’s general interest charge table, and the run was started with --allow-stale-gic. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.13.0, pins checker 0.2.3, so a result it returns never carries an extrapolated figure. The tagged 0.1.6 Excel workbook differs: it extrapolates after 31 December 2026. The workbook version note records the 0.1.7 correction and verification scope.
 Effect | With the flag, the last known quarterly rate is carried forward, so the notional earnings component under SGAA 1992 s 19A compounds at a rate the ATO has not published for that quarter. The administrative uplift under s 19B(1) is a percentage of shortfalls plus notional earnings, so every scenario with a non-zero uplift moves with the extrapolated figure. The percentage is not fixed: it spans 0% for the low estimate (clean 24-month history with a voluntary disclosure inside 30 days) to 60% for the high estimate (prior history, no disclosure). Both exposure totals move, including the low one: the notional earnings are added into each total before the uplift, so only the low estimate’s uplift component is unmoved, because 0% of a larger base is still nil. Do not read the low estimate as a rate-independent floor.
 Unaffected by this rate issue | The verdict calculation does not use the GIC table. All 6 verdicts, ON_TIME, AT_RISK, LATE, UNPAID, UNKNOWN and SKIPPED, are decided by the deadline and fund receipt tests, which never read the rate table. Deadlines, business-day arithmetic, matched and remitted amounts, and the SG shortfall itself are unaffected. The exposure estimate is the only consumer of the rate. Separately, the receipt amount limitation and the matching limitations below can affect a verdict. A sound verdict does not make the row’s figures sound: a LATE or UNPAID row carries the exposure estimate this entry qualifies when the run asked for it, and shows none on a default run past the table; a SKIPPED row has no estimate to qualify.
 Declared at runtime | Asking for the estimate is the first signal. A caveat on the result then names the table’s end date, the rate carried forward and the file to update. On a default run the caveat instead says the notional earnings and the SG charge estimate were not assessed for that row, and the five charge columns of report.csv are empty rather than nil.
@@ -4535,15 +4536,15 @@ Source: https://duguid.com.au/tools/trust-distributions/
 
 The software compares supplied flags with its implemented PCG 2022/2 zone criteria and calculates conditional Division 6 and section 99B amounts.
 
-Current release solomons-sword v0.3.2, 20 October 2026, from the australian-accounting repository. Release licence: Apache License 2.0. Published 24 August 2026. Last reviewed 23 November 2026.
+Current release solomons-sword v1.0.0, 25 November 2026, from the australian-accounting repository. Release licence: GNU Affero General Public License v3.0 or later. Published 24 August 2026. Last reviewed 23 November 2026.
 
 Delivery
 
-Python
+Rust
 
 Needs
 
-Python 3.10 or later
+Windows x86_64 or Linux x86_64. The executable runs without Python or Rust.
 
 Boundary
 
@@ -4584,6 +4585,8 @@ python -m pip install "solomons-sword==0.1.9"
 ```
 
 Published package and release instructions.
+
+The current release, solomons-sword/v1.0.0, published on 25 November 2026, replaces the Python package with an executable for Linux x86_64 and Windows x86_64, with provenance attestations, under the GNU Affero General Public License v3.0 or later. It needs no Python. Run on 26 November 2026, it printed this page’s assessment figures and its refusal for this page’s inputs with the same message and exit code as the pinned release. The command above stays pinned to the Python release so the example stays reproducible.
 
 ## Fictional worked example
 
@@ -4649,9 +4652,9 @@ Anything it does not implement, including trust capital gains and franked divide
 
 ## Links
 
-- v0.3.2: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.3.2
+- v1.0.0: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v1.0.0
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
-- Apache License 2.0: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.3.2/packages/solomons-sword/LICENSE
+- GNU Affero General Public License v3.0 or later: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v1.0.0/packages/solomons-sword/LICENSE
 - Install solomons-sword: https://duguid.com.au/tools/trust-distributions/#get-it
 - Read the worked example: https://duguid.com.au/tools/trust-distributions/#worked-example
 - guideline PCG 2022/2: https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001
@@ -4681,15 +4684,15 @@ Source: https://duguid.com.au/tools/company-tax-franking/
 
 The company tax and franking worksheets run the base rate entity test, track the franking account and check the Division 203 benchmark rule.
 
-Current release the-exchequer-tally v0.2.0, 19 October 2026, from the australian-accounting repository. Release licence: Apache License 2.0. Published 24 August 2026. Last reviewed 23 November 2026.
+Current release the-exchequer-tally v1.0.0, 25 November 2026, from the australian-accounting repository. Release licence: GNU Affero General Public License v3.0 or later. Published 24 August 2026. Last reviewed 23 November 2026.
 
 Delivery
 
-Python
+Rust
 
 Needs
 
-Python 3.10 or later
+Windows x86_64 or Linux x86_64. The executable runs without Python or Rust.
 
 Boundary
 
@@ -4732,6 +4735,8 @@ python -m pip install "the-exchequer-tally==0.1.7"
 ```
 
 Published package and release instructions.
+
+The current release, the-exchequer-tally/v1.0.0, published on 25 November 2026, replaces the Python package with an executable for Linux x86_64 and Windows x86_64, with provenance attestations, under the GNU Affero General Public License v3.0 or later. It needs no Python. Run on 26 November 2026, it printed this page’s rate test and its refusal for this page’s inputs with the same message and exit code as the pinned release. The command above stays pinned to the Python release so the example stays reproducible.
 
 Source on GitHub · Primary sources: ATO company tax rates and Division 203 of the Income Tax Assessment Act 1997.
 
@@ -4786,9 +4791,9 @@ Under Division 203, a company must frank all distributions in a franking period 
 
 ## Links
 
-- v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.2.0
+- v1.0.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v1.0.0
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
-- Apache License 2.0: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.2.0/packages/the-exchequer-tally/LICENSE
+- GNU Affero General Public License v3.0 or later: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v1.0.0/packages/the-exchequer-tally/LICENSE
 - Install the-exchequer-tally: https://duguid.com.au/tools/company-tax-franking/#get-it
 - Read the worked example: https://duguid.com.au/tools/company-tax-franking/#worked-example
 - MIT License: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.7/packages/the-exchequer-tally/LICENSE
@@ -4819,7 +4824,7 @@ Source: https://duguid.com.au/tools/subcontractor-ledgers/
 
 The subcontractor ledger skills for Claude Code cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
-Current release australian-accounting-skills v0.7.0, 14 November 2026, from the australian-accounting-skills repository. Release licence: Ryan Duguid Public Attribution Licence 1.0. Published 24 August 2026. Last reviewed 23 November 2026.
+Current release australian-accounting-skills v0.8.1, 25 November 2026, from the australian-accounting-skills repository. Release licence: Apache License 2.0. Published 24 August 2026. Last reviewed 23 November 2026.
 
 Delivery
 
@@ -4874,7 +4879,7 @@ This method measures adherence to visible instructions. It does not test indepen
 
 Needs an AI coding agent such as Claude Code or Codex, and Node.
 
-Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 72 of its 76 validation cards have confirmed results from a whole-card model run; the four core failure cards it adds have no recorded live verdict. Release v0.5.0 has 76 skills and moves the pack from Apache-2.0 to FSL-1.1-ALv2, with Apache-2.0 as the future licence. The current release, v0.7.0, published on 14 November 2026, has 107 skills, still including these 10 workflows, under the Ryan Duguid Public Attribution Licence 1.0; human-confirmed verdicts cover 95 of its 235 validation cards. In v0.5.0, contractor-super-tpar points to the provision or ATO page for figures that change instead of stating them, so its cards need a rerun at the revised commit, and wip-over-under-billing gains steps for verifying and citing a local AASB corpus snapshot. Use Adopt for the v0.4.0 installation under the Apache License 2.0 or its separate development option. The v0.4.0 installation guide covers that historical tag. The contracting workflows are included in this unified pack.
+Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 72 of its 76 validation cards have confirmed results from a whole-card model run; the four core failure cards it adds have no recorded live verdict. Release v0.5.0 has 76 skills and moves the pack from Apache-2.0 to FSL-1.1-ALv2, with Apache-2.0 as the future licence. The current release, v0.8.1, published on 25 November 2026, has 112 skills, still including these 10 workflows, under the Apache License 2.0; human-confirmed verdicts cover 95 of its 246 validation cards. In v0.5.0, contractor-super-tpar points to the provision or ATO page for figures that change instead of stating them, so its cards need a rerun at the revised commit, and wip-over-under-billing gains steps for verifying and citing a local AASB corpus snapshot. Use Adopt for the v0.4.0 installation under the Apache License 2.0 or its separate development option. The v0.4.0 installation guide covers that historical tag. The contracting workflows are included in this unified pack.
 
 Source on GitHub
 
@@ -4905,9 +4910,9 @@ Not as working figures. Each skill encodes the workflow, the tie-outs and the ex
 
 ## Links
 
-- v0.7.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.7.0
+- v0.8.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.8.1
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills/tree/main
-- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.7.0/LICENSE
+- Apache License 2.0: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.8.1/LICENSE
 - Get the skill pack: https://duguid.com.au/tools/subcontractor-ledgers/#get-it
 - Repeat the evaluation: https://duguid.com.au/tools/subcontractor-ledgers/#reproduce
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
@@ -5225,13 +5230,13 @@ No file is written. The balance check runs before anything reaches disk, and bot
 
 Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
-> Aus Accounting MCP v0.12.0: a local MCP server for ATO benchmarks, Payday Super timing, GST review and 102 worksheets with the calculators executable.
+> Aus Accounting MCP v0.13.0: a local MCP server for ATO benchmarks, Payday Super timing, GST review and 148 worksheets with the calculators executable.
 
 # Aus Accounting MCP
 
-Aus Accounting MCP is a local Model Context Protocol server for Australian accounting checks: ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 102 tax and super worksheet kinds with the calculators executable.
+Aus Accounting MCP is a local Model Context Protocol server for Australian accounting checks: ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 148 tax and super worksheet kinds with the calculators executable.
 
-Current release aus-accounting-mcp v0.12.0, 23 November 2026, from the australian-accounting repository. Release licence: GNU Affero General Public License v3.0 or later. Published 25 August 2026. Last reviewed 24 November 2026.
+Current release aus-accounting-mcp v0.13.0, 25 November 2026, from the australian-accounting repository. Release licence: GNU Affero General Public License v3.0 or later. Published 25 August 2026. Last reviewed 24 November 2026.
 
 Delivery
 
@@ -5263,7 +5268,7 @@ Choose the tool by the work it supports: a calculation on established facts, a s
 
 ## The split, in one table
 
-The comparisons and capability list below describe reference release v0.2.8, so the worked example’s figures stay reproducible. The current release serves 102 worksheet kinds with the published 1.2.0 calculators executable. Use the current README for its complete scope.
+The comparisons and capability list below describe reference release v0.2.8, so the worked example’s figures stay reproducible. The current release serves 148 worksheet kinds with the published 1.4.0 calculators executable. Use the current README for its complete scope.
 
 Job | What to install | Where it runs | What it will not do
 Apply a statutory test to your own figures | Aus Accounting MCP | Local stdio MCP: Claude Code, Cursor, Claude Desktop, Codex | No hosted ATO corpus, formation of Division 7A amalgamated loans or lodgement.
@@ -5311,9 +5316,9 @@ The transcript’s first line shows the source-checkout command, uv run --locked
 
 ## Adopt
 
-The current published release is aus-accounting-mcp/v0.12.0, published on 23 November 2026 and verified on GitHub, PyPI and the MCP registry on 24 November 2026. With calculator release 1.2.0, the server exposes 102 worksheet kinds. Read aus-accounting://scope for each worksheet’s periods, scope and required inputs. The v0.11.0 release served 66 worksheet kinds with calculators 1.1.0; the v0.9.0 release history and v0.2.8 demonstration are preserved below.
+The current published release is aus-accounting-mcp/v0.13.0, published on 25 November 2026 and verified on GitHub, PyPI and the MCP registry on 26 November 2026. With calculator release 1.4.0, the server exposes 148 worksheet kinds. Read aus-accounting://scope for each worksheet’s periods, scope and required inputs. The v0.12.0 release served 102 worksheet kinds with calculators 1.2.0 and v0.11.0 served 66 with calculators 1.1.0; the v0.9.0 release history and v0.2.8 demonstration are preserved below.
 
-Install the calculator separately for Claude Code or Codex. Put it on PATH or set AUS_TAX_CALCULATORS_BIN to its absolute path. The server verifies the executable’s SHA-256. It recognises the released x86-64 Linux and Windows digests. For a source build, set AUS_TAX_CALCULATORS_SHA256 to its verified digest. The server needs permission to run the verified copy from its temporary directory. The v0.12.0 Claude Desktop bundle includes the calculator on x86-64 Linux and Windows.
+Install the calculator separately for Claude Code or Codex. Put it on PATH or set AUS_TAX_CALCULATORS_BIN to its absolute path. The server verifies the executable’s SHA-256. It recognises the released x86-64 Linux and Windows digests. For a source build, set AUS_TAX_CALCULATORS_SHA256 to its verified digest. The server needs permission to run the verified copy from its temporary directory. The v0.13.0 Claude Desktop bundle includes the calculator on x86-64 Linux and Windows.
 
 ### Release v0.10.0
 
@@ -5337,7 +5342,7 @@ Open the fictional Excel forecast in desktop Excel, or send a reproducible evalu
 
 Claude Code
 
-Needs Python 3.14 or later and uv. Release v0.12.0 uses the GNU Affero General Public License v3.0 or later. Check the version uvx installs.
+Needs Python 3.14 or later and uv. Release v0.13.0 uses the GNU Affero General Public License v3.0 or later. Check the version uvx installs.
 
 ```
 # Australian Accounting & Tax MCP server for Claude Code
@@ -5346,7 +5351,7 @@ claude mcp add aus-accounting -- uvx aus-accounting-mcp
 
 Codex
 
-Needs Python 3.14 or later and uv. Release v0.12.0 uses the GNU Affero General Public License v3.0 or later. Check the version uvx installs.
+Needs Python 3.14 or later and uv. Release v0.13.0 uses the GNU Affero General Public License v3.0 or later. Check the version uvx installs.
 
 ```
 # Australian Accounting & Tax MCP server for Codex
@@ -5396,7 +5401,7 @@ A fresh clone includes both runtime copies and needs no synchronisation. For ano
 
 The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two tool calls reproduces release 0.2.8, and each evaluation keeps the release it was run against.
 
-The Skills commands pin the installer to version 1.5.22. The primary Skills installation uses the Apache-licensed v0.4.0 tag. The current Skills release is v0.7.0, published on 14 November 2026, with 107 workflows under the Ryan Duguid Public Attribution Licence 1.0. For development installs, check the licence in the checkout. The development Skills and GitHub workflow commands install the default branch, which can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
+The Skills commands pin the installer to version 1.5.22. The primary Skills installation uses the Apache-licensed v0.4.0 tag. The current Skills release is v0.8.1, published on 25 November 2026, with 112 workflows under the Apache License 2.0. For development installs, check the licence in the checkout. The development Skills and GitHub workflow commands install the default branch, which can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
 
 aus-accounting-mcp is published on PyPI and from its source repository. Source on GitHub, PyPI and registry record. payday-super-checker is already on PyPI. The official Model Context Protocol registry lists this server as io.github.ryanduguid/aus-accounting.
 
@@ -5416,7 +5421,7 @@ The tools calculate and refuse. Professional judgement and lodgement stay human.
 
 ### What is aus-accounting-mcp?
 
-A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. The reference example uses v0.2.8 and its 7 worksheets. Published v0.12.0 serves 102 worksheet kinds with the 1.2.0 calculators executable, alongside GST coding and BAS reconciliation review. Outputs need human review.
+A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. The reference example uses v0.2.8 and its 7 worksheets. Published v0.13.0 serves 148 worksheet kinds with the 1.4.0 calculators executable, alongside GST coding and BAS reconciliation review. Outputs need human review.
 
 ### Is aus-accounting-mcp a hosted ATO document library?
 
@@ -5458,9 +5463,9 @@ Yes. The listing name is io.github.ryanduguid/aus-accounting. The install comman
 
 ## Links
 
-- v0.12.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.12.0
+- v0.13.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.13.0
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
-- GNU Affero General Public License v3.0 or later: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.12.0/apps/aus-accounting-mcp/LICENSE
+- GNU Affero General Public License v3.0 or later: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.13.0/apps/aus-accounting-mcp/LICENSE
 - Adopt Aus Accounting MCP: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - Try 2 tool calls: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
 - current README: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp/README.md
@@ -5479,14 +5484,14 @@ Yes. The listing name is io.github.ryanduguid/aus-accounting. The install comman
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
 - uv installed: https://docs.astral.sh/uv/
 - MIT License: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.8/apps/aus-accounting-mcp/LICENSE
-- calculator release 1.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/australian-tax-calculators/v1.2.0
+- calculator release 1.4.0: https://github.com/ryanduguid/australian-accounting/releases/tag/australian-tax-calculators/v1.4.0
 - v0.10.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.10.0
 - v0.9.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.9.0
 - Excel cash flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - browser calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - reproducible evaluation: https://duguid.com.au/evaluate/
 - Apache License 2.0: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.4.0/LICENSE
-- v0.7.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.7.0
+- v0.8.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.8.1
 - PyPI: https://pypi.org/project/aus-accounting-mcp/
 - registry record: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest
 - PyPI: https://pypi.org/project/payday-super-checker/
@@ -5510,13 +5515,13 @@ Yes. The listing name is io.github.ryanduguid/aus-accounting. The install comman
 
 Source: https://duguid.com.au/tools/workpaper-review-gate/
 
-> Current release review-ready-gate v1.0.1. Check BAS, month-end or year-end packs before manager review. Incomplete files return to the preparer.
+> Current release review-ready-gate v1.1.0. Check BAS, month-end or year-end packs before manager review. Incomplete files return to the preparer.
 
 # Workpaper Review Gate
 
 The Workpaper Review Gate inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED.
 
-Current release review-ready-gate v1.0.1, 14 November 2026, from the accounting-review-pipeline repository. Release licence: Ryan Duguid Public Attribution Licence 1.0. Published 25 August 2026. Last reviewed 23 November 2026.
+Current release review-ready-gate v1.1.0, 25 November 2026, from the accounting-review-pipeline repository. Release licence: GNU Affero General Public License v3.0 or later. Published 25 August 2026. Last reviewed 23 November 2026.
 
 Delivery
 
@@ -5524,7 +5529,7 @@ Rust
 
 Needs
 
-Windows x86_64 or Linux x86_64. The executable runs without Python or Rust.
+Windows, Linux or macOS on x86_64 or aarch64. The executable runs without Python or Rust.
 
 Boundary
 
@@ -5573,11 +5578,11 @@ Point the CLI at a pack directory. It checks that the required artefacts are pre
 
 Local files only. No Xero connection, no lodgement, no LLM, no period lock. A READY result is not sign-off.
 
-Release v1.0.0 is under the Ryan Duguid Public Attribution Licence 1.0; earlier releases keep their own licences. No warranty.
+Release v1.1.0 is under the GNU Affero General Public License v3.0 or later; v1.0.0 and v1.0.1 are under the Ryan Duguid Public Attribution Licence 1.0, and earlier releases keep their own licences. No warranty.
 
 ## Get it
 
-Download review-ready-gate/v1.0.1 for Windows x86_64 or Linux x86_64 under the Ryan Duguid Public Attribution Licence 1.0. The review-ready executable runs without Python or Rust. The release guide shows how to verify the download and its signed provenance.
+Download review-ready-gate/v1.1.0 for Windows, Linux or macOS on x86_64 or aarch64 under the GNU Affero General Public License v3.0 or later. The review-ready executable runs without Python or Rust. The release guide shows how to verify the download and its signed provenance.
 
 ### Reproduce the v0.1.3 example
 
@@ -5622,9 +5627,9 @@ No. It reads local files and writes a readiness pack. It cannot post, pay, lodge
 
 ## Links
 
-- v1.0.1: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.0.1
+- v1.1.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.1.0
 - accounting-review-pipeline: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
-- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.1/packages/review-ready-gate/LICENSE
+- GNU Affero General Public License v3.0 or later: https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.1.0/packages/review-ready-gate/LICENSE
 - Get review-ready-gate: https://duguid.com.au/tools/workpaper-review-gate/#get-it
 - Inspect the fictional BAS pack: https://duguid.com.au/tools/workpaper-review-gate/#worked-example
 - Download the generated findings.csv: https://duguid.com.au/assets/examples/review-gate/findings.csv
@@ -5632,7 +5637,7 @@ No. It reads local files and writes a readiness pack. It cannot post, pay, lodge
 - corrected input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-ready
 - generated cover sheet: https://duguid.com.au/assets/examples/review-gate/readiness-summary.md
 - fixed-release evaluation: https://duguid.com.au/evaluate/manager-review-gate/
-- release guide: https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.0.1/packages/review-ready-gate/RELEASING.md
+- release guide: https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v1.1.0/packages/review-ready-gate/RELEASING.md
 - MIT License: https://github.com/ryanduguid/accounting-review-pipeline/blob/review-ready-gate/v0.1.3/packages/review-ready-gate/LICENSE
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/
@@ -5704,7 +5709,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
-26 November 2026 | Added the 183-day residency day count: the days in Australia in an income year from 2020-21 to 2026-27, added up from arrival and departure days, against the 183-day test and its exception. It does not decide residency, and agrees with the australian-accounting residency-tests command on 667 test cases.
+26 November 2026 | The tool pages, changelog, release record and machine indexes name the releases of 24 and 25 November: aus-accounting-mcp v0.13.0 (148 worksheet kinds with calculators 1.4.0, 29 tools), Australian Accounting Skills v0.8.1 (112 skills, Apache License 2.0), monthly-close-control-plane v1.2.0 and review-ready-gate v1.1.0 (both now under the GNU Affero General Public License v3.0 or later, with executables for 6 targets), and solomons-sword v1.0.0 and the-exchequer-tally v1.0.0, now standalone executables under the same licence; the trust distribution and company tax pages keep their pinned Python examples. The profit and cash flow case states that GitHub holds au-fpa-pack v0.8.0 whilst PyPI still serves 0.7.0.
 25 November 2026 | Updated general tax question 8 after the ATO updated its How to lodge your tax return page from 12 to 10 business days for returns lodged online, matching its progress page.
 24 November 2026 | The first home owner grant calculator now takes the building contract price of a home built. Below the grant it pays the contract price in Victoria, Queensland, Western Australia, South Australia, Tasmania and the Northern Territory, whose Acts pay the lesser of the consideration and the grant, and in Victoria the $750,000 cap tests the contract price, so a larger land and building total is computed. A New South Wales contract price below the grant is still not computed.
 24 November 2026 | Updated the Aus Accounting MCP guide, Ozzit reference and machine indexes for published releases aus-accounting-mcp v0.12.0 (102 worksheet kinds with calculators 1.2.0, AGPL-3.0-or-later, listed as latest on the official MCP Registry) and Ozzit v3.8.0 (165 functions and 5 help tables, Apache License 2.0, plus the Homebrew tap).
@@ -5868,6 +5873,12 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+25 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.13.0
+25 November 2026 | Subcontract ledger skills | v0.8.1
+25 November 2026 | Monthly Close Controls | monthly-close-control-plane/v1.2.0
+25 November 2026 | Workpaper Review Gate | review-ready-gate/v1.1.0
+25 November 2026 | Trust distribution checks | solomons-sword/v1.0.0
+25 November 2026 | Company tax and franking checks | the-exchequer-tally/v1.0.0
 24 November 2026 | Ozzit | v3.8.0
 23 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.12.0
 21 November 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.11.0
@@ -5952,7 +5963,7 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
-- 183-day residency day count: https://duguid.com.au/tools/individual-tax/residency-days/
+- aus-accounting-mcp v0.13.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.13.0
 - general tax question 8: https://duguid.com.au/tools/accounting-questions/general-tax/
 - first home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 - Aus Accounting MCP guide: https://duguid.com.au/tools/australian-tax-ai-agents/
@@ -5978,6 +5989,11 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 - site licence notice: https://duguid.com.au/privacy/
 - FBT property: https://duguid.com.au/tools/business-calculators/fbt-property/
 - FBT expense payment: https://duguid.com.au/tools/business-calculators/fbt-expense-payment/
+- v0.8.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.8.1
+- monthly-close-control-plane/v1.2.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.2.0
+- review-ready-gate/v1.1.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.1.0
+- solomons-sword/v1.0.0: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v1.0.0
+- the-exchequer-tally/v1.0.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v1.0.0
 - aus-accounting-mcp/v0.11.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.11.0
 - aus-accounting-mcp/v0.10.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.10.0
 - v3.7.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.7.0
@@ -6061,13 +6077,13 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 
 Source: https://duguid.com.au/tools/monthly-close-controls/
 
-> Current release monthly-close-control-plane v1.1.0. Compare Xero trial balance CSVs locally and flag exceptions for human review.
+> Current release monthly-close-control-plane v1.2.0. Compare Xero trial balance CSVs locally and flag exceptions for human review.
 
 # Monthly Close Controls
 
 Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and writes an exception report for a human reviewer.
 
-Current release monthly-close-control-plane v1.1.0, 14 November 2026, from the accounting-review-pipeline repository. Release licence: Ryan Duguid Public Attribution Licence 1.0. Published 11 September 2026. Last reviewed 23 November 2026.
+Current release monthly-close-control-plane v1.2.0, 25 November 2026, from the accounting-review-pipeline repository. Release licence: GNU Affero General Public License v3.0 or later. Published 11 September 2026. Last reviewed 23 November 2026.
 
 Delivery
 
@@ -6172,7 +6188,7 @@ cargo run --locked --release --bin close-control -- review --current examples/cu
 
 After Cargo’s build messages, expect exit code 2 and close-control: REVIEW; 8 exception(s); 6 client query(ies) drafted, followed by the absolute path of each of the 4 pack files. The output directory is beside the checkout. Keep review packs outside version control; the command refuses an output directory inside a checkout.
 
-The current release, monthly-close-control-plane/v1.1.0, published on 14 November 2026, ships close-control as an executable for Linux x86_64 and Windows x86_64, with signed provenance, that needs no Rust toolchain, under the Ryan Duguid Public Attribution Licence 1.0. Its release guide shows how to verify a download.
+The current release, monthly-close-control-plane/v1.2.0, published on 25 November 2026, ships close-control as an executable for Linux, macOS and Windows on x86_64 and aarch64, with signed provenance, that needs no Rust toolchain, under the GNU Affero General Public License v3.0 or later. Its release guide shows how to verify a download.
 
 Source on GitHub
 
@@ -6220,9 +6236,9 @@ No. PASS means the configured checks passed on the supplied inputs. A human stil
 
 ## Links
 
-- v1.1.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.1.0
+- v1.2.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.2.0
 - accounting-review-pipeline: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
-- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/accounting-review-pipeline/blob/monthly-close-control-plane/v1.1.0/packages/monthly-close-control-plane/LICENSE
+- GNU Affero General Public License v3.0 or later: https://github.com/ryanduguid/accounting-review-pipeline/blob/monthly-close-control-plane/v1.2.0/packages/monthly-close-control-plane/LICENSE
 - Inspect the eight exceptions: https://duguid.com.au/tools/monthly-close-controls/#worked-example
 - Run the example: https://duguid.com.au/tools/monthly-close-controls/#get-it
 - Download the generated exceptions.csv: https://duguid.com.au/assets/examples/monthly-close/exceptions.csv
@@ -6232,7 +6248,7 @@ No. PASS means the configured checks passed on the supplied inputs. A human stil
 - Xero trial balance exporter: https://duguid.com.au/tools/xero-trial-balance/
 - pinned source documentation: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/README.md
 - FSL-1.1-ALv2: https://github.com/ryanduguid/accounting-review-pipeline/blob/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/LICENSE
-- release guide: https://github.com/ryanduguid/accounting-review-pipeline/blob/monthly-close-control-plane/v1.1.0/packages/monthly-close-control-plane/RELEASING.md
+- release guide: https://github.com/ryanduguid/accounting-review-pipeline/blob/monthly-close-control-plane/v1.2.0/packages/monthly-close-control-plane/RELEASING.md
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
 - Check a workpaper pack before manager review: https://duguid.com.au/tools/workpaper-review-gate/
@@ -13156,11 +13172,11 @@ Source: https://duguid.com.au/tools/individual-tax/
 
 # Individual tax calculators
 
-Eighteen free calculators for one person’s tax, pay and super, grounded in legislation and ATO worked examples. They run in your browser with no sign-up.
+Seventeen free calculators for one person’s tax, pay and super, grounded in legislation and ATO worked examples. They run in your browser with no sign-up.
 
-Published 17 November 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
+Published 17 November 2026. Last checked 24 November 2026, the newest of the calculators’ source checks.
 
-Search 18 calculators
+Search 17 calculators
 
 ## Tax, pay and study loans
 
@@ -13184,11 +13200,10 @@ Search 18 calculators
 - Super co-contribution, LISTO and spouse offset calculator The government’s co-contribution and low income super tax offset, and the spouse contribution tax offset, for 2020-21 to 2026-27, with each condition met or not.
 - Transfer balance calculator Your transfer balance account and personal cap with proportional indexation, excess transfer balance earnings and tax, the excess concessional contributions charge, and the release of excess non-concessional contributions.
 - Pension minimum calculator The minimum annual payment from an account-based pension for 2024-25 to 2027-28, with the first year pro-rated from the start day and rounding to the nearest $10.
-- 183-day residency day count Your days in Australia in an income year from 2020-21 to 2026-27, added up from your arrival and departure days, against the 183-day residency test and its exception.
 
 For a business, see the 57 business calculators, depreciation rates and individual income tax rate tables.
 
-Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22, salary packaging from 2022-23, novated leases from 2023-24, the withholding from a 2026-27 pay with a bonus or back payment, super projected from 2026-27, a transfer balance account from 2017-18, the excess concessional contributions charge for 2013-14 to 2020-21, the account-based pension minimum for 2024-25 to 2027-28, and the days in Australia for the 183-day residency test from 2020-21 to 2026-27. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
+Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22, salary packaging from 2022-23, novated leases from 2023-24, the withholding from a 2026-27 pay with a bonus or back payment, super projected from 2026-27, a transfer balance account from 2017-18, the excess concessional contributions charge for 2013-14 to 2020-21, and the account-based pension minimum for 2024-25 to 2027-28. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
@@ -13209,7 +13224,6 @@ Estimates in AUD for one person’s full income year: income tax and study loans
 - Super co-contribution, LISTO and spouse offset calculator: https://duguid.com.au/tools/individual-tax/government-super/
 - Transfer balance calculator: https://duguid.com.au/tools/individual-tax/transfer-balance/
 - Pension minimum calculator: https://duguid.com.au/tools/individual-tax/pension-minimum/
-- 183-day residency day count: https://duguid.com.au/tools/individual-tax/residency-days/
 - 57 business calculators: https://duguid.com.au/tools/business-calculators/
 - depreciation rates: https://duguid.com.au/tools/depreciation-rates/
 - individual income tax rate tables: https://duguid.com.au/rates/individual-income-tax/
@@ -13280,7 +13294,7 @@ A balance a cent below $500,000 still carries forward | 2024-25, balance $499,99
 At a $500,000 balance nothing is carried forward and $10,000 is excess | 2024-25, balance $500,000.00, contributions $40,000.00; earlier 2019-20 $11,000.00, 2020-21 $12,000.00, 2021-22 $13,000.00, 2022-23 $14,000.00, 2023-24 $15,000.00 | Cap $30,000.00 with $67,500.00 unused from the previous 5 years, $0.00 applied, $10,000.00 excess; $14,000.00 lapses
 2026-27’s $32,500 cap with $17,500 carried forward, earliest first | 2026-27, balance $300,000.00, contributions $50,000.00; earlier 2021-22 $20,000.00, 2022-23 $20,000.00, 2023-24 $20,000.00, 2024-25 $20,000.00, 2025-26 $20,000.00 | Cap $75,000.00 with $42,500.00 unused from the previous 5 years, $17,500.00 applied, $0.00 excess; $0.00 lapses
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -13292,7 +13306,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Division 293 tax calculator: https://duguid.com.au/tools/individual-tax/division-293/
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
 - Super co-contribution, LISTO and spouse offset calculator: https://duguid.com.au/tools/individual-tax/government-super/
@@ -13454,7 +13468,7 @@ Own income at the Medicare threshold amount: nil whatever the spouse earns | 202
 Foreign resident: no surcharge | 2026-27, foreign resident, taxable income $200,000, 365 days without hospital cover, withheld $0.00 | Tax $65,350.00, offset $0.00, Medicare levy $0.00, surcharge $0.00, total $65,350.00, owing $65,350.00
 Study loan with withholding short: an amount owing | 2026-27, Australian resident, taxable income $90,000, study loan, withheld $19,500.50 | Tax $17,520.00, offset $0.00, Medicare levy $1,800.00, surcharge $0.00, study loan $3,070.80, total $22,390.80, owing $2,890.30
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Common questions
 
@@ -13478,7 +13492,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Individual income tax rates: https://duguid.com.au/rates/individual-income-tax/
 - Take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
@@ -13573,7 +13587,7 @@ Above the cap and in Division 293 | 2026-27, Australian resident, $260,000 a yea
 2021-22 fortnightly: withholding leaves the low and middle income tax offset to the return | 2021-22, Australian resident, $3,000 a fortnight plus super | Take-home $62,123.00 a year, $2,389.35 a fortnight; super $7,800.00; withheld $670.00 a pay, refund $1,543.00
 2025-26 fortnightly with a study loan: Schedule 8 from 24 September 2025 | 2025-26, Australian resident, $3,000 a fortnight plus super, study loan | Take-home $60,602.00 a year, $2,330.85 a fortnight; super $9,360.00; withheld $672.00 a pay, refund $74.00
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Common questions
 
@@ -13599,7 +13613,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - PAYG withholding coefficients: https://duguid.com.au/rates/payg-withholding/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
 
@@ -13668,7 +13682,7 @@ A recent year that was a rebate year itself is adjusted both ways | 2025-26, tax
 2016-17’s arrears above $180,000 carry the 2% budget repair levy | 2025-26, taxable $100,000.00; 2016-17 $10,000.00 on $200,000.00 | Tax on arrears $3,000.00, notional tax $4,700.00, offset $0.00
 2026-27’s 15% band: $20,000 from 2024-25 at 16% and 30% against 30% and 37% | 2026-27, taxable $150,000.00; 2024-25 $20,000.00 on $30,000.00 | Tax on arrears $7,050.00, notional tax $3,900.00, offset $3,150.00
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -13680,7 +13694,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Bonus withholding calculator: https://duguid.com.au/tools/individual-tax/bonus-withholding/
 - Individual income tax rates: https://duguid.com.au/rates/individual-income-tax/
@@ -13754,7 +13768,7 @@ ATO example 4: Branson, 2024-25, at 5.5% by section 154-20 | 2024-25: taxable in
 2021-22 at 1% | 2021-22: taxable income $47,014 | Repayment income $47,014.00, repayment $470.14
 2020-21 a dollar below 10% | 2020-21: taxable income $136,739 | Repayment income $136,739.00, repayment $12,990.21
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -13768,7 +13782,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Study loan repayment thresholds: https://duguid.com.au/rates/study-loan-repayment/
 - Income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
 
@@ -13866,7 +13880,7 @@ No offset: $20,000 of profit on $70,000 of wages adds 30% tax and 2% Medicare le
 2023-24, other deductions take taxable income below the profit: the offset’s share stops at 1 | 2023-24, business $40,000 less $5,000, other deductions $3,000, invoice $1,000.00 | Offset $419.52, business tax $2,102.48; set aside $2,102.48 a year, $525.62 a quarter, 5.26% of each invoice
 2021-22, $25,000 of profit: the low and middle income offsets leave no tax for this offset | 2021-22, business $25,000 less $0, invoice $1,000.00 | Offset $0.00, business tax $163.50; set aside $163.50 a year, $40.88 a quarter, 0.65% of each invoice
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -13880,7 +13894,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - calculators and tools: https://www.ato.gov.au/calculators-and-tools
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - PAYG instalments calculator: https://duguid.com.au/tools/business-calculators/payg-instalments/
 - GST calculator: https://duguid.com.au/tools/business-calculators/gst/
@@ -13954,7 +13968,7 @@ Unused cap covers part of the excess | 2026-27: taxable income $210,000, fringe 
 2023-24: each part of Division 293 income | 2023-24: taxable income $200,000, fringe benefits $10,000, net investment loss $15,000, family trust distribution tax income $20,000, less FHSS $5,000; contributions $27,500.00 | Division 293 income $240,000.00, low tax contributions $27,500.00, taxable contributions $17,500.00, tax $2,625.00
 2021-22: a lump sum taxed at the zero rate comes off | 2021-22: taxable income $260,000, less zero-rate lump sum $30,000; contributions $27,500.00 | Division 293 income $230,000.00, low tax contributions $27,500.00, taxable contributions $7,500.00, tax $1,125.00
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -13966,7 +13980,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 - Income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
 - Maximum super contribution base: https://duguid.com.au/rates/maximum-contribution-base/
@@ -14033,7 +14047,7 @@ Child support paid can take adjusted taxable income below nil | Resident all yea
 Pensions and target foreign income count in adjusted taxable income only | Resident all year, taxable $20,000, pensions $5,000, target foreign $3,000, child support $8,000, assessable $20,000 | Surcharge $20,000, Division 293 $20,000, rebate $20,000, repayment $20,000, adjusted taxable $20,000, co-contribution $20,000
 Business deductions come off co-contribution total income only | Resident all year, taxable $35,000, other fringe $2,000, employer super $1,000, assessable $40,000, business deductions $5,000 | Surcharge $38,000, Division 293 $37,000, rebate $38,000, repayment $38,000, adjusted taxable $38,000, co-contribution $38,000
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -14047,7 +14061,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - When you must repay your loan: https://www.ato.gov.au/individuals-and-families/study-and-training-support-loans/when-must-you-repay-your-loan
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Division 293 tax calculator: https://duguid.com.au/tools/individual-tax/division-293/
 - Study and training loan calculator: https://duguid.com.au/tools/individual-tax/study-loan/
 
@@ -14125,7 +14139,7 @@ The present value at 2.5%, as the Instrument allows you to change it | Age 30 to
 A higher-fee fund: $150 and 0.85% | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $150.00 and 0.85%, premiums $599.00, growth 3.7%, present value at 3.7% | 37 years: $1,778,785.44, present value $463,777.40
 No insurance | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $59.00 and 0.11%, premiums $0.00, growth 3.7%, present value at 3.7% | 37 years: $2,178,481.86, present value $567,989.05
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -14137,7 +14151,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 - Super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
@@ -14228,7 +14242,7 @@ LISTO on $50: the $10 minimum (s 12E(2)(c)) | 2025-26, assessable income $20,000
 LISTO at adjusted taxable income $37,001: nil (s 12C(1)(b)) | 2025-26, assessable income $37,001, eligible income $37,001.00, personal contributions $0.00, concessional contributions $4,000.00 | Co-contribution $0.00, LISTO $0.00
 Spouse income $39,999: 18% of $1 (s 290-235(1)) | 2025-26, assessable income $90,000, eligible income $90,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $39,999.00, spouse contributions $3,000.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $0.18
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -14241,7 +14255,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
 
@@ -14335,13 +14349,13 @@ The charge on $2,500.50 for 2013-14, the first year, tax due 21 November 2014 | 
 Releasing a $100,000 excess for 2024-25, determined 15 September 2025 | 2024-25 release of $100,000.00, determination 2025-09-15 | Earnings $14,663.00, release $112,463.55, offset $2,199.45
 Releasing a $50,000 excess for 2020-21, determined 30 November 2021 | 2020-21 release of $50,000.00, determination 2021-11-30 | Earnings $5,251.00, release $54,463.35, offset $787.65
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -14397,83 +14411,13 @@ At 65 the factor rises from 4% to 5% | 2025-26, balance $100,000.00, age 65, 365
 At 95 or more, 14% | 2026-27, balance $500,000.00, age 95, 365 days | Before rounding $70,000.00, minimum $70,000.00
 2027-28 has 366 days, with 29 February 2028 | 2027-28, balance $300,000.00, age 80, 366 days | Before rounding $21,000.00, minimum $21,000.00
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
-
----
-
-# 183-day tax residency test day count calculator
-
-Source: https://duguid.com.au/tools/individual-tax/residency-days/
-
-> Add up the days you were in Australia between 1 July and 30 June from your arrival and departure days, and see whether you meet the 183-day residency test.
-
-# 183-day residency day count
-
-Count your days in Australia in an income year from 2020-21 to 2026-27 and check them against the 183-day test for tax residency.
-
-Published 26 November 2026. Last checked 26 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Your days in Australia in one income year
-
-Income year, 1 July to 30 June 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
-
-Periods in Australia
-
-Period 1 arrival day Period 1 departure day Period 2 arrival day Period 2 departure day Period 3 arrival day Period 3 departure day Period 4 arrival day Period 4 departure day Period 5 arrival day Period 5 departure day Period 6 arrival day Period 6 departure day
-
-Enter up to 6 stays in Australia, each from the day you arrived to the day you left; both days count. Leave the arrival blank if you were already here on 1 July, the departure blank if you were still here on 30 June, and both blank to skip a row. Overlapping periods count each day once, and days outside the income year are not counted.
-
-Is your usual place of abode outside Australia? No Yes
-
-Do you intend to take up residence in Australia? No Yes
-
-However many days you count, the test is not met if both are true: your usual place of abode is outside Australia and you do not intend to take up residence here. The Act leaves both to the Commissioner’s satisfaction; your answers stand in for it, and the calculator does not test them.
-
-Calculate
-
-Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26 (1 July 2025 to 30 June 2026); 2 periods in Australia; usual place of abode outside Australia: no; intends to take up residence: no. Days in Australia in the income year 229 of 365 More than one-half of the year 183 days or more Usual place of abode outside Australia and no intention to take up residence No, as you answered 183-day test Met Enough days, and the exception does not apply on your answers.
-
-## How the 183-day residency day count works
-
-The calculator adds up the distinct days you were in Australia between 1 July and 30 June, counting the day you arrived and the day you left as whole days. Paragraph (a)(ii) of the definition of ‘resident or resident of Australia’ in s 6(1) of the Income Tax Assessment Act 1936 includes a person ‘who has actually been in Australia, continuously or intermittently, during more than one‑half of the year of income, unless the Commissioner is satisfied that the person’s usual place of abode is outside Australia and that the person does not intend to take up residence in Australia’. More than one-half is 183 days, or 184 in a year that includes 29 February.
-
-The exception needs the Commissioner to be satisfied of both facts: your usual place of abode is outside Australia, and you do not intend to take up residence in Australia. The calculator takes your answers in place of that satisfaction: if you answer yes and no, it shows the test as not met however many days you spent here. TR 2023/1 says a person on an extended holiday is the usual case.
-
-## What the 183-day residency day count does not cover
-
-The calculator does not decide whether you are an Australian resident. The 183-day test is one of 4. You are also a resident if you reside in Australia according to ordinary concepts, if your domicile is in Australia and your permanent place of abode is not outside Australia, or if you are a PSS member or a CSS eligible employee, or the spouse or child under 16 of one (the Commonwealth superannuation fund test). Those tests turn on facts and judgements this page does not ask for; read TR 2023/1 for each. Nor does it test your usual place of abode or intention, apply a tax treaty’s tie-breaker rules for a person resident in 2 countries, or work out part-year residency or the tax that follows. Confirm your residency with the ATO or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: 183-day residency day count
-
-Case | Inputs | Result
-Two stays in 2025-26, 1 July to 30 September and 15 November to 31 March: 92 + 137 = 229 days (the form’s example) | 2025-26, 2025-07-01 to 2025-09-30, 2025-11-15 to 2026-03-31 | 229 days, 183 needed: met
-TR 2023/1 example 5, Conchita: 9 months on holiday with her abode in Mexico, 273 days, the exception applies | 2025-26, 2025-08-01 to 2026-04-30, usual abode outside Australia | 273 days, 183 needed, exception applies: not met
-Abode outside Australia but intending to take up residence: the exception needs both, so 273 days meet the test | 2025-26, 2025-08-01 to 2026-04-30, usual abode outside Australia, intends to take up residence | 273 days, 183 needed: met
-183 days in 2025-26, 1 July to 30 December: more than one-half of 365 | 2025-26, 2025-07-01 to 2025-12-30 | 183 days, 183 needed: met
-182 days in 2025-26, 1 July to 29 December: one short | 2025-26, 2025-07-01 to 2025-12-29 | 182 days, 183 needed: not met
-183 days in 2023-24, which includes 29 February 2024: 184 needed (TR 2023/1 footnote 51) | 2023-24, 2023-07-01 to 2023-12-30 | 183 days, 184 needed: not met
-A stay from 1 January 2024 to 31 July 2024 counted in 2024-25: only 1 to 31 July falls in the year; an overlapping stay counts once | 2024-25, 2024-01-01 to 2024-07-31, 2024-07-15 to 2024-07-20 | 31 days, 183 needed: not met
-
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-## Links
-
-- TR 2023/1: https://www.ato.gov.au/law/view/document?docid=TXR/TR20231/NAT/ATO/00001
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -14559,7 +14503,7 @@ Case | Inputs | Result
 Sue: ATO GN 2024/1 example 11, with a fictional determination date | ATO determination: concessional $8,500.00, non-concessional $5,000.00, earnings $850.00 | Maximum release $14,350.00, assessable $9,350.00, PAYG $1,589.00, after withholding $12,761.00, offset $2,805.00
 Partial release in the income year after determination | ATO determination: concessional $8,500.00, non-concessional $10,000.00, earnings $1,500.00, requested $15,000.00 on 2025-07-01, gross released $12,000.00 | Maximum release $20,000.00, assessable $2,000.00, PAYG $340.00, after withholding $11,660.00, offset $600.00
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -14576,7 +14520,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - GN 2024/1, example 6: https://www.ato.gov.au/law/view/print?DocID=GDN%2FGDN20241%2FNAT%2FATO%2F00001
 - First Home Super Saver Tax Act 2017: https://www.legislation.gov.au/C2017A00133/asmade
 - Treasury Laws Amendment (2023 Measures No. 3) Act 2023, Schedule 4, items 28 and 30: https://www.legislation.gov.au/C2023A00075
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - First home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
@@ -14663,7 +14607,7 @@ A seminar is not a prescribed course, so no reduction in 2021-22 (TR 98/9 para 1
 From 2022-23 there is no $250 reduction (Act No. 84, 2022) | 2022-23, self-education, skills for current work, A $290.00, B $0.00, C $0.00, D $0.00 | Deduction $290.00
 Wendy: study for new employment is not deductible (ATO self-education page) | 2025-26, self-education, new employment, A $290.00, B $0.00, C $0.00, D $0.00 | Deduction $0.00, not deductible
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -14675,7 +14619,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Cents per kilometre rate: https://duguid.com.au/rates/cents-per-kilometre/
 - Deductions questions: https://duguid.com.au/tools/accounting-questions/deductions/
 - Depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
@@ -14765,7 +14709,7 @@ B(ii): what earlier B(ii) payments had withheld comes off | fortnightly, scale 2
 B(ii): earlier withholding beyond the amount gives nil | fortnightly, scale 2, $1,800.00 this pay; B(ii): $2,480.00, $18,000.00 over 10 pays to date, earlier $1,000.00 with $9,999.00 withheld | Withheld $212.00: $212.00 on earnings, $0.00 by B(ii) (limit $1,165.60)
 ATO example 4: Bradley’s back pay over 2 years by B(i) and B(ii), with a Financial Supplement debt | monthly, scale 2, study loan, $7,000.00 this pay; B(i): $800.00 for each of 2 pays of $6,200.00 that had $1,257.00 withheld; B(ii): $8,800.00, $19,400.00 over 3 pays to date | Withheld $6,492.00: $1,634.00 on earnings, $754.00 by B(i), $4,104.00 by B(ii) (limit $4,136.00)
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -14779,7 +14723,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - PAYG withholding coefficients: https://duguid.com.au/rates/payg-withholding/
 - Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/
 
@@ -14857,7 +14801,7 @@ The reportable amount brings on the surcharge and raises the study loan repaymen
 A foreign resident | 2026-27, charity, foreign, salary $70,000, Type 2 $15,899.93 | Gain $4,770.00: tax saved $4,770.00, FBT $0.00, reportable $29,999
 2022-23, before the standard deduction | 2022-23, charity, resident, salary $70,000, Type 2 $15,899.93 | Gain $5,674.00: tax saved $5,674.00, FBT $0.00, reportable $29,999
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -14870,7 +14814,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - novated lease calculator: https://duguid.com.au/tools/individual-tax/novated-lease/
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
 - Meal entertainment calculator: https://duguid.com.au/tools/business-calculators/fbt-meal-entertainment/
 
@@ -14968,7 +14912,7 @@ Held over 4 years: two-thirds of the cost price | 2026-27, bev, first held and u
 Half a year available | 2026-27, bev, first held and used on 2022-07-01, sold 2026-27 at $60,000.00, 182 days, costs $15,000.00 with GST and $1,000.00 without, salary $100,000 | Exempt: value $5,983.56, saving $6,047.48, $3,762.72 without the exemption
 The reportable amount brings on the surcharge | 2026-27, bev, first held and used on 2022-07-01, sold 2026-27 at $60,000.00, 365 days, costs $15,000.00 with GST and $1,000.00 without, salary $120,000, no hospital cover | Exempt: value $12,000.00, saving $5,649.93, $1,502.97 without the exemption
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -14980,7 +14924,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - Car limit for depreciation: https://duguid.com.au/rates/car-limit/
 - Salary packaging calculator: https://duguid.com.au/tools/individual-tax/salary-packaging/
@@ -17064,7 +17008,7 @@ To reproduce the additional sensitivity rows, run the same command with --delay-
 
 ## Provenance and verification
 
-- Source. OzFPA at commit 386c7ff. That captured commit identifies the example and its assumptions. The current published release is OzFPA v0.8.0.
+- Source. OzFPA at commit 386c7ff. That captured commit identifies the example and its assumptions. The current GitHub release is OzFPA v0.8.0. PyPI still serves au-fpa-pack 0.7.0.
 - Distributed workbook. SHA-256 b150de6281fccb6dcb1d221c034b047eb610ad4064972c5d9ac9fca8916b8463, 23,506 bytes. Its model and all 6 input files match the captured source after normalising line endings.
 - Formula check. A fresh check on 11 September 2026 passed all 21 monthly workbook lines against the Python model, and the repository’s offline suite passed.
 - Native Excel record. The file distributed here is the exact workbook from the original native check, dated 11 September 2026, which exercised 116 cells and 13 chart values per case at 0, 45 and 100-day delays, plus invalid input bounds, formula errors and save-and-reopen behaviour. That record covers this artefact and that scenario control only.

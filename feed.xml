@@ -8,11 +8,11 @@
   <updated>2026-11-26T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
-    <title>Added the 183-day residency day count: the days in Australia in an income year…</title>
-    <link href="https://duguid.com.au/changelog/#entry-dee48b60e3e7dd02" />
-    <id>https://duguid.com.au/changelog/#entry-dee48b60e3e7dd02</id>
+    <title>The tool pages, changelog, release record and machine indexes name the releases…</title>
+    <link href="https://duguid.com.au/changelog/#entry-82c2fe0f98e0f02a" />
+    <id>https://duguid.com.au/changelog/#entry-82c2fe0f98e0f02a</id>
     <updated>2026-11-26T00:00:00Z</updated>
-    <summary>Added the 183-day residency day count: the days in Australia in an income year from 2020-21 to 2026-27, added up from arrival and departure days, against the 183-day test and its exception. It does not decide residency, and agrees with the australian-accounting residency-tests command on 667 test cases.</summary>
+    <summary>The tool pages, changelog, release record and machine indexes name the releases of 24 and 25 November: aus-accounting-mcp v0.13.0 (148 worksheet kinds with calculators 1.4.0, 29 tools), Australian Accounting Skills v0.8.1 (112 skills, Apache License 2.0), monthly-close-control-plane v1.2.0 and review-ready-gate v1.1.0 (both now under the GNU Affero General Public License v3.0 or later, with executables for 6 targets), and solomons-sword v1.0.0 and the-exchequer-tally v1.0.0, now standalone executables under the same licence; the trust distribution and company tax pages keep their pinned Python examples. The profit and cash flow case states that GitHub holds au-fpa-pack v0.8.0 whilst PyPI still serves 0.7.0.</summary>
   </entry>
   <entry>
     <title>Updated general tax question 8 after the ATO updated its How to lodge your tax…</title>
@@ -20,6 +20,48 @@
     <id>https://duguid.com.au/changelog/#entry-062afadb39b84c69</id>
     <updated>2026-11-25T00:00:00Z</updated>
     <summary>Updated general tax question 8 after the ATO updated its How to lodge your tax return page from 12 to 10 business days for returns lodged online, matching its progress page.</summary>
+  </entry>
+  <entry>
+    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.13.0</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.13.0" />
+    <id>https://duguid.com.au/changelog/#entry-651f367d536d05d0</id>
+    <updated>2026-11-25T00:00:00Z</updated>
+    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.13.0.</summary>
+  </entry>
+  <entry>
+    <title>Subcontract ledger skills v0.8.1</title>
+    <link href="https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.8.1" />
+    <id>https://duguid.com.au/changelog/#entry-088d2b94ce1ef681</id>
+    <updated>2026-11-25T00:00:00Z</updated>
+    <summary>Subcontract ledger skills: release v0.8.1.</summary>
+  </entry>
+  <entry>
+    <title>Monthly Close Controls monthly-close-control-plane/v1.2.0</title>
+    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v1.2.0" />
+    <id>https://duguid.com.au/changelog/#entry-bae64eca74a68de4</id>
+    <updated>2026-11-25T00:00:00Z</updated>
+    <summary>Monthly Close Controls: release monthly-close-control-plane/v1.2.0.</summary>
+  </entry>
+  <entry>
+    <title>Workpaper Review Gate review-ready-gate/v1.1.0</title>
+    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v1.1.0" />
+    <id>https://duguid.com.au/changelog/#entry-989fa8467475bec3</id>
+    <updated>2026-11-25T00:00:00Z</updated>
+    <summary>Workpaper Review Gate: release review-ready-gate/v1.1.0.</summary>
+  </entry>
+  <entry>
+    <title>Trust distribution checks solomons-sword/v1.0.0</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v1.0.0" />
+    <id>https://duguid.com.au/changelog/#entry-76aec896a3cfae0d</id>
+    <updated>2026-11-25T00:00:00Z</updated>
+    <summary>Trust distribution checks: release solomons-sword/v1.0.0.</summary>
+  </entry>
+  <entry>
+    <title>Company tax and franking checks the-exchequer-tally/v1.0.0</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v1.0.0" />
+    <id>https://duguid.com.au/changelog/#entry-94a62f67c18b27c1</id>
+    <updated>2026-11-25T00:00:00Z</updated>
+    <summary>Company tax and franking checks: release the-exchequer-tally/v1.0.0.</summary>
   </entry>
   <entry>
     <title>The first home owner grant calculator now takes the building contract price of…</title>
