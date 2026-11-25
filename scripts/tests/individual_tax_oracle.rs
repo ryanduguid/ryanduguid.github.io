@@ -5,8 +5,8 @@
 //! `assets/study-loan.mjs`, `assets/take-home-pay.mjs`, `assets/payg-withholding.mjs`,
 //! `assets/division-293.mjs`, `assets/sole-trader.mjs`, `assets/income-tests.mjs`,
 //! `assets/bonus-withholding.mjs`, `assets/salary-packaging.mjs`, `assets/novated-lease.mjs`,
-//! `assets/super-projection.mjs` and
-//! `assets/salary-dividend.mjs`.
+//! `assets/super-projection.mjs`, `assets/salary-dividend.mjs` and
+//! `assets/sole-trader-company.mjs`.
 //! Seeded fictional cases are worked here in exact integers, by a route the engines do not take,
 //! and each result must equal what the browser modules return under Node.
 //!
@@ -74,6 +74,7 @@ import { soleTraderSetAside } from './assets/sole-trader.mjs';
 import { incomeTests } from './assets/income-tests.mjs';
 import { superProjection } from './assets/super-projection.mjs';
 import { salaryDividend } from './assets/salary-dividend.mjs';
+import { soleTraderCompany } from './assets/sole-trader-company.mjs';
 import { workExpenses } from './assets/work-expenses.mjs';
 import { governmentSuperAmounts } from './assets/government-super.mjs';
 let input = '';
@@ -112,6 +113,13 @@ const run = {
   sole: ({ sole }) => cents(soleTraderSetAside(sole)),
   tests: ({ parts }) => cents(incomeTests(parts)),
   owner: ({ pay }) => cents(salaryDividend(pay)),
+  structures: ({ input }) => {
+    try {
+      return cents(soleTraderCompany(input));
+    } catch (error) {
+      return { error: error.message };
+    }
+  },
   work: ({ facts }) => {
     try {
       const { amounts, higherMethod } = workExpenses(facts);
@@ -2379,6 +2387,140 @@ fn the_salary_dividend_engine_agrees_with_the_oracle_and_no_dollar_of_salary_kee
             kept(&best)
         );
     }
+}
+
+const STRUCTURE_CASES: usize = 400;
+
+/// Cents as the engine's messages show them: a dollar sign, thousands separators and 2 places.
+fn aud_text(cents: u64) -> String {
+    let dollars = (cents / 100).to_string();
+    let mut grouped = String::new();
+    for (index, digit) in dollars.chars().enumerate() {
+        if index > 0 && (dollars.len() - index) % 3 == 0 {
+            grouped.push(',');
+        }
+        grouped.push(digit);
+    }
+    format!("${grouped}.{:02}", cents % 100)
+}
+
+/// One profit taxed 2 ways, in cents. As a sole trader: the sole trader oracle's year on the whole
+/// profit, with no wages, deductions, study loan or surcharge. Through a company: the salary and its
+/// super guarantee, company tax at 25% or 30% of the rest half up, the amount taken out less the
+/// salary as a dividend franked at 1/3 or 3/7 of itself rounded down (ITAA 1997 s 202-60) from the
+/// profit after tax, the rest retained; the owner's tax on the salary (less up to $1,000 from
+/// 2026-27), the dividend and its credit, to the dollar, less the credit; the top-up is that less the
+/// tax on the salary alone; super tax 15% of the super guarantee and of its part over $250,000.
+fn structures_oracle(year: &str, profit: u64, taken: u64, salary: u64, base_rate: bool, offset: bool) -> Value {
+    let o = Owner {
+        year,
+        profit,
+        base_rate,
+        other: 0,
+    };
+    let largest = owner_largest(&o);
+    if salary > largest {
+        return json!({"error": format!("Enter a salary of no more than {}: the profit also pays its super guarantee.",
+            aud_text(largest))});
+    }
+    if taken < salary {
+        return json!({"error": "Enter an amount taken out of at least the salary: the rest is the dividend."});
+    }
+    let sg = owner_super(salary, year);
+    let left = profit - salary - sg;
+    let rate = if base_rate { 25 } else { 30 };
+    let company_tax = half_up(left * rate, 100);
+    let after_tax = left - company_tax;
+    if taken - salary > after_tax {
+        return json!({"error": format!("Enter an amount taken out of no more than {}: the salary and the profit left after company tax.",
+            aud_text(salary + after_tax))});
+    }
+    let dividend = taken - salary;
+    let credit = dividend * rate / (100 - rate);
+    let deduction = if year == "2026-27" { salary.min(100_000) } else { 0 };
+    let owner_taxable = (salary + dividend + credit - deduction) / 100;
+    let salary_tax = resident_total((salary - deduction) / 100, year);
+    let top_up = resident_total(owner_taxable, year) - salary_tax - credit as i64;
+    let excess = (owner_taxable * 100 + sg).saturating_sub(25_000_000).min(sg);
+    let division_293 = half_up(excess * 15, 100);
+    let super_tax = half_up(sg * 15, 100) + division_293;
+    let total = company_tax as i64 + salary_tax + top_up + super_tax as i64;
+    let s = Sole {
+        year,
+        income: profit,
+        expenses: 0,
+        wages: 0,
+        deductions: 0,
+        contributions: 0,
+        offset,
+        loan: false,
+        cover: true,
+        gst: false,
+        credits: 0,
+        invoice: 0,
+    };
+    let taxable = profit / 100;
+    let sole = sole_year(&s, taxable, if offset { taxable } else { 0 }, 0);
+    json!({"soleTaxable": taxable * 100, "soleTax": sole[0], "soleOffsets": sole[1] + sole[2],
+        "smallBusinessOffset": sole[3], "soleMedicare": sole[4], "soleTotal": sole[7], "soleKept": profit - sole[7],
+        "companyRate": rate * 100, "superGuarantee": sg, "companyTaxable": left, "companyTax": company_tax,
+        "dividend": dividend, "credit": credit, "retained": after_tax - dividend, "ownerTaxable": owner_taxable * 100,
+        "salaryTax": salary_tax, "topUp": top_up, "superTax": super_tax, "division293": division_293,
+        "companyTotal": total, "cash": taken as i64 - salary_tax - top_up, "superKept": sg - super_tax,
+        "difference": total - sole[7] as i64, "largestSalary": largest, "largestTakenOut": salary + after_tax})
+}
+
+#[test]
+fn the_sole_trader_company_oracle_works_the_page_example_by_hand() {
+    // $150,000 as a sole trader: $36,570 tax, the full $1,000 offset, $3,000 levy. Through a base
+    // rate entity: $7,200 super guarantee, 25% of $82,800 is $20,700, a $40,000 dividend with a
+    // $13,333.33 credit and $22,100 retained; tax on $59,000 of salary is $8,105 + $1,180 levy; on
+    // $112,333 it is $24,219.90 + $2,246.66, less $9,285 and the credit, $3,848.23 of top-up.
+    let r = structures_oracle("2026-27", 15_000_000, 10_000_000, 6_000_000, true, true);
+    assert_eq!(r["soleTotal"], json!(3_857_000));
+    assert_eq!(r["smallBusinessOffset"], json!(100_000));
+    assert_eq!(
+        [&r["companyTax"], &r["credit"], &r["retained"], &r["salaryTax"], &r["topUp"], &r["superTax"],
+            &r["companyTotal"], &r["difference"]],
+        [&json!(2_070_000), &json!(1_333_333), &json!(2_210_000), &json!(928_500), &json!(384_823),
+            &json!(108_000), &json!(3_491_323), &json!(-365_677)]
+    );
+    assert_eq!(aud_text(123_456_789), "$1,234,567.89");
+    assert_eq!(aud_text(5_000), "$50.00");
+}
+
+#[test]
+fn the_sole_trader_company_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    let mut rng = Seeded(0x2026_1126_501E_C0DE);
+    let money = |cents: u64| format!("{}.{:02}", cents / 100, cents % 100);
+    let (cases, expected): (Vec<Value>, Vec<Value>) = (0..STRUCTURE_CASES)
+        .map(|_| {
+            let year = rng.pick(&PAY_YEARS);
+            let profit = rng.income(&[18_200, 45_000, 66_667, 135_000, 190_000, 250_000]) * 100 + rng.below(100);
+            let base_rate = rng.below(2) == 0;
+            let offset = rng.below(4) != 0;
+            let o = Owner {
+                year,
+                profit,
+                base_rate,
+                other: 0,
+            };
+            let largest = owner_largest(&o);
+            let any = rng.below(largest + 1);
+            let cap = super_guarantee(year).1 * 100;
+            let salary = rng.pick(&[0, largest, cap.min(largest), any, any, any, largest + 1]);
+            let left = profit.saturating_sub(salary + owner_super(salary, year));
+            let after = left - half_up(left * if base_rate { 25 } else { 30 }, 100);
+            let some = rng.below(after + 1);
+            let taken = salary + rng.pick(&[0, after, some, some, some, after + 1]);
+            let taken = if salary > 0 && rng.below(20) == 0 { salary - 1 } else { taken };
+            let input = json!({"year": year, "profit": money(profit), "takenOut": money(taken), "salary": money(salary),
+                "baseRate": base_rate, "offset": offset});
+            (json!({"kind": "structures", "input": input}),
+                structures_oracle(year, profit, taken, salary, base_rate, offset))
+        })
+        .unzip();
+    agree(&cases, &expected);
 }
 
 /// Cents a work hour for the fixed rate, and the shortcut before 2022-23: the ATO's 52 cent and
