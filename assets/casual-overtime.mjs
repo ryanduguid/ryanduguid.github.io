@@ -76,7 +76,7 @@ export function casualOvertime(x) {
   const ordinaryPay = ratioCents(rate * ordinaryHours, 100n);
   const casualLoading = ratioCents(rate * ordinaryHours * casual, 1000000n);
   const lines = x.lines.map((line, k) => {
-    if (typeof line !== 'object' || line === null || typeof line.overtime !== 'boolean') {
+    if (typeof line?.overtime !== 'boolean') {
       throw new Error(`Say whether line ${k + 1} is overtime.`);
     }
     const hours = hundredths(line.hours, `the hours on line ${k + 1}`, 1n, 100000n);
