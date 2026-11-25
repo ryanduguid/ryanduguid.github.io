@@ -1006,7 +1006,7 @@ Published 14 November 2026. Last reviewed 23 November 2026. Calendar sources che
 
 ## Weekday public holidays to 31 August 2027
 
-A weekday in this table is not a business day anywhere in Australia. Every other weekday from 1 July 2026 to 31 August 2027 is a business day.
+A weekday in this table is not a business day anywhere in Australia. The 2 part-day holidays below have unresolved status. The other weekdays in the coverage period are business days.
 
 Weekdays that are not Payday Super business days, 1 July 2026 to 31 August 2027
 
@@ -1031,7 +1031,7 @@ Mon 2 Aug 2027 | Picnic Day | NT
 
 Holidays that fall on a Saturday or Sunday are left out, because a weekend day is never a business day.
 
-Download the table as CSV: one row per date, with its weekday, holiday names, jurisdictions and the date the row was checked (checked_at).
+Download the daily calendar as CSV. Each date has a BUSINESS, NON_BUSINESS or UNKNOWN status, its reason where applicable and a checked_at date. Treat UNKNOWN as requiring review for any definitive deadline that depends on it. This file supersedes the earlier holiday-only download.
 
 ## What counts as a business day
 
@@ -1041,7 +1041,6 @@ One national calendar applies to every employer. The ATO says a state or territo
 
 A public holiday for only part of a state or territory does not count; the ATO’s example is Royal Hobart Show Day. For the same reason, these days are business days and are not in the table:
 
-- part-day holidays: Christmas Eve evening in SA, QLD and the NT, and New Year’s Eve evening in SA and the NT
 - regional show days and other local holidays, such as Royal Hobart Regatta in southern Tasmania (8 February 2027) and the Royal Queensland Show day for the Brisbane area (12 August 2026 and 11 August 2027)
 - Melbourne Cup Day (3 November 2026), which a non-metropolitan Victorian council can replace with a local holiday
 - King’s Birthday in WA (28 September 2026), which Karratha and Port Hedland observed on 3 August 2026 instead
@@ -1049,6 +1048,15 @@ A public holiday for only part of a state or territory does not count; the ATO�
 - Easter Tuesday in Tasmania (30 March 2027), which section 6 of the Statutory Holidays Act 2000 gives only to certain employees
 
 The bank holiday on the first Monday in August in NSW and the ACT does not count either: NSW says it is not a declared public holiday. In 2026 and 2027 that Monday is NT Picnic Day, so it is in the table anyway.
+
+## Part-day holidays with unresolved status
+
+The ATO Payday Super guidance leaves the treatment of statewide part-day holidays open. The calendar marks these 2 weekdays as UNKNOWN.
+
+- 24 December 2026 (Christmas Eve evening, NT, QLD, SA)
+- 31 December 2026 (New Year’s Eve evening, NT, SA)
+
+For ordinary qualifying earnings paid on 21 December 2026, the 7-business-day deadline would be 4 January 2027 if both days count, 5 January if exactly one counts or 6 January if neither counts. The SGC and Payday Super calculator withholds the deadline and charge when the scenarios differ.
 
 ## Counting a due date
 
@@ -1069,7 +1077,7 @@ It does not cover:
 - a public holiday declared or moved after 14 November 2026, such as a one-off holiday, which would change the due dates around it; check the jurisdiction’s page before relying on a date
 - an earlier deadline in a fund’s rules, an award or an enterprise agreement, or the time a clearing house or fund takes to process a payment
 
-The table and CSV are the confirmed weekday rows inside that period of data/business_days.json in payday-super-checker, copied from australian-accounting commit 701b3d4. Release v0.2.3 ships the same file. That file records its own source check on 15 August 2026; each row here was checked again against the sources below on 14 November 2026.
+The full-day holiday table uses the confirmed weekday rows inside that period of data/business_days.json in payday-super-checker, copied from australian-accounting commit 701b3d4. Release v0.2.3 ships the same file. That file records its own source check on 15 August 2026; each full-day holiday row was checked again against the sources below on 14 November 2026. The part-day holiday review on 23 November used the Queensland Holidays Act 1983, the South Australian Public Holidays Act 2023 and the Northern Territory Public Holidays Act 1981.
 
 ## Sources
 
@@ -1088,12 +1096,16 @@ Each source below was read on 14 November 2026.
 
 ## Links
 
-- Download the table as CSV: https://duguid.com.au/tools/payday-super/business-days/payday-super-business-days.csv
+- Download the daily calendar as CSV: https://duguid.com.au/tools/payday-super/business-days/payday-super-business-days-v2.csv
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - Statutory Holidays Act 2000: https://www.legislation.tas.gov.au/view/whole/html/inforce/current/act-2000-096
+- SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
 - Payday Super checker: https://duguid.com.au/tools/payday-super/
 - general business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
 - australian-accounting commit 701b3d4: https://github.com/ryanduguid/australian-accounting/blob/701b3d4425b62c1e2e707d46b754aee68470626e/packages/payday-super-checker/data/business_days.json
+- Queensland Holidays Act 1983: https://www.legislation.qld.gov.au/view/whole/html/inforce/current/act-1983-018
+- South Australian Public Holidays Act 2023: https://www.legislation.sa.gov.au/lz?path=/c/a/public%20holidays%20act%202023
+- Northern Territory Public Holidays Act 1981: https://legislation.nt.gov.au/en/Legislation/PUBLIC-HOLIDAYS-ACT-1981
 - Payment deadlines for Payday Super: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super
 - Public holidays, school terms and daylight saving: https://www.act.gov.au/living-in-the-act/public-holidays-school-terms-and-daylight-saving
 - NSW public holidays: https://www.nsw.gov.au/about-nsw/public-holidays
@@ -1196,149 +1208,3 @@ Each ATO page below was read on 15 November 2026.
 - Activity statements: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/reports-and-returns/due-dates-for-lodging-and-paying/due-dates-by-topic/activity-statements
 - Two week lodgment concession: terms and conditions: https://www.ato.gov.au/online-services/businesses-and-organisations-online-services/lodgments-in-online-services-for-business/two-week-lodgment-concession-terms-and-conditions
 - BAS agent lodgment program 2026-27: https://www.ato.gov.au/tax-and-super-professionals/for-tax-professionals/prepare-and-lodge/bas-agent-lodgment-program-2026-27
-
----
-
-# How does this business compare to ATO benchmarks?
-
-Source: https://duguid.com.au/tools/ato-benchmarks/
-
-> Current release ato-benchmark-compare v0.2.2. Compare profit and loss with ATO benchmark ranges locally. Review aid.
-
-# ATO small business benchmark comparison tool
-
-The ATO small business benchmark comparison tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range.
-
-Current release ato-benchmark-compare v0.2.2, 20 October 2026, from the australian-accounting repository. Release licence: Apache License 2.0. Published 24 August 2026. Last reviewed 23 November 2026.
-
-Delivery
-
-Python
-
-Needs
-
-Python 3.14 or later
-
-Boundary
-
-A comparison is not an audit finding or compliance conclusion.
-
-Install ato-benchmark-compare Read the worked example
-
-## Cost of sales ratio excluding wages
-
-```
-uv run --locked --extra dev --python 3.12 pytest -q tests/test_ratios.py::test_cost_of_sales_ratio_excludes_wages_inside_cost_of_sales
-```
-
-30% cost of sales on $100,000 turnover
-
-Wages of $10,000 stay in total expenses ($40,000) in v0.1.6. Read the fictional totals and setup steps.
-
-The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. Sitting outside a range is not a finding that anything is wrong.
-
-Checking a business against the benchmarks before lodgement is a useful review step, and it is usually done by hand: find the industry page, work out which turnover band applies, add up the right accounts and divide.
-
-This tool does that on your own machine, with no network call in the runtime, and it records which account went into which figure so a second reviewer can check your working later. It applies the ATO’s own narrow definitions rather than a rough 'expenses over income': wages sitting inside cost of sales come out of that ratio, and payments to associated persons come out of total expenses before the division.
-
-The workflow is 2 steps on purpose. First, the tool drafts a mapping from the profit and loss, suggesting a bucket for each account from its name alone. Then a person reviews and corrects that mapping, because no account name on its own tells you whether wages went to an associate.
-
-## What this tool does
-
-- Reads a profit and loss and maps each account to the ATO’s benchmark categories, with a person reviewing that mapping before anything is compared.
-- Applies the ATO’s own narrow definitions of turnover, cost of sales and total expenses, for example excluding wages inside cost of sales from that ratio and deducting payments to associated persons from total expenses.
-- Prints the figures behind each ratio and shows whether it sits inside or outside the ATO’s published range.
-
-## Worked example: cost of sales excluding wages
-
-The fictional example below comes from the ratio tests in ato-benchmark-compare v0.1.6. It starts with mapped totals:
-
-- Turnover: $100,000.
-- Cost of sales excluding wages: $30,000.
-- Wages recorded within cost of sales, mapped separately: $10,000.
-
-The cost of sales ratio is $30,000 ÷ $100,000 = 30%. The $10,000 of wages remains in reported total expenses, which are $40,000 in this example.
-
-A person must review the mapping and select the relevant industry, year and turnover band before comparing that 30% with an ATO range. This example does not establish whether a business falls within a benchmark.
-
-### Reproduce this exact example
-
-This example uses v0.1.6 under the MIT License.
-
-In a fresh folder, with Git and uv installed, run the test at the release used above:
-
-```
-git clone https://github.com/ryanduguid/australian-accounting.git
-cd australian-accounting
-git checkout ato-benchmark-compare/v0.1.6
-cd packages/ato-benchmark-compare
-uv run --locked --extra dev --python 3.12 pytest -q tests/test_ratios.py::test_cost_of_sales_ratio_excludes_wages_inside_cost_of_sales
-```
-
-Expected: one passing test and exit 0. The test asserts the figures above. The broader sample under Get it contains different inputs.
-
-## Limits
-
-Sitting outside a range is not a finding that anything is wrong. The ATO publishes ranges because businesses differ.
-
-## Get it
-
-Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. These commands install v0.2.2 under the Apache License 2.0. This is the last Python release; the default branch now holds an unreleased Rust rewrite that pip does not install.
-
-```
-git clone https://github.com/ryanduguid/australian-accounting.git
-git -C australian-accounting checkout ato-benchmark-compare/v0.2.2
-cd australian-accounting/packages/ato-benchmark-compare
-pip install .
-```
-
-Source on GitHub · Primary source: the ATO’s small business benchmarks.
-
-One known limitation is recorded against this tool. When a bucket a ratio needs is absent from the supplied totals, it reaches the command-line comparison as exactly the nil that a genuine zero produces, while the Python library marks it not_supplied. The two output paths differ in releases up to 0.1.7. Release 0.1.8 gates the command line on the same presence rules as the library, so a bucket no account was mapped to reads not_supplied on both. That is separate from a profit and loss account with no mapping entry, which stops the comparison with a mapping error before any ratio is produced. Check the required buckets, including income fields, before relying on a ratio. See Known limitations.
-
-Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out. Wrong rate, date or rule on this page? Report a correction.
-
-## Common questions
-
-### What are the ATO small business benchmarks?
-
-Ranges the ATO publishes for around 100 industries, showing the usual relationship between figures such as cost of sales and turnover. The ATO uses them to decide which businesses to examine.
-
-### Does being outside a benchmark range mean something is wrong?
-
-No. Businesses differ, which is why the ATO publishes a range rather than a point. A ratio outside the range is a prompt to explain why.
-
-### Does this tool send my client data anywhere?
-
-No. It runs on your own machine with no network call in the runtime, and it records which account went into which figure so a colleague can check the comparison later.
-
-### Why does a person have to review the account mapping?
-
-Because no account name on its own tells you whether wages went to an associated person, and the ATO’s definitions turn on that. The tool drafts the mapping, a person corrects it, and only then is anything compared.
-
-## Related
-
-- Company tax rate and franking account checks
-- A Xero trial balance export that balances
-- Evidence and Assurance
-- About Ryan Duguid
-
-## Links
-
-- v0.2.2: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.2.2
-- australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
-- Apache License 2.0: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.2.2/packages/ato-benchmark-compare/LICENSE
-- Install ato-benchmark-compare: https://duguid.com.au/tools/ato-benchmarks/#get-it
-- Read the worked example: https://duguid.com.au/tools/ato-benchmarks/#worked-example
-- ratio tests in ato-benchmark-compare v0.1.6: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/tests/test_ratios.py
-- MIT License: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/LICENSE
-- uv: https://docs.astral.sh/uv/
-- small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
-- Known limitations: https://duguid.com.au/tools/limitations/
-- Open an issue: https://github.com/ryanduguid/australian-accounting/issues
-- contact page: https://duguid.com.au/contact/
-- Report a correction: https://github.com/ryanduguid/ryanduguid.github.io/issues/new?template=content_correction.yml
-- Company tax rate and franking account checks: https://duguid.com.au/tools/company-tax-franking/
-- A Xero trial balance export that balances: https://duguid.com.au/tools/xero-trial-balance/
-- Evidence and Assurance: https://duguid.com.au/evidence/
-- About Ryan Duguid: https://duguid.com.au/about/

@@ -30,6 +30,18 @@ Boundary
 
 A comparison is not an audit finding or compliance conclusion.
 
+Install ato-benchmark-compare Read the worked example
+
+## Cost of sales ratio excluding wages
+
+```
+uv run --locked --extra dev --python 3.12 pytest -q tests/test_ratios.py::test_cost_of_sales_ratio_excludes_wages_inside_cost_of_sales
+```
+
+30% cost of sales on $100,000 turnover
+
+Wages of $10,000 stay in total expenses ($40,000) in v0.1.6. Read the fictional totals and setup steps.
+
 The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. Sitting outside a range is not a finding that anything is wrong.
 
 Checking a business against the benchmarks before lodgement is a useful review step, and it is usually done by hand: find the industry page, work out which turnover band applies, add up the right accounts and divide.
@@ -118,13 +130,13 @@ Because no account name on its own tells you whether wages went to an associated
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
-
 ## Links
 
 - v0.2.2: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.2.2
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - Apache License 2.0: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.2.2/packages/ato-benchmark-compare/LICENSE
+- Install ato-benchmark-compare: https://duguid.com.au/tools/ato-benchmarks/#get-it
+- Read the worked example: https://duguid.com.au/tools/ato-benchmarks/#worked-example
 - ratio tests in ato-benchmark-compare v0.1.6: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/tests/test_ratios.py
 - MIT License: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/LICENSE
 - uv: https://docs.astral.sh/uv/
