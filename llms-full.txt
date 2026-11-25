@@ -12318,9 +12318,9 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 One pay period at the rates you enter
 
-Payday Base hourly rate (AUD) Casual loading on ordinary hours (%; 0 if not casual) Ordinary hours at the base rate
+Payday Base hourly rate (AUD) Casual loading on ordinary hours (%; 0 if not casual) Ordinary hours at the base rate, leaving out hours on the lines below
 
-Penalty or overtime hours (0 hours for an unused line)
+Penalty or overtime hours, not also counted above (0 for an unused line)
 
 Line 1 hours Line 1 rate (% of the base rate)
 
@@ -12342,23 +12342,23 @@ Paid annual leave in this pay (not for a casual; enter 0 for none)
 
 Hours of annual leave at the base rate Annual leave loading (%)
 
-The loading is paid for overtime the employee would have worked No Yes
+The whole loading is paid for overtime the employee would have worked No Yes
 
 Calculate
 
 This calculator applies no award, agreement or minimum rate. Enter each rate as the award, enterprise agreement or contract sets it; the Fair Work Ombudsman’s pay guides and Pay and Conditions Tool give award rates. Some pay guides state a casual penalty rate with the loading already in it.
 
-Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: payday 10 July 2026; base rate $30.00 an hour; casual loading 25%; 30 ordinary hours; 5 hours at 150%, ordinary hours; 3 hours at 175%, overtime. Ordinary hours at the base rate $900.00 Casual loading of 25% $225.00 5 hours at 150%, ordinary hours $225.00 3 hours at 175%, overtime, not ordinary time earnings $157.50 Gross pay $1,507.50 Qualifying earnings, the ordinary time earnings in this pay $1,350.00 Super guarantee at 12% of qualifying earnings $162.00 Paid from 1 July 2026: the super guarantee is due for this payday under Payday Super, on qualifying earnings.
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: payday 10 July 2026; base rate $30.00 an hour; casual loading 25%; 30 ordinary hours; 5 hours at 150%, ordinary hours; 3 hours at 175%, overtime. Ordinary hours at the base rate $900.00 Casual loading of 25% $225.00 5 hours at 150%, ordinary hours $225.00 3 hours at 175%, overtime, not ordinary time earnings $157.50 Gross pay $1,507.50 Qualifying earnings, the ordinary time earnings in this pay $1,350.00 Super guarantee at 12% of qualifying earnings $162.00 Paid from 1 July 2026: under Payday Super the super guarantee amount arises on this payday, on qualifying earnings.
 
 ## How the casual and overtime pay calculator works
 
-The calculator works one employee’s gross pay for one pay period from the rates you enter, then the super guarantee on the part that is ordinary time earnings. Ordinary hours are paid at the base hourly rate, plus the casual loading as a percentage of it for a casual. Each penalty or overtime line is its hours at the percentage of the base rate you enter, such as 150% for time and a half. Annual leave is paid at the base rate with any leave loading. Each amount is worked exactly and rounded to the cent once.
+The calculator works one employee’s gross pay for one pay period from the rates you enter, then the super guarantee on the part that is ordinary time earnings. Ordinary hours are paid at the base hourly rate, plus the casual loading as a percentage of it for a casual. Each penalty or overtime line is its hours at the percentage of the base rate you enter, such as 150% for time and a half. Each hour is entered once, as an ordinary hour or on one line. Annual leave is paid at the base rate with any leave loading. Each amount is worked exactly and rounded to the cent once.
 
-Ordinary time earnings are the pay for ordinary hours, the casual loading, penalty rates and shift loadings on ordinary hours, paid leave and a leave loading, unless the loading is paid for overtime the employee would have worked. Pay for overtime hours is not ordinary time earnings. For a payday from 1 July 2026, the super guarantee is 12% of qualifying earnings, which here are the ordinary time earnings in the pay; for a payday from 1 July 2025 to 30 June 2026, it is 12% of the ordinary time earnings under the quarterly rules. The calculator refuses a pay whose ordinary time earnings alone exceed the maximum contribution base.
+Ordinary time earnings are the pay for ordinary hours, the casual loading, penalty rates and shift loadings on ordinary hours, paid leave and a leave loading, unless the whole loading is paid for overtime the employee would have worked; a loading paid only partly for that is counted in full. Pay for overtime hours is not ordinary time earnings. For a payday from 1 July 2026, the super guarantee is 12% of qualifying earnings, which here are the ordinary time earnings in the pay; for a payday from 1 July 2025 to 30 June 2026, it is 12% of the ordinary time earnings under the quarterly rules. The calculator does not work out when the fund must receive the contribution: the SGC and Payday Super calculator does. The calculator refuses a pay whose ordinary time earnings alone exceed the maximum contribution base.
 
 ## What the casual and overtime pay calculator does not cover
 
-The calculator applies no award, enterprise agreement or minimum rate, and does not check that the rates you enter meet one: the Fair Work Ombudsman’s pay guides and Pay and Conditions Tool give award rates. It does not decide which hours are ordinary hours or overtime, whether a casual loading compounds with a penalty rate, or how an award rounds its rates; enter those as your award or agreement states them. It does not check whether the employee or the earnings are excluded from the super guarantee. It leaves out allowances, commission, bonuses, salary sacrifice, other qualifying earnings, PAYG withholding, payroll tax and workers compensation, and it does not track the maximum contribution base across a quarter or year: it assumes earlier pays have not reached it. Paydays before 1 July 2025 or after 30 June 2027 are refused. The ATO’s draft qualifying earnings ruling may change when it is finalised. Results are planning estimates: check them against the award or agreement and the ATO’s guidance.
+The calculator applies no award, enterprise agreement or minimum rate, and does not check that the rates you enter meet one: the Fair Work Ombudsman’s pay guides and Pay and Conditions Tool give award rates. It does not decide which hours are ordinary hours or overtime, whether a casual loading compounds with a penalty rate, or how an award rounds its rates; enter those as your award or agreement states them. It does not check whether the employee or the earnings are excluded from the super guarantee. It leaves out allowances, commission, bonuses, salary sacrifice, other qualifying earnings, PAYG withholding, payroll tax and workers compensation, and it does not track the maximum contribution base across a quarter or year: it assumes earlier pays have not reached it. Paydays before 1 July 2025 or after 30 June 2027 are refused. The calculator follows the ATO’s view of ordinary time earnings. In Department of Education v Commissioner of Taxation [2026] FCA 898 the Federal Court held that a salary loading allowance paid on top of the salary for ordinary hours was not ordinary time earnings; the Commissioner has appealed, will not finalise the draft qualifying earnings ruling until the appeal ends, and meanwhile decides by the existing view. The outcome may change how loadings are treated. Results are planning estimates: check them against the award or agreement and the ATO’s guidance.
 
 ## Boundary cases
 
@@ -12387,6 +12387,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - pay guides: https://www.fairwork.gov.au/pay-and-wages/minimum-wages/pay-guides
 - Pay and Conditions Tool: https://calculate.fairwork.gov.au/
+- SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
 - fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
