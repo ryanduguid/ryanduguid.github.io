@@ -286,5 +286,5 @@ export function taxInvoiceResult(value, aud) {
     checks: r.checks,
   };
   return { inputs: taxInvoiceInputsText(input), rows, principal: 1, tables, html: invoiceAsHtml(r, aud),
-    note: 'Each detail section 29-70(1) requires is shown; download the invoice to print it or save it as PDF. A valid check digit does not show an ABN is active or registered for GST' };
+    note: 'Download the invoice to print it or save it as PDF. A valid check digit does not show an ABN is active or registered for GST' };
 }
