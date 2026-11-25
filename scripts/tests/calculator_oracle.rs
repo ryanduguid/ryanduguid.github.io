@@ -10282,7 +10282,14 @@ fn co_case(rng: &mut Seeded) -> (Value, Value) {
     let (mut penalty, mut overtime) = (0_u128, 0_u128);
     for _ in 0..rng.below(5) {
         let hours = 1 + u128::from(rng.below(2_000));
-        let percent = u128::from(rng.pick(&[11_500, 15_000, 17_500, 20_000, 25_000, 10_000 + rng.below(20_001)]));
+        let percent = u128::from(rng.pick(&[
+            11_500,
+            15_000,
+            17_500,
+            20_000,
+            25_000,
+            10_000 + rng.below(20_001),
+        ]));
         let is_overtime = rng.below(2) == 0;
         let pay = exact_half_up(rate * hours * percent, 1_000_000);
         if is_overtime {
@@ -10292,10 +10299,21 @@ fn co_case(rng: &mut Seeded) -> (Value, Value) {
         }
         lines.push(json!({ "hours": co_text(hours), "percent": co_text(percent), "overtime": is_overtime }));
     }
-    let leave = if casual == 0 { u128::from(rng.pick(&[0, rng.below(4_001)])) } else { 0 };
+    let leave = if casual == 0 {
+        u128::from(rng.pick(&[0, rng.below(4_001)]))
+    } else {
+        0
+    };
     let leave_rate = u128::from(rng.pick(&[0, 1_750, rng.below(10_001)]));
     let lost_overtime = rng.below(2) == 0;
-    let payday = rng.pick(&["2025-07-01", "2025-11-14", "2026-06-30", "2026-07-01", "2026-12-24", "2027-06-30"]);
+    let payday = rng.pick(&[
+        "2025-07-01",
+        "2025-11-14",
+        "2026-06-30",
+        "2026-07-01",
+        "2026-12-24",
+        "2027-06-30",
+    ]);
     let ordinary_pay = exact_half_up(rate * ordinary * 10_000, 1_000_000);
     let loading = exact_half_up(rate * ordinary * casual, 1_000_000);
     let leave_pay = exact_half_up(rate * leave * 10_000, 1_000_000);
@@ -10322,7 +10340,9 @@ fn the_casual_overtime_engine_agrees_with_the_oracle_on_every_seeded_case() {
     let mut rng = Seeded(0x2026_1126_0000_0C07);
     let (cases, expected): (Vec<_>, Vec<_>) = (0..CO_CASES).map(|_| co_case(&mut rng)).unzip();
     let some = |key: &str| expected.iter().any(|want| want[key] != "0");
-    assert!(some("casualLoading") && some("overtimePay") && some("penaltyPay") && some("leaveLoading"));
+    assert!(
+        some("casualLoading") && some("overtimePay") && some("penaltyPay") && some("leaveLoading")
+    );
     let actual = run_node(CO_HARNESS, &cases);
     assert_eq!(actual.len(), CO_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
