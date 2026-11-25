@@ -39,11 +39,13 @@ through the draft [WebMCP](https://webmachinelearning.github.io/webmcp/)
 `calculate_workers_compensation_premium`, `calculate_business_days`, `calculate_division_296_tax`,
 `calculate_fbt_car`, `calculate_fbt_car_parking`, `calculate_fbt_expense_payment`, `calculate_fbt_loan`,
 `calculate_fbt_meal_entertainment`, `calculate_fbt_property`, `calculate_land_tax`,
-`calculate_termination_payment` and `calculate_transfer_duty` on 54 of the 57 business calculator pages,
+`calculate_termination_payment`, `calculate_transfer_duty`,
+`calculate_rd_tax_offset`, `calculate_gst_adjustments` and `calculate_deferred_tax` on the 57 business calculator pages,
 `estimate_income_tax`, `calculate_take_home_pay`, `calculate_study_loan_repayment`, `calculate_sole_trader_set_aside`,
 `calculate_lump_sum_arrears`, `calculate_division_293_tax`, `calculate_income_tests`, `calculate_concessional_catch_up`,
 `calculate_bonus_withholding`, `calculate_salary_packaging`, `calculate_novated_lease`, `project_super_balance`,
-`calculate_fhss_release`, `calculate_work_expenses` and `calculate_government_super_amounts` on 15 of the 17 individual tax
+`calculate_fhss_release`, `calculate_work_expenses`, `calculate_government_super_amounts`,
+`calculate_pension_minimum` and `calculate_transfer_balance` on the 17 individual tax
 calculator pages, `calculate_decline_in_value` on the depreciation rates page and
 `calculate_coal_lsl_levy` on the Coal LSL levy calculator.
 `assets/accounting-pages.mjs`, `assets/depreciation-calculator-page.mjs` and
@@ -75,9 +77,9 @@ signal from Firefox or Safari; the specification was a W3C Community Group draft
 dated 13 November 2026. No origin-trial token is committed; registering one is an
 account action for the site owner. No trial with a real agent is recorded for
 any tool here, the GST pilot included. The earlier rule was to add calculators only after that
-trial; the 70 tools beyond GST were added without it: 5 on 15 November 2026,
+trial; the 75 tools beyond GST were added without it: 5 on 15 November 2026,
 4 on 18 November, 12 on 19 November (when the loan payment tool became the loan and
-hire purchase schedule tools, and the Division 293, income tests, long service leave, bonus withholding, salary packaging, novated lease, fuel tax credit, borrowing expenses, AASB 16 lease and super projection tools were added), 6 on 24 November (study loan repayment, concessional catch-up, lump sum in arrears, FHSS, work expenses and government super amounts), 14 more on 24 November (ASIC fees, ATO penalties and interest, business use share, fixed fee, franking account, GIC payment plan, GST margin scheme, hourly pricing, luxury car tax, margin and markup, objection deadline, budget variance, vehicle classifier and wine equalisation tax), 9 more on 24 November (13-week cash forecast, depreciation pools and capital works, Division 7A loan schedule, first home owner grant, PAYG instalments, payroll tax, salary against dividends, SGC and Payday Super, and staff cost), 9 more on 24 November (capital gains tax, small business CGT concessions, PCG 2021/4 risk scorer, PCG 2021/4 allocation, PSI rules checker, rental property, super lump sum tax, unused leave on termination and workers compensation premium) and 11 more on 24 November (business days, Division 296 tax, FBT car, FBT car parking, FBT expense payment, FBT loan, FBT meal entertainment, FBT property, land tax, redundancy and ETP withholding, and transfer duty). Only the Node tests and browser tests with a
+hire purchase schedule tools, and the Division 293, income tests, long service leave, bonus withholding, salary packaging, novated lease, fuel tax credit, borrowing expenses, AASB 16 lease and super projection tools were added), 6 on 24 November (study loan repayment, concessional catch-up, lump sum in arrears, FHSS, work expenses and government super amounts), 14 more on 24 November (ASIC fees, ATO penalties and interest, business use share, fixed fee, franking account, GIC payment plan, GST margin scheme, hourly pricing, luxury car tax, margin and markup, objection deadline, budget variance, vehicle classifier and wine equalisation tax), 9 more on 24 November (13-week cash forecast, depreciation pools and capital works, Division 7A loan schedule, first home owner grant, PAYG instalments, payroll tax, salary against dividends, SGC and Payday Super, and staff cost), 9 more on 24 November (capital gains tax, small business CGT concessions, PCG 2021/4 risk scorer, PCG 2021/4 allocation, PSI rules checker, rental property, super lump sum tax, unused leave on termination and workers compensation premium) and 11 more on 24 November (business days, Division 296 tax, FBT car, FBT car parking, FBT expense payment, FBT loan, FBT meal entertainment, FBT property, land tax, redundancy and ETP withholding, and transfer duty) and 5 more on 25 November (R&D tax offset, GST adjustments, deferred tax, pension minimum payment and transfer balance). Only the Node tests and browser tests with a
 stand-in `modelContext` check them.
 Cloudflare's WebMCP toggle is a separate edge-injected bridge and stays off:
 its packs cover image provenance and a same-origin `/mcp` endpoint, and this

@@ -670,6 +670,6 @@ export { firbApplicationFee, firbFee, foreignSurcharge, foreignSurchargeResult }
 export { businessDays, businessDaysResult, parseHolidays } from './business-days.mjs';
 export { gstCreditablePurposeChange, gstAnnualApportionment, gstFinancialAcquisitionsThreshold, gstGoingConcern, gstSecondHandGoods, gstBadDebt,
   GST_ADJUSTMENT_YEARS } from './gst-adjustments.mjs';
-export { gstAdjustment, gstAdjustmentsResult, gstFormInput, gstInputsText, GST_WORKSHEETS } from './gst-adjustments-page.mjs';
+export { gstAdjustment, gstAdjustmentsResult, gstFormInput, gstInputsText, percentFraction, GST_WORKSHEETS } from './gst-adjustments-page.mjs';
 export { deferredTax, deferredTaxResult, deferredTaxFormInput, deferredTaxInputsText, DEFERRED_TAX_YEARS, DEFERRED_TAX_ROWS,
   DEFERRED_TAX_MISMATCH } from './deferred-tax.mjs';

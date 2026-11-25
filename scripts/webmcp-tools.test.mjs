@@ -7,12 +7,15 @@ import * as calculate from '../assets/business-calculators.mjs';
 import { readFileSync, readdirSync } from 'node:fs';
 import {
   calculatorTools, depreciationTools, fhssTools, governmentSuperTools, individualTaxTools, levyTools, ozzitTools,
-  workExpensesTools,
+  pensionMinimumTools, transferBalanceTools, workExpensesTools,
 } from '../assets/webmcp-tools.mjs';
 import { engines as individualEngines } from '../assets/individual-tax-results.mjs';
 import { fhss } from '../assets/fhss-result.mjs';
 import { workExpenses, workExpensesYears } from '../assets/work-expenses-result.mjs';
 import { governmentSuperAmounts, governmentSuperYears } from '../assets/government-super-result.mjs';
+import { PENSION_MINIMUM_YEARS, pensionMinimum } from '../assets/pension-minimum.mjs';
+import { ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, excessContributions } from '../assets/excess-contributions.mjs';
+import { TBA_KINDS, TBA_YEARS, dayOf, label, transferBalance, yearOf } from '../assets/transfer-balance.mjs';
 import * as depreciation from '../assets/depreciation-rates.mjs';
 import { computeEntry } from '../assets/levy-form.mjs';
 import { levyCents } from '../assets/levy.mjs';
@@ -94,6 +97,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_business_days', 'calculate_division_296_tax', 'calculate_fbt_car', 'calculate_fbt_car_parking',
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
+    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -456,6 +460,8 @@ const individual = {
   ...fhssTools({ fhss }),
   ...workExpensesTools({ workExpenses, workExpensesYears }),
   ...governmentSuperTools({ governmentSuperAmounts, governmentSuperYears }),
+  ...pensionMinimumTools({ pensionMinimum, PENSION_MINIMUM_YEARS }),
+  ...transferBalanceTools({ ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance, yearOf }),
 };
 
 test('each individual tax tool is keyed by the form that registers it and is read-only', () => {
@@ -464,7 +470,7 @@ test('each individual tax tool is keyed by the form that registers it and is rea
     'calculate_sole_trader_set_aside', 'calculate_lump_sum_arrears', 'calculate_division_293_tax',
     'calculate_concessional_catch_up', 'calculate_bonus_withholding', 'calculate_salary_packaging',
     'calculate_novated_lease', 'calculate_fhss_release', 'calculate_work_expenses',
-    'calculate_government_super_amounts']);
+    'calculate_government_super_amounts', 'calculate_pension_minimum', 'calculate_transfer_balance']);
   for (const [key, t] of Object.entries(individual)) {
     const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`), key);
@@ -1662,21 +1668,14 @@ test('workers compensation tool returns the page worked example, supports statut
 });
 
 
-// Calculators added on 24 November 2026 whose WebMCP tools are still to be written. Remove each slug as its tool lands.
-const AWAITING_TOOLS = ['deferred-tax', 'gst-adjustments', 'pension-minimum', 'rd-tax-offset', 'transfer-balance'];
-
 test('every calculator include in _includes/calculators has a registered WebMCP tool', () => {
   const slugs = readdirSync('_includes/calculators')
     .filter((name) => name.endsWith('.html'))
     .map((name) => name.slice(0, -5))
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
-  for (const slug of AWAITING_TOOLS) {
-    assert.ok(slugs.includes(slug), `${slug} is awaiting a tool but has no include`);
-    assert.ok(!registered.includes(slug), `${slug} has a tool now: remove it from AWAITING_TOOLS`);
-  }
-  assert.deepEqual(registered, slugs.filter((slug) => !AWAITING_TOOLS.includes(slug)));
-  assert.equal(registered.length + 2, 71);
+  assert.deepEqual(registered, slugs);
+  assert.equal(registered.length + 2, 76);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
@@ -1953,4 +1952,215 @@ test('transfer duty tool returns worked examples, matches duty-jurisdictions.htm
   assert.deepEqual([tas.firstHomeConcessionApplies, tas.firstHomeBuyerDuty], [false, '18247.50']);
   await assert.rejects(tool.execute({ place: 'AU-NSW', dutiableValue: 0 }), /dutiableValue must be a whole number/);
   await assert.rejects(tool.execute({ place: 'AU-NSW', dutiableValue: 1350000, extra: 1 }), /extra is not an input of this tool/);
+});
+
+test('R&D tax offset tool returns ATO worked examples, covers refundable and clawback tiers and refuses invalid inputs', async () => {
+  const tool = tools['rd-tax-offset'];
+  const nonRefund = await tool.execute({
+    incomeYear: '2021-22', notionalDeductions: '3600000', aggregatedTurnover: '60000000',
+    baseRateEntity: false, totalExpenses: '15000000', recoupmentClawback: '2300000', presentYearBaseRateEntity: false,
+  });
+  assert.deepEqual([nonRefund.refundable, nonRefund.taxOffset, nonRefund.clawbackAmount, nonRefund.adjustedOffset,
+    nonRefund.deductionAmount, nonRefund.clawbackIncome, nonRefund.currency, nonRefund.source],
+  [false, '1650000.00', '2300000.00', '580500.00', '690000.00', '1265000.00', 'AUD', 'https://duguid.com.au/tools/business-calculators/rd-tax-offset/']);
+  assert.doesNotThrow(() => JSON.stringify(nonRefund));
+  const refund = await tool.execute({
+    incomeYear: '2025-26', notionalDeductions: '100000', aggregatedTurnover: '19999999.99',
+    baseRateEntity: true, totalExpenses: '1000000',
+  });
+  assert.deepEqual([refund.refundable, refund.corporateTaxRatePercent, refund.refundableOffset, refund.nonRefundableOffset],
+    [true, 25, '43500.00', '0.00']);
+  const belowThreshold = await tool.execute({
+    incomeYear: '2024-25', notionalDeductions: '19999.99', rspCrcExpenditure: '5000', aggregatedTurnover: '10000000',
+    baseRateEntity: true, totalExpenses: '100000',
+  });
+  assert.deepEqual([belowThreshold.offsetBase, belowThreshold.taxOffset], ['5000.00', '2175.00']);
+  await assert.rejects(tool.execute({
+    incomeYear: '2020-21', notionalDeductions: '100000', aggregatedTurnover: '10000000', totalExpenses: '100000',
+  }), /incomeYear does not match/);
+  await assert.rejects(tool.execute({
+    incomeYear: '2024-25', notionalDeductions: '1000', rspCrcExpenditure: '1000.01', aggregatedTurnover: '10000000', totalExpenses: '100000',
+  }), /cannot exceed them/);
+  await assert.rejects(tool.execute({
+    incomeYear: '2024-25', notionalDeductions: '100000', aggregatedTurnover: '10000000', totalExpenses: '100000', recoupmentClawback: '80000.01',
+  }), /does not choose between them/);
+  await assert.rejects(tool.execute({
+    incomeYear: '2024-25', notionalDeductions: '100000', aggregatedTurnover: '10000000', totalExpenses: '100000', scopeConfirmed: false,
+  }), /Establish all stated scope conditions/);
+  await assert.rejects(tool.execute({
+    incomeYear: '2024-25', notionalDeductions: '100000', aggregatedTurnover: '10000000', totalExpenses: '100000', extra: 1,
+  }), /extra is not an input of this tool/);
+});
+
+test('GST adjustments tool runs all 6 worksheets and refuses mismatched, conditional or scope-barred inputs', async () => {
+  const tool = tools['gst-adjustments'];
+  const cp = await tool.execute({
+    worksheet: 'creditable-purpose', year: '2021-22', gstExclusiveValue: '3000', relatesToBusinessFinance: false,
+    fullInputTaxCredit: '300', intendedOrFormerApplicationPercent: '90', actualApplicationPercent: '60',
+    applicationBasis: 'Logbook of business use', attributedPeriodEnd: '2021-03-31', taxPeriodMonths: 3,
+  });
+  assert.deepEqual([cp.outcome, cp.amount, cp.adjustmentPeriod.number, cp.currency, cp.source],
+    ['increasing adjustment', '90.00', 1, 'AUD', 'https://duguid.com.au/tools/business-calculators/gst-adjustments/']);
+  assert.doesNotThrow(() => JSON.stringify(cp));
+  const aa = await tool.execute({
+    worksheet: 'annual-apportionment', year: '2025-26', smallBusinessEntity: true, carriesOnBusiness: true,
+    instalmentElection: false, annualTaxPeriodElection: false, electionMade: true, gstOnAcquisition: '50',
+    creditablePurposePercent: '10',
+  });
+  assert.deepEqual([aa.outcome, aa.amount], ['increasing adjustment', '45.00']);
+  const fat = await tool.execute({
+    worksheet: 'financial-acquisitions', year: '2025-26', gstGroup: true, currentFinancialCredits: '3600',
+    currentTotalCredits: '69000', futureFinancialCredits: '10200', futureTotalCredits: '99000',
+  });
+  assert.deepEqual([fat.exceedsThreshold, fat.amount, fat.failingConditions], [true, null, ['future_within_ten_percent']]);
+  const gc = await tool.execute({
+    worksheet: 'going-concern', year: '2025-26', forConsideration: true, recipientRegistration: 'registered',
+    writtenAgreement: 'on_or_before_supply_day', allThingsNecessary: true, carriedOnUntilSupply: true,
+  });
+  assert.deepEqual([gc.gstFree, gc.outcome], [true, 'GST-free']);
+  const shg = await tool.execute({
+    worksheet: 'second-hand-goods', year: '2025-26', consideration: '5500', acquiredForSaleOrExchange: true,
+    animalsOrPlants: false, supplyToYou: 'neither', imported: false, byWayOfHire: false, resupplyTaxable: true, resupplyGst: '300',
+  });
+  assert.deepEqual([shg.applies, shg.amount], [true, '300.00']);
+  const bd = await tool.execute({
+    worksheet: 'bad-debt', year: '2021-22', party: 'supplier', event: 'overdue_12_months', amount: '550',
+    taxableOrCreditable: true, cashBasis: false, specialRule: 'none', attributed: true,
+    overdueFrom: '2021-04-16', asAt: '2022-04-16',
+  });
+  assert.deepEqual([bd.applies, bd.direction, bd.amount], [true, 'decreasing', '50.00']);
+  await assert.rejects(tool.execute({
+    worksheet: 'creditable-purpose', year: '2021-22', gstExclusiveValue: '3000', relatesToBusinessFinance: false,
+    fullInputTaxCredit: '300', intendedOrFormerApplicationPercent: '90', actualApplicationPercent: '60',
+    applicationBasis: 'Logbook', attributedPeriodEnd: '2021-02-29', taxPeriodMonths: 3,
+  }), /attributed_period_end must be/);
+  await assert.rejects(tool.execute({
+    worksheet: 'creditable-purpose', year: '2021-22', gstExclusiveValue: '3000', relatesToBusinessFinance: false,
+    fullInputTaxCredit: '300', intendedOrFormerApplicationPercent: '90', actualApplicationPercent: '60',
+    applicationBasis: 'Logbook', attributedPeriodEnd: '2021-03-31', taxPeriodMonths: 3, car: true,
+  }), /car does not apply when using "creditable-purpose"/);
+  await assert.rejects(tool.execute({
+    worksheet: 'going-concern', year: '2025-26', forConsideration: true, recipientRegistration: 'registered',
+    writtenAgreement: 'on_or_before_supply_day', allThingsNecessary: true, carriedOnUntilSupply: true, farmLand: true,
+  }), /Subdivision 38-O/);
+  await assert.rejects(tool.execute({
+    worksheet: 'second-hand-goods', year: '2025-26', consideration: '300', acquiredForSaleOrExchange: true,
+    animalsOrPlants: false, supplyToYou: 'neither', imported: false, byWayOfHire: false, resupplyTaxable: true, resupplyGst: '10',
+  }), /more than \$300/);
+  await assert.rejects(tool.execute({
+    worksheet: 'bad-debt', year: '2025-26', party: 'supplier', event: 'written_off', amount: '550',
+    taxableOrCreditable: true, cashBasis: false, specialRule: 'none', attributed: true, reducedCreditAcquisition: false,
+  }), /not an input for this party/);
+  await assert.rejects(tool.execute({
+    worksheet: 'going-concern', year: '2025-26', forConsideration: true, recipientRegistration: 'registered',
+    writtenAgreement: 'on_or_before_supply_day', allThingsNecessary: true, carriedOnUntilSupply: true, extra: 1,
+  }), /extra is not an input of this tool/);
+});
+
+test('deferred tax tool returns AASB 112 example, supports losses and negative profit and refuses barred items', async () => {
+  const tool = tools['deferred-tax'];
+  const r = await tool.execute({
+    incomeYear: '2025-26',
+    items: [
+      { label: 'Plant', class: 'asset', carryingAmount: '70000', taxBase: '50000', openingCarryingAmount: '80000', openingTaxBase: '65000' },
+      { label: 'Leave provision', class: 'liability', carryingAmount: '12000', taxBase: '0', openingCarryingAmount: '10000', openingTaxBase: '0' },
+      { label: 'Prepayment', class: 'asset', carryingAmount: '3000', taxBase: '0', openingCarryingAmount: '2000', openingTaxBase: '0' },
+    ],
+    accountingProfit: '100000', nonDeductibleExpenses: '4000', taxableIncome: '100000',
+  });
+  assert.deepEqual([r.deferredTaxLiability, r.deferredTaxAsset, r.netDeferredTaxLiability, r.deferredTaxExpense,
+    r.currentTax, r.incomeTaxExpense, r.effectiveTaxRate, r.warnings, r.currency, r.source],
+  ['6900.00', '3600.00', '3300.00', '1200.00', '30000.00', '31200.00', '0.3120', [], 'AUD',
+    'https://duguid.com.au/tools/business-calculators/deferred-tax/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const loss = await tool.execute({
+    incomeYear: '2020-21', baseRateEntity: true, expectedRate: 'standard',
+    items: [{ label: 'Asset', class: 'asset', carryingAmount: '1000', taxBase: '1000', openingCarryingAmount: '0', openingTaxBase: '0' }],
+    accountingProfit: '-10000', taxableIncome: '0', unusedTaxLosses: '10000',
+  });
+  assert.deepEqual([loss.applicableRate, loss.deferredTaxAsset, loss.deferredTaxExpense], ['0.26', '3000.00', '-3000.00']);
+  await assert.rejects(tool.execute({
+    incomeYear: '2025-26', items: [], accountingProfit: '0', taxableIncome: '0',
+  }), /Enter 1 to 500 items/);
+  await assert.rejects(tool.execute({
+    incomeYear: '2025-26',
+    items: [{ label: 'Plant', class: 'asset', carryingAmount: '1000', taxBase: '0', openingCarryingAmount: '0', openingTaxBase: '0' }],
+    accountingProfit: '1000', taxableIncome: '0', businessCombination: true,
+  }), /business combination/);
+  await assert.rejects(tool.execute({
+    incomeYear: '2025-26',
+    items: [{ label: 'Plant', class: 'asset', carryingAmount: '1000', taxBase: '0', openingCarryingAmount: '0', openingTaxBase: '0' }],
+    accountingProfit: '1000', taxableIncome: '0', scopeConfirmed: false,
+  }), /Establish all stated scope conditions/);
+  await assert.rejects(tool.execute({
+    incomeYear: '2025-26',
+    items: [{ label: 'Plant', class: 'asset', carryingAmount: '1000', taxBase: '0', openingCarryingAmount: '0', openingTaxBase: '0' }],
+    accountingProfit: '1000', taxableIncome: '0', extra: 1,
+  }), /extra is not an input of this tool/);
+});
+
+test('pension minimum tool covers full years, pro-rating, 1 June nil and leap years and refuses invalid dates', async () => {
+  const tool = individual['pension-minimum'];
+  const full = await tool.execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67 });
+  assert.deepEqual([full.percentageFactorPercent, full.daysCounted, full.daysInYear, full.clause, full.minimumBeforeRounding,
+    full.minimumPayment, full.currency, full.source],
+  [5, 365, 365, 'cl 1(1)', '30000.00', '30000.00', 'AUD', 'https://duguid.com.au/tools/individual-tax/pension-minimum/']);
+  assert.doesNotThrow(() => JSON.stringify(full));
+  const thavi = await tool.execute({ incomeYear: '2024-25', accountBalance: '250000', age: 66, startDate: '2025-01-01' });
+  assert.deepEqual([thavi.daysCounted, thavi.clause, thavi.minimumBeforeRounding, thavi.minimumPayment], [181, 'cl 3', '6198.63', '6200.00']);
+  const june = await tool.execute({ incomeYear: '2025-26', accountBalance: '250000', age: 66, startDate: '2026-06-01' });
+  assert.deepEqual([june.daysCounted, june.clause, june.minimumPayment], [30, 'cl 4', '0.00']);
+  const leap = await tool.execute({ incomeYear: '2027-28', accountBalance: '300000', age: 80, startDate: '2027-07-01' });
+  assert.deepEqual([leap.daysCounted, leap.daysInYear, leap.minimumPayment], [366, 366, '21000.00']);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67, startDate: '2026-06-30' }), /from 1 July 2026 to 30 June 2027/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67, startDate: '2027-02-29' }), /from 1 July 2026 to 30 June 2027/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', accountBalance: '600000', age: 151 }), /age must be a whole number from 0 to 150/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67, scopeConfirmed: false }), /Confirm the facts/);
+  await assert.rejects(tool.execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67, extra: 1 }), /extra is not an input of this tool/);
+});
+
+test('transfer balance tool runs transfer, charge and release modes and refuses mismatched or invalid inputs', async () => {
+  const tool = individual['transfer-balance'];
+  const elisabeth = await tool.execute({
+    calculation: 'transfer',
+    events: [
+      { date: '2017-08-02', kind: 'new_income_stream', amount: '1600000' },
+      { date: '2019-09-07', kind: 'commutation', amount: '1630000' },
+      { date: '2019-10-12', kind: 'new_income_stream', amount: '1640000' },
+    ],
+    toDate: '2019-12-31',
+  });
+  assert.deepEqual([elisabeth.incomeYear, elisabeth.transferBalance, elisabeth.transferBalanceCap, elisabeth.excessTransferBalance,
+    elisabeth.notionalEarnings, elisabeth.excessTransferBalanceTax, elisabeth.inExcess, elisabeth.currency, elisabeth.source],
+  ['2019-20', '1610176.42', '1600000.00', '10176.42', '178.65', '26.80', true, 'AUD', 'https://duguid.com.au/tools/individual-tax/transfer-balance/']);
+  assert.doesNotThrow(() => JSON.stringify(elisabeth));
+  const charge = await tool.execute({
+    calculation: 'concessional_charge', incomeYear: '2020-21', additionalTax: '1000', taxDueDate: '2021-12-01',
+  });
+  assert.deepEqual([charge.days, charge.excessConcessionalContributionsCharge], [518, '44.17']);
+  const release = await tool.execute({
+    calculation: 'non_concessional_release', incomeYear: '2024-25', excess: '100000', determinationDate: '2025-09-15',
+  });
+  assert.deepEqual([release.associatedEarnings, release.totalReleaseAmount, release.associatedEarningsTaxOffset,
+    release.atoPublishedTable5AnnualPercent],
+  ['14663.00', '112463.55', '2199.45', '11.33']);
+  await assert.rejects(tool.execute({
+    calculation: 'transfer', events: [{ date: '2017-08-02', kind: 'new_income_stream', amount: '1600000' }], toDate: '2019-02-30',
+  }), /valid calendar date/);
+  await assert.rejects(tool.execute({
+    calculation: 'transfer', events: [{ date: '2017-08-02', kind: 'reversionary_income_stream', amount: '1600000' }], toDate: '2019-12-31',
+  }), /kind does not match/);
+  await assert.rejects(tool.execute({
+    calculation: 'concessional_charge', incomeYear: '2021-22', additionalTax: '1000', taxDueDate: '2022-12-01',
+  }), /repealed TAA 1953/);
+  await assert.rejects(tool.execute({
+    calculation: 'transfer', events: [{ date: '2017-08-02', kind: 'new_income_stream', amount: '1600000' }], toDate: '2019-12-31',
+    incomeYear: '2019-20',
+  }), /incomeYear does not apply/);
+  await assert.rejects(tool.execute({
+    calculation: 'non_concessional_release', incomeYear: '2024-25', excess: '0', determinationDate: '2025-09-15',
+  }), /above nil/);
+  await assert.rejects(tool.execute({
+    calculation: 'transfer', events: [{ date: '2017-08-02', kind: 'new_income_stream', amount: '1600000' }], toDate: '2019-12-31', extra: 1,
+  }), /extra is not an input of this tool/);
 });

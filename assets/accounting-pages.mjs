@@ -57,10 +57,12 @@ function renderResult(output, result) {
 }
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
-function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }, fhssMod, workExpensesMod, { transferBalanceResult },
-  { pensionMinimumResult }, governmentSuperMod]) {
+function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }, fhssMod, workExpensesMod, transferBalanceMod,
+  pensionMinimumMod, governmentSuperMod]) {
   const { fhssResult } = fhssMod;
   const { workExpensesResult } = workExpensesMod;
+  const { transferBalanceResult } = transferBalanceMod;
+  const { pensionMinimumResult } = pensionMinimumMod;
   const { governmentSuperResult } = governmentSuperMod;
   for (const form of forms) {
     const output = form.querySelector('output');
@@ -70,12 +72,17 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
   // modelContext on document; early Chrome builds used navigator. Other browsers skip the import.
   const modelContext = document.modelContext ?? navigator.modelContext;
   // A failed import or registration leaves the form itself untouched; the warning keeps the cause.
-  if (modelContext?.registerTool) import('./webmcp-tools.mjs').then(async ({ calculatorTools, individualTaxTools, fhssTools, workExpensesTools, governmentSuperTools }) => {
+  if (modelContext?.registerTool) import('./webmcp-tools.mjs').then(async ({
+    calculatorTools, individualTaxTools, fhssTools, workExpensesTools, governmentSuperTools, pensionMinimumTools,
+    transferBalanceTools,
+  }) => {
     const tools = {
       ...calculatorTools(calculate),
       ...(engines ? individualTaxTools(engines) : {}),
       ...(fhssMod.fhss ? fhssTools(fhssMod) : {}),
       ...(workExpensesMod.workExpenses ? workExpensesTools(workExpensesMod) : {}),
+      ...(transferBalanceMod.transferBalance ? transferBalanceTools(transferBalanceMod) : {}),
+      ...(pensionMinimumMod.pensionMinimum ? pensionMinimumTools(pensionMinimumMod) : {}),
       ...(governmentSuperMod.governmentSuperAmounts ? governmentSuperTools(governmentSuperMod) : {}),
     };
     for (const form of forms) {

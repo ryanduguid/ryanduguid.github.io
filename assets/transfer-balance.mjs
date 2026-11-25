@@ -118,9 +118,6 @@ export function required(fields, item, key) {
   if (!Object.hasOwn(fields, key)) refuse('input.missing_field', `${item}: enter ${key.replaceAll('_', ' ')}.`);
   return new Map(Object.entries(fields)).get(key);
 }
-/** A stated amount in cents: a decimal string of at most 32 bytes, finite, from 0 to 1,000,000,000,000,
- * at most 2 decimal places, as the command's reader takes it. @param {Record<string, unknown>} fields
- * @param {string} item @param {string} key @param {string} [range] the range the message states */
 /** A decimal's sign, whole digits and decimal digits, or null unless it reads as -?digits(.digits)?.
  * @param {string} text */
 export function decimalParts(text) {
@@ -133,12 +130,15 @@ export function decimalParts(text) {
 }
 /** The range stated for an amount the command then refuses at nil. */
 export const ABOVE_NIL = 'above nil, up to 1,000,000,000,000';
+/** A stated amount in cents: a decimal string of at most 32 bytes, finite, from 0 to 1,000,000,000,000,
+ * at most 2 decimal places, as the command's reader takes it. @param {Record<string, unknown>} fields
+ * @param {string} item @param {string} key @param {string} [range] the range the message states */
 export function statedAmount(fields, item, key, range = 'from 0 to 1,000,000,000,000') {
   const value = required(fields, item, key);
   const parts = typeof value === 'string' && new TextEncoder().encode(value).length <= 32 ? decimalParts(value.trim()) : null;
   const cents = parts && parts.decimals.length <= 2 ? BigInt(parts.whole + parts.decimals.padEnd(2, '0')) : null;
   if (cents === null || (parts?.negative && cents !== 0n) || cents > 100000000000000n) {
-    refuse('input.amount_invalid', `${item}: enter ${key.replaceAll('_', ' ')} in dollars and cents, ${range}.`);
+    return refuse('input.amount_invalid', `${item}: enter ${key.replaceAll('_', ' ')} in dollars and cents, ${range}.`);
   }
   return cents;
 }
@@ -161,17 +161,17 @@ export function scope(input, years) {
 /** @typedef {{day: number, kind: string, credit: boolean, cents: bigint}} TbaEvent */
 /** @param {unknown} value @param {string} item @returns {TbaEvent} */
 function event(value, item) {
-  if (!isObject(value)) factInvalid(`${item} must be an object.`);
+  if (!isObject(value)) return factInvalid(`${item} must be an object.`);
   knownKeys(value, item, 'an event', ['date', 'kind', 'amount']);
   const day = dayOf(required(value, item, 'date'));
-  if (day === null) factInvalid(`${item}: the date must be a date.`);
+  if (day === null) return factInvalid(`${item}: the date must be a date.`);
   const name = required(value, item, 'kind');
   const why = typeof name === 'string' ? REFUSED.get(name) : undefined;
   if (why !== undefined) refuse('transfer_balance.event_refused', `${item}: ${why}`);
   const kind = TBA_KINDS.find(([k]) => k === name);
-  if (kind === undefined) factInvalid(`${item}: choose a credit or debit the calculator takes.`);
+  if (kind === undefined) return factInvalid(`${item}: choose a credit or debit the calculator takes.`);
   const cents = statedAmount(value, item, 'amount', ABOVE_NIL);
-  if (cents <= 0n) factInvalid(`${item}: the amount must be above nil.`);
+  if (cents <= 0n) return factInvalid(`${item}: the amount must be above nil.`);
   return { day, kind: kind[0], credit: kind[1], cents };
 }
 
@@ -179,9 +179,9 @@ const START = /** @type {number} */ (dayOf('2017-07-01'));
 const TRANSITION_END = /** @type {number} */ (dayOf('2017-12-31'));
 const SECOND_RATE_FROM = /** @type {number} */ (dayOf('2018-07-01'));
 
-/** The events in date order, checked against the account's start and `to`. @param {unknown} list @param {number} to */
+/** The events in date order, checked against the account's start and `to`. @param {unknown} list @param {number} to @returns {TbaEvent[]} */
 function events(list, to) {
-  if (!Array.isArray(list) || list.length === 0 || list.length > 1000) factInvalid('Give 1 to 1000 events.');
+  if (!Array.isArray(list) || list.length === 0 || list.length > 1000) return factInvalid('Give 1 to 1000 events.');
   const out = list.map((value, i) => event(value, `event ${i + 1}`));
   out.forEach((e, i) => {
     const item = `event ${i + 1}`;
@@ -218,12 +218,12 @@ function transitional(list, to) {
  *   ledger: LedgerRow[], periods: PeriodRow[], inExcess: boolean}} TbaWorked */
 
 /** The last day as a day number, checked against the year, after which the liability flag is checked.
- * @param {Record<string, unknown>} input @param {string} year */
+ * @param {Record<string, unknown>} input @param {string} year @returns {number} */
 function lastDay(input, year) {
   const to = dayOf(input.to);
-  if (to === null) factInvalid('Enter the last day as a date.');
-  if (label(yearOf(to)) !== year) refuse('transfer_balance.year_mismatch', `The last day is in ${label(yearOf(to))}, not ${year}.`);
-  if (typeof input.previously_liable !== 'boolean') refuse('input.flag_invalid', 'Say whether you were liable for an earlier period.');
+  if (to === null) return factInvalid('Enter the last day as a date.');
+  if (label(yearOf(to)) !== year) return refuse('transfer_balance.year_mismatch', `The last day is in ${label(yearOf(to))}, not ${year}.`);
+  if (typeof input.previously_liable !== 'boolean') return refuse('input.flag_invalid', 'Say whether you were liable for an earlier period.');
   return to;
 }
 

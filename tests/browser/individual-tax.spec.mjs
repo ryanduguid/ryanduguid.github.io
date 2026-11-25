@@ -555,6 +555,10 @@ for (const [id, name, input, expected] of [
     residency: 'full_year_resident', assessableIncome: 35000, taxableIncome: 35000, eligibleIncome: '35000',
     personalContributions: '1040', returnLodged: true, under71: true, nonConcessionalWithinCap: 'yes',
     totalSuperBalanceBelowCap: 'yes' }, { amounts: { co_contribution_paid: '500.00' } }],
+  ['pension-minimum', 'calculate_pension_minimum', { incomeYear: '2026-27', accountBalance: '600000', age: 67 },
+    { minimumPayment: '30000.00' }],
+  ['transfer-balance', 'calculate_transfer_balance', { calculation: 'concessional_charge', incomeYear: '2020-21',
+    additionalTax: '1000', taxDueDate: '2021-12-01' }, { excessConcessionalContributionsCharge: '44.17' }],
 ]) {
   test(`${id} registers ${name} where the browser offers modelContext`, async ({ page }) => {
     await page.addInitScript(() => {
