@@ -1225,6 +1225,27 @@ test('R&D tax offset page works Company V, a refundable offset and refuses a cla
   await expect(form.locator('output')).toContainText('does not choose between them');
 });
 
+// Fortnightly pay from 2 July 2026 is the form's default; weekly pay to Christmas takes the earliest part-day dates,
+// and a first payday after the quarter's first week is refused.
+test('Payday Super cashflow page works a fortnightly quarter, a December quarter and refuses a late first payday offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/payday-cashflow/');
+  const form = page.locator('#payday-cashflow form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Peak extra working capital: $8,400.00.');
+  await expect(form.locator('output')).toContainText('Payday 30 July 2026: $1,200.00, fund must receive it by: Tuesday 11 August 2026, 78 days before the quarterly date.');
+  await form.getByLabel('October to December 2026').check();
+  await form.getByLabel('Weekly').check();
+  await form.locator('[name="first-payday"]').fill('2026-10-01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Peak extra working capital: $16,800.00.');
+  await expect(form.locator('output')).toContainText('Wednesday 30 December 2026 (earliest possible), 29 days before the quarterly date.');
+  await form.locator('[name="first-payday"]').fill('2026-10-08');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('a date in its first 7 days');
+});
+
 // GSTR 2000/24's Bill is the form's default; the bad debt worksheet shows its own fields and the conditions table.
 test('GST adjustments page works Bill, a recipient bad debt and refuses a margin scheme debt offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/gst-adjustments/');
@@ -1773,7 +1794,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
   'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset',
-  'gst-adjustments', 'deferred-tax'];
+  'gst-adjustments', 'deferred-tax', 'payday-cashflow'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

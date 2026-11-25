@@ -6192,6 +6192,123 @@ fn the_sgc_engines_agree_with_the_oracle_on_every_seeded_case() {
     }
 }
 
+/// Runs the Payday Super cashflow engine, as `HARNESS` runs the others; a refusal comes back as
+/// its message.
+const CASHFLOW_HARNESS: &str = r"
+import { paydayCashflow } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const run = (inputs) => {
+  try {
+    const r = paydayCashflow(inputs);
+    return { paydays: r.paydays.map((p) => [p.payday, p.due, p.partDay, p.daysEarlier, String(p.sg), String(p.ahead)]),
+      quarterlyDue: r.quarterlyDue, total: String(r.total), peak: String(r.peak), peakFrom: r.peakFrom,
+      peakDays: r.peakDays, averageDaysEarlier: String(r.averageDaysEarlier) };
+  } catch (error) {
+    return { refused: error.message };
+  }
+};
+process.stdout.write(JSON.stringify(JSON.parse(input).map(run)));
+";
+
+/// The quarters of 2026-27 by their first and last month.
+const CASHFLOW_QUARTERS: [(&str, (i64, i64), (i64, i64)); 4] = [
+    ("1", (2026, 7), (2026, 9)),
+    ("2", (2026, 10), (2026, 12)),
+    ("3", (2027, 1), (2027, 3)),
+    ("4", (2027, 4), (2027, 6)),
+];
+
+/// One payday schedule worked by hand: 12% of the earnings rounded half up (s 17A(2)), each due
+/// 7 business days after payday on the published calendar, the earliest where part-day holidays
+/// leave it open, against 28 days after the quarter's last day (old s 23(6)).
+fn cashflow_oracle(
+    scenarios: &[Vec<i64>],
+    quarter: usize,
+    cycle: &str,
+    first: i64,
+    earnings: u64,
+) -> Value {
+    let sg = (24 * earnings + 100) / 200;
+    if sg == 0 {
+        return json!({ "refused": "Enter ordinary time earnings of at least $0.05 each payday, so that 12% of them is a cent or more." });
+    }
+    let (_, (from_year, from_month), (to_year, to_month)) = CASHFLOW_QUARTERS[quarter];
+    let from = day_number(from_year, from_month, 1);
+    let to = day_number(to_year + to_month / 12, to_month % 12 + 1, 1) - 1;
+    let window = match cycle {
+        "weekly" => from + 6,
+        "fortnightly" => from + 13,
+        _ => day_number(from_year, from_month + 1, 1) - 1,
+    };
+    if first < from || first > window {
+        let span = match cycle {
+            "weekly" => "7 days",
+            "fortnightly" => "14 days",
+            _ => "month",
+        };
+        return json!({ "refused": format!("Enter the first payday of the quarter: a date in its first {span}.") });
+    }
+    let paydays: Vec<i64> = match cycle {
+        "weekly" => (first..=to).step_by(7).collect(),
+        "fortnightly" => (first..=to).step_by(14).collect(),
+        _ => gic_instalment_days(first, 3, "monthly"),
+    };
+    let quarterly = to + 28;
+    let (mut ahead, mut weighted, mut rows, mut last) = (0, 0, Vec::new(), 0);
+    for payday in paydays {
+        let dues: Vec<i64> = scenarios
+            .iter()
+            .map(|business| sgc_after(business, payday, 7).unwrap())
+            .collect();
+        let due = *dues.iter().min().unwrap();
+        let earlier = quarterly - due;
+        assert!(earlier > 0, "{}", iso_day(payday));
+        ahead += sg;
+        weighted += u128::from(sg) * u128::try_from(earlier).unwrap();
+        last = due;
+        rows.push(json!([iso_day(payday), iso_day(due), dues.iter().any(|d| *d != due), earlier,
+            shown(sg), shown(ahead)]));
+    }
+    let tenths = exact_half_up(weighted * 10, u128::from(ahead));
+    let average = if tenths % 10 == 0 {
+        (tenths / 10).to_string()
+    } else {
+        format!("{}.{}", tenths / 10, tenths % 10)
+    };
+    json!({ "paydays": rows, "quarterlyDue": iso_day(quarterly), "total": shown(ahead), "peak": shown(ahead),
+        "peakFrom": iso_day(last), "peakDays": quarterly - last, "averageDaysEarlier": average })
+}
+
+#[test]
+fn the_payday_cashflow_engine_agrees_with_the_oracle_on_every_first_payday() {
+    if !common::rendered() {
+        return;
+    }
+    let scenarios = sgc_calendar_scenarios();
+    let mut rng = Seeded(0x2026_1126_0000_CA5F);
+    let (mut cases, mut expected) = (Vec::new(), Vec::new());
+    for (quarter, (name, (year, month), _)) in CASHFLOW_QUARTERS.iter().enumerate() {
+        let from = day_number(*year, *month, 1);
+        for cycle in ["weekly", "fortnightly", "monthly"] {
+            // Every first payday the form takes, and the day either side of the window.
+            for first in from - 1..from + 32 {
+                let any = rng.cents(100_000_000_000);
+                let earnings = rng.pick(&[4, 5, any, any, any, any]);
+                cases.push(json!({ "quarter": name, "cycle": cycle, "firstPayday": iso_day(first),
+                    "earnings": dollars(earnings) }));
+                expected.push(cashflow_oracle(&scenarios, quarter, cycle, first, earnings));
+            }
+        }
+    }
+    assert!(expected.iter().any(|want| want["paydays"].as_array().is_some_and(|rows| rows.iter().any(|row| row[2] == true))));
+    let actual = run_node(CASHFLOW_HARNESS, &cases);
+    assert_eq!(actual.len(), cases.len());
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
 /// Runs the company tax and foreign surcharge engines, as `HARNESS` runs the others.
 const COMPANY_SURCHARGE_HARNESS: &str = r"
 import { companyTax, foreignSurcharge } from './assets/business-calculators.mjs';

@@ -136,6 +136,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
+- Payday Super cashflow calculator: https://duguid.com.au/tools/business-calculators/payday-cashflow/
 - Long service leave calculator: https://duguid.com.au/tools/business-calculators/long-service-leave/
 - Workers compensation premium calculator: https://duguid.com.au/tools/business-calculators/workers-compensation/
 - Super lump sum tax: https://duguid.com.au/tools/business-calculators/super-benefit-tax/

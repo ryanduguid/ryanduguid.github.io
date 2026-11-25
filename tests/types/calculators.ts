@@ -287,6 +287,13 @@ const sgcDue: number = calculate.paydaySuperDue(sgcPay).due;
 calculate.quarterlySgCharge({ year: '2026-27', quarter: '1', wages: '1', ote: '1', contributions: '0', lodged: '2026-11-20' });
 void sgcCharge;
 void sgcDue;
+const cashflowCall = { quarter: '1', cycle: 'fortnightly', firstPayday: '2026-07-02', earnings: '10000' } as const;
+const cashflowPeak: number = calculate.paydayCashflow(cashflowCall).peak;
+// @ts-expect-error Money is a decimal string, as the form passes it.
+calculate.paydayCashflow({ ...cashflowCall, earnings: 10000 });
+// @ts-expect-error The pay cycle is weekly, fortnightly or monthly.
+calculate.paydayCashflow({ ...cashflowCall, cycle: 'daily' });
+void cashflowPeak;
 const cgtHome = { purchased: '', sold: '', movedIn: '', practicable: 'yes', exclusions: 'none',
   away: [{ from: '', to: '', rented: false, choose: false }], partPercent: '0', partFrom: '', partTo: '', market: '0' };
 const cgtSale = { entity: 'individual', resident: 'yes', kind: 'investment', acquired: '1997-07-01', event: '2026-02-01', proceeds: '496000',
@@ -569,6 +576,7 @@ void businessSet['transfer-duty'].execute({ place: 'AU-NSW', dutiableValue: 1350
 void businessSet['rd-tax-offset'].execute({ incomeYear: '2025-26', notionalDeductions: '100000', aggregatedTurnover: '10000000', totalExpenses: '100000' });
 void businessSet['gst-adjustments'].execute({ worksheet: 'going-concern', year: '2025-26', forConsideration: true, recipientRegistration: 'registered', writtenAgreement: 'on_or_before_supply_day', allThingsNecessary: true, carriedOnUntilSupply: true });
 void businessSet['deferred-tax'].execute({ incomeYear: '2025-26', items: [{ label: 'Plant', class: 'asset', carryingAmount: '70000', taxBase: '50000', openingCarryingAmount: '0', openingTaxBase: '0' }], accountingProfit: '100000', taxableIncome: '100000' });
+void businessSet['payday-cashflow'].execute({ quarter: '1', payCycle: 'fortnightly', firstPayday: '2026-07-02', earningsPerPayday: '10000' });
 void pensionMinimumTools({ pensionMinimum, PENSION_MINIMUM_YEARS })['pension-minimum'].execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67 });
 void transferBalanceTools({ ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance, yearOf })['transfer-balance'].execute({ calculation: 'concessional_charge', incomeYear: '2020-21', additionalTax: '1000', taxDueDate: '2021-12-01' });
 // @ts-expect-error pensionMinimumTools requires PENSION_MINIMUM_YEARS alongside pensionMinimum.

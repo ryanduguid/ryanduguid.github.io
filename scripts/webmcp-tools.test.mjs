@@ -97,7 +97,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_business_days', 'calculate_division_296_tax', 'calculate_fbt_car', 'calculate_fbt_car_parking',
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
-    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax',
+    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_payday_super_cashflow',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -1668,6 +1668,29 @@ test('workers compensation tool returns the page worked example, supports statut
 });
 
 
+// The Payday Super cashflow page's example and the ATO's example 3 weekly payday, then refusals.
+test('Payday Super cashflow tool returns the page worked example and refuses what the page refuses', async () => {
+  const tool = tools['payday-cashflow'];
+  const r = await tool.execute({ quarter: '1', payCycle: 'fortnightly', firstPayday: '2026-07-02', earningsPerPayday: '10000' });
+  assert.deepEqual([r.paydays.length, r.paydays[2], r.quarterlyDueDate, r.superGuaranteeForQuarter, r.peakExtraWorkingCapital,
+    r.peakFrom, r.peakDays, r.averageDaysEarlier, r.currency, r.source],
+  [7, { payday: '2026-07-30', superGuarantee: '1200.00', fundMustReceiveBy: '2026-08-11', dueDateDependsOnPartDayHolidays: false,
+    daysBeforeQuarterlyDueDate: 78, extraWorkingCapital: '3600.00' }, '2026-10-28', '8400.00', '8400.00', '2026-10-07', 21, '64.6',
+  'AUD', 'https://duguid.com.au/tools/business-calculators/payday-cashflow/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const december = await tool.execute({ quarter: '2', payCycle: 'weekly', firstPayday: '2026-10-01', earningsPerPayday: '10000' });
+  assert.deepEqual(december.paydays.filter((p) => p.payday >= '2026-12-10').map((p) => [p.fundMustReceiveBy, p.dueDateDependsOnPartDayHolidays]),
+    [['2026-12-21', false], ['2026-12-30', true], ['2027-01-07', true], ['2027-01-12', false]]);
+  await assert.rejects(tool.execute({ quarter: '1', payCycle: 'weekly', firstPayday: '2026-07-08', earningsPerPayday: '10000' }),
+    /a date in its first 7 days/);
+  await assert.rejects(tool.execute({ quarter: '1', payCycle: 'weekly', firstPayday: '2026-07-01', earningsPerPayday: 10000 }),
+    /earningsPerPayday does not match its description/);
+  await assert.rejects(tool.execute({ quarter: '5', payCycle: 'weekly', firstPayday: '2026-07-01', earningsPerPayday: '1' }),
+    /quarter does not match its description/);
+  await assert.rejects(tool.execute({ quarter: '1', payCycle: 'weekly', firstPayday: '2026-07-01', earningsPerPayday: '1', extra: 1 }),
+    /extra is not an input of this tool/);
+});
+
 test('every calculator include in _includes/calculators has a registered WebMCP tool', () => {
   const slugs = readdirSync('_includes/calculators')
     .filter((name) => name.endsWith('.html'))
@@ -1675,7 +1698,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 76);
+  assert.equal(registered.length + 2, 77);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
