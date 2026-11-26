@@ -1730,7 +1730,7 @@ test('FBT car tool returns worked example, checks EV exemption, matches form att
     daysAvailable: 182, employeeContribution: '1000', gstCreditEntitled: true,
   });
   assert.deepEqual([r.baseValue, r.statutoryTaxableValue, r.operatingTaxableValue, r.taxableValue, r.grossedUpTaxableValue, r.fbt, r.currency, r.source],
-    ['60000.00', '4983.56', null, '4983.56', '10366.80', '4872.40', 'AUD', 'https://duguid.com.au/tools/business-calculators/fbt-car/']);
+    ['60000.00', '4983.56', null, '4983.56', '10366.88', '4872.43', 'AUD', 'https://duguid.com.au/tools/business-calculators/fbt-car/']);
   assert.doesNotThrow(() => JSON.stringify(r));
   const ev = await tool.execute({
     method: 'statutory', costPrice: '60000', daysAvailable: 182, employeeContribution: '1000', gstCreditEntitled: true,

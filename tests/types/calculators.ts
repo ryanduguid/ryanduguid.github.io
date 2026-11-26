@@ -118,7 +118,7 @@ void withheld;
 void reachedText;
 const car = { method: 'statutory', cost: '60000', accessories: '0', reduced: false, days: '182', costs: '0',
   businessUse: '0', contribution: '1000' } as const;
-const fbtYear = { days: '365', grossUp: '2.0802', fbtRate: '47' };
+const fbtYear = { days: '365', type: '1', fbtRate: '47' };
 const fbt: number = calculate.fbtCar(car, fbtYear).fbt;
 // @ts-expect-error The 4-year answer is a boolean, as the form passes it.
 calculate.fbtCar({ ...car, reduced: 'yes' }, fbtYear);
