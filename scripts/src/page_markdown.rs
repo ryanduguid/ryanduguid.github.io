@@ -10,6 +10,7 @@ use url::Url;
 
 static CONVERTER: LazyLock<htmd::HtmlToMarkdown> = LazyLock::new(|| {
     htmd::HtmlToMarkdown::builder()
+        .scripting_enabled(false)
         .add_handler(vec!["table"], table)
         .build()
 });

@@ -273,6 +273,7 @@ fn the_tree_is_minified_in_place_and_other_files_are_left_alone() {
     let sheet = ".a {\n  color: red;\n}\n";
     let page = concat!(
         r##"<main><h1>Site</h1><p><a href="#rate">Read <code>RATE</code></a></p><img src="/chart.png" alt="Cash flow chart">"##,
+        r#"<noscript><p>Every row is in the <a href="/data.json">data file</a>.</p></noscript>"#,
         r#"<table><caption>Facts</caption><tbody><tr><th scope="row">Life</th><td>8 years</td></tr><tr><th scope="row">Code</th><td><code>a  b|c</code></td></tr></tbody></table>"#,
         "<table><tbody><tr><td><p>First</p><p>Second</p></td></tr></tbody></table></main>\n",
     );
@@ -296,6 +297,7 @@ fn the_tree_is_minified_in_place_and_other_files_are_left_alone() {
     for fragment in [
         "[Read `RATE`](https://duguid.com.au/#rate)",
         "![Cash flow chart](https://duguid.com.au/chart.png)",
+        "Every row is in the [data file](https://duguid.com.au/data.json).",
         "Facts",
         "| Field | Value |",
         "| --- | --- |",
