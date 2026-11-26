@@ -111,7 +111,8 @@ function vacant(year, fields, needed) {
     const before = flag(field(fields, 'liable_tax_year_before').value, 'liable_tax_year_before');
     const index = !previous ? 0 : before ? 2 : 1;
     rate = ['0.01', '0.02', '0.03'][index];
-    authority = `Land Tax Act 2005 (Vic) ss 34A, 37A and 35(3)${year === '2025' ? '' : '(b)'}: ${VIC_PROPERTY_AUTHORITIES.history[index]}`;
+    const paragraph = year === '2025' ? `(${'abc'[index]}) as in force for 2025` : `(b)(${['i', 'ii', 'iii'][index]})`;
+    authority = `Land Tax Act 2005 (Vic) ss 19(1A), 34A, 37A and 35(3)${paragraph}: ${VIC_PROPERTY_AUTHORITIES.history[index]}`;
   }
   return [[['vrlt', mul(civ, lit(rate))]], { vrlt_rate: rate }, authority];
 }
@@ -148,11 +149,12 @@ function windfall(needed) {
   list.forEach((item, i) => {
     const n = i + 1;
     if (item === null || typeof item !== 'object' || Array.isArray(item)) bad(`parcel ${n}: must be an object with civ_before and civ_after.`);
-    const extra = Object.keys(item).sort().find((k) => k !== 'civ_before' && k !== 'civ_after');
+    const extra = Object.keys(item).find((k) => k !== 'civ_before' && k !== 'civ_after');
     if (extra !== undefined) refuse('input.field_unknown', `parcel ${n}: ${extra} is not a fact it takes beside civ_before and civ_after.`);
     const read = (/** @type {string} */ key) => {
       const raw = /** @type {Record<string, unknown>} */ (item)[key];
-      const parsed = typeof raw === 'string' && new TextEncoder().encode(raw).length <= 8192 ? parseDecimal(raw) : null;
+      // Unlike a top-level field, a parcel's value has no length limit (Decimal::parse_input).
+      const parsed = typeof raw === 'string' ? parseDecimal(raw) : null;
       try {
         return dollars(parsed, 'capital improved values');
       } catch {

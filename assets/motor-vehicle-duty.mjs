@@ -50,7 +50,7 @@ const TAS_FLEET = scale('Duties Act 2001 (Tas) s 197(3A): a new vehicle with a m
   [band(0, '20', '0', 0), band(601, '0', '3.50', 0)]);
 const NT = scale('Stamp Duty Act 1978 (NT) Sch 1 cl 6: $3 for every $100, or part', [band(0, '0', '3', 0)]);
 const NT_ELECTRIC = scale('Stamp Duty Act 1978 (NT) s 92A: an electric vehicle registered from 1 July 2022 to 30 June 2027, the first $50,000 '
-  + 'exempt and $3 for every $100, or part, above', [band(0, '0', '0', 0), band(50001, '0', '3', 50000)]);
+  + 'exempt (at most $1,500) and $3 for every $100, or part, above', [band(0, '0', '0', 0), band(50001, '0', '3', 50000)]);
 /** The ACT categories in the determinations' row order; a non-rated vehicle pays Category C's rates. */
 const CATEGORIES = new Map([['aaa', 0], ['aa', 1], ['a', 2], ['b', 3], ['c', 4], ['d', 5], ['non_rated', 4]]);
 /** Each determination's rows: Table 1's rate, Table 2's base and rate over $45,000 and Table 3's base over $80,000 (rate $8). */

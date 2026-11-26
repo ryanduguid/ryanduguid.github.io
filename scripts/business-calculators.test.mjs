@@ -7390,4 +7390,6 @@ test('the Victorian property taxes page applies the year rules, the CIPT transit
     'vic_property_taxes.transition_end_unsettled');
   const uplift = (after) => run(wgt, { parcels: [{ civ_before: '0', civ_after: after }, { civ_before: '50000', civ_after: '0' }] }).amounts.wgt;
   assert.deepEqual([uplift('100000'), uplift('499999'), uplift('500000')], ['0.00', '249999.38', '250000.00']);
+  // A parcel's value, unlike a top-level field, has no 8,192-byte limit in the command.
+  assert.equal(run(wgt, { parcels: [{ civ_before: `${'0'.repeat(9000)}100000`, civ_after: '700000' }] }).amounts.wgt, '300000.00');
 });
