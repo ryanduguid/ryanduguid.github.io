@@ -11,7 +11,7 @@
 <label><input type="radio" name="year" value="2021-22" /> 2021-22</label>
 <label><input type="radio" name="year" value="2020-21" /> 2020-21</label>
 </fieldset>
-<label class="field" for="lodgment-required-residency">Your residency in the year<select name="residency" id="lodgment-required-residency" aria-describedby="lodgment-required-residency-note"><option value="whole_year" selected>An Australian resident for the whole year</option><option value="part_year">A resident for part of the year</option><option value="none">Not a resident at any time</option></select></label>
+<label class="field" for="lodgment-required-residency">Your residency in the year<select name="residency" id="lodgment-required-residency" aria-describedby="lodgment-required-residency-note"><option value="whole_year" selected>Resident all year</option><option value="part_year">Resident for part of the year</option><option value="none">Not resident at any time</option></select></label>
 <label class="field" for="lodgment-required-taxable-income">Taxable income (AUD)<input id="lodgment-required-taxable-income" name="taxable-income" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="15000" /></label>
 <label class="field" for="lodgment-required-dividends">Dividends and franking credits (AUD)<input id="lodgment-required-dividends" name="dividends" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" /></label>
 </div>
@@ -28,14 +28,14 @@
 <label class="check-field"><input type="checkbox" name="trigger-tax_loss" /> A tax loss, or one from an earlier year to deduct</label>
 <label class="check-field"><input type="checkbox" name="trigger-net_capital_loss" /> A net capital loss, or one from an earlier year to apply</label>
 <label class="check-field"><input type="checkbox" name="trigger-business" /> Carried on a business</label>
-<label class="check-field"><input type="checkbox" name="trigger-primary_production_trust" /> A beneficiary of a trust with a primary production business</label>
+<label class="check-field"><input type="checkbox" name="trigger-primary_production_trust" /> A primary production trust beneficiary</label>
 <label class="check-field"><input type="checkbox" name="trigger-primary_production_partnership" /> A partner in a primary production partnership</label>
 <label class="check-field"><input type="checkbox" name="trigger-exempt_overseas_income" /> Exempt foreign employment income and $1 or more of other income</label>
 <label class="check-field"><input type="checkbox" name="trigger-payg_instalment" /> Paid a PAYG instalment</label>
 <label class="check-field"><input type="checkbox" name="trigger-special_professional" /> A special professional, such as an author or sportsperson</label>
-<label class="check-field"><input type="checkbox" name="trigger-private_health_offset" /> Private health insurance offset not fully claimed as a premium reduction</label>
+<label class="check-field"><input type="checkbox" name="trigger-private_health_offset" /> Private health insurance offset not fully claimed</label>
 <label class="check-field"><input type="checkbox" name="trigger-reportable_amounts" /> Reportable fringe benefits or employer super contributions</label>
-<label class="check-field"><input type="checkbox" name="trigger-co_contribution" /> Personal super contributions that earn a co-contribution</label>
+<label class="check-field"><input type="checkbox" name="trigger-co_contribution" /> Super contributions earning a co-contribution</label>
 <label class="check-field"><input type="checkbox" name="trigger-contributions_cap" /> Exceeded a super contributions cap</label>
 <label class="check-field"><input type="checkbox" name="trigger-super_lump_sum" /> A super lump sum with an untaxed element at 60 or over, or any element under 60</label>
 </div>
@@ -52,8 +52,8 @@
 </div></fieldset>
 <fieldset><legend>Exceptions</legend>
 <div class="form-grid">
-<label class="field" for="lodgment-required-whm">A working holiday maker with Australian income<select name="whm" id="lodgment-required-whm"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
-<label class="field" for="lodgment-required-listed">Received a listed payment, such as JobSeeker Payment<select name="listed" id="lodgment-required-listed"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
+<label class="field" for="lodgment-required-whm">A working holiday maker<select name="whm" id="lodgment-required-whm"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
+<label class="field" for="lodgment-required-listed">A listed payment, such as JobSeeker<select name="listed" id="lodgment-required-listed"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
 <label class="field" for="lodgment-required-sapto">Eligible for the seniors and pensioners tax offset<select name="sapto" id="lodgment-required-sapto"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
 <label class="field" for="lodgment-required-child-support">A parent liable for or entitled to child support<select name="child-support" id="lodgment-required-child-support"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
 </div>
