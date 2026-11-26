@@ -8,23 +8,21 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/confectionery-ma
 
 25 effective lives in Table A of the Commissioner’s 2025 effective life determination for Confectionery manufacturing.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Confectionery manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Chocolate making assets: | | | |
-Chocolate making assets: / Conches | 20 years | 5.00% | 10.00% | 1 July 2016
-Chocolate making assets: / Pre-refiners | 12 years | 8.33% | 16.67% | 1 July 2016
-Chocolate making assets: / Refiners | 10 years | 10.00% | 20.00% | 1 July 2016
-Chocolate making assets: / Tempering machines | 15 years | 6.67% | 13.33% | 1 July 2016
+Asset group · Chocolate making assets: | | | |
+Conches (Chocolate making assets) | 20 years | 5.00% | 10.00% | 1 July 2016
+Pre-refiners (Chocolate making assets) | 12 years | 8.33% | 16.67% | 1 July 2016
+Refiners (Chocolate making assets) | 10 years | 10.00% | 20.00% | 1 July 2016
+Tempering machines (Chocolate making assets) | 15 years | 6.67% | 13.33% | 1 July 2016
 Enrobers (chocolate, coconut etc) | 15 years | 6.67% | 13.33% | 1 July 2016
 Extruders and depositors (including egg spinners, fingers, formers, frozen cone, sheeting slab and slit, truffle rollers etc) | 15 years | 6.67% | 13.33% | 1 July 2016
-Jelly and sugar lolly making assets: | | | |
+Asset group · Jelly and sugar lolly making assets: | | | |
 Jelly and sugar lolly making assets: / Cleaners (brush and laser) | 10 years | 10.00% | 20.00% | 1 July 2016
 Jelly and sugar lolly making assets: / Coating and dusting machines | 15 years | 6.67% | 13.33% | 1 July 2016
 Jelly and sugar lolly making assets: / Depositors (including nozzle plates, pistons and pumps) | 12 years | 8.33% | 16.67% | 1 July 2016
@@ -32,37 +30,37 @@ Jelly and sugar lolly making assets: / Mouldboards and trays | 7 years | 14.29% 
 Jelly and sugar lolly making assets: / Oiling machines | 15 years | 6.67% | 13.33% | 1 July 2016
 Jelly and sugar lolly making assets: / Starch conditioners | 10 years | 10.00% | 20.00% | 1 July 2016
 Jelly and sugar lolly making assets: / Starch moguls | 10 years | 10.00% | 20.00% | 1 July 2016
-Packaging assets: | | | |
+Asset group · Packaging assets: | | | |
 Packaging assets: / Bagging machines (including flow wrappers, form fill seal machines, shaped foil wrappers, stick/bunch/sleeve wrappers etc) | 15 years | 6.67% | 13.33% | 1 July 2016
 Packaging assets: / Cartoning and boxing machines (including erectors, robots, case packers, palletisers, strappers etc) | 12 years | 8.33% | 16.67% | 1 July 2016
 Packaging assets: / Inspection equipment (including check weighers, metal detectors, scales, vision scanners etc) | 8 years | 12.50% | 25.00% | 1 July 2016
-Packaging assets: / Multihead and singlehead weighers | 10 years | 10.00% | 20.00% | 1 July 2016
-Panning assets: | | | |
+Packaging assets: / Multihead and singlehead weighers (Confectionery manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2016
+Asset group · Panning assets: | | | |
 Panning assets: / Belt panners | 15 years | 6.67% | 13.33% | 1 July 2016
 Panning assets: / Coating and polishing panners | 20 years | 5.00% | 10.00% | 1 July 2016
 Panning assets: / Sugar panners | 12 years | 8.33% | 16.67% | 1 July 2016
-Support assets: | | | |
+Asset group · Support assets: | | | |
 Support assets: / Cookers, drying rooms, ovens, roasters, mixers and melting stations (caramel, fruit, nougat, wafer etc) | 15 years | 6.67% | 13.33% | 1 July 2016
-Support assets: / Cooling tunnels | 17 years | 5.88% | 11.76% | 1 July 2016
+Cooling tunnels (Support assets) | 17 years | 5.88% | 11.76% | 1 July 2016
 Support assets: / Cutters and guillotines | 12 years | 8.33% | 16.67% | 1 July 2016
-Support assets: / Moulds | 4 years | 25.00% | 50.00% | 1 July 2016
+Moulds (Support assets) | 4 years | 25.00% | 50.00% | 1 July 2016
 Support assets: / Tanks and vats (chocolate, egg, syrup etc) | 14 years | 7.14% | 14.29% | 1 July 2016
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/#source
-- Conches: https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/conches/
-- Pre-refiners: https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/pre-refiners/
-- Refiners: https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/refiners/
-- Tempering machines: https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/tempering-machines/
+- Conches (Chocolate making assets): https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/conches/
+- Pre-refiners (Chocolate making assets): https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/pre-refiners/
+- Refiners (Chocolate making assets): https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/refiners/
+- Tempering machines (Chocolate making assets): https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/tempering-machines/
 - Enrobers (chocolate, coconut etc): https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/enrobers/
 - Extruders and depositors (including egg spinners, fingers, formers, frozen cone, sheeting slab and slit, truffle rollers etc): https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/extruders-and-depositors/
 - Cleaners (brush and laser): https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/cleaners/
@@ -75,17 +73,17 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Bagging machines (including flow wrappers, form fill seal machines, shaped foil wrappers, stick/bunch/sleeve wrappers etc): https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/bagging-machines/
 - Cartoning and boxing machines (including erectors, robots, case packers, palletisers, strappers etc): https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/cartoning-and-boxing-machines/
 - Inspection equipment (including check weighers, metal detectors, scales, vision scanners etc): https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/inspection-equipment/
-- Multihead and singlehead weighers: https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/multihead-and-singlehead-weighers/
+- Multihead and singlehead weighers (Confectionery manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/multihead-and-singlehead-weighers/
 - Belt panners: https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/belt-panners/
 - Coating and polishing panners: https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/coating-and-polishing-panners/
 - Sugar panners: https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/sugar-panners/
 - Cookers, drying rooms, ovens, roasters, mixers and melting stations (caramel, fruit, nougat, wafer etc): https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/cookers-drying-rooms-ovens-roasters-mixers-and-melting/
-- Cooling tunnels: https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/cooling-tunnels/
+- Cooling tunnels (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/cooling-tunnels/
 - Cutters and guillotines: https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/cutters-and-guillotines/
-- Moulds: https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/moulds/
+- Moulds (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/moulds/
 - Tanks and vats (chocolate, egg, syrup etc): https://duguid.com.au/tools/depreciation-rates/industry/confectionery-manufacturing/tanks-and-vats/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

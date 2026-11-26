@@ -8,71 +8,69 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sight
 
 18 effective lives in Table A of the Commissioner’s 2025 effective life determination for Scenic and sightseeing transport.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Scenic and sightseeing transport. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Gliders (including motor gliders) | 20 years | 5.00% | 10.00% | 1 July 2013
-Hot air balloon ride operation assets: | | | |
+Asset group · Hot air balloon ride operation assets: | | | |
 Hot air balloon ride operation assets: / Flight instruments | 10 years | 10.00% | 20.00% | 1 July 2013
-Hot air balloon ride operation assets: / Hot air balloon assets: | | | |
-Hot air balloon ride operation assets: / Hot air balloon assets: / Baskets | 6 years | 16.67% | 33.33% | 1 July 2013
-Hot air balloon ride operation assets: / Hot air balloon assets: / Burners | 10 years | 10.00% | 20.00% | 1 July 2013
-Hot air balloon ride operation assets: / Hot air balloon assets: / Envelopes | 5 years | 20.00% | 40.00% | 1 July 2013
+Asset group · Hot air balloon ride operation assets: / Hot air balloon assets: | | | |
+Hot air balloon ride operation assets: / Baskets (Hot air balloon assets) | 6 years | 16.67% | 33.33% | 1 July 2013
+Hot air balloon ride operation assets: / Burners (Hot air balloon assets) | 10 years | 10.00% | 20.00% | 1 July 2013
+Hot air balloon ride operation assets: / Envelopes (Hot air balloon assets) | 5 years | 20.00% | 40.00% | 1 July 2013
 Hot air balloon ride operation assets: / Hot air balloon assets: / Fuel cylinders and tanks (incorporating shut off valves) | 20 years | 5.00% | 10.00% | 1 July 2013
 Hot air balloon ride operation assets: / Inflator fans | 15 years | 6.67% | 13.33% | 1 July 2013
-Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: | | | |
+Asset group · Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: | | | |
 Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Cabins (including carriers) | 25 years | 4.00% | 8.00% | 1 July 2009
-Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Communications assets: | | | |
+Asset group · Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Communications assets: | | | |
 Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Communications assets: / Communications cables | 10 years | 10.00% | 20.00% | 1 July 2009
-Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Communications assets: / Radios | 5 years | 20.00% | 40.00% | 1 July 2009
-Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Drive and return station assets (including braking systems, drive systems, gear boxes, motors, variable speed drives (VSDs) and tensioning systems) | 15 years | 6.67% | 13.33% | 1 July 2009
+Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Radios (Communications assets) | 5 years | 20.00% | 40.00% | 1 July 2009
+Drive and return station assets (including braking systems, drive systems, gear boxes, motors, variable speed drives (VSDs) and tensioning systems) (Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas) | 15 years | 6.67% | 13.33% | 1 July 2009
 Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Rescue vehicles | 30 years | 3.33% | 6.67% | 1 July 2009
-Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Ropes: | | | |
+Asset group · Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Ropes: | | | |
 Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Ropes: / Haul ropes | 10 years | 10.00% | 20.00% | 1 July 2009
 Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Ropes: / Track ropes | 20 years | 5.00% | 10.00% | 1 July 2009
-Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Standby power drives | 25 years | 4.00% | 8.00% | 1 July 2009
-Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Towers: | | | |
+Standby power drives (Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas) | 25 years | 4.00% | 8.00% | 1 July 2009
+Asset group · Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Towers: | | | |
 Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Towers: / Tower heads | 15 years | 6.67% | 13.33% | 1 July 2009
 Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Towers: / Tower structures | 30 years | 3.33% | 6.67% | 1 July 2009
 Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas: / Transportation systems (incorporating drives and belts) | 3 years | 33.33% | 66.67% | 1 July 2009
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/#source
 - Gliders (including motor gliders): https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/gliders/
 - Flight instruments: https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/flight-instruments/
-- Baskets: https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/baskets/
-- Burners: https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/burners/
-- Envelopes: https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/envelopes/
+- Baskets (Hot air balloon assets): https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/baskets/
+- Burners (Hot air balloon assets): https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/burners/
+- Envelopes (Hot air balloon assets): https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/envelopes/
 - Fuel cylinders and tanks (incorporating shut off valves): https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/fuel-cylinders-and-tanks/
 - Inflator fans: https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/inflator-fans/
 - Cabins (including carriers): https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/cabins/
 - Communications cables: https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/communications-cables/
-- Radios: https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/radios/
-- Drive and return station assets (including braking systems, drive systems, gear boxes, motors, variable speed drives (VSDs) and tensioning systems): https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/drive-and-return-station-assets/
+- Radios (Communications assets): https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/radios/
+- Drive and return station assets (including braking systems, drive systems, gear boxes, motors, variable speed drives (VSDs) and tensioning systems) (Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas): https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/drive-and-return-station-assets/
 - Rescue vehicles: https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/rescue-vehicles/
 - Haul ropes: https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/haul-ropes/
 - Track ropes: https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/track-ropes/
-- Standby power drives: https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/standby-power-drives/
+- Standby power drives (Monocable circulating detachable, reversible and fixed ropeway assets operated in non-snowfield areas): https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/standby-power-drives/
 - Tower heads: https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/tower-heads/
 - Tower structures: https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/tower-structures/
 - Transportation systems (incorporating drives and belts): https://duguid.com.au/tools/depreciation-rates/industry/scenic-and-sightseeing-transport/transportation-systems/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

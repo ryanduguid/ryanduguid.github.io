@@ -103,6 +103,32 @@ pub(super) fn context(group: &Group, entry: &Entry) -> Vec<String> {
     out
 }
 
+/// Link text retains the full statutory wording. Qualify ambiguous names with their
+/// nearest heading or industry, keeping a one-word row with its parent even on its own.
+pub(super) fn link_candidates(group: &Group, entry: &Entry) -> Vec<String> {
+    let name = entry.text();
+    let parents = headings(group, entry);
+    let mut options = Vec::new();
+    if parents.is_empty() || name.split_whitespace().nth(1).is_some() {
+        options.push(name.to_owned());
+    }
+    if let Some(parent) = parents.last() {
+        options.push(format!("{name} ({parent})"));
+    }
+    let place = place(group);
+    options.push(format!("{name} ({place})"));
+    let mut full: Vec<_> = entry.path[..entry.path.len() - 1]
+        .iter()
+        .map(|heading| heading.trim_end_matches(':'))
+        .collect();
+    if group.table == Table::B && group.top.as_ref() != Some(entry) {
+        full.insert(0, group.heading.trim_end_matches(':'));
+    }
+    full.push(&place);
+    options.push(format!("{name} ({})", full.join(" / ")));
+    options
+}
+
 /// Context-qualified and end-fitted fallback title candidates when simpler forms collide.
 fn push_context_titles(group: &Group, entry: &Entry, tail: &str, out: &mut Vec<String>) {
     let context = context(group, entry);
@@ -373,7 +399,7 @@ fn facts(site: &Site, row: RowRef, life: &Life) -> String {
     rows.push_str(&fact("Last reviewed and determined", &esc(&updated)));
     rows.push_str(&notes::marks(&entry.flags));
     format!(
-        "        <section id=\"life\">\n        <h2>Effective life and rates</h2>\n        <div class=\"table-scroll\" role=\"region\" aria-label=\"Effective life and rates\" tabindex=\"0\">\n        <table class=\"facts facts--kv\">\n          <caption>Effective life and rates from <a href=\"#source\">{}</a>, registered on {}.</caption>\n          <tbody>\n{rows}          </tbody>\n        </table>\n        </div>\n        </section>\n",
+        "        <section id=\"life\">\n        <h2>Effective life and rates</h2>\n        <div class=\"table-scroll\" role=\"region\" aria-label=\"Effective life and rates\" tabindex=\"0\">\n        <table class=\"facts facts--kv\">\n          <caption>Effective life and rates. Data from <a href=\"#source\">determination {}</a>, registered on {}.</caption>\n          <tbody>\n{rows}          </tbody>\n        </table>\n        </div>\n        </section>\n",
         esc(&source.register_id),
         date(&source.registered)
     )
@@ -471,7 +497,7 @@ fn nearby(site: &Site, row: RowRef) -> String {
     )
 }
 
-/// The rows in other groups with the same wording, up to 20.
+/// Rows in other groups with matching core names. Their qualifiers can differ.
 fn elsewhere(site: &Site, row: RowRef) -> String {
     let entry = site.entry(row);
     let Some(rows) = site.same_words.get(&key(entry.text())) else {
@@ -492,7 +518,7 @@ fn elsewhere(site: &Site, row: RowRef) -> String {
         String::new()
     };
     format!(
-        "        <section id=\"elsewhere\">\n        <h2>The same wording elsewhere</h2>\n        <p>Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).{note}</p>\n{}        </section>\n",
-        rows_table(site, "The same wording elsewhere", shown, None, true)
+        "        <section id=\"elsewhere\">\n        <h2>Similarly named rows</h2>\n        <p>Compare the full row description and industry. Similar names can cover different equipment or effective lives under section 6 of the determination.{note}</p>\n{}        </section>\n",
+        rows_table(site, "Similarly named rows", shown, None, true)
     )
 }

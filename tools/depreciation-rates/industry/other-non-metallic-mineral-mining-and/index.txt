@@ -8,67 +8,65 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metall
 
 16 effective lives in Table A of the Commissioner’s 2025 effective life determination for Other non-metallic mineral mining and quarrying n.e.c..
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Other non-metallic mineral mining and quarrying n.e.c.. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Salt harvesting assets: | | | |
+Asset group · Salt harvesting assets: | | | |
 Salt harvesting assets: / Culverts for conveying seawater/brine/bitterns | 50 years | 2.00% | 4.00% | 1 July 2021
-Salt harvesting assets: / Dollies | 10 years | 10.00% | 20.00% | 1 July 2021
-Salt harvesting assets: / Dozers | 8 years | 12.50% | 25.00% | 1 July 2021
-Salt harvesting assets: / Excavators | 10 years | 10.00% | 20.00% | 1 July 2021
+Dollies (Salt harvesting assets) | 10 years | 10.00% | 20.00% | 1 July 2021
+Dozers (Salt harvesting assets) | 8 years | 12.50% | 25.00% | 1 July 2021
+Excavators (Salt harvesting assets) | 10 years | 10.00% | 20.00% | 1 July 2021
 Salt harvesting assets: / Front end loaders | 8 years | 12.50% | 25.00% | 1 July 2021
-Salt harvesting assets: / Graders | 8 years | 12.50% | 25.00% | 1 July 2021
-Salt harvesting assets: / Harvesters | 7 years | 14.29% | 28.57% | 1 July 2021
-Salt harvesting assets: / Levees | 40 years | 2.50% | 5.00% | 1 July 2021
+Graders (Salt harvesting assets) | 8 years | 12.50% | 25.00% | 1 July 2021
+Harvesters (Salt harvesting assets) | 7 years | 14.29% | 28.57% | 1 July 2021
+Levees (Salt harvesting assets) | 40 years | 2.50% | 5.00% | 1 July 2021
 Salt harvesting assets: / Mobile pump stations | 5 years | 20.00% | 40.00% | 1 July 2021
-Salt harvesting assets: / Port assets: | | | |
-Salt harvesting assets: / Port assets: / Mooring buoys | 25 years | 4.00% | 8.00% | 1 July 2021
-Salt harvesting assets: / Port assets: / Other port assets (including dolphins, ship loaders and stackers) – see Table A Water transport and support services (48100 to 48200 and 52110 to 52190) | | | |
-Salt harvesting assets: / Pumps: | | | |
-Salt harvesting assets: / Pumps: / Bore pumps | 10 years | 10.00% | 20.00% | 1 July 2021
+Asset group · Salt harvesting assets: / Port assets: | | | |
+Salt harvesting assets: / Mooring buoys (Port assets) | 25 years | 4.00% | 8.00% | 1 July 2021
+Register note · Salt harvesting assets: / Port assets: / Other port assets (including dolphins, ship loaders and stackers) – see Table A Water transport and support services (48100 to 48200 and 52110 to 52190) | | | |
+Asset group · Salt harvesting assets: / Pumps: | | | |
+Salt harvesting assets: / Bore pumps (Pumps) | 10 years | 10.00% | 20.00% | 1 July 2021
 Salt harvesting assets: / Pumps: / Channel feed pumps and concentrator pond pumps | 10 years | 10.00% | 20.00% | 1 July 2021
 Salt harvesting assets: / Pumps: / Primary intake pumps | 15 years | 6.67% | 13.33% | 1 July 2021
-Salt harvesting assets: / Tractors | 10 years | 10.00% | 20.00% | 1 July 2021
-Salt harvesting assets: / Trailers | 10 years | 10.00% | 20.00% | 1 July 2021
-Salt harvesting assets: / Trucks | 12 years | 8.33% | 16.67% | 1 July 2021
-Salt harvesting assets: / Tugboats – see Table A Water transport and support services (48100 to 48200 and 52110 to 52190) | | | |
+Tractors (Salt harvesting assets) | 10 years | 10.00% | 20.00% | 1 July 2021
+Trailers (Salt harvesting assets) | 10 years | 10.00% | 20.00% | 1 July 2021
+Trucks (Salt harvesting assets) | 12 years | 8.33% | 16.67% | 1 July 2021
+Register note · Salt harvesting assets: / Tugboats – see Table A Water transport and support services (48100 to 48200 and 52110 to 52190) | | | |
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/#source
 - Culverts for conveying seawater/brine/bitterns: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/culverts-for-conveying-seawater-brine-bitterns/
-- Dollies: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/dollies/
-- Dozers: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/dozers/
-- Excavators: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/excavators/
+- Dollies (Salt harvesting assets): https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/dollies/
+- Dozers (Salt harvesting assets): https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/dozers/
+- Excavators (Salt harvesting assets): https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/excavators/
 - Front end loaders: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/front-end-loaders/
-- Graders: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/graders/
-- Harvesters: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/harvesters/
-- Levees: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/levees/
+- Graders (Salt harvesting assets): https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/graders/
+- Harvesters (Salt harvesting assets): https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/harvesters/
+- Levees (Salt harvesting assets): https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/levees/
 - Mobile pump stations: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/mobile-pump-stations/
-- Mooring buoys: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/mooring-buoys/
+- Mooring buoys (Port assets): https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/mooring-buoys/
 - Other port assets (including dolphins, ship loaders and stackers) – see Table A Water transport and support services (48100 to 48200 and 52110 to 52190): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/
-- Bore pumps: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/bore-pumps/
+- Bore pumps (Pumps): https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/bore-pumps/
 - Channel feed pumps and concentrator pond pumps: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/channel-feed-pumps-and-concentrator-pond-pumps/
 - Primary intake pumps: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/primary-intake-pumps/
-- Tractors: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/tractors/
-- Trailers: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/trailers/
-- Trucks: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/trucks/
+- Tractors (Salt harvesting assets): https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/tractors/
+- Trailers (Salt harvesting assets): https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/trailers/
+- Trucks (Salt harvesting assets): https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/trucks/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

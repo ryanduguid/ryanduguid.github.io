@@ -391,9 +391,16 @@ fn bundle_stylesheets(root: &Path, pages: &[PathBuf]) -> Result<(), String> {
         let tag = |name: &str| {
             format!(r#"<link rel="stylesheet" href="/assets/{name}\.css\?v=[a-z0-9]+" />"#)
         };
-        fancy_regex::Regex::new(&format!(r"{}\s+{}", tag("tokens"), tag("site")))
-            .expect("site stylesheet tags")
+        fancy_regex::Regex::new(&format!(
+            r"{}\s+{}(?:\s+{})?",
+            tag("tokens"),
+            tag("site"),
+            tag("accounting-pages")
+        ))
+        .expect("site stylesheet tags")
     });
+    let accounting = assets.join("accounting-pages.css");
+    let has_accounting = accounting.is_file();
     let mut link = String::new();
     for page in pages {
         let mut html = crate::read(page)?;
@@ -403,11 +410,23 @@ fn bundle_stylesheets(root: &Path, pages: &[PathBuf]) -> Result<(), String> {
         let Some(tags) = LINKS.find(head).map_err(|e| e.to_string())? else {
             continue;
         };
+        if !has_accounting && tags.as_str().contains("/assets/accounting-pages.css?") {
+            return Err(format!(
+                "{} is missing on {}",
+                accounting.display(),
+                page.display()
+            ));
+        }
         let range = tags.start()..tags.end();
         if link.is_empty() {
             let tokens = crate::read(&assets.join("tokens.css"))?;
             let site = crate::read(&assets.join("site.css"))?;
-            let bundle = css(&format!("{tokens}\n{site}"))?;
+            let scoped = if has_accounting {
+                crate::read(&accounting)?
+            } else {
+                String::new()
+            };
+            let bundle = css(&format!("{tokens}\n{site}\n{scoped}"))?;
             let name = format!("screen-{}.css", &crate::sha256(&bundle)[..16]);
             write_generated(&assets.join(&name), &bundle)?;
             link = format!(r#"<link rel="stylesheet" href="/assets/{name}" />"#);

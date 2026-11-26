@@ -8,50 +8,48 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growin
 
 30 effective lives in Table A of the Commissioner’s 2025 effective life determination for Vegetable growing (outdoors) and sugar cane growing.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Vegetable growing (outdoors) and sugar cane growing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Chemical spraying assets: | | | |
-Chemical spraying assets: / Generally | 10 years | 10.00% | 20.00% | 1 July 2007
-Chemical spraying assets: / Self-propelled | 8 years | 12.50% | 25.00% | 1 July 2007
-Fertiliser spreaders: | | | |
-Fertiliser spreaders: / Generally | 10 years | 10.00% | 20.00% | 1 July 2007
-Fertiliser spreaders: / Spinner | 5 years | 20.00% | 40.00% | 1 July 2007
-General assets: | | | |
-General assets: / Bins: | | | |
-General assets: / Bins: / Plastic | 10 years | 10.00% | 20.00% | 1 July 2007
-General assets: / Bins: / Timber | 5 years | 20.00% | 40.00% | 1 July 2007
-General assets: / Mulch layers | 12 years | 8.33% | 16.67% | 1 July 2007
-General assets: / Mulch lifters | 12 years | 8.33% | 16.67% | 1 July 2007
-General assets: / Mulchers | 8 years | 12.50% | 25.00% | 1 July 2007
+Asset group · Chemical spraying assets: | | | |
+Generally (Chemical spraying assets) | 10 years | 10.00% | 20.00% | 1 July 2007
+Chemical spraying assets: / Self-propelled (Vegetable growing (outdoors) and sugar cane growing) | 8 years | 12.50% | 25.00% | 1 July 2007
+Asset group · Fertiliser spreaders: | | | |
+Generally (Fertiliser spreaders) | 10 years | 10.00% | 20.00% | 1 July 2007
+Spinner (Fertiliser spreaders) | 5 years | 20.00% | 40.00% | 1 July 2007
+Asset group · General assets: | | | |
+Asset group · General assets: / Bins: | | | |
+General assets: / Bins: / Plastic (Vegetable growing (outdoors) and sugar cane growing) | 10 years | 10.00% | 20.00% | 1 July 2007
+General assets: / Bins: / Timber (Vegetable growing (outdoors) and sugar cane growing) | 5 years | 20.00% | 40.00% | 1 July 2007
+General assets: / Mulch layers (Vegetable growing (outdoors) and sugar cane growing) | 12 years | 8.33% | 16.67% | 1 July 2007
+General assets: / Mulch lifters (Vegetable growing (outdoors) and sugar cane growing) | 12 years | 8.33% | 16.67% | 1 July 2007
+General assets: / Mulchers (Vegetable growing (outdoors) and sugar cane growing) | 8 years | 12.50% | 25.00% | 1 July 2007
 General assets: / Rakes (e.g. cane trash rakes) | 10 years | 10.00% | 20.00% | 1 July 2007
-General assets: / Slashers | 8 years | 12.50% | 25.00% | 1 July 2007
-Harvesting assets: | | | |
+General assets: / Slashers (Vegetable growing (outdoors) and sugar cane growing) | 8 years | 12.50% | 25.00% | 1 July 2007
+Asset group · Harvesting assets: | | | |
 Harvesting assets: / Cane haul out bins | 12 years | 8.33% | 16.67% | 1 July 2007
 Harvesting assets: / Harvesters (including cane, carrot, onion, potato and tomato) | 10 years | 10.00% | 20.00% | 1 July 2007
 Harvesting assets: / Harvesting aids (incorporating trailers and conveyor belts) | 15 years | 6.67% | 13.33% | 1 July 2007
 Harvesting assets: / Onion lifters | 10 years | 10.00% | 20.00% | 1 July 2007
-Harvesting assets: / Trailers | 15 years | 6.67% | 13.33% | 1 July 2007
+Trailers (Harvesting assets) | 15 years | 6.67% | 13.33% | 1 July 2007
 Harvesting assets: / Windrowers (including potato diggers, onion and potato windrowers) | 10 years | 10.00% | 20.00% | 1 July 2007
 Pea-viners, pea cleaners, vine and straw conveyors | 10 years | 10.00% | 20.00% | 1 July 2016
-Planting assets: | | | |
+Asset group · Planting assets: | | | |
 Planting assets: / Billet planters | 12 years | 8.33% | 16.67% | 1 July 2007
 Planting assets: / Potato cutters | 15 years | 6.67% | 13.33% | 1 July 2007
 Planting assets: / Potato planters | 10 years | 10.00% | 20.00% | 1 July 2007
 Planting assets: / Precision seeders | 10 years | 10.00% | 20.00% | 1 July 2007
-Planting assets: / Transplanters: | | | |
-Planting assets: / Transplanters: / Automated | 7 years | 14.29% | 28.57% | 1 July 2007
-Planting assets: / Transplanters: / Manual | 10 years | 10.00% | 20.00% | 1 July 2007
-Tillage assets: | | | |
-Tillage assets: / Generally | 15 years | 6.67% | 13.33% | 1 July 2007
-Tillage assets: / Power take-off (PTO) operated (including rotary hoes and power harrows) | 8 years | 12.50% | 25.00% | 1 July 2007
-Trellising assets: | | | |
+Asset group · Planting assets: / Transplanters: | | | |
+Planting assets: / Automated (Transplanters) | 7 years | 14.29% | 28.57% | 1 July 2007
+Planting assets: / Manual (Transplanters) | 10 years | 10.00% | 20.00% | 1 July 2007
+Asset group · Tillage assets: | | | |
+Tillage assets: / Generally (Vegetable growing (outdoors) and sugar cane growing) | 15 years | 6.67% | 13.33% | 1 July 2007
+Tillage assets: / Power take-off (PTO) operated (including rotary hoes and power harrows) (Vegetable growing (outdoors) and sugar cane growing) | 8 years | 12.50% | 25.00% | 1 July 2007
+Asset group · Trellising assets: | | | |
 Trellising assets: / Stake drivers | 12 years | 8.33% | 16.67% | 1 July 2007
 Trellising assets: / Stake pullers | 12 years | 8.33% | 16.67% | 1 July 2007
 Trellising assets: / Trellising (incorporating stakes and wire) | 5 years | 20.00% | 40.00% | 1 July 2007
@@ -59,47 +57,47 @@ Trellising assets: / Wire winders | 15 years | 6.67% | 13.33% | 1 July 2007
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/#source
-- Generally: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/chemical-spraying-assets-generally/
-- Self-propelled: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/self-propelled/
-- Generally: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/fertiliser-spreaders-generally/
-- Spinner: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/spinner/
-- Plastic: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/plastic/
-- Timber: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/timber/
-- Mulch layers: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/mulch-layers/
-- Mulch lifters: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/mulch-lifters/
-- Mulchers: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/mulchers/
+- Generally (Chemical spraying assets): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/chemical-spraying-assets-generally/
+- Self-propelled (Vegetable growing (outdoors) and sugar cane growing): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/self-propelled/
+- Generally (Fertiliser spreaders): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/fertiliser-spreaders-generally/
+- Spinner (Fertiliser spreaders): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/spinner/
+- Plastic (Vegetable growing (outdoors) and sugar cane growing): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/plastic/
+- Timber (Vegetable growing (outdoors) and sugar cane growing): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/timber/
+- Mulch layers (Vegetable growing (outdoors) and sugar cane growing): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/mulch-layers/
+- Mulch lifters (Vegetable growing (outdoors) and sugar cane growing): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/mulch-lifters/
+- Mulchers (Vegetable growing (outdoors) and sugar cane growing): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/mulchers/
 - Rakes (e.g. cane trash rakes): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/rakes/
-- Slashers: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/slashers/
+- Slashers (Vegetable growing (outdoors) and sugar cane growing): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/slashers/
 - Cane haul out bins: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/cane-haul-out-bins/
 - Harvesters (including cane, carrot, onion, potato and tomato): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/harvesters/
 - Harvesting aids (incorporating trailers and conveyor belts): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/harvesting-aids/
 - Onion lifters: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/onion-lifters/
-- Trailers: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/trailers/
+- Trailers (Harvesting assets): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/trailers/
 - Windrowers (including potato diggers, onion and potato windrowers): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/windrowers/
 - Pea-viners, pea cleaners, vine and straw conveyors: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/pea-viners-pea-cleaners-vine-and-straw-conveyors/
 - Billet planters: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/billet-planters/
 - Potato cutters: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/potato-cutters/
 - Potato planters: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/potato-planters/
 - Precision seeders: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/precision-seeders/
-- Automated: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/automated/
-- Manual: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/manual/
-- Generally: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/tillage-assets-generally/
-- Power take-off (PTO) operated (including rotary hoes and power harrows): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/power-take-off-operated/
+- Automated (Transplanters): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/automated/
+- Manual (Transplanters): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/manual/
+- Generally (Vegetable growing (outdoors) and sugar cane growing): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/tillage-assets-generally/
+- Power take-off (PTO) operated (including rotary hoes and power harrows) (Vegetable growing (outdoors) and sugar cane growing): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/power-take-off-operated/
 - Stake drivers: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/stake-drivers/
 - Stake pullers: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/stake-pullers/
 - Trellising (incorporating stakes and wire): https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/trellising/
 - Wire winders: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/wire-winders/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -8,22 +8,20 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-e
 
 18 effective lives in Table A of the Commissioner’s 2025 effective life determination for Motion picture exhibition.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Motion picture exhibition. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Audio amplification and processing equipment (including component rack systems) | 10 years | 10.00% | 20.00% | 1 January 2001
-Carpets | 5 years | 20.00% | 40.00% | 1 January 2001
+Carpets (Motion picture exhibition) | 5 years | 20.00% | 40.00% | 1 January 2001
 Cinema automation systems | 10 years | 10.00% | 20.00% | 1 January 2001
 Cinema and sound processors | 8 years | 12.50% | 25.00% | 1 January 2001
 Cinema seating (including frames, seat bodies and covers) | 7 years | 14.29% | 28.57% | 1 January 2001
 Curtains, wall and acoustic treatments | 7 years | 14.29% | 28.57% | 1 January 2001
-Drive-in plant: | | | |
+Asset group · Drive-in plant: | | | |
 Drive-in plant: / Listening units (including posts, wiring and speaker equipment) | 10 years | 10.00% | 20.00% | 1 January 2001
 Drive-in plant: / Sound transmission equipment | 10 years | 10.00% | 20.00% | 1 January 2001
 Drive-in plant: / Screens and screen framing | 15 years | 6.67% | 13.33% | 1 January 2001
@@ -31,7 +29,7 @@ Film handling and maintenance equipment (including splicers, footage counters, s
 Film transport systems (including platter systems, tower, make-up tables and interlock systems) | 15 years | 6.67% | 13.33% | 1 January 2001
 Lighting (including dimmers, aisle and seat) | 10 years | 10.00% | 20.00% | 1 January 2001
 Loud speakers and sound reproduction equipment | 10 years | 10.00% | 20.00% | 1 January 2001
-Motion picture and slide projection equipment: | | | |
+Asset group · Motion picture and slide projection equipment: | | | |
 Motion picture and slide projection equipment: / Motion picture projectors | 10 years | 10.00% | 20.00% | 1 January 2001
 Motion picture and slide projection equipment: / Projector heat extraction systems | 10 years | 10.00% | 20.00% | 1 January 2001
 Motion picture and slide projection equipment: / Projection ports | 20 years | 5.00% | 10.00% | 1 January 2001
@@ -40,17 +38,17 @@ Screen installations (including screens, framing and masking equipment) | 8 year
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-exhibition/#source
 - Audio amplification and processing equipment (including component rack systems): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-exhibition/audio-amplification-and-processing-equipment/
-- Carpets: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-exhibition/carpets/
+- Carpets (Motion picture exhibition): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-exhibition/carpets/
 - Cinema automation systems: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-exhibition/cinema-automation-systems/
 - Cinema and sound processors: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-exhibition/cinema-and-sound-processors/
 - Cinema seating (including frames, seat bodies and covers): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-exhibition/cinema-seating/
@@ -68,7 +66,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Slide projectors: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-exhibition/slide-projectors/
 - Screen installations (including screens, framing and masking equipment): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-exhibition/screen-installations/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

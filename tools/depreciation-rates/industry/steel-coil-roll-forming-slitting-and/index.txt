@@ -8,117 +8,119 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-
 
 107 effective lives in Table A of the Commissioner’s 2025 effective life determination for Steel coil roll forming, slitting and blanking and sheet metal forming.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Jump to an asset group
+
+Steel coil blanking or shear line assets Steel coil roll forming assets Steel coil slitting assets Steel sheet metal forming assets
 
 Rows of Steel coil roll forming, slitting and blanking and sheet metal forming. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Steel coil blanking or shear line assets: | | | |
+Asset group · Steel coil blanking or shear line assets: | | | |
 Steel coil blanking or shear line assets: / Coil cars (including stationary coil cars) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil blanking or shear line assets: / Cut to length shears and guillotines | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel coil blanking or shear line assets: / De-coilers/un-coilers (incorporating drives, motors, mandrels, gearboxes, snubbers and brakes) | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel coil blanking or shear line assets: / Flying shears | 10 years | 10.00% | 20.00% | 1 July 2012
+De-coilers/un-coilers (incorporating drives, motors, mandrels, gearboxes, snubbers and brakes) (Steel coil blanking or shear line assets) | 15 years | 6.67% | 13.33% | 1 July 2012
+Flying shears (Steel coil blanking or shear line assets) | 10 years | 10.00% | 20.00% | 1 July 2012
 Steel coil blanking or shear line assets: / Grip feeders | 10 years | 10.00% | 20.00% | 1 July 2012
-Steel coil blanking or shear line assets: / Levellers | 15 years | 6.67% | 13.33% | 1 July 2012
+Levellers (Steel coil blanking or shear line assets) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil blanking or shear line assets: / Meter wheels | 7 years | 14.29% | 28.57% | 1 July 2012
-Steel coil blanking or shear line assets: / Peeler tables | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel coil blanking or shear line assets: / Run out tables | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel coil blanking or shear line assets: / Scissor lifts | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel coil blanking or shear line assets: / Stackers | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel coil roll forming assets: | | | |
+Peeler tables (Steel coil blanking or shear line assets) | 15 years | 6.67% | 13.33% | 1 July 2012
+Run out tables (Steel coil blanking or shear line assets) | 15 years | 6.67% | 13.33% | 1 July 2012
+Scissor lifts (Steel coil blanking or shear line assets) | 15 years | 6.67% | 13.33% | 1 July 2012
+Stackers (Steel coil blanking or shear line assets) | 15 years | 6.67% | 13.33% | 1 July 2012
+Asset group · Steel coil roll forming assets: | | | |
 Steel coil roll forming assets: / Auto banders | 10 years | 10.00% | 20.00% | 1 July 2012
 Steel coil roll forming assets: / Closed section induction welders | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil roll forming assets: / Closed section laser welders | 10 years | 10.00% | 20.00% | 1 July 2012
 Steel coil roll forming assets: / CNC laser cutting units | 10 years | 10.00% | 20.00% | 1 July 2012
-Steel coil roll forming assets: / Coil cars | 15 years | 6.67% | 13.33% | 1 July 2012
+Coil cars (Steel coil roll forming assets) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil roll forming assets: / Coil joining welding units | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil roll forming assets: / Coil levellers and straighteners | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil roll forming assets: / Coil magazines | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil roll forming assets: / Coil tilters | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil roll forming assets: / Coil tilting coil cars | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel coil roll forming assets: / Control systems assets: | | | |
+Asset group · Steel coil roll forming assets: / Control systems assets: | | | |
 Steel coil roll forming assets: / Control systems assets: / Motion controllers | 10 years | 10.00% | 20.00% | 1 July 2012
-Steel coil roll forming assets: / Control systems assets: / Programmable logic controllers (PLCs) | 10 years | 10.00% | 20.00% | 1 July 2012
-Steel coil roll forming assets: / Control systems assets: / Potentiometers | 5 years | 20.00% | 40.00% | 1 July 2012
-Steel coil roll forming assets: / Control systems assets: / Variable speed drives (VSDs) | 10 years | 10.00% | 20.00% | 1 July 2012
+Steel coil roll forming assets: / Programmable logic controllers (PLCs) (Control systems assets) | 10 years | 10.00% | 20.00% | 1 July 2012
+Steel coil roll forming assets: / Potentiometers (Control systems assets) | 5 years | 20.00% | 40.00% | 1 July 2012
+Steel coil roll forming assets: / Control systems assets: / Variable speed drives (VSDs) (Steel coil roll forming, slitting and blanking and sheet metal forming) | 10 years | 10.00% | 20.00% | 1 July 2012
 Steel coil roll forming assets: / Control systems (including roll former control systems (incorporating end coders), de-coiler/un- coiler control systems and snubber control systems) | 10 years | 10.00% | 20.00% | 1 July 2012
-Steel coil roll forming assets: / De-coilers/un-coilers (incorporating drives, motors, mandrels, gearboxes, snubbers and brakes) | 15 years | 6.67% | 13.33% | 1 July 2012
+De-coilers/un-coilers (incorporating drives, motors, mandrels, gearboxes, snubbers and brakes) (Steel coil roll forming assets) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil roll forming assets: / Embossing units | 5 years | 20.00% | 40.00% | 1 July 2012
-Steel coil roll forming assets: / Flying shears | 10 years | 10.00% | 20.00% | 1 July 2012
+Flying shears (Steel coil roll forming assets) | 10 years | 10.00% | 20.00% | 1 July 2012
 Steel coil roll forming assets: / In-line presses and punches | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil roll forming assets: / In-line printers and labellers | 7 years | 14.29% | 28.57% | 1 July 2012
-Steel coil roll forming assets: / Metal saws: | | | |
-Steel coil roll forming assets: / Metal saws: / Band saws | 10 years | 10.00% | 20.00% | 1 July 2012
+Asset group · Steel coil roll forming assets: / Metal saws: | | | |
+Steel coil roll forming assets: / Band saws (Metal saws) | 10 years | 10.00% | 20.00% | 1 July 2012
 Steel coil roll forming assets: / Metal saws: / Rotary cut off saws | 10 years | 10.00% | 20.00% | 1 July 2012
 Steel coil roll forming assets: / Roll former tooling | 8 years | 12.50% | 25.00% | 1 July 2012
-Steel coil roll forming assets: / Roll formers (incorporating entry guides, fixed and height adjustable pinch rollers, drive motor and gearboxes, base and power supply unit): | | | |
-Steel coil roll forming assets: / Roll formers (incorporating entry guides, fixed and height adjustable pinch rollers, drive motor and gearboxes, base and power supply unit): / Fixed | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel coil roll forming assets: / Roll formers (incorporating entry guides, fixed and height adjustable pinch rollers, drive motor and gearboxes, base and power supply unit): / Mobile | 10 years | 10.00% | 20.00% | 1 July 2012
-Steel coil roll forming assets: / Run out tables | 15 years | 6.67% | 13.33% | 1 July 2012
+Asset group · Steel coil roll forming assets: / Roll formers (incorporating entry guides, fixed and height adjustable pinch rollers, drive motor and gearboxes, base and power supply unit): | | | |
+Steel coil roll forming assets: / Roll formers (incorporating entry guides, fixed and height adjustable pinch rollers, drive motor and gearboxes, base and power supply unit): / Fixed (Roll formers …) | 15 years | 6.67% | 13.33% | 1 July 2012
+Steel coil roll forming assets: / Roll formers (incorporating entry guides, fixed and height adjustable pinch rollers, drive motor and gearboxes, base and power supply unit): / Mobile (Roll formers …) | 10 years | 10.00% | 20.00% | 1 July 2012
+Run out tables (Steel coil roll forming assets) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil roll forming assets: / Shears and guillotines | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil roll forming assets: / Snubbers (incorporating drives, motors and gearboxes) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil roll forming assets: / Strip lubricators | 10 years | 10.00% | 20.00% | 1 July 2012
-Steel coil roll forming assets: / Support assets: | | | |
-Steel coil roll forming assets: / Support assets: / Controlled access gates | 10 years | 10.00% | 20.00% | 1 July 2012
-Steel coil roll forming assets: / Support assets: / Conveyors: | | | |
-Steel coil roll forming assets: / Support assets: / Conveyors: / Gravity feed conveyors (incorporating belts, rollers and frames) | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel coil roll forming assets: / Support assets: / Conveyors: / Motorised conveyors (incorporating gearboxes, belts, rollers, bearings, motors, frames and controls) | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel coil roll forming assets: / Support assets: / Engineering workshop assets: | | | |
+Asset group · Steel coil roll forming assets: / Support assets: | | | |
+Steel coil roll forming assets: / Controlled access gates (Support assets) | 10 years | 10.00% | 20.00% | 1 July 2012
+Asset group · Steel coil roll forming assets: / Support assets: / Conveyors: | | | |
+Steel coil roll forming assets: / Support assets: / Conveyors: / Gravity feed conveyors (incorporating belts, rollers and frames) (Steel coil roll forming assets / Support assets / Conveyors / Steel coil roll forming, slitting and blanking and sheet metal forming) | 15 years | 6.67% | 13.33% | 1 July 2012
+Steel coil roll forming assets: / Support assets: / Conveyors: / Motorised conveyors (incorporating gearboxes, belts, rollers, bearings, motors, frames and controls) (Steel coil roll forming assets / Support assets / Conveyors / Steel coil roll forming, slitting and blanking and sheet metal forming) | 15 years | 6.67% | 13.33% | 1 July 2012
+Asset group · Steel coil roll forming assets: / Support assets: / Engineering workshop assets: | | | |
 Steel coil roll forming assets: / Support assets: / Engineering workshop assets: / CNC and NC lathes | 10 years | 10.00% | 20.00% | 1 July 2012
-Steel coil roll forming assets: / Support assets: / Engineering workshop assets: / Drilling machines | 10 years | 10.00% | 20.00% | 1 July 2012
+Steel coil roll forming assets: / Support assets: / Drilling machines (Engineering workshop assets) | 10 years | 10.00% | 20.00% | 1 July 2012
 Steel coil roll forming assets: / Support assets: / Engineering workshop assets: / Keyway broaching presses | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil roll forming assets: / Support assets: / Guard lights (incorporating red eye guard lights and stands) | 7 years | 14.29% | 28.57% | 1 July 2012
-Steel coil roll forming assets: / Support assets: / Lifting assets: | | | |
-Steel coil roll forming assets: / Support assets: / Lifting assets: / C-hooks | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel coil roll forming assets: / Support assets: / Lifting assets: / Overhead cranes and gantries | 25 years | 4.00% | 8.00% | 1 July 2012
-Steel coil roll forming assets: / Support assets: / Lifting assets: / Spreader bars | 10 years | 10.00% | 20.00% | 1 July 2012
+Asset group · Steel coil roll forming assets: / Support assets: / Lifting assets: | | | |
+Steel coil roll forming assets: / Support assets: / Lifting assets: / C-hooks (Steel coil roll forming assets / Support assets / Lifting assets / Steel coil roll forming, slitting and blanking and sheet metal forming) | 15 years | 6.67% | 13.33% | 1 July 2012
+Steel coil roll forming assets: / Support assets: / Lifting assets: / Overhead cranes and gantries (Steel coil roll forming assets / Support assets / Lifting assets / Steel coil roll forming, slitting and blanking and sheet metal forming) | 25 years | 4.00% | 8.00% | 1 July 2012
+Steel coil roll forming assets: / Support assets: / Spreader bars (Lifting assets) | 10 years | 10.00% | 20.00% | 1 July 2012
 Steel coil roll forming assets: / Support assets: / Manual strapping machines | 7 years | 14.29% | 28.57% | 1 July 2012
 Steel coil roll forming assets: / Support assets: / Measuring assets (including micrometers, protractors, tapes, and vernier callipers) | 7 years | 14.29% | 28.57% | 1 July 2012
 Steel coil roll forming assets: / Support assets: / Perimeter fencing | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel coil roll forming assets: / Support assets: / Pneumatic systems assets: | | | |
-Steel coil roll forming assets: / Support assets: / Pneumatic systems assets: / Air compressors | 7 years | 14.29% | 28.57% | 1 July 2012
-Steel coil roll forming assets: / Support assets: / Pneumatic systems assets: / Air driers | 7 years | 14.29% | 28.57% | 1 July 2012
-Steel coil roll forming assets: / Support assets: / Pneumatic systems assets: / Air receivers | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel coil roll forming assets: / Support assets: / Racking | 20 years | 5.00% | 10.00% | 1 July 2012
+Asset group · Steel coil roll forming assets: / Support assets: / Pneumatic systems assets: | | | |
+Steel coil roll forming assets: / Support assets: / Pneumatic systems assets: / Air compressors (Steel coil roll forming assets / Support assets / Pneumatic systems assets / Steel coil roll forming, slitting and blanking and sheet metal forming) | 7 years | 14.29% | 28.57% | 1 July 2012
+Steel coil roll forming assets: / Support assets: / Pneumatic systems assets: / Air driers (Steel coil roll forming assets / Support assets / Pneumatic systems assets / Steel coil roll forming, slitting and blanking and sheet metal forming) | 7 years | 14.29% | 28.57% | 1 July 2012
+Steel coil roll forming assets: / Support assets: / Pneumatic systems assets: / Air receivers (Steel coil roll forming assets / Support assets / Pneumatic systems assets / Steel coil roll forming, slitting and blanking and sheet metal forming) | 15 years | 6.67% | 13.33% | 1 July 2012
+Steel coil roll forming assets: / Support assets: / Racking (Steel coil roll forming, slitting and blanking and sheet metal forming) | 20 years | 5.00% | 10.00% | 1 July 2012
 Steel coil roll forming assets: / Support assets: / Stackers (drop and suction) | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel coil roll forming assets: / Support assets: / Stretch wrappers | 10 years | 10.00% | 20.00% | 1 July 2012
+Steel coil roll forming assets: / Stretch wrappers (Support assets) | 10 years | 10.00% | 20.00% | 1 July 2012
 Steel coil roll forming assets: / Support assets: / Tunnel guarding (including safety cages) | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel coil slitting assets: | | | |
+Asset group · Steel coil slitting assets: | | | |
 Steel coil slitting assets: / Anti-flutter rolls | 10 years | 10.00% | 20.00% | 1 July 2012
 Steel coil slitting assets: / Auto banders (incorporating conveyors, strapping heads, coil lift systems, strapping dispensers, accumulators and controls) | 10 years | 10.00% | 20.00% | 1 July 2012
 Steel coil slitting assets: / Carryover tables | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel coil slitting assets: / Coil cars | 15 years | 6.67% | 13.33% | 1 July 2012
+Coil cars (Steel coil slitting assets) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil slitting assets: / Coil stacking systems | 20 years | 5.00% | 10.00% | 1 July 2012
-Steel coil slitting assets: / Control systems | 10 years | 10.00% | 20.00% | 1 July 2012
-Steel coil slitting assets: / Controlled access gates | 10 years | 10.00% | 20.00% | 1 July 2012
-Steel coil slitting assets: / Conveyors: | | | |
-Steel coil slitting assets: / Conveyors: / Gravity feed conveyors (incorporating belts, rollers and frames) | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel coil slitting assets: / Conveyors: / Motorised conveyors (incorporating gearboxes, belts, rollers, bearings, motors, frames and controls) | 15 years | 6.67% | 13.33% | 1 July 2012
+Control systems (Steel coil slitting assets) | 10 years | 10.00% | 20.00% | 1 July 2012
+Controlled access gates (Steel coil slitting assets) | 10 years | 10.00% | 20.00% | 1 July 2012
+Asset group · Steel coil slitting assets: / Conveyors: | | | |
+Steel coil slitting assets: / Conveyors: / Gravity feed conveyors (incorporating belts, rollers and frames) (Steel coil slitting assets / Conveyors / Steel coil roll forming, slitting and blanking and sheet metal forming) | 15 years | 6.67% | 13.33% | 1 July 2012
+Steel coil slitting assets: / Conveyors: / Motorised conveyors (incorporating gearboxes, belts, rollers, bearings, motors, frames and controls) (Steel coil slitting assets / Conveyors / Steel coil roll forming, slitting and blanking and sheet metal forming) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil slitting assets: / De-coiler/un-coiler edge guides | 10 years | 10.00% | 20.00% | 1 July 2012
-Steel coil slitting assets: / De-coilers/un-coilers (incorporating drives, motors, mandrels, gearboxes, snubbers and brakes) | 15 years | 6.67% | 13.33% | 1 July 2012
+De-coilers/un-coilers (incorporating drives, motors, mandrels, gearboxes, snubbers and brakes) (Steel coil slitting assets) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil slitting assets: / Downenders (incorporating conveyors, hydraulics and controls) | 20 years | 5.00% | 10.00% | 1 July 2012
 Steel coil slitting assets: / Entry and exit coil carousels/capstans | 20 years | 5.00% | 10.00% | 1 July 2012
 Steel coil slitting assets: / Entry shears | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil slitting assets: / Exit edge guides | 10 years | 10.00% | 20.00% | 1 July 2012
 Steel coil slitting assets: / Exit feed up units (incorporating deflector and lift rolls, shears, separators, tables and traverse drives) | 20 years | 5.00% | 10.00% | 1 July 2012
 Steel coil slitting assets: / Exit turnstile/coil stackers | 20 years | 5.00% | 10.00% | 1 July 2012
-Steel coil slitting assets: / Lifting assets: | | | |
-Steel coil slitting assets: / Lifting assets: / C-hooks | 15 years | 6.67% | 13.33% | 1 July 2012
+Asset group · Steel coil slitting assets: / Lifting assets: | | | |
+Steel coil slitting assets: / Lifting assets: / C-hooks (Steel coil slitting assets / Lifting assets / Steel coil roll forming, slitting and blanking and sheet metal forming) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil slitting assets: / Lifting assets: / Magnet cranes | 20 years | 5.00% | 10.00% | 1 July 2012
-Steel coil slitting assets: / Lifting assets: / Overhead cranes and gantries | 25 years | 4.00% | 8.00% | 1 July 2012
+Steel coil slitting assets: / Lifting assets: / Overhead cranes and gantries (Steel coil slitting assets / Lifting assets / Steel coil roll forming, slitting and blanking and sheet metal forming) | 25 years | 4.00% | 8.00% | 1 July 2012
 Steel coil slitting assets: / Main hydraulic power pack (incorporating interconnecting pipe work to valve stands) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil slitting assets: / Pallet conveyor monorails | 10 years | 10.00% | 20.00% | 1 July 2012
-Steel coil slitting assets: / Peeler tables | 15 years | 6.67% | 13.33% | 1 July 2012
+Peeler tables (Steel coil slitting assets) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil slitting assets: / Perimeter guarding | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil slitting assets: / Pinch rollers/breakers | 20 years | 5.00% | 10.00% | 1 July 2012
-Steel coil slitting assets: / Pneumatic systems assets: | | | |
-Steel coil slitting assets: / Pneumatic systems assets: / Air compressors | 7 years | 14.29% | 28.57% | 1 July 2012
-Steel coil slitting assets: / Pneumatic systems assets: / Air driers | 7 years | 14.29% | 28.57% | 1 July 2012
-Steel coil slitting assets: / Pneumatic systems assets: / Air receivers | 15 years | 6.67% | 13.33% | 1 July 2012
+Asset group · Steel coil slitting assets: / Pneumatic systems assets: | | | |
+Steel coil slitting assets: / Pneumatic systems assets: / Air compressors (Steel coil slitting assets / Pneumatic systems assets / Steel coil roll forming, slitting and blanking and sheet metal forming) | 7 years | 14.29% | 28.57% | 1 July 2012
+Steel coil slitting assets: / Pneumatic systems assets: / Air driers (Steel coil slitting assets / Pneumatic systems assets / Steel coil roll forming, slitting and blanking and sheet metal forming) | 7 years | 14.29% | 28.57% | 1 July 2012
+Steel coil slitting assets: / Pneumatic systems assets: / Air receivers (Steel coil slitting assets / Pneumatic systems assets / Steel coil roll forming, slitting and blanking and sheet metal forming) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil slitting assets: / Re-coilers (incorporating drives, motors, mandrels, gearboxes, snubbers, and brakes) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil slitting assets: / Scrap baller | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil slitting assets: / Scrap chopper bins and carriages | 20 years | 5.00% | 10.00% | 1 July 2012
@@ -131,114 +133,118 @@ Steel coil slitting assets: / Slitting head entry side guides | 10 years | 10.00
 Steel coil slitting assets: / Slitting heads (incorporating electric motors, gearboxes and drive shafts) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil slitting assets: / Tension units (incorporating entry and exit quadrants, rolls, separators, drag pads, motors, gearboxes and drives) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel coil slitting assets: / Weighing scales (incorporating load cells and controls) | 20 years | 5.00% | 10.00% | 1 July 2012
-Steel sheet metal forming assets: | | | |
-Steel sheet metal forming assets: / Blankers | 15 years | 6.67% | 13.33% | 1 July 2012
+Asset group · Steel sheet metal forming assets: | | | |
+Blankers (Steel sheet metal forming assets) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel sheet metal forming assets: / Brake presses | 20 years | 5.00% | 10.00% | 1 July 2012
 Steel sheet metal forming assets: / CNC multi head combined slitter/blankers | 15 years | 6.67% | 13.33% | 1 July 2012
-Steel sheet metal forming assets: / Control systems | 10 years | 10.00% | 20.00% | 1 July 2012
-Steel sheet metal forming assets: / Folders | 10 years | 10.00% | 20.00% | 1 July 2012
-Steel sheet metal forming assets: / Guillotines | 15 years | 6.67% | 13.33% | 1 July 2012
+Control systems (Steel sheet metal forming assets) | 10 years | 10.00% | 20.00% | 1 July 2012
+Folders (Steel sheet metal forming assets) | 10 years | 10.00% | 20.00% | 1 July 2012
+Guillotines (Steel sheet metal forming assets) | 15 years | 6.67% | 13.33% | 1 July 2012
 Steel sheet metal forming assets: / Mini slitters | 15 years | 6.67% | 13.33% | 1 July 2012
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- Steel coil blanking or shear line assets: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/#asset-group-1
+- Steel coil roll forming assets: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/#asset-group-13
+- Steel coil slitting assets: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/#asset-group-71
+- Steel sheet metal forming assets: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/#asset-group-115
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/#source
 - Coil cars (including stationary coil cars): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-blanking-or-shear-coil-cars/
 - Cut to length shears and guillotines: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/cut-to-length-shears-and-guillotines/
-- De-coilers/un-coilers (incorporating drives, motors, mandrels, gearboxes, snubbers and brakes): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-blanking-or-shear-de-coilers-un-coilers/
-- Flying shears: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-blanking-or-shear-flying-shears/
+- De-coilers/un-coilers (incorporating drives, motors, mandrels, gearboxes, snubbers and brakes) (Steel coil blanking or shear line assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-blanking-or-shear-de-coilers-un-coilers/
+- Flying shears (Steel coil blanking or shear line assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-blanking-or-shear-flying-shears/
 - Grip feeders: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/grip-feeders/
-- Levellers: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/levellers/
+- Levellers (Steel coil blanking or shear line assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/levellers/
 - Meter wheels: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/meter-wheels/
-- Peeler tables: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-blanking-or-shear-peeler-tables/
-- Run out tables: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-blanking-or-shear-run-out-tables/
-- Scissor lifts: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/scissor-lifts/
-- Stackers: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-blanking-or-shear-stackers/
+- Peeler tables (Steel coil blanking or shear line assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-blanking-or-shear-peeler-tables/
+- Run out tables (Steel coil blanking or shear line assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-blanking-or-shear-run-out-tables/
+- Scissor lifts (Steel coil blanking or shear line assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/scissor-lifts/
+- Stackers (Steel coil blanking or shear line assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-blanking-or-shear-stackers/
 - Auto banders: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-auto-banders/
 - Closed section induction welders: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/closed-section-induction-welders/
 - Closed section laser welders: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/closed-section-laser-welders/
 - CNC laser cutting units: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/cnc-laser-cutting-units/
-- Coil cars: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-coil-cars/
+- Coil cars (Steel coil roll forming assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-coil-cars/
 - Coil joining welding units: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/coil-joining-welding-units/
 - Coil levellers and straighteners: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/coil-levellers-and-straighteners/
 - Coil magazines: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/coil-magazines/
 - Coil tilters: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/coil-tilters/
 - Coil tilting coil cars: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/coil-tilting-coil-cars/
 - Motion controllers: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/motion-controllers/
-- Programmable logic controllers (PLCs): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/programmable-logic-controllers/
-- Potentiometers: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/potentiometers/
-- Variable speed drives (VSDs): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/variable-speed-drives/
+- Programmable logic controllers (PLCs) (Control systems assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/programmable-logic-controllers/
+- Potentiometers (Control systems assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/potentiometers/
+- Variable speed drives (VSDs) (Steel coil roll forming, slitting and blanking and sheet metal forming): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/variable-speed-drives/
 - Control systems (including roll former control systems (incorporating end coders), de-coiler/un- coiler control systems and snubber control systems): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-control-systems/
-- De-coilers/un-coilers (incorporating drives, motors, mandrels, gearboxes, snubbers and brakes): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-de-coilers-un-coilers/
+- De-coilers/un-coilers (incorporating drives, motors, mandrels, gearboxes, snubbers and brakes) (Steel coil roll forming assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-de-coilers-un-coilers/
 - Embossing units: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/embossing-units/
-- Flying shears: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-flying-shears/
+- Flying shears (Steel coil roll forming assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-flying-shears/
 - In-line presses and punches: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/in-line-presses-and-punches/
 - In-line printers and labellers: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/in-line-printers-and-labellers/
-- Band saws: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/band-saws/
+- Band saws (Metal saws): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/band-saws/
 - Rotary cut off saws: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/rotary-cut-off-saws/
 - Roll former tooling: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/roll-former-tooling/
-- Fixed: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/fixed/
-- Mobile: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/mobile/
-- Run out tables: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-run-out-tables/
+- Fixed (Roll formers …): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/fixed/
+- Mobile (Roll formers …): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/mobile/
+- Run out tables (Steel coil roll forming assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-run-out-tables/
 - Shears and guillotines: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/shears-and-guillotines/
 - Snubbers (incorporating drives, motors and gearboxes): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/snubbers/
 - Strip lubricators: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/strip-lubricators/
-- Controlled access gates: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-controlled-access-gates/
-- Gravity feed conveyors (incorporating belts, rollers and frames): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-gravity-feed-conveyors/
-- Motorised conveyors (incorporating gearboxes, belts, rollers, bearings, motors, frames and controls): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-motorised-conveyors/
+- Controlled access gates (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-controlled-access-gates/
+- Gravity feed conveyors (incorporating belts, rollers and frames) (Steel coil roll forming assets / Support assets / Conveyors / Steel coil roll forming, slitting and blanking and sheet metal forming): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-gravity-feed-conveyors/
+- Motorised conveyors (incorporating gearboxes, belts, rollers, bearings, motors, frames and controls) (Steel coil roll forming assets / Support assets / Conveyors / Steel coil roll forming, slitting and blanking and sheet metal forming): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-motorised-conveyors/
 - CNC and NC lathes: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/cnc-and-nc-lathes/
-- Drilling machines: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/drilling-machines/
+- Drilling machines (Engineering workshop assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/drilling-machines/
 - Keyway broaching presses: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/keyway-broaching-presses/
 - Guard lights (incorporating red eye guard lights and stands): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/guard-lights/
-- C-hooks: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-c-hooks/
-- Overhead cranes and gantries: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-overhead-cranes-and-gantries/
-- Spreader bars: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/spreader-bars/
+- C-hooks (Steel coil roll forming assets / Support assets / Lifting assets / Steel coil roll forming, slitting and blanking and sheet metal forming): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-c-hooks/
+- Overhead cranes and gantries (Steel coil roll forming assets / Support assets / Lifting assets / Steel coil roll forming, slitting and blanking and sheet metal forming): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-overhead-cranes-and-gantries/
+- Spreader bars (Lifting assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/spreader-bars/
 - Manual strapping machines: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/manual-strapping-machines/
 - Measuring assets (including micrometers, protractors, tapes, and vernier callipers): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/measuring-assets/
 - Perimeter fencing: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/perimeter-fencing/
-- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-air-compressors/
-- Air driers: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-air-driers/
-- Air receivers: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-air-receivers/
-- Racking: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/racking/
+- Air compressors (Steel coil roll forming assets / Support assets / Pneumatic systems assets / Steel coil roll forming, slitting and blanking and sheet metal forming): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-air-compressors/
+- Air driers (Steel coil roll forming assets / Support assets / Pneumatic systems assets / Steel coil roll forming, slitting and blanking and sheet metal forming): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-air-driers/
+- Air receivers (Steel coil roll forming assets / Support assets / Pneumatic systems assets / Steel coil roll forming, slitting and blanking and sheet metal forming): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-air-receivers/
+- Racking (Steel coil roll forming, slitting and blanking and sheet metal forming): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/racking/
 - Stackers (drop and suction): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-stackers/
-- Stretch wrappers: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/stretch-wrappers/
+- Stretch wrappers (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/stretch-wrappers/
 - Tunnel guarding (including safety cages): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/tunnel-guarding/
 - Anti-flutter rolls: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/anti-flutter-rolls/
 - Auto banders (incorporating conveyors, strapping heads, coil lift systems, strapping dispensers, accumulators and controls): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-auto-banders/
 - Carryover tables: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/carryover-tables/
-- Coil cars: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-coil-cars/
+- Coil cars (Steel coil slitting assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-coil-cars/
 - Coil stacking systems: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/coil-stacking-systems/
-- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-control-systems/
-- Controlled access gates: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-controlled-access-gates/
-- Gravity feed conveyors (incorporating belts, rollers and frames): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-gravity-feed-conveyors/
-- Motorised conveyors (incorporating gearboxes, belts, rollers, bearings, motors, frames and controls): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-motorised-conveyors/
+- Control systems (Steel coil slitting assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-control-systems/
+- Controlled access gates (Steel coil slitting assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-controlled-access-gates/
+- Gravity feed conveyors (incorporating belts, rollers and frames) (Steel coil slitting assets / Conveyors / Steel coil roll forming, slitting and blanking and sheet metal forming): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-gravity-feed-conveyors/
+- Motorised conveyors (incorporating gearboxes, belts, rollers, bearings, motors, frames and controls) (Steel coil slitting assets / Conveyors / Steel coil roll forming, slitting and blanking and sheet metal forming): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-motorised-conveyors/
 - De-coiler/un-coiler edge guides: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/de-coiler-un-coiler-edge-guides/
-- De-coilers/un-coilers (incorporating drives, motors, mandrels, gearboxes, snubbers and brakes): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-de-coilers-un-coilers/
+- De-coilers/un-coilers (incorporating drives, motors, mandrels, gearboxes, snubbers and brakes) (Steel coil slitting assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-de-coilers-un-coilers/
 - Downenders (incorporating conveyors, hydraulics and controls): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/downenders/
 - Entry and exit coil carousels/capstans: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/entry-and-exit-coil-carousels-capstans/
 - Entry shears: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/entry-shears/
 - Exit edge guides: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/exit-edge-guides/
 - Exit feed up units (incorporating deflector and lift rolls, shears, separators, tables and traverse drives): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/exit-feed-up-units/
 - Exit turnstile/coil stackers: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/exit-turnstile-coil-stackers/
-- C-hooks: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-c-hooks/
+- C-hooks (Steel coil slitting assets / Lifting assets / Steel coil roll forming, slitting and blanking and sheet metal forming): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-c-hooks/
 - Magnet cranes: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/magnet-cranes/
-- Overhead cranes and gantries: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-overhead-cranes-and-gantries/
+- Overhead cranes and gantries (Steel coil slitting assets / Lifting assets / Steel coil roll forming, slitting and blanking and sheet metal forming): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-overhead-cranes-and-gantries/
 - Main hydraulic power pack (incorporating interconnecting pipe work to valve stands): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/main-hydraulic-power-pack/
 - Pallet conveyor monorails: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/pallet-conveyor-monorails/
-- Peeler tables: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-peeler-tables/
+- Peeler tables (Steel coil slitting assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-peeler-tables/
 - Perimeter guarding: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/perimeter-guarding/
 - Pinch rollers/breakers: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/pinch-rollers-breakers/
-- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-air-compressors/
-- Air driers: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-air-driers/
-- Air receivers: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-air-receivers/
+- Air compressors (Steel coil slitting assets / Pneumatic systems assets / Steel coil roll forming, slitting and blanking and sheet metal forming): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-air-compressors/
+- Air driers (Steel coil slitting assets / Pneumatic systems assets / Steel coil roll forming, slitting and blanking and sheet metal forming): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-air-driers/
+- Air receivers (Steel coil slitting assets / Pneumatic systems assets / Steel coil roll forming, slitting and blanking and sheet metal forming): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-slitting-assets-air-receivers/
 - Re-coilers (incorporating drives, motors, mandrels, gearboxes, snubbers, and brakes): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/re-coilers/
 - Scrap baller: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/scrap-baller/
 - Scrap chopper bins and carriages: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/scrap-chopper-bins-and-carriages/
@@ -251,15 +257,15 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Slitting heads (incorporating electric motors, gearboxes and drive shafts): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/slitting-heads/
 - Tension units (incorporating entry and exit quadrants, rolls, separators, drag pads, motors, gearboxes and drives): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/tension-units/
 - Weighing scales (incorporating load cells and controls): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/weighing-scales/
-- Blankers: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/blankers/
+- Blankers (Steel sheet metal forming assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/blankers/
 - Brake presses: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/brake-presses/
 - CNC multi head combined slitter/blankers: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/cnc-multi-head-combined-slitter-blankers/
-- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-sheet-metal-forming-assets-control-systems/
-- Folders: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/folders/
-- Guillotines: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/guillotines/
+- Control systems (Steel sheet metal forming assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-sheet-metal-forming-assets-control-systems/
+- Folders (Steel sheet metal forming assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/folders/
+- Guillotines (Steel sheet metal forming assets): https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/guillotines/
 - Mini slitters: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/mini-slitters/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

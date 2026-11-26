@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extr
 
 ‘Central production facility assets: Drill rigs’, for an asset used in Oil and gas extraction, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2002.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-Effective life and rates from F2025L01097, registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Drill rigs
 Under | Gas production assets: / Central production facility assets:
@@ -25,73 +25,73 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in Oil and gas extraction takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Oil and gas extraction, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
-The life was last reviewed and determined on 1 July 2002. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 July 2002. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Central production facility assets
 
 Other rows under Central production facility assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
-Boilers | 10 years | 10.00% | 20.00%
+Boilers (Central production facility assets) | 10 years | 10.00% | 20.00%
 Cabling for power and control systems | 30 years | 3.33% | 6.67%
 Diesel systems | 15 years | 6.67% | 13.33%
 Drains systems | 20 years | 5.00% | 10.00%
 Drill rigs (this page) | 10 years | 10.00% | 20.00%
 Fuel gas systems | 30 years | 3.33% | 6.67%
-Heat exchangers | 30 years | 3.33% | 6.67%
-Major carbon steel vessels | 12 1/2 years | 8.00% | 16.00%
+Heat exchangers (Central production facility assets) | 30 years | 3.33% | 6.67%
+Major carbon steel vessels (Central production facility assets) | 12 1/2 years | 8.00% | 16.00%
 Major stainless steel (or lined) vessels | 30 years | 3.33% | 6.67%
-Piping | 30 years | 3.33% | 6.67%
+Piping (Central production facility assets) | 30 years | 3.33% | 6.67%
 Shutdown and fire/gas systems | 15 years | 6.67% | 13.33%
 
 12 rows share this heading. The Oil and gas extraction page lists them all.
 
-## The same wording elsewhere
+## Similarly named rows
 
-Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+Compare the full row description and industry. Similar names can cover different equipment or effective lives under section 6 of the determination.
 
-The same wording elsewhere. Effective lives and rates from the source determination.
+Similarly named rows. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Drill rigs (Production) | MINING | 10 years | 10.00% | 20.00%
-Drill rigs | Construction material mining | 8 years | 12.50% | 25.00%
-Drill rigs | Other mining support services | 10 years | 10.00% | 20.00%
+Drill rigs (Construction material mining) | Construction material mining | 8 years | 12.50% | 25.00%
+Drill rigs (Drilling assets) | Other mining support services | 10 years | 10.00% | 20.00%
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+The depreciation calculator uses your cost, start date and this effective life of 10 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
-- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/gas-production-assets-drill-rigs/#source
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/gas-production-assets-drill-rigs/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/gas-production-assets-boilers/
+- Boilers (Central production facility assets): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/gas-production-assets-boilers/
 - Cabling for power and control systems: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/cabling-for-power-and-control-systems/
 - Diesel systems: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/diesel-systems/
 - Drains systems: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/drains-systems/
 - Fuel gas systems: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/fuel-gas-systems/
-- Heat exchangers: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/heat-exchangers/
-- Major carbon steel vessels: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/gas-production-assets-major-carbon-steel-vessels/
+- Heat exchangers (Central production facility assets): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/heat-exchangers/
+- Major carbon steel vessels (Central production facility assets): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/gas-production-assets-major-carbon-steel-vessels/
 - Major stainless steel (or lined) vessels: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/major-stainless-steel-vessels/
-- Piping: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/piping/
+- Piping (Central production facility assets): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/piping/
 - Shutdown and fire/gas systems: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/shutdown-and-fire-gas-systems/
 - Oil and gas extraction: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/
 - Drill rigs (Production): https://duguid.com.au/tools/depreciation-rates/industry/mining/drill-rigs/
-- Drill rigs: https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/drill-rigs/
-- Drill rigs: https://duguid.com.au/tools/depreciation-rates/industry/other-mining-support-services/drill-rigs/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Drill rigs (Construction material mining): https://duguid.com.au/tools/depreciation-rates/industry/construction-material-mining/drill-rigs/
+- Drill rigs (Drilling assets): https://duguid.com.au/tools/depreciation-rates/industry/other-mining-support-services/drill-rigs/
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

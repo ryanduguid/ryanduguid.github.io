@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/other-food-produ
 
 ‘Packaging and quality control assets: Palletising robots’, for an asset used in Other food product manufacturing n.e.c., has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2012.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-Effective life and rates from F2025L01097, registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Palletising robots
 Under | Frozen pre-prepared food manufacturing assets (including frozen appetisers and finger foods such as dim sims and spring rolls, frozen french fries/potato chips, frozen pizzas and frozen pre-prepared meals): / Packaging and quality control assets:
@@ -25,11 +25,11 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in Other food product manufacturing n.e.c. takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Other food product manufacturing n.e.c., this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
 Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
 
-The life was last reviewed and determined on 1 July 2012. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 July 2012. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Packaging and quality control assets
 
@@ -37,63 +37,63 @@ Other rows under Packaging and quality control assets. Effective lives and rates
 
 Row | Life | Prime cost | Diminishing value
 Coding machines (including laser coding machines) | 8 years | 12.50% | 25.00%
-Flow wrappers | 10 years | 10.00% | 20.00%
+Flow wrappers (Packaging and quality control assets) | 10 years | 10.00% | 20.00%
 Form fill and seal assets (including bagging units and multihead weighers) | 15 years | 6.67% | 13.33%
 Heat shrink tunnels | 10 years | 10.00% | 20.00%
-Metal detectors | 10 years | 10.00% | 20.00%
-Palletisers | 12 years | 8.33% | 16.67%
+Metal detectors (Packaging and quality control assets) | 10 years | 10.00% | 20.00%
+Palletisers (Packaging and quality control assets) | 12 years | 8.33% | 16.67%
 Palletising robots (this page) | 10 years | 10.00% | 20.00%
 Pallet wrappers | 12 years | 8.33% | 16.67%
 Product loaders and stackers | 15 years | 6.67% | 13.33%
 Tray denesters | 15 years | 6.67% | 13.33%
 Tray sealers | 15 years | 6.67% | 13.33%
-Weighbridges | 20 years | 5.00% | 10.00%
-X-ray detectors | 10 years | 10.00% | 20.00%
+Weighbridges (Packaging and quality control assets) | 20 years | 5.00% | 10.00%
+X-ray detectors (Packaging and quality control assets) | 10 years | 10.00% | 20.00%
 
 19 rows share this heading. The Other food product manufacturing n.e.c. page lists them all.
 
-## The same wording elsewhere
+## Similarly named rows
 
-Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+Compare the full row description and industry. Similar names can cover different equipment or effective lives under section 6 of the determination.
 
-The same wording elsewhere. Effective lives and rates from the source determination.
+Similarly named rows. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
-Palletising robots | Dairy product manufacturing | 10 years | 10.00% | 20.00%
+Palletising robots (Packaging assets) | Dairy product manufacturing | 10 years | 10.00% | 20.00%
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+The depreciation calculator uses your cost, start date and this effective life of 10 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
-- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/palletising-robots/#source
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/palletising-robots/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Coding machines (including laser coding machines): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/coding-machines/
-- Flow wrappers: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/flow-wrappers/
+- Flow wrappers (Packaging and quality control assets): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/flow-wrappers/
 - Form fill and seal assets (including bagging units and multihead weighers): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/form-fill-and-seal-assets/
 - Heat shrink tunnels: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/heat-shrink-tunnels/
-- Metal detectors: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/frozen-pre-prepared-food-metal-detectors/
-- Palletisers: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/palletisers/
+- Metal detectors (Packaging and quality control assets): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/frozen-pre-prepared-food-metal-detectors/
+- Palletisers (Packaging and quality control assets): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/palletisers/
 - Pallet wrappers: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/pallet-wrappers/
 - Product loaders and stackers: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/product-loaders-and-stackers/
 - Tray denesters: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/tray-denesters/
 - Tray sealers: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/tray-sealers/
-- Weighbridges: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/frozen-pre-prepared-food-weighbridges/
-- X-ray detectors: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/x-ray-detectors/
+- Weighbridges (Packaging and quality control assets): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/frozen-pre-prepared-food-weighbridges/
+- X-ray detectors (Packaging and quality control assets): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/x-ray-detectors/
 - Other food product manufacturing n.e.c.: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/
-- Palletising robots: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/palletising-robots/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Palletising robots (Packaging assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/palletising-robots/
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

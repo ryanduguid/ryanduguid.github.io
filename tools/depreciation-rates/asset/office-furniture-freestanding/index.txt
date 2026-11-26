@@ -8,56 +8,54 @@ Source: https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-fr
 
 12 effective lives in Table B of the Commissioner’s 2025 effective life determination under Office furniture, freestanding.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Office furniture, freestanding. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Bookcases: | | | |
-Bookcases: / Metal | 20 years | 5.00% | 10.00% | 1 July 2005
-Bookcases: / Timber | 15 years | 6.67% | 13.33% | 1 July 2005
-Cabinets (including credenzas, cupboards, filing, mapping, mobile, stationery and storage type): | | | |
-Cabinets (including credenzas, cupboards, filing, mapping, mobile, stationery and storage type): / Metal | 20 years | 5.00% | 10.00% | 1 July 2005
-Cabinets (including credenzas, cupboards, filing, mapping, mobile, stationery and storage type): / Timber/laminated | 15 years | 6.67% | 13.33% | 1 July 2005
-Chairs | 10 years | 10.00% | 20.00% | 1 July 2005
-Desks | 20 years | 5.00% | 10.00% | 1 July 2005
+Asset group · Bookcases: | | | |
+Metal (Bookcases) | 20 years | 5.00% | 10.00% | 1 July 2005
+Timber (Bookcases) | 15 years | 6.67% | 13.33% | 1 July 2005
+Asset group · Cabinets (including credenzas, cupboards, filing, mapping, mobile, stationery and storage type): | | | |
+Cabinets (including credenzas, cupboards, filing, mapping, mobile, stationery and storage type): / Metal (Cabinets …) | 20 years | 5.00% | 10.00% | 1 July 2005
+Cabinets (including credenzas, cupboards, filing, mapping, mobile, stationery and storage type): / Timber/laminated (Cabinets …) | 15 years | 6.67% | 13.33% | 1 July 2005
+Chairs (Office furniture, freestanding) | 10 years | 10.00% | 20.00% | 1 July 2005
+Desks (Office furniture, freestanding) | 20 years | 5.00% | 10.00% | 1 July 2005
 Mobile storage units (compactus type) | 25 years | 4.00% | 8.00% | 1 July 2005
 Reception assets (including lobby chairs, desks, lounges, sofas and tables) | 10 years | 10.00% | 20.00% | 1 July 2005
-Screens | 20 years | 5.00% | 10.00% | 1 July 2005
-Tables: | | | |
-Tables: / Boardroom | 20 years | 5.00% | 10.00% | 1 July 2005
-Tables: / General | 10 years | 10.00% | 20.00% | 1 July 2005
+Screens (Office furniture, freestanding) | 20 years | 5.00% | 10.00% | 1 July 2005
+Asset group · Tables: | | | |
+Boardroom (Tables) | 20 years | 5.00% | 10.00% | 1 July 2005
+General (Tables) | 10 years | 10.00% | 20.00% | 1 July 2005
 Workstations (including desks and partitions) | 20 years | 5.00% | 10.00% | 1 July 2005
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/#source
-- Metal: https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/bookcases-metal/
-- Timber: https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/timber/
-- Metal: https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/cabinets-metal/
-- Timber/laminated: https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/timber-laminated/
-- Chairs: https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/chairs/
-- Desks: https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/desks/
+- Metal (Bookcases): https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/bookcases-metal/
+- Timber (Bookcases): https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/timber/
+- Metal (Cabinets …): https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/cabinets-metal/
+- Timber/laminated (Cabinets …): https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/timber-laminated/
+- Chairs (Office furniture, freestanding): https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/chairs/
+- Desks (Office furniture, freestanding): https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/desks/
 - Mobile storage units (compactus type): https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/mobile-storage-units/
 - Reception assets (including lobby chairs, desks, lounges, sofas and tables): https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/reception-assets/
-- Screens: https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/screens/
-- Boardroom: https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/boardroom/
-- General: https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/general/
+- Screens (Office furniture, freestanding): https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/screens/
+- Boardroom (Tables): https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/boardroom/
+- General (Tables): https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/general/
 - Workstations (including desks and partitions): https://duguid.com.au/tools/depreciation-rates/asset/office-furniture-freestanding/workstations/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

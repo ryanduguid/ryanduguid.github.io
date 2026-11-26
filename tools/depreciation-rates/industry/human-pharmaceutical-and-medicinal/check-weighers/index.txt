@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceut
 
 ‘Packaging assets: Check weighers’, for an asset used in Human pharmaceutical and medicinal product manufacturing, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2004.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-Effective life and rates from F2025L01097, registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Check weighers
 Under | Packaging assets:
@@ -25,9 +25,9 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in Human pharmaceutical and medicinal product manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Human pharmaceutical and medicinal product manufacturing, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
-The life was last reviewed and determined on 1 January 2004. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 January 2004. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Packaging assets
 
@@ -39,7 +39,7 @@ Bottle and vial inverters and blowers | 10 years | 10.00% | 20.00%
 Bottle and vial unscramblers | 10 years | 10.00% | 20.00%
 Bundlers and bundle packing machines | 10 years | 10.00% | 20.00%
 Cappers and sealers (including tamper proof sealers) | 10 years | 10.00% | 20.00%
-Cartoners | 10 years | 10.00% | 20.00%
+Cartoners (Packaging assets) | 10 years | 10.00% | 20.00%
 Check weighers (this page) | 10 years | 10.00% | 20.00%
 Cream, liquid and powder filling and sealing machines (including bag, bottle, syringe and tube fillers and sealers) | 12 years | 8.33% | 16.67%
 Desiccant and cotton wool depositors/inserters | 10 years | 10.00% | 20.00%
@@ -52,26 +52,26 @@ Ink jet batch label printers | 7 years | 14.29% | 28.57%
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+The depreciation calculator uses your cost, start date and this effective life of 10 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
-- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/check-weighers/#source
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/check-weighers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Blow-fill-seal (BFS) machines: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/blow-fill-seal-machines/
 - Bottle and vial inverters and blowers: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/bottle-and-vial-inverters-and-blowers/
 - Bottle and vial unscramblers: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/bottle-and-vial-unscramblers/
 - Bundlers and bundle packing machines: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/bundlers-and-bundle-packing-machines/
 - Cappers and sealers (including tamper proof sealers): https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/cappers-and-sealers/
-- Cartoners: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/cartoners/
+- Cartoners (Packaging assets): https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/cartoners/
 - Cream, liquid and powder filling and sealing machines (including bag, bottle, syringe and tube fillers and sealers): https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/cream-liquid-and-powder-filling-and-sealing-machines/
 - Desiccant and cotton wool depositors/inserters: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/desiccant-and-cotton-wool-depositors-inserters/
 - Dropper and leaflet inserters: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/dropper-and-leaflet-inserters/
@@ -79,9 +79,9 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Flow wrappers and shrink wrappers: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/flow-wrappers-and-shrink-wrappers/
 - Ink jet batch label printers: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/ink-jet-batch-label-printers/
 - Human pharmaceutical and medicinal product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/human-pharmaceutical-and-medicinal/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

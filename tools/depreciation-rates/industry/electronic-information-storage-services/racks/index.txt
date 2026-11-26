@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/electronic-infor
 
 ‘Racks’, for an asset used in Electronic information storage services, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2017.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-Effective life and rates from F2025L01097, registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Racks
 Table | Table A (industry categories), INFORMATION MEDIA AND TELECOMMUNICATIONS / Electronic information storage services, ANZSIC 59220
@@ -24,9 +24,9 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in Electronic information storage services takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Electronic information storage services, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
-The life was last reviewed and determined on 1 July 2017. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 July 2017. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Electronic information storage services
 
@@ -35,83 +35,83 @@ Other rows under Electronic information storage services. Effective lives and ra
 Row | Life | Prime cost | Diminishing value
 Aisle containments (including hot aisle containments (HAC), cold aisle containments (CAC)) | 15 years | 6.67% | 13.33%
 Diesel rotary uninterruptible power supply (DRUPS) | 22 years | 4.55% | 9.09%
-Leak detection systems | 10 years | 10.00% | 20.00%
+Leak detection systems (Electronic information storage services) | 10 years | 10.00% | 20.00%
 Load banks | 15 years | 6.67% | 13.33%
 Modular data centre (including portable containerised data centre modules, prefabricated data centre modules – able to be transported) | 10 years | 10.00% | 20.00%
 Rack based power rails (including rack based power distribution unit (PDU)) | 10 years | 10.00% | 20.00%
 Racks (this page) | 10 years | 10.00% | 20.00%
-Raised floors | 25 years | 4.00% | 8.00%
+Raised floors (Electronic information storage services) | 25 years | 4.00% | 8.00%
 Rectifiers | 12 years | 8.33% | 16.67%
 Static transfer switches (STS) | 12 years | 8.33% | 16.67%
 Uninterruptible power supply (UPS) systems (excluding batteries) | 12 years | 8.33% | 16.67%
 Uninterruptible power supply (UPS) systems batteries | 5 years | 20.00% | 40.00%
 
-## The same wording elsewhere
+## Similarly named rows
 
-Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+Compare the full row description and industry. Similar names can cover different equipment or effective lives under section 6 of the determination.
 
-The same wording elsewhere. Effective lives and rates from the source determination.
+Similarly named rows. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
-Racks | Nursery and floriculture production | 15 years | 6.67% | 13.33%
-Racks | Other food product manufacturing n.e.c. | 20 years | 5.00% | 10.00%
-Racks | Printing | 20 years | 5.00% | 10.00%
+Racks (General assets) | Nursery and floriculture production | 15 years | 6.67% | 13.33%
+Racks (Other food product manufacturing n.e.c.) | Other food product manufacturing n.e.c. | 20 years | 5.00% | 10.00%
+Racks (Reel processing, storage and transport assets) | Printing | 20 years | 5.00% | 10.00%
 Racks (including A-frame racks, hydraulic concertina racks and freefall racks) | Glass and glass product manufacturing | 20 years | 5.00% | 10.00%
 Racks (excluding racks fixed to drying chambers) | Concrete product manufacturing | 5 years | 20.00% | 40.00%
 Racks (used in curing bays) | Concrete product manufacturing | 10 years | 10.00% | 20.00%
-Racks | Aircraft manufacturing and repair services | 20 years | 5.00% | 10.00%
-Racks | Wooden furniture and upholstered seat manufacturing | 15 years | 6.67% | 13.33%
-Racks | Postal services | 20 years | 5.00% | 10.00%
-Racks | Other warehousing and storage services | 20 years | 5.00% | 10.00%
-Racks | Radio broadcasting | 20 years | 5.00% | 10.00%
-Racks | Television broadcasting | 20 years | 5.00% | 10.00%
-Racks | Telecommunications services | 20 years | 5.00% | 10.00%
-Racks | Table B, Warehouse and distribution centre equipment and machines | 20 years | 5.00% | 10.00%
+Racks (Aircraft manufacturing and repair services) | Aircraft manufacturing and repair services | 20 years | 5.00% | 10.00%
+Racks (Wooden furniture and upholstered seat manufacturing) | Wooden furniture and upholstered seat manufacturing | 15 years | 6.67% | 13.33%
+Racks (Mail house assets) | Postal services | 20 years | 5.00% | 10.00%
+Racks (Other warehousing and storage services) | Other warehousing and storage services | 20 years | 5.00% | 10.00%
+Racks (Radio broadcasting) | Radio broadcasting | 20 years | 5.00% | 10.00%
+Racks (Television broadcasting) | Television broadcasting | 20 years | 5.00% | 10.00%
+Racks (Telecommunications assets) | Telecommunications services | 20 years | 5.00% | 10.00%
+Racks (Table B) | Table B, Warehouse and distribution centre equipment and machines | 20 years | 5.00% | 10.00%
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+The depreciation calculator uses your cost, start date and this effective life of 10 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
-- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/racks/#source
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/racks/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Aisle containments (including hot aisle containments (HAC), cold aisle containments (CAC)): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/aisle-containments/
 - Diesel rotary uninterruptible power supply (DRUPS): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/diesel-rotary-uninterruptible-power-supply/
-- Leak detection systems: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/leak-detection-systems/
+- Leak detection systems (Electronic information storage services): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/leak-detection-systems/
 - Load banks: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/load-banks/
 - Modular data centre (including portable containerised data centre modules, prefabricated data centre modules – able to be transported): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/modular-data-centre/
 - Rack based power rails (including rack based power distribution unit (PDU)): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/rack-based-power-rails/
-- Raised floors: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/raised-floors/
+- Raised floors (Electronic information storage services): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/raised-floors/
 - Rectifiers: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/rectifiers/
 - Static transfer switches (STS): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/static-transfer-switches/
 - Uninterruptible power supply (UPS) systems (excluding batteries): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/uninterruptible-power-supply-systems/
 - Uninterruptible power supply (UPS) systems batteries: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/uninterruptible-power-supply-systems-batteries/
-- Racks: https://duguid.com.au/tools/depreciation-rates/industry/nursery-and-floriculture-production/racks/
-- Racks: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/racks/
-- Racks: https://duguid.com.au/tools/depreciation-rates/industry/printing/racks/
+- Racks (General assets): https://duguid.com.au/tools/depreciation-rates/industry/nursery-and-floriculture-production/racks/
+- Racks (Other food product manufacturing n.e.c.): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/racks/
+- Racks (Reel processing, storage and transport assets): https://duguid.com.au/tools/depreciation-rates/industry/printing/racks/
 - Racks (including A-frame racks, hydraulic concertina racks and freefall racks): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/racks/
 - Racks (excluding racks fixed to drying chambers): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-racks/
 - Racks (used in curing bays): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-racks/
-- Racks: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/racks/
-- Racks: https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/racks/
-- Racks: https://duguid.com.au/tools/depreciation-rates/industry/postal-services/racks/
-- Racks: https://duguid.com.au/tools/depreciation-rates/industry/other-warehousing-and-storage-services/racks/
-- Racks: https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/racks/
-- Racks: https://duguid.com.au/tools/depreciation-rates/industry/television-broadcasting/racks/
-- Racks: https://duguid.com.au/tools/depreciation-rates/industry/telecommunications-services/racks/
-- Racks: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/racks/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Racks (Aircraft manufacturing and repair services): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/racks/
+- Racks (Wooden furniture and upholstered seat manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/wooden-furniture-and-upholstered-seat/racks/
+- Racks (Mail house assets): https://duguid.com.au/tools/depreciation-rates/industry/postal-services/racks/
+- Racks (Other warehousing and storage services): https://duguid.com.au/tools/depreciation-rates/industry/other-warehousing-and-storage-services/racks/
+- Racks (Radio broadcasting): https://duguid.com.au/tools/depreciation-rates/industry/radio-broadcasting/racks/
+- Racks (Television broadcasting): https://duguid.com.au/tools/depreciation-rates/industry/television-broadcasting/racks/
+- Racks (Telecommunications assets): https://duguid.com.au/tools/depreciation-rates/industry/telecommunications-services/racks/
+- Racks (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/racks/
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

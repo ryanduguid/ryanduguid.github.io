@@ -353,10 +353,19 @@ fn layouts_share_the_base_stylesheet_and_keep_their_cascade() {
     fs::create_dir(&assets).unwrap();
     fs::write(assets.join("tokens.css"), ":root { --ink: black; }").unwrap();
     fs::write(assets.join("site.css"), "body { color: var(--ink); }").unwrap();
+    fs::write(
+        assets.join("accounting-pages.css"),
+        ".amount { min-width: 2em; }",
+    )
+    .unwrap();
     let core = "<link rel=\"stylesheet\" href=\"/assets/tokens.css?v=a\" />\n<link rel=\"stylesheet\" href=\"/assets/site.css?v=b\" />";
-    let extra = "<link rel=\"stylesheet\" href=\"/assets/accounting-pages.css?v=c\" />";
-    for (file, tail) in [("index.html", ""), ("calculator.html", extra)] {
-        fs::write(root.join(file), format!("<head>{core}\n{tail}</head>")).unwrap();
+    let accounting = "<link rel=\"stylesheet\" href=\"/assets/accounting-pages.css?v=c\" />";
+    let finder = "<link rel=\"stylesheet\" href=\"/assets/finder.css?v=d\" />";
+    for (file, tail) in [
+        ("index.html", String::new()),
+        ("calculator.html", format!("\n{accounting}\n{finder}")),
+    ] {
+        fs::write(root.join(file), format!("<head>{core}{tail}</head>")).unwrap();
     }
     minify_tree(root).unwrap();
     let bundle = fs::read_dir(&assets)
@@ -366,16 +375,19 @@ fn layouts_share_the_base_stylesheet_and_keep_their_cascade() {
         .unwrap();
     assert_eq!(
         fs::read_to_string(assets.join(&bundle)).unwrap(),
-        ":root{--ink:black}body{color:var(--ink)}"
+        ":root{--ink:black}body{color:var(--ink)}.amount{min-width:2em}"
     );
     let link = format!(
         "<link rel=\"stylesheet\" href=\"/assets/{}\" />",
         bundle.to_string_lossy()
     );
-    for (file, tail) in [("index.html", ""), ("calculator.html", extra)] {
+    for (file, tail) in [
+        ("index.html", String::new()),
+        ("calculator.html", format!("\n{finder}")),
+    ] {
         assert_eq!(
             fs::read_to_string(root.join(file)).unwrap(),
-            format!("<head>{link}\n{tail}</head>")
+            format!("<head>{link}{tail}</head>")
         );
     }
     minify_tree(root).unwrap();
@@ -386,6 +398,28 @@ fn layouts_share_the_base_stylesheet_and_keep_their_cascade() {
     assert_eq!(
         fs::read_to_string(root.join("index.md")).unwrap(),
         "existing page"
+    );
+}
+
+#[test]
+fn a_missing_referenced_stylesheet_fails_publication() {
+    let dir = tempfile::tempdir().unwrap();
+    let assets = dir.path().join("assets");
+    fs::create_dir(&assets).unwrap();
+    for name in ["tokens", "site"] {
+        fs::write(assets.join(format!("{name}.css")), "").unwrap();
+    }
+    let tags = ["tokens", "site", "accounting-pages"]
+        .map(|name| format!(r#"<link rel="stylesheet" href="/assets/{name}.css?v=a" />"#));
+    fs::write(
+        dir.path().join("index.html"),
+        format!("<head>{}</head>", tags.join("\n")),
+    )
+    .unwrap();
+    assert!(
+        minify_tree(dir.path())
+            .unwrap_err()
+            .contains("accounting-pages.css is missing")
     );
 }
 

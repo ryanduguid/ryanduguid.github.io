@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-
 
 ‘Container glass and flat … glass manufacturing assets: Glass product handling and packaging assets …’, for an asset used in Glass and glass product manufacturing, has an effective life of 12 years (F2025L01097), last reviewed and determined on 1 July 2008.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-Effective life and rates from F2025L01097, registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Glass product handling and packaging assets (including case packers, flat glass lifters and stackers, palletisers, strapping machines, shrink wrappers, stretch wrappers and trolley shuttle cars)
 Under | Container glass and flat (float) glass manufacturing assets:
@@ -25,11 +25,11 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in Glass and glass product manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Glass and glass product manufacturing, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
 Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
 
-The life was last reviewed and determined on 1 July 2008. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 July 2008. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Container glass and flat (float) glass manufacturing assets
 
@@ -37,47 +37,47 @@ Other rows under Container glass and flat (float) glass manufacturing assets. Ef
 
 Row | Life | Prime cost | Diminishing value
 Coating assets (cold and hot end) | 12 years | 8.33% | 16.67%
-Control systems (excluding personal computers) | 10 years | 10.00% | 20.00%
+Control systems (excluding personal computers) (Container glass and flat … glass manufacturing assets) | 10 years | 10.00% | 20.00%
 Flat glass ribbon cutting assets (including cross cutters, longitudinal cutters and snap rolls) | 25 years | 4.00% | 8.00%
 Float baths | 25 years | 4.00% | 8.00%
-Forehearths | 12 years | 8.33% | 16.67%
+Forehearths (Container glass and flat … glass manufacturing assets) | 12 years | 8.33% | 16.67%
 Forming machines (incorporating shearing and distribution systems) | 12 years | 8.33% | 16.67%
 Glass product handling and packaging assets (including case packers, flat glass lifters and stackers, palletisers, strapping machines, shrink wrappers, stretch wrappers and trolley shuttle cars) (this page) | 12 years | 8.33% | 16.67%
-Inspection assets | 10 years | 10.00% | 20.00%
+Inspection assets (Container glass and flat … glass manufacturing assets) | 10 years | 10.00% | 20.00%
 Lehr stackers | 12 years | 8.33% | 16.67%
-Moulds | 2 years | 50.00% | 100.00%
+Moulds (Container glass and flat … glass manufacturing assets) | 2 years | 50.00% | 100.00%
 
 11 rows share this heading. The Glass and glass product manufacturing page lists them all.
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 12 years.
+The depreciation calculator uses your cost, start date and this effective life of 12 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
-- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/glass-product-handling-and-packaging-assets/#source
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/glass-product-handling-and-packaging-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Coating assets (cold and hot end): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/coating-assets/
-- Control systems (excluding personal computers): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/container-glass-and-flat-glass-control-systems/
+- Control systems (excluding personal computers) (Container glass and flat … glass manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/container-glass-and-flat-glass-control-systems/
 - Flat glass ribbon cutting assets (including cross cutters, longitudinal cutters and snap rolls): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/flat-glass-ribbon-cutting-assets/
 - Float baths: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/float-baths/
-- Forehearths: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/forehearths/
+- Forehearths (Container glass and flat … glass manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/forehearths/
 - Forming machines (incorporating shearing and distribution systems): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/forming-machines/
-- Inspection assets: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/inspection-assets/
+- Inspection assets (Container glass and flat … glass manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/inspection-assets/
 - Lehr stackers: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/lehr-stackers/
-- Moulds: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/moulds/
+- Moulds (Container glass and flat … glass manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/moulds/
 - Glass and glass product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

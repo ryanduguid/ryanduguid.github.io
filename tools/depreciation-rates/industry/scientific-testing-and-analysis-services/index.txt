@@ -8,214 +8,212 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testi
 
 86 effective lives in Table A of the Commissioner’s 2025 effective life determination for Scientific testing and analysis services.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Scientific testing and analysis services. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Coal laboratory assets: | | | |
-Coal laboratory assets: / Sample preparation assets: | | | |
+Asset group · Coal laboratory assets: | | | |
+Asset group · Coal laboratory assets: / Sample preparation assets: | | | |
 Coal laboratory assets: / Sample preparation assets: / Drop shatters | 20 years | 5.00% | 10.00% | 1 July 2018
 Coal laboratory assets: / Sample preparation assets: / Drum tumblers | 15 years | 6.67% | 13.33% | 1 July 2018
-Coal laboratory assets: / Sample preparation assets: / Drying ovens: | | | |
-Coal laboratory assets: / Sample preparation assets: / Drying ovens: / Benchtop | 7 years | 14.29% | 28.57% | 1 July 2018
-Coal laboratory assets: / Sample preparation assets: / Drying ovens: / Others (including floor size with trolleys) | 15 years | 6.67% | 13.33% | 1 July 2018
-Coal laboratory assets: / Sample preparation assets: / Dust extraction systems | 15 years | 6.67% | 13.33% | 1 July 2018
+Asset group · Coal laboratory assets: / Sample preparation assets: / Drying ovens: | | | |
+Coal laboratory assets: / Sample preparation assets: / Drying ovens: / Benchtop (Coal laboratory assets / Sample preparation assets / Drying ovens / Scientific testing and analysis services) | 7 years | 14.29% | 28.57% | 1 July 2018
+Coal laboratory assets: / Sample preparation assets: / Drying ovens: / Others (including floor size with trolleys) (Coal laboratory assets / Sample preparation assets / Drying ovens / Scientific testing and analysis services) | 15 years | 6.67% | 13.33% | 1 July 2018
+Coal laboratory assets: / Sample preparation assets: / Dust extraction systems (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 15 years | 6.67% | 13.33% | 1 July 2018
 Coal laboratory assets: / Sample preparation assets: / Float-sink buckets | 8 years | 12.50% | 25.00% | 1 July 2018
 Coal laboratory assets: / Sample preparation assets: / Float-sink testing units (incorporating ventilation ducting, fans, density separation apparatus etc, but excluding float-sink buckets) | 15 years | 6.67% | 13.33% | 1 July 2018
-Coal laboratory assets: / Sample preparation assets: / Flotation machines (including froth rotation machines) | 20 years | 5.00% | 10.00% | 1 July 2018
-Coal laboratory assets: / Sample preparation assets: / Jaw crushers | 10 years | 10.00% | 20.00% | 1 July 2018
-Coal laboratory assets: / Sample preparation assets: / Pulverisers | 10 years | 10.00% | 20.00% | 1 July 2018
-Coal laboratory assets: / Sample preparation assets: / Riffle splitters | 10 years | 10.00% | 20.00% | 1 July 2018
-Coal laboratory assets: / Sample preparation assets: / Rotary Sample Dividers (RSDs) | 15 years | 6.67% | 13.33% | 1 July 2018
-Coal laboratory assets: / Sample preparation assets: / Sample storage assets: | | | |
-Coal laboratory assets: / Sample preparation assets: / Sample storage assets: / Cool room assets – see Table B Refrigeration assets | | | |
-Coal laboratory assets: / Sample preparation assets: / Sample storage assets: / Portable refrigerators/freezers | 10 years | 10.00% | 20.00% | 1 July 2018
-Coal laboratory assets: / Sample preparation assets: / Sample trays | 5 years | 20.00% | 40.00% | 1 July 2018
-Coal laboratory assets: / Sample preparation assets: / Sample trolleys | 10 years | 10.00% | 20.00% | 1 July 2018
-Coal laboratory assets: / Sample preparation assets: / Sieve shakers (excluding sieves) | 10 years | 10.00% | 20.00% | 1 July 2018
-Coal laboratory assets: / Sample preparation assets: / Sieves (including various meshes and sizes) | 7 years | 14.29% | 28.57% | 1 July 2018
-Coal laboratory assets: / Sample preparation assets: / Weighing scales | 10 years | 10.00% | 20.00% | 1 July 2018
-Coal laboratory assets: / Laboratory analytical equipment and instruments: | | | |
-Coal laboratory assets: / Laboratory analytical equipment and instruments: / Analytical balances | 7 years | 14.29% | 28.57% | 1 July 2018
-Coal laboratory assets: / Laboratory analytical equipment and instruments: / Calorimeters | 10 years | 10.00% | 20.00% | 1 July 2018
-Coal laboratory assets: / Laboratory analytical equipment and instruments: / Carbon and sulphur analysers | 7 years | 14.29% | 28.57% | 1 July 2018
+Coal laboratory assets: / Sample preparation assets: / Flotation machines (including froth rotation machines) (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 20 years | 5.00% | 10.00% | 1 July 2018
+Coal laboratory assets: / Sample preparation assets: / Jaw crushers (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 10 years | 10.00% | 20.00% | 1 July 2018
+Coal laboratory assets: / Sample preparation assets: / Pulverisers (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 10 years | 10.00% | 20.00% | 1 July 2018
+Coal laboratory assets: / Sample preparation assets: / Riffle splitters (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 10 years | 10.00% | 20.00% | 1 July 2018
+Coal laboratory assets: / Sample preparation assets: / Rotary Sample Dividers (RSDs) (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 15 years | 6.67% | 13.33% | 1 July 2018
+Asset group · Coal laboratory assets: / Sample preparation assets: / Sample storage assets: | | | |
+Register note · Coal laboratory assets: / Sample preparation assets: / Sample storage assets: / Cool room assets – see Table B Refrigeration assets | | | |
+Coal laboratory assets: / Sample preparation assets: / Sample storage assets: / Portable refrigerators/freezers (Coal laboratory assets / Sample preparation assets / Sample storage assets / Scientific testing and analysis services) | 10 years | 10.00% | 20.00% | 1 July 2018
+Coal laboratory assets: / Sample preparation assets: / Sample trays (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 5 years | 20.00% | 40.00% | 1 July 2018
+Coal laboratory assets: / Sample preparation assets: / Sample trolleys (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 10 years | 10.00% | 20.00% | 1 July 2018
+Coal laboratory assets: / Sample preparation assets: / Sieve shakers (excluding sieves) (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 10 years | 10.00% | 20.00% | 1 July 2018
+Coal laboratory assets: / Sample preparation assets: / Sieves (including various meshes and sizes) (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 7 years | 14.29% | 28.57% | 1 July 2018
+Coal laboratory assets: / Sample preparation assets: / Weighing scales (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 10 years | 10.00% | 20.00% | 1 July 2018
+Asset group · Coal laboratory assets: / Laboratory analytical equipment and instruments: | | | |
+Coal laboratory assets: / Laboratory analytical equipment and instruments: / Analytical balances (Coal laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services) | 7 years | 14.29% | 28.57% | 1 July 2018
+Coal laboratory assets: / Calorimeters (Laboratory analytical equipment and instruments) | 10 years | 10.00% | 20.00% | 1 July 2018
+Coal laboratory assets: / Laboratory analytical equipment and instruments: / Carbon and sulphur analysers (Coal laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services) | 7 years | 14.29% | 28.57% | 1 July 2018
 Coal laboratory assets: / Laboratory analytical equipment and instruments: / CHN analysers (including carbon, hydrogen and nitrogen) | 7 years | 14.29% | 28.57% | 1 July 2018
 Coal laboratory assets: / Laboratory analytical equipment and instruments: / Coal ash fusibility furnaces | 10 years | 10.00% | 20.00% | 1 July 2018
 Coal laboratory assets: / Laboratory analytical equipment and instruments: / Crucible Swell Number (CSN) burners | 10 years | 10.00% | 20.00% | 1 July 2018
-Coal laboratory assets: / Laboratory analytical equipment and instruments: / Dilatometers | 9 years | 11.11% | 22.22% | 1 July 2018
-Coal laboratory assets: / Laboratory analytical equipment and instruments: / Fume cabinets | 15 years | 6.67% | 13.33% | 1 July 2018
+Coal laboratory assets: / Dilatometers (Laboratory analytical equipment and instruments) | 9 years | 11.11% | 22.22% | 1 July 2018
+Coal laboratory assets: / Laboratory analytical equipment and instruments: / Fume cabinets (Coal laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services) | 15 years | 6.67% | 13.33% | 1 July 2018
 Coal laboratory assets: / Laboratory analytical equipment and instruments: / Moisture testing ovens (including nitrogen setup apparatus) | 10 years | 10.00% | 20.00% | 1 July 2018
-Coal laboratory assets: / Laboratory analytical equipment and instruments: / Muffle furnaces | 15 years | 6.67% | 13.33% | 1 July 2018
-Coal laboratory assets: / Laboratory analytical equipment and instruments: / Particle size analysers | 10 years | 10.00% | 20.00% | 1 July 2018
-Coal laboratory assets: / Laboratory analytical equipment and instruments: / Petrographic microscopes | 10 years | 10.00% | 20.00% | 1 July 2018
-Coal laboratory assets: / Laboratory analytical equipment and instruments: / Plastometers | 9 years | 11.11% | 22.22% | 1 July 2018
+Coal laboratory assets: / Laboratory analytical equipment and instruments: / Muffle furnaces (Coal laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services) | 15 years | 6.67% | 13.33% | 1 July 2018
+Coal laboratory assets: / Laboratory analytical equipment and instruments: / Particle size analysers (Coal laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services) | 10 years | 10.00% | 20.00% | 1 July 2018
+Coal laboratory assets: / Laboratory analytical equipment and instruments: / Petrographic microscopes (Coal laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services) | 10 years | 10.00% | 20.00% | 1 July 2018
+Coal laboratory assets: / Plastometers (Laboratory analytical equipment and instruments) | 9 years | 11.11% | 22.22% | 1 July 2018
 Coal laboratory assets: / Laboratory analytical equipment and instruments: / Water baths (including ultrasonic water baths) | 7 years | 14.29% | 28.57% | 1 July 2018
-Coal laboratory assets: / Laboratory analytical equipment and instruments: / X-Ray Fluorescence (XRF) and X-Ray Diffraction (XRD) | 7 years | 14.29% | 28.57% | 1 July 2018
-Mineral processing and metallurgical laboratory assets: | | | |
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: | | | |
+Coal laboratory assets: / Laboratory analytical equipment and instruments: / X-Ray Fluorescence (XRF) and X-Ray Diffraction (XRD) (Coal laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services) | 7 years | 14.29% | 28.57% | 1 July 2018
+Asset group · Mineral processing and metallurgical laboratory assets: | | | |
+Asset group · Mineral processing and metallurgical laboratory assets: / Sample preparation assets: | | | |
 Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Benchtop (including work benches and tables) | 10 years | 10.00% | 20.00% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Centrifugal concentrators | 15 years | 6.67% | 13.33% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Cone crushers | 20 years | 5.00% | 10.00% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Drying ovens: | | | |
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Drying ovens: / Benchtop | 7 years | 14.29% | 28.57% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Drying ovens: / Others (including floor size with trolleys) | 10 years | 10.00% | 20.00% | 1 July 2019
+Asset group · Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Drying ovens: | | | |
+Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Drying ovens: / Benchtop (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Drying ovens / Scientific testing and analysis services) | 7 years | 14.29% | 28.57% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Drying ovens: / Others (including floor size with trolleys) (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Drying ovens / Scientific testing and analysis services) | 10 years | 10.00% | 20.00% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Dust cabinet (including extracted workstations) | 20 years | 5.00% | 10.00% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Dust extraction systems | 15 years | 6.67% | 13.33% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Flotation machines (including froth rotation machines) | 20 years | 5.00% | 10.00% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Dust extraction systems (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 15 years | 6.67% | 13.33% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Flotation machines (including froth rotation machines) (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 20 years | 5.00% | 10.00% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Gravity separation assets (including centrifuges and cyclones) | 10 years | 10.00% | 20.00% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Grinding mills | 12 years | 8.33% | 16.67% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Jaw crushers | 10 years | 10.00% | 20.00% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Grinding mills (Sample preparation assets) | 12 years | 8.33% | 16.67% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Jaw crushers (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 10 years | 10.00% | 20.00% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Laboratory tumblers (including cyanide leach test tumblers) | 10 years | 10.00% | 20.00% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Micro dosing peristaltic pumps | 7 years | 14.29% | 28.57% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Overhead tank mixers | 5 years | 20.00% | 40.00% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / pH control systems | 15 years | 6.67% | 13.33% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Pressure filters | 8 years | 12.50% | 25.00% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Pulverisers | 10 years | 10.00% | 20.00% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Riffle splitters | 10 years | 10.00% | 20.00% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Rotary Sample Dividers (RSDs) | 10 years | 10.00% | 20.00% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Sample storage assets: | | | |
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Sample storage assets: / Cool room assets – See Table B under ‘Refrigeration’ | | | |
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Sample storage assets: / Portable refrigerators/freezers | 8 years | 12.50% | 25.00% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Sample trays | 3 years | 33.33% | 66.67% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Sample trolleys | 7 years | 14.29% | 28.57% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Scrubbers | 15 years | 6.67% | 13.33% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Pulverisers (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 10 years | 10.00% | 20.00% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Riffle splitters (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 10 years | 10.00% | 20.00% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Rotary Sample Dividers (RSDs) (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 10 years | 10.00% | 20.00% | 1 July 2019
+Asset group · Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Sample storage assets: | | | |
+Register note · Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Sample storage assets: / Cool room assets – See Table B under ‘Refrigeration’ | | | |
+Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Sample storage assets: / Portable refrigerators/freezers (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Sample storage assets / Scientific testing and analysis services) | 8 years | 12.50% | 25.00% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Sample trays (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 3 years | 33.33% | 66.67% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Sample trolleys (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 7 years | 14.29% | 28.57% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Scrubbers (Sample preparation assets) | 15 years | 6.67% | 13.33% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Shaking tables (including wet tables) | 20 years | 5.00% | 10.00% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Sieve shakers (excluding sieves) | 10 years | 10.00% | 20.00% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Sieves (including various meshes and sizes) | 3 years | 33.33% | 66.67% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Sieve shakers (excluding sieves) (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 10 years | 10.00% | 20.00% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Sieves (including various meshes and sizes) (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 3 years | 33.33% | 66.67% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Solvent extraction & electrowinning equipment | 15 years | 6.67% | 13.33% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Vacuum filters | 7 years | 14.29% | 28.57% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Water purification systems | 15 years | 6.67% | 13.33% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Weighing scales | 7 years | 14.29% | 28.57% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: | | | |
-Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Analytical balances | 7 years | 14.29% | 28.57% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Water purification systems (Sample preparation assets) | 15 years | 6.67% | 13.33% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Sample preparation assets: / Weighing scales (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services) | 7 years | 14.29% | 28.57% | 1 July 2019
+Asset group · Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: | | | |
+Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Analytical balances (Mineral processing and metallurgical laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services) | 7 years | 14.29% | 28.57% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Atomic Absorption Spectroscopy (AAS) instruments | 10 years | 10.00% | 20.00% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Auto dilutors | 7 years | 14.29% | 28.57% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Auto titration instruments | 7 years | 14.29% | 28.57% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Carbon and sulphur analysers | 7 years | 14.29% | 28.57% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Carbon and sulphur analysers (Mineral processing and metallurgical laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services) | 7 years | 14.29% | 28.57% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Cupellation furnaces | 10 years | 10.00% | 20.00% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Fume cabinets | 15 years | 6.67% | 13.33% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Fume cabinets (Mineral processing and metallurgical laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services) | 15 years | 6.67% | 13.33% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Fusion furnaces | 10 years | 10.00% | 20.00% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Fourier Transform Infrared (FTIR) spectroscopy | 7 years | 14.29% | 28.57% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Hot blocks | 7 years | 14.29% | 28.57% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Hotplate magnetic stirrers | 10 years | 10.00% | 20.00% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Incubators | 7 years | 14.29% | 28.57% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Incubators (Laboratory analytical equipment and instruments) | 7 years | 14.29% | 28.57% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Inductively coupled plasma mass spectrometry (ICP-MS), and Inductively coupled plasmas optical emission spectroscopy (ICP-OES) | 10 years | 10.00% | 20.00% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Ion Chromatography (IC) equipment | 15 years | 6.67% | 13.33% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Muffle furnaces | 12 years | 8.33% | 16.67% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Muffle furnaces (Mineral processing and metallurgical laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services) | 12 years | 8.33% | 16.67% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Overhead stirrers | 8 years | 12.50% | 25.00% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Particle size analysers | 10 years | 10.00% | 20.00% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Petrographic microscopes | 10 years | 10.00% | 20.00% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Particle size analysers (Mineral processing and metallurgical laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services) | 10 years | 10.00% | 20.00% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Petrographic microscopes (Mineral processing and metallurgical laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services) | 10 years | 10.00% | 20.00% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Robotic cells (including robotic fusion cells, robotic preparations cells) | 10 years | 10.00% | 20.00% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Robotic TGA cells | 7 years | 14.29% | 28.57% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Thermogravimetric Analysers (TGAs) | 7 years | 14.29% | 28.57% | 1 July 2019
 Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / Water baths | 5 years | 20.00% | 40.00% | 1 July 2019
-Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / X-Ray Fluorescence (XRF) and X-Ray Diffraction (XRD) | 7 years | 14.29% | 28.57% | 1 July 2019
+Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments: / X-Ray Fluorescence (XRF) and X-Ray Diffraction (XRD) (Mineral processing and metallurgical laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services) | 7 years | 14.29% | 28.57% | 1 July 2019
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/#source
 - Drop shatters: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/drop-shatters/
 - Drum tumblers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/drum-tumblers/
-- Benchtop: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-benchtop/
-- Others (including floor size with trolleys): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-others/
-- Dust extraction systems: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-dust-extraction-systems/
+- Benchtop (Coal laboratory assets / Sample preparation assets / Drying ovens / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-benchtop/
+- Others (including floor size with trolleys) (Coal laboratory assets / Sample preparation assets / Drying ovens / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-others/
+- Dust extraction systems (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-dust-extraction-systems/
 - Float-sink buckets: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/float-sink-buckets/
 - Float-sink testing units (incorporating ventilation ducting, fans, density separation apparatus etc, but excluding float-sink buckets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/float-sink-testing-units/
-- Flotation machines (including froth rotation machines): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-flotation-machines/
-- Jaw crushers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-jaw-crushers/
-- Pulverisers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-pulverisers/
-- Riffle splitters: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-riffle-splitters/
-- Rotary Sample Dividers (RSDs): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-rotary-sample-dividers/
+- Flotation machines (including froth rotation machines) (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-flotation-machines/
+- Jaw crushers (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-jaw-crushers/
+- Pulverisers (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-pulverisers/
+- Riffle splitters (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-riffle-splitters/
+- Rotary Sample Dividers (RSDs) (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-rotary-sample-dividers/
 - Cool room assets – see Table B Refrigeration assets: https://duguid.com.au/tools/depreciation-rates/asset/refrigeration-assets/
-- Portable refrigerators/freezers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-portable-refrigerators-freezers/
-- Sample trays: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-sample-trays/
-- Sample trolleys: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-sample-trolleys/
-- Sieve shakers (excluding sieves): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-sieve-shakers/
-- Sieves (including various meshes and sizes): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-sieves/
-- Weighing scales: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-weighing-scales/
-- Analytical balances: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-analytical-balances/
-- Calorimeters: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/calorimeters/
-- Carbon and sulphur analysers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-carbon-and-sulphur-analysers/
+- Portable refrigerators/freezers (Coal laboratory assets / Sample preparation assets / Sample storage assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-portable-refrigerators-freezers/
+- Sample trays (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-sample-trays/
+- Sample trolleys (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-sample-trolleys/
+- Sieve shakers (excluding sieves) (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-sieve-shakers/
+- Sieves (including various meshes and sizes) (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-sieves/
+- Weighing scales (Coal laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-weighing-scales/
+- Analytical balances (Coal laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-analytical-balances/
+- Calorimeters (Laboratory analytical equipment and instruments): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/calorimeters/
+- Carbon and sulphur analysers (Coal laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-carbon-and-sulphur-analysers/
 - CHN analysers (including carbon, hydrogen and nitrogen): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/chn-analysers/
 - Coal ash fusibility furnaces: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-ash-fusibility-furnaces/
 - Crucible Swell Number (CSN) burners: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/crucible-swell-number-burners/
-- Dilatometers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/dilatometers/
-- Fume cabinets: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-fume-cabinets/
+- Dilatometers (Laboratory analytical equipment and instruments): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/dilatometers/
+- Fume cabinets (Coal laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-fume-cabinets/
 - Moisture testing ovens (including nitrogen setup apparatus): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/moisture-testing-ovens/
-- Muffle furnaces: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-muffle-furnaces/
-- Particle size analysers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-particle-size-analysers/
-- Petrographic microscopes: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-petrographic-microscopes/
-- Plastometers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/plastometers/
+- Muffle furnaces (Coal laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-muffle-furnaces/
+- Particle size analysers (Coal laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-particle-size-analysers/
+- Petrographic microscopes (Coal laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-petrographic-microscopes/
+- Plastometers (Laboratory analytical equipment and instruments): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/plastometers/
 - Water baths (including ultrasonic water baths): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-water-baths/
-- X-Ray Fluorescence (XRF) and X-Ray Diffraction (XRD): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-x-ray-fluorescence-and-x-ray-diffraction/
+- X-Ray Fluorescence (XRF) and X-Ray Diffraction (XRD) (Coal laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-x-ray-fluorescence-and-x-ray-diffraction/
 - Benchtop (including work benches and tables): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/sample-preparation-assets-benchtop/
 - Centrifugal concentrators: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/centrifugal-concentrators/
 - Cone crushers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/cone-crushers/
-- Benchtop: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/drying-ovens-benchtop/
-- Others (including floor size with trolleys): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-others/
+- Benchtop (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Drying ovens / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/drying-ovens-benchtop/
+- Others (including floor size with trolleys) (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Drying ovens / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-others/
 - Dust cabinet (including extracted workstations): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/dust-cabinet/
-- Dust extraction systems: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-dust-extraction-systems/
-- Flotation machines (including froth rotation machines): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-flotation-machines/
+- Dust extraction systems (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-dust-extraction-systems/
+- Flotation machines (including froth rotation machines) (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-flotation-machines/
 - Gravity separation assets (including centrifuges and cyclones): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/gravity-separation-assets/
-- Grinding mills: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/grinding-mills/
-- Jaw crushers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-jaw-crushers/
+- Grinding mills (Sample preparation assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/grinding-mills/
+- Jaw crushers (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-jaw-crushers/
 - Laboratory tumblers (including cyanide leach test tumblers): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/laboratory-tumblers/
 - Micro dosing peristaltic pumps: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/micro-dosing-peristaltic-pumps/
 - Overhead tank mixers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/overhead-tank-mixers/
 - pH control systems: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/ph-control-systems/
 - Pressure filters: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/pressure-filters/
-- Pulverisers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-pulverisers/
-- Riffle splitters: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-riffle-splitters/
-- Rotary Sample Dividers (RSDs): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-rotary-sample-dividers/
-- Portable refrigerators/freezers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-portable-refrigerators-freezers/
-- Sample trays: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-sample-trays/
-- Sample trolleys: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-sample-trolleys/
-- Scrubbers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/scrubbers/
+- Pulverisers (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-pulverisers/
+- Riffle splitters (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-riffle-splitters/
+- Rotary Sample Dividers (RSDs) (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-rotary-sample-dividers/
+- Portable refrigerators/freezers (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Sample storage assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-portable-refrigerators-freezers/
+- Sample trays (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-sample-trays/
+- Sample trolleys (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-sample-trolleys/
+- Scrubbers (Sample preparation assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/scrubbers/
 - Shaking tables (including wet tables): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/shaking-tables/
-- Sieve shakers (excluding sieves): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-sieve-shakers/
-- Sieves (including various meshes and sizes): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-sieves/
+- Sieve shakers (excluding sieves) (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-sieve-shakers/
+- Sieves (including various meshes and sizes) (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-sieves/
 - Solvent extraction & electrowinning equipment: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/solvent-extraction-electrowinning-equipment/
 - Vacuum filters: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/vacuum-filters/
-- Water purification systems: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/water-purification-systems/
-- Weighing scales: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-weighing-scales/
-- Analytical balances: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-analytical-balances/
+- Water purification systems (Sample preparation assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/water-purification-systems/
+- Weighing scales (Mineral processing and metallurgical laboratory assets / Sample preparation assets / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-weighing-scales/
+- Analytical balances (Mineral processing and metallurgical laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-analytical-balances/
 - Atomic Absorption Spectroscopy (AAS) instruments: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/atomic-absorption-spectroscopy-instruments/
 - Auto dilutors: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/auto-dilutors/
 - Auto titration instruments: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/auto-titration-instruments/
-- Carbon and sulphur analysers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-carbon-and-sulphur-analysers/
+- Carbon and sulphur analysers (Mineral processing and metallurgical laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-carbon-and-sulphur-analysers/
 - Cupellation furnaces: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/cupellation-furnaces/
-- Fume cabinets: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-fume-cabinets/
+- Fume cabinets (Mineral processing and metallurgical laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-fume-cabinets/
 - Fusion furnaces: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/fusion-furnaces/
 - Fourier Transform Infrared (FTIR) spectroscopy: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/fourier-transform-infrared-spectroscopy/
 - Hot blocks: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/hot-blocks/
 - Hotplate magnetic stirrers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/hotplate-magnetic-stirrers/
-- Incubators: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/incubators/
+- Incubators (Laboratory analytical equipment and instruments): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/incubators/
 - Inductively coupled plasma mass spectrometry (ICP-MS), and Inductively coupled plasmas optical emission spectroscopy (ICP-OES): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/inductively-coupled-plasma-mass-spectrometry-and-inductively/
 - Ion Chromatography (IC) equipment: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/ion-chromatography-equipment/
-- Muffle furnaces: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-muffle-furnaces/
+- Muffle furnaces (Mineral processing and metallurgical laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-muffle-furnaces/
 - Overhead stirrers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/overhead-stirrers/
-- Particle size analysers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-particle-size-analysers/
-- Petrographic microscopes: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-petrographic-microscopes/
+- Particle size analysers (Mineral processing and metallurgical laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-particle-size-analysers/
+- Petrographic microscopes (Mineral processing and metallurgical laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-petrographic-microscopes/
 - Robotic cells (including robotic fusion cells, robotic preparations cells): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/robotic-cells/
 - Robotic TGA cells: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/robotic-tga-cells/
 - Thermogravimetric Analysers (TGAs): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/thermogravimetric-analysers/
 - Water baths: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-water-baths/
-- X-Ray Fluorescence (XRF) and X-Ray Diffraction (XRD): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-x-ray-fluorescence-and-x-ray-diffraction/
+- X-Ray Fluorescence (XRF) and X-Ray Diffraction (XRD) (Mineral processing and metallurgical laboratory assets / Laboratory analytical equipment and instruments / Scientific testing and analysis services): https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-x-ray-fluorescence-and-x-ray-diffraction/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

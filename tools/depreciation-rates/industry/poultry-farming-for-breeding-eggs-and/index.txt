@@ -8,28 +8,26 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-
 
 35 effective lives in Table A of the Commissioner’s 2025 effective life determination for Poultry farming for breeding, eggs and meat.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Poultry farming for breeding, eggs and meat. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Animal housing environmental control assets: | | | |
-Animal housing environmental control assets: / Control systems (excluding personal computers) | 10 years | 10.00% | 20.00% | 1 January 2007
-Animal housing environmental control assets: / Curtains: | | | |
+Asset group · Animal housing environmental control assets: | | | |
+Control systems (excluding personal computers) (Animal housing environmental control assets) | 10 years | 10.00% | 20.00% | 1 January 2007
+Asset group · Animal housing environmental control assets: / Curtains: | | | |
 Animal housing environmental control assets: / Curtains: / Baffles, brooders | 10 years | 10.00% | 20.00% | 1 January 2007
-Animal housing environmental control assets: / Curtains: / Sidewalls | 5 years | 20.00% | 40.00% | 1 January 2007
+Animal housing environmental control assets: / Sidewalls (Curtains) | 5 years | 20.00% | 40.00% | 1 January 2007
 Animal housing environmental control assets: / Curtains: / Tunnel inlets | 10 years | 10.00% | 20.00% | 1 January 2007
 Animal housing environmental control assets: / Evaporative cooling systems (including frames, pipes, pumps, tanks and coolpads) | 10 years | 10.00% | 20.00% | 1 January 2007
-Animal housing environmental control assets: / Foggers | 10 years | 10.00% | 20.00% | 1 January 2007
-Animal housing environmental control assets: / Heaters | 15 years | 6.67% | 13.33% | 1 January 2007
+Foggers (Animal housing environmental control assets) | 10 years | 10.00% | 20.00% | 1 January 2007
+Heaters (Animal housing environmental control assets) | 15 years | 6.67% | 13.33% | 1 January 2007
 Animal housing environmental control assets: / Minimum vents (including cabling) | 12 years | 8.33% | 16.67% | 1 January 2007
-Animal housing environmental control assets: / Sensors | 4 years | 25.00% | 50.00% | 1 January 2007
+Sensors (Animal housing environmental control assets) | 4 years | 25.00% | 50.00% | 1 January 2007
 Animal housing environmental control assets: / Tunnel inlet panels | 15 years | 6.67% | 13.33% | 1 January 2007
-Animal housing environmental control assets: / Ventilation fans: | | | |
+Asset group · Animal housing environmental control assets: / Ventilation fans: | | | |
 Animal housing environmental control assets: / Ventilation fans: / Exhaust fans (tunnel, minivent) | 12 years | 8.33% | 16.67% | 1 January 2007
 Animal housing environmental control assets: / Ventilation fans: / Stirrer fans | 15 years | 6.67% | 13.33% | 1 January 2007
 Animal housing structures (incorporating frames, walls, rooves, insulation, doors, floors and lighting) | 20 years | 5.00% | 10.00% | 1 January 2007
@@ -38,49 +36,49 @@ Egg belt systems (under cage/nest housing) (including belts, rollers, tensioners
 Egg conveyors (including drive units) | 15 years | 6.67% | 13.33% | 1 January 2007
 Egg counters | 15 years | 6.67% | 13.33% | 1 January 2007
 Egg elevators (including drive units) | 15 years | 6.67% | 13.33% | 1 January 2007
-Egg grading and packing assets: | | | |
+Asset group · Egg grading and packing assets: | | | |
 Egg grading and packing assets: / Egg grader and packing systems (including box erectors, box sealers, candling machines, conveyors, crack, dirt, leak and blood detectors, denesters (egg inners and trays), egg loaders, egg oilers, egg tray stackers, egg washers, egg weigher and transfer systems, imprinters (egg and box), packers (inners, trays and boxes) and wrappers) | 10 years | 10.00% | 20.00% | 1 January 2007
 Egg grading and packing assets: / Pallet levellers (coil spring) | 25 years | 4.00% | 8.00% | 1 January 2007
-Egg grading and packing assets: / Palletisers | 10 years | 10.00% | 20.00% | 1 January 2007
+Palletisers (Egg grading and packing assets) | 10 years | 10.00% | 20.00% | 1 January 2007
 Egg grading and packing assets: / Trolley lifters | 15 years | 6.67% | 13.33% | 1 January 2007
-Farm trolleys: | | | |
+Asset group · Farm trolleys: | | | |
 Farm trolleys: / Chicken transport | 10 years | 10.00% | 20.00% | 1 January 2007
 Farm trolleys: / Egg transport | 10 years | 10.00% | 20.00% | 1 January 2007
 Feeding systems (including troughs, trolleys, chains, hoppers, pans, tubes with auger and drive units) | 10 years | 10.00% | 20.00% | 1 January 2007
-Generators (emergency) | 20 years | 5.00% | 10.00% | 1 January 2007
+Generators (emergency) (Poultry farming for breeding, eggs and meat) | 20 years | 5.00% | 10.00% | 1 January 2007
 Hanging cable systems (for feeders, drinkers and nest housing) | 15 years | 6.67% | 13.33% | 1 January 2007
 Manure belt systems (under cage/nest housing) (including polypropylene belts, scrapers, rollers, tensioners and drive units) | 15 years | 6.67% | 13.33% | 1 January 2007
 Manure conveyors (including drive units) | 10 years | 10.00% | 20.00% | 1 January 2007
 Nest housing (including slatted walkways) | 15 years | 6.67% | 13.33% | 1 January 2007
-Silos for feed: | | | |
-Silos for feed: / Metal | 20 years | 5.00% | 10.00% | 1 January 2007
-Silos for feed: / Ancillary equipment: | | | |
-Silos for feed: / Ancillary equipment: / Augers | 10 years | 10.00% | 20.00% | 1 January 2007
-Silos for feed: / Ancillary equipment: / Conveyors and elevators | 15 years | 6.67% | 13.33% | 1 January 2007
-Water assets: | | | |
+Asset group · Silos for feed: | | | |
+Metal (Silos for feed) | 20 years | 5.00% | 10.00% | 1 January 2007
+Asset group · Silos for feed: / Ancillary equipment: | | | |
+Silos for feed: / Augers (Ancillary equipment) | 10 years | 10.00% | 20.00% | 1 January 2007
+Silos for feed: / Conveyors and elevators (Ancillary equipment) | 15 years | 6.67% | 13.33% | 1 January 2007
+Asset group · Water assets: | | | |
 Water assets: / Drinking systems (including tubing, nipple drinkers, drinking cups, pressure regulators and filter units) | 10 years | 10.00% | 20.00% | 1 January 2007
-Winches | 10 years | 10.00% | 20.00% | 1 January 2007
+Winches (Poultry farming for breeding, eggs and meat) | 10 years | 10.00% | 20.00% | 1 January 2007
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/#source
-- Control systems (excluding personal computers): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/control-systems/
+- Control systems (excluding personal computers) (Animal housing environmental control assets): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/control-systems/
 - Baffles, brooders: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/baffles-brooders/
-- Sidewalls: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/sidewalls/
+- Sidewalls (Curtains): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/sidewalls/
 - Tunnel inlets: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/tunnel-inlets/
 - Evaporative cooling systems (including frames, pipes, pumps, tanks and coolpads): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/evaporative-cooling-systems/
-- Foggers: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/foggers/
-- Heaters: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/heaters/
+- Foggers (Animal housing environmental control assets): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/foggers/
+- Heaters (Animal housing environmental control assets): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/heaters/
 - Minimum vents (including cabling): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/minimum-vents/
-- Sensors: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/sensors/
+- Sensors (Animal housing environmental control assets): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/sensors/
 - Tunnel inlet panels: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/tunnel-inlet-panels/
 - Exhaust fans (tunnel, minivent): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/exhaust-fans/
 - Stirrer fans: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/stirrer-fans/
@@ -92,23 +90,23 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Egg elevators (including drive units): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/egg-elevators/
 - Egg grader and packing systems (including box erectors, box sealers, candling machines, conveyors, crack, dirt, leak and blood detectors, denesters (egg inners and trays), egg loaders, egg oilers, egg tray stackers, egg washers, egg weigher and transfer systems, imprinters (egg and box), packers (inners, trays and boxes) and wrappers): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/egg-grader-and-packing-systems/
 - Pallet levellers (coil spring): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/pallet-levellers/
-- Palletisers: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/palletisers/
+- Palletisers (Egg grading and packing assets): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/palletisers/
 - Trolley lifters: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/trolley-lifters/
 - Chicken transport: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/chicken-transport/
 - Egg transport: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/egg-transport/
 - Feeding systems (including troughs, trolleys, chains, hoppers, pans, tubes with auger and drive units): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/feeding-systems/
-- Generators (emergency): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/generators/
+- Generators (emergency) (Poultry farming for breeding, eggs and meat): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/generators/
 - Hanging cable systems (for feeders, drinkers and nest housing): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/hanging-cable-systems/
 - Manure belt systems (under cage/nest housing) (including polypropylene belts, scrapers, rollers, tensioners and drive units): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/manure-belt-systems/
 - Manure conveyors (including drive units): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/manure-conveyors/
 - Nest housing (including slatted walkways): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/nest-housing/
-- Metal: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/metal/
-- Augers: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/augers/
-- Conveyors and elevators: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/conveyors-and-elevators/
+- Metal (Silos for feed): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/metal/
+- Augers (Ancillary equipment): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/augers/
+- Conveyors and elevators (Ancillary equipment): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/conveyors-and-elevators/
 - Drinking systems (including tubing, nipple drinkers, drinking cups, pressure regulators and filter units): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/drinking-systems/
-- Winches: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/winches/
+- Winches (Poultry farming for breeding, eggs and meat): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/winches/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegeta
 
 ‘Support assets: Air compression assets …’, for an asset used in Fruit and vegetable processing, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2018.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-Effective life and rates from F2025L01097, registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Air compression assets (including air compressors, air dryers and air receivers)
 Under | Jam, pickles and sauces manufacturing assets: / Support assets:
@@ -25,11 +25,11 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in Fruit and vegetable processing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Fruit and vegetable processing, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
 Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
 
-The life was last reviewed and determined on 1 July 2018. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 July 2018. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Support assets
 
@@ -38,16 +38,16 @@ Other rows under Support assets. Effective lives and rates from the source deter
 Row | Life | Prime cost | Diminishing value
 Accumulation tables and turntables | 15 years | 6.67% | 13.33%
 Air compression assets (including air compressors, air dryers and air receivers) (this page) | 10 years | 10.00% | 20.00%
-Conveyors | 15 years | 6.67% | 13.33%
+Conveyors (Support assets) | 15 years | 6.67% | 13.33%
 Exhaust systems | 10 years | 10.00% | 20.00%
-Heat exchangers | 10 years | 10.00% | 20.00%
+Heat exchangers (Fruit and vegetable processing) | 10 years | 10.00% | 20.00%
 Pumps (including cavity, diaphragm and lobe) | 15 years | 6.67% | 13.33%
 
-## The same wording elsewhere
+## Similarly named rows
 
-Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+Compare the full row description and industry. Similar names can cover different equipment or effective lives under section 6 of the determination.
 
-The same wording elsewhere. Effective lives and rates from the source determination.
+Similarly named rows. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Air compression assets (including air dryers, air receivers and compressors) | Other food product manufacturing n.e.c. | 12 years | 8.33% | 16.67%
@@ -55,30 +55,30 @@ Air compression assets (including air dryers, air receivers, compressors and pac
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+The depreciation calculator uses your cost, start date and this effective life of 10 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
-- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/air-compression-assets/#source
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/air-compression-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Accumulation tables and turntables: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/accumulation-tables-and-turntables/
-- Conveyors: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-conveyors/
+- Conveyors (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-conveyors/
 - Exhaust systems: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/exhaust-systems/
-- Heat exchangers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/heat-exchangers/
+- Heat exchangers (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/heat-exchangers/
 - Pumps (including cavity, diaphragm and lobe): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-pumps/
 - Air compression assets (including air dryers, air receivers and compressors): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/air-compression-assets/
 - Air compression assets (including air dryers, air receivers, compressors and packaged air compression systems): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/air-compression-assets/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

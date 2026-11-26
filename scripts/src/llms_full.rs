@@ -61,6 +61,30 @@ pub(crate) fn block_kind(block: &str) -> &'static str {
     }
 }
 
+/// Keep dates and other values under their column headings in the plain-text edition.
+fn expand_colspans(body: &str) -> std::borrow::Cow<'_, str> {
+    let span = re(r#"\scolspan\s*=\s*["']?([0-9]+)"#, I);
+    if !span.is_match(body) {
+        return body.into();
+    }
+    let mut widths = Vec::new();
+    re(r"</?t[dh]\b[^>]*>", I)
+        .sub_with(body, |tag| {
+            let tag = &tag[0];
+            if tag.starts_with("</") {
+                let width = widths.pop().unwrap_or(1usize);
+                return format!("{}{tag}", " | ".repeat(width.saturating_sub(1)));
+            }
+            let width = span
+                .search(tag)
+                .and_then(|m| m[1].parse::<usize>().ok())
+                .unwrap_or(1);
+            widths.push(width.clamp(1, 1000));
+            tag.to_owned()
+        })
+        .into()
+}
+
 /// A <pre> block as a fenced block with its line breaks and indentation kept.
 fn preformatted(inner: &str) -> String {
     let text = unescape(&re(TAG_PATTERN, 0).sub("", inner));
@@ -113,6 +137,7 @@ pub fn main_text(html: &str, page_url: &str) -> Result<String, String> {
         format!("\n\n{} {}\n\n", "#".repeat(level), &m[2])
     });
     let body = re(LI_PATTERN, I).sub("\n\n- ", &body);
+    let body = expand_colspans(&body);
     let body = re(CELL_PATTERN, S | I).sub(" | ", &body);
     let body = re(BLOCK_PATTERN, I).sub("\n\n", &body);
     // Adjacent inline elements such as 2 links keep a space between them. A

@@ -4257,9 +4257,9 @@ Each source below was read on 14 November 2026.
 - ACT: ACT Government, Public holidays, school terms and daylight saving.
 - NSW: NSW Government, NSW public holidays.
 - NT: Northern Territory Government, NT public and regional holidays.
-- QLD: Queensland Government, Public holidays, last updated 16 January 2026.
-- SA: SafeWork SA, Public holidays.
-- TAS: WorkSafe Tasmania, Public holidays, last updated 23 January 2026, and the Statutory Holidays Act 2000 for Easter Tuesday.
+- QLD: Queensland Government, Public holidays in Queensland, last updated 16 January 2026.
+- SA: SafeWork SA, Public holidays in South Australia.
+- TAS: WorkSafe Tasmania, Public holidays in Tasmania, last updated 23 January 2026, and the Statutory Holidays Act 2000 for Easter Tuesday.
 - VIC: Business Victoria, public holidays for 2026, last updated 21 May 2026, and 2027, last updated 2 December 2025.
 - WA: WA Government, Public holidays in Western Australia, last updated 5 November 2026.
 
@@ -4279,9 +4279,9 @@ Each source below was read on 14 November 2026.
 - Public holidays, school terms and daylight saving: https://www.act.gov.au/living-in-the-act/public-holidays-school-terms-and-daylight-saving
 - NSW public holidays: https://www.nsw.gov.au/about-nsw/public-holidays
 - NT public and regional holidays: https://nt.gov.au/nt-public-holidays
-- Public holidays: https://www.qld.gov.au/recreation/travel/holidays/public
-- Public holidays: https://safework.sa.gov.au/resources/public-holidays
-- Public holidays: https://worksafe.tas.gov.au/topics/laws-and-compliance/public-holidays
+- Public holidays in Queensland: https://www.qld.gov.au/recreation/travel/holidays/public
+- Public holidays in South Australia: https://safework.sa.gov.au/resources/public-holidays
+- Public holidays in Tasmania: https://worksafe.tas.gov.au/topics/laws-and-compliance/public-holidays
 - 2026: https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026
 - 2027: https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027
 - Public holidays in Western Australia: https://www.wa.gov.au/service/employment/workplace-arrangements/public-holidays-western-australia
@@ -4879,7 +4879,7 @@ This method measures adherence to visible instructions. It does not test indepen
 
 Needs an AI coding agent such as Claude Code or Codex, and Node.
 
-Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 72 of its 76 validation cards have confirmed results from a whole-card model run; the four core failure cards it adds have no recorded live verdict. Release v0.5.0 has 76 skills and moves the pack from Apache-2.0 to FSL-1.1-ALv2, with Apache-2.0 as the future licence. The current release, v0.8.1, published on 25 November 2026, has 112 skills, still including these 10 workflows, under the Apache License 2.0; human-confirmed verdicts cover 95 of its 246 validation cards. In v0.5.0, contractor-super-tpar points to the provision or ATO page for figures that change instead of stating them, so its cards need a rerun at the revised commit, and wip-over-under-billing gains steps for verifying and citing a local AASB corpus snapshot. Use Adopt for the v0.4.0 installation under the Apache License 2.0 or its separate development option. The v0.4.0 installation guide covers that historical tag. The contracting workflows are included in this unified pack.
+Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 72 of its 76 validation cards have confirmed results from a whole-card model run; the four core failure cards it adds have no recorded live verdict. Release v0.5.0 has 76 skills and moves the pack from Apache-2.0 to FSL-1.1-ALv2, with Apache-2.0 as the future licence. The current release, v0.8.1, published on 25 November 2026, has 112 skills, still including these 10 workflows, under the Apache License 2.0; human-confirmed verdicts cover 95 of its 246 validation cards. In v0.5.0, contractor-super-tpar points to the provision or ATO page for figures that change instead of stating them, so its cards need a rerun at the revised commit, and wip-over-under-billing gains steps for verifying and citing a local AASB corpus snapshot. Use Adopt for the v0.4.0 installation under the Apache License 2.0 for v0.4.0 or its separate development option. The v0.4.0 installation guide covers that historical tag. The contracting workflows are included in this unified pack.
 
 Source on GitHub
 
@@ -4918,7 +4918,7 @@ Not as working figures. Each skill encodes the workflow, the tie-outs and the ex
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
 - evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
 - Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- Apache License 2.0: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.4.0/LICENSE
+- Apache License 2.0 for v0.4.0: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.4.0/LICENSE
 - v0.4.0 installation guide: https://github.com/ryanduguid/australian-accounting-skills/blob/2e16e47016c6451c0fe8fc8af8a47cf7e7fc3034/docs/installation.md#tagged-65-workflow-release
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills
 - Open an issue: https://github.com/ryanduguid/australian-accounting-skills/issues
@@ -5709,6 +5709,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+27 November 2026 | The depreciation register distinguishes assets with the same name, shows the dates recorded against asset group headings and links directly to sections of long tables. The work expenses and rental property calculators now label telephone expenses as dollar amounts.
 27 November 2026 | The Markdown editions of calculators now preserve the instructions shown when JavaScript is off, including the link to the depreciation register data file.
 27 November 2026 | Reference tables now carry names for screen readers. Calculator fields and reference pages have more space between headings, instructions and tables. The depreciation register identifies the industry or asset group on links that share a name. Each indexed page also has a Markdown edition at index.md.
 26 November 2026 | A new business calculator, sole trader against company, puts one business profit for 2021-22 to 2026-27 through both structures: as a sole trader, tax and the Medicare levy on the whole profit less the small business income tax offset under Subdivision 328-F; through a company, a salary with its super guarantee, company tax at 25% or 30%, a fully franked dividend for the rest of what the owner takes out with its top-up tax, the profit kept in the company and the tax on the super. It states each total and the difference and recommends no structure, and names what it leaves out: the personal services income rules, Division 7A, the small business CGT concessions, state taxes and the cost of running a company. Rates were read on 26 November 2026.
@@ -5966,8 +5967,8 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
-- depreciation register data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
 - depreciation register: https://duguid.com.au/tools/depreciation-rates/
+- depreciation register data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
 - sole trader against company: https://duguid.com.au/tools/business-calculators/sole-trader-company/
 - aus-accounting-mcp v0.13.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.13.0
 - general tax question 8: https://duguid.com.au/tools/accounting-questions/general-tax/
@@ -10730,13 +10731,13 @@ Rent (AUD) Other rental income, such as an insurance payout for lost rent or a b
 
 Enter the whole property’s expenses. These are apportioned by the days let or available over the days held.
 
-Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage (AUD) Travel (shown, not deductible) (AUD) Water charges (AUD) Sundry rental expenses (AUD)
+Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage costs (AUD) Travel (shown, not deductible) (AUD) Water charges (AUD) Sundry rental expenses (AUD)
 
 ## Expenses solely for renting
 
 Expenses that relate only to renting, such as agent commission and removing a tenant’s rubbish, are not apportioned.
 
-Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage (AUD) Water charges (AUD) Sundry rental expenses (AUD)
+Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage costs (AUD) Water charges (AUD) Sundry rental expenses (AUD)
 
 ## Interest on your own loans
 
@@ -12832,13 +12833,13 @@ Western Australia charges its metropolitan region improvement tax of 0.14% of th
 
 The land tax calculator applies the scale for the rates and owner you choose. It does not decide which land is taxable, which rates apply, whether an owner is a foreign person or absentee, or what the taxable or surcharge value is; the foreign purchaser surcharge calculator applies each jurisdiction’s test of a foreign or absentee owner. These are not computed:
 
-- New South Wales: exemptions and concessions, including the principal place of residence and primary production land exemptions, exemptions from surcharge land tax, and land of a company that is not its group’s concessional company, which pays 1.6% of its whole taxable value with no threshold, or 2% of it where the group’s land exceeds the premium threshold (Land Tax Act 1956, Schedule 13, Parts 3 and 4).
-- Victoria: exemptions and concessions, exemptions from the absentee owner surcharge and vacant residential land tax.
+- New South Wales land tax exemptions and concessions, including the principal place of residence and primary production land exemptions, exemptions from surcharge land tax, and land of a company that is not its group’s concessional company, which pays 1.6% of its whole taxable value with no threshold, or 2% of it where the group’s land exceeds the premium threshold (Land Tax Act 1956, Schedule 13, Parts 3 and 4).
+- Victoria land tax exemptions and concessions, exemptions from the absentee owner surcharge and vacant residential land tax.
 - Queensland: exemptions and relief, exemptions from the foreign surcharge and the aggregation of land held for trusts with the same beneficiaries.
-- Western Australia: land tax exemptions, and the metropolitan region improvement tax on holdings only partly in the Perth metropolitan region.
+- Western Australia land tax exemptions, and the metropolitan region improvement tax on holdings only partly in the Perth metropolitan region.
 - South Australia: exemptions, waiver or relief, and which land held on trust qualifies for the general rates.
 - Tasmania: zero rate classifications, exemptions and rebates, including principal residence and primary production land, and which land the foreign investor land tax surcharge applies to.
-- Australian Capital Territory: land tax exemptions, when the foreign ownership surcharge applies, a unit’s share by its unit entitlement and the split into quarters. Land tax there applies to residential property that is not a principal place of residence.
+- Australian Capital Territory land tax exemptions, when the foreign ownership surcharge applies, a unit’s share by its unit entitlement and the split into quarters. Land tax there applies to residential property that is not a principal place of residence.
 
 Joint ownership, grouping of related companies and the apportionment of the tax between properties are not computed either. Confirm the figure with the revenue office’s own calculator or assessment notice before relying on it.
 
@@ -12888,18 +12889,18 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
-- exemptions and concessions: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/exemptions-and-concessions
+- New South Wales land tax exemptions and concessions: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/exemptions-and-concessions
 - exemptions from surcharge land tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/surcharge-land-tax
-- exemptions and concessions: https://www.sro.vic.gov.au/owning-property/land-tax/exemptions-and-concessions-land-tax
+- Victoria land tax exemptions and concessions: https://www.sro.vic.gov.au/owning-property/land-tax/exemptions-and-concessions-land-tax
 - exemptions from the absentee owner surcharge: https://www.sro.vic.gov.au/owning-property/land-tax/absentee-owner-surcharge
 - exemptions and relief: https://qro.qld.gov.au/land-tax/relief/
 - exemptions from the foreign surcharge: https://qro.qld.gov.au/land-tax/foreign-surcharge/
-- land tax exemptions: https://www.wa.gov.au/service/financial-management/taxation-and-duty/apply-land-tax-exemption
+- Western Australia land tax exemptions: https://www.wa.gov.au/service/financial-management/taxation-and-duty/apply-land-tax-exemption
 - exemptions, waiver or relief: https://www.revenuesa.sa.gov.au/land-tax/LTExemptions
 - land held on trust: https://www.revenuesa.sa.gov.au/land-tax/trusts
 - zero rate classifications, exemptions and rebates: https://www.sro.tas.gov.au/land-tax/exemptions-and-rebates
 - which land the foreign investor land tax surcharge applies to: https://www.sro.tas.gov.au/land-tax/foreign-investor-land-tax-surcharge/rate-of-surcharge
-- land tax exemptions: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/land-tax-exemptions
+- Australian Capital Territory land tax exemptions: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/land-tax-exemptions
 - when the foreign ownership surcharge applies: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/foreign-ownership-surcharge-for-land-tax
 - fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
@@ -14557,9 +14558,9 @@ Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
 
 Working from home Hours worked from home, as recorded Additional running expenses, such as energy or phone, incurred from working from home Yes No
 
-Work-related amounts only, in dollars and cents. Enter 0 for an expense you did not have.
+Enter work-related amounts in dollars and cents, or 0 for an expense you did not have. Other assets can include a computer or phone.
 
-Electricity and gas Mobile and home phone Internet Stationery and computer consumables Cleaning Decline in value of home office furniture and furnishings Decline in value of other assets, such as a computer or phone Repairs to those assets
+Electricity and gas Mobile and home phone costs (AUD) Internet Stationery and computer consumables Cleaning Decline in value of home office furniture and furnishings Decline in value of other assets (AUD) Repairs to those assets
 
 Reimbursed or paid by your employer or anyone else No Yes
 

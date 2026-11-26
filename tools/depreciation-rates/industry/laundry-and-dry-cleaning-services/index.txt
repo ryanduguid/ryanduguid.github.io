@@ -8,84 +8,82 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-
 
 37 effective lives in Table A of the Commissioner’s 2025 effective life determination for Laundry and dry cleaning services.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Laundry and dry cleaning services. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Carpet, upholstery and rug cleaning services assets: | | | |
-Carpet, upholstery and rug cleaning services assets: / Air purifiers, deodorising and mould remediation assets (including air filtering machines, air scrubbers and ozone generators) | 5 years | 20.00% | 40.00% | 1 July 2010
+Asset group · Carpet, upholstery and rug cleaning services assets: | | | |
+Air purifiers, deodorising and mould remediation assets (including air filtering machines, air scrubbers and ozone generators) (Carpet, upholstery and rug cleaning services assets) | 5 years | 20.00% | 40.00% | 1 July 2010
 Carpet, upholstery and rug cleaning services assets: / Carpet cleaning assets, portable (including rotary scrubbers and encapsulation machines) | 5 years | 20.00% | 40.00% | 1 July 2010
-Carpet, upholstery and rug cleaning services assets: / Drying and restoration assets (including air movers and dehumidifiers) | 5 years | 20.00% | 40.00% | 1 July 2010
-Carpet, upholstery and rug cleaning services assets: / Extractors for carpet and upholstery cleaning: | | | |
-Carpet, upholstery and rug cleaning services assets: / Extractors for carpet and upholstery cleaning: / Spot extractors (including portable handheld and brief case size extractors for stain removal) | 3 years | 33.33% | 66.67% | 1 July 2010
+Drying and restoration assets (including air movers and dehumidifiers) (Carpet, upholstery and rug cleaning services assets) | 5 years | 20.00% | 40.00% | 1 July 2010
+Asset group · Carpet, upholstery and rug cleaning services assets: / Extractors for carpet and upholstery cleaning: | | | |
+Carpet, upholstery and rug cleaning services assets: / Extractors for carpet and upholstery cleaning: / Spot extractors (including portable handheld and brief case size extractors for stain removal) (Laundry and dry cleaning services) | 3 years | 33.33% | 66.67% | 1 July 2010
 Carpet, upholstery and rug cleaning services assets: / Extractors for carpet and upholstery cleaning: / Others (including walk behind and self-contained carpet extractors) | 5 years | 20.00% | 40.00% | 1 July 2010
-Carpet, upholstery and rug cleaning services assets: / Extractors for carpet and upholstery cleaning: / Truck or van mounted | 10 years | 10.00% | 20.00% | 1 July 2010
-Carpet, upholstery and rug cleaning services assets: / Vacuum cleaners: | | | |
-Carpet, upholstery and rug cleaning services assets: / Vacuum cleaners: / Backpack and pull along machines | 3 years | 33.33% | 66.67% | 1 July 2010
+Carpet, upholstery and rug cleaning services assets: / Extractors for carpet and upholstery cleaning: / Truck or van mounted (Laundry and dry cleaning services) | 10 years | 10.00% | 20.00% | 1 July 2010
+Asset group · Carpet, upholstery and rug cleaning services assets: / Vacuum cleaners: | | | |
+Carpet, upholstery and rug cleaning services assets: / Vacuum cleaners: / Backpack and pull along machines (Laundry and dry cleaning services) | 3 years | 33.33% | 66.67% | 1 July 2010
 Carpet, upholstery and rug cleaning services assets: / Vacuum cleaners: / Other portable cleaners (including upright machines) | 5 years | 20.00% | 40.00% | 1 July 2010
-Dry cleaning and laundry assets: | | | |
+Asset group · Dry cleaning and laundry assets: | | | |
 Dry cleaning and laundry assets: / Dry cleaning machines | 12 years | 8.33% | 16.67% | 1 July 2011
-Dry cleaning and laundry assets: / Washers: | | | |
+Asset group · Dry cleaning and laundry assets: / Washers: | | | |
 Dry cleaning and laundry assets: / Washers: / Continuous batch washer systems (including washers, moisture extraction units and dryers) | 17 years | 5.88% | 11.76% | 1 July 2011
 Dry cleaning and laundry assets: / Washers: / Extractors, standalone | 12 years | 8.33% | 16.67% | 1 July 2011
-Drying assets: | | | |
+Asset group · Drying assets: | | | |
 Drying assets: / Tumble dryers, standalone | 12 years | 8.33% | 16.67% | 1 July 2011
 Drying assets: / Tunnel dryers and garment finishers (including steam cabinets) | 15 years | 6.67% | 13.33% | 1 July 2011
-Finishing assets: | | | |
+Asset group · Finishing assets: | | | |
 Finishing assets: / Flatwork processing assets (including automatic pickers, feeders, folders and stackers) | 13 years | 7.69% | 15.38% | 1 July 2011
 Finishing assets: / Garment finishers (including collar and cuff presses, form finishers, pant toppers and puff irons) | 10 years | 10.00% | 20.00% | 1 July 2011
-Finishing assets: / Presses (including flat, utility and scissor legger presses): | | | |
+Asset group · Finishing assets: / Presses (including flat, utility and scissor legger presses): | | | |
 Finishing assets: / Presses (including flat, utility and scissor legger presses): / Air operated, semi automatic | 15 years | 6.67% | 13.33% | 1 July 2011
-Finishing assets: / Presses (including flat, utility and scissor legger presses): / Manual | 20 years | 5.00% | 10.00% | 1 July 2011
+Finishing assets: / Presses (including flat, utility and scissor legger presses): / Manual (Presses …) | 20 years | 5.00% | 10.00% | 1 July 2011
 Finishing assets: / Roller ironers | 17 years | 5.88% | 11.76% | 1 July 2011
-Support assets: | | | |
+Asset group · Support assets: | | | |
 Support assets: / Air vacuum units, standalone | 10 years | 10.00% | 20.00% | 1 July 2011
-Support assets: / Control systems | 10 years | 10.00% | 20.00% | 1 July 2011
+Support assets: / Control systems (Laundry and dry cleaning services) | 10 years | 10.00% | 20.00% | 1 July 2011
 Support assets: / Heat seal machines for labelling laundry items | 10 years | 10.00% | 20.00% | 1 July 2011
-Support assets: / Hot water systems | 12 years | 8.33% | 16.67% | 1 July 2011
-Support assets: / Ironing and spotting boards and tables: | | | |
+Support assets: / Hot water systems (Laundry and dry cleaning services) | 12 years | 8.33% | 16.67% | 1 July 2011
+Asset group · Support assets: / Ironing and spotting boards and tables: | | | |
 Support assets: / Ironing and spotting boards and tables: / Non vacuum operated | 15 years | 6.67% | 13.33% | 1 July 2011
 Support assets: / Ironing and spotting boards and tables: / Vacuum operated | 10 years | 10.00% | 20.00% | 1 July 2011
-Support assets: / Laundry handling assets: | | | |
+Asset group · Support assets: / Laundry handling assets: | | | |
 Support assets: / Laundry handling assets: / Conveyors and garment sorting and storage systems | 15 years | 6.67% | 13.33% | 1 July 2011
-Support assets: / Laundry handling assets: / Hoppers | 20 years | 5.00% | 10.00% | 1 July 2011
+Support assets: / Hoppers (Laundry handling assets) | 20 years | 5.00% | 10.00% | 1 July 2011
 Support assets: / Laundry handling assets: / Monorail and bag loading systems | 20 years | 5.00% | 10.00% | 1 July 2011
-Support assets: / Laundry handling assets: / Tipplers | 10 years | 10.00% | 20.00% | 1 July 2011
-Support assets: / Pipes | 20 years | 5.00% | 10.00% | 1 July 2011
+Support assets: / Tipplers (Laundry handling assets) | 10 years | 10.00% | 20.00% | 1 July 2011
+Support assets: / Pipes (Laundry and dry cleaning services) | 20 years | 5.00% | 10.00% | 1 July 2011
 Support assets: / Soap dispenser machines | 20 years | 5.00% | 10.00% | 1 July 2011
-Support assets: / Trolleys and bins: | | | |
-Support assets: / Trolleys and bins: / Generally | 10 years | 10.00% | 20.00% | 1 July 2011
-Support assets: / Trolleys and bins: / Stainless steel | 15 years | 6.67% | 13.33% | 1 July 2011
-Support assets: / Waste water treatment and recycling system assets: | | | |
+Asset group · Support assets: / Trolleys and bins: | | | |
+Support assets: / Generally (Trolleys and bins) | 10 years | 10.00% | 20.00% | 1 July 2011
+Support assets: / Stainless steel (Trolleys and bins) | 15 years | 6.67% | 13.33% | 1 July 2011
+Asset group · Support assets: / Waste water treatment and recycling system assets: | | | |
 Support assets: / Waste water treatment and recycling system assets: / Filters (including carbon and sand) | 10 years | 10.00% | 20.00% | 1 July 2011
 Support assets: / Waste water treatment and recycling system assets: / Lint shakers (including circular vibratory screens) | 20 years | 5.00% | 10.00% | 1 July 2011
 Support assets: / Waste water treatment and recycling system assets: / Ozone generators and UV sterilisers | 7 years | 14.29% | 28.57% | 1 July 2011
-Support assets: / Waste water treatment and recycling system assets: / Pumps | 5 years | 20.00% | 40.00% | 1 July 2011
-Support assets: / Waste water treatment and recycling system assets: / Tanks | 20 years | 5.00% | 10.00% | 1 July 2011
+Support assets: / Pumps (Waste water treatment and recycling system assets) | 5 years | 20.00% | 40.00% | 1 July 2011
+Support assets: / Tanks (Waste water treatment and recycling system assets) | 20 years | 5.00% | 10.00% | 1 July 2011
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/#source
-- Air purifiers, deodorising and mould remediation assets (including air filtering machines, air scrubbers and ozone generators): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/air-purifiers-deodorising-and-mould-remediation-assets/
+- Air purifiers, deodorising and mould remediation assets (including air filtering machines, air scrubbers and ozone generators) (Carpet, upholstery and rug cleaning services assets): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/air-purifiers-deodorising-and-mould-remediation-assets/
 - Carpet cleaning assets, portable (including rotary scrubbers and encapsulation machines): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/carpet-cleaning-assets-portable/
-- Drying and restoration assets (including air movers and dehumidifiers): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/drying-and-restoration-assets/
-- Spot extractors (including portable handheld and brief case size extractors for stain removal): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/spot-extractors/
+- Drying and restoration assets (including air movers and dehumidifiers) (Carpet, upholstery and rug cleaning services assets): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/drying-and-restoration-assets/
+- Spot extractors (including portable handheld and brief case size extractors for stain removal) (Laundry and dry cleaning services): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/spot-extractors/
 - Others (including walk behind and self-contained carpet extractors): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/others/
-- Truck or van mounted: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/truck-or-van-mounted/
-- Backpack and pull along machines: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/backpack-and-pull-along-machines/
+- Truck or van mounted (Laundry and dry cleaning services): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/truck-or-van-mounted/
+- Backpack and pull along machines (Laundry and dry cleaning services): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/backpack-and-pull-along-machines/
 - Other portable cleaners (including upright machines): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/other-portable-cleaners/
 - Dry cleaning machines: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/dry-cleaning-machines/
 - Continuous batch washer systems (including washers, moisture extraction units and dryers): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/continuous-batch-washer-systems/
@@ -95,29 +93,29 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Flatwork processing assets (including automatic pickers, feeders, folders and stackers): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/flatwork-processing-assets/
 - Garment finishers (including collar and cuff presses, form finishers, pant toppers and puff irons): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/garment-finishers/
 - Air operated, semi automatic: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/air-operated-semi-automatic/
-- Manual: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/manual/
+- Manual (Presses …): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/manual/
 - Roller ironers: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/roller-ironers/
 - Air vacuum units, standalone: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/air-vacuum-units-standalone/
-- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/control-systems/
+- Control systems (Laundry and dry cleaning services): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/control-systems/
 - Heat seal machines for labelling laundry items: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/heat-seal-machines-for-labelling-laundry-items/
-- Hot water systems: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/hot-water-systems/
+- Hot water systems (Laundry and dry cleaning services): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/hot-water-systems/
 - Non vacuum operated: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/non-vacuum-operated/
 - Vacuum operated: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/vacuum-operated/
 - Conveyors and garment sorting and storage systems: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/conveyors-and-garment-sorting-and-storage-systems/
-- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/hoppers/
+- Hoppers (Laundry handling assets): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/hoppers/
 - Monorail and bag loading systems: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/monorail-and-bag-loading-systems/
-- Tipplers: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/tipplers/
-- Pipes: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/pipes/
+- Tipplers (Laundry handling assets): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/tipplers/
+- Pipes (Laundry and dry cleaning services): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/pipes/
 - Soap dispenser machines: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/soap-dispenser-machines/
-- Generally: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/generally/
-- Stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/stainless-steel/
+- Generally (Trolleys and bins): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/generally/
+- Stainless steel (Trolleys and bins): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/stainless-steel/
 - Filters (including carbon and sand): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/filters/
 - Lint shakers (including circular vibratory screens): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/lint-shakers/
 - Ozone generators and UV sterilisers: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/ozone-generators-and-uv-sterilisers/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/pumps/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/tanks/
+- Pumps (Waste water treatment and recycling system assets): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/pumps/
+- Tanks (Waste water treatment and recycling system assets): https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/tanks/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

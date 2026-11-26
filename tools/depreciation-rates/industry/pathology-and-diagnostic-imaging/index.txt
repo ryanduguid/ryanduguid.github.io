@@ -8,68 +8,66 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-di
 
 30 effective lives in Table A of the Commissioner’s 2025 effective life determination for Pathology and diagnostic imaging services.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Pathology and diagnostic imaging services. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Pathologists’ assets: | | | |
+Asset group · Pathologists’ assets: | | | |
 Pathologists’ assets: / Batch slide stainer | 6 years | 16.67% | 33.33% | 1 January 2002
 Pathologists’ assets: / Bio hazard chambers | 10 years | 10.00% | 20.00% | 1 January 2002
-Pathologists’ assets: / Centrifuges | 5 years | 20.00% | 40.00% | 1 January 2002
-Pathologists’ assets: / Incubators | 6 years | 16.67% | 33.33% | 1 January 2002
-Pathologists’ assets: / Laboratory analysers | 5 years | 20.00% | 40.00% | 1 January 2002
-Pathologists’ assets: / Microscopes | 10 years | 10.00% | 20.00% | 1 January 2002
+Centrifuges (Pathologists’ assets) | 5 years | 20.00% | 40.00% | 1 January 2002
+Incubators (Pathologists’ assets) | 6 years | 16.67% | 33.33% | 1 January 2002
+Laboratory analysers (Pathologists’ assets) | 5 years | 20.00% | 40.00% | 1 January 2002
+Microscopes (Pathologists’ assets) | 10 years | 10.00% | 20.00% | 1 January 2002
 Pathologists’ assets: / Rotary microtomes | 6 years | 16.67% | 33.33% | 1 January 2002
 Pathologists’ assets: / Tissue embedding systems | 6 years | 16.67% | 33.33% | 1 January 2002
 Pathologists’ assets: / Tissue processors | 6 years | 16.67% | 33.33% | 1 January 2002
-Radiologists’ diagnostic imaging assets: | | | |
+Asset group · Radiologists’ diagnostic imaging assets: | | | |
 Radiologists’ diagnostic imaging assets: / Bone densitometry (BMD) systems (incorporating either whole body scanners, integrated computer and integrated software, or spine and hip scanners, holding devices, integrated computers and integrated software) | 10 years | 10.00% | 20.00% | 1 July 2002
 Radiologists’ diagnostic imaging assets: / Computed radiography (CR) digitisers | 4 years | 25.00% | 50.00% | 1 July 2002
 Radiologists’ diagnostic imaging assets: / Computed tomography (CT) systems (incorporating scanners, integrated computers and integrated software) | 10 years | 10.00% | 20.00% | 1 July 2002
 Radiologists’ diagnostic imaging assets: / Film digitisers | 4 years | 25.00% | 50.00% | 1 July 2002
-Radiologists’ diagnostic imaging assets: / Fluoroscopy assets (excluding direct radiography assets): | | | |
+Asset group · Radiologists’ diagnostic imaging assets: / Fluoroscopy assets (excluding direct radiography assets): | | | |
 Radiologists’ diagnostic imaging assets: / Fluoroscopy assets (excluding direct radiography assets): / Fixed systems (incorporating buckies, generators, screening tables and suspensions) | 15 years | 6.67% | 13.33% | 1 July 2002
 Radiologists’ diagnostic imaging assets: / Fluoroscopy assets (excluding direct radiography assets): / Image acquisition systems (incorporating computers, digital cameras, integrated software and monitors) | 4 years | 25.00% | 50.00% | 1 July 2002
-Radiologists’ diagnostic imaging assets: / Fluoroscopy assets (excluding direct radiography assets): / Image intensifiers | 7 years | 14.29% | 28.57% | 1 July 2002
+Radiologists’ diagnostic imaging assets: / Fluoroscopy assets (excluding direct radiography assets): / Image intensifiers (Fluoroscopy assets …) | 7 years | 14.29% | 28.57% | 1 July 2002
 Radiologists’ diagnostic imaging assets: / Fluoroscopy assets (excluding direct radiography assets): / Mobile systems (incorporating buckies, generators, screening tables and suspensions) | 10 years | 10.00% | 20.00% | 1 July 2002
 Radiologists’ diagnostic imaging assets: / Magnetic resonance imaging (MRI) systems (incorporating scanners, cooling systems, radio frequency coil accessories, integrated computer and integrated software) | 7 years | 14.29% | 28.57% | 1 July 2002
 Radiologists’ diagnostic imaging assets: / Mammography systems (incorporating either prone core biopsy scanners, quality assurance equipment, stereotaxis, integrated computers and integrated software, or conventional upright scanners, quality assurance equipment, stereotaxis, integrated computer and integrated software) | 7 years | 14.29% | 28.57% | 1 July 2002
 Radiologists’ diagnostic imaging assets: / Nuclear medicine systems (incorporating cameras, gantries, collimators, integrated computers, integrated software and hot lab equipment, but excluding Positron Emission Tomography (PET) systems) | 10 years | 10.00% | 20.00% | 1 July 2002
 Radiologists’ diagnostic imaging assets: / Orthopantomography (OPG) systems (incorporating scanners, integrated computers and integrated software) | 15 years | 6.67% | 13.33% | 1 July 2002
 Radiologists’ diagnostic imaging assets: / Patient archival and communication systems (PACS) | 4 years | 25.00% | 50.00% | 1 July 2002
-Radiologists’ diagnostic imaging assets: / Processing assets: | | | |
+Asset group · Radiologists’ diagnostic imaging assets: / Processing assets: | | | |
 Radiologists’ diagnostic imaging assets: / Processing assets: / Daylight imaging processors | 9 years | 11.11% | 22.22% | 1 July 2002
 Radiologists’ diagnostic imaging assets: / Processing assets: / Dry laser imaging processors | 8 years | 12.50% | 25.00% | 1 July 2002
 Radiologists’ diagnostic imaging assets: / Processing assets: / Wet laser imaging processors | 10 years | 10.00% | 20.00% | 1 July 2002
 Radiologists’ diagnostic imaging assets: / Teleradiology assets (excluding the imaging device) | 4 years | 25.00% | 50.00% | 1 July 2002
-Radiologists’ diagnostic imaging assets: / Ultrasound systems (incorporating scanner, transducers, integrated computer and integrated software) | 5 years | 20.00% | 40.00% | 1 July 2002
-Radiologists’ diagnostic imaging assets: / X-ray assets (excluding direct radiography assets): | | | |
+Ultrasound systems (incorporating scanner, transducers, integrated computer and integrated software) (Radiologists’ diagnostic imaging assets) | 5 years | 20.00% | 40.00% | 1 July 2002
+Asset group · Radiologists’ diagnostic imaging assets: / X-ray assets (excluding direct radiography assets): | | | |
 Radiologists’ diagnostic imaging assets: / X-ray assets (excluding direct radiography assets): / Fixed systems (incorporating buckies, control panels, generators, screening table, suspensions, tube column and x-ray tube) | 15 years | 6.67% | 13.33% | 1 July 2002
 Radiologists’ diagnostic imaging assets: / X-ray assets (excluding direct radiography assets): / Image intensifier | 7 years | 14.29% | 28.57% | 1 July 2002
 Radiologists’ diagnostic imaging assets: / X-ray assets (excluding direct radiography assets): / Mobile systems (incorporating buckies, control panels, generators, screening table, suspensions, tube column and x-ray tube) | 10 years | 10.00% | 20.00% | 1 July 2002
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/#source
 - Batch slide stainer: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/batch-slide-stainer/
 - Bio hazard chambers: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/bio-hazard-chambers/
-- Centrifuges: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/centrifuges/
-- Incubators: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/incubators/
-- Laboratory analysers: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/laboratory-analysers/
-- Microscopes: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/microscopes/
+- Centrifuges (Pathologists’ assets): https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/centrifuges/
+- Incubators (Pathologists’ assets): https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/incubators/
+- Laboratory analysers (Pathologists’ assets): https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/laboratory-analysers/
+- Microscopes (Pathologists’ assets): https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/microscopes/
 - Rotary microtomes: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/rotary-microtomes/
 - Tissue embedding systems: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/tissue-embedding-systems/
 - Tissue processors: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/tissue-processors/
@@ -79,7 +77,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Film digitisers: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/film-digitisers/
 - Fixed systems (incorporating buckies, generators, screening tables and suspensions): https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/fluoroscopy-assets-fixed-systems/
 - Image acquisition systems (incorporating computers, digital cameras, integrated software and monitors): https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/image-acquisition-systems/
-- Image intensifiers: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/image-intensifiers/
+- Image intensifiers (Fluoroscopy assets …): https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/image-intensifiers/
 - Mobile systems (incorporating buckies, generators, screening tables and suspensions): https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/fluoroscopy-assets-mobile-systems/
 - Magnetic resonance imaging (MRI) systems (incorporating scanners, cooling systems, radio frequency coil accessories, integrated computer and integrated software): https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/magnetic-resonance-imaging-systems/
 - Mammography systems (incorporating either prone core biopsy scanners, quality assurance equipment, stereotaxis, integrated computers and integrated software, or conventional upright scanners, quality assurance equipment, stereotaxis, integrated computer and integrated software): https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/mammography-systems/
@@ -90,12 +88,12 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Dry laser imaging processors: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/dry-laser-imaging-processors/
 - Wet laser imaging processors: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/wet-laser-imaging-processors/
 - Teleradiology assets (excluding the imaging device): https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/teleradiology-assets/
-- Ultrasound systems (incorporating scanner, transducers, integrated computer and integrated software): https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/ultrasound-systems/
+- Ultrasound systems (incorporating scanner, transducers, integrated computer and integrated software) (Radiologists’ diagnostic imaging assets): https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/ultrasound-systems/
 - Fixed systems (incorporating buckies, control panels, generators, screening table, suspensions, tube column and x-ray tube): https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/x-ray-assets-fixed-systems/
 - Image intensifier: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/image-intensifier/
 - Mobile systems (incorporating buckies, control panels, generators, screening table, suspensions, tube column and x-ray tube): https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/x-ray-assets-mobile-systems/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

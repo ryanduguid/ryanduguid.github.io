@@ -8,51 +8,49 @@ Source: https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-asset
 
 10 effective lives in Table B of the Commissioner’s 2025 effective life determination under Swimming pool assets.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Swimming pool assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Chlorinators | 12 years | 8.33% | 16.67% | 1 July 2004
-Cleaning assets | 7 years | 14.29% | 28.57% | 1 July 2004
-Covers (including blankets) | 8 years | 12.50% | 25.00% | 1 July 2019
-Filtration assets (including pumps) | 12 years | 8.33% | 16.67% | 1 July 2004
-Heaters: | | | |
-Heaters: / Electric | 15 years | 6.67% | 13.33% | 1 July 2004
-Heaters: / Gas | 15 years | 6.67% | 13.33% | 1 July 2004
-Heaters: / Solar | 20 years | 5.00% | 10.00% | 1 July 2004
-Swimming pools (used as plant in a business): | | | |
-Swimming pools (used as plant in a business): / Above-ground | 10 years | 10.00% | 20.00% | 1 July 2005
-Swimming pools (used as plant in a business): / Concrete | 50 years | 2.00% | 4.00% | 1 July 2005
-Swimming pools (used as plant in a business): / Fibreglass | 20 years | 5.00% | 10.00% | 1 July 2005
+Chlorinators (Table B) | 12 years | 8.33% | 16.67% | 1 July 2004
+Cleaning assets (Table B) | 7 years | 14.29% | 28.57% | 1 July 2004
+Covers (including blankets) (Table B) | 8 years | 12.50% | 25.00% | 1 July 2019
+Filtration assets (including pumps) (Table B) | 12 years | 8.33% | 16.67% | 1 July 2004
+Asset group · Heaters: | | | |
+Heaters: / Electric (Swimming pool assets / Heaters / Table B) | 15 years | 6.67% | 13.33% | 1 July 2004
+Heaters: / Gas (Table B) | 15 years | 6.67% | 13.33% | 1 July 2004
+Heaters: / Solar (Table B) | 20 years | 5.00% | 10.00% | 1 July 2004
+Asset group · Swimming pools (used as plant in a business): | | | |
+Swimming pools (used as plant in a business): / Above-ground (Swimming pools …) | 10 years | 10.00% | 20.00% | 1 July 2005
+Swimming pools (used as plant in a business): / Concrete (Swimming pools …) | 50 years | 2.00% | 4.00% | 1 July 2005
+Swimming pools (used as plant in a business): / Fibreglass (Swimming pools …) | 20 years | 5.00% | 10.00% | 1 July 2005
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/#source
-- Chlorinators: https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/chlorinators/
-- Cleaning assets: https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/cleaning-assets/
-- Covers (including blankets): https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/covers/
-- Filtration assets (including pumps): https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/filtration-assets/
-- Electric: https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/electric/
-- Gas: https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/gas/
-- Solar: https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/solar/
-- Above-ground: https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/above-ground/
-- Concrete: https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/concrete/
-- Fibreglass: https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/fibreglass/
+- Chlorinators (Table B): https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/chlorinators/
+- Cleaning assets (Table B): https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/cleaning-assets/
+- Covers (including blankets) (Table B): https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/covers/
+- Filtration assets (including pumps) (Table B): https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/filtration-assets/
+- Electric (Swimming pool assets / Heaters / Table B): https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/electric/
+- Gas (Table B): https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/gas/
+- Solar (Table B): https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/solar/
+- Above-ground (Swimming pools …): https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/above-ground/
+- Concrete (Swimming pools …): https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/concrete/
+- Fibreglass (Swimming pools …): https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/fibreglass/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

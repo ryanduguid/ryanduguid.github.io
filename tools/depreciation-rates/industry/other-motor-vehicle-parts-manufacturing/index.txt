@@ -8,40 +8,38 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/other-motor-vehi
 
 4 effective lives in Table A of the Commissioner’s 2025 effective life determination for Other motor vehicle parts manufacturing.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Other motor vehicle parts manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Metal stamping and blanking assets – see Table A Motor vehicle manufacturing (23110), metal stamping and blanking assets | | | |
-Piston ring manufacturing plant: | | | |
+Register note · Metal stamping and blanking assets – see Table A Motor vehicle manufacturing (23110), metal stamping and blanking assets | | | |
+Asset group · Piston ring manufacturing plant: | | | |
 Piston ring manufacturing plant: / Engineering works plant | 20 years | 5.00% | 10.00% | 1 January 2001
-Piston ring manufacturing plant: / Motors | 20 years | 5.00% | 10.00% | 1 January 2001
+Motors (Piston ring manufacturing plant) | 20 years | 5.00% | 10.00% | 1 January 2001
 Piston ring manufacturing plant: / Overhead gear, equipment, belting etc | 20 years | 5.00% | 10.00% | 1 January 2001
 Piston ring manufacturing plant: / Precision machines | 13 1/3 years | 7.50% | 15.00% | 1 January 2001
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/other-motor-vehicle-parts-manufacturing/#source
 - Metal stamping and blanking assets – see Table A Motor vehicle manufacturing (23110), metal stamping and blanking assets: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/
 - Engineering works plant: https://duguid.com.au/tools/depreciation-rates/industry/other-motor-vehicle-parts-manufacturing/engineering-works-plant/
-- Motors: https://duguid.com.au/tools/depreciation-rates/industry/other-motor-vehicle-parts-manufacturing/motors/
+- Motors (Piston ring manufacturing plant): https://duguid.com.au/tools/depreciation-rates/industry/other-motor-vehicle-parts-manufacturing/motors/
 - Overhead gear, equipment, belting etc: https://duguid.com.au/tools/depreciation-rates/industry/other-motor-vehicle-parts-manufacturing/overhead-gear-equipment-belting-etc/
 - Precision machines: https://duguid.com.au/tools/depreciation-rates/industry/other-motor-vehicle-parts-manufacturing/precision-machines/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/
