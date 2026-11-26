@@ -83,26 +83,10 @@ impl<'a> Site<'a> {
         let [h1s, titles, mut descriptions] = candidates(data, plan);
         let h1s = unique::settle("heading", &h1s)?;
         let titles = unique::settle("title", &titles)?;
-        // The settled title distinguishes rows whose names differ only in the middle.
         for ((page, title), options) in plan.pages.iter().zip(&titles).zip(&mut descriptions) {
             if let Kind::Asset(at) = page.kind {
                 let entry = self_entry(data, (page.group, at));
-                let life = entry.life.as_ref().expect("asset row with a life");
-                let updated = entry
-                    .last_updated
-                    .as_deref()
-                    .map_or_else(|| "not stated".to_owned(), super::figures::date);
-                let rates = format!(
-                    "{title}. Prime cost {}, diminishing value {} if first held from 10 May 2006.",
-                    super::figures::prime_cost(life),
-                    super::figures::diminishing_value(life)
-                );
-                let dated = format!("{rates} Updated {updated}.");
-                options.push(if dated.chars().count() <= asset::DESCRIPTION_MAX {
-                    dated
-                } else {
-                    rates
-                });
+                options.push(asset::description_from_title(title, entry));
             }
         }
         let descriptions = unique::settle("description", &descriptions)?;

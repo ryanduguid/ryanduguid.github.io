@@ -40,6 +40,28 @@ fn has_block_content(node: &Node<'_>) -> bool {
     })
 }
 
+fn row_values(handlers: &dyn Handlers, row: &Node<'_>) -> Option<Vec<String>> {
+    row.children()
+        .iter()
+        .filter(|cell| matches!(cell.tag_name(), Some("td" | "th")))
+        .map(|cell| {
+            let spans = ["rowspan", "colspan"]
+                .iter()
+                .any(|a| cell.attr(a).is_some_and(|v| v.as_ref() != "1"));
+            if spans || has_block_content(&cell) {
+                return None;
+            }
+            Some(
+                handlers
+                    .walk_children_content(&cell, Context::BLOCK)
+                    .trim()
+                    .replace(['\r', '\n'], " ")
+                    .replace('|', "\\|"),
+            )
+        })
+        .collect()
+}
+
 /// GFM has one header row and no spanning or multiline cells. Keep complex tables as HTML.
 /// For ordinary tables both row headers and data cells carry values that must survive.
 fn table(handlers: &dyn Handlers, element: &Element) -> Option<HandlerResult> {
@@ -52,45 +74,30 @@ fn table(handlers: &dyn Handlers, element: &Element) -> Option<HandlerResult> {
                 captions.push(handlers.walk_children_content(&section, Context::BLOCK))
             }
             Some("thead" | "tbody" | "tfoot") => {
+                let in_header = section.tag_name() == Some("thead");
                 for row in section
                     .children()
                     .iter()
                     .filter(|n| n.tag_name() == Some("tr"))
                 {
-                    let children = row.children();
-                    let cells: Vec<Node<'_>> = children
-                        .iter()
-                        .filter(|n| matches!(n.tag_name(), Some("td" | "th")))
-                        .collect();
-                    if cells.iter().any(|c| {
-                        has_block_content(c)
-                            || ["rowspan", "colspan"]
-                                .iter()
-                                .any(|a| c.attr(a).is_some_and(|v| v.as_ref() != "1"))
-                    }) || (section.tag_name() == Some("thead") && !header.is_empty())
-                    {
-                        return Some(format!("\n\n{}\n\n", element.node.html()).into());
-                    }
-                    let values = cells
-                        .iter()
-                        .map(|c| {
-                            handlers
-                                .walk_children_content(c, Context::BLOCK)
-                                .trim()
-                                .replace(['\r', '\n'], " ")
-                                .replace('|', "\\|")
-                        })
-                        .collect::<Vec<_>>();
-                    if section.tag_name() == Some("thead") {
-                        header = values;
-                    } else {
-                        rows.push(values);
+                    match row_values(handlers, &row) {
+                        Some(values) if !in_header => rows.push(values),
+                        Some(values) if header.is_empty() => header = values,
+                        _ => return Some(format!("\n\n{}\n\n", element.node.html()).into()),
                     }
                 }
             }
             _ => {}
         }
     }
+    format_table(captions, header, rows)
+}
+
+fn format_table(
+    captions: Vec<String>,
+    mut header: Vec<String>,
+    rows: Vec<Vec<String>>,
+) -> Option<HandlerResult> {
     let width = rows
         .iter()
         .map(Vec::len)

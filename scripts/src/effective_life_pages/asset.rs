@@ -171,6 +171,33 @@ fn row_first(group: &Group, entry: &Entry) -> Vec<String> {
     out
 }
 
+fn rate_pair(life: &Life) -> String {
+    format!(
+        "{}, diminishing value {} if first held from 10 May 2006",
+        prime_cost(life),
+        diminishing_value(life)
+    )
+}
+
+fn updated(entry: &Entry) -> String {
+    entry
+        .last_updated
+        .as_deref()
+        .map_or_else(|| "not stated".to_owned(), date)
+}
+
+/// The settled title distinguishes rows whose names differ only in the middle.
+pub fn description_from_title(title: &str, entry: &Entry) -> String {
+    let life = entry.life.as_ref().expect("asset row with a life");
+    let rates = format!("{title}. Prime cost {}.", rate_pair(life));
+    let dated = format!("{rates} Updated {}.", updated(entry));
+    if dated.chars().count() <= DESCRIPTION_MAX {
+        dated
+    } else {
+        rates
+    }
+}
+
 /// Descriptions that name the row: its H1 label whole where one fits, else the row first
 /// with its context.
 pub fn description_candidates(
@@ -183,23 +210,14 @@ pub fn description_candidates(
         Table::A => "Table A",
         Table::B => "Table B",
     };
-    let updated = entry
-        .last_updated
-        .as_deref()
-        .map_or_else(|| "not stated".to_owned(), date);
+    let years = years(life);
+    let rates = rate_pair(life);
+    let updated = updated(entry);
     let full = format!(
-        ": effective life {}, prime cost {}, diminishing value {} if first held from 10 May 2006. Updated {updated} ({table}, {}).",
-        years(life),
-        prime_cost(life),
-        diminishing_value(life),
+        ": effective life {years}, prime cost {rates}. Updated {updated} ({table}, {}).",
         source.year(),
     );
-    let compact = format!(
-        ": life {}, prime cost {}, diminishing value {} if first held from 10 May 2006. Updated {updated}.",
-        years(life),
-        prime_cost(life),
-        diminishing_value(life)
-    );
+    let compact = format!(": life {years}, prime cost {rates}. Updated {updated}.");
     let labels = h1_candidates(group, entry);
     let row = name(entry);
     let row_first = row_first(group, entry);
