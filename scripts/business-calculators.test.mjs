@@ -7344,6 +7344,9 @@ test('the leave provisions form drops blank lines and sends a short-term line wi
   assert.deepEqual(Object.keys(input.lines[0]), ['label', 'leave', 'hours', 'hourly_rate', 'probability', 'settled_within_12_months']);
   assert.deepEqual([input.lines[1].probability, input.lines[1].salary_growth, input.lines[1].discount_rate, input.lines[1].years_to_settlement],
     ['1.00', '0.03', '0.045', 2]);
+  // A percentage typed from the point is that percentage, not a fraction: .5% is 0.005.
+  const point = calculations.leaveFormInput((name) => ({ ...fields, 'line-1-probability': '.5' })[name] ?? '');
+  assert.equal(point.lines[0].probability, '0.005');
   const base = { lines: input.lines, defined_benefit_plan: false, plan_assets: false, year: '2025-26', scope_confirmed: true };
   assert.equal(provisionsCode({ ...base, plan_assets: true }), 'leave_provisions.plan_assets');
   assert.equal(provisionsCode({ ...base, lines: [] }), 'leave_provisions.line_invalid');
