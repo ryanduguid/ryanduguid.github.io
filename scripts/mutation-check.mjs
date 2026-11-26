@@ -75,6 +75,9 @@ const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
+const motorDutyEngine = { ...business, file: 'assets/motor-vehicle-duty.mjs' };
+const insuranceDutyEngine = { ...business, file: 'assets/insurance-duty.mjs' };
+const vicPropertyEngine = { ...business, file: 'assets/vic-property-taxes.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
 const fhog = { ...business, file: 'assets/first-home-owner-grant.mjs' };
 const sbt = { ...business, file: 'assets/super-benefit-tax.mjs' };
@@ -91,6 +94,14 @@ const borrow = { ...business, file: 'assets/borrowing-expenses.mjs' };
 const wc = { ...business, file: 'assets/workers-compensation.mjs' };
 
 const MUTATIONS = [
+  { ...motorDutyEngine, name: 'Motor vehicle duty: a used ACT vehicle keeps its category', find: 'if (!isNew && index !== 0) index = 4;', replace: 'if (!isNew && index === 5) index = 4;' },
+  { ...motorDutyEngine, name: 'Motor vehicle duty: a part of $100 not charged', find: 'const lots = cmp(down, share) < 0 ? add(down, int(1)) : down;', replace: 'const lots = down;' },
+  { ...motorDutyEngine, name: 'Motor vehicle duty: WA 6.5% above $50,000 dropped', find: "percent = cmp(value, int(50000)) > 0 ? lit('6.5') : lit('2.75');", replace: "percent = lit('2.75');" },
+  { ...insuranceDutyEngine, name: 'Insurance duty: NSW Type C exemption reversed', find: "(parseDate(a)) ? /** @type {string} */ (b) : '0'", replace: "(parseDate(a)) ? '0' : /** @type {string} */ (b)" },
+  { ...insuranceDutyEngine, name: 'Insurance duty: cents rounded down', find: "return quantize(exact, -2, 'half_up');", replace: "return quantize(exact, -2, 'down');" },
+  { ...vicPropertyEngine, name: 'VRLT: 3% year charged at 2%', find: 'const index = !previous ? 0 : before ? 2 : 1;', replace: 'const index = !previous ? 0 : 1;' },
+  { ...vicPropertyEngine, name: 'WGT: negative uplifts counted', find: 'if (cmp(uplift, dec(0n)) > 0) taxable = add(taxable, uplift);', replace: 'taxable = add(taxable, uplift);' },
+  { ...vicPropertyEngine, name: 'WGT: 50% band from $500,001', find: 'cmp(taxable, dec(500000n)) < 0 ?', replace: 'cmp(taxable, dec(500000n)) <= 0 ?' },
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
   { ...levy, name: 'formula B takes all of the aggregate', find: '(aggregate * 3) / 4', replace: '(aggregate * 4) / 4' },
   { ...levy, name: 'eligible wages take the lesser formula', find: 'Math.max(formulaA, formulaB)', replace: 'Math.min(formulaA, formulaB)' },
@@ -1364,6 +1375,9 @@ const SHARED = [
   'scripts/rd-tax-offset-engine-differential.json',
   'scripts/gst-adjustments-engine-differential.json',
   'scripts/deferred-tax-engine-differential.json',
+  'scripts/motor-vehicle-duty-engine-differential.json',
+  'scripts/insurance-duty-engine-differential.json',
+  'scripts/vic-property-taxes-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',
   'scripts/borrowing-expenses-engine-differential.json',
   'scripts/wine-equalisation-tax-engine-differential.json',

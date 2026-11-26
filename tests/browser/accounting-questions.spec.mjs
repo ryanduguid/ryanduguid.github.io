@@ -1225,6 +1225,47 @@ test('R&D tax offset page works Company V, a refundable offset and refuses a cla
   await expect(form.locator('output')).toContainText('does not choose between them');
 });
 
+// The motor vehicle duty example is the form's default; a Victorian green car pays the concessional rate.
+test('motor vehicle duty page works its example and a Victorian green car offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/motor-vehicle-duty/');
+  const form = page.locator('#motor-vehicle-duty form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Motor vehicle duty: $1,600.00.');
+  await form.locator('[name="jurisdiction"]').selectOption('vic');
+  await form.locator('[name="value"]').fill('85000');
+  await form.locator('[name="green"]').selectOption('yes');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Motor vehicle duty: $3,570.00.');
+});
+
+// The insurance duty example is the form's default; South Australia charges 11%.
+test('insurance duty page works its example and South Australia offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/insurance-duty/');
+  const form = page.locator('#insurance-duty form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Insurance duty: $100.00.');
+  await form.locator('[name="class"]').selectOption('sa/general');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Insurance duty: $110.00.');
+});
+
+// The Victorian property taxes example is the form's default; windfall gains tax reads the titles.
+test('Victorian property taxes page works its example and windfall gains tax offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/vic-property-taxes/');
+  const form = page.locator('#vic-property-taxes form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('2026 vacant residential land tax: $8,000.00.');
+  await form.locator('[name="tax"]').selectOption('windfall_gains');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('2026 windfall gains tax: $187,500.00.');
+});
+
 // GSTR 2000/24's Bill is the form's default; the bad debt worksheet shows its own fields and the conditions table.
 test('GST adjustments page works Bill, a recipient bad debt and refuses a margin scheme debt offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/gst-adjustments/');
@@ -1799,7 +1840,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
   'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset',
-  'gst-adjustments', 'deferred-tax', 'sole-trader-company'];
+  'gst-adjustments', 'deferred-tax', 'sole-trader-company', 'motor-vehicle-duty', 'insurance-duty', 'vic-property-taxes'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

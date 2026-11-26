@@ -1117,5 +1117,32 @@
       {"case":"Tasmania with apprentice wages: refused, as no discount applies there","input":"Tasmania, wages $300,000.00 at 2.18%, apprentice wages $10,000.00","call":[{"place":"AU-TAS","wages":"300000","rate":"2.18","apprentice":"10000","actual":"","group":"no","dust":"","reward":"0","vicEmployer":"new","days":"365","buyout":"no","qldStart":"q1","firstYear":"no","claims":"0"}],"refused":"There is no apprentice deduction for Tasmania here: enter 0 apprentice wages.","output":"Refused: there is no apprentice deduction for Tasmania here: enter 0 apprentice wages"},
       {"case":"New South Wales, actual wages that take the premium over $30,000: refused","input":"New South Wales, wages $1,000,000.00 at 2%, dust diseases 0%, reward 0%, actual wages $1,600,000.00","call":[{"place":"AU-NSW","wages":"1000000","rate":"2","apprentice":"0","actual":"1600000","group":"no","dust":"0","reward":"0","vicEmployer":"new","days":"365","buyout":"no","qldStart":"q1","firstYear":"no","claims":"0"}],"refused":"On the actual wages, the average performance premium of $32,000.00 is more than $30,000, so icare experience-rates the premium on its claims model (Market Practice and Premiums Guidelines 2026, clause 6.7): use the renewal notice.","output":"Refused: on the actual wages, the average performance premium of $32,000.00 is more than $30,000, so icare experience-rates the premium on its claims model (Market Practice and Premiums Guidelines 2026, clause 6.7): use the renewal notice"}
     ]
+  },
+  "motor-vehicle-duty": {
+    "checked": "2026-11-24",
+    "function": "motorVehicleDuty",
+    "rows": [
+      {"case":"New South Wales, $50,000: $1,350 plus $5 for every $100 over $45,000","input":"NSW; passenger vehicle; dutiable value $50,000.00; duty date 2026-09-01","call":[{"jurisdiction":"nsw","vehicle_class":"passenger","dutiable_value":"50000","duty_date":"2026-09-01","year":"2026-27","scope_confirmed":true}],"result":{"duty":1600},"output":"Duty $1,600.00"},
+      {"case":"Victoria, $85,000 above the luxury car threshold: $10.40 for every $200","input":"VIC; passenger vehicle; dutiable value $85,000.00; duty date 2026-09-01","call":[{"jurisdiction":"vic","vehicle_class":"passenger","dutiable_value":"85000","duty_date":"2026-09-01","year":"2026-27","scope_confirmed":true,"green_car":false,"primary_producer":false}],"result":{"duty":4420},"output":"Duty $4,420.00"},
+      {"case":"Western Australia, $40,000: the sliding rate of 5%","input":"WA; passenger vehicle; dutiable value $40,000.00; duty date 2026-09-01","call":[{"jurisdiction":"wa","vehicle_class":"passenger","dutiable_value":"40000","duty_date":"2026-09-01","year":"2026-27","scope_confirmed":true}],"result":{"duty":2000},"output":"Duty $2,000.00"}
+    ]
+  },
+  "insurance-duty": {
+    "checked": "2026-11-24",
+    "function": "insuranceDuty",
+    "rows": [
+      {"case":"Victoria, general insurance: 10% of the premium","input":"VIC General insurance other than business insurance; premium $1,000.00; effected 2026-09-01","call":[{"jurisdiction":"vic","class":"general","premium":"1000","effected_date":"2026-09-01","year":"2026-27","scope_confirmed":true}],"result":{"duty":100},"output":"Duty $100.00"},
+      {"case":"South Australia: 11%, rounded to the cent","input":"SA Insurance other than life insurance; premium $1,234.56; effected 2026-09-01","call":[{"jurisdiction":"sa","class":"general","premium":"1234.56","effected_date":"2026-09-01","year":"2026-27","scope_confirmed":true}],"result":{"duty":135.8},"output":"Duty $135.80"},
+      {"case":"New South Wales Type C taken out before 2018: 2.5%","input":"NSW Type C; premium $2,000.00; effected 2026-09-01; policy taken out 2017-06-30","call":[{"jurisdiction":"nsw","class":"type_c","premium":"2000","effected_date":"2026-09-01","year":"2026-27","scope_confirmed":true,"policy_taken_out":"2017-06-30"}],"result":{"duty":50},"output":"Duty $50.00"}
+    ]
+  },
+  "vic-property-taxes": {
+    "checked": "2026-11-24",
+    "function": "vicPropertyTaxes",
+    "rows": [
+      {"case":"Vacant residential land tax in the first liable year: 1%","input":"2026 vacant residential land tax; capital improved value $800,000.00; vacant home; liable in the preceding tax year: no; the one before: no","call":[{"tax":"vacant_residential_land","year":"2026","scope_confirmed":true,"capital_improved_value":"800000","residential_land":"vacant_home","new_residential_concession":false,"liable_previous_tax_year":false,"liable_tax_year_before":false}],"result":{"total":8000},"output":"Total $8,000.00"},
+      {"case":"Vacant residential land tax, liable in both earlier years: 3%","input":"2026 vacant residential land tax; capital improved value $800,000.00; vacant home; liable in the preceding tax year: yes; the one before: yes","call":[{"tax":"vacant_residential_land","year":"2026","scope_confirmed":true,"capital_improved_value":"800000","residential_land":"vacant_home","new_residential_concession":false,"liable_previous_tax_year":true,"liable_tax_year_before":true}],"result":{"total":24000},"output":"Total $24,000.00"},
+      {"case":"Windfall gains tax on a $400,000 uplift: 62.5% over $100,000","input":"2026 windfall gains tax; $1,000,000.00 to $1,400,000.00","call":[{"tax":"windfall_gains","year":"2026","scope_confirmed":true,"parcels":[{"civ_before":"1000000","civ_after":"1400000"}]}],"result":{"total":187500},"output":"Total $187,500.00"}
+    ]
   }
 }
