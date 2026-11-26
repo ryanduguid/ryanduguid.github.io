@@ -7354,7 +7354,7 @@ test('FBT return refuses what the command refuses before any worksheet runs', ()
 });
 
 test('FBT return page reads its forms and writes items 14A to 19, reportable amounts and the instalment', () => {
-  const fields = formDefaults(['fbt-return', 'fbt-instalment'].map((name) => readFileSync(new URL(`../_includes/calculators/${name}.html`, import.meta.url), 'utf8')).join(''));
+  const fields = formDefaults(readFileSync(new URL('../_includes/calculators/fbt-return.html', import.meta.url), 'utf8'));
   const shown = (v) => `$${v.toFixed(2)}`;
   const result = calculations.fbtReturnResult((name) => fields[name] ?? '', shown);
   assert.deepEqual(result.rows[result.principal], ['Item 19, amount of tax payable', '$18735.61']);
