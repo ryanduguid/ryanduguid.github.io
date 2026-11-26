@@ -69,7 +69,7 @@ test('the part-year option agrees with the australian-accounting commands on eve
       ? { tax_free_threshold: r.threshold, basic_income_tax: r.tax }
       : { basic_income_tax: r.tax, low_income_tax_offset_applied: r.offset, medicare_levy: r.medicare,
         total_before_credits: r.assessed, medicare_levy_surcharge: r.surcharge };
-    const theirs = Object.fromEntries(Object.keys(ours).map((key) => [key, amounts[key]]));
+    const theirs = Object.fromEntries(Object.entries(amounts).filter(([key]) => Object.hasOwn(ours, key)));
     assert.deepEqual(Object.fromEntries(Object.entries(ours).map(([k, v]) => [k, Number(v).toFixed(2)])), theirs, source);
   }
 });
@@ -92,6 +92,6 @@ export const partYearFormTests = (incomeTaxPage, html) => {
     const full = incomeTaxPage({ year: '2025-26', income: '60000', fringe: '0', uncovered: '0', withheld: '0' });
     assert.equal(row(full, 'Tax-free threshold'), undefined);
     assert.throws(() => incomeTaxPage({ residency: 'part-year', phi: 'yes' }), /part-year resident/);
-    assert.match(html, new RegExp(`personal-tax-estimate on ${partYearFixture.cases.length} part-year cases`));
+    assert.ok(html.includes(`personal-tax-estimate on ${partYearFixture.cases.length} part-year cases`));
   });
 };
