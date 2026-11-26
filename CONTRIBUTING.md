@@ -588,7 +588,11 @@ copies by hand.
 `.github/review-generated.json` lists the generated files that a pre-merge review
 may omit, because its build reproduces them and the `--check` runs in CI fail when
 the committed copies are stale. The review tooling reads it from the pull
-request's base, so a pull request cannot widen its own list. A generated file it
+request's base, so a pull request cannot widen its own list. The `--check` runs of
+`build_rates_json`, `build_ozzit_reference`, `build_effective_life_pages` and
+`build_llms_full` also fail when a file they write is missing from the list, so a
+pull request that adds a page or an `llms-full` part adds its entries too (the
+effective life address map is an input as well and stays in review). A generated file it
 does not name, such as a new `llms-full` part, stays in review until it is added.
 
 Concurrent pull requests each add a dated row at the top of a changelog table,
