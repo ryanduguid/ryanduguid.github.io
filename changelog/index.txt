@@ -268,6 +268,7 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - aus-accounting-mcp v0.13.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.13.0
 - general tax question 8: https://duguid.com.au/tools/accounting-questions/general-tax/
 - first home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
@@ -278,7 +279,6 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 - Homebrew tap: https://github.com/ryanduguid/homebrew-tap
 - sole trader page: https://duguid.com.au/tools/individual-tax/sole-trader/#non-commercial-losses
 - income tax page: https://duguid.com.au/tools/individual-tax/income-tax/#minors-income
-- income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - pension minimum calculator: https://duguid.com.au/tools/individual-tax/pension-minimum/
 - transfer balance and excess contributions calculator: https://duguid.com.au/tools/individual-tax/transfer-balance/
 - deferred tax: https://duguid.com.au/tools/business-calculators/deferred-tax/

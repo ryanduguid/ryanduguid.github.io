@@ -8,6 +8,13 @@
   <updated>2026-11-26T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The income tax calculator now works out tax for a person resident for part of…</title>
+    <link href="https://duguid.com.au/changelog/#entry-cd95f3dad451f79a" />
+    <id>https://duguid.com.au/changelog/#entry-cd95f3dad451f79a</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>The income tax calculator now works out tax for a person resident for part of 2024-25 to 2026-27: the tax-free threshold of $13,464 plus $4,736 for each month of residence over 12 (Income Tax Rates Act 1986 section 20), the low income tax offset in full and the Medicare levy less the share for the days not resident. It agrees with the australian-accounting resident-tax and personal-tax-estimate commands on 346 cases.</summary>
+  </entry>
+  <entry>
     <title>The tool pages, changelog, release record and machine indexes name the releases…</title>
     <link href="https://duguid.com.au/changelog/#entry-82c2fe0f98e0f02a" />
     <id>https://duguid.com.au/changelog/#entry-82c2fe0f98e0f02a</id>
