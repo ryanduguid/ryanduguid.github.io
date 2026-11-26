@@ -177,7 +177,7 @@ test('a part-year resident gets the pro-rated threshold and a reduced Medicare l
   await page.goto('/tools/individual-tax/income-tax/');
   const form = page.locator('#income-tax form');
   await waitForCalculator(form);
-  await form.getByLabel('Australian resident for part of the year').check();
+  await form.getByLabel('Part-year resident').check();
   await form.locator('[name="year"][value="2025-26"]').check();
   await form.getByLabel('Taxable income (whole dollars)').fill('60000');
   await form.getByLabel('Months in which you were a resident (1 to 12)').fill('9');
