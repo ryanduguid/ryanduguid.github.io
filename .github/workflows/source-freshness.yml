@@ -270,13 +270,17 @@ jobs:
           git apply --index "$RUNNER_TEMP/tool-releases/tool-releases.patch"
           # The release refresh writes only the snapshot, each tool page, the
           # tools index, the home page, the sitemap and llms.txt; build_llms_full
-          # writes the text mirrors and copies llms.txt into .well-known.
+          # writes the text mirrors and copies llms.txt into .well-known. It
+          # only rewrites files main already has, so any other change (a new,
+          # deleted or retyped file) is refused whatever its name: with the
+          # globs, that admits only the generated mirrors main tracks.
           unexpected=$(git diff --cached --name-only --no-renames -- . \
             ':(exclude)_data/tool_releases.json' ':(exclude)index.html' ':(exclude)sitemap.xml' \
             ':(exclude)llms.txt' ':(exclude).well-known/llms.txt' ':(exclude)tools/index.html' \
             ':(exclude,glob)tools/*/index.html' ':(exclude,glob)**/index.txt' ':(exclude,glob)llms-full*.txt')
-          if [ -n "$unexpected" ]; then
-            printf '%s\n' "$unexpected" >&2
+          not_rewritten=$(git diff --cached --name-only --no-renames --diff-filter=m)
+          if [ -n "$unexpected$not_rewritten" ]; then
+            printf '%s\n' "$unexpected" "$not_rewritten" >&2
             echo "::error::The release refresh changes files outside its contract"
             exit 1
           fi
