@@ -1,7 +1,6 @@
 <section class="business-calculator" id="leave-provisions">
 <form class="calculator-split" data-calculator="leave-provisions">
-<fieldset disabled><legend>Annual and long service leave at one reporting date</legend>
-<div class="form-grid"><div class="field"><label for="leave-provisions-year">Financial year of the reporting date</label><select name="year" id="leave-provisions-year"><option value="2026-27">2026-27</option><option value="2025-26" selected>2025-26</option><option value="2024-25">2024-25</option><option value="2023-24">2023-24</option><option value="2022-23">2022-23</option><option value="2021-22">2021-22</option><option value="2020-21">2020-21</option></select></div></div>
+<fieldset disabled><legend>Leave at one reporting date</legend>
 <fieldset><legend>Line 1</legend><div class="form-grid">
 <label class="field" for="leave-provisions-line-1-label">Employee or group<input id="leave-provisions-line-1-label" name="line-1-label" type="text" maxlength="200" autocomplete="off" value="Annual leave" /></label>
 <div class="field"><label for="leave-provisions-line-1-leave">Leave</label><select name="line-1-leave" id="leave-provisions-line-1-leave"><option value="annual" selected>Annual leave</option><option value="long_service">Long service leave</option></select></div>
@@ -38,6 +37,7 @@
 <label class="field" for="leave-provisions-line-3-discount">Discount rate a year (%, long-term only)<input id="leave-provisions-line-3-discount" name="line-3-discount" type="number" inputmode="decimal" min="0" max="100" step="any" value="4.25" aria-describedby="leave-provisions-assumptions-note" /></label>
 <div class="field"><label for="leave-provisions-line-3-defer">Right to defer settlement for 12 months (long-term only)</label><select name="line-3-defer" id="leave-provisions-line-3-defer" aria-describedby="leave-provisions-settled-note"><option value="no">No</option><option value="yes" selected>Yes</option></select></div>
 </div></fieldset>
+<div class="form-grid"><div class="field"><label for="leave-provisions-year">Financial year of the reporting date</label><select name="year" id="leave-provisions-year"><option value="2026-27">2026-27</option><option value="2025-26" selected>2025-26</option><option value="2024-25">2024-25</option><option value="2023-24">2023-24</option><option value="2022-23">2022-23</option><option value="2021-22">2021-22</option><option value="2020-21">2020-21</option></select></div></div>
 <button type="submit" class="button">Calculate</button></fieldset>
 <h2>What the inputs need</h2>
 <p class="field-note" id="leave-provisions-amounts-note">Each line is one employee or group: the leave hours accrued and unused at the reporting date and the hourly rate the leave would be paid at today, with any on-costs you treat as part of the benefit. Leave a line’s name and hours blank to drop it.</p>
