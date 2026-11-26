@@ -7,10 +7,13 @@ import { businessCohortBTools } from './webmcp-business-b.mjs';
 import { businessCohortCTools } from './webmcp-business-c.mjs';
 import { businessCohortDTools } from './webmcp-business-d.mjs';
 import { businessCohortETools } from './webmcp-business-e.mjs';
+import { casualOvertimeTool } from './webmcp-casual-overtime.mjs';
+import { contractorEmployeeTool } from './webmcp-contractor-employee.mjs';
 import {
   concessionalCatchUpTool, fhssTool, governmentSuperTool, lumpSumArrearsTool, studyLoanTool, workExpensesTool,
 } from './webmcp-individual-more.mjs';
 import { pensionMinimumTool, transferBalanceTool } from './webmcp-individual-retirement.mjs';
+import { residencyDaysTool } from './webmcp-individual-residency.mjs';
 
 // WebMCP tool descriptors for the site's calculators. Each tool calls the same module
 // function as its page's form, reads nothing from the form and sends nothing anywhere.
@@ -558,7 +561,8 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
  *   | 'businessDays' | 'division296' | 'fbtCar' | 'fbtEvExemption' | 'fbtCarParking' | 'fbtExpensePayment'
  *   | 'fbtLoan' | 'fbtMealEntertainment' | 'fbtProperty' | 'landTaxYear' | 'terminationPayment' | 'transferDuty'
  *   | 'rdTaxOffset' | 'RD_YEARS' | 'gstAdjustment' | 'percentFraction' | 'GST_WORKSHEETS' | 'GST_ADJUSTMENT_YEARS'
- *   | 'deferredTax' | 'DEFERRED_TAX_YEARS' | 'soleTraderCompany' | 'SOLE_TRADER_COMPANY_YEARS'>} calculate */
+ *   | 'deferredTax' | 'DEFERRED_TAX_YEARS' | 'soleTraderCompany' | 'SOLE_TRADER_COMPANY_YEARS' | 'casualOvertime'
+ *   | 'contractorEmployee' | 'CONTRACTOR_YEARS'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -577,6 +581,8 @@ export function calculatorTools(calculate) {
     ...businessCohortCTools(TOOL_KIT, calculate),
     ...businessCohortDTools(TOOL_KIT, calculate),
     ...businessCohortETools(TOOL_KIT, calculate),
+    'casual-overtime': casualOvertimeTool(TOOL_KIT, calculate.casualOvertime),
+    'contractor-employee': contractorEmployeeTool(TOOL_KIT, calculate),
   };
 }
 
@@ -1013,6 +1019,14 @@ export function pensionMinimumTools(engine) {
  */
 export function transferBalanceTools(engine) {
   return { 'transfer-balance': transferBalanceTool(TOOL_KIT, engine) };
+}
+
+/**
+ * WebMCP descriptor for the 183-day residency day count.
+ * @param {import('./webmcp-individual-residency.mjs').ResidencyEngine} engine
+ */
+export function residencyDaysTools(engine) {
+  return { 'residency-days': residencyDaysTool(TOOL_KIT, engine) };
 }
 
 /** The WebMCP descriptor for the income tax estimate.

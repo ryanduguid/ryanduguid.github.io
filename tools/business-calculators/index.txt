@@ -6,11 +6,11 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Fifty-eight free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
+Sixty free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
 Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
-Search 58 calculators
+Search 60 calculators
 
 ## Pricing, planning and loans
 
@@ -65,6 +65,8 @@ Search 58 calculators
 ## Staff, payroll and termination
 
 - Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
+- Casual and overtime pay calculator Gross pay from the base rate, casual loading and penalty and overtime rates you enter, and the super guarantee on ordinary time earnings.
+- Contractor against employee calculator The cost to a business and the take-home pay of the same person engaged as an employee or as a contractor, and when section 12(3) still makes the super guarantee payable.
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 - SGC and Payday Super calculator When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.
 - Long service leave calculator One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.
@@ -91,7 +93,7 @@ Search 58 calculators
 - Business days calculator Business days between 2 dates, or the date a number of business days on or back, with each state’s public holidays for 2026 and 2027.
 - ASIC fees calculator ASIC’s 2026-27 fees and late fee tiers.
 
-See also 17 individual tax calculators, depreciation rates and effective lives, 2026-27 BAS due dates and 100 accounting questions.
+See also 18 individual tax calculators, depreciation rates and effective lives, 2026-27 BAS due dates and 100 accounting questions.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.
 
@@ -136,6 +138,8 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Capital gains tax calculator: https://duguid.com.au/tools/business-calculators/cgt/
 - Small business CGT concessions checker: https://duguid.com.au/tools/business-calculators/cgt-concessions/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
+- Casual and overtime pay calculator: https://duguid.com.au/tools/business-calculators/casual-overtime/
+- Contractor against employee calculator: https://duguid.com.au/tools/business-calculators/contractor-employee/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
 - Long service leave calculator: https://duguid.com.au/tools/business-calculators/long-service-leave/
@@ -155,7 +159,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Wine equalisation tax calculator: https://duguid.com.au/tools/business-calculators/wine-equalisation-tax/
 - Business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
 - ASIC fees calculator: https://duguid.com.au/tools/business-calculators/asic-fees/
-- 17 individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- 18 individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
