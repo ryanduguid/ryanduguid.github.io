@@ -1363,6 +1363,7 @@ const SHARED = [
   'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt',
   '.well-known/llms.txt', 'scripts/fbt-engine-differential.json',
   'scripts/fbt-property-expense-engine-differential.json',
+  'scripts/fbt-return-engine-differential.json',
   'scripts/lump-sum-arrears-engine-differential.json',
   'scripts/income-tests-engine-differential.json',
   'scripts/income-tax-offsets-engine-differential.json',

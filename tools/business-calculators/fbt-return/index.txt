@@ -1,4 +1,4 @@
-# FBT return calculator: items 14 to 23, rebate, caps and instalments
+# FBT return calculator: rebate, caps and instalments
 
 Source: https://duguid.com.au/tools/business-calculators/fbt-return/
 
@@ -138,7 +138,7 @@ The calculator lays out one employer’s FBT return for the FBT year ended 31 Ma
 
 ## What the FBT return calculator does not cover
 
-The calculator does not value a benefit: you enter each one’s amounts as worked out for it. It does not lodge a return, decide whether a benefit is type 1, excluded, exempt or salary packaged, or count the cars, loans and units of accommodation at items 23A, 23B, 23C and 23F, or the employees at item 10. It does not cover a government body under section 57A(2), an employer partly a public benevolent institution and partly rebatable, live-in residential care workers under section 58, amortised or reducible benefits, section 135G, one employee’s benefits from several employers, or an exempt electric car for a section 57A employer. Each employee you name is taken as one person, as the caps apply to each individual. It does not work out payroll tax, which each state and territory imposes under its own Act.
+The calculator does not value a benefit: you enter each one’s amounts as worked out for it. It does not lodge a return, decide whether a benefit is type 1, excluded, exempt or salary packaged, or count the cars, loans and units of accommodation at items 23A, 23B, 23C and 23F, or the employees at item 10. It does not cover a government body under section 57A(2), an employer partly a public benevolent institution and partly rebatable, live-in residential care workers under section 58, amortised or reducible benefits, section 135G, one employee’s benefits from several employers, or an exempt electric car for a section 57A employer. Each employee you name is taken as one person, as the caps apply to each individual. It does not work out payroll tax, which each state and territory imposes under its own Act. For instalments, it does not decide whether they are payable or work out the ATO’s F1 amount from the notional tax amount; you enter it.
 
 ## FBT instalment for a quarter
 

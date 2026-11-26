@@ -70,9 +70,12 @@ const tools = calculatorTools(calculate);
 const declineInValue = depreciationTools(depreciation).declineInValue;
 const levy = levyTools({ computeEntry, levyCents }).levy;
 
+// A tool whose form sits in another page's include, keyed to that include: the FBT instalment form is on the FBT return page.
+const HOSTED_FORMS = new Map([['fbt-instalment', 'fbt-return']]);
+
 test('each business calculator tool is keyed by the form that registers it', () => {
   for (const key of Object.keys(tools)) {
-    const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
+    const form = readFileSync(new URL(`../_includes/calculators/${HOSTED_FORMS.get(key) ?? key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`)
       || form.includes(`<form class="calculator-split" data-calculator="${key}" `)
       || form.includes(`<form data-calculator="${key}">`), key);
@@ -1694,7 +1697,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .map((name) => name.slice(0, -5))
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
-  assert.deepEqual(registered, slugs);
+  assert.deepEqual(registered.filter((key) => !HOSTED_FORMS.has(key)), slugs);
   assert.equal(registered.length + 2, 79);
 });
 
