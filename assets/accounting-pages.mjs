@@ -681,6 +681,18 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             result = calculate.gstAdjustmentsResult(value, aud);
             showTables(result.tables);
             break;
+          case 'smsf-tax':
+            result = calculate.smsfTaxResult(value, aud);
+            break;
+          case 'trading-stock':
+            result = calculate.tradingStockResult(value, aud);
+            break;
+          case 'prepayments':
+            result = calculate.prepaymentsResult(value, aud);
+            break;
+          case 'alcohol-excise':
+            result = calculate.alcoholExciseResult(value, aud);
+            break;
           case 'deferred-tax':
             result = calculate.deferredTaxResult(value, aud);
             showTables(result.tables);

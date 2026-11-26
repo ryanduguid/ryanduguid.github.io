@@ -568,6 +568,21 @@ void businessSet['termination-payment'].execute({ genuineRedundancyPayment: '480
 void businessSet['transfer-duty'].execute({ place: 'AU-NSW', dutiableValue: 1350000 });
 void businessSet['rd-tax-offset'].execute({ incomeYear: '2025-26', notionalDeductions: '100000', aggregatedTurnover: '10000000', totalExpenses: '100000' });
 void businessSet['gst-adjustments'].execute({ worksheet: 'going-concern', year: '2025-26', forConsideration: true, recipientRegistration: 'registered', writtenAgreement: 'on_or_before_supply_day', allThingsNecessary: true, carriedOnUntilSupply: true });
+void businessSet['smsf-tax'].execute({ incomeYear: '2025-26', unsegregatedIncome: '120000', exemptProportion: '0.25' });
+void businessSet['trading-stock'].execute({ incomeYear: '2025-26', entity: 'other', openingValue: '0', items: [{ cost: '10', method: 'cost' }] });
+void businessSet.prepayments.execute({ incomeYear: '2025-26', taxpayer: 'other', expenditure: '24000', incurred: '2026-03-01', serviceStart: '2026-03-01', serviceEnd: '2027-02-28' });
+void businessSet['alcohol-excise'].execute({ financialYear: '2026-27', lines: [{ date: '2026-09-01', product: 'spirit', volumeLitres: '1', strengthPercent: '40' }] });
+const smsfDue: string = calculate.smsfTax({}).amounts.amount_due_or_refundable ?? '';
+const stockClosing: number = calculate.tradingStock({}).closingValue;
+const prepaidNow: number = calculate.prepayments({}).deductionNow;
+const exciseNet: number = calculate.alcoholExcise({}).netDuty;
+// @ts-expect-error A trading stock item's value is decimal text, not a number.
+const stockItemValue: number = calculate.tradingStock({}).items[0].value;
+void smsfDue;
+void stockClosing;
+void prepaidNow;
+void exciseNet;
+void stockItemValue;
 void businessSet['deferred-tax'].execute({ incomeYear: '2025-26', items: [{ label: 'Plant', class: 'asset', carryingAmount: '70000', taxBase: '50000', openingCarryingAmount: '0', openingTaxBase: '0' }], accountingProfit: '100000', taxableIncome: '100000' });
 void pensionMinimumTools({ pensionMinimum, PENSION_MINIMUM_YEARS })['pension-minimum'].execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67 });
 void transferBalanceTools({ ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance, yearOf })['transfer-balance'].execute({ calculation: 'concessional_charge', incomeYear: '2020-21', additionalTax: '1000', taxDueDate: '2021-12-01' });

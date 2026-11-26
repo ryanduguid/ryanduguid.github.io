@@ -52,13 +52,13 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Business calculators</li></ol></nav>
         <h1>Business calculators</h1>
-        <p class="lead-note">Fifty-seven free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.</p>
+        <p class="lead-note">Sixty-one free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.</p>
         {% assign checked = "" %}{% for calculator in site.data.calculator_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
         <p class="page-meta">Published 11 September 2026. Last checked <time datetime="{{ checked }}">{{ checked | date: "%-d %B %Y" }}</time>, the newest of the calculators’ source checks.</p>
       </header>
       <div class="site-shell accounting-content">
         <form class="tool-filter" id="calc-filter" role="search" aria-label="Filter business calculators">
-          <label class="field" for="calc-search">Search 57 calculators<input type="search" id="calc-search" name="q" autocomplete="off" placeholder="e.g. stamp duty, FBT, CGT, payroll tax, GST" /></label>
+          <label class="field" for="calc-search">Search 61 calculators<input type="search" id="calc-search" name="q" autocomplete="off" placeholder="e.g. stamp duty, FBT, CGT, payroll tax, GST" /></label>
           <p id="calc-count" class="field-note" role="status"></p>
         </form>
         <h2>Pricing, planning and loans</h2>
@@ -78,6 +78,8 @@
           <li id="borrowing-expenses"><a class="collection-entry__title" href="/tools/business-calculators/borrowing-expenses/">Borrowing expenses calculator</a> Section 25-25 borrowing expenses by income year from 2017-18, spread by days, with the $100 rule, refinancing and an optional AASB 9 column.</li>
           <li id="depreciation-pools"><a class="collection-entry__title" href="/tools/business-calculators/depreciation-pools/">Depreciation pools and capital works calculator</a> A low-value pool at 18.75% and 37.5%, a general small business pool at 15% and 30% with the low pool value write-off, or a capital works deduction at 2.5% or 4%, for 2020-21 to 2026-27.</li>
           <li id="rental-property"><a class="collection-entry__title" href="/tools/business-calculators/rental-property/">Rental property calculator</a> One owner’s rental income and deductions for a year: expenses by days let, interest on a mixed-use loan, capital works and second-hand assets, the net rent and its effect on tax.</li>
+          <li id="trading-stock"><a class="collection-entry__title" href="/tools/business-calculators/trading-stock/">Trading stock calculator</a> The change in value of trading stock for 2020-21 to 2026-27: each item at its elected value, the assessable increase or deduction, and the small business choice not to account for a change of $5,000 or less.</li>
+          <li id="prepayments"><a class="collection-entry__title" href="/tools/business-calculators/prepayments/">Prepaid expenses calculator</a> When one prepaid amount incurred in 2020-21 to 2026-27 is deductible: in full under the 12-month rule or as excluded expenditure, or apportioned by days over the eligible service period.</li>
         </ul>
         <h2>Division 7A, FBT, professional firms and GIC</h2>
         <ul class="calculator-list">
@@ -118,6 +120,7 @@
           <li id="long-service-leave"><a class="collection-entry__title" href="/tools/business-calculators/long-service-leave/">Long service leave calculator</a> One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.</li>
           <li id="workers-compensation"><a class="collection-entry__title" href="/tools/business-calculators/workers-compensation/">Workers compensation premium calculator</a> A 2026-27 premium from the declared wages and the insurer’s rate under each state and territory’s scheme, with GST, duty and the actual wages adjustment, each step cited.</li>
           <li id="super-benefit-tax"><a class="collection-entry__title" href="/tools/business-calculators/super-benefit-tax/">Super lump sum tax</a> The components of a super lump sum and the most tax each part can bear, for members and death benefits, 2020-21 to 2026-27.</li>
+          <li id="smsf-tax"><a class="collection-entry__title" href="/tools/business-calculators/smsf-tax/">SMSF tax calculator</a> A complying SMSF’s income tax calculation statement (item 13) for 2020-21 to 2026-27: exempt current pension income, the low tax and non-arm’s length components, offsets, the supervisory levy and the amount due or refundable.</li>
           <li id="termination-payment"><a class="collection-entry__title" href="/tools/business-calculators/termination-payment/">Redundancy and ETP withholding</a> The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.</li>
           <li id="unused-leave"><a class="collection-entry__title" href="/tools/business-calculators/unused-leave/">Unused leave on termination</a> Schedule 7 withholding and the lump sum A, B and type U amounts for unused leave paid on termination, for 2026-27.</li>
         </ul>
@@ -136,6 +139,7 @@
           <li id="fuel-tax-credits"><a class="collection-entry__title" href="/tools/business-calculators/fuel-tax-credits/">Fuel tax credit calculator</a> A business’s fuel tax credits at the ATO’s rate for each day since 1 July 2022, by fuel and use, with label 7D and the small claimant methods.</li>
           <li id="luxury-car-tax"><a class="collection-entry__title" href="/tools/business-calculators/luxury-car-tax/">Luxury car tax calculator</a> Luxury car tax, its adjustments and refunds for 2019-20 to 2026-27.</li>
           <li id="wine-equalisation-tax"><a class="collection-entry__title" href="/tools/business-calculators/wine-equalisation-tax/">Wine equalisation tax calculator</a> WET on a tax period’s wholesale sales, retail sales, own use and sales under quote, the producer rebate within the year’s $350,000 or $400,000 cap, and labels 1C and 1D.</li>
+          <li id="alcohol-excise"><a class="collection-entry__title" href="/tools/business-calculators/alcohol-excise/">Alcohol excise calculator</a> Excise duty on beer, spirits and other excisable beverages entered from 1 July 2022 to 31 January 2027, at the rate in force on the day, with the alcohol manufacturer remission under its yearly cap.</li>
           <li id="business-days"><a class="collection-entry__title" href="/tools/business-calculators/business-days/">Business days calculator</a> Business days between 2 dates, or the date a number of business days on or back, with each state’s public holidays for 2026 and 2027.</li>
           <li id="asic-fees"><a class="collection-entry__title" href="/tools/business-calculators/asic-fees/">ASIC fees calculator</a> ASIC’s 2026-27 fees and late fee tiers.</li>
         </ul>

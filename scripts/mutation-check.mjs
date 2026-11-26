@@ -74,6 +74,10 @@ const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
+const smsfEngine = { ...business, file: 'assets/smsf-tax.mjs' };
+const stockEngine = { ...business, file: 'assets/trading-stock.mjs' };
+const prepaidEngine = { ...business, file: 'assets/prepayments.mjs' };
+const exciseEngine = { ...business, file: 'assets/alcohol-excise.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
 const fhog = { ...business, file: 'assets/first-home-owner-grant.mjs' };
 const sbt = { ...business, file: 'assets/super-benefit-tax.mjs' };
@@ -1132,6 +1136,20 @@ const MUTATIONS = [
   { ...rdOffset, name: 'R&D deduction amount not subtracted', find: 'const income = offset - adjusted[6] - deduction;', replace: 'const income = offset - adjusted[6];' },
   { ...rdOffset, name: 'R&D clawback income over the offset year rate', find: 'ratioCents((income < 0n ? -income : income), presentRate * 1000n)', replace: 'ratioCents((income < 0n ? -income : income), e.rate * 1000n)' },
   { ...rdOffset, name: 'R&D clawback below the threshold allowed', find: 'if (clawback !== 0n && e.notional - clawback < THRESHOLD) {', replace: 'if (false) {' },
+  { ...smsfEngine, name: 'SMSF low tax component at 30%', find: 'const tax = (low * 15n + nali * 45n) / 100n;', replace: 'const tax = (low * 30n + nali * 45n) / 100n;' },
+  { ...smsfEngine, name: 'SMSF non-arm’s length component at 15%', find: 'const tax = (low * 15n + nali * 45n) / 100n;', replace: 'const tax = (low * 15n + nali * 15n) / 100n;' },
+  { ...smsfEngine, name: 'SMSF exempt income not rounded down', find: 'return exp >= 0 ? product * 10n ** BigInt(exp) : product / 10n ** BigInt(-exp);', replace: 'return exp >= 0 ? product * 10n ** BigInt(exp) : (product + 10n ** BigInt(-exp) - 1n) / 10n ** BigInt(-exp);' },
+  { ...smsfEngine, name: 'SMSF levy for a new fund dropped', find: 'newNotWoundUp ? LEVY : 0n', replace: '0n' },
+  { ...stockEngine, name: 'Trading stock $5,000 limit exclusive', find: 'const available = canChoose && difference <= LIMIT;', replace: 'const available = canChoose && difference < LIMIT;' },
+  { ...stockEngine, name: 'Trading stock medium entity in 2020-21', find: "return year !== '2020-21';", replace: 'return true;' },
+  { ...stockEngine, name: 'Trading stock lowest takes the highest', find: 'if (!best || value.cents < best[1].cents) best = [i, value];', replace: 'if (!best || value.cents > best[1].cents) best = [i, value];' },
+  { ...prepaidEngine, name: 'Prepayments $1,000 exclusion inclusive', find: "const excluded = exclusion !== 'none' || expenditure < EXCLUDED_BELOW;", replace: "const excluded = exclusion !== 'none' || expenditure <= EXCLUDED_BELOW;" },
+  { ...prepaidEngine, name: 'Prepayments 12-month rule over 13 months', find: 'end <= monthsEnd(start, 12)', replace: 'end <= monthsEnd(start, 13)' },
+  { ...prepaidEngine, name: 'Prepayments apportioned without the running total', find: 'const running = (2n * f.expenditure * counted + total) / (2n * total);', replace: 'const running = (f.expenditure * counted) / total;' },
+  { ...exciseEngine, name: 'Excise beer on the full strength', find: "line.product === 'beer' ? line.strength - 1150n : line.strength", replace: 'line.strength' },
+  { ...exciseEngine, name: 'Excise draught from 48 litres exclusive', find: 'const middle = container >= 8000n && container <= 48000n;', replace: 'const middle = container >= 8000n && container < 48000n;' },
+  { ...exciseEngine, name: 'Excise remission cap $350,000 in 2026-27', find: "year >= '2026-27' ? 40000000n : 35000000n", replace: '35000000n' },
+  { ...exciseEngine, name: 'Excise litres not truncated to 0.1', find: 'const amount = (tenths * rateCents(rate)) / 10n;', replace: 'const amount = (g.lal * rateCents(rate)) / 1000000000n;' },
   { ...gstAdjustments, name: 'GST creditable purpose threshold counted as over it', find: 'cmp(value, d(finance ? \'10000\' : \'1000\')) <= 0', replace: 'cmp(value, d(finance ? \'10000\' : \'1000\')) < 0' },
   { ...gstAdjustments, name: 'GST 5 adjustment periods at $5,000 or less', find: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 2];', replace: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 5];' },
   { ...gstAdjustments, name: 'GST $500,000 given 5 adjustment periods', find: 'cmp(value, d(\'500000\')) < 0 ? 5 : 10', replace: 'cmp(value, d(\'500000\')) <= 0 ? 5 : 10' },
@@ -1357,6 +1375,10 @@ const SHARED = [
   'scripts/rd-tax-offset-engine-differential.json',
   'scripts/gst-adjustments-engine-differential.json',
   'scripts/deferred-tax-engine-differential.json',
+  'scripts/smsf-tax-engine-differential.json',
+  'scripts/trading-stock-engine-differential.json',
+  'scripts/prepayments-engine-differential.json',
+  'scripts/alcohol-excise-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',
   'scripts/borrowing-expenses-engine-differential.json',
   'scripts/wine-equalisation-tax-engine-differential.json',

@@ -671,5 +671,9 @@ export { businessDays, businessDaysResult, parseHolidays } from './business-days
 export { gstCreditablePurposeChange, gstAnnualApportionment, gstFinancialAcquisitionsThreshold, gstGoingConcern, gstSecondHandGoods, gstBadDebt,
   GST_ADJUSTMENT_YEARS } from './gst-adjustments.mjs';
 export { gstAdjustment, gstAdjustmentsResult, gstFormInput, gstInputsText, percentFraction, GST_WORKSHEETS } from './gst-adjustments-page.mjs';
+export { smsfTax, smsfTaxResult, smsfFormInput, smsfInputsText, SMSF_YEARS } from './smsf-tax.mjs';
+export { tradingStock, tradingStockResult, tradingStockFormInput, tradingStockInputsText, TRADING_STOCK_YEARS } from './trading-stock.mjs';
+export { prepayments, prepaymentsResult, prepaymentsFormInput, prepaymentsInputsText, PREPAYMENT_YEARS } from './prepayments.mjs';
+export { alcoholExcise, alcoholExciseResult, alcoholFormInput, alcoholInputsText, ALCOHOL_YEARS } from './alcohol-excise.mjs';
 export { deferredTax, deferredTaxResult, deferredTaxFormInput, deferredTaxInputsText, DEFERRED_TAX_YEARS, DEFERRED_TAX_ROWS,
   DEFERRED_TAX_MISMATCH } from './deferred-tax.mjs';
