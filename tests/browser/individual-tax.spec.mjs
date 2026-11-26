@@ -11,7 +11,8 @@ const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 's
   'salary-packaging': '$5,291.50', 'novated-lease': '$6,047.48',
   'super-projection': '$539,266.80', fhss: '$14,350.00', 'work-expenses': '$590.00',
   'government-super': '$500.00', 'transfer-balance': '$26.80', 'pension-minimum': '$30,000.00',
-  'residency-days': 'Met' };
+  'residency-days': 'Met', 'defined-benefit-income-cap': '$7,500.00',
+  'foreign-pension-upp': '$11,217.05', 'scholarship-exemption': 'Yes', 'super-crystallisation': '$178,873.84' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
