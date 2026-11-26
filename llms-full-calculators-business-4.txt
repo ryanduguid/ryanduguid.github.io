@@ -185,11 +185,11 @@ Published 26 November 2026. Last checked 26 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-The same person and hours, engaged as an employee and as a contractor
-
-Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22
+One person, the same hours, two ways
 
 Hours worked each week
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22
 
 Private patient hospital cover all year Yes No
 
