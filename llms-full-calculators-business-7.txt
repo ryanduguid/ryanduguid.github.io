@@ -161,9 +161,9 @@ Source: https://duguid.com.au/tools/business-calculators/foreign-resident-withho
 
 > What a purchaser pays the ATO at settlement under section 14-200: 12.5% from $750,000 before 1 January 2025, then 15%, with clearance certificates and variations.
 
-# Foreign resident capital gains withholding calculator
+# Foreign resident CGT withholding calculator
 
-The amount a purchaser pays the ATO at settlement when buying Australian real property, 1 July 2017 to 30 June 2027.
+What a purchaser pays the ATO at settlement, 1 July 2017 to 30 June 2027.
 
 Published 27 November 2026. Last checked 27 November 2026.
 
@@ -225,7 +225,7 @@ The calculator does not decide whether a vendor is a foreign resident, whether a
 
 Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
 
-Boundary cases: Foreign resident capital gains withholding calculator
+Boundary cases: Foreign resident CGT withholding calculator
 
 Case | Inputs | Result
 The page’s example: 2 vendors, one with a notice of variation at 5% | Contract 2026-03-15; taxable Australian real property, market value $1,200,000.00, purchase price $1,200,000.00; vendor 1: interest 50, no clearance certificate or variation; vendor 2: interest 50, a notice of variation at 5% up to $1,250,000.00 | Withholding base $1,200,000.00, amount to pay the ATO $120,000.00, withholding applies
