@@ -97,7 +97,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_business_days', 'calculate_division_296_tax', 'calculate_fbt_car', 'calculate_fbt_car_parking',
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
-    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_instant_asset_write_off',
+    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_instant_asset_write_off', 'calculate_leave_provisions',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -1689,7 +1689,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 77);
+  assert.equal(registered.length + 2, 78);
 });
 
 test('instant asset write-off tool returns Fiona’s computer and Daryl’s ute and refuses a budget day', async () => {
@@ -1705,6 +1705,25 @@ test('instant asset write-off tool returns Fiona’s computer and Daryl’s ute 
     firstUsed: '2021-01-01', cost: '50000', taxableUse: '1' }), /7.30 pm on 6 October 2020/);
   await assert.rejects(tool.execute({ incomeYear: '2025-26', entity: 'small_business_simplified', acquired: '2025-11-18',
     firstUsed: '2025-11-18', cost: '6800', taxableUse: '0.8', extra: 1 }), /extra is not an input of this tool/);
+});
+
+test('leave provisions tool returns the page example and refuses a defined benefit line type and a short-term line with long-term fields', async () => {
+  const tool = tools['leave-provisions'];
+  const annual = { label: 'Annual leave', leave: 'annual', hours: '152.00', hourlyRate: '45.50', probability: '1', settledWithin12Months: true };
+  const lines = [annual,
+    { label: 'Long service leave, vested', leave: 'long_service', hours: '400.00', hourlyRate: '52.00', probability: '1', settledWithin12Months: false,
+      yearsToSettlement: 2, salaryGrowth: '0.03', discountRate: '0.045', canDeferSettlement: false },
+    { label: 'Long service leave, unvested', leave: 'long_service', hours: '120.00', hourlyRate: '38.00', probability: '0.4', settledWithin12Months: false,
+      yearsToSettlement: 5, salaryGrowth: '0.035', discountRate: '0.0425', canDeferSettlement: true }];
+  const r = await tool.execute({ incomeYear: '2025-26', lines });
+  assert.deepEqual([r.annualLeaveProvision, r.longServiceLeaveProvision, r.totalProvision, r.currentProvision, r.nonCurrentProvision, r.source],
+    ['6916.00', '21966.49', '28882.49', '27123.16', '1759.33', 'https://duguid.com.au/tools/business-calculators/leave-provisions/']);
+  assert.deepEqual(r.lines[2], { label: 'Long service leave, unvested', leave: 'long_service', category: 'other_long_term', valueAtCurrentRate: '4560.00',
+    projectedValue: '5415.85', provision: '1759.33', classification: 'non_current' });
+  assert.equal(r.lines[0].projectedValue, null);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', lines: [{ ...annual, leave: 'sick' }] }), /leave/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', lines: [{ ...annual, yearsToSettlement: 2 }] }), /years_to_settlement is for a line not expected/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', lines: [{ ...annual, probability: '0.1234567' }] }), /at most 6 places/);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {

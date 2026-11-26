@@ -585,6 +585,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'depreciation-pools':
             result = calculate.depreciationPoolsResult(value, aud);
             break;
+          case 'leave-provisions':
+            result = calculate.leaveProvisionsResult(value, aud);
+            break;
           case 'instant-asset-write-off':
             result = calculate.instantAssetWriteOffResult(value, aud);
             break;

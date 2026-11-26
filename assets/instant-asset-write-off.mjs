@@ -180,7 +180,7 @@ const ENTITIES = /** @type {Record<string, string>} */ ({ small_business_simplif
 const LIMITS = /** @type {Record<string, string>} */ ({ none: 'no cost limit', not_applicable: 'no write-off rule applies' });
 
 /** The taxable use as the command's fraction: 80 (per cent) is 0.80. @param {string} percent */
-function useFraction(percent) {
+export function useFraction(percent) {
   const parts = /^(\d+)(?:\.(\d+))?$/.exec(percent.trim()); // eslint-disable-line security/detect-unsafe-regex -- anchored, with no repetition over overlapping characters: linear
   if (!parts) return percent.trim();
   const places = (parts[2] ?? '').length + 2;
@@ -189,7 +189,7 @@ function useFraction(percent) {
 }
 
 /** The command's fraction as the percentage the page shows: 0.80 is 80%. @param {unknown} text */
-function usePercent(text) {
+export function usePercent(text) {
   const parts = typeof text === 'string' ? /^(\d+)(?:\.(\d+))?$/.exec(text) : null; // eslint-disable-line security/detect-unsafe-regex -- anchored, with no repetition over overlapping characters: linear
   if (!parts) return String(text);
   const places = (parts[2] ?? '').padEnd(2, '0');

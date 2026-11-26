@@ -73,6 +73,7 @@ const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
 const iawoCheck = { ...business, file: 'assets/instant-asset-write-off.mjs' };
+const leaveCheck = { ...business, file: 'assets/leave-provisions.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
@@ -1133,6 +1134,16 @@ const MUTATIONS = [
   { ...pools, name: 'Capital works over 366 days', find: 'const reducedBottom = rateDivisor * 365n * scale;', replace: 'const reducedBottom = rateDivisor * 366n * scale;' },
   { ...pools, name: 'Capital works 4% allowed before 27 February 1992', find: 'if (four && before1992) {', replace: 'if (false) {' },
   { ...pools, name: 'Capital works taxable use ignored', find: 'const reducedTop = product * use;', replace: 'const reducedTop = product * scale;' },
+  { ...leaveCheck, name: "LEAVE compounding one year short", find: "for (let i = 0; i < years; i += 1)", replace: "for (let i = 1; i < years; i += 1)" },
+  { ...leaveCheck, name: "LEAVE cents rounded down", find: "(2n * (v.c % unit) >= unit ? 1n : 0n)", replace: "0n" },
+  { ...leaveCheck, name: "LEAVE a long-term line is not weighted by probability", find: "div(mul(projected, l.probability),", replace: "div(projected," },
+  { ...leaveCheck, name: "LEAVE a short-term line is not weighted by probability", find: "provision: cents(mul(value, l.probability)), current: true", replace: "provision: cents(value), current: true" },
+  { ...leaveCheck, name: "LEAVE a right to defer is current", find: "current: !l.longTerm.canDefer", replace: "current: true" },
+  { ...leaveCheck, name: "LEAVE 7 places of a probability are taken", find: "v.e >= -6 &&", replace: "v.e >= -7 &&" },
+  { ...leaveCheck, name: "LEAVE 51 years are taken", find: "const MOST_YEARS = 50;", replace: "const MOST_YEARS = 51;" },
+  { ...leaveCheck, name: "LEAVE plan assets are not refused", find: "['plan_assets', 'leave_provisions.plan_assets', LEAVE_PLAN_ASSETS]", replace: "" },
+  { ...leaveCheck, name: "LEAVE a short-term line takes long-term fields", find: "const longKey = shortTerm ? LONG.find", replace: "const longKey = false ? LONG.find" },
+  { ...leaveCheck, name: "LEAVE the form sends long-term fields for a short-term line", find: "    if (!short) {\n      Object.assign(line", replace: "    if (true) {\n      Object.assign(line" },
   { ...iawoCheck, name: 'IAWO $20,000 from 1 July 2026 starts a day late', find: "if (used >= on('2026-07-01'))", replace: "if (used > on('2026-07-01'))" },
   { ...iawoCheck, name: 'IAWO a cost equal to the limit is written off', find: 'cost < BigInt(limit) * 100n', replace: 'cost <= BigInt(limit) * 100n' },
   { ...iawoCheck, name: 'IAWO full expensing runs past 30 June 2023', find: "if (used <= on('2023-06-30') && heldFrom(acquired, BUDGET_2020))", replace: "if (used <= on('2024-06-30') && heldFrom(acquired, BUDGET_2020))" },
@@ -1380,6 +1391,7 @@ const SHARED = [
   'scripts/depreciation-pools-engine-differential.json',
   'scripts/rd-tax-offset-engine-differential.json',
   'scripts/instant-asset-write-off-engine-differential.json',
+  'scripts/leave-provisions-engine-differential.json',
   'scripts/gst-adjustments-engine-differential.json',
   'scripts/deferred-tax-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',

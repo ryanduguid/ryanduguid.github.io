@@ -779,6 +779,11 @@ Object.assign(INPUTS, { instantAssetWriteOff: (x) => calculations.iawoInputsText
 Object.assign(ENGINE_LABELS, { instantAssetWriteOff: { taxablePurposeCost: 'taxable purpose proportion', deduction: 'deduction',
   written: (v) => (v ? 'written off' : 'not written off') } });
 
+// The leave provisions page's rows (its tests are with the page's other tests below).
+Object.assign(INPUTS, { leaveProvisions: (x) => calculations.leaveInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { leaveProvisions: { total: 'total leave provisions', current: 'current', nonCurrent: 'non-current' } });
+
 // The GST adjustments page's rows (its tests are with the page's other tests below): a worksheet and its input.
 Object.assign(INPUTS, { gstAdjustment: (worksheet, x) => calculations.gstInputsText(worksheet, x,
   (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
@@ -1247,6 +1252,7 @@ Object.assign(FORM_CALLS, { wineEqualisationTax: (f) => [calculations.wetFormInp
 
 Object.assign(FORM_CALLS, { rentalProperty: (f) => [calculations.rentalFormInput((name) => f[name] ?? '')] });
 
+Object.assign(FORM_CALLS, { leaveProvisions: (f) => [calculations.leaveFormInput((name) => f[name] ?? '')] });
 Object.assign(FORM_CALLS, { instantAssetWriteOff: (f) => [calculations.iawoFormInput((name) => f[name] ?? '')] });
 Object.assign(FORM_CALLS, { rdTaxOffset: (f) => [calculations.rdFormInput((name) => f[name] ?? '')] });
 
@@ -7284,4 +7290,63 @@ test('the instant asset write-off takes the ATO’s examples and each limit’s 
   assert.equal(iawoCode({ ...iawoBase, acquired: '2020-10-06', first_used: '2021-01-01', year: '2020-21' }), 'instant_asset_write_off.budget_time_day');
   assert.equal(iawoCode({ ...iawoBase, entity: 'other', acquired: '2021-01-01', first_used: '2021-01-01', year: '2020-21' }), 'instant_asset_write_off.temporary_full_expensing');
   assert.equal(iawoCode({ ...iawoBase, taxable_use: '1.01' }), 'input.fraction_invalid');
+});
+
+// The leave provisions page: its example, the command it ports, the form's blank lines and the refusals. The command
+// read the AASB 119 and AASB 101 compilations on 23 November 2026; AASB 119 compilation no. 6 (30 June 2026) and
+// AASB 101 compilation no. 6 (31 December 2022) on the Federal Register of Legislation were read on 26 November 2026.
+const provisionsHtml = readFileSync(new URL('../_includes/calculators/leave-provisions.html', import.meta.url), 'utf8');
+const provisionsAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const provisionsCode = (input) => {
+  try {
+    calculations.leaveProvisions(input);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+
+test('the leave provisions page opens on its example and dates its sources', () => {
+  const example = provisionsHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(provisionsHtml);
+  const result = calculations.leaveProvisionsResult((name) => fields[name] ?? '', provisionsAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note],
+    example.slice(1));
+  for (const cited of ['F2015L01612/latest/text">AASB 119 Employee Benefits</a> on the Federal Register of Legislation, compilation no. 6 of 30 June 2026',
+    'F2015L01626/latest/text">AASB 101 Presentation of Financial Statements</a>, compilation no. 6 of 31 December 2022', 'read 26 November 2026']) {
+    assert.ok(provisionsHtml.includes(cited), cited);
+  }
+});
+
+test('the leave provisions agree with the australian-accounting command on every differential case', () => {
+  const { engine, cases } = JSON.parse(readFileSync(new URL('./leave-provisions-engine-differential.json', import.meta.url), 'utf8'));
+  assert.match(engine, /77796dbe6fb93a0970502fb9223a87a37d1355f1/);
+  assert.equal(cases.filter((c) => c.source.startsWith('AA test')).length, 47);
+  assert.equal(cases.length, 347);
+  assert.ok(provisionsHtml.includes(`command of Ryan Duguid’s <a href="https://github.com/ryanduguid/australian-accounting">australian-accounting</a> calculators on ${cases.length} test cases`));
+  let refused = 0;
+  for (const { source, call, amounts, rates, lines, warnings, refused: code } of cases) {
+    if (code) {
+      refused += 1;
+      assert.equal(provisionsCode(call), code, source);
+      continue;
+    }
+    const r = calculations.leaveProvisions(call);
+    assert.deepEqual({ amounts: r.amounts, rates: r.rates, lines: r.lines, warnings: r.warnings }, { amounts, rates, lines, warnings }, source);
+  }
+  assert.equal(refused, 55);
+});
+
+test('the leave provisions form drops blank lines and sends a short-term line without long-term fields', () => {
+  const fields = formDefaults(provisionsHtml);
+  const input = calculations.leaveFormInput((name) => ({ ...fields, 'line-3-label': ' ', 'line-3-hours': '' })[name] ?? '');
+  assert.equal(input.lines.length, 2);
+  assert.deepEqual(Object.keys(input.lines[0]), ['label', 'leave', 'hours', 'hourly_rate', 'probability', 'settled_within_12_months']);
+  assert.deepEqual([input.lines[1].probability, input.lines[1].salary_growth, input.lines[1].discount_rate, input.lines[1].years_to_settlement],
+    ['1.00', '0.03', '0.045', 2]);
+  const base = { lines: input.lines, defined_benefit_plan: false, plan_assets: false, year: '2025-26', scope_confirmed: true };
+  assert.equal(provisionsCode({ ...base, plan_assets: true }), 'leave_provisions.plan_assets');
+  assert.equal(provisionsCode({ ...base, lines: [] }), 'leave_provisions.line_invalid');
+  assert.equal(provisionsCode({ ...base, year: '2019-20' }), 'period.unsupported');
+  assert.equal(provisionsCode({ ...base, lines: [{ ...input.lines[1], discount_rate: '0.0000001' }] }), 'leave_provisions.line_invalid');
 });

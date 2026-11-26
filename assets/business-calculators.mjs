@@ -661,6 +661,7 @@ export { payrollTax, payrollTaxResult } from './payroll-tax.mjs';
 export { companyTax, companyTaxResult } from './company-tax.mjs';
 export { gstMarginScheme, gstMarginSchemeResult } from './gst-margin-scheme.mjs';
 export { lowValuePool, smallBusinessPool, capitalWorks, depreciationPoolsResult, poolFormInput, poolInputsText, POOL_YEARS } from './depreciation-pools.mjs';
+export { leaveProvisions, leaveProvisionsResult, leaveFormInput, leaveInputsText, LEAVE_YEARS, LEAVE_ROWS } from './leave-provisions.mjs';
 export { instantAssetWriteOff, instantAssetWriteOffResult, iawoFormInput, iawoInputsText, IAWO_YEARS } from './instant-asset-write-off.mjs';
 export { rdTaxOffset, rdTaxOffsetResult, rdFormInput, rdInputsText, RD_YEARS } from './rd-tax-offset.mjs';
 export { wineEqualisationTax, wineEqualisationTaxResult, wetFormInput, wetInputsText, WET_YEARS } from './wine-equalisation-tax.mjs';
