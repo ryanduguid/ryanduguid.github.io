@@ -334,6 +334,18 @@ calculate.soleTraderCompany({ ...structures, offset: 'yes' });
 // @ts-expect-error Money is a decimal string.
 calculate.soleTraderCompany({ ...structures, takenOut: 100000 });
 void structuresDifference;
+const fbtCall = { year_ended: 2027, benefits: [{ employee: 'A', label: '23A', gst_type: 'type_1', excluded: false,
+  gross_taxable_value: '9000.00', taxable_value: '9000.00' }] };
+const fbtWarnings: string[] = calculate.fbtReturn(fbtCall).warnings;
+// @ts-expect-error The FBT year is the number the return read, not text.
+const fbtYear: string = calculate.fbtReturn(fbtCall).year;
+const fbtVaried: boolean = calculate.fbtInstalment({ year_ended: 2027, quarter: 1, ato_instalment: '1000.00' }).varied;
+// @ts-expect-error The quarter is a number from 1 to 4.
+const fbtQuarter: string = calculate.fbtInstalment({ year_ended: 2027, quarter: 1, ato_instalment: '1000.00' }).quarter;
+void fbtWarnings;
+void fbtYear;
+void fbtVaried;
+void fbtQuarter;
 const leaseTerms = { payment: '1000', payments: '60', frequency: 'monthly', timing: 'arrears', rate: '7.5', start: '2026-07-01', residual: '0',
   prepaid: '0', incentives: '0', direct: '500', restoration: '0', ownership: 'no', life: '' } as const;
 const leaseLiability: number = calculate.lease(leaseTerms).liability;
@@ -544,6 +556,9 @@ void businessSet['payroll-tax'].execute({ place: 'AU-NSW', wages: '1500000' });
 void businessSet['salary-dividend'].execute({ incomeYear: '2026-27', companyProfit: '200000', baseRateEntity: true, salary: '100000' });
 void businessSet['sole-trader-company'].execute({ incomeYear: '2026-27', businessProfit: '150000', amountTakenOut: '100000',
   salary: '60000', baseRateEntity: true, smallBusinessOffset: true });
+void businessSet['fbt-return'].execute({ yearEnded: '2027', benefits: [{ employee: 'A', label: '23A', gstType: 'type_1', excluded: false,
+  grossTaxableValue: '9000.00', taxableValue: '9000.00' }] });
+void businessSet['fbt-instalment'].execute({ yearEnded: '2027', quarter: 1, atoInstalment: '1000.00' });
 void businessSet['sgc-payday'].execute({ regime: 'payday', payday: '2026-07-30', qualifyingEarnings: '1000', receivedOnTime: '120' });
 void businessSet.staff.execute({ wages: '51.30', superAmount: '0', otherCosts: '0' });
 void businessSet.cgt.execute({ entity: 'individual', assetKind: 'investment', purchaseContractDate: '1997-07-01',
