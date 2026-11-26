@@ -1070,11 +1070,20 @@ test('margin and markup tool returns the page worked example, null on zero base 
 test('objection deadline tool returns the page worked example, checks amended assessments and refuses mismatched or unknown inputs', async () => {
   const tool = tools['objection-deadline'];
   const r = await tool.execute({ decision: 'assessment', reviewPeriodYears: '2', noticeDate: '2026-11-18' });
-  assert.deepEqual([r.rule, r.periodEnds, r.lastDay, r.amendedEnds, r.firstEnds, r.source],
+  assert.deepEqual([r.rule, r.periodEnds, r.lastDay, r.amendedEnds, r.originalEnds, r.source],
     ['subparagraph 14ZW(1)(aa)(i)', '2028-11-18', '2028-11-20', null, null, 'https://duguid.com.au/tools/business-calculators/objection-deadline/']);
   assert.doesNotThrow(() => JSON.stringify(r));
-  const amended = await tool.execute({ decision: 'amended', reviewPeriodYears: '2', noticeDate: '2026-11-18', firstNoticeDate: '2025-11-18' });
-  assert.deepEqual([amended.rule, amended.amendedEnds, amended.firstEnds], ['subsection 14ZW(1BA)', '2027-01-17', '2027-11-18']);
+  const amended = await tool.execute({ decision: 'amended', reviewPeriodYears: '2', noticeDate: '2026-11-18', amendedNoticeDate: '2025-11-18',
+    firstNoticeDate: '2025-11-18' });
+  assert.deepEqual([amended.rule, amended.amendedEnds, amended.originalEnds], ['subsection 14ZW(1BA)', '2027-01-17', '2027-11-18']);
+  // A second amendment: (1BA) counts from the assessment amended, (1B) through (1C) from the first.
+  const again = { decision: 'amended', noticeDate: '2028-06-01', amendedNoticeDate: '2028-01-10', firstNoticeDate: '2024-03-01' };
+  const two = await tool.execute({ ...again, reviewPeriodYears: '2' });
+  assert.deepEqual([two.rule, two.originalEnds, two.periodEnds], ['subsection 14ZW(1BA)', '2030-01-10', '2030-01-10']);
+  const four = await tool.execute({ ...again, reviewPeriodYears: '4' });
+  assert.deepEqual([four.rule, four.originalEnds, four.periodEnds], ['subsection 14ZW(1B)', '2028-03-01', '2028-07-31']);
+  await assert.rejects(tool.execute({ decision: 'amended', reviewPeriodYears: '2', noticeDate: '2026-11-18', firstNoticeDate: '2025-11-18' }),
+    /amendedNoticeDate is required/);
   await assert.rejects(tool.execute({ decision: 'assessment', noticeDate: '2026-11-18' }), /reviewPeriodYears is required/);
   await assert.rejects(tool.execute({ decision: 'fbt', reviewPeriodYears: '4', noticeDate: '2026-11-18' }), /reviewPeriodYears applies only/);
   await assert.rejects(tool.execute({ decision: 'assessment', reviewPeriodYears: '2', noticeDate: '2026-11-18', firstNoticeDate: '2025-11-18' }),

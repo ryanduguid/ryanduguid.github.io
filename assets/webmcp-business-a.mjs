@@ -154,11 +154,9 @@ function checkObjectionInputs(input) {
   if (!income && input.reviewPeriodYears !== undefined) {
     throw new Error('reviewPeriodYears applies only to an income tax assessment or amended income tax assessment.');
   }
-  if (amended && input.firstNoticeDate === undefined) {
-    throw new Error('firstNoticeDate is required for an amended assessment.');
-  }
-  if (!amended && input.firstNoticeDate !== undefined) {
-    throw new Error('firstNoticeDate applies only to an amended assessment.');
+  for (const field of ['amendedNoticeDate', 'firstNoticeDate']) {
+    if (amended && input[field] === undefined) throw new Error(`${field} is required for an amended assessment.`);
+    if (!amended && input[field] !== undefined) throw new Error(`${field} applies only to an amended assessment.`);
   }
 }
 
@@ -170,21 +168,27 @@ export function objectionDeadlineTool(kit, objectionDeadline) {
     title: 'Objection deadline checker',
     description: 'Last day to lodge a taxation objection under section 14ZW of the Taxation Administration Act 1953, moving a '
       + 'Saturday or Sunday under subsection 36(2) of the Acts Interpretation Act 1901. Public holidays depend on the place '
-      + 'of lodgement and are not applied. Returns dates only (no AUD amount).',
+      + 'of lodgement and are not applied. An amended assessment allows the later of 60 days after its notice and the original period '
+      + 'after notice of the assessment it amends (subsections (1B) and (1BA)); a 4-year period runs from the first assessment’s notice '
+      + '(subsection (1C), which applies to paragraph (1B)(c) only). Returns dates only (no AUD amount).',
     inputSchema: record({
       decision: choice(['assessment', 'amended', 'fbt', 'amended-fbt', 'other'],
         'ATO decision objected to: "assessment" (income tax), "amended" (amended income tax), "fbt", "amended-fbt" or "other".'),
       reviewPeriodYears: choice(['2', '4'],
         'Income tax assessment or amended income tax assessment only: "2" when ITAA 1936 s 170(1) item 1, 2, 3 or 3A applies, otherwise "4".'),
       noticeDate: text('date', 'Date notice of the decision was given or served, as YYYY-MM-DD (1900-01-01 to 9989-12-31).'),
-      firstNoticeDate: text('date', 'Amended assessment only: date notice of the first assessment for the year was given, as YYYY-MM-DD.'),
+      amendedNoticeDate: text('date', 'Amended assessment only: date notice of the assessment it amends was given (the first assessment, '
+        + 'or an earlier amended one), as YYYY-MM-DD.'),
+      firstNoticeDate: text('date', 'Amended assessment only: date notice of the first assessment for the year was given, as YYYY-MM-DD; '
+        + 'the same as amendedNoticeDate when the assessment amended is the first.'),
     }, ['decision', 'noticeDate']),
     run(input) {
       checkObjectionInputs(input);
-      const r = objectionDeadline(input.decision, input.reviewPeriodYears ?? '4', input.noticeDate, input.firstNoticeDate ?? '');
+      const r = objectionDeadline(input.decision, input.reviewPeriodYears ?? '4', input.noticeDate, input.firstNoticeDate ?? '',
+        input.amendedNoticeDate ?? '');
       return {
         rule: r.rule, periodEnds: r.periodEnds, lastDay: r.lastDay,
-        amendedEnds: r.amendedEnds, firstEnds: r.firstEnds,
+        amendedEnds: r.amendedEnds, originalEnds: r.originalEnds,
         source: `${CALCULATORS}objection-deadline/`,
       };
     },
