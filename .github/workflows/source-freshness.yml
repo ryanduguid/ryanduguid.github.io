@@ -268,12 +268,13 @@ jobs:
             exit 0
           fi
           git apply --index "$RUNNER_TEMP/tool-releases/tool-releases.patch"
-          # The release refresh writes only the snapshot, the tool pages, the
-          # tools index, the home page, the sitemap, llms.txt and the text mirrors.
+          # The release refresh writes only the snapshot, each tool page, the
+          # tools index, the home page, the sitemap and llms.txt; build_llms_full
+          # writes the text mirrors and copies llms.txt into .well-known.
           unexpected=$(git diff --cached --name-only --no-renames -- . \
-            ':(exclude)_data/tool_releases.json' ':(exclude,glob)tools/**' \
-            ':(exclude)index.html' ':(exclude)index.txt' ':(exclude)sitemap.xml' ':(exclude)llms.txt' \
-            ':(exclude,glob)llms-full*.txt')
+            ':(exclude)_data/tool_releases.json' ':(exclude)index.html' ':(exclude)sitemap.xml' \
+            ':(exclude)llms.txt' ':(exclude).well-known/llms.txt' ':(exclude)tools/index.html' \
+            ':(exclude,glob)tools/*/index.html' ':(exclude,glob)**/index.txt' ':(exclude,glob)llms-full*.txt')
           if [ -n "$unexpected" ]; then
             printf '%s\n' "$unexpected" >&2
             echo "::error::The release refresh changes files outside its contract"
