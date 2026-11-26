@@ -1,7 +1,7 @@
 <section class="business-calculator" id="business-use">
 <form class="calculator-split" data-calculator="business-use">
-<fieldset disabled><legend>Business use share inputs</legend><div class="form-grid"><label class="field" for="business-use-cost">Eligible cost (AUD)<input id="business-use-cost" name="cost" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="20.15" required /></label>
-<label class="field" for="business-use-percent">Business use (%)<input id="business-use-percent" name="percent" type="number" min="0" max="100" step=".01" value="50" required /></label>
+<fieldset disabled><legend>Business use share inputs</legend><div class="form-grid"><label class="field" for="business-use-cost">Eligible cost (AUD)<input enterkeyhint="next" id="business-use-cost" name="cost" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="20.15" required /></label>
+<label class="field" for="business-use-percent">Business use (%)<input enterkeyhint="done" id="business-use-percent" name="percent" type="number" min="0" max="100" step=".01" value="50" required /></label>
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
 {% include calculator-example.html inputs="eligible cost $20.15, business use 50%" rows="Business-use share|$10.08" principal="0" %}

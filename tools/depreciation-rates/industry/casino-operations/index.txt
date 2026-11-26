@@ -2,27 +2,27 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/
 
-> Casino operations, Table A (industry categories), ARTS …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+> Casino operations, Table A (industry categories) …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
 
 # Casino operations
 
 21 effective lives in Table A of the Commissioner’s 2025 effective life determination for Casino operations.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Rows of Casino operations. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Carpets | 8 years | 12.50% | 25.00% | 1 July 2022
-Count and cage assets: | | | |
+Carpets (Casino operations) | 8 years | 12.50% | 25.00% | 1 July 2022
+Asset group · Count and cage assets: | | | |
 Count and cage assets: / Coin scales | 10 years | 10.00% | 20.00% | 1 July 2022
 Count and cage assets: / Counterfeit detectors | 8 years | 12.50% | 25.00% | 1 July 2022
 Count and cage assets: / Note counters/sorters/verifiers | 6 years | 16.67% | 33.33% | 1 July 2022
-Count and cage assets: / Trolleys | 10 years | 10.00% | 20.00% | 1 July 2022
+Trolleys (Count and cage assets) | 10 years | 10.00% | 20.00% | 1 July 2022
 Electronic table games (including keno games, poker games, rapid games) | 6 years | 16.67% | 33.33% | 1 July 2022
-Entertainment assets: | | | |
+Asset group · Entertainment assets: | | | |
 Entertainment assets: / Audio (including amplifiers, microphones, speakers, processors) | 5 years | 20.00% | 40.00% | 1 July 2022
 Entertainment assets: / Visual (including televisions, DVD players) | 5 years | 20.00% | 40.00% | 1 July 2022
 Gaming signage (including digital displays, jackpot displays, LED/LCD video walls and partitions) | 5 years | 20.00% | 40.00% | 1 July 2022
@@ -30,11 +30,11 @@ Gaming stools and chairs | 5 years | 20.00% | 40.00% | 1 July 2022
 Gaming tables (including blackjack, poker, roulette) | 7 years | 14.29% | 28.57% | 1 July 2022
 Poker/gaming machines | 6 years | 16.67% | 33.33% | 1 July 2022
 Poker/gaming machines system hardware (used for monitoring) | 6 years | 16.67% | 33.33% | 1 July 2022
-Security and monitoring assets – see Table B Security and monitoring assets | | | |
-Table game equipment: | | | |
+Register note · Security and monitoring assets – see Table B Security and monitoring assets | | | |
+Asset group · Table game equipment: | | | |
 Table game equipment: / Big wheels | 7 years | 14.29% | 28.57% | 1 July 2022
 Table game equipment: / Card shufflers | 5 years | 20.00% | 40.00% | 1 July 2022
-Table game equipment: / Chippers | 5 years | 20.00% | 40.00% | 1 July 2022
+Chippers (Table game equipment) | 5 years | 20.00% | 40.00% | 1 July 2022
 Table game equipment: / Chips and plaques | 10 years | 10.00% | 20.00% | 1 July 2022
 Table game equipment: / Dealer handset devices | 5 years | 20.00% | 40.00% | 1 July 2022
 Table game equipment: / Display screens | 5 years | 20.00% | 40.00% | 1 July 2022
@@ -43,19 +43,20 @@ Table game equipment: / Shoes (electronic type) | 5 years | 20.00% | 40.00% | 1 
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
-- Carpets: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/carpets/
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/#source
+- Carpets (Casino operations): https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/carpets/
 - Coin scales: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/coin-scales/
 - Counterfeit detectors: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/counterfeit-detectors/
 - Note counters/sorters/verifiers: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/note-counters-sorters-verifiers/
-- Trolleys: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/trolleys/
+- Trolleys (Count and cage assets): https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/trolleys/
 - Electronic table games (including keno games, poker games, rapid games): https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/electronic-table-games/
 - Audio (including amplifiers, microphones, speakers, processors): https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/audio/
 - Visual (including televisions, DVD players): https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/visual/
@@ -67,14 +68,14 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Security and monitoring assets – see Table B Security and monitoring assets: https://duguid.com.au/tools/depreciation-rates/asset/security-and-monitoring-assets/
 - Big wheels: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/big-wheels/
 - Card shufflers: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/card-shufflers/
-- Chippers: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/chippers/
+- Chippers (Table game equipment): https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/chippers/
 - Chips and plaques: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/chips-and-plaques/
 - Dealer handset devices: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/dealer-handset-devices/
 - Display screens: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/display-screens/
 - Roulette wheels: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/roulette-wheels/
 - Shoes (electronic type): https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/shoes/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

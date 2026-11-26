@@ -10,7 +10,7 @@ The 17 Utilities formulas cover standalone copies of the Essentials functions, e
 
 Release v3.8.0. Read from the released Utilities formula source, which the workbook compiles.
 
-Published 20 October 2026. Last reviewed 20 October 2026.
+By Ryan Duguid. Published 20 October 2026. Last reviewed 20 October 2026.
 
 ## Using these functions
 
@@ -416,6 +416,7 @@ Previous name: nabla.u.RangeToDAλ.
 ## Links
 
 - Utilities formula source: https://github.com/ryanduguid/Ozzit/blob/v3.8.0/src/Utilities.txt
+- Ryan Duguid: https://duguid.com.au/about/
 - Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
 - oz.AboutUtilities λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-aboututilities
 - oz.CountCU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countcu

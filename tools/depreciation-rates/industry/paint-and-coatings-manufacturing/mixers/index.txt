@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/mixers/
 
-> Paint and coatings manufacturing assets: Mixers: effective life 20 years, last updated 1 July 2013 (Table A).
+> Paint and coatings manufacturing assets: Mixers: life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 July 2013.
 
 # Paint and coatings manufacturing assets: Mixers
 
 ‘Paint and coatings manufacturing assets: Mixers’, for an asset used in Paint and coatings manufacturing, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2013.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Mixers
 Under | Paint and coatings manufacturing assets:
@@ -25,98 +25,103 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in Paint and coatings manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Paint and coatings manufacturing, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
-The life was last reviewed and determined on 1 July 2013. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 July 2013. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Paint and coatings manufacturing assets
 
+Other rows under Paint and coatings manufacturing assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
-Control system assets | 10 years | 10.00% | 20.00%
+Control system assets (Paint and coatings manufacturing assets) | 10 years | 10.00% | 20.00%
 Disperser and mixer motors | 15 years | 6.67% | 13.33%
-Dispersers | 20 years | 5.00% | 10.00%
+Dispersers (Paint and coatings manufacturing assets) | 20 years | 5.00% | 10.00%
 Dust collectors and fume extracting assets (including bag dust collectors, blowers, cyclones and fans) | 20 years | 5.00% | 10.00%
-Gantry cranes | 25 years | 4.00% | 8.00%
-Hoists | 10 years | 10.00% | 20.00%
+Gantry cranes (Paint and coatings manufacturing assets) | 25 years | 4.00% | 8.00%
+Hoists (Paint and coatings manufacturing assets) | 10 years | 10.00% | 20.00%
 Mixers (this page) | 20 years | 5.00% | 10.00%
-Paint tinting and colour blending machines (manual and automatic) | 7 years | 14.29% | 28.57%
-Pumps | 10 years | 10.00% | 20.00%
-Scales | 10 years | 10.00% | 20.00%
-Spray booths | 15 years | 6.67% | 13.33%
-Vacuum lifters | 10 years | 10.00% | 20.00%
+Paint tinting and colour blending machines (manual and automatic) (Paint and coatings manufacturing assets) | 7 years | 14.29% | 28.57%
+Pumps (Paint and coatings manufacturing assets) | 10 years | 10.00% | 20.00%
+Scales (Paint and coatings manufacturing assets) | 10 years | 10.00% | 20.00%
+Spray booths (Paint and coatings manufacturing assets) | 15 years | 6.67% | 13.33%
+Vacuum lifters (Paint and coatings manufacturing assets) | 10 years | 10.00% | 20.00%
 
 15 rows share this heading. The Paint and coatings manufacturing page lists them all.
 
-## The same wording elsewhere
+## Similarly named rows
 
-Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+Compare the full row description and industry. Similar names can cover different equipment or effective lives under section 6 of the determination.
+
+Similarly named rows. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
-Mixers | Other agriculture and fishing support services | 12 years | 8.33% | 16.67%
-Mixers | Fruit and vegetable processing | 15 years | 6.67% | 13.33%
-Mixers (including batch and paddle) | Prepared animal and bird feed manufacturing | 15 years | 6.67% | 13.33%
-Mixers (including batch and paddle) | Prepared animal and bird feed manufacturing | 15 years | 6.67% | 13.33%
+Mixers (Other agriculture and fishing support services) | Other agriculture and fishing support services | 12 years | 8.33% | 16.67%
+Mixers (Fruit and vegetable processing) | Fruit and vegetable processing | 15 years | 6.67% | 13.33%
+Mixers (including batch and paddle) (Dry process assets) | Prepared animal and bird feed manufacturing | 15 years | 6.67% | 13.33%
+Mixers (including batch and paddle) (Wet process assets) | Prepared animal and bird feed manufacturing | 15 years | 6.67% | 13.33%
 Mixers (including paddle, premix and ribbon screw) | Prepared animal and bird feed manufacturing | 20 years | 5.00% | 10.00%
-Mixers | Prepared animal and bird feed manufacturing | 10 years | 10.00% | 20.00%
-Mixers | Other food product manufacturing n.e.c. | 15 years | 6.67% | 13.33%
-Mixers | Basic organic chemical manufacturing | 15 years | 6.67% | 13.33%
+Mixers (Liquid feed assets) | Prepared animal and bird feed manufacturing | 10 years | 10.00% | 20.00%
+Mixers (Processing assets generally) | Other food product manufacturing n.e.c. | 15 years | 6.67% | 13.33%
+Mixers (Distillers grain assets) | Basic organic chemical manufacturing | 15 years | 6.67% | 13.33%
 Mixers (incorporating barrel, chutes, frame and hydraulic pumps) | Ready-mixed concrete manufacturing | 5 years | 20.00% | 40.00%
-Mixers | Concrete product manufacturing | 15 years | 6.67% | 13.33%
-Mixers | Concrete product manufacturing | 15 years | 6.67% | 13.33%
-Mixers | Concrete product manufacturing | 15 years | 6.67% | 13.33%
-Mixers | Concrete product manufacturing | 15 years | 6.67% | 13.33%
-Mixers | Iron smelting and steel manufacturing | 20 years | 5.00% | 10.00%
-Mixers | Sewerage and drainage services | 25 years | 4.00% | 8.00%
+Mixers (Batching and mixing assets) | Concrete product manufacturing | 15 years | 6.67% | 13.33%
+Mixers (Concrete roof tile manufacturing assets) | Concrete product manufacturing | 15 years | 6.67% | 13.33%
+Mixers (Storage, preparation and mixing assets) | Concrete product manufacturing | 15 years | 6.67% | 13.33%
+Mixers (Concrete manufacturing assets) | Concrete product manufacturing | 15 years | 6.67% | 13.33%
+Mixers (Balling assets) | Iron smelting and steel manufacturing | 20 years | 5.00% | 10.00%
+Mixers (Secondary treatment assets) | Sewerage and drainage services | 25 years | 4.00% | 8.00%
 Mixers (including planetary and spiral mixers) | Supermarket and grocery stores | 10 years | 10.00% | 20.00%
-Mixers | Scientific research services | 7 years | 14.29% | 28.57%
+Mixers (Scientific, medical and pharmaceutical research assets) | Scientific research services | 7 years | 14.29% | 28.57%
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 20 years.
+The depreciation calculator uses your cost, start date and this effective life of 20 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/mixers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
-- Control system assets: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/control-system-assets/
+- Control system assets (Paint and coatings manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/control-system-assets/
 - Disperser and mixer motors: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/disperser-and-mixer-motors/
-- Dispersers: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/dispersers/
+- Dispersers (Paint and coatings manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/dispersers/
 - Dust collectors and fume extracting assets (including bag dust collectors, blowers, cyclones and fans): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/dust-collectors-and-fume-extracting-assets/
-- Gantry cranes: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/gantry-cranes/
-- Hoists: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/hoists/
-- Paint tinting and colour blending machines (manual and automatic): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/paint-tinting-and-colour-blending-machines/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/pumps/
-- Scales: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/scales/
-- Spray booths: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/spray-booths/
-- Vacuum lifters: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/vacuum-lifters/
+- Gantry cranes (Paint and coatings manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/gantry-cranes/
+- Hoists (Paint and coatings manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/hoists/
+- Paint tinting and colour blending machines (manual and automatic) (Paint and coatings manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/paint-tinting-and-colour-blending-machines/
+- Pumps (Paint and coatings manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/pumps/
+- Scales (Paint and coatings manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/scales/
+- Spray booths (Paint and coatings manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/spray-booths/
+- Vacuum lifters (Paint and coatings manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/vacuum-lifters/
 - Paint and coatings manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/other-agriculture-and-fishing-support/mixers/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/mixers/
-- Mixers (including batch and paddle): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/dry-process-assets-mixers/
-- Mixers (including batch and paddle): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/wet-process-assets-mixers/
+- Mixers (Other agriculture and fishing support services): https://duguid.com.au/tools/depreciation-rates/industry/other-agriculture-and-fishing-support/mixers/
+- Mixers (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/mixers/
+- Mixers (including batch and paddle) (Dry process assets): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/dry-process-assets-mixers/
+- Mixers (including batch and paddle) (Wet process assets): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/wet-process-assets-mixers/
 - Mixers (including paddle, premix and ribbon screw): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/batching-grinding-and-mixing-mixers/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/liquid-feed-assets-mixers/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/mixers/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/mixers/
+- Mixers (Liquid feed assets): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/liquid-feed-assets-mixers/
+- Mixers (Processing assets generally): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/mixers/
+- Mixers (Distillers grain assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/mixers/
 - Mixers (incorporating barrel, chutes, frame and hydraulic pumps): https://duguid.com.au/tools/depreciation-rates/industry/ready-mixed-concrete-manufacturing/mixers/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-mixers/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-mixers/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-mixers/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/prefabricated-concrete-product-mixers/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/mixers/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/sewerage-and-drainage-services/mixers/
+- Mixers (Batching and mixing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-mixers/
+- Mixers (Concrete roof tile manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-mixers/
+- Mixers (Storage, preparation and mixing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-mixers/
+- Mixers (Concrete manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/prefabricated-concrete-product-mixers/
+- Mixers (Balling assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/mixers/
+- Mixers (Secondary treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/sewerage-and-drainage-services/mixers/
 - Mixers (including planetary and spiral mixers): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/mixers/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/mixers/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Mixers (Scientific, medical and pharmaceutical research assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/mixers/
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/air-compressors-and-receivers/
 
-> Support assets: Air compressors and receivers: effective life 10 years, last updated 1 July 2013 (Table A).
+> Support assets: Air compressors and receivers: life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 July 2013.
 
 # Support assets: Air compressors and receivers (Prepared animal and bird feed manufacturing)
 
 ‘Support assets: Air compressors and receivers’, for an asset used in Prepared animal and bird feed manufacturing, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2013.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Air compressors and receivers
 Under | Pet food manufacturing assets: / Support assets:
@@ -25,70 +25,75 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in Prepared animal and bird feed manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Prepared animal and bird feed manufacturing, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
-The life was last reviewed and determined on 1 July 2013. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 July 2013. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Support assets
+
+Other rows under Support assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Access platforms | 20 years | 5.00% | 10.00%
 Air compressors and receivers (this page) | 10 years | 10.00% | 20.00%
 Bins (including tippers and raw material bins) | 15 years | 6.67% | 13.33%
-Boilers | 20 years | 5.00% | 10.00%
+Boilers (Prepared animal and bird feed manufacturing) | 20 years | 5.00% | 10.00%
 Cleaning systems (including vacuum) | 15 years | 6.67% | 13.33%
 Contra shears and drum filters | 10 years | 10.00% | 20.00%
-Control systems | 10 years | 10.00% | 20.00%
-Dust management assets (including bag and dust filters, dust collectors, dust extraction hood and ducting and exhaust fans and socks) | 15 years | 6.67% | 13.33%
+Control systems (Prepared animal and bird feed manufacturing) | 10 years | 10.00% | 20.00%
+Dust management assets (including bag and dust filters, dust collectors, dust extraction hood and ducting and exhaust fans and socks) (Pet food manufacturing assets / Support assets / Prepared animal and bird feed manufacturing) | 15 years | 6.67% | 13.33%
 
 19 rows share this heading. The Prepared animal and bird feed manufacturing page lists them all.
 
-## The same wording elsewhere
+## Similarly named rows
 
-Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+Compare the full row description and industry. Similar names can cover different equipment or effective lives under section 6 of the determination.
+
+Similarly named rows. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
-Air compressors and receivers | Fruit and vegetable processing | 20 years | 5.00% | 10.00%
-Air compressors and receivers | Soft drink, cordial and syrup manufacturing | 20 years | 5.00% | 10.00%
-Air compressors and receivers | Beer manufacturing (except non-alcoholic beer) | 20 years | 5.00% | 10.00%
-Air compressors and receivers | Polymer film and sheet packaging material manufacturing | 15 years | 6.67% | 13.33%
-Air compressors and receivers | Solid waste collection services | 7 years | 14.29% | 28.57%
-Air compressors and receivers | Waste treatment and disposal services | 7 years | 14.29% | 28.57%
-Air compressors and receivers | Waste remediation and materials recovery services | 7 years | 14.29% | 28.57%
+Air compressors and receivers (Fruit and vegetable processing) | Fruit and vegetable processing | 20 years | 5.00% | 10.00%
+Air compressors and receivers (Soft drink, cordial and syrup manufacturing) | Soft drink, cordial and syrup manufacturing | 20 years | 5.00% | 10.00%
+Air compressors and receivers (Beer manufacturing (except non-alcoholic beer)) | Beer manufacturing (except non-alcoholic beer) | 20 years | 5.00% | 10.00%
+Air compressors and receivers (Polymer film and sheet packaging material manufacturing) | Polymer film and sheet packaging material manufacturing | 15 years | 6.67% | 13.33%
+Air compressors and receivers (Solid waste collection services) | Solid waste collection services | 7 years | 14.29% | 28.57%
+Air compressors and receivers (Transfer stations and landfill operation assets) | Waste treatment and disposal services | 7 years | 14.29% | 28.57%
+Air compressors and receivers (Materials recovery facility … assets) | Waste remediation and materials recovery services | 7 years | 14.29% | 28.57%
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+The depreciation calculator uses your cost, start date and this effective life of 10 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/air-compressors-and-receivers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Access platforms: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/access-platforms/
 - Bins (including tippers and raw material bins): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-bins/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-boilers/
+- Boilers (Prepared animal and bird feed manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-boilers/
 - Cleaning systems (including vacuum): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/cleaning-systems/
 - Contra shears and drum filters: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/contra-shears-and-drum-filters/
-- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-control-systems/
-- Dust management assets (including bag and dust filters, dust collectors, dust extraction hood and ducting and exhaust fans and socks): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-dust-management-assets/
+- Control systems (Prepared animal and bird feed manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-control-systems/
+- Dust management assets (including bag and dust filters, dust collectors, dust extraction hood and ducting and exhaust fans and socks) (Pet food manufacturing assets / Support assets / Prepared animal and bird feed manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-dust-management-assets/
 - Prepared animal and bird feed manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/
-- Air compressors and receivers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/air-compressors-and-receivers/
-- Air compressors and receivers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/air-compressors-and-receivers/
-- Air compressors and receivers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/air-compressors-and-receivers/
-- Air compressors and receivers: https://duguid.com.au/tools/depreciation-rates/industry/polymer-film-and-sheet-packaging/air-compressors-and-receivers/
-- Air compressors and receivers: https://duguid.com.au/tools/depreciation-rates/industry/solid-waste-collection-services/air-compressors-and-receivers/
-- Air compressors and receivers: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/air-compressors-and-receivers/
-- Air compressors and receivers: https://duguid.com.au/tools/depreciation-rates/industry/waste-remediation-and-materials-recovery/air-compressors-and-receivers/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Air compressors and receivers (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/air-compressors-and-receivers/
+- Air compressors and receivers (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/air-compressors-and-receivers/
+- Air compressors and receivers (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/air-compressors-and-receivers/
+- Air compressors and receivers (Polymer film and sheet packaging material manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/polymer-film-and-sheet-packaging/air-compressors-and-receivers/
+- Air compressors and receivers (Solid waste collection services): https://duguid.com.au/tools/depreciation-rates/industry/solid-waste-collection-services/air-compressors-and-receivers/
+- Air compressors and receivers (Transfer stations and landfill operation assets): https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/air-compressors-and-receivers/
+- Air compressors and receivers (Materials recovery facility … assets): https://duguid.com.au/tools/depreciation-rates/industry/waste-remediation-and-materials-recovery/air-compressors-and-receivers/
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

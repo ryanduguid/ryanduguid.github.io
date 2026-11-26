@@ -1,13 +1,13 @@
 <section class="business-calculator" id="gic-payment-plan">
 <form class="calculator-split" data-calculator="gic-payment-plan">
-<fieldset disabled><legend>GIC payment plan inputs</legend><div class="form-grid"><label class="field" for="gic-payment-plan-debt">Tax debt on the plan’s first day (AUD)<input id="gic-payment-plan-debt" name="debt" type="number" inputmode="decimal" min="0.01" max="1000000000" step=".01" value="1000" required /></label>
+<fieldset disabled><legend>GIC payment plan inputs</legend><div class="form-grid"><label class="field" for="gic-payment-plan-debt">Tax debt on the plan’s first day (AUD)<input enterkeyhint="next" id="gic-payment-plan-debt" name="debt" type="number" inputmode="decimal" min="0.01" max="1000000000" step=".01" value="1000" required /></label>
 <label class="field" for="gic-payment-plan-start">Date of the first instalment<input id="gic-payment-plan-start" name="start" type="date" min="1999-07-01" max="2099-12-31" value="2026-10-01" required /></label>
-<label class="field" for="gic-payment-plan-count">Number of equal instalments<input id="gic-payment-plan-count" name="count" type="number" inputmode="numeric" min="1" max="120" step="1" value="3" required /></label>
+<label class="field" for="gic-payment-plan-count">Number of equal instalments<input enterkeyhint="next" id="gic-payment-plan-count" name="count" type="number" inputmode="numeric" min="1" max="120" step="1" value="3" required /></label>
 <fieldset class="field"><legend>How often the instalments fall</legend>
 <label><input type="radio" name="frequency" value="weekly" /> Weekly</label>
 <label><input type="radio" name="frequency" value="fortnightly" /> Fortnightly</label>
 <label><input type="radio" name="frequency" value="monthly" checked /> Monthly, on the same day of the month</label></fieldset>
-<label class="field" for="gic-payment-plan-assumed">Annual GIC rate to assume after December 2026 (%)<input id="gic-payment-plan-assumed" name="assumedRate" type="number" inputmode="decimal" min="0.01" max="100" step=".01" value="11.51" required /></label>
+<label class="field" for="gic-payment-plan-assumed">Annual GIC rate to assume after December 2026 (%)<input enterkeyhint="done" id="gic-payment-plan-assumed" name="assumedRate" type="number" inputmode="decimal" min="0.01" max="100" step=".01" value="11.51" required /></label>
 </div>
 <p class="field-note">The rate for each day up to 31 December 2026 comes from the <a href="/rates/general-interest-charge/">quarterly GIC rate table</a>. The ATO has not yet published a rate for any later day, so a plan running past 2026 uses the rate you assume for those days.</p>
 <button type="submit" class="button">Calculate</button></fieldset>

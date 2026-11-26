@@ -10,7 +10,7 @@ The 66 Financial formulas cover amortisation, depreciation, corkscrews, IRR, rol
 
 Release v3.8.0. Read from the released Financial formula source, which the workbook compiles.
 
-Published 20 October 2026. Last reviewed 20 October 2026.
+By Ryan Duguid. Published 20 October 2026. Last reviewed 20 October 2026.
 
 ## Using these functions
 
@@ -2025,6 +2025,7 @@ The workbook help shows 0.0062, 0.0062, 0.0060.
 ## Links
 
 - Financial formula source: https://github.com/ryanduguid/Ozzit/blob/v3.8.0/src/Financial.txt
+- Ryan Duguid: https://duguid.com.au/about/
 - Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
 - oz.AboutFinancial λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-aboutfinancial
 - oz.Corkscrew λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrew

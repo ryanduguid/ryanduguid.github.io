@@ -7,11 +7,11 @@
 <label><input type="radio" name="body" value="van" /> Panel or cargo van</label>
 <label><input type="radio" name="body" value="other" /> Another body, such as a truck or bus</label>
 <label><input type="radio" name="body" value="motorcycle" /> Motor cycle</label></fieldset>
-<label class="field" for="vehicle-class-seats">Seats, driver included<input id="vehicle-class-seats" name="seats" type="number" min="1" max="99" step="1" value="5" required /></label>
-<label class="field" for="vehicle-class-gvm">Gross vehicle mass (kg)<input id="vehicle-class-gvm" name="gvm" type="number" min="1" max="100000" step="1" value="3000" required /></label>
-<label class="field" for="vehicle-class-kerb">Basic kerb weight (kg), 0 if unknown<input id="vehicle-class-kerb" name="kerb" type="number" min="0" max="100000" step="1" value="2135" required /></label>
-<label class="field" for="vehicle-class-payload">Stated payload (kg), 0 if none<input id="vehicle-class-payload" name="payload" type="number" min="0" max="100000" step="1" value="0" required /></label>
-<label class="field" for="vehicle-class-accessories">Accessories at supply, not in kerb weight (kg), 0 if none<input id="vehicle-class-accessories" name="accessories" type="number" min="0" max="100000" step="1" value="0" required /></label>
+<label class="field" for="vehicle-class-seats">Seats, driver included<input enterkeyhint="next" id="vehicle-class-seats" name="seats" type="number" min="1" max="99" step="1" value="5" required /></label>
+<label class="field" for="vehicle-class-gvm">Gross vehicle mass (kg)<input enterkeyhint="next" id="vehicle-class-gvm" name="gvm" type="number" min="1" max="100000" step="1" value="3000" required /></label>
+<label class="field" for="vehicle-class-kerb">Basic kerb weight (kg), 0 if unknown<input enterkeyhint="next" id="vehicle-class-kerb" name="kerb" type="number" min="0" max="100000" step="1" value="2135" required /></label>
+<label class="field" for="vehicle-class-payload">Stated payload (kg), 0 if none<input enterkeyhint="next" id="vehicle-class-payload" name="payload" type="number" min="0" max="100000" step="1" value="0" required /></label>
+<label class="field" for="vehicle-class-accessories">Accessories at supply, not in kerb weight (kg), 0 if none<input enterkeyhint="next" id="vehicle-class-accessories" name="accessories" type="number" min="0" max="100000" step="1" value="0" required /></label>
 <fieldset class="field"><legend>Modified after manufacture?</legend>
 <label><input type="radio" name="modified" value="no" checked /> No</label>
 <label><input type="radio" name="modified" value="plated" /> Yes, with plate figures</label>
@@ -19,7 +19,7 @@
 <fieldset class="field"><legend>Year first held and used</legend>
 <label><input type="radio" name="year" value="2026-27" data-car-limit="69883" data-fuel-efficient="91661" data-other="80809" checked /> 2026-27</label>
 <label><input type="radio" name="year" value="2025-26" data-car-limit="69674" data-fuel-efficient="91387" data-other="80567" /> 2025-26</label></fieldset>
-<label class="field" for="vehicle-class-cost">Price including GST, before luxury car tax (AUD)<input id="vehicle-class-cost" name="cost" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="75000" required /></label>
+<label class="field" for="vehicle-class-cost">Price including GST, before luxury car tax (AUD)<input enterkeyhint="done" id="vehicle-class-cost" name="cost" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="75000" required /></label>
 <fieldset class="field"><legend>Full GST credit claimed?</legend>
 <label><input type="radio" name="credit" value="full" checked /> Yes</label>
 <label><input type="radio" name="credit" value="none" /> No</label></fieldset>

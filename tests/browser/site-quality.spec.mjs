@@ -753,7 +753,7 @@ test('the scroll cue holds with reduced motion and stays off paper', async ({ pa
 // through the CSS object model, which the pages' content security policy allows.
 const hideEdgeCueOnProbe = (page) => page.evaluate(() => {
   const sheet = [...document.styleSheets]
-    .find((candidate) => candidate.href && new URL(candidate.href).pathname === '/assets/site.css');
+    .find((candidate) => candidate.href && /^\/assets\/(?:site|screen-[a-f0-9]{16})\.css$/.test(new URL(candidate.href).pathname));
   sheet.insertRule('[data-cue-probe]::before { visibility: hidden !important; }', sheet.cssRules.length);
 });
 

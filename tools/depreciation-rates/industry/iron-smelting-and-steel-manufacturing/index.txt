@@ -2,64 +2,68 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/
 
-> Table A (industry categories), MANUFACTURING / Iron …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+> Iron smelting and steel manufacturing, Table …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
 
 # Iron smelting and steel manufacturing
 
 388 effective lives in Table A of the Commissioner’s 2025 effective life determination for Iron smelting and steel manufacturing.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Jump to an asset group
+
+Assets used in common in iron smelting and steel manufacturing processes Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets Blast furnace assets Coke making assets Hot strip mill assets Pellet making assets Plate mill assets Primary metal product casting assets Rod, bar, structural and rail mill assets Sinter making assets Steel railway track product manufacturing assets Steel strip metallic coating assets Steel strip organic coating assets Tin-plating mill assets
+
+Rows of Iron smelting and steel manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Assets used in common in iron smelting and steel manufacturing processes: | | | |
-Assets used in common in iron smelting and steel manufacturing processes: / Automated guided vehicles (AGVs) | 20 years | 5.00% | 10.00% | 1 July 2010
-Assets used in common in iron smelting and steel manufacturing processes: / CCTV systems | 3 years | 33.33% | 66.67% | 1 July 2010
+Asset group · Assets used in common in iron smelting and steel manufacturing processes: | | | |
+Automated guided vehicles (AGVs) (Assets used in common in iron smelting and steel manufacturing processes) | 20 years | 5.00% | 10.00% | 1 July 2010
+CCTV systems (Assets used in common in iron smelting and steel manufacturing processes) | 3 years | 33.33% | 66.67% | 1 July 2010
 Assets used in common in iron smelting and steel manufacturing processes: / Coil cars (including hydraulic sliding floor plates) | 13 years | 7.69% | 15.38% | 1 July 2010
 Assets used in common in iron smelting and steel manufacturing processes: / Coil car tracks and rails | 7 years | 14.29% | 28.57% | 1 July 2010
-Assets used in common in iron smelting and steel manufacturing processes: / Control systems assets: | | | |
+Asset group · Assets used in common in iron smelting and steel manufacturing processes: / Control systems assets: | | | |
 Assets used in common in iron smelting and steel manufacturing processes: / Control systems assets: / Instruments (including temperature probes, control panels, gas analysers, location sensors, carbon monoxide monitors, pressure controls, temperature controls, pyrometers, strip position sensors, gamma ray detectors, hot metal detectors, x-ray gauges, width gauges, thickness gauges) | 7 years | 14.29% | 28.57% | 1 July 2010
 Assets used in common in iron smelting and steel manufacturing processes: / Control systems assets: / Programmable logic controllers (PLCs) and distributed control systems (DCS) | 10 years | 10.00% | 20.00% | 1 July 2010
 Assets used in common in iron smelting and steel manufacturing processes: / Control systems assets: / Uninterruptible power supplies (UPS) | 5 years | 20.00% | 40.00% | 1 July 2010
 Assets used in common in iron smelting and steel manufacturing processes: / Cranes and gantries | 20 years | 5.00% | 10.00% | 1 July 2010
-Assets used in common in iron smelting and steel manufacturing processes: / Electricity distribution, generation or transmission assets: | | | |
+Asset group · Assets used in common in iron smelting and steel manufacturing processes: / Electricity distribution, generation or transmission assets: | | | |
 Assets used in common in iron smelting and steel manufacturing processes: / Electricity distribution, generation or transmission assets: / Aerials or underground cables | 30 years | 3.33% | 6.67% | 1 July 2010
 Assets used in common in iron smelting and steel manufacturing processes: / Electricity distribution, generation or transmission assets: / Electronic protection relays | 10 years | 10.00% | 20.00% | 1 July 2010
 Assets used in common in iron smelting and steel manufacturing processes: / Electricity distribution, generation or transmission assets: / High voltage switchgear | 25 years | 4.00% | 8.00% | 1 July 2010
-Assets used in common in iron smelting and steel manufacturing processes: / Electricity distribution, generation or transmission assets: / Transformers | 20 years | 5.00% | 10.00% | 1 July 2010
-Assets used in common in iron smelting and steel manufacturing processes: / Electricity distribution, generation or transmission assets: / Use any relevant determinations made in Electricity supply (26110 to 26400) for any other electricity distribution, generation or transmission assets | | | |
-Assets used in common in iron smelting and steel manufacturing processes: / Gasometers | 30 years | 3.33% | 6.67% | 1 July 2010
-Assets used in common in iron smelting and steel manufacturing processes: / Rail infrastructure and rolling stock except torpedo cars – use any relevant determinations made for Rail freight and passenger transport services (47100 to 47200) | | | |
+Assets used in common in iron smelting and steel manufacturing processes: / Transformers (Electricity distribution, generation or transmission assets) | 20 years | 5.00% | 10.00% | 1 July 2010
+Register note · Assets used in common in iron smelting and steel manufacturing processes: / Electricity distribution, generation or transmission assets: / Use any relevant determinations made in Electricity supply (26110 to 26400) for any other electricity distribution, generation or transmission assets | | | |
+Gasometers (Assets used in common in iron smelting and steel manufacturing processes) | 30 years | 3.33% | 6.67% | 1 July 2010
+Register note · Assets used in common in iron smelting and steel manufacturing processes: / Rail infrastructure and rolling stock except torpedo cars – use any relevant determinations made for Rail freight and passenger transport services (47100 to 47200) | | | |
 Assets used in common in iron smelting and steel manufacturing processes: / Rolls for mill roll stands (including roughing mill rolls, finishing mill rolls and skin conditioning mill rolls) | 2 years | 50.00% | 100.00% | 1 July 2010
 Assets used in common in iron smelting and steel manufacturing processes: / Roller tables (incorporating gearboxes, motors, drives, rolls, table frames, aprons, side guards and foundations) | 15 years | 6.67% | 13.33% | 1 July 2010
 Assets used in common in iron smelting and steel manufacturing processes: / Scale or transfer car rail tracks and turntables | 20 years | 5.00% | 10.00% | 1 July 2010
 Assets used in common in iron smelting and steel manufacturing processes: / Scale or transfer cars (incorporating cable reel and drive units) | 20 years | 5.00% | 10.00% | 1 July 2010
 Assets used in common in iron smelting and steel manufacturing processes: / Ship ore unloaders | 20 years | 5.00% | 10.00% | 1 July 2010
-Assets used in common in iron smelting and steel manufacturing processes: / Slag processing assets: | | | |
-Assets used in common in iron smelting and steel manufacturing processes: / Slag processing assets: / Crushers | 20 years | 5.00% | 10.00% | 1 July 2010
-Assets used in common in iron smelting and steel manufacturing processes: / Slag processing assets: / Granulators | 15 years | 6.67% | 13.33% | 1 July 2010
+Asset group · Assets used in common in iron smelting and steel manufacturing processes: / Slag processing assets: | | | |
+Assets used in common in iron smelting and steel manufacturing processes: / Crushers (Slag processing assets) | 20 years | 5.00% | 10.00% | 1 July 2010
+Assets used in common in iron smelting and steel manufacturing processes: / Granulators (Slag processing assets) | 15 years | 6.67% | 13.33% | 1 July 2010
 Assets used in common in iron smelting and steel manufacturing processes: / Slag processing assets: / Slag pots | 20 years | 5.00% | 10.00% | 1 July 2010
 Assets used in common in iron smelting and steel manufacturing processes: / Slag processing assets: / Slag pot carriers | 10 years | 10.00% | 20.00% | 1 July 2010
 Assets used in common in iron smelting and steel manufacturing processes: / Stacks (including flare off stacks (incorporating burners and derricks)) | 20 years | 5.00% | 10.00% | 1 July 2010
 Assets used in common in iron smelting and steel manufacturing processes: / Stackers, reclaimers, stacker/reclaimers and sequencers | 25 years | 4.00% | 8.00% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: | | | |
+Asset group · Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: | | | |
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / BOS vessels (incorporating motors, gearboxes, bull gear, vessel, torsion bar, lube pumps, pulse generators, tacho generators, brakes, limit switches, pressure switches and support structures) | 10 years | 10.00% | 20.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Desulphurising lances (incorporating masts, winch control boxes, hydraulic cylinders carriage system, motors, gearboxes, brake lance carriages, lance guides, lances and switches) | 10 years | 10.00% | 20.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Electric arc furnaces (EAFs) | 10 years | 10.00% | 20.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Electrode control arms | 10 years | 10.00% | 20.00% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Emissions control assets: | | | |
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Emissions control assets: / Baghouses | 20 years | 5.00% | 10.00% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Emissions control assets: / De-dusting ducts and mains | 15 years | 6.67% | 13.33% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Emissions control assets: / Electrostatic precipitators | 15 years | 6.67% | 13.33% | 1 July 2010
+Asset group · Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Emissions control assets: | | | |
+Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Emissions control assets: / Baghouses (Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets / Emissions control assets / Iron smelting and steel manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2010
+Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Emissions control assets: / De-dusting ducts and mains (Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets / Emissions control assets / Iron smelting and steel manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2010
+Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Electrostatic precipitators (Emissions control assets) | 15 years | 6.67% | 13.33% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Emissions control assets: / Primary and secondary scrubbers (incorporating support structure and spray systems) | 20 years | 5.00% | 10.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Emissions control assets: / Waste gas radiation cooling systems (incorporating water sprays and ducts) | 20 years | 5.00% | 10.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Emissions control assets: / Waste gas extractor fans and silencers | 20 years | 5.00% | 10.00% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Flux making assets: | | | |
+Asset group · Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Flux making assets: | | | |
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Flux making assets: / Kiln contact coolers (including agitator, agitator hydraulic system and rotary valves) | 15 years | 6.67% | 13.33% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Flux making assets: / Kiln burner units (incorporating gas and firing systems) | 15 years | 6.67% | 13.33% | 1 July 2010
+Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Kiln burner units (incorporating gas and firing systems) (Flux making assets) | 15 years | 6.67% | 13.33% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Flux making assets: / Lime kiln discharge conveyors (incorporating structures, belts, pulleys, motors and gearboxes) | 15 years | 6.67% | 13.33% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Flux making assets: / Lime kilns (incorporating rollers, tyres, support structures, drives, motors and gearboxes) | 25 years | 4.00% | 8.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Flux making assets: / Raw material crushers and ball mills | 15 years | 6.67% | 13.33% | 1 July 2010
@@ -69,93 +73,93 @@ Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making asset
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Lance pumps and motor assemblies | 15 years | 6.67% | 13.33% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Liquid oxygen lances (incorporating carriage system, motors, gearboxes, brake lance carriages, lance guides, lances and switches) | 10 years | 10.00% | 20.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Liquid oxygen supply pipes | 10 years | 10.00% | 20.00% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Materials handling assets: | | | |
+Asset group · Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Materials handling assets: | | | |
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Materials handling assets: / Air blowers | 15 years | 6.67% | 13.33% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Materials handling assets: / Bins | 20 years | 5.00% | 10.00% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Materials handling assets: / Bucket elevators | 20 years | 5.00% | 10.00% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Materials handling assets: / Conveyor systems (incorporating structures, belts, gearboxes and motors) | 20 years | 5.00% | 10.00% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Materials handling assets: / Cyclones | 10 years | 10.00% | 20.00% | 1 July 2010
+Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Bins (Materials handling assets) | 20 years | 5.00% | 10.00% | 1 July 2010
+Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Materials handling assets: / Bucket elevators (Iron smelting and steel manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2010
+Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Materials handling assets: / Conveyor systems (incorporating structures, belts, gearboxes and motors) (Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets / Materials handling assets / Iron smelting and steel manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2010
+Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Cyclones (Materials handling assets) | 10 years | 10.00% | 20.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Materials handling assets: / Hoppers, weigh hoppers, chutes, silos | 20 years | 5.00% | 10.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Materials handling assets: / Scrap metal buckets, skips and stands | 20 years | 5.00% | 10.00% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Materials handling assets: / Screens and weighing systems | 15 years | 6.67% | 13.33% | 1 July 2010
+Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Materials handling assets: / Screens and weighing systems (Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets / Materials handling assets / Iron smelting and steel manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Materials handling assets: / Vibro feeders | 15 years | 6.67% | 13.33% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Materials handling assets: / Vibrators | 15 years | 6.67% | 13.33% | 1 July 2010
+Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Vibrators (Materials handling assets) | 15 years | 6.67% | 13.33% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Materials handling assets: / Weighbridges (incorporating load cells) | 20 years | 5.00% | 10.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Pneumatic air tube systems (incorporating blower units) | 20 years | 5.00% | 10.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Scull breakers | 10 years | 10.00% | 20.00% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Secondary treatment assets: | | | |
+Asset group · Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Secondary treatment assets: | | | |
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Secondary treatment assets: / Composition adjustment stations (including Injection Reheating Up Temperature (IRUT) stations incorporating snorkels, support structures and motors) | 20 years | 5.00% | 10.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Secondary treatment assets: / Ladle metallurgical furnaces (LMFs) | 20 years | 5.00% | 10.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Secondary treatment assets: / Vacuum degassers (incorporating steam pumps and vacuum pumps) | 10 years | 10.00% | 20.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Slag rakes | 10 years | 10.00% | 20.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Steel ladles (incorporating tilting bales, thrusters, cassettes, shells, lids and linings) | 20 years | 5.00% | 10.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Sub or sampling lances (incorporating motors, drives, gearboxes, limit switches, over speed switches, drums, cables and slow motors) | 10 years | 10.00% | 20.00% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: | | | |
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Cooling towers (incorporating fans, motors, access platforms and stairs) | 20 years | 5.00% | 10.00% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Heat exchangers | 10 years | 10.00% | 20.00% | 1 July 2010
+Asset group · Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: | | | |
+Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Cooling towers (incorporating fans, motors, access platforms and stairs) (Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets / Water treatment assets / Iron smelting and steel manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2010
+Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Heat exchangers (Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets / Water treatment assets / Iron smelting and steel manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Launder distribution and collection systems | 15 years | 6.67% | 13.33% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Pipes and pipelines: | | | |
+Asset group · Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Pipes and pipelines: | | | |
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Pipes and pipelines: / Slurry disposal pipelines | 15 years | 6.67% | 13.33% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Pipes and pipelines: / Water pipes | 20 years | 5.00% | 10.00% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Pipes and pipelines: / Valves and other non-pipe fittings | 10 years | 10.00% | 20.00% | 1 July 2010
+Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Valves and other non-pipe fittings (Pipes and pipelines) | 10 years | 10.00% | 20.00% | 1 July 2010
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Pumps (including slurry disposal pumps) | 15 years | 6.67% | 13.33% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Settling ponds | 30 years | 3.33% | 6.67% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Tanks: | | | |
+Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Settling ponds (Water treatment assets) | 30 years | 3.33% | 6.67% | 1 July 2010
+Asset group · Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Tanks: | | | |
 Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Tanks: / Conditioner, slurry, polymer, liquid flocculants and mixer tanks | 20 years | 5.00% | 10.00% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Tanks: / Water tanks | 25 years | 4.00% | 8.00% | 1 July 2010
-Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Thickeners and clarifiers (incorporating tanks, rakes and access platforms) | 30 years | 3.33% | 6.67% | 1 July 2010
-Blast furnace assets: | | | |
-Blast furnace assets: / Cast house assets: | | | |
+Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Tanks: / Water tanks (Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets / Water treatment assets / Tanks / Iron smelting and steel manufacturing) | 25 years | 4.00% | 8.00% | 1 July 2010
+Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: / Water treatment assets: / Thickeners and clarifiers (incorporating tanks, rakes and access platforms) (Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets / Water treatment assets / Iron smelting and steel manufacturing) | 30 years | 3.33% | 6.67% | 1 July 2010
+Asset group · Blast furnace assets: | | | |
+Asset group · Blast furnace assets: / Cast house assets: | | | |
 Blast furnace assets: / Cast house assets: / Cast house floor iron and slag runner systems, covers, and tilting spouts | 5 years | 20.00% | 40.00% | 1 July 2010
 Blast furnace assets: / Cast house assets: / Cast house structure | 40 years | 2.50% | 5.00% | 1 July 2010
 Blast furnace assets: / Cast house assets: / Common hydraulic systems | 15 years | 6.67% | 13.33% | 1 July 2010
-Blast furnace assets: / Cast house assets: / Manipulators | 15 years | 6.67% | 13.33% | 1 July 2010
+Blast furnace assets: / Manipulators (Cast house assets) | 15 years | 6.67% | 13.33% | 1 July 2010
 Blast furnace assets: / Cast house assets: / Mud guns | 15 years | 6.67% | 13.33% | 1 July 2010
 Blast furnace assets: / Cast house assets: / Taphole drills | 15 years | 6.67% | 13.33% | 1 July 2010
-Blast furnace assets: / Emissions control assets: | | | |
-Blast furnace assets: / Emissions control assets: / Baghouses | 20 years | 5.00% | 10.00% | 1 July 2010
+Asset group · Blast furnace assets: / Emissions control assets: | | | |
+Blast furnace assets: / Emissions control assets: / Baghouses (Blast furnace assets / Emissions control assets / Iron smelting and steel manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2010
 Blast furnace assets: / Emissions control assets: / Chimney mains | 30 years | 3.33% | 6.67% | 1 July 2010
-Blast furnace assets: / Emissions control assets: / De-dusting ducts and mains | 15 years | 6.67% | 13.33% | 1 July 2010
+Blast furnace assets: / Emissions control assets: / De-dusting ducts and mains (Blast furnace assets / Emissions control assets / Iron smelting and steel manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2010
 Blast furnace assets: / Emissions control assets: / Dust catchers (incorporating supporting structures) | 15 years | 6.67% | 13.33% | 1 July 2010
 Blast furnace assets: / Emissions control assets: / Excess gas bleeder systems | 20 years | 5.00% | 10.00% | 1 July 2010
 Blast furnace assets: / Emissions control assets: / Furnace top recovery turbine systems (incorporating hydraulic system, inlet and outlet mains and valves) | 20 years | 5.00% | 10.00% | 1 July 2010
 Blast furnace assets: / Emissions control assets: / Scrubbers (incorporating support structure and spray systems) | 15 years | 6.67% | 13.33% | 1 July 2010
 Blast furnace assets: / Emissions control assets: / Uptakes, bleeders and platforms, downcomers, dust dumping, valves and hydraulics | 15 years | 6.67% | 13.33% | 1 July 2010
-Blast furnace assets: / Emissions control assets: / Waste gas collector mains and ducts | 15 years | 6.67% | 13.33% | 1 July 2010
-Blast furnace assets: / Furnace proper assets: | | | |
+Blast furnace assets: / Emissions control assets: / Waste gas collector mains and ducts (Blast furnace assets / Emissions control assets / Iron smelting and steel manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2010
+Asset group · Blast furnace assets: / Furnace proper assets: | | | |
 Blast furnace assets: / Furnace proper assets: / Furnace charging tops (incorporating charging valves and hydraulics) | 15 years | 6.67% | 13.33% | 1 July 2010
 Blast furnace assets: / Furnace proper assets: / Furnace elevators | 15 years | 6.67% | 13.33% | 1 July 2010
 Blast furnace assets: / Furnace proper assets: / Furnace shells (incorporating hearths, refractory linings, staves, probes, profile meters and sondes) | 15 years | 6.67% | 13.33% | 1 July 2010
 Blast furnace assets: / Furnace proper assets: / Furnace support assets (including maintenance platforms and control and switch rooms) | 15 years | 6.67% | 13.33% | 1 July 2010
 Blast furnace assets: / Furnace proper assets: / Furnace support structure (incorporating foundations) | 40 years | 2.50% | 5.00% | 1 July 2010
-Blast furnace assets: / Hot blast system assets: | | | |
+Asset group · Blast furnace assets: / Hot blast system assets: | | | |
 Blast furnace assets: / Hot blast system assets: / Cold blast mains (incorporating snorts and mixer valves) | 15 years | 6.67% | 13.33% | 1 July 2010
 Blast furnace assets: / Hot blast system assets: / Hot blast mains (incorporating bustle mains, back draught mains and tuyere stock) | 15 years | 6.67% | 13.33% | 1 July 2010
 Blast furnace assets: / Hot blast system assets: / Stoves (incorporating refractory, shell, foundations, fan and valves) | 30 years | 3.33% | 6.67% | 1 July 2010
 Blast furnace assets: / Hot blast system assets: / Stoves mixed gas main systems | 15 years | 6.67% | 13.33% | 1 July 2010
-Blast furnace assets: / Materials handling assets: | | | |
+Asset group · Blast furnace assets: / Materials handling assets: | | | |
 Blast furnace assets: / Materials handling assets: / Furnace charging bins | 15 years | 6.67% | 13.33% | 1 July 2010
 Blast furnace assets: / Materials handling assets: / Furnace charging conveyor systems (incorporating structures, belts, gearboxes and motors) | 20 years | 5.00% | 10.00% | 1 July 2010
 Blast furnace assets: / Materials handling assets: / Furnace charging skip hoist | 20 years | 5.00% | 10.00% | 1 July 2010
 Blast furnace assets: / Materials handling assets: / Furnace charging skip tracks | 30 years | 3.33% | 6.67% | 1 July 2010
 Blast furnace assets: / Materials handling assets: / Furnace charging skips | 15 years | 6.67% | 13.33% | 1 July 2010
-Blast furnace assets: / Materials handling assets: / Screens and weighing systems | 15 years | 6.67% | 13.33% | 1 July 2010
+Blast furnace assets: / Materials handling assets: / Screens and weighing systems (Blast furnace assets / Materials handling assets / Iron smelting and steel manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2010
 Blast furnace assets: / Materials handling assets: / Torpedo cars | 17 years | 5.88% | 11.76% | 1 July 2010
-Blast furnace assets: / Water treatment assets: | | | |
-Blast furnace assets: / Water treatment assets: / Basins | 30 years | 3.33% | 6.67% | 1 July 2010
-Blast furnace assets: / Water treatment assets: / Cooling towers (incorporating fans, motors, access platforms and stairs) | 20 years | 5.00% | 10.00% | 1 July 2010
-Blast furnace assets: / Water treatment assets: / Heat exchangers | 10 years | 10.00% | 20.00% | 1 July 2010
-Blast furnace assets: / Water treatment assets: / Thickeners and clarifiers (incorporating tanks, rakes and access platforms) | 30 years | 3.33% | 6.67% | 1 July 2010
-Blast furnace assets: / Water treatment assets: / Valves and other non-pipe fittings | 8 years | 12.50% | 25.00% | 1 July 2010
+Asset group · Blast furnace assets: / Water treatment assets: | | | |
+Blast furnace assets: / Basins (Water treatment assets) | 30 years | 3.33% | 6.67% | 1 July 2010
+Blast furnace assets: / Water treatment assets: / Cooling towers (incorporating fans, motors, access platforms and stairs) (Blast furnace assets / Water treatment assets / Iron smelting and steel manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2010
+Blast furnace assets: / Water treatment assets: / Heat exchangers (Blast furnace assets / Water treatment assets / Iron smelting and steel manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2010
+Blast furnace assets: / Water treatment assets: / Thickeners and clarifiers (incorporating tanks, rakes and access platforms) (Blast furnace assets / Water treatment assets / Iron smelting and steel manufacturing) | 30 years | 3.33% | 6.67% | 1 July 2010
+Blast furnace assets: / Valves and other non-pipe fittings (Water treatment assets) | 8 years | 12.50% | 25.00% | 1 July 2010
 Blast furnace assets: / Water treatment assets: / Water distribution systems | 10 years | 10.00% | 20.00% | 1 July 2010
-Blast furnace assets: / Water treatment assets: / Water pumps | 10 years | 10.00% | 20.00% | 1 July 2010
-Coke making assets: | | | |
-Coke making assets: / Coal screening assets: | | | |
-Coke making assets: / Coal screening assets: / Crushers | 20 years | 5.00% | 10.00% | 1 July 2009
-Coke making assets: / Coal screening assets: / Hammer mills | 15 years | 6.67% | 13.33% | 1 July 2009
-Coke making assets: / Coal screening assets: / Hydrowashers | 20 years | 5.00% | 10.00% | 1 July 2009
+Blast furnace assets: / Water pumps (Water treatment assets) | 10 years | 10.00% | 20.00% | 1 July 2010
+Asset group · Coke making assets: | | | |
+Asset group · Coke making assets: / Coal screening assets: | | | |
+Coke making assets: / Crushers (Coal screening assets) | 20 years | 5.00% | 10.00% | 1 July 2009
+Coke making assets: / Hammer mills (Coal screening assets) | 15 years | 6.67% | 13.33% | 1 July 2009
+Coke making assets: / Hydrowashers (Coal screening assets) | 20 years | 5.00% | 10.00% | 1 July 2009
 Coke making assets: / Coal screening assets: / Primary, secondary and tertiary screens and chutes | 10 years | 10.00% | 20.00% | 1 July 2009
-Coke making assets: / Coke ovens batteries assets: | | | |
+Asset group · Coke making assets: / Coke ovens batteries assets: | | | |
 Coke making assets: / Coke ovens batteries assets: / Breeze basins | 30 years | 3.33% | 6.67% | 1 July 2009
 Coke making assets: / Coke ovens batteries assets: / Charging car rails | 20 years | 5.00% | 10.00% | 1 July 2009
 Coke making assets: / Coke ovens batteries assets: / Charging cars | 20 years | 5.00% | 10.00% | 1 July 2009
@@ -167,135 +171,135 @@ Coke making assets: / Coke ovens batteries assets: / Hot car spur lines | 30 yea
 Coke making assets: / Coke ovens batteries assets: / Hot cars (incorporating locomotive, wagon, tray and bogies) | 15 years | 6.67% | 13.33% | 1 July 2009
 Coke making assets: / Coke ovens batteries assets: / Quenchers (incorporating stack structures, water tanks, pipes, pumps, sprays, pneumatic systems and water pump pits) | 15 years | 6.67% | 13.33% | 1 July 2009
 Coke making assets: / Coke ovens batteries assets: / Ram tracks and live rails | 30 years | 3.33% | 6.67% | 1 July 2009
-Coke making assets: / Coke ovens batteries assets: / Rams | 30 years | 3.33% | 6.67% | 1 July 2009
-Coke making assets: / Coke ovens gas by-products assets: | | | |
-Coke making assets: / Coke ovens gas by-products assets: / Acid compound assets: | | | |
+Coke making assets: / Rams (Coke ovens batteries assets) | 30 years | 3.33% | 6.67% | 1 July 2009
+Asset group · Coke making assets: / Coke ovens gas by-products assets: | | | |
+Asset group · Coke making assets: / Coke ovens gas by-products assets: / Acid compound assets: | | | |
 Coke making assets: / Coke ovens gas by-products assets: / Acid compound assets: / Acid compound structures, pumps, overflow and storage tanks | 15 years | 6.67% | 13.33% | 1 July 2009
 Coke making assets: / Coke ovens gas by-products assets: / Ammonia absorbers (including pumps, ammonia storage tanks, and distribution pipes including valves) | 15 years | 6.67% | 13.33% | 1 July 2009
-Coke making assets: / Coke ovens gas by-products assets: / Ammonia plant assets: | | | |
+Asset group · Coke making assets: / Coke ovens gas by-products assets: / Ammonia plant assets: | | | |
 Coke making assets: / Coke ovens gas by-products assets: / Ammonia plant assets: / Ammonia incinerators, ammonia stills, tanks, decanters, pumps, condensers (including support structures, stacks) | 15 years | 6.67% | 13.33% | 1 July 2009
-Coke making assets: / Coke ovens gas by-products assets: / Benzine, toluene and xylene plant assets: | | | |
+Asset group · Coke making assets: / Coke ovens gas by-products assets: / Benzine, toluene and xylene plant assets: | | | |
 Coke making assets: / Coke ovens gas by-products assets: / Benzine, toluene and xylene plant assets: / Distillation columns, dephlegorators, pumps, tanks, coolers, condensers and pre heaters | 30 years | 3.33% | 6.67% | 1 July 2009
 Coke making assets: / Coke ovens gas by-products assets: / Benzol scrubbers (including pumps and distribution pipe work including valves) | 35 years | 2.86% | 5.71% | 1 July 2009
 Coke making assets: / Coke ovens gas by-products assets: / Exhausters (including support structures and hydraulic systems) | 5 years | 20.00% | 40.00% | 1 July 2009
 Coke making assets: / Coke ovens gas by-products assets: / Final coolers | 35 years | 2.86% | 5.71% | 1 July 2009
-Coke making assets: / Coke ovens gas by-products assets: / Napthalene plant assets: | | | |
+Asset group · Coke making assets: / Coke ovens gas by-products assets: / Napthalene plant assets: | | | |
 Coke making assets: / Coke ovens gas by-products assets: / Napthalene plant assets: / Sludge tanks, pre heaters, distillation columns, tanks, decanters, condensers, and pumps | 35 years | 2.86% | 5.71% | 1 July 2009
-Coke making assets: / Coke ovens gas by-products assets: / Primary cooler assets: | | | |
+Asset group · Coke making assets: / Coke ovens gas by-products assets: / Primary cooler assets: | | | |
 Coke making assets: / Coke ovens gas by-products assets: / Primary cooler assets: / Electric and steam pumps, tar tanks, strainers, salt water coolers (including supporting structures and distribution pipes to cooler off takes including valves) | 40 years | 2.50% | 5.00% | 1 July 2009
-Coke making assets: / Coke ovens gas by-products assets: / Sulphate plant assets: | | | |
+Asset group · Coke making assets: / Coke ovens gas by-products assets: / Sulphate plant assets: | | | |
 Coke making assets: / Coke ovens gas by-products assets: / Sulphate plant assets: / Feed tanks, evaporators, centrifuge units, conveyors (including belts, structures, drives and chutes, jet condensers, hot water tanks, driers including chutes, drives, and support structures, pumps, vibrating screens, cyclones, and scraper conveyors) | 10 years | 10.00% | 20.00% | 1 July 2009
-Coke making assets: / Coke ovens gas by-products assets: / Tar plant assets: | | | |
+Asset group · Coke making assets: / Coke ovens gas by-products assets: / Tar plant assets: | | | |
 Coke making assets: / Coke ovens gas by-products assets: / Tar plant assets: / Decanters, make tanks (incorporating scrapers and drives, storage tanks, steam and electric pumps, liquor tank and strainers) | 15 years | 6.67% | 13.33% | 1 July 2009
 Coke making assets: / Coke ovens gas by-products assets: / Tar precipitators | 20 years | 5.00% | 10.00% | 1 July 2009
-Coke making assets: / Emissions control assets: | | | |
-Coke making assets: / Emissions control assets: / Waste gas cleaning and dedusting assets: | | | |
-Coke making assets: / Emissions control assets: / Waste gas cleaning and dedusting assets: / Baghouses | 20 years | 5.00% | 10.00% | 1 July 2009
-Coke making assets: / Emissions control assets: / Waste gas cleaning and dedusting assets: / Dedusting fans (including extraction dusting incorporating gearboxes and drives) | 20 years | 5.00% | 10.00% | 1 July 2009
+Asset group · Coke making assets: / Emissions control assets: | | | |
+Asset group · Coke making assets: / Emissions control assets: / Waste gas cleaning and dedusting assets: | | | |
+Coke making assets: / Emissions control assets: / Baghouses (Waste gas cleaning and dedusting assets) | 20 years | 5.00% | 10.00% | 1 July 2009
+Coke making assets: / Emissions control assets: / Dedusting fans (including extraction dusting incorporating gearboxes and drives) (Waste gas cleaning and dedusting assets) | 20 years | 5.00% | 10.00% | 1 July 2009
 Coke making assets: / Emissions control assets: / Waste gas cleaning and dedusting assets: / Dust collection systems, dust drop out boxes and dust disposal rotary valves (incorporating motors and gearboxes) | 20 years | 5.00% | 10.00% | 1 July 2009
 Coke making assets: / Emissions control assets: / Waste gas cleaning and dedusting assets: / Fume extraction hoods | 20 years | 5.00% | 10.00% | 1 July 2009
-Coke making assets: / Emissions control assets: / Waste gas cleaning and dedusting assets: / Waste gas collector mains and ducts | 25 years | 4.00% | 8.00% | 1 July 2009
-Coke making assets: / Materials handling assets: | | | |
+Coke making assets: / Emissions control assets: / Waste gas cleaning and dedusting assets: / Waste gas collector mains and ducts (Coke making assets / Emissions control assets / Waste gas cleaning and dedusting assets / Iron smelting and steel manufacturing) | 25 years | 4.00% | 8.00% | 1 July 2009
+Asset group · Coke making assets: / Materials handling assets: | | | |
 Coke making assets: / Materials handling assets: / Bins (including furnace coke, dust disposal bins) | 20 years | 5.00% | 10.00% | 1 July 2009
-Coke making assets: / Materials handling assets: / Conveyor systems (incorporating structures, belts, gearboxes and motors) | 15 years | 6.67% | 13.33% | 1 July 2009
+Coke making assets: / Materials handling assets: / Conveyor systems (incorporating structures, belts, gearboxes and motors) (Coke making assets / Materials handling assets / Iron smelting and steel manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2009
 Coke making assets: / Materials handling assets: / Conveyor systems transfer houses | 15 years | 6.67% | 13.33% | 1 July 2009
 Coke making assets: / Materials handling assets: / Feed bunkers | 15 years | 6.67% | 13.33% | 1 July 2009
 Coke making assets: / Materials handling assets: / Motorised feeders | 15 years | 6.67% | 13.33% | 1 July 2009
-Coke making assets: / Water treatment assets: | | | |
-Coke making assets: / Water treatment assets: / Cooling towers (incorporating fans, motors, access platforms and stairs) | 25 years | 4.00% | 8.00% | 1 July 2009
-Hot strip mill assets: | | | |
+Asset group · Coke making assets: / Water treatment assets: | | | |
+Coke making assets: / Water treatment assets: / Cooling towers (incorporating fans, motors, access platforms and stairs) (Coke making assets / Water treatment assets / Iron smelting and steel manufacturing) | 25 years | 4.00% | 8.00% | 1 July 2009
+Asset group · Hot strip mill assets: | | | |
 Hot strip mill assets: / Coil and slab weighers | 15 years | 6.67% | 13.33% | 1 July 2010
-Hot strip mill assets: / Coil box and crop shear assets: | | | |
+Asset group · Hot strip mill assets: / Coil box and crop shear assets: | | | |
 Hot strip mill assets: / Coil box and crop shear assets: / Coil boxes (incorporating side guard drives and transfer mechanism assemblies) | 8 years | 12.50% | 25.00% | 1 July 2010
 Hot strip mill assets: / Coil box and crop shear assets: / Coil box shear and scale breakers | 17 years | 5.88% | 11.76% | 1 July 2010
 Hot strip mill assets: / Coil box and crop shear assets: / Crop shears (incorporating assemblies and main drive motors) | 17 years | 5.88% | 11.76% | 1 July 2010
 Hot strip mill assets: / Coil box and crop shear assets: / Crop shear maintenance jigs and pinch rolls | 15 years | 6.67% | 13.33% | 1 July 2010
 Hot strip mill assets: / Coil box and crop shear assets: / Transfer bed oxy cutting stations | 15 years | 6.67% | 13.33% | 1 July 2010
-Hot strip mill assets: / Coil handling assets: | | | |
+Asset group · Hot strip mill assets: / Coil handling assets: | | | |
 Hot strip mill assets: / Coil handling assets: / Cooling tunnel conveyors | 13 years | 7.69% | 15.38% | 1 July 2010
 Hot strip mill assets: / Coil handling assets: / Cooling tunnel ventilation fans | 10 years | 10.00% | 20.00% | 1 July 2010
 Hot strip mill assets: / Coil handling assets: / Marking machines | 15 years | 6.67% | 13.33% | 1 July 2010
 Hot strip mill assets: / De-scaling systems (incorporating scale breakers, nozzles, pipe works, valves and high pressure pumps) | 10 years | 10.00% | 20.00% | 1 July 2010
 Hot strip mill assets: / Down coiler assets (including coilers (incorporating side guards, mandrel, mandrel drives, wrappers and unit roll drives)) | 15 years | 6.67% | 13.33% | 1 July 2010
-Hot strip mill assets: / Finishing mill assets: | | | |
+Asset group · Hot strip mill assets: / Finishing mill assets: | | | |
 Hot strip mill assets: / Finishing mill assets: / Finishing mill flumes | 20 years | 5.00% | 10.00% | 1 July 2010
 Hot strip mill assets: / Finishing mill assets: / Finishing mills (incorporating mill stands, side guides, strippers, screw downs, drive shafts, pinion boxes, main drive motors, transformers, loopers, grease systems, oil circulation systems, and hydraulic systems) | 20 years | 5.00% | 10.00% | 1 July 2010
 Hot strip mill assets: / Laminar flow cooling systems | 15 years | 6.67% | 13.33% | 1 July 2010
-Hot strip mill assets: / Mill roll shop assets: | | | |
+Asset group · Hot strip mill assets: / Mill roll shop assets: | | | |
 Hot strip mill assets: / Mill roll shop assets: / Bearing washing machines | 10 years | 10.00% | 20.00% | 1 July 2010
 Hot strip mill assets: / Mill roll shop assets: / Chuck changers | 15 years | 6.67% | 13.33% | 1 July 2010
 Hot strip mill assets: / Mill roll shop assets: / Floor plate or checker plate machines | 15 years | 6.67% | 13.33% | 1 July 2010
 Hot strip mill assets: / Mill roll shop assets: / Roll grinders | 15 years | 6.67% | 13.33% | 1 July 2010
 Hot strip mill assets: / Mill roll shop assets: / Roll lathes | 20 years | 5.00% | 10.00% | 1 July 2010
 Hot strip mill assets: / Mill roll shop assets: / Roll racks and sleds | 20 years | 5.00% | 10.00% | 1 July 2010
-Hot strip mill assets: / Reversing roughing mill assets: | | | |
+Asset group · Hot strip mill assets: / Reversing roughing mill assets: | | | |
 Hot strip mill assets: / Reversing roughing mill assets: / Reversing roughing mills (incorporating mill stands, entry side guards, delivery side guards, main drive motors and hydraulic systems) | 20 years | 5.00% | 10.00% | 1 July 2010
 Hot strip mill assets: / Reversing roughing mill assets: / Vertical edgers (incorporating drive motors, gearboxes and edger adjustments) | 20 years | 5.00% | 10.00% | 1 July 2010
 Hot strip mill assets: / Roll changing assets | 20 years | 5.00% | 10.00% | 1 July 2010
 Hot strip mill assets: / Scale scrapers | 15 years | 6.67% | 13.33% | 1 July 2010
-Hot strip mill assets: / Skin pass mill assets: | | | |
+Asset group · Hot strip mill assets: / Skin pass mill assets: | | | |
 Hot strip mill assets: / Skin pass mill assets: / Skin pass mills (incorporating mill entry assets, gap control and auxiliary hydraulics, main drive motors, payoff reel, un-coiler mandrels and re-coiler mandrels) | 20 years | 5.00% | 10.00% | 1 July 2010
 Hot strip mill assets: / Skin pass mill assets: / Tension reels and belt wrappers | 15 years | 6.67% | 13.33% | 1 July 2010
 Hot strip mill assets: / Skin pass mill assets: / Laser systems mill entry | 5 years | 20.00% | 40.00% | 1 July 2010
 Hot strip mill assets: / Slab tracking systems | 5 years | 20.00% | 40.00% | 1 July 2010
 Hot strip mill assets: / Strapping machines (including radial and circumferential) | 13 years | 7.69% | 15.38% | 1 July 2010
-Hot strip mill assets: / Walking beam furnace assets: | | | |
+Asset group · Hot strip mill assets: / Walking beam furnace assets: | | | |
 Hot strip mill assets: / Walking beam furnace assets: / Air dilution manifolds | 20 years | 5.00% | 10.00% | 1 July 2010
 Hot strip mill assets: / Walking beam furnace assets: / Air ducts | 10 years | 10.00% | 20.00% | 1 July 2010
 Hot strip mill assets: / Walking beam furnace assets: / Coke ovens gas systems | 15 years | 6.67% | 13.33% | 1 July 2010
 Hot strip mill assets: / Walking beam furnace assets: / Cold combustion air systems | 20 years | 5.00% | 10.00% | 1 July 2010
 Hot strip mill assets: / Walking beam furnace assets: / Dilution blowers | 10 years | 10.00% | 20.00% | 1 July 2010
-Hot strip mill assets: / Walking beam furnace assets: / Extractors | 10 years | 10.00% | 20.00% | 1 July 2010
+Hot strip mill assets: / Extractors (Walking beam furnace assets) | 10 years | 10.00% | 20.00% | 1 July 2010
 Hot strip mill assets: / Walking beam furnace assets: / Furnaces (incorporating structure, charging machines with synchronising drive trains, refractories, walking beam floors, furnace hydraulic systems, and charge and discharge doors) | 20 years | 5.00% | 10.00% | 1 July 2010
 Hot strip mill assets: / Walking beam furnace assets: / Nitrogen purge systems | 15 years | 6.67% | 13.33% | 1 July 2010
 Hot strip mill assets: / Walking beam furnace assets: / Tracking lasers (incorporating cables and adapters) | 5 years | 20.00% | 40.00% | 1 July 2010
-Pellet making assets: | | | |
-Pellet making assets: / Balling assets: | | | |
+Asset group · Pellet making assets: | | | |
+Asset group · Pellet making assets: / Balling assets: | | | |
 Pellet making assets: / Balling assets: / Balling drums | 20 years | 5.00% | 10.00% | 1 July 2010
 Pellet making assets: / Balling assets: / Bentonite tanks | 20 years | 5.00% | 10.00% | 1 July 2010
-Pellet making assets: / Balling assets: / Mixers | 20 years | 5.00% | 10.00% | 1 July 2010
+Pellet making assets: / Mixers (Balling assets) | 20 years | 5.00% | 10.00% | 1 July 2010
 Pellet making assets: / Balling assets: / Seed screens | 10 years | 10.00% | 20.00% | 1 July 2010
-Pellet making assets: / Cooler assets: | | | |
-Pellet making assets: / Cooler assets: / Cooler fans | 10 years | 10.00% | 20.00% | 1 July 2010
+Asset group · Pellet making assets: / Cooler assets: | | | |
+Pellet making assets: / Cooler assets: / Cooler fans (Pellet making assets / Cooler assets / Iron smelting and steel manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2010
 Pellet making assets: / Cooler assets: / Annular coolers (incorporating pans, pan conveyors and drives) | 25 years | 4.00% | 8.00% | 1 July 2010
 Pellet making assets: / Cooler assets: / Roller screens | 10 years | 10.00% | 20.00% | 1 July 2010
-Pellet making assets: / Dewatering assets: | | | |
-Pellet making assets: / Dewatering assets: / Launders | 20 years | 5.00% | 10.00% | 1 July 2010
+Asset group · Pellet making assets: / Dewatering assets: | | | |
+Pellet making assets: / Launders (Dewatering assets) | 20 years | 5.00% | 10.00% | 1 July 2010
 Pellet making assets: / Dewatering assets: / Pressure filter pumps | 5 years | 20.00% | 40.00% | 1 July 2010
 Pellet making assets: / Dewatering assets: / Process water tanks | 20 years | 5.00% | 10.00% | 1 July 2010
 Pellet making assets: / Dewatering assets: / Return water pipes | 20 years | 5.00% | 10.00% | 1 July 2010
 Pellet making assets: / Dewatering assets: / Slurry feed pipes | 10 years | 10.00% | 20.00% | 1 July 2010
 Pellet making assets: / Dewatering assets: / Slurry pumps | 10 years | 10.00% | 20.00% | 1 July 2010
 Pellet making assets: / Dewatering assets: / Slurry tanks (incorporating agitators) | 15 years | 6.67% | 13.33% | 1 July 2010
-Pellet making assets: / Dewatering assets: / Sumps | 20 years | 5.00% | 10.00% | 1 July 2010
+Pellet making assets: / Sumps (Dewatering assets) | 20 years | 5.00% | 10.00% | 1 July 2010
 Pellet making assets: / Dewatering assets: / Thickeners (incorporating tanks, rakes and access platforms) | 20 years | 5.00% | 10.00% | 1 July 2010
 Pellet making assets: / Dewatering assets: / Vertical plate pressure filters (incorporating filters, plates, membranes, water sprays, ladders, bomb bay doors) | 20 years | 5.00% | 10.00% | 1 July 2010
-Pellet making assets: / Emissions control assets: | | | |
-Pellet making assets: / Emissions control assets: / Compressors | 20 years | 5.00% | 10.00% | 1 July 2010
+Asset group · Pellet making assets: / Emissions control assets: | | | |
+Pellet making assets: / Compressors (Emissions control assets) | 20 years | 5.00% | 10.00% | 1 July 2010
 Pellet making assets: / Emissions control assets: / Dust collection system | 20 years | 5.00% | 10.00% | 1 July 2010
-Pellet making assets: / Emissions control assets: / Multi-cone | 20 years | 5.00% | 10.00% | 1 July 2010
-Pellet making assets: / Emissions control assets: / Scrubbers | 20 years | 5.00% | 10.00% | 1 July 2010
-Pellet making assets: / Emissions control assets: / Waste gas collector mains and ducts | 20 years | 5.00% | 10.00% | 1 July 2010
+Pellet making assets: / Multi-cone (Emissions control assets) | 20 years | 5.00% | 10.00% | 1 July 2010
+Pellet making assets: / Scrubbers (Emissions control assets) | 20 years | 5.00% | 10.00% | 1 July 2010
+Pellet making assets: / Emissions control assets: / Waste gas collector mains and ducts (Pellet making assets / Emissions control assets / Iron smelting and steel manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2010
 Pellet making assets: / Emissions control assets: / Waste gas extractor fans | 20 years | 5.00% | 10.00% | 1 July 2010
 Pellet making assets: / Fluxing tanks | 20 years | 5.00% | 10.00% | 1 July 2010
-Pellet making assets: / Grinding mills | 15 years | 6.67% | 13.33% | 1 July 2010
-Pellet making assets: / Induration assets: | | | |
-Pellet making assets: / Induration assets: / Kiln burner units (incorporating gas and firing systems) | 15 years | 6.67% | 13.33% | 1 July 2010
+Grinding mills (Pellet making assets) | 15 years | 6.67% | 13.33% | 1 July 2010
+Asset group · Pellet making assets: / Induration assets: | | | |
+Pellet making assets: / Kiln burner units (incorporating gas and firing systems) (Induration assets) | 15 years | 6.67% | 13.33% | 1 July 2010
 Pellet making assets: / Induration assets: / Rotary kilns (incorporating bearings, drive gear and drive system) | 30 years | 3.33% | 6.67% | 1 July 2010
 Pellet making assets: / Induration assets: / Travelling grates (incorporating motors, gearboxes or drives and rollers) | 30 years | 3.33% | 6.67% | 1 July 2010
 Pellet making assets: / Induration assets: / Waste heat recovery ducts | 15 years | 6.67% | 13.33% | 1 July 2010
 Pellet making assets: / Induration assets: / Waste heat recovery fans | 10 years | 10.00% | 20.00% | 1 July 2010
-Pellet making assets: / Materials handling assets: | | | |
-Pellet making assets: / Materials handling assets: / Conveyor systems (incorporating structures, belts, gearboxes and motors): | | | |
+Asset group · Pellet making assets: / Materials handling assets: | | | |
+Asset group · Pellet making assets: / Materials handling assets: / Conveyor systems (incorporating structures, belts, gearboxes and motors): | | | |
 Pellet making assets: / Materials handling assets: / Conveyor systems (incorporating structures, belts, gearboxes and motors): / Conveyors to and from balling drums | 20 years | 5.00% | 10.00% | 1 July 2010
 Pellet making assets: / Materials handling assets: / Conveyor systems (incorporating structures, belts, gearboxes and motors): / Filter cake conveyors | 20 years | 5.00% | 10.00% | 1 July 2010
 Pellet making assets: / Materials handling assets: / Conveyor systems (incorporating structures, belts, gearboxes and motors): / Finished pellet conveyor | 20 years | 5.00% | 10.00% | 1 July 2010
 Pellet making assets: / Materials handling assets: / Flux bins | 20 years | 5.00% | 10.00% | 1 July 2010
 Pellet making assets: / Materials handling assets: / Roller feeders | 10 years | 10.00% | 20.00% | 1 July 2010
 Pellet making assets: / Materials handling assets: / Table feeders | 10 years | 10.00% | 20.00% | 1 July 2010
-Pellet making assets: / Materials handling assets: / Vibrating feeders | 10 years | 10.00% | 20.00% | 1 July 2010
-Pellet making assets: / Materials handling assets: / Weigh feeders | 10 years | 10.00% | 20.00% | 1 July 2010
-Plate mill assets: | | | |
+Pellet making assets: / Vibrating feeders (Materials handling assets) | 10 years | 10.00% | 20.00% | 1 July 2010
+Pellet making assets: / Weigh feeders (Materials handling assets) | 10 years | 10.00% | 20.00% | 1 July 2010
+Asset group · Plate mill assets: | | | |
 Plate mill assets: / Cold levellers (incorporating motor, gearbox spindles, hydraulic traverse cylinders, fill-in table rolls, motor, gearbox, rolls and catenaries) | 30 years | 3.33% | 6.67% | 1 July 2010
 Plate mill assets: / De-scaling boxes (incorporating sprays, mechanicals, control valves pipe work after isolation valves, de-scaling box table rolls, tables, chains, covers, side guides and covers) | 10 years | 10.00% | 20.00% | 1 July 2010
 Plate mill assets: / Edgers (incorporating motors, hydraulic controls, mechanical controls, anvil (carryover table), hand rails and walkways) | 20 years | 5.00% | 10.00% | 1 July 2010
@@ -310,8 +314,8 @@ Plate mill assets: / Shears (including crop, divide, scrap, rotary trim, guillot
 Plate mill assets: / Slab sizing systems (incorporating side guard measuring devices and stands, slab sizing unit supports, cameras and light banks) | 5 years | 20.00% | 40.00% | 1 July 2010
 Plate mill assets: / Turnover inspection table (incorporating barriers and hydraulics) | 20 years | 5.00% | 10.00% | 1 July 2010
 Plate mill assets: / Walking beam cooling beds (incorporating carry on section, carry off section, moving (walking) section, chain drives and hydraulics) | 20 years | 5.00% | 10.00% | 1 July 2010
-Primary metal product casting assets: | | | |
-Primary metal product casting assets: / Continuous casting machines (incorporating turrets, tundishes (incorporating lids and cassettes), tundish cars, moulds, dummy bars, segments, oscillators, rolls, water sprays, hydraulics, motors and gearboxes): | | | |
+Asset group · Primary metal product casting assets: | | | |
+Asset group · Primary metal product casting assets: / Continuous casting machines (incorporating turrets, tundishes (incorporating lids and cassettes), tundish cars, moulds, dummy bars, segments, oscillators, rolls, water sprays, hydraulics, motors and gearboxes): | | | |
 Primary metal product casting assets: / Continuous casting machines (incorporating turrets, tundishes (incorporating lids and cassettes), tundish cars, moulds, dummy bars, segments, oscillators, rolls, water sprays, hydraulics, motors and gearboxes): / Billet casters | 17 years | 5.88% | 11.76% | 1 July 2010
 Primary metal product casting assets: / Continuous casting machines (incorporating turrets, tundishes (incorporating lids and cassettes), tundish cars, moulds, dummy bars, segments, oscillators, rolls, water sprays, hydraulics, motors and gearboxes): / Combination casters | 17 years | 5.88% | 11.76% | 1 July 2010
 Primary metal product casting assets: / Continuous casting machines (incorporating turrets, tundishes (incorporating lids and cassettes), tundish cars, moulds, dummy bars, segments, oscillators, rolls, water sprays, hydraulics, motors and gearboxes): / Slab casters | 17 years | 5.88% | 11.76% | 1 July 2010
@@ -319,13 +323,13 @@ Primary metal product casting assets: / Cooler transfer arms (incorporating moto
 Primary metal product casting assets: / Crop removal machines | 20 years | 5.00% | 10.00% | 1 July 2010
 Primary metal product casting assets: / Cut to length machines and torch cutters | 15 years | 6.67% | 13.33% | 1 July 2010
 Primary metal product casting assets: / De-burring machines (incorporating fixed drives) | 15 years | 6.67% | 13.33% | 1 July 2010
-Primary metal product casting assets: / Emissions control assets: | | | |
-Primary metal product casting assets: / Emissions control assets: / Baghouses | 20 years | 5.00% | 10.00% | 1 July 2010
-Primary metal product casting assets: / Emissions control assets: / Dedusting fans (including extraction dusting incorporating gearboxes and drives) | 15 years | 6.67% | 13.33% | 1 July 2010
+Asset group · Primary metal product casting assets: / Emissions control assets: | | | |
+Primary metal product casting assets: / Emissions control assets: / Baghouses (Primary metal product casting assets / Emissions control assets / Iron smelting and steel manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2010
+Primary metal product casting assets: / Dedusting fans (including extraction dusting incorporating gearboxes and drives) (Emissions control assets) | 15 years | 6.67% | 13.33% | 1 July 2010
 Primary metal product casting assets: / Emissions control assets: / Dedusting ducts and mains | 15 years | 6.67% | 13.33% | 1 July 2010
 Primary metal product casting assets: / Emissions control assets: / Steam exhaust fans | 10 years | 10.00% | 20.00% | 1 July 2010
 Primary metal product casting assets: / Hydraulic shears | 17 years | 5.88% | 11.76% | 1 July 2010
-Primary metal product casting assets: / Materials handling assets: | | | |
+Asset group · Primary metal product casting assets: / Materials handling assets: | | | |
 Primary metal product casting assets: / Materials handling assets: / Conveyor systems (including structures, belts, gearboxes and motors) | 20 years | 5.00% | 10.00% | 1 July 2010
 Primary metal product casting assets: / Materials handling assets: / Mould powder bins | 23 years | 4.35% | 8.70% | 1 July 2010
 Primary metal product casting assets: / Materials handling assets: / Screw feeders | 15 years | 6.67% | 13.33% | 1 July 2010
@@ -335,23 +339,23 @@ Primary metal product casting assets: / Slab or billet marking machines | 17 yea
 Primary metal product casting assets: / Transfer beds | 17 years | 5.88% | 11.76% | 1 July 2010
 Primary metal product casting assets: / Up-enders (including hydraulics) | 17 years | 5.88% | 11.76% | 1 July 2010
 Primary metal product casting assets: / Walking beam cooling beds and run out tables | 17 years | 5.88% | 11.76% | 1 July 2010
-Primary metal product casting assets: / Water treatment assets: | | | |
+Asset group · Primary metal product casting assets: / Water treatment assets: | | | |
 Primary metal product casting assets: / Water treatment assets: / Basins and ponds | 30 years | 3.33% | 6.67% | 1 July 2010
-Primary metal product casting assets: / Water treatment assets: / Cooling towers (incorporating fans, motors, access platforms and stairs) | 20 years | 5.00% | 10.00% | 1 July 2010
+Primary metal product casting assets: / Water treatment assets: / Cooling towers (incorporating fans, motors, access platforms and stairs) (Primary metal product casting assets / Water treatment assets / Iron smelting and steel manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2010
 Primary metal product casting assets: / Water treatment assets: / Gravel and sand filters | 25 years | 4.00% | 8.00% | 1 July 2010
-Primary metal product casting assets: / Water treatment assets: / Heat exchangers | 10 years | 10.00% | 20.00% | 1 July 2010
-Primary metal product casting assets: / Water treatment assets: / Pipelines: | | | |
+Primary metal product casting assets: / Water treatment assets: / Heat exchangers (Primary metal product casting assets / Water treatment assets / Iron smelting and steel manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2010
+Asset group · Primary metal product casting assets: / Water treatment assets: / Pipelines: | | | |
 Primary metal product casting assets: / Water treatment assets: / Pipelines: / Water pipelines | 20 years | 5.00% | 10.00% | 1 July 2010
-Primary metal product casting assets: / Water treatment assets: / Pipelines: / Valves and other non-pipe fittings | 10 years | 10.00% | 20.00% | 1 July 2010
-Primary metal product casting assets: / Water treatment assets: / Pumps: | | | |
-Primary metal product casting assets: / Water treatment assets: / Pumps: / Water pumps | 10 years | 10.00% | 20.00% | 1 July 2010
-Primary metal product casting assets: / Water treatment assets: / Pumps: / Chemical dosing pumps | 5 years | 20.00% | 40.00% | 1 July 2010
+Primary metal product casting assets: / Water treatment assets: / Valves and other non-pipe fittings (Pipelines) | 10 years | 10.00% | 20.00% | 1 July 2010
+Asset group · Primary metal product casting assets: / Water treatment assets: / Pumps: | | | |
+Primary metal product casting assets: / Water treatment assets: / Pumps: / Water pumps (Iron smelting and steel manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2010
+Primary metal product casting assets: / Water treatment assets: / Chemical dosing pumps (Pumps) | 5 years | 20.00% | 40.00% | 1 July 2010
 Primary metal product casting assets: / Water treatment assets: / Skimmers and scrapers | 15 years | 6.67% | 13.33% | 1 July 2010
-Primary metal product casting assets: / Water treatment assets: / Tanks: | | | |
+Asset group · Primary metal product casting assets: / Water treatment assets: / Tanks: | | | |
 Primary metal product casting assets: / Water treatment assets: / Tanks: / Sludge, chemical storage and dosing tanks | 20 years | 5.00% | 10.00% | 1 July 2010
-Primary metal product casting assets: / Water treatment assets: / Tanks: / Water tanks | 25 years | 4.00% | 8.00% | 1 July 2010
-Primary metal product casting assets: / Water treatment assets: / Thickeners and clarifiers (incorporating tanks, rakes and access platforms) | 30 years | 3.33% | 6.67% | 1 July 2010
-Rod, bar, structural and rail mill assets: | | | |
+Primary metal product casting assets: / Water treatment assets: / Tanks: / Water tanks (Primary metal product casting assets / Water treatment assets / Tanks / Iron smelting and steel manufacturing) | 25 years | 4.00% | 8.00% | 1 July 2010
+Primary metal product casting assets: / Water treatment assets: / Thickeners and clarifiers (incorporating tanks, rakes and access platforms) (Primary metal product casting assets / Water treatment assets / Iron smelting and steel manufacturing) | 30 years | 3.33% | 6.67% | 1 July 2010
+Asset group · Rod, bar, structural and rail mill assets: | | | |
 Rod, bar, structural and rail mill assets: / Controlled tempering quenching cars | 10 years | 10.00% | 20.00% | 1 July 2010
 Rod, bar, structural and rail mill assets: / Cut to length machines | 17 years | 5.88% | 11.76% | 1 July 2010
 Rod, bar, structural and rail mill assets: / De-scaling systems (incorporating scale breaker, nozzles, pipe work, valves and high pressure pump) | 10 years | 10.00% | 20.00% | 1 July 2010
@@ -361,121 +365,121 @@ Rod, bar, structural and rail mill assets: / Intermediate mills (incorporating m
 Rod, bar, structural and rail mill assets: / Reversing roughing mills (incorporating motors, gearboxes, drives, guides and cassettes) | 20 years | 5.00% | 10.00% | 1 July 2010
 Rod, bar, structural and rail mill assets: / Roughing mills (incorporating motors, gearboxes, drives, guides and cassettes) | 20 years | 5.00% | 10.00% | 1 July 2010
 Rod, bar, structural and rail mill assets: / Shears (incorporating motors and drives) | 17 years | 5.88% | 11.76% | 1 July 2010
-Rod, bar, structural and rail mill assets: / Stacker/bundlers | 12 years | 8.33% | 16.67% | 1 July 2010
-Rod, bar, structural and rail mill assets: / Straighteners | 20 years | 5.00% | 10.00% | 1 July 2010
+Stacker/bundlers (Rod, bar, structural and rail mill assets) | 12 years | 8.33% | 16.67% | 1 July 2010
+Straighteners (Rod, bar, structural and rail mill assets) | 20 years | 5.00% | 10.00% | 1 July 2010
 Rod, bar, structural and rail mill assets: / Walking beam cooling beds | 20 years | 5.00% | 10.00% | 1 July 2010
 Rod, bar, structural and rail mill assets: / Walking beam, natural gas furnaces (incorporating structure, refractories, walking beam floors, furnace hydraulic systems, and charge and discharge doors) | 20 years | 5.00% | 10.00% | 1 July 2010
-Sinter making assets: | | | |
-Sinter making assets: / Cooler assets: | | | |
-Sinter making assets: / Cooler assets: / Cooler fans | 10 years | 10.00% | 20.00% | 1 July 2009
+Asset group · Sinter making assets: | | | |
+Asset group · Sinter making assets: / Cooler assets: | | | |
+Sinter making assets: / Cooler assets: / Cooler fans (Sinter making assets / Cooler assets / Iron smelting and steel manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2009
 Sinter making assets: / Cooler assets: / Coolers (incorporating pan conveyors and drives) | 25 years | 4.00% | 8.00% | 1 July 2009
-Sinter making assets: / Emissions control assets: | | | |
-Sinter making assets: / Emissions control assets: / Waste gas cleaning and dedusting assets: | | | |
+Asset group · Sinter making assets: / Emissions control assets: | | | |
+Asset group · Sinter making assets: / Emissions control assets: / Waste gas cleaning and dedusting assets: | | | |
 Sinter making assets: / Emissions control assets: / Waste gas cleaning and dedusting assets: / Activated carbon packed bed filters | 15 years | 6.67% | 13.33% | 1 July 2009
-Sinter making assets: / Emissions control assets: / Waste gas cleaning and dedusting assets: / Dedusting fans | 10 years | 10.00% | 20.00% | 1 July 2009
+Sinter making assets: / Emissions control assets: / Dedusting fans (Waste gas cleaning and dedusting assets) | 10 years | 10.00% | 20.00% | 1 July 2009
 Sinter making assets: / Emissions control assets: / Waste gas cleaning and dedusting assets: / Electrostatic precipitators and scraper chains | 20 years | 5.00% | 10.00% | 1 July 2009
-Sinter making assets: / Emissions control assets: / Waste gas cleaning and dedusting assets: / Waste gas collector mains and ducts | 20 years | 5.00% | 10.00% | 1 July 2009
-Sinter making assets: / Feed sequence assets: | | | |
+Sinter making assets: / Emissions control assets: / Waste gas cleaning and dedusting assets: / Waste gas collector mains and ducts (Sinter making assets / Emissions control assets / Waste gas cleaning and dedusting assets / Iron smelting and steel manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2009
+Asset group · Sinter making assets: / Feed sequence assets: | | | |
 Sinter making assets: / Feed sequence assets: / Feed rolls | 7 years | 14.29% | 28.57% | 1 July 2009
 Sinter making assets: / Feed sequence assets: / Mixing and rolling drums | 30 years | 3.33% | 6.67% | 1 July 2009
-Sinter making assets: / Materials handling assets: | | | |
-Sinter making assets: / Materials handling assets: / Belt weighers | 5 years | 20.00% | 40.00% | 1 July 2009
-Sinter making assets: / Materials handling assets: / Bins: | | | |
+Asset group · Sinter making assets: / Materials handling assets: | | | |
+Sinter making assets: / Belt weighers (Materials handling assets) | 5 years | 20.00% | 40.00% | 1 July 2009
+Asset group · Sinter making assets: / Materials handling assets: / Bins: | | | |
 Sinter making assets: / Materials handling assets: / Bins: / Coke bins | 15 years | 6.67% | 13.33% | 1 July 2009
 Sinter making assets: / Materials handling assets: / Bins: / Ore bins | 23 years | 4.35% | 8.70% | 1 July 2009
 Sinter making assets: / Materials handling assets: / Bins: / Sinter bins | 17 years | 5.88% | 11.76% | 1 July 2009
-Sinter making assets: / Materials handling assets: / Chutes | 15 years | 6.67% | 13.33% | 1 July 2009
-Sinter making assets: / Materials handling assets: / Conveyor systems (incorporating structures, belts, gearboxes and motors) | 17 years | 5.88% | 11.76% | 1 July 2009
-Sinter making assets: / Materials handling assets: / Feeders: | | | |
-Sinter making assets: / Materials handling assets: / Feeders: / Coke | 15 years | 6.67% | 13.33% | 1 July 2009
-Sinter making assets: / Materials handling assets: / Feeders: / Ore | 23 years | 4.35% | 8.70% | 1 July 2009
-Sinter making assets: / Materials handling assets: / Feeders: / Sinter | 17 years | 5.88% | 11.76% | 1 July 2009
-Sinter making assets: / Materials handling assets: / Weigh feeders: | | | |
-Sinter making assets: / Materials handling assets: / Weigh feeders: / Coke | 15 years | 6.67% | 13.33% | 1 July 2009
-Sinter making assets: / Materials handling assets: / Weigh feeders: / Ore | 23 years | 4.35% | 8.70% | 1 July 2009
-Sinter making assets: / Strand assets: | | | |
+Sinter making assets: / Chutes (Materials handling assets) | 15 years | 6.67% | 13.33% | 1 July 2009
+Sinter making assets: / Materials handling assets: / Conveyor systems (incorporating structures, belts, gearboxes and motors) (Sinter making assets / Materials handling assets / Iron smelting and steel manufacturing) | 17 years | 5.88% | 11.76% | 1 July 2009
+Asset group · Sinter making assets: / Materials handling assets: / Feeders: | | | |
+Sinter making assets: / Materials handling assets: / Coke (Feeders) | 15 years | 6.67% | 13.33% | 1 July 2009
+Sinter making assets: / Materials handling assets: / Ore (Feeders) | 23 years | 4.35% | 8.70% | 1 July 2009
+Sinter making assets: / Materials handling assets: / Sinter (Feeders) | 17 years | 5.88% | 11.76% | 1 July 2009
+Asset group · Sinter making assets: / Materials handling assets: / Weigh feeders: | | | |
+Sinter making assets: / Materials handling assets: / Coke (Weigh feeders) | 15 years | 6.67% | 13.33% | 1 July 2009
+Sinter making assets: / Materials handling assets: / Ore (Weigh feeders) | 23 years | 4.35% | 8.70% | 1 July 2009
+Asset group · Sinter making assets: / Strand assets: | | | |
 Sinter making assets: / Strand assets: / Ignition furnaces (incorporating associated air and gas mains) | 15 years | 6.67% | 13.33% | 1 July 2009
 Sinter making assets: / Strand assets: / Preheat hoods (incorporating waste heat recovery fans and mains) | 7 years | 14.29% | 28.57% | 1 July 2009
 Sinter making assets: / Strand assets: / Spike roll crushers (incorporating bogey flex, electric motors, primary gearboxes, fluid couplings, grillage bars and crash decks) | 10 years | 10.00% | 20.00% | 1 July 2009
 Sinter making assets: / Strand assets: / Strand structures and drives (including conveyors, wind legs and dust troughs) | 20 years | 5.00% | 10.00% | 1 July 2009
-Sinter making assets: / Water treatment assets: | | | |
-Sinter making assets: / Water treatment assets: / Thickeners and clarifiers (incorporating tanks, rakes and access platforms) | 30 years | 3.33% | 6.67% | 1 July 2009
-Steel railway track product manufacturing assets: | | | |
-Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: | | | |
+Asset group · Sinter making assets: / Water treatment assets: | | | |
+Sinter making assets: / Water treatment assets: / Thickeners and clarifiers (incorporating tanks, rakes and access platforms) (Sinter making assets / Water treatment assets / Iron smelting and steel manufacturing) | 30 years | 3.33% | 6.67% | 1 July 2009
+Asset group · Steel railway track product manufacturing assets: | | | |
+Asset group · Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: | | | |
 Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Anti-corrosion dip tanks | 20 years | 5.00% | 10.00% | 1 July 2011
 Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Coil transfer arms (incorporating motors, gearboxes and drive shafts) | 15 years | 6.67% | 13.33% | 1 July 2011
 Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / End spades | 20 years | 5.00% | 10.00% | 1 July 2011
 Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Gas temper furnaces | 20 years | 5.00% | 10.00% | 1 July 2011
-Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Induction heaters | 20 years | 5.00% | 10.00% | 1 July 2011
+Steel railway track product manufacturing assets: / Induction heaters (Steel railway clip manufacturing assets) | 20 years | 5.00% | 10.00% | 1 July 2011
 Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Noise reduction enclosures | 30 years | 3.33% | 6.67% | 1 July 2011
-Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Presses | 20 years | 5.00% | 10.00% | 1 July 2011
+Steel railway track product manufacturing assets: / Presses (Steel railway clip manufacturing assets) | 20 years | 5.00% | 10.00% | 1 July 2011
 Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Quench systems (incorporating heat exchangers, transfer arms, tanks, pipes and pumps) | 20 years | 5.00% | 10.00% | 1 July 2011
-Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Shears | 20 years | 5.00% | 10.00% | 1 July 2011
-Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Tooling | 15 years | 6.67% | 13.33% | 1 July 2011
+Steel railway track product manufacturing assets: / Shears (Steel railway clip manufacturing assets) | 20 years | 5.00% | 10.00% | 1 July 2011
+Steel railway track product manufacturing assets: / Tooling (Steel railway clip manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2011
 Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Transfer systems (incorporating flat bed transfer table) | 30 years | 3.33% | 6.67% | 1 July 2011
 Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Quality control test rigs | 30 years | 3.33% | 6.67% | 1 July 2011
-Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Materials handling assets: | | | |
+Asset group · Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Materials handling assets: | | | |
 Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Materials handling assets: / Conveyor systems | 20 years | 5.00% | 10.00% | 1 July 2011
-Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Materials handling assets: / Hoppers | 20 years | 5.00% | 10.00% | 1 July 2011
+Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Hoppers (Materials handling assets) | 20 years | 5.00% | 10.00% | 1 July 2011
 Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Materials handling assets: / Racks for storage | 20 years | 5.00% | 10.00% | 1 July 2011
 Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Materials handling assets: / Weigh scales | 15 years | 6.67% | 13.33% | 1 July 2011
-Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Water treatment assets: | | | |
-Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Water treatment assets: / Cooling towers | 20 years | 5.00% | 10.00% | 1 July 2011
-Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Water treatment assets: / Pumps | 10 years | 10.00% | 20.00% | 1 July 2011
-Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Water treatment assets: / Tanks | 20 years | 5.00% | 10.00% | 1 July 2011
-Steel railway track product manufacturing assets: / Steel railway sleeper manufacturing assets: | | | |
+Asset group · Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Water treatment assets: | | | |
+Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Cooling towers (Water treatment assets) | 20 years | 5.00% | 10.00% | 1 July 2011
+Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Pumps (Water treatment assets) | 10 years | 10.00% | 20.00% | 1 July 2011
+Steel railway track product manufacturing assets: / Steel railway clip manufacturing assets: / Water treatment assets: / Tanks (Iron smelting and steel manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2011
+Asset group · Steel railway track product manufacturing assets: / Steel railway sleeper manufacturing assets: | | | |
 Steel railway track product manufacturing assets: / Steel railway sleeper manufacturing assets: / Crop shear and presses | 20 years | 5.00% | 10.00% | 1 July 2011
 Steel railway track product manufacturing assets: / Steel railway sleeper manufacturing assets: / Form presses | 20 years | 5.00% | 10.00% | 1 July 2011
 Steel railway track product manufacturing assets: / Steel railway sleeper manufacturing assets: / Punch presses | 20 years | 5.00% | 10.00% | 1 July 2011
-Steel strip metallic coating assets: | | | |
-Steel strip metallic coating assets: / Accumulators (incorporating rolls, drive gear, winches and rope) | 17 years | 5.88% | 11.76% | 1 July 2010
+Asset group · Steel strip metallic coating assets: | | | |
+Accumulators (incorporating rolls, drive gear, winches and rope) (Steel strip metallic coating assets) | 17 years | 5.88% | 11.76% | 1 July 2010
 Steel strip metallic coating assets: / Air knife assemblies | 13 years | 7.69% | 15.38% | 1 July 2010
-Steel strip metallic coating assets: / Crop shears | 17 years | 5.88% | 11.76% | 1 July 2010
-Steel strip metallic coating assets: / Curing ovens | 15 years | 6.67% | 13.33% | 1 July 2010
+Crop shears (Steel strip metallic coating assets) | 17 years | 5.88% | 11.76% | 1 July 2010
+Curing ovens (Steel strip metallic coating assets) | 15 years | 6.67% | 13.33% | 1 July 2010
 Steel strip metallic coating assets: / Horizontal air coolers (incorporating ducting fans and nozzles) | 15 years | 6.67% | 13.33% | 1 July 2010
 Steel strip metallic coating assets: / Horizontal furnaces | 20 years | 5.00% | 10.00% | 1 July 2010
 Steel strip metallic coating assets: / Levellers (incorporating gearboxes and drives) | 15 years | 6.67% | 13.33% | 1 July 2010
 Steel strip metallic coating assets: / Metal coating pots | 15 years | 6.67% | 13.33% | 1 July 2010
 Steel strip metallic coating assets: / Passivators (incorporating tanks and pumps) | 17 years | 5.88% | 11.76% | 1 July 2010
-Steel strip metallic coating assets: / Payoff reels | 15 years | 6.67% | 13.33% | 1 July 2010
+Payoff reels (Steel strip metallic coating assets) | 15 years | 6.67% | 13.33% | 1 July 2010
 Steel strip metallic coating assets: / Pot hardware (incorporating zinc roll frames and roll assemblies) | 13 years | 7.69% | 15.38% | 1 July 2010
 Steel strip metallic coating assets: / Pre melt pots | 5 years | 20.00% | 40.00% | 1 July 2010
 Steel strip metallic coating assets: / Quench systems (incorporating rolls, spray bars and tanks) | 10 years | 10.00% | 20.00% | 1 July 2010
-Steel strip metallic coating assets: / Re-coilers | 15 years | 6.67% | 13.33% | 1 July 2010
+Re-coilers (Steel strip metallic coating assets) | 15 years | 6.67% | 13.33% | 1 July 2010
 Steel strip metallic coating assets: / Resin coaters | 15 years | 6.67% | 13.33% | 1 July 2010
-Steel strip metallic coating assets: / Scrapers | 13 years | 7.69% | 15.38% | 1 July 2010
+Scrapers (Steel strip metallic coating assets) | 13 years | 7.69% | 15.38% | 1 July 2010
 Steel strip metallic coating assets: / Skin conditioning mills (incorporating entry and exit tension rolls) | 20 years | 5.00% | 10.00% | 1 July 2010
 Steel strip metallic coating assets: / Steering rolls and bridles (incorporating motors, gearboxes and rolls) | 15 years | 6.67% | 13.33% | 1 July 2010
 Steel strip metallic coating assets: / Vertical air coolers (incorporating ducting, fans and motors) | 15 years | 6.67% | 13.33% | 1 July 2010
 Steel strip metallic coating assets: / Vertical preheat furnaces | 15 years | 6.67% | 13.33% | 1 July 2010
-Steel strip metallic coating assets: / Welders | 17 years | 5.88% | 11.76% | 1 July 2010
-Steel strip organic coating assets: | | | |
-Steel strip organic coating assets: / Accumulators (incorporating rolls, drive gear, winches and rope) | 17 years | 5.88% | 11.76% | 1 July 2010
-Steel strip organic coating assets: / Banders | 15 years | 6.67% | 13.33% | 1 July 2010
-Steel strip organic coating assets: / Branders | 10 years | 10.00% | 20.00% | 1 July 2010
+Welders (Steel strip metallic coating assets) | 17 years | 5.88% | 11.76% | 1 July 2010
+Asset group · Steel strip organic coating assets: | | | |
+Accumulators (incorporating rolls, drive gear, winches and rope) (Steel strip organic coating assets) | 17 years | 5.88% | 11.76% | 1 July 2010
+Banders (Steel strip organic coating assets) | 15 years | 6.67% | 13.33% | 1 July 2010
+Branders (Steel strip organic coating assets) | 10 years | 10.00% | 20.00% | 1 July 2010
 Steel strip organic coating assets: / Chemical rinsing, cleaning and pre-treatment assets | 15 years | 6.67% | 13.33% | 1 July 2010
 Steel strip organic coating assets: / Cooler and cooling assets | 15 years | 6.67% | 13.33% | 1 July 2010
-Steel strip organic coating assets: / Curing ovens | 15 years | 6.67% | 13.33% | 1 July 2010
+Curing ovens (Steel strip organic coating assets) | 15 years | 6.67% | 13.33% | 1 July 2010
 Steel strip organic coating assets: / Finishing assets | 15 years | 6.67% | 13.33% | 1 July 2010
-Steel strip organic coating assets: / Inspection assets | 17 years | 5.88% | 11.76% | 1 July 2010
-Steel strip organic coating assets: / Payoff reels | 15 years | 6.67% | 13.33% | 1 July 2010
+Inspection assets (Steel strip organic coating assets) | 17 years | 5.88% | 11.76% | 1 July 2010
+Payoff reels (Steel strip organic coating assets) | 15 years | 6.67% | 13.33% | 1 July 2010
 Steel strip organic coating assets: / Primer and main coaters | 13 years | 7.69% | 15.38% | 1 July 2010
 Steel strip organic coating assets: / Quench systems | 10 years | 10.00% | 20.00% | 1 July 2010
-Steel strip organic coating assets: / Re-coilers | 15 years | 6.67% | 13.33% | 1 July 2010
-Steel strip organic coating assets: / Shears | 15 years | 6.67% | 13.33% | 1 July 2010
-Steel strip organic coating assets: / Stitchers | 17 years | 5.88% | 11.76% | 1 July 2010
-Tin-plating mill assets: | | | |
+Re-coilers (Steel strip organic coating assets) | 15 years | 6.67% | 13.33% | 1 July 2010
+Shears (Steel strip organic coating assets) | 15 years | 6.67% | 13.33% | 1 July 2010
+Stitchers (Steel strip organic coating assets) | 17 years | 5.88% | 11.76% | 1 July 2010
+Asset group · Tin-plating mill assets: | | | |
 Tin-plating mill assets: / Accumulators and loopers | 17 years | 5.88% | 11.76% | 1 July 2011
 Tin-plating mill assets: / Acid and alkaline cleaning baths (including scrubbing units, rolls and electrical grids) | 13 years | 7.69% | 15.38% | 1 July 2011
-Tin-plating mill assets: / Batch annealing assets: | | | |
+Asset group · Tin-plating mill assets: / Batch annealing assets: | | | |
 Tin-plating mill assets: / Batch annealing assets: / Annealing furnaces | 6 years | 16.67% | 33.33% | 1 July 2011
-Tin-plating mill assets: / Batch annealing assets: / Bases | 4 years | 25.00% | 50.00% | 1 July 2011
+Tin-plating mill assets: / Bases (Batch annealing assets) | 4 years | 25.00% | 50.00% | 1 July 2011
 Tin-plating mill assets: / Batch annealing assets: / Convector plates | 4 years | 25.00% | 50.00% | 1 July 2011
 Tin-plating mill assets: / Batch annealing assets: / Inner covers | 4 years | 25.00% | 50.00% | 1 July 2011
 Tin-plating mill assets: / Cold reduction mills | 20 years | 5.00% | 10.00% | 1 July 2011
 Tin-plating mill assets: / Continuous annealing furnaces | 15 years | 6.67% | 13.33% | 1 July 2011
-Tin-plating mill assets: / Crop shears | 15 years | 6.67% | 13.33% | 1 July 2011
-Tin-plating mill assets: / Dryers | 15 years | 6.67% | 13.33% | 1 July 2011
+Crop shears (Tin-plating mill assets) | 15 years | 6.67% | 13.33% | 1 July 2011
+Dryers (Tin-plating mill assets) | 15 years | 6.67% | 13.33% | 1 July 2011
 Tin-plating mill assets: / Electro plating baths (including scrubbing units, rolls and electrical grids) | 13 years | 7.69% | 15.38% | 1 July 2011
 Tin-plating mill assets: / Pickling tanks (including scrubbing units and rolls and electrical grids) | 13 years | 7.69% | 15.38% | 1 July 2011
 Tin-plating mill assets: / Preheat furnaces | 20 years | 5.00% | 10.00% | 1 July 2011
@@ -484,20 +488,35 @@ Tin-plating mill assets: / Rinse tanks | 15 years | 6.67% | 13.33% | 1 July 2011
 Tin-plating mill assets: / Side trimmers | 15 years | 6.67% | 13.33% | 1 July 2011
 Tin-plating mill assets: / Temper mills | 20 years | 5.00% | 10.00% | 1 July 2011
 Tin-plating mill assets: / Tension control system (including steering) | 10 years | 10.00% | 20.00% | 1 July 2011
-Tin-plating mill assets: / Welders | 17 years | 5.88% | 11.76% | 1 July 2011
+Welders (Tin-plating mill assets) | 17 years | 5.88% | 11.76% | 1 July 2011
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
-- Automated guided vehicles (AGVs): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/automated-guided-vehicles/
-- CCTV systems: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/cctv-systems/
+- Assets used in common in iron smelting and steel manufacturing processes: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/#asset-group-1
+- Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/#asset-group-31
+- Blast furnace assets: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/#asset-group-90
+- Coke making assets: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/#asset-group-135
+- Hot strip mill assets: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/#asset-group-189
+- Pellet making assets: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/#asset-group-235
+- Plate mill assets: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/#asset-group-281
+- Primary metal product casting assets: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/#asset-group-296
+- Rod, bar, structural and rail mill assets: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/#asset-group-337
+- Sinter making assets: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/#asset-group-351
+- Steel railway track product manufacturing assets: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/#asset-group-386
+- Steel strip metallic coating assets: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/#asset-group-413
+- Steel strip organic coating assets: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/#asset-group-435
+- Tin-plating mill assets: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/#asset-group-450
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/#source
+- Automated guided vehicles (AGVs) (Assets used in common in iron smelting and steel manufacturing processes): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/automated-guided-vehicles/
+- CCTV systems (Assets used in common in iron smelting and steel manufacturing processes): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/cctv-systems/
 - Coil cars (including hydraulic sliding floor plates): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coil-cars/
 - Coil car tracks and rails: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coil-car-tracks-and-rails/
 - Instruments (including temperature probes, control panels, gas analysers, location sensors, carbon monoxide monitors, pressure controls, temperature controls, pyrometers, strip position sensors, gamma ray detectors, hot metal detectors, x-ray gauges, width gauges, thickness gauges): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/instruments/
@@ -507,15 +526,15 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Aerials or underground cables: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/aerials-or-underground-cables/
 - Electronic protection relays: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/electronic-protection-relays/
 - High voltage switchgear: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/high-voltage-switchgear/
-- Transformers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/transformers/
-- Gasometers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/gasometers/
+- Transformers (Electricity distribution, generation or transmission assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/transformers/
+- Gasometers (Assets used in common in iron smelting and steel manufacturing processes): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/gasometers/
 - Rolls for mill roll stands (including roughing mill rolls, finishing mill rolls and skin conditioning mill rolls): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/rolls-for-mill-roll-stands/
 - Roller tables (incorporating gearboxes, motors, drives, rolls, table frames, aprons, side guards and foundations): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/roller-tables/
 - Scale or transfer car rail tracks and turntables: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/scale-or-transfer-car-rail-tracks-and-turntables/
 - Scale or transfer cars (incorporating cable reel and drive units): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/scale-or-transfer-cars/
 - Ship ore unloaders: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/ship-ore-unloaders/
-- Crushers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/assets-used-in-common-in-iron-crushers/
-- Granulators: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/granulators/
+- Crushers (Slag processing assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/assets-used-in-common-in-iron-crushers/
+- Granulators (Slag processing assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/granulators/
 - Slag pots: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/slag-pots/
 - Slag pot carriers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/slag-pot-carriers/
 - Stacks (including flare off stacks (incorporating burners and derricks)): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/stacks/
@@ -524,14 +543,14 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Desulphurising lances (incorporating masts, winch control boxes, hydraulic cylinders carriage system, motors, gearboxes, brake lance carriages, lance guides, lances and switches): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/desulphurising-lances/
 - Electric arc furnaces (EAFs): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/electric-arc-furnaces/
 - Electrode control arms: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/electrode-control-arms/
-- Baghouses: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-baghouses/
-- De-dusting ducts and mains: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-de-dusting-ducts-and-mains/
-- Electrostatic precipitators: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/electrostatic-precipitators/
+- Baghouses (Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets / Emissions control assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-baghouses/
+- De-dusting ducts and mains (Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets / Emissions control assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-de-dusting-ducts-and-mains/
+- Electrostatic precipitators (Emissions control assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/electrostatic-precipitators/
 - Primary and secondary scrubbers (incorporating support structure and spray systems): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-and-secondary-scrubbers/
 - Waste gas radiation cooling systems (incorporating water sprays and ducts): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/waste-gas-radiation-cooling-systems/
 - Waste gas extractor fans and silencers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/waste-gas-extractor-fans-and-silencers/
 - Kiln contact coolers (including agitator, agitator hydraulic system and rotary valves): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/kiln-contact-coolers/
-- Kiln burner units (incorporating gas and firing systems): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-kiln-burner-units/
+- Kiln burner units (incorporating gas and firing systems) (Flux making assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-kiln-burner-units/
 - Lime kiln discharge conveyors (incorporating structures, belts, pulleys, motors and gearboxes): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/lime-kiln-discharge-conveyors/
 - Lime kilns (incorporating rollers, tyres, support structures, drives, motors and gearboxes): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/lime-kilns/
 - Raw material crushers and ball mills: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/raw-material-crushers-and-ball-mills/
@@ -542,15 +561,15 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Liquid oxygen lances (incorporating carriage system, motors, gearboxes, brake lance carriages, lance guides, lances and switches): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/liquid-oxygen-lances/
 - Liquid oxygen supply pipes: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/liquid-oxygen-supply-pipes/
 - Air blowers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/air-blowers/
-- Bins: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-bins/
-- Bucket elevators: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/bucket-elevators/
-- Conveyor systems (incorporating structures, belts, gearboxes and motors): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-conveyor-systems/
-- Cyclones: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/cyclones/
+- Bins (Materials handling assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-bins/
+- Bucket elevators (Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/bucket-elevators/
+- Conveyor systems (incorporating structures, belts, gearboxes and motors) (Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets / Materials handling assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-conveyor-systems/
+- Cyclones (Materials handling assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/cyclones/
 - Hoppers, weigh hoppers, chutes, silos: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/hoppers-weigh-hoppers-chutes-silos/
 - Scrap metal buckets, skips and stands: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/scrap-metal-buckets-skips-and-stands/
-- Screens and weighing systems: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-screens-and-weighing-systems/
+- Screens and weighing systems (Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets / Materials handling assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-screens-and-weighing-systems/
 - Vibro feeders: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/vibro-feeders/
-- Vibrators: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/vibrators/
+- Vibrators (Materials handling assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/vibrators/
 - Weighbridges (incorporating load cells): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/weighbridges/
 - Pneumatic air tube systems (incorporating blower units): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/pneumatic-air-tube-systems/
 - Scull breakers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/scull-breakers/
@@ -560,32 +579,32 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Slag rakes: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/slag-rakes/
 - Steel ladles (incorporating tilting bales, thrusters, cassettes, shells, lids and linings): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-ladles/
 - Sub or sampling lances (incorporating motors, drives, gearboxes, limit switches, over speed switches, drums, cables and slow motors): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/sub-or-sampling-lances/
-- Cooling towers (incorporating fans, motors, access platforms and stairs): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-cooling-towers/
-- Heat exchangers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-heat-exchangers/
+- Cooling towers (incorporating fans, motors, access platforms and stairs) (Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets / Water treatment assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-cooling-towers/
+- Heat exchangers (Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets / Water treatment assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-heat-exchangers/
 - Launder distribution and collection systems: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/launder-distribution-and-collection-systems/
 - Slurry disposal pipelines: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/slurry-disposal-pipelines/
 - Water pipes: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/water-pipes/
-- Valves and other non-pipe fittings: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-valves-and-other-non-pipe-fittings/
+- Valves and other non-pipe fittings (Pipes and pipelines): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-valves-and-other-non-pipe-fittings/
 - Pumps (including slurry disposal pumps): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-pumps/
-- Settling ponds: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/settling-ponds/
+- Settling ponds (Water treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/settling-ponds/
 - Conditioner, slurry, polymer, liquid flocculants and mixer tanks: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/conditioner-slurry-polymer-liquid-flocculants-and-mixer/
-- Water tanks: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-water-tanks/
-- Thickeners and clarifiers (incorporating tanks, rakes and access platforms): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-thickeners-and-clarifiers/
+- Water tanks (Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets / Water treatment assets / Tanks / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-water-tanks/
+- Thickeners and clarifiers (incorporating tanks, rakes and access platforms) (Basic oxygen steelmaking (BOS) and electric arc furnace (EAF) steel making assets / Water treatment assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basic-oxygen-steelmaking-and-thickeners-and-clarifiers/
 - Cast house floor iron and slag runner systems, covers, and tilting spouts: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/cast-house-floor-iron-and-slag-runner-systems-covers-and/
 - Cast house structure: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/cast-house-structure/
 - Common hydraulic systems: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/common-hydraulic-systems/
-- Manipulators: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/manipulators/
+- Manipulators (Cast house assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/manipulators/
 - Mud guns: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/mud-guns/
 - Taphole drills: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/taphole-drills/
-- Baghouses: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-baghouses/
+- Baghouses (Blast furnace assets / Emissions control assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-baghouses/
 - Chimney mains: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/chimney-mains/
-- De-dusting ducts and mains: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-de-dusting-ducts-and-mains/
+- De-dusting ducts and mains (Blast furnace assets / Emissions control assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-de-dusting-ducts-and-mains/
 - Dust catchers (incorporating supporting structures): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/dust-catchers/
 - Excess gas bleeder systems: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/excess-gas-bleeder-systems/
 - Furnace top recovery turbine systems (incorporating hydraulic system, inlet and outlet mains and valves): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/furnace-top-recovery-turbine-systems/
 - Scrubbers (incorporating support structure and spray systems): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-scrubbers/
 - Uptakes, bleeders and platforms, downcomers, dust dumping, valves and hydraulics: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/uptakes-bleeders-and-platforms-downcomers-dust-dumping/
-- Waste gas collector mains and ducts: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-waste-gas-collector-mains-and-ducts/
+- Waste gas collector mains and ducts (Blast furnace assets / Emissions control assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-waste-gas-collector-mains-and-ducts/
 - Furnace charging tops (incorporating charging valves and hydraulics): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/furnace-charging-tops/
 - Furnace elevators: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/furnace-elevators/
 - Furnace shells (incorporating hearths, refractory linings, staves, probes, profile meters and sondes): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/furnace-shells/
@@ -600,18 +619,18 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Furnace charging skip hoist: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/furnace-charging-skip-hoist/
 - Furnace charging skip tracks: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/furnace-charging-skip-tracks/
 - Furnace charging skips: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/furnace-charging-skips/
-- Screens and weighing systems: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-screens-and-weighing-systems/
+- Screens and weighing systems (Blast furnace assets / Materials handling assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-screens-and-weighing-systems/
 - Torpedo cars: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/torpedo-cars/
-- Basins: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basins/
-- Cooling towers (incorporating fans, motors, access platforms and stairs): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-cooling-towers/
-- Heat exchangers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-heat-exchangers/
-- Thickeners and clarifiers (incorporating tanks, rakes and access platforms): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-thickeners-and-clarifiers/
-- Valves and other non-pipe fittings: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-valves-and-other-non-pipe-fittings/
+- Basins (Water treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basins/
+- Cooling towers (incorporating fans, motors, access platforms and stairs) (Blast furnace assets / Water treatment assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-cooling-towers/
+- Heat exchangers (Blast furnace assets / Water treatment assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-heat-exchangers/
+- Thickeners and clarifiers (incorporating tanks, rakes and access platforms) (Blast furnace assets / Water treatment assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-thickeners-and-clarifiers/
+- Valves and other non-pipe fittings (Water treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-valves-and-other-non-pipe-fittings/
 - Water distribution systems: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/water-distribution-systems/
-- Water pumps: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-water-pumps/
-- Crushers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coke-making-assets-crushers/
-- Hammer mills: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/hammer-mills/
-- Hydrowashers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/hydrowashers/
+- Water pumps (Water treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/blast-furnace-assets-water-pumps/
+- Crushers (Coal screening assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coke-making-assets-crushers/
+- Hammer mills (Coal screening assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/hammer-mills/
+- Hydrowashers (Coal screening assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/hydrowashers/
 - Primary, secondary and tertiary screens and chutes: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-secondary-and-tertiary-screens-and-chutes/
 - Breeze basins: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/breeze-basins/
 - Charging car rails: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/charging-car-rails/
@@ -624,7 +643,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Hot cars (incorporating locomotive, wagon, tray and bogies): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/hot-cars/
 - Quenchers (incorporating stack structures, water tanks, pipes, pumps, sprays, pneumatic systems and water pump pits): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/quenchers/
 - Ram tracks and live rails: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/ram-tracks-and-live-rails/
-- Rams: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/rams/
+- Rams (Coke ovens batteries assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/rams/
 - Acid compound structures, pumps, overflow and storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/acid-compound-structures-pumps-overflow-and-storage-tanks/
 - Ammonia absorbers (including pumps, ammonia storage tanks, and distribution pipes including valves): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/ammonia-absorbers/
 - Ammonia incinerators, ammonia stills, tanks, decanters, pumps, condensers (including support structures, stacks): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/ammonia-incinerators-ammonia-stills-tanks-decanters-pumps/
@@ -637,17 +656,17 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Feed tanks, evaporators, centrifuge units, conveyors (including belts, structures, drives and chutes, jet condensers, hot water tanks, driers including chutes, drives, and support structures, pumps, vibrating screens, cyclones, and scraper conveyors): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/feed-tanks-evaporators-centrifuge-units-conveyors/
 - Decanters, make tanks (incorporating scrapers and drives, storage tanks, steam and electric pumps, liquor tank and strainers): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/decanters-make-tanks/
 - Tar precipitators: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/tar-precipitators/
-- Baghouses: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coke-making-assets-baghouses/
-- Dedusting fans (including extraction dusting incorporating gearboxes and drives): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coke-making-assets-dedusting-fans/
+- Baghouses (Waste gas cleaning and dedusting assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coke-making-assets-baghouses/
+- Dedusting fans (including extraction dusting incorporating gearboxes and drives) (Waste gas cleaning and dedusting assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coke-making-assets-dedusting-fans/
 - Dust collection systems, dust drop out boxes and dust disposal rotary valves (incorporating motors and gearboxes): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/dust-collection-systems-dust-drop-out-boxes-and-dust/
 - Fume extraction hoods: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/fume-extraction-hoods/
-- Waste gas collector mains and ducts: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coke-making-assets-waste-gas-collector-mains-and-ducts/
+- Waste gas collector mains and ducts (Coke making assets / Emissions control assets / Waste gas cleaning and dedusting assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coke-making-assets-waste-gas-collector-mains-and-ducts/
 - Bins (including furnace coke, dust disposal bins): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coke-making-assets-bins/
-- Conveyor systems (incorporating structures, belts, gearboxes and motors): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coke-making-assets-conveyor-systems/
+- Conveyor systems (incorporating structures, belts, gearboxes and motors) (Coke making assets / Materials handling assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coke-making-assets-conveyor-systems/
 - Conveyor systems transfer houses: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/conveyor-systems-transfer-houses/
 - Feed bunkers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/feed-bunkers/
 - Motorised feeders: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/motorised-feeders/
-- Cooling towers (incorporating fans, motors, access platforms and stairs): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coke-making-assets-cooling-towers/
+- Cooling towers (incorporating fans, motors, access platforms and stairs) (Coke making assets / Water treatment assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coke-making-assets-cooling-towers/
 - Coil and slab weighers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coil-and-slab-weighers/
 - Coil boxes (incorporating side guard drives and transfer mechanism assemblies): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coil-boxes/
 - Coil box shear and scale breakers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coil-box-shear-and-scale-breakers/
@@ -682,36 +701,36 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Coke ovens gas systems: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coke-ovens-gas-systems/
 - Cold combustion air systems: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/cold-combustion-air-systems/
 - Dilution blowers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/dilution-blowers/
-- Extractors: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/extractors/
+- Extractors (Walking beam furnace assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/extractors/
 - Furnaces (incorporating structure, charging machines with synchronising drive trains, refractories, walking beam floors, furnace hydraulic systems, and charge and discharge doors): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/hot-strip-mill-assets-furnaces/
 - Nitrogen purge systems: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/nitrogen-purge-systems/
 - Tracking lasers (incorporating cables and adapters): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/tracking-lasers/
 - Balling drums: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/balling-drums/
 - Bentonite tanks: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/bentonite-tanks/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/mixers/
+- Mixers (Balling assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/mixers/
 - Seed screens: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/seed-screens/
-- Cooler fans: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/pellet-making-assets-cooler-fans/
+- Cooler fans (Pellet making assets / Cooler assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/pellet-making-assets-cooler-fans/
 - Annular coolers (incorporating pans, pan conveyors and drives): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/annular-coolers/
 - Roller screens: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/roller-screens/
-- Launders: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/launders/
+- Launders (Dewatering assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/launders/
 - Pressure filter pumps: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/pressure-filter-pumps/
 - Process water tanks: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/process-water-tanks/
 - Return water pipes: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/return-water-pipes/
 - Slurry feed pipes: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/slurry-feed-pipes/
 - Slurry pumps: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/slurry-pumps/
 - Slurry tanks (incorporating agitators): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/slurry-tanks/
-- Sumps: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/sumps/
+- Sumps (Dewatering assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/sumps/
 - Thickeners (incorporating tanks, rakes and access platforms): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/thickeners/
 - Vertical plate pressure filters (incorporating filters, plates, membranes, water sprays, ladders, bomb bay doors): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/vertical-plate-pressure-filters/
-- Compressors: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/compressors/
+- Compressors (Emissions control assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/compressors/
 - Dust collection system: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/dust-collection-system/
-- Multi-cone: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/multi-cone/
-- Scrubbers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/pellet-making-assets-scrubbers/
-- Waste gas collector mains and ducts: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/pellet-making-assets-waste-gas-collector-mains-and-ducts/
+- Multi-cone (Emissions control assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/multi-cone/
+- Scrubbers (Emissions control assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/pellet-making-assets-scrubbers/
+- Waste gas collector mains and ducts (Pellet making assets / Emissions control assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/pellet-making-assets-waste-gas-collector-mains-and-ducts/
 - Waste gas extractor fans: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/waste-gas-extractor-fans/
 - Fluxing tanks: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/fluxing-tanks/
-- Grinding mills: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/grinding-mills/
-- Kiln burner units (incorporating gas and firing systems): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/pellet-making-assets-kiln-burner-units/
+- Grinding mills (Pellet making assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/grinding-mills/
+- Kiln burner units (incorporating gas and firing systems) (Induration assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/pellet-making-assets-kiln-burner-units/
 - Rotary kilns (incorporating bearings, drive gear and drive system): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/rotary-kilns/
 - Travelling grates (incorporating motors, gearboxes or drives and rollers): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/travelling-grates/
 - Waste heat recovery ducts: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/waste-heat-recovery-ducts/
@@ -722,8 +741,8 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Flux bins: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/flux-bins/
 - Roller feeders: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/roller-feeders/
 - Table feeders: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/table-feeders/
-- Vibrating feeders: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/vibrating-feeders/
-- Weigh feeders: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/weigh-feeders/
+- Vibrating feeders (Materials handling assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/vibrating-feeders/
+- Weigh feeders (Materials handling assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/weigh-feeders/
 - Cold levellers (incorporating motor, gearbox spindles, hydraulic traverse cylinders, fill-in table rolls, motor, gearbox, rolls and catenaries): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/cold-levellers/
 - De-scaling boxes (incorporating sprays, mechanicals, control valves pipe work after isolation valves, de-scaling box table rolls, tables, chains, covers, side guides and covers): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/de-scaling-boxes/
 - Edgers (incorporating motors, hydraulic controls, mechanical controls, anvil (carryover table), hand rails and walkways): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/edgers/
@@ -745,8 +764,8 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Crop removal machines: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/crop-removal-machines/
 - Cut to length machines and torch cutters: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/cut-to-length-machines-and-torch-cutters/
 - De-burring machines (incorporating fixed drives): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/de-burring-machines/
-- Baghouses: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-metal-product-casting-baghouses/
-- Dedusting fans (including extraction dusting incorporating gearboxes and drives): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-metal-product-casting-dedusting-fans/
+- Baghouses (Primary metal product casting assets / Emissions control assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-metal-product-casting-baghouses/
+- Dedusting fans (including extraction dusting incorporating gearboxes and drives) (Emissions control assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-metal-product-casting-dedusting-fans/
 - Dedusting ducts and mains: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/dedusting-ducts-and-mains/
 - Steam exhaust fans: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steam-exhaust-fans/
 - Hydraulic shears: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/hydraulic-shears/
@@ -760,17 +779,17 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Up-enders (including hydraulics): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/up-enders/
 - Walking beam cooling beds and run out tables: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/walking-beam-cooling-beds-and-run-out-tables/
 - Basins and ponds: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/basins-and-ponds/
-- Cooling towers (incorporating fans, motors, access platforms and stairs): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-metal-product-casting-cooling-towers/
+- Cooling towers (incorporating fans, motors, access platforms and stairs) (Primary metal product casting assets / Water treatment assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-metal-product-casting-cooling-towers/
 - Gravel and sand filters: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/gravel-and-sand-filters/
-- Heat exchangers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-metal-product-casting-heat-exchangers/
+- Heat exchangers (Primary metal product casting assets / Water treatment assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-metal-product-casting-heat-exchangers/
 - Water pipelines: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/water-pipelines/
-- Valves and other non-pipe fittings: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-metal-product-casting-valves-and-other-non-pipe-fittings/
-- Water pumps: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-metal-product-casting-water-pumps/
-- Chemical dosing pumps: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/chemical-dosing-pumps/
+- Valves and other non-pipe fittings (Pipelines): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-metal-product-casting-valves-and-other-non-pipe-fittings/
+- Water pumps (Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-metal-product-casting-water-pumps/
+- Chemical dosing pumps (Pumps): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/chemical-dosing-pumps/
 - Skimmers and scrapers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/skimmers-and-scrapers/
 - Sludge, chemical storage and dosing tanks: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/sludge-chemical-storage-and-dosing-tanks/
-- Water tanks: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-metal-product-casting-water-tanks/
-- Thickeners and clarifiers (incorporating tanks, rakes and access platforms): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-metal-product-casting-thickeners-and-clarifiers/
+- Water tanks (Primary metal product casting assets / Water treatment assets / Tanks / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-metal-product-casting-water-tanks/
+- Thickeners and clarifiers (incorporating tanks, rakes and access platforms) (Primary metal product casting assets / Water treatment assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primary-metal-product-casting-thickeners-and-clarifiers/
 - Controlled tempering quenching cars: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/controlled-tempering-quenching-cars/
 - Cut to length machines: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/cut-to-length-machines/
 - De-scaling systems (incorporating scale breaker, nozzles, pipe work, valves and high pressure pump): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/rod-bar-structural-and-rail-mill-de-scaling-systems/
@@ -780,101 +799,101 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Reversing roughing mills (incorporating motors, gearboxes, drives, guides and cassettes): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/rod-bar-structural-and-rail-mill-reversing-roughing-mills/
 - Roughing mills (incorporating motors, gearboxes, drives, guides and cassettes): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/roughing-mills/
 - Shears (incorporating motors and drives): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/rod-bar-structural-and-rail-mill-shears/
-- Stacker/bundlers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/stacker-bundlers/
-- Straighteners: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/straighteners/
+- Stacker/bundlers (Rod, bar, structural and rail mill assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/stacker-bundlers/
+- Straighteners (Rod, bar, structural and rail mill assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/straighteners/
 - Walking beam cooling beds: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/rod-bar-structural-and-rail-mill-walking-beam-cooling-beds/
 - Walking beam, natural gas furnaces (incorporating structure, refractories, walking beam floors, furnace hydraulic systems, and charge and discharge doors): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/walking-beam-natural-gas-furnaces/
-- Cooler fans: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/sinter-making-assets-cooler-fans/
+- Cooler fans (Sinter making assets / Cooler assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/sinter-making-assets-cooler-fans/
 - Coolers (incorporating pan conveyors and drives): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coolers/
 - Activated carbon packed bed filters: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/activated-carbon-packed-bed-filters/
-- Dedusting fans: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/sinter-making-assets-dedusting-fans/
+- Dedusting fans (Waste gas cleaning and dedusting assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/sinter-making-assets-dedusting-fans/
 - Electrostatic precipitators and scraper chains: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/electrostatic-precipitators-and-scraper-chains/
-- Waste gas collector mains and ducts: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/sinter-making-assets-waste-gas-collector-mains-and-ducts/
+- Waste gas collector mains and ducts (Sinter making assets / Emissions control assets / Waste gas cleaning and dedusting assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/sinter-making-assets-waste-gas-collector-mains-and-ducts/
 - Feed rolls: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/feed-rolls/
 - Mixing and rolling drums: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/mixing-and-rolling-drums/
-- Belt weighers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/belt-weighers/
+- Belt weighers (Materials handling assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/belt-weighers/
 - Coke bins: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coke-bins/
 - Ore bins: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/ore-bins/
 - Sinter bins: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/sinter-bins/
-- Chutes: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/chutes/
-- Conveyor systems (incorporating structures, belts, gearboxes and motors): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/sinter-making-assets-conveyor-systems/
-- Coke: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/feeders-coke/
-- Ore: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/feeders-ore/
-- Sinter: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/sinter/
-- Coke: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/weigh-feeders-coke/
-- Ore: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/weigh-feeders-ore/
+- Chutes (Materials handling assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/chutes/
+- Conveyor systems (incorporating structures, belts, gearboxes and motors) (Sinter making assets / Materials handling assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/sinter-making-assets-conveyor-systems/
+- Coke (Feeders): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/feeders-coke/
+- Ore (Feeders): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/feeders-ore/
+- Sinter (Feeders): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/sinter/
+- Coke (Weigh feeders): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/weigh-feeders-coke/
+- Ore (Weigh feeders): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/weigh-feeders-ore/
 - Ignition furnaces (incorporating associated air and gas mains): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/ignition-furnaces/
 - Preheat hoods (incorporating waste heat recovery fans and mains): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/preheat-hoods/
 - Spike roll crushers (incorporating bogey flex, electric motors, primary gearboxes, fluid couplings, grillage bars and crash decks): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/spike-roll-crushers/
 - Strand structures and drives (including conveyors, wind legs and dust troughs): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/strand-structures-and-drives/
-- Thickeners and clarifiers (incorporating tanks, rakes and access platforms): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/sinter-making-assets-thickeners-and-clarifiers/
+- Thickeners and clarifiers (incorporating tanks, rakes and access platforms) (Sinter making assets / Water treatment assets / Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/sinter-making-assets-thickeners-and-clarifiers/
 - Anti-corrosion dip tanks: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/anti-corrosion-dip-tanks/
 - Coil transfer arms (incorporating motors, gearboxes and drive shafts): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/coil-transfer-arms/
 - End spades: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/end-spades/
 - Gas temper furnaces: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/gas-temper-furnaces/
-- Induction heaters: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/induction-heaters/
+- Induction heaters (Steel railway clip manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/induction-heaters/
 - Noise reduction enclosures: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/noise-reduction-enclosures/
-- Presses: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/presses/
+- Presses (Steel railway clip manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/presses/
 - Quench systems (incorporating heat exchangers, transfer arms, tanks, pipes and pumps): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-railway-track-product-quench-systems/
-- Shears: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-railway-track-product-shears/
-- Tooling: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/tooling/
+- Shears (Steel railway clip manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-railway-track-product-shears/
+- Tooling (Steel railway clip manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/tooling/
 - Transfer systems (incorporating flat bed transfer table): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/transfer-systems/
 - Quality control test rigs: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/quality-control-test-rigs/
 - Conveyor systems: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-railway-track-product-conveyor-systems/
-- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/hoppers/
+- Hoppers (Materials handling assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/hoppers/
 - Racks for storage: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/racks-for-storage/
 - Weigh scales: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/weigh-scales/
-- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-railway-track-product-cooling-towers/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-railway-track-product-pumps/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/tanks/
+- Cooling towers (Water treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-railway-track-product-cooling-towers/
+- Pumps (Water treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-railway-track-product-pumps/
+- Tanks (Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/tanks/
 - Crop shear and presses: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/crop-shear-and-presses/
 - Form presses: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/form-presses/
 - Punch presses: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/punch-presses/
-- Accumulators (incorporating rolls, drive gear, winches and rope): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-metallic-coating-accumulators/
+- Accumulators (incorporating rolls, drive gear, winches and rope) (Steel strip metallic coating assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-metallic-coating-accumulators/
 - Air knife assemblies: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/air-knife-assemblies/
-- Crop shears: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-metallic-coating-crop-shears/
-- Curing ovens: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-metallic-coating-curing-ovens/
+- Crop shears (Steel strip metallic coating assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-metallic-coating-crop-shears/
+- Curing ovens (Steel strip metallic coating assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-metallic-coating-curing-ovens/
 - Horizontal air coolers (incorporating ducting fans and nozzles): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/horizontal-air-coolers/
 - Horizontal furnaces: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/horizontal-furnaces/
 - Levellers (incorporating gearboxes and drives): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/levellers/
 - Metal coating pots: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/metal-coating-pots/
 - Passivators (incorporating tanks and pumps): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/passivators/
-- Payoff reels: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-metallic-coating-payoff-reels/
+- Payoff reels (Steel strip metallic coating assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-metallic-coating-payoff-reels/
 - Pot hardware (incorporating zinc roll frames and roll assemblies): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/pot-hardware/
 - Pre melt pots: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/pre-melt-pots/
 - Quench systems (incorporating rolls, spray bars and tanks): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-metallic-coating-quench-systems/
-- Re-coilers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-metallic-coating-re-coilers/
+- Re-coilers (Steel strip metallic coating assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-metallic-coating-re-coilers/
 - Resin coaters: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/resin-coaters/
-- Scrapers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/scrapers/
+- Scrapers (Steel strip metallic coating assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/scrapers/
 - Skin conditioning mills (incorporating entry and exit tension rolls): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/skin-conditioning-mills/
 - Steering rolls and bridles (incorporating motors, gearboxes and rolls): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steering-rolls-and-bridles/
 - Vertical air coolers (incorporating ducting, fans and motors): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/vertical-air-coolers/
 - Vertical preheat furnaces: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/vertical-preheat-furnaces/
-- Welders: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-metallic-coating-welders/
-- Accumulators (incorporating rolls, drive gear, winches and rope): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-organic-coating-accumulators/
-- Banders: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/banders/
-- Branders: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/branders/
+- Welders (Steel strip metallic coating assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-metallic-coating-welders/
+- Accumulators (incorporating rolls, drive gear, winches and rope) (Steel strip organic coating assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-organic-coating-accumulators/
+- Banders (Steel strip organic coating assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/banders/
+- Branders (Steel strip organic coating assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/branders/
 - Chemical rinsing, cleaning and pre-treatment assets: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/chemical-rinsing-cleaning-and-pre-treatment-assets/
 - Cooler and cooling assets: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/cooler-and-cooling-assets/
-- Curing ovens: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-organic-coating-curing-ovens/
+- Curing ovens (Steel strip organic coating assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-organic-coating-curing-ovens/
 - Finishing assets: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/finishing-assets/
-- Inspection assets: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/inspection-assets/
-- Payoff reels: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-organic-coating-payoff-reels/
+- Inspection assets (Steel strip organic coating assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/inspection-assets/
+- Payoff reels (Steel strip organic coating assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-organic-coating-payoff-reels/
 - Primer and main coaters: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/primer-and-main-coaters/
 - Quench systems: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-organic-coating-quench-systems/
-- Re-coilers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-organic-coating-re-coilers/
-- Shears: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-organic-coating-shears/
-- Stitchers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/stitchers/
+- Re-coilers (Steel strip organic coating assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-organic-coating-re-coilers/
+- Shears (Steel strip organic coating assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/steel-strip-organic-coating-shears/
+- Stitchers (Steel strip organic coating assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/stitchers/
 - Accumulators and loopers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/accumulators-and-loopers/
 - Acid and alkaline cleaning baths (including scrubbing units, rolls and electrical grids): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/acid-and-alkaline-cleaning-baths/
 - Annealing furnaces: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/annealing-furnaces/
-- Bases: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/bases/
+- Bases (Batch annealing assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/bases/
 - Convector plates: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/convector-plates/
 - Inner covers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/inner-covers/
 - Cold reduction mills: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/cold-reduction-mills/
 - Continuous annealing furnaces: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/continuous-annealing-furnaces/
-- Crop shears: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/tin-plating-mill-assets-crop-shears/
-- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/dryers/
+- Crop shears (Tin-plating mill assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/tin-plating-mill-assets-crop-shears/
+- Dryers (Tin-plating mill assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/dryers/
 - Electro plating baths (including scrubbing units, rolls and electrical grids): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/electro-plating-baths/
 - Pickling tanks (including scrubbing units and rolls and electrical grids): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/pickling-tanks/
 - Preheat furnaces: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/preheat-furnaces/
@@ -883,9 +902,9 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Side trimmers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/side-trimmers/
 - Temper mills: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/temper-mills/
 - Tension control system (including steering): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/tension-control-system/
-- Welders: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/tin-plating-mill-assets-welders/
+- Welders (Tin-plating mill assets): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/tin-plating-mill-assets-welders/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

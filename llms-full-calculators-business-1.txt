@@ -306,7 +306,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ---
 
-# Margin and markup calculator
+# Gross profit margin and markup calculator
 
 Source: https://duguid.com.au/tools/business-calculators/margin/
 
@@ -889,13 +889,13 @@ Rent (AUD) Other rental income, such as an insurance payout for lost rent or a b
 
 Enter the whole property’s expenses. These are apportioned by the days let or available over the days held.
 
-Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage (AUD) Travel (shown, not deductible) (AUD) Water charges (AUD) Sundry rental expenses (AUD)
+Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage costs (AUD) Travel (shown, not deductible) (AUD) Water charges (AUD) Sundry rental expenses (AUD)
 
 ## Expenses solely for renting
 
 Expenses that relate only to renting, such as agent commission and removing a tenant’s rubbish, are not apportioned.
 
-Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage (AUD) Water charges (AUD) Sundry rental expenses (AUD)
+Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage costs (AUD) Water charges (AUD) Sundry rental expenses (AUD)
 
 ## Interest on your own loans
 

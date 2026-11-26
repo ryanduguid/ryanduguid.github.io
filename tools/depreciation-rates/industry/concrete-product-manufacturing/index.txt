@@ -8,221 +8,231 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product
 
 123 effective lives in Table A of the Commissioner’s 2025 effective life determination for Concrete product manufacturing.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Jump to an asset group
+
+Concrete block, brick and paver manufacturing assets Concrete roof tile manufacturing assets Fibre cement building boards manufacturing assets Prefabricated concrete product manufacturing assets Tile manufacturing plant (cement and concrete, but excluding concrete roof tiles)
+
+Rows of Concrete product manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Concrete block, brick and paver manufacturing assets: | | | |
-Concrete block, brick and paver manufacturing assets: / Batching and mixing assets: | | | |
-Concrete block, brick and paver manufacturing assets: / Batching and mixing assets: / Bins (excluding concrete bins) | 15 years | 6.67% | 13.33% | 1 July 2011
+Asset group · Concrete block, brick and paver manufacturing assets: | | | |
+Asset group · Concrete block, brick and paver manufacturing assets: / Batching and mixing assets: | | | |
+Concrete block, brick and paver manufacturing assets: / Bins (excluding concrete bins) (Batching and mixing assets) | 15 years | 6.67% | 13.33% | 1 July 2011
 Concrete block, brick and paver manufacturing assets: / Batching and mixing assets: / Colour dosing assets | 12 years | 8.33% | 16.67% | 1 July 2011
 Concrete block, brick and paver manufacturing assets: / Batching and mixing assets: / Colour tanks (incorporating stirrers) | 15 years | 6.67% | 13.33% | 1 July 2011
-Concrete block, brick and paver manufacturing assets: / Batching and mixing assets: / Hoppers | 15 years | 6.67% | 13.33% | 1 July 2011
-Concrete block, brick and paver manufacturing assets: / Batching and mixing assets: / Mixers | 15 years | 6.67% | 13.33% | 1 July 2011
-Concrete block, brick and paver manufacturing assets: / Block/brick/paver making assets: | | | |
+Concrete block, brick and paver manufacturing assets: / Hoppers (Batching and mixing assets) | 15 years | 6.67% | 13.33% | 1 July 2011
+Concrete block, brick and paver manufacturing assets: / Mixers (Batching and mixing assets) | 15 years | 6.67% | 13.33% | 1 July 2011
+Asset group · Concrete block, brick and paver manufacturing assets: / Block/brick/paver making assets: | | | |
 Concrete block, brick and paver manufacturing assets: / Block/brick/paver making assets: / Block/brick/paver making machines | 15 years | 6.67% | 13.33% | 1 July 2011
-Concrete block, brick and paver manufacturing assets: / Block/brick/paver making assets: / Moulds | 5 years | 20.00% | 40.00% | 1 July 2011
-Concrete block, brick and paver manufacturing assets: / Block/brick/paver making assets: / Splitters | 10 years | 10.00% | 20.00% | 1 July 2011
-Concrete block, brick and paver manufacturing assets: / Curing assets: | | | |
+Concrete block, brick and paver manufacturing assets: / Moulds (Block/brick/paver making assets) | 5 years | 20.00% | 40.00% | 1 July 2011
+Concrete block, brick and paver manufacturing assets: / Splitters (Block/brick/paver making assets) | 10 years | 10.00% | 20.00% | 1 July 2011
+Asset group · Concrete block, brick and paver manufacturing assets: / Curing assets: | | | |
 Concrete block, brick and paver manufacturing assets: / Curing assets: / Boilers (including steam generators) | 20 years | 5.00% | 10.00% | 1 July 2011
 Concrete block, brick and paver manufacturing assets: / Curing assets: / Drying chambers | 25 years | 4.00% | 8.00% | 1 July 2011
 Concrete block, brick and paver manufacturing assets: / Curing assets: / Elevators/lowerators (including loaders/unloaders) | 15 years | 6.67% | 13.33% | 1 July 2011
 Concrete block, brick and paver manufacturing assets: / Curing assets: / Racks (excluding racks fixed to drying chambers) | 5 years | 20.00% | 40.00% | 1 July 2011
 Concrete block, brick and paver manufacturing assets: / Curing assets: / Transfer car (incorporating finger cars) track works | 15 years | 6.67% | 13.33% | 1 July 2011
 Concrete block, brick and paver manufacturing assets: / Curing assets: / Transfer cars (incorporating finger cars) | 15 years | 6.67% | 13.33% | 1 July 2011
-Concrete block, brick and paver manufacturing assets: / General assets: | | | |
-Concrete block, brick and paver manufacturing assets: / General assets: / Control systems | 10 years | 10.00% | 20.00% | 1 July 2011
-Concrete block, brick and paver manufacturing assets: / General assets: / Conveyors | 15 years | 6.67% | 13.33% | 1 July 2011
-Concrete block, brick and paver manufacturing assets: / General assets: / Plates | 10 years | 10.00% | 20.00% | 1 July 2011
-Concrete block, brick and paver manufacturing assets: / Palletising and packaging assets: | | | |
+Asset group · Concrete block, brick and paver manufacturing assets: / General assets: | | | |
+Concrete block, brick and paver manufacturing assets: / General assets: / Control systems (Concrete block, brick and paver manufacturing assets / General assets / Concrete product manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2011
+Concrete block, brick and paver manufacturing assets: / General assets: / Conveyors (Concrete block, brick and paver manufacturing assets / General assets / Concrete product manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2011
+Concrete block, brick and paver manufacturing assets: / Plates (General assets) | 10 years | 10.00% | 20.00% | 1 July 2011
+Asset group · Concrete block, brick and paver manufacturing assets: / Palletising and packaging assets: | | | |
 Concrete block, brick and paver manufacturing assets: / Palletising and packaging assets: / Cubing assets (including cubers, doublers and squeezers) | 15 years | 6.67% | 13.33% | 1 July 2011
-Concrete block, brick and paver manufacturing assets: / Palletising and packaging assets: / Robots | 10 years | 10.00% | 20.00% | 1 July 2011
-Concrete block, brick and paver manufacturing assets: / Palletising and packaging assets: / Wrapping and strapping machines | 10 years | 10.00% | 20.00% | 1 July 2011
-Concrete roof tile manufacturing assets: | | | |
-Concrete roof tile manufacturing assets: / Air compressors (rotary screw) | 10 years | 10.00% | 20.00% | 1 July 2012
+Concrete block, brick and paver manufacturing assets: / Robots (Palletising and packaging assets) | 10 years | 10.00% | 20.00% | 1 July 2011
+Concrete block, brick and paver manufacturing assets: / Wrapping and strapping machines (Palletising and packaging assets) | 10 years | 10.00% | 20.00% | 1 July 2011
+Asset group · Concrete roof tile manufacturing assets: | | | |
+Air compressors (rotary screw) (Concrete roof tile manufacturing assets) | 10 years | 10.00% | 20.00% | 1 July 2012
 Concrete roof tile manufacturing assets: / Applicator batching assets (including hoppers, mixers and tanks, but excluding batching assets for anti-scuff hot glue/max applicators and oil applicators) | 15 years | 6.67% | 13.33% | 1 July 2012
-Concrete roof tile manufacturing assets: / Applicators: | | | |
+Asset group · Concrete roof tile manufacturing assets: / Applicators: | | | |
 Concrete roof tile manufacturing assets: / Applicators: / Anti-scuff hot glue/wax | 10 years | 10.00% | 20.00% | 1 July 2012
 Concrete roof tile manufacturing assets: / Applicators: / General (including colour, sealer and sheen) | 20 years | 5.00% | 10.00% | 1 July 2012
 Concrete roof tile manufacturing assets: / Applicators: / Oil (excluding oil tanks) | 10 years | 10.00% | 20.00% | 1 July 2012
-Concrete roof tile manufacturing assets: / Bins | 15 years | 6.67% | 13.33% | 1 July 2012
-Concrete roof tile manufacturing assets: / Control systems | 10 years | 10.00% | 20.00% | 1 July 2012
-Concrete roof tile manufacturing assets: / Conveyors | 20 years | 5.00% | 10.00% | 1 July 2012
-Concrete roof tile manufacturing assets: / Curing assets: | | | |
-Concrete roof tile manufacturing assets: / Curing assets: / Boilers | 20 years | 5.00% | 10.00% | 1 July 2012
-Concrete roof tile manufacturing assets: / Curing assets: / Curing bays: | | | |
-Concrete roof tile manufacturing assets: / Curing assets: / Curing bays: / Concrete | 25 years | 4.00% | 8.00% | 1 July 2012
+Bins (Concrete roof tile manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2012
+Control systems (Concrete roof tile manufacturing assets) | 10 years | 10.00% | 20.00% | 1 July 2012
+Conveyors (Concrete roof tile manufacturing assets) | 20 years | 5.00% | 10.00% | 1 July 2012
+Asset group · Concrete roof tile manufacturing assets: / Curing assets: | | | |
+Concrete roof tile manufacturing assets: / Curing assets: / Boilers (Concrete roof tile manufacturing assets / Curing assets / Concrete product manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2012
+Asset group · Concrete roof tile manufacturing assets: / Curing assets: / Curing bays: | | | |
+Concrete roof tile manufacturing assets: / Curing assets: / Concrete (Curing bays) | 25 years | 4.00% | 8.00% | 1 July 2012
 Concrete roof tile manufacturing assets: / Curing assets: / Curing bays: / Foam sandwich (incorporating insulated panel walls, roof and doors) | 10 years | 10.00% | 20.00% | 1 July 2012
 Concrete roof tile manufacturing assets: / Curing assets: / Rackers/derackers (including loaders/unloaders) | 20 years | 5.00% | 10.00% | 1 July 2012
 Concrete roof tile manufacturing assets: / Curing assets: / Racks (used in curing bays) | 10 years | 10.00% | 20.00% | 1 July 2012
-Concrete roof tile manufacturing assets: / Depalleters | 20 years | 5.00% | 10.00% | 1 July 2012
-Concrete roof tile manufacturing assets: / Extruders | 15 years | 6.67% | 13.33% | 1 July 2012
-Concrete roof tile manufacturing assets: / Hoppers | 15 years | 6.67% | 13.33% | 1 July 2012
-Concrete roof tile manufacturing assets: / Mixers | 15 years | 6.67% | 13.33% | 1 July 2012
-Concrete roof tile manufacturing assets: / Oil tanks | 30 years | 3.33% | 6.67% | 1 July 2012
-Concrete roof tile manufacturing assets: / Packaging assets: | | | |
+Depalleters (Concrete roof tile manufacturing assets) | 20 years | 5.00% | 10.00% | 1 July 2012
+Extruders (Concrete roof tile manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2012
+Hoppers (Concrete roof tile manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2012
+Mixers (Concrete roof tile manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2012
+Oil tanks (Concrete roof tile manufacturing assets) | 30 years | 3.33% | 6.67% | 1 July 2012
+Asset group · Concrete roof tile manufacturing assets: / Packaging assets: | | | |
 Concrete roof tile manufacturing assets: / Packaging assets: / General (including collectors, compilers and cranes) | 20 years | 5.00% | 10.00% | 1 July 2012
-Concrete roof tile manufacturing assets: / Packaging assets: / Robots | 10 years | 10.00% | 20.00% | 1 July 2012
-Concrete roof tile manufacturing assets: / Packaging assets: / Shrink wrappers | 10 years | 10.00% | 20.00% | 1 July 2012
+Concrete roof tile manufacturing assets: / Robots (Packaging assets) | 10 years | 10.00% | 20.00% | 1 July 2012
+Concrete roof tile manufacturing assets: / Packaging assets: / Shrink wrappers (Concrete product manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2012
 Concrete roof tile manufacturing assets: / Packaging assets: / Strapping assets | 10 years | 10.00% | 20.00% | 1 July 2012
 Concrete roof tile manufacturing assets: / Packaging assets: / Wrapping assets | 10 years | 10.00% | 20.00% | 1 July 2012
-Concrete roof tile manufacturing assets: / Plates: | | | |
-Concrete roof tile manufacturing assets: / Plates: / General | 7 years | 14.29% | 28.57% | 1 July 2012
+Asset group · Concrete roof tile manufacturing assets: / Plates: | | | |
+Concrete roof tile manufacturing assets: / General (Plates) | 7 years | 14.29% | 28.57% | 1 July 2012
 Concrete roof tile manufacturing assets: / Plates: / Trim (including plates used for barge and ridge tiles) | 5 years | 20.00% | 40.00% | 1 July 2012
-Fibre cement building boards manufacturing assets: | | | |
-Fibre cement building boards manufacturing assets: / Curing assets: | | | |
+Asset group · Fibre cement building boards manufacturing assets: | | | |
+Asset group · Fibre cement building boards manufacturing assets: / Curing assets: | | | |
 Fibre cement building boards manufacturing assets: / Curing assets: / Autoclaves (incorporating rails) | 30 years | 3.33% | 6.67% | 1 July 2012
-Fibre cement building boards manufacturing assets: / Curing assets: / Boilers | 20 years | 5.00% | 10.00% | 1 July 2012
+Fibre cement building boards manufacturing assets: / Curing assets: / Boilers (Fibre cement building boards manufacturing assets / Curing assets / Concrete product manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2012
 Fibre cement building boards manufacturing assets: / Curing assets: / Chargers (including traversers) | 15 years | 6.67% | 13.33% | 1 July 2012
-Fibre cement building boards manufacturing assets: / Curing assets: / Trackwork | 20 years | 5.00% | 10.00% | 1 July 2012
+Fibre cement building boards manufacturing assets: / Trackwork (Curing assets) | 20 years | 5.00% | 10.00% | 1 July 2012
 Fibre cement building boards manufacturing assets: / Curing assets: / Trolley chain hauling systems (incorporating chains, gearboxes, motors and tappets) | 15 years | 6.67% | 13.33% | 1 July 2012
 Fibre cement building boards manufacturing assets: / Curing assets: / Trolley transfer platforms (including transversals) | 20 years | 5.00% | 10.00% | 1 July 2012
 Fibre cement building boards manufacturing assets: / Curing assets: / Trolleys (including trucks) used inside and outside autoclaves | 10 years | 10.00% | 20.00% | 1 July 2012
 Fibre cement building boards manufacturing assets: / Curing assets: / Trolleys (including trucks) used only outside autoclaves | 20 years | 5.00% | 10.00% | 1 July 2012
 Fibre cement building boards manufacturing assets: / Curing assets: / Tunnels (including steamers) | 25 years | 4.00% | 8.00% | 1 July 2012
-Fibre cement building boards manufacturing assets: / Finishing line and packaging assets: | | | |
+Asset group · Fibre cement building boards manufacturing assets: / Finishing line and packaging assets: | | | |
 Fibre cement building boards manufacturing assets: / Finishing line and packaging assets: / Applicators (including coating and sealing applicators) | 7 years | 14.29% | 28.57% | 1 July 2012
 Fibre cement building boards manufacturing assets: / Finishing line and packaging assets: / Drying tunnels (including heating ovens) | 10 years | 10.00% | 20.00% | 1 July 2012
 Fibre cement building boards manufacturing assets: / Finishing line and packaging assets: / Machining assets (including sanding and trimming assets) | 15 years | 6.67% | 13.33% | 1 July 2012
-Fibre cement building boards manufacturing assets: / Finishing line and packaging assets: / Printers | 5 years | 20.00% | 40.00% | 1 July 2012
-Fibre cement building boards manufacturing assets: / Finishing line and packaging assets: / Robots | 10 years | 10.00% | 20.00% | 1 July 2012
-Fibre cement building boards manufacturing assets: / General assets: | | | |
-Fibre cement building boards manufacturing assets: / General assets: / Air compressors (rotary screw) | 10 years | 10.00% | 20.00% | 1 July 2012
-Fibre cement building boards manufacturing assets: / General assets: / Control systems | 10 years | 10.00% | 20.00% | 1 July 2012
-Fibre cement building boards manufacturing assets: / General assets: / Conveyors | 20 years | 5.00% | 10.00% | 1 July 2012
-Fibre cement building boards manufacturing assets: / General assets: / Dust collection assets | 20 years | 5.00% | 10.00% | 1 July 2012
-Fibre cement building boards manufacturing assets: / General assets: / Oil tanks | 30 years | 3.33% | 6.67% | 1 July 2012
+Fibre cement building boards manufacturing assets: / Printers (Finishing line and packaging assets) | 5 years | 20.00% | 40.00% | 1 July 2012
+Fibre cement building boards manufacturing assets: / Robots (Finishing line and packaging assets) | 10 years | 10.00% | 20.00% | 1 July 2012
+Asset group · Fibre cement building boards manufacturing assets: / General assets: | | | |
+Fibre cement building boards manufacturing assets: / Air compressors (rotary screw) (General assets) | 10 years | 10.00% | 20.00% | 1 July 2012
+Fibre cement building boards manufacturing assets: / General assets: / Control systems (Fibre cement building boards manufacturing assets / General assets / Concrete product manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2012
+Fibre cement building boards manufacturing assets: / General assets: / Conveyors (Fibre cement building boards manufacturing assets / General assets / Concrete product manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2012
+Fibre cement building boards manufacturing assets: / Dust collection assets (General assets) | 20 years | 5.00% | 10.00% | 1 July 2012
+Fibre cement building boards manufacturing assets: / Oil tanks (General assets) | 30 years | 3.33% | 6.67% | 1 July 2012
 Fibre cement building boards manufacturing assets: / General assets: / Stackers/unstackers (including pilers/unpilers) | 15 years | 6.67% | 13.33% | 1 July 2012
 Fibre cement building boards manufacturing assets: / General assets: / Steel templates | 7 years | 14.29% | 28.57% | 1 July 2012
-Fibre cement building boards manufacturing assets: / Manufacturing, trimming and pressing assets: | | | |
+Asset group · Fibre cement building boards manufacturing assets: / Manufacturing, trimming and pressing assets: | | | |
 Fibre cement building boards manufacturing assets: / Manufacturing, trimming and pressing assets: / Cranes (used to load boards into presses and unload boards from presses) | 15 years | 6.67% | 13.33% | 1 July 2012
-Fibre cement building boards manufacturing assets: / Manufacturing, trimming and pressing assets: / Guillotines | 20 years | 5.00% | 10.00% | 1 July 2012
+Fibre cement building boards manufacturing assets: / Guillotines (Manufacturing, trimming and pressing assets) | 20 years | 5.00% | 10.00% | 1 July 2012
 Fibre cement building boards manufacturing assets: / Manufacturing, trimming and pressing assets: / Hatschek machines (including tub machines) | 25 years | 4.00% | 8.00% | 1 July 2012
-Fibre cement building boards manufacturing assets: / Manufacturing, trimming and pressing assets: / Presses | 20 years | 5.00% | 10.00% | 1 July 2012
+Fibre cement building boards manufacturing assets: / Presses (Manufacturing, trimming and pressing assets) | 20 years | 5.00% | 10.00% | 1 July 2012
 Fibre cement building boards manufacturing assets: / Manufacturing, trimming and pressing assets: / Scrap return assets (including pulpers and shredders) | 15 years | 6.67% | 13.33% | 1 July 2012
-Fibre cement building boards manufacturing assets: / Manufacturing, trimming and pressing assets: / Trimmers | 20 years | 5.00% | 10.00% | 1 July 2012
-Fibre cement building boards manufacturing assets: / Storage, preparation and mixing assets: | | | |
+Fibre cement building boards manufacturing assets: / Trimmers (Manufacturing, trimming and pressing assets) | 20 years | 5.00% | 10.00% | 1 July 2012
+Asset group · Fibre cement building boards manufacturing assets: / Storage, preparation and mixing assets: | | | |
 Fibre cement building boards manufacturing assets: / Storage, preparation and mixing assets: / Ball mills | 25 years | 4.00% | 8.00% | 1 July 2012
 Fibre cement building boards manufacturing assets: / Storage, preparation and mixing assets: / Batching vessels (including feeding vessels) (excluding silica thickener vessels) | 20 years | 5.00% | 10.00% | 1 July 2012
 Fibre cement building boards manufacturing assets: / Storage, preparation and mixing assets: / Classifiers (including cyclones) | 15 years | 6.67% | 13.33% | 1 July 2012
-Fibre cement building boards manufacturing assets: / Storage, preparation and mixing assets: / Hoppers | 20 years | 5.00% | 10.00% | 1 July 2012
-Fibre cement building boards manufacturing assets: / Storage, preparation and mixing assets: / Hydropulpers | 20 years | 5.00% | 10.00% | 1 July 2012
-Fibre cement building boards manufacturing assets: / Storage, preparation and mixing assets: / Mixers | 15 years | 6.67% | 13.33% | 1 July 2012
-Fibre cement building boards manufacturing assets: / Storage, preparation and mixing assets: / Refiners | 20 years | 5.00% | 10.00% | 1 July 2012
+Fibre cement building boards manufacturing assets: / Hoppers (Storage, preparation and mixing assets) | 20 years | 5.00% | 10.00% | 1 July 2012
+Fibre cement building boards manufacturing assets: / Hydropulpers (Storage, preparation and mixing assets) | 20 years | 5.00% | 10.00% | 1 July 2012
+Fibre cement building boards manufacturing assets: / Mixers (Storage, preparation and mixing assets) | 15 years | 6.67% | 13.33% | 1 July 2012
+Fibre cement building boards manufacturing assets: / Refiners (Storage, preparation and mixing assets) | 20 years | 5.00% | 10.00% | 1 July 2012
 Fibre cement building boards manufacturing assets: / Storage, preparation and mixing assets: / Storage tanks (including silica thickener vessels) | 25 years | 4.00% | 8.00% | 1 July 2012
-Prefabricated concrete product manufacturing assets: | | | |
-Prefabricated concrete product manufacturing assets: / Air compressors | 10 years | 10.00% | 20.00% | 1 July 2013
-Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: | | | |
+Asset group · Prefabricated concrete product manufacturing assets: | | | |
+Air compressors (Prefabricated concrete product manufacturing assets) | 10 years | 10.00% | 20.00% | 1 July 2013
+Asset group · Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: | | | |
 Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Automated trowel machines (incorporating crane and trowel) | 15 years | 6.67% | 13.33% | 1 July 2013
-Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Concrete distribution stations: | | | |
-Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Concrete distribution stations: / Distributors | 10 years | 10.00% | 20.00% | 1 July 2013
+Asset group · Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Concrete distribution stations: | | | |
+Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Distributors (Concrete distribution stations) | 10 years | 10.00% | 20.00% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Concrete distribution stations: / Flying buckets | 10 years | 10.00% | 20.00% | 1 July 2013
-Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Concrete distribution stations: / Hoppers | 15 years | 6.67% | 13.33% | 1 July 2013
+Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Hoppers (Concrete distribution stations) | 15 years | 6.67% | 13.33% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Curing chambers | 25 years | 4.00% | 8.00% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Laser beam alignment systems | 10 years | 10.00% | 20.00% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Pallet cleaning machines | 15 years | 6.67% | 13.33% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Pallet receivable stands (excluding pallet vibrating stands) | 20 years | 5.00% | 10.00% | 1 July 2013
-Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Pallet transport systems: | | | |
+Asset group · Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Pallet transport systems: | | | |
 Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Pallet transport systems: / Pallet drive mechanisms (incorporating drive units, motors, sensors and wheels) | 10 years | 10.00% | 20.00% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Pallet transport systems: / Track work | 20 years | 5.00% | 10.00% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Pallet transport systems: / Transversals (including continuous transfer wagons) | 10 years | 10.00% | 20.00% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Pallet vibrating stands | 10 years | 10.00% | 20.00% | 1 July 2013
-Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Pallets | 15 years | 6.67% | 13.33% | 1 July 2013
+Prefabricated concrete product manufacturing assets: / Pallets (Automated panel manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Rack feeders | 15 years | 6.67% | 13.33% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Shutter cleaning machines | 15 years | 6.67% | 13.33% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Shutter transporting assets (including automated roller conveyors) | 15 years | 6.67% | 13.33% | 1 July 2013
-Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Shutters | 8 years | 12.50% | 25.00% | 1 July 2013
+Prefabricated concrete product manufacturing assets: / Shutters (Automated panel manufacturing assets) | 8 years | 12.50% | 25.00% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets: / Turning machines (including flippers and tilting assets) | 20 years | 5.00% | 10.00% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Buckets (including kibbles, skips and tippers) | 6 years | 16.67% | 33.33% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Casting tables | 10 years | 10.00% | 20.00% | 1 July 2013
-Prefabricated concrete product manufacturing assets: / Concrete manufacturing assets: | | | |
-Prefabricated concrete product manufacturing assets: / Concrete manufacturing assets: / Bins (excluding concrete bins) | 15 years | 6.67% | 13.33% | 1 July 2013
-Prefabricated concrete product manufacturing assets: / Concrete manufacturing assets: / Conveyors | 20 years | 5.00% | 10.00% | 1 July 2013
-Prefabricated concrete product manufacturing assets: / Concrete manufacturing assets: / Hoppers | 15 years | 6.67% | 13.33% | 1 July 2013
-Prefabricated concrete product manufacturing assets: / Concrete manufacturing assets: / Mixers | 15 years | 6.67% | 13.33% | 1 July 2013
-Prefabricated concrete product manufacturing assets: / Concrete testers | 10 years | 10.00% | 20.00% | 1 July 2013
-Prefabricated concrete product manufacturing assets: / Control system assets | 10 years | 10.00% | 20.00% | 1 July 2013
-Prefabricated concrete product manufacturing assets: / Gantry cranes | 25 years | 4.00% | 8.00% | 1 July 2013
+Asset group · Prefabricated concrete product manufacturing assets: / Concrete manufacturing assets: | | | |
+Prefabricated concrete product manufacturing assets: / Bins (excluding concrete bins) (Concrete manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2013
+Prefabricated concrete product manufacturing assets: / Conveyors (Concrete manufacturing assets) | 20 years | 5.00% | 10.00% | 1 July 2013
+Prefabricated concrete product manufacturing assets: / Hoppers (Concrete manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2013
+Prefabricated concrete product manufacturing assets: / Mixers (Concrete manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2013
+Concrete testers (Prefabricated concrete product manufacturing assets) | 10 years | 10.00% | 20.00% | 1 July 2013
+Control system assets (Prefabricated concrete product manufacturing assets) | 10 years | 10.00% | 20.00% | 1 July 2013
+Gantry cranes (Prefabricated concrete product manufacturing assets) | 25 years | 4.00% | 8.00% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Lifting gear (including chains, lugs and swivels) | 7 years | 14.29% | 28.57% | 1 July 2013
-Prefabricated concrete product manufacturing assets: / Moulds | 10 years | 10.00% | 20.00% | 1 July 2013
-Prefabricated concrete product manufacturing assets: / Pipe manufacturing assets: | | | |
+Moulds (Prefabricated concrete product manufacturing assets) | 10 years | 10.00% | 20.00% | 1 July 2013
+Asset group · Prefabricated concrete product manufacturing assets: / Pipe manufacturing assets: | | | |
 Prefabricated concrete product manufacturing assets: / Pipe manufacturing assets: / Cage machines | 20 years | 5.00% | 10.00% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Pipe manufacturing assets: / Load testers | 25 years | 4.00% | 8.00% | 1 July 2013
-Prefabricated concrete product manufacturing assets: / Pipe manufacturing assets: / Moulds | 7 years | 14.29% | 28.57% | 1 July 2013
-Prefabricated concrete product manufacturing assets: / Pipe manufacturing assets: / Pallets | 15 years | 6.67% | 13.33% | 1 July 2013
+Prefabricated concrete product manufacturing assets: / Moulds (Pipe manufacturing assets) | 7 years | 14.29% | 28.57% | 1 July 2013
+Prefabricated concrete product manufacturing assets: / Pallets (Pipe manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Pipe manufacturing assets: / Pipe making machines | 20 years | 5.00% | 10.00% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Prestressing assets | 10 years | 10.00% | 20.00% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Shutter saws | 7 years | 14.29% | 28.57% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Steel cutters and benders | 7 years | 14.29% | 28.57% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Trowel machines | 4 years | 25.00% | 50.00% | 1 July 2013
 Prefabricated concrete product manufacturing assets: / Work tables | 10 years | 10.00% | 20.00% | 1 July 2013
-Silos | 30 years | 3.33% | 6.67% | 1 July 2012
-Tile manufacturing plant (cement and concrete, but excluding concrete roof tiles): | | | |
-Tile manufacturing plant (cement and concrete, but excluding concrete roof tiles): / General plant | 10 years | 10.00% | 20.00% | 1 January 2001
+Silos (Concrete product manufacturing) | 30 years | 3.33% | 6.67% | 1 July 2012
+Asset group · Tile manufacturing plant (cement and concrete, but excluding concrete roof tiles): | | | |
+Tile manufacturing plant (cement and concrete, but excluding concrete roof tiles): / General plant (Tile manufacturing plant …) | 10 years | 10.00% | 20.00% | 1 January 2001
 Tile manufacturing plant (cement and concrete, but excluding concrete roof tiles): / Pallets (aluminium used in extrusion process) | 5 years | 20.00% | 40.00% | 1 January 2001
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
-- Bins (excluding concrete bins): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-bins/
+- Concrete block, brick and paver manufacturing assets: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/#asset-group-1
+- Concrete roof tile manufacturing assets: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/#asset-group-27
+- Fibre cement building boards manufacturing assets: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/#asset-group-58
+- Prefabricated concrete product manufacturing assets: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/#asset-group-99
+- Tile manufacturing plant (cement and concrete, but excluding concrete roof tiles): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/#asset-group-146
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/#source
+- Bins (excluding concrete bins) (Batching and mixing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-bins/
 - Colour dosing assets: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/colour-dosing-assets/
 - Colour tanks (incorporating stirrers): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/colour-tanks/
-- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-hoppers/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-mixers/
+- Hoppers (Batching and mixing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-hoppers/
+- Mixers (Batching and mixing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-mixers/
 - Block/brick/paver making machines: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/block-brick-paver-making-machines/
-- Moulds: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-moulds/
-- Splitters: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/splitters/
+- Moulds (Block/brick/paver making assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-moulds/
+- Splitters (Block/brick/paver making assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/splitters/
 - Boilers (including steam generators): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-boilers/
 - Drying chambers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/drying-chambers/
 - Elevators/lowerators (including loaders/unloaders): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/elevators-lowerators/
 - Racks (excluding racks fixed to drying chambers): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-racks/
 - Transfer car (incorporating finger cars) track works: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/transfer-car-track-works/
 - Transfer cars (incorporating finger cars): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/transfer-cars/
-- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-control-systems/
-- Conveyors: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-conveyors/
-- Plates: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/plates/
+- Control systems (Concrete block, brick and paver manufacturing assets / General assets / Concrete product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-control-systems/
+- Conveyors (Concrete block, brick and paver manufacturing assets / General assets / Concrete product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-conveyors/
+- Plates (General assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/plates/
 - Cubing assets (including cubers, doublers and squeezers): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/cubing-assets/
-- Robots: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-robots/
-- Wrapping and strapping machines: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/wrapping-and-strapping-machines/
-- Air compressors (rotary screw): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-air-compressors/
+- Robots (Palletising and packaging assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-robots/
+- Wrapping and strapping machines (Palletising and packaging assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/wrapping-and-strapping-machines/
+- Air compressors (rotary screw) (Concrete roof tile manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-air-compressors/
 - Applicator batching assets (including hoppers, mixers and tanks, but excluding batching assets for anti-scuff hot glue/max applicators and oil applicators): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/applicator-batching-assets/
 - Anti-scuff hot glue/wax: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/anti-scuff-hot-glue-wax/
 - General (including colour, sealer and sheen): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/applicators-general/
 - Oil (excluding oil tanks): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/oil/
-- Bins: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-bins/
-- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-control-systems/
-- Conveyors: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-conveyors/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-boilers/
-- Concrete: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete/
+- Bins (Concrete roof tile manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-bins/
+- Control systems (Concrete roof tile manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-control-systems/
+- Conveyors (Concrete roof tile manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-conveyors/
+- Boilers (Concrete roof tile manufacturing assets / Curing assets / Concrete product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-boilers/
+- Concrete (Curing bays): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete/
 - Foam sandwich (incorporating insulated panel walls, roof and doors): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/foam-sandwich/
 - Rackers/derackers (including loaders/unloaders): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/rackers-derackers/
 - Racks (used in curing bays): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-racks/
-- Depalleters: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/depalleters/
-- Extruders: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/extruders/
-- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-hoppers/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-mixers/
-- Oil tanks: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-oil-tanks/
+- Depalleters (Concrete roof tile manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/depalleters/
+- Extruders (Concrete roof tile manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/extruders/
+- Hoppers (Concrete roof tile manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-hoppers/
+- Mixers (Concrete roof tile manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-mixers/
+- Oil tanks (Concrete roof tile manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-oil-tanks/
 - General (including collectors, compilers and cranes): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/packaging-assets-general/
-- Robots: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-robots/
-- Shrink wrappers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/shrink-wrappers/
+- Robots (Packaging assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-robots/
+- Shrink wrappers (Concrete product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/shrink-wrappers/
 - Strapping assets: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/strapping-assets/
 - Wrapping assets: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/wrapping-assets/
-- General: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/plates-general/
+- General (Plates): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/plates-general/
 - Trim (including plates used for barge and ridge tiles): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/trim/
 - Autoclaves (incorporating rails): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/autoclaves/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-boilers/
+- Boilers (Fibre cement building boards manufacturing assets / Curing assets / Concrete product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-boilers/
 - Chargers (including traversers): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/chargers/
-- Trackwork: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/trackwork/
+- Trackwork (Curing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/trackwork/
 - Trolley chain hauling systems (incorporating chains, gearboxes, motors and tappets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/trolley-chain-hauling-systems/
 - Trolley transfer platforms (including transversals): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/trolley-transfer-platforms/
 - Trolleys (including trucks) used inside and outside autoclaves: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/trolleys-used-inside-and-outside-autoclaves/
@@ -231,34 +241,34 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Applicators (including coating and sealing applicators): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/applicators/
 - Drying tunnels (including heating ovens): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/drying-tunnels/
 - Machining assets (including sanding and trimming assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/machining-assets/
-- Printers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/printers/
-- Robots: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-robots/
-- Air compressors (rotary screw): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-air-compressors/
-- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-control-systems/
-- Conveyors: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-conveyors/
-- Dust collection assets: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/dust-collection-assets/
-- Oil tanks: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-oil-tanks/
+- Printers (Finishing line and packaging assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/printers/
+- Robots (Finishing line and packaging assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-robots/
+- Air compressors (rotary screw) (General assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-air-compressors/
+- Control systems (Fibre cement building boards manufacturing assets / General assets / Concrete product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-control-systems/
+- Conveyors (Fibre cement building boards manufacturing assets / General assets / Concrete product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-conveyors/
+- Dust collection assets (General assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/dust-collection-assets/
+- Oil tanks (General assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-oil-tanks/
 - Stackers/unstackers (including pilers/unpilers): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/stackers-unstackers/
 - Steel templates: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/steel-templates/
 - Cranes (used to load boards into presses and unload boards from presses): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/cranes/
-- Guillotines: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/guillotines/
+- Guillotines (Manufacturing, trimming and pressing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/guillotines/
 - Hatschek machines (including tub machines): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/hatschek-machines/
-- Presses: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/presses/
+- Presses (Manufacturing, trimming and pressing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/presses/
 - Scrap return assets (including pulpers and shredders): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/scrap-return-assets/
-- Trimmers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/trimmers/
+- Trimmers (Manufacturing, trimming and pressing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/trimmers/
 - Ball mills: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/ball-mills/
 - Batching vessels (including feeding vessels) (excluding silica thickener vessels): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/batching-vessels/
 - Classifiers (including cyclones): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/classifiers/
-- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-hoppers/
-- Hydropulpers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/hydropulpers/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-mixers/
-- Refiners: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/refiners/
+- Hoppers (Storage, preparation and mixing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-hoppers/
+- Hydropulpers (Storage, preparation and mixing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/hydropulpers/
+- Mixers (Storage, preparation and mixing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-mixers/
+- Refiners (Storage, preparation and mixing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/refiners/
 - Storage tanks (including silica thickener vessels): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/storage-tanks/
-- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/prefabricated-concrete-product-air-compressors/
+- Air compressors (Prefabricated concrete product manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/prefabricated-concrete-product-air-compressors/
 - Automated trowel machines (incorporating crane and trowel): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/automated-trowel-machines/
-- Distributors: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/distributors/
+- Distributors (Concrete distribution stations): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/distributors/
 - Flying buckets: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/flying-buckets/
-- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-distribution-stations-hoppers/
+- Hoppers (Concrete distribution stations): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-distribution-stations-hoppers/
 - Curing chambers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/curing-chambers/
 - Laser beam alignment systems: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/laser-beam-alignment-systems/
 - Pallet cleaning machines: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/pallet-cleaning-machines/
@@ -267,38 +277,38 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Track work: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/track-work/
 - Transversals (including continuous transfer wagons): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/transversals/
 - Pallet vibrating stands: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/pallet-vibrating-stands/
-- Pallets: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/automated-panel-manufacturing-pallets/
+- Pallets (Automated panel manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/automated-panel-manufacturing-pallets/
 - Rack feeders: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/rack-feeders/
 - Shutter cleaning machines: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/shutter-cleaning-machines/
 - Shutter transporting assets (including automated roller conveyors): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/shutter-transporting-assets/
-- Shutters: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/shutters/
+- Shutters (Automated panel manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/shutters/
 - Turning machines (including flippers and tilting assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/turning-machines/
 - Buckets (including kibbles, skips and tippers): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/buckets/
 - Casting tables: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/casting-tables/
-- Bins (excluding concrete bins): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/prefabricated-concrete-product-bins/
-- Conveyors: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/prefabricated-concrete-product-conveyors/
-- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-manufacturing-assets-hoppers/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/prefabricated-concrete-product-mixers/
-- Concrete testers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-testers/
-- Control system assets: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/control-system-assets/
-- Gantry cranes: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/gantry-cranes/
+- Bins (excluding concrete bins) (Concrete manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/prefabricated-concrete-product-bins/
+- Conveyors (Concrete manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/prefabricated-concrete-product-conveyors/
+- Hoppers (Concrete manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-manufacturing-assets-hoppers/
+- Mixers (Concrete manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/prefabricated-concrete-product-mixers/
+- Concrete testers (Prefabricated concrete product manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-testers/
+- Control system assets (Prefabricated concrete product manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/control-system-assets/
+- Gantry cranes (Prefabricated concrete product manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/gantry-cranes/
 - Lifting gear (including chains, lugs and swivels): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/lifting-gear/
-- Moulds: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/moulds-95fef8/
+- Moulds (Prefabricated concrete product manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/moulds-95fef8/
 - Cage machines: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/cage-machines/
 - Load testers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/load-testers/
-- Moulds: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/pipe-manufacturing-assets-moulds/
-- Pallets: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/pipe-manufacturing-assets-pallets/
+- Moulds (Pipe manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/pipe-manufacturing-assets-moulds/
+- Pallets (Pipe manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/pipe-manufacturing-assets-pallets/
 - Pipe making machines: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/pipe-making-machines/
 - Prestressing assets: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/prestressing-assets/
 - Shutter saws: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/shutter-saws/
 - Steel cutters and benders: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/steel-cutters-and-benders/
 - Trowel machines: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/trowel-machines/
 - Work tables: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/work-tables/
-- Silos: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/silos/
-- General plant: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/general-plant/
+- Silos (Concrete product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/silos/
+- General plant (Tile manufacturing plant …): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/general-plant/
 - Pallets (aluminium used in extrusion process): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/tile-manufacturing-plant-pallets/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

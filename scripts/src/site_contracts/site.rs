@@ -22,6 +22,22 @@ fn string_list(items: &[&str]) -> Json {
     Json::Array(items.iter().map(|i| s(i)).collect())
 }
 
+/// Article credits identify the Person defined on About, including a display name for readers
+/// that do not fetch linked documents. No other identity fields belong on the reference.
+fn article_person() -> Json {
+    obj(vec![
+        ("@type", s("Person")),
+        ("@id", s(PERSON_ID)),
+        ("name", s("Ryan Duguid")),
+    ])
+}
+
+fn describes_person(node: &Json) -> bool {
+    core::has_type(node, "Person")
+        || (node.get("@id").and_then(Json::as_str) == Some(PERSON_ID)
+            && matches!(node, Json::Object(fields) if fields.len() > 1))
+}
+
 /// Check the identity fields that make the canonical Person unambiguous.
 pub fn check_canonical_person(person: &Json) -> Vec<String> {
     let mut failures = Vec::new();
@@ -114,13 +130,39 @@ pub fn check_person_stubs(people: &[(String, Json)], canonical: &Json) -> Vec<St
     failures
 }
 
-/// About owns the canonical Person; homepage and rate-page stubs may restate it.
+/// About owns the canonical Person. Article credits, homepage and rate-page stubs may restate it.
 pub fn check_person_graph(paths: &[PathBuf], root: &Path) -> Result<Vec<String>, String> {
     let mut failures = Vec::new();
     let graph = core::indexed_nodes(paths, &mut failures, &not_indexed(), root)?;
+    let credit = article_person();
+    let mut credits_by_page = BTreeMap::new();
+    for (rel, article) in graph
+        .iter()
+        .filter(|(_, n)| core::has_type(n, "TechArticle"))
+    {
+        for field in ["author", "publisher"] {
+            if eq(article.get(field), &credit) {
+                *credits_by_page.entry(rel).or_insert(0usize) += 1;
+            } else {
+                failures.push(format!(
+                    "person graph: {rel} article {field} must name the canonical Person"
+                ));
+            }
+        }
+    }
     let people: Vec<(String, Json)> = graph
         .iter()
-        .filter(|(_, n)| core::has_type(n, "Person"))
+        .filter(|(_, n)| describes_person(n))
+        .filter(|(rel, n)| {
+            if n.py_eq(&credit)
+                && let Some(remaining) = credits_by_page.get_mut(rel)
+                && *remaining > 0
+            {
+                *remaining -= 1;
+                return false;
+            }
+            true
+        })
         .cloned()
         .collect();
     let canonical: Vec<&(String, Json)> = people
@@ -251,13 +293,21 @@ pub fn check_evidence_page(root: &Path) -> Result<Vec<String>, String> {
     let authored = nodes
         .iter()
         .filter(|n| core::has_type(n, "TechArticle") || core::has_type(n, "WebPage"))
-        .any(|n| eq(n.get("author"), &person_ref()));
+        .any(|n| eq(n.get("author"), &person_ref()) || eq(n.get("author"), &article_person()));
     if !authored {
         failures.push(format!(
             "{EVIDENCE_REL}: TechArticle or WebPage is not authored by the canonical Person"
         ));
     }
-    if nodes.iter().any(|n| core::has_type(n, "Person")) {
+    let credit = article_person();
+    let credits = nodes
+        .iter()
+        .filter(|n| core::has_type(n, "TechArticle"))
+        .flat_map(|n| [n.get("author"), n.get("publisher")])
+        .filter(|n| eq(*n, &credit))
+        .count();
+    let mut people = nodes.iter().filter(|n| describes_person(n));
+    if people.clone().count() != credits || people.any(|n| !n.py_eq(&credit)) {
         failures.push(format!(
             "{EVIDENCE_REL}: must not define a local Person node"
         ));
@@ -1114,7 +1164,7 @@ pub fn check_evaluation_packs(root: &Path) -> Result<Vec<String>, String> {
             .iter()
             .filter(|n| core::has_type(n, "TechArticle"))
             .collect();
-        if articles.len() != 1 || !eq(articles[0].get("author"), &person_ref()) {
+        if articles.len() != 1 || !eq(articles[0].get("author"), &article_person()) {
             failures.push(format!(
                 "{rel}: TechArticle must be authored by the canonical Person"
             ));

@@ -2,59 +2,59 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/printing/
 
-> Printing, Table A (industry categories), MANUFACTURING …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+> Printing, Table A (industry categories) …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
 
 # Printing
 
 44 effective lives in Table A of the Commissioner’s 2025 effective life determination for Printing.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Rows of Printing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Digital printing assets (including flatbed digital printers, ink based thermal imaging printers, ink jet printers, spray jet digital printers and toner based printers) | 5 years | 20.00% | 40.00% | 1 January 2006
-Flexographic printing assets: | | | |
-Flexographic printing assets: / Ancillary assets: | | | |
+Asset group · Flexographic printing assets: | | | |
+Asset group · Flexographic printing assets: / Ancillary assets: | | | |
 Flexographic printing assets: / Ancillary assets: / Anilox roll cleaning machines | 15 years | 6.67% | 13.33% | 1 July 2006
 Flexographic printing assets: / Ancillary assets: / Anilox trolley tugs | 10 years | 10.00% | 20.00% | 1 July 2006
 Flexographic printing assets: / Ancillary assets: / Ink dispensing systems | 10 years | 10.00% | 20.00% | 1 July 2006
 Flexographic printing assets: / Ancillary assets: / Sleeve mounting machines | 10 years | 10.00% | 20.00% | 1 July 2006
-Flexographic printing assets: / Ancillary assets: / Sleeves | 2 years | 50.00% | 100.00% | 1 July 2006
-Flexographic printing assets: / Printing assets: | | | |
-Flexographic printing assets: / Printing assets: / Die cutters, flexo/folder/gluers – see Table A Pulp, paper and converted paper product manufacturing (15100, 15210, 15220 and 15290), box and carton making assets | | | |
+Flexographic printing assets: / Sleeves (Ancillary assets) | 2 years | 50.00% | 100.00% | 1 July 2006
+Asset group · Flexographic printing assets: / Printing assets: | | | |
+Register note · Flexographic printing assets: / Printing assets: / Die cutters, flexo/folder/gluers – see Table A Pulp, paper and converted paper product manufacturing (15100, 15210, 15220 and 15290), box and carton making assets | | | |
 Flexographic printing assets: / Printing assets: / Presses (including mid web, narrow web, very wide web and wide web flexographic presses) | 12 1/2 years | 8.00% | 16.00% | 1 July 2006
-Newspaper printing assets: | | | |
-Newspaper printing assets: / Ancillary assets: | | | |
+Asset group · Newspaper printing assets: | | | |
+Asset group · Newspaper printing assets: / Ancillary assets: | | | |
 Newspaper printing assets: / Ancillary assets: / Automated guided vehicles (AGVs) (including laser guided vehicles and track mounted automated vehicles) | 10 years | 10.00% | 20.00% | 1 January 2007
 Newspaper printing assets: / Ancillary assets: / Gripper conveyor systems (incorporating drive chains, grippers and tracks) | 15 years | 6.67% | 13.33% | 1 January 2007
 Newspaper printing assets: / Ancillary assets: / Ink pumps (mechanical) | 6 years | 16.67% | 33.33% | 1 January 2007
-Newspaper printing assets: / Buffering/print line storage assets: | | | |
+Asset group · Newspaper printing assets: / Buffering/print line storage assets: | | | |
 Newspaper printing assets: / Buffering/print line storage assets: / Storage devices (including discs, rolls, spools and associated mountings) | 15 years | 6.67% | 13.33% | 1 January 2007
 Newspaper printing assets: / Buffering/print line storage assets: / Unwinders and winders (including single, double and triple stations and buffer docking stations) | 15 years | 6.67% | 13.33% | 1 January 2007
-Newspaper printing assets: / Newspaper wrapping machines – see Table A Other store-based retailing (42110 to 42799) | | | |
-Newspaper printing assets: / Offset lithography printing presses: | | | |
+Register note · Newspaper printing assets: / Newspaper wrapping machines – see Table A Other store-based retailing (42110 to 42799) | | | |
+Asset group · Newspaper printing assets: / Offset lithography printing presses: | | | |
 Newspaper printing assets: / Offset lithography printing presses: / Hybrid heatset and non-heatset webfed offset presses (incorporating integrated control systems, dryers and other peripheral equipment) | 15 years | 6.67% | 13.33% | 1 January 2007
 Newspaper printing assets: / Offset lithography printing presses: / Non-heatset (coldset) webfed offset presses (incorporating integrated control systems, folders, pasters, reelstands and other peripheral equipment) | 15 years | 6.67% | 13.33% | 1 January 2007
-Newspaper printing assets: / Reel processing, storage and transport assets: | | | |
-Newspaper printing assets: / Reel processing, storage and transport assets: / Conveyors | 12 1/2 years | 8.00% | 16.00% | 1 January 2007
-Newspaper printing assets: / Reel processing, storage and transport assets: / Racks | 20 years | 5.00% | 10.00% | 1 January 2007
+Asset group · Newspaper printing assets: / Reel processing, storage and transport assets: | | | |
+Newspaper printing assets: / Conveyors (Reel processing, storage and transport assets) | 12 1/2 years | 8.00% | 16.00% | 1 January 2007
+Newspaper printing assets: / Racks (Reel processing, storage and transport assets) | 20 years | 5.00% | 10.00% | 1 January 2007
 Newspaper printing assets: / Reel processing, storage and transport assets: / Reel trolleys (incorporating controls and drive chains) | 15 years | 6.67% | 13.33% | 1 January 2007
-Newspaper printing assets: / Reel processing, storage and transport assets: / Shredders | 15 years | 6.67% | 13.33% | 1 January 2007
+Newspaper printing assets: / Shredders (Reel processing, storage and transport assets) | 15 years | 6.67% | 13.33% | 1 January 2007
 Newspaper printing assets: / Reel processing, storage and transport assets: / Stripping machines | 15 years | 6.67% | 13.33% | 1 January 2007
-Offset lithography printing presses used in commercial printing generally: | | | |
+Asset group · Offset lithography printing presses used in commercial printing generally: | | | |
 Offset lithography printing presses used in commercial printing generally: / Heatset webfed offset presses (incorporating integrated control systems, coaters and other peripheral equipment) | 15 years | 6.67% | 13.33% | 1 January 2006
 Offset lithography printing presses used in commercial printing generally: / Sheetfed presses (incorporating integrated control systems, coaters and other peripheral equipment) | 12 1/2 years | 8.00% | 16.00% | 1 January 2006
-Post-press (finishing) trade services assets – see Table A Printing support services (16120) | | | |
-Pre-press trade services assets – see Table A Printing support services (16120) | | | |
-Quality control assets: | | | |
+Register note · Post-press (finishing) trade services assets – see Table A Printing support services (16120) | | | |
+Register note · Pre-press trade services assets – see Table A Printing support services (16120) | | | |
+Asset group · Quality control assets: | | | |
 Quality control assets: / Automatic web inspection systems | 6 years | 16.67% | 33.33% | 1 July 2006
 Quality control assets: / Gas Chromatograph (GC) testers | 8 years | 12.50% | 25.00% | 1 July 2006
 Quality control assets: / Others (including densitometers, plate readers and spectrophotometers) | 5 years | 20.00% | 40.00% | 1 July 2006
-Screen printing assets: | | | |
-Screen printing assets: / Ancillary assets: | | | |
+Asset group · Screen printing assets: | | | |
+Asset group · Screen printing assets: / Ancillary assets: | | | |
 Screen printing assets: / Ancillary assets: / Dryers (including conventional air dryers, flash curers and UV dryers) | 12 1/2 years | 8.00% | 16.00% | 1 January 2006
 Screen printing assets: / Ancillary assets: / Drying racks | 20 years | 5.00% | 10.00% | 1 January 2006
 Screen printing assets: / Ancillary assets: / Emulsion coaters | 10 years | 10.00% | 20.00% | 1 January 2006
@@ -63,40 +63,41 @@ Screen printing assets: / Ancillary assets: / Screen frames | 10 years | 10.00% 
 Screen printing assets: / Ancillary assets: / Sign cutting machines | 5 years | 20.00% | 40.00% | 1 January 2006
 Screen printing assets: / Ancillary assets: / Squeegee cutters | 10 years | 10.00% | 20.00% | 1 January 2006
 Screen printing assets: / Ancillary assets: / Vacuum frames | 20 years | 5.00% | 10.00% | 1 January 2006
-Screen printing assets: / Press assets: | | | |
+Asset group · Screen printing assets: / Press assets: | | | |
 Screen printing assets: / Press assets: / Heat presses used in sublimation finishing | 25 years | 4.00% | 8.00% | 1 January 2006
 Screen printing assets: / Press assets: / Pen and pad print machines | 20 years | 5.00% | 10.00% | 1 January 2006
-Screen printing assets: / Press assets: / Screen printing presses: | | | |
+Asset group · Screen printing assets: / Press assets: / Screen printing presses: | | | |
 Screen printing assets: / Press assets: / Screen printing presses: / Automatic presses (including in-line multicolour presses) | 15 years | 6.67% | 13.33% | 1 January 2006
 Screen printing assets: / Press assets: / Screen printing presses: / Cylinder presses | 15 years | 6.67% | 13.33% | 1 January 2006
 Screen printing assets: / Press assets: / Screen printing presses: / Others (including manual, semi-automatic and three quarter automatic carousel, flatbed and rotary screen printing presses) | 20 years | 5.00% | 10.00% | 1 January 2006
-Screen printing assets: / Screen reclamation assets: | | | |
+Asset group · Screen printing assets: / Screen reclamation assets: | | | |
 Screen printing assets: / Screen reclamation assets: / Screen cleaning bays | 10 years | 10.00% | 20.00% | 1 January 2006
 Screen printing assets: / Screen reclamation assets: / Screen washers (automatic) | 6 years | 16.67% | 33.33% | 1 January 2006
 Screen printing assets: / Screen reclamation assets: / Water blasters | 4 years | 25.00% | 50.00% | 1 January 2006
-Support assets: | | | |
-Support assets: / Afterburners | 10 years | 10.00% | 20.00% | 1 January 2006
-Support assets: / Dust/waste extraction systems: | | | |
-Support assets: / Dust/waste extraction systems: / Compactors | 12 1/2 years | 8.00% | 16.00% | 1 January 2007
-Support assets: / Dust/waste extraction systems: / Ducting | 15 years | 6.67% | 13.33% | 1 January 2007
-Support assets: / Dust/waste extraction systems: / Vacuum pumps | 6 years | 16.67% | 33.33% | 1 January 2007
+Asset group · Support assets: | | | |
+Afterburners (Support assets) | 10 years | 10.00% | 20.00% | 1 January 2006
+Asset group · Support assets: / Dust/waste extraction systems: | | | |
+Support assets: / Compactors (Dust/waste extraction systems) | 12 1/2 years | 8.00% | 16.00% | 1 January 2007
+Support assets: / Ducting (Dust/waste extraction systems) | 15 years | 6.67% | 13.33% | 1 January 2007
+Support assets: / Vacuum pumps (Dust/waste extraction systems) | 6 years | 16.67% | 33.33% | 1 January 2007
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/printing/#source
 - Digital printing assets (including flatbed digital printers, ink based thermal imaging printers, ink jet printers, spray jet digital printers and toner based printers): https://duguid.com.au/tools/depreciation-rates/industry/printing/digital-printing-assets/
 - Anilox roll cleaning machines: https://duguid.com.au/tools/depreciation-rates/industry/printing/anilox-roll-cleaning-machines/
 - Anilox trolley tugs: https://duguid.com.au/tools/depreciation-rates/industry/printing/anilox-trolley-tugs/
 - Ink dispensing systems: https://duguid.com.au/tools/depreciation-rates/industry/printing/ink-dispensing-systems/
 - Sleeve mounting machines: https://duguid.com.au/tools/depreciation-rates/industry/printing/sleeve-mounting-machines/
-- Sleeves: https://duguid.com.au/tools/depreciation-rates/industry/printing/sleeves/
+- Sleeves (Ancillary assets): https://duguid.com.au/tools/depreciation-rates/industry/printing/sleeves/
 - Die cutters, flexo/folder/gluers – see Table A Pulp, paper and converted paper product manufacturing (15100, 15210, 15220 and 15290), box and carton making assets: https://duguid.com.au/tools/depreciation-rates/industry/pulp-paper-and-converted-paper-product/
 - Presses (including mid web, narrow web, very wide web and wide web flexographic presses): https://duguid.com.au/tools/depreciation-rates/industry/printing/presses/
 - Automated guided vehicles (AGVs) (including laser guided vehicles and track mounted automated vehicles): https://duguid.com.au/tools/depreciation-rates/industry/printing/automated-guided-vehicles/
@@ -107,10 +108,10 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Newspaper wrapping machines – see Table A Other store-based retailing (42110 to 42799): https://duguid.com.au/tools/depreciation-rates/industry/other-store-based-retailing/
 - Hybrid heatset and non-heatset webfed offset presses (incorporating integrated control systems, dryers and other peripheral equipment): https://duguid.com.au/tools/depreciation-rates/industry/printing/hybrid-heatset-and-non-heatset-webfed-offset-presses/
 - Non-heatset (coldset) webfed offset presses (incorporating integrated control systems, folders, pasters, reelstands and other peripheral equipment): https://duguid.com.au/tools/depreciation-rates/industry/printing/non-heatset-webfed-offset-presses/
-- Conveyors: https://duguid.com.au/tools/depreciation-rates/industry/printing/conveyors/
-- Racks: https://duguid.com.au/tools/depreciation-rates/industry/printing/racks/
+- Conveyors (Reel processing, storage and transport assets): https://duguid.com.au/tools/depreciation-rates/industry/printing/conveyors/
+- Racks (Reel processing, storage and transport assets): https://duguid.com.au/tools/depreciation-rates/industry/printing/racks/
 - Reel trolleys (incorporating controls and drive chains): https://duguid.com.au/tools/depreciation-rates/industry/printing/reel-trolleys/
-- Shredders: https://duguid.com.au/tools/depreciation-rates/industry/printing/shredders/
+- Shredders (Reel processing, storage and transport assets): https://duguid.com.au/tools/depreciation-rates/industry/printing/shredders/
 - Stripping machines: https://duguid.com.au/tools/depreciation-rates/industry/printing/stripping-machines/
 - Heatset webfed offset presses (incorporating integrated control systems, coaters and other peripheral equipment): https://duguid.com.au/tools/depreciation-rates/industry/printing/heatset-webfed-offset-presses/
 - Sheetfed presses (incorporating integrated control systems, coaters and other peripheral equipment): https://duguid.com.au/tools/depreciation-rates/industry/printing/sheetfed-presses/
@@ -134,12 +135,12 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Screen cleaning bays: https://duguid.com.au/tools/depreciation-rates/industry/printing/screen-cleaning-bays/
 - Screen washers (automatic): https://duguid.com.au/tools/depreciation-rates/industry/printing/screen-washers/
 - Water blasters: https://duguid.com.au/tools/depreciation-rates/industry/printing/water-blasters/
-- Afterburners: https://duguid.com.au/tools/depreciation-rates/industry/printing/afterburners/
-- Compactors: https://duguid.com.au/tools/depreciation-rates/industry/printing/compactors/
-- Ducting: https://duguid.com.au/tools/depreciation-rates/industry/printing/ducting/
-- Vacuum pumps: https://duguid.com.au/tools/depreciation-rates/industry/printing/vacuum-pumps/
+- Afterburners (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/printing/afterburners/
+- Compactors (Dust/waste extraction systems): https://duguid.com.au/tools/depreciation-rates/industry/printing/compactors/
+- Ducting (Dust/waste extraction systems): https://duguid.com.au/tools/depreciation-rates/industry/printing/ducting/
+- Vacuum pumps (Dust/waste extraction systems): https://duguid.com.au/tools/depreciation-rates/industry/printing/vacuum-pumps/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

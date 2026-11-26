@@ -8,9 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/asset/
 
 Table B of the Commissioner’s 2025 effective life determination sets effective lives for assets used across industries. Choose an asset to read its rows.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## A
+
+Effective lives for A from the source determination.
 
 Heading | Lives
 Accommodation units in caravan/tourist parks being articles, not fixtures, and used for a specified purpose | 2
@@ -26,37 +28,44 @@ Automatic teller machines (ATMs) | 7 years
 
 ## B
 
+Effective lives for B from the source determination.
+
 Heading | Lives
 Bending machines (bar, angle and rod) | 10 years
 Block and brick elevators, portable | 10 years
-Boilers | 20 years
+Boilers (Table B) | 20 years
 Boom gates | 2
 
 ## C
 
+Effective lives for C from the source determination.
+
 Heading | Lives
 Car park assets | 10
-Ceiling fans | 10 years
+Ceiling fans (Table B) | 10 years
 Cleaning carts and trolleys | 5 years
 Compaction assets | 2
 Computers and computer equipment | 8
 Concrete truck mixers (incorporating barrel, chutes, frame and hydraulic pumps) | 5 years
 Concreting assets | 13
 Control systems and control system assets (including control cabinets and panels, instruments, programmable logic controllers (PLCs), sensors, switchgear telemetry and variable speed drives (VSDs)) | 10 years
-Cranes (gantry and overhead) | 25 years
+Cranes (gantry and overhead) (Table B) | 25 years
 Curtains and drapes | 6 years
 
 ## D
 
+Effective lives for D from the source determination.
+
 Heading | Lives
 Digital cameras | 3
-Door controls and motor drive systems for automatic sliding doors (incorporating chains, controls, motors and sensors, but excluding doors) | 15 years
-Dozers/front end loaders | 9 years
+Door controls and motor drive systems for automatic sliding doors (incorporating chains, controls, motors and sensors, but excluding doors) (Table B) | 15 years
+Dozers/front end loaders (Table B) | 9 years
 Drink dispensing machines | 10 years
-
-Drones/remotely piloted aircraft – see Table B Unmanned aerial vehicles |
+Drones/remotely piloted aircraft – see Table B Unmanned aerial vehicles | Cross-reference
 
 ## E
+
+Effective lives for E from the source determination.
 
 Heading | Lives
 Electric bicycles (e-bicycles and e-bikes) | 4 years
@@ -66,60 +75,73 @@ Escalators (machinery and their moving parts) | 20 years
 
 ## F
 
+Effective lives for F from the source determination.
+
 Heading | Lives
 Fences | 2
 Fire control and alarm assets | 20
 Floor coverings (removable without damage) | 3
 Fogging machines (insecticide, including cold foggers and thermal foggers) | 2
-Forklifts | 11 years
+Forklifts (Table B) | 11 years
 Forklift battery chargers | 11 years
-Formwork, beams and props, steel | 10 years
+Formwork, beams and props, steel (Table B) | 10 years
 Foundations for plant and machinery (integral to the operation of such plant and machinery, but not incorporated into the plant and machinery itself) | 40 years
 
 ## G
 
-Heading | Lives
+Effective lives for G from the source determination.
 
-Generators – see Table B Power supply assets |
+Heading | Lives
+Generators – see Table B Power supply assets | Cross-reference
 
 ## H
 
+Effective lives for H from the source determination.
+
 Heading | Lives
 Hand dryers (electrical) | 10 years
-Hand tools (manually operated) | 10 years
+Hand tools (manually operated) (Table B) | 10 years
 
 ## J
+
+Effective lives for J from the source determination.
 
 Heading | Lives
 Judges’ robes | 2
 
 ## L
 
+Effective lives for L from the source determination.
+
 Heading | Lives
 Laboratory assets used in quality control, sample checking etc | 2
 Laser cutting machines | 10 years
 Levels | 7
 Libraries (professional) | 10 years
-Lift slab assets (incorporating spreader bars, clutches, pulleys and cables) | 5 years
+Lift slab assets (incorporating spreader bars, clutches, pulleys and cables) (Table B) | 5 years
 Lifts (including dumbwaiters, hydraulic lifts and traction lifts) | 30 years
 Light fittings and freestanding lights (excluding hardwired light fittings) | 10 years
 Light shades (removable) | 5 years
-Lighting control systems (microprocessor based) | 5 years
+Lighting control systems (microprocessor based) (Table B) | 5 years
 Loading bay assets | 3
 Lockers, freestanding | 20 years
 
 ## M
 
+Effective lives for M from the source determination.
+
 Heading | Lives
 Machine tools (grinding machines, lathes, milling machines etc) | 2
 Mini-skid steer loader attachments | 2
 Mini-skid steer loaders (with a carrying capacity less than or equal to 1100 kg) | 5 years
-Motor graders | 10 years
+Motor graders (Table B) | 10 years
 Motor vehicles and trailers | 16
 Moving walks | 20 years
 Musical instruments and associated equipment | 7
 
 ## O
+
+Effective lives for O from the source determination.
 
 Heading | Lives
 Office furniture, freestanding | 12
@@ -127,23 +149,27 @@ Office machines and equipment | 11
 
 ## P
 
+Effective lives for P from the source determination.
+
 Heading | Lives
 Packaging machines | 10
 Partitions (demountable) | 20 years
-Plastic safety screens (including sneeze guards) | 2 years
-Platform scales | 15 years
+Plastic safety screens (including sneeze guards) (Table B) | 2 years
+Platform scales (Table B) | 15 years
 Plumbing fixtures and fittings (including wall and floor tiles) provided mainly for employees and/or children of employees of an entity carrying on a business for the purpose of producing assessable income | 3
 Pneumatic air tube systems | 10 years
 Point of sale assets | 4
-Portable structures (sheds, site office trailers, portable toilets and washrooms etc) used for a temporary period in offsite locations (e.g. construction sites) | 15 years
+Portable structures (sheds, site office trailers, portable toilets and washrooms etc) used for a temporary period in offsite locations (e.g. construction sites) (Table B) | 15 years
 Powder coating machines and systems (automatic and manual) | 10 years
 Power regulation systems (PRS) | 5 years
 Power supply assets | 12
 Power tools | 7
-Power transformers | 45 years
-Public address and paging system assets (including amplifiers, audio speakers and microphones) | 12 years
+Power transformers (Table B) | 45 years
+Public address and paging system assets (including amplifiers, audio speakers and microphones) (Table B) | 12 years
 
 ## R
+
+Effective lives for R from the source determination.
 
 Heading | Lives
 Racehorses | 4
@@ -153,17 +179,17 @@ Robots (industrial) | 10 years
 
 ## S
 
+Effective lives for S from the source determination.
+
 Heading | Lives
-Saws, bench and mitre, portable | 7 years
+Saws, bench and mitre, portable (Table B) | 7 years
 Security and monitoring assets | 15
-Sewing machines | 10 years
-
-Signage for business identification (including lighting for signs) – see Table B Advertising signs |
-
+Sewing machines (Table B) | 10 years
+Signage for business identification (including lighting for signs) – see Table B Advertising signs | Cross-reference
 Silos | 4
 Solar photovoltaic electricity generation system assets | 20 years
 Spas used as plant in a business (incorporating blowers, controls, filters, heaters and pumps) | 17 years
-Spray booths | 15 years
+Spray booths (Table B) | 15 years
 Stacks (chimney stacks, exhaust stacks, flues etc) | 4
 Suitcases | 10 years
 Swimming pool assets | 10
@@ -172,48 +198,55 @@ Synthetic lawn surfaces | 5 years
 
 ## T
 
+Effective lives for T from the source determination.
+
 Heading | Lives
 Tarpaulins | 5 years
 Telephony | 2
-Television sets | 10 years
-Tractors | 12 years
-
-Trailers – see Table B Motor vehicles and trailers |
-
+Television sets (Table B) | 10 years
+Tractors (Table B) | 12 years
+Trailers – see Table B Motor vehicles and trailers | Cross-reference
 Two-way radios | 4
 
 ## U
+
+Effective lives for U from the source determination.
 
 Heading | Lives
 Unmanned aerial vehicles (drones/remotely piloted aircraft) | 2
 
 ## V
 
+Effective lives for V from the source determination.
+
 Heading | Lives
-Vending machines | 5 years
+Vending machines (Table B) | 5 years
 Ventilation fans (excluding ducting, piping and vents) | 20 years
 
 ## W
+
+Effective lives for W from the source determination.
 
 Heading | Lives
 Warehouse and distribution centre equipment and machines | 29
 Waste storage and disposal bins (including crane bins, hooklift bins, skip bins and other industrial use bins) | 10 years
 Weighbridges | 20 years
 Welders | 3
-Window blinds | 15 years
+Window blinds (Table B) | 15 years
 Working beasts and beasts of burden (including camels and horses but excluding working dogs) used in a business other than primary production | 15 years
 Working dogs (including certified therapy dogs used by qualified therapists, detection dogs, guard dogs, performing dogs, police dogs and security dogs; but excluding assistance dogs (such as guide dogs, hearing dogs and service dogs), pet dogs, racing dogs, support dogs, and working dogs used in primary production) | 8 years
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/asset/#source
 - Accommodation units in caravan/tourist parks being articles, not fixtures, and used for a specified purpose: https://duguid.com.au/tools/depreciation-rates/asset/accommodation-units-in-caravan-tourist/
 - Additive manufacturing printers (including 3D printers): https://duguid.com.au/tools/depreciation-rates/asset/additive-manufacturing-printers/
 - Advertising signs: https://duguid.com.au/tools/depreciation-rates/asset/advertising-signs/
@@ -226,21 +259,21 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Automatic teller machines (ATMs): https://duguid.com.au/tools/depreciation-rates/asset/automatic-teller-machines/
 - Bending machines (bar, angle and rod): https://duguid.com.au/tools/depreciation-rates/asset/bending-machines/
 - Block and brick elevators, portable: https://duguid.com.au/tools/depreciation-rates/asset/block-and-brick-elevators-portable/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/asset/boilers/
+- Boilers (Table B): https://duguid.com.au/tools/depreciation-rates/asset/boilers/
 - Boom gates: https://duguid.com.au/tools/depreciation-rates/asset/boom-gates/
 - Car park assets: https://duguid.com.au/tools/depreciation-rates/asset/car-park-assets/
-- Ceiling fans: https://duguid.com.au/tools/depreciation-rates/asset/ceiling-fans/
+- Ceiling fans (Table B): https://duguid.com.au/tools/depreciation-rates/asset/ceiling-fans/
 - Cleaning carts and trolleys: https://duguid.com.au/tools/depreciation-rates/asset/cleaning-carts-and-trolleys/
 - Compaction assets: https://duguid.com.au/tools/depreciation-rates/asset/compaction-assets/
 - Computers and computer equipment: https://duguid.com.au/tools/depreciation-rates/asset/computers-and-computer-equipment/
 - Concrete truck mixers (incorporating barrel, chutes, frame and hydraulic pumps): https://duguid.com.au/tools/depreciation-rates/asset/concrete-truck-mixers/
 - Concreting assets: https://duguid.com.au/tools/depreciation-rates/asset/concreting-assets/
 - Control systems and control system assets (including control cabinets and panels, instruments, programmable logic controllers (PLCs), sensors, switchgear telemetry and variable speed drives (VSDs)): https://duguid.com.au/tools/depreciation-rates/asset/control-systems-and-control-system/
-- Cranes (gantry and overhead): https://duguid.com.au/tools/depreciation-rates/asset/cranes/
+- Cranes (gantry and overhead) (Table B): https://duguid.com.au/tools/depreciation-rates/asset/cranes/
 - Curtains and drapes: https://duguid.com.au/tools/depreciation-rates/asset/curtains-and-drapes/
 - Digital cameras: https://duguid.com.au/tools/depreciation-rates/asset/digital-cameras/
-- Door controls and motor drive systems for automatic sliding doors (incorporating chains, controls, motors and sensors, but excluding doors): https://duguid.com.au/tools/depreciation-rates/asset/door-controls-and-motor-drive-systems/
-- Dozers/front end loaders: https://duguid.com.au/tools/depreciation-rates/asset/dozers-front-end-loaders/
+- Door controls and motor drive systems for automatic sliding doors (incorporating chains, controls, motors and sensors, but excluding doors) (Table B): https://duguid.com.au/tools/depreciation-rates/asset/door-controls-and-motor-drive-systems/
+- Dozers/front end loaders (Table B): https://duguid.com.au/tools/depreciation-rates/asset/dozers-front-end-loaders/
 - Drink dispensing machines: https://duguid.com.au/tools/depreciation-rates/asset/drink-dispensing-machines/
 - Drones/remotely piloted aircraft – see Table B Unmanned aerial vehicles: https://duguid.com.au/tools/depreciation-rates/asset/unmanned-aerial-vehicles/
 - Electric bicycles (e-bicycles and e-bikes): https://duguid.com.au/tools/depreciation-rates/asset/electric-bicycles/
@@ -251,29 +284,29 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Fire control and alarm assets: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/
 - Floor coverings (removable without damage): https://duguid.com.au/tools/depreciation-rates/asset/floor-coverings/
 - Fogging machines (insecticide, including cold foggers and thermal foggers): https://duguid.com.au/tools/depreciation-rates/asset/fogging-machines/
-- Forklifts: https://duguid.com.au/tools/depreciation-rates/asset/forklifts/
+- Forklifts (Table B): https://duguid.com.au/tools/depreciation-rates/asset/forklifts/
 - Forklift battery chargers: https://duguid.com.au/tools/depreciation-rates/asset/forklift-battery-chargers/
-- Formwork, beams and props, steel: https://duguid.com.au/tools/depreciation-rates/asset/formwork-beams-and-props-steel/
+- Formwork, beams and props, steel (Table B): https://duguid.com.au/tools/depreciation-rates/asset/formwork-beams-and-props-steel/
 - Foundations for plant and machinery (integral to the operation of such plant and machinery, but not incorporated into the plant and machinery itself): https://duguid.com.au/tools/depreciation-rates/asset/foundations-for-plant-and-machinery/
 - Generators – see Table B Power supply assets: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/
 - Hand dryers (electrical): https://duguid.com.au/tools/depreciation-rates/asset/hand-dryers/
-- Hand tools (manually operated): https://duguid.com.au/tools/depreciation-rates/asset/hand-tools/
+- Hand tools (manually operated) (Table B): https://duguid.com.au/tools/depreciation-rates/asset/hand-tools/
 - Judges’ robes: https://duguid.com.au/tools/depreciation-rates/asset/judges-robes/
 - Laboratory assets used in quality control, sample checking etc: https://duguid.com.au/tools/depreciation-rates/asset/laboratory-assets-used-in-quality/
 - Laser cutting machines: https://duguid.com.au/tools/depreciation-rates/asset/laser-cutting-machines/
 - Levels: https://duguid.com.au/tools/depreciation-rates/asset/levels/
 - Libraries (professional): https://duguid.com.au/tools/depreciation-rates/asset/libraries/
-- Lift slab assets (incorporating spreader bars, clutches, pulleys and cables): https://duguid.com.au/tools/depreciation-rates/asset/lift-slab-assets/
+- Lift slab assets (incorporating spreader bars, clutches, pulleys and cables) (Table B): https://duguid.com.au/tools/depreciation-rates/asset/lift-slab-assets/
 - Lifts (including dumbwaiters, hydraulic lifts and traction lifts): https://duguid.com.au/tools/depreciation-rates/asset/lifts/
 - Light fittings and freestanding lights (excluding hardwired light fittings): https://duguid.com.au/tools/depreciation-rates/asset/light-fittings-and-freestanding-lights/
 - Light shades (removable): https://duguid.com.au/tools/depreciation-rates/asset/light-shades/
-- Lighting control systems (microprocessor based): https://duguid.com.au/tools/depreciation-rates/asset/lighting-control-systems/
+- Lighting control systems (microprocessor based) (Table B): https://duguid.com.au/tools/depreciation-rates/asset/lighting-control-systems/
 - Loading bay assets: https://duguid.com.au/tools/depreciation-rates/asset/loading-bay-assets/
 - Lockers, freestanding: https://duguid.com.au/tools/depreciation-rates/asset/lockers-freestanding/
 - Machine tools (grinding machines, lathes, milling machines etc): https://duguid.com.au/tools/depreciation-rates/asset/machine-tools/
 - Mini-skid steer loader attachments: https://duguid.com.au/tools/depreciation-rates/asset/mini-skid-steer-loader-attachments/
 - Mini-skid steer loaders (with a carrying capacity less than or equal to 1100 kg): https://duguid.com.au/tools/depreciation-rates/asset/mini-skid-steer-loaders/
-- Motor graders: https://duguid.com.au/tools/depreciation-rates/asset/motor-graders/
+- Motor graders (Table B): https://duguid.com.au/tools/depreciation-rates/asset/motor-graders/
 - Motor vehicles and trailers: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/
 - Moving walks: https://duguid.com.au/tools/depreciation-rates/asset/moving-walks/
 - Musical instruments and associated equipment: https://duguid.com.au/tools/depreciation-rates/asset/musical-instruments-and-associated/
@@ -281,28 +314,28 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Office machines and equipment: https://duguid.com.au/tools/depreciation-rates/asset/office-machines-and-equipment/
 - Packaging machines: https://duguid.com.au/tools/depreciation-rates/asset/packaging-machines/
 - Partitions (demountable): https://duguid.com.au/tools/depreciation-rates/asset/partitions/
-- Plastic safety screens (including sneeze guards): https://duguid.com.au/tools/depreciation-rates/asset/plastic-safety-screens/
-- Platform scales: https://duguid.com.au/tools/depreciation-rates/asset/platform-scales/
+- Plastic safety screens (including sneeze guards) (Table B): https://duguid.com.au/tools/depreciation-rates/asset/plastic-safety-screens/
+- Platform scales (Table B): https://duguid.com.au/tools/depreciation-rates/asset/platform-scales/
 - Plumbing fixtures and fittings (including wall and floor tiles) provided mainly for employees and/or children of employees of an entity carrying on a business for the purpose of producing assessable income: https://duguid.com.au/tools/depreciation-rates/asset/plumbing-fixtures-and-fittings-provided/
 - Pneumatic air tube systems: https://duguid.com.au/tools/depreciation-rates/asset/pneumatic-air-tube-systems/
 - Point of sale assets: https://duguid.com.au/tools/depreciation-rates/asset/point-of-sale-assets/
-- Portable structures (sheds, site office trailers, portable toilets and washrooms etc) used for a temporary period in offsite locations (e.g. construction sites): https://duguid.com.au/tools/depreciation-rates/asset/portable-structures-used-for-a-temporary/
+- Portable structures (sheds, site office trailers, portable toilets and washrooms etc) used for a temporary period in offsite locations (e.g. construction sites) (Table B): https://duguid.com.au/tools/depreciation-rates/asset/portable-structures-used-for-a-temporary/
 - Powder coating machines and systems (automatic and manual): https://duguid.com.au/tools/depreciation-rates/asset/powder-coating-machines-and-systems/
 - Power regulation systems (PRS): https://duguid.com.au/tools/depreciation-rates/asset/power-regulation-systems/
 - Power tools: https://duguid.com.au/tools/depreciation-rates/asset/power-tools/
-- Power transformers: https://duguid.com.au/tools/depreciation-rates/asset/power-transformers/
-- Public address and paging system assets (including amplifiers, audio speakers and microphones): https://duguid.com.au/tools/depreciation-rates/asset/public-address-and-paging-system-assets/
+- Power transformers (Table B): https://duguid.com.au/tools/depreciation-rates/asset/power-transformers/
+- Public address and paging system assets (including amplifiers, audio speakers and microphones) (Table B): https://duguid.com.au/tools/depreciation-rates/asset/public-address-and-paging-system-assets/
 - Racehorses: https://duguid.com.au/tools/depreciation-rates/asset/racehorses/
 - Rainwater tanks: https://duguid.com.au/tools/depreciation-rates/asset/rainwater-tanks/
 - Refrigeration assets: https://duguid.com.au/tools/depreciation-rates/asset/refrigeration-assets/
 - Robots (industrial): https://duguid.com.au/tools/depreciation-rates/asset/robots/
-- Saws, bench and mitre, portable: https://duguid.com.au/tools/depreciation-rates/asset/saws-bench-and-mitre-portable/
+- Saws, bench and mitre, portable (Table B): https://duguid.com.au/tools/depreciation-rates/asset/saws-bench-and-mitre-portable/
 - Security and monitoring assets: https://duguid.com.au/tools/depreciation-rates/asset/security-and-monitoring-assets/
-- Sewing machines: https://duguid.com.au/tools/depreciation-rates/asset/sewing-machines/
+- Sewing machines (Table B): https://duguid.com.au/tools/depreciation-rates/asset/sewing-machines/
 - Silos: https://duguid.com.au/tools/depreciation-rates/asset/silos/
 - Solar photovoltaic electricity generation system assets: https://duguid.com.au/tools/depreciation-rates/asset/solar-photovoltaic-electricity/
 - Spas used as plant in a business (incorporating blowers, controls, filters, heaters and pumps): https://duguid.com.au/tools/depreciation-rates/asset/spas-used-as-plant-in-a-business/
-- Spray booths: https://duguid.com.au/tools/depreciation-rates/asset/spray-booths/
+- Spray booths (Table B): https://duguid.com.au/tools/depreciation-rates/asset/spray-booths/
 - Stacks (chimney stacks, exhaust stacks, flues etc): https://duguid.com.au/tools/depreciation-rates/asset/stacks/
 - Suitcases: https://duguid.com.au/tools/depreciation-rates/asset/suitcases/
 - Swimming pool assets: https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/
@@ -310,20 +343,20 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Synthetic lawn surfaces: https://duguid.com.au/tools/depreciation-rates/asset/synthetic-lawn-surfaces/
 - Tarpaulins: https://duguid.com.au/tools/depreciation-rates/asset/tarpaulins/
 - Telephony: https://duguid.com.au/tools/depreciation-rates/asset/telephony/
-- Television sets: https://duguid.com.au/tools/depreciation-rates/asset/television-sets/
-- Tractors: https://duguid.com.au/tools/depreciation-rates/asset/tractors/
+- Television sets (Table B): https://duguid.com.au/tools/depreciation-rates/asset/television-sets/
+- Tractors (Table B): https://duguid.com.au/tools/depreciation-rates/asset/tractors/
 - Two-way radios: https://duguid.com.au/tools/depreciation-rates/asset/two-way-radios/
-- Vending machines: https://duguid.com.au/tools/depreciation-rates/asset/vending-machines/
+- Vending machines (Table B): https://duguid.com.au/tools/depreciation-rates/asset/vending-machines/
 - Ventilation fans (excluding ducting, piping and vents): https://duguid.com.au/tools/depreciation-rates/asset/ventilation-fans/
 - Warehouse and distribution centre equipment and machines: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/
 - Waste storage and disposal bins (including crane bins, hooklift bins, skip bins and other industrial use bins): https://duguid.com.au/tools/depreciation-rates/asset/waste-storage-and-disposal-bins/
 - Weighbridges: https://duguid.com.au/tools/depreciation-rates/asset/weighbridges/
 - Welders: https://duguid.com.au/tools/depreciation-rates/asset/welders/
-- Window blinds: https://duguid.com.au/tools/depreciation-rates/asset/window-blinds/
+- Window blinds (Table B): https://duguid.com.au/tools/depreciation-rates/asset/window-blinds/
 - Working beasts and beasts of burden (including camels and horses but excluding working dogs) used in a business other than primary production: https://duguid.com.au/tools/depreciation-rates/asset/working-beasts-and-beasts-of-burden-used/
 - Working dogs (including certified therapy dogs used by qualified therapists, detection dogs, guard dogs, performing dogs, police dogs and security dogs; but excluding assistance dogs (such as guide dogs, hearing dogs and service dogs), pet dogs, racing dogs, support dogs, and working dogs used in primary production): https://duguid.com.au/tools/depreciation-rates/asset/working-dogs/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

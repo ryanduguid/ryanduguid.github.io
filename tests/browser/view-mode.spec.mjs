@@ -5,6 +5,28 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { observePageHealth } from './health.mjs';
 
+test('the published stylesheet and Markdown editions load from the served site', async ({ page, request }) => {
+  await page.goto('/');
+  const bundle = await page.locator('link[rel="stylesheet"][href^="/assets/screen-"]').getAttribute('href');
+  expect(bundle).toMatch(/^\/assets\/screen-[a-f0-9]{16}\.css$/);
+  expect((await request.get(bundle)).headers()['content-type']).toContain('text/css');
+  for (const [route, content] of [
+    ['/', /!\[[^\]]+\]\(https:\/\/duguid\.com\.au\/assets\/examples\//],
+    ['/tools/business-calculators/margin/', /^\|\s*---\s*\|/m],
+    ['/tools/depreciation-rates/', /Every row is in the \[data file\]\(https:\/\/duguid\.com\.au\/tools\/depreciation-rates\/effective-life\.json\)/],
+    ['/tools/depreciation-rates/asset/working-dogs/', /\| Effective life \| 8 years \|/],
+    ['/tools/ozzit/functions/dates/', /`[^\n`]+\([^\n`]*\)`/],
+  ]) {
+    const response = await request.get(route + 'index.md');
+    expect(response.status()).toBe(200);
+    expect(response.headers()['content-type']).toMatch(/^text\/(markdown|plain)\b/);
+    const edition = await response.text();
+    expect(edition.match(/^# .+/gm)).toHaveLength(1);
+    expect(edition).toMatch(content);
+    expect(edition).toContain('[Canonical page](https://duguid.com.au' + route + ')');
+  }
+});
+
 test('page content renders while the view script loads and then restores Machine', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('duguid-view-mode', 'machine'));
   let release;
@@ -53,6 +75,7 @@ test('view mode defaults to Human and preserves the page when switching back', a
   const human = page.getByRole('radio', { name: 'Human', exact: true });
   const machine = page.getByRole('radio', { name: 'Machine', exact: true });
   await expect(human).toBeChecked();
+  await expect(page.locator('main, [role="main"]')).toHaveCount(1);
   await page.locator('#adopt').scrollIntoViewIfNeeded();
   // On phones the switch scrolls away with the header, so a reader switches from
   // wherever the switch is in view; that position is the one that must survive.
@@ -60,6 +83,7 @@ test('view mode defaults to Human and preserves the page when switching back', a
   const originalScroll = await page.evaluate(() => scrollY);
   await machine.check();
   const view = page.getByRole('main', { name: 'Machine view' });
+  await expect(page.getByRole('main')).toHaveCount(1);
   await expect(view).toContainText('Source: https://duguid.com.au/');
   await expect(view).toContainText('Tools for Australian accountants');
   await expect(view).toContainText('https://duguid.com.au/examples/profit-vs-cash-flow/');
@@ -70,7 +94,10 @@ test('view mode defaults to Human and preserves the page when switching back', a
   await expect(page.locator('#main')).toBeHidden();
   await expect(page.getByRole('navigation', { name: 'Primary' })).toBeHidden();
   await human.check();
-  await expect(view).toBeHidden();
+  await expect(page.locator('main, [role="main"]')).toHaveCount(1);
+  await expect(page.locator('#machine-view')).toHaveCount(1);
+  await expect(page.locator('#machine-view')).toBeHidden();
+  await expect(page.locator('#machine-view')).not.toHaveAttribute('role', 'main');
   await expect(page.locator('#main')).toBeVisible();
   await expect.poll(() => page.evaluate(() => scrollY)).toBe(originalScroll);
   health.assertHealthy();

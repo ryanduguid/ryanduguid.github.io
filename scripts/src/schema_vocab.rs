@@ -213,10 +213,18 @@ impl Vocabulary {
             if key.starts_with('@') {
                 continue;
             }
+            // Schema.org Actions annotate an existing property, e.g. SearchAction.query-input.
+            let property = if types.iter().any(|t| self.is_subtype(t, "Action")) {
+                key.strip_suffix("-input")
+                    .or_else(|| key.strip_suffix("-output"))
+                    .unwrap_or(key)
+            } else {
+                key
+            };
             let Some(Term {
                 kind: Kind::Property { domains },
                 status,
-            }) = self.terms.get(key)
+            }) = self.terms.get(property)
             else {
                 failures.push(format!(
                     "{rel}: JSON-LD property {key}{on} is not a schema.org {VOCABULARY_RELEASE} property"

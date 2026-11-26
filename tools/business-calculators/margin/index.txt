@@ -1,4 +1,4 @@
-# Margin and markup calculator
+# Gross profit margin and markup calculator
 
 Source: https://duguid.com.au/tools/business-calculators/margin/
 

@@ -107,7 +107,7 @@ tool: monthly-close-controls
             </div>
             <p>The engine compares <code>-65000.00</code> with <code>-64750.00</code> and writes <code>subledger_reconciliation,REVIEW</code>. <a href="/assets/examples/monthly-close/exceptions.csv" download>Download the generated exceptions.csv</a> with all 8 exceptions, or inspect the <a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/1ce98d50f1c81d9f9873d47986a33a42f40f4e96/packages/monthly-close-control-plane/examples">complete fictional input files at the same commit</a>. Reproduced on 3 November 2026.</p>
             <div class="table-scroll" role="region" aria-label="Selected monthly close exceptions" tabindex="0">
-              <table class="tool-table--wide">
+              <table aria-label="Selected monthly close exceptions" class="tool-table--wide">
                 <thead><tr><th>Exception</th><th>Result</th><th>Reviewer action</th></tr></thead>
                 <tbody>
                   <tr><th scope="row">Creditors reconciliation</th><td>Trial balance less supplied subledger: <span class="nowrap">−$250</span>.</td><td>Trace the reconciling items and document their cause.</td></tr>

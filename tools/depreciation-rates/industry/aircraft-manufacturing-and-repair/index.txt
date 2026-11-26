@@ -8,25 +8,25 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufac
 
 42 effective lives in Table A of the Commissioner’s 2025 effective life determination for Aircraft manufacturing and repair services.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Rows of Aircraft manufacturing and repair services. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Air compression assets: | | | |
+Asset group · Air compression assets: | | | |
 Air compression assets: / Generally (including air compressors, air dryers and air receivers) (excluding portable air compressors) | 13 years | 7.69% | 15.38% | 1 July 2020
-Air compression assets: / Portable: | | | |
-Air compression assets: / Portable: / Reciprocating | 7 years | 14.29% | 28.57% | 1 July 2020
-Air compression assets: / Portable: / Rotary screw | 10 years | 10.00% | 20.00% | 1 July 2020
-Aircraft testing and measurement equipment: | | | |
+Asset group · Air compression assets: / Portable: | | | |
+Air compression assets: / Reciprocating (Portable) | 7 years | 14.29% | 28.57% | 1 July 2020
+Air compression assets: / Rotary screw (Portable) | 10 years | 10.00% | 20.00% | 1 July 2020
+Asset group · Aircraft testing and measurement equipment: | | | |
 Aircraft testing and measurement equipment: / Instrumentation, dynamometers and calibrating equipment (including testing equipment for engines, radios) | 10 years | 10.00% | 20.00% | 1 July 2020
 Aircraft testing and measurement equipment: / Maintenance stands (including rigs and engine stands) | 20 years | 5.00% | 10.00% | 1 July 2020
 Aircraft testing and measurement equipment: / Test cell tunnels | 40 years | 2.50% | 5.00% | 1 July 2020
 Air start units | 15 years | 6.67% | 13.33% | 1 July 2020
-Benches and tables | 10 years | 10.00% | 20.00% | 1 July 2020
-Borescope equipment: | | | |
+Benches and tables (Aircraft manufacturing and repair services) | 10 years | 10.00% | 20.00% | 1 July 2020
+Asset group · Borescope equipment: | | | |
 Borescope equipment: / Fixed probes | 3 years | 33.33% | 66.67% | 1 July 2020
 Borescope equipment: / Flexible probes | 3 years | 33.33% | 66.67% | 1 July 2020
 Borescope equipment: / Light source | 5 years | 20.00% | 40.00% | 1 July 2020
@@ -34,17 +34,17 @@ Borescope equipment: / Video scopes | 5 years | 20.00% | 40.00% | 1 July 2020
 Cabin pressurisation test units | 15 years | 6.67% | 13.33% | 1 July 2020
 Carbon fibre cutters used in manufacturing | 10 years | 10.00% | 20.00% | 1 July 2020
 Computer numerical control (CNC) machines | 10 years | 10.00% | 20.00% | 1 July 2020
-Cranes (gantry and overhead) | 25 years | 4.00% | 8.00% | 1 July 2020
+Cranes (gantry and overhead) (Aircraft manufacturing and repair services) | 25 years | 4.00% | 8.00% | 1 July 2020
 Degreasing machines (including washing machines) | 7 years | 14.29% | 28.57% | 1 July 2020
-Elevating work platforms: | | | |
+Asset group · Elevating work platforms: | | | |
 Elevating work platforms: / Boom lifts | 15 years | 6.67% | 13.33% | 1 July 2020
-Elevating work platforms: / Personnel lifts | 10 years | 10.00% | 20.00% | 1 July 2020
-Elevating work platforms: / Scissor lifts | 10 years | 10.00% | 20.00% | 1 July 2020
+Personnel lifts (Elevating work platforms) | 10 years | 10.00% | 20.00% | 1 July 2020
+Scissor lifts (Elevating work platforms) | 10 years | 10.00% | 20.00% | 1 July 2020
 Hand tools, manual (including screw drivers, spanners, wrenches) | 10 years | 10.00% | 20.00% | 1 July 2020
-Hand tools, powered: | | | |
-Hand tools, powered: / Air | 5 years | 20.00% | 40.00% | 1 July 2020
-Hand tools, powered: / Battery | 3 years | 33.33% | 66.67% | 1 July 2020
-Hand tools, powered: / Electric | 5 years | 20.00% | 40.00% | 1 July 2020
+Asset group · Hand tools, powered: | | | | 1 July 2020
+Air (Hand tools, powered) | 5 years | 20.00% | 40.00% | 1 July 2020
+Battery (Hand tools, powered) | 3 years | 33.33% | 66.67% | 1 July 2020
+Electric (Hand tools, powered) | 5 years | 20.00% | 40.00% | 1 July 2020
 Hydraulic power units (including hydraulic mules) | 15 years | 6.67% | 13.33% | 1 July 2020
 Industrial autoclaves | 30 years | 3.33% | 6.67% | 1 July 2020
 Industrial ovens | 15 years | 6.67% | 13.33% | 1 July 2020
@@ -55,35 +55,36 @@ Metal working precision machines (including automatic lathes, milling machines, 
 Mobile cranes | 10 years | 10.00% | 20.00% | 1 July 2020
 Nitrogen carts | 15 years | 6.67% | 13.33% | 1 July 2020
 Oxygen carts | 15 years | 6.67% | 13.33% | 1 July 2020
-Racks | 20 years | 5.00% | 10.00% | 1 July 2020
+Racks (Aircraft manufacturing and repair services) | 20 years | 5.00% | 10.00% | 1 July 2020
 Robots | 10 years | 10.00% | 20.00% | 1 July 2020
 Sandblasters | 7 years | 14.29% | 28.57% | 1 July 2020
 Sheet metal machines (including benders and folders, guillotines and roll formers) | 15 years | 6.67% | 13.33% | 1 July 2020
 Tow bars | 10 years | 10.00% | 20.00% | 1 July 2020
-Tow tractors: | | | |
+Asset group · Tow tractors: | | | |
 Tow tractors: / Generally (excluding remote controlled tugs) | 20 years | 5.00% | 10.00% | 1 July 2020
 Tow tractors: / Remote controlled tugs | 10 years | 10.00% | 20.00% | 1 July 2020
 Tyre bead breakers | 15 years | 6.67% | 13.33% | 1 July 2020
-Welders – see Table B Welders | | | |
+Register note · Welders – see Table B Welders | | | |
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/#source
 - Generally (including air compressors, air dryers and air receivers) (excluding portable air compressors): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/air-compression-assets-generally/
-- Reciprocating: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/reciprocating/
-- Rotary screw: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/rotary-screw/
+- Reciprocating (Portable): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/reciprocating/
+- Rotary screw (Portable): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/rotary-screw/
 - Instrumentation, dynamometers and calibrating equipment (including testing equipment for engines, radios): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/instrumentation-dynamometers-and-calibrating-equipment/
 - Maintenance stands (including rigs and engine stands): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/maintenance-stands/
 - Test cell tunnels: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/test-cell-tunnels/
 - Air start units: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/air-start-units/
-- Benches and tables: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/benches-and-tables/
+- Benches and tables (Aircraft manufacturing and repair services): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/benches-and-tables/
 - Fixed probes: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/fixed-probes/
 - Flexible probes: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/flexible-probes/
 - Light source: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/light-source/
@@ -91,15 +92,15 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Cabin pressurisation test units: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/cabin-pressurisation-test-units/
 - Carbon fibre cutters used in manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/carbon-fibre-cutters-used-in-manufacturing/
 - Computer numerical control (CNC) machines: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/computer-numerical-control-machines/
-- Cranes (gantry and overhead): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/cranes/
+- Cranes (gantry and overhead) (Aircraft manufacturing and repair services): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/cranes/
 - Degreasing machines (including washing machines): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/degreasing-machines/
 - Boom lifts: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/boom-lifts/
-- Personnel lifts: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/personnel-lifts/
-- Scissor lifts: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/scissor-lifts/
+- Personnel lifts (Elevating work platforms): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/personnel-lifts/
+- Scissor lifts (Elevating work platforms): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/scissor-lifts/
 - Hand tools, manual (including screw drivers, spanners, wrenches): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/hand-tools-manual/
-- Air: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/air/
-- Battery: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/battery/
-- Electric: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/electric/
+- Air (Hand tools, powered): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/air/
+- Battery (Hand tools, powered): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/battery/
+- Electric (Hand tools, powered): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/electric/
 - Hydraulic power units (including hydraulic mules): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/hydraulic-power-units/
 - Industrial autoclaves: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/industrial-autoclaves/
 - Industrial ovens: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/industrial-ovens/
@@ -110,7 +111,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Mobile cranes: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/mobile-cranes/
 - Nitrogen carts: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/nitrogen-carts/
 - Oxygen carts: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/oxygen-carts/
-- Racks: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/racks/
+- Racks (Aircraft manufacturing and repair services): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/racks/
 - Robots: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/robots/
 - Sandblasters: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/sandblasters/
 - Sheet metal machines (including benders and folders, guillotines and roll formers): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/sheet-metal-machines/
@@ -120,7 +121,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Tyre bead breakers: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/tyre-bead-breakers/
 - Welders – see Table B Welders: https://duguid.com.au/tools/depreciation-rates/asset/welders/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -9,23 +9,23 @@
 <label><input type="radio" name="jurisdiction" value="AU-TAS" /> Tasmania</label>
 <label><input type="radio" name="jurisdiction" value="AU-ACT" /> Australian Capital Territory</label>
 <label><input type="radio" name="jurisdiction" value="AU-NT" checked /> Northern Territory</label></fieldset>
-<label class="field" for="workers-compensation-wages">Estimated wages for the policy period (AUD)<input id="workers-compensation-wages" name="wages" type="number" inputmode="decimal" min="0" max="10000000000" step=".01" value="400000" required aria-describedby="workers-compensation-wages-note" /></label>
-<label class="field" for="workers-compensation-rate">Industry or premium rate from your insurer (% of wages, or $ per $100 of wages)<input id="workers-compensation-rate" name="rate" type="number" inputmode="decimal" min="0.0001" max="100" step=".0001" value="3.5" required aria-describedby="workers-compensation-rate-note" /></label>
-<label class="field" for="workers-compensation-apprentice">Qualifying apprentice wages included above, for the Queensland and South Australian discounts (AUD)<input id="workers-compensation-apprentice" name="apprentice" type="number" inputmode="decimal" min="0" max="10000000000" step=".01" value="0" required /></label>
-<label class="field" for="workers-compensation-actual">Actual wages for the policy period, to work out the adjustment (AUD; leave blank before the period ends, and for Queensland)<input id="workers-compensation-actual" name="actual" type="number" inputmode="decimal" min="0" max="10000000000" step=".01" value="500000" /></label>
+<label class="field" for="workers-compensation-wages">Estimated wages for the policy period (AUD)<input enterkeyhint="next" id="workers-compensation-wages" name="wages" type="number" inputmode="decimal" min="0" max="10000000000" step=".01" value="400000" required aria-describedby="workers-compensation-wages-note" /></label>
+<label class="field" for="workers-compensation-rate">Industry or premium rate from your insurer (% of wages, or $ per $100 of wages)<input enterkeyhint="next" id="workers-compensation-rate" name="rate" type="number" inputmode="decimal" min="0.0001" max="100" step=".0001" value="3.5" required aria-describedby="workers-compensation-rate-note" /></label>
+<label class="field" for="workers-compensation-apprentice">Qualifying apprentice wages included above, for the Queensland and South Australian discounts (AUD)<input enterkeyhint="next" id="workers-compensation-apprentice" name="apprentice" type="number" inputmode="decimal" min="0" max="10000000000" step=".01" value="0" required /></label>
+<label class="field" for="workers-compensation-actual">Actual wages for the policy period, to work out the adjustment (AUD; leave blank before the period ends, and for Queensland)<input enterkeyhint="next" id="workers-compensation-actual" name="actual" type="number" inputmode="decimal" min="0" max="10000000000" step=".01" value="500000" /></label>
 <fieldset class="field"><legend>Member of a group of employers for premium purposes</legend>
 <label><input type="radio" name="group" value="no" checked /> No</label>
 <label><input type="radio" name="group" value="yes" /> Yes</label></fieldset>
 </div>
 <p class="field-note" id="workers-compensation-wages-note">Each scheme defines wages in its own document, linked under Sources applied, which differs from payroll tax wages. Enter only the wages of workers this scheme covers.</p>
 <p class="field-note" id="workers-compensation-rate-note">This page holds no rate table: use the rate your insurer gives your industry classification, or the scheme’s rates linked under Sources applied.</p>
-<div class="form-grid"><label class="field" for="workers-compensation-dust">New South Wales: dust diseases rate for your WIC, including GST (%)<input id="workers-compensation-dust" name="dust" type="number" inputmode="decimal" min="0" max="10" step=".0001" value="" /></label>
-<label class="field" for="workers-compensation-reward">New South Wales: Safe Employer Reward on your renewal notice (%; 0 if none)<input id="workers-compensation-reward" name="reward" type="number" inputmode="decimal" min="0" max="100" step=".0001" value="0" /></label>
+<div class="form-grid"><label class="field" for="workers-compensation-dust">New South Wales: dust diseases rate for your WIC, including GST (%)<input enterkeyhint="next" id="workers-compensation-dust" name="dust" type="number" inputmode="decimal" min="0" max="10" step=".0001" value="" /></label>
+<label class="field" for="workers-compensation-reward">New South Wales: Safe Employer Reward on your renewal notice (%; 0 if none)<input enterkeyhint="next" id="workers-compensation-reward" name="reward" type="number" inputmode="decimal" min="0" max="100" step=".0001" value="0" /></label>
 <fieldset class="field"><legend>Victoria: the employer</legend>
 <label><input type="radio" name="vic-employer" value="new" checked /> New: a new employer under clause 12(5), first required to register on or after 1 July 2025</label>
 <label><input type="radio" name="vic-employer" value="small" /> Small: annualised remuneration for 2025-26 of $200,000 or less</label>
 <label><input type="radio" name="vic-employer" value="other" /> Neither</label></fieldset>
-<label class="field" for="workers-compensation-days">Victoria: days in 2026-27 the employer is registered<input id="workers-compensation-days" name="days" type="number" inputmode="numeric" min="1" max="365" step="1" value="365" /></label>
+<label class="field" for="workers-compensation-days">Victoria: days in 2026-27 the employer is registered<input enterkeyhint="next" id="workers-compensation-days" name="days" type="number" inputmode="numeric" min="1" max="365" step="1" value="365" /></label>
 <fieldset class="field"><legend>Victoria: the excess is bought out</legend>
 <label><input type="radio" name="buyout" value="no" checked /> No</label>
 <label><input type="radio" name="buyout" value="yes" /> Yes</label></fieldset>
@@ -38,7 +38,7 @@
 <fieldset class="field"><legend>South Australia: the employer’s first full financial year registered</legend>
 <label><input type="radio" name="first-year" value="no" checked /> No</label>
 <label><input type="radio" name="first-year" value="yes" /> Yes</label></fieldset>
-<label class="field" for="workers-compensation-claims">South Australia: claims costs, the income support paid in 2025-26 on injuries from 2023-24 to 2025-26 (AUD)<input id="workers-compensation-claims" name="claims" type="number" inputmode="decimal" min="0" max="10000000000" step=".01" value="0" /></label>
+<label class="field" for="workers-compensation-claims">South Australia: claims costs, the income support paid in 2025-26 on injuries from 2023-24 to 2025-26 (AUD)<input enterkeyhint="done" id="workers-compensation-claims" name="claims" type="number" inputmode="decimal" min="0" max="10000000000" step=".01" value="0" /></label>
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
 {% include calculator-example.html inputs="Northern Territory, estimated wages $400,000.00, rate 3.5%, actual wages $500,000.00" rows="Premium: wages × your insurer’s rate of 3.5%|$14,000.00;GST at 10%|$1,400.00;Premium payable on the estimated wages|$15,400.00;Premium payable on the actual wages|$19,250.00;Adjustment: more to pay, actual less estimate|$3,850.00" principal="2" note="An estimate for a 2026-27 policy; your approved insurer’s notice is the premium" %}

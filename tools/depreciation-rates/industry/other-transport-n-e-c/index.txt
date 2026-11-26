@@ -2,77 +2,78 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/
 
-> Other transport n.e.c., Table A (industry categories) …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+> Other transport n.e.c., Table …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
 
 # Other transport n.e.c.
 
 20 effective lives in Table A of the Commissioner’s 2025 effective life determination for Other transport n.e.c..
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Rows of Other transport n.e.c.. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): | | | |
+Asset group · Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): | | | |
 Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Chair head grips | 15 years | 6.67% | 13.33% | 1 July 2009
 Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Chairs, T-bars and pomas | 25 years | 4.00% | 8.00% | 1 July 2009
-Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Communication assets: | | | |
+Asset group · Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Communication assets: | | | |
 Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Communication assets: / Communications cables – above ground | 10 years | 10.00% | 20.00% | 1 July 2009
 Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Communication assets: / Communications cables – underground | 25 years | 4.00% | 8.00% | 1 July 2009
 Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Communication assets: / Radios and telephone systems | 5 years | 20.00% | 40.00% | 1 July 2009
 Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Covered moving walkways (including covered walkways and carpets) | 10 years | 10.00% | 20.00% | 1 July 2009
-Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Drive and return station assets (including braking systems, drive systems, gear boxes, motors, variable speed drives (VSDs) and tensioning systems) | 20 years | 5.00% | 10.00% | 1 July 2009
-Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Oversnow transport assets: | | | |
+Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Drive and return station assets (including braking systems, drive systems, gear boxes, motors, variable speed drives (VSDs) and tensioning systems) (Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas …) | 20 years | 5.00% | 10.00% | 1 July 2009
+Asset group · Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Oversnow transport assets: | | | |
 Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Oversnow transport assets: / Oversnow transporters | 8 years | 12.50% | 25.00% | 1 July 2009
-Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Oversnow transport assets: / Skidoos | 5 years | 20.00% | 40.00% | 1 July 2009
-Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Ropes: | | | |
+Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Skidoos (Oversnow transport assets) | 5 years | 20.00% | 40.00% | 1 July 2009
+Asset group · Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Ropes: | | | |
 Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Ropes: / Main hauling rope for detachable lifts etc | 15 years | 6.67% | 13.33% | 1 July 2009
 Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Ropes: / Main hauling rope for fixed grip, t-bars lifts etc | 20 years | 5.00% | 10.00% | 1 July 2009
 Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Snow grooming assets (including free groomers, snow blowers and winches) | 8 years | 12.50% | 25.00% | 1 July 2009
-Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Snowmaking assets including: | | | |
+Asset group · Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Snowmaking assets including: | | | |
 Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Snowmaking assets including: / Air water guns and fan guns | 10 years | 10.00% | 20.00% | 1 July 2009
 Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Snowmaking assets including: / Compressors, pumps, water mains and pipes | 20 years | 5.00% | 10.00% | 1 July 2009
-Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Snowmaking assets including: / Cooling towers | 15 years | 6.67% | 13.33% | 1 July 2009
+Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Cooling towers (Snowmaking assets including) | 15 years | 6.67% | 13.33% | 1 July 2009
 Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Snowmaking assets including: / Electrical cables – above ground | 10 years | 10.00% | 20.00% | 1 July 2009
 Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Snowmaking assets including: / Electrical cables – underground | 25 years | 4.00% | 8.00% | 1 July 2009
 Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Snowmaking assets including: / Weather stations | 5 years | 20.00% | 40.00% | 1 July 2009
-Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Standby power drives | 25 years | 4.00% | 8.00% | 1 July 2009
+Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Standby power drives (Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas …) | 25 years | 4.00% | 8.00% | 1 July 2009
 Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Tower heads and structures | 30 years | 3.33% | 6.67% | 1 July 2009
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/#source
 - Chair head grips: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/chair-head-grips/
 - Chairs, T-bars and pomas: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/chairs-t-bars-and-pomas/
 - Communications cables – above ground: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/communications-cables-above-ground/
 - Communications cables – underground: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/communications-cables-underground/
 - Radios and telephone systems: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/radios-and-telephone-systems/
 - Covered moving walkways (including covered walkways and carpets): https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/covered-moving-walkways/
-- Drive and return station assets (including braking systems, drive systems, gear boxes, motors, variable speed drives (VSDs) and tensioning systems): https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/drive-and-return-station-assets/
+- Drive and return station assets (including braking systems, drive systems, gear boxes, motors, variable speed drives (VSDs) and tensioning systems) (Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas …): https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/drive-and-return-station-assets/
 - Oversnow transporters: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/oversnow-transporters/
-- Skidoos: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/skidoos/
+- Skidoos (Oversnow transport assets): https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/skidoos/
 - Main hauling rope for detachable lifts etc: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/main-hauling-rope-for-detachable-lifts-etc/
 - Main hauling rope for fixed grip, t-bars lifts etc: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/main-hauling-rope-for-fixed-grip-t-bars-lifts-etc/
 - Snow grooming assets (including free groomers, snow blowers and winches): https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/snow-grooming-assets/
 - Air water guns and fan guns: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/air-water-guns-and-fan-guns/
 - Compressors, pumps, water mains and pipes: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/compressors-pumps-water-mains-and-pipes/
-- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/cooling-towers/
+- Cooling towers (Snowmaking assets including): https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/cooling-towers/
 - Electrical cables – above ground: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/electrical-cables-above-ground/
 - Electrical cables – underground: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/electrical-cables-underground/
 - Weather stations: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/weather-stations/
-- Standby power drives: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/standby-power-drives/
+- Standby power drives (Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas …): https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/standby-power-drives/
 - Tower heads and structures: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/tower-heads-and-structures/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

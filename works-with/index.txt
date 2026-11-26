@@ -1,4 +1,4 @@
-# Works with Xero and Claude
+# Accounting tools that work with Xero and Claude
 
 Source: https://duguid.com.au/works-with/
 
