@@ -8,6 +8,13 @@
   <updated>2026-11-26T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new business calculator, tax invoice generator, makes a printable tax invoice…</title>
+    <link href="https://duguid.com.au/changelog/#entry-6fa99c5ee8f14b1b" />
+    <id>https://duguid.com.au/changelog/#entry-6fa99c5ee8f14b1b</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>A new business calculator, tax invoice generator, makes a printable tax invoice or recipient created tax invoice in the browser, storing and sending nothing, and checks it against section 29-70 of the GST Act: GST at one-eleventh with the total invoice and taxable supply rounding rules, the wording for taxable, GST-free and mixed invoices, the ABN check digit and the $1,000 recipient rule.</summary>
+  </entry>
+  <entry>
     <title>The tool pages, changelog, release record and machine indexes name the releases…</title>
     <link href="https://duguid.com.au/changelog/#entry-82c2fe0f98e0f02a" />
     <id>https://duguid.com.au/changelog/#entry-82c2fe0f98e0f02a</id>
