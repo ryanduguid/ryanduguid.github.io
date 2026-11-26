@@ -6551,11 +6551,11 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Fifty-seven free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
+Sixty-one free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
 Published 11 September 2026. Last checked 24 November 2026, the newest of the calculators’ source checks.
 
-Search 57 calculators
+Search 61 calculators
 
 ## Pricing, planning and loans
 
@@ -6599,6 +6599,8 @@ Search 57 calculators
 - Company tax and franking calculator A company’s 25% or 30% rate from the base rate entity test, its rate for franking dividends, the maximum franking credit and a shareholder’s tax or refund.
 - R&D tax offset calculator A company’s R&D tax incentive offset for 2021-22 to 2026-27, refundable or with the premium tiers, and the amount a grant or feedstock clawback includes in assessable income.
 - Deferred tax calculator A company’s AASB 112 tax effect worksheet: deferred tax liability and asset, the movement, current tax and the reconciliation.
+- Trading stock calculator The change in value of trading stock for 2020-21 to 2026-27: each item at its elected value, the assessable increase or deduction, and the small business choice not to account for a change of $5,000 or less.
+- Prepaid expenses calculator When one prepaid amount incurred in 2020-21 to 2026-27 is deductible: in full under the 12-month rule or as excluded expenditure, or apportioned by days over the eligible service period.
 - Salary against dividends calculator A company owner’s salary and super guarantee against fully franked dividends for 2021-22 to 2026-27: the cash and super kept after tax, and the split that keeps the most.
 
 ## Capital gains tax
@@ -6614,6 +6616,7 @@ Search 57 calculators
 - Long service leave calculator One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.
 - Workers compensation premium calculator A 2026-27 premium from the declared wages and the insurer’s rate under each state and territory’s scheme, with GST, duty and the actual wages adjustment, each step cited.
 - Super lump sum tax The components of a super lump sum and the most tax each part can bear, for members and death benefits, 2020-21 to 2026-27.
+- SMSF tax calculator A complying SMSF’s income tax calculation statement (item 13) for 2020-21 to 2026-27: exempt current pension income, the low tax and non-arm’s length components, offsets, the supervisory levy and the amount due or refundable.
 - Redundancy and ETP withholding The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
 - Unused leave on termination Schedule 7 withholding and the lump sum A, B and type U amounts for unused leave paid on termination, for 2026-27.
 
@@ -6632,6 +6635,7 @@ Search 57 calculators
 - Fuel tax credit calculator A business’s fuel tax credits at the ATO’s rate for each day since 1 July 2022, by fuel and use, with label 7D and the small claimant methods.
 - Luxury car tax calculator Luxury car tax, its adjustments and refunds for 2019-20 to 2026-27.
 - Wine equalisation tax calculator WET on a tax period’s wholesale sales, retail sales, own use and sales under quote, the producer rebate within the year’s $350,000 or $400,000 cap, and labels 1C and 1D.
+- Alcohol excise calculator Excise duty on beer, spirits and other excisable beverages entered from 1 July 2022 to 31 January 2027, at the rate in force on the day, with the alcohol manufacturer remission under its yearly cap.
 - Business days calculator Business days between 2 dates, or the date a number of business days on or back, with each state’s public holidays for 2026 and 2027.
 - ASIC fees calculator ASIC’s 2026-27 fees and late fee tiers.
 
@@ -6675,6 +6679,8 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
 - R&D tax offset calculator: https://duguid.com.au/tools/business-calculators/rd-tax-offset/
 - Deferred tax calculator: https://duguid.com.au/tools/business-calculators/deferred-tax/
+- Trading stock calculator: https://duguid.com.au/tools/business-calculators/trading-stock/
+- Prepaid expenses calculator: https://duguid.com.au/tools/business-calculators/prepayments/
 - Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/
 - Capital gains tax calculator: https://duguid.com.au/tools/business-calculators/cgt/
 - Small business CGT concessions checker: https://duguid.com.au/tools/business-calculators/cgt-concessions/
@@ -6684,6 +6690,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Long service leave calculator: https://duguid.com.au/tools/business-calculators/long-service-leave/
 - Workers compensation premium calculator: https://duguid.com.au/tools/business-calculators/workers-compensation/
 - Super lump sum tax: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
+- SMSF tax calculator: https://duguid.com.au/tools/business-calculators/smsf-tax/
 - Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/
 - Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
@@ -6696,6 +6703,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Fuel tax credit calculator: https://duguid.com.au/tools/business-calculators/fuel-tax-credits/
 - Luxury car tax calculator: https://duguid.com.au/tools/business-calculators/luxury-car-tax/
 - Wine equalisation tax calculator: https://duguid.com.au/tools/business-calculators/wine-equalisation-tax/
+- Alcohol excise calculator: https://duguid.com.au/tools/business-calculators/alcohol-excise/
 - Business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
 - ASIC fees calculator: https://duguid.com.au/tools/business-calculators/asic-fees/
 - 17 individual tax calculators: https://duguid.com.au/tools/individual-tax/
