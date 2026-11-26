@@ -345,6 +345,7 @@ export function lodgmentFormInput(value, checked) {
 /** Dollar amounts in the command's text with their thousands grouped. @param {string} text */
 const grouped = (text) => text.replace(/\$(\d+)/g, (_, whole) => `$${BigInt(whole).toLocaleString('en-AU')}`);
 
+/** @type {Record<string, string>} */
 const AMOUNT_LABELS = { 'taxable-income': 'your taxable income', dividends: 'your dividends and franking credits (0 if none)',
   'under-18-income': 'your income other than from work', 'study-loan-income': 'your income for the study loan test',
   'whm-taxable': 'your taxable income without super or ETP remainders', 'sapto-rebate': 'your rebate income' };
@@ -355,9 +356,11 @@ export function lodgmentRequiredResult(value, checked) {
   const used = ['taxable-income', 'dividends', ...(input.under_18 ? ['under-18-income'] : []), ...(input.study_loan ? ['study-loan-income'] : []),
     ...(input.working_holiday_maker ? ['whm-taxable'] : []), ...(input.sapto ? ['sapto-rebate'] : [])];
   for (const name of used) {
-    if (value(name).trim() === '') refuse('input.missing_field', `Enter ${AMOUNT_LABELS[/** @type {keyof AMOUNT_LABELS} */ (name)]}.`);
+    if (value(name).trim() === '') refuse('input.missing_field', `Enter ${AMOUNT_LABELS[name]}.`);
   }
-  if (input.residency.status === 'part_year' && !(Number.isInteger(input.residency.months) && input.residency.months >= 1 && input.residency.months <= 12)) {
+  const status = value('residency');
+  const months = Number(value('months'));
+  if (status === 'part_year' && !(Number.isInteger(months) && months >= 1 && months <= 12)) {
     refuse('lodgment_required.residency_invalid', 'Enter the months you were a resident as a whole number from 1 to 12.');
   }
   let r;
@@ -385,8 +388,8 @@ export function lodgmentRequiredResult(value, checked) {
       ? `No return is required under the ${r.instrument.title}: the exception in ${r.exceptions_applied.join(' and ')} applies`
       : `No condition in the ${r.instrument.title} requires a return; you may still lodge, for example to get a refund of tax withheld`;
   return {
-    inputs: `${r.year}; ${input.residency.status === 'whole_year' ? 'resident all year' : input.residency.status === 'part_year'
-      ? `resident ${input.residency.months} ${input.residency.months === 1 ? 'month' : 'months'}` : 'not a resident'}; taxable income ${grouped(`$${value('taxable-income').trim()}`)}; `
+    inputs: `${r.year}; ${status === 'whole_year' ? 'resident all year' : status === 'part_year'
+      ? `resident ${months} ${months === 1 ? 'month' : 'months'}` : 'not a resident'}; taxable income ${grouped(`$${value('taxable-income').trim()}`)}; `
       + `${input.triggers.length} ${input.triggers.length === 1 ? 'condition' : 'conditions'} ticked`,
     rows, principal: rows.length - 1, note,
   };
