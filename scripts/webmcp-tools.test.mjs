@@ -97,7 +97,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_business_days', 'calculate_division_296_tax', 'calculate_fbt_car', 'calculate_fbt_car_parking',
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
-    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax',
+    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_blackhole_expenditure',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -1675,7 +1675,42 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 76);
+  assert.equal(registered.length + 2, 77);
+});
+
+test('blackhole expenditure tool returns the page example and refuses what the page refuses', async () => {
+  const tool = tools['blackhole-expenditure'];
+  const example = { incomeYear: '2025-26', items: [{ amount: '10000', incurredIn: '2023-24', business: 'current', taxablePurpose: '0.8' },
+    { amount: '2500', incurredIn: '2025-26', business: 'proposed', carriedOnBy: 'you', withinReasonableTime: true,
+      startUpExpense: 'advice_or_services', entityTest: 'small_business_entity', taxablePurpose: '1' }] };
+  const r = await tool.execute(example);
+  assert.deepEqual([r.deduction, r.remainingAfterYear, r.deductibleExpenditure, r.items[1].schedule, r.currency, r.source],
+    ['4100.00', '3200.00', '10500.00', [{ income_year: '2025-26', deduction: '2500.00' }], 'AUD',
+      'https://duguid.com.au/tools/business-calculators/blackhole-expenditure/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', items: [{ ...example.items[0], exclusions: ['5(a)'] }] }), /Division 40/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', items: [{ ...example.items[0], incurredIn: '2019-20' }] }), /incurredIn does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', items: [{ ...example.items[0], capital: false }] }), /capital expenditure only/);
+  await assert.rejects(tool.execute({ ...example, extra: 1 }), /extra is not an input of this tool/);
+});
+
+test('company tax tool works the return statement and the 2026-27 loss carry back when asked, and checks label A', async () => {
+  const tool = tools['company-tax'];
+  const company = { turnover: '60000000', assessableIncome: '100000', passiveIncome: '0', taxableIncome: '0', existedLastYear: true,
+    dividend: '0', frankingPercent: '0', marginalRate: '0' };
+  const back = { frankingAccountBalance: '500000', conditionsMet: true,
+    carryBacks: [{ lossYear: 2027, earlierYear: 2025, amount: '405000' }, { lossYear: 2027, earlierYear: 2026, amount: '495000' }],
+    earlierYears: [{ year: 2025, incomeTaxLiability: '120000', liabilityPreviouslyUsed: '0', netExemptIncome: '5000' },
+      { year: 2026, incomeTaxLiability: '210000', liabilityPreviouslyUsed: '0' }] };
+  const r = await tool.execute({ ...company, returnStatement: { incomeYear: '2026-27', deductions: '1000000', lossCarryBack: back } });
+  assert.deepEqual([r.returnStatement.loss_carry_back.offset, r.returnStatement.calculation_statement.S, r.returnStatement.taxable_income.tax_loss],
+    ['268500.00', '-268500.00', '900000.00']);
+  assert.equal((await tool.execute(company)).returnStatement, undefined);
+  await assert.rejects(tool.execute({ ...company, returnStatement: { incomeYear: '2025-26', deductions: '1000000', lossCarryBack: back } }),
+    /no loss carry back tax offset for the claim year ending in 2026/);
+  await assert.rejects(tool.execute({ ...company, taxableIncome: '1', returnStatement: { incomeYear: '2026-27', deductions: '100000' } }),
+    /taxableIncome must equal the statement's taxable income \(label A\), 0\.00/);
+  await assert.rejects(tool.execute({ ...company, returnStatement: { incomeYear: '2026-27' } }), /deductions/);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {

@@ -129,6 +129,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Franking account calculator: https://duguid.com.au/tools/business-calculators/franking-account/
 - Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
 - R&D tax offset calculator: https://duguid.com.au/tools/business-calculators/rd-tax-offset/
+- Blackhole expenditure calculator: https://duguid.com.au/tools/business-calculators/blackhole-expenditure/
 - Deferred tax calculator: https://duguid.com.au/tools/business-calculators/deferred-tax/
 - Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/
 - Capital gains tax calculator: https://duguid.com.au/tools/business-calculators/cgt/
