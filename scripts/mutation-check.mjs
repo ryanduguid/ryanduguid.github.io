@@ -53,7 +53,7 @@ const dbCap = { file: 'assets/defined-benefit-income-cap.mjs', test: 'scripts/de
 const fpUpp = { file: 'assets/foreign-pension-upp.mjs', test: 'scripts/foreign-pension-upp.test.mjs' };
 const schol = { file: 'assets/scholarship-exemption.mjs', test: 'scripts/scholarship-exemption.test.mjs' };
 const cryst = { file: 'assets/super-crystallisation.mjs', test: 'scripts/super-crystallisation.test.mjs' };
-const args = { ...fpUpp, file: 'assets/command-args.mjs' };
+const args = { file: 'assets/command-args.mjs', test: 'scripts/command-args.test.mjs' };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -1366,7 +1366,7 @@ const MUTATIONS = [
   { ...rd, name: 'residency scope not needed', find: "if (input.get('scope_confirmed') !== true) refuse", replace: 'if (false) refuse' },
   { ...rd, name: 'residency form blank departure is 29 June', find: '`${start + 1}-06-30`', replace: '`${start + 1}-06-29`' },
   { ...rd, name: 'residency page principal is the count', find: 'rows: table, principal: 3, note', replace: 'rows: table, principal: 0, note' },
-  { ...dbCap, name: 'DB cap not rounded up', find: 'dollars(sixteenth, true)', replace: 'dollars(sixteenth, false)' },
+  { ...dbCap, name: 'DB cap not rounded up', find: 'days)))), true)', replace: 'days)))), false)' },
   { ...dbCap, name: 'DB cap pro-rating drops the first day', find: 'add(exact(1n), exact(BigInt(after)))', replace: 'exact(BigInt(after))' },
   { ...dbCap, name: 'DB cap not reduced by other income', find: 'max(exact(0n), sub(unreduced, other))', replace: 'unreduced' },
   { ...dbCap, name: 'DB assessable at the whole excess', find: "['assessable_income', mul(excess, exact(1n, 2n))]", replace: "['assessable_income', excess]" },

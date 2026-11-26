@@ -41,6 +41,7 @@ import { dbIncomeCapResult } from '../assets/defined-benefit-income-cap.mjs';
 import { foreignPensionResult } from '../assets/foreign-pension-upp.mjs';
 import { scholarshipResult } from '../assets/scholarship-exemption.mjs';
 import { crystallisationResult } from '../assets/super-crystallisation.mjs';
+import './command-args.test.mjs';
 import './defined-benefit-income-cap.test.mjs';
 import './foreign-pension-upp.test.mjs';
 import './scholarship-exemption.test.mjs';

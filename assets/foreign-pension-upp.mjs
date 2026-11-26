@@ -123,7 +123,8 @@ export function foreignPensionResult(value) {
   const a = r.amounts;
   const rows = [['Deductible amount', formMoney(a.deductible_amount)], ['Excluded from assessable income', formMoney(a.excluded_amount)],
     ['Assessable foreign pension or annuity', formMoney(a.assessable_amount)]];
-  const note = r.rates.relevant_number === undefined ? `${METHOD_WORDS.get(r.rates.method)}: deductible rate ${r.rates.uk_rate === undefined ? '25%' : r.rates.uk_rate === '0' ? 'nil' : '8%'}`
-    : `Relevant share ${r.rates.relevant_share} × (price less residual value) ÷ relevant number ${r.rates.relevant_number}`;
+  const rates = r.rates;
+  const note = 'relevant_number' in rates ? `Relevant share ${rates.relevant_share} × (price less residual value) ÷ relevant number ${rates.relevant_number}`
+    : `${METHOD_WORDS.get(rates.method)}: deductible rate ${'uk_rate' in rates ? (rates.uk_rate === '0' ? 'nil' : '8%') : '25%'}`;
   return { inputs: `${r.period}; ${METHOD_WORDS.get(r.rates.method)}; received ${formMoney(input.annuity_derived)}`, rows, principal: 1, note };
 }
