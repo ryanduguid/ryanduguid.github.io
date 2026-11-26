@@ -120,7 +120,7 @@ const count = (n, word) => `${n.toLocaleString('en-AU')} ${word}${n === 1 ? '' :
 export function cashflowInputsText(inputs, aud) {
   const quarter = quarterOf(inputs.quarter);
   return `${quarter?.name ?? inputs.quarter}, paid ${inputs.cycle} from ${plainDay(dayOf(inputs.firstPayday))}, `
-    + `ordinary time earnings ${aud(cents(inputs.earnings) / 100)} each payday`;
+    + `one employee’s ordinary time earnings ${aud(cents(inputs.earnings) / 100)} each payday`;
 }
 
 /** The page's inputs, rows and note.

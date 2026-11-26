@@ -13,7 +13,7 @@ export function paydayCashflowTool(kit, paydayCashflow) {
   return tool({
     name: 'calculate_payday_super_cashflow',
     title: 'Payday Super cashflow calculator',
-    description: 'Super guarantee cash timing in AUD for one quarter of 2026-27: each payday\'s 12% of ordinary time earnings '
+    description: 'Super guarantee cash timing in AUD for one employee and one quarter of 2026-27: each payday\'s 12% of ordinary time earnings '
       + '(qualifying earnings, SGAA s 17A) and the date the fund must receive it under Payday Super, 7 business days after '
       + 'payday on the site\'s Payday Super calendar (the earliest possible date where 24 or 31 December decides it), against '
       + 'the old quarterly due date 28 days after the quarter (old s 23(6)), with the days earlier, the running extra working '
@@ -25,8 +25,9 @@ export function paydayCashflowTool(kit, paydayCashflow) {
       payCycle: choice(['weekly', 'fortnightly', 'monthly'], 'How often employees are paid.'),
       firstPayday: text('date', 'First payday in the quarter as YYYY-MM-DD: within its first 7 days (weekly), 14 days '
         + '(fortnightly) or month (monthly; later paydays fall on the same date or the month\'s last day).'),
-      earningsPerPayday: text('amount', 'Ordinary time earnings, plus salary sacrificed and other qualifying earnings, paid '
-        + 'each payday across all employees, in AUD with at most 2 decimal places.'),
+      earningsPerPayday: text('amount', 'One employee\'s ordinary time earnings, plus salary sacrificed and other qualifying '
+        + 'earnings, paid each payday, in AUD with at most 2 decimal places. Super guarantee is rounded for each employee, '
+        + 'so run the tool once for each employee.'),
     }, ['quarter', 'payCycle', 'firstPayday', 'earningsPerPayday']),
     run(input) {
       const r = paydayCashflow({ quarter: input.quarter, cycle: input.payCycle, firstPayday: input.firstPayday,
