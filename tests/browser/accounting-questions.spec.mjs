@@ -1270,6 +1270,67 @@ test('Deferred tax page works its example, a further item and refuses a business
   await expect(form.locator('output')).toContainText('business combination');
 });
 
+// Veronica's fortnightly pension: $2 withheld with a tax file number and the threshold, $517 (47%) without one.
+test('super lump sum page works Schedule 13 income stream withholding offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/super-benefit-tax/');
+  const form = page.locator('#super-benefit-tax form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await expect(form.locator('[name="stream-period"]')).toBeHidden();
+  await form.locator('[name="calc"][value="stream"]').check();
+  await expect(form.locator('[name="stream-period"]')).toBeVisible();
+  await expect(form.locator('[name="benefit"]')).toBeHidden();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Amount to withhold, to the nearest dollar: $2.00.');
+  await form.locator('[name="stream-tfn"]').selectOption('no');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Amount to withhold, cents ignored: $517.00.');
+});
+
+// The ATO's Fiona writes her $6,800 computer off at 80%; Daryl's $40,000 ute at 40% goes to the pool.
+test('Instant asset write-off page works Fiona and Daryl and refuses a budget day offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/instant-asset-write-off/');
+  const form = page.locator('#instant-asset-write-off form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Instant asset write-off deduction: $5,440.00.');
+  for (const [field, value] of [['acquired', '2025-07-28'], ['used', '2025-07-28'], ['cost', '40000'], ['use', '40']]) {
+    await form.locator(`[name="${field}"]`).fill(value);
+  }
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Instant asset write-off deduction: not written off: $0.00.');
+  await form.locator('[name="year"]').selectOption('2020-21');
+  await form.locator('[name="acquired"]').fill('2020-10-06');
+  await form.locator('[name="used"]').fill('2021-01-01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('6 October 2020');
+});
+
+// The form opens on 3 lines; dropping the unvested line leaves only current provisions, and 10 hours of
+// short-term annual leave at $38 adds $380.
+test('Leave provisions page works its example, drops a blank line and adds a short-term line offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/leave-provisions/');
+  const form = page.locator('#leave-provisions form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Total leave provisions: $28,882.49.');
+  await form.locator('[name="line-3-label"]').fill('');
+  await form.locator('[name="line-3-hours"]').fill('');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Total leave provisions: $27,123.16.');
+  await form.locator('[name="line-3-label"]').fill('Annual leave, casual conversions');
+  await form.locator('[name="line-3-leave"]').selectOption('annual');
+  await form.locator('[name="line-3-hours"]').fill('10');
+  await form.locator('[name="line-3-settled"]').selectOption('yes');
+  await form.locator('[name="line-3-years"]').fill('');
+  await form.locator('[name="line-3-growth"]').fill('');
+  await form.locator('[name="line-3-discount"]').fill('');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Total leave provisions: $27,503.16.');
+});
+
 test('ATO penalties and interest page works GIC by quarter, a failure to lodge penalty and refuses remission offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/ato-penalties-interest/');
   const form = page.locator('#ato-penalties-interest form');
@@ -1773,7 +1834,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
   'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset',
-  'gst-adjustments', 'deferred-tax'];
+  'gst-adjustments', 'deferred-tax', 'instant-asset-write-off', 'leave-provisions'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
