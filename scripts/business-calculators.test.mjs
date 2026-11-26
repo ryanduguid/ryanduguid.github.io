@@ -7299,3 +7299,58 @@ test('the deferred tax form sends the rows with a name or an amount, in order', 
   const loss = calculations.deferredTaxResult((name) => ({ ...fields, ...nil })[name] ?? '', deferredAud);
   assert.deepEqual(loss.rows.at(-1), ['Average effective tax rate', '0%']);
 });
+
+// The S8 pages port australian-accounting commands: foreign-resident-withholding (TAA 1953 Sch 1 ss 14-200 to 14-235),
+// and solomons-sword's partnership-net-income (ITAA 1936 ss 90 to 92) and trust-loss-tests (ITAA 1936 Sch 2F), read 27 November 2026.
+const S8_MAIN = /^ryanduguid\/australian-accounting at 4df634b /;
+const s8Fixture = (file) => JSON.parse(readFileSync(new URL(`./${file}`, import.meta.url), 'utf8'));
+
+test('foreign resident capital gains withholding agrees with the foreign-resident-withholding command on every recorded case', () => {
+  const { engine, cases } = s8Fixture('foreign-resident-withholding-engine-differential.json');
+  const authorities = s8Fixture('foreign-resident-withholding-authorities.json');
+  assert.match(engine, S8_MAIN);
+  assert.ok(cases.length >= 600);
+  assert.ok(cases.filter((c) => c.source.startsWith('AA test')).length >= 300);
+  for (const { source, call, refused, message, ...want } of cases) {
+    if (refused) {
+      assert.throws(() => calculations.foreignResidentWithholding(call), { code: refused, message }, source);
+      continue;
+    }
+    const r = calculations.foreignResidentWithholding(call);
+    assert.deepEqual(r.authorities, authorities, source);
+    const { authorities: _, ...got } = r;
+    assert.deepEqual(got, want, source);
+  }
+});
+
+for (const [slug, run] of [['partnership-net-income', 'partnershipNetIncome'], ['trust-loss-tests', 'trustLossTests']]) {
+  test(`${slug} agrees with the solomons-sword command on every recorded case`, () => {
+    const { engine, cases } = s8Fixture(`${slug}-engine-differential.json`);
+    assert.match(engine, S8_MAIN);
+    assert.ok(cases.length >= 340);
+    assert.ok(cases.filter((c) => c.source.startsWith('AA test')).length >= 40);
+    for (const { source, call, refused, result } of cases) {
+      if (refused) {
+        assert.throws(() => calculations[run](call), { message: refused }, source);
+        continue;
+      }
+      assert.deepEqual(calculations[run](call), result, source);
+    }
+  });
+}
+
+test('the S8 pages work their own examples from the form', () => {
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  const frcgw = calculations.frcgwResult((name) => ({ date: '2026-03-15', asset: 'taxable_australian_real_property', 'market-value': '1200000', price: '1200000',
+    option: '0', 'sale-price': '', exclusion: 'none', 'class-nil': 'no', 'vendor-1-interest': '50', 'vendor-1-document': 'none',
+    'vendor-2-interest': '50', 'vendor-2-document': 'variation', 'vendor-2-rate': '0.05', 'vendor-2-maximum': '1250000' })[name] ?? '', aud);
+  assert.deepEqual(frcgw.rows[frcgw.principal], ['Amount to pay the ATO at settlement', '$120,000.00']);
+  assert.throws(() => calculations.frcgwResult((name) => ({ date: '2026-03-15', 'vendor-1-interest': '' })[name] ?? '', aud), /at least one vendor/);
+  const partnership = calculations.partnershipResult((name) => ({ year: '2026', 'assessable-income': '1000', deductions: '1500', scope: 'none', australian: 'yes',
+    'partner-1-name': 'A', 'partner-1-interest': '50', 'partner-1-residency': 'resident', 'partner-2-name': 'B', 'partner-2-interest': '50',
+    'partner-2-residency': 'resident' })[name] ?? '', aud);
+  assert.deepEqual(partnership.rows.slice(2), [['Partnership loss (s 90)', '$500.00'], ['A (50%): share of the loss to deduct', '$250.00'], ['B (50%): share of the loss to deduct', '$250.00']]);
+  const trust = calculations.trustLossResult((name) => ({ year: '2026', 'loss-year': '2023', kind: 'non_fixed', excepted: 'family_trust', injection: 'unknown' })[name] ?? 'unknown');
+  assert.deepEqual(trust.rows.at(-1), ['Prior-year loss deductible under Schedule 2F', 'Not established']);
+  assert.match(trust.note, /income injection test/);
+});
