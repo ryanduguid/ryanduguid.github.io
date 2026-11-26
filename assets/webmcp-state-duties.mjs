@@ -107,7 +107,7 @@ export function vicPropertyTaxesTool(kit, vicPropertyTaxes) {
       for (const [from, to] of [['capitalImprovedValue', 'capital_improved_value'], ['residentialLand', 'residential_land'],
         ['newResidentialConcession', 'new_residential_concession'], ['liablePreviousTaxYear', 'liable_previous_tax_year'],
         ['liableTaxYearBefore', 'liable_tax_year_before'], ['entryDate', 'entry_date']]) {
-        if (input[from] !== undefined) call[to] = input[from];
+        if (input[from] !== undefined) call[to] = input[from]; // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
       }
       if (input.parcels !== undefined) {
         call.parcels = /** @type {{civBefore: string, civAfter: string}[]} */ (input.parcels).map((p) => ({ civ_before: p.civBefore, civ_after: p.civAfter }));

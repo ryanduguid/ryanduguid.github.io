@@ -1,7 +1,11 @@
 <section class="business-calculator" id="vic-property-taxes">
 <form class="calculator-split" data-calculator="vic-property-taxes">
 <fieldset disabled><legend>One Victorian tax on land</legend><div class="form-grid">
-<div class="field"><label for="vic-property-taxes-tax">Tax</label><select name="tax" id="vic-property-taxes-tax"><option value="vacant_residential_land" selected>Vacant residential land tax</option><option value="commercial_industrial">Commercial and industrial property tax</option><option value="windfall_gains">Windfall gains tax</option></select></div>
+<fieldset class="field"><legend>Tax</legend>
+<label><input type="radio" name="tax" value="vacant_residential_land" checked /> Vacant residential land tax</label>
+<label><input type="radio" name="tax" value="commercial_industrial" /> Commercial and industrial property tax</label>
+<label><input type="radio" name="tax" value="windfall_gains" /> Windfall gains tax</label>
+</fieldset>
 <div class="field"><label for="vic-property-taxes-year">Tax year (the calendar year)</label><select name="year" id="vic-property-taxes-year"><option value="2026" selected>2026</option><option value="2025">2025</option></select></div>
 <label class="field" for="vic-property-taxes-civ">Vacant residential land tax: capital improved value (whole AUD)<input aria-describedby="vic-property-taxes-note" enterkeyhint="next" id="vic-property-taxes-civ" name="civ" type="number" inputmode="numeric" min="0" max="1000000000000" step="1" value="800000" /></label>
 <div class="field"><label for="vic-property-taxes-land">The residential land</label><select name="land" id="vic-property-taxes-land"><option value="vacant_home" selected>A home vacant for more than 6 months of the year</option><option value="construction">Land with a home under construction</option><option value="uninhabitable">Land with an uninhabitable home</option><option value="undeveloped">Undeveloped land in a residential zone (from 2026)</option></select></div>
