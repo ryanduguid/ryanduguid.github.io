@@ -14,9 +14,11 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 One passenger vehicle’s registration duty
 
+Dutiable value, whole AUD
+
 State or territory of registration New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
 
-Dutiable value, whole AUD Duty date, in 2026-27
+Duty date, in 2026-27
 
 Queensland only: engine (Schedule 4C) Hybrid or electric Up to 4 cylinders, 2 rotors or steam 5 or 6 cylinders, or 3 rotors 7 or more cylinders
 

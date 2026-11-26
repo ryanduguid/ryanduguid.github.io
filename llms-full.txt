@@ -12809,9 +12809,11 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 One passenger vehicle’s registration duty
 
+Dutiable value, whole AUD
+
 State or territory of registration New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
 
-Dutiable value, whole AUD Duty date, in 2026-27
+Duty date, in 2026-27
 
 Queensland only: engine (Schedule 4C) Hybrid or electric Up to 4 cylinders, 2 rotors or steam 5 or 6 cylinders, or 3 rotors 7 or more cylinders
 
@@ -12878,9 +12880,11 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 Duty on one general insurance premium
 
+Premium (AUD)
+
 State or territory and class of insurance New South Wales: Type A: general insurance other than Type B or C New South Wales: Type B: motor vehicle, aviation, disability income, occupational indemnity or health insurance New South Wales: Type C: crop and livestock insurance Victoria: General insurance other than business insurance Victoria: Business insurance Queensland: Class 1 general insurance Queensland: Class 2 general insurance Queensland: CTP insurance Western Australia: General insurance South Australia: Insurance other than life insurance Tasmania: General insurance Australian Capital Territory: General insurance Northern Territory: General insurance for one year or less
 
-Premium (AUD) Day the contract was effected or renewed, in 2026-27
+Day the contract was effected or renewed, in 2026-27
 
 Northern Territory only: issued or renewed for more than one year No Yes
 
