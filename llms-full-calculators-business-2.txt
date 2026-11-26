@@ -660,11 +660,13 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 One employer’s fringe benefits for one FBT year
 
+Instalments paid for the year, less 6B credits (AUD; blank skips items 20 to 22)
+
 FBT year ended 31 March 2026 2027
 
 Employer Taxable employer Rebatable employer (s 65J), such as a registered charity Public benevolent institution (s 57A(1)), $30,000 cap Health promotion charity (s 57A(5)), $30,000 cap Public hospital (s 57A(3)(a)), $17,000 cap Not-for-profit hospital (s 57A(4)), $17,000 cap Public ambulance service (s 57A(3)(b)), $17,000 cap
 
-Rebatable employers only: whole days in the year it was a rebatable employer Rebatable employers only: days in the year it was an employer FBT instalments reported on activity statements for the year, less credits claimed at 6B (AUD; blank to leave items 20 to 22)
+Rebatable days in the year (rebatable employers) Employer days in the year (rebatable employers)
 
 ## Benefit 1
 
