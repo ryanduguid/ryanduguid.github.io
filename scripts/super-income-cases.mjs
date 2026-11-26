@@ -65,7 +65,9 @@ export const FORM_CALLS = {
  */
 export function parityTest(slug, count, run, keys) {
   test(`the ${slug} page agrees with the australian-accounting command on every differential case`, () => {
+    // eslint-disable-next-line security/detect-non-literal-fs-filename -- a fixed fixture beside this file
     const fixture = JSON.parse(readFileSync(new URL(`./${slug}-engine-differential.json`, import.meta.url), 'utf8'));
+    // eslint-disable-next-line security/detect-non-literal-fs-filename -- a fixed page include
     const page = readFileSync(new URL(`../_includes/calculators/${slug}.html`, import.meta.url), 'utf8');
     for (const c of fixture.cases) {
       let got;

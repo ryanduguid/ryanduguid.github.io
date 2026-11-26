@@ -27,6 +27,16 @@ function bounds(year) {
   return [Date.UTC(start, 6, 1) / DAY, Date.UTC(start + 1, 5, 30) / DAY];
 }
 
+/** The days after the first day of the concessional treatment, or null when it began in an earlier year. @param {Map<string, unknown>} input @param {string} year @param {number} first @param {number} last */
+function daysAfter(input, year, first, last) {
+  if (!input.has('first_day')) return null;
+  const day = dateOf(input.get('first_day'), 'first_day');
+  if (day < first || day > last) {
+    refuse('defined_benefit_income_cap.first_day_outside_year', `Enter a first day in ${year}, or leave it blank when the concessional treatment first applied in an earlier year (s 303-4(2)).`);
+  }
+  return last - day;
+}
+
 /** s 303-4(1) or (2), then (3). @param {bigint} general @param {number | null} after @param {number} days @param {import('./command-args.mjs').Exact} other */
 function capSteps(general, after, days, other) {
   const sixteenth = div(exact(general), exact(16n));
@@ -45,14 +55,7 @@ export function definedBenefitIncomeCap(given) {
   const [taxed, untaxed, other] = REQUIRED.slice(0, 3).map((key) => money(input.get(key)));
   const [first, last] = bounds(year);
   const days = last - first + 1;
-  let after = null;
-  if (input.has('first_day')) {
-    const day = dateOf(input.get('first_day'), 'first_day');
-    if (day < first || day > last) {
-      refuse('defined_benefit_income_cap.first_day_outside_year', `Enter a first day in ${year}, or leave it blank when the concessional treatment first applied in an earlier year (s 303-4(2)).`);
-    }
-    after = last - day;
-  }
+  const after = daysAfter(input, year, first, last);
   const general = /** @type {bigint} */ (GENERAL_CAP.get(year));
   const [unreduced, cap] = capSteps(general, after, days, other);
   const tenth = exact(1n, 10n);
@@ -100,7 +103,7 @@ export function dbIncomeCapResult(value) {
     ['Untaxed element offset after the reduction', formMoney(a.untaxed_offset)],
   ];
   const capNote = r.reduced ? `the cap of ${formMoney(a.unreduced_cap)} less your other defined benefit income` : `the general transfer balance cap of ${formMoney(r.rates.general_transfer_balance_cap)} / 16`;
-  const text = `${r.rates.days_after_first_day === undefined ? '' : 'pro-rated from the first day; '}${capNote}; offset of ${formMoney(a.untaxed_offset_before_reduction)} reduced by ${formMoney(a.offset_reduction)}`;
+  const text = `${'days_after_first_day' in r.rates ? 'pro-rated from the first day; ' : ''}${capNote}; offset of ${formMoney(a.untaxed_offset_before_reduction)} reduced by ${formMoney(a.offset_reduction)}`;
   const note = `Cap: ${text}`;
   return {
     inputs: `${r.period}; tax free and taxed ${formMoney(input.tax_free_and_taxed)}; untaxed ${formMoney(input.untaxed)}; other defined benefit income ${formMoney(input.other_defined_benefit_income)}`

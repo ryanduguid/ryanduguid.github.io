@@ -47,7 +47,7 @@ export function scholarshipExemption(given) {
   }
   const facts = FIELDS.slice(1, 5).map((key) => flag(input.get(key), key));
   const met = [facts[0], !facts[1], !facts[2], facts[3]];
-  const conditions = CONDITIONS.map(([condition], i) => ({ condition, met: met[i] }));
+  const conditions = CONDITIONS.map(([condition], i) => ({ condition, met: met.at(i) }));
   return {
     period: year, payment_type: kind, exempt: met.every(Boolean),
     conditions_not_met: conditions.filter((c) => !c.met).map((c) => c.condition), conditions,

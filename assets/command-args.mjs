@@ -75,6 +75,15 @@ export function amountText(x) {
   return `${c < 0n || (c === 0n && x.n < 0n) ? '-' : ''}${a / 100n}.${(a % 100n).toString().padStart(2, '0')}`;
 }
 
+/** The text without its trailing run of characters that match. @param {string} text @param {(c: string) => boolean} drop */
+function dropTrailing(text, drop) {
+  let end = text.length;
+  while (end > 0 && drop(text.charAt(end - 1))) end -= 1;
+  return text.slice(0, end);
+}
+
+const withoutPoint = (/** @type {string} */ text) => (text.endsWith('.') ? text.slice(0, -1) : text);
+
 /** A decimal's exact text, at most 40 places. @param {Exact} x */
 export function exactText(x) {
   let places = 0;
@@ -82,7 +91,7 @@ export function exactText(x) {
   const scaled = (x.n * ten(places)) / x.d;
   const a = scaled < 0n ? -scaled : scaled;
   const body = a.toString().padStart(places + 1, '0');
-  const text = places === 0 ? body : `${body.slice(0, -places)}.${body.slice(-places)}`.replace(/0+$/u, '').replace(/\.$/u, '');
+  const text = places === 0 ? body : withoutPoint(dropTrailing(`${body.slice(0, -places)}.${body.slice(-places)}`, (c) => c === '0'));
   return `${scaled < 0n ? '-' : ''}${text}`;
 }
 
@@ -96,7 +105,7 @@ export function callFields(given, command, required, optional, decimals) {
   if (typeof given !== 'object' || given === null || Array.isArray(given)) refuse('input.not_object', 'input must be a JSON object');
   const input = new Map(Object.entries(given));
   const known = new Set([...required, ...optional]);
-  const unknown = [...input.keys()].sort().find((key) => !known.has(key));
+  const unknown = [...input.keys()].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0)).find((key) => !known.has(key));
   if (unknown !== undefined) refuse('input.field_unknown', `${unknown} is not an input of ${command}`);
   for (const key of [...required, ...optional]) {
     if (!input.has(key)) {
@@ -126,7 +135,7 @@ function decimalOf(text, check = false) {
     return exact((negative ? -1n : 1n) * BigInt(pieces[0] + fraction), ten(fraction.length));
   }
   const word = (t.startsWith('+') || negative ? t.slice(1) : t).toLowerCase();
-  const special = ['inf', 'infinity'].includes(word) || ['nan', 'snan'].includes(word.replace(/\d+$/u, ''));
+  const special = ['inf', 'infinity'].includes(word) || ['nan', 'snan'].includes(dropTrailing(word, (c) => c >= '0' && c <= '9'));
   if (!special && check) refuse('input.decimal_unreadable', 'decimal.InvalidOperation');
   return null;
 }
