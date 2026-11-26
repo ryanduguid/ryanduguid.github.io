@@ -84,7 +84,7 @@ A loan first drawn before 1 July 2017 | 2024-25; loan 1: $1,600.00 of borrowing 
 A refinancing that does not start on the day the earlier loan was repaid | 2026-27; loan 1: $1,500.00 of borrowing expenses from 1 September 2024, contract to 31 August 2028, repaid 31 December 2025, 100% income use; loan 2: $800.00 of borrowing expenses from 1 January 2026, refinancing loan 1, 100% income use | Refused: loan 2: refinances must be the number of an earlier loan in loans, repaid on this loan's loan_start and refinanced by no other loan
 An income year after 2027-28 | 2028-29; loan 1: $1,600.00 of borrowing expenses from 3 July 2020, contract to 2 July 2045, 100% income use | Refused: choose an income year from 2017-18 to 2027-28
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -98,7 +98,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - Section 26-102: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land/land-vacant-land-and-subdividing/deductions-for-vacant-land
 - Borrowing expenses: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land/residential-rental-properties/rental-expenses/borrowing-expenses
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
 - Loan repayment schedule calculator: https://duguid.com.au/tools/business-calculators/loan/
 - Deductions questions: https://duguid.com.au/tools/accounting-questions/deductions/
@@ -174,7 +174,7 @@ Limited to the undeducted construction expenditure | 2025-26 capital works; cons
 Works begun on 15 September 1987 are refused | 2025-26 capital works; construction expenditure $100,000.00, begun 15 September 1987, not used in the 4% manner, 365 days used, taxable use 100%, undeducted construction expenditure $100,000.00 | Refused: capital works begun before 16 September 1987 (the 4% rate from 22 August 1984 and the earlier rules of section 43-215) are outside this calculator
 4% for works begun on 26 February 1992 is refused | 2025-26 capital works; construction expenditure $100,000.00, begun 26 February 1992, used in the 4% manner, 365 days used, taxable use 100%, undeducted construction expenditure $100,000.00 | Refused: capital works begun before 27 February 1992 have only the 2.5% rate (section 43-215 step 1(b)); the 4% manner (section 43-145) is for works begun later
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -186,7 +186,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - Depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - Car limit for depreciation: https://duguid.com.au/rates/car-limit/
 - Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
@@ -242,7 +242,7 @@ One year left repays the balance and a year’s interest | $1,000.00 at 8.77% ov
 The ATO’s worked example, to the cent | $55,000.00 at 5.95% over 7 years | Repayment $9,834.92, interest $3,272.50, principal $6,562.42
 No remaining term is refused | $1,000.00 at 8.77% over 0 years | Refused: enter a whole number between 1 and 25
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Common questions
 
@@ -267,7 +267,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Loans by private companies: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans
 - ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - Division 7A loan schedule calculator: https://duguid.com.au/tools/business-calculators/div7a-schedule/
 - Companies and trusts questions: https://duguid.com.au/tools/accounting-questions/company-compliance/
 
@@ -338,7 +338,7 @@ The ATO’s example: Simon’s plug-in hybrid, leased from 1 April 2024 to 31 Ma
 The ATO’s example: Tony’s break in the novation from 1 May 2025 is a new commitment, so his plug-in hybrid is not exempt | Plug-in hybrid, current employee, first held and used 2024-09-01, first retail sale 2024-09-01 at $60,000.00, committed before 1 April 2025, a new commitment, an exempt benefit before 1 April 2025; FBT year ending 31 March 2027 | Not exempt, sale in 2024-25, threshold $91,387.00
 A first retail sale after the FBT year comes after every benefit in it, so its luxury car tax does not count | Battery electric, current employee, first held and used 2026-04-01, first retail sale 2027-04-01 at $100,000.00; FBT year ending 31 March 2027 | Exempt, sale in 2026-27, after the FBT year
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -354,7 +354,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00008
 - announced, not yet law: https://duguid.com.au/rates/announced-not-yet-law/
 - ATO’s FBT rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
 - Vehicle classifier: https://duguid.com.au/tools/business-calculators/vehicle-class/
 - Novated lease calculator: https://duguid.com.au/tools/individual-tax/novated-lease/
@@ -414,7 +414,7 @@ The guide’s example 18: 4 spaces at $10 for 182 days, 3 employees | Spaces, 4 
 Spaces without a benefit are refused | Spaces, 4 at $10.00 for 182 days, employees 0 and 0, spaces 0 and 0, contributions $0.00; fee $11.48 against $11.48 | Refused: these spaces gave rise to no car parking benefit: the first business day fee is not more than the car parking threshold, so the spaces method does not count them
 A register first valid 5 years back has lapsed | Register, $2,500.00 over 183 days, first valid 2022; fee $12.36 against $11.48 | Refused: the register must have been first valid for an FBT year ending 31 March 2023 to 2027
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -427,7 +427,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00017
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - FBT expense payment calculator: https://duguid.com.au/tools/business-calculators/fbt-expense-payment/
@@ -485,7 +485,7 @@ A payment above the expenditure is refused | external, expenditure $100.00, paid
 A deduction above the part the employee bore is refused | external, expenditure $100.00, paid $60.00, contribution $10.00, income use 0%, deduction $50.01, price $0.00, notional value $0.00, in-house reduction left $0.00 | Refused: the deduction for the recipient’s portion cannot be more than that portion, the expenditure less the payment net of the contribution
 The otherwise deductible rule for an in-house expense payment is refused, not applied | in-house-other, expenditure $100.00, paid $100.00, contribution $0.00, income use 50%, deduction $0.00, price $0.00, notional value $100.00, in-house reduction left $0.00 | Refused: this calculator does not apply the otherwise deductible rule to an in-house expense payment (subparagraph 24(1)(b)(i)): enter 0% income use and no deduction
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -498,7 +498,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00010
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
 - FBT property calculator: https://duguid.com.au/tools/business-calculators/fbt-property/
 - FBT loan calculator: https://duguid.com.au/tools/business-calculators/fbt-loan/
@@ -553,7 +553,7 @@ Interest at the statutory rate leaves no value | Daily balances $18,250,000.00, 
 A $20,000 loan owed for 100 days accrues by the day | Daily balances $2,000,000.00, accrued $0.00, income use 0%, deduction $0.00, at 8.27% | Notional interest $453.15, taxable value $453.15
 A deduction above the interest accrued is refused | Daily balances $18,250,000.00, accrued $1,000.00, income use 60%, deduction $1,000.01, at 8.27% | Refused: the deduction for the interest accrued cannot be more than that interest
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -566,7 +566,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00009
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT expense payment calculator: https://duguid.com.au/tools/business-calculators/fbt-expense-payment/
@@ -624,7 +624,7 @@ Expenses more than 20% above the first year end the register | Register, expense
 A nil first year is refused as unsupported, not let through the 20% rule | Register, expenses $1,500.00, $400.00 of $1,000.00, first valid 2025, earlier years $0.00 and $0.00 | Refused: this calculator does not take a register whose first valid year had nil expenses: enter that year’s expenses
 A register first valid 5 years back has lapsed | Register, expenses $1,500.00, $400.00 of $1,000.00, first valid 2022, earlier years $1,000.00 and $1,000.00 and $1,000.00 and $1,000.00 and $1,000.00 | Refused: the register must have been first valid for an FBT year ending 31 March 2023 to 2027
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -637,7 +637,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00015
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
 - Salary packaging calculator: https://duguid.com.au/tools/individual-tax/salary-packaging/
 - FBT property calculator: https://duguid.com.au/tools/business-calculators/fbt-property/
@@ -698,7 +698,7 @@ A contribution above the value leaves nil and an excess that reduces nothing els
 A deduction for the contribution above the contribution is refused | external-cost-price, price $100.00, notional value $0.00, contribution $10.00, income use 0%, deduction $10.01, in-house reduction left $0.00 | Refused: the deduction for the employee’s contribution cannot be more than the contribution
 More than the $1,000 in-house reduction is refused | in-house-other, price $0.00, notional value $100.00, contribution $0.00, income use 0%, deduction $0.00, in-house reduction left $1,000.01 | Refused: enter an amount between 0 and 1000
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -711,7 +711,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00018
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
 - FBT expense payment calculator: https://duguid.com.au/tools/business-calculators/fbt-expense-payment/
 - Meal entertainment calculator: https://duguid.com.au/tools/business-calculators/fbt-meal-entertainment/

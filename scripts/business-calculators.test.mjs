@@ -4954,6 +4954,92 @@ test('salary against dividends charges the owner only the extra tax over other i
   assert.deepEqual([odd.companyTax, odd.dividend, odd.credit], [30000, 70000.01, 30000]);
 });
 
+// Sole trader against company: how each call and result reads, how the form passes its fields, and the
+// page's example worked by hand. 2026-27, $150,000 of profit. As a sole trader: tax $4,020 + 30% of
+// $90,000 + 37% of $15,000 = $36,570, no low income tax offset, the offset 16% of $36,570 capped at
+// $1,000, and the $3,000 levy: $38,570. Through a base rate entity paying $60,000 of salary: super
+// guarantee $7,200, company tax 25% of $82,800 = $20,700, a $40,000 dividend with a $13,333.33
+// credit, $22,100 retained. Tax on the salary less the $1,000 standard deduction, $59,000: $8,220
+// less the $115 low income tax offset plus the $1,180 levy = $9,285. Taxable income $112,333: $24,219.90
+// and the $2,246.66 levy, less $9,285 and the credit = $3,848.23 of top-up. Super tax 15% of $7,200 =
+// $1,080. Company total $20,700 + $9,285 + $3,848.23 + $1,080 = $34,913.23, $3,656.77 less.
+const { SOLE_TRADER_COMPANY_YEARS } = await import('../assets/sole-trader-company.mjs');
+const soleTraderCompanyHtml = calculatorInclude('sole-trader-company');
+const structures = { year: '2026-27', profit: '150000', takenOut: '100000', salary: '60000', baseRate: true, offset: true };
+Object.assign(INPUTS, {
+  soleTraderCompany: (s) => `${s.year}, profit ${dollars(Number(s.profit))}, taken out ${dollars(Number(s.takenOut))}, salary `
+    + `${dollars(Number(s.salary))}, ${s.baseRate ? '25%' : '30%'} company, ${s.offset ? 'with' : 'without'} the offset`,
+});
+Object.assign(FORM_CALLS, {
+  soleTraderCompany: (f) => [{ year: f.year, profit: f.profit, takenOut: f['taken-out'], salary: f.salary,
+    baseRate: f['base-rate'] === 'yes', offset: f.offset === 'yes' }],
+});
+Object.assign(ENGINE_LABELS, {
+  soleTraderCompany: { soleTotal: 'sole trader tax', smallBusinessOffset: 'small business offset', companyTax: 'company tax',
+    credit: 'franking credit', retained: 'kept in the company', superTax: 'super tax', companyTotal: 'company structure tax',
+    topUp: (v) => (v < 0 ? `refund on the dividend ${dollars(-v)}` : `top-up tax ${dollars(v)}`),
+    difference: (v) => (v === 0 ? 'totals equal' : v < 0 ? `company less by ${dollars(-v)}` : `company more by ${dollars(v)}`) },
+});
+
+test('sole trader against company works the page’s example as by hand', () => {
+  const r = calculations.soleTraderCompany(structures);
+  assert.deepEqual([r.soleTaxable, r.soleTax, r.soleOffsets, r.smallBusinessOffset, r.soleMedicare, r.soleTotal, r.soleKept],
+    [150000, 36570, 0, 1000, 3000, 38570, 111430]);
+  assert.deepEqual([r.companyRate, r.superGuarantee, r.companyTaxable, r.companyTax, r.dividend, r.credit, r.retained,
+    r.ownerTaxable, r.salaryTax, r.topUp, r.superTax, r.division293, r.companyTotal, r.cash, r.superKept, r.difference],
+  [25, 7200, 82800, 20700, 40000, 13333.33, 22100, 112333, 9285, 3848.23, 1080, 0, 34913.23, 86866.77, 6120, -3656.77]);
+  assert.deepEqual([r.largestSalary, r.largestTakenOut], [133928.57, 122100]);
+});
+
+test('sole trader against company taxes the sole trader on the whole profit, whatever is taken out', () => {
+  for (const takenOut of ['60000', '100000', '122100']) {
+    assert.equal(calculations.soleTraderCompany({ ...structures, takenOut }).soleTotal, 38570);
+  }
+  // Without the offset the sole trader pays the $1,000 back.
+  assert.equal(calculations.soleTraderCompany({ ...structures, offset: false }).soleTotal, 39570);
+  // Every dollar paid out and franked at the company's own rate with no salary and no offset: the
+  // credit hands back the company tax, so the 2 totals are equal.
+  const paidOut = calculations.soleTraderCompany({ year: '2021-22', profit: '90000', takenOut: '63000', salary: '0',
+    baseRate: false, offset: false });
+  assert.equal(paidOut.difference, 0);
+});
+
+test('sole trader against company refuses what it does not cover', () => {
+  assert.throws(() => calculations.soleTraderCompany({ ...structures, year: '2020-21' }),
+    { message: 'Choose an income year from 2021-22 to 2026-27.' });
+  assert.throws(() => calculations.soleTraderCompany({ ...structures, baseRate: 'yes' }),
+    { message: 'Say whether the company is a base rate entity.' });
+  assert.throws(() => calculations.soleTraderCompany({ ...structures, offset: 'yes' }),
+    { message: 'Say whether the business qualifies for the small business income tax offset.' });
+  assert.throws(() => calculations.soleTraderCompany({ ...structures, salary: '133928.58', takenOut: '133928.58' }),
+    { message: 'Enter a salary of no more than $133,928.57: the profit also pays its super guarantee.' });
+  assert.throws(() => calculations.soleTraderCompany({ ...structures, takenOut: '59999.99' }),
+    { message: 'Enter an amount taken out of at least the salary: the rest is the dividend.' });
+  assert.throws(() => calculations.soleTraderCompany({ ...structures, takenOut: '122100.01' }),
+    { message: 'Enter an amount taken out of no more than $122,100.00: the salary and the profit left after company tax.' });
+  assert.throws(() => calculations.soleTraderCompany({ ...structures, profit: '-1' }), { message: 'Enter an amount between 0 and 1000000000.' });
+});
+
+test('the sole trader against company page offers each year the engine covers and opens on its example', () => {
+  const years = [...soleTraderCompanyHtml.matchAll(/name="year" value="([^"]+)"/g)].map(([, year]) => year);
+  assert.deepEqual(years, SOLE_TRADER_COMPANY_YEARS);
+  const example = soleTraderCompanyHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }).replace(/^-/, '−');
+  const result = calculations.soleTraderCompanyResult(structures, aud);
+  assert.equal(result.inputs, example[1]);
+  assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);
+  assert.equal(String(result.principal), example[3]);
+  assert.equal(result.note, example[4]);
+  for (const leftOut of ['personal services income', 'Division 7A', 'small business CGT concessions', 'state taxes',
+    'the cost of running a company']) {
+    assert.ok(soleTraderCompanyHtml.includes(leftOut), leftOut);
+  }
+  for (const cited of ['328-360', '328-357', '(last updated 7 May 2025, read 26 November 2026)',
+    '(last updated 4 September 2026), read 26 November 2026']) {
+    assert.ok(soleTraderCompanyHtml.includes(cited), cited);
+  }
+});
+
 // The AASB 16 lease page: how its call and results read.
 const leaseHtml = calculatorInclude('lease');
 const LEASE_EXTRAS = [['residual', 'residual'], ['prepaid', 'paid before commencement'], ['incentives', 'incentives'],

@@ -30,7 +30,7 @@ export const SALARY_DIVIDEND_YEARS = Object.keys(SUPER_GUARANTEE);
  */
 
 // Contributions tax (Rates Act s 26(1)(a)) and Division 293 tax, each 15%, in hundredths of 1%.
-const SUPER_TAX = 1500n;
+export const SUPER_TAX = 1500n;
 // The standard deduction of up to $1,000 against labour income, from 2026-27 (ITAA 1997 s 25-130).
 const STANDARD_DEDUCTION = 100000;
 const STANDARD_DEDUCTION_FROM = '2026-27';
@@ -40,7 +40,7 @@ const STANDARD_DEDUCTION_FROM = '2026-27';
 const OFFSET_STEPS = [37000, 37500, 45000, 48000, 66667, 90000, 126000];
 
 /** The year's figures. @param {string} year @param {boolean} baseRate */
-function law(year, baseRate) {
+export function law(year, baseRate) {
   if (!Object.hasOwn(SUPER_GUARANTEE, year)) throw new Error('Choose an income year from 2021-22 to 2026-27.');
   if (typeof baseRate !== 'boolean') throw new Error('Say whether the company is a base rate entity.');
   const { rate, cap } = SUPER_GUARANTEE[year];
@@ -50,11 +50,11 @@ function law(year, baseRate) {
 
 /** The super guarantee on a salary in cents: the rate on the salary up to the year's base, half up.
  * @param {number} salary @param {ReturnType<typeof law>} y */
-const superGuaranteeOn = (salary, y) => Math.floor((2 * Math.min(salary, y.cap) * y.tenths + 1000) / 2000);
+export const superGuaranteeOn = (salary, y) => Math.floor((2 * Math.min(salary, y.cap) * y.tenths + 1000) / 2000);
 
 /** Income tax and Medicare levy in cents on whole dollars, after the non-refundable offsets.
  * @param {number} dollars @param {string} year */
-const taxOn = (dollars, year) => Math.round(incomeTax(String(Math.max(0, dollars)), year, 'resident').total * 100);
+export const taxOn = (dollars, year) => Math.round(incomeTax(String(Math.max(0, dollars)), year, 'resident').total * 100);
 
 /** One split in cents: the salary, its super guarantee, the company tax on the rest and the fully
  * franked dividend of what is left, the franking credit at the company's rate rounded down (s 202-60),
@@ -95,7 +95,7 @@ function unrounded(salary, profit, other, y) {
 
 /** The largest salary in cents whose super guarantee the profit also pays.
  * @param {number} profit @param {ReturnType<typeof law>} y */
-function largestSalary(profit, y) {
+export function largestSalary(profit, y) {
   let salary = Math.min(Math.floor(profit * 1000 / (1000 + y.tenths)), profit);
   if (salary > y.cap) salary = Math.max(y.cap, profit - superGuaranteeOn(y.cap, y));
   while (salary > 0 && salary + superGuaranteeOn(salary, y) > profit) salary -= 1;
