@@ -173,6 +173,21 @@ test('a foreign resident pays no Medicare levy or surcharge and gets no offset',
     'A foreign resident gets no low income tax offset and pays no Medicare levy or surcharge.');
 });
 
+test('a part-year resident gets the pro-rated threshold and a reduced Medicare levy', async ({ page }) => {
+  await page.goto('/tools/individual-tax/income-tax/');
+  const form = page.locator('#income-tax form');
+  await waitForCalculator(form);
+  await form.getByLabel('Australian resident for part of the year').check();
+  await form.locator('[name="year"][value="2025-26"]').check();
+  await form.getByLabel('Taxable income (whole dollars)').fill('60000');
+  await form.getByLabel('Months in which you were a resident (1 to 12)').fill('9');
+  await form.getByLabel('Days in the year you were not a resident').fill('106');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('Tax-free threshold')).toHaveText('$17,016.00');
+  await expect(row('Medicare levy')).toHaveText('$851.51');
+});
+
 test('the private health insurance rebate refunds at nil income, the zone questions follow the area, and a loading is refused offline', async ({ page, context }) => {
   await page.goto('/tools/individual-tax/income-tax/');
   const form = page.locator('#income-tax form');

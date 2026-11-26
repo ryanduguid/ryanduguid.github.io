@@ -14,7 +14,7 @@ import { foreignTaxOffset } from './foreign-income-tax-offset.mjs';
 /**
  * @typedef {{year: string, residency: string, taxable: string, fringe: string, super: string, losses: string,
  *   foreign: string, studyLoan: boolean, uncoveredDays: string, spouse: string | null, children: string,
- *   withheld: string, offsets?: Offsets}} Return
+ *   withheld: string, offsets?: Offsets, partYear?: import('./income-tax.mjs').PartYear}} Return
  */
 
 /** Taxable income and the other parts of income, each in whole dollars; `spouse` is the spouse's
@@ -23,7 +23,9 @@ import { foreignTaxOffset } from './foreign-income-tax-offset.mjs';
  * person, which includes a foreign resident, pays none). Repayment income adds exempt foreign
  * employment income to the parts of income for surcharge purposes (HESA s 154-5(1)). The result is
  * the tax withheld less the total, rounded to the cent: positive is a refund, negative an amount
- * owing.
+ * owing. A part-year resident (`partYear`) pays no surcharge here and gets no study loan repayment,
+ * as australian-accounting's personal-tax-estimate composes neither for one: the surcharge and the
+ * repayment are worked out for a full-year resident.
  * @param {Return} r */
 export function taxEstimate(r) {
   if (typeof r.studyLoan !== 'boolean') throw new Error('Say whether you have a study or training loan.');
@@ -32,7 +34,11 @@ export function taxEstimate(r) {
   const children = number(r.children, { max: 20, integer: true });
   const spouse = r.spouse === null ? null : wholeDollars(r.spouse);
   const withheld = Math.round(number(r.withheld, { max: 1e9, money: true }) * 100);
-  const tax = incomeTax(r.taxable, r.year, r.residency);
+  if (r.residency === 'part-year' && r.studyLoan) {
+    throw new Error('The study loan repayment is worked out for a full-year resident only: for a part-year resident, '
+      + 'answer No and see the study and training loan repayment calculator.');
+  }
+  const tax = incomeTax(r.taxable, r.year, r.residency, r.partYear);
   const taxable = wholeDollars(r.taxable);
   const surcharge = medicareLevySurcharge({ year: r.year, taxable, fringe, super: contributions, losses, spouse,
     children, uncoveredDays: r.residency === 'resident' ? days : 0 });
@@ -81,7 +87,7 @@ function withOffsets(base, r, o) {
   if (o.privateHealth) {
     if (r.residency !== 'resident') {
       refuse('input.field_unknown', 'The private health insurance tax offset needs every person insured to be an eligible '
-        + 'person (ITAA 1997 s 61-205(1)(c)), which this calculator does not test for a foreign resident or working holiday maker.');
+        + 'person (ITAA 1997 s 61-205(1)(c)), which this calculator does not test for a foreign or part-year resident or working holiday maker.');
     }
     privateHealth = privateHealthRebate({ year: r.year, income_for_surcharge_purposes: String(base.surchargeIncome),
       spouse_income_for_surcharge_purposes: r.spouse ?? undefined, dependent_children: Number(r.children),
@@ -91,8 +97,8 @@ function withOffsets(base, r, o) {
   if (o.foreign) {
     const worked = o.foreign.limit_method === 'worked';
     if (worked && r.residency !== 'resident') {
-      refuse('foreign_income_tax_offset.worked_residency', 'The worked foreign income tax offset limit uses the resident rates; for a foreign resident '
-        + 'or working holiday maker, give the income tax payable figures instead.');
+      refuse('foreign_income_tax_offset.worked_residency', 'The worked foreign income tax offset limit uses a full-year resident’s rates; for a foreign or '
+        + 'part-year resident or working holiday maker, give the income tax payable figures instead.');
     }
     foreign = foreignTaxOffset({ ...o.foreign, year: r.year, ...(worked ? { taxable_income: r.taxable,
       medicare_levy: ((cents(base.medicare) + cents(base.surcharge)) / 100).toFixed(2) } : {}) });
