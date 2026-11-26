@@ -7318,6 +7318,14 @@ test('the deferred tax form sends the rows with a name or an amount, in order', 
 // The SMSF tax, trading stock, prepaid expenses and alcohol excise pages: ports of australian-accounting's smsf-tax,
 // trading-stock, prepayments and alcohol-excise commands, checked against the commands' release build on every input
 // their tests give them and 300 seeded cases each.
+// A refusal where a result is expected fails as an assertion, so a mutant that refuses is caught, not invalid.
+const s5Run = (run, note) => {
+  try {
+    return run();
+  } catch (error) {
+    return assert.fail(`${note}: refused with ${error.code}`);
+  }
+};
 const s5Code = (run) => {
   try {
     run();
@@ -7352,7 +7360,7 @@ for (const [command, tests, total, refusals] of [['smsf-tax', 91, 391, 103], ['t
         assert.equal(s5Code(() => s5Engines[command](call)), code, source);
         continue;
       }
-      const got = s5Shown[command](s5Engines[command](call));
+      const got = s5Shown[command](s5Run(() => s5Engines[command](call), source));
       assert.deepEqual(JSON.parse(JSON.stringify(got)), want, source);
       assert.deepEqual(Object.keys(got.amounts), Object.keys(want.amounts), source);
     }
@@ -7381,7 +7389,7 @@ test('the SMSF tax page rounds the actuary’s proportion as the command does, a
 test('the trading stock page applies the $5,000 choice and the $50 million entity from 2021-22', () => {
   const base = shownCases['trading-stock'].rows[0].call[0];
   const stock = (more) => calculations.tradingStock({ ...base, ...more });
-  assert.equal(stock({ opening_value: '39000', simplified_choice: true }).amounts.estimate_difference, '5000.00');
+  assert.equal(s5Run(() => stock({ opening_value: '39000', simplified_choice: true }), 'the $5,000 limit').amounts.estimate_difference, '5000.00');
   assert.equal(s5Code(() => stock({ opening_value: '39000.01', simplified_choice: true })), 'trading_stock.simplified_unavailable');
   assert.equal(stock({ entity: 'medium_business_entity', opening_value: '36000', simplified_choice: true, year: '2021-22' }).deduction, 0);
   assert.equal(s5Code(() => stock({ entity: 'medium_business_entity', opening_value: '36000', simplified_choice: true, year: '2020-21' })),
@@ -7413,7 +7421,7 @@ test('the prepaid expenses page applies the 12-month rule, the $1,000 exclusion 
 test('the alcohol excise page classifies beer by strength and container and caps the remission', () => {
   const line = { date: '2026-09-01', product: 'beer', volume_litres: '1000', strength_percent: '4.8' };
   const duty = (more, extra = {}) => calculations.alcoholExcise({ lines: [{ ...line, ...more }], year: '2026-27', scope_confirmed: true, ...extra });
-  const sub = (more) => duty(more).return_lines[0].subitem;
+  const sub = (more) => s5Run(() => duty(more), 'beer container').return_lines[0].subitem;
   assert.deepEqual([sub({ container_litres: '48.001' }), sub({ container_litres: '48', pressurised_system: true }),
     sub({ container_litres: '48', pressurised_system: false }), sub({ container_litres: '7.999' }), sub({ brew_on_premises: true })],
   ['1.11', '1.11', '1.10', '1.10', '1.16']);
