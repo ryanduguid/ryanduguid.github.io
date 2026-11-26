@@ -13,6 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+26 November 2026 | Added Do I need to lodge a tax return?: whether you must lodge for 2020-21 to 2025-26 under that year’s lodgment instrument, from the $18,200 threshold, the part-year, under 18, dividend and study loan amounts and the conditions you tick, then the working holiday maker, listed payment and seniors exceptions, with the 31 October due date.
 26 November 2026 | The tool pages, changelog, release record and machine indexes name the releases of 24 and 25 November: aus-accounting-mcp v0.13.0 (148 worksheet kinds with calculators 1.4.0, 29 tools), Australian Accounting Skills v0.8.1 (112 skills, Apache License 2.0), monthly-close-control-plane v1.2.0 and review-ready-gate v1.1.0 (both now under the GNU Affero General Public License v3.0 or later, with executables for 6 targets), and solomons-sword v1.0.0 and the-exchequer-tally v1.0.0, now standalone executables under the same licence; the trust distribution and company tax pages keep their pinned Python examples. The profit and cash flow case states that GitHub holds au-fpa-pack v0.8.0 whilst PyPI still serves 0.7.0.
 25 November 2026 | Updated general tax question 8 after the ATO updated its How to lodge your tax return page from 12 to 10 business days for returns lodged online, matching its progress page.
 24 November 2026 | The first home owner grant calculator now takes the building contract price of a home built. Below the grant it pays the contract price in Victoria, Queensland, Western Australia, South Australia, Tasmania and the Northern Territory, whose Acts pay the lesser of the consideration and the grant, and in Victoria the $750,000 cap tests the contract price, so a larger land and building total is computed. A New South Wales contract price below the grant is still not computed.
@@ -267,6 +268,7 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- Do I need to lodge a tax return?: https://duguid.com.au/tools/individual-tax/lodgment-required/
 - aus-accounting-mcp v0.13.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.13.0
 - general tax question 8: https://duguid.com.au/tools/accounting-questions/general-tax/
 - first home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
