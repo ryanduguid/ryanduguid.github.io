@@ -1570,7 +1570,7 @@ test('rental property tool returns the page worked example, serialises borrowing
   }), /extra is not an input of this tool/);
 });
 
-test('super lump sum tax tool returns all 3 calculations and refuses mismatched or unknown inputs', async () => {
+test('super lump sum tax tool returns all 4 calculations and refuses mismatched or unknown inputs', async () => {
   const tool = tools['super-benefit-tax'];
   const tax = await tool.execute({
     calculation: 'tax', incomeYear: '2026-27', paymentDate: '2026-10-01', recipient: 'member',
@@ -1591,6 +1591,20 @@ test('super lump sum tax tool returns all 3 calculations and refuses mismatched 
   });
   assert.equal(wh.withholding, '13600.00');
   assert.doesNotThrow(() => JSON.stringify(wh));
+  const stream = await tool.execute({
+    calculation: 'stream', incomeYear: '2026-27', paymentDate: '2026-09-01', recipient: 'member', benefit: '1400',
+    interestValue: '1400', interestTaxFreeComponent: '300', untaxedElement: '0', dateOfBirth: '1968-01-15',
+    disabilitySuperannuationBenefit: true, tfnProvided: true, foreignResident: false, incomeStreamPeriod: 'fortnightly',
+    taxFreeThresholdClaimed: true, cappedDefinedBenefit: false,
+  });
+  assert.deepEqual([stream.treatment, stream.incomeStreamPeriod, stream.amounts.withholding_amount, stream.amounts.tax_offset,
+    stream.amounts.offset_adjustment, stream.withholding, stream.age],
+  ['income_stream_disability_under_60', 'fortnightly', '60.00', '165.00', '2.40', '2.00', 58]);
+  await assert.rejects(tool.execute({
+    calculation: 'withholding', incomeYear: '2026-27', paymentDate: '2026-10-01', recipient: 'member',
+    benefit: '1000', interestValue: '1000', interestTaxFreeComponent: '0', tfnProvided: true, foreignResident: false,
+    incomeStreamPeriod: 'weekly',
+  }), /incomeStreamPeriod does not apply/);
   const dasp = await tool.execute({
     calculation: 'dasp', incomeYear: '2026-27', taxFreeComponent: '25000', taxedElement: '17000',
     untaxedElement: '0', workingHolidayMakerContributions: false, unclaimedMoneyRollover: false,

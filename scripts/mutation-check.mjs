@@ -79,6 +79,7 @@ const fhog = { ...business, file: 'assets/first-home-owner-grant.mjs' };
 const sbt = { ...business, file: 'assets/super-benefit-tax.mjs' };
 const swh = { file: 'assets/super-withholding.mjs', test: 'scripts/super-lump-sum-options.test.mjs' };
 const dasp = { ...swh, file: 'assets/dasp-tax.mjs' };
+const sis = { ...swh, file: 'assets/super-income-stream.mjs' };
 const wet = { ...business, file: 'assets/wine-equalisation-tax.mjs' };
 const rental = { ...business, file: 'assets/rental-property.mjs' };
 const rentalResult = { ...business, file: 'assets/rental-property-result.mjs' };
@@ -976,6 +977,18 @@ const MUTATIONS = [
   { ...sbt, name: 'SBT under $200 is tax free without closing the interest', find: ': benefit < 20000n && benefit === interest ?', replace: ': benefit < 20000n ?' },
   { ...sbt, name: 'SBT 2023-24 keeps the 2022-23 low rate cap', find: "'2023-24': 235000 };", replace: "'2023-24': 230000 };" },
   { ...sbt, name: 'SBT the form sends the low rate cap at 60', find: 'if (age < 60 && age >= preservationAge(born)) {', replace: 'if (age <= 60 && age >= preservationAge(born)) {' },
+  { ...sis, name: 'SIS Schedule 13 read only from 2025-26', find: "export const STREAM_FIRST_YEAR = '2024-25';", replace: "export const STREAM_FIRST_YEAR = '2025-26';" },
+  { ...sis, name: 'SIS a quarter is 12 weeks', find: 'quarterly: [1n, 13n]', replace: 'quarterly: [1n, 12n]' },
+  { ...sis, name: 'SIS the 2026-27 adjustment limit stays $1,181', find: "'2026-27': [538, 673, 1216]", replace: "'2026-27': [538, 673, 1181]" },
+  { ...sis, name: 'SIS a dependant under 60 has no offset', find: "income_stream_dependant_under_60: ['taxed', 15n],", replace: 'income_stream_dependant_under_60: null,' },
+  { ...sis, name: 'SIS the shade-in band at 10% of the whole amount', find: '(from * per - threshold * times) * 30n / per', replace: 'from * 30n' },
+  { ...sis, name: 'SIS the 2% band on the weekly equivalent', find: 'else adjusted = from * 6n;', replace: 'else adjusted = from * per * 6n / times;' },
+  { ...sis, name: 'SIS the greater rounds down', find: 'withholding: (greater + 150n) / 300n', replace: 'withholding: greater / 300n' },
+  { ...sis, name: 'SIS a capped stream at 60 is not refused', find: "input.capped_defined_benefit) && age >= 60", replace: 'input.capped_defined_benefit) && age >= 600' },
+  { ...sis, name: 'SIS the offset keeps the cents', find: '(c[offsetRow[0]] / 100n) * offsetRow[1]', replace: 'c[offsetRow[0]] * offsetRow[1] / 100n' },
+  { ...sis, name: 'SIS no TFN at 45% for a resident', find: 'const rate = foreign ? 45n : 47n;', replace: 'const rate = foreign ? 45n : 45n;' },
+  { ...sis, name: 'SIS scale 2 without the threshold', find: "input.tax_free_threshold_claimed) ? 2 : 1)", replace: "input.tax_free_threshold_claimed) ? 2 : 2)" },
+  { ...swh, name: 'SWH the stream form sends the threshold without a TFN', find: 'if (input.tfn_provided === true) input.tax_free_threshold_claimed', replace: 'if (true) input.tax_free_threshold_claimed' },
   { ...swh, name: 'SWH Schedule 12 read from a day later', find: "export const SWH_FIRST_DAY = '2020-10-13';", replace: "export const SWH_FIRST_DAY = '2020-10-14';" },
   { ...swh, name: 'SWH Table A leaves out the Medicare levy', find: 'p.rate && p.rate + (foreign ? 0 : 2)', replace: 'p.rate && p.rate + (foreign ? 0 : 0)' },
   { ...swh, name: 'SWH a foreign resident keeps the Medicare levy', find: 'p.rate && p.rate + (foreign ? 0 : 2)', replace: 'p.rate && p.rate + (foreign ? 2 : 2)' },
@@ -1366,6 +1379,7 @@ const SHARED = [
   'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json',
   'scripts/super-benefit-tax-engine-differential.json',
   'scripts/super-lump-sum-options-engine-differential.json',
+  'scripts/super-income-stream-engine-differential.json',
 ];
 
 const TEST_FILES = [

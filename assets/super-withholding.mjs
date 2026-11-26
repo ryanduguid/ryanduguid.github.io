@@ -12,8 +12,9 @@
 //   2025 (F2025L00647), (No. 2) 2025 (F2025L01016) and 2026 (F2026L00716): the same rules, with Tom and Chloe.
 // The TFN, residency and roll-over are the user's facts.
 
-import { MEMBER_BANDS, PART_LABELS, TREATMENTS, dayText, flag, inDollars, ledger, lumpSum, memberParts, min, otherParts, period,
-  read, refuse, refusePre1983, sbtFormInput, sbtInputsText, treatment, when } from './super-benefit-tax.mjs';
+import { MEMBER_BANDS, PART_LABELS, SBT_OPTIONAL, TREATMENTS, dayText, flag, inDollars, ledger, lumpSum, memberParts, min,
+  otherParts, period, plainDate, read, refuse, refusePre1983, sbtFormInput, sbtInputsText, treatment, when } from './super-benefit-tax.mjs';
+import { STREAM_OPTIONAL, incomeStream } from './super-income-stream.mjs';
 
 /** Schedule 12 as read covers payments from this day. */
 export const SWH_FIRST_DAY = '2020-10-13';
@@ -38,7 +39,8 @@ export function centsText(units, places) {
 /** In dollars: the components, each amount the command works, as it prints it, the rates, the
  * treatment, the member's ages and the amount to withhold, in whole dollars.
  * @typedef {{treatment: string, taxFree: number, taxable: number, taxed: number, untaxed: number,
- *   amounts: Record<string, string>, rates: Record<string, string>, withholding: number, age?: number, preservationAge?: number}} SwhWorked */
+ *   amounts: Record<string, string>, rates: Record<string, string>, withholding: number, age?: number, preservationAge?: number,
+ *   period?: string}} SwhWorked */
 
 /** @returns {SwhTail} */
 const nil = () => ({ steps: {}, rates: {}, withholding: 0n });
@@ -98,13 +100,15 @@ function tableA(l, foreign) {
 export function superWithholding(given) {
   if (typeof given !== 'object' || !given || Array.isArray(given)) refuse('input.not_object', 'The input is not an object.');
   const input = /** @type {Record<string, unknown>} */ (given);
-  const amounts = read(input, REQUIRED);
+  const amounts = read(input, REQUIRED, [...SBT_OPTIONAL, ...STREAM_OPTIONAL]);
   const { year, paid } = period(input);
   if (dayText(paid) < SWH_FIRST_DAY) {
     refuse('super_withholding.schedule_not_read', 'Schedule 12 as it stood before 13 October 2020 was not read for this calculator; the payment date must be on or after 13 October 2020.');
   }
   const tfn = flag('tfn_provided', input.tfn_provided);
   const foreign = flag('foreign_resident', input.foreign_resident);
+  if (Object.hasOwn(input, 'income_stream_period')) return streamWorked(incomeStream(input, amounts, year, paid, tfn, foreign));
+  noneOf(input, STREAM_OPTIONAL, 'for an income stream (with income_stream_period)');
   if (!RECIPIENTS.includes(/** @type {string} */ (input.recipient))) {
     refuse('super_withholding.recipient_invalid', 'Choose who receives the payment: the member, a death benefits dependant, a non-dependant, a roll-over or the trustee of a deceased estate.');
   }
@@ -137,6 +141,15 @@ export function superWithholding(given) {
       taxed_element: centsText(c.taxed, 2), untaxed_element: centsText(c.untaxed, 2), ...tail.steps, withholding: centsText(tail.withholding, 0) },
     rates: tail.rates, withholding: Number(tail.withholding),
     ...(t.age === undefined ? {} : { age: t.age, preservationAge: t.preservation }) };
+}
+
+/** An income stream payment's result in the shape of a lump sum's, with its period.
+ * @param {ReturnType<typeof incomeStream>} r @returns {SwhWorked} */
+function streamWorked({ name, age, period, c, from, steps, rates, withholding }) {
+  return { treatment: name, period, taxFree: inDollars(c.taxFree), taxable: inDollars(c.taxable), taxed: inDollars(c.taxed),
+    untaxed: inDollars(c.untaxed), amounts: { tax_free_component: centsText(c.taxFree, 2), taxable_component: centsText(c.taxable, 2),
+      taxed_element: centsText(c.taxed, 2), untaxed_element: centsText(c.untaxed, 2), withheld_from: centsText(from, 0), ...steps,
+      withholding: centsText(withholding, 0) }, rates: { ...rates, age: String(age) }, withholding: Number(withholding), age };
 }
 
 /** The command's input from the form: the lump sum as the tax calculation takes it, with the payee's TFN
@@ -186,4 +199,58 @@ export function superWithholdingResult(value, aud) {
         : `${TREATMENTS[r.treatment]}; Table A’s rate for each part, ${levy}`;
   const payee = `${input.tfn_provided ? 'TFN given' : 'no TFN'}${input.foreign_resident ? ', foreign resident' : ''}`;
   return { inputs: `${sbtInputsText(input, aud)}; ${payee}`, rows, principal: rows.length - 1, note: `${who}${how}` };
+}
+
+const PERIOD_WORDS = /** @type {Record<string, string>} */ ({ weekly: 'week', fortnightly: 'fortnight', monthly: 'month', quarterly: 'quarter' });
+const STREAM_PAYEES = /** @type {Record<string, string>} */ ({
+  income_stream_member_under_60: 'a member under 60: no tax offset',
+  income_stream_disability_under_60: 'a member under 60 on a disability super income stream: a 15% offset on the taxed element',
+  income_stream_member_aged_60_or_over: 'a member 60 or over: withheld only from the untaxed element, with a 10% offset',
+  income_stream_dependant_under_60: 'a death benefits dependant under 60: a 15% offset on the taxed element',
+  income_stream_dependant_aged_60_or_over: 'a death benefits dependant 60 or over: withheld only from the untaxed element, with a 10% offset',
+});
+
+/** The command's input from the form's income stream fields: the payee's date of birth always, the disability
+ * answer for a member, the deceased's age for a dependant and the threshold answer only with a TFN.
+ * @param {(name: string) => string} value */
+export function streamFormInput(value) {
+  const text = (/** @type {string} */ name) => value(`stream-${name}`).trim();
+  const yes = (/** @type {string} */ name) => (text(name) === '' ? undefined : text(name) === 'yes');
+  const recipient = text('recipient');
+  /** @type {Record<string, unknown>} */
+  const input = { benefit: text('payment'), interest_value: text('interest'), interest_tax_free_component: text('interest-free'),
+    untaxed_element: text('untaxed') === '' ? '0' : text('untaxed'), recipient, payment_date: text('paid'), year: text('year'),
+    scope_confirmed: true, tfn_provided: yes('tfn'), foreign_resident: yes('foreign'), income_stream_period: text('period'),
+    date_of_birth: text('born'), capped_defined_benefit: yes('capped') };
+  if (input.tfn_provided === true) input.tax_free_threshold_claimed = yes('threshold');
+  if (recipient === 'member') input.disability_superannuation_benefit = yes('disability');
+  if (recipient === 'death_benefits_dependant') input.deceased_aged_60_or_over = yes('deceased');
+  return Object.fromEntries(Object.entries(input).filter(([, v]) => v !== undefined && v !== ''));
+}
+
+/** The page's result for an income stream payment: the components, Schedule 13's steps and the amount to
+ * withhold. @param {(name: string) => string} value @param {(value: number) => string} aud */
+export function streamWithholdingResult(value, aud) {
+  const input = streamFormInput(value);
+  const r = superWithholding(input);
+  const amounts = new Map(Object.entries(r.amounts));
+  const rates = new Map(Object.entries(r.rates));
+  const dollars = (/** @type {string} */ id) => aud(Number(amounts.get(id)));
+  const per = PERIOD_WORDS[/** @type {string} */ (r.period)];
+  const rows = [['Tax free component', aud(r.taxFree)], ['Taxable component: element taxed in the fund', aud(r.taxed)],
+    ['Taxable component: element untaxed in the fund', aud(r.untaxed)], ['Amount withheld from, cents ignored', dollars('withheld_from')]];
+  if (amounts.has('withholding_amount')) {
+    rows.push([`Schedule 1 amount for the ${per}, scale ${rates.get('scale')}`, dollars('withholding_amount')],
+      ['Tax offset for the payment', dollars('tax_offset')], ['Offset adjustment', dollars('offset_adjustment')]);
+  }
+  rows.push([input.tfn_provided ? 'Amount to withhold, to the nearest dollar' : 'Amount to withhold, cents ignored', aud(r.withholding)]);
+  const how = input.tfn_provided ? `the Schedule 1 amount less the tax offset, or the offset adjustment if greater`
+    : `no TFN: ${rates.get('no_tfn_rate') === '0.45' ? 45 : 47}% with no offsets or Medicare levy adjustment, cents ignored`;
+  const payee = `${input.tfn_provided ? 'TFN given' : 'no TFN'}${input.foreign_resident ? ', foreign resident' : ''}`
+    + `${input.tax_free_threshold_claimed === false ? ', tax-free threshold not claimed' : ''}`;
+  const facts = [input.year, `${input.recipient === 'member' ? 'member' : 'death benefits dependant'}`, `paid ${plainDate(String(input.payment_date))}`,
+    `payment each ${per} ${aud(Number(input.benefit))} from an interest of ${aud(Number(input.interest_value))} with ${aud(Number(input.interest_tax_free_component))} tax free at commencement`,
+    `untaxed element ${aud(Number(input.untaxed_element))}`, `born ${plainDate(String(input.date_of_birth))}`];
+  return { inputs: `${facts.join('; ')}; ${payee}`, rows, principal: rows.length - 1,
+    note: `Aged ${r.age} on the payment date, ${STREAM_PAYEES[r.treatment]}; ${how}` };
 }

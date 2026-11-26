@@ -14,7 +14,8 @@
 // Each row is [weekly earnings x less than, in whole dollars (0 for the top row), a, b], with a and
 // b times 10,000 so the formula y = ax − b is exact in integers. Schedule 1, 'Coefficients for
 // calculation of amounts to be withheld from weekly payments': scale 2 (tax-free threshold claimed)
-// has none in its first band, so nothing is withheld there; scale 3 is for foreign residents. The 2021
+// has none in its first band, so nothing is withheld there; scale 3 is for foreign residents; scale 1
+// (no tax-free threshold), from 2024-25, only for Schedule 13's income stream withholding. The 2021
 // to 2023 instruments repeat the coefficients for payments made on or after 13 October 2020, and the
 // 2024 and both 2025 instruments those of 2024.
 const FROM_OCTOBER_2020 = {
@@ -23,13 +24,17 @@ const FROM_OCTOBER_2020 = {
   3: [[2307, 3250, 3250], [3461, 3700, 1038462], [0, 4500, 3807692]],
 };
 const FROM_JULY_2024 = {
+  1: [[150, 1600, 1600], [371, 2117, 77550], [515, 1890, -6702], [932, 3227, 682367], [2246, 3200, 657202],
+    [3303, 3900, 2229510], [0, 4700, 4872587]],
   2: [[361, 0, 0], [500, 1600, 578462], [625, 2600, 1078462], [721, 1800, 578462], [865, 1890, 643365],
     [1282, 3227, 1800385], [2596, 3200, 1765769], [3653, 3900, 3583077], [0, 4700, 6506154]],
   3: [[2596, 3000, 3000], [3653, 3700, 1817308], [0, 4500, 4740385]],
 };
 /** @type {Record<string, Record<number, number[][]>>} */
-const SCHEDULE_1 = {
+export const SCHEDULE_1 = {
   '2026-27': {
+    1: [[188, 1500, 1500], [371, 2084, 110185], [515, 1790, 1066], [932, 3227, 741674], [2246, 3200, 716508],
+      [3303, 3900, 2288816], [0, 4700, 4931893]],
     2: [[362, 0, 0], [538, 1500, 543462], [673, 2500, 1082135], [721, 1700, 543473], [865, 1790, 608377],
       [1282, 3227, 1851935], [2596, 3200, 1817319], [3653, 3900, 3634627], [0, 4700, 6557704]],
     3: [[2596, 3000, 3000], [3653, 3700, 1817308], [0, 4500, 4740385]],
@@ -71,7 +76,7 @@ export const PAYS = /** @type {Record<string, number>} */ ({ week: 52, fortnight
 /** The rounded weekly amount for x in cents (whole dollars plus 99 cents): y = ax − b to the nearest
  * dollar, 50 cents up, with no preliminary rounding ('Using a formula'), never below nil.
  * @param {number[][]} rows @param {number} x cents @returns {number} whole dollars */
-function weekly(rows, x) {
+export function weekly(rows, x) {
   const [, a, b] = /** @type {number[]} */ (rows.find(([limit]) => limit === 0 || x < limit * 100));
   // a × x is in millionths of a dollar (a times 10^4, x in cents); b times 10^4 is b × 100 of them.
   const millionths = a * x - b * 100;

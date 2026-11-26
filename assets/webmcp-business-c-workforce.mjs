@@ -22,6 +22,9 @@ const SBT_TAX_KEYS = [
 const SBT_ALLOWED = new Map([
   ['tax', new Set(SBT_TAX_KEYS)],
   ['withholding', new Set([...SBT_TAX_KEYS, 'tfnProvided', 'foreignResident'])],
+  ['stream', new Set(['paymentDate', 'recipient', 'benefit', 'interestValue', 'interestTaxFreeComponent', 'untaxedElement',
+    'dateOfBirth', 'disabilitySuperannuationBenefit', 'tfnProvided', 'foreignResident', 'incomeStreamPeriod',
+    'taxFreeThresholdClaimed', 'cappedDefinedBenefit', 'deceasedAged60OrOver'])],
   ['dasp', new Set([
     'taxFreeComponent', 'taxedElement', 'untaxedElement', 'workingHolidayMakerContributions', 'unclaimedMoneyRollover',
   ])],
@@ -29,6 +32,8 @@ const SBT_ALLOWED = new Map([
 const SBT_REQUIRED = new Map([
   ['tax', ['paymentDate', 'recipient', 'benefit', 'interestValue', 'interestTaxFreeComponent']],
   ['withholding', ['paymentDate', 'recipient', 'benefit', 'interestValue', 'interestTaxFreeComponent', 'tfnProvided', 'foreignResident']],
+  ['stream', ['paymentDate', 'recipient', 'benefit', 'interestValue', 'interestTaxFreeComponent', 'dateOfBirth', 'tfnProvided',
+    'foreignResident', 'incomeStreamPeriod', 'cappedDefinedBenefit']],
   ['dasp', ['taxFreeComponent', 'taxedElement', 'workingHolidayMakerContributions', 'unclaimedMoneyRollover']],
 ]);
 const SBT_OPTIONAL_MAP = [
@@ -39,6 +44,10 @@ const SBT_OPTIONAL_MAP = [
   ['lowRateCapUsed', 'low_rate_cap_used'],
   ['untaxedPlanCapUsed', 'untaxed_plan_cap_used'],
   ['otherLumpSumsThisYear', 'other_lump_sums_this_year'],
+  ['incomeStreamPeriod', 'income_stream_period'],
+  ['taxFreeThresholdClaimed', 'tax_free_threshold_claimed'],
+  ['cappedDefinedBenefit', 'capped_defined_benefit'],
+  ['deceasedAged60OrOver', 'deceased_aged_60_or_over'],
 ];
 
 const WC_COMMON = new Set(['place', 'estimatedWages', 'ratePercent', 'actualWages', 'groupedEmployer']);
@@ -126,14 +135,16 @@ function runSuperBenefitMode(input, { superBenefitTax, superWithholding, daspTax
       rates: r.rates, currency: 'AUD', source,
     };
   }
-  if (input.calculation === 'withholding') {
+  if (input.calculation === 'withholding' || input.calculation === 'stream') {
     const r = superWithholding(buildSbtEngineInput(input, true));
     return {
-      calculation: 'withholding', incomeYear: input.incomeYear, treatment: r.treatment,
+      calculation: input.calculation, incomeYear: input.incomeYear, treatment: r.treatment,
+      ...(r.period === undefined ? {} : { incomeStreamPeriod: r.period }),
       taxFreeComponent: dollars(r.taxFree), taxableComponent: dollars(r.taxable),
       taxedElement: dollars(r.taxed), untaxedElement: dollars(r.untaxed),
       amounts: r.amounts, rates: r.rates, withholding: dollars(r.withholding),
-      ...(r.age === undefined ? {} : { age: r.age, preservationAge: r.preservationAge }),
+      ...(r.age === undefined ? {} : { age: r.age }),
+      ...(r.preservationAge === undefined ? {} : { preservationAge: r.preservationAge }),
       currency: 'AUD', source,
     };
   }
@@ -163,15 +174,17 @@ export function superBenefitTaxTool(kit, calculate) {
   return tool({
     name: 'calculate_super_benefit_tax',
     title: 'Super lump sum tax calculator',
-    description: 'Superannuation lump sum tax in AUD across 3 calculations for a complying fund: (1) "tax" (2020-21 to '
+    description: 'Superannuation lump sum tax and withholding in AUD across 4 calculations for a complying fund: (1) "tax" (2020-21 to '
       + '2026-27) gives components (s 307-125) and maximum income tax before Medicare levy under ITAA 1997 Divisions 301-303 '
       + `with low rate and untaxed plan caps; (2) "withholding" (from ${calculate.SWH_FIRST_DAY} to 2027-06-30) gives PAYG `
-      + 'withholding under Schedule 12 (including roll-overs and deceased estate trustees); (3) "dasp" (2025-26 to 2027-28) '
+      + 'withholding under Schedule 12 (including roll-overs and deceased estate trustees); (3) "stream" (2024-25 to 2026-27) '
+      + 'gives withholding from one weekly, fortnightly, monthly or quarterly super income stream payment under Schedule 13 '
+      + 'Part A, refusing a capped defined benefit stream to a payee 60 or over; (4) "dasp" (2025-26 to 2027-28) '
       + 'gives departing Australia superannuation payment final tax (35%/45% ordinary or 65% working holiday maker). Refuses '
       + 'fields belonging to another calculation, disability super benefits, pre-1 July 1983 untaxed service and other lump '
       + 'sums sharing an unused low rate cap.',
     inputSchema: record({
-      calculation: choice(['tax', 'withholding', 'dasp'], '"tax" (maximum income tax), "withholding" (Schedule 12) or "dasp" (departing Australia super payment).'),
+      calculation: choice(['tax', 'withholding', 'stream', 'dasp'], '"tax" (maximum income tax), "withholding" (Schedule 12), "stream" (Schedule 13 income stream payment) or "dasp" (departing Australia super payment).'),
       incomeYear: choice(allYears, 'Income year ("2020-21" to "2026-27" for tax/withholding; "2025-26" to "2027-28" for dasp).'),
       scopeConfirmed: { type: 'boolean', description: 'Optional scope confirmation; false refuses.' },
       paymentDate: text('date', 'Tax or withholding: payment date as YYYY-MM-DD inside incomeYear.'),
@@ -182,14 +195,18 @@ export function superBenefitTaxTool(kit, calculate) {
       interestTaxFreeComponent: text('cost', 'Tax or withholding: tax free component of the super interest in AUD.'),
       untaxedElement: text('cost', 'Element untaxed in the fund in AUD; "0" when omitted.'),
       serviceBeforeJuly1983: { type: 'boolean', description: 'Tax or withholding with untaxedElement > 0: true if from pre-1 July 1983 service (refused).' },
-      dateOfBirth: text('date', 'Tax or withholding for member recipient: member date of birth, YYYY-MM-DD.'),
+      dateOfBirth: text('date', 'Tax or withholding for member recipient, or stream for either recipient: date of birth, YYYY-MM-DD.'),
       terminalMedicalCondition: { type: 'boolean', description: 'Tax or withholding for member recipient: true when certified terminal medical condition (s 303-10).' },
       disabilitySuperannuationBenefit: { type: 'boolean', description: 'Tax or withholding for member recipient: true for disability super benefit (refused).' },
       lowRateCapUsed: text('cost', 'Tax or withholding (with TFN) for member aged preservation age to 59: earlier low rate cap used in AUD.'),
       otherLumpSumsThisYear: { type: 'boolean', description: 'Tax or withholding (with TFN) for member aged preservation age to 59: true if other lump sums received this year.' },
       untaxedPlanCapUsed: text('cost', 'Tax or withholding with untaxedElement > 0 (member or rollover): earlier untaxed plan cap used from this plan in AUD.'),
-      tfnProvided: { type: 'boolean', description: 'Withholding only: true when payee gave the fund a TFN.' },
-      foreignResident: { type: 'boolean', description: 'Withholding only: true when payee is a foreign resident.' },
+      tfnProvided: { type: 'boolean', description: 'Withholding or stream: true when payee gave the fund a TFN.' },
+      foreignResident: { type: 'boolean', description: 'Withholding or stream: true when payee is a foreign resident (refused with a TFN for a stream).' },
+      incomeStreamPeriod: choice(['weekly', 'fortnightly', 'monthly', 'quarterly'], 'Stream only: how often the income stream is paid; benefit is one payment and interestValue and interestTaxFreeComponent are at commencement.'),
+      taxFreeThresholdClaimed: { type: 'boolean', description: 'Stream with a TFN only: true for Schedule 1 scale 2, false for scale 1.' },
+      cappedDefinedBenefit: { type: 'boolean', description: 'Stream only: true for a capped defined benefit income stream (refused at 60 or over).' },
+      deceasedAged60OrOver: { type: 'boolean', description: 'Stream to a death benefits dependant only: true when the deceased died aged 60 or over.' },
       taxFreeComponent: text('cost', 'DASP only: tax free component of the payment in AUD.'),
       taxedElement: text('cost', 'DASP only: element taxed in the fund in AUD.'),
       workingHolidayMakerContributions: { type: 'boolean', description: 'DASP only: true when payment includes contributions made whilst a working holiday maker (65% rate).' },

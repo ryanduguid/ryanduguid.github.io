@@ -12,9 +12,10 @@ import { createRequire } from 'node:module';
 import test from 'node:test';
 import { DASP_YEARS, daspFormInput, daspTax } from '../assets/dasp-tax.mjs';
 import { superBenefitTaxResult } from '../assets/super-lump-sum.mjs';
-import { superWithholding, swhFormInput } from '../assets/super-withholding.mjs';
+import { streamFormInput, superWithholding, swhFormInput } from '../assets/super-withholding.mjs';
 
 const fixture = createRequire(import.meta.url)('./super-lump-sum-options-engine-differential.json');
+const streams = createRequire(import.meta.url)('./super-income-stream-engine-differential.json');
 // Every runner (check_site, mutation-check and `node --test scripts/`) starts in the site's root.
 const page = readFileSync('_includes/calculators/super-benefit-tax.html', 'utf8');
 const aud = (v) => `$${v.toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -71,6 +72,41 @@ test('withholding and DASP tax agree with the australian-accounting commands on 
   }
   assert.equal(fixture.cases.length, 613);
   assert.ok(page.includes(`super-withholding</code> and <code>dasp-tax</code> commands on ${fixture.cases.length} more`));
+});
+
+test('income stream withholding agrees with the super-withholding command on every differential case', () => {
+  const sorted = (o) => Object.fromEntries(Object.entries(o).sort());
+  for (const c of streams.cases) {
+    let got;
+    try {
+      const r = superWithholding(c.call);
+      got = { amounts: sorted(r.amounts), rates: sorted(r.rates), treatment: r.treatment, period: r.period };
+    } catch (error) {
+      if (!error.code) throw error;
+      got = { refused: error.code };
+    }
+    const want = c.refused ? { refused: c.refused }
+      : { amounts: sorted(c.amounts), rates: sorted(c.rates), treatment: c.treatment, period: c.income_stream_period };
+    assert.deepEqual(got, want, c.source);
+  }
+  assert.equal(streams.cases.length, 359);
+  assert.ok(page.includes(`income stream withholding on ${streams.cases.length} more`));
+});
+
+test('Schedule 13 Case A: Veronica’s fortnightly disability super income stream in each year', () => {
+  const veronica = { calc: 'stream' };
+  const stream = (change) => superWithholding(streamFormInput(form({ ...veronica, ...change })));
+  assert.equal(stream({}).withholding, 2);
+  assert.equal(stream({ 'stream-year': '2025-26', 'stream-paid': '2025-09-01', 'stream-born': '1967-01-15' }).withholding, 10);
+  assert.equal(stream({ 'stream-year': '2024-25', 'stream-paid': '2024-09-01', 'stream-born': '1966-01-15' }).withholding, 10);
+  // Without a TFN: 47% of the taxable component, cents ignored, and no threshold answer is sent.
+  const noTfn = streamFormInput(form({ 'stream-tfn': 'no' }));
+  assert.equal(Object.hasOwn(noTfn, 'tax_free_threshold_claimed'), false);
+  assert.equal(superWithholding(noTfn).withholding, 517);
+  // A dependant's stream sends the deceased's age, not the disability answer.
+  const dependant = streamFormInput(form({ 'stream-recipient': 'death_benefits_dependant' }));
+  assert.deepEqual([dependant.deceased_aged_60_or_over, Object.hasOwn(dependant, 'disability_superannuation_benefit')], [false, false]);
+  assert.equal(code(() => superWithholding(streamFormInput(form({ 'stream-capped': 'yes', 'stream-born': '1950-01-01' })))), 'super_withholding.capped_defined_benefit');
 });
 
 test('Schedule 12 examples: Tom’s roll-overs, Chloe, Heather and Dean', () => {
