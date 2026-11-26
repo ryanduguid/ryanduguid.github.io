@@ -22,6 +22,13 @@
     <summary>The tool pages, changelog, release record and machine indexes name the releases of 24 and 25 November: aus-accounting-mcp v0.13.0 (148 worksheet kinds with calculators 1.4.0, 29 tools), Australian Accounting Skills v0.8.1 (112 skills, Apache License 2.0), monthly-close-control-plane v1.2.0 and review-ready-gate v1.1.0 (both now under the GNU Affero General Public License v3.0 or later, with executables for 6 targets), and solomons-sword v1.0.0 and the-exchequer-tally v1.0.0, now standalone executables under the same licence; the trust distribution and company tax pages keep their pinned Python examples. The profit and cash flow case states that GitHub holds au-fpa-pack v0.8.0 whilst PyPI still serves 0.7.0.</summary>
   </entry>
   <entry>
+    <title>A new business calculator, contractor against employee, compares what the same…</title>
+    <link href="https://duguid.com.au/changelog/#entry-c7140151b45e9f3c" />
+    <id>https://duguid.com.au/changelog/#entry-c7140151b45e9f3c</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>A new business calculator, contractor against employee, compares what the same person costs a business and takes home as an employee or as a contractor for the same hours from 2021-22 to 2026-27: salary with the stated paid leave and loading, the super guarantee, payroll tax and workers compensation at the rates you enter, GST, and the super guarantee section 12(3) still makes payable on a contractor paid wholly or principally for their labour. It does not decide whether the person is an employee.</summary>
+  </entry>
+  <entry>
     <title>Updated general tax question 8 after the ATO updated its How to lodge your tax…</title>
     <link href="https://duguid.com.au/changelog/#entry-062afadb39b84c69" />
     <id>https://duguid.com.au/changelog/#entry-062afadb39b84c69</id>

@@ -99,6 +99,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_casual_overtime_pay',
+    'calculate_contractor_employee',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -2232,4 +2233,20 @@ test('casual and overtime pay tool returns the page example, Payday Super and qu
   await assert.rejects(tool.execute({ payday: '2026-07-10', baseRate: '30', ordinaryHours: '1', casualLoadingPercent: '25', annualLeaveHours: '1' }), /not both/);
   await assert.rejects(tool.execute({ payday: '2026-07-10', baseRate: '30', ordinaryHours: '1', extra: 1 }), /extra is not an input of this tool/);
   await assert.rejects(tool.execute({ payday: '2026-07-10', baseRate: '30', ordinaryHours: '1', lines: [{ hours: '1', percentOfBaseRate: '150' }] }), /overtime is required/);
+});
+
+test('contractor against employee tool works the page default, section 12(3) and its refusals', async () => {
+  const tool = tools['contractor-employee'];
+  const base = { incomeYear: '2026-27', hoursPerWeek: '38', salary: '100000', payrollTaxPercent: '5.45', workersCompensationPercent: '1.5',
+    contractorHourlyRate: '70', contractorExpenses: '2000' };
+  const r = await tool.execute(base);
+  assert.deepEqual([r.hoursWorked, r.section12_3Applies, r.employee.cost, r.employee.takeHome, r.contractor.superGuarantee, r.contractor.cost,
+    r.contractor.takeHome, r.costDifference, r.currency, r.source],
+  [1824, true, '119604.00', '77800.00', '15321.60', '143001.60', '94942.40', '-23397.60', 'AUD', 'https://duguid.com.au/tools/business-calculators/contractor-employee/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const delegated = await tool.execute({ ...base, rightToDelegate: true });
+  assert.deepEqual([delegated.section12_3Applies, delegated.section12_3Elements.personal, delegated.contractor.superGuarantee], [false, false, '0.00']);
+  await assert.rejects(tool.execute({ ...base, incomeYear: '2020-21' }), /incomeYear/);
+  await assert.rejects(tool.execute({ ...base, annualLeaveWeeks: '50', otherLeaveWeeks: '2' }), /fewer than 52 weeks/);
+  await assert.rejects(tool.execute({ ...base, awardRate: '30' }), /awardRate is not an input of this tool/);
 });
