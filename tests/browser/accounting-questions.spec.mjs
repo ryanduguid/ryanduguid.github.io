@@ -1202,6 +1202,32 @@ test('super lump sum page works withholding and DASP tax offline', async ({ page
 
 // Spec G9 is the form's default; the failure to lodge question shows its 28-day periods, and remission is refused.
 // The ATO's Company V is the form's default; Company F is refundable, and a clawback leaving under $20,000 is refused.
+// The form opens on a casual's week; overtime then leaves ordinary time earnings, and a quarterly payday changes the note.
+test('casual and overtime pay page works its example, annual leave loading and refuses a casual on leave offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/casual-overtime/');
+  const form = page.locator('#casual-overtime form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Super guarantee at 12% of qualifying earnings: $162.00.');
+  await expect(form.locator('output')).toContainText('Gross pay: $1,507.50.');
+  await form.locator('[name="payday"]').fill('2026-03-12');
+  await form.locator('[name="rate"]').fill('40');
+  await form.locator('[name="casual"]').fill('0');
+  await form.locator('[name="ordinary"]').fill('38');
+  await form.locator('[name="line1-hours"]').fill('0');
+  await form.locator('[name="line2-hours"]').fill('0');
+  await form.locator('[name="leave"]').fill('38');
+  await form.locator('[name="leave-loading"]').fill('17.5');
+  await form.locator('[name="leave-overtime"]').selectOption('yes');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Super guarantee at 12% of ordinary time earnings: $364.80.');
+  await expect(form.locator('output')).toContainText('the quarterly super guarantee rules apply');
+  await form.locator('[name="casual"]').fill('25');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('not both');
+});
+
 test('R&D tax offset page works Company V, a refundable offset and refuses a clawback under the threshold offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/rd-tax-offset/');
   const form = page.locator('#rd-tax-offset form');
@@ -1798,7 +1824,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'termination-payment', 'transfer-duty', 'first-home-owner-grant', 'land-tax', 'fbt-car-parking', 'fbt-loan', 'fbt-meal-entertainment', 'fbt-property', 'fbt-expense-payment',
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
-  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset',
+  'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset', 'casual-overtime',
   'gst-adjustments', 'deferred-tax', 'sole-trader-company'];
 
 test.describe('before any script runs', () => {

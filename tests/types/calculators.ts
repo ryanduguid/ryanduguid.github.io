@@ -586,3 +586,11 @@ pensionMinimumTools({ pensionMinimum });
 void residencyDaysTools({ MAX_PERIODS, RESIDENCY_YEARS, residencyDays })['residency-days'].execute({ incomeYear: '2025-26', periods: [{ arrival: '2025-07-01', departure: '2025-09-30' }], usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false });
 // @ts-expect-error residencyDaysTools requires MAX_PERIODS alongside the years and residencyDays.
 residencyDaysTools({ RESIDENCY_YEARS, residencyDays });
+const coInput = { payday: '2026-07-10', base_rate: '30.00', casual_loading: '25', ordinary_hours: '30',
+  lines: [{ hours: '3', percent: '175', overtime: true }], leave_hours: '0', leave_loading: '0', leave_loading_overtime: false };
+const coSuper: number = calculate.casualOvertime(coInput).superGuarantee;
+// @ts-expect-error A line says whether it is overtime with a boolean, not 'overtime'.
+calculate.casualOvertime({ ...coInput, lines: [{ hours: '3', percent: '175', overtime: 'overtime' }] });
+// @ts-expect-error Rates and hours are decimal text, not numbers.
+calculate.casualOvertime({ ...coInput, base_rate: 30 });
+void coSuper;
