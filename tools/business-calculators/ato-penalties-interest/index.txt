@@ -55,7 +55,7 @@ Spec O2: a refund taken from the later payment first | $3,000.00 paid 1 December
 Spec G10: a GIC day after December 2026 needs an assumed rate | GIC on $10,000.00 due 21 November 2025, to 1 January 2027 | Refused: the ATO has published GIC rates to 31 December 2026; enter an assumed rate to project 1 January 2027 and later
 Remission is the Commissioner’s discretion | Remission of a charge or penalty | Refused: remission of GIC (TAA 1953 s 8AAG), SIC (TAA Sch 1 s 280-160) and administrative penalties (s 298-20) is the Commissioner’s discretion: every amount here is before remission, and the calculator does not estimate one
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -67,7 +67,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/
 - General interest charge rate: https://duguid.com.au/rates/general-interest-charge/
 - GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/

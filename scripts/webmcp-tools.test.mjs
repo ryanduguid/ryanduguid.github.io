@@ -7,13 +7,14 @@ import * as calculate from '../assets/business-calculators.mjs';
 import { readFileSync, readdirSync } from 'node:fs';
 import {
   calculatorTools, depreciationTools, fhssTools, governmentSuperTools, individualTaxTools, levyTools, ozzitTools,
-  pensionMinimumTools, transferBalanceTools, workExpensesTools,
+  pensionMinimumTools, residencyDaysTools, transferBalanceTools, workExpensesTools,
 } from '../assets/webmcp-tools.mjs';
 import { engines as individualEngines } from '../assets/individual-tax-results.mjs';
 import { fhss } from '../assets/fhss-result.mjs';
 import { workExpenses, workExpensesYears } from '../assets/work-expenses-result.mjs';
 import { governmentSuperAmounts, governmentSuperYears } from '../assets/government-super-result.mjs';
 import { PENSION_MINIMUM_YEARS, pensionMinimum } from '../assets/pension-minimum.mjs';
+import { MAX_PERIODS, RESIDENCY_YEARS, residencyDays } from '../assets/residency-days.mjs';
 import { ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, excessContributions } from '../assets/excess-contributions.mjs';
 import { TBA_KINDS, TBA_YEARS, dayOf, label, transferBalance, yearOf } from '../assets/transfer-balance.mjs';
 import * as depreciation from '../assets/depreciation-rates.mjs';
@@ -98,7 +99,8 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company',
-    'calculate_foreign_resident_withholding', 'calculate_partnership_net_income', 'check_trust_loss_tests',
+    'calculate_foreign_resident_withholding', 'calculate_partnership_net_income', 'check_trust_loss_tests', 'calculate_casual_overtime_pay',
+    'calculate_contractor_employee',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -463,6 +465,7 @@ const individual = {
   ...governmentSuperTools({ governmentSuperAmounts, governmentSuperYears }),
   ...pensionMinimumTools({ pensionMinimum, PENSION_MINIMUM_YEARS }),
   ...transferBalanceTools({ ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance, yearOf }),
+  ...residencyDaysTools({ MAX_PERIODS, RESIDENCY_YEARS, residencyDays }),
 };
 
 test('each individual tax tool is keyed by the form that registers it and is read-only', () => {
@@ -471,14 +474,16 @@ test('each individual tax tool is keyed by the form that registers it and is rea
     'calculate_sole_trader_set_aside', 'calculate_lump_sum_arrears', 'calculate_division_293_tax',
     'calculate_concessional_catch_up', 'calculate_bonus_withholding', 'calculate_salary_packaging',
     'calculate_novated_lease', 'calculate_fhss_release', 'calculate_work_expenses',
-    'calculate_government_super_amounts', 'calculate_pension_minimum', 'calculate_transfer_balance']);
+    'calculate_government_super_amounts', 'calculate_pension_minimum', 'calculate_transfer_balance',
+    'calculate_residency_days']);
   for (const [key, t] of Object.entries(individual)) {
     const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`), key);
     assert.equal(t.annotations.readOnlyHint, true, t.name);
     assert.equal(t.inputSchema.additionalProperties, false, t.name);
     for (const name of t.inputSchema.required) assert.ok(name in t.inputSchema.properties, `${t.name} ${name}`);
-    assert.match(t.description, /\bAUD\b/, t.name);
+    // A day count has no money in it.
+    if (t.name !== 'calculate_residency_days') assert.match(t.description, /\bAUD\b/, t.name);
     assert.match(t.description, / General information only, not advice\.$/, t.name);
   }
 });
@@ -1695,7 +1700,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 80);
+  assert.equal(registered.length + 2, 83);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
@@ -2139,6 +2144,33 @@ test('pension minimum tool covers full years, pro-rating, 1 June nil and leap ye
   await assert.rejects(tool.execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67, extra: 1 }), /extra is not an input of this tool/);
 });
 
+test('residency day count tool counts broken periods, leap years and the exception, and decides no residency', async () => {
+  const tool = individual['residency-days'];
+  const page = await tool.execute({ incomeYear: '2025-26', usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false,
+    periods: [{ arrival: '2025-07-01', departure: '2025-09-30' }, { arrival: '2025-11-15', departure: '2026-03-31' }] });
+  assert.deepEqual([page.daysInAustralia, page.daysInYear, page.daysNeeded, page.moreThanHalfReached, page.exceptionApplies, page.test183Met,
+    page.residencyDecided, page.source], [229, 365, 183, true, false, true, false, 'https://duguid.com.au/tools/individual-tax/residency-days/']);
+  assert.doesNotThrow(() => JSON.stringify(page));
+  // TR 2023/1 example 5: Conchita, 9 months on holiday with her abode in Mexico.
+  const conchita = await tool.execute({ incomeYear: '2025-26', usualPlaceOfAbodeOutsideAustralia: true, intendsToTakeUpResidence: false,
+    periods: [{ arrival: '2025-08-01', departure: '2026-04-30' }] });
+  assert.deepEqual([conchita.daysInAustralia, conchita.exceptionApplies, conchita.test183Met], [273, true, false]);
+  // 2023-24 includes 29 February 2024: 184 days needed; overlaps and days outside the year count once or not at all.
+  const leap = await tool.execute({ incomeYear: '2023-24', usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false,
+    periods: [{ arrival: '2023-01-01', departure: '2023-12-31' }, { arrival: '2023-12-01', departure: '2023-12-31' }] });
+  assert.deepEqual([leap.daysInYear, leap.daysNeeded, leap.daysInAustralia, leap.test183Met], [366, 184, 184, true]);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false,
+    periods: [{ arrival: '2026-01-02', departure: '2026-01-01' }] }), /ends before it starts/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false,
+    periods: [{ arrival: '2026-02-30', departure: '2026-03-01' }] }), /is not a date/);
+  await assert.rejects(tool.execute({ incomeYear: '2027-28', usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false, periods: [] }),
+    /incomeYear does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false, periods: [],
+    scopeConfirmed: false }), /Establish all stated scope conditions/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false, periods: [],
+    resides: true }), /resides is not an input of this tool/);
+});
+
 test('transfer balance tool runs transfer, charge and release modes and refuses mismatched or invalid inputs', async () => {
   const tool = individual['transfer-balance'];
   const elisabeth = await tool.execute({
@@ -2210,4 +2242,39 @@ test('S8 tools return their page examples and refuse what their pages refuse', a
     testYearDistributions: { income: [[{ individual: 'Ann', percent: '60' }], [{ individual: 'Ann', percent: '55' }]], capital: [[{ individual: 'Ann', percent: '51' }]] } });
   assert.deepEqual([t.deductible, t.patternOfDistributionsWorking.income.total], [true, '55']);
   await assert.rejects(trust.execute({ incomeYear: '2025-26', lossYear: 2026, trustKind: 'fixed' }), /must be earlier than financial_year/);
+});
+
+test('casual and overtime pay tool returns the page example, Payday Super and quarterly rules, leave loading and refusals', async () => {
+  const tool = tools['casual-overtime'];
+  const r = await tool.execute({ payday: '2026-07-10', baseRate: '30.00', casualLoadingPercent: '25', ordinaryHours: '30',
+    lines: [{ hours: '5', percentOfBaseRate: '150', overtime: false }, { hours: '3', percentOfBaseRate: '175', overtime: true }] });
+  assert.deepEqual([r.rules, r.grossPay, r.ordinaryTimeEarnings, r.notOrdinaryTimeEarnings, r.superGuarantee, r.awardApplied, r.currency, r.source],
+    ['payday', '1507.50', '1350.00', '157.50', '162.00', false, 'AUD', 'https://duguid.com.au/tools/business-calculators/casual-overtime/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const leave = await tool.execute({ payday: '2026-03-12', baseRate: '40', ordinaryHours: '38', annualLeaveHours: '38',
+    leaveLoadingPercent: '17.5', leaveLoadingForLostOvertime: true });
+  assert.deepEqual([leave.rules, leave.leaveLoading, leave.grossPay, leave.ordinaryTimeEarnings, leave.superGuarantee],
+    ['quarterly', '266.00', '3306.00', '3040.00', '364.80']);
+  await assert.rejects(tool.execute({ payday: '2025-06-30', baseRate: '30', ordinaryHours: '1' }), /1 July 2025 to 30 June 2027/);
+  await assert.rejects(tool.execute({ payday: '2026-07-01', baseRate: '2708.31', ordinaryHours: '100' }), /annual maximum contribution base of \$270,830/);
+  assert.equal((await tool.execute({ payday: '2026-07-01', baseRate: '2708.30', ordinaryHours: '100' })).superGuarantee, '32499.60');
+  await assert.rejects(tool.execute({ payday: '2026-07-10', baseRate: '30', ordinaryHours: '1', casualLoadingPercent: '25', annualLeaveHours: '1' }), /not both/);
+  await assert.rejects(tool.execute({ payday: '2026-07-10', baseRate: '30', ordinaryHours: '1', extra: 1 }), /extra is not an input of this tool/);
+  await assert.rejects(tool.execute({ payday: '2026-07-10', baseRate: '30', ordinaryHours: '1', lines: [{ hours: '1', percentOfBaseRate: '150' }] }), /overtime is required/);
+});
+
+test('contractor against employee tool works the page default, section 12(3) and its refusals', async () => {
+  const tool = tools['contractor-employee'];
+  const base = { incomeYear: '2026-27', hoursPerWeek: '38', salary: '100000', payrollTaxPercent: '5.45', workersCompensationPercent: '1.5',
+    contractorHourlyRate: '70', contractorExpenses: '2000' };
+  const r = await tool.execute(base);
+  assert.deepEqual([r.hoursWorked, r.section12_3Applies, r.employee.cost, r.employee.takeHome, r.contractor.superGuarantee, r.contractor.cost,
+    r.contractor.takeHome, r.costDifference, r.currency, r.source],
+  [1824, true, '119604.00', '77800.00', '15321.60', '143001.60', '94942.40', '-23397.60', 'AUD', 'https://duguid.com.au/tools/business-calculators/contractor-employee/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  const delegated = await tool.execute({ ...base, rightToDelegate: true });
+  assert.deepEqual([delegated.section12_3Applies, delegated.section12_3Elements.personal, delegated.contractor.superGuarantee], [false, false, '0.00']);
+  await assert.rejects(tool.execute({ ...base, incomeYear: '2020-21' }), /incomeYear/);
+  await assert.rejects(tool.execute({ ...base, annualLeaveWeeks: '50', otherLeaveWeeks: '2' }), /fewer than 52 weeks/);
+  await assert.rejects(tool.execute({ ...base, awardRate: '30' }), /awardRate is not an input of this tool/);
 });

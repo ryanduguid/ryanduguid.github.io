@@ -12,7 +12,7 @@
   },
   "json_ld": {
     "about/index.html": [
-      "57862ec335d7f4838993145322f6cbba18f33f2484c1c929ce2d0f09de52ad48"
+      "02aa09ec79f08e66feb8b071a927c07aa4e5f4b248e88654d397fc645ddb74fa"
     ],
     "changelog/index.html": [
       "2f99cacd968d0cce8b2c3be85df980d2ded4206f071d2663f2c82c23816fd1b2"
@@ -39,7 +39,7 @@
       "3c1604e9daed736e19910e5339f54086500888b4704379eeead8622996cd0385"
     ],
     "index.html": [
-      "7d6d2ca3531244d2d07d1c76211d0c6a1625c139fa5fc0cd69a4a128d0ea3e6f"
+      "151590eb2e0927afbd658d37cb88b8655b33ef3bd59c300c24d61ef6a09e6759"
     ],
     "privacy/index.html": [
       "dabe19f4f720b7d61a2993c85ad4ea6f5ba29a4f6109f90a3b9267b611902a15"
@@ -146,6 +146,9 @@
     "tools/business-calculators/cash/index.html": [
       "145b62f36ee65174ecb0bdb176378f9ffd90996d7e43dc6c9eeedd8d652e6e21"
     ],
+    "tools/business-calculators/casual-overtime/index.html": [
+      "ad0f92316c4b34c2606a2c543a6c09f464d5b6e5e4acb7cd1856cea925715f27"
+    ],
     "tools/business-calculators/cgt-concessions/index.html": [
       "ec639067667e6f56119264fb033dc4c9e15683696d89f7adc715d1778f250773"
     ],
@@ -154,6 +157,9 @@
     ],
     "tools/business-calculators/company-tax/index.html": [
       "7f1f2296cde2493c9d8685d9dc7eeea5adf9d79886f6d0a4c5b92ec2de556617"
+    ],
+    "tools/business-calculators/contractor-employee/index.html": [
+      "55eec4ab020f31c11bafd8eba5648d010d22fcaaff306437c644cc1fe3e89fa7"
     ],
     "tools/business-calculators/deferred-tax/index.html": [
       "4598153e3de4d4e8f381b58e21340d5fdf9982a0051e66d915b230a6d6e7ff7e"
@@ -194,9 +200,6 @@
     "tools/business-calculators/fixed-fee/index.html": [
       "b58b8e866b88bdf3791c8485dd5a9679bf982f24ce705ff357c6478cebf1ad9a"
     ],
-    "tools/business-calculators/foreign-resident-withholding/index.html": [
-      "5ea06c0de7495a9f390c9b0220471d5bee9c8ee8da1213ba2f08005cfe3baf9c"
-    ],
     "tools/business-calculators/foreign-surcharge/index.html": [
       "d36fd67557eb7b44b59ebf6c05527ef7202bc4f82a457aa123642939a741953a"
     ],
@@ -225,7 +228,7 @@
       "1ee789e07f991caadaf17f3e165e8bc60550a06242fe627a485241855184f7b5"
     ],
     "tools/business-calculators/index.html": [
-      "dbba8486378a122ca1d46bc6593ef5d71956c88d7c481932c6a8da3564f99644"
+      "017c5417aec4fa67cac2cd5aee9d90d5bf40f8378532c09cf3038cbc263bc7d0"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "90b1d2897a81b87c05cb1a74bb0937f468ac5e1806fa0b19603b5fff589b9e09"
@@ -247,9 +250,6 @@
     ],
     "tools/business-calculators/objection-deadline/index.html": [
       "dcab5352be0982423e6e11cacecd9470e3a531468a34a6db716c40ff237e308a"
-    ],
-    "tools/business-calculators/partnership-net-income/index.html": [
-      "299e26353f8d4c9cac7f2f82c42fe8d1c606356984c2231dc20427355fdec3b4"
     ],
     "tools/business-calculators/payg-instalments/index.html": [
       "53bdce1e630ba7b97a352724618a68773c9fa941b0c4afb52464ce86f2b42e14"
@@ -292,9 +292,6 @@
     ],
     "tools/business-calculators/transfer-duty/index.html": [
       "c868e04100902a2addc3c4481999fc36a8e8022dc7a688b129349623f0068140"
-    ],
-    "tools/business-calculators/trust-loss-tests/index.html": [
-      "69bde47a8c41db778d0261534575510d0bf1d84a83a5e88fb2ef5a6ce83d5892"
     ],
     "tools/business-calculators/unused-leave/index.html": [
       "7b49ac5c7805a39f463b9638dc30c54bb4bda8a27d1d875b134d29e53301827a"
@@ -355,6 +352,9 @@
     ],
     "tools/individual-tax/pension-minimum/index.html": [
       "8a8e799e7b2b0469bad560084a8677f3e41667528f9aae312c0951a6ad17b78d"
+    ],
+    "tools/individual-tax/residency-days/index.html": [
+      "36452635a2b2a8767b5b6e6772dc36978c7d35976324c41dacac41b3b3a30abb"
     ],
     "tools/individual-tax/salary-packaging/index.html": [
       "79df2afc8bdd8a9ee82ab1c9860fa4a827d4379a96f3f60dde93430d21d93a44"
@@ -440,7 +440,7 @@
   },
   "protected_files": {
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "fe6ef439af79342cf4bf78a214f2a4eef76ca0001ce4a86956e5f49b53c54385"
+    "sitemap.xml": "0a3bedb9335e4c0d6baaed5fef6d1849b9676f44103b4d6b4fb3be24691c9152"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

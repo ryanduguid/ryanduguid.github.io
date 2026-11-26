@@ -48,6 +48,7 @@ const tba = { file: 'assets/transfer-balance.mjs', test: 'scripts/transfer-balan
 const excess = { ...tba, file: 'assets/excess-contributions.mjs' };
 const tbaPage = { ...tba, file: 'assets/transfer-balance-result.mjs' };
 const pm = { file: 'assets/pension-minimum.mjs', test: 'scripts/pension-minimum.test.mjs' };
+const rd = { file: 'assets/residency-days.mjs', test: 'scripts/residency-days.test.mjs' };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -76,6 +77,8 @@ const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
 const frcgw = { ...business, file: 'assets/foreign-resident-withholding.mjs' };
 const partnershipEngine = { ...business, file: 'assets/partnership-net-income.mjs' };
 const trustLosses = { ...business, file: 'assets/trust-loss-tests.mjs' };
+const casualOt = { ...business, file: 'assets/casual-overtime.mjs' };
+const contractor = { ...business, file: 'assets/contractor-employee.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
@@ -1129,6 +1132,17 @@ const MUTATIONS = [
   { ...pools, name: 'Capital works over 366 days', find: 'const reducedBottom = rateDivisor * 365n * scale;', replace: 'const reducedBottom = rateDivisor * 366n * scale;' },
   { ...pools, name: 'Capital works 4% allowed before 27 February 1992', find: 'if (four && before1992) {', replace: 'if (false) {' },
   { ...pools, name: 'Capital works taxable use ignored', find: 'const reducedTop = product * use;', replace: 'const reducedTop = product * scale;' },
+  { ...casualOt, name: 'Casual loading left out of OTE', find: 'const ote = ordinaryPay + casualLoading + penaltyPay', replace: 'const ote = ordinaryPay + penaltyPay' },
+  { ...casualOt, name: 'Overtime counted as OTE', find: 'const ote = ordinaryPay + casualLoading + penaltyPay + leavePay', replace: 'const ote = ordinaryPay + casualLoading + penaltyPay + overtimePay + leavePay' },
+  { ...casualOt, name: 'Ordinary-hour penalties left out of OTE', find: 'const ote = ordinaryPay + casualLoading + penaltyPay + leavePay', replace: 'const ote = ordinaryPay + casualLoading + leavePay' },
+  { ...casualOt, name: 'Leave loading for lost overtime counted as OTE', find: '(x.leave_loading_overtime ? 0n : leaveLoading)', replace: 'leaveLoading' },
+  { ...casualOt, name: 'Super guarantee at 11.5%', find: 'superGuarantee: dollars(ratioCents(ote * 12n, 100n))', replace: 'superGuarantee: dollars(ratioCents(ote * 115n, 1000n))' },
+  { ...casualOt, name: 'Super guarantee on gross pay', find: 'superGuarantee: dollars(ratioCents(ote * 12n, 100n))', replace: 'superGuarantee: dollars(ratioCents(grossPay * 12n, 100n))' },
+  { ...casualOt, name: 'Casual loading on the penalty lines too', find: 'return { hours, percent, overtime: line.overtime, pay: ratioCents(rate * hours * percent, 1000000n) };', replace: 'return { hours, percent, overtime: line.overtime, pay: ratioCents(rate * hours * (percent + casual), 1000000n) };' },
+  { ...casualOt, name: 'Payday Super from 1 July 2025', find: "const QUARTERLY_LAST = '2026-06-30';", replace: "const QUARTERLY_LAST = '2025-06-30';" },
+  { ...casualOt, name: 'Quarterly base $60,000', find: 'const QUARTERLY_BASE = 6250000n;', replace: 'const QUARTERLY_BASE = 6000000n;' },
+  { ...casualOt, name: 'Base exceeded only above a cent more', find: 'if (ote > base) {', replace: 'if (ote > base + 1n) {' },
+  { ...casualOt, name: 'Casual on leave allowed', find: 'if (casual > 0n && leaveHours > 0n) {', replace: 'if (false) {' },
   { ...rdOffset, name: 'R&D refundable premium 18.5 points dropped', find: 'capped * (e.rate + 185n) * 1000n', replace: 'capped * e.rate * 1000n' },
   { ...rdOffset, name: 'R&D threshold $20,000 counted as under it', find: 'const base = total < THRESHOLD ? e.rspCrc : total;', replace: 'const base = total <= THRESHOLD ? e.rspCrc : total;' },
   { ...rdOffset, name: 'R&D cap at $100 million', find: 'const CAP = 15000000000n;', replace: 'const CAP = 10000000000n;' },
@@ -1154,6 +1168,15 @@ const MUTATIONS = [
   { ...trustLosses, name: "Trust pattern test at 50% passes", find: "results.push(cmp(total, d('50')) > 0);", replace: "results.push(cmp(total, d('50')) >= 0);" },
   { ...trustLosses, name: "Trust income injection applies to a super fund", find: "const exempt = para === 's 272-100(b)' ||", replace: "const exempt = false &&" },
   { ...trustLosses, name: "Trust absent individual not counted at nil", find: "const p = other.get(name) ?? d('0');", replace: "const p = other.get(name) ?? d('100');" },
+  { ...contractor, name: 'Contractor labour of exactly half counted as principally', find: 'const principally = 2 * labour > fee;', replace: 'const principally = 2 * labour >= fee;' },
+  { ...contractor, name: 'Contractor right to delegate ignored', find: 'personal: !e.delegate,', replace: 'personal: true,' },
+  { ...contractor, name: 'Contractor result contract ignored', find: 'notResult: !e.result,', replace: 'notResult: true,' },
+  { ...contractor, name: 'Contractor company contract treated as individual', find: 'const elements = { individual: e.individual,', replace: 'const elements = { individual: true,' },
+  { ...contractor, name: 'Super guarantee base cap ignored', find: 'Math.min(earnings, sg.cap * 100)', replace: 'earnings' },
+  { ...contractor, name: 'Leave loading always ordinary time earnings', find: 'superGuarantee(salary + (e.loadingQualifying ? loading : 0), sg)', replace: 'superGuarantee(salary + loading, sg)' },
+  { ...contractor, name: 'Unclaimable GST left out of the cost', find: 'const gstCost = e.credits ? 0 : gst;', replace: 'const gstCost = 0;' },
+  { ...contractor, name: 'Other paid leave not taken off the hours', find: 'WEEKS * 100 - annual - other', replace: 'WEEKS * 100 - annual' },
+  { ...contractor, name: 'Payroll tax always without super', find: 'atRate(wages + (e.payrollSuper ? employeeSg : 0), payrollRate)', replace: 'atRate(wages, payrollRate)' },
   { ...gstAdjustments, name: 'GST creditable purpose threshold counted as over it', find: 'cmp(value, d(finance ? \'10000\' : \'1000\')) <= 0', replace: 'cmp(value, d(finance ? \'10000\' : \'1000\')) < 0' },
   { ...gstAdjustments, name: 'GST 5 adjustment periods at $5,000 or less', find: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 2];', replace: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 5];' },
   { ...gstAdjustments, name: 'GST $500,000 given 5 adjustment periods', find: 'cmp(value, d(\'500000\')) < 0 ? 5 : 10', replace: 'cmp(value, d(\'500000\')) <= 0 ? 5 : 10' },
@@ -1344,6 +1367,15 @@ const MUTATIONS = [
   { ...pm, name: 'pension age to 149', find: "whole(input.get('age'), 150)", replace: "whole(input.get('age'), 149)" },
   { ...pm, name: 'pension form counts to 29 June', find: 'Date.UTC(second, 5, 30)', replace: 'Date.UTC(second, 5, 29)' },
   { ...pm, name: 'pension page principal is the balance', find: 'rows, principal: 4, note', replace: 'rows, principal: 0, note' },
+  { ...rd, name: 'residency one-half enough', find: 'Math.floor(yearDays / 2) + 1', replace: 'Math.floor(yearDays / 2)' },
+  { ...rd, name: 'residency exception on the abode alone', find: 'usualOutside && !intends', replace: 'usualOutside' },
+  { ...rd, name: 'residency departure day not counted', find: 'Math.min(to, last) - first + 1', replace: 'Math.min(to, last) - first' },
+  { ...rd, name: 'residency days before 1 July counted', find: 'Math.max(from, first) - first', replace: '0' },
+  { ...rd, name: 'residency 30 June dropped', find: 'Date.UTC(start + 1, 5, 30) / DAY]', replace: 'Date.UTC(start + 1, 5, 29) / DAY]' },
+  { ...rd, name: 'residency treaty refusal dropped', find: 'metBy.length > 0 && elsewhere', replace: 'false' },
+  { ...rd, name: 'residency scope not needed', find: "if (input.get('scope_confirmed') !== true) refuse", replace: 'if (false) refuse' },
+  { ...rd, name: 'residency form blank departure is 29 June', find: '`${start + 1}-06-30`', replace: '`${start + 1}-06-29`' },
+  { ...rd, name: 'residency page principal is the count', find: 'rows: table, principal: 3, note', replace: 'rows: table, principal: 0, note' },
 ];
 
 // Runs that must read as invalid, not as caught.
@@ -1370,6 +1402,7 @@ const SHARED = [
   'scripts/government-super-engine-differential.json',
   'scripts/transfer-balance-engine-differential.json',
   'scripts/pension-minimum-engine-differential.json',
+  'scripts/residency-days-engine-differential.json',
   'scripts/concessional-catch-up-engine-differential.json',
   'scripts/unused-leave-engine-differential.json',
   'scripts/franking-account-engine-differential.json',
@@ -1396,7 +1429,7 @@ const SHARED = [
 
 const TEST_FILES = [
   levy.test, business.test, individualTest,
-  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test,
+  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test,
   'scripts/net-medical-expenses.test.mjs',
   'scripts/foreign-income.test.mjs',
   'scripts/minors-income.test.mjs',
