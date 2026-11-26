@@ -6,15 +6,15 @@ Source: https://duguid.com.au/tools/business-calculators/fbt-return/
 
 # FBT return calculator
 
-An employer’s FBT return from its benefits’ taxable values: items 14 to 23, reportable fringe benefits, the not-for-profit rebate and caps, and the quarterly instalment.
+An employer’s FBT return from its benefits: items 14 to 23, the rebate and caps, and the instalment.
 
 Published 27 November 2026. Last checked 27 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-One employer’s fringe benefits for one FBT year
+FBT return inputs
 
-Instalments paid for the year, less 6B credits (AUD; blank skips items 20 to 22)
+Instalments less 6B credits (AUD, optional)
 
 FBT year ended 31 March 2026 2027
 
