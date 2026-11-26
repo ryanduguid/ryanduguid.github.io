@@ -21,16 +21,16 @@
       <legend>Amounts on the ATO determination</legend>
       <div class="form-grid">
         <label class="field" for="fhss-concessional">Concessional component, already reduced to 85%
-          <input id="fhss-concessional" name="concessional" type="number" inputmode="decimal" min="0" step="0.01" value="8500" required />
+          <input enterkeyhint="next" id="fhss-concessional" name="concessional" type="number" inputmode="decimal" min="0" step="0.01" value="8500" required />
         </label>
         <label class="field" for="fhss-non-concessional">Non-concessional component
-          <input id="fhss-non-concessional" name="non-concessional" type="number" inputmode="decimal" min="0" step="0.01" value="5000" required />
+          <input enterkeyhint="next" id="fhss-non-concessional" name="non-concessional" type="number" inputmode="decimal" min="0" step="0.01" value="5000" required />
         </label>
         <label class="field" for="fhss-earnings">Associated earnings
-          <input id="fhss-earnings" name="associated-earnings" type="number" inputmode="decimal" min="0" step="0.01" value="850" required />
+          <input enterkeyhint="next" id="fhss-earnings" name="associated-earnings" type="number" inputmode="decimal" min="0" step="0.01" value="850" required />
         </label>
         <label class="field" for="fhss-actual">Actual gross release before withholding and debt offsets (optional)
-          <input id="fhss-actual" name="actual-release" type="number" inputmode="decimal" min="0" step="0.01" value="" />
+          <input enterkeyhint="next" id="fhss-actual" name="actual-release" type="number" inputmode="decimal" min="0" step="0.01" value="" />
         </label>
       </div>
     </fieldset>
@@ -51,7 +51,7 @@
     </fieldset>
     <div class="form-grid">
       <label class="field" for="fhss-requested">Amount requested (defaults to the maximum)
-        <input id="fhss-requested" name="requested-amount" type="number" inputmode="decimal" min="0" step="0.01" value="" />
+        <input enterkeyhint="next" id="fhss-requested" name="requested-amount" type="number" inputmode="decimal" min="0" step="0.01" value="" />
       </label>
       <label class="field" for="fhss-release-requested">Release request date (if known)
         <input id="fhss-release-requested" name="release-request-date" type="date" min="2018-07-01" value="" />
@@ -66,17 +66,17 @@
       <fieldset data-show-field="withholding-basis" data-show-values="marginal" hidden disabled>
         <legend>Estimated rate</legend>
         <label class="field" for="fhss-marginal">Marginal tax rate before the Medicare levy (%)
-          <input id="fhss-marginal" name="marginal-percent" type="number" inputmode="decimal" min="0" max="45" step="any" required />
+          <input enterkeyhint="next" id="fhss-marginal" name="marginal-percent" type="number" inputmode="decimal" min="0" max="45" step="any" required />
         </label>
       </fieldset>
       <fieldset data-show-field="withholding-basis" data-show-values="supplied_estimate actual" hidden disabled>
         <legend>Amount withheld</legend>
         <label class="field" for="fhss-withholding">Actual or estimated withholding in dollars
-          <input id="fhss-withholding" name="withholding-amount" type="number" inputmode="decimal" min="0" step="0.01" required />
+          <input enterkeyhint="next" id="fhss-withholding" name="withholding-amount" type="number" inputmode="decimal" min="0" step="0.01" required />
         </label>
       </fieldset>
       <label class="field" for="fhss-debt-offset">Commonwealth debt offset (leave blank if unknown)
-        <input id="fhss-debt-offset" name="debt-offset" type="number" inputmode="decimal" min="0" step="0.01" value="" />
+        <input enterkeyhint="done" id="fhss-debt-offset" name="debt-offset" type="number" inputmode="decimal" min="0" step="0.01" value="" />
       </label>
       <label class="field" for="fhss-transition">Treatment for determinations before 15 September 2024
         <select id="fhss-transition" name="transition">

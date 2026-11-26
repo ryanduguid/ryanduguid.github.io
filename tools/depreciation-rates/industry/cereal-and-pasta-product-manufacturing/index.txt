@@ -2,149 +2,150 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/
 
-> Table A (industry categories), MANUFACTURING / Cereal …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+> Cereal and pasta product manufacturing, Table …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
 
 # Cereal and pasta product manufacturing
 
 51 effective lives in Table A of the Commissioner’s 2025 effective life determination for Cereal and pasta product manufacturing.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Rows of Cereal and pasta product manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Ancillary assets: | | | |
+Asset group · Ancillary assets: | | | |
 Ancillary assets: / Bin washers | 15 years | 6.67% | 13.33% | 1 July 2008
-Ancillary assets: / Blowers and fans: | | | |
-Ancillary assets: / Blowers and fans: / Generally | 25 years | 4.00% | 8.00% | 1 July 2008
+Asset group · Ancillary assets: / Blowers and fans: | | | |
+Ancillary assets: / Generally (Blowers and fans) | 25 years | 4.00% | 8.00% | 1 July 2008
 Ancillary assets: / Blowers and fans: / Used in materials handling | 15 years | 6.67% | 13.33% | 1 July 2008
-Ancillary assets: / Clean-in-place (CIP) systems | 15 years | 6.67% | 13.33% | 1 July 2008
-Ancillary assets: / Control systems (excluding personal computers) | 10 years | 10.00% | 20.00% | 1 July 2008
+Clean-in-place (CIP) systems (Ancillary assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Control systems (excluding personal computers) (Ancillary assets) | 10 years | 10.00% | 20.00% | 1 July 2008
 Ancillary assets: / Dust collection assets (including cyclones) | 20 years | 5.00% | 10.00% | 1 July 2008
 Ancillary assets: / Extrusion die washers | 5 years | 20.00% | 40.00% | 1 July 2008
-Ancillary assets: / Racks and shelving | 20 years | 5.00% | 10.00% | 1 July 2008
+Racks and shelving (Ancillary assets) | 20 years | 5.00% | 10.00% | 1 July 2008
 Ancillary assets: / Scales (electronic scales and load cells) | 10 years | 10.00% | 20.00% | 1 July 2008
 Ancillary assets: / Water chillers | 20 years | 5.00% | 10.00% | 1 July 2008
 Ancillary assets: / Water filtration and softening assets (including reverse osmosis assets) | 15 years | 6.67% | 13.33% | 1 July 2008
-Cereal food manufacturing assets: | | | |
-Cereal food manufacturing assets: / Baked cereal bar product manufacturing assets – see Table A Bakery product manufacturing (11710 to 11740) | | | |
-Cereal food manufacturing assets: / Cold formed and nut based cereal bar manufacturing assets: | | | |
-Cereal food manufacturing assets: / Cold formed and nut based cereal bar manufacturing assets: / Cooling tunnels | 20 years | 5.00% | 10.00% | 1 July 2008
-Cereal food manufacturing assets: / Cold formed and nut based cereal bar manufacturing assets: / Enrobers | 12 1/2 years | 8.00% | 16.00% | 1 July 2008
-Cereal food manufacturing assets: / Cold formed and nut based cereal bar manufacturing assets: / Guillotines | 15 years | 6.67% | 13.33% | 1 July 2008
+Asset group · Cereal food manufacturing assets: | | | |
+Register note · Cereal food manufacturing assets: / Baked cereal bar product manufacturing assets – see Table A Bakery product manufacturing (11710 to 11740) | | | |
+Asset group · Cereal food manufacturing assets: / Cold formed and nut based cereal bar manufacturing assets: | | | |
+Cereal food manufacturing assets: / Cooling tunnels (Cold formed and nut based cereal bar manufacturing assets) | 20 years | 5.00% | 10.00% | 1 July 2008
+Cereal food manufacturing assets: / Enrobers (Cold formed and nut based cereal bar manufacturing assets) | 12 1/2 years | 8.00% | 16.00% | 1 July 2008
+Cereal food manufacturing assets: / Guillotines (Cold formed and nut based cereal bar manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2008
 Cereal food manufacturing assets: / Cold formed and nut based cereal bar manufacturing assets: / Slab formers (sheeters) | 15 years | 6.67% | 13.33% | 1 July 2008
-Cereal food manufacturing assets: / Cold formed and nut based cereal bar manufacturing assets: / Slitters | 15 years | 6.67% | 13.33% | 1 July 2008
-Cereal food manufacturing assets: / Cold formed and nut based cereal bar manufacturing assets: / Spreaders | 15 years | 6.67% | 13.33% | 1 July 2008
+Cereal food manufacturing assets: / Slitters (Cold formed and nut based cereal bar manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Cereal food manufacturing assets: / Spreaders (Cold formed and nut based cereal bar manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2008
 Cereal food manufacturing assets: / Cold formed and nut based cereal bar manufacturing assets: / Syrup cookers and kettles (including fire cookers) | 15 years | 6.67% | 13.33% | 1 July 2008
-Cereal food manufacturing assets: / Cold formed and nut based cereal bar manufacturing assets: / Tempering machines | 15 years | 6.67% | 13.33% | 1 July 2008
-Cereal food manufacturing assets: / General cereal food processing assets: | | | |
+Cereal food manufacturing assets: / Tempering machines (Cold formed and nut based cereal bar manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Asset group · Cereal food manufacturing assets: / General cereal food processing assets: | | | |
 Cereal food manufacturing assets: / General cereal food processing assets: / Blenders and mixers (including drum mixers, paddle blenders/mixers and ribbon blenders/mixers) | 15 years | 6.67% | 13.33% | 1 July 2008
 Cereal food manufacturing assets: / General cereal food processing assets: / Ovens (electric and gas-fired) | 20 years | 5.00% | 10.00% | 1 July 2008
-Cereal food manufacturing assets: / Ready-to-eat cereal manufacturing assets (including extruded, co-extruded, flaked and puffed cereal manufacturing assets): | | | |
+Asset group · Cereal food manufacturing assets: / Ready-to-eat cereal manufacturing assets (including extruded, co-extruded, flaked and puffed cereal manufacturing assets): | | | |
 Cereal food manufacturing assets: / Ready-to-eat cereal manufacturing assets (including extruded, co-extruded, flaked and puffed cereal manufacturing assets): / Coating assets (including coating applicators and drum coaters) | 15 years | 6.67% | 13.33% | 1 July 2008
-Cereal food manufacturing assets: / Ready-to-eat cereal manufacturing assets (including extruded, co-extruded, flaked and puffed cereal manufacturing assets): / Cookers | 15 years | 6.67% | 13.33% | 1 July 2008
+Cereal food manufacturing assets: / Ready-to-eat cereal manufacturing assets (including extruded, co-extruded, flaked and puffed cereal manufacturing assets): / Cookers (Ready-to-eat cereal manufacturing assets …) | 15 years | 6.67% | 13.33% | 1 July 2008
 Cereal food manufacturing assets: / Ready-to-eat cereal manufacturing assets (including extruded, co-extruded, flaked and puffed cereal manufacturing assets): / Delumpers (lump breakers) | 10 years | 10.00% | 20.00% | 1 July 2008
-Cereal food manufacturing assets: / Ready-to-eat cereal manufacturing assets (including extruded, co-extruded, flaked and puffed cereal manufacturing assets): / Dryers: | | | |
+Asset group · Cereal food manufacturing assets: / Ready-to-eat cereal manufacturing assets (including extruded, co-extruded, flaked and puffed cereal manufacturing assets): / Dryers: | | | |
 Cereal food manufacturing assets: / Ready-to-eat cereal manufacturing assets (including extruded, co-extruded, flaked and puffed cereal manufacturing assets): / Dryers: / Flite dryers | 30 years | 3.33% | 6.67% | 1 July 2008
-Cereal food manufacturing assets: / Ready-to-eat cereal manufacturing assets (including extruded, co-extruded, flaked and puffed cereal manufacturing assets): / Dryers: / Fluid bed dryers | 20 years | 5.00% | 10.00% | 1 July 2008
+Cereal food manufacturing assets: / Ready-to-eat cereal manufacturing assets (including extruded, co-extruded, flaked and puffed cereal manufacturing assets): / Fluid bed dryers (Dryers) | 20 years | 5.00% | 10.00% | 1 July 2008
 Cereal food manufacturing assets: / Ready-to-eat cereal manufacturing assets (including extruded, co-extruded, flaked and puffed cereal manufacturing assets): / Dryers: / Others (including belt and coating dryers) | 15 years | 6.67% | 13.33% | 1 July 2008
-Cereal food manufacturing assets: / Ready-to-eat cereal manufacturing assets (including extruded, co-extruded, flaked and puffed cereal manufacturing assets): / Extruders | 20 years | 5.00% | 10.00% | 1 July 2008
+Cereal food manufacturing assets: / Ready-to-eat cereal manufacturing assets (including extruded, co-extruded, flaked and puffed cereal manufacturing assets): / Extruders (Ready-to-eat cereal manufacturing assets …) | 20 years | 5.00% | 10.00% | 1 July 2008
 Cereal food manufacturing assets: / Ready-to-eat cereal manufacturing assets (including extruded, co-extruded, flaked and puffed cereal manufacturing assets): / Feeders (including loss-in-weight and screwtype feeders) | 10 years | 10.00% | 20.00% | 1 July 2008
 Cereal food manufacturing assets: / Ready-to-eat cereal manufacturing assets (including extruded, co-extruded, flaked and puffed cereal manufacturing assets): / Milling machines (including flaking mills, pellet mills and shredding mills) | 20 years | 5.00% | 10.00% | 1 July 2008
 Cereal food manufacturing assets: / Ready-to-eat cereal manufacturing assets (including extruded, co-extruded, flaked and puffed cereal manufacturing assets): / Steam preconditioners | 10 years | 10.00% | 20.00% | 1 July 2008
 Packaging assets (including cartoners, casepackers, case palletisers, checkweighers, fillers, label applicators, robotic pick and place packaging machines, shrink wrappers and stretch wrappers etc) | 12 years | 8.33% | 16.67% | 1 July 2008
-Pasta manufacturing assets: | | | |
+Asset group · Pasta manufacturing assets: | | | |
 Pasta manufacturing assets: / Blenders and mixers | 15 years | 6.67% | 13.33% | 1 July 2008
 Pasta manufacturing assets: / Cooling assets (including chillers and coolers) | 10 years | 10.00% | 20.00% | 1 July 2008
-Pasta manufacturing assets: / Dryers | 15 years | 6.67% | 13.33% | 1 July 2008
+Dryers (Pasta manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2008
 Pasta manufacturing assets: / Extrusion dies | 2 years | 50.00% | 100.00% | 1 July 2008
-Pasta manufacturing assets: / Fill preparation assets: | | | |
-Pasta manufacturing assets: / Fill preparation assets: / Cookers/kettles | 15 years | 6.67% | 13.33% | 1 July 2008
-Pasta manufacturing assets: / Fill preparation assets: / Mincers | 15 years | 6.67% | 13.33% | 1 July 2008
+Asset group · Pasta manufacturing assets: / Fill preparation assets: | | | |
+Pasta manufacturing assets: / Cookers/kettles (Fill preparation assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Pasta manufacturing assets: / Mincers (Fill preparation assets) | 15 years | 6.67% | 13.33% | 1 July 2008
 Pasta manufacturing assets: / Long goods/short goods pasta making assets (including blanchers/cookers, formers, gnocchi making machines, laminators, presses, ravioli making machines, sheeters etc) | 12 1/2 years | 8.00% | 16.00% | 1 July 2008
-Pasta manufacturing assets: / Pasteurisers | 15 years | 6.67% | 13.33% | 1 July 2008
-Product and raw material receiving and handling assets: | | | |
-Product and raw material receiving and handling assets: / Aspirators | 20 years | 5.00% | 10.00% | 1 July 2008
-Product and raw material receiving and handling assets: / Bins and hoppers (including tote bins, intermediate bulk containers, scaling bins etc): | | | |
-Product and raw material receiving and handling assets: / Bins and hoppers (including tote bins, intermediate bulk containers, scaling bins etc): / Mild and stainless steel | 15 years | 6.67% | 13.33% | 1 July 2008
-Product and raw material receiving and handling assets: / Bins and hoppers (including tote bins, intermediate bulk containers, scaling bins etc): / Others (including plastic and fibreglass) | 10 years | 10.00% | 20.00% | 1 July 2008
+Pasteurisers (Pasta manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Asset group · Product and raw material receiving and handling assets: | | | |
+Aspirators (Product and raw material receiving and handling assets) | 20 years | 5.00% | 10.00% | 1 July 2008
+Asset group · Product and raw material receiving and handling assets: / Bins and hoppers (including tote bins, intermediate bulk containers, scaling bins etc): | | | |
+Product and raw material receiving and handling assets: / Bins and hoppers (including tote bins, intermediate bulk containers, scaling bins etc): / Mild and stainless steel (Cereal and pasta product manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2008
+Product and raw material receiving and handling assets: / Bins and hoppers (including tote bins, intermediate bulk containers, scaling bins etc): / Others (including plastic and fibreglass) (Cereal and pasta product manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2008
 Product and raw material receiving and handling assets: / Bulker bag unloaders (including electric hoist, forklift and trolley based unloaders) | 15 years | 6.67% | 13.33% | 1 July 2008
 Product and raw material receiving and handling assets: / Conveyors (including belt, bucket, roller and screw conveyors) | 15 years | 6.67% | 13.33% | 1 July 2008
-Product and raw material receiving and handling assets: / Silos: | | | |
-Product and raw material receiving and handling assets: / Silos: / Steel | 30 years | 3.33% | 6.67% | 1 July 2008
+Asset group · Product and raw material receiving and handling assets: / Silos: | | | |
+Product and raw material receiving and handling assets: / Silos: / Steel (Cereal and pasta product manufacturing) | 30 years | 3.33% | 6.67% | 1 July 2008
 Product and raw material receiving and handling assets: / Silos: / Used for flour (semolina) | 25 years | 4.00% | 8.00% | 1 July 2008
 Product and raw material receiving and handling assets: / Storage tanks (including jacketed tanks) | 20 years | 5.00% | 10.00% | 1 July 2008
 Product and raw material receiving and handling assets: / Tipping stations (tote bin dumpers) | 15 years | 6.67% | 13.33% | 1 July 2008
-Quality control assets: | | | |
-Quality control assets: / Metal detectors | 10 years | 10.00% | 20.00% | 1 July 2008
-Quality control assets: / X-ray detectors | 5 years | 20.00% | 40.00% | 1 July 2008
+Asset group · Quality control assets: | | | |
+Quality control assets: / Metal detectors (Cereal and pasta product manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2008
+X-ray detectors (Quality control assets) | 5 years | 20.00% | 40.00% | 1 July 2008
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/#source
 - Bin washers: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/bin-washers/
-- Generally: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/generally/
+- Generally (Blowers and fans): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/generally/
 - Used in materials handling: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/used-in-materials-handling/
-- Clean-in-place (CIP) systems: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/clean-in-place-systems/
-- Control systems (excluding personal computers): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/control-systems/
+- Clean-in-place (CIP) systems (Ancillary assets): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/clean-in-place-systems/
+- Control systems (excluding personal computers) (Ancillary assets): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/control-systems/
 - Dust collection assets (including cyclones): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/dust-collection-assets/
 - Extrusion die washers: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/extrusion-die-washers/
-- Racks and shelving: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/racks-and-shelving/
+- Racks and shelving (Ancillary assets): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/racks-and-shelving/
 - Scales (electronic scales and load cells): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/scales/
 - Water chillers: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/water-chillers/
 - Water filtration and softening assets (including reverse osmosis assets): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/water-filtration-and-softening-assets/
 - Baked cereal bar product manufacturing assets – see Table A Bakery product manufacturing (11710 to 11740): https://duguid.com.au/tools/depreciation-rates/industry/bakery-product-manufacturing/
-- Cooling tunnels: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/cooling-tunnels/
-- Enrobers: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/enrobers/
-- Guillotines: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/guillotines/
+- Cooling tunnels (Cold formed and nut based cereal bar manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/cooling-tunnels/
+- Enrobers (Cold formed and nut based cereal bar manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/enrobers/
+- Guillotines (Cold formed and nut based cereal bar manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/guillotines/
 - Slab formers (sheeters): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/slab-formers/
-- Slitters: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/slitters/
-- Spreaders: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/spreaders/
+- Slitters (Cold formed and nut based cereal bar manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/slitters/
+- Spreaders (Cold formed and nut based cereal bar manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/spreaders/
 - Syrup cookers and kettles (including fire cookers): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/syrup-cookers-and-kettles/
-- Tempering machines: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/tempering-machines/
+- Tempering machines (Cold formed and nut based cereal bar manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/tempering-machines/
 - Blenders and mixers (including drum mixers, paddle blenders/mixers and ribbon blenders/mixers): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/cereal-food-manufacturing-assets-blenders-and-mixers/
 - Ovens (electric and gas-fired): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/ovens/
 - Coating assets (including coating applicators and drum coaters): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/coating-assets/
-- Cookers: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/cookers/
+- Cookers (Ready-to-eat cereal manufacturing assets …): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/cookers/
 - Delumpers (lump breakers): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/delumpers/
 - Flite dryers: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/flite-dryers/
-- Fluid bed dryers: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/fluid-bed-dryers/
+- Fluid bed dryers (Dryers): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/fluid-bed-dryers/
 - Others (including belt and coating dryers): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/cereal-food-manufacturing-assets-others/
-- Extruders: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/extruders/
+- Extruders (Ready-to-eat cereal manufacturing assets …): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/extruders/
 - Feeders (including loss-in-weight and screwtype feeders): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/feeders/
 - Milling machines (including flaking mills, pellet mills and shredding mills): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/milling-machines/
 - Steam preconditioners: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/steam-preconditioners/
 - Packaging assets (including cartoners, casepackers, case palletisers, checkweighers, fillers, label applicators, robotic pick and place packaging machines, shrink wrappers and stretch wrappers etc): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/packaging-assets/
 - Blenders and mixers: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/pasta-manufacturing-assets-blenders-and-mixers/
 - Cooling assets (including chillers and coolers): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/cooling-assets/
-- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/dryers/
+- Dryers (Pasta manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/dryers/
 - Extrusion dies: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/extrusion-dies/
-- Cookers/kettles: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/cookers-kettles/
-- Mincers: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/mincers/
+- Cookers/kettles (Fill preparation assets): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/cookers-kettles/
+- Mincers (Fill preparation assets): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/mincers/
 - Long goods/short goods pasta making assets (including blanchers/cookers, formers, gnocchi making machines, laminators, presses, ravioli making machines, sheeters etc): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/long-goods-short-goods-pasta-making-assets/
-- Pasteurisers: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/pasteurisers/
-- Aspirators: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/aspirators/
-- Mild and stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/mild-and-stainless-steel/
-- Others (including plastic and fibreglass): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/product-and-raw-material-others/
+- Pasteurisers (Pasta manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/pasteurisers/
+- Aspirators (Product and raw material receiving and handling assets): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/aspirators/
+- Mild and stainless steel (Cereal and pasta product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/mild-and-stainless-steel/
+- Others (including plastic and fibreglass) (Cereal and pasta product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/product-and-raw-material-others/
 - Bulker bag unloaders (including electric hoist, forklift and trolley based unloaders): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/bulker-bag-unloaders/
 - Conveyors (including belt, bucket, roller and screw conveyors): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/conveyors/
-- Steel: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/steel/
+- Steel (Cereal and pasta product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/steel/
 - Used for flour (semolina): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/used-for-flour/
 - Storage tanks (including jacketed tanks): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/storage-tanks/
 - Tipping stations (tote bin dumpers): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/tipping-stations/
-- Metal detectors: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/metal-detectors/
-- X-ray detectors: https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/x-ray-detectors/
+- Metal detectors (Cereal and pasta product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/metal-detectors/
+- X-ray detectors (Quality control assets): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/x-ray-detectors/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

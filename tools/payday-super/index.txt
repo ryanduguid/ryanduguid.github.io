@@ -12,7 +12,7 @@ Current release payday-super-checker v0.2.3, 30 October 2026, from the australia
 
 ## Fictional worked example
 
-Result: AT_RISK. Pinned deadline: 17 August 2026. Fund receipt unproven.
+Result: AT_RISK. The due date in this fictional example was 17 August 2026. Fund receipt unproven.
 
 Human decision: Confirm fund receipt evidence and the timing pathway.
 

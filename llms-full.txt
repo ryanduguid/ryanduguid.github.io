@@ -143,7 +143,7 @@ LinkedIn | linkedin.com/in/ryan-duguid
 
 I build accounting tools that let a second person trace the inputs, calculation and review decision. Three examples show the work in different forms:
 
-- Cash flow modelling. The Lumbridge case connects a fictional business’s profit, receipt dates and available cash through an Excel forecast and management briefing.
+- Cash flow modelling. The Lumbridge profit and cash flow example connects a fictional business’s profit, receipt dates and available cash through an Excel forecast and management briefing.
 - Month-end review. The accounting review pipeline turns trial balance files into inspectable exceptions, including a creditors difference and a financial year comparison warning.
 - Excel implementation. Ozzit provides native LAMBDA functions with editable examples and visible arithmetic.
 
@@ -211,7 +211,7 @@ I write and maintain this site in my own time and on my own equipment.
 - Management Accounting (CO): https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url
 - Xero trial balance export and review workflow: https://duguid.com.au/tools/xero-trial-balance/
 - github.com/ryanduguid: https://github.com/ryanduguid
-- Lumbridge case: https://duguid.com.au/examples/profit-vs-cash-flow/
+- Lumbridge profit and cash flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - accounting review pipeline: https://duguid.com.au/evaluate/#month-end-preview
 - Ozzit: https://github.com/ryanduguid/Ozzit
 - evidence register: https://duguid.com.au/evidence/
@@ -236,7 +236,7 @@ I write and maintain this site in my own time and on my own equipment.
 
 ---
 
-# Works with Xero and Claude
+# Accounting tools that work with Xero and Claude
 
 Source: https://duguid.com.au/works-with/
 
@@ -642,7 +642,7 @@ The National AI Centre’s Guidance for AI Adoption recommends that organisation
 
 - Aus Accounting MCP, with answers to the questions firms put to tax-research tools
 - evatt, the Xero Ledger Review Gate and the Workpaper Review Gate
-- Australian Accounting Skills
+- Australian Accounting Skills register entry
 - au-fpa-pack
 - DrDebits, the external prompt guide
 
@@ -770,7 +770,7 @@ I publish evaluations of fixed releases on the Evaluations page. I use feedback 
 - AI register template: https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/ai-systems-register
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/docs/firm-assessment.md
 - evatt, the Xero Ledger Review Gate and the Workpaper Review Gate: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/docs/ai-register-entries.md
-- Australian Accounting Skills: https://github.com/ryanduguid/australian-accounting-skills/blob/main/docs/ai-register-entry.md
+- Australian Accounting Skills register entry: https://github.com/ryanduguid/australian-accounting-skills/blob/main/docs/ai-register-entry.md
 - au-fpa-pack: https://github.com/ryanduguid/OzFPA/blob/main/docs/ai-register-entry.md
 - DrDebits: https://github.com/ryanduguid/DrDebits/blob/main/docs/ai-register-entry.md
 
@@ -3179,7 +3179,7 @@ Maintained by Ryan Duguid as part of his Australian computational accounting too
 
 Source: https://duguid.com.au/tools/
 
-> Browse 12 accounting controls for payroll, Xero, workpapers, ledgers, tax calculations and fixed-scope AI workflows.
+> Find accounting tools by task, from payroll and Xero reconciliation to workpaper review. Each entry links to its inputs, examples and source.
 
 # Tools
 
@@ -3535,7 +3535,7 @@ EMP009,2026-08-20,100.00,2026-08-21,2026-09-03,no,no,,no
 
 Row | Verdict | Reason | Human step
 Row 2, QE day 2026-08-06 | AT_RISK | No fund receipt date supplied; the statutory test is receipt by the fund under SGAA s 18C(1) | Fill the fund receipt date from the clearing house or fund, then rerun.
-Row 3, QE day 2026-08-20 | UNKNOWN, between LATE or ON_TIME | An earlier row could extend the deadline to 3 September 2026 under s 18C(2) item 4, but the file does not evidence an eligible contribution received by the fund, applied to that earlier QE day and on time | Reconcile the fund receipt and statutory allocation before deciding between the candidate verdicts. The run exits 2.
+Row 3, QE day 2026-08-20 | UNKNOWN, between LATE or ON_TIME | In this example an earlier row could have extended the deadline to 3 September 2026 under s 18C(2) item 4, but the file does not evidence an eligible contribution received by the fund, applied to that earlier QE day and on time | Reconcile the fund receipt and statutory allocation before deciding between the candidate verdicts. The run exits 2.
 
 ## Aus Accounting MCP
 
@@ -4042,7 +4042,7 @@ Current release payday-super-checker v0.2.3, 30 October 2026, from the australia
 
 ## Fictional worked example
 
-Result: AT_RISK. Pinned deadline: 17 August 2026. Fund receipt unproven.
+Result: AT_RISK. The due date in this fictional example was 17 August 2026. Fund receipt unproven.
 
 Human decision: Confirm fund receipt evidence and the timing pathway.
 
@@ -4257,9 +4257,9 @@ Each source below was read on 14 November 2026.
 - ACT: ACT Government, Public holidays, school terms and daylight saving.
 - NSW: NSW Government, NSW public holidays.
 - NT: Northern Territory Government, NT public and regional holidays.
-- QLD: Queensland Government, Public holidays, last updated 16 January 2026.
-- SA: SafeWork SA, Public holidays.
-- TAS: WorkSafe Tasmania, Public holidays, last updated 23 January 2026, and the Statutory Holidays Act 2000 for Easter Tuesday.
+- QLD: Queensland Government, Public holidays in Queensland, last updated 16 January 2026.
+- SA: SafeWork SA, Public holidays in South Australia.
+- TAS: WorkSafe Tasmania, Public holidays in Tasmania, last updated 23 January 2026, and the Statutory Holidays Act 2000 for Easter Tuesday.
 - VIC: Business Victoria, public holidays for 2026, last updated 21 May 2026, and 2027, last updated 2 December 2025.
 - WA: WA Government, Public holidays in Western Australia, last updated 5 November 2026.
 
@@ -4279,9 +4279,9 @@ Each source below was read on 14 November 2026.
 - Public holidays, school terms and daylight saving: https://www.act.gov.au/living-in-the-act/public-holidays-school-terms-and-daylight-saving
 - NSW public holidays: https://www.nsw.gov.au/about-nsw/public-holidays
 - NT public and regional holidays: https://nt.gov.au/nt-public-holidays
-- Public holidays: https://www.qld.gov.au/recreation/travel/holidays/public
-- Public holidays: https://safework.sa.gov.au/resources/public-holidays
-- Public holidays: https://worksafe.tas.gov.au/topics/laws-and-compliance/public-holidays
+- Public holidays in Queensland: https://www.qld.gov.au/recreation/travel/holidays/public
+- Public holidays in South Australia: https://safework.sa.gov.au/resources/public-holidays
+- Public holidays in Tasmania: https://worksafe.tas.gov.au/topics/laws-and-compliance/public-holidays
 - 2026: https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2026
 - 2027: https://business.vic.gov.au/business-information/public-holidays/victorian-public-holidays-2027
 - Public holidays in Western Australia: https://www.wa.gov.au/service/employment/workplace-arrangements/public-holidays-western-australia
@@ -4384,7 +4384,7 @@ Each ATO page below was read on 15 November 2026.
 
 Source: https://duguid.com.au/tools/ato-benchmarks/
 
-> Current release ato-benchmark-compare v0.2.2. Compare profit and loss with ATO benchmark ranges locally. Review aid.
+> Current release ato-benchmark-compare v0.2.2. Compare a business’s profit and loss against ATO small business benchmark ranges and review differences locally.
 
 # ATO small business benchmark comparison tool
 
@@ -4879,7 +4879,7 @@ This method measures adherence to visible instructions. It does not test indepen
 
 Needs an AI coding agent such as Claude Code or Codex, and Node.
 
-Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 72 of its 76 validation cards have confirmed results from a whole-card model run; the four core failure cards it adds have no recorded live verdict. Release v0.5.0 has 76 skills and moves the pack from Apache-2.0 to FSL-1.1-ALv2, with Apache-2.0 as the future licence. The current release, v0.8.1, published on 25 November 2026, has 112 skills, still including these 10 workflows, under the Apache License 2.0; human-confirmed verdicts cover 95 of its 246 validation cards. In v0.5.0, contractor-super-tpar points to the provision or ATO page for figures that change instead of stating them, so its cards need a rerun at the revised commit, and wip-over-under-billing gains steps for verifying and citing a local AASB corpus snapshot. Use Adopt for the v0.4.0 installation under the Apache License 2.0 or its separate development option. The v0.4.0 installation guide covers that historical tag. The contracting workflows are included in this unified pack.
+Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 72 of its 76 validation cards have confirmed results from a whole-card model run; the four core failure cards it adds have no recorded live verdict. Release v0.5.0 has 76 skills and moves the pack from Apache-2.0 to FSL-1.1-ALv2, with Apache-2.0 as the future licence. The current release, v0.8.1, published on 25 November 2026, has 112 skills, still including these 10 workflows, under the Apache License 2.0; human-confirmed verdicts cover 95 of its 246 validation cards. In v0.5.0, contractor-super-tpar points to the provision or ATO page for figures that change instead of stating them, so its cards need a rerun at the revised commit, and wip-over-under-billing gains steps for verifying and citing a local AASB corpus snapshot. Use Adopt for the v0.4.0 installation under the Apache License 2.0 for v0.4.0 or its separate development option. The v0.4.0 installation guide covers that historical tag. The contracting workflows are included in this unified pack.
 
 Source on GitHub
 
@@ -4918,7 +4918,7 @@ Not as working figures. Each skill encodes the workflow, the tie-outs and the ex
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
 - evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
 - Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- Apache License 2.0: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.4.0/LICENSE
+- Apache License 2.0 for v0.4.0: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.4.0/LICENSE
 - v0.4.0 installation guide: https://github.com/ryanduguid/australian-accounting-skills/blob/2e16e47016c6451c0fe8fc8af8a47cf7e7fc3034/docs/installation.md#tagged-65-workflow-release
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills
 - Open an issue: https://github.com/ryanduguid/australian-accounting-skills/issues
@@ -5084,7 +5084,7 @@ No. It is a review aid. Recognition over time versus at a point in time, whether
 
 Source: https://duguid.com.au/tools/xero-trial-balance/
 
-> Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas.
+> Export a trial balance from the Xero API to a CSV for Excel, Power BI or pandas. Check debit and credit totals before using the figures in a workpaper.
 
 # Xero trial balance CSV export tool
 
@@ -5650,7 +5650,7 @@ No. It reads local files and writes a readiness pack. It cannot post, pay, lodge
 
 ---
 
-# Contact and project links
+# Contact Ryan Duguid about accounting tools
 
 Source: https://duguid.com.au/contact/
 
@@ -5694,11 +5694,11 @@ Published 30 August 2026. Last reviewed 23 November 2026.
 
 ---
 
-# Site and release changelog
+# Australian accounting tools and site changelog
 
 Source: https://duguid.com.au/changelog/
 
-> Dated register of site changes and tagged tool releases across Ryan Duguid’s Australian accounting tools.
+> Trace changes to the calculators, rate tables and accounting tools by date, with links to tagged releases and the evidence for each change.
 
 # Changelog
 
@@ -5709,6 +5709,9 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+27 November 2026 | The depreciation register distinguishes assets with the same name, shows the dates recorded against asset group headings and links directly to sections of long tables. The work expenses and rental property calculators now label telephone expenses as dollar amounts.
+27 November 2026 | The Markdown editions of calculators now preserve the instructions shown when JavaScript is off, including the link to the depreciation register data file.
+27 November 2026 | Reference tables now carry names for screen readers. Calculator fields and reference pages have more space between headings, instructions and tables. The depreciation register identifies the industry or asset group on links that share a name. Each indexed page also has a Markdown edition at index.md.
 26 November 2026 | A new business calculator, sole trader against company, puts one business profit for 2021-22 to 2026-27 through both structures: as a sole trader, tax and the Medicare levy on the whole profit less the small business income tax offset under Subdivision 328-F; through a company, a salary with its super guarantee, company tax at 25% or 30%, a fully franked dividend for the rest of what the owner takes out with its top-up tax, the profit kept in the company and the tax on the super. It states each total and the difference and recommends no structure, and names what it leaves out: the personal services income rules, Division 7A, the small business CGT concessions, state taxes and the cost of running a company. Rates were read on 26 November 2026.
 26 November 2026 | The tool pages, changelog, release record and machine indexes name the releases of 24 and 25 November: aus-accounting-mcp v0.13.0 (148 worksheet kinds with calculators 1.4.0, 29 tools), Australian Accounting Skills v0.8.1 (112 skills, Apache License 2.0), monthly-close-control-plane v1.2.0 and review-ready-gate v1.1.0 (both now under the GNU Affero General Public License v3.0 or later, with executables for 6 targets), and solomons-sword v1.0.0 and the-exchequer-tally v1.0.0, now standalone executables under the same licence; the trust distribution and company tax pages keep their pinned Python examples. The profit and cash flow case states that GitHub holds au-fpa-pack v0.8.0 whilst PyPI still serves 0.7.0.
 25 November 2026 | Updated general tax question 8 after the ATO updated its How to lodge your tax return page from 12 to 10 business days for returns lodged online, matching its progress page.
@@ -5964,6 +5967,8 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- depreciation register: https://duguid.com.au/tools/depreciation-rates/
+- depreciation register data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
 - sole trader against company: https://duguid.com.au/tools/business-calculators/sole-trader-company/
 - aus-accounting-mcp v0.13.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.13.0
 - general tax question 8: https://duguid.com.au/tools/accounting-questions/general-tax/
@@ -10143,7 +10148,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ---
 
-# Margin and markup calculator
+# Gross profit margin and markup calculator
 
 Source: https://duguid.com.au/tools/business-calculators/margin/
 
@@ -10726,13 +10731,13 @@ Rent (AUD) Other rental income, such as an insurance payout for lost rent or a b
 
 Enter the whole property’s expenses. These are apportioned by the days let or available over the days held.
 
-Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage (AUD) Travel (shown, not deductible) (AUD) Water charges (AUD) Sundry rental expenses (AUD)
+Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage costs (AUD) Travel (shown, not deductible) (AUD) Water charges (AUD) Sundry rental expenses (AUD)
 
 ## Expenses solely for renting
 
 Expenses that relate only to renting, such as agent commission and removing a tenant’s rubbish, are not apportioned.
 
-Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage (AUD) Water charges (AUD) Sundry rental expenses (AUD)
+Advertising for tenants (AUD) Body corporate fees and charges (AUD) Cleaning (AUD) Council rates (AUD) Gardening and lawn mowing (AUD) Insurance (AUD) Land tax (AUD) Legal expenses (AUD) Pest control (AUD) Property agent fees and commission (AUD) Repairs and maintenance (AUD) Stationery, telephone and postage costs (AUD) Water charges (AUD) Sundry rental expenses (AUD)
 
 ## Interest on your own loans
 
@@ -12828,13 +12833,13 @@ Western Australia charges its metropolitan region improvement tax of 0.14% of th
 
 The land tax calculator applies the scale for the rates and owner you choose. It does not decide which land is taxable, which rates apply, whether an owner is a foreign person or absentee, or what the taxable or surcharge value is; the foreign purchaser surcharge calculator applies each jurisdiction’s test of a foreign or absentee owner. These are not computed:
 
-- New South Wales: exemptions and concessions, including the principal place of residence and primary production land exemptions, exemptions from surcharge land tax, and land of a company that is not its group’s concessional company, which pays 1.6% of its whole taxable value with no threshold, or 2% of it where the group’s land exceeds the premium threshold (Land Tax Act 1956, Schedule 13, Parts 3 and 4).
-- Victoria: exemptions and concessions, exemptions from the absentee owner surcharge and vacant residential land tax.
+- New South Wales land tax exemptions and concessions, including the principal place of residence and primary production land exemptions, exemptions from surcharge land tax, and land of a company that is not its group’s concessional company, which pays 1.6% of its whole taxable value with no threshold, or 2% of it where the group’s land exceeds the premium threshold (Land Tax Act 1956, Schedule 13, Parts 3 and 4).
+- Victoria land tax exemptions and concessions, exemptions from the absentee owner surcharge and vacant residential land tax.
 - Queensland: exemptions and relief, exemptions from the foreign surcharge and the aggregation of land held for trusts with the same beneficiaries.
-- Western Australia: land tax exemptions, and the metropolitan region improvement tax on holdings only partly in the Perth metropolitan region.
+- Western Australia land tax exemptions, and the metropolitan region improvement tax on holdings only partly in the Perth metropolitan region.
 - South Australia: exemptions, waiver or relief, and which land held on trust qualifies for the general rates.
 - Tasmania: zero rate classifications, exemptions and rebates, including principal residence and primary production land, and which land the foreign investor land tax surcharge applies to.
-- Australian Capital Territory: land tax exemptions, when the foreign ownership surcharge applies, a unit’s share by its unit entitlement and the split into quarters. Land tax there applies to residential property that is not a principal place of residence.
+- Australian Capital Territory land tax exemptions, when the foreign ownership surcharge applies, a unit’s share by its unit entitlement and the split into quarters. Land tax there applies to residential property that is not a principal place of residence.
 
 Joint ownership, grouping of related companies and the apportionment of the tax between properties are not computed either. Confirm the figure with the revenue office’s own calculator or assessment notice before relying on it.
 
@@ -12884,18 +12889,18 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
-- exemptions and concessions: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/exemptions-and-concessions
+- New South Wales land tax exemptions and concessions: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/exemptions-and-concessions
 - exemptions from surcharge land tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/surcharge-land-tax
-- exemptions and concessions: https://www.sro.vic.gov.au/owning-property/land-tax/exemptions-and-concessions-land-tax
+- Victoria land tax exemptions and concessions: https://www.sro.vic.gov.au/owning-property/land-tax/exemptions-and-concessions-land-tax
 - exemptions from the absentee owner surcharge: https://www.sro.vic.gov.au/owning-property/land-tax/absentee-owner-surcharge
 - exemptions and relief: https://qro.qld.gov.au/land-tax/relief/
 - exemptions from the foreign surcharge: https://qro.qld.gov.au/land-tax/foreign-surcharge/
-- land tax exemptions: https://www.wa.gov.au/service/financial-management/taxation-and-duty/apply-land-tax-exemption
+- Western Australia land tax exemptions: https://www.wa.gov.au/service/financial-management/taxation-and-duty/apply-land-tax-exemption
 - exemptions, waiver or relief: https://www.revenuesa.sa.gov.au/land-tax/LTExemptions
 - land held on trust: https://www.revenuesa.sa.gov.au/land-tax/trusts
 - zero rate classifications, exemptions and rebates: https://www.sro.tas.gov.au/land-tax/exemptions-and-rebates
 - which land the foreign investor land tax surcharge applies to: https://www.sro.tas.gov.au/land-tax/foreign-investor-land-tax-surcharge/rate-of-surcharge
-- land tax exemptions: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/land-tax-exemptions
+- Australian Capital Territory land tax exemptions: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/land-tax-exemptions
 - when the foreign ownership surcharge applies: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/foreign-ownership-surcharge-for-land-tax
 - fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
@@ -14553,9 +14558,9 @@ Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
 
 Working from home Hours worked from home, as recorded Additional running expenses, such as energy or phone, incurred from working from home Yes No
 
-Work-related amounts only, in dollars and cents. Enter 0 for an expense you did not have.
+Enter work-related amounts in dollars and cents, or 0 for an expense you did not have. Other assets can include a computer or phone.
 
-Electricity and gas Mobile and home phone Internet Stationery and computer consumables Cleaning Decline in value of home office furniture and furnishings Decline in value of other assets, such as a computer or phone Repairs to those assets
+Electricity and gas Mobile and home phone costs (AUD) Internet Stationery and computer consumables Cleaning Decline in value of home office furniture and furnishings Decline in value of other assets (AUD) Repairs to those assets
 
 Reimbursed or paid by your employer or anyone else No Yes
 
@@ -16175,7 +16180,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 Source: https://duguid.com.au/tools/business-calculators/sole-trader-company/
 
-> Compare the tax on one business profit as a sole trader, with the small business income tax offset, and through a company paying salary, super and franked dividends.
+> Compare tax on a business profit as a sole trader, including the small business income tax offset, and as a company paying salary, super and franked dividends.
 
 # Sole trader against company calculator
 
@@ -16872,7 +16877,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ---
 
-# Privacy and site use
+# Privacy, browser data and site use
 
 Source: https://duguid.com.au/privacy/
 
@@ -17900,7 +17905,7 @@ The 17 Dates formulas cover periods, timelines, schedules, overlaps and Australi
 
 Release v3.8.0. Read from the released Dates formula source, which the workbook compiles.
 
-Published 20 October 2026. Last reviewed 20 October 2026.
+By Ryan Duguid. Published 20 October 2026. Last reviewed 20 October 2026.
 
 ## Using these functions
 
@@ -18532,6 +18537,7 @@ The workbook help shows 1.
 ## Links
 
 - Dates formula source: https://github.com/ryanduguid/Ozzit/blob/v3.8.0/src/Dates.txt
+- Ryan Duguid: https://duguid.com.au/about/
 - Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
 - oz.AboutDates λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-aboutdates
 - oz.CountDOW λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-countdow
@@ -18571,7 +18577,7 @@ The 17 Essentials formulas cover row and column totals, averages, counts and ran
 
 Release v3.8.0. Read from the released Essentials formula source, which the workbook compiles.
 
-Published 20 October 2026. Last reviewed 20 October 2026.
+By Ryan Duguid. Published 20 October 2026. Last reviewed 20 October 2026.
 
 ## Using these functions
 
@@ -18977,6 +18983,7 @@ Previous name: nabla.e.RangeToDAλ.
 ## Links
 
 - Essentials formula source: https://github.com/ryanduguid/Ozzit/blob/v3.8.0/src/Essentials.txt
+- Ryan Duguid: https://duguid.com.au/about/
 - Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
 - oz.AboutEssentials λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-aboutessentials
 - oz.CountC λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countc
@@ -19016,7 +19023,7 @@ The 66 Financial formulas cover amortisation, depreciation, corkscrews, IRR, rol
 
 Release v3.8.0. Read from the released Financial formula source, which the workbook compiles.
 
-Published 20 October 2026. Last reviewed 20 October 2026.
+By Ryan Duguid. Published 20 October 2026. Last reviewed 20 October 2026.
 
 ## Using these functions
 
@@ -21031,6 +21038,7 @@ The workbook help shows 0.0062, 0.0062, 0.0060.
 ## Links
 
 - Financial formula source: https://github.com/ryanduguid/Ozzit/blob/v3.8.0/src/Financial.txt
+- Ryan Duguid: https://duguid.com.au/about/
 - Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
 - oz.AboutFinancial λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-aboutfinancial
 - oz.Corkscrew λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrew
@@ -21119,7 +21127,7 @@ The 48 Ratios formulas cover liquidity, gearing, margin, return, market and work
 
 Release v3.8.0. Read from the released Ratios formula source, which the workbook compiles.
 
-Published 20 October 2026. Last reviewed 20 October 2026.
+By Ryan Duguid. Published 20 October 2026. Last reviewed 20 October 2026.
 
 ## Using these functions
 
@@ -22543,6 +22551,7 @@ The workbook help shows 48.967.
 ## Links
 
 - Ratios formula source: https://github.com/ryanduguid/Ozzit/blob/v3.8.0/src/Ratios.txt
+- Ryan Duguid: https://duguid.com.au/about/
 - Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
 - oz.AboutRatios λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-aboutratios
 - oz.CurrentRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-currentratio
@@ -22613,7 +22622,7 @@ The 17 Utilities formulas cover standalone copies of the Essentials functions, e
 
 Release v3.8.0. Read from the released Utilities formula source, which the workbook compiles.
 
-Published 20 October 2026. Last reviewed 20 October 2026.
+By Ryan Duguid. Published 20 October 2026. Last reviewed 20 October 2026.
 
 ## Using these functions
 
@@ -23019,6 +23028,7 @@ Previous name: nabla.u.RangeToDAλ.
 ## Links
 
 - Utilities formula source: https://github.com/ryanduguid/Ozzit/blob/v3.8.0/src/Utilities.txt
+- Ryan Duguid: https://duguid.com.au/about/
 - Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
 - oz.AboutUtilities λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-aboututilities
 - oz.CountCU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countcu
@@ -23058,7 +23068,7 @@ The 5 Debt formulas cover debt amortisation and fixed or variable DSCR debt scul
 
 Release v3.8.0. Read from the released Debt formula source, which the workbook compiles.
 
-Published 20 October 2026. Last reviewed 20 October 2026.
+By Ryan Duguid. Published 20 October 2026. Last reviewed 20 October 2026.
 
 ## Using these functions
 
@@ -23325,6 +23335,7 @@ Previous name: nabla.debt.InterestLRVλ.
 ## Links
 
 - Debt formula source: https://github.com/ryanduguid/Ozzit/blob/v3.8.0/src/Debt.txt
+- Ryan Duguid: https://duguid.com.au/about/
 - Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
 - oz.AmortiseB λ: https://duguid.com.au/tools/ozzit/functions/debt/#oz-amortiseb
 - oz.DebtSculptFixed λ: https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptfixed

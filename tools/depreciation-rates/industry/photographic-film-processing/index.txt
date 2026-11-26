@@ -8,17 +8,17 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/photographic-fil
 
 45 effective lives in Table A of the Commissioner’s 2025 effective life determination for Photographic film processing.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Rows of Photographic film processing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Binding assets: | | | |
-Binding assets: / Binders | 7 years | 14.29% | 28.57% | 1 July 2017
+Asset group · Binding assets: | | | |
+Binders (Binding assets) | 7 years | 14.29% | 28.57% | 1 July 2017
 Binding assets: / Building-in machines | 15 years | 6.67% | 13.33% | 1 July 2017
-Binding assets: / Casemakers | 8 years | 12.50% | 25.00% | 1 July 2017
+Casemakers (Binding assets) | 8 years | 12.50% | 25.00% | 1 July 2017
 Binding assets: / Casing-in machines | 7 years | 14.29% | 28.57% | 1 July 2017
 Binding assets: / Comb binders (including ring wire binders and spiral binders) | 5 years | 20.00% | 40.00% | 1 July 2017
 Binding assets: / Cutting machines (guillotines) | 10 years | 10.00% | 20.00% | 1 July 2017
@@ -26,64 +26,65 @@ Binding assets: / Die cutting machines | 15 years | 6.67% | 13.33% | 1 July 2017
 Binding assets: / Folding machines | 10 years | 10.00% | 20.00% | 1 July 2017
 Binding assets: / Glue binders | 6 years | 16.67% | 33.33% | 1 July 2017
 Binding assets: / Hole punching machines | 7 years | 14.29% | 28.57% | 1 July 2017
-Binding assets: / Sewing machines | 5 years | 20.00% | 40.00% | 1 July 2017
+Sewing machines (Binding assets) | 5 years | 20.00% | 40.00% | 1 July 2017
 Binding assets: / Stich liners | 5 years | 20.00% | 40.00% | 1 July 2017
-Finishing assets: | | | |
-Finishing assets: / Laminators: | | | |
-Finishing assets: / Laminators: / Cold | 10 years | 10.00% | 20.00% | 1 July 2017
+Asset group · Finishing assets: | | | |
+Asset group · Finishing assets: / Laminators: | | | |
+Finishing assets: / Cold (Laminators) | 10 years | 10.00% | 20.00% | 1 July 2017
 Finishing assets: / Laminators: / Heat assisted | 7 years | 14.29% | 28.57% | 1 July 2017
 Finishing assets: / Laminators: / Vacuum press | 23 years | 4.35% | 8.70% | 1 July 2017
 Finishing assets: / UV coaters | 7 years | 14.29% | 28.57% | 1 July 2017
-Framing assets: | | | |
+Asset group · Framing assets: | | | |
 Framing assets: / Automatic measuring stops | 10 years | 10.00% | 20.00% | 1 July 2017
 Framing assets: / Board and glass wall cutters | 12 years | 8.33% | 16.67% | 1 July 2017
-Framing assets: / Dust extractors | 10 years | 10.00% | 20.00% | 1 July 2017
+Dust extractors (Framing assets) | 10 years | 10.00% | 20.00% | 1 July 2017
 Framing assets: / Mat cutters | 10 years | 10.00% | 20.00% | 1 July 2017
 Framing assets: / Mitre guillotines | 25 years | 4.00% | 8.00% | 1 July 2017
 Framing assets: / Mitre saws | 10 years | 10.00% | 20.00% | 1 July 2017
-Framing assets: / Trimmers | 15 years | 6.67% | 13.33% | 1 July 2017
-Framing assets: / Underpinners | 15 years | 6.67% | 13.33% | 1 July 2017
+Trimmers (Framing assets) | 15 years | 6.67% | 13.33% | 1 July 2017
+Underpinners (Framing assets) | 15 years | 6.67% | 13.33% | 1 July 2017
 Framing assets: / Vinyl cutters | 5 years | 20.00% | 40.00% | 1 July 2017
-Printing assets: | | | |
+Asset group · Printing assets: | | | |
 Printing assets: / Colour matching booths | 10 years | 10.00% | 20.00% | 1 July 2017
-Printing assets: / Digital minilabs: | | | |
-Printing assets: / Digital minilabs: / Dry: | | | |
-Printing assets: / Digital minilabs: / Dry: / Commercial | 5 years | 20.00% | 40.00% | 1 July 2017
-Printing assets: / Digital minilabs: / Dry: / Compact | 3 years | 33.33% | 66.67% | 1 July 2017
-Printing assets: / Digital minilabs: / Wet | 10 years | 10.00% | 20.00% | 1 July 2017
+Asset group · Printing assets: / Digital minilabs: | | | |
+Asset group · Printing assets: / Digital minilabs: / Dry: | | | |
+Printing assets: / Digital minilabs: / Commercial (Dry) | 5 years | 20.00% | 40.00% | 1 July 2017
+Printing assets: / Digital minilabs: / Compact (Dry) | 3 years | 33.33% | 66.67% | 1 July 2017
+Printing assets: / Wet (Digital minilabs) | 10 years | 10.00% | 20.00% | 1 July 2017
 Printing assets: / Digital presses | 5 years | 20.00% | 40.00% | 1 July 2017
 Printing assets: / Film processers | 10 years | 10.00% | 20.00% | 1 July 2017
-Printing assets: / Heat presses: | | | |
+Asset group · Printing assets: / Heat presses: | | | |
 Printing assets: / Heat presses: / Automatic, manual, mug and multipurpose | 4 years | 25.00% | 50.00% | 1 July 2017
 Printing assets: / Heat presses: / Large format flatbed | 6 years | 16.67% | 33.33% | 1 July 2017
 Printing assets: / ID card printers | 10 years | 10.00% | 20.00% | 1 July 2017
-Printing assets: / Kiosks | 5 years | 20.00% | 40.00% | 1 July 2017
+Kiosks (Printing assets) | 5 years | 20.00% | 40.00% | 1 July 2017
 Printing assets: / Large format flatbed digital printers | 5 years | 20.00% | 40.00% | 1 July 2017
-Printing assets: / Laser cutters (incorporating laser printing): | | | |
-Printing assets: / Laser cutters (incorporating laser printing): / Desktop | 3 years | 33.33% | 66.67% | 1 July 2017
+Asset group · Printing assets: / Laser cutters (incorporating laser printing): | | | |
+Printing assets: / Laser cutters (incorporating laser printing): / Desktop (Laser cutters …) | 3 years | 33.33% | 66.67% | 1 July 2017
 Printing assets: / Laser cutters (incorporating laser printing): / Floor mounted | 7 years | 14.29% | 28.57% | 1 July 2017
 Printing assets: / Photo calibration monitors | 8 years | 12.50% | 25.00% | 1 July 2017
 Printing assets: / Photo scanners (including photo and film scanners) | 9 years | 11.11% | 22.22% | 1 July 2017
 Printing assets: / Roll to roll printers | 15 years | 6.67% | 13.33% | 1 July 2017
 Printing assets: / Textile printers (including direct to fabric printers and direct to garment printers) | 5 years | 20.00% | 40.00% | 1 July 2017
-Printing assets: / Wide format printers: | | | |
+Asset group · Printing assets: / Wide format printers: | | | |
 Printing assets: / Wide format printers: / Dye sublimation (including desktop) | 5 years | 20.00% | 40.00% | 1 July 2017
-Printing assets: / Wide format printers: / Solvent | 4 years | 25.00% | 50.00% | 1 July 2017
+Printing assets: / Solvent (Wide format printers) | 4 years | 25.00% | 50.00% | 1 July 2017
 Printing assets: / Wide format printers: / Specialist photo | 6 years | 16.67% | 33.33% | 1 July 2017
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
-- Binders: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/binders/
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/#source
+- Binders (Binding assets): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/binders/
 - Building-in machines: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/building-in-machines/
-- Casemakers: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/casemakers/
+- Casemakers (Binding assets): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/casemakers/
 - Casing-in machines: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/casing-in-machines/
 - Comb binders (including ring wire binders and spiral binders): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/comb-binders/
 - Cutting machines (guillotines): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/cutting-machines/
@@ -91,43 +92,43 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Folding machines: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/folding-machines/
 - Glue binders: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/glue-binders/
 - Hole punching machines: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/hole-punching-machines/
-- Sewing machines: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/sewing-machines/
+- Sewing machines (Binding assets): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/sewing-machines/
 - Stich liners: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/stich-liners/
-- Cold: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/cold/
+- Cold (Laminators): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/cold/
 - Heat assisted: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/heat-assisted/
 - Vacuum press: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/vacuum-press/
 - UV coaters: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/uv-coaters/
 - Automatic measuring stops: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/automatic-measuring-stops/
 - Board and glass wall cutters: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/board-and-glass-wall-cutters/
-- Dust extractors: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/dust-extractors/
+- Dust extractors (Framing assets): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/dust-extractors/
 - Mat cutters: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/mat-cutters/
 - Mitre guillotines: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/mitre-guillotines/
 - Mitre saws: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/mitre-saws/
-- Trimmers: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/trimmers/
-- Underpinners: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/underpinners/
+- Trimmers (Framing assets): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/trimmers/
+- Underpinners (Framing assets): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/underpinners/
 - Vinyl cutters: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/vinyl-cutters/
 - Colour matching booths: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/colour-matching-booths/
-- Commercial: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/commercial/
-- Compact: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/compact/
-- Wet: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/wet/
+- Commercial (Dry): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/commercial/
+- Compact (Dry): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/compact/
+- Wet (Digital minilabs): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/wet/
 - Digital presses: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/digital-presses/
 - Film processers: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/film-processers/
 - Automatic, manual, mug and multipurpose: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/automatic-manual-mug-and-multipurpose/
 - Large format flatbed: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/large-format-flatbed/
 - ID card printers: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/id-card-printers/
-- Kiosks: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/kiosks/
+- Kiosks (Printing assets): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/kiosks/
 - Large format flatbed digital printers: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/large-format-flatbed-digital-printers/
-- Desktop: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/desktop/
+- Desktop (Laser cutters …): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/desktop/
 - Floor mounted: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/floor-mounted/
 - Photo calibration monitors: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/photo-calibration-monitors/
 - Photo scanners (including photo and film scanners): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/photo-scanners/
 - Roll to roll printers: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/roll-to-roll-printers/
 - Textile printers (including direct to fabric printers and direct to garment printers): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/textile-printers/
 - Dye sublimation (including desktop): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/dye-sublimation/
-- Solvent: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/solvent/
+- Solvent (Wide format printers): https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/solvent/
 - Specialist photo: https://duguid.com.au/tools/depreciation-rates/industry/photographic-film-processing/specialist-photo/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -81,7 +81,7 @@
               Three kinds of boundary run through these tools, and only one of them belongs on this page.
             </p>
             <div class="table-scroll" role="region" aria-label="Kinds of boundary" tabindex="0">
-            <table class="facts">
+            <table aria-label="Kinds of boundary" class="facts">
               <thead>
                 <tr>
                   <th scope="col">Kind</th>
@@ -119,7 +119,7 @@
               Recorded as PSC-1 against release <code>payday-super-checker/v0.1.4</code>. Release <code>payday-super-checker/v0.1.6</code> (20 September 2026) makes the extrapolation an opt-in: a default run withholds the estimate for the row instead.
             </p>
             <div class="table-scroll" role="region" aria-label="PSC-1" tabindex="0">
-            <table class="facts tool-table--wide">
+            <table aria-label="PSC-1" class="facts tool-table--wide">
               <thead>
                 <tr>
                   <th scope="col">Field</th>
@@ -162,7 +162,7 @@
               Recorded as PSC-2 against release <code>payday-super-checker/v0.1.4</code>. Each condition weakens the join that every verdict rests on, so a verdict can be wrong without any arithmetic being wrong. Release <code>payday-super-checker/v0.1.5</code> (20 September 2026) carries each warning into the report’s <code>caveats</code> column and the evidence pack; the four conditions are unchanged.
             </p>
             <div class="table-scroll" role="region" aria-label="PSC-2 conditions" tabindex="0">
-            <table class="facts tool-table--wide">
+            <table aria-label="PSC-2 conditions" class="facts tool-table--wide">
               <thead>
                 <tr>
                   <th scope="col">Condition in the supplied exports</th>
@@ -212,7 +212,7 @@
               This is not the same as a profit and loss account with no mapping entry. The tool raises a mapping error listing the first 20 unmapped rows and a count of any beyond that, and the command line exits before any comparison happens, so that input reaches neither output path. The trigger here is a bucket that no account was mapped <em>to</em>: the mapping is complete, the bucket simply has nothing in it.
             </p>
             <div class="table-scroll" role="region" aria-label="ABC-1 output paths" tabindex="0">
-            <table class="facts tool-table--wide">
+            <table aria-label="ABC-1 output paths" class="facts tool-table--wide">
               <thead>
                 <tr>
                   <th scope="col">Behaviour</th>
@@ -248,7 +248,7 @@
               Three things diverge independently, and running them together overstates the effect.
             </p>
             <div class="table-scroll" role="region" aria-label="ABC-1 independent divergences" tabindex="0">
-            <table class="facts tool-table--wide">
+            <table aria-label="ABC-1 independent divergences" class="facts tool-table--wide">
               <thead>
                 <tr>
                   <th scope="col">What</th>
@@ -333,14 +333,15 @@
         "@type": "TechArticle",
         "@id": "https://duguid.com.au/tools/limitations/#article",
         "url": "https://duguid.com.au/tools/limitations/",
+        "image": "https://duguid.com.au/assets/social-card-tools-20261123.png",
         "headline": "Known limitations",
         "description": "Cases where these accounting tools return a figure you should not read at face value, with the trigger and what stays correct.",
         "inLanguage": "en-AU",
         "datePublished": "2026-09-16",
         "dateModified": "2026-11-23",
         "license": "https://duguid.com.au/privacy/#licences",
-        "author": { "@id": "https://duguid.com.au/about/#person" },
-        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "author": { "@type": "Person", "@id": "https://duguid.com.au/about/#person", "name": "Ryan Duguid" },
+        "publisher": { "@type": "Person", "@id": "https://duguid.com.au/about/#person", "name": "Ryan Duguid" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" }
       },
       {

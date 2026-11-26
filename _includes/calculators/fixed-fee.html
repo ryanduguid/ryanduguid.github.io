@@ -1,9 +1,9 @@
 <section class="business-calculator" id="fixed-fee">
 <form class="calculator-split" data-calculator="fixed-fee">
-<fieldset disabled><legend>Fixed fee pricing inputs</legend><div class="form-grid"><label class="field" for="fixed-fee-hours">Estimated hours for the work<input id="fixed-fee-hours" name="hours" type="number" min="0.01" max="8784" step=".01" value="18.5" required /></label>
-<label class="field" for="fixed-fee-rate">Hourly rate or cost per hour, before GST (AUD)<input id="fixed-fee-rate" name="rate" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="95" required /></label>
-<label class="field" for="fixed-fee-margin">Target margin on the fee (%)<input id="fixed-fee-margin" name="margin" type="number" min="0" max="99.99" step=".01" value="40" required /></label>
-<label class="field" for="fixed-fee-instalments">Monthly instalments<input id="fixed-fee-instalments" name="instalments" type="number" min="1" max="24" step="1" value="12" required /></label>
+<fieldset disabled><legend>Fixed fee pricing inputs</legend><div class="form-grid"><label class="field" for="fixed-fee-hours">Estimated hours for the work<input enterkeyhint="next" id="fixed-fee-hours" name="hours" type="number" min="0.01" max="8784" step=".01" value="18.5" required /></label>
+<label class="field" for="fixed-fee-rate">Hourly rate or cost per hour, before GST (AUD)<input enterkeyhint="next" id="fixed-fee-rate" name="rate" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="95" required /></label>
+<label class="field" for="fixed-fee-margin">Target margin on the fee (%)<input enterkeyhint="next" id="fixed-fee-margin" name="margin" type="number" min="0" max="99.99" step=".01" value="40" required /></label>
+<label class="field" for="fixed-fee-instalments">Monthly instalments<input enterkeyhint="done" id="fixed-fee-instalments" name="instalments" type="number" min="1" max="24" step="1" value="12" required /></label>
 <fieldset><legend>Round the fee up to</legend>
 <label><input type="radio" name="round" value="0.01" /> The cent</label>
 <label><input type="radio" name="round" value="10" checked /> The next $10</label>

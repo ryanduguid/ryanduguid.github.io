@@ -2,102 +2,103 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/
 
-> Dairy cattle farming, Table A (industry categories) …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+> Dairy cattle farming, Table …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
 
 # Dairy cattle farming
 
 57 effective lives in Table A of the Commissioner’s 2025 effective life determination for Dairy cattle farming.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Rows of Dairy cattle farming. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Automatic calf feeders | 10 years | 10.00% | 20.00% | 1 July 2016
-Barn fed dairy farms: | | | |
-Barn fed dairy farms: / Bulk and segregated commodity storage facilities (incorporating bunkers) | 30 years | 3.33% | 6.67% | 1 July 2007
+Asset group · Barn fed dairy farms: | | | |
+Bulk and segregated commodity storage facilities (incorporating bunkers) (Barn fed dairy farms) | 30 years | 3.33% | 6.67% | 1 July 2007
 Barn fed dairy farms: / Exercise yards | 20 years | 5.00% | 10.00% | 1 July 2007
 Barn fed dairy farms: / Feeding barns and maternity barns (incorporating cow beds, fans, and feed alleys) | 20 years | 5.00% | 10.00% | 1 July 2007
-Cattle handling assets: | | | |
+Asset group · Cattle handling assets: | | | |
 Cattle handling assets: / Air operated gates | 10 years | 10.00% | 20.00% | 1 July 2007
 Cattle handling assets: / All terrain vehicles (ATVs) | 3 years | 33.33% | 66.67% | 1 July 2007
 Cattle handling assets: / Automatic drafting systems | 7 years | 14.29% | 28.57% | 1 July 2007
 Cattle handling assets: / Automatic ID systems | 7 years | 14.29% | 28.57% | 1 July 2007
 Cattle handling assets: / Automatic weighing systems and cattle scales | 5 years | 20.00% | 40.00% | 1 July 2007
 Cattle handling assets: / Backing gates | 15 years | 6.67% | 13.33% | 1 July 2007
-Cattle handling assets: / Calf cradles | 10 years | 10.00% | 20.00% | 1 July 2007
+Cattle handling assets: / Calf cradles (Dairy cattle farming) | 10 years | 10.00% | 20.00% | 1 July 2007
 Cattle handling assets: / Cattle crushes (including automatic) | 10 years | 10.00% | 20.00% | 1 July 2016
 Cattle handling assets: / Cattle laneways | 30 years | 3.33% | 6.67% | 1 July 2007
 Cattle handling assets: / Cattle yards (including loading ramps) | 30 years | 3.33% | 6.67% | 1 July 2007
 Cattle handling assets: / Dairy milking sheds | 30 years | 3.33% | 6.67% | 1 July 2007
 Cattle handling assets: / Dairy yards and races | 20 years | 5.00% | 10.00% | 1 July 2007
-Cattle handling assets: / Teat spraying systems: | | | |
-Cattle handling assets: / Teat spraying systems: / Automatic | 7 years | 14.29% | 28.57% | 1 July 2007
-Cattle handling assets: / Teat spraying systems: / Manual | 10 years | 10.00% | 20.00% | 1 July 2007
-Clean up assets: | | | |
+Asset group · Cattle handling assets: / Teat spraying systems: | | | |
+Cattle handling assets: / Automatic (Teat spraying systems) | 7 years | 14.29% | 28.57% | 1 July 2007
+Cattle handling assets: / Manual (Teat spraying systems) | 10 years | 10.00% | 20.00% | 1 July 2007
+Asset group · Clean up assets: | | | |
 Clean up assets: / High pressure pumps and hoses | 10 years | 10.00% | 20.00% | 1 July 2007
 Clean up assets: / Hot water services | 10 years | 10.00% | 20.00% | 1 July 2016
-Clean up assets: / Milk line washing systems: | | | |
-Clean up assets: / Milk line washing systems: / Automatic | 10 years | 10.00% | 20.00% | 1 July 2007
-Clean up assets: / Milk line washing systems: / Manual | 10 years | 10.00% | 20.00% | 1 July 2007
-Feed milling and handling assets: | | | |
-Feed milling and handling assets: / Augers | 10 years | 10.00% | 20.00% | 1 July 2007
-Feed milling and handling assets: / Conveyors and elevators | 15 years | 6.67% | 13.33% | 1 July 2007
-Feed milling and handling assets: / Feed mixers | 7 years | 14.29% | 28.57% | 1 July 2007
+Asset group · Clean up assets: / Milk line washing systems: | | | |
+Clean up assets: / Automatic (Milk line washing systems) | 10 years | 10.00% | 20.00% | 1 July 2007
+Clean up assets: / Manual (Milk line washing systems) | 10 years | 10.00% | 20.00% | 1 July 2007
+Asset group · Feed milling and handling assets: | | | |
+Augers (Feed milling and handling assets) | 10 years | 10.00% | 20.00% | 1 July 2007
+Conveyors and elevators (Feed milling and handling assets) | 15 years | 6.67% | 13.33% | 1 July 2007
+Feed milling and handling assets: / Feed mixers (Dairy cattle farming) | 7 years | 14.29% | 28.57% | 1 July 2007
 Feed milling and handling assets: / Feed pads and bunkers | 30 years | 3.33% | 6.67% | 1 July 2007
-Feed milling and handling assets: / Feeding systems: | | | |
-Feed milling and handling assets: / Feeding systems: / Automatic | 12 years | 8.33% | 16.67% | 1 July 2007
-Feed milling and handling assets: / Feeding systems: / Manual | 15 years | 6.67% | 13.33% | 1 July 2007
+Asset group · Feed milling and handling assets: / Feeding systems: | | | |
+Feed milling and handling assets: / Automatic (Feeding systems) | 12 years | 8.33% | 16.67% | 1 July 2007
+Feed milling and handling assets: / Manual (Feeding systems) | 15 years | 6.67% | 13.33% | 1 July 2007
 Feed milling and handling assets: / Grain mills (including roller mills, disc mills and hammer mills) | 15 years | 6.67% | 13.33% | 1 July 2007
 Feed milling and handling assets: / Manure spreaders | 10 years | 10.00% | 20.00% | 1 July 2007
 Feed milling and handling assets: / Silage pits | 40 years | 2.50% | 5.00% | 1 July 2007
 Feed milling and handling assets: / Silage wagons | 10 years | 10.00% | 20.00% | 1 July 2007
-Feed milling and handling assets: / Silos (steel) | 20 years | 5.00% | 10.00% | 1 July 2007
-Feed milling and handling assets: / Telescopic handlers | 10 years | 10.00% | 20.00% | 1 July 2007
+Silos (steel) (Feed milling and handling assets) | 20 years | 5.00% | 10.00% | 1 July 2007
+Telescopic handlers (Feed milling and handling assets) | 10 years | 10.00% | 20.00% | 1 July 2007
 Feed milling and handling assets: / Tub grinders | 7 years | 14.29% | 28.57% | 1 July 2007
-Milking and milk handling assets: | | | |
+Asset group · Milking and milk handling assets: | | | |
 Milking and milk handling assets: / Automatic cluster removers | 10 years | 10.00% | 20.00% | 1 July 2007
-Milking and milk handling assets: / Bailing systems: | | | |
+Asset group · Milking and milk handling assets: / Bailing systems: | | | |
 Milking and milk handling assets: / Bailing systems: / Herringbone (including swing over, double up and rapid exit) | 15 years | 6.67% | 13.33% | 1 July 2007
-Milking and milk handling assets: / Bailing systems: / Rotary | 15 years | 6.67% | 13.33% | 1 July 2007
+Milking and milk handling assets: / Rotary (Bailing systems) | 15 years | 6.67% | 13.33% | 1 July 2007
 Milking and milk handling assets: / Bailing systems: / Walk through | 15 years | 6.67% | 13.33% | 1 July 2007
-Milking and milk handling assets: / Filters | 15 years | 6.67% | 13.33% | 1 July 2016
+Filters (Milking and milk handling assets) | 15 years | 6.67% | 13.33% | 1 July 2016
 Milking and milk handling assets: / Milking systems (incorporating clusters, swing over arms, hoses, pipes, pulsators, vacuum pumps, variable speed control) | 15 years | 6.67% | 13.33% | 1 July 2007
 Milking and milk handling assets: / Milk meters and recording jars (including conductivity sensors) | 10 years | 10.00% | 20.00% | 1 July 2007
 Milking and milk handling assets: / Milk vats | 25 years | 4.00% | 8.00% | 1 July 2016
 Milking and milk handling assets: / Plate coolers | 15 years | 6.67% | 13.33% | 1 July 2007
-Milking and milk handling assets: / Receivers | 15 years | 6.67% | 13.33% | 1 July 2007
-Milking and milk handling assets: / Refrigeration compressors | 10 years | 10.00% | 20.00% | 1 July 2007
-Robotic milking system assets: | | | |
-Robotic milking system assets: / Air compressors | 5 years | 20.00% | 40.00% | 1 July 2016
-Robotic milking system assets: / Automated milking systems: | | | |
-Robotic milking system assets: / Automated milking systems: / Rotary | 10 years | 10.00% | 20.00% | 1 July 2016
+Receivers (Milking and milk handling assets) | 15 years | 6.67% | 13.33% | 1 July 2007
+Refrigeration compressors (Milking and milk handling assets) | 10 years | 10.00% | 20.00% | 1 July 2007
+Asset group · Robotic milking system assets: | | | |
+Air compressors (Robotic milking system assets) | 5 years | 20.00% | 40.00% | 1 July 2016
+Asset group · Robotic milking system assets: / Automated milking systems: | | | |
+Robotic milking system assets: / Rotary (Automated milking systems) | 10 years | 10.00% | 20.00% | 1 July 2016
 Robotic milking system assets: / Automated milking systems: / Single box and multi box | 10 years | 10.00% | 20.00% | 1 July 2016
 Robotic milking system assets: / Automatic feeding systems | 10 years | 10.00% | 20.00% | 1 July 2016
 Robotic milking system assets: / Automatic footbaths | 8 years | 12.50% | 25.00% | 1 July 2016
-Robotic milking system assets: / Control systems (excluding personal computers) – see Table B Control systems and control system assets | | | |
-Robotic milking system assets: / Cow comfort systems: | | | |
+Register note · Robotic milking system assets: / Control systems (excluding personal computers) – see Table B Control systems and control system assets | | | |
+Asset group · Robotic milking system assets: / Cow comfort systems: | | | |
 Robotic milking system assets: / Cow comfort systems: / Cow brushes | 3 years | 33.33% | 66.67% | 1 July 2016
 Robotic milking system assets: / Cow comfort systems: / Rubber matting | 7 years | 14.29% | 28.57% | 1 July 2016
 Robotic milking system assets: / Cow identification systems (including weights, bands, numbers and transponders) | 7 years | 14.29% | 28.57% | 1 July 2016
 Robotic milking system assets: / Cow traffic systems | 7 years | 14.29% | 28.57% | 1 July 2016
 Robotic milking system assets: / Milk chillers/plate coolers/energy recovery systems | 10 years | 10.00% | 20.00% | 1 July 2016
-Robotic milking system assets: / Vacuum pumps | 7 years | 14.29% | 28.57% | 1 July 2016
+Vacuum pumps (Robotic milking system assets) | 7 years | 14.29% | 28.57% | 1 July 2016
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/#source
 - Automatic calf feeders: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/automatic-calf-feeders/
-- Bulk and segregated commodity storage facilities (incorporating bunkers): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/bulk-and-segregated-commodity-storage-facilities/
+- Bulk and segregated commodity storage facilities (incorporating bunkers) (Barn fed dairy farms): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/bulk-and-segregated-commodity-storage-facilities/
 - Exercise yards: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/exercise-yards/
 - Feeding barns and maternity barns (incorporating cow beds, fans, and feed alleys): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/feeding-barns-and-maternity-barns/
 - Air operated gates: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/air-operated-gates/
@@ -106,44 +107,44 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Automatic ID systems: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/automatic-id-systems/
 - Automatic weighing systems and cattle scales: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/automatic-weighing-systems-and-cattle-scales/
 - Backing gates: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/backing-gates/
-- Calf cradles: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/calf-cradles/
+- Calf cradles (Dairy cattle farming): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/calf-cradles/
 - Cattle crushes (including automatic): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/cattle-crushes/
 - Cattle laneways: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/cattle-laneways/
 - Cattle yards (including loading ramps): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/cattle-yards/
 - Dairy milking sheds: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/dairy-milking-sheds/
 - Dairy yards and races: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/dairy-yards-and-races/
-- Automatic: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/cattle-handling-assets-automatic/
-- Manual: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/cattle-handling-assets-manual/
+- Automatic (Teat spraying systems): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/cattle-handling-assets-automatic/
+- Manual (Teat spraying systems): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/cattle-handling-assets-manual/
 - High pressure pumps and hoses: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/high-pressure-pumps-and-hoses/
 - Hot water services: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/hot-water-services/
-- Automatic: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/clean-up-assets-automatic/
-- Manual: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/clean-up-assets-manual/
-- Augers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/augers/
-- Conveyors and elevators: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/conveyors-and-elevators/
-- Feed mixers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/feed-mixers/
+- Automatic (Milk line washing systems): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/clean-up-assets-automatic/
+- Manual (Milk line washing systems): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/clean-up-assets-manual/
+- Augers (Feed milling and handling assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/augers/
+- Conveyors and elevators (Feed milling and handling assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/conveyors-and-elevators/
+- Feed mixers (Dairy cattle farming): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/feed-mixers/
 - Feed pads and bunkers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/feed-pads-and-bunkers/
-- Automatic: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/feed-milling-and-handling-assets-automatic/
-- Manual: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/feed-milling-and-handling-assets-manual/
+- Automatic (Feeding systems): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/feed-milling-and-handling-assets-automatic/
+- Manual (Feeding systems): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/feed-milling-and-handling-assets-manual/
 - Grain mills (including roller mills, disc mills and hammer mills): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/grain-mills/
 - Manure spreaders: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/manure-spreaders/
 - Silage pits: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/silage-pits/
 - Silage wagons: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/silage-wagons/
-- Silos (steel): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/silos/
-- Telescopic handlers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/telescopic-handlers/
+- Silos (steel) (Feed milling and handling assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/silos/
+- Telescopic handlers (Feed milling and handling assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/telescopic-handlers/
 - Tub grinders: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/tub-grinders/
 - Automatic cluster removers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/automatic-cluster-removers/
 - Herringbone (including swing over, double up and rapid exit): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/herringbone/
-- Rotary: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/milking-and-milk-handling-assets-rotary/
+- Rotary (Bailing systems): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/milking-and-milk-handling-assets-rotary/
 - Walk through: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/walk-through/
-- Filters: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/filters/
+- Filters (Milking and milk handling assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/filters/
 - Milking systems (incorporating clusters, swing over arms, hoses, pipes, pulsators, vacuum pumps, variable speed control): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/milking-systems/
 - Milk meters and recording jars (including conductivity sensors): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/milk-meters-and-recording-jars/
 - Milk vats: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/milk-vats/
 - Plate coolers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/plate-coolers/
-- Receivers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/receivers/
-- Refrigeration compressors: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/refrigeration-compressors/
-- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/air-compressors/
-- Rotary: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/robotic-milking-system-assets-rotary/
+- Receivers (Milking and milk handling assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/receivers/
+- Refrigeration compressors (Milking and milk handling assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/refrigeration-compressors/
+- Air compressors (Robotic milking system assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/air-compressors/
+- Rotary (Automated milking systems): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/robotic-milking-system-assets-rotary/
 - Single box and multi box: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/single-box-and-multi-box/
 - Automatic feeding systems: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/automatic-feeding-systems/
 - Automatic footbaths: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/automatic-footbaths/
@@ -153,9 +154,9 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Cow identification systems (including weights, bands, numbers and transponders): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/cow-identification-systems/
 - Cow traffic systems: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/cow-traffic-systems/
 - Milk chillers/plate coolers/energy recovery systems: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/milk-chillers-plate-coolers-energy-recovery-systems/
-- Vacuum pumps: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/vacuum-pumps/
+- Vacuum pumps (Robotic milking system assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/vacuum-pumps/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

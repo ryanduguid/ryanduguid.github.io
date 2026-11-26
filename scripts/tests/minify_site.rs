@@ -271,15 +271,45 @@ fn the_tree_is_minified_in_place_and_other_files_are_left_alone() {
     let module = "export const total = (first, second) => first + second;\n";
     let script = "window.siteValue = 1;\n";
     let sheet = ".a {\n  color: red;\n}\n";
-    let page = "<script type=\"module\" src=\"/assets/a.mjs\"></script>\n";
+    let page = concat!(
+        r##"<main><h1>Site</h1><p><a href="#rate">Read <code>RATE</code></a></p><img src="/chart.png" alt="Cash flow chart">"##,
+        r#"<noscript><p>Every row is in the <a href="/data.json">data file</a>.</p></noscript>"#,
+        r#"<table><caption>Facts</caption><tbody><tr><th scope="row">Life</th><td>8 years</td></tr><tr><th scope="row">Code</th><td><code>a  b|c</code></td></tr></tbody></table>"#,
+        "<table><tbody><tr><td><p>First</p><p>Second</p></td></tr></tbody></table></main>\n",
+    );
     fs::write(assets.join("a.mjs"), module).unwrap();
     fs::write(assets.join("b.js"), script).unwrap();
     fs::write(assets.join("c.css"), sheet).unwrap();
     fs::write(dir.path().join("index.html"), page).unwrap();
+    fs::write(dir.path().join("index.txt"), "# Site").unwrap();
     fs::write(assets.join("d.json"), "{ \"a\": 1 }\n").unwrap();
 
     let (files, before, after) = minify_tree(dir.path()).unwrap();
     assert_eq!(files, 3);
+    let markdown = fs::read_to_string(dir.path().join("index.md")).unwrap();
+    assert_eq!(
+        markdown
+            .lines()
+            .filter(|line| line.starts_with("# "))
+            .count(),
+        1
+    );
+    for fragment in [
+        "[Read `RATE`](https://duguid.com.au/#rate)",
+        "![Cash flow chart](https://duguid.com.au/chart.png)",
+        "Every row is in the [data file](https://duguid.com.au/data.json).",
+        "Facts",
+        "| Field | Value |",
+        "| --- | --- |",
+        "| Life | 8 years |",
+        "| Code | `a  b\\|c` |",
+        "<td><p>First</p><p>Second</p></td>",
+    ] {
+        assert!(
+            markdown.contains(fragment),
+            "{fragment} missing from {markdown}"
+        );
+    }
     assert_eq!(before, (module.len() + script.len() + sheet.len()) as u64);
     assert!(after < before);
     assert_eq!(
@@ -313,6 +343,84 @@ fn the_tree_is_minified_in_place_and_other_files_are_left_alone() {
             "{name}"
         );
     }
+}
+
+#[test]
+fn layouts_share_the_base_stylesheet_and_keep_their_cascade() {
+    let dir = tempfile::tempdir().unwrap();
+    let root = dir.path();
+    let assets = root.join("assets");
+    fs::create_dir(&assets).unwrap();
+    fs::write(assets.join("tokens.css"), ":root { --ink: black; }").unwrap();
+    fs::write(assets.join("site.css"), "body { color: var(--ink); }").unwrap();
+    fs::write(
+        assets.join("accounting-pages.css"),
+        ".amount { min-width: 2em; }",
+    )
+    .unwrap();
+    let core = "<link rel=\"stylesheet\" href=\"/assets/tokens.css?v=a\" />\n<link rel=\"stylesheet\" href=\"/assets/site.css?v=b\" />";
+    let accounting = "<link rel=\"stylesheet\" href=\"/assets/accounting-pages.css?v=c\" />";
+    let finder = "<link rel=\"stylesheet\" href=\"/assets/finder.css?v=d\" />";
+    for (file, tail) in [
+        ("index.html", String::new()),
+        ("calculator.html", format!("\n{accounting}\n{finder}")),
+    ] {
+        fs::write(root.join(file), format!("<head>{core}{tail}</head>")).unwrap();
+    }
+    minify_tree(root).unwrap();
+    let bundle = fs::read_dir(&assets)
+        .unwrap()
+        .map(|e| e.unwrap().file_name())
+        .find(|name| name.to_string_lossy().starts_with("screen-"))
+        .unwrap();
+    assert_eq!(
+        fs::read_to_string(assets.join(&bundle)).unwrap(),
+        ":root{--ink:black}body{color:var(--ink)}.amount{min-width:2em}"
+    );
+    let link = format!(
+        "<link rel=\"stylesheet\" href=\"/assets/{}\" />",
+        bundle.to_string_lossy()
+    );
+    for (file, tail) in [
+        ("index.html", String::new()),
+        ("calculator.html", format!("\n{finder}")),
+    ] {
+        assert_eq!(
+            fs::read_to_string(root.join(file)).unwrap(),
+            format!("<head>{link}{tail}</head>")
+        );
+    }
+    minify_tree(root).unwrap();
+    fs::write(root.join("index.html"), "<main><h1>Site</h1></main>").unwrap();
+    fs::write(root.join("index.txt"), "public text").unwrap();
+    fs::write(root.join("index.md"), "existing page").unwrap();
+    assert!(minify_tree(root).unwrap_err().contains("conflicts"));
+    assert_eq!(
+        fs::read_to_string(root.join("index.md")).unwrap(),
+        "existing page"
+    );
+}
+
+#[test]
+fn a_missing_referenced_stylesheet_fails_publication() {
+    let dir = tempfile::tempdir().unwrap();
+    let assets = dir.path().join("assets");
+    fs::create_dir(&assets).unwrap();
+    for name in ["tokens", "site"] {
+        fs::write(assets.join(format!("{name}.css")), "").unwrap();
+    }
+    let tags = ["tokens", "site", "accounting-pages"]
+        .map(|name| format!(r#"<link rel="stylesheet" href="/assets/{name}.css?v=a" />"#));
+    fs::write(
+        dir.path().join("index.html"),
+        format!("<head>{}</head>", tags.join("\n")),
+    )
+    .unwrap();
+    assert!(
+        minify_tree(dir.path())
+            .unwrap_err()
+            .contains("accounting-pages.css is missing")
+    );
 }
 
 #[test]

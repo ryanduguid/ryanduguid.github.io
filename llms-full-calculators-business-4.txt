@@ -635,13 +635,13 @@ Western Australia charges its metropolitan region improvement tax of 0.14% of th
 
 The land tax calculator applies the scale for the rates and owner you choose. It does not decide which land is taxable, which rates apply, whether an owner is a foreign person or absentee, or what the taxable or surcharge value is; the foreign purchaser surcharge calculator applies each jurisdiction’s test of a foreign or absentee owner. These are not computed:
 
-- New South Wales: exemptions and concessions, including the principal place of residence and primary production land exemptions, exemptions from surcharge land tax, and land of a company that is not its group’s concessional company, which pays 1.6% of its whole taxable value with no threshold, or 2% of it where the group’s land exceeds the premium threshold (Land Tax Act 1956, Schedule 13, Parts 3 and 4).
-- Victoria: exemptions and concessions, exemptions from the absentee owner surcharge and vacant residential land tax.
+- New South Wales land tax exemptions and concessions, including the principal place of residence and primary production land exemptions, exemptions from surcharge land tax, and land of a company that is not its group’s concessional company, which pays 1.6% of its whole taxable value with no threshold, or 2% of it where the group’s land exceeds the premium threshold (Land Tax Act 1956, Schedule 13, Parts 3 and 4).
+- Victoria land tax exemptions and concessions, exemptions from the absentee owner surcharge and vacant residential land tax.
 - Queensland: exemptions and relief, exemptions from the foreign surcharge and the aggregation of land held for trusts with the same beneficiaries.
-- Western Australia: land tax exemptions, and the metropolitan region improvement tax on holdings only partly in the Perth metropolitan region.
+- Western Australia land tax exemptions, and the metropolitan region improvement tax on holdings only partly in the Perth metropolitan region.
 - South Australia: exemptions, waiver or relief, and which land held on trust qualifies for the general rates.
 - Tasmania: zero rate classifications, exemptions and rebates, including principal residence and primary production land, and which land the foreign investor land tax surcharge applies to.
-- Australian Capital Territory: land tax exemptions, when the foreign ownership surcharge applies, a unit’s share by its unit entitlement and the split into quarters. Land tax there applies to residential property that is not a principal place of residence.
+- Australian Capital Territory land tax exemptions, when the foreign ownership surcharge applies, a unit’s share by its unit entitlement and the split into quarters. Land tax there applies to residential property that is not a principal place of residence.
 
 Joint ownership, grouping of related companies and the apportionment of the tax between properties are not computed either. Confirm the figure with the revenue office’s own calculator or assessment notice before relying on it.
 
@@ -691,18 +691,18 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
-- exemptions and concessions: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/exemptions-and-concessions
+- New South Wales land tax exemptions and concessions: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/exemptions-and-concessions
 - exemptions from surcharge land tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/surcharge-land-tax
-- exemptions and concessions: https://www.sro.vic.gov.au/owning-property/land-tax/exemptions-and-concessions-land-tax
+- Victoria land tax exemptions and concessions: https://www.sro.vic.gov.au/owning-property/land-tax/exemptions-and-concessions-land-tax
 - exemptions from the absentee owner surcharge: https://www.sro.vic.gov.au/owning-property/land-tax/absentee-owner-surcharge
 - exemptions and relief: https://qro.qld.gov.au/land-tax/relief/
 - exemptions from the foreign surcharge: https://qro.qld.gov.au/land-tax/foreign-surcharge/
-- land tax exemptions: https://www.wa.gov.au/service/financial-management/taxation-and-duty/apply-land-tax-exemption
+- Western Australia land tax exemptions: https://www.wa.gov.au/service/financial-management/taxation-and-duty/apply-land-tax-exemption
 - exemptions, waiver or relief: https://www.revenuesa.sa.gov.au/land-tax/LTExemptions
 - land held on trust: https://www.revenuesa.sa.gov.au/land-tax/trusts
 - zero rate classifications, exemptions and rebates: https://www.sro.tas.gov.au/land-tax/exemptions-and-rebates
 - which land the foreign investor land tax surcharge applies to: https://www.sro.tas.gov.au/land-tax/foreign-investor-land-tax-surcharge/rate-of-surcharge
-- land tax exemptions: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/land-tax-exemptions
+- Australian Capital Territory land tax exemptions: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/land-tax-exemptions
 - when the foreign ownership surcharge applies: https://www.revenue.act.gov.au/rates-and-property-charges/land-tax/foreign-ownership-surcharge-for-land-tax
 - fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/

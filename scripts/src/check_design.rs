@@ -34,7 +34,7 @@ pub const LAMBDA_MARKUP: &str = "<span class=\"function-symbol\">\u{3bb}</span>"
 const SYMBOL_OPEN: &str = "<span class=\"function-symbol\">";
 const RAW_COLOUR_PATTERN: &str = r"#[0-9a-f]{3,8}\b";
 pub const ACCOUNTING_LINK: &str =
-    "<link rel=\"stylesheet\" href=\"/assets/accounting-pages.css?v=20261007b\" />";
+    "<link rel=\"stylesheet\" href=\"/assets/accounting-pages.css?v=20261126a\" />";
 pub const GOOGLE_FAVICON_LINKS: [&str; 2] = [
     "<link rel=\"icon\" type=\"image/png\" sizes=\"48x48\" href=\"/assets/favicon-48.png\" />",
     "<link rel=\"icon\" type=\"image/png\" sizes=\"96x96\" href=\"/assets/favicon-96.png\" />",

@@ -10,9 +10,47 @@
   margin-block: 0;
 }
 
-.accounting-content {
+:where(.accounting-page) .accounting-content {
   max-width: 76rem;
   padding-bottom: var(--space-8);
+}
+
+:where(.accounting-page) .accounting-content section > :is(h2, h3) + :is(p, ul, ol, .table-scroll) {
+  margin-block-start: var(--space-4);
+}
+
+:where(.accounting-page) .accounting-content > section + section {
+  margin-block-start: clamp(var(--space-6), 4vw, var(--space-7));
+}
+
+:where(.accounting-page) .accounting-content section > p + .table-scroll,
+:where(.accounting-page) .accounting-content section > .table-scroll + p {
+  margin-block-start: var(--space-5);
+}
+
+:where(.accounting-page) .register-jumps {
+  margin-block: var(--space-4);
+}
+
+:where(.accounting-page) .register-jumps summary {
+  padding-block: var(--space-3);
+  cursor: pointer;
+}
+
+:where(.accounting-page) .register-jumps nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: var(--space-2) var(--space-5);
+}
+
+:where(.accounting-page) .register-jumps a {
+  display: flex;
+  align-items: center;
+  min-block-size: 44px;
+}
+
+.depreciation-page tr[id^="asset-group-"] {
+  scroll-margin-block-start: var(--space-6);
 }
 
 .accounting-page p,
@@ -20,39 +58,39 @@
   max-width: var(--reading-width);
 }
 
-.question-topics ul,
-.form-grid {
+:where(.accounting-page) .question-topics ul,
+:where(.accounting-page) .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
   gap: var(--space-4);
 }
 
-.question-topics li + li {
+:where(.accounting-page) .question-topics li + li {
   margin-top: 0;
 }
 
-.question-topics ul {
+:where(.accounting-page) .question-topics ul {
   list-style: none;
   padding: 0;
   gap: var(--space-2) var(--space-5);
 }
 
-.question-topics a,
-.question-permalink,
-.question-select label,
-.check-field {
+:where(.accounting-page) .question-topics a,
+:where(.accounting-page) .question-permalink,
+:where(.accounting-page) .question-select label,
+:where(.accounting-page) .check-field {
   display: flex;
   align-items: center;
   gap: var(--space-3);
   min-height: 44px;
 }
 
-.question-topics {
+:where(.accounting-page) .question-topics {
   margin-block: var(--space-6);
 }
 
-.question-controls,
-.business-calculator {
+:where(.accounting-page) .question-controls,
+:where(.accounting-page) .business-calculator {
   border-top: var(--rule-thin) solid var(--colour-rule-strong);
   padding-top: var(--space-5);
   margin-block: var(--space-6);
@@ -60,33 +98,33 @@
 
 /* The header's strong rule already closes it, so the first section needs no
    second rule a few pixels below, which read as a missing row. */
-.article-header + .accounting-content > .business-calculator:first-of-type,
-.article-header + .accounting-content > .question-controls:first-of-type {
+:where(.accounting-page) .article-header + .accounting-content > .business-calculator:first-of-type,
+:where(.accounting-page) .article-header + .accounting-content > .question-controls:first-of-type {
   border-top: 0;
   padding-top: 0;
 }
 
-.business-calculator h2 {
+:where(.accounting-page) .business-calculator h2 {
   margin-bottom: var(--space-3);
 }
 
 /* The method heading starts a new part of the page, so it takes a section
    gap below the result. */
-.business-calculator > h2 {
+:where(.accounting-page) .business-calculator > h2 {
   margin-top: var(--space-7);
 }
 
 /* The questions come first, so the tools and the group heading sit close to the header. */
-.question-controls.question-tools {
+:where(.accounting-page) .question-controls.question-tools {
   margin-block: var(--space-3) 0;
   padding-top: var(--space-2);
 }
 
-.question-tools ~ .question-group {
+:where(.accounting-page) .question-tools ~ .question-group {
   margin-top: var(--space-5);
 }
 
-.question-tools > summary {
+:where(.accounting-page) .question-tools > summary {
   display: list-item;
   min-height: 2.75rem;
   padding-block: var(--space-3);
@@ -94,11 +132,11 @@
   font-weight: 600;
 }
 
-.byline p + p {
+:where(.accounting-page) .byline p + p {
   margin-top: var(--space-3);
 }
 
-.accounting-actions {
+:where(.accounting-page) .accounting-actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
@@ -115,44 +153,49 @@
   cursor: default;
 }
 
-.question-group {
+:where(.accounting-page) .question-group {
   margin-top: var(--space-7);
 }
 
 /* On the questions hub each topic heading is a link; its review line sits
    clear of the underline. On a topic page the closing links follow the
    group with a section gap. */
-.question-group > h2 + .topic-review {
+:where(.accounting-page) .question-group > h2 + .topic-review {
   margin-top: var(--space-3);
 }
 
 /* Heading links take the register's title underline, as entry titles do. */
-.question-group > h2 > a {
+:where(.accounting-page) .question-group > h2 > a {
   text-decoration-color: currentColor;
   text-decoration-thickness: from-font;
   text-underline-offset: var(--space-2);
 }
 
-.question-group + p {
+:where(.accounting-page) .question-group + p {
   margin-top: var(--space-6);
 }
 
 /* An inline error spans the field row under the field that failed, so it
    does not take a neighbouring field's cell. Dense packing returns the
    fields after it to the gap it leaves in that row, so they do not move. */
-.form-grid {
+:where(.accounting-page) .form-grid {
   grid-auto-flow: row dense;
+  row-gap: var(--space-5);
 }
 
-.form-grid > .field-error {
+:where(.accounting-page) .form-grid > :is(label, .field) {
+  align-content: start;
+}
+
+:where(.accounting-page) .form-grid > .field-error {
   grid-column: 1 / -1;
 }
 
-.question {
+:where(.accounting-page) .question {
   border-top: var(--rule-thin) solid var(--colour-rule);
 }
 
-.question summary {
+:where(.accounting-page) .question summary {
   cursor: pointer;
   min-height: 44px;
   padding: var(--space-4) var(--space-2);
@@ -161,7 +204,7 @@
 
 /* Each question is an h3 for heading navigation and answer engines, styled as
    the summary line it sits in. */
-.question summary h3 {
+:where(.accounting-page) .question summary h3 {
   display: inline;
   margin: 0;
   padding: 0;
@@ -172,16 +215,16 @@
   color: inherit;
 }
 
-.question-number {
+:where(.accounting-page) .question-number {
   color: var(--colour-ink-soft);
   font-family: var(--font-mono);
 }
 
-.question-answer {
+:where(.accounting-page) .question-answer {
   padding: 0 var(--space-4) var(--space-5);
 }
 
-.question-boundary {
+:where(.accounting-page) .question-boundary {
   border-left: var(--rule-strong) solid var(--colour-rule-strong);
   padding-left: var(--space-4);
   color: var(--colour-ink-mid);
@@ -223,13 +266,13 @@
   font-variant-numeric: tabular-nums;
 }
 
-.result-inputs {
+:where(.accounting-page) .result-inputs {
   display: block;
   color: var(--colour-ink-soft);
   font-size: var(--text-small);
 }
 
-.result-rows {
+:where(.accounting-page) .result-rows {
   display: grid;
   margin-top: var(--space-2);
 }
@@ -263,11 +306,11 @@
   border-bottom: 0;
 }
 
-.result-row--principal {
+:where(.accounting-page) .result-row--principal {
   font-size: var(--text-lead);
 }
 
-.result-note {
+:where(.accounting-page) .result-note {
   display: block;
   margin-top: var(--space-3);
   font-weight: 600;
@@ -299,38 +342,38 @@
     max-width: none;
   }
 
-  .calculator-split > fieldset {
+  :where(.accounting-page) .calculator-split > fieldset {
     grid-column: 1;
     grid-row: 1 / span 2;
   }
 
-  .calculator-split > output,
-  .calculator-split > .sources-applied {
+  :where(.accounting-page) .calculator-split > output,
+  :where(.accounting-page) .calculator-split > .sources-applied {
     grid-column: 2;
   }
 
-  .calculator-split > output {
+  :where(.accounting-page) .calculator-split > output {
     margin-top: 0;
   }
 }
 
-.cash-scroll {
+:where(.accounting-page) .cash-scroll {
   margin-block: var(--space-4);
 }
 
-.cash-scroll table {
+:where(.accounting-page) .cash-scroll table {
   width: 100%;
   font-variant-numeric: tabular-nums;
 }
 
 /* Only the six-column results table needs a scroll width. The three-column
    input table fits a phone, so every weekly input stays on screen. */
-#cash-results {
+:where(.accounting-page) #cash-results {
   min-width: 30rem;
 }
 
-.cash-scroll th,
-.cash-scroll td {
+:where(.accounting-page) .cash-scroll th,
+:where(.accounting-page) .cash-scroll td {
   padding: var(--space-2);
   white-space: nowrap;
 }
@@ -340,15 +383,15 @@
    moves in to match, so the 4px cell padding still holds all of it at the
    edge of the scroll region. */
 @media (max-width: 24rem) {
-  .cash-scroll table:not(#cash-results) :is(th, td) {
+  :where(.accounting-page) .cash-scroll table:not(#cash-results) :is(th, td) {
     padding-inline: var(--space-1);
   }
 
-  .cash-scroll table:not(#cash-results) input {
+  :where(.accounting-page) .cash-scroll table:not(#cash-results) input {
     padding-inline: var(--space-2);
   }
 
-  .cash-scroll table:not(#cash-results) input:focus-visible {
+  :where(.accounting-page) .cash-scroll table:not(#cash-results) input:focus-visible {
     outline-offset: 0.0625rem;
   }
 }
@@ -358,40 +401,40 @@
 }
 
 @media print {
-  .question-controls,
-  .question-topics,
-  .question-select,
-  .question-permalink,
+  :where(.accounting-page) .question-controls,
+  :where(.accounting-page) .question-topics,
+  :where(.accounting-page) .question-select,
+  :where(.accounting-page) .question-permalink,
   .accounting-page button {
     display: none;
   }
-  .print-selected .question:not(.is-selected),
-  .print-selected .question-group:not(:has(.is-selected)) {
+  .print-selected :where(.accounting-page) .question:not(.is-selected),
+  .print-selected :where(.accounting-page) .question-group:not(:has(.is-selected)) {
     display: none;
   }
-  .question-answer { padding-inline: 0; }
-  #cash-results { min-width: 0; }
+  :where(.accounting-page) .question-answer { padding-inline: 0; }
+  :where(.accounting-page) #cash-results { min-width: 0; }
 }
 
-.question-index,
-.calculator-list {
+:where(.accounting-page) .question-index,
+:where(.accounting-page) .calculator-list {
   padding-left: 1.5rem;
 }
 
-.question-index li,
-.calculator-list li {
+:where(.accounting-page) .question-index li,
+:where(.accounting-page) .calculator-list li {
   padding-block: var(--space-2);
   border-top: var(--rule-thin) solid var(--colour-rule);
 }
 
-.calculator-list li + li,
-.question-index li + li {
+:where(.accounting-page) .calculator-list li + li,
+:where(.accounting-page) .question-index li + li {
   margin-top: 0;
 }
 
 /* The calculators hub reads as a register like Tools: each name is a title
    link, with what the calculator works out beside it on wide screens. */
-.calculator-list {
+:where(.accounting-page) .calculator-list {
   padding-left: 0;
   list-style: none;
 }
@@ -403,7 +446,7 @@
   padding-block: var(--space-4);
 }
 
-.calculator-list .collection-entry__title {
+:where(.accounting-page) .calculator-list .collection-entry__title {
   justify-self: start;
   font-size: var(--text-lead);
 }
@@ -419,15 +462,15 @@
 /* Phones: the first control of a calculator or question page has to land inside
    an iPhone's 664px first screen, so the space above it tightens here. */
 @media screen and (max-width: 40rem) {
-  .business-calculator {
+  :where(.accounting-page) .business-calculator {
     margin-block-start: var(--space-4);
   }
 
-  .question-controls.question-tools {
+  :where(.accounting-page) .question-controls.question-tools {
     margin-block-start: var(--space-1);
   }
 
-  .question-tools ~ .question-group {
+  :where(.accounting-page) .question-tools ~ .question-group {
     margin-top: var(--space-3);
   }
 }

@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/mining/filtration-process-assets/
 
-> Hydrometallurgy and Pyrometallurgy assets: Filtration process assets: effective life 15 years, last updated 1 July 2003 (Table A).
+> Filtration process assets: life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 July 2003.
 
 # Hydrometallurgy and Pyrometallurgy assets: Filtration process assets
 
 ‘Hydrometallurgy and Pyrometallurgy assets: Filtration process assets’, for an asset used in MINING, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2003.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Filtration process assets
 Under | Hydrometallurgy and Pyrometallurgy assets:
@@ -25,11 +25,13 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in MINING takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In MINING, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
-The life was last reviewed and determined on 1 July 2003. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 July 2003. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Hydrometallurgy and Pyrometallurgy assets
+
+Other rows under Hydrometallurgy and Pyrometallurgy assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Casting process assets for casting billets or ingots | 30 years | 3.33% | 6.67%
@@ -50,18 +52,19 @@ Precipitation process assets (including tanks and agitators) | 20 years | 5.00% 
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 15 years.
+The depreciation calculator uses your cost, start date and this effective life of 15 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/mining/filtration-process-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Casting process assets for casting billets or ingots: https://duguid.com.au/tools/depreciation-rates/industry/mining/casting-process-assets-for-casting-billets-or-ingots/
 - Converting process assets (including rotatable cylindrical furnaces): https://duguid.com.au/tools/depreciation-rates/industry/mining/converting-process-assets/
@@ -76,9 +79,9 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Pots and ladles used for molten materials: https://duguid.com.au/tools/depreciation-rates/industry/mining/pots-and-ladles-used-for-molten-materials/
 - Precipitation process assets (including tanks and agitators): https://duguid.com.au/tools/depreciation-rates/industry/mining/precipitation-process-assets/
 - MINING: https://duguid.com.au/tools/depreciation-rates/industry/mining/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

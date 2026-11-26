@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/fuel-retailing/effluent-treatment-systems/
 
-> Gasoline and diesoline assets: Effluent treatment systems …: effective life 8 years, last updated 1 July 2010 (Table A).
+> Effluent treatment systems …: life 8 years, prime cost 12.50%, diminishing value 25.00% if first held from 10 May 2006. Updated 1 July 2010.
 
 # Gasoline and diesoline assets: Effluent treatment systems …
 
 ‘Gasoline and diesoline assets: Effluent treatment systems …’, for an asset used in Fuel retailing, has an effective life of 8 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2010.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Effluent treatment systems (incorporating motors, electronic circuitry, pumps, and separators)
 Under | Gasoline and diesoline assets:
@@ -25,13 +25,15 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in Fuel retailing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Fuel retailing, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
 Because the row says ‘incorporating’, the items it lists are components of the one asset, not separate assets (paragraph 4 of the guide).
 
-The life was last reviewed and determined on 1 July 2010. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 July 2010. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Gasoline and diesoline assets
+
+Other rows under Gasoline and diesoline assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Effluent treatment systems (incorporating motors, electronic circuitry, pumps, and separators) (this page) | 8 years | 12.50% | 25.00%
@@ -39,44 +41,47 @@ Leak protection pressure systems | 8 years | 12.50% | 25.00%
 Pay at pump card reading systems | 6 years | 16.67% | 33.33%
 Single or multi product gasoline and diesoline dispensers (incorporating meters, electronic circuitry, LCD displays, cash presets, hoses, automatic nozzles, steel cabinets and, where applicable, vapour recovery monitoring and collection systems) | 10 years | 10.00% | 20.00%
 Single or multi product gasoline and diesoline pumps (incorporating pump units, meters, electronic circuitry, LCD displays, cash presets, hoses, automatic nozzles, steel cabinets and, where applicable, vapour recovery monitoring and collection systems | 7 years | 14.29% | 28.57%
-Submersible turbine pumps | 8 years | 12.50% | 25.00%
+Submersible turbine pumps (Gasoline and diesoline assets) | 8 years | 12.50% | 25.00%
 Underground fuel distribution and containment piping systems (incorporating pipes, fittings and manholes) | 20 years | 5.00% | 10.00%
 
 8 rows share this heading. The Fuel retailing page lists them all.
 
-## The same wording elsewhere
+## Similarly named rows
 
-Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+Compare the full row description and industry. Similar names can cover different equipment or effective lives under section 6 of the determination.
+
+Similarly named rows. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Effluent treatment systems (incorporating air pump, pipes, separator and tank) | Petroleum product wholesaling | 10 years | 10.00% | 20.00%
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 8 years.
+The depreciation calculator uses your cost, start date and this effective life of 8 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/fuel-retailing/effluent-treatment-systems/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Leak protection pressure systems: https://duguid.com.au/tools/depreciation-rates/industry/fuel-retailing/leak-protection-pressure-systems/
 - Pay at pump card reading systems: https://duguid.com.au/tools/depreciation-rates/industry/fuel-retailing/pay-at-pump-card-reading-systems/
 - Single or multi product gasoline and diesoline dispensers (incorporating meters, electronic circuitry, LCD displays, cash presets, hoses, automatic nozzles, steel cabinets and, where applicable, vapour recovery monitoring and collection systems): https://duguid.com.au/tools/depreciation-rates/industry/fuel-retailing/single-or-multi-product-gasoline-and-diesoline-dispensers/
 - Single or multi product gasoline and diesoline pumps (incorporating pump units, meters, electronic circuitry, LCD displays, cash presets, hoses, automatic nozzles, steel cabinets and, where applicable, vapour recovery monitoring and collection systems: https://duguid.com.au/tools/depreciation-rates/industry/fuel-retailing/single-or-multi-product-gasoline-and-diesoline-pumps/
-- Submersible turbine pumps: https://duguid.com.au/tools/depreciation-rates/industry/fuel-retailing/submersible-turbine-pumps/
+- Submersible turbine pumps (Gasoline and diesoline assets): https://duguid.com.au/tools/depreciation-rates/industry/fuel-retailing/submersible-turbine-pumps/
 - Underground fuel distribution and containment piping systems (incorporating pipes, fittings and manholes): https://duguid.com.au/tools/depreciation-rates/industry/fuel-retailing/underground-fuel-distribution-and-containment-piping-systems/
 - Fuel retailing: https://duguid.com.au/tools/depreciation-rates/industry/fuel-retailing/
 - Effluent treatment systems (incorporating air pump, pipes, separator and tank): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/effluent-treatment-systems/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

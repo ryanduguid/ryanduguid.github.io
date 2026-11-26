@@ -243,6 +243,8 @@ calcForm.addEventListener('submit', (event) => {
   event.preventDefault();
   if (calculate()) revealResult();
 });
+// Enable the inline field errors only once the submit handler is installed.
+calcForm.noValidate = true;
 
 // Recalculate from the current inputs before printing, so the printed
 // working can never pair edited figures with a stale result.

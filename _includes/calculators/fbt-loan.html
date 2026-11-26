@@ -1,10 +1,10 @@
 <section class="business-calculator" id="fbt-loan">
 <form class="calculator-split" data-calculator="fbt-loan" data-year-days="365" data-statutory-rate="8.27">
 <fieldset disabled><legend>FBT loan inputs for the FBT year 1 April 2026 to 31 March 2027</legend><div class="form-grid">
-<label class="field" for="fbt-loan-balances">Total of the loan’s daily balances for the days the employee owed it in the year (AUD)<input id="fbt-loan-balances" name="balances" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="18250000" required /></label>
-<label class="field" for="fbt-loan-accrued">Interest that accrued on the loan for the year (AUD)<input id="fbt-loan-accrued" name="accrued" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="2000" required /></label>
-<label class="field" for="fbt-loan-income-use">Share of the loan used to produce the employee’s assessable income (%)<input id="fbt-loan-income-use" name="income-use" type="number" inputmode="decimal" min="0" max="100" step=".01" value="60" required /></label>
-<label class="field" for="fbt-loan-deduction">Deduction the employee could claim for the interest that accrued (AUD)<input id="fbt-loan-deduction" name="deduction" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="1200" required /></label>
+<label class="field" for="fbt-loan-balances">Total of the loan’s daily balances for the days the employee owed it in the year (AUD)<input enterkeyhint="next" id="fbt-loan-balances" name="balances" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="18250000" required /></label>
+<label class="field" for="fbt-loan-accrued">Interest that accrued on the loan for the year (AUD)<input enterkeyhint="next" id="fbt-loan-accrued" name="accrued" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="2000" required /></label>
+<label class="field" for="fbt-loan-income-use">Share of the loan used to produce the employee’s assessable income (%)<input enterkeyhint="next" id="fbt-loan-income-use" name="income-use" type="number" inputmode="decimal" min="0" max="100" step=".01" value="60" required /></label>
+<label class="field" for="fbt-loan-deduction">Deduction the employee could claim for the interest that accrued (AUD)<input enterkeyhint="done" id="fbt-loan-deduction" name="deduction" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="1200" required /></label>
 </div>
 <p class="field-note">A balance of $50,000 owed every day of the year totals $50,000 × 365 = $18,250,000. Enter 0% income use for a loan to an associate, or where the employee has not given you the loan declaration subsection 19(1) requires (an employee credit or share loan benefit needs none): the reduction then does not apply.</p>
 <button type="submit" class="button">Calculate</button></fieldset>

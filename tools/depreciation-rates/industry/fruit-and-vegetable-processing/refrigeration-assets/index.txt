@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/refrigeration-assets/
 
-> Support assets: Refrigeration assets …: effective life 15 years, prime cost 6.67%, diminishing value 13.33%, last updated 1 July 2010 (Table A, 2025 determination).
+> Support assets: Refrigeration assets …: life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 July 2010.
 
 # Support assets: Refrigeration assets … (Fruit and vegetable processing)
 
 ‘Support assets: Refrigeration assets …’, for an asset used in Fruit and vegetable processing, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2010.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Refrigeration assets (including compressors, cooling towers, condensers and pumps)
 Under | Fruit juice and fruit juice drink manufacturing assets: / Support assets:
@@ -25,72 +25,77 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in Fruit and vegetable processing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Fruit and vegetable processing, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
 Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
 
-The life was last reviewed and determined on 1 July 2010. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 July 2010. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Support assets
 
+Other rows under Support assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
-Boilers | 20 years | 5.00% | 10.00%
-Clean-in-place (CIP) system assets (including pipes, pumps and tanks) | 15 years | 6.67% | 13.33%
+Boilers (Fruit and vegetable processing) | 20 years | 5.00% | 10.00%
+Clean-in-place (CIP) system assets (including pipes, pumps and tanks) (Support assets) | 15 years | 6.67% | 13.33%
 Control system assets (excluding personal computers but including program logic controllers (PLCs) and switchgear) | 10 years | 10.00% | 20.00%
 Conveyors (including augers, belt conveyors and bucket elevators) | 15 years | 6.67% | 13.33%
 Fruit concentrate drum tippers | 15 years | 6.67% | 13.33%
-Pipes | 25 years | 4.00% | 8.00%
+Pipes (Fruit and vegetable processing) | 25 years | 4.00% | 8.00%
 Refrigeration assets (including compressors, cooling towers, condensers and pumps) (this page) | 15 years | 6.67% | 13.33%
-Valves | 10 years | 10.00% | 20.00%
-Weighbridges | 20 years | 5.00% | 10.00%
+Valves (Fruit and vegetable processing) | 10 years | 10.00% | 20.00%
+Weighbridges (Fruit and vegetable processing) | 20 years | 5.00% | 10.00%
 
 11 rows share this heading. The Fruit and vegetable processing page lists them all.
 
-## The same wording elsewhere
+## Similarly named rows
 
-Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+Compare the full row description and industry. Similar names can cover different equipment or effective lives under section 6 of the determination.
+
+Similarly named rows. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
-Refrigeration assets (including compressors, condensers, evaporators and pumps) | Oil and fat manufacturing | 15 years | 6.67% | 13.33%
+Refrigeration assets (including compressors, condensers, evaporators and pumps) (Margarine and shortening processing assets) | Oil and fat manufacturing | 15 years | 6.67% | 13.33%
 Refrigeration assets (including chillers, compressors, condensers, evaporative coolers and pumps) | Grain mill product manufacturing | 15 years | 6.67% | 13.33%
 Refrigeration assets (refrigeration units etc) | Other food product manufacturing n.e.c. | 12 years | 8.33% | 16.67%
 Refrigeration assets (including compressors, cooling towers, condensers, evaporators and pumps) | Soft drink, cordial and syrup manufacturing | 15 years | 6.67% | 13.33%
-Refrigeration assets (including compressors, condensers, evaporators and pumps) | Beer manufacturing (except non-alcoholic beer) | 15 years | 6.67% | 13.33%
+Refrigeration assets (including compressors, condensers, evaporators and pumps) (Support assets) | Beer manufacturing (except non-alcoholic beer) | 15 years | 6.67% | 13.33%
 Refrigeration assets (including compressors, condensers, evaporators and storage tanks) | Wine and other alcoholic beverage manufacturing | 15 years | 6.67% | 13.33%
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 15 years.
+The depreciation calculator uses your cost, start date and this effective life of 15 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/refrigeration-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/boilers/
-- Clean-in-place (CIP) system assets (including pipes, pumps and tanks): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/clean-in-place-system-assets/
+- Boilers (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/boilers/
+- Clean-in-place (CIP) system assets (including pipes, pumps and tanks) (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/clean-in-place-system-assets/
 - Control system assets (excluding personal computers but including program logic controllers (PLCs) and switchgear): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/control-system-assets/
 - Conveyors (including augers, belt conveyors and bucket elevators): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/fruit-juice-and-fruit-juice-conveyors/
 - Fruit concentrate drum tippers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/fruit-concentrate-drum-tippers/
-- Pipes: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/pipes/
-- Valves: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/valves/
-- Weighbridges: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/weighbridges/
+- Pipes (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/pipes/
+- Valves (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/valves/
+- Weighbridges (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/weighbridges/
 - Fruit and vegetable processing: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/
-- Refrigeration assets (including compressors, condensers, evaporators and pumps): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/refrigeration-assets/
+- Refrigeration assets (including compressors, condensers, evaporators and pumps) (Margarine and shortening processing assets): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/refrigeration-assets/
 - Refrigeration assets (including chillers, compressors, condensers, evaporative coolers and pumps): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/refrigeration-assets/
 - Refrigeration assets (refrigeration units etc): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/refrigeration-assets/
 - Refrigeration assets (including compressors, cooling towers, condensers, evaporators and pumps): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/refrigeration-assets/
-- Refrigeration assets (including compressors, condensers, evaporators and pumps): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/refrigeration-assets/
+- Refrigeration assets (including compressors, condensers, evaporators and pumps) (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/refrigeration-assets/
 - Refrigeration assets (including compressors, condensers, evaporators and storage tanks): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/refrigeration-assets/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

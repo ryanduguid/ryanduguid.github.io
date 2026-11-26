@@ -38,7 +38,7 @@ LinkedIn | linkedin.com/in/ryan-duguid
 
 I build accounting tools that let a second person trace the inputs, calculation and review decision. Three examples show the work in different forms:
 
-- Cash flow modelling. The Lumbridge case connects a fictional business’s profit, receipt dates and available cash through an Excel forecast and management briefing.
+- Cash flow modelling. The Lumbridge profit and cash flow example connects a fictional business’s profit, receipt dates and available cash through an Excel forecast and management briefing.
 - Month-end review. The accounting review pipeline turns trial balance files into inspectable exceptions, including a creditors difference and a financial year comparison warning.
 - Excel implementation. Ozzit provides native LAMBDA functions with editable examples and visible arithmetic.
 
@@ -106,7 +106,7 @@ I write and maintain this site in my own time and on my own equipment.
 - Management Accounting (CO): https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url
 - Xero trial balance export and review workflow: https://duguid.com.au/tools/xero-trial-balance/
 - github.com/ryanduguid: https://github.com/ryanduguid
-- Lumbridge case: https://duguid.com.au/examples/profit-vs-cash-flow/
+- Lumbridge profit and cash flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - accounting review pipeline: https://duguid.com.au/evaluate/#month-end-preview
 - Ozzit: https://github.com/ryanduguid/Ozzit
 - evidence register: https://duguid.com.au/evidence/
