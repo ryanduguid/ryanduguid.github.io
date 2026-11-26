@@ -8,162 +8,160 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordi
 
 60 effective lives in Table A of the Commissioner’s 2025 effective life determination for Soft drink, cordial and syrup manufacturing.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Soft drink, cordial and syrup manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-De-aerated water system assets (including pipes, pumps and tanks) | 20 years | 5.00% | 10.00% | 1 July 2009
+De-aerated water system assets (including pipes, pumps and tanks) (Soft drink, cordial and syrup manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2009
 Filter assets (including bag filters, carbon filters, cartridge filters, ozone filters and UV filters) | 15 years | 6.67% | 13.33% | 1 July 2009
-Fruit juice drink manufacturing assets – see Table A Fruit and vegetable processing (11400) | | | |
-Ice manufacturing assets (excluding dry ice manufacturing assets): | | | |
+Register note · Fruit juice drink manufacturing assets – see Table A Fruit and vegetable processing (11400) | | | |
+Asset group · Ice manufacturing assets (excluding dry ice manufacturing assets): | | | |
 Ice manufacturing assets (excluding dry ice manufacturing assets): / Ammonia tank liquid receivers | 20 years | 5.00% | 10.00% | 1 July 2016
-Ice manufacturing assets (excluding dry ice manufacturing assets): / Compressors | 12 years | 8.33% | 16.67% | 1 July 2016
+Ice manufacturing assets (excluding dry ice manufacturing assets): / Compressors (Ice manufacturing assets …) | 12 years | 8.33% | 16.67% | 1 July 2016
 Ice manufacturing assets (excluding dry ice manufacturing assets): / Condensers and cooling towers | 10 years | 10.00% | 20.00% | 1 July 2016
-Ice manufacturing assets (excluding dry ice manufacturing assets): / Ice cabinets: | | | |
+Asset group · Ice manufacturing assets (excluding dry ice manufacturing assets): / Ice cabinets: | | | |
 Ice manufacturing assets (excluding dry ice manufacturing assets): / Ice cabinets: / Display merchandisers | 5 years | 20.00% | 40.00% | 1 July 2016
 Ice manufacturing assets (excluding dry ice manufacturing assets): / Ice cabinets: / Hydraulic lift trailers | 10 years | 10.00% | 20.00% | 1 July 2016
 Ice manufacturing assets (excluding dry ice manufacturing assets): / Ice cabinets: / Mobile ice boxes | 7 years | 14.29% | 28.57% | 1 July 2016
 Ice manufacturing assets (excluding dry ice manufacturing assets): / Ice makers | 25 years | 4.00% | 8.00% | 1 July 2016
-Ice manufacturing assets (excluding dry ice manufacturing assets): / Support assets: | | | |
-Ice manufacturing assets (excluding dry ice manufacturing assets): / Support assets: / Augers | 20 years | 5.00% | 10.00% | 1 July 2016
+Asset group · Ice manufacturing assets (excluding dry ice manufacturing assets): / Support assets: | | | |
+Ice manufacturing assets (excluding dry ice manufacturing assets): / Augers (Support assets) | 20 years | 5.00% | 10.00% | 1 July 2016
 Ice manufacturing assets (excluding dry ice manufacturing assets): / Support assets: / Bagging assets (including air compressors, baggers, sealers etc) | 8 years | 12.50% | 25.00% | 1 July 2016
 Ice manufacturing assets (excluding dry ice manufacturing assets): / Support assets: / Block pressers | 10 years | 10.00% | 20.00% | 1 July 2016
 Ice manufacturing assets (excluding dry ice manufacturing assets): / Support assets: / Conveyors (including elevators, conveyors and belts) | 10 years | 10.00% | 20.00% | 1 July 2016
 Ice manufacturing assets (excluding dry ice manufacturing assets): / Support assets: / Ice rake assemblies | 8 years | 12.50% | 25.00% | 1 July 2016
 Ice manufacturing assets (excluding dry ice manufacturing assets): / Support assets: / Ice storage bins, feed bins and rake bins | 20 years | 5.00% | 10.00% | 1 July 2016
-Packaging assets: | | | |
-Packaging assets: / Filling and sealing assets: | | | |
-Packaging assets: / Filling and sealing assets: / Capping machines | 15 years | 6.67% | 13.33% | 1 July 2009
-Packaging assets: / Filling and sealing assets: / Container dryers (incorporating air knives and blowers) | 10 years | 10.00% | 20.00% | 1 July 2009
+Asset group · Packaging assets: | | | |
+Asset group · Packaging assets: / Filling and sealing assets: | | | |
+Packaging assets: / Filling and sealing assets: / Capping machines (Soft drink, cordial and syrup manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2009
+Packaging assets: / Filling and sealing assets: / Container dryers (incorporating air knives and blowers) (Soft drink, cordial and syrup manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2009
 Packaging assets: / Filling and sealing assets: / Cooling and warming tunnels | 10 years | 10.00% | 20.00% | 1 July 2009
 Packaging assets: / Filling and sealing assets: / Filling machines (including bag in box fillers, cup fillers and aseptic fillers) | 20 years | 5.00% | 10.00% | 1 July 2009
-Packaging assets: / Filling and sealing assets: / Induction sealers | 10 years | 10.00% | 20.00% | 1 July 2009
-Packaging assets: / Filling and sealing assets: / Inspection machines | 10 years | 10.00% | 20.00% | 1 July 2009
-Packaging assets: / Handling assets: | | | |
-Packaging assets: / Handling assets: / Bottle and can rinsing machines | 20 years | 5.00% | 10.00% | 1 July 2009
-Packaging assets: / Handling assets: / Depalletisers | 20 years | 5.00% | 10.00% | 1 July 2009
+Packaging assets: / Induction sealers (Filling and sealing assets) | 10 years | 10.00% | 20.00% | 1 July 2009
+Packaging assets: / Inspection machines (Filling and sealing assets) | 10 years | 10.00% | 20.00% | 1 July 2009
+Asset group · Packaging assets: / Handling assets: | | | |
+Packaging assets: / Bottle and can rinsing machines (Handling assets) | 20 years | 5.00% | 10.00% | 1 July 2009
+Packaging assets: / Handling assets: / Depalletisers (Soft drink, cordial and syrup manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2009
 Packaging assets: / Handling assets: / Pallet binders | 10 years | 10.00% | 20.00% | 1 July 2009
-Packaging assets: / Handling assets: / Palletisers | 20 years | 5.00% | 10.00% | 1 July 2009
+Packaging assets: / Handling assets: / Palletisers (Soft drink, cordial and syrup manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2009
 Packaging assets: / Handling assets: / Strap cutting machines | 10 years | 10.00% | 20.00% | 1 July 2009
-Packaging assets: / Handling assets: / Stretch wrappers | 15 years | 6.67% | 13.33% | 1 July 2009
-Packaging assets: / Packing assets: | | | |
-Packaging assets: / Packing assets: / Carton packers | 15 years | 6.67% | 13.33% | 1 July 2009
-Packaging assets: / Packing assets: / Coding machines (including container coders and outer date coders) | 7 years | 14.29% | 28.57% | 1 July 2009
-Packaging assets: / Packing assets: / Label applicators | 7 years | 14.29% | 28.57% | 1 July 2009
-Packaging assets: / Packing assets: / Labellers | 15 years | 6.67% | 13.33% | 1 July 2009
-Packaging assets: / Packing assets: / Multipack machines | 10 years | 10.00% | 20.00% | 1 July 2009
-Packaging assets: / Packing assets: / Shrink wrappers | 15 years | 6.67% | 13.33% | 1 July 2009
-Packaging assets: / Packing assets: / Tunnel pasteurisers | 10 years | 10.00% | 20.00% | 1 July 2009
-Support assets: | | | |
+Packaging assets: / Stretch wrappers (Handling assets) | 15 years | 6.67% | 13.33% | 1 July 2009
+Asset group · Packaging assets: / Packing assets: | | | |
+Packaging assets: / Carton packers (Packing assets) | 15 years | 6.67% | 13.33% | 1 July 2009
+Packaging assets: / Packing assets: / Coding machines (including container coders and outer date coders) (Soft drink, cordial and syrup manufacturing) | 7 years | 14.29% | 28.57% | 1 July 2009
+Packaging assets: / Packing assets: / Label applicators (Soft drink, cordial and syrup manufacturing) | 7 years | 14.29% | 28.57% | 1 July 2009
+Packaging assets: / Packing assets: / Labellers (Soft drink, cordial and syrup manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2009
+Packaging assets: / Packing assets: / Multipack machines (Soft drink, cordial and syrup manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2009
+Packaging assets: / Shrink wrappers (Packing assets) | 15 years | 6.67% | 13.33% | 1 July 2009
+Packaging assets: / Tunnel pasteurisers (Packing assets) | 10 years | 10.00% | 20.00% | 1 July 2009
+Asset group · Support assets: | | | |
 Support assets: / Additive dosing systems assets (including pipes, pumps and tanks) | 20 years | 5.00% | 10.00% | 1 July 2009
-Support assets: / Air compressors and receivers | 20 years | 5.00% | 10.00% | 1 July 2009
-Support assets: / Boilers | 20 years | 5.00% | 10.00% | 1 July 2009
-Support assets: / Carbonators (including controls, pumps and valves) | 20 years | 5.00% | 10.00% | 1 July 2009
-Support assets: / Centrifuges | 15 years | 6.67% | 13.33% | 1 July 2009
-Support assets: / Clean-in-place system (CIP) assets (including pipes, pumps and tanks) | 15 years | 6.67% | 13.33% | 1 July 2009
+Support assets: / Air compressors and receivers (Soft drink, cordial and syrup manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2009
+Support assets: / Boilers (Soft drink, cordial and syrup manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2009
+Carbonators (including controls, pumps and valves) (Support assets) | 20 years | 5.00% | 10.00% | 1 July 2009
+Centrifuges (Support assets) | 15 years | 6.67% | 13.33% | 1 July 2009
+Support assets: / Clean-in-place system (CIP) assets (including pipes, pumps and tanks) (Soft drink, cordial and syrup manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2009
 Support assets: / Control system assets (excluding personal computers, but including program logic controllers (PLCs) and switchgear) | 10 years | 10.00% | 20.00% | 1 July 2009
-Support assets: / Conveyers | 15 years | 6.67% | 13.33% | 1 July 2009
-Support assets: / Heat exchangers | 15 years | 6.67% | 13.33% | 1 July 2009
-Support assets: / Laboratory equipment | 10 years | 10.00% | 20.00% | 1 July 2009
+Conveyers (Support assets) | 15 years | 6.67% | 13.33% | 1 July 2009
+Support assets: / Heat exchangers (Soft drink, cordial and syrup manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2009
+Laboratory equipment (Support assets) | 10 years | 10.00% | 20.00% | 1 July 2009
 Support assets: / Refrigeration assets (including compressors, cooling towers, condensers, evaporators and pumps) | 15 years | 6.67% | 13.33% | 1 July 2009
-Support assets: / Pipes | 25 years | 4.00% | 8.00% | 1 July 2009
-Support assets: / Pumps | 15 years | 6.67% | 13.33% | 1 July 2009
+Support assets: / Pipes (Soft drink, cordial and syrup manufacturing) | 25 years | 4.00% | 8.00% | 1 July 2009
+Support assets: / Pumps (Soft drink, cordial and syrup manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2009
 Support assets: / Syrup preparation assets (including tanks) | 15 years | 6.67% | 13.33% | 1 July 2009
-Support assets: / Valves | 10 years | 10.00% | 20.00% | 1 July 2009
-Support assets: / Waste water treatment assets: | | | |
-Support assets: / Waste water treatment assets: / Aerators | 20 years | 5.00% | 10.00% | 1 July 2009
-Support assets: / Waste water treatment assets: / Anaerobic bio gas system assets | 25 years | 4.00% | 8.00% | 1 July 2009
-Support assets: / Waste water treatment assets: / Blowers | 20 years | 5.00% | 10.00% | 1 July 2009
-Support assets: / Waste water treatment assets: / Clarifiers | 20 years | 5.00% | 10.00% | 1 July 2009
-Support assets: / Waste water treatment assets: / Digester/aeration tanks | 25 years | 4.00% | 8.00% | 1 July 2009
-Support assets: / Waste water treatment assets: / Reverse osmosis system assets | 20 years | 5.00% | 10.00% | 1 July 2009
-Support assets: / Weighers | 20 years | 5.00% | 10.00% | 1 July 2009
-Tanks: | | | |
+Support assets: / Valves (Soft drink, cordial and syrup manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2009
+Asset group · Support assets: / Waste water treatment assets: | | | |
+Support assets: / Waste water treatment assets: / Aerators (Soft drink, cordial and syrup manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2009
+Support assets: / Waste water treatment assets: / Anaerobic bio gas system assets (Soft drink, cordial and syrup manufacturing) | 25 years | 4.00% | 8.00% | 1 July 2009
+Support assets: / Waste water treatment assets: / Blowers (Soft drink, cordial and syrup manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2009
+Support assets: / Waste water treatment assets: / Clarifiers (Soft drink, cordial and syrup manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2009
+Support assets: / Waste water treatment assets: / Digester/aeration tanks (Soft drink, cordial and syrup manufacturing) | 25 years | 4.00% | 8.00% | 1 July 2009
+Support assets: / Waste water treatment assets: / Reverse osmosis system assets (Soft drink, cordial and syrup manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2009
+Support assets: / Weighers (Soft drink, cordial and syrup manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2009
+Asset group · Tanks: | | | |
 Tanks: / Hot water | 25 years | 4.00% | 8.00% | 1 July 2009
-Tanks: / Liquid carbon dioxide (CO2) storage | 20 years | 5.00% | 10.00% | 1 July 2009
-Tanks: / Storage: | | | |
-Tanks: / Storage: / Chemical storage | 20 years | 5.00% | 10.00% | 1 July 2009
-Tanks: / Storage: / Generally | 30 years | 3.33% | 6.67% | 1 July 2009
+Tanks: / Liquid carbon dioxide (CO2) storage (Soft drink, cordial and syrup manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2009
+Asset group · Tanks: / Storage: | | | |
+Tanks: / Chemical storage (Storage) | 20 years | 5.00% | 10.00% | 1 July 2009
+Tanks: / Generally (Storage) | 30 years | 3.33% | 6.67% | 1 July 2009
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/#source
-- De-aerated water system assets (including pipes, pumps and tanks): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/de-aerated-water-system-assets/
+- De-aerated water system assets (including pipes, pumps and tanks) (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/de-aerated-water-system-assets/
 - Filter assets (including bag filters, carbon filters, cartridge filters, ozone filters and UV filters): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/filter-assets/
 - Fruit juice drink manufacturing assets – see Table A Fruit and vegetable processing (11400): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/
 - Ammonia tank liquid receivers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/ammonia-tank-liquid-receivers/
-- Compressors: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/compressors/
+- Compressors (Ice manufacturing assets …): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/compressors/
 - Condensers and cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/condensers-and-cooling-towers/
 - Display merchandisers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/display-merchandisers/
 - Hydraulic lift trailers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/hydraulic-lift-trailers/
 - Mobile ice boxes: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/mobile-ice-boxes/
 - Ice makers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/ice-makers/
-- Augers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/augers/
+- Augers (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/augers/
 - Bagging assets (including air compressors, baggers, sealers etc): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/bagging-assets/
 - Block pressers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/block-pressers/
 - Conveyors (including elevators, conveyors and belts): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/conveyors/
 - Ice rake assemblies: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/ice-rake-assemblies/
 - Ice storage bins, feed bins and rake bins: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/ice-storage-bins-feed-bins-and-rake-bins/
-- Capping machines: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/capping-machines/
-- Container dryers (incorporating air knives and blowers): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/container-dryers/
+- Capping machines (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/capping-machines/
+- Container dryers (incorporating air knives and blowers) (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/container-dryers/
 - Cooling and warming tunnels: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/cooling-and-warming-tunnels/
 - Filling machines (including bag in box fillers, cup fillers and aseptic fillers): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/filling-machines/
-- Induction sealers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/induction-sealers/
-- Inspection machines: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/inspection-machines/
-- Bottle and can rinsing machines: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/bottle-and-can-rinsing-machines/
-- Depalletisers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/depalletisers/
+- Induction sealers (Filling and sealing assets): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/induction-sealers/
+- Inspection machines (Filling and sealing assets): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/inspection-machines/
+- Bottle and can rinsing machines (Handling assets): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/bottle-and-can-rinsing-machines/
+- Depalletisers (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/depalletisers/
 - Pallet binders: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/pallet-binders/
-- Palletisers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/palletisers/
+- Palletisers (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/palletisers/
 - Strap cutting machines: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/strap-cutting-machines/
-- Stretch wrappers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/stretch-wrappers/
-- Carton packers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/carton-packers/
-- Coding machines (including container coders and outer date coders): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/coding-machines/
-- Label applicators: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/label-applicators/
-- Labellers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/labellers/
-- Multipack machines: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/multipack-machines/
-- Shrink wrappers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/shrink-wrappers/
-- Tunnel pasteurisers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/tunnel-pasteurisers/
+- Stretch wrappers (Handling assets): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/stretch-wrappers/
+- Carton packers (Packing assets): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/carton-packers/
+- Coding machines (including container coders and outer date coders) (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/coding-machines/
+- Label applicators (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/label-applicators/
+- Labellers (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/labellers/
+- Multipack machines (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/multipack-machines/
+- Shrink wrappers (Packing assets): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/shrink-wrappers/
+- Tunnel pasteurisers (Packing assets): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/tunnel-pasteurisers/
 - Additive dosing systems assets (including pipes, pumps and tanks): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/additive-dosing-systems-assets/
-- Air compressors and receivers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/air-compressors-and-receivers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/boilers/
-- Carbonators (including controls, pumps and valves): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/carbonators/
-- Centrifuges: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/centrifuges/
-- Clean-in-place system (CIP) assets (including pipes, pumps and tanks): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/clean-in-place-system-assets/
+- Air compressors and receivers (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/air-compressors-and-receivers/
+- Boilers (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/boilers/
+- Carbonators (including controls, pumps and valves) (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/carbonators/
+- Centrifuges (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/centrifuges/
+- Clean-in-place system (CIP) assets (including pipes, pumps and tanks) (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/clean-in-place-system-assets/
 - Control system assets (excluding personal computers, but including program logic controllers (PLCs) and switchgear): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/control-system-assets/
-- Conveyers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/conveyers/
-- Heat exchangers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/heat-exchangers/
-- Laboratory equipment: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/laboratory-equipment/
+- Conveyers (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/conveyers/
+- Heat exchangers (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/heat-exchangers/
+- Laboratory equipment (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/laboratory-equipment/
 - Refrigeration assets (including compressors, cooling towers, condensers, evaporators and pumps): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/refrigeration-assets/
-- Pipes: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/pipes/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/pumps/
+- Pipes (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/pipes/
+- Pumps (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/pumps/
 - Syrup preparation assets (including tanks): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/syrup-preparation-assets/
-- Valves: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/valves/
-- Aerators: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/aerators/
-- Anaerobic bio gas system assets: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/anaerobic-bio-gas-system-assets/
-- Blowers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/blowers/
-- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/clarifiers/
-- Digester/aeration tanks: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/digester-aeration-tanks/
-- Reverse osmosis system assets: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/reverse-osmosis-system-assets/
-- Weighers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/weighers/
+- Valves (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/valves/
+- Aerators (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/aerators/
+- Anaerobic bio gas system assets (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/anaerobic-bio-gas-system-assets/
+- Blowers (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/blowers/
+- Clarifiers (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/clarifiers/
+- Digester/aeration tanks (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/digester-aeration-tanks/
+- Reverse osmosis system assets (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/reverse-osmosis-system-assets/
+- Weighers (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/weighers/
 - Hot water: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/hot-water/
-- Liquid carbon dioxide (CO2) storage: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/liquid-carbon-dioxide-storage/
-- Chemical storage: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/chemical-storage/
-- Generally: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/generally/
+- Liquid carbon dioxide (CO2) storage (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/liquid-carbon-dioxide-storage/
+- Chemical storage (Storage): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/chemical-storage/
+- Generally (Storage): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/generally/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

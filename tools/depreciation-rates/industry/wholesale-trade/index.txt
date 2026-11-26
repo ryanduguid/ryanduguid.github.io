@@ -8,56 +8,54 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/
 
 16 effective lives in Table A of the Commissioner’s 2025 effective life determination for assets used across the WHOLESALE TRADE division.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of WHOLESALE TRADE. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Barcode readers/scanners – see Table B Warehouse and distribution centre equipment and machines | | | |
+Register note · Barcode readers/scanners – see Table B Warehouse and distribution centre equipment and machines | | | |
 Benches | 15 years | 6.67% | 13.33% | 1 July 2019
 Dimensioning machines | 15 years | 6.67% | 13.33% | 1 July 2019
-Ice making machines | 8 years | 12.50% | 25.00% | 1 July 2019
-Intermediate bulk containers: | | | |
-Intermediate bulk containers: / Mild and stainless steel | 15 years | 6.67% | 13.33% | 1 July 2019
-Intermediate bulk containers: / Others | 8 years | 12.50% | 25.00% | 1 July 2019
-Lifting and handling assets: | | | |
-Lifting and handling assets: / Elevating work platforms | 10 years | 10.00% | 20.00% | 1 July 2019
-Lifting and handling assets: / Forklifts – see Table B Warehouse and distribution centre equipment and machines | | | |
-Lifting and handling assets: / Pallet conveyers – see Table B Warehouse and distribution centre equipment and machines | | | |
-Lifting and handling assets: / Pallet jacks – see Table B Loading bay assets | | | |
-Lifting and handling assets: / Picking and collating machines – see Table B Warehouse and distribution centre equipment and machines | | | |
+Ice making machines (WHOLESALE TRADE) | 8 years | 12.50% | 25.00% | 1 July 2019
+Asset group · Intermediate bulk containers: | | | |
+Mild and stainless steel (Intermediate bulk containers) | 15 years | 6.67% | 13.33% | 1 July 2019
+Others (Intermediate bulk containers) | 8 years | 12.50% | 25.00% | 1 July 2019
+Asset group · Lifting and handling assets: | | | |
+Elevating work platforms (Lifting and handling assets) | 10 years | 10.00% | 20.00% | 1 July 2019
+Register note · Lifting and handling assets: / Forklifts – see Table B Warehouse and distribution centre equipment and machines | | | |
+Register note · Lifting and handling assets: / Pallet conveyers – see Table B Warehouse and distribution centre equipment and machines | | | |
+Register note · Lifting and handling assets: / Pallet jacks – see Table B Loading bay assets | | | |
+Register note · Lifting and handling assets: / Picking and collating machines – see Table B Warehouse and distribution centre equipment and machines | | | |
 Ladders | 4 years | 25.00% | 50.00% | 1 July 2019
 Livestock scales, weigh indicators and loading bars | 5 years | 20.00% | 40.00% | 1 July 2019
-Racks – see Table B Warehouse and distribution centre equipment and machines | | | |
-Packaging assets: | | | |
+Register note · Racks – see Table B Warehouse and distribution centre equipment and machines | | | |
+Asset group · Packaging assets: | | | |
 Packaging assets: / Carton sealers and box taping machines | 12 years | 8.33% | 16.67% | 1 July 2019
-Packaging assets: / Pallet wrappers – see Table B Packaging machines | | | |
-Pumps: | | | |
-Pumps: / Chemical pumps | 10 years | 10.00% | 20.00% | 1 July 2019
-Pumps: / Product pumps | 12 years | 8.33% | 16.67% | 1 July 2019
-Pumps: / Vacuum pumps | 12 years | 8.33% | 16.67% | 1 July 2019
-Pumps: / Water pumps | 15 years | 6.67% | 13.33% | 1 July 2019
-Refrigeration assets – see Table B Refrigeration assets | | | |
+Register note · Packaging assets: / Pallet wrappers – see Table B Packaging machines | | | |
+Asset group · Pumps: | | | |
+Pumps: / Chemical pumps (WHOLESALE TRADE) | 10 years | 10.00% | 20.00% | 1 July 2019
+Pumps: / Product pumps (WHOLESALE TRADE) | 12 years | 8.33% | 16.67% | 1 July 2019
+Pumps: / Vacuum pumps (WHOLESALE TRADE) | 12 years | 8.33% | 16.67% | 1 July 2019
+Pumps: / Water pumps (WHOLESALE TRADE) | 15 years | 6.67% | 13.33% | 1 July 2019
+Register note · Refrigeration assets – see Table B Refrigeration assets | | | |
 Scales (excluding livestock scales) | 10 years | 10.00% | 20.00% | 1 July 2019
-Signs – see Table B Advertising signs | | | |
-Tanks: | | | |
-Tanks: / Chemical storage tanks | 15 years | 6.67% | 13.33% | 1 July 2019
-Tanks: / Water storage tanks | 20 years | 5.00% | 10.00% | 1 July 2019
-Trailers – see Table B Motor vehicles and trailers | | | |
-Trolleys – see Table B Warehouse and distribution centre equipment and machines | | | |
-Unmanned aerial vehicles (drones/remotely piloted aircraft) – see Table B Unmanned aerial vehicles | | | |
+Register note · Signs – see Table B Advertising signs | | | |
+Asset group · Tanks: | | | |
+Tanks: / Chemical storage tanks (WHOLESALE TRADE) | 15 years | 6.67% | 13.33% | 1 July 2019
+Tanks: / Water storage tanks (WHOLESALE TRADE) | 20 years | 5.00% | 10.00% | 1 July 2019
+Register note · Trailers – see Table B Motor vehicles and trailers | | | |
+Register note · Trolleys – see Table B Warehouse and distribution centre equipment and machines | | | |
+Register note · Unmanned aerial vehicles (drones/remotely piloted aircraft) – see Table B Unmanned aerial vehicles | | | |
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
@@ -65,28 +63,28 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Barcode readers/scanners – see Table B Warehouse and distribution centre equipment and machines: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/
 - Benches: https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/benches/
 - Dimensioning machines: https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/dimensioning-machines/
-- Ice making machines: https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/ice-making-machines/
-- Mild and stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/mild-and-stainless-steel/
-- Others: https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/others/
-- Elevating work platforms: https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/elevating-work-platforms/
+- Ice making machines (WHOLESALE TRADE): https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/ice-making-machines/
+- Mild and stainless steel (Intermediate bulk containers): https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/mild-and-stainless-steel/
+- Others (Intermediate bulk containers): https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/others/
+- Elevating work platforms (Lifting and handling assets): https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/elevating-work-platforms/
 - Pallet jacks – see Table B Loading bay assets: https://duguid.com.au/tools/depreciation-rates/asset/loading-bay-assets/
 - Ladders: https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/ladders/
 - Livestock scales, weigh indicators and loading bars: https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/livestock-scales-weigh-indicators-and-loading-bars/
 - Carton sealers and box taping machines: https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/carton-sealers-and-box-taping-machines/
 - Pallet wrappers – see Table B Packaging machines: https://duguid.com.au/tools/depreciation-rates/asset/packaging-machines/
-- Chemical pumps: https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/chemical-pumps/
-- Product pumps: https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/product-pumps/
-- Vacuum pumps: https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/vacuum-pumps/
-- Water pumps: https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/water-pumps/
+- Chemical pumps (WHOLESALE TRADE): https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/chemical-pumps/
+- Product pumps (WHOLESALE TRADE): https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/product-pumps/
+- Vacuum pumps (WHOLESALE TRADE): https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/vacuum-pumps/
+- Water pumps (WHOLESALE TRADE): https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/water-pumps/
 - Refrigeration assets – see Table B Refrigeration assets: https://duguid.com.au/tools/depreciation-rates/asset/refrigeration-assets/
 - Scales (excluding livestock scales): https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/scales/
 - Signs – see Table B Advertising signs: https://duguid.com.au/tools/depreciation-rates/asset/advertising-signs/
-- Chemical storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/chemical-storage-tanks/
-- Water storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/water-storage-tanks/
+- Chemical storage tanks (WHOLESALE TRADE): https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/chemical-storage-tanks/
+- Water storage tanks (WHOLESALE TRADE): https://duguid.com.au/tools/depreciation-rates/industry/wholesale-trade/water-storage-tanks/
 - Trailers – see Table B Motor vehicles and trailers: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/
 - Unmanned aerial vehicles (drones/remotely piloted aircraft) – see Table B Unmanned aerial vehicles: https://duguid.com.au/tools/depreciation-rates/asset/unmanned-aerial-vehicles/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

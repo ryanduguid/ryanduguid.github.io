@@ -8,37 +8,39 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-
 
 146 effective lives in Table A of the Commissioner’s 2025 effective life determination for Basic inorganic chemical manufacturing.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Jump to an asset group
+
+Ammonia manufacturing assets Ammonium nitrate manufacturing assets Chemical manufacturing plant (not listed elsewhere) Salt manufacturing and refining assets Sulphuric acid plant
 
 Rows of Basic inorganic chemical manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Ammonia manufacturing assets: | | | |
-Ammonia manufacturing assets: / Air and gas reforming and separation assets: | | | |
+Asset group · Ammonia manufacturing assets: | | | |
+Asset group · Ammonia manufacturing assets: / Air and gas reforming and separation assets: | | | |
 Ammonia manufacturing assets: / Air and gas reforming and separation assets: / Adsorption systems (including pressure and thermal swing) | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonia manufacturing assets: / Air and gas reforming and separation assets: / Carbon dioxide (CO2) absorption systems (incorporating absorber and stripping columns, flash drums, heat exchangers, piping, pumps and tanks) | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonia manufacturing assets: / Air and gas reforming and separation assets: / Cryogenic separation process assets: | | | |
+Asset group · Ammonia manufacturing assets: / Air and gas reforming and separation assets: / Cryogenic separation process assets: | | | |
 Ammonia manufacturing assets: / Air and gas reforming and separation assets: / Cryogenic separation process assets: / Air cooling and drying assets (excluding adsorption systems shown above) | 20 years | 5.00% | 10.00% | 1 July 2013
 Ammonia manufacturing assets: / Air and gas reforming and separation assets: / Cryogenic separation process assets: / Cold boxes (incorporating cryogenic distillation columns, expansion valves, heat exchangers, piping, separators and vacuum insulated enclosures) | 30 years | 3.33% | 6.67% | 1 July 2013
-Ammonia manufacturing assets: / Air and gas reforming and separation assets: / Desulphurisers | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonia manufacturing assets: / Air and gas reforming and separation assets: / Methanators | 25 years | 4.00% | 8.00% | 1 July 2013
+Ammonia manufacturing assets: / Desulphurisers (Air and gas reforming and separation assets) | 25 years | 4.00% | 8.00% | 1 July 2013
+Ammonia manufacturing assets: / Methanators (Air and gas reforming and separation assets) | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonia manufacturing assets: / Air and gas reforming and separation assets: / Pre-heaters (for air and gas feedstock) | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonia manufacturing assets: / Air and gas reforming and separation assets: / Pre-reformers | 25 years | 4.00% | 8.00% | 1 July 2013
+Ammonia manufacturing assets: / Pre-reformers (Air and gas reforming and separation assets) | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonia manufacturing assets: / Air and gas reforming and separation assets: / Primary reformers | 20 years | 5.00% | 10.00% | 1 July 2013
 Ammonia manufacturing assets: / Air and gas reforming and separation assets: / Secondary reformers | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonia manufacturing assets: / Air and gas reforming and separation assets: / Shift converters (high and low temperature) | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonia manufacturing assets: / Compressor assets: | | | |
+Asset group · Ammonia manufacturing assets: / Compressor assets: | | | |
 Ammonia manufacturing assets: / Compressor assets: / Air filtering units (incorporating filters and housing filters) | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonia manufacturing assets: / Compressor assets: / Blowers and compressors (incorporating drives) | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonia manufacturing assets: / Conversion and liquefaction assets: | | | |
+Asset group · Ammonia manufacturing assets: / Conversion and liquefaction assets: | | | |
 Ammonia manufacturing assets: / Conversion and liquefaction assets: / Ammonia converters | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonia manufacturing assets: / Conversion and liquefaction assets: / Chillers, condensers, flash drums, receivers and separators | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonia manufacturing assets: / Conversion and liquefaction assets: / Purge gas recovery systems (incorporating heat exchangers, membranes, packing, piping pumps and vessels) | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonia manufacturing assets: / Distribution, handling and storage assets: | | | |
+Asset group · Ammonia manufacturing assets: / Distribution, handling and storage assets: | | | |
 Ammonia manufacturing assets: / Distribution, handling and storage assets: / Ammonia bullet tanks (including storage and surge tanks) | 30 years | 3.33% | 6.67% | 1 July 2013
 Ammonia manufacturing assets: / Distribution, handling and storage assets: / Ammonia deluge and vapour suppression systems | 30 years | 3.33% | 6.67% | 1 July 2013
 Ammonia manufacturing assets: / Distribution, handling and storage assets: / Ammonia pipelines (incorporating fittings and valves) | 30 years | 3.33% | 6.67% | 1 July 2013
@@ -48,189 +50,194 @@ Ammonia manufacturing assets: / Distribution, handling and storage assets: / Amm
 Ammonia manufacturing assets: / Distribution, handling and storage assets: / Ammonia vapour scrubber systems | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonia manufacturing assets: / Distribution, handling and storage assets: / ISOtainers and portable tanks | 15 years | 6.67% | 13.33% | 1 July 2013
 Ammonia manufacturing assets: / Distribution, handling and storage assets: / Loading arm systems – marine | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonia manufacturing assets: / Distribution, handling and storage assets: / Rail and road tank filling assets: | | | |
-Ammonia manufacturing assets: / Distribution, handling and storage assets: / Rail and road tank filling assets: / Breakaway couplings | 10 years | 10.00% | 20.00% | 1 July 2013
+Asset group · Ammonia manufacturing assets: / Distribution, handling and storage assets: / Rail and road tank filling assets: | | | |
+Ammonia manufacturing assets: / Distribution, handling and storage assets: / Breakaway couplings (Rail and road tank filling assets) | 10 years | 10.00% | 20.00% | 1 July 2013
 Ammonia manufacturing assets: / Distribution, handling and storage assets: / Rail and road tank filling assets: / Filling hoses | 10 years | 10.00% | 20.00% | 1 July 2013
 Ammonia manufacturing assets: / Distribution, handling and storage assets: / Rail and road tank filling assets: / Loading arm systems | 10 years | 10.00% | 20.00% | 1 July 2013
 Ammonia manufacturing assets: / Gas pipelines (incorporating fittings and valves) | 30 years | 3.33% | 6.67% | 1 July 2013
-Ammonia manufacturing assets: / Heat exchangers: | | | |
+Asset group · Ammonia manufacturing assets: / Heat exchangers: | | | |
 Ammonia manufacturing assets: / Heat exchangers: / Process gas | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonia manufacturing assets: / Heat exchangers: / Waste heat boilers | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: | | | |
-Ammonia manufacturing assets: / Support assets: / Air compression assets (for industrial air and instrument air): | | | |
+Ammonia manufacturing assets: / Heat exchangers: / Waste heat boilers (Ammonia manufacturing assets / Heat exchangers / Basic inorganic chemical manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2013
+Asset group · Ammonia manufacturing assets: / Support assets: | | | |
+Asset group · Ammonia manufacturing assets: / Support assets: / Air compression assets (for industrial air and instrument air): | | | |
 Ammonia manufacturing assets: / Support assets: / Air compression assets (for industrial air and instrument air): / Air compressors (incorporating air drying and filtering assets) | 15 years | 6.67% | 13.33% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Air compression assets (for industrial air and instrument air): / Air receivers | 20 years | 5.00% | 10.00% | 1 July 2013
+Ammonia manufacturing assets: / Support assets: / Air compression assets (for industrial air and instrument air): / Air receivers (Air compression assets …) | 20 years | 5.00% | 10.00% | 1 July 2013
 Ammonia manufacturing assets: / Support assets: / Blowers and fans (generally) | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Boiler assets: | | | |
-Ammonia manufacturing assets: / Support assets: / Boiler assets: / Boilers | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Boiler assets: / Deaerators | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Boiler assets: / Economisers | 25 years | 4.00% | 8.00% | 1 July 2013
+Asset group · Ammonia manufacturing assets: / Support assets: / Boiler assets: | | | |
+Ammonia manufacturing assets: / Support assets: / Boilers (Boiler assets) | 25 years | 4.00% | 8.00% | 1 July 2013
+Ammonia manufacturing assets: / Support assets: / Deaerators (Boiler assets) | 25 years | 4.00% | 8.00% | 1 July 2013
+Ammonia manufacturing assets: / Support assets: / Economisers (Boiler assets) | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonia manufacturing assets: / Support assets: / Boiler assets: / Steam drums | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Chemical storage tanks: | | | |
-Ammonia manufacturing assets: / Support assets: / Chemical storage tanks: / Polyethylene (PE) | 12 years | 8.33% | 16.67% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Chemical storage tanks: / Other | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Control system assets: | | | |
+Asset group · Ammonia manufacturing assets: / Support assets: / Chemical storage tanks: | | | |
+Ammonia manufacturing assets: / Support assets: / Polyethylene (PE) (Chemical storage tanks) | 12 years | 8.33% | 16.67% | 1 July 2013
+Ammonia manufacturing assets: / Support assets: / Other (Chemical storage tanks) | 20 years | 5.00% | 10.00% | 1 July 2013
+Asset group · Ammonia manufacturing assets: / Support assets: / Control system assets: | | | |
 Ammonia manufacturing assets: / Support assets: / Control system assets: / Control cabinets and panels, program logic controllers (PLCs), switchgear and variable speed drives (VSDs) | 10 years | 10.00% | 20.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Control system assets: / System monitoring assets (including instrumentation and sensors and transmitters for level, pressure, speed and temperature measurement) | 10 years | 10.00% | 20.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Cooling towers | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Electricity supply assets: | | | |
-Ammonia manufacturing assets: / Support assets: / Electricity supply assets: / Emergency supply assets – see Table B Power supply assets, emergency or standby | | | |
-Ammonia manufacturing assets: / Support assets: / Electricity supply assets: / Steam turbine generators | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Electricity supply assets: / Other electricity supply assets – see Table A Electricity supply (26110 to 26400) | | | |
-Ammonia manufacturing assets: / Support assets: / Emission control assets: | | | |
-Ammonia manufacturing assets: / Support assets: / Emission control assets: / Flare tips | 10 years | 10.00% | 20.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Emission control assets: / Silencers | 20 years | 5.00% | 10.00% | 1 July 2013
+Ammonia manufacturing assets: / Support assets: / Control system assets: / System monitoring assets (including instrumentation and sensors and transmitters for level, pressure, speed and temperature measurement) (Basic inorganic chemical manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2013
+Ammonia manufacturing assets: / Support assets: / Cooling towers (Basic inorganic chemical manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2013
+Asset group · Ammonia manufacturing assets: / Support assets: / Electricity supply assets: | | | |
+Register note · Ammonia manufacturing assets: / Support assets: / Electricity supply assets: / Emergency supply assets – see Table B Power supply assets, emergency or standby | | | |
+Ammonia manufacturing assets: / Support assets: / Steam turbine generators (Electricity supply assets) | 25 years | 4.00% | 8.00% | 1 July 2013
+Register note · Ammonia manufacturing assets: / Support assets: / Electricity supply assets: / Other electricity supply assets – see Table A Electricity supply (26110 to 26400) | | | |
+Asset group · Ammonia manufacturing assets: / Support assets: / Emission control assets: | | | |
+Ammonia manufacturing assets: / Support assets: / Flare tips (Emission control assets) | 10 years | 10.00% | 20.00% | 1 July 2013
+Ammonia manufacturing assets: / Support assets: / Silencers (Emission control assets) | 20 years | 5.00% | 10.00% | 1 July 2013
 Ammonia manufacturing assets: / Support assets: / Emission control assets: / Stacks (exhaust, vent and flare) | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Fire control and alarm systems: | | | |
+Asset group · Ammonia manufacturing assets: / Support assets: / Fire control and alarm systems: | | | |
 Ammonia manufacturing assets: / Support assets: / Fire control and alarm systems: / Fire fighting systems (incorporating hose boxes, hydrants and ring mains) | 30 years | 3.33% | 6.67% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Fire control and alarm systems: / Other fire control and alarm assets – see Table B Fire control and alarm assets | | | |
-Ammonia manufacturing assets: / Support assets: / Gas detectors: | | | |
-Ammonia manufacturing assets: / Support assets: / Gas detectors: / Fixed | 10 years | 10.00% | 20.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Gas detectors: / Portable | 4 years | 25.00% | 50.00% | 1 July 2013
+Register note · Ammonia manufacturing assets: / Support assets: / Fire control and alarm systems: / Other fire control and alarm assets – see Table B Fire control and alarm assets | | | |
+Asset group · Ammonia manufacturing assets: / Support assets: / Gas detectors: | | | |
+Ammonia manufacturing assets: / Support assets: / Gas detectors: / Fixed (Basic inorganic chemical manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2013
+Ammonia manufacturing assets: / Support assets: / Gas detectors: / Portable (Basic inorganic chemical manufacturing) | 4 years | 25.00% | 50.00% | 1 July 2013
 Ammonia manufacturing assets: / Support assets: / Heat exchangers (not specified elsewhere) | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Laboratory assets: | | | |
-Ammonia manufacturing assets: / Support assets: / Laboratory assets: / Analysers | 10 years | 10.00% | 20.00% | 1 July 2013
+Asset group · Ammonia manufacturing assets: / Support assets: / Laboratory assets: | | | |
+Ammonia manufacturing assets: / Support assets: / Laboratory assets: / Analysers (Basic inorganic chemical manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2013
 Ammonia manufacturing assets: / Support assets: / Laboratory assets: / Other laboratory equipment (including centrifuges, drying ovens, fume cupboards etc) | 10 years | 10.00% | 20.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Overhead cranes | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Piping assets: | | | |
-Ammonia manufacturing assets: / Support assets: / Piping assets: / Flow meters | 10 years | 10.00% | 20.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Piping assets: / Pipes and fittings | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Piping assets: / Valves | 10 years | 10.00% | 20.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Pumps: | | | |
+Ammonia manufacturing assets: / Overhead cranes (Support assets) | 25 years | 4.00% | 8.00% | 1 July 2013
+Asset group · Ammonia manufacturing assets: / Support assets: / Piping assets: | | | |
+Ammonia manufacturing assets: / Support assets: / Piping assets: / Flow meters (Basic inorganic chemical manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2013
+Ammonia manufacturing assets: / Support assets: / Pipes and fittings (Piping assets) | 25 years | 4.00% | 8.00% | 1 July 2013
+Ammonia manufacturing assets: / Support assets: / Piping assets: / Valves (Basic inorganic chemical manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2013
+Asset group · Ammonia manufacturing assets: / Support assets: / Pumps: | | | |
 Ammonia manufacturing assets: / Support assets: / Pumps: / Boiler feedwater and cooling water pumps | 20 years | 5.00% | 10.00% | 1 July 2013
 Ammonia manufacturing assets: / Support assets: / Pumps: / Dosing pumps | 5 years | 20.00% | 40.00% | 1 July 2013
 Ammonia manufacturing assets: / Support assets: / Pumps: / Other pumps (not specified elsewhere) | 15 years | 6.67% | 13.33% | 1 July 2013
 Ammonia manufacturing assets: / Support assets: / Safety showers and eye wash stations | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Water storage and treatment assets: | | | |
+Asset group · Ammonia manufacturing assets: / Support assets: / Water storage and treatment assets: | | | |
 Ammonia manufacturing assets: / Support assets: / Water storage and treatment assets: / Clarifiers and settling tanks | 20 years | 5.00% | 10.00% | 1 July 2013
 Ammonia manufacturing assets: / Support assets: / Water storage and treatment assets: / Dam and pond liners | 20 years | 5.00% | 10.00% | 1 July 2013
 Ammonia manufacturing assets: / Support assets: / Water storage and treatment assets: / Dams and effluent ponds | 40 years | 2.50% | 5.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Water storage and treatment assets: / Ion exchange systems | 20 years | 5.00% | 10.00% | 1 July 2013
+Ammonia manufacturing assets: / Support assets: / Ion exchange systems (Water storage and treatment assets) | 20 years | 5.00% | 10.00% | 1 July 2013
 Ammonia manufacturing assets: / Support assets: / Water storage and treatment assets: / Reverse osmosis systems | 15 years | 6.67% | 13.33% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Water storage and treatment assets: / Water storage tanks: | | | |
-Ammonia manufacturing assets: / Support assets: / Water storage and treatment assets: / Water storage tanks: / Polyethylene (PE) | 15 years | 6.67% | 13.33% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Water storage and treatment assets: / Water storage tanks: / Other | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonia manufacturing assets: / Support assets: / Weighbridges | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: | | | |
-Ammonium nitrate manufacturing assets: / Ammonia handling and storage assets – see above in Ammonia manufacturing assets, distribution, handling and storage assets | | | |
-Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: | | | |
-Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Coating, cooling, drying and screening assets: | | | |
+Asset group · Ammonia manufacturing assets: / Support assets: / Water storage and treatment assets: / Water storage tanks: | | | |
+Ammonia manufacturing assets: / Support assets: / Water storage and treatment assets: / Polyethylene (PE) (Water storage tanks) | 15 years | 6.67% | 13.33% | 1 July 2013
+Ammonia manufacturing assets: / Support assets: / Water storage and treatment assets: / Other (Water storage tanks) | 25 years | 4.00% | 8.00% | 1 July 2013
+Ammonia manufacturing assets: / Support assets: / Weighbridges (Basic inorganic chemical manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2013
+Asset group · Ammonium nitrate manufacturing assets: | | | |
+Register note · Ammonium nitrate manufacturing assets: / Ammonia handling and storage assets – see above in Ammonia manufacturing assets, distribution, handling and storage assets | | | |
+Asset group · Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: | | | |
+Asset group · Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Coating, cooling, drying and screening assets: | | | |
 Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Coating, cooling, drying and screening assets: / Bulk flow coolers | 20 years | 5.00% | 10.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Coating, cooling, drying and screening assets: / Chilling systems (incorporating chillers, ducting and piping) | 20 years | 5.00% | 10.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Coating, cooling, drying and screening assets: / Coating product tanks | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Coating, cooling, drying and screening assets: / Fluid bed coolers | 20 years | 5.00% | 10.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Coating, cooling, drying and screening assets: / Rotary drum machines (including coaters, coolers, driers and granulators) | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Coating, cooling, drying and screening assets: / Screeners | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Distribution, handling and storage assets: | | | |
-Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Distribution, handling and storage assets: / Bagging machines | 15 years | 6.67% | 13.33% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Distribution, handling and storage assets: / Conveyor belt weighers | 15 years | 6.67% | 13.33% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Distribution, handling and storage assets: / Conveyors and elevators | 15 years | 6.67% | 13.33% | 1 July 2013
+Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Screeners (Coating, cooling, drying and screening assets) | 20 years | 5.00% | 10.00% | 1 July 2013
+Asset group · Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Distribution, handling and storage assets: | | | |
+Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Bagging machines (Distribution, handling and storage assets) | 15 years | 6.67% | 13.33% | 1 July 2013
+Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Conveyor belt weighers (Distribution, handling and storage assets) | 15 years | 6.67% | 13.33% | 1 July 2013
+Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Conveyors and elevators (Distribution, handling and storage assets) | 15 years | 6.67% | 13.33% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Distribution, handling and storage assets: / Load out bins/silos | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Distribution, handling and storage assets: / Reclaim hoppers | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Distribution, handling and storage assets: / Scales | 15 years | 6.67% | 13.33% | 1 July 2013
+Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Scales (Distribution, handling and storage assets) | 15 years | 6.67% | 13.33% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Prill tower blowers and fans | 20 years | 5.00% | 10.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Prill towers (incorporating head tanks and lifts) | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Ammonium nitrate prill manufacturing assets: / Scrubber systems (incorporating ducting, fans, scrubbers and tanks) | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Ammonia nitrate solution manufacturing assets: | | | |
-Ammonium nitrate manufacturing assets: / Ammonia nitrate solution manufacturing assets: / Evaporation assets: | | | |
+Asset group · Ammonium nitrate manufacturing assets: / Ammonia nitrate solution manufacturing assets: | | | |
+Asset group · Ammonium nitrate manufacturing assets: / Ammonia nitrate solution manufacturing assets: / Evaporation assets: | | | |
 Ammonium nitrate manufacturing assets: / Ammonia nitrate solution manufacturing assets: / Evaporation assets: / Condensate tanks, flash drums and separators | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Ammonia nitrate solution manufacturing assets: / Evaporation assets: / Evaporators | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Ammonia nitrate solution manufacturing assets: / Neutralisers | 25 years | 4.00% | 8.00% | 1 July 2013
+Ammonium nitrate manufacturing assets: / Ammonia nitrate solution manufacturing assets: / Evaporators (Evaporation assets) | 20 years | 5.00% | 10.00% | 1 July 2013
+Ammonium nitrate manufacturing assets: / Neutralisers (Ammonia nitrate solution manufacturing assets) | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Ammonia nitrate solution manufacturing assets: / Pipe reactors (titanium) | 3 years | 33.33% | 66.67% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Ammonia nitrate solution manufacturing assets: / Remelt and solution storage tanks (incorporating heating coils and stirrers) | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Ammonia nitrate solution manufacturing assets: / Solution filters | 20 years | 5.00% | 10.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Ammonia nitrate solution manufacturing assets: / Solution pumps | 15 years | 6.67% | 13.33% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: | | | |
+Asset group · Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: | | | |
 Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Ammonia liquid filtering vessels (incorporating filters) | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Ammonia vapour filtering vessels (incorporating filters) | 20 years | 5.00% | 10.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Ammonia/air mixers | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Compressor assets: | | | |
+Asset group · Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Compressor assets: | | | |
 Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Compressor assets: / Air filtering units (incorporating housing and filters) | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Compressor assets: / Compressors (incorporating drives) | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Compressor assets: / Tail gas expanders | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: | | | |
+Asset group · Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: | | | |
 Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Absorber columns (including bleachers) | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Catalyst filters | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Converters | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Cooler condensers: | | | |
-Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Cooler condensers: / Zirconium | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Cooler condensers: / Other | 10 years | 10.00% | 20.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Nitric acid heaters: | | | |
-Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Nitric acid heaters: / Zirconium | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Nitric acid heaters: / Other | 10 years | 10.00% | 20.00% | 1 July 2013
+Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Converters (Conversion and absorption assets) | 25 years | 4.00% | 8.00% | 1 July 2013
+Asset group · Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Cooler condensers: | | | |
+Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Zirconium (Cooler condensers) | 25 years | 4.00% | 8.00% | 1 July 2013
+Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Other (Cooler condensers) | 10 years | 10.00% | 20.00% | 1 July 2013
+Asset group · Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Nitric acid heaters: | | | |
+Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Zirconium (Nitric acid heaters) | 20 years | 5.00% | 10.00% | 1 July 2013
+Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Other (Nitric acid heaters) | 10 years | 10.00% | 20.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Nitric acid pumps | 15 years | 6.67% | 13.33% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Nitrous oxide (NOx) abaters | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets: / Weak acid tanks | 30 years | 3.33% | 6.67% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Heat exchangers: | | | |
+Asset group · Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Heat exchangers: | | | |
 Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Heat exchangers: / Air coolers and heaters | 25 years | 4.00% | 8.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Heat exchangers: / Ammonia vapourisers | 20 years | 5.00% | 10.00% | 1 July 2013
 Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Heat exchangers: / Gas coolers and heaters | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Heat exchangers: / Superheaters | 15 years | 6.67% | 13.33% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Heat exchangers: / Waste heat boilers | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Nitric acid storage assets: | | | |
-Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Nitric acid storage assets: / Scrubbers | 20 years | 5.00% | 10.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Nitric acid storage assets: / Tanks | 25 years | 4.00% | 8.00% | 1 July 2013
-Ammonium nitrate manufacturing assets: / Support assets – see above in Ammonia manufacturing assets, support assets | | | |
-Chemical manufacturing plant (not listed elsewhere): | | | |
-Chemical manufacturing plant (not listed elsewhere): / General plant | 13 1/3 years | 7.50% | 15.00% | 1 January 2001
-Salt manufacturing and refining assets: | | | |
-Salt manufacturing and refining assets: / Air compressors – see Table B Air compression assets: Air compression assets generally (including air compressors, air dryers and air receivers) | | | |
-Salt manufacturing and refining assets: / Augers | 10 years | 10.00% | 20.00% | 1 July 2022
+Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Superheaters (Heat exchangers) | 15 years | 6.67% | 13.33% | 1 July 2013
+Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Heat exchangers: / Waste heat boilers (Ammonium nitrate manufacturing assets / Nitric acid manufacturing assets / Heat exchangers / Basic inorganic chemical manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2013
+Asset group · Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Nitric acid storage assets: | | | |
+Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Scrubbers (Nitric acid storage assets) | 20 years | 5.00% | 10.00% | 1 July 2013
+Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Tanks (Nitric acid storage assets) | 25 years | 4.00% | 8.00% | 1 July 2013
+Register note · Ammonium nitrate manufacturing assets: / Support assets – see above in Ammonia manufacturing assets, support assets | | | |
+Asset group · Chemical manufacturing plant (not listed elsewhere): | | | |
+Chemical manufacturing plant (not listed elsewhere): / General plant (Basic inorganic chemical manufacturing) | 13 1/3 years | 7.50% | 15.00% | 1 January 2001
+Asset group · Salt manufacturing and refining assets: | | | |
+Register note · Salt manufacturing and refining assets: / Air compressors – see Table B Air compression assets: Air compression assets generally (including air compressors, air dryers and air receivers) | | | |
+Augers (Salt manufacturing and refining assets) | 10 years | 10.00% | 20.00% | 1 July 2022
 Salt manufacturing and refining assets: / Automated packing machines | 20 years | 5.00% | 10.00% | 1 July 2022
-Salt manufacturing and refining assets: / Bagging machines | 10 years | 10.00% | 20.00% | 1 July 2022
-Salt manufacturing and refining assets: / Bag sewers – see Table B Packaging machines: Bag sewers | | | |
+Bagging machines (Salt manufacturing and refining assets) | 10 years | 10.00% | 20.00% | 1 July 2022
+Register note · Salt manufacturing and refining assets: / Bag sewers – see Table B Packaging machines: Bag sewers | | | |
 Salt manufacturing and refining assets: / Bag stackers | 15 years | 6.67% | 13.33% | 1 July 2022
-Salt manufacturing and refining assets: / Belt weighers | 15 years | 6.67% | 13.33% | 1 July 2022
+Belt weighers (Salt manufacturing and refining assets) | 15 years | 6.67% | 13.33% | 1 July 2022
 Salt manufacturing and refining assets: / Blow moulders | 15 years | 6.67% | 13.33% | 1 July 2022
-Salt manufacturing and refining assets: / Bucket elevators | 10 years | 10.00% | 20.00% | 1 July 2022
-Salt manufacturing and refining assets: / Centrifuges | 12 years | 8.33% | 16.67% | 1 July 2022
-Salt manufacturing and refining assets: / Conveyors | 15 years | 6.67% | 13.33% | 1 July 2022
-Salt manufacturing and refining assets: / Crushers | 25 years | 4.00% | 8.00% | 1 July 2022
-Salt manufacturing and refining assets: / Cyclones | 15 years | 6.67% | 13.33% | 1 July 2022
-Salt manufacturing and refining assets: / Dust extraction systems | 5 years | 20.00% | 40.00% | 1 July 2022
-Salt manufacturing and refining assets: / Forklifts – see Table B Forklifts | | | |
-Salt manufacturing and refining assets: / Kilns | 20 years | 5.00% | 10.00% | 1 July 2022
+Bucket elevators (Salt manufacturing and refining assets) | 10 years | 10.00% | 20.00% | 1 July 2022
+Centrifuges (Salt manufacturing and refining assets) | 12 years | 8.33% | 16.67% | 1 July 2022
+Conveyors (Salt manufacturing and refining assets) | 15 years | 6.67% | 13.33% | 1 July 2022
+Crushers (Salt manufacturing and refining assets) | 25 years | 4.00% | 8.00% | 1 July 2022
+Cyclones (Salt manufacturing and refining assets) | 15 years | 6.67% | 13.33% | 1 July 2022
+Dust extraction systems (Salt manufacturing and refining assets) | 5 years | 20.00% | 40.00% | 1 July 2022
+Register note · Salt manufacturing and refining assets: / Forklifts – see Table B Forklifts | | | |
+Kilns (Salt manufacturing and refining assets) | 20 years | 5.00% | 10.00% | 1 July 2022
 Salt manufacturing and refining assets: / Labelling machines (including date printers) | 5 years | 20.00% | 40.00% | 1 July 2022
-Salt manufacturing and refining assets: / Metal detectors | 10 years | 10.00% | 20.00% | 1 July 2022
+Metal detectors (Salt manufacturing and refining assets) | 10 years | 10.00% | 20.00% | 1 July 2022
 Salt manufacturing and refining assets: / Motor control centres | 20 years | 5.00% | 10.00% | 1 July 2022
 Salt manufacturing and refining assets: / Net weighers | 5 years | 20.00% | 40.00% | 1 July 2022
-Salt manufacturing and refining assets: / Pallet wrappers – see Table B Packaging machines: Wrapping machines (including pallet wrappers, shrink wrappers, stretch wrappers and strapping machines) | | | |
-Salt manufacturing and refining assets: / Platform scales | 10 years | 10.00% | 20.00% | 1 July 2022
+Register note · Salt manufacturing and refining assets: / Pallet wrappers – see Table B Packaging machines: Wrapping machines (including pallet wrappers, shrink wrappers, stretch wrappers and strapping machines) | | | |
+Platform scales (Salt manufacturing and refining assets) | 10 years | 10.00% | 20.00% | 1 July 2022
 Salt manufacturing and refining assets: / Ribbon mixers | 15 years | 6.67% | 13.33% | 1 July 2022
-Salt manufacturing and refining assets: / Roller mills | 15 years | 6.67% | 13.33% | 1 July 2022
-Salt manufacturing and refining assets: / Rotary valves | 15 years | 6.67% | 13.33% | 1 July 2022
+Roller mills (Salt manufacturing and refining assets) | 15 years | 6.67% | 13.33% | 1 July 2022
+Rotary valves (Salt manufacturing and refining assets) | 15 years | 6.67% | 13.33% | 1 July 2022
 Salt manufacturing and refining assets: / Salt flake growing tanks | 15 years | 6.67% | 13.33% | 1 July 2022
 Salt manufacturing and refining assets: / Salt hoppers | 15 years | 6.67% | 13.33% | 1 July 2022
 Salt manufacturing and refining assets: / Sizing screen machines | 15 years | 6.67% | 13.33% | 1 July 2022
 Salt manufacturing and refining assets: / Slurry lines | 10 years | 10.00% | 20.00% | 1 July 2022
 Salt manufacturing and refining assets: / Wash plant pumps | 15 years | 6.67% | 13.33% | 1 July 2022
 Salt manufacturing and refining assets: / Wash plants (removable) | 20 years | 5.00% | 10.00% | 1 July 2022
-Salt manufacturing and refining assets: / Weigh feeders | 10 years | 10.00% | 20.00% | 1 July 2022
-Sulphuric acid plant: | | | |
+Weigh feeders (Salt manufacturing and refining assets) | 10 years | 10.00% | 20.00% | 1 July 2022
+Asset group · Sulphuric acid plant: | | | |
 Sulphuric acid plant: / Acid chambers (irrespective of raw material used) | 20 years | 5.00% | 10.00% | 1 January 2001
-Sulphuric acid plant: / Plant: | | | |
+Asset group · Sulphuric acid plant: / Plant: | | | |
 Sulphuric acid plant: / Plant: / Where pyrites used in manufacture of the acid | 10 years | 10.00% | 20.00% | 1 January 2001
 Sulphuric acid plant: / Plant: / Where natural sulphur (brimstone) so used | 13 1/3 years | 7.50% | 15.00% | 1 January 2001
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- Ammonia manufacturing assets: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/#asset-group-1
+- Ammonium nitrate manufacturing assets: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/#asset-group-95
+- Chemical manufacturing plant (not listed elsewhere): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/#asset-group-155
+- Salt manufacturing and refining assets: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/#asset-group-157
+- Sulphuric acid plant: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/#asset-group-190
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/#source
 - Adsorption systems (including pressure and thermal swing): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/adsorption-systems/
 - Carbon dioxide (CO2) absorption systems (incorporating absorber and stripping columns, flash drums, heat exchangers, piping, pumps and tanks): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/carbon-dioxide-absorption-systems/
 - Air cooling and drying assets (excluding adsorption systems shown above): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/air-cooling-and-drying-assets/
 - Cold boxes (incorporating cryogenic distillation columns, expansion valves, heat exchangers, piping, separators and vacuum insulated enclosures): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/cold-boxes/
-- Desulphurisers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/desulphurisers/
-- Methanators: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/methanators/
+- Desulphurisers (Air and gas reforming and separation assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/desulphurisers/
+- Methanators (Air and gas reforming and separation assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/methanators/
 - Pre-heaters (for air and gas feedstock): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/pre-heaters/
-- Pre-reformers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/pre-reformers/
+- Pre-reformers (Air and gas reforming and separation assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/pre-reformers/
 - Primary reformers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/primary-reformers/
 - Secondary reformers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/secondary-reformers/
 - Shift converters (high and low temperature): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/shift-converters/
@@ -248,40 +255,40 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Ammonia vapour scrubber systems: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/ammonia-vapour-scrubber-systems/
 - ISOtainers and portable tanks: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/isotainers-and-portable-tanks/
 - Loading arm systems – marine: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/loading-arm-systems-marine/
-- Breakaway couplings: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/breakaway-couplings/
+- Breakaway couplings (Rail and road tank filling assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/breakaway-couplings/
 - Filling hoses: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/filling-hoses/
 - Loading arm systems: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/loading-arm-systems/
 - Gas pipelines (incorporating fittings and valves): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/gas-pipelines/
 - Process gas: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/process-gas/
-- Waste heat boilers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/ammonia-manufacturing-assets-waste-heat-boilers/
+- Waste heat boilers (Ammonia manufacturing assets / Heat exchangers / Basic inorganic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/ammonia-manufacturing-assets-waste-heat-boilers/
 - Air compressors (incorporating air drying and filtering assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/air-compressors/
-- Air receivers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/air-receivers/
+- Air receivers (Air compression assets …): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/air-receivers/
 - Blowers and fans (generally): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/blowers-and-fans/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/boilers/
-- Deaerators: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/deaerators/
-- Economisers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/economisers/
+- Boilers (Boiler assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/boilers/
+- Deaerators (Boiler assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/deaerators/
+- Economisers (Boiler assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/economisers/
 - Steam drums: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/steam-drums/
-- Polyethylene (PE): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/chemical-storage-tanks-polyethylene/
-- Other: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/chemical-storage-tanks-other/
+- Polyethylene (PE) (Chemical storage tanks): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/chemical-storage-tanks-polyethylene/
+- Other (Chemical storage tanks): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/chemical-storage-tanks-other/
 - Control cabinets and panels, program logic controllers (PLCs), switchgear and variable speed drives (VSDs): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/control-cabinets-and-panels-program-logic-controllers/
-- System monitoring assets (including instrumentation and sensors and transmitters for level, pressure, speed and temperature measurement): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/system-monitoring-assets/
-- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/cooling-towers/
-- Steam turbine generators: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/steam-turbine-generators/
+- System monitoring assets (including instrumentation and sensors and transmitters for level, pressure, speed and temperature measurement) (Basic inorganic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/system-monitoring-assets/
+- Cooling towers (Basic inorganic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/cooling-towers/
+- Steam turbine generators (Electricity supply assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/steam-turbine-generators/
 - Other electricity supply assets – see Table A Electricity supply (26110 to 26400): https://duguid.com.au/tools/depreciation-rates/industry/electricity-supply/
-- Flare tips: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/flare-tips/
-- Silencers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/silencers/
+- Flare tips (Emission control assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/flare-tips/
+- Silencers (Emission control assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/silencers/
 - Stacks (exhaust, vent and flare): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/stacks/
 - Fire fighting systems (incorporating hose boxes, hydrants and ring mains): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/fire-fighting-systems/
 - Other fire control and alarm assets – see Table B Fire control and alarm assets: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/
-- Fixed: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/fixed/
-- Portable: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/portable/
+- Fixed (Basic inorganic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/fixed/
+- Portable (Basic inorganic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/portable/
 - Heat exchangers (not specified elsewhere): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/heat-exchangers/
-- Analysers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/analysers/
+- Analysers (Basic inorganic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/analysers/
 - Other laboratory equipment (including centrifuges, drying ovens, fume cupboards etc): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/other-laboratory-equipment/
-- Overhead cranes: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/overhead-cranes/
-- Flow meters: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/flow-meters/
-- Pipes and fittings: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/pipes-and-fittings/
-- Valves: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/valves/
+- Overhead cranes (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/overhead-cranes/
+- Flow meters (Basic inorganic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/flow-meters/
+- Pipes and fittings (Piping assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/pipes-and-fittings/
+- Valves (Basic inorganic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/valves/
 - Boiler feedwater and cooling water pumps: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/boiler-feedwater-and-cooling-water-pumps/
 - Dosing pumps: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/dosing-pumps/
 - Other pumps (not specified elsewhere): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/other-pumps/
@@ -289,29 +296,29 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Clarifiers and settling tanks: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/clarifiers-and-settling-tanks/
 - Dam and pond liners: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/dam-and-pond-liners/
 - Dams and effluent ponds: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/dams-and-effluent-ponds/
-- Ion exchange systems: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/ion-exchange-systems/
+- Ion exchange systems (Water storage and treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/ion-exchange-systems/
 - Reverse osmosis systems: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/reverse-osmosis-systems/
-- Polyethylene (PE): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/water-storage-tanks-polyethylene/
-- Other: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/water-storage-tanks-other/
-- Weighbridges: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/weighbridges/
+- Polyethylene (PE) (Water storage tanks): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/water-storage-tanks-polyethylene/
+- Other (Water storage tanks): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/water-storage-tanks-other/
+- Weighbridges (Basic inorganic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/weighbridges/
 - Bulk flow coolers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/bulk-flow-coolers/
 - Chilling systems (incorporating chillers, ducting and piping): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/chilling-systems/
 - Coating product tanks: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/coating-product-tanks/
 - Fluid bed coolers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/fluid-bed-coolers/
 - Rotary drum machines (including coaters, coolers, driers and granulators): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/rotary-drum-machines/
-- Screeners: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/screeners/
-- Bagging machines: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/ammonium-nitrate-manufacturing-bagging-machines/
-- Conveyor belt weighers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/conveyor-belt-weighers/
-- Conveyors and elevators: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/conveyors-and-elevators/
+- Screeners (Coating, cooling, drying and screening assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/screeners/
+- Bagging machines (Distribution, handling and storage assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/ammonium-nitrate-manufacturing-bagging-machines/
+- Conveyor belt weighers (Distribution, handling and storage assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/conveyor-belt-weighers/
+- Conveyors and elevators (Distribution, handling and storage assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/conveyors-and-elevators/
 - Load out bins/silos: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/load-out-bins-silos/
 - Reclaim hoppers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/reclaim-hoppers/
-- Scales: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/scales/
+- Scales (Distribution, handling and storage assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/scales/
 - Prill tower blowers and fans: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/prill-tower-blowers-and-fans/
 - Prill towers (incorporating head tanks and lifts): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/prill-towers/
 - Scrubber systems (incorporating ducting, fans, scrubbers and tanks): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/scrubber-systems/
 - Condensate tanks, flash drums and separators: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/condensate-tanks-flash-drums-and-separators/
-- Evaporators: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/evaporators/
-- Neutralisers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/neutralisers/
+- Evaporators (Evaporation assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/evaporators/
+- Neutralisers (Ammonia nitrate solution manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/neutralisers/
 - Pipe reactors (titanium): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/pipe-reactors/
 - Remelt and solution storage tanks (incorporating heating coils and stirrers): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/remelt-and-solution-storage-tanks/
 - Solution filters: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/solution-filters/
@@ -324,56 +331,56 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Tail gas expanders: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/tail-gas-expanders/
 - Absorber columns (including bleachers): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/absorber-columns/
 - Catalyst filters: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/catalyst-filters/
-- Converters: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/converters/
-- Zirconium: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/cooler-condensers-zirconium/
-- Other: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/cooler-condensers-other/
-- Zirconium: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/nitric-acid-heaters-zirconium/
-- Other: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/nitric-acid-heaters-other/
+- Converters (Conversion and absorption assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/converters/
+- Zirconium (Cooler condensers): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/cooler-condensers-zirconium/
+- Other (Cooler condensers): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/cooler-condensers-other/
+- Zirconium (Nitric acid heaters): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/nitric-acid-heaters-zirconium/
+- Other (Nitric acid heaters): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/nitric-acid-heaters-other/
 - Nitric acid pumps: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/nitric-acid-pumps/
 - Nitrous oxide (NOx) abaters: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/nitrous-oxide-abaters/
 - Weak acid tanks: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/weak-acid-tanks/
 - Air coolers and heaters: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/air-coolers-and-heaters/
 - Ammonia vapourisers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/ammonia-vapourisers/
 - Gas coolers and heaters: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/gas-coolers-and-heaters/
-- Superheaters: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/superheaters/
-- Waste heat boilers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/ammonium-nitrate-manufacturing-waste-heat-boilers/
-- Scrubbers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/scrubbers/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/tanks/
-- General plant: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/general-plant/
-- Augers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/augers/
+- Superheaters (Heat exchangers): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/superheaters/
+- Waste heat boilers (Ammonium nitrate manufacturing assets / Nitric acid manufacturing assets / Heat exchangers / Basic inorganic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/ammonium-nitrate-manufacturing-waste-heat-boilers/
+- Scrubbers (Nitric acid storage assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/scrubbers/
+- Tanks (Nitric acid storage assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/tanks/
+- General plant (Basic inorganic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/general-plant/
+- Augers (Salt manufacturing and refining assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/augers/
 - Automated packing machines: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/automated-packing-machines/
-- Bagging machines: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/salt-manufacturing-and-refining-bagging-machines/
+- Bagging machines (Salt manufacturing and refining assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/salt-manufacturing-and-refining-bagging-machines/
 - Bag stackers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/bag-stackers/
-- Belt weighers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/belt-weighers/
+- Belt weighers (Salt manufacturing and refining assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/belt-weighers/
 - Blow moulders: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/blow-moulders/
-- Bucket elevators: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/bucket-elevators/
-- Centrifuges: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/centrifuges/
-- Conveyors: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/conveyors/
-- Crushers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/crushers/
-- Cyclones: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/cyclones/
-- Dust extraction systems: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/dust-extraction-systems/
+- Bucket elevators (Salt manufacturing and refining assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/bucket-elevators/
+- Centrifuges (Salt manufacturing and refining assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/centrifuges/
+- Conveyors (Salt manufacturing and refining assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/conveyors/
+- Crushers (Salt manufacturing and refining assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/crushers/
+- Cyclones (Salt manufacturing and refining assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/cyclones/
+- Dust extraction systems (Salt manufacturing and refining assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/dust-extraction-systems/
 - Forklifts – see Table B Forklifts: https://duguid.com.au/tools/depreciation-rates/asset/forklifts/
-- Kilns: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/kilns/
+- Kilns (Salt manufacturing and refining assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/kilns/
 - Labelling machines (including date printers): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/labelling-machines/
-- Metal detectors: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/metal-detectors/
+- Metal detectors (Salt manufacturing and refining assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/metal-detectors/
 - Motor control centres: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/motor-control-centres/
 - Net weighers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/net-weighers/
-- Platform scales: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/platform-scales/
+- Platform scales (Salt manufacturing and refining assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/platform-scales/
 - Ribbon mixers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/ribbon-mixers/
-- Roller mills: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/roller-mills/
-- Rotary valves: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/rotary-valves/
+- Roller mills (Salt manufacturing and refining assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/roller-mills/
+- Rotary valves (Salt manufacturing and refining assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/rotary-valves/
 - Salt flake growing tanks: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/salt-flake-growing-tanks/
 - Salt hoppers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/salt-hoppers/
 - Sizing screen machines: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/sizing-screen-machines/
 - Slurry lines: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/slurry-lines/
 - Wash plant pumps: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/wash-plant-pumps/
 - Wash plants (removable): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/wash-plants/
-- Weigh feeders: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/weigh-feeders/
+- Weigh feeders (Salt manufacturing and refining assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/weigh-feeders/
 - Acid chambers (irrespective of raw material used): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/acid-chambers/
 - Where pyrites used in manufacture of the acid: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/where-pyrites-used-in-manufacture-of-the-acid/
 - Where natural sulphur (brimstone) so used: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/where-natural-sulphur-so-used/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

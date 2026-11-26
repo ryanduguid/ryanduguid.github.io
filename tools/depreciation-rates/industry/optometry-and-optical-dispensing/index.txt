@@ -8,61 +8,59 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-op
 
 38 effective lives in Table A of the Commissioner’s 2025 effective life determination for Optometry and optical dispensing.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Optometry and optical dispensing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Optical assets: | | | |
+Asset group · Optical assets: | | | |
 Optical assets: / Automatic refractometers/keratometers | 5 years | 20.00% | 40.00% | 1 January 2004
-Optical assets: / Cameras (including anterior segment cameras, retinal cameras, fundus cameras): | | | |
-Optical assets: / Cameras (including anterior segment cameras, retinal cameras, fundus cameras): / Analogue | 8 years | 12.50% | 25.00% | 1 January 2004
-Optical assets: / Cameras (including anterior segment cameras, retinal cameras, fundus cameras): / Digital | 4 years | 25.00% | 50.00% | 1 January 2004
+Asset group · Optical assets: / Cameras (including anterior segment cameras, retinal cameras, fundus cameras): | | | |
+Optical assets: / Cameras (including anterior segment cameras, retinal cameras, fundus cameras): / Analogue (Cameras …) | 8 years | 12.50% | 25.00% | 1 January 2004
+Optical assets: / Cameras (including anterior segment cameras, retinal cameras, fundus cameras): / Digital (Cameras …) | 4 years | 25.00% | 50.00% | 1 January 2004
 Optical assets: / Colour vision testers (automated) | 8 years | 12.50% | 25.00% | 1 January 2004
 Optical assets: / Corneal topography systems | 5 years | 20.00% | 40.00% | 1 January 2004
 Optical assets: / Examination chairs | 10 years | 10.00% | 20.00% | 1 January 2004
 Optical assets: / Glaucoma diagnostic assets (including ocular coherence tomographs (OCTs), scanning laser ophthalmoscopes and scanning laser polarimeters) | 5 years | 20.00% | 40.00% | 1 January 2004
-Optical assets: / Keratometers (Ophthalmometers): | | | |
-Optical assets: / Keratometers (Ophthalmometers): / Automated | 5 years | 20.00% | 40.00% | 1 January 2004
-Optical assets: / Keratometers (Ophthalmometers): / Manual | 12 years | 8.33% | 16.67% | 1 January 2004
-Optical assets: / Ophthalmic surgery assets: | | | |
-Optical assets: / Ophthalmic surgery assets: / Microkeratome | 3 years | 33.33% | 66.67% | 1 January 2004
+Asset group · Optical assets: / Keratometers (Ophthalmometers): | | | |
+Optical assets: / Keratometers (Ophthalmometers): / Automated (Keratometers …) | 5 years | 20.00% | 40.00% | 1 January 2004
+Optical assets: / Keratometers (Ophthalmometers): / Manual (Keratometers …) | 12 years | 8.33% | 16.67% | 1 January 2004
+Asset group · Optical assets: / Ophthalmic surgery assets: | | | |
+Optical assets: / Microkeratome (Ophthalmic surgery assets) | 3 years | 33.33% | 66.67% | 1 January 2004
 Optical assets: / Ophthalmic surgery assets: / Ophthalmic cryo surgery systems | 5 years | 20.00% | 40.00% | 1 January 2004
 Optical assets: / Ophthalmic surgery assets: / Ophthalmic diathermy surgery systems | 5 years | 20.00% | 40.00% | 1 January 2004
-Optical assets: / Ophthalmic surgery assets: / Ophthalmic lasers: | | | |
-Optical assets: / Ophthalmic surgery assets: / Ophthalmic lasers: / Non-refractive | 10 years | 10.00% | 20.00% | 1 January 2004
+Asset group · Optical assets: / Ophthalmic surgery assets: / Ophthalmic lasers: | | | |
+Optical assets: / Ophthalmic surgery assets: / Non-refractive (Ophthalmic lasers) | 10 years | 10.00% | 20.00% | 1 January 2004
 Optical assets: / Ophthalmic surgery assets: / Ophthalmic lasers: / Refractive (including eye tracking systems) | 4 years | 25.00% | 50.00% | 1 January 2004
 Optical assets: / Ophthalmic surgery assets: / Phacoemulsification systems | 4 years | 25.00% | 50.00% | 1 January 2004
 Optical assets: / Ophthalmic surgery assets: / Pupillometers (used for refractive surgery) | 5 years | 20.00% | 40.00% | 1 January 2004
 Optical assets: / Ophthalmic surgery assets: / Vitrectomy systems | 4 years | 25.00% | 50.00% | 1 January 2004
 Optical assets: / Ophthalmic surgery assets: / Wave front analysers | 4 years | 25.00% | 50.00% | 1 January 2004
 Optical assets: / Ophthalmic viewers | 5 years | 20.00% | 40.00% | 1 January 2004
-Optical assets: / Ophthalmoscopes: | | | |
+Asset group · Optical assets: / Ophthalmoscopes: | | | |
 Optical assets: / Ophthalmoscopes: / Direct (including power supply) | 8 years | 12.50% | 25.00% | 1 January 2004
-Optical assets: / Ophthalmoscopes: / Indirect | 9 years | 11.11% | 22.22% | 1 January 2004
-Optical assets: / Optical dispensing assets – see Table A Photographic, optical and ophthalmic equipment manufacturing (24110) | | | |
+Optical assets: / Indirect (Ophthalmoscopes) | 9 years | 11.11% | 22.22% | 1 January 2004
+Register note · Optical assets: / Optical dispensing assets – see Table A Photographic, optical and ophthalmic equipment manufacturing (24110) | | | |
 Optical assets: / Refraction units (including examination chair, instrument arms, table and light source) | 10 years | 10.00% | 20.00% | 1 January 2004
 Optical assets: / Refractometers (automated) | 5 years | 20.00% | 40.00% | 1 January 2004
-Optical assets: / Slit lamp biomicroscopes: | | | |
-Optical assets: / Slit lamp biomicroscopes: / Hand-held | 9 years | 11.11% | 22.22% | 1 January 2004
-Optical assets: / Slit lamp biomicroscopes: / Mounted | 12 years | 8.33% | 16.67% | 1 January 2004
+Asset group · Optical assets: / Slit lamp biomicroscopes: | | | |
+Optical assets: / Hand-held (Slit lamp biomicroscopes) | 9 years | 11.11% | 22.22% | 1 January 2004
+Optical assets: / Mounted (Slit lamp biomicroscopes) | 12 years | 8.33% | 16.67% | 1 January 2004
 Optical assets: / Telemedicine digital imaging systems (excluding imaging devices) | 4 years | 25.00% | 50.00% | 1 January 2004
-Optical assets: / Tonometers: | | | |
-Optical assets: / Tonometers: / Contact tonometers: | | | |
-Optical assets: / Tonometers: / Contact tonometers: / Applanation: | | | |
-Optical assets: / Tonometers: / Contact tonometers: / Applanation: / Hand-held | 6 years | 16.67% | 33.33% | 1 January 2004
-Optical assets: / Tonometers: / Contact tonometers: / Applanation: / Mounted | 8 years | 12.50% | 25.00% | 1 January 2004
-Optical assets: / Tonometers: / Contact tonometers: / Electronic | 6 years | 16.67% | 33.33% | 1 January 2004
-Optical assets: / Tonometers: / Non-contact tonometers: | | | |
-Optical assets: / Tonometers: / Non-contact tonometers: / Hand-held | 5 years | 20.00% | 40.00% | 1 January 2004
+Asset group · Optical assets: / Tonometers: | | | |
+Asset group · Optical assets: / Tonometers: / Contact tonometers: | | | |
+Asset group · Optical assets: / Tonometers: / Contact tonometers: / Applanation: | | | |
+Optical assets: / Tonometers: / Contact tonometers: / Hand-held (Applanation) | 6 years | 16.67% | 33.33% | 1 January 2004
+Optical assets: / Tonometers: / Contact tonometers: / Mounted (Applanation) | 8 years | 12.50% | 25.00% | 1 January 2004
+Optical assets: / Tonometers: / Electronic (Contact tonometers) | 6 years | 16.67% | 33.33% | 1 January 2004
+Asset group · Optical assets: / Tonometers: / Non-contact tonometers: | | | |
+Optical assets: / Tonometers: / Hand-held (Non-contact tonometers) | 5 years | 20.00% | 40.00% | 1 January 2004
 Optical assets: / Tonometers: / Non-contact tonometers: / Table mounted | 8 years | 12.50% | 25.00% | 1 January 2004
 Optical assets: / Trial lens sets | 20 years | 5.00% | 10.00% | 1 January 2004
 Optical assets: / Ultrasound diagnostic assets (including A-scan biometers, A/B scan biometers, B-scan biometers, laser interference biometers, pachymeters and ultrasound biomicroscopes (UBMs)) | 5 years | 20.00% | 40.00% | 1 January 2004
-Optical assets: / Visual acuity testing assets: | | | |
+Asset group · Optical assets: / Visual acuity testing assets: | | | |
 Optical assets: / Visual acuity testing assets: / Automated vision testers | 6 years | 16.67% | 33.33% | 1 January 2004
 Optical assets: / Visual acuity testing assets: / Manual vision testers (phoropters) | 12 years | 8.33% | 16.67% | 1 January 2004
 Optical assets: / Visual acuity testing assets: / Visual acuity charts (illuminated) | 10 years | 10.00% | 20.00% | 1 January 2004
@@ -71,28 +69,28 @@ Optical assets: / Visual field testing assets (perimeters) – automated | 5 yea
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/#source
 - Automatic refractometers/keratometers: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/automatic-refractometers-keratometers/
-- Analogue: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/analogue/
-- Digital: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/digital/
+- Analogue (Cameras …): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/analogue/
+- Digital (Cameras …): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/digital/
 - Colour vision testers (automated): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/colour-vision-testers/
 - Corneal topography systems: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/corneal-topography-systems/
 - Examination chairs: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/examination-chairs/
 - Glaucoma diagnostic assets (including ocular coherence tomographs (OCTs), scanning laser ophthalmoscopes and scanning laser polarimeters): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/glaucoma-diagnostic-assets/
-- Automated: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/automated/
-- Manual: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/manual/
-- Microkeratome: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/microkeratome/
+- Automated (Keratometers …): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/automated/
+- Manual (Keratometers …): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/manual/
+- Microkeratome (Ophthalmic surgery assets): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/microkeratome/
 - Ophthalmic cryo surgery systems: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/ophthalmic-cryo-surgery-systems/
 - Ophthalmic diathermy surgery systems: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/ophthalmic-diathermy-surgery-systems/
-- Non-refractive: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/non-refractive/
+- Non-refractive (Ophthalmic lasers): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/non-refractive/
 - Refractive (including eye tracking systems): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/refractive/
 - Phacoemulsification systems: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/phacoemulsification-systems/
 - Pupillometers (used for refractive surgery): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/pupillometers/
@@ -100,17 +98,17 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Wave front analysers: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/wave-front-analysers/
 - Ophthalmic viewers: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/ophthalmic-viewers/
 - Direct (including power supply): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/direct/
-- Indirect: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/indirect/
+- Indirect (Ophthalmoscopes): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/indirect/
 - Optical dispensing assets – see Table A Photographic, optical and ophthalmic equipment manufacturing (24110): https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/
 - Refraction units (including examination chair, instrument arms, table and light source): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/refraction-units/
 - Refractometers (automated): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/refractometers/
-- Hand-held: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/slit-lamp-biomicroscopes-hand-held/
-- Mounted: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/slit-lamp-biomicroscopes-mounted/
+- Hand-held (Slit lamp biomicroscopes): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/slit-lamp-biomicroscopes-hand-held/
+- Mounted (Slit lamp biomicroscopes): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/slit-lamp-biomicroscopes-mounted/
 - Telemedicine digital imaging systems (excluding imaging devices): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/telemedicine-digital-imaging-systems/
-- Hand-held: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/applanation-hand-held/
-- Mounted: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/applanation-mounted/
-- Electronic: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/electronic/
-- Hand-held: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/non-contact-tonometers-hand-held/
+- Hand-held (Applanation): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/applanation-hand-held/
+- Mounted (Applanation): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/applanation-mounted/
+- Electronic (Contact tonometers): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/electronic/
+- Hand-held (Non-contact tonometers): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/non-contact-tonometers-hand-held/
 - Table mounted: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/table-mounted/
 - Trial lens sets: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/trial-lens-sets/
 - Ultrasound diagnostic assets (including A-scan biometers, A/B scan biometers, B-scan biometers, laser interference biometers, pachymeters and ultrasound biomicroscopes (UBMs)): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/ultrasound-diagnostic-assets/
@@ -120,7 +118,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Visual acuity chart projectors (automated): https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/visual-acuity-chart-projectors/
 - Visual field testing assets (perimeters) – automated: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/visual-field-testing-assets-automated/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

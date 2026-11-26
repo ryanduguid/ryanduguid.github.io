@@ -8,62 +8,60 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/poultry-processi
 
 30 effective lives in Table A of the Commissioner’s 2025 effective life determination for Poultry processing.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Poultry processing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Chilling assets: | | | |
+Asset group · Chilling assets: | | | |
 Chilling assets: / Freezers (including blast tunnels, in-line air chillers, and spiral freezers) | 15 years | 6.67% | 13.33% | 1 July 2017
 Chilling assets: / Spin chillers and immersion chillers | 15 years | 6.67% | 13.33% | 1 July 2017
 Conveyors: overhead chains (carrying birds) | 1 year | 100.00% | 200.00% | 1 July 2017
-Cut up & portion cutting assets: | | | |
+Asset group · Cut up & portion cutting assets: | | | |
 Cut up & portion cutting assets: / Cut-up machines (for body, breast, legs, necks, wings etc) | 12 years | 8.33% | 16.67% | 1 July 2017
 Cut up & portion cutting assets: / Dicers, flatteners and portion cutters (including air, bowl, vacuum, vertical, water jet etc) | 6 years | 16.67% | 33.33% | 1 July 2017
-Deboning area assets: | | | |
+Asset group · Deboning area assets: | | | |
 Deboning area assets: / Automatic deboners | 10 years | 10.00% | 20.00% | 1 July 2017
 Deboning area assets: / Bone scanners (x-ray or photo) | 7 years | 14.29% | 28.57% | 1 July 2017
 Deboning area assets: / Cone lines | 10 years | 10.00% | 20.00% | 1 July 2017
 Deboning area assets: / Extruders, grinders and mechanical deboned meat (MDM) machines | 10 years | 10.00% | 20.00% | 1 July 2017
 Deboning area assets: / Saws and pneumatic guns | 5 years | 20.00% | 40.00% | 1 July 2017
-Deboning area assets: / Skinners | 6 years | 16.67% | 33.33% | 1 July 2017
-Defeathering equipment: | | | |
+Skinners (Deboning area assets) | 6 years | 16.67% | 33.33% | 1 July 2017
+Asset group · Defeathering equipment: | | | |
 Defeathering equipment: / Pluckers or pickers | 13 years | 7.69% | 15.38% | 1 July 2017
 Defeathering equipment: / Pluckers (drums and wax peelers) | 6 years | 16.67% | 33.33% | 1 July 2017
 Defeathering equipment: / Pluckers (waterfowl necks or tails) | 7 years | 14.29% | 28.57% | 1 July 2017
 Defeathering equipment: / Scalders (air or water) | 11 years | 9.09% | 18.18% | 1 July 2017
 Defeathering equipment: / Waxing tanks | 8 years | 12.50% | 25.00% | 1 July 2017
-Evisceration equipment: | | | |
+Asset group · Evisceration equipment: | | | |
 Evisceration equipment: / Croppers, feet removers, giblet processors, head removers, heart lung harvesters, heart lung separators, openers, vent cutters etc) | 11 years | 9.09% | 18.18% | 1 July 2017
 Evisceration equipment: / Inside/outside bird washers | 15 years | 6.67% | 13.33% | 1 July 2017
-Further processing assets: | | | |
+Asset group · Further processing assets: | | | |
 Further processing assets: / Coating machines, breaders, dusters etc | 10 years | 10.00% | 20.00% | 1 July 2017
 Further processing assets: / Filling machines (including Kiev, sausage, stuffing etc) | 10 years | 10.00% | 20.00% | 1 July 2017
 Further processing assets: / Injectors (including brine, saline, seasoning etc) | 15 years | 6.67% | 13.33% | 1 July 2017
 Further processing assets: / Marinating machines (including marinade sprayers, mixers, vacuum tumbler massagers etc) | 10 years | 10.00% | 20.00% | 1 July 2017
 Further processing assets: / Ovens and cookers (including gyro, spiral, steam, thermal fluid fryers, vertical airflow etc) | 15 years | 6.67% | 13.33% | 1 July 2017
-Grading equipment: | | | |
+Asset group · Grading equipment: | | | |
 Grading equipment: / Camera vision scanners | 6 years | 16.67% | 33.33% | 1 July 2017
 Grading equipment: / Overhead chain weighing, sorting, and transfer systems | 7 years | 14.29% | 28.57% | 1 July 2017
-Killing equipment: | | | |
+Asset group · Killing equipment: | | | |
 Killing equipment: / Controlled atmosphere stunning (CAS) machines | 10 years | 10.00% | 20.00% | 1 July 2017
 Killing equipment: / Electric water stunners | 12 years | 8.33% | 16.67% | 1 July 2017
-Killing equipment: / Killers | 12 years | 8.33% | 16.67% | 1 July 2017
+Killers (Killing equipment) | 12 years | 8.33% | 16.67% | 1 July 2017
 Live bird handling systems (including live bird containers) | 12 years | 8.33% | 16.67% | 1 July 2017
-Packaging machines generally (bagging machines, batchers, carton and case erecting and closing machines, inspection equipment (checkweighers, metal detectors etc), multihead and singlehead weighers, palletisers and depalletisers, product identification labellers, robotic pick and place machines and wrapping machines) – see Table B Packaging machines | | | |
+Register note · Packaging machines generally (bagging machines, batchers, carton and case erecting and closing machines, inspection equipment (checkweighers, metal detectors etc), multihead and singlehead weighers, palletisers and depalletisers, product identification labellers, robotic pick and place machines and wrapping machines) – see Table B Packaging machines | | | |
 Shrink dip tanks and shrink wrap tunnels | 10 years | 10.00% | 20.00% | 1 July 2017
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
@@ -78,7 +76,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Cone lines: https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/cone-lines/
 - Extruders, grinders and mechanical deboned meat (MDM) machines: https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/extruders-grinders-and-mechanical-deboned-meat-machines/
 - Saws and pneumatic guns: https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/saws-and-pneumatic-guns/
-- Skinners: https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/skinners/
+- Skinners (Deboning area assets): https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/skinners/
 - Pluckers or pickers: https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/pluckers-or-pickers/
 - Pluckers (drums and wax peelers): https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/pluckers-drums-and-wax-peelers/
 - Pluckers (waterfowl necks or tails): https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/pluckers-waterfowl-necks-or-tails/
@@ -95,12 +93,12 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Overhead chain weighing, sorting, and transfer systems: https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/overhead-chain-weighing-sorting-and-transfer-systems/
 - Controlled atmosphere stunning (CAS) machines: https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/controlled-atmosphere-stunning-machines/
 - Electric water stunners: https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/electric-water-stunners/
-- Killers: https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/killers/
+- Killers (Killing equipment): https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/killers/
 - Live bird handling systems (including live bird containers): https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/live-bird-handling-systems/
 - Packaging machines generally (bagging machines, batchers, carton and case erecting and closing machines, inspection equipment (checkweighers, metal detectors etc), multihead and singlehead weighers, palletisers and depalletisers, product identification labellers, robotic pick and place machines and wrapping machines) – see Table B Packaging machines: https://duguid.com.au/tools/depreciation-rates/asset/packaging-machines/
 - Shrink dip tanks and shrink wrap tunnels: https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/shrink-dip-tanks-and-shrink-wrap-tunnels/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -23,6 +23,7 @@ pub struct Head {
     pub h1: String,
     pub title: String,
     pub description: String,
+    pub link_label: String,
 }
 
 /// Each page's candidates for its H1, title and description, plainest first.
@@ -68,6 +69,22 @@ pub fn key(text: &str) -> Vec<String> {
     address::words(&address::core(text))
 }
 
+fn link_labels(data: &Data, plan: &Plan, headings: &[String]) -> Result<Vec<String>> {
+    let options: Vec<_> = plan
+        .pages
+        .iter()
+        .zip(headings)
+        .map(|(page, heading)| match page.kind {
+            Kind::Asset(entry) => asset::link_candidates(
+                &data.groups[page.group],
+                self_entry(data, (page.group, entry)),
+            ),
+            _ => vec![heading.clone()],
+        })
+        .collect();
+    unique::settle("link label", &options)
+}
+
 impl<'a> Site<'a> {
     pub fn new(data: &'a Data, plan: &'a Plan) -> Result<Self> {
         let mut same_words: HashMap<Vec<String>, Vec<RowRef>> = HashMap::new();
@@ -82,6 +99,7 @@ impl<'a> Site<'a> {
         }
         let [h1s, titles, mut descriptions] = candidates(data, plan);
         let h1s = unique::settle("heading", &h1s)?;
+        let labels = link_labels(data, plan, &h1s)?;
         let titles = unique::settle("title", &titles)?;
         for ((page, title), options) in plan.pages.iter().zip(&titles).zip(&mut descriptions) {
             if let Kind::Asset(at) = page.kind {
@@ -93,14 +111,15 @@ impl<'a> Site<'a> {
         let heads = plan
             .pages
             .iter()
-            .zip(h1s.into_iter().zip(titles).zip(descriptions))
-            .map(|(page, ((h1, title), description))| {
+            .zip(h1s.into_iter().zip(titles).zip(descriptions).zip(labels))
+            .map(|(page, (((h1, title), description), link_label))| {
                 (
                     page.url.as_str(),
                     Head {
                         h1,
                         title,
                         description,
+                        link_label,
                     },
                 )
             })
@@ -121,18 +140,26 @@ impl<'a> Site<'a> {
     /// Preserve the instrument's wording and distinguish repeated row names for link navigation.
     pub fn row_link(&self, row: RowRef) -> String {
         let url = self.url(row);
-        let entry = self.entry(row).text();
-        let name = super::head::esc(entry);
-        if self
-            .same_words
-            .get(&key(entry))
-            .is_some_and(|rows| rows.len() > 1)
-            // A single word beneath a parent heading can be ambiguous in a links list.
-            || (self.entry(row).path.len() > 1 && entry.split_whitespace().nth(1).is_none())
+        let label = &self.head(url).link_label;
+        let name = super::head::esc(label);
+        let entry = self.entry(row);
+        if label != entry.text()
+            || self
+                .same_words
+                .get(&key(entry.text()))
+                .is_some_and(|rows| rows.len() > 1)
         {
-            let context = asset::context(self.group(row.0), self.entry(row)).join(", ");
-            let context = super::head::esc(&context);
-            return format!("<a href=\"{url}\" aria-label=\"{name}, {context}\">{name}</a>");
+            let qualifier = label
+                .strip_prefix(entry.text())
+                .and_then(|tail| tail.strip_prefix(" ("))
+                .and_then(|tail| tail.strip_suffix(')'))
+                .unwrap_or("");
+            let mut context = asset::context(self.group(row.0), entry);
+            context.retain(|part| !qualifier.split(" / ").any(|shown| shown == part));
+            if !context.is_empty() {
+                let context = super::head::esc(&context.join(", "));
+                return format!("<a href=\"{url}\" aria-label=\"{name}, {context}\">{name}</a>");
+            }
         }
         format!("<a href=\"{url}\">{name}</a>")
     }

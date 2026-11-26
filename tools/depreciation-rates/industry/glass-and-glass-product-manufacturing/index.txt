@@ -8,111 +8,109 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-
 
 62 effective lives in Table A of the Commissioner’s 2025 effective life determination for Glass and glass product manufacturing.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Glass and glass product manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Container glass and flat (float) glass manufacturing assets: | | | |
-Container glass and flat (float) glass manufacturing assets: / Ancillary assets: | | | |
-Container glass and flat (float) glass manufacturing assets: / Ancillary assets: / Blowers and fans | 25 years | 4.00% | 8.00% | 1 July 2008
+Asset group · Container glass and flat (float) glass manufacturing assets: | | | |
+Asset group · Container glass and flat (float) glass manufacturing assets: / Ancillary assets: | | | |
+Container glass and flat (float) glass manufacturing assets: / Blowers and fans (Ancillary assets) | 25 years | 4.00% | 8.00% | 1 July 2008
 Container glass and flat (float) glass manufacturing assets: / Ancillary assets: / Conveyors generally (including bottle conveyors, bucket elevators, pallet transport conveyors and pneumatic conveyors) | 25 years | 4.00% | 8.00% | 1 July 2008
 Container glass and flat (float) glass manufacturing assets: / Ancillary assets: / Ducting, pipes and piping | 40 years | 2.50% | 5.00% | 1 July 2008
 Container glass and flat (float) glass manufacturing assets: / Ancillary assets: / Steelwork structures (including gantries, platforms and walkways) | 40 years | 2.50% | 5.00% | 1 July 2008
-Container glass and flat (float) glass manufacturing assets: / Ancillary assets: / Vacuum pumps: | | | |
+Asset group · Container glass and flat (float) glass manufacturing assets: / Ancillary assets: / Vacuum pumps: | | | |
 Container glass and flat (float) glass manufacturing assets: / Ancillary assets: / Vacuum pumps: / Liquid ring pumps | 10 years | 10.00% | 20.00% | 1 July 2008
 Container glass and flat (float) glass manufacturing assets: / Ancillary assets: / Vacuum pumps: / Oil sealed pumps | 20 years | 5.00% | 10.00% | 1 July 2008
 Container glass and flat (float) glass manufacturing assets: / Annealing lehrs | 25 years | 4.00% | 8.00% | 1 July 2008
-Container glass and flat (float) glass manufacturing assets: / Batch house assets: | | | |
-Container glass and flat (float) glass manufacturing assets: / Batch house assets: / Cullet handling and return assets: | | | |
+Asset group · Container glass and flat (float) glass manufacturing assets: / Batch house assets: | | | |
+Asset group · Container glass and flat (float) glass manufacturing assets: / Batch house assets: / Cullet handling and return assets: | | | |
 Container glass and flat (float) glass manufacturing assets: / Batch house assets: / Cullet handling and return assets: / Cullet crushers | 25 years | 4.00% | 8.00% | 1 July 2008
-Container glass and flat (float) glass manufacturing assets: / Batch house assets: / Cullet handling and return assets: / Scraping conveyor systems: | | | |
+Asset group · Container glass and flat (float) glass manufacturing assets: / Batch house assets: / Cullet handling and return assets: / Scraping conveyor systems: | | | |
 Container glass and flat (float) glass manufacturing assets: / Batch house assets: / Cullet handling and return assets: / Scraping conveyor systems: / Container glass | 12 years | 8.33% | 16.67% | 1 July 2008
 Container glass and flat (float) glass manufacturing assets: / Batch house assets: / Cullet handling and return assets: / Scraping conveyor systems: / Flat glass | 25 years | 4.00% | 8.00% | 1 July 2008
 Container glass and flat (float) glass manufacturing assets: / Batch house assets: / Other assets (including batch conveyors, batch mixers, bins, hoppers and weigh hoppers) | 25 years | 4.00% | 8.00% | 1 July 2008
-Container glass and flat (float) glass manufacturing assets: / Batch house assets: / Silos | 40 years | 2.50% | 5.00% | 1 July 2008
+Container glass and flat (float) glass manufacturing assets: / Silos (Batch house assets) | 40 years | 2.50% | 5.00% | 1 July 2008
 Container glass and flat (float) glass manufacturing assets: / Coating assets (cold and hot end) | 12 years | 8.33% | 16.67% | 1 July 2008
-Container glass and flat (float) glass manufacturing assets: / Control systems (excluding personal computers) | 10 years | 10.00% | 20.00% | 1 July 2008
+Container glass and flat (float) glass manufacturing assets: / Control systems (excluding personal computers) (Container glass and flat … glass manufacturing assets) | 10 years | 10.00% | 20.00% | 1 July 2008
 Container glass and flat (float) glass manufacturing assets: / Flat glass ribbon cutting assets (including cross cutters, longitudinal cutters and snap rolls) | 25 years | 4.00% | 8.00% | 1 July 2008
 Container glass and flat (float) glass manufacturing assets: / Float baths | 25 years | 4.00% | 8.00% | 1 July 2008
-Container glass and flat (float) glass manufacturing assets: / Forehearths | 12 years | 8.33% | 16.67% | 1 July 2008
+Container glass and flat (float) glass manufacturing assets: / Forehearths (Container glass and flat … glass manufacturing assets) | 12 years | 8.33% | 16.67% | 1 July 2008
 Container glass and flat (float) glass manufacturing assets: / Forming machines (incorporating shearing and distribution systems) | 12 years | 8.33% | 16.67% | 1 July 2008
-Container glass and flat (float) glass manufacturing assets: / Glass furnace assets: | | | |
+Asset group · Container glass and flat (float) glass manufacturing assets: / Glass furnace assets: | | | |
 Container glass and flat (float) glass manufacturing assets: / Glass furnace assets: / Batch chargers | 12 years | 8.33% | 16.67% | 1 July 2008
-Container glass and flat (float) glass manufacturing assets: / Glass furnace assets: / Exhaust stacks: | | | |
+Asset group · Container glass and flat (float) glass manufacturing assets: / Glass furnace assets: / Exhaust stacks: | | | |
 Container glass and flat (float) glass manufacturing assets: / Glass furnace assets: / Exhaust stacks: / Brick lined | 40 years | 2.50% | 5.00% | 1 July 2008
-Container glass and flat (float) glass manufacturing assets: / Glass furnace assets: / Exhaust stacks: / Steel | 12 years | 8.33% | 16.67% | 1 July 2008
+Container glass and flat (float) glass manufacturing assets: / Glass furnace assets: / Steel (Exhaust stacks) | 12 years | 8.33% | 16.67% | 1 July 2008
 Container glass and flat (float) glass manufacturing assets: / Glass furnace assets: / Furnace support assets (including bubbler systems and electro boost systems) | 12 years | 8.33% | 16.67% | 1 July 2008
 Container glass and flat (float) glass manufacturing assets: / Glass furnace assets: / Furnace tanks | 12 years | 8.33% | 16.67% | 1 July 2008
 Container glass and flat (float) glass manufacturing assets: / Glass furnace assets: / Regenerators and recuperators | 12 years | 8.33% | 16.67% | 1 July 2008
 Container glass and flat (float) glass manufacturing assets: / Glass product handling and packaging assets (including case packers, flat glass lifters and stackers, palletisers, strapping machines, shrink wrappers, stretch wrappers and trolley shuttle cars) | 12 years | 8.33% | 16.67% | 1 July 2008
-Container glass and flat (float) glass manufacturing assets: / Inspection assets | 10 years | 10.00% | 20.00% | 1 July 2008
+Container glass and flat (float) glass manufacturing assets: / Inspection assets (Container glass and flat … glass manufacturing assets) | 10 years | 10.00% | 20.00% | 1 July 2008
 Container glass and flat (float) glass manufacturing assets: / Lehr stackers | 12 years | 8.33% | 16.67% | 1 July 2008
-Container glass and flat (float) glass manufacturing assets: / Moulds | 2 years | 50.00% | 100.00% | 1 July 2008
-Glass product manufacturing assets: | | | |
-Glass product manufacturing assets: / Automotive glass product manufacturing assets: | | | |
+Container glass and flat (float) glass manufacturing assets: / Moulds (Container glass and flat … glass manufacturing assets) | 2 years | 50.00% | 100.00% | 1 July 2008
+Asset group · Glass product manufacturing assets: | | | |
+Asset group · Glass product manufacturing assets: / Automotive glass product manufacturing assets: | | | |
 Glass product manufacturing assets: / Automotive glass product manufacturing assets: / CNC controlled edgers and grinders | 15 years | 6.67% | 13.33% | 1 July 2009
 Glass product manufacturing assets: / Automotive glass product manufacturing assets: / CNC controlled scorers and cutters | 15 years | 6.67% | 13.33% | 1 July 2009
-Glass product manufacturing assets: / Automotive glass product manufacturing assets: / Inspection assets: | | | |
+Asset group · Glass product manufacturing assets: / Automotive glass product manufacturing assets: / Inspection assets: | | | |
 Glass product manufacturing assets: / Automotive glass product manufacturing assets: / Inspection assets: / Automotive laminated glass product inspection assets (including automated distortion checking assets and conveyors) | 15 years | 6.67% | 13.33% | 1 July 2009
 Glass product manufacturing assets: / Automotive glass product manufacturing assets: / Inspection assets: / Automotive toughened glass product inspection assets (including thermal imaging testing assets) | 10 years | 10.00% | 20.00% | 1 July 2009
-Glass product manufacturing assets: / Automotive glass product manufacturing assets: / Post-processing assets used in automotive laminated glass production and toughened glass production processes: | | | |
+Asset group · Glass product manufacturing assets: / Automotive glass product manufacturing assets: / Post-processing assets used in automotive laminated glass production and toughened glass production processes: | | | |
 Glass product manufacturing assets: / Automotive glass product manufacturing assets: / Post-processing assets used in automotive laminated glass production and toughened glass production processes: / Automated back window soldering units | 10 years | 10.00% | 20.00% | 1 July 2009
 Glass product manufacturing assets: / Automotive glass product manufacturing assets: / Post-processing assets used in automotive laminated glass production and toughened glass production processes: / Others (including conveyor handling assets, encapsulation presses, hot melt adhesive applicators, robots and tooling) | 15 years | 6.67% | 13.33% | 1 July 2009
 Glass product manufacturing assets: / CNC machines | 7 years | 14.29% | 28.57% | 1 July 2009
-Glass product manufacturing assets: / Control systems (excluding personal computers) | 10 years | 10.00% | 20.00% | 1 July 2009
-Glass product manufacturing assets: / Cutting tables: | | | |
+Control systems (excluding personal computers) (Glass product manufacturing assets) | 10 years | 10.00% | 20.00% | 1 July 2009
+Asset group · Glass product manufacturing assets: / Cutting tables: | | | |
 Glass product manufacturing assets: / Cutting tables: / Automated cutting and break-out tables | 10 years | 10.00% | 20.00% | 1 July 2009
 Glass product manufacturing assets: / Cutting tables: / Laminated glass cutting tables | 10 years | 10.00% | 20.00% | 1 July 2009
 Glass product manufacturing assets: / Cutting tables: / Manual cutting tables (including air float tables) | 15 years | 6.67% | 13.33% | 1 July 2009
-Glass product manufacturing assets: / Digital printing assets: | | | |
+Asset group · Glass product manufacturing assets: / Digital printing assets: | | | |
 Glass product manufacturing assets: / Digital printing assets: / Digital printers | 5 years | 20.00% | 40.00% | 1 July 2009
-Glass product manufacturing assets: / Digital printing assets: / Dryers | 12 1/2 years | 8.00% | 16.00% | 1 July 2009
+Glass product manufacturing assets: / Dryers (Digital printing assets) | 12 1/2 years | 8.00% | 16.00% | 1 July 2009
 Glass product manufacturing assets: / Double glazing assets (including butyl coating machines, conveyors, presses, sealing machines and spacer robots) | 15 years | 6.67% | 13.33% | 1 July 2009
 Glass product manufacturing assets: / Drilling and/or milling machines (including horizontal and vertical drilling machines) | 10 years | 10.00% | 20.00% | 1 July 2009
-Glass product manufacturing assets: / Edgers: | | | |
+Asset group · Glass product manufacturing assets: / Edgers: | | | |
 Glass product manufacturing assets: / Edgers: / Arrissing machines | 8 years | 12.50% | 25.00% | 1 July 2009
 Glass product manufacturing assets: / Edgers: / Horizontal double edgers | 10 years | 10.00% | 20.00% | 1 July 2009
 Glass product manufacturing assets: / Edgers: / Straight line edgers and bevellers | 7 years | 14.29% | 28.57% | 1 July 2009
-Glass product manufacturing assets: / Glass handling and storage assets: | | | |
+Asset group · Glass product manufacturing assets: / Glass handling and storage assets: | | | |
 Glass product manufacturing assets: / Glass handling and storage assets: / Automated loaders and unloaders (used with automated cutting tables, laminating lines, toughening lines etc) | 10 years | 10.00% | 20.00% | 1 July 2009
-Glass product manufacturing assets: / Glass handling and storage assets: / Bulk glass handling assets: | | | |
-Glass product manufacturing assets: / Glass handling and storage assets: / Bulk glass handling assets: / Straddle carriers | 10 years | 10.00% | 20.00% | 1 July 2009
+Asset group · Glass product manufacturing assets: / Glass handling and storage assets: / Bulk glass handling assets: | | | |
+Glass product manufacturing assets: / Glass handling and storage assets: / Straddle carriers (Bulk glass handling assets) | 10 years | 10.00% | 20.00% | 1 July 2009
 Glass product manufacturing assets: / Glass handling and storage assets: / Bulk glass handling assets: / Vertical glass handlers (sideloaders, tuning forks) | 17 years | 5.88% | 11.76% | 1 July 2009
-Glass product manufacturing assets: / Glass handling and storage assets: / Cranes (gantry and overhead) | 25 years | 4.00% | 8.00% | 1 July 2014
+Glass product manufacturing assets: / Cranes (gantry and overhead) (Glass handling and storage assets) | 25 years | 4.00% | 8.00% | 1 July 2014
 Glass product manufacturing assets: / Glass handling and storage assets: / Racks (including A-frame racks, hydraulic concertina racks and freefall racks) | 20 years | 5.00% | 10.00% | 1 July 2009
 Glass product manufacturing assets: / Glass handling and storage assets: / Steel grabs | 12 years | 8.33% | 16.67% | 1 July 2009
-Glass product manufacturing assets: / Glass handling and storage assets: / Trolleys | 7 years | 14.29% | 28.57% | 1 July 2009
+Glass product manufacturing assets: / Trolleys (Glass handling and storage assets) | 7 years | 14.29% | 28.57% | 1 July 2009
 Glass product manufacturing assets: / Glass handling and storage assets: / Vacuum lifters and scissor grabs | 8 years | 12.50% | 25.00% | 1 July 2009
-Glass product manufacturing assets: / Glass handling and storage assets: / Vertical masts and other elevating work platforms – see Table A Rental and hiring services (except real estate) (66110 to 66400), Elevating work platforms (EWPs) | | | |
+Register note · Glass product manufacturing assets: / Glass handling and storage assets: / Vertical masts and other elevating work platforms – see Table A Rental and hiring services (except real estate) (66110 to 66400), Elevating work platforms (EWPs) | | | |
 Glass product manufacturing assets: / Glass laminating assets (including assembly clean room assets, autoclaves, heaters, laminating lehr furnaces, ovens, pre-presses, presses and vacuum bag furnaces) | 15 years | 6.67% | 13.33% | 1 July 2009
-Glass product manufacturing assets: / Glass toughening (tempering) assets: | | | |
+Asset group · Glass product manufacturing assets: / Glass toughening (tempering) assets: | | | |
 Glass product manufacturing assets: / Glass toughening (tempering) assets: / Furnaces and quenches used in toughening, bending/toughening and bending/slumping | 20 years | 5.00% | 10.00% | 1 July 2009
 Glass product manufacturing assets: / Glass toughening (tempering) assets: / Heat soaking ovens | 20 years | 5.00% | 10.00% | 1 July 2009
 Glass product manufacturing assets: / Glass washing machines | 10 years | 10.00% | 20.00% | 1 July 2009
 Glass product manufacturing assets: / Plastic film applicators (spotstick machines) | 8 years | 12.50% | 25.00% | 1 July 2009
-Glass product manufacturing assets: / Screen printing assets – see Table A Printing (16110) | | | |
-Glass product manufacturing assets: / Support assets: | | | |
-Glass product manufacturing assets: / Support assets: / Air compressors | 20 years | 5.00% | 10.00% | 1 July 2014
-Glass product manufacturing assets: / Support assets: / Boilers | 20 years | 5.00% | 10.00% | 1 July 2014
-Glass product manufacturing assets: / Waterjet cutting machines | 10 years | 10.00% | 20.00% | 1 July 2009
+Register note · Glass product manufacturing assets: / Screen printing assets – see Table A Printing (16110) | | | |
+Asset group · Glass product manufacturing assets: / Support assets: | | | |
+Glass product manufacturing assets: / Support assets: / Air compressors (Glass and glass product manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2014
+Glass product manufacturing assets: / Support assets: / Boilers (Glass and glass product manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2014
+Waterjet cutting machines (Glass product manufacturing assets) | 10 years | 10.00% | 20.00% | 1 July 2009
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/#source
-- Blowers and fans: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/blowers-and-fans/
+- Blowers and fans (Ancillary assets): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/blowers-and-fans/
 - Conveyors generally (including bottle conveyors, bucket elevators, pallet transport conveyors and pneumatic conveyors): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/conveyors-generally/
 - Ducting, pipes and piping: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/ducting-pipes-and-piping/
 - Steelwork structures (including gantries, platforms and walkways): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/steelwork-structures/
@@ -123,23 +121,23 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Container glass: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/container-glass/
 - Flat glass: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/flat-glass/
 - Other assets (including batch conveyors, batch mixers, bins, hoppers and weigh hoppers): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/other-assets/
-- Silos: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/silos/
+- Silos (Batch house assets): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/silos/
 - Coating assets (cold and hot end): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/coating-assets/
-- Control systems (excluding personal computers): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/container-glass-and-flat-glass-control-systems/
+- Control systems (excluding personal computers) (Container glass and flat … glass manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/container-glass-and-flat-glass-control-systems/
 - Flat glass ribbon cutting assets (including cross cutters, longitudinal cutters and snap rolls): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/flat-glass-ribbon-cutting-assets/
 - Float baths: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/float-baths/
-- Forehearths: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/forehearths/
+- Forehearths (Container glass and flat … glass manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/forehearths/
 - Forming machines (incorporating shearing and distribution systems): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/forming-machines/
 - Batch chargers: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/batch-chargers/
 - Brick lined: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/brick-lined/
-- Steel: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/steel/
+- Steel (Exhaust stacks): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/steel/
 - Furnace support assets (including bubbler systems and electro boost systems): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/furnace-support-assets/
 - Furnace tanks: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/furnace-tanks/
 - Regenerators and recuperators: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/regenerators-and-recuperators/
 - Glass product handling and packaging assets (including case packers, flat glass lifters and stackers, palletisers, strapping machines, shrink wrappers, stretch wrappers and trolley shuttle cars): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/glass-product-handling-and-packaging-assets/
-- Inspection assets: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/inspection-assets/
+- Inspection assets (Container glass and flat … glass manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/inspection-assets/
 - Lehr stackers: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/lehr-stackers/
-- Moulds: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/moulds/
+- Moulds (Container glass and flat … glass manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/moulds/
 - CNC controlled edgers and grinders: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/cnc-controlled-edgers-and-grinders/
 - CNC controlled scorers and cutters: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/cnc-controlled-scorers-and-cutters/
 - Automotive laminated glass product inspection assets (including automated distortion checking assets and conveyors): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/automotive-laminated-glass-product-inspection-assets/
@@ -147,24 +145,24 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Automated back window soldering units: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/automated-back-window-soldering-units/
 - Others (including conveyor handling assets, encapsulation presses, hot melt adhesive applicators, robots and tooling): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/others/
 - CNC machines: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/cnc-machines/
-- Control systems (excluding personal computers): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/glass-product-manufacturing-control-systems/
+- Control systems (excluding personal computers) (Glass product manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/glass-product-manufacturing-control-systems/
 - Automated cutting and break-out tables: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/automated-cutting-and-break-out-tables/
 - Laminated glass cutting tables: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/laminated-glass-cutting-tables/
 - Manual cutting tables (including air float tables): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/manual-cutting-tables/
 - Digital printers: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/digital-printers/
-- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/dryers/
+- Dryers (Digital printing assets): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/dryers/
 - Double glazing assets (including butyl coating machines, conveyors, presses, sealing machines and spacer robots): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/double-glazing-assets/
 - Drilling and/or milling machines (including horizontal and vertical drilling machines): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/drilling-and-or-milling-machines/
 - Arrissing machines: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/arrissing-machines/
 - Horizontal double edgers: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/horizontal-double-edgers/
 - Straight line edgers and bevellers: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/straight-line-edgers-and-bevellers/
 - Automated loaders and unloaders (used with automated cutting tables, laminating lines, toughening lines etc): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/automated-loaders-and-unloaders/
-- Straddle carriers: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/straddle-carriers/
+- Straddle carriers (Bulk glass handling assets): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/straddle-carriers/
 - Vertical glass handlers (sideloaders, tuning forks): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/vertical-glass-handlers/
-- Cranes (gantry and overhead): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/cranes/
+- Cranes (gantry and overhead) (Glass handling and storage assets): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/cranes/
 - Racks (including A-frame racks, hydraulic concertina racks and freefall racks): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/racks/
 - Steel grabs: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/steel-grabs/
-- Trolleys: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/trolleys/
+- Trolleys (Glass handling and storage assets): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/trolleys/
 - Vacuum lifters and scissor grabs: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/vacuum-lifters-and-scissor-grabs/
 - Vertical masts and other elevating work platforms – see Table A Rental and hiring services (except real estate) (66110 to 66400), Elevating work platforms (EWPs): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/
 - Glass laminating assets (including assembly clean room assets, autoclaves, heaters, laminating lehr furnaces, ovens, pre-presses, presses and vacuum bag furnaces): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/glass-laminating-assets/
@@ -173,11 +171,11 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Glass washing machines: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/glass-washing-machines/
 - Plastic film applicators (spotstick machines): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/plastic-film-applicators/
 - Screen printing assets – see Table A Printing (16110): https://duguid.com.au/tools/depreciation-rates/industry/printing/
-- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/air-compressors/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/boilers/
-- Waterjet cutting machines: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/waterjet-cutting-machines/
+- Air compressors (Glass and glass product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/air-compressors/
+- Boilers (Glass and glass product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/boilers/
+- Waterjet cutting machines (Glass product manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/waterjet-cutting-machines/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

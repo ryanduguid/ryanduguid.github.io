@@ -8,54 +8,56 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-a
 
 91 effective lives in Table A of the Commissioner’s 2025 effective life determination for Motion picture and video activities.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Jump to an asset group
+
+Camera accessories Cameras Camera lens accessories Grips’ assets Lighting assets Motion picture film processing assets Post production sound assets Post production video assets Screening theatre assets Sound recording assets
 
 Rows of Motion picture and video activities. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Camera accessories: | | | |
+Asset group · Camera accessories: | | | |
 Camera accessories: / Aspect ratio converters | 12 years | 8.33% | 16.67% | 1 January 2006
-Camera accessories: / Digital or electronic time code slates | 5 years | 20.00% | 40.00% | 1 January 2006
+Digital or electronic time code slates (Camera accessories) | 5 years | 20.00% | 40.00% | 1 January 2006
 Camera accessories: / Speed control, time lapse and phase adjustment controls | 10 years | 10.00% | 20.00% | 1 January 2006
 Camera accessories: / Time code generators and master clocks | 10 years | 10.00% | 20.00% | 1 January 2006
 Camera accessories: / Underwater and marine housings and rain deflectors | 12 years | 8.33% | 16.67% | 1 January 2006
 Camera accessories: / Video assist systems (incorporating monitors, video recorder with playback, transmitters and receivers) | 3 years | 33.33% | 66.67% | 1 January 2006
-Cameras: | | | |
+Asset group · Cameras: | | | |
 Cameras: / 16 mm and 35 mm film cameras | 10 years | 10.00% | 20.00% | 1 January 2006
-Cameras: / Digital cameras | 5 years | 20.00% | 40.00% | 1 January 2006
-Camera lens accessories: | | | |
+Digital cameras (Cameras) | 5 years | 20.00% | 40.00% | 1 January 2006
+Asset group · Camera lens accessories: | | | |
 Camera lens accessories: / Coloured and graduated filters and filter stages | 3 years | 33.33% | 66.67% | 1 January 2006
 Camera lens accessories: / Fish eye and wide angle lens adapters | 10 years | 10.00% | 20.00% | 1 January 2006
 Camera lens accessories: / Follow focus, remote focus, shutter and zoom controls | 10 years | 10.00% | 20.00% | 1 January 2006
 Camera lens accessories: / Image stabilisers, matte boxes, and teleprompters | 10 years | 10.00% | 20.00% | 1 January 2006
-Camera lenses | 10 years | 10.00% | 20.00% | 1 January 2006
+Camera lenses (Motion picture and video activities) | 10 years | 10.00% | 20.00% | 1 January 2006
 Camera supports (including heads, legs mounts and tripods) | 10 years | 10.00% | 20.00% | 1 January 2006
 Copyright in a feature film (not including a licence relating to a copyright in a feature film) | 5 years | 20.00% | 40.00% | 1 July 2004
-Grips’ assets: | | | |
+Asset group · Grips’ assets: | | | |
 Grips’ assets: / Camera cranes | 10 years | 10.00% | 20.00% | 1 January 2006
 Grips’ assets: / Camera heads | 10 years | 10.00% | 20.00% | 1 January 2006
 Grips’ assets: / Car rigs, sea rigs and other specialised rigs | 2 years | 50.00% | 100.00% | 1 January 2006
 Grips’ assets: / Communications systems | 5 years | 20.00% | 40.00% | 1 January 2006
-Grips’ assets: / Dollies | 12 years | 8.33% | 16.67% | 1 January 2006
+Dollies (Grips’ assets) | 12 years | 8.33% | 16.67% | 1 January 2006
 Grips’ assets: / Dolly and camera attachments | 10 years | 10.00% | 20.00% | 1 January 2006
 Grips’ assets: / Dolly track | 5 years | 20.00% | 40.00% | 1 January 2006
 Grips’ assets: / Remote camera control systems | 10 years | 10.00% | 20.00% | 1 January 2006
 Grips’ assets: / Towers, rigging, and dance floors | 10 years | 10.00% | 20.00% | 1 January 2006
-Grips’ assets: / Tracking vehicles and insert trailers – see Table B Motor vehicles and trailers | | | |
-Lighting assets: | | | |
+Register note · Grips’ assets: / Tracking vehicles and insert trailers – see Table B Motor vehicles and trailers | | | |
+Asset group · Lighting assets: | | | |
 Lighting assets: / Accessories (including gaffer grips, clamps, mounts, and stands) | 10 years | 10.00% | 20.00% | 1 January 2006
 Lighting assets: / Portable lights | 10 years | 10.00% | 20.00% | 1 January 2006
 Lighting assets: / Studio lights – fixed | 15 years | 6.67% | 13.33% | 1 January 2006
-Lighting assets: / Lighting control systems | 10 years | 10.00% | 20.00% | 1 January 2006
-Lighting assets: / Lighting grids – fixed | 20 years | 5.00% | 10.00% | 1 January 2006
-Lighting assets: / Lighting hoists | 15 years | 6.67% | 13.33% | 1 January 2006
-Motion picture film processing assets: | | | |
+Lighting control systems (Lighting assets) | 10 years | 10.00% | 20.00% | 1 January 2006
+Lighting grids – fixed (Lighting assets) | 20 years | 5.00% | 10.00% | 1 January 2006
+Lighting hoists (Lighting assets) | 15 years | 6.67% | 13.33% | 1 January 2006
+Asset group · Motion picture film processing assets: | | | |
 Motion picture film processing assets: / Chemical agitators and mixers | 10 years | 10.00% | 20.00% | 1 January 2006
-Motion picture film processing assets: / Chemical storage tanks | 15 years | 6.67% | 13.33% | 1 January 2006
+Chemical storage tanks (Motion picture film processing assets) | 15 years | 6.67% | 13.33% | 1 January 2006
 Motion picture film processing assets: / Film cleaning machines | 10 years | 10.00% | 20.00% | 1 January 2006
 Motion picture film processing assets: / Film colour analysers and colour grading machines | 8 years | 12.50% | 25.00% | 1 January 2006
 Motion picture film processing assets: / Film densitometers | 10 years | 10.00% | 20.00% | 1 January 2006
@@ -67,92 +69,102 @@ Motion picture film processing assets: / Mixed chemical pumps | 10 years | 10.00
 Motion picture film processing assets: / Optical sound camera systems (incorporating soundtrack and time code generators) | 10 years | 10.00% | 20.00% | 1 January 2006
 Motion picture film processing assets: / Silver recovery units | 8 years | 12.50% | 25.00% | 1 January 2006
 Motion picture film processing assets: / Sound quality control processors | 5 years | 20.00% | 40.00% | 1 January 2006
-Motion picture film processing assets: / Waste water treatment assets | 10 years | 10.00% | 20.00% | 1 January 2006
-Post production sound assets: | | | |
-Post production sound assets: / Amplifiers and pre-amplifiers | 5 years | 20.00% | 40.00% | 1 January 2006
+Waste water treatment assets (Motion picture film processing assets) | 10 years | 10.00% | 20.00% | 1 January 2006
+Asset group · Post production sound assets: | | | |
+Amplifiers and pre-amplifiers (Post production sound assets) | 5 years | 20.00% | 40.00% | 1 January 2006
 Post production sound assets: / Audio effects units (incorporating aural exciters, compressors, delay and effects control processors graphic equalisers, harmonisers, limiters, noise reduction processors, reverberation processors, telephone simulators and time controllers) | 5 years | 20.00% | 40.00% | 1 January 2006
-Post production sound assets: / Digital audio players and recorders (including CD, DVD, digital audio tape (DAT), mini disc and hard disc players and recorders) | 3 years | 33.33% | 66.67% | 1 January 2006
+Digital audio players and recorders (including CD, DVD, digital audio tape (DAT), mini disc and hard disc players and recorders) (Post production sound assets) | 3 years | 33.33% | 66.67% | 1 January 2006
 Post production sound assets: / Digital film projectors | 5 years | 20.00% | 40.00% | 1 January 2006
 Post production sound assets: / Digital sound conversion processors (including encoders and decoders) | 5 years | 20.00% | 40.00% | 1 January 2006
 Post production sound assets: / Hard disc video players and recorders | 3 years | 33.33% | 66.67% | 1 January 2006
 Post production sound assets: / Microphones and microphone accessories | 10 years | 10.00% | 20.00% | 1 January 2006
-Post production sound assets: / Motion picture film projectors | 10 years | 10.00% | 20.00% | 1 January 2006
-Post production sound assets: / Screens | 5 years | 20.00% | 40.00% | 1 January 2006
+Motion picture film projectors (Post production sound assets) | 10 years | 10.00% | 20.00% | 1 January 2006
+Screens (Post production sound assets) | 5 years | 20.00% | 40.00% | 1 January 2006
 Post production sound assets: / Sound mixing desks and consoles | 5 years | 20.00% | 40.00% | 1 January 2006
-Post production sound assets: / Speakers | 7 years | 14.29% | 28.57% | 1 January 2006
+Speakers (Post production sound assets) | 7 years | 14.29% | 28.57% | 1 January 2006
 Post production sound assets: / Time code synchronisation units | 5 years | 20.00% | 40.00% | 1 January 2006
-Post production sound assets: / Video routers and servers | 5 years | 20.00% | 40.00% | 1 January 2006
-Post production video assets: | | | |
-Post production video assets: / DVD players | 3 years | 33.33% | 66.67% | 1 January 2006
+Video routers and servers (Post production sound assets) | 5 years | 20.00% | 40.00% | 1 January 2006
+Asset group · Post production video assets: | | | |
+DVD players (Post production video assets) | 3 years | 33.33% | 66.67% | 1 January 2006
 Post production video assets: / Edit controllers (used in linear editing) | 4 years | 25.00% | 50.00% | 1 January 2006
 Post production video assets: / High definition digital film scanners | 4 years | 25.00% | 50.00% | 1 January 2006
 Post production video assets: / High definition laser film recorders | 5 years | 20.00% | 40.00% | 1 January 2006
-Post production video assets: / Monitors | 5 years | 20.00% | 40.00% | 1 January 2006
+Monitors (Post production video assets) | 5 years | 20.00% | 40.00% | 1 January 2006
 Post production video assets: / Motion capture and analysis systems | 5 years | 20.00% | 40.00% | 1 January 2006
 Post production video assets: / Non-linear editing systems (incorporating computer control, interface and hard disc system) | 5 years | 20.00% | 40.00% | 1 January 2006
 Post production video assets: / Telecine chains (incorporating colour correctors, film time code readers, grain and noise reduction systems and telecine machines) | 7 years | 14.29% | 28.57% | 1 January 2006
 Post production video assets: / VHS video cassette players and recorders | 2 years | 50.00% | 100.00% | 1 January 2006
-Post production video assets: / Video routers and servers | 5 years | 20.00% | 40.00% | 1 January 2006
-Post production video assets: / Videotape players and recorders | 5 years | 20.00% | 40.00% | 1 January 2006
-Screening theatre assets: | | | |
+Video routers and servers (Post production video assets) | 5 years | 20.00% | 40.00% | 1 January 2006
+Videotape players and recorders (Post production video assets) | 5 years | 20.00% | 40.00% | 1 January 2006
+Asset group · Screening theatre assets: | | | |
 Screening theatre assets: / Audio amplification and processing equipment (includes component racks systems) | 5 years | 20.00% | 40.00% | 1 January 2006
 Screening theatre assets: / Digital audio players, digital film projectors and digital sound conversion processors | 5 years | 20.00% | 40.00% | 1 January 2006
-Screening theatre assets: / Motion picture film projectors | 10 years | 10.00% | 20.00% | 1 January 2006
-Screening theatre assets: / Screens | 8 years | 12.50% | 25.00% | 1 January 2006
-Screening theatre assets: / Speakers | 10 years | 10.00% | 20.00% | 1 January 2006
-Sound recording assets: | | | |
-Sound recording assets: / Amplifiers and pre-amplifiers | 5 years | 20.00% | 40.00% | 1 January 2006
+Motion picture film projectors (Screening theatre assets) | 10 years | 10.00% | 20.00% | 1 January 2006
+Screens (Screening theatre assets) | 8 years | 12.50% | 25.00% | 1 January 2006
+Speakers (Screening theatre assets) | 10 years | 10.00% | 20.00% | 1 January 2006
+Asset group · Sound recording assets: | | | |
+Amplifiers and pre-amplifiers (Sound recording assets) | 5 years | 20.00% | 40.00% | 1 January 2006
 Sound recording assets: / Sound mixing consoles | 5 years | 20.00% | 40.00% | 1 January 2006
 Sound recording assets: / Boom poles | 2 years | 50.00% | 100.00% | 1 January 2006
 Sound recording assets: / Compressors, expanders and limiters | 5 years | 20.00% | 40.00% | 1 January 2006
-Sound recording assets: / Digital audio players and recorders (including CD, DVD, digital audio tape (DAT), mini disc and hard disc players and recorders) | 2 years | 50.00% | 100.00% | 1 January 2006
-Sound recording assets: / Digital or electronic time code slates | 5 years | 20.00% | 40.00% | 1 January 2006
-Sound recording assets: / Headphones: | | | |
-Sound recording assets: / Headphones: / Generally | 2 years | 50.00% | 100.00% | 1 January 2006
+Digital audio players and recorders (including CD, DVD, digital audio tape (DAT), mini disc and hard disc players and recorders) (Sound recording assets) | 2 years | 50.00% | 100.00% | 1 January 2006
+Digital or electronic time code slates (Sound recording assets) | 5 years | 20.00% | 40.00% | 1 January 2006
+Asset group · Sound recording assets: / Headphones: | | | |
+Sound recording assets: / Generally (Headphones) | 2 years | 50.00% | 100.00% | 1 January 2006
 Sound recording assets: / Headphones: / Miniature in-ear headphones | 1 year | 100.00% | 200.00% | 1 January 2006
-Sound recording assets: / Microphones: | | | |
-Sound recording assets: / Microphones: / Field or boom microphones | 7 years | 14.29% | 28.57% | 1 January 2006
+Asset group · Sound recording assets: / Microphones: | | | |
+Sound recording assets: / Microphones: / Field or boom microphones (Motion picture and video activities) | 7 years | 14.29% | 28.57% | 1 January 2006
 Sound recording assets: / Microphones: / Lapel microphones | 1 year | 100.00% | 200.00% | 1 January 2006
 Sound recording assets: / Microphones: / Microphone accessories (including adapters, connectors, stands, suspension mounts, pistol grips, windscreens and windjammers) | 5 years | 20.00% | 40.00% | 1 January 2006
 Sound recording assets: / Microphones: / Microphone cables | 2 years | 50.00% | 100.00% | 1 January 2006
-Sound recording assets: / Microphones: / Radio microphone systems (incorporating antennas, miniature microphones, receivers and transmitters) | 5 years | 20.00% | 40.00% | 1 January 2006
+Sound recording assets: / Microphones: / Radio microphone systems (incorporating antennas, miniature microphones, receivers and transmitters) (Motion picture and video activities) | 5 years | 20.00% | 40.00% | 1 January 2006
 Sound recording assets: / Microphones: / Studio microphones | 10 years | 10.00% | 20.00% | 1 January 2006
-Sound recording assets: / Monitors | 2 years | 50.00% | 100.00% | 1 January 2006
-Sound recording assets: / Speakers | 5 years | 20.00% | 40.00% | 1 January 2006
+Monitors (Sound recording assets) | 2 years | 50.00% | 100.00% | 1 January 2006
+Speakers (Sound recording assets) | 5 years | 20.00% | 40.00% | 1 January 2006
 Sound recording assets: / Vision switchers | 5 years | 20.00% | 40.00% | 1 January 2006
 Video monitors | 5 years | 20.00% | 40.00% | 1 January 2006
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- Camera accessories: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/#asset-group-1
+- Cameras: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/#asset-group-8
+- Camera lens accessories: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/#asset-group-11
+- Grips’ assets: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/#asset-group-19
+- Lighting assets: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/#asset-group-30
+- Motion picture film processing assets: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/#asset-group-37
+- Post production sound assets: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/#asset-group-52
+- Post production video assets: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/#asset-group-66
+- Screening theatre assets: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/#asset-group-78
+- Sound recording assets: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/#asset-group-84
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/#source
 - Aspect ratio converters: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/aspect-ratio-converters/
-- Digital or electronic time code slates: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/camera-accessories-digital-or-electronic-time-code-slates/
+- Digital or electronic time code slates (Camera accessories): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/camera-accessories-digital-or-electronic-time-code-slates/
 - Speed control, time lapse and phase adjustment controls: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/speed-control-time-lapse-and-phase-adjustment-controls/
 - Time code generators and master clocks: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/time-code-generators-and-master-clocks/
 - Underwater and marine housings and rain deflectors: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/underwater-and-marine-housings-and-rain-deflectors/
 - Video assist systems (incorporating monitors, video recorder with playback, transmitters and receivers): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/video-assist-systems/
 - 16 mm and 35 mm film cameras: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/16-mm-and-35-mm-film-cameras/
-- Digital cameras: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/digital-cameras/
+- Digital cameras (Cameras): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/digital-cameras/
 - Coloured and graduated filters and filter stages: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/coloured-and-graduated-filters-and-filter-stages/
 - Fish eye and wide angle lens adapters: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/fish-eye-and-wide-angle-lens-adapters/
 - Follow focus, remote focus, shutter and zoom controls: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/follow-focus-remote-focus-shutter-and-zoom-controls/
 - Image stabilisers, matte boxes, and teleprompters: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/image-stabilisers-matte-boxes-and-teleprompters/
-- Camera lenses: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/camera-lenses/
+- Camera lenses (Motion picture and video activities): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/camera-lenses/
 - Camera supports (including heads, legs mounts and tripods): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/camera-supports/
 - Copyright in a feature film (not including a licence relating to a copyright in a feature film): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/copyright-in-a-feature-film/
 - Camera cranes: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/camera-cranes/
 - Camera heads: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/camera-heads/
 - Car rigs, sea rigs and other specialised rigs: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/car-rigs-sea-rigs-and-other-specialised-rigs/
 - Communications systems: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/communications-systems/
-- Dollies: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/dollies/
+- Dollies (Grips’ assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/dollies/
 - Dolly and camera attachments: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/dolly-and-camera-attachments/
 - Dolly track: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/dolly-track/
 - Remote camera control systems: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/remote-camera-control-systems/
@@ -161,11 +173,11 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Accessories (including gaffer grips, clamps, mounts, and stands): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/accessories/
 - Portable lights: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/portable-lights/
 - Studio lights – fixed: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/studio-lights-fixed/
-- Lighting control systems: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/lighting-control-systems/
-- Lighting grids – fixed: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/lighting-grids-fixed/
-- Lighting hoists: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/lighting-hoists/
+- Lighting control systems (Lighting assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/lighting-control-systems/
+- Lighting grids – fixed (Lighting assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/lighting-grids-fixed/
+- Lighting hoists (Lighting assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/lighting-hoists/
 - Chemical agitators and mixers: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/chemical-agitators-and-mixers/
-- Chemical storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/chemical-storage-tanks/
+- Chemical storage tanks (Motion picture film processing assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/chemical-storage-tanks/
 - Film cleaning machines: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/film-cleaning-machines/
 - Film colour analysers and colour grading machines: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/film-colour-analysers-and-colour-grading-machines/
 - Film densitometers: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/film-densitometers/
@@ -177,56 +189,56 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Optical sound camera systems (incorporating soundtrack and time code generators): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/optical-sound-camera-systems/
 - Silver recovery units: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/silver-recovery-units/
 - Sound quality control processors: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/sound-quality-control-processors/
-- Waste water treatment assets: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/waste-water-treatment-assets/
-- Amplifiers and pre-amplifiers: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/post-production-sound-assets-amplifiers-and-pre-amplifiers/
+- Waste water treatment assets (Motion picture film processing assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/waste-water-treatment-assets/
+- Amplifiers and pre-amplifiers (Post production sound assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/post-production-sound-assets-amplifiers-and-pre-amplifiers/
 - Audio effects units (incorporating aural exciters, compressors, delay and effects control processors graphic equalisers, harmonisers, limiters, noise reduction processors, reverberation processors, telephone simulators and time controllers): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/audio-effects-units/
-- Digital audio players and recorders (including CD, DVD, digital audio tape (DAT), mini disc and hard disc players and recorders): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/post-production-sound-assets-digital-audio-players-and-recorders/
+- Digital audio players and recorders (including CD, DVD, digital audio tape (DAT), mini disc and hard disc players and recorders) (Post production sound assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/post-production-sound-assets-digital-audio-players-and-recorders/
 - Digital film projectors: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/digital-film-projectors/
 - Digital sound conversion processors (including encoders and decoders): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/digital-sound-conversion-processors/
 - Hard disc video players and recorders: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/hard-disc-video-players-and-recorders/
 - Microphones and microphone accessories: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/microphones-and-microphone-accessories/
-- Motion picture film projectors: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/post-production-sound-assets-motion-picture-film-projectors/
-- Screens: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/post-production-sound-assets-screens/
+- Motion picture film projectors (Post production sound assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/post-production-sound-assets-motion-picture-film-projectors/
+- Screens (Post production sound assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/post-production-sound-assets-screens/
 - Sound mixing desks and consoles: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/sound-mixing-desks-and-consoles/
-- Speakers: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/post-production-sound-assets-speakers/
+- Speakers (Post production sound assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/post-production-sound-assets-speakers/
 - Time code synchronisation units: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/time-code-synchronisation-units/
-- Video routers and servers: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/post-production-sound-assets-video-routers-and-servers/
-- DVD players: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/dvd-players/
+- Video routers and servers (Post production sound assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/post-production-sound-assets-video-routers-and-servers/
+- DVD players (Post production video assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/dvd-players/
 - Edit controllers (used in linear editing): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/edit-controllers/
 - High definition digital film scanners: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/high-definition-digital-film-scanners/
 - High definition laser film recorders: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/high-definition-laser-film-recorders/
-- Monitors: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/post-production-video-assets-monitors/
+- Monitors (Post production video assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/post-production-video-assets-monitors/
 - Motion capture and analysis systems: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/motion-capture-and-analysis-systems/
 - Non-linear editing systems (incorporating computer control, interface and hard disc system): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/non-linear-editing-systems/
 - Telecine chains (incorporating colour correctors, film time code readers, grain and noise reduction systems and telecine machines): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/telecine-chains/
 - VHS video cassette players and recorders: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/vhs-video-cassette-players-and-recorders/
-- Video routers and servers: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/post-production-video-assets-video-routers-and-servers/
-- Videotape players and recorders: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/videotape-players-and-recorders/
+- Video routers and servers (Post production video assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/post-production-video-assets-video-routers-and-servers/
+- Videotape players and recorders (Post production video assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/videotape-players-and-recorders/
 - Audio amplification and processing equipment (includes component racks systems): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/audio-amplification-and-processing-equipment/
 - Digital audio players, digital film projectors and digital sound conversion processors: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/digital-audio-players-digital-film-projectors-and-digital/
-- Motion picture film projectors: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/screening-theatre-assets-motion-picture-film-projectors/
-- Screens: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/screening-theatre-assets-screens/
-- Speakers: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/screening-theatre-assets-speakers/
-- Amplifiers and pre-amplifiers: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/sound-recording-assets-amplifiers-and-pre-amplifiers/
+- Motion picture film projectors (Screening theatre assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/screening-theatre-assets-motion-picture-film-projectors/
+- Screens (Screening theatre assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/screening-theatre-assets-screens/
+- Speakers (Screening theatre assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/screening-theatre-assets-speakers/
+- Amplifiers and pre-amplifiers (Sound recording assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/sound-recording-assets-amplifiers-and-pre-amplifiers/
 - Sound mixing consoles: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/sound-mixing-consoles/
 - Boom poles: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/boom-poles/
 - Compressors, expanders and limiters: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/compressors-expanders-and-limiters/
-- Digital audio players and recorders (including CD, DVD, digital audio tape (DAT), mini disc and hard disc players and recorders): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/sound-recording-assets-digital-audio-players-and-recorders/
-- Digital or electronic time code slates: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/sound-recording-assets-digital-or-electronic-time-code-slates/
-- Generally: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/generally/
+- Digital audio players and recorders (including CD, DVD, digital audio tape (DAT), mini disc and hard disc players and recorders) (Sound recording assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/sound-recording-assets-digital-audio-players-and-recorders/
+- Digital or electronic time code slates (Sound recording assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/sound-recording-assets-digital-or-electronic-time-code-slates/
+- Generally (Headphones): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/generally/
 - Miniature in-ear headphones: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/miniature-in-ear-headphones/
-- Field or boom microphones: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/field-or-boom-microphones/
+- Field or boom microphones (Motion picture and video activities): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/field-or-boom-microphones/
 - Lapel microphones: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/lapel-microphones/
 - Microphone accessories (including adapters, connectors, stands, suspension mounts, pistol grips, windscreens and windjammers): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/microphone-accessories/
 - Microphone cables: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/microphone-cables/
-- Radio microphone systems (incorporating antennas, miniature microphones, receivers and transmitters): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/radio-microphone-systems/
+- Radio microphone systems (incorporating antennas, miniature microphones, receivers and transmitters) (Motion picture and video activities): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/radio-microphone-systems/
 - Studio microphones: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/studio-microphones/
-- Monitors: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/sound-recording-assets-monitors/
-- Speakers: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/sound-recording-assets-speakers/
+- Monitors (Sound recording assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/sound-recording-assets-monitors/
+- Speakers (Sound recording assets): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/sound-recording-assets-speakers/
 - Vision switchers: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/vision-switchers/
 - Video monitors: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/video-monitors/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

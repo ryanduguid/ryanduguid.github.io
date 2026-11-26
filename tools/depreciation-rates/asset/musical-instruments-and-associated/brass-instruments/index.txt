@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/asset/musical-instruments
 
 ‘Musical instruments and associated equipment: Brass instruments …’ in Table B, which applies where no Table A row applies to the asset in its industry, has an effective life of 10 years (F2025L01097), last reviewed and determined on 1 January 2001.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-Effective life and rates from F2025L01097, registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Brass instruments (including bugles, cornets, euphoniums, horns, sousaphones, trombones, trumpets and tubas)
 Under | Musical instruments and associated equipment:
@@ -25,11 +25,11 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-Table B applies where no row of Table A for the industry the asset is used in describes it or its function, and the asset corresponds to this row (subsection 6(3) of the determination).
+Use this Table B row if your asset matches its description and no Table A row covers the asset or its function in your industry (subsection 6(3)).
 
 Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
 
-The life was last reviewed and determined on 1 January 2001. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 January 2001. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Musical instruments and associated equipment
 
@@ -44,27 +44,27 @@ Woodwind instruments (including bagpipes, bassoons, clarinets, flutes, oboes, pa
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+The depreciation calculator uses your cost, start date and this effective life of 10 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
-- F2025L01097: https://duguid.com.au/tools/depreciation-rates/asset/musical-instruments-and-associated/brass-instruments/#source
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/asset/musical-instruments-and-associated/brass-instruments/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Associated portable equipment (including amplifiers, microphones, speakers, mixers and music stands): https://duguid.com.au/tools/depreciation-rates/asset/musical-instruments-and-associated/associated-portable-equipment/
 - Percussion instruments (including chimes, cymbals, drums, gongs, maracas and tambourines): https://duguid.com.au/tools/depreciation-rates/asset/musical-instruments-and-associated/percussion-instruments/
 - Stringed instruments (including banjos, basses, cellos, guitars, harps, mandolins, tiples, ukuleles, violas and violins): https://duguid.com.au/tools/depreciation-rates/asset/musical-instruments-and-associated/stringed-instruments/
 - Woodwind instruments (including bagpipes, bassoons, clarinets, flutes, oboes, pan pipes, piccolos and recorders): https://duguid.com.au/tools/depreciation-rates/asset/musical-instruments-and-associated/woodwind-instruments/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -8,265 +8,275 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-ma
 
 118 effective lives in Table A of the Commissioner’s 2025 effective life determination for Dairy product manufacturing.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Jump to an asset group
+
+Ancillary and support assets Assets commonly used for product manufacturing and processing Assets for butter manufacturing Assets for cheese manufacturing Assets for dairy powder manufacturing Assets for ice cream manufacturing Assets for yoghurt manufacturing Packaging assets
 
 Rows of Dairy product manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Ancillary and support assets: | | | |
-Ancillary and support assets: / Air compression assets – see Table B Air compression assets | | | |
+Asset group · Ancillary and support assets: | | | |
+Register note · Ancillary and support assets: / Air compression assets – see Table B Air compression assets | | | |
 Ancillary and support assets: / Ammonia gas detectors | 12 years | 8.33% | 16.67% | 1 July 2018
-Ancillary and support assets: / Automated guided vehicles (AGVs) | 12 years | 8.33% | 16.67% | 1 July 2017
+Automated guided vehicles (AGVs) (Ancillary and support assets) | 12 years | 8.33% | 16.67% | 1 July 2017
 Ancillary and support assets: / Bag and cardboard compactors | 15 years | 6.67% | 13.33% | 1 July 2017
-Ancillary and support assets: / Benches and tables | 15 years | 6.67% | 13.33% | 1 July 2016
+Benches and tables (Ancillary and support assets) | 15 years | 6.67% | 13.33% | 1 July 2016
 Ancillary and support assets: / Bin and drum tippers | 15 years | 6.67% | 13.33% | 1 July 2018
-Ancillary and support assets: / Bins generally: | | | |
-Ancillary and support assets: / Bins generally: / Plastic | 8 years | 12.50% | 25.00% | 1 July 2017
-Ancillary and support assets: / Bins generally: / Stainless steel | 15 years | 6.67% | 13.33% | 1 July 2017
-Ancillary and support assets: / Boilers – see Table B Boilers | | | |
-Ancillary and support assets: / Boot washers | 10 years | 10.00% | 20.00% | 1 July 2016
+Asset group · Ancillary and support assets: / Bins generally: | | | |
+Ancillary and support assets: / Plastic (Bins generally) | 8 years | 12.50% | 25.00% | 1 July 2017
+Ancillary and support assets: / Stainless steel (Bins generally) | 15 years | 6.67% | 13.33% | 1 July 2017
+Register note · Ancillary and support assets: / Boilers – see Table B Boilers | | | |
+Boot washers (Ancillary and support assets) | 10 years | 10.00% | 20.00% | 1 July 2016
 Ancillary and support assets: / Cages (including cardboard cages and pallet cages) | 10 years | 10.00% | 20.00% | 1 July 2016
 Ancillary and support assets: / Chemical and flammable storage cabinets | 10 years | 10.00% | 20.00% | 1 July 2016
-Ancillary and support assets: / Clean-in-place (CIP) system assets (including pipes, pumps and tanks) | 15 years | 6.67% | 13.33% | 1 July 2016
+Clean-in-place (CIP) system assets (including pipes, pumps and tanks) (Ancillary and support assets) | 15 years | 6.67% | 13.33% | 1 July 2016
 Ancillary and support assets: / Contaminant detectors (including magnets, metal detectors and x-ray units) | 10 years | 10.00% | 20.00% | 1 July 2017
-Ancillary and support assets: / Control systems – see Table B Control systems and control system assets | | | |
-Ancillary and support assets: / Conveyors | 15 years | 6.67% | 13.33% | 1 July 2016
-Ancillary and support assets: / Cooling assets: | | | |
-Ancillary and support assets: / Cooling assets: / Chillers | 15 years | 6.67% | 13.33% | 1 July 2016
-Ancillary and support assets: / Cooling assets: / Cooling towers | 15 years | 6.67% | 13.33% | 1 July 2016
+Register note · Ancillary and support assets: / Control systems – see Table B Control systems and control system assets | | | |
+Conveyors (Ancillary and support assets) | 15 years | 6.67% | 13.33% | 1 July 2016
+Asset group · Ancillary and support assets: / Cooling assets: | | | |
+Ancillary and support assets: / Chillers (Cooling assets) | 15 years | 6.67% | 13.33% | 1 July 2016
+Ancillary and support assets: / Cooling towers (Cooling assets) | 15 years | 6.67% | 13.33% | 1 July 2016
 Ancillary and support assets: / Crate handling assets (including lifters, stackers and de-stackers, turners etc) | 12 years | 8.33% | 16.67% | 1 July 2016
-Ancillary and support assets: / Dehumidifiers | 15 years | 6.67% | 13.33% | 1 July 2017
-Ancillary and support assets: / Dock levellers | 15 years | 6.67% | 13.33% | 1 July 2016
+Dehumidifiers (Ancillary and support assets) | 15 years | 6.67% | 13.33% | 1 July 2017
+Dock levellers (Ancillary and support assets) | 15 years | 6.67% | 13.33% | 1 July 2016
 Ancillary and support assets: / Dosing systems | 15 years | 6.67% | 13.33% | 1 July 2016
 Ancillary and support assets: / Dust extractors and collectors | 20 years | 5.00% | 10.00% | 1 July 2017
-Ancillary and support assets: / Fire control and alarm assets – see Table B Fire control and alarm assets | | | |
+Register note · Ancillary and support assets: / Fire control and alarm assets – see Table B Fire control and alarm assets | | | |
 Ancillary and support assets: / Floor scrubbers and polishers | 10 years | 10.00% | 20.00% | 1 July 2016
-Ancillary and support assets: / Foamers | 10 years | 10.00% | 20.00% | 1 July 2016
+Foamers (Ancillary and support assets) | 10 years | 10.00% | 20.00% | 1 July 2016
 Ancillary and support assets: / Infeed water treatment assets (excluding water storage tanks) | 15 years | 6.67% | 13.33% | 1 July 2017
 Ancillary and support assets: / Instrumentation (including flow meters, level transmitters, pressure transmitters etc) | 10 years | 10.00% | 20.00% | 1 July 2016
-Ancillary and support assets: / Laboratory equipment: | | | |
-Ancillary and support assets: / Laboratory equipment: / Generally (excluding penetrometers) – see Table B Laboratory assets used in quality control, sample checking etc | | | |
-Ancillary and support assets: / Laboratory equipment: / Penetrometers | 13 years | 7.69% | 15.38% | 1 July 2018
-Ancillary and support assets: / Lifting and handling assets: | | | |
-Ancillary and support assets: / Lifting and handling assets: / Forklifts – see Table B Forklifts | | | |
-Ancillary and support assets: / Lifting and handling assets: / Hoists | 10 years | 10.00% | 20.00% | 1 July 2016
+Asset group · Ancillary and support assets: / Laboratory equipment: | | | |
+Register note · Ancillary and support assets: / Laboratory equipment: / Generally (excluding penetrometers) – see Table B Laboratory assets used in quality control, sample checking etc | | | |
+Ancillary and support assets: / Penetrometers (Laboratory equipment) | 13 years | 7.69% | 15.38% | 1 July 2018
+Asset group · Ancillary and support assets: / Lifting and handling assets: | | | |
+Register note · Ancillary and support assets: / Lifting and handling assets: / Forklifts – see Table B Forklifts | | | |
+Ancillary and support assets: / Hoists (Lifting and handling assets) | 10 years | 10.00% | 20.00% | 1 July 2016
 Ancillary and support assets: / Lifting and handling assets: / Lifters (including small bin, box, drum, roll and vacuum lifters) | 10 years | 10.00% | 20.00% | 1 July 2017
-Ancillary and support assets: / Lifting and handling assets: / Pallet jacks and pallet trucks | 10 years | 10.00% | 20.00% | 1 July 2016
-Ancillary and support assets: / Lifting and handling assets: / Scissor lifts | 15 years | 6.67% | 13.33% | 1 July 2016
+Ancillary and support assets: / Pallet jacks and pallet trucks (Lifting and handling assets) | 10 years | 10.00% | 20.00% | 1 July 2016
+Ancillary and support assets: / Scissor lifts (Lifting and handling assets) | 15 years | 6.67% | 13.33% | 1 July 2016
 Ancillary and support assets: / Milk tankers (incorporating tank and trailer) | 15 years | 6.67% | 13.33% | 1 July 2017
 Ancillary and support assets: / Piping, pipelines and pipework | 20 years | 5.00% | 10.00% | 1 July 2016
-Ancillary and support assets: / Power transformers | 40 years | 2.50% | 5.00% | 1 July 2017
-Ancillary and support assets: / Pumps: | | | |
-Ancillary and support assets: / Pumps: / Chemical pumps | 10 years | 10.00% | 20.00% | 1 July 2017
-Ancillary and support assets: / Pumps: / Product pumps | 12 years | 8.33% | 16.67% | 1 July 2017
-Ancillary and support assets: / Pumps: / Vacuum pumps | 12 years | 8.33% | 16.67% | 1 July 2017
-Ancillary and support assets: / Pumps: / Water pumps | 15 years | 6.67% | 13.33% | 1 July 2017
-Ancillary and support assets: / Racking | 15 years | 6.67% | 13.33% | 1 July 2016
-Ancillary and support assets: / Refrigeration assets – see Table B Refrigeration assets | | | |
+Power transformers (Ancillary and support assets) | 40 years | 2.50% | 5.00% | 1 July 2017
+Asset group · Ancillary and support assets: / Pumps: | | | |
+Ancillary and support assets: / Pumps: / Chemical pumps (Dairy product manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2017
+Ancillary and support assets: / Pumps: / Product pumps (Dairy product manufacturing) | 12 years | 8.33% | 16.67% | 1 July 2017
+Ancillary and support assets: / Pumps: / Vacuum pumps (Dairy product manufacturing) | 12 years | 8.33% | 16.67% | 1 July 2017
+Ancillary and support assets: / Pumps: / Water pumps (Dairy product manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2017
+Racking (Ancillary and support assets) | 15 years | 6.67% | 13.33% | 1 July 2016
+Register note · Ancillary and support assets: / Refrigeration assets – see Table B Refrigeration assets | | | |
 Ancillary and support assets: / Resin beads for milk and protein processing and water filtration | 5 years | 20.00% | 40.00% | 1 July 2016
-Ancillary and support assets: / Scales | 10 years | 10.00% | 20.00% | 1 July 2016
-Ancillary and support assets: / Shelving | 12 years | 8.33% | 16.67% | 1 July 2016
-Ancillary and support assets: / Silos | 20 years | 5.00% | 10.00% | 1 July 2016
+Scales (Ancillary and support assets) | 10 years | 10.00% | 20.00% | 1 July 2016
+Shelving (Ancillary and support assets) | 12 years | 8.33% | 16.67% | 1 July 2016
+Silos (Ancillary and support assets) | 20 years | 5.00% | 10.00% | 1 July 2016
 Ancillary and support assets: / Steelwork structures (including ladders, platforms and walkways) | 20 years | 5.00% | 10.00% | 1 July 2016
-Ancillary and support assets: / Tanks: | | | |
-Ancillary and support assets: / Tanks: / Chemical storage tanks | 15 years | 6.67% | 13.33% | 1 July 2016
-Ancillary and support assets: / Tanks: / Water storage tanks | 20 years | 5.00% | 10.00% | 1 July 2016
-Ancillary and support assets: / Trolleys | 10 years | 10.00% | 20.00% | 1 July 2016
-Ancillary and support assets: / Valves | 15 years | 6.67% | 13.33% | 1 July 2016
+Asset group · Ancillary and support assets: / Tanks: | | | |
+Ancillary and support assets: / Tanks: / Chemical storage tanks (Dairy product manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2016
+Ancillary and support assets: / Tanks: / Water storage tanks (Dairy product manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2016
+Trolleys (Ancillary and support assets) | 10 years | 10.00% | 20.00% | 1 July 2016
+Ancillary and support assets: / Valves (Dairy product manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2016
 Ancillary and support assets: / Washers (including bottle and crate washers) | 15 years | 6.67% | 13.33% | 1 July 2016
-Ancillary and support assets: / Waste water treatment assets | 20 years | 5.00% | 10.00% | 1 July 2016
+Waste water treatment assets (Ancillary and support assets) | 20 years | 5.00% | 10.00% | 1 July 2016
 Ancillary and support assets: / Water filtration system assets (excluding resin beads) | 15 years | 6.67% | 13.33% | 1 July 2016
-Ancillary and support assets: / Weighbridges | 20 years | 5.00% | 10.00% | 1 July 2016
-Assets commonly used for product manufacturing and processing: | | | |
+Weighbridges (Ancillary and support assets) | 20 years | 5.00% | 10.00% | 1 July 2016
+Asset group · Assets commonly used for product manufacturing and processing: | | | |
 Assets commonly used for product manufacturing and processing: / Feeders (including loss-in-weight feeders and volumetric feeders) | 10 years | 10.00% | 20.00% | 1 July 2017
-Assets commonly used for product manufacturing and processing: / Heat exchangers | 15 years | 6.67% | 13.33% | 1 July 2016
+Heat exchangers (Assets commonly used for product manufacturing and processing) | 15 years | 6.67% | 13.33% | 1 July 2016
 Assets commonly used for product manufacturing and processing: / Heaters (including air heaters and concentrate heaters) | 20 years | 5.00% | 10.00% | 1 July 2017
-Assets commonly used for product manufacturing and processing: / Homogenisers | 15 years | 6.67% | 13.33% | 1 July 2016
-Assets commonly used for product manufacturing and processing: / Hoppers | 15 years | 6.67% | 13.33% | 1 July 2017
+Homogenisers (Assets commonly used for product manufacturing and processing) | 15 years | 6.67% | 13.33% | 1 July 2016
+Hoppers (Assets commonly used for product manufacturing and processing) | 15 years | 6.67% | 13.33% | 1 July 2017
 Assets commonly used for product manufacturing and processing: / In-line moisture meters and moisture controllers | 10 years | 10.00% | 20.00% | 1 July 2017
 Assets commonly used for product manufacturing and processing: / Membrane filtration system assets | 15 years | 6.67% | 13.33% | 1 July 2016
 Assets commonly used for product manufacturing and processing: / Mixers and blenders | 15 years | 6.67% | 13.33% | 1 July 2016
 Assets commonly used for product manufacturing and processing: / Pasteurisers and thermalisers | 15 years | 6.67% | 13.33% | 1 July 2017
 Assets commonly used for product manufacturing and processing: / Separators, decanters, clarifiers and bactofuges | 15 years | 6.67% | 13.33% | 1 July 2017
-Assets commonly used for product manufacturing and processing: / Standardisers | 15 years | 6.67% | 13.33% | 1 July 2016
+Standardisers (Assets commonly used for product manufacturing and processing) | 15 years | 6.67% | 13.33% | 1 July 2016
 Assets commonly used for product manufacturing and processing: / Tanks (including storage, mixing, process and balance tanks) | 20 years | 5.00% | 10.00% | 1 July 2016
 Assets commonly used for product manufacturing and processing: / UHT aseptic processing system assets | 15 years | 6.67% | 13.33% | 1 July 2016
 Assets commonly used for product manufacturing and processing: / Valve matrixes | 15 years | 6.67% | 13.33% | 1 July 2016
-Assets for butter manufacturing: | | | |
+Asset group · Assets for butter manufacturing: | | | |
 Assets for butter manufacturing: / Butter churns (including continuous buttermakers and butter reworkers) | 20 years | 5.00% | 10.00% | 1 July 2018
 Assets for butter manufacturing: / Butter melters | 25 years | 4.00% | 8.00% | 1 July 2018
-Assets for butter manufacturing: / Crystallisers | 20 years | 5.00% | 10.00% | 1 July 2018
+Crystallisers (Assets for butter manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2018
 Assets for butter manufacturing: / In-line titrators | 10 years | 10.00% | 20.00% | 1 July 2018
 Assets for butter manufacturing: / Salt crushers | 20 years | 5.00% | 10.00% | 1 July 2018
-Assets for cheese manufacturing: | | | |
-Assets for cheese manufacturing: / Blockformers | 15 years | 6.67% | 13.33% | 1 July 2017
+Asset group · Assets for cheese manufacturing: | | | |
+Blockformers (Assets for cheese manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2017
 Assets for cheese manufacturing: / Cheese cutting machines (including cutters, grinders, shredders and slicers) | 15 years | 6.67% | 13.33% | 1 July 2017
 Assets for cheese manufacturing: / Cheese washers | 15 years | 6.67% | 13.33% | 1 July 2017
 Assets for cheese manufacturing: / Continuous cheese making machines | 15 years | 6.67% | 13.33% | 1 July 2017
 Assets for cheese manufacturing: / Cooker stretchers | 15 years | 6.67% | 13.33% | 1 July 2017
-Assets for cheese manufacturing: / Extruders | 15 years | 6.67% | 13.33% | 1 July 2017
+Extruders (Assets for cheese manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2017
 Assets for cheese manufacturing: / Moulding machines | 15 years | 6.67% | 13.33% | 1 July 2017
-Assets for cheese manufacturing: / Moulds: | | | |
-Assets for cheese manufacturing: / Moulds: / Plastic | 10 years | 10.00% | 20.00% | 1 July 2017
-Assets for cheese manufacturing: / Moulds: / Stainless steel | 15 years | 6.67% | 13.33% | 1 July 2017
-Assets for cheese manufacturing: / Presses | 20 years | 5.00% | 10.00% | 1 July 2017
-Assets for cheese manufacturing: / Vats: | | | |
+Asset group · Assets for cheese manufacturing: / Moulds: | | | |
+Assets for cheese manufacturing: / Plastic (Moulds) | 10 years | 10.00% | 20.00% | 1 July 2017
+Assets for cheese manufacturing: / Stainless steel (Moulds) | 15 years | 6.67% | 13.33% | 1 July 2017
+Presses (Assets for cheese manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2017
+Asset group · Assets for cheese manufacturing: / Vats: | | | |
 Assets for cheese manufacturing: / Vats: / Cheese making vats | 20 years | 5.00% | 10.00% | 1 July 2017
 Assets for cheese manufacturing: / Vats: / Culture vats | 15 years | 6.67% | 13.33% | 1 July 2017
-Assets for dairy powder manufacturing: | | | |
-Assets for dairy powder manufacturing: / Blowers | 15 years | 6.67% | 13.33% | 1 July 2017
-Assets for dairy powder manufacturing: / Crystallisers | 20 years | 5.00% | 10.00% | 1 July 2017
+Asset group · Assets for dairy powder manufacturing: | | | | 1 July 2017
+Blowers (Assets for dairy powder manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2017
+Crystallisers (Assets for dairy powder manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2017
 Assets for dairy powder manufacturing: / Dryers (including fluid bed and spray) | 20 years | 5.00% | 10.00% | 1 July 2017
 Assets for dairy powder manufacturing: / Evaporators (including circulation/vacuum chamber and falling film) | 20 years | 5.00% | 10.00% | 1 July 2017
 Assets for dairy powder manufacturing: / Powder bins | 20 years | 5.00% | 10.00% | 1 July 2017
-Assets for dairy powder manufacturing: / Sifters | 15 years | 6.67% | 13.33% | 1 July 2017
-Assets for ice cream manufacturing: | | | |
-Assets for ice cream manufacturing: / Blenders and mixers: | | | |
+Sifters (Assets for dairy powder manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2017
+Asset group · Assets for ice cream manufacturing: | | | |
+Asset group · Assets for ice cream manufacturing: / Blenders and mixers: | | | |
 Assets for ice cream manufacturing: / Blenders and mixers: / Bench mounted planetary mixers | 15 years | 6.67% | 13.33% | 1 July 2018
 Assets for ice cream manufacturing: / Blenders and mixers: / Hand-held stick blenders | 5 years | 20.00% | 40.00% | 1 July 2018
 Assets for ice cream manufacturing: / Enrobers (including dippers) | 15 years | 6.67% | 13.33% | 1 July 2018
 Assets for ice cream manufacturing: / Extruders and extrusion line stick inserters | 15 years | 6.67% | 13.33% | 1 July 2018
-Assets for ice cream manufacturing: / Freezing assets: | | | |
+Asset group · Assets for ice cream manufacturing: / Freezing assets: | | | |
 Assets for ice cream manufacturing: / Freezing assets: / Blast freezers and freezer tunnels/hardening tunnels (excluding cabinet style self-contained blast freezers) | 15 years | 6.67% | 13.33% | 1 July 2018
 Assets for ice cream manufacturing: / Freezing assets: / Cabinet style self-contained blast freezers | 10 years | 10.00% | 20.00% | 1 July 2018
 Assets for ice cream manufacturing: / Ice cream churners/freezers | 15 years | 6.67% | 13.33% | 1 July 2018
 Assets for ice cream manufacturing: / Moulding machines, moulds and moulding line stick inserters | 15 years | 6.67% | 13.33% | 1 July 2018
-Assets for ice cream manufacturing: / Ovens | 15 years | 6.67% | 13.33% | 1 July 2018
+Ovens (Assets for ice cream manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2018
 Assets for ice cream manufacturing: / Portable batch pasteurisers | 12 years | 8.33% | 16.67% | 1 July 2018
 Assets for ice cream manufacturing: / Slush machines | 10 years | 10.00% | 20.00% | 1 July 2018
-Assets for yoghurt manufacturing: | | | |
-Assets for yoghurt manufacturing: / Aerators | 15 years | 6.67% | 13.33% | 1 July 2017
+Asset group · Assets for yoghurt manufacturing: | | | | 1 July 2017
+Aerators (Assets for yoghurt manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2017
 Assets for yoghurt manufacturing: / Fruit dosing system assets | 15 years | 6.67% | 13.33% | 1 July 2017
-Assets for yoghurt manufacturing: / Fermentation tanks | 20 years | 5.00% | 10.00% | 1 July 2017
-Assets for yoghurt manufacturing: / Incubation room assets: | | | |
-Assets for yoghurt manufacturing: / Incubation room assets: / Fans | 4 years | 25.00% | 50.00% | 1 July 2017
-Assets for yoghurt manufacturing: / Incubation room assets: / Heaters | 8 years | 12.50% | 25.00% | 1 July 2017
+Fermentation tanks (Assets for yoghurt manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2017
+Asset group · Assets for yoghurt manufacturing: / Incubation room assets: | | | |
+Assets for yoghurt manufacturing: / Fans (Incubation room assets) | 4 years | 25.00% | 50.00% | 1 July 2017
+Assets for yoghurt manufacturing: / Heaters (Incubation room assets) | 8 years | 12.50% | 25.00% | 1 July 2017
 Assets for yoghurt manufacturing: / Incubation room assets: / Insulated sandwich panels | 20 years | 5.00% | 10.00% | 1 July 2017
-Packaging assets: | | | |
+Asset group · Packaging assets: | | | |
 Packaging assets: / Bottle and lid unscramblers | 15 years | 6.67% | 13.33% | 1 July 2018
 Packaging assets: / Butter patting machines | 20 years | 5.00% | 10.00% | 1 July 2018
 Packaging assets: / Cartoning assets (including carton and case erecting, packing and closing machines, and carton and box sealers/tapers) | 15 years | 6.67% | 13.33% | 1 July 2018
-Packaging assets: / Checkweighers | 10 years | 10.00% | 20.00% | 1 July 2016
+Checkweighers (Packaging assets) | 10 years | 10.00% | 20.00% | 1 July 2016
 Packaging assets: / Cheese wrapping machines (including overwrappers and thermoforming machines) | 12 years | 8.33% | 16.67% | 1 July 2017
 Packaging assets: / Debaggers (debagging tables) | 20 years | 5.00% | 10.00% | 1 July 2016
 Packaging assets: / Filling and sealing/capping machines (including various types used in the industry such as bag, bin, bottle, bulk, can, carton, pouch and tub filling and sealing/capping machines; form fill and seal machines; preformed cup filling and sealing machines; seamers and clinchers) | 15 years | 6.67% | 13.33% | 1 July 2018
 Packaging assets: / Flow wrappers (including continuous heat seal wrappers) | 15 years | 6.67% | 13.33% | 1 July 2018
 Packaging assets: / Inkjet and laser label printers | 7 years | 14.29% | 28.57% | 1 July 2016
-Packaging assets: / Palletisers and depalletisers | 15 years | 6.67% | 13.33% | 1 July 2016
-Packaging assets: / Palletising robots | 10 years | 10.00% | 20.00% | 1 July 2016
+Packaging assets: / Palletisers and depalletisers (Dairy product manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2016
+Palletising robots (Packaging assets) | 10 years | 10.00% | 20.00% | 1 July 2016
 Packaging assets: / Product identification labellers (including coding machines and label applicators) | 10 years | 10.00% | 20.00% | 1 July 2016
 Packaging assets: / Shrink tunnels | 10 years | 10.00% | 20.00% | 1 July 2017
-Packaging assets: / Wrapping machines (including shrink wrappers, stretch wrappers and strapping machines) | 12 years | 8.33% | 16.67% | 1 July 2016
+Packaging assets: / Wrapping machines (including shrink wrappers, stretch wrappers and strapping machines) (Dairy product manufacturing) | 12 years | 8.33% | 16.67% | 1 July 2016
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- Ancillary and support assets: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/#asset-group-1
+- Assets commonly used for product manufacturing and processing: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/#asset-group-65
+- Assets for butter manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/#asset-group-80
+- Assets for cheese manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/#asset-group-86
+- Assets for dairy powder manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/#asset-group-101
+- Assets for ice cream manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/#asset-group-108
+- Assets for yoghurt manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/#asset-group-122
+- Packaging assets: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/#asset-group-130
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/#source
 - Air compression assets – see Table B Air compression assets: https://duguid.com.au/tools/depreciation-rates/asset/air-compression-assets/
 - Ammonia gas detectors: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/ammonia-gas-detectors/
-- Automated guided vehicles (AGVs): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/automated-guided-vehicles/
+- Automated guided vehicles (AGVs) (Ancillary and support assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/automated-guided-vehicles/
 - Bag and cardboard compactors: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/bag-and-cardboard-compactors/
-- Benches and tables: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/benches-and-tables/
+- Benches and tables (Ancillary and support assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/benches-and-tables/
 - Bin and drum tippers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/bin-and-drum-tippers/
-- Plastic: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/ancillary-and-support-assets-plastic/
-- Stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/ancillary-and-support-assets-stainless-steel/
+- Plastic (Bins generally): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/ancillary-and-support-assets-plastic/
+- Stainless steel (Bins generally): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/ancillary-and-support-assets-stainless-steel/
 - Boilers – see Table B Boilers: https://duguid.com.au/tools/depreciation-rates/asset/boilers/
-- Boot washers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/boot-washers/
+- Boot washers (Ancillary and support assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/boot-washers/
 - Cages (including cardboard cages and pallet cages): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/cages/
 - Chemical and flammable storage cabinets: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/chemical-and-flammable-storage-cabinets/
-- Clean-in-place (CIP) system assets (including pipes, pumps and tanks): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/clean-in-place-system-assets/
+- Clean-in-place (CIP) system assets (including pipes, pumps and tanks) (Ancillary and support assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/clean-in-place-system-assets/
 - Contaminant detectors (including magnets, metal detectors and x-ray units): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/contaminant-detectors/
 - Control systems – see Table B Control systems and control system assets: https://duguid.com.au/tools/depreciation-rates/asset/control-systems-and-control-system/
-- Conveyors: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/conveyors/
-- Chillers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/chillers/
-- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/cooling-towers/
+- Conveyors (Ancillary and support assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/conveyors/
+- Chillers (Cooling assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/chillers/
+- Cooling towers (Cooling assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/cooling-towers/
 - Crate handling assets (including lifters, stackers and de-stackers, turners etc): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/crate-handling-assets/
-- Dehumidifiers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/dehumidifiers/
-- Dock levellers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/dock-levellers/
+- Dehumidifiers (Ancillary and support assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/dehumidifiers/
+- Dock levellers (Ancillary and support assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/dock-levellers/
 - Dosing systems: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/dosing-systems/
 - Dust extractors and collectors: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/dust-extractors-and-collectors/
 - Fire control and alarm assets – see Table B Fire control and alarm assets: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/
 - Floor scrubbers and polishers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/floor-scrubbers-and-polishers/
-- Foamers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/foamers/
+- Foamers (Ancillary and support assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/foamers/
 - Infeed water treatment assets (excluding water storage tanks): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/infeed-water-treatment-assets/
 - Instrumentation (including flow meters, level transmitters, pressure transmitters etc): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/instrumentation/
 - Generally (excluding penetrometers) – see Table B Laboratory assets used in quality control, sample checking etc: https://duguid.com.au/tools/depreciation-rates/asset/laboratory-assets-used-in-quality/
-- Penetrometers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/penetrometers/
+- Penetrometers (Laboratory equipment): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/penetrometers/
 - Forklifts – see Table B Forklifts: https://duguid.com.au/tools/depreciation-rates/asset/forklifts/
-- Hoists: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/hoists/
+- Hoists (Lifting and handling assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/hoists/
 - Lifters (including small bin, box, drum, roll and vacuum lifters): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/lifters/
-- Pallet jacks and pallet trucks: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/pallet-jacks-and-pallet-trucks/
-- Scissor lifts: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/scissor-lifts/
+- Pallet jacks and pallet trucks (Lifting and handling assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/pallet-jacks-and-pallet-trucks/
+- Scissor lifts (Lifting and handling assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/scissor-lifts/
 - Milk tankers (incorporating tank and trailer): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/milk-tankers/
 - Piping, pipelines and pipework: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/piping-pipelines-and-pipework/
-- Power transformers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/power-transformers/
-- Chemical pumps: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/chemical-pumps/
-- Product pumps: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/product-pumps/
-- Vacuum pumps: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/vacuum-pumps/
-- Water pumps: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/water-pumps/
-- Racking: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/racking/
+- Power transformers (Ancillary and support assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/power-transformers/
+- Chemical pumps (Dairy product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/chemical-pumps/
+- Product pumps (Dairy product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/product-pumps/
+- Vacuum pumps (Dairy product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/vacuum-pumps/
+- Water pumps (Dairy product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/water-pumps/
+- Racking (Ancillary and support assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/racking/
 - Refrigeration assets – see Table B Refrigeration assets: https://duguid.com.au/tools/depreciation-rates/asset/refrigeration-assets/
 - Resin beads for milk and protein processing and water filtration: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/resin-beads-for-milk-and-protein-processing-and-water/
-- Scales: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/scales/
-- Shelving: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/shelving/
-- Silos: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/silos/
+- Scales (Ancillary and support assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/scales/
+- Shelving (Ancillary and support assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/shelving/
+- Silos (Ancillary and support assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/silos/
 - Steelwork structures (including ladders, platforms and walkways): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/steelwork-structures/
-- Chemical storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/chemical-storage-tanks/
-- Water storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/water-storage-tanks/
-- Trolleys: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/trolleys/
-- Valves: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/valves/
+- Chemical storage tanks (Dairy product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/chemical-storage-tanks/
+- Water storage tanks (Dairy product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/water-storage-tanks/
+- Trolleys (Ancillary and support assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/trolleys/
+- Valves (Dairy product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/valves/
 - Washers (including bottle and crate washers): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/washers/
-- Waste water treatment assets: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/waste-water-treatment-assets/
+- Waste water treatment assets (Ancillary and support assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/waste-water-treatment-assets/
 - Water filtration system assets (excluding resin beads): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/water-filtration-system-assets/
-- Weighbridges: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/weighbridges/
+- Weighbridges (Ancillary and support assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/weighbridges/
 - Feeders (including loss-in-weight feeders and volumetric feeders): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/feeders/
-- Heat exchangers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/heat-exchangers/
+- Heat exchangers (Assets commonly used for product manufacturing and processing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/heat-exchangers/
 - Heaters (including air heaters and concentrate heaters): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/assets-commonly-used-for-product-heaters/
-- Homogenisers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/homogenisers/
-- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/hoppers/
+- Homogenisers (Assets commonly used for product manufacturing and processing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/homogenisers/
+- Hoppers (Assets commonly used for product manufacturing and processing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/hoppers/
 - In-line moisture meters and moisture controllers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/in-line-moisture-meters-and-moisture-controllers/
 - Membrane filtration system assets: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/membrane-filtration-system-assets/
 - Mixers and blenders: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/mixers-and-blenders/
 - Pasteurisers and thermalisers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/pasteurisers-and-thermalisers/
 - Separators, decanters, clarifiers and bactofuges: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/separators-decanters-clarifiers-and-bactofuges/
-- Standardisers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/standardisers/
+- Standardisers (Assets commonly used for product manufacturing and processing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/standardisers/
 - Tanks (including storage, mixing, process and balance tanks): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/tanks/
 - UHT aseptic processing system assets: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/uht-aseptic-processing-system-assets/
 - Valve matrixes: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/valve-matrixes/
 - Butter churns (including continuous buttermakers and butter reworkers): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/butter-churns/
 - Butter melters: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/butter-melters/
-- Crystallisers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/assets-for-butter-manufacturing-crystallisers/
+- Crystallisers (Assets for butter manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/assets-for-butter-manufacturing-crystallisers/
 - In-line titrators: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/in-line-titrators/
 - Salt crushers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/salt-crushers/
-- Blockformers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/blockformers/
+- Blockformers (Assets for cheese manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/blockformers/
 - Cheese cutting machines (including cutters, grinders, shredders and slicers): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/cheese-cutting-machines/
 - Cheese washers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/cheese-washers/
 - Continuous cheese making machines: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/continuous-cheese-making-machines/
 - Cooker stretchers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/cooker-stretchers/
-- Extruders: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/extruders/
+- Extruders (Assets for cheese manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/extruders/
 - Moulding machines: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/moulding-machines/
-- Plastic: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/assets-for-cheese-manufacturing-plastic/
-- Stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/assets-for-cheese-manufacturing-stainless-steel/
-- Presses: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/presses/
+- Plastic (Moulds): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/assets-for-cheese-manufacturing-plastic/
+- Stainless steel (Moulds): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/assets-for-cheese-manufacturing-stainless-steel/
+- Presses (Assets for cheese manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/presses/
 - Cheese making vats: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/cheese-making-vats/
 - Culture vats: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/culture-vats/
-- Blowers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/blowers/
-- Crystallisers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/assets-for-dairy-powder-crystallisers/
+- Blowers (Assets for dairy powder manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/blowers/
+- Crystallisers (Assets for dairy powder manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/assets-for-dairy-powder-crystallisers/
 - Dryers (including fluid bed and spray): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/dryers/
 - Evaporators (including circulation/vacuum chamber and falling film): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/evaporators/
 - Powder bins: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/powder-bins/
-- Sifters: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/sifters/
+- Sifters (Assets for dairy powder manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/sifters/
 - Bench mounted planetary mixers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/bench-mounted-planetary-mixers/
 - Hand-held stick blenders: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/hand-held-stick-blenders/
 - Enrobers (including dippers): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/enrobers/
@@ -275,31 +285,31 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Cabinet style self-contained blast freezers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/cabinet-style-self-contained-blast-freezers/
 - Ice cream churners/freezers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/ice-cream-churners-freezers/
 - Moulding machines, moulds and moulding line stick inserters: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/moulding-machines-moulds-and-moulding-line-stick-inserters/
-- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/ovens/
+- Ovens (Assets for ice cream manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/ovens/
 - Portable batch pasteurisers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/portable-batch-pasteurisers/
 - Slush machines: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/slush-machines/
-- Aerators: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/aerators/
+- Aerators (Assets for yoghurt manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/aerators/
 - Fruit dosing system assets: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/fruit-dosing-system-assets/
-- Fermentation tanks: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/fermentation-tanks/
-- Fans: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/fans/
-- Heaters: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/assets-for-yoghurt-manufacturing-heaters/
+- Fermentation tanks (Assets for yoghurt manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/fermentation-tanks/
+- Fans (Incubation room assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/fans/
+- Heaters (Incubation room assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/assets-for-yoghurt-manufacturing-heaters/
 - Insulated sandwich panels: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/insulated-sandwich-panels/
 - Bottle and lid unscramblers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/bottle-and-lid-unscramblers/
 - Butter patting machines: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/butter-patting-machines/
 - Cartoning assets (including carton and case erecting, packing and closing machines, and carton and box sealers/tapers): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/cartoning-assets/
-- Checkweighers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/checkweighers/
+- Checkweighers (Packaging assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/checkweighers/
 - Cheese wrapping machines (including overwrappers and thermoforming machines): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/cheese-wrapping-machines/
 - Debaggers (debagging tables): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/debaggers/
 - Filling and sealing/capping machines (including various types used in the industry such as bag, bin, bottle, bulk, can, carton, pouch and tub filling and sealing/capping machines; form fill and seal machines; preformed cup filling and sealing machines; seamers and clinchers): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/filling-and-sealing-capping-machines/
 - Flow wrappers (including continuous heat seal wrappers): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/flow-wrappers/
 - Inkjet and laser label printers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/inkjet-and-laser-label-printers/
-- Palletisers and depalletisers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/palletisers-and-depalletisers/
-- Palletising robots: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/palletising-robots/
+- Palletisers and depalletisers (Dairy product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/palletisers-and-depalletisers/
+- Palletising robots (Packaging assets): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/palletising-robots/
 - Product identification labellers (including coding machines and label applicators): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/product-identification-labellers/
 - Shrink tunnels: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/shrink-tunnels/
-- Wrapping machines (including shrink wrappers, stretch wrappers and strapping machines): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/wrapping-machines/
+- Wrapping machines (including shrink wrappers, stretch wrappers and strapping machines) (Dairy product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/wrapping-machines/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

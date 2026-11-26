@@ -8,271 +8,276 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-n
 
 106 effective lives in Table A of the Commissioner’s 2025 effective life determination for Fruit and tree nut growing.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Jump to an asset group
+
+Coffee, olive and tree nut growing assets Fruit growing assets Horticultural plants
 
 Rows of Fruit and tree nut growing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Coffee, olive and tree nut growing assets: | | | |
+Asset group · Coffee, olive and tree nut growing assets: | | | |
 Coffee, olive and tree nut growing assets: / Chemical spraying assets (including air blast sprayers and linkage sprayers) | 10 years | 10.00% | 20.00% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Cleaning and mulching assets: | | | |
-Coffee, olive and tree nut growing assets: / Cleaning and mulching assets: / Blowers | 10 years | 10.00% | 20.00% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Cleaning and mulching assets: / Mowers (including zero turn and ride on) | 8 years | 12.50% | 25.00% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Cleaning and mulching assets: / Mulchers | 8 years | 12.50% | 25.00% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Cleaning and mulching assets: / Slashers | 10 years | 10.00% | 20.00% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Cleaning and mulching assets: / Sweeper attachments | 10 years | 10.00% | 20.00% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Fertiliser spreaders | 10 years | 10.00% | 20.00% | 1 July 2007
-Coffee, olive and tree nut growing assets: / General assets: | | | |
-Coffee, olive and tree nut growing assets: / General assets: / Bins: | | | |
-Coffee, olive and tree nut growing assets: / General assets: / Bins: / Plastic | 10 years | 10.00% | 20.00% | 1 July 2007
-Coffee, olive and tree nut growing assets: / General assets: / Bins: / Timber | 5 years | 20.00% | 40.00% | 1 July 2007
+Asset group · Coffee, olive and tree nut growing assets: / Cleaning and mulching assets: | | | |
+Coffee, olive and tree nut growing assets: / Blowers (Cleaning and mulching assets) | 10 years | 10.00% | 20.00% | 1 July 2007
+Coffee, olive and tree nut growing assets: / Cleaning and mulching assets: / Mowers (including zero turn and ride on) (Coffee, olive and tree nut growing assets / Cleaning and mulching assets / Fruit and tree nut growing) | 8 years | 12.50% | 25.00% | 1 July 2007
+Coffee, olive and tree nut growing assets: / Cleaning and mulching assets: / Mulchers (Coffee, olive and tree nut growing assets / Cleaning and mulching assets / Fruit and tree nut growing) | 8 years | 12.50% | 25.00% | 1 July 2007
+Coffee, olive and tree nut growing assets: / Cleaning and mulching assets: / Slashers (Coffee, olive and tree nut growing assets / Cleaning and mulching assets / Fruit and tree nut growing) | 10 years | 10.00% | 20.00% | 1 July 2007
+Coffee, olive and tree nut growing assets: / Cleaning and mulching assets: / Sweeper attachments (Coffee, olive and tree nut growing assets / Cleaning and mulching assets / Fruit and tree nut growing) | 10 years | 10.00% | 20.00% | 1 July 2007
+Fertiliser spreaders (Coffee, olive and tree nut growing assets) | 10 years | 10.00% | 20.00% | 1 July 2007
+Asset group · Coffee, olive and tree nut growing assets: / General assets: | | | |
+Asset group · Coffee, olive and tree nut growing assets: / General assets: / Bins: | | | |
+Coffee, olive and tree nut growing assets: / General assets: / Bins: / Plastic (Coffee, olive and tree nut growing assets / General assets / Bins / Fruit and tree nut growing) | 10 years | 10.00% | 20.00% | 1 July 2007
+Coffee, olive and tree nut growing assets: / General assets: / Bins: / Timber (Coffee, olive and tree nut growing assets / General assets / Bins / Fruit and tree nut growing) | 5 years | 20.00% | 40.00% | 1 July 2007
 Coffee, olive and tree nut growing assets: / General assets: / Stakes (including trellising) | 3 years | 33.33% | 66.67% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Harvesting assets: | | | |
+Asset group · Coffee, olive and tree nut growing assets: / Harvesting assets: | | | |
 Coffee, olive and tree nut growing assets: / Harvesting assets: / Bankouts (almonds) | 15 years | 6.67% | 13.33% | 1 July 2007
 Coffee, olive and tree nut growing assets: / Harvesting assets: / Catcher nets | 10 years | 10.00% | 20.00% | 1 July 2007
 Coffee, olive and tree nut growing assets: / Harvesting assets: / Elevators (almonds) | 12 years | 8.33% | 16.67% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Harvesting assets: / Harvesters: | | | |
-Coffee, olive and tree nut growing assets: / Harvesting assets: / Harvesters: / Coffee | 10 years | 10.00% | 20.00% | 1 July 2007
+Asset group · Coffee, olive and tree nut growing assets: / Harvesting assets: / Harvesters: | | | |
+Coffee, olive and tree nut growing assets: / Harvesting assets: / Coffee (Harvesters) | 10 years | 10.00% | 20.00% | 1 July 2007
 Coffee, olive and tree nut growing assets: / Harvesting assets: / Harvesters: / Harvesting pole rakes | 5 years | 20.00% | 40.00% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Harvesting assets: / Harvesters: / Olive | 10 years | 10.00% | 20.00% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Harvesting assets: / Harvesters: / Nuts: | | | |
-Coffee, olive and tree nut growing assets: / Harvesting assets: / Harvesters: / Nuts: / Generally | 10 years | 10.00% | 20.00% | 1 July 2007
+Coffee, olive and tree nut growing assets: / Harvesting assets: / Olive (Harvesters) | 10 years | 10.00% | 20.00% | 1 July 2007
+Asset group · Coffee, olive and tree nut growing assets: / Harvesting assets: / Harvesters: / Nuts: | | | |
+Coffee, olive and tree nut growing assets: / Harvesting assets: / Harvesters: / Generally (Nuts) | 10 years | 10.00% | 20.00% | 1 July 2007
 Coffee, olive and tree nut growing assets: / Harvesting assets: / Harvesters: / Nuts: / Macadamia mower mounted | 8 years | 12.50% | 25.00% | 1 July 2007
 Coffee, olive and tree nut growing assets: / Harvesting assets: / Harvesters: / Nuts: / Pick ups (e.g. almonds) | 12 years | 8.33% | 16.67% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Harvesting assets: / Harvesters: / Nuts: / Sweepers | 12 years | 8.33% | 16.67% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Harvesting assets: / Harvesters: / Nuts: / Tree shakers | 10 years | 10.00% | 20.00% | 1 July 2007
+Coffee, olive and tree nut growing assets: / Harvesting assets: / Harvesters: / Sweepers (Nuts) | 12 years | 8.33% | 16.67% | 1 July 2007
+Coffee, olive and tree nut growing assets: / Harvesting assets: / Harvesters: / Tree shakers (Nuts) | 10 years | 10.00% | 20.00% | 1 July 2007
 Coffee, olive and tree nut growing assets: / Harvesting assets: / Harvesters: / Reservoir carts (almonds) | 15 years | 6.67% | 13.33% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Harvesting assets: / Harvesters: / Trailers | 15 years | 6.67% | 13.33% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Pruning assets: | | | |
-Coffee, olive and tree nut growing assets: / Pruning assets: / Chainsaws (Chain saws) | 5 years | 20.00% | 40.00% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Pruning assets: / Electric hand pruners | 3 years | 33.33% | 66.67% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Pruning assets: / Manual hand pruners | 2 years | 50.00% | 100.00% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Pruning assets: / Pneumatic pruners: | | | |
-Coffee, olive and tree nut growing assets: / Pruning assets: / Pneumatic pruners: / Compressor | 10 years | 10.00% | 20.00% | 1 July 2007
-Coffee, olive and tree nut growing assets: / Pruning assets: / Pneumatic pruners: / Hand tools | 5 years | 20.00% | 40.00% | 1 July 2007
-Fruit growing assets: | | | |
-Fruit growing assets: / Cleaning and mulching assets: | | | |
-Fruit growing assets: / Cleaning and mulching assets: / Mowers (including zero turn and ride on) | 8 years | 12.50% | 25.00% | 1 July 2008
-Fruit growing assets: / Cleaning and mulching assets: / Mulchers | 6 years | 16.67% | 33.33% | 1 July 2008
-Fruit growing assets: / Cleaning and mulching assets: / Slashers | 8 years | 12.50% | 25.00% | 1 July 2008
-Fruit growing assets: / Cleaning and mulching assets: / Sweeper attachments | 10 years | 10.00% | 20.00% | 1 July 2008
-Fruit growing assets: / Crop protection assets: | | | |
+Coffee, olive and tree nut growing assets: / Harvesting assets: / Trailers (Harvesters) | 15 years | 6.67% | 13.33% | 1 July 2007
+Asset group · Coffee, olive and tree nut growing assets: / Pruning assets: | | | |
+Coffee, olive and tree nut growing assets: / Pruning assets: / Chainsaws (Chain saws) (Coffee, olive and tree nut growing assets / Pruning assets / Fruit and tree nut growing) | 5 years | 20.00% | 40.00% | 1 July 2007
+Coffee, olive and tree nut growing assets: / Pruning assets: / Electric hand pruners (Coffee, olive and tree nut growing assets / Pruning assets / Fruit and tree nut growing) | 3 years | 33.33% | 66.67% | 1 July 2007
+Coffee, olive and tree nut growing assets: / Pruning assets: / Manual hand pruners (Coffee, olive and tree nut growing assets / Pruning assets / Fruit and tree nut growing) | 2 years | 50.00% | 100.00% | 1 July 2007
+Asset group · Coffee, olive and tree nut growing assets: / Pruning assets: / Pneumatic pruners: | | | |
+Coffee, olive and tree nut growing assets: / Pruning assets: / Compressor (Pneumatic pruners) | 10 years | 10.00% | 20.00% | 1 July 2007
+Coffee, olive and tree nut growing assets: / Pruning assets: / Pneumatic pruners: / Hand tools (Coffee, olive and tree nut growing assets / Pruning assets / Pneumatic pruners / Fruit and tree nut growing) | 5 years | 20.00% | 40.00% | 1 July 2007
+Asset group · Fruit growing assets: | | | |
+Asset group · Fruit growing assets: / Cleaning and mulching assets: | | | |
+Fruit growing assets: / Cleaning and mulching assets: / Mowers (including zero turn and ride on) (Fruit growing assets / Cleaning and mulching assets / Fruit and tree nut growing) | 8 years | 12.50% | 25.00% | 1 July 2008
+Fruit growing assets: / Cleaning and mulching assets: / Mulchers (Fruit growing assets / Cleaning and mulching assets / Fruit and tree nut growing) | 6 years | 16.67% | 33.33% | 1 July 2008
+Fruit growing assets: / Cleaning and mulching assets: / Slashers (Fruit growing assets / Cleaning and mulching assets / Fruit and tree nut growing) | 8 years | 12.50% | 25.00% | 1 July 2008
+Fruit growing assets: / Cleaning and mulching assets: / Sweeper attachments (Fruit growing assets / Cleaning and mulching assets / Fruit and tree nut growing) | 10 years | 10.00% | 20.00% | 1 July 2008
+Asset group · Fruit growing assets: / Crop protection assets: | | | |
 Fruit growing assets: / Crop protection assets: / Applicators (including temporary bird netting applicators and vine cover rollers) | 15 years | 6.67% | 13.33% | 1 July 2008
 Fruit growing assets: / Crop protection assets: / Banana bagging machines | 10 years | 10.00% | 20.00% | 1 July 2008
 Fruit growing assets: / Crop protection assets: / Banana ripening bags | 3 years | 33.33% | 66.67% | 1 July 2008
-Fruit growing assets: / Crop protection assets: / Sprayers | 10 years | 10.00% | 20.00% | 1 July 2008
+Fruit growing assets: / Sprayers (Crop protection assets) | 10 years | 10.00% | 20.00% | 1 July 2008
 Fruit growing assets: / Crop protection assets: / Temporary bird netting | 5 years | 20.00% | 40.00% | 1 July 2008
 Fruit growing assets: / Crop protection assets: / Under vine weeder | 10 years | 10.00% | 20.00% | 1 July 2008
 Fruit growing assets: / Crop protection assets: / Vine covers | 3 years | 33.33% | 66.67% | 1 July 2008
-Fruit growing assets: / Dried fruit assets: | | | |
+Asset group · Fruit growing assets: / Dried fruit assets: | | | |
 Fruit growing assets: / Dried fruit assets: / Generally (including bin dryers, boxing machines, dehydration tunnels, dippers, rack dehydrators, scrapers, trolleys and wetting machines) | 15 years | 6.67% | 13.33% | 1 July 2008
 Fruit growing assets: / Dried fruit assets: / Drying sheets (including ground sheets) | 10 years | 10.00% | 20.00% | 1 July 2008
-Fruit growing assets: / Dried fruit assets: / Trays | 10 years | 10.00% | 20.00% | 1 July 2008
-Fruit growing assets: / Fertilising assets: | | | |
-Fruit growing assets: / Fertilising assets: / Fertigation systems: | | | |
-Fruit growing assets: / Fertilising assets: / Fertigation systems: / Pumps | 3 years | 33.33% | 66.67% | 1 July 2008
-Fruit growing assets: / Fertilising assets: / Fertigation systems: / Tanks | 10 years | 10.00% | 20.00% | 1 July 2008
-Fruit growing assets: / Fertilising assets: / Spreaders: | | | |
-Fruit growing assets: / Fertilising assets: / Spreaders: / Generally | 10 years | 10.00% | 20.00% | 1 July 2008
-Fruit growing assets: / Fertilising assets: / Spreaders: / Spinners | 5 years | 20.00% | 40.00% | 1 July 2008
-Fruit growing assets: / General assets: | | | |
-Fruit growing assets: / General assets: / Bins: | | | |
-Fruit growing assets: / General assets: / Bins: / Plastic | 10 years | 10.00% | 20.00% | 1 July 2008
-Fruit growing assets: / General assets: / Bins: / Timber | 5 years | 20.00% | 40.00% | 1 July 2008
+Fruit growing assets: / Trays (Dried fruit assets) | 10 years | 10.00% | 20.00% | 1 July 2008
+Asset group · Fruit growing assets: / Fertilising assets: | | | |
+Asset group · Fruit growing assets: / Fertilising assets: / Fertigation systems: | | | |
+Fruit growing assets: / Fertilising assets: / Fertigation systems: / Pumps (Fruit and tree nut growing) | 3 years | 33.33% | 66.67% | 1 July 2008
+Fruit growing assets: / Fertilising assets: / Fertigation systems: / Tanks (Fruit and tree nut growing) | 10 years | 10.00% | 20.00% | 1 July 2008
+Asset group · Fruit growing assets: / Fertilising assets: / Spreaders: | | | |
+Fruit growing assets: / Fertilising assets: / Generally (Spreaders) | 10 years | 10.00% | 20.00% | 1 July 2008
+Fruit growing assets: / Fertilising assets: / Spinners (Spreaders) | 5 years | 20.00% | 40.00% | 1 July 2008
+Asset group · Fruit growing assets: / General assets: | | | |
+Asset group · Fruit growing assets: / General assets: / Bins: | | | |
+Fruit growing assets: / General assets: / Bins: / Plastic (Fruit growing assets / General assets / Bins / Fruit and tree nut growing) | 10 years | 10.00% | 20.00% | 1 July 2008
+Fruit growing assets: / General assets: / Bins: / Timber (Fruit growing assets / General assets / Bins / Fruit and tree nut growing) | 5 years | 20.00% | 40.00% | 1 July 2008
 Fruit growing assets: / General assets: / Crates (including picking lugs) | 5 years | 20.00% | 40.00% | 1 July 2008
-Fruit growing assets: / General assets: / Elevating work platforms | 10 years | 10.00% | 20.00% | 1 July 2008
+Fruit growing assets: / Elevating work platforms (General assets) | 10 years | 10.00% | 20.00% | 1 July 2008
 Fruit growing assets: / General assets: / Frost fans | 15 years | 6.67% | 13.33% | 1 July 2008
-Fruit growing assets: / General assets: / Mulch layers | 12 years | 8.33% | 16.67% | 1 July 2008
-Fruit growing assets: / General assets: / Mulch lifters | 12 years | 8.33% | 16.67% | 1 July 2008
+Fruit growing assets: / General assets: / Mulch layers (Fruit and tree nut growing) | 12 years | 8.33% | 16.67% | 1 July 2008
+Fruit growing assets: / General assets: / Mulch lifters (Fruit and tree nut growing) | 12 years | 8.33% | 16.67% | 1 July 2008
 Fruit growing assets: / General assets: / Orchard ladders | 10 years | 10.00% | 20.00% | 1 July 2008
 Fruit growing assets: / General assets: / Post driver/hole diggers | 10 years | 10.00% | 20.00% | 1 July 2008
-Fruit growing assets: / General assets: / Refractometers | 10 years | 10.00% | 20.00% | 1 July 2008
-Fruit growing assets: / General assets: / Water pressure cleaners | 5 years | 20.00% | 40.00% | 1 July 2008
-Fruit growing assets: / Harvesting assets: | | | |
+Fruit growing assets: / Refractometers (General assets) | 10 years | 10.00% | 20.00% | 1 July 2008
+Fruit growing assets: / Water pressure cleaners (General assets) | 5 years | 20.00% | 40.00% | 1 July 2008
+Asset group · Fruit growing assets: / Harvesting assets: | | | |
 Fruit growing assets: / Harvesting assets: / Grape harvesters | 10 years | 10.00% | 20.00% | 1 July 2008
 Fruit growing assets: / Harvesting assets: / Harvest aids | 15 years | 6.67% | 13.33% | 1 July 2008
 Fruit growing assets: / Harvesting assets: / Picking bags | 3 years | 33.33% | 66.67% | 1 July 2008
 Fruit growing assets: / Harvesting assets: / Picking platforms | 10 years | 10.00% | 20.00% | 1 July 2008
 Fruit growing assets: / Harvesting assets: / Picking trolleys | 5 years | 20.00% | 40.00% | 1 July 2008
 Fruit growing assets: / Harvesting assets: / Trailers (including grape chaser bins) | 15 years | 6.67% | 13.33% | 1 July 2008
-Fruit growing assets: / Harvesting assets: / Tree shakers | 10 years | 10.00% | 20.00% | 1 July 2008
-Fruit growing assets: / Planting assets: | | | |
+Fruit growing assets: / Tree shakers (Harvesting assets) | 10 years | 10.00% | 20.00% | 1 July 2008
+Asset group · Fruit growing assets: / Planting assets: | | | |
 Fruit growing assets: / Planting assets: / Hole burners | 10 years | 10.00% | 20.00% | 1 July 2008
-Fruit growing assets: / Planting assets: / Planters | 12 years | 8.33% | 16.67% | 1 July 2008
+Fruit growing assets: / Planters (Planting assets) | 12 years | 8.33% | 16.67% | 1 July 2008
 Fruit growing assets: / Planting assets: / Tree guards | 2 years | 50.00% | 100.00% | 1 July 2008
-Fruit growing assets: / Planting assets: / Trellising | 20 years | 5.00% | 10.00% | 1 July 2008
+Fruit growing assets: / Trellising (Planting assets) | 20 years | 5.00% | 10.00% | 1 July 2008
 Fruit growing assets: / Planting assets: / Weed matting | 5 years | 20.00% | 40.00% | 1 July 2008
-Fruit growing assets: / Pruning assets: | | | |
-Fruit growing assets: / Pruning assets: / Chainsaws (Chain saws) | 3 years | 33.33% | 66.67% | 1 July 2008
-Fruit growing assets: / Pruning assets: / Electric hand pruners | 3 years | 33.33% | 66.67% | 1 July 2008
-Fruit growing assets: / Pruning assets: / Manual hand pruners | 2 years | 50.00% | 100.00% | 1 July 2008
+Asset group · Fruit growing assets: / Pruning assets: | | | |
+Fruit growing assets: / Pruning assets: / Chainsaws (Chain saws) (Fruit growing assets / Pruning assets / Fruit and tree nut growing) | 3 years | 33.33% | 66.67% | 1 July 2008
+Fruit growing assets: / Pruning assets: / Electric hand pruners (Fruit growing assets / Pruning assets / Fruit and tree nut growing) | 3 years | 33.33% | 66.67% | 1 July 2008
+Fruit growing assets: / Pruning assets: / Manual hand pruners (Fruit growing assets / Pruning assets / Fruit and tree nut growing) | 2 years | 50.00% | 100.00% | 1 July 2008
 Fruit growing assets: / Pruning assets: / Mechanical pruning assets (including cutter bars and cane strippers, but excluding vine leaf removers) | 10 years | 10.00% | 20.00% | 1 July 2008
-Fruit growing assets: / Pruning assets: / Pneumatic pruners: | | | |
-Fruit growing assets: / Pruning assets: / Pneumatic pruners: / Compressors | 10 years | 10.00% | 20.00% | 1 July 2008
-Fruit growing assets: / Pruning assets: / Pneumatic pruners: / Hand tools | 5 years | 20.00% | 40.00% | 1 July 2008
+Asset group · Fruit growing assets: / Pruning assets: / Pneumatic pruners: | | | |
+Fruit growing assets: / Pruning assets: / Compressors (Pneumatic pruners) | 10 years | 10.00% | 20.00% | 1 July 2008
+Fruit growing assets: / Pruning assets: / Pneumatic pruners: / Hand tools (Fruit growing assets / Pruning assets / Pneumatic pruners / Fruit and tree nut growing) | 5 years | 20.00% | 40.00% | 1 July 2008
 Fruit growing assets: / Pruning assets: / Vine leaf removers | 15 years | 6.67% | 13.33% | 1 July 2008
-Fruit growing assets: / Tillage assets: | | | |
-Fruit growing assets: / Tillage assets: / Generally | 15 years | 6.67% | 13.33% | 1 July 2008
-Fruit growing assets: / Tillage assets: / Power take-off (PTO) operated (including rotary hoes and power harrows) | 8 years | 12.50% | 25.00% | 1 July 2008
-Horticultural plants: | | | |
-Horticultural plants: / Citrus: | | | |
-Horticultural plants: / Citrus: / Grapefruits | 30 years | 3.33% | 6.67% | 1 January 2001
-Horticultural plants: / Citrus: / Lemons | 20 years | 5.00% | 10.00% | 1 January 2001
-Horticultural plants: / Citrus: / Limes | 20 years | 5.00% | 10.00% | 1 January 2001
-Horticultural plants: / Citrus: / Mandarins | 25 years | 4.00% | 8.00% | 1 January 2001
-Horticultural plants: / Citrus: / Oranges | 30 years | 3.33% | 6.67% | 1 January 2001
-Horticultural plants: / Grape: | | | |
+Asset group · Fruit growing assets: / Tillage assets: | | | |
+Fruit growing assets: / Tillage assets: / Generally (Fruit and tree nut growing) | 15 years | 6.67% | 13.33% | 1 July 2008
+Fruit growing assets: / Tillage assets: / Power take-off (PTO) operated (including rotary hoes and power harrows) (Fruit and tree nut growing) | 8 years | 12.50% | 25.00% | 1 July 2008
+Asset group · Horticultural plants: | | | |
+Asset group · Horticultural plants: / Citrus: | | | |
+Horticultural plants: / Grapefruits (Citrus) | 30 years | 3.33% | 6.67% | 1 January 2001
+Horticultural plants: / Lemons (Citrus) | 20 years | 5.00% | 10.00% | 1 January 2001
+Horticultural plants: / Limes (Citrus) | 20 years | 5.00% | 10.00% | 1 January 2001
+Horticultural plants: / Mandarins (Citrus) | 25 years | 4.00% | 8.00% | 1 January 2001
+Horticultural plants: / Oranges (Citrus) | 30 years | 3.33% | 6.67% | 1 January 2001
+Asset group · Horticultural plants: / Grape: | | | |
 Horticultural plants: / Grape: / Grapevines, dried | 15 years | 6.67% | 13.33% | 1 October 2004
 Horticultural plants: / Grape: / Grapevines, table | 15 years | 6.67% | 13.33% | 1 October 2004
 Horticultural plants: / Grape: / Grapevines, wine | 20 years | 5.00% | 10.00% | 1 October 2004
-Horticultural plants: / Nuts: | | | |
-Horticultural plants: / Nuts: / Almonds | 25 years | 4.00% | 8.00% | 1 July 2001
-Horticultural plants: / Nuts: / Cashews | 25 years | 4.00% | 8.00% | 1 July 2001
-Horticultural plants: / Nuts: / Chestnuts | 25 years | 4.00% | 8.00% | 1 July 2001
-Horticultural plants: / Nuts: / Hazelnuts | 25 years | 4.00% | 8.00% | 1 July 2001
-Horticultural plants: / Nuts: / Jojoba | 30 years | 3.33% | 6.67% | 1 July 2001
-Horticultural plants: / Nuts: / Macadamia | 25 years | 4.00% | 8.00% | 1 July 2001
-Horticultural plants: / Nuts: / Pecans | 25 years | 4.00% | 8.00% | 1 July 2001
-Horticultural plants: / Nuts: / Pistachios | 25 years | 4.00% | 8.00% | 1 July 2001
-Horticultural plants: / Nuts: / Walnuts | 25 years | 4.00% | 8.00% | 1 July 2001
-Horticultural plants: / Pome: | | | |
-Horticultural plants: / Pome: / Apples | 20 years | 5.00% | 10.00% | 1 January 2001
-Horticultural plants: / Pome: / Pears | 25 years | 4.00% | 8.00% | 1 January 2001
-Horticultural plants: / Stone fruit: | | | |
-Horticultural plants: / Stone fruit: / Apricots | 10 years | 10.00% | 20.00% | 1 January 2001
-Horticultural plants: / Stone fruit: / Cherries | 18 years | 5.56% | 11.11% | 1 January 2001
-Horticultural plants: / Stone fruit: / Nectarines | 10 years | 10.00% | 20.00% | 1 January 2001
-Horticultural plants: / Stone fruit: / Olives | 30 years | 3.33% | 6.67% | 1 January 2001
-Horticultural plants: / Stone fruit: / Peaches | 10 years | 10.00% | 20.00% | 1 January 2001
-Horticultural plants: / Stone fruit: / Plums | 15 years | 6.67% | 13.33% | 1 January 2001
-Horticultural plants: / Stone fruit: / Prunes | 20 years | 5.00% | 10.00% | 1 January 2001
-Horticultural plants: / Tropical: | | | |
-Horticultural plants: / Tropical: / Avocados | 20 years | 5.00% | 10.00% | 1 January 2001
-Horticultural plants: / Tropical: / Mangoes | 30 years | 3.33% | 6.67% | 1 January 2001
+Asset group · Horticultural plants: / Nuts: | | | |
+Horticultural plants: / Almonds (Nuts) | 25 years | 4.00% | 8.00% | 1 July 2001
+Horticultural plants: / Cashews (Nuts) | 25 years | 4.00% | 8.00% | 1 July 2001
+Horticultural plants: / Chestnuts (Nuts) | 25 years | 4.00% | 8.00% | 1 July 2001
+Horticultural plants: / Hazelnuts (Nuts) | 25 years | 4.00% | 8.00% | 1 July 2001
+Horticultural plants: / Jojoba (Nuts) | 30 years | 3.33% | 6.67% | 1 July 2001
+Horticultural plants: / Macadamia (Nuts) | 25 years | 4.00% | 8.00% | 1 July 2001
+Horticultural plants: / Pecans (Nuts) | 25 years | 4.00% | 8.00% | 1 July 2001
+Horticultural plants: / Pistachios (Nuts) | 25 years | 4.00% | 8.00% | 1 July 2001
+Horticultural plants: / Walnuts (Nuts) | 25 years | 4.00% | 8.00% | 1 July 2001
+Asset group · Horticultural plants: / Pome: | | | |
+Horticultural plants: / Apples (Pome) | 20 years | 5.00% | 10.00% | 1 January 2001
+Horticultural plants: / Pears (Pome) | 25 years | 4.00% | 8.00% | 1 January 2001
+Asset group · Horticultural plants: / Stone fruit: | | | |
+Horticultural plants: / Apricots (Stone fruit) | 10 years | 10.00% | 20.00% | 1 January 2001
+Horticultural plants: / Cherries (Stone fruit) | 18 years | 5.56% | 11.11% | 1 January 2001
+Horticultural plants: / Nectarines (Stone fruit) | 10 years | 10.00% | 20.00% | 1 January 2001
+Horticultural plants: / Olives (Stone fruit) | 30 years | 3.33% | 6.67% | 1 January 2001
+Horticultural plants: / Peaches (Stone fruit) | 10 years | 10.00% | 20.00% | 1 January 2001
+Horticultural plants: / Plums (Stone fruit) | 15 years | 6.67% | 13.33% | 1 January 2001
+Horticultural plants: / Prunes (Stone fruit) | 20 years | 5.00% | 10.00% | 1 January 2001
+Asset group · Horticultural plants: / Tropical: | | | |
+Horticultural plants: / Avocados (Tropical) | 20 years | 5.00% | 10.00% | 1 January 2001
+Horticultural plants: / Mangoes (Tropical) | 30 years | 3.33% | 6.67% | 1 January 2001
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- Coffee, olive and tree nut growing assets: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/#asset-group-1
+- Fruit growing assets: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/#asset-group-38
+- Horticultural plants: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/#asset-group-102
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/#source
 - Chemical spraying assets (including air blast sprayers and linkage sprayers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/chemical-spraying-assets/
-- Blowers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/blowers/
-- Mowers (including zero turn and ride on): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-mowers/
-- Mulchers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-mulchers/
-- Slashers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-slashers/
-- Sweeper attachments: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-sweeper-attachments/
-- Fertiliser spreaders: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fertiliser-spreaders/
-- Plastic: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-plastic/
-- Timber: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-timber/
+- Blowers (Cleaning and mulching assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/blowers/
+- Mowers (including zero turn and ride on) (Coffee, olive and tree nut growing assets / Cleaning and mulching assets / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-mowers/
+- Mulchers (Coffee, olive and tree nut growing assets / Cleaning and mulching assets / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-mulchers/
+- Slashers (Coffee, olive and tree nut growing assets / Cleaning and mulching assets / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-slashers/
+- Sweeper attachments (Coffee, olive and tree nut growing assets / Cleaning and mulching assets / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-sweeper-attachments/
+- Fertiliser spreaders (Coffee, olive and tree nut growing assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fertiliser-spreaders/
+- Plastic (Coffee, olive and tree nut growing assets / General assets / Bins / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-plastic/
+- Timber (Coffee, olive and tree nut growing assets / General assets / Bins / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-timber/
 - Stakes (including trellising): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/stakes/
 - Bankouts (almonds): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/bankouts/
 - Catcher nets: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/catcher-nets/
 - Elevators (almonds): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/elevators/
-- Coffee: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee/
+- Coffee (Harvesters): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee/
 - Harvesting pole rakes: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/harvesting-pole-rakes/
-- Olive: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/olive/
-- Generally: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-generally/
+- Olive (Harvesters): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/olive/
+- Generally (Nuts): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-generally/
 - Macadamia mower mounted: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/macadamia-mower-mounted/
 - Pick ups (e.g. almonds): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/pick-ups/
-- Sweepers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/sweepers/
-- Tree shakers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-tree-shakers/
+- Sweepers (Nuts): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/sweepers/
+- Tree shakers (Nuts): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-tree-shakers/
 - Reservoir carts (almonds): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/reservoir-carts/
-- Trailers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-trailers/
-- Chainsaws (Chain saws): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-chainsaws/
-- Electric hand pruners: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-electric-hand-pruners/
-- Manual hand pruners: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-manual-hand-pruners/
-- Compressor: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/compressor/
-- Hand tools: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-hand-tools/
-- Mowers (including zero turn and ride on): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-mowers/
-- Mulchers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-mulchers/
-- Slashers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-slashers/
-- Sweeper attachments: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-sweeper-attachments/
+- Trailers (Harvesters): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-trailers/
+- Chainsaws (Chain saws) (Coffee, olive and tree nut growing assets / Pruning assets / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-chainsaws/
+- Electric hand pruners (Coffee, olive and tree nut growing assets / Pruning assets / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-electric-hand-pruners/
+- Manual hand pruners (Coffee, olive and tree nut growing assets / Pruning assets / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-manual-hand-pruners/
+- Compressor (Pneumatic pruners): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/compressor/
+- Hand tools (Coffee, olive and tree nut growing assets / Pruning assets / Pneumatic pruners / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-hand-tools/
+- Mowers (including zero turn and ride on) (Fruit growing assets / Cleaning and mulching assets / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-mowers/
+- Mulchers (Fruit growing assets / Cleaning and mulching assets / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-mulchers/
+- Slashers (Fruit growing assets / Cleaning and mulching assets / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-slashers/
+- Sweeper attachments (Fruit growing assets / Cleaning and mulching assets / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-sweeper-attachments/
 - Applicators (including temporary bird netting applicators and vine cover rollers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/applicators/
 - Banana bagging machines: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/banana-bagging-machines/
 - Banana ripening bags: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/banana-ripening-bags/
-- Sprayers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/sprayers/
+- Sprayers (Crop protection assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/sprayers/
 - Temporary bird netting: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/temporary-bird-netting/
 - Under vine weeder: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/under-vine-weeder/
 - Vine covers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/vine-covers/
 - Generally (including bin dryers, boxing machines, dehydration tunnels, dippers, rack dehydrators, scrapers, trolleys and wetting machines): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/dried-fruit-assets-generally/
 - Drying sheets (including ground sheets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/drying-sheets/
-- Trays: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/trays/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/pumps/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/tanks/
-- Generally: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/spreaders-generally/
-- Spinners: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/spinners/
-- Plastic: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-plastic/
-- Timber: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-timber/
+- Trays (Dried fruit assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/trays/
+- Pumps (Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/pumps/
+- Tanks (Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/tanks/
+- Generally (Spreaders): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/spreaders-generally/
+- Spinners (Spreaders): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/spinners/
+- Plastic (Fruit growing assets / General assets / Bins / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-plastic/
+- Timber (Fruit growing assets / General assets / Bins / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-timber/
 - Crates (including picking lugs): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/crates/
-- Elevating work platforms: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/elevating-work-platforms/
+- Elevating work platforms (General assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/elevating-work-platforms/
 - Frost fans: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/frost-fans/
-- Mulch layers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/mulch-layers/
-- Mulch lifters: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/mulch-lifters/
+- Mulch layers (Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/mulch-layers/
+- Mulch lifters (Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/mulch-lifters/
 - Orchard ladders: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/orchard-ladders/
 - Post driver/hole diggers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/post-driver-hole-diggers/
-- Refractometers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/refractometers/
-- Water pressure cleaners: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/water-pressure-cleaners/
+- Refractometers (General assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/refractometers/
+- Water pressure cleaners (General assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/water-pressure-cleaners/
 - Grape harvesters: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/grape-harvesters/
 - Harvest aids: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/harvest-aids/
 - Picking bags: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/picking-bags/
 - Picking platforms: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/picking-platforms/
 - Picking trolleys: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/picking-trolleys/
 - Trailers (including grape chaser bins): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-trailers/
-- Tree shakers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-tree-shakers/
+- Tree shakers (Harvesting assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-tree-shakers/
 - Hole burners: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/hole-burners/
-- Planters: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/planters/
+- Planters (Planting assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/planters/
 - Tree guards: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/tree-guards/
-- Trellising: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/trellising/
+- Trellising (Planting assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/trellising/
 - Weed matting: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/weed-matting/
-- Chainsaws (Chain saws): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-chainsaws/
-- Electric hand pruners: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-electric-hand-pruners/
-- Manual hand pruners: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-manual-hand-pruners/
+- Chainsaws (Chain saws) (Fruit growing assets / Pruning assets / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-chainsaws/
+- Electric hand pruners (Fruit growing assets / Pruning assets / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-electric-hand-pruners/
+- Manual hand pruners (Fruit growing assets / Pruning assets / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-manual-hand-pruners/
 - Mechanical pruning assets (including cutter bars and cane strippers, but excluding vine leaf removers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/mechanical-pruning-assets/
-- Compressors: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/compressors/
-- Hand tools: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-hand-tools/
+- Compressors (Pneumatic pruners): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/compressors/
+- Hand tools (Fruit growing assets / Pruning assets / Pneumatic pruners / Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/fruit-growing-assets-hand-tools/
 - Vine leaf removers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/vine-leaf-removers/
-- Generally: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/tillage-assets-generally/
-- Power take-off (PTO) operated (including rotary hoes and power harrows): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/power-take-off-operated/
-- Grapefruits: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/grapefruits/
-- Lemons: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/lemons/
-- Limes: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/limes/
-- Mandarins: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/mandarins/
-- Oranges: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/oranges/
+- Generally (Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/tillage-assets-generally/
+- Power take-off (PTO) operated (including rotary hoes and power harrows) (Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/power-take-off-operated/
+- Grapefruits (Citrus): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/grapefruits/
+- Lemons (Citrus): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/lemons/
+- Limes (Citrus): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/limes/
+- Mandarins (Citrus): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/mandarins/
+- Oranges (Citrus): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/oranges/
 - Grapevines, dried: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/grapevines-dried/
 - Grapevines, table: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/grapevines-table/
 - Grapevines, wine: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/grapevines-wine/
-- Almonds: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/almonds/
-- Cashews: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/cashews/
-- Chestnuts: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/chestnuts/
-- Hazelnuts: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/hazelnuts/
-- Jojoba: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/jojoba/
-- Macadamia: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/macadamia/
-- Pecans: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/pecans/
-- Pistachios: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/pistachios/
-- Walnuts: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/walnuts/
-- Apples: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/apples/
-- Pears: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/pears/
-- Apricots: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/apricots/
-- Cherries: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/cherries/
-- Nectarines: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/nectarines/
-- Olives: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/olives/
-- Peaches: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/peaches/
-- Plums: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/plums/
-- Prunes: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/prunes/
-- Avocados: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/avocados/
-- Mangoes: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/mangoes/
+- Almonds (Nuts): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/almonds/
+- Cashews (Nuts): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/cashews/
+- Chestnuts (Nuts): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/chestnuts/
+- Hazelnuts (Nuts): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/hazelnuts/
+- Jojoba (Nuts): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/jojoba/
+- Macadamia (Nuts): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/macadamia/
+- Pecans (Nuts): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/pecans/
+- Pistachios (Nuts): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/pistachios/
+- Walnuts (Nuts): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/walnuts/
+- Apples (Pome): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/apples/
+- Pears (Pome): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/pears/
+- Apricots (Stone fruit): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/apricots/
+- Cherries (Stone fruit): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/cherries/
+- Nectarines (Stone fruit): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/nectarines/
+- Olives (Stone fruit): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/olives/
+- Peaches (Stone fruit): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/peaches/
+- Plums (Stone fruit): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/plums/
+- Prunes (Stone fruit): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/prunes/
+- Avocados (Tropical): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/avocados/
+- Mangoes (Tropical): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/mangoes/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

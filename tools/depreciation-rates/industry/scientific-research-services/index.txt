@@ -8,120 +8,118 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/scientific-resea
 
 44 effective lives in Table A of the Commissioner’s 2025 effective life determination for Scientific research services.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Scientific research services. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Scientific, medical and pharmaceutical research assets: | | | |
-Scientific, medical and pharmaceutical research assets: / Autoclaves: | | | |
-Scientific, medical and pharmaceutical research assets: / Autoclaves: / Bench top autoclaves | 5 years | 20.00% | 40.00% | 1 July 2014
-Scientific, medical and pharmaceutical research assets: / Autoclaves: / Others | 10 years | 10.00% | 20.00% | 1 July 2014
+Asset group · Scientific, medical and pharmaceutical research assets: | | | |
+Asset group · Scientific, medical and pharmaceutical research assets: / Autoclaves: | | | |
+Scientific, medical and pharmaceutical research assets: / Bench top autoclaves (Autoclaves) | 5 years | 20.00% | 40.00% | 1 July 2014
+Scientific, medical and pharmaceutical research assets: / Others (Autoclaves) | 10 years | 10.00% | 20.00% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Automated cell counters | 5 years | 20.00% | 40.00% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Automated colony pickers | 5 years | 20.00% | 40.00% | 1 July 2014
-Scientific, medical and pharmaceutical research assets: / Balances | 10 years | 10.00% | 20.00% | 1 July 2014
+Balances (Scientific, medical and pharmaceutical research assets) | 10 years | 10.00% | 20.00% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Biological safety cabinets | 10 years | 10.00% | 20.00% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Cell harvesters | 10 years | 10.00% | 20.00% | 1 July 2014
-Scientific, medical and pharmaceutical research assets: / Centrifuges: | | | |
+Asset group · Scientific, medical and pharmaceutical research assets: / Centrifuges: | | | |
 Scientific, medical and pharmaceutical research assets: / Centrifuges: / Bench top centrifuges | 5 years | 20.00% | 40.00% | 1 July 2014
-Scientific, medical and pharmaceutical research assets: / Centrifuges: / Others | 10 years | 10.00% | 20.00% | 1 July 2014
+Scientific, medical and pharmaceutical research assets: / Others (Centrifuges) | 10 years | 10.00% | 20.00% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Computed tomography (CT) scanners | 10 years | 10.00% | 20.00% | 1 July 2014
-Scientific, medical and pharmaceutical research assets: / Digital cameras | 3 years | 33.33% | 66.67% | 1 July 2014
+Digital cameras (Scientific, medical and pharmaceutical research assets) | 3 years | 33.33% | 66.67% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / DNA sequencers | 5 years | 20.00% | 40.00% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Electrophoresis systems (incorporating power supplies and tanks) | 7 years | 14.29% | 28.57% | 1 July 2014
-Scientific, medical and pharmaceutical research assets: / Electroporators | 8 years | 12.50% | 25.00% | 1 July 2014
-Scientific, medical and pharmaceutical research assets: / Fermenters | 10 years | 10.00% | 20.00% | 1 July 2014
+Electroporators (Scientific, medical and pharmaceutical research assets) | 8 years | 12.50% | 25.00% | 1 July 2014
+Fermenters (Scientific, medical and pharmaceutical research assets) | 10 years | 10.00% | 20.00% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Flow cytometers | 8 years | 12.50% | 25.00% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Freeze dryers | 10 years | 10.00% | 20.00% | 1 July 2014
-Scientific, medical and pharmaceutical research assets: / Freezers | 10 years | 10.00% | 20.00% | 1 July 2014
+Freezers (Scientific, medical and pharmaceutical research assets) | 10 years | 10.00% | 20.00% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Gel documentation systems | 5 years | 20.00% | 40.00% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Glassware washers | 8 years | 12.50% | 25.00% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Heating blocks | 10 years | 10.00% | 20.00% | 1 July 2014
-Scientific, medical and pharmaceutical research assets: / Homogenisers | 7 years | 14.29% | 28.57% | 1 July 2014
-Scientific, medical and pharmaceutical research assets: / Incubators | 6 years | 16.67% | 33.33% | 1 July 2014
+Homogenisers (Scientific, medical and pharmaceutical research assets) | 7 years | 14.29% | 28.57% | 1 July 2014
+Incubators (Scientific, medical and pharmaceutical research assets) | 6 years | 16.67% | 33.33% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Liquid chromatography systems | 5 years | 20.00% | 40.00% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Liquid nitrogen assets (including dewars and tanks) | 10 years | 10.00% | 20.00% | 1 July 2014
-Scientific, medical and pharmaceutical research assets: / Microscopes | 10 years | 10.00% | 20.00% | 1 July 2014
-Scientific, medical and pharmaceutical research assets: / Microtomes | 10 years | 10.00% | 20.00% | 1 July 2014
-Scientific, medical and pharmaceutical research assets: / Mixers | 7 years | 14.29% | 28.57% | 1 July 2014
+Microscopes (Scientific, medical and pharmaceutical research assets) | 10 years | 10.00% | 20.00% | 1 July 2014
+Microtomes (Scientific, medical and pharmaceutical research assets) | 10 years | 10.00% | 20.00% | 1 July 2014
+Mixers (Scientific, medical and pharmaceutical research assets) | 7 years | 14.29% | 28.57% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Nano spectrophotometers | 8 years | 12.50% | 25.00% | 1 July 2014
-Scientific, medical and pharmaceutical research assets: / Ovens | 6 years | 16.67% | 33.33% | 1 July 2014
+Ovens (Scientific, medical and pharmaceutical research assets) | 6 years | 16.67% | 33.33% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Peristaltic pumps | 7 years | 14.29% | 28.57% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / pH meters | 7 years | 14.29% | 28.57% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Plate readers | 5 years | 20.00% | 40.00% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Polymerase chain reaction (PCR) thermal cyclers | 8 years | 12.50% | 25.00% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Real-time PCR detection machines | 5 years | 20.00% | 40.00% | 1 July 2014
-Scientific, medical and pharmaceutical research assets: / Refrigerators | 8 years | 12.50% | 25.00% | 1 July 2014
+Refrigerators (Scientific, medical and pharmaceutical research assets) | 8 years | 12.50% | 25.00% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Robotic systems (including robotic liquid handling systems and robotic sampler systems) | 5 years | 20.00% | 40.00% | 1 July 2014
-Scientific, medical and pharmaceutical research assets: / Shakers | 7 years | 14.29% | 28.57% | 1 July 2014
+Shakers (Scientific, medical and pharmaceutical research assets) | 7 years | 14.29% | 28.57% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Sonicators (including water bath sonicators and sonicators with probes) | 7 years | 14.29% | 28.57% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Spectrophotometers (excluding nano spectrophotometers) | 10 years | 10.00% | 20.00% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Surface plasmon resonance (SPR) machines | 5 years | 20.00% | 40.00% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Vacuum concentrators | 7 years | 14.29% | 28.57% | 1 July 2014
 Scientific, medical and pharmaceutical research assets: / Water baths (including refrigerated and shaking water baths) | 7 years | 14.29% | 28.57% | 1 July 2014
-Scientific, medical and pharmaceutical research assets: / Water purification systems | 8 years | 12.50% | 25.00% | 1 July 2014
+Water purification systems (Scientific, medical and pharmaceutical research assets) | 8 years | 12.50% | 25.00% | 1 July 2014
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/#source
-- Bench top autoclaves: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/bench-top-autoclaves/
-- Others: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/autoclaves-others/
+- Bench top autoclaves (Autoclaves): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/bench-top-autoclaves/
+- Others (Autoclaves): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/autoclaves-others/
 - Automated cell counters: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/automated-cell-counters/
 - Automated colony pickers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/automated-colony-pickers/
-- Balances: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/balances/
+- Balances (Scientific, medical and pharmaceutical research assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/balances/
 - Biological safety cabinets: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/biological-safety-cabinets/
 - Cell harvesters: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/cell-harvesters/
 - Bench top centrifuges: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/bench-top-centrifuges/
-- Others: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/centrifuges-others/
+- Others (Centrifuges): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/centrifuges-others/
 - Computed tomography (CT) scanners: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/computed-tomography-scanners/
-- Digital cameras: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/digital-cameras/
+- Digital cameras (Scientific, medical and pharmaceutical research assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/digital-cameras/
 - DNA sequencers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/dna-sequencers/
 - Electrophoresis systems (incorporating power supplies and tanks): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/electrophoresis-systems/
-- Electroporators: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/electroporators/
-- Fermenters: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/fermenters/
+- Electroporators (Scientific, medical and pharmaceutical research assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/electroporators/
+- Fermenters (Scientific, medical and pharmaceutical research assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/fermenters/
 - Flow cytometers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/flow-cytometers/
 - Freeze dryers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/freeze-dryers/
-- Freezers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/freezers/
+- Freezers (Scientific, medical and pharmaceutical research assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/freezers/
 - Gel documentation systems: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/gel-documentation-systems/
 - Glassware washers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/glassware-washers/
 - Heating blocks: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/heating-blocks/
-- Homogenisers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/homogenisers/
-- Incubators: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/incubators/
+- Homogenisers (Scientific, medical and pharmaceutical research assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/homogenisers/
+- Incubators (Scientific, medical and pharmaceutical research assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/incubators/
 - Liquid chromatography systems: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/liquid-chromatography-systems/
 - Liquid nitrogen assets (including dewars and tanks): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/liquid-nitrogen-assets/
-- Microscopes: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/microscopes/
-- Microtomes: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/microtomes/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/mixers/
+- Microscopes (Scientific, medical and pharmaceutical research assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/microscopes/
+- Microtomes (Scientific, medical and pharmaceutical research assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/microtomes/
+- Mixers (Scientific, medical and pharmaceutical research assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/mixers/
 - Nano spectrophotometers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/nano-spectrophotometers/
-- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/ovens/
+- Ovens (Scientific, medical and pharmaceutical research assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/ovens/
 - Peristaltic pumps: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/peristaltic-pumps/
 - pH meters: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/ph-meters/
 - Plate readers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/plate-readers/
 - Polymerase chain reaction (PCR) thermal cyclers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/polymerase-chain-reaction-thermal-cyclers/
 - Real-time PCR detection machines: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/real-time-pcr-detection-machines/
-- Refrigerators: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/refrigerators/
+- Refrigerators (Scientific, medical and pharmaceutical research assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/refrigerators/
 - Robotic systems (including robotic liquid handling systems and robotic sampler systems): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/robotic-systems/
-- Shakers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/shakers/
+- Shakers (Scientific, medical and pharmaceutical research assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/shakers/
 - Sonicators (including water bath sonicators and sonicators with probes): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/sonicators/
 - Spectrophotometers (excluding nano spectrophotometers): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/spectrophotometers/
 - Surface plasmon resonance (SPR) machines: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/surface-plasmon-resonance-machines/
 - Vacuum concentrators: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/vacuum-concentrators/
 - Water baths (including refrigerated and shaking water baths): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/water-baths/
-- Water purification systems: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/water-purification-systems/
+- Water purification systems (Scientific, medical and pharmaceutical research assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/water-purification-systems/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

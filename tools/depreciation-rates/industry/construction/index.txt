@@ -8,160 +8,158 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/construction/
 
 58 effective lives in Table A of the Commissioner’s 2025 effective life determination for assets used across the CONSTRUCTION division.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of CONSTRUCTION. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Air compressors: | | | |
-Air compressors: / Compressors – reciprocating | 7 years | 14.29% | 28.57% | 1 July 2008
-Air compressors: / Compressors – rotary screw | 10 years | 10.00% | 20.00% | 1 July 2008
+Asset group · Air compressors: | | | |
+Air compressors: / Compressors – reciprocating (CONSTRUCTION) | 7 years | 14.29% | 28.57% | 1 July 2008
+Air compressors: / Compressors – rotary screw (CONSTRUCTION) | 10 years | 10.00% | 20.00% | 1 July 2008
 Backhoe loaders | 9 years | 11.11% | 22.22% | 1 July 2002
 Bending machines (bar, angle or rod) | 10 years | 10.00% | 20.00% | 1 July 2008
 Block and brick elevators (portable) | 10 years | 10.00% | 20.00% | 1 July 2008
 Chain blocks, rod shears, jacks etc | 13 1/3 years | 7.50% | 15.00% | 1 January 2001
-Compaction: | | | |
-Compaction: / Compactors – flat plate | 8 years | 12.50% | 25.00% | 1 July 2008
-Compaction: / Compactors – vertical rammer | 6 years | 16.67% | 33.33% | 1 July 2008
-Concreting assets: | | | |
-Concreting assets: / Brick and paving saws | 5 years | 20.00% | 40.00% | 1 July 2008
+Asset group · Compaction: | | | |
+Compaction: / Compactors – flat plate (CONSTRUCTION) | 8 years | 12.50% | 25.00% | 1 July 2008
+Compaction: / Compactors – vertical rammer (CONSTRUCTION) | 6 years | 16.67% | 33.33% | 1 July 2008
+Asset group · Concreting assets: | | | |
+Concreting assets: / Brick and paving saws (CONSTRUCTION) | 5 years | 20.00% | 40.00% | 1 July 2008
 Concreting assets: / Buggies or dumpers (motorised) | 5 years | 20.00% | 40.00% | 1 January 2001
-Concreting assets: / Concrete demolition saws | 3 years | 33.33% | 66.67% | 1 July 2008
-Concreting assets: / Concrete kibble buckets | 15 years | 6.67% | 13.33% | 1 July 2008
-Concreting assets: / Concrete mixers | 4 years | 25.00% | 50.00% | 1 July 2008
+Concreting assets: / Concrete demolition saws (CONSTRUCTION) | 3 years | 33.33% | 66.67% | 1 July 2008
+Concreting assets: / Concrete kibble buckets (CONSTRUCTION) | 15 years | 6.67% | 13.33% | 1 July 2008
+Concreting assets: / Concrete mixers (CONSTRUCTION) | 4 years | 25.00% | 50.00% | 1 July 2008
 Concreting assets: / Concrete surface preparation assets (including floor grinders, planers and scarifiers) | 5 years | 20.00% | 40.00% | 1 July 2008
-Concreting assets: / Concrete trowels: | | | |
-Concreting assets: / Concrete trowels: / Ride on | 7 years | 14.29% | 28.57% | 1 July 2008
-Concreting assets: / Concrete trowels: / Walk behind | 5 years | 20.00% | 40.00% | 1 July 2008
-Concreting assets: / Concrete vibrating screeders | 5 years | 20.00% | 40.00% | 1 July 2008
-Concreting assets: / Concrete vibrators: | | | |
-Concreting assets: / Concrete vibrators: / Brushcutter style | 5 years | 20.00% | 40.00% | 1 July 2008
-Concreting assets: / Concrete vibrators: / Drive units | 6 years | 16.67% | 33.33% | 1 July 2008
-Concreting assets: / Concrete vibrators: / Flexible shaft pumps | 6 years | 16.67% | 33.33% | 1 July 2008
+Asset group · Concreting assets: / Concrete trowels: | | | |
+Concreting assets: / Concrete trowels: / Ride on (CONSTRUCTION) | 7 years | 14.29% | 28.57% | 1 July 2008
+Concreting assets: / Concrete trowels: / Walk behind (CONSTRUCTION) | 5 years | 20.00% | 40.00% | 1 July 2008
+Concreting assets: / Concrete vibrating screeders (CONSTRUCTION) | 5 years | 20.00% | 40.00% | 1 July 2008
+Asset group · Concreting assets: / Concrete vibrators: | | | |
+Concreting assets: / Concrete vibrators: / Brushcutter style (CONSTRUCTION) | 5 years | 20.00% | 40.00% | 1 July 2008
+Concreting assets: / Concrete vibrators: / Drive units (CONSTRUCTION) | 6 years | 16.67% | 33.33% | 1 July 2008
+Concreting assets: / Concrete vibrators: / Flexible shaft pumps (CONSTRUCTION) | 6 years | 16.67% | 33.33% | 1 July 2008
 Concreting assets: / Concrete vibrators: / Vibrating shaft | 3 years | 33.33% | 66.67% | 1 July 2008
-Concreting assets: / Concrete wheeled saws | 6 years | 16.67% | 33.33% | 1 July 2008
+Concreting assets: / Concrete wheeled saws (CONSTRUCTION) | 6 years | 16.67% | 33.33% | 1 July 2008
 Concreting assets: / Hoppers, skips and hoist buckets | 10 years | 10.00% | 20.00% | 1 January 2001
 Concreting assets: / Mobile concrete pumping units | 6 2/3 years | 15.00% | 30.00% | 1 January 2001
-Cranes (mobile): | | | |
+Asset group · Cranes (mobile): | | | |
 Cranes (mobile): / Light and medium | 15 years | 6.67% | 13.33% | 1 July 2002
 Cranes (mobile): / Heavy (over 15.24 tonnes lift) | 20 years | 5.00% | 10.00% | 1 July 2002
 Cranes (mobile): / Tower and hoists | 10 years | 10.00% | 20.00% | 1 January 2001
-Dozers/front end loaders | 9 years | 11.11% | 22.22% | 1 July 2002
-Forklifts | 11 years | 9.09% | 18.18% | 1 July 2002
-Formwork, beams and props, steel | 10 years | 10.00% | 20.00% | 1 July 2008
+Dozers/front end loaders (CONSTRUCTION) | 9 years | 11.11% | 22.22% | 1 July 2002
+Forklifts (CONSTRUCTION) | 11 years | 9.09% | 18.18% | 1 July 2002
+Formwork, beams and props, steel (CONSTRUCTION) | 10 years | 10.00% | 20.00% | 1 July 2008
 Hydraulic excavators | 10 years | 10.00% | 20.00% | 1 July 2002
-Lift slab assets (incorporating spreader bars, clutches, pulleys and cables) | 5 years | 20.00% | 40.00% | 1 July 2008
+Lift slab assets (incorporating spreader bars, clutches, pulleys and cables) (CONSTRUCTION) | 5 years | 20.00% | 40.00% | 1 July 2008
 Mini excavators | 8 years | 12.50% | 25.00% | 1 July 2002
-Motor graders | 10 years | 10.00% | 20.00% | 1 July 2002
+Motor graders (CONSTRUCTION) | 10 years | 10.00% | 20.00% | 1 July 2002
 Pavers | 12 years | 8.33% | 16.67% | 1 July 2002
-Power supply assets: | | | |
-Power supply assets: / Generators, portable (incorporating attached engine management and generator monitoring instruments): | | | |
-Power supply assets: / Generators, portable (incorporating attached engine management and generator monitoring instruments): / Diesel | 10 years | 10.00% | 20.00% | 1 July 2008
-Power supply assets: / Generators, portable (incorporating attached engine management and generator monitoring instruments): / Petrol | 5 years | 20.00% | 40.00% | 1 July 2008
-Power tools: | | | |
-Power tools: / Chainsaws (Chain saws) | 3 years | 33.33% | 66.67% | 1 July 2008
-Power tools: / Hand tools: | | | |
-Power tools: / Hand tools: / Air | 5 years | 20.00% | 40.00% | 1 July 2008
-Power tools: / Hand tools: / Battery | 3 years | 33.33% | 66.67% | 1 July 2008
-Power tools: / Hand tools: / Electric | 5 years | 20.00% | 40.00% | 1 July 2008
-Power tools: / Jack hammers: | | | |
-Power tools: / Jack hammers: / Air | 7 years | 14.29% | 28.57% | 1 July 2008
-Power tools: / Jack hammers: / Electric | 3 years | 33.33% | 66.67% | 1 July 2008
-Power tools: / Nail guns – air | 3 years | 33.33% | 66.67% | 1 July 2008
+Asset group · Power supply assets: | | | |
+Asset group · Power supply assets: / Generators, portable (incorporating attached engine management and generator monitoring instruments): | | | |
+Power supply assets: / Generators, portable (incorporating attached engine management and generator monitoring instruments): / Diesel (Power supply assets / Generators, portable (incorporating attached engine management and generator monitoring instruments) / CONSTRUCTION) | 10 years | 10.00% | 20.00% | 1 July 2008
+Power supply assets: / Generators, portable (incorporating attached engine management and generator monitoring instruments): / Petrol (CONSTRUCTION) | 5 years | 20.00% | 40.00% | 1 July 2008
+Asset group · Power tools: | | | |
+Power tools: / Chainsaws (Chain saws) (CONSTRUCTION) | 3 years | 33.33% | 66.67% | 1 July 2008
+Asset group · Power tools: / Hand tools: | | | |
+Power tools: / Hand tools: / Air (Power tools / Hand tools / CONSTRUCTION) | 5 years | 20.00% | 40.00% | 1 July 2008
+Power tools: / Hand tools: / Battery (CONSTRUCTION) | 3 years | 33.33% | 66.67% | 1 July 2008
+Power tools: / Hand tools: / Electric (Power tools / Hand tools / CONSTRUCTION) | 5 years | 20.00% | 40.00% | 1 July 2008
+Asset group · Power tools: / Jack hammers: | | | |
+Power tools: / Jack hammers: / Air (Power tools / Jack hammers / CONSTRUCTION) | 7 years | 14.29% | 28.57% | 1 July 2008
+Power tools: / Jack hammers: / Electric (Power tools / Jack hammers / CONSTRUCTION) | 3 years | 33.33% | 66.67% | 1 July 2008
+Power tools: / Nail guns – air (CONSTRUCTION) | 3 years | 33.33% | 66.67% | 1 July 2008
 Profilers | 10 years | 10.00% | 20.00% | 1 July 2002
-Pumps | 10 years | 10.00% | 20.00% | 1 January 2001
+Pumps (CONSTRUCTION) | 10 years | 10.00% | 20.00% | 1 January 2001
 Road rollers | 15 years | 6.67% | 13.33% | 1 July 2002
-Saws, bench and mitre, portable | 7 years | 14.29% | 28.57% | 1 July 2008
+Saws, bench and mitre, portable (CONSTRUCTION) | 7 years | 14.29% | 28.57% | 1 July 2008
 Scrapers | 8 years | 12.50% | 25.00% | 1 July 2002
-Skid steer loaders | 7 years | 14.29% | 28.57% | 1 July 2002
+Skid steer loaders (CONSTRUCTION) | 7 years | 14.29% | 28.57% | 1 July 2002
 Stabiliser recyclers | 12 years | 8.33% | 16.67% | 1 July 2002
-Surveying assets (including levels) – see Table A Surveying and mapping services (69220) | | | |
-Telescopic handlers | 10 years | 10.00% | 20.00% | 1 July 2002
-Tool carriers | 10 years | 10.00% | 20.00% | 1 July 2002
+Register note · Surveying assets (including levels) – see Table A Surveying and mapping services (69220) | | | |
+Telescopic handlers (CONSTRUCTION) | 10 years | 10.00% | 20.00% | 1 July 2002
+Tool carriers (CONSTRUCTION) | 10 years | 10.00% | 20.00% | 1 July 2002
 Track loaders | 9 years | 11.11% | 22.22% | 1 July 2002
-Traffic management assets (use the relevant lives given under Table A Rental and hiring services (except real estate) (66110 to 66400), whether or not the assets are in fact hired or leased) | | | |
-Welders: | | | |
-Welders: / Diesel | 10 years | 10.00% | 20.00% | 1 July 2008
-Welders: / Electric | 5 years | 20.00% | 40.00% | 1 July 2008
-Wheel loaders | 8 years | 12.50% | 25.00% | 1 July 2002
-Winches | 13 1/3 years | 7.50% | 15.00% | 1 January 2001
+Register note · Traffic management assets (use the relevant lives given under Table A Rental and hiring services (except real estate) (66110 to 66400), whether or not the assets are in fact hired or leased) | | | |
+Asset group · Welders: | | | |
+Welders: / Diesel (Welders / CONSTRUCTION) | 10 years | 10.00% | 20.00% | 1 July 2008
+Welders: / Electric (Welders / CONSTRUCTION) | 5 years | 20.00% | 40.00% | 1 July 2008
+Wheel loaders (CONSTRUCTION) | 8 years | 12.50% | 25.00% | 1 July 2002
+Winches (CONSTRUCTION) | 13 1/3 years | 7.50% | 15.00% | 1 January 2001
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/construction/#source
-- Compressors – reciprocating: https://duguid.com.au/tools/depreciation-rates/industry/construction/compressors-reciprocating/
-- Compressors – rotary screw: https://duguid.com.au/tools/depreciation-rates/industry/construction/compressors-rotary-screw/
+- Compressors – reciprocating (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/compressors-reciprocating/
+- Compressors – rotary screw (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/compressors-rotary-screw/
 - Backhoe loaders: https://duguid.com.au/tools/depreciation-rates/industry/construction/backhoe-loaders/
 - Bending machines (bar, angle or rod): https://duguid.com.au/tools/depreciation-rates/industry/construction/bending-machines/
 - Block and brick elevators (portable): https://duguid.com.au/tools/depreciation-rates/industry/construction/block-and-brick-elevators/
 - Chain blocks, rod shears, jacks etc: https://duguid.com.au/tools/depreciation-rates/industry/construction/chain-blocks-rod-shears-jacks-etc/
-- Compactors – flat plate: https://duguid.com.au/tools/depreciation-rates/industry/construction/compactors-flat-plate/
-- Compactors – vertical rammer: https://duguid.com.au/tools/depreciation-rates/industry/construction/compactors-vertical-rammer/
-- Brick and paving saws: https://duguid.com.au/tools/depreciation-rates/industry/construction/brick-and-paving-saws/
+- Compactors – flat plate (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/compactors-flat-plate/
+- Compactors – vertical rammer (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/compactors-vertical-rammer/
+- Brick and paving saws (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/brick-and-paving-saws/
 - Buggies or dumpers (motorised): https://duguid.com.au/tools/depreciation-rates/industry/construction/buggies-or-dumpers/
-- Concrete demolition saws: https://duguid.com.au/tools/depreciation-rates/industry/construction/concrete-demolition-saws/
-- Concrete kibble buckets: https://duguid.com.au/tools/depreciation-rates/industry/construction/concrete-kibble-buckets/
-- Concrete mixers: https://duguid.com.au/tools/depreciation-rates/industry/construction/concrete-mixers/
+- Concrete demolition saws (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/concrete-demolition-saws/
+- Concrete kibble buckets (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/concrete-kibble-buckets/
+- Concrete mixers (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/concrete-mixers/
 - Concrete surface preparation assets (including floor grinders, planers and scarifiers): https://duguid.com.au/tools/depreciation-rates/industry/construction/concrete-surface-preparation-assets/
-- Ride on: https://duguid.com.au/tools/depreciation-rates/industry/construction/ride-on/
-- Walk behind: https://duguid.com.au/tools/depreciation-rates/industry/construction/walk-behind/
-- Concrete vibrating screeders: https://duguid.com.au/tools/depreciation-rates/industry/construction/concrete-vibrating-screeders/
-- Brushcutter style: https://duguid.com.au/tools/depreciation-rates/industry/construction/brushcutter-style/
-- Drive units: https://duguid.com.au/tools/depreciation-rates/industry/construction/drive-units/
-- Flexible shaft pumps: https://duguid.com.au/tools/depreciation-rates/industry/construction/flexible-shaft-pumps/
+- Ride on (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/ride-on/
+- Walk behind (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/walk-behind/
+- Concrete vibrating screeders (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/concrete-vibrating-screeders/
+- Brushcutter style (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/brushcutter-style/
+- Drive units (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/drive-units/
+- Flexible shaft pumps (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/flexible-shaft-pumps/
 - Vibrating shaft: https://duguid.com.au/tools/depreciation-rates/industry/construction/vibrating-shaft/
-- Concrete wheeled saws: https://duguid.com.au/tools/depreciation-rates/industry/construction/concrete-wheeled-saws/
+- Concrete wheeled saws (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/concrete-wheeled-saws/
 - Hoppers, skips and hoist buckets: https://duguid.com.au/tools/depreciation-rates/industry/construction/hoppers-skips-and-hoist-buckets/
 - Mobile concrete pumping units: https://duguid.com.au/tools/depreciation-rates/industry/construction/mobile-concrete-pumping-units/
 - Light and medium: https://duguid.com.au/tools/depreciation-rates/industry/construction/light-and-medium/
 - Heavy (over 15.24 tonnes lift): https://duguid.com.au/tools/depreciation-rates/industry/construction/heavy/
 - Tower and hoists: https://duguid.com.au/tools/depreciation-rates/industry/construction/tower-and-hoists/
-- Dozers/front end loaders: https://duguid.com.au/tools/depreciation-rates/industry/construction/dozers-front-end-loaders/
-- Forklifts: https://duguid.com.au/tools/depreciation-rates/industry/construction/forklifts/
-- Formwork, beams and props, steel: https://duguid.com.au/tools/depreciation-rates/industry/construction/formwork-beams-and-props-steel/
+- Dozers/front end loaders (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/dozers-front-end-loaders/
+- Forklifts (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/forklifts/
+- Formwork, beams and props, steel (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/formwork-beams-and-props-steel/
 - Hydraulic excavators: https://duguid.com.au/tools/depreciation-rates/industry/construction/hydraulic-excavators/
-- Lift slab assets (incorporating spreader bars, clutches, pulleys and cables): https://duguid.com.au/tools/depreciation-rates/industry/construction/lift-slab-assets/
+- Lift slab assets (incorporating spreader bars, clutches, pulleys and cables) (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/lift-slab-assets/
 - Mini excavators: https://duguid.com.au/tools/depreciation-rates/industry/construction/mini-excavators/
-- Motor graders: https://duguid.com.au/tools/depreciation-rates/industry/construction/motor-graders/
+- Motor graders (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/motor-graders/
 - Pavers: https://duguid.com.au/tools/depreciation-rates/industry/construction/pavers/
-- Diesel: https://duguid.com.au/tools/depreciation-rates/industry/construction/power-supply-assets-diesel/
-- Petrol: https://duguid.com.au/tools/depreciation-rates/industry/construction/petrol/
-- Chainsaws (Chain saws): https://duguid.com.au/tools/depreciation-rates/industry/construction/chainsaws/
-- Air: https://duguid.com.au/tools/depreciation-rates/industry/construction/hand-tools-air/
-- Battery: https://duguid.com.au/tools/depreciation-rates/industry/construction/battery/
-- Electric: https://duguid.com.au/tools/depreciation-rates/industry/construction/hand-tools-electric/
-- Air: https://duguid.com.au/tools/depreciation-rates/industry/construction/jack-hammers-air/
-- Electric: https://duguid.com.au/tools/depreciation-rates/industry/construction/jack-hammers-electric/
-- Nail guns – air: https://duguid.com.au/tools/depreciation-rates/industry/construction/nail-guns-air/
+- Diesel (Power supply assets / Generators, portable (incorporating attached engine management and generator monitoring instruments) / CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/power-supply-assets-diesel/
+- Petrol (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/petrol/
+- Chainsaws (Chain saws) (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/chainsaws/
+- Air (Power tools / Hand tools / CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/hand-tools-air/
+- Battery (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/battery/
+- Electric (Power tools / Hand tools / CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/hand-tools-electric/
+- Air (Power tools / Jack hammers / CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/jack-hammers-air/
+- Electric (Power tools / Jack hammers / CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/jack-hammers-electric/
+- Nail guns – air (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/nail-guns-air/
 - Profilers: https://duguid.com.au/tools/depreciation-rates/industry/construction/profilers/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/construction/pumps/
+- Pumps (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/pumps/
 - Road rollers: https://duguid.com.au/tools/depreciation-rates/industry/construction/road-rollers/
-- Saws, bench and mitre, portable: https://duguid.com.au/tools/depreciation-rates/industry/construction/saws-bench-and-mitre-portable/
+- Saws, bench and mitre, portable (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/saws-bench-and-mitre-portable/
 - Scrapers: https://duguid.com.au/tools/depreciation-rates/industry/construction/scrapers/
-- Skid steer loaders: https://duguid.com.au/tools/depreciation-rates/industry/construction/skid-steer-loaders/
+- Skid steer loaders (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/skid-steer-loaders/
 - Stabiliser recyclers: https://duguid.com.au/tools/depreciation-rates/industry/construction/stabiliser-recyclers/
 - Surveying assets (including levels) – see Table A Surveying and mapping services (69220): https://duguid.com.au/tools/depreciation-rates/industry/surveying-and-mapping-services/
-- Telescopic handlers: https://duguid.com.au/tools/depreciation-rates/industry/construction/telescopic-handlers/
-- Tool carriers: https://duguid.com.au/tools/depreciation-rates/industry/construction/tool-carriers/
+- Telescopic handlers (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/telescopic-handlers/
+- Tool carriers (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/tool-carriers/
 - Track loaders: https://duguid.com.au/tools/depreciation-rates/industry/construction/track-loaders/
-- Diesel: https://duguid.com.au/tools/depreciation-rates/industry/construction/welders-diesel/
-- Electric: https://duguid.com.au/tools/depreciation-rates/industry/construction/welders-electric/
-- Wheel loaders: https://duguid.com.au/tools/depreciation-rates/industry/construction/wheel-loaders/
-- Winches: https://duguid.com.au/tools/depreciation-rates/industry/construction/winches/
+- Diesel (Welders / CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/welders-diesel/
+- Electric (Welders / CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/welders-electric/
+- Wheel loaders (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/wheel-loaders/
+- Winches (CONSTRUCTION): https://duguid.com.au/tools/depreciation-rates/industry/construction/winches/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

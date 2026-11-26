@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/sports-and-physi
 
 ‘Bowling centres …: Pin setters and pin spotters’, for an asset used in Sports and physical recreation venues, grounds and facilities operations n.e.c., has an effective life of 10 years (F2025L01097), last reviewed and determined on 1 January 2001.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-Effective life and rates from F2025L01097, registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Pin setters and pin spotters
 Under | Bowling centres (plant and equipment):
@@ -25,9 +25,9 @@ Reviewed | No * mark.
 
 ## Reading this row
 
-An asset used in Sports and physical recreation venues, grounds and facilities operations n.e.c. takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Sports and physical recreation venues, grounds and facilities operations n.e.c., this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
-The life was last reviewed and determined on 1 January 2001. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 January 2001. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Bowling centres (plant and equipment)
 
@@ -36,35 +36,35 @@ Other rows under Bowling centres (plant and equipment). Effective lives and rate
 Row | Life | Prime cost | Diminishing value
 Bowling alleys (timber – including ball return tracks, gutters, pit signals and terminals) | 13 1/3 years | 7.50% | 15.00%
 Bowling balls | 5 years | 20.00% | 40.00%
-Carpets | 4 years | 25.00% | 50.00%
+Carpets (Bowling centres …) | 4 years | 25.00% | 50.00%
 Masking units | 10 years | 10.00% | 20.00%
 Pin setters and pin spotters (this page) | 10 years | 10.00% | 20.00%
 Other equipment | 13 1/3 years | 7.50% | 15.00%
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+The depreciation calculator uses your cost, start date and this effective life of 10 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
-- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/sports-and-physical-recreation-venues/pin-setters-and-pin-spotters/#source
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/sports-and-physical-recreation-venues/pin-setters-and-pin-spotters/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Bowling alleys (timber – including ball return tracks, gutters, pit signals and terminals): https://duguid.com.au/tools/depreciation-rates/industry/sports-and-physical-recreation-venues/bowling-alleys/
 - Bowling balls: https://duguid.com.au/tools/depreciation-rates/industry/sports-and-physical-recreation-venues/bowling-balls/
-- Carpets: https://duguid.com.au/tools/depreciation-rates/industry/sports-and-physical-recreation-venues/carpets/
+- Carpets (Bowling centres …): https://duguid.com.au/tools/depreciation-rates/industry/sports-and-physical-recreation-venues/carpets/
 - Masking units: https://duguid.com.au/tools/depreciation-rates/industry/sports-and-physical-recreation-venues/masking-units/
 - Other equipment: https://duguid.com.au/tools/depreciation-rates/industry/sports-and-physical-recreation-venues/other-equipment/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

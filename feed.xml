@@ -8,6 +8,13 @@
   <updated>2026-11-27T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The depreciation register distinguishes assets with the same name, shows the…</title>
+    <link href="https://duguid.com.au/changelog/#entry-812e9c722d31e872" />
+    <id>https://duguid.com.au/changelog/#entry-812e9c722d31e872</id>
+    <updated>2026-11-27T00:00:00Z</updated>
+    <summary>The depreciation register distinguishes assets with the same name, shows the dates recorded against asset group headings and links directly to sections of long tables. The work expenses and rental property calculators now label telephone expenses as dollar amounts.</summary>
+  </entry>
+  <entry>
     <title>The Markdown editions of calculators now preserve the instructions shown when…</title>
     <link href="https://duguid.com.au/changelog/#entry-a74a10e5b75fb546" />
     <id>https://duguid.com.au/changelog/#entry-a74a10e5b75fb546</id>

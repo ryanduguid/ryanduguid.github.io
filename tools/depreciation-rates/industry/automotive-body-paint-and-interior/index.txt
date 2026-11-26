@@ -8,78 +8,76 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-
 
 39 effective lives in Table A of the Commissioner’s 2025 effective life determination for Automotive body, paint and interior repair n.e.c..
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Automotive body, paint and interior repair n.e.c.. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Car wash and detailing assets: | | | |
+Asset group · Car wash and detailing assets: | | | |
 Car wash and detailing assets: / Activation and entry station assets (including bay controllers, pay station assets and bank note change machines) | 10 years | 10.00% | 20.00% | 1 July 2009
-Car wash and detailing assets: / Automatic car wash assets (including rollover and tunnel washes): | | | |
+Asset group · Car wash and detailing assets: / Automatic car wash assets (including rollover and tunnel washes): | | | |
 Car wash and detailing assets: / Automatic car wash assets (including rollover and tunnel washes): / Friction washer system assets (including gantry, rails and arches and driers) | 10 years | 10.00% | 20.00% | 1 July 2009
 Car wash and detailing assets: / Automatic car wash assets (including rollover and tunnel washes): / Touch free pressure washer system assets (including gantry, rails and arches and driers) | 10 years | 10.00% | 20.00% | 1 July 2009
 Car wash and detailing assets: / Automatic car wash assets (including rollover and tunnel washes): / Car conveyor system assets (incorporating correlators, sensors, tracks and rails) | 15 years | 6.67% | 13.33% | 1 July 2009
-Car wash and detailing assets: / Detailing assets: | | | |
-Car wash and detailing assets: / Detailing assets: / Steam cleaners | 10 years | 10.00% | 20.00% | 1 July 2009
-Car wash and detailing assets: / Detailing assets: / Vacuum cleaners | 10 years | 10.00% | 20.00% | 1 July 2009
-Car wash and detailing assets: / Hand and self serve car wash assets: | | | |
+Asset group · Car wash and detailing assets: / Detailing assets: | | | |
+Car wash and detailing assets: / Steam cleaners (Detailing assets) | 10 years | 10.00% | 20.00% | 1 July 2009
+Car wash and detailing assets: / Vacuum cleaners (Detailing assets) | 10 years | 10.00% | 20.00% | 1 July 2009
+Asset group · Car wash and detailing assets: / Hand and self serve car wash assets: | | | |
 Car wash and detailing assets: / Hand and self serve car wash assets: / Ceiling and wall booms | 10 years | 10.00% | 20.00% | 1 July 2009
-Car wash and detailing assets: / Large vehicle wash assets: | | | |
-Car wash and detailing assets: / Large vehicle wash assets: / Hoists | 20 years | 5.00% | 10.00% | 1 July 2009
+Asset group · Car wash and detailing assets: / Large vehicle wash assets: | | | |
+Car wash and detailing assets: / Hoists (Large vehicle wash assets) | 20 years | 5.00% | 10.00% | 1 July 2009
 Car wash and detailing assets: / Large vehicle wash assets: / Side brush cleaning system assets | 10 years | 10.00% | 20.00% | 1 July 2009
-Car wash and detailing assets: / Support assets: | | | |
-Car wash and detailing assets: / Support assets: / Door controls and motor drive systems for rapid roller doors (incorporating chains, controls, motors and sensors, but excluding doors) | 10 years | 10.00% | 20.00% | 1 July 2009
-Car wash and detailing assets: / Support assets: / Plant room assets: | | | |
-Car wash and detailing assets: / Support assets: / Plant room assets: / Air compressors | | | |
-Car wash and detailing assets: / Support assets: / Plant room assets: / Air compressors / Compressors – reciprocating | 7 years | 14.29% | 28.57% | 1 July 2009
+Asset group · Car wash and detailing assets: / Support assets: | | | |
+Car wash and detailing assets: / Door controls and motor drive systems for rapid roller doors (incorporating chains, controls, motors and sensors, but excluding doors) (Support assets) | 10 years | 10.00% | 20.00% | 1 July 2009
+Asset group · Car wash and detailing assets: / Support assets: / Plant room assets: | | | |
+Asset group · Car wash and detailing assets: / Support assets: / Plant room assets: / Air compressors | | | |
+Car wash and detailing assets: / Support assets: / Plant room assets: / Air compressors / Compressors – reciprocating (Automotive body, paint and interior repair n.e.c.) | 7 years | 14.29% | 28.57% | 1 July 2009
 Car wash and detailing assets: / Support assets: / Plant room assets: / Air compressors / Compressors – screw | 10 years | 10.00% | 20.00% | 1 July 2009
-Car wash and detailing assets: / Support assets: / Plant room assets: / Boilers | 20 years | 5.00% | 10.00% | 1 July 2009
-Car wash and detailing assets: / Support assets: / Plant room assets: / Control systems | 10 years | 10.00% | 20.00% | 1 July 2009
-Car wash and detailing assets: / Support assets: / Plant room assets: / Pumps | 12 years | 8.33% | 16.67% | 1 July 2009
-Car wash and detailing assets: / Support assets: / Water treatment assets: | | | |
+Car wash and detailing assets: / Support assets: / Boilers (Plant room assets) | 20 years | 5.00% | 10.00% | 1 July 2009
+Car wash and detailing assets: / Support assets: / Control systems (Plant room assets) | 10 years | 10.00% | 20.00% | 1 July 2009
+Car wash and detailing assets: / Support assets: / Pumps (Plant room assets) | 12 years | 8.33% | 16.67% | 1 July 2009
+Asset group · Car wash and detailing assets: / Support assets: / Water treatment assets: | | | |
 Car wash and detailing assets: / Support assets: / Water treatment assets: / Filter system assets (including reverse osmosis) | 10 years | 10.00% | 20.00% | 1 July 2009
-Car wash and detailing assets: / Support assets: / Water treatment assets: / Tanks | 20 years | 5.00% | 10.00% | 1 July 2009
-Car wash and detailing assets: / Vending machines | 5 years | 20.00% | 40.00% | 1 July 2009
-Smash repair assets: | | | |
-Smash repair assets: / Air compressors | 10 years | 10.00% | 20.00% | 1 July 2009
-Smash repair assets: / Dust extraction systems: | | | |
+Car wash and detailing assets: / Support assets: / Water treatment assets: / Tanks (Automotive body, paint and interior repair n.e.c.) | 20 years | 5.00% | 10.00% | 1 July 2009
+Vending machines (Car wash and detailing assets) | 5 years | 20.00% | 40.00% | 1 July 2009
+Asset group · Smash repair assets: | | | |
+Air compressors (Smash repair assets) | 10 years | 10.00% | 20.00% | 1 July 2009
+Asset group · Smash repair assets: / Dust extraction systems: | | | |
 Smash repair assets: / Dust extraction systems: / Metal arms | 15 years | 6.67% | 13.33% | 1 July 2009
 Smash repair assets: / Dust extraction systems: / Stationary vacuum dust collection units | 5 years | 20.00% | 40.00% | 1 July 2009
-Smash repair assets: / Frame straightening assets: | | | |
+Asset group · Smash repair assets: / Frame straightening assets: | | | |
 Smash repair assets: / Frame straightening assets: / Aligning benches | 15 years | 6.67% | 13.33% | 1 July 2009
-Smash repair assets: / Frame straightening assets: / Chassis measuring assets: | | | |
-Smash repair assets: / Frame straightening assets: / Chassis measuring assets: / Computerised | 10 years | 10.00% | 20.00% | 1 July 2009
-Smash repair assets: / Frame straightening assets: / Chassis measuring assets: / Manual | 10 years | 10.00% | 20.00% | 1 July 2009
-Smash repair assets: / Hoists | 20 years | 5.00% | 10.00% | 1 July 2009
-Smash repair assets: / Painting assets: | | | |
-Smash repair assets: / Painting assets: / Buffing machines | 3 years | 33.33% | 66.67% | 1 July 2009
-Smash repair assets: / Painting assets: / Infrared paint dryers: | | | |
+Asset group · Smash repair assets: / Frame straightening assets: / Chassis measuring assets: | | | |
+Smash repair assets: / Frame straightening assets: / Computerised (Chassis measuring assets) | 10 years | 10.00% | 20.00% | 1 July 2009
+Smash repair assets: / Frame straightening assets: / Manual (Chassis measuring assets) | 10 years | 10.00% | 20.00% | 1 July 2009
+Hoists (Smash repair assets) | 20 years | 5.00% | 10.00% | 1 July 2009
+Asset group · Smash repair assets: / Painting assets: | | | |
+Smash repair assets: / Painting assets: / Buffing machines (Automotive body, paint and interior repair n.e.c.) | 3 years | 33.33% | 66.67% | 1 July 2009
+Asset group · Smash repair assets: / Painting assets: / Infrared paint dryers: | | | |
 Smash repair assets: / Painting assets: / Infrared paint dryers: / Heating arches | 20 years | 5.00% | 10.00% | 1 July 2009
-Smash repair assets: / Painting assets: / Infrared paint dryers: / Mobile | 7 years | 14.29% | 28.57% | 1 July 2009
-Smash repair assets: / Painting assets: / Sanders | 3 years | 33.33% | 66.67% | 1 July 2009
-Smash repair assets: / Painting assets: / Spectrophotometers | 4 years | 25.00% | 50.00% | 1 July 2009
+Smash repair assets: / Painting assets: / Mobile (Infrared paint dryers) | 7 years | 14.29% | 28.57% | 1 July 2009
+Smash repair assets: / Sanders (Painting assets) | 3 years | 33.33% | 66.67% | 1 July 2009
+Smash repair assets: / Spectrophotometers (Painting assets) | 4 years | 25.00% | 50.00% | 1 July 2009
 Smash repair assets: / Painting assets: / Spray bake ovens | 12 years | 8.33% | 16.67% | 1 July 2009
-Smash repair assets: / Painting assets: / Spray guns | 3 years | 33.33% | 66.67% | 1 July 2009
-Smash repair assets: / Painting assets: / Spray gun washing machines | 5 years | 20.00% | 40.00% | 1 July 2009
+Smash repair assets: / Spray guns (Painting assets) | 3 years | 33.33% | 66.67% | 1 July 2009
+Smash repair assets: / Painting assets: / Spray gun washing machines (Automotive body, paint and interior repair n.e.c.) | 5 years | 20.00% | 40.00% | 1 July 2009
 Smash repair assets: / Vacuum dust collection mobile units | 3 years | 33.33% | 66.67% | 1 July 2009
-Smash repair assets: / Waste water filtering system assets: | | | |
+Asset group · Smash repair assets: / Waste water filtering system assets: | | | |
 Smash repair assets: / Waste water filtering system assets: / Oil and water separators | 15 years | 6.67% | 13.33% | 1 July 2009
-Smash repair assets: / Waste water filtering system assets: / Pumps | 5 years | 20.00% | 40.00% | 1 July 2009
-Smash repair assets: / Waste water filtering system assets: / Tanks | 15 years | 6.67% | 13.33% | 1 July 2009
-Smash repair assets: / Water pressure cleaners | 3 years | 33.33% | 66.67% | 1 July 2009
-Smash repair assets: / Welders | 5 years | 20.00% | 40.00% | 1 July 2009
+Smash repair assets: / Pumps (Waste water filtering system assets) | 5 years | 20.00% | 40.00% | 1 July 2009
+Smash repair assets: / Tanks (Waste water filtering system assets) | 15 years | 6.67% | 13.33% | 1 July 2009
+Water pressure cleaners (Smash repair assets) | 3 years | 33.33% | 66.67% | 1 July 2009
+Welders (Smash repair assets) | 5 years | 20.00% | 40.00% | 1 July 2009
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
@@ -88,43 +86,43 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Friction washer system assets (including gantry, rails and arches and driers): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/friction-washer-system-assets/
 - Touch free pressure washer system assets (including gantry, rails and arches and driers): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/touch-free-pressure-washer-system-assets/
 - Car conveyor system assets (incorporating correlators, sensors, tracks and rails): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/car-conveyor-system-assets/
-- Steam cleaners: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/steam-cleaners/
-- Vacuum cleaners: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/vacuum-cleaners/
+- Steam cleaners (Detailing assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/steam-cleaners/
+- Vacuum cleaners (Detailing assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/vacuum-cleaners/
 - Ceiling and wall booms: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/ceiling-and-wall-booms/
-- Hoists: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/car-wash-and-detailing-assets-hoists/
+- Hoists (Large vehicle wash assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/car-wash-and-detailing-assets-hoists/
 - Side brush cleaning system assets: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/side-brush-cleaning-system-assets/
-- Door controls and motor drive systems for rapid roller doors (incorporating chains, controls, motors and sensors, but excluding doors): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/door-controls-and-motor-drive-systems-for-rapid-roller-doors/
-- Compressors – reciprocating: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/compressors-reciprocating/
+- Door controls and motor drive systems for rapid roller doors (incorporating chains, controls, motors and sensors, but excluding doors) (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/door-controls-and-motor-drive-systems-for-rapid-roller-doors/
+- Compressors – reciprocating (Automotive body, paint and interior repair n.e.c.): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/compressors-reciprocating/
 - Compressors – screw: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/compressors-screw/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/boilers/
-- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/control-systems/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/car-wash-and-detailing-assets-pumps/
+- Boilers (Plant room assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/boilers/
+- Control systems (Plant room assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/control-systems/
+- Pumps (Plant room assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/car-wash-and-detailing-assets-pumps/
 - Filter system assets (including reverse osmosis): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/filter-system-assets/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/car-wash-and-detailing-assets-tanks/
-- Vending machines: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/vending-machines/
-- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/air-compressors/
+- Tanks (Automotive body, paint and interior repair n.e.c.): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/car-wash-and-detailing-assets-tanks/
+- Vending machines (Car wash and detailing assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/vending-machines/
+- Air compressors (Smash repair assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/air-compressors/
 - Metal arms: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/metal-arms/
 - Stationary vacuum dust collection units: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/stationary-vacuum-dust-collection-units/
 - Aligning benches: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/aligning-benches/
-- Computerised: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/computerised/
-- Manual: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/manual/
-- Hoists: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/smash-repair-assets-hoists/
-- Buffing machines: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/buffing-machines/
+- Computerised (Chassis measuring assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/computerised/
+- Manual (Chassis measuring assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/manual/
+- Hoists (Smash repair assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/smash-repair-assets-hoists/
+- Buffing machines (Automotive body, paint and interior repair n.e.c.): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/buffing-machines/
 - Heating arches: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/heating-arches/
-- Mobile: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/mobile/
-- Sanders: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/sanders/
-- Spectrophotometers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/spectrophotometers/
+- Mobile (Infrared paint dryers): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/mobile/
+- Sanders (Painting assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/sanders/
+- Spectrophotometers (Painting assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/spectrophotometers/
 - Spray bake ovens: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/spray-bake-ovens/
-- Spray guns: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/spray-guns/
-- Spray gun washing machines: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/spray-gun-washing-machines/
+- Spray guns (Painting assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/spray-guns/
+- Spray gun washing machines (Automotive body, paint and interior repair n.e.c.): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/spray-gun-washing-machines/
 - Vacuum dust collection mobile units: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/vacuum-dust-collection-mobile-units/
 - Oil and water separators: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/oil-and-water-separators/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/smash-repair-assets-pumps/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/smash-repair-assets-tanks/
-- Water pressure cleaners: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/water-pressure-cleaners/
-- Welders: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/welders/
+- Pumps (Waste water filtering system assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/smash-repair-assets-pumps/
+- Tanks (Waste water filtering system assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/smash-repair-assets-tanks/
+- Water pressure cleaners (Smash repair assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/water-pressure-cleaners/
+- Welders (Smash repair assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/welders/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

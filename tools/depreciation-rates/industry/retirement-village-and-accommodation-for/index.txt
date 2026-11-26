@@ -8,38 +8,36 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/retirement-villa
 
 57 effective lives in Table A of the Commissioner’s 2025 effective life determination for Retirement village and accommodation for the aged operation.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Retirement village and accommodation for the aged operation. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Assistance and medical assets: | | | |
-Assistance and medical assets: / Beds: | | | |
+Asset group · Assistance and medical assets: | | | |
+Asset group · Assistance and medical assets: / Beds: | | | |
 Assistance and medical assets: / Beds: / Electronic (including hi-lo and lo-lo beds) | 7 years | 14.29% | 28.57% | 1 July 2019
-Assistance and medical assets: / Beds: / Mechanical | 10 years | 10.00% | 20.00% | 1 July 2004
+Assistance and medical assets: / Beds: / Mechanical (Retirement village and accommodation for the aged operation) | 10 years | 10.00% | 20.00% | 1 July 2004
 Assistance and medical assets: / Bedside cabinets, lockers and overbed tables | 10 years | 10.00% | 20.00% | 1 July 2019
 Assistance and medical assets: / Blood pressure machines | 3 years | 33.33% | 66.67% | 1 July 2019
 Assistance and medical assets: / Call systems | 7 years | 14.29% | 28.57% | 1 July 2019
-Assistance and medical assets: / Chairs: | | | |
-Assistance and medical assets: / Chairs: / Commode | 7 years | 14.29% | 28.57% | 1 July 2019
+Asset group · Assistance and medical assets: / Chairs: | | | |
+Assistance and medical assets: / Commode (Chairs) | 7 years | 14.29% | 28.57% | 1 July 2019
 Assistance and medical assets: / Chairs: / Electronic recliner (including electric lift) | 10 years | 10.00% | 20.00% | 1 July 2019
-Assistance and medical assets: / Chairs: / Fallout/floating/princess | 7 years | 14.29% | 28.57% | 1 July 2019
-Assistance and medical assets: / Chairs: / Shower | 5 years | 20.00% | 40.00% | 1 July 2019
+Assistance and medical assets: / Fallout/floating/princess (Chairs) | 7 years | 14.29% | 28.57% | 1 July 2019
+Assistance and medical assets: / Shower (Chairs) | 5 years | 20.00% | 40.00% | 1 July 2019
 Assistance and medical assets: / Chairs: / Wheelchair – electric, manual, tilt in space | 5 years | 20.00% | 40.00% | 1 July 2019
-Assistance and medical assets: / Defibrillators | 8 years | 12.50% | 25.00% | 1 July 2019
+Defibrillators (Assistance and medical assets) | 8 years | 12.50% | 25.00% | 1 July 2019
 Assistance and medical assets: / Drug safes | 15 years | 6.67% | 13.33% | 1 July 2019
 Assistance and medical assets: / Electronic arms for toilets | 10 years | 10.00% | 20.00% | 1 July 2019
-Assistance and medical assets: / Hoists: | | | |
+Asset group · Assistance and medical assets: / Hoists: | | | |
 Assistance and medical assets: / Hoists: / Ceiling (incorporating tracks) | 12 years | 8.33% | 16.67% | 1 July 2019
 Assistance and medical assets: / Hoists: / Mobile (floor, full, standing) | 10 years | 10.00% | 20.00% | 1 July 2019
 Assistance and medical assets: / Lifting slings | 2 years | 50.00% | 100.00% | 1 July 2019
-Assistance and medical assets: / Mattresses: | | | |
-Assistance and medical assets: / Mattresses: / Air | 3 years | 33.33% | 66.67% | 1 July 2019
-Assistance and medical assets: / Mattresses: / Foam | 7 years | 14.29% | 28.57% | 1 July 2019
+Asset group · Assistance and medical assets: / Mattresses: | | | |
+Assistance and medical assets: / Air (Mattresses) | 3 years | 33.33% | 66.67% | 1 July 2019
+Assistance and medical assets: / Foam (Mattresses) | 7 years | 14.29% | 28.57% | 1 July 2019
 Assistance and medical assets: / Medication trolleys | 10 years | 10.00% | 20.00% | 1 July 2019
 Assistance and medical assets: / Mobile suction machines | 3 years | 33.33% | 66.67% | 1 July 2019
 Assistance and medical assets: / Pan flushers/pan sanitisers | 10 years | 10.00% | 20.00% | 1 July 2019
@@ -50,82 +48,82 @@ Assistance and medical assets: / Treatment trolleys | 15 years | 6.67% | 13.33% 
 Assistance and medical assets: / Walking belts | 3 years | 33.33% | 66.67% | 1 July 2019
 Assistance and medical assets: / Walking frames (including forearm walkers) | 12 years | 8.33% | 16.67% | 1 July 2019
 Assistance and medical assets: / Weighing machines and scales (including chair scales and wheelchair scales) | 10 years | 10.00% | 20.00% | 1 July 2019
-Common area assets: | | | |
+Asset group · Common area assets: | | | |
 Common area assets: / Artificial grass/synthetic lawn (removable without damage) | 15 years | 6.67% | 13.33% | 1 July 2019
-Common area assets: / Audio visual assets | 8 years | 12.50% | 25.00% | 1 July 2019
-Common area assets: / Carpets - see Table B Floor coverings (removable without damage) | | | |
-Common area assets: / Curtains and drapes – see Table B Curtains and drapes | | | |
-Common area assets: / Furniture: | | | |
-Common area assets: / Furniture: / General/indoor | 10 years | 10.00% | 20.00% | 1 July 2019
-Common area assets: / Furniture: / Outdoor | 7 years | 14.29% | 28.57% | 1 July 2019
+Audio visual assets (Common area assets) | 8 years | 12.50% | 25.00% | 1 July 2019
+Register note · Common area assets: / Carpets - see Table B Floor coverings (removable without damage) | | | |
+Register note · Common area assets: / Curtains and drapes – see Table B Curtains and drapes | | | |
+Asset group · Common area assets: / Furniture: | | | |
+Common area assets: / General/indoor (Furniture) | 10 years | 10.00% | 20.00% | 1 July 2019
+Common area assets: / Outdoor (Furniture) | 7 years | 14.29% | 28.57% | 1 July 2019
 Common area assets: / Hair salon assets (including chairs and dryers) | 15 years | 6.67% | 13.33% | 1 July 2019
 Common area assets: / Hot water dispensers | 8 years | 12.50% | 25.00% | 1 July 2019
-Common area assets: / Television sets | 5 years | 20.00% | 40.00% | 1 July 2019
-Common area assets: / Window blinds – see Table B Window blinds | | | |
-Fitness and recreation assets: | | | |
+Television sets (Common area assets) | 5 years | 20.00% | 40.00% | 1 July 2019
+Register note · Common area assets: / Window blinds – see Table B Window blinds | | | |
+Asset group · Fitness and recreation assets: | | | |
 Fitness and recreation assets: / Billiard/pool tables | 20 years | 5.00% | 10.00% | 1 July 2019
 Fitness and recreation assets: / Bowling greens – artificial grass or carpet (removable without damage) | 15 years | 6.67% | 13.33% | 1 July 2019
 Fitness and recreation assets: / Gymnasium and exercise equipment | 10 years | 10.00% | 20.00% | 1 July 2019
-Support assets: | | | |
+Asset group · Support assets: | | | |
 Support assets: / Annunciator panels | 15 years | 6.67% | 13.33% | 1 July 2019
-Support assets: / Boilers – see Table B Boilers | | | |
+Register note · Support assets: / Boilers – see Table B Boilers | | | |
 Support assets: / Buggies to transport people | 8 years | 12.50% | 25.00% | 1 July 2019
-Support assets: / Cleaning carts and trolleys – see Table B Cleaning carts and trolleys | | | |
-Support assets: / Cool rooms – see Table B Refrigeration assets | | | |
+Register note · Support assets: / Cleaning carts and trolleys – see Table B Cleaning carts and trolleys | | | |
+Register note · Support assets: / Cool rooms – see Table B Refrigeration assets | | | |
 Support assets: / Electronic mops and floor scrubbers | 5 years | 20.00% | 40.00% | 1 July 2019
-Support assets: / Hot water systems (excluding commercial boilers and piping) | 10 years | 10.00% | 20.00% | 1 July 2019
-Support assets: / Kitchen assets: | | | |
+Hot water systems (excluding commercial boilers and piping) (Support assets) | 10 years | 10.00% | 20.00% | 1 July 2019
+Asset group · Support assets: / Kitchen assets: | | | |
 Support assets: / Kitchen assets: / Blast chillers | 8 years | 12.50% | 25.00% | 1 July 2019
 Support assets: / Kitchen assets: / Bowl mixers | 10 years | 10.00% | 20.00% | 1 July 2019
-Support assets: / Kitchen assets: / Dishwashers | 8 years | 12.50% | 25.00% | 1 July 2019
+Support assets: / Kitchen assets: / Dishwashers (Retirement village and accommodation for the aged operation) | 8 years | 12.50% | 25.00% | 1 July 2019
 Support assets: / Kitchen assets: / Food preparation assets – large commercial type (including cooktops, fryers, multi-function centres, self-cooking centres, single tray meal service, soup kettles, stoves) | 10 years | 10.00% | 20.00% | 1 July 2019
 Support assets: / Kitchen assets: / Hot food display and warming assets (including bain marie, banquet units, buffet units, hot boxes, plate warmers) | 10 years | 10.00% | 20.00% | 1 July 2019
-Support assets: / Kitchen assets: / Ice making machines | 10 years | 10.00% | 20.00% | 1 July 2019
-Support assets: / Kitchen assets: / Kitchen trolleys | 5 years | 20.00% | 40.00% | 1 July 2019
+Support assets: / Ice making machines (Kitchen assets) | 10 years | 10.00% | 20.00% | 1 July 2019
+Support assets: / Kitchen assets: / Kitchen trolleys (Retirement village and accommodation for the aged operation) | 5 years | 20.00% | 40.00% | 1 July 2019
 Support assets: / Kitchen assets: / Small appliances (including blenders, food processors, meat slicers, stick mixers) | 4 years | 25.00% | 50.00% | 1 July 2019
-Support assets: / Kitchen assets: / Toasters | 6 years | 16.67% | 33.33% | 1 July 2019
-Support assets: / Laundry assets: | | | |
-Support assets: / Laundry assets: / Dryers | 12 years | 8.33% | 16.67% | 1 July 2019
+Support assets: / Toasters (Kitchen assets) | 6 years | 16.67% | 33.33% | 1 July 2019
+Asset group · Support assets: / Laundry assets: | | | |
+Support assets: / Laundry assets: / Dryers (Retirement village and accommodation for the aged operation) | 12 years | 8.33% | 16.67% | 1 July 2019
 Support assets: / Laundry assets: / Spring loaded trolleys | 10 years | 10.00% | 20.00% | 1 July 2019
-Support assets: / Laundry assets: / Washing machines | 12 years | 8.33% | 16.67% | 1 July 2019
-Support assets: / Lockers, freestanding – see Table B Lockers, freestanding | | | |
-Support assets: / Master antenna television (MATV) assets – see Table A Residential property operators (67110) | | | |
+Support assets: / Laundry assets: / Washing machines (Retirement village and accommodation for the aged operation) | 12 years | 8.33% | 16.67% | 1 July 2019
+Register note · Support assets: / Lockers, freestanding – see Table B Lockers, freestanding | | | |
+Register note · Support assets: / Master antenna television (MATV) assets – see Table A Residential property operators (67110) | | | |
 Support assets: / Refrigerators (including controlled temperature medication refrigerators) | 10 years | 10.00% | 20.00% | 1 July 2019
-Support assets: / Swimming pool assets: | | | |
-Support assets: / Swimming pool assets: / Dehumidifiers | 15 years | 6.67% | 13.33% | 1 July 2019
-Support assets: / Swimming pool assets: / Filtration equipment (including chlorinators and pumps) – see Table B Swimming pool assets | | | |
-Support assets: / Swimming pool assets: / Pool covers (including blankets) – see Table B Swimming pool assets | | | |
+Asset group · Support assets: / Swimming pool assets: | | | |
+Support assets: / Dehumidifiers (Swimming pool assets) | 15 years | 6.67% | 13.33% | 1 July 2019
+Register note · Support assets: / Swimming pool assets: / Filtration equipment (including chlorinators and pumps) – see Table B Swimming pool assets | | | |
+Register note · Support assets: / Swimming pool assets: / Pool covers (including blankets) – see Table B Swimming pool assets | | | |
 Support assets: / Vacuum cleaners, ride on | 7 years | 14.29% | 28.57% | 1 July 2019
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/#source
 - Electronic (including hi-lo and lo-lo beds): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/electronic/
-- Mechanical: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/mechanical/
+- Mechanical (Retirement village and accommodation for the aged operation): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/mechanical/
 - Bedside cabinets, lockers and overbed tables: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/bedside-cabinets-lockers-and-overbed-tables/
 - Blood pressure machines: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/blood-pressure-machines/
 - Call systems: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/call-systems/
-- Commode: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/commode/
+- Commode (Chairs): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/commode/
 - Electronic recliner (including electric lift): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/electronic-recliner/
-- Fallout/floating/princess: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/fallout-floating-princess/
-- Shower: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/shower/
+- Fallout/floating/princess (Chairs): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/fallout-floating-princess/
+- Shower (Chairs): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/shower/
 - Wheelchair – electric, manual, tilt in space: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/wheelchair-electric-manual-tilt-in-space/
-- Defibrillators: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/defibrillators/
+- Defibrillators (Assistance and medical assets): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/defibrillators/
 - Drug safes: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/drug-safes/
 - Electronic arms for toilets: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/electronic-arms-for-toilets/
 - Ceiling (incorporating tracks): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/ceiling/
 - Mobile (floor, full, standing): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/mobile/
 - Lifting slings: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/lifting-slings/
-- Air: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/air/
-- Foam: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/foam/
+- Air (Mattresses): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/air/
+- Foam (Mattresses): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/foam/
 - Medication trolleys: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/medication-trolleys/
 - Mobile suction machines: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/mobile-suction-machines/
 - Pan flushers/pan sanitisers: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/pan-flushers-pan-sanitisers/
@@ -137,13 +135,13 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Walking frames (including forearm walkers): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/walking-frames/
 - Weighing machines and scales (including chair scales and wheelchair scales): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/weighing-machines-and-scales/
 - Artificial grass/synthetic lawn (removable without damage): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/artificial-grass-synthetic-lawn/
-- Audio visual assets: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/audio-visual-assets/
+- Audio visual assets (Common area assets): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/audio-visual-assets/
 - Curtains and drapes – see Table B Curtains and drapes: https://duguid.com.au/tools/depreciation-rates/asset/curtains-and-drapes/
-- General/indoor: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/general-indoor/
-- Outdoor: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/outdoor/
+- General/indoor (Furniture): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/general-indoor/
+- Outdoor (Furniture): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/outdoor/
 - Hair salon assets (including chairs and dryers): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/hair-salon-assets/
 - Hot water dispensers: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/hot-water-dispensers/
-- Television sets: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/television-sets/
+- Television sets (Common area assets): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/television-sets/
 - Window blinds – see Table B Window blinds: https://duguid.com.au/tools/depreciation-rates/asset/window-blinds/
 - Billiard/pool tables: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/billiard-pool-tables/
 - Bowling greens – artificial grass or carpet (removable without damage): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/bowling-greens-artificial-grass-or-carpet/
@@ -154,27 +152,27 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Cleaning carts and trolleys – see Table B Cleaning carts and trolleys: https://duguid.com.au/tools/depreciation-rates/asset/cleaning-carts-and-trolleys/
 - Cool rooms – see Table B Refrigeration assets: https://duguid.com.au/tools/depreciation-rates/asset/refrigeration-assets/
 - Electronic mops and floor scrubbers: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/electronic-mops-and-floor-scrubbers/
-- Hot water systems (excluding commercial boilers and piping): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/hot-water-systems/
+- Hot water systems (excluding commercial boilers and piping) (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/hot-water-systems/
 - Blast chillers: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/blast-chillers/
 - Bowl mixers: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/bowl-mixers/
-- Dishwashers: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/dishwashers/
+- Dishwashers (Retirement village and accommodation for the aged operation): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/dishwashers/
 - Food preparation assets – large commercial type (including cooktops, fryers, multi-function centres, self-cooking centres, single tray meal service, soup kettles, stoves): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/food-preparation-assets-large-commercial-type/
 - Hot food display and warming assets (including bain marie, banquet units, buffet units, hot boxes, plate warmers): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/hot-food-display-and-warming-assets/
-- Ice making machines: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/ice-making-machines/
-- Kitchen trolleys: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/kitchen-trolleys/
+- Ice making machines (Kitchen assets): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/ice-making-machines/
+- Kitchen trolleys (Retirement village and accommodation for the aged operation): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/kitchen-trolleys/
 - Small appliances (including blenders, food processors, meat slicers, stick mixers): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/small-appliances/
-- Toasters: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/toasters/
-- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/dryers/
+- Toasters (Kitchen assets): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/toasters/
+- Dryers (Retirement village and accommodation for the aged operation): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/dryers/
 - Spring loaded trolleys: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/spring-loaded-trolleys/
-- Washing machines: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/washing-machines/
+- Washing machines (Retirement village and accommodation for the aged operation): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/washing-machines/
 - Lockers, freestanding – see Table B Lockers, freestanding: https://duguid.com.au/tools/depreciation-rates/asset/lockers-freestanding/
 - Master antenna television (MATV) assets – see Table A Residential property operators (67110): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/
 - Refrigerators (including controlled temperature medication refrigerators): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/refrigerators/
-- Dehumidifiers: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/dehumidifiers/
+- Dehumidifiers (Swimming pool assets): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/dehumidifiers/
 - Filtration equipment (including chlorinators and pumps) – see Table B Swimming pool assets: https://duguid.com.au/tools/depreciation-rates/asset/swimming-pool-assets/
 - Vacuum cleaners, ride on: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/vacuum-cleaners-ride-on/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

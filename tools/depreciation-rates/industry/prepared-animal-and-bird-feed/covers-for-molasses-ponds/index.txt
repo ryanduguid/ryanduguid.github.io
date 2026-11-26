@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-
 
 ‘Liquid feed assets: Covers for molasses ponds’, for an asset used in Prepared animal and bird feed manufacturing, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2012.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-Effective life and rates from F2025L01097, registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Covers for molasses ponds
 Under | Prepared animal and bird feed manufacturing assets generally: / Liquid feed assets:
@@ -25,23 +25,23 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in Prepared animal and bird feed manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Prepared animal and bird feed manufacturing, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
-The life was last reviewed and determined on 1 July 2012. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 July 2012. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Liquid feed assets
 
 Other rows under Liquid feed assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
-Augers, conveyors and elevators | 7 years | 14.29% | 28.57%
+Augers, conveyors and elevators (Liquid feed assets) | 7 years | 14.29% | 28.57%
 Bladders for molasses ponds | 10 years | 10.00% | 20.00%
 Bulk bag hangers | 10 years | 10.00% | 20.00%
 Covers for molasses ponds (this page) | 10 years | 10.00% | 20.00%
-Hoppers | 10 years | 10.00% | 20.00%
+Hoppers (Liquid feed assets) | 10 years | 10.00% | 20.00%
 Liners for tanks | 5 years | 20.00% | 40.00%
 Micro scales | 7 years | 14.29% | 28.57%
-Mixers | 10 years | 10.00% | 20.00%
+Mixers (Liquid feed assets) | 10 years | 10.00% | 20.00%
 Mixing tanks for clay and other products | 15 years | 6.67% | 13.33%
 Silos (including polyvinylchloride (PVC) and steel construction) | 15 years | 6.67% | 13.33%
 
@@ -49,33 +49,33 @@ Silos (including polyvinylchloride (PVC) and steel construction) | 15 years | 6.
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+The depreciation calculator uses your cost, start date and this effective life of 10 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
-- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/covers-for-molasses-ponds/#source
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/covers-for-molasses-ponds/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
-- Augers, conveyors and elevators: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/augers-conveyors-and-elevators/
+- Augers, conveyors and elevators (Liquid feed assets): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/augers-conveyors-and-elevators/
 - Bladders for molasses ponds: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/bladders-for-molasses-ponds/
 - Bulk bag hangers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/bulk-bag-hangers/
-- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/liquid-feed-assets-hoppers/
+- Hoppers (Liquid feed assets): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/liquid-feed-assets-hoppers/
 - Liners for tanks: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/liners-for-tanks/
 - Micro scales: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/micro-scales/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/liquid-feed-assets-mixers/
+- Mixers (Liquid feed assets): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/liquid-feed-assets-mixers/
 - Mixing tanks for clay and other products: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/mixing-tanks-for-clay-and-other-products/
 - Silos (including polyvinylchloride (PVC) and steel construction): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/liquid-feed-assets-silos/
 - Prepared animal and bird feed manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

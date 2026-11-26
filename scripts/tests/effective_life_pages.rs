@@ -536,6 +536,47 @@ fn letter_a() -> Vec<Value> {
     ]
 }
 
+#[test]
+fn repeated_asset_links_show_which_pump_the_rate_is_for() {
+    let build = files(&fixture(grain(), letter_a()), None, Some(DAY)).unwrap();
+    let (_, industry) = pages(&build)
+        .find(|(file, html)| {
+            file.contains("/industry/")
+                && html.contains("<h2>The rows</h2>")
+                && html.contains("Fertigation")
+        })
+        .unwrap();
+    for group in ["Fertigation systems", "Irrigation assets"] {
+        let label = format!("Pumps ({group})</a>");
+        assert!(industry.contains(&label), "{label}");
+        let row = industry.lines().find(|line| line.contains(&label)).unwrap();
+        assert!(!row.contains(&format!("{group}: / <a")));
+        assert!(row.contains(&format!(
+            "aria-label=\"Pumps ({group}), Grain growing, ANZSIC 0149\""
+        )));
+    }
+    assert!(!industry.contains(">Pumps</a>"));
+    assert!(industry.contains(">Tanks (including liners)</a>"));
+}
+
+#[test]
+fn group_headings_keep_their_statutory_dates_in_the_last_column() {
+    let mut rows = grain();
+    rows[0][5] = json!("2020-07-01");
+    let build = files(&fixture(rows, letter_a()), None, Some(DAY)).unwrap();
+    let (_, html) = pages(&build)
+        .find(|(_, html)| html.contains("Asset group · Fertigation"))
+        .unwrap();
+    assert!(
+        html.contains(
+            "<th scope=\"row\" colspan=\"4\">Asset group · Fertigation systems:</th><td>1 July 2020</td>"
+        )
+    );
+    assert!(html.contains("<td colspan=\"5\">Asset group · Irrigation assets:</td>"));
+    let plain = site_tools::llms_full::main_text(html, "https://duguid.com.au/").unwrap();
+    assert!(plain.contains("Fertigation systems: | | | | 1 July 2020"));
+}
+
 /// Each page's address, published date and modified date, by address map key.
 fn records(build: &Build) -> HashMap<Vec<String>, (String, String, String)> {
     let map: Value = serde_json::from_str(&build.files[MAP_REL]).unwrap();

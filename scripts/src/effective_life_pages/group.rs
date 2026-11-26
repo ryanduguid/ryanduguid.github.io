@@ -76,22 +76,57 @@ fn lives(group: &Group) -> usize {
 
 fn cell(site: &Site, index: usize, at: usize, entry: &Entry) -> String {
     let headings = &entry.path[..entry.path.len() - 1];
-    let mut place: Vec<String> = headings.iter().map(|h| esc(h)).collect();
+    let mut ancestors = headings;
     let own = match &site.plan.entry_urls[index][at] {
-        Some(_) => site.row_link((index, Some(at))),
+        Some(url) => {
+            if let Some((nearest, above)) = headings.split_last() {
+                let context = format!(" ({})", nearest.trim_end_matches(':'));
+                if site.head(url).link_label.strip_prefix(entry.text()) == Some(&context) {
+                    ancestors = above;
+                }
+            }
+            site.row_link((index, Some(at)))
+        }
         None => match site.cross_reference(entry.text()) {
             Some(url) => format!("<a href=\"{url}\">{}</a>", esc(entry.text())),
             None => esc(entry.text()),
         },
     };
+    let mut place: Vec<String> = ancestors.iter().map(|h| esc(h)).collect();
     place.push(own);
     place.join(" / ")
+}
+
+fn register_note(text: &str, entry: &Entry, heading: bool, id: &str) -> String {
+    let kind = if heading {
+        "Asset group"
+    } else {
+        "Register note"
+    };
+    match &entry.last_updated {
+        Some(day) => format!(
+            "              <tr{id}><th scope=\"row\" colspan=\"4\">{kind} · {text}</th><td>{}</td></tr>\n",
+            date(day)
+        ),
+        None => format!("              <tr{id}><td colspan=\"5\">{kind} · {text}</td></tr>\n"),
+    }
+}
+
+fn section_links(links: &[String]) -> String {
+    if links.len() < 2 {
+        return String::new();
+    }
+    format!(
+        "        <details class=\"register-jumps\"><summary>Jump to an asset group</summary><nav aria-label=\"Asset groups in this table\">{}</nav></details>\n",
+        links.join("\n")
+    )
 }
 
 /// Every row of the group in the instrument's order; a heading shows the headings above it.
 fn rows(site: &Site, index: usize) -> String {
     let group = site.group(index);
     let mut body = String::new();
+    let mut links = Vec::new();
     for (at, entry) in group.entries.iter().enumerate() {
         let text = cell(site, index, at, entry);
         body.push_str(&match &entry.life {
@@ -102,13 +137,26 @@ fn rows(site: &Site, index: usize) -> String {
                 diminishing_value(life),
                 entry.last_updated.as_deref().map_or_else(String::new, date)
             ),
-            None => format!("              <tr><th scope=\"row\">{text}</th><td></td><td></td><td></td><td></td></tr>\n"),
+            None => {
+                let heading = group.entries.get(at + 1).is_some_and(|next| {
+                    next.path.len() > entry.path.len() && next.path.starts_with(&entry.path)
+                });
+                let mut id = String::new();
+                if heading && entry.path.len() == 1 && group.entries.len() >= 100 {
+                    let number = at + 1;
+                    let label = esc(entry.text().trim_end_matches(':'));
+                    links.push(format!("<a href=\"#asset-group-{number}\">{label}</a>"));
+                    id = format!(" id=\"asset-group-{number}\" tabindex=\"-1\"");
+                }
+                register_note(&text, entry, heading, &id)
+            }
         });
     }
     let label = format!("Rows of {}", group_name(group));
     format!(
-        "        <section id=\"rows\">\n        <h2>The rows</h2>\n        <p>A row with no life is a heading for the rows after it that name it, or points to another row.</p>\n        <div class=\"table-scroll\" role=\"region\" aria-label=\"{label}\" tabindex=\"0\">\n        <table class=\"facts facts--figures\">\n          <caption>{label}. Effective lives and rates from the <a href=\"#source\">source determination</a>.</caption>\n          <thead><tr><th scope=\"col\">Row</th><th scope=\"col\">Life</th><th scope=\"col\">Prime cost</th><th scope=\"col\">Diminishing value</th><th scope=\"col\">Last updated</th></tr></thead>\n          <tbody>\n{body}          </tbody>\n        </table>\n        </div>\n        </section>\n",
-        label = esc(&label)
+        "        <section id=\"rows\">\n        <h2>The rows</h2>\n{jumps}        <div class=\"table-scroll\" role=\"region\" aria-label=\"{label}\" tabindex=\"0\">\n        <table class=\"facts facts--figures\">\n          <caption>{label}. Effective lives and rates from the <a href=\"#source\">source determination</a>.</caption>\n          <thead><tr><th scope=\"col\">Row</th><th scope=\"col\">Life</th><th scope=\"col\">Prime cost</th><th scope=\"col\">Diminishing value</th><th scope=\"col\">Last updated</th></tr></thead>\n          <tbody>\n{body}          </tbody>\n        </table>\n        </div>\n        </section>\n",
+        label = esc(&label),
+        jumps = section_links(&links)
     )
 }
 
@@ -277,14 +325,14 @@ fn index_row(site: &Site, index: usize) -> String {
             None => esc(&group.heading),
         };
         return format!(
-            "              <tr><th scope=\"row\">{text}</th><td></td></tr>
+            "              <tr><th scope=\"row\">{text}</th><td>Cross-reference</td></tr>
 "
         );
     }
     let url = &site.plan.group_urls[index];
     let name = match (group.table, group.general) {
         (Table::A, true) => format!("{} (rows for the whole division)", group_name(group)),
-        _ => group_name(group),
+        _ => site.head(url).link_label.clone(),
     };
     let lives = match group.top.as_ref().and_then(|top| top.life.as_ref()) {
         Some(life) => esc(&years(life)),

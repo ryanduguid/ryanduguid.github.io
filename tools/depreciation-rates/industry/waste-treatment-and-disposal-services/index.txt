@@ -8,32 +8,30 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-
 
 27 effective lives in Table A of the Commissioner’s 2025 effective life determination for Waste treatment and disposal services.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Waste treatment and disposal services. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Transfer stations and landfill operation assets: | | | |
-Transfer stations and landfill operation assets: / Air compressors and receivers | 7 years | 14.29% | 28.57% | 1 July 2015
-Transfer stations and landfill operation assets: / Balers | 7 years | 14.29% | 28.57% | 1 July 2015
-Transfer stations and landfill operation assets: / Bins: | | | |
-Transfer stations and landfill operation assets: / Bins: / Bins generally (including metal bins) | 7 years | 14.29% | 28.57% | 1 July 2015
-Transfer stations and landfill operation assets: / Bins: / Compactor bins | 6 years | 16.67% | 33.33% | 1 July 2015
-Transfer stations and landfill operation assets: / Bins: / Mobile bins (including rubbish bins) | 5 years | 20.00% | 40.00% | 1 July 2015
+Asset group · Transfer stations and landfill operation assets: | | | |
+Air compressors and receivers (Transfer stations and landfill operation assets) | 7 years | 14.29% | 28.57% | 1 July 2015
+Balers (Transfer stations and landfill operation assets) | 7 years | 14.29% | 28.57% | 1 July 2015
+Asset group · Transfer stations and landfill operation assets: / Bins: | | | |
+Transfer stations and landfill operation assets: / Bins: / Bins generally (including metal bins) (Waste treatment and disposal services) | 7 years | 14.29% | 28.57% | 1 July 2015
+Transfer stations and landfill operation assets: / Bins: / Compactor bins (Waste treatment and disposal services) | 6 years | 16.67% | 33.33% | 1 July 2015
+Transfer stations and landfill operation assets: / Bins: / Mobile bins (including rubbish bins) (Waste treatment and disposal services) | 5 years | 20.00% | 40.00% | 1 July 2015
 Transfer stations and landfill operation assets: / Bulk fuel above ground tanks | 20 years | 5.00% | 10.00% | 1 July 2015
 Transfer stations and landfill operation assets: / Bulldozers and drotts (including landfill compaction assets) | 5 years | 20.00% | 40.00% | 1 July 2015
-Transfer stations and landfill operation assets: / CCTV and security systems | 4 years | 25.00% | 50.00% | 1 July 2015
+CCTV and security systems (Transfer stations and landfill operation assets) | 4 years | 25.00% | 50.00% | 1 July 2015
 Transfer stations and landfill operation assets: / Concrete crushing assets | 15 years | 6.67% | 13.33% | 1 July 2015
 Transfer stations and landfill operation assets: / Dust and odour control assets | 12 years | 8.33% | 16.67% | 1 July 2015
-Transfer stations and landfill operation assets: / Excavators and front end loaders | 5 years | 20.00% | 40.00% | 1 July 2015
-Transfer stations and landfill operation assets: / Fans | 10 years | 10.00% | 20.00% | 1 July 2015
+Excavators and front end loaders (Transfer stations and landfill operation assets) | 5 years | 20.00% | 40.00% | 1 July 2015
+Fans (Transfer stations and landfill operation assets) | 10 years | 10.00% | 20.00% | 1 July 2015
 Transfer stations and landfill operation assets: / Forklifts used in waste handling | 5 years | 20.00% | 40.00% | 1 July 2015
 Transfer stations and landfill operation assets: / Forklifts not used in waste handling | 11 years | 9.09% | 18.18% | 1 July 2015
-Transfer stations and landfill operation assets: / Gas capture assets: | | | |
+Asset group · Transfer stations and landfill operation assets: / Gas capture assets: | | | |
 Transfer stations and landfill operation assets: / Gas capture assets: / Extraction assets (including wells, laterals and headers, and condensate systems) | 8 years | 12.50% | 25.00% | 1 July 2015
 Transfer stations and landfill operation assets: / Gas capture assets: / Flare skid assets generally (including blowers, monitoring systems and flame arresters, but excluding flare stacks) | 7 1/2 years | 13.33% | 26.67% | 1 July 2015
 Transfer stations and landfill operation assets: / Gas capture assets: / Flare stacks – continuous use | 15 years | 6.67% | 13.33% | 1 July 2015
@@ -41,36 +39,36 @@ Transfer stations and landfill operation assets: / Gas capture assets: / Flare s
 Transfer stations and landfill operation assets: / Gas capture assets: / Monitoring systems (excluding wells) | 5 years | 20.00% | 40.00% | 1 July 2015
 Transfer stations and landfill operation assets: / Gas capture assets: / Off-site monitoring wells | 15 years | 6.67% | 13.33% | 1 July 2015
 Transfer stations and landfill operation assets: / Green waste mulchers and shredders | 7 years | 14.29% | 28.57% | 1 July 2015
-Transfer stations and landfill operation assets: / Hoppers | 7 years | 14.29% | 28.57% | 1 July 2015
+Hoppers (Transfer stations and landfill operation assets) | 7 years | 14.29% | 28.57% | 1 July 2015
 Transfer stations and landfill operation assets: / Push pits | 15 years | 6.67% | 13.33% | 1 July 2015
 Transfer stations and landfill operation assets: / Sweepers – road sweepers | 10 years | 10.00% | 20.00% | 1 July 2015
 Transfer stations and landfill operation assets: / Transfer trailers | 10 years | 10.00% | 20.00% | 1 July 2015
 Transfer stations and landfill operation assets: / Water treatment systems | 10 years | 10.00% | 20.00% | 1 July 2015
-Transfer stations and landfill operation assets: / Weighbridges | 15 years | 6.67% | 13.33% | 1 July 2015
+Weighbridges (Transfer stations and landfill operation assets) | 15 years | 6.67% | 13.33% | 1 July 2015
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/#source
-- Air compressors and receivers: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/air-compressors-and-receivers/
-- Balers: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/balers/
-- Bins generally (including metal bins): https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/bins-generally/
-- Compactor bins: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/compactor-bins/
-- Mobile bins (including rubbish bins): https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/mobile-bins/
+- Air compressors and receivers (Transfer stations and landfill operation assets): https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/air-compressors-and-receivers/
+- Balers (Transfer stations and landfill operation assets): https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/balers/
+- Bins generally (including metal bins) (Waste treatment and disposal services): https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/bins-generally/
+- Compactor bins (Waste treatment and disposal services): https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/compactor-bins/
+- Mobile bins (including rubbish bins) (Waste treatment and disposal services): https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/mobile-bins/
 - Bulk fuel above ground tanks: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/bulk-fuel-above-ground-tanks/
 - Bulldozers and drotts (including landfill compaction assets): https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/bulldozers-and-drotts/
-- CCTV and security systems: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/cctv-and-security-systems/
+- CCTV and security systems (Transfer stations and landfill operation assets): https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/cctv-and-security-systems/
 - Concrete crushing assets: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/concrete-crushing-assets/
 - Dust and odour control assets: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/dust-and-odour-control-assets/
-- Excavators and front end loaders: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/excavators-and-front-end-loaders/
-- Fans: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/fans/
+- Excavators and front end loaders (Transfer stations and landfill operation assets): https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/excavators-and-front-end-loaders/
+- Fans (Transfer stations and landfill operation assets): https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/fans/
 - Forklifts used in waste handling: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/forklifts-used-in-waste-handling/
 - Forklifts not used in waste handling: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/forklifts-not-used-in-waste-handling/
 - Extraction assets (including wells, laterals and headers, and condensate systems): https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/extraction-assets/
@@ -80,14 +78,14 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Monitoring systems (excluding wells): https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/monitoring-systems/
 - Off-site monitoring wells: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/off-site-monitoring-wells/
 - Green waste mulchers and shredders: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/green-waste-mulchers-and-shredders/
-- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/hoppers/
+- Hoppers (Transfer stations and landfill operation assets): https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/hoppers/
 - Push pits: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/push-pits/
 - Sweepers – road sweepers: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/sweepers-road-sweepers/
 - Transfer trailers: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/transfer-trailers/
 - Water treatment systems: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/water-treatment-systems/
-- Weighbridges: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/weighbridges/
+- Weighbridges (Transfer stations and landfill operation assets): https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/weighbridges/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

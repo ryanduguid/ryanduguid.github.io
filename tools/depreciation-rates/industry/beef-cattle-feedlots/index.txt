@@ -8,74 +8,72 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feed
 
 33 effective lives in Table A of the Commissioner’s 2025 effective life determination for Beef cattle feedlots.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Beef cattle feedlots. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Cattle handling assets: | | | |
-Cattle handling assets: / Cattle crushes (hydraulic and manual) | 6 years | 16.67% | 33.33% | 1 January 2007
+Asset group · Cattle handling assets: | | | |
+Cattle handling assets: / Cattle crushes (hydraulic and manual) (Beef cattle feedlots) | 6 years | 16.67% | 33.33% | 1 January 2007
 Cattle handling assets: / Cattle induction and transfer yards (steel and timber) | 20 years | 5.00% | 10.00% | 1 January 2007
 Cattle handling assets: / Cattle treatment yards (steel and timber) | 20 years | 5.00% | 10.00% | 1 January 2007
 Cattle handling assets: / Cattle wash yards (steel and timber) | 20 years | 5.00% | 10.00% | 1 January 2007
-Cattle handling assets: / NLIS and other readers | 5 years | 20.00% | 40.00% | 1 January 2007
-Cattle handling assets: / Scales, weigh indicators and loading bars | 5 years | 20.00% | 40.00% | 1 January 2007
-Cattle pen assets: | | | |
+Cattle handling assets: / NLIS and other readers (Beef cattle feedlots) | 5 years | 20.00% | 40.00% | 1 January 2007
+Cattle handling assets: / Scales, weigh indicators and loading bars (Beef cattle feedlots) | 5 years | 20.00% | 40.00% | 1 January 2007
+Asset group · Cattle pen assets: | | | |
 Cattle pen assets: / Bunk sweepers | 8 years | 12.50% | 25.00% | 1 January 2007
-Cattle pen assets: / Cattle pen infrastructure assets: | | | |
+Asset group · Cattle pen assets: / Cattle pen infrastructure assets: | | | |
 Cattle pen assets: / Cattle pen infrastructure assets: / Feed bunks or troughs and aprons | 20 years | 5.00% | 10.00% | 1 January 2007
 Cattle pen assets: / Cattle pen infrastructure assets: / Feed roads | 20 years | 5.00% | 10.00% | 1 January 2007
 Cattle pen assets: / Cattle pen infrastructure assets: / Pen earthworks | 20 years | 5.00% | 10.00% | 1 January 2007
 Cattle pen assets: / Cattle pen infrastructure assets: / Pen fences and gates (steel and timber) | 20 years | 5.00% | 10.00% | 1 January 2007
 Cattle pen assets: / Cattle pen infrastructure assets: / Shade structures | 20 years | 5.00% | 10.00% | 1 January 2007
 Cattle pen assets: / Pen scrapers | 10 years | 10.00% | 20.00% | 1 January 2007
-Feed milling and handling assets: | | | |
-Feed milling and handling assets: / Ancillary grain handling equipment: | | | |
-Feed milling and handling assets: / Ancillary grain handling equipment: / Augers | 10 years | 10.00% | 20.00% | 1 January 2007
-Feed milling and handling assets: / Ancillary grain handling equipment: / Conveyors and elevators | 15 years | 6.67% | 13.33% | 1 January 2007
-Feed milling and handling assets: / Bulk and segregated commodity storage facilities (incorporating bunkers) | 30 years | 3.33% | 6.67% | 1 January 2007
-Feed milling and handling assets: / Feed mixers | 7 years | 14.29% | 28.57% | 1 January 2007
+Asset group · Feed milling and handling assets: | | | |
+Asset group · Feed milling and handling assets: / Ancillary grain handling equipment: | | | |
+Feed milling and handling assets: / Augers (Ancillary grain handling equipment) | 10 years | 10.00% | 20.00% | 1 January 2007
+Feed milling and handling assets: / Conveyors and elevators (Ancillary grain handling equipment) | 15 years | 6.67% | 13.33% | 1 January 2007
+Bulk and segregated commodity storage facilities (incorporating bunkers) (Feed milling and handling assets) | 30 years | 3.33% | 6.67% | 1 January 2007
+Feed milling and handling assets: / Feed mixers (Beef cattle feedlots) | 7 years | 14.29% | 28.57% | 1 January 2007
 Feed milling and handling assets: / Feed mixer trucks | 7 years | 14.29% | 28.57% | 1 January 2007
 Feed milling and handling assets: / Grain cleaners | 10 years | 10.00% | 20.00% | 1 January 2007
-Feed milling and handling assets: / Grain processing assets: | | | |
-Feed milling and handling assets: / Grain processing assets: / Roller mills | 15 years | 6.67% | 13.33% | 1 January 2007
+Asset group · Feed milling and handling assets: / Grain processing assets: | | | |
+Feed milling and handling assets: / Roller mills (Grain processing assets) | 15 years | 6.67% | 13.33% | 1 January 2007
 Feed milling and handling assets: / Grain processing assets: / Steam flaking chests | 15 years | 6.67% | 13.33% | 1 January 2007
 Feed milling and handling assets: / Grain processing assets: / Steam flaking surge bins | 15 years | 6.67% | 13.33% | 1 January 2007
-Feed milling and handling assets: / Grain processing assets: / Tempering silos: | | | |
-Feed milling and handling assets: / Grain processing assets: / Tempering silos: / Galvanised steel | 12 years | 8.33% | 16.67% | 1 January 2007
+Asset group · Feed milling and handling assets: / Grain processing assets: / Tempering silos: | | | |
+Feed milling and handling assets: / Grain processing assets: / Galvanised steel (Tempering silos) | 12 years | 8.33% | 16.67% | 1 January 2007
 Feed milling and handling assets: / Grain processing assets: / Tempering silos: / Glass fused to steel | 50 years | 2.00% | 4.00% | 1 January 2007
-Feed milling and handling assets: / Grain processing assets: / Tempering silos: / Stainless steel | 15 years | 6.67% | 13.33% | 1 January 2007
+Feed milling and handling assets: / Grain processing assets: / Stainless steel (Tempering silos) | 15 years | 6.67% | 13.33% | 1 January 2007
 Feed milling and handling assets: / Receival pits and hoppers | 25 years | 4.00% | 8.00% | 1 January 2007
 Feed milling and handling assets: / Roughage processing assets (including tub rinders) | 7 years | 14.29% | 28.57% | 1 January 2007
 Feed milling and handling assets: / Sampling and testing assets | 5 years | 20.00% | 40.00% | 1 January 2007
-Feed milling and handling assets: / Silos and bins used for storing dry grain: | | | |
-Feed milling and handling assets: / Silos and bins used for storing dry grain: / Concrete | 50 years | 2.00% | 4.00% | 1 January 2007
-Feed milling and handling assets: / Silos and bins used for storing dry grain: / Steel | 20 years | 5.00% | 10.00% | 1 January 2007
+Asset group · Feed milling and handling assets: / Silos and bins used for storing dry grain: | | | |
+Feed milling and handling assets: / Concrete (Silos and bins used for storing dry grain) | 50 years | 2.00% | 4.00% | 1 January 2007
+Feed milling and handling assets: / Steel (Silos and bins used for storing dry grain) | 20 years | 5.00% | 10.00% | 1 January 2007
 Feed milling and handling assets: / Tank storages for liquid feed supplements | 15 years | 6.67% | 13.33% | 1 January 2007
-Loading ramps | 20 years | 5.00% | 10.00% | 1 January 2007
+Loading ramps (Beef cattle feedlots) | 20 years | 5.00% | 10.00% | 1 January 2007
 Manure composting and screening machines | 15 years | 6.67% | 13.33% | 1 January 2007
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/#source
-- Cattle crushes (hydraulic and manual): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/cattle-crushes/
+- Cattle crushes (hydraulic and manual) (Beef cattle feedlots): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/cattle-crushes/
 - Cattle induction and transfer yards (steel and timber): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/cattle-induction-and-transfer-yards/
 - Cattle treatment yards (steel and timber): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/cattle-treatment-yards/
 - Cattle wash yards (steel and timber): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/cattle-wash-yards/
-- NLIS and other readers: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/nlis-and-other-readers/
-- Scales, weigh indicators and loading bars: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/scales-weigh-indicators-and-loading-bars/
+- NLIS and other readers (Beef cattle feedlots): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/nlis-and-other-readers/
+- Scales, weigh indicators and loading bars (Beef cattle feedlots): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/scales-weigh-indicators-and-loading-bars/
 - Bunk sweepers: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/bunk-sweepers/
 - Feed bunks or troughs and aprons: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/feed-bunks-or-troughs-and-aprons/
 - Feed roads: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/feed-roads/
@@ -83,28 +81,28 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Pen fences and gates (steel and timber): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/pen-fences-and-gates/
 - Shade structures: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/shade-structures/
 - Pen scrapers: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/pen-scrapers/
-- Augers: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/augers/
-- Conveyors and elevators: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/conveyors-and-elevators/
-- Bulk and segregated commodity storage facilities (incorporating bunkers): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/bulk-and-segregated-commodity-storage-facilities/
-- Feed mixers: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/feed-mixers/
+- Augers (Ancillary grain handling equipment): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/augers/
+- Conveyors and elevators (Ancillary grain handling equipment): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/conveyors-and-elevators/
+- Bulk and segregated commodity storage facilities (incorporating bunkers) (Feed milling and handling assets): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/bulk-and-segregated-commodity-storage-facilities/
+- Feed mixers (Beef cattle feedlots): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/feed-mixers/
 - Feed mixer trucks: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/feed-mixer-trucks/
 - Grain cleaners: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/grain-cleaners/
-- Roller mills: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/roller-mills/
+- Roller mills (Grain processing assets): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/roller-mills/
 - Steam flaking chests: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/steam-flaking-chests/
 - Steam flaking surge bins: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/steam-flaking-surge-bins/
-- Galvanised steel: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/galvanised-steel/
+- Galvanised steel (Tempering silos): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/galvanised-steel/
 - Glass fused to steel: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/glass-fused-to-steel/
-- Stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/stainless-steel/
+- Stainless steel (Tempering silos): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/stainless-steel/
 - Receival pits and hoppers: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/receival-pits-and-hoppers/
 - Roughage processing assets (including tub rinders): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/roughage-processing-assets/
 - Sampling and testing assets: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/sampling-and-testing-assets/
-- Concrete: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/concrete/
-- Steel: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/steel/
+- Concrete (Silos and bins used for storing dry grain): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/concrete/
+- Steel (Silos and bins used for storing dry grain): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/steel/
 - Tank storages for liquid feed supplements: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/tank-storages-for-liquid-feed-supplements/
-- Loading ramps: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/loading-ramps/
+- Loading ramps (Beef cattle feedlots): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/loading-ramps/
 - Manure composting and screening machines: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/manure-composting-and-screening-machines/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

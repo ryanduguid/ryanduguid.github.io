@@ -8,117 +8,115 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/
 
 43 effective lives in Table A of the Commissioner’s 2025 effective life determination for Aquaculture.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Aquaculture. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Aeration assets: | | | |
-Aeration assets: / Direct supply systems (including paddlewheels and aspirators): | | | |
-Aeration assets: / Direct supply systems (including paddlewheels and aspirators): / Fresh water | 6 years | 16.67% | 33.33% | 1 July 2007
-Aeration assets: / Direct supply systems (including paddlewheels and aspirators): / Salt water | 3 years | 33.33% | 66.67% | 1 July 2007
+Asset group · Aeration assets: | | | |
+Asset group · Aeration assets: / Direct supply systems (including paddlewheels and aspirators): | | | |
+Aeration assets: / Direct supply systems (including paddlewheels and aspirators): / Fresh water (Direct supply systems …) | 6 years | 16.67% | 33.33% | 1 July 2007
+Aeration assets: / Direct supply systems (including paddlewheels and aspirators): / Salt water (Direct supply systems …) | 3 years | 33.33% | 66.67% | 1 July 2007
 Aeration assets: / Remote or indirect supply systems (incorporating blowers, diaphragm pumps, diffusers, upwellers and pipelines) | 10 years | 10.00% | 20.00% | 1 July 2007
-Aquaculture tanks: | | | |
-Aquaculture tanks: / Concrete | 20 years | 5.00% | 10.00% | 1 July 2007
-Aquaculture tanks: / Fibreglass | 15 years | 6.67% | 13.33% | 1 July 2007
-Aquaculture tanks: / Polyethylene (PE) | 20 years | 5.00% | 10.00% | 1 July 2007
-Aquaculture tanks: / Raceways | 20 years | 5.00% | 10.00% | 1 July 2007
+Asset group · Aquaculture tanks: | | | |
+Concrete (Aquaculture tanks) | 20 years | 5.00% | 10.00% | 1 July 2007
+Fibreglass (Aquaculture tanks) | 15 years | 6.67% | 13.33% | 1 July 2007
+Polyethylene (PE) (Aquaculture tanks) | 20 years | 5.00% | 10.00% | 1 July 2007
+Raceways (Aquaculture tanks) | 20 years | 5.00% | 10.00% | 1 July 2007
 Aquaculture tanks: / Transport of live products | 10 years | 10.00% | 20.00% | 1 July 2007
 Bins and crates | 5 years | 20.00% | 40.00% | 1 July 2007
-Commercial vessels and support assets – see Table A Water transport and support services (48100 to 48200 and 52110 to 52190) | | | |
-Control systems | 10 years | 10.00% | 20.00% | 1 July 2007
+Register note · Commercial vessels and support assets – see Table A Water transport and support services (48100 to 48200 and 52110 to 52190) | | | |
+Control systems (Aquaculture) | 10 years | 10.00% | 20.00% | 1 July 2007
 Cooling assets (including water chillers) | 10 years | 10.00% | 20.00% | 1 July 2007
 Environmental control structures and protective structures used in salt water environment | 15 years | 6.67% | 13.33% | 1 July 2007
 Feeders (including belt, pendulum, scatter and blower) | 5 years | 20.00% | 40.00% | 1 July 2007
-Graders | 10 years | 10.00% | 20.00% | 1 July 2007
+Graders (Aquaculture) | 10 years | 10.00% | 20.00% | 1 July 2007
 Harvesting nets | 4 years | 25.00% | 50.00% | 1 July 2007
 Hatching assets (including hatching containers) | 10 years | 10.00% | 20.00% | 1 July 2007
-Heating assets: | | | |
-Heating assets: / Direct heating system (including immersion heaters): | | | |
-Heating assets: / Direct heating system (including immersion heaters): / Fresh water | 10 years | 10.00% | 20.00% | 1 July 2007
-Heating assets: / Direct heating system (including immersion heaters): / Salt water | 5 years | 20.00% | 40.00% | 1 July 2007
+Asset group · Heating assets: | | | |
+Asset group · Heating assets: / Direct heating system (including immersion heaters): | | | |
+Heating assets: / Direct heating system (including immersion heaters): / Fresh water (Direct heating system …) | 10 years | 10.00% | 20.00% | 1 July 2007
+Heating assets: / Direct heating system (including immersion heaters): / Salt water (Direct heating system …) | 5 years | 20.00% | 40.00% | 1 July 2007
 Heating assets: / Indirect heating system (including heat exchangers and passive heating) | 10 years | 10.00% | 20.00% | 1 July 2007
 Instruments (including sensors and water quality meters) | 5 years | 20.00% | 40.00% | 1 July 2007
-Oyster farming assets: | | | |
-Oyster farming assets: / Baskets | 8 years | 12.50% | 25.00% | 1 July 2007
+Asset group · Oyster farming assets: | | | |
+Baskets (Oyster farming assets) | 8 years | 12.50% | 25.00% | 1 July 2007
 Oyster farming assets: / Oyster growing structures (incorporating posts and racks or lines) | 10 years | 10.00% | 20.00% | 1 July 2007
-Oyster farming assets: / Rumblers | 10 years | 10.00% | 20.00% | 1 July 2007
-Oyster farming assets: / Sticks | 5 years | 20.00% | 40.00% | 1 July 2007
-Oyster farming assets: / Trays: | | | |
-Oyster farming assets: / Trays: / Plastic | 8 years | 12.50% | 25.00% | 1 July 2007
-Oyster farming assets: / Trays: / Timber | 5 years | 20.00% | 40.00% | 1 July 2007
+Rumblers (Oyster farming assets) | 10 years | 10.00% | 20.00% | 1 July 2007
+Sticks (Oyster farming assets) | 5 years | 20.00% | 40.00% | 1 July 2007
+Asset group · Oyster farming assets: / Trays: | | | |
+Oyster farming assets: / Plastic (Trays) | 8 years | 12.50% | 25.00% | 1 July 2007
+Oyster farming assets: / Timber (Trays) | 5 years | 20.00% | 40.00% | 1 July 2007
 Oyster farming assets: / Vats, treatment | 15 years | 6.67% | 13.33% | 1 July 2007
-Power supply assets, emergency or standby: | | | |
-Power supply assets, emergency or standby: / Generators (incorporating attached engine management and generator monitoring instruments) | 15 years | 6.67% | 13.33% | 1 July 2007
-Processing assets: | | | |
+Asset group · Power supply assets, emergency or standby: | | | |
+Generators (incorporating attached engine management and generator monitoring instruments) (Power supply assets, emergency or standby) | 15 years | 6.67% | 13.33% | 1 July 2007
+Asset group · Processing assets: | | | |
 Processing assets: / Conveyors, elevators and hoppers | 10 years | 10.00% | 20.00% | 1 July 2007
-Processing assets: / Cookers | 10 years | 10.00% | 20.00% | 1 July 2007
+Processing assets: / Cookers (Aquaculture) | 10 years | 10.00% | 20.00% | 1 July 2007
 Processing assets: / Packaging assets (including vacuum and modified atmospheric packing) | 10 years | 10.00% | 20.00% | 1 July 2007
-Refrigeration assets: | | | |
+Asset group · Refrigeration assets: | | | |
 Refrigeration assets: / Insulation panels in cool or freezer rooms used in salt water environment | 20 years | 5.00% | 10.00% | 1 July 2007
 Sea cages (incorporating rings, nets, ropes, anchors, weights and stanchions) | 10 years | 10.00% | 20.00% | 1 July 2007
-Water assets: | | | |
+Asset group · Water assets: | | | |
 Water assets: / Aquaculture channels and ponds | 20 years | 5.00% | 10.00% | 1 July 2007
 Water assets: / Liners and erosion matting for ponds and channels | 15 years | 6.67% | 13.33% | 1 July 2007
-Water assets: / Pipes and pipelines: | | | |
+Asset group · Water assets: / Pipes and pipelines: | | | |
 Water assets: / Pipes and pipelines: / Above ground (polyethylene (PE) and polyvinylchloride (PVC) including lay flat hoses) | 10 years | 10.00% | 20.00% | 1 July 2007
 Water assets: / Pipes and pipelines: / In ground (polyethylene (PE) and polyvinylchloride (PVC)) | 30 years | 3.33% | 6.67% | 1 July 2007
-Water assets: / Pumps: | | | |
-Water assets: / Pumps: / Generally: | | | |
-Water assets: / Pumps: / Generally: / Fresh water | 10 years | 10.00% | 20.00% | 1 July 2007
-Water assets: / Pumps: / Generally: / Salt water | 5 years | 20.00% | 40.00% | 1 July 2007
-Water assets: / Pumps: / Single phase transfer pumps: | | | |
-Water assets: / Pumps: / Single phase transfer pumps: / Fresh water | 5 years | 20.00% | 40.00% | 1 July 2007
-Water assets: / Pumps: / Single phase transfer pumps: / Salt water | 3 years | 33.33% | 66.67% | 1 July 2007
+Asset group · Water assets: / Pumps: | | | |
+Asset group · Water assets: / Pumps: / Generally: | | | |
+Water assets: / Pumps: / Fresh water (Generally) | 10 years | 10.00% | 20.00% | 1 July 2007
+Water assets: / Pumps: / Salt water (Generally) | 5 years | 20.00% | 40.00% | 1 July 2007
+Asset group · Water assets: / Pumps: / Single phase transfer pumps: | | | |
+Water assets: / Pumps: / Fresh water (Single phase transfer pumps) | 5 years | 20.00% | 40.00% | 1 July 2007
+Water assets: / Pumps: / Salt water (Single phase transfer pumps) | 3 years | 33.33% | 66.67% | 1 July 2007
 Water assets: / Water treatment assets (including filtration assets, foam fractionators, oxygen and ozone generators and UV sterilizers) | 10 years | 10.00% | 20.00% | 1 July 2007
-Weighing machines | 5 years | 20.00% | 40.00% | 1 July 2007
+Weighing machines (Aquaculture) | 5 years | 20.00% | 40.00% | 1 July 2007
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/#source
-- Fresh water: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/aeration-assets-fresh-water/
-- Salt water: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/aeration-assets-salt-water/
+- Fresh water (Direct supply systems …): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/aeration-assets-fresh-water/
+- Salt water (Direct supply systems …): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/aeration-assets-salt-water/
 - Remote or indirect supply systems (incorporating blowers, diaphragm pumps, diffusers, upwellers and pipelines): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/remote-or-indirect-supply-systems/
-- Concrete: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/concrete/
-- Fibreglass: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/fibreglass/
-- Polyethylene (PE): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/polyethylene/
-- Raceways: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/raceways/
+- Concrete (Aquaculture tanks): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/concrete/
+- Fibreglass (Aquaculture tanks): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/fibreglass/
+- Polyethylene (PE) (Aquaculture tanks): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/polyethylene/
+- Raceways (Aquaculture tanks): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/raceways/
 - Transport of live products: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/transport-of-live-products/
 - Bins and crates: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/bins-and-crates/
 - Commercial vessels and support assets – see Table A Water transport and support services (48100 to 48200 and 52110 to 52190): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/
-- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/control-systems/
+- Control systems (Aquaculture): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/control-systems/
 - Cooling assets (including water chillers): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/cooling-assets/
 - Environmental control structures and protective structures used in salt water environment: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/environmental-control-structures-and-protective-structures/
 - Feeders (including belt, pendulum, scatter and blower): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/feeders/
-- Graders: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/graders/
+- Graders (Aquaculture): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/graders/
 - Harvesting nets: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/harvesting-nets/
 - Hatching assets (including hatching containers): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/hatching-assets/
-- Fresh water: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/heating-assets-fresh-water/
-- Salt water: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/heating-assets-salt-water/
+- Fresh water (Direct heating system …): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/heating-assets-fresh-water/
+- Salt water (Direct heating system …): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/heating-assets-salt-water/
 - Indirect heating system (including heat exchangers and passive heating): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/indirect-heating-system/
 - Instruments (including sensors and water quality meters): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/instruments/
-- Baskets: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/baskets/
+- Baskets (Oyster farming assets): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/baskets/
 - Oyster growing structures (incorporating posts and racks or lines): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/oyster-growing-structures/
-- Rumblers: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/rumblers/
-- Sticks: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/sticks/
-- Plastic: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/plastic/
-- Timber: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/timber/
+- Rumblers (Oyster farming assets): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/rumblers/
+- Sticks (Oyster farming assets): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/sticks/
+- Plastic (Trays): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/plastic/
+- Timber (Trays): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/timber/
 - Vats, treatment: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/vats-treatment/
-- Generators (incorporating attached engine management and generator monitoring instruments): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/generators/
+- Generators (incorporating attached engine management and generator monitoring instruments) (Power supply assets, emergency or standby): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/generators/
 - Conveyors, elevators and hoppers: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/conveyors-elevators-and-hoppers/
-- Cookers: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/cookers/
+- Cookers (Aquaculture): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/cookers/
 - Packaging assets (including vacuum and modified atmospheric packing): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/packaging-assets/
 - Insulation panels in cool or freezer rooms used in salt water environment: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/insulation-panels-in-cool-or-freezer-rooms-used-in-salt/
 - Sea cages (incorporating rings, nets, ropes, anchors, weights and stanchions): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/sea-cages/
@@ -126,14 +124,14 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Liners and erosion matting for ponds and channels: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/liners-and-erosion-matting-for-ponds-and-channels/
 - Above ground (polyethylene (PE) and polyvinylchloride (PVC) including lay flat hoses): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/above-ground/
 - In ground (polyethylene (PE) and polyvinylchloride (PVC)): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/in-ground/
-- Fresh water: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/generally-fresh-water/
-- Salt water: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/generally-salt-water/
-- Fresh water: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/single-phase-transfer-pumps-fresh-water/
-- Salt water: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/single-phase-transfer-pumps-salt-water/
+- Fresh water (Generally): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/generally-fresh-water/
+- Salt water (Generally): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/generally-salt-water/
+- Fresh water (Single phase transfer pumps): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/single-phase-transfer-pumps-fresh-water/
+- Salt water (Single phase transfer pumps): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/single-phase-transfer-pumps-salt-water/
 - Water treatment assets (including filtration assets, foam fractionators, oxygen and ozone generators and UV sterilizers): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/water-treatment-assets/
-- Weighing machines: https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/weighing-machines/
+- Weighing machines (Aquaculture): https://duguid.com.au/tools/depreciation-rates/industry/aquaculture/weighing-machines/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

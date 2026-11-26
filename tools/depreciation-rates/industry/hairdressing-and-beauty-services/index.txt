@@ -8,31 +8,29 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/hairdressing-and
 
 19 effective lives in Table A of the Commissioner’s 2025 effective life determination for Hairdressing and beauty services.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Hairdressing and beauty services. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Beauty industry assets: | | | |
-Beauty industry assets: / Electrical treatment assets: | | | |
+Asset group · Beauty industry assets: | | | |
+Asset group · Beauty industry assets: / Electrical treatment assets: | | | |
 Beauty industry assets: / Electrical treatment assets: / Faradic, galvanic, high frequency and multi function units | 10 years | 10.00% | 20.00% | 1 July 2010
 Beauty industry assets: / Electrical treatment assets: / Light therapy units (including intense pulse light (IPL) systems) | 10 years | 10.00% | 20.00% | 1 July 2010
 Beauty industry assets: / Electrical treatment assets: / Micro dermabrasion units | 5 years | 20.00% | 40.00% | 1 July 2010
-Beauty industry assets: / Hydrotherapy assets: | | | |
+Asset group · Beauty industry assets: / Hydrotherapy assets: | | | |
 Beauty industry assets: / Hydrotherapy assets: / Spa capsules | 10 years | 10.00% | 20.00% | 1 July 2010
 Beauty industry assets: / Hydrotherapy assets: / Vichy shower units | 10 years | 10.00% | 20.00% | 1 July 2010
 Beauty industry assets: / Hydrotherapy assets: / Wet tables | 10 years | 10.00% | 20.00% | 1 July 2010
-Beauty industry assets: / Massage and treatments beds: | | | |
+Asset group · Beauty industry assets: / Massage and treatments beds: | | | |
 Beauty industry assets: / Massage and treatments beds: / Dry hydrotherapy (including flotation) | 7 years | 14.29% | 28.57% | 1 July 2010
-Beauty industry assets: / Massage and treatments beds: / Electronic | 7 years | 14.29% | 28.57% | 1 July 2010
+Beauty industry assets: / Electronic (Massage and treatments beds) | 7 years | 14.29% | 28.57% | 1 July 2010
 Beauty industry assets: / Massage and treatments beds: / Non electronic (including folding) | 10 years | 10.00% | 20.00% | 1 July 2010
 Beauty industry assets: / Reception furniture, freestanding (including lobby chairs, desks, lounges, sofas and tables) | 10 years | 10.00% | 20.00% | 1 July 2010
 Beauty industry assets: / Sterilisation processing assets (including autoclaves and hot towel cabinets) | 5 years | 20.00% | 40.00% | 1 July 2010
-Hairdressing industry assets: | | | |
+Asset group · Hairdressing industry assets: | | | |
 Hairdressing industry assets: / Barber chairs | 15 years | 6.67% | 13.33% | 1 July 2010
 Hairdressing industry assets: / Coffee making machines (including espresso and drip filter type) | 5 years | 20.00% | 40.00% | 1 July 2010
 Hairdressing industry assets: / Cutting chairs (including styling chairs and cutting stools) | 10 years | 10.00% | 20.00% | 1 July 2010
@@ -44,11 +42,11 @@ Hairdressing industry assets: / Shampoo units and wash lounges, freestanding | 1
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
@@ -60,7 +58,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Vichy shower units: https://duguid.com.au/tools/depreciation-rates/industry/hairdressing-and-beauty-services/vichy-shower-units/
 - Wet tables: https://duguid.com.au/tools/depreciation-rates/industry/hairdressing-and-beauty-services/wet-tables/
 - Dry hydrotherapy (including flotation): https://duguid.com.au/tools/depreciation-rates/industry/hairdressing-and-beauty-services/dry-hydrotherapy/
-- Electronic: https://duguid.com.au/tools/depreciation-rates/industry/hairdressing-and-beauty-services/electronic/
+- Electronic (Massage and treatments beds): https://duguid.com.au/tools/depreciation-rates/industry/hairdressing-and-beauty-services/electronic/
 - Non electronic (including folding): https://duguid.com.au/tools/depreciation-rates/industry/hairdressing-and-beauty-services/non-electronic/
 - Reception furniture, freestanding (including lobby chairs, desks, lounges, sofas and tables): https://duguid.com.au/tools/depreciation-rates/industry/hairdressing-and-beauty-services/reception-furniture-freestanding/
 - Sterilisation processing assets (including autoclaves and hot towel cabinets): https://duguid.com.au/tools/depreciation-rates/industry/hairdressing-and-beauty-services/sterilisation-processing-assets/
@@ -73,7 +71,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Reception furniture (including lobby chairs, desks, lounges, sofas and tables): https://duguid.com.au/tools/depreciation-rates/industry/hairdressing-and-beauty-services/reception-furniture/
 - Shampoo units and wash lounges, freestanding: https://duguid.com.au/tools/depreciation-rates/industry/hairdressing-and-beauty-services/shampoo-units-and-wash-lounges-freestanding/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

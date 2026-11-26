@@ -8,21 +8,19 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-meta
 
 34 effective lives in Table A of the Commissioner’s 2025 effective life determination for Non-ferrous metal casting.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Non-ferrous metal casting. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): | | | |
+Asset group · Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): | | | |
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Cooling assets (including tables, conveyors, towers) | 15 years | 6.67% | 13.33% | 1 January 2004
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Deodorising machines/fume extraction systems | 15 years | 6.67% | 13.33% | 1 July 2013
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Die casting machines (including high pressure, low pressure and gravity type machines) | 15 years | 6.67% | 13.33% | 1 January 2004
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Die tools (moulds used for casting) | 4 years | 25.00% | 50.00% | 1 January 2004
-Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Heating assets: | | | |
+Asset group · Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Heating assets: | | | |
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Heating assets: / Degassing assets | 5 years | 20.00% | 40.00% | 1 January 2004
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Heating assets: / Furnaces (including dosing, holding and melting) | 15 years | 6.67% | 13.33% | 1 January 2004
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Heating assets: / Heat treatment baskets | 5 years | 20.00% | 40.00% | 1 January 2004
@@ -30,12 +28,12 @@ Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Heatin
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Heating assets: / Ingot pre-heaters | 20 years | 5.00% | 10.00% | 1 January 2004
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Heating assets: / Quenching tanks | 20 years | 5.00% | 10.00% | 1 January 2004
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Impregnation machines | 10 years | 10.00% | 20.00% | 1 July 2013
-Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Machining/finishing assets: | | | |
+Asset group · Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Machining/finishing assets: | | | |
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Machining/finishing assets: / Blast machines (including shot, sand, bead) | 20 years | 5.00% | 10.00% | 1 January 2004
-Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Machining/finishing assets: / CNC lathes | 10 years | 10.00% | 20.00% | 1 January 2004
+Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / CNC lathes (Machining/finishing assets) | 10 years | 10.00% | 20.00% | 1 January 2004
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Machining/finishing assets: / CNC machining centres | 10 years | 10.00% | 20.00% | 1 January 2004
-Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Machining/finishing assets: / CNC milling machines | 10 years | 10.00% | 20.00% | 1 January 2004
-Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Machining/finishing assets: / Drilling machines | 15 years | 6.67% | 13.33% | 1 January 2004
+Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / CNC milling machines (Machining/finishing assets) | 10 years | 10.00% | 20.00% | 1 January 2004
+Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Drilling machines (Machining/finishing assets) | 15 years | 6.67% | 13.33% | 1 January 2004
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Machining/finishing assets: / Linishing belt machines | 10 years | 10.00% | 20.00% | 1 January 2004
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Machining/finishing assets: / Trim presses (hydraulic type and crank type) | 15 years | 6.67% | 13.33% | 1 January 2004
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Machining/finishing assets: / Trim tools used in trim press machines | 4 years | 25.00% | 50.00% | 1 January 2004
@@ -43,27 +41,27 @@ Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Machin
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Materials handling conveyors | 10 years | 10.00% | 20.00% | 1 January 2004
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Molten metal transfer ladles | 3 years | 33.33% | 66.67% | 1 January 2004
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Paint line conveyors | 15 years | 6.67% | 13.33% | 1 January 2004
-Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Robots | 10 years | 10.00% | 20.00% | 1 January 2004
-Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Sand casting assets: | | | |
+Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Robots (Metal casting assets …) | 10 years | 10.00% | 20.00% | 1 January 2004
+Asset group · Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Sand casting assets: | | | |
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Sand casting assets: / Core boxes | 4 years | 25.00% | 50.00% | 1 January 2004
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Sand casting assets: / Core making machines (core blowers) | 15 years | 6.67% | 13.33% | 1 January 2004
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Sand casting assets: / Gas generators for sand curing | 15 years | 6.67% | 13.33% | 1 January 2004
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Sand casting assets: / Sand core dies | 7 years | 14.29% | 28.57% | 1 July 2013
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Sand casting assets: / Sand core making machines | 15 years | 6.67% | 13.33% | 1 July 2013
-Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Testing assets: | | | |
+Asset group · Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Testing assets: | | | |
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Testing assets: / Co-ordinate measurement machines | 10 years | 10.00% | 20.00% | 1 January 2004
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Testing assets: / Leak and pressure testing machines | 4 years | 25.00% | 50.00% | 1 January 2004
-Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Testing assets: / Spectrometers | 10 years | 10.00% | 20.00% | 1 January 2004
+Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Testing assets: / Spectrometers (Non-ferrous metal casting) | 10 years | 10.00% | 20.00% | 1 January 2004
 Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Testing assets: / X-ray machines | 15 years | 6.67% | 13.33% | 1 January 2004
 Tinsmiths’ plant | 20 years | 5.00% | 10.00% | 1 January 2001
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
@@ -80,10 +78,10 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Quenching tanks: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/quenching-tanks/
 - Impregnation machines: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/impregnation-machines/
 - Blast machines (including shot, sand, bead): https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/blast-machines/
-- CNC lathes: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/cnc-lathes/
+- CNC lathes (Machining/finishing assets): https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/cnc-lathes/
 - CNC machining centres: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/cnc-machining-centres/
-- CNC milling machines: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/cnc-milling-machines/
-- Drilling machines: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/drilling-machines/
+- CNC milling machines (Machining/finishing assets): https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/cnc-milling-machines/
+- Drilling machines (Machining/finishing assets): https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/drilling-machines/
 - Linishing belt machines: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/linishing-belt-machines/
 - Trim presses (hydraulic type and crank type): https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/trim-presses/
 - Trim tools used in trim press machines: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/trim-tools-used-in-trim-press-machines/
@@ -91,7 +89,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Materials handling conveyors: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/materials-handling-conveyors/
 - Molten metal transfer ladles: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/molten-metal-transfer-ladles/
 - Paint line conveyors: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/paint-line-conveyors/
-- Robots: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/robots/
+- Robots (Metal casting assets …): https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/robots/
 - Core boxes: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/core-boxes/
 - Core making machines (core blowers): https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/core-making-machines/
 - Gas generators for sand curing: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/gas-generators-for-sand-curing/
@@ -99,11 +97,11 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Sand core making machines: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/sand-core-making-machines/
 - Co-ordinate measurement machines: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/co-ordinate-measurement-machines/
 - Leak and pressure testing machines: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/leak-and-pressure-testing-machines/
-- Spectrometers: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/spectrometers/
+- Spectrometers (Non-ferrous metal casting): https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/spectrometers/
 - X-ray machines: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/x-ray-machines/
 - Tinsmiths’ plant: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/tinsmiths-plant/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

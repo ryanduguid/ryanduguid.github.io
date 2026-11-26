@@ -488,9 +488,9 @@ Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
 
 Working from home Hours worked from home, as recorded Additional running expenses, such as energy or phone, incurred from working from home Yes No
 
-Work-related amounts only, in dollars and cents. Enter 0 for an expense you did not have.
+Enter work-related amounts in dollars and cents, or 0 for an expense you did not have. Other assets can include a computer or phone.
 
-Electricity and gas Mobile and home phone Internet Stationery and computer consumables Cleaning Decline in value of home office furniture and furnishings Decline in value of other assets, such as a computer or phone Repairs to those assets
+Electricity and gas Mobile and home phone costs (AUD) Internet Stationery and computer consumables Cleaning Decline in value of home office furniture and furnishings Decline in value of other assets (AUD) Repairs to those assets
 
 Reimbursed or paid by your employer or anyone else No Yes
 

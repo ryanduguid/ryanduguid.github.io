@@ -8,67 +8,65 @@ Source: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-
 
 16 effective lives in Table B of the Commissioner’s 2025 effective life determination under Motor vehicles and trailers.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Motor vehicles and trailers. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Buses having a gross vehicle mass of more than 3.5 tonnes | 15 years | 6.67% | 13.33% | 1 January 2005
-Cars (motor vehicles designed to carry a load of less than one tonne and fewer than 9 passengers): | | | |
-Cars (motor vehicles designed to carry a load of less than one tonne and fewer than 9 passengers): / Generally | 8 years | 12.50% | 25.00% | 1 January 2006
-Cars (motor vehicles designed to carry a load of less than one tonne and fewer than 9 passengers): / Hire cars: | | | |
-Cars (motor vehicles designed to carry a load of less than one tonne and fewer than 9 passengers): / Hire cars: / Cars used to provide basic service ride-sourcing, ride-hailing or ride-sharing services (e.g. UberX) | 8 years | 12.50% | 25.00% | 1 July 2016
-Cars (motor vehicles designed to carry a load of less than one tonne and fewer than 9 passengers): / Hire cars: / Generally (including cars used to provide premium service ride-sourcing, ride-hailing or ride-sharing services e.g. UberBLACK) | 6 years | 16.67% | 33.33% | 1 July 2016
-Cars (motor vehicles designed to carry a load of less than one tonne and fewer than 9 passengers): / Rental cars | 5 years | 20.00% | 40.00% | 1 July 2016
-Cars (motor vehicles designed to carry a load of less than one tonne and fewer than 9 passengers): / Taxis | 4 years | 25.00% | 50.00% | 1 July 2015
-Garbage compactor trucks – see Table A Solid waste collection services (29110) | | | |
-Light commercial vehicles designed to carry a load of one tonne or greater and having a gross vehicle mass of 3.5 tonnes or less | 12 years | 8.33% | 16.67% | 1 January 2005
-Limousines: | | | |
-Limousines: / Sedan limousines | 6 years | 16.67% | 33.33% | 1 July 2016
-Limousines: / Stretch limousines | 12 years | 8.33% | 16.67% | 1 July 2016
-Minibuses having a gross vehicle mass of 3.5 tonnes or less and designed to carry 9 or more passengers | 12 years | 8.33% | 16.67% | 1 January 2005
+Buses having a gross vehicle mass of more than 3.5 tonnes (Table B) | 15 years | 6.67% | 13.33% | 1 January 2005
+Asset group · Cars (motor vehicles designed to carry a load of less than one tonne and fewer than 9 passengers): | | | |
+Cars (motor vehicles designed to carry a load of less than one tonne and fewer than 9 passengers): / Generally (Table B) | 8 years | 12.50% | 25.00% | 1 January 2006
+Asset group · Cars (motor vehicles designed to carry a load of less than one tonne and fewer than 9 passengers): / Hire cars: | | | |
+Cars (motor vehicles designed to carry a load of less than one tonne and fewer than 9 passengers): / Hire cars: / Cars used to provide basic service ride-sourcing, ride-hailing or ride-sharing services (e.g. UberX) (Table B) | 8 years | 12.50% | 25.00% | 1 July 2016
+Cars (motor vehicles designed to carry a load of less than one tonne and fewer than 9 passengers): / Hire cars: / Generally (including cars used to provide premium service ride-sourcing, ride-hailing or ride-sharing services e.g. UberBLACK) (Table B) | 6 years | 16.67% | 33.33% | 1 July 2016
+Cars (motor vehicles designed to carry a load of less than one tonne and fewer than 9 passengers): / Rental cars (Table B) | 5 years | 20.00% | 40.00% | 1 July 2016
+Cars (motor vehicles designed to carry a load of less than one tonne and fewer than 9 passengers): / Taxis (Table B) | 4 years | 25.00% | 50.00% | 1 July 2015
+Register note · Garbage compactor trucks – see Table A Solid waste collection services (29110) | | | |
+Light commercial vehicles designed to carry a load of one tonne or greater and having a gross vehicle mass of 3.5 tonnes or less (Table B) | 12 years | 8.33% | 16.67% | 1 January 2005
+Asset group · Limousines: | | | |
+Limousines: / Sedan limousines (Table B) | 6 years | 16.67% | 33.33% | 1 July 2016
+Limousines: / Stretch limousines (Table B) | 12 years | 8.33% | 16.67% | 1 July 2016
+Minibuses having a gross vehicle mass of 3.5 tonnes or less and designed to carry 9 or more passengers (Table B) | 12 years | 8.33% | 16.67% | 1 January 2005
 Motorcycles (including courier motorcycles and mailbox delivery motorcycles) | 7 years | 14.29% | 28.57% | 1 July 2015
-Scooters | 3 years | 33.33% | 66.67% | 1 July 2015
-Trailers having a gross vehicle mass greater than 4.5 tonnes | 15 years | 6.67% | 13.33% | 1 January 2005
-Trailers having a gross vehicle mass of 4.5 tonnes or less: | | | |
-Trailers having a gross vehicle mass of 4.5 tonnes or less: / Aluminium, galvanised steel, galvanised hot dipped steel and powder coated trailers | 10 years | 10.00% | 20.00% | 1 July 2015
-Trailers having a gross vehicle mass of 4.5 tonnes or less: / Mild steel trailers (painted and unpainted) | 5 years | 20.00% | 40.00% | 1 July 2015
-Trucks having a gross vehicle mass greater than 3.5 tonnes (excluding off highway trucks used in mining operations) | 15 years | 6.67% | 13.33% | 1 January 2005
+Scooters (Motor vehicles and trailers) | 3 years | 33.33% | 66.67% | 1 July 2015
+Trailers having a gross vehicle mass greater than 4.5 tonnes (Table B) | 15 years | 6.67% | 13.33% | 1 January 2005
+Asset group · Trailers having a gross vehicle mass of 4.5 tonnes or less: | | | |
+Trailers having a gross vehicle mass of 4.5 tonnes or less: / Aluminium, galvanised steel, galvanised hot dipped steel and powder coated trailers (Table B) | 10 years | 10.00% | 20.00% | 1 July 2015
+Trailers having a gross vehicle mass of 4.5 tonnes or less: / Mild steel trailers (painted and unpainted) (Table B) | 5 years | 20.00% | 40.00% | 1 July 2015
+Trucks having a gross vehicle mass greater than 3.5 tonnes (excluding off highway trucks used in mining operations) (Table B) | 15 years | 6.67% | 13.33% | 1 January 2005
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/#source
-- Buses having a gross vehicle mass of more than 3.5 tonnes: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/buses-having-a-gross-vehicle-mass-of-more-than-3-5-tonnes/
-- Generally: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/generally-058867/
-- Cars used to provide basic service ride-sourcing, ride-hailing or ride-sharing services (e.g. UberX): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/cars-used-to-provide-basic-service-ride-sourcing-ride/
-- Generally (including cars used to provide premium service ride-sourcing, ride-hailing or ride-sharing services e.g. UberBLACK): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/hire-cars-generally/
-- Rental cars: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/rental-cars/
-- Taxis: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/taxis/
+- Buses having a gross vehicle mass of more than 3.5 tonnes (Table B): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/buses-having-a-gross-vehicle-mass-of-more-than-3-5-tonnes/
+- Generally (Table B): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/generally-058867/
+- Cars used to provide basic service ride-sourcing, ride-hailing or ride-sharing services (e.g. UberX) (Table B): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/cars-used-to-provide-basic-service-ride-sourcing-ride/
+- Generally (including cars used to provide premium service ride-sourcing, ride-hailing or ride-sharing services e.g. UberBLACK) (Table B): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/hire-cars-generally/
+- Rental cars (Table B): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/rental-cars/
+- Taxis (Table B): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/taxis/
 - Garbage compactor trucks – see Table A Solid waste collection services (29110): https://duguid.com.au/tools/depreciation-rates/industry/solid-waste-collection-services/
-- Light commercial vehicles designed to carry a load of one tonne or greater and having a gross vehicle mass of 3.5 tonnes or less: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/light-commercial-vehicles-designed-to-carry-a-load-of-one/
-- Sedan limousines: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/sedan-limousines/
-- Stretch limousines: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/stretch-limousines/
-- Minibuses having a gross vehicle mass of 3.5 tonnes or less and designed to carry 9 or more passengers: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/minibuses-having-a-gross-vehicle-mass-of-3-5-tonnes-or-less/
+- Light commercial vehicles designed to carry a load of one tonne or greater and having a gross vehicle mass of 3.5 tonnes or less (Table B): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/light-commercial-vehicles-designed-to-carry-a-load-of-one/
+- Sedan limousines (Table B): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/sedan-limousines/
+- Stretch limousines (Table B): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/stretch-limousines/
+- Minibuses having a gross vehicle mass of 3.5 tonnes or less and designed to carry 9 or more passengers (Table B): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/minibuses-having-a-gross-vehicle-mass-of-3-5-tonnes-or-less/
 - Motorcycles (including courier motorcycles and mailbox delivery motorcycles): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/motorcycles/
-- Scooters: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/scooters/
-- Trailers having a gross vehicle mass greater than 4.5 tonnes: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/trailers-having-a-gross-vehicle-mass-greater-than-4-5-tonnes/
-- Aluminium, galvanised steel, galvanised hot dipped steel and powder coated trailers: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/aluminium-galvanised-steel-galvanised-hot-dipped-steel-and/
-- Mild steel trailers (painted and unpainted): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/mild-steel-trailers/
-- Trucks having a gross vehicle mass greater than 3.5 tonnes (excluding off highway trucks used in mining operations): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/trucks-having-a-gross-vehicle-mass-greater-than-3-5-tonnes/
+- Scooters (Motor vehicles and trailers): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/scooters/
+- Trailers having a gross vehicle mass greater than 4.5 tonnes (Table B): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/trailers-having-a-gross-vehicle-mass-greater-than-4-5-tonnes/
+- Aluminium, galvanised steel, galvanised hot dipped steel and powder coated trailers (Table B): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/aluminium-galvanised-steel-galvanised-hot-dipped-steel-and/
+- Mild steel trailers (painted and unpainted) (Table B): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/mild-steel-trailers/
+- Trucks having a gross vehicle mass greater than 3.5 tonnes (excluding off highway trucks used in mining operations) (Table B): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/trucks-having-a-gross-vehicle-mass-greater-than-3-5-tonnes/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -8,227 +8,231 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-ch
 
 86 effective lives in Table A of the Commissioner’s 2025 effective life determination for Basic organic chemical manufacturing.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Jump to an asset group
+
+Chemical manufacturing plant (not listed elsewhere) Ethanol manufacturing assets
 
 Rows of Basic organic chemical manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Chemical manufacturing plant (not listed elsewhere): | | | |
-Chemical manufacturing plant (not listed elsewhere): / General plant | 13 1/3 years | 7.50% | 15.00% | 1 January 2001
+Asset group · Chemical manufacturing plant (not listed elsewhere): | | | |
+Chemical manufacturing plant (not listed elsewhere): / General plant (Basic organic chemical manufacturing) | 13 1/3 years | 7.50% | 15.00% | 1 January 2001
 Chemical manufacturing plant (not listed elsewhere): / Organic peroxides explosion (cell block) | 20 years | 5.00% | 10.00% | 1 January 2001
-Ethanol manufacturing assets: | | | |
-Ethanol manufacturing assets: / Cooking assets: | | | |
+Asset group · Ethanol manufacturing assets: | | | |
+Asset group · Ethanol manufacturing assets: / Cooking assets: | | | |
 Ethanol manufacturing assets: / Cooking assets: / Filters and strainers | 15 years | 6.67% | 13.33% | 1 July 2012
-Ethanol manufacturing assets: / Cooking assets: / Flash tanks | 20 years | 5.00% | 10.00% | 1 July 2012
+Ethanol manufacturing assets: / Flash tanks (Cooking assets) | 20 years | 5.00% | 10.00% | 1 July 2012
 Ethanol manufacturing assets: / Cooking assets: / Jet cookers | 10 years | 10.00% | 20.00% | 1 July 2012
 Ethanol manufacturing assets: / Cooking assets: / Liquefaction tanks (including cook tubes and slurry tanks) | 20 years | 5.00% | 10.00% | 1 July 2012
 Ethanol manufacturing assets: / Cooking assets: / Meal mixers | 15 years | 6.67% | 13.33% | 1 July 2012
-Ethanol manufacturing assets: / Distillation and purification assets: | | | |
-Ethanol manufacturing assets: / Distillation and purification assets: / Distillation columns | 25 years | 4.00% | 8.00% | 1 July 2012
+Asset group · Ethanol manufacturing assets: / Distillation and purification assets: | | | |
+Ethanol manufacturing assets: / Distillation columns (Distillation and purification assets) | 25 years | 4.00% | 8.00% | 1 July 2012
 Ethanol manufacturing assets: / Distillation and purification assets: / Molecular sieve adsorption systems (incorporating condensers, control systems, coolers, heaters, molecular sieves, pumps, tanks and vacuum equipment) | 25 years | 4.00% | 8.00% | 1 July 2012
-Ethanol manufacturing assets: / Distillation and purification assets: / Reboilers | 20 years | 5.00% | 10.00% | 1 July 2012
-Ethanol manufacturing assets: / Distillation and purification assets: / Side stream strippers | 20 years | 5.00% | 10.00% | 1 July 2012
-Ethanol manufacturing assets: / Feedstock handling and storage assets: | | | |
-Ethanol manufacturing assets: / Feedstock handling and storage assets: / Grain assets: | | | |
+Ethanol manufacturing assets: / Reboilers (Distillation and purification assets) | 20 years | 5.00% | 10.00% | 1 July 2012
+Ethanol manufacturing assets: / Side stream strippers (Distillation and purification assets) | 20 years | 5.00% | 10.00% | 1 July 2012
+Asset group · Ethanol manufacturing assets: / Feedstock handling and storage assets: | | | |
+Asset group · Ethanol manufacturing assets: / Feedstock handling and storage assets: / Grain assets: | | | |
 Ethanol manufacturing assets: / Feedstock handling and storage assets: / Grain assets: / Cleaning assets (including magnetic separators, screeners and sieves) | 20 years | 5.00% | 10.00% | 1 July 2012
-Ethanol manufacturing assets: / Feedstock handling and storage assets: / Grain assets: / Conveyor belt weighers | 15 years | 6.67% | 13.33% | 1 July 2012
+Ethanol manufacturing assets: / Feedstock handling and storage assets: / Conveyor belt weighers (Grain assets) | 15 years | 6.67% | 13.33% | 1 July 2012
 Ethanol manufacturing assets: / Feedstock handling and storage assets: / Grain assets: / Conveyors (including belt, drag and screw conveyors, bucket and rake elevators and chutes) | 15 years | 6.67% | 13.33% | 1 July 2012
-Ethanol manufacturing assets: / Feedstock handling and storage assets: / Grain assets: / Hoppers (including weigh hoppers) | 25 years | 4.00% | 8.00% | 1 July 2012
+Ethanol manufacturing assets: / Feedstock handling and storage assets: / Hoppers (including weigh hoppers) (Grain assets) | 25 years | 4.00% | 8.00% | 1 July 2012
 Ethanol manufacturing assets: / Feedstock handling and storage assets: / Grain assets: / Milling machines (including hammer and roller mills) | 20 years | 5.00% | 10.00% | 1 July 2012
 Ethanol manufacturing assets: / Feedstock handling and storage assets: / Grain assets: / Silo aerators | 15 years | 6.67% | 13.33% | 1 July 2012
-Ethanol manufacturing assets: / Feedstock handling and storage assets: / Grain assets: / Silos | 30 years | 3.33% | 6.67% | 1 July 2012
+Ethanol manufacturing assets: / Feedstock handling and storage assets: / Silos (Grain assets) | 30 years | 3.33% | 6.67% | 1 July 2012
 Ethanol manufacturing assets: / Feedstock handling and storage assets: / Grain assets: / Starch tanks | 25 years | 4.00% | 8.00% | 1 July 2012
-Ethanol manufacturing assets: / Feedstock handling and storage assets: / Molasses assets: | | | |
-Ethanol manufacturing assets: / Feedstock handling and storage assets: / Molasses assets: / Dam covers | 12 years | 8.33% | 16.67% | 1 July 2012
+Asset group · Ethanol manufacturing assets: / Feedstock handling and storage assets: / Molasses assets: | | | |
+Ethanol manufacturing assets: / Feedstock handling and storage assets: / Dam covers (Molasses assets) | 12 years | 8.33% | 16.67% | 1 July 2012
 Ethanol manufacturing assets: / Feedstock handling and storage assets: / Molasses assets: / Dam liners | 20 years | 5.00% | 10.00% | 1 July 2012
-Ethanol manufacturing assets: / Feedstock handling and storage assets: / Molasses assets: / Dams | 40 years | 2.50% | 5.00% | 1 July 2012
-Ethanol manufacturing assets: / Feedstock handling and storage assets: / Molasses assets: / Pipelines (incorporating fittings and valves) | 25 years | 4.00% | 8.00% | 1 July 2012
+Ethanol manufacturing assets: / Feedstock handling and storage assets: / Dams (Molasses assets) | 40 years | 2.50% | 5.00% | 1 July 2012
+Ethanol manufacturing assets: / Feedstock handling and storage assets: / Pipelines (incorporating fittings and valves) (Molasses assets) | 25 years | 4.00% | 8.00% | 1 July 2012
 Ethanol manufacturing assets: / Feedstock handling and storage assets: / Molasses assets: / Receival station control systems | 10 years | 10.00% | 20.00% | 1 July 2012
 Ethanol manufacturing assets: / Feedstock handling and storage assets: / Molasses assets: / Receival troughs (incorporating protective cladding, rails and roofing) | 40 years | 2.50% | 5.00% | 1 July 2012
-Ethanol manufacturing assets: / Feedstock handling and storage assets: / Molasses assets: / Tanks | 30 years | 3.33% | 6.67% | 1 July 2012
-Ethanol manufacturing assets: / Fermentation assets: | | | |
-Ethanol manufacturing assets: / Fermentation assets: / Chillers | 20 years | 5.00% | 10.00% | 1 July 2012
-Ethanol manufacturing assets: / Fermentation assets: / Fermentation tanks | 30 years | 3.33% | 6.67% | 1 July 2012
-Ethanol manufacturing assets: / Fermentation assets: / Scrubbers | 20 years | 5.00% | 10.00% | 1 July 2012
+Ethanol manufacturing assets: / Feedstock handling and storage assets: / Tanks (Molasses assets) | 30 years | 3.33% | 6.67% | 1 July 2012
+Asset group · Ethanol manufacturing assets: / Fermentation assets: | | | |
+Ethanol manufacturing assets: / Chillers (Fermentation assets) | 20 years | 5.00% | 10.00% | 1 July 2012
+Ethanol manufacturing assets: / Fermentation tanks (Fermentation assets) | 30 years | 3.33% | 6.67% | 1 July 2012
+Ethanol manufacturing assets: / Scrubbers (Fermentation assets) | 20 years | 5.00% | 10.00% | 1 July 2012
 Ethanol manufacturing assets: / Fermentation assets: / Yeast propagation vessels | 20 years | 5.00% | 10.00% | 1 July 2012
-Ethanol manufacturing assets: / Fermentation assets: / Yeast recovery assets (molasses feedstock): | | | |
+Asset group · Ethanol manufacturing assets: / Fermentation assets: / Yeast recovery assets (molasses feedstock): | | | |
 Ethanol manufacturing assets: / Fermentation assets: / Yeast recovery assets (molasses feedstock): / Centrifugal separators | 20 years | 5.00% | 10.00% | 1 July 2012
 Ethanol manufacturing assets: / Fermentation assets: / Yeast recovery assets (molasses feedstock): / Filtering assets (including feed tanks, filtering vessels and hydrocyclone systems) | 20 years | 5.00% | 10.00% | 1 July 2012
 Ethanol manufacturing assets: / Fermentation assets: / Yeast recovery assets (molasses feedstock): / Hoppers, mixing tanks and storage tanks | 25 years | 4.00% | 8.00% | 1 July 2012
-Ethanol manufacturing assets: / Stillage assets: | | | |
-Ethanol manufacturing assets: / Stillage assets: / Distillers grain assets: | | | |
-Ethanol manufacturing assets: / Stillage assets: / Distillers grain assets: / Centrifugal decanters | 15 years | 6.67% | 13.33% | 1 July 2012
-Ethanol manufacturing assets: / Stillage assets: / Distillers grain assets: / Conveyors | 15 years | 6.67% | 13.33% | 1 July 2012
+Asset group · Ethanol manufacturing assets: / Stillage assets: | | | |
+Asset group · Ethanol manufacturing assets: / Stillage assets: / Distillers grain assets: | | | |
+Ethanol manufacturing assets: / Stillage assets: / Centrifugal decanters (Distillers grain assets) | 15 years | 6.67% | 13.33% | 1 July 2012
+Ethanol manufacturing assets: / Stillage assets: / Conveyors (Distillers grain assets) | 15 years | 6.67% | 13.33% | 1 July 2012
 Ethanol manufacturing assets: / Stillage assets: / Distillers grain assets: / Cooling assets for dried distillers grain (including blowers and fans, chillers, ducting and other cooling assets) | 20 years | 5.00% | 10.00% | 1 July 2012
-Ethanol manufacturing assets: / Stillage assets: / Distillers grain assets: / Evaporators | 25 years | 4.00% | 8.00% | 1 July 2012
-Ethanol manufacturing assets: / Stillage assets: / Distillers grain assets: / Mixers | 15 years | 6.67% | 13.33% | 1 July 2012
+Ethanol manufacturing assets: / Stillage assets: / Evaporators (Distillers grain assets) | 25 years | 4.00% | 8.00% | 1 July 2012
+Ethanol manufacturing assets: / Stillage assets: / Mixers (Distillers grain assets) | 15 years | 6.67% | 13.33% | 1 July 2012
 Ethanol manufacturing assets: / Stillage assets: / Distillers grain assets: / Rotary drum dryers | 20 years | 5.00% | 10.00% | 1 July 2012
 Ethanol manufacturing assets: / Stillage assets: / Distillers grain assets: / Stillage and syrup tanks | 25 years | 4.00% | 8.00% | 1 July 2012
-Ethanol manufacturing assets: / Stillage assets: / Dunder and stillage assets (molasses feedstock): | | | |
+Asset group · Ethanol manufacturing assets: / Stillage assets: / Dunder and stillage assets (molasses feedstock): | | | |
 Ethanol manufacturing assets: / Stillage assets: / Dunder and stillage assets (molasses feedstock): / Conveyors and hoppers for fertiliser additives | 15 years | 6.67% | 13.33% | 1 July 2012
-Ethanol manufacturing assets: / Stillage assets: / Dunder and stillage assets (molasses feedstock): / Dam covers | 12 years | 8.33% | 16.67% | 1 July 2012
-Ethanol manufacturing assets: / Stillage assets: / Dunder and stillage assets (molasses feedstock): / Dams | 40 years | 2.50% | 5.00% | 1 July 2012
-Ethanol manufacturing assets: / Stillage assets: / Dunder and stillage assets (molasses feedstock): / Pipelines (incorporating fittings and valves) | 25 years | 4.00% | 8.00% | 1 July 2012
+Ethanol manufacturing assets: / Stillage assets: / Dunder and stillage assets (molasses feedstock): / Dam covers (Dunder and stillage assets …) | 12 years | 8.33% | 16.67% | 1 July 2012
+Ethanol manufacturing assets: / Stillage assets: / Dunder and stillage assets (molasses feedstock): / Dams (Dunder and stillage assets …) | 40 years | 2.50% | 5.00% | 1 July 2012
+Ethanol manufacturing assets: / Stillage assets: / Dunder and stillage assets (molasses feedstock): / Pipelines (incorporating fittings and valves) (Dunder and stillage assets …) | 25 years | 4.00% | 8.00% | 1 July 2012
 Ethanol manufacturing assets: / Stillage assets: / Dunder and stillage assets (molasses feedstock): / Tanks (including fertiliser additive mixing and buffer tanks) | 20 years | 5.00% | 10.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: | | | |
-Ethanol manufacturing assets: / Support and other assets: / Additive dosing systems (including pipes, pumps and tanks): | | | |
-Ethanol manufacturing assets: / Support and other assets: / Additive dosing systems (including pipes, pumps and tanks): / Plastic | 5 years | 20.00% | 40.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Additive dosing systems (including pipes, pumps and tanks): / Other | 20 years | 5.00% | 10.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Air compression assets: | | | |
-Ethanol manufacturing assets: / Support and other assets: / Air compression assets: / Air compressors | 15 years | 6.67% | 13.33% | 1 July 2012
+Asset group · Ethanol manufacturing assets: / Support and other assets: | | | |
+Asset group · Ethanol manufacturing assets: / Support and other assets: / Additive dosing systems (including pipes, pumps and tanks): | | | |
+Ethanol manufacturing assets: / Support and other assets: / Additive dosing systems (including pipes, pumps and tanks): / Plastic (Additive dosing systems …) | 5 years | 20.00% | 40.00% | 1 July 2012
+Ethanol manufacturing assets: / Support and other assets: / Additive dosing systems (including pipes, pumps and tanks): / Other (Additive dosing systems …) | 20 years | 5.00% | 10.00% | 1 July 2012
+Asset group · Ethanol manufacturing assets: / Support and other assets: / Air compression assets: | | | |
+Ethanol manufacturing assets: / Support and other assets: / Air compressors (Air compression assets) | 15 years | 6.67% | 13.33% | 1 July 2012
 Ethanol manufacturing assets: / Support and other assets: / Air compression assets: / Air drying and filtering systems | 12 years | 8.33% | 16.67% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Air compression assets: / Air receivers | 20 years | 5.00% | 10.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Blowers and fans | 20 years | 5.00% | 10.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Boilers | 20 years | 5.00% | 10.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Control system assets: | | | |
+Ethanol manufacturing assets: / Support and other assets: / Air compression assets: / Air receivers (Basic organic chemical manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2012
+Ethanol manufacturing assets: / Blowers and fans (Support and other assets) | 20 years | 5.00% | 10.00% | 1 July 2012
+Ethanol manufacturing assets: / Boilers (Support and other assets) | 20 years | 5.00% | 10.00% | 1 July 2012
+Asset group · Ethanol manufacturing assets: / Support and other assets: / Control system assets: | | | |
 Ethanol manufacturing assets: / Support and other assets: / Control system assets: / Control cabinets and panels, programmable logic controllers (PLCs), switchgear and variable speed drives (VSDs) | 10 years | 10.00% | 20.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Control system assets: / System monitoring assets (including instrumentation and sensors and transmitters for level, pressure, speed and temperature measurement) | 10 years | 10.00% | 20.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Cooling towers | 20 years | 5.00% | 10.00% | 1 July 2012
+Ethanol manufacturing assets: / Support and other assets: / Control system assets: / System monitoring assets (including instrumentation and sensors and transmitters for level, pressure, speed and temperature measurement) (Basic organic chemical manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2012
+Ethanol manufacturing assets: / Cooling towers (Support and other assets) | 20 years | 5.00% | 10.00% | 1 July 2012
 Ethanol manufacturing assets: / Support and other assets: / Dust collection systems (including baghouses, cyclones and other dust collection assets) | 20 years | 5.00% | 10.00% | 1 July 2012
 Ethanol manufacturing assets: / Support and other assets: / Heat exchangers (excluding column reboilers) | 15 years | 6.67% | 13.33% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Laboratory assets: | | | |
-Ethanol manufacturing assets: / Support and other assets: / Laboratory assets: / Analysers | 10 years | 10.00% | 20.00% | 1 July 2012
+Asset group · Ethanol manufacturing assets: / Support and other assets: / Laboratory assets: | | | |
+Ethanol manufacturing assets: / Support and other assets: / Laboratory assets: / Analysers (Basic organic chemical manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2012
 Ethanol manufacturing assets: / Support and other assets: / Laboratory assets: / Other laboratory equipment (including autoclaves, centrifuges, drying ovens, fume cupboards and UV sterilisers) | 10 years | 10.00% | 20.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Piping assets: | | | |
-Ethanol manufacturing assets: / Support and other assets: / Piping assets: / Flow meters | 10 years | 10.00% | 20.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Piping assets: / Pipes | 25 years | 4.00% | 8.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Piping assets: / Valves | 10 years | 10.00% | 20.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Pumps | 15 years | 6.67% | 13.33% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Safety assets: | | | |
-Ethanol manufacturing assets: / Support and other assets: / Safety assets: / Fire control and alarm assets – see Table B | | | |
-Ethanol manufacturing assets: / Support and other assets: / Safety assets: / Gas detectors: | | | |
-Ethanol manufacturing assets: / Support and other assets: / Safety assets: / Gas detectors: / Fixed | 10 years | 10.00% | 20.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Safety assets: / Gas detectors: / Portable | 4 years | 25.00% | 50.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Tanker filling assets: | | | |
+Asset group · Ethanol manufacturing assets: / Support and other assets: / Piping assets: | | | |
+Ethanol manufacturing assets: / Support and other assets: / Piping assets: / Flow meters (Basic organic chemical manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2012
+Ethanol manufacturing assets: / Support and other assets: / Pipes (Piping assets) | 25 years | 4.00% | 8.00% | 1 July 2012
+Ethanol manufacturing assets: / Support and other assets: / Piping assets: / Valves (Basic organic chemical manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2012
+Ethanol manufacturing assets: / Pumps (Support and other assets) | 15 years | 6.67% | 13.33% | 1 July 2012
+Asset group · Ethanol manufacturing assets: / Support and other assets: / Safety assets: | | | |
+Register note · Ethanol manufacturing assets: / Support and other assets: / Safety assets: / Fire control and alarm assets – see Table B | | | |
+Asset group · Ethanol manufacturing assets: / Support and other assets: / Safety assets: / Gas detectors: | | | |
+Ethanol manufacturing assets: / Support and other assets: / Safety assets: / Gas detectors: / Fixed (Basic organic chemical manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2012
+Ethanol manufacturing assets: / Support and other assets: / Safety assets: / Gas detectors: / Portable (Basic organic chemical manufacturing) | 4 years | 25.00% | 50.00% | 1 July 2012
+Asset group · Ethanol manufacturing assets: / Support and other assets: / Tanker filling assets: | | | |
 Ethanol manufacturing assets: / Support and other assets: / Tanker filling assets: / Automated dispensing systems | 10 years | 10.00% | 20.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Tanker filling assets: / Automatic tank gauges | 10 years | 10.00% | 20.00% | 1 July 2012
+Ethanol manufacturing assets: / Support and other assets: / Automatic tank gauges (Tanker filling assets) | 10 years | 10.00% | 20.00% | 1 July 2012
 Ethanol manufacturing assets: / Support and other assets: / Tanker filling assets: / Fire protection systems (incorporating auxiliary monitors, fire and UV detectors, fire indicator panels, fire retardant lines and foam storage tanks) | 15 years | 6.67% | 13.33% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Tanker filling assets: / Hoses | 2 years | 50.00% | 100.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Tanker filling assets: / Loading and unloading arms (incorporating balance mechanisms, couplers, drop hoses and swivels) | 10 years | 10.00% | 20.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Tanker filling assets: / Meters and metering systems | 7 years | 14.29% | 28.57% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Tanker filling assets: / Overfill protection systems | 10 years | 10.00% | 20.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Tanks: | | | |
-Ethanol manufacturing assets: / Support and other assets: / Tanks: / Chemical tanks (including clean–in-place (CIP) tanks): | | | |
-Ethanol manufacturing assets: / Support and other assets: / Tanks: / Chemical tanks (including clean–in-place (CIP) tanks): / Plastic | 15 years | 6.67% | 13.33% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Tanks: / Chemical tanks (including clean–in-place (CIP) tanks): / Other | 20 years | 5.00% | 10.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Tanks: / Ethanol and petroleum tanks: | | | |
-Ethanol manufacturing assets: / Support and other assets: / Tanks: / Ethanol and petroleum tanks: / Stainless steel | 30 years | 3.33% | 6.67% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Tanks: / Ethanol and petroleum tanks: / Other | 25 years | 4.00% | 8.00% | 1 July 2012
+Ethanol manufacturing assets: / Support and other assets: / Hoses (Tanker filling assets) | 2 years | 50.00% | 100.00% | 1 July 2012
+Ethanol manufacturing assets: / Support and other assets: / Loading and unloading arms (incorporating balance mechanisms, couplers, drop hoses and swivels) (Tanker filling assets) | 10 years | 10.00% | 20.00% | 1 July 2012
+Ethanol manufacturing assets: / Support and other assets: / Meters and metering systems (Tanker filling assets) | 7 years | 14.29% | 28.57% | 1 July 2012
+Ethanol manufacturing assets: / Support and other assets: / Overfill protection systems (Tanker filling assets) | 10 years | 10.00% | 20.00% | 1 July 2012
+Asset group · Ethanol manufacturing assets: / Support and other assets: / Tanks: | | | |
+Asset group · Ethanol manufacturing assets: / Support and other assets: / Tanks: / Chemical tanks (including clean–in-place (CIP) tanks): | | | |
+Ethanol manufacturing assets: / Support and other assets: / Tanks: / Chemical tanks (including clean–in-place (CIP) tanks): / Plastic (Chemical tanks …) | 15 years | 6.67% | 13.33% | 1 July 2012
+Ethanol manufacturing assets: / Support and other assets: / Tanks: / Chemical tanks (including clean–in-place (CIP) tanks): / Other (Chemical tanks …) | 20 years | 5.00% | 10.00% | 1 July 2012
+Asset group · Ethanol manufacturing assets: / Support and other assets: / Tanks: / Ethanol and petroleum tanks: | | | |
+Ethanol manufacturing assets: / Support and other assets: / Tanks: / Stainless steel (Ethanol and petroleum tanks) | 30 years | 3.33% | 6.67% | 1 July 2012
+Ethanol manufacturing assets: / Support and other assets: / Tanks: / Other (Ethanol and petroleum tanks) | 25 years | 4.00% | 8.00% | 1 July 2012
 Ethanol manufacturing assets: / Support and other assets: / Tanks: / Water tanks (including condensate collection tanks) | 25 years | 4.00% | 8.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Vapour condensers | 20 years | 5.00% | 10.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Waste water treatment assets: | | | |
-Ethanol manufacturing assets: / Support and other assets: / Waste water treatment assets: / Aerators | 20 years | 5.00% | 10.00% | 1 July 2012
+Ethanol manufacturing assets: / Vapour condensers (Support and other assets) | 20 years | 5.00% | 10.00% | 1 July 2012
+Asset group · Ethanol manufacturing assets: / Support and other assets: / Waste water treatment assets: | | | |
+Ethanol manufacturing assets: / Support and other assets: / Waste water treatment assets: / Aerators (Basic organic chemical manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2012
 Ethanol manufacturing assets: / Support and other assets: / Waste water treatment assets: / Biogas system assets (excluding effluent pond covers) | 25 years | 4.00% | 8.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Waste water treatment assets: / Digester/aeration tanks | 25 years | 4.00% | 8.00% | 1 July 2012
+Ethanol manufacturing assets: / Support and other assets: / Waste water treatment assets: / Digester/aeration tanks (Basic organic chemical manufacturing) | 25 years | 4.00% | 8.00% | 1 July 2012
 Ethanol manufacturing assets: / Support and other assets: / Waste water treatment assets: / Effluent channels and ponds | 40 years | 2.50% | 5.00% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Waste water treatment assets: / Pond covers | 12 years | 8.33% | 16.67% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Waste water treatment assets: / Pond liners | 20 years | 5.00% | 10.00% | 1 July 2012
+Ethanol manufacturing assets: / Support and other assets: / Pond covers (Waste water treatment assets) | 12 years | 8.33% | 16.67% | 1 July 2012
+Ethanol manufacturing assets: / Support and other assets: / Pond liners (Waste water treatment assets) | 20 years | 5.00% | 10.00% | 1 July 2012
 Ethanol manufacturing assets: / Support and other assets: / Water filtration assets (including ion exchange assets and reverse osmosis assets) | 15 years | 6.67% | 13.33% | 1 July 2012
-Ethanol manufacturing assets: / Support and other assets: / Weighbridges | 20 years | 5.00% | 10.00% | 1 July 2012
+Ethanol manufacturing assets: / Weighbridges (Support and other assets) | 20 years | 5.00% | 10.00% | 1 July 2012
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- Chemical manufacturing plant (not listed elsewhere): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/#asset-group-1
+- Ethanol manufacturing assets: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/#asset-group-4
 - source determination: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/#source
-- General plant: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/general-plant/
+- General plant (Basic organic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/general-plant/
 - Organic peroxides explosion (cell block): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/organic-peroxides-explosion/
 - Filters and strainers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/filters-and-strainers/
-- Flash tanks: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/flash-tanks/
+- Flash tanks (Cooking assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/flash-tanks/
 - Jet cookers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/jet-cookers/
 - Liquefaction tanks (including cook tubes and slurry tanks): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/liquefaction-tanks/
 - Meal mixers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/meal-mixers/
-- Distillation columns: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/distillation-columns/
+- Distillation columns (Distillation and purification assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/distillation-columns/
 - Molecular sieve adsorption systems (incorporating condensers, control systems, coolers, heaters, molecular sieves, pumps, tanks and vacuum equipment): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/molecular-sieve-adsorption-systems/
-- Reboilers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/reboilers/
-- Side stream strippers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/side-stream-strippers/
+- Reboilers (Distillation and purification assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/reboilers/
+- Side stream strippers (Distillation and purification assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/side-stream-strippers/
 - Cleaning assets (including magnetic separators, screeners and sieves): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/cleaning-assets/
-- Conveyor belt weighers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/conveyor-belt-weighers/
+- Conveyor belt weighers (Grain assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/conveyor-belt-weighers/
 - Conveyors (including belt, drag and screw conveyors, bucket and rake elevators and chutes): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/grain-assets-conveyors/
-- Hoppers (including weigh hoppers): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/hoppers/
+- Hoppers (including weigh hoppers) (Grain assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/hoppers/
 - Milling machines (including hammer and roller mills): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/milling-machines/
 - Silo aerators: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/silo-aerators/
-- Silos: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/silos/
+- Silos (Grain assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/silos/
 - Starch tanks: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/starch-tanks/
-- Dam covers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/molasses-assets-dam-covers/
+- Dam covers (Molasses assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/molasses-assets-dam-covers/
 - Dam liners: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/dam-liners/
-- Dams: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/molasses-assets-dams/
-- Pipelines (incorporating fittings and valves): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/molasses-assets-pipelines/
+- Dams (Molasses assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/molasses-assets-dams/
+- Pipelines (incorporating fittings and valves) (Molasses assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/molasses-assets-pipelines/
 - Receival station control systems: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/receival-station-control-systems/
 - Receival troughs (incorporating protective cladding, rails and roofing): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/receival-troughs/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/molasses-assets-tanks/
-- Chillers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/chillers/
-- Fermentation tanks: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/fermentation-tanks/
-- Scrubbers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/scrubbers/
+- Tanks (Molasses assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/molasses-assets-tanks/
+- Chillers (Fermentation assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/chillers/
+- Fermentation tanks (Fermentation assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/fermentation-tanks/
+- Scrubbers (Fermentation assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/scrubbers/
 - Yeast propagation vessels: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/yeast-propagation-vessels/
 - Centrifugal separators: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/centrifugal-separators/
 - Filtering assets (including feed tanks, filtering vessels and hydrocyclone systems): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/filtering-assets/
 - Hoppers, mixing tanks and storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/hoppers-mixing-tanks-and-storage-tanks/
-- Centrifugal decanters: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/centrifugal-decanters/
-- Conveyors: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/distillers-grain-assets-conveyors/
+- Centrifugal decanters (Distillers grain assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/centrifugal-decanters/
+- Conveyors (Distillers grain assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/distillers-grain-assets-conveyors/
 - Cooling assets for dried distillers grain (including blowers and fans, chillers, ducting and other cooling assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/cooling-assets-for-dried-distillers-grain/
-- Evaporators: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/evaporators/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/mixers/
+- Evaporators (Distillers grain assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/evaporators/
+- Mixers (Distillers grain assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/mixers/
 - Rotary drum dryers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/rotary-drum-dryers/
 - Stillage and syrup tanks: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/stillage-and-syrup-tanks/
 - Conveyors and hoppers for fertiliser additives: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/conveyors-and-hoppers-for-fertiliser-additives/
-- Dam covers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/dunder-and-stillage-assets-dam-covers/
-- Dams: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/dunder-and-stillage-assets-dams/
-- Pipelines (incorporating fittings and valves): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/dunder-and-stillage-assets-pipelines/
+- Dam covers (Dunder and stillage assets …): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/dunder-and-stillage-assets-dam-covers/
+- Dams (Dunder and stillage assets …): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/dunder-and-stillage-assets-dams/
+- Pipelines (incorporating fittings and valves) (Dunder and stillage assets …): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/dunder-and-stillage-assets-pipelines/
 - Tanks (including fertiliser additive mixing and buffer tanks): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/dunder-and-stillage-assets-tanks/
-- Plastic: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/additive-dosing-systems-plastic/
-- Other: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/additive-dosing-systems-other/
-- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/air-compressors/
+- Plastic (Additive dosing systems …): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/additive-dosing-systems-plastic/
+- Other (Additive dosing systems …): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/additive-dosing-systems-other/
+- Air compressors (Air compression assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/air-compressors/
 - Air drying and filtering systems: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/air-drying-and-filtering-systems/
-- Air receivers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/air-receivers/
-- Blowers and fans: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/blowers-and-fans/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/boilers/
+- Air receivers (Basic organic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/air-receivers/
+- Blowers and fans (Support and other assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/blowers-and-fans/
+- Boilers (Support and other assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/boilers/
 - Control cabinets and panels, programmable logic controllers (PLCs), switchgear and variable speed drives (VSDs): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/control-cabinets-and-panels-programmable-logic-controllers/
-- System monitoring assets (including instrumentation and sensors and transmitters for level, pressure, speed and temperature measurement): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/system-monitoring-assets/
-- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/cooling-towers/
+- System monitoring assets (including instrumentation and sensors and transmitters for level, pressure, speed and temperature measurement) (Basic organic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/system-monitoring-assets/
+- Cooling towers (Support and other assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/cooling-towers/
 - Dust collection systems (including baghouses, cyclones and other dust collection assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/dust-collection-systems/
 - Heat exchangers (excluding column reboilers): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/heat-exchangers/
-- Analysers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/analysers/
+- Analysers (Basic organic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/analysers/
 - Other laboratory equipment (including autoclaves, centrifuges, drying ovens, fume cupboards and UV sterilisers): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/other-laboratory-equipment/
-- Flow meters: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/flow-meters/
-- Pipes: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/pipes/
-- Valves: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/valves/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/pumps/
-- Fixed: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/fixed/
-- Portable: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/portable/
+- Flow meters (Basic organic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/flow-meters/
+- Pipes (Piping assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/pipes/
+- Valves (Basic organic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/valves/
+- Pumps (Support and other assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/pumps/
+- Fixed (Basic organic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/fixed/
+- Portable (Basic organic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/portable/
 - Automated dispensing systems: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/automated-dispensing-systems/
-- Automatic tank gauges: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/automatic-tank-gauges/
+- Automatic tank gauges (Tanker filling assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/automatic-tank-gauges/
 - Fire protection systems (incorporating auxiliary monitors, fire and UV detectors, fire indicator panels, fire retardant lines and foam storage tanks): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/fire-protection-systems/
-- Hoses: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/hoses/
-- Loading and unloading arms (incorporating balance mechanisms, couplers, drop hoses and swivels): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/loading-and-unloading-arms/
-- Meters and metering systems: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/meters-and-metering-systems/
-- Overfill protection systems: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/overfill-protection-systems/
-- Plastic: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/chemical-tanks-plastic/
-- Other: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/chemical-tanks-other/
-- Stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/stainless-steel/
-- Other: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/ethanol-and-petroleum-tanks-other/
+- Hoses (Tanker filling assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/hoses/
+- Loading and unloading arms (incorporating balance mechanisms, couplers, drop hoses and swivels) (Tanker filling assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/loading-and-unloading-arms/
+- Meters and metering systems (Tanker filling assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/meters-and-metering-systems/
+- Overfill protection systems (Tanker filling assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/overfill-protection-systems/
+- Plastic (Chemical tanks …): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/chemical-tanks-plastic/
+- Other (Chemical tanks …): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/chemical-tanks-other/
+- Stainless steel (Ethanol and petroleum tanks): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/stainless-steel/
+- Other (Ethanol and petroleum tanks): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/ethanol-and-petroleum-tanks-other/
 - Water tanks (including condensate collection tanks): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/water-tanks/
-- Vapour condensers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/vapour-condensers/
-- Aerators: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/aerators/
+- Vapour condensers (Support and other assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/vapour-condensers/
+- Aerators (Basic organic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/aerators/
 - Biogas system assets (excluding effluent pond covers): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/biogas-system-assets/
-- Digester/aeration tanks: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/digester-aeration-tanks/
+- Digester/aeration tanks (Basic organic chemical manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/digester-aeration-tanks/
 - Effluent channels and ponds: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/effluent-channels-and-ponds/
-- Pond covers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/pond-covers/
-- Pond liners: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/pond-liners/
+- Pond covers (Waste water treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/pond-covers/
+- Pond liners (Waste water treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/pond-liners/
 - Water filtration assets (including ion exchange assets and reverse osmosis assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/water-filtration-assets/
-- Weighbridges: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/weighbridges/
+- Weighbridges (Support and other assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/weighbridges/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

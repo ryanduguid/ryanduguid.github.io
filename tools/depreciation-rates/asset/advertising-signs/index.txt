@@ -8,41 +8,39 @@ Source: https://duguid.com.au/tools/depreciation-rates/asset/advertising-signs/
 
 11 effective lives in Table B of the Commissioner’s 2025 effective life determination under Advertising signs.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Advertising signs. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Billboard assets: | | | |
-Billboard assets: / Billboard lighting: | | | |
+Asset group · Billboard assets: | | | |
+Asset group · Billboard assets: / Billboard lighting: | | | |
 Billboard assets: / Billboard lighting: / HID/Metal halide lighting systems | 5 years | 20.00% | 40.00% | 1 July 2015
 Billboard assets: / Billboard lighting: / LED lighting systems (including solar powered LED lighting systems) | 10 years | 10.00% | 20.00% | 1 July 2015
-Billboard assets: / Billboard lighting: / Solar power generating assets – see Table B Solar photovoltaic electricity generation system assets | | | |
+Register note · Billboard assets: / Billboard lighting: / Solar power generating assets – see Table B Solar photovoltaic electricity generation system assets | | | |
 Billboard assets: / Billboard steel structures (incorporating electrical systems, footings, scaffolding and walking platforms and steel frame sign panels) | 20 years | 5.00% | 10.00% | 1 July 2015
-Billboard assets: / Computer hardware – see Table B Computers | | | |
-Billboard assets: / Digital LED screens | 6 years | 16.67% | 33.33% | 1 July 2015
+Register note · Billboard assets: / Computer hardware – see Table B Computers | | | |
+Digital LED screens (Billboard assets) | 6 years | 16.67% | 33.33% | 1 July 2015
 Billboard assets: / Electronic message centre (EMC) units | 3 years | 33.33% | 66.67% | 1 July 2015
-Billboard assets: / Mobile billboard assets: | | | |
-Billboard assets: / Mobile billboard assets: / Digital LED screens | 4 years | 25.00% | 50.00% | 1 July 2015
-Billboard assets: / Mobile billboard assets: / Mobile billboard trucks and trailers – see Table B Motor vehicles and trailers | | | |
+Asset group · Billboard assets: / Mobile billboard assets: | | | |
+Billboard assets: / Digital LED screens (Mobile billboard assets) | 4 years | 25.00% | 50.00% | 1 July 2015
+Register note · Billboard assets: / Mobile billboard assets: / Mobile billboard trucks and trailers – see Table B Motor vehicles and trailers | | | |
 Floor mounted internal advertising panels (used in airports and shopping centres etc) | 7 years | 14.29% | 28.57% | 1 July 2015
 Kiosks and other external standalone advertising panel structures | 15 years | 6.67% | 13.33% | 1 July 2015
 LED advertising screens (used in office tower foyers etc) | 5 years | 20.00% | 40.00% | 1 July 2015
-Wall mounted advertising panels (used in airports, rail concourses and platforms, shopping centres etc): | | | |
+Asset group · Wall mounted advertising panels (used in airports, rail concourses and platforms, shopping centres etc): | | | |
 Wall mounted advertising panels (used in airports, rail concourses and platforms, shopping centres etc): / Digital LED advertising panels | 5 years | 20.00% | 40.00% | 1 July 2015
 Wall mounted advertising panels (used in airports, rail concourses and platforms, shopping centres etc): / Static advertising panels | 10 years | 10.00% | 20.00% | 1 July 2015
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
@@ -51,9 +49,9 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - LED lighting systems (including solar powered LED lighting systems): https://duguid.com.au/tools/depreciation-rates/asset/advertising-signs/led-lighting-systems/
 - Solar power generating assets – see Table B Solar photovoltaic electricity generation system assets: https://duguid.com.au/tools/depreciation-rates/asset/solar-photovoltaic-electricity/
 - Billboard steel structures (incorporating electrical systems, footings, scaffolding and walking platforms and steel frame sign panels): https://duguid.com.au/tools/depreciation-rates/asset/advertising-signs/billboard-steel-structures/
-- Digital LED screens: https://duguid.com.au/tools/depreciation-rates/asset/advertising-signs/digital-led-screens-185631/
+- Digital LED screens (Billboard assets): https://duguid.com.au/tools/depreciation-rates/asset/advertising-signs/digital-led-screens-185631/
 - Electronic message centre (EMC) units: https://duguid.com.au/tools/depreciation-rates/asset/advertising-signs/electronic-message-centre-units/
-- Digital LED screens: https://duguid.com.au/tools/depreciation-rates/asset/advertising-signs/mobile-billboard-assets-digital-led-screens/
+- Digital LED screens (Mobile billboard assets): https://duguid.com.au/tools/depreciation-rates/asset/advertising-signs/mobile-billboard-assets-digital-led-screens/
 - Mobile billboard trucks and trailers – see Table B Motor vehicles and trailers: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/
 - Floor mounted internal advertising panels (used in airports and shopping centres etc): https://duguid.com.au/tools/depreciation-rates/asset/advertising-signs/floor-mounted-internal-advertising-panels/
 - Kiosks and other external standalone advertising panel structures: https://duguid.com.au/tools/depreciation-rates/asset/advertising-signs/kiosks-and-other-external-standalone-advertising-panel/
@@ -61,7 +59,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Digital LED advertising panels: https://duguid.com.au/tools/depreciation-rates/asset/advertising-signs/digital-led-advertising-panels/
 - Static advertising panels: https://duguid.com.au/tools/depreciation-rates/asset/advertising-signs/static-advertising-panels/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

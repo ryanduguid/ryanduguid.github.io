@@ -25,14 +25,14 @@
 <label><input type="radio" name="dedicated" value="yes" checked /> Yes</label>
 <label><input type="radio" name="dedicated" value="no" /> No</label>
 </fieldset>
-<p class="field-note">Work-related amounts only, in dollars and cents. Enter 0 for an expense you did not have.</p>
+<p class="field-note" id="work-expenses-amounts-note">Enter work-related amounts in dollars and cents, or 0 for an expense you did not have. Other assets can include a computer or phone.</p>
 <label class="field" for="work-expenses-energy">Electricity and gas<input enterkeyhint="next" id="work-expenses-energy" name="energy" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
-<label class="field" for="work-expenses-phone">Mobile and home phone<input enterkeyhint="next" id="work-expenses-phone" name="phone" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-phone">Mobile and home phone costs (AUD)<input enterkeyhint="next" id="work-expenses-phone" name="phone" autocomplete="off" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
 <label class="field" for="work-expenses-internet">Internet<input enterkeyhint="next" id="work-expenses-internet" name="internet" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
 <label class="field" for="work-expenses-stationery">Stationery and computer consumables<input enterkeyhint="next" id="work-expenses-stationery" name="stationery" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
 <label class="field" for="work-expenses-cleaning">Cleaning<input enterkeyhint="next" id="work-expenses-cleaning" name="cleaning" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
 <label class="field" for="work-expenses-furniture-decline">Decline in value of home office furniture and furnishings<input enterkeyhint="next" id="work-expenses-furniture-decline" name="furniture-decline" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
-<label class="field" for="work-expenses-asset-decline">Decline in value of other assets, such as a computer or phone<input enterkeyhint="next" id="work-expenses-asset-decline" name="asset-decline" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-asset-decline">Decline in value of other assets (AUD)<input enterkeyhint="next" id="work-expenses-asset-decline" name="asset-decline" aria-describedby="work-expenses-amounts-note" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
 <label class="field" for="work-expenses-repairs">Repairs to those assets<input enterkeyhint="next" id="work-expenses-repairs" name="repairs" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
 </fieldset>
 <fieldset data-show-field="method" data-show-values="car_cents_per_kilometre car_log_book" hidden disabled><legend>Car</legend>

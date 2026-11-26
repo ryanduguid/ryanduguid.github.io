@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-
 
 ‘General: Tanks’, for an asset used in Plaster product manufacturing, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2011.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-Effective life and rates from F2025L01097, registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Tanks
 Under | Plasterboard and cornice manufacturing assets: / General:
@@ -25,99 +25,99 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in Plaster product manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Plaster product manufacturing, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
-The life was last reviewed and determined on 1 July 2011. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 July 2011. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under General
 
 Other rows under General. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
-Flow meters | 10 years | 10.00% | 20.00%
-Hoppers | 20 years | 5.00% | 10.00%
-Lump breakers | 20 years | 5.00% | 10.00%
-Pumps | 10 years | 10.00% | 20.00%
-Rotary valves | 15 years | 6.67% | 13.33%
-Silos (steel) | 20 years | 5.00% | 10.00%
+Flow meters (General) | 10 years | 10.00% | 20.00%
+Hoppers (General) | 20 years | 5.00% | 10.00%
+Lump breakers (General) | 20 years | 5.00% | 10.00%
+Pumps (General) | 10 years | 10.00% | 20.00%
+Rotary valves (General) | 15 years | 6.67% | 13.33%
+Silos (steel) (General) | 20 years | 5.00% | 10.00%
 Tanks (this page) | 20 years | 5.00% | 10.00%
 
 14 rows share this heading. The Plaster product manufacturing page lists them all.
 
-## The same wording elsewhere
+## Similarly named rows
 
-Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination). The first 20 of 21 are shown.
+Compare the full row description and industry. Similar names can cover different equipment or effective lives under section 6 of the determination. The first 20 of 21 are shown.
 
-The same wording elsewhere. Effective lives and rates from the source determination.
+Similarly named rows. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
-Tanks | AGRICULTURE, FORESTRY AND FISHING | 10 years | 10.00% | 20.00%
-Tanks | Fruit and tree nut growing | 10 years | 10.00% | 20.00%
+Tanks (AGRICULTURE, FORESTRY AND FISHING) | AGRICULTURE, FORESTRY AND FISHING | 10 years | 10.00% | 20.00%
+Tanks (Fruit and tree nut growing) | Fruit and tree nut growing | 10 years | 10.00% | 20.00%
 Tanks (including storage, mixing, process and balance tanks) | Dairy product manufacturing | 20 years | 5.00% | 10.00%
-Tanks | Sugar manufacturing | 30 years | 3.33% | 6.67%
+Tanks (Molasses storage assets) | Sugar manufacturing | 30 years | 3.33% | 6.67%
 Tanks (including holding, liquid storage and water) | Prepared animal and bird feed manufacturing | 20 years | 5.00% | 10.00%
-Tanks | Other food product manufacturing n.e.c. | 30 years | 3.33% | 6.67%
-Tanks | Pulp, paper and converted paper product manufacturing | 20 years | 5.00% | 10.00%
-Tanks | Industrial gas manufacturing | 30 years | 3.33% | 6.67%
-Tanks | Basic organic chemical manufacturing | 30 years | 3.33% | 6.67%
+Tanks (Support assets) | Other food product manufacturing n.e.c. | 30 years | 3.33% | 6.67%
+Tanks (Pulp and paper mill assets) | Pulp, paper and converted paper product manufacturing | 20 years | 5.00% | 10.00%
+Tanks (Liquid carbon dioxide … storage assets) | Industrial gas manufacturing | 30 years | 3.33% | 6.67%
+Tanks (Molasses assets) | Basic organic chemical manufacturing | 30 years | 3.33% | 6.67%
 Tanks (including fertiliser additive mixing and buffer tanks) | Basic organic chemical manufacturing | 20 years | 5.00% | 10.00%
-Tanks | Basic inorganic chemical manufacturing | 25 years | 4.00% | 8.00%
-Tanks | Other basic chemical product manufacturing n.e.c. | 40 years | 2.50% | 5.00%
-Tanks | Ready-mixed concrete manufacturing | 25 years | 4.00% | 8.00%
-Tanks | Iron smelting and steel manufacturing | 20 years | 5.00% | 10.00%
-Tanks | Motor vehicle manufacturing | 30 years | 3.33% | 6.67%
+Tanks (Nitric acid storage assets) | Basic inorganic chemical manufacturing | 25 years | 4.00% | 8.00%
+Tanks (Eucalyptus oil plant) | Other basic chemical product manufacturing n.e.c. | 40 years | 2.50% | 5.00%
+Tanks (Fuel storage assets) | Ready-mixed concrete manufacturing | 25 years | 4.00% | 8.00%
+Tanks (Iron smelting and steel manufacturing) | Iron smelting and steel manufacturing | 20 years | 5.00% | 10.00%
+Tanks (Waste water treatment assets) | Motor vehicle manufacturing | 30 years | 3.33% | 6.67%
 Tanks (including washing and water tanks) | Railway rolling stock manufacturing and repair services | 20 years | 5.00% | 10.00%
-Tanks | Airport operations and other air transport support services | 25 years | 4.00% | 8.00%
+Tanks (Fuel supply assets) | Airport operations and other air transport support services | 25 years | 4.00% | 8.00%
 Tanks (including waste oil tanks) | Automotive repair and maintenance | 20 years | 5.00% | 10.00%
-Tanks | Automotive body, paint and interior repair n.e.c. | 20 years | 5.00% | 10.00%
-Tanks | Automotive body, paint and interior repair n.e.c. | 15 years | 6.67% | 13.33%
+Tanks (Automotive body, paint and interior repair n.e.c.) | Automotive body, paint and interior repair n.e.c. | 20 years | 5.00% | 10.00%
+Tanks (Waste water filtering system assets) | Automotive body, paint and interior repair n.e.c. | 15 years | 6.67% | 13.33%
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 20 years.
+The depreciation calculator uses your cost, start date and this effective life of 20 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
-- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/tanks/#source
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/tanks/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
-- Flow meters: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/flow-meters/
-- Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/hoppers/
-- Lump breakers: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/lump-breakers/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/pumps/
-- Rotary valves: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/rotary-valves/
-- Silos (steel): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/silos/
+- Flow meters (General): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/flow-meters/
+- Hoppers (General): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/hoppers/
+- Lump breakers (General): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/lump-breakers/
+- Pumps (General): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/pumps/
+- Rotary valves (General): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/rotary-valves/
+- Silos (steel) (General): https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/silos/
 - Plaster product manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/plaster-product-manufacturing/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/tanks/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/tanks/
+- Tanks (AGRICULTURE, FORESTRY AND FISHING): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/tanks/
+- Tanks (Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/tanks/
 - Tanks (including storage, mixing, process and balance tanks): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/tanks/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/tanks/
+- Tanks (Molasses storage assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/tanks/
 - Tanks (including holding, liquid storage and water): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/tanks/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/tanks/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/pulp-paper-and-converted-paper-product/tanks/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/tanks/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/molasses-assets-tanks/
+- Tanks (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/tanks/
+- Tanks (Pulp and paper mill assets): https://duguid.com.au/tools/depreciation-rates/industry/pulp-paper-and-converted-paper-product/tanks/
+- Tanks (Liquid carbon dioxide … storage assets): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/tanks/
+- Tanks (Molasses assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/molasses-assets-tanks/
 - Tanks (including fertiliser additive mixing and buffer tanks): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/dunder-and-stillage-assets-tanks/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/tanks/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/other-basic-chemical-product/tanks/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/ready-mixed-concrete-manufacturing/tanks/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/tanks/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/tanks/
+- Tanks (Nitric acid storage assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/tanks/
+- Tanks (Eucalyptus oil plant): https://duguid.com.au/tools/depreciation-rates/industry/other-basic-chemical-product/tanks/
+- Tanks (Fuel storage assets): https://duguid.com.au/tools/depreciation-rates/industry/ready-mixed-concrete-manufacturing/tanks/
+- Tanks (Iron smelting and steel manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/tanks/
+- Tanks (Waste water treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/tanks/
 - Tanks (including washing and water tanks): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/tanks/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/tanks/
+- Tanks (Fuel supply assets): https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/tanks/
 - Tanks (including waste oil tanks): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/tanks/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/car-wash-and-detailing-assets-tanks/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/smash-repair-assets-tanks/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Tanks (Automotive body, paint and interior repair n.e.c.): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/car-wash-and-detailing-assets-tanks/
+- Tanks (Waste water filtering system assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-body-paint-and-interior/smash-repair-assets-tanks/
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

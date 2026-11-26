@@ -8,102 +8,100 @@ Source: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distr
 
 29 effective lives in Table B of the Commissioner’s 2025 effective life determination under Warehouse and distribution centre equipment and machines.
 
-Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
-
-A row with no life is a heading for the rows after it that name it, or points to another row.
 
 Rows of Warehouse and distribution centre equipment and machines. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Automated storage and retrieval machines | 20 years | 5.00% | 10.00% | 1 July 2011
-Balers | 15 years | 6.67% | 13.33% | 1 July 2011
-Battery assets for warehouse vehicles (including pallet trucks and forklifts): | | | |
-Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Batteries (detachable for recharging) | 5 years | 20.00% | 40.00% | 1 July 2011
-Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Battery chargers: | | | |
-Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Battery chargers: / Forklifts | 11 years | 9.09% | 18.18% | 1 July 2011
-Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Battery chargers: / Other | 10 years | 10.00% | 20.00% | 1 July 2011
-Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Handling assets: | | | |
-Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Handling assets: / Battery tuggers | 10 years | 10.00% | 20.00% | 1 July 2011
-Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Handling assets: / Racking roller beds | 15 years | 6.67% | 13.33% | 1 July 2011
-Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Handling assets: / Transfer carts | 10 years | 10.00% | 20.00% | 1 July 2011
-Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Handling assets: / Washers | 10 years | 10.00% | 20.00% | 1 July 2011
-Carts/buggies | 15 years | 6.67% | 13.33% | 1 July 2011
-Conveyors | 15 years | 6.67% | 13.33% | 1 July 2011
-Dock levellers, pallet jacks, pallet trucks and scissor lifts – see Table B Loading bay assets | | | |
-Door controls and motor drive systems (incorporating chains, controls, motors and sensors, but excluding doors): | | | |
-Door controls and motor drive systems (incorporating chains, controls, motors and sensors, but excluding doors): / External | 20 years | 5.00% | 10.00% | 1 July 2011
-Door controls and motor drive systems (incorporating chains, controls, motors and sensors, but excluding doors): / Internal | 10 years | 10.00% | 20.00% | 1 July 2011
-Floor sweepers/scrubbers | 10 years | 10.00% | 20.00% | 1 July 2011
-Forklift attachments: | | | |
-Forklift attachments: / Cages | 10 years | 10.00% | 20.00% | 1 July 2011
-Forklift attachments: / Push pull units | 11 years | 9.09% | 18.18% | 1 July 2011
-Inflatable dock bags/seals/shelters | 10 years | 10.00% | 20.00% | 1 July 2011
-Packaging machines and wrapping machines – see Table B Packaging machines | | | |
-Pallet assets: | | | |
-Pallet assets: / Dispensers | 15 years | 6.67% | 13.33% | 1 July 2011
-Pallet assets: / Lift tables | 10 years | 10.00% | 20.00% | 1 July 2011
-Racks | 20 years | 5.00% | 10.00% | 1 July 2011
-Radio frequency terminal assets: | | | |
-Radio frequency terminal assets: / Barcode readers/scanners | 5 years | 20.00% | 40.00% | 1 July 2011
-Radio frequency terminal assets: / Portable/handheld and vehicle mounted terminal devices | 4 years | 25.00% | 50.00% | 1 July 2011
-Refrigeration assets – see Table B Refrigeration assets | | | |
-Roll cages | 10 years | 10.00% | 20.00% | 1 July 2011
-Trolleys | 10 years | 10.00% | 20.00% | 1 July 2011
-Voice picking assets: | | | |
-Voice picking assets: / Battery chargers | 4 years | 25.00% | 50.00% | 1 July 2011
-Voice picking assets: / Headsets | 4 years | 25.00% | 50.00% | 1 July 2011
-Voice picking assets: / Terminals (on person) | 4 years | 25.00% | 50.00% | 1 July 2011
-Waste compactors (used for cardboard and plastic): | | | |
-Waste compactors (used for cardboard and plastic): / Electric | 15 years | 6.67% | 13.33% | 1 July 2011
-Waste compactors (used for cardboard and plastic): / Hydraulic | 20 years | 5.00% | 10.00% | 1 July 2011
+Automated storage and retrieval machines (Table B) | 20 years | 5.00% | 10.00% | 1 July 2011
+Balers (Table B) | 15 years | 6.67% | 13.33% | 1 July 2011
+Asset group · Battery assets for warehouse vehicles (including pallet trucks and forklifts): | | | |
+Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Batteries (detachable for recharging) (Table B) | 5 years | 20.00% | 40.00% | 1 July 2011
+Asset group · Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Battery chargers: | | | |
+Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Battery chargers: / Forklifts (Warehouse and distribution centre equipment and machines / Battery assets for warehouse vehicles (including pallet trucks and forklifts) / Battery chargers / Table B) | 11 years | 9.09% | 18.18% | 1 July 2011
+Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Battery chargers: / Other (Table B) | 10 years | 10.00% | 20.00% | 1 July 2011
+Asset group · Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Handling assets: | | | |
+Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Handling assets: / Battery tuggers (Table B) | 10 years | 10.00% | 20.00% | 1 July 2011
+Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Handling assets: / Racking roller beds (Table B) | 15 years | 6.67% | 13.33% | 1 July 2011
+Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Handling assets: / Transfer carts (Table B) | 10 years | 10.00% | 20.00% | 1 July 2011
+Battery assets for warehouse vehicles (including pallet trucks and forklifts): / Handling assets: / Washers (Table B) | 10 years | 10.00% | 20.00% | 1 July 2011
+Carts/buggies (Table B) | 15 years | 6.67% | 13.33% | 1 July 2011
+Conveyors (Table B) | 15 years | 6.67% | 13.33% | 1 July 2011
+Register note · Dock levellers, pallet jacks, pallet trucks and scissor lifts – see Table B Loading bay assets | | | |
+Asset group · Door controls and motor drive systems (incorporating chains, controls, motors and sensors, but excluding doors): | | | |
+Door controls and motor drive systems (incorporating chains, controls, motors and sensors, but excluding doors): / External (Table B) | 20 years | 5.00% | 10.00% | 1 July 2011
+Door controls and motor drive systems (incorporating chains, controls, motors and sensors, but excluding doors): / Internal (Table B) | 10 years | 10.00% | 20.00% | 1 July 2011
+Floor sweepers/scrubbers (Table B) | 10 years | 10.00% | 20.00% | 1 July 2011
+Asset group · Forklift attachments: | | | |
+Forklift attachments: / Cages (Table B) | 10 years | 10.00% | 20.00% | 1 July 2011
+Forklift attachments: / Push pull units (Table B) | 11 years | 9.09% | 18.18% | 1 July 2011
+Inflatable dock bags/seals/shelters (Table B) | 10 years | 10.00% | 20.00% | 1 July 2011
+Register note · Packaging machines and wrapping machines – see Table B Packaging machines | | | |
+Asset group · Pallet assets: | | | |
+Pallet assets: / Dispensers (Table B) | 15 years | 6.67% | 13.33% | 1 July 2011
+Pallet assets: / Lift tables (Table B) | 10 years | 10.00% | 20.00% | 1 July 2011
+Racks (Table B) | 20 years | 5.00% | 10.00% | 1 July 2011
+Asset group · Radio frequency terminal assets: | | | |
+Radio frequency terminal assets: / Barcode readers/scanners (Table B) | 5 years | 20.00% | 40.00% | 1 July 2011
+Radio frequency terminal assets: / Portable/handheld and vehicle mounted terminal devices (Table B) | 4 years | 25.00% | 50.00% | 1 July 2011
+Register note · Refrigeration assets – see Table B Refrigeration assets | | | |
+Roll cages (Table B) | 10 years | 10.00% | 20.00% | 1 July 2011
+Trolleys (Table B) | 10 years | 10.00% | 20.00% | 1 July 2011
+Asset group · Voice picking assets: | | | |
+Voice picking assets: / Battery chargers (Table B) | 4 years | 25.00% | 50.00% | 1 July 2011
+Voice picking assets: / Headsets (Table B) | 4 years | 25.00% | 50.00% | 1 July 2011
+Voice picking assets: / Terminals (on person) (Table B) | 4 years | 25.00% | 50.00% | 1 July 2011
+Asset group · Waste compactors (used for cardboard and plastic): | | | |
+Waste compactors (used for cardboard and plastic): / Electric (Warehouse and distribution centre equipment and machines / Waste compactors (used for cardboard and plastic) / Table B) | 15 years | 6.67% | 13.33% | 1 July 2011
+Waste compactors (used for cardboard and plastic): / Hydraulic (Table B) | 20 years | 5.00% | 10.00% | 1 July 2011
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
 - source determination: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/#source
-- Automated storage and retrieval machines: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/automated-storage-and-retrieval-machines/
-- Balers: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/balers/
-- Batteries (detachable for recharging): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/batteries/
-- Forklifts: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/forklifts/
-- Other: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/other/
-- Battery tuggers: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/battery-tuggers/
-- Racking roller beds: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/racking-roller-beds/
-- Transfer carts: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/transfer-carts/
-- Washers: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/washers/
-- Carts/buggies: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/carts-buggies/
-- Conveyors: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/conveyors/
+- Automated storage and retrieval machines (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/automated-storage-and-retrieval-machines/
+- Balers (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/balers/
+- Batteries (detachable for recharging) (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/batteries/
+- Forklifts (Warehouse and distribution centre equipment and machines / Battery assets for warehouse vehicles (including pallet trucks and forklifts) / Battery chargers / Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/forklifts/
+- Other (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/other/
+- Battery tuggers (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/battery-tuggers/
+- Racking roller beds (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/racking-roller-beds/
+- Transfer carts (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/transfer-carts/
+- Washers (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/washers/
+- Carts/buggies (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/carts-buggies/
+- Conveyors (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/conveyors/
 - Dock levellers, pallet jacks, pallet trucks and scissor lifts – see Table B Loading bay assets: https://duguid.com.au/tools/depreciation-rates/asset/loading-bay-assets/
-- External: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/external/
-- Internal: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/internal/
-- Floor sweepers/scrubbers: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/floor-sweepers-scrubbers/
-- Cages: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/cages/
-- Push pull units: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/push-pull-units/
-- Inflatable dock bags/seals/shelters: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/inflatable-dock-bags-seals-shelters/
+- External (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/external/
+- Internal (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/internal/
+- Floor sweepers/scrubbers (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/floor-sweepers-scrubbers/
+- Cages (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/cages/
+- Push pull units (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/push-pull-units/
+- Inflatable dock bags/seals/shelters (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/inflatable-dock-bags-seals-shelters/
 - Packaging machines and wrapping machines – see Table B Packaging machines: https://duguid.com.au/tools/depreciation-rates/asset/packaging-machines/
-- Dispensers: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/dispensers/
-- Lift tables: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/lift-tables/
-- Racks: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/racks/
-- Barcode readers/scanners: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/barcode-readers-scanners/
-- Portable/handheld and vehicle mounted terminal devices: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/portable-handheld-and-vehicle-mounted-terminal-devices/
+- Dispensers (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/dispensers/
+- Lift tables (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/lift-tables/
+- Racks (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/racks/
+- Barcode readers/scanners (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/barcode-readers-scanners/
+- Portable/handheld and vehicle mounted terminal devices (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/portable-handheld-and-vehicle-mounted-terminal-devices/
 - Refrigeration assets – see Table B Refrigeration assets: https://duguid.com.au/tools/depreciation-rates/asset/refrigeration-assets/
-- Roll cages: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/roll-cages/
-- Trolleys: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/trolleys/
-- Battery chargers: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/battery-chargers/
-- Headsets: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/headsets/
-- Terminals (on person): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/terminals/
-- Electric: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/electric/
-- Hydraulic: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/hydraulic/
+- Roll cages (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/roll-cages/
+- Trolleys (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/trolleys/
+- Battery chargers (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/battery-chargers/
+- Headsets (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/headsets/
+- Terminals (on person) (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/terminals/
+- Electric (Warehouse and distribution centre equipment and machines / Waste compactors (used for cardboard and plastic) / Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/electric/
+- Hydraulic (Table B): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/hydraulic/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/
