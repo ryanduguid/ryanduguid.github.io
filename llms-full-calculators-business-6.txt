@@ -413,6 +413,40 @@ Company tax and franking inputs for one income year from 2021-22
 
 Aggregated turnover for the year (AUD) Assessable income for the year (AUD) Base rate entity passive income in it, franking credits included (AUD) Taxable income for the year (AUD) Did the company exist in the previous income year? Yes No Previous year’s aggregated turnover (AUD) Previous year’s assessable income (AUD) Previous year’s base rate entity passive income (AUD) Dividend paid this year (AUD) Franking percentage (%) Shareholder’s marginal tax rate, with any Medicare levy (%)
 
+## Taxable income after losses and the amount due
+
+Company tax return calculation statement (optional)
+
+Work out the return’s taxable income after losses and the amount due No Yes
+
+Income year of the return 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22
+
+Deductions for the year, prior-year losses not included (AUD) Net exempt income for the year (AUD)
+
+Prior-year tax loss 1: the year incurred None 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18 2016-17 2015-16 2014-15 2013-14 2012-13 2011-12 2010-11
+
+Prior-year tax loss 1: the amount still unused (AUD)
+
+Prior-year tax loss 1: the loss test outcome (sections 165-12 and 165-13) Continuity of ownership test passed Same business test passed Similar business test passed (losses from 2015-16) Neither test passed
+
+Prior-year tax loss 2: the year incurred None 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18 2016-17 2015-16 2014-15 2013-14 2012-13 2011-12 2010-11
+
+Prior-year tax loss 2: the amount still unused (AUD)
+
+Prior-year tax loss 2: the loss test outcome (sections 165-12 and 165-13) Continuity of ownership test passed Same business test passed Similar business test passed (losses from 2015-16) Neither test passed
+
+Loss deduction you choose (blank for the most allowed) (AUD) Non-refundable non-carry forward tax offsets (C) (AUD) Of those, franking tax offsets (AUD) Non-refundable carry forward tax offsets (D) (AUD) Refundable tax offsets (E), other than loss carry back (AUD) Franking deficit tax offset (F) (AUD) Section 102AAM interest charge (G) (AUD) Credits for amounts withheld (H) (AUD) PAYG instalments (K) (AUD)
+
+## Loss carry back tax offset
+
+Loss carry back tax offset, 2021-22, 2022-23 and 2026-27 only (Division 160)
+
+Carry this year’s tax loss back No Yes
+
+Every Division 160 condition for the year is met: a corporate tax entity throughout, returns lodged, the choice made in the approved form, no transferred or excess franking losses, no integrity scheme, and carrying on a business in each loss year (to 2022-23) or not a significant global entity (2026-27) No Yes
+
+Franking account balance at the end of the year (AUD) Tax loss carried back to the income year 2 years before (AUD) 2 years before: income tax liability (AUD) 2 years before: liability used by earlier carry backs (AUD) 2 years before: net exempt income (AUD) Tax loss carried back to the income year before (AUD) The year before: income tax liability (AUD) The year before: liability used by earlier carry backs (AUD) The year before: net exempt income (AUD)
+
 Aggregated turnover includes that of connected entities and affiliates. The previous year’s figures set the rate for franking dividends; when the company did not exist then, they are not used. The shareholder is an Australian resident individual.
 
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: this year aggregated turnover $104,000.00, assessable income $104,000.00, base rate entity passive income $4,000.00, taxable income $104,000.00; previous year aggregated turnover $104,000.00, assessable income $104,000.00, base rate entity passive income $4,000.00; dividend $30,000.00 franked at 100%, shareholder’s marginal rate 30%. Company tax rate: 25% A base rate entity (section 23AA), with passive income 3.85% of assessable income Tax on taxable income $26,000.00 Corporate tax rate for imputation purposes: 25% A base rate entity (section 23AA) Maximum franking credit on the dividend $10,000.00 Franking credit at 100% $10,000.00 Grossed-up dividend in the shareholder’s assessable income $40,000.00 Shareholder’s tax at 30% on it $12,000.00 Franking tax offset $10,000.00 Tax left to pay on the dividend $2,000.00 Franking credits round down to the cent, so the credit stated never exceeds the maximum (section 202-65).
@@ -427,9 +461,15 @@ The shareholder includes the dividend and its franking credit in assessable inco
 
 The calculator reproduces the outcome of each ATO example: Happy Feet (3.8% passive income, 25%), Coffee and Cake (28.6%, 25%), Best Equity (100%, 30%), SoftDev (85%, 30%) and Hats 4 Cats ($170 million of aggregated turnover, 30%). For Dillmore Manufacture’s $100,000 dividend franked at 30% it gives $42,857.14, the exact credit; the ATO rounds the gross-up rate to 2.3333 and shows $42,857.75, which is more than the section 202-60 maximum.
 
+## How the calculation statement and loss carry back work
+
+The optional calculation statement works the company tax return from assessable income to the amount due. Prior-year losses are deducted only where you state that the continuity of ownership test or the same or similar business test was passed (section 165-10), oldest first; net exempt income absorbs them first, and without a chosen amount the most allowed is deducted (section 36-17). Gross tax is taxable income at the year’s rate, rounded half up to the cent. Offsets come off in the return’s order: non-refundable non-carry forward offsets (C), carry forward offsets (D), refundable offsets (E) and the franking deficit tax offset (F); then the interest charge (G) is added and credits (H), refundable offsets in excess of tax (I) and PAYG instalments (K) taken off, giving S, the amount due or refundable. The statement’s taxable income must equal the taxable income entered above.
+
+A loss carry back tax offset is worked only for the claim years the law gives one: 2020-21 to 2022-23 under Division 160 as it stood (this page offers 2021-22 and 2022-23), and 2026-27 under the Division 160 that Act No. 71 of 2026 substituted for income years from 1 July 2026, for a company that is not a significant global entity. There is none for 2023-24 to 2025-26. The page carries the year’s own tax loss back to one or both of the 2 income years before it: each amount after that year’s net exempt income, at the rate of the loss year, capped at the earlier year’s unused income tax liability, and the total capped at the franking account balance. The offset is refundable, at label E.
+
 ## What the company tax and franking calculator does not cover
 
-The calculator does not work out aggregated turnover, assessable income or base rate entity passive income: enter figures you have established, with the turnover of connected entities and affiliates included, as the ATO’s Hats 4 Cats example shows. Taxable income gives the tax before offsets, PAYG instalments and other credits.
+The calculator does not work out aggregated turnover, assessable income or base rate entity passive income: enter figures you have established, with the turnover of connected entities and affiliates included, as the ATO’s Hats 4 Cats example shows. Without the statement, taxable income gives the tax before offsets, PAYG instalments and other credits. The statement does not judge the loss tests, works no part-year loss (section 165-20) or Subdivision 165-B year, does not cover consolidated and MEC groups, foreign residents or companies taxed at other rates, and refuses franking tax offsets with a chosen loss deduction (section 36-17(5)) or in excess of tax (section 36-55), and carry forward offsets with net exempt income. On this page the carry back takes the year’s own loss to the 2 years before it; earlier loss years carried back under the former Division 160 are left to the WebMCP tool.
 
 Not covered: the rates of RSA providers and pooled development funds (subsections 23(3) to (5)), life insurance companies (section 23A), not-for-profit companies and credit unions; corporate unit trusts and public trading trusts; and income years before 2021-22, when the base rate was 27.5% or 26%. A shareholder that is a company, trust, super fund or non-resident is outside its scope; a company shareholder cannot have excess franking credits refunded (section 67-25). Franking account balances, franking deficit tax, the benchmark rule and the holding period rule are not tested: the company tax and franking worksheets track the franking account and the benchmark rule. Have a registered tax agent confirm the figures and the result.
 
