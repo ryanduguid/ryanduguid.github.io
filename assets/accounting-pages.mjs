@@ -593,6 +593,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'rd-tax-offset':
             result = calculate.rdTaxOffsetResult(value, aud);
             break;
+          case 'cgt-parcels':
+            result = calculate.cgtParcelsResult(value, aud);
+            break;
           case 'contractor-employee':
             result = calculate.contractorEmployeeResult(value, aud);
             break;

@@ -1,0 +1,40 @@
+<section class="business-calculator" id="cgt-parcels">
+<h2>Shares or units bought in parcels</h2>
+<p>For shares or units bought at different times and sold in the 2025-26 or 2026-27 income year, this form matches each sale to the parcels it came from, first in, first out or as you select, and works each parcel’s capital gain or loss and the year’s net capital gain.</p>
+<form class="calculator-split" data-calculator="cgt-parcels">
+<fieldset disabled><legend>Parcels and sales in one income year</legend><div class="form-grid">
+<fieldset class="field"><legend>Who made the sales</legend>
+<label><input type="radio" name="entity" value="individual" checked /> An individual</label>
+<label><input type="radio" name="entity" value="trust" /> A trust</label>
+<label><input type="radio" name="entity" value="complying_superannuation_entity" /> A complying super fund</label>
+<label><input type="radio" name="entity" value="company" /> A company</label></fieldset>
+<fieldset class="field"><legend>Which parcels each sale takes</legend>
+<label><input type="radio" name="identification" value="first_in_first_out" checked /> The earliest bought first</label>
+<label><input type="radio" name="identification" value="selected" /> The parcels I select</label></fieldset>
+<label class="field" for="cgt-parcels-year">Income year of the sales<select id="cgt-parcels-year" name="year"><option value="2025-26" selected>2025-26</option><option value="2026-27">2026-27</option></select></label>
+</div>
+<p class="field-note" id="cgt-parcels-help">One parcel a line: a name, the code, the purchase contract date, the units, the purchase cost and the buying costs, then optionally the costs of owning, capital improvements and title costs, separated by spaces, such as <code>A ABC 2020-08-03 1000 5200 19.95</code>. One sale a line: the code, the sale contract date, the units, the proceeds and the selling costs, then, for parcels you select, each as name:units, such as <code>ABC 2026-02-02 1500 13500 29.95</code>.</p>
+<div class="form-grid">
+<label class="field" for="cgt-parcels-lines">Parcels bought<textarea id="cgt-parcels-lines" name="parcel-lines" rows="3" spellcheck="false" aria-describedby="cgt-parcels-help" required>A ABC 2020-08-03 1000 5200 19.95
+B ABC 2025-09-15 1000 8000 19.95</textarea></label>
+<label class="field" for="cgt-parcels-sales">Sales<textarea id="cgt-parcels-sales" name="sale-lines" rows="2" spellcheck="false" aria-describedby="cgt-parcels-help" required>ABC 2026-02-02 1500 13500 29.95</textarea></label>
+<label class="field" for="cgt-parcels-other-discount">Other discount capital gains this year (AUD)<input enterkeyhint="next" id="cgt-parcels-other-discount" name="other-discount-gains" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
+<label class="field" for="cgt-parcels-other-gains">Other capital gains this year, not discount gains (AUD)<input enterkeyhint="next" id="cgt-parcels-other-gains" name="other-gains" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
+<label class="field" for="cgt-parcels-other-losses">Other capital losses this year (AUD)<input enterkeyhint="next" id="cgt-parcels-other-losses" name="other-losses" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
+<label class="field" for="cgt-parcels-prior">Net capital losses from earlier years (AUD)<input enterkeyhint="done" id="cgt-parcels-prior" name="prior-losses" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
+</div>
+<button type="submit" class="button">Calculate</button></fieldset>
+<output aria-live="polite"></output>
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>The law: sections 102-5, 104-10, 110-25, 110-55, 112-30, 115-25, 115-100 and 116-40 of the <a href="https://www.legislation.gov.au/C2004A05138/2026-05-21/text"><em>Income Tax Assessment Act 1997</em></a> as at 21 May 2026 (Compilation No. 264), the text the CGT calculator above applies. Each parcel is a separate CGT asset, and the costs and proceeds of a sale are shared between its units in proportion.</li>
+<li>Matching: <a href="https://www.ato.gov.au/law/view/document?DocID=CGD/TD33/NAT/ATO/00001">Taxation Determination TD 33</a> paragraph 4, which accepts first in, first out where the shares sold cannot be identified, and the taxpayer’s own selection, and <a href="https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax/shares-and-similar-investments/keeping-records-of-shares-and-units">ATO: Keeping records of shares and units</a>, both read 27 November 2026.</li>
+<li>The 12 months: <a href="https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax/cgt-discount">ATO: CGT discount</a>, read 27 November 2026, which leaves out the day bought and the day of the CGT event.</li>
+<li>The calculation: the <code>cgt-parcels</code> command of australian-accounting, ported line for line and checked against it.</li>
+<li>Supplied by you: the parcels, the sales, the other gains and losses, and which parcels each sale takes.</li>
+</ul>
+</div>
+</form>
+<h2>What the share parcels form does not cover</h2><p>It does not cover parcels bought at or before 21 September 1999, whose cost base can be indexed or which are pre-CGT, returns of capital, demergers, scrip for scrip and other cost base adjustments, roll-overs, the small business concessions, crypto assets, shares held as trading stock, and sales from 1 July 2027. Confirm the figure with the ATO or a registered tax agent before relying on it.</p>
+</section>

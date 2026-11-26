@@ -10,6 +10,8 @@ export { pcgRisk, pcgAllocation, pcgAllocationResult } from './pcg-2021-4.mjs';
 export { cgtConcessions, cgtConcessionsAnswersOf, cgtConcessionsResult } from './cgt-concessions.mjs';
 export { psiDetermination, psiDeterminationResult } from './psi-determination.mjs';
 export { CPI, capitalGain, cgtEventOf, cgtResult, indexationFactor } from './cgt.mjs';
+export { cgtParcels } from './cgt-parcels.mjs';
+export { cgtParcelsResult, parcelsInput } from './cgt-parcels-page.mjs';
 export { CALENDAR_END, NON_BUSINESS_WEEKDAYS, compoundedEarnings, paydaySuperDue, paydaySuperCharge, quarterlySgCharge, sgcPaydayResult }
   from './sgc-payday.mjs';
 export { LSL_ACTS, LSL_REASONS, longServiceLeave, longServiceLeaveResult, lslReasonText } from './long-service-leave.mjs';

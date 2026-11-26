@@ -49,6 +49,7 @@ const excess = { ...tba, file: 'assets/excess-contributions.mjs' };
 const tbaPage = { ...tba, file: 'assets/transfer-balance-result.mjs' };
 const pm = { file: 'assets/pension-minimum.mjs', test: 'scripts/pension-minimum.test.mjs' };
 const rd = { file: 'assets/residency-days.mjs', test: 'scripts/residency-days.test.mjs' };
+const cp = { file: 'assets/cgt-parcels.mjs', test: 'scripts/cgt-parcels.test.mjs' };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -1352,6 +1353,12 @@ const MUTATIONS = [
   { ...pm, name: 'pension age to 149', find: "whole(input.get('age'), 150)", replace: "whole(input.get('age'), 149)" },
   { ...pm, name: 'pension form counts to 29 June', find: 'Date.UTC(second, 5, 30)', replace: 'Date.UTC(second, 5, 29)' },
   { ...pm, name: 'pension page principal is the balance', find: 'rows, principal: 4, note', replace: 'rows, principal: 0, note' },
+  { ...cp, name: 'CGT parcels 12 months counting the day bought', find: 'const start = acquired + 1;', replace: 'const start = acquired;' },
+  { ...cp, name: 'CGT parcels share rounding down', find: '(2n * amount * part + whole) / (2n * whole)', replace: '(amount * part) / whole' },
+  { ...cp, name: 'CGT parcels last first out', find: 'parcels.at(a).acquired - parcels.at(b).acquired || a - b', replace: 'parcels.at(b).acquired - parcels.at(a).acquired || a - b' },
+  { ...cp, name: 'CGT parcels losses against discount gains first', find: 'const lo = min(og, cl);', replace: 'const lo = min(og, 0n);' },
+  { ...cp, name: 'CGT parcels indexation date open', find: 'parcel.acquired <= INDEXATION_LAST_DAY', replace: 'parcel.acquired < INDEXATION_LAST_DAY' },
+  { ...cp, name: 'CGT parcels company discount', find: 'discount: !s.company &&', replace: 'discount: true &&' },
   { ...rd, name: 'residency one-half enough', find: 'Math.floor(yearDays / 2) + 1', replace: 'Math.floor(yearDays / 2)' },
   { ...rd, name: 'residency exception on the abode alone', find: 'usualOutside && !intends', replace: 'usualOutside' },
   { ...rd, name: 'residency departure day not counted', find: 'Math.min(to, last) - first + 1', replace: 'Math.min(to, last) - first' },
@@ -1388,6 +1395,7 @@ const SHARED = [
   'scripts/transfer-balance-engine-differential.json',
   'scripts/pension-minimum-engine-differential.json',
   'scripts/residency-days-engine-differential.json',
+  'scripts/cgt-parcels-engine-differential.json',
   'scripts/concessional-catch-up-engine-differential.json',
   'scripts/unused-leave-engine-differential.json',
   'scripts/franking-account-engine-differential.json',

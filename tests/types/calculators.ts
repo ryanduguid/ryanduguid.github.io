@@ -484,6 +484,9 @@ const ceInput = { year: '2026-27', hours: '38', salary: '100000', annualLeave: '
   gst: true, credits: true, individual: true, delegate: false, result: false, contractorPayroll: false, contractorWc: false,
   smallBusinessOffset: false, hospitalCover: true, studyLoan: false };
 const ceCost: number = calculate.contractorEmployee(ceInput).contractorCost;
+const cpNet: string = calculate.cgtParcels({ entity: 'individual', identification: 'first_in_first_out', parcels: [], disposals: [], year: '2025-26' }).amounts.net_capital_gain;
+// @ts-expect-error a parcels result has no single method
+void calculate.cgtParcels({}).method;
 // @ts-expect-error An answer is a boolean, not 'yes'.
 calculate.contractorEmployee({ ...ceInput, delegate: 'no' });
 // @ts-expect-error Section 12(3)'s answer is a boolean.
