@@ -1171,15 +1171,15 @@
     "checked": "2026-11-27",
     "function": "identifierCheck",
     "rows": [
-      {"case":"ABN Lookup’s own example: 51 824 753 556 passes","input":"ABN ‘51 824 753 556’","call":["abn","51 824 753 556"],"result":{"result":"CHECK_DIGIT_VALID","formatted":"51 824 753 556"},"output":"CHECK DIGIT VALID, formatted 51 824 753 556"},
-      {"case":"The same ABN with its last digit one higher fails","input":"ABN ‘51 824 753 557’","call":["abn","51 824 753 557"],"result":{"result":"CHECK_DIGIT_INVALID","formatted":"51 824 753 557"},"output":"CHECK DIGIT INVALID, formatted 51 824 753 557"},
-      {"case":"A first digit of 0 fails though the digits divide by 89: 1 cannot be taken from 0","input":"ABN ‘00000090000’","call":["abn","00000090000"],"result":{"result":"CHECK_DIGIT_INVALID","formatted":"00 000 090 000"},"output":"CHECK DIGIT INVALID, formatted 00 000 090 000"},
-      {"case":"Hyphens are not removed, so the ABN is not in the format","input":"ABN ‘51-824-753-556’","call":["abn","51-824-753-556"],"result":{"result":"MALFORMED","formatted":null},"output":"MALFORMED, not formatted"},
-      {"case":"Ten digits are not an ABN","input":"ABN ‘5182475355’","call":["abn","5182475355"],"result":{"result":"MALFORMED","formatted":null},"output":"MALFORMED, not formatted"},
-      {"case":"ASIC’s own example: ACN 004 085 616 passes","input":"ACN ‘004 085 616’","call":["acn","004 085 616"],"result":{"result":"CHECK_DIGIT_VALID","formatted":"004 085 616"},"output":"CHECK DIGIT VALID, formatted 004 085 616"},
-      {"case":"A remainder of 0 complements to 10, so the check digit is 0","input":"ACN ‘000250000’","call":["acn","000250000"],"result":{"result":"CHECK_DIGIT_VALID","formatted":"000 250 000"},"output":"CHECK DIGIT VALID, formatted 000 250 000"},
-      {"case":"The same ACN with its last digit one higher fails","input":"ACN ‘004 085 617’","call":["acn","004 085 617"],"result":{"result":"CHECK_DIGIT_INVALID","formatted":"004 085 617"},"output":"CHECK DIGIT INVALID, formatted 004 085 617"},
-      {"case":"Eight digits are not an ACN","input":"ACN ‘00408561’","call":["acn","00408561"],"result":{"result":"MALFORMED","formatted":null},"output":"MALFORMED, not formatted"}
+      {"case":"ABN Lookup’s own example: 51 824 753 556 passes","input":"ABN (11 digits) ‘51 824 753 556’","call":["51 824 753 556","abn"],"result":{"result":"CHECK_DIGIT_VALID","formatted":"51 824 753 556"},"output":"CHECK DIGIT VALID, formatted 51 824 753 556"},
+      {"case":"The same ABN with its last digit one higher fails","input":"ABN (11 digits) ‘51 824 753 557’","call":["51 824 753 557","abn"],"result":{"result":"CHECK_DIGIT_INVALID","formatted":"51 824 753 557"},"output":"CHECK DIGIT INVALID, formatted 51 824 753 557"},
+      {"case":"A first digit of 0 fails though the digits divide by 89: 1 cannot be taken from 0","input":"ABN (11 digits) ‘00000090000’","call":["00000090000","abn"],"result":{"result":"CHECK_DIGIT_INVALID","formatted":"00 000 090 000"},"output":"CHECK DIGIT INVALID, formatted 00 000 090 000"},
+      {"case":"Hyphens are not removed, so the ABN is not in the format","input":"ABN (11 digits) ‘51-824-753-556’","call":["51-824-753-556","abn"],"result":{"result":"MALFORMED","formatted":null},"output":"MALFORMED, not formatted"},
+      {"case":"Ten digits are not an ABN","input":"ABN (11 digits) ‘5182475355’","call":["5182475355","abn"],"result":{"result":"MALFORMED","formatted":null},"output":"MALFORMED, not formatted"},
+      {"case":"ASIC’s own example: ACN 004 085 616 passes","input":"ACN (9 digits) ‘004 085 616’","call":["004 085 616","acn"],"result":{"result":"CHECK_DIGIT_VALID","formatted":"004 085 616"},"output":"CHECK DIGIT VALID, formatted 004 085 616"},
+      {"case":"A remainder of 0 complements to 10, so the check digit is 0","input":"ACN (9 digits) ‘000250000’","call":["000250000","acn"],"result":{"result":"CHECK_DIGIT_VALID","formatted":"000 250 000"},"output":"CHECK DIGIT VALID, formatted 000 250 000"},
+      {"case":"The same ACN with its last digit one higher fails","input":"ACN (9 digits) ‘004 085 617’","call":["004 085 617","acn"],"result":{"result":"CHECK_DIGIT_INVALID","formatted":"004 085 617"},"output":"CHECK DIGIT INVALID, formatted 004 085 617"},
+      {"case":"Eight digits are not an ACN","input":"ACN (9 digits) ‘00408561’","call":["00408561","acn"],"result":{"result":"MALFORMED","formatted":null},"output":"MALFORMED, not formatted"}
     ]
   }
 }

@@ -104,7 +104,7 @@ const RESULT_TEXT = new Map([['MALFORMED', 'Not in the format'], ['CHECK_DIGIT_V
 export const identifierFormInput = (value) => [/** @type {IdentifierKind} */ (value('kind')), value('number')];
 
 /** How the page writes the input. @param {IdentifierKind} kind @param {string} value */
-export const identifierInputsText = (kind, value) => `${kind.toUpperCase()} ‘${value}’`;
+export const identifierInputsText = (kind, value) => `${kind.toUpperCase()} (${kind === 'abn' ? 11 : 9} digits) ‘${value}’`;
 
 /** The page's result. @param {(name: string) => string} value */
 export function identifierCheckResult(value) {

@@ -504,7 +504,7 @@ const transferDutyScales = (() => {
   return scales;
 })();
 // A boundary case names its jurisdiction; the engine takes that jurisdiction's scale.
-const engineArgs = (name, call) => (name === 'transferDuty' ? [call[0], transferDutyScales[call[1]]]
+const engineArgs = (name, call) => (name === 'identifierCheck' ? [call[1], call[0]] : name === 'transferDuty' ? [call[0], transferDutyScales[call[1]]]
   : name === 'firstHomeDuty' ? [call[0], transferDutyScales[call[1]], call[1], call[2]]
   : name === 'landTaxYear' ? landTaxArgs(call)
   : name === 'businessDays' ? [call[0], businessDayHolidays]
@@ -793,7 +793,7 @@ Object.assign(INPUTS, { contractorEmployee: (x) => calculations.contractorInputs
   (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
 Object.assign(ENGINE_LABELS, { contractorEmployee: { employeeCost: 'employee cost', contractorSuperGuarantee: 'section 12(3) super guarantee',
   contractorCost: 'contractor cost', costDifference: 'difference', employeeTakeHome: 'employee take-home', contractorTakeHome: 'contractor take-home' } });
-Object.assign(INPUTS, { endorsementReview: calculations.endorsementInputsText, identifierCheck: calculations.identifierInputsText });
+Object.assign(INPUTS, { endorsementReview: calculations.endorsementInputsText, identifierCheck: (number, kind) => calculations.identifierInputsText(kind, number) });
 Object.assign(ENGINE_LABELS, { endorsementReview: { status: (v) => `status ${v.replaceAll('_', ' ')}` },
   identifierCheck: { result: (v) => v.replaceAll('_', ' '), formatted: (v) => (v === null ? 'not formatted' : `formatted ${v}`) } });
 
@@ -1260,7 +1260,7 @@ Object.assign(FORM_CALLS, { rdTaxOffset: (f) => [calculations.rdFormInput((name)
 
 Object.assign(FORM_CALLS, { contractorEmployee: (f) => [calculations.contractorFormInput((name) => f[name] ?? '')] });
 Object.assign(FORM_CALLS, { endorsementReview: (f) => calculations.endorsementFormInput((name) => f[name] ?? ''),
-  identifierCheck: (f) => calculations.identifierFormInput((name) => f[name] ?? '') });
+  identifierCheck: (f) => calculations.identifierFormInput((name) => f[name] ?? '').reverse() });
 
 Object.assign(FORM_CALLS, { gstAdjustment: (f) => {
   const { worksheet, input } = calculations.gstFormInput((name) => f[name] ?? '');
@@ -7510,9 +7510,10 @@ test('endorsement review page reads only the chosen worksheet’s questions and 
 // ABN Lookup's Format of the ABN and ASIC's EDGE specification Appendix D, both read 27 November 2026.
 test('ABN and ACN check digits pass the registers’ own examples and fail one digit off', () => {
   const check = (kind, value) => calculations.identifierCheck(kind, value);
-  assert.equal(check('abn', '51 824 753 556').result, 'CHECK_DIGIT_VALID');
-  assert.equal(check('abn', '51824753556').formatted, '51 824 753 556');
-  assert.equal(check('abn', ' 51 824 753 556 ').result, 'CHECK_DIGIT_VALID');
+  const GOOD = '51 824 753 556';
+  assert.equal(check('abn', GOOD).result, 'CHECK_DIGIT_VALID');
+  assert.equal(check('abn', GOOD.replaceAll(' ', '')).formatted, '51 824 753 556');
+  assert.equal(check('abn', ` ${GOOD} `).result, 'CHECK_DIGIT_VALID');
   for (const bad of ['51 824 753 557', '41 824 753 556', '61 824 753 556', '00000090000']) {
     assert.equal(check('abn', bad).result, 'CHECK_DIGIT_INVALID', bad);
   }
@@ -7523,11 +7524,11 @@ test('ABN and ACN check digits pass the registers’ own examples and fail one d
   assert.equal(check('acn', '000250000').result, 'CHECK_DIGIT_VALID');
   for (const bad of ['004 085 617', '004 085 626', '123 456 789', '000250001']) assert.equal(check('acn', bad).result, 'CHECK_DIGIT_INVALID', bad);
   for (const bad of ['00408561', '0040856161', '004-085-616']) assert.equal(check('acn', bad).result, 'MALFORMED', bad);
-  const r = check('abn', '51 824 753 556');
+  const r = check('abn', GOOD);
   assert.deepEqual([r.abrRegistrationEstablished, r.gstRegistrationEstablished, r.checkDigitValid], [false, false, true]);
   assert.match(r.notEstablished, /proves neither that the number was issued/);
   assert.throws(() => check('tfn', '123'), { code: 'identifier.kind_invalid' });
-  assert.throws(() => check('abn', 51824753556), { code: 'identifier.value_invalid' });
+  assert.throws(() => check('abn', Number(GOOD.replaceAll(' ', ''))), { code: 'identifier.value_invalid' });
 });
 
 test('ABN and ACN page says it looks nothing up and never that a number is registered', () => {

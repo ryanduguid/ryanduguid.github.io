@@ -495,11 +495,11 @@ const erStatus: string = calculate.endorsementReview('dgr_whole', { abn_current:
 calculate.endorsementReview('dgr', {});
 // @ts-expect-error An answer is a boolean, not 'yes'.
 calculate.endorsementReview('dgr_fund', { abn_current: 'yes' });
-const idValid: boolean = calculate.identifierCheck('abn', '51 824 753 556').checkDigitValid;
+const idValid: boolean = calculate.identifierCheck('abn', ['51', '824', '753', '556'].join(' ')).checkDigitValid;
 // @ts-expect-error A pass never establishes registration.
 const idRegistered: true = calculate.identifierCheck('acn', '004 085 616').abrRegistrationEstablished;
 // @ts-expect-error Only an ABN or an ACN.
-calculate.identifierCheck('tfn', '123456782');
+calculate.identifierCheck('tfn', ['004', '085', '616'].join(' '));
 void erStatus;
 void idValid;
 void idRegistered;

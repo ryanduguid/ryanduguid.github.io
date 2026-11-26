@@ -2269,12 +2269,13 @@ test('endorsement review tool gives the worksheet outcome and refuses another wo
 
 test('ABN and ACN tool checks the digits only and never establishes registration', async () => {
   const tool = tools['abn-acn-check'];
-  const r = await tool.execute({ identifier: 'abn', number: '51 824 753 556' });
+  const GOOD = '51 824 753 556';
+  const r = await tool.execute({ identifier: 'abn', number: GOOD });
   assert.deepEqual([r.result, r.checkDigitValid, r.formatted, r.abrRegistrationEstablished, r.gstRegistrationEstablished, r.source],
     ['CHECK_DIGIT_VALID', true, '51 824 753 556', false, false, 'https://duguid.com.au/tools/business-calculators/abn-acn-check/']);
   assert.equal((await tool.execute({ identifier: 'acn', number: '004085617' })).result, 'CHECK_DIGIT_INVALID');
   assert.equal((await tool.execute({ identifier: 'acn', number: '00408561' })).result, 'MALFORMED');
-  await assert.rejects(tool.execute({ identifier: 'abn', number: '51-824-753-556' }), /number does not match/);
-  await assert.rejects(tool.execute({ identifier: 'tfn', number: '123456782' }), /identifier does not match/);
+  await assert.rejects(tool.execute({ identifier: 'abn', number: GOOD.replaceAll(' ', '-') }), /number does not match/);
+  await assert.rejects(tool.execute({ identifier: 'tfn', number: GOOD }), /identifier does not match/);
   await assert.rejects(tool.execute({ identifier: 'abn', number: '1'.repeat(41) }), /number does not match/);
 });
