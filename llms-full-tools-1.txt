@@ -684,7 +684,7 @@ Source: https://duguid.com.au/tools/coal-lsl-levy/
 
 The coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base rate, annual salary and casual branches. The base rate branch uses the greater of Formula A and Formula B.
 
-Source assets/levy.mjs at revision 0bd409d in the ryanduguid.github.io repository. Licence at this revision: Ryan Duguid Public Attribution Licence 1.0. Published 24 August 2026. Last reviewed 23 November 2026.
+Source assets/levy.mjs at revision be0f154 in the ryanduguid.github.io repository. Licence at this revision: Apache License 2.0. Published 24 August 2026. Last reviewed 23 November 2026.
 
 The current website code uses the Apache License 2.0.
 
@@ -835,9 +835,9 @@ Eligible wages vary each month. Do not set a fixed or automatic levy payment fro
 
 ## Links
 
-- 0bd409d: https://github.com/ryanduguid/ryanduguid.github.io/commit/0bd409dff58b08fca414d3aab027193c9385e501
+- be0f154: https://github.com/ryanduguid/ryanduguid.github.io/commit/be0f1542a47049ea0c833879eec1c48c2950bc5e
 - ryanduguid.github.io: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets
-- Ryan Duguid Public Attribution Licence 1.0: https://github.com/ryanduguid/ryanduguid.github.io/blob/0bd409dff58b08fca414d3aab027193c9385e501/LICENSE
+- Apache License 2.0: https://github.com/ryanduguid/ryanduguid.github.io/blob/be0f1542a47049ea0c833879eec1c48c2950bc5e/LICENSE
 - Apache License 2.0: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
 - Lodgeit’s listing: https://lodgeit.org/coal-lsl.html
 - service/coal-lsl-levy: https://github.com/ryanduguid/ryanduguid.github.io/tree/main/service/coal-lsl-levy
