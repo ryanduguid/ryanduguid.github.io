@@ -8,6 +8,13 @@
   <updated>2026-11-27T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The Markdown editions of calculators now preserve the instructions shown when…</title>
+    <link href="https://duguid.com.au/changelog/#entry-a74a10e5b75fb546" />
+    <id>https://duguid.com.au/changelog/#entry-a74a10e5b75fb546</id>
+    <updated>2026-11-27T00:00:00Z</updated>
+    <summary>The Markdown editions of calculators now preserve the instructions shown when JavaScript is off, including the link to the depreciation register data file.</summary>
+  </entry>
+  <entry>
     <title>Reference tables now carry names for screen readers. Calculator fields and…</title>
     <link href="https://duguid.com.au/changelog/#entry-00a6ae5bfd6d6b55" />
     <id>https://duguid.com.au/changelog/#entry-00a6ae5bfd6d6b55</id>

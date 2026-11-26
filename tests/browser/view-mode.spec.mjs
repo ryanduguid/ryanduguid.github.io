@@ -13,6 +13,7 @@ test('the published stylesheet and Markdown editions load from the served site',
   for (const [route, content] of [
     ['/', /!\[[^\]]+\]\(https:\/\/duguid\.com\.au\/assets\/examples\//],
     ['/tools/business-calculators/margin/', /^\|\s*---\s*\|/m],
+    ['/tools/depreciation-rates/', /Every row is in the \[data file\]\(https:\/\/duguid\.com\.au\/tools\/depreciation-rates\/effective-life\.json\)/],
     ['/tools/depreciation-rates/asset/working-dogs/', /\| Effective life \| 8 years \|/],
     ['/tools/ozzit/functions/dates/', /`[^\n`]+\([^\n`]*\)`/],
   ]) {

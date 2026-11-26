@@ -5709,6 +5709,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+27 November 2026 | The Markdown editions of calculators now preserve the instructions shown when JavaScript is off, including the link to the depreciation register data file.
 27 November 2026 | Reference tables now carry names for screen readers. Calculator fields and reference pages have more space between headings, instructions and tables. The depreciation register identifies the industry or asset group on links that share a name. Each indexed page also has a Markdown edition at index.md.
 26 November 2026 | A new business calculator, sole trader against company, puts one business profit for 2021-22 to 2026-27 through both structures: as a sole trader, tax and the Medicare levy on the whole profit less the small business income tax offset under Subdivision 328-F; through a company, a salary with its super guarantee, company tax at 25% or 30%, a fully franked dividend for the rest of what the owner takes out with its top-up tax, the profit kept in the company and the tax on the super. It states each total and the difference and recommends no structure, and names what it leaves out: the personal services income rules, Division 7A, the small business CGT concessions, state taxes and the cost of running a company. Rates were read on 26 November 2026.
 26 November 2026 | The tool pages, changelog, release record and machine indexes name the releases of 24 and 25 November: aus-accounting-mcp v0.13.0 (148 worksheet kinds with calculators 1.4.0, 29 tools), Australian Accounting Skills v0.8.1 (112 skills, Apache License 2.0), monthly-close-control-plane v1.2.0 and review-ready-gate v1.1.0 (both now under the GNU Affero General Public License v3.0 or later, with executables for 6 targets), and solomons-sword v1.0.0 and the-exchequer-tally v1.0.0, now standalone executables under the same licence; the trust distribution and company tax pages keep their pinned Python examples. The profit and cash flow case states that GitHub holds au-fpa-pack v0.8.0 whilst PyPI still serves 0.7.0.
@@ -5965,6 +5966,7 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- depreciation register data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
 - depreciation register: https://duguid.com.au/tools/depreciation-rates/
 - sole trader against company: https://duguid.com.au/tools/business-calculators/sole-trader-company/
 - aus-accounting-mcp v0.13.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.13.0
