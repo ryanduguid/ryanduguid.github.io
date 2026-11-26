@@ -14495,7 +14495,6 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- 183-day residency day count: https://duguid.com.au/tools/individual-tax/residency-days/
 - eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
