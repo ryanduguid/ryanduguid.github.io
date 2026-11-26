@@ -193,6 +193,78 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ---
 
+# Instant asset write-off calculator, 2020-21 to 2026-27
+
+Source: https://duguid.com.au/tools/business-calculators/instant-asset-write-off/
+
+> Whether a small business or medium sized business writes one asset off in full: the cost limit from the dates, $20,000 from 1 July 2026, and the deduction.
+
+# Instant asset write-off calculator
+
+Whether one asset is written off in full, 2020-21 to 2026-27.
+
+Published 26 November 2026. Last checked 26 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One depreciating asset in the income year it is first used
+
+The business A small business entity using simplified depreciation A medium sized business (turnover $10 million to under $500 million) Another entity
+
+Income year the asset is first used 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Date first acquired Date first used, or installed ready for use, for a taxable purpose Cost of the asset (AUD) Taxable use (%)
+
+Calculate
+
+## What the inputs need
+
+A small business entity has aggregated turnover under $10 million and has chosen simplified depreciation. A medium sized business could write off an asset only from 12 March 2020 to 30 June 2021. From 7.30 pm AEDT on 6 October 2020 to 30 June 2023, temporary full expensing applied instead; for a small business entity the calculator writes the whole asset off then, and for any other entity it refuses an asset first used in that window.
+
+The limits turn on the dates: the asset is written off in the income year it is first used or installed ready for use, and some limits apply only to an asset first acquired after a budget’s 7.30 pm announcement. An asset acquired on a budget day itself (12 May 2015, 2 April 2019 or 6 October 2020) is refused, as the calculator takes dates, not times.
+
+The cost is the asset’s whole cost; it must be less than the limit. The deduction is the cost times the share of use for a taxable purpose. An asset at or above the limit goes into the small business pool, or for other entities is depreciated under Division 40.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; a small business entity using simplified depreciation; first acquired 18 November 2025, first used 18 November 2025; cost $6,800.00, taxable use 80%. Taxable purpose proportion of the cost $5,440.00 Instant asset write-off deduction $5,440.00 Cost limit less than $20,000.00 IT(TP)A 1997 s 328-180(4)(d): less than $20,000 for an asset first acquired from 7.30 pm on 12 May 2015 and first used or installed ready for use from 1 July 2023 to 30 June 2026.
+
+## How the instant asset write-off calculator works
+
+The instant asset write-off calculator decides whether one depreciating asset is written off in full in the income year it is first used, or installed ready for use, for a taxable purpose, from 2020-21 to 2026-27. It finds the cost limit that applies from the business, the date the asset was first acquired and the date it was first used, and writes the asset off if its cost is less than that limit. The deduction is the cost times the taxable use, rounded to the cent.
+
+Its results match the instant-asset-write-off command of Ryan Duguid’s australian-accounting calculators on 366 test cases, refusals included.
+
+## What the instant asset write-off calculator does not cover
+
+The calculator does not decide whether a business is a small business entity or medium sized business, whether it chose simplified depreciation, or the taxable use: you state those. It does not work out the small business pool, the car limit, second element costs added later, a balancing adjustment on disposal, backing business investment, or temporary full expensing for entities other than small business entities using simplified depreciation, which it refuses. It refuses an asset acquired on a budget day itself. Results are planning estimates: check them against your records and the ATO’s guidance.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Instant asset write-off calculator
+
+Case | Inputs | Result
+The ATO’s Fiona: a $6,800 computer used 80% for business, $5,440 written off | 2025-26; a small business entity using simplified depreciation; first acquired 18 November 2025, first used 18 November 2025; cost $6,800.00, taxable use 80% | taxable purpose proportion $5,440.00, deduction $5,440.00, written off
+The ATO’s Daryl: a $40,000 ute used 40%, at or above $20,000, goes to the pool | 2025-26; a small business entity using simplified depreciation; first acquired 28 July 2025, first used 28 July 2025; cost $40,000.00, taxable use 40% | taxable purpose proportion $16,000.00, deduction $0.00, not written off
+From 1 July 2026: $19,999.99 is less than $20,000 and written off | 2026-27; a small business entity using simplified depreciation; first acquired 1 July 2026, first used 1 July 2026; cost $19,999.99, taxable use 100% | taxable purpose proportion $19,999.99, deduction $19,999.99, written off
+From 1 July 2026: $20,000.00 is not less than $20,000 | 2026-27; a small business entity using simplified depreciation; first acquired 1 July 2026, first used 1 July 2026; cost $20,000.00, taxable use 100% | taxable purpose proportion $20,000.00, deduction $0.00, not written off
+A small business’s asset held from 6 October 2020 and first used by 30 June 2023 has no limit | 2020-21; a small business entity using simplified depreciation; first acquired 2 November 2020, first used 1 March 2021; cost $250,000.00, taxable use 60% | taxable purpose proportion $150,000.00, deduction $150,000.00, written off
+Acquired before 12 May 2015 and first used in 2023-24: the $1,000 limit | 2023-24; a small business entity using simplified depreciation; first acquired 15 January 2015, first used 1 September 2023; cost $1,500.00, taxable use 100% | taxable purpose proportion $1,500.00, deduction $0.00, not written off
+A medium sized business: $149,999.99, acquired after 2 April 2019 and first used by 30 June 2021 | 2020-21; a medium sized business; first acquired 1 June 2019, first used 1 August 2020; cost $149,999.99, taxable use 100% | taxable purpose proportion $149,999.99, deduction $149,999.99, written off
+A medium sized business’s asset first used after 30 June 2021 is not written off | 2023-24; a medium sized business; first acquired 1 July 2021, first used 1 August 2023; cost $5,000.00, taxable use 100% | taxable purpose proportion $5,000.00, deduction $0.00, not written off
+Acquired on budget day 6 October 2020 is refused: the result turns on the time | 2020-21; a small business entity using simplified depreciation; first acquired 6 October 2020, first used 1 January 2021; cost $50,000.00, taxable use 100% | Refused: the result turns on whether the asset was first acquired before or after 7.30 pm on 6 October 2020 (legal time in the ACT), and the calculator takes dates only
+
+One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- australian-accounting: https://github.com/ryanduguid/australian-accounting
+- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
 # Division 7A minimum yearly repayment calculator
 
 Source: https://duguid.com.au/tools/business-calculators/div7a/
@@ -641,77 +713,3 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
 - Salary packaging calculator: https://duguid.com.au/tools/individual-tax/salary-packaging/
 - FBT property calculator: https://duguid.com.au/tools/business-calculators/fbt-property/
-
----
-
-# FBT property calculator: in-house and external benefits
-
-Source: https://duguid.com.au/tools/business-calculators/fbt-property/
-
-> Taxable value of a property fringe benefit for the year ending 31 March 2027, in-house or external, with the otherwise deductible rule and $1,000 reduction.
-
-# FBT property calculator
-
-A property fringe benefit’s taxable value by the in-house or external rules, the otherwise deductible rule and the $1,000 in-house reduction.
-
-Published 19 November 2026. Last checked 19 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Inputs for one property fringe benefit, FBT year ending 31 March 2027
-
-Valuation rule In-house under salary packaging: the notional value In-house goods you make and sell to the trade: the lowest arm’s length price In-house goods you make and sell to the public: 75% of the lowest public price In-house goods you make, otherwise, such as seconds: 75% of the notional value In-house goods you buy for the business: the lesser of their arm’s length price and notional value Other in-house property: 75% of the notional value External, bought at arm’s length at about the time: the cost price External, from a third party paid at arm’s length: that expenditure Other external property: the notional value Price rules only: the lowest price, arm’s length price, cost price or expenditure, with GST (AUD) Notional value: what the employee would pay at arm’s length (AUD) Employee contribution paid for the property (AUD) Share of use giving the employee a once-only deduction (%) Deduction the employee could claim for their contribution (AUD) In-house rules other than salary packaging: the employee’s $1,000 in-house reduction left this year (AUD)
-
-Each rule reads only its own price or notional value. Enter 0% income use for a depreciating asset costing $301 or more, a benefit to an associate, or without the employee’s declaration where paragraph 44(1)(c) needs one.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: in-house made and sold to the public, 75% of the lowest public price, lowest public price $900.00, employee contribution $500.00, 0% income use, deduction for the contribution $0.00, in-house reduction left $0.00. Value before the contribution $675.00 Employee contribution applied $500.00 Excess contribution $0.00 Value after the contribution $175.00 Gross deduction $0.00 Deduction for the contribution applied $0.00 Notional deduction $0.00 Otherwise deductible reduction $0.00 In-house reduction, section 62 $0.00 Taxable value $175.00 The $1,000 in-house reduction in section 62 is for all of the employee’s in-house fringe benefits in the year together.
-
-## How the FBT property calculator works
-
-The FBT property calculator values one property fringe benefit, goods or other property you give an employee in the FBT year from 1 April 2026 to 31 March 2027. An in-house benefit is goods identical or similar to those you, or an associate, sell in the ordinary course of business; any other property is an external benefit. Choose the rule that applies to the property. Under a salary packaging arrangement an in-house benefit takes the notional value. Goods you make take the lowest arm’s length price where you sell identical goods to the trade, 75% of the lowest public price where you sell them to the public, and otherwise 75% of the notional value. Goods you buy for your business take the lesser of the arm’s length purchase price and the notional value. The calculator takes the employee’s contribution off, never below nil, and shows any excess, which does not reduce another benefit.
-
-Where the employee would have had a once-only income tax deduction had they bought the property themselves, the otherwise deductible rule reduces the value. The gross deduction is the value before the contribution × the share of use that would be deductible; the notional deduction is that less the deduction for the contribution. For an in-house benefit outside salary packaging, the calculator then takes off the part of the employee’s $1,000 in-house reduction for the year that their other in-house benefits have not used.
-
-This page opens on the desk example in section 17.3 of the ATO’s guide for employers: a desk you make and sell to the public for at least $900, which an employee buys for $500, has a taxable value of 75% × $900 − $500 = $175. The tests also hold the guide’s other section 17.3 and 17.5 examples.
-
-## What the FBT property calculator does not cover
-
-The calculator does not decide whether a property fringe benefit arises or whether property is in-house. Nor does it apply an exemption, such as property consumed on your premises on a working day (section 41), a minor benefit (section 58P) or an eligible work-related item such as a portable electronic device (section 58X). It does not value airline transport (paragraph 42(1)(ab)), a car property benefit, whose otherwise deductible amount follows the car substantiation rules, a benefit provided jointly to an employee and an associate, whose reduction is limited to the employee’s interest, or an expense payment, which has its own calculator. It does not check the declaration the otherwise deductible rule needs (paragraph 44(1)(c)) or work out the employee’s deduction. It values one benefit: the $1,000 in-house reduction is for all of an employee’s in-house fringe benefits in the year, so enter what the others have not used. It stops at the taxable value and does not gross it up or work out FBT. Confirm the figures with the ATO’s guide or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: FBT property calculator
-
-Case | Inputs | Result
-The guide’s section 17.3 desk: 75% of the $900 public price less the $500 paid | in-house-public-price, price $900.00, notional value $0.00, contribution $500.00, income use 0%, deduction $0.00, in-house reduction left $0.00 | Value before contributions $675.00, contribution applied $500.00, value after the contribution $175.00, in-house reduction $0.00, taxable value $175.00
-The same desk with the employee’s $1,000 in-house reduction unused: nil | in-house-public-price, price $900.00, notional value $0.00, contribution $500.00, income use 0%, deduction $0.00, in-house reduction left $1,000.00 | In-house reduction $175.00, taxable value $0.00
-The guide’s early payment discount: the lowest arm’s length trade price, $950 | in-house-trade-price, price $950.00, notional value $0.00, contribution $0.00, income use 0%, deduction $0.00, in-house reduction left $0.00 | Value before contributions $950.00, taxable value $950.00
-The guide’s damaged racquet: 75% of its $30 notional value less $5 | in-house-produced-other, price $0.00, notional value $30.00, contribution $5.00, income use 0%, deduction $0.00, in-house reduction left $0.00 | Value before contributions $22.50, taxable value $17.50
-The guide’s television bought for $500, retailed at $750, sold for $400 | in-house-acquired, price $500.00, notional value $750.00, contribution $400.00, income use 0%, deduction $0.00, in-house reduction left $0.00 | Value before contributions $500.00, taxable value $100.00
-The guide’s section 17.5: $500 of goods, $250 paid, 80% work use, RD $200 | external-notional-value, price $0.00, notional value $500.00, contribution $250.00, income use 80%, deduction $200.00, in-house reduction left $0.00 | Value after the contribution $250.00, gross deduction $400.00, notional deduction $200.00, reduction $200.00, taxable value $50.00
-The guide’s section 17.5, the contribution set for the use: RD $150, nil | external-notional-value, price $0.00, notional value $500.00, contribution $250.00, income use 80%, deduction $150.00, in-house reduction left $0.00 | Notional deduction $250.00, reduction $250.00, taxable value $0.00
-Salary packaging takes the notional value and no in-house reduction | in-house-salary-packaging, price $0.00, notional value $2,000.00, contribution $0.00, income use 0%, deduction $0.00, in-house reduction left $1,000.00 | Value before contributions $2,000.00, taxable value $2,000.00
-A contribution above the value leaves nil and an excess that reduces nothing else | in-house-other, price $0.00, notional value $100.00, contribution $200.00, income use 0%, deduction $0.00, in-house reduction left $0.00 | Value before contributions $75.00, contribution applied $75.00, excess contribution $125.00, taxable value $0.00
-75% of 6 cents is 4.5 cents, rounded half up to 5 | in-house-public-price, price $0.06, notional value $0.00, contribution $0.00, income use 0%, deduction $0.00, in-house reduction left $0.00 | Value before contributions $0.05, taxable value $0.05
-A deduction for the contribution above the contribution is refused | external-cost-price, price $100.00, notional value $0.00, contribution $10.00, income use 0%, deduction $10.01, in-house reduction left $0.00 | Refused: the deduction for the employee’s contribution cannot be more than the contribution
-More than the $1,000 in-house reduction is refused | in-house-other, price $0.00, notional value $100.00, contribution $0.00, income use 0%, deduction $0.00, in-house reduction left $1,000.01 | Refused: enter an amount between 0 and 1000
-
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-## Related
-
-- FBT rate and gross-up rates
-- FBT expense payment calculator
-- Meal entertainment calculator
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-## Links
-
-- ATO’s guide for employers: https://www.ato.gov.au/law/view/document?docid=SAV/FBTGEMP/00018
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
-- FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
-- FBT expense payment calculator: https://duguid.com.au/tools/business-calculators/fbt-expense-payment/
-- Meal entertainment calculator: https://duguid.com.au/tools/business-calculators/fbt-meal-entertainment/

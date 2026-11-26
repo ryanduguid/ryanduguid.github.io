@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 Fifty-seven free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
-Published 11 September 2026. Last checked 24 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
 Search 57 calculators
 
@@ -56,10 +56,11 @@ Search 57 calculators
 - Deferred tax calculator A company’s AASB 112 tax effect worksheet: deferred tax liability and asset, the movement, current tax and the reconciliation.
 - Salary against dividends calculator A company owner’s salary and super guarantee against fully franked dividends for 2021-22 to 2026-27: the cash and super kept after tax, and the split that keeps the most.
 
-## Capital gains tax
+## Capital gains tax and capital assets
 
 - Capital gains tax calculator The capital gain or loss on one sale to 30 June 2027: discount or indexation, losses, and the main residence and 6-year rules, each step cited.
 - Small business CGT concessions checker Which of the 4 small business CGT concessions in Division 152 are open for one capital gain, each with the provision that decides it.
+- Instant asset write-off calculator Whether a small business entity using simplified depreciation, or a medium sized business to 30 June 2021, writes one asset off in full: the cost limit from the dates and the deduction.
 
 ## Staff, payroll and termination
 
@@ -67,6 +68,7 @@ Search 57 calculators
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 - SGC and Payday Super calculator When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.
 - Long service leave calculator One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.
+- Leave provisions calculator Annual and long service leave provisions under AASB 119, line by line, split current and non-current under AASB 101.
 - Workers compensation premium calculator A 2026-27 premium from the declared wages and the insurer’s rate under each state and territory’s scheme, with GST, duty and the actual wages adjustment, each step cited.
 - Super lump sum tax The components of a super lump sum and the most tax each part can bear, for members and death benefits, 2020-21 to 2026-27.
 - Redundancy and ETP withholding The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
@@ -110,7 +112,6 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - AASB 16 lease calculator: https://duguid.com.au/tools/business-calculators/lease/
 - Borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
 - Depreciation pools and capital works calculator: https://duguid.com.au/tools/business-calculators/depreciation-pools/
-- Instant asset write-off calculator: https://duguid.com.au/tools/business-calculators/instant-asset-write-off/
 - Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
@@ -134,6 +135,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/
 - Capital gains tax calculator: https://duguid.com.au/tools/business-calculators/cgt/
 - Small business CGT concessions checker: https://duguid.com.au/tools/business-calculators/cgt-concessions/
+- Instant asset write-off calculator: https://duguid.com.au/tools/business-calculators/instant-asset-write-off/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
