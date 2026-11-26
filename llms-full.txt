@@ -13397,11 +13397,11 @@ Source: https://duguid.com.au/tools/individual-tax/
 
 # Individual tax calculators
 
-Eighteen free calculators for one person’s tax, pay and super, grounded in legislation and ATO worked examples. They run in your browser with no sign-up.
+Twenty-two free calculators for one person’s tax, pay and super, grounded in legislation and ATO worked examples. They run in your browser with no sign-up.
 
-Published 17 November 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
+Published 17 November 2026. Last checked 27 November 2026, the newest of the calculators’ source checks.
 
-Search 18 calculators
+Search 22 calculators
 
 ## Tax, pay and study loans
 
@@ -13426,6 +13426,10 @@ Search 18 calculators
 - Transfer balance calculator Your transfer balance account and personal cap with proportional indexation, excess transfer balance earnings and tax, the excess concessional contributions charge, and the release of excess non-concessional contributions.
 - Pension minimum calculator The minimum annual payment from an account-based pension for 2024-25 to 2027-28, with the first year pro-rated from the start day and rounding to the nearest $10.
 - 183-day residency day count Your days in Australia in an income year from 2020-21 to 2026-27, added up from your arrival and departure days, against the 183-day residency test and its exception.
+- Defined benefit income cap calculator The defined benefit income cap for 2017-18 to 2026-27, the half of the excess that is assessable and the reduced untaxed element offset.
+- Foreign pension deductible amount The undeducted purchase price of a foreign pension or annuity excluded each year under s 27H, or the ATO’s UK and Dutch pension rates for 2025-26.
+- Scholarship exemption check Whether a scholarship, bursary or educational allowance paid to a full-time student is exempt income, 2017-18 to 2026-27.
+- Super crystallisation calculator The crystallised segment and pre-July 83 component of a super interest at 30 June 2007.
 
 For a business, see the 60 business calculators, depreciation rates and individual income tax rate tables.
 
@@ -13451,6 +13455,10 @@ Estimates in AUD for one person’s full income year: income tax and study loans
 - Transfer balance calculator: https://duguid.com.au/tools/individual-tax/transfer-balance/
 - Pension minimum calculator: https://duguid.com.au/tools/individual-tax/pension-minimum/
 - 183-day residency day count: https://duguid.com.au/tools/individual-tax/residency-days/
+- Defined benefit income cap calculator: https://duguid.com.au/tools/individual-tax/defined-benefit-income-cap/
+- Foreign pension deductible amount: https://duguid.com.au/tools/individual-tax/foreign-pension-upp/
+- Scholarship exemption check: https://duguid.com.au/tools/individual-tax/scholarship-exemption/
+- Super crystallisation calculator: https://duguid.com.au/tools/individual-tax/super-crystallisation/
 - 60 business calculators: https://duguid.com.au/tools/business-calculators/
 - depreciation rates: https://duguid.com.au/tools/depreciation-rates/
 - individual income tax rate tables: https://duguid.com.au/rates/individual-income-tax/
@@ -13521,7 +13529,7 @@ A balance a cent below $500,000 still carries forward | 2024-25, balance $499,99
 At a $500,000 balance nothing is carried forward and $10,000 is excess | 2024-25, balance $500,000.00, contributions $40,000.00; earlier 2019-20 $11,000.00, 2020-21 $12,000.00, 2021-22 $13,000.00, 2022-23 $14,000.00, 2023-24 $15,000.00 | Cap $30,000.00 with $67,500.00 unused from the previous 5 years, $0.00 applied, $10,000.00 excess; $14,000.00 lapses
 2026-27’s $32,500 cap with $17,500 carried forward, earliest first | 2026-27, balance $300,000.00, contributions $50,000.00; earlier 2021-22 $20,000.00, 2022-23 $20,000.00, 2023-24 $20,000.00, 2024-25 $20,000.00, 2025-26 $20,000.00 | Cap $75,000.00 with $42,500.00 unused from the previous 5 years, $17,500.00 applied, $0.00 excess; $0.00 lapses
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -13533,7 +13541,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Division 293 tax calculator: https://duguid.com.au/tools/individual-tax/division-293/
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
 - Super co-contribution, LISTO and spouse offset calculator: https://duguid.com.au/tools/individual-tax/government-super/
@@ -13695,7 +13703,7 @@ Own income at the Medicare threshold amount: nil whatever the spouse earns | 202
 Foreign resident: no surcharge | 2026-27, foreign resident, taxable income $200,000, 365 days without hospital cover, withheld $0.00 | Tax $65,350.00, offset $0.00, Medicare levy $0.00, surcharge $0.00, total $65,350.00, owing $65,350.00
 Study loan with withholding short: an amount owing | 2026-27, Australian resident, taxable income $90,000, study loan, withheld $19,500.50 | Tax $17,520.00, offset $0.00, Medicare levy $1,800.00, surcharge $0.00, study loan $3,070.80, total $22,390.80, owing $2,890.30
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Common questions
 
@@ -13719,7 +13727,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Individual income tax rates: https://duguid.com.au/rates/individual-income-tax/
 - Take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
@@ -13814,7 +13822,7 @@ Above the cap and in Division 293 | 2026-27, Australian resident, $260,000 a yea
 2021-22 fortnightly: withholding leaves the low and middle income tax offset to the return | 2021-22, Australian resident, $3,000 a fortnight plus super | Take-home $62,123.00 a year, $2,389.35 a fortnight; super $7,800.00; withheld $670.00 a pay, refund $1,543.00
 2025-26 fortnightly with a study loan: Schedule 8 from 24 September 2025 | 2025-26, Australian resident, $3,000 a fortnight plus super, study loan | Take-home $60,602.00 a year, $2,330.85 a fortnight; super $9,360.00; withheld $672.00 a pay, refund $74.00
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Common questions
 
@@ -13840,7 +13848,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - PAYG withholding coefficients: https://duguid.com.au/rates/payg-withholding/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
 
@@ -13909,7 +13917,7 @@ A recent year that was a rebate year itself is adjusted both ways | 2025-26, tax
 2016-17’s arrears above $180,000 carry the 2% budget repair levy | 2025-26, taxable $100,000.00; 2016-17 $10,000.00 on $200,000.00 | Tax on arrears $3,000.00, notional tax $4,700.00, offset $0.00
 2026-27’s 15% band: $20,000 from 2024-25 at 16% and 30% against 30% and 37% | 2026-27, taxable $150,000.00; 2024-25 $20,000.00 on $30,000.00 | Tax on arrears $7,050.00, notional tax $3,900.00, offset $3,150.00
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -13921,7 +13929,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Bonus withholding calculator: https://duguid.com.au/tools/individual-tax/bonus-withholding/
 - Individual income tax rates: https://duguid.com.au/rates/individual-income-tax/
@@ -13995,7 +14003,7 @@ ATO example 4: Branson, 2024-25, at 5.5% by section 154-20 | 2024-25: taxable in
 2021-22 at 1% | 2021-22: taxable income $47,014 | Repayment income $47,014.00, repayment $470.14
 2020-21 a dollar below 10% | 2020-21: taxable income $136,739 | Repayment income $136,739.00, repayment $12,990.21
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -14009,7 +14017,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Study loan repayment thresholds: https://duguid.com.au/rates/study-loan-repayment/
 - Income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
 
@@ -14107,7 +14115,7 @@ No offset: $20,000 of profit on $70,000 of wages adds 30% tax and 2% Medicare le
 2023-24, other deductions take taxable income below the profit: the offset’s share stops at 1 | 2023-24, business $40,000 less $5,000, other deductions $3,000, invoice $1,000.00 | Offset $419.52, business tax $2,102.48; set aside $2,102.48 a year, $525.62 a quarter, 5.26% of each invoice
 2021-22, $25,000 of profit: the low and middle income offsets leave no tax for this offset | 2021-22, business $25,000 less $0, invoice $1,000.00 | Offset $0.00, business tax $163.50; set aside $163.50 a year, $40.88 a quarter, 0.65% of each invoice
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -14121,7 +14129,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - calculators and tools: https://www.ato.gov.au/calculators-and-tools
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - PAYG instalments calculator: https://duguid.com.au/tools/business-calculators/payg-instalments/
 - GST calculator: https://duguid.com.au/tools/business-calculators/gst/
@@ -14195,7 +14203,7 @@ Unused cap covers part of the excess | 2026-27: taxable income $210,000, fringe 
 2023-24: each part of Division 293 income | 2023-24: taxable income $200,000, fringe benefits $10,000, net investment loss $15,000, family trust distribution tax income $20,000, less FHSS $5,000; contributions $27,500.00 | Division 293 income $240,000.00, low tax contributions $27,500.00, taxable contributions $17,500.00, tax $2,625.00
 2021-22: a lump sum taxed at the zero rate comes off | 2021-22: taxable income $260,000, less zero-rate lump sum $30,000; contributions $27,500.00 | Division 293 income $230,000.00, low tax contributions $27,500.00, taxable contributions $7,500.00, tax $1,125.00
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -14207,7 +14215,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 - Income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
 - Maximum super contribution base: https://duguid.com.au/rates/maximum-contribution-base/
@@ -14274,7 +14282,7 @@ Child support paid can take adjusted taxable income below nil | Resident all yea
 Pensions and target foreign income count in adjusted taxable income only | Resident all year, taxable $20,000, pensions $5,000, target foreign $3,000, child support $8,000, assessable $20,000 | Surcharge $20,000, Division 293 $20,000, rebate $20,000, repayment $20,000, adjusted taxable $20,000, co-contribution $20,000
 Business deductions come off co-contribution total income only | Resident all year, taxable $35,000, other fringe $2,000, employer super $1,000, assessable $40,000, business deductions $5,000 | Surcharge $38,000, Division 293 $37,000, rebate $38,000, repayment $38,000, adjusted taxable $38,000, co-contribution $38,000
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -14288,7 +14296,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - When you must repay your loan: https://www.ato.gov.au/individuals-and-families/study-and-training-support-loans/when-must-you-repay-your-loan
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Division 293 tax calculator: https://duguid.com.au/tools/individual-tax/division-293/
 - Study and training loan calculator: https://duguid.com.au/tools/individual-tax/study-loan/
 
@@ -14366,7 +14374,7 @@ The present value at 2.5%, as the Instrument allows you to change it | Age 30 to
 A higher-fee fund: $150 and 0.85% | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $150.00 and 0.85%, premiums $599.00, growth 3.7%, present value at 3.7% | 37 years: $1,778,785.44, present value $463,777.40
 No insurance | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $59.00 and 0.11%, premiums $0.00, growth 3.7%, present value at 3.7% | 37 years: $2,178,481.86, present value $567,989.05
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -14378,7 +14386,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 - Super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
@@ -14469,7 +14477,7 @@ LISTO on $50: the $10 minimum (s 12E(2)(c)) | 2025-26, assessable income $20,000
 LISTO at adjusted taxable income $37,001: nil (s 12C(1)(b)) | 2025-26, assessable income $37,001, eligible income $37,001.00, personal contributions $0.00, concessional contributions $4,000.00 | Co-contribution $0.00, LISTO $0.00
 Spouse income $39,999: 18% of $1 (s 290-235(1)) | 2025-26, assessable income $90,000, eligible income $90,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $39,999.00, spouse contributions $3,000.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $0.18
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -14482,7 +14490,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
 
@@ -14576,13 +14584,13 @@ The charge on $2,500.50 for 2013-14, the first year, tax due 21 November 2014 | 
 Releasing a $100,000 excess for 2024-25, determined 15 September 2025 | 2024-25 release of $100,000.00, determination 2025-09-15 | Earnings $14,663.00, release $112,463.55, offset $2,199.45
 Releasing a $50,000 excess for 2020-21, determined 30 November 2021 | 2020-21 release of $50,000.00, determination 2021-11-30 | Earnings $5,251.00, release $54,463.35, offset $787.65
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -14638,13 +14646,13 @@ At 65 the factor rises from 4% to 5% | 2025-26, balance $100,000.00, age 65, 365
 At 95 or more, 14% | 2026-27, balance $500,000.00, age 95, 365 days | Before rounding $70,000.00, minimum $70,000.00
 2027-28 has 366 days, with 29 February 2028 | 2027-28, balance $300,000.00, age 80, 366 days | Before rounding $21,000.00, minimum $21,000.00
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -14707,14 +14715,282 @@ Abode outside Australia but intending to take up residence: the exception needs 
 183 days in 2023-24, which includes 29 February 2024: 184 needed (TR 2023/1 footnote 51) | 2023-24, 2023-07-01 to 2023-12-30 | 183 days, 184 needed: not met
 A stay from 1 January 2024 to 31 July 2024 counted in 2024-25: only 1 to 31 July falls in the year; an overlapping stay counts once | 2024-25, 2024-01-01 to 2024-07-31, 2024-07-15 to 2024-07-20 | 31 days, 183 needed: not met
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - TR 2023/1: https://www.ato.gov.au/law/view/document?docid=TXR/TR20231/NAT/ATO/00001
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Defined benefit income cap calculator (s 303-4)
+
+Source: https://duguid.com.au/tools/individual-tax/defined-benefit-income-cap/
+
+> Work out the defined benefit income cap, the 50% of the excess that is assessable and the reduced untaxed element offset for a super pension from 2017-18.
+
+# Defined benefit income cap calculator
+
+Work the defined benefit income cap for 2017-18 to 2026-27 and what is assessable over it.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Defined benefit income for one income year
+
+Tax free and taxed amounts Untaxed elements Other defined benefit income
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18
+
+First day, if it fell in this year
+
+Enter the year’s defined benefit income in dollars. The tax free and taxed amounts are the tax free components and taxed elements of the income that is concessionally treated: you are 60 or over, or it is a death benefit from someone who died at 60 or over. The untaxed elements are those of the same income. Other defined benefit income is income without that treatment, and it reduces the cap.
+
+Leave the first day blank if the concessional treatment already applied before the year began; otherwise the cap is pro-rated from that day to 30 June.
+
+Calculate
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; tax free and taxed $140,000.00; untaxed $0.00; other defined benefit income $0.00. Defined benefit income cap $125,000.00 Tax free and taxed amounts over the cap $15,000.00 Assessable income: 50% of the excess $7,500.00 Untaxed element offset after the reduction $0.00 Cap: the general transfer balance cap of $2,000,000.00 / 16; offset of $0.00 reduced by $1,500.00.
+
+## How the defined benefit income cap calculator works
+
+The defined benefit income cap is the general transfer balance cap for the year divided by 16, rounded up to the dollar: $125,000 for 2025-26 and $131,250 for 2026-27. If the concessional treatment first applied to you during the year, the cap is pro-rated by the days from that day to 30 June. Defined benefit income that is not concessionally treated reduces the cap, but not below nil.
+
+Half of the tax free and taxed amounts over the cap is assessable income, with no tax offset for it. The untaxed element offset of 10% of the untaxed elements is reduced by 10% of the amount by which all the concessional income, untaxed elements included, exceeds the cap.
+
+## What the defined benefit income cap calculator does not cover
+
+The calculator does not decide which of your income is defined benefit income or whether it is concessionally treated; it takes the amounts as you enter them. It does not work the tax on the assessable amount, the withholding a fund applies under Schedule 13, capped defined benefit income streams for the transfer balance account, or the 2017 transitional rules for death benefit dependants. Confirm the amounts with your fund, the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Defined benefit income cap calculator
+
+Case | Inputs | Result
+The form’s example | 2025-26, tax free and taxed $140,000.00, untaxed $0.00, other $0.00 | Cap $125,000.00, assessable $7,500.00, offset $0.00
+A full year at the 2026-27 cap of $131,250 exactly: nothing over it | 2026-27, tax free and taxed $131,250.00, untaxed $0.00, other $0.00 | Cap $131,250.00, assessable $0.00, offset $0.00
+A dollar over the 2017-18 cap of $100,000: 50 cents assessable | 2017-18, tax free and taxed $100,001.00, untaxed $0.00, other $0.00 | Cap $100,000.00, assessable $0.50, offset $0.00
+Concessional treatment from 1 January 2024 in a 366-day year: the cap is pro-rated and rounded up | 2023-24, tax free and taxed $100,000.00, untaxed $0.00, other $0.00, first day 2024-01-01 | Cap $59,051.00, assessable $20,474.50, offset $0.00
+Untaxed elements of $50,000 under the cap keep the full $5,000 offset | 2025-26, tax free and taxed $50,000.00, untaxed $50,000.00, other $0.00 | Cap $125,000.00, assessable $0.00, offset $5,000.00
+Other defined benefit income above the cap reduces it to nil | 2025-26, tax free and taxed $10,000.00, untaxed $10,000.00, other $200,000.00 | Cap $0.00, assessable $5,000.00, offset $0.00
+
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Foreign pension undeducted purchase price calculator
+
+Source: https://duguid.com.au/tools/individual-tax/foreign-pension-upp/
+
+> Work out the deductible amount of a foreign pension’s undeducted purchase price under s 27H, or the ATO’s UK and Dutch pension rates for 2025-26.
+
+# Foreign pension deductible amount
+
+The undeducted purchase price of a foreign pension or annuity, excluded each year.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+A foreign pension or annuity for one income year
+
+Pension received in the year, in Australian dollars
+
+Method The s 27H formula UK State Pension (2025-26) Dutch SVB pension, amount unknown (2025-26)
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18 2016-17 2015-16 2014-15 2013-14 2012-13 2011-12 2010-11 2009-10 2008-09 2007-08
+
+Undeducted purchase price Residual capital value
+
+Relevant number is A life expectation factor A term of years certain
+
+Relevant number, in years Whole annuity, if shared
+
+Paid for the whole income year? Yes No
+
+Any part commuted? No Yes
+
+UK State Pension category Category A Category B (widow’s) Category C Category D
+
+The formula uses the purchase price, residual value, relevant number, whole annuity, whole year and commuted fields; the UK method uses only the category; the Dutch method uses neither. The relevant number is the term in years for an annuity for a term certain, or the life expectation factor from the Life Tables for a life annuity. Enter the whole annuity only if you share it with others.
+
+Calculate
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; s 27H formula; received $20,000.00. Deductible amount $11,217.05 Excluded from assessable income $11,217.05 Assessable foreign pension or annuity $8,782.95 Relevant share 1 × (price less residual value) ÷ relevant number 17.83.
+
+## How the foreign pension undeducted purchase price calculator works
+
+A foreign pension or annuity that you or someone else bought with money that was never deducted has an undeducted purchase price. Section 27H excludes a deductible amount from the pension each year: your share of the annuity, times the purchase price less any residual capital value, divided by the relevant number. The amount excluded cannot be more than the pension, and the rest is assessable income.
+
+For 2025-26 the ATO’s instructions also give 2 shortcuts: 8% of a UK State Pension in category A or a category B widow’s pension, nil for category C or D, and 25% of a Dutch SVB pension whose deductible amount cannot be worked out.
+
+## What the foreign pension undeducted purchase price calculator does not cover
+
+The calculator does not work out the purchase price, residual value or life expectation factor, convert foreign currency, or apply a tax treaty. It refuses an annuity partly commuted, one not paid for the whole year, and one whose relevant number the Commissioner must set: for those, ask the ATO for a determination of the deductible amount. It does not cover Australian super income streams. Confirm the figures with the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Foreign pension deductible amount
+
+Case | Inputs | Result
+The form’s example | 2025-26, formula, received $20,000.00, price $200,000.00, residual $0.00, relevant number 17.83 | Deductible $11,217.05, assessable $8,782.95
+A term of 10 years certain: one-tenth of the price is deductible | 2025-26, formula, received $15,000.00, price $100,000.00, residual $0.00, relevant number 10 | Deductible $10,000.00, assessable $5,000.00
+A residual capital value is taken off the price first | 2019-20, formula, received $15,000.00, price $100,000.00, residual $20,000.00, relevant number 10 | Deductible $8,000.00, assessable $7,000.00
+A deductible amount above the pension excludes only the pension | 2025-26, formula, received $5,000.00, price $100,000.00, residual $0.00, relevant number 10 | Deductible $10,000.00, assessable $0.00
+A shared annuity: your $10,000 of $40,000 is one-quarter | 2025-26, formula, received $10,000.00, price $200,000.00, residual $0.00, relevant number 10, whole annuity $40,000.00 | Deductible $5,000.00, assessable $5,000.00
+UK State Pension category A: 8% | 2025-26, uk state pension, received $12,000.00, category a | Deductible $960.00, assessable $11,040.00
+UK State Pension category C: nil | 2025-26, uk state pension, received $12,000.00, category c | Deductible $0.00, assessable $12,000.00
+Dutch SVB pension with no deductible amount worked out: 25% | 2025-26, dutch svb fallback, received $8,000.00 | Deductible $2,000.00, assessable $6,000.00
+
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Is my scholarship taxable? Exemption check (s 51-10)
+
+Source: https://duguid.com.au/tools/individual-tax/scholarship-exemption/
+
+> Check whether a scholarship, bursary or educational allowance paid to a full-time student is exempt income under item 2.1A and the s 51-35 exceptions.
+
+# Scholarship exemption check
+
+Check whether a scholarship or bursary is exempt income, 2017-18 to 2026-27.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One scholarship or educational payment Are you a full-time student at a school, college or university? Yes No
+
+Payment Scholarship Bursary Educational allowance Educational assistance
+
+Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18
+
+Paid on condition you work for the payer? No Yes
+
+Paid on condition of a contract for your labour? No Yes
+
+Provided principally for education? Yes No
+
+From a friendly society scholarship plan? No Yes
+
+A Commonwealth payment? None of these Austudy, ABSTUDY, Youth Allowance or another education or training payment Assistance for secondary education or isolated children Education entry payment
+
+A condition counts if you must, or must if asked, become or stay the payer’s employee, or enter into or keep a contract wholly or principally for your labour, such as a cadetship bonded to work.
+
+Check
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; scholarship. Paid to a full-time student at a school, college or university (s 51-10 item 2.1A) Met Not paid on condition that the student becomes or stays the payer’s employee (s 51-35(c)) Met Not paid on condition of a contract wholly or principally for the student’s labour (s 51-35(d)) Met Provided principally for educational purposes (s 51-35(e)) Met Exempt under item 2.1A Yes Exempt income: tell the provider it is exempt and leave it out of your tax return.
+
+## How the scholarship exemption check works
+
+A scholarship, bursary, educational allowance or educational assistance paid to a full-time student at a school, college or university is exempt income under item 2.1A of the table in s 51-10, unless s 51-35 takes it out. The check asks the 3 exceptions that turn on the payment’s terms: a condition that you become or stay the payer’s employee, a condition that you enter into or keep a contract wholly or principally for your labour, and a scholarship not provided principally for educational purposes. If every answer allows it, the payment is exempt and you leave it out of your tax return.
+
+## What the scholarship exemption check does not cover
+
+The check refuses the Commonwealth payments s 51-35 excludes (assistance for secondary education or isolated children, education or training payments such as Austudy, ABSTUDY and Youth Allowance, and the education entry payment), which other provisions may exempt in whole or part, and friendly society scholarship plans, which can be taxable. It does not test a prize or award, decide whether you are a full-time student, or work out tax or withholding on a payment that is not exempt. Confirm your answers with the provider, the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Scholarship exemption check
+
+Case | Inputs | Result
+The form’s example | 2025-26, scholarship | Exempt
+A part-time student: not exempt | 2025-26, scholarship, not full-time | Not exempt: full time student
+A cadetship bonded to employment: not exempt (s 51-35(c)) | 2025-26, scholarship, employment condition | Not exempt: no employment condition
+A scholarship on condition of a labour contract: not exempt (s 51-35(d)) | 2025-26, scholarship, labour contract condition | Not exempt: no labour contract condition
+Not provided principally for education: not exempt (s 51-35(e)) | 2025-26, bursary, not principally educational | Not exempt: principally educational
+
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# Super crystallised segment calculator (30 June 2007)
+
+Source: https://duguid.com.au/tools/individual-tax/super-crystallisation/
+
+> Work out the crystallised segment and pre-July 83 component of a super interest at 30 June 2007, the tax free amount it keeps, from its components.
+
+# Super crystallisation calculator
+
+The crystallised segment of a super interest at 30 June 2007.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+A super interest just before 1 July 2007
+
+Eligible service start Value of the interest at 30 June 2007 Undeducted contributions Concessional component Post-June 1994 invalidity component CGT exempt component
+
+From an untaxed source? No Yes
+
+Paying an income stream before 1 July 2007? No Yes
+
+Enter the components as your fund held them just before 1 July 2007. The eligible service start is usually the day you joined the fund or started the employment it covers; both it and 30 June 2007 count.
+
+Calculate
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Service from 1975-03-01; interest $500,000.00 at 30 June 2007. Pre-July 83 component $128,873.84 Crystallised segment (tax free component) $178,873.84 Taxable component left $321,126.16 3044 of 11810 days of eligible service fall before 1 July 1983.
+
+## How the super crystallisation calculator works
+
+On 1 July 2007 the old components of a super interest were crystallised into a tax free amount. The law treats a payment of the whole interest as made just before that day. The crystallised segment is the concessional, post-June 1994 invalidity and CGT exempt components, the undeducted contributions and the pre-July 83 component. It stays in the tax free component, and the rest of the value is the taxable component.
+
+The pre-July 83 component is the value less the concessional, invalidity and CGT exempt components, times the days of eligible service before 1 July 1983 over all the days to 30 June 2007. It cannot exceed that base less the undeducted contributions, and it rounds to the cent.
+
+## What the super crystallisation calculator does not cover
+
+The calculator takes the non-qualifying and excessive components as nil and does not check the components your fund held. It refuses an interest from an untaxed source and one paying an income stream before 1 July 2007, which have their own rules. It does not work later contributions or the proportioning of a benefit paid now. Confirm the figures with your fund or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Super crystallisation calculator
+
+Case | Inputs | Result
+The form’s example | service from 1975-03-01, value $500,000.00, undeducted $50,000.00 | Pre-July 83 $128,873.84, segment $178,873.84
+Service starting on 1 July 1983: no pre-July 83 component | service from 1983-07-01, value $300,000.00, undeducted $20,000.00 | Pre-July 83 $0.00, segment $20,000.00
+Service from 30 June 1983: 1 day before 1 July 1983 counts | service from 1983-06-30, value $876,800.00, undeducted $0.00 | Pre-July 83 $100.01, segment $100.01
+The day count would give more than the base less undeducted contributions: the lesser is used | service from 1960-07-01, value $400,000.00, undeducted $300,000.00 | Pre-July 83 $100,000.00, segment $400,000.00
+A CGT exempt component comes off the base and adds to the segment | service from 1990-01-01, value $250,000.00, undeducted $0.00, CGT exempt $50,000.00 | Pre-July 83 $0.00, segment $50,000.00
+
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -14800,7 +15076,7 @@ Case | Inputs | Result
 Sue: ATO GN 2024/1 example 11, with a fictional determination date | ATO determination: concessional $8,500.00, non-concessional $5,000.00, earnings $850.00 | Maximum release $14,350.00, assessable $9,350.00, PAYG $1,589.00, after withholding $12,761.00, offset $2,805.00
 Partial release in the income year after determination | ATO determination: concessional $8,500.00, non-concessional $10,000.00, earnings $1,500.00, requested $15,000.00 on 2025-07-01, gross released $12,000.00 | Maximum release $20,000.00, assessable $2,000.00, PAYG $340.00, after withholding $11,660.00, offset $600.00
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -14817,7 +15093,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - GN 2024/1, example 6: https://www.ato.gov.au/law/view/print?DocID=GDN%2FGDN20241%2FNAT%2FATO%2F00001
 - First Home Super Saver Tax Act 2017: https://www.legislation.gov.au/C2017A00133/asmade
 - Treasury Laws Amendment (2023 Measures No. 3) Act 2023, Schedule 4, items 28 and 30: https://www.legislation.gov.au/C2023A00075
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - First home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
@@ -14904,7 +15180,7 @@ A seminar is not a prescribed course, so no reduction in 2021-22 (TR 98/9 para 1
 From 2022-23 there is no $250 reduction (Act No. 84, 2022) | 2022-23, self-education, skills for current work, A $290.00, B $0.00, C $0.00, D $0.00 | Deduction $290.00
 Wendy: study for new employment is not deductible (ATO self-education page) | 2025-26, self-education, new employment, A $290.00, B $0.00, C $0.00, D $0.00 | Deduction $0.00, not deductible
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -14916,7 +15192,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Cents per kilometre rate: https://duguid.com.au/rates/cents-per-kilometre/
 - Deductions questions: https://duguid.com.au/tools/accounting-questions/deductions/
 - Depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
@@ -15006,7 +15282,7 @@ B(ii): what earlier B(ii) payments had withheld comes off | fortnightly, scale 2
 B(ii): earlier withholding beyond the amount gives nil | fortnightly, scale 2, $1,800.00 this pay; B(ii): $2,480.00, $18,000.00 over 10 pays to date, earlier $1,000.00 with $9,999.00 withheld | Withheld $212.00: $212.00 on earnings, $0.00 by B(ii) (limit $1,165.60)
 ATO example 4: Bradley’s back pay over 2 years by B(i) and B(ii), with a Financial Supplement debt | monthly, scale 2, study loan, $7,000.00 this pay; B(i): $800.00 for each of 2 pays of $6,200.00 that had $1,257.00 withheld; B(ii): $8,800.00, $19,400.00 over 3 pays to date | Withheld $6,492.00: $1,634.00 on earnings, $754.00 by B(i), $4,104.00 by B(ii) (limit $4,136.00)
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -15020,7 +15296,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - PAYG withholding coefficients: https://duguid.com.au/rates/payg-withholding/
 - Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/
 
@@ -15098,7 +15374,7 @@ The reportable amount brings on the surcharge and raises the study loan repaymen
 A foreign resident | 2026-27, charity, foreign, salary $70,000, Type 2 $15,899.93 | Gain $4,770.00: tax saved $4,770.00, FBT $0.00, reportable $29,999
 2022-23, before the standard deduction | 2022-23, charity, resident, salary $70,000, Type 2 $15,899.93 | Gain $5,674.00: tax saved $5,674.00, FBT $0.00, reportable $29,999
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -15111,7 +15387,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - novated lease calculator: https://duguid.com.au/tools/individual-tax/novated-lease/
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
 - Meal entertainment calculator: https://duguid.com.au/tools/business-calculators/fbt-meal-entertainment/
 
@@ -15209,7 +15485,7 @@ Held over 4 years: two-thirds of the cost price | 2026-27, bev, first held and u
 Half a year available | 2026-27, bev, first held and used on 2022-07-01, sold 2026-27 at $60,000.00, 182 days, costs $15,000.00 with GST and $1,000.00 without, salary $100,000 | Exempt: value $5,983.56, saving $6,047.48, $3,762.72 without the exemption
 The reportable amount brings on the surcharge | 2026-27, bev, first held and used on 2022-07-01, sold 2026-27 at $60,000.00, 365 days, costs $15,000.00 with GST and $1,000.00 without, salary $120,000, no hospital cover | Exempt: value $12,000.00, saving $5,649.93, $1,502.97 without the exemption
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -15221,7 +15497,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - Car limit for depreciation: https://duguid.com.au/rates/car-limit/
 - Salary packaging calculator: https://duguid.com.au/tools/individual-tax/salary-packaging/

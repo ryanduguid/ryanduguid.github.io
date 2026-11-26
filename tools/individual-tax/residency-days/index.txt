@@ -57,11 +57,11 @@ Abode outside Australia but intending to take up residence: the exception needs 
 183 days in 2023-24, which includes 29 February 2024: 184 needed (TR 2023/1 footnote 51) | 2023-24, 2023-07-01 to 2023-12-30 | 183 days, 184 needed: not met
 A stay from 1 January 2024 to 31 July 2024 counted in 2024-25: only 1 to 31 July falls in the year; an overlapping stay counts once | 2024-25, 2024-01-01 to 2024-07-31, 2024-07-15 to 2024-07-20 | 31 days, 183 needed: not met
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the twenty-two individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - TR 2023/1: https://www.ato.gov.au/law/view/document?docid=TXR/TR20231/NAT/ATO/00001
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- twenty-two individual tax calculators: https://duguid.com.au/tools/individual-tax/
