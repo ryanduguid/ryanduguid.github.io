@@ -100,7 +100,7 @@ The small business income tax offset and own super of $10,000 | 2026-27; 38 hour
 Own super above the concessional cap with the super guarantee: refused | 2026-27; 38 hours a week; salary $100,000.00, 4 weeks annual leave, 0% loading, 0 weeks other leave; payroll tax 5.45% with super, workers compensation 1.5% without super; contractor $70.00 an hour, non-labour $0.00, expenses $2,000.00, own super $20,000.00, GST registered, credit claimed; with the person, no delegation, not for a result; contractor not in payroll tax, not in workers compensation, no small business offset; hospital cover, no study loan | Refused: enter the contractor’s own super so that it and any super guarantee total no more than the 2026-27 concessional contributions cap of $32,500: excess contributions are not worked here
 Leave of 52 weeks: refused | 2026-27; 38 hours a week; salary $100,000.00, 50 weeks annual leave, 0% loading, 2 weeks other leave; payroll tax 5.45% with super, workers compensation 1.5% without super; contractor $70.00 an hour, non-labour $0.00, expenses $2,000.00, own super $0.00, GST registered, credit claimed; with the person, no delegation, not for a result; contractor not in payroll tax, not in workers compensation, no small business offset; hospital cover, no study loan | Refused: enter leave of fewer than 52 weeks in all
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -110,4 +110,4 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - personal services income checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
 - workers compensation calculator: https://duguid.com.au/tools/business-calculators/workers-compensation/
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/

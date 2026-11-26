@@ -12,7 +12,7 @@
   },
   "json_ld": {
     "about/index.html": [
-      "57862ec335d7f4838993145322f6cbba18f33f2484c1c929ce2d0f09de52ad48"
+      "02aa09ec79f08e66feb8b071a927c07aa4e5f4b248e88654d397fc645ddb74fa"
     ],
     "changelog/index.html": [
       "29539fcf63a44c93b1c04160e7d92ba0840f0588a4b38bf52c99a33dbc06da1c"
@@ -39,7 +39,7 @@
       "4f34b9a4a4eb565c428d51639eb7a42c1692eced3ac67482a156fb5ddfa636bb"
     ],
     "index.html": [
-      "6f42d6463d8756dfcdb32083f9dc6c3151fa5b13e306dd0321dacdd264f37269"
+      "cfaa37890a37ef3e3b45af68c224a033b9deb75099bdd6873fd94fc97336c08d"
     ],
     "privacy/index.html": [
       "dabe19f4f720b7d61a2993c85ad4ea6f5ba29a4f6109f90a3b9267b611902a15"
@@ -146,6 +146,9 @@
     "tools/business-calculators/cash/index.html": [
       "145b62f36ee65174ecb0bdb176378f9ffd90996d7e43dc6c9eeedd8d652e6e21"
     ],
+    "tools/business-calculators/casual-overtime/index.html": [
+      "ad0f92316c4b34c2606a2c543a6c09f464d5b6e5e4acb7cd1856cea925715f27"
+    ],
     "tools/business-calculators/cgt-concessions/index.html": [
       "ec639067667e6f56119264fb033dc4c9e15683696d89f7adc715d1778f250773"
     ],
@@ -154,6 +157,9 @@
     ],
     "tools/business-calculators/company-tax/index.html": [
       "7f1f2296cde2493c9d8685d9dc7eeea5adf9d79886f6d0a4c5b92ec2de556617"
+    ],
+    "tools/business-calculators/contractor-employee/index.html": [
+      "55eec4ab020f31c11bafd8eba5648d010d22fcaaff306437c644cc1fe3e89fa7"
     ],
     "tools/business-calculators/deferred-tax/index.html": [
       "4598153e3de4d4e8f381b58e21340d5fdf9982a0051e66d915b230a6d6e7ff7e"
@@ -347,6 +353,9 @@
     "tools/individual-tax/pension-minimum/index.html": [
       "8a8e799e7b2b0469bad560084a8677f3e41667528f9aae312c0951a6ad17b78d"
     ],
+    "tools/individual-tax/residency-days/index.html": [
+      "36452635a2b2a8767b5b6e6772dc36978c7d35976324c41dacac41b3b3a30abb"
+    ],
     "tools/individual-tax/salary-packaging/index.html": [
       "79df2afc8bdd8a9ee82ab1c9860fa4a827d4379a96f3f60dde93430d21d93a44"
     ],
@@ -431,7 +440,7 @@
   },
   "protected_files": {
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "c8fe189cc6b0603c157303957e4e13dcf3d39aa347ec78021e5f8e23ef5abdc7"
+    "sitemap.xml": "0a3bedb9335e4c0d6baaed5fef6d1849b9676f44103b4d6b4fb3be24691c9152"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -491,7 +500,7 @@
     "rates/super-guarantee/index.html": "a5d7321076de35ab9916764165ca7cdc369eef5a36ae35762be3e2ed93c6dc56"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7812,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7815,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
