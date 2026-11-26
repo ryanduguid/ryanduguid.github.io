@@ -12,7 +12,7 @@ import { createRequire } from 'node:module';
 import test from 'node:test';
 import { DASP_YEARS, daspFormInput, daspTax } from '../assets/dasp-tax.mjs';
 import { superBenefitTaxResult } from '../assets/super-lump-sum.mjs';
-import { streamFormInput, superWithholding, swhFormInput } from '../assets/super-withholding.mjs';
+import { streamFormInput, streamWithholdingResult, superWithholding, swhFormInput } from '../assets/super-withholding.mjs';
 
 const fixture = createRequire(import.meta.url)('./super-lump-sum-options-engine-differential.json');
 const streams = createRequire(import.meta.url)('./super-income-stream-engine-differential.json');
@@ -103,6 +103,13 @@ test('Schedule 13 Case A: Veronica’s fortnightly disability super income strea
   const noTfn = streamFormInput(form({ 'stream-tfn': 'no' }));
   assert.equal(Object.hasOwn(noTfn, 'tax_free_threshold_claimed'), false);
   assert.equal(superWithholding(noTfn).withholding, 517);
+  const aud = (/** @type {number} */ value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  const shown = (/** @type {Record<string, string>} */ change) => {
+    const r = streamWithholdingResult(form({ ...veronica, ...change }), aud);
+    return r.rows[r.principal];
+  };
+  assert.deepEqual([shown({}), shown({ 'stream-tfn': 'no' })],
+    [['Amount to withhold, to the nearest dollar', '$2.00'], ['Amount to withhold, cents ignored', '$517.00']]);
   // A dependant's stream sends the deceased's age, not the disability answer.
   const dependant = streamFormInput(form({ 'stream-recipient': 'death_benefits_dependant' }));
   assert.deepEqual([dependant.deceased_aged_60_or_over, Object.hasOwn(dependant, 'disability_superannuation_benefit')], [false, false]);

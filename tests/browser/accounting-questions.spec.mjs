@@ -1308,7 +1308,7 @@ test('Instant asset write-off page works Fiona and Daryl and refuses a budget da
 });
 
 // The form opens on 3 lines; dropping the unvested line leaves only current provisions, and 10 hours of
-// short-term annual leave at $38 adds $380.
+// short-term annual leave at $38 with the line's 40% probability adds $152.
 test('Leave provisions page works its example, drops a blank line and adds a short-term line offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/leave-provisions/');
   const form = page.locator('#leave-provisions form');
@@ -1328,7 +1328,7 @@ test('Leave provisions page works its example, drops a blank line and adds a sho
   await form.locator('[name="line-3-growth"]').fill('');
   await form.locator('[name="line-3-discount"]').fill('');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
-  await expect(form.locator('output .result-row--principal')).toHaveText('Total leave provisions: $27,503.16.');
+  await expect(form.locator('output .result-row--principal')).toHaveText('Total leave provisions: $27,275.16.');
 });
 
 test('ATO penalties and interest page works GIC by quarter, a failure to lodge penalty and refuses remission offline', async ({ page, context }) => {

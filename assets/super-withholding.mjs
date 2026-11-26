@@ -243,7 +243,7 @@ export function streamWithholdingResult(value, aud) {
     rows.push([`Schedule 1 amount for the ${per}, scale ${rates.get('scale')}`, dollars('withholding_amount')],
       ['Tax offset for the payment', dollars('tax_offset')], ['Offset adjustment', dollars('offset_adjustment')]);
   }
-  rows.push([input.tfn_provided ? 'Amount to withhold, to the nearest dollar' : 'Amount to withhold, cents ignored', aud(r.withholding)]);
+  rows.push([`Amount to withhold, ${input.tfn_provided ? 'to the nearest dollar' : 'cents ignored'}`, aud(r.withholding)]);
   const how = input.tfn_provided ? `the Schedule 1 amount less the tax offset, or the offset adjustment if greater`
     : `no TFN: ${rates.get('no_tfn_rate') === '0.45' ? 45 : 47}% with no offsets or Medicare levy adjustment, cents ignored`;
   const payee = `${input.tfn_provided ? 'TFN given' : 'no TFN'}${input.foreign_resident ? ', foreign resident' : ''}`
