@@ -177,12 +177,8 @@ const applies = (holds) => (holds ? 'applies' : 'does not apply');
 /** @param {number} dollars */
 const centsOf = (dollars) => BigInt(dollars) * 100n;
 
-/** @typedef {{year: string, lodgment_required: boolean, required_by: string[], exceptions_applied: string[],
- *   due_date: string | null, instrument: {id: string, title: string}, tests: Record<string, string>,
- *   steps: {step: string, finding: string}[], required: string[], applied: string[]}} LodgmentWorked */
-
-/** Whether a return is required, from the command's input. @param {unknown} given @returns {LodgmentWorked} */
-export function lodgmentRequired(given) {
+/** The checked input object and its parsed decimals, in the command's order. @param {unknown} given */
+function readInput(given) {
   if (!isObject(given)) refuse('input.not_object', 'input must be a JSON object');
   const input = new Map(Object.entries(/** @type {object} */ (given)));
   const unknown = [...input.keys()].find((key) => !INPUTS.includes(key));
@@ -197,6 +193,11 @@ export function lodgmentRequired(given) {
       amounts.set(key, decimal(value));
     }
   }
+  return { input, amounts };
+}
+
+/** The year, once the scope and the instrument are confirmed. @param {Map<string, unknown>} input @returns {string} */
+function checkedYear(input) {
   const [year, confirmed] = [input.get('year'), input.get('scope_confirmed')];
   if (confirmed === true && year === '2026-27') {
     refuse('lodgment_required.instrument_not_made',
@@ -206,12 +207,12 @@ export function lodgmentRequired(given) {
   if (typeof year !== 'string' || !LODGMENT_YEARS.includes(year)) {
     refuse('period.unsupported', `Unsupported period ${JSON.stringify(year)}; supported: ${LODGMENT_YEARS.join(', ')}.`);
   }
-  const [id, studyLoanIncome, paymentLimit, paymentInclusive, sapto] = /** @type {[string, number, number, boolean, number[]]} */ (INSTRUMENTS.get(year));
-  const end = Number(year.slice(0, 4)) + 1;
-  const notice = end <= 2023;
-  const provision = (/** @type {string} */ key) => /** @type {string[]} */ (PROVISIONS.get(key));
-  const cite = (/** @type {string} */ key) => provision(key)[notice ? 1 : 0];
+  return /** @type {string} */ (year);
+}
 
+/** The answers the conditions use, checked in the command's order.
+ * @param {Map<string, unknown>} input @param {Map<string, Amount | null>} amounts */
+function factsOf(input, amounts) {
   const under18Group = group(input.get('under_18'), 'under_18', ['income_excluding_work']);
   const under18 = under18Group && stated(under18Group, 'under_18', 'income_excluding_work');
   const studyGroup = group(input.get('study_loan'), 'study_loan', ['income']);
@@ -224,7 +225,13 @@ export function lodgmentRequired(given) {
   const answered = triggers(input.get('triggers'));
   const parent = input.get('child_support_parent');
   if (typeof parent !== 'boolean') refuse('input.flag_invalid', 'child_support_parent must be a boolean.');
+  return { under18, studyLoan, resident, taxable, dividends, answered, parent };
+}
 
+/** The steps, conditions and tests of one worksheet, citing the year's instrument. @param {boolean} notice */
+function worksheet(notice) {
+  const provision = (/** @type {string} */ key) => /** @type {string[]} */ (PROVISIONS.get(key));
+  const cite = (/** @type {string} */ key) => provision(key)[notice ? 1 : 0];
   /** @type {{step: string, finding: string}[]} */
   const steps = [];
   /** @type {string[]} */
@@ -238,7 +245,15 @@ export function lodgmentRequired(given) {
     push(key, `${finding}: ${met ? 'met' : 'not met'}`);
     if (met) conditions.push(key);
   };
+  return { notice, cite, steps, conditions, tests, push, test };
+}
 
+/** The conditions of s 6(2), 6(3) and 6(10) [Tables A, B and J].
+ * @param {ReturnType<typeof worksheet>} sheet @param {ReturnType<typeof factsOf>} facts
+ * @param {string} year @param {number} studyLoanIncome */
+function testConditions(sheet, facts, year, studyLoanIncome) {
+  const { test, tests } = sheet;
+  const { under18, studyLoan, resident, taxable, dividends, answered } = facts;
   // s 6(2) [Table A]: the stated conditions, then the 2 worked out.
   for (const key of STATED) if (answered.has(key)) test(key, true, 'Yes, as you answered');
   if (under18) {
@@ -262,42 +277,71 @@ export function lodgmentRequired(given) {
   if (studyLoan && resident.status !== 'whole') {
     test('study_loan', studyLoan.cents > centsOf(studyLoanIncome), `income $${studyLoan.text} against more than $${studyLoanIncome} for ${year}`);
   }
+}
+
+/** s 7(1)(f) [Table P]: relieves every requirement of s 6(2) to 6(10).
+ * @param {ReturnType<typeof worksheet>} sheet @param {unknown} given @param {[string, string[]][]} held */
+function workingHolidayMaker(sheet, given, held) {
+  const whmKeys = ['other_assessable_income', 'taxable_income_excluding_remainders'];
+  const whm = group(given, 'working_holiday_maker', whmKeys);
+  if (!whm) return;
+  const other = boolean(whm, 'working_holiday_maker', whmKeys[0]);
+  const income = stated(whm, 'working_holiday_maker', whmKeys[1]);
+  const holds = !other && income.cents < centsOf(45001);
+  sheet.push('working_holiday_maker', `other assessable income: ${yesNo(other)}; taxable income without remainders $${income.text}: ${applies(holds)}`);
+  if (holds) held.push(['working_holiday_maker', [...sheet.conditions]]);
+}
+
+/** s 7(2) [Table K(1)]: a listed payment. @param {ReturnType<typeof worksheet>} sheet @param {unknown} given
+ * @param {Amount} taxable @param {number} paymentLimit @param {boolean} paymentInclusive @param {[string, string[]][]} held */
+function listedPayment(sheet, given, taxable, paymentLimit, paymentInclusive, held) {
+  const listed = group(given, 'listed_payment', ['other_assessable_income']);
+  if (!listed) return;
+  const other = boolean(listed, 'listed_payment', 'other_assessable_income');
+  const limit = centsOf(paymentLimit);
+  const under = paymentInclusive ? taxable.cents <= limit : taxable.cents < limit;
+  const holds = !other || under;
+  sheet.push('listed_payment', `other assessable income: ${yesNo(other)}; taxable income $${taxable.text} against `
+    + `${paymentInclusive ? 'at most' : 'less than'} $${paymentLimit}: ${applies(holds)}`);
+  // s 7(2) names s 6(2)(i) and 6(3); section 4 of the Notices reaches a person described in Table B only.
+  if (holds) held.push(['listed_payment', sheet.notice ? SUBSECTION_6_3 : [...SUBSECTION_6_3, 'under_18']]);
+}
+
+/** s 7(3) [Table K(2)]: the seniors and pensioners tax offset.
+ * @param {ReturnType<typeof worksheet>} sheet @param {unknown} given @param {number[]} sapto @param {[string, string[]][]} held */
+function seniors(sheet, given, sapto, held) {
+  const senior = group(given, 'sapto', ['rebate_income', 'category']);
+  if (!senior) return;
+  const rebate = stated(senior, 'sapto', 'rebate_income');
+  const index = ['single', 'apart', 'together'].indexOf(/** @type {string} */ (required(senior, 'sapto', 'category')));
+  if (index < 0) refuse('lodgment_required.group_invalid', 'sapto: category must be single, apart or together.');
+  const limit = /** @type {number} */ (sapto.at(index));
+  const holds = rebate.cents < centsOf(limit);
+  sheet.push('sapto', `rebate income $${rebate.text} against less than $${limit}: ${applies(holds)}`);
+  if (holds) held.push(['sapto', SUBSECTION_6_3]);
+}
+
+/** @typedef {{year: string, lodgment_required: boolean, required_by: string[], exceptions_applied: string[],
+ *   due_date: string | null, instrument: {id: string, title: string}, tests: Record<string, string>,
+ *   steps: {step: string, finding: string}[], required: string[], applied: string[]}} LodgmentWorked */
+
+/** Whether a return is required, from the command's input. @param {unknown} given @returns {LodgmentWorked} */
+export function lodgmentRequired(given) {
+  const { input, amounts } = readInput(given);
+  const year = checkedYear(input);
+  const [id, studyLoanIncome, paymentLimit, paymentInclusive, sapto] = /** @type {[string, number, number, boolean, number[]]} */ (INSTRUMENTS.get(year));
+  const end = Number(year.slice(0, 4)) + 1;
+  const notice = end <= 2023;
+  const facts = factsOf(input, amounts);
+  const sheet = worksheet(notice);
+  const { cite, conditions, push, steps, tests } = sheet;
+  testConditions(sheet, facts, year, studyLoanIncome);
 
   /** @type {[string, string[]][]} the exceptions that hold, each with the provisions it names */
   const held = [];
-  // s 7(1)(f) [Table P]: relieves every requirement of s 6(2) to 6(10).
-  const whmKeys = ['other_assessable_income', 'taxable_income_excluding_remainders'];
-  const whm = group(input.get('working_holiday_maker'), 'working_holiday_maker', whmKeys);
-  if (whm) {
-    const other = boolean(whm, 'working_holiday_maker', whmKeys[0]);
-    const income = stated(whm, 'working_holiday_maker', whmKeys[1]);
-    const holds = !other && income.cents < centsOf(45001);
-    push('working_holiday_maker', `other assessable income: ${yesNo(other)}; taxable income without remainders $${income.text}: ${applies(holds)}`);
-    if (holds) held.push(['working_holiday_maker', [...conditions]]);
-  }
-  // s 7(2) [Table K(1)]: a listed payment.
-  const listed = group(input.get('listed_payment'), 'listed_payment', ['other_assessable_income']);
-  if (listed) {
-    const other = boolean(listed, 'listed_payment', 'other_assessable_income');
-    const limit = centsOf(paymentLimit);
-    const under = paymentInclusive ? taxable.cents <= limit : taxable.cents < limit;
-    const holds = !other || under;
-    push('listed_payment', `other assessable income: ${yesNo(other)}; taxable income $${taxable.text} against `
-      + `${paymentInclusive ? 'at most' : 'less than'} $${paymentLimit}: ${applies(holds)}`);
-    // s 7(2) names s 6(2)(i) and 6(3); section 4 of the Notices reaches a person described in Table B only.
-    if (holds) held.push(['listed_payment', notice ? SUBSECTION_6_3 : [...SUBSECTION_6_3, 'under_18']]);
-  }
-  // s 7(3) [Table K(2)]: the seniors and pensioners tax offset.
-  const senior = group(input.get('sapto'), 'sapto', ['rebate_income', 'category']);
-  if (senior) {
-    const rebate = stated(senior, 'sapto', 'rebate_income');
-    const index = ['single', 'apart', 'together'].indexOf(/** @type {string} */ (required(senior, 'sapto', 'category')));
-    if (index < 0) refuse('lodgment_required.group_invalid', 'sapto: category must be single, apart or together.');
-    const limit = /** @type {number} */ (sapto.at(index));
-    const holds = rebate.cents < centsOf(limit);
-    push('sapto', `rebate income $${rebate.text} against less than $${limit}: ${applies(holds)}`);
-    if (holds) held.push(['sapto', SUBSECTION_6_3]);
-  }
+  workingHolidayMaker(sheet, input.get('working_holiday_maker'), held);
+  listedPayment(sheet, input.get('listed_payment'), facts.taxable, paymentLimit, paymentInclusive, held);
+  seniors(sheet, input.get('sapto'), sapto, held);
 
   // An exception that holds for a person covered by a provision it names leaves no requirement under
   // the instrument (s 7(1) to 7(3); in the Notices, section 4 with Table K for a person in Table B).
@@ -308,7 +352,7 @@ export function lodgmentRequired(given) {
     else push(key, 'covered by no provision it names, so it relieves nothing');
   }
   const left = applied.length === 0 ? conditions : [];
-  if (left.length === 0 && parent) {
+  if (left.length === 0 && facts.parent) {
     refuse('lodgment_required.child_support_parent',
       'This instrument does not require a return, but a parent liable for or entitled to child support may be required to lodge under the separate instrument for parents for the year; the worksheet does not apply it.');
   }

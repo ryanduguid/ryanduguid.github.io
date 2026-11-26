@@ -1331,7 +1331,7 @@ const MUTATIONS = [
   { ...lr, name: 'lodgment listed payment always strict', find: 'paymentInclusive ? taxable.cents <= limit : taxable.cents < limit', replace: 'taxable.cents < limit' },
   { ...lr, name: 'lodgment Notices relieve under 18', find: 'notice ? SUBSECTION_6_3 : [...SUBSECTION_6_3', replace: 'notice ? [...SUBSECTION_6_3, \'under_18\'] : [...SUBSECTION_6_3' },
   { ...lr, name: 'lodgment exception relieves unnamed', find: 'names.some((k) => conditions.includes(k))', replace: 'true' },
-  { ...lr, name: 'lodgment child support refusal dropped', find: 'left.length === 0 && parent', replace: 'false' },
+  { ...lr, name: 'lodgment child support refusal dropped', find: 'left.length === 0 && facts.parent', replace: 'false' },
   { ...lr, name: 'lodgment due 30 October', find: '`${end}-10-31`', replace: '`${end}-10-30`' },
   { ...lr, name: 'lodgment 2026-27 allowed', find: "confirmed === true && year === '2026-27'", replace: 'false' },
   { ...lr, name: 'lodgment page principal is the first step', find: 'rows, principal: rows.length - 1, note', replace: 'rows, principal: 0, note' },
