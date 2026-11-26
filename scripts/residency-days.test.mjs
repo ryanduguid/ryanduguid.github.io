@@ -106,3 +106,11 @@ test('the form fills a blank arrival or departure from the year and shows only t
     assert.ok(page.includes(words), words);
   }
 });
+
+test('the layout gives the day count a field note without the AUD rounding line', () => {
+  const layout = readFileSync('_layouts/calculator.html', 'utf8');
+  const note = layout.match(/\{% if page\.calculator == "residency-days" %\}([^{]*)\{% else %\}Planning estimates in AUD/);
+  assert.ok(note, 'the residency-days branch opens the field note');
+  assert.equal(note[1], 'Planning estimate. Confirm residency and the dates you count separately.');
+  assert.doesNotMatch(note[1], /AUD|cent/);
+});
