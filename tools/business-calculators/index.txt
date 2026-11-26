@@ -110,6 +110,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - AASB 16 lease calculator: https://duguid.com.au/tools/business-calculators/lease/
 - Borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
 - Depreciation pools and capital works calculator: https://duguid.com.au/tools/business-calculators/depreciation-pools/
+- Instant asset write-off calculator: https://duguid.com.au/tools/business-calculators/instant-asset-write-off/
 - Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
 - Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/

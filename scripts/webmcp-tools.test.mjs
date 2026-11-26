@@ -97,7 +97,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_business_days', 'calculate_division_296_tax', 'calculate_fbt_car', 'calculate_fbt_car_parking',
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
-    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax',
+    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_instant_asset_write_off',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -1689,7 +1689,22 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 76);
+  assert.equal(registered.length + 2, 77);
+});
+
+test('instant asset write-off tool returns Fiona’s computer and Daryl’s ute and refuses a budget day', async () => {
+  const tool = tools['instant-asset-write-off'];
+  const fiona = await tool.execute({ incomeYear: '2025-26', entity: 'small_business_simplified', acquired: '2025-11-18',
+    firstUsed: '2025-11-18', cost: '6800', taxableUse: '0.8' });
+  assert.deepEqual([fiona.writtenOff, fiona.taxablePurposeCost, fiona.deduction, fiona.costLimit, fiona.currency, fiona.source],
+    [true, '5440.00', '5440.00', '20000', 'AUD', 'https://duguid.com.au/tools/business-calculators/instant-asset-write-off/']);
+  const ute = await tool.execute({ incomeYear: '2025-26', entity: 'small_business_simplified', acquired: '2025-07-28',
+    firstUsed: '2025-07-28', cost: '40000', taxableUse: '0.4' });
+  assert.deepEqual([ute.writtenOff, ute.taxablePurposeCost, ute.deduction], [false, '16000.00', '0.00']);
+  await assert.rejects(tool.execute({ incomeYear: '2020-21', entity: 'small_business_simplified', acquired: '2020-10-06',
+    firstUsed: '2021-01-01', cost: '50000', taxableUse: '1' }), /7.30 pm on 6 October 2020/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', entity: 'small_business_simplified', acquired: '2025-11-18',
+    firstUsed: '2025-11-18', cost: '6800', taxableUse: '0.8', extra: 1 }), /extra is not an input of this tool/);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {

@@ -72,6 +72,7 @@ const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
+const iawoCheck = { ...business, file: 'assets/instant-asset-write-off.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
@@ -1132,6 +1133,16 @@ const MUTATIONS = [
   { ...pools, name: 'Capital works over 366 days', find: 'const reducedBottom = rateDivisor * 365n * scale;', replace: 'const reducedBottom = rateDivisor * 366n * scale;' },
   { ...pools, name: 'Capital works 4% allowed before 27 February 1992', find: 'if (four && before1992) {', replace: 'if (false) {' },
   { ...pools, name: 'Capital works taxable use ignored', find: 'const reducedTop = product * use;', replace: 'const reducedTop = product * scale;' },
+  { ...iawoCheck, name: 'IAWO $20,000 from 1 July 2026 starts a day late', find: "if (used >= on('2026-07-01'))", replace: "if (used > on('2026-07-01'))" },
+  { ...iawoCheck, name: 'IAWO a cost equal to the limit is written off', find: 'cost < BigInt(limit) * 100n', replace: 'cost <= BigInt(limit) * 100n' },
+  { ...iawoCheck, name: 'IAWO full expensing runs past 30 June 2023', find: "if (used <= on('2023-06-30') && heldFrom(acquired, BUDGET_2020))", replace: "if (used <= on('2024-06-30') && heldFrom(acquired, BUDGET_2020))" },
+  { ...iawoCheck, name: 'IAWO $150,000 to 30 June 2022', find: "const increased = used <= on('2021-06-30')", replace: "const increased = used <= on('2022-06-30')" },
+  { ...iawoCheck, name: 'IAWO the 2015 budget day is not refused', find: "if (acquired === day) {", replace: "if (acquired === day && budget !== BUDGET_2015) {" },
+  { ...iawoCheck, name: 'IAWO a medium business keeps the write-off after 2021', find: "if (used > on('2021-06-30')) return { limit: 'not_applicable', rule: IAWO_RULES.noneAfter2021 };", replace: '' },
+  { ...iawoCheck, name: 'IAWO the deduction rounds down', find: 'return (2n * u + scale) / (2n * scale);', replace: 'return u / scale;' },
+  { ...iawoCheck, name: 'IAWO a 27-digit use is taken', find: "replace(/^-?0+/, '').length) > 26", replace: "replace(/^-?0+/, '').length) > 27" },
+  { ...iawoCheck, name: 'IAWO no 2020-21 pool note', find: "year === '2020-21' ? POOL_2020_21 : POOL", replace: 'POOL' },
+  { ...iawoCheck, name: 'IAWO the form takes the use as a fraction', find: "taxable_use: useFraction(value('use'))", replace: "taxable_use: value('use')" },
   { ...rdOffset, name: 'R&D refundable premium 18.5 points dropped', find: 'capped * (e.rate + 185n) * 1000n', replace: 'capped * e.rate * 1000n' },
   { ...rdOffset, name: 'R&D threshold $20,000 counted as under it', find: 'const base = total < THRESHOLD ? e.rspCrc : total;', replace: 'const base = total <= THRESHOLD ? e.rspCrc : total;' },
   { ...rdOffset, name: 'R&D cap at $100 million', find: 'const CAP = 15000000000n;', replace: 'const CAP = 10000000000n;' },
@@ -1368,6 +1379,7 @@ const SHARED = [
   'scripts/luxury-car-tax-engine-differential.json',
   'scripts/depreciation-pools-engine-differential.json',
   'scripts/rd-tax-offset-engine-differential.json',
+  'scripts/instant-asset-write-off-engine-differential.json',
   'scripts/gst-adjustments-engine-differential.json',
   'scripts/deferred-tax-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',
