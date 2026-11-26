@@ -99,7 +99,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'check_tax_invoice', 'calculate_sole_trader_vs_company',
-    'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow',
+    'calculate_trust_streaming', 'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -1722,7 +1722,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 82);
+  assert.equal(registered.length + 2, 83);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
@@ -2303,4 +2303,26 @@ test('tax invoice tool returns the page example, a mixed invoice and an RCTI, an
   await assert.rejects(tool.execute({ ...base, lines: [{ ...base.lines[0], unitPrice: 1.1 }] }), /unitPrice does not match its description/);
   await assert.rejects(tool.execute({ ...base, lines: [{ ...base.lines[0], treatment: 'exempt' }] }), /treatment does not match its description/);
   await assert.rejects(tool.execute({ ...base, extra: 1 }), /extra is not an input of this tool/);
+});
+
+test('trust streaming tool returns the ATO Lang Trust example and the trustee’s s 99A tax, and refuses invalid inputs', async () => {
+  const tool = tools['trust-streaming'];
+  const lang = await tool.execute({
+    otherTrustIncome: '80000', otherNetIncome: '80000', frankedDistributions: '70000', frankingCredits: '30000',
+    beneficiaries: [{ name: 'Lucy', kind: 'individual', presentEntitlement: '75000' },
+      { name: 'Hannah', kind: 'individual', presentEntitlement: '75000', frankedEntitled: '50000' }],
+  });
+  assert.deepEqual(lang.beneficiaries.map((b) => [b.frankedShare, b.frankingCredit, b.division6]),
+    [[15000, 6428.57, 60000], [55000, 23571.43, 20000]]);
+  assert.deepEqual([lang.netIncome, lang.trustee.assessable, lang.currency, lang.source],
+    [180000, 0, 'AUD', 'https://duguid.com.au/tools/business-calculators/trust-streaming/']);
+  assert.doesNotThrow(() => JSON.stringify(lang));
+  const trustee = await tool.execute({ otherTrustIncome: '10000', otherNetIncome: '10000', capitalGain: '200', capitalGainRemaining: '100',
+    capitalGainConcessions: 'discount', capitalGainTrustIncome: '200', beneficiaries: [] });
+  assert.deepEqual([trustee.trustee.provision, trustee.trustee.assessable, trustee.trustee.tax], ['s 99A(4)', 10200, 4590]);
+  await assert.rejects(tool.execute({ otherTrustIncome: '1', otherNetIncome: '1', beneficiaries: [], extra: 1 }), /extra is not an input of this tool/);
+  await assert.rejects(tool.execute({ otherTrustIncome: '1', otherNetIncome: '1', beneficiaries: [{ kind: 'partnership', presentEntitlement: '1' }] }),
+    /kind does not match/);
+  await assert.rejects(tool.execute({ otherTrustIncome: '100', otherNetIncome: '100', beneficiaries: [{ kind: 'individual', presentEntitlement: '101' }] }),
+    /cannot exceed the trust/);
 });

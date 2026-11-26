@@ -507,6 +507,16 @@ calculate.taxInvoice({ ...invoiceInput, lines: [{ description: 'Pens', quantity:
 const abnPasses: boolean = calculate.abnCheck('51 824 753 556');
 void invoiceGst;
 void abnPasses;
+const trustInput = { other_trust_income: '80000', other_net_income: '80000', franked_distributions: '0', franking_credits: '0', franked_deductions: '0',
+  capital_gain: '0', capital_gain_remaining: '0', capital_gain_concessions: 'none', capital_gain_trust_income: '0',
+  beneficiaries: [{ name: 'Lucy', kind: 'individual', present_entitlement: '80000', capital_gain_entitled: '0', franked_entitled: '0' }] };
+const trustTax: number = calculate.trustStreaming(trustInput).trustee.tax;
+// @ts-expect-error Amounts are text as the form reads them, not numbers.
+calculate.trustStreaming({ ...trustInput, other_trust_income: 80000 });
+// @ts-expect-error The trustee's provision is text or null, not a number.
+const trustProvision: number = calculate.trustStreaming(trustInput).trustee.provision;
+void trustTax;
+void trustProvision;
 const gstBdInput = { party: 'supplier', event: 'written_off', amount: '550.00', taxable_or_creditable: true, cash_basis: false,
   special_rule: 'none', attributed: true, year: '2025-26', scope_confirmed: true };
 const gstApplies: boolean = calculate.gstBadDebt(gstBdInput).applies;
@@ -610,6 +620,7 @@ void businessSet['tax-invoice'].execute({ supplierName: 'Example Stationery Pty 
 void businessSet['gst-adjustments'].execute({ worksheet: 'going-concern', year: '2025-26', forConsideration: true, recipientRegistration: 'registered', writtenAgreement: 'on_or_before_supply_day', allThingsNecessary: true, carriedOnUntilSupply: true });
 void businessSet['deferred-tax'].execute({ incomeYear: '2025-26', items: [{ label: 'Plant', class: 'asset', carryingAmount: '70000', taxBase: '50000', openingCarryingAmount: '0', openingTaxBase: '0' }], accountingProfit: '100000', taxableIncome: '100000' });
 void businessSet['payday-cashflow'].execute({ quarter: '1', payCycle: 'fortnightly', firstPayday: '2026-07-02', earningsPerPayday: '10000' });
+void businessSet['trust-streaming'].execute({ otherTrustIncome: '80000', otherNetIncome: '80000', beneficiaries: [{ kind: 'individual', presentEntitlement: '80000' }] });
 void pensionMinimumTools({ pensionMinimum, PENSION_MINIMUM_YEARS })['pension-minimum'].execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67 });
 void transferBalanceTools({ ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance, yearOf })['transfer-balance'].execute({ calculation: 'concessional_charge', incomeYear: '2020-21', additionalTax: '1000', taxDueDate: '2021-12-01' });
 // @ts-expect-error pensionMinimumTools requires PENSION_MINIMUM_YEARS alongside pensionMinimum.

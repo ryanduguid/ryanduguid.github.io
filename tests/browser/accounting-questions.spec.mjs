@@ -1367,6 +1367,26 @@ test('Deferred tax page works its example, a further item and refuses a business
   await expect(form.locator('output')).toContainText('business combination');
 });
 
+// The form opens on a gain streamed to Alex and franked distributions to Bea Pty Ltd, the rest the trustee's at 45%;
+// a third beneficiary takes the rest, and entitlements above the trust's income are refused.
+test('Trust streaming page works its example, a third beneficiary and refuses entitlements above income offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/trust-streaming/');
+  const form = page.locator('#trust-streaming form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Trustee’s tax after the offset: $20,142.86.');
+  await expect(form.locator('table[data-results="beneficiaries"] tbody tr')).toHaveCount(3);
+  await form.locator('[name="b3-name"]').fill('Cy');
+  await form.locator('[name="b3-entitlement"]').fill('50000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Trustee’s tax after the offset: $0.00.');
+  await expect(form.locator('table[data-results="beneficiaries"] tbody tr')).toHaveCount(4);
+  await form.locator('[name="b3-entitlement"]').fill('50000.01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('cannot exceed the trust’s income');
+});
+
 test('ATO penalties and interest page works GIC by quarter, a failure to lodge penalty and refuses remission offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/ato-penalties-interest/');
   const form = page.locator('#ato-penalties-interest form');
@@ -1896,7 +1916,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
   'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset', 'casual-overtime', 'contractor-employee',
-  'gst-adjustments', 'deferred-tax', 'sole-trader-company', 'payday-cashflow', 'tax-invoice'];
+  'gst-adjustments', 'deferred-tax', 'sole-trader-company', 'payday-cashflow', 'tax-invoice', 'trust-streaming'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

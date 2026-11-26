@@ -78,6 +78,7 @@ const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
 const casualOt = { ...business, file: 'assets/casual-overtime.mjs' };
 const contractor = { ...business, file: 'assets/contractor-employee.mjs' };
 const invoice = { ...business, file: 'assets/tax-invoice.mjs' };
+const trustStream = { ...business, file: 'assets/trust-streaming.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
@@ -1183,6 +1184,16 @@ const MUTATIONS = [
   { ...invoice, name: 'RCTI issued without the Determination confirmed', find: 'if (x.rcti_conditions_met !== true)', replace: 'if (false)' },
   { ...invoice, name: 'RCTI omits that the supplier pays the GST', find: 'if (rcti && gst > 0n) statements.push', replace: 'if (false) statements.push' },
   { ...invoice, name: 'Tax invoice download leaves angle brackets unescaped', find: 'text.replace(/[&<>"\']/g,', replace: 'text.replace(/[&"\']/g,' },
+  { ...trustStream, name: 'Trust s 99A at 47%', find: 'const tax = mul(trusteeAmount, [45n, 100n]);', replace: 'const tax = mul(trusteeAmount, [47n, 100n]);' },
+  { ...trustStream, name: 'Trust discounted gain not grossed up', find: 'const GROSS_UP = { none: 1n, discount: 2n, small_business: 2n, both: 4n };', replace: 'const GROSS_UP = { none: 1n, discount: 1n, small_business: 2n, both: 4n };' },
+  { ...trustStream, name: 'Trust both concessions grossed up twice', find: 'const GROSS_UP = { none: 1n, discount: 2n, small_business: 2n, both: 4n };', replace: 'const GROSS_UP = { none: 1n, discount: 2n, small_business: 2n, both: 2n };' },
+  { ...trustStream, name: 'Trust no rateable reduction', find: 'const scale = withoutCredits < streamed ? div(whole(withoutCredits), whole(streamed)) : ONE;', replace: 'const scale = ONE;' },
+  { ...trustStream, name: 'Trust specific entitlement at the net benefit, not the gain', find: 'specificGain: gainIncome ? div(mul(G, whole(gainBenefit)), whole(gainIncome)) : ZERO,', replace: 'specificGain: gainIncome ? whole(gainBenefit) : ZERO,' },
+  { ...trustStream, name: 'Trust adjusted percentage over all trust income', find: 'const base = people.reduce((t, p) => sub(sub(t, p.specificGain), p.specificFranked), whole(trustIncome));', replace: 'const base = whole(trustIncome);' },
+  { ...trustStream, name: 'Trust franking credit not shared with the distribution', find: 'credit: franked ? div(mul(whole(credits), frankedShare), F) : ZERO,', replace: 'credit: ZERO,' },
+  { ...trustStream, name: 'Trust Division 6E keeps the streamed amounts in present entitlement', find: 'const entitled6E = sub(whole(p.entitlement), s.inIncome);', replace: 'const entitled6E = whole(p.entitlement);' },
+  { ...trustStream, name: 'Trust company beneficiary discounts its gain', find: 'const KIND_DISCOUNT = { individual: true, trust: true, company: false };', replace: 'const KIND_DISCOUNT = { individual: true, trust: true, company: true };' },
+  { ...trustStream, name: 'Trust trustee gets no franking credit offset', find: 'const afterOffset = sub(tax, trusteeShares.credit);', replace: 'const afterOffset = tax;' },
   { ...gstAdjustments, name: 'GST creditable purpose threshold counted as over it', find: 'cmp(value, d(finance ? \'10000\' : \'1000\')) <= 0', replace: 'cmp(value, d(finance ? \'10000\' : \'1000\')) < 0' },
   { ...gstAdjustments, name: 'GST 5 adjustment periods at $5,000 or less', find: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 2];', replace: 'const [low, lowCount] = finance ? [\'50000\', 1] : [\'5000\', 5];' },
   { ...gstAdjustments, name: 'GST $500,000 given 5 adjustment periods', find: 'cmp(value, d(\'500000\')) < 0 ? 5 : 10', replace: 'cmp(value, d(\'500000\')) <= 0 ? 5 : 10' },

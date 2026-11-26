@@ -798,6 +798,14 @@ Object.assign(INPUTS, { paydayCashflow: (x) => calculations.cashflowInputsText(x
 Object.assign(ENGINE_LABELS, { paydayCashflow: { quarterlyDue: (v) => `quarterly date ${longDay(v)}`, total: (v) => `quarter ${dollars(v)}`,
   peak: (v) => `peak ${dollars(v)}`, peakFrom: (v) => `peak from ${longDay(v)}`,
   averageDaysEarlier: (v) => `${v.toFixed(1)} days earlier on average` } });
+// The trust streaming page's rows (its tests are with the page's other tests below): beneficiary n's figures are b<n>...
+Object.assign(INPUTS, { trustStreaming: (x) => calculations.trustStreamingInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { trustStreaming: { netIncome: 'net income', trusteeAssessable: 'trustee assessed under s 99A',
+  trusteeTax: 'trustee’s tax at 45%', trusteeTaxAfterOffset: 'trustee’s tax after the offset',
+  ...Object.fromEntries([1, 2, 3, 4].flatMap((n) => [['Division6', 'Division 6 share'], ['AttributableGain', 'attributable gain'],
+    ['ExtraCapitalGain', 'extra capital gain'], ['AttributableFranked', 'attributable franked distribution'], ['FrankingCredit', 'franking credit'],
+    ['Assessable', 'assessable']].map(([field, words]) => [`b${n}${field}`, `beneficiary ${n} ${words}`]))) } });
 
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
@@ -1270,6 +1278,8 @@ Object.assign(FORM_CALLS, { gstAdjustment: (f) => {
 Object.assign(FORM_CALLS, { deferredTax: (f) => [calculations.deferredTaxFormInput((name) => f[name] ?? '')] });
 Object.assign(FORM_CALLS, { paydayCashflow: (f) => [{ quarter: f.quarter, cycle: f.cycle, firstPayday: f['first-payday'],
   earnings: f.earnings }] });
+
+Object.assign(FORM_CALLS, { trustStreaming: (f) => [calculations.trustStreamingFormInput((name) => f[name] ?? '')] });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -7687,4 +7697,148 @@ test('the tax invoice form skips empty rows and reads each line row', () => {
   const result = calculations.taxInvoiceResult((name) => fields[name] ?? '', invoiceAud);
   assert.deepEqual(result.tables.lines.map((row) => row[0]), ['* Pens', '* Staplers', 'Delivery']);
   assert.equal(result.tables.checks.length, 7);
+});
+
+// The trust streaming page. Its figures are the ATO's worked examples in 'Streaming trust capital gains and franked
+// distributions' (read 26 November 2026), which round percentages to 2 places before multiplying; the engine does not.
+const trustHtml = calculatorInclude('trust-streaming');
+const trustAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const trustZero = { other_trust_income: '0', other_net_income: '0', franked_distributions: '0', franking_credits: '0', franked_deductions: '0',
+  capital_gain: '0', capital_gain_remaining: '0', capital_gain_concessions: 'none', capital_gain_trust_income: '0', beneficiaries: [] };
+const trustPerson = (name, present, gain = '0', franked = '0', kind = 'individual') => ({ name, kind, present_entitlement: present,
+  capital_gain_entitled: gain, franked_entitled: franked });
+const trailerpark = (more) => calculations.trustStreaming({ ...trustZero, other_trust_income: '50000', other_net_income: '50000',
+  capital_gain: '150000', capital_gain_remaining: '70000', capital_gain_concessions: 'discount', capital_gain_trust_income: '140000',
+  beneficiaries: [trustPerson('Ricky', '40000'), trustPerson('Julian', '150000', '110000')], ...more });
+
+test('the trust streaming page opens on its example and dates its sources', () => {
+  const example = trustHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(trustHtml);
+  const result = calculations.trustStreamingResult((name) => fields[name] ?? '', trustAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  for (const cited of ['PAC/19360027/102UY', 'PAC/19970038/115-225', 'PAC/19970038/207-55', 'PAC/19860107/12', 'rateable-reduction',
+    'read 26 November 2026', 'section 100A', 'bucket company', 'family trust']) {
+    assert.ok(trustHtml.includes(cited), cited);
+  }
+});
+
+test('trust streaming matches the ATO Trailerpark Trust steps to the ATO’s rounding', () => {
+  const r = trailerpark({});
+  assert.deepEqual(r.beneficiaries.map((b) => [b.specificGain, b.adjustedPercentage]), [[0, 55.45], [117857.14, 44.55]]);
+  // The ATO shows $17,823 and $132,177, from percentages rounded first.
+  assert.deepEqual(r.beneficiaries.map((b) => Math.round(b.gainShare)), [17822, 132178]);
+  for (const [got, ato] of r.beneficiaries.map((b, i) => [b.attributableGain, [8316, 61684][i]])) assert.ok(Math.abs(got - ato) <= 1, `${got} ${ato}`);
+  assert.deepEqual(r.beneficiaries.map((b) => b.extraCapitalGain), [16633.66, 123366.34]);
+  // Every dollar of net income is assessed once: the Division 6 shares, attributable gains, franked amounts and credits.
+  const total = r.beneficiaries.reduce((t, b) => t + b.division6 + b.attributableGain + b.attributableFranked + b.frankingCredit, 0);
+  assert.equal(Math.round(total * 100) / 100, r.netIncome);
+});
+
+test('trust streaming reduces the gain rateably when net income falls short, as the ATO example does', () => {
+  const r = trailerpark({ other_trust_income: '-10000', other_net_income: '-10000',
+    beneficiaries: [trustPerson('Ricky', '10000'), trustPerson('Julian', '120000', '110000')] });
+  assert.deepEqual([r.amounts.reduced, r.amounts.reducedGain, r.amounts.division6ENetIncome], [true, 60000, 0]);
+  assert.deepEqual(r.beneficiaries.map((b) => b.adjustedPercentage), [82.35, 17.65]);
+  for (const [got, ato] of r.beneficiaries.map((b, i) => [b.attributableGain, [10590, 49410][i]])) assert.ok(Math.abs(got - ato) <= 2, `${got} ${ato}`);
+  assert.equal(trailerpark({}).amounts.reduced, false);
+});
+
+test('trust streaming reduces a gain and franked distributions together, worked by hand from ss 115-225(3) and 207-37(3)', () => {
+  // Trust income $57,000; net income $10,000, $7,000 without credits, short of the $20,000 gain and $7,000 franked
+  // distributions, so each is scaled by 7/27. Bea is specifically entitled to half the franked distributions; the rest is
+  // shared by adjusted Division 6 percentage over $13,500: Bea 6,500/13,500 and the trustee 7,000/13,500. Bea's share of the
+  // distribution is 20/27 and the trustee's 7/27.
+  const r = calculations.trustStreaming({ ...trustZero, other_trust_income: '10000', other_net_income: '-20000', franked_distributions: '7000',
+    franking_credits: '3000', capital_gain: '40000', capital_gain_remaining: '20000', capital_gain_concessions: 'discount',
+    capital_gain_trust_income: '40000', beneficiaries: [trustPerson('Alex', '40000', '40000'), trustPerson('Bea', '10000', '0', '3500', 'company')] });
+  assert.deepEqual([r.netIncome, r.amounts.reduced], [10000, true]);
+  // Alex: $20,000 x 7/27 = $5,185.19, grossed up to $10,370.37 and halved again by Alex's own discount.
+  assert.deepEqual([r.beneficiaries[0].attributableGain, r.beneficiaries[0].extraCapitalGain, r.beneficiaries[0].netCapitalGain],
+    [5185.19, 10370.37, 5185.19]);
+  // Bea: $7,000 x 7/27 x 20/27 = $1,344.31 and credits $3,000 x 20/27 = $2,222.22, not reduced.
+  assert.deepEqual([r.beneficiaries[1].attributableFranked, r.beneficiaries[1].frankingCredit, r.beneficiaries[1].assessable], [1344.31, 2222.22, 3566.53]);
+  // Trustee: $7,000 x 7/27 x 7/27 = $470.51 and credits $777.78, s 99A(4A) amount $1,248.29, tax $561.73 less the offset, nil.
+  assert.deepEqual([r.trustee.provision, r.trustee.assessable, r.trustee.tax, r.trustee.offset, r.trustee.taxAfterOffset],
+    ['s 99A(4A)', 1248.29, 561.73, 777.78, 0]);
+  // Division 6E net income is nil, so no Division 6 share; the 3 assessments are the net income.
+  assert.deepEqual(r.beneficiaries.map((b) => b.division6), [0, 0]);
+  const assessed = r.beneficiaries.reduce((t, b) => t + b.division6 + b.attributableGain + b.attributableFranked + b.frankingCredit, r.trustee.assessable);
+  // Each figure is rounded once, so the rounded figures may differ from net income by a cent or 2.
+  assert.ok(Math.abs(assessed - r.netIncome) <= 0.02, `${assessed}`);
+});
+
+test('trust streaming shares franked distributions and credits as the ATO Lang Trust example does', () => {
+  const lang = (more) => calculations.trustStreaming({ ...trustZero, other_trust_income: '80000', other_net_income: '80000',
+    franked_distributions: '70000', franking_credits: '30000', beneficiaries: [trustPerson('Lucy', '75000'), trustPerson('Hannah', '75000', '0', '50000')],
+    ...more });
+  assert.deepEqual(lang({}).beneficiaries.map((b) => [b.adjustedPercentage, b.frankedShare, b.attributableFranked, b.frankingCredit]),
+    [[75, 15000, 15000, 6428.57], [25, 55000, 55000, 23571.43]]);
+  // Directly relevant deductions reduce the attributable amount and the specific entitlement's net benefit, not the credit's base.
+  const net = lang({ franked_deductions: '7000', beneficiaries: [trustPerson('Lucy', '68000'), trustPerson('Hannah', '75000', '0', '50000')] });
+  // Hannah's $50,000 of a $63,000 net benefit is $55,555.56 of the gross distribution (s 207-58).
+  assert.equal(net.beneficiaries[1].specificFranked, 55555.56);
+  assert.equal(Math.round((net.beneficiaries[0].frankingCredit + net.beneficiaries[1].frankingCredit) * 100) / 100, 30000);
+  assert.equal(Math.round((net.beneficiaries[0].attributableFranked + net.beneficiaries[1].attributableFranked) * 100) / 100, 63000);
+});
+
+test('trust streaming applies Division 6E as the ATO Tudor Trust example does', () => {
+  const r = calculations.trustStreaming({ ...trustZero, other_trust_income: '100000', other_net_income: '100000', franked_distributions: '70000',
+    franking_credits: '30000', capital_gain: '300000', capital_gain_remaining: '100000', capital_gain_concessions: 'discount',
+    capital_gain_trust_income: '300000', beneficiaries: [trustPerson('Henry', '100000'), trustPerson('Anne', '70000', '0', '70000'),
+      trustPerson('Jane', '300000', '300000')] });
+  assert.deepEqual([r.amounts.trustIncome, r.netIncome, r.amounts.division6EIncome, r.amounts.division6ENetIncome], [470000, 300000, 100000, 100000]);
+  assert.deepEqual(r.beneficiaries.map((b) => b.division6), [100000, 0, 0]);
+  assert.deepEqual(r.beneficiaries.map((b) => [b.attributableFranked, b.frankingCredit, b.attributableGain]),
+    [[0, 0, 0], [70000, 30000, 0], [0, 0, 100000]]);
+});
+
+test('the trustee is assessed under section 99A at 45% with its share grossed up and its franking credit offset', () => {
+  const alone = calculations.trustStreaming({ ...trustZero, other_trust_income: '10000', other_net_income: '10000', capital_gain: '200',
+    capital_gain_remaining: '100', capital_gain_concessions: 'discount', capital_gain_trust_income: '200' });
+  assert.deepEqual([alone.trustee.provision, alone.trustee.grossedUpGain, alone.trustee.assessable, alone.trustee.tax], ['s 99A(4)', 200, 10200, 4590]);
+  const part = calculations.trustStreaming({ ...trustZero, other_trust_income: '80000', other_net_income: '80000', franked_distributions: '70000',
+    franking_credits: '30000', beneficiaries: [trustPerson('Lucy', '75000')] });
+  assert.deepEqual([part.trustee.provision, part.trustee.adjustedPercentage, part.trustee.frankingCredit, part.trustee.assessable],
+    ['s 99A(4A)', 50, 15000, 90000]);
+  assert.deepEqual([part.trustee.tax, part.trustee.offset, part.trustee.taxAfterOffset], [40500, 15000, 25500]);
+  const nobody = trailerpark({});
+  assert.deepEqual([nobody.trustee.provision, nobody.trustee.assessable], [null, 0]);
+});
+
+test('trust streaming grosses up by the concessions and applies the beneficiary’s own discount', () => {
+  const kinds = (concessions, kind) => calculations.trustStreaming({ ...trustZero, capital_gain: '400', capital_gain_remaining: '100',
+    capital_gain_concessions: concessions, capital_gain_trust_income: '400', beneficiaries: [trustPerson('A', '400', '400', '0', kind)] }).beneficiaries[0];
+  assert.deepEqual([kinds('both', 'individual').extraCapitalGain, kinds('both', 'individual').netCapitalGain, kinds('both', 'company').netCapitalGain],
+    [400, 100, 200]);
+  assert.deepEqual([kinds('discount', 'trust').netCapitalGain, kinds('discount', 'company').netCapitalGain], [100, 200]);
+  assert.deepEqual([kinds('small_business', 'company').netCapitalGain, kinds('none', 'individual').netCapitalGain], [100, 100]);
+});
+
+test('trust streaming refuses inputs it cannot settle', () => {
+  const refused = (more, pattern) => assert.throws(() => calculations.trustStreaming({ ...trustZero, other_trust_income: '100',
+    other_net_income: '100', ...more }), pattern);
+  refused({ beneficiaries: [trustPerson('A', '50', '0', '60')] }, /part of the present entitlement/);
+  refused({ capital_gain: '100', capital_gain_remaining: '0', capital_gain_trust_income: '100' }, /above nil and no more than/);
+  refused({ capital_gain: '100', capital_gain_remaining: '101' }, /above nil and no more than/);
+  refused({ capital_gain_trust_income: '5' }, /nil for all 3/);
+  refused({ franked_distributions: '10', franked_deductions: '11' }, /cannot exceed them/);
+  refused({ capital_gain: '100', capital_gain_remaining: '50', capital_gain_trust_income: '100', beneficiaries: [trustPerson('A', '101', '101')] },
+    /capital gain in trust income/);
+  refused({ capital_gain_concessions: 'indexation' }, /Choose the concessions/);
+  refused({ beneficiaries: [{ ...trustPerson('A', '1'), kind: 'partnership' }] }, /choose individual, company or trust/);
+  refused({ beneficiaries: Array.from({ length: 5 }, (_, i) => trustPerson(`P${i}`, '1')) }, /at most 4/);
+  refused({ other_net_income: '-80', franked_distributions: '70', franking_credits: '30' }, /rateable reduction/);
+  // Credits above 30/70 of the distribution rounded to the nearest cent are refused; the rounded limit is accepted.
+  refused({ franked_distributions: '70', franking_credits: '30.01' }, /30\/70/);
+  refused({ franked_distributions: '100000', franking_credits: '42857.15' }, /30\/70/);
+  for (const [franked, credits] of [['70', '30'], ['100000', '42857.14'], ['1', '0.43']]) {
+    assert.doesNotThrow(() => calculations.trustStreaming({ ...trustZero, other_trust_income: '100', other_net_income: '100',
+      franked_distributions: franked, franking_credits: credits }), `${franked} ${credits}`);
+  }
+  // A specific entitlement in tax dollars above the beneficiary's present entitlement leaves a negative adjusted percentage.
+  refused({ other_trust_income: '0', other_net_income: '0', capital_gain: '150', capital_gain_remaining: '70', capital_gain_concessions: 'discount',
+    capital_gain_trust_income: '140', beneficiaries: [trustPerson('A', '110', '110'), trustPerson('B', '30')] }, /below nil, so the adjusted/);
+  assert.equal(calculations.trustStreaming({ ...trustZero, other_trust_income: '100', other_net_income: '100' }).trustee.assessable, 100);
+  // Trust income below nil with net income above it: nobody is entitled and the trustee is assessed on it all.
+  assert.equal(calculations.trustStreaming({ ...trustZero, other_trust_income: '-50', other_net_income: '100' }).trustee.assessable, 100);
 });
