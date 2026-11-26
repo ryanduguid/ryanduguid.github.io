@@ -559,8 +559,8 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
  *   | 'businessDays' | 'division296' | 'fbtCar' | 'fbtEvExemption' | 'fbtCarParking' | 'fbtExpensePayment'
  *   | 'fbtLoan' | 'fbtMealEntertainment' | 'fbtProperty' | 'landTaxYear' | 'terminationPayment' | 'transferDuty'
  *   | 'rdTaxOffset' | 'RD_YEARS' | 'gstAdjustment' | 'percentFraction' | 'GST_WORKSHEETS' | 'GST_ADJUSTMENT_YEARS'
- *   | 'deferredTax' | 'DEFERRED_TAX_YEARS' | 'smsfTax' | 'SMSF_YEARS' | 'tradingStock' | 'TRADING_STOCK_YEARS' | 'prepayments'
- *   | 'PREPAYMENT_YEARS' | 'alcoholExcise' | 'ALCOHOL_YEARS'>} calculate */
+ *   | 'deferredTax' | 'DEFERRED_TAX_YEARS' | 'soleTraderCompany' | 'SOLE_TRADER_COMPANY_YEARS' | 'smsfTax' | 'SMSF_YEARS'
+ *   | 'tradingStock' | 'TRADING_STOCK_YEARS' | 'prepayments' | 'PREPAYMENT_YEARS' | 'alcoholExcise' | 'ALCOHOL_YEARS'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),

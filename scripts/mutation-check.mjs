@@ -68,6 +68,7 @@ const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
 const cgt = { ...business, file: 'assets/cgt.mjs' };
 const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
 const salaryDividend = { ...business, file: 'assets/salary-dividend.mjs' };
+const soleTraderCompanyEngine = { ...business, file: 'assets/sole-trader-company.mjs' };
 const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
@@ -854,6 +855,12 @@ const MUTATIONS = [
   { ...salaryDividend, name: 'salary against dividends misses the standard deduction step', find: 'const salaries = [0, largest, y.cap, deduction,', replace: 'const salaries = [0, largest, y.cap,' },
   { ...salaryDividend, name: 'salary against dividends breaks a tie towards the higher salary', find: 'one[1] > top[1] + 1e-6', replace: 'one[1] >= top[1] - 1e-6' },
   { ...salaryDividend, name: 'salary against dividends takes the 2025-26 base rate as 30%', find: 'rate: baseRate ? 2500n : 3000n', replace: 'rate: baseRate && year !== \'2025-26\' ? 2500n : 3000n' },
+  { ...soleTraderCompanyEngine, name: 'sole trader against company leaves out the top-up tax', find: 'const total = companyTaxed + salaryTax + topUp + superTax;', replace: 'const total = companyTaxed + salaryTax + superTax;' },
+  { ...soleTraderCompanyEngine, name: 'sole trader against company forgets the franking credit offset', find: '- salaryTax - credit;', replace: '- salaryTax;' },
+  { ...soleTraderCompanyEngine, name: 'sole trader against company gives the dividend the standard deduction', find: 'Math.min(100000, salary)', replace: 'Math.min(100000, salary + dividend)' },
+  { ...soleTraderCompanyEngine, name: 'sole trader against company lets the dividend exceed the profit after tax', find: 'if (takenOut - salary > afterTax) {', replace: 'if (takenOut - salary > taxable) {' },
+  { ...soleTraderCompanyEngine, name: 'sole trader against company always applies the small business offset', find: 'offset: s.offset, studyLoan', replace: 'offset: true, studyLoan' },
+  { ...soleTraderCompanyEngine, name: 'sole trader against company leaves out the super tax', find: 'const total = companyTaxed + salaryTax + topUp + superTax;', replace: 'const total = companyTaxed + salaryTax + topUp;' },
 
   { ...surcharges, name: 'the FIRB lower fee applies at $75,000', find: 'value < 75000 ?', replace: 'value <= 75000 ?' },
   { ...surcharges, name: 'an exact million pays the next FIRB step', find: 'Math.floor((value - 1) / f.constant)', replace: 'Math.floor(value / f.constant)' },

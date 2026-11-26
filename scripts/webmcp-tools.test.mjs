@@ -97,7 +97,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_business_days', 'calculate_division_296_tax', 'calculate_fbt_car', 'calculate_fbt_car_parking',
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
-    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax',
+    'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company',
     'calculate_smsf_tax', 'calculate_trading_stock', 'calculate_prepayments', 'calculate_alcohol_excise',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
@@ -1297,6 +1297,25 @@ test('payroll tax tool returns the page worked example, supports interstate wage
   await assert.rejects(tool.execute({ place: 'AU-NSW', wages: '1500000', extra: 1 }), /extra is not an input of this tool/);
 });
 
+test('sole trader against company tool returns the page worked example and refuses invalid or unknown inputs', async () => {
+  const tool = tools['sole-trader-company'];
+  const example = { incomeYear: '2026-27', businessProfit: '150000', amountTakenOut: '100000', salary: '60000',
+    baseRateEntity: true, smallBusinessOffset: true };
+  const r = await tool.execute(example);
+  assert.deepEqual([r.soleTrader.totalTax, r.soleTrader.smallBusinessIncomeTaxOffset, r.company.companyTax,
+    r.company.frankingCredit, r.company.retainedAfterTax, r.company.topUpTaxOnDividend, r.company.totalTax,
+    r.companyLessSoleTraderTax, r.currency, r.source],
+  ['38570.00', '1000.00', '20700.00', '13333.33', '22100.00', '3848.23', '34913.23', '-3656.77', 'AUD',
+    'https://duguid.com.au/tools/business-calculators/sole-trader-company/']);
+  assert.doesNotThrow(() => JSON.stringify(r));
+  await assert.rejects(tool.execute({ ...example, salary: '140000', amountTakenOut: '140000' }), /pays its super guarantee/);
+  await assert.rejects(tool.execute({ ...example, amountTakenOut: '130000' }), /profit left after company tax/);
+  await assert.rejects(tool.execute({ ...example, incomeYear: '2020-21' }), /incomeYear does not match/);
+  const { smallBusinessOffset, ...missing } = example;
+  await assert.rejects(tool.execute(missing), /smallBusinessOffset/);
+  await assert.rejects(tool.execute({ ...example, extra: 1 }), /extra is not an input of this tool/);
+});
+
 test('salary against dividends tool returns the page worked example and refuses invalid or unknown inputs', async () => {
   const tool = tools['salary-dividend'];
   const r = await tool.execute({
@@ -1676,7 +1695,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 80);
+  assert.equal(registered.length + 2, 81);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {

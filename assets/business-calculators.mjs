@@ -666,6 +666,7 @@ export { wineEqualisationTax, wineEqualisationTaxResult, wetFormInput, wetInputs
 export { atoPenaltiesInterest, atoPenaltiesFormInput, atoPenaltiesInputsText, atoPenaltiesInterestResult, ATO_PENALTY_YEARS, PENALTY_UNITS } from './ato-penalties-interest.mjs';
 export { asicFee, asicFeesResult, asicFeeFormInput, asicFeeInputsText, firstMonthEnds, ASIC_FEES, ASIC_LATE_FEES } from './asic-fees.mjs';
 export { salaryDividend, salaryDividendResult } from './salary-dividend.mjs';
+export { soleTraderCompany, soleTraderCompanyResult, SOLE_TRADER_COMPANY_YEARS } from './sole-trader-company.mjs';
 export { firbApplicationFee, firbFee, foreignSurcharge, foreignSurchargeResult } from './foreign-surcharge.mjs';
 export { businessDays, businessDaysResult, parseHolidays } from './business-days.mjs';
 export { gstCreditablePurposeChange, gstAnnualApportionment, gstFinancialAcquisitionsThreshold, gstGoingConcern, gstSecondHandGoods, gstBadDebt,

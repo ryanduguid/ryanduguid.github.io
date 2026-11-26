@@ -52,13 +52,13 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Business calculators</li></ol></nav>
         <h1>Business calculators</h1>
-        <p class="lead-note">Sixty-one free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.</p>
+        <p class="lead-note">Sixty-two free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.</p>
         {% assign checked = "" %}{% for calculator in site.data.calculator_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
         <p class="page-meta">Published 11 September 2026. Last checked <time datetime="{{ checked }}">{{ checked | date: "%-d %B %Y" }}</time>, the newest of the calculators’ source checks.</p>
       </header>
       <div class="site-shell accounting-content">
         <form class="tool-filter" id="calc-filter" role="search" aria-label="Filter business calculators">
-          <label class="field" for="calc-search">Search 61 calculators<input type="search" id="calc-search" name="q" autocomplete="off" placeholder="e.g. stamp duty, FBT, CGT, payroll tax, GST" /></label>
+          <label class="field" for="calc-search">Search 62 calculators<input type="search" id="calc-search" name="q" autocomplete="off" placeholder="e.g. stamp duty, FBT, CGT, payroll tax, GST" /></label>
           <p id="calc-count" class="field-note" role="status"></p>
         </form>
         <h2>Pricing, planning and loans</h2>
@@ -106,6 +106,7 @@
           <li id="trading-stock"><a class="collection-entry__title" href="/tools/business-calculators/trading-stock/">Trading stock calculator</a> The change in value of trading stock for 2020-21 to 2026-27: each item at its elected value, the assessable increase or deduction, and the small business choice not to account for a change of $5,000 or less.</li>
           <li id="prepayments"><a class="collection-entry__title" href="/tools/business-calculators/prepayments/">Prepaid expenses calculator</a> When one prepaid amount incurred in 2020-21 to 2026-27 is deductible: in full under the 12-month rule or as excluded expenditure, or apportioned by days over the eligible service period.</li>
           <li id="salary-dividend"><a class="collection-entry__title" href="/tools/business-calculators/salary-dividend/">Salary against dividends calculator</a> A company owner’s salary and super guarantee against fully franked dividends for 2021-22 to 2026-27: the cash and super kept after tax, and the split that keeps the most.</li>
+          <li id="sole-trader-company"><a class="collection-entry__title" href="/tools/business-calculators/sole-trader-company/">Sole trader against company calculator</a> One business profit taxed as a sole trader, with the small business income tax offset, and through a company paying a salary, super guarantee and fully franked dividends, for 2021-22 to 2026-27: each structure’s total tax.</li>
         </ul>
         <h2>Capital gains tax</h2>
         <ul class="calculator-list">
@@ -159,7 +160,7 @@
       "description": "Calculate GST, margins, loans, Division 7A, FBT, payroll tax, land tax, transfer duty, PAYG instalments, fixed fees and 13-week cash flow in your browser.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-11-24",
+      "dateModified": "2026-11-26",
       "license": "https://duguid.com.au/privacy/#licences",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
