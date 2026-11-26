@@ -81,8 +81,8 @@ function row(input, paid) {
  * @param {string} year @param {string} period @param {number} scale @param {bigint} from whole dollars
  * @param {[string, bigint] | null} offsetRow @param {Record<string, bigint>} c cents */
 function withTfn(year, period, scale, from, offsetRow, c) {
-  const [per, times] = PERIODS[period];
-  const rows = SCHEDULE_1[year][scale];
+  const [per, times] = PERIODS[period]; // eslint-disable-line security/detect-object-injection -- the key is checked against this module's own table first
+  const rows = SCHEDULE_1[year][scale]; // eslint-disable-line security/detect-object-injection -- the key is checked against this module's own table first
   const x = (from * per / times) * 100n + 99n;
   const weeklyTax = BigInt(weekly(rows, Number(x)));
   const amount = period === 'monthly' ? (2n * weeklyTax * 13n + 3n) / 6n : weeklyTax * times;
@@ -97,7 +97,7 @@ function withTfn(year, period, scale, from, offsetRow, c) {
   let adjusted = 0n;
   if (offsetRow) rates.tax_offset_rate = `0.${offsetRow[1]}`;
   if (offset !== 0n) {
-    const [threshold, shadeIn, limit] = LEVY[year].map(BigInt);
+    const [threshold, shadeIn, limit] = LEVY[year].map(BigInt); // eslint-disable-line security/detect-object-injection -- the key is checked against this module's own table first
     Object.assign(rates, { medicare_levy_threshold_weekly: String(threshold), medicare_levy_shade_in_weekly: String(shadeIn),
       adjustment_limit_weekly: String(limit) });
     steps.weekly_equivalent = centsOf(from * per * 100n, times);
@@ -134,7 +134,7 @@ export function incomeStream(input, amounts, year, paid, tfn, foreign) {
   const scale = tfn ? (flag('tax_free_threshold_claimed', input.tax_free_threshold_claimed) ? 2 : 1) : 0;
   const { age, name } = row(input, paid);
   const { c } = lumpSum(amounts, true);
-  const offsetRow = ROWS[name];
+  const offsetRow = ROWS[name]; // eslint-disable-line security/detect-object-injection -- the key is checked against this module's own table first
   const aged60 = name.endsWith('aged_60_or_over');
   const from = (aged60 ? c.untaxed : c.taxable) / 100n;
   /** @type {{steps: Record<string, string>, rates: Record<string, string>, withholding: bigint}} */

@@ -121,7 +121,9 @@ function boolean(fields, key, n) {
 function line(n, value) {
   if (typeof value !== 'object' || value === null || Array.isArray(value)) return invalid(`line ${n} must be an object.`);
   const fields = /** @type {Record<string, unknown>} */ (value);
-  const extra = Object.keys(fields).sort().find((k) => !SHORT.includes(k) && !LONG.includes(k));
+  // The first unknown key in code unit order, as the command's sorted map reports it.
+  const extra = Object.keys(fields).filter((k) => !SHORT.includes(k) && !LONG.includes(k))
+    .reduce((/** @type {string | undefined} */ first, k) => (first === undefined || k < first ? k : first), undefined);
   if (extra !== undefined) invalid(`line ${n}: ${extra} is not a field of a line.`);
   const shortTerm = boolean(fields, 'settled_within_12_months', n);
   const longKey = shortTerm ? LONG.find((k) => Object.hasOwn(fields, k)) : undefined;

@@ -48,7 +48,7 @@ function decimal(key, value) {
   if (new TextEncoder().encode(value).length > 8192) refuse('input.decimal_too_long', `${key}: the number has too many digits.`);
   const text = value.trim();
   if (/^[+-]?(inf|infinity|s?nan\d*)$/i.test(text)) return null;
-  const parts = /^([+-]?)(\d*)(?:\.(\d*))?(?:e([+-]?\d+))?$/i.exec(text);
+  const parts = /^([+-]?)(\d*)(?:\.(\d*))?(?:e([+-]?\d+))?$/i.exec(text); // eslint-disable-line security/detect-unsafe-regex -- anchored, and each group takes a distinct character class: linear
   if (!parts || (parts[2] + (parts[3] ?? '')) === '') refuse('input.decimal_unreadable', `${key}: enter a number in digits, such as 1250.50.`);
   const c = BigInt(`${parts[2]}${parts[3] ?? ''}` || '0');
   return { c: parts[1] === '-' ? -c : c, e: Number(parts[4] ?? 0) - (parts[3] ?? '').length };
@@ -141,7 +141,7 @@ export function instantAssetWriteOff(input) {
   const read = {};
   for (const key of FIELDS) {
     if (!Object.hasOwn(input, key)) refuse('input.missing_field', `${key} is required.`);
-    if (key === 'cost' || key === 'taxable_use') read[key] = decimal(key, input[key]);
+    if (key === 'cost' || key === 'taxable_use') read[key] = decimal(key, input[key]); // eslint-disable-line security/detect-object-injection -- key comes from this module's own field list
   }
   if (input.scope_confirmed !== true) refuse('scope.not_confirmed', 'Confirm the facts the calculator takes as given.');
   const year = /** @type {string} */ (input.year);
@@ -181,10 +181,11 @@ const LIMITS = /** @type {Record<string, string>} */ ({ none: 'no cost limit', n
 
 /** The taxable use as the command's fraction: 80 (per cent) is 0.80. @param {string} percent */
 export function useFraction(percent) {
-  const parts = /^(\d+)(?:\.(\d+))?$/.exec(percent.trim()); // eslint-disable-line security/detect-unsafe-regex -- anchored, with no repetition over overlapping characters: linear
-  if (!parts) return percent.trim();
+  // A percentage may start at the point, as a number field allows: .5 is 0.5%.
+  const parts = /^(\d*)(?:\.(\d+))?$/.exec(percent.trim()); // eslint-disable-line security/detect-unsafe-regex -- anchored, with no repetition over overlapping characters: linear
+  if (!parts || (parts[1] === '' && parts[2] === undefined)) return percent.trim();
   const places = (parts[2] ?? '').length + 2;
-  const text = String(BigInt(parts[1] + (parts[2] ?? ''))).padStart(places + 1, '0');
+  const text = String(BigInt(`${parts[1]}${parts[2] ?? ''}`)).padStart(places + 1, '0');
   return `${text.slice(0, -places)}.${text.slice(-places)}`;
 }
 
@@ -193,7 +194,8 @@ export function usePercent(text) {
   const parts = typeof text === 'string' ? /^(\d+)(?:\.(\d+))?$/.exec(text) : null; // eslint-disable-line security/detect-unsafe-regex -- anchored, with no repetition over overlapping characters: linear
   if (!parts) return String(text);
   const places = (parts[2] ?? '').padEnd(2, '0');
-  const rest = places.slice(2).replace(/0+$/, '');
+  let rest = places.slice(2);
+  while (rest.endsWith('0')) rest = rest.slice(0, -1);
   return `${Number(parts[1] + places.slice(0, 2))}${rest ? `.${rest}` : ''}%`;
 }
 

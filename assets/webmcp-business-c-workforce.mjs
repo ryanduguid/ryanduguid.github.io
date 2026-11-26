@@ -181,23 +181,23 @@ export function superBenefitTaxTool(kit, calculate) {
       + 'gives withholding from one weekly, fortnightly, monthly or quarterly super income stream payment under Schedule 13 '
       + 'Part A, refusing a capped defined benefit stream to a payee 60 or over; (4) "dasp" (2025-26 to 2027-28) '
       + 'gives departing Australia superannuation payment final tax (35%/45% ordinary or 65% working holiday maker). Refuses '
-      + 'fields belonging to another calculation, disability super benefits, pre-1 July 1983 untaxed service and other lump '
+      + 'fields belonging to another calculation, disability super lump sums, pre-1 July 1983 untaxed service and other lump '
       + 'sums sharing an unused low rate cap.',
     inputSchema: record({
       calculation: choice(['tax', 'withholding', 'stream', 'dasp'], '"tax" (maximum income tax), "withholding" (Schedule 12), "stream" (Schedule 13 income stream payment) or "dasp" (departing Australia super payment).'),
-      incomeYear: choice(allYears, 'Income year ("2020-21" to "2026-27" for tax/withholding; "2025-26" to "2027-28" for dasp).'),
+      incomeYear: choice(allYears, 'Income year ("2020-21" to "2026-27" for tax/withholding; "2024-25" to "2026-27" for stream; "2025-26" to "2027-28" for dasp).'),
       scopeConfirmed: { type: 'boolean', description: 'Optional scope confirmation; false refuses.' },
-      paymentDate: text('date', 'Tax or withholding: payment date as YYYY-MM-DD inside incomeYear.'),
+      paymentDate: text('date', 'Tax, withholding or stream: payment date as YYYY-MM-DD inside incomeYear.'),
       recipient: choice(['member', 'death_benefits_dependant', 'non_dependant', 'rollover', 'deceased_estate_trustee'],
         'Tax or withholding: benefit recipient ("rollover" and "deceased_estate_trustee" apply to withholding only).'),
-      benefit: text('cost', 'Tax or withholding: lump sum payment in AUD, above zero.'),
-      interestValue: text('cost', 'Tax or withholding: value of the super interest just before payment in AUD.'),
-      interestTaxFreeComponent: text('cost', 'Tax or withholding: tax free component of the super interest in AUD.'),
+      benefit: text('cost', 'Tax, withholding or stream: the lump sum or the income stream payment in AUD, above zero.'),
+      interestValue: text('cost', 'Tax, withholding or stream: value of the super interest just before payment (for a stream, when it commenced) in AUD.'),
+      interestTaxFreeComponent: text('cost', 'Tax, withholding or stream: tax free component of the super interest (for a stream, when it commenced) in AUD.'),
       untaxedElement: text('cost', 'Element untaxed in the fund in AUD; "0" when omitted.'),
       serviceBeforeJuly1983: { type: 'boolean', description: 'Tax or withholding with untaxedElement > 0: true if from pre-1 July 1983 service (refused).' },
       dateOfBirth: text('date', 'Tax or withholding for member recipient, or stream for either recipient: date of birth, YYYY-MM-DD.'),
       terminalMedicalCondition: { type: 'boolean', description: 'Tax or withholding for member recipient: true when certified terminal medical condition (s 303-10).' },
-      disabilitySuperannuationBenefit: { type: 'boolean', description: 'Tax or withholding for member recipient: true for disability super benefit (refused).' },
+      disabilitySuperannuationBenefit: { type: 'boolean', description: 'Member recipient: for tax or withholding, true for a disability super benefit (refused); for stream, required, true for a disability super income stream (15% offset).' },
       lowRateCapUsed: text('cost', 'Tax or withholding (with TFN) for member aged preservation age to 59: earlier low rate cap used in AUD.'),
       otherLumpSumsThisYear: { type: 'boolean', description: 'Tax or withholding (with TFN) for member aged preservation age to 59: true if other lump sums received this year.' },
       untaxedPlanCapUsed: text('cost', 'Tax or withholding with untaxedElement > 0 (member or rollover): earlier untaxed plan cap used from this plan in AUD.'),
