@@ -1261,7 +1261,7 @@ test('Victorian property taxes page works its example and windfall gains tax off
   await context.setOffline(true);
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output .result-row--principal')).toHaveText('2026 vacant residential land tax: $8,000.00.');
-  await form.locator('[name="tax"]').selectOption('windfall_gains');
+  await form.locator('[name="tax"][value="windfall_gains"]').check();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output .result-row--principal')).toHaveText('2026 windfall gains tax: $187,500.00.');
 });
