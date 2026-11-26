@@ -99,7 +99,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_casual_overtime_pay',
-    'calculate_contractor_employee',
+    'calculate_contractor_employee', 'review_dgr_charity_endorsement', 'check_abn_acn_check_digit',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -1699,7 +1699,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 80);
+  assert.equal(registered.length + 2, 82);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
@@ -2249,4 +2249,32 @@ test('contractor against employee tool works the page default, section 12(3) and
   await assert.rejects(tool.execute({ ...base, incomeYear: '2020-21' }), /incomeYear/);
   await assert.rejects(tool.execute({ ...base, annualLeaveWeeks: '50', otherLeaveWeeks: '2' }), /fewer than 52 weeks/);
   await assert.rejects(tool.execute({ ...base, awardRate: '30' }), /awardRate is not an input of this tool/);
+});
+
+test('endorsement review tool gives the worksheet outcome and refuses another worksheet’s answers', async () => {
+  const tool = tools['endorsement-review'];
+  const answers = { abn_current: true, within_category: true, winding_up_clause: true, in_australia: true, receipts_correct: false };
+  const r = await tool.execute({ worksheet: 'dgr_whole', answers });
+  assert.deepEqual([r.worksheet, r.status, r.findings.length, r.findings[4].outcome, r.source],
+    ['NAT 11685-02.2021 (Worksheet 1)', 'action_needed', 5, 'action_needed', 'https://duguid.com.au/tools/business-calculators/endorsement-review/']);
+  const charity = await tool.execute({ worksheet: 'income_tax_exempt_charity',
+    answers: { abn_current: false, registered_charity: true, meets_a_test: true, meets_both_conditions: true } });
+  assert.equal(charity.status, 'not_entitled');
+  assert.doesNotThrow(() => JSON.stringify(r));
+  await assert.rejects(tool.execute({ worksheet: 'dgr_fund', answers }), /Answer each question on the worksheet/);
+  await assert.rejects(tool.execute({ worksheet: 'dgr', answers }), /worksheet does not match/);
+  await assert.rejects(tool.execute({ worksheet: 'dgr_whole', answers: { ...answers, extra: true } }), /extra is not an input/);
+  await assert.rejects(tool.execute({ worksheet: 'dgr_whole', answers: { ...answers, in_australia: 'yes' } }), /in_australia must be true or false/);
+});
+
+test('ABN and ACN tool checks the digits only and never establishes registration', async () => {
+  const tool = tools['abn-acn-check'];
+  const r = await tool.execute({ identifier: 'abn', number: '51 824 753 556' });
+  assert.deepEqual([r.result, r.checkDigitValid, r.formatted, r.abrRegistrationEstablished, r.gstRegistrationEstablished, r.source],
+    ['CHECK_DIGIT_VALID', true, '51 824 753 556', false, false, 'https://duguid.com.au/tools/business-calculators/abn-acn-check/']);
+  assert.equal((await tool.execute({ identifier: 'acn', number: '004085617' })).result, 'CHECK_DIGIT_INVALID');
+  assert.equal((await tool.execute({ identifier: 'acn', number: '00408561' })).result, 'MALFORMED');
+  await assert.rejects(tool.execute({ identifier: 'abn', number: '51-824-753-556' }), /number does not match/);
+  await assert.rejects(tool.execute({ identifier: 'tfn', number: '123456782' }), /identifier does not match/);
+  await assert.rejects(tool.execute({ identifier: 'abn', number: '1'.repeat(41) }), /number does not match/);
 });
