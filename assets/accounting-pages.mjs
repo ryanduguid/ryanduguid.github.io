@@ -595,6 +595,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             break;
           case 'blackhole-expenditure':
             result = calculate.blackholeResult(value, aud);
+            break;
           case 'contractor-employee':
             result = calculate.contractorEmployeeResult(value, aud);
             break;
