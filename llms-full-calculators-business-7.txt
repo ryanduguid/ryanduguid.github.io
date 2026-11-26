@@ -392,6 +392,8 @@ Line 2: goods entered for home consumption (optional) Day entered (delivered, or
 
 Line 3: goods entered for home consumption (optional) Day entered (delivered, or paid without a periodic settlement permission) ProductBeer Spirits, such as vodka, whisky or gin Brandy Other excisable beverage, such as a ready-to-drink Volume (litres), blank for no line Actual strength (% alcohol by volume) Labelled strength where higher (%), else blank Beer: container size (litres) Beer in 8 to 48 litre containers: designed for a pressurised gas or pump systemNot applicable Yes No Claim the alcohol manufacturer remissionNo Yes
 
+## Work out the duty
+
 Calculate
 
 A line marked for the remission states that the manufacturer meets item 10 (a), (b), (d) and (e) of the Excise Regulation 2015: duty payable by it, independence, at least 70% fermented or distilled by it and, for a distillery after its first 2 years, the still test. The cap is $350,000 a financial year to 2025-26 and $400,000 from 2026-27.
