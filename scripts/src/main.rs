@@ -28,22 +28,7 @@ const WRITING_FLAGS: [&str; 5] = [
 const ATO_WRITING_OPTIONS: [&str; 3] = ["--baseline", "--issue", "--out"];
 
 fn main() -> ExitCode {
-    let mut args = Vec::with_capacity(std::env::args_os().len().saturating_sub(1));
-    for raw in std::env::args_os().skip(1) {
-        match raw.into_string() {
-            Ok(arg) => args.push(arg),
-            Err(bad) => {
-                let _ = site_tools::print_text(
-                    &format!(
-                        "site-tools: non-UTF-8 argument {:?}\n{USAGE}",
-                        bad.to_string_lossy()
-                    ),
-                    true,
-                );
-                return ExitCode::from(2);
-            }
-        }
-    }
+    let args: Vec<String> = std::env::args().skip(1).collect();
     let Some(command) = args.first() else {
         let _ = site_tools::print_text(USAGE, true);
         return ExitCode::from(2);

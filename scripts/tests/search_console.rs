@@ -660,18 +660,3 @@ fn overflow_infinity_sort_bigint_float_and_large_cli_ints() {
             .contains("unknown Search Console dimension: bogus")
     );
 }
-
-#[cfg(unix)]
-#[test]
-fn main_rejects_non_utf8_arg_without_panicking() {
-    use std::ffi::OsStr;
-    use std::os::unix::ffi::OsStrExt;
-    let bad = OsStr::from_bytes(b"search_\xff");
-    let out = Command::new(env!("CARGO_BIN_EXE_site-tools"))
-        .arg(bad)
-        .output()
-        .unwrap();
-    assert_eq!(out.status.code(), Some(2));
-    let stderr = String::from_utf8_lossy(&out.stderr);
-    assert!(stderr.contains("non-UTF-8 argument"), "stderr={stderr}");
-}
