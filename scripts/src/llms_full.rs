@@ -489,6 +489,23 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
         say(&format!("{}\n", shape.join("\n")))?;
         return Ok(1);
     }
+    let mirrors: Vec<String> = entries
+        .iter()
+        .map(|(url, _)| {
+            page_path(url, Path::new(""), "index.txt")
+                .to_string_lossy()
+                .replace('\\', "/")
+        })
+        .collect();
+    let written = ["llms-full.txt", ".well-known/llms.txt"]
+        .into_iter()
+        .chain(parts.iter().map(|p| p.name.as_str()))
+        .chain(mirrors.iter().map(String::as_str));
+    let undeclared = crate::review_generated::undeclared(root, written)?;
+    if !undeclared.is_empty() {
+        say(&crate::review_generated::message(&undeclared))?;
+        return Ok(1);
+    }
     say(&format!(
         "llms-full.txt matches its pages ({} pages)\n.well-known/llms.txt matches llms.txt\n",
         built.matches("Source: ").count()
