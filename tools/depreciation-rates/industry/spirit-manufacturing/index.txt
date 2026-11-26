@@ -2,17 +2,19 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/
 
-> Table A (industry categories), MANUFACTURING / Spirit …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+> Spirit manufacturing, Table …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
 
 # Spirit manufacturing
 
 23 effective lives in Table A of the Commissioner’s 2025 effective life determination for Spirit manufacturing.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Barrels, tanks and tuns: | | | |
@@ -60,6 +62,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/#source
 - Capacity greater than 150 litres: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/capacity-greater-than-150-litres/
 - Capacity of 150 litres or less: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/capacity-of-150-litres-or-less/
 - Fermenters, washbacks, vats and holding tanks: https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/fermenters-washbacks-vats-and-holding-tanks/

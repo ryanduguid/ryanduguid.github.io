@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/cement-manufactu
 
 ‘Particulate filtering assets …: Bagfilter systems (incorporating housing and filters)’, for an asset used in Cement manufacturing, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2011.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Bagfilter systems (incorporating housing and filters)
 Under | Emissions control assets: / Particulate filtering assets (excluding filter units incorporated in kiln bypass systems):
@@ -33,6 +33,8 @@ The life was last reviewed and determined on 1 July 2011. The life that applies 
 
 ## Other rows under Particulate filtering assets (excluding filter units incorporated in kiln bypass systems)
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Bagfilter systems (incorporating housing and filters) (this page) | 20 years | 5.00% | 10.00%
 Electrostatic precipitators | 20 years | 5.00% | 10.00%
@@ -51,6 +53,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/cement-manufacturing/bagfilter-systems/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Electrostatic precipitators: https://duguid.com.au/tools/depreciation-rates/industry/cement-manufacturing/electrostatic-precipitators/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/electricity-supp
 
 ‘Power station civil and structural works: Cooling towers (concrete or timber)’, for an asset used in Electricity supply, has an effective life of 30 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2002.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Cooling towers (concrete or timber)
 Under | Electricity generation: / Power station civil and structural works:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 January 2002. The life that appli
 
 ## Other rows under Power station civil and structural works
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Cooling towers (concrete or timber) (this page) | 30 years | 3.33% | 6.67%
 Cooling water systems (excluding cooling towers and condensing assets) | 30 years | 3.33% | 6.67%
@@ -39,6 +41,8 @@ Power station buildings, to the extent that they form an integral part of plant 
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Cooling towers | Dairy product manufacturing | 15 years | 6.67% | 13.33%
@@ -73,6 +77,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/electricity-supply/cooling-towers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Cooling water systems (excluding cooling towers and condensing assets): https://duguid.com.au/tools/depreciation-rates/industry/electricity-supply/cooling-water-systems/
 - Power station buildings, to the extent that they form an integral part of plant: https://duguid.com.au/tools/depreciation-rates/industry/electricity-supply/power-station-buildings-to-the-extent-that-they-form-an/

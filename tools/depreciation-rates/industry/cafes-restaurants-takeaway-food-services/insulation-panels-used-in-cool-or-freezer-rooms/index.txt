@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/cafes-restaurant
 
 ‘Refrigeration assets: Insulation panels used in cool or freezer rooms’, for an asset used in Cafes, restaurants, takeaway food services, pubs, taverns, bars and clubs (hospitality), has an effective life of 40 years (F2025L01097), last reviewed and determined on 1 July 2014.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Insulation panels used in cool or freezer rooms
 Under | Refrigeration assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2014. The life that applies 
 
 ## Other rows under Refrigeration assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Generally (including blast chillers, condensers, evaporators, refrigeration cabinets, standalone freezers and standalone refrigerators) | 10 years | 10.00% | 20.00%
 Ice making machines | 8 years | 12.50% | 25.00%
@@ -39,6 +41,8 @@ Insulation panels used in cool or freezer rooms (this page) | 40 years | 2.50% |
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Insulation panels used in cool or freezer rooms | RETAIL TRADE | 40 years | 2.50% | 5.00%
@@ -59,6 +63,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/cafes-restaurants-takeaway-food-services/insulation-panels-used-in-cool-or-freezer-rooms/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Generally (including blast chillers, condensers, evaporators, refrigeration cabinets, standalone freezers and standalone refrigerators): https://duguid.com.au/tools/depreciation-rates/industry/cafes-restaurants-takeaway-food-services/generally/
 - Ice making machines: https://duguid.com.au/tools/depreciation-rates/industry/cafes-restaurants-takeaway-food-services/ice-making-machines/

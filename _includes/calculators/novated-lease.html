@@ -10,7 +10,7 @@
 <label><input type="radio" name="residency" value="resident" checked /> Australian resident</label>
 <label><input type="radio" name="residency" value="foreign" /> Foreign resident</label>
 </fieldset>
-<label class="field" for="novated-lease-salary">Salary for the year before the lease, without super (whole dollars)<input id="novated-lease-salary" name="salary" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="100000" required /></label>
+<label class="field" for="novated-lease-salary">Salary for the year before the lease, without super (whole dollars)<input enterkeyhint="next" id="novated-lease-salary" name="salary" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="100000" required /></label>
 </div>
 <h2>The car</h2>
 <div class="form-grid"><fieldset><legend>Kind of car</legend>
@@ -32,7 +32,7 @@
 <label><input type="radio" name="sale-year" value="2022-23" /> 2022-23</label>
 <label><input type="radio" name="sale-year" value="2021-22" /> 2021-22</label>
 </fieldset>
-<label class="field" for="novated-lease-price">The car’s cost price, with GST and dealer-fitted options, without registration and stamp duty (dollars and cents)<input id="novated-lease-price" name="price" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="60000" required /></label>
+<label class="field" for="novated-lease-price">The car’s cost price, with GST and dealer-fitted options, without registration and stamp duty (dollars and cents)<input enterkeyhint="next" id="novated-lease-price" name="price" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="60000" required /></label>
 <fieldset><legend>Has luxury car tax become payable on any other supply of the car, such as a sale, lease or hire, or on its importation?</legend>
 <label><input type="radio" name="other-supply" value="no" checked /> No</label>
 <label><input type="radio" name="other-supply" value="yes" /> Yes</label>
@@ -56,9 +56,9 @@
 <label><input type="radio" name="cover" value="yes" checked /> Yes</label>
 <label><input type="radio" name="cover" value="no" /> No</label>
 </fieldset>
-<label class="field" for="novated-lease-days">Days of private use or availability in the FBT year<input id="novated-lease-days" name="days" type="number" inputmode="numeric" min="0" max="366" step="1" value="365" required /></label>
-<label class="field" for="novated-lease-gst-costs">Yearly lease payments and running costs that include GST, such as charging or fuel, servicing, tyres and insurance (dollars and cents)<input id="novated-lease-gst-costs" name="gst-costs" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="15000" required /></label>
-<label class="field" for="novated-lease-other-costs">Yearly costs without GST, such as registration (dollars and cents)<input id="novated-lease-other-costs" name="other-costs" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" required /></label>
+<label class="field" for="novated-lease-days">Days of private use or availability in the FBT year<input enterkeyhint="next" id="novated-lease-days" name="days" type="number" inputmode="numeric" min="0" max="366" step="1" value="365" required /></label>
+<label class="field" for="novated-lease-gst-costs">Yearly lease payments and running costs that include GST, such as charging or fuel, servicing, tyres and insurance (dollars and cents)<input enterkeyhint="next" id="novated-lease-gst-costs" name="gst-costs" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="15000" required /></label>
+<label class="field" for="novated-lease-other-costs">Yearly costs without GST, such as registration (dollars and cents)<input enterkeyhint="done" id="novated-lease-other-costs" name="other-costs" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" required /></label>
 </div>
 <p class="field-note">Each income year takes the FBT year ending 31 March in it. Count days the car was used or available for private use by you or an associate such as a family member, including when it was garaged at or near either home. Take the yearly costs from your lease quote. The calculator compares the lease with paying the same costs from after-tax pay, takes the salary as your only income and the employer as registered for GST.</p>
 <button type="submit" class="button">Calculate</button></fieldset>

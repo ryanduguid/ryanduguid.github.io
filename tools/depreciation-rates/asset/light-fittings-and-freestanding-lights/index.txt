@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/asset/light-fittings-and-freestanding-lights/
 
-> Light fittings and freestanding lights …: effective life 10 years, last updated 1 July 2016 (Table B).
+> Light fittings and freestanding lights …: effective life 10 years, last updated 1 July 2016 (Table B). See determination F2025L01097.
 
 # Light fittings and freestanding lights …
 
 ‘Light fittings and freestanding lights …’ in Table B, which applies where no Table A row applies to the asset in its industry, has an effective life of 10 years (F2025L01097), last reviewed and determined on 1 July 2016.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Light fittings and freestanding lights (excluding hardwired light fittings)
 Table | Table B (asset categories), letter L
@@ -44,6 +44,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/asset/light-fittings-and-freestanding-lights/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text

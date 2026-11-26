@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/mining/gas-clean
 
 ‘Hydrometallurgy and Pyrometallurgy assets: Gas cleaning process assets …’, for an asset used in MINING, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2003.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Gas cleaning process assets (including electrostatic precipitators and baghouses)
 Under | Hydrometallurgy and Pyrometallurgy assets:
@@ -32,6 +32,8 @@ Because the row says ‘including’, each item it lists is treated as a separat
 The life was last reviewed and determined on 1 July 2003. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Hydrometallurgy and Pyrometallurgy assets
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Converting process assets (including rotatable cylindrical furnaces) | 30 years | 3.33% | 6.67%
@@ -64,6 +66,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/mining/gas-cleaning-process-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Converting process assets (including rotatable cylindrical furnaces): https://duguid.com.au/tools/depreciation-rates/industry/mining/converting-process-assets/
 - Cooling process assets (including cooling towers): https://duguid.com.au/tools/depreciation-rates/industry/mining/cooling-process-assets/

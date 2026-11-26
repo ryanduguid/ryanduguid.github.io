@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extr
 
 ‘Tempered water system assets: Chemical treatment assets’, for an asset used in Oil and gas extraction, has an effective life of 12 1/2 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2002.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Chemical treatment assets
 Under | Gas production assets: / Central production facility assets: / Tempered water system assets:
@@ -30,6 +30,8 @@ An asset used in Oil and gas extraction takes this life if it matches this row e
 The life was last reviewed and determined on 1 July 2002. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Tempered water system assets
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Chemical treatment assets (this page) | 12 1/2 years | 8.00% | 16.00%
@@ -49,6 +51,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/gas-production-assets-chemical-treatment-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Piping and vessels: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/gas-production-assets-piping-and-vessels/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

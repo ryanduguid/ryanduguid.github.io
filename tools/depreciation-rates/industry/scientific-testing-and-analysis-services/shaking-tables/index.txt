@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testi
 
 ‘Sample preparation assets: Shaking tables (including wet tables)’, for an asset used in Scientific testing and analysis services, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2019.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Shaking tables (including wet tables)
 Under | Mineral processing and metallurgical laboratory assets: / Sample preparation assets:
@@ -32,6 +32,8 @@ Because the row says ‘including’, each item it lists is treated as a separat
 The life was last reviewed and determined on 1 July 2019. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Sample preparation assets
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Pulverisers | 10 years | 10.00% | 20.00%
@@ -54,6 +56,8 @@ Weighing scales | 7 years | 14.29% | 28.57%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
+Rates from the source determination.
+
 Row | Industry or table | Life | Prime cost | Diminishing value
 Shaking tables | MINING | 25 years | 4.00% | 8.00%
 Shaking tables | Gold ore mining | 12 years | 8.33% | 16.67%
@@ -72,6 +76,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/shaking-tables/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Pulverisers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-pulverisers/
 - Riffle splitters: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-riffle-splitters/

@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-exploration-services/exploration-assets-used-onshore-drill-strings/
 
-> Exploration assets used onshore: Drill strings: effective life 4 years, last updated 1 January 2007 (Table A).
+> Exploration assets used onshore: Drill strings: effective life 4 years, last updated 1 January 2007 (Table A). See determination F2025L01097.
 
 # Exploration assets used onshore: Drill strings
 
 ‘Exploration assets used onshore: Drill strings’, for an asset used in Petroleum exploration services, has an effective life of 4 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2007.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Drill strings
 Under | Exploration assets used onshore:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 January 2007. The life that appli
 
 ## Other rows under Exploration assets used onshore
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Down hole geophysics units – truck mounted | 12 years | 8.33% | 16.67%
 Drill strings (this page) | 4 years | 25.00% | 50.00%
@@ -40,6 +42,8 @@ Portable messing and sleeping huts | 7 years | 14.29% | 28.57%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Drill strings | Other mining support services | 5 years | 20.00% | 40.00%
@@ -58,6 +62,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-exploration-services/exploration-assets-used-onshore-drill-strings/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Down hole geophysics units – truck mounted: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-exploration-services/down-hole-geophysics-units-truck-mounted/
 - Onshore surface drilling rigs (including blow out preventers, derricks, drilling fluid circulation systems, hoisting and rotary systems, rig powering and transmissions): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-exploration-services/onshore-surface-drilling-rigs/

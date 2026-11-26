@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheri
 
 ‘Boilers’, for an asset used in Poultry hatcheries, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2007.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Boilers
 Table | Table A (industry categories), AGRICULTURE, FORESTRY AND FISHING / Poultry hatcheries, ANZSIC 01710 to 01720
@@ -30,6 +30,8 @@ The life was last reviewed and determined on 1 January 2007. The life that appli
 
 ## Other rows under Poultry hatcheries
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Air handlers | 20 years | 5.00% | 10.00%
 Boilers (this page) | 20 years | 5.00% | 10.00%
@@ -45,6 +47,8 @@ Conveyors | 20 years | 5.00% | 10.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination). The first 20 of 25 are shown.
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Boilers (including piping) | Nursery and floriculture production | 20 years | 5.00% | 10.00%
@@ -82,6 +86,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/boilers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Air handlers: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/air-handlers/
 - Candling equipment: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/candling-equipment/

@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/condensing-sets/
 
-> Air conditioning assets …: Condensing sets: effective life 15 years, last updated 1 July 2003 (Table A).
+> Air conditioning assets …: Condensing sets: effective life 15 years, last updated 1 July 2003 (Table A). See determination F2025L01097.
 
 # Air conditioning assets …: Condensing sets
 
 ‘Air conditioning assets …: Condensing sets’, for an asset used in Residential property operators, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2003.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Condensing sets
 Under | Assets generally: / Air conditioning assets (excluding ducting, pipes and vents):
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2003. The life that applies 
 
 ## Other rows under Air conditioning assets (excluding ducting, pipes and vents)
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Air handling units | 20 years | 5.00% | 10.00%
 Condensing sets (this page) | 15 years | 6.67% | 13.33%
@@ -46,6 +48,8 @@ Pumps | 20 years | 5.00% | 10.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Condensing sets | Table B, Air-conditioning assets (excluding pipes, duct work and vents) | 15 years | 6.67% | 13.33%
@@ -64,6 +68,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/condensing-sets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Air handling units: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/air-handling-units/
 - Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/cooling-towers/

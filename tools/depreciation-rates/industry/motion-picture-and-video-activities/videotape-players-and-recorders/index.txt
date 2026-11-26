@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-a
 
 ‘Post production video assets: Videotape players and recorders’, for an asset used in Motion picture and video activities, has an effective life of 5 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2006.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Videotape players and recorders
 Under | Post production video assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 January 2006. The life that appli
 
 ## Other rows under Post production video assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Monitors | 5 years | 20.00% | 40.00%
 Motion capture and analysis systems | 5 years | 20.00% | 40.00%
@@ -45,6 +47,8 @@ Videotape players and recorders (this page) | 5 years | 20.00% | 40.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Videotape players and recorders | Television broadcasting | 8 years | 12.50% | 25.00%
@@ -63,6 +67,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/videotape-players-and-recorders/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Monitors: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/post-production-video-assets-monitors/
 - Motion capture and analysis systems: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/motion-capture-and-analysis-systems/

@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/slurry-tanks/
 
-> Dewatering assets: Slurry tanks (incorporating agitators): effective life 15 years, last updated 1 July 2010 (Table A).
+> Dewatering assets: Slurry tanks (incorporating agitators): effective life 15 years, last updated 1 July 2010 (Table A). See determination F2025L01097.
 
 # Dewatering assets: Slurry tanks (incorporating agitators)
 
 ‘Dewatering assets: Slurry tanks (incorporating agitators)’, for an asset used in Iron smelting and steel manufacturing, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2010.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Slurry tanks (incorporating agitators)
 Under | Pellet making assets: / Dewatering assets:
@@ -33,6 +33,8 @@ The life was last reviewed and determined on 1 July 2010. The life that applies 
 
 ## Other rows under Dewatering assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Launders | 20 years | 5.00% | 10.00%
 Pressure filter pumps | 5 years | 20.00% | 40.00%
@@ -48,6 +50,8 @@ Vertical plate pressure filters (incorporating filters, plates, membranes, water
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Slurry tanks | Grain mill product manufacturing | 25 years | 4.00% | 8.00%
@@ -66,6 +70,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/slurry-tanks/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Launders: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/launders/
 - Pressure filter pumps: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/pressure-filter-pumps/

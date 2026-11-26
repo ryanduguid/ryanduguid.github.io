@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product
 
 ‘Storage, preparation and mixing assets: Storage tanks (including silica thickener vessels)’, for an asset used in Concrete product manufacturing, has an effective life of 25 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2012.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Storage tanks (including silica thickener vessels)
 Under | Fibre cement building boards manufacturing assets: / Storage, preparation and mixing assets:
@@ -33,6 +33,8 @@ The life was last reviewed and determined on 1 July 2012. The life that applies 
 
 ## Other rows under Storage, preparation and mixing assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Batching vessels (including feeding vessels) (excluding silica thickener vessels) | 20 years | 5.00% | 10.00%
 Classifiers (including cyclones) | 15 years | 6.67% | 13.33%
@@ -47,6 +49,8 @@ Storage tanks (including silica thickener vessels) (this page) | 25 years | 4.00
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Storage tanks (including jacketed tanks) | Cereal and pasta product manufacturing | 20 years | 5.00% | 10.00%
@@ -67,6 +71,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/storage-tanks/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Batching vessels (including feeding vessels) (excluding silica thickener vessels): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/batching-vessels/
 - Classifiers (including cyclones): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/classifiers/

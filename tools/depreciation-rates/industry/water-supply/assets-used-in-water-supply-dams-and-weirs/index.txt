@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/assets-used-in-water-supply-dams-and-weirs/
 
-> Raw water storage and supply assets: Dams and weirs: effective life 100 years, last updated 1 January 2005 (Table A).
+> Raw water storage and supply assets: Dams and weirs: effective life 100 years, last updated 1 January 2005 (Table A). See determination F2025L01097.
 
 # Raw water storage and supply assets: Dams and weirs
 
 ‘Raw water storage and supply assets: Dams and weirs’, for an asset used in Water supply, has an effective life of 100 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2005.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Dams and weirs
 Under | Assets used in water supply: / Raw water storage and supply assets:
@@ -30,6 +30,8 @@ An asset used in Water supply takes this life if it matches this row exactly or 
 The life was last reviewed and determined on 1 January 2005. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Raw water storage and supply assets
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Bores | 30 years | 3.33% | 6.67%
@@ -50,6 +52,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/assets-used-in-water-supply-dams-and-weirs/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Bores: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/bores/
 - Dam or weir intake structures: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/dam-or-weir-intake-structures/

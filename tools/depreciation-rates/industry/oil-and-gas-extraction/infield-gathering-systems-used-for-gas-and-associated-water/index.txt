@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extr
 
 ‘Coal seam gas extraction assets: Infield gathering systems used for gas and associated water …’, for an asset used in Oil and gas extraction, has an effective life of 20 years (F2025L01097), last reviewed and determined on 1 July 2016.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Infield gathering systems used for gas and associated water (including polyethylene (PE) pipes and pumps)
 Under | Gas production assets: / Coal seam gas extraction assets:
@@ -46,6 +46,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/infield-gathering-systems-used-for-gas-and-associated-water/#source
 - capped lives: https://duguid.com.au/tools/depreciation-rates/#capped-lives
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

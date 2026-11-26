@@ -4,7 +4,9 @@
 //! Minify the built site's JavaScript and CSS in place, for publication and for the
 //! server the browser checks use. The sources in assets/ stay readable: the Node tests,
 //! the mutation check and the calculator oracle read them.
-use std::path::Path;
+use std::io::Write;
+use std::path::{Path, PathBuf};
+use std::sync::LazyLock;
 
 use oxc_allocator::Allocator;
 use oxc_codegen::{Codegen, CodegenOptions};
@@ -331,6 +333,7 @@ impl Stylesheet<'_> {
 pub fn minify_tree(directory: &Path) -> Result<(usize, u64, u64), String> {
     let mut totals = (0, 0, 0);
     let mut pending = vec![directory.to_path_buf()];
+    let mut pages = Vec::new();
     while let Some(folder) = pending.pop() {
         let entries =
             std::fs::read_dir(&folder).map_err(|e| format!("{}: {e}", folder.display()))?;
@@ -344,7 +347,19 @@ pub fn minify_tree(directory: &Path) -> Result<(usize, u64, u64), String> {
                 pending.push(path);
                 continue;
             }
+            // Page text is already Markdown. Publish a conventional filename alongside it.
+            if kind.is_file()
+                && entry.file_name() == "index.txt"
+                && folder.join("index.html").is_file()
+            {
+                let text = crate::read(&path)?;
+                write_generated(&folder.join("index.md"), &text)?;
+            }
             let extension = path.extension().and_then(|e| e.to_str()).unwrap_or("");
+            if extension == "html" && kind.is_file() {
+                pages.push(path);
+                continue;
+            }
             if !matches!(extension, "js" | "mjs" | "css") {
                 continue;
             }
@@ -364,7 +379,66 @@ pub fn minify_tree(directory: &Path) -> Result<(usize, u64, u64), String> {
             totals.2 += minified.len() as u64;
         }
     }
+    bundle_stylesheets(directory, &pages)?;
     Ok(totals)
+}
+
+/// The shared sheets have the same URL on every layout, including after navigation.
+fn bundle_stylesheets(root: &Path, pages: &[PathBuf]) -> Result<(), String> {
+    let assets = root.join("assets");
+    if !assets.join("tokens.css").is_file() {
+        return Ok(());
+    }
+    static LINKS: LazyLock<fancy_regex::Regex> = LazyLock::new(|| {
+        let tag = |name: &str| {
+            format!(r#"<link rel="stylesheet" href="/assets/{name}\.css\?v=[a-z0-9]+" />"#)
+        };
+        fancy_regex::Regex::new(&format!(r"{}\s+{}", tag("tokens"), tag("site")))
+            .expect("site stylesheet tags")
+    });
+    let mut link = String::new();
+    for page in pages {
+        let mut html = crate::read(page)?;
+        let Some((head, _)) = html.split_once("</head>") else {
+            continue;
+        };
+        let Some(tags) = LINKS.find(head).map_err(|e| e.to_string())? else {
+            continue;
+        };
+        let range = tags.start()..tags.end();
+        if link.is_empty() {
+            let tokens = crate::read(&assets.join("tokens.css"))?;
+            let site = crate::read(&assets.join("site.css"))?;
+            let bundle = css(&format!("{tokens}\n{site}"))?;
+            let name = format!("screen-{}.css", &crate::sha256(&bundle)[..16]);
+            write_generated(&assets.join(&name), &bundle)?;
+            link = format!(r#"<link rel="stylesheet" href="/assets/{name}" />"#);
+        }
+        html.replace_range(range, &link);
+        std::fs::write(page, html).map_err(|e| format!("{}: {e}", page.display()))?;
+    }
+    Ok(())
+}
+
+fn write_generated(path: &Path, contents: &str) -> Result<(), String> {
+    match std::fs::File::create_new(path) {
+        Ok(mut file) => file
+            .write_all(contents.as_bytes())
+            .map_err(|e| format!("{}: {e}", path.display())),
+        Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => {
+            let kind =
+                std::fs::symlink_metadata(path).map_err(|e| format!("{}: {e}", path.display()))?;
+            if kind.is_file() && crate::read(path)? == contents {
+                Ok(())
+            } else {
+                Err(format!(
+                    "{} conflicts with a generated publication file",
+                    path.display()
+                ))
+            }
+        }
+        Err(e) => Err(format!("{}: {e}", path.display())),
+    }
 }
 
 /// `site-tools minify_site [directory]`: the directory defaults to the built `_site`.

@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/air-compressors-and-receivers/
 
-> Support assets: Air compressors and receivers: effective life 20 years, last updated 1 July 2010 (Table A).
+> Support assets: Air compressors and receivers: effective life 20 years, last updated 1 July 2010 (Table A). See determination F2025L01097.
 
 # Support assets: Air compressors and receivers (Fruit and vegetable processing)
 
 ‘Support assets: Air compressors and receivers’, for an asset used in Fruit and vegetable processing, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2010.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Air compressors and receivers
 Under | Fruit juice and fruit juice drink manufacturing assets: / Support assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2010. The life that applies 
 
 ## Other rows under Support assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Air compressors and receivers (this page) | 20 years | 5.00% | 10.00%
 Bins, cages and hoppers | 20 years | 5.00% | 10.00%
@@ -45,6 +47,8 @@ Fruit concentrate drum tippers | 15 years | 6.67% | 13.33%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Air compressors and receivers | Prepared animal and bird feed manufacturing | 10 years | 10.00% | 20.00%
@@ -69,6 +73,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/air-compressors-and-receivers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Bins, cages and hoppers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/bins-cages-and-hoppers/
 - Boilers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/boilers/

@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-di
 
 ‘Radiologists’ diagnostic imaging assets: Magnetic resonance imaging … systems …’, for an asset used in Pathology and diagnostic imaging services, has an effective life of 7 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2002.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Magnetic resonance imaging (MRI) systems (incorporating scanners, cooling systems, radio frequency coil accessories, integrated computer and integrated software)
 Under | Radiologists’ diagnostic imaging assets:
@@ -32,6 +32,8 @@ Because the row says ‘incorporating’, the items it lists are components of t
 The life was last reviewed and determined on 1 July 2002. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Radiologists’ diagnostic imaging assets
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Bone densitometry (BMD) systems (incorporating either whole body scanners, integrated computer and integrated software, or spine and hip scanners, holding devices, integrated computers and integrated software) | 10 years | 10.00% | 20.00%
@@ -60,6 +62,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/magnetic-resonance-imaging-systems/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Bone densitometry (BMD) systems (incorporating either whole body scanners, integrated computer and integrated software, or spine and hip scanners, holding devices, integrated computers and integrated software): https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/bone-densitometry-systems/
 - Computed radiography (CR) digitisers: https://duguid.com.au/tools/depreciation-rates/industry/pathology-and-diagnostic-imaging/computed-radiography-digitisers/

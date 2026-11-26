@@ -8,11 +8,13 @@ Source: https://duguid.com.au/tools/depreciation-rates/asset/office-machines-and
 
 11 effective lives in Table B of the Commissioner’s 2025 effective life determination under Office machines and equipment.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Electronic whiteboards | 6 years | 16.67% | 33.33% | 1 January 2001
@@ -37,6 +39,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/asset/office-machines-and-equipment/#source
 - Electronic whiteboards: https://duguid.com.au/tools/depreciation-rates/asset/office-machines-and-equipment/electronic-whiteboards/
 - Enveloping machines: https://duguid.com.au/tools/depreciation-rates/asset/office-machines-and-equipment/enveloping-machines/
 - Facsimile machines: https://duguid.com.au/tools/depreciation-rates/asset/office-machines-and-equipment/facsimile-machines/

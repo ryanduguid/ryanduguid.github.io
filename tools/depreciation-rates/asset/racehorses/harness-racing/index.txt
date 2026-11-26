@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/asset/racehorses/harness-racing/
 
-> Racehorses: Harness racing (standardbred horses): effective life 7 years, last updated 1 July 2021 (Table B).
+> Racehorses: Harness racing (standardbred horses): effective life 7 years, last updated 1 July 2021 (Table B). See determination F2025L01097.
 
 # Racehorses: Harness racing (standardbred horses) (Table B)
 
 ‘Racehorses: Harness racing (standardbred horses)’ in Table B, which applies where no Table A row applies to the asset in its industry, has an effective life of 7 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2021.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Harness racing (standardbred horses)
 Under | Racehorses:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2021. The life that applies 
 
 ## Other rows under Racehorses
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Flat racing (thoroughbred horses) | 5 years | 20.00% | 40.00%
 Harness racing (standardbred horses) (this page) | 7 years | 14.29% | 28.57%
@@ -40,6 +42,8 @@ Lead and companion ponies (horses) | 5 years | 20.00% | 40.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Harness racing (standardbred horses) | Horse training (racing) | 7 years | 14.29% | 28.57%
@@ -58,6 +62,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/asset/racehorses/harness-racing/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Flat racing (thoroughbred horses): https://duguid.com.au/tools/depreciation-rates/asset/racehorses/flat-racing/
 - Jumps racing (thoroughbred horses): https://duguid.com.au/tools/depreciation-rates/asset/racehorses/jumps-racing/

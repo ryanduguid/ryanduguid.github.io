@@ -15,7 +15,7 @@ use crate::effective_life::Life;
 /// shown without its bracketed asides.
 const NAME_MAX: usize = 60;
 /// The longest description the site's checks allow without a warning, in characters.
-pub const DESCRIPTION_MAX: usize = 165;
+pub const DESCRIPTION_MAX: usize = 160;
 /// The most words in a page's lead (`passages::LEAD_WORDS`).
 const LEAD_WORDS: usize = crate::passages::LEAD_WORDS;
 
@@ -96,7 +96,7 @@ pub fn h1_candidates(group: &Group, entry: &Entry) -> Vec<String> {
 
 /// What sets a row apart beyond its wording: its headings, nearest first, its industry
 /// or 'Table B' and its ANZSIC codes. No 2 rows share their wording and all of these.
-fn context(group: &Group, entry: &Entry) -> Vec<String> {
+pub(super) fn context(group: &Group, entry: &Entry) -> Vec<String> {
     let mut out: Vec<String> = headings(group, entry).into_iter().rev().collect();
     out.push(place(group));
     out.extend(group.anzsic.iter().map(|codes| format!("ANZSIC {codes}")));
@@ -351,7 +351,7 @@ fn facts(site: &Site, row: RowRef, life: &Life) -> String {
     rows.push_str(&fact("Last reviewed and determined", &esc(&updated)));
     rows.push_str(&notes::marks(&entry.flags));
     format!(
-        "        <section id=\"life\">\n        <h2>Effective life and rates</h2>\n        <p>The determination is the {} ({}), registered on {}.</p>\n        <div class=\"table-scroll\" role=\"region\" aria-label=\"Effective life and rates\" tabindex=\"0\">\n        <table class=\"facts facts--kv\">\n          <tbody>\n{rows}          </tbody>\n        </table>\n        </div>\n        </section>\n",
+        "        <section id=\"life\">\n        <h2>Effective life and rates</h2>\n        <div class=\"table-scroll\" role=\"region\" aria-label=\"Effective life and rates\" tabindex=\"0\">\n        <table class=\"facts facts--kv\" aria-label=\"Effective life and rates\">\n          <caption>Source <a href=\"#source\">{}</a> ({}), registered on {}.</caption>\n          <tbody>\n{rows}          </tbody>\n        </table>\n        </div>\n        </section>\n",
         esc(&source.title),
         esc(&source.register_id),
         date(&source.registered)
@@ -381,7 +381,7 @@ fn rows_table(
         let cell = if Some(row) == current {
             format!("{name} (this page)")
         } else {
-            format!("<a href=\"{}\">{name}</a>", site.url(row))
+            site.row_link(row)
         };
         let where_ = if place {
             format!("<td>{}</td>", esc(&where_cell(site.group(row.0))))
@@ -401,7 +401,7 @@ fn rows_table(
         ""
     };
     format!(
-        "        <div class=\"table-scroll\" role=\"region\" aria-label=\"{label}\" tabindex=\"0\">\n        <table class=\"facts facts--figures\">\n          <thead><tr><th scope=\"col\">Row</th>{head_place}<th scope=\"col\">Life</th><th scope=\"col\">Prime cost</th><th scope=\"col\">Diminishing value</th></tr></thead>\n          <tbody>\n{body}          </tbody>\n        </table>\n        </div>\n",
+        "        <div class=\"table-scroll\" role=\"region\" aria-label=\"{label}\" tabindex=\"0\">\n        <table class=\"facts facts--figures\" aria-label=\"{label}\">\n          <caption>Rates from the <a href=\"#source\">source determination</a>.</caption>\n          <thead><tr><th scope=\"col\">Row</th>{head_place}<th scope=\"col\">Life</th><th scope=\"col\">Prime cost</th><th scope=\"col\">Diminishing value</th></tr></thead>\n          <tbody>\n{body}          </tbody>\n        </table>\n        </div>\n",
         label = esc(label)
     )
 }

@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/conveyors/
 
-> Conveyors: overhead chains (carrying birds): effective life 1 year, last updated 1 July 2017 (Table A).
+> Conveyors: overhead chains (carrying birds): effective life 1 year, last updated 1 July 2017 (Table A). See determination F2025L01097.
 
 # Conveyors: overhead chains (carrying birds)
 
 ‘Conveyors: overhead chains (carrying birds)’, for an asset used in Poultry processing, has an effective life of 1 year under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2017.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Conveyors: overhead chains (carrying birds)
 Table | Table A (industry categories), MANUFACTURING / Poultry processing, ANZSIC 11120
@@ -30,6 +30,8 @@ The life was last reviewed and determined on 1 July 2017. The life that applies 
 
 ## Other rows under Poultry processing
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Conveyors: overhead chains (carrying birds) (this page) | 1 year | 100.00% | 200.00%
 Live bird handling systems (including live bird containers) | 12 years | 8.33% | 16.67%
@@ -38,6 +40,8 @@ Shrink dip tanks and shrink wrap tunnels | 10 years | 10.00% | 20.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination). The first 20 of 37 are shown.
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Conveyors (including elevators) | AGRICULTURE, FORESTRY AND FISHING | 10 years | 10.00% | 20.00%
@@ -75,6 +79,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/conveyors/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Live bird handling systems (including live bird containers): https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/live-bird-handling-systems/
 - Shrink dip tanks and shrink wrap tunnels: https://duguid.com.au/tools/depreciation-rates/industry/poultry-processing/shrink-dip-tanks-and-shrink-wrap-tunnels/

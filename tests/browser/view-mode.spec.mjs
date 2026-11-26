@@ -53,6 +53,7 @@ test('view mode defaults to Human and preserves the page when switching back', a
   const human = page.getByRole('radio', { name: 'Human', exact: true });
   const machine = page.getByRole('radio', { name: 'Machine', exact: true });
   await expect(human).toBeChecked();
+  await expect(page.locator('main, [role="main"]')).toHaveCount(1);
   await page.locator('#adopt').scrollIntoViewIfNeeded();
   // On phones the switch scrolls away with the header, so a reader switches from
   // wherever the switch is in view; that position is the one that must survive.
@@ -60,6 +61,7 @@ test('view mode defaults to Human and preserves the page when switching back', a
   const originalScroll = await page.evaluate(() => scrollY);
   await machine.check();
   const view = page.getByRole('main', { name: 'Machine view' });
+  await expect(page.getByRole('main')).toHaveCount(1);
   await expect(view).toContainText('Source: https://duguid.com.au/');
   await expect(view).toContainText('Tools for Australian accountants');
   await expect(view).toContainText('https://duguid.com.au/examples/profit-vs-cash-flow/');
@@ -70,6 +72,7 @@ test('view mode defaults to Human and preserves the page when switching back', a
   await expect(page.locator('#main')).toBeHidden();
   await expect(page.getByRole('navigation', { name: 'Primary' })).toBeHidden();
   await human.check();
+  await expect(page.locator('main, [role="main"]')).toHaveCount(1);
   await expect(view).toBeHidden();
   await expect(page.locator('#main')).toBeVisible();
   await expect.poll(() => page.evaluate(() => scrollY)).toBe(originalScroll);

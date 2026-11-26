@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/television-broadcasting/camera-pan-tilt-and-pedestal-robotic-systems/
 
-> Camera pan tilt and pedestal robotic systems …: effective life 12 years, last updated 1 July 2005 (Table A).
+> Camera pan tilt and pedestal robotic systems …: effective life 12 years, last updated 1 July 2005 (Table A). See determination F2025L01097.
 
 # Camera pan tilt and pedestal robotic systems …
 
 ‘Camera pan tilt and pedestal robotic systems …’, for an asset used in Television broadcasting, has an effective life of 12 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2005.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Camera pan tilt and pedestal robotic systems (incorporating integrated hardware and control unit)
 Table | Table A (industry categories), INFORMATION MEDIA AND TELECOMMUNICATIONS / Television broadcasting, ANZSIC 56210 to 56220
@@ -31,6 +31,8 @@ Because the row says ‘incorporating’, the items it lists are components of t
 The life was last reviewed and determined on 1 July 2005. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Television broadcasting
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Broadcast interfacing assets (including aspect ratio converters, distribution amplifiers, sync pulse generators, timecode generators and readers and other ‘glue’ assets) | 12 years | 8.33% | 16.67%
@@ -63,6 +65,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/television-broadcasting/camera-pan-tilt-and-pedestal-robotic-systems/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Broadcast interfacing assets (including aspect ratio converters, distribution amplifiers, sync pulse generators, timecode generators and readers and other ‘glue’ assets): https://duguid.com.au/tools/depreciation-rates/industry/television-broadcasting/broadcast-interfacing-assets/
 - Camera control units: https://duguid.com.au/tools/depreciation-rates/industry/television-broadcasting/camera-control-units/

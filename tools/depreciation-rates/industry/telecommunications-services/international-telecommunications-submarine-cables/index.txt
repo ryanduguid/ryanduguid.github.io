@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/telecommunications-services/international-telecommunications-submarine-cables/
 
-> International telecommunications submarine cables: effective life 15 years, last updated 1 July 2002 (Table A).
+> International telecommunications submarine cables: effective life 15 years, last updated 1 July 2002 (Table A). See determination F2025L01097.
 
 # International telecommunications submarine cables
 
 ‘International telecommunications submarine cables’, for an asset used in Telecommunications services, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2002.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | International telecommunications submarine cables
 Table | Table A (industry categories), INFORMATION MEDIA AND TELECOMMUNICATIONS / Telecommunications services, ANZSIC 58010 to 58090
@@ -29,6 +29,8 @@ An asset used in Telecommunications services takes this life if it matches this 
 The life was last reviewed and determined on 1 July 2002. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Telecommunications services
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 International telecommunications submarine cables (this page) | 15 years | 6.67% | 13.33%
@@ -48,6 +50,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/telecommunications-services/international-telecommunications-submarine-cables/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Payphones (public telephones): https://duguid.com.au/tools/depreciation-rates/industry/telecommunications-services/payphones/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-
 
 ‘Laundry handling assets: Tipplers’, for an asset used in Laundry and dry cleaning services, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2011.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Tipplers
 Under | Support assets: / Laundry handling assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2011. The life that applies 
 
 ## Other rows under Laundry handling assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Conveyors and garment sorting and storage systems | 15 years | 6.67% | 13.33%
 Hoppers | 20 years | 5.00% | 10.00%
@@ -40,6 +42,8 @@ Tipplers (this page) | 10 years | 10.00% | 20.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Tipplers | Sugar manufacturing | 25 years | 4.00% | 8.00%
@@ -58,6 +62,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/tipplers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Conveyors and garment sorting and storage systems: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/conveyors-and-garment-sorting-and-storage-systems/
 - Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/laundry-and-dry-cleaning-services/hoppers/

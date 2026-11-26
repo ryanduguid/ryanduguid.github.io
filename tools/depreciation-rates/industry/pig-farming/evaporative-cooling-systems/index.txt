@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/evap
 
 ‘Evaporative cooling systems …’, for an asset used in Pig farming, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2008.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Evaporative cooling systems (incorporating frames, pipes, pumps, tanks and coolpads)
 Table | Table A (industry categories), AGRICULTURE, FORESTRY AND FISHING / Pig farming, ANZSIC 01920
@@ -32,6 +32,8 @@ The life was last reviewed and determined on 1 July 2008. The life that applies 
 
 ## Other rows under Pig farming
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Control systems (excluding personal computers) | 10 years | 10.00% | 20.00%
 Dry feed systems (incorporating troughs, trolleys, chains, hoppers, pans, tubers with auger and drive units) | 10 years | 10.00% | 20.00%
@@ -50,6 +52,8 @@ Liquid feed systems (incorporating feed valves, tanks, pumps, pipelines, mixers 
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
+Rates from the source determination.
+
 Row | Industry or table | Life | Prime cost | Diminishing value
 Evaporative cooling systems (including frames, pipes, pumps, tanks and coolpads) | Poultry farming for breeding, eggs and meat | 10 years | 10.00% | 20.00%
 
@@ -67,6 +71,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/evaporative-cooling-systems/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Control systems (excluding personal computers): https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/control-systems/
 - Dry feed systems (incorporating troughs, trolleys, chains, hoppers, pans, tubers with auger and drive units): https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/dry-feed-systems/

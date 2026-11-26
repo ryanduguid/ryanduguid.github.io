@@ -8,11 +8,13 @@ Source: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-
 
 16 effective lives in Table B of the Commissioner’s 2025 effective life determination under Motor vehicles and trailers.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Buses having a gross vehicle mass of more than 3.5 tonnes | 15 years | 6.67% | 13.33% | 1 January 2005
@@ -47,6 +49,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/#source
 - Buses having a gross vehicle mass of more than 3.5 tonnes: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/buses-having-a-gross-vehicle-mass-of-more-than-3-5-tonnes/
 - Generally: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/generally-058867/
 - Cars used to provide basic service ride-sourcing, ride-hailing or ride-sharing services (e.g. UberX): https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/cars-used-to-provide-basic-service-ride-sourcing-ride/

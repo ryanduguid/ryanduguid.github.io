@@ -57,7 +57,7 @@ EMP009,2026-08-20,100.00,2026-08-21,2026-09-03,no,no,,no
 
 Row | Verdict | Reason | Human step
 Row 2, QE day 2026-08-06 | AT_RISK | No fund receipt date supplied; the statutory test is receipt by the fund under SGAA s 18C(1) | Fill the fund receipt date from the clearing house or fund, then rerun.
-Row 3, QE day 2026-08-20 | UNKNOWN, between LATE or ON_TIME | An earlier row could extend the deadline to 3 September 2026 under s 18C(2) item 4, but the file does not evidence an eligible contribution received by the fund, applied to that earlier QE day and on time | Reconcile the fund receipt and statutory allocation before deciding between the candidate verdicts. The run exits 2.
+Row 3, QE day 2026-08-20 | UNKNOWN, between LATE or ON_TIME | In this example an earlier row could have extended the deadline to 3 September 2026 under s 18C(2) item 4, but the file does not evidence an eligible contribution received by the fund, applied to that earlier QE day and on time | Reconcile the fund receipt and statutory allocation before deciding between the candidate verdicts. The run exits 2.
 
 ## Aus Accounting MCP
 

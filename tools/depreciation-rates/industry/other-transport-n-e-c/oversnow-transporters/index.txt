@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/oversnow-transporters/
 
-> Oversnow transport assets: Oversnow transporters: effective life 8 years, last updated 1 July 2009 (Table A).
+> Oversnow transport assets: Oversnow transporters: effective life 8 years, last updated 1 July 2009 (Table A). See determination F2025L01097.
 
 # Oversnow transport assets: Oversnow transporters
 
 ‘Oversnow transport assets: Oversnow transporters’, for an asset used in Other transport n.e.c., has an effective life of 8 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2009.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Oversnow transporters
 Under | Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Oversnow transport assets:
@@ -35,6 +35,8 @@ The life was last reviewed and determined on 1 July 2009. The life that applies 
 
 ## Other rows under Oversnow transport assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Oversnow transporters (this page) | 8 years | 12.50% | 25.00%
 Skidoos | 5 years | 20.00% | 40.00%
@@ -53,6 +55,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/oversnow-transporters/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Skidoos: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/skidoos/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

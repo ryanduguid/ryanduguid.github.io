@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/roller-mills/
 
-> Grain cleaning, milling and refining assets: Roller mills: effective life 20 years, last updated 1 July 2017 (Table A).
+> Grain cleaning, milling and refining assets: Roller mills: effective life 20 years, last updated 1 July 2017 (Table A). See determination F2025L01097.
 
 # Grain cleaning, milling and refining assets: Roller mills
 
 ‘Grain cleaning, milling and refining assets: Roller mills’, for an asset used in Grain mill product manufacturing, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2017.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Roller mills
 Under | Flour milling assets: / Grain cleaning, milling and refining assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2017. The life that applies 
 
 ## Other rows under Grain cleaning, milling and refining assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Hammer mills | 15 years | 6.67% | 13.33%
 Horizontal scourers | 13 years | 7.69% | 15.38%
@@ -46,6 +48,8 @@ Rotary sieves | 12 years | 8.33% | 16.67%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Roller mills | Beef cattle feedlots | 15 years | 6.67% | 13.33%
@@ -66,6 +70,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/roller-mills/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Hammer mills: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/hammer-mills/
 - Horizontal scourers: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/horizontal-scourers/

@@ -8,11 +8,13 @@ Source: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets
 
 12 effective lives in Table B of the Commissioner’s 2025 effective life determination under Power supply assets.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Emergency or standby: | | | |
@@ -43,6 +45,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/#source
 - Acoustic hoods and canopies: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/acoustic-hoods-and-canopies/
 - Generators (incorporating attached engine management and generator monitoring instruments): https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/generators/
 - Power management units: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/power-management-units/

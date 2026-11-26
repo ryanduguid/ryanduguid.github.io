@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-far
 
 ‘Barn fed dairy farms: Bulk and segregated commodity storage facilities …’, for an asset used in Dairy cattle farming, has an effective life of 30 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2007.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Bulk and segregated commodity storage facilities (incorporating bunkers)
 Under | Barn fed dairy farms:
@@ -33,6 +33,8 @@ The life was last reviewed and determined on 1 July 2007. The life that applies 
 
 ## Other rows under Barn fed dairy farms
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Bulk and segregated commodity storage facilities (incorporating bunkers) (this page) | 30 years | 3.33% | 6.67%
 Exercise yards | 20 years | 5.00% | 10.00%
@@ -41,6 +43,8 @@ Feeding barns and maternity barns (incorporating cow beds, fans, and feed alleys
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Bulk and segregated commodity storage facilities (incorporating bunkers) | Beef cattle feedlots | 30 years | 3.33% | 6.67%
@@ -59,6 +63,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/bulk-and-segregated-commodity-storage-facilities/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Exercise yards: https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/exercise-yards/
 - Feeding barns and maternity barns (incorporating cow beds, fans, and feed alleys): https://duguid.com.au/tools/depreciation-rates/industry/dairy-cattle-farming/feeding-barns-and-maternity-barns/

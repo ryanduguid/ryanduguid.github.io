@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/ceiling/
 
-> Hoists: Ceiling (incorporating tracks): effective life 12 years, prime cost 8.33%, diminishing value 16.67%, last updated 1 July 2019 (Table A, 2025 determination).
+> Hoists: Ceiling (incorporating tracks): effective life 12 years, last updated 1 July 2019 (Table A). See determination F2025L01097.
 
 # Hoists: Ceiling (incorporating tracks)
 
 ‘Hoists: Ceiling (incorporating tracks)’, for an asset used in Retirement village and accommodation for the aged operation, has an effective life of 12 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2019.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Ceiling (incorporating tracks)
 Under | Assistance and medical assets: / Hoists:
@@ -33,6 +33,8 @@ The life was last reviewed and determined on 1 July 2019. The life that applies 
 
 ## Other rows under Hoists
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Ceiling (incorporating tracks) (this page) | 12 years | 8.33% | 16.67%
 Mobile (floor, full, standing) | 10 years | 10.00% | 20.00%
@@ -51,6 +53,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/ceiling/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Mobile (floor, full, standing): https://duguid.com.au/tools/depreciation-rates/industry/retirement-village-and-accommodation-for/mobile/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

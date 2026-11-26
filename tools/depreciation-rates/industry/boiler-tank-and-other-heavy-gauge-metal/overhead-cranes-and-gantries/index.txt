@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-
 
 ‘Sheet metal tanks manufacturing assets: Overhead cranes and gantries’, for an asset used in Boiler, tank and other heavy gauge metal container manufacturing, has an effective life of 25 years (F2025L01097), last reviewed and determined on 1 July 2012.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Overhead cranes and gantries
 Under | Sheet metal tanks manufacturing assets:
@@ -30,6 +30,8 @@ An asset used in Boiler, tank and other heavy gauge metal container manufacturin
 The life was last reviewed and determined on 1 July 2012. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Sheet metal tanks manufacturing assets
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Drilling machines (including bench and radial drills) | 5 years | 20.00% | 40.00%
@@ -52,6 +54,8 @@ Trolleys | 5 years | 20.00% | 40.00%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
+Rates from the source determination.
+
 Row | Industry or table | Life | Prime cost | Diminishing value
 Overhead cranes and gantries | Steel coil roll forming, slitting and blanking and sheet metal forming | 25 years | 4.00% | 8.00%
 Overhead cranes and gantries | Steel coil roll forming, slitting and blanking and sheet metal forming | 25 years | 4.00% | 8.00%
@@ -70,6 +74,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/overhead-cranes-and-gantries/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Drilling machines (including bench and radial drills): https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/drilling-machines/
 - Gang and turret punching machines: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/gang-and-turret-punching-machines/

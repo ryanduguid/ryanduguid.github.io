@@ -8,11 +8,13 @@ Source: https://duguid.com.au/tools/depreciation-rates/asset/plumbing-fixtures-a
 
 3 effective lives in Table B of the Commissioner’s 2025 effective life determination under Plumbing fixtures and fittings (including wall and floor tiles) provided mainly for employees and/or children of employees of an entity carrying on a business for the purpose of producing assessable income.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Floor and wall tiles | 20 years | 5.00% | 10.00% | 1 July 2015
@@ -29,6 +31,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/asset/plumbing-fixtures-and-fittings-provided/#source
 - Floor and wall tiles: https://duguid.com.au/tools/depreciation-rates/asset/plumbing-fixtures-and-fittings-provided/floor-and-wall-tiles/
 - Generally (including basins, bidets, sinks, toilets, urinals etc): https://duguid.com.au/tools/depreciation-rates/asset/plumbing-fixtures-and-fittings-provided/generally/
 - Tapware (including taps, mixers and shower heads and assemblies): https://duguid.com.au/tools/depreciation-rates/asset/plumbing-fixtures-and-fittings-provided/tapware/

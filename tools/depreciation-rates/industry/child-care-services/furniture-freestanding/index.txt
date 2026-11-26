@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/furniture-freestanding/
 
-> Play area assets: Furniture, freestanding …: effective life 5 years, last updated 1 July 2020 (Table A).
+> Play area assets: Furniture, freestanding …: effective life 5 years, last updated 1 July 2020 (Table A). See determination F2025L01097.
 
 # Play area assets: Furniture, freestanding …
 
 ‘Play area assets: Furniture, freestanding …’, for an asset used in Child care services, has an effective life of 5 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2020.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Furniture, freestanding (including tables, seating and toy storage boxes)
 Under | Play area assets:
@@ -35,6 +35,8 @@ The life was last reviewed and determined on 1 July 2020. The life that applies 
 
 ## Other rows under Play area assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Furniture, freestanding (including tables, seating and toy storage boxes) (this page) | 5 years | 20.00% | 40.00%
 Pet enclosures and structures, freestanding (including bird aviaries, chicken coops, fish tanks, guinea pig cages and rabbit hutches) | 10 years | 10.00% | 20.00%
@@ -49,6 +51,8 @@ Toys (not specified elsewhere) | 3 years | 33.33% | 66.67%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Furniture, freestanding (including chairs, cupboards, racks, showcases and tables) | RETAIL TRADE | 10 years | 10.00% | 20.00%
@@ -69,6 +73,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/furniture-freestanding/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Pet enclosures and structures, freestanding (including bird aviaries, chicken coops, fish tanks, guinea pig cages and rabbit hutches): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/pet-enclosures-and-structures-freestanding/
 - Playsets (including cubby houses, forts, slides, swing sets and trestle frames): https://duguid.com.au/tools/depreciation-rates/industry/child-care-services/playsets/

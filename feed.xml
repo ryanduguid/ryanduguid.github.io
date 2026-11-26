@@ -8,6 +8,13 @@
   <updated>2026-11-26T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>Reference tables now carry names for screen readers. Calculator fields and…</title>
+    <link href="https://duguid.com.au/changelog/#entry-00a6ae5bfd6d6b55" />
+    <id>https://duguid.com.au/changelog/#entry-00a6ae5bfd6d6b55</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>Reference tables now carry names for screen readers. Calculator fields and reference pages have more space between headings, instructions and tables. The depreciation register identifies the industry or asset group on links that share a name. Each indexed page also has a Markdown copy at index.md.</summary>
+  </entry>
+  <entry>
     <title>A new business calculator, sole trader against company, puts one business…</title>
     <link href="https://duguid.com.au/changelog/#entry-9b7d427272928c88" />
     <id>https://duguid.com.au/changelog/#entry-9b7d427272928c88</id>

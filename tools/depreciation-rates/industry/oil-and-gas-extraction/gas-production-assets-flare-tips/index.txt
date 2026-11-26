@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extr
 
 ‘Flare system assets: Flare tips’, for an asset used in Oil and gas extraction, has an effective life of 5 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2002.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Flare tips
 Under | Gas production assets: / Central production facility assets: / Flare system assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2002. The life that applies 
 
 ## Other rows under Flare system assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Carbon steel piping | 15 years | 6.67% | 13.33%
 Flare tips (this page) | 5 years | 20.00% | 40.00%
@@ -39,6 +41,8 @@ Stainless steel piping | 30 years | 3.33% | 6.67%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Flare tips | Petroleum refining | 5 years | 20.00% | 40.00%
@@ -58,6 +62,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/gas-production-assets-flare-tips/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Carbon steel piping: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/carbon-steel-piping/
 - Stainless steel piping: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/stainless-steel-piping/

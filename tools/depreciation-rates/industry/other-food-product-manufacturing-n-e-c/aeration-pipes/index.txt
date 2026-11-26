@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/other-food-produ
 
 ‘Air handling system assets used in potato storage structures: Aeration pipes’, for an asset used in Other food product manufacturing n.e.c., has an effective life of 25 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2012.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Aeration pipes
 Under | Frozen pre-prepared food manufacturing assets (including frozen appetisers and finger foods such as dim sims and spring rolls, frozen french fries/potato chips, frozen pizzas and frozen pre-prepared meals): / Ingredient receiving and handling assets: / Potato storage assets: / Air handling system assets used in potato storage structures:
@@ -32,6 +32,8 @@ Because the row says ‘including’, each item it lists is treated as a separat
 The life was last reviewed and determined on 1 July 2012. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Air handling system assets used in potato storage structures
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Aeration pipes (this page) | 25 years | 4.00% | 8.00%
@@ -54,6 +56,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/aeration-pipes/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Control systems: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/frozen-pre-prepared-food-control-systems/
 - Fans: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/fans/

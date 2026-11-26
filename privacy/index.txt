@@ -1,4 +1,4 @@
-# Privacy and site use
+# Privacy, browser data and site use
 
 Source: https://duguid.com.au/privacy/
 

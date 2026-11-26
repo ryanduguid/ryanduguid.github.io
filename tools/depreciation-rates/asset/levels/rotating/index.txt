@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/asset/levels/rotating/
 
 ‘Laser levels: Rotating’ in Table B, which applies where no Table A row applies to the asset in its industry, has an effective life of 6 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2015.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Rotating
 Under | Levels: / Laser levels:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2015. The life that applies 
 
 ## Other rows under Laser levels
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Grade laying (dial-in grade) | 6 years | 16.67% | 33.33%
 Laser plummets | 5 years | 20.00% | 40.00%
@@ -42,6 +44,8 @@ Tunnelling and plumbing | 6 years | 16.67% | 33.33%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Rotating | Surveying and mapping services | 6 years | 16.67% | 33.33%
@@ -60,6 +64,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/asset/levels/rotating/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Grade laying (dial-in grade): https://duguid.com.au/tools/depreciation-rates/asset/levels/grade-laying/
 - Laser plummets: https://duguid.com.au/tools/depreciation-rates/asset/levels/laser-plummets/

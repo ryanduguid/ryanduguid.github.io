@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/automated-panel-manufacturing-pallets/
 
-> Automated panel manufacturing assets: Pallets: effective life 15 years, last updated 1 July 2013 (Table A).
+> Automated panel manufacturing assets: Pallets: effective life 15 years, last updated 1 July 2013 (Table A). See determination F2025L01097.
 
 # Automated panel manufacturing assets: Pallets
 
 ‘Automated panel manufacturing assets: Pallets’, for an asset used in Concrete product manufacturing, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2013.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Pallets
 Under | Prefabricated concrete product manufacturing assets: / Automated panel manufacturing assets:
@@ -30,6 +30,8 @@ An asset used in Concrete product manufacturing takes this life if it matches th
 The life was last reviewed and determined on 1 July 2013. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Automated panel manufacturing assets
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Automated trowel machines (incorporating crane and trowel) | 15 years | 6.67% | 13.33%
@@ -49,6 +51,8 @@ Turning machines (including flippers and tilting assets) | 20 years | 5.00% | 10
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
+Rates from the source determination.
+
 Row | Industry or table | Life | Prime cost | Diminishing value
 Pallets | Motor vehicle manufacturing | 10 years | 10.00% | 20.00%
 
@@ -66,6 +70,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/automated-panel-manufacturing-pallets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Automated trowel machines (incorporating crane and trowel): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/automated-trowel-machines/
 - Curing chambers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/curing-chambers/

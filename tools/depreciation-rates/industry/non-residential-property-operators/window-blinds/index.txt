@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/non-residential-property-operators/window-blinds/
 
-> Commercial office building assets: Window blinds: effective life 20 years, last updated 1 July 2005 (Table A).
+> Commercial office building assets: Window blinds: effective life 20 years, last updated 1 July 2005 (Table A). See determination F2025L01097.
 
 # Commercial office building assets: Window blinds
 
 ‘Commercial office building assets: Window blinds’, for an asset used in Non-residential property operators, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2005.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Window blinds
 Under | Commercial office building assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2005. The life that applies 
 
 ## Other rows under Commercial office building assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Boilers | 20 years | 5.00% | 10.00%
 Boiler pumps | 5 years | 20.00% | 40.00%
@@ -43,6 +45,8 @@ Window blinds (this page) | 20 years | 5.00% | 10.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Window blinds | Table B, Window blinds | 15 years | 6.67% | 13.33%
@@ -61,6 +65,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/non-residential-property-operators/window-blinds/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Boilers: https://duguid.com.au/tools/depreciation-rates/industry/non-residential-property-operators/boilers/
 - Boiler pumps: https://duguid.com.au/tools/depreciation-rates/industry/non-residential-property-operators/boiler-pumps/

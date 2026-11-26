@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-produc
 
 ‘LPG depot and terminal assets: In-situ permanently installed cylinders’, for an asset used in Petroleum product wholesaling, has an effective life of 30 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2010.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | In-situ permanently installed cylinders
 Under | LPG depot and terminal assets:
@@ -30,6 +30,8 @@ An asset used in Petroleum product wholesaling takes this life if it matches thi
 The life was last reviewed and determined on 1 July 2010. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under LPG depot and terminal assets
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Automatic tank gauges | 10 years | 10.00% | 20.00%
@@ -58,6 +60,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/in-situ-permanently-installed-cylinders/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Automatic tank gauges: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-automatic-tank-gauges/
 - Depot and terminal storage vessels – above ground and underground: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/depot-and-terminal-storage-vessels-above-ground-and/

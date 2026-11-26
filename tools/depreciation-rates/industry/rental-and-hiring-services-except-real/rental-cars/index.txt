@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hirin
 
 ‘Rental cars’, for an asset used in Rental and hiring services (except real estate), has an effective life of 5 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2016.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Rental cars
 Table | Table A (industry categories), RENTAL, HIRING AND REAL ESTATE SERVICES / Rental and hiring services (except real estate), ANZSIC 66110 to 66400
@@ -30,6 +30,8 @@ The life was last reviewed and determined on 1 July 2016. The life that applies 
 
 ## Other rows under Rental and hiring services (except real estate)
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Portable structures (sheds, site office trailers, portable toilets and washrooms etc) used for a temporary period in offsite locations (e.g. construction sites) | 10 years | 10.00% | 20.00%
 Rental cars (this page) | 5 years | 20.00% | 40.00%
@@ -39,6 +41,8 @@ Video tapes and games hiring | 1/2 years | 200.00% | 400.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Rental cars | Road transport | 5 years | 20.00% | 40.00%
@@ -58,6 +62,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/rental-cars/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Portable structures (sheds, site office trailers, portable toilets and washrooms etc) used for a temporary period in offsite locations (e.g. construction sites): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/portable-structures-used-for-a-temporary-period-in-offsite/
 - Video recorder or equipment hiring: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/video-recorder-or-equipment-hiring/

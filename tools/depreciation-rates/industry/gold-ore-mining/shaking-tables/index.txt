@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/gold-ore-mining/shaking-tables/
 
-> Gold ore processing assets: Shaking tables: effective life 12 years, last updated 1 July 2004 (Table A).
+> Gold ore processing assets: Shaking tables: effective life 12 years, last updated 1 July 2004 (Table A). See determination F2025L01097.
 
 # Gold ore processing assets: Shaking tables
 
 ‘Gold ore processing assets: Shaking tables’, for an asset used in Gold ore mining, has an effective life of 12 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2004.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Shaking tables
 Under | Gold ore processing assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2004. The life that applies 
 
 ## Other rows under Gold ore processing assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Carbon regeneration kilns | 12 years | 8.33% | 16.67%
 Concentrators (including inline pressure jigs and mechanical concentrators) | 10 years | 10.00% | 20.00%
@@ -47,6 +49,8 @@ Thickening assets | 20 years | 5.00% | 10.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Shaking tables | MINING | 25 years | 4.00% | 8.00%
@@ -66,6 +70,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/gold-ore-mining/shaking-tables/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Carbon regeneration kilns: https://duguid.com.au/tools/depreciation-rates/industry/gold-ore-mining/carbon-regeneration-kilns/
 - Concentrators (including inline pressure jigs and mechanical concentrators): https://duguid.com.au/tools/depreciation-rates/industry/gold-ore-mining/concentrators/

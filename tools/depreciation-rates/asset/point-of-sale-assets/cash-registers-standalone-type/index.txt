@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/asset/point-of-sale-assets/cash-registers-standalone-type/
 
-> Point of sale assets: Cash registers, standalone type: effective life 10 years, last updated 1 July 2005 (Table B).
+> Point of sale assets: Cash registers, standalone type: effective life 10 years, last updated 1 July 2005 (Table B). See determination F2025L01097.
 
 # Point of sale assets: Cash registers, standalone type
 
 ‘Point of sale assets: Cash registers, standalone type’ in Table B, which applies where no Table A row applies to the asset in its industry, has an effective life of 10 years (F2025L01097), last reviewed and determined on 1 July 2005.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Cash registers, standalone type
 Under | Point of sale assets:
@@ -30,6 +30,8 @@ Table B applies where no row of Table A for the industry the asset is used in de
 The life was last reviewed and determined on 1 July 2005. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Point of sale assets
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Cash registers, standalone type (this page) | 10 years | 10.00% | 20.00%
@@ -51,6 +53,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/asset/point-of-sale-assets/cash-registers-standalone-type/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Cash transfer system assets, pneumatic type (including printer circuit board, transfer pipes and turbines): https://duguid.com.au/tools/depreciation-rates/asset/point-of-sale-assets/cash-transfer-system-assets-pneumatic-type/
 - Generally (including barcode scanners, cash drawers, dedicated computers, electronic funds transfer point of sale (EFTPOS) machines, keyboards, monitors, printers and terminals): https://duguid.com.au/tools/depreciation-rates/asset/point-of-sale-assets/generally/

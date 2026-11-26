@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/peanut-processing-assets-silos/
 
-> Peanut processing assets: Silos (metal): effective life 30 years, prime cost 3.33%, diminishing value 6.67%, last updated 1 July 2009 (Table A, 2025 determination).
+> Peanut processing assets: Silos (metal): effective life 30 years, last updated 1 July 2009 (Table A). See determination F2025L01097.
 
 # Peanut processing assets: Silos (metal)
 
 ‘Peanut processing assets: Silos (metal)’, for an asset used in Other food product manufacturing n.e.c., has an effective life of 30 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2009.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Silos (metal)
 Under | Peanut processing assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2009. The life that applies 
 
 ## Other rows under Peanut processing assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Materials handling assets (including augers, belt conveyors, bucket elevators, elevators and vibratory conveyors) | 15 years | 6.67% | 13.33%
 Ovens (including roasters and dryers) | 10 years | 10.00% | 20.00%
@@ -47,6 +49,8 @@ Transformers | 40 years | 2.50% | 5.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Silos (steel) | Dairy cattle farming | 20 years | 5.00% | 10.00%
@@ -75,6 +79,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/peanut-processing-assets-silos/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Materials handling assets (including augers, belt conveyors, bucket elevators, elevators and vibratory conveyors): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/peanut-processing-assets-materials-handling-assets/
 - Ovens (including roasters and dryers): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/peanut-processing-assets-ovens/

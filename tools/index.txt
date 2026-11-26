@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/
 
-> Browse 12 accounting controls for payroll, Xero, workpapers, ledgers, tax calculations and fixed-scope AI workflows.
+> Find accounting tools by task, from payroll and Xero reconciliation to workpaper review. Each entry links to its inputs, examples and source.
 
 # Tools
 

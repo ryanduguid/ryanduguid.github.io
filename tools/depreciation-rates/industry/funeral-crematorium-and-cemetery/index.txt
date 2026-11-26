@@ -8,11 +8,13 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/funeral-cremator
 
 21 effective lives in Table A of the Commissioner’s 2025 effective life determination for Funeral, crematorium and cemetery services.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Cemetery assets: | | | |
@@ -59,6 +61,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/#source
 - Casket lowering devices: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/casket-lowering-devices/
 - Mini excavators and skid steer loaders: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/mini-excavators-and-skid-steer-loaders/
 - Ash processors/granulators: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/ash-processors-granulators/

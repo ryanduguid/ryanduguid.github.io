@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-p
 
 ‘Support assets: Metal detectors’, for an asset used in Sanitary paper product manufacturing, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2013.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Metal detectors
 Under | Support assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2013. The life that applies 
 
 ## Other rows under Support assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Air compressors and air dryers | 15 years | 6.67% | 13.33%
 Control system and monitoring assets (including programmable logic controllers (PLCs), variable speed drives (VSDs), instruments and sensors) | 10 years | 10.00% | 20.00%
@@ -43,6 +45,8 @@ Storage assets (including bins and trolleys) | 10 years | 10.00% | 20.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Metal detectors | Other agriculture and fishing support services | 8 years | 12.50% | 25.00%
@@ -67,6 +71,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/metal-detectors/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Air compressors and air dryers: https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/air-compressors-and-air-dryers/
 - Control system and monitoring assets (including programmable logic controllers (PLCs), variable speed drives (VSDs), instruments and sensors): https://duguid.com.au/tools/depreciation-rates/industry/sanitary-paper-product-manufacturing/control-system-and-monitoring-assets/

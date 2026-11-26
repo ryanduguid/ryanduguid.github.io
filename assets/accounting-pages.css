@@ -15,6 +15,19 @@
   padding-bottom: var(--space-8);
 }
 
+.accounting-content section > :is(h2, h3) + :is(p, ul, ol, .table-scroll) {
+  margin-block-start: var(--space-4);
+}
+
+.accounting-content > section + section {
+  margin-block-start: clamp(var(--space-6), 4vw, var(--space-7));
+}
+
+.accounting-content section > p + .table-scroll,
+.accounting-content section > .table-scroll + p {
+  margin-block-start: var(--space-5);
+}
+
 .accounting-page p,
 .accounting-page li {
   max-width: var(--reading-width);
@@ -142,6 +155,11 @@
    fields after it to the gap it leaves in that row, so they do not move. */
 .form-grid {
   grid-auto-flow: row dense;
+  row-gap: var(--space-5);
+}
+
+.form-grid > :is(label, .field) {
+  align-content: start;
 }
 
 .form-grid > .field-error {

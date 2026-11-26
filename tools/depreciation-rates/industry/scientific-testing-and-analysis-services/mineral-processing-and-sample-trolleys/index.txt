@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-sample-trolleys/
 
-> Sample preparation assets: Sample trolleys: effective life 7 years, last updated 1 July 2019 (Table A).
+> Sample preparation assets: Sample trolleys: effective life 7 years, last updated 1 July 2019 (Table A). See determination F2025L01097.
 
 # Mineral processing and metallurgical laboratory assets / Sample preparation assets: Sample trolleys (Scientific testing and analysis services)
 
 ‘Sample preparation assets: Sample trolleys’, for an asset used in Scientific testing and analysis services, has an effective life of 7 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2019.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Sample trolleys
 Under | Mineral processing and metallurgical laboratory assets: / Sample preparation assets:
@@ -30,6 +30,8 @@ An asset used in Scientific testing and analysis services takes this life if it 
 The life was last reviewed and determined on 1 July 2019. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Sample preparation assets
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 pH control systems | 15 years | 6.67% | 13.33%
@@ -62,6 +64,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-sample-trolleys/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - pH control systems: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/ph-control-systems/
 - Pressure filters: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/pressure-filters/

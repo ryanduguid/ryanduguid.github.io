@@ -127,7 +127,7 @@ uv run --locked --extra dev pytest tests/test_evidence_pack.py -q</code></pre>
           <section id="expected-result">
             <h2>Expected result</h2>
             <div class="table-scroll" role="region" aria-label="Payday Super evidence expected results" tabindex="0">
-            <table class="facts">
+            <table aria-label="Payday Super evidence expected results" class="facts">
               <thead>
                 <tr>
                   <th scope="col">Fictional fixture</th>
@@ -225,14 +225,15 @@ uv run --locked --extra dev pytest tests/test_evidence_pack.py -q</code></pre>
         "@type": "TechArticle",
         "@id": "https://duguid.com.au/evaluate/payday-super-evidence/#article",
         "url": "https://duguid.com.au/evaluate/payday-super-evidence/",
+        "image": "https://duguid.com.au/assets/social-card-evaluations-20261104b.png",
         "headline": "Payday Super timing evidence evaluation",
         "description": "A reproducible evaluation of Payday Super timing evidence using four fictional fixtures.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-26",
         "dateModified": "2026-09-30",
         "license": "https://duguid.com.au/privacy/#licences",
-        "author": { "@id": "https://duguid.com.au/about/#person" },
-        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "author": { "@type": "Person", "@id": "https://duguid.com.au/about/#person", "name": "Ryan Duguid" },
+        "publisher": { "@type": "Person", "@id": "https://duguid.com.au/about/#person", "name": "Ryan Duguid" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" }
       },
       {

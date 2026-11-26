@@ -60,6 +60,8 @@
       root.dataset.viewMode = mode;
       view.hidden = mode !== 'machine';
       for (const element of human) element.inert = mode === 'machine';
+      if (mode === 'machine') view.setAttribute('role', 'main');
+      else view.removeAttribute('role');
       for (const radio of toggle.querySelectorAll('input')) radio.checked = radio.value === mode;
       // loadText reports its own failures in the error element.
       if (mode === 'machine') void loadText();

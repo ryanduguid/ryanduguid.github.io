@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-an
 
 ‘Assets used in common in iron smelting and steel manufacturing processes: Stacks …’, for an asset used in Iron smelting and steel manufacturing, has an effective life of 20 years (F2025L01097), last reviewed and determined on 1 July 2010.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Stacks (including flare off stacks (incorporating burners and derricks))
 Under | Assets used in common in iron smelting and steel manufacturing processes:
@@ -35,6 +35,8 @@ The life was last reviewed and determined on 1 July 2010. The life that applies 
 
 ## Other rows under Assets used in common in iron smelting and steel manufacturing processes
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Gasometers | 30 years | 3.33% | 6.67%
 Rolls for mill roll stands (including roughing mill rolls, finishing mill rolls and skin conditioning mill rolls) | 2 years | 50.00% | 100.00%
@@ -50,6 +52,8 @@ Stackers, reclaimers, stacker/reclaimers and sequencers | 25 years | 4.00% | 8.0
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Stacks (chimney) | MINING | 30 years | 3.33% | 6.67%
@@ -71,6 +75,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/stacks/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Gasometers: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/gasometers/
 - Rolls for mill roll stands (including roughing mill rolls, finishing mill rolls and skin conditioning mill rolls): https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/rolls-for-mill-roll-stands/

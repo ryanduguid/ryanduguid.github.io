@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testi
 
 ‘Laboratory analytical equipment and instruments: Water baths’, for an asset used in Scientific testing and analysis services, has an effective life of 5 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2019.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Water baths
 Under | Mineral processing and metallurgical laboratory assets: / Laboratory analytical equipment and instruments:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2019. The life that applies 
 
 ## Other rows under Laboratory analytical equipment and instruments
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Overhead stirrers | 8 years | 12.50% | 25.00%
 Particle size analysers | 10 years | 10.00% | 20.00%
@@ -46,6 +48,8 @@ X-Ray Fluorescence (XRF) and X-Ray Diffraction (XRD) | 7 years | 14.29% | 28.57%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Water baths (including refrigerated and shaking water baths) | Scientific research services | 7 years | 14.29% | 28.57%
@@ -64,6 +68,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-water-baths/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Overhead stirrers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/overhead-stirrers/
 - Particle size analysers: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/mineral-processing-and-particle-size-analysers/

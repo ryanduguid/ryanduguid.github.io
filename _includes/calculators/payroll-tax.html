@@ -11,8 +11,8 @@
 <label><input type="radio" name="jurisdiction" value="AU-ACT" /> Australian Capital Territory</label>
 <label><input type="radio" name="jurisdiction" value="AU-NT" /> Northern Territory</label>
 </fieldset>
-<label class="field" for="payroll-tax-wages">Taxable wages in the state or territory for 2026-27 (AUD)<input id="payroll-tax-wages" name="wages" type="number" inputmode="decimal" min="0" max="100000000000" step=".01" value="1500000" required /></label>
-<label class="field" for="payroll-tax-australian">Total Australian wages for 2026-27, taxable and interstate (AUD; leave blank if all are paid in that state or territory)<input id="payroll-tax-australian" name="australian" type="number" inputmode="decimal" min="0" max="100000000000" step=".01" value="" aria-describedby="payroll-tax-australian-note" /></label>
+<label class="field" for="payroll-tax-wages">Taxable wages in the state or territory for 2026-27 (AUD)<input enterkeyhint="next" id="payroll-tax-wages" name="wages" type="number" inputmode="decimal" min="0" max="100000000000" step=".01" value="1500000" required /></label>
+<label class="field" for="payroll-tax-australian">Total Australian wages for 2026-27, taxable and interstate (AUD; leave blank if all are paid in that state or territory)<input enterkeyhint="done" id="payroll-tax-australian" name="australian" type="number" inputmode="decimal" min="0" max="100000000000" step=".01" value="" aria-describedby="payroll-tax-australian-note" /></label>
 </div>
 <p class="field-note" id="payroll-tax-australian-note">Each revenue office decides which payments are taxable wages and where they are taxable. Enter the figures you have established; this page does not work them out. The figures it applies are in its <a href="/tools/business-calculators/payroll-tax/payroll-tax-rates.csv">data file</a>, with each one’s source and the date it was read.</p>
 <button type="submit" class="button">Calculate</button></fieldset>

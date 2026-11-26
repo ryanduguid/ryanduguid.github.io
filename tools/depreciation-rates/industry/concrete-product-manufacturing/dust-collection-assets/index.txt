@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/dust-collection-assets/
 
-> General assets: Dust collection assets: effective life 20 years, prime cost 5.00%, diminishing value 10.00%, last updated 1 July 2012 (Table A, 2025 determination).
+> General assets: Dust collection assets: effective life 20 years, last updated 1 July 2012 (Table A). See determination F2025L01097.
 
 # General assets: Dust collection assets
 
 ‘General assets: Dust collection assets’, for an asset used in Concrete product manufacturing, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2012.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Dust collection assets
 Under | Fibre cement building boards manufacturing assets: / General assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2012. The life that applies 
 
 ## Other rows under General assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Air compressors (rotary screw) | 10 years | 10.00% | 20.00%
 Control systems | 10 years | 10.00% | 20.00%
@@ -43,6 +45,8 @@ Steel templates | 7 years | 14.29% | 28.57%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Dust collection assets (including ductwork, dust collectors, scrubbers and fans) | Oil and fat manufacturing | 20 years | 5.00% | 10.00%
@@ -65,6 +69,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/dust-collection-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Air compressors (rotary screw): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-air-compressors/
 - Control systems: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-control-systems/

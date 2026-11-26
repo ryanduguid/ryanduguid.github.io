@@ -276,10 +276,15 @@ fn the_tree_is_minified_in_place_and_other_files_are_left_alone() {
     fs::write(assets.join("b.js"), script).unwrap();
     fs::write(assets.join("c.css"), sheet).unwrap();
     fs::write(dir.path().join("index.html"), page).unwrap();
+    fs::write(dir.path().join("index.txt"), "# Site").unwrap();
     fs::write(assets.join("d.json"), "{ \"a\": 1 }\n").unwrap();
 
     let (files, before, after) = minify_tree(dir.path()).unwrap();
     assert_eq!(files, 3);
+    assert_eq!(
+        fs::read_to_string(dir.path().join("index.md")).unwrap(),
+        "# Site"
+    );
     assert_eq!(before, (module.len() + script.len() + sheet.len()) as u64);
     assert!(after < before);
     assert_eq!(
@@ -313,6 +318,49 @@ fn the_tree_is_minified_in_place_and_other_files_are_left_alone() {
             "{name}"
         );
     }
+}
+
+#[test]
+fn layouts_share_the_base_stylesheet_and_keep_their_cascade() {
+    let dir = tempfile::tempdir().unwrap();
+    let root = dir.path();
+    let assets = root.join("assets");
+    fs::create_dir(&assets).unwrap();
+    fs::write(assets.join("tokens.css"), ":root { --ink: black; }").unwrap();
+    fs::write(assets.join("site.css"), "body { color: var(--ink); }").unwrap();
+    let core = "<link rel=\"stylesheet\" href=\"/assets/tokens.css?v=a\" />\n<link rel=\"stylesheet\" href=\"/assets/site.css?v=b\" />";
+    let extra = "<link rel=\"stylesheet\" href=\"/assets/accounting-pages.css?v=c\" />";
+    for (file, tail) in [("index.html", ""), ("calculator.html", extra)] {
+        fs::write(root.join(file), format!("<head>{core}\n{tail}</head>")).unwrap();
+    }
+    minify_tree(root).unwrap();
+    let bundle = fs::read_dir(&assets)
+        .unwrap()
+        .map(|e| e.unwrap().file_name())
+        .find(|name| name.to_string_lossy().starts_with("screen-"))
+        .unwrap();
+    assert_eq!(
+        fs::read_to_string(assets.join(&bundle)).unwrap(),
+        ":root{--ink:black}body{color:var(--ink)}"
+    );
+    let link = format!(
+        "<link rel=\"stylesheet\" href=\"/assets/{}\" />",
+        bundle.to_string_lossy()
+    );
+    for (file, tail) in [("index.html", ""), ("calculator.html", extra)] {
+        assert_eq!(
+            fs::read_to_string(root.join(file)).unwrap(),
+            format!("<head>{link}\n{tail}</head>")
+        );
+    }
+    minify_tree(root).unwrap();
+    fs::write(root.join("index.txt"), "public text").unwrap();
+    fs::write(root.join("index.md"), "existing page").unwrap();
+    assert!(minify_tree(root).unwrap_err().contains("conflicts"));
+    assert_eq!(
+        fs::read_to_string(root.join("index.md")).unwrap(),
+        "existing page"
+    );
 }
 
 #[test]

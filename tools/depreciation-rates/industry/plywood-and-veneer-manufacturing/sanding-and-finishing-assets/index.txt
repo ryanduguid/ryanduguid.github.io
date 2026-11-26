@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/plywood-and-vene
 
 ‘Sanding and finishing assets’, for an asset used in Plywood and veneer manufacturing, has an effective life of 25 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2005.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Sanding and finishing assets
 Table | Table A (industry categories), MANUFACTURING / Plywood and veneer manufacturing, ANZSIC 14930
@@ -29,6 +29,8 @@ An asset used in Plywood and veneer manufacturing takes this life if it matches 
 The life was last reviewed and determined on 1 January 2005. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Plywood and veneer manufacturing
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Lay-up and glue spreading assets (including roller, curtains, and spray coaters, liquid and foam extruders) | 25 years | 4.00% | 8.00%
@@ -51,6 +53,8 @@ Veneer peeling and slicing assets (including rotary peelers, longitudinal, cross
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
+Rates from the source determination.
+
 Row | Industry or table | Life | Prime cost | Diminishing value
 Sanding and finishing assets | Reconstituted wood product manufacturing | 25 years | 4.00% | 8.00%
 
@@ -68,6 +72,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/plywood-and-veneer-manufacturing/sanding-and-finishing-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Lay-up and glue spreading assets (including roller, curtains, and spray coaters, liquid and foam extruders): https://duguid.com.au/tools/depreciation-rates/industry/plywood-and-veneer-manufacturing/lay-up-and-glue-spreading-assets/
 - Log conditioning, heating and steaming assets: https://duguid.com.au/tools/depreciation-rates/industry/plywood-and-veneer-manufacturing/log-conditioning-heating-and-steaming-assets/

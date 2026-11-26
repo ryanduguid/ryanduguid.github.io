@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/roulette-wheels/
 
-> Table game equipment: Roulette wheels: effective life 7 years, prime cost 14.29%, diminishing value 28.57%, last updated 1 July 2022 (Table A, 2025 determination).
+> Table game equipment: Roulette wheels: effective life 7 years, last updated 1 July 2022 (Table A). See determination F2025L01097.
 
 # Table game equipment: Roulette wheels
 
 ‘Table game equipment: Roulette wheels’, for an asset used in Casino operations, has an effective life of 7 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2022.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Roulette wheels
 Under | Table game equipment:
@@ -30,6 +30,8 @@ An asset used in Casino operations takes this life if it matches this row exactl
 The life was last reviewed and determined on 1 July 2022. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Table game equipment
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Big wheels | 7 years | 14.29% | 28.57%
@@ -55,6 +57,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/roulette-wheels/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Big wheels: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/big-wheels/
 - Card shufflers: https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/card-shufflers/

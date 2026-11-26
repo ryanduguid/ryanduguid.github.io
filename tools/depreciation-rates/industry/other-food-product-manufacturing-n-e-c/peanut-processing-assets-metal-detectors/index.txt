@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/peanut-processing-assets-metal-detectors/
 
-> Quality control assets: Metal detectors: effective life 10 years, last updated 1 July 2009 (Table A).
+> Quality control assets: Metal detectors: effective life 10 years, last updated 1 July 2009 (Table A). See determination F2025L01097.
 
 # Quality control assets: Metal detectors (Other food product manufacturing n.e.c.)
 
 ‘Quality control assets: Metal detectors’, for an asset used in Other food product manufacturing n.e.c., has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2009.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Metal detectors
 Under | Peanut processing assets: / Quality control assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2009. The life that applies 
 
 ## Other rows under Quality control assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Magnets and magnetic separators | 7 years | 14.29% | 28.57%
 Metal detectors (this page) | 10 years | 10.00% | 20.00%
@@ -39,6 +41,8 @@ X-ray units | 5 years | 20.00% | 40.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Metal detectors | Other agriculture and fishing support services | 8 years | 12.50% | 25.00%
@@ -62,6 +66,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/peanut-processing-assets-metal-detectors/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Magnets and magnetic separators: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/magnets-and-magnetic-separators/
 - X-ray units: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/x-ray-units/

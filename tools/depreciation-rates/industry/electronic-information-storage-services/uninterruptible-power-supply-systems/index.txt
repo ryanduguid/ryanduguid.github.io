@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/uninterruptible-power-supply-systems/
 
-> Uninterruptible power supply … systems …: effective life 12 years, last updated 1 July 2017 (Table A).
+> Uninterruptible power supply … systems …: effective life 12 years, last updated 1 July 2017 (Table A). See determination F2025L01097.
 
 # Uninterruptible power supply … systems …
 
 ‘Uninterruptible power supply … systems …’, for an asset used in Electronic information storage services, has an effective life of 12 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2017.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Uninterruptible power supply (UPS) systems (excluding batteries)
 Table | Table A (industry categories), INFORMATION MEDIA AND TELECOMMUNICATIONS / Electronic information storage services, ANZSIC 59220
@@ -30,6 +30,8 @@ The life was last reviewed and determined on 1 July 2017. The life that applies 
 
 ## Other rows under Electronic information storage services
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Modular data centre (including portable containerised data centre modules, prefabricated data centre modules – able to be transported) | 10 years | 10.00% | 20.00%
 Rack based power rails (including rack based power distribution unit (PDU)) | 10 years | 10.00% | 20.00%
@@ -45,6 +47,8 @@ Uninterruptible power supply (UPS) systems batteries | 5 years | 20.00% | 40.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Uninterruptible power supply (UPS) systems | Rail freight and passenger transport services | 5 years | 20.00% | 40.00%
@@ -64,6 +68,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/uninterruptible-power-supply-systems/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Modular data centre (including portable containerised data centre modules, prefabricated data centre modules – able to be transported): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/modular-data-centre/
 - Rack based power rails (including rack based power distribution unit (PDU)): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/rack-based-power-rails/

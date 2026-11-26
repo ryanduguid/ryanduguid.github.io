@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/building-and-oth
 
 ‘Polishing, carpet cleaning and floor stripping assets …: Ride-on’, for an asset used in Building and other industrial cleaning services, has an effective life of 5 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2010.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Ride-on
 Under | Polishing, carpet cleaning and floor stripping assets (including floor polishers, burnishers, rotary scrubbers, encapsulation machines and floor strippers):
@@ -33,6 +33,8 @@ The life was last reviewed and determined on 1 July 2010. The life that applies 
 
 ## Other rows under Polishing, carpet cleaning and floor stripping assets (including floor polishers, burnishers, rotary scrubbers, encapsulation machines and floor strippers)
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Portable | 5 years | 20.00% | 40.00%
 Ride-on (this page) | 5 years | 20.00% | 40.00%
@@ -40,6 +42,8 @@ Ride-on (this page) | 5 years | 20.00% | 40.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Ride on | CONSTRUCTION | 7 years | 14.29% | 28.57%
@@ -60,6 +64,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/building-and-other-industrial-cleaning/polishing-carpet-cleaning-and-ride-on/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Portable: https://duguid.com.au/tools/depreciation-rates/industry/building-and-other-industrial-cleaning/polishing-carpet-cleaning-and-portable/
 - Ride on: https://duguid.com.au/tools/depreciation-rates/industry/construction/ride-on/

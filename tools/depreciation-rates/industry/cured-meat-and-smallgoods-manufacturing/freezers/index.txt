@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-s
 
 ‘Ancillary assets: Freezers (including blast freezers, crust freezers etc)’, for an asset used in Cured meat and smallgoods manufacturing, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2016.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Freezers (including blast freezers, crust freezers etc)
 Under | Ancillary assets:
@@ -32,6 +32,8 @@ Because the row says ‘including’, each item it lists is treated as a separat
 The life was last reviewed and determined on 1 July 2016. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Ancillary assets
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Boot washers | 10 years | 10.00% | 20.00%
@@ -53,6 +55,8 @@ Waste water management and treatment systems | 20 years | 5.00% | 10.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Freezers | Meat processing | 20 years | 5.00% | 10.00%
@@ -78,6 +82,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-smallgoods-manufacturing/freezers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Boot washers: https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-smallgoods-manufacturing/boot-washers/
 - Cages, stillages and trolleys (stainless steel): https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-smallgoods-manufacturing/cages-stillages-and-trolleys/

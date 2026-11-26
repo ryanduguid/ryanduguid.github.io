@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-ma
 
 ‘Assets for ice cream manufacturing: Extruders and extrusion line stick inserters’, for an asset used in Dairy product manufacturing, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2018.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Extruders and extrusion line stick inserters
 Under | Assets for ice cream manufacturing:
@@ -30,6 +30,8 @@ An asset used in Dairy product manufacturing takes this life if it matches this 
 The life was last reviewed and determined on 1 July 2018. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Assets for ice cream manufacturing
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Enrobers (including dippers) | 15 years | 6.67% | 13.33%
@@ -54,6 +56,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/extruders-and-extrusion-line-stick-inserters/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Enrobers (including dippers): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/enrobers/
 - Ice cream churners/freezers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/ice-cream-churners-freezers/

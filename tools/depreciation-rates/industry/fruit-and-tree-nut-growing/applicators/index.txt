@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/applicators/
 
-> Crop protection assets: Applicators …: effective life 15 years, prime cost 6.67%, diminishing value 13.33%, last updated 1 July 2008 (Table A, 2025 determination).
+> Crop protection assets: Applicators …: effective life 15 years, last updated 1 July 2008 (Table A). See determination F2025L01097.
 
 # Crop protection assets: Applicators …
 
 ‘Crop protection assets: Applicators …’, for an asset used in Fruit and tree nut growing, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2008.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Applicators (including temporary bird netting applicators and vine cover rollers)
 Under | Fruit growing assets: / Crop protection assets:
@@ -33,6 +33,8 @@ The life was last reviewed and determined on 1 July 2008. The life that applies 
 
 ## Other rows under Crop protection assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Applicators (including temporary bird netting applicators and vine cover rollers) (this page) | 15 years | 6.67% | 13.33%
 Banana bagging machines | 10 years | 10.00% | 20.00%
@@ -45,6 +47,8 @@ Vine covers | 3 years | 33.33% | 66.67%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Applicators (including coating and sealing applicators) | Concrete product manufacturing | 7 years | 14.29% | 28.57%
@@ -63,6 +67,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/applicators/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Banana bagging machines: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/banana-bagging-machines/
 - Banana ripening bags: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/banana-ripening-bags/

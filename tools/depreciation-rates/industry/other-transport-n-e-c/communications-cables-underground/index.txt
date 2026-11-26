@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/communications-cables-underground/
 
-> Communication assets: Communications cables – underground: effective life 25 years, last updated 1 July 2009 (Table A).
+> Communication assets: Communications cables – underground: effective life 25 years, last updated 1 July 2009 (Table A). See determination F2025L01097.
 
 # Communication assets: Communications cables – underground
 
 ‘Communication assets: Communications cables – underground’, for an asset used in Other transport n.e.c., has an effective life of 25 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2009.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Communications cables – underground
 Under | Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Communication assets:
@@ -35,6 +35,8 @@ The life was last reviewed and determined on 1 July 2009. The life that applies 
 
 ## Other rows under Communication assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Communications cables – above ground | 10 years | 10.00% | 20.00%
 Communications cables – underground (this page) | 25 years | 4.00% | 8.00%
@@ -54,6 +56,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/communications-cables-underground/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Communications cables – above ground: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/communications-cables-above-ground/
 - Radios and telephone systems: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/radios-and-telephone-systems/

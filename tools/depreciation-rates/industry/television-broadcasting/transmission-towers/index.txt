@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/television-broad
 
 ‘Transmission towers’, for an asset used in Television broadcasting, has an effective life of 40 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2005.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Transmission towers
 Table | Table A (industry categories), INFORMATION MEDIA AND TELECOMMUNICATIONS / Television broadcasting, ANZSIC 56210 to 56220
@@ -29,6 +29,8 @@ An asset used in Television broadcasting takes this life if it matches this row 
 The life was last reviewed and determined on 1 July 2005. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Television broadcasting
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Servers (excluding data servers) | 8 years | 12.50% | 25.00%
@@ -50,6 +52,8 @@ Videotape players and recorders | 8 years | 12.50% | 25.00%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
+Rates from the source determination.
+
 Row | Industry or table | Life | Prime cost | Diminishing value
 Transmission towers | Radio broadcasting | 40 years | 2.50% | 5.00%
 
@@ -67,6 +71,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/television-broadcasting/transmission-towers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Servers (excluding data servers): https://duguid.com.au/tools/depreciation-rates/industry/television-broadcasting/servers/
 - Signal measurement, monitoring and testing assets (including modulation monitors, RF analysers, test signal generators, vectorscopes and waveform monitors): https://duguid.com.au/tools/depreciation-rates/industry/television-broadcasting/signal-measurement-monitoring-and-testing-assets/

@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-ma
 
 ‘Nut runner assets: Automated nut runner and fastening systems …’, for an asset used in Motor vehicle manufacturing, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2012.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Automated nut runner and fastening systems (incorporating cables and controllers, and including bolt torquing robots)
 Under | Motor car engine assembly and manufacturing assets: / Engine assembly and engine component sub- assembly assets: / Nut runner assets:
@@ -35,6 +35,8 @@ The life was last reviewed and determined on 1 July 2012. The life that applies 
 
 ## Other rows under Nut runner assets
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Automated nut runner and fastening systems (incorporating cables and controllers, and including bolt torquing robots) (this page) | 10 years | 10.00% | 20.00%
 Manually operated nut runners (pre-torque applications etc) | 5 years | 20.00% | 40.00%
@@ -53,6 +55,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/automated-nut-runner-and-fastening-systems/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Manually operated nut runners (pre-torque applications etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/manually-operated-nut-runners/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

@@ -8,11 +8,11 @@
 <label><input type="radio" name="year" value="2022-23" /> 2022-23</label>
 <label><input type="radio" name="year" value="2021-22" /> 2021-22</label>
 </fieldset>
-<label class="field" for="sole-trader-income">Business income for the year, excluding GST (dollars and cents)<input id="sole-trader-income" name="income" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="22000" required /></label>
-<label class="field" for="sole-trader-expenses">Deductible business expenses, excluding GST (dollars and cents)<input id="sole-trader-expenses" name="expenses" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="2000" required /></label>
-<label class="field" for="sole-trader-wages">Wages from a job for the year, before tax (dollars and cents)<input id="sole-trader-wages" name="wages" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="60000" required /></label>
-<label class="field" for="sole-trader-deductions">Tax agent fees and gifts claimed (dollars and cents)<input id="sole-trader-deductions" name="deductions" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
-<label class="field" for="sole-trader-super">Personal super contributions claimed (dollars and cents)<input id="sole-trader-super" name="super" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="sole-trader-income">Business income for the year, excluding GST (dollars and cents)<input enterkeyhint="next" id="sole-trader-income" name="income" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="22000" required /></label>
+<label class="field" for="sole-trader-expenses">Deductible business expenses, excluding GST (dollars and cents)<input enterkeyhint="next" id="sole-trader-expenses" name="expenses" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="2000" required /></label>
+<label class="field" for="sole-trader-wages">Wages from a job for the year, before tax (dollars and cents)<input enterkeyhint="next" id="sole-trader-wages" name="wages" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="60000" required /></label>
+<label class="field" for="sole-trader-deductions">Tax agent fees and gifts claimed (dollars and cents)<input enterkeyhint="next" id="sole-trader-deductions" name="deductions" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="sole-trader-super">Personal super contributions claimed (dollars and cents)<input enterkeyhint="next" id="sole-trader-super" name="super" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
 <fieldset><legend>Does the business qualify for the small business income tax offset?</legend>
 <label><input type="radio" name="offset" value="yes" checked /> Yes: aggregated turnover under $5 million, not personal services income</label>
 <label><input type="radio" name="offset" value="no" /> No</label>
@@ -29,8 +29,8 @@
 <label><input type="radio" name="gst" value="no" checked /> No</label>
 <label><input type="radio" name="gst" value="yes" /> Yes</label>
 </fieldset>
-<label class="field" for="sole-trader-credits">GST credits for the year, if registered (dollars and cents)<input id="sole-trader-credits" name="credits" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
-<label class="field" for="sole-trader-invoice">One invoice, GST included if registered (dollars and cents)<input id="sole-trader-invoice" name="invoice" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" required /></label>
+<label class="field" for="sole-trader-credits">GST credits for the year, if registered (dollars and cents)<input enterkeyhint="next" id="sole-trader-credits" name="credits" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="sole-trader-invoice">One invoice, GST included if registered (dollars and cents)<input enterkeyhint="done" id="sole-trader-invoice" name="invoice" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" required /></label>
 </div>
 <p class="field-note">For a resident aged 18 or over, single, all year; every sale is a taxable supply.</p>
 <button type="submit" class="button">Calculate</button></fieldset>
@@ -84,32 +84,32 @@
 <label><input type="radio" name="ncl-activity" value="primary_production" /> Primary production</label>
 <label><input type="radio" name="ncl-activity" value="professional_arts" /> Professional arts</label>
 </fieldset>
-<label class="field" for="ncl-income">The activity’s assessable income (dollars and cents)<input id="ncl-income" name="ncl-income" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="9000" required /></label>
-<label class="field" for="ncl-deductions">Its deductions for the year (dollars and cents)<input id="ncl-deductions" name="ncl-deductions" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="10000" required /></label>
-<label class="field" for="ncl-brought-forward">Its losses deferred from earlier years (dollars and cents)<input id="ncl-brought-forward" name="ncl-brought-forward" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="ncl-income">The activity’s assessable income (dollars and cents)<input enterkeyhint="next" id="ncl-income" name="ncl-income" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="9000" required /></label>
+<label class="field" for="ncl-deductions">Its deductions for the year (dollars and cents)<input enterkeyhint="next" id="ncl-deductions" name="ncl-deductions" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="10000" required /></label>
+<label class="field" for="ncl-brought-forward">Its losses deferred from earlier years (dollars and cents)<input enterkeyhint="next" id="ncl-brought-forward" name="ncl-brought-forward" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
 <fieldset><legend>Started or stopped in the year?</legend>
 <label><input type="radio" name="ncl-part-year" value="no" checked /> No</label>
 <label><input type="radio" name="ncl-part-year" value="yes" /> Yes</label>
 </fieldset>
 <label class="field" for="ncl-profit-years">Profit years among the 4 before this one<select name="ncl-profit-years" id="ncl-profit-years" aria-describedby="ncl-tests-help"><option value="0" selected>0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
-<label class="field" for="ncl-real-property">Real property used in it (dollars and cents)<input id="ncl-real-property" name="ncl-real-property" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required aria-describedby="ncl-tests-help" /></label>
-<label class="field" for="ncl-other-assets">Other assets used in it (dollars and cents)<input id="ncl-other-assets" name="ncl-other-assets" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required aria-describedby="ncl-tests-help" /></label>
-<label class="field" for="ncl-taxable">Your taxable income, or a loss as a negative amount (dollars and cents)<input id="ncl-taxable" name="ncl-taxable" type="number" inputmode="decimal" min="-1000000000" max="1000000000" step="0.01" value="50000" required aria-describedby="ncl-income-help" /></label>
-<label class="field" for="ncl-losses">Business activity losses deducted in that taxable income (dollars and cents)<input id="ncl-losses" name="ncl-losses" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" required aria-describedby="ncl-income-help" /></label>
-<label class="field" for="ncl-fhss">First home super saver amount in it (dollars and cents)<input id="ncl-fhss" name="ncl-fhss" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required aria-describedby="ncl-income-help" /></label>
-<label class="field" for="ncl-fringe">Reportable fringe benefits (dollars and cents)<input id="ncl-fringe" name="ncl-fringe" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
-<label class="field" for="ncl-super">Reportable super contributions (dollars and cents)<input id="ncl-super" name="ncl-super" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
-<label class="field" for="ncl-investment-loss">Total net investment loss (dollars and cents)<input id="ncl-investment-loss" name="ncl-investment-loss" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
-<label class="field" for="ncl-exempt">Net exempt income (dollars and cents)<input id="ncl-exempt" name="ncl-exempt" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="ncl-real-property">Real property used in it (dollars and cents)<input enterkeyhint="next" id="ncl-real-property" name="ncl-real-property" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required aria-describedby="ncl-tests-help" /></label>
+<label class="field" for="ncl-other-assets">Other assets used in it (dollars and cents)<input enterkeyhint="next" id="ncl-other-assets" name="ncl-other-assets" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required aria-describedby="ncl-tests-help" /></label>
+<label class="field" for="ncl-taxable">Your taxable income, or a loss as a negative amount (dollars and cents)<input enterkeyhint="next" id="ncl-taxable" name="ncl-taxable" type="number" inputmode="decimal" min="-1000000000" max="1000000000" step="0.01" value="50000" required aria-describedby="ncl-income-help" /></label>
+<label class="field" for="ncl-losses">Business activity losses deducted in that taxable income (dollars and cents)<input enterkeyhint="next" id="ncl-losses" name="ncl-losses" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1000" required aria-describedby="ncl-income-help" /></label>
+<label class="field" for="ncl-fhss">First home super saver amount in it (dollars and cents)<input enterkeyhint="next" id="ncl-fhss" name="ncl-fhss" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required aria-describedby="ncl-income-help" /></label>
+<label class="field" for="ncl-fringe">Reportable fringe benefits (dollars and cents)<input enterkeyhint="next" id="ncl-fringe" name="ncl-fringe" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="ncl-super">Reportable super contributions (dollars and cents)<input enterkeyhint="next" id="ncl-super" name="ncl-super" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="ncl-investment-loss">Total net investment loss (dollars and cents)<input enterkeyhint="next" id="ncl-investment-loss" name="ncl-investment-loss" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="ncl-exempt">Net exempt income (dollars and cents)<input enterkeyhint="next" id="ncl-exempt" name="ncl-exempt" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
 </div>
 <fieldset data-show-field="ncl-part-year" data-show-values="yes" hidden disabled><legend>A part year</legend>
 <div class="form-grid">
-<label class="field" for="ncl-estimate">A reasonable estimate of its assessable income for a full year (dollars and cents)<input id="ncl-estimate" name="ncl-estimate" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="ncl-estimate">A reasonable estimate of its assessable income for a full year (dollars and cents)<input enterkeyhint="next" id="ncl-estimate" name="ncl-estimate" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
 </div>
 </fieldset>
 <fieldset data-show-field="ncl-activity" data-show-values="primary_production professional_arts" hidden disabled><legend>Income from other sources</legend>
 <div class="form-grid">
-<label class="field" for="ncl-other-income">Assessable income from other sources, not counting a net capital gain (dollars and cents)<input id="ncl-other-income" name="ncl-other-income" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="ncl-other-income">Assessable income from other sources, not counting a net capital gain (dollars and cents)<input enterkeyhint="done" id="ncl-other-income" name="ncl-other-income" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
 </div>
 </fieldset>
 <p class="field-note" id="ncl-tests-help">A profit year is one in which the activity’s assessable income was more than its deductions (section 35-35). Value real property at its reduced cost base, or market value if higher, leaving out a private dwelling; value other assets as section 35-45 says, leaving out cars and motor cycles.</p>

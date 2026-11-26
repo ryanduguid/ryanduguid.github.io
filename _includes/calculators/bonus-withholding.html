@@ -13,25 +13,25 @@
 <label><input type="radio" name="study-loan" value="no" /> No</label>
 <label><input type="radio" name="study-loan" value="yes" checked /> Yes</label>
 </fieldset>
-<label class="field" for="bonus-earnings">Gross earnings this pay, without the bonus or back payment (dollars and cents)<input id="bonus-earnings" name="earnings" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1400" required /></label>
+<label class="field" for="bonus-earnings">Gross earnings this pay, without the bonus or back payment (dollars and cents)<input enterkeyhint="next" id="bonus-earnings" name="earnings" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="1400" required /></label>
 <fieldset><legend>Schedule 5 method</legend>
 <label><input type="radio" name="method" value="A" checked /> Method A: the payment spread over the pays in a year</label>
 <label><input type="radio" name="method" value="B" /> Method B: B(i) for back pay of earlier pays this year, B(ii) for the rest</label>
 </fieldset>
-<label class="field" for="bonus-additional">Bonus, commission or other additional payment, without a B(i) back payment (dollars and cents)<input id="bonus-additional" name="additional" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="900" required /></label>
-<label class="field" for="bonus-spread">Method A: pays to spread it over: the pays in a year, or for a commission or bonus for a defined period under 12 months, the pays it covers<input id="bonus-spread" name="spread" type="number" inputmode="numeric" min="2" max="52" step="1" value="52" required /></label>
+<label class="field" for="bonus-additional">Bonus, commission or other additional payment, without a B(i) back payment (dollars and cents)<input enterkeyhint="next" id="bonus-additional" name="additional" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="900" required /></label>
+<label class="field" for="bonus-spread">Method A: pays to spread it over: the pays in a year, or for a commission or bonus for a defined period under 12 months, the pays it covers<input enterkeyhint="next" id="bonus-spread" name="spread" type="number" inputmode="numeric" min="2" max="52" step="1" value="52" required /></label>
 </div>
 <h2>Method B(i): back payment of earlier pays this year</h2>
-<div class="form-grid"><label class="field" for="bonus-back-pays">Earlier pays this year it covers (0 for none)<input id="bonus-back-pays" name="back-pays" type="number" inputmode="numeric" min="0" max="52" step="1" value="0" required /></label>
-<label class="field" for="bonus-back-each">Back payment for each of those pays (dollars and cents)<input id="bonus-back-each" name="back-each" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
-<label class="field" for="bonus-back-earnings">Earnings each of those pays had before it (dollars and cents)<input id="bonus-back-earnings" name="back-earnings" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
-<label class="field" for="bonus-back-withheld">Withheld from each of those pays, with any study loan component (dollars and cents)<input id="bonus-back-withheld" name="back-withheld" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<div class="form-grid"><label class="field" for="bonus-back-pays">Earlier pays this year it covers (0 for none)<input enterkeyhint="next" id="bonus-back-pays" name="back-pays" type="number" inputmode="numeric" min="0" max="52" step="1" value="0" required /></label>
+<label class="field" for="bonus-back-each">Back payment for each of those pays (dollars and cents)<input enterkeyhint="next" id="bonus-back-each" name="back-each" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="bonus-back-earnings">Earnings each of those pays had before it (dollars and cents)<input enterkeyhint="next" id="bonus-back-earnings" name="back-earnings" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="bonus-back-withheld">Withheld from each of those pays, with any study loan component (dollars and cents)<input enterkeyhint="next" id="bonus-back-withheld" name="back-withheld" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
 </div>
 <h2>Method B(ii): other additional payments</h2>
-<div class="form-grid"><label class="field" for="bonus-year-to-date">Normal earnings this year to date, with this pay and B(i) back payments made in earlier pays (dollars and cents)<input id="bonus-year-to-date" name="year-to-date" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
-<label class="field" for="bonus-pays-to-date">Pays this year to date, with this pay<input id="bonus-pays-to-date" name="pays-to-date" type="number" inputmode="numeric" min="1" max="53" step="1" value="1" required /></label>
-<label class="field" for="bonus-earlier-additional">Earlier B(ii) payments this year (dollars and cents)<input id="bonus-earlier-additional" name="earlier-additional" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
-<label class="field" for="bonus-earlier-withheld">Withheld from those earlier payments (dollars and cents)<input id="bonus-earlier-withheld" name="earlier-withheld" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<div class="form-grid"><label class="field" for="bonus-year-to-date">Normal earnings this year to date, with this pay and B(i) back payments made in earlier pays (dollars and cents)<input enterkeyhint="next" id="bonus-year-to-date" name="year-to-date" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="bonus-pays-to-date">Pays this year to date, with this pay<input enterkeyhint="next" id="bonus-pays-to-date" name="pays-to-date" type="number" inputmode="numeric" min="1" max="53" step="1" value="1" required /></label>
+<label class="field" for="bonus-earlier-additional">Earlier B(ii) payments this year (dollars and cents)<input enterkeyhint="next" id="bonus-earlier-additional" name="earlier-additional" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
+<label class="field" for="bonus-earlier-withheld">Withheld from those earlier payments (dollars and cents)<input enterkeyhint="done" id="bonus-earlier-withheld" name="earlier-withheld" type="number" inputmode="decimal" min="0" max="1000000000" step="0.01" value="0" required /></label>
 </div>
 <p class="field-note">For a payment made from 1 July 2026 to 30 June 2027 to an employee who has given a tax file number declaration. Method A needs only the first fields. Split a back payment for this year and earlier years between B(i) and the additional payment. A bonus for work in this pay alone is not a Schedule 5 payment: add it to this pay’s earnings in the <a href="/tools/individual-tax/take-home-pay/">take-home pay calculator</a>.</p>
 <button type="submit" class="button">Calculate</button></fieldset>

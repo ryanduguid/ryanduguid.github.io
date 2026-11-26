@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/potato-pilers/
 
-> Potato storage assets: Potato pilers (bin pilers): effective life 20 years, last updated 1 July 2012 (Table A).
+> Potato storage assets: Potato pilers (bin pilers): effective life 20 years, last updated 1 July 2012 (Table A). See determination F2025L01097.
 
 # Potato storage assets: Potato pilers (bin pilers)
 
 ‘Potato storage assets: Potato pilers (bin pilers)’, for an asset used in Other food product manufacturing n.e.c., has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2012.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Potato pilers (bin pilers)
 Under | Frozen pre-prepared food manufacturing assets (including frozen appetisers and finger foods such as dim sims and spring rolls, frozen french fries/potato chips, frozen pizzas and frozen pre-prepared meals): / Ingredient receiving and handling assets: / Potato storage assets:
@@ -45,6 +45,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/potato-pilers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text

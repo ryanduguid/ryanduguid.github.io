@@ -8,11 +8,13 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-n
 
 106 effective lives in Table A of the Commissioner’s 2025 effective life determination for Fruit and tree nut growing.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Coffee, olive and tree nut growing assets: | | | |
@@ -162,6 +164,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/#source
 - Chemical spraying assets (including air blast sprayers and linkage sprayers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/chemical-spraying-assets/
 - Blowers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/blowers/
 - Mowers (including zero turn and ride on): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-mowers/

@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/photographic-opt
 
 ‘Optical lens grinding and contact lens manufacturing: Frame tracers’, for an asset used in Photographic, optical and ophthalmic equipment manufacturing, has an effective life of 5 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2004.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Frame tracers
 Under | Optical lens grinding and contact lens manufacturing:
@@ -30,6 +30,8 @@ An asset used in Photographic, optical and ophthalmic equipment manufacturing ta
 The life was last reviewed and determined on 1 July 2004. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Optical lens grinding and contact lens manufacturing
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 CNC milling machines | 7 years | 14.29% | 28.57%
@@ -61,6 +63,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/frame-tracers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - CNC milling machines: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/cnc-milling-machines/
 - Combined surface generators and grinders and finers: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/combined-surface-generators-and-grinders-and-finers/

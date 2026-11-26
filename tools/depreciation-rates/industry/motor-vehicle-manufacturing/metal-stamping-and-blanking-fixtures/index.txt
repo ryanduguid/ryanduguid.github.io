@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/metal-stamping-and-blanking-fixtures/
 
-> Maintenance workshop and tool room assets: Fixtures …: effective life 10 years, last updated 1 July 2012 (Table A).
+> Maintenance workshop and tool room assets: Fixtures …: effective life 10 years, last updated 1 July 2012 (Table A). See determination F2025L01097.
 
 # Maintenance workshop and tool room assets: Fixtures …
 
 ‘Maintenance workshop and tool room assets: Fixtures …’, for an asset used in Motor vehicle manufacturing, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2012.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Fixtures (including rotary work fixtures and set up fixtures)
 Under | Metal stamping and blanking assets: / Maintenance workshop and tool room assets:
@@ -32,6 +32,8 @@ Because the row says ‘including’, each item it lists is treated as a separat
 The life was last reviewed and determined on 1 July 2012. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Maintenance workshop and tool room assets
+
+Rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Benches and cutting tables (including magnetic field benches, marking out tables, welding benches etc) | 15 years | 6.67% | 13.33%
@@ -61,6 +63,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/metal-stamping-and-blanking-fixtures/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Benches and cutting tables (including magnetic field benches, marking out tables, welding benches etc): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/metal-stamping-and-blanking-benches-and-cutting-tables/
 - Cutting machines (including gas cutters and plasma cutting machines): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/cutting-machines/

@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/gardening-services/self-propelled/
 
-> Lawn mowers: Self propelled (rotary): effective life 2 years, last updated 1 January 2004 (Table A).
+> Lawn mowers: Self propelled (rotary): effective life 2 years, last updated 1 January 2004 (Table A). See determination F2025L01097.
 
 # Lawn mowers: Self propelled (rotary)
 
 ‘Lawn mowers: Self propelled (rotary)’, for an asset used in Gardening services, has an effective life of 2 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2004.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
 
 Row | Self propelled (rotary)
 Under | Arboriculture and gardening services: / Lawn mowers:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 January 2004. The life that appli
 
 ## Other rows under Lawn mowers
 
+Rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Cylinder | 7 years | 14.29% | 28.57%
 Push (rotary) | 2 years | 50.00% | 100.00%
@@ -40,6 +42,8 @@ Self propelled (rotary) (this page) | 2 years | 50.00% | 100.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+Rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Self-propelled | Agriculture | 8 years | 12.50% | 25.00%
@@ -59,6 +63,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/gardening-services/self-propelled/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Cylinder: https://duguid.com.au/tools/depreciation-rates/industry/gardening-services/cylinder/
 - Push (rotary): https://duguid.com.au/tools/depreciation-rates/industry/gardening-services/push/
