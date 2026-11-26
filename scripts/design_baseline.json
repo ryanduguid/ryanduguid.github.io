@@ -156,7 +156,7 @@
       "a934b17de422b0e83b4539fa4da83a7efe5059f75a6b9f0c9a003150a5b3c70e"
     ],
     "tools/business-calculators/company-tax/index.html": [
-      "7f1f2296cde2493c9d8685d9dc7eeea5adf9d79886f6d0a4c5b92ec2de556617"
+      "4acd75c23fd1d8a2a0c528635f15afacd28e633c8e89f0bd84ef310ef42ded26"
     ],
     "tools/business-calculators/deferred-tax/index.html": [
       "4598153e3de4d4e8f381b58e21340d5fdf9982a0051e66d915b230a6d6e7ff7e"
@@ -434,7 +434,7 @@
   },
   "protected_files": {
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "c8fe189cc6b0603c157303957e4e13dcf3d39aa347ec78021e5f8e23ef5abdc7"
+    "sitemap.xml": "eac71a01c81fbcef58bef358a1904380fa488ec6ae6c385fdbbee380a46e0703"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

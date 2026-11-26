@@ -370,12 +370,18 @@ export function blackholeFormInput(value) {
   return { items, year: value('year'), scope_confirmed: true };
 }
 
+/** A paragraph label as the Act writes it: '5(a)' is '(5)(a)', '8' is '(8)'. @param {string} label */
+const paragraph = (label) => {
+  const [whole, sub] = label.split('(');
+  return sub === undefined ? `(${whole})` : `(${whole})(${sub}`;
+};
+
 /** How the page writes the call. @param {{items: Record<string, any>[], year: string}} x @param {(value: number) => string} aud */
 export function blackholeInputsText(x, aud) {
   const items = x.items.map((it, k) => `item ${k + 1}: ${aud(Number(it.amount))} incurred in ${it.incurred_in} for `
     + `${BUSINESS_WORDS[it.business] ?? it.business}${it.carried_on_by === 'another_entity' ? ' of another entity' : ''}, `
     + `${fractionPercent(it.taxable_purpose)}% taxable purpose`
-    + `${it.exclusions.length ? `, excluded by section 40-880(${it.exclusions[0].replace('(', ')(')})` : ''}`
+    + `${it.exclusions.length ? `, excluded by section 40-880${paragraph(it.exclusions[0])}` : ''}`
     + `${it.start_up_expense && it.start_up_expense !== 'neither' ? ', a start-up cost' : ''}`);
   return `${x.year}; ${items.join('; ')}`;
 }

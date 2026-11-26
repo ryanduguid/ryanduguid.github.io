@@ -1138,7 +1138,7 @@
       },
       {
         "case": "Expenditure preserving goodwill: s 40-880(6) lifts the s 40-880(5)(d) exclusion",
-        "input": "2026-27; item 1: $3,000.00 incurred in 2026-27 for your business, 100% taxable purpose, excluded by section 40-880(5)(d))",
+        "input": "2026-27; item 1: $3,000.00 incurred in 2026-27 for your business, 100% taxable purpose, excluded by section 40-880(5)(d)",
         "call": [
           {
             "items": [
@@ -1193,7 +1193,7 @@
       },
       {
         "case": "Part of a depreciating asset’s cost is refused: Division 40 deducts it (s 40-880(5)(a))",
-        "input": "2025-26; item 1: $1,000.00 incurred in 2025-26 for your business, 100% taxable purpose, excluded by section 40-880(5)(a))",
+        "input": "2025-26; item 1: $1,000.00 incurred in 2025-26 for your business, 100% taxable purpose, excluded by section 40-880(5)(a)",
         "call": [
           {
             "items": [
