@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/maintenance-and-refurbishment-drilling-assets/
 
-> Maintenance and refurbishment assets: Drilling assets (including radial drills): effective life 10 years, last updated 1 July 2014 (Table A).
+> Maintenance and refurbishment assets …: life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 July 2014.
 
 # Maintenance and refurbishment assets: Drilling assets (including radial drills)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Drilling assets (including radial drills)
 Under | Maintenance and refurbishment assets:
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 July 2014. The life that applies 
 
 ## Other rows under Maintenance and refurbishment assets
 
-Rates from the source determination.
+Other rows under Maintenance and refurbishment assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Boring assets | 10 years | 10.00% | 20.00%
@@ -63,7 +63,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/maintenance-and-refurbishment-drilling-assets/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/maintenance-and-refurbishment-drilling-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Boring assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/boring-assets/
 - Cutting assets (including guillotines, plasma cutters and profilers): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/maintenance-and-refurbishment-cutting-assets/

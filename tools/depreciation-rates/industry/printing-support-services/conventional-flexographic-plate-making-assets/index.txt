@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/conventional-flexographic-plate-making-assets/
 
-> Pre-press trade services assets: Conventional flexographic plate making assets …: effective life 7 years, last updated 1 January 2006 (Table A).
+> Conventional flexographic plate making …: life 7 years, prime cost 14.29%, diminishing value 28.57% if first held from 10 May 2006. Updated 1 January 2006.
 
 # Pre-press trade services assets: Conventional flexographic plate making assets …
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Conventional flexographic plate making assets (including combination units, dryers, post exposure units, UV light exposure units and washout units)
 Under | Pre-press trade services assets:
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 January 2006. The life that appli
 
 ## Other rows under Pre-press trade services assets
 
-Rates from the source determination.
+Other rows under Pre-press trade services assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Conventional flexographic plate making assets (including combination units, dryers, post exposure units, UV light exposure units and washout units) (this page) | 7 years | 14.29% | 28.57%
@@ -55,7 +55,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/conventional-flexographic-plate-making-assets/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/conventional-flexographic-plate-making-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Film and plate processors: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/film-and-plate-processors/
 - Film projection camera systems (including backing board and processing assets): https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/film-projection-camera-systems/

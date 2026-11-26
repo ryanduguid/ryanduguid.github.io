@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/horse-farming/horse-stalls/
 
-> Horse stalls (Breeze way, Shed row): effective life 33 1/3 years, last updated 1 January 2001 (Table A). See determination F2025L01097.
+> Horse stalls (Breeze way, Shed row): life 33 1/3 years, prime cost 3.00%, diminishing value 6.00% if first held from 10 May 2006. Updated 1 January 2001.
 
 # Horse stalls (Breeze way, Shed row)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Horse stalls (Breeze way, Shed row)
 Table | Table A (industry categories), AGRICULTURE, FORESTRY AND FISHING / Horse farming, ANZSIC 01910
@@ -30,7 +30,7 @@ The life was last reviewed and determined on 1 January 2001. The life that appli
 
 ## Other rows under Horse farming
 
-Rates from the source determination.
+Other rows under Horse farming. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Horse stalls (Breeze way, Shed row) (this page) | 33 1/3 years | 3.00% | 6.00%
@@ -50,7 +50,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/horse-farming/horse-stalls/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/horse-farming/horse-stalls/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Stud stock and thoroughbred horses: https://duguid.com.au/tools/depreciation-rates/industry/horse-farming/stud-stock-and-thoroughbred-horses/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

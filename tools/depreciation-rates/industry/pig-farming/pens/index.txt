@@ -1,8 +1,8 @@
-# Pens effective life: 10 years under ATO rules
+# Pens effective life: 10 years (F2025L01097)
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/pens/
 
-> Pens …: effective life 10 years, prime cost 10.00%, diminishing value 20.00%, last updated 1 July 2008 (Table A, 2025 determination).
+> Pens …: effective life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 July 2008 (Table A, 2025).
 
 # Pens …
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Pens (including fences, gates, stalls, farrowing crates, ramps)
 Table | Table A (industry categories), AGRICULTURE, FORESTRY AND FISHING / Pig farming, ANZSIC 01920
@@ -32,7 +32,7 @@ The life was last reviewed and determined on 1 July 2008. The life that applies 
 
 ## Other rows under Pig farming
 
-Rates from the source determination.
+Other rows under Pig farming. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Heaters and heat lamps | 5 years | 20.00% | 40.00%
@@ -61,7 +61,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/pens/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/pens/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Heaters and heat lamps: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/heaters-and-heat-lamps/
 - High pressure cleaners: https://duguid.com.au/tools/depreciation-rates/industry/pig-farming/high-pressure-cleaners/

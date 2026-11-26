@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/chassis-rail-frame-bending-machines/
 
-> Bending machines: Chassis rail/frame bending machines: effective life 20 years, last updated 1 July 2011 (Table A). See determination F2025L01097.
+> Chassis rail/frame bending machines: life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 July 2011.
 
 # Bending machines: Chassis rail/frame bending machines
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Chassis rail/frame bending machines
 Under | Bus and truck manufacturing assets (including bus vehicle body assembling assets and truck body manufacturing assets): / Press shop assets: / Bending machines:
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 July 2011. The life that applies 
 
 ## Other rows under Bending machines
 
-Rates from the source determination.
+Other rows under Bending machines. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Chassis rail/frame bending machines (this page) | 20 years | 5.00% | 10.00%
@@ -55,7 +55,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/chassis-rail-frame-bending-machines/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/chassis-rail-frame-bending-machines/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Folders (including pan brakes): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/folders/
 - Press brakes (brake presses): https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/press-brakes/

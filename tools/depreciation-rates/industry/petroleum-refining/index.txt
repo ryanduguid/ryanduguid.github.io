@@ -14,7 +14,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
 
-Rates from the source determination.
+Rows of Petroleum refining. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Assets used to manufacture condensate, crude oil, domestic gas, liquid natural gas (LNG) or liquid petroleum gas (LPG) but not if the manufacture occurs in an oil refinery – see Table A Oil and gas extraction (07000) | | | |

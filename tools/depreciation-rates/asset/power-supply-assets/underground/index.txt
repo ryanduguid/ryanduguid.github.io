@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/underground/
 
-> Distribution lines: Underground …: effective life 50 years, prime cost 2.00%, diminishing value 4.00%, last updated 1 July 2014 (Table B, 2025 determination).
+> Distribution lines: Underground …: life 50 years, prime cost 2.00%, diminishing value 4.00% if first held from 10 May 2006. Updated 1 July 2014.
 
 # Distribution lines: Underground … (Table B)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Underground (incorporating cables, fittings and ground pad mounted transformers)
 Under | Power supply assets: / Private electricity line assets (where used for a specified purpose): / Distribution lines:
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 July 2014. The life that applies 
 
 ## Other rows under Distribution lines
 
-Rates from the source determination.
+Other rows under Distribution lines. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Combination of overhead and underground | 47 1/2 years | 2.11% | 4.21%
@@ -44,7 +44,7 @@ Underground (incorporating cables, fittings and ground pad mounted transformers)
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Underground | Mineral exploration services | 5 years | 20.00% | 40.00%
@@ -65,7 +65,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/underground/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/underground/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Combination of overhead and underground: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/combination-of-overhead-and-underground/
 - Overhead (incorporating poles - concrete, wood, steel or stobie - and electrical equipment the responsibility of the private landholder such as conductors, cross arms etc): https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/overhead/

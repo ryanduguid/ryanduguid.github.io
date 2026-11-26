@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/fruit-dosing-system-assets/
 
-> Assets for yoghurt manufacturing: Fruit dosing system assets: effective life 15 years, last updated 1 July 2017 (Table A).
+> Fruit dosing system assets: life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 July 2017.
 
 # Assets for yoghurt manufacturing: Fruit dosing system assets
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Fruit dosing system assets
 Under | Assets for yoghurt manufacturing:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2017. The life that applies 
 
 ## Other rows under Assets for yoghurt manufacturing
 
-Rates from the source determination.
+Other rows under Assets for yoghurt manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Aerators | 15 years | 6.67% | 13.33%
@@ -52,7 +52,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/fruit-dosing-system-assets/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/fruit-dosing-system-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Aerators: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/aerators/
 - Fermentation tanks: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/fermentation-tanks/

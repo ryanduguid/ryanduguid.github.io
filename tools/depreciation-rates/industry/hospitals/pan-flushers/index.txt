@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/pan-flushers/
 
-> Hospital assets: Pan flushers: effective life 10 years, prime cost 10.00%, diminishing value 20.00%, last updated 1 January 2003 (Table A, 2025 determination).
+> Hospital assets: Pan flushers: life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 January 2003.
 
 # Hospital assets: Pan flushers
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Pan flushers
 Under | Hospital assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2003. The life that appli
 
 ## Other rows under Hospital assets
 
-Rates from the source determination.
+Other rows under Hospital assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Haemodialysis machines | 7 years | 14.29% | 28.57%
@@ -64,7 +64,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/pan-flushers/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/pan-flushers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Haemodialysis machines: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/haemodialysis-machines/
 - Head lights: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/head-lights/

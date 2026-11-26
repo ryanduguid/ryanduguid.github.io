@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/sports-and-physical-recreation-venues/fittings/
 
-> Skating rink plant: Fittings (open air): effective life 20 years, last updated 1 January 2001 (Table A). See determination F2025L01097.
+> Skating rink plant: Fittings (open air): life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 January 2001.
 
 # Skating rink plant: Fittings (open air)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Fittings (open air)
 Under | Skating rink plant:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2001. The life that appli
 
 ## Other rows under Skating rink plant
 
-Rates from the source determination.
+Other rows under Skating rink plant. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Fittings (open air) (this page) | 20 years | 5.00% | 10.00%
@@ -44,7 +44,7 @@ Surface (synthetic panels) | 10 years | 10.00% | 20.00%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Fittings (excluding hardwired) | Residential property operators | 5 years | 20.00% | 40.00%
@@ -63,7 +63,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/sports-and-physical-recreation-venues/fittings/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/sports-and-physical-recreation-venues/fittings/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - General freezing plant and equipment: https://duguid.com.au/tools/depreciation-rates/industry/sports-and-physical-recreation-venues/general-freezing-plant-and-equipment/
 - Hired ice skating boots: https://duguid.com.au/tools/depreciation-rates/industry/sports-and-physical-recreation-venues/hired-ice-skating-boots/

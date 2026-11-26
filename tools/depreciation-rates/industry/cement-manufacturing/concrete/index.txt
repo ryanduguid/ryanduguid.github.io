@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/cement-manufacturing/concrete/
 
-> Silos: Concrete (used for gypsum or wetslag, or at port facilities): effective life 40 years, last updated 1 January 2004 (Table A).
+> Concrete …: life 40 years, prime cost 2.50%, diminishing value 5.00% if first held from 10 May 2006. Updated 1 January 2004.
 
 # Silos: Concrete (used for gypsum or wetslag, or at port facilities)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Concrete (used for gypsum or wetslag, or at port facilities)
 Under | Storage, handling and packing assets: / Silos:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2004. The life that appli
 
 ## Other rows under Silos
 
-Rates from the source determination.
+Other rows under Silos. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Concrete, generally | 50 years | 2.00% | 4.00%
@@ -43,7 +43,7 @@ Steel (used for gypsum or wet slag, or at port facilities) | 20 years | 5.00% | 
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Concrete | AGRICULTURE, FORESTRY AND FISHING | 30 years | 3.33% | 6.67%
@@ -74,7 +74,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/cement-manufacturing/concrete/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/cement-manufacturing/concrete/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Concrete, generally: https://duguid.com.au/tools/depreciation-rates/industry/cement-manufacturing/concrete-generally/
 - Steel, generally: https://duguid.com.au/tools/depreciation-rates/industry/cement-manufacturing/steel-generally/

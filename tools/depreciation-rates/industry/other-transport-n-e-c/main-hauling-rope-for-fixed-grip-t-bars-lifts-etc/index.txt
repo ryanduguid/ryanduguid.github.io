@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/main-hauling-rope-for-fixed-grip-t-bars-lifts-etc/
 
-> Ropes: Main hauling rope for fixed grip, t-bars lifts etc: effective life 20 years, last updated 1 July 2009 (Table A). See determination F2025L01097.
+> Main hauling rope for fixed grip, t-bars lifts …: life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 July 2009.
 
 # Ropes: Main hauling rope for fixed grip, t-bars lifts etc
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Main hauling rope for fixed grip, t-bars lifts etc
 Under | Monocable circulating fixed grip and detachable ropeway assets operated in snowfield areas (including double, triple and quad chair lifts, T-bar, poma and surface lifts): / Ropes:
@@ -35,7 +35,7 @@ The life was last reviewed and determined on 1 July 2009. The life that applies 
 
 ## Other rows under Ropes
 
-Rates from the source determination.
+Other rows under Ropes. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Main hauling rope for detachable lifts etc | 15 years | 6.67% | 13.33%
@@ -55,7 +55,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/main-hauling-rope-for-fixed-grip-t-bars-lifts-etc/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/main-hauling-rope-for-fixed-grip-t-bars-lifts-etc/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Main hauling rope for detachable lifts etc: https://duguid.com.au/tools/depreciation-rates/industry/other-transport-n-e-c/main-hauling-rope-for-detachable-lifts-etc/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

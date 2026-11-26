@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/cooling-assets/
 
-> Metal casting assets …: Cooling assets (including tables, conveyors, towers): effective life 15 years, last updated 1 January 2004 (Table A).
+> Cooling assets …: life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 January 2004.
 
 # Metal casting assets …: Cooling assets (including tables, conveyors, towers)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Cooling assets (including tables, conveyors, towers)
 Under | Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium):
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 January 2004. The life that appli
 
 ## Other rows under Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium)
 
-Rates from the source determination.
+Other rows under Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium). Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Cooling assets (including tables, conveyors, towers) (this page) | 15 years | 6.67% | 13.33%
@@ -50,7 +50,7 @@ Molten metal transfer ladles | 3 years | 33.33% | 66.67%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Cooling assets (including water chillers) | Aquaculture | 10 years | 10.00% | 20.00%
@@ -70,7 +70,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/cooling-assets/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/cooling-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Deodorising machines/fume extraction systems: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/deodorising-machines-fume-extraction-systems/
 - Die casting machines (including high pressure, low pressure and gravity type machines): https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/die-casting-machines/

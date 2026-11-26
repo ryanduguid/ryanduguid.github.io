@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/escapes/
 
-> Assets used by irrigation water providers: Escapes: effective life 50 years, last updated 1 January 2005 (Table A). See determination F2025L01097.
+> Escapes: effective life 50 years, prime cost 2.00%, diminishing value 4.00% if first held from 10 May 2006. Updated 1 January 2005 (Table A, 2025).
 
 # Assets used by irrigation water providers: Escapes
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Escapes
 Under | Assets used by irrigation water providers:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2005. The life that appli
 
 ## Other rows under Assets used by irrigation water providers
 
-Rates from the source determination.
+Other rows under Assets used by irrigation water providers. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Channel regulators | 80 years | 1.25% | 2.50%
@@ -63,7 +63,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/escapes/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/escapes/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Channel regulators: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/channel-regulators/
 - Cranes (including gantries): https://duguid.com.au/tools/depreciation-rates/industry/water-supply/cranes/

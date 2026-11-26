@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/mineral-exploration-services/ground-geophysical-assets/
 
-> Geophysical survey assets: Ground geophysical assets …: effective life 5 years, last updated 1 January 2007 (Table A). See determination F2025L01097.
+> Ground geophysical assets …: life 5 years, prime cost 20.00%, diminishing value 40.00% if first held from 10 May 2006. Updated 1 January 2007.
 
 # Geophysical survey assets: Ground geophysical assets …
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Ground geophysical assets (including gravity instruments, resistivity receivers and transmitters, scintillometers and spectrometers)
 Under | Exploration assets: / Geophysical survey assets:
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 January 2007. The life that appli
 
 ## Other rows under Geophysical survey assets
 
-Rates from the source determination.
+Other rows under Geophysical survey assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Ground geophysical assets (including gravity instruments, resistivity receivers and transmitters, scintillometers and spectrometers) (this page) | 5 years | 20.00% | 40.00%
@@ -53,7 +53,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/mineral-exploration-services/ground-geophysical-assets/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/mineral-exploration-services/ground-geophysical-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Portable ground geophysical assets (including electromagnetics, ground magnetics, ground penetrating radars and radiometrics): https://duguid.com.au/tools/depreciation-rates/industry/mineral-exploration-services/portable-ground-geophysical-assets/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

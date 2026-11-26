@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/cnc-lathes/
 
-> Lathes: CNC lathes: effective life 10 years, prime cost 10.00%, diminishing value 20.00%, last updated 1 July 2015 (Table A, 2025 determination).
+> Lathes: CNC lathes: effective life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 July 2015 (Table A, 2025).
 
 # Lathes: CNC lathes (Other machinery and equipment repair and maintenance)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | CNC lathes
 Under | Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Lathes:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2015. The life that applies 
 
 ## Other rows under Lathes
 
-Rates from the source determination.
+Other rows under Lathes. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 CNC lathes (this page) | 10 years | 10.00% | 20.00%
@@ -41,7 +41,7 @@ Manual lathes | 20 years | 5.00% | 10.00%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 CNC lathes | Non-ferrous metal casting | 10 years | 10.00% | 20.00%
@@ -61,7 +61,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/cnc-lathes/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/cnc-lathes/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Manual lathes: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/manual-lathes/
 - CNC lathes: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/cnc-lathes/

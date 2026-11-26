@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/grinding-machines/
 
-> Workshop assets: Grinding machines (including gear grinding machines): effective life 10 years, last updated 1 July 2015 (Table A).
+> Grinding machines …: life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 July 2015.
 
 # Workshop assets: Grinding machines (including gear grinding machines)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Grinding machines (including gear grinding machines)
 Under | Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets:
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 July 2015. The life that applies 
 
 ## Other rows under Workshop assets
 
-Rates from the source determination.
+Other rows under Workshop assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Brake testers (including in-ground and mobile roller brake testers) | 10 years | 10.00% | 20.00%
@@ -66,7 +66,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/grinding-machines/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/grinding-machines/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Brake testers (including in-ground and mobile roller brake testers): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/brake-testers/
 - Boring machines (including floor borers, jib borers, horizontal and vertical boring machines): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/boring-machines/

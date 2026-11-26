@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/magnifying-loupes/
 
-> Magnifying loupes: effective life 10 years, prime cost 10.00%, diminishing value 20.00%, last updated 1 July 2020 (Table A, 2025 determination).
+> Magnifying loupes: effective life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 July 2020 (Table A, 2025).
 
 # Magnifying loupes
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Magnifying loupes
 Table | Table A (industry categories), HEALTH CARE AND SOCIAL ASSISTANCE / General practice medical services, ANZSIC 85110
@@ -30,7 +30,7 @@ The life was last reviewed and determined on 1 July 2020. The life that applies 
 
 ## Other rows under General practice medical services
 
-Rates from the source determination.
+Other rows under General practice medical services. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Blood coagulation (INR) meters | 5 years | 20.00% | 40.00%
@@ -63,7 +63,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/magnifying-loupes/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/magnifying-loupes/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Blood coagulation (INR) meters: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/blood-coagulation-meters/
 - Dermatoscopes: https://duguid.com.au/tools/depreciation-rates/industry/general-practice-medical-services/dermatoscopes/

@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/operating-theatre-lights/
 
-> Hospital assets: Operating theatre lights: effective life 8 years, last updated 1 January 2003 (Table A). See determination F2025L01097.
+> Hospital assets: Operating theatre lights: life 8 years, prime cost 12.50%, diminishing value 25.00% if first held from 10 May 2006. Updated 1 January 2003.
 
 # Hospital assets: Operating theatre lights
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Operating theatre lights
 Under | Hospital assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2003. The life that appli
 
 ## Other rows under Hospital assets
 
-Rates from the source determination.
+Other rows under Hospital assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Diathermy and cautery machines/electrosurgical generators | 10 years | 10.00% | 20.00%
@@ -64,7 +64,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/operating-theatre-lights/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/operating-theatre-lights/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Diathermy and cautery machines/electrosurgical generators: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/diathermy-and-cautery-machines-electrosurgical-generators/
 - Haemodialysis machines: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/haemodialysis-machines/

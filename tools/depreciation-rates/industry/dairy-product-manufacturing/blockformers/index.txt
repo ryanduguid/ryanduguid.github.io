@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/blockformers/
 
-> Assets for cheese manufacturing: Blockformers: effective life 15 years, last updated 1 July 2017 (Table A). See determination F2025L01097.
+> Assets for cheese manufacturing: Blockformers: life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 July 2017.
 
 # Assets for cheese manufacturing: Blockformers
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Blockformers
 Under | Assets for cheese manufacturing:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2017. The life that applies 
 
 ## Other rows under Assets for cheese manufacturing
 
-Rates from the source determination.
+Other rows under Assets for cheese manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Blockformers (this page) | 15 years | 6.67% | 13.33%
@@ -58,7 +58,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/blockformers/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/blockformers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Cheese cutting machines (including cutters, grinders, shredders and slicers): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/cheese-cutting-machines/
 - Cheese washers: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/cheese-washers/

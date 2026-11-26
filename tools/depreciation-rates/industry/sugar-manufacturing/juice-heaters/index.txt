@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/juice-heaters/
 
-> Cane juice filtration and clarification assets: Juice heaters: effective life 20 years, last updated 1 July 2011 (Table A).
+> Juice heaters: effective life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 July 2011 (Table A, 2025).
 
 # Cane juice filtration and clarification assets: Juice heaters
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Juice heaters
 Under | Sugar milling assets: / Cane juice filtration and clarification assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2011. The life that applies 
 
 ## Other rows under Cane juice filtration and clarification assets
 
-Rates from the source determination.
+Other rows under Cane juice filtration and clarification assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Clarifiers | 25 years | 4.00% | 8.00%
@@ -56,7 +56,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/juice-heaters/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/juice-heaters/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/cane-juice-filtration-and-clarifiers/
 - Flash tanks: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/flash-tanks/

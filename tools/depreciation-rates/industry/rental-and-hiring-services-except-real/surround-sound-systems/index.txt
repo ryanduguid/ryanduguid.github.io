@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/surround-sound-systems/
 
-> Household assets: Surround sound systems …: effective life 5 years, last updated 1 January 2006 (Table A). See determination F2025L01097.
+> Household assets: Surround sound systems …: life 5 years, prime cost 20.00%, diminishing value 40.00% if first held from 10 May 2006. Updated 1 January 2006.
 
 # Household assets: Surround sound systems …
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Surround sound systems (incorporating audio-video receivers and speakers)
 Under | Household assets:
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 January 2006. The life that appli
 
 ## Other rows under Household assets
 
-Rates from the source determination.
+Other rows under Household assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Dishwashers | 8 years | 12.50% | 25.00%
@@ -54,7 +54,7 @@ Washing machines | 6 years | 16.67% | 33.33%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Surround sound systems (incorporating audio-video receivers and speakers) | Residential property operators | 10 years | 10.00% | 20.00%
@@ -73,7 +73,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/surround-sound-systems/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/surround-sound-systems/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Dishwashers: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/dishwashers/
 - Evaporative coolers, portable: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/evaporative-coolers-portable/

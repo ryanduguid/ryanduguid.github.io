@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/control-systems/
 
-> Control systems (excluding personal computers): effective life 10 years, last updated 1 January 2007 (Table A). See determination F2025L01097.
+> Control systems …: life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 January 2007.
 
 # Control systems (excluding personal computers) (Poultry hatcheries)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Control systems (excluding personal computers)
 Table | Table A (industry categories), AGRICULTURE, FORESTRY AND FISHING / Poultry hatcheries, ANZSIC 01710 to 01720
@@ -30,7 +30,7 @@ The life was last reviewed and determined on 1 January 2007. The life that appli
 
 ## Other rows under Poultry hatcheries
 
-Rates from the source determination.
+Other rows under Poultry hatcheries. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Air handlers | 20 years | 5.00% | 10.00%
@@ -53,7 +53,7 @@ Hatchery buildings (incorporating frames, walls, rooves, insulation, doors, floo
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination). The first 20 of 41 are shown.
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Control systems | AGRICULTURE, FORESTRY AND FISHING | 10 years | 10.00% | 20.00%
@@ -91,7 +91,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/control-systems/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/control-systems/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Air handlers: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/air-handlers/
 - Boilers: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/boilers/

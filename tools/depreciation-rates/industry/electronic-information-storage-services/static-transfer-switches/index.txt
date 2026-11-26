@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/static-transfer-switches/
 
-> Static transfer switches (STS): effective life 12 years, prime cost 8.33%, diminishing value 16.67%, last updated 1 July 2017 (Table A, 2025 determination).
+> Static transfer switches (STS): life 12 years, prime cost 8.33%, diminishing value 16.67% if first held from 10 May 2006. Updated 1 July 2017.
 
 # Static transfer switches (STS)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Static transfer switches (STS)
 Table | Table A (industry categories), INFORMATION MEDIA AND TELECOMMUNICATIONS / Electronic information storage services, ANZSIC 59220
@@ -30,7 +30,7 @@ The life was last reviewed and determined on 1 July 2017. The life that applies 
 
 ## Other rows under Electronic information storage services
 
-Rates from the source determination.
+Other rows under Electronic information storage services. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Load banks | 15 years | 6.67% | 13.33%
@@ -59,7 +59,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/static-transfer-switches/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/static-transfer-switches/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Load banks: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/load-banks/
 - Modular data centre (including portable containerised data centre modules, prefabricated data centre modules – able to be transported): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/modular-data-centre/

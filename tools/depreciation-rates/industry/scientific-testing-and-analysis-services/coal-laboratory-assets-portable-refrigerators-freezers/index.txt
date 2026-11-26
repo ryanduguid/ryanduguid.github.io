@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-portable-refrigerators-freezers/
 
-> Sample storage assets: Portable refrigerators/freezers: effective life 10 years, last updated 1 July 2018 (Table A). See determination F2025L01097.
+> Portable refrigerators/freezers: life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 July 2018.
 
 # Coal laboratory assets / Sample preparation assets / Sample storage assets: Portable refrigerators/freezers (Scientific testing and analysis services)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Portable refrigerators/freezers
 Under | Coal laboratory assets: / Sample preparation assets: / Sample storage assets:
@@ -43,7 +43,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-portable-refrigerators-freezers/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/scientific-testing-and-analysis-services/coal-laboratory-assets-portable-refrigerators-freezers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text

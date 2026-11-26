@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/scales-weigh-indicators-and-loading-bars/
 
-> Cattle handling assets: Scales, weigh indicators and loading bars (Beef cattle feedlots): effective life 5 years, last updated 1 January 2007 (Table A).
+> …and loading bars (Beef cattle feedlots): life 5 years, prime cost 20.00%, diminishing value 40.00% if first held from 10 May 2006. Updated 1 January 2007.
 
 # Cattle handling assets: Scales, weigh indicators and loading bars (Beef cattle feedlots)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Scales, weigh indicators and loading bars
 Under | Cattle handling assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2007. The life that appli
 
 ## Other rows under Cattle handling assets
 
-Rates from the source determination.
+Other rows under Cattle handling assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Cattle crushes (hydraulic and manual) | 6 years | 16.67% | 33.33%
@@ -45,7 +45,7 @@ Scales, weigh indicators and loading bars (this page) | 5 years | 20.00% | 40.00
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Scales, weigh indicators and loading bars | Beef cattle farming | 5 years | 20.00% | 40.00%
@@ -64,7 +64,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/scales-weigh-indicators-and-loading-bars/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/scales-weigh-indicators-and-loading-bars/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Cattle crushes (hydraulic and manual): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/cattle-crushes/
 - Cattle induction and transfer yards (steel and timber): https://duguid.com.au/tools/depreciation-rates/industry/beef-cattle-feedlots/cattle-induction-and-transfer-yards/

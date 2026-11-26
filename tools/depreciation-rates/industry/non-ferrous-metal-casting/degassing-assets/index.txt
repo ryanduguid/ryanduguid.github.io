@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/degassing-assets/
 
-> Heating assets: Degassing assets: effective life 5 years, last updated 1 January 2004 (Table A). See determination F2025L01097.
+> Heating assets: Degassing assets: life 5 years, prime cost 20.00%, diminishing value 40.00% if first held from 10 May 2006. Updated 1 January 2004.
 
 # Heating assets: Degassing assets
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Degassing assets
 Under | Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Heating assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2004. The life that appli
 
 ## Other rows under Heating assets
 
-Rates from the source determination.
+Other rows under Heating assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Degassing assets (this page) | 5 years | 20.00% | 40.00%
@@ -55,7 +55,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/degassing-assets/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/degassing-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Furnaces (including dosing, holding and melting): https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/furnaces/
 - Heat treatment baskets: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/heat-treatment-baskets/

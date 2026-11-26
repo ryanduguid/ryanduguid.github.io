@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/drilling-machines/
 
-> Machining/finishing assets: Drilling machines: effective life 15 years, last updated 1 January 2004 (Table A). See determination F2025L01097.
+> Machining/finishing assets: Drilling machines: life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 January 2004.
 
 # Machining/finishing assets: Drilling machines
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Drilling machines
 Under | Metal casting assets (non-ferrous e.g. aluminium, brass and magnesium): / Machining/finishing assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2004. The life that appli
 
 ## Other rows under Machining/finishing assets
 
-Rates from the source determination.
+Other rows under Machining/finishing assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Blast machines (including shot, sand, bead) | 20 years | 5.00% | 10.00%
@@ -48,7 +48,7 @@ Vibrating machines (including rumbling and knock out machines | 10 years | 10.00
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Drilling machines | Steel coil roll forming, slitting and blanking and sheet metal forming | 10 years | 10.00% | 20.00%
@@ -70,7 +70,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/drilling-machines/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/drilling-machines/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Blast machines (including shot, sand, bead): https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/blast-machines/
 - CNC lathes: https://duguid.com.au/tools/depreciation-rates/industry/non-ferrous-metal-casting/cnc-lathes/

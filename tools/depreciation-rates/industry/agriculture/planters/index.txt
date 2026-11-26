@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/planters/
 
-> Seeding and fertilizing assets: Planters …: effective life 15 years, last updated 1 January 2007 (Table A). See determination F2025L01097.
+> Seeding and fertilizing assets: Planters …: life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 January 2007.
 
 # Seeding and fertilizing assets: Planters …
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Planters (including bar, box, combined seeders, precision planters and row crop planters)
 Under | Grain, cotton, peanut and rice assets: / Seeding and fertilizing assets:
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 January 2007. The life that appli
 
 ## Other rows under Seeding and fertilizing assets
 
-Rates from the source determination.
+Other rows under Seeding and fertilizing assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Fertilizer spreaders (including linkage and trailed) | 10 years | 10.00% | 20.00%
@@ -44,7 +44,7 @@ Seed and fertilizer bins | 15 years | 6.67% | 13.33%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Planters | Fruit and tree nut growing | 12 years | 8.33% | 16.67%
@@ -63,7 +63,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/planters/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/planters/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Fertilizer spreaders (including linkage and trailed): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/fertilizer-spreaders/
 - Seed and fertilizer bins: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/seed-and-fertilizer-bins/

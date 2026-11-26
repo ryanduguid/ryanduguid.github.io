@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/brake-shoe-riveting-machines/
 
-> Workshop assets: Brake shoe riveting machines: effective life 5 years, last updated 1 July 2015 (Table A). See determination F2025L01097.
+> Workshop assets: Brake shoe riveting machines: life 5 years, prime cost 20.00%, diminishing value 40.00% if first held from 10 May 2006. Updated 1 July 2015.
 
 # Workshop assets: Brake shoe riveting machines
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Brake shoe riveting machines
 Under | Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2015. The life that applies 
 
 ## Other rows under Workshop assets
 
-Rates from the source determination.
+Other rows under Workshop assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Air conditioning service assets (including refrigerant management/charging stations, refrigerant recovery machines, refrigerant recovery and recycling machines and vacuum pumps) | 5 years | 20.00% | 40.00%
@@ -62,7 +62,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/brake-shoe-riveting-machines/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/brake-shoe-riveting-machines/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Air conditioning service assets (including refrigerant management/charging stations, refrigerant recovery machines, refrigerant recovery and recycling machines and vacuum pumps): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/air-conditioning-service-assets/
 - Air compression assets (including air dryers, air receivers, compressors and packaged air compression systems): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/air-compression-assets/

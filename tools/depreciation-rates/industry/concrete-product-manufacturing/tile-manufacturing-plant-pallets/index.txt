@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/tile-manufacturing-plant-pallets/
 
-> Tile manufacturing plant …: Pallets (aluminium used in extrusion process): effective life 5 years, last updated 1 January 2001 (Table A).
+> Pallets (aluminium used in extrusion process): life 5 years, prime cost 20.00%, diminishing value 40.00% if first held from 10 May 2006. Updated 1 January 2001.
 
 # Tile manufacturing plant …: Pallets (aluminium used in extrusion process)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Pallets (aluminium used in extrusion process)
 Under | Tile manufacturing plant (cement and concrete, but excluding concrete roof tiles):
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2001. The life that appli
 
 ## Other rows under Tile manufacturing plant (cement and concrete, but excluding concrete roof tiles)
 
-Rates from the source determination.
+Other rows under Tile manufacturing plant (cement and concrete, but excluding concrete roof tiles). Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 General plant | 10 years | 10.00% | 20.00%
@@ -41,7 +41,7 @@ Pallets (aluminium used in extrusion process) (this page) | 5 years | 20.00% | 4
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Pallets | Motor vehicle manufacturing | 10 years | 10.00% | 20.00%
@@ -60,7 +60,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/tile-manufacturing-plant-pallets/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/tile-manufacturing-plant-pallets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - General plant: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/general-plant/
 - Pallets: https://duguid.com.au/tools/depreciation-rates/industry/motor-vehicle-manufacturing/pallets/

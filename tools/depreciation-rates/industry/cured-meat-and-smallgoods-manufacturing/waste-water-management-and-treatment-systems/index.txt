@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-smallgoods-manufacturing/waste-water-management-and-treatment-systems/
 
-> Ancillary assets: Waste water management and treatment systems: effective life 20 years, last updated 1 July 2016 (Table A).
+> Waste water management and treatment systems: life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 July 2016.
 
 # Ancillary assets: Waste water management and treatment systems
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Waste water management and treatment systems
 Under | Ancillary assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2016. The life that applies 
 
 ## Other rows under Ancillary assets
 
-Rates from the source determination.
+Other rows under Ancillary assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Freezers (including blast freezers, crust freezers etc) | 15 years | 6.67% | 13.33%
@@ -58,7 +58,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-smallgoods-manufacturing/waste-water-management-and-treatment-systems/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-smallgoods-manufacturing/waste-water-management-and-treatment-systems/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Freezers (including blast freezers, crust freezers etc): https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-smallgoods-manufacturing/freezers/
 - Hoppers: https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-smallgoods-manufacturing/hoppers/

@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-conveyors/
 
-> General assets: Conveyors: effective life 20 years, prime cost 5.00%, diminishing value 10.00%, last updated 1 July 2012 (Table A, 2025 determination).
+> General assets: Conveyors: life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 July 2012.
 
 # Fibre cement building boards manufacturing assets / General assets: Conveyors (Concrete product manufacturing)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Conveyors
 Under | Fibre cement building boards manufacturing assets: / General assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2012. The life that applies 
 
 ## Other rows under General assets
 
-Rates from the source determination.
+Other rows under General assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Air compressors (rotary screw) | 10 years | 10.00% | 20.00%
@@ -46,7 +46,7 @@ Steel templates | 7 years | 14.29% | 28.57%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination). The first 20 of 34 are shown.
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Conveyors (including elevators) | AGRICULTURE, FORESTRY AND FISHING | 10 years | 10.00% | 20.00%
@@ -84,7 +84,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-conveyors/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-conveyors/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Air compressors (rotary screw): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-air-compressors/
 - Control systems: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/fibre-cement-building-boards-control-systems/

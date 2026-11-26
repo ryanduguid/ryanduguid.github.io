@@ -16,7 +16,7 @@ The determination notes for this heading: Determinations for assets used in mini
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
 
-Rates from the source determination.
+Rows of Ceramic product manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Clay brick and paver manufacturing assets: | | | |

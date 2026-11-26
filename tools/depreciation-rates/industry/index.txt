@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## AGRICULTURE, FORESTRY AND FISHING
 
-Rates from the source determination.
+Effective lives for AGRICULTURE, FORESTRY AND FISHING from the source determination.
 
 Heading | Lives
 AGRICULTURE, FORESTRY AND FISHING (rows for the whole division) | 73
@@ -40,7 +40,7 @@ Other agriculture and fishing support services | 31
 
 ## MINING
 
-Rates from the source determination.
+Effective lives for MINING from the source determination.
 
 Heading | Lives
 MINING (rows for the whole division) | 128
@@ -58,7 +58,7 @@ Other mining support services | 27
 
 ## MANUFACTURING
 
-Rates from the source determination.
+Effective lives for MANUFACTURING from the source determination.
 
 Heading | Lives
 Meat processing | 199
@@ -141,7 +141,7 @@ Other manufacturing n.e.c. | 4
 
 ## ELECTRICITY, GAS, WATER AND WASTE SERVICES
 
-Rates from the source determination.
+Effective lives for ELECTRICITY, GAS, WATER AND WASTE SERVICES from the source determination.
 
 Heading | Lives
 Electricity supply | 104
@@ -154,7 +154,7 @@ Waste remediation and materials recovery services | 36
 
 ## CONSTRUCTION
 
-Rates from the source determination.
+Effective lives for CONSTRUCTION from the source determination.
 
 Heading | Lives
 CONSTRUCTION (rows for the whole division) | 58
@@ -162,7 +162,7 @@ Other heavy and civil engineering construction | 1
 
 ## WHOLESALE TRADE
 
-Rates from the source determination.
+Effective lives for WHOLESALE TRADE from the source determination.
 
 Heading | Lives
 WHOLESALE TRADE (rows for the whole division) | 16
@@ -172,7 +172,7 @@ Commission-based wholesaling | 1
 
 ## RETAIL TRADE
 
-Rates from the source determination.
+Effective lives for RETAIL TRADE from the source determination.
 
 Heading | Lives
 RETAIL TRADE (rows for the whole division) | 21
@@ -184,7 +184,7 @@ Other store-based retailing | 2
 
 ## ACCOMMODATION AND FOOD SERVICES
 
-Rates from the source determination.
+Effective lives for ACCOMMODATION AND FOOD SERVICES from the source determination.
 
 Heading | Lives
 Accommodation | 43
@@ -192,7 +192,7 @@ Cafes, restaurants, takeaway food services, pubs, taverns, bars and clubs (hospi
 
 ## TRANSPORT, POSTAL AND WAREHOUSING
 
-Rates from the source determination.
+Effective lives for TRANSPORT, POSTAL AND WAREHOUSING from the source determination.
 
 Heading | Lives
 Road transport | 15
@@ -211,7 +211,7 @@ Other warehousing and storage services | 29
 
 ## INFORMATION MEDIA AND TELECOMMUNICATIONS
 
-Rates from the source determination.
+Effective lives for INFORMATION MEDIA AND TELECOMMUNICATIONS from the source determination.
 
 Heading | Lives
 Motion picture and video activities | 91
@@ -225,14 +225,14 @@ Library and other information services | 2
 
 ## FINANCIAL AND INSURANCE SERVICES
 
-Rates from the source determination.
+Effective lives for FINANCIAL AND INSURANCE SERVICES from the source determination.
 
 Heading | Lives
 Banking, building society and credit union operations | 11
 
 ## RENTAL, HIRING AND REAL ESTATE SERVICES
 
-Rates from the source determination.
+Effective lives for RENTAL, HIRING AND REAL ESTATE SERVICES from the source determination.
 
 Heading | Lives
 Rental and hiring services (except real estate) | 70
@@ -241,7 +241,7 @@ Non-residential property operators | 13
 
 ## PROFESSIONAL, SCIENTIFIC AND TECHNICAL SERVICES
 
-Rates from the source determination.
+Effective lives for PROFESSIONAL, SCIENTIFIC AND TECHNICAL SERVICES from the source determination.
 
 Heading | Lives
 Scientific research services | 44
@@ -253,7 +253,7 @@ Professional photographic services | 21
 
 ## ADMINISTRATIVE AND SUPPORT SERVICES
 
-Rates from the source determination.
+Effective lives for ADMINISTRATIVE AND SUPPORT SERVICES from the source determination.
 
 Heading | Lives
 Building and other industrial cleaning services | 19
@@ -262,14 +262,14 @@ Packaging services | 26
 
 ## EDUCATION AND TRAINING
 
-Rates from the source determination.
+Effective lives for EDUCATION AND TRAINING from the source determination.
 
 Heading | Lives
 EDUCATION AND TRAINING (rows for the whole division) | 0
 
 ## HEALTH CARE AND SOCIAL ASSISTANCE
 
-Rates from the source determination.
+Effective lives for HEALTH CARE AND SOCIAL ASSISTANCE from the source determination.
 
 Heading | Lives
 HEALTH CARE AND SOCIAL ASSISTANCE (rows for the whole division) | 4
@@ -285,7 +285,7 @@ Child care services | 35
 
 ## ARTS AND RECREATION SERVICES
 
-Rates from the source determination.
+Effective lives for ARTS AND RECREATION SERVICES from the source determination.
 
 Heading | Lives
 Museum operation | 1
@@ -302,7 +302,7 @@ Casino operations | 21
 
 ## OTHER SERVICES
 
-Rates from the source determination.
+Effective lives for OTHER SERVICES from the source determination.
 
 Heading | Lives
 Automotive repair and maintenance | 107

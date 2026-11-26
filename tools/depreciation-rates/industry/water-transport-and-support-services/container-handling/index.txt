@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/container-handling/
 
-> Forklifts: Container handling: effective life 7 1/2 years, prime cost 13.33%, diminishing value 26.67%, last updated 1 July 2002 (Table A, 2025 determination).
+> Forklifts: Container handling: life 7 1/2 years, prime cost 13.33%, diminishing value 26.67% if first held from 10 May 2006. Updated 1 July 2002.
 
 # Forklifts: Container handling
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Container handling
 Under | Port assets: / Cargo handling equipment: / Forklifts:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2002. The life that applies 
 
 ## Other rows under Forklifts
 
-Rates from the source determination.
+Other rows under Forklifts. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Container handling (this page) | 7 1/2 years | 13.33% | 26.67%
@@ -51,7 +51,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/container-handling/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/container-handling/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - General handling: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/general-handling/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

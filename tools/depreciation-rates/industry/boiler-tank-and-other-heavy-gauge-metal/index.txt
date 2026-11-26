@@ -14,7 +14,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
 
-Rates from the source determination.
+Rows of Boiler, tank and other heavy gauge metal container manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Sheet metal tanks manufacturing assets: | | | |

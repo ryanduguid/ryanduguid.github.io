@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/weighing-assets-for-carriages-and-locomotives/
 
-> Support assets: Weighing assets for carriages and locomotives: effective life 20 years, last updated 1 July 2014 (Table A).
+> Weighing assets for carriages and locomotives: life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 July 2014.
 
 # Support assets: Weighing assets for carriages and locomotives
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Weighing assets for carriages and locomotives
 Under | Support assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2014. The life that applies 
 
 ## Other rows under Support assets
 
-Rates from the source determination.
+Other rows under Support assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Racking and storage assets | 20 years | 5.00% | 10.00%
@@ -58,7 +58,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/weighing-assets-for-carriages-and-locomotives/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/weighing-assets-for-carriages-and-locomotives/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Racking and storage assets: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/racking-and-storage-assets/
 - Rail vehicle moving and placing assets (including crabs, shunting locomotives and trackmobiles): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/rail-vehicle-moving-and-placing-assets/

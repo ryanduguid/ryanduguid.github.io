@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/lime-silos/
 
-> Bore water treatment assets: Lime silos: effective life 50 years, last updated 1 January 2005 (Table A). See determination F2025L01097.
+> Bore water treatment assets: Lime silos: life 50 years, prime cost 2.00%, diminishing value 4.00% if first held from 10 May 2006. Updated 1 January 2005.
 
 # Bore water treatment assets: Lime silos
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Lime silos
 Under | Assets used in water supply: / Water treatment assets: / Bore water treatment assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2005. The life that appli
 
 ## Other rows under Bore water treatment assets
 
-Rates from the source determination.
+Other rows under Bore water treatment assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Backwash pumps | 25 years | 4.00% | 8.00%
@@ -60,7 +60,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/lime-silos/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/lime-silos/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Backwash pumps: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/backwash-pumps/
 - Batching tanks: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/batching-tanks/

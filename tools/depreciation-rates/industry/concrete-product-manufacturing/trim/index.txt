@@ -1,8 +1,8 @@
-# Trim effective life: 5 years under ATO rules
+# Trim effective life: 5 years (F2025L01097)
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/trim/
 
-> Plates: Trim (including plates used for barge and ridge tiles): effective life 5 years, last updated 1 July 2012 (Table A).
+> Trim …: effective life 5 years, prime cost 20.00%, diminishing value 40.00% if first held from 10 May 2006. Updated 1 July 2012 (Table A, 2025).
 
 # Plates: Trim (including plates used for barge and ridge tiles)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Trim (including plates used for barge and ridge tiles)
 Under | Concrete roof tile manufacturing assets: / Plates:
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 July 2012. The life that applies 
 
 ## Other rows under Plates
 
-Rates from the source determination.
+Other rows under Plates. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 General | 7 years | 14.29% | 28.57%
@@ -53,7 +53,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/trim/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/trim/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - General: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/plates-general/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

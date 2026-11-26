@@ -71,13 +71,20 @@ fn preformatted(inner: &str) -> String {
     format!("```\n{}\n```", lines.join("\n"))
 }
 
-/// The visible main content of a page as plain text, with its link destinations.
-pub fn main_text(html: &str, page_url: &str) -> Result<String, String> {
+/// Main content shared by the plain-text and Markdown editions.
+pub(crate) fn visible_main(html: &str) -> Result<String, String> {
     let matches = re(MAIN_PATTERN, S | I).findall(html);
     if matches.len() != 1 {
         return Err("llms-full: page must have exactly one <main>".into());
     }
-    let body = core::visible_html(&re(WAYFINDING_NAV_PATTERN, S | I).sub(" ", &matches[0]));
+    Ok(core::visible_html(
+        &re(WAYFINDING_NAV_PATTERN, S | I).sub(" ", &matches[0]),
+    ))
+}
+
+/// The visible main content of a page as plain text, with its link destinations.
+pub fn main_text(html: &str, page_url: &str) -> Result<String, String> {
+    let body = visible_main(html)?;
     let mut pres: Vec<String> = Vec::new();
     let body = re(PRE_PATTERN, S | I).sub_with(&body, |m| {
         pres.push(preformatted(&m[1]));

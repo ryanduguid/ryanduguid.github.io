@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-air-driers/
 
-> Air driers, Pneumatic systems assets, Support assets: effective life 7 years, last updated 1 July 2012 (Table A). See determination F2025L01097.
+> Air driers, Support assets: life 7 years, prime cost 14.29%, diminishing value 28.57% if first held from 10 May 2006. Updated 1 July 2012.
 
 # Steel coil roll forming assets / Support assets / Pneumatic systems assets: Air driers (Steel coil roll forming, slitting and blanking and sheet metal forming)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Air driers
 Under | Steel coil roll forming assets: / Support assets: / Pneumatic systems assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2012. The life that applies 
 
 ## Other rows under Pneumatic systems assets
 
-Rates from the source determination.
+Other rows under Pneumatic systems assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Air compressors | 7 years | 14.29% | 28.57%
@@ -52,7 +52,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-air-driers/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-air-driers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-air-compressors/
 - Air receivers: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/steel-coil-roll-forming-assets-air-receivers/

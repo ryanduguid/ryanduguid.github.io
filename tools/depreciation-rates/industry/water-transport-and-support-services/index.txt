@@ -16,7 +16,7 @@ The determination notes for this heading: From the 2012-13 income year, a capped
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
 
-Rates from the source determination.
+Rows of Water transport and support services. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Commercial vessels: | | | |

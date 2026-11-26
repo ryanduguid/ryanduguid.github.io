@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-smallgoods-manufacturing/hoppers/
 
-> Ancillary assets: Hoppers: effective life 12 years, prime cost 8.33%, diminishing value 16.67%, last updated 1 July 2016 (Table A, 2025 determination).
+> Ancillary assets: Hoppers: life 12 years, prime cost 8.33%, diminishing value 16.67% if first held from 10 May 2006. Updated 1 July 2016.
 
 # Ancillary assets: Hoppers
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Hoppers
 Under | Ancillary assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2016. The life that applies 
 
 ## Other rows under Ancillary assets
 
-Rates from the source determination.
+Other rows under Ancillary assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Cages, stillages and trolleys (stainless steel) | 15 years | 6.67% | 13.33%
@@ -53,7 +53,7 @@ Waste water management and treatment systems | 20 years | 5.00% | 10.00%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Hoppers | Nursery and floriculture production | 15 years | 6.67% | 13.33%
@@ -91,7 +91,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-smallgoods-manufacturing/hoppers/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-smallgoods-manufacturing/hoppers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Cages, stillages and trolleys (stainless steel): https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-smallgoods-manufacturing/cages-stillages-and-trolleys/
 - Chillers: https://duguid.com.au/tools/depreciation-rates/industry/cured-meat-and-smallgoods-manufacturing/chillers/

@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/aluminium-smelting/pumps/
 
-> Pumps: effective life 20 years, prime cost 5.00%, diminishing value 10.00%, last updated 1 January 2003 (Table A, 2025 determination).
+> Pumps: effective life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 January 2003 (Table A, 2025).
 
 # Pumps (Aluminium smelting)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Pumps
 Table | Table A (industry categories), MANUFACTURING / Aluminium smelting, ANZSIC 21320
@@ -30,7 +30,7 @@ The life was last reviewed and determined on 1 January 2003. The life that appli
 
 ## Other rows under Aluminium smelting
 
-Rates from the source determination.
+Other rows under Aluminium smelting. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Compressors | 20 years | 5.00% | 10.00%
@@ -47,7 +47,7 @@ Pumps (this page) | 20 years | 5.00% | 10.00%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination). The first 20 of 46 are shown.
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Pumps | AGRICULTURE, FORESTRY AND FISHING | 3 years | 33.33% | 66.67%
@@ -85,7 +85,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/aluminium-smelting/pumps/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/aluminium-smelting/pumps/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Compressors: https://duguid.com.au/tools/depreciation-rates/industry/aluminium-smelting/compressors/
 - Control systems assets: https://duguid.com.au/tools/depreciation-rates/industry/aluminium-smelting/control-systems-assets/

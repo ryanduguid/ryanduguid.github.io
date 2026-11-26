@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/telecommunications-services/antennas-battery-backup-radio-transmitters-receivers-and/
 
-> Base station assets: Antennas, battery backup, radio transmitters/receivers and rectifiers: effective life 6 years, last updated 1 July 2002 (Table A).
+> Antennas, battery backup, radio …: life 6 years, prime cost 16.67%, diminishing value 33.33% if first held from 10 May 2006. Updated 1 July 2002.
 
 # Base station assets: Antennas, battery backup, radio transmitters/receivers and rectifiers
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Antennas, battery backup, radio transmitters/receivers and rectifiers
 Under | Mobile telecommunications assets: / Base station assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2002. The life that applies 
 
 ## Other rows under Base station assets
 
-Rates from the source determination.
+Other rows under Base station assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Antennas, battery backup, radio transmitters/receivers and rectifiers (this page) | 6 years | 16.67% | 33.33%
@@ -51,7 +51,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/telecommunications-services/antennas-battery-backup-radio-transmitters-receivers-and/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/telecommunications-services/antennas-battery-backup-radio-transmitters-receivers-and/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Towers: https://duguid.com.au/tools/depreciation-rates/industry/telecommunications-services/mobile-telecommunications-assets-towers/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

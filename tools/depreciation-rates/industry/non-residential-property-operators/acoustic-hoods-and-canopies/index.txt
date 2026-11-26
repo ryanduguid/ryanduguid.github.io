@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/non-residential-property-operators/acoustic-hoods-and-canopies/
 
-> Generator assets: Acoustic hoods and canopies: effective life 20 years, last updated 1 July 2005 (Table A). See determination F2025L01097.
+> Acoustic hoods and canopies, ANZSIC 67120: life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 July 2005.
 
 # Generator assets: Acoustic hoods and canopies (Non-residential property operators)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Acoustic hoods and canopies
 Under | Commercial office building assets: / Power supply assets: / Emergency or standby: / Generator assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2005. The life that applies 
 
 ## Other rows under Generator assets
 
-Rates from the source determination.
+Other rows under Generator assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Acoustic hoods and canopies (this page) | 20 years | 5.00% | 10.00%
@@ -42,7 +42,7 @@ Power management units | 15 years | 6.67% | 13.33%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Acoustic hoods and canopies | Table B, Power supply assets | 20 years | 5.00% | 10.00%
@@ -61,7 +61,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/non-residential-property-operators/acoustic-hoods-and-canopies/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/non-residential-property-operators/acoustic-hoods-and-canopies/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Generators (incorporating attached engine management and generator monitoring instruments): https://duguid.com.au/tools/depreciation-rates/industry/non-residential-property-operators/generators/
 - Power management units: https://duguid.com.au/tools/depreciation-rates/industry/non-residential-property-operators/power-management-units/

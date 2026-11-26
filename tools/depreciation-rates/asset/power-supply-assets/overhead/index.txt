@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/overhead/
 
-> Distribution lines: Overhead …: effective life 45 years, prime cost 2.22%, diminishing value 4.44%, last updated 1 July 2014 (Table B, 2025 determination).
+> Distribution lines: Overhead …: life 45 years, prime cost 2.22%, diminishing value 4.44% if first held from 10 May 2006. Updated 1 July 2014.
 
 # Distribution lines: Overhead …
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Overhead (incorporating poles - concrete, wood, steel or stobie - and electrical equipment the responsibility of the private landholder such as conductors, cross arms etc)
 Under | Power supply assets: / Private electricity line assets (where used for a specified purpose): / Distribution lines:
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 July 2014. The life that applies 
 
 ## Other rows under Distribution lines
 
-Rates from the source determination.
+Other rows under Distribution lines. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Combination of overhead and underground | 47 1/2 years | 2.11% | 4.21%
@@ -54,7 +54,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/overhead/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/overhead/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Combination of overhead and underground: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/combination-of-overhead-and-underground/
 - Underground (incorporating cables, fittings and ground pad mounted transformers): https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/underground/

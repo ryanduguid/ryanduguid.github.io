@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/sheep-farming/crutching-machines-portable-type/
 
-> Crutching machines, portable type: effective life 10 years, last updated 1 January 2007 (Table A). See determination F2025L01097.
+> Crutching machines, portable type: life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 January 2007.
 
 # Crutching machines, portable type
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Crutching machines, portable type
 Table | Table A (industry categories), AGRICULTURE, FORESTRY AND FISHING / Sheep farming, ANZSIC 01410
@@ -30,7 +30,7 @@ The life was last reviewed and determined on 1 January 2007. The life that appli
 
 ## Other rows under Sheep farming
 
-Rates from the source determination.
+Other rows under Sheep farming. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Crutching machines, portable type (this page) | 10 years | 10.00% | 20.00%
@@ -55,7 +55,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/sheep-farming/crutching-machines-portable-type/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/sheep-farming/crutching-machines-portable-type/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Feeders (including grain feeders, oat feeders, hay feeders): https://duguid.com.au/tools/depreciation-rates/industry/sheep-farming/feeders/
 - Footbaths: https://duguid.com.au/tools/depreciation-rates/industry/sheep-farming/footbaths/

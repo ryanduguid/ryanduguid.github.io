@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/mining/load-haul-dump-machines/
 
-> Underground mobile mining machines: Load-haul-dump machines: effective life 6 years, last updated 1 July 2002 (Table A).
+> Load-haul-dump machines: life 6 years, prime cost 16.67%, diminishing value 33.33% if first held from 10 May 2006. Updated 1 July 2002.
 
 # Underground mobile mining machines: Load-haul-dump machines
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Load-haul-dump machines
 Under | Underground mobile mining machines:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2002. The life that applies 
 
 ## Other rows under Underground mobile mining machines
 
-Rates from the source determination.
+Other rows under Underground mobile mining machines. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Compressors | 10 years | 10.00% | 20.00%
@@ -64,7 +64,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/mining/load-haul-dump-machines/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/mining/load-haul-dump-machines/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Compressors: https://duguid.com.au/tools/depreciation-rates/industry/mining/underground-mobile-mining-compressors/
 - Continuous haulage systems: https://duguid.com.au/tools/depreciation-rates/industry/mining/continuous-haulage-systems/

@@ -188,40 +188,44 @@ pub fn description_candidates(
         .as_deref()
         .map_or_else(|| "not stated".to_owned(), date);
     let full = format!(
-        ": effective life {}, prime cost {}, diminishing value {}, last updated {updated} ({table}, {} determination).",
+        ": effective life {}, prime cost {}, diminishing value {} if first held from 10 May 2006. Updated {updated} ({table}, {}).",
         years(life),
         prime_cost(life),
         diminishing_value(life),
         source.year(),
     );
-    let short = format!(
-        ": effective life {}, last updated {updated} ({table}).",
-        years(life)
+    let compact = format!(
+        ": life {}, prime cost {}, diminishing value {} if first held from 10 May 2006. Updated {updated}.",
+        years(life),
+        prime_cost(life),
+        diminishing_value(life)
     );
     let labels = h1_candidates(group, entry);
+    let row = name(entry);
     let row_first = row_first(group, entry);
-    // An H1 label whole comes first, with the figures or the life alone. Then the row
-    // first with 1 or 2 parts of its context, as for titles, and only then a cut H1 label,
-    // whose cut can take the row; each cut ends in an ellipsis. Last, the end of the most
-    // specific label, where rows that differ only in their closing words differ.
+    // Keep both rates and the row date in every candidate. Prefer a whole label and
+    // spend the remaining space on the industry or group before cutting a long label.
     let mut out: Vec<String> = labels
         .iter()
-        .flat_map(|label| [format!("{label}{full}"), format!("{label}{short}")])
+        .chain(std::iter::once(&row))
+        .chain(&row_first)
+        .flat_map(|label| [format!("{label}{full}"), format!("{label}{compact}")])
         .filter(|text| text.chars().count() <= DESCRIPTION_MAX)
         .collect();
     for label in row_first.iter().chain(&labels) {
-        for tail in [&full, &short] {
+        for tail in [&compact, &full] {
             let room = DESCRIPTION_MAX.saturating_sub(tail.chars().count());
             out.push(format!("{}{tail}", cut(label, room)));
         }
     }
     if let Some(label) = labels.last() {
-        for tail in [&full, &short] {
+        for tail in [&compact, &full] {
             let room = DESCRIPTION_MAX.saturating_sub(tail.chars().count());
             out.push(format!("{}{tail}", fit_end(label, room)));
         }
     }
     out.dedup();
+    out.sort_by_key(|description| description.chars().count() < 120);
     out
 }
 
@@ -351,8 +355,7 @@ fn facts(site: &Site, row: RowRef, life: &Life) -> String {
     rows.push_str(&fact("Last reviewed and determined", &esc(&updated)));
     rows.push_str(&notes::marks(&entry.flags));
     format!(
-        "        <section id=\"life\">\n        <h2>Effective life and rates</h2>\n        <div class=\"table-scroll\" role=\"region\" aria-label=\"Effective life and rates\" tabindex=\"0\">\n        <table class=\"facts facts--kv\" aria-label=\"Effective life and rates\">\n          <caption>Source <a href=\"#source\">{}</a> ({}), registered on {}.</caption>\n          <tbody>\n{rows}          </tbody>\n        </table>\n        </div>\n        </section>\n",
-        esc(&source.title),
+        "        <section id=\"life\">\n        <h2>Effective life and rates</h2>\n        <div class=\"table-scroll\" role=\"region\" aria-label=\"Effective life and rates\" tabindex=\"0\">\n        <table class=\"facts facts--kv\">\n          <caption>Effective life and rates from <a href=\"#source\">{}</a>, registered on {}.</caption>\n          <tbody>\n{rows}          </tbody>\n        </table>\n        </div>\n        </section>\n",
         esc(&source.register_id),
         date(&source.registered)
     )
@@ -401,7 +404,7 @@ fn rows_table(
         ""
     };
     format!(
-        "        <div class=\"table-scroll\" role=\"region\" aria-label=\"{label}\" tabindex=\"0\">\n        <table class=\"facts facts--figures\" aria-label=\"{label}\">\n          <caption>Rates from the <a href=\"#source\">source determination</a>.</caption>\n          <thead><tr><th scope=\"col\">Row</th>{head_place}<th scope=\"col\">Life</th><th scope=\"col\">Prime cost</th><th scope=\"col\">Diminishing value</th></tr></thead>\n          <tbody>\n{body}          </tbody>\n        </table>\n        </div>\n",
+        "        <div class=\"table-scroll\" role=\"region\" aria-label=\"{label}\" tabindex=\"0\">\n        <table class=\"facts facts--figures\">\n          <caption>{label}. Effective lives and rates from the <a href=\"#source\">source determination</a>.</caption>\n          <thead><tr><th scope=\"col\">Row</th>{head_place}<th scope=\"col\">Life</th><th scope=\"col\">Prime cost</th><th scope=\"col\">Diminishing value</th></tr></thead>\n          <tbody>\n{body}          </tbody>\n        </table>\n        </div>\n",
         label = esc(label)
     )
 }

@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/reservoirs-elevated-tanks-and-standpipes/
 
-> Assets used in water supply: Reservoirs, elevated tanks and standpipes …: effective life 80 years, last updated 1 January 2005 (Table A).
+> Reservoirs, elevated tanks and standpipes …: life 80 years, prime cost 1.25%, diminishing value 2.50% if first held from 10 May 2006. Updated 1 January 2005.
 
 # Assets used in water supply: Reservoirs, elevated tanks and standpipes …
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Reservoirs, elevated tanks and standpipes: whether made from steel or concrete
 Under | Assets used in water supply:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2005. The life that appli
 
 ## Other rows under Assets used in water supply
 
-Rates from the source determination.
+Other rows under Assets used in water supply. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Aerators and blowers | 20 years | 5.00% | 10.00%
@@ -56,7 +56,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/reservoirs-elevated-tanks-and-standpipes/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/reservoirs-elevated-tanks-and-standpipes/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Aerators and blowers: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/aerators-and-blowers-7850cb/
 - Cathodic protection systems: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/cathodic-protection-systems/

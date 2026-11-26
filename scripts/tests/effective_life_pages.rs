@@ -426,6 +426,22 @@ fn every_asset_page_opens_with_a_sentence_that_answers_alone() {
             .replace("<span class=\"function-symbol\">", "")
             .replace("</span>", "");
         let years = &entry.life.as_ref().unwrap().years;
+        let description =
+            between(html, "<meta name=\"description\" content=\"", "\"").to_lowercase();
+        for method in ["Prime cost", "Diminishing value"] {
+            let cell = format!(r#"<th scope="row">{method} rate</th><td>"#);
+            let rate = between(html, &cell, " (");
+            assert!(
+                description.contains(&format!("{} {rate}", method.to_lowercase())),
+                "{}: {description}",
+                page.url
+            );
+        }
+        assert!(
+            description.contains("if first held from 10 may 2006"),
+            "{}: {description}",
+            page.url
+        );
         let id = format!("({})", data.source.register_id);
         assert!(lead.contains(&id), "{}: {lead}", page.url);
         assert!(

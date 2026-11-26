@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/hullers/
 
-> Grain cleaning, milling and refining assets: Hullers: effective life 15 years, last updated 1 July 2017 (Table A). See determination F2025L01097.
+> Hullers: effective life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 July 2017 (Table A, 2025).
 
 # Grain cleaning, milling and refining assets: Hullers
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Hullers
 Under | Rice milling assets: / Grain cleaning, milling and refining assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2017. The life that applies 
 
 ## Other rows under Grain cleaning, milling and refining assets
 
-Rates from the source determination.
+Other rows under Grain cleaning, milling and refining assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Colour sorters | 10 years | 10.00% | 20.00%
@@ -52,7 +52,7 @@ Thickness grading assets (including scalpers and rotary screens) | 20 years | 5.
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Hullers | AGRICULTURE, FORESTRY AND FISHING | 12 years | 8.33% | 16.67%
@@ -72,7 +72,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/hullers/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/hullers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Colour sorters: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/colour-sorters/
 - De-stoners (including aspirators): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/de-stoners/

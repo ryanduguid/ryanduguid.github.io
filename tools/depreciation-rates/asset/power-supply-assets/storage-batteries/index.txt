@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/storage-batteries/
 
-> Power supply assets: Storage batteries: effective life 15 years, last updated 1 July 2013 (Table B). See determination F2025L01097.
+> Power supply assets: Storage batteries: life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 July 2013.
 
 # Power supply assets: Storage batteries
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Storage batteries
 Under | Power supply assets:
@@ -43,7 +43,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/storage-batteries/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/storage-batteries/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text

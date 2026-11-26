@@ -14,7 +14,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
 
-Rates from the source determination.
+Rows of Banking, building society and credit union operations. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Automatic teller machines (ATMs) – see Table B Automatic teller machines (ATMs) | | | |

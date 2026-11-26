@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/alumina-production/initial-containment-areas/
 
-> Bauxite residue disposal assets: Initial containment areas: effective life 20 years, last updated 1 January 2001 (Table A).
+> Initial containment areas: life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 January 2001.
 
 # Bauxite residue disposal assets: Initial containment areas
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Initial containment areas
 Under | Alumina manufacturing (including bauxite refining and calcined alumina manufacturing): / Bauxite residue disposal assets:
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 January 2001. The life that appli
 
 ## Other rows under Bauxite residue disposal assets
 
-Rates from the source determination.
+Other rows under Bauxite residue disposal assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Initial containment areas (this page) | 20 years | 5.00% | 10.00%
@@ -53,7 +53,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/alumina-production/initial-containment-areas/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/alumina-production/initial-containment-areas/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Mudlakes: https://duguid.com.au/tools/depreciation-rates/industry/alumina-production/mudlakes/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

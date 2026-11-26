@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/rail-freight-and-passenger-transport/maintenance-vehicles/
 
-> Track and maintenance assets: Maintenance vehicles: effective life 15 years, last updated 1 July 2010 (Table A). See determination F2025L01097.
+> Maintenance vehicles: effective life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 July 2010 (Table A, 2025).
 
 # Track and maintenance assets: Maintenance vehicles
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Maintenance vehicles
 Under | Monorail operation assets: / Infrastructure assets: / Track and maintenance assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2010. The life that applies 
 
 ## Other rows under Track and maintenance assets
 
-Rates from the source determination.
+Other rows under Track and maintenance assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Beams and columns | 30 years | 3.33% | 6.67%
@@ -44,7 +44,7 @@ Traversers | 30 years | 3.33% | 6.67%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Maintenance vehicles | MINING | 8 years | 12.50% | 25.00%
@@ -63,7 +63,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/rail-freight-and-passenger-transport/maintenance-vehicles/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/rail-freight-and-passenger-transport/maintenance-vehicles/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Beams and columns: https://duguid.com.au/tools/depreciation-rates/industry/rail-freight-and-passenger-transport/beams-and-columns/
 - Track: https://duguid.com.au/tools/depreciation-rates/industry/rail-freight-and-passenger-transport/track/

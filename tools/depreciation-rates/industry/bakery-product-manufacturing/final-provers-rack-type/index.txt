@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/bakery-product-manufacturing/final-provers-rack-type/
 
-> Final provers (rack type) …: effective life 8 years, prime cost 12.50%, diminishing value 25.00%, last updated 1 January 2002 (Table A, 2025 determination).
+> Final provers (rack type): life 8 years, prime cost 12.50%, diminishing value 25.00% if first held from 10 May 2006. Updated 1 January 2002.
 
 # Baking assets used by large-scale manufacturers of biscuits, bread, cakes, pastries and pies: Final provers (rack type)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Final provers (rack type)
 Under | Baking assets used by large-scale manufacturers of biscuits, bread, cakes, pastries and pies:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2002. The life that appli
 
 ## Other rows under Baking assets used by large-scale manufacturers of biscuits, bread, cakes, pastries and pies
 
-Rates from the source determination.
+Other rows under Baking assets used by large-scale manufacturers of biscuits, bread, cakes, pastries and pies. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Ancillary assets (including basket/crate washers, basket stack movers, crate/pan stackers and unstackers, depanners/detinners, foil handling denesters, oil spray units, pan cleaners, and topping applicators) | 15 years | 6.67% | 13.33%
@@ -60,7 +60,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/bakery-product-manufacturing/final-provers-rack-type/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/bakery-product-manufacturing/final-provers-rack-type/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Ancillary assets (including basket/crate washers, basket stack movers, crate/pan stackers and unstackers, depanners/detinners, foil handling denesters, oil spray units, pan cleaners, and topping applicators): https://duguid.com.au/tools/depreciation-rates/industry/bakery-product-manufacturing/ancillary-assets/
 - Automatic pan storage units: https://duguid.com.au/tools/depreciation-rates/industry/bakery-product-manufacturing/automatic-pan-storage-units/

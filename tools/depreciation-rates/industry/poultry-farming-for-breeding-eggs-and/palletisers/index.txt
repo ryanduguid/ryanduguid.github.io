@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/palletisers/
 
-> Egg grading and packing assets: Palletisers: effective life 10 years, last updated 1 January 2007 (Table A). See determination F2025L01097.
+> Egg grading and packing assets: Palletisers: life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 January 2007.
 
 # Egg grading and packing assets: Palletisers
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Palletisers
 Under | Egg grading and packing assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2007. The life that appli
 
 ## Other rows under Egg grading and packing assets
 
-Rates from the source determination.
+Other rows under Egg grading and packing assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Egg grader and packing systems (including box erectors, box sealers, candling machines, conveyors, crack, dirt, leak and blood detectors, denesters (egg inners and trays), egg loaders, egg oilers, egg tray stackers, egg washers, egg weigher and transfer systems, imprinters (egg and box), packers (inners, trays and boxes) and wrappers) | 10 years | 10.00% | 20.00%
@@ -43,7 +43,7 @@ Trolley lifters | 15 years | 6.67% | 13.33%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Palletisers | Fruit and vegetable processing | 20 years | 5.00% | 10.00%
@@ -70,7 +70,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/palletisers/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/palletisers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Egg grader and packing systems (including box erectors, box sealers, candling machines, conveyors, crack, dirt, leak and blood detectors, denesters (egg inners and trays), egg loaders, egg oilers, egg tray stackers, egg washers, egg weigher and transfer systems, imprinters (egg and box), packers (inners, trays and boxes) and wrappers): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/egg-grader-and-packing-systems/
 - Pallet levellers (coil spring): https://duguid.com.au/tools/depreciation-rates/industry/poultry-farming-for-breeding-eggs-and/pallet-levellers/

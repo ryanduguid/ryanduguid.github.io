@@ -14,7 +14,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
 
-Rates from the source determination.
+Rows of Dairy cattle farming. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Automatic calf feeders | 10 years | 10.00% | 20.00% | 1 July 2016

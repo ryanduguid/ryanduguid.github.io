@@ -96,11 +96,11 @@
         <form id="deduction-form" class="calculator-split" novalidate>
           <fieldset disabled><legend>Decline in value inputs</legend>
             <div class="form-grid">
-              <label class="field" for="dep-cost">Cost (AUD)<input enterkeyhint="next" id="dep-cost" name="cost" type="text" inputmode="decimal" autocomplete="off" maxlength="20" required /></label>
-              <label class="field" for="dep-life">Effective life (years)<input enterkeyhint="next" id="dep-life" name="life" type="text" autocomplete="off" maxlength="12" required aria-describedby="dep-life-note" /></label>
+              <label class="field" for="dep-cost">Cost (AUD)<input id="dep-cost" name="cost" type="text" inputmode="decimal" autocomplete="off" maxlength="20" required enterkeyhint="next" /></label>
+              <label class="field" for="dep-life">Effective life (years)<input id="dep-life" name="life" type="text" autocomplete="off" maxlength="12" required aria-describedby="dep-life-note" enterkeyhint="next" /></label>
               <label class="field" for="dep-start">First used or installed ready for use<input id="dep-start" name="start" type="date" min="2006-05-10" required /></label>
-              <label class="field" for="dep-year">Income year ending 30 June<input enterkeyhint="next" id="dep-year" name="year" type="number" inputmode="numeric" min="2006" max="2300" step="1" required /></label>
-              <label class="field" for="dep-use">Taxable use (%)<input enterkeyhint="done" id="dep-use" name="use" type="text" inputmode="decimal" autocomplete="off" maxlength="6" value="100" required aria-describedby="dep-use-note" /></label>
+              <label class="field" for="dep-year">Income year ending 30 June<input id="dep-year" name="year" type="number" inputmode="numeric" min="2006" max="2300" step="1" required enterkeyhint="next" /></label>
+              <label class="field" for="dep-use">Taxable use (%)<input id="dep-use" name="use" type="text" inputmode="decimal" autocomplete="off" maxlength="6" value="100" required aria-describedby="dep-use-note" enterkeyhint="done" /></label>
               <label class="field" for="dep-method">Method<select id="dep-method" name="method"><option value="diminishing-value">Diminishing value</option><option value="prime-cost">Prime cost</option><option value="both">Both, side by side</option></select></label>
             </div>
             <p class="field-note" id="dep-life-note">Whole years, a decimal or a fraction as the determination prints it, such as 10, 7.5 or 6 2/3.</p>

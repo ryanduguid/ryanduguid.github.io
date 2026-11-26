@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/peristaltic-pumps/
 
-> Scientific, medical and pharmaceutical research assets: Peristaltic pumps: effective life 7 years, last updated 1 July 2014 (Table A).
+> Peristaltic pumps: effective life 7 years, prime cost 14.29%, diminishing value 28.57% if first held from 10 May 2006. Updated 1 July 2014 (Table A, 2025).
 
 # Scientific, medical and pharmaceutical research assets: Peristaltic pumps
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Peristaltic pumps
 Under | Scientific, medical and pharmaceutical research assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2014. The life that applies 
 
 ## Other rows under Scientific, medical and pharmaceutical research assets
 
-Rates from the source determination.
+Other rows under Scientific, medical and pharmaceutical research assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Liquid nitrogen assets (including dewars and tanks) | 10 years | 10.00% | 20.00%
@@ -64,7 +64,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/peristaltic-pumps/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/peristaltic-pumps/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Liquid nitrogen assets (including dewars and tanks): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/liquid-nitrogen-assets/
 - Microscopes: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/microscopes/

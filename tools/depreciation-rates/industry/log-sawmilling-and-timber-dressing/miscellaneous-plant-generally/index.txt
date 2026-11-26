@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/miscellaneous-plant-generally/
 
-> Miscellaneous plant: Generally …: effective life 10 years, last updated 1 January 2001 (Table A). See determination F2025L01097.
+> Miscellaneous plant: Generally …: life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 January 2001.
 
 # Miscellaneous plant: Generally …
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Generally (includes air compressors, extraction systems and pollution and air monitoring equipment)
 Under | Saw milling equipment: / Green mill plant: / Miscellaneous plant:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2001. The life that appli
 
 ## Other rows under Miscellaneous plant
 
-Rates from the source determination.
+Other rows under Miscellaneous plant. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Generally (includes air compressors, extraction systems and pollution and air monitoring equipment) (this page) | 10 years | 10.00% | 20.00%
@@ -43,7 +43,7 @@ Walkways | 15 years | 6.67% | 13.33%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination). The first 20 of 96 are shown.
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Generally (including broad acre trailed or linkage boom and utility) | Agriculture | 10 years | 10.00% | 20.00%
@@ -81,7 +81,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/miscellaneous-plant-generally/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/miscellaneous-plant-generally/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Moisture meters: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/moisture-meters/
 - Saw and knife sharpening equipment: https://duguid.com.au/tools/depreciation-rates/industry/log-sawmilling-and-timber-dressing/saw-and-knife-sharpening-equipment/

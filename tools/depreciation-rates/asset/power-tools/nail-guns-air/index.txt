@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/asset/power-tools/nail-guns-air/
 
-> Power tools: Nail guns – air: effective life 3 years, prime cost 33.33%, diminishing value 66.67%, last updated 1 July 2008 (Table B, 2025 determination).
+> Power tools: Nail guns – air (Table B): life 3 years, prime cost 33.33%, diminishing value 66.67% if first held from 10 May 2006. Updated 1 July 2008.
 
 # Power tools: Nail guns – air (Table B)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Nail guns – air
 Under | Power tools:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2008. The life that applies 
 
 ## Other rows under Power tools
 
-Rates from the source determination.
+Other rows under Power tools. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Chainsaws (Chain saws) | 3 years | 33.33% | 66.67%
@@ -41,7 +41,7 @@ Nail guns – air (this page) | 3 years | 33.33% | 66.67%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Nail guns – air | CONSTRUCTION | 3 years | 33.33% | 66.67%
@@ -61,7 +61,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/asset/power-tools/nail-guns-air/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/asset/power-tools/nail-guns-air/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Chainsaws (Chain saws): https://duguid.com.au/tools/depreciation-rates/asset/power-tools/chainsaws/
 - Nail guns – air: https://duguid.com.au/tools/depreciation-rates/industry/construction/nail-guns-air/

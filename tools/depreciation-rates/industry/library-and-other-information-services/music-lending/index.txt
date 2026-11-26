@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/library-and-other-information-services/music-lending/
 
-> Libraries: Music lending: effective life 6 2/3 years, prime cost 15.00%, diminishing value 30.00%, last updated 1 January 2001 (Table A, 2025 determination).
+> Libraries: Music lending: life 6 2/3 years, prime cost 15.00%, diminishing value 30.00% if first held from 10 May 2006. Updated 1 January 2001.
 
 # Libraries: Music lending
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Music lending
 Under | Libraries:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2001. The life that appli
 
 ## Other rows under Libraries
 
-Rates from the source determination.
+Other rows under Libraries. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Circulating (all classes of books) | 10 years | 10.00% | 20.00%
@@ -51,7 +51,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/library-and-other-information-services/music-lending/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/library-and-other-information-services/music-lending/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Circulating (all classes of books): https://duguid.com.au/tools/depreciation-rates/industry/library-and-other-information-services/circulating/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

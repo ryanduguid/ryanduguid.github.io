@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/plywood-and-veneer-manufacturing/materials-handling-assets/
 
-> Materials handling assets … (Plywood and veneer manufacturing): effective life 20 years, last updated 1 January 2005 (Table A).
+> Materials handling assets …, ANZSIC 14930: life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 January 2005.
 
 # Materials handling assets … (Plywood and veneer manufacturing)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Materials handling assets (including belt, chain and screw conveyors)
 Table | Table A (industry categories), MANUFACTURING / Plywood and veneer manufacturing, ANZSIC 14930
@@ -32,7 +32,7 @@ The life was last reviewed and determined on 1 January 2005. The life that appli
 
 ## Other rows under Plywood and veneer manufacturing
 
-Rates from the source determination.
+Other rows under Plywood and veneer manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Dry clipping assets | 25 years | 4.00% | 8.00%
@@ -55,7 +55,7 @@ Veneer composing, jointing and splicing assets | 20 years | 5.00% | 10.00%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Materials handling assets (including bins, bucket and conveying elevators, conveyors, feeders, hoppers, loading systems, paddle mixers and tailings stackers) | Mineral sand mining | 30 years | 3.33% | 6.67%
@@ -77,7 +77,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/plywood-and-veneer-manufacturing/materials-handling-assets/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/plywood-and-veneer-manufacturing/materials-handling-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Dry clipping assets: https://duguid.com.au/tools/depreciation-rates/industry/plywood-and-veneer-manufacturing/dry-clipping-assets/
 - Glue mixing assets: https://duguid.com.au/tools/depreciation-rates/industry/plywood-and-veneer-manufacturing/glue-mixing-assets/

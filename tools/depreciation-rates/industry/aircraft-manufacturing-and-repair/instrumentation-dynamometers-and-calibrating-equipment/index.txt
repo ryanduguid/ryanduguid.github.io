@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/instrumentation-dynamometers-and-calibrating-equipment/
 
-> Instrumentation, dynamometers …: effective life 10 years, prime cost 10.00%, diminishing value 20.00%, last updated 1 July 2020 (Table A, 2025 determination).
+> Instrumentation, dynamometers and calibrating …: life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 July 2020.
 
 # Aircraft testing and measurement equipment: Instrumentation, dynamometers and calibrating equipment …
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Instrumentation, dynamometers and calibrating equipment (including testing equipment for engines, radios)
 Under | Aircraft testing and measurement equipment:
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 July 2020. The life that applies 
 
 ## Other rows under Aircraft testing and measurement equipment
 
-Rates from the source determination.
+Other rows under Aircraft testing and measurement equipment. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Instrumentation, dynamometers and calibrating equipment (including testing equipment for engines, radios) (this page) | 10 years | 10.00% | 20.00%
@@ -54,7 +54,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/instrumentation-dynamometers-and-calibrating-equipment/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/instrumentation-dynamometers-and-calibrating-equipment/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Maintenance stands (including rigs and engine stands): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/maintenance-stands/
 - Test cell tunnels: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/test-cell-tunnels/

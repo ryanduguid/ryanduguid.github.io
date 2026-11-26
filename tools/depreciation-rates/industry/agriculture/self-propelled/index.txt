@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/self-propelled/
 
-> Chemical spraying assets: Self-propelled: effective life 8 years, last updated 1 January 2007 (Table A). See determination F2025L01097.
+> Chemical spraying assets: Self-propelled: life 8 years, prime cost 12.50%, diminishing value 25.00% if first held from 10 May 2006. Updated 1 January 2007.
 
 # Chemical spraying assets: Self-propelled (Agriculture)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Self-propelled
 Under | Grain, cotton, peanut and rice assets: / Chemical spraying assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2007. The life that appli
 
 ## Other rows under Chemical spraying assets
 
-Rates from the source determination.
+Other rows under Chemical spraying assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Generally (including broad acre trailed or linkage boom and utility) | 10 years | 10.00% | 20.00%
@@ -41,7 +41,7 @@ Self-propelled (this page) | 8 years | 12.50% | 25.00%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Self-propelled | Vegetable growing (outdoors) and sugar cane growing | 8 years | 12.50% | 25.00%
@@ -61,7 +61,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/self-propelled/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/self-propelled/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Generally (including broad acre trailed or linkage boom and utility): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/chemical-spraying-assets-generally/
 - Self-propelled: https://duguid.com.au/tools/depreciation-rates/industry/vegetable-growing-outdoors-and-sugar/self-propelled/

@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/levee-banks-and-revetments/
 
-> Levee banks and revetments: effective life 40 years, prime cost 2.50%, diminishing value 5.00%, last updated 1 January 2001 (Table A, 2025 determination).
+> Levee banks and revetments: life 40 years, prime cost 2.50%, diminishing value 5.00% if first held from 10 May 2006. Updated 1 January 2001.
 
 # Levee banks and revetments
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Levee banks and revetments
 Table | Table A (industry categories), AGRICULTURE, FORESTRY AND FISHING / Agriculture, ANZSIC 01110 to 01990
@@ -30,7 +30,7 @@ The life was last reviewed and determined on 1 January 2001. The life that appli
 
 ## Other rows under Agriculture
 
-Rates from the source determination.
+Other rows under Agriculture. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Bridges (wooden) | 20 years | 5.00% | 10.00%
@@ -52,7 +52,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/levee-banks-and-revetments/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/levee-banks-and-revetments/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Bridges (wooden): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/bridges/
 - Harvesters/sweepers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/harvesters-sweepers/

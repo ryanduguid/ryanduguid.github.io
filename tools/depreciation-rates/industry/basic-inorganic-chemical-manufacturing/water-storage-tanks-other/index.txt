@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/water-storage-tanks-other/
 
-> Water storage tanks: Other: effective life 25 years, prime cost 4.00%, diminishing value 8.00%, last updated 1 July 2013 (Table A, 2025 determination).
+> Water storage tanks: Other: life 25 years, prime cost 4.00%, diminishing value 8.00% if first held from 10 May 2006. Updated 1 July 2013.
 
 # Water storage tanks: Other
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Other
 Under | Ammonia manufacturing assets: / Support assets: / Water storage and treatment assets: / Water storage tanks:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2013. The life that applies 
 
 ## Other rows under Water storage tanks
 
-Rates from the source determination.
+Other rows under Water storage tanks. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Polyethylene (PE) | 15 years | 6.67% | 13.33%
@@ -41,7 +41,7 @@ Other (this page) | 25 years | 4.00% | 8.00%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Other | AGRICULTURE, FORESTRY AND FISHING | 12 years | 8.33% | 16.67%
@@ -68,7 +68,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/water-storage-tanks-other/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/water-storage-tanks-other/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Polyethylene (PE): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/water-storage-tanks-polyethylene/
 - Other: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/other/

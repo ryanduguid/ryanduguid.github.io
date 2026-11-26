@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## A
 
-Rates from the source determination.
+Effective lives for A from the source determination.
 
 Heading | Lives
 Accommodation units in caravan/tourist parks being articles, not fixtures, and used for a specified purpose | 2
@@ -28,7 +28,7 @@ Automatic teller machines (ATMs) | 7 years
 
 ## B
 
-Rates from the source determination.
+Effective lives for B from the source determination.
 
 Heading | Lives
 Bending machines (bar, angle and rod) | 10 years
@@ -38,7 +38,7 @@ Boom gates | 2
 
 ## C
 
-Rates from the source determination.
+Effective lives for C from the source determination.
 
 Heading | Lives
 Car park assets | 10
@@ -54,7 +54,7 @@ Curtains and drapes | 6 years
 
 ## D
 
-Rates from the source determination.
+Effective lives for D from the source determination.
 
 Heading | Lives
 Digital cameras | 3
@@ -66,7 +66,7 @@ Drones/remotely piloted aircraft – see Table B Unmanned aerial vehicles |
 
 ## E
 
-Rates from the source determination.
+Effective lives for E from the source determination.
 
 Heading | Lives
 Electric bicycles (e-bicycles and e-bikes) | 4 years
@@ -76,7 +76,7 @@ Escalators (machinery and their moving parts) | 20 years
 
 ## F
 
-Rates from the source determination.
+Effective lives for F from the source determination.
 
 Heading | Lives
 Fences | 2
@@ -90,7 +90,7 @@ Foundations for plant and machinery (integral to the operation of such plant and
 
 ## G
 
-Rates from the source determination.
+Effective lives for G from the source determination.
 
 Heading | Lives
 
@@ -98,7 +98,7 @@ Generators – see Table B Power supply assets |
 
 ## H
 
-Rates from the source determination.
+Effective lives for H from the source determination.
 
 Heading | Lives
 Hand dryers (electrical) | 10 years
@@ -106,14 +106,14 @@ Hand tools (manually operated) | 10 years
 
 ## J
 
-Rates from the source determination.
+Effective lives for J from the source determination.
 
 Heading | Lives
 Judges’ robes | 2
 
 ## L
 
-Rates from the source determination.
+Effective lives for L from the source determination.
 
 Heading | Lives
 Laboratory assets used in quality control, sample checking etc | 2
@@ -130,7 +130,7 @@ Lockers, freestanding | 20 years
 
 ## M
 
-Rates from the source determination.
+Effective lives for M from the source determination.
 
 Heading | Lives
 Machine tools (grinding machines, lathes, milling machines etc) | 2
@@ -143,7 +143,7 @@ Musical instruments and associated equipment | 7
 
 ## O
 
-Rates from the source determination.
+Effective lives for O from the source determination.
 
 Heading | Lives
 Office furniture, freestanding | 12
@@ -151,7 +151,7 @@ Office machines and equipment | 11
 
 ## P
 
-Rates from the source determination.
+Effective lives for P from the source determination.
 
 Heading | Lives
 Packaging machines | 10
@@ -171,7 +171,7 @@ Public address and paging system assets (including amplifiers, audio speakers an
 
 ## R
 
-Rates from the source determination.
+Effective lives for R from the source determination.
 
 Heading | Lives
 Racehorses | 4
@@ -181,7 +181,7 @@ Robots (industrial) | 10 years
 
 ## S
 
-Rates from the source determination.
+Effective lives for S from the source determination.
 
 Heading | Lives
 Saws, bench and mitre, portable | 7 years
@@ -202,7 +202,7 @@ Synthetic lawn surfaces | 5 years
 
 ## T
 
-Rates from the source determination.
+Effective lives for T from the source determination.
 
 Heading | Lives
 Tarpaulins | 5 years
@@ -216,14 +216,14 @@ Two-way radios | 4
 
 ## U
 
-Rates from the source determination.
+Effective lives for U from the source determination.
 
 Heading | Lives
 Unmanned aerial vehicles (drones/remotely piloted aircraft) | 2
 
 ## V
 
-Rates from the source determination.
+Effective lives for V from the source determination.
 
 Heading | Lives
 Vending machines | 5 years
@@ -231,7 +231,7 @@ Ventilation fans (excluding ducting, piping and vents) | 20 years
 
 ## W
 
-Rates from the source determination.
+Effective lives for W from the source determination.
 
 Heading | Lives
 Warehouse and distribution centre equipment and machines | 29

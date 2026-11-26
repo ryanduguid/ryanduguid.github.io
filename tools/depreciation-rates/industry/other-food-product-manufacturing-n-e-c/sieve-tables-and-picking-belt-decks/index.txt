@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/sieve-tables-and-picking-belt-decks/
 
-> Sampling assets: Sieve tables and picking belt decks: effective life 20 years, last updated 1 July 2009 (Table A). See determination F2025L01097.
+> Sieve tables and picking belt decks: life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 July 2009.
 
 # Sampling assets: Sieve tables and picking belt decks
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Sieve tables and picking belt decks
 Under | Peanut processing assets: / Sampling assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2009. The life that applies 
 
 ## Other rows under Sampling assets
 
-Rates from the source determination.
+Other rows under Sampling assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Sample grinders and shellers | 10 years | 10.00% | 20.00%
@@ -52,7 +52,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/sieve-tables-and-picking-belt-decks/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/sieve-tables-and-picking-belt-decks/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Sample grinders and shellers: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/sample-grinders-and-shellers/
 - Moisture meters: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/moisture-meters/

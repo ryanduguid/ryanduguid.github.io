@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/gardening-services/climbing-hardware/
 
-> Tree climbing assets: Climbing hardware …: effective life 1 year, last updated 1 January 2004 (Table A). See determination F2025L01097.
+> Tree climbing assets: Climbing hardware …: life 1 year, prime cost 100.00%, diminishing value 200.00% if first held from 10 May 2006. Updated 1 January 2004.
 
 # Tree climbing assets: Climbing hardware …
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Climbing hardware (including carabineers, figure of 8 and lowering pullies)
 Under | Arboriculture and gardening services: / Tree climbing assets:
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 January 2004. The life that appli
 
 ## Other rows under Tree climbing assets
 
-Rates from the source determination.
+Other rows under Tree climbing assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Climbing hardware (including carabineers, figure of 8 and lowering pullies) (this page) | 1 year | 100.00% | 200.00%
@@ -56,7 +56,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/gardening-services/climbing-hardware/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/gardening-services/climbing-hardware/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Climbing spurs: https://duguid.com.au/tools/depreciation-rates/industry/gardening-services/climbing-spurs/
 - Friction lowering devices: https://duguid.com.au/tools/depreciation-rates/industry/gardening-services/friction-lowering-devices/

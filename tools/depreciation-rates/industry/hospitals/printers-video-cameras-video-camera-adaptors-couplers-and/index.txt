@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/printers-video-cameras-video-camera-adaptors-couplers-and/
 
-> Printers, video cameras …: effective life 5 years, prime cost 20.00%, diminishing value 40.00%, last updated 1 January 2003 (Table A, 2025 determination).
+> Printers, video cameras, video camera …: life 5 years, prime cost 20.00%, diminishing value 40.00% if first held from 10 May 2006. Updated 1 January 2003.
 
 # Endoscopic camera systems: Printers, video cameras, video camera adaptors, couplers and heads, video image capture systems and video processors
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Printers, video cameras, video camera adaptors, couplers and heads, video image capture systems and video processors
 Under | Hospital assets: / Endoscopic surgery assets (excluding disposable accessories): / Endoscopic camera systems:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2003. The life that appli
 
 ## Other rows under Endoscopic camera systems
 
-Rates from the source determination.
+Other rows under Endoscopic camera systems. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Beam splitters and light sources | 10 years | 10.00% | 20.00%
@@ -53,7 +53,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/printers-video-cameras-video-camera-adaptors-couplers-and/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/printers-video-cameras-video-camera-adaptors-couplers-and/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Beam splitters and light sources: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/beam-splitters-and-light-sources/
 - Still cameras: https://duguid.com.au/tools/depreciation-rates/industry/hospitals/still-cameras/

@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/slab-casters/
 
-> Continuous casting machines …: Slab casters: effective life 17 years, last updated 1 July 2010 (Table A). See determination F2025L01097.
+> Continuous casting machines …: Slab casters: life 17 years, prime cost 5.88%, diminishing value 11.76% if first held from 10 May 2006. Updated 1 July 2010.
 
 # Continuous casting machines …: Slab casters
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Slab casters
 Under | Primary metal product casting assets: / Continuous casting machines (incorporating turrets, tundishes (incorporating lids and cassettes), tundish cars, moulds, dummy bars, segments, oscillators, rolls, water sprays, hydraulics, motors and gearboxes):
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 July 2010. The life that applies 
 
 ## Other rows under Continuous casting machines (incorporating turrets, tundishes (incorporating lids and cassettes), tundish cars, moulds, dummy bars, segments, oscillators, rolls, water sprays, hydraulics, motors and gearboxes)
 
-Rates from the source determination.
+Other rows under Continuous casting machines (incorporating turrets, tundishes (incorporating lids and cassettes), tundish cars, moulds, dummy bars, segments, oscillators, rolls, water sprays, hydraulics, motors and gearboxes). Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Billet casters | 17 years | 5.88% | 11.76%
@@ -54,7 +54,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/slab-casters/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/slab-casters/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Billet casters: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/billet-casters/
 - Combination casters: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/combination-casters/

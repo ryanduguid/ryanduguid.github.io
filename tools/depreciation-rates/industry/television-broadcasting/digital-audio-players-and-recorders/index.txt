@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/television-broadcasting/digital-audio-players-and-recorders/
 
-> Digital audio players and recorders …: effective life 5 years, last updated 1 July 2005 (Table A). See determination F2025L01097.
+> Digital audio players and recorders …: life 5 years, prime cost 20.00%, diminishing value 40.00% if first held from 10 May 2006. Updated 1 July 2005.
 
 # Digital audio players and recorders … (Television broadcasting)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Digital audio players and recorders (including CD players and recorders, digital audio tape (DAT) players, DVD players and recorders, and mini disc players and recorders)
 Table | Table A (industry categories), INFORMATION MEDIA AND TELECOMMUNICATIONS / Television broadcasting, ANZSIC 56210 to 56220
@@ -32,7 +32,7 @@ The life was last reviewed and determined on 1 July 2005. The life that applies 
 
 ## Other rows under Television broadcasting
 
-Rates from the source determination.
+Other rows under Television broadcasting. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Camera lens accessories (including adapters, filters, matte boxes and stabilisers) | 12 years | 8.33% | 16.67%
@@ -55,7 +55,7 @@ Lighting grids – fixed | 40 years | 2.50% | 5.00%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Digital audio players and recorders (including CD, DVD, digital audio tape (DAT), mini disc and hard disc players and recorders) | Motion picture and video activities | 3 years | 33.33% | 66.67%
@@ -76,7 +76,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/television-broadcasting/digital-audio-players-and-recorders/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/television-broadcasting/digital-audio-players-and-recorders/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Camera lens accessories (including adapters, filters, matte boxes and stabilisers): https://duguid.com.au/tools/depreciation-rates/industry/television-broadcasting/camera-lens-accessories/
 - Camera lenses: https://duguid.com.au/tools/depreciation-rates/industry/television-broadcasting/camera-lenses/

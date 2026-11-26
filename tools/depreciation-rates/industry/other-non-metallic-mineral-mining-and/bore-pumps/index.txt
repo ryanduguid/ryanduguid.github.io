@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/bore-pumps/
 
-> Pumps: Bore pumps: effective life 10 years, prime cost 10.00%, diminishing value 20.00%, last updated 1 July 2021 (Table A, 2025 determination).
+> Pumps: Bore pumps: effective life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 July 2021 (Table A, 2025).
 
 # Pumps: Bore pumps
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Bore pumps
 Under | Salt harvesting assets: / Pumps:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2021. The life that applies 
 
 ## Other rows under Pumps
 
-Rates from the source determination.
+Other rows under Pumps. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Bore pumps (this page) | 10 years | 10.00% | 20.00%
@@ -42,7 +42,7 @@ Primary intake pumps | 15 years | 6.67% | 13.33%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Bore pumps | Meat processing | 7 years | 14.29% | 28.57%
@@ -61,7 +61,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/bore-pumps/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/bore-pumps/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Channel feed pumps and concentrator pond pumps: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/channel-feed-pumps-and-concentrator-pond-pumps/
 - Primary intake pumps: https://duguid.com.au/tools/depreciation-rates/industry/other-non-metallic-mineral-mining-and/primary-intake-pumps/

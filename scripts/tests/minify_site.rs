@@ -271,7 +271,11 @@ fn the_tree_is_minified_in_place_and_other_files_are_left_alone() {
     let module = "export const total = (first, second) => first + second;\n";
     let script = "window.siteValue = 1;\n";
     let sheet = ".a {\n  color: red;\n}\n";
-    let page = "<script type=\"module\" src=\"/assets/a.mjs\"></script>\n";
+    let page = concat!(
+        r##"<main><h1>Site</h1><p><a href="#rate">Read <code>RATE</code></a></p><img src="/chart.png" alt="Cash flow chart">"##,
+        r#"<table><caption>Facts</caption><tbody><tr><th scope="row">Life</th><td>8 years</td></tr><tr><th scope="row">Code</th><td><code>a  b|c</code></td></tr></tbody></table>"#,
+        "<table><tbody><tr><td><p>First</p><p>Second</p></td></tr></tbody></table></main>\n",
+    );
     fs::write(assets.join("a.mjs"), module).unwrap();
     fs::write(assets.join("b.js"), script).unwrap();
     fs::write(assets.join("c.css"), sheet).unwrap();
@@ -281,10 +285,29 @@ fn the_tree_is_minified_in_place_and_other_files_are_left_alone() {
 
     let (files, before, after) = minify_tree(dir.path()).unwrap();
     assert_eq!(files, 3);
+    let markdown = fs::read_to_string(dir.path().join("index.md")).unwrap();
     assert_eq!(
-        fs::read_to_string(dir.path().join("index.md")).unwrap(),
-        "# Site"
+        markdown
+            .lines()
+            .filter(|line| line.starts_with("# "))
+            .count(),
+        1
     );
+    for fragment in [
+        "[Read `RATE`](https://duguid.com.au/#rate)",
+        "![Cash flow chart](https://duguid.com.au/chart.png)",
+        "Facts",
+        "| Field | Value |",
+        "| --- | --- |",
+        "| Life | 8 years |",
+        "| Code | `a  b\\|c` |",
+        "<td><p>First</p><p>Second</p></td>",
+    ] {
+        assert!(
+            markdown.contains(fragment),
+            "{fragment} missing from {markdown}"
+        );
+    }
     assert_eq!(before, (module.len() + script.len() + sheet.len()) as u64);
     assert!(after < before);
     assert_eq!(
@@ -354,6 +377,7 @@ fn layouts_share_the_base_stylesheet_and_keep_their_cascade() {
         );
     }
     minify_tree(root).unwrap();
+    fs::write(root.join("index.html"), "<main><h1>Site</h1></main>").unwrap();
     fs::write(root.join("index.txt"), "public text").unwrap();
     fs::write(root.join("index.md"), "existing page").unwrap();
     assert!(minify_tree(root).unwrap_err().contains("conflicts"));

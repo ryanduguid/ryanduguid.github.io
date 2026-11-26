@@ -50,22 +50,9 @@ fn candidates(data: &Data, plan: &Plan) -> [Vec<Vec<String>>; 3] {
             .into_iter()
             .map(|title| {
                 if title.chars().count() < 30 {
-                    format!("{title} under ATO rules")
+                    format!("{title} ({})", data.source.register_id)
                 } else {
                     title
-                }
-            })
-            .collect();
-        let description = description
-            .into_iter()
-            .map(|description| {
-                if description.chars().count() < 120 {
-                    format!(
-                        "{description} See determination {}.",
-                        data.source.register_id
-                    )
-                } else {
-                    description
                 }
             })
             .collect();
@@ -93,9 +80,31 @@ impl<'a> Site<'a> {
                     .push(row);
             }
         }
-        let [h1s, titles, descriptions] = candidates(data, plan);
+        let [h1s, titles, mut descriptions] = candidates(data, plan);
         let h1s = unique::settle("heading", &h1s)?;
         let titles = unique::settle("title", &titles)?;
+        // The settled title distinguishes rows whose names differ only in the middle.
+        for ((page, title), options) in plan.pages.iter().zip(&titles).zip(&mut descriptions) {
+            if let Kind::Asset(at) = page.kind {
+                let entry = self_entry(data, (page.group, at));
+                let life = entry.life.as_ref().expect("asset row with a life");
+                let updated = entry
+                    .last_updated
+                    .as_deref()
+                    .map_or_else(|| "not stated".to_owned(), super::figures::date);
+                let rates = format!(
+                    "{title}. Prime cost {}, diminishing value {} if first held from 10 May 2006.",
+                    super::figures::prime_cost(life),
+                    super::figures::diminishing_value(life)
+                );
+                let dated = format!("{rates} Updated {updated}.");
+                options.push(if dated.chars().count() <= asset::DESCRIPTION_MAX {
+                    dated
+                } else {
+                    rates
+                });
+            }
+        }
         let descriptions = unique::settle("description", &descriptions)?;
         let heads = plan
             .pages
@@ -134,7 +143,8 @@ impl<'a> Site<'a> {
             .same_words
             .get(&key(entry))
             .is_some_and(|rows| rows.len() > 1)
-            || entry.eq_ignore_ascii_case("Open")
+            // A single word beneath a parent heading can be ambiguous in a links list.
+            || (self.entry(row).path.len() > 1 && entry.split_whitespace().nth(1).is_none())
         {
             let context = asset::context(self.group(row.0), self.entry(row)).join(", ");
             let context = super::head::esc(&context);

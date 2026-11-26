@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/building-and-other-industrial-cleaning/other-portable/
 
-> Vacuum cleaners: Other portable (including upright machines): effective life 5 years, last updated 1 July 2010 (Table A).
+> Other portable (including upright machines): life 5 years, prime cost 20.00%, diminishing value 40.00% if first held from 10 May 2006. Updated 1 July 2010.
 
 # Vacuum cleaners: Other portable (including upright machines)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Other portable (including upright machines)
 Under | Vacuum cleaners:
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 July 2010. The life that applies 
 
 ## Other rows under Vacuum cleaners
 
-Rates from the source determination.
+Other rows under Vacuum cleaners. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Backpack and pull along machines | 3 years | 33.33% | 66.67%
@@ -54,7 +54,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/building-and-other-industrial-cleaning/other-portable/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/building-and-other-industrial-cleaning/other-portable/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Backpack and pull along machines: https://duguid.com.au/tools/depreciation-rates/industry/building-and-other-industrial-cleaning/backpack-and-pull-along-machines/
 - Ride-on or stand on: https://duguid.com.au/tools/depreciation-rates/industry/building-and-other-industrial-cleaning/ride-on-or-stand-on/

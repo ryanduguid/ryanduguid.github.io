@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/other-mining-support-services/stemming-buckets/
 
-> Blasting assets: Stemming buckets: effective life 7 years, prime cost 14.29%, diminishing value 28.57%, last updated 1 July 2017 (Table A, 2025 determination).
+> Blasting assets: Stemming buckets: life 7 years, prime cost 14.29%, diminishing value 28.57% if first held from 10 May 2006. Updated 1 July 2017.
 
 # Blasting assets: Stemming buckets
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Stemming buckets
 Under | Mineral mining support services: / Blasting assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2017. The life that applies 
 
 ## Other rows under Blasting assets
 
-Rates from the source determination.
+Other rows under Blasting assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Augers | 10 years | 10.00% | 20.00%
@@ -55,7 +55,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/other-mining-support-services/stemming-buckets/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/other-mining-support-services/stemming-buckets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Augers: https://duguid.com.au/tools/depreciation-rates/industry/other-mining-support-services/augers/
 - Blast hole pumps: https://duguid.com.au/tools/depreciation-rates/industry/other-mining-support-services/blast-hole-pumps/

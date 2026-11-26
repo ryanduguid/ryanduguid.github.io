@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/vehicle-specific-diagnostic-assets/
 
-> Diagnostic, measuring and testing assets: Vehicle specific diagnostic assets: effective life 5 years, last updated 1 July 2015 (Table A).
+> Vehicle specific diagnostic assets: life 5 years, prime cost 20.00%, diminishing value 40.00% if first held from 10 May 2006. Updated 1 July 2015.
 
 # Diagnostic, measuring and testing assets: Vehicle specific diagnostic assets
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Vehicle specific diagnostic assets
 Under | Agriculture, construction and mining heavy machinery and equipment repair and maintenance assets: / Workshop assets: / Diagnostic, measuring and testing assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2015. The life that applies 
 
 ## Other rows under Diagnostic, measuring and testing assets
 
-Rates from the source determination.
+Other rows under Diagnostic, measuring and testing assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Generally (including co-ordinate measuring machines, dynamometers, electrical testers, flow meters, hardness testers, hydraulic testers and multimeters) | 10 years | 10.00% | 20.00%
@@ -52,7 +52,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/vehicle-specific-diagnostic-assets/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/vehicle-specific-diagnostic-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Generally (including co-ordinate measuring machines, dynamometers, electrical testers, flow meters, hardness testers, hydraulic testers and multimeters): https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/generally/
 - Tyre pressure gauges: https://duguid.com.au/tools/depreciation-rates/industry/other-machinery-and-equipment-repair-and/tyre-pressure-gauges/

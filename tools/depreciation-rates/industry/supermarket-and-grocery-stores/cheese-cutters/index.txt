@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/cheese-cutters/
 
-> Deli Assets: Cheese cutters: effective life 10 years, prime cost 10.00%, diminishing value 20.00%, last updated 1 July 2020 (Table A, 2025 determination).
+> Deli Assets: Cheese cutters: life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 July 2020.
 
 # Deli Assets: Cheese cutters
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Cheese cutters
 Under | Deli Assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2020. The life that applies 
 
 ## Other rows under Deli Assets
 
-Rates from the source determination.
+Other rows under Deli Assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Cheese cutters (this page) | 10 years | 10.00% | 20.00%
@@ -58,7 +58,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/cheese-cutters/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/cheese-cutters/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Cheese graters: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/cheese-graters/
 - Coffee making machines (including espresso and drip filter type machines): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/coffee-making-machines/

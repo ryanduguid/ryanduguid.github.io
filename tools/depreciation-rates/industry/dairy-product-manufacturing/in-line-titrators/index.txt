@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/in-line-titrators/
 
-> Assets for butter manufacturing: In-line titrators: effective life 10 years, last updated 1 July 2018 (Table A). See determination F2025L01097.
+> In-line titrators: effective life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 July 2018 (Table A, 2025).
 
 # Assets for butter manufacturing: In-line titrators
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | In-line titrators
 Under | Assets for butter manufacturing:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2018. The life that applies 
 
 ## Other rows under Assets for butter manufacturing
 
-Rates from the source determination.
+Other rows under Assets for butter manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Butter churns (including continuous buttermakers and butter reworkers) | 20 years | 5.00% | 10.00%
@@ -54,7 +54,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/in-line-titrators/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/in-line-titrators/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Butter churns (including continuous buttermakers and butter reworkers): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/butter-churns/
 - Butter melters: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/butter-melters/

@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/iron-ore-mining/blowers-high-pressure/
 
-> Infrastructure support assets: Blowers, high pressure: effective life 15 years, last updated 1 January 2006 (Table A). See determination F2025L01097.
+> Blowers, high pressure: life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 January 2006.
 
 # Infrastructure support assets: Blowers, high pressure
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Blowers, high pressure
 Under | Infrastructure support assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2006. The life that appli
 
 ## Other rows under Infrastructure support assets
 
-Rates from the source determination.
+Other rows under Infrastructure support assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Blowers, high pressure (this page) | 15 years | 6.67% | 13.33%
@@ -51,7 +51,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/iron-ore-mining/blowers-high-pressure/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/iron-ore-mining/blowers-high-pressure/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Dust suppression/control equipment: https://duguid.com.au/tools/depreciation-rates/industry/iron-ore-mining/dust-suppression-control-equipment/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

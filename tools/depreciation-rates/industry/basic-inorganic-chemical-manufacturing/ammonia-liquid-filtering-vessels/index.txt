@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/ammonia-liquid-filtering-vessels/
 
-> Nitric acid manufacturing assets: Ammonia liquid filtering vessels (incorporating filters): effective life 25 years, last updated 1 July 2013 (Table A).
+> Ammonia liquid filtering vessels …: life 25 years, prime cost 4.00%, diminishing value 8.00% if first held from 10 May 2006. Updated 1 July 2013.
 
 # Nitric acid manufacturing assets: Ammonia liquid filtering vessels (incorporating filters)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Ammonia liquid filtering vessels (incorporating filters)
 Under | Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets:
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 July 2013. The life that applies 
 
 ## Other rows under Nitric acid manufacturing assets
 
-Rates from the source determination.
+Other rows under Nitric acid manufacturing assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Ammonia liquid filtering vessels (incorporating filters) (this page) | 25 years | 4.00% | 8.00%
@@ -54,7 +54,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/ammonia-liquid-filtering-vessels/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/ammonia-liquid-filtering-vessels/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Ammonia vapour filtering vessels (incorporating filters): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/ammonia-vapour-filtering-vessels/
 - Ammonia/air mixers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/ammonia-air-mixers/

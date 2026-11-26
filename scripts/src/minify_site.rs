@@ -347,16 +347,14 @@ pub fn minify_tree(directory: &Path) -> Result<(usize, u64, u64), String> {
                 pending.push(path);
                 continue;
             }
-            // Page text is already Markdown. Publish a conventional filename alongside it.
-            if kind.is_file()
-                && entry.file_name() == "index.txt"
-                && folder.join("index.html").is_file()
-            {
-                let text = crate::read(&path)?;
-                write_generated(&folder.join("index.md"), &text)?;
-            }
             let extension = path.extension().and_then(|e| e.to_str()).unwrap_or("");
             if extension == "html" && kind.is_file() {
+                if entry.file_name() == "index.html" && folder.join("index.txt").is_file() {
+                    let rel = crate::seo_core::rel(&path, directory);
+                    let url = crate::seo_core::site_url(&rel, "https://duguid.com.au");
+                    let body = crate::page_markdown::render(&crate::read(&path)?, &url)?;
+                    write_generated(&folder.join("index.md"), &body)?;
+                }
                 pages.push(path);
                 continue;
             }

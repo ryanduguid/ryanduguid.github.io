@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/bore-water-treatment-assets-aerators-and-blowers/
 
-> Bore water treatment assets: Aerators and blowers: effective life 20 years, last updated 1 January 2005 (Table A). See determination F2025L01097.
+> Aerators and blowers, Water treatment assets: life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 January 2005.
 
 # Bore water treatment assets: Aerators and blowers
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Aerators and blowers
 Under | Assets used in water supply: / Water treatment assets: / Bore water treatment assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2005. The life that appli
 
 ## Other rows under Bore water treatment assets
 
-Rates from the source determination.
+Other rows under Bore water treatment assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Aerators and blowers (this page) | 20 years | 5.00% | 10.00%
@@ -48,7 +48,7 @@ Lime pump sets (incorporating switch boards, starters, motors and pumps) | 25 ye
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Aerators and blowers | Sewerage and drainage services | 20 years | 5.00% | 10.00%
@@ -67,7 +67,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/bore-water-treatment-assets-aerators-and-blowers/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/bore-water-treatment-assets-aerators-and-blowers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Backwash pumps: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/backwash-pumps/
 - Batching tanks: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/batching-tanks/

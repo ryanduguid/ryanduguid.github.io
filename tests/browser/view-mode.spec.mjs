@@ -5,6 +5,27 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { observePageHealth } from './health.mjs';
 
+test('the published stylesheet and Markdown editions load from the served site', async ({ page, request }) => {
+  await page.goto('/');
+  const bundle = await page.locator('link[rel="stylesheet"][href^="/assets/screen-"]').getAttribute('href');
+  expect(bundle).toMatch(/^\/assets\/screen-[a-f0-9]{16}\.css$/);
+  expect((await request.get(bundle)).headers()['content-type']).toContain('text/css');
+  for (const [route, content] of [
+    ['/', /!\[[^\]]+\]\(https:\/\/duguid\.com\.au\/assets\/examples\//],
+    ['/tools/business-calculators/margin/', /^\|\s*---\s*\|/m],
+    ['/tools/depreciation-rates/asset/working-dogs/', /\| Effective life \| 8 years \|/],
+    ['/tools/ozzit/functions/dates/', /`[^\n`]+\([^\n`]*\)`/],
+  ]) {
+    const response = await request.get(route + 'index.md');
+    expect(response.status()).toBe(200);
+    expect(response.headers()['content-type']).toMatch(/^text\/(markdown|plain)\b/);
+    const edition = await response.text();
+    expect(edition.match(/^# .+/gm)).toHaveLength(1);
+    expect(edition).toMatch(content);
+    expect(edition).toContain('[Canonical page](https://duguid.com.au' + route + ')');
+  }
+});
+
 test('page content renders while the view script loads and then restores Machine', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('duguid-view-mode', 'machine'));
   let release;
@@ -73,7 +94,9 @@ test('view mode defaults to Human and preserves the page when switching back', a
   await expect(page.getByRole('navigation', { name: 'Primary' })).toBeHidden();
   await human.check();
   await expect(page.locator('main, [role="main"]')).toHaveCount(1);
-  await expect(view).toBeHidden();
+  await expect(page.locator('#machine-view')).toHaveCount(1);
+  await expect(page.locator('#machine-view')).toBeHidden();
+  await expect(page.locator('#machine-view')).not.toHaveAttribute('role', 'main');
   await expect(page.locator('#main')).toBeVisible();
   await expect.poll(() => page.evaluate(() => scrollY)).toBe(originalScroll);
   health.assertHealthy();

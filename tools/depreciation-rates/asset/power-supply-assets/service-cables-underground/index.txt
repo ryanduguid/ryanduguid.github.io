@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/service-cables-underground/
 
-> Private electricity line assets …: Service cables, underground: effective life 50 years, last updated 1 July 2014 (Table B).
+> Service cables, underground: life 50 years, prime cost 2.00%, diminishing value 4.00% if first held from 10 May 2006. Updated 1 July 2014.
 
 # Private electricity line assets …: Service cables, underground
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Service cables, underground
 Under | Power supply assets: / Private electricity line assets (where used for a specified purpose):
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2014. The life that applies 
 
 ## Other rows under Private electricity line assets (where used for a specified purpose)
 
-Rates from the source determination.
+Other rows under Private electricity line assets (where used for a specified purpose). Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Service cables, overhead | 40 years | 2.50% | 5.00%
@@ -51,7 +51,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/service-cables-underground/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/service-cables-underground/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Service cables, overhead: https://duguid.com.au/tools/depreciation-rates/asset/power-supply-assets/service-cables-overhead/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

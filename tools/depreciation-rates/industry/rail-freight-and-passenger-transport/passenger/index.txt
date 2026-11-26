@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/rail-freight-and-passenger-transport/passenger/
 
-> Trackwork …: Passenger: effective life 40 years, prime cost 2.50%, diminishing value 5.00%, last updated 1 January 2002 (Table A, 2025 determination).
+> Trackwork …: Passenger: life 40 years, prime cost 2.50%, diminishing value 5.00% if first held from 10 May 2006. Updated 1 January 2002.
 
 # Trackwork …: Passenger
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Passenger
 Under | Infrastructure assets: / Trackwork (incorporating rails, sleepers, ballast, permanent way/top 600, and integral bridges, culverts and tunnels):
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 January 2002. The life that appli
 
 ## Other rows under Trackwork (incorporating rails, sleepers, ballast, permanent way/top 600, and integral bridges, culverts and tunnels)
 
-Rates from the source determination.
+Other rows under Trackwork (incorporating rails, sleepers, ballast, permanent way/top 600, and integral bridges, culverts and tunnels). Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Freight (trackwork used by vehicles with gross axle loads above 30 tonnes per vehicle) | 20 years | 5.00% | 10.00%
@@ -53,7 +53,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/rail-freight-and-passenger-transport/passenger/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/rail-freight-and-passenger-transport/passenger/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Freight (trackwork used by vehicles with gross axle loads above 30 tonnes per vehicle): https://duguid.com.au/tools/depreciation-rates/industry/rail-freight-and-passenger-transport/freight/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

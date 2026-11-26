@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/reactors/
 
-> Bore water treatment assets: Reactors: effective life 25 years, last updated 1 January 2005 (Table A). See determination F2025L01097.
+> Bore water treatment assets: Reactors: life 25 years, prime cost 4.00%, diminishing value 8.00% if first held from 10 May 2006. Updated 1 January 2005.
 
 # Bore water treatment assets: Reactors
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Reactors
 Under | Assets used in water supply: / Water treatment assets: / Bore water treatment assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2005. The life that appli
 
 ## Other rows under Bore water treatment assets
 
-Rates from the source determination.
+Other rows under Bore water treatment assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Batching tanks | 80 years | 1.25% | 2.50%
@@ -49,7 +49,7 @@ Sludge thickeners | 50 years | 2.00% | 4.00%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Reactors | Petroleum refining | 25 years | 4.00% | 8.00%
@@ -69,7 +69,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/reactors/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/reactors/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Batching tanks: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/batching-tanks/
 - Clear water tanks: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/bore-water-treatment-assets-clear-water-tanks/

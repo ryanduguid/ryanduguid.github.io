@@ -107,7 +107,7 @@ fn rows(site: &Site, index: usize) -> String {
     }
     let label = format!("Rows of {}", group_name(group));
     format!(
-        "        <section id=\"rows\">\n        <h2>The rows</h2>\n        <p>A row with no life is a heading for the rows after it that name it, or points to another row.</p>\n        <div class=\"table-scroll\" role=\"region\" aria-label=\"{label}\" tabindex=\"0\">\n        <table class=\"facts facts--figures\" aria-label=\"{label}\">\n          <caption>Rates from the <a href=\"#source\">source determination</a>.</caption>\n          <thead><tr><th scope=\"col\">Row</th><th scope=\"col\">Life</th><th scope=\"col\">Prime cost</th><th scope=\"col\">Diminishing value</th><th scope=\"col\">Last updated</th></tr></thead>\n          <tbody>\n{body}          </tbody>\n        </table>\n        </div>\n        </section>\n",
+        "        <section id=\"rows\">\n        <h2>The rows</h2>\n        <p>A row with no life is a heading for the rows after it that name it, or points to another row.</p>\n        <div class=\"table-scroll\" role=\"region\" aria-label=\"{label}\" tabindex=\"0\">\n        <table class=\"facts facts--figures\">\n          <caption>{label}. Effective lives and rates from the <a href=\"#source\">source determination</a>.</caption>\n          <thead><tr><th scope=\"col\">Row</th><th scope=\"col\">Life</th><th scope=\"col\">Prime cost</th><th scope=\"col\">Diminishing value</th><th scope=\"col\">Last updated</th></tr></thead>\n          <tbody>\n{body}          </tbody>\n        </table>\n        </div>\n        </section>\n",
         label = esc(&label)
     )
 }
@@ -173,10 +173,17 @@ pub fn candidates(group: &Group) -> [Vec<String>; 3] {
     let rest = ": every row with its effective life, prime cost and diminishing value rates and the date it was last updated.";
     let room = DESCRIPTION_MAX - rest.chars().count();
     let place = notes::table_place(group);
-    let descriptions = vec![
+    let mut descriptions = vec![
         format!("{}{rest}", cut(&place, room)),
         format!("{}{rest}", cut(&format!("{name}, {place}"), room)),
     ];
+    for description in descriptions.iter_mut().filter(|d| d.chars().count() < 120) {
+        *description = format!(
+            "{} ({} effective lives).",
+            description.trim_end_matches('.'),
+            count(lives(group))
+        );
+    }
     [vec![name], titles, descriptions]
 }
 
@@ -257,7 +264,7 @@ pub fn render_index(site: &Site, table: Table) -> String {
 fn index_section(heading: &str) -> String {
     let id: String = super::address::words(heading).join("-");
     format!(
-        "        <section id=\"{id}\">\n        <h2>{heading}</h2>\n        <div class=\"table-scroll\" role=\"region\" aria-label=\"{heading}\" tabindex=\"0\">\n        <table class=\"facts facts--figures\" aria-label=\"{heading}\">\n          <caption>Rates from the <a href=\"#source\">source determination</a>.</caption>\n          <thead><tr><th scope=\"col\">Heading</th><th scope=\"col\">Lives</th></tr></thead>\n          <tbody>\n",
+        "        <section id=\"{id}\">\n        <h2>{heading}</h2>\n        <div class=\"table-scroll\" role=\"region\" aria-label=\"{heading}\" tabindex=\"0\">\n        <table class=\"facts facts--figures\">\n          <caption>Effective lives for {heading} from the <a href=\"#source\">source determination</a>.</caption>\n          <thead><tr><th scope=\"col\">Heading</th><th scope=\"col\">Lives</th></tr></thead>\n          <tbody>\n",
         heading = esc(heading)
     )
 }

@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/light-commercial-vehicles-designed-to-carry-a-load-of-one/
 
-> Light commercial vehicles …: effective life 12 years, prime cost 8.33%, diminishing value 16.67%, last updated 1 January 2005 (Table B, 2025 determination).
+> Light commercial …: effective life 12 years, prime cost 8.33%, diminishing value 16.67% if first held from 10 May 2006. Updated 1 January 2005 (Table B, 2025).
 
 # Motor vehicles and trailers: Light commercial vehicles designed to carry a load of one tonne or greater and having a gross vehicle mass of 3.5 tonnes or less (Table B)
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Light commercial vehicles designed to carry a load of one tonne or greater and having a gross vehicle mass of 3.5 tonnes or less
 Under | Motor vehicles and trailers:
@@ -32,7 +32,7 @@ The life was last reviewed and determined on 1 January 2005. The life that appli
 
 ## Other rows under Motor vehicles and trailers
 
-Rates from the source determination.
+Other rows under Motor vehicles and trailers. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Buses having a gross vehicle mass of more than 3.5 tonnes | 15 years | 6.67% | 13.33%
@@ -47,7 +47,7 @@ Trucks having a gross vehicle mass greater than 3.5 tonnes (excluding off highwa
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Light commercial vehicles designed to carry a load of one tonne or greater and having a gross vehicle mass of 3.5 tonnes or less | Road transport | 12 years | 8.33% | 16.67%
@@ -66,7 +66,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/light-commercial-vehicles-designed-to-carry-a-load-of-one/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/light-commercial-vehicles-designed-to-carry-a-load-of-one/#source
 - capped lives: https://duguid.com.au/tools/depreciation-rates/#capped-lives
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Buses having a gross vehicle mass of more than 3.5 tonnes: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/buses-having-a-gross-vehicle-mass-of-more-than-3-5-tonnes/

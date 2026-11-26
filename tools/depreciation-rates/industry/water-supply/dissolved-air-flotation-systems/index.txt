@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/dissolved-air-flotation-systems/
 
-> Water treatment assets: Dissolved air flotation systems: effective life 25 years, last updated 1 January 2005 (Table A).
+> Dissolved air flotation systems, Water supply: life 25 years, prime cost 4.00%, diminishing value 8.00% if first held from 10 May 2006. Updated 1 January 2005.
 
 # Water treatment assets: Dissolved air flotation systems
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Dissolved air flotation systems
 Under | Assets used in water supply: / Water treatment assets:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 January 2005. The life that appli
 
 ## Other rows under Water treatment assets
 
-Rates from the source determination.
+Other rows under Water treatment assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Chemical dosing systems | 15 years | 6.67% | 13.33%
@@ -54,7 +54,7 @@ Sludge treatment lagoons | 50 years | 2.00% | 4.00%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
-Rates from the source determination.
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Dissolved air flotation systems | Meat processing | 15 years | 6.67% | 13.33%
@@ -74,7 +74,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/dissolved-air-flotation-systems/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/dissolved-air-flotation-systems/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Chemical dosing systems: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/chemical-dosing-systems/
 - Chemical feeders and hoppers: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/chemical-feeders-and-hoppers/

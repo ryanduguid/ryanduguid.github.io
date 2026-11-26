@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/stackers-reclaimers-and-stackers-reclaimers/
 
-> Cargo handling equipment: Stackers, reclaimers and stackers/reclaimers: effective life 25 years, last updated 1 July 2002 (Table A).
+> Stackers, reclaimers and stackers/reclaimers: life 25 years, prime cost 4.00%, diminishing value 8.00% if first held from 10 May 2006. Updated 1 July 2002.
 
 # Cargo handling equipment: Stackers, reclaimers and stackers/reclaimers
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Stackers, reclaimers and stackers/reclaimers
 Under | Port assets: / Cargo handling equipment:
@@ -31,7 +31,7 @@ The life was last reviewed and determined on 1 July 2002. The life that applies 
 
 ## Other rows under Cargo handling equipment
 
-Rates from the source determination.
+Other rows under Cargo handling equipment. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Dozers | 9 years | 11.11% | 22.22%
@@ -60,7 +60,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/stackers-reclaimers-and-stackers-reclaimers/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/stackers-reclaimers-and-stackers-reclaimers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Dozers: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/dozers/
 - Rail mounted gantries: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/rail-mounted-gantries/

@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/alumina-production/clarification-of-liquor-stream-assets/
 
-> Alumina manufacturing …: Clarification of liquor stream assets …: effective life 30 years, last updated 1 January 2003 (Table A).
+> Clarification of liquor stream assets …: life 30 years, prime cost 3.33%, diminishing value 6.67% if first held from 10 May 2006. Updated 1 January 2003.
 
 # Alumina manufacturing …: Clarification of liquor stream assets …
 
@@ -12,7 +12,7 @@ Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 No
 
 ## Effective life and rates
 
-Source Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Clarification of liquor stream assets (including counter current washing tanks, flash tanks, lime burning assets, lime handling assets, lime slaking assets, settling tanks and other tanks and vessels)
 Under | Alumina manufacturing (including bauxite refining and calcined alumina manufacturing):
@@ -33,7 +33,7 @@ The life was last reviewed and determined on 1 January 2003. The life that appli
 
 ## Other rows under Alumina manufacturing (including bauxite refining and calcined alumina manufacturing)
 
-Rates from the source determination.
+Other rows under Alumina manufacturing (including bauxite refining and calcined alumina manufacturing). Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Clarification of liquor stream assets (including counter current washing tanks, flash tanks, lime burning assets, lime handling assets, lime slaking assets, settling tanks and other tanks and vessels) (this page) | 30 years | 3.33% | 6.67%
@@ -60,7 +60,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
-- Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://duguid.com.au/tools/depreciation-rates/industry/alumina-production/clarification-of-liquor-stream-assets/#source
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/alumina-production/clarification-of-liquor-stream-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Control systems assets: https://duguid.com.au/tools/depreciation-rates/industry/alumina-production/control-systems-assets/
 - Digestion assets (including desilication tanks, digester vessels, flash tanks, heat exchangers, heaters, mills and trihydrate bauxite treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/alumina-production/digestion-assets/
