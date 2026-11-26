@@ -419,22 +419,24 @@ fn bundle_stylesheets(root: &Path, pages: &[PathBuf]) -> Result<(), String> {
         }
         let range = tags.start()..tags.end();
         if link.is_empty() {
-            let tokens = crate::read(&assets.join("tokens.css"))?;
-            let site = crate::read(&assets.join("site.css"))?;
-            let scoped = if has_accounting {
-                crate::read(&accounting)?
-            } else {
-                String::new()
-            };
-            let bundle = css(&format!("{tokens}\n{site}\n{scoped}"))?;
-            let name = format!("screen-{}.css", &crate::sha256(&bundle)[..16]);
-            write_generated(&assets.join(&name), &bundle)?;
-            link = format!(r#"<link rel="stylesheet" href="/assets/{name}" />"#);
+            link = screen_bundle(&assets, has_accounting.then_some(accounting.as_path()))?;
         }
         html.replace_range(range, &link);
         std::fs::write(page, html).map_err(|e| format!("{}: {e}", page.display()))?;
     }
     Ok(())
+}
+
+fn screen_bundle(assets: &Path, accounting: Option<&Path>) -> Result<String, String> {
+    let tokens = crate::read(&assets.join("tokens.css"))?;
+    let site = crate::read(&assets.join("site.css"))?;
+    let scoped = accounting.map(crate::read).transpose()?.unwrap_or_default();
+    let bundle = css(&format!("{tokens}\n{site}\n{scoped}"))?;
+    let name = format!("screen-{}.css", &crate::sha256(&bundle)[..16]);
+    write_generated(&assets.join(&name), &bundle)?;
+    Ok(format!(
+        r#"<link rel="stylesheet" href="/assets/{name}" />"#
+    ))
 }
 
 fn write_generated(path: &Path, contents: &str) -> Result<(), String> {

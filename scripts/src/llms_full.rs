@@ -63,7 +63,7 @@ pub(crate) fn block_kind(block: &str) -> &'static str {
 
 /// Keep dates and other values under their column headings in the plain-text edition.
 fn expand_colspans(body: &str) -> std::borrow::Cow<'_, str> {
-    let span = re(r#"\scolspan\s*=\s*["']?([0-9]+)"#, I);
+    let span = re(r"\scolspan\s*=\s*[\x22\x27]?([0-9]+)", I);
     if !span.is_match(body) {
         return body.into();
     }
@@ -106,21 +106,10 @@ pub(crate) fn visible_main(html: &str) -> Result<String, String> {
     ))
 }
 
-/// The visible main content of a page as plain text, with its link destinations.
-pub fn main_text(html: &str, page_url: &str) -> Result<String, String> {
-    let body = visible_main(html)?;
-    let mut pres: Vec<String> = Vec::new();
-    let body = re(PRE_PATTERN, S | I).sub_with(&body, |m| {
-        pres.push(preformatted(&m[1]));
-        format!("\n\nPREFORMATTED-{}\n\n", pres.len() - 1)
-    });
-    // A card's bold title and its description read as one sentence without a
-    // separator, so the title gets a colon: "Payday Super timing: Reproduce ...".
-    let body =
-        re(r"</strong>(\s*)<span\b", 0).sub_with(&body, |m| format!(":</strong>{}<span", &m[1]));
+fn page_links(body: &str, page_url: &str) -> Result<Vec<(String, String)>, String> {
     let mut links: Vec<(String, String)> = Vec::new();
     let mut seen: HashSet<String> = HashSet::new();
-    let tree: Tree = core::parse_structure(&body);
+    let tree: Tree = core::parse_structure(body);
     for anchor in tree.descendants(Tree::ROOT, Some("a"), false) {
         let href = tree.attr(anchor, "href").unwrap_or("");
         let label = tree.text(anchor);
@@ -132,7 +121,11 @@ pub fn main_text(html: &str, page_url: &str) -> Result<String, String> {
             }
         }
     }
-    let body = re(HEADING_PATTERN, S | I).sub_with(&body, |m| {
+    Ok(links)
+}
+
+fn block_text(body: &str) -> String {
+    let body = re(HEADING_PATTERN, S | I).sub_with(body, |m| {
         let level: usize = m[1].parse().expect("one ASCII digit");
         format!("\n\n{} {}\n\n", "#".repeat(level), &m[2])
     });
@@ -166,6 +159,22 @@ pub fn main_text(html: &str, page_url: &str) -> Result<String, String> {
         text.push_str(block);
         previous = kind;
     }
+    text
+}
+
+/// The visible main content of a page as plain text, with its link destinations.
+pub fn main_text(html: &str, page_url: &str) -> Result<String, String> {
+    let body = visible_main(html)?;
+    let mut pres: Vec<String> = Vec::new();
+    let body = re(PRE_PATTERN, S | I).sub_with(&body, |m| {
+        pres.push(preformatted(&m[1]));
+        format!("\n\nPREFORMATTED-{}\n\n", pres.len() - 1)
+    });
+    // Keep the card title and its description separated when they become one sentence.
+    let body =
+        re(r"</strong>(\s*)<span\b", 0).sub_with(&body, |m| format!(":</strong>{}<span", &m[1]));
+    let links = page_links(&body, page_url)?;
+    let text = block_text(&body);
     let mut missing = None;
     let mut text = re(r"PREFORMATTED-(\d+)", 0).sub_with(&text, |m| {
         let block = py::parse_int(&m[1], 10)
