@@ -1,0 +1,34 @@
+<section class="business-calculator" id="scholarship-exemption">
+<form class="calculator-split" data-calculator="scholarship-exemption">
+<fieldset disabled><legend>One scholarship or educational payment</legend>
+<fieldset class="field"><legend>Are you a full-time student at a school, college or university?</legend>
+<label><input type="radio" name="full-time" value="yes" checked /> Yes</label>
+<label><input type="radio" name="full-time" value="no" /> No</label>
+</fieldset>
+<div class="form-grid">
+<div class="field"><label for="scholarship-exemption-payment-type">Payment</label><select name="payment-type" id="scholarship-exemption-payment-type"><option value="scholarship" selected>Scholarship</option><option value="bursary">Bursary</option><option value="educational_allowance">Educational allowance</option><option value="educational_assistance">Educational assistance</option></select></div>
+<div class="field"><label for="scholarship-exemption-year">Income year</label><select name="year" id="scholarship-exemption-year"><option value="2026-27">2026-27</option><option value="2025-26" selected>2025-26</option><option value="2024-25">2024-25</option><option value="2023-24">2023-24</option><option value="2022-23">2022-23</option><option value="2021-22">2021-22</option><option value="2020-21">2020-21</option><option value="2019-20">2019-20</option><option value="2018-19">2018-19</option><option value="2017-18">2017-18</option></select></div>
+<div class="field"><label for="scholarship-exemption-employment">Paid on condition you work for the payer?</label><select name="employment" id="scholarship-exemption-employment"><option value="no" selected>No</option><option value="yes">Yes</option></select></div>
+<div class="field"><label for="scholarship-exemption-labour">Paid on condition of a contract for your labour?</label><select name="labour" id="scholarship-exemption-labour"><option value="no" selected>No</option><option value="yes">Yes</option></select></div>
+<div class="field"><label for="scholarship-exemption-educational">Provided principally for education?</label><select name="educational" id="scholarship-exemption-educational"><option value="yes" selected>Yes</option><option value="no">No</option></select></div>
+<div class="field"><label for="scholarship-exemption-friendly-society">From a friendly society scholarship plan?</label><select name="friendly-society" id="scholarship-exemption-friendly-society"><option value="no" selected>No</option><option value="yes">Yes</option></select></div>
+<div class="field"><label for="scholarship-exemption-commonwealth">A Commonwealth payment?</label><select name="commonwealth" id="scholarship-exemption-commonwealth"><option value="none" selected>None of these</option><option value="education_or_training_payment">Austudy, ABSTUDY, Youth Allowance or another education or training payment</option><option value="secondary_or_isolated_children">Assistance for secondary education or isolated children</option><option value="education_entry_payment">Education entry payment</option></select></div>
+</div>
+<p class="field-note">A condition counts if you must, or must if asked, become or stay the payer’s employee, or enter into or keep a contract wholly or principally for your labour, such as a cadetship bonded to work.</p>
+<button type="submit" class="button">Check</button>
+</fieldset>
+{% include calculator-example.html inputs="2025-26; scholarship" rows="Paid to a full-time student at a school, college or university (s 51-10 item 2.1A)|Met;Not paid on condition that the student becomes or stays the payer’s employee (s 51-35(c))|Met;Not paid on condition of a contract wholly or principally for the student’s labour (s 51-35(d))|Met;Provided principally for educational purposes (s 51-35(e))|Met;Exempt under item 2.1A|Yes" principal="4" note="Exempt income: tell the provider it is exempt and leave it out of your tax return" %}
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>The exemption: <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19970038/51-10">Income Tax Assessment Act 1997 s 51-10</a> item 2.1A and <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19970038/51-35">s 51-35</a> on the ATO’s legal database, read 27 November 2026, the sources the australian-accounting <code>scholarship-exemption</code> command cites.</li>
+<li>The calculator agrees with the command on 141 test cases, refusals included.</li>
+<li>Supplied by you: the year, the payment and your answers.</li>
+</ul>
+</div>
+</form>
+<h2>How the scholarship exemption check works</h2>
+<p>A scholarship, bursary, educational allowance or educational assistance paid to a full-time student at a school, college or university is exempt income under item 2.1A of the table in s 51-10, unless s 51-35 takes it out. The check asks the 3 exceptions that turn on the payment’s terms: a condition that you become or stay the payer’s employee, a condition that you enter into or keep a contract wholly or principally for your labour, and a scholarship not provided principally for educational purposes. If every answer allows it, the payment is exempt and you leave it out of your tax return.</p>
+<h2>What the scholarship exemption check does not cover</h2>
+<p>The check refuses the Commonwealth payments s 51-35 excludes (assistance for secondary education or isolated children, education or training payments such as Austudy, ABSTUDY and Youth Allowance, and the education entry payment), which other provisions may exempt in whole or part, and friendly society scholarship plans, which can be taxable. It does not test a prize or award, decide whether you are a full-time student, or work out tax or withholding on a payment that is not exempt. Confirm your answers with the provider, the ATO or a registered tax agent.</p>
+</section>
