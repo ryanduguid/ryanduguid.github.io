@@ -6,15 +6,15 @@ Source: https://duguid.com.au/tools/business-calculators/trust-streaming/
 
 # Trust streaming calculator
 
-A discretionary trust’s net income shared between beneficiaries, with capital gains and franked distributions streamed.
+Shares of a discretionary trust’s net income.
 
 Published 26 November 2026. Last checked 26 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-A resident discretionary trust’s net income for one income year Other income
+The trust’s income for the year Other income
 
-Other trust income after expenses (a loss below nil) (AUD) Other net income: no capital gain, franked distributions or credits (a loss below nil) (AUD)
+Other trust income (a loss below nil) (AUD) Other net income: no capital gain, franked distributions or credits (a loss below nil) (AUD)
 
 Franked distributions
 
