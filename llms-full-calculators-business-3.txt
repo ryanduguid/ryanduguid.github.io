@@ -73,7 +73,7 @@ A payload that disagrees with the mass and kerb weight is refused | Passenger bo
 A modified vehicle without the manufacturer’s figures is refused | Passenger body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, modified, manufacturer’s figures unknown, 2026-27, price $75,000.00 | Refused: a modified vehicle is classified on its manufacturer’s figures from the compliance plate; without them this page cannot classify it
 Another body under 1 tonne is refused | Another body, 5 seats, gross vehicle mass 3,000 kg, kerb weight 2,135 kg, 2026-27, price $75,000.00 | Refused: whether this body was designed principally to carry passengers turns on its appearance, marketing and specifications (TD 94/19), which this page does not weigh
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -86,7 +86,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - Car limit for depreciation: https://duguid.com.au/rates/car-limit/
 - Luxury car tax calculator: https://duguid.com.au/tools/business-calculators/luxury-car-tax/
 
@@ -141,7 +141,7 @@ Exactly 50% returned and exactly 30% tax are each in the higher band | Gateways 
 One cent below 50% returned and 30% tax drops a band each, to red | Gateways passed; entitlement $1,000.00, returned $499.99, tax $299.99 | Returned 50.00%, factor 1 score 5, tax rate 30.00%, factor 2 score 4, aggregate 9, red zone
 A failed Gateway 2 is refused | Gateway 2 failed; entitlement $600,000.00, returned $330,000.00, tax $189,367.00 | Refused: the arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -154,7 +154,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - PCG 2021/4 allocation calculator: https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - Companies and trusts questions: https://duguid.com.au/tools/accounting-questions/company-compliance/
 
@@ -221,7 +221,7 @@ A recipient this calculator cannot tax is refused | 2026-27 rates; gateways pass
 Amounts on a row marked not used are refused, not dropped | 2026-27 rates; gateways passed; IPP $300,000.00; associate 1 not used $100,000.00 | Refused: associate 1 is marked not used but has amounts; choose who it is or set them to 0
 A failed Gateway 2 is refused | 2020-21 rates; Gateway 2 failed; IPP $330,000.00; associate 1 base rate company $270,000.00 | Refused: the arrangement fails Gateway 2, so PCG 2021/4 gives it no risk score
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -233,7 +233,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - Individual income tax rates: https://duguid.com.au/rates/individual-income-tax/
 - Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/
@@ -291,7 +291,7 @@ A start before July 1999 has no published rate | $1,000.00 from 1999-06-30, 3 mo
 A nil debt has nothing to pay by instalments | $0.00 from 2026-10-01, 3 monthly instalments, 11.51% assumed after the table | Refused: enter a debt above nil
 More than 120 instalments | $1,000.00 from 2026-10-01, 121 weekly instalments, 11.51% assumed after the table | Refused: enter a whole number between 1 and 120
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -304,7 +304,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - quarterly GIC rate table: https://duguid.com.au/rates/general-interest-charge/
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - ATO penalties and interest calculator: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 
@@ -367,7 +367,7 @@ Spec O2: a refund taken from the later payment first | $3,000.00 paid 1 December
 Spec G10: a GIC day after December 2026 needs an assumed rate | GIC on $10,000.00 due 21 November 2025, to 1 January 2027 | Refused: the ATO has published GIC rates to 31 December 2026; enter an assumed rate to project 1 January 2027 and later
 Remission is the Commissioner’s discretion | Remission of a charge or penalty | Refused: remission of GIC (TAA 1953 s 8AAG), SIC (TAA Sch 1 s 280-160) and administrative penalties (s 298-20) is the Commissioner’s discretion: every amount here is before remission, and the calculator does not estimate one
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -379,7 +379,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - General interest charge rate: https://duguid.com.au/rates/general-interest-charge/
 - GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
@@ -437,7 +437,7 @@ A child recipient has taxable earnings but no liability | Balance $4,000,000.00,
 Death by 30 June 2027 makes the balance nil | Balance $12,000,000.00, earnings $500,000.00, died by 30 June 2027 | Not liable: died, 0.00% above $3,000,000, 0.00% above $10,000,000, taxable earnings $0.00, very large component $0.00, 15% tax $0.00, 10% tax $0.00, Division 296 tax $0.00
 A negative balance is refused | Balance -$1.00, earnings $100,000.00 | Refused: enter an amount between 0 and 1000000000
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -449,7 +449,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - Announced tax measures and enacted law: https://duguid.com.au/rates/announced-not-yet-law/
 - Division 293 tax calculator: https://duguid.com.au/tools/individual-tax/division-293/
 - Super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
@@ -517,7 +517,7 @@ A repayment above the amount that repays the loan on 30 June | Made 2022-10-01, 
 Repayments after the loan is repaid | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '50000; 63353.99; 1' | Refused: the loan is repaid in 2024-25; leave out the repayments after it
 More repayments than years of the term | Made 2022-10-01, $100,000.00, 7 years, 8.77% assumed, repayments '1;1;1;1;1;1;1;1' | Refused: enter no more than 7 repayments, one for each year of the term
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -532,7 +532,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Division 7A benchmark rate table: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Division 7A minimum yearly repayment calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - ATO Division 7A calculator and decision tool: https://www.ato.gov.au/calculators-and-tools/division-7a-calculator-and-decision-tool
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
 
 ---
@@ -639,7 +639,7 @@ An asset bought before 20 September 1985 is refused | Individual; bought 19 Sept
 Bought on the same date 15 years before the sale is refused | Individual; bought 2 February 2011, sold 2 February 2026; business, turnover $2,150,000.00 previous, $1,900,000.00 before, $2,100,000.00 likely, $1,950,000.00 actual; net assets $6,200,000.00; active 3000 days; born 14 August 1975; choice 31 October 2026 | Refused: whether an asset bought on the same date 15 years before the sale was owned for 15 years (sections 152-35 and 152-105) turns on the time of day of each contract: this page cannot tell
 Owned more than 15 years and active for 2,738 days is refused | Individual; bought 30 June 2005, sold 2 February 2026; business, turnover $2,150,000.00 previous, $1,900,000.00 before, $2,100,000.00 likely, $1,950,000.00 actual; net assets $6,200,000.00; active 2738 days; born 14 August 1975; choice 31 October 2026 | Refused: a total of 7.5 years is 2,736 to 2,746 days, depending on the leap days and months the active periods span: count them in years and months to see whether they reach 7.5 years (paragraph 152-35(1)(b))
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -651,7 +651,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - Capital gains tax calculator: https://duguid.com.au/tools/business-calculators/cgt/
 - Companies and trusts questions: https://duguid.com.au/tools/accounting-questions/company-compliance/
 - Investments and NSW questions: https://duguid.com.au/tools/accounting-questions/investments-local/

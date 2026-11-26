@@ -327,6 +327,13 @@ calculate.salaryDividend({ ...ownerPay, baseRate: 'yes' });
 // @ts-expect-error Money is a decimal string.
 calculate.salaryDividend({ ...ownerPay, profit: 200000 });
 void ownerKept;
+const structures = { year: '2026-27', profit: '150000', takenOut: '100000', salary: '60000', baseRate: true, offset: true };
+const structuresDifference: number = calculate.soleTraderCompany(structures).difference;
+// @ts-expect-error Whether the business qualifies for the offset is a boolean, as the form passes it.
+calculate.soleTraderCompany({ ...structures, offset: 'yes' });
+// @ts-expect-error Money is a decimal string.
+calculate.soleTraderCompany({ ...structures, takenOut: 100000 });
+void structuresDifference;
 const leaseTerms = { payment: '1000', payments: '60', frequency: 'monthly', timing: 'arrears', rate: '7.5', start: '2026-07-01', residual: '0',
   prepaid: '0', incentives: '0', direct: '500', restoration: '0', ownership: 'no', life: '' } as const;
 const leaseLiability: number = calculate.lease(leaseTerms).liability;
@@ -539,6 +546,8 @@ void businessSet['first-home-owner-grant'].execute({ place: 'AU-NSW', contractDa
 void businessSet['payg-instalments'].execute({ method: 'rate', instalmentIncome: '20100', instalmentRatePercent: '1.7' });
 void businessSet['payroll-tax'].execute({ place: 'AU-NSW', wages: '1500000' });
 void businessSet['salary-dividend'].execute({ incomeYear: '2026-27', companyProfit: '200000', baseRateEntity: true, salary: '100000' });
+void businessSet['sole-trader-company'].execute({ incomeYear: '2026-27', businessProfit: '150000', amountTakenOut: '100000',
+  salary: '60000', baseRateEntity: true, smallBusinessOffset: true });
 void businessSet['sgc-payday'].execute({ regime: 'payday', payday: '2026-07-30', qualifyingEarnings: '1000', receivedOnTime: '120' });
 void businessSet.staff.execute({ wages: '51.30', superAmount: '0', otherCosts: '0' });
 void businessSet.cgt.execute({ entity: 'individual', assetKind: 'investment', purchaseContractDate: '1997-07-01',

@@ -8,18 +8,11 @@
   <updated>2026-11-26T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
-    <title>The company tax and franking calculator now also works the company tax return’s…</title>
-    <link href="https://duguid.com.au/changelog/#entry-ce4bc4c452bf396d" />
-    <id>https://duguid.com.au/changelog/#entry-ce4bc4c452bf396d</id>
+    <title>A new business calculator, sole trader against company, puts one business…</title>
+    <link href="https://duguid.com.au/changelog/#entry-9b7d427272928c88" />
+    <id>https://duguid.com.au/changelog/#entry-9b7d427272928c88</id>
     <updated>2026-11-26T00:00:00Z</updated>
-    <summary>The company tax and franking calculator now also works the company tax return’s calculation statement for 2021-22 to 2026-27: prior-year losses with the stated outcome of their loss test, net exempt income, the tax offsets at labels C to F, credits and PAYG instalments, and the amount due or refundable at label S. It works the Division 160 loss carry back tax offset only for the claim years the law gives one: 2021-22 and 2022-23 under the former Division 160, and 2026-27 under the Division 160 that Act No. 71 of 2026 substituted.</summary>
-  </entry>
-  <entry>
-    <title>A new business calculator, blackhole expenditure, deducts business capital…</title>
-    <link href="https://duguid.com.au/changelog/#entry-f963dfebf680bc1c" />
-    <id>https://duguid.com.au/changelog/#entry-f963dfebf680bc1c</id>
-    <updated>2026-11-26T00:00:00Z</updated>
-    <summary>A new business calculator, blackhole expenditure, deducts business capital expenditure under section 40-880 for 2020-21 to 2027-28: each item to the extent of its taxable purpose, a fifth a year over 5 income years, or at once as a start-up cost of a proposed business, and nothing where an exclusion applies.</summary>
+    <summary>A new business calculator, sole trader against company, puts one business profit for 2021-22 to 2026-27 through both structures: as a sole trader, tax and the Medicare levy on the whole profit less the small business income tax offset under Subdivision 328-F; through a company, a salary with its super guarantee, company tax at 25% or 30%, a fully franked dividend for the rest of what the owner takes out with its top-up tax, the profit kept in the company and the tax on the super. It states each total and the difference and recommends no structure, and names what it leaves out: the personal services income rules, Division 7A, the small business CGT concessions, state taxes and the cost of running a company. Rates were read on 26 November 2026.</summary>
   </entry>
   <entry>
     <title>The tool pages, changelog, release record and machine indexes name the releases…</title>

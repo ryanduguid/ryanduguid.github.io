@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Fifty-seven free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
+Fifty-eight free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
 Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
@@ -56,6 +56,7 @@ Search 58 calculators
 - R&D tax offset calculator A company’s R&D tax incentive offset for 2021-22 to 2026-27, refundable or with the premium tiers, and the amount a grant or feedstock clawback includes in assessable income.
 - Deferred tax calculator A company’s AASB 112 tax effect worksheet: deferred tax liability and asset, the movement, current tax and the reconciliation.
 - Salary against dividends calculator A company owner’s salary and super guarantee against fully franked dividends for 2021-22 to 2026-27: the cash and super kept after tax, and the split that keeps the most.
+- Sole trader against company calculator One business profit taxed as a sole trader, with the small business income tax offset, and through a company paying a salary, super guarantee and fully franked dividends, for 2021-22 to 2026-27: each structure’s total tax.
 
 ## Capital gains tax
 
@@ -133,6 +134,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - R&D tax offset calculator: https://duguid.com.au/tools/business-calculators/rd-tax-offset/
 - Deferred tax calculator: https://duguid.com.au/tools/business-calculators/deferred-tax/
 - Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/
+- Sole trader against company calculator: https://duguid.com.au/tools/business-calculators/sole-trader-company/
 - Capital gains tax calculator: https://duguid.com.au/tools/business-calculators/cgt/
 - Small business CGT concessions checker: https://duguid.com.au/tools/business-calculators/cgt-concessions/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
