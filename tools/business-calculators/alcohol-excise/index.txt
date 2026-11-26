@@ -12,7 +12,11 @@ Published 26 November 2026. Last checked 22 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Excise duty on alcohol entered for home consumption in a financial year
+Alcohol excise for one financial year
+
+Remission, rebates and refunds already used this financial year (AUD) The day the business first became an alcohol manufacturer, if in this year
+
+The duty has been paid, so the remission is a refund on application No Yes
 
 Financial year 2026-27 2025-26 2024-25 2023-24 2022-23
 
@@ -26,13 +30,7 @@ Line 2: goods entered for home consumption (optional) Day entered (delivered, or
 
 Line 3: goods entered for home consumption (optional) Day entered (delivered, or paid without a periodic settlement permission) ProductBeer Spirits, such as vodka, whisky or gin Brandy Other excisable beverage, such as a ready-to-drink Volume (litres), blank for no line Actual strength (% alcohol by volume) Labelled strength where higher (%), else blank Beer: container size (litres) Beer in 8 to 48 litre containers: designed for a pressurised gas or pump systemNot applicable Yes No Claim the alcohol manufacturer remissionNo Yes
 
-## The alcohol manufacturer remission
-
-The remission, for a line that claims it
-
-Remission, rebates and refunds already used this financial year (AUD) The day the business first became an alcohol manufacturer, if in this year
-
-The duty has been paid, so the remission is a refund on application No Yes
+## Work out the duty
 
 Calculate
 

@@ -14,11 +14,11 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 One entity’s trading stock for an income year
 
+Value of trading stock on hand at the start of the year (AUD) A reasonable estimate of the closing value (AUD), blank to use the stocktake
+
 Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
 
 The entity A small business entity (turnover under $10 million) An entity with turnover under $50 million Another entity
-
-Value of trading stock on hand at the start of the year (AUD) A reasonable estimate of the closing value (AUD), blank to use the stocktake
 
 Choose not to account for the change (section 328-285) No Yes
 
