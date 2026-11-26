@@ -1560,14 +1560,14 @@ fn the_oracle_works_a_known_loan_and_levy_by_hand() {
         contribution: 100_000,
     };
     assert_eq!(
-        fbt_oracle(example, 365, 20_802, 4_700),
+        fbt_oracle(example, 365, true, 4_700),
         [
             Some(6_000_000),
             Some(498_356),
             None,
             Some(498_356),
-            Some(1_036_680),
-            Some(487_240)
+            Some(1_036_688),
+            Some(487_243)
         ]
     );
     // Example 31: $19,580 at 75% business use, less $2,000, is $2,895 below the statutory value.
@@ -1577,7 +1577,7 @@ fn the_oracle_works_a_known_loan_and_levy_by_hand() {
         contribution: 200_000,
         ..example
     };
-    assert_eq!(fbt_oracle(operating, 365, 20_802, 4_700)[3], Some(289_500));
+    assert_eq!(fbt_oracle(operating, 365, true, 4_700)[3], Some(289_500));
     // Example 23: a third off $39,000 and none off $4,000 of later accessories is $30,000.
     let reduced = Car {
         cost: 3_900_000,
@@ -1585,7 +1585,7 @@ fn the_oracle_works_a_known_loan_and_levy_by_hand() {
         reduced: true,
         ..example
     };
-    assert_eq!(fbt_oracle(reduced, 365, 18_868, 4_700)[0], Some(3_000_000));
+    assert_eq!(fbt_oracle(reduced, 365, false, 4_700)[0], Some(3_000_000));
     // 2.7% of $1,000.00 is $27.00; 2.7% of $0.50 is exactly 1.35 cents, so 1 cent.
     assert_eq!(levy_oracle(4 * 100_000), 2_700);
     assert_eq!(levy_oracle(4 * 50), 1);
