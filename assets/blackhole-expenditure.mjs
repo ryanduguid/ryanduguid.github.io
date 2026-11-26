@@ -372,8 +372,8 @@ export function blackholeFormInput(value) {
 
 /** A paragraph label as the Act writes it: '5(a)' is '(5)(a)', '8' is '(8)'. @param {string} label */
 const paragraph = (label) => {
-  const [whole, sub] = label.split('(');
-  return sub === undefined ? `(${whole})` : `(${whole})(${sub}`;
+  const at = label.indexOf('(');
+  return at < 0 ? `(${label})` : `(${label.slice(0, at)})${label.slice(at)}`;
 };
 
 /** How the page writes the call. @param {{items: Record<string, any>[], year: string}} x @param {(value: number) => string} aud */

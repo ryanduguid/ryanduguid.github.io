@@ -593,7 +593,7 @@
     ]
   },
   "company-tax": {
-    "checked": "2026-11-18",
+    "checked": "2026-11-26",
     "function": "companyTax",
     "rows": [
       {"case":"Happy Feet’s income from the ATO’s example: 3.85% passive, so 25%","input":"Turnover $104,000.00, passive income $4,000.00 of $104,000.00, taxable income $104,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $30,000.00 franked 100%, marginal rate 30%","call":[{"turnover":"104000","assessable":"104000","passive":"4000","taxable":"104000","existed":true,"prior":{"turnover":"104000","assessable":"104000","passive":"4000"},"dividend":"30000","franking":"100","marginal":"30"}],"result":{"rate":25,"tax":26000,"imputationRate":25,"maximum":10000,"credit":10000,"net":2000},"output":"Tax rate 25%, tax $26,000.00, franking rate 25%, maximum franking credit $10,000.00, franking credit $10,000.00, tax left to pay $2,000.00"},
