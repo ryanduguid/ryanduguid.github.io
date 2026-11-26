@@ -16,6 +16,8 @@ Business capital expenditure deducted under section 40-880 for an income year
 
 Income year to work out 2020-21 2021-22 2022-23 2023-24 2024-25 2025-26 2026-27 2027-28
 
+## First item of capital expenditure
+
 Item 1
 
 Capital expenditure (AUD)
@@ -30,7 +32,7 @@ Another entity’s business: in connection with your deriving assessable income 
 
 Taxable purpose of the business (%)
 
-Excluded by (section 40-880(5), (8) or (9)) None Section 40-880(5)(a)) Section 40-880(5)(b)) Section 40-880(5)(c)) Section 40-880(5)(d)) Section 40-880(5)(e)) Section 40-880(5)(f)) Section 40-880(5)(g)) Section 40-880(5)(h)) Section 40-880(5)(i)) Section 40-880(5)(j)) Section 40-880(8) Section 40-880(9)(a)) Section 40-880(9)(b))
+Excluded by (section 40-880(5), (8) or (9)) None Section 40-880(5)(a) Section 40-880(5)(b) Section 40-880(5)(c) Section 40-880(5)(d) Section 40-880(5)(e) Section 40-880(5)(f) Section 40-880(5)(g) Section 40-880(5)(h) Section 40-880(5)(i) Section 40-880(5)(j) Section 40-880(8) Section 40-880(9)(a) Section 40-880(9)(b)
 
 Section 40-880(5)(d) or (f): it preserves goodwill through a right valued only for its effect on goodwill (section 40-880(6)) No Yes
 
@@ -39,6 +41,8 @@ Proposed business: reasonable to conclude it will start within a reasonable time
 Proposed business: a start-up cost (section 40-880(2A)(b)) Neither Advice or services on its proposed structure or operation Fees, taxes or charges to an Australian government agency to establish it
 
 Start-up cost: who you are in the year incurred (section 40-880(2A)(c)) A small business entity Covered by section 40-880(2B): turnover under $50 million Not in business, and not connected with or an affiliate of a business None of these
+
+## Second item of capital expenditure
 
 Item 2 (leave the amount blank for none)
 
@@ -54,7 +58,7 @@ Another entity’s business: in connection with your deriving assessable income 
 
 Taxable purpose of the business (%)
 
-Excluded by (section 40-880(5), (8) or (9)) None Section 40-880(5)(a)) Section 40-880(5)(b)) Section 40-880(5)(c)) Section 40-880(5)(d)) Section 40-880(5)(e)) Section 40-880(5)(f)) Section 40-880(5)(g)) Section 40-880(5)(h)) Section 40-880(5)(i)) Section 40-880(5)(j)) Section 40-880(8) Section 40-880(9)(a)) Section 40-880(9)(b))
+Excluded by (section 40-880(5), (8) or (9)) None Section 40-880(5)(a) Section 40-880(5)(b) Section 40-880(5)(c) Section 40-880(5)(d) Section 40-880(5)(e) Section 40-880(5)(f) Section 40-880(5)(g) Section 40-880(5)(h) Section 40-880(5)(i) Section 40-880(5)(j) Section 40-880(8) Section 40-880(9)(a) Section 40-880(9)(b)
 
 Section 40-880(5)(d) or (f): it preserves goodwill through a right valued only for its effect on goodwill (section 40-880(6)) No Yes
 
@@ -90,9 +94,9 @@ Case | Inputs | Result
 The page’s example: $10,000 at 80% spread from 2023-24 and a $2,500 start-up cost deducted at once | 2025-26; item 1: $10,000.00 incurred in 2023-24 for your business, 80% taxable purpose; item 2: $2,500.00 incurred in 2025-26 for a proposed business, 100% taxable purpose, a start-up cost | Deduction $4,100.00, deductible expenditure $10,500.00, left for later years $3,200.00
 Another entity’s former business, not in connection with your assessable income: nothing to deduct (s 40-880(4)(b)) | 2025-26; item 1: $8,000.00 incurred in 2025-26 for a former business of another entity, 100% taxable purpose | Deduction $0.00, deductible expenditure $0.00, left for later years $0.00
 A start-up cost by an entity that meets none of the s 40-880(2A)(c) tests is spread over 5 years | 2025-26; item 1: $5,000.00 incurred in 2024-25 for a proposed business, 100% taxable purpose, a start-up cost | Deduction $1,000.00, deductible expenditure $5,000.00, left for later years $3,000.00
-Expenditure preserving goodwill: s 40-880(6) lifts the s 40-880(5)(d) exclusion | 2026-27; item 1: $3,000.00 incurred in 2026-27 for your business, 100% taxable purpose, excluded by section 40-880(5)(d)) | Deduction $600.00, deductible expenditure $3,000.00, left for later years $2,400.00
+Expenditure preserving goodwill: s 40-880(6) lifts the s 40-880(5)(d) exclusion | 2026-27; item 1: $3,000.00 incurred in 2026-27 for your business, 100% taxable purpose, excluded by section 40-880(5)(d) | Deduction $600.00, deductible expenditure $3,000.00, left for later years $2,400.00
 The fifth year: $20,000 incurred in 2021-22 leaves nothing after 2025-26 | 2025-26; item 1: $20,000.00 incurred in 2021-22 for your business, 50% taxable purpose | Deduction $2,000.00, deductible expenditure $10,000.00, left for later years $0.00
-Part of a depreciating asset’s cost is refused: Division 40 deducts it (s 40-880(5)(a)) | 2025-26; item 1: $1,000.00 incurred in 2025-26 for your business, 100% taxable purpose, excluded by section 40-880(5)(a)) | Refused: item 1: s 40-880(5)(a) excludes expenditure that forms part of the cost of a depreciating asset; it is deducted as the asset's decline in value under Division 40 (s 40-25, with its cost under Subdivision 40-C), which this worksheet does not work out
+Part of a depreciating asset’s cost is refused: Division 40 deducts it (s 40-880(5)(a)) | 2025-26; item 1: $1,000.00 incurred in 2025-26 for your business, 100% taxable purpose, excluded by section 40-880(5)(a) | Refused: item 1: s 40-880(5)(a) excludes expenditure that forms part of the cost of a depreciating asset; it is deducted as the asset's decline in value under Division 40 (s 40-25, with its cost under Subdivision 40-C), which this worksheet does not work out
 
 One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
