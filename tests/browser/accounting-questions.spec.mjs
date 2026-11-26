@@ -1654,6 +1654,32 @@ test('salary against dividends works a 30% company in 2021-22 and Division 293 o
   await expect(output).toHaveText('Enter a salary of no more than $89,285.71: the profit also pays its super guarantee.');
 });
 
+// Sole trader against company: a 30% company in 2021-22 paying everything out as dividends with no
+// offset gives equal totals; taking out more than the profit after company tax is refused.
+test('sole trader against company works a 2021-22 payout offline and refuses an unpaid dividend', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/sole-trader-company/');
+  const form = page.locator('#sole-trader-company form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  const fill = async (profit, takenOut, salary) => {
+    await form.getByLabel('Business profit before the owner’s pay (AUD)', { exact: true }).fill(profit);
+    await form.getByLabel('Amount the owner takes out (AUD)', { exact: true }).fill(takenOut);
+    await form.getByLabel('Through a company: salary paid to the owner (AUD)', { exact: true }).fill(salary);
+    await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  };
+  await form.getByLabel('2021-22', { exact: true }).check();
+  await form.getByLabel('No: tax and franking at 30%', { exact: true }).check();
+  await form.locator('input[name="offset"][value="no"]').check();
+  await fill('90000', '63000', '0');
+  const output = form.locator('output');
+  await expect(output).toContainText('Sole trader: total tax: $20,017.00.');
+  await expect(output).toContainText('Owner: refund of franking credits on the dividend: $6,983.00.');
+  await expect(output).toContainText('Company structure: total tax: $20,017.00.');
+  await expect(output).toContainText('The totals are equal: $0.00.');
+  await fill('90000', '63000.01', '0');
+  await expect(output).toHaveText('Enter an amount taken out of no more than $63,000.00: the salary and the profit left after company tax.');
+});
+
 // GSTR 2006/8 Example 14: a GST-exclusive price of $96,364 on land acquired for $60,000 comes to $100,000.40
 // GST-inclusive, a margin of $40,000.40 and GST of $3,636.40; a sale to an associate is refused.
 test('GST margin scheme works GSTR 2006/8 Example 14 offline and refuses a sale to an associate', async ({ page, context }) => {
@@ -1834,7 +1860,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
   'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset',
-  'gst-adjustments', 'deferred-tax', 'instant-asset-write-off', 'leave-provisions'];
+  'gst-adjustments', 'deferred-tax', 'sole-trader-company', 'instant-asset-write-off', 'leave-provisions'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
