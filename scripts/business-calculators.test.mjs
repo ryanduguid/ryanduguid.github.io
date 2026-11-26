@@ -7453,3 +7453,44 @@ test('contractor against employee refuses what it does not work', () => {
   assert.throws(() => ce({ delegate: 'no' }), /right to delegate/);
   assert.throws(() => ce({ hours: '0' }), /hours worked/);
 });
+
+// The non-resident withholding page ports the non-resident-withholding command of australian-accounting for its
+// Subdivision 12-F payment types; every case the command's tests and the seeded sweep recorded must agree.
+const nrwFixture = JSON.parse(readFileSync(new URL('./non-resident-withholding-engine-differential.json', import.meta.url), 'utf8'));
+const nrwAud = (v) => dollars(v);
+
+test('non-resident withholding agrees with the non-resident-withholding command on every recorded case', () => {
+  assert.ok(nrwFixture.cases.length >= 900);
+  for (const { source, call, refused, period, amounts, rates } of nrwFixture.cases) {
+    if (refused) {
+      assert.throws(() => calculations.nonResidentWithholding(structuredClone(call)), { code: refused }, source);
+      continue;
+    }
+    const r = calculations.nonResidentWithholding(structuredClone(call));
+    assert.deepEqual([r.period, r.amounts, r.rates], [period, amounts, rates], source);
+  }
+});
+
+test('non-resident withholding refuses the payment types this page does not cover', () => {
+  for (const type of ['mit_fund_payment', 'gaming_junket', 'entertainment_or_sports', 'construction']) {
+    assert.throws(() => calculations.nonResidentWithholding({ payment_type: type, payment: '100', year: '2025-26', scope_confirmed: true }),
+      { code: 'non_resident_withholding.payment_type_out_of_scope' });
+  }
+});
+
+test('the non-resident withholding page works its example and words its refusals', () => {
+  const form = { year: '2025-26', type: 'dividend', payment: '10000', franked: '5000', cfi: '0', treaty: '0.15', exempt: 'no', already: '0' };
+  const r = calculations.nrwResult((name) => form[name] ?? '', nrwAud);
+  assert.deepEqual(r.rows[r.principal], ['Amount to withhold', '$750.00']);
+  assert.equal(r.inputs, '2025-26; dividend of $10,000.00; franked $5,000.00, conduit foreign income $0.00; treaty rate 15%');
+  const royalty = calculations.nrwResult((name) => ({ ...form, type: 'royalty', payment: '999.99', treaty: '' })[name] ?? '', nrwAud);
+  assert.deepEqual(royalty.rows[royalty.principal], ['Amount to withhold', '$299.00']);
+  assert.throws(() => calculations.nrwResult((name) => ({ ...form, treaty: '0.4' })[name] ?? '', nrwAud), /treaty rate as a decimal/);
+  assert.throws(() => calculations.nrwResult((name) => ({ ...form, franked: '20000' })[name] ?? '', nrwAud), /together are no more than the dividend/);
+  assert.throws(() => calculations.nrwResult((name) => ({ ...form, already: '20000' })[name] ?? '', nrwAud), /already withheld no more than the payment/);
+});
+
+Object.assign(INPUTS, { nrwFigures: (x) => calculations.nrwInputsText(x, nrwAud) });
+Object.assign(ENGINE_LABELS, { nrwFigures: { withholdingBase: (v) => `withholding base ${dollars(v)}`,
+  withholding: (v) => `amount to withhold ${dollars(v)}`, netPayment: (v) => `net payment ${dollars(v)}` } });
+Object.assign(FORM_CALLS, { nrwFigures: (f) => [calculations.nrwFormInput((name) => f[name] ?? '')] });
