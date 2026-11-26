@@ -17,7 +17,7 @@ const OPTIONAL = /** @type {const} */ ([['term_over_one_year', 'raw'], ['policy_
 
 /** Each class: its place, code, how it is charged ('percent', 'per_premium', 'abolished' from a date, or 'exempt_from' a date with the
  * rate before it), the page's label and the authority. */
-export const INSURANCE_CLASSES = [
+export const INSURANCE_CLASSES = /** @type {[string, string, string[], string, string][]} */ ([
   ['nsw', 'type_a', ['percent', '9'], 'Type A: general insurance other than Type B or C',
     'Revenue NSW, ‘Types of insurance’: Type A, 9% of the premium (Duties Act 1997 (NSW) Chapter 8)'],
   ['nsw', 'type_b', ['percent', '5'], 'Type B: motor vehicle, aviation, disability income, occupational indemnity or health insurance',
@@ -36,7 +36,7 @@ export const INSURANCE_CLASSES = [
   ['act', 'general', ['abolished', '2017-07-01'], 'General insurance', 'Duties Act 1999 (ACT) chapter 8, omitted from 1 July 2017 by A2017-11 s 4: nil'],
   ['nt', 'general', ['percent', '10'], 'General insurance for one year or less', 'Stamp Duty Act 1978 (NT) Sch 1 cl 6(3): 10% of the premium for a '
     + 'policy issued or renewed for one year or less'],
-].map(([place, code, duty, label, authority]) => ({ place, code, duty, label, authority }));
+]).map(([place, code, duty, label, authority]) => ({ place, code, duty, label, authority }));
 
 /** @param {string} key @param {string} why @returns {never} */
 const unknown = (key, why) => refuse('input.field_unknown', `${key} is an input only ${why}`);

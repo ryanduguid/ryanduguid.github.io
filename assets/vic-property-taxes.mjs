@@ -140,16 +140,16 @@ function windfall(needed) {
   const list = needed('parcels', 'for windfall_gains').value;
   /** @param {string} why @returns {never} */
   const bad = (why) => refuse('vic_property_taxes.parcels_invalid', why);
-  if (!Array.isArray(list) || list.length === 0 || list.length > 100) bad('parcels must be a list of 1 to 100 objects, one for each title the rezoning rezoned.');
+  if (!Array.isArray(list) || list.length === 0 || list.length > 100) return bad('parcels must be a list of 1 to 100 objects, one for each title the rezoning rezoned.');
   /** @type {[string, D][]} */
   const steps = [];
   /** @type {Record<string, string>} */
   const rates = {};
   let taxable = dec(0n);
-  list.forEach((item, i) => {
+  /** @type {unknown[]} */ (list).forEach((item, i) => {
     const n = i + 1;
     if (item === null || typeof item !== 'object' || Array.isArray(item)) bad(`parcel ${n}: must be an object with civ_before and civ_after.`);
-    const extra = Object.keys(item).find((k) => k !== 'civ_before' && k !== 'civ_after');
+    const extra = Object.keys(/** @type {Record<string, unknown>} */ (item)).find((k) => k !== 'civ_before' && k !== 'civ_after');
     if (extra !== undefined) refuse('input.field_unknown', `parcel ${n}: ${extra} is not a fact it takes beside civ_before and civ_after.`);
     const read = (/** @type {string} */ key) => {
       const raw = /** @type {Record<string, unknown>} */ (item)[key];
