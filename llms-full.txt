@@ -11045,13 +11045,13 @@ Published 26 November 2026. Last checked 26 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-One depreciating asset in the income year it is first used
+One depreciating asset
+
+Cost of the asset (AUD) Taxable use (%) Date first acquired Date first used, or installed ready for use, for a taxable purpose
 
 The business A small business entity using simplified depreciation A medium sized business (turnover $10 million to under $500 million) Another entity
 
 Income year the asset is first used 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
-
-Date first acquired Date first used, or installed ready for use, for a taxable purpose Cost of the asset (AUD) Taxable use (%)
 
 Calculate
 
@@ -15325,11 +15325,7 @@ Published 26 November 2026. Last checked 26 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Annual and long service leave at one reporting date
-
-Financial year of the reporting date 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
-
-Line 1
+Leave at one reporting date Line 1
 
 Employee or group
 
@@ -15370,6 +15366,8 @@ Expected to be settled wholly within 12 months Yes: short-term, undiscounted No:
 Years to settlement (long-term only) Salary growth a year (%, long-term only) Discount rate a year (%, long-term only)
 
 Right to defer settlement for 12 months (long-term only) No Yes
+
+Financial year of the reporting date 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
 
 Calculate
 

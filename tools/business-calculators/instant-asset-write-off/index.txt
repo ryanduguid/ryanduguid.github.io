@@ -12,13 +12,13 @@ Published 26 November 2026. Last checked 26 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-One depreciating asset in the income year it is first used
+One depreciating asset
+
+Cost of the asset (AUD) Taxable use (%) Date first acquired Date first used, or installed ready for use, for a taxable purpose
 
 The business A small business entity using simplified depreciation A medium sized business (turnover $10 million to under $500 million) Another entity
 
 Income year the asset is first used 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
-
-Date first acquired Date first used, or installed ready for use, for a taxable purpose Cost of the asset (AUD) Taxable use (%)
 
 Calculate
 
