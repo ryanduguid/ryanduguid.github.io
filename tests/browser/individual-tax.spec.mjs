@@ -10,8 +10,7 @@ const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 's
   'concessional-catch-up': '$97,500.00', 'bonus-withholding': '$641.00',
   'salary-packaging': '$5,291.50', 'novated-lease': '$6,047.48',
   'super-projection': '$539,266.80', fhss: '$14,350.00', 'work-expenses': '$590.00',
-  'government-super': '$500.00', 'transfer-balance': '$26.80', 'pension-minimum': '$30,000.00',
-  'residency-days': 'Met' };
+  'government-super': '$500.00', 'transfer-balance': '$26.80', 'pension-minimum': '$30,000.00' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -51,8 +50,7 @@ for (const id of Object.keys(CALCULATORS)) {
     expect(await output.evaluate((element) => element.textContent)).toBe(example);
     await page.reload();
     await waitForCalculator(form);
-    if (id === 'residency-days') await form.locator('input[type=date]').first().fill('2025-07-02');
-    else await form.locator('input[type=number]').first().fill('1');
+    await form.locator('input[type=number]').first().fill('1');
     await expect(output).toHaveText('Enter the inputs and calculate.');
   });
 }
@@ -561,9 +559,6 @@ for (const [id, name, input, expected] of [
     { minimumPayment: '30000.00' }],
   ['transfer-balance', 'calculate_transfer_balance', { calculation: 'concessional_charge', incomeYear: '2020-21',
     additionalTax: '1000', taxDueDate: '2021-12-01' }, { excessConcessionalContributionsCharge: '44.17' }],
-  ['residency-days', 'calculate_residency_days', { incomeYear: '2025-26', usualPlaceOfAbodeOutsideAustralia: false,
-    intendsToTakeUpResidence: false, periods: [{ arrival: '2025-07-01', departure: '2025-09-30' },
-      { arrival: '2025-11-15', departure: '2026-03-31' }] }, { daysInAustralia: 229, test183Met: true }],
 ]) {
   test(`${id} registers ${name} where the browser offers modelContext`, async ({ page }) => {
     await page.addInitScript(() => {

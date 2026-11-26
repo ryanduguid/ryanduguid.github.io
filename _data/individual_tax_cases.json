@@ -55,19 +55,6 @@
       {"case":"2027-28 has 366 days, with 29 February 2028","call":[{"account_balance":"300000","age":80,"days":366,"year":"2027-28","scope_confirmed":true}],"input":"2027-28, balance $300,000.00, age 80, 366 days","result":{"account_balance_used":"300000.00","minimum_before_rounding":"21000.00","minimum_payment":"21000.00"},"output":"Before rounding $21,000.00, minimum $21,000.00"}
     ]
   },
-  "residency-days": {
-    "function": "residencyDaysCases",
-    "checked": "2026-11-26",
-    "rows": [
-      {"case":"Two stays in 2025-26, 1 July to 30 September and 15 November to 31 March: 92 + 137 = 229 days (the form’s example)","call":["2025-26",[{"from":"2025-07-01","to":"2025-09-30"},{"from":"2025-11-15","to":"2026-03-31"}],false,false],"input":"2025-26, 2025-07-01 to 2025-09-30, 2025-11-15 to 2026-03-31","result":{"days_in_australia":229,"days_needed":183,"exception_applies":false,"days_183":true},"output":"229 days, 183 needed: met"},
-      {"case":"TR 2023/1 example 5, Conchita: 9 months on holiday with her abode in Mexico, 273 days, the exception applies","call":["2025-26",[{"from":"2025-08-01","to":"2026-04-30"}],true,false],"input":"2025-26, 2025-08-01 to 2026-04-30, usual abode outside Australia","result":{"days_in_australia":273,"days_needed":183,"exception_applies":true,"days_183":false},"output":"273 days, 183 needed, exception applies: not met"},
-      {"case":"Abode outside Australia but intending to take up residence: the exception needs both, so 273 days meet the test","call":["2025-26",[{"from":"2025-08-01","to":"2026-04-30"}],true,true],"input":"2025-26, 2025-08-01 to 2026-04-30, usual abode outside Australia, intends to take up residence","result":{"days_in_australia":273,"days_needed":183,"exception_applies":false,"days_183":true},"output":"273 days, 183 needed: met"},
-      {"case":"183 days in 2025-26, 1 July to 30 December: more than one-half of 365","call":["2025-26",[{"from":"2025-07-01","to":"2025-12-30"}],false,false],"input":"2025-26, 2025-07-01 to 2025-12-30","result":{"days_in_australia":183,"days_needed":183,"exception_applies":false,"days_183":true},"output":"183 days, 183 needed: met"},
-      {"case":"182 days in 2025-26, 1 July to 29 December: one short","call":["2025-26",[{"from":"2025-07-01","to":"2025-12-29"}],false,false],"input":"2025-26, 2025-07-01 to 2025-12-29","result":{"days_in_australia":182,"days_needed":183,"exception_applies":false,"days_183":false},"output":"182 days, 183 needed: not met"},
-      {"case":"183 days in 2023-24, which includes 29 February 2024: 184 needed (TR 2023/1 footnote 51)","call":["2023-24",[{"from":"2023-07-01","to":"2023-12-30"}],false,false],"input":"2023-24, 2023-07-01 to 2023-12-30","result":{"days_in_australia":183,"days_needed":184,"exception_applies":false,"days_183":false},"output":"183 days, 184 needed: not met"},
-      {"case":"A stay from 1 January 2024 to 31 July 2024 counted in 2024-25: only 1 to 31 July falls in the year; an overlapping stay counts once","call":["2024-25",[{"from":"2024-01-01","to":"2024-07-31"},{"from":"2024-07-15","to":"2024-07-20"}],false,false],"input":"2024-25, 2024-01-01 to 2024-07-31, 2024-07-15 to 2024-07-20","result":{"days_in_australia":31,"days_needed":183,"exception_applies":false,"days_183":false},"output":"31 days, 183 needed: not met"}
-    ]
-  },
   "government-super": {
     "function": "governmentSuperAmounts",
     "checked": "2026-11-22",

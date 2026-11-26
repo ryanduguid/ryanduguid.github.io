@@ -13,7 +13,6 @@ import {
   concessionalCatchUpTool, fhssTool, governmentSuperTool, lumpSumArrearsTool, studyLoanTool, workExpensesTool,
 } from './webmcp-individual-more.mjs';
 import { pensionMinimumTool, transferBalanceTool } from './webmcp-individual-retirement.mjs';
-import { residencyDaysTool } from './webmcp-individual-residency.mjs';
 
 // WebMCP tool descriptors for the site's calculators. Each tool calls the same module
 // function as its page's form, reads nothing from the form and sends nothing anywhere.
@@ -1019,14 +1018,6 @@ export function pensionMinimumTools(engine) {
  */
 export function transferBalanceTools(engine) {
   return { 'transfer-balance': transferBalanceTool(TOOL_KIT, engine) };
-}
-
-/**
- * WebMCP descriptor for the 183-day residency day count.
- * @param {import('./webmcp-individual-residency.mjs').ResidencyEngine} engine
- */
-export function residencyDaysTools(engine) {
-  return { 'residency-days': residencyDaysTool(TOOL_KIT, engine) };
 }
 
 /** The WebMCP descriptor for the income tax estimate.
