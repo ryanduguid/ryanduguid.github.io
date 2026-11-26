@@ -61,6 +61,13 @@ const ENTITY_TESTS = /** @type {const} */ ([
 ]);
 const WHO = /** @type {const} */ ([['you', ''], ['another_entity', '']]);
 
+/** `text` without its trailing zeros, by a scan rather than a pattern. @param {string} text */
+const trimZeros = (text) => {
+  let end = text.length;
+  while (end > 0 && text.charAt(end - 1) === '0') end -= 1;
+  return text.slice(0, end);
+};
+
 /** `2026-27` for 2026. @param {number} first */
 const yearText = (first) => `${first}-${String((first + 1) % 100).padStart(2, '0')}`;
 /** 2026 for `2026-27`; null for text that is not an income year. @param {unknown} text */
@@ -97,7 +104,7 @@ function exact(v) {
     whole = padded.slice(0, padded.length + v.e);
     fraction = padded.slice(padded.length + v.e);
   }
-  return `${negative ? '-' : ''}${whole}.${fraction.replace(/0+$/, '').padEnd(2, '0')}`;
+  return `${negative ? '-' : ''}${whole}.${trimZeros(fraction).padEnd(2, '0')}`;
 }
 
 /** @param {number} n @param {string} key @param {string} why @returns {never} */
@@ -310,7 +317,7 @@ function shift(whole, part, by) {
   const padded = at < 1 ? `${'0'.repeat(1 - at)}${all}` : all.padEnd(at, '0');
   const point = Math.max(at, 1);
   const head = padded.slice(0, point).replace(/^0+(?=\d)/, '');
-  const tail = padded.slice(point).replace(/0+$/, '');
+  const tail = trimZeros(padded.slice(point));
   return tail ? `${head}.${tail}` : head;
 }
 

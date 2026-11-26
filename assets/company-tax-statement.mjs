@@ -326,10 +326,10 @@ const STEPS = [
 /** The company tax return's calculation statement for one income year from 2020-21 to 2026-27: taxable income after
  * prior-year losses, the tax at the year's rate, the offsets at labels C to F (with any loss carry back tax offset at
  * E), and S, the amount due (negative: refundable). Throws an Error naming the provision for a case it does not
- * cover. @param {Record<string, unknown>} input */
+ * cover. @param {unknown} input */
 export function companyTaxStatement(input) {
   if (input === null || typeof input !== 'object' || Array.isArray(input)) fail('input must be a JSON object');
-  const v = input;
+  const v = /** @type {Record<string, unknown>} */ (input);
   const fy = number(v, 'financial_year');
   if (fy < 2021 || fy > 2027) throw refuse(`financial_year ${fy} is outside 2021 (2020-21) to 2027 (2026-27)`, 'years this command covers');
   for (const [key, what, law] of OUT_OF_SCOPE) if (flag(v, key)) throw refuse(what, law);
