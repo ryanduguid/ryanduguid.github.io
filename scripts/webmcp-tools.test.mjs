@@ -7,13 +7,14 @@ import * as calculate from '../assets/business-calculators.mjs';
 import { readFileSync, readdirSync } from 'node:fs';
 import {
   calculatorTools, depreciationTools, fhssTools, governmentSuperTools, individualTaxTools, levyTools, ozzitTools,
-  pensionMinimumTools, transferBalanceTools, workExpensesTools,
+  pensionMinimumTools, residencyDaysTools, transferBalanceTools, workExpensesTools,
 } from '../assets/webmcp-tools.mjs';
 import { engines as individualEngines } from '../assets/individual-tax-results.mjs';
 import { fhss } from '../assets/fhss-result.mjs';
 import { workExpenses, workExpensesYears } from '../assets/work-expenses-result.mjs';
 import { governmentSuperAmounts, governmentSuperYears } from '../assets/government-super-result.mjs';
 import { PENSION_MINIMUM_YEARS, pensionMinimum } from '../assets/pension-minimum.mjs';
+import { MAX_PERIODS, RESIDENCY_YEARS, residencyDays } from '../assets/residency-days.mjs';
 import { ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, excessContributions } from '../assets/excess-contributions.mjs';
 import { TBA_KINDS, TBA_YEARS, dayOf, label, transferBalance, yearOf } from '../assets/transfer-balance.mjs';
 import * as depreciation from '../assets/depreciation-rates.mjs';
@@ -462,6 +463,7 @@ const individual = {
   ...governmentSuperTools({ governmentSuperAmounts, governmentSuperYears }),
   ...pensionMinimumTools({ pensionMinimum, PENSION_MINIMUM_YEARS }),
   ...transferBalanceTools({ ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance, yearOf }),
+  ...residencyDaysTools({ MAX_PERIODS, RESIDENCY_YEARS, residencyDays }),
 };
 
 test('each individual tax tool is keyed by the form that registers it and is read-only', () => {
@@ -470,14 +472,16 @@ test('each individual tax tool is keyed by the form that registers it and is rea
     'calculate_sole_trader_set_aside', 'calculate_lump_sum_arrears', 'calculate_division_293_tax',
     'calculate_concessional_catch_up', 'calculate_bonus_withholding', 'calculate_salary_packaging',
     'calculate_novated_lease', 'calculate_fhss_release', 'calculate_work_expenses',
-    'calculate_government_super_amounts', 'calculate_pension_minimum', 'calculate_transfer_balance']);
+    'calculate_government_super_amounts', 'calculate_pension_minimum', 'calculate_transfer_balance',
+    'calculate_residency_days']);
   for (const [key, t] of Object.entries(individual)) {
     const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`), key);
     assert.equal(t.annotations.readOnlyHint, true, t.name);
     assert.equal(t.inputSchema.additionalProperties, false, t.name);
     for (const name of t.inputSchema.required) assert.ok(name in t.inputSchema.properties, `${t.name} ${name}`);
-    assert.match(t.description, /\bAUD\b/, t.name);
+    // A day count has no money in it.
+    if (t.name !== 'calculate_residency_days') assert.match(t.description, /\bAUD\b/, t.name);
     assert.match(t.description, / General information only, not advice\.$/, t.name);
   }
 });
@@ -2136,6 +2140,33 @@ test('pension minimum tool covers full years, pro-rating, 1 June nil and leap ye
   await assert.rejects(tool.execute({ incomeYear: '2026-27', accountBalance: '600000', age: 151 }), /age must be a whole number from 0 to 150/);
   await assert.rejects(tool.execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67, scopeConfirmed: false }), /Confirm the facts/);
   await assert.rejects(tool.execute({ incomeYear: '2026-27', accountBalance: '600000', age: 67, extra: 1 }), /extra is not an input of this tool/);
+});
+
+test('residency day count tool counts broken periods, leap years and the exception, and decides no residency', async () => {
+  const tool = individual['residency-days'];
+  const page = await tool.execute({ incomeYear: '2025-26', usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false,
+    periods: [{ arrival: '2025-07-01', departure: '2025-09-30' }, { arrival: '2025-11-15', departure: '2026-03-31' }] });
+  assert.deepEqual([page.daysInAustralia, page.daysInYear, page.daysNeeded, page.moreThanHalfReached, page.exceptionApplies, page.test183Met,
+    page.residencyDecided, page.source], [229, 365, 183, true, false, true, false, 'https://duguid.com.au/tools/individual-tax/residency-days/']);
+  assert.doesNotThrow(() => JSON.stringify(page));
+  // TR 2023/1 example 5: Conchita, 9 months on holiday with her abode in Mexico.
+  const conchita = await tool.execute({ incomeYear: '2025-26', usualPlaceOfAbodeOutsideAustralia: true, intendsToTakeUpResidence: false,
+    periods: [{ arrival: '2025-08-01', departure: '2026-04-30' }] });
+  assert.deepEqual([conchita.daysInAustralia, conchita.exceptionApplies, conchita.test183Met], [273, true, false]);
+  // 2023-24 includes 29 February 2024: 184 days needed; overlaps and days outside the year count once or not at all.
+  const leap = await tool.execute({ incomeYear: '2023-24', usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false,
+    periods: [{ arrival: '2023-01-01', departure: '2023-12-31' }, { arrival: '2023-12-01', departure: '2023-12-31' }] });
+  assert.deepEqual([leap.daysInYear, leap.daysNeeded, leap.daysInAustralia, leap.test183Met], [366, 184, 184, true]);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false,
+    periods: [{ arrival: '2026-01-02', departure: '2026-01-01' }] }), /ends before it starts/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false,
+    periods: [{ arrival: '2026-02-30', departure: '2026-03-01' }] }), /is not a date/);
+  await assert.rejects(tool.execute({ incomeYear: '2027-28', usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false, periods: [] }),
+    /incomeYear does not match/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false, periods: [],
+    scopeConfirmed: false }), /Establish all stated scope conditions/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false, periods: [],
+    resides: true }), /resides is not an input of this tool/);
 });
 
 test('transfer balance tool runs transfer, charge and release modes and refuses mismatched or invalid inputs', async () => {

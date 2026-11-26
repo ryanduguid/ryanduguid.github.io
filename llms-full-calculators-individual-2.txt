@@ -78,7 +78,7 @@ The present value at 2.5%, as the Instrument allows you to change it | Age 30 to
 A higher-fee fund: $150 and 0.85% | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $150.00 and 0.85%, premiums $599.00, growth 3.7%, present value at 3.7% | 37 years: $1,778,785.44, present value $463,777.40
 No insurance | Age 30 to 67, balance $50,000.00, salary $80,000 at 12%, return 6.1%, fees $59.00 and 0.11%, premiums $0.00, growth 3.7%, present value at 3.7% | 37 years: $2,178,481.86, present value $567,989.05
 
-One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -90,7 +90,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 - Super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
@@ -181,7 +181,7 @@ LISTO on $50: the $10 minimum (s 12E(2)(c)) | 2025-26, assessable income $20,000
 LISTO at adjusted taxable income $37,001: nil (s 12C(1)(b)) | 2025-26, assessable income $37,001, eligible income $37,001.00, personal contributions $0.00, concessional contributions $4,000.00 | Co-contribution $0.00, LISTO $0.00
 Spouse income $39,999: 18% of $1 (s 290-235(1)) | 2025-26, assessable income $90,000, eligible income $90,000.00, personal contributions $0.00, concessional contributions $0.00, spouse income $39,999.00, spouse contributions $3,000.00 | Co-contribution $0.00, LISTO $0.00, spouse offset $0.18
 
-One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -194,7 +194,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
-- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
 
@@ -288,13 +288,13 @@ The charge on $2,500.50 for 2013-14, the first year, tax due 21 November 2014 | 
 Releasing a $100,000 excess for 2024-25, determined 15 September 2025 | 2024-25 release of $100,000.00, determination 2025-09-15 | Earnings $14,663.00, release $112,463.55, offset $2,199.45
 Releasing a $50,000 excess for 2020-21, determined 30 November 2021 | 2020-21 release of $50,000.00, determination 2021-11-30 | Earnings $5,251.00, release $54,463.35, offset $787.65
 
-One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -350,13 +350,83 @@ At 65 the factor rises from 4% to 5% | 2025-26, balance $100,000.00, age 65, 365
 At 95 or more, 14% | 2026-27, balance $500,000.00, age 95, 365 days | Before rounding $70,000.00, minimum $70,000.00
 2027-28 has 366 days, with 29 February 2028 | 2027-28, balance $300,000.00, age 80, 366 days | Before rounding $21,000.00, minimum $21,000.00
 
-One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
+# 183-day tax residency test day count calculator
+
+Source: https://duguid.com.au/tools/individual-tax/residency-days/
+
+> Add up the days you were in Australia between 1 July and 30 June from your arrival and departure days, and see whether you meet the 183-day residency test.
+
+# 183-day residency day count
+
+Count your days in Australia in an income year from 2020-21 to 2026-27 and check them against the 183-day test for tax residency.
+
+Published 26 November 2026. Last checked 26 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Your days in Australia in one income year
+
+Income year, 1 July to 30 June 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Periods in Australia
+
+Period 1 arrival day Period 1 departure day Period 2 arrival day Period 2 departure day Period 3 arrival day Period 3 departure day Period 4 arrival day Period 4 departure day Period 5 arrival day Period 5 departure day Period 6 arrival day Period 6 departure day
+
+Enter up to 6 stays in Australia, each from the day you arrived to the day you left; both days count. Leave the arrival blank if you were already here on 1 July, the departure blank if you were still here on 30 June, and both blank to skip a row. Overlapping periods count each day once, and days outside the income year are not counted.
+
+Is your usual place of abode outside Australia? No Yes
+
+Do you intend to take up residence in Australia? No Yes
+
+However many days you count, the test is not met if both are true: your usual place of abode is outside Australia and you do not intend to take up residence here. The Act leaves both to the Commissioner’s satisfaction; your answers stand in for it, and the calculator does not test them.
+
+Calculate
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26 (1 July 2025 to 30 June 2026); 2 periods in Australia; usual place of abode outside Australia: no; intends to take up residence: no. Days in Australia in the income year 229 of 365 More than one-half of the year 183 days or more Usual place of abode outside Australia and no intention to take up residence No, as you answered 183-day test Met Enough days, and the exception does not apply on your answers.
+
+## How the 183-day residency day count works
+
+The calculator adds up the distinct days you were in Australia between 1 July and 30 June, counting the day you arrived and the day you left as whole days. Paragraph (a)(ii) of the definition of ‘resident or resident of Australia’ in s 6(1) of the Income Tax Assessment Act 1936 includes a person ‘who has actually been in Australia, continuously or intermittently, during more than one-half of the year of income, unless the Commissioner is satisfied that the person’s usual place of abode is outside Australia and that the person does not intend to take up residence in Australia’. More than one-half is 183 days, or 184 in a year that includes 29 February.
+
+The exception needs the Commissioner to be satisfied of both facts: your usual place of abode is outside Australia, and you do not intend to take up residence in Australia. The calculator takes your answers in place of that satisfaction: if you answer yes and no, it shows the test as not met however many days you spent here. TR 2023/1 says a person on an extended holiday is the usual case.
+
+## What the 183-day residency day count does not cover
+
+The calculator does not decide whether you are an Australian resident. The 183-day test is one of 4. You are also a resident if you reside in Australia according to ordinary concepts, if your domicile is in Australia and your permanent place of abode is not outside Australia, or if you are a PSS member or a CSS eligible employee, or the spouse or child under 16 of one (the Commonwealth superannuation fund test). Those tests turn on facts and judgements this page does not ask for; read TR 2023/1 for each. Nor does it test your usual place of abode or intention, apply a tax treaty’s tie-breaker rules for a person resident in 2 countries, or work out part-year residency or the tax that follows. Confirm your residency with the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: 183-day residency day count
+
+Case | Inputs | Result
+Two stays in 2025-26, 1 July to 30 September and 15 November to 31 March: 92 + 137 = 229 days (the form’s example) | 2025-26, 2025-07-01 to 2025-09-30, 2025-11-15 to 2026-03-31 | 229 days, 183 needed: met
+TR 2023/1 example 5, Conchita: 9 months on holiday with her abode in Mexico, 273 days, the exception applies | 2025-26, 2025-08-01 to 2026-04-30, usual abode outside Australia | 273 days, 183 needed, exception applies: not met
+Abode outside Australia but intending to take up residence: the exception needs both, so 273 days meet the test | 2025-26, 2025-08-01 to 2026-04-30, usual abode outside Australia, intends to take up residence | 273 days, 183 needed: met
+183 days in 2025-26, 1 July to 30 December: more than one-half of 365 | 2025-26, 2025-07-01 to 2025-12-30 | 183 days, 183 needed: met
+182 days in 2025-26, 1 July to 29 December: one short | 2025-26, 2025-07-01 to 2025-12-29 | 182 days, 183 needed: not met
+183 days in 2023-24, which includes 29 February 2024: 184 needed (TR 2023/1 footnote 51) | 2023-24, 2023-07-01 to 2023-12-30 | 183 days, 184 needed: not met
+A stay from 1 January 2024 to 31 July 2024 counted in 2024-25: only 1 to 31 July falls in the year; an overlapping stay counts once | 2024-25, 2024-01-01 to 2024-07-31, 2024-07-15 to 2024-07-20 | 31 days, 183 needed: not met
+
+One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- TR 2023/1: https://www.ato.gov.au/law/view/document?docid=TXR/TR20231/NAT/ATO/00001
+- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 
 ---
 
@@ -442,7 +512,7 @@ Case | Inputs | Result
 Sue: ATO GN 2024/1 example 11, with a fictional determination date | ATO determination: concessional $8,500.00, non-concessional $5,000.00, earnings $850.00 | Maximum release $14,350.00, assessable $9,350.00, PAYG $1,589.00, after withholding $12,761.00, offset $2,805.00
 Partial release in the income year after determination | ATO determination: concessional $8,500.00, non-concessional $10,000.00, earnings $1,500.00, requested $15,000.00 on 2025-07-01, gross released $12,000.00 | Maximum release $20,000.00, assessable $2,000.00, PAYG $340.00, after withholding $11,660.00, offset $600.00
 
-One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -459,7 +529,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - GN 2024/1, example 6: https://www.ato.gov.au/law/view/print?DocID=GDN%2FGDN20241%2FNAT%2FATO%2F00001
 - First Home Super Saver Tax Act 2017: https://www.legislation.gov.au/C2017A00133/asmade
 - Treasury Laws Amendment (2023 Measures No. 3) Act 2023, Schedule 4, items 28 and 30: https://www.legislation.gov.au/C2023A00075
-- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - First home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
@@ -546,7 +616,7 @@ A seminar is not a prescribed course, so no reduction in 2021-22 (TR 98/9 para 1
 From 2022-23 there is no $250 reduction (Act No. 84, 2022) | 2022-23, self-education, skills for current work, A $290.00, B $0.00, C $0.00, D $0.00 | Deduction $290.00
 Wendy: study for new employment is not deductible (ATO self-education page) | 2025-26, self-education, new employment, A $290.00, B $0.00, C $0.00, D $0.00 | Deduction $0.00, not deductible
 
-One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -558,7 +628,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Cents per kilometre rate: https://duguid.com.au/rates/cents-per-kilometre/
 - Deductions questions: https://duguid.com.au/tools/accounting-questions/deductions/
 - Depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
@@ -648,7 +718,7 @@ B(ii): what earlier B(ii) payments had withheld comes off | fortnightly, scale 2
 B(ii): earlier withholding beyond the amount gives nil | fortnightly, scale 2, $1,800.00 this pay; B(ii): $2,480.00, $18,000.00 over 10 pays to date, earlier $1,000.00 with $9,999.00 withheld | Withheld $212.00: $212.00 on earnings, $0.00 by B(ii) (limit $1,165.60)
 ATO example 4: Bradley’s back pay over 2 years by B(i) and B(ii), with a Financial Supplement debt | monthly, scale 2, study loan, $7,000.00 this pay; B(i): $800.00 for each of 2 pays of $6,200.00 that had $1,257.00 withheld; B(ii): $8,800.00, $19,400.00 over 3 pays to date | Withheld $6,492.00: $1,634.00 on earnings, $754.00 by B(i), $4,104.00 by B(ii) (limit $4,136.00)
 
-One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -662,7 +732,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
-- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - PAYG withholding coefficients: https://duguid.com.au/rates/payg-withholding/
 - Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/
 
@@ -740,7 +810,7 @@ The reportable amount brings on the surcharge and raises the study loan repaymen
 A foreign resident | 2026-27, charity, foreign, salary $70,000, Type 2 $15,899.93 | Gain $4,770.00: tax saved $4,770.00, FBT $0.00, reportable $29,999
 2022-23, before the standard deduction | 2022-23, charity, resident, salary $70,000, Type 2 $15,899.93 | Gain $5,674.00: tax saved $5,674.00, FBT $0.00, reportable $29,999
 
-One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -753,7 +823,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - novated lease calculator: https://duguid.com.au/tools/individual-tax/novated-lease/
-- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
 - Meal entertainment calculator: https://duguid.com.au/tools/business-calculators/fbt-meal-entertainment/
 
@@ -851,7 +921,7 @@ Held over 4 years: two-thirds of the cost price | 2026-27, bev, first held and u
 Half a year available | 2026-27, bev, first held and used on 2022-07-01, sold 2026-27 at $60,000.00, 182 days, costs $15,000.00 with GST and $1,000.00 without, salary $100,000 | Exempt: value $5,983.56, saving $6,047.48, $3,762.72 without the exemption
 The reportable amount brings on the surcharge | 2026-27, bev, first held and used on 2022-07-01, sold 2026-27 at $60,000.00, 365 days, costs $15,000.00 with GST and $1,000.00 without, salary $120,000, no hospital cover | Exempt: value $12,000.00, saving $5,649.93, $1,502.97 without the exemption
 
-One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -863,7 +933,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - Car limit for depreciation: https://duguid.com.au/rates/car-limit/
 - Salary packaging calculator: https://duguid.com.au/tools/individual-tax/salary-packaging/

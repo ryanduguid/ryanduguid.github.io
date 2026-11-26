@@ -86,10 +86,10 @@ The charge on $2,500.50 for 2013-14, the first year, tax due 21 November 2014 | 
 Releasing a $100,000 excess for 2024-25, determined 15 September 2025 | 2024-25 release of $100,000.00, determination 2025-09-15 | Earnings $14,663.00, release $112,463.55, offset $2,199.45
 Releasing a $50,000 excess for 2020-21, determined 30 November 2021 | 2020-21 release of $50,000.00, determination 2021-11-30 | Earnings $5,251.00, release $54,463.35, offset $787.65
 
-One of the seventeen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- seventeen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
