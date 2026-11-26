@@ -98,7 +98,7 @@ export function flag(v, key) {
 
 /** True, false or unstated (null). @param {Record<string, unknown>} v @param {string} key @returns {boolean | null} */
 export function fact(v, key) {
-  const b = v[key];
+  const b = v[key]; // eslint-disable-line security/detect-object-injection -- the key is a literal from this module's own call sites
   if (b === undefined || b === null) return null;
   if (typeof b !== 'boolean') throw fail(`${key} must be true, false or null`);
   return b;
