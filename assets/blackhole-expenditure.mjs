@@ -108,11 +108,17 @@ function exact(v) {
 }
 
 /** @param {number} n @param {string} key @param {string} why @returns {never} */
-const missing = (n, key, why) => refuse('business_capital.fact_missing', `item ${n}: ${key} is required: ${why}.`);
+function missing(n, key, why) {
+  return refuse('business_capital.fact_missing', `item ${n}: ${key} is required: ${why}.`);
+}
 /** @param {number} n @param {string} key @param {string} expected @returns {never} */
-const invalid = (n, key, expected) => refuse('business_capital.fact_invalid', `item ${n}: ${key} must be ${expected}.`);
+function invalid(n, key, expected) {
+  return refuse('business_capital.fact_invalid', `item ${n}: ${key} must be ${expected}.`);
+}
 /** @returns {never} */
-const itemsInvalid = () => refuse('business_capital.items_invalid', 'items must be a non-empty list of objects, one for each item of capital expenditure.');
+function itemsInvalid() {
+  return refuse('business_capital.items_invalid', 'items must be a non-empty list of objects, one for each item of capital expenditure.');
+}
 
 /** The stated facts of one item, each read once. @param {number} n @param {Record<string, unknown>} fields */
 function facts(n, fields) {
@@ -132,12 +138,12 @@ function facts(n, fields) {
       if (typeof value !== 'boolean') invalid(n, key, 'a JSON boolean');
       return value;
     },
-    /** @param {string} key @param {readonly (readonly [string, string])[]} options @param {string} why */
+    /** @param {string} key @param {readonly (readonly [string, string])[]} options @param {string} why
+     * @returns {readonly [string, string]} */
     choice(key, options, why) {
       const given = get(key, why);
       const found = options.find(([name]) => name === given);
-      if (!found) invalid(n, key, `one of ${options.map(([name]) => name).join(', ')}`);
-      return found;
+      return found ?? invalid(n, key, `one of ${options.map(([name]) => name).join(', ')}`);
     },
     /** @param {string} key */
     decimal: (key) => decimal(get(key, 'every item states it')),
@@ -218,9 +224,9 @@ function exclusions(n, f, item) {
   if (!Array.isArray(given)) invalid(n, 'exclusions', expected);
   /** @type {string[]} */
   const labels = [];
-  for (const value of given) {
+  for (const value of /** @type {unknown[]} */ (given)) {
     const found = BLACKHOLE_EXCLUSIONS.find(([label]) => label === value);
-    if (!found || labels.includes(found[0])) invalid(n, 'exclusions', expected);
+    if (!found || labels.includes(found[0])) return invalid(n, 'exclusions', expected);
     labels.push(found[0]);
   }
   if (labels.includes('5(a)')) {
@@ -292,7 +298,7 @@ export function businessCapitalExpenditure(input) {
   }
   const first = Number(input.year.slice(0, 4));
   if (!Array.isArray(input.items) || input.items.length === 0) itemsInvalid();
-  const items = input.items.map((value, i) => readItem(i + 1, value, first));
+  const items = /** @type {unknown[]} */ (input.items).map((value, i) => readItem(i + 1, value, first));
   const totals = [ZERO, ZERO, ZERO, ZERO];
   const rows = items.map((it, i) => {
     const { terms, row } = worked(it, i + 1, first);
