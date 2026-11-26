@@ -26,6 +26,10 @@ Salary sacrificed to super each pay period (dollars and cents) Do you have a stu
 
 Did you have private patient hospital cover all year? Yes No
 
+## Withholding under another schedule
+
+For 2024-25 to 2026-27, the calculator can also work the amount to withhold from one payment under another schedule, beside the year’s result.
+
 Also work out withholding under another schedule? No, Schedule 1 only Daily or casual pay (tax table for daily and casual workers) Schedule 2: horticulture or shearing Schedule 3: actors, variety artists and other entertainers Schedule 4: a return to work payment Schedule 6: an annuity Schedule 9: a senior or pensioner Schedule 10: a payment under a voluntary agreement Schedule 14: an extra amount the payee asked for in writing Schedule 15: a working holiday maker A supplier who quoted no ABN
 
 Use dated earnings for super
@@ -52,8 +56,8 @@ When the salary includes super, the calculator splits it: at 12%, a package of $
 
 The tax and PAYG estimates assume one employer, a salary paid evenly over the full year and no other income, deductions or offsets. Dated super can use irregular payments that add up to the year’s gross salary.
 
-- separate tax or withholding treatment for overtime, bonuses, allowances or leave loading. PAYG estimates use 52 weekly or 26 fortnightly pays and omit withholding under scales 1, 5 and 6, offsets claimed in a withholding declaration and Medicare levy variations; the other schedules option takes those into Schedules 6 and 14 only;
-- in the other schedules option: a Medicare levy adjustment for dependants and the extra amount for 53 or 27 pays under Schedules 6 and 14, quarterly pays, tax offsets and a Medicare levy adjustment under Schedule 9 (which takes their weekly value off its amount), a foreign resident who gave a tax file number under Schedule 3 or the daily and casual table (neither gives a step to foreign resident rates), workers under the Pacific Australia Labour Mobility scheme, a voluntary agreement not in force or without the payee’s ABN, payments before 2024-25, and whether the payee or payment belongs under the schedule. The option refuses these rather than guess. Schedules 5, 7, 11, 12 and 13 have their own calculators;
+- separate tax or withholding treatment for overtime, bonuses, allowances or leave loading. PAYG estimates use 52 weekly or 26 fortnightly pays and omit withholding under scales 1, 5 and 6, offsets claimed in a withholding declaration and Medicare levy variations;
+- in the other schedules option, which refuses rather than guesses: payments before 2024-25, a dependants’ Medicare levy adjustment or 53 or 27 pays under Schedules 6 and 14, offsets or a levy adjustment under Schedule 9, a foreign resident with a TFN under Schedule 3 or the daily table, Pacific Australia Labour Mobility workers, a voluntary agreement not in force or without an ABN, and whether the payment belongs under the schedule;
 - 2025-26 withholding with a study loan that mixes the 2 Schedule 8s: the year’s withholding and refund take the one from 24 September 2025 for every pay, and the component before that date is shown beside it;
 - work-related deductions you claim, which reduce the standard deduction dollar for dollar except those section 25-130(3) disregards, such as professional association fees;
 - salary sacrifice of anything but super, reportable fringe benefits, excess concessional contributions or Division 293 tax;
