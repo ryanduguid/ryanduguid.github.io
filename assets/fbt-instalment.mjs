@@ -27,7 +27,7 @@ function refuse(code, message) {
 const money = (/** @type {bigint} */ c) => `${c < 0n ? '-' : ''}${(c < 0n ? -c : c) / 100n}.${String((c < 0n ? -c : c) % 100n).padStart(2, '0')}`;
 /** @param {unknown} text @param {string} name */
 function amount(text, name) {
-  const match = typeof text === 'string' ? /^(\d{1,13})(?:\.(\d{1,2}))?$/.exec(text.trim()) : null;
+  const match = typeof text === 'string' ? /^(\d{1,13})(?:\.(\d{1,2}))?$/.exec(text.trim()) : null; // eslint-disable-line security/detect-unsafe-regex -- anchored, with no repetition over overlapping characters: linear
   if (!match) refuse('input.amount_invalid', `${name} must be a non-negative amount in dollars with at most 2 decimal places.`);
   return BigInt(match[1]) * 100n + BigInt((match[2] ?? '').padEnd(2, '0'));
 }

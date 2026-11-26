@@ -76,7 +76,7 @@ const max0 = (/** @type {bigint} */ c) => (c < 0n ? 0n : c);
 
 /** A non-negative amount with at most 2 decimal places, as cents. @param {unknown} text @param {string} name */
 function amount(text, name) {
-  const match = typeof text === 'string' ? /^(\d{1,13})(?:\.(\d{1,2}))?$/.exec(text.trim()) : null;
+  const match = typeof text === 'string' ? /^(\d{1,13})(?:\.(\d{1,2}))?$/.exec(text.trim()) : null; // eslint-disable-line security/detect-unsafe-regex -- anchored, with no repetition over overlapping characters: linear
   if (!match) refuse('input.amount_invalid', `${name} must be a non-negative amount in dollars with at most 2 decimal places.`);
   return BigInt(match[1]) * 100n + BigInt((match[2] ?? '').padEnd(2, '0'));
 }
@@ -100,7 +100,7 @@ function checkBenefit(b, at, kind) {
     refuse('fbt_return.gst_type_missing', `${at}.gst_type must be type_1 for a GST-creditable benefit (FBTAA s 5C(3)) or type_2 for any other (s 5C(4)).`);
   }
   if (typeof b.excluded !== 'boolean') refuse('input.flag_invalid', `${at}.excluded must be true or false: whether it is an excluded fringe benefit (FBTAA s 5E(3)).`);
-  const always = ALWAYS_EXCLUDED[/** @type {'23N'} */ (label)];
+  const always = ALWAYS_EXCLUDED[/** @type {'23N'} */ (label)]; // eslint-disable-line security/detect-object-injection -- keys come from this module's own constant tables or a checked choice
   if (always && !b.excluded) refuse('fbt_return.exclusion_conflict', `${at}.excluded must be true: ${always}.`);
   const exempt = b.electric_car_exempt === true;
   if (b.electric_car_exempt !== undefined && typeof b.electric_car_exempt !== 'boolean') refuse('input.flag_invalid', `${at}.electric_car_exempt must be true or false.`);
@@ -159,11 +159,9 @@ function capping(/** @type {ReturnType<typeof checkBenefit>[]} */ benefits, /** 
   /** @type {Map<string, bigint[]>} */
   const bases = new Map();
   for (const b of benefits.filter((x) => !disregarded(x)).sort((x, y) => (x.employee < y.employee ? -1 : 1))) {
-    const base = bases.get(b.employee) ?? [0n, 0n, 0n, 0n];
-    const at = b.typeOne ? 0 : 1;
-    base[at] += b.taxable;
-    if (b.entertainment === 'salary_packaged') base[at + 2] += b.taxable;
-    bases.set(b.employee, base);
+    const [one, two, p1, p2] = bases.get(b.employee) ?? [0n, 0n, 0n, 0n];
+    const packaged = b.entertainment === 'salary_packaged' ? b.taxable : 0n;
+    bases.set(b.employee, b.typeOne ? [one + b.taxable, two, p1 + packaged, p2] : [one, two + b.taxable, p1, p2 + packaged]);
   }
   const employees = [...bases].map(([employee, [one, two, p1, p2]]) => {
     const individual = grossed(one, two);
@@ -190,7 +188,7 @@ function item23(/** @type {ReturnType<typeof checkBenefit>[]} */ benefits, /** @
 
 /** Each employee's individual and reportable fringe benefits amounts (s 5E(2), s 135P). */
 function employees(/** @type {ReturnType<typeof checkBenefit>[]} */ benefits) {
-  const names = [...new Set(benefits.map((b) => b.employee))].sort();
+  const names = [...new Set(benefits.map((b) => b.employee))].sort((x, y) => (x < y ? -1 : 1));
   return names.map((employee) => {
     const own = benefits.filter((b) => b.employee === employee);
     const individual = sum(own.filter((b) => !b.excluded).map((b) => b.reportable));
@@ -201,23 +199,10 @@ function employees(/** @type {ReturnType<typeof checkBenefit>[]} */ benefits) {
 }
 
 /**
- * One employer's FBT return. Amounts are strings in dollars and cents.
- * @param {Record<string, unknown>} v
+ * Items 14 to 19 and the caps for the employer kind (s 5B, s 57A, s 65J).
+ * @param {ReturnType<typeof checkBenefit>[]} benefits @param {string} kind @param {number | null} capDollars @param {bigint[] | null} days
  */
-export function fbtReturn(v) {
-  const extra = Object.keys(v).find((k) => !INPUTS.includes(k));
-  if (extra) refuse('input.field_unknown', `${extra} is not an input of the FBT return calculator.`);
-  const year = Number(v.year_ended);
-  if (!FBT_RETURN_YEARS.includes(year) || !Number.isInteger(v.year_ended)) {
-    refuse('period.unsupported', `year_ended must be ${FBT_RETURN_YEARS.join(' or ')}, an FBT year ended 31 March whose rates are loaded.`);
-  }
-  const kindRow = FBT_EMPLOYER_KINDS.find(([name]) => name === (v.employer_kind ?? 'taxable'));
-  if (!kindRow) refuse('fbt_return.employer_kind_unsupported', `employer_kind must be one of ${FBT_EMPLOYER_KINDS.map(([n]) => n).join(', ')}.`);
-  const [kind, capDollars] = kindRow;
-  const days = checkDays(v, kind, year);
-  const instalments = v.instalments_reported === undefined ? null : amount(v.instalments_reported, 'instalments_reported');
-  if (!Array.isArray(v.benefits) || !v.benefits.length) refuse('input.missing_field', 'benefits is required: a list of at least one benefit.');
-  const benefits = v.benefits.map((b, i) => checkBenefit(b, `benefits[${i}]`, kind));
+function compose(benefits, kind, capDollars, days) {
   const typeOneValue = sum(benefits.filter((b) => b.typeOne).map((b) => b.taxable));
   const typeTwoValue = sum(benefits.filter((b) => !b.typeOne).map((b) => b.taxable));
   const item14a = grossDollars(typeOneValue, ONE);
@@ -251,6 +236,28 @@ export function fbtReturn(v) {
       Object.assign(amounts, { aggregate_non_rebatable_amount: fbtMoney(item17), rebate: fbtMoney(item18), fbt_payable_after_rebate: fbtMoney(item19) });
     }
   }
+  return { labels, amounts, item19, caps, exempt };
+}
+
+/**
+ * One employer's FBT return. Amounts are strings in dollars and cents.
+ * @param {Record<string, unknown>} v
+ */
+export function fbtReturn(v) {
+  const extra = Object.keys(v).find((k) => !INPUTS.includes(k));
+  if (extra) refuse('input.field_unknown', `${extra} is not an input of the FBT return calculator.`);
+  const year = Number(v.year_ended);
+  if (!FBT_RETURN_YEARS.includes(year) || !Number.isInteger(v.year_ended)) {
+    refuse('period.unsupported', `year_ended must be ${FBT_RETURN_YEARS.join(' or ')}, an FBT year ended 31 March whose rates are loaded.`);
+  }
+  const kindRow = FBT_EMPLOYER_KINDS.find(([name]) => name === (v.employer_kind ?? 'taxable'));
+  if (!kindRow) refuse('fbt_return.employer_kind_unsupported', `employer_kind must be one of ${FBT_EMPLOYER_KINDS.map(([n]) => n).join(', ')}.`);
+  const [kind, capDollars] = kindRow;
+  const days = checkDays(v, kind, year);
+  const instalments = v.instalments_reported === undefined ? null : amount(v.instalments_reported, 'instalments_reported');
+  if (!Array.isArray(v.benefits) || !v.benefits.length) refuse('input.missing_field', 'benefits is required: a list of at least one benefit.');
+  const benefits = v.benefits.map((b, i) => checkBenefit(b, `benefits[${i}]`, kind));
+  const { labels, amounts, item19, caps, exempt } = compose(benefits, kind, capDollars, days);
   labels[19] = fbtMoney(item19);
   if (instalments !== null) {
     labels[20] = fbtMoney(instalments);

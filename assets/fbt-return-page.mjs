@@ -48,7 +48,7 @@ export function fbtFormInput(value) {
 /** How the page writes the return's input. @param {Record<string, any>} x @param {(value: number) => string} aud */
 export function fbtInputsText(x, aud) {
   const kind = x.employer_kind ?? 'taxable';
-  const head = `FBT year ended 31 March ${x.year_ended}, ${KIND_TEXT[/** @type {'taxable'} */ (kind)]}`
+  const head = `FBT year ended 31 March ${x.year_ended}, ${KIND_TEXT[/** @type {'taxable'} */ (kind)]}` // eslint-disable-line security/detect-object-injection -- keys come from this module's own constant table or a checked choice
     + `${kind === 'rebatable' ? `, rebatable on ${x.rebatable_days} of ${x.employer_days} days` : ''}`
     + `${x.instalments_reported === undefined ? '' : `, instalments reported ${aud(Number(x.instalments_reported))}`}`;
   const benefits = (x.benefits ?? []).map((/** @type {Record<string, any>} */ b) => `${b.employee} ${b.label} type ${b.gst_type.slice(-1)}`
