@@ -110,15 +110,11 @@
       "distribution": "au-fpa-pack",
       "repository": "https://github.com/ryanduguid/OzFPA",
       "published": {
-        "version": "0.8.0",
-        "released_utc": "2026-11-24T13:47:32Z",
-        "verified": "2026-11-26",
-        "release_url": "https://github.com/ryanduguid/OzFPA/releases/tag/v0.8.0",
-        "pypi_url": "https://pypi.org/project/au-fpa-pack/",
-        "pypi_lag": {
-          "version": "0.7.0",
-          "sentence": "PyPI still serves au-fpa-pack 0.7.0."
-        }
+        "version": "0.8.1",
+        "released_utc": "2026-11-26T05:24:59Z",
+        "verified": "2026-11-27",
+        "release_url": "https://github.com/ryanduguid/OzFPA/releases/tag/v0.8.1",
+        "pypi_url": "https://pypi.org/project/au-fpa-pack/"
       },
       "documented": {
         "page": "examples/profit-vs-cash-flow/index.html",
