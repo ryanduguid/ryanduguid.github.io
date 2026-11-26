@@ -1,0 +1,59 @@
+<section class="business-calculator" id="endorsement-review">
+<form class="calculator-split" data-calculator="endorsement-review">
+<fieldset disabled><legend>The ATO’s endorsement review worksheet, answered here</legend><div class="form-grid"><fieldset class="field"><legend>Which worksheet</legend>
+<label><input type="radio" name="worksheet" value="dgr_whole" checked /> Worksheet 1: a DGR endorsed as a whole</label>
+<label><input type="radio" name="worksheet" value="dgr_fund" /> Worksheet 2: a DGR endorsed for a fund, authority or institution it owns or includes</label>
+<label><input type="radio" name="worksheet" value="income_tax_exempt_charity" /> An income tax exempt charity</label></fieldset>
+<fieldset class="field"><legend>Is the entity’s ABN still current?</legend>
+<label><input type="radio" name="abn-current" value="yes" checked /> Yes</label>
+<label><input type="radio" name="abn-current" value="no" /> No</label></fieldset>
+</div>
+<fieldset data-show-field="worksheet" data-show-values="income_tax_exempt_charity" hidden disabled><legend class="visually-hidden">Income tax exempt charity</legend><div class="form-grid">
+<fieldset class="field"><legend>Is the entity a registered charity, registered with the ACNC?</legend>
+<label><input type="radio" name="registered-charity" value="yes" checked /> Yes</label>
+<label><input type="radio" name="registered-charity" value="no" /> No</label></fieldset>
+<fieldset class="field"><legend>Does it meet at least one of the in Australia test, the DGR test or the prescribed by law test?</legend>
+<label><input type="radio" name="meets-a-test" value="yes" checked /> Yes</label>
+<label><input type="radio" name="meets-a-test" value="no" /> No</label></fieldset>
+<fieldset class="field"><legend>Does it comply with the substantive requirements of its governing rules and apply its income and assets solely for the purpose for which it was established?</legend>
+<label><input type="radio" name="meets-both-conditions" value="yes" checked /> Yes</label>
+<label><input type="radio" name="meets-both-conditions" value="no" /> No</label></fieldset>
+</div></fieldset>
+<fieldset data-show-field="worksheet" data-show-values="dgr_whole dgr_fund"><legend class="visually-hidden">Deductible gift recipient</legend><div class="form-grid">
+<fieldset class="field"><legend>Does the fund, authority or institution still fall within the DGR category on the ATO notice?</legend>
+<label><input type="radio" name="within-category" value="yes" checked /> Yes</label>
+<label><input type="radio" name="within-category" value="no" /> No</label></fieldset>
+</div></fieldset>
+<fieldset data-show-field="worksheet" data-show-values="dgr_whole"><legend class="visually-hidden">A DGR endorsed as a whole</legend><div class="form-grid">
+<fieldset class="field"><legend>Do the governing documents require surplus gifts and deductible contributions to go to another DGR on winding up or revocation (or is the entity set up by an Act that does not provide for its winding up)?</legend>
+<label><input type="radio" name="winding-up-clause" value="yes" checked /> Yes</label>
+<label><input type="radio" name="winding-up-clause" value="no" /> No</label></fieldset>
+</div></fieldset>
+<fieldset data-show-field="worksheet" data-show-values="dgr_fund" hidden disabled><legend class="visually-hidden">A DGR endorsed for a fund, authority or institution</legend><div class="form-grid">
+<fieldset class="field"><legend>Does it maintain a gift fund for the principal purpose that receives only gifts, deductible contributions and money from them, used only for that purpose?</legend>
+<label><input type="radio" name="gift-fund-maintained" value="yes" checked /> Yes</label>
+<label><input type="radio" name="gift-fund-maintained" value="no" /> No</label></fieldset>
+</div></fieldset>
+<fieldset data-show-field="worksheet" data-show-values="dgr_whole dgr_fund"><legend class="visually-hidden">Deductible gift recipient, continued</legend><div class="form-grid">
+<fieldset class="field"><legend>Is the fund, authority or institution in Australia?</legend>
+<label><input type="radio" name="in-australia" value="yes" checked /> Yes</label>
+<label><input type="radio" name="in-australia" value="no" /> No</label></fieldset>
+<fieldset class="field"><legend>Do its receipts for gifts and deductible contributions state the name, the ABN and what each is a receipt for?</legend>
+<label><input type="radio" name="receipts-correct" value="yes" checked /> Yes</label>
+<label><input type="radio" name="receipts-correct" value="no" /> No</label></fieldset>
+</div></fieldset>
+<button type="submit" class="button">Review</button></fieldset>
+{% include calculator-example.html inputs="Worksheet 1, a DGR endorsed as a whole (NAT 11685); 5 questions, no to none" rows="Outcome|Still entitled on these answers: no need to contact the ATO, and review again each year and after a change;Worksheet|NAT 11685-02.2021 (Worksheet 1);Is the entity’s ABN still current?|Yes. ITAA 1997 s 30-125(1)(a): the entity must have an ABN.;Does the fund, authority or institution still fall within the DGR category on the ATO notice?|Yes. ITAA 1997 s 30-125(1)(b): the fund, authority or institution falls within the DGR category on the ATO notice.;Do the governing documents require surplus gifts and deductible contributions to go to another DGR on winding up or revocation (or is the entity set up by an Act that does not provide for its winding up)?|Yes. ITAA 1997 s 30-125(1)(c), (6) and (7): a law, the constituent documents or the rules must require surplus gifts and deductible contributions, and money received from them, to go to another DGR on winding up or revocation, unless the entity is established by an Act that does not provide for its winding up.;Is the fund, authority or institution in Australia?|Yes. ITAA 1997 s 30-15 item 1, special condition (a): the fund, authority or institution must be in Australia.;Do its receipts for gifts and deductible contributions state the name, the ABN and what each is a receipt for?|Yes. ITAA 1997 s 30-228: a receipt for a gift or deductible contribution states the name, the ABN and what it is a receipt for." principal="0" note="Not asked by the worksheet: ITAA 1997 s 30-125(1)(b)(iii) and (2)(c): the special conditions of the s 30-15 table item and the Subdivision 30-B item; ITAA 1997 s 30-125(1)(d) and (e): a giving or community charity trust fund, or a community charity corporation, and its trustees or directors, comply with the guidelines; ITAA 1997 s 30-125(2)(d) and (6): for an entity endorsed for a fund, authority or institution, the winding up and revocation clause. Have the Board, Committee or Trustee approve the completed worksheet and keep it with the entity’s records; do not send it to the ATO" %}
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>The questions and what a ‘No’ means: the ATO’s <a href="https://www.ato.gov.au/calculators-and-tools/charities-review-of-a-dgr-endorsed-as-a-whole-worksheet-1">Worksheet 1: review of a DGR endorsed as a whole</a> (NAT 11685, QC26483), Worksheet 2: review of a DGR endorsed for the operation of a fund, authority or institution it owns or includes (NAT 11686) and the <a href="https://www.ato.gov.au/calculators-and-tools/charities-income-tax-exempt-charities-endorsement-review-worksheet">Endorsement review worksheet for income tax exempt charities</a> (NAT 74110, QC25598), each the February 2021 edition, read 27 November 2026.</li>
+<li>The conditions of entitlement: <a href="https://www.legislation.gov.au/C2004A05138/latest/text">section 30-125 of the Income Tax Assessment Act 1997</a> (Compilation No. 268, 1 October 2026), read 27 November 2026, with sections 30-15 item 1, 30-130, 30-228, 50-5, 50-47, 50-50 and 50-110, and sections 426-45 and 426-55 in Schedule 1 to the <a href="https://www.legislation.gov.au/C1953A00001/latest/text">Taxation Administration Act 1953</a>, as the australian-accounting endorsement-review command read them on 24 November 2026. Each answer on the result names its provision.</li>
+<li>Supplied by you: the worksheet and every answer. Nothing is checked against the Australian Business Register or the ACNC register.</li>
+</ul>
+</div>
+</form>
+<h2>How the endorsement review works</h2><p>An entity the ATO has endorsed as a deductible gift recipient (DGR), or as an income tax exempt charity, must tell the ATO in writing when it stops being entitled. The ATO publishes 3 worksheets for the yearly self-review it recommends, and for a review after a change to the entity’s rules, structure or activities. Choose the worksheet that matches the ATO notice of endorsement, answer each question and the page gives the worksheet’s outcome.</p><p>Every ‘Yes’ means the entity continues to be entitled on that point. A ‘No’ to a condition of entitlement means the entity is not entitled: the page says what notice the law requires, under section 426-45 of Schedule 1 to the Taxation Administration Act 1953, and from when. A cancelled ABN ends the endorsement without notice from the entity. A ‘No’ on receipts does not end the endorsement but needs action at once, as the Commissioner may revoke it for a contravention. A missing winding up clause is a condition of entitlement under section 30-125(1)(c), so it gives ‘not entitled’ as well as the amendment the worksheet asks for.</p><p>Keep the completed review with the entity’s records once its board, committee or trustee approves it: the ATO asks that it not be sent in.</p>
+<h2>DGR status for a donor</h2><p>This page is the entity’s own review. A donor checking whether a recipient is shown as a DGR should search the <a href="https://abr.business.gov.au/Tools/DgrListing">ABN Lookup deductible gift recipient listing</a>, which shows the DGR item and the date the status started. A DGR named in the income tax law need not be endorsed, and the listing’s absence does not by itself decide whether a gift is deductible.</p>
+<h2>What the endorsement review does not cover</h2><p>The review asks only what the worksheets ask. It does not test the special conditions of the DGR category’s table item, the trust fund or community charity guidelines, or for a charity that has not yet started its activities, the reasonable grounds test of section 50-110(5)(b): the result lists these as not asked. It does not decide whether the entity is a charity, which category it falls in or whether a gift to it is deductible. It does not look up the entity on any register, does not apply for, change or revoke an endorsement and does not lodge anything with the ATO or the ACNC. It does not cover a DGR named in the law rather than endorsed, an entity endorsed for other income tax exemptions, or fringe benefits tax concessions.</p>
+</section>
