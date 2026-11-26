@@ -7339,6 +7339,37 @@ for (const [slug, run] of [['partnership-net-income', 'partnershipNetIncome'], [
   });
 }
 
+// The S8 pages' boundary rows: the form's call, how the page writes it, and the figures each row shows.
+const s8Aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+Object.assign(INPUTS, { frcgwFigures: (x) => calculations.frcgwInputsText(x, s8Aud), partnershipNetIncome: (x) => calculations.partnershipInputsText(x, s8Aud),
+  trustLossTests: (x) => calculations.trustLossInputsText(x) });
+Object.assign(ENGINE_LABELS, {
+  frcgwFigures: { withholdingBase: (v) => `withholding base ${dollars(v)}`, amountPayable: (v) => `amount to pay the ATO ${dollars(v)}`,
+    nilReason: (v) => (v === null ? 'withholding applies' : `nothing to withhold: ${v}`) },
+  partnershipNetIncome: { deductions_counted: (v) => `deductions counted ${dollars(Number(v))}`, net_income: (v) => `net income ${dollars(Number(v))}`,
+    partnership_loss: (v) => `partnership loss ${dollars(Number(v))}` },
+  trustLossTests: { deductible: (v) => (v === true ? 'prior-year loss deductible' : v === false ? 'prior-year loss not deductible' : 'deductibility not established') },
+});
+Object.assign(FORM_CALLS, { frcgwFigures: (f) => [calculations.frcgwFormInput((name) => f[name] ?? '')],
+  partnershipNetIncome: (f) => [calculations.partnershipFormInput((name) => f[name] ?? '')], trustLossTests: (f) => [calculations.trustLossFormInput((name) => f[name] ?? '')] });
+
+test('the S8 pages put their refusals in the page’s words', () => {
+  const frcgwForm = { date: '2026-03-15', asset: 'taxable_australian_real_property', 'market-value': '800000', price: '800000', option: '800001', exclusion: 'none',
+    'class-nil': 'no', 'vendor-1-interest': '1', 'vendor-1-document': 'none' };
+  assert.throws(() => calculations.frcgwResult((name) => frcgwForm[name] ?? '', s8Aud), { message: 'Enter an option fee no more than the purchase price.' });
+  assert.throws(() => calculations.frcgwResult((name) => ({ ...frcgwForm, option: '0', 'sale-price': '880000', 'vendor-1-document': 'variation', 'vendor-1-rate': '0.05',
+    'vendor-1-maximum': '850000' })[name] ?? '', s8Aud), /whether the maximum includes GST/);
+  const frcgw = calculations.frcgwResult((name) => ({ ...frcgwForm, option: '0', 'vendor-1-document': 'variation', 'vendor-1-rate': '0.07', 'vendor-1-maximum': '900000' })[name] ?? '', s8Aud);
+  assert.match(frcgw.inputs, / at 7% up to \$900,000\.00$/);
+  const partnership = { year: '2026', 'assessable-income': '1000', deductions: '0', scope: 'none', australian: 'no', 'partner-1-name': 'A', 'partner-1-interest': '60',
+    'partner-1-residency': 'non_resident', 'partner-2-name': 'B', 'partner-2-interest': '30', 'partner-2-residency': 'resident' };
+  assert.throws(() => calculations.partnershipResult((name) => partnership[name] ?? '', s8Aud), /choose Yes for all the income being from Australian sources/);
+  assert.throws(() => calculations.partnershipResult((name) => ({ ...partnership, australian: 'yes' })[name] ?? '', s8Aud),
+    { message: 'Enter partner interests that total 100%; these total 90%.' });
+  assert.throws(() => calculations.trustLossResult((name) => ({ year: '2026', 'loss-year': '2026', kind: 'fixed', excepted: 'none' })[name] ?? 'unknown'),
+    { message: 'Choose a loss year earlier than the income year deducting it.' });
+});
+
 test('the S8 pages work their own examples from the form', () => {
   const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
   const frcgw = calculations.frcgwResult((name) => ({ date: '2026-03-15', asset: 'taxable_australian_real_property', 'market-value': '1200000', price: '1200000',

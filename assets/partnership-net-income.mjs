@@ -4,8 +4,8 @@
 // A partnership's net income or partnership loss (ITAA 1936 s 90) and each partner's share of it and of exempt and
 // non-assessable non-exempt income (s 92): the `partnership-net-income` command of ryanduguid/australian-accounting's
 // solomons-sword ported line for line, with its inputs, order of checks, refusal texts and rounding (each share half up
-// to the cent, the cents left over to the largest shares first). ss 90 to 94 read on the Federal Register of
-// Legislation on 27 November 2026.
+// to the cent, the cents left over to the largest shares first). ss 90 to 92 read on the Federal Register of
+// Legislation (Compilation No. 193, 1 October 2026) on 27 November 2026.
 
 import { add, cents, cmp, d, div, fixed2, adjusted, isFinite, isZero, mul, parse, quantize, str, sub } from './exact-decimal.mjs';
 
@@ -195,7 +195,7 @@ export function partnershipFormInput(value) {
 
 /** How the page writes the call. @param {Record<string, any>} x @param {(value: number) => string} aud */
 export function partnershipInputsText(x, aud) {
-  const partners = x.partners.map((p) => `${p.name} ${p.interest_percentage}%${p.residency === 'non_resident' ? ' (non-resident)' : ''}`);
+  const partners = x.partners.map((/** @type {Record<string, string>} */ p) => `${p.name} ${p.interest_percentage}%${p.residency === 'non_resident' ? ' (non-resident)' : ''}`);
   return `${partnershipYearText(x.financial_year)}; assessable income ${aud(Number(x.assessable_income))}, deductions ${aud(Number(x.deductions))}`
     + `${Number(x.excluded_deductions) ? ` (${aud(Number(x.excluded_deductions))} under s 290-150 or Division 36)` : ''}`
     + `${Number(x.exempt_income) ? `, exempt income ${aud(Number(x.exempt_income))}` : ''}`
@@ -206,7 +206,15 @@ export function partnershipInputsText(x, aud) {
 /** The page's result. @param {(name: string) => string} value @param {(value: number) => string} aud */
 export function partnershipResult(value, aud) {
   const input = partnershipFormInput(value);
-  if (input.partners.length === 0) throw new Error('Enter at least one partner with a name and interest.');
+  const partners = /** @type {Record<string, string>[]} */ (input.partners);
+  if (partners.length === 0) throw new Error('Enter at least one partner with a name and interest.');
+  if (partners.some((p) => p.residency === 'non_resident') && !input.all_income_from_australian_sources) {
+    throw new Error('A foreign resident partner’s share is limited to income from Australian sources (section 92(1)(b)): choose Yes for all the income being from Australian sources, or leave the partner out.');
+  }
+  const total = partners.reduce((sum, p) => sum + Number(p.interest_percentage), 0);
+  if (partners.every((p) => /^\d+(\.\d+)?$/.test(p.interest_percentage)) && Math.abs(total - 100) > 1e-9) {
+    throw new Error(`Enter partner interests that total 100%; these total ${Number(total.toPrecision(12))}%.`);
+  }
   const r = partnershipNetIncome(input);
   const isLoss = Number(r.partnership_loss) > 0;
   const rows = [['Assessable income', aud(Number(r.assessable_income))], ['Deductions counted (s 90)', aud(Number(r.deductions_counted))]];

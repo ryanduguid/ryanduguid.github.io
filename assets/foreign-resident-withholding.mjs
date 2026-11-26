@@ -7,7 +7,7 @@
 // order of checks, refusal codes, citations and rounding: 12.5% with the $750,000 market value exclusion before
 // 1 January 2025 and 15% with none from then (Acts No. 57 of 2017 and No. 135 of 2024), each vendor's interest share
 // of the base at the full rate, its notice of variation's rate or nil for a clearance certificate. ss 14-200 to 14-235
-// read on the Federal Register of Legislation on 27 November 2026. Shares are worked in the command's 40-digit context.
+// read in the AustLII consolidation of Schedule 1 on 27 November 2026. Shares are worked in the command's 40-digit context.
 
 import { add, cents, cmp, d, div, isFinite, isZero, mul, parse, quantize, str, sub } from './exact-decimal.mjs';
 
@@ -270,21 +270,42 @@ export function frcgwFormInput(value) {
     year: /^\d{4}-\d{2}-\d{2}$/.test(date) ? frcgwYearOf(date) : '', scope_confirmed: true };
 }
 
+/** A rate such as 0.07 as a percentage, 7, without binary fractions. @param {string} rate */
+const percent = (rate) => String(Number((Number(rate) * 100).toPrecision(12)));
+
 /** How the page writes the call. @param {Record<string, any>} x @param {(value: number) => string} aud */
 export function frcgwInputsText(x, aud) {
-  const vendors = x.vendors.map((v, i) => `vendor ${i + 1}: interest ${v.interest}, ${DOCUMENT_WORDS[/** @type {keyof typeof DOCUMENT_WORDS} */ (v.document)] ?? v.document}`
-    + `${v.document === 'variation' ? ` at ${Number(v.rate) * 100}% up to ${aud(Number(v.maximum_price))}` : ''}`);
+  const vendors = x.vendors.map((/** @type {Record<string, string>} */ v, /** @type {number} */ i) => `vendor ${i + 1}: interest ${v.interest}, ${DOCUMENT_WORDS[/** @type {keyof typeof DOCUMENT_WORDS} */ (v.document)] ?? v.document}`
+    + `${v.document === 'variation' ? ` at ${percent(v.rate)}% up to ${aud(Number(v.maximum_price))}` : ''}`);
   return `Contract ${x.acquisition_date}; ${ASSET_WORDS[/** @type {keyof typeof ASSET_WORDS} */ (x.asset)] ?? x.asset}, market value ${aud(Number(x.market_value))}, `
     + `purchase price ${aud(Number(x.cost_base_first_element))}${Number(x.option_payments) ? `, option fee ${aud(Number(x.option_payments))}` : ''}; ${vendors.join('; ')}`;
 }
+
+/** The amounts a page shows for one call, as numbers. @param {Record<string, any>} input */
+export function frcgwFigures(input) {
+  const r = foreignResidentWithholding(input);
+  return { withholdingBase: Number(r.amounts.withholding_base), amountPayable: Number(r.amounts.amount_payable), nilReason: r.nil_reason };
+}
+
+/** The page's words for refusals that name the command's fields. */
+const PAGE_REFUSALS = {
+  'foreign_resident_withholding.option_exceeds_price': 'Enter an option fee no more than the purchase price.',
+  'foreign_resident_withholding.variation_maximum_unsettled': 'A notice’s maximum sale price is at least the withholding base but below the sale price, so whether it applies turns on whether the maximum includes GST. If it does, choose no document for that vendor; if it excludes GST, enter the sale price less the input tax credit.',
+};
 
 /** The page's result. @param {(name: string) => string} value @param {(value: number) => string} aud */
 export function frcgwResult(value, aud) {
   const input = frcgwFormInput(value);
   if (input.vendors.length === 0) throw new Error('Enter the interest of at least one vendor.');
-  const r = foreignResidentWithholding(input);
+  let r;
+  try {
+    r = foreignResidentWithholding(input);
+  } catch (error) {
+    const words = PAGE_REFUSALS[/** @type {keyof typeof PAGE_REFUSALS} */ (/** @type {{ code?: string }} */ (error).code)];
+    throw words ? new Error(words) : error;
+  }
   const rows = [['Withholding base (first element of the cost base less any option fee)', aud(Number(r.amounts.withholding_base))],
-    [`Rate for a contract on ${r.acquisition_date}`, `${Number(r.rates.rate) * 100}%`]];
+    [`Rate for a contract on ${r.acquisition_date}`, `${percent(r.rates.rate)}%`]];
   r.vendors.forEach((v, i) => rows.push([`Vendor ${i + 1}: ${v.basis}`, aud(Number(v.amount))]));
   const principal = rows.push(['Amount to pay the ATO at settlement', aud(Number(r.amounts.amount_payable))]) - 1;
   return { inputs: frcgwInputsText(input, aud), rows, principal,

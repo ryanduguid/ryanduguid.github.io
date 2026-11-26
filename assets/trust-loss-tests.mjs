@@ -4,7 +4,7 @@
 // Which ITAA 1936 Schedule 2F trust loss tests apply to a trust deducting a prior-year tax loss, and whether each is
 // passed on the facts stated: the `trust-loss-tests` command of ryanduguid/australian-accounting's solomons-sword
 // ported line for line, with its inputs, order of checks and refusal texts. A fact left unstated stays unknown, so a
-// test can be 'not established' rather than passed or failed. Schedule 2F read on the Federal Register of Legislation on
+// test can be 'not established' rather than passed or failed. Schedule 2F read in the AustLII consolidation on
 // 27 November 2026.
 
 import { add, cmp, d, str } from './exact-decimal.mjs';
@@ -272,6 +272,7 @@ export function trustLossInputsText(x) {
 /** The page's result. @param {(name: string) => string} value */
 export function trustLossResult(value) {
   const input = trustLossFormInput(value);
+  if (/** @type {number} */ (input.loss_year) >= /** @type {number} */ (input.financial_year)) throw new Error('Choose a loss year earlier than the income year deducting it.');
   const r = trustLossTests(input);
   const state = (/** @type {LossTest} */ t) => (t.applies === false ? 'Does not apply' : t.passed === true ? (t.applies === null ? 'Passed; whether it applies not stated' : 'Passed')
     : t.passed === false ? (t.applies === null ? 'Failed; whether it applies not stated' : 'Failed') : 'Not established');

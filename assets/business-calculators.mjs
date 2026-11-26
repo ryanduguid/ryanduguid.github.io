@@ -662,7 +662,7 @@ export { companyTax, companyTaxResult } from './company-tax.mjs';
 export { gstMarginScheme, gstMarginSchemeResult } from './gst-margin-scheme.mjs';
 export { lowValuePool, smallBusinessPool, capitalWorks, depreciationPoolsResult, poolFormInput, poolInputsText, POOL_YEARS } from './depreciation-pools.mjs';
 export { rdTaxOffset, rdTaxOffsetResult, rdFormInput, rdInputsText, RD_YEARS } from './rd-tax-offset.mjs';
-export { foreignResidentWithholding, frcgwResult, frcgwFormInput, frcgwInputsText, frcgwYearOf, FRCGW_YEARS, FRCGW_EXCLUSIONS } from './foreign-resident-withholding.mjs';
+export { foreignResidentWithholding, frcgwFigures, frcgwResult, frcgwFormInput, frcgwInputsText, frcgwYearOf, FRCGW_YEARS, FRCGW_EXCLUSIONS } from './foreign-resident-withholding.mjs';
 export { partnershipNetIncome, partnershipResult, partnershipFormInput, partnershipInputsText, PARTNERSHIP_YEARS } from './partnership-net-income.mjs';
 export { trustLossTests, trustLossResult, trustLossFormInput, trustLossInputsText, EXCEPTED_TRUSTS } from './trust-loss-tests.mjs';
 export { wineEqualisationTax, wineEqualisationTaxResult, wetFormInput, wetInputsText, WET_YEARS } from './wine-equalisation-tax.mjs';
