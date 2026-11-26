@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/singers/
 
-> Specialised pork slaughter floor assets: Singers: effective life 10 years, last updated 1 July 2013 (Table A).
+> Singers: effective life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 July 2013 (Table A, 2025).
 
 # Specialised pork slaughter floor assets: Singers
 
 ‘Specialised pork slaughter floor assets: Singers’, for an asset used in Meat processing, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2013.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Singers
 Under | Slaughter floor assets: / Specialised pork slaughter floor assets:
@@ -25,45 +25,48 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in Meat processing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Meat processing, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
-The life was last reviewed and determined on 1 July 2013. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 July 2013. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Specialised pork slaughter floor assets
+
+Other rows under Specialised pork slaughter floor assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Carbon dioxide (CO2) stunning chambers (incorporating carousels) | 10 years | 10.00% | 20.00%
 Carcass grading probes | 4 years | 25.00% | 50.00%
 De-hairing machines | 10 years | 10.00% | 20.00%
 Gambrel tables | 15 years | 6.67% | 13.33%
-Polishers | 10 years | 10.00% | 20.00%
+Polishers (Specialised pork slaughter floor assets) | 10 years | 10.00% | 20.00%
 Scalding tanks | 15 years | 6.67% | 13.33%
 Singers (this page) | 10 years | 10.00% | 20.00%
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 10 years.
+The depreciation calculator uses your cost, start date and this effective life of 10 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/singers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Carbon dioxide (CO2) stunning chambers (incorporating carousels): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/carbon-dioxide-stunning-chambers/
 - Carcass grading probes: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/carcass-grading-probes/
 - De-hairing machines: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/de-hairing-machines/
 - Gambrel tables: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/gambrel-tables/
-- Polishers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/polishers/
+- Polishers (Specialised pork slaughter floor assets): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/polishers/
 - Scalding tanks: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/scalding-tanks/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

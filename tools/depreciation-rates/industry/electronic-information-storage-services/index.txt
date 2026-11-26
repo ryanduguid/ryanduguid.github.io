@@ -8,72 +8,73 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/electronic-infor
 
 22 effective lives in Table A of the Commissioner’s 2025 effective life determination for Electronic information storage services.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Rows of Electronic information storage services. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Aisle containments (including hot aisle containments (HAC), cold aisle containments (CAC)) | 15 years | 6.67% | 13.33% | 1 July 2017
-Data centre control systems – see Table B control systems and control system assets | | | |
-Data centre cooling assets: | | | |
-Data centre cooling assets: / Chillers | 15 years | 6.67% | 13.33% | 1 July 2017
+Register note · Data centre control systems – see Table B control systems and control system assets | | | |
+Asset group · Data centre cooling assets: | | | |
+Chillers (Data centre cooling assets) | 15 years | 6.67% | 13.33% | 1 July 2017
 Data centre cooling assets: / Computer room air conditioning (CRAC) units (including direct expansion (DX) systems) | 10 years | 10.00% | 20.00% | 1 July 2017
 Data centre cooling assets: / Computer room air handling (CRAH) units (including chilled water systems) | 15 years | 6.67% | 13.33% | 1 July 2017
-Data centre cooling assets: / Cooling towers | 10 years | 10.00% | 20.00% | 1 July 2017
-Data centre cooling assets: / Humidifier assets: | | | |
+Cooling towers (Data centre cooling assets) | 10 years | 10.00% | 20.00% | 1 July 2017
+Asset group · Data centre cooling assets: / Humidifier assets: | | | |
 Data centre cooling assets: / Humidifier assets: / Others (including ultrasonic humidifiers) | 10 years | 10.00% | 20.00% | 1 July 2017
 Data centre cooling assets: / Humidifier assets: / Steam humidifiers (including steam generators) | 5 years | 20.00% | 40.00% | 1 July 2017
 Data centre cooling assets: / Rear door heat exchangers (RDHx) | 15 years | 6.67% | 13.33% | 1 July 2017
-Data centre cooling assets: / Row-based cooling units assets: | | | |
+Asset group · Data centre cooling assets: / Row-based cooling units assets: | | | |
 Data centre cooling assets: / Row-based cooling units assets: / Others (including direct expansion (DX) cooling system units) | 10 years | 10.00% | 20.00% | 1 July 2017
-Data centre cooling assets: / Row-based cooling units assets: / Water-chilled | 15 years | 6.67% | 13.33% | 1 July 2017
+Data centre cooling assets: / Water-chilled (Row-based cooling units assets) | 15 years | 6.67% | 13.33% | 1 July 2017
 Data centre cooling assets: / Water buffer tanks | 20 years | 5.00% | 10.00% | 1 July 2017
 Diesel rotary uninterruptible power supply (DRUPS) | 22 years | 4.55% | 9.09% | 1 July 2017
-Fire protection and suppression systems assets - see Table B Fire control and alarm assets | | | |
-Generators - see Table B Power supply assets: Emergency or standby | | | |
-Leak detection systems | 10 years | 10.00% | 20.00% | 1 July 2017
+Register note · Fire protection and suppression systems assets - see Table B Fire control and alarm assets | | | |
+Register note · Generators - see Table B Power supply assets: Emergency or standby | | | |
+Leak detection systems (Electronic information storage services) | 10 years | 10.00% | 20.00% | 1 July 2017
 Load banks | 15 years | 6.67% | 13.33% | 1 July 2017
 Modular data centre (including portable containerised data centre modules, prefabricated data centre modules – able to be transported) | 10 years | 10.00% | 20.00% | 1 July 2017
 Rack based power rails (including rack based power distribution unit (PDU)) | 10 years | 10.00% | 20.00% | 1 July 2017
-Racks | 10 years | 10.00% | 20.00% | 1 July 2017
-Raised floors | 25 years | 4.00% | 8.00% | 1 July 2017
+Racks (Electronic information storage services) | 10 years | 10.00% | 20.00% | 1 July 2017
+Raised floors (Electronic information storage services) | 25 years | 4.00% | 8.00% | 1 July 2017
 Rectifiers | 12 years | 8.33% | 16.67% | 1 July 2017
 Static transfer switches (STS) | 12 years | 8.33% | 16.67% | 1 July 2017
-Switchboards – see Table B Switchboards | | | |
-Security and monitoring systems assets – see Table B Security and monitoring assets | | | |
+Register note · Switchboards – see Table B Switchboards | | | |
+Register note · Security and monitoring systems assets – see Table B Security and monitoring assets | | | |
 Uninterruptible power supply (UPS) systems (excluding batteries) | 12 years | 8.33% | 16.67% | 1 July 2017
 Uninterruptible power supply (UPS) systems batteries | 5 years | 20.00% | 40.00% | 1 July 2017
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/#source
 - Aisle containments (including hot aisle containments (HAC), cold aisle containments (CAC)): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/aisle-containments/
-- Chillers: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/chillers/
+- Chillers (Data centre cooling assets): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/chillers/
 - Computer room air conditioning (CRAC) units (including direct expansion (DX) systems): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/computer-room-air-conditioning-units/
 - Computer room air handling (CRAH) units (including chilled water systems): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/computer-room-air-handling-units/
-- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/cooling-towers/
+- Cooling towers (Data centre cooling assets): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/cooling-towers/
 - Others (including ultrasonic humidifiers): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/humidifier-assets-others/
 - Steam humidifiers (including steam generators): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/steam-humidifiers/
 - Rear door heat exchangers (RDHx): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/rear-door-heat-exchangers/
 - Others (including direct expansion (DX) cooling system units): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/row-based-cooling-units-assets-others/
-- Water-chilled: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/water-chilled/
+- Water-chilled (Row-based cooling units assets): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/water-chilled/
 - Water buffer tanks: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/water-buffer-tanks/
 - Diesel rotary uninterruptible power supply (DRUPS): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/diesel-rotary-uninterruptible-power-supply/
-- Leak detection systems: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/leak-detection-systems/
+- Leak detection systems (Electronic information storage services): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/leak-detection-systems/
 - Load banks: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/load-banks/
 - Modular data centre (including portable containerised data centre modules, prefabricated data centre modules – able to be transported): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/modular-data-centre/
 - Rack based power rails (including rack based power distribution unit (PDU)): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/rack-based-power-rails/
-- Racks: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/racks/
-- Raised floors: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/raised-floors/
+- Racks (Electronic information storage services): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/racks/
+- Raised floors (Electronic information storage services): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/raised-floors/
 - Rectifiers: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/rectifiers/
 - Static transfer switches (STS): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/static-transfer-switches/
 - Switchboards – see Table B Switchboards: https://duguid.com.au/tools/depreciation-rates/asset/switchboards/
@@ -81,7 +82,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Uninterruptible power supply (UPS) systems (excluding batteries): https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/uninterruptible-power-supply-systems/
 - Uninterruptible power supply (UPS) systems batteries: https://duguid.com.au/tools/depreciation-rates/industry/electronic-information-storage-services/uninterruptible-power-supply-systems-batteries/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

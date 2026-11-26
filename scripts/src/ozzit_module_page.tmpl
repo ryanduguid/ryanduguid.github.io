@@ -59,7 +59,7 @@
           <h1>Ozzit @@NAME@@ functions</h1>
           <p class="lead-note">The @@COUNT@@ @@NAME@@ formulas cover @@COVERS@@. Each entry gives what the workbook’s own help supplies: the signature, parameters, notes and worked examples.</p>
           <p class="release-meta">Release @@TAG@@. Read from the released <a href="@@SOURCE@@">@@NAME@@ formula source</a>, which the workbook compiles.</p>
-          <p class="page-meta">Published @@PUBLISHED@@. Last reviewed @@PUBLISHED@@.</p>
+          <p class="page-meta">By <a href="/about/">Ryan Duguid</a>. Published @@PUBLISHED@@. Last reviewed @@PUBLISHED@@.</p>
         </div>
       </header>
       <div class="article-layout site-shell">
@@ -101,6 +101,7 @@
         "@type": "TechArticle",
         "@id": "@@URL@@#article",
         "url": "@@URL@@",
+        "image": "https://duguid.com.au/assets/social-card-tools-20261123.png",
         "headline": "@@TITLE@@",
         "name": "@@TITLE@@",
         "description": "@@DESCRIPTION@@",
@@ -109,8 +110,8 @@
         "dateModified": "@@DATE@@",
         "license": "https://duguid.com.au/privacy/#licences",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
-        "author": { "@id": "https://duguid.com.au/about/#person" },
-        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "author": { "@type": "Person", "@id": "https://duguid.com.au/about/#person", "name": "Ryan Duguid" },
+        "publisher": { "@type": "Person", "@id": "https://duguid.com.au/about/#person", "name": "Ryan Duguid" },
         "about": { "@id": "https://duguid.com.au/tools/ozzit/#software" }
       },
       {

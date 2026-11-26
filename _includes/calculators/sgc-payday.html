@@ -16,10 +16,10 @@
 <label><input type="radio" name="timing" value="out-of-cycle-exceptional" /> Out of cycle, ATO determination</label></fieldset>
 <label class="field" for="sgc-payday-next">Next scheduled payday (only if regular qualifying earnings were paid that day)<input id="sgc-payday-next" name="next-payday" type="date" min="2026-07-01" max="2027-08-31" value="2026-07-30" required /></label>
 <label class="field" for="sgc-payday-determination">Determination date<input id="sgc-payday-determination" name="determination" type="date" min="2026-07-01" max="2027-08-31" value="2026-07-30" required /></label>
-<label class="field" for="sgc-payday-earnings">Qualifying earnings (AUD)<input id="sgc-payday-earnings" name="earnings" type="number" inputmode="decimal" min="0.01" max="1000000000" step=".01" value="1000" required /></label>
-<label class="field" for="sgc-payday-earlier">Earlier earnings in 2026-27 (AUD)<input id="sgc-payday-earlier" name="earlier" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
-<label class="field" for="sgc-payday-on-time">Received on time (AUD)<input id="sgc-payday-on-time" name="on-time" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
-<label class="field" for="sgc-payday-late">Received late (AUD)<input id="sgc-payday-late" name="late" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="120" required /></label>
+<label class="field" for="sgc-payday-earnings">Qualifying earnings (AUD)<input enterkeyhint="next" id="sgc-payday-earnings" name="earnings" type="number" inputmode="decimal" min="0.01" max="1000000000" step=".01" value="1000" required /></label>
+<label class="field" for="sgc-payday-earlier">Earlier earnings in 2026-27 (AUD)<input enterkeyhint="next" id="sgc-payday-earlier" name="earlier" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
+<label class="field" for="sgc-payday-on-time">Received on time (AUD)<input enterkeyhint="next" id="sgc-payday-on-time" name="on-time" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
+<label class="field" for="sgc-payday-late">Received late (AUD)<input enterkeyhint="next" id="sgc-payday-late" name="late" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="120" required /></label>
 <label class="field" for="sgc-payday-received">Late receipt date<input id="sgc-payday-received" name="received" type="date" min="2026-07-01" max="2031-06-30" value="2026-08-25" required /></label>
 <label class="field" for="sgc-payday-assessment">Assessment date<input id="sgc-payday-assessment" name="assessment" type="date" min="2026-07-01" max="2031-06-30" value="2026-12-01" required /></label>
 <fieldset class="field" aria-describedby="sgc-payday-history-help"><legend>Disqualifying ATO assessment or estimate</legend>
@@ -30,7 +30,7 @@
 <label><input type="radio" name="disclosure" value="none" checked /> None</label>
 <label><input type="radio" name="disclosure" value="lodged" /> Lodged in the approved form</label></fieldset>
 <label class="field" for="sgc-payday-disclosed">Disclosure date<input id="sgc-payday-disclosed" name="disclosed" type="date" min="2026-07-01" max="2031-06-30" value="2026-07-30" required /></label>
-<label class="field" for="sgc-payday-assumed">GIC rate after 2026 (%)<input id="sgc-payday-assumed" name="assumed-rate" type="number" inputmode="decimal" min="0.01" max="100" step=".01" value="11.51" required /></label>
+<label class="field" for="sgc-payday-assumed">GIC rate after 2026 (%)<input enterkeyhint="next" id="sgc-payday-assumed" name="assumed-rate" type="number" inputmode="decimal" min="0.01" max="100" step=".01" value="11.51" required /></label>
 <fieldset class="field"><legend>Income year</legend>
 <label><input type="radio" name="year" value="2022-23" /> 2022-23 (10.5%)</label>
 <label><input type="radio" name="year" value="2023-24" /> 2023-24 (11%)</label>
@@ -41,9 +41,9 @@
 <label><input type="radio" name="quarter" value="2" /> October to December</label>
 <label><input type="radio" name="quarter" value="3" /> January to March</label>
 <label><input type="radio" name="quarter" value="4" /> April to June</label></fieldset>
-<label class="field" for="sgc-payday-wages">Salary or wages (AUD)<input id="sgc-payday-wages" name="wages" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="12000" required /></label>
-<label class="field" for="sgc-payday-ote">Ordinary time earnings (AUD)<input id="sgc-payday-ote" name="ote" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="10000" required /></label>
-<label class="field" for="sgc-payday-contributions">Contributions within 28 days (AUD)<input id="sgc-payday-contributions" name="contributions" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
+<label class="field" for="sgc-payday-wages">Salary or wages (AUD)<input enterkeyhint="next" id="sgc-payday-wages" name="wages" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="12000" required /></label>
+<label class="field" for="sgc-payday-ote">Ordinary time earnings (AUD)<input enterkeyhint="next" id="sgc-payday-ote" name="ote" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="10000" required /></label>
+<label class="field" for="sgc-payday-contributions">Contributions within 28 days (AUD)<input enterkeyhint="done" id="sgc-payday-contributions" name="contributions" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
 <label class="field" for="sgc-payday-statement">SGC statement lodged<input id="sgc-payday-statement" name="statement" type="date" min="2022-10-29" max="2031-06-30" value="2025-11-20" required /></label>
 </div>
 <p class="field-note">Business days are from the <a href="/tools/payday-super/business-days/">Payday Super calendar</a>; GIC rates from the <a href="/rates/general-interest-charge/">GIC table</a>.</p>

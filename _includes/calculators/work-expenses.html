@@ -16,7 +16,7 @@
 <label><input type="radio" name="year" value="2020-21" /> 2020-21</label>
 </fieldset>
 <fieldset data-show-field="method" data-show-values="home_office"><legend>Working from home</legend>
-<label class="field" for="work-expenses-hours">Hours worked from home, as recorded<input id="work-expenses-hours" name="hours" type="number" inputmode="decimal" min="0" max="8784" step="0.01" value="843" required /></label>
+<label class="field" for="work-expenses-hours">Hours worked from home, as recorded<input enterkeyhint="next" id="work-expenses-hours" name="hours" type="number" inputmode="decimal" min="0" max="8784" step="0.01" value="843" required /></label>
 <fieldset><legend>Additional running expenses, such as energy or phone, incurred from working from home</legend>
 <label><input type="radio" name="running-expenses" value="yes" checked /> Yes</label>
 <label><input type="radio" name="running-expenses" value="no" /> No</label>
@@ -25,28 +25,28 @@
 <label><input type="radio" name="dedicated" value="yes" checked /> Yes</label>
 <label><input type="radio" name="dedicated" value="no" /> No</label>
 </fieldset>
-<p class="field-note">Work-related amounts only, in dollars and cents. Enter 0 for an expense you did not have.</p>
-<label class="field" for="work-expenses-energy">Electricity and gas<input id="work-expenses-energy" name="energy" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
-<label class="field" for="work-expenses-phone">Mobile and home phone<input id="work-expenses-phone" name="phone" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
-<label class="field" for="work-expenses-internet">Internet<input id="work-expenses-internet" name="internet" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
-<label class="field" for="work-expenses-stationery">Stationery and computer consumables<input id="work-expenses-stationery" name="stationery" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
-<label class="field" for="work-expenses-cleaning">Cleaning<input id="work-expenses-cleaning" name="cleaning" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
-<label class="field" for="work-expenses-furniture-decline">Decline in value of home office furniture and furnishings<input id="work-expenses-furniture-decline" name="furniture-decline" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
-<label class="field" for="work-expenses-asset-decline">Decline in value of other assets, such as a computer or phone<input id="work-expenses-asset-decline" name="asset-decline" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
-<label class="field" for="work-expenses-repairs">Repairs to those assets<input id="work-expenses-repairs" name="repairs" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<p class="field-note" id="work-expenses-amounts-note">Enter work-related amounts in dollars and cents, or 0 for an expense you did not have. Other assets can include a computer or phone.</p>
+<label class="field" for="work-expenses-energy">Electricity and gas<input enterkeyhint="next" id="work-expenses-energy" name="energy" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-phone">Mobile and home phone costs (AUD)<input enterkeyhint="next" id="work-expenses-phone" name="phone" autocomplete="off" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-internet">Internet<input enterkeyhint="next" id="work-expenses-internet" name="internet" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-stationery">Stationery and computer consumables<input enterkeyhint="next" id="work-expenses-stationery" name="stationery" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-cleaning">Cleaning<input enterkeyhint="next" id="work-expenses-cleaning" name="cleaning" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-furniture-decline">Decline in value of home office furniture and furnishings<input enterkeyhint="next" id="work-expenses-furniture-decline" name="furniture-decline" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-asset-decline">Decline in value of other assets (AUD)<input enterkeyhint="next" id="work-expenses-asset-decline" name="asset-decline" aria-describedby="work-expenses-amounts-note" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-repairs">Repairs to those assets<input enterkeyhint="next" id="work-expenses-repairs" name="repairs" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
 </fieldset>
 <fieldset data-show-field="method" data-show-values="car_cents_per_kilometre car_log_book" hidden disabled><legend>Car</legend>
 <fieldset><legend>A car you owned or leased</legend>
 <label><input type="radio" name="owned" value="yes" checked /> Yes</label>
 <label><input type="radio" name="owned" value="no" /> No</label>
 </fieldset>
-<label class="field" for="work-expenses-business-kilometres">Business kilometres in the year<input id="work-expenses-business-kilometres" name="business-kilometres" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="2514" required /></label>
+<label class="field" for="work-expenses-business-kilometres">Business kilometres in the year<input enterkeyhint="next" id="work-expenses-business-kilometres" name="business-kilometres" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="2514" required /></label>
 </fieldset>
 <fieldset data-show-field="method" data-show-values="car_log_book" hidden disabled><legend>Log book</legend>
-<label class="field" for="work-expenses-total-kilometres">Total kilometres in the year<input id="work-expenses-total-kilometres" name="total-kilometres" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="10000" required /></label>
-<label class="field" for="work-expenses-car-expenses">Car expenses, decline in value included (dollars and cents)<input id="work-expenses-car-expenses" name="car-expenses" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="17275.33" required /></label>
-<label class="field" for="work-expenses-log-book-year">Income year the log book was kept (YYYY-YY)<input id="work-expenses-log-book-year" name="log-book-year" type="text" inputmode="numeric" maxlength="7" pattern="[0-9]{4}-[0-9]{2}" value="2025-26" required /></label>
-<label class="field" for="work-expenses-log-book-weeks">Continuous weeks the log book covers<input id="work-expenses-log-book-weeks" name="log-book-weeks" type="number" inputmode="numeric" min="0" max="53" step="1" value="12" required /></label>
+<label class="field" for="work-expenses-total-kilometres">Total kilometres in the year<input enterkeyhint="next" id="work-expenses-total-kilometres" name="total-kilometres" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="10000" required /></label>
+<label class="field" for="work-expenses-car-expenses">Car expenses, decline in value included (dollars and cents)<input enterkeyhint="next" id="work-expenses-car-expenses" name="car-expenses" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="17275.33" required /></label>
+<label class="field" for="work-expenses-log-book-year">Income year the log book was kept (YYYY-YY)<input enterkeyhint="next" id="work-expenses-log-book-year" name="log-book-year" type="text" inputmode="numeric" maxlength="7" pattern="[0-9]{4}-[0-9]{2}" value="2025-26" required /></label>
+<label class="field" for="work-expenses-log-book-weeks">Continuous weeks the log book covers<input enterkeyhint="next" id="work-expenses-log-book-weeks" name="log-book-weeks" type="number" inputmode="numeric" min="0" max="53" step="1" value="12" required /></label>
 <fieldset><legend>The log book still represents the car’s business use</legend>
 <label><input type="radio" name="representative" value="yes" checked /> Yes</label>
 <label><input type="radio" name="representative" value="no" /> No, after a change such as a new job or home</label>
@@ -63,10 +63,10 @@
 <label><input type="radio" name="employed" value="yes" checked /> Yes</label>
 <label><input type="radio" name="employed" value="no" /> No</label>
 </fieldset>
-<label class="field" for="work-expenses-category-a">Category A: fees, books, stationery, fares and log book car expenses other than decline in value<input id="work-expenses-category-a" name="category-a" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="290" required /></label>
-<label class="field" for="work-expenses-category-b">Category B: decline in value<input id="work-expenses-category-b" name="category-b" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
-<label class="field" for="work-expenses-category-c">Category C: repairs<input id="work-expenses-category-c" name="category-c" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
-<label class="field" for="work-expenses-category-d">Category D: car expenses by cents per kilometre<input id="work-expenses-category-d" name="category-d" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-category-a">Category A: fees, books, stationery, fares and log book car expenses other than decline in value<input enterkeyhint="next" id="work-expenses-category-a" name="category-a" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="290" required /></label>
+<label class="field" for="work-expenses-category-b">Category B: decline in value<input enterkeyhint="next" id="work-expenses-category-b" name="category-b" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-category-c">Category C: repairs<input enterkeyhint="next" id="work-expenses-category-c" name="category-c" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-category-d">Category D: car expenses by cents per kilometre<input enterkeyhint="next" id="work-expenses-category-d" name="category-d" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
 <fieldset><legend>Category A includes log book car expenses</legend>
 <label><input type="radio" name="log-book-car" value="no" checked /> No</label>
 <label><input type="radio" name="log-book-car" value="yes" /> Yes</label>
@@ -76,7 +76,7 @@
 <label><input type="radio" name="prescribed" value="no" /> No, such as a seminar, conference or short refresher course</label>
 </fieldset>
 <fieldset data-show-field="year" data-show-values="2020-21 2021-22" hidden disabled><legend>Category E (2020-21 and 2021-22)</legend>
-<label class="field" for="work-expenses-category-e">Expenses incurred but not deductible, such as child care to attend<input id="work-expenses-category-e" name="category-e" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
+<label class="field" for="work-expenses-category-e">Expenses incurred but not deductible, such as child care to attend<input enterkeyhint="done" id="work-expenses-category-e" name="category-e" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="0" required /></label>
 </fieldset>
 </fieldset>
 <fieldset><legend>Reimbursed or paid by your employer or anyone else</legend>

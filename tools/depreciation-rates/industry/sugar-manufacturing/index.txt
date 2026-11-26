@@ -2,346 +2,353 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/
 
-> Table A (industry categories), MANUFACTURING / Sugar …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+> Sugar manufacturing, Table …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
 
 # Sugar manufacturing
 
 134 effective lives in Table A of the Commissioner’s 2025 effective life determination for Sugar manufacturing.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Jump to an asset group
+
+Sugar milling assets Sugar refining assets
+
+Rows of Sugar manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Sugar milling assets: | | | |
-Sugar milling assets: / Cane delivery assets: | | | |
-Sugar milling assets: / Cane delivery assets: / Cane bin assets: | | | |
+Asset group · Sugar milling assets: | | | |
+Asset group · Sugar milling assets: / Cane delivery assets: | | | |
+Asset group · Sugar milling assets: / Cane delivery assets: / Cane bin assets: | | | |
 Sugar milling assets: / Cane delivery assets: / Cane bin assets: / Rail bins | 20 years | 5.00% | 10.00% | 1 July 2011
 Sugar milling assets: / Cane delivery assets: / Cane bin assets: / Rail bin automatic coupling/de-coupling devices | 12 years | 8.33% | 16.67% | 1 July 2011
 Sugar milling assets: / Cane delivery assets: / Cane bin assets: / Road bins | 12 years | 8.33% | 16.67% | 1 July 2011
-Sugar milling assets: / Cane delivery assets: / Rail assets (excluding cane bin assets) – see Table A Rail freight and passenger transport services (47100 to 47200) | | | |
-Sugar milling assets: / Cane delivery assets: / Receival station assets: | | | |
+Register note · Sugar milling assets: / Cane delivery assets: / Rail assets (excluding cane bin assets) – see Table A Rail freight and passenger transport services (47100 to 47200) | | | |
+Asset group · Sugar milling assets: / Cane delivery assets: / Receival station assets: | | | |
 Sugar milling assets: / Cane delivery assets: / Receival station assets: / Cane levellers | 20 years | 5.00% | 10.00% | 1 July 2011
 Sugar milling assets: / Cane delivery assets: / Receival station assets: / Cane receival hoppers | 25 years | 4.00% | 8.00% | 1 July 2011
-Sugar milling assets: / Cane delivery assets: / Receival station assets: / Tipplers | 25 years | 4.00% | 8.00% | 1 July 2011
-Sugar milling assets: / Cane delivery assets: / Receival station assets: / Weighbridges | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar milling assets: / Cane juice extraction assets: | | | |
+Sugar milling assets: / Cane delivery assets: / Tipplers (Receival station assets) | 25 years | 4.00% | 8.00% | 1 July 2011
+Sugar milling assets: / Cane delivery assets: / Weighbridges (Receival station assets) | 20 years | 5.00% | 10.00% | 1 July 2011
+Asset group · Sugar milling assets: / Cane juice extraction assets: | | | |
 Sugar milling assets: / Cane juice extraction assets: / Cane shredding machines (incorporating drives) | 30 years | 3.33% | 6.67% | 1 July 2011
 Sugar milling assets: / Cane juice extraction assets: / Crushing mills (incorporating drives) | 30 years | 3.33% | 6.67% | 1 July 2011
 Sugar milling assets: / Cane juice extraction assets: / Rotary juice screens | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar milling assets: / Cane juice filtration and clarification assets: | | | |
-Sugar milling assets: / Cane juice filtration and clarification assets: / Clarifiers | 25 years | 4.00% | 8.00% | 1 July 2011
-Sugar milling assets: / Cane juice filtration and clarification assets: / Flash tanks | 20 years | 5.00% | 10.00% | 1 July 2011
+Asset group · Sugar milling assets: / Cane juice filtration and clarification assets: | | | |
+Sugar milling assets: / Clarifiers (Cane juice filtration and clarification assets) | 25 years | 4.00% | 8.00% | 1 July 2011
+Sugar milling assets: / Flash tanks (Cane juice filtration and clarification assets) | 20 years | 5.00% | 10.00% | 1 July 2011
 Sugar milling assets: / Cane juice filtration and clarification assets: / Juice heaters | 20 years | 5.00% | 10.00% | 1 July 2011
 Sugar milling assets: / Cane juice filtration and clarification assets: / Lime and mud storage bins | 25 years | 4.00% | 8.00% | 1 July 2011
 Sugar milling assets: / Cane juice filtration and clarification assets: / Lime slakers | 20 years | 5.00% | 10.00% | 1 July 2011
 Sugar milling assets: / Cane juice filtration and clarification assets: / Mud mixers/minglers | 20 years | 5.00% | 10.00% | 1 July 2011
 Sugar milling assets: / Cane juice filtration and clarification assets: / Rotary vacuum mud filters | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar milling assets: / Evaporation and crystallisation assets: | | | |
-Sugar milling assets: / Evaporation and crystallisation assets: / Centrifugals | 25 years | 4.00% | 8.00% | 1 July 2011
-Sugar milling assets: / Evaporation and crystallisation assets: / Crystallisers | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar milling assets: / Evaporation and crystallisation assets: / Evaporators | 30 years | 3.33% | 6.67% | 1 July 2011
-Sugar milling assets: / Evaporation and crystallisation assets: / Magma mixers | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar milling assets: / Evaporation and crystallisation assets: / Magma/massecuite distributors and receivers | 20 years | 5.00% | 10.00% | 1 July 2011
+Asset group · Sugar milling assets: / Evaporation and crystallisation assets: | | | |
+Sugar milling assets: / Evaporation and crystallisation assets: / Centrifugals (Sugar milling assets / Evaporation and crystallisation assets / Sugar manufacturing) | 25 years | 4.00% | 8.00% | 1 July 2011
+Sugar milling assets: / Crystallisers (Evaporation and crystallisation assets) | 20 years | 5.00% | 10.00% | 1 July 2011
+Sugar milling assets: / Evaporation and crystallisation assets: / Evaporators (Sugar milling assets / Evaporation and crystallisation assets / Sugar manufacturing) | 30 years | 3.33% | 6.67% | 1 July 2011
+Sugar milling assets: / Magma mixers (Evaporation and crystallisation assets) | 20 years | 5.00% | 10.00% | 1 July 2011
+Sugar milling assets: / Evaporation and crystallisation assets: / Magma/massecuite distributors and receivers (Sugar milling assets / Evaporation and crystallisation assets / Sugar manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2011
 Sugar milling assets: / Evaporation and crystallisation assets: / Massecuite re-heaters | 20 years | 5.00% | 10.00% | 1 July 2011
 Sugar milling assets: / Evaporation and crystallisation assets: / Seed vessels | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar milling assets: / Evaporation and crystallisation assets: / Sugar melters | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar milling assets: / Evaporation and crystallisation assets: / Vacuum pans | 30 years | 3.33% | 6.67% | 1 July 2011
-Sugar milling assets: / Evaporation and crystallisation assets: / Vapour condensers: | | | |
-Sugar milling assets: / Evaporation and crystallisation assets: / Vapour condensers: / Mild steel | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar milling assets: / Evaporation and crystallisation assets: / Vapour condensers: / Stainless steel | 30 years | 3.33% | 6.67% | 1 July 2011
-Sugar milling assets: / Molasses storage assets: | | | |
-Sugar milling assets: / Molasses storage assets: / Coolers | 15 years | 6.67% | 13.33% | 1 July 2011
+Sugar milling assets: / Sugar melters (Evaporation and crystallisation assets) | 20 years | 5.00% | 10.00% | 1 July 2011
+Sugar milling assets: / Evaporation and crystallisation assets: / Vacuum pans (Sugar milling assets / Evaporation and crystallisation assets / Sugar manufacturing) | 30 years | 3.33% | 6.67% | 1 July 2011
+Asset group · Sugar milling assets: / Evaporation and crystallisation assets: / Vapour condensers: | | | |
+Sugar milling assets: / Evaporation and crystallisation assets: / Vapour condensers: / Mild steel (Sugar milling assets / Evaporation and crystallisation assets / Vapour condensers / Sugar manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2011
+Sugar milling assets: / Evaporation and crystallisation assets: / Vapour condensers: / Stainless steel (Sugar milling assets / Evaporation and crystallisation assets / Vapour condensers / Sugar manufacturing) | 30 years | 3.33% | 6.67% | 1 July 2011
+Asset group · Sugar milling assets: / Molasses storage assets: | | | |
+Sugar milling assets: / Coolers (Molasses storage assets) | 15 years | 6.67% | 13.33% | 1 July 2011
 Sugar milling assets: / Molasses storage assets: / Dams (earthworks only) | 40 years | 2.50% | 5.00% | 1 July 2011
 Sugar milling assets: / Molasses storage assets: / Dam bladders and covers | 12 years | 8.33% | 16.67% | 1 July 2011
-Sugar milling assets: / Molasses storage assets: / Tanks | 30 years | 3.33% | 6.67% | 1 July 2011
-Sugar milling assets: / Power generation assets: | | | |
+Sugar milling assets: / Tanks (Molasses storage assets) | 30 years | 3.33% | 6.67% | 1 July 2011
+Asset group · Sugar milling assets: / Power generation assets: | | | |
 Sugar milling assets: / Power generation assets: / Ash filters (including rotary and horizontal belt vacuum filters) | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar milling assets: / Power generation assets: / Bagasse handling assets: | | | |
+Asset group · Sugar milling assets: / Power generation assets: / Bagasse handling assets: | | | |
 Sugar milling assets: / Power generation assets: / Bagasse handling assets: / Bagacillo collection systems | 15 years | 6.67% | 13.33% | 1 July 2011
 Sugar milling assets: / Power generation assets: / Bagasse handling assets: / Bagasse bins (incorporating stacking and reclaim systems) | 30 years | 3.33% | 6.67% | 1 July 2011
-Sugar milling assets: / Power generation assets: / Other power generation assets – see Table A Electricity supply (26110 to 26400) | | | |
-Sugar milling assets: / Sugar drying and storage assets: | | | |
+Register note · Sugar milling assets: / Power generation assets: / Other power generation assets – see Table A Electricity supply (26110 to 26400) | | | |
+Asset group · Sugar milling assets: / Sugar drying and storage assets: | | | |
 Sugar milling assets: / Sugar drying and storage assets: / Hoppers (weigh and feed) | 25 years | 4.00% | 8.00% | 1 July 2011
-Sugar milling assets: / Sugar drying and storage assets: / Lump breakers | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar milling assets: / Sugar drying and storage assets: / Rotary sugar dryers | 25 years | 4.00% | 8.00% | 1 July 2011
+Sugar milling assets: / Lump breakers (Sugar drying and storage assets) | 15 years | 6.67% | 13.33% | 1 July 2011
+Sugar milling assets: / Rotary sugar dryers (Sugar drying and storage assets) | 25 years | 4.00% | 8.00% | 1 July 2011
 Sugar milling assets: / Sugar drying and storage assets: / Sugar storage bins and silos | 30 years | 3.33% | 6.67% | 1 July 2011
-Sugar milling assets: / Sugar drying and storage assets: / Vibratory screens | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar milling assets: / Support assets: | | | |
-Sugar milling assets: / Support assets: / Air compression assets: | | | |
-Sugar milling assets: / Support assets: / Air compression assets: / Air dryers | 12 years | 8.33% | 16.67% | 1 July 2011
-Sugar milling assets: / Support assets: / Air compression assets: / Air receivers | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar milling assets: / Support assets: / Air compression assets: / Compressors | 12 years | 8.33% | 16.67% | 1 July 2011
-Sugar milling assets: / Support assets: / Air compression assets: / Packaged air compression systems | 12 years | 8.33% | 16.67% | 1 July 2011
-Sugar milling assets: / Support assets: / Blowers and fans | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar milling assets: / Support assets: / Control system assets: | | | |
-Sugar milling assets: / Support assets: / Control system assets: / Control cabinets and switchgear | 10 years | 10.00% | 20.00% | 1 July 2011
-Sugar milling assets: / Support assets: / Control system assets: / Instrumentation | 10 years | 10.00% | 20.00% | 1 July 2011
-Sugar milling assets: / Support assets: / Control system assets: / Programmable logic controllers (PLCs) | 10 years | 10.00% | 20.00% | 1 July 2011
-Sugar milling assets: / Support assets: / Control system assets: / Switchboards | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar milling assets: / Support assets: / Control system assets: / Variable speed drives (VSDs) | 10 years | 10.00% | 20.00% | 1 July 2011
+Sugar milling assets: / Vibratory screens (Sugar drying and storage assets) | 15 years | 6.67% | 13.33% | 1 July 2011
+Asset group · Sugar milling assets: / Support assets: | | | |
+Asset group · Sugar milling assets: / Support assets: / Air compression assets: | | | |
+Sugar milling assets: / Support assets: / Air compression assets: / Air dryers (Sugar milling assets / Support assets / Air compression assets / Sugar manufacturing) | 12 years | 8.33% | 16.67% | 1 July 2011
+Sugar milling assets: / Support assets: / Air compression assets: / Air receivers (Sugar milling assets / Support assets / Air compression assets / Sugar manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2011
+Sugar milling assets: / Support assets: / Air compression assets: / Compressors (Sugar milling assets / Support assets / Air compression assets / Sugar manufacturing) | 12 years | 8.33% | 16.67% | 1 July 2011
+Sugar milling assets: / Support assets: / Air compression assets: / Packaged air compression systems (Sugar milling assets / Support assets / Air compression assets / Sugar manufacturing) | 12 years | 8.33% | 16.67% | 1 July 2011
+Sugar milling assets: / Support assets: / Blowers and fans (Sugar milling assets / Support assets / Sugar manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2011
+Asset group · Sugar milling assets: / Support assets: / Control system assets: | | | |
+Sugar milling assets: / Support assets: / Control system assets: / Control cabinets and switchgear (Sugar milling assets / Support assets / Control system assets / Sugar manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2011
+Sugar milling assets: / Support assets: / Control system assets: / Instrumentation (Sugar milling assets / Support assets / Control system assets / Sugar manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2011
+Sugar milling assets: / Support assets: / Programmable logic controllers (PLCs) (Control system assets) | 10 years | 10.00% | 20.00% | 1 July 2011
+Sugar milling assets: / Support assets: / Control system assets: / Switchboards (Sugar milling assets / Support assets / Control system assets / Sugar manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2011
+Sugar milling assets: / Support assets: / Control system assets: / Variable speed drives (VSDs) (Sugar milling assets / Support assets / Control system assets / Sugar manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2011
 Sugar milling assets: / Support assets: / Conveyors (including framework and enclosures) | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar milling assets: / Support assets: / Conveyor belt weighers | 15 years | 6.67% | 13.33% | 1 July 2011
+Sugar milling assets: / Conveyor belt weighers (Support assets) | 15 years | 6.67% | 13.33% | 1 July 2011
 Sugar milling assets: / Support assets: / Dust collectors (including ducting, but excluding bagacillo collection systems) | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar milling assets: / Support assets: / Heat exchangers | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar milling assets: / Support assets: / Laboratory assets: | | | |
+Sugar milling assets: / Support assets: / Heat exchangers (Sugar milling assets / Support assets / Sugar manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2011
+Asset group · Sugar milling assets: / Support assets: / Laboratory assets: | | | |
 Sugar milling assets: / Support assets: / Laboratory assets: / Cutter grinders | 15 years | 6.67% | 13.33% | 1 July 2011
 Sugar milling assets: / Support assets: / Laboratory assets: / Moisture determination ovens | 10 years | 10.00% | 20.00% | 1 July 2011
-Sugar milling assets: / Support assets: / Laboratory assets: / Polarimeters | 10 years | 10.00% | 20.00% | 1 July 2011
+Sugar milling assets: / Support assets: / Polarimeters (Laboratory assets) | 10 years | 10.00% | 20.00% | 1 July 2011
 Sugar milling assets: / Support assets: / Laboratory assets: / Rotary juice samplers | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar milling assets: / Support assets: / Laboratory assets: / Spectrometers | 10 years | 10.00% | 20.00% | 1 July 2011
+Sugar milling assets: / Support assets: / Spectrometers (Laboratory assets) | 10 years | 10.00% | 20.00% | 1 July 2011
 Sugar milling assets: / Support assets: / Laboratory assets: / Wet disintegrators | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar milling assets: / Support assets: / Overhead cranes – see Table B Cranes | | | |
-Sugar milling assets: / Support assets: / Piping and valves: | | | |
-Sugar milling assets: / Support assets: / Piping and valves: / Piping: | | | |
-Sugar milling assets: / Support assets: / Piping and valves: / Piping: / Mild steel | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar milling assets: / Support assets: / Piping and valves: / Piping: / Non ferrous | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar milling assets: / Support assets: / Piping and valves: / Piping: / Stainless steel | 25 years | 4.00% | 8.00% | 1 July 2011
-Sugar milling assets: / Support assets: / Piping and valves: / Valves | 10 years | 10.00% | 20.00% | 1 July 2011
-Sugar milling assets: / Support assets: / Pumps | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar milling assets: / Support assets: / Tanks (excluding molasses storage tanks): | | | |
-Sugar milling assets: / Support assets: / Tanks (excluding molasses storage tanks): / Water storage tanks | 25 years | 4.00% | 8.00% | 1 July 2011
-Sugar milling assets: / Support assets: / Tanks (excluding molasses storage tanks): / Other tanks: | | | |
-Sugar milling assets: / Support assets: / Tanks (excluding molasses storage tanks): / Other tanks: / Mild steel | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar milling assets: / Support assets: / Tanks (excluding molasses storage tanks): / Other tanks: / Plastic | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar milling assets: / Support assets: / Tanks (excluding molasses storage tanks): / Other tanks: / Stainless steel | 30 years | 3.33% | 6.67% | 1 July 2011
-Sugar milling assets: / Water treatment and cooling assets: | | | |
-Sugar milling assets: / Water treatment and cooling assets: / Clarifiers | 25 years | 4.00% | 8.00% | 1 July 2011
+Register note · Sugar milling assets: / Support assets: / Overhead cranes – see Table B Cranes | | | |
+Asset group · Sugar milling assets: / Support assets: / Piping and valves: | | | |
+Asset group · Sugar milling assets: / Support assets: / Piping and valves: / Piping: | | | |
+Sugar milling assets: / Support assets: / Piping and valves: / Mild steel (Piping) | 15 years | 6.67% | 13.33% | 1 July 2011
+Sugar milling assets: / Support assets: / Piping and valves: / Non ferrous (Piping) | 20 years | 5.00% | 10.00% | 1 July 2011
+Sugar milling assets: / Support assets: / Piping and valves: / Stainless steel (Piping) | 25 years | 4.00% | 8.00% | 1 July 2011
+Sugar milling assets: / Support assets: / Valves (Piping and valves) | 10 years | 10.00% | 20.00% | 1 July 2011
+Sugar milling assets: / Support assets: / Pumps (Sugar milling assets / Support assets / Sugar manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2011
+Asset group · Sugar milling assets: / Support assets: / Tanks (excluding molasses storage tanks): | | | |
+Sugar milling assets: / Support assets: / Tanks (excluding molasses storage tanks): / Water storage tanks (Sugar milling assets / Support assets / Tanks (excluding molasses storage tanks) / Sugar manufacturing) | 25 years | 4.00% | 8.00% | 1 July 2011
+Asset group · Sugar milling assets: / Support assets: / Tanks (excluding molasses storage tanks): / Other tanks: | | | |
+Sugar milling assets: / Support assets: / Tanks (excluding molasses storage tanks): / Other tanks: / Mild steel (Sugar milling assets / Support assets / Tanks (excluding molasses storage tanks) / Other tanks / Sugar manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2011
+Sugar milling assets: / Support assets: / Tanks (excluding molasses storage tanks): / Other tanks: / Plastic (Sugar milling assets / Support assets / Tanks (excluding molasses storage tanks) / Other tanks / Sugar manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2011
+Sugar milling assets: / Support assets: / Tanks (excluding molasses storage tanks): / Other tanks: / Stainless steel (Sugar milling assets / Support assets / Tanks (excluding molasses storage tanks) / Other tanks / Sugar manufacturing) | 30 years | 3.33% | 6.67% | 1 July 2011
+Asset group · Sugar milling assets: / Water treatment and cooling assets: | | | |
+Sugar milling assets: / Clarifiers (Water treatment and cooling assets) | 25 years | 4.00% | 8.00% | 1 July 2011
 Sugar milling assets: / Water treatment and cooling assets: / Cooling and effluent ponds | 40 years | 2.50% | 5.00% | 1 July 2011
-Sugar milling assets: / Water treatment and cooling assets: / Cooling towers: | | | |
-Sugar milling assets: / Water treatment and cooling assets: / Cooling towers: / Field erected | 25 years | 4.00% | 8.00% | 1 July 2011
-Sugar milling assets: / Water treatment and cooling assets: / Cooling towers: / Packaged | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar milling assets: / Water treatment and cooling assets: / Ion exchange systems | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar refining assets: | | | |
-Sugar refining assets: / Affination assets: | | | |
-Sugar refining assets: / Affination assets: / Centrifugals | 25 years | 4.00% | 8.00% | 1 July 2011
-Sugar refining assets: / Affination assets: / Magma mixers | 20 years | 5.00% | 10.00% | 1 July 2011
+Asset group · Sugar milling assets: / Water treatment and cooling assets: / Cooling towers: | | | |
+Sugar milling assets: / Water treatment and cooling assets: / Cooling towers: / Field erected (Sugar milling assets / Water treatment and cooling assets / Cooling towers / Sugar manufacturing) | 25 years | 4.00% | 8.00% | 1 July 2011
+Sugar milling assets: / Water treatment and cooling assets: / Cooling towers: / Packaged (Sugar milling assets / Water treatment and cooling assets / Cooling towers / Sugar manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2011
+Sugar milling assets: / Ion exchange systems (Water treatment and cooling assets) | 15 years | 6.67% | 13.33% | 1 July 2011
+Asset group · Sugar refining assets: | | | |
+Asset group · Sugar refining assets: / Affination assets: | | | |
+Sugar refining assets: / Centrifugals (Affination assets) | 25 years | 4.00% | 8.00% | 1 July 2011
+Sugar refining assets: / Magma mixers (Affination assets) | 20 years | 5.00% | 10.00% | 1 July 2011
 Sugar refining assets: / Affination assets: / Melter liquor screens | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar refining assets: / Affination assets: / Sugar melters | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar refining assets: / Clarification and de-colourising assets: | | | |
-Sugar refining assets: / Clarification and de-colourising assets: / Carbon regeneration kilns | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar refining assets: / Clarification and de-colourising assets: / Clarifiers | 25 years | 4.00% | 8.00% | 1 July 2011
+Sugar refining assets: / Sugar melters (Affination assets) | 20 years | 5.00% | 10.00% | 1 July 2011
+Asset group · Sugar refining assets: / Clarification and de-colourising assets: | | | |
+Sugar refining assets: / Carbon regeneration kilns (Clarification and de-colourising assets) | 15 years | 6.67% | 13.33% | 1 July 2011
+Sugar refining assets: / Clarifiers (Clarification and de-colourising assets) | 25 years | 4.00% | 8.00% | 1 July 2011
 Sugar refining assets: / Clarification and de-colourising assets: / Deep bed filters | 30 years | 3.33% | 6.67% | 1 July 2011
-Sugar refining assets: / Clarification and de-colourising assets: / De-colourising columns: | | | |
+Asset group · Sugar refining assets: / Clarification and de-colourising assets: / De-colourising columns: | | | |
 Sugar refining assets: / Clarification and de-colourising assets: / De-colourising columns: / Carbon based | 30 years | 3.33% | 6.67% | 1 July 2011
 Sugar refining assets: / Clarification and de-colourising assets: / De-colourising columns: / Resin based | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar refining assets: / Evaporation and crystallisation assets: | | | |
-Sugar refining assets: / Evaporation and crystallisation assets: / Centrifugals | 25 years | 4.00% | 8.00% | 1 July 2011
-Sugar refining assets: / Evaporation and crystallisation assets: / Evaporators | 30 years | 3.33% | 6.67% | 1 July 2011
-Sugar refining assets: / Evaporation and crystallisation assets: / Magma/massecuite distributors and receivers | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar refining assets: / Evaporation and crystallisation assets: / Vacuum pans | 30 years | 3.33% | 6.67% | 1 July 2011
-Sugar refining assets: / Evaporation and crystallisation assets: / Vapour condensers: | | | |
-Sugar refining assets: / Evaporation and crystallisation assets: / Vapour condensers: / Mild steel | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar refining assets: / Evaporation and crystallisation assets: / Vapour condensers: / Stainless steel | 30 years | 3.33% | 6.67% | 1 July 2011
-Sugar refining assets: / Packaging assets: | | | |
-Sugar refining assets: / Packaging assets: / Bagging machines (including flow wrappers, form fill and seal machines, and roll wrapping machines) | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar refining assets: / Packaging assets: / Bottling assets: | | | |
+Asset group · Sugar refining assets: / Evaporation and crystallisation assets: | | | |
+Sugar refining assets: / Evaporation and crystallisation assets: / Centrifugals (Sugar refining assets / Evaporation and crystallisation assets / Sugar manufacturing) | 25 years | 4.00% | 8.00% | 1 July 2011
+Sugar refining assets: / Evaporation and crystallisation assets: / Evaporators (Sugar refining assets / Evaporation and crystallisation assets / Sugar manufacturing) | 30 years | 3.33% | 6.67% | 1 July 2011
+Sugar refining assets: / Evaporation and crystallisation assets: / Magma/massecuite distributors and receivers (Sugar refining assets / Evaporation and crystallisation assets / Sugar manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2011
+Sugar refining assets: / Evaporation and crystallisation assets: / Vacuum pans (Sugar refining assets / Evaporation and crystallisation assets / Sugar manufacturing) | 30 years | 3.33% | 6.67% | 1 July 2011
+Asset group · Sugar refining assets: / Evaporation and crystallisation assets: / Vapour condensers: | | | |
+Sugar refining assets: / Evaporation and crystallisation assets: / Vapour condensers: / Mild steel (Sugar refining assets / Evaporation and crystallisation assets / Vapour condensers / Sugar manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2011
+Sugar refining assets: / Evaporation and crystallisation assets: / Vapour condensers: / Stainless steel (Sugar refining assets / Evaporation and crystallisation assets / Vapour condensers / Sugar manufacturing) | 30 years | 3.33% | 6.67% | 1 July 2011
+Asset group · Sugar refining assets: / Packaging assets: | | | |
+Sugar refining assets: / Bagging machines (including flow wrappers, form fill and seal machines, and roll wrapping machines) (Packaging assets) | 15 years | 6.67% | 13.33% | 1 July 2011
+Asset group · Sugar refining assets: / Packaging assets: / Bottling assets: | | | |
 Sugar refining assets: / Packaging assets: / Bottling assets: / Bottle capping, filling and unscrambling machines | 15 years | 6.67% | 13.33% | 1 July 2011
 Sugar refining assets: / Packaging assets: / Bottling assets: / Syrup and treacle filter presses | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar refining assets: / Packaging assets: / Bottling assets: / UV disinfectors | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar refining assets: / Packaging assets: / Carton erecting, packing and closing machines (including cartoners) | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar refining assets: / Packaging assets: / Case erecting, packing and closing machines (including casepackers) | 15 years | 6.67% | 13.33% | 1 July 2011
+Sugar refining assets: / Packaging assets: / UV disinfectors (Bottling assets) | 15 years | 6.67% | 13.33% | 1 July 2011
+Sugar refining assets: / Packaging assets: / Carton erecting, packing and closing machines (including cartoners) (Sugar manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2011
+Sugar refining assets: / Case erecting, packing and closing machines (including casepackers) (Packaging assets) | 15 years | 6.67% | 13.33% | 1 July 2011
 Sugar refining assets: / Packaging assets: / Inspection equipment (including check weighers, metal detectors, counting machines) | 10 years | 10.00% | 20.00% | 1 July 2011
-Sugar refining assets: / Packaging assets: / Multihead and singlehead weighers | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar refining assets: / Packaging assets: / Palletisers and de-palletisers | 15 years | 6.67% | 13.33% | 1 July 2011
+Sugar refining assets: / Packaging assets: / Multihead and singlehead weighers (Sugar manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2011
+Sugar refining assets: / Packaging assets: / Palletisers and de-palletisers (Sugar manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2011
 Sugar refining assets: / Packaging assets: / Product identification labellers (including decorating, applicator and coding machines) | 10 years | 10.00% | 20.00% | 1 July 2011
-Sugar refining assets: / Packaging assets: / Wrapping machines (including shrink wrappers, stretch wrappers and strapping machines) | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar refining assets: / Sugar receival, drying, screening, and storage assets: | | | |
+Sugar refining assets: / Packaging assets: / Wrapping machines (including shrink wrappers, stretch wrappers and strapping machines) (Sugar manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2011
+Asset group · Sugar refining assets: / Sugar receival, drying, screening, and storage assets: | | | |
 Sugar refining assets: / Sugar receival, drying, screening, and storage assets: / Bins, hoppers and silos | 30 years | 3.33% | 6.67% | 1 July 2011
-Sugar refining assets: / Sugar receival, drying, screening, and storage assets: / Lump breakers | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar refining assets: / Sugar receival, drying, screening, and storage assets: / Rotary sugar dryers | 25 years | 4.00% | 8.00% | 1 July 2011
+Sugar refining assets: / Lump breakers (Sugar receival, drying, screening, and storage assets) | 15 years | 6.67% | 13.33% | 1 July 2011
+Sugar refining assets: / Rotary sugar dryers (Sugar receival, drying, screening, and storage assets) | 25 years | 4.00% | 8.00% | 1 July 2011
 Sugar refining assets: / Sugar receival, drying, screening, and storage assets: / Sugar throwers | 15 years | 6.67% | 13.33% | 1 July 2011
 Sugar refining assets: / Sugar receival, drying, screening, and storage assets: / Vibratory screens (including graders and scalpers) | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar refining assets: / Support assets: | | | |
-Sugar refining assets: / Support assets: / Air compression assets: | | | |
-Sugar refining assets: / Support assets: / Air compression assets: / Air dryers | 12 years | 8.33% | 16.67% | 1 July 2011
-Sugar refining assets: / Support assets: / Air compression assets: / Air receivers | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar refining assets: / Support assets: / Air compression assets: / Compressors | 12 years | 8.33% | 16.67% | 1 July 2011
-Sugar refining assets: / Support assets: / Air compression assets: / Packaged air compression systems | 12 years | 8.33% | 16.67% | 1 July 2011
-Sugar refining assets: / Support assets: / Blowers and fans | 15 years | 6.67% | 13.33% | 1 July 2011
+Asset group · Sugar refining assets: / Support assets: | | | |
+Asset group · Sugar refining assets: / Support assets: / Air compression assets: | | | |
+Sugar refining assets: / Support assets: / Air compression assets: / Air dryers (Sugar refining assets / Support assets / Air compression assets / Sugar manufacturing) | 12 years | 8.33% | 16.67% | 1 July 2011
+Sugar refining assets: / Support assets: / Air compression assets: / Air receivers (Sugar refining assets / Support assets / Air compression assets / Sugar manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2011
+Sugar refining assets: / Support assets: / Air compression assets: / Compressors (Sugar refining assets / Support assets / Air compression assets / Sugar manufacturing) | 12 years | 8.33% | 16.67% | 1 July 2011
+Sugar refining assets: / Support assets: / Air compression assets: / Packaged air compression systems (Sugar refining assets / Support assets / Air compression assets / Sugar manufacturing) | 12 years | 8.33% | 16.67% | 1 July 2011
+Sugar refining assets: / Support assets: / Blowers and fans (Sugar refining assets / Support assets / Sugar manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2011
 Sugar refining assets: / Support assets: / Boilers (packaged type only) | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar refining assets: / Support assets: / Control system assets: | | | |
-Sugar refining assets: / Support assets: / Control system assets: / Control cabinets and switchgear | 10 years | 10.00% | 20.00% | 1 July 2011
-Sugar refining assets: / Support assets: / Control system assets: / Instrumentation | 10 years | 10.00% | 20.00% | 1 July 2011
+Asset group · Sugar refining assets: / Support assets: / Control system assets: | | | |
+Sugar refining assets: / Support assets: / Control system assets: / Control cabinets and switchgear (Sugar refining assets / Support assets / Control system assets / Sugar manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2011
+Sugar refining assets: / Support assets: / Control system assets: / Instrumentation (Sugar refining assets / Support assets / Control system assets / Sugar manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2011
 Sugar refining assets: / Support assets: / Control system assets: / Program logic controllers (PLCs) | 10 years | 10.00% | 20.00% | 1 July 2011
-Sugar refining assets: / Support assets: / Control system assets: / Switchboards | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar refining assets: / Support assets: / Control system assets: / Variable speed drives (VSDs) | 10 years | 10.00% | 20.00% | 1 July 2011
-Sugar refining assets: / Support assets: / Conveyors (including framework and enclosures): | | | |
+Sugar refining assets: / Support assets: / Control system assets: / Switchboards (Sugar refining assets / Support assets / Control system assets / Sugar manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2011
+Sugar refining assets: / Support assets: / Control system assets: / Variable speed drives (VSDs) (Sugar refining assets / Support assets / Control system assets / Sugar manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2011
+Asset group · Sugar refining assets: / Support assets: / Conveyors (including framework and enclosures): | | | |
 Sugar refining assets: / Support assets: / Conveyors (including framework and enclosures): / Packaging conveyors | 15 years | 6.67% | 13.33% | 1 July 2011
 Sugar refining assets: / Support assets: / Conveyors (including framework and enclosures): / Other conveyors | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar refining assets: / Support assets: / Cooling towers: | | | |
-Sugar refining assets: / Support assets: / Cooling towers: / Field erected | 25 years | 4.00% | 8.00% | 1 July 2011
-Sugar refining assets: / Support assets: / Cooling towers: / Packaged | 15 years | 6.67% | 13.33% | 1 July 2011
+Asset group · Sugar refining assets: / Support assets: / Cooling towers: | | | |
+Sugar refining assets: / Support assets: / Cooling towers: / Field erected (Sugar refining assets / Support assets / Cooling towers / Sugar manufacturing) | 25 years | 4.00% | 8.00% | 1 July 2011
+Sugar refining assets: / Support assets: / Cooling towers: / Packaged (Sugar refining assets / Support assets / Cooling towers / Sugar manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2011
 Sugar refining assets: / Support assets: / Dust collectors (including ducting) | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar refining assets: / Support assets: / Heat exchangers | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar refining assets: / Support assets: / Pipes and valves: | | | |
-Sugar refining assets: / Support assets: / Pipes and valves: / Pipes: | | | |
-Sugar refining assets: / Support assets: / Pipes and valves: / Pipes: / Mild steel | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar refining assets: / Support assets: / Pipes and valves: / Pipes: / Non ferrous | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar refining assets: / Support assets: / Pipes and valves: / Pipes: / Stainless steel | 25 years | 4.00% | 8.00% | 1 July 2011
-Sugar refining assets: / Support assets: / Pipes and valves: / Valves | 10 years | 10.00% | 20.00% | 1 July 2011
-Sugar refining assets: / Support assets: / Pumps | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar refining assets: / Support assets: / Refractometers | 10 years | 10.00% | 20.00% | 1 July 2011
-Sugar refining assets: / Support assets: / Spectrometers | 10 years | 10.00% | 20.00% | 1 July 2011
-Sugar refining assets: / Support assets: / Tanks: | | | |
-Sugar refining assets: / Support assets: / Tanks: / Water storage tanks | 25 years | 4.00% | 8.00% | 1 July 2011
-Sugar refining assets: / Support assets: / Tanks: / Other tanks: | | | |
-Sugar refining assets: / Support assets: / Tanks: / Other tanks: / Mild steel | 20 years | 5.00% | 10.00% | 1 July 2011
-Sugar refining assets: / Support assets: / Tanks: / Other tanks: / Plastic | 15 years | 6.67% | 13.33% | 1 July 2011
-Sugar refining assets: / Support assets: / Tanks: / Other tanks: / Stainless steel | 30 years | 3.33% | 6.67% | 1 July 2011
-Sugar refining assets: / Support assets: / Weighbridges | 20 years | 5.00% | 10.00% | 1 July 2011
+Sugar refining assets: / Support assets: / Heat exchangers (Sugar refining assets / Support assets / Sugar manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2011
+Asset group · Sugar refining assets: / Support assets: / Pipes and valves: | | | |
+Asset group · Sugar refining assets: / Support assets: / Pipes and valves: / Pipes: | | | |
+Sugar refining assets: / Support assets: / Pipes and valves: / Mild steel (Pipes) | 15 years | 6.67% | 13.33% | 1 July 2011
+Sugar refining assets: / Support assets: / Pipes and valves: / Non ferrous (Pipes) | 20 years | 5.00% | 10.00% | 1 July 2011
+Sugar refining assets: / Support assets: / Pipes and valves: / Pipes: / Stainless steel (Sugar refining assets / Support assets / Pipes and valves / Pipes / Sugar manufacturing) | 25 years | 4.00% | 8.00% | 1 July 2011
+Sugar refining assets: / Support assets: / Valves (Pipes and valves) | 10 years | 10.00% | 20.00% | 1 July 2011
+Sugar refining assets: / Support assets: / Pumps (Sugar refining assets / Support assets / Sugar manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2011
+Sugar refining assets: / Refractometers (Support assets) | 10 years | 10.00% | 20.00% | 1 July 2011
+Sugar refining assets: / Spectrometers (Support assets) | 10 years | 10.00% | 20.00% | 1 July 2011
+Asset group · Sugar refining assets: / Support assets: / Tanks: | | | |
+Sugar refining assets: / Support assets: / Tanks: / Water storage tanks (Sugar refining assets / Support assets / Tanks / Sugar manufacturing) | 25 years | 4.00% | 8.00% | 1 July 2011
+Asset group · Sugar refining assets: / Support assets: / Tanks: / Other tanks: | | | |
+Sugar refining assets: / Support assets: / Tanks: / Other tanks: / Mild steel (Sugar refining assets / Support assets / Tanks / Other tanks / Sugar manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2011
+Sugar refining assets: / Support assets: / Tanks: / Other tanks: / Plastic (Sugar refining assets / Support assets / Tanks / Other tanks / Sugar manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2011
+Sugar refining assets: / Support assets: / Tanks: / Other tanks: / Stainless steel (Sugar refining assets / Support assets / Tanks / Other tanks / Sugar manufacturing) | 30 years | 3.33% | 6.67% | 1 July 2011
+Sugar refining assets: / Support assets: / Weighbridges (Sugar manufacturing) | 20 years | 5.00% | 10.00% | 1 July 2011
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- Sugar milling assets: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/#asset-group-1
+- Sugar refining assets: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/#asset-group-100
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/#source
 - Rail bins: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/rail-bins/
 - Rail bin automatic coupling/de-coupling devices: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/rail-bin-automatic-coupling-de-coupling-devices/
 - Road bins: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/road-bins/
 - Rail assets (excluding cane bin assets) – see Table A Rail freight and passenger transport services (47100 to 47200): https://duguid.com.au/tools/depreciation-rates/industry/rail-freight-and-passenger-transport/
 - Cane levellers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/cane-levellers/
 - Cane receival hoppers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/cane-receival-hoppers/
-- Tipplers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/tipplers/
-- Weighbridges: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-weighbridges/
+- Tipplers (Receival station assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/tipplers/
+- Weighbridges (Receival station assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-weighbridges/
 - Cane shredding machines (incorporating drives): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/cane-shredding-machines/
 - Crushing mills (incorporating drives): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/crushing-mills/
 - Rotary juice screens: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/rotary-juice-screens/
-- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/cane-juice-filtration-and-clarifiers/
-- Flash tanks: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/flash-tanks/
+- Clarifiers (Cane juice filtration and clarification assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/cane-juice-filtration-and-clarifiers/
+- Flash tanks (Cane juice filtration and clarification assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/flash-tanks/
 - Juice heaters: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/juice-heaters/
 - Lime and mud storage bins: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/lime-and-mud-storage-bins/
 - Lime slakers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/lime-slakers/
 - Mud mixers/minglers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/mud-mixers-minglers/
 - Rotary vacuum mud filters: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/rotary-vacuum-mud-filters/
-- Centrifugals: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-centrifugals/
-- Crystallisers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/crystallisers/
-- Evaporators: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-evaporators/
-- Magma mixers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-magma-mixers/
-- Magma/massecuite distributors and receivers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-magma-massecuite-distributors-and-receivers/
+- Centrifugals (Sugar milling assets / Evaporation and crystallisation assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-centrifugals/
+- Crystallisers (Evaporation and crystallisation assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/crystallisers/
+- Evaporators (Sugar milling assets / Evaporation and crystallisation assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-evaporators/
+- Magma mixers (Evaporation and crystallisation assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-magma-mixers/
+- Magma/massecuite distributors and receivers (Sugar milling assets / Evaporation and crystallisation assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-magma-massecuite-distributors-and-receivers/
 - Massecuite re-heaters: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/massecuite-re-heaters/
 - Seed vessels: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/seed-vessels/
-- Sugar melters: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-sugar-melters/
-- Vacuum pans: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-vacuum-pans/
-- Mild steel: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-vapour-condensers-mild-steel/
-- Stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-vapour-condensers-stainless-steel/
-- Coolers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/coolers/
+- Sugar melters (Evaporation and crystallisation assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-sugar-melters/
+- Vacuum pans (Sugar milling assets / Evaporation and crystallisation assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-vacuum-pans/
+- Mild steel (Sugar milling assets / Evaporation and crystallisation assets / Vapour condensers / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-vapour-condensers-mild-steel/
+- Stainless steel (Sugar milling assets / Evaporation and crystallisation assets / Vapour condensers / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-vapour-condensers-stainless-steel/
+- Coolers (Molasses storage assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/coolers/
 - Dams (earthworks only): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/dams/
 - Dam bladders and covers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/dam-bladders-and-covers/
-- Tanks: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/tanks/
+- Tanks (Molasses storage assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/tanks/
 - Ash filters (including rotary and horizontal belt vacuum filters): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/ash-filters/
 - Bagacillo collection systems: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/bagacillo-collection-systems/
 - Bagasse bins (incorporating stacking and reclaim systems): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/bagasse-bins/
 - Other power generation assets – see Table A Electricity supply (26110 to 26400): https://duguid.com.au/tools/depreciation-rates/industry/electricity-supply/
 - Hoppers (weigh and feed): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/hoppers/
-- Lump breakers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-lump-breakers/
-- Rotary sugar dryers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-rotary-sugar-dryers/
+- Lump breakers (Sugar drying and storage assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-lump-breakers/
+- Rotary sugar dryers (Sugar drying and storage assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-rotary-sugar-dryers/
 - Sugar storage bins and silos: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-storage-bins-and-silos/
-- Vibratory screens: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-vibratory-screens/
-- Air dryers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-air-dryers/
-- Air receivers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-air-receivers/
-- Compressors: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-compressors/
-- Packaged air compression systems: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-packaged-air-compression-systems/
-- Blowers and fans: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-blowers-and-fans/
-- Control cabinets and switchgear: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-control-cabinets-and-switchgear/
-- Instrumentation: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-instrumentation/
-- Programmable logic controllers (PLCs): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/programmable-logic-controllers/
-- Switchboards: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-switchboards/
-- Variable speed drives (VSDs): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-variable-speed-drives/
+- Vibratory screens (Sugar drying and storage assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-vibratory-screens/
+- Air dryers (Sugar milling assets / Support assets / Air compression assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-air-dryers/
+- Air receivers (Sugar milling assets / Support assets / Air compression assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-air-receivers/
+- Compressors (Sugar milling assets / Support assets / Air compression assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-compressors/
+- Packaged air compression systems (Sugar milling assets / Support assets / Air compression assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-packaged-air-compression-systems/
+- Blowers and fans (Sugar milling assets / Support assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-blowers-and-fans/
+- Control cabinets and switchgear (Sugar milling assets / Support assets / Control system assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-control-cabinets-and-switchgear/
+- Instrumentation (Sugar milling assets / Support assets / Control system assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-instrumentation/
+- Programmable logic controllers (PLCs) (Control system assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/programmable-logic-controllers/
+- Switchboards (Sugar milling assets / Support assets / Control system assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-switchboards/
+- Variable speed drives (VSDs) (Sugar milling assets / Support assets / Control system assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-variable-speed-drives/
 - Conveyors (including framework and enclosures): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/conveyors/
-- Conveyor belt weighers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/conveyor-belt-weighers/
+- Conveyor belt weighers (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/conveyor-belt-weighers/
 - Dust collectors (including ducting, but excluding bagacillo collection systems): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-dust-collectors/
-- Heat exchangers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-heat-exchangers/
+- Heat exchangers (Sugar milling assets / Support assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-heat-exchangers/
 - Cutter grinders: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/cutter-grinders/
 - Moisture determination ovens: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/moisture-determination-ovens/
-- Polarimeters: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/polarimeters/
+- Polarimeters (Laboratory assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/polarimeters/
 - Rotary juice samplers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/rotary-juice-samplers/
-- Spectrometers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-spectrometers/
+- Spectrometers (Laboratory assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-spectrometers/
 - Wet disintegrators: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/wet-disintegrators/
 - Overhead cranes – see Table B Cranes: https://duguid.com.au/tools/depreciation-rates/asset/cranes/
-- Mild steel: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/piping-mild-steel/
-- Non ferrous: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-non-ferrous/
-- Stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/piping-stainless-steel/
-- Valves: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-valves/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-pumps/
-- Water storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-water-storage-tanks/
-- Mild steel: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-other-tanks-mild-steel/
-- Plastic: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-plastic/
-- Stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-other-tanks-stainless-steel/
-- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/water-treatment-and-cooling-clarifiers/
+- Mild steel (Piping): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/piping-mild-steel/
+- Non ferrous (Piping): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-non-ferrous/
+- Stainless steel (Piping): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/piping-stainless-steel/
+- Valves (Piping and valves): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-valves/
+- Pumps (Sugar milling assets / Support assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-pumps/
+- Water storage tanks (Sugar milling assets / Support assets / Tanks (excluding molasses storage tanks) / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-water-storage-tanks/
+- Mild steel (Sugar milling assets / Support assets / Tanks (excluding molasses storage tanks) / Other tanks / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-other-tanks-mild-steel/
+- Plastic (Sugar milling assets / Support assets / Tanks (excluding molasses storage tanks) / Other tanks / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-plastic/
+- Stainless steel (Sugar milling assets / Support assets / Tanks (excluding molasses storage tanks) / Other tanks / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-other-tanks-stainless-steel/
+- Clarifiers (Water treatment and cooling assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/water-treatment-and-cooling-clarifiers/
 - Cooling and effluent ponds: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/cooling-and-effluent-ponds/
-- Field erected: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-field-erected/
-- Packaged: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-packaged/
-- Ion exchange systems: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/ion-exchange-systems/
-- Centrifugals: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/affination-assets-centrifugals/
-- Magma mixers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-magma-mixers/
+- Field erected (Sugar milling assets / Water treatment and cooling assets / Cooling towers / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-field-erected/
+- Packaged (Sugar milling assets / Water treatment and cooling assets / Cooling towers / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-packaged/
+- Ion exchange systems (Water treatment and cooling assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/ion-exchange-systems/
+- Centrifugals (Affination assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/affination-assets-centrifugals/
+- Magma mixers (Affination assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-magma-mixers/
 - Melter liquor screens: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/melter-liquor-screens/
-- Sugar melters: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-sugar-melters/
-- Carbon regeneration kilns: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/carbon-regeneration-kilns/
-- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-clarifiers/
+- Sugar melters (Affination assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-sugar-melters/
+- Carbon regeneration kilns (Clarification and de-colourising assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/carbon-regeneration-kilns/
+- Clarifiers (Clarification and de-colourising assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-clarifiers/
 - Deep bed filters: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/deep-bed-filters/
 - Carbon based: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/carbon-based/
 - Resin based: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/resin-based/
-- Centrifugals: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/evaporation-and-crystallisation-centrifugals/
-- Evaporators: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-evaporators/
-- Magma/massecuite distributors and receivers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-magma-massecuite-distributors-and-receivers/
-- Vacuum pans: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-vacuum-pans/
-- Mild steel: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-vapour-condensers-mild-steel/
-- Stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-vapour-condensers-stainless-steel/
-- Bagging machines (including flow wrappers, form fill and seal machines, and roll wrapping machines): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/bagging-machines/
+- Centrifugals (Sugar refining assets / Evaporation and crystallisation assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/evaporation-and-crystallisation-centrifugals/
+- Evaporators (Sugar refining assets / Evaporation and crystallisation assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-evaporators/
+- Magma/massecuite distributors and receivers (Sugar refining assets / Evaporation and crystallisation assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-magma-massecuite-distributors-and-receivers/
+- Vacuum pans (Sugar refining assets / Evaporation and crystallisation assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-vacuum-pans/
+- Mild steel (Sugar refining assets / Evaporation and crystallisation assets / Vapour condensers / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-vapour-condensers-mild-steel/
+- Stainless steel (Sugar refining assets / Evaporation and crystallisation assets / Vapour condensers / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-vapour-condensers-stainless-steel/
+- Bagging machines (including flow wrappers, form fill and seal machines, and roll wrapping machines) (Packaging assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/bagging-machines/
 - Bottle capping, filling and unscrambling machines: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/bottle-capping-filling-and-unscrambling-machines/
 - Syrup and treacle filter presses: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/syrup-and-treacle-filter-presses/
-- UV disinfectors: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/uv-disinfectors/
-- Carton erecting, packing and closing machines (including cartoners): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/carton-erecting-packing-and-closing-machines/
-- Case erecting, packing and closing machines (including casepackers): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/case-erecting-packing-and-closing-machines/
+- UV disinfectors (Bottling assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/uv-disinfectors/
+- Carton erecting, packing and closing machines (including cartoners) (Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/carton-erecting-packing-and-closing-machines/
+- Case erecting, packing and closing machines (including casepackers) (Packaging assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/case-erecting-packing-and-closing-machines/
 - Inspection equipment (including check weighers, metal detectors, counting machines): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/inspection-equipment/
-- Multihead and singlehead weighers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/multihead-and-singlehead-weighers/
-- Palletisers and de-palletisers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/palletisers-and-de-palletisers/
+- Multihead and singlehead weighers (Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/multihead-and-singlehead-weighers/
+- Palletisers and de-palletisers (Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/palletisers-and-de-palletisers/
 - Product identification labellers (including decorating, applicator and coding machines): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/product-identification-labellers/
-- Wrapping machines (including shrink wrappers, stretch wrappers and strapping machines): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/wrapping-machines/
+- Wrapping machines (including shrink wrappers, stretch wrappers and strapping machines) (Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/wrapping-machines/
 - Bins, hoppers and silos: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/bins-hoppers-and-silos/
-- Lump breakers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-lump-breakers/
-- Rotary sugar dryers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-rotary-sugar-dryers/
+- Lump breakers (Sugar receival, drying, screening, and storage assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-lump-breakers/
+- Rotary sugar dryers (Sugar receival, drying, screening, and storage assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-rotary-sugar-dryers/
 - Sugar throwers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-throwers/
 - Vibratory screens (including graders and scalpers): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-vibratory-screens/
-- Air dryers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-air-dryers/
-- Air receivers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-air-receivers/
-- Compressors: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-compressors/
-- Packaged air compression systems: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-packaged-air-compression-systems/
-- Blowers and fans: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-blowers-and-fans/
+- Air dryers (Sugar refining assets / Support assets / Air compression assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-air-dryers/
+- Air receivers (Sugar refining assets / Support assets / Air compression assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-air-receivers/
+- Compressors (Sugar refining assets / Support assets / Air compression assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-compressors/
+- Packaged air compression systems (Sugar refining assets / Support assets / Air compression assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-packaged-air-compression-systems/
+- Blowers and fans (Sugar refining assets / Support assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-blowers-and-fans/
 - Boilers (packaged type only): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/boilers/
-- Control cabinets and switchgear: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-control-cabinets-and-switchgear/
-- Instrumentation: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-instrumentation/
+- Control cabinets and switchgear (Sugar refining assets / Support assets / Control system assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-control-cabinets-and-switchgear/
+- Instrumentation (Sugar refining assets / Support assets / Control system assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-instrumentation/
 - Program logic controllers (PLCs): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/program-logic-controllers/
-- Switchboards: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-switchboards/
-- Variable speed drives (VSDs): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-variable-speed-drives/
+- Switchboards (Sugar refining assets / Support assets / Control system assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-switchboards/
+- Variable speed drives (VSDs) (Sugar refining assets / Support assets / Control system assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-variable-speed-drives/
 - Packaging conveyors: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/packaging-conveyors/
 - Other conveyors: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/other-conveyors/
-- Field erected: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-field-erected/
-- Packaged: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-packaged/
+- Field erected (Sugar refining assets / Support assets / Cooling towers / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-field-erected/
+- Packaged (Sugar refining assets / Support assets / Cooling towers / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-packaged/
 - Dust collectors (including ducting): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-dust-collectors/
-- Heat exchangers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-heat-exchangers/
-- Mild steel: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/pipes-mild-steel/
-- Non ferrous: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-non-ferrous/
-- Stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/pipes-stainless-steel/
-- Valves: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-valves/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-pumps/
-- Refractometers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/refractometers/
-- Spectrometers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-spectrometers/
-- Water storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-water-storage-tanks/
-- Mild steel: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-other-tanks-mild-steel/
-- Plastic: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-plastic/
-- Stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-other-tanks-stainless-steel/
-- Weighbridges: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-weighbridges/
+- Heat exchangers (Sugar refining assets / Support assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-heat-exchangers/
+- Mild steel (Pipes): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/pipes-mild-steel/
+- Non ferrous (Pipes): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-non-ferrous/
+- Stainless steel (Sugar refining assets / Support assets / Pipes and valves / Pipes / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/pipes-stainless-steel/
+- Valves (Pipes and valves): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-valves/
+- Pumps (Sugar refining assets / Support assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-pumps/
+- Refractometers (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/refractometers/
+- Spectrometers (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-spectrometers/
+- Water storage tanks (Sugar refining assets / Support assets / Tanks / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-water-storage-tanks/
+- Mild steel (Sugar refining assets / Support assets / Tanks / Other tanks / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-other-tanks-mild-steel/
+- Plastic (Sugar refining assets / Support assets / Tanks / Other tanks / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-plastic/
+- Stainless steel (Sugar refining assets / Support assets / Tanks / Other tanks / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-other-tanks-stainless-steel/
+- Weighbridges (Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-weighbridges/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

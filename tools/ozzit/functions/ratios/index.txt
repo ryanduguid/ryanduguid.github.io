@@ -10,7 +10,7 @@ The 48 Ratios formulas cover liquidity, gearing, margin, return, market and work
 
 Release v3.8.0. Read from the released Ratios formula source, which the workbook compiles.
 
-Published 20 October 2026. Last reviewed 20 October 2026.
+By Ryan Duguid. Published 20 October 2026. Last reviewed 20 October 2026.
 
 ## Using these functions
 
@@ -1434,6 +1434,7 @@ The workbook help shows 48.967.
 ## Links
 
 - Ratios formula source: https://github.com/ryanduguid/Ozzit/blob/v3.8.0/src/Ratios.txt
+- Ryan Duguid: https://duguid.com.au/about/
 - Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
 - oz.AboutRatios λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-aboutratios
 - oz.CurrentRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-currentratio

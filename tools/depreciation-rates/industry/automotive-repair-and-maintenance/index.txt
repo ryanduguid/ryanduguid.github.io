@@ -8,53 +8,53 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repai
 
 107 effective lives in Table A of the Commissioner’s 2025 effective life determination for Automotive repair and maintenance.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Rows of Automotive repair and maintenance. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Automotive and heavy vehicle repair and maintenance assets: | | | |
-Automotive and heavy vehicle repair and maintenance assets: / Air conditioning assets: | | | |
+Asset group · Automotive and heavy vehicle repair and maintenance assets: | | | |
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Air conditioning assets: | | | |
 Automotive and heavy vehicle repair and maintenance assets: / Air conditioning assets: / Refrigerant leak detectors | 3 years | 33.33% | 66.67% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Air conditioning assets: / Refrigerant management systems | 5 years | 20.00% | 40.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Air conditioning assets: / Refrigerant recovery and recycling machines | 5 years | 20.00% | 40.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Air conditioning assets: / Refrigerant recovery machines | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Air conditioning assets: / Vacuum pumps | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Air tools (including ratchet guns) | 2 years | 50.00% | 100.00% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Vacuum pumps (Air conditioning assets) | 5 years | 20.00% | 40.00% | 1 July 2011
+Air tools (including ratchet guns) (Automotive and heavy vehicle repair and maintenance assets) | 2 years | 50.00% | 100.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Automatic transmission flush and fill machines | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Axle and ball joint play testers or shakers | 10 years | 10.00% | 20.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Battery chargers | 5 years | 20.00% | 40.00% | 1 July 2011
+Axle and ball joint play testers or shakers (Automotive and heavy vehicle repair and maintenance assets) | 10 years | 10.00% | 20.00% | 1 July 2011
+Battery chargers (Automotive and heavy vehicle repair and maintenance assets) | 5 years | 20.00% | 40.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Battery testers | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Brake disc and drum grinding lathes: | | | |
-Automotive and heavy vehicle repair and maintenance assets: / Brake disc and drum grinding lathes: / Fixed | 10 years | 10.00% | 20.00% | 1 July 2011
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Brake disc and drum grinding lathes: | | | |
+Automotive and heavy vehicle repair and maintenance assets: / Fixed (Brake disc and drum grinding lathes) | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Brake disc and drum grinding lathes: / Portable on-car | 5 years | 20.00% | 40.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Brake fluid testers | 5 years | 20.00% | 40.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Brake shoe riveters | 5 years | 20.00% | 40.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Brake system flushers | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: | | | |
-Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Air compressors: | | | |
-Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Air compressors: / Reciprocating | 10 years | 10.00% | 20.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Air compressors: / Rotary screw | 10 years | 10.00% | 20.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Air compressors: / Rotary vane | 10 years | 10.00% | 20.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Air driers and dehumidifiers | 10 years | 10.00% | 20.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Air receivers | 10 years | 10.00% | 20.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Hose reels | 3 years | 33.33% | 66.67% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Reticulation lines: | | | |
-Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Reticulation lines: / Aluminium | 15 years | 6.67% | 13.33% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Reticulation lines: / Copper | 20 years | 5.00% | 10.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Reticulation lines: / Polyethylene (PE) | 15 years | 6.67% | 13.33% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Reticulation lines: / Steel | 10 years | 10.00% | 20.00% | 1 July 2011
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: | | | |
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Air compressors: | | | |
+Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Air compressors: / Reciprocating (Automotive repair and maintenance) | 10 years | 10.00% | 20.00% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Air compressors: / Rotary screw (Automotive repair and maintenance) | 10 years | 10.00% | 20.00% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Air compressors: / Rotary vane (Automotive repair and maintenance) | 10 years | 10.00% | 20.00% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Air driers and dehumidifiers (Automotive repair and maintenance) | 10 years | 10.00% | 20.00% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Air receivers (Automotive repair and maintenance) | 10 years | 10.00% | 20.00% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Hose reels (Automotive repair and maintenance) | 3 years | 33.33% | 66.67% | 1 July 2011
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Reticulation lines: | | | |
+Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Reticulation lines: / Aluminium (Automotive repair and maintenance) | 15 years | 6.67% | 13.33% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Reticulation lines: / Copper (Automotive repair and maintenance) | 20 years | 5.00% | 10.00% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Reticulation lines: / Polyethylene (PE) (Automotive repair and maintenance) | 15 years | 6.67% | 13.33% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Compressed air assets: / Reticulation lines: / Steel (Automotive repair and maintenance) | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Continuous diesel engine particulate testers | 5 years | 20.00% | 40.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Cooling system flushers | 5 years | 20.00% | 40.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Decelerometer brake testers | 7 years | 14.29% | 28.57% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Diagnostic assets: | | | |
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Diagnostic assets: | | | |
 Automotive and heavy vehicle repair and maintenance assets: / Diagnostic assets: / Diagnostic and roller dynamometers, performance and emissions testers | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Diagnostic assets: / Engine analysers | 5 years | 20.00% | 40.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Diagnostic assets: / Electrical test benches | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Diagnostic assets: / Fuel injection pump test benches | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Diagnostic assets: / Oscilloscopes | 10 years | 10.00% | 20.00% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Oscilloscopes (Diagnostic assets) | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Diagnostic assets: / Scan tools | 5 years | 20.00% | 40.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Diesel engine emission testers | 5 years | 20.00% | 40.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Drill presses | 15 years | 6.67% | 13.33% | 1 July 2011
@@ -63,70 +63,70 @@ Automotive and heavy vehicle repair and maintenance assets: / Drive-on shock abs
 Automotive and heavy vehicle repair and maintenance assets: / Dual wheel removers | 8 years | 12.50% | 25.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Effluent treatment systems incorporating motors, electronic circuitry, pumps, and separators | 8 years | 12.50% | 25.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Engine cranes | 10 years | 10.00% | 20.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Exhaust gas analysers for petrol engines: | | | |
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Exhaust gas analysers for petrol engines: | | | |
 Automotive and heavy vehicle repair and maintenance assets: / Exhaust gas analysers for petrol engines: / Computer operated | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Exhaust gas analysers for petrol engines: / Standalone | 10 years | 10.00% | 20.00% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Standalone (Exhaust gas analysers for petrol engines) | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Exhaust stands | 11 years | 9.09% | 18.18% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Flywheel grinders | 13 years | 7.69% | 15.38% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Hand tools | 10 years | 10.00% | 20.00% | 1 July 2011
+Hand tools (Automotive and heavy vehicle repair and maintenance assets) | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Headlight testers | 7 years | 14.29% | 28.57% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Hydraulic brake hose machines | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Hydraulic presses | 10 years | 10.00% | 20.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Jacks: | | | |
-Automotive and heavy vehicle repair and maintenance assets: / Jacks: / Floor jacks: | | | |
-Automotive and heavy vehicle repair and maintenance assets: / Jacks: / Floor jacks: / Used for car and light truck repairs | 3 years | 33.33% | 66.67% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Jacks: / Floor jacks: / Used for heavy vehicle repairs | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Jacks: / Transmission jacks: | | | |
-Automotive and heavy vehicle repair and maintenance assets: / Jacks: / Transmission jacks: / Used for car and light truck repairs | 8 years | 12.50% | 25.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Jacks: / Transmission jacks: / Used for heavy vehicle repairs | 5 years | 20.00% | 40.00% | 1 July 2011
+Hydraulic presses (Automotive and heavy vehicle repair and maintenance assets) | 10 years | 10.00% | 20.00% | 1 July 2011
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Jacks: | | | |
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Jacks: / Floor jacks: | | | |
+Automotive and heavy vehicle repair and maintenance assets: / Jacks: / Floor jacks: / Used for car and light truck repairs (Automotive and heavy vehicle repair and maintenance assets / Jacks / Floor jacks / Automotive repair and maintenance) | 3 years | 33.33% | 66.67% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Jacks: / Floor jacks: / Used for heavy vehicle repairs (Automotive and heavy vehicle repair and maintenance assets / Jacks / Floor jacks / Automotive repair and maintenance) | 5 years | 20.00% | 40.00% | 1 July 2011
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Jacks: / Transmission jacks: | | | |
+Automotive and heavy vehicle repair and maintenance assets: / Jacks: / Used for car and light truck repairs (Transmission jacks) | 8 years | 12.50% | 25.00% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Jacks: / Used for heavy vehicle repairs (Transmission jacks) | 5 years | 20.00% | 40.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Jacks: / Vehicle positioning jacks | 3 years | 33.33% | 66.67% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Lathes | 20 years | 5.00% | 10.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Measuring assets: | | | |
-Automotive and heavy vehicle repair and maintenance assets: / Measuring assets: / Micrometers | 10 years | 10.00% | 20.00% | 1 July 2011
+Lathes (Automotive and heavy vehicle repair and maintenance assets) | 20 years | 5.00% | 10.00% | 1 July 2011
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Measuring assets: | | | |
+Automotive and heavy vehicle repair and maintenance assets: / Micrometers (Measuring assets) | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Measuring assets: / Tension wrenches | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Measuring assets: / Tyre pressure gauges | 5 years | 20.00% | 40.00% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Tyre pressure gauges (Measuring assets) | 5 years | 20.00% | 40.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Noise level meters | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: | | | |
-Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Bunding: | | | |
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: | | | |
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Bunding: | | | |
 Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Bunding: / Polyethylene (PE) pallets | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Bunding: / Rubber | 3 years | 33.33% | 66.67% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Distribution lines: | | | |
-Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Distribution lines: / Polyethylene (PE) | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Distribution lines: / Rubber | 3 years | 33.33% | 66.67% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Distribution lines: / Steel | 10 years | 10.00% | 20.00% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Rubber (Bunding) | 3 years | 33.33% | 66.67% | 1 July 2011
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Distribution lines: | | | |
+Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Polyethylene (PE) (Distribution lines) | 5 years | 20.00% | 40.00% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Rubber (Distribution lines) | 3 years | 33.33% | 66.67% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Steel (Distribution lines) | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Guns and pumps | 3 years | 33.33% | 66.67% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Reels: | | | |
-Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Reels: / Plastic | 3 years | 33.33% | 66.67% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Reels: / Steel | 7 years | 14.29% | 28.57% | 1 July 2011
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Reels: | | | |
+Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Plastic (Reels) | 3 years | 33.33% | 66.67% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Steel (Reels) | 7 years | 14.29% | 28.57% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Oil and grease delivery systems: / Tanks (including waste oil tanks) | 20 years | 5.00% | 10.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Oil filter crushers | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Parts cleaners and washers | 7 years | 14.29% | 28.57% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Pipe and tube benders | 10 years | 10.00% | 20.00% | 1 July 2011
+Pipe and tube benders (Automotive and heavy vehicle repair and maintenance assets) | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Pipe and tube saws and cutters | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Power steering flushing systems | 5 years | 20.00% | 40.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Pressure washers | 4 years | 25.00% | 50.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Sand blasters | 7 years | 14.29% | 28.57% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Spring compressors | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Stillages | 15 years | 6.67% | 13.33% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Storage shelving | 10 years | 10.00% | 20.00% | 1 July 2011
+Stillages (Automotive and heavy vehicle repair and maintenance assets) | 15 years | 6.67% | 13.33% | 1 July 2011
+Storage shelving (Automotive and heavy vehicle repair and maintenance assets) | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Toolbox roller cabinets | 7 years | 14.29% | 28.57% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Trolleys | 10 years | 10.00% | 20.00% | 1 July 2011
+Trolleys (Automotive and heavy vehicle repair and maintenance assets) | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Truck brake imbalance testers | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Tyre conveyors: | | | |
-Automotive and heavy vehicle repair and maintenance assets: / Tyre conveyors: / Horizontal | 10 years | 10.00% | 20.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Tyre conveyors: / Vertical | 8 years | 12.50% | 25.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Tyre fitting machines | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Tyre inflation cages | 10 years | 10.00% | 20.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Tyre inflators (automatic and manual) | 3 years | 33.33% | 66.67% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Tyre spreaders | 8 years | 12.50% | 25.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Vehicle hoists: | | | |
-Automotive and heavy vehicle repair and maintenance assets: / Vehicle hoists: / Used for car and light truck repairs | 10 years | 10.00% | 20.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Vehicle hoists: / Used for heavy vehicle repairs | 20 years | 5.00% | 10.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Vehicle service and inspection lane assets: | | | |
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Tyre conveyors: | | | |
+Automotive and heavy vehicle repair and maintenance assets: / Tyre conveyors: / Horizontal (Automotive repair and maintenance) | 10 years | 10.00% | 20.00% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Tyre conveyors: / Vertical (Automotive repair and maintenance) | 8 years | 12.50% | 25.00% | 1 July 2011
+Tyre fitting machines (Automotive and heavy vehicle repair and maintenance assets) | 5 years | 20.00% | 40.00% | 1 July 2011
+Tyre inflation cages (Automotive and heavy vehicle repair and maintenance assets) | 10 years | 10.00% | 20.00% | 1 July 2011
+Tyre inflators (automatic and manual) (Automotive and heavy vehicle repair and maintenance assets) | 3 years | 33.33% | 66.67% | 1 July 2011
+Tyre spreaders (Automotive and heavy vehicle repair and maintenance assets) | 8 years | 12.50% | 25.00% | 1 July 2011
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Vehicle hoists: | | | |
+Automotive and heavy vehicle repair and maintenance assets: / Vehicle hoists: / Used for car and light truck repairs (Automotive and heavy vehicle repair and maintenance assets / Vehicle hoists / Automotive repair and maintenance) | 10 years | 10.00% | 20.00% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Vehicle hoists: / Used for heavy vehicle repairs (Automotive and heavy vehicle repair and maintenance assets / Vehicle hoists / Automotive repair and maintenance) | 20 years | 5.00% | 10.00% | 1 July 2011
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Vehicle service and inspection lane assets: | | | |
 Automotive and heavy vehicle repair and maintenance assets: / Vehicle service and inspection lane assets: / Control consoles | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Vehicle service and inspection lane assets: / Data collection devices (including bar code readers, mobile recorders and transponders) | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Vehicle service and inspection lane assets: / Floor unit assets: | | | |
-Automotive and heavy vehicle repair and maintenance assets: / Vehicle service and inspection lane assets: / Floor unit assets: / Axle and ball joint play testers or shakers | 10 years | 10.00% | 20.00% | 1 July 2011
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Vehicle service and inspection lane assets: / Floor unit assets: | | | |
+Automotive and heavy vehicle repair and maintenance assets: / Vehicle service and inspection lane assets: / Axle and ball joint play testers or shakers (Floor unit assets) | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Vehicle service and inspection lane assets: / Floor unit assets: / Roller brake testers | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Vehicle service and inspection lane assets: / Floor unit assets: / Shock absorber testers | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Vehicle service and inspection lane assets: / Floor unit assets: / Side slip testers | 10 years | 10.00% | 20.00% | 1 July 2011
@@ -134,51 +134,52 @@ Automotive and heavy vehicle repair and maintenance assets: / Vehicle service an
 Automotive and heavy vehicle repair and maintenance assets: / Vehicle service and inspection lane assets: / Floor unit assets: / Suspension play detectors | 10 years | 10.00% | 20.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Vehicle special tools | 5 years | 20.00% | 40.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Waste oil evacuators | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Welders: | | | |
-Automotive and heavy vehicle repair and maintenance assets: / Welders: / Electric | 10 years | 10.00% | 20.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Welders: / Oxy-acetylene | 10 years | 10.00% | 20.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Wheel alignment machines | 7 years | 14.29% | 28.57% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Wheel balancing machines | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Wheel balancing plates, flanges and finger adaptors | 5 years | 20.00% | 40.00% | 1 July 2011
-Automotive and heavy vehicle repair and maintenance assets: / Wheel lifters | 5 years | 20.00% | 40.00% | 1 July 2011
+Asset group · Automotive and heavy vehicle repair and maintenance assets: / Welders: | | | |
+Automotive and heavy vehicle repair and maintenance assets: / Welders: / Electric (Automotive repair and maintenance) | 10 years | 10.00% | 20.00% | 1 July 2011
+Automotive and heavy vehicle repair and maintenance assets: / Oxy-acetylene (Welders) | 10 years | 10.00% | 20.00% | 1 July 2011
+Wheel alignment machines (Automotive and heavy vehicle repair and maintenance assets) | 7 years | 14.29% | 28.57% | 1 July 2011
+Wheel balancing machines (Automotive and heavy vehicle repair and maintenance assets) | 5 years | 20.00% | 40.00% | 1 July 2011
+Wheel balancing plates, flanges and finger adaptors (Automotive and heavy vehicle repair and maintenance assets) | 5 years | 20.00% | 40.00% | 1 July 2011
+Wheel lifters (Automotive and heavy vehicle repair and maintenance assets) | 5 years | 20.00% | 40.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Wheel lifter incorporating tyre spreaders | 8 years | 12.50% | 25.00% | 1 July 2011
 Automotive and heavy vehicle repair and maintenance assets: / Work platform ladders | 10 years | 10.00% | 20.00% | 1 July 2011
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/#source
 - Refrigerant leak detectors: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/refrigerant-leak-detectors/
 - Refrigerant management systems: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/refrigerant-management-systems/
 - Refrigerant recovery and recycling machines: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/refrigerant-recovery-and-recycling-machines/
 - Refrigerant recovery machines: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/refrigerant-recovery-machines/
-- Vacuum pumps: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/vacuum-pumps/
-- Air tools (including ratchet guns): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/air-tools/
+- Vacuum pumps (Air conditioning assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/vacuum-pumps/
+- Air tools (including ratchet guns) (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/air-tools/
 - Automatic transmission flush and fill machines: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/automatic-transmission-flush-and-fill-machines/
-- Axle and ball joint play testers or shakers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/axle-and-ball-joint-play-testers-or-shakers-2538af/
-- Battery chargers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/battery-chargers/
+- Axle and ball joint play testers or shakers (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/axle-and-ball-joint-play-testers-or-shakers-2538af/
+- Battery chargers (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/battery-chargers/
 - Battery testers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/battery-testers/
-- Fixed: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/fixed/
+- Fixed (Brake disc and drum grinding lathes): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/fixed/
 - Portable on-car: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/portable-on-car/
 - Brake fluid testers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/brake-fluid-testers/
 - Brake shoe riveters: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/brake-shoe-riveters/
 - Brake system flushers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/brake-system-flushers/
-- Reciprocating: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/reciprocating/
-- Rotary screw: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/rotary-screw/
-- Rotary vane: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/rotary-vane/
-- Air driers and dehumidifiers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/air-driers-and-dehumidifiers/
-- Air receivers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/air-receivers/
-- Hose reels: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/hose-reels/
-- Aluminium: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/aluminium/
-- Copper: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/copper/
-- Polyethylene (PE): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/reticulation-lines-polyethylene/
-- Steel: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/reticulation-lines-steel/
+- Reciprocating (Automotive repair and maintenance): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/reciprocating/
+- Rotary screw (Automotive repair and maintenance): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/rotary-screw/
+- Rotary vane (Automotive repair and maintenance): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/rotary-vane/
+- Air driers and dehumidifiers (Automotive repair and maintenance): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/air-driers-and-dehumidifiers/
+- Air receivers (Automotive repair and maintenance): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/air-receivers/
+- Hose reels (Automotive repair and maintenance): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/hose-reels/
+- Aluminium (Automotive repair and maintenance): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/aluminium/
+- Copper (Automotive repair and maintenance): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/copper/
+- Polyethylene (PE) (Automotive repair and maintenance): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/reticulation-lines-polyethylene/
+- Steel (Automotive repair and maintenance): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/reticulation-lines-steel/
 - Continuous diesel engine particulate testers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/continuous-diesel-engine-particulate-testers/
 - Cooling system flushers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/cooling-system-flushers/
 - Decelerometer brake testers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/decelerometer-brake-testers/
@@ -186,7 +187,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Engine analysers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/engine-analysers/
 - Electrical test benches: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/electrical-test-benches/
 - Fuel injection pump test benches: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/fuel-injection-pump-test-benches/
-- Oscilloscopes: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/oscilloscopes/
+- Oscilloscopes (Diagnostic assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/oscilloscopes/
 - Scan tools: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/scan-tools/
 - Diesel engine emission testers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/diesel-engine-emission-testers/
 - Drill presses: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/drill-presses/
@@ -196,56 +197,56 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Effluent treatment systems incorporating motors, electronic circuitry, pumps, and separators: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/effluent-treatment-systems-incorporating-motors-electronic/
 - Engine cranes: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/engine-cranes/
 - Computer operated: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/computer-operated/
-- Standalone: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/standalone/
+- Standalone (Exhaust gas analysers for petrol engines): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/standalone/
 - Exhaust stands: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/exhaust-stands/
 - Flywheel grinders: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/flywheel-grinders/
-- Hand tools: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/hand-tools/
+- Hand tools (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/hand-tools/
 - Headlight testers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/headlight-testers/
 - Hydraulic brake hose machines: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/hydraulic-brake-hose-machines/
-- Hydraulic presses: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/hydraulic-presses/
-- Used for car and light truck repairs: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/floor-jacks-used-for-car-and-light-truck-repairs/
-- Used for heavy vehicle repairs: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/floor-jacks-used-for-heavy-vehicle-repairs/
-- Used for car and light truck repairs: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/transmission-jacks-used-for-car-and-light-truck-repairs/
-- Used for heavy vehicle repairs: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/transmission-jacks-used-for-heavy-vehicle-repairs/
+- Hydraulic presses (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/hydraulic-presses/
+- Used for car and light truck repairs (Automotive and heavy vehicle repair and maintenance assets / Jacks / Floor jacks / Automotive repair and maintenance): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/floor-jacks-used-for-car-and-light-truck-repairs/
+- Used for heavy vehicle repairs (Automotive and heavy vehicle repair and maintenance assets / Jacks / Floor jacks / Automotive repair and maintenance): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/floor-jacks-used-for-heavy-vehicle-repairs/
+- Used for car and light truck repairs (Transmission jacks): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/transmission-jacks-used-for-car-and-light-truck-repairs/
+- Used for heavy vehicle repairs (Transmission jacks): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/transmission-jacks-used-for-heavy-vehicle-repairs/
 - Vehicle positioning jacks: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/vehicle-positioning-jacks/
-- Lathes: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/lathes/
-- Micrometers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/micrometers/
+- Lathes (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/lathes/
+- Micrometers (Measuring assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/micrometers/
 - Tension wrenches: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/tension-wrenches/
-- Tyre pressure gauges: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/tyre-pressure-gauges/
+- Tyre pressure gauges (Measuring assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/tyre-pressure-gauges/
 - Noise level meters: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/noise-level-meters/
 - Polyethylene (PE) pallets: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/polyethylene-pallets/
-- Rubber: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/bunding-rubber/
-- Polyethylene (PE): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/distribution-lines-polyethylene/
-- Rubber: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/distribution-lines-rubber/
-- Steel: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/distribution-lines-steel/
+- Rubber (Bunding): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/bunding-rubber/
+- Polyethylene (PE) (Distribution lines): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/distribution-lines-polyethylene/
+- Rubber (Distribution lines): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/distribution-lines-rubber/
+- Steel (Distribution lines): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/distribution-lines-steel/
 - Guns and pumps: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/guns-and-pumps/
-- Plastic: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/plastic/
-- Steel: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/reels-steel/
+- Plastic (Reels): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/plastic/
+- Steel (Reels): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/reels-steel/
 - Tanks (including waste oil tanks): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/tanks/
 - Oil filter crushers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/oil-filter-crushers/
 - Parts cleaners and washers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/parts-cleaners-and-washers/
-- Pipe and tube benders: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/pipe-and-tube-benders/
+- Pipe and tube benders (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/pipe-and-tube-benders/
 - Pipe and tube saws and cutters: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/pipe-and-tube-saws-and-cutters/
 - Power steering flushing systems: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/power-steering-flushing-systems/
 - Pressure washers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/pressure-washers/
 - Sand blasters: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/sand-blasters/
 - Spring compressors: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/spring-compressors/
-- Stillages: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/stillages/
-- Storage shelving: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/storage-shelving/
+- Stillages (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/stillages/
+- Storage shelving (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/storage-shelving/
 - Toolbox roller cabinets: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/toolbox-roller-cabinets/
-- Trolleys: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/trolleys/
+- Trolleys (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/trolleys/
 - Truck brake imbalance testers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/truck-brake-imbalance-testers/
-- Horizontal: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/horizontal/
-- Vertical: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/vertical/
-- Tyre fitting machines: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/tyre-fitting-machines/
-- Tyre inflation cages: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/tyre-inflation-cages/
-- Tyre inflators (automatic and manual): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/tyre-inflators/
-- Tyre spreaders: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/tyre-spreaders/
-- Used for car and light truck repairs: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/vehicle-hoists-used-for-car-and-light-truck-repairs/
-- Used for heavy vehicle repairs: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/vehicle-hoists-used-for-heavy-vehicle-repairs/
+- Horizontal (Automotive repair and maintenance): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/horizontal/
+- Vertical (Automotive repair and maintenance): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/vertical/
+- Tyre fitting machines (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/tyre-fitting-machines/
+- Tyre inflation cages (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/tyre-inflation-cages/
+- Tyre inflators (automatic and manual) (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/tyre-inflators/
+- Tyre spreaders (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/tyre-spreaders/
+- Used for car and light truck repairs (Automotive and heavy vehicle repair and maintenance assets / Vehicle hoists / Automotive repair and maintenance): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/vehicle-hoists-used-for-car-and-light-truck-repairs/
+- Used for heavy vehicle repairs (Automotive and heavy vehicle repair and maintenance assets / Vehicle hoists / Automotive repair and maintenance): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/vehicle-hoists-used-for-heavy-vehicle-repairs/
 - Control consoles: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/control-consoles/
 - Data collection devices (including bar code readers, mobile recorders and transponders): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/data-collection-devices/
-- Axle and ball joint play testers or shakers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/floor-unit-assets-axle-and-ball-joint-play-testers-or-shakers/
+- Axle and ball joint play testers or shakers (Floor unit assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/floor-unit-assets-axle-and-ball-joint-play-testers-or-shakers/
 - Roller brake testers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/roller-brake-testers/
 - Shock absorber testers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/shock-absorber-testers/
 - Side slip testers: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/side-slip-testers/
@@ -253,16 +254,16 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Suspension play detectors: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/suspension-play-detectors/
 - Vehicle special tools: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/vehicle-special-tools/
 - Waste oil evacuators: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/waste-oil-evacuators/
-- Electric: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/electric/
-- Oxy-acetylene: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/oxy-acetylene/
-- Wheel alignment machines: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/wheel-alignment-machines/
-- Wheel balancing machines: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/wheel-balancing-machines/
-- Wheel balancing plates, flanges and finger adaptors: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/wheel-balancing-plates-flanges-and-finger-adaptors/
-- Wheel lifters: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/wheel-lifters/
+- Electric (Automotive repair and maintenance): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/electric/
+- Oxy-acetylene (Welders): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/oxy-acetylene/
+- Wheel alignment machines (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/wheel-alignment-machines/
+- Wheel balancing machines (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/wheel-balancing-machines/
+- Wheel balancing plates, flanges and finger adaptors (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/wheel-balancing-plates-flanges-and-finger-adaptors/
+- Wheel lifters (Automotive and heavy vehicle repair and maintenance assets): https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/wheel-lifters/
 - Wheel lifter incorporating tyre spreaders: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/wheel-lifter-incorporating-tyre-spreaders/
 - Work platform ladders: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/work-platform-ladders/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

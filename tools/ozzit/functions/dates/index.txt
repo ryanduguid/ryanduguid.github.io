@@ -10,7 +10,7 @@ The 17 Dates formulas cover periods, timelines, schedules, overlaps and Australi
 
 Release v3.8.0. Read from the released Dates formula source, which the workbook compiles.
 
-Published 20 October 2026. Last reviewed 20 October 2026.
+By Ryan Duguid. Published 20 October 2026. Last reviewed 20 October 2026.
 
 ## Using these functions
 
@@ -642,6 +642,7 @@ The workbook help shows 1.
 ## Links
 
 - Dates formula source: https://github.com/ryanduguid/Ozzit/blob/v3.8.0/src/Dates.txt
+- Ryan Duguid: https://duguid.com.au/about/
 - Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
 - oz.AboutDates λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-aboutdates
 - oz.CountDOW λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-countdow

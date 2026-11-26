@@ -2,77 +2,78 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/
 
-> Table A (industry categories), MANUFACTURING / Boiler …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+> Boiler, tank and other heavy gauge metal …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
 
 # Boiler, tank and other heavy gauge metal container manufacturing
 
 21 effective lives in Table A of the Commissioner’s 2025 effective life determination for Boiler, tank and other heavy gauge metal container manufacturing.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Rows of Boiler, tank and other heavy gauge metal container manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Sheet metal tanks manufacturing assets: | | | |
-Sheet metal tanks manufacturing assets: / Band saws | 5 years | 20.00% | 40.00% | 1 July 2012
+Asset group · Sheet metal tanks manufacturing assets: | | | |
+Band saws (Sheet metal tanks manufacturing assets) | 5 years | 20.00% | 40.00% | 1 July 2012
 Sheet metal tanks manufacturing assets: / Coil holders | 10 years | 10.00% | 20.00% | 1 July 2012
 Sheet metal tanks manufacturing assets: / Curving rollers | 10 years | 10.00% | 20.00% | 1 July 2012
 Sheet metal tanks manufacturing assets: / Drilling machines (including bench and radial drills) | 5 years | 20.00% | 40.00% | 1 July 2012
 Sheet metal tanks manufacturing assets: / Gang and turret punching machines | 15 years | 6.67% | 13.33% | 1 July 2012
-Sheet metal tanks manufacturing assets: / Hand tools | 5 years | 20.00% | 40.00% | 1 July 2012
-Sheet metal tanks manufacturing assets: / Hoists: | | | |
-Sheet metal tanks manufacturing assets: / Hoists: / Electric | 5 years | 20.00% | 40.00% | 1 July 2012
-Sheet metal tanks manufacturing assets: / Hoists: / Hydraulic | 15 years | 6.67% | 13.33% | 1 July 2012
+Hand tools (Sheet metal tanks manufacturing assets) | 5 years | 20.00% | 40.00% | 1 July 2012
+Asset group · Sheet metal tanks manufacturing assets: / Hoists: | | | |
+Sheet metal tanks manufacturing assets: / Electric (Hoists) | 5 years | 20.00% | 40.00% | 1 July 2012
+Sheet metal tanks manufacturing assets: / Hydraulic (Hoists) | 15 years | 6.67% | 13.33% | 1 July 2012
 Sheet metal tanks manufacturing assets: / Hooks (including c-hooks and slinger hooks) | 5 years | 20.00% | 40.00% | 1 July 2012
-Sheet metal tanks manufacturing assets: / Jib cranes | 15 years | 6.67% | 13.33% | 1 July 2012
+Jib cranes (Sheet metal tanks manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2012
 Sheet metal tanks manufacturing assets: / Laser cutters | 7 years | 14.29% | 28.57% | 1 July 2012
-Sheet metal tanks manufacturing assets: / Overhead cranes and gantries | 25 years | 4.00% | 8.00% | 1 July 2012
+Overhead cranes and gantries (Sheet metal tanks manufacturing assets) | 25 years | 4.00% | 8.00% | 1 July 2012
 Sheet metal tanks manufacturing assets: / Pallet jacks | 10 years | 10.00% | 20.00% | 1 July 2012
 Sheet metal tanks manufacturing assets: / Plate grabs | 5 years | 20.00% | 40.00% | 1 July 2012
-Sheet metal tanks manufacturing assets: / Racking | 20 years | 5.00% | 10.00% | 1 July 2012
+Racking (Sheet metal tanks manufacturing assets) | 20 years | 5.00% | 10.00% | 1 July 2012
 Sheet metal tanks manufacturing assets: / Riveting machines | 15 years | 6.67% | 13.33% | 1 July 2012
-Sheet metal tanks manufacturing assets: / Shears: | | | |
+Asset group · Sheet metal tanks manufacturing assets: / Shears: | | | |
 Sheet metal tanks manufacturing assets: / Shears: / Hand-held type | 3 years | 33.33% | 66.67% | 1 July 2012
 Sheet metal tanks manufacturing assets: / Shears: / Guillotine type | 15 years | 6.67% | 13.33% | 1 July 2012
-Sheet metal tanks manufacturing assets: / Spreader bars | 15 years | 6.67% | 13.33% | 1 July 2012
-Sheet metal tanks manufacturing assets: / Trolleys | 5 years | 20.00% | 40.00% | 1 July 2012
-Sheet metal tanks manufacturing assets: / Welders | 5 years | 20.00% | 40.00% | 1 July 2012
+Spreader bars (Sheet metal tanks manufacturing assets) | 15 years | 6.67% | 13.33% | 1 July 2012
+Trolleys (Sheet metal tanks manufacturing assets) | 5 years | 20.00% | 40.00% | 1 July 2012
+Welders (Sheet metal tanks manufacturing assets) | 5 years | 20.00% | 40.00% | 1 July 2012
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
-- Band saws: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/band-saws/
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/#source
+- Band saws (Sheet metal tanks manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/band-saws/
 - Coil holders: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/coil-holders/
 - Curving rollers: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/curving-rollers/
 - Drilling machines (including bench and radial drills): https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/drilling-machines/
 - Gang and turret punching machines: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/gang-and-turret-punching-machines/
-- Hand tools: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/hand-tools/
-- Electric: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/electric/
-- Hydraulic: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/hydraulic/
+- Hand tools (Sheet metal tanks manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/hand-tools/
+- Electric (Hoists): https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/electric/
+- Hydraulic (Hoists): https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/hydraulic/
 - Hooks (including c-hooks and slinger hooks): https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/hooks/
-- Jib cranes: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/jib-cranes/
+- Jib cranes (Sheet metal tanks manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/jib-cranes/
 - Laser cutters: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/laser-cutters/
-- Overhead cranes and gantries: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/overhead-cranes-and-gantries/
+- Overhead cranes and gantries (Sheet metal tanks manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/overhead-cranes-and-gantries/
 - Pallet jacks: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/pallet-jacks/
 - Plate grabs: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/plate-grabs/
-- Racking: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/racking/
+- Racking (Sheet metal tanks manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/racking/
 - Riveting machines: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/riveting-machines/
 - Hand-held type: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/hand-held-type/
 - Guillotine type: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/guillotine-type/
-- Spreader bars: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/spreader-bars/
-- Trolleys: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/trolleys/
-- Welders: https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/welders/
+- Spreader bars (Sheet metal tanks manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/spreader-bars/
+- Trolleys (Sheet metal tanks manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/trolleys/
+- Welders (Sheet metal tanks manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/boiler-tank-and-other-heavy-gauge-metal/welders/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -2,100 +2,100 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/
 
-> Rental and hiring services (except real estate), Table …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+> Rental and hiring services (except real estate) …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
 
 # Rental and hiring services (except real estate)
 
 70 effective lives in Table A of the Commissioner’s 2025 effective life determination for Rental and hiring services (except real estate).
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 The determination notes for this heading: If the asset is hired or leased to and used predominantly by a particular industry and not listed below, see the entry under Table A for that industry
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Rows of Rental and hiring services (except real estate). Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Air Compressors: | | | |
-Air Compressors: / Compressors – reciprocating | 7 years | 14.29% | 28.57% | 1 July 2005
-Air Compressors: / Compressors – rotary screw | 10 years | 10.00% | 20.00% | 1 July 2005
-Compaction: | | | |
-Compaction: / Compactors – flat plate | 8 years | 12.50% | 25.00% | 1 July 2005
-Compaction: / Compactors – vertical rammer | 6 years | 16.67% | 33.33% | 1 July 2005
-Concreting assets: | | | |
+Asset group · Air Compressors: | | | |
+Air Compressors: / Compressors – reciprocating (Rental and hiring services (except real estate)) | 7 years | 14.29% | 28.57% | 1 July 2005
+Air Compressors: / Compressors – rotary screw (Rental and hiring services (except real estate)) | 10 years | 10.00% | 20.00% | 1 July 2005
+Asset group · Compaction: | | | |
+Compaction: / Compactors – flat plate (Rental and hiring services (except real estate)) | 8 years | 12.50% | 25.00% | 1 July 2005
+Compaction: / Compactors – vertical rammer (Rental and hiring services (except real estate)) | 6 years | 16.67% | 33.33% | 1 July 2005
+Asset group · Concreting assets: | | | |
 Concreting assets: / Brick/paving saws | 5 years | 20.00% | 40.00% | 1 July 2005
-Concreting assets: / Concrete demolition saws | 3 years | 33.33% | 66.67% | 1 July 2005
-Concreting assets: / Concrete kibble buckets | 15 years | 6.67% | 13.33% | 1 July 2005
-Concreting assets: / Concrete mixers | 4 years | 25.00% | 50.00% | 1 July 2008
-Concreting assets: / Concrete surface preparation assets (including floor grinders, planers and scarifers) | 5 years | 20.00% | 40.00% | 1 July 2008
-Concreting assets: / Concrete trowels: | | | |
-Concreting assets: / Concrete trowels: / Ride on | 7 years | 14.29% | 28.57% | 1 July 2008
-Concreting assets: / Concrete trowels: / Walk behind | 5 years | 20.00% | 40.00% | 1 July 2008
-Concreting assets: / Concrete vibrators: | | | |
-Concreting assets: / Concrete vibrators: / Brushcutter style | 5 years | 20.00% | 40.00% | 1 July 2008
-Concreting assets: / Concrete vibrators: / Drive units | 6 years | 16.67% | 33.33% | 1 July 2008
-Concreting assets: / Concrete vibrators: / Flexible shaft pumps | 6 years | 16.67% | 33.33% | 1 July 2008
-Concreting assets: / Concrete vibrators: / Vibrating shafts | 3 years | 33.33% | 66.67% | 1 July 2008
-Concreting assets: / Concrete wheeled saws | 6 years | 16.67% | 33.33% | 1 July 2005
-Elevating work platforms (EWPs): | | | |
+Concreting assets: / Concrete demolition saws (Rental and hiring services (except real estate)) | 3 years | 33.33% | 66.67% | 1 July 2005
+Concreting assets: / Concrete kibble buckets (Rental and hiring services (except real estate)) | 15 years | 6.67% | 13.33% | 1 July 2005
+Concreting assets: / Concrete mixers (Rental and hiring services (except real estate)) | 4 years | 25.00% | 50.00% | 1 July 2008
+Concreting assets: / Concrete surface preparation assets (including floor grinders, planers and scarifers) (Rental and hiring services (except real estate)) | 5 years | 20.00% | 40.00% | 1 July 2008
+Asset group · Concreting assets: / Concrete trowels: | | | |
+Concreting assets: / Concrete trowels: / Ride on (Rental and hiring services (except real estate)) | 7 years | 14.29% | 28.57% | 1 July 2008
+Concreting assets: / Concrete trowels: / Walk behind (Rental and hiring services (except real estate)) | 5 years | 20.00% | 40.00% | 1 July 2008
+Asset group · Concreting assets: / Concrete vibrators: | | | |
+Concreting assets: / Concrete vibrators: / Brushcutter style (Rental and hiring services (except real estate)) | 5 years | 20.00% | 40.00% | 1 July 2008
+Concreting assets: / Concrete vibrators: / Drive units (Rental and hiring services (except real estate)) | 6 years | 16.67% | 33.33% | 1 July 2008
+Concreting assets: / Concrete vibrators: / Flexible shaft pumps (Rental and hiring services (except real estate)) | 6 years | 16.67% | 33.33% | 1 July 2008
+Concreting assets: / Concrete vibrators: / Vibrating shafts (Rental and hiring services (except real estate)) | 3 years | 33.33% | 66.67% | 1 July 2008
+Concreting assets: / Concrete wheeled saws (Rental and hiring services (except real estate)) | 6 years | 16.67% | 33.33% | 1 July 2005
+Asset group · Elevating work platforms (EWPs): | | | |
 Elevating work platforms (EWPs): / Boom lifts (including knuckle and telescopic boom lifts) | 15 years | 6.67% | 13.33% | 1 July 2015
-Elevating work platforms (EWPs): / Personnel lifts | 10 years | 10.00% | 20.00% | 1 July 2015
-Elevating work platforms (EWPs): / Scissor lifts | 10 years | 10.00% | 20.00% | 1 July 2015
-Generators: | | | |
-Generators: / Cables | 5 years | 20.00% | 40.00% | 1 July 2005
+Elevating work platforms (EWPs): / Personnel lifts (Elevating work platforms …) | 10 years | 10.00% | 20.00% | 1 July 2015
+Elevating work platforms (EWPs): / Scissor lifts (Elevating work platforms …) | 10 years | 10.00% | 20.00% | 1 July 2015
+Asset group · Generators: | | | |
+Cables (Generators) | 5 years | 20.00% | 40.00% | 1 July 2005
 Generators: / Distribution boards | 10 years | 10.00% | 20.00% | 1 July 2005
-Generators: / Diesel | 10 years | 10.00% | 20.00% | 1 July 2005
-Generators: / Petrol | 5 years | 20.00% | 40.00% | 1 July 2005
+Diesel (Generators) | 10 years | 10.00% | 20.00% | 1 July 2005
+Petrol (Generators) | 5 years | 20.00% | 40.00% | 1 July 2005
 Generators: / Generator with attached lighting plant | 10 years | 10.00% | 20.00% | 1 July 2005
-Household assets: | | | |
-Household assets: / Clothes dryers | 5 years | 20.00% | 40.00% | 1 January 2006
-Household assets: / DVD players | 5 years | 20.00% | 40.00% | 1 January 2006
-Household assets: / Dishwashers | 8 years | 12.50% | 25.00% | 1 January 2006
+Asset group · Household assets: | | | |
+Clothes dryers (Household assets) | 5 years | 20.00% | 40.00% | 1 January 2006
+DVD players (Household assets) | 5 years | 20.00% | 40.00% | 1 January 2006
+Dishwashers (Household assets) | 8 years | 12.50% | 25.00% | 1 January 2006
 Household assets: / Evaporative coolers, portable | 5 years | 20.00% | 40.00% | 1 January 2006
-Household assets: / Freezers | 6 years | 16.67% | 33.33% | 1 January 2006
-Household assets: / Microwave ovens | 6 years | 16.67% | 33.33% | 1 January 2006
-Household assets: / Refrigerators | 6 years | 16.67% | 33.33% | 1 January 2006
-Household assets: / Stereo systems (incorporating amplifiers, cassette players, CD players, radios and speakers) | 5 years | 20.00% | 40.00% | 1 January 2006
-Household assets: / Surround sound systems (incorporating audio-video receivers and speakers) | 5 years | 20.00% | 40.00% | 1 January 2006
-Household assets: / Television sets | 8 years | 12.50% | 25.00% | 1 January 2006
+Freezers (Household assets) | 6 years | 16.67% | 33.33% | 1 January 2006
+Microwave ovens (Household assets) | 6 years | 16.67% | 33.33% | 1 January 2006
+Refrigerators (Household assets) | 6 years | 16.67% | 33.33% | 1 January 2006
+Stereo systems (incorporating amplifiers, cassette players, CD players, radios and speakers) (Household assets) | 5 years | 20.00% | 40.00% | 1 January 2006
+Surround sound systems (incorporating audio-video receivers and speakers) (Household assets) | 5 years | 20.00% | 40.00% | 1 January 2006
+Television sets (Household assets) | 8 years | 12.50% | 25.00% | 1 January 2006
 Household assets: / Vacuum cleaners, portable | 5 years | 20.00% | 40.00% | 1 January 2006
 Household assets: / Video cassette recorder systems (VCR) | 5 years | 20.00% | 40.00% | 1 January 2006
-Household assets: / Washing machines | 6 years | 16.67% | 33.33% | 1 January 2006
-Ladders (including stepladders, work platforms extension ladders, trestles and planks): | | | |
-Ladders (including stepladders, work platforms extension ladders, trestles and planks): / Aluminium | 4 years | 25.00% | 50.00% | 1 July 2015
-Ladders (including stepladders, work platforms extension ladders, trestles and planks): / Fibreglass | 4 years | 25.00% | 50.00% | 1 July 2015
-Portable structures (sheds, site office trailers, portable toilets and washrooms etc) used for a temporary period in offsite locations (e.g. construction sites) | 10 years | 10.00% | 20.00% | 1 July 2014
-Power tools: | | | |
-Power tools: / Chainsaws | 3 years | 33.33% | 66.67% | 1 July 2005
+Washing machines (Household assets) | 6 years | 16.67% | 33.33% | 1 January 2006
+Asset group · Ladders (including stepladders, work platforms extension ladders, trestles and planks): | | | |
+Ladders (including stepladders, work platforms extension ladders, trestles and planks): / Aluminium (Ladders …) | 4 years | 25.00% | 50.00% | 1 July 2015
+Ladders (including stepladders, work platforms extension ladders, trestles and planks): / Fibreglass (Ladders …) | 4 years | 25.00% | 50.00% | 1 July 2015
+Portable structures (sheds, site office trailers, portable toilets and washrooms etc) used for a temporary period in offsite locations (e.g. construction sites) (Rental and hiring services (except real estate)) | 10 years | 10.00% | 20.00% | 1 July 2014
+Asset group · Power tools: | | | |
+Chainsaws (Power tools) | 3 years | 33.33% | 66.67% | 1 July 2005
 Power tools: / Hand tools – air | 5 years | 20.00% | 40.00% | 1 July 2005
 Power tools: / Hand tools – battery | 3 years | 33.33% | 66.67% | 1 July 2008
 Power tools: / Hand tools – electric | 5 years | 20.00% | 40.00% | 1 July 2005
 Power tools: / Jackhammers – air | 7 years | 14.29% | 28.57% | 1 July 2005
 Power tools: / Jackhammers – electric | 3 years | 33.33% | 66.67% | 1 July 2005
-Power tools: / Nail guns – air | 3 years | 33.33% | 66.67% | 1 July 2005
-Recreational vehicles: | | | |
-Recreational vehicles: / Campervans and motorhomes: | | | |
+Power tools: / Nail guns – air (Rental and hiring services (except real estate)) | 3 years | 33.33% | 66.67% | 1 July 2005
+Asset group · Recreational vehicles: | | | |
+Asset group · Recreational vehicles: / Campervans and motorhomes: | | | |
 Recreational vehicles: / Campervans and motorhomes: / Vehicles having a gross vehicle mass greater than 3 tonnes and 4WD vehicles | 5 years | 20.00% | 40.00% | 1 July 2015
 Recreational vehicles: / Campervans and motorhomes: / Vehicles having a gross vehicle mass of 3 tonnes or less | 8 years | 12.50% | 25.00% | 1 July 2015
 Recreational vehicles: / Caravans and camper trailers | 12 years | 8.33% | 16.67% | 1 July 2015
-Rental cars | 5 years | 20.00% | 40.00% | 1 July 2016
-Scaffolding: | | | |
-Scaffolding: / Aluminium | 5 years | 20.00% | 40.00% | 1 July 2015
-Scaffolding: / Fibreglass | 5 years | 20.00% | 40.00% | 1 July 2015
-Scaffolding: / Steel | 15 years | 6.67% | 13.33% | 1 July 2015
-Traffic management assets: | | | |
-Traffic management assets: / Crash prevention assets: | | | |
-Traffic management assets: / Crash prevention assets: / Barriers: | | | |
-Traffic management assets: / Crash prevention assets: / Barriers: / Concrete | 30 years | 3.33% | 6.67% | 1 January 2006
-Traffic management assets: / Crash prevention assets: / Barriers: / Plastic | 5 years | 20.00% | 40.00% | 1 January 2006
+Rental cars (Rental and hiring services (except real estate)) | 5 years | 20.00% | 40.00% | 1 July 2016
+Asset group · Scaffolding: | | | |
+Aluminium (Scaffolding) | 5 years | 20.00% | 40.00% | 1 July 2015
+Fibreglass (Scaffolding) | 5 years | 20.00% | 40.00% | 1 July 2015
+Steel (Scaffolding) | 15 years | 6.67% | 13.33% | 1 July 2015
+Asset group · Traffic management assets: | | | |
+Asset group · Traffic management assets: / Crash prevention assets: | | | |
+Asset group · Traffic management assets: / Crash prevention assets: / Barriers: | | | |
+Traffic management assets: / Crash prevention assets: / Concrete (Barriers) | 30 years | 3.33% | 6.67% | 1 January 2006
+Traffic management assets: / Crash prevention assets: / Plastic (Barriers) | 5 years | 20.00% | 40.00% | 1 January 2006
 Traffic management assets: / Crash prevention assets: / Crash attenuators (truck mounted) | 10 years | 10.00% | 20.00% | 1 January 2006
-Traffic management assets: / Road marking assets: | | | |
+Asset group · Traffic management assets: / Road marking assets: | | | |
 Traffic management assets: / Road marking assets: / < 100 litre capacity | 5 years | 20.00% | 40.00% | 1 January 2006
 Traffic management assets: / Road marking assets: / 100 to 500 litre capacity | 9 years | 11.11% | 22.22% | 1 January 2006
 Traffic management assets: / Road marking assets: / > 500 litre capacity | 11 years | 9.09% | 18.18% | 1 January 2006
 Traffic management assets: / Road marking assets: / Line grinders (walk behind) | 5 years | 20.00% | 40.00% | 1 January 2006
-Traffic management assets: / Traffic management signs: | | | |
+Asset group · Traffic management assets: / Traffic management signs: | | | |
 Traffic management assets: / Traffic management signs: / Arrow boards | 10 years | 10.00% | 20.00% | 1 January 2006
 Traffic management assets: / Traffic management signs: / Speed observation signs | 10 years | 10.00% | 20.00% | 1 January 2006
 Traffic management assets: / Traffic management signs: / Traffic lights – mobile | 10 years | 10.00% | 20.00% | 1 January 2006
@@ -103,76 +103,77 @@ Traffic management assets: / Traffic management signs: / Variable message signs 
 Traffic management assets: / Static signage (including safety cones, barricades, warning signs and bollards) | 3 years | 33.33% | 66.67% | 1 January 2006
 Video recorder or equipment hiring | 6 2/3 years | 15.00% | 30.00% | 1 January 2001
 Video tapes and games hiring | 1/2 years | 200.00% | 400.00% | 1 January 2001
-Welders: | | | |
-Welders: / Diesel | 10 years | 10.00% | 20.00% | 1 July 2005
-Welders: / Electric | 5 years | 20.00% | 40.00% | 1 July 2005
+Asset group · Welders: | | | |
+Welders: / Diesel (Rental and hiring services (except real estate)) | 10 years | 10.00% | 20.00% | 1 July 2005
+Welders: / Electric (Rental and hiring services (except real estate)) | 5 years | 20.00% | 40.00% | 1 July 2005
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
-- Compressors – reciprocating: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/compressors-reciprocating/
-- Compressors – rotary screw: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/compressors-rotary-screw/
-- Compactors – flat plate: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/compactors-flat-plate/
-- Compactors – vertical rammer: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/compactors-vertical-rammer/
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/#source
+- Compressors – reciprocating (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/compressors-reciprocating/
+- Compressors – rotary screw (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/compressors-rotary-screw/
+- Compactors – flat plate (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/compactors-flat-plate/
+- Compactors – vertical rammer (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/compactors-vertical-rammer/
 - Brick/paving saws: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/brick-paving-saws/
-- Concrete demolition saws: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/concrete-demolition-saws/
-- Concrete kibble buckets: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/concrete-kibble-buckets/
-- Concrete mixers: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/concrete-mixers/
-- Concrete surface preparation assets (including floor grinders, planers and scarifers): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/concrete-surface-preparation-assets/
-- Ride on: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/ride-on/
-- Walk behind: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/walk-behind/
-- Brushcutter style: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/brushcutter-style/
-- Drive units: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/drive-units/
-- Flexible shaft pumps: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/flexible-shaft-pumps/
-- Vibrating shafts: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/vibrating-shafts/
-- Concrete wheeled saws: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/concrete-wheeled-saws/
+- Concrete demolition saws (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/concrete-demolition-saws/
+- Concrete kibble buckets (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/concrete-kibble-buckets/
+- Concrete mixers (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/concrete-mixers/
+- Concrete surface preparation assets (including floor grinders, planers and scarifers) (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/concrete-surface-preparation-assets/
+- Ride on (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/ride-on/
+- Walk behind (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/walk-behind/
+- Brushcutter style (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/brushcutter-style/
+- Drive units (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/drive-units/
+- Flexible shaft pumps (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/flexible-shaft-pumps/
+- Vibrating shafts (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/vibrating-shafts/
+- Concrete wheeled saws (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/concrete-wheeled-saws/
 - Boom lifts (including knuckle and telescopic boom lifts): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/boom-lifts/
-- Personnel lifts: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/personnel-lifts/
-- Scissor lifts: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/scissor-lifts/
-- Cables: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/cables/
+- Personnel lifts (Elevating work platforms …): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/personnel-lifts/
+- Scissor lifts (Elevating work platforms …): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/scissor-lifts/
+- Cables (Generators): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/cables/
 - Distribution boards: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/distribution-boards/
-- Diesel: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/generators-diesel/
-- Petrol: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/petrol/
+- Diesel (Generators): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/generators-diesel/
+- Petrol (Generators): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/petrol/
 - Generator with attached lighting plant: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/generator-with-attached-lighting-plant/
-- Clothes dryers: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/clothes-dryers/
-- DVD players: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/dvd-players/
-- Dishwashers: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/dishwashers/
+- Clothes dryers (Household assets): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/clothes-dryers/
+- DVD players (Household assets): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/dvd-players/
+- Dishwashers (Household assets): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/dishwashers/
 - Evaporative coolers, portable: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/evaporative-coolers-portable/
-- Freezers: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/freezers/
-- Microwave ovens: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/microwave-ovens/
-- Refrigerators: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/refrigerators/
-- Stereo systems (incorporating amplifiers, cassette players, CD players, radios and speakers): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/stereo-systems/
-- Surround sound systems (incorporating audio-video receivers and speakers): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/surround-sound-systems/
-- Television sets: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/television-sets/
+- Freezers (Household assets): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/freezers/
+- Microwave ovens (Household assets): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/microwave-ovens/
+- Refrigerators (Household assets): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/refrigerators/
+- Stereo systems (incorporating amplifiers, cassette players, CD players, radios and speakers) (Household assets): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/stereo-systems/
+- Surround sound systems (incorporating audio-video receivers and speakers) (Household assets): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/surround-sound-systems/
+- Television sets (Household assets): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/television-sets/
 - Vacuum cleaners, portable: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/vacuum-cleaners-portable/
 - Video cassette recorder systems (VCR): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/video-cassette-recorder-systems/
-- Washing machines: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/washing-machines/
-- Aluminium: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/ladders-aluminium/
-- Fibreglass: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/ladders-fibreglass/
-- Portable structures (sheds, site office trailers, portable toilets and washrooms etc) used for a temporary period in offsite locations (e.g. construction sites): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/portable-structures-used-for-a-temporary-period-in-offsite/
-- Chainsaws: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/chainsaws/
+- Washing machines (Household assets): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/washing-machines/
+- Aluminium (Ladders …): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/ladders-aluminium/
+- Fibreglass (Ladders …): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/ladders-fibreglass/
+- Portable structures (sheds, site office trailers, portable toilets and washrooms etc) used for a temporary period in offsite locations (e.g. construction sites) (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/portable-structures-used-for-a-temporary-period-in-offsite/
+- Chainsaws (Power tools): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/chainsaws/
 - Hand tools – air: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/hand-tools-air/
 - Hand tools – battery: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/hand-tools-battery/
 - Hand tools – electric: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/hand-tools-electric/
 - Jackhammers – air: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/jackhammers-air/
 - Jackhammers – electric: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/jackhammers-electric/
-- Nail guns – air: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/nail-guns-air/
+- Nail guns – air (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/nail-guns-air/
 - Vehicles having a gross vehicle mass greater than 3 tonnes and 4WD vehicles: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/vehicles-having-a-gross-vehicle-mass-greater-than-3-tonnes/
 - Vehicles having a gross vehicle mass of 3 tonnes or less: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/vehicles-having-a-gross-vehicle-mass-of-3-tonnes-or-less/
 - Caravans and camper trailers: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/caravans-and-camper-trailers/
-- Rental cars: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/rental-cars/
-- Aluminium: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/scaffolding-aluminium/
-- Fibreglass: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/scaffolding-fibreglass/
-- Steel: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/steel/
-- Concrete: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/concrete/
-- Plastic: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/plastic/
+- Rental cars (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/rental-cars/
+- Aluminium (Scaffolding): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/scaffolding-aluminium/
+- Fibreglass (Scaffolding): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/scaffolding-fibreglass/
+- Steel (Scaffolding): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/steel/
+- Concrete (Barriers): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/concrete/
+- Plastic (Barriers): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/plastic/
 - Crash attenuators (truck mounted): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/crash-attenuators/
 - < 100 litre capacity: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/100-litre-capacity/
 - 100 to 500 litre capacity: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/100-to-500-litre-capacity/
@@ -185,10 +186,10 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Static signage (including safety cones, barricades, warning signs and bollards): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/static-signage/
 - Video recorder or equipment hiring: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/video-recorder-or-equipment-hiring/
 - Video tapes and games hiring: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/video-tapes-and-games-hiring/
-- Diesel: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/welders-diesel/
-- Electric: https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/electric/
+- Diesel (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/welders-diesel/
+- Electric (Rental and hiring services (except real estate)): https://duguid.com.au/tools/depreciation-rates/industry/rental-and-hiring-services-except-real/electric/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

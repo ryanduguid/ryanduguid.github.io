@@ -2,112 +2,113 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/
 
-> Table A (industry categories), MANUFACTURING / Beer …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+> Beer manufacturing (except non-alcoholic beer) …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
 
 # Beer manufacturing (except non-alcoholic beer)
 
 68 effective lives in Table A of the Commissioner’s 2025 effective life determination for Beer manufacturing (except non-alcoholic beer).
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Rows of Beer manufacturing (except non-alcoholic beer). Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Beer filtration assets: | | | |
+Asset group · Beer filtration assets: | | | |
 Beer filtration assets: / Beer filters | 20 years | 5.00% | 10.00% | 1 July 2008
 Beer filtration assets: / Filter media make up assets | 20 years | 5.00% | 10.00% | 1 July 2008
 Beer filtration assets: / Mash filters | 20 years | 5.00% | 10.00% | 1 July 2008
-Brewing assets: | | | |
+Asset group · Brewing assets: | | | |
 Brewing assets: / Grist hoppers | 25 years | 4.00% | 8.00% | 1 July 2008
 Brewing assets: / Lauter tuns | 25 years | 4.00% | 8.00% | 1 July 2008
 Brewing assets: / Mash tuns | 25 years | 4.00% | 8.00% | 1 July 2008
 Brewing assets: / Spent grains transfer system assets | 20 years | 5.00% | 10.00% | 1 July 2008
 Brewing assets: / Whirlpool vessels | 25 years | 4.00% | 8.00% | 1 July 2008
 Brewing assets: / Wort kettles | 25 years | 4.00% | 8.00% | 1 July 2008
-Cellaring assets: | | | |
-Cellaring assets: / Carbonators (including controls, pumps and valves) | 20 years | 5.00% | 10.00% | 1 July 2008
-Cellaring assets: / Centrifuges | 15 years | 6.67% | 13.33% | 1 July 2008
-Cellaring assets: / De-aerated water system assets (including pipes, pumps and tanks) | 20 years | 5.00% | 10.00% | 1 July 2008
+Asset group · Cellaring assets: | | | |
+Carbonators (including controls, pumps and valves) (Cellaring assets) | 20 years | 5.00% | 10.00% | 1 July 2008
+Centrifuges (Cellaring assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+De-aerated water system assets (including pipes, pumps and tanks) (Cellaring assets) | 20 years | 5.00% | 10.00% | 1 July 2008
 Cellaring assets: / Yeast filters/dryers | 15 years | 6.67% | 13.33% | 1 July 2008
 Cellaring assets: / Yeast propagators | 20 years | 5.00% | 10.00% | 1 July 2008
-Malt handling and cleaning assets: | | | |
+Asset group · Malt handling and cleaning assets: | | | |
 Malt handling and cleaning assets: / Augers/conveyers and elevators | 15 years | 6.67% | 13.33% | 1 July 2008
-Malt handling and cleaning assets: / Dust extractors | 20 years | 5.00% | 10.00% | 1 July 2008
+Dust extractors (Malt handling and cleaning assets) | 20 years | 5.00% | 10.00% | 1 July 2008
 Malt handling and cleaning assets: / Grain cleaning assets (including screeners, destoners and magnetic separators) | 20 years | 5.00% | 10.00% | 1 July 2008
 Malt handling and cleaning assets: / Malt milling machines (including hammer and roller mills) | 20 years | 5.00% | 10.00% | 1 July 2008
-Malt handling and cleaning assets: / Silos: | | | |
-Malt handling and cleaning assets: / Silos: / Galvanised construction | 30 years | 3.33% | 6.67% | 1 July 2008
-Malt handling and cleaning assets: / Silos: / Steel construction | 40 years | 2.50% | 5.00% | 1 July 2008
-Malt handling and cleaning assets: / Weighers | 20 years | 5.00% | 10.00% | 1 July 2008
-Packaging assets: | | | |
-Packaging assets: / Bottle and can filling and sealing assets: | | | |
-Packaging assets: / Bottle and can filling and sealing assets: / Filling machines | 20 years | 5.00% | 10.00% | 1 July 2008
-Packaging assets: / Bottle and can filling and sealing assets: / Inspection machines | 10 years | 10.00% | 20.00% | 1 July 2008
-Packaging assets: / Bottle and can handling assets: | | | |
-Packaging assets: / Bottle and can handling assets: / Bottle and can rinsing machines | 20 years | 5.00% | 10.00% | 1 July 2008
-Packaging assets: / Bottle and can handling assets: / Depalletisers | 20 years | 5.00% | 10.00% | 1 July 2008
-Packaging assets: / Bottle and can handling assets: / Palletisers | 20 years | 5.00% | 10.00% | 1 July 2008
-Packaging assets: / Bottle and can packing assets: | | | |
-Packaging assets: / Bottle and can packing assets: / Carton packers | 15 years | 6.67% | 13.33% | 1 July 2008
-Packaging assets: / Bottle and can packing assets: / Date coders | 7 years | 14.29% | 28.57% | 1 July 2008
-Packaging assets: / Bottle and can packing assets: / Labellers | 15 years | 6.67% | 13.33% | 1 July 2008
-Packaging assets: / Bottle and can packing assets: / Multipack machines | 10 years | 10.00% | 20.00% | 1 July 2008
-Packaging assets: / Bottle and can packing assets: / Outer date coders | 7 years | 14.29% | 28.57% | 1 July 2008
-Packaging assets: / Bottle and can packing assets: / Shrink wrappers | 15 years | 6.67% | 13.33% | 1 July 2008
-Packaging assets: / Bottle and can packing assets: / Tunnel pasteurisers | 10 years | 10.00% | 20.00% | 1 July 2008
-Packaging assets: / Conveyers | 15 years | 6.67% | 13.33% | 1 July 2008
-Packaging assets: / Keg line assets: | | | |
-Packaging assets: / Keg line assets: / Capping machines | 15 years | 6.67% | 13.33% | 1 July 2008
-Packaging assets: / Keg line assets: / Coding machines | 7 years | 14.29% | 28.57% | 1 July 2008
+Asset group · Malt handling and cleaning assets: / Silos: | | | |
+Malt handling and cleaning assets: / Silos: / Galvanised construction (Beer manufacturing (except non-alcoholic beer)) | 30 years | 3.33% | 6.67% | 1 July 2008
+Malt handling and cleaning assets: / Silos: / Steel construction (Beer manufacturing (except non-alcoholic beer)) | 40 years | 2.50% | 5.00% | 1 July 2008
+Weighers (Malt handling and cleaning assets) | 20 years | 5.00% | 10.00% | 1 July 2008
+Asset group · Packaging assets: | | | |
+Asset group · Packaging assets: / Bottle and can filling and sealing assets: | | | |
+Packaging assets: / Filling machines (Bottle and can filling and sealing assets) | 20 years | 5.00% | 10.00% | 1 July 2008
+Packaging assets: / Inspection machines (Bottle and can filling and sealing assets) | 10 years | 10.00% | 20.00% | 1 July 2008
+Asset group · Packaging assets: / Bottle and can handling assets: | | | |
+Packaging assets: / Bottle and can rinsing machines (Bottle and can handling assets) | 20 years | 5.00% | 10.00% | 1 July 2008
+Packaging assets: / Depalletisers (Bottle and can handling assets) | 20 years | 5.00% | 10.00% | 1 July 2008
+Packaging assets: / Palletisers (Bottle and can handling assets) | 20 years | 5.00% | 10.00% | 1 July 2008
+Asset group · Packaging assets: / Bottle and can packing assets: | | | |
+Packaging assets: / Carton packers (Bottle and can packing assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Packaging assets: / Date coders (Bottle and can packing assets) | 7 years | 14.29% | 28.57% | 1 July 2008
+Packaging assets: / Labellers (Bottle and can packing assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Packaging assets: / Multipack machines (Bottle and can packing assets) | 10 years | 10.00% | 20.00% | 1 July 2008
+Packaging assets: / Outer date coders (Bottle and can packing assets) | 7 years | 14.29% | 28.57% | 1 July 2008
+Packaging assets: / Shrink wrappers (Bottle and can packing assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Packaging assets: / Tunnel pasteurisers (Bottle and can packing assets) | 10 years | 10.00% | 20.00% | 1 July 2008
+Conveyers (Packaging assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Asset group · Packaging assets: / Keg line assets: | | | |
+Packaging assets: / Capping machines (Keg line assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Packaging assets: / Coding machines (Keg line assets) | 7 years | 14.29% | 28.57% | 1 July 2008
 Packaging assets: / Keg line assets: / External washing machines | 20 years | 5.00% | 10.00% | 1 July 2008
 Packaging assets: / Keg line assets: / Internal washer and filler machines | 20 years | 5.00% | 10.00% | 1 July 2008
 Packaging assets: / Keg line assets: / Kegs (stainless steel) | 15 years | 6.67% | 13.33% | 1 July 2013
-Packaging assets: / Keg line assets: / Pasteurisers | 20 years | 5.00% | 10.00% | 1 July 2008
-Support assets: | | | |
+Packaging assets: / Pasteurisers (Keg line assets) | 20 years | 5.00% | 10.00% | 1 July 2008
+Asset group · Support assets: | | | |
 Support assets: / Additive and hops dosing systems assets (including pipes, pumps and tanks) | 20 years | 5.00% | 10.00% | 1 July 2008
-Support assets: / Air compressors and receivers | 20 years | 5.00% | 10.00% | 1 July 2008
-Support assets: / Boilers | 20 years | 5.00% | 10.00% | 1 July 2008
-Support assets: / Carbon dioxide (CO2) recovery system assets: | | | |
+Support assets: / Air compressors and receivers (Beer manufacturing (except non-alcoholic beer)) | 20 years | 5.00% | 10.00% | 1 July 2008
+Support assets: / Boilers (Beer manufacturing (except non-alcoholic beer)) | 20 years | 5.00% | 10.00% | 1 July 2008
+Asset group · Support assets: / Carbon dioxide (CO2) recovery system assets: | | | |
 Support assets: / Carbon dioxide (CO2) recovery system assets: / Gas collection and storage assets (including pipes bladders and tanks) | 25 years | 4.00% | 8.00% | 1 July 2008
 Support assets: / Carbon dioxide (CO2) recovery system assets: / Gas processing assets | 20 years | 5.00% | 10.00% | 1 July 2008
 Support assets: / Carbon dioxide (CO2) recovery system assets: / Vaporisation system assets | 20 years | 5.00% | 10.00% | 1 July 2008
-Support assets: / Clean-in-place system (CIP) assets (including pipes, pumps and tanks) | 15 years | 6.67% | 13.33% | 1 July 2008
+Support assets: / Clean-in-place system (CIP) assets (including pipes, pumps and tanks) (Beer manufacturing (except non-alcoholic beer)) | 15 years | 6.67% | 13.33% | 1 July 2008
 Support assets: / Control system assets (excluding personal computers) | 10 years | 10.00% | 20.00% | 1 July 2008
-Support assets: / Heat exchangers | 15 years | 6.67% | 13.33% | 1 July 2008
-Support assets: / Refrigeration assets (including compressors, condensers, evaporators and pumps) | 15 years | 6.67% | 13.33% | 1 July 2008
-Support assets: / Pipes | 25 years | 4.00% | 8.00% | 1 July 2008
-Support assets: / Pumps | 15 years | 6.67% | 13.33% | 1 July 2008
-Support assets: / Valves | 10 years | 10.00% | 20.00% | 1 July 2008
-Support assets: / Vapour condensers | 15 years | 6.67% | 13.33% | 1 July 2008
-Support assets: / Waste water treatment assets: | | | |
-Support assets: / Waste water treatment assets: / Aerators | 20 years | 5.00% | 10.00% | 1 July 2008
-Support assets: / Waste water treatment assets: / Anaerobic bio gas system assets | 25 years | 4.00% | 8.00% | 1 July 2008
-Support assets: / Waste water treatment assets: / Blowers | 20 years | 5.00% | 10.00% | 1 July 2008
-Support assets: / Waste water treatment assets: / Clarifiers | 20 years | 5.00% | 10.00% | 1 July 2008
-Support assets: / Waste water treatment assets: / Digester/aeration tanks | 25 years | 4.00% | 8.00% | 1 July 2008
-Support assets: / Waste water treatment assets: / Reverse osmosis system assets | 20 years | 5.00% | 10.00% | 1 July 2008
-Tanks: | | | |
+Support assets: / Heat exchangers (Beer manufacturing (except non-alcoholic beer)) | 15 years | 6.67% | 13.33% | 1 July 2008
+Refrigeration assets (including compressors, condensers, evaporators and pumps) (Support assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Support assets: / Pipes (Beer manufacturing (except non-alcoholic beer)) | 25 years | 4.00% | 8.00% | 1 July 2008
+Support assets: / Pumps (Beer manufacturing (except non-alcoholic beer)) | 15 years | 6.67% | 13.33% | 1 July 2008
+Support assets: / Valves (Beer manufacturing (except non-alcoholic beer)) | 10 years | 10.00% | 20.00% | 1 July 2008
+Vapour condensers (Support assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Asset group · Support assets: / Waste water treatment assets: | | | |
+Support assets: / Waste water treatment assets: / Aerators (Beer manufacturing (except non-alcoholic beer)) | 20 years | 5.00% | 10.00% | 1 July 2008
+Support assets: / Waste water treatment assets: / Anaerobic bio gas system assets (Beer manufacturing (except non-alcoholic beer)) | 25 years | 4.00% | 8.00% | 1 July 2008
+Support assets: / Waste water treatment assets: / Blowers (Beer manufacturing (except non-alcoholic beer)) | 20 years | 5.00% | 10.00% | 1 July 2008
+Support assets: / Waste water treatment assets: / Clarifiers (Beer manufacturing (except non-alcoholic beer)) | 20 years | 5.00% | 10.00% | 1 July 2008
+Support assets: / Waste water treatment assets: / Digester/aeration tanks (Beer manufacturing (except non-alcoholic beer)) | 25 years | 4.00% | 8.00% | 1 July 2008
+Support assets: / Waste water treatment assets: / Reverse osmosis system assets (Beer manufacturing (except non-alcoholic beer)) | 20 years | 5.00% | 10.00% | 1 July 2008
+Asset group · Tanks: | | | |
 Tanks: / Beer fermentation and storage | 30 years | 3.33% | 6.67% | 1 July 2008
-Tanks: / Chemical storage | 20 years | 5.00% | 10.00% | 1 July 2008
+Chemical storage (Tanks) | 20 years | 5.00% | 10.00% | 1 July 2008
 Tanks: / Cold service storage | 25 years | 4.00% | 8.00% | 1 July 2008
 Tanks: / Condensate collection | 25 years | 4.00% | 8.00% | 1 July 2008
 Tanks: / Hot service storage | 25 years | 4.00% | 8.00% | 1 July 2008
-Tanks: / Liquid carbon dioxide (CO2) storage | 20 years | 5.00% | 10.00% | 1 July 2008
-Tanks: / Trub | 25 years | 4.00% | 8.00% | 1 July 2008
+Tanks: / Liquid carbon dioxide (CO2) storage (Beer manufacturing (except non-alcoholic beer)) | 20 years | 5.00% | 10.00% | 1 July 2008
+Trub (Tanks) | 25 years | 4.00% | 8.00% | 1 July 2008
 Tanks: / Yeast storage | 25 years | 4.00% | 8.00% | 1 July 2008
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/#source
 - Beer filters: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/beer-filters/
 - Filter media make up assets: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/filter-media-make-up-assets/
 - Mash filters: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/mash-filters/
@@ -117,67 +118,67 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Spent grains transfer system assets: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/spent-grains-transfer-system-assets/
 - Whirlpool vessels: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/whirlpool-vessels/
 - Wort kettles: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/wort-kettles/
-- Carbonators (including controls, pumps and valves): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/carbonators/
-- Centrifuges: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/centrifuges/
-- De-aerated water system assets (including pipes, pumps and tanks): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/de-aerated-water-system-assets/
+- Carbonators (including controls, pumps and valves) (Cellaring assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/carbonators/
+- Centrifuges (Cellaring assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/centrifuges/
+- De-aerated water system assets (including pipes, pumps and tanks) (Cellaring assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/de-aerated-water-system-assets/
 - Yeast filters/dryers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/yeast-filters-dryers/
 - Yeast propagators: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/yeast-propagators/
 - Augers/conveyers and elevators: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/augers-conveyers-and-elevators/
-- Dust extractors: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/dust-extractors/
+- Dust extractors (Malt handling and cleaning assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/dust-extractors/
 - Grain cleaning assets (including screeners, destoners and magnetic separators): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/grain-cleaning-assets/
 - Malt milling machines (including hammer and roller mills): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/malt-milling-machines/
-- Galvanised construction: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/galvanised-construction/
-- Steel construction: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/steel-construction/
-- Weighers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/weighers/
-- Filling machines: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/filling-machines/
-- Inspection machines: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/inspection-machines/
-- Bottle and can rinsing machines: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/bottle-and-can-rinsing-machines/
-- Depalletisers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/depalletisers/
-- Palletisers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/palletisers/
-- Carton packers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/carton-packers/
-- Date coders: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/date-coders/
-- Labellers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/labellers/
-- Multipack machines: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/multipack-machines/
-- Outer date coders: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/outer-date-coders/
-- Shrink wrappers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/shrink-wrappers/
-- Tunnel pasteurisers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/tunnel-pasteurisers/
-- Conveyers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/conveyers/
-- Capping machines: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/capping-machines/
-- Coding machines: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/coding-machines/
+- Galvanised construction (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/galvanised-construction/
+- Steel construction (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/steel-construction/
+- Weighers (Malt handling and cleaning assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/weighers/
+- Filling machines (Bottle and can filling and sealing assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/filling-machines/
+- Inspection machines (Bottle and can filling and sealing assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/inspection-machines/
+- Bottle and can rinsing machines (Bottle and can handling assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/bottle-and-can-rinsing-machines/
+- Depalletisers (Bottle and can handling assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/depalletisers/
+- Palletisers (Bottle and can handling assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/palletisers/
+- Carton packers (Bottle and can packing assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/carton-packers/
+- Date coders (Bottle and can packing assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/date-coders/
+- Labellers (Bottle and can packing assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/labellers/
+- Multipack machines (Bottle and can packing assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/multipack-machines/
+- Outer date coders (Bottle and can packing assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/outer-date-coders/
+- Shrink wrappers (Bottle and can packing assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/shrink-wrappers/
+- Tunnel pasteurisers (Bottle and can packing assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/tunnel-pasteurisers/
+- Conveyers (Packaging assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/conveyers/
+- Capping machines (Keg line assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/capping-machines/
+- Coding machines (Keg line assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/coding-machines/
 - External washing machines: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/external-washing-machines/
 - Internal washer and filler machines: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/internal-washer-and-filler-machines/
 - Kegs (stainless steel): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/kegs/
-- Pasteurisers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/pasteurisers/
+- Pasteurisers (Keg line assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/pasteurisers/
 - Additive and hops dosing systems assets (including pipes, pumps and tanks): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/additive-and-hops-dosing-systems-assets/
-- Air compressors and receivers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/air-compressors-and-receivers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/boilers/
+- Air compressors and receivers (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/air-compressors-and-receivers/
+- Boilers (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/boilers/
 - Gas collection and storage assets (including pipes bladders and tanks): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/gas-collection-and-storage-assets/
 - Gas processing assets: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/gas-processing-assets/
 - Vaporisation system assets: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/vaporisation-system-assets/
-- Clean-in-place system (CIP) assets (including pipes, pumps and tanks): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/clean-in-place-system-assets/
+- Clean-in-place system (CIP) assets (including pipes, pumps and tanks) (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/clean-in-place-system-assets/
 - Control system assets (excluding personal computers): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/control-system-assets/
-- Heat exchangers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/heat-exchangers/
-- Refrigeration assets (including compressors, condensers, evaporators and pumps): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/refrigeration-assets/
-- Pipes: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/pipes/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/pumps/
-- Valves: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/valves/
-- Vapour condensers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/vapour-condensers/
-- Aerators: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/aerators/
-- Anaerobic bio gas system assets: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/anaerobic-bio-gas-system-assets/
-- Blowers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/blowers/
-- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/clarifiers/
-- Digester/aeration tanks: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/digester-aeration-tanks/
-- Reverse osmosis system assets: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/reverse-osmosis-system-assets/
+- Heat exchangers (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/heat-exchangers/
+- Refrigeration assets (including compressors, condensers, evaporators and pumps) (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/refrigeration-assets/
+- Pipes (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/pipes/
+- Pumps (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/pumps/
+- Valves (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/valves/
+- Vapour condensers (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/vapour-condensers/
+- Aerators (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/aerators/
+- Anaerobic bio gas system assets (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/anaerobic-bio-gas-system-assets/
+- Blowers (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/blowers/
+- Clarifiers (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/clarifiers/
+- Digester/aeration tanks (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/digester-aeration-tanks/
+- Reverse osmosis system assets (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/reverse-osmosis-system-assets/
 - Beer fermentation and storage: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/beer-fermentation-and-storage/
-- Chemical storage: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/chemical-storage/
+- Chemical storage (Tanks): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/chemical-storage/
 - Cold service storage: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/cold-service-storage/
 - Condensate collection: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/condensate-collection/
 - Hot service storage: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/hot-service-storage/
-- Liquid carbon dioxide (CO2) storage: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/liquid-carbon-dioxide-storage/
-- Trub: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/trub/
+- Liquid carbon dioxide (CO2) storage (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/liquid-carbon-dioxide-storage/
+- Trub (Tanks): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/trub/
 - Yeast storage: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/yeast-storage/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

@@ -1,18 +1,18 @@
-# Jigs effective life: 25 years
+# Jigs effective life: 25 years (F2025L01097)
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/mining/jigs/
 
-> Classification, gravity separation and dewatering assets: Jigs: effective life 25 years, last updated 1 July 2003 (Table A).
+> Jigs: effective life 25 years, prime cost 4.00%, diminishing value 8.00% if first held from 10 May 2006. Updated 1 July 2003 (Table A, 2025).
 
 # Classification, gravity separation and dewatering assets: Jigs
 
 ‘Classification, gravity separation and dewatering assets: Jigs’, for an asset used in MINING, has an effective life of 25 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2003.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Jigs
 Under | Mineral dressing assets: / Classification, gravity separation and dewatering assets:
@@ -25,57 +25,62 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in MINING takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In MINING, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
-The life was last reviewed and determined on 1 July 2003. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 July 2003. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Classification, gravity separation and dewatering assets
 
+Other rows under Classification, gravity separation and dewatering assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
-Centrifuges | 15 years | 6.67% | 13.33%
-Generally | 18 years | 5.56% | 11.11%
+Centrifuges (Classification, gravity separation and dewatering assets) | 15 years | 6.67% | 13.33%
+Generally (Classification, gravity separation and dewatering assets) | 18 years | 5.56% | 11.11%
 Hydraulic classifiers and teetered bed separators | 20 years | 5.00% | 10.00%
 Jigs (this page) | 25 years | 4.00% | 8.00%
 Pneumatic tables and air separators | 25 years | 4.00% | 8.00%
 Settling cones | 25 years | 4.00% | 8.00%
-Shaking tables | 25 years | 4.00% | 8.00%
+Shaking tables (Classification, gravity separation and dewatering assets) | 25 years | 4.00% | 8.00%
 Sluices and cone concentrators | 25 years | 4.00% | 8.00%
-Spirals | 12 years | 8.33% | 16.67%
+Spirals (Classification, gravity separation and dewatering assets) | 12 years | 8.33% | 16.67%
 
-## The same wording elsewhere
+## Similarly named rows
 
-Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+Compare the full row description and industry. Similar names can cover different equipment or effective lives under section 6 of the determination.
+
+Similarly named rows. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Jigs (including rollover jigs and lifting jigs) | Railway rolling stock manufacturing and repair services | 15 years | 6.67% | 13.33%
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 25 years.
+The depreciation calculator uses your cost, start date and this effective life of 25 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/mining/jigs/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
-- Centrifuges: https://duguid.com.au/tools/depreciation-rates/industry/mining/centrifuges/
-- Generally: https://duguid.com.au/tools/depreciation-rates/industry/mining/classification-gravity-generally/
+- Centrifuges (Classification, gravity separation and dewatering assets): https://duguid.com.au/tools/depreciation-rates/industry/mining/centrifuges/
+- Generally (Classification, gravity separation and dewatering assets): https://duguid.com.au/tools/depreciation-rates/industry/mining/classification-gravity-generally/
 - Hydraulic classifiers and teetered bed separators: https://duguid.com.au/tools/depreciation-rates/industry/mining/hydraulic-classifiers-and-teetered-bed-separators/
 - Pneumatic tables and air separators: https://duguid.com.au/tools/depreciation-rates/industry/mining/pneumatic-tables-and-air-separators/
 - Settling cones: https://duguid.com.au/tools/depreciation-rates/industry/mining/settling-cones/
-- Shaking tables: https://duguid.com.au/tools/depreciation-rates/industry/mining/shaking-tables/
+- Shaking tables (Classification, gravity separation and dewatering assets): https://duguid.com.au/tools/depreciation-rates/industry/mining/shaking-tables/
 - Sluices and cone concentrators: https://duguid.com.au/tools/depreciation-rates/industry/mining/sluices-and-cone-concentrators/
-- Spirals: https://duguid.com.au/tools/depreciation-rates/industry/mining/spirals/
+- Spirals (Classification, gravity separation and dewatering assets): https://duguid.com.au/tools/depreciation-rates/industry/mining/spirals/
 - Jigs (including rollover jigs and lifting jigs): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/jigs/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

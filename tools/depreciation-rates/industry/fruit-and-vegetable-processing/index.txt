@@ -2,340 +2,349 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/
 
-> Table A (industry categories), MANUFACTURING / Fruit …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+> Fruit and vegetable processing, Table …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
 
 # Fruit and vegetable processing
 
 128 effective lives in Table A of the Commissioner’s 2025 effective life determination for Fruit and vegetable processing.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Jump to an asset group
+
+Dried fruit (other than sun-dried) manufacturing assets Fruit juice and fruit juice drink manufacturing assets Jam, pickles and sauces manufacturing assets Preserved fruit and vegetable manufacturing assets
+
+Rows of Fruit and vegetable processing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Dried fruit (other than sun-dried) manufacturing assets: | | | |
-Dried fruit (other than sun-dried) manufacturing assets: / Packaging assets: | | | |
+Asset group · Dried fruit (other than sun-dried) manufacturing assets: | | | |
+Asset group · Dried fruit (other than sun-dried) manufacturing assets: / Packaging assets: | | | |
 Dried fruit (other than sun-dried) manufacturing assets: / Packaging assets: / Box sealers (including taping machines) | 10 years | 10.00% | 20.00% | 1 July 2018
-Dried fruit (other than sun-dried) manufacturing assets: / Packaging assets: / Carton erecting, packing and closing machines (including cartoners) | 15 years | 6.67% | 13.33% | 1 July 2018
-Dried fruit (other than sun-dried) manufacturing assets: / Packaging assets: / Form fill and seal machines – see Table B Packaging machines | | | |
-Dried fruit (other than sun-dried) manufacturing assets: / Packaging assets: / Labellers – see Table B Packaging machines | | | |
-Dried fruit (other than sun-dried) manufacturing assets: / Packaging assets: / Multihead weighers – see Table B Packaging machines | | | |
-Dried fruit (other than sun-dried) manufacturing assets: / Packaging assets: / Palletisers – see Table B Packaging machines | | | |
-Dried fruit (other than sun-dried) manufacturing assets: / Packaging assets: / Wrapping machines (including pallet wrappers, shrink wrappers and stretch wrappers) – see Table B Packaging machines | | | |
-Dried fruit (other than sun-dried) manufacturing assets: / Processing assets: | | | |
-Dried fruit (other than sun-dried) manufacturing assets: / Processing assets: / Aspirators | 20 years | 5.00% | 10.00% | 1 July 2018
+Dried fruit (other than sun-dried) manufacturing assets: / Packaging assets: / Carton erecting, packing and closing machines (including cartoners) (Dried fruit (other than sun-dried) manufacturing assets / Packaging assets / Fruit and vegetable processing) | 15 years | 6.67% | 13.33% | 1 July 2018
+Register note · Dried fruit (other than sun-dried) manufacturing assets: / Packaging assets: / Form fill and seal machines – see Table B Packaging machines | | | |
+Register note · Dried fruit (other than sun-dried) manufacturing assets: / Packaging assets: / Labellers – see Table B Packaging machines | | | |
+Register note · Dried fruit (other than sun-dried) manufacturing assets: / Packaging assets: / Multihead weighers – see Table B Packaging machines | | | |
+Register note · Dried fruit (other than sun-dried) manufacturing assets: / Packaging assets: / Palletisers – see Table B Packaging machines | | | |
+Register note · Dried fruit (other than sun-dried) manufacturing assets: / Packaging assets: / Wrapping machines (including pallet wrappers, shrink wrappers and stretch wrappers) – see Table B Packaging machines | | | |
+Asset group · Dried fruit (other than sun-dried) manufacturing assets: / Processing assets: | | | |
+Dried fruit (other than sun-dried) manufacturing assets: / Aspirators (Processing assets) | 20 years | 5.00% | 10.00% | 1 July 2018
 Dried fruit (other than sun-dried) manufacturing assets: / Processing assets: / Cappers and destemmers | 15 years | 6.67% | 13.33% | 1 July 2018
-Dried fruit (other than sun-dried) manufacturing assets: / Processing assets: / Cookers | 15 years | 6.67% | 13.33% | 1 July 2018
-Dried fruit (other than sun-dried) manufacturing assets: / Processing assets: / Cooling tunnels | 15 years | 6.67% | 13.33% | 1 July 2018
+Dried fruit (other than sun-dried) manufacturing assets: / Processing assets: / Cookers (Dried fruit (other than sun-dried) manufacturing assets / Processing assets / Fruit and vegetable processing) | 15 years | 6.67% | 13.33% | 1 July 2018
+Dried fruit (other than sun-dried) manufacturing assets: / Cooling tunnels (Processing assets) | 15 years | 6.67% | 13.33% | 1 July 2018
 Dried fruit (other than sun-dried) manufacturing assets: / Processing assets: / Drying assets (including dehydrators and dryers) | 20 years | 5.00% | 10.00% | 1 July 2018
-Dried fruit (other than sun-dried) manufacturing assets: / Processing assets: / Mixers | 15 years | 6.67% | 13.33% | 1 July 2018
-Dried fruit (other than sun-dried) manufacturing assets: / Processing assets: / Pitters | 15 years | 6.67% | 13.33% | 1 July 2018
+Dried fruit (other than sun-dried) manufacturing assets: / Processing assets: / Mixers (Fruit and vegetable processing) | 15 years | 6.67% | 13.33% | 1 July 2018
+Dried fruit (other than sun-dried) manufacturing assets: / Pitters (Processing assets) | 15 years | 6.67% | 13.33% | 1 July 2018
 Dried fruit (other than sun-dried) manufacturing assets: / Processing assets: / Riddles (including pre-riddles and rotary sieves) | 15 years | 6.67% | 13.33% | 1 July 2018
 Dried fruit (other than sun-dried) manufacturing assets: / Processing assets: / Shaker tables | 15 years | 6.67% | 13.33% | 1 July 2018
 Dried fruit (other than sun-dried) manufacturing assets: / Processing assets: / Sulphur tanks | 15 years | 6.67% | 13.33% | 1 July 2018
 Dried fruit (other than sun-dried) manufacturing assets: / Processing assets: / Washing assets (including barrel washers, brush washers and ripple washers) | 15 years | 6.67% | 13.33% | 1 July 2018
-Dried fruit (other than sun-dried) manufacturing assets: / Product and raw material handling assets: | | | |
-Dried fruit (other than sun-dried) manufacturing assets: / Product and raw material handling assets: / Bins | 10 years | 10.00% | 20.00% | 1 July 2018
-Dried fruit (other than sun-dried) manufacturing assets: / Product and raw material handling assets: / Bin tippers | 15 years | 6.67% | 13.33% | 1 July 2018
-Dried fruit (other than sun-dried) manufacturing assets: / Product and raw material handling assets: / Conveyors and elevators | 15 years | 6.67% | 13.33% | 1 July 2018
-Dried fruit (other than sun-dried) manufacturing assets: / Quality control and inspection assets: | | | |
+Asset group · Dried fruit (other than sun-dried) manufacturing assets: / Product and raw material handling assets: | | | |
+Dried fruit (other than sun-dried) manufacturing assets: / Bins (Product and raw material handling assets) | 10 years | 10.00% | 20.00% | 1 July 2018
+Dried fruit (other than sun-dried) manufacturing assets: / Bin tippers (Product and raw material handling assets) | 15 years | 6.67% | 13.33% | 1 July 2018
+Dried fruit (other than sun-dried) manufacturing assets: / Conveyors and elevators (Product and raw material handling assets) | 15 years | 6.67% | 13.33% | 1 July 2018
+Asset group · Dried fruit (other than sun-dried) manufacturing assets: / Quality control and inspection assets: | | | |
 Dried fruit (other than sun-dried) manufacturing assets: / Quality control and inspection assets: / Colour sorters and laser scanners | 10 years | 10.00% | 20.00% | 1 July 2018
-Dried fruit (other than sun-dried) manufacturing assets: / Quality control and inspection assets: / Inspection equipment (including checkweighers and metal detectors) – see Table B Packaging machines | | | |
+Register note · Dried fruit (other than sun-dried) manufacturing assets: / Quality control and inspection assets: / Inspection equipment (including checkweighers and metal detectors) – see Table B Packaging machines | | | |
 Dried fruit (other than sun-dried) manufacturing assets: / Quality control and inspection assets: / Testing equipment | 15 years | 6.67% | 13.33% | 1 July 2018
-Dried fruit (other than sun-dried) manufacturing assets: / Support assets: | | | |
-Dried fruit (other than sun-dried) manufacturing assets: / Support assets: / Cool rooms – see Table B Refrigeration assets | | | |
-Dried fruit (other than sun-dried) manufacturing assets: / Support assets: / Weighers | 20 years | 5.00% | 10.00% | 1 July 2018
-Fruit juice and fruit juice drink manufacturing assets: | | | |
+Asset group · Dried fruit (other than sun-dried) manufacturing assets: / Support assets: | | | |
+Register note · Dried fruit (other than sun-dried) manufacturing assets: / Support assets: / Cool rooms – see Table B Refrigeration assets | | | |
+Dried fruit (other than sun-dried) manufacturing assets: / Support assets: / Weighers (Fruit and vegetable processing) | 20 years | 5.00% | 10.00% | 1 July 2018
+Asset group · Fruit juice and fruit juice drink manufacturing assets: | | | |
 Fruit juice and fruit juice drink manufacturing assets: / Evaporators (used in concentrate manufacture) | 20 years | 5.00% | 10.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Extraction assets: | | | |
+Asset group · Fruit juice and fruit juice drink manufacturing assets: / Extraction assets: | | | |
 Fruit juice and fruit juice drink manufacturing assets: / Extraction assets: / Break tanks | 20 years | 5.00% | 10.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Extraction assets: / Centrifugal decanters | 15 years | 6.67% | 13.33% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Centrifugal decanters (Extraction assets) | 15 years | 6.67% | 13.33% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Extraction assets: / Crushing and milling assets (including hammer mills) | 15 years | 6.67% | 13.33% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Extraction assets: / Extractors (including presses and reamers) | 20 years | 5.00% | 10.00% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Extraction assets: / Filters (including membrane, pressure and vacuum filters) | 20 years | 5.00% | 10.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Extraction assets: / Finishers | 20 years | 5.00% | 10.00% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Finishers (Extraction assets) | 20 years | 5.00% | 10.00% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Extraction assets: / Fruit sizing assets (including sizing belts/heads and sorting tables) | 10 years | 10.00% | 20.00% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Extraction assets: / Pulp and rind mincers | 20 years | 5.00% | 10.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Extraction assets: / Pulper-finishers | 15 years | 6.67% | 13.33% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Extraction assets: / Roller/spreaders | 20 years | 5.00% | 10.00% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Pulper-finishers (Extraction assets) | 15 years | 6.67% | 13.33% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Roller/spreaders (Extraction assets) | 20 years | 5.00% | 10.00% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Extraction assets: / Tomato choppers | 15 years | 6.67% | 13.33% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Extraction assets: / Washers (including brush washers, flume tanks and pre-clean water hoppers) | 15 years | 6.67% | 13.33% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Filling and sealing assets: | | | |
+Asset group · Fruit juice and fruit juice drink manufacturing assets: / Filling and sealing assets: | | | |
 Fruit juice and fruit juice drink manufacturing assets: / Filling and sealing assets: / Bottle inverters | 20 years | 5.00% | 10.00% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Filling and sealing assets: / Cap sorters | 10 years | 10.00% | 20.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Filling and sealing assets: / Capping machines | 15 years | 6.67% | 13.33% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Filling and sealing assets: / Container dryers (incorporating air knives and blowers) | 10 years | 10.00% | 20.00% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Filling and sealing assets: / Capping machines (Fruit juice and fruit juice drink manufacturing assets / Filling and sealing assets / Fruit and vegetable processing) | 15 years | 6.67% | 13.33% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Filling and sealing assets: / Container dryers (incorporating air knives and blowers) (Fruit and vegetable processing) | 10 years | 10.00% | 20.00% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Filling and sealing assets: / Cooling and warming tunnels (including bottle warmers and water spray cooling tunnels) | 15 years | 6.67% | 13.33% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Filling and sealing assets: / Filling machines (including aseptic fillers, bag in box fillers, cup fillers, gable top carton fillers and plastic bottle fillers) | 20 years | 5.00% | 10.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Handling assets: | | | |
-Fruit juice and fruit juice drink manufacturing assets: / Handling assets: / Bottle rinsing machines | 20 years | 5.00% | 10.00% | 1 July 2010
+Asset group · Fruit juice and fruit juice drink manufacturing assets: / Handling assets: | | | |
+Fruit juice and fruit juice drink manufacturing assets: / Bottle rinsing machines (Handling assets) | 20 years | 5.00% | 10.00% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Handling assets: / Bottle unscramblers | 15 years | 6.67% | 13.33% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Handling assets: / Depalletisers | 20 years | 5.00% | 10.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Handling assets: / Palletisers | 20 years | 5.00% | 10.00% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Handling assets: / Depalletisers (Fruit and vegetable processing) | 20 years | 5.00% | 10.00% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Handling assets: / Palletisers (Fruit juice and fruit juice drink manufacturing assets / Handling assets / Fruit and vegetable processing) | 20 years | 5.00% | 10.00% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Handling assets: / Stretch wrappers (pallet wrappers) | 15 years | 6.67% | 13.33% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Inspection assets: | | | |
-Fruit juice and fruit juice drink manufacturing assets: / Inspection assets: / Checkweighers | 10 years | 10.00% | 20.00% | 1 July 2010
+Asset group · Fruit juice and fruit juice drink manufacturing assets: / Inspection assets: | | | |
+Fruit juice and fruit juice drink manufacturing assets: / Checkweighers (Inspection assets) | 10 years | 10.00% | 20.00% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Inspection assets: / Vacuum seal testers | 10 years | 10.00% | 20.00% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Inspection assets: / Vision inspection assets (including cap inspection/rejection systems and label inspection machines) | 6 years | 16.67% | 33.33% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Packing assets: | | | |
+Asset group · Fruit juice and fruit juice drink manufacturing assets: / Packing assets: | | | |
 Fruit juice and fruit juice drink manufacturing assets: / Packing assets: / Cartoning assets (including carton and case erectors, carton sealers, case packers and overpackers) | 15 years | 6.67% | 13.33% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Packing assets: / Coding machines (including container coders and outer date coders) | 7 years | 14.29% | 28.57% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Packing assets: / Coding machines (including container coders and outer date coders) (Fruit and vegetable processing) | 7 years | 14.29% | 28.57% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Packing assets: / Hot melt adhesive (spot glue) applicators | 10 years | 10.00% | 20.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Packing assets: / Label applicators | 7 years | 14.29% | 28.57% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Packing assets: / Labellers | 10 years | 10.00% | 20.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Packing assets: / Multipack machines | 10 years | 10.00% | 20.00% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Packing assets: / Label applicators (Fruit and vegetable processing) | 7 years | 14.29% | 28.57% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Packing assets: / Labellers (Fruit juice and fruit juice drink manufacturing assets / Packing assets / Fruit and vegetable processing) | 10 years | 10.00% | 20.00% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Packing assets: / Multipack machines (Fruit and vegetable processing) | 10 years | 10.00% | 20.00% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Packing assets: / Shrink sleeve applicators | 15 years | 6.67% | 13.33% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Packing assets: / Shrinkwrappers | 15 years | 6.67% | 13.33% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Shrinkwrappers (Packing assets) | 15 years | 6.67% | 13.33% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Packing assets: / Straw applicators | 20 years | 5.00% | 10.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Support assets: | | | |
-Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Air compressors and receivers | 20 years | 5.00% | 10.00% | 1 July 2010
+Asset group · Fruit juice and fruit juice drink manufacturing assets: / Support assets: | | | |
+Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Air compressors and receivers (Fruit and vegetable processing) | 20 years | 5.00% | 10.00% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Bins, cages and hoppers | 20 years | 5.00% | 10.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Boilers | 20 years | 5.00% | 10.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Clean-in-place (CIP) system assets (including pipes, pumps and tanks) | 15 years | 6.67% | 13.33% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Boilers (Fruit and vegetable processing) | 20 years | 5.00% | 10.00% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Clean-in-place (CIP) system assets (including pipes, pumps and tanks) (Support assets) | 15 years | 6.67% | 13.33% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Control system assets (excluding personal computers but including program logic controllers (PLCs) and switchgear) | 10 years | 10.00% | 20.00% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Conveyors (including augers, belt conveyors and bucket elevators) | 15 years | 6.67% | 13.33% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Fruit concentrate drum tippers | 15 years | 6.67% | 13.33% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Laboratory equipment: | | | |
+Asset group · Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Laboratory equipment: | | | |
 Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Laboratory equipment: / Electronic (including high performance liquid chromatography or HPLC machines, refractometers, spectrometry machines and titrimetric analysers) | 7 years | 14.29% | 28.57% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Laboratory equipment: / Non-electronic | 10 years | 10.00% | 20.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Pasteurisation assets: | | | |
-Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Pasteurisation assets: / Pasteurisers (including heat exchangers) | 15 years | 6.67% | 13.33% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Pasteurisation assets: / Tunnel pasteurisers | 10 years | 10.00% | 20.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Pipes | 25 years | 4.00% | 8.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Pumps: | | | |
+Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Non-electronic (Laboratory equipment) | 10 years | 10.00% | 20.00% | 1 July 2010
+Asset group · Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Pasteurisation assets: | | | |
+Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Pasteurisers (including heat exchangers) (Pasteurisation assets) | 15 years | 6.67% | 13.33% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Tunnel pasteurisers (Pasteurisation assets) | 10 years | 10.00% | 20.00% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Pipes (Fruit and vegetable processing) | 25 years | 4.00% | 8.00% | 1 July 2010
+Asset group · Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Pumps: | | | |
 Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Pumps: / Cavity pumps | 10 years | 10.00% | 20.00% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Pumps: / Others (including centrifugal pumps) | 15 years | 6.67% | 13.33% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Refrigeration assets (including compressors, cooling towers, condensers and pumps) | 15 years | 6.67% | 13.33% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Valves | 10 years | 10.00% | 20.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Water treatment filters: | | | |
+Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Valves (Fruit and vegetable processing) | 10 years | 10.00% | 20.00% | 1 July 2010
+Asset group · Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Water treatment filters: | | | |
 Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Water treatment filters: / Carbon filters | 15 years | 6.67% | 13.33% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Water treatment filters: / Membrane filters generally (including microfiltration (MF), nanofiltration (NF) and reverse osmosis (RO) membrane filters) | 7 years | 14.29% | 28.57% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Water treatment filters: / UF membrane filters | 5 years | 20.00% | 40.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Weighbridges | 20 years | 5.00% | 10.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Tanks: | | | |
+Fruit juice and fruit juice drink manufacturing assets: / Support assets: / Weighbridges (Fruit and vegetable processing) | 20 years | 5.00% | 10.00% | 1 July 2010
+Asset group · Fruit juice and fruit juice drink manufacturing assets: / Tanks: | | | |
 Fruit juice and fruit juice drink manufacturing assets: / Tanks: / Blending and mixing tanks | 25 years | 4.00% | 8.00% | 1 July 2010
 Fruit juice and fruit juice drink manufacturing assets: / Tanks: / Debittering tanks | 30 years | 3.33% | 6.67% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Tanks: / Storage tanks: | | | |
-Fruit juice and fruit juice drink manufacturing assets: / Tanks: / Storage tanks: / Generally | 30 years | 3.33% | 6.67% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Tanks: / Storage tanks: / Jacketed | 20 years | 5.00% | 10.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Tanks: / Storage tanks: / Refrigerated | 20 years | 5.00% | 10.00% | 1 July 2010
-Fruit juice and fruit juice drink manufacturing assets: / Tanks: / Waste water storage/treatment tanks | 20 years | 5.00% | 10.00% | 1 July 2010
-Jam, pickles and sauces manufacturing assets: | | | |
-Jam, pickles and sauces manufacturing assets: / Filling and sealing assets: | | | |
-Jam, pickles and sauces manufacturing assets: / Filling and sealing assets: / Bottle rinsing machines | 10 years | 10.00% | 20.00% | 1 July 2018
-Jam, pickles and sauces manufacturing assets: / Filling and sealing assets: / Capping machines | 15 years | 6.67% | 13.33% | 1 July 2018
-Jam, pickles and sauces manufacturing assets: / Filling and sealing assets: / Denesters | 10 years | 10.00% | 20.00% | 1 July 2018
+Asset group · Fruit juice and fruit juice drink manufacturing assets: / Tanks: / Storage tanks: | | | |
+Fruit juice and fruit juice drink manufacturing assets: / Tanks: / Storage tanks: / Generally (Fruit and vegetable processing) | 30 years | 3.33% | 6.67% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Tanks: / Jacketed (Storage tanks) | 20 years | 5.00% | 10.00% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Tanks: / Refrigerated (Storage tanks) | 20 years | 5.00% | 10.00% | 1 July 2010
+Fruit juice and fruit juice drink manufacturing assets: / Waste water storage/treatment tanks (Tanks) | 20 years | 5.00% | 10.00% | 1 July 2010
+Asset group · Jam, pickles and sauces manufacturing assets: | | | |
+Asset group · Jam, pickles and sauces manufacturing assets: / Filling and sealing assets: | | | |
+Jam, pickles and sauces manufacturing assets: / Bottle rinsing machines (Filling and sealing assets) | 10 years | 10.00% | 20.00% | 1 July 2018
+Jam, pickles and sauces manufacturing assets: / Filling and sealing assets: / Capping machines (Jam, pickles and sauces manufacturing assets / Filling and sealing assets / Fruit and vegetable processing) | 15 years | 6.67% | 13.33% | 1 July 2018
+Jam, pickles and sauces manufacturing assets: / Denesters (Filling and sealing assets) | 10 years | 10.00% | 20.00% | 1 July 2018
 Jam, pickles and sauces manufacturing assets: / Filling and sealing assets: / Filling machines (including aseptic, bucket and portion control) | 15 years | 6.67% | 13.33% | 1 July 2018
 Jam, pickles and sauces manufacturing assets: / Filling and sealing assets: / Jar de-palletisers | 15 years | 6.67% | 13.33% | 1 July 2018
 Jam, pickles and sauces manufacturing assets: / Filling and sealing assets: / Lid descramblers, cap sorters and hoppers | 15 years | 6.67% | 13.33% | 1 July 2018
-Jam, pickles and sauces manufacturing assets: / Packaging assets: | | | |
-Jam, pickles and sauces manufacturing assets: / Packaging assets: / Carton erecting, packing and closing machines (including cartoners) | 12 years | 8.33% | 16.67% | 1 July 2018
-Jam, pickles and sauces manufacturing assets: / Packaging assets: / Labellers – see Table B Packaging machines | | | |
-Jam, pickles and sauces manufacturing assets: / Packaging assets: / Palletisers | 10 years | 10.00% | 20.00% | 1 July 2018
-Jam, pickles and sauces manufacturing assets: / Packaging assets: / Wrapping machines (including pallet wrappers, shrink wrappers and stretch wrappers) – see Table B Packaging machines | | | |
-Jam, pickles and sauces manufacturing assets: / Processing assets: | | | |
+Asset group · Jam, pickles and sauces manufacturing assets: / Packaging assets: | | | |
+Jam, pickles and sauces manufacturing assets: / Packaging assets: / Carton erecting, packing and closing machines (including cartoners) (Jam, pickles and sauces manufacturing assets / Packaging assets / Fruit and vegetable processing) | 12 years | 8.33% | 16.67% | 1 July 2018
+Register note · Jam, pickles and sauces manufacturing assets: / Packaging assets: / Labellers – see Table B Packaging machines | | | |
+Jam, pickles and sauces manufacturing assets: / Packaging assets: / Palletisers (Jam, pickles and sauces manufacturing assets / Packaging assets / Fruit and vegetable processing) | 10 years | 10.00% | 20.00% | 1 July 2018
+Register note · Jam, pickles and sauces manufacturing assets: / Packaging assets: / Wrapping machines (including pallet wrappers, shrink wrappers and stretch wrappers) – see Table B Packaging machines | | | |
+Asset group · Jam, pickles and sauces manufacturing assets: / Processing assets: | | | |
 Jam, pickles and sauces manufacturing assets: / Processing assets: / Brush finishers and pulper finishers | 15 years | 6.67% | 13.33% | 1 July 2018
-Jam, pickles and sauces manufacturing assets: / Processing assets: / Cookers | 10 years | 10.00% | 20.00% | 1 July 2018
+Jam, pickles and sauces manufacturing assets: / Processing assets: / Cookers (Jam, pickles and sauces manufacturing assets / Processing assets / Fruit and vegetable processing) | 10 years | 10.00% | 20.00% | 1 July 2018
 Jam, pickles and sauces manufacturing assets: / Processing assets: / Cooling tunnels (including water cooling tunnels) | 15 years | 6.67% | 13.33% | 1 July 2018
 Jam, pickles and sauces manufacturing assets: / Processing assets: / Micro filters | 20 years | 5.00% | 10.00% | 1 July 2018
-Jam, pickles and sauces manufacturing assets: / Processing assets: / Pasteurisers | 15 years | 6.67% | 13.33% | 1 July 2018
+Jam, pickles and sauces manufacturing assets: / Pasteurisers (Processing assets) | 15 years | 6.67% | 13.33% | 1 July 2018
 Jam, pickles and sauces manufacturing assets: / Processing assets: / Pectin mixers | 10 years | 10.00% | 20.00% | 1 July 2018
 Jam, pickles and sauces manufacturing assets: / Processing assets: / Pipes and pipelines (including pigging) | 15 years | 6.67% | 13.33% | 1 July 2018
-Jam, pickles and sauces manufacturing assets: / Processing assets: / Tanks and vats (including blending, holding and mixing tanks) | 15 years | 6.67% | 13.33% | 1 July 2018
-Jam, pickles and sauces manufacturing assets: / Quality control and inspection assets: | | | |
+Jam, pickles and sauces manufacturing assets: / Processing assets: / Tanks and vats (including blending, holding and mixing tanks) (Jam, pickles and sauces manufacturing assets / Processing assets / Fruit and vegetable processing) | 15 years | 6.67% | 13.33% | 1 July 2018
+Asset group · Jam, pickles and sauces manufacturing assets: / Quality control and inspection assets: | | | |
 Jam, pickles and sauces manufacturing assets: / Quality control and inspection assets: / Metal detectors and camera vision scanners | 10 years | 10.00% | 20.00% | 1 July 2018
-Jam, pickles and sauces manufacturing assets: / Support assets: | | | |
+Asset group · Jam, pickles and sauces manufacturing assets: / Support assets: | | | |
 Jam, pickles and sauces manufacturing assets: / Support assets: / Accumulation tables and turntables | 15 years | 6.67% | 13.33% | 1 July 2018
 Jam, pickles and sauces manufacturing assets: / Support assets: / Air compression assets (including air compressors, air dryers and air receivers) | 10 years | 10.00% | 20.00% | 1 July 2018
-Jam, pickles and sauces manufacturing assets: / Support assets: / Boilers – see Table B Boilers | | | |
-Jam, pickles and sauces manufacturing assets: / Support assets: / Conveyors | 15 years | 6.67% | 13.33% | 1 July 2018
+Register note · Jam, pickles and sauces manufacturing assets: / Support assets: / Boilers – see Table B Boilers | | | |
+Jam, pickles and sauces manufacturing assets: / Conveyors (Support assets) | 15 years | 6.67% | 13.33% | 1 July 2018
 Jam, pickles and sauces manufacturing assets: / Support assets: / Exhaust systems | 10 years | 10.00% | 20.00% | 1 July 2018
-Jam, pickles and sauces manufacturing assets: / Support assets: / Heat exchangers | 10 years | 10.00% | 20.00% | 1 July 2018
+Jam, pickles and sauces manufacturing assets: / Support assets: / Heat exchangers (Fruit and vegetable processing) | 10 years | 10.00% | 20.00% | 1 July 2018
 Jam, pickles and sauces manufacturing assets: / Support assets: / Pumps (including cavity, diaphragm and lobe) | 15 years | 6.67% | 13.33% | 1 July 2018
-Preserved fruit and vegetable manufacturing assets: | | | |
-Preserved fruit and vegetable manufacturing assets: / Filling and sealing assets: | | | |
+Asset group · Preserved fruit and vegetable manufacturing assets: | | | |
+Asset group · Preserved fruit and vegetable manufacturing assets: / Filling and sealing assets: | | | |
 Preserved fruit and vegetable manufacturing assets: / Filling and sealing assets: / Canning assets (including can loaders, closers and seamers) | 10 years | 10.00% | 20.00% | 1 July 2018
-Preserved fruit and vegetable manufacturing assets: / Filling and sealing assets: / Capping machines: | | | |
-Preserved fruit and vegetable manufacturing assets: / Filling and sealing assets: / Capping machines: / Cappers | 10 years | 10.00% | 20.00% | 1 July 2018
-Preserved fruit and vegetable manufacturing assets: / Filling and sealing assets: / Capping machines: / Induction sealers | 5 years | 20.00% | 40.00% | 1 July 2018
+Asset group · Preserved fruit and vegetable manufacturing assets: / Filling and sealing assets: / Capping machines: | | | |
+Preserved fruit and vegetable manufacturing assets: / Filling and sealing assets: / Cappers (Capping machines) | 10 years | 10.00% | 20.00% | 1 July 2018
+Preserved fruit and vegetable manufacturing assets: / Filling and sealing assets: / Induction sealers (Capping machines) | 5 years | 20.00% | 40.00% | 1 July 2018
 Preserved fruit and vegetable manufacturing assets: / Filling and sealing assets: / Filling machines (including aseptic, bag in box, cup, direct and piston) | 10 years | 10.00% | 20.00% | 1 July 2018
-Preserved fruit and vegetable manufacturing assets: / Packaging assets: | | | |
-Preserved fruit and vegetable manufacturing assets: / Packaging assets: / Carton erecting, packing and closing machines (including cartoners) | 15 years | 6.67% | 13.33% | 1 July 2018
-Preserved fruit and vegetable manufacturing assets: / Packaging assets: / Labellers | 10 years | 10.00% | 20.00% | 1 July 2018
-Preserved fruit and vegetable manufacturing assets: / Packaging assets: / Palletisers and depalletisers – see Table B Packaging machines | | | |
-Preserved fruit and vegetable manufacturing assets: / Packaging assets: / Wrapping machines (including pallet wrappers, shrink wrappers and stretch wrappers) – see Table B Packaging machines | | | |
-Preserved fruit and vegetable manufacturing assets: / Processing assets: | | | |
+Asset group · Preserved fruit and vegetable manufacturing assets: / Packaging assets: | | | |
+Preserved fruit and vegetable manufacturing assets: / Packaging assets: / Carton erecting, packing and closing machines (including cartoners) (Preserved fruit and vegetable manufacturing assets / Packaging assets / Fruit and vegetable processing) | 15 years | 6.67% | 13.33% | 1 July 2018
+Preserved fruit and vegetable manufacturing assets: / Packaging assets: / Labellers (Preserved fruit and vegetable manufacturing assets / Packaging assets / Fruit and vegetable processing) | 10 years | 10.00% | 20.00% | 1 July 2018
+Register note · Preserved fruit and vegetable manufacturing assets: / Packaging assets: / Palletisers and depalletisers – see Table B Packaging machines | | | |
+Register note · Preserved fruit and vegetable manufacturing assets: / Packaging assets: / Wrapping machines (including pallet wrappers, shrink wrappers and stretch wrappers) – see Table B Packaging machines | | | |
+Asset group · Preserved fruit and vegetable manufacturing assets: / Processing assets: | | | |
 Preserved fruit and vegetable manufacturing assets: / Processing assets: / Blanchers and paste finishers (including bean and spaghetti) | 12 years | 8.33% | 16.67% | 1 July 2018
 Preserved fruit and vegetable manufacturing assets: / Processing assets: / Concentrates and syrup assets (including centrifuges, decanters and syrupers) | 15 years | 6.67% | 13.33% | 1 July 2018
-Preserved fruit and vegetable manufacturing assets: / Processing assets: / Cookers: | | | |
+Asset group · Preserved fruit and vegetable manufacturing assets: / Processing assets: / Cookers: | | | |
 Preserved fruit and vegetable manufacturing assets: / Processing assets: / Cookers: / Rotary atmospheric sterilisers | 20 years | 5.00% | 10.00% | 1 July 2018
 Preserved fruit and vegetable manufacturing assets: / Processing assets: / Cookers: / Rotary pressure sterilisers | 10 years | 10.00% | 20.00% | 1 July 2018
 Preserved fruit and vegetable manufacturing assets: / Processing assets: / Cookers: / Static retorts | 15 years | 6.67% | 13.33% | 1 July 2018
 Preserved fruit and vegetable manufacturing assets: / Processing assets: / Crushing mills | 30 years | 3.33% | 6.67% | 1 July 2018
-Preserved fruit and vegetable manufacturing assets: / Processing assets: / Graders | 15 years | 6.67% | 13.33% | 1 July 2018
-Preserved fruit and vegetable manufacturing assets: / Processing assets: / Peelers: | | | |
+Preserved fruit and vegetable manufacturing assets: / Graders (Processing assets) | 15 years | 6.67% | 13.33% | 1 July 2018
+Asset group · Preserved fruit and vegetable manufacturing assets: / Processing assets: / Peelers: | | | |
 Preserved fruit and vegetable manufacturing assets: / Processing assets: / Peelers: / Chemical (including caustic) | 10 years | 10.00% | 20.00% | 1 July 2018
 Preserved fruit and vegetable manufacturing assets: / Processing assets: / Peelers: / Mechanical (including ginacas and magnesium scrubbers) | 5 years | 20.00% | 40.00% | 1 July 2018
 Preserved fruit and vegetable manufacturing assets: / Processing assets: / Pitters and repitters | 20 years | 5.00% | 10.00% | 1 July 2018
 Preserved fruit and vegetable manufacturing assets: / Processing assets: / Slicers and resizers | 15 years | 6.67% | 13.33% | 1 July 2018
-Preserved fruit and vegetable manufacturing assets: / Processing assets: / Tanks and vats (including blending, holding and mixing tanks) | 15 years | 6.67% | 13.33% | 1 July 2018
-Preserved fruit and vegetable manufacturing assets: / Quality control and inspection assets: | | | |
-Preserved fruit and vegetable manufacturing assets: / Quality control and inspection assets: / Colour sorters | 10 years | 10.00% | 20.00% | 1 July 2018
-Preserved fruit and vegetable manufacturing assets: / Quality control and inspection assets: / Inspection equipment (including checkweighers and metal detectors) – see Table B Packaging machines | | | |
-Preserved fruit and vegetable manufacturing assets: / Support assets: | | | |
-Preserved fruit and vegetable manufacturing assets: / Support assets: / Bin tippers | 20 years | 5.00% | 10.00% | 1 July 2018
-Preserved fruit and vegetable manufacturing assets: / Support assets: / Control systems – see Table B Control systems and control system assets | | | |
-Preserved fruit and vegetable manufacturing assets: / Support assets: / Conveyors and elevators | 15 years | 6.67% | 13.33% | 1 July 2018
-Preserved fruit and vegetable manufacturing assets: / Support assets: / Filtration systems | 15 years | 6.67% | 13.33% | 1 July 2018
-Preserved fruit and vegetable manufacturing assets: / Support assets: / Pasteurisers (including heat exchangers) | 10 years | 10.00% | 20.00% | 1 July 2018
-Preserved fruit and vegetable manufacturing assets: / Support assets: / Pumps | 10 years | 10.00% | 20.00% | 1 July 2018
+Preserved fruit and vegetable manufacturing assets: / Processing assets: / Tanks and vats (including blending, holding and mixing tanks) (Preserved fruit and vegetable manufacturing assets / Processing assets / Fruit and vegetable processing) | 15 years | 6.67% | 13.33% | 1 July 2018
+Asset group · Preserved fruit and vegetable manufacturing assets: / Quality control and inspection assets: | | | |
+Preserved fruit and vegetable manufacturing assets: / Colour sorters (Quality control and inspection assets) | 10 years | 10.00% | 20.00% | 1 July 2018
+Register note · Preserved fruit and vegetable manufacturing assets: / Quality control and inspection assets: / Inspection equipment (including checkweighers and metal detectors) – see Table B Packaging machines | | | |
+Asset group · Preserved fruit and vegetable manufacturing assets: / Support assets: | | | |
+Preserved fruit and vegetable manufacturing assets: / Bin tippers (Support assets) | 20 years | 5.00% | 10.00% | 1 July 2018
+Register note · Preserved fruit and vegetable manufacturing assets: / Support assets: / Control systems – see Table B Control systems and control system assets | | | |
+Preserved fruit and vegetable manufacturing assets: / Conveyors and elevators (Support assets) | 15 years | 6.67% | 13.33% | 1 July 2018
+Preserved fruit and vegetable manufacturing assets: / Filtration systems (Support assets) | 15 years | 6.67% | 13.33% | 1 July 2018
+Preserved fruit and vegetable manufacturing assets: / Pasteurisers (including heat exchangers) (Support assets) | 10 years | 10.00% | 20.00% | 1 July 2018
+Preserved fruit and vegetable manufacturing assets: / Support assets: / Pumps (Fruit and vegetable processing) | 10 years | 10.00% | 20.00% | 1 July 2018
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- Dried fruit (other than sun-dried) manufacturing assets: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/#asset-group-1
+- Fruit juice and fruit juice drink manufacturing assets: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/#asset-group-33
+- Jam, pickles and sauces manufacturing assets: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/#asset-group-108
+- Preserved fruit and vegetable manufacturing assets: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/#asset-group-140
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/#source
 - Box sealers (including taping machines): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/box-sealers/
-- Carton erecting, packing and closing machines (including cartoners): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/carton-erecting-packing-and-closing-machines-89fd72/
+- Carton erecting, packing and closing machines (including cartoners) (Dried fruit (other than sun-dried) manufacturing assets / Packaging assets / Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/carton-erecting-packing-and-closing-machines-89fd72/
 - Form fill and seal machines – see Table B Packaging machines: https://duguid.com.au/tools/depreciation-rates/asset/packaging-machines/
-- Aspirators: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/aspirators/
+- Aspirators (Processing assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/aspirators/
 - Cappers and destemmers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/cappers-and-destemmers/
-- Cookers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/dried-fruit-manufacturing-assets-cookers/
-- Cooling tunnels: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/dried-fruit-manufacturing-assets-cooling-tunnels/
+- Cookers (Dried fruit (other than sun-dried) manufacturing assets / Processing assets / Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/dried-fruit-manufacturing-assets-cookers/
+- Cooling tunnels (Processing assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/dried-fruit-manufacturing-assets-cooling-tunnels/
 - Drying assets (including dehydrators and dryers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/drying-assets/
-- Mixers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/mixers/
-- Pitters: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/pitters/
+- Mixers (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/mixers/
+- Pitters (Processing assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/pitters/
 - Riddles (including pre-riddles and rotary sieves): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/riddles/
 - Shaker tables: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/shaker-tables/
 - Sulphur tanks: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/sulphur-tanks/
 - Washing assets (including barrel washers, brush washers and ripple washers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/washing-assets/
-- Bins: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/bins/
-- Bin tippers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/dried-fruit-manufacturing-assets-bin-tippers/
-- Conveyors and elevators: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/dried-fruit-manufacturing-assets-conveyors-and-elevators/
+- Bins (Product and raw material handling assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/bins/
+- Bin tippers (Product and raw material handling assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/dried-fruit-manufacturing-assets-bin-tippers/
+- Conveyors and elevators (Product and raw material handling assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/dried-fruit-manufacturing-assets-conveyors-and-elevators/
 - Colour sorters and laser scanners: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/colour-sorters-and-laser-scanners/
 - Testing equipment: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/testing-equipment/
 - Cool rooms – see Table B Refrigeration assets: https://duguid.com.au/tools/depreciation-rates/asset/refrigeration-assets/
-- Weighers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/weighers/
+- Weighers (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/weighers/
 - Evaporators (used in concentrate manufacture): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/evaporators/
 - Break tanks: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/break-tanks/
-- Centrifugal decanters: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/centrifugal-decanters/
+- Centrifugal decanters (Extraction assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/centrifugal-decanters/
 - Crushing and milling assets (including hammer mills): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/crushing-and-milling-assets/
 - Extractors (including presses and reamers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/extractors/
 - Filters (including membrane, pressure and vacuum filters): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/filters/
-- Finishers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/finishers/
+- Finishers (Extraction assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/finishers/
 - Fruit sizing assets (including sizing belts/heads and sorting tables): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/fruit-sizing-assets/
 - Pulp and rind mincers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/pulp-and-rind-mincers/
-- Pulper-finishers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/pulper-finishers/
-- Roller/spreaders: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/roller-spreaders/
+- Pulper-finishers (Extraction assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/pulper-finishers/
+- Roller/spreaders (Extraction assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/roller-spreaders/
 - Tomato choppers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/tomato-choppers/
 - Washers (including brush washers, flume tanks and pre-clean water hoppers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/washers/
 - Bottle inverters: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/bottle-inverters/
 - Cap sorters: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/cap-sorters/
-- Capping machines: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/fruit-juice-and-fruit-juice-capping-machines/
-- Container dryers (incorporating air knives and blowers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/container-dryers/
+- Capping machines (Fruit juice and fruit juice drink manufacturing assets / Filling and sealing assets / Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/fruit-juice-and-fruit-juice-capping-machines/
+- Container dryers (incorporating air knives and blowers) (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/container-dryers/
 - Cooling and warming tunnels (including bottle warmers and water spray cooling tunnels): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/cooling-and-warming-tunnels/
 - Filling machines (including aseptic fillers, bag in box fillers, cup fillers, gable top carton fillers and plastic bottle fillers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/fruit-juice-and-fruit-juice-filling-machines/
-- Bottle rinsing machines: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/fruit-juice-and-fruit-juice-bottle-rinsing-machines/
+- Bottle rinsing machines (Handling assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/fruit-juice-and-fruit-juice-bottle-rinsing-machines/
 - Bottle unscramblers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/bottle-unscramblers/
-- Depalletisers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/depalletisers/
-- Palletisers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/fruit-juice-and-fruit-juice-palletisers/
+- Depalletisers (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/depalletisers/
+- Palletisers (Fruit juice and fruit juice drink manufacturing assets / Handling assets / Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/fruit-juice-and-fruit-juice-palletisers/
 - Stretch wrappers (pallet wrappers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/stretch-wrappers/
-- Checkweighers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/checkweighers/
+- Checkweighers (Inspection assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/checkweighers/
 - Vacuum seal testers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/vacuum-seal-testers/
 - Vision inspection assets (including cap inspection/rejection systems and label inspection machines): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/vision-inspection-assets/
 - Cartoning assets (including carton and case erectors, carton sealers, case packers and overpackers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/cartoning-assets/
-- Coding machines (including container coders and outer date coders): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/coding-machines/
+- Coding machines (including container coders and outer date coders) (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/coding-machines/
 - Hot melt adhesive (spot glue) applicators: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/hot-melt-adhesive-applicators/
-- Label applicators: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/label-applicators/
-- Labellers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/fruit-juice-and-fruit-juice-labellers/
-- Multipack machines: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/multipack-machines/
+- Label applicators (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/label-applicators/
+- Labellers (Fruit juice and fruit juice drink manufacturing assets / Packing assets / Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/fruit-juice-and-fruit-juice-labellers/
+- Multipack machines (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/multipack-machines/
 - Shrink sleeve applicators: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/shrink-sleeve-applicators/
-- Shrinkwrappers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/shrinkwrappers/
+- Shrinkwrappers (Packing assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/shrinkwrappers/
 - Straw applicators: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/straw-applicators/
-- Air compressors and receivers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/air-compressors-and-receivers/
+- Air compressors and receivers (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/air-compressors-and-receivers/
 - Bins, cages and hoppers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/bins-cages-and-hoppers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/boilers/
-- Clean-in-place (CIP) system assets (including pipes, pumps and tanks): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/clean-in-place-system-assets/
+- Boilers (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/boilers/
+- Clean-in-place (CIP) system assets (including pipes, pumps and tanks) (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/clean-in-place-system-assets/
 - Control system assets (excluding personal computers but including program logic controllers (PLCs) and switchgear): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/control-system-assets/
 - Conveyors (including augers, belt conveyors and bucket elevators): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/fruit-juice-and-fruit-juice-conveyors/
 - Fruit concentrate drum tippers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/fruit-concentrate-drum-tippers/
 - Electronic (including high performance liquid chromatography or HPLC machines, refractometers, spectrometry machines and titrimetric analysers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/electronic/
-- Non-electronic: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/non-electronic/
-- Pasteurisers (including heat exchangers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/fruit-juice-and-fruit-juice-pasteurisers/
-- Tunnel pasteurisers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/tunnel-pasteurisers/
-- Pipes: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/pipes/
+- Non-electronic (Laboratory equipment): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/non-electronic/
+- Pasteurisers (including heat exchangers) (Pasteurisation assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/fruit-juice-and-fruit-juice-pasteurisers/
+- Tunnel pasteurisers (Pasteurisation assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/tunnel-pasteurisers/
+- Pipes (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/pipes/
 - Cavity pumps: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/cavity-pumps/
 - Others (including centrifugal pumps): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/others/
 - Refrigeration assets (including compressors, cooling towers, condensers and pumps): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/refrigeration-assets/
-- Valves: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/valves/
+- Valves (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/valves/
 - Carbon filters: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/carbon-filters/
 - Membrane filters generally (including microfiltration (MF), nanofiltration (NF) and reverse osmosis (RO) membrane filters): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/membrane-filters-generally/
 - UF membrane filters: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/uf-membrane-filters/
-- Weighbridges: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/weighbridges/
+- Weighbridges (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/weighbridges/
 - Blending and mixing tanks: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/blending-and-mixing-tanks/
 - Debittering tanks: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/debittering-tanks/
-- Generally: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/generally/
-- Jacketed: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jacketed/
-- Refrigerated: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/refrigerated/
-- Waste water storage/treatment tanks: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/waste-water-storage-treatment-tanks/
-- Bottle rinsing machines: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-bottle-rinsing-machines/
-- Capping machines: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-capping-machines/
-- Denesters: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/denesters/
+- Generally (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/generally/
+- Jacketed (Storage tanks): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jacketed/
+- Refrigerated (Storage tanks): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/refrigerated/
+- Waste water storage/treatment tanks (Tanks): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/waste-water-storage-treatment-tanks/
+- Bottle rinsing machines (Filling and sealing assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-bottle-rinsing-machines/
+- Capping machines (Jam, pickles and sauces manufacturing assets / Filling and sealing assets / Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-capping-machines/
+- Denesters (Filling and sealing assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/denesters/
 - Filling machines (including aseptic, bucket and portion control): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-filling-machines/
 - Jar de-palletisers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jar-de-palletisers/
 - Lid descramblers, cap sorters and hoppers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/lid-descramblers-cap-sorters-and-hoppers/
-- Carton erecting, packing and closing machines (including cartoners): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-carton-erecting-packing-and-closing-machines/
-- Palletisers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-palletisers/
+- Carton erecting, packing and closing machines (including cartoners) (Jam, pickles and sauces manufacturing assets / Packaging assets / Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-carton-erecting-packing-and-closing-machines/
+- Palletisers (Jam, pickles and sauces manufacturing assets / Packaging assets / Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-palletisers/
 - Brush finishers and pulper finishers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/brush-finishers-and-pulper-finishers/
-- Cookers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-cookers/
+- Cookers (Jam, pickles and sauces manufacturing assets / Processing assets / Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-cookers/
 - Cooling tunnels (including water cooling tunnels): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-cooling-tunnels/
 - Micro filters: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/micro-filters/
-- Pasteurisers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-pasteurisers/
+- Pasteurisers (Processing assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-pasteurisers/
 - Pectin mixers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/pectin-mixers/
 - Pipes and pipelines (including pigging): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/pipes-and-pipelines/
-- Tanks and vats (including blending, holding and mixing tanks): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-tanks-and-vats/
+- Tanks and vats (including blending, holding and mixing tanks) (Jam, pickles and sauces manufacturing assets / Processing assets / Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-tanks-and-vats/
 - Metal detectors and camera vision scanners: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/metal-detectors-and-camera-vision-scanners/
 - Accumulation tables and turntables: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/accumulation-tables-and-turntables/
 - Air compression assets (including air compressors, air dryers and air receivers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/air-compression-assets/
 - Boilers – see Table B Boilers: https://duguid.com.au/tools/depreciation-rates/asset/boilers/
-- Conveyors: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-conveyors/
+- Conveyors (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-conveyors/
 - Exhaust systems: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/exhaust-systems/
-- Heat exchangers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/heat-exchangers/
+- Heat exchangers (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/heat-exchangers/
 - Pumps (including cavity, diaphragm and lobe): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-pumps/
 - Canning assets (including can loaders, closers and seamers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/canning-assets/
-- Cappers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/cappers/
-- Induction sealers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/induction-sealers/
+- Cappers (Capping machines): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/cappers/
+- Induction sealers (Capping machines): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/induction-sealers/
 - Filling machines (including aseptic, bag in box, cup, direct and piston): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-filling-machines/
-- Carton erecting, packing and closing machines (including cartoners): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/carton-erecting-packing-and-closing-machines-d001c0/
-- Labellers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-labellers/
+- Carton erecting, packing and closing machines (including cartoners) (Preserved fruit and vegetable manufacturing assets / Packaging assets / Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/carton-erecting-packing-and-closing-machines-d001c0/
+- Labellers (Preserved fruit and vegetable manufacturing assets / Packaging assets / Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-labellers/
 - Blanchers and paste finishers (including bean and spaghetti): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/blanchers-and-paste-finishers/
 - Concentrates and syrup assets (including centrifuges, decanters and syrupers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/concentrates-and-syrup-assets/
 - Rotary atmospheric sterilisers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/rotary-atmospheric-sterilisers/
 - Rotary pressure sterilisers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/rotary-pressure-sterilisers/
 - Static retorts: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/static-retorts/
 - Crushing mills: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/crushing-mills/
-- Graders: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/graders/
+- Graders (Processing assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/graders/
 - Chemical (including caustic): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/chemical/
 - Mechanical (including ginacas and magnesium scrubbers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/mechanical/
 - Pitters and repitters: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/pitters-and-repitters/
 - Slicers and resizers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/slicers-and-resizers/
-- Tanks and vats (including blending, holding and mixing tanks): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-tanks-and-vats/
-- Colour sorters: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/colour-sorters/
-- Bin tippers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-bin-tippers/
+- Tanks and vats (including blending, holding and mixing tanks) (Preserved fruit and vegetable manufacturing assets / Processing assets / Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-tanks-and-vats/
+- Colour sorters (Quality control and inspection assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/colour-sorters/
+- Bin tippers (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-bin-tippers/
 - Control systems – see Table B Control systems and control system assets: https://duguid.com.au/tools/depreciation-rates/asset/control-systems-and-control-system/
-- Conveyors and elevators: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-conveyors-and-elevators/
-- Filtration systems: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/filtration-systems/
-- Pasteurisers (including heat exchangers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-pasteurisers/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-pumps/
+- Conveyors and elevators (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-conveyors-and-elevators/
+- Filtration systems (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/filtration-systems/
+- Pasteurisers (including heat exchangers) (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-pasteurisers/
+- Pumps (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-pumps/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

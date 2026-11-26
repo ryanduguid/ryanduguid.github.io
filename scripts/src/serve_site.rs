@@ -40,8 +40,9 @@ const ERROR_MESSAGE: &str = r#"<!DOCTYPE HTML>
     </body>
 </html>
 "#;
-/// SimpleHTTPRequestHandler.extensions_map plus the site's `.mjs` entry.
-const EXTENSIONS_MAP: [(&str, &str); 5] = [
+/// Explicit types for compressed files, JavaScript modules and Markdown editions.
+const EXTENSIONS_MAP: [(&str, &str); 6] = [
+    (".md", "text/markdown; charset=utf-8"),
     (".gz", "application/gzip"),
     (".Z", "application/octet-stream"),
     (".bz2", "application/x-bzip2"),
