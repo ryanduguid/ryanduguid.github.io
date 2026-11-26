@@ -48,6 +48,9 @@ const tba = { file: 'assets/transfer-balance.mjs', test: 'scripts/transfer-balan
 const excess = { ...tba, file: 'assets/excess-contributions.mjs' };
 const tbaPage = { ...tba, file: 'assets/transfer-balance-result.mjs' };
 const pm = { file: 'assets/pension-minimum.mjs', test: 'scripts/pension-minimum.test.mjs' };
+const wsDecimal = { file: 'assets/withholding-decimal.mjs', test: individualTest };
+const ws1 = { file: 'assets/withholding-schedule-1.mjs', test: individualTest };
+const ws = { file: 'assets/withholding-schedules.mjs', test: individualTest };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -1322,6 +1325,19 @@ const MUTATIONS = [
   { ...pm, name: 'pension age to 149', find: "whole(input.get('age'), 150)", replace: "whole(input.get('age'), 149)" },
   { ...pm, name: 'pension form counts to 29 June', find: 'Date.UTC(second, 5, 30)', replace: 'Date.UTC(second, 5, 29)' },
   { ...pm, name: 'pension page principal is the balance', find: 'rows, principal: 4, note', replace: 'rows, principal: 0, note' },
+  { ...wsDecimal, name: 'withholding context rounds up', find: 'if (rest > den ||', replace: 'if (rest > 0n ||' },
+  { ...wsDecimal, name: 'withholding rounds a half down', find: '(2n * n * s + a.q) / (2n * a.q)', replace: '(2n * n * s + a.q - 1n) / (2n * a.q)' },
+  { ...ws1, name: 'withholding monthly 33 cents not lifted', find: "add(earnings, dec('0.01'))", replace: "add(earnings, dec('0'))" },
+  { ...ws1, name: 'withholding fortnightly offsets at 4%', find: "fortnightly: '0.038'", replace: "fortnightly: '0.04'" },
+  { ...ws1, name: 'withholding scale 2 shade out at 7%', find: "levy: '0.0200', shadeOut: '0.0800'", replace: "levy: '0.0200', shadeOut: '0.0700'" },
+  { ...ws1, name: 'withholding 2026 53rd pay band', find: '[2575, 7]', replace: '[2575, 6]' },
+  { ...ws, name: 'Schedule 2 at 14%', find: "foreign ? '0.30' : '0.13'", replace: "foreign ? '0.30' : '0.14'" },
+  { ...ws, name: 'daily offsets at 0.40%', find: "dec('0.0038')", replace: "dec('0.0040')" },
+  { ...ws, name: 'no ABN withheld at $75', find: 'cmp(total, int(75)) > 0', replace: 'cmp(total, int(75)) >= 0' },
+  { ...ws, name: 'Schedule 15 top column rounded', find: 'column <= 4 ? halfUp(product)', replace: 'column <= 5 ? halfUp(product)' },
+  { ...ws, name: 'Schedule 10 instalment rate of 20% ignored', find: "cmp(cir.value, dec('0.20')) >= 0", replace: "cmp(cir.value, dec('0.20')) > 0" },
+  { ...ws, name: 'Schedule 9 scales transposed', find: 'exemption * 3 + status + 1', replace: 'status * 3 + exemption + 1' },
+  { ...ws, name: 'Schedule 3 offsets per day', find: 'div(div(/** @type {Q} */ (offsets), int(52)), int(week))', replace: 'div(/** @type {Q} */ (offsets), int(52))' },
 ];
 
 // Runs that must read as invalid, not as caught.
