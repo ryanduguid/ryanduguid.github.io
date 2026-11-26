@@ -101,7 +101,7 @@ const MUTATIONS = [
   { ...insuranceDutyEngine, name: 'Insurance duty: cents rounded down', find: "return quantize(exact, -2, 'half_up');", replace: "return quantize(exact, -2, 'down');" },
   { ...vicPropertyEngine, name: 'VRLT: 3% year charged at 2%', find: 'const index = !previous ? 0 : before ? 2 : 1;', replace: 'const index = !previous ? 0 : 1;' },
   { ...vicPropertyEngine, name: 'WGT: negative uplifts counted', find: 'if (cmp(uplift, dec(0n)) > 0) taxable = add(taxable, uplift);', replace: 'taxable = add(taxable, uplift);' },
-  { ...vicPropertyEngine, name: 'WGT: 50% band from $500,001', find: 'cmp(taxable, dec(500000n)) < 0 ?', replace: 'cmp(taxable, dec(500000n)) <= 0 ?' },
+  { ...vicPropertyEngine, name: 'WGT: 50% band above $500,000 dropped', find: 'cmp(taxable, dec(500000n)) < 0 ?', replace: 'true ?' },
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
   { ...levy, name: 'formula B takes all of the aggregate', find: '(aggregate * 3) / 4', replace: '(aggregate * 4) / 4' },
   { ...levy, name: 'eligible wages take the lesser formula', find: 'Math.max(formulaA, formulaB)', replace: 'Math.min(formulaA, formulaB)' },
