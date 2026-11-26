@@ -8,173 +8,174 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-produc
 
 67 effective lives in Table A of the Commissioner’s 2025 effective life determination for Petroleum product wholesaling.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Rows of Petroleum product wholesaling. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Bulk fuel regional depot assets (excluding LPG assets): | | | |
-Bulk fuel regional depot assets (excluding LPG assets): / Cathodic protection systems: | | | |
-Bulk fuel regional depot assets (excluding LPG assets): / Cathodic protection systems: / Impressed current | 20 years | 5.00% | 10.00% | 1 July 2010
-Bulk fuel regional depot assets (excluding LPG assets): / Cathodic protection systems: / Sacrificial anode | 10 years | 10.00% | 20.00% | 1 July 2010
+Asset group · Bulk fuel regional depot assets (excluding LPG assets): | | | |
+Asset group · Bulk fuel regional depot assets (excluding LPG assets): / Cathodic protection systems: | | | |
+Bulk fuel regional depot assets (excluding LPG assets): / Cathodic protection systems: / Impressed current (Bulk fuel regional depot assets (excluding LPG assets) / Cathodic protection systems / Petroleum product wholesaling) | 20 years | 5.00% | 10.00% | 1 July 2010
+Bulk fuel regional depot assets (excluding LPG assets): / Cathodic protection systems: / Sacrificial anode (Bulk fuel regional depot assets (excluding LPG assets) / Cathodic protection systems / Petroleum product wholesaling) | 10 years | 10.00% | 20.00% | 1 July 2010
 Bulk fuel regional depot assets (excluding LPG assets): / Effluent treatment system (incorporating pumps, motors and electronic circuitry) | 15 years | 6.67% | 13.33% | 1 July 2010
 Bulk fuel regional depot assets (excluding LPG assets): / Electric pumps | 10 years | 10.00% | 20.00% | 1 July 2010
-Bulk fuel regional depot assets (excluding LPG assets): / Hoses | 2 years | 50.00% | 100.00% | 1 July 2010
+Bulk fuel regional depot assets (excluding LPG assets): / Hoses (Bulk fuel regional depot assets …) | 2 years | 50.00% | 100.00% | 1 July 2010
 Bulk fuel regional depot assets (excluding LPG assets): / Loading gantries and racks (incorporating meters and metering systems) | 15 years | 6.67% | 13.33% | 1 July 2010
 Bulk fuel regional depot assets (excluding LPG assets): / Petroleum product storage tanks – fibreglass and steel | 20 years | 5.00% | 10.00% | 1 July 2010
-Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: | | | |
+Asset group · Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: | | | |
 Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: / Aluminium tanks or barrels | 10 years | 10.00% | 20.00% | 1 July 2010
-Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: / Filters | 5 years | 20.00% | 40.00% | 1 July 2010
-Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: / Metering systems | 5 years | 20.00% | 40.00% | 1 July 2010
-Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: / Overfill protection systems | 10 years | 10.00% | 20.00% | 1 July 2010
-Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: / Pumping systems: | | | |
-Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: / Pumping systems: / Guns and nozzles | 3 years | 33.33% | 66.67% | 1 July 2010
-Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: / Pumping systems: / Hose reels | 7 years | 14.29% | 28.57% | 1 July 2010
-Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: / Pumping systems: / Hoses | 2 years | 50.00% | 100.00% | 1 July 2010
+Bulk fuel regional depot assets (excluding LPG assets): / Filters (Rigid fuel tank truck assets) | 5 years | 20.00% | 40.00% | 1 July 2010
+Bulk fuel regional depot assets (excluding LPG assets): / Metering systems (Rigid fuel tank truck assets) | 5 years | 20.00% | 40.00% | 1 July 2010
+Bulk fuel regional depot assets (excluding LPG assets): / Overfill protection systems (Rigid fuel tank truck assets) | 10 years | 10.00% | 20.00% | 1 July 2010
+Asset group · Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: / Pumping systems: | | | |
+Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: / Pumping systems: / Guns and nozzles (Bulk fuel regional depot assets (excluding LPG assets) / Rigid fuel tank truck assets / Pumping systems / Petroleum product wholesaling) | 3 years | 33.33% | 66.67% | 1 July 2010
+Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: / Pumping systems: / Hose reels (Bulk fuel regional depot assets (excluding LPG assets) / Rigid fuel tank truck assets / Pumping systems / Petroleum product wholesaling) | 7 years | 14.29% | 28.57% | 1 July 2010
+Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: / Pumping systems: / Hoses (Bulk fuel regional depot assets (excluding LPG assets) / Rigid fuel tank truck assets / Pumping systems / Petroleum product wholesaling) | 2 years | 50.00% | 100.00% | 1 July 2010
 Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: / Pumping systems: / Hydraulically driven pumps | 8 years | 12.50% | 25.00% | 1 July 2010
-Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: / Pumping systems: / Pipes and fittings | 10 years | 10.00% | 20.00% | 1 July 2010
+Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: / Pumping systems: / Pipes and fittings (Bulk fuel regional depot assets (excluding LPG assets) / Rigid fuel tank truck assets / Pumping systems / Petroleum product wholesaling) | 10 years | 10.00% | 20.00% | 1 July 2010
 Bulk fuel regional depot assets (excluding LPG assets): / Rigid fuel tank truck assets: / Tailgate loaders | 15 years | 6.67% | 13.33% | 1 July 2010
 Bulk fuel regional depot assets (excluding LPG assets): / Single or multi product gasoline and diesoline dispensers (incorporating meters, electronic circuitry, LCD displays, cash presets, hoses, automatic nozzles and steel cabinets and, where applicable, vapour recovery monitoring and collection systems) | 10 years | 10.00% | 20.00% | 1 July 2010
 Bulk fuel regional depot assets (excluding LPG assets): / Single or multi product gasoline and diesoline pumps (incorporating pump units, meter, electronic circuitry, LCD displays, cash presets, hoses, automatic nozzles, steel cabinets and, where applicable, vapour recovery monitoring and collection systems) | 10 years | 10.00% | 20.00% | 1 July 2010
-Bulk fuel regional depot assets (excluding LPG assets): / Submersible turbine pumps | 8 years | 12.50% | 25.00% | 1 July 2010
+Bulk fuel regional depot assets (excluding LPG assets): / Submersible turbine pumps (Bulk fuel regional depot assets …) | 8 years | 12.50% | 25.00% | 1 July 2010
 Bulk fuel regional depot assets (excluding LPG assets): / Underground distribution piping systems (incorporating pipes, fittings and manholes) fibreglass and steel | 20 years | 5.00% | 10.00% | 1 July 2010
-Bulk fuel terminal assets (excluding LPG assets): | | | |
-Bulk fuel terminal assets (excluding LPG assets): / Automatic tank gauges | 10 years | 10.00% | 20.00% | 1 July 2010
+Asset group · Bulk fuel terminal assets (excluding LPG assets): | | | |
+Bulk fuel terminal assets (excluding LPG assets): / Automatic tank gauges (Bulk fuel terminal assets …) | 10 years | 10.00% | 20.00% | 1 July 2010
 Bulk fuel terminal assets (excluding LPG assets): / Effluent treatment systems (incorporating air pump, pipes, separator and tank) | 10 years | 10.00% | 20.00% | 1 July 2010
 Bulk fuel terminal assets (excluding LPG assets): / Fire protection systems (incorporating auxiliary monitors, fire and UV detectors, fire indicator anels, fire retardant lines and foam storage tank) | 15 years | 6.67% | 13.33% | 1 July 2010
-Bulk fuel terminal assets (excluding LPG assets): / Hoses | 2 years | 50.00% | 100.00% | 1 July 2010
-Bulk fuel terminal assets (excluding LPG assets): / Loading and unloading arms (incorporating balance mechanisms, couplers, drop hoses and swivels) | 10 years | 10.00% | 20.00% | 1 July 2010
+Bulk fuel terminal assets (excluding LPG assets): / Hoses (Bulk fuel terminal assets …) | 2 years | 50.00% | 100.00% | 1 July 2010
+Bulk fuel terminal assets (excluding LPG assets): / Loading and unloading arms (incorporating balance mechanisms, couplers, drop hoses and swivels) (Bulk fuel terminal assets …) | 10 years | 10.00% | 20.00% | 1 July 2010
 Bulk fuel terminal assets (excluding LPG assets): / Marketing pumps | 7 years | 14.29% | 28.57% | 1 July 2010
-Bulk fuel terminal assets (excluding LPG assets): / Meters and metering systems | 7 years | 14.29% | 28.57% | 1 July 2010
-Bulk fuel terminal assets (excluding LPG assets): / Overfill protection systems | 10 years | 10.00% | 20.00% | 1 July 2010
+Bulk fuel terminal assets (excluding LPG assets): / Meters and metering systems (Bulk fuel terminal assets …) | 7 years | 14.29% | 28.57% | 1 July 2010
+Bulk fuel terminal assets (excluding LPG assets): / Overfill protection systems (Bulk fuel terminal assets …) | 10 years | 10.00% | 20.00% | 1 July 2010
 Bulk fuel terminal assets (excluding LPG assets): / Product piping (steel) | 20 years | 5.00% | 10.00% | 1 July 2010
 Bulk fuel terminal assets (excluding LPG assets): / Terminal automation equipment | 10 years | 10.00% | 20.00% | 1 July 2010
 Bulk fuel terminal assets (excluding LPG assets): / Vapour recovery units | 15 years | 6.67% | 13.33% | 1 July 2010
-LPG depot and terminal assets: | | | |
-LPG depot and terminal assets: / Automatic tank gauges | 10 years | 10.00% | 20.00% | 1 July 2010
-LPG depot and terminal assets: / Cathodic protection systems: | | | |
-LPG depot and terminal assets: / Cathodic protection systems: / Impressed current | 20 years | 5.00% | 10.00% | 1 July 2010
-LPG depot and terminal assets: / Cathodic protection systems: / Sacrificial anode | 10 years | 10.00% | 20.00% | 1 July 2010
+Asset group · LPG depot and terminal assets: | | | |
+Automatic tank gauges (LPG depot and terminal assets) | 10 years | 10.00% | 20.00% | 1 July 2010
+Asset group · LPG depot and terminal assets: / Cathodic protection systems: | | | |
+LPG depot and terminal assets: / Cathodic protection systems: / Impressed current (LPG depot and terminal assets / Cathodic protection systems / Petroleum product wholesaling) | 20 years | 5.00% | 10.00% | 1 July 2010
+LPG depot and terminal assets: / Cathodic protection systems: / Sacrificial anode (LPG depot and terminal assets / Cathodic protection systems / Petroleum product wholesaling) | 10 years | 10.00% | 20.00% | 1 July 2010
 LPG depot and terminal assets: / Depot and terminal storage vessels – above ground and underground | 30 years | 3.33% | 6.67% | 1 July 2010
 LPG depot and terminal assets: / Electronic scales | 10 years | 10.00% | 20.00% | 1 July 2010
-LPG depot and terminal assets: / Forklift fuel tanks: | | | |
+Asset group · LPG depot and terminal assets: / Forklift fuel tanks: | | | |
 LPG depot and terminal assets: / Forklift fuel tanks: / Galvanised steel or steel tanks coated with zinc rich enamel | 15 years | 6.67% | 13.33% | 1 July 2010
 LPG depot and terminal assets: / Forklift fuel tanks: / Aluminium tanks | 12 years | 8.33% | 16.67% | 1 July 2010
-LPG depot and terminal assets: / Hoses | 5 years | 20.00% | 40.00% | 1 July 2010
+Hoses (LPG depot and terminal assets) | 5 years | 20.00% | 40.00% | 1 July 2010
 LPG depot and terminal assets: / In-situ permanently installed cylinders | 30 years | 3.33% | 6.67% | 1 July 2010
-LPG depot and terminal assets: / Leak detection systems | 8 years | 12.50% | 25.00% | 1 July 2010
+Leak detection systems (LPG depot and terminal assets) | 8 years | 12.50% | 25.00% | 1 July 2010
 LPG depot and terminal assets: / Leisure market cylinders (4.5 and 9 kgs capacity) | 15 years | 6.67% | 13.33% | 1 July 2010
-LPG depot and terminal assets: / Loading arms: | | | |
-LPG depot and terminal assets: / Loading arms: / Marine | 25 years | 4.00% | 8.00% | 1 July 2010
-LPG depot and terminal assets: / Loading arms: / Terminal | 10 years | 10.00% | 20.00% | 1 July 2010
-LPG depot and terminal assets: / LPG fleet refuelling facility: | | | |
-LPG depot and terminal assets: / LPG fleet refuelling facility: / Dispenser | 10 years | 10.00% | 20.00% | 1 July 2010
-LPG depot and terminal assets: / LPG fleet refuelling facility: / Guns and nozzles | 3 years | 33.33% | 66.67% | 1 July 2010
-LPG depot and terminal assets: / LPG fleet refuelling facility: / Hoses | 5 years | 20.00% | 40.00% | 1 July 2010
-LPG depot and terminal assets: / LPG fleet refuelling facility: / Meters | 7 years | 14.29% | 28.57% | 1 July 2010
-LPG depot and terminal assets: / LPG fleet refuelling facility: / Piping | 20 years | 5.00% | 10.00% | 1 July 2010
+Asset group · LPG depot and terminal assets: / Loading arms: | | | |
+LPG depot and terminal assets: / Marine (Loading arms) | 25 years | 4.00% | 8.00% | 1 July 2010
+LPG depot and terminal assets: / Terminal (Loading arms) | 10 years | 10.00% | 20.00% | 1 July 2010
+Asset group · LPG depot and terminal assets: / LPG fleet refuelling facility: | | | |
+LPG depot and terminal assets: / Dispenser (LPG fleet refuelling facility) | 10 years | 10.00% | 20.00% | 1 July 2010
+LPG depot and terminal assets: / Guns and nozzles (LPG fleet refuelling facility) | 3 years | 33.33% | 66.67% | 1 July 2010
+LPG depot and terminal assets: / Hoses (LPG fleet refuelling facility) | 5 years | 20.00% | 40.00% | 1 July 2010
+LPG depot and terminal assets: / Meters (LPG fleet refuelling facility) | 7 years | 14.29% | 28.57% | 1 July 2010
+LPG depot and terminal assets: / Piping (LPG fleet refuelling facility) | 20 years | 5.00% | 10.00% | 1 July 2010
 LPG depot and terminal assets: / LPG fleet refuelling facility: / Pump sets | 10 years | 10.00% | 20.00% | 1 July 2010
 LPG depot and terminal assets: / LPG fleet refuelling facility: / Storage tanks | 30 years | 3.33% | 6.67% | 1 July 2010
-LPG depot and terminal assets: / LPG fleet refuelling facility: / Valves | 10 years | 10.00% | 20.00% | 1 July 2010
-LPG depot and terminal assets: / LPG tank truck assets: | | | |
+LPG depot and terminal assets: / Valves (LPG fleet refuelling facility) | 10 years | 10.00% | 20.00% | 1 July 2010
+Asset group · LPG depot and terminal assets: / LPG tank truck assets: | | | |
 LPG depot and terminal assets: / LPG tank truck assets: / LPG storage tanks | 20 years | 5.00% | 10.00% | 1 July 2010
-LPG depot and terminal assets: / LPG tank truck assets: / Metering systems | 7 years | 14.29% | 28.57% | 1 July 2010
-LPG depot and terminal assets: / LPG tank truck assets: / Pumping systems: | | | |
-LPG depot and terminal assets: / LPG tank truck assets: / Pumping systems: / Guns and nozzles | 3 years | 33.33% | 66.67% | 1 July 2010
-LPG depot and terminal assets: / LPG tank truck assets: / Pumping systems: / Hoses | 5 years | 20.00% | 40.00% | 1 July 2010
-LPG depot and terminal assets: / LPG tank truck assets: / Pumping systems: / Hose reels | 7 years | 14.29% | 28.57% | 1 July 2010
-LPG depot and terminal assets: / LPG tank truck assets: / Pumping systems: / Pipes and fittings | 7 years | 14.29% | 28.57% | 1 July 2010
-LPG depot and terminal assets: / LPG tank truck assets: / Pumping systems: / Pumps | 7 years | 14.29% | 28.57% | 1 July 2010
-LPG depot and terminal assets: / LPG tank truck assets: / Pumping systems: / Valves | 7 years | 14.29% | 28.57% | 1 July 2010
-LPG depot and terminal assets: / Product piping systems: | | | |
-LPG depot and terminal assets: / Product piping systems: / Pipes | 20 years | 5.00% | 10.00% | 1 July 2010
-LPG depot and terminal assets: / Product piping systems: / Valves | 10 years | 10.00% | 20.00% | 1 July 2010
-LPG depot and terminal assets: / Pumps | 7 years | 14.29% | 28.57% | 1 July 2010
-LPG depot and terminal assets: / Stillages | 5 years | 20.00% | 40.00% | 1 July 2010
+LPG depot and terminal assets: / Metering systems (LPG tank truck assets) | 7 years | 14.29% | 28.57% | 1 July 2010
+Asset group · LPG depot and terminal assets: / LPG tank truck assets: / Pumping systems: | | | |
+LPG depot and terminal assets: / LPG tank truck assets: / Pumping systems: / Guns and nozzles (LPG depot and terminal assets / LPG tank truck assets / Pumping systems / Petroleum product wholesaling) | 3 years | 33.33% | 66.67% | 1 July 2010
+LPG depot and terminal assets: / LPG tank truck assets: / Pumping systems: / Hoses (LPG depot and terminal assets / LPG tank truck assets / Pumping systems / Petroleum product wholesaling) | 5 years | 20.00% | 40.00% | 1 July 2010
+LPG depot and terminal assets: / LPG tank truck assets: / Pumping systems: / Hose reels (LPG depot and terminal assets / LPG tank truck assets / Pumping systems / Petroleum product wholesaling) | 7 years | 14.29% | 28.57% | 1 July 2010
+LPG depot and terminal assets: / LPG tank truck assets: / Pumping systems: / Pipes and fittings (LPG depot and terminal assets / LPG tank truck assets / Pumping systems / Petroleum product wholesaling) | 7 years | 14.29% | 28.57% | 1 July 2010
+LPG depot and terminal assets: / LPG tank truck assets: / Pumps (Pumping systems) | 7 years | 14.29% | 28.57% | 1 July 2010
+LPG depot and terminal assets: / LPG tank truck assets: / Valves (Pumping systems) | 7 years | 14.29% | 28.57% | 1 July 2010
+Asset group · LPG depot and terminal assets: / Product piping systems: | | | |
+LPG depot and terminal assets: / Pipes (Product piping systems) | 20 years | 5.00% | 10.00% | 1 July 2010
+LPG depot and terminal assets: / Valves (Product piping systems) | 10 years | 10.00% | 20.00% | 1 July 2010
+Pumps (LPG depot and terminal assets) | 7 years | 14.29% | 28.57% | 1 July 2010
+Stillages (LPG depot and terminal assets) | 5 years | 20.00% | 40.00% | 1 July 2010
 LPG depot and terminal assets: / Vapour recovery units and vapour compressors | 7 years | 14.29% | 28.57% | 1 July 2010
-LPG depot and terminal assets: / Weighbridges | 25 years | 4.00% | 8.00% | 1 July 2010
+Weighbridges (LPG depot and terminal assets) | 25 years | 4.00% | 8.00% | 1 July 2010
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
-- Impressed current: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-regional-depot-assets-impressed-current/
-- Sacrificial anode: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-regional-depot-assets-sacrificial-anode/
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/#source
+- Impressed current (Bulk fuel regional depot assets (excluding LPG assets) / Cathodic protection systems / Petroleum product wholesaling): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-regional-depot-assets-impressed-current/
+- Sacrificial anode (Bulk fuel regional depot assets (excluding LPG assets) / Cathodic protection systems / Petroleum product wholesaling): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-regional-depot-assets-sacrificial-anode/
 - Effluent treatment system (incorporating pumps, motors and electronic circuitry): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/effluent-treatment-system/
 - Electric pumps: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/electric-pumps/
-- Hoses: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/hoses-52c4d5/
+- Hoses (Bulk fuel regional depot assets …): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/hoses-52c4d5/
 - Loading gantries and racks (incorporating meters and metering systems): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/loading-gantries-and-racks/
 - Petroleum product storage tanks – fibreglass and steel: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/petroleum-product-storage-tanks-fibreglass-and-steel/
 - Aluminium tanks or barrels: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/aluminium-tanks-or-barrels/
-- Filters: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/filters/
-- Metering systems: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-regional-depot-assets-metering-systems/
-- Overfill protection systems: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-regional-depot-assets-overfill-protection-systems/
-- Guns and nozzles: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-regional-depot-assets-guns-and-nozzles/
-- Hose reels: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-regional-depot-assets-hose-reels/
-- Hoses: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-regional-depot-assets-pumping-systems-hoses/
+- Filters (Rigid fuel tank truck assets): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/filters/
+- Metering systems (Rigid fuel tank truck assets): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-regional-depot-assets-metering-systems/
+- Overfill protection systems (Rigid fuel tank truck assets): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-regional-depot-assets-overfill-protection-systems/
+- Guns and nozzles (Bulk fuel regional depot assets (excluding LPG assets) / Rigid fuel tank truck assets / Pumping systems / Petroleum product wholesaling): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-regional-depot-assets-guns-and-nozzles/
+- Hose reels (Bulk fuel regional depot assets (excluding LPG assets) / Rigid fuel tank truck assets / Pumping systems / Petroleum product wholesaling): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-regional-depot-assets-hose-reels/
+- Hoses (Bulk fuel regional depot assets (excluding LPG assets) / Rigid fuel tank truck assets / Pumping systems / Petroleum product wholesaling): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-regional-depot-assets-pumping-systems-hoses/
 - Hydraulically driven pumps: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/hydraulically-driven-pumps/
-- Pipes and fittings: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-regional-depot-assets-pipes-and-fittings/
+- Pipes and fittings (Bulk fuel regional depot assets (excluding LPG assets) / Rigid fuel tank truck assets / Pumping systems / Petroleum product wholesaling): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-regional-depot-assets-pipes-and-fittings/
 - Tailgate loaders: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/tailgate-loaders/
 - Single or multi product gasoline and diesoline dispensers (incorporating meters, electronic circuitry, LCD displays, cash presets, hoses, automatic nozzles and steel cabinets and, where applicable, vapour recovery monitoring and collection systems): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/single-or-multi-product-gasoline-and-diesoline-dispensers/
 - Single or multi product gasoline and diesoline pumps (incorporating pump units, meter, electronic circuitry, LCD displays, cash presets, hoses, automatic nozzles, steel cabinets and, where applicable, vapour recovery monitoring and collection systems): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/single-or-multi-product-gasoline-and-diesoline-pumps/
-- Submersible turbine pumps: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/submersible-turbine-pumps/
+- Submersible turbine pumps (Bulk fuel regional depot assets …): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/submersible-turbine-pumps/
 - Underground distribution piping systems (incorporating pipes, fittings and manholes) fibreglass and steel: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/underground-distribution-piping-systems-fibreglass-and-steel/
-- Automatic tank gauges: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-terminal-assets-automatic-tank-gauges/
+- Automatic tank gauges (Bulk fuel terminal assets …): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-terminal-assets-automatic-tank-gauges/
 - Effluent treatment systems (incorporating air pump, pipes, separator and tank): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/effluent-treatment-systems/
 - Fire protection systems (incorporating auxiliary monitors, fire and UV detectors, fire indicator anels, fire retardant lines and foam storage tank): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/fire-protection-systems/
-- Hoses: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-terminal-assets-hoses/
-- Loading and unloading arms (incorporating balance mechanisms, couplers, drop hoses and swivels): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/loading-and-unloading-arms/
+- Hoses (Bulk fuel terminal assets …): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-terminal-assets-hoses/
+- Loading and unloading arms (incorporating balance mechanisms, couplers, drop hoses and swivels) (Bulk fuel terminal assets …): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/loading-and-unloading-arms/
 - Marketing pumps: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/marketing-pumps/
-- Meters and metering systems: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/meters-and-metering-systems/
-- Overfill protection systems: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-terminal-assets-overfill-protection-systems/
+- Meters and metering systems (Bulk fuel terminal assets …): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/meters-and-metering-systems/
+- Overfill protection systems (Bulk fuel terminal assets …): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/bulk-fuel-terminal-assets-overfill-protection-systems/
 - Product piping (steel): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/product-piping/
 - Terminal automation equipment: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/terminal-automation-equipment/
 - Vapour recovery units: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/vapour-recovery-units/
-- Automatic tank gauges: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-automatic-tank-gauges/
-- Impressed current: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-impressed-current/
-- Sacrificial anode: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-sacrificial-anode/
+- Automatic tank gauges (LPG depot and terminal assets): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-automatic-tank-gauges/
+- Impressed current (LPG depot and terminal assets / Cathodic protection systems / Petroleum product wholesaling): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-impressed-current/
+- Sacrificial anode (LPG depot and terminal assets / Cathodic protection systems / Petroleum product wholesaling): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-sacrificial-anode/
 - Depot and terminal storage vessels – above ground and underground: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/depot-and-terminal-storage-vessels-above-ground-and/
 - Electronic scales: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/electronic-scales/
 - Galvanised steel or steel tanks coated with zinc rich enamel: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/galvanised-steel-or-steel-tanks-coated-with-zinc-rich-enamel/
 - Aluminium tanks: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/aluminium-tanks/
-- Hoses: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/hoses-29bf2f/
+- Hoses (LPG depot and terminal assets): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/hoses-29bf2f/
 - In-situ permanently installed cylinders: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/in-situ-permanently-installed-cylinders/
-- Leak detection systems: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/leak-detection-systems/
+- Leak detection systems (LPG depot and terminal assets): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/leak-detection-systems/
 - Leisure market cylinders (4.5 and 9 kgs capacity): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/leisure-market-cylinders/
-- Marine: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/marine/
-- Terminal: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/terminal/
-- Dispenser: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/dispenser/
-- Guns and nozzles: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-fleet-refuelling-facility-guns-and-nozzles/
-- Hoses: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-fleet-refuelling-facility-hoses/
-- Meters: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/meters/
-- Piping: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/piping/
+- Marine (Loading arms): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/marine/
+- Terminal (Loading arms): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/terminal/
+- Dispenser (LPG fleet refuelling facility): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/dispenser/
+- Guns and nozzles (LPG fleet refuelling facility): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-fleet-refuelling-facility-guns-and-nozzles/
+- Hoses (LPG fleet refuelling facility): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-fleet-refuelling-facility-hoses/
+- Meters (LPG fleet refuelling facility): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/meters/
+- Piping (LPG fleet refuelling facility): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/piping/
 - Pump sets: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/pump-sets/
 - Storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/storage-tanks/
-- Valves: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-fleet-refuelling-facility-valves/
+- Valves (LPG fleet refuelling facility): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-fleet-refuelling-facility-valves/
 - LPG storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-storage-tanks/
-- Metering systems: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-metering-systems/
-- Guns and nozzles: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/pumping-systems-guns-and-nozzles/
-- Hoses: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-pumping-systems-hoses/
-- Hose reels: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-hose-reels/
-- Pipes and fittings: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-pipes-and-fittings/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/pumping-systems-pumps/
-- Valves: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/pumping-systems-valves/
-- Pipes: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/pipes/
-- Valves: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/product-piping-systems-valves/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/pumps-c5fcd9/
-- Stillages: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/stillages/
+- Metering systems (LPG tank truck assets): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-metering-systems/
+- Guns and nozzles (LPG depot and terminal assets / LPG tank truck assets / Pumping systems / Petroleum product wholesaling): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/pumping-systems-guns-and-nozzles/
+- Hoses (LPG depot and terminal assets / LPG tank truck assets / Pumping systems / Petroleum product wholesaling): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-pumping-systems-hoses/
+- Hose reels (LPG depot and terminal assets / LPG tank truck assets / Pumping systems / Petroleum product wholesaling): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-hose-reels/
+- Pipes and fittings (LPG depot and terminal assets / LPG tank truck assets / Pumping systems / Petroleum product wholesaling): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-pipes-and-fittings/
+- Pumps (Pumping systems): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/pumping-systems-pumps/
+- Valves (Pumping systems): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/pumping-systems-valves/
+- Pipes (Product piping systems): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/pipes/
+- Valves (Product piping systems): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/product-piping-systems-valves/
+- Pumps (LPG depot and terminal assets): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/pumps-c5fcd9/
+- Stillages (LPG depot and terminal assets): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/stillages/
 - Vapour recovery units and vapour compressors: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/vapour-recovery-units-and-vapour-compressors/
-- Weighbridges: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/weighbridges/
+- Weighbridges (LPG depot and terminal assets): https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/weighbridges/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

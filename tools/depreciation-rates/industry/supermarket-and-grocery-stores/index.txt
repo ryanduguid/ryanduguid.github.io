@@ -8,35 +8,35 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-
 
 62 effective lives in Table A of the Commissioner’s 2025 effective life determination for Supermarket and grocery stores.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Rows of Supermarket and grocery stores. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Bakery assets: | | | |
+Asset group · Bakery assets: | | | |
 Bakery assets: / Bakery display assets, non-refrigerated (including freestanding display cabinets, cases, racks, shelves and stands) | 10 years | 10.00% | 20.00% | 1 July 2020
 Bakery assets: / Bakery trolleys | 12 years | 8.33% | 16.67% | 1 July 2020
-Bakery assets: / Bread slicers | 10 years | 10.00% | 20.00% | 1 July 2020
+Bread slicers (Bakery assets) | 10 years | 10.00% | 20.00% | 1 July 2020
 Bakery assets: / Bun divider rounders | 10 years | 10.00% | 20.00% | 1 July 2020
 Bakery assets: / Doughnut making machines | 8 years | 12.50% | 25.00% | 1 July 2020
-Bakery assets: / Hydraulic dough dividers | 10 years | 10.00% | 20.00% | 1 July 2020
+Hydraulic dough dividers (Bakery assets) | 10 years | 10.00% | 20.00% | 1 July 2020
 Bakery assets: / Mixers (including planetary and spiral mixers) | 10 years | 10.00% | 20.00% | 1 July 2020
-Bakery assets: / Moulders | 12 years | 8.33% | 16.67% | 1 July 2020
-Bakery assets: / Ovens | 10 years | 10.00% | 20.00% | 1 July 2020
+Moulders (Bakery assets) | 12 years | 8.33% | 16.67% | 1 July 2020
+Ovens (Bakery assets) | 10 years | 10.00% | 20.00% | 1 July 2020
 Bakery assets: / Provers and retarder provers | 8 years | 12.50% | 25.00% | 1 July 2020
-Butcher assets: | | | |
-Butcher assets: / Bandsaws | 10 years | 10.00% | 20.00% | 1 July 2020
-Butcher assets: / Meat: | | | |
-Butcher assets: / Meat: / Mincers | 10 years | 10.00% | 20.00% | 1 July 2020
-Butcher assets: / Meat: / Tenderisers | 10 years | 10.00% | 20.00% | 1 July 2020
+Asset group · Butcher assets: | | | |
+Bandsaws (Butcher assets) | 10 years | 10.00% | 20.00% | 1 July 2020
+Asset group · Butcher assets: / Meat: | | | |
+Butcher assets: / Mincers (Meat) | 10 years | 10.00% | 20.00% | 1 July 2020
+Butcher assets: / Tenderisers (Meat) | 10 years | 10.00% | 20.00% | 1 July 2020
 Butcher assets: / Meat trolleys | 12 years | 8.33% | 16.67% | 1 July 2020
-Butcher assets: / Sausage filling machines | 10 years | 10.00% | 20.00% | 1 July 2020
-Deli Assets: | | | |
+Sausage filling machines (Butcher assets) | 10 years | 10.00% | 20.00% | 1 July 2020
+Asset group · Deli Assets: | | | |
 Deli Assets: / Cheese cutters | 10 years | 10.00% | 20.00% | 1 July 2020
 Deli Assets: / Cheese graters | 10 years | 10.00% | 20.00% | 1 July 2020
-Deli Assets: / Coffee making machines (including espresso and drip filter type machines) | 5 years | 20.00% | 40.00% | 1 July 2020
+Coffee making machines (including espresso and drip filter type machines) (Deli Assets) | 5 years | 20.00% | 40.00% | 1 July 2020
 Deli Assets: / Contact grills | 10 years | 10.00% | 20.00% | 1 July 2020
 Deli Assets: / Deep fryers | 10 years | 10.00% | 20.00% | 1 July 2020
 Deli Assets: / Deli slicers | 10 years | 10.00% | 20.00% | 1 July 2020
@@ -45,81 +45,82 @@ Deli Assets: / Juicing machines, commercial type | 8 years | 12.50% | 25.00% | 1
 Deli Assets: / Ovens (including chicken ovens and smoker ovens) | 10 years | 10.00% | 20.00% | 1 July 2020
 Deli Assets: / Popcorn machines | 8 years | 12.50% | 25.00% | 1 July 2020
 Deli Assets: / Sushi making assets (including rice cookers, rice mixers and sushi robots) | 7 years | 14.29% | 28.57% | 1 July 2020
-Produce assets: | | | |
+Asset group · Produce assets: | | | |
 Produce assets: / Display barrels | 10 years | 10.00% | 20.00% | 1 July 2020
 Produce assets: / Produce bins | 12 years | 8.33% | 16.67% | 1 July 2020
 Produce assets: / Scales (including bench scales and hanging scales) | 8 years | 12.50% | 25.00% | 1 July 2020
-Refrigeration and freezing assets: | | | |
+Asset group · Refrigeration and freezing assets: | | | |
 Refrigeration and freezing assets: / Compressors, condensers and evaporators | 10 years | 10.00% | 20.00% | 1 July 2020
 Refrigeration and freezing assets: / Freezers and refrigerators generally (including refrigeration cabinets and cases, standalone chillers, standalone freezers and standalone refrigerators) | 10 years | 10.00% | 20.00% | 1 July 2020
-Refrigeration and freezing assets: / Insulation panels used in cool or freezer rooms | 30 years | 3.33% | 6.67% | 1 July 2020
+Insulation panels used in cool or freezer rooms (Refrigeration and freezing assets) | 30 years | 3.33% | 6.67% | 1 July 2020
 Refrigeration and freezing assets: / Night blinds/covers | 10 years | 10.00% | 20.00% | 1 July 2020
-Support and other assets: | | | |
+Asset group · Support and other assets: | | | |
 Support and other assets: / Automatic entrance swing gates | 10 years | 10.00% | 20.00% | 1 July 2020
-Support and other assets: / Balers (for cardboard and plastic) – see Table B Warehouse and distribution centre equipment and machines | | | |
+Register note · Support and other assets: / Balers (for cardboard and plastic) – see Table B Warehouse and distribution centre equipment and machines | | | |
 Support and other assets: / Benches (stainless steel), free standing | 20 years | 5.00% | 10.00% | 1 July 2020
 Support and other assets: / Bin lifters | 15 years | 6.67% | 13.33% | 1 July 2020
-Support and other assets: / Cash handling assets: | | | |
+Asset group · Support and other assets: / Cash handling assets: | | | |
 Support and other assets: / Cash handling assets: / Coin counters and sorters | 10 years | 10.00% | 20.00% | 1 July 2020
-Support and other assets: / Cash handling assets: / Note counters and sorters | 10 years | 10.00% | 20.00% | 1 July 2020
-Support and other assets: / Cash handling assets: / Safes | 15 years | 6.67% | 13.33% | 1 July 2020
+Support and other assets: / Cash handling assets: / Note counters and sorters (Supermarket and grocery stores) | 10 years | 10.00% | 20.00% | 1 July 2020
+Support and other assets: / Safes (Cash handling assets) | 15 years | 6.67% | 13.33% | 1 July 2020
 Support and other assets: / Cigarette cabinets, free standing | 15 years | 6.67% | 13.33% | 1 July 2020
 Support and other assets: / Counters, free standing (including checkout and service counters) | 10 years | 10.00% | 20.00% | 1 July 2020
-Support and other assets: / Dishwashers | 10 years | 10.00% | 20.00% | 1 July 2020
+Dishwashers (Support and other assets) | 10 years | 10.00% | 20.00% | 1 July 2020
 Support and other assets: / Display racks and stands (including magazine racks/stands) | 10 years | 10.00% | 20.00% | 1 July 2020
 Support and other assets: / Hot water systems (excluding piping) | 12 years | 8.33% | 16.67% | 1 July 2020
 Support and other assets: / Label printers | 5 years | 20.00% | 40.00% | 1 July 2020
 Support and other assets: / Label printing scales | 8 years | 12.50% | 25.00% | 1 July 2020
-Support and other assets: / Labelling guns | 5 years | 20.00% | 40.00% | 1 July 2020
-Support and other assets: / Microwave ovens | 5 years | 20.00% | 40.00% | 1 July 2020
+Labelling guns (Support and other assets) | 5 years | 20.00% | 40.00% | 1 July 2020
+Microwave ovens (Support and other assets) | 5 years | 20.00% | 40.00% | 1 July 2020
 Support and other assets: / Nut grinders/peanut butter makers | 5 years | 20.00% | 40.00% | 1 July 2020
-Support and other assets: / Packaging assets: | | | |
+Asset group · Support and other assets: / Packaging assets: | | | |
 Support and other assets: / Packaging assets: / Automatic labelling wrappers, modified atmosphere packaging (MAP) and vacuum chamber packaging machines | 10 years | 10.00% | 20.00% | 1 July 2020
 Support and other assets: / Packaging assets: / Benchtop heat wrappers | 10 years | 10.00% | 20.00% | 1 July 2020
-Support and other assets: / Point of sale assets: | | | |
-Support and other assets: / Point of sale assets: / Generally (excluding self-checkout registers) – see Table B Point of sale assets | | | |
+Asset group · Support and other assets: / Point of sale assets: | | | |
+Register note · Support and other assets: / Point of sale assets: / Generally (excluding self-checkout registers) – see Table B Point of sale assets | | | |
 Support and other assets: / Point of sale assets: / Self-checkout registers | 6 years | 16.67% | 33.33% | 1 July 2020
 Support and other assets: / Power generators (emergency or standby) | 20 years | 5.00% | 10.00% | 1 July 2020
-Support and other assets: / Racking | 20 years | 5.00% | 10.00% | 1 July 2020
+Racking (Support and other assets) | 20 years | 5.00% | 10.00% | 1 July 2020
 Support and other assets: / Range hood exhaust fans | 12 years | 8.33% | 16.67% | 1 July 2020
 Support and other assets: / Safety steps | 10 years | 10.00% | 20.00% | 1 July 2020
-Support and other assets: / Shelving | 15 years | 6.67% | 13.33% | 1 July 2020
-Support and other assets: / Signage: | | | |
+Shelving (Support and other assets) | 15 years | 6.67% | 13.33% | 1 July 2020
+Asset group · Support and other assets: / Signage: | | | |
 Support and other assets: / Signage: / Aisle signs | 7 years | 14.29% | 28.57% | 1 July 2020
-Support and other assets: / Signage: / Others (such as advertising signs and signage for business identification) – see Table B Advertising signs | | | |
+Register note · Support and other assets: / Signage: / Others (such as advertising signs and signage for business identification) – see Table B Advertising signs | | | |
 Support and other assets: / Stock ladders | 12 years | 8.33% | 16.67% | 1 July 2020
-Support and other assets: / Trolleys, customer shopping type | 7 years | 14.29% | 28.57% | 1 July 2020
+Trolleys, customer shopping type (Support and other assets) | 7 years | 14.29% | 28.57% | 1 July 2020
 Support and other assets: / Trolleys, stock type (including roll cages, platform trolleys, etc) | 10 years | 10.00% | 20.00% | 1 July 2020
 Support and other assets: / UV insect exterminators | 7 years | 14.29% | 28.57% | 1 July 2020
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/#source
 - Bakery display assets, non-refrigerated (including freestanding display cabinets, cases, racks, shelves and stands): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/bakery-display-assets-non-refrigerated/
 - Bakery trolleys: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/bakery-trolleys/
-- Bread slicers: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/bread-slicers/
+- Bread slicers (Bakery assets): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/bread-slicers/
 - Bun divider rounders: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/bun-divider-rounders/
 - Doughnut making machines: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/doughnut-making-machines/
-- Hydraulic dough dividers: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/hydraulic-dough-dividers/
+- Hydraulic dough dividers (Bakery assets): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/hydraulic-dough-dividers/
 - Mixers (including planetary and spiral mixers): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/mixers/
-- Moulders: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/moulders/
-- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/bakery-assets-ovens/
+- Moulders (Bakery assets): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/moulders/
+- Ovens (Bakery assets): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/bakery-assets-ovens/
 - Provers and retarder provers: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/provers-and-retarder-provers/
-- Bandsaws: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/bandsaws/
-- Mincers: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/mincers/
-- Tenderisers: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/tenderisers/
+- Bandsaws (Butcher assets): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/bandsaws/
+- Mincers (Meat): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/mincers/
+- Tenderisers (Meat): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/tenderisers/
 - Meat trolleys: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/meat-trolleys/
-- Sausage filling machines: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/sausage-filling-machines/
+- Sausage filling machines (Butcher assets): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/sausage-filling-machines/
 - Cheese cutters: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/cheese-cutters/
 - Cheese graters: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/cheese-graters/
-- Coffee making machines (including espresso and drip filter type machines): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/coffee-making-machines/
+- Coffee making machines (including espresso and drip filter type machines) (Deli Assets): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/coffee-making-machines/
 - Contact grills: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/contact-grills/
 - Deep fryers: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/deep-fryers/
 - Deli slicers: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/deli-slicers/
@@ -133,42 +134,42 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Scales (including bench scales and hanging scales): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/scales/
 - Compressors, condensers and evaporators: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/compressors-condensers-and-evaporators/
 - Freezers and refrigerators generally (including refrigeration cabinets and cases, standalone chillers, standalone freezers and standalone refrigerators): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/freezers-and-refrigerators-generally/
-- Insulation panels used in cool or freezer rooms: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/insulation-panels-used-in-cool-or-freezer-rooms/
+- Insulation panels used in cool or freezer rooms (Refrigeration and freezing assets): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/insulation-panels-used-in-cool-or-freezer-rooms/
 - Night blinds/covers: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/night-blinds-covers/
 - Automatic entrance swing gates: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/automatic-entrance-swing-gates/
 - Balers (for cardboard and plastic) – see Table B Warehouse and distribution centre equipment and machines: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/
 - Benches (stainless steel), free standing: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/benches-free-standing/
 - Bin lifters: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/bin-lifters/
 - Coin counters and sorters: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/coin-counters-and-sorters/
-- Note counters and sorters: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/note-counters-and-sorters/
-- Safes: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/safes/
+- Note counters and sorters (Supermarket and grocery stores): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/note-counters-and-sorters/
+- Safes (Cash handling assets): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/safes/
 - Cigarette cabinets, free standing: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/cigarette-cabinets-free-standing/
 - Counters, free standing (including checkout and service counters): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/counters-free-standing/
-- Dishwashers: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/dishwashers/
+- Dishwashers (Support and other assets): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/dishwashers/
 - Display racks and stands (including magazine racks/stands): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/display-racks-and-stands/
 - Hot water systems (excluding piping): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/hot-water-systems/
 - Label printers: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/label-printers/
 - Label printing scales: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/label-printing-scales/
-- Labelling guns: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/labelling-guns/
-- Microwave ovens: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/microwave-ovens/
+- Labelling guns (Support and other assets): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/labelling-guns/
+- Microwave ovens (Support and other assets): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/microwave-ovens/
 - Nut grinders/peanut butter makers: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/nut-grinders-peanut-butter-makers/
 - Automatic labelling wrappers, modified atmosphere packaging (MAP) and vacuum chamber packaging machines: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/automatic-labelling-wrappers-modified-atmosphere-packaging/
 - Benchtop heat wrappers: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/benchtop-heat-wrappers/
 - Generally (excluding self-checkout registers) – see Table B Point of sale assets: https://duguid.com.au/tools/depreciation-rates/asset/point-of-sale-assets/
 - Self-checkout registers: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/self-checkout-registers/
 - Power generators (emergency or standby): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/power-generators/
-- Racking: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/racking/
+- Racking (Support and other assets): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/racking/
 - Range hood exhaust fans: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/range-hood-exhaust-fans/
 - Safety steps: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/safety-steps/
-- Shelving: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/shelving/
+- Shelving (Support and other assets): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/shelving/
 - Aisle signs: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/aisle-signs/
 - Others (such as advertising signs and signage for business identification) – see Table B Advertising signs: https://duguid.com.au/tools/depreciation-rates/asset/advertising-signs/
 - Stock ladders: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/stock-ladders/
-- Trolleys, customer shopping type: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/trolleys-customer-shopping-type/
+- Trolleys, customer shopping type (Support and other assets): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/trolleys-customer-shopping-type/
 - Trolleys, stock type (including roll cages, platform trolleys, etc): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/trolleys-stock-type/
 - UV insect exterminators: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/uv-insect-exterminators/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

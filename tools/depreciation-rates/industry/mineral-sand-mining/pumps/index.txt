@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/mineral-sand-mining/pumps/
 
-> Support assets: Pumps: effective life 20 years, prime cost 5.00%, diminishing value 10.00%, last updated 1 January 2003 (Table A, 2025 determination).
+> Support assets: Pumps: life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 January 2003.
 
 # Support assets: Pumps (Mineral sand mining)
 
 ‘Support assets: Pumps’, for an asset used in Mineral sand mining, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2003.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Pumps
 Under | Support assets:
@@ -25,81 +25,86 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in Mineral sand mining takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Mineral sand mining, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
-The life was last reviewed and determined on 1 January 2003. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 January 2003. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Support assets
 
+Other rows under Support assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
-Control systems | 10 years | 10.00% | 20.00%
+Control systems (Mineral sand mining) | 10 years | 10.00% | 20.00%
 Pumps (this page) | 20 years | 5.00% | 10.00%
 
-## The same wording elsewhere
+## Similarly named rows
 
-Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination). The first 20 of 46 are shown.
+Compare the full row description and industry. Similar names can cover different equipment or effective lives under section 6 of the determination. The first 20 of 46 are shown.
+
+Similarly named rows. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
-Pumps | AGRICULTURE, FORESTRY AND FISHING | 3 years | 33.33% | 66.67%
-Pumps | AGRICULTURE, FORESTRY AND FISHING | 12 years | 8.33% | 16.67%
-Pumps | Mushroom growing | 3 years | 33.33% | 66.67%
-Pumps | Fruit and tree nut growing | 3 years | 33.33% | 66.67%
-Pumps | Other mining support services | 8 years | 12.50% | 25.00%
+Pumps (AGRICULTURE, FORESTRY AND FISHING) | AGRICULTURE, FORESTRY AND FISHING | 3 years | 33.33% | 66.67%
+Pumps (Drip, micro spray or mini sprinkler systems) | AGRICULTURE, FORESTRY AND FISHING | 12 years | 8.33% | 16.67%
+Pumps (Compost phase 1 assets) | Mushroom growing | 3 years | 33.33% | 66.67%
+Pumps (Fruit and tree nut growing) | Fruit and tree nut growing | 3 years | 33.33% | 66.67%
+Pumps (Hydraulic fracturing assets) | Other mining support services | 8 years | 12.50% | 25.00%
 Pumps (including cavity, diaphragm and lobe) | Fruit and vegetable processing | 15 years | 6.67% | 13.33%
-Pumps | Fruit and vegetable processing | 10 years | 10.00% | 20.00%
-Pumps | Oil and fat manufacturing | 8 years | 12.50% | 25.00%
-Pumps | Oil and fat manufacturing | 15 years | 6.67% | 13.33%
-Pumps | Sugar manufacturing | 15 years | 6.67% | 13.33%
-Pumps | Sugar manufacturing | 15 years | 6.67% | 13.33%
+Pumps (Fruit and vegetable processing) | Fruit and vegetable processing | 10 years | 10.00% | 20.00%
+Pumps (Preparatory and mechanical extraction assets) | Oil and fat manufacturing | 8 years | 12.50% | 25.00%
+Pumps (Oil and fat manufacturing) | Oil and fat manufacturing | 15 years | 6.67% | 13.33%
+Pumps (Sugar milling assets / Support assets / Sugar manufacturing) | Sugar manufacturing | 15 years | 6.67% | 13.33%
+Pumps (Sugar refining assets / Support assets / Sugar manufacturing) | Sugar manufacturing | 15 years | 6.67% | 13.33%
 Pumps (including liquid feed) | Prepared animal and bird feed manufacturing | 10 years | 10.00% | 20.00%
 Pumps (including heat, molasses and water pumps) | Prepared animal and bird feed manufacturing | 7 years | 14.29% | 28.57%
-Pumps | Other food product manufacturing n.e.c. | 20 years | 5.00% | 10.00%
+Pumps (Other food product manufacturing n.e.c.) | Other food product manufacturing n.e.c. | 20 years | 5.00% | 10.00%
 Pumps (including cavity pumps, centrifugal pumps, lobe pumps etc) | Other food product manufacturing n.e.c. | 10 years | 10.00% | 20.00%
-Pumps | Soft drink, cordial and syrup manufacturing | 15 years | 6.67% | 13.33%
-Pumps | Beer manufacturing (except non-alcoholic beer) | 15 years | 6.67% | 13.33%
+Pumps (Soft drink, cordial and syrup manufacturing) | Soft drink, cordial and syrup manufacturing | 15 years | 6.67% | 13.33%
+Pumps (Beer manufacturing (except non-alcoholic beer)) | Beer manufacturing (except non-alcoholic beer) | 15 years | 6.67% | 13.33%
 Pumps (including macerating pumps) | Spirit manufacturing | 7 years | 14.29% | 28.57%
-Pumps | Wine and other alcoholic beverage manufacturing | 15 years | 6.67% | 13.33%
-Pumps | Industrial gas manufacturing | 10 years | 10.00% | 20.00%
+Pumps (Wine and other alcoholic beverage manufacturing) | Wine and other alcoholic beverage manufacturing | 15 years | 6.67% | 13.33%
+Pumps (Tank truck assets) | Industrial gas manufacturing | 10 years | 10.00% | 20.00%
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 20 years.
+The depreciation calculator uses your cost, start date and this effective life of 20 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/mineral-sand-mining/pumps/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
-- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/mineral-sand-mining/control-systems/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/fertigation-systems-pumps/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/water-assets-pumps/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/mushroom-growing/pumps/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/pumps/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/other-mining-support-services/pumps/
+- Control systems (Mineral sand mining): https://duguid.com.au/tools/depreciation-rates/industry/mineral-sand-mining/control-systems/
+- Pumps (AGRICULTURE, FORESTRY AND FISHING): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/fertigation-systems-pumps/
+- Pumps (Drip, micro spray or mini sprinkler systems): https://duguid.com.au/tools/depreciation-rates/industry/agriculture-forestry-and-fishing/water-assets-pumps/
+- Pumps (Compost phase 1 assets): https://duguid.com.au/tools/depreciation-rates/industry/mushroom-growing/pumps/
+- Pumps (Fruit and tree nut growing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/pumps/
+- Pumps (Hydraulic fracturing assets): https://duguid.com.au/tools/depreciation-rates/industry/other-mining-support-services/pumps/
 - Pumps (including cavity, diaphragm and lobe): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/jam-pickles-and-sauces-pumps/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-pumps/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/preparatory-and-mechanical-pumps/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/support-assets-pumps/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-pumps/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-pumps/
+- Pumps (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-pumps/
+- Pumps (Preparatory and mechanical extraction assets): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/preparatory-and-mechanical-pumps/
+- Pumps (Oil and fat manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-fat-manufacturing/support-assets-pumps/
+- Pumps (Sugar milling assets / Support assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-pumps/
+- Pumps (Sugar refining assets / Support assets / Sugar manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-pumps/
 - Pumps (including liquid feed): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-pumps/
 - Pumps (including heat, molasses and water pumps): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/prepared-animal-and-bird-feed-pumps/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/coffee-processing-assets-pumps/
+- Pumps (Other food product manufacturing n.e.c.): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/coffee-processing-assets-pumps/
 - Pumps (including cavity pumps, centrifugal pumps, lobe pumps etc): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/frozen-pre-prepared-food-pumps/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/pumps/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/pumps/
+- Pumps (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/pumps/
+- Pumps (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/pumps/
 - Pumps (including macerating pumps): https://duguid.com.au/tools/depreciation-rates/industry/spirit-manufacturing/pumps/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/pumps/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/pumps/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Pumps (Wine and other alcoholic beverage manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/pumps/
+- Pumps (Tank truck assets): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/pumps/
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

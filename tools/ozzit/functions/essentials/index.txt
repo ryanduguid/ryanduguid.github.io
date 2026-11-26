@@ -10,7 +10,7 @@ The 17 Essentials formulas cover row and column totals, averages, counts and ran
 
 Release v3.8.0. Read from the released Essentials formula source, which the workbook compiles.
 
-Published 20 October 2026. Last reviewed 20 October 2026.
+By Ryan Duguid. Published 20 October 2026. Last reviewed 20 October 2026.
 
 ## Using these functions
 
@@ -416,6 +416,7 @@ Previous name: nabla.e.RangeToDAλ.
 ## Links
 
 - Essentials formula source: https://github.com/ryanduguid/Ozzit/blob/v3.8.0/src/Essentials.txt
+- Ryan Duguid: https://duguid.com.au/about/
 - Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
 - oz.AboutEssentials λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-aboutessentials
 - oz.CountC λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countc

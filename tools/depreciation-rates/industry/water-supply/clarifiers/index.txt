@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/clarifiers/
 
-> Water treatment assets: Clarifiers (incorporating scrapers): effective life 80 years, last updated 1 January 2005 (Table A).
+> Clarifiers (incorporating scrapers): life 80 years, prime cost 1.25%, diminishing value 2.50% if first held from 10 May 2006. Updated 1 January 2005.
 
 # Water treatment assets: Clarifiers (incorporating scrapers)
 
 ‘Water treatment assets: Clarifiers (incorporating scrapers)’, for an asset used in Water supply, has an effective life of 80 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2005.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Clarifiers (incorporating scrapers)
 Under | Assets used in water supply: / Water treatment assets:
@@ -25,86 +25,91 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in Water supply takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Water supply, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
 Because the row says ‘incorporating’, the items it lists are components of the one asset, not separate assets (paragraph 4 of the guide).
 
-The life was last reviewed and determined on 1 January 2005. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 January 2005. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Water treatment assets
 
+Other rows under Water treatment assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Balance tanks | 80 years | 1.25% | 2.50%
-Chemical blowers | 15 years | 6.67% | 13.33%
+Chemical blowers (Water treatment assets) | 15 years | 6.67% | 13.33%
 Chemical dosing systems | 15 years | 6.67% | 13.33%
-Chemical feeders and hoppers | 25 years | 4.00% | 8.00%
-Chemical mixers and blenders | 25 years | 4.00% | 8.00%
-Chemical storage tanks | 30 years | 3.33% | 6.67%
+Chemical feeders and hoppers (Water treatment assets) | 25 years | 4.00% | 8.00%
+Chemical mixers and blenders (Water treatment assets) | 25 years | 4.00% | 8.00%
+Chemical storage tanks (Water treatment assets) | 30 years | 3.33% | 6.67%
 Clarifiers (incorporating scrapers) (this page) | 80 years | 1.25% | 2.50%
-Clear water tanks | 80 years | 1.25% | 2.50%
-Dissolved air flotation systems | 25 years | 4.00% | 8.00%
+Clear water tanks (Water treatment assets) | 80 years | 1.25% | 2.50%
+Dissolved air flotation systems (Water treatment assets) | 25 years | 4.00% | 8.00%
 Filtration tanks (incorporating scrapers) | 80 years | 1.25% | 2.50%
 Flocculation tanks (incorporating scrapers) | 80 years | 1.25% | 2.50%
 Inline mixers | 15 years | 6.67% | 13.33%
-Penstocks | 25 years | 4.00% | 8.00%
+Penstocks (Water treatment assets) | 25 years | 4.00% | 8.00%
 
 16 rows share this heading. The Water supply page lists them all.
 
-## The same wording elsewhere
+## Similarly named rows
 
-Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+Compare the full row description and industry. Similar names can cover different equipment or effective lives under section 6 of the determination.
+
+Similarly named rows. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
-Clarifiers | Meat processing | 20 years | 5.00% | 10.00%
-Clarifiers | Grain mill product manufacturing | 20 years | 5.00% | 10.00%
-Clarifiers | Sugar manufacturing | 25 years | 4.00% | 8.00%
-Clarifiers | Sugar manufacturing | 25 years | 4.00% | 8.00%
-Clarifiers | Sugar manufacturing | 25 years | 4.00% | 8.00%
+Clarifiers (Water assets) | Meat processing | 20 years | 5.00% | 10.00%
+Clarifiers (Grain mill product manufacturing) | Grain mill product manufacturing | 20 years | 5.00% | 10.00%
+Clarifiers (Cane juice filtration and clarification assets) | Sugar manufacturing | 25 years | 4.00% | 8.00%
+Clarifiers (Water treatment and cooling assets) | Sugar manufacturing | 25 years | 4.00% | 8.00%
+Clarifiers (Clarification and de-colourising assets) | Sugar manufacturing | 25 years | 4.00% | 8.00%
 Clarifiers (including dissolved air floatation equipment and screens) | Other food product manufacturing n.e.c. | 20 years | 5.00% | 10.00%
-Clarifiers | Soft drink, cordial and syrup manufacturing | 20 years | 5.00% | 10.00%
-Clarifiers | Beer manufacturing (except non-alcoholic beer) | 20 years | 5.00% | 10.00%
-Clarifiers | Wine and other alcoholic beverage manufacturing | 10 years | 10.00% | 20.00%
+Clarifiers (Soft drink, cordial and syrup manufacturing) | Soft drink, cordial and syrup manufacturing | 20 years | 5.00% | 10.00%
+Clarifiers (Beer manufacturing (except non-alcoholic beer)) | Beer manufacturing (except non-alcoholic beer) | 20 years | 5.00% | 10.00%
+Clarifiers (Wine and other alcoholic beverage manufacturing) | Wine and other alcoholic beverage manufacturing | 10 years | 10.00% | 20.00%
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 80 years.
+The depreciation calculator uses your cost, start date and this effective life of 80 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/clarifiers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Balance tanks: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/balance-tanks/
-- Chemical blowers: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/chemical-blowers/
+- Chemical blowers (Water treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/water-supply/chemical-blowers/
 - Chemical dosing systems: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/chemical-dosing-systems/
-- Chemical feeders and hoppers: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/chemical-feeders-and-hoppers/
-- Chemical mixers and blenders: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/chemical-mixers-and-blenders/
-- Chemical storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/chemical-storage-tanks/
-- Clear water tanks: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/water-treatment-assets-clear-water-tanks/
-- Dissolved air flotation systems: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/dissolved-air-flotation-systems/
+- Chemical feeders and hoppers (Water treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/water-supply/chemical-feeders-and-hoppers/
+- Chemical mixers and blenders (Water treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/water-supply/chemical-mixers-and-blenders/
+- Chemical storage tanks (Water treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/water-supply/chemical-storage-tanks/
+- Clear water tanks (Water treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/water-supply/water-treatment-assets-clear-water-tanks/
+- Dissolved air flotation systems (Water treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/water-supply/dissolved-air-flotation-systems/
 - Filtration tanks (incorporating scrapers): https://duguid.com.au/tools/depreciation-rates/industry/water-supply/water-treatment-assets-filtration-tanks/
 - Flocculation tanks (incorporating scrapers): https://duguid.com.au/tools/depreciation-rates/industry/water-supply/flocculation-tanks/
 - Inline mixers: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/inline-mixers/
-- Penstocks: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/penstocks/
+- Penstocks (Water treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/water-supply/penstocks/
 - Water supply: https://duguid.com.au/tools/depreciation-rates/industry/water-supply/
-- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/clarifiers/
-- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/clarifiers/
-- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/cane-juice-filtration-and-clarifiers/
-- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/water-treatment-and-cooling-clarifiers/
-- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-clarifiers/
+- Clarifiers (Water assets): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/clarifiers/
+- Clarifiers (Grain mill product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/grain-mill-product-manufacturing/clarifiers/
+- Clarifiers (Cane juice filtration and clarification assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/cane-juice-filtration-and-clarifiers/
+- Clarifiers (Water treatment and cooling assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/water-treatment-and-cooling-clarifiers/
+- Clarifiers (Clarification and de-colourising assets): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-refining-assets-clarifiers/
 - Clarifiers (including dissolved air floatation equipment and screens): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/clarifiers/
-- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/clarifiers/
-- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/clarifiers/
-- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/clarifiers/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Clarifiers (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/clarifiers/
+- Clarifiers (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/clarifiers/
+- Clarifiers (Wine and other alcoholic beverage manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/clarifiers/
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

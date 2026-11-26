@@ -2,159 +2,160 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/
 
-> Table A (industry categories), MANUFACTURING / Wine …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+> Wine and other alcoholic beverage manufacturing …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
 
 # Wine and other alcoholic beverage manufacturing
 
 80 effective lives in Table A of the Commissioner’s 2025 effective life determination for Wine and other alcoholic beverage manufacturing.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Rows of Wine and other alcoholic beverage manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Barrel assets: | | | |
+Asset group · Barrel assets: | | | |
 Barrel assets: / Barrel racks | 20 years | 5.00% | 10.00% | 1 July 2008
 Barrel assets: / Barrel washers | 7 years | 14.29% | 28.57% | 1 July 2008
 Barrel assets: / Oak barrels | 4 years | 25.00% | 50.00% | 1 July 2008
-Grape handling assets: | | | |
-Grape handling assets: / Conveyors and elevators | 15 years | 6.67% | 13.33% | 1 July 2008
-Grape handling assets: / Crushers/destemmers | 15 years | 6.67% | 13.33% | 1 July 2008
+Asset group · Grape handling assets: | | | |
+Conveyors and elevators (Grape handling assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Crushers/destemmers (Grape handling assets) | 15 years | 6.67% | 13.33% | 1 July 2008
 Grape handling assets: / Electronic scales (mobile) | 10 years | 10.00% | 20.00% | 1 July 2008
 Grape handling assets: / Grape bins (plastic) | 5 years | 20.00% | 40.00% | 1 July 2008
 Grape handling assets: / Grape receival hoppers | 20 years | 5.00% | 10.00% | 1 July 2008
 Grape handling assets: / Grape waste pits (concrete) | 20 years | 5.00% | 10.00% | 1 July 2008
-Grape handling assets: / Presses: | | | |
-Grape handling assets: / Presses: / Basket | 20 years | 5.00% | 10.00% | 1 July 2008
+Asset group · Grape handling assets: / Presses: | | | |
+Grape handling assets: / Basket (Presses) | 20 years | 5.00% | 10.00% | 1 July 2008
 Grape handling assets: / Presses: / Continuous (screw) | 15 years | 6.67% | 13.33% | 1 July 2008
 Grape handling assets: / Presses: / Pneumatic (airbag) | 15 years | 6.67% | 13.33% | 1 July 2008
-Grape handling assets: / Weighbridges/weighers | 20 years | 5.00% | 10.00% | 1 July 2008
-Packaging assets: | | | |
-Packaging assets: / Bottle and cask filling, sealing and coding assets: | | | |
+Weighbridges/weighers (Grape handling assets) | 20 years | 5.00% | 10.00% | 1 July 2008
+Asset group · Packaging assets: | | | |
+Asset group · Packaging assets: / Bottle and cask filling, sealing and coding assets: | | | |
 Packaging assets: / Bottle and cask filling, sealing and coding assets: / Cap feed systems | 15 years | 6.67% | 13.33% | 1 July 2008
-Packaging assets: / Bottle and cask filling, sealing and coding assets: / Cappers | 15 years | 6.67% | 13.33% | 1 July 2008
+Packaging assets: / Cappers (Bottle and cask filling, sealing and coding assets) | 15 years | 6.67% | 13.33% | 1 July 2008
 Packaging assets: / Bottle and cask filling, sealing and coding assets: / Carton packing machines | 15 years | 6.67% | 13.33% | 1 July 2008
-Packaging assets: / Bottle and cask filling, sealing and coding assets: / Corkers | 15 years | 6.67% | 13.33% | 1 July 2008
+Packaging assets: / Corkers (Bottle and cask filling, sealing and coding assets) | 15 years | 6.67% | 13.33% | 1 July 2008
 Packaging assets: / Bottle and cask filling, sealing and coding assets: / Crown sealers (sparkling wine) | 15 years | 6.67% | 13.33% | 1 July 2008
-Packaging assets: / Bottle and cask filling, sealing and coding assets: / Date coders | 7 years | 14.29% | 28.57% | 1 July 2008
-Packaging assets: / Bottle and cask filling, sealing and coding assets: / Fillers | 15 years | 6.67% | 13.33% | 1 July 2008
-Packaging assets: / Bottle and cask filling, sealing and coding assets: / Foilers | 15 years | 6.67% | 13.33% | 1 July 2008
-Packaging assets: / Bottle and cask filling, sealing and coding assets: / Inspection machines | 10 years | 10.00% | 20.00% | 1 July 2008
-Packaging assets: / Bottle and cask filling, sealing and coding assets: / Labellers | 10 years | 10.00% | 20.00% | 1 July 2008
-Packaging assets: / Bottle and cask filling, sealing and coding assets: / Rinsers | 15 years | 6.67% | 13.33% | 1 July 2008
-Packaging assets: / Handling and packing assets: | | | |
+Packaging assets: / Date coders (Bottle and cask filling, sealing and coding assets) | 7 years | 14.29% | 28.57% | 1 July 2008
+Packaging assets: / Fillers (Bottle and cask filling, sealing and coding assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Packaging assets: / Foilers (Bottle and cask filling, sealing and coding assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Packaging assets: / Inspection machines (Bottle and cask filling, sealing and coding assets) | 10 years | 10.00% | 20.00% | 1 July 2008
+Packaging assets: / Labellers (Bottle and cask filling, sealing and coding assets) | 10 years | 10.00% | 20.00% | 1 July 2008
+Packaging assets: / Rinsers (Bottle and cask filling, sealing and coding assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Asset group · Packaging assets: / Handling and packing assets: | | | |
 Packaging assets: / Handling and packing assets: / Carton erectors/sealers/tapers | 15 years | 6.67% | 13.33% | 1 July 2008
 Packaging assets: / Handling and packing assets: / Conveyors (loose bottle, carton and pallet) | 15 years | 6.67% | 13.33% | 1 July 2008
-Packaging assets: / Handling and packing assets: / Depalletisers | 15 years | 6.67% | 13.33% | 1 July 2008
-Packaging assets: / Handling and packing assets: / Outer date coders | 5 years | 20.00% | 40.00% | 1 July 2008
-Packaging assets: / Handling and packing assets: / Palletisers | 15 years | 6.67% | 13.33% | 1 July 2008
-Packaging assets: / Handling and packing assets: / Shrink wrappers | 15 years | 6.67% | 13.33% | 1 July 2008
-Separation/filtration assets: | | | |
-Separation/filtration assets: / Centrifuges | 10 years | 10.00% | 20.00% | 1 July 2008
-Separation/filtration assets: / Filtration units (incorporating housing and filters): | | | |
+Packaging assets: / Depalletisers (Handling and packing assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Packaging assets: / Outer date coders (Handling and packing assets) | 5 years | 20.00% | 40.00% | 1 July 2008
+Packaging assets: / Palletisers (Handling and packing assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Packaging assets: / Shrink wrappers (Handling and packing assets) | 15 years | 6.67% | 13.33% | 1 July 2008
+Asset group · Separation/filtration assets: | | | |
+Centrifuges (Separation/filtration assets) | 10 years | 10.00% | 20.00% | 1 July 2008
+Asset group · Separation/filtration assets: / Filtration units (incorporating housing and filters): | | | |
 Separation/filtration assets: / Filtration units (incorporating housing and filters): / Cross flow filter units | 10 years | 10.00% | 20.00% | 1 July 2008
 Separation/filtration assets: / Filtration units (incorporating housing and filters): / Diatomaceous earth filter units (including earth make-up system) | 10 years | 10.00% | 20.00% | 1 July 2008
 Separation/filtration assets: / Filtration units (incorporating housing and filters): / Lees filter units | 10 years | 10.00% | 20.00% | 1 July 2008
 Separation/filtration assets: / Filtration units (incorporating housing and filters): / Membrane cartridge filter units (including lenticular) | 10 years | 10.00% | 20.00% | 1 July 2008
 Separation/filtration assets: / Filtration units (incorporating housing and filters): / Plate and frame filter units | 15 years | 6.67% | 13.33% | 1 July 2008
 Separation/filtration assets: / Filtration units (incorporating housing and filters): / Rotary drum vacuum filter units | 15 years | 6.67% | 13.33% | 1 July 2008
-Sparkling wine equipment: | | | |
+Asset group · Sparkling wine equipment: | | | |
 Sparkling wine equipment: / Carbonation equipment | 10 years | 10.00% | 20.00% | 1 July 2008
 Sparkling wine equipment: / Corking/wiring equipment | 15 years | 6.67% | 13.33% | 1 July 2008
 Sparkling wine equipment: / Disgorging and dosing equipment | 10 years | 10.00% | 20.00% | 1 July 2008
 Sparkling wine equipment: / Riddling equipment | 15 years | 6.67% | 13.33% | 1 July 2008
-Support assets: | | | |
+Asset group · Support assets: | | | |
 Support assets: / Additive liquid dosing systems | 10 years | 10.00% | 20.00% | 1 July 2008
-Support assets: / Air compressors | 15 years | 6.67% | 13.33% | 1 July 2008
-Support assets: / Air receivers | 20 years | 5.00% | 10.00% | 1 July 2008
-Support assets: / Boilers | 15 years | 6.67% | 13.33% | 1 July 2008
-Support assets: / Cooling towers | 15 years | 6.67% | 13.33% | 1 July 2008
-Support assets: / Electrical and Process control systems: | | | |
+Support assets: / Air compressors (Wine and other alcoholic beverage manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2008
+Air receivers (Support assets) | 20 years | 5.00% | 10.00% | 1 July 2008
+Support assets: / Boilers (Wine and other alcoholic beverage manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2008
+Support assets: / Cooling towers (Wine and other alcoholic beverage manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2008
+Asset group · Support assets: / Electrical and Process control systems: | | | |
 Support assets: / Electrical and Process control systems: / Control cabinets, switchgear | 10 years | 10.00% | 20.00% | 1 July 2008
 Support assets: / Electrical and Process control systems: / Programmed logic controllers (PLCs) | 10 years | 10.00% | 20.00% | 1 July 2008
-Support assets: / Electrical and Process control systems: / Transformers | 40 years | 2.50% | 5.00% | 1 July 2008
-Support assets: / Flow meters | 10 years | 10.00% | 20.00% | 1 July 2008
-Support assets: / Grape/wine testing equipment: | | | |
+Support assets: / Transformers (Electrical and Process control systems) | 40 years | 2.50% | 5.00% | 1 July 2008
+Support assets: / Flow meters (Wine and other alcoholic beverage manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2008
+Asset group · Support assets: / Grape/wine testing equipment: | | | |
 Support assets: / Grape/wine testing equipment: / Grape must analyzers | 10 years | 10.00% | 20.00% | 1 July 2008
 Support assets: / Grape/wine testing equipment: / Laboratory – glassware | 2 years | 50.00% | 100.00% | 1 July 2008
 Support assets: / Grape/wine testing equipment: / Laboratory – other equipment | 10 years | 10.00% | 20.00% | 1 July 2008
-Support assets: / Heat exchangers | 15 years | 6.67% | 13.33% | 1 July 2008
-Support assets: / Hoses | 5 years | 20.00% | 40.00% | 1 July 2008
-Support assets: / Hot water systems | 10 years | 10.00% | 20.00% | 1 July 2008
-Support assets: / Inert gas systems: | | | |
+Support assets: / Heat exchangers (Wine and other alcoholic beverage manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2008
+Hoses (Support assets) | 5 years | 20.00% | 40.00% | 1 July 2008
+Support assets: / Hot water systems (Wine and other alcoholic beverage manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2008
+Asset group · Support assets: / Inert gas systems: | | | |
 Support assets: / Inert gas systems: / Dry ice machines | 10 years | 10.00% | 20.00% | 1 July 2008
 Support assets: / Inert gas systems: / Gas storage pressure tanks | 20 years | 5.00% | 10.00% | 1 July 2008
 Support assets: / Inert gas systems: / Nitrogen generators | 10 years | 10.00% | 20.00% | 1 July 2008
-Support assets: / Pipes and fittings: | | | |
-Support assets: / Pipes and fittings: / Mild steel | 10 years | 10.00% | 20.00% | 1 July 2008
-Support assets: / Pipes and fittings: / Non-ferrous | 20 years | 5.00% | 10.00% | 1 July 2008
-Support assets: / Pipes and fittings: / Stainless steel | 25 years | 4.00% | 8.00% | 1 July 2008
-Support assets: / Pipes and fittings: / Valves | 10 years | 10.00% | 20.00% | 1 July 2008
-Support assets: / Pumps | 15 years | 6.67% | 13.33% | 1 July 2008
+Asset group · Support assets: / Pipes and fittings: | | | |
+Support assets: / Mild steel (Pipes and fittings) | 10 years | 10.00% | 20.00% | 1 July 2008
+Support assets: / Non-ferrous (Pipes and fittings) | 20 years | 5.00% | 10.00% | 1 July 2008
+Support assets: / Stainless steel (Pipes and fittings) | 25 years | 4.00% | 8.00% | 1 July 2008
+Support assets: / Valves (Pipes and fittings) | 10 years | 10.00% | 20.00% | 1 July 2008
+Support assets: / Pumps (Wine and other alcoholic beverage manufacturing) | 15 years | 6.67% | 13.33% | 1 July 2008
 Support assets: / Refrigeration assets (including compressors, condensers, evaporators and storage tanks) | 15 years | 6.67% | 13.33% | 1 July 2008
 Support assets: / Reverse osmosis plant | 10 years | 10.00% | 20.00% | 1 July 2008
-Support assets: / Waste water treatment assets: | | | |
-Support assets: / Waste water treatment assets: / Aerators | 10 years | 10.00% | 20.00% | 1 July 2008
-Support assets: / Waste water treatment assets: / Blowers | 10 years | 10.00% | 20.00% | 1 July 2008
-Support assets: / Waste water treatment assets: / Clarifiers | 10 years | 10.00% | 20.00% | 1 July 2008
-Support assets: / Waste water treatment assets: / Digesters | 10 years | 10.00% | 20.00% | 1 July 2008
-Tanks (including insulation, agitators, pump over systems and monitoring instrumentation): | | | |
+Asset group · Support assets: / Waste water treatment assets: | | | |
+Support assets: / Waste water treatment assets: / Aerators (Wine and other alcoholic beverage manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2008
+Support assets: / Waste water treatment assets: / Blowers (Wine and other alcoholic beverage manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2008
+Support assets: / Waste water treatment assets: / Clarifiers (Wine and other alcoholic beverage manufacturing) | 10 years | 10.00% | 20.00% | 1 July 2008
+Support assets: / Digesters (Waste water treatment assets) | 10 years | 10.00% | 20.00% | 1 July 2008
+Asset group · Tanks (including insulation, agitators, pump over systems and monitoring instrumentation): | | | |
 Tanks (including insulation, agitators, pump over systems and monitoring instrumentation): / Pressure tanks (for sparkling wine) | 20 years | 5.00% | 10.00% | 1 July 2008
-Tanks (including insulation, agitators, pump over systems and monitoring instrumentation): / Waste water storage/treatment tanks | 15 years | 6.67% | 13.33% | 1 July 2008
-Tanks (including insulation, agitators, pump over systems and monitoring instrumentation): / Water storage tanks | 30 years | 3.33% | 6.67% | 1 July 2008
-Tanks (including insulation, agitators, pump over systems and monitoring instrumentation): / Wine fermenters: | | | |
-Tanks (including insulation, agitators, pump over systems and monitoring instrumentation): / Wine fermenters: / Open | 30 years | 3.33% | 6.67% | 1 July 2008
-Tanks (including insulation, agitators, pump over systems and monitoring instrumentation): / Wine fermenters: / Rotary | 30 years | 3.33% | 6.67% | 1 July 2008
-Tanks (including insulation, agitators, pump over systems and monitoring instrumentation): / Wine fermenters: / Static | 30 years | 3.33% | 6.67% | 1 July 2008
+Tanks (including insulation, agitators, pump over systems and monitoring instrumentation): / Waste water storage/treatment tanks (Tanks …) | 15 years | 6.67% | 13.33% | 1 July 2008
+Tanks (including insulation, agitators, pump over systems and monitoring instrumentation): / Water storage tanks (Wine and other alcoholic beverage manufacturing) | 30 years | 3.33% | 6.67% | 1 July 2008
+Asset group · Tanks (including insulation, agitators, pump over systems and monitoring instrumentation): / Wine fermenters: | | | |
+Tanks (including insulation, agitators, pump over systems and monitoring instrumentation): / Open (Wine fermenters) | 30 years | 3.33% | 6.67% | 1 July 2008
+Tanks (including insulation, agitators, pump over systems and monitoring instrumentation): / Rotary (Wine fermenters) | 30 years | 3.33% | 6.67% | 1 July 2008
+Tanks (including insulation, agitators, pump over systems and monitoring instrumentation): / Static (Wine fermenters) | 30 years | 3.33% | 6.67% | 1 July 2008
 Tanks (including insulation, agitators, pump over systems and monitoring instrumentation): / Wine fermenters: / Sweeping arm | 30 years | 3.33% | 6.67% | 1 July 2008
 Tanks (including insulation, agitators, pump over systems and monitoring instrumentation): / Wine storage tanks | 30 years | 3.33% | 6.67% | 1 July 2008
-Tank accessories: | | | |
+Asset group · Tank accessories: | | | |
 Tank accessories: / Micro oxygenation systems | 5 years | 20.00% | 40.00% | 1 July 2008
 Tank accessories: / Tank plungers | 10 years | 10.00% | 20.00% | 1 July 2008
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/#source
 - Barrel racks: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/barrel-racks/
 - Barrel washers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/barrel-washers/
 - Oak barrels: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/oak-barrels/
-- Conveyors and elevators: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/conveyors-and-elevators/
-- Crushers/destemmers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/crushers-destemmers/
+- Conveyors and elevators (Grape handling assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/conveyors-and-elevators/
+- Crushers/destemmers (Grape handling assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/crushers-destemmers/
 - Electronic scales (mobile): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/electronic-scales/
 - Grape bins (plastic): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/grape-bins/
 - Grape receival hoppers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/grape-receival-hoppers/
 - Grape waste pits (concrete): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/grape-waste-pits/
-- Basket: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/basket/
+- Basket (Presses): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/basket/
 - Continuous (screw): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/continuous/
 - Pneumatic (airbag): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/pneumatic/
-- Weighbridges/weighers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/weighbridges-weighers/
+- Weighbridges/weighers (Grape handling assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/weighbridges-weighers/
 - Cap feed systems: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/cap-feed-systems/
-- Cappers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/cappers/
+- Cappers (Bottle and cask filling, sealing and coding assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/cappers/
 - Carton packing machines: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/carton-packing-machines/
-- Corkers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/corkers/
+- Corkers (Bottle and cask filling, sealing and coding assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/corkers/
 - Crown sealers (sparkling wine): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/crown-sealers/
-- Date coders: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/date-coders/
-- Fillers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/fillers/
-- Foilers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/foilers/
-- Inspection machines: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/inspection-machines/
-- Labellers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/labellers/
-- Rinsers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/rinsers/
+- Date coders (Bottle and cask filling, sealing and coding assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/date-coders/
+- Fillers (Bottle and cask filling, sealing and coding assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/fillers/
+- Foilers (Bottle and cask filling, sealing and coding assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/foilers/
+- Inspection machines (Bottle and cask filling, sealing and coding assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/inspection-machines/
+- Labellers (Bottle and cask filling, sealing and coding assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/labellers/
+- Rinsers (Bottle and cask filling, sealing and coding assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/rinsers/
 - Carton erectors/sealers/tapers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/carton-erectors-sealers-tapers/
 - Conveyors (loose bottle, carton and pallet): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/conveyors/
-- Depalletisers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/depalletisers/
-- Outer date coders: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/outer-date-coders/
-- Palletisers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/palletisers/
-- Shrink wrappers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/shrink-wrappers/
-- Centrifuges: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/centrifuges/
+- Depalletisers (Handling and packing assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/depalletisers/
+- Outer date coders (Handling and packing assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/outer-date-coders/
+- Palletisers (Handling and packing assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/palletisers/
+- Shrink wrappers (Handling and packing assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/shrink-wrappers/
+- Centrifuges (Separation/filtration assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/centrifuges/
 - Cross flow filter units: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/cross-flow-filter-units/
 - Diatomaceous earth filter units (including earth make-up system): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/diatomaceous-earth-filter-units/
 - Lees filter units: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/lees-filter-units/
@@ -166,46 +167,46 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Disgorging and dosing equipment: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/disgorging-and-dosing-equipment/
 - Riddling equipment: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/riddling-equipment/
 - Additive liquid dosing systems: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/additive-liquid-dosing-systems/
-- Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/air-compressors/
-- Air receivers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/air-receivers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/boilers/
-- Cooling towers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/cooling-towers/
+- Air compressors (Wine and other alcoholic beverage manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/air-compressors/
+- Air receivers (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/air-receivers/
+- Boilers (Wine and other alcoholic beverage manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/boilers/
+- Cooling towers (Wine and other alcoholic beverage manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/cooling-towers/
 - Control cabinets, switchgear: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/control-cabinets-switchgear/
 - Programmed logic controllers (PLCs): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/programmed-logic-controllers/
-- Transformers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/transformers/
-- Flow meters: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/flow-meters/
+- Transformers (Electrical and Process control systems): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/transformers/
+- Flow meters (Wine and other alcoholic beverage manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/flow-meters/
 - Grape must analyzers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/grape-must-analyzers/
 - Laboratory – glassware: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/laboratory-glassware/
 - Laboratory – other equipment: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/laboratory-other-equipment/
-- Heat exchangers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/heat-exchangers/
-- Hoses: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/hoses/
-- Hot water systems: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/hot-water-systems/
+- Heat exchangers (Wine and other alcoholic beverage manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/heat-exchangers/
+- Hoses (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/hoses/
+- Hot water systems (Wine and other alcoholic beverage manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/hot-water-systems/
 - Dry ice machines: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/dry-ice-machines/
 - Gas storage pressure tanks: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/gas-storage-pressure-tanks/
 - Nitrogen generators: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/nitrogen-generators/
-- Mild steel: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/mild-steel/
-- Non-ferrous: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/non-ferrous/
-- Stainless steel: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/stainless-steel/
-- Valves: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/valves/
-- Pumps: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/pumps/
+- Mild steel (Pipes and fittings): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/mild-steel/
+- Non-ferrous (Pipes and fittings): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/non-ferrous/
+- Stainless steel (Pipes and fittings): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/stainless-steel/
+- Valves (Pipes and fittings): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/valves/
+- Pumps (Wine and other alcoholic beverage manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/pumps/
 - Refrigeration assets (including compressors, condensers, evaporators and storage tanks): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/refrigeration-assets/
 - Reverse osmosis plant: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/reverse-osmosis-plant/
-- Aerators: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/aerators/
-- Blowers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/blowers/
-- Clarifiers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/clarifiers/
-- Digesters: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/digesters/
+- Aerators (Wine and other alcoholic beverage manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/aerators/
+- Blowers (Wine and other alcoholic beverage manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/blowers/
+- Clarifiers (Wine and other alcoholic beverage manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/clarifiers/
+- Digesters (Waste water treatment assets): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/digesters/
 - Pressure tanks (for sparkling wine): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/pressure-tanks/
-- Waste water storage/treatment tanks: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/waste-water-storage-treatment-tanks/
-- Water storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/water-storage-tanks/
-- Open: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/open/
-- Rotary: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/rotary/
-- Static: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/static/
+- Waste water storage/treatment tanks (Tanks …): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/waste-water-storage-treatment-tanks/
+- Water storage tanks (Wine and other alcoholic beverage manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/water-storage-tanks/
+- Open (Wine fermenters): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/open/
+- Rotary (Wine fermenters): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/rotary/
+- Static (Wine fermenters): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/static/
 - Sweeping arm: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/sweeping-arm/
 - Wine storage tanks: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/wine-storage-tanks/
 - Micro oxygenation systems: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/micro-oxygenation-systems/
 - Tank plungers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/tank-plungers/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

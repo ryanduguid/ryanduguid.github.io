@@ -12,11 +12,13 @@ Published 26 November 2026. Last checked 22 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-One complying SMSF’s income tax calculation statement (item 13) for an income year
+A complying SMSF’s item 13 for one income year
+
+Assessable contributions (whole AUD)
 
 Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
 
-Assessable contributions (whole AUD) Of those, no-TFN contributions income (whole AUD) Net non-arm’s length income, label U (whole AUD) Non-arm’s length income from general expenses, section 295-550(8) and (9) (AUD) Income from segregated current pension assets (whole AUD) Other income the actuary’s proportion applies to (whole AUD) The actuary’s proportion, as a decimal from 0 to 1 Income from segregated non-current assets (whole AUD) Total deductions (whole AUD) Of those, deductions attributable to the contributions (whole AUD)
+Of those, no-TFN contributions income (whole AUD) Net non-arm’s length income, label U (whole AUD) Non-arm’s length income from general expenses, section 295-550(8) and (9) (AUD) Income from segregated current pension assets (whole AUD) Other income the actuary’s proportion applies to (whole AUD) The actuary’s proportion, as a decimal from 0 to 1 Income from segregated non-current assets (whole AUD) Total deductions (whole AUD) Of those, deductions attributable to the contributions (whole AUD)
 
 The fund has disregarded small fund assets (section 295-387) No Yes
 

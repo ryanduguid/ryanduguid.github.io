@@ -3,15 +3,15 @@
 <fieldset disabled><legend>FBT car inputs for the FBT year 1 April 2026 to 31 March 2027</legend><div class="form-grid"><fieldset class="field"><legend>Valuation method</legend>
 <label><input type="radio" name="method" value="statutory" checked /> Statutory formula</label>
 <label><input type="radio" name="method" value="operating" /> Operating cost, elected, with log book records</label></fieldset>
-<label class="field" for="fbt-car-cost">Cost price, including GST, dealer delivery and accessories fitted at purchase (AUD)<input id="fbt-car-cost" name="cost" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="60000" required /></label>
-<label class="field" for="fbt-car-accessories">Non-business accessories fitted later (AUD)<input id="fbt-car-accessories" name="accessories" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
+<label class="field" for="fbt-car-cost">Cost price, including GST, dealer delivery and accessories fitted at purchase (AUD)<input enterkeyhint="next" id="fbt-car-cost" name="cost" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="60000" required /></label>
+<label class="field" for="fbt-car-accessories">Non-business accessories fitted later (AUD)<input enterkeyhint="next" id="fbt-car-accessories" name="accessories" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
 <fieldset class="field"><legend>First held by the employer or an associate before 1 April 2022?</legend>
 <label><input type="radio" name="reduced" value="no" checked /> No</label>
 <label><input type="radio" name="reduced" value="yes" /> Yes: use two-thirds of the cost price</label></fieldset>
-<label class="field" for="fbt-car-days">Days used or available for private use<input id="fbt-car-days" name="days" type="number" min="0" max="365" step="1" value="182" required /></label>
-<label class="field" for="fbt-car-costs">Operating costs for the year, operating cost method only (AUD)<input id="fbt-car-costs" name="costs" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
-<label class="field" for="fbt-car-business-use">Business use percentage, operating cost method only<input id="fbt-car-business-use" name="business-use" type="number" min="0" max="100" step=".01" value="0" required /></label>
-<label class="field" for="fbt-car-contribution">Employee contributions for the year (AUD)<input id="fbt-car-contribution" name="contribution" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="1000" required /></label>
+<label class="field" for="fbt-car-days">Days used or available for private use<input enterkeyhint="next" id="fbt-car-days" name="days" type="number" min="0" max="365" step="1" value="182" required /></label>
+<label class="field" for="fbt-car-costs">Operating costs for the year, operating cost method only (AUD)<input enterkeyhint="next" id="fbt-car-costs" name="costs" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
+<label class="field" for="fbt-car-business-use">Business use percentage, operating cost method only<input enterkeyhint="next" id="fbt-car-business-use" name="business-use" type="number" min="0" max="100" step=".01" value="0" required /></label>
+<label class="field" for="fbt-car-contribution">Employee contributions for the year (AUD)<input enterkeyhint="next" id="fbt-car-contribution" name="contribution" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="1000" required /></label>
 <fieldset class="field"><legend>Is the employer, or another provider, entitled to a GST credit for providing the car?</legend>
 <label><input type="radio" name="type" value="1" data-gross-up="2.0802" checked /> Yes: Type 1 gross-up, 2.0802</label>
 <label><input type="radio" name="type" value="2" data-gross-up="1.8868" /> No: Type 2 gross-up, 1.8868</label></fieldset>
@@ -25,7 +25,7 @@
 <label><input type="radio" name="current-employee" value="no" /> No</label></fieldset>
 <label class="field" for="fbt-car-first-used">Electric cars only: first day held and used or available for use, by anyone<input id="fbt-car-first-used" name="first-used" type="date" min="1900-01-01" max="2027-03-31" value="2026-04-01" required /></label>
 <label class="field" for="fbt-car-first-sale">Electric cars only: first retail sale<input id="fbt-car-first-sale" name="first-sale" type="date" min="2012-07-01" value="2026-04-01" required /></label>
-<label class="field" for="fbt-car-lct-value">Electric cars only: luxury car tax value at that sale, GST included (AUD)<input id="fbt-car-lct-value" name="lct-value" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="60000" required /></label>
+<label class="field" for="fbt-car-lct-value">Electric cars only: luxury car tax value at that sale, GST included (AUD)<input enterkeyhint="done" id="fbt-car-lct-value" name="lct-value" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="60000" required /></label>
 <fieldset class="field"><legend>Electric cars only: luxury car tax on another sale or import before the benefit?</legend>
 <label><input type="radio" name="other-supply" value="no" checked /> No</label>
 <label><input type="radio" name="other-supply" value="yes" /> Yes</label></fieldset>

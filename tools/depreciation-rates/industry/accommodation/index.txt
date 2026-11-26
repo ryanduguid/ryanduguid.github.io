@@ -8,92 +8,93 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/
 
 43 effective lives in Table A of the Commissioner’s 2025 effective life determination for Accommodation.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Rows of Accommodation. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Accommodation providers using assets not listed here may rely on determinations shown for Residential property operators (67110) | | | |
-Accommodation providers who operate a pub, tavern, bar, cafe, restaurant or club within their premises should use the effective life determinations shown for cafes, restaurants, takeaway food services, pubs, taverns, bars and clubs (hospitality) (45110 to 45302) for assets used in that business | | | |
+Register note · Accommodation providers using assets not listed here may rely on determinations shown for Residential property operators (67110) | | | |
+Register note · Accommodation providers who operate a pub, tavern, bar, cafe, restaurant or club within their premises should use the effective life determinations shown for cafes, restaurants, takeaway food services, pubs, taverns, bars and clubs (hospitality) (45110 to 45302) for assets used in that business | | | |
 Audio visual entertainment assets (including those used in conference and function rooms (including amplifier, audio speaker, digital disc player, microphone, television sets, turntable, video projection equipment)) | 5 years | 20.00% | 40.00% | 1 July 2005
-Carpets | 7 years | 14.29% | 28.57% | 1 July 2005
+Carpets (Accommodation) | 7 years | 14.29% | 28.57% | 1 July 2005
 Door controls and motor drive systems for automatic sliding doors and revolving doors (incorporating chains, controls, motors and sensors, but excluding doors) | 10 years | 10.00% | 20.00% | 1 July 2005
-Furniture, freestanding: | | | |
+Asset group · Furniture, freestanding: | | | |
 Furniture, freestanding: / Generally (including guestrooms) | 7 years | 14.29% | 28.57% | 1 July 2005
-Furniture, freestanding: / Outdoor | 5 years | 20.00% | 40.00% | 1 July 2005
-Garage doors, electric (excluding doors): | | | |
-Garage doors, electric (excluding doors): / Controls and motors | 5 years | 20.00% | 40.00% | 1 July 2005
-Gates, electric (excluding gates): | | | |
-Gates, electric (excluding gates): / Controls and motors | 5 years | 20.00% | 40.00% | 1 July 2005
-Guestroom assets: | | | |
-Guestroom assets: / Bathroom assets: | | | |
+Outdoor (Furniture, freestanding) | 5 years | 20.00% | 40.00% | 1 July 2005
+Asset group · Garage doors, electric (excluding doors): | | | |
+Garage doors, electric (excluding doors): / Controls and motors (Garage doors, electric …) | 5 years | 20.00% | 40.00% | 1 July 2005
+Asset group · Gates, electric (excluding gates): | | | |
+Gates, electric (excluding gates): / Controls and motors (Gates, electric …) | 5 years | 20.00% | 40.00% | 1 July 2005
+Asset group · Guestroom assets: | | | |
+Asset group · Guestroom assets: / Bathroom assets: | | | |
 Guestroom assets: / Bathroom assets: / Accessories, freestanding (including sanitary assets, shower caddies, soap holders and toilet brushes) | 1 year | 100.00% | 200.00% | 1 July 2005
 Guestroom assets: / Bathroom assets: / Hair dryers | 3 years | 33.33% | 66.67% | 1 July 2005
-Guestroom assets: / Bathroom assets: / Heated towel rails, electric | 5 years | 20.00% | 40.00% | 1 July 2005
-Guestroom assets: / Bathroom assets: / Scales | 5 years | 20.00% | 40.00% | 1 July 2005
-Guestroom assets: / Bathroom assets: / Spa bath pumps | 7 years | 14.29% | 28.57% | 1 July 2005
-Guestroom assets: / Bathroom assets: / Towels | 1 year | 100.00% | 200.00% | 1 July 2005
+Guestroom assets: / Bathroom assets: / Heated towel rails, electric (Accommodation) | 5 years | 20.00% | 40.00% | 1 July 2005
+Guestroom assets: / Scales (Bathroom assets) | 5 years | 20.00% | 40.00% | 1 July 2005
+Guestroom assets: / Bathroom assets: / Spa bath pumps (Accommodation) | 7 years | 14.29% | 28.57% | 1 July 2005
+Guestroom assets: / Towels (Bathroom assets) | 1 year | 100.00% | 200.00% | 1 July 2005
 Guestroom assets: / Bedding (including mattress protectors, pillows and sheets) | 2 years | 50.00% | 100.00% | 1 July 2005
 Guestroom assets: / Bed mattresses | 7 years | 14.29% | 28.57% | 1 July 2005
-Guestroom assets: / Beds: | | | |
+Asset group · Guestroom assets: / Beds: | | | |
 Guestroom assets: / Beds: / Generally (including ensembles) | 7 years | 14.29% | 28.57% | 1 July 2005
 Guestroom assets: / Beds: / Foldout and rollaway beds (excluding sofas) | 3 years | 33.33% | 66.67% | 1 July 2005
 Guestroom assets: / Bed spreads, blankets and quilts | 5 years | 20.00% | 40.00% | 1 July 2005
 Guestroom assets: / Clocks and clock radios | 5 years | 20.00% | 40.00% | 1 July 2005
-Guestroom assets: / Kitchen assets: | | | |
+Asset group · Guestroom assets: / Kitchen assets: | | | |
 Guestroom assets: / Kitchen assets: / Bar refrigerators | 10 years | 10.00% | 20.00% | 1 July 2005
 Guestroom assets: / Kitchen assets: / Cooking utensils (including electric jugs, kettles, pans, pots and toasters, but excluding portable cook tops and ovens) | 2 years | 50.00% | 100.00% | 1 July 2005
 Guestroom assets: / Kitchen assets: / Crockery and cutlery | 4 years | 25.00% | 50.00% | 1 July 2005
-Guestroom assets: / Kitchen assets: / Glassware | 2 years | 50.00% | 100.00% | 1 July 2005
-Guestroom assets: / Kitchen assets: / Microwave ovens | 5 years | 20.00% | 40.00% | 1 July 2005
-Guestroom assets: / Laundry assets in guestrooms: | | | |
-Guestroom assets: / Laundry assets in guestrooms: / Clothes dryers | 7 years | 14.29% | 28.57% | 1 July 2005
+Guestroom assets: / Glassware (Kitchen assets) | 2 years | 50.00% | 100.00% | 1 July 2005
+Guestroom assets: / Kitchen assets: / Microwave ovens (Accommodation) | 5 years | 20.00% | 40.00% | 1 July 2005
+Asset group · Guestroom assets: / Laundry assets in guestrooms: | | | |
+Guestroom assets: / Clothes dryers (Laundry assets in guestrooms) | 7 years | 14.29% | 28.57% | 1 July 2005
 Guestroom assets: / Laundry assets in guestrooms: / Irons and ironing boards | 3 years | 33.33% | 66.67% | 1 July 2005
-Guestroom assets: / Laundry assets in guestrooms: / Washing machines | 7 years | 14.29% | 28.57% | 1 July 2005
+Guestroom assets: / Washing machines (Laundry assets in guestrooms) | 7 years | 14.29% | 28.57% | 1 July 2005
 Guestroom assets: / Window blinds and curtains | 6 years | 16.67% | 33.33% | 1 July 2005
-Hot water systems (excluding commercial boilers and piping) | 10 years | 10.00% | 20.00% | 1 July 2005
+Hot water systems (excluding commercial boilers and piping) (Accommodation) | 10 years | 10.00% | 20.00% | 1 July 2005
 Housekeeping assets (including bins, buckets, floor signs and toilet brushes) | 1 year | 100.00% | 200.00% | 1 July 2005
-Laundry assets used by hotel/motel operators: | | | |
-Laundry assets used by hotel/motel operators: / Dryers | 10 years | 10.00% | 20.00% | 1 July 2005
+Asset group · Laundry assets used by hotel/motel operators: | | | |
+Dryers (Laundry assets used by hotel/motel operators) | 10 years | 10.00% | 20.00% | 1 July 2005
 Laundry assets used by hotel/motel operators: / Linen bins | 15 years | 6.67% | 13.33% | 1 July 2005
-Laundry assets used by hotel/motel operators: / Pressers | 15 years | 6.67% | 13.33% | 1 July 2005
+Pressers (Laundry assets used by hotel/motel operators) | 15 years | 6.67% | 13.33% | 1 July 2005
 Laundry assets used by hotel/motel operators: / Roller irons | 20 years | 5.00% | 10.00% | 1 July 2005
-Laundry assets used by hotel/motel operators: / Washing machines | 10 years | 10.00% | 20.00% | 1 July 2005
-Public address and paging system assets (including amplifiers, audio speakers and microphones) | 10 years | 10.00% | 20.00% | 1 July 2005
-Sauna heating assets | 10 years | 10.00% | 20.00% | 1 July 2005
-Swimming pools and spas: | | | |
-Swimming pools and spas: / Chlorinators | 8 years | 12.50% | 25.00% | 1 July 2005
-Swimming pools and spas: / Filtration assets (including pumps) | 8 years | 12.50% | 25.00% | 1 July 2005
-Swimming pools and spas: / Heaters | 10 years | 10.00% | 20.00% | 1 July 2005
-Trolleys | 10 years | 10.00% | 20.00% | 1 July 2005
-Vacuum cleaners | 3 years | 33.33% | 66.67% | 1 July 2005
+Washing machines (Laundry assets used by hotel/motel operators) | 10 years | 10.00% | 20.00% | 1 July 2005
+Public address and paging system assets (including amplifiers, audio speakers and microphones) (Accommodation) | 10 years | 10.00% | 20.00% | 1 July 2005
+Sauna heating assets (Accommodation) | 10 years | 10.00% | 20.00% | 1 July 2005
+Asset group · Swimming pools and spas: | | | |
+Chlorinators (Swimming pools and spas) | 8 years | 12.50% | 25.00% | 1 July 2005
+Filtration assets (including pumps) (Swimming pools and spas) | 8 years | 12.50% | 25.00% | 1 July 2005
+Heaters (Swimming pools and spas) | 10 years | 10.00% | 20.00% | 1 July 2005
+Trolleys (Accommodation) | 10 years | 10.00% | 20.00% | 1 July 2005
+Vacuum cleaners (Accommodation) | 3 years | 33.33% | 66.67% | 1 July 2005
 Water pumps used to deliver water to residences above ground level | 10 years | 10.00% | 20.00% | 1 July 2005
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/#source
 - Audio visual entertainment assets (including those used in conference and function rooms (including amplifier, audio speaker, digital disc player, microphone, television sets, turntable, video projection equipment)): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/audio-visual-entertainment-assets/
-- Carpets: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/carpets/
+- Carpets (Accommodation): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/carpets/
 - Door controls and motor drive systems for automatic sliding doors and revolving doors (incorporating chains, controls, motors and sensors, but excluding doors): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/door-controls-and-motor-drive-systems-for-automatic-sliding/
 - Generally (including guestrooms): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/furniture-freestanding-generally/
-- Outdoor: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/outdoor/
-- Controls and motors: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/garage-doors-electric-controls-and-motors/
-- Controls and motors: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/gates-electric-controls-and-motors/
+- Outdoor (Furniture, freestanding): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/outdoor/
+- Controls and motors (Garage doors, electric …): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/garage-doors-electric-controls-and-motors/
+- Controls and motors (Gates, electric …): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/gates-electric-controls-and-motors/
 - Accessories, freestanding (including sanitary assets, shower caddies, soap holders and toilet brushes): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/accessories-freestanding/
 - Hair dryers: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/hair-dryers/
-- Heated towel rails, electric: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/heated-towel-rails-electric/
-- Scales: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/scales/
-- Spa bath pumps: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/spa-bath-pumps/
-- Towels: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/towels/
+- Heated towel rails, electric (Accommodation): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/heated-towel-rails-electric/
+- Scales (Bathroom assets): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/scales/
+- Spa bath pumps (Accommodation): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/spa-bath-pumps/
+- Towels (Bathroom assets): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/towels/
 - Bedding (including mattress protectors, pillows and sheets): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/bedding/
 - Bed mattresses: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/bed-mattresses/
 - Generally (including ensembles): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/guestroom-assets-generally/
@@ -103,29 +104,29 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 - Bar refrigerators: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/bar-refrigerators/
 - Cooking utensils (including electric jugs, kettles, pans, pots and toasters, but excluding portable cook tops and ovens): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/cooking-utensils/
 - Crockery and cutlery: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/crockery-and-cutlery/
-- Glassware: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/glassware/
-- Microwave ovens: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/microwave-ovens/
-- Clothes dryers: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/clothes-dryers/
+- Glassware (Kitchen assets): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/glassware/
+- Microwave ovens (Accommodation): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/microwave-ovens/
+- Clothes dryers (Laundry assets in guestrooms): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/clothes-dryers/
 - Irons and ironing boards: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/irons-and-ironing-boards/
-- Washing machines: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/guestroom-assets-washing-machines/
+- Washing machines (Laundry assets in guestrooms): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/guestroom-assets-washing-machines/
 - Window blinds and curtains: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/window-blinds-and-curtains/
-- Hot water systems (excluding commercial boilers and piping): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/hot-water-systems/
+- Hot water systems (excluding commercial boilers and piping) (Accommodation): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/hot-water-systems/
 - Housekeeping assets (including bins, buckets, floor signs and toilet brushes): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/housekeeping-assets/
-- Dryers: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/dryers/
+- Dryers (Laundry assets used by hotel/motel operators): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/dryers/
 - Linen bins: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/linen-bins/
-- Pressers: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/pressers/
+- Pressers (Laundry assets used by hotel/motel operators): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/pressers/
 - Roller irons: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/roller-irons/
-- Washing machines: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/laundry-assets-used-by-hotel-washing-machines/
-- Public address and paging system assets (including amplifiers, audio speakers and microphones): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/public-address-and-paging-system-assets/
-- Sauna heating assets: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/sauna-heating-assets/
-- Chlorinators: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/chlorinators/
-- Filtration assets (including pumps): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/filtration-assets/
-- Heaters: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/heaters/
-- Trolleys: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/trolleys/
-- Vacuum cleaners: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/vacuum-cleaners/
+- Washing machines (Laundry assets used by hotel/motel operators): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/laundry-assets-used-by-hotel-washing-machines/
+- Public address and paging system assets (including amplifiers, audio speakers and microphones) (Accommodation): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/public-address-and-paging-system-assets/
+- Sauna heating assets (Accommodation): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/sauna-heating-assets/
+- Chlorinators (Swimming pools and spas): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/chlorinators/
+- Filtration assets (including pumps) (Swimming pools and spas): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/filtration-assets/
+- Heaters (Swimming pools and spas): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/heaters/
+- Trolleys (Accommodation): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/trolleys/
+- Vacuum cleaners (Accommodation): https://duguid.com.au/tools/depreciation-rates/industry/accommodation/vacuum-cleaners/
 - Water pumps used to deliver water to residences above ground level: https://duguid.com.au/tools/depreciation-rates/industry/accommodation/water-pumps-used-to-deliver-water-to-residences-above-ground/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

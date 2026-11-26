@@ -1,6 +1,9 @@
 <section class="business-calculator" id="alcohol-excise">
 <form class="calculator-split" data-calculator="alcohol-excise">
-<fieldset disabled><legend>Excise duty on alcohol entered for home consumption in a financial year</legend><div class="form-grid">
+<fieldset disabled><legend>Alcohol excise for one financial year</legend><div class="form-grid">
+<label class="field" for="alcohol-excise-used">Remission, rebates and refunds already used this financial year (AUD)<input aria-describedby="alcohol-excise-note" id="alcohol-excise-used" name="used" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" required /></label>
+<label class="field" for="alcohol-excise-manufacturer-from">The day the business first became an alcohol manufacturer, if in this year<input id="alcohol-excise-manufacturer-from" name="manufacturer-from" type="date" min="2022-07-01" max="2027-06-30" /></label>
+<div class="field"><label for="alcohol-excise-duty-paid">The duty has been paid, so the remission is a refund on application</label><select name="duty-paid" id="alcohol-excise-duty-paid"><option value="no" selected>No</option><option value="yes">Yes</option></select></div>
 <div class="field"><label for="alcohol-excise-year">Financial year</label><select name="year" id="alcohol-excise-year"><option value="2026-27" selected>2026-27</option><option value="2025-26">2025-26</option><option value="2024-25">2024-25</option><option value="2023-24">2023-24</option><option value="2022-23">2022-23</option></select></div>
 </div>
 <h2>Goods entered for home consumption</h2>
@@ -35,12 +38,6 @@
 <label for="alcohol-excise-pressurised-3">Beer in 8 to 48 litre containers: designed for a pressurised gas or pump system<select name="pressurised-3" id="alcohol-excise-pressurised-3"><option value="" selected>Not applicable</option><option value="yes">Yes</option><option value="no">No</option></select></label>
 <label for="alcohol-excise-remission-3">Claim the alcohol manufacturer remission<select name="remission-3" id="alcohol-excise-remission-3"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
 </fieldset>
-<h2>The alcohol manufacturer remission</h2>
-<fieldset><legend>The remission, for a line that claims it</legend><div class="form-grid">
-<label class="field" for="alcohol-excise-used">Remission, rebates and refunds already used this financial year (AUD)<input aria-describedby="alcohol-excise-note" id="alcohol-excise-used" name="used" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" required /></label>
-<label class="field" for="alcohol-excise-manufacturer-from">The day the business first became an alcohol manufacturer, if in this year<input id="alcohol-excise-manufacturer-from" name="manufacturer-from" type="date" min="2022-07-01" max="2027-06-30" /></label>
-<div class="field"><label for="alcohol-excise-duty-paid">The duty has been paid, so the remission is a refund on application</label><select name="duty-paid" id="alcohol-excise-duty-paid"><option value="no" selected>No</option><option value="yes">Yes</option></select></div>
-</div></fieldset>
 <button type="submit" class="button">Calculate</button></fieldset>
 <p class="field-note" id="alcohol-excise-note">A line marked for the remission states that the manufacturer meets item 10 (a), (b), (d) and (e) of the Excise Regulation 2015: duty payable by it, independence, at least 70% fermented or distilled by it and, for a distillery after its first 2 years, the still test. The cap is $350,000 a financial year to 2025-26 and $400,000 from 2026-27.</p>
 {% include calculator-example.html inputs="2026-27; 5000 litres of beer at 4.8% on 2026-09-01 in 50 litre containers; 400 litres of spirits at 40% on 2026-10-15, remission claimed; remission already used this year $0.00" rows="Subitem 1.11: 182.5 litres of alcohol at $43.39|$7,918.67;Subitem 3.10: 160.0 litres of alcohol at $110.15, remission claimed|$17,624.00;Excise duty|$25,542.67;Remission under the cap|$17,624.00;Net duty payable|$7,918.67" principal="4" note="Remission cap $400,000.00 for the year, $400,000.00 left before these goods" %}

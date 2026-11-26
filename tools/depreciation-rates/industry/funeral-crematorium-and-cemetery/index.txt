@@ -8,82 +8,83 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/funeral-cremator
 
 21 effective lives in Table A of the Commissioner’s 2025 effective life determination for Funeral, crematorium and cemetery services.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
-A row with no life is a heading for the rows after it that name it, or points to another row.
+Rows of Funeral, crematorium and cemetery services. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
-Cemetery assets: | | | |
+Asset group · Cemetery assets: | | | |
 Cemetery assets: / Casket lowering devices | 10 years | 10.00% | 20.00% | 1 July 2020
 Cemetery assets: / Mini excavators and skid steer loaders | 10 years | 10.00% | 20.00% | 1 July 2020
-Crematorium assets: | | | |
+Asset group · Crematorium assets: | | | |
 Crematorium assets: / Ash processors/granulators | 7 years | 14.29% | 28.57% | 1 July 2020
-Crematorium assets: / Cremators | 20 years | 5.00% | 10.00% | 1 July 2020
-Crematorium assets: / Dust collection assets | 10 years | 10.00% | 20.00% | 1 July 2020
-Funeral assets: | | | |
+Cremators (Crematorium assets) | 20 years | 5.00% | 10.00% | 1 July 2020
+Dust collection assets (Crematorium assets) | 10 years | 10.00% | 20.00% | 1 July 2020
+Asset group · Funeral assets: | | | |
 Funeral assets: / Bench seating | 10 years | 10.00% | 20.00% | 1 July 2020
 Funeral assets: / Broadcasting equipment (including audio visual devices and streaming equipment) | 5 years | 20.00% | 40.00% | 1 July 2020
 Funeral assets: / Church trolleys/trucks | 15 years | 6.67% | 13.33% | 1 July 2020
 Funeral assets: / Coffin racks | 13 years | 7.69% | 15.38% | 1 July 2020
-Funeral assets: / Engravers: | | | |
+Asset group · Funeral assets: / Engravers: | | | |
 Funeral assets: / Engravers: / Electronic/laser cutters | 7 years | 14.29% | 28.57% | 1 July 2020
-Funeral assets: / Engravers: / Manual | 20 years | 5.00% | 10.00% | 1 July 2020
-Funeral assets: / Lecterns | 15 years | 6.67% | 13.33% | 1 July 2020
-Funeral assets: / Scissor lift tables – see Table B Loading bay assets | | | |
-General assets: | | | |
+Funeral assets: / Manual (Engravers) | 20 years | 5.00% | 10.00% | 1 July 2020
+Lecterns (Funeral assets) | 15 years | 6.67% | 13.33% | 1 July 2020
+Register note · Funeral assets: / Scissor lift tables – see Table B Loading bay assets | | | |
+Asset group · General assets: | | | |
 General assets: / Funeral coaches/hearses | 15 years | 6.67% | 13.33% | 1 July 2020
 General assets: / Mortuary cots/stretchers | 15 years | 6.67% | 13.33% | 1 July 2020
-General assets: / Refrigeration assets: | | | |
-General assets: / Refrigeration assets: / Cool rooms – see Table B Refrigeration assets | | | |
+Asset group · General assets: / Refrigeration assets: | | | |
+Register note · General assets: / Refrigeration assets: / Cool rooms – see Table B Refrigeration assets | | | |
 General assets: / Refrigeration assets: / Refrigeration racks | 20 years | 5.00% | 10.00% | 1 July 2020
-General assets: / Scales: | | | |
-General assets: / Scales: / Animal scales | 5 years | 20.00% | 40.00% | 1 July 2020
-General assets: / Scales: / Platform scales – see Table B | | | |
-General assets: / Transfer vehicles (including fitouts) – see Table B Motor vehicles and trailers – Generally | | | |
-Mortuary assets: | | | |
+Asset group · General assets: / Scales: | | | |
+General assets: / Animal scales (Scales) | 5 years | 20.00% | 40.00% | 1 July 2020
+Register note · General assets: / Scales: / Platform scales – see Table B | | | |
+Register note · General assets: / Transfer vehicles (including fitouts) – see Table B Motor vehicles and trailers – Generally | | | |
+Asset group · Mortuary assets: | | | |
 Mortuary assets: / Embalming machines | 10 years | 10.00% | 20.00% | 1 July 2020
 Mortuary assets: / Embalming/morgue tables | 15 years | 6.67% | 13.33% | 1 July 2020
 Mortuary assets: / Floor coverings – linoleum and vinyl (removable without damage) | 15 years | 6.67% | 13.33% | 1 July 2020
 Mortuary assets: / Hoists and lifting machines | 10 years | 10.00% | 20.00% | 1 July 2020
-Mortuary assets: / Hydro-aspirators | 10 years | 10.00% | 20.00% | 1 July 2020
+Hydro-aspirators (Mortuary assets) | 10 years | 10.00% | 20.00% | 1 July 2020
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/#source
 - Casket lowering devices: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/casket-lowering-devices/
 - Mini excavators and skid steer loaders: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/mini-excavators-and-skid-steer-loaders/
 - Ash processors/granulators: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/ash-processors-granulators/
-- Cremators: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/cremators/
-- Dust collection assets: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/dust-collection-assets/
+- Cremators (Crematorium assets): https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/cremators/
+- Dust collection assets (Crematorium assets): https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/dust-collection-assets/
 - Bench seating: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/bench-seating/
 - Broadcasting equipment (including audio visual devices and streaming equipment): https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/broadcasting-equipment/
 - Church trolleys/trucks: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/church-trolleys-trucks/
 - Coffin racks: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/coffin-racks/
 - Electronic/laser cutters: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/electronic-laser-cutters/
-- Manual: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/manual/
-- Lecterns: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/lecterns/
+- Manual (Engravers): https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/manual/
+- Lecterns (Funeral assets): https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/lecterns/
 - Scissor lift tables – see Table B Loading bay assets: https://duguid.com.au/tools/depreciation-rates/asset/loading-bay-assets/
 - Funeral coaches/hearses: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/funeral-coaches-hearses/
 - Mortuary cots/stretchers: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/mortuary-cots-stretchers/
 - Cool rooms – see Table B Refrigeration assets: https://duguid.com.au/tools/depreciation-rates/asset/refrigeration-assets/
 - Refrigeration racks: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/refrigeration-racks/
-- Animal scales: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/animal-scales/
+- Animal scales (Scales): https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/animal-scales/
 - Embalming machines: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/embalming-machines/
 - Embalming/morgue tables: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/embalming-morgue-tables/
 - Floor coverings – linoleum and vinyl (removable without damage): https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/floor-coverings-linoleum-and-vinyl/
 - Hoists and lifting machines: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/hoists-and-lifting-machines/
-- Hydro-aspirators: https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/hydro-aspirators/
+- Hydro-aspirators (Mortuary assets): https://duguid.com.au/tools/depreciation-rates/industry/funeral-crematorium-and-cemetery/hydro-aspirators/
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

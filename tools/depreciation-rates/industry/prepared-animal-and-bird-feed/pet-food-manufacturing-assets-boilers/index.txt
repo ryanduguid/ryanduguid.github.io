@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-boilers/
 
-> Support assets: Boilers: effective life 20 years, prime cost 5.00%, diminishing value 10.00%, last updated 1 July 2013 (Table A, 2025 determination).
+> Support assets: Boilers: life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 July 2013.
 
 # Support assets: Boilers (Prepared animal and bird feed manufacturing)
 
 ‘Support assets: Boilers’, for an asset used in Prepared animal and bird feed manufacturing, has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2013.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Boilers
 Under | Pet food manufacturing assets: / Support assets:
@@ -25,100 +25,105 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in Prepared animal and bird feed manufacturing takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Prepared animal and bird feed manufacturing, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
-The life was last reviewed and determined on 1 July 2013. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 July 2013. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Support assets
 
+Other rows under Support assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Access platforms | 20 years | 5.00% | 10.00%
-Air compressors and receivers | 10 years | 10.00% | 20.00%
+Air compressors and receivers (Prepared animal and bird feed manufacturing) | 10 years | 10.00% | 20.00%
 Bins (including tippers and raw material bins) | 15 years | 6.67% | 13.33%
 Boilers (this page) | 20 years | 5.00% | 10.00%
 Cleaning systems (including vacuum) | 15 years | 6.67% | 13.33%
 Contra shears and drum filters | 10 years | 10.00% | 20.00%
-Control systems | 10 years | 10.00% | 20.00%
-Dust management assets (including bag and dust filters, dust collectors, dust extraction hood and ducting and exhaust fans and socks) | 15 years | 6.67% | 13.33%
-Effluent pumps | 10 years | 10.00% | 20.00%
+Control systems (Prepared animal and bird feed manufacturing) | 10 years | 10.00% | 20.00%
+Dust management assets (including bag and dust filters, dust collectors, dust extraction hood and ducting and exhaust fans and socks) (Pet food manufacturing assets / Support assets / Prepared animal and bird feed manufacturing) | 15 years | 6.67% | 13.33%
+Effluent pumps (Support assets) | 10 years | 10.00% | 20.00%
 Effluent screens and filters | 10 years | 10.00% | 20.00%
 
 19 rows share this heading. The Prepared animal and bird feed manufacturing page lists them all.
 
-## The same wording elsewhere
+## Similarly named rows
 
-Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination). The first 20 of 24 are shown.
+Compare the full row description and industry. Similar names can cover different equipment or effective lives under section 6 of the determination. The first 20 of 24 are shown.
+
+Similarly named rows. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Boilers (including piping) | Nursery and floriculture production | 20 years | 5.00% | 10.00%
 Boilers (used for humidification and pasteurisation) | Mushroom growing | 10 years | 10.00% | 20.00%
-Boilers | Poultry hatcheries | 20 years | 5.00% | 10.00%
-Boilers | Oil and gas extraction | 10 years | 10.00% | 20.00%
-Boilers | Oil and gas extraction | 10 years | 10.00% | 20.00%
-Boilers | Meat processing | 20 years | 5.00% | 10.00%
-Boilers | Fruit and vegetable processing | 20 years | 5.00% | 10.00%
+Boilers (Poultry hatcheries) | Poultry hatcheries | 20 years | 5.00% | 10.00%
+Boilers (Central production facility assets) | Oil and gas extraction | 10 years | 10.00% | 20.00%
+Boilers (Central production facility assets …) | Oil and gas extraction | 10 years | 10.00% | 20.00%
+Boilers (Water assets) | Meat processing | 20 years | 5.00% | 10.00%
+Boilers (Fruit and vegetable processing) | Fruit and vegetable processing | 20 years | 5.00% | 10.00%
 Boilers (packaged type only) | Sugar manufacturing | 20 years | 5.00% | 10.00%
-Boilers | Other food product manufacturing n.e.c. | 20 years | 5.00% | 10.00%
-Boilers | Other food product manufacturing n.e.c. | 20 years | 5.00% | 10.00%
-Boilers | Soft drink, cordial and syrup manufacturing | 20 years | 5.00% | 10.00%
-Boilers | Beer manufacturing (except non-alcoholic beer) | 20 years | 5.00% | 10.00%
-Boilers | Wine and other alcoholic beverage manufacturing | 15 years | 6.67% | 13.33%
-Boilers | Industrial gas manufacturing | 10 years | 10.00% | 20.00%
-Boilers | Basic organic chemical manufacturing | 20 years | 5.00% | 10.00%
-Boilers | Basic inorganic chemical manufacturing | 25 years | 4.00% | 8.00%
-Boilers | Polymer film and sheet packaging material manufacturing | 20 years | 5.00% | 10.00%
-Boilers | Glass and glass product manufacturing | 20 years | 5.00% | 10.00%
+Boilers (Ancillary and support assets) | Other food product manufacturing n.e.c. | 20 years | 5.00% | 10.00%
+Boilers (Other food product manufacturing n.e.c.) | Other food product manufacturing n.e.c. | 20 years | 5.00% | 10.00%
+Boilers (Soft drink, cordial and syrup manufacturing) | Soft drink, cordial and syrup manufacturing | 20 years | 5.00% | 10.00%
+Boilers (Beer manufacturing (except non-alcoholic beer)) | Beer manufacturing (except non-alcoholic beer) | 20 years | 5.00% | 10.00%
+Boilers (Wine and other alcoholic beverage manufacturing) | Wine and other alcoholic beverage manufacturing | 15 years | 6.67% | 13.33%
+Boilers (Cylinder preparation assets) | Industrial gas manufacturing | 10 years | 10.00% | 20.00%
+Boilers (Support and other assets) | Basic organic chemical manufacturing | 20 years | 5.00% | 10.00%
+Boilers (Boiler assets) | Basic inorganic chemical manufacturing | 25 years | 4.00% | 8.00%
+Boilers (Polymer film and sheet packaging material manufacturing) | Polymer film and sheet packaging material manufacturing | 20 years | 5.00% | 10.00%
+Boilers (Glass and glass product manufacturing) | Glass and glass product manufacturing | 20 years | 5.00% | 10.00%
 Boilers (including steam generators) | Concrete product manufacturing | 20 years | 5.00% | 10.00%
-Boilers | Concrete product manufacturing | 20 years | 5.00% | 10.00%
+Boilers (Concrete roof tile manufacturing assets / Curing assets / Concrete product manufacturing) | Concrete product manufacturing | 20 years | 5.00% | 10.00%
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 20 years.
+The depreciation calculator uses your cost, start date and this effective life of 20 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-boilers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Access platforms: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/access-platforms/
-- Air compressors and receivers: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/air-compressors-and-receivers/
+- Air compressors and receivers (Prepared animal and bird feed manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/air-compressors-and-receivers/
 - Bins (including tippers and raw material bins): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-bins/
 - Cleaning systems (including vacuum): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/cleaning-systems/
 - Contra shears and drum filters: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/contra-shears-and-drum-filters/
-- Control systems: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-control-systems/
-- Dust management assets (including bag and dust filters, dust collectors, dust extraction hood and ducting and exhaust fans and socks): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-dust-management-assets/
-- Effluent pumps: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/effluent-pumps/
+- Control systems (Prepared animal and bird feed manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-control-systems/
+- Dust management assets (including bag and dust filters, dust collectors, dust extraction hood and ducting and exhaust fans and socks) (Pet food manufacturing assets / Support assets / Prepared animal and bird feed manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/pet-food-manufacturing-assets-dust-management-assets/
+- Effluent pumps (Support assets): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/effluent-pumps/
 - Effluent screens and filters: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/effluent-screens-and-filters/
 - Prepared animal and bird feed manufacturing: https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/
 - Boilers (including piping): https://duguid.com.au/tools/depreciation-rates/industry/nursery-and-floriculture-production/boilers/
 - Boilers (used for humidification and pasteurisation): https://duguid.com.au/tools/depreciation-rates/industry/mushroom-growing/boilers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/boilers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/gas-production-assets-boilers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/oil-production-assets-boilers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/boilers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/boilers/
+- Boilers (Poultry hatcheries): https://duguid.com.au/tools/depreciation-rates/industry/poultry-hatcheries/boilers/
+- Boilers (Central production facility assets): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/gas-production-assets-boilers/
+- Boilers (Central production facility assets …): https://duguid.com.au/tools/depreciation-rates/industry/oil-and-gas-extraction/oil-production-assets-boilers/
+- Boilers (Water assets): https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/boilers/
+- Boilers (Fruit and vegetable processing): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/boilers/
 - Boilers (packaged type only): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/boilers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/frozen-pre-prepared-food-boilers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/tea-processing-assets-boilers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/boilers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/boilers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/boilers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/boilers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/boilers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/boilers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/polymer-film-and-sheet-packaging/boilers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/boilers/
+- Boilers (Ancillary and support assets): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/frozen-pre-prepared-food-boilers/
+- Boilers (Other food product manufacturing n.e.c.): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/tea-processing-assets-boilers/
+- Boilers (Soft drink, cordial and syrup manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/soft-drink-cordial-and-syrup/boilers/
+- Boilers (Beer manufacturing (except non-alcoholic beer)): https://duguid.com.au/tools/depreciation-rates/industry/beer-manufacturing-except-non-alcoholic/boilers/
+- Boilers (Wine and other alcoholic beverage manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/wine-and-other-alcoholic-beverage/boilers/
+- Boilers (Cylinder preparation assets): https://duguid.com.au/tools/depreciation-rates/industry/industrial-gas-manufacturing/boilers/
+- Boilers (Support and other assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-organic-chemical-manufacturing/boilers/
+- Boilers (Boiler assets): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/boilers/
+- Boilers (Polymer film and sheet packaging material manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/polymer-film-and-sheet-packaging/boilers/
+- Boilers (Glass and glass product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/glass-and-glass-product-manufacturing/boilers/
 - Boilers (including steam generators): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-block-brick-and-paver-boilers/
-- Boilers: https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-boilers/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Boilers (Concrete roof tile manufacturing assets / Curing assets / Concrete product manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/concrete-product-manufacturing/concrete-roof-tile-manufacturing-boilers/
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

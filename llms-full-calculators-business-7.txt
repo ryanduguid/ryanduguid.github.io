@@ -87,7 +87,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 Source: https://duguid.com.au/tools/business-calculators/sole-trader-company/
 
-> Compare the tax on one business profit as a sole trader, with the small business income tax offset, and through a company paying salary, super and franked dividends.
+> Compare tax on a business profit as a sole trader, including the small business income tax offset, and as a company paying salary, super and franked dividends.
 
 # Sole trader against company calculator
 
@@ -169,11 +169,13 @@ Published 26 November 2026. Last checked 22 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-One complying SMSF’s income tax calculation statement (item 13) for an income year
+A complying SMSF’s item 13 for one income year
+
+Assessable contributions (whole AUD)
 
 Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
 
-Assessable contributions (whole AUD) Of those, no-TFN contributions income (whole AUD) Net non-arm’s length income, label U (whole AUD) Non-arm’s length income from general expenses, section 295-550(8) and (9) (AUD) Income from segregated current pension assets (whole AUD) Other income the actuary’s proportion applies to (whole AUD) The actuary’s proportion, as a decimal from 0 to 1 Income from segregated non-current assets (whole AUD) Total deductions (whole AUD) Of those, deductions attributable to the contributions (whole AUD)
+Of those, no-TFN contributions income (whole AUD) Net non-arm’s length income, label U (whole AUD) Non-arm’s length income from general expenses, section 295-550(8) and (9) (AUD) Income from segregated current pension assets (whole AUD) Other income the actuary’s proportion applies to (whole AUD) The actuary’s proportion, as a decimal from 0 to 1 Income from segregated non-current assets (whole AUD) Total deductions (whole AUD) Of those, deductions attributable to the contributions (whole AUD)
 
 The fund has disregarded small fund assets (section 295-387) No Yes
 
@@ -236,11 +238,11 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 One entity’s trading stock for an income year
 
+Value of trading stock on hand at the start of the year (AUD) A reasonable estimate of the closing value (AUD), blank to use the stocktake
+
 Income year 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
 
 The entity A small business entity (turnover under $10 million) An entity with turnover under $50 million Another entity
-
-Value of trading stock on hand at the start of the year (AUD) A reasonable estimate of the closing value (AUD), blank to use the stocktake
 
 Choose not to account for the change (section 328-285) No Yes
 
@@ -307,6 +309,8 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 One prepaid amount and when it is deductible
 
+Expenditure (AUD) Day incurred First day of the services paid for Last day of the services paid for Day the agreement was entered into
+
 Income year the expenditure is incurred in 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
 
 The taxpayer A small business entity (turnover under $10 million) An entity with turnover under $50 million Another taxpayer, such as an individual or a larger business
@@ -314,8 +318,6 @@ The taxpayer A small business entity (turnover under $10 million) An entity with
 The taxpayer is an individual No Yes
 
 Incurred in carrying on a business Yes No
-
-Expenditure (AUD) Day incurred First day of the services paid for Last day of the services paid for Day the agreement was entered into
 
 Excluded expenditure (section 82KZL(1)) No, or only by being under $1,000 Required by a law or a court order Salary or wages under a contract of service
 
@@ -372,7 +374,11 @@ Published 26 November 2026. Last checked 22 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Excise duty on alcohol entered for home consumption in a financial year
+Alcohol excise for one financial year
+
+Remission, rebates and refunds already used this financial year (AUD) The day the business first became an alcohol manufacturer, if in this year
+
+The duty has been paid, so the remission is a refund on application No Yes
 
 Financial year 2026-27 2025-26 2024-25 2023-24 2022-23
 
@@ -385,14 +391,6 @@ Line 1: goods entered for home consumption Day entered (delivered, or paid witho
 Line 2: goods entered for home consumption (optional) Day entered (delivered, or paid without a periodic settlement permission) ProductBeer Spirits, such as vodka, whisky or gin Brandy Other excisable beverage, such as a ready-to-drink Volume (litres), blank for no line Actual strength (% alcohol by volume) Labelled strength where higher (%), else blank Beer: container size (litres) Beer in 8 to 48 litre containers: designed for a pressurised gas or pump systemNot applicable Yes No Claim the alcohol manufacturer remissionNo Yes
 
 Line 3: goods entered for home consumption (optional) Day entered (delivered, or paid without a periodic settlement permission) ProductBeer Spirits, such as vodka, whisky or gin Brandy Other excisable beverage, such as a ready-to-drink Volume (litres), blank for no line Actual strength (% alcohol by volume) Labelled strength where higher (%), else blank Beer: container size (litres) Beer in 8 to 48 litre containers: designed for a pressurised gas or pump systemNot applicable Yes No Claim the alcohol manufacturer remissionNo Yes
-
-## The alcohol manufacturer remission
-
-The remission, for a line that claims it
-
-Remission, rebates and refunds already used this financial year (AUD) The day the business first became an alcohol manufacturer, if in this year
-
-The duty has been paid, so the remission is a refund on application No Yes
 
 Calculate
 

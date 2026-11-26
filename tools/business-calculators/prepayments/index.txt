@@ -14,6 +14,8 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 One prepaid amount and when it is deductible
 
+Expenditure (AUD) Day incurred First day of the services paid for Last day of the services paid for Day the agreement was entered into
+
 Income year the expenditure is incurred in 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
 
 The taxpayer A small business entity (turnover under $10 million) An entity with turnover under $50 million Another taxpayer, such as an individual or a larger business
@@ -21,8 +23,6 @@ The taxpayer A small business entity (turnover under $10 million) An entity with
 The taxpayer is an individual No Yes
 
 Incurred in carrying on a business Yes No
-
-Expenditure (AUD) Day incurred First day of the services paid for Last day of the services paid for Day the agreement was entered into
 
 Excluded expenditure (section 82KZL(1)) No, or only by being under $1,000 Required by a law or a court order Salary or wages under a contract of service
 

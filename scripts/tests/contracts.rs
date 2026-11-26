@@ -2233,6 +2233,17 @@ fn vocabulary_failures(block: &str) -> Vec<String> {
 
 #[test]
 fn schema_vocabulary_terms() {
+    assert!(
+        vocabulary_failures(r#"{"@type":"SearchAction","query-input":"required name=q"}"#)
+            .is_empty()
+    );
+    assert!(
+        !vocabulary_failures(r#"{"@type":"WebPage","query-input":"required name=q"}"#).is_empty()
+    );
+    assert!(
+        !vocabulary_failures(r#"{"@type":"SearchAction","unknown-input":"required name=q"}"#)
+            .is_empty()
+    );
     // Inherited domains, nested and untyped nodes, multiple types and keywords all pass.
     assert_clean(
         "schema.org terms",

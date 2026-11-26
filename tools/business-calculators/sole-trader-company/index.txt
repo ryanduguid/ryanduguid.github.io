@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/business-calculators/sole-trader-company/
 
-> Compare the tax on one business profit as a sole trader, with the small business income tax offset, and through a company paying salary, super and franked dividends.
+> Compare tax on a business profit as a sole trader, including the small business income tax offset, and as a company paying salary, super and franked dividends.
 
 # Sole trader against company calculator
 

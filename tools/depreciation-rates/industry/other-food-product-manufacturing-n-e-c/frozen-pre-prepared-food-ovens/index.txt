@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/frozen-pre-prepared-food-ovens/
 
-> Pizza base making assets: Ovens: effective life 20 years, prime cost 5.00%, diminishing value 10.00%, last updated 1 July 2012 (Table A, 2025 determination).
+> Pizza base making assets: Ovens: life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 July 2012.
 
 # Pizza base making assets: Ovens
 
 ‘Pizza base making assets: Ovens’, for an asset used in Other food product manufacturing n.e.c., has an effective life of 20 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2012.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 27 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates. Data from determination F2025L01097, registered on 15 September 2025.
 
 Row | Ovens
 Under | Frozen pre-prepared food manufacturing assets (including frozen appetisers and finger foods such as dim sims and spring rolls, frozen french fries/potato chips, frozen pizzas and frozen pre-prepared meals): / Frozen pizza manufacturing assets: / Pizza base making assets:
@@ -25,71 +25,76 @@ Reviewed | Yes: the row is marked * as reviewed in the Commissioner’s ongoing 
 
 ## Reading this row
 
-An asset used in Other food product manufacturing n.e.c. takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).
+In Other food product manufacturing n.e.c., this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).
 
 Because the row says ‘including’, each item it lists is treated as a separate asset with this life (paragraph 3 of the guide to Schedule 2).
 
-The life was last reviewed and determined on 1 July 2012. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
+This life was last determined on 1 July 2012. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check which determination applies.
 
 ## Other rows under Pizza base making assets
+
+Other rows under Pizza base making assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Dough mixers | 15 years | 6.67% | 13.33%
 Ovens (this page) | 20 years | 5.00% | 10.00%
 Pizza base forming and sheeting assets (including chunking units, cutters, extruders, laminators, spiker rollers etc) | 15 years | 6.67% | 13.33%
-Proofers | 15 years | 6.67% | 13.33%
+Proofers (Pizza base making assets) | 15 years | 6.67% | 13.33%
 
-## The same wording elsewhere
+## Similarly named rows
 
-Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+Compare the full row description and industry. Similar names can cover different equipment or effective lives under section 6 of the determination.
+
+Similarly named rows. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
-Ovens | Dairy product manufacturing | 15 years | 6.67% | 13.33%
+Ovens (Assets for ice cream manufacturing) | Dairy product manufacturing | 15 years | 6.67% | 13.33%
 Ovens (electric and gas-fired) | Cereal and pasta product manufacturing | 20 years | 5.00% | 10.00%
 Ovens (convection) | Bakery product manufacturing (non-factory based) | 8 years | 12.50% | 25.00%
 Ovens (multi-decked, rotating rack or static rack, rotating deck) | Bakery product manufacturing (non-factory based) | 10 years | 10.00% | 20.00%
 Ovens (including horizontal, tunnel and vertical) | Prepared animal and bird feed manufacturing | 15 years | 6.67% | 13.33%
-Ovens | Textile floor covering manufacturing | 20 years | 5.00% | 10.00%
-Ovens | Paint and coatings manufacturing | 15 years | 6.67% | 13.33%
-Ovens | Ready-mixed concrete manufacturing | 8 years | 12.50% | 25.00%
-Ovens | Supermarket and grocery stores | 10 years | 10.00% | 20.00%
+Ovens (Carpet manufacturing assets) | Textile floor covering manufacturing | 20 years | 5.00% | 10.00%
+Ovens (Paint and coatings manufacturing) | Paint and coatings manufacturing | 15 years | 6.67% | 13.33%
+Ovens (Ready-mixed concrete manufacturing) | Ready-mixed concrete manufacturing | 8 years | 12.50% | 25.00%
+Ovens (Bakery assets) | Supermarket and grocery stores | 10 years | 10.00% | 20.00%
 Ovens (including chicken ovens and smoker ovens) | Supermarket and grocery stores | 10 years | 10.00% | 20.00%
-Ovens | Residential property operators | 12 years | 8.33% | 16.67%
-Ovens | Scientific research services | 6 years | 16.67% | 33.33%
+Ovens (Kitchen assets) | Residential property operators | 12 years | 8.33% | 16.67%
+Ovens (Scientific, medical and pharmaceutical research assets) | Scientific research services | 6 years | 16.67% | 33.33%
 
 ## Work out a deduction
 
-The calculator on the depreciation rates page works out the decline in value for each income year from a cost, a start date and an effective life of 20 years.
+The depreciation calculator uses your cost, start date and this effective life of 20 years to work out each year’s decline in value.
 
 ## Source
 
-Each row on this page is quoted from Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025, as read on 13 November 2026. All the rows are in the data file, and the depreciation rates page says how it was built and checked.
+Schedule 2 of the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097) was registered on 15 September 2025 and checked on 13 November 2026. Download the register data (JSON) or read how the data was checked.
 
 Based on content from the Federal Register of Legislation at 13 November 2026. For the latest information on Australian Government legislation please go to https://www.legislation.gov.au.
 
-The determination is reused under the Creative Commons Attribution 4.0 International licence. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.
+Reused under the Creative Commons Attribution 4.0 International licence. The tables show the published headings, dates in words and 2 rates calculated from each effective life.
 
 ## Links
 
+- determination F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/frozen-pre-prepared-food-ovens/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Dough mixers: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/dough-mixers/
 - Pizza base forming and sheeting assets (including chunking units, cutters, extruders, laminators, spiker rollers etc): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/pizza-base-forming-and-sheeting-assets/
-- Proofers: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/proofers/
-- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/ovens/
+- Proofers (Pizza base making assets): https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/proofers/
+- Ovens (Assets for ice cream manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/dairy-product-manufacturing/ovens/
 - Ovens (electric and gas-fired): https://duguid.com.au/tools/depreciation-rates/industry/cereal-and-pasta-product-manufacturing/ovens/
 - Ovens (convection): https://duguid.com.au/tools/depreciation-rates/industry/bakery-product-manufacturing-non-factory/ovens-convection/
 - Ovens (multi-decked, rotating rack or static rack, rotating deck): https://duguid.com.au/tools/depreciation-rates/industry/bakery-product-manufacturing-non-factory/ovens-multi-decked-rotating-rack-or-static-rack-rotating/
 - Ovens (including horizontal, tunnel and vertical): https://duguid.com.au/tools/depreciation-rates/industry/prepared-animal-and-bird-feed/ovens/
-- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/textile-floor-covering-manufacturing/ovens/
-- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/ovens/
-- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/ready-mixed-concrete-manufacturing/ovens/
-- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/bakery-assets-ovens/
+- Ovens (Carpet manufacturing assets): https://duguid.com.au/tools/depreciation-rates/industry/textile-floor-covering-manufacturing/ovens/
+- Ovens (Paint and coatings manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/paint-and-coatings-manufacturing/ovens/
+- Ovens (Ready-mixed concrete manufacturing): https://duguid.com.au/tools/depreciation-rates/industry/ready-mixed-concrete-manufacturing/ovens/
+- Ovens (Bakery assets): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/bakery-assets-ovens/
 - Ovens (including chicken ovens and smoker ovens): https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/deli-assets-ovens/
-- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/ovens/
-- Ovens: https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/ovens/
-- calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
+- Ovens (Kitchen assets): https://duguid.com.au/tools/depreciation-rates/industry/residential-property-operators/ovens/
+- Ovens (Scientific, medical and pharmaceutical research assets): https://duguid.com.au/tools/depreciation-rates/industry/scientific-research-services/ovens/
+- depreciation calculator: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text
-- data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
-- depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#source
+- register data (JSON): https://duguid.com.au/tools/depreciation-rates/effective-life.json
+- how the data was checked: https://duguid.com.au/tools/depreciation-rates/#source
 - https://www.legislation.gov.au: https://www.legislation.gov.au
 - Creative Commons Attribution 4.0 International licence: https://creativecommons.org/licenses/by/4.0/

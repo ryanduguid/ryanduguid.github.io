@@ -1226,7 +1226,7 @@ test('R&D tax offset page works Company V, a refundable offset and refuses a cla
 });
 
 // The SMSF example is the form's default; a wholly pension phase fund is refunded, and a part dollar is refused.
-test('SMSF tax page works its example, a refund and refuses cents in a whole dollar label offline', async ({ page, context }) => {
+test('SMSF tax page works its example, a refund and refuses cents in a whole dollar field offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/smsf-tax/');
   const form = page.locator('#smsf-tax form');
   await waitForCalculator(form);
@@ -1241,7 +1241,7 @@ test('SMSF tax page works its example, a refund and refuses cents in a whole dol
   await expect(form.locator('output .result-row--principal')).toHaveText('Amount refundable (S): $2,741.00.');
   await form.locator('[name="deductions"]').fill('10.50');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
-  await expect(form.locator('output')).toContainText('whole dollars');
+  await expect(form.locator('.field-error')).toHaveText('Enter a whole number.');
 });
 
 // The trading stock example is the form's default; within $5,000 the choice gives nil.

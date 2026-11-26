@@ -120,10 +120,10 @@ fn mentions(text: &str, term: &str) -> bool {
 fn applies(group: &Group) -> String {
     match group.table {
         Table::A => format!(
-            "An asset used in {} takes this life if it matches this row exactly or is of a kind that falls within or broadly satisfies the function the row describes (subsection 6(2) of the determination). An asset used in another industry takes the life its own industry gives it, or the Table B row for it where no Table A row applies (subsection 6(3)).",
+            "In {}, this life applies if the asset matches the row exactly or is of a kind that falls within or broadly satisfies the function described (subsection 6(2)). In another industry, use its applicable Table A life. If none applies, use the matching Table B row (subsection 6(3)).",
             esc(&group_name(group))
         ),
-        Table::B => "Table B applies where no row of Table A for the industry the asset is used in describes it or its function, and the asset corresponds to this row (subsection 6(3) of the determination).".to_owned(),
+        Table::B => "Use this Table B row if your asset matches its description and no Table A row covers the asset or its function in your industry (subsection 6(3)).".to_owned(),
     }
 }
 
@@ -139,7 +139,7 @@ pub fn reading(group: &Group, entry: &Entry) -> String {
     let updated = entry.last_updated.as_deref().map(date);
     paragraphs.push(match updated {
         Some(updated) => format!(
-            "The life was last reviewed and determined on {updated}. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see <a href=\"{BASE_URL}#which-determination\">which determination applies</a>."
+            "This life was last determined on {updated}. An earlier determination may apply at the time subsection 40-95(2) specifies for your asset. Check <a href=\"{BASE_URL}#which-determination\">which determination applies</a>."
         ),
         None => format!("See <a href=\"{BASE_URL}#which-determination\">which determination applies</a> to your asset."),
     });
@@ -154,14 +154,14 @@ pub fn reading(group: &Group, entry: &Entry) -> String {
 
 pub fn calculator(life: &Life) -> String {
     format!(
-        "        <section id=\"work-it-out\">\n        <h2>Work out a deduction</h2>\n        <p>The <a href=\"{BASE_URL}#deduction\">calculator on the depreciation rates page</a> works out the decline in value for each income year from a cost, a start date and an effective life of {}.</p>\n        </section>\n",
+        "        <section id=\"work-it-out\">\n        <h2>Work out a deduction</h2>\n        <p>The <a href=\"{BASE_URL}#deduction\">depreciation calculator</a> uses your cost, start date and this effective life of {} to work out each year’s decline in value.</p>\n        </section>\n",
         esc(&years(life))
     )
 }
 
 pub fn source(source: &Source) -> String {
     format!(
-        "        <section id=\"source\">\n        <h2>Source</h2>\n        <p>Each row on this page is quoted from Schedule 2 of the <a href=\"{url}\"><cite>{title}</cite></a> ({id}), registered on {registered}, as read on {read}. All the rows are in the <a href=\"{BASE_URL}effective-life.json\">data file</a>, and the <a href=\"{BASE_URL}#source\">depreciation rates page</a> says how it was built and checked.</p>\n        <p>{attribution}</p>\n        <p>The determination is reused under the <a href=\"{licence}\">Creative Commons Attribution 4.0 International licence</a>. Changes made here: the row is set out with its headings, its life is given as 2 rates and its date in words. The Commonwealth does not endorse this page.</p>\n        </section>\n",
+        "        <section id=\"source\">\n        <h2>Source</h2>\n        <p>Schedule 2 of the <a href=\"{url}\"><cite>{title}</cite></a> ({id}) was registered on {registered} and checked on {read}. Download the <a href=\"{BASE_URL}effective-life.json\">register data (JSON)</a> or read <a href=\"{BASE_URL}#source\">how the data was checked</a>.</p>\n        <p>{attribution}</p>\n        <p>Reused under the <a href=\"{licence}\">Creative Commons Attribution 4.0 International licence</a>. The tables show the published headings, dates in words and 2 rates calculated from each effective life.</p>\n        </section>\n",
         url = esc(&source.url),
         title = esc(&source.title),
         id = esc(&source.register_id),
