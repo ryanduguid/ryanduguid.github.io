@@ -77,15 +77,16 @@ export function fbtInstalmentTool(kit, fbtInstalment, reasons) {
       estimatedTax: text('cost', 'Varying: estimated FBT for the year at F2, in AUD.'),
       previousInstalments: text('cost', 'Varying quarters 2 to 4: instalments for the year that fell due earlier, in AUD.'),
       previousCredits: text('cost', 'Varying: credits claimed at 6B for those instalments, in AUD; "0" when omitted.'),
-      reasonCode: { type: 'integer', enum: reasons.map(([code]) => code), description: 'Varying: the F4 reason code.' },
+      reasonCode: choice(reasons.map(([code]) => String(code)), 'Varying: the F4 reason code.'),
     }, ['yearEnded', 'quarter']),
     run(input) {
       /** @type {Record<string, unknown>} */
       const call = { year_ended: Number(input.yearEnded), quarter: input.quarter };
       for (const [from, to] of [['atoInstalment', 'ato_instalment'], ['estimatedTax', 'estimated_tax'], ['previousInstalments', 'previous_instalments'],
-        ['previousCredits', 'previous_credits'], ['reasonCode', 'reason_code']]) {
+        ['previousCredits', 'previous_credits']]) {
         if (input[from] !== undefined) call[to] = input[from]; // eslint-disable-line security/detect-object-injection -- keys come from this function's own list
       }
+      if (input.reasonCode !== undefined) call.reason_code = Number(input.reasonCode);
       const r = fbtInstalment(call);
       return { yearEnded: r.year, quarter: r.quarter, varied: r.varied, activityStatementLabels: r.labels, currency: 'AUD',
         source: `${CALCULATORS}fbt-return/` };

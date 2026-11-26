@@ -1270,6 +1270,28 @@ test('Deferred tax page works its example, a further item and refuses a business
   await expect(form.locator('output')).toContainText('business combination');
 });
 
+// The return opens on a taxable employer's 4 benefits; a rebatable employer gets the s 65J rebate, contributions above the
+// gross taxable value are refused, and the quarter's varied instalment is 3 quarters of the estimate less earlier instalments.
+test('FBT return page works its example, the rebate, refuses inconsistent amounts and varies an instalment offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/fbt-return/');
+  const form = page.locator('#fbt-return form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Item 19, amount of tax payable: $18,735.61.');
+  await form.locator('[name="kind"]').selectOption('rebatable');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Item 19, amount of tax payable: $9,929.87.');
+  await expect(form.locator('output')).toContainText('$8,805.74');
+  await form.locator('[name="b1-contribution"]').fill('20000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('exceed the gross taxable value');
+  const instalment = page.locator('#fbt-instalment form');
+  await waitForCalculator(instalment);
+  await instalment.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(instalment.locator('output .result-row--principal')).toHaveText('Label 6A, FBT instalment: $1,000.00.');
+});
+
 test('ATO penalties and interest page works GIC by quarter, a failure to lodge penalty and refuses remission offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/ato-penalties-interest/');
   const form = page.locator('#ato-penalties-interest form');
