@@ -13,16 +13,16 @@
 /** Each year: its register id, the s 6(10)(b) [Table J] income, the s 7(2)(b)(ii) [Table K(1)] taxable
  * income limit, whether that limit is 'less than or equal to', and the s 7(3)(b) [Table K(2)] rebate
  * income limits for single, apart and together, in whole dollars.
- * @type {Record<string, [string, number, number, boolean, number[]]>} */
-const INSTRUMENTS = {
+ * @type {Map<string, [string, number, number, boolean, number[]]>} */
+const INSTRUMENTS = new Map(Object.entries({
   '2020-21': ['F2021L00577', 11655, 21885, false, [32280, 31280, 28975]],
   '2021-22': ['F2022L00508', 11753, 21885, false, [32280, 31280, 28975]],
   '2022-23': ['F2023L00533', 12090, 21885, false, [32280, 31280, 28975]],
   '2023-24': ['F2024L00550', 12887, 21885, false, [32280, 31280, 28975]],
   '2024-25': ['F2025L00570', 13609, 22575, false, [34919, 33732, 30994]],
   '2025-26': ['F2026L00618', 16750, 22575, true, [34919, 33732, 30994]],
-};
-export const LODGMENT_YEARS = Object.keys(INSTRUMENTS);
+}));
+export const LODGMENT_YEARS = [...INSTRUMENTS.keys()];
 
 /** The conditions stated as answers, in the order the instrument lists them. */
 export const STATED = ['payg_withheld', 'tax_loss', 'net_capital_loss', 'business', 'primary_production_trust',
@@ -30,8 +30,8 @@ export const STATED = ['payg_withheld', 'tax_loss', 'net_capital_loss', 'busines
   'private_health_offset', 'reportable_amounts', 'co_contribution', 'contributions_cap', 'super_lump_sum'];
 const SUBSECTION_6_3 = ['resident_whole_year', 'resident_part_year', 'not_resident'];
 
-/** Each condition: its provision from 2023-24, in the Notices before, and what it says. @type {Record<string, string[]>} */
-export const PROVISIONS = Object.fromEntries([
+/** Each condition: its provision from 2023-24, in the Notices before, and what it says. @type {Map<string, string[]>} */
+export const PROVISIONS = new Map([
   ['payg_withheld', 'paragraph 6(2)(a)', 'Table A item (1)', 'an amount withheld under PAYG withholding, other than from the payments the paragraph excludes'],
   ['tax_loss', 'paragraph 6(2)(b)', 'Table A item (2)', 'a tax loss incurred, or an entitlement to deduct one'],
   ['net_capital_loss', 'paragraph 6(2)(c)', 'Table A item (3)', 'a net capital loss made, or an entitlement to apply one of an earlier year'],
@@ -76,10 +76,10 @@ function decimal(value) {
   const negative = text.startsWith('-');
   const pieces = text.slice(negative ? 1 : 0).split('.');
   if (pieces.length <= 2 && pieces.every((piece) => /^\d+$/.test(piece))) {
-    const [whole, fraction] = pieces;
-    if ((fraction ?? '').length > 2) return { cents: -1n, text };
-    const cents = BigInt(whole + (fraction ?? '').padEnd(2, '0'));
-    const shown = `${negative ? '-' : ''}${whole.replace(/^0+(?=\d)/, '')}${fraction === undefined ? '' : `.${fraction}`}`;
+    const [whole, fraction = ''] = pieces;
+    if (fraction.length > 2) return { cents: -1n, text };
+    const cents = BigInt(whole + fraction.padEnd(2, '0'));
+    const shown = `${negative ? '-' : ''}${whole.replace(/^0+(?=\d)/, '')}${pieces.length === 2 ? `.${fraction}` : ''}`;
     return { cents: negative && cents > 0n ? -1n : cents, text: shown };
   }
   if (!/^[+-]?(inf|infinity|s?nan\d*)$/i.test(text)) refuse('input.decimal_unreadable', `${value} is not a number`);
@@ -187,14 +187,14 @@ export function lodgmentRequired(given) {
   const input = new Map(Object.entries(/** @type {object} */ (given)));
   const unknown = [...input.keys()].find((key) => !INPUTS.includes(key));
   if (unknown !== undefined) refuse('input.field_unknown', `${unknown} is not an input of lodgment-required`);
-  /** @type {Record<string, Amount | null | undefined>} */
-  const amounts = {};
+  /** @type {Map<string, Amount | null>} */
+  const amounts = new Map();
   for (const key of INPUTS) {
     if (!input.has(key)) refuse('input.missing_field', `${key} is required`);
     const value = input.get(key);
     if (DECIMALS.includes(key) && typeof value === 'string') {
       if (new TextEncoder().encode(value).length > 8192) refuse('input.decimal_too_long', `${key}: decimal input exceeds 8192 bytes`);
-      amounts[key] = decimal(value);
+      amounts.set(key, decimal(value));
     }
   }
   const [year, confirmed] = [input.get('year'), input.get('scope_confirmed')];
@@ -206,11 +206,11 @@ export function lodgmentRequired(given) {
   if (typeof year !== 'string' || !LODGMENT_YEARS.includes(year)) {
     refuse('period.unsupported', `Unsupported period ${JSON.stringify(year)}; supported: ${LODGMENT_YEARS.join(', ')}.`);
   }
-  const [id, studyLoanIncome, paymentLimit, paymentInclusive, sapto] = INSTRUMENTS[year];
+  const [id, studyLoanIncome, paymentLimit, paymentInclusive, sapto] = /** @type {[string, number, number, boolean, number[]]} */ (INSTRUMENTS.get(year));
   const end = Number(year.slice(0, 4)) + 1;
   const notice = end <= 2023;
-  /** @param {string} key */
-  const cite = (key) => PROVISIONS[key][notice ? 1 : 0];
+  const provision = (/** @type {string} */ key) => /** @type {string[]} */ (PROVISIONS.get(key));
+  const cite = (/** @type {string} */ key) => provision(key)[notice ? 1 : 0];
 
   const under18Group = group(input.get('under_18'), 'under_18', ['income_excluding_work']);
   const under18 = under18Group && stated(under18Group, 'under_18', 'income_excluding_work');
@@ -218,7 +218,7 @@ export function lodgmentRequired(given) {
   const studyLoan = studyGroup && stated(studyGroup, 'study_loan', 'income');
   const resident = residency(input.get('residency'));
   /** @param {string} key */
-  const amount = (key) => money(amounts[key] === undefined ? null : /** @type {Amount | null} */ (amounts[key]));
+  const amount = (key) => money(amounts.get(key) ?? null);
   const taxable = amount('taxable_income');
   const dividends = amount('dividends_and_franking_credits');
   const answered = triggers(input.get('triggers'));
@@ -232,7 +232,7 @@ export function lodgmentRequired(given) {
   /** @type {Record<string, string>} */
   const tests = {};
   /** @param {string} key @param {string} finding */
-  const push = (key, finding) => steps.push({ step: `${upper(cite(key))}: ${PROVISIONS[key][2]}`, finding });
+  const push = (key, finding) => steps.push({ step: `${upper(cite(key))}: ${provision(key)[2]}`, finding });
   /** @param {string} key @param {boolean} met @param {string} finding */
   const test = (key, met, finding) => {
     push(key, `${finding}: ${met ? 'met' : 'not met'}`);
@@ -293,8 +293,9 @@ export function lodgmentRequired(given) {
     const rebate = stated(senior, 'sapto', 'rebate_income');
     const index = ['single', 'apart', 'together'].indexOf(/** @type {string} */ (required(senior, 'sapto', 'category')));
     if (index < 0) refuse('lodgment_required.group_invalid', 'sapto: category must be single, apart or together.');
-    const holds = rebate.cents < centsOf(sapto[index]);
-    push('sapto', `rebate income $${rebate.text} against less than $${sapto[index]}: ${applies(holds)}`);
+    const limit = /** @type {number} */ (sapto.at(index));
+    const holds = rebate.cents < centsOf(limit);
+    push('sapto', `rebate income $${rebate.text} against less than $${limit}: ${applies(holds)}`);
     if (holds) held.push(['sapto', SUBSECTION_6_3]);
   }
 
@@ -316,9 +317,6 @@ export function lodgmentRequired(given) {
   return { year, lodgment_required: left.length > 0, required_by: left.map(cite), exceptions_applied: applied.map(cite),
     due_date: left.length > 0 ? `${end}-10-31` : null, instrument: { id, title }, tests, steps, required: left, applied };
 }
-
-/** @param {string} key a condition @param {string} year */
-export const provisionOf = (key, year) => PROVISIONS[key][Number(year.slice(0, 4)) + 1 <= 2023 ? 1 : 0];
 
 /** The command's input from the page's fields. @param {(name: string) => string} value
  * @param {(name: string) => boolean} checked */
@@ -345,10 +343,9 @@ export function lodgmentFormInput(value, checked) {
 /** Dollar amounts in the command's text with their thousands grouped. @param {string} text */
 const grouped = (text) => text.replace(/\$(\d+)/g, (_, whole) => `$${BigInt(whole).toLocaleString('en-AU')}`);
 
-/** @type {Record<string, string>} */
-const AMOUNT_LABELS = { 'taxable-income': 'your taxable income', dividends: 'your dividends and franking credits (0 if none)',
+const AMOUNT_LABELS = new Map(Object.entries({ 'taxable-income': 'your taxable income', dividends: 'your dividends and franking credits (0 if none)',
   'under-18-income': 'your income other than from work', 'study-loan-income': 'your income for the study loan test',
-  'whm-taxable': 'your taxable income without super or ETP remainders', 'sapto-rebate': 'your rebate income' };
+  'whm-taxable': 'your taxable income without super or ETP remainders', 'sapto-rebate': 'your rebate income' }));
 
 /** The page's result. @param {(name: string) => string} value @param {(name: string) => boolean} checked */
 export function lodgmentRequiredResult(value, checked) {
@@ -356,7 +353,7 @@ export function lodgmentRequiredResult(value, checked) {
   const used = ['taxable-income', 'dividends', ...(input.under_18 ? ['under-18-income'] : []), ...(input.study_loan ? ['study-loan-income'] : []),
     ...(input.working_holiday_maker ? ['whm-taxable'] : []), ...(input.sapto ? ['sapto-rebate'] : [])];
   for (const name of used) {
-    if (value(name).trim() === '') refuse('input.missing_field', `Enter ${AMOUNT_LABELS[name]}.`);
+    if (value(name).trim() === '') refuse('input.missing_field', `Enter ${AMOUNT_LABELS.get(name)}.`);
   }
   const status = value('residency');
   const months = Number(value('months'));
