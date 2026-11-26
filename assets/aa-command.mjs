@@ -55,7 +55,7 @@ export function parseDecimal(value) {
 /**
  * The call's fields in the command's order, refusing an unknown field, then a missing one or an unreadable
  * decimal string field by field. Fields in `optional` are read only when given.
- * @param {Record<string, unknown>} call
+ * @param {Record<string, unknown> | null} call
  * @param {string} command
  * @param {ReadonlyArray<readonly [string, 'dec' | 'raw']>} params
  * @param {ReadonlyArray<readonly [string, 'dec' | 'raw']>} [optional]

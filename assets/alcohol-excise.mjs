@@ -34,7 +34,7 @@ export const ALCOHOL_PERIODS = [
   ['2026-02-02', '2026-08-02', 'C2026G00056', '54.74 10.57 63.75 33.11 63.75 43.39 3.84 4.43 107.99 100.85 107.99 107.99'],
   ['2026-08-03', '2027-01-31', 'C2026G00508', '55.83 10.57 65.03 33.11 65.03 43.39 3.92 4.52 110.15 102.87 110.15 110.15'],
 ].map(([from, to, notice, row]) => ({ from: /** @type {number} */ (parseDate(from)), to: /** @type {number} */ (parseDate(to)),
-  notice: notice ?? '', rates: new Map((row ?? '').split(' ').map((rate, i) => [SUBITEMS[i] ?? '', rate])) }));
+  notice: notice ?? '', rates: new Map((row ?? '').split(' ').map((rate, i) => [SUBITEMS.at(i) ?? '', rate])) }));
 const LAST = ALCOHOL_PERIODS.at(-1)?.to ?? 0;
 
 const PRODUCTS = ['beer', 'brandy', 'spirit', 'other_excisable_beverage'];
@@ -154,7 +154,11 @@ const rateOf = (period, subitem) => period?.rates.get(subitem) ?? '0';
 const rateCents = (rate) => BigInt(rate.replace('.', ''));
 
 /** Billionths as a decimal without trailing zeros. @param {bigint} n */
-const litres = (n) => `${n / 1000000000n}.${String(n % 1000000000n).padStart(9, '0')}`.replace(/\.?0+$/, '');
+const litres = (n) => {
+  let fraction = String(n % 1000000000n).padStart(9, '0');
+  while (fraction.endsWith('0')) fraction = fraction.slice(0, -1);
+  return fraction ? `${n / 1000000000n}.${fraction}` : String(n / 1000000000n);
+};
 
 /**
  * @typedef {{subitem: string, rate_per_litre_of_alcohol: string, litres_of_alcohol: string, litres_of_alcohol_truncated: string,
@@ -311,7 +315,7 @@ export function alcoholExciseResult(value, aud) {
   const rows = r.return_lines.map((g) => [`Subitem ${g.subitem}: ${g.litres_of_alcohol_truncated} litres of alcohol at $${g.rate_per_litre_of_alcohol}`
     + `${g.remission ? ', remission claimed' : ''}`, a(g.duty)]);
   rows.push(['Excise duty', a(r.amounts.excise_duty)]);
-  if (r.amounts.remission_eligible_duty !== undefined) {
+  if ('remission_eligible_duty' in r.amounts) {
     rows.push(['Remission under the cap', a(r.amounts.remission)]);
     if (Number(r.amounts.refund)) rows.push(['Refund of duty paid, on application', a(r.amounts.refund)]);
     if (Number(r.amounts.over_cap)) rows.push(['Duty above the remission cap', a(r.amounts.over_cap)]);

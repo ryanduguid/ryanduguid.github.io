@@ -70,7 +70,7 @@ function valueItem(given, i) {
   }
   if (method === 'lowest') {
     const [at, value] = lowest(name, values, 'lowest');
-    return { method: VALUES[at] ?? '', value };
+    return { method: VALUES.at(at) ?? '', value };
   }
   if (method === 'obsolescence') {
     const [, least] = lowest(name, values, 'obsolescence');
@@ -83,7 +83,7 @@ function valueItem(given, i) {
   }
   const at = VALUES.indexOf(method);
   if (at < 0) refuse('trading_stock.method_invalid', `${name}: method must be cost, market_selling_value, replacement_value, lowest or obsolescence.`);
-  const value = values[at];
+  const value = values.at(at);
   if (!value) return refuse('trading_stock.value_missing', `${name}: ${method} is the elected method and is null.`);
   return { method, value };
 }
@@ -116,7 +116,7 @@ export function tradingStock(call) {
   const opening = { cents: money(openingField.dec), minus: minusZero(openingField.value) };
   const list = field(fields, 'items').value;
   if (!Array.isArray(list) || list.length > MAX_ITEMS) refuse('trading_stock.items_invalid', `items must be a list of at most ${MAX_ITEMS} objects.`);
-  const valued = list.map(valueItem);
+  const valued = list.map((item, i) => valueItem(item, i));
   const stocktake = valued.reduce((sum, v) => sum + v.value.cents, 0n);
   const estimateField = field(fields, 'estimated_closing_value');
   const estimate = estimateField.value === null ? { cents: stocktake, minus: false }
