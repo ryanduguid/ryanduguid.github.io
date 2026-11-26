@@ -77,7 +77,7 @@ function distribution(x, kind) {
   let sum = d('0');
   /** @type {Map<string, import('./exact-decimal.mjs').Dec>} */
   const out = new Map();
-  for (const name of Object.keys(x).sort()) {
+  for (const name of Object.keys(x).sort((a, b) => (a < b ? -1 : Number(a > b)))) {
     let p;
     try {
       p = percentage({ p: /** @type {Record<string, unknown>} */ (x)[name] }, 'p'); // eslint-disable-line security/detect-object-injection -- the caller's own key

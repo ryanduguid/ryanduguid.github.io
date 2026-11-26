@@ -7,7 +7,7 @@
 // to the cent, the cents left over to the largest shares first). ss 90 to 92 read on the Federal Register of
 // Legislation (Compilation No. 193, 1 October 2026) on 27 November 2026.
 
-import { add, cents, cmp, d, div, fixed2, adjusted, isFinite, isZero, mul, parse, quantize, str, sub } from './exact-decimal.mjs';
+import { add, cents, cmp, d, div, fixed2, adjusted, isFiniteDec, isZero, mul, parse, quantize, str, sub } from './exact-decimal.mjs';
 
 /** Income years 2024-25 to 2026-27, as the years ending 30 June the command takes. */
 export const PARTNERSHIP_YEARS = /** @type {const} */ ([2025, 2026, 2027]);
@@ -76,7 +76,7 @@ export function year(v) {
 export function money(v, key) {
   if (absent(v, key)) return ZERO;
   const x = decimal(v, key);
-  const bad = !isFinite(x) || (x.neg && !isZero(x) ? true : false) || (!isZero(x) && adjusted(x) > 14) || cmp(quantize(x, -2), x) !== 0;
+  const bad = !isFiniteDec(x) || (x.neg && !isZero(x) ? true : false) || (!isZero(x) && adjusted(x) > 14) || cmp(quantize(x, -2), x) !== 0;
   if (bad) throw fail(`${key} must be a non-negative amount below 1E+15 with at most 2 decimal places`);
   return x;
 }
@@ -84,7 +84,7 @@ export function money(v, key) {
 /** A percentage from 0 to 100 inclusive. @param {Record<string, unknown>} v @param {string} key */
 export function percentage(v, key) {
   const x = decimal(v, key);
-  if (!isFinite(x) || (x.neg && !isZero(x)) || cmp(x, HUNDRED) > 0) throw fail(`${key} must be a percentage from 0 to 100`);
+  if (!isFiniteDec(x) || (x.neg && !isZero(x)) || cmp(x, HUNDRED) > 0) throw fail(`${key} must be a percentage from 0 to 100`);
   return x;
 }
 

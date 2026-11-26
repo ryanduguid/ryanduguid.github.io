@@ -33,7 +33,7 @@ export function parse(text) {
 export const d = (text) => /** @type {Dec} */ (parse(text));
 
 /** @param {Dec} x */
-export const isFinite = (x) => !x.special;
+export const isFiniteDec = (x) => !x.special;
 /** @param {Dec} x */
 export const isZero = (x) => !x.special && x.coef === 0n;
 /** The exponent of the most significant digit. @param {Dec} x */

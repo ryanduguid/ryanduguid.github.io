@@ -9,7 +9,7 @@
 // of the base at the full rate, its notice of variation's rate or nil for a clearance certificate. ss 14-200 to 14-235
 // read in the AustLII consolidation of Schedule 1 on 27 November 2026. Shares are worked in the command's 40-digit context.
 
-import { add, cents, cmp, d, div, isFinite, isZero, mul, parse, quantize, str, sub } from './exact-decimal.mjs';
+import { add, cents, cmp, d, div, isFiniteDec, isZero, mul, parse, quantize, str, sub } from './exact-decimal.mjs';
 
 export const FRCGW_YEARS = ['2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23', '2023-24', '2024-25', '2025-26', '2026-27'];
 export const FRCGW_PAGE_VENDORS = 3;
@@ -61,7 +61,7 @@ function parseInput(text) {
   const parsed = parse(text.replaceAll('_', ''));
   if (!parsed) return null;
   const unsigned = text.trim().replace(/^-/, '');
-  if (isFinite(parsed) && !/^\d+(?:\.\d+)?$/.test(unsigned)) return null;
+  if (isFiniteDec(parsed) && !/^\d+(?:\.\d+)?$/.test(unsigned)) return null;
   PARSED.add(parsed);
   return parsed;
 }
@@ -71,7 +71,7 @@ function money(x) {
   const bad = () => refuse('input.amount_invalid', 'Amounts must be finite non-negative Decimals, at most 2dp and 1e12.');
   if (!x || typeof x !== 'object' || !PARSED.has(x)) throw bad();
   const v = /** @type {import('./exact-decimal.mjs').Dec} */ (x);
-  if (!isFinite(v) || (v.neg && !isZero(v)) || cmp(v, d('1e12')) > 0 || v.exp < -2) throw bad();
+  if (!isFiniteDec(v) || (v.neg && !isZero(v)) || cmp(v, d('1e12')) > 0 || v.exp < -2) throw bad();
   return v;
 }
 
@@ -102,7 +102,7 @@ function vendor(item, name) {
   if (kind === 'none' || kind === 'clearance_certificate') return { interest, kind, rate: null, maximum: null };
   if (kind === 'variation') {
     const parsed = typeof fields.rate === 'string' && fields.rate.length <= 32 ? parseInput(fields.rate) : null;
-    if (!parsed || !isFinite(parsed) || (parsed.neg && !isZero(parsed)) || cmp(parsed, d('1')) > 0) {
+    if (!parsed || !isFiniteDec(parsed) || (parsed.neg && !isZero(parsed)) || cmp(parsed, d('1')) > 0) {
       throw vendorsInvalid(`${name}: rate must be a decimal string from 0 to 1, the varied rate on the notice of variation.`);
     }
     return { interest, kind, rate: parsed, maximum: statedAmount(fields, name, 'maximum_price') };
