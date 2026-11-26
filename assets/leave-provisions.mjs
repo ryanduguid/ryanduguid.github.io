@@ -142,9 +142,9 @@ function line(n, value) {
     if (typeof years !== 'number' || !Number.isInteger(years) || years < 1 || years > MOST_YEARS) {
       invalid(`line ${n}: years_to_settlement must be a whole number from 1 to ${MOST_YEARS}; the part of a long-term benefit expected within 12 months stays long-term (AASB 119 para 8) at 1 year, the nearest whole year this worksheet takes.`);
     }
-    longTerm = { years, growth: unit(fields, 'salary_growth', n), discount: unit(fields, 'discount_rate', n), canDefer: boolean(fields, 'can_defer_settlement', n) };
+    longTerm = { years: /** @type {number} */ (years), growth: unit(fields, 'salary_growth', n), discount: unit(fields, 'discount_rate', n), canDefer: boolean(fields, 'can_defer_settlement', n) };
   }
-  return { label, longService: fields.leave === 'long_service', hours, rate, probability, longTerm };
+  return { label: /** @type {string} */ (label), longService: fields.leave === 'long_service', hours, rate, probability, longTerm };
 }
 
 /** One line's amounts in cents (AASB 119 paras 11 and 16, or 155, 67, 68, 72 and 83 to 87; AASB 101 para 69).
@@ -181,11 +181,13 @@ export function leaveProvisions(input) {
     if (typeof input[key] !== 'boolean') refuse('input.flag_invalid', `${key} must be a boolean.`); // eslint-disable-line security/detect-object-injection -- key comes from this module's own list
     if (input[key]) refuse(code, why); // eslint-disable-line security/detect-object-injection -- key comes from this module's own list
   }
-  const list = input.lines;
-  if (!Array.isArray(list) || list.length === 0 || list.length > MOST) invalid(`lines must be a list of 1 to ${MOST} objects.`);
+  const given = input.lines;
+  if (!Array.isArray(given) || given.length === 0 || given.length > MOST) invalid(`lines must be a list of 1 to ${MOST} objects.`);
+  const list = /** @type {unknown[]} */ (given);
   const all = list.map((v, i) => line(i + 1, v));
   const measured = all.map(measure);
-  const sum = (/** @type {(i: number) => boolean} */ keep) => measured.reduce((t, m, i) => (keep(i) ? t + m.provision : t), 0n);
+  /** @param {(i: number) => boolean} keep @returns {bigint} */
+  const sum = (keep) => measured.reduce((/** @type {bigint} */ t, m, i) => (keep(i) ? t + m.provision : t), 0n);
   const annual = sum((i) => !all[i].longService); // eslint-disable-line security/detect-object-injection -- i indexes the lines
   const longService = sum((i) => all[i].longService); // eslint-disable-line security/detect-object-injection -- i indexes the lines
   const total = annual + longService;
