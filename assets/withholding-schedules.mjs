@@ -9,7 +9,7 @@
 // withholding where no ABN is quoted (TAA 1953 Sch 1 s 12-190). Each command takes the JSON input
 // the crate's command does and returns its amounts and rates as strings.
 import {
-  add, arg, cmp, count, date, dec, div, down, flag, halfUp, int, money, mul, pyDecimal, refuse, scope, sub, cents,
+  add, arg, cmp, count, date, dec, div, down, flag, halfUp, int, money, mul, pick, pyDecimal, refuse, scope, sub, cents,
 } from './withholding-decimal.mjs';
 import { SCHEDULE_1, SCHEDULE_8, SCHEDULE_8_FROM, YEARS, choices, forPeriod, formula, payPeriod, schedule1, scheduleScale,
   weeklyEarnings } from './withholding-schedule-1.mjs';
@@ -88,7 +88,7 @@ function dailyCasual(a, offsetsArg) {
     return result(noTfn('earnings', earnings, foreign), noTfnRate(foreign));
   }
   const x = add(mul(down(earnings), int(5)), dec('0.99'));
-  const { a: ca, b: cb, y } = formula(x, SCHEDULE_1[year][2]);
+  const { a: ca, b: cb, y } = formula(x, pick(pick(SCHEDULE_1, year), 2));
   const daily = halfUp(div(y, int(5)));
   /** @type {Step[]} */
   const steps = [{ id: 'weekly_earnings_used', value: x }, { id: 'weekly_withholding', value: y }, { id: 'daily_withholding', value: daily }];
@@ -219,7 +219,7 @@ function workingHolidayMaker(a) {
   const tfn = flag(a.tfn_quoted, 'tfn_quoted');
   const period = payPeriod(a.pay_period, false);
   if (!registered && tfn) {
-    const { y } = formula(weeklyEarnings(payment, period), SCHEDULE_1[year][3]);
+    const { y } = formula(weeklyEarnings(payment, period), pick(pick(SCHEDULE_1, year), 3));
     return result([{ id: 'payment_used', value: payment }, { id: 'withholding', value: forPeriod(y, period) }], [['scale', '3']],
       'unregistered employer: foreign resident rates, the Schedule 1 scale 3 amount for the pay period');
   }
@@ -229,7 +229,7 @@ function workingHolidayMaker(a) {
     const found = COLUMNS.findIndex(([low, high]) => (low === null || cmp(dec(low), before) <= 0) && (high === null || cmp(before, dec(high)) <= 0));
     if (found < 0) refuse('working_holiday_maker.band_unsettled', 'Payments before of $135,000.01 to $135,000.99 are in none of Schedule 15’s columns; confirm the rate with the ATO.');
     column = found + 2;
-    rate = COLUMNS[found][2];
+    rate = COLUMNS.slice(found)[0][2];
   }
   const used = down(payment);
   const product = mul(dec(rate), used);
@@ -246,7 +246,7 @@ function seniorsLoanRows(year, loan, payDate) {
     return null;
   }
   if (!Object.hasOwn(SCHEDULE_8, year)) refuse('period.unsupported', `study_loan is supported for ${Object.keys(SCHEDULE_8).join(', ')} only.`);
-  const from = SCHEDULE_8_FROM[year];
+  const from = pick(SCHEDULE_8_FROM, year);
   const start = Number(year.slice(0, 4));
   if (payDate) {
     const day = date(payDate, 'pay_date');
@@ -254,7 +254,7 @@ function seniorsLoanRows(year, loan, payDate) {
     if (day < days(`${start}-07-01`) || day > days(`${start + 1}-06-30`)) refuse('payg.pay_date_outside_year', `pay_date is outside the ${year} income year.`);
     if (day < days(from)) refuse('payg.pay_date_before_schedule', `Schedule 8's coefficients for ${year} apply to payments made on or after ${from}.`);
   } else if (from !== `${start}-07-01`) refuse('input.missing_field', `pay_date is required for ${year}.`);
-  return SCHEDULE_8[year];
+  return pick(SCHEDULE_8, year);
 }
 /** Schedule 9: withholding from one payment to a senior or pensioner. @param {Record<string, Arg>} a @param {Arg} loan @param {Arg | undefined} payDate */
 function seniorsPensioners(a, loan, payDate) {
@@ -309,23 +309,23 @@ const COMMANDS = {
 export const WITHHOLDING_COMMANDS = Object.keys(COMMANDS);
 
 /** Runs one command on its JSON input, as the crate's command does: its amounts and rates, or a refusal
- * with the crate's code. @param {string} command @param {Record<string, unknown>} input @returns {Result} */
+ * with the crate's code. @param {string} command @param {unknown} input @returns {Result} */
 export function withholdingSchedule(command, input) {
-  const spec = COMMANDS[command];
+  const spec = pick(COMMANDS, command);
   if (!spec) refuse('command.unknown', `unknown command ${command}`);
   if (typeof input !== 'object' || input === null || Array.isArray(input)) refuse('input.not_object', 'input must be a JSON object');
+  const given = new Map(Object.entries(input));
   const names = spec.params.map((p) => p.replace('$', ''));
-  const unknown = Object.keys(input).find((k) => !names.includes(k) && !spec.optional.includes(k));
+  const unknown = [...given.keys()].find((k) => !names.includes(k) && !spec.optional.includes(k));
   if (unknown !== undefined) refuse('input.field_unknown', `${unknown} is not an input of ${command}`);
   /** @type {Record<string, Arg>} */
-  const a = {};
-  for (const p of spec.params) {
+  const a = Object.fromEntries(spec.params.map((p) => {
     const key = p.replace('$', '');
-    if (!Object.hasOwn(input, key)) refuse('input.missing_field', `${key} is required`);
-    a[key] = arg(input[key], p.startsWith('$'), key);
-  }
+    if (!given.has(key)) refuse('input.missing_field', `${key} is required`);
+    return [key, arg(given.get(key), p.startsWith('$'), key)];
+  }));
   /** @param {string} key @param {boolean} decimal */
-  const optional = (key, decimal) => (Object.hasOwn(input, key) ? arg(input[key], decimal, key) : undefined);
+  const optional = (key, decimal) => (given.has(key) ? arg(given.get(key), decimal, key) : undefined);
   const options = () => ({ offsets: optional('tax_offsets', true), foreign: optional('foreign_resident', false),
     children: optional('medicare_adjustment_children', false), extra: optional('extra_pay_withholding', false) });
   switch (command) {

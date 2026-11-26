@@ -15,6 +15,10 @@ export function refuse(code, message) {
   throw Object.assign(new Error(message), { code });
 }
 
+/** The table's own entry for `key`, read through a Map so no key reaches a property lookup.
+ * @template T @param {Readonly<Record<string, T>>} table @param {string | number} key @returns {T} */
+export const pick = (table, key) => /** @type {T} */ (new Map(Object.entries(table)).get(String(key)));
+
 /** @param {bigint} a @param {bigint} b @returns {bigint} */
 const gcd = (a, b) => (b === 0n ? (a < 0n ? -a : a) : gcd(b, a % b));
 /** @param {bigint} p @param {bigint} [q] @returns {Q} */
@@ -104,11 +108,9 @@ export function arg(value, decimal, key) {
   if (!decimal) return { kind: 'text', value };
   if (value.length > 8192) refuse('input.decimal_too_long', `${key}: decimal input exceeds 8192 bytes`);
   const text = value.trim();
-  const plain = /^(-?)(\d+)(?:\.(\d+))?$/.exec(text);
-  if (plain) {
-    const places = (plain[3] ?? '').length;
-    const value = dec(`${plain[1]}${plain[2]}${places ? `.${plain[3]}` : ''}`);
-    return { kind: 'dec', value, places };
+  const [whole, fraction, extra] = text.split('.');
+  if (/^-?\d+$/.test(whole) && extra === undefined && (fraction === undefined || /^\d+$/.test(fraction))) {
+    return { kind: 'dec', value: dec(text), places: fraction?.length ?? 0 };
   }
   if (/^[+-]?(inf|infinity|s?nan\d*)$/i.test(text)) return { kind: 'nan' };
   return refuse('input.decimal_unreadable', 'decimal.InvalidOperation');

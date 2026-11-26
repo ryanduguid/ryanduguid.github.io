@@ -128,10 +128,8 @@ function takeHomeResult(value, aud) {
     notes.push(`Division 293 tax applies to ${aud(r.division293)} of taxable contributions (section 293-20), not worked here`);
   }
   const other = scheduleResult(value, aud);
-  if (other) {
-    rows.push(...other.rows);
-    notes.push(other.note);
-  }
+  rows.push(...(other?.rows ?? []));
+  if (other) notes.push(other.note);
   return { inputs: `${value('year')}, ${RESIDENCY[value('residency')]}, salary ${aud(Number(value('salary')))} ${PERIOD[period]} `
     + `${included ? 'including' : 'plus'} super, ${aud(Number(value('sacrifice')))} ${PERIOD[period]} sacrificed to super, `
     + `${loan ? 'with a' : 'no'} study or training loan, ${covered ? 'with' : 'no'} private hospital cover${other?.inputs ?? ''}`, principal: 8,

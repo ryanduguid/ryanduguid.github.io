@@ -5,6 +5,7 @@
 // the input of the australian-accounting command for that schedule, worked by withholding-schedules.mjs,
 // and the rows and note it adds to the page's result.
 import { withholdingSchedule } from './withholding-schedules.mjs';
+import { pick } from './withholding-decimal.mjs';
 
 /** Each option: its command, its name in the result and what its payment is. */
 const SCHEDULES = /** @type {Record<string, {command: string, name: string, payment: string}>} */ ({
@@ -54,9 +55,9 @@ function scheduleInput(key, value) {
   const holiday = residency === 'working-holiday';
   const foreign = residency !== 'resident';
   const period = PAY_PERIOD[value('period')];
-  if (['sch6', 'sch9', 'sch14', 'sch15'].includes(key) && !period) fail(`${SCHEDULES[key].name} works one pay: choose a month, fortnight or week as the pay period.`);
+  if (['sch6', 'sch9', 'sch14', 'sch15'].includes(key) && !period) fail(`${pick(SCHEDULES, key).name} works one pay: choose a month, fortnight or week as the pay period.`);
   if (key === 'sch15' && !holiday) fail('Schedule 15 is for a working holiday maker: choose that residency.');
-  if (['sch6', 'sch9', 'sch14'].includes(key) && holiday) fail(`Schedule 15, not ${SCHEDULES[key].name}, covers every payment to a working holiday maker.`);
+  if (['sch6', 'sch9', 'sch14'].includes(key) && holiday) fail(`Schedule 15, not ${pick(SCHEDULES, key).name}, covers every payment to a working holiday maker.`);
   if (key === 'sch9' && foreign) fail('Schedule 9 is for a payee who is an Australian resident for tax purposes.');
   const base = { year: value('year'), scope_confirmed: true };
   const payment = value('ws-payment');
@@ -89,13 +90,13 @@ function scheduleInput(key, value) {
  * @returns {{rows: string[][], inputs: string, note: string} | undefined} */
 export function scheduleResult(value, aud) {
   const key = value('withholding-schedule');
-  const chosen = SCHEDULES[key];
+  const chosen = pick(SCHEDULES, key);
   if (!chosen) return undefined;
   const inputs = `, withholding under ${chosen.name} on ${aud(Number(value('ws-payment')))} as ${chosen.payment}`;
   try {
     const r = withholdingSchedule(chosen.command, scheduleInput(key, value));
     const rows = Object.entries(r.amounts).map(([id, amount]) => [id === 'withholding' ? `${chosen.name}: amount to withhold`
-      : LABELS[id] ?? id, aud(Number(amount))]);
+      : pick(LABELS, id) ?? id, aud(Number(amount))]);
     const rates = Object.entries(r.rates).map(([k, v]) => `${k} ${v}`).join(', ');
     return { rows, inputs, note: `${chosen.name} (${chosen.command}): ${r.withholding_basis ?? rates}` };
   } catch (error) {

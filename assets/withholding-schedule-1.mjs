@@ -8,7 +8,7 @@
 // Taxation Administration (Withholding Schedules) Instrument 2024 (F2024L00664), 2025 (F2025L00647)
 // and (No. 2) 2025 (F2025L01016) for 2024-25 and 2025-26, and 2026 (F2026L00716) for 2026-27, each as
 // made on the Federal Register of Legislation, read 26 November 2026.
-import { add, cmp, div, down, halfUp, int, max, money, mul, refuse, sub, dec, fixed, flag } from './withholding-decimal.mjs';
+import { add, cmp, div, down, halfUp, int, max, money, mul, pick, refuse, sub, dec, fixed, flag } from './withholding-decimal.mjs';
 
 /** @typedef {import('./withholding-decimal.mjs').Q} Q */
 /** @typedef {import('./withholding-decimal.mjs').Arg} Arg */
@@ -107,7 +107,7 @@ export function payPeriod(a, quarterly) {
 }
 /** Scale 1, 2, 3, 5 or 6, or 4 (no TFN). @param {Arg} a @param {string} year */
 export function scheduleScale(a, year) {
-  if (a.kind !== 'int' || !(Object.hasOwn(SCHEDULE_1[year], a.value) || a.value === 4)) {
+  if (a.kind !== 'int' || !(Object.hasOwn(pick(SCHEDULE_1, year), a.value) || a.value === 4)) {
     refuse('input.tax_scale_unsupported', 'scale must be 1, 2, 3, 4, 5 or 6.');
   }
   return a.value;
@@ -137,7 +137,7 @@ export function choices(o, scale, period) {
 
 /** Schedule 1, 'Weekly levy adjustment (WLA)'. @param {Q} x @param {Rules} rules @param {number} scale @param {number} children */
 function levyAdjustment(x, rules, scale, children) {
-  const m = rules.levy[scale];
+  const m = pick(rules.levy, scale);
   const wft = halfUp(div(int(rules.family + rules.perChild * children), int(52)), 2);
   const sop = down(div(mul(wft, dec(m.sop[0])), dec(m.sop[1])));
   const wla = cmp(x, int(m.threshold)) < 0 || cmp(x, sop) >= 0 ? int(0)
@@ -160,7 +160,7 @@ export function schedule1(year, earnings, period, scale, c) {
     before = down(mul(used, dec(rate)));
   } else {
     const x = weeklyEarnings(earnings, period);
-    const { a, b, y } = formula(x, SCHEDULE_1[year][scale]);
+    const { a, b, y } = formula(x, pick(pick(SCHEDULE_1, year), scale));
     w.rates.push(['a', a], ['b', b]);
     w.steps.push({ id: 'weekly_earnings_used', value: x }, { id: 'weekly_withholding', value: y });
     before = forPeriod(y, period);
@@ -172,13 +172,13 @@ export function schedule1(year, earnings, period, scale, c) {
   w.steps.push({ id: 'withholding_before_adjustments', value: before });
   let reductions = int(0);
   if (c.offsets !== null) {
-    const share = OFFSET_SHARE[period];
+    const share = pick(OFFSET_SHARE, period);
     const reduction = halfUp(mul(c.offsets, dec(share)));
     w.rates.push(['tax_offset_rate', share]);
     reductions = add(reductions, reduction);
     w.steps.push({ id: 'tax_offset_reduction', value: reduction });
   }
-  const rules = RULES[year];
+  const rules = pick(RULES, year);
   if (c.children !== null) {
     const { wft, sop, weekly } = levyAdjustment(weeklyEarnings(earnings, period), rules, scale, c.children);
     const adjustment = forPeriod(weekly, period);
