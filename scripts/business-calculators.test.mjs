@@ -7268,6 +7268,10 @@ test('casual and overtime pay refuses ordinary time earnings above the maximum c
   assert.equal(co({ payday: '2026-06-30', base_rate: '625.00', ordinary_hours: '100' }).ote, 62500);
   assert.match(coRefusal({ payday: '2026-06-30', base_rate: '625.01', ordinary_hours: '100' }), /quarterly maximum contribution base of \$62,500/);
   assert.match(coRefusal({ payday: '2026-07-01', base_rate: '2708.31', ordinary_hours: '100' }), /annual maximum contribution base of \$270,830/);
+  // One cent over: 7 lines at $1 an hour make $62,500.00, and $0.01 of ordinary pay tips it.
+  const tipped = [...Array(6).fill({ hours: '1000', percent: '1000', overtime: false }), { hours: '250', percent: '1000', overtime: false }];
+  assert.equal(co({ payday: '2026-06-30', base_rate: '1.00', lines: tipped }).ote, 62500);
+  assert.match(coRefusal({ payday: '2026-06-30', base_rate: '1.00', ordinary_hours: '0.01', lines: tipped }), /quarterly maximum/);
   // Overtime does not count towards the base.
   assert.equal(co({ payday: '2026-06-30', base_rate: '625.00', ordinary_hours: '100', lines: [{ hours: '10', percent: '150', overtime: true }] }).overtimePay, 9375);
 });
