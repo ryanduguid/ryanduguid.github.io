@@ -7550,6 +7550,8 @@ test('contractor against employee refuses what it does not work', () => {
   assert.throws(() => ce({ ownSuper: '20000' }), /concessional contributions cap of \$32,500/);
   assert.throws(() => ce({ delegate: 'no' }), /right to delegate/);
   assert.throws(() => ce({ hours: '0' }), /hours worked/);
+});
+
 // The tax invoice generator: GST Act s 29-70(1) (Compilation No. 96, 1 January 2026), the ATO's 'Tax invoices'
 // (last updated 18 September 2026), GSTR 2013/1 paragraphs 17 to 38 and the Recipient Created Tax Invoice
 // Determination 2023, all read 26 November 2026.
