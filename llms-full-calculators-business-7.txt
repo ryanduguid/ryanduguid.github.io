@@ -576,7 +576,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 Source: https://duguid.com.au/tools/business-calculators/tax-invoice/
 
-> Make a printable tax invoice or RCTI in your browser and check it against section 29-70 of the GST Act: GST at one-eleventh, the rounding rules, the ABN check digit and the $1,000 recipient rule.
+> Make a printable tax invoice or RCTI in your browser, checked against GST Act s 29-70: GST at one-eleventh, rounding, the ABN check digit and the $1,000 rule.
 
 # Tax invoice generator
 
@@ -588,9 +588,9 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 One tax invoice, made and checked in this browser
 
-Issued by The supplier: a tax invoice The recipient: a recipient created tax invoice (RCTI)
-
 Invoice number (optional) Date issued
+
+Issued by The supplier: a tax invoice The recipient: a recipient created tax invoice (RCTI)
 
 Supplier
 
