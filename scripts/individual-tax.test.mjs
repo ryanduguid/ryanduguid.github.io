@@ -34,6 +34,8 @@ import { excessFormInput, tbaFormInput, transferBalanceResult } from '../assets/
 import './transfer-balance.test.mjs';
 import { pensionMinimum, pensionMinimumFormInput, pensionMinimumResult } from '../assets/pension-minimum.mjs';
 import './pension-minimum.test.mjs';
+import { residencyDays, residencyDaysResult, residencyFormPresence } from '../assets/residency-days.mjs';
+import './residency-days.test.mjs';
 import { foreignIncomeFixture, foreignIncomeFormTests } from './foreign-income.test.mjs';
 import { minorsFixture, minorsFormTests } from './minors-income.test.mjs';
 import { nonCommercialFixture, nonCommercialFormTests } from './non-commercial-losses.test.mjs';
@@ -46,7 +48,11 @@ const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAsi
   bonusWithholding, salaryPackaging, novatedLease, superProjection, fhssAmounts: (facts) => fhss(facts).amounts,
   workExpenses, governmentSuperAmounts,
   transferBalanceCases: (command, input) => (command === 'transfer-balance' ? transferBalance(input) : excessContributions(input)).amounts,
-  pensionMinimumAmounts: (input) => pensionMinimum(input).amounts };
+  pensionMinimumAmounts: (input) => pensionMinimum(input).amounts,
+  residencyDaysCases: (...call) => {
+    const r = residencyDays(...call);
+    return { days_in_australia: r.tests.days_in_australia, days_needed: r.tests.days_needed, exception_applies: r.visitor, days_183: r.tests.days_183 };
+  } };
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -91,6 +97,8 @@ const INPUTS = {
     : f.question === 'concessional_charge' ? `${f.year} charge on ${dollars(f.additional_tax)}, tax due ${f.tax_due_date}`
       : `${f.year} release of ${dollars(f.excess)}, determination ${f.determination_date}`),
   pensionMinimumAmounts: (f) => `${f.year}, balance ${dollars(f.account_balance)}, age ${f.age}, ${f.days} days`,
+  residencyDaysCases: (year, presence, outside, intends) => `${year}, ${presence.map((p) => `${p.from} to ${p.to}`).join(', ')}`
+    + `${outside ? ', usual abode outside Australia' : ''}${intends ? ', intends to take up residence' : ''}`,
   governmentSuperAmounts: (f) => `${f.year}, assessable income ${whole(f.assessable_income)}`
     + (f.taxable_income === f.assessable_income ? '' : `, taxable income ${whole(f.taxable_income)}`)
     + (f.business_deductions === '0' ? '' : `, business deductions ${whole(f.business_deductions)}`)
@@ -165,6 +173,7 @@ const OUTPUTS = {
     : f.question === 'concessional_charge' ? `Charge ${dollars(r.excess_concessional_contributions_charge)}`
       : `Earnings ${dollars(r.associated_earnings)}, release ${dollars(r.total_release_amount)}, offset ${dollars(r.associated_earnings_tax_offset)}`),
   pensionMinimumAmounts: (r) => `Before rounding ${dollars(r.minimum_before_rounding)}, minimum ${dollars(r.minimum_payment)}`,
+  residencyDaysCases: (r) => `${r.days_in_australia} days, ${r.days_needed} needed${r.exception_applies ? ', exception applies' : ''}: ${r.days_183 ? 'met' : 'not met'}`,
   governmentSuperAmounts: (r) => `Co-contribution ${dollars(r.amounts.co_contribution_paid)}, LISTO ${dollars(r.amounts.listo_paid)}`
     + (r.amounts.spouse_contribution_offset === undefined ? '' : `, spouse offset ${dollars(r.amounts.spouse_contribution_offset)}`),
   fhssAmounts: (r) => `Maximum release ${dollars(r.maximum_release_amount)}, assessable ${dollars(r.assessable_fhss_released_amount)}, `
@@ -245,6 +254,7 @@ const FORM_CALLS = {
   transferBalanceCases: (f) => (f.calc === 'transfer' ? ['transfer-balance', tbaFormInput((name) => f[name] ?? '')]
     : ['excess-contributions', excessFormInput((name) => f[name] ?? '')]),
   pensionMinimumAmounts: (f) => [pensionMinimumFormInput((name) => f[name] ?? '')],
+  residencyDaysCases: (f) => [f.year, residencyFormPresence((name) => f[name] ?? ''), f['usual-abode-outside'] === 'yes', f['intends-residence'] === 'yes'],
   fhssAmounts: (f) => {
     const fixture = fhssExampleFields(f);
     return [Object.fromEntries(Object.entries(fhssFormFacts(name => fixture[name] ?? '')).filter(([, value]) => value !== ''))];
@@ -726,6 +736,7 @@ for (const page of Object.keys(shownCases)) {
       : page === 'government-super' ? governmentSuperResult(value, aud)
       : page === 'transfer-balance' ? transferBalanceResult(value, aud)
       : page === 'pension-minimum' ? pensionMinimumResult(value, aud)
+      : page === 'residency-days' ? residencyDaysResult(value)
       : individualResult(page, value, aud);
     assert.equal(result.inputs, example[1]);
     assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);
