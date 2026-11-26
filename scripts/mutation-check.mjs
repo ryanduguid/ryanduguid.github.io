@@ -1389,6 +1389,7 @@ const SHARED = [
   'scripts/payg-withholding-sample-2020.json', 'scripts/payg-withholding-sample-2024.json',
   'scripts/super-benefit-tax-engine-differential.json',
   'scripts/super-lump-sum-options-engine-differential.json',
+  'scripts/withholding-schedules-engine-differential.json',
 ];
 
 const TEST_FILES = [
@@ -1398,6 +1399,7 @@ const TEST_FILES = [
   'scripts/foreign-income.test.mjs',
   'scripts/minors-income.test.mjs',
   'scripts/non-commercial-losses.test.mjs',
+  'scripts/withholding-schedules.test.mjs',
 ];
 
 const MAX_PATTERN_LENGTH = 12000;
