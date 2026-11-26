@@ -38,7 +38,7 @@ const REGISTERS = new Map([
     identifier: /** @type {const} */ ('ACN'), groups: [3, 3, 3],
     passes: (/** @type {number[]} */ d) => (10 - (ACN_WEIGHTS.reduce((sum, weight, i) => sum + d[i] * weight, 0) % 10)) % 10 === d[8], // eslint-disable-line security/detect-object-injection -- i is an index of the first 8 digits
     notEstablished: 'A valid check digit shows only that the digits pass the arithmetic ASIC publishes. It proves neither that '
-      + 'ASIC issued the number or that a company holding it exists, nor that an entity is registered in the Australian Business '
+      + 'ASIC issued the number, that it is active or that a company holding it exists, nor that an entity is registered in the Australian Business '
       + 'Register or registered for GST. Search ASIC’s registers for the company and ABN Lookup (https://abr.business.gov.au) '
       + 'for ABN and GST status.',
     sourceUrl: 'https://download.asic.gov.au/media/vy0ensam/els-document-messages-specification-v5-10.pdf',

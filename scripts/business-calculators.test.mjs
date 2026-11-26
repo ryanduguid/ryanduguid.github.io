@@ -7527,6 +7527,9 @@ test('ABN and ACN check digits pass the registers’ own examples and fail one d
   const r = check('abn', GOOD);
   assert.deepEqual([r.abrRegistrationEstablished, r.gstRegistrationEstablished, r.checkDigitValid], [false, false, true]);
   assert.match(r.notEstablished, /proves neither that the number was issued/);
+  for (const kind of ['abn', 'acn']) {
+    for (const number of ['004 085 616', GOOD, '1']) assert.match(check(kind, number).notEstablished, /issued.*active|active.*issued/s, `${kind} ${number}`);
+  }
   assert.throws(() => check('tfn', '123'), { code: 'identifier.kind_invalid' });
   assert.throws(() => check('abn', Number(GOOD.replaceAll(' ', ''))), { code: 'identifier.value_invalid' });
 });
