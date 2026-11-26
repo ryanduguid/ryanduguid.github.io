@@ -13,6 +13,9 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+26 November 2026 | A new business calculator, leave provisions, measures annual and long service leave under AASB 119 for 2020-21 to 2026-27, line by line: short-term lines undiscounted, other long-term lines projected by salary growth, weighted by the probability of payment and discounted, and the total split current and non-current under AASB 101 para 69.
+26 November 2026 | A new business calculator, instant asset write-off, says whether a small business entity using simplified depreciation, or a medium sized business to 30 June 2021, writes one asset off in full for 2020-21 to 2026-27: the cost limit from the dates acquired and first used ($20,000 from 1 July 2026), and the deduction at the taxable use.
+26 November 2026 | The super lump sum tax calculator now also works the amount withheld from a super income stream payment under Schedule 13, for payments from 1 July 2024: weekly, fortnightly, monthly or quarterly, with the 15% or 10% tax offset and the offset adjustment, or 47% without a tax file number.
 26 November 2026 | A new business calculator, sole trader against company, puts one business profit for 2021-22 to 2026-27 through both structures: as a sole trader, tax and the Medicare levy on the whole profit less the small business income tax offset under Subdivision 328-F; through a company, a salary with its super guarantee, company tax at 25% or 30%, a fully franked dividend for the rest of what the owner takes out with its top-up tax, the profit kept in the company and the tax on the super. It states each total and the difference and recommends no structure, and names what it leaves out: the personal services income rules, Division 7A, the small business CGT concessions, state taxes and the cost of running a company. Rates were read on 26 November 2026.
 26 November 2026 | The tool pages, changelog, release record and machine indexes name the releases of 24 and 25 November: aus-accounting-mcp v0.13.0 (148 worksheet kinds with calculators 1.4.0, 29 tools), Australian Accounting Skills v0.8.1 (112 skills, Apache License 2.0), monthly-close-control-plane v1.2.0 and review-ready-gate v1.1.0 (both now under the GNU Affero General Public License v3.0 or later, with executables for 6 targets), and solomons-sword v1.0.0 and the-exchequer-tally v1.0.0, now standalone executables under the same licence; the trust distribution and company tax pages keep their pinned Python examples. The profit and cash flow case states that GitHub holds au-fpa-pack v0.8.0 whilst PyPI still serves 0.7.0.
 25 November 2026 | Updated general tax question 8 after the ATO updated its How to lodge your tax return page from 12 to 10 business days for returns lodged online, matching its progress page.
@@ -268,6 +271,9 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- leave provisions: https://duguid.com.au/tools/business-calculators/leave-provisions/
+- instant asset write-off: https://duguid.com.au/tools/business-calculators/instant-asset-write-off/
+- super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 - sole trader against company: https://duguid.com.au/tools/business-calculators/sole-trader-company/
 - aus-accounting-mcp v0.13.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.13.0
 - general tax question 8: https://duguid.com.au/tools/accounting-questions/general-tax/
@@ -285,7 +291,6 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 - deferred tax: https://duguid.com.au/tools/business-calculators/deferred-tax/
 - GST adjustments: https://duguid.com.au/tools/business-calculators/gst-adjustments/
 - R&D tax offset: https://duguid.com.au/tools/business-calculators/rd-tax-offset/
-- super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 - company and trust question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/
 - tool pages: https://duguid.com.au/tools/
 - super co-contribution, LISTO and spouse offset: https://duguid.com.au/tools/individual-tax/government-super/

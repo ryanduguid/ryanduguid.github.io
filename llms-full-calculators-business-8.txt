@@ -100,7 +100,7 @@ ASIC code A53 | Annual review fee, special purpose company that is not a proprie
 ASIC code BZA or BZC | Register or renew a business name for 1 year | Fee $47.00, ASIC code BZA or BZC
 ASIC code BZB or BZD | Register or renew a business name for 3 years | Fee $108.00, ASIC code BZB or BZD
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -112,7 +112,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - Starting a business questions: https://duguid.com.au/tools/accounting-questions/business-setup/
 - Companies and trusts questions: https://duguid.com.au/tools/accounting-questions/company-compliance/
 - Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
@@ -173,7 +173,7 @@ An end before the start is refused | New South Wales, Wednesday 18 November 2026
 Victoria skips the Grand Final holiday | Victoria, Thursday 30 September 2027 to Friday 1 October 2027 | 0 business days
 Counting past 31 December 2027 is refused | New South Wales, 20 business days after Monday 20 December 2027 | Refused: this page has public holidays from 1 January 2026 to 31 December 2027 for New South Wales; choose dates in that range
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -186,7 +186,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - Payday Super business days: https://duguid.com.au/tools/payday-super/business-days/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
 - 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
@@ -279,7 +279,7 @@ A sale to an associate is refused | Freehold, bought under the margin scheme, so
 A valuation for property acquired after 1 July 2000 is refused | Freehold, bought under the margin scheme; price $190,000.00 GST-inclusive, valuation $400,000.00, 200,000 of 2,000,000 | Refused: an approved valuation sets the margin only for property held since before 1 July 2000 (subsection 75-10(3)); use the consideration you paid for property acquired later
 A part larger than the whole is refused | Freehold, bought under the margin scheme; price $190,000.00 GST-inclusive, cost $400,000.00, 2,000,001 of 2,000,000 | Refused: this sale’s part cannot be more than the whole it is part of
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -291,7 +291,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - GST calculator: https://duguid.com.au/tools/business-calculators/gst/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - GST and BAS questions: https://duguid.com.au/tools/accounting-questions/gst-bas/
@@ -374,13 +374,13 @@ GSTR 2000/2’s ABC: $660 at 40% taxable, decreasing $24 | 2025-26 bad debt; sup
 GSTR 2000/2’s Isabella: recipient, $1,100 at 60% creditable, increasing $60 | 2025-26 bad debt; recipient, written off, $1,100.00, a creditable acquisition, not cash basis, special rule none, attributed, creditable purpose 60%, not reduced credit, not annually apportioned | increasing adjustment, $60.00
 A margin scheme supply is refused: Subdivision 136-B | 2025-26 bad debt; supplier, written off, $550.00, a taxable supply, not cash basis, special rule taxable at less than one eleventh, attributed | Refused: the supply or acquisition was taxable or creditable at less than 1/11 of the price, such as under the margin scheme: Subdivision 136-B works the adjustment (ss 136-30 to 136-45)
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 

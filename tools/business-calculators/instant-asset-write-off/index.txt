@@ -59,11 +59,11 @@ A medium sized business: $149,999.99, acquired after 2 April 2019 and first used
 A medium sized business’s asset first used after 30 June 2021 is not written off | 2023-24; a medium sized business; first acquired 1 July 2021, first used 1 August 2023; cost $5,000.00, taxable use 100% | taxable purpose proportion $5,000.00, deduction $0.00, not written off
 Acquired on budget day 6 October 2020 is refused: the result turns on the time | 2020-21; a small business entity using simplified depreciation; first acquired 6 October 2020, first used 1 January 2021; cost $50,000.00, taxable use 100% | Refused: the result turns on whether the asset was first acquired before or after 7.30 pm on 6 October 2020 (legal time in the ACT), and the calculator takes dates only
 
-One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - australian-accounting: https://github.com/ryanduguid/australian-accounting
-- fifty-seven business calculators: https://duguid.com.au/tools/business-calculators/
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/

@@ -5709,6 +5709,9 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+26 November 2026 | A new business calculator, leave provisions, measures annual and long service leave under AASB 119 for 2020-21 to 2026-27, line by line: short-term lines undiscounted, other long-term lines projected by salary growth, weighted by the probability of payment and discounted, and the total split current and non-current under AASB 101 para 69.
+26 November 2026 | A new business calculator, instant asset write-off, says whether a small business entity using simplified depreciation, or a medium sized business to 30 June 2021, writes one asset off in full for 2020-21 to 2026-27: the cost limit from the dates acquired and first used ($20,000 from 1 July 2026), and the deduction at the taxable use.
+26 November 2026 | The super lump sum tax calculator now also works the amount withheld from a super income stream payment under Schedule 13, for payments from 1 July 2024: weekly, fortnightly, monthly or quarterly, with the 15% or 10% tax offset and the offset adjustment, or 47% without a tax file number.
 26 November 2026 | A new business calculator, sole trader against company, puts one business profit for 2021-22 to 2026-27 through both structures: as a sole trader, tax and the Medicare levy on the whole profit less the small business income tax offset under Subdivision 328-F; through a company, a salary with its super guarantee, company tax at 25% or 30%, a fully franked dividend for the rest of what the owner takes out with its top-up tax, the profit kept in the company and the tax on the super. It states each total and the difference and recommends no structure, and names what it leaves out: the personal services income rules, Division 7A, the small business CGT concessions, state taxes and the cost of running a company. Rates were read on 26 November 2026.
 26 November 2026 | The tool pages, changelog, release record and machine indexes name the releases of 24 and 25 November: aus-accounting-mcp v0.13.0 (148 worksheet kinds with calculators 1.4.0, 29 tools), Australian Accounting Skills v0.8.1 (112 skills, Apache License 2.0), monthly-close-control-plane v1.2.0 and review-ready-gate v1.1.0 (both now under the GNU Affero General Public License v3.0 or later, with executables for 6 targets), and solomons-sword v1.0.0 and the-exchequer-tally v1.0.0, now standalone executables under the same licence; the trust distribution and company tax pages keep their pinned Python examples. The profit and cash flow case states that GitHub holds au-fpa-pack v0.8.0 whilst PyPI still serves 0.7.0.
 25 November 2026 | Updated general tax question 8 after the ATO updated its How to lodge your tax return page from 12 to 10 business days for returns lodged online, matching its progress page.
@@ -5964,6 +5967,9 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- leave provisions: https://duguid.com.au/tools/business-calculators/leave-provisions/
+- instant asset write-off: https://duguid.com.au/tools/business-calculators/instant-asset-write-off/
+- super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 - sole trader against company: https://duguid.com.au/tools/business-calculators/sole-trader-company/
 - aus-accounting-mcp v0.13.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.13.0
 - general tax question 8: https://duguid.com.au/tools/accounting-questions/general-tax/
@@ -5981,7 +5987,6 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 - deferred tax: https://duguid.com.au/tools/business-calculators/deferred-tax/
 - GST adjustments: https://duguid.com.au/tools/business-calculators/gst-adjustments/
 - R&D tax offset: https://duguid.com.au/tools/business-calculators/rd-tax-offset/
-- super lump sum tax calculator: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 - company and trust question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/
 - tool pages: https://duguid.com.au/tools/
 - super co-contribution, LISTO and spouse offset: https://duguid.com.au/tools/individual-tax/government-super/
@@ -6604,10 +6609,11 @@ Search 58 calculators
 - Salary against dividends calculator A company owner’s salary and super guarantee against fully franked dividends for 2021-22 to 2026-27: the cash and super kept after tax, and the split that keeps the most.
 - Sole trader against company calculator One business profit taxed as a sole trader, with the small business income tax offset, and through a company paying a salary, super guarantee and fully franked dividends, for 2021-22 to 2026-27: each structure’s total tax.
 
-## Capital gains tax
+## Capital gains tax and capital assets
 
 - Capital gains tax calculator The capital gain or loss on one sale to 30 June 2027: discount or indexation, losses, and the main residence and 6-year rules, each step cited.
 - Small business CGT concessions checker Which of the 4 small business CGT concessions in Division 152 are open for one capital gain, each with the provision that decides it.
+- Instant asset write-off calculator Whether a small business entity using simplified depreciation, or a medium sized business to 30 June 2021, writes one asset off in full: the cost limit from the dates and the deduction.
 
 ## Staff, payroll and termination
 
@@ -6615,6 +6621,7 @@ Search 58 calculators
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 - SGC and Payday Super calculator When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.
 - Long service leave calculator One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.
+- Leave provisions calculator Annual and long service leave provisions under AASB 119, line by line, split current and non-current under AASB 101.
 - Workers compensation premium calculator A 2026-27 premium from the declared wages and the insurer’s rate under each state and territory’s scheme, with GST, duty and the actual wages adjustment, each step cited.
 - Super lump sum tax The components of a super lump sum and the most tax each part can bear, for members and death benefits, 2020-21 to 2026-27.
 - Redundancy and ETP withholding The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
@@ -6682,10 +6689,12 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Sole trader against company calculator: https://duguid.com.au/tools/business-calculators/sole-trader-company/
 - Capital gains tax calculator: https://duguid.com.au/tools/business-calculators/cgt/
 - Small business CGT concessions checker: https://duguid.com.au/tools/business-calculators/cgt-concessions/
+- Instant asset write-off calculator: https://duguid.com.au/tools/business-calculators/instant-asset-write-off/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
 - Long service leave calculator: https://duguid.com.au/tools/business-calculators/long-service-leave/
+- Leave provisions calculator: https://duguid.com.au/tools/business-calculators/leave-provisions/
 - Workers compensation premium calculator: https://duguid.com.au/tools/business-calculators/workers-compensation/
 - Super lump sum tax: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
 - Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/
@@ -11022,6 +11031,78 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ---
 
+# Instant asset write-off calculator, 2020-21 to 2026-27
+
+Source: https://duguid.com.au/tools/business-calculators/instant-asset-write-off/
+
+> Whether a small business or medium sized business writes one asset off in full: the cost limit from the dates, $20,000 from 1 July 2026, and the deduction.
+
+# Instant asset write-off calculator
+
+Whether one asset is written off in full, 2020-21 to 2026-27.
+
+Published 26 November 2026. Last checked 26 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One depreciating asset in the income year it is first used
+
+The business A small business entity using simplified depreciation A medium sized business (turnover $10 million to under $500 million) Another entity
+
+Income year the asset is first used 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Date first acquired Date first used, or installed ready for use, for a taxable purpose Cost of the asset (AUD) Taxable use (%)
+
+Calculate
+
+## What the inputs need
+
+A small business entity has aggregated turnover under $10 million and has chosen simplified depreciation. A medium sized business could write off an asset only from 12 March 2020 to 30 June 2021. From 7.30 pm AEDT on 6 October 2020 to 30 June 2023, temporary full expensing applied instead; for a small business entity the calculator writes the whole asset off then if the asset was acquired from that time, and for any other entity it refuses such an asset.
+
+The limits turn on the dates: the asset is written off in the income year it is first used or installed ready for use, and some limits apply only to an asset first acquired after a budget’s 7.30 pm announcement. Where the limit turns on acquisition after a budget, an asset acquired on that budget day itself (12 May 2015, 2 April 2019 or 6 October 2020) is refused, as the calculator takes dates, not times.
+
+The cost is the asset’s whole cost; it must be less than the limit. The deduction is the cost times the share of use for a taxable purpose. An asset at or above the limit goes into the small business pool, or for other entities is depreciated under Division 40.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; a small business entity using simplified depreciation; first acquired 18 November 2025, first used 18 November 2025; cost $6,800.00, taxable use 80%. Taxable purpose proportion of the cost $5,440.00 Instant asset write-off deduction $5,440.00 Cost limit less than $20,000.00 IT(TP)A 1997 s 328-180(4)(d): less than $20,000 for an asset first acquired from 7.30 pm on 12 May 2015 and first used or installed ready for use from 1 July 2023 to 30 June 2026.
+
+## How the instant asset write-off calculator works
+
+The instant asset write-off calculator decides whether one depreciating asset is written off in full in the income year it is first used, or installed ready for use, for a taxable purpose, from 2020-21 to 2026-27. It finds the cost limit that applies from the business, the date the asset was first acquired and the date it was first used, and writes the asset off if its cost is less than that limit. The deduction is the cost times the taxable use, rounded to the cent.
+
+Its results match the instant-asset-write-off command of Ryan Duguid’s australian-accounting calculators on 366 test cases, refusals included.
+
+## What the instant asset write-off calculator does not cover
+
+The calculator does not decide whether a business is a small business entity or medium sized business, whether it chose simplified depreciation, or the taxable use: you state those. It does not work out the small business pool, the car limit, second element costs added later, a balancing adjustment on disposal, backing business investment, or temporary full expensing for entities other than small business entities using simplified depreciation, which it refuses. It refuses an asset acquired on a budget day itself where the limit turns on acquisition after that budget. Results are planning estimates: check them against your records and the ATO’s guidance.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Instant asset write-off calculator
+
+Case | Inputs | Result
+The ATO’s Fiona: a $6,800 computer used 80% for business, $5,440 written off | 2025-26; a small business entity using simplified depreciation; first acquired 18 November 2025, first used 18 November 2025; cost $6,800.00, taxable use 80% | taxable purpose proportion $5,440.00, deduction $5,440.00, written off
+The ATO’s Daryl: a $40,000 ute used 40%, at or above $20,000, goes to the pool | 2025-26; a small business entity using simplified depreciation; first acquired 28 July 2025, first used 28 July 2025; cost $40,000.00, taxable use 40% | taxable purpose proportion $16,000.00, deduction $0.00, not written off
+From 1 July 2026: $19,999.99 is less than $20,000 and written off | 2026-27; a small business entity using simplified depreciation; first acquired 1 July 2026, first used 1 July 2026; cost $19,999.99, taxable use 100% | taxable purpose proportion $19,999.99, deduction $19,999.99, written off
+From 1 July 2026: $20,000.00 is not less than $20,000 | 2026-27; a small business entity using simplified depreciation; first acquired 1 July 2026, first used 1 July 2026; cost $20,000.00, taxable use 100% | taxable purpose proportion $20,000.00, deduction $0.00, not written off
+A small business’s asset held from 6 October 2020 and first used by 30 June 2023 has no limit | 2020-21; a small business entity using simplified depreciation; first acquired 2 November 2020, first used 1 March 2021; cost $250,000.00, taxable use 60% | taxable purpose proportion $150,000.00, deduction $150,000.00, written off
+Acquired before 12 May 2015 and first used in 2023-24: the $1,000 limit | 2023-24; a small business entity using simplified depreciation; first acquired 15 January 2015, first used 1 September 2023; cost $1,500.00, taxable use 100% | taxable purpose proportion $1,500.00, deduction $0.00, not written off
+A medium sized business: $149,999.99, acquired after 2 April 2019 and first used by 30 June 2021 | 2020-21; a medium sized business; first acquired 1 June 2019, first used 1 August 2020; cost $149,999.99, taxable use 100% | taxable purpose proportion $149,999.99, deduction $149,999.99, written off
+A medium sized business’s asset first used after 30 June 2021 is not written off | 2023-24; a medium sized business; first acquired 1 July 2021, first used 1 August 2023; cost $5,000.00, taxable use 100% | taxable purpose proportion $5,000.00, deduction $0.00, not written off
+Acquired on budget day 6 October 2020 is refused: the result turns on the time | 2020-21; a small business entity using simplified depreciation; first acquired 6 October 2020, first used 1 January 2021; cost $50,000.00, taxable use 100% | Refused: the result turns on whether the asset was first acquired before or after 7.30 pm on 6 October 2020 (legal time in the ACT), and the calculator takes dates only
+
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- australian-accounting: https://github.com/ryanduguid/australian-accounting
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
 # Division 7A minimum yearly repayment calculator
 
 Source: https://duguid.com.au/tools/business-calculators/div7a/
@@ -12615,7 +12696,7 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 One super lump sum from a complying fund
 
-Work out The most income tax on the lump sum The amount the fund withholds (Schedule 12) The tax on a departing Australia superannuation payment
+Work out The most income tax on the lump sum The amount the fund withholds (Schedule 12) The amount withheld from an income stream payment (Schedule 13) The tax on a departing Australia superannuation payment
 
 The lump sum
 
@@ -12657,19 +12738,23 @@ Withholding is worked for payments from 13 October 2020. With a TFN, a resident�
 
 Take the components from the fund’s or the ATO’s statement. The working holiday maker rate applies when the payment includes amounts from contributions made whilst the person was a working holiday maker. An unclaimed money roll-over with an untaxed element is refused: section 5(2) taxes any excess untaxed roll-over amount in it at nil.
 
+### What the income stream inputs need
+
+An income stream payment is worked under Schedule 13, Part A, for payments in 2024-25 to 2026-27. Its tax free component is its share of the interest’s when the stream commenced. The fund withholds from the taxable component under 60, or only from the untaxed element at 60 or over, ignoring cents, by the PAYG tax table for the period: scale 2 with the tax-free threshold claimed, scale 1 without. It takes off a tax offset (15% of the taxed element for a disability super income stream or a dependant under 60, 10% of the untaxed element at 60 or over) and withholds the greater of the rest and the offset adjustment for the Medicare levy. Without a TFN it withholds 47% (45% for a foreign resident) with no offset. A capped defined benefit income stream to someone 60 or over is refused, as Parts B to E apply, as are a foreign resident with a TFN and a dependant under 60 whose deceased died at 60 or over.
+
 Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; member; paid 1 October 2026; lump sum $300,000.00 from an interest of $300,000.00 with $30,000.00 tax free; untaxed element $80,000.00; born 1 May 1964; no service before 1 July 1983; untaxed plan cap used $0.00. Tax free component $30,000.00 Taxable component: element taxed in the fund $190,000.00 Taxable component: element untaxed in the fund $80,000.00 Untaxed element within the untaxed plan cap left, $80,000.00 at no more than 15% $12,000.00 Assessable income $80,000.00 Not assessable income and not exempt income $220,000.00 Most income tax on the lump sum, before Medicare levy $12,000.00 Untaxed plan cap amount counted $80,000.00 Aged 62 on the payment date, preservation age 59: 60 or over, so only the untaxed element is assessable (ss 301-10 and 301-95).
 
 ## How the super lump sum tax calculator works
 
 The super lump sum tax calculator splits one lump sum from a complying fund, paid from 1 July 2020 to 30 June 2027, into its components. It gives the most income tax each part can bear before the Medicare levy. A member’s treatment turns on age on the payment day and preservation age; a death benefit’s turns on whether the person receiving it is a death benefits dependant. Each rate is a ceiling: the offsets stop the tax on a part going above it, so a person on lower marginal rates pays less, and the Medicare levy is added on top.
 
-It also works the amount the fund withholds from the same lump sum under Schedule 12, for a payment from 13 October 2020, including from a roll-over and a death benefit paid to a deceased estate, and the final tax on a departing Australia superannuation payment in 2025-26 to 2027-28.
+It also works the amount the fund withholds from the same lump sum under Schedule 12, for a payment from 13 October 2020, including from a roll-over and a death benefit paid to a deceased estate; the amount withheld from one income stream payment under Schedule 13, Part A, from 1 July 2024; and the final tax on a departing Australia superannuation payment in 2025-26 to 2027-28.
 
-Its results match the super-benefit-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 532 test cases, and its super-withholding and dasp-tax commands on 613 more, refusals included.
+Its results match the super-benefit-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 532 test cases, and its super-withholding and dasp-tax commands on 613 more and the super-withholding command’s income stream withholding on 359 more, refusals included.
 
 ## What the super lump sum tax calculator does not cover
 
-The calculator does not work the tax at the person’s own marginal rates, the Medicare levy, income streams and their withholding (Schedule 13), the tax on a roll-over or a deceased estate, a tax treaty, or payments from a non-complying or foreign fund. It does not decide dependency, a terminal medical condition, the components or the elements: you state those. It refuses a disability superannuation benefit, an untaxed element from service before 1 July 1983, and other lump sums in the same year that share the low rate cap.
+The calculator does not work the tax at the person’s own marginal rates, the Medicare levy or the tax on an income stream in the person’s return. Nor does it work withholding from a capped defined benefit income stream to someone 60 or over (Schedule 13 Parts B to E), a commutation of an income stream, the tax on a roll-over or a deceased estate, a tax treaty, or payments from a non-complying or foreign fund. It does not decide dependency, a terminal medical condition, the components or the elements: you state those. It refuses a disability superannuation benefit, an untaxed element from service before 1 July 1983, and other lump sums in the same year that share the low rate cap.
 
 Confirm the result with the fund, the ATO’s guidance on super lump sums or a registered tax agent before relying on it. The redundancy and ETP withholding calculator covers employment termination payments.
 
@@ -15223,6 +15308,117 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 - Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
 - Payroll and super questions: https://duguid.com.au/tools/accounting-questions/payroll-super/
+
+---
+
+# Leave provisions calculator, AASB 119, 2020-21 to 2026-27
+
+Source: https://duguid.com.au/tools/business-calculators/leave-provisions/
+
+> Annual and long service leave provisions under AASB 119: short-term lines undiscounted, long-term lines projected and discounted, split current and non-current.
+
+# Leave provisions calculator
+
+Annual and long service leave provisions under AASB 119, 2020-21 to 2026-27.
+
+Published 26 November 2026. Last checked 26 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Annual and long service leave at one reporting date
+
+Financial year of the reporting date 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Line 1
+
+Employee or group
+
+Leave Annual leave Long service leave
+
+Hours accrued at the reporting date Hourly rate, with any on-costs you include (AUD) Probability of payment (%)
+
+Expected to be settled wholly within 12 months Yes: short-term, undiscounted No: other long-term
+
+Years to settlement (long-term only) Salary growth a year (%, long-term only) Discount rate a year (%, long-term only)
+
+Right to defer settlement for 12 months (long-term only) No Yes
+
+Line 2
+
+Employee or group
+
+Leave Annual leave Long service leave
+
+Hours accrued at the reporting date Hourly rate, with any on-costs you include (AUD) Probability of payment (%)
+
+Expected to be settled wholly within 12 months Yes: short-term, undiscounted No: other long-term
+
+Years to settlement (long-term only) Salary growth a year (%, long-term only) Discount rate a year (%, long-term only)
+
+Right to defer settlement for 12 months (long-term only) No Yes
+
+Line 3
+
+Employee or group
+
+Leave Annual leave Long service leave
+
+Hours accrued at the reporting date Hourly rate, with any on-costs you include (AUD) Probability of payment (%)
+
+Expected to be settled wholly within 12 months Yes: short-term, undiscounted No: other long-term
+
+Years to settlement (long-term only) Salary growth a year (%, long-term only) Discount rate a year (%, long-term only)
+
+Right to defer settlement for 12 months (long-term only) No Yes
+
+Calculate
+
+## What the inputs need
+
+Each line is one employee or group: the leave hours accrued and unused at the reporting date and the hourly rate the leave would be paid at today, with any on-costs you treat as part of the benefit. Leave a line’s name and hours blank to drop it.
+
+A line expected to be settled wholly within 12 months after the reporting date is short-term: measured undiscounted and current. Any other line is other long-term: give the whole years to settlement (1 to 50) and whether the entity has a right at the reporting date to defer settlement for at least 12 months. Without that right the line is current, whenever settlement is expected.
+
+The probability of payment, salary growth and discount rate are yours, as percentages to 4 decimal places. AASB 119 para 83 sets the discount rate from market yields on high quality corporate bonds at the reporting date, or government bond yields where there is no deep market in such bonds.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; Annual leave: annual leave, 152 hours at $45.50, probability 100%, settled within 12 months; Long service leave, vested: long service leave, 400 hours at $52.00, probability 100%, settled in 2 years, salary growth 3%, discount rate 4.5%, cannot defer settlement; Long service leave, unvested: long service leave, 120 hours at $38.00, probability 40%, settled in 5 years, salary growth 3.5%, discount rate 4.25%, can defer settlement. Annual leave provision $6,916.00 Long service leave provision $21,966.49 Total leave provisions $28,882.49 Current (AASB 101 para 69) $27,123.16 Non-current $1,759.33 Annual leave: short-term, current, $6,916.00. Long service leave, vested: other long-term, current, $20,207.16. Long service leave, unvested: other long-term, non-current, $1,759.33. The discount rate, salary growth, probabilities, settlement expectations and rights to defer are the preparer's stated assumptions and judgements (AASB 119 paras 75 to 87; AASB 101 para 69); the worksheet applies them and does not test them.
+
+## How the leave provisions calculator works
+
+The leave provisions calculator measures an entity’s annual and long service leave at one reporting date, line by line, under AASB 119 Employee Benefits, and splits the total into current and non-current under AASB 101. A short-term line is the hours times the rate times the probability of payment, undiscounted. An other long-term line projects the value at today’s rate forward by salary growth for each whole year to settlement, weights it by the probability of payment and discounts it back at the discount rate over the same years. The arithmetic is carried to 40 significant digits and each line’s amounts are rounded to the cent. Lines the entity has no right to defer for 12 months are current.
+
+Its results match the leave-provisions command of Ryan Duguid’s australian-accounting calculators on 347 test cases, refusals included.
+
+## What the leave provisions calculator does not cover
+
+The calculator does not set the discount rate, salary growth, probability of payment or settlement pattern: you state those, and it applies them without testing them. It refuses defined benefit plans, plan assets and reimbursement rights, and sick, parental, jury and military service leave, long-term disability and termination benefits. It does not work out entitlements under a State or Territory long service leave Act (the long service leave calculator does), part years to settlement, on-costs such as payroll tax and super unless you include them in the rate, the deferred tax on the provision or the journal entries. Results are planning estimates: check them against your records and your auditor’s view.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Leave provisions calculator
+
+Case | Inputs | Result
+The page example: annual leave, vested and unvested long service leave | 2025-26; Annual leave: annual leave, 152 hours at $45.50, probability 100%, settled within 12 months; Long service leave, vested: long service leave, 400 hours at $52.00, probability 100%, settled in 2 years, salary growth 3%, discount rate 4.5%, cannot defer settlement; Long service leave, unvested: long service leave, 120 hours at $38.00, probability 40%, settled in 5 years, salary growth 3.5%, discount rate 4.25%, can defer settlement | total leave provisions $28,882.49, current $27,123.16, non-current $1,759.33
+A short-term line at 50% probability is half its value, undiscounted | 2025-26; Annual leave: annual leave, 152 hours at $45.50, probability 50%, settled within 12 months | total leave provisions $3,458.00, current $3,458.00, non-current $0.00
+Salary growth equal to the discount rate leaves the value at today’s rate | 2025-26; Long service leave: long service leave, 120 hours at $38.00, probability 100%, settled in 5 years, salary growth 4%, discount rate 4%, can defer settlement | total leave provisions $4,560.00, current $0.00, non-current $4,560.00
+The same long-term line with no right to defer is current | 2025-26; Long service leave: long service leave, 120 hours at $38.00, probability 100%, settled in 5 years, salary growth 3.5%, discount rate 4.25%, cannot defer settlement | total leave provisions $4,398.31, current $4,398.31, non-current $0.00
+1 year to settlement, the fewest a long-term line takes | 2025-26; Long service leave: long service leave, 120 hours at $38.00, probability 100%, settled in 1 years, salary growth 3.5%, discount rate 4.25%, can defer settlement | total leave provisions $4,527.19, current $0.00, non-current $4,527.19
+50 years to settlement, the most a long-term line takes | 2026-27; Long service leave: long service leave, 120 hours at $38.00, probability 100%, settled in 50 years, salary growth 3.5%, discount rate 4.25%, can defer settlement | total leave provisions $3,178.18, current $0.00, non-current $3,178.18
+51 years to settlement is refused | 2025-26; Long service leave: long service leave, 120 hours at $38.00, probability 100%, settled in 51 years, salary growth 3.5%, discount rate 4.25%, can defer settlement | Refused: line 1: years_to_settlement must be a whole number from 1 to 50; the part of a long-term benefit expected within 12 months stays long-term (AASB 119 para 8) at 1 year, the nearest whole year this worksheet takes
+A probability to 7 decimal places is refused | 2025-26; Long service leave: long service leave, 120 hours at $38.00, probability 12.34567%, settled in 5 years, salary growth 3.5%, discount rate 4.25%, can defer settlement | Refused: line 1: probability must be a decimal string from 0 to 1, at most 6 places
+Sick leave is outside the worksheet | 2025-26; Annual leave: annual leave, 152 hours at $45.50, probability 100%, settled within 12 months | Refused: line 1: leave must be annual or long_service; sick, parental, jury and military service leave, long-term disability and termination benefits are outside this worksheet (AASB 119 paras 17, 18, 157 and 159)
+A defined benefit plan is refused | 2025-26; Annual leave: annual leave, 152 hours at $45.50, probability 100%, settled within 12 months; Long service leave, vested: long service leave, 400 hours at $52.00, probability 100%, settled in 2 years, salary growth 3%, discount rate 4.5%, cannot defer settlement; Long service leave, unvested: long service leave, 120 hours at $38.00, probability 40%, settled in 5 years, salary growth 3.5%, discount rate 4.25%, can defer settlement | Refused: a defined benefit plan or other post-employment benefit is measured under AASB 119 paras 26 to 152, which this worksheet does not apply
+
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- australian-accounting: https://github.com/ryanduguid/australian-accounting
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
