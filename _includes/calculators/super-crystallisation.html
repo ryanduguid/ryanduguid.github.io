@@ -1,0 +1,32 @@
+<section class="business-calculator" id="super-crystallisation">
+<form class="calculator-split" data-calculator="super-crystallisation">
+<fieldset disabled><legend>A super interest just before 1 July 2007</legend>
+<div class="form-grid">
+<label class="field" for="super-crystallisation-service-start">Eligible service start<input id="super-crystallisation-service-start" name="service-start" type="date" min="1900-01-01" max="2007-06-30" value="1975-03-01" required /></label>
+<label class="field" for="super-crystallisation-interest">Value of the interest at 30 June 2007<input enterkeyhint="next" id="super-crystallisation-interest" name="interest" type="text" inputmode="decimal" value="500000" required /></label>
+<label class="field" for="super-crystallisation-undeducted">Undeducted contributions<input enterkeyhint="next" id="super-crystallisation-undeducted" name="undeducted" type="text" inputmode="decimal" value="50000" required /></label>
+<label class="field" for="super-crystallisation-concessional">Concessional component<input enterkeyhint="next" id="super-crystallisation-concessional" name="concessional" type="text" inputmode="decimal" value="0" required /></label>
+<label class="field" for="super-crystallisation-invalidity">Post-June 1994 invalidity component<input enterkeyhint="next" id="super-crystallisation-invalidity" name="invalidity" type="text" inputmode="decimal" value="0" required /></label>
+<label class="field" for="super-crystallisation-cgt">CGT exempt component<input enterkeyhint="next" id="super-crystallisation-cgt" name="cgt" type="text" inputmode="decimal" value="0" required /></label>
+<div class="field"><label for="super-crystallisation-untaxed">From an untaxed source?</label><select name="untaxed" id="super-crystallisation-untaxed"><option value="no" selected>No</option><option value="yes">Yes</option></select></div>
+<div class="field"><label for="super-crystallisation-income-stream">Paying an income stream before 1 July 2007?</label><select name="income-stream" id="super-crystallisation-income-stream"><option value="no" selected>No</option><option value="yes">Yes</option></select></div>
+</div>
+<p class="field-note">Enter the components as your fund held them just before 1 July 2007. The eligible service start is usually the day you joined the fund or started the employment it covers; both it and 30 June 2007 count.</p>
+<button type="submit" class="button">Calculate</button>
+</fieldset>
+{% include calculator-example.html inputs="Service from 1975-03-01; interest $500,000.00 at 30 June 2007" rows="Pre-July 83 component|$128,873.84;Crystallised segment (tax free component)|$178,873.84;Taxable component left|$321,126.16" principal="1" note="3044 of 11810 days of eligible service fall before 1 July 1983" %}
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>The crystallised segment: <a href="https://www.ato.gov.au/law/view/document?docid=PAC/19970038/307-225">Income Tax Assessment Act 1997 s 307-225</a> on the ATO’s legal database, read 27 November 2026, and the ATO’s <a href="https://www.ato.gov.au/tax-and-super-professionals/for-superannuation-professionals/apra-regulated-funds/managing-member-benefits/managing-and-calculating-member-benefits/calculating-components-of-a-super-benefit">Calculating components of a super benefit</a> (last updated 12 November 2025), read the same day; the pre-July 83 component follows former Income Tax Assessment Act 1936 s 27AA(1)(d), as the australian-accounting <code>super-crystallisation</code> command applies it.</li>
+<li>The calculator agrees with the command on 186 test cases, refusals included.</li>
+<li>Supplied by you: the eligible service start, the value and the components.</li>
+</ul>
+</div>
+</form>
+<h2>How the super crystallisation calculator works</h2>
+<p>On 1 July 2007 the old components of a super interest were crystallised into a tax free amount. The law treats a payment of the whole interest as made just before that day. The crystallised segment is the concessional, post-June 1994 invalidity and CGT exempt components, the undeducted contributions and the pre-July 83 component. It stays in the tax free component, and the rest of the value is the taxable component.</p>
+<p>The pre-July 83 component is the value less the concessional, invalidity and CGT exempt components, times the days of eligible service before 1 July 1983 over all the days to 30 June 2007. It cannot exceed that base less the undeducted contributions, and it rounds to the cent.</p>
+<h2>What the super crystallisation calculator does not cover</h2>
+<p>The calculator takes the non-qualifying and excessive components as nil and does not check the components your fund held. It refuses an interest from an untaxed source and one paying an income stream before 1 July 2007, which have their own rules. It does not work later contributions or the proportioning of a benefit paid now. Confirm the figures with your fund or a registered tax agent.</p>
+</section>
