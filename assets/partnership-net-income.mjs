@@ -7,7 +7,7 @@
 // to the cent, the cents left over to the largest shares first). ss 90 to 92 read on the Federal Register of
 // Legislation (Compilation No. 193, 1 October 2026) on 27 November 2026.
 
-import { add, cents, cmp, d, div, fixed2, adjusted, isFiniteDec, isZero, mul, parse, quantize, str, sub } from './exact-decimal.mjs';
+import { add, cents, cmp, d, div, fixed2, adjusted, isFiniteDec, isPlainDecimal, isZero, mul, parse, quantize, str, sub } from './exact-decimal.mjs';
 
 /** Income years 2024-25 to 2026-27, as the years ending 30 June the command takes. */
 export const PARTNERSHIP_YEARS = /** @type {const} */ ([2025, 2026, 2027]);
@@ -40,18 +40,18 @@ export const refusal = (reason, provision) => `refused: ${reason} (${provision})
 const fail = (message) => Object.assign(new Error(message), { code: 'refused' });
 
 /** @param {Record<string, unknown>} v @param {string} key */
-const absent = (v, key) => v[key] === undefined || v[key] === null;
+const absent = (v, key) => v[key] === undefined || v[key] === null; // eslint-disable-line security/detect-object-injection -- the key is a literal from this module's own call sites
 
 /** @param {Record<string, unknown>} v @param {string} key */
 export function text(v, key) {
-  const t = v[key];
+  const t = v[key]; // eslint-disable-line security/detect-object-injection -- the key is a literal from this module's own call sites
   if (typeof t !== 'string') throw fail(`${key} must be a string`);
   return t;
 }
 
 /** @param {Record<string, unknown>} v @param {string} key */
 export function integer(v, key) {
-  const n = v[key];
+  const n = v[key]; // eslint-disable-line security/detect-object-injection -- the key is a literal from this module's own call sites
   if (typeof n !== 'number' || !Number.isSafeInteger(n)) throw fail(`${key} must be an integer`);
   return n;
 }
@@ -90,7 +90,7 @@ export function percentage(v, key) {
 
 /** @param {Record<string, unknown>} v @param {string} key */
 export function flag(v, key) {
-  const b = v[key];
+  const b = v[key]; // eslint-disable-line security/detect-object-injection -- the key is a literal from this module's own call sites
   if (b === undefined || b === null) return false;
   if (typeof b !== 'boolean') throw fail(`${key} must be true or false`);
   return b;
@@ -106,7 +106,7 @@ export function fact(v, key) {
 
 /** @param {Record<string, unknown>} v @param {string} key @returns {unknown[]} */
 export function array(v, key) {
-  const a = v[key];
+  const a = v[key]; // eslint-disable-line security/detect-object-injection -- the key is a literal from this module's own call sites
   if (a === undefined) return [];
   if (!Array.isArray(a)) throw fail(`${key} must be an array`);
   return a;
@@ -117,12 +117,12 @@ export function array(v, key) {
 function shareOut(total, weights) {
   const exact = weights.map((w) => mul(total, w));
   const parts = exact.map(cents);
-  const order = parts.map((_, i) => i).sort((a, b) => cmp(exact[b], exact[a]));
+  const order = parts.map((_, i) => i).sort((a, b) => cmp(exact[b], exact[a])); // eslint-disable-line security/detect-object-injection -- an index into an array of the same length
   let left = parts.reduce((t, p) => sub(t, p), total);
   const cent = left.neg && !isZero(left) ? d('-0.01') : d('0.01');
   for (const i of order) {
     if (isZero(left)) break;
-    parts[i] = add(parts[i], cent);
+    parts[i] = add(parts[i], cent); // eslint-disable-line security/detect-object-injection -- an index into an array of the same length
     left = sub(left, cent);
   }
   return parts;
@@ -163,8 +163,8 @@ export function partnershipNetIncome(v) {
     financial_year: fy, assessable_income: fixed2(assessable), deductions_counted: fixed2(counted), excluded_deductions: fixed2(excluded),
     net_income: fixed2(net), partnership_loss: fixed2(loss), exempt_income: fixed2(exempt), non_assessable_non_exempt_income: fixed2(nane),
     partners: list.map((p, i) => ({ name: p.name, residency: p.residency, interest_percentage: str(p.interest),
-      assessable_income: fixed2(split[0][i]), deductible_loss: fixed2(split[1][i]), exempt_income: fixed2(split[2][i]),
-      non_assessable_non_exempt_income: fixed2(split[3][i]) })),
+      assessable_income: fixed2(split[0][i]), deductible_loss: fixed2(split[1][i]), exempt_income: fixed2(split[2][i]), // eslint-disable-line security/detect-object-injection -- an index into an array of the same length
+      non_assessable_non_exempt_income: fixed2(split[3][i]) })), // eslint-disable-line security/detect-object-injection -- an index into an array of the same length
     steps: STEPS,
   };
 }
@@ -212,7 +212,7 @@ export function partnershipResult(value, aud) {
     throw new Error('A foreign resident partner’s share is limited to income from Australian sources (section 92(1)(b)): choose Yes for all the income being from Australian sources, or leave the partner out.');
   }
   const total = partners.reduce((sum, p) => sum + Number(p.interest_percentage), 0);
-  if (partners.every((p) => /^\d+(\.\d+)?$/.test(p.interest_percentage)) && Math.abs(total - 100) > 1e-9) {
+  if (partners.every((p) => isPlainDecimal(p.interest_percentage)) && Math.abs(total - 100) > 1e-9) {
     throw new Error(`Enter partner interests that total 100%; these total ${Number(total.toPrecision(12))}%.`);
   }
   const r = partnershipNetIncome(input);

@@ -278,7 +278,7 @@ export function trustLossResult(value) {
     : t.passed === false ? (t.applies === null ? 'Failed; whether it applies not stated' : 'Failed') : 'Not established');
   const rows = r.tests.map((t) => [`${WORDS[/** @type {keyof typeof WORDS} */ (t.test)]} (${t.provision.replace(' Sch 2F ITAA 1936', '')})`, state(t)]);
   const principal = rows.push(['Prior-year loss deductible under Schedule 2F', r.deductible === true ? 'Yes' : r.deductible === false ? 'No' : 'Not established']) - 1;
-  const note = r.not_established.length ? `Not established: ${r.not_established.map((n) => WORDS[/** @type {keyof typeof WORDS} */ (n)].toLowerCase()).join(', ')}`
+  const note = r.not_established.length ? `Not established: ${r.not_established.map((n) => WORDS[/** @type {keyof typeof WORDS} */ (n)].toLowerCase()).join(', ')}` // eslint-disable-line security/detect-object-injection -- WORDS is keyed by the module's own test names
     : 'Each test that applies was answered on the facts stated';
   return { inputs: trustLossInputsText(input), rows, principal, note };
 }

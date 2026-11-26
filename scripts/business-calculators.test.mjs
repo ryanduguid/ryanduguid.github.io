@@ -7385,3 +7385,14 @@ test('the S8 pages work their own examples from the form', () => {
   assert.deepEqual(trust.rows.at(-1), ['Prior-year loss deductible under Schedule 2F', 'Not established']);
   assert.match(trust.note, /income injection test/);
 });
+
+test('exact decimals read what the command reads, and plain decimals are digits with at most one point between digits', async () => {
+  const { parse, isPlainDecimal } = await import('../assets/exact-decimal.mjs');
+  const read = (text) => { const x = parse(text); return x && `${x.neg ? '-' : ''}${x.coef}e${x.exp}${x.special ?? ''}`; };
+  assert.deepEqual(['1', '+1.50', '-.5', '5.', '1e3', '1.5E-2', ' 7 ', '000.100'].map(read), ['1e0', '150e-2', '-5e-1', '5e0', '1e3', '15e-3', '7e0', '100e-3']);
+  assert.deepEqual(['', '.', '+', '-', 'e5', '1e', '1e+', '1e5e5', '1..2', '1.2.3', '+-1', '--1', '1_0', '１', 'x'].map(read), Array(15).fill(null));
+  assert.equal(read('-Infinity'), '-0e0inf');
+  assert.equal(read('NaN12'), '0e0nan');
+  assert.deepEqual(['0', '12', '1.5', '10.25'].map(isPlainDecimal), [true, true, true, true]);
+  assert.deepEqual(['', '.', '.5', '5.', '1.2.3', '-1', '1e3', ' 1', '１'].map(isPlainDecimal), Array(9).fill(false));
+});

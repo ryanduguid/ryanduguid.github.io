@@ -9,7 +9,7 @@
 // of the base at the full rate, its notice of variation's rate or nil for a clearance certificate. ss 14-200 to 14-235
 // read in the AustLII consolidation of Schedule 1 on 27 November 2026. Shares are worked in the command's 40-digit context.
 
-import { add, cents, cmp, d, div, isFiniteDec, isZero, mul, parse, quantize, str, sub } from './exact-decimal.mjs';
+import { add, cents, cmp, d, div, isFiniteDec, isPlainDecimal, isZero, mul, parse, quantize, str, sub } from './exact-decimal.mjs';
 
 export const FRCGW_YEARS = ['2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23', '2023-24', '2024-25', '2025-26', '2026-27'];
 export const FRCGW_PAGE_VENDORS = 3;
@@ -61,7 +61,7 @@ function parseInput(text) {
   const parsed = parse(text.replaceAll('_', ''));
   if (!parsed) return null;
   const unsigned = text.trim().replace(/^-/, '');
-  if (isFiniteDec(parsed) && !/^\d+(?:\.\d+)?$/.test(unsigned)) return null;
+  if (isFiniteDec(parsed) && !isPlainDecimal(unsigned)) return null;
   PARSED.add(parsed);
   return parsed;
 }
@@ -122,8 +122,8 @@ function day(text) {
 /** @param {number} n */
 const dayText = (n) => new Date(n * 86400000).toISOString().slice(0, 10);
 
-/** The worksheet for one acquisition. @param {Record<string, any>} v */
-export function foreignResidentWithholding(v) {
+/** The command's own inputs, read in order and with decimals parsed. @param {any} v @returns {Record<string, any>} */
+function collectInputs(v) {
   if (!v || typeof v !== 'object' || Array.isArray(v)) throw refuse('input.not_object', 'input must be a JSON object');
   const unknown = Object.keys(v).find((k) => !PARAMS.includes(k));
   if (unknown !== undefined) throw refuse('input.field_unknown', `${unknown} is not an input of foreign-resident-withholding`);
@@ -139,6 +139,11 @@ export function foreignResidentWithholding(v) {
       a[key] = parsed; // eslint-disable-line security/detect-object-injection -- the command's own key
     } else a[key] = given; // eslint-disable-line security/detect-object-injection -- the command's own key
   }
+  return a;
+}
+
+/** The checked facts of one acquisition. @param {Record<string, any>} a */
+function checkedFacts(a) {
   if (a.scope_confirmed !== true) throw refuse('scope.not_confirmed', 'Establish all stated scope conditions before calculating.');
   const year = a.year;
   if (typeof year !== 'string' || !FRCGW_YEARS.includes(year)) {
@@ -174,28 +179,11 @@ export function foreignResidentWithholding(v) {
   }
   if (typeof a.class_variation_to_nil !== 'boolean') throw refuse('input.flag_invalid', 'class_variation_to_nil must be a boolean.');
   const nilClass = a.class_variation_to_nil;
-  const base = sub(costBase, option);
-  const later = acquired >= /** @type {number} */ (day(FIFTEEN_FROM));
-  const fullRate = later ? '0.15' : '0.125';
-  const threshold = later ? null : '750000';
-  const full = d(fullRate);
-  for (const x of vendors) {
-    if (x.kind === 'variation' && cmp(/** @type {import('./exact-decimal.mjs').Dec} */ (x.rate), full) > 0) {
-      throw refuse('foreign_resident_withholding.variation_invalid', `A varied rate cannot exceed the full rate of ${fullRate} for the acquisition date.`);
-    }
-  }
-  let nil = null;
-  if (excluded) nil = `excluded transaction (${excluded})`;
-  else if (threshold && cmp(marketValue, d(threshold)) < 0) nil = 'excluded transaction: market value under $750,000 (s 14-215(1)(a), acquisitions before 1 January 2025)';
-  else if (nilClass) nil = 'class variation to nil (s 14-235(5) and (6))';
-  else if (vendors.every((x) => x.kind === 'clearance_certificate')) nil = 'every vendor gave a clearance certificate: s 14-210(1) applies to none (s 14-210(2))';
-  if (nil === null) {
-    for (const x of vendors) {
-      if (x.kind === 'variation' && cmp(salePrice, /** @type {any} */ (x.maximum)) > 0 && cmp(base, /** @type {any} */ (x.maximum)) <= 0) {
-        throw refuse('foreign_resident_withholding.variation_maximum_unsettled', "A notice's maximum sale price is at least the base but below sale_price, so whether it applies turns on whether the maximum is GST inclusive. If it is, the notice does not apply: give that vendor document none. If it is net of the input tax credit, give sale_price net of the credit.");
-      }
-    }
-  }
+  return { year, acquired, marketValue, costBase, option, salePrice, vendors, excluded, nilClass };
+}
+
+/** Each vendor's share, amount and basis, and the totals payable. @param {any[]} vendors @param {any} base @param {any} salePrice @param {any} full @param {string | null} nil */
+function vendorAmounts(vendors, base, salePrice, full, nil) {
   const total = vendors.reduce((sum, x) => add(sum, x.interest), d('0'));
   const rows = vendors.map((x) => {
     const share = div(mul(base, x.interest, P), total, P);
@@ -228,6 +216,36 @@ export function foreignResidentWithholding(v) {
     for (const row of rows) row.amount = cents(row.amount);
     payable = rows.reduce((sum, row) => add(sum, row.amount, P), d('0'));
   }
+  return { rows, fullAmount, payable };
+}
+
+/** The worksheet for one acquisition. @param {Record<string, any>} v */
+export function foreignResidentWithholding(v) {
+  const a = collectInputs(v);
+  const { year, acquired, marketValue, costBase, option, salePrice, vendors, excluded, nilClass } = checkedFacts(a);
+  const base = sub(costBase, option);
+  const later = acquired >= /** @type {number} */ (day(FIFTEEN_FROM));
+  const fullRate = later ? '0.15' : '0.125';
+  const threshold = later ? null : '750000';
+  const full = d(fullRate);
+  for (const x of vendors) {
+    if (x.kind === 'variation' && cmp(/** @type {import('./exact-decimal.mjs').Dec} */ (x.rate), full) > 0) {
+      throw refuse('foreign_resident_withholding.variation_invalid', `A varied rate cannot exceed the full rate of ${fullRate} for the acquisition date.`);
+    }
+  }
+  let nil = null;
+  if (excluded) nil = `excluded transaction (${excluded})`;
+  else if (threshold && cmp(marketValue, d(threshold)) < 0) nil = 'excluded transaction: market value under $750,000 (s 14-215(1)(a), acquisitions before 1 January 2025)';
+  else if (nilClass) nil = 'class variation to nil (s 14-235(5) and (6))';
+  else if (vendors.every((x) => x.kind === 'clearance_certificate')) nil = 'every vendor gave a clearance certificate: s 14-210(1) applies to none (s 14-210(2))';
+  if (nil === null) {
+    for (const x of vendors) {
+      if (x.kind === 'variation' && cmp(salePrice, /** @type {any} */ (x.maximum)) > 0 && cmp(base, /** @type {any} */ (x.maximum)) <= 0) {
+        throw refuse('foreign_resident_withholding.variation_maximum_unsettled', "A notice's maximum sale price is at least the base but below sale_price, so whether it applies turns on whether the maximum is GST inclusive. If it is, the notice does not apply: give that vendor document none. If it is net of the input tax credit, give sale_price net of the credit.");
+      }
+    }
+  }
+  const { rows, fullAmount, payable } = vendorAmounts(vendors, base, salePrice, full, nil);
   return {
     period: year,
     amounts: { withholding_base: str(cents(base)), amount_at_full_rate: str(cents(fullAmount)), amount_payable: str(cents(payable)) },

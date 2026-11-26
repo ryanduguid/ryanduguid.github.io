@@ -15,14 +15,38 @@ const pow10 = (n) => TEN ** BigInt(n);
 /** @param {bigint} c */
 const digits = (c) => (c === 0n ? 1 : c.toString().length);
 
+const DIGITS = /^\d+$/;
+const EXPONENT = /^[+-]?\d+$/;
+
+/** True for digits only, or digits, a point and digits: the plain decimals the commands accept. @param {unknown} text */
+export function isPlainDecimal(text) {
+  const parts = String(text).split('.');
+  return parts.length <= 2 && parts.every((p) => DIGITS.test(p));
+}
+
+/** A finite decimal's sign, whole and fraction digits and exponent: `[+-]` then `digits[.digits*]` or `.digits`, then an optional `e[+-]digits`.
+ * @param {string} t @returns {{ neg: boolean, whole: string, frac: string, exp: number } | null} */
+function finiteParts(t) {
+  const signed = t[0] === '+' || t[0] === '-';
+  const body = signed ? t.slice(1) : t;
+  const cut = body.search(/[eE]/);
+  const mantissa = cut < 0 ? body : body.slice(0, cut);
+  const expText = cut < 0 ? '0' : body.slice(cut + 1);
+  if (!EXPONENT.test(expText)) return null;
+  const dot = mantissa.indexOf('.');
+  const whole = dot < 0 ? mantissa : mantissa.slice(0, dot);
+  const frac = dot < 0 ? '' : mantissa.slice(dot + 1);
+  const okWhole = DIGITS.test(whole) && (frac === '' || DIGITS.test(frac));
+  if (!okWhole && !(whole === '' && dot >= 0 && DIGITS.test(frac))) return null;
+  return { neg: t[0] === '-', whole, frac, exp: Number(expText) };
+}
+
 /** Python's Decimal(text) for a string, or null where it raises InvalidOperation. @param {string} text @returns {Dec | null} */
 export function parse(text) {
   const t = text.trim();
-  const m = /^([+-]?)(?:(\d+)(?:\.(\d*))?|\.(\d+))(?:[eE]([+-]?\d+))?$/.exec(t);
+  const m = finiteParts(t);
   if (m) {
-    const whole = m[2] ?? '';
-    const frac = m[3] ?? m[4] ?? '';
-    return { neg: m[1] === '-', coef: BigInt(`${whole}${frac}` || '0'), exp: Number(m[5] ?? 0) - frac.length };
+    return { neg: m.neg, coef: BigInt(`${m.whole}${m.frac}` || '0'), exp: m.exp - m.frac.length };
   }
   const s = /^([+-]?)(inf|infinity|nan\d*|snan\d*)$/i.exec(t);
   if (s) return { neg: s[1] === '-', coef: 0n, exp: 0, special: /inf/i.test(s[2]) ? 'inf' : 'nan' };
@@ -65,12 +89,13 @@ function fit(x, prec) {
   return { neg: x.neg, coef, exp };
 }
 
+/** The signed coefficient of `x` scaled to exponent `exp`. @param {Dec} x @param {number} exp */
+const signedAt = (x, exp) => (x.neg ? -1n : 1n) * x.coef * pow10(x.exp - exp);
+
 /** @param {Dec} a @param {Dec} b @param {number} [prec] @returns {Dec} */
 export function add(a, b, prec = 28) {
   const exp = Math.min(a.exp, b.exp);
-  const sa = (a.neg ? -1n : 1n) * a.coef * pow10(a.exp - exp);
-  const sb = (b.neg ? -1n : 1n) * b.coef * pow10(b.exp - exp);
-  const sum = sa + sb;
+  const sum = signedAt(a, exp) + signedAt(b, exp);
   const neg = sum === 0n ? a.neg && b.neg : sum < 0n;
   return fit({ neg, coef: sum < 0n ? -sum : sum, exp }, prec);
 }
