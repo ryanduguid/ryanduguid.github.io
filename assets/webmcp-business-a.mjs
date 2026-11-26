@@ -154,9 +154,10 @@ function checkObjectionInputs(input) {
   if (!income && input.reviewPeriodYears !== undefined) {
     throw new Error('reviewPeriodYears applies only to an income tax assessment or amended income tax assessment.');
   }
-  for (const field of ['amendedNoticeDate', 'firstNoticeDate']) {
-    if (amended && input[field] === undefined) throw new Error(`${field} is required for an amended assessment.`);
-    if (!amended && input[field] !== undefined) throw new Error(`${field} applies only to an amended assessment.`);
+  const notices = { amendedNoticeDate: input.amendedNoticeDate, firstNoticeDate: input.firstNoticeDate };
+  for (const [field, value] of Object.entries(notices)) {
+    if (amended && value === undefined) throw new Error(`${field} is required for an amended assessment.`);
+    if (!amended && value !== undefined) throw new Error(`${field} applies only to an amended assessment.`);
   }
 }
 
