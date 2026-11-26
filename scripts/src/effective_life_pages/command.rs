@@ -350,6 +350,14 @@ fn check(root: &Path, build: &Build, present: &[String]) -> Result<u8> {
             .filter(|rel| !build.files.contains_key(*rel))
             .map(|rel| format!("{rel} is not a page of the rebuild")),
     );
+    // The address map carries the pages' dates into the next rebuild, so it is an input
+    // as well as an output and stays in review.
+    let generated = build
+        .files
+        .keys()
+        .map(String::as_str)
+        .filter(|rel| *rel != MAP_REL);
+    failures.extend(crate::review_generated::undeclared(root, generated)?);
     if failures.is_empty() {
         say(&format!(
             "The {} effective life page files match the data file\n",
