@@ -159,6 +159,11 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8> {
     if !failures.is_empty() {
         return Ok(1);
     }
+    let undeclared = crate::review_generated::undeclared(root, [RATES_JSON_REL])?;
+    if !undeclared.is_empty() {
+        say(&format!("{}\n", undeclared.join("\n")))?;
+        return Ok(1);
+    }
     say(&format!("{RATES_JSON_REL} matches the rate CSVs\n"))?;
     Ok(0)
 }

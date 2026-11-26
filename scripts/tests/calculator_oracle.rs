@@ -91,6 +91,10 @@
 //! 2026, and count capital works days between calendar dates, where the engine works in sixteenths, tenths
 //! and twentieths of a cent and counts days from the epoch.
 //!
+//! A further 240 seeded casual and overtime pays, from their own seed, round each line from cents, hours
+//! and percentages in hundredths over 1,000,000 and take the super guarantee as 3/25 of ordinary time
+//! earnings, where the engine adds the casual loading as its own line and multiplies by 12 over 100.
+//!
 //! A further 240 seeded R&D tax offsets, from their own seed, integrate marginal rates in basis
 //! points over slices of the notional deductions in hundredths of a cent (s 355-100(1), (1A) and (3)),
 //! where the engine works each step's product in thousandths, and divide the clawback by the present
@@ -10243,6 +10247,101 @@ fn the_deferred_tax_engine_agrees_with_the_oracle_on_every_seeded_case() {
     );
     let actual = run_node(DT_HARNESS, &cases);
     assert_eq!(actual.len(), DT_CASES);
+    for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
+        assert_eq!(got, want, "{case}");
+    }
+}
+
+/// Runs the casual and overtime pay engine, as `HARNESS` runs the others, and returns its figures as text.
+const CO_HARNESS: &str = r"
+import { casualOvertime } from './assets/business-calculators.mjs';
+let input = '';
+for await (const chunk of process.stdin) input += chunk;
+const keys = ['rules', 'ordinaryPay', 'casualLoading', 'penaltyPay', 'overtimePay', 'leavePay', 'leaveLoading', 'grossPay', 'ote', 'superGuarantee'];
+process.stdout.write(JSON.stringify(JSON.parse(input).map((call) => {
+  const r = casualOvertime(call);
+  return Object.fromEntries(keys.map((key) => [key, String(r[key])]));
+})));
+";
+
+const CO_CASES: usize = 240;
+
+/// Hundredths as the engine's decimal text.
+fn co_text(hundredths: u128) -> String {
+    dollars(u64::try_from(hundredths).unwrap())
+}
+
+/// One seeded pay: every line's product of cents, hours and percent in hundredths over 1,000,000, rounded
+/// half up; ordinary time earnings leave out overtime lines and a leave loading for lost overtime (SGAA
+/// s 6(1); SGR 2009/2 paras 27, 35 and 41); the super guarantee is 3/25 of their cents, rounded half up.
+fn co_case(rng: &mut Seeded) -> (Value, Value) {
+    let rate = 1 + u128::from(rng.below(10_000));
+    let any = rng.below(10_001);
+    let casual = u128::from(rng.pick(&[0, 0, 2_500, 2_000, 1_900, any]));
+    let ordinary = u128::from(rng.below(8_001));
+    let mut lines = Vec::new();
+    let (mut penalty, mut overtime) = (0_u128, 0_u128);
+    for _ in 0..rng.below(5) {
+        let hours = 1 + u128::from(rng.below(2_000));
+        let any = 10_000 + rng.below(20_001);
+        let percent = u128::from(rng.pick(&[11_500, 15_000, 17_500, 20_000, 25_000, any]));
+        let is_overtime = rng.below(2) == 0;
+        let pay = exact_half_up(rate * hours * percent, 1_000_000);
+        if is_overtime {
+            overtime += pay;
+        } else {
+            penalty += pay;
+        }
+        lines.push(json!({ "hours": co_text(hours), "percent": co_text(percent), "overtime": is_overtime }));
+    }
+    let any = rng.below(4_001);
+    let leave = if casual == 0 {
+        u128::from(rng.pick(&[0, any]))
+    } else {
+        0
+    };
+    let any = rng.below(10_001);
+    let leave_rate = u128::from(rng.pick(&[0, 1_750, any]));
+    let lost_overtime = rng.below(2) == 0;
+    let payday = rng.pick(&[
+        "2025-07-01",
+        "2025-11-14",
+        "2026-06-30",
+        "2026-07-01",
+        "2026-12-24",
+        "2027-06-30",
+    ]);
+    let ordinary_pay = exact_half_up(rate * ordinary * 10_000, 1_000_000);
+    let loading = exact_half_up(rate * ordinary * casual, 1_000_000);
+    let leave_pay = exact_half_up(rate * leave * 10_000, 1_000_000);
+    let leave_loading = exact_half_up(rate * leave * leave_rate, 1_000_000);
+    let gross = ordinary_pay + loading + penalty + overtime + leave_pay + leave_loading;
+    let ote = gross - overtime - if lost_overtime { leave_loading } else { 0 };
+    let figure = |cents: u128| shown(u64::try_from(cents).unwrap());
+    (
+        json!({ "payday": payday, "base_rate": co_text(rate), "casual_loading": co_text(casual),
+            "ordinary_hours": co_text(ordinary), "lines": lines, "leave_hours": co_text(leave),
+            "leave_loading": co_text(leave_rate), "leave_loading_overtime": lost_overtime }),
+        json!({ "rules": if payday < "2026-07-01" { "quarterly" } else { "payday" },
+            "ordinaryPay": figure(ordinary_pay), "casualLoading": figure(loading), "penaltyPay": figure(penalty),
+            "overtimePay": figure(overtime), "leavePay": figure(leave_pay), "leaveLoading": figure(leave_loading),
+            "grossPay": figure(gross), "ote": figure(ote), "superGuarantee": figure(exact_half_up(ote * 3, 25)) }),
+    )
+}
+
+#[test]
+fn the_casual_overtime_engine_agrees_with_the_oracle_on_every_seeded_case() {
+    if !common::rendered() {
+        return;
+    }
+    let mut rng = Seeded(0x2026_1126_0000_0C07);
+    let (cases, expected): (Vec<_>, Vec<_>) = (0..CO_CASES).map(|_| co_case(&mut rng)).unzip();
+    let some = |key: &str| expected.iter().any(|want| want[key] != "0");
+    assert!(
+        some("casualLoading") && some("overtimePay") && some("penaltyPay") && some("leaveLoading")
+    );
+    let actual = run_node(CO_HARNESS, &cases);
+    assert_eq!(actual.len(), CO_CASES);
     for ((case, want), got) in cases.iter().zip(&expected).zip(&actual) {
         assert_eq!(got, want, "{case}");
     }
