@@ -163,13 +163,13 @@ Source: https://duguid.com.au/tools/business-calculators/blackhole-expenditure/
 
 # Blackhole expenditure calculator
 
-Business capital expenditure under section 40-880, a fifth a year or at once as a start-up cost, 2020-21 to 2027-28.
+Section 40-880 deductions, a fifth a year or at once as a start-up cost, 2020-21 to 2027-28.
 
 Published 26 November 2026. Last checked 26 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Business capital expenditure deducted under section 40-880 for an income year Item 1
+Section 40-880 deductions for an income year Item 1
 
 Capital expenditure (AUD)
 
