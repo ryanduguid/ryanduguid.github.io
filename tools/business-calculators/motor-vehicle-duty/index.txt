@@ -59,10 +59,10 @@ New South Wales, $50,000: $1,350 plus $5 for every $100 over $45,000 | NSW; pass
 Victoria, $85,000 above the luxury car threshold: $10.40 for every $200 | VIC; passenger vehicle; dutiable value $85,000.00; duty date 2026-09-01 | Duty $4,420.00
 Western Australia, $40,000: the sliding rate of 5% | WA; passenger vehicle; dutiable value $40,000.00; duty date 2026-09-01 | Duty $2,000.00
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/

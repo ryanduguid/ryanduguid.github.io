@@ -55,10 +55,10 @@ Vacant residential land tax in the first liable year: 1% | 2026 vacant residenti
 Vacant residential land tax, liable in both earlier years: 3% | 2026 vacant residential land tax; capital improved value $800,000.00; vacant home; liable in the preceding tax year: yes; the one before: yes | Total $24,000.00
 Windfall gains tax on a $400,000 uplift: 62.5% over $100,000 | 2026 windfall gains tax; $1,000,000.00 to $1,400,000.00 | Total $187,500.00
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/

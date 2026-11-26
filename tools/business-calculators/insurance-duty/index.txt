@@ -49,10 +49,10 @@ Victoria, general insurance: 10% of the premium | VIC General insurance other th
 South Australia: 11%, rounded to the cent | SA Insurance other than life insurance; premium $1,234.56; effected 2026-09-01 | Duty $135.80
 New South Wales Type C taken out before 2018: 2.5% | NSW Type C; premium $2,000.00; effected 2026-09-01; policy taken out 2017-06-30 | Duty $50.00
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/

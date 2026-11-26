@@ -14,11 +14,11 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Sixty free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
+Sixty-three free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
 Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
-Search 60 calculators
+Search 63 calculators
 
 ## Pricing, planning and loans
 
@@ -87,6 +87,9 @@ Search 60 calculators
 
 - Transfer duty calculator General transfer (stamp) duty on a residential purchase in each of the 8 states and territories, and the duty for an eligible first home buyer of a home.
 - First home owner grant calculator The grant in each of the 8 states and territories for a new home, by contract date and value cap, beside the first home buyer transfer duty.
+- Motor vehicle duty calculator One passenger vehicle’s registration duty in any state or territory for 2026-27, from each Act’s scale, with Victoria’s green and primary producer cars, Queensland’s engine rows, Tasmania’s fleet discount, the ACT’s emissions categories and the Northern Territory’s electric vehicle exemption.
+- Insurance duty calculator The duty on one general insurance premium for a contract effected or renewed in 2026-27, at each state’s rate for the class: New South Wales Types A to C, Victoria’s business insurance, Queensland CTP, and nil in the ACT.
+- Victorian property taxes calculator One of 3 Victorian taxes on land for 2025 or 2026: vacant residential land tax at 1%, 2% or 3% of the capital improved value, the commercial and industrial property tax (nil in both years, with the earliest tax year the land can be liable) and windfall gains tax on a rezoning’s value uplift.
 - Land tax calculator Land tax for a full year in each of the 7 states and territories that levy it, at the general or trust rates, with a foreign or absentee owner surcharge and WA’s metropolitan region improvement tax where chosen, before any exemption.
 - Foreign purchaser surcharge calculator Foreign purchaser duty and the foreign owner land tax surcharge in each state and territory, with each one’s own test of who is foreign, the 2026-27 FIRB fee and the upfront total in all 8 side by side.
 - Payroll tax calculator One employer’s annual payroll tax for 2026-27 in any state or territory, for an employer outside a group, with each step cited.
@@ -157,6 +160,9 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - First home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
+- Motor vehicle duty calculator: https://duguid.com.au/tools/business-calculators/motor-vehicle-duty/
+- Insurance duty calculator: https://duguid.com.au/tools/business-calculators/insurance-duty/
+- Victorian property taxes calculator: https://duguid.com.au/tools/business-calculators/vic-property-taxes/
 - Land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
 - Foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
 - Payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
