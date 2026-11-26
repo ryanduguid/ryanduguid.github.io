@@ -1277,9 +1277,14 @@ struct Pack<'a> {
     meals_type_one: bool,
 }
 
-/// Cents grossed up at a rate in ten-thousandths, to the dollar, half up (the ATO's guide, 6.10).
-fn grossed(value: u64, rate: u64) -> u64 {
-    half_up(value * rate, 1_000_000)
+/// FBTAA s 5B(1F): Type 1 benefits times (47% + 10%) / ((1 - 47%) x (1 + 10%) x 47%), 57,000 /
+/// 27,401 in cents to the dollar; s 5B(1G): Type 2 benefits times 1 / (1 - 47%), 100 / 53.
+const TYPE_ONE: (u64, u64) = (57_000, 27_401);
+const TYPE_TWO: (u64, u64) = (100, 53);
+
+/// Cents grossed up by a factor, to the dollar, half up (the ATO's guide, 6.10).
+fn grossed(value: u64, (num, den): (u64, u64)) -> u64 {
+    half_up(value * num, den * 100)
 }
 
 /// The FBT side of salary packaging, in cents. FBTAA s 5B(1E): step 1 adds the grossed-up Type 1
@@ -1292,8 +1297,8 @@ fn pack_oracle(p: &Pack) -> Value {
     } else {
         (p.type_one, p.type_two + p.meals)
     };
-    let (g1, g2) = (grossed(one, 20_802), grossed(two, 18_868));
-    let meals = grossed(p.meals, if p.meals_type_one { 20_802 } else { 18_868 });
+    let (g1, g2) = (grossed(one, TYPE_ONE), grossed(two, TYPE_TWO));
+    let meals = grossed(p.meals, if p.meals_type_one { TYPE_ONE } else { TYPE_TWO });
     let cap = if p.hospital { 17_000 } else { 30_000 };
     let step_3 = (g1 + g2).saturating_sub(cap);
     let step_4 = step_3.saturating_sub(meals.min(5_000));
@@ -1317,7 +1322,7 @@ fn pack_oracle(p: &Pack) -> Value {
         "grossedMeals": meals * 100, "grossed": (g1 + g2) * 100, "mealAllowance": (step_3 - step_4) * 100,
         "excess": step_4 * 100, "fbt": step_4 * 47, "reportable": reportable * 100,
         "taxableBefore": taxable(salary) * 100, "taxableAfter": taxable(salary - packaged) * 100, "room": room * 100,
-        "roomTypeTwo": room * 1_000_000 / 18_868})
+        "roomTypeTwo": room * 53})
 }
 
 #[test]

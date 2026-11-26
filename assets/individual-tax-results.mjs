@@ -160,8 +160,8 @@ function salaryPackagingResult(value, aud) {
     salary: value('salary'), typeTwo: value('type-two'), typeOne: value('type-one'), meals: value('meals'),
     mealsTypeOne: flag('meals-type-one'), studyLoan: flag('study-loan'), hospitalCover: flag('cover') });
   const rows = [['Benefits packaged, at their taxable value', aud(r.packaged)]];
-  if (r.grossedTypeOne) rows.push(['Type 1 benefits grossed up at 2.0802, to the dollar', aud(r.grossedTypeOne)]);
-  rows.push(['Type 2 benefits grossed up at 1.8868, to the dollar', aud(r.grossedTypeTwo)],
+  if (r.grossedTypeOne) rows.push(['Type 1 benefits grossed up under s 5B(1F), to the dollar', aud(r.grossedTypeOne)]);
+  rows.push(['Type 2 benefits grossed up under s 5B(1G), to the dollar', aud(r.grossedTypeTwo)],
     [`Cap for ${value('employer') === 'charity' ? 'a charity' : 'a hospital or ambulance service'}`, aud(r.cap)]);
   if (r.grossedMeals) rows.push(['Meal entertainment allowed above the cap, up to $5,000', aud(r.mealAllowance)]);
   rows.push(['Grossed-up amount liable to FBT', aud(r.excess)], ['FBT on it at 47%', aud(r.fbt)],

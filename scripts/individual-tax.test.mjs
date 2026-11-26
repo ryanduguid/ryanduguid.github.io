@@ -822,11 +822,26 @@ test('salary packaging gives the FBT in the ATO’s worked example', () => {
 });
 
 test('salary packaging rounds each grossed-up total to the dollar against the cap', () => {
-  assert.equal(pack({ typeTwo: '15900.20' }).excess, 0);
-  assert.equal(pack({ typeTwo: '15900.21' }).fbt, 0.47);
-  assert.equal(pack({ employer: 'hospital', typeTwo: '9009.96' }).excess, 0);
-  assert.equal(pack({ employer: 'hospital', typeTwo: '9010.23' }).excess, 1);
+  assert.equal(pack({ typeTwo: '15900.26' }).excess, 0);
+  assert.equal(pack({ typeTwo: '15900.27' }).fbt, 0.47);
+  assert.equal(pack({ employer: 'hospital', typeTwo: '9010.26' }).excess, 0);
+  assert.equal(pack({ employer: 'hospital', typeTwo: '9010.27' }).excess, 1);
   assert.equal(pack({ typeOne: '1000' }).grossedTypeOne, 2080);
+});
+
+// FBTAA s 5B(1F) and (1G), read on the ATO legal database 26 November 2026: Type 1 benefits are grossed
+// up by (FBT rate + GST rate) / ((1 - FBT rate) x (1 + GST rate) x FBT rate) and Type 2 by
+// 1 / (1 - FBT rate), not by the 4-place 2.0802 and 1.8868 the ATO publishes.
+test('salary packaging grosses up by the s 5B formulas, not the 4-place rates', () => {
+  // $15,900.21 / 0.53 = $30,000.396: within the cap. At 1.8868 it was $30,000.516, so $30,001 and $0.47 of FBT.
+  const within = pack({ typeTwo: '15900.21' });
+  assert.deepEqual([within.grossedTypeTwo, within.excess, within.fbt], [30000, 0, 0]);
+  // $15,900.27 / 0.53 = $30,000.509, the first cent over.
+  assert.deepEqual([pack({ typeTwo: '15900.27' }).grossedTypeTwo, pack({ typeTwo: '15900.26' }).grossedTypeTwo], [30001, 30000]);
+  // Type 1: $1,000.14 x 0.57 / 0.27401 = $2,080.507, so $2,081, where 2.0802 gives $2,080.491, so $2,080.
+  assert.equal(pack({ typeOne: '1000.14' }).grossedTypeOne, 2081);
+  // The room left takes Type 2 benefits at 53 cents in each grossed-up dollar.
+  assert.equal(pack({ typeTwo: '2000' }).roomTypeTwo, 13899.78);
 });
 
 test('salary packaging lets up to $5,000 of meal entertainment over the cap and no more', () => {
