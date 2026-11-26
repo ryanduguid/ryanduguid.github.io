@@ -8189,14 +8189,16 @@ impl LeaseCase {
 }
 
 /// What the lease engine must return. The liability is the payments not paid at commencement
-/// and the residual, discounted one period at a time (paragraph 26); the asset's cost adds what
-/// paragraph 24 lists. All interest is what is paid after commencement less the liability, where
-/// the engine adds each period's; and the depreciation adds up to the cost, the liability to nil.
+/// and the residual, discounted one period at a time (paragraph 26), with no limit on the
+/// residual (paragraph 27(c)); the asset's cost adds what paragraph 24 lists. All interest is
+/// what is paid after commencement less the liability, where the engine adds each period's; and
+/// the depreciation adds up to the cost, the liability to nil.
 fn lease_oracle(case: &LeaseCase) -> Value {
     let refused = |message: &str| json!({ "refused": message });
     let t = &case.terms;
-    // The engine finds the present value with the finance schedule, so its refusals come first.
-    if let Some(message) = finance_oracle(t).get("refused") {
+    // The engine checks the payments with the finance schedule, residual left out, so its
+    // refusals come first.
+    if let Some(message) = finance_oracle(&Terms { balloon: 0, ..*t }).get("refused") {
         return json!({ "refused": message });
     }
     let at_start = if t.advance { t.payment } else { 0 };
@@ -8251,7 +8253,9 @@ fn lease_case(rng: &mut Seeded) -> LeaseCase {
     let periods = rng.pick(&[1, 2, frequency.most, any_term, any_term]);
     let payment = 1 + rng.cents(10_000_000 - 1);
     let any_residual = rng.below(payment * u64::from(periods) / 4 + 1);
-    let balloon = rng.pick(&[0, 0, payment, any_residual]);
+    // More than every payment together, so more than their present value.
+    let large_residual = payment * u64::from(periods) + 1 + rng.below(payment + 1);
+    let balloon = rng.pick(&[0, 0, payment, any_residual, large_residual]);
     let small = |rng: &mut Seeded| {
         let any = rng.cents(payment * 2);
         rng.pick(&[0, 0, any])
@@ -8319,6 +8323,15 @@ fn the_engine_agrees_with_the_oracle_on_every_seeded_lease() {
     );
     assert!(seeded.iter().any(|one| one.terms.rate == 0));
     assert!(expected.iter().any(|want| want["refused"] == NO_COST));
+    // A residual above the payments' present value is measured, not refused (paragraph 27(c)).
+    assert!(seeded.iter().zip(&expected).any(|(one, want)| {
+        one.terms.balloon
+            > amount_oracle(&Terms {
+                balloon: 0,
+                ..one.terms
+            })
+            && want.get("refused").is_none()
+    }));
     assert!(
         expected
             .iter()

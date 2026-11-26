@@ -860,7 +860,7 @@ const MUTATIONS = [
     find: 'const fee = Number(ratioCents(BigInt(whole) * 100n * numerator, denominator)) / 100;',
     replace: 'const fee = firbFee(kind, String(Math.floor(number(consideration, { money: true }) * Number(numerator) / Number(denominator)))).fee;' },
   { ...surcharges, name: 'the comparison takes the chosen jurisdiction’s duty everywhere', find: 'const duty = /** @type {number} */ (generals[place]);', replace: 'const duty = /** @type {number} */ (generals[purchase.place]);' },
-  { ...leaseEngine, name: 'the payment at commencement stays in the liability', find: 'BigInt(Math.round(pv.amount * 100)) - (advance ? payment : 0n)', replace: 'BigInt(Math.round(pv.amount * 100))' },
+  { ...leaseEngine, name: 'the payment at commencement stays in the liability', find: 'advance, residual) - (advance ? payment : 0n);', replace: 'advance, residual);' },
   { ...leaseEngine, name: 'incentives add to the right-of-use asset', find: '- incentives + direct + restoration', replace: '+ incentives + direct + restoration' },
   { ...leaseEngine, name: 'initial direct costs are left out of the asset', find: '+ direct + restoration;', replace: '+ restoration;' },
   { ...leaseEngine, name: 'the last period does not take the rounding', find: 'period === last ? paid - balance : ', replace: 'false ? paid - balance : ' },

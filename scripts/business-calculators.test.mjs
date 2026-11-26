@@ -5019,6 +5019,17 @@ test('a residual on a lease paid in advance falls a period after the last paymen
   assert.equal(r.end, '2031-07-01');
 });
 
+test('a residual value guarantee above the payments’ present value is measured, not refused', () => {
+  // AASB 16 paragraph 27(c) includes the amount expected to be payable under a residual value
+  // guarantee and sets no limit on it. 12 monthly payments of $100 in arrears at 6% and a $50,000
+  // guarantee: $1,161.89 of payments and $47,095.27 of residual, $48,257.16 as australian-accounting's
+  // lessee-lease command gives it; the last row pays the guarantee and closes the liability on nil.
+  const r = worked(() => leaseOf({ payment: '100', payments: '12', frequency: 'monthly', timing: 'arrears', rate: '6', residual: '50000' }));
+  assert.equal(r.liability, 48257.16);
+  assert.deepEqual([r.rows.at(-1).payment, r.rows.at(-1).closing, r.years.at(-1).liability], [50100, 0, 0]);
+  assert.equal(Math.round(r.totalInterest * 100), 120000 + 5000000 - 4825716);
+});
+
 test('the lease engine depreciates over the useful life when ownership transfers or the life is shorter', () => {
   assert.equal(leaseOf().depreciationEnd, '2031-07-01');
   assert.equal(leaseOf({ residual: '5000', ownership: 'yes', life: '96' }).depreciationEnd, '2034-07-01');
