@@ -1,0 +1,182 @@
+# FBT return calculator: items 14 to 23, rebate, caps and instalments
+
+Source: https://duguid.com.au/tools/business-calculators/fbt-return/
+
+> Lay out an FBT return for the year ending 31 March 2026 or 2027: gross-up, item 23, reportable fringe benefits, rebatable and capped employers, and FBT instalments.
+
+# FBT return calculator
+
+An employer’s FBT return from its benefits’ taxable values: items 14 to 23, reportable fringe benefits, the not-for-profit rebate and caps, and the quarterly instalment.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One employer’s fringe benefits for one FBT year
+
+FBT year ended 31 March 2026 2027
+
+Employer Taxable employer Rebatable employer (s 65J), such as a registered charity Public benevolent institution (s 57A(1)), $30,000 cap Health promotion charity (s 57A(5)), $30,000 cap Public hospital (s 57A(3)(a)), $17,000 cap Not-for-profit hospital (s 57A(4)), $17,000 cap Public ambulance service (s 57A(3)(b)), $17,000 cap
+
+Rebatable employers only: whole days in the year it was a rebatable employer Rebatable employers only: days in the year it was an employer FBT instalments reported on activity statements for the year, less credits claimed at 6B (AUD; blank to leave items 20 to 22)
+
+## Benefit 1
+
+Employee
+
+Item 23 category 23A Car fringe benefits, statutory formula 23B Car fringe benefits, operating cost method 23C Loan fringe benefits 23D Debt waiver fringe benefits 23E Expense payment fringe benefits 23F Housing fringe benefits 23G Living-away-from-home allowance fringe benefits 23J Board fringe benefits 23K Property fringe benefits 23L Income tax exempt body entertainment fringe benefits 23M Residual fringe benefits 23N Car parking fringe benefits 23P Meal entertainment fringe benefits
+
+GST type Type 1, the provider could claim GST credits Type 2, any other
+
+Excluded from reporting (s 5E(3)) No Yes
+
+Gross taxable value (AUD) Employee contribution (AUD) Taxable value (AUD)
+
+Entertainment or electric car Nothing more Salary packaged meal entertainment or entertainment facility leasing (not-for-profit employers) Meal entertainment or entertainment facility leasing not salary packaged (not-for-profit employers) An exempt electric car (s 8A): taxable value nil
+
+Exempt electric car only: its notional taxable value, for reporting (AUD)
+
+## Benefit 2 (optional)
+
+Leave the employee blank to skip benefit 2.
+
+Employee
+
+Item 23 category 23A Car fringe benefits, statutory formula 23B Car fringe benefits, operating cost method 23C Loan fringe benefits 23D Debt waiver fringe benefits 23E Expense payment fringe benefits 23F Housing fringe benefits 23G Living-away-from-home allowance fringe benefits 23J Board fringe benefits 23K Property fringe benefits 23L Income tax exempt body entertainment fringe benefits 23M Residual fringe benefits 23N Car parking fringe benefits 23P Meal entertainment fringe benefits
+
+GST type Type 1, the provider could claim GST credits Type 2, any other
+
+Excluded from reporting (s 5E(3)) No Yes
+
+Gross taxable value (AUD) Employee contribution (AUD) Taxable value (AUD)
+
+Entertainment or electric car Nothing more Salary packaged meal entertainment or entertainment facility leasing (not-for-profit employers) Meal entertainment or entertainment facility leasing not salary packaged (not-for-profit employers) An exempt electric car (s 8A): taxable value nil
+
+Exempt electric car only: its notional taxable value, for reporting (AUD)
+
+## Benefit 3 (optional)
+
+Leave the employee blank to skip benefit 3.
+
+Employee
+
+Item 23 category 23A Car fringe benefits, statutory formula 23B Car fringe benefits, operating cost method 23C Loan fringe benefits 23D Debt waiver fringe benefits 23E Expense payment fringe benefits 23F Housing fringe benefits 23G Living-away-from-home allowance fringe benefits 23J Board fringe benefits 23K Property fringe benefits 23L Income tax exempt body entertainment fringe benefits 23M Residual fringe benefits 23N Car parking fringe benefits 23P Meal entertainment fringe benefits
+
+GST type Type 1, the provider could claim GST credits Type 2, any other
+
+Excluded from reporting (s 5E(3)) No Yes
+
+Gross taxable value (AUD) Employee contribution (AUD) Taxable value (AUD)
+
+Entertainment or electric car Nothing more Salary packaged meal entertainment or entertainment facility leasing (not-for-profit employers) Meal entertainment or entertainment facility leasing not salary packaged (not-for-profit employers) An exempt electric car (s 8A): taxable value nil
+
+Exempt electric car only: its notional taxable value, for reporting (AUD)
+
+## Benefit 4 (optional)
+
+Leave the employee blank to skip benefit 4.
+
+Employee
+
+Item 23 category 23A Car fringe benefits, statutory formula 23B Car fringe benefits, operating cost method 23C Loan fringe benefits 23D Debt waiver fringe benefits 23E Expense payment fringe benefits 23F Housing fringe benefits 23G Living-away-from-home allowance fringe benefits 23J Board fringe benefits 23K Property fringe benefits 23L Income tax exempt body entertainment fringe benefits 23M Residual fringe benefits 23N Car parking fringe benefits 23P Meal entertainment fringe benefits
+
+GST type Type 1, the provider could claim GST credits Type 2, any other
+
+Excluded from reporting (s 5E(3)) No Yes
+
+Gross taxable value (AUD) Employee contribution (AUD) Taxable value (AUD)
+
+Entertainment or electric car Nothing more Salary packaged meal entertainment or entertainment facility leasing (not-for-profit employers) Meal entertainment or entertainment facility leasing not salary packaged (not-for-profit employers) An exempt electric car (s 8A): taxable value nil
+
+Exempt electric car only: its notional taxable value, for reporting (AUD)
+
+## Benefit 5 (optional)
+
+Leave the employee blank to skip benefit 5.
+
+Employee
+
+Item 23 category 23A Car fringe benefits, statutory formula 23B Car fringe benefits, operating cost method 23C Loan fringe benefits 23D Debt waiver fringe benefits 23E Expense payment fringe benefits 23F Housing fringe benefits 23G Living-away-from-home allowance fringe benefits 23J Board fringe benefits 23K Property fringe benefits 23L Income tax exempt body entertainment fringe benefits 23M Residual fringe benefits 23N Car parking fringe benefits 23P Meal entertainment fringe benefits
+
+GST type Type 1, the provider could claim GST credits Type 2, any other
+
+Excluded from reporting (s 5E(3)) No Yes
+
+Gross taxable value (AUD) Employee contribution (AUD) Taxable value (AUD)
+
+Entertainment or electric car Nothing more Salary packaged meal entertainment or entertainment facility leasing (not-for-profit employers) Meal entertainment or entertainment facility leasing not salary packaged (not-for-profit employers) An exempt electric car (s 8A): taxable value nil
+
+Exempt electric car only: its notional taxable value, for reporting (AUD)
+
+## Benefit 6 (optional)
+
+Leave the employee blank to skip benefit 6.
+
+Employee
+
+Item 23 category 23A Car fringe benefits, statutory formula 23B Car fringe benefits, operating cost method 23C Loan fringe benefits 23D Debt waiver fringe benefits 23E Expense payment fringe benefits 23F Housing fringe benefits 23G Living-away-from-home allowance fringe benefits 23J Board fringe benefits 23K Property fringe benefits 23L Income tax exempt body entertainment fringe benefits 23M Residual fringe benefits 23N Car parking fringe benefits 23P Meal entertainment fringe benefits
+
+GST type Type 1, the provider could claim GST credits Type 2, any other
+
+Excluded from reporting (s 5E(3)) No Yes
+
+Gross taxable value (AUD) Employee contribution (AUD) Taxable value (AUD)
+
+Entertainment or electric car Nothing more Salary packaged meal entertainment or entertainment facility leasing (not-for-profit employers) Meal entertainment or entertainment facility leasing not salary packaged (not-for-profit employers) An exempt electric car (s 8A): taxable value nil
+
+Exempt electric car only: its notional taxable value, for reporting (AUD)
+
+Calculate
+
+Enter each benefit’s gross taxable value, employee contribution and taxable value as worked out for it, such as on this site’s FBT car, loan, expense payment, property, car parking and meal entertainment calculators. Give a benefit shared by employees, or partly type 1, as separate benefits.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: FBT year ended 31 March 2026, a taxable employer; A 23A type 1 $10,000.00; staff 23P type 1 $1,000.00 excluded; B 23E type 2 $6,000.00; C 23E type 2 $3,000.00 excluded. Item 14A, type 1 aggregate grossed up, to the dollar $22,882.00 Item 14B, type 2 aggregate grossed up, to the dollar $16,981.00 Item 15, fringe benefits taxable amount $39,863.00 Item 16, tax on the taxable amount at 47% $18,735.61 Item 19, amount of tax payable $18,735.61 Item 23A, car fringe benefits, statutory formula, taxable value $10,000.00 Item 23E, expense payment fringe benefits, taxable value $9,000.00 Item 23P, meal entertainment fringe benefits, taxable value $1,000.00 A: reportable fringe benefits amount $18,867.00 B: reportable fringe benefits amount $11,320.00 Type 1 benefits are grossed up at 2.0802 and type 2 at 1.8868; a reportable amount appears only above $2,000 of an employee’s benefits that are not excluded.
+
+## How the FBT return calculator works
+
+The calculator lays out one employer’s FBT return for the FBT year ended 31 March 2026 or 2027 from the benefits you enter. It adds the taxable values of type 1 benefits, those whose provider could claim GST credits, and of type 2 benefits, excluded benefits included. Type 1 is grossed up by (0.47 + 0.10) / ((1 - 0.47) x 1.10 x 0.47), about 2.0802, and type 2 by 1 / (1 - 0.47), about 1.8868. Each is rounded to the dollar at items 14A and 14B, as the ATO’s worked example does, and item 16 is 47% of their sum at item 15. Item 23 adds each category’s gross taxable value, employee contributions, reductions and taxable value. An employee whose benefits that are not excluded total more than $2,000 has a reportable fringe benefits amount of that total times 1 / (1 - 0.47), with the cents dropped as the ATO’s examples show. A rebatable employer’s item 17 is 47% of the amounts over the $30,000 cap for each employee, and its rebate at item 18 is 47% of item 16 less item 17, for its rebatable days. A public benevolent institution, health promotion charity, hospital or ambulance service pays FBT only on the grossed-up amount over its $30,000 or $17,000 cap for each employee, at item 14C. Up to $5,000 of salary packaged entertainment comes off the amount over a cap. Given the instalments reported, items 20 to 22 show the payment or credit.
+
+## What the FBT return calculator does not cover
+
+The calculator does not value a benefit: you enter each one’s amounts as worked out for it. It does not lodge a return, decide whether a benefit is type 1, excluded, exempt or salary packaged, or count the cars, loans and units of accommodation at items 23A, 23B, 23C and 23F, or the employees at item 10. It does not cover a government body under section 57A(2), an employer partly a public benevolent institution and partly rebatable, live-in residential care workers under section 58, amortised or reducible benefits, section 135G, one employee’s benefits from several employers, or an exempt electric car for a section 57A employer. Each employee you name is taken as one person, as the caps apply to each individual. It does not work out payroll tax, which each state and territory imposes under its own Act.
+
+## FBT instalment for a quarter
+
+An employer that pays FBT by instalments reports one on each activity statement: the ATO’s amount at F1, or a varied amount worked out from its estimate of the year’s FBT at F2 to F4.
+
+One quarter’s FBT instalment
+
+FBT year ended 31 March 2026 2027
+
+Quarter Quarter ending 30 June Quarter ending 30 September Quarter ending 31 December Quarter ending 31 March
+
+Vary the instalment on an estimate? Yes, on my estimate of the year’s FBT No, pay the ATO’s amount
+
+Not varying: the ATO instalment amount at F1 (AUD) Varying: estimated FBT for the year at F2 (AUD)
+
+Varying: reason code at F4 22, current business structure not continuing 30, change in fringe benefits for employees 31, change in employees with fringe benefits 32, fringe benefits rebate now claimed
+
+Varying a later quarter: instalments for the year that fell due before this one (AUD) Varying a later quarter: credits claimed at 6B for them (AUD)
+
+Calculate Enter the inputs and calculate.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: FBT return calculator
+
+Case | Inputs | Result
+The ATO’s examples 2 and 4: a car and school fees reported, meal entertainment and remote area rent excluded | FBT year ended 31 March 2026, a taxable employer; A 23A type 1 $10,000.00; staff 23P type 1 $1,000.00 excluded; B 23E type 2 $6,000.00; C 23E type 2 $3,000.00 excluded | fringe benefits taxable amount $39,863.00, tax payable $18,735.61
+The ATO’s NFP worked example 1: a rebatable employer’s rebate after the $30,000 caps | FBT year ended 31 March 2026, a rebatable employer, rebatable on 365 of 365 days, instalments reported $16,000.00; Mark 23A type 1 $14,000.00; Sam 23A type 1 $15,000.00; Mark 23L type 2 $5,500.00 salary packaged entertainment; Sam 23L type 2 $2,295.00 salary packaged entertainment; Mark 23E type 2 $6,000.00; Sam 23E type 2 $6,000.00; Employee 3 23E type 2 $6,000.00; Employee 4 23E type 2 $6,000.00; Employee 5 23E type 2 $6,000.00; Employee 6 23E type 2 $6,000.00; Employee 7 23E type 2 $6,000.00; Employee 8 23E type 2 $6,000.00; Employee 9 23E type 2 $6,000.00; Employee 10 23E type 2 $6,000.00 | fringe benefits taxable amount $188,241.00, tax payable $53,152.27, payment due $37,152.27
+The ATO’s NFP worked example 2: a public benevolent institution pays FBT only over the $30,000 cap | FBT year ended 31 March 2026, a public benevolent institution, instalments reported $16,000.00; Louise 23A type 1 $2,000.00; Louise 23L type 2 $5,000.00 salary packaged entertainment; Wendy 23A type 1 $25,000.00; Wendy 23E type 2 $15,000.00 excluded | fringe benefits taxable amount $22,005.00, tax payable $10,342.35, credit due $5,657.65
+The ATO’s NFP worked example 3: a public hospital and the $17,000 cap | FBT year ended 31 March 2026, a public hospital, instalments reported $16,000.00; Louise 23A type 1 $2,000.00; Louise 23L type 2 $5,000.00 salary packaged entertainment; Wendy 23A type 1 $25,000.00; Wendy 23E type 2 $15,000.00 excluded | fringe benefits taxable amount $35,005.00, tax payable $16,452.35, payment due $452.35
+Instalments above the year’s FBT: a credit at item 22 | FBT year ended 31 March 2026, a taxable employer, instalments reported $59,736.75; A 23D type 1 $40,779.82; C 23E type 2 $19,244.81 | fringe benefits taxable amount $121,142.00, tax payable $56,936.74, credit due $2,800.01
+
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/

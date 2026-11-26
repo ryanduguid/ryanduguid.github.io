@@ -6,11 +6,11 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Fifty-eight free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
+Fifty-nine free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
-Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 27 November 2026, the newest of the calculators’ source checks.
 
-Search 58 calculators
+Search 59 calculators
 
 ## Pricing, planning and loans
 
@@ -30,16 +30,20 @@ Search 58 calculators
 - Depreciation pools and capital works calculator A low-value pool at 18.75% and 37.5%, a general small business pool at 15% and 30% with the low pool value write-off, or a capital works deduction at 2.5% or 4%, for 2020-21 to 2026-27.
 - Rental property calculator One owner’s rental income and deductions for a year: expenses by days let, interest on a mixed-use loan, capital works and second-hand assets, the net rent and its effect on tax.
 
-## Division 7A, FBT, professional firms and GIC
+## Fringe benefits tax
 
-- Division 7A loan calculator Minimum yearly repayment, interest and principal on one amalgamated loan.
 - FBT car calculator Taxable value and FBT on one car for the FBT year ending 31 March 2027, by the statutory formula or operating cost method.
 - FBT car parking calculator Whether car parking fringe benefits arise against the $11.48 threshold, and their taxable value by any of the 5 methods, for the FBT year ending 31 March 2027.
 - FBT expense payment calculator Taxable value of an expense payment fringe benefit, external with the otherwise deductible rule or in-house by the in-house rules, for the FBT year ending 31 March 2027.
 - FBT loan calculator Taxable value of a loan fringe benefit at the 8.27% statutory interest rate, with the otherwise deductible rule, for the FBT year ending 31 March 2027.
 - Meal entertainment calculator Taxable value of meal entertainment fringe benefits by the 50/50 split or 12-week register method, for the FBT year ending 31 March 2027.
+- FBT return calculator One employer’s FBT return from its benefits’ taxable values: the gross-up at items 14 to 16, item 23, reportable fringe benefits amounts, the rebate or caps of a not-for-profit employer, and a quarter’s FBT instalment.
 - FBT property calculator Taxable value of a property fringe benefit by the in-house or external rules, with the otherwise deductible rule and the $1,000 in-house reduction, for the FBT year ending 31 March 2027.
 - Vehicle classifier Whether a vehicle is a car, and what follows for the car limit, the GST credit, luxury car tax, FBT and records.
+
+## Division 7A, professional firms and GIC
+
+- Division 7A loan calculator Minimum yearly repayment, interest and principal on one amalgamated loan.
 - PCG 2021/4 risk scorer The ATO’s risk zone for a professional firm profit allocation, after both gateways.
 - PCG 2021/4 allocation Each recipient’s tax on a professional firm’s profit, the effective tax rate and the ATO’s risk zone.
 - GIC payment plan calculator What a tax debt costs by equal instalments, against paying it now, with GIC compounding daily.
@@ -112,14 +116,15 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
 - Depreciation pools and capital works calculator: https://duguid.com.au/tools/business-calculators/depreciation-pools/
 - Rental property calculator: https://duguid.com.au/tools/business-calculators/rental-property/
-- Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - FBT car calculator: https://duguid.com.au/tools/business-calculators/fbt-car/
 - FBT car parking calculator: https://duguid.com.au/tools/business-calculators/fbt-car-parking/
 - FBT expense payment calculator: https://duguid.com.au/tools/business-calculators/fbt-expense-payment/
 - FBT loan calculator: https://duguid.com.au/tools/business-calculators/fbt-loan/
 - Meal entertainment calculator: https://duguid.com.au/tools/business-calculators/fbt-meal-entertainment/
+- FBT return calculator: https://duguid.com.au/tools/business-calculators/fbt-return/
 - FBT property calculator: https://duguid.com.au/tools/business-calculators/fbt-property/
 - Vehicle classifier: https://duguid.com.au/tools/business-calculators/vehicle-class/
+- Division 7A loan calculator: https://duguid.com.au/tools/business-calculators/div7a/
 - PCG 2021/4 risk scorer: https://duguid.com.au/tools/business-calculators/pcg-2021-4/
 - PCG 2021/4 allocation: https://duguid.com.au/tools/business-calculators/pcg-2021-4-allocation/
 - GIC payment plan calculator: https://duguid.com.au/tools/business-calculators/gic-payment-plan/

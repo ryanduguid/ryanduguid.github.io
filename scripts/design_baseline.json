@@ -188,6 +188,9 @@
     "tools/business-calculators/fbt-property/index.html": [
       "07e42ba739f6d623f294db90379905130f183fd1ffddcf1d2a110a72126e35b3"
     ],
+    "tools/business-calculators/fbt-return/index.html": [
+      "72b6d50d81d039a633de93e72ca5c86bba7e1b07f40853c0a2faeaed9dfef95a"
+    ],
     "tools/business-calculators/first-home-owner-grant/index.html": [
       "a9a6f2f893d3289d5ce70307636441f4fecba8aede440cb69409fbb4b0f2708a"
     ],
@@ -222,7 +225,7 @@
       "1ee789e07f991caadaf17f3e165e8bc60550a06242fe627a485241855184f7b5"
     ],
     "tools/business-calculators/index.html": [
-      "017c5417aec4fa67cac2cd5aee9d90d5bf40f8378532c09cf3038cbc263bc7d0"
+      "dbba8486378a122ca1d46bc6593ef5d71956c88d7c481932c6a8da3564f99644"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "90b1d2897a81b87c05cb1a74bb0937f468ac5e1806fa0b19603b5fff589b9e09"
@@ -431,7 +434,7 @@
   },
   "protected_files": {
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "c8fe189cc6b0603c157303957e4e13dcf3d39aa347ec78021e5f8e23ef5abdc7"
+    "sitemap.xml": "ea778bf3d24522457ec9c4e45bf11cab6b7e5f383ec5bba779ac3aaacba9c825"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -491,7 +494,7 @@
     "rates/super-guarantee/index.html": "a5d7321076de35ab9916764165ca7cdc369eef5a36ae35762be3e2ed93c6dc56"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7812,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7813,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
