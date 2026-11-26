@@ -52,13 +52,13 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Business calculators</li></ol></nav>
         <h1>Business calculators</h1>
-        <p class="lead-note">Sixty-one free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.</p>
+        <p class="lead-note">Sixty-three free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.</p>
         {% assign checked = "" %}{% for calculator in site.data.calculator_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
         <p class="page-meta">Published 11 September 2026. Last checked <time datetime="{{ checked }}">{{ checked | date: "%-d %B %Y" }}</time>, the newest of the calculators’ source checks.</p>
       </header>
       <div class="site-shell accounting-content">
         <form class="tool-filter" id="calc-filter" role="search" aria-label="Filter business calculators">
-          <label class="field" for="calc-search">Search 61 calculators<input type="search" id="calc-search" name="q" autocomplete="off" placeholder="e.g. stamp duty, FBT, CGT, payroll tax, GST" /></label>
+          <label class="field" for="calc-search">Search 63 calculators<input type="search" id="calc-search" name="q" autocomplete="off" placeholder="e.g. stamp duty, FBT, CGT, payroll tax, GST" /></label>
           <p id="calc-count" class="field-note" role="status"></p>
         </form>
         <h2>Pricing, planning and loans</h2>
@@ -114,6 +114,8 @@
         <h2>Staff, payroll and termination</h2>
         <ul class="calculator-list">
           <li id="staff"><a class="collection-entry__title" href="/tools/business-calculators/staff/">Staff cost calculator</a> Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.</li>
+          <li id="casual-overtime"><a class="collection-entry__title" href="/tools/business-calculators/casual-overtime/">Casual and overtime pay calculator</a> Gross pay from the base rate, casual loading and penalty and overtime rates you enter, and the super guarantee on ordinary time earnings.</li>
+          <li id="contractor-employee"><a class="collection-entry__title" href="/tools/business-calculators/contractor-employee/">Contractor against employee calculator</a> The cost to a business and the take-home pay of the same person engaged as an employee or as a contractor, and when section 12(3) still makes the super guarantee payable.</li>
           <li id="cash"><a class="collection-entry__title" href="/tools/business-calculators/cash/">13-week cash forecast</a> Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.</li>
           <li id="sgc-payday"><a class="collection-entry__title" href="/tools/business-calculators/sgc-payday/">SGC and Payday Super calculator</a> When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.</li>
           <li id="long-service-leave"><a class="collection-entry__title" href="/tools/business-calculators/long-service-leave/">Long service leave calculator</a> One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.</li>
@@ -143,7 +145,7 @@
           <li id="business-days"><a class="collection-entry__title" href="/tools/business-calculators/business-days/">Business days calculator</a> Business days between 2 dates, or the date a number of business days on or back, with each state’s public holidays for 2026 and 2027.</li>
           <li id="asic-fees"><a class="collection-entry__title" href="/tools/business-calculators/asic-fees/">ASIC fees calculator</a> ASIC’s 2026-27 fees and late fee tiers.</li>
         </ul>
-        <p>See also <a href="/tools/individual-tax/">17 individual tax calculators</a>, <a href="/tools/depreciation-rates/">depreciation rates and effective lives</a>, <a href="/tools/bas-due-dates/">2026-27 BAS due dates</a> and <a href="/tools/accounting-questions/">100 accounting questions</a>.</p>
+        <p>See also <a href="/tools/individual-tax/">18 individual tax calculators</a>, <a href="/tools/depreciation-rates/">depreciation rates and effective lives</a>, <a href="/tools/bas-due-dates/">2026-27 BAS due dates</a> and <a href="/tools/accounting-questions/">100 accounting questions</a>.</p>
         <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.</p>
 </div></article></main>
 {% include site-footer.html %}

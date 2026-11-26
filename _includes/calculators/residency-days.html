@@ -1,0 +1,55 @@
+<section class="business-calculator" id="residency-days">
+<form class="calculator-split" data-calculator="residency-days">
+<fieldset disabled><legend>Your days in Australia in one income year</legend>
+<div class="form-grid">
+<fieldset class="field"><legend>Income year, 1 July to 30 June</legend>
+<label><input type="radio" name="year" value="2026-27" /> 2026-27</label>
+<label><input type="radio" name="year" value="2025-26" checked /> 2025-26</label>
+<label><input type="radio" name="year" value="2024-25" /> 2024-25</label>
+<label><input type="radio" name="year" value="2023-24" /> 2023-24</label>
+<label><input type="radio" name="year" value="2022-23" /> 2022-23</label>
+<label><input type="radio" name="year" value="2021-22" /> 2021-22</label>
+<label><input type="radio" name="year" value="2020-21" /> 2020-21</label>
+</fieldset>
+</div>
+<fieldset><legend>Periods in Australia</legend>
+<div class="form-grid">
+<label class="field" for="residency-days-arrived-1">Period 1 arrival day<input id="residency-days-arrived-1" name="arrived-1" type="date" min="1900-01-01" max="2100-12-31" value="2025-07-01" aria-describedby="residency-days-periods-note" /></label>
+<label class="field" for="residency-days-departed-1">Period 1 departure day<input id="residency-days-departed-1" name="departed-1" type="date" min="1900-01-01" max="2100-12-31" value="2025-09-30" /></label>
+<label class="field" for="residency-days-arrived-2">Period 2 arrival day<input id="residency-days-arrived-2" name="arrived-2" type="date" min="1900-01-01" max="2100-12-31" value="2025-11-15" /></label>
+<label class="field" for="residency-days-departed-2">Period 2 departure day<input id="residency-days-departed-2" name="departed-2" type="date" min="1900-01-01" max="2100-12-31" value="2026-03-31" /></label>
+<label class="field" for="residency-days-arrived-3">Period 3 arrival day<input id="residency-days-arrived-3" name="arrived-3" type="date" min="1900-01-01" max="2100-12-31" value="" /></label>
+<label class="field" for="residency-days-departed-3">Period 3 departure day<input id="residency-days-departed-3" name="departed-3" type="date" min="1900-01-01" max="2100-12-31" value="" /></label>
+<label class="field" for="residency-days-arrived-4">Period 4 arrival day<input id="residency-days-arrived-4" name="arrived-4" type="date" min="1900-01-01" max="2100-12-31" value="" /></label>
+<label class="field" for="residency-days-departed-4">Period 4 departure day<input id="residency-days-departed-4" name="departed-4" type="date" min="1900-01-01" max="2100-12-31" value="" /></label>
+<label class="field" for="residency-days-arrived-5">Period 5 arrival day<input id="residency-days-arrived-5" name="arrived-5" type="date" min="1900-01-01" max="2100-12-31" value="" /></label>
+<label class="field" for="residency-days-departed-5">Period 5 departure day<input id="residency-days-departed-5" name="departed-5" type="date" min="1900-01-01" max="2100-12-31" value="" /></label>
+<label class="field" for="residency-days-arrived-6">Period 6 arrival day<input id="residency-days-arrived-6" name="arrived-6" type="date" min="1900-01-01" max="2100-12-31" value="" /></label>
+<label class="field" for="residency-days-departed-6">Period 6 departure day<input id="residency-days-departed-6" name="departed-6" type="date" min="1900-01-01" max="2100-12-31" value="" /></label>
+</div>
+<p class="field-note" id="residency-days-periods-note">Enter up to 6 stays in Australia, each from the day you arrived to the day you left; both days count. Leave the arrival blank if you were already here on 1 July, the departure blank if you were still here on 30 June, and both blank to skip a row. Overlapping periods count each day once, and days outside the income year are not counted.</p>
+</fieldset>
+<div class="form-grid">
+<div class="field"><label for="residency-days-usual-abode-outside">Is your usual place of abode outside Australia?</label><select name="usual-abode-outside" id="residency-days-usual-abode-outside" aria-describedby="residency-days-exception-note"><option value="no" selected>No</option><option value="yes">Yes</option></select></div>
+<div class="field"><label for="residency-days-intends-residence">Do you intend to take up residence in Australia?</label><select name="intends-residence" id="residency-days-intends-residence" aria-describedby="residency-days-exception-note"><option value="no" selected>No</option><option value="yes">Yes</option></select></div>
+</div>
+<p class="field-note" id="residency-days-exception-note">However many days you count, the test is not met if both are true: your usual place of abode is outside Australia and you do not intend to take up residence here. The Act leaves both to the Commissioner’s satisfaction; your answers stand in for it, and the calculator does not test them.</p>
+<button type="submit" class="button">Calculate</button>
+</fieldset>
+{% include calculator-example.html inputs="2025-26 (1 July 2025 to 30 June 2026); 2 periods in Australia; usual place of abode outside Australia: no; intends to take up residence: no" rows="Days in Australia in the income year|229 of 365;More than one-half of the year|183 days or more;Usual place of abode outside Australia and no intention to take up residence|No, as you answered;183-day test|Met" principal="3" note="Enough days, and the exception does not apply on your answers" %}
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>The test: <a href="https://www.legislation.gov.au/C1936A00027/latest/text">Income Tax Assessment Act 1936 s 6(1)</a>, ‘resident or resident of Australia’ paragraph (a)(ii), compilation 193 (1 October 2026), read 26 November 2026, the source the australian-accounting <code>residency-tests</code> command cites.</li>
+<li>The count: <a href="https://www.ato.gov.au/law/view/document?docid=TXR/TR20231/NAT/ATO/00001">TR 2023/1</a> paragraphs 83 to 87 and footnote 51, read 26 November 2026: days in Australia are added together whether continuous or not, part of a day counts as a whole day, the year runs from 1 July to 30 June, and 184 days are needed in a year with 29 February.</li>
+<li>The calculator agrees with the command on 667 test cases, refusals included.</li>
+<li>Supplied by you: the year, the days you arrived and left, and your answers on your usual place of abode and intention.</li>
+</ul>
+</div>
+</form>
+<h2>How the 183-day residency day count works</h2>
+<p>The calculator adds up the distinct days you were in Australia between 1 July and 30 June, counting the day you arrived and the day you left as whole days. Paragraph (a)(ii) of the definition of ‘resident or resident of Australia’ in s 6(1) of the Income Tax Assessment Act 1936 includes a person ‘who has actually been in Australia, continuously or intermittently, during more than one-half of the year of income, unless the Commissioner is satisfied that the person’s usual place of abode is outside Australia and that the person does not intend to take up residence in Australia’. More than one-half is 183 days, or 184 in a year that includes 29 February.</p>
+<p>The exception needs the Commissioner to be satisfied of both facts: your usual place of abode is outside Australia, and you do not intend to take up residence in Australia. The calculator takes your answers in place of that satisfaction: if you answer yes and no, it shows the test as not met however many days you spent here. TR 2023/1 says a person on an extended holiday is the usual case.</p>
+<h2>What the 183-day residency day count does not cover</h2>
+<p>The calculator does not decide whether you are an Australian resident. The 183-day test is one of 4. You are also a resident if you reside in Australia according to ordinary concepts, if your domicile is in Australia and your permanent place of abode is not outside Australia, or if you are a PSS member or a CSS eligible employee, or the spouse or child under 16 of one (the Commonwealth superannuation fund test). Those tests turn on facts and judgements this page does not ask for; read <a href="https://www.ato.gov.au/law/view/document?docid=TXR/TR20231/NAT/ATO/00001">TR 2023/1</a> for each. Nor does it test your usual place of abode or intention, apply a tax treaty’s tie-breaker rules for a person resident in 2 countries, or work out part-year residency or the tax that follows. Confirm your residency with the ATO or a registered tax agent.</p>
+</section>

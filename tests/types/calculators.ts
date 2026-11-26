@@ -4,9 +4,10 @@
 // Compile only. Runtime validation and rounding have separate Node tests.
 import * as calculate from '../../assets/business-calculators.mjs';
 import {
-  calculatorTools, fhssTools, governmentSuperTools, individualTaxTools, pensionMinimumTools, transferBalanceTools,
+  calculatorTools, fhssTools, governmentSuperTools, individualTaxTools, pensionMinimumTools, residencyDaysTools, transferBalanceTools,
   workExpensesTools,
 } from '../../assets/webmcp-tools.mjs';
+import { MAX_PERIODS, RESIDENCY_YEARS, residencyDays } from '../../assets/residency-days.mjs';
 import { PENSION_MINIMUM_YEARS, pensionMinimum } from '../../assets/pension-minimum.mjs';
 import {
   ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance,
@@ -478,6 +479,17 @@ calculate.rdTaxOffset({ ...rdInput, base_rate_entity: 'yes' });
 const rdAmounts: Record<string, number> = calculate.rdTaxOffset(rdInput).amounts;
 void rdOffset;
 void rdAmounts;
+const ceInput = { year: '2026-27', hours: '38', salary: '100000', annualLeave: '4', otherLeave: '0', loading: '0', loadingQualifying: true,
+  payrollRate: '0', payrollSuper: true, wcRate: '0', wcSuper: false, rate: '70', nonLabour: '0', expenses: '0', ownSuper: '0',
+  gst: true, credits: true, individual: true, delegate: false, result: false, contractorPayroll: false, contractorWc: false,
+  smallBusinessOffset: false, hospitalCover: true, studyLoan: false };
+const ceCost: number = calculate.contractorEmployee(ceInput).contractorCost;
+// @ts-expect-error An answer is a boolean, not 'yes'.
+calculate.contractorEmployee({ ...ceInput, delegate: 'no' });
+// @ts-expect-error Section 12(3)'s answer is a boolean.
+const ceSection: string = calculate.contractorEmployee(ceInput).section12;
+void ceCost;
+void ceSection;
 const gstBdInput = { party: 'supplier', event: 'written_off', amount: '550.00', taxable_or_creditable: true, cash_basis: false,
   special_rule: 'none', attributed: true, year: '2025-26', scope_confirmed: true };
 const gstApplies: boolean = calculate.gstBadDebt(gstBdInput).applies;
@@ -575,6 +587,7 @@ void businessSet['fbt-property'].execute({ method: 'in-house-public-price', pric
 void businessSet['land-tax'].execute({ place: 'AU-NSW', taxableLandValue: 1100000 });
 void businessSet['termination-payment'].execute({ genuineRedundancyPayment: '48000', completedYearsOfService: 5, codeOTaxableComponent: '17678', otherTaxablePayments: '140000', dateOfBirth: '1996-08-01' });
 void businessSet['transfer-duty'].execute({ place: 'AU-NSW', dutiableValue: 1350000 });
+void businessSet['contractor-employee'].execute({ incomeYear: '2026-27', hoursPerWeek: '38', salary: '100000', contractorHourlyRate: '70' });
 void businessSet['rd-tax-offset'].execute({ incomeYear: '2025-26', notionalDeductions: '100000', aggregatedTurnover: '10000000', totalExpenses: '100000' });
 void businessSet['motor-vehicle-duty'].execute({ jurisdiction: 'nsw', dutiableValue: '50000', dutyDate: '2026-09-01' });
 void businessSet['insurance-duty'].execute({ jurisdiction: 'vic', class: 'general', premium: '1000', effectedDate: '2026-09-01' });
@@ -591,3 +604,14 @@ void pensionMinimumTools({ pensionMinimum, PENSION_MINIMUM_YEARS })['pension-min
 void transferBalanceTools({ ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance, yearOf })['transfer-balance'].execute({ calculation: 'concessional_charge', incomeYear: '2020-21', additionalTax: '1000', taxDueDate: '2021-12-01' });
 // @ts-expect-error pensionMinimumTools requires PENSION_MINIMUM_YEARS alongside pensionMinimum.
 pensionMinimumTools({ pensionMinimum });
+void residencyDaysTools({ MAX_PERIODS, RESIDENCY_YEARS, residencyDays })['residency-days'].execute({ incomeYear: '2025-26', periods: [{ arrival: '2025-07-01', departure: '2025-09-30' }], usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false });
+// @ts-expect-error residencyDaysTools requires MAX_PERIODS alongside the years and residencyDays.
+residencyDaysTools({ RESIDENCY_YEARS, residencyDays });
+const coInput = { payday: '2026-07-10', base_rate: '30.00', casual_loading: '25', ordinary_hours: '30',
+  lines: [{ hours: '3', percent: '175', overtime: true }], leave_hours: '0', leave_loading: '0', leave_loading_overtime: false };
+const coSuper: number = calculate.casualOvertime(coInput).superGuarantee;
+// @ts-expect-error A line says whether it is overtime with a boolean, not 'overtime'.
+calculate.casualOvertime({ ...coInput, lines: [{ hours: '3', percent: '175', overtime: 'overtime' }] });
+// @ts-expect-error Rates and hours are decimal text, not numbers.
+calculate.casualOvertime({ ...coInput, base_rate: 30 });
+void coSuper;

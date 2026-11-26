@@ -6,11 +6,11 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Sixty-one free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
+Sixty free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
 Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
-Search 61 calculators
+Search 60 calculators
 
 ## Pricing, planning and loans
 
@@ -65,6 +65,8 @@ Search 61 calculators
 ## Staff, payroll and termination
 
 - Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
+- Casual and overtime pay calculator Gross pay from the base rate, casual loading and penalty and overtime rates you enter, and the super guarantee on ordinary time earnings.
+- Contractor against employee calculator The cost to a business and the take-home pay of the same person engaged as an employee or as a contractor, and when section 12(3) still makes the super guarantee payable.
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 - SGC and Payday Super calculator When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.
 - Long service leave calculator One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.
@@ -77,9 +79,6 @@ Search 61 calculators
 
 - Transfer duty calculator General transfer (stamp) duty on a residential purchase in each of the 8 states and territories, and the duty for an eligible first home buyer of a home.
 - First home owner grant calculator The grant in each of the 8 states and territories for a new home, by contract date and value cap, beside the first home buyer transfer duty.
-- Motor vehicle duty calculator One passenger vehicle’s registration duty in any state or territory for 2026-27, from each Act’s scale, with Victoria’s green and primary producer cars, Queensland’s engine rows, Tasmania’s fleet discount, the ACT’s emissions categories and the Northern Territory’s electric vehicle exemption.
-- Insurance duty calculator The duty on one general insurance premium for a contract effected or renewed in 2026-27, at each state’s rate for the class: New South Wales Types A to C, Victoria’s business insurance, Queensland CTP, and nil in the ACT.
-- Victorian property taxes calculator One of 3 Victorian taxes on land for 2025 or 2026: vacant residential land tax at 1%, 2% or 3% of the capital improved value, the commercial and industrial property tax (nil in both years, with the earliest tax year the land can be liable) and windfall gains tax on a rezoning’s value uplift.
 - Land tax calculator Land tax for a full year in each of the 7 states and territories that levy it, at the general or trust rates, with a foreign or absentee owner surcharge and WA’s metropolitan region improvement tax where chosen, before any exemption.
 - Foreign purchaser surcharge calculator Foreign purchaser duty and the foreign owner land tax surcharge in each state and territory, with each one’s own test of who is foreign, the 2026-27 FIRB fee and the upfront total in all 8 side by side.
 - Payroll tax calculator One employer’s annual payroll tax for 2026-27 in any state or territory, for an employer outside a group, with each step cited.
@@ -94,7 +93,7 @@ Search 61 calculators
 - Business days calculator Business days between 2 dates, or the date a number of business days on or back, with each state’s public holidays for 2026 and 2027.
 - ASIC fees calculator ASIC’s 2026-27 fees and late fee tiers.
 
-See also 17 individual tax calculators, depreciation rates and effective lives, 2026-27 BAS due dates and 100 accounting questions.
+See also 18 individual tax calculators, depreciation rates and effective lives, 2026-27 BAS due dates and 100 accounting questions.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.
 
@@ -139,6 +138,8 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Capital gains tax calculator: https://duguid.com.au/tools/business-calculators/cgt/
 - Small business CGT concessions checker: https://duguid.com.au/tools/business-calculators/cgt-concessions/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
+- Casual and overtime pay calculator: https://duguid.com.au/tools/business-calculators/casual-overtime/
+- Contractor against employee calculator: https://duguid.com.au/tools/business-calculators/contractor-employee/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
 - Long service leave calculator: https://duguid.com.au/tools/business-calculators/long-service-leave/
@@ -148,9 +149,6 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - First home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
-- Motor vehicle duty calculator: https://duguid.com.au/tools/business-calculators/motor-vehicle-duty/
-- Insurance duty calculator: https://duguid.com.au/tools/business-calculators/insurance-duty/
-- Victorian property taxes calculator: https://duguid.com.au/tools/business-calculators/vic-property-taxes/
 - Land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
 - Foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
 - Payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
@@ -161,7 +159,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Wine equalisation tax calculator: https://duguid.com.au/tools/business-calculators/wine-equalisation-tax/
 - Business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
 - ASIC fees calculator: https://duguid.com.au/tools/business-calculators/asic-fees/
-- 17 individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- 18 individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
