@@ -16308,13 +16308,7 @@ Published 26 November 2026. Last checked 26 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Business capital expenditure deducted under section 40-880 for an income year
-
-Income year to work out 2020-21 2021-22 2022-23 2023-24 2024-25 2025-26 2026-27 2027-28
-
-## First item of capital expenditure
-
-Item 1
+Business capital expenditure deducted under section 40-880 for an income year Item 1
 
 Capital expenditure (AUD)
 
@@ -16337,6 +16331,8 @@ Proposed business: reasonable to conclude it will start within a reasonable time
 Proposed business: a start-up cost (section 40-880(2A)(b)) Neither Advice or services on its proposed structure or operation Fees, taxes or charges to an Australian government agency to establish it
 
 Start-up cost: who you are in the year incurred (section 40-880(2A)(c)) A small business entity Covered by section 40-880(2B): turnover under $50 million Not in business, and not connected with or an affiliate of a business None of these
+
+Income year to work out 2020-21 2021-22 2022-23 2023-24 2024-25 2025-26 2026-27 2027-28
 
 ## Second item of capital expenditure
 
