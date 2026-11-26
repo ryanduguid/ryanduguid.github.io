@@ -107,7 +107,11 @@ production jobs run on Mondays only. This uses the GitHub
 CLI to read releases and compares stable version numbers within
 each package's tag prefix. API failures fail the check. A newer release needs
 editorial review of the changelog and capability descriptions; the check does
-not rewrite pages or evaluation pins. Install `gh` and sign in with `gh auth login`
+not rewrite pages or evaluation pins. After it, the `tool-releases` job runs
+`stamp_source_freshness --write-tool-releases` and opens one pull request from
+`automation/tool-releases` with the refreshed snapshot, pages and mirrors. That
+pull request never auto-merges and is not overwritten whilst open: add the
+changelog row, review the prose and any licence name, then merge it. Install `gh` and sign in with `gh auth login`
 for a local live check. Actions supplies its read-only token to `gh`; the command
 does not read or print the token. Its offline tests run through the site
 check command above. The same run reads every tool page's `release-meta` line:
