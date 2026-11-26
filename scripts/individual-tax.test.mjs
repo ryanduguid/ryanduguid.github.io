@@ -34,6 +34,8 @@ import { excessFormInput, tbaFormInput, transferBalanceResult } from '../assets/
 import './transfer-balance.test.mjs';
 import { pensionMinimum, pensionMinimumFormInput, pensionMinimumResult } from '../assets/pension-minimum.mjs';
 import './pension-minimum.test.mjs';
+import { lodgmentFormInput, lodgmentRequired, lodgmentRequiredResult } from '../assets/lodgment-required.mjs';
+import './lodgment-required.test.mjs';
 import { foreignIncomeFixture, foreignIncomeFormTests } from './foreign-income.test.mjs';
 import { minorsFixture, minorsFormTests } from './minors-income.test.mjs';
 import { nonCommercialFixture, nonCommercialFormTests } from './non-commercial-losses.test.mjs';
@@ -46,7 +48,11 @@ const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAsi
   bonusWithholding, salaryPackaging, novatedLease, superProjection, fhssAmounts: (facts) => fhss(facts).amounts,
   workExpenses, governmentSuperAmounts,
   transferBalanceCases: (command, input) => (command === 'transfer-balance' ? transferBalance(input) : excessContributions(input)).amounts,
-  pensionMinimumAmounts: (input) => pensionMinimum(input).amounts };
+  pensionMinimumAmounts: (input) => pensionMinimum(input).amounts,
+  lodgmentRequiredCases: (input) => {
+    const r = lodgmentRequired(input);
+    return { lodgment_required: r.lodgment_required, required_by: r.required_by, exceptions_applied: r.exceptions_applied, due_date: r.due_date };
+  } };
 const shownCases = JSON.parse(readFileSync(new URL('../_data/individual_tax_cases.json', import.meta.url), 'utf8'));
 const dollars = (value) => `$${Number(value).toLocaleString('en-AU', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const whole = (value) => `$${Number(value).toLocaleString('en-AU')}`;
@@ -91,6 +97,11 @@ const INPUTS = {
     : f.question === 'concessional_charge' ? `${f.year} charge on ${dollars(f.additional_tax)}, tax due ${f.tax_due_date}`
       : `${f.year} release of ${dollars(f.excess)}, determination ${f.determination_date}`),
   pensionMinimumAmounts: (f) => `${f.year}, balance ${dollars(f.account_balance)}, age ${f.age}, ${f.days} days`,
+  lodgmentRequiredCases: (f) => `${f.year}, ${f.residency.status === 'part_year' ? `resident ${f.residency.months} months` : f.residency.status === 'none' ? 'not resident' : 'resident all year'}, `
+    + `taxable income ${dollars(f.taxable_income)}${f.triggers.length ? `, ${f.triggers.join(', ')}` : ''}`
+    + `${f.under_18 ? `, under 18 with ${dollars(f.under_18.income_excluding_work)} not from work` : ''}`
+    + `${f.listed_payment ? `, listed payment${f.listed_payment.other_assessable_income ? ' and other income' : ''}` : ''}`
+    + `${f.sapto ? `, SAPTO ${f.sapto.category} rebate income ${dollars(f.sapto.rebate_income)}` : ''}`,
   governmentSuperAmounts: (f) => `${f.year}, assessable income ${whole(f.assessable_income)}`
     + (f.taxable_income === f.assessable_income ? '' : `, taxable income ${whole(f.taxable_income)}`)
     + (f.business_deductions === '0' ? '' : `, business deductions ${whole(f.business_deductions)}`)
@@ -165,6 +176,8 @@ const OUTPUTS = {
     : f.question === 'concessional_charge' ? `Charge ${dollars(r.excess_concessional_contributions_charge)}`
       : `Earnings ${dollars(r.associated_earnings)}, release ${dollars(r.total_release_amount)}, offset ${dollars(r.associated_earnings_tax_offset)}`),
   pensionMinimumAmounts: (r) => `Before rounding ${dollars(r.minimum_before_rounding)}, minimum ${dollars(r.minimum_payment)}`,
+  lodgmentRequiredCases: (r) => (r.lodgment_required ? `Required by ${r.required_by.join(', ')}, due ${r.due_date}`
+    : `Not required${r.exceptions_applied.length ? `: ${r.exceptions_applied.join(', ')} applies` : ''}`),
   governmentSuperAmounts: (r) => `Co-contribution ${dollars(r.amounts.co_contribution_paid)}, LISTO ${dollars(r.amounts.listo_paid)}`
     + (r.amounts.spouse_contribution_offset === undefined ? '' : `, spouse offset ${dollars(r.amounts.spouse_contribution_offset)}`),
   fhssAmounts: (r) => `Maximum release ${dollars(r.maximum_release_amount)}, assessable ${dollars(r.assessable_fhss_released_amount)}, `
@@ -224,7 +237,7 @@ const formDefaults = (html) => {
   const fields = {};
   for (const [tag] of html.matchAll(/<input\b[^>]*>/g)) {
     const name = tag.match(/\bname="([^"]+)"/)?.[1];
-    if (name && /\btype="radio"/.test(tag) && !/\bchecked\b/.test(tag)) continue;
+    if (name && /\btype="(?:radio|checkbox)"/.test(tag) && !/\bchecked\b/.test(tag)) continue;
     if (name) fields[name] = tag.match(/\bvalue="([^"]*)"/)?.[1];
   }
   for (const [, name, text] of html.matchAll(/<textarea\b[^>]*\bname="([^"]+)"[^>]*>([\s\S]*?)<\/textarea>/g)) {
@@ -245,6 +258,7 @@ const FORM_CALLS = {
   transferBalanceCases: (f) => (f.calc === 'transfer' ? ['transfer-balance', tbaFormInput((name) => f[name] ?? '')]
     : ['excess-contributions', excessFormInput((name) => f[name] ?? '')]),
   pensionMinimumAmounts: (f) => [pensionMinimumFormInput((name) => f[name] ?? '')],
+  lodgmentRequiredCases: (f) => [lodgmentFormInput((name) => f[name] ?? '', (name) => Object.hasOwn(f, name))],
   fhssAmounts: (f) => {
     const fixture = fhssExampleFields(f);
     return [Object.fromEntries(Object.entries(fhssFormFacts(name => fixture[name] ?? '')).filter(([, value]) => value !== ''))];
@@ -726,6 +740,7 @@ for (const page of Object.keys(shownCases)) {
       : page === 'government-super' ? governmentSuperResult(value, aud)
       : page === 'transfer-balance' ? transferBalanceResult(value, aud)
       : page === 'pension-minimum' ? pensionMinimumResult(value, aud)
+      : page === 'lodgment-required' ? lodgmentRequiredResult(value, (name) => Object.hasOwn(fields, name))
       : individualResult(page, value, aud);
     assert.equal(result.inputs, example[1]);
     assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);

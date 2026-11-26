@@ -4,10 +4,11 @@
 // Compile only. Runtime validation and rounding have separate Node tests.
 import * as calculate from '../../assets/business-calculators.mjs';
 import {
-  calculatorTools, fhssTools, governmentSuperTools, individualTaxTools, pensionMinimumTools, transferBalanceTools,
+  calculatorTools, fhssTools, governmentSuperTools, individualTaxTools, lodgmentRequiredTools, pensionMinimumTools, transferBalanceTools,
   workExpensesTools,
 } from '../../assets/webmcp-tools.mjs';
 import { PENSION_MINIMUM_YEARS, pensionMinimum } from '../../assets/pension-minimum.mjs';
+import { LODGMENT_YEARS, STATED, lodgmentRequired } from '../../assets/lodgment-required.mjs';
 import {
   ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance,
   yearOf,
@@ -573,3 +574,6 @@ void pensionMinimumTools({ pensionMinimum, PENSION_MINIMUM_YEARS })['pension-min
 void transferBalanceTools({ ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance, yearOf })['transfer-balance'].execute({ calculation: 'concessional_charge', incomeYear: '2020-21', additionalTax: '1000', taxDueDate: '2021-12-01' });
 // @ts-expect-error pensionMinimumTools requires PENSION_MINIMUM_YEARS alongside pensionMinimum.
 pensionMinimumTools({ pensionMinimum });
+void lodgmentRequiredTools({ LODGMENT_YEARS, STATED, lodgmentRequired })['lodgment-required'].execute({ incomeYear: '2025-26', residency: 'whole_year', taxableIncome: '15000', dividendsAndFrankingCredits: '0', conditions: ['payg_withheld'] });
+// @ts-expect-error lodgmentRequiredTools requires STATED alongside the years and lodgmentRequired.
+lodgmentRequiredTools({ LODGMENT_YEARS, lodgmentRequired });

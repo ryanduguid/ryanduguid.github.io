@@ -1,0 +1,93 @@
+<section class="business-calculator" id="lodgment-required">
+<form class="calculator-split" data-calculator="lodgment-required">
+<fieldset disabled><legend>Your income year and income</legend>
+<div class="form-grid">
+<fieldset class="field"><legend>Income year, 1 July to 30 June</legend>
+<label><input type="radio" name="year" value="2026-27" /> 2026-27</label>
+<label><input type="radio" name="year" value="2025-26" checked /> 2025-26</label>
+<label><input type="radio" name="year" value="2024-25" /> 2024-25</label>
+<label><input type="radio" name="year" value="2023-24" /> 2023-24</label>
+<label><input type="radio" name="year" value="2022-23" /> 2022-23</label>
+<label><input type="radio" name="year" value="2021-22" /> 2021-22</label>
+<label><input type="radio" name="year" value="2020-21" /> 2020-21</label>
+</fieldset>
+<label class="field" for="lodgment-required-residency">Your residency in the year<select name="residency" id="lodgment-required-residency" aria-describedby="lodgment-required-residency-note"><option value="whole_year" selected>An Australian resident for the whole year</option><option value="part_year">A resident for part of the year</option><option value="none">Not a resident at any time</option></select></label>
+<label class="field" for="lodgment-required-taxable-income">Taxable income (AUD)<input id="lodgment-required-taxable-income" name="taxable-income" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="15000" /></label>
+<label class="field" for="lodgment-required-dividends">Assessable dividends or distributions and franking credits (AUD)<input id="lodgment-required-dividends" name="dividends" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" /></label>
+</div>
+<p class="field-note" id="lodgment-required-residency-note">The <a href="/tools/individual-tax/residency-days/">183-day residency day count</a> checks one of the residency tests; this page takes your residency as your answer.</p>
+<fieldset data-show-field="residency" data-show-values="part_year" hidden disabled><legend class="visually-hidden">Part-year resident</legend><div class="form-grid">
+<label class="field" for="lodgment-required-months">Months you were a resident, counting the months you became and stopped being one<input id="lodgment-required-months" name="months" type="number" inputmode="numeric" min="1" max="12" step="1" value="6" /></label>
+</div></fieldset>
+<fieldset data-show-field="residency" data-show-values="none" hidden disabled><legend class="visually-hidden">Not a resident</legend><div class="form-grid">
+<label class="field" for="lodgment-required-taxable-australian-income">Income taxable in Australia, including capital gains, other than dividends, interest, royalties or managed investment trust payments taxed by withholding<select name="taxable-australian-income" id="lodgment-required-taxable-australian-income"><option value="no">No</option><option value="yes" selected>Yes</option></select></label>
+</div></fieldset>
+<fieldset><legend>Did any of these apply to you in the year?</legend>
+<div class="form-grid">
+<label class="check-field"><input type="checkbox" name="trigger-payg_withheld" checked /> Tax was withheld from a payment to you, such as salary, wages or a payment with no ABN quoted, other than the payments the instrument excludes, such as dividends, interest and royalties taxed by withholding</label>
+<label class="check-field"><input type="checkbox" name="trigger-tax_loss" /> You made a tax loss, or can deduct one from an earlier year</label>
+<label class="check-field"><input type="checkbox" name="trigger-net_capital_loss" /> You made a net capital loss, or can apply one from an earlier year</label>
+<label class="check-field"><input type="checkbox" name="trigger-business" /> You carried on a business</label>
+<label class="check-field"><input type="checkbox" name="trigger-primary_production_trust" /> You were a beneficiary of a trust that ran a primary production business in Australia</label>
+<label class="check-field"><input type="checkbox" name="trigger-primary_production_partnership" /> You had a share of a partnership’s net income or loss, and it ran a primary production business in Australia</label>
+<label class="check-field"><input type="checkbox" name="trigger-exempt_overseas_income" /> You had exempt foreign employment income (s 23AF or 23AG) and $1 or more of other income</label>
+<label class="check-field"><input type="checkbox" name="trigger-payg_instalment" /> You paid a PAYG instalment</label>
+<label class="check-field"><input type="checkbox" name="trigger-special_professional" /> You were a special professional, such as an author, performer or sportsperson (ITAA 1997 Division 405)</label>
+<label class="check-field"><input type="checkbox" name="trigger-private_health_offset" /> You are entitled to the private health insurance offset and did not claim the correct amount as a premium reduction</label>
+<label class="check-field"><input type="checkbox" name="trigger-reportable_amounts" /> Your income statement or payment summary shows reportable fringe benefits or reportable employer super contributions</label>
+<label class="check-field"><input type="checkbox" name="trigger-co_contribution" /> You made personal super contributions that will receive a government co-contribution</label>
+<label class="check-field"><input type="checkbox" name="trigger-contributions_cap" /> You exceeded your concessional or non-concessional contributions cap</label>
+<label class="check-field"><input type="checkbox" name="trigger-super_lump_sum" /> You received an Australian super lump sum with an untaxed element at 60 or over, or a taxed or untaxed element under 60</label>
+</div>
+</fieldset>
+<div class="form-grid">
+<label class="field" for="lodgment-required-under-18">Under 18 for the whole year<select name="under-18" id="lodgment-required-under-18"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
+<label class="field" for="lodgment-required-study-loan">A HELP, VSL or other study or training loan debt on 1 June before the year<select name="study-loan" id="lodgment-required-study-loan" aria-describedby="lodgment-required-study-loan-note"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
+</div>
+<fieldset data-show-field="under-18" data-show-values="yes" hidden disabled><legend class="visually-hidden">Under 18</legend><div class="form-grid">
+<label class="field" for="lodgment-required-under-18-income">Income other than salary, wages or other payments for work you did (AUD)<input id="lodgment-required-under-18-income" name="under-18-income" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" /></label>
+</div></fieldset>
+<fieldset data-show-field="study-loan" data-show-values="yes" hidden disabled><legend class="visually-hidden">Study loan</legend><div class="form-grid">
+<label class="field" for="lodgment-required-study-loan-income">Income, including income from outside Australia (AUD)<input id="lodgment-required-study-loan-income" name="study-loan-income" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" /></label>
+</div></fieldset>
+<p class="field-note" id="lodgment-required-study-loan-note">The study loan test applies only to a foreign resident at some time in the year, so a whole-year resident’s answer is not used.</p>
+<fieldset><legend>Exceptions</legend>
+<div class="form-grid">
+<label class="field" for="lodgment-required-whm">A working holiday maker with Australian income<select name="whm" id="lodgment-required-whm"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
+<label class="field" for="lodgment-required-listed">Received a payment the year’s instrument lists, such as JobSeeker Payment or Austudy<select name="listed" id="lodgment-required-listed"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
+<label class="field" for="lodgment-required-sapto">Eligible for the seniors and pensioners tax offset<select name="sapto" id="lodgment-required-sapto"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
+<label class="field" for="lodgment-required-child-support">A parent liable for or entitled to child support<select name="child-support" id="lodgment-required-child-support"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
+</div>
+<fieldset data-show-field="whm" data-show-values="yes" hidden disabled><legend class="visually-hidden">Working holiday maker</legend><div class="form-grid">
+<label class="field" for="lodgment-required-whm-other">Any other assessable income<select name="whm-other" id="lodgment-required-whm-other"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
+<label class="field" for="lodgment-required-whm-taxable">Taxable income without super or ETP remainders (AUD)<input id="lodgment-required-whm-taxable" name="whm-taxable" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="15000" /></label>
+</div></fieldset>
+<fieldset data-show-field="listed" data-show-values="yes" hidden disabled><legend class="visually-hidden">Listed payment</legend><div class="form-grid">
+<label class="field" for="lodgment-required-listed-other">Any other assessable income<select name="listed-other" id="lodgment-required-listed-other"><option value="no" selected>No</option><option value="yes">Yes</option></select></label>
+</div></fieldset>
+<fieldset data-show-field="sapto" data-show-values="yes" hidden disabled><legend class="visually-hidden">Seniors and pensioners tax offset</legend><div class="form-grid">
+<label class="field" for="lodgment-required-sapto-rebate">Rebate income (AUD)<input id="lodgment-required-sapto-rebate" name="sapto-rebate" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="30000" /></label>
+<label class="field" for="lodgment-required-sapto-category">Your situation<select name="sapto-category" id="lodgment-required-sapto-category"><option value="single" selected>Single, widowed or separated at any time in the year</option><option value="apart">Living apart from your spouse due to illness, or either of you in a nursing home</option><option value="together">Living together with your spouse</option></select></label>
+</div></fieldset>
+<p class="field-note">An exception your answers say applies takes away a requirement it names; the result lists each one checked.</p>
+</fieldset>
+<button type="submit" class="button">Calculate</button>
+</fieldset>
+{% include calculator-example.html inputs="2025-26; resident all year; taxable income $15,000; 1 condition ticked" rows="Paragraph 6(2)(a): an amount withheld under PAYG withholding, other than from the payments the paragraph excludes|Yes, as you answered: met;Paragraph 6(2)(o): assessable income from dividends or distributions and franking credits over $18,200|$0: not met;Subparagraph 6(3)(a)(i): a resident for the whole year with taxable income over $18,200|Taxable income $15,000: not met;Return required|Yes" principal="3" note="You must lodge for 2025-26 under paragraph 6(2)(a) of the Taxation Laws (Requirement to Lodge a Return for the 2026 Year) Instrument 2026, by 31 October 2026 if you lodge yourself" %}
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>2023-24 to 2025-26: Taxation Laws (Requirement to Lodge a Return for the <a href="https://www.legislation.gov.au/F2024L00550/asmade/text">2024 Year</a>, <a href="https://www.legislation.gov.au/F2025L00570/asmade/text">2025 Year</a> and <a href="https://www.legislation.gov.au/F2026L00618/asmade/text">2026 Year</a>) Instruments, ss 6(2), 6(3), 6(10), 7(1)(f), 7(2), 7(3) and 8(1), read 26 November 2026.</li>
+<li>2020-21 to 2022-23: Notices of Requirement to Lodge a Return for the Income Year Ended 30 June <a href="https://www.legislation.gov.au/F2021L00577/asmade/text">2021</a>, <a href="https://www.legislation.gov.au/F2022L00508/asmade/text">2022</a> and <a href="https://www.legislation.gov.au/F2023L00533/asmade/text">2023</a>, Tables A, B, J, K and P and section 4, read 26 November 2026.</li>
+<li>The calculator agrees with the australian-accounting <code>lodgment-required</code> command on every case in <code>scripts/lodgment-required-engine-differential.json</code>, refusals included.</li>
+<li>Supplied by you: the year, your residency, your income and each condition and exception you answer.</li>
+</ul>
+</div>
+</form>
+<h2>How the lodgment test works</h2>
+<p>Each year the Commissioner makes an instrument under s 161 of the Income Tax Assessment Act 1936 that says who must lodge a tax return. The calculator applies the year’s instrument to one person: it lists each condition you ticked, works out the ones that turn on an amount, and then checks the exceptions you answered. You must lodge if any condition is met and no exception that names it applies.</p>
+<p>The amounts it works out are the $18,200 tax-free threshold for a resident all year; for a part-year resident, the lesser of $18,200 and $13,464 plus $395 for each month resident; $416 for a person under 18 with income other than from work; $18,200 of dividends and franking credits; and, for a foreign resident with a study or training loan debt, the year’s repayment income threshold. A non-resident with income taxable in Australia must lodge, unless the only such income is dividends, interest, royalties, managed investment trust payments or labour mobility program payments taxed by withholding.</p>
+<p>The exceptions are a working holiday maker with no other assessable income and taxable income under $45,001; a person who received a payment the instrument lists, with no other assessable income or taxable income under the year’s limit; and a person eligible for the seniors and pensioners tax offset with rebate income under the year’s limit. The due date shown is 31 October after the year, for a person who lodges without a registered tax agent.</p>
+<h2>What the lodgment test does not cover</h2>
+<p>The calculator covers one individual’s own return for 2020-21 to 2025-26. It does not cover a return as a trustee, partner, agent or ship’s master, a company or other full self-assessment taxpayer, or a substituted accounting period. No instrument for 2026-27 had been made when the calculator was built, so that year is refused. It does not decide your residency or test the conditions it takes as your answers, and it does not apply the separate instrument for parents liable for or entitled to child support: a parent the main instrument does not require to lodge is told to check that one. It does not say whether lodging would be worthwhile: you may still lodge, for example to get a refund of tax withheld, and the ATO may ask you to lodge. A registered tax agent’s lodgment program may allow a later date than 31 October.</p>
+</section>

@@ -7,13 +7,14 @@ import * as calculate from '../assets/business-calculators.mjs';
 import { readFileSync, readdirSync } from 'node:fs';
 import {
   calculatorTools, depreciationTools, fhssTools, governmentSuperTools, individualTaxTools, levyTools, ozzitTools,
-  pensionMinimumTools, transferBalanceTools, workExpensesTools,
+  lodgmentRequiredTools, pensionMinimumTools, transferBalanceTools, workExpensesTools,
 } from '../assets/webmcp-tools.mjs';
 import { engines as individualEngines } from '../assets/individual-tax-results.mjs';
 import { fhss } from '../assets/fhss-result.mjs';
 import { workExpenses, workExpensesYears } from '../assets/work-expenses-result.mjs';
 import { governmentSuperAmounts, governmentSuperYears } from '../assets/government-super-result.mjs';
 import { PENSION_MINIMUM_YEARS, pensionMinimum } from '../assets/pension-minimum.mjs';
+import { LODGMENT_YEARS, STATED, lodgmentRequired } from '../assets/lodgment-required.mjs';
 import { ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, excessContributions } from '../assets/excess-contributions.mjs';
 import { TBA_KINDS, TBA_YEARS, dayOf, label, transferBalance, yearOf } from '../assets/transfer-balance.mjs';
 import * as depreciation from '../assets/depreciation-rates.mjs';
@@ -462,6 +463,7 @@ const individual = {
   ...governmentSuperTools({ governmentSuperAmounts, governmentSuperYears }),
   ...pensionMinimumTools({ pensionMinimum, PENSION_MINIMUM_YEARS }),
   ...transferBalanceTools({ ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance, yearOf }),
+  ...lodgmentRequiredTools({ LODGMENT_YEARS, STATED, lodgmentRequired }),
 };
 
 test('each individual tax tool is keyed by the form that registers it and is read-only', () => {
@@ -470,7 +472,7 @@ test('each individual tax tool is keyed by the form that registers it and is rea
     'calculate_sole_trader_set_aside', 'calculate_lump_sum_arrears', 'calculate_division_293_tax',
     'calculate_concessional_catch_up', 'calculate_bonus_withholding', 'calculate_salary_packaging',
     'calculate_novated_lease', 'calculate_fhss_release', 'calculate_work_expenses',
-    'calculate_government_super_amounts', 'calculate_pension_minimum', 'calculate_transfer_balance']);
+    'calculate_government_super_amounts', 'calculate_pension_minimum', 'calculate_transfer_balance', 'check_lodgment_required']);
   for (const [key, t] of Object.entries(individual)) {
     const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`), key);
@@ -1675,7 +1677,7 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 76);
+  assert.equal(registered.length + 2, 77);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
@@ -2163,4 +2165,26 @@ test('transfer balance tool runs transfer, charge and release modes and refuses 
   await assert.rejects(tool.execute({
     calculation: 'transfer', events: [{ date: '2017-08-02', kind: 'new_income_stream', amount: '1600000' }], toDate: '2019-12-31', extra: 1,
   }), /extra is not an input of this tool/);
+});
+
+test('lodgment tool applies the threshold, the exceptions and the due date, and refuses 2026-27', async () => {
+  const tool = individual['lodgment-required'];
+  const base = { incomeYear: '2025-26', residency: 'whole_year', dividendsAndFrankingCredits: '0' };
+  const under = await tool.execute({ ...base, taxableIncome: '18200' });
+  assert.deepEqual([under.lodgmentRequired, under.requiredBy, under.dueDate, under.source],
+    [false, [], null, 'https://duguid.com.au/tools/individual-tax/lodgment-required/']);
+  const over = await tool.execute({ ...base, taxableIncome: '18200.01' });
+  assert.deepEqual([over.lodgmentRequired, over.requiredBy, over.dueDate, over.instrument.id],
+    [true, ['subparagraph 6(3)(a)(i)'], '2026-10-31', 'F2026L00618']);
+  assert.doesNotThrow(() => JSON.stringify(over));
+  // 2021-22 Notice: a listed payment with taxable income under $21,885 relieves Table B.
+  const listed = await tool.execute({ ...base, incomeYear: '2021-22', taxableIncome: '21884.99', listedPaymentOtherAssessableIncome: true });
+  assert.deepEqual([listed.lodgmentRequired, listed.exceptionsApplied], [false, ['Table K item (1)']]);
+  const part = await tool.execute({ ...base, residency: 'part_year', monthsResident: 5, taxableIncome: '15439.01', conditions: ['business'] });
+  assert.deepEqual(part.requiredBy, ['paragraph 6(2)(f)', 'subparagraph 6(3)(a)(ii)']);
+  await assert.rejects(tool.execute({ ...base, incomeYear: '2026-27', taxableIncome: '1' }), /incomeYear does not match/);
+  await assert.rejects(tool.execute({ ...base, taxableIncome: '1', childSupportParent: true }), /separate instrument for parents/);
+  await assert.rejects(tool.execute({ ...base, taxableIncome: '1', conditions: ['lottery'] }), /conditions does not match/);
+  await assert.rejects(tool.execute({ ...base, taxableIncome: '1', scopeConfirmed: false }), /Establish all stated scope conditions/);
+  await assert.rejects(tool.execute({ ...base, taxableIncome: '1', resides: true }), /resides is not an input of this tool/);
 });

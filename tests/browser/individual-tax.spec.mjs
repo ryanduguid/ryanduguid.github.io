@@ -10,7 +10,8 @@ const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 's
   'concessional-catch-up': '$97,500.00', 'bonus-withholding': '$641.00',
   'salary-packaging': '$5,291.50', 'novated-lease': '$6,047.48',
   'super-projection': '$539,266.80', fhss: '$14,350.00', 'work-expenses': '$590.00',
-  'government-super': '$500.00', 'transfer-balance': '$26.80', 'pension-minimum': '$30,000.00' };
+  'government-super': '$500.00', 'transfer-balance': '$26.80', 'pension-minimum': '$30,000.00',
+  'lodgment-required': 'Yes' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -555,6 +556,8 @@ for (const [id, name, input, expected] of [
     residency: 'full_year_resident', assessableIncome: 35000, taxableIncome: 35000, eligibleIncome: '35000',
     personalContributions: '1040', returnLodged: true, under71: true, nonConcessionalWithinCap: 'yes',
     totalSuperBalanceBelowCap: 'yes' }, { amounts: { co_contribution_paid: '500.00' } }],
+  ['lodgment-required', 'check_lodgment_required', { incomeYear: '2025-26', residency: 'whole_year', taxableIncome: '18200.01',
+    dividendsAndFrankingCredits: '0' }, { lodgmentRequired: true, dueDate: '2026-10-31' }],
   ['pension-minimum', 'calculate_pension_minimum', { incomeYear: '2026-27', accountBalance: '600000', age: 67 },
     { minimumPayment: '30000.00' }],
   ['transfer-balance', 'calculate_transfer_balance', { calculation: 'concessional_charge', incomeYear: '2020-21',

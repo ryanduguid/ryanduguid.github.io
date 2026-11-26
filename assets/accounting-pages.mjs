@@ -58,12 +58,13 @@ function renderResult(output, result) {
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
 function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualResult, engines }, fhssMod, workExpensesMod, transferBalanceMod,
-  pensionMinimumMod, governmentSuperMod]) {
+  pensionMinimumMod, governmentSuperMod, lodgmentMod]) {
   const { fhssResult } = fhssMod;
   const { workExpensesResult } = workExpensesMod;
   const { transferBalanceResult } = transferBalanceMod;
   const { pensionMinimumResult } = pensionMinimumMod;
   const { governmentSuperResult } = governmentSuperMod;
+  const { lodgmentRequiredResult } = lodgmentMod;
   for (const form of forms) {
     const output = form.querySelector('output');
     if (output.textContent.startsWith('Calculators could not load')) output.textContent = 'Enter the inputs and calculate.';
@@ -74,7 +75,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
   // A failed import or registration leaves the form itself untouched; the warning keeps the cause.
   if (modelContext?.registerTool) import('./webmcp-tools.mjs').then(async ({
     calculatorTools, individualTaxTools, fhssTools, workExpensesTools, governmentSuperTools, pensionMinimumTools,
-    transferBalanceTools,
+    transferBalanceTools, lodgmentRequiredTools,
   }) => {
     const tools = {
       ...calculatorTools(calculate),
@@ -84,6 +85,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
       ...(transferBalanceMod.transferBalance ? transferBalanceTools(transferBalanceMod) : {}),
       ...(pensionMinimumMod.pensionMinimum ? pensionMinimumTools(pensionMinimumMod) : {}),
       ...(governmentSuperMod.governmentSuperAmounts ? governmentSuperTools(governmentSuperMod) : {}),
+      ...(lodgmentMod.lodgmentRequired ? lodgmentRequiredTools(lodgmentMod) : {}),
     };
     for (const form of forms) {
       const tool = tools[form.dataset.calculator];
@@ -713,6 +715,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'pension-minimum':
             result = pensionMinimumResult(value, aud);
             break;
+          case 'lodgment-required':
+            result = lodgmentRequiredResult(value, (name) => form.elements.namedItem(name).checked);
+            break;
           default: result = individualResult(form.dataset.calculator, value, aud) ?? fbtForms.fbtBenefitResult(form, calculate, { aud, value, money });
         }
         renderResult(output, result);
@@ -743,7 +748,8 @@ function loadCalculators(retryForm) {
     forms.some((f) => f.dataset.calculator === 'work-expenses') ? import(`./work-expenses-result.mjs${suffix}`) : {},
     forms.some((f) => f.dataset.calculator === 'transfer-balance') ? import(`./transfer-balance-result.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
     forms.some((f) => f.dataset.calculator === 'pension-minimum') ? import(`./pension-minimum.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
-    forms.some((f) => f.dataset.calculator === 'government-super') ? import(`./government-super-result.mjs${suffix}`) : {}]).then(initialiseCalculators)
+    forms.some((f) => f.dataset.calculator === 'government-super') ? import(`./government-super-result.mjs${suffix}`) : {}, // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
+    forms.some((f) => f.dataset.calculator === 'lodgment-required') ? import(`./lodgment-required.mjs${suffix}`) : {}]).then(initialiseCalculators) // eslint-disable-line no-unsanitized/method -- a fixed same-origin module path with this page's cache suffix
     .then(() => { if (retryForm) retryForm.querySelector('input, select').focus(); })
     .catch(() => {
       for (const form of forms) {
