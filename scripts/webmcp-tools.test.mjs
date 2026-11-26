@@ -2201,6 +2201,8 @@ test('S8 tools return their page examples and refuse what their pages refuse', a
   assert.deepEqual([p.netIncome, p.partners.map((x) => x.assessable_income)], ['130000.00', ['65000.00', '39000.00', '26000.00']]);
   await assert.rejects(partnership.execute({ incomeYear: '2025-26', assessableIncome: '1', deductions: '0', partners: [{ name: 'A', residency: 'non_resident', interestPercentage: '100' }] }),
     /non-resident partner/);
+  await assert.rejects(partnership.execute({ incomeYear: '2025-26', assessableIncome: '1', deductions: '0', outOfScope: 'foreign_hybrid',
+    partners: [{ name: 'A', residency: 'resident', interestPercentage: '100' }] }), /foreign hybrid limited partnership/);
   const trust = tools['trust-loss-tests'];
   const t = await trust.execute({ incomeYear: '2025-26', lossYear: 2023, trustKind: 'non_fixed', incomeDistributedInIncomeYearOr2MonthsAfter: 'yes',
     incomeDistributedIn6EarlierYears: 'yes', previouslyFailedPatternTest: 'no', individualsHadOver50PercentStake: 'no', groupBeganToControl: 'no',

@@ -71,7 +71,7 @@ export function partnershipTool(kit, run) {
     description: 'A partnership\'s net income or partnership loss in AUD for 2024-25 to 2026-27 under ITAA 1936 s 90 (deductions under s 290-150 '
       + 'and Division 36 ITAA 1997 left out) and each partner\'s share of it and of exempt and non-assessable non-exempt income under s 92, '
       + 'by the interests stated, each share rounded half up to the cent with the cents left over to the largest shares. Refuses part-year '
-      + 'residents, a non-resident partner unless all income is from Australian sources, and partner salaries or interest.',
+      + 'residents, a non-resident partner unless all income is from Australian sources, and each case named in outOfScope.',
     inputSchema: record({
       incomeYear: choice(['2024-25', '2025-26', '2026-27'], 'The income year.'),
       assessableIncome: text('trillionCost', 'The partnership\'s assessable income in AUD.'),
@@ -80,14 +80,17 @@ export function partnershipTool(kit, run) {
       exemptIncome: text('trillionCost', 'Exempt income in AUD; "0" when omitted.'),
       nonAssessableNonExemptIncome: text('trillionCost', 'Non-assessable non-exempt income in AUD; "0" when omitted.'),
       allIncomeFromAustralianSources: { type: 'boolean', description: 'true when all the partnership\'s income is from Australian sources.' },
-      partnerSalariesOrInterest: { type: 'boolean', description: 'true when salary or interest is allocated to partners; refused, as it is not modelled.' },
+      outOfScope: choice(['corporate_limited_partnership', 'venture_capital_partnership', 'foreign_hybrid', 'uncontrolled_partnership_income',
+        'segregated_or_pension_asset_interest', 'partner_salaries_or_interest'], 'A case that applies and is refused: a corporate limited partnership (Div 5A), '
+        + 'a VCLP, ESVCLP, AFOF or VCMP, a foreign hybrid, a partner without real and effective control (s 94), a segregated exempt or current pension '
+        + 'asset interest (s 92(2A)), or salary or interest allocated to partners. Omit when none applies.'),
       partners: { type: 'array', maxItems: 50, items: partner, description: 'Each partner; interests must total 100.' },
     }, ['incomeYear', 'assessableIncome', 'deductions', 'partners']),
     run(input) {
       const r = run({ financial_year: Number(input.incomeYear.slice(0, 4)) + 1, assessable_income: input.assessableIncome, deductions: input.deductions,
         excluded_deductions: input.excludedDeductions ?? '0', exempt_income: input.exemptIncome ?? '0',
         non_assessable_non_exempt_income: input.nonAssessableNonExemptIncome ?? '0',
-        all_income_from_australian_sources: input.allIncomeFromAustralianSources ?? null, partner_salaries_or_interest: input.partnerSalariesOrInterest ?? false,
+        all_income_from_australian_sources: input.allIncomeFromAustralianSources ?? null, ...(input.outOfScope ? { [input.outOfScope]: true } : {}),
         partners: input.partners.map((/** @type {Record<string, any>} */ p) => ({ name: p.name, residency: p.residency, interest_percentage: p.interestPercentage })) });
       return { incomeYear: input.incomeYear, netIncome: r.net_income, partnershipLoss: r.partnership_loss, deductionsCounted: r.deductions_counted,
         partners: r.partners, steps: r.steps, currency: 'AUD', source: `${CALCULATORS}partnership-net-income/` };
