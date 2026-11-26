@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/baggage-check-in-stations/
 
-> Baggage handling assets: Baggage check-in stations …: effective life 10 years, last updated 1 January 2003 (Table A).
+> Baggage check-in stations …: life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 January 2003.
 
 # Baggage handling assets: Baggage check-in stations …
 
 ‘Baggage handling assets: Baggage check-in stations …’, for an asset used in Airport operations and other air transport support services, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2003.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Baggage check-in stations (incorporating scales and check-in conveyors)
 Under | Airport assets: / Baggage handling assets:
@@ -33,6 +33,8 @@ The life was last reviewed and determined on 1 January 2003. The life that appli
 
 ## Other rows under Baggage handling assets
 
+Other rows under Baggage handling assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Baggage check-in stations (incorporating scales and check-in conveyors) (this page) | 10 years | 10.00% | 20.00%
 Baggage outbound conveyor systems (incorporating belts, diverters, gearboxes, motors, ploughs, rollers, structures and tag readers) | 15 years | 6.67% | 13.33%
@@ -52,6 +54,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/baggage-check-in-stations/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Baggage outbound conveyor systems (incorporating belts, diverters, gearboxes, motors, ploughs, rollers, structures and tag readers): https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/baggage-outbound-conveyor-systems/
 - Baggage reclaim conveyor systems (incorporating belts, gearboxes, motors, rollers and structures): https://duguid.com.au/tools/depreciation-rates/industry/airport-operations-and-other-air/baggage-reclaim-conveyor-systems/

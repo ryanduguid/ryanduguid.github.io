@@ -15,7 +15,7 @@ use crate::effective_life::Life;
 /// shown without its bracketed asides.
 const NAME_MAX: usize = 60;
 /// The longest description the site's checks allow without a warning, in characters.
-pub const DESCRIPTION_MAX: usize = 165;
+pub const DESCRIPTION_MAX: usize = 160;
 /// The most words in a page's lead (`passages::LEAD_WORDS`).
 const LEAD_WORDS: usize = crate::passages::LEAD_WORDS;
 
@@ -96,7 +96,7 @@ pub fn h1_candidates(group: &Group, entry: &Entry) -> Vec<String> {
 
 /// What sets a row apart beyond its wording: its headings, nearest first, its industry
 /// or 'Table B' and its ANZSIC codes. No 2 rows share their wording and all of these.
-fn context(group: &Group, entry: &Entry) -> Vec<String> {
+pub(super) fn context(group: &Group, entry: &Entry) -> Vec<String> {
     let mut out: Vec<String> = headings(group, entry).into_iter().rev().collect();
     out.push(place(group));
     out.extend(group.anzsic.iter().map(|codes| format!("ANZSIC {codes}")));
@@ -171,6 +171,33 @@ fn row_first(group: &Group, entry: &Entry) -> Vec<String> {
     out
 }
 
+fn rate_pair(life: &Life) -> String {
+    format!(
+        "{}, diminishing value {} if first held from 10 May 2006",
+        prime_cost(life),
+        diminishing_value(life)
+    )
+}
+
+fn updated(entry: &Entry) -> String {
+    entry
+        .last_updated
+        .as_deref()
+        .map_or_else(|| "not stated".to_owned(), date)
+}
+
+/// The settled title distinguishes rows whose names differ only in the middle.
+pub fn description_from_title(title: &str, entry: &Entry) -> String {
+    let life = entry.life.as_ref().expect("asset row with a life");
+    let rates = format!("{title}. Prime cost {}.", rate_pair(life));
+    let dated = format!("{rates} Updated {}.", updated(entry));
+    if dated.chars().count() <= DESCRIPTION_MAX {
+        dated
+    } else {
+        rates
+    }
+}
+
 /// Descriptions that name the row: its H1 label whole where one fits, else the row first
 /// with its context.
 pub fn description_candidates(
@@ -183,45 +210,40 @@ pub fn description_candidates(
         Table::A => "Table A",
         Table::B => "Table B",
     };
-    let updated = entry
-        .last_updated
-        .as_deref()
-        .map_or_else(|| "not stated".to_owned(), date);
+    let years = years(life);
+    let rates = rate_pair(life);
+    let updated = updated(entry);
     let full = format!(
-        ": effective life {}, prime cost {}, diminishing value {}, last updated {updated} ({table}, {} determination).",
-        years(life),
-        prime_cost(life),
-        diminishing_value(life),
+        ": effective life {years}, prime cost {rates}. Updated {updated} ({table}, {}).",
         source.year(),
     );
-    let short = format!(
-        ": effective life {}, last updated {updated} ({table}).",
-        years(life)
-    );
+    let compact = format!(": life {years}, prime cost {rates}. Updated {updated}.");
     let labels = h1_candidates(group, entry);
+    let row = name(entry);
     let row_first = row_first(group, entry);
-    // An H1 label whole comes first, with the figures or the life alone. Then the row
-    // first with 1 or 2 parts of its context, as for titles, and only then a cut H1 label,
-    // whose cut can take the row; each cut ends in an ellipsis. Last, the end of the most
-    // specific label, where rows that differ only in their closing words differ.
+    // Keep both rates and the row date in every candidate. Prefer a whole label and
+    // spend the remaining space on the industry or group before cutting a long label.
     let mut out: Vec<String> = labels
         .iter()
-        .flat_map(|label| [format!("{label}{full}"), format!("{label}{short}")])
+        .chain(std::iter::once(&row))
+        .chain(&row_first)
+        .flat_map(|label| [format!("{label}{full}"), format!("{label}{compact}")])
         .filter(|text| text.chars().count() <= DESCRIPTION_MAX)
         .collect();
     for label in row_first.iter().chain(&labels) {
-        for tail in [&full, &short] {
+        for tail in [&compact, &full] {
             let room = DESCRIPTION_MAX.saturating_sub(tail.chars().count());
             out.push(format!("{}{tail}", cut(label, room)));
         }
     }
     if let Some(label) = labels.last() {
-        for tail in [&full, &short] {
+        for tail in [&compact, &full] {
             let room = DESCRIPTION_MAX.saturating_sub(tail.chars().count());
             out.push(format!("{}{tail}", fit_end(label, room)));
         }
     }
     out.dedup();
+    out.sort_by_key(|description| description.chars().count() < 120);
     out
 }
 
@@ -351,8 +373,7 @@ fn facts(site: &Site, row: RowRef, life: &Life) -> String {
     rows.push_str(&fact("Last reviewed and determined", &esc(&updated)));
     rows.push_str(&notes::marks(&entry.flags));
     format!(
-        "        <section id=\"life\">\n        <h2>Effective life and rates</h2>\n        <p>The determination is the {} ({}), registered on {}.</p>\n        <div class=\"table-scroll\" role=\"region\" aria-label=\"Effective life and rates\" tabindex=\"0\">\n        <table class=\"facts facts--kv\">\n          <tbody>\n{rows}          </tbody>\n        </table>\n        </div>\n        </section>\n",
-        esc(&source.title),
+        "        <section id=\"life\">\n        <h2>Effective life and rates</h2>\n        <div class=\"table-scroll\" role=\"region\" aria-label=\"Effective life and rates\" tabindex=\"0\">\n        <table class=\"facts facts--kv\">\n          <caption>Effective life and rates from <a href=\"#source\">{}</a>, registered on {}.</caption>\n          <tbody>\n{rows}          </tbody>\n        </table>\n        </div>\n        </section>\n",
         esc(&source.register_id),
         date(&source.registered)
     )
@@ -381,7 +402,7 @@ fn rows_table(
         let cell = if Some(row) == current {
             format!("{name} (this page)")
         } else {
-            format!("<a href=\"{}\">{name}</a>", site.url(row))
+            site.row_link(row)
         };
         let where_ = if place {
             format!("<td>{}</td>", esc(&where_cell(site.group(row.0))))
@@ -401,7 +422,7 @@ fn rows_table(
         ""
     };
     format!(
-        "        <div class=\"table-scroll\" role=\"region\" aria-label=\"{label}\" tabindex=\"0\">\n        <table class=\"facts facts--figures\">\n          <thead><tr><th scope=\"col\">Row</th>{head_place}<th scope=\"col\">Life</th><th scope=\"col\">Prime cost</th><th scope=\"col\">Diminishing value</th></tr></thead>\n          <tbody>\n{body}          </tbody>\n        </table>\n        </div>\n",
+        "        <div class=\"table-scroll\" role=\"region\" aria-label=\"{label}\" tabindex=\"0\">\n        <table class=\"facts facts--figures\">\n          <caption>{label}. Effective lives and rates from the <a href=\"#source\">source determination</a>.</caption>\n          <thead><tr><th scope=\"col\">Row</th>{head_place}<th scope=\"col\">Life</th><th scope=\"col\">Prime cost</th><th scope=\"col\">Diminishing value</th></tr></thead>\n          <tbody>\n{body}          </tbody>\n        </table>\n        </div>\n",
         label = esc(label)
     )
 }

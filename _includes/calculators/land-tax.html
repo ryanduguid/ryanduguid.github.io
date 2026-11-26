@@ -9,14 +9,14 @@
 <label><input type="radio" name="jurisdiction" value="AU-TAS" data-name="Tasmania" data-scale="0,0,0,0,excess;125000,50,0.45,125000,excess;500000,1737.50,1.5,500000,excess" data-surcharge="0,0,2,0,excess" data-surcharge-base="separate" data-payable="ten-cents" /> Tasmania</label>
 <label><input type="radio" name="jurisdiction" value="AU-ACT" data-name="Australian Capital Territory" data-fixed="1778" data-scale="0,0,0.54,0,excess;150001,810,0.64,150000,excess;275001,1610,1.24,275000,excess;1000001,10600,1.25,1000000,excess;2000001,23100,1.26,2000000,excess" data-surcharge="0,0,0.75,0,excess" /> Australian Capital Territory</label>
 </fieldset>
-<label class="field" for="land-tax-value">Total taxable land value (whole dollars)<input id="land-tax-value" name="value" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="1100000" required aria-describedby="land-tax-value-note" /></label>
+<label class="field" for="land-tax-value">Total taxable land value (whole dollars)<input enterkeyhint="next" id="land-tax-value" name="value" type="number" inputmode="numeric" min="0" max="1000000000" step="1" value="1100000" required aria-describedby="land-tax-value-note" /></label>
 <fieldset class="field"><legend>Rates</legend>
 <label><input type="radio" name="owner" value="general" checked /> General rates</label>
 <label><input type="radio" name="owner" value="trust" aria-describedby="land-tax-owner-note" /> Trust rates (in Queensland, companies and trustees)</label></fieldset>
 <fieldset class="field"><legend>Foreign person or absentee owner?</legend>
 <label><input type="radio" name="foreign" value="no" checked /> No</label>
 <label><input type="radio" name="foreign" value="yes" aria-describedby="land-tax-foreign-note" /> Yes</label></fieldset>
-<label class="field" for="land-tax-surcharge-value">Surcharge value, New South Wales and Tasmania only (whole dollars)<input id="land-tax-surcharge-value" name="surcharge-value" type="number" inputmode="numeric" min="0" max="1000000000" step="1" aria-describedby="land-tax-foreign-note" /></label>
+<label class="field" for="land-tax-surcharge-value">Surcharge value, New South Wales and Tasmania only (whole dollars)<input enterkeyhint="done" id="land-tax-surcharge-value" name="surcharge-value" type="number" inputmode="numeric" min="0" max="1000000000" step="1" aria-describedby="land-tax-foreign-note" /></label>
 <label class="check-field"><input type="checkbox" name="metro" /> All the land is in the Perth metropolitan region (Western Australia)</label>
 </div>
 <p class="field-note" id="land-tax-value-note">Enter the value the revenue office taxes, after exempt land is left out: in New South Wales the 3-year average of the land values, in Victoria and South Australia the total site value, in the Australian Capital Territory one parcel’s average unimproved value, and elsewhere the total land value of all the owner’s taxable land. The Northern Territory has no land tax.</p>

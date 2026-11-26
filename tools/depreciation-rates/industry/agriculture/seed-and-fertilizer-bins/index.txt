@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/seed-and-fertilizer-bins/
 
-> Seeding and fertilizing assets: Seed and fertilizer bins: effective life 15 years, last updated 1 January 2007 (Table A).
+> Seed and fertilizer bins: life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 January 2007.
 
 # Seeding and fertilizing assets: Seed and fertilizer bins
 
 ‘Seeding and fertilizing assets: Seed and fertilizer bins’, for an asset used in Agriculture, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2007.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Seed and fertilizer bins
 Under | Grain, cotton, peanut and rice assets: / Seeding and fertilizing assets:
@@ -30,6 +30,8 @@ An asset used in Agriculture takes this life if it matches this row exactly or i
 The life was last reviewed and determined on 1 January 2007. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Seeding and fertilizing assets
+
+Other rows under Seeding and fertilizing assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Fertilizer spreaders (including linkage and trailed) | 10 years | 10.00% | 20.00%
@@ -50,6 +52,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/seed-and-fertilizer-bins/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Fertilizer spreaders (including linkage and trailed): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/fertilizer-spreaders/
 - Planters (including bar, box, combined seeders, precision planters and row crop planters): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/planters/

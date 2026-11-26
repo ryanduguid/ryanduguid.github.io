@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/coal-mining/vibrating-feeders/
 
-> Feeders: Vibrating feeders: effective life 15 years, prime cost 6.67%, diminishing value 13.33%, last updated 1 July 2003 (Table A, 2025 determination).
+> Feeders: Vibrating feeders: life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 July 2003.
 
 # Feeders: Vibrating feeders
 
 ‘Feeders: Vibrating feeders’, for an asset used in Coal mining, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2003.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Vibrating feeders
 Under | Materials handling assets: / Feeders:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2003. The life that applies 
 
 ## Other rows under Feeders
 
+Other rows under Feeders. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Generally (including apron and belt feeders) | 20 years | 5.00% | 10.00%
 Vibrating feeders (this page) | 15 years | 6.67% | 13.33%
@@ -38,6 +40,8 @@ Vibrating feeders (this page) | 15 years | 6.67% | 13.33%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Vibrating feeders | Iron smelting and steel manufacturing | 10 years | 10.00% | 20.00%
@@ -56,6 +60,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/coal-mining/vibrating-feeders/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Generally (including apron and belt feeders): https://duguid.com.au/tools/depreciation-rates/industry/coal-mining/feeders-generally/
 - Vibrating feeders: https://duguid.com.au/tools/depreciation-rates/industry/iron-smelting-and-steel-manufacturing/vibrating-feeders/

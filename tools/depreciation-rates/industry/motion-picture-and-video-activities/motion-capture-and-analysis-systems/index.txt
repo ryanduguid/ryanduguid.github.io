@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/motion-capture-and-analysis-systems/
 
-> Post production video assets: Motion capture and analysis systems: effective life 5 years, last updated 1 January 2006 (Table A).
+> Motion capture and analysis systems: life 5 years, prime cost 20.00%, diminishing value 40.00% if first held from 10 May 2006. Updated 1 January 2006.
 
 # Post production video assets: Motion capture and analysis systems
 
 ‘Post production video assets: Motion capture and analysis systems’, for an asset used in Motion picture and video activities, has an effective life of 5 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2006.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Motion capture and analysis systems
 Under | Post production video assets:
@@ -30,6 +30,8 @@ An asset used in Motion picture and video activities takes this life if it match
 The life was last reviewed and determined on 1 January 2006. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Post production video assets
+
+Other rows under Post production video assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 DVD players | 3 years | 33.33% | 66.67%
@@ -58,6 +60,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/motion-capture-and-analysis-systems/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - DVD players: https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/dvd-players/
 - Edit controllers (used in linear editing): https://duguid.com.au/tools/depreciation-rates/industry/motion-picture-and-video-activities/edit-controllers/

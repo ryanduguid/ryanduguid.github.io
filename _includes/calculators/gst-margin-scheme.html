@@ -23,16 +23,16 @@
 </div>
 <h2>The price and the margin</h2>
 <div class="form-grid">
-<label class="field" for="gst-margin-scheme-price">Price for the sale (AUD)<input id="gst-margin-scheme-price" name="price" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="190000" required /></label>
+<label class="field" for="gst-margin-scheme-price">Price for the sale (AUD)<input enterkeyhint="next" id="gst-margin-scheme-price" name="price" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="190000" required /></label>
 <fieldset class="field"><legend>Does the price include GST?</legend>
 <label><input type="radio" name="basis" value="inclusive" checked /> Yes, GST-inclusive</label>
 <label><input type="radio" name="basis" value="exclusive" /> No, GST-exclusive</label></fieldset>
 <fieldset class="field"><legend>Work out the margin from</legend>
 <label><input type="radio" name="method" value="consideration" checked /> The consideration you paid</label>
 <label><input type="radio" name="method" value="valuation" /> An approved valuation (held since before 1 July 2000)</label></fieldset>
-<label class="field" for="gst-margin-scheme-cost">Consideration or approved valuation for the whole (AUD)<input id="gst-margin-scheme-cost" name="cost" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="400000" required /></label>
-<label class="field" for="gst-margin-scheme-part">This sale’s part, by area, lots or anticipated price<input id="gst-margin-scheme-part" name="part" type="number" inputmode="decimal" min="0.01" max="1000000000000" step=".01" value="200000" required /></label>
-<label class="field" for="gst-margin-scheme-whole">The whole, in the same measure<input id="gst-margin-scheme-whole" name="whole" type="number" inputmode="decimal" min="0.01" max="1000000000000" step=".01" value="2000000" required /></label>
+<label class="field" for="gst-margin-scheme-cost">Consideration or approved valuation for the whole (AUD)<input enterkeyhint="next" id="gst-margin-scheme-cost" name="cost" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="400000" required /></label>
+<label class="field" for="gst-margin-scheme-part">This sale’s part, by area, lots or anticipated price<input enterkeyhint="next" id="gst-margin-scheme-part" name="part" type="number" inputmode="decimal" min="0.01" max="1000000000000" step=".01" value="200000" required /></label>
+<label class="field" for="gst-margin-scheme-whole">The whole, in the same measure<input enterkeyhint="done" id="gst-margin-scheme-whole" name="whole" type="number" inputmode="decimal" min="0.01" max="1000000000000" step=".01" value="2000000" required /></label>
 </div>
 <fieldset><legend>Approved valuation dates</legend>
 <div class="form-grid">

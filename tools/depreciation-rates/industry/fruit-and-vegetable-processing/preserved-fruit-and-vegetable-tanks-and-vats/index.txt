@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-tanks-and-vats/
 
-> Tanks and vats …, Processing assets, Preserved fruit and vegetable manufacturing assets: effective life 15 years, last updated 1 July 2018 (Table A).
+> Tanks and vats …, Processing assets, Preserved …: life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 July 2018.
 
 # Preserved fruit and vegetable manufacturing assets / Processing assets: Tanks and vats … (Fruit and vegetable processing)
 
 ‘Processing assets: Tanks and vats …’, for an asset used in Fruit and vegetable processing, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2018.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Tanks and vats (including blending, holding and mixing tanks)
 Under | Preserved fruit and vegetable manufacturing assets: / Processing assets:
@@ -33,6 +33,8 @@ The life was last reviewed and determined on 1 July 2018. The life that applies 
 
 ## Other rows under Processing assets
 
+Other rows under Processing assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Blanchers and paste finishers (including bean and spaghetti) | 12 years | 8.33% | 16.67%
 Concentrates and syrup assets (including centrifuges, decanters and syrupers) | 15 years | 6.67% | 13.33%
@@ -45,6 +47,8 @@ Tanks and vats (including blending, holding and mixing tanks) (this page) | 15 y
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Tanks and vats | Oil and fat manufacturing | 15 years | 6.67% | 13.33%
@@ -64,6 +68,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/preserved-fruit-and-vegetable-tanks-and-vats/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Blanchers and paste finishers (including bean and spaghetti): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/blanchers-and-paste-finishers/
 - Concentrates and syrup assets (including centrifuges, decanters and syrupers): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-vegetable-processing/concentrates-and-syrup-assets/

@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/washing-assets/
 
-> Maintenance and refurbishment assets: Washing assets (including bearing and bogie washers): effective life 10 years, last updated 1 July 2014 (Table A).
+> Washing assets …: life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 July 2014.
 
 # Maintenance and refurbishment assets: Washing assets (including bearing and bogie washers)
 
 ‘Maintenance and refurbishment assets: Washing assets (including bearing and bogie washers)’, for an asset used in Railway rolling stock manufacturing and repair services, has an effective life of 10 years (F2025L01097), last reviewed and determined on 1 July 2014.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Washing assets (including bearing and bogie washers)
 Under | Maintenance and refurbishment assets:
@@ -33,6 +33,8 @@ The life was last reviewed and determined on 1 July 2014. The life that applies 
 
 ## Other rows under Maintenance and refurbishment assets
 
+Other rows under Maintenance and refurbishment assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Lathes (including above floor and under floor wheel lathes) | 20 years | 5.00% | 10.00%
 Paint spraying booths (incorporating baking ovens, extractor fans and gas heaters) | 15 years | 6.67% | 13.33%
@@ -49,6 +51,8 @@ Wheel condition monitoring systems | 7 years | 14.29% | 28.57%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Washing assets (including brush and barrel washers) | AGRICULTURE, FORESTRY AND FISHING | 10 years | 10.00% | 20.00%
@@ -71,6 +75,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/washing-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Lathes (including above floor and under floor wheel lathes): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/maintenance-and-refurbishment-lathes/
 - Paint spraying booths (incorporating baking ovens, extractor fans and gas heaters): https://duguid.com.au/tools/depreciation-rates/industry/railway-rolling-stock-manufacturing-and/paint-spraying-booths/

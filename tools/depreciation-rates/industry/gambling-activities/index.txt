@@ -2,17 +2,19 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/gambling-activities/
 
-> Gambling activities, Table A (industry categories) …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+> Gambling activities, Table …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
 
 # Gambling activities
 
 2 effective lives in Table A of the Commissioner’s 2025 effective life determination for Gambling activities.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Rows of Gambling activities. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Poker/gaming assets – see Table A Casino operations (92010) | | | |
@@ -30,6 +32,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/gambling-activities/#source
 - Poker/gaming assets – see Table A Casino operations (92010): https://duguid.com.au/tools/depreciation-rates/industry/casino-operations/
 - Computer equipment: https://duguid.com.au/tools/depreciation-rates/industry/gambling-activities/computer-equipment/
 - Ancillary equipment (e.g. ticket issuing machines): https://duguid.com.au/tools/depreciation-rates/industry/gambling-activities/ancillary-equipment/

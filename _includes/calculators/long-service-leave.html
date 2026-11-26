@@ -11,7 +11,7 @@
 <label><input type="radio" name="jurisdiction" value="AU-NT" /> Northern Territory</label></fieldset>
 <label class="field" for="long-service-leave-start">First day of service<input id="long-service-leave-start" name="start" type="date" min="1990-06-23" max="2099-12-31" value="2014-02-01" required /></label>
 <label class="field" for="long-service-leave-end">Last day of employment, or the day to work it out at<input id="long-service-leave-end" name="end" type="date" min="1990-06-23" max="2099-12-31" value="2026-07-31" required /></label>
-<label class="field" for="long-service-leave-excluded">Days that do not count as service<input id="long-service-leave-excluded" name="excluded" type="number" inputmode="numeric" min="0" max="36500" step="1" value="0" required aria-describedby="long-service-leave-excluded-note" /></label>
+<label class="field" for="long-service-leave-excluded">Days that do not count as service<input enterkeyhint="next" id="long-service-leave-excluded" name="excluded" type="number" inputmode="numeric" min="0" max="36500" step="1" value="0" required aria-describedby="long-service-leave-excluded-note" /></label>
 <fieldset class="field"><legend>Employment</legend>
 <label><input type="radio" name="mode" value="ends" checked /> Ends on the last day</label>
 <label><input type="radio" name="mode" value="employed" /> Continues: leave the employee can take now</label></fieldset>
@@ -26,8 +26,8 @@
 <label><input type="radio" name="reason" value="misconduct" /> Dismissal for serious misconduct (serious and wilful misconduct in New South Wales, South Australia, Tasmania and the Australian Capital Territory)</label>
 <label><input type="radio" name="reason" value="fixed-term" /> A fixed term ended</label>
 <label><input type="radio" name="reason" value="death" /> Death of the employee</label></fieldset>
-<label class="field" for="long-service-leave-taken">Long service leave already taken or paid (weeks)<input id="long-service-leave-taken" name="taken" type="number" inputmode="decimal" min="0" max="1000" step=".0001" value="0" required /></label>
-<label class="field" for="long-service-leave-pay">Ordinary pay a week (AUD)<input id="long-service-leave-pay" name="pay" type="number" inputmode="decimal" min="0" max="1000000" step=".01" value="1500" required /></label>
+<label class="field" for="long-service-leave-taken">Long service leave already taken or paid (weeks)<input enterkeyhint="next" id="long-service-leave-taken" name="taken" type="number" inputmode="decimal" min="0" max="1000" step=".0001" value="0" required /></label>
+<label class="field" for="long-service-leave-pay">Ordinary pay a week (AUD)<input enterkeyhint="done" id="long-service-leave-pay" name="pay" type="number" inputmode="decimal" min="0" max="1000000" step=".01" value="1500" required /></label>
 </div>
 <p class="field-note" id="long-service-leave-excluded-note">Count each calendar day of an absence that keeps service continuous but does not count towards it, such as unpaid leave, as the Act you choose defines it. Each Act sets which pay is ordinary pay and how varied hours are averaged: enter the weekly figure that gives. Tax withheld from a payment on termination is worked out separately, from the <a href="/tools/business-calculators/termination-payment/">termination payment calculator</a>’s page.</p>
 <button type="submit" class="button">Calculate</button></fieldset>

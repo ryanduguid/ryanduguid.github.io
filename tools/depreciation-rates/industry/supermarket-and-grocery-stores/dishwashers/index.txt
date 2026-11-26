@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/dishwashers/
 
-> Support and other assets: Dishwashers: effective life 10 years, prime cost 10.00%, diminishing value 20.00%, last updated 1 July 2020 (Table A, 2025 determination).
+> Support and other assets: Dishwashers: life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 July 2020.
 
 # Support and other assets: Dishwashers
 
 ‘Support and other assets: Dishwashers’, for an asset used in Supermarket and grocery stores, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2020.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Dishwashers
 Under | Support and other assets:
@@ -30,6 +30,8 @@ An asset used in Supermarket and grocery stores takes this life if it matches th
 The life was last reviewed and determined on 1 July 2020. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Support and other assets
+
+Other rows under Support and other assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Automatic entrance swing gates | 10 years | 10.00% | 20.00%
@@ -51,6 +53,8 @@ Microwave ovens | 5 years | 20.00% | 40.00%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
+The same wording elsewhere. Effective lives and rates from the source determination.
+
 Row | Industry or table | Life | Prime cost | Diminishing value
 Dishwashers | Rental and hiring services (except real estate) | 8 years | 12.50% | 25.00%
 Dishwashers | Residential property operators | 8 years | 12.50% | 25.00%
@@ -71,6 +75,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/dishwashers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Automatic entrance swing gates: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/automatic-entrance-swing-gates/
 - Benches (stainless steel), free standing: https://duguid.com.au/tools/depreciation-rates/industry/supermarket-and-grocery-stores/benches-free-standing/

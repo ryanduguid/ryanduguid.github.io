@@ -7,12 +7,12 @@
 <label><input type="radio" name="year" value="2023-24" /> 2023-24</label>
 <label><input type="radio" name="year" value="2022-23" /> 2022-23</label>
 <label><input type="radio" name="year" value="2021-22" /> 2021-22</label></fieldset>
-<label class="field" for="salary-dividend-profit">Company profit before the owner’s salary and super (AUD)<input id="salary-dividend-profit" name="profit" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="200000" required /></label>
+<label class="field" for="salary-dividend-profit">Company profit before the owner’s salary and super (AUD)<input enterkeyhint="next" id="salary-dividend-profit" name="profit" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="200000" required /></label>
 <fieldset class="field"><legend>Is the company a base rate entity this year and last year?</legend>
 <label><input type="radio" name="base-rate" value="yes" checked /> Yes: tax and franking at 25%</label>
 <label><input type="radio" name="base-rate" value="no" /> No: tax and franking at 30%</label></fieldset>
-<label class="field" for="salary-dividend-salary">Salary paid to the owner (AUD)<input id="salary-dividend-salary" name="salary" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="100000" required /></label>
-<label class="field" for="salary-dividend-other">Owner’s other taxable income (AUD)<input id="salary-dividend-other" name="other" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
+<label class="field" for="salary-dividend-salary">Salary paid to the owner (AUD)<input enterkeyhint="next" id="salary-dividend-salary" name="salary" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="100000" required /></label>
+<label class="field" for="salary-dividend-other">Owner’s other taxable income (AUD)<input enterkeyhint="done" id="salary-dividend-other" name="other" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
 </div>
 <p class="field-note">Profit is the company’s taxable income before it pays the owner. The owner is a director and shareholder, an Australian resident with private patient hospital cover, and has no other concessional super contributions, no other labour income, no work-related deductions (which reduce the standard deduction) and nothing that Division 293 income adds to or takes from taxable income: no reportable fringe benefits, net investment losses, income taxed as a family trust distribution, released first home super saver amount or super lump sum taxed at 0% (the <a href="/tools/individual-tax/division-293/">Division 293 calculator</a> works those). Use the <a href="/tools/business-calculators/company-tax/">company tax and franking calculator</a> to settle the rate.</p>
 <button type="submit" class="button">Calculate</button></fieldset>

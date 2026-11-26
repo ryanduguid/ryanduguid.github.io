@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/peanut-diggers/
 
-> Harvesting assets: Peanut diggers (including peanut pullers): effective life 10 years, last updated 1 January 2007 (Table A).
+> Peanut diggers (including peanut pullers): life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 January 2007.
 
 # Harvesting assets: Peanut diggers (including peanut pullers)
 
 ‘Harvesting assets: Peanut diggers (including peanut pullers)’, for an asset used in Agriculture, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2007.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Peanut diggers (including peanut pullers)
 Under | Grain, cotton, peanut and rice assets: / Harvesting assets:
@@ -33,6 +33,8 @@ Because the row says ‘including’, each item it lists is treated as a separat
 The life was last reviewed and determined on 1 January 2007. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Harvesting assets
+
+Other rows under Harvesting assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Combine harvesters | 12 years | 8.33% | 16.67%
@@ -60,6 +62,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/peanut-diggers/#source
 - capped lives: https://duguid.com.au/tools/depreciation-rates/#capped-lives
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Combine harvesters: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/combine-harvesters/

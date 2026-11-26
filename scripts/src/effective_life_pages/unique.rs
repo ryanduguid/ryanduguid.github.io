@@ -14,10 +14,10 @@ pub fn settle(what: &str, candidates: &[Vec<String>]) -> Result<Vec<String>> {
     }
     let mut level = vec![0; candidates.len()];
     loop {
-        let mut by_text: HashMap<&str, Vec<usize>> = HashMap::new();
+        let mut by_text: HashMap<String, Vec<usize>> = HashMap::new();
         for (page, options) in candidates.iter().enumerate() {
             by_text
-                .entry(options[level[page]].as_str())
+                .entry(options[level[page]].to_lowercase())
                 .or_default()
                 .push(page);
         }

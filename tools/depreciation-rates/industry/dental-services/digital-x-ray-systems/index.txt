@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/digital-x-ray-systems/
 
-> Dental x-ray assets: Digital x-ray systems …: effective life 7 years, last updated 1 July 2003 (Table A).
+> Dental x-ray assets: Digital x-ray systems …: life 7 years, prime cost 14.29%, diminishing value 28.57% if first held from 10 May 2006. Updated 1 July 2003.
 
 # Dental x-ray assets: Digital x-ray systems …
 
 ‘Dental x-ray assets: Digital x-ray systems …’, for an asset used in Dental services, has an effective life of 7 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2003.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Digital x-ray systems (including intra-oral storage phosphor plate systems and intra-oral digital sensor systems)
 Under | Dentists’ assets: / Dental x-ray assets:
@@ -33,6 +33,8 @@ The life was last reviewed and determined on 1 July 2003. The life that applies 
 
 ## Other rows under Dental x-ray assets
 
+Other rows under Dental x-ray assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Conventional x-ray film systems (incorporating control boxes, swing arms and x-ray heads, but excluding orthopantomogram (OPG) systems) | 15 years | 6.67% | 13.33%
 Digital x-ray systems (including intra-oral storage phosphor plate systems and intra-oral digital sensor systems) (this page) | 7 years | 14.29% | 28.57%
@@ -52,6 +54,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/digital-x-ray-systems/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Conventional x-ray film systems (incorporating control boxes, swing arms and x-ray heads, but excluding orthopantomogram (OPG) systems): https://duguid.com.au/tools/depreciation-rates/industry/dental-services/conventional-x-ray-film-systems/
 - Intra-oral x-ray film processors: https://duguid.com.au/tools/depreciation-rates/industry/dental-services/intra-oral-x-ray-film-processors/

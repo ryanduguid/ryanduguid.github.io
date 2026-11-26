@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/bakery-product-manufacturing/packaging-assets/
 
-> Packaging assets …, Baking assets …: effective life 10 years, prime cost 10.00%, diminishing value 20.00%, last updated 1 January 2002 (Table A, 2025 determination).
+> Packaging assets …: effective life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 January 2002 (Table A, 2025).
 
 # Baking assets used by large-scale manufacturers of biscuits, bread, cakes, pastries and pies: Packaging assets …
 
 ‘Baking assets used by large-scale manufacturers of biscuits, bread, cakes, pastries and pies: Packaging assets …’, for an asset used in Bakery product manufacturing, has an effective life of 10 years (F2025L01097), last reviewed and determined on 1 January 2002.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Packaging assets (including accumulators, bag closers, bread baggers, box and carton making machines, finished product check weighers, flow wrappers, metal detectors, robotic pick and place assets and shrink wrappers)
 Under | Baking assets used by large-scale manufacturers of biscuits, bread, cakes, pastries and pies:
@@ -33,6 +33,8 @@ The life was last reviewed and determined on 1 January 2002. The life that appli
 
 ## Other rows under Baking assets used by large-scale manufacturers of biscuits, bread, cakes, pastries and pies
 
+Other rows under Baking assets used by large-scale manufacturers of biscuits, bread, cakes, pastries and pies. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Automatic product handling assets (including basket loaders and basket stackers) | 15 years | 6.67% | 13.33%
 Bread crumb assets (including baggers, debaggers, hammer mills, ovens, screw conveyors and sifters) | 20 years | 5.00% | 10.00%
@@ -49,6 +51,8 @@ Slicers (including bread band slicers, cake slicers and reciprocating blade slic
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Packaging assets (including vacuum and modified atmospheric packing) | Aquaculture | 10 years | 10.00% | 20.00%
@@ -71,6 +75,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/bakery-product-manufacturing/packaging-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Automatic product handling assets (including basket loaders and basket stackers): https://duguid.com.au/tools/depreciation-rates/industry/bakery-product-manufacturing/automatic-product-handling-assets/
 - Bread crumb assets (including baggers, debaggers, hammer mills, ovens, screw conveyors and sifters): https://duguid.com.au/tools/depreciation-rates/industry/bakery-product-manufacturing/bread-crumb-assets/

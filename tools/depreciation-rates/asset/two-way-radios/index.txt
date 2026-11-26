@@ -2,17 +2,19 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/asset/two-way-radios/
 
-> Two-way radios, Table B (asset categories), letter T: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
+> Two-way radios, Table B (asset categories) …: every row with its effective life, prime cost and diminishing value rates and the date it was last updated.
 
 # Two-way radios
 
 4 effective lives in Table B of the Commissioner’s 2025 effective life determination under Two-way radios.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Rows of Two-way radios. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Base stations | 6 years | 16.67% | 33.33% | 1 July 2014
@@ -30,6 +32,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/asset/two-way-radios/#source
 - Base stations: https://duguid.com.au/tools/depreciation-rates/asset/two-way-radios/base-stations/
 - Mobile units: https://duguid.com.au/tools/depreciation-rates/asset/two-way-radios/mobile-units/
 - Portable units: https://duguid.com.au/tools/depreciation-rates/asset/two-way-radios/portable-units/

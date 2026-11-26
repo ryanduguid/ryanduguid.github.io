@@ -46,6 +46,16 @@ fn candidates(data: &Data, plan: &Plan) -> [Vec<Vec<String>>; 3] {
                 ]
             }
         };
+        let title = title
+            .into_iter()
+            .map(|title| {
+                if title.chars().count() < 30 {
+                    format!("{title} ({})", data.source.register_id)
+                } else {
+                    title
+                }
+            })
+            .collect();
         out[0].push(h1);
         out[1].push(title);
         out[2].push(description);
@@ -70,9 +80,15 @@ impl<'a> Site<'a> {
                     .push(row);
             }
         }
-        let [h1s, titles, descriptions] = candidates(data, plan);
+        let [h1s, titles, mut descriptions] = candidates(data, plan);
         let h1s = unique::settle("heading", &h1s)?;
         let titles = unique::settle("title", &titles)?;
+        for ((page, title), options) in plan.pages.iter().zip(&titles).zip(&mut descriptions) {
+            if let Kind::Asset(at) = page.kind {
+                let entry = self_entry(data, (page.group, at));
+                options.push(asset::description_from_title(title, entry));
+            }
+        }
         let descriptions = unique::settle("description", &descriptions)?;
         let heads = plan
             .pages
@@ -100,6 +116,25 @@ impl<'a> Site<'a> {
     /// The settled H1, title and description of the page at an address.
     pub fn head(&self, url: &str) -> &Head {
         self.heads.get(url).expect("every page has a head")
+    }
+
+    /// Preserve the instrument's wording and distinguish repeated row names for link navigation.
+    pub fn row_link(&self, row: RowRef) -> String {
+        let url = self.url(row);
+        let entry = self.entry(row).text();
+        let name = super::head::esc(entry);
+        if self
+            .same_words
+            .get(&key(entry))
+            .is_some_and(|rows| rows.len() > 1)
+            // A single word beneath a parent heading can be ambiguous in a links list.
+            || (self.entry(row).path.len() > 1 && entry.split_whitespace().nth(1).is_none())
+        {
+            let context = asset::context(self.group(row.0), self.entry(row)).join(", ");
+            let context = super::head::esc(&context);
+            return format!("<a href=\"{url}\" aria-label=\"{name}, {context}\">{name}</a>");
+        }
+        format!("<a href=\"{url}\">{name}</a>")
     }
 
     pub fn group(&self, index: usize) -> &'a Group {

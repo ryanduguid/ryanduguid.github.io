@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/non-residential-property-operators/carpets/
 
-> Commercial office building assets: Carpets: effective life 8 years, last updated 1 July 2005 (Table A).
+> Commercial office building assets: Carpets: life 8 years, prime cost 12.50%, diminishing value 25.00% if first held from 10 May 2006. Updated 1 July 2005.
 
 # Commercial office building assets: Carpets
 
 ‘Commercial office building assets: Carpets’, for an asset used in Non-residential property operators, has an effective life of 8 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2005.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Carpets
 Under | Commercial office building assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2005. The life that applies 
 
 ## Other rows under Commercial office building assets
 
+Other rows under Commercial office building assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Boilers | 20 years | 5.00% | 10.00%
 Boiler pumps | 5 years | 20.00% | 40.00%
@@ -43,6 +45,8 @@ Window blinds | 20 years | 5.00% | 10.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Carpets | Accommodation | 7 years | 14.29% | 28.57%
@@ -65,6 +69,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/non-residential-property-operators/carpets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Boilers: https://duguid.com.au/tools/depreciation-rates/industry/non-residential-property-operators/boilers/
 - Boiler pumps: https://duguid.com.au/tools/depreciation-rates/industry/non-residential-property-operators/boiler-pumps/

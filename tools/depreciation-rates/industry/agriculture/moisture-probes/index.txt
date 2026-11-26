@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/moisture-probes/
 
-> Hay and foraging assets: Moisture probes: effective life 5 years, last updated 1 January 2007 (Table A).
+> Hay and foraging assets: Moisture probes: life 5 years, prime cost 20.00%, diminishing value 40.00% if first held from 10 May 2006. Updated 1 January 2007.
 
 # Hay and foraging assets: Moisture probes
 
 ‘Hay and foraging assets: Moisture probes’, for an asset used in Agriculture, has an effective life of 5 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2007.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Moisture probes
 Under | Hay and foraging assets:
@@ -30,6 +30,8 @@ An asset used in Agriculture takes this life if it matches this row exactly or i
 The life was last reviewed and determined on 1 January 2007. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Hay and foraging assets
+
+Other rows under Hay and foraging assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Bale handling attachments (including accumulator grabs, bale stackers, hay forks/spikes/spears (incorporating metal frame), round bale grabs) | 12 years | 8.33% | 16.67%
@@ -56,6 +58,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/moisture-probes/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Bale handling attachments (including accumulator grabs, bale stackers, hay forks/spikes/spears (incorporating metal frame), round bale grabs): https://duguid.com.au/tools/depreciation-rates/industry/agriculture/bale-handling-attachments/
 - Balers: https://duguid.com.au/tools/depreciation-rates/industry/agriculture/balers/

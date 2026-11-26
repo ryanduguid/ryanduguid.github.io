@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/folders/
 
-> Post-press … trade services assets: Folders: effective life 12 1/2 years, last updated 1 January 2006 (Table A).
+> Folders: effective life 12 1/2 years, prime cost 8.00%, diminishing value 16.00% if first held from 10 May 2006. Updated 1 January 2006 (Table A, 2025).
 
 # Post-press … trade services assets: Folders
 
 ‘Post-press … trade services assets: Folders’, for an asset used in Printing support services, has an effective life of 12 1/2 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2006.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Folders
 Under | Post-press (finishing) trade services assets:
@@ -30,6 +30,8 @@ An asset used in Printing support services takes this life if it matches this ro
 The life was last reviewed and determined on 1 January 2006. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Post-press (finishing) trade services assets
+
+Other rows under Post-press (finishing) trade services assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Benchtop finishing assets used in small printing establishments (including benchtop guillotines, coil, plastic comb and spiral binders, portable banding and tying machines, small roll laminators and tabletop folders) | 5 years | 20.00% | 40.00%
@@ -52,6 +54,8 @@ Three knife trimmers | 15 years | 6.67% | 13.33%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
+The same wording elsewhere. Effective lives and rates from the source determination.
+
 Row | Industry or table | Life | Prime cost | Diminishing value
 Folders | Steel coil roll forming, slitting and blanking and sheet metal forming | 10 years | 10.00% | 20.00%
 Folders (including pan brakes) | Motor vehicle manufacturing | 20 years | 5.00% | 10.00%
@@ -72,6 +76,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/folders/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Benchtop finishing assets used in small printing establishments (including benchtop guillotines, coil, plastic comb and spiral binders, portable banding and tying machines, small roll laminators and tabletop folders): https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/benchtop-finishing-assets-used-in-small-printing/
 - Casemakers: https://duguid.com.au/tools/depreciation-rates/industry/printing-support-services/casemakers/

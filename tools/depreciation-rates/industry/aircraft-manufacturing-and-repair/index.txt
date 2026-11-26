@@ -8,11 +8,13 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufac
 
 42 effective lives in Table A of the Commissioner’s 2025 effective life determination for Aircraft manufacturing and repair services.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Rows of Aircraft manufacturing and repair services. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Air compression assets: | | | |
@@ -76,6 +78,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/#source
 - Generally (including air compressors, air dryers and air receivers) (excluding portable air compressors): https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/air-compression-assets-generally/
 - Reciprocating: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/reciprocating/
 - Rotary screw: https://duguid.com.au/tools/depreciation-rates/industry/aircraft-manufacturing-and-repair/rotary-screw/

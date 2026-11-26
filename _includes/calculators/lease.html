@@ -1,8 +1,8 @@
 <section class="business-calculator" id="lease">
 <form class="calculator-split" data-calculator="lease">
 <fieldset disabled><legend>AASB 16 lease inputs</legend><div class="form-grid">
-<label class="field" for="lease-payment">Regular lease payment, excluding GST you can claim (AUD)<input id="lease-payment" name="payment" type="number" inputmode="decimal" min="0.01" max="1000000000" step=".01" value="1000" required /></label>
-<label class="field" for="lease-payments">Number of payments in the lease term<input id="lease-payments" name="payments" type="number" min="1" max="2600" step="1" value="60" required /></label>
+<label class="field" for="lease-payment">Regular lease payment, excluding GST you can claim (AUD)<input enterkeyhint="next" id="lease-payment" name="payment" type="number" inputmode="decimal" min="0.01" max="1000000000" step=".01" value="1000" required /></label>
+<label class="field" for="lease-payments">Number of payments in the lease term<input enterkeyhint="next" id="lease-payments" name="payments" type="number" min="1" max="2600" step="1" value="60" required /></label>
 <fieldset class="field"><legend>Payments fall</legend>
 <label><input type="radio" name="frequency" value="weekly" /> Weekly</label>
 <label><input type="radio" name="frequency" value="fortnightly" /> Fortnightly</label>
@@ -12,33 +12,33 @@
 <fieldset class="field"><legend>Each payment falls</legend>
 <label><input type="radio" name="timing" value="arrears" checked /> At the end of its period (in arrears)</label>
 <label><input type="radio" name="timing" value="advance" /> At the start of its period (in advance)</label></fieldset>
-<label class="field" for="lease-rate">Discount rate: the rate implicit in the lease, or your incremental borrowing rate (% a year)<input id="lease-rate" name="rate" type="number" min="0" max="100" step=".0001" value="7.5" required /></label>
+<label class="field" for="lease-rate">Discount rate: the rate implicit in the lease, or your incremental borrowing rate (% a year)<input enterkeyhint="next" id="lease-rate" name="rate" type="number" min="0" max="100" step=".0001" value="7.5" required /></label>
 <label class="field" for="lease-start">Commencement date<input id="lease-start" name="start" type="date" min="1900-01-01" max="2099-12-31" value="2026-07-01" required /></label>
-<label class="field" for="lease-residual">Residual value guarantee you expect to pay, or a purchase option reasonably certain to be exercised (AUD)<input id="lease-residual" name="residual" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
-<label class="field" for="lease-prepaid">Lease payments made before commencement (AUD)<input id="lease-prepaid" name="prepaid" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
-<label class="field" for="lease-incentives">Lease incentives received (AUD)<input id="lease-incentives" name="incentives" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
-<label class="field" for="lease-direct">Initial direct costs (AUD)<input id="lease-direct" name="direct" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="500" required /></label>
-<label class="field" for="lease-restoration">Estimated cost to dismantle, remove or restore (AUD)<input id="lease-restoration" name="restoration" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
+<label class="field" for="lease-residual">Residual value guarantee you expect to pay, or a purchase option reasonably certain to be exercised (AUD)<input enterkeyhint="next" id="lease-residual" name="residual" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
+<label class="field" for="lease-prepaid">Lease payments made before commencement (AUD)<input enterkeyhint="next" id="lease-prepaid" name="prepaid" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
+<label class="field" for="lease-incentives">Lease incentives received (AUD)<input enterkeyhint="next" id="lease-incentives" name="incentives" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
+<label class="field" for="lease-direct">Initial direct costs (AUD)<input enterkeyhint="next" id="lease-direct" name="direct" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="500" required /></label>
+<label class="field" for="lease-restoration">Estimated cost to dismantle, remove or restore (AUD)<input enterkeyhint="next" id="lease-restoration" name="restoration" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
 <fieldset class="field"><legend>Ownership transfers, or the purchase option is reasonably certain</legend>
 <label><input type="radio" name="ownership" value="no" checked /> No: depreciate over the lease term</label>
 <label><input type="radio" name="ownership" value="yes" /> Yes: depreciate over the useful life</label></fieldset>
-<label class="field" for="lease-life">Useful life from commencement, in months (if ownership transfers, or if shorter than the term)<input id="lease-life" name="life" type="number" min="1" max="600" step="1" value="" /></label>
+<label class="field" for="lease-life">Useful life from commencement, in months (if ownership transfers, or if shorter than the term)<input enterkeyhint="next" id="lease-life" name="life" type="number" min="1" max="600" step="1" value="" /></label>
 </div>
 <fieldset class="field"><legend>Compare with hire purchase and buying, after GST and tax</legend>
 <label><input type="radio" name="compare" value="yes" checked /> Yes</label>
 <label><input type="radio" name="compare" value="no" /> No</label></fieldset>
 <div class="form-grid">
-<label class="field" for="lease-price">Price to buy, excluding GST (AUD)<input id="lease-price" name="price" type="number" inputmode="decimal" min="0.01" max="1000000000" step=".01" value="50000" required /></label>
+<label class="field" for="lease-price">Price to buy, excluding GST (AUD)<input enterkeyhint="next" id="lease-price" name="price" type="number" inputmode="decimal" min="0.01" max="1000000000" step=".01" value="50000" required /></label>
 <fieldset class="field"><legend>GST</legend>
 <label><input type="radio" name="gst" value="credit" checked /> Charged, and you claim full GST credits</label>
 <label><input type="radio" name="gst" value="no-credit" /> Charged, and you claim none</label>
 <label><input type="radio" name="gst" value="none" /> Not charged</label></fieldset>
-<label class="field" for="lease-hp-rate">Hire purchase interest rate (% a year)<input id="lease-hp-rate" name="hp-rate" type="number" min="0" max="100" step=".0001" value="7.5" required /></label>
-<label class="field" for="lease-effective-life">Effective life for tax (years, such as 8 or 6 2/3)<input id="lease-effective-life" name="effective-life" type="text" inputmode="decimal" value="8" required /></label>
+<label class="field" for="lease-hp-rate">Hire purchase interest rate (% a year)<input enterkeyhint="next" id="lease-hp-rate" name="hp-rate" type="number" min="0" max="100" step=".0001" value="7.5" required /></label>
+<label class="field" for="lease-effective-life">Effective life for tax (years, such as 8 or 6 2/3)<input enterkeyhint="next" id="lease-effective-life" name="effective-life" type="text" inputmode="decimal" value="8" required /></label>
 <fieldset class="field"><legend>Decline in value method</legend>
 <label><input type="radio" name="method" value="diminishing-value" checked /> Diminishing value</label>
 <label><input type="radio" name="method" value="prime-cost" /> Prime cost</label></fieldset>
-<label class="field" for="lease-tax-rate">Your tax rate on the deductions (%)<input id="lease-tax-rate" name="tax-rate" type="number" min="0" max="100" step=".01" value="25" required /></label>
+<label class="field" for="lease-tax-rate">Your tax rate on the deductions (%)<input enterkeyhint="done" id="lease-tax-rate" name="tax-rate" type="number" min="0" max="100" step=".01" value="25" required /></label>
 <fieldset class="field"><legend>A car costing more than the car limit</legend>
 <label><input type="radio" name="car" value="no" checked /> No</label>
 <label><input type="radio" name="car" value="yes" /> Yes</label></fieldset>

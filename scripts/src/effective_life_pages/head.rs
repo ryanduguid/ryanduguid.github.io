@@ -270,7 +270,7 @@ fn links(meta: &Meta) -> String {
     out.push_str(
         "  <link rel=\"stylesheet\" href=\"/assets/tokens.css?v={{ site.asset_version }}\" />\n  \
          <link rel=\"stylesheet\" href=\"/assets/site.css?v={{ site.asset_version }}\" />\n  \
-         <link rel=\"stylesheet\" href=\"/assets/accounting-pages.css?v=20261007b\" />\n",
+         <link rel=\"stylesheet\" href=\"/assets/accounting-pages.css?v=20261126a\" />\n",
     );
     out
 }

@@ -8,11 +8,13 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-
 
 27 effective lives in Table A of the Commissioner’s 2025 effective life determination for Waste treatment and disposal services.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Rows of Waste treatment and disposal services. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Transfer stations and landfill operation assets: | | | |
@@ -56,6 +58,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/#source
 - Air compressors and receivers: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/air-compressors-and-receivers/
 - Balers: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/balers/
 - Bins generally (including metal bins): https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/bins-generally/

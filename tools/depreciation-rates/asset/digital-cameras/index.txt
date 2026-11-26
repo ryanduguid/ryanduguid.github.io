@@ -8,11 +8,13 @@ Source: https://duguid.com.au/tools/depreciation-rates/asset/digital-cameras/
 
 3 effective lives in Table B of the Commissioner’s 2025 effective life determination under Digital cameras.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Rows of Digital cameras. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Camera lenses | 5 years | 20.00% | 40.00% | 1 July 2015
@@ -29,6 +31,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/asset/digital-cameras/#source
 - Camera lenses: https://duguid.com.au/tools/depreciation-rates/asset/digital-cameras/camera-lenses/
 - Medium format single lens reflex (SLR) system (including camera bodies and digital backs): https://duguid.com.au/tools/depreciation-rates/asset/digital-cameras/medium-format-single-lens-reflex-system/
 - Others: https://duguid.com.au/tools/depreciation-rates/asset/digital-cameras/others/

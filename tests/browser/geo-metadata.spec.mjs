@@ -53,6 +53,11 @@ const pageRights = `${site}/privacy/#licences`;
 const dataLicence = `${site}/LICENSE-DATA-AND-ARTWORK`;
 const commonwealthLicence = 'https://creativecommons.org/licenses/by/4.0/';
 const documentTypes = ['WebPage', 'ContactPage', 'ProfilePage', 'TechArticle'];
+const articleRoutes = new Set([
+  '/evidence/', '/evaluate/manager-review-gate/', '/evaluate/payday-super-evidence/',
+  '/evaluate/xero-trial-balance-integrity/', '/examples/profit-vs-cash-flow/',
+  '/tools/australian-tax-ai-agents/', '/tools/limitations/', '/tools/ozzit/', '/tools/refusals/',
+]);
 const softwareTypes = ['SoftwareApplication', 'SoftwareSourceCode', 'WebApplication'];
 const typesOf = node => [node['@type']].flat();
 function* typed(value) {
@@ -87,10 +92,14 @@ for (const route of routes) {
 
     const documents = nodes.filter(n => typesOf(n).some(t => documentTypes.includes(t)));
     expect(documents.some(n => n.url === url), 'page document node').toBe(true);
+    if (articleRoutes.has(route) || route.startsWith('/tools/ozzit/functions/')) {
+      expect(documents.filter(n => typesOf(n).includes('TechArticle') && n.url === url), 'canonical TechArticle').toHaveLength(1);
+    }
     for (const node of documents) {
       expect(node.license, `${typesOf(node)} scoped rights statement`).toBe(pageRights);
-      expect(node.author, 'document author').toEqual(person);
-      expect(node.publisher, 'document publisher').toEqual(person);
+      const credit = typesOf(node).includes('TechArticle') ? { ...person, '@type': 'Person', name: 'Ryan Duguid' } : person;
+      expect(node.author, 'document author').toEqual(credit);
+      expect(node.publisher, 'document publisher').toEqual(credit);
       expect(node.datePublished, 'document datePublished').toMatch(date);
       expect(node.dateModified, 'document dateModified').toMatch(date);
       if (typesOf(node).includes('TechArticle')) expect(node.headline, 'TechArticle headline').toBeTruthy();

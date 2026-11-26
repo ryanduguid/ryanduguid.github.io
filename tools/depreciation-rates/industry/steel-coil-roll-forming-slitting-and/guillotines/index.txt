@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/guillotines/
 
-> Steel sheet metal forming assets: Guillotines: effective life 15 years, last updated 1 July 2012 (Table A).
+> Steel sheet metal forming assets: Guillotines: life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 July 2012.
 
 # Steel sheet metal forming assets: Guillotines
 
 ‘Steel sheet metal forming assets: Guillotines’, for an asset used in Steel coil roll forming, slitting and blanking and sheet metal forming, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2012.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Guillotines
 Under | Steel sheet metal forming assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2012. The life that applies 
 
 ## Other rows under Steel sheet metal forming assets
 
+Other rows under Steel sheet metal forming assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Blankers | 15 years | 6.67% | 13.33%
 Brake presses | 20 years | 5.00% | 10.00%
@@ -43,6 +45,8 @@ Mini slitters | 15 years | 6.67% | 13.33%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Guillotines | Cereal and pasta product manufacturing | 15 years | 6.67% | 13.33%
@@ -63,6 +67,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/guillotines/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Blankers: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/blankers/
 - Brake presses: https://duguid.com.au/tools/depreciation-rates/industry/steel-coil-roll-forming-slitting-and/brake-presses/

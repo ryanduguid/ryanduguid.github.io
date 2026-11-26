@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/manual-call-point/
 
-> Detectors: Manual call point (addressable type only): effective life 20 years, last updated 1 July 2004 (Table B).
+> Manual call point (addressable type only): life 20 years, prime cost 5.00%, diminishing value 10.00% if first held from 10 May 2006. Updated 1 July 2004.
 
 # Detectors: Manual call point (addressable type only)
 
 ‘Detectors: Manual call point (addressable type only)’ in Table B, which applies where no Table A row applies to the asset in its industry, has an effective life of 20 years (F2025L01097), last reviewed and determined on 1 July 2004.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Manual call point (addressable type only)
 Under | Fire control and alarm assets: / Detection and alarm systems: / Detectors:
@@ -30,6 +30,8 @@ Table B applies where no row of Table A for the industry the asset is used in de
 The life was last reviewed and determined on 1 July 2004. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Detectors
+
+Other rows under Detectors. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Aspirated smoke | 12 years | 8.33% | 16.67%
@@ -52,6 +54,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/manual-call-point/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Aspirated smoke: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/aspirated-smoke/
 - Heat: https://duguid.com.au/tools/depreciation-rates/asset/fire-control-and-alarm-assets/detection-and-alarm-systems-heat/

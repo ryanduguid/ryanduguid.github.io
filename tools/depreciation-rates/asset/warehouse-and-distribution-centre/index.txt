@@ -8,11 +8,13 @@ Source: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distr
 
 29 effective lives in Table B of the Commissioner’s 2025 effective life determination under Warehouse and distribution centre equipment and machines.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Rows of Warehouse and distribution centre equipment and machines. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Automated storage and retrieval machines | 20 years | 5.00% | 10.00% | 1 July 2011
@@ -67,6 +69,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/#source
 - Automated storage and retrieval machines: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/automated-storage-and-retrieval-machines/
 - Balers: https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/balers/
 - Batteries (detachable for recharging): https://duguid.com.au/tools/depreciation-rates/asset/warehouse-and-distribution-centre/batteries/

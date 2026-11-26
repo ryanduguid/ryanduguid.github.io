@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/clean-in-place-systems/
 
-> Support assets: Clean-in-place (CIP) systems: effective life 15 years, last updated 1 July 2012 (Table A).
+> Support assets: Clean-in-place (CIP) systems: life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 July 2012.
 
 # Support assets: Clean-in-place (CIP) systems
 
 ‘Support assets: Clean-in-place (CIP) systems’, for an asset used in Other food product manufacturing n.e.c., has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2012.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Clean-in-place (CIP) systems
 Under | Coffee processing assets: / Support assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2012. The life that applies 
 
 ## Other rows under Support assets
 
+Other rows under Support assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Air compressors | 12 years | 8.33% | 16.67%
 Boiler house assets | 20 years | 5.00% | 10.00%
@@ -47,6 +49,8 @@ Tanks | 30 years | 3.33% | 6.67%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Clean-in-place (CIP) systems | Cereal and pasta product manufacturing | 15 years | 6.67% | 13.33%
@@ -65,6 +69,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/clean-in-place-systems/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Air compressors: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/air-compressors/
 - Boiler house assets: https://duguid.com.au/tools/depreciation-rates/industry/other-food-product-manufacturing-n-e-c/boiler-house-assets/

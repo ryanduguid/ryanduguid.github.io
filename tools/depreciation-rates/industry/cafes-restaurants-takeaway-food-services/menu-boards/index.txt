@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/cafes-restaurants-takeaway-food-services/menu-boards/
 
-> Menu boards: effective life 5 years, prime cost 20.00%, diminishing value 40.00%, last updated 1 July 2005 (Table A, 2025 determination).
+> Menu boards: effective life 5 years, prime cost 20.00%, diminishing value 40.00% if first held from 10 May 2006. Updated 1 July 2005 (Table A, 2025).
 
 # Menu boards
 
 ‘Menu boards’, for an asset used in Cafes, restaurants, takeaway food services, pubs, taverns, bars and clubs (hospitality), has an effective life of 5 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2005.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Menu boards
 Table | Table A (industry categories), ACCOMMODATION AND FOOD SERVICES / Cafes, restaurants, takeaway food services, pubs, taverns, bars and clubs (hospitality), ANZSIC 45110 to 45302
@@ -29,6 +29,8 @@ An asset used in Cafes, restaurants, takeaway food services, pubs, taverns, bars
 The life was last reviewed and determined on 1 July 2005. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Cafes, restaurants, takeaway food services, pubs, taverns, bars and clubs (hospitality)
+
+Other rows under Cafes, restaurants, takeaway food services, pubs, taverns, bars and clubs (hospitality). Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Drink blenders | 3 years | 33.33% | 66.67%
@@ -56,6 +58,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/cafes-restaurants-takeaway-food-services/menu-boards/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Drink blenders: https://duguid.com.au/tools/depreciation-rates/industry/cafes-restaurants-takeaway-food-services/drink-blenders/
 - Drink dispensing machines (including hot water urns, post mix dispensers, refrigerated and frozen drink dispensers and dairy dispensers, but excluding beer dispensing systems): https://duguid.com.au/tools/depreciation-rates/industry/cafes-restaurants-takeaway-food-services/drink-dispensing-machines/

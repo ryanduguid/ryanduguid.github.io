@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/xero-trial-balance/
 
-> Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas.
+> Export a trial balance from the Xero API to a CSV for Excel, Power BI or pandas. Check debit and credit totals before using the figures in a workpaper.
 
 # Xero trial balance CSV export tool
 

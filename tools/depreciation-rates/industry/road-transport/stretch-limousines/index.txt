@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/road-transport/stretch-limousines/
 
-> Limousines: Stretch limousines: effective life 12 years, prime cost 8.33%, diminishing value 16.67%, last updated 1 July 2016 (Table A, 2025 determination).
+> Limousines: Stretch limousines (Road transport): life 12 years, prime cost 8.33%, diminishing value 16.67% if first held from 10 May 2006. Updated 1 July 2016.
 
 # Limousines: Stretch limousines (Road transport)
 
 ‘Limousines: Stretch limousines’, for an asset used in Road transport, has an effective life of 12 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2016.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Stretch limousines
 Under | Motor vehicles and trailers: / Limousines:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2016. The life that applies 
 
 ## Other rows under Limousines
 
+Other rows under Limousines. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Sedan limousines | 6 years | 16.67% | 33.33%
 Stretch limousines (this page) | 12 years | 8.33% | 16.67%
@@ -38,6 +40,8 @@ Stretch limousines (this page) | 12 years | 8.33% | 16.67%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Stretch limousines | Table B, Motor vehicles and trailers | 12 years | 8.33% | 16.67%
@@ -56,6 +60,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/road-transport/stretch-limousines/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Sedan limousines: https://duguid.com.au/tools/depreciation-rates/industry/road-transport/sedan-limousines/
 - Stretch limousines: https://duguid.com.au/tools/depreciation-rates/asset/motor-vehicles-and-trailers/stretch-limousines/

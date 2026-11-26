@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/asset/power-tools/chainsaws/
 
-> Power tools: Chainsaws (Chain saws): effective life 3 years, prime cost 33.33%, diminishing value 66.67%, last updated 1 July 2008 (Table B, 2025 determination).
+> Power tools: Chainsaws (Chain saws) (Table B): life 3 years, prime cost 33.33%, diminishing value 66.67% if first held from 10 May 2006. Updated 1 July 2008.
 
 # Power tools: Chainsaws (Chain saws) (Table B)
 
 ‘Power tools: Chainsaws (Chain saws)’ in Table B, which applies where no Table A row applies to the asset in its industry, has an effective life of 3 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2008.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Chainsaws (Chain saws)
 Under | Power tools:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2008. The life that applies 
 
 ## Other rows under Power tools
 
+Other rows under Power tools. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Chainsaws (Chain saws) (this page) | 3 years | 33.33% | 66.67%
 Nail guns – air | 3 years | 33.33% | 66.67%
@@ -38,6 +40,8 @@ Nail guns – air | 3 years | 33.33% | 66.67%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Chainsaws (Chain saws) | Fruit and tree nut growing | 5 years | 20.00% | 40.00%
@@ -60,6 +64,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/asset/power-tools/chainsaws/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Nail guns – air: https://duguid.com.au/tools/depreciation-rates/asset/power-tools/nail-guns-air/
 - Chainsaws (Chain saws): https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-chainsaws/

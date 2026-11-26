@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/courier-pick-up-and-delivery-services/portable-handheld-barcode-readers/
 
-> Pick up and delivery equipment: Portable handheld barcode readers …: effective life 4 years, last updated 1 July 2011 (Table A).
+> Portable handheld barcode readers …: life 4 years, prime cost 25.00%, diminishing value 50.00% if first held from 10 May 2006. Updated 1 July 2011.
 
 # Pick up and delivery equipment: Portable handheld barcode readers …
 
 ‘Pick up and delivery equipment: Portable handheld barcode readers …’, for an asset used in Courier pick-up and delivery services, has an effective life of 4 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2011.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Portable handheld barcode readers (including point of delivery capture devices and delivery information acquisition devices)
 Under | Pick up and delivery equipment:
@@ -33,6 +33,8 @@ The life was last reviewed and determined on 1 July 2011. The life that applies 
 
 ## Other rows under Pick up and delivery equipment
 
+Other rows under Pick up and delivery equipment. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Barcode label printers | 5 years | 20.00% | 40.00%
 Portable handheld barcode readers (including point of delivery capture devices and delivery information acquisition devices) (this page) | 4 years | 25.00% | 50.00%
@@ -51,6 +53,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/courier-pick-up-and-delivery-services/portable-handheld-barcode-readers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Barcode label printers: https://duguid.com.au/tools/depreciation-rates/industry/courier-pick-up-and-delivery-services/barcode-label-printers/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

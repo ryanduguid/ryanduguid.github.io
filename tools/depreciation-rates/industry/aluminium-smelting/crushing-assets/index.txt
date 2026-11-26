@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/aluminium-smelting/crushing-assets/
 
-> Anode … pasting assets: Crushing assets: effective life 30 years, last updated 1 January 2003 (Table A).
+> Anode … pasting assets: Crushing assets: life 30 years, prime cost 3.33%, diminishing value 6.67% if first held from 10 May 2006. Updated 1 January 2003.
 
 # Anode … pasting assets: Crushing assets
 
 ‘Anode … pasting assets: Crushing assets’, for an asset used in Aluminium smelting, has an effective life of 30 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2003.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Crushing assets
 Under | Anode (green) pasting assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 January 2003. The life that appli
 
 ## Other rows under Anode (green) pasting assets
 
+Other rows under Anode (green) pasting assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Crushing assets (this page) | 30 years | 3.33% | 6.67%
 Mixing and forming assets | 15 years | 6.67% | 13.33%
@@ -39,6 +41,8 @@ Screening assets | 15 years | 6.67% | 13.33%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Crushing assets (including feeder breakers, impact, roller and rotary crushers) | Coal mining | 20 years | 5.00% | 10.00%
@@ -59,6 +63,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/aluminium-smelting/crushing-assets/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Mixing and forming assets: https://duguid.com.au/tools/depreciation-rates/industry/aluminium-smelting/mixing-and-forming-assets/
 - Screening assets: https://duguid.com.au/tools/depreciation-rates/industry/aluminium-smelting/screening-assets/

@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/asset/light-shades/
 
-> Light shades (removable): effective life 5 years, prime cost 20.00%, diminishing value 40.00%, last updated 1 July 2016 (Table B, 2025 determination).
+> Light shades (removable): life 5 years, prime cost 20.00%, diminishing value 40.00% if first held from 10 May 2006. Updated 1 July 2016.
 
 # Light shades (removable)
 
 ‘Light shades (removable)’ in Table B, which applies where no Table A row applies to the asset in its industry, has an effective life of 5 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2016.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Light shades (removable)
 Table | Table B (asset categories), letter L
@@ -42,6 +42,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/asset/light-shades/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction
 - Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025: https://www.legislation.gov.au/F2025L01097/asmade/2025-09-15/text

@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-mowers/
 
-> Cleaning and mulching assets: Mowers (including zero turn and ride on): effective life 8 years, last updated 1 July 2007 (Table A).
+> Mowers (including zero turn and ride on): life 8 years, prime cost 12.50%, diminishing value 25.00% if first held from 10 May 2006. Updated 1 July 2007.
 
 # Coffee, olive and tree nut growing assets / Cleaning and mulching assets: Mowers (including zero turn and ride on) (Fruit and tree nut growing)
 
 ‘Cleaning and mulching assets: Mowers (including zero turn and ride on)’, for an asset used in Fruit and tree nut growing, has an effective life of 8 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2007.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Mowers (including zero turn and ride on)
 Under | Coffee, olive and tree nut growing assets: / Cleaning and mulching assets:
@@ -33,6 +33,8 @@ The life was last reviewed and determined on 1 July 2007. The life that applies 
 
 ## Other rows under Cleaning and mulching assets
 
+Other rows under Cleaning and mulching assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Blowers | 10 years | 10.00% | 20.00%
 Mowers (including zero turn and ride on) (this page) | 8 years | 12.50% | 25.00%
@@ -43,6 +45,8 @@ Sweeper attachments | 10 years | 10.00% | 20.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Mowers (including reel and rotary mowers) | Nursery and floriculture production | 10 years | 10.00% | 20.00%
@@ -61,6 +65,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-mowers/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Blowers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/blowers/
 - Mulchers: https://duguid.com.au/tools/depreciation-rates/industry/fruit-and-tree-nut-growing/coffee-olive-and-tree-nut-mulchers/

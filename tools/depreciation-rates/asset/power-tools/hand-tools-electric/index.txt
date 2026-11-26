@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/asset/power-tools/hand-tools-electric/
 
-> Hand tools: Electric: effective life 5 years, prime cost 20.00%, diminishing value 40.00%, last updated 1 July 2008 (Table B, 2025 determination).
+> Hand tools: Electric: effective life 5 years, prime cost 20.00%, diminishing value 40.00% if first held from 10 May 2006. Updated 1 July 2008 (Table B, 2025).
 
 # Hand tools: Electric (Table B)
 
 ‘Hand tools: Electric’ in Table B, which applies where no Table A row applies to the asset in its industry, has an effective life of 5 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2008.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Electric
 Under | Power tools: / Hand tools:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2008. The life that applies 
 
 ## Other rows under Hand tools
 
+Other rows under Hand tools. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Air | 5 years | 20.00% | 40.00%
 Battery | 3 years | 33.33% | 66.67%
@@ -39,6 +41,8 @@ Electric (this page) | 5 years | 20.00% | 40.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Electric | AGRICULTURE, FORESTRY AND FISHING | 20 years | 5.00% | 10.00%
@@ -73,6 +77,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/asset/power-tools/hand-tools-electric/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Air: https://duguid.com.au/tools/depreciation-rates/asset/power-tools/hand-tools-air/
 - Battery: https://duguid.com.au/tools/depreciation-rates/asset/power-tools/battery/

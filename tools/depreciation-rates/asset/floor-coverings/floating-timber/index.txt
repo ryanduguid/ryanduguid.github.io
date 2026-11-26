@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/asset/floor-coverings/floating-timber/
 
-> Floor coverings …: Floating timber: effective life 15 years, prime cost 6.67%, diminishing value 13.33%, last updated 1 July 2016 (Table B, 2025 determination).
+> Floor coverings …: Floating timber: life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 July 2016.
 
 # Floor coverings …: Floating timber (Table B)
 
 ‘Floor coverings …: Floating timber’ in Table B, which applies where no Table A row applies to the asset in its industry, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2016.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Floating timber
 Under | Floor coverings (removable without damage):
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2016. The life that applies 
 
 ## Other rows under Floor coverings (removable without damage)
 
+Other rows under Floor coverings (removable without damage). Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Carpets (excluding fixed carpet tiles) | 8 years | 12.50% | 25.00%
 Floating timber (this page) | 15 years | 6.67% | 13.33%
@@ -39,6 +41,8 @@ Linoleum and vinyl | 10 years | 10.00% | 20.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Floating timber | RETAIL TRADE | 10 years | 10.00% | 20.00%
@@ -58,6 +62,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/asset/floor-coverings/floating-timber/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Carpets (excluding fixed carpet tiles): https://duguid.com.au/tools/depreciation-rates/asset/floor-coverings/carpets/
 - Linoleum and vinyl: https://duguid.com.au/tools/depreciation-rates/asset/floor-coverings/linoleum-and-vinyl/

@@ -18,6 +18,7 @@ path = "src/main.rs"
 ab_glyph_rasterizer = "0.1.10"
 fancy-regex = "0.20.0"
 flate2 = { version = "1.1.10", default-features = false, features = ["zlib-rs"] }
+htmd = "0.6.1"
 jiff = { version = "1.0.0", default-features = false, features = ["std", "tz-system", "tzdb-bundle-platform", "tzdb-zoneinfo"] }
 libwebp-sys = "0.14.4"
 num-bigint = "0.5.1"

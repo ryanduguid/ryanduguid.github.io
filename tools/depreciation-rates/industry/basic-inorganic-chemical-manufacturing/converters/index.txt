@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/converters/
 
-> Conversion and absorption assets: Converters: effective life 25 years, last updated 1 July 2013 (Table A).
+> Conversion and absorption assets: Converters: life 25 years, prime cost 4.00%, diminishing value 8.00% if first held from 10 May 2006. Updated 1 July 2013.
 
 # Conversion and absorption assets: Converters
 
 ‘Conversion and absorption assets: Converters’, for an asset used in Basic inorganic chemical manufacturing, has an effective life of 25 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2013.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Converters
 Under | Ammonium nitrate manufacturing assets: / Nitric acid manufacturing assets: / Conversion and absorption assets:
@@ -30,6 +30,8 @@ An asset used in Basic inorganic chemical manufacturing takes this life if it ma
 The life was last reviewed and determined on 1 July 2013. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Conversion and absorption assets
+
+Other rows under Conversion and absorption assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Absorber columns (including bleachers) | 25 years | 4.00% | 8.00%
@@ -53,6 +55,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/converters/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Absorber columns (including bleachers): https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/absorber-columns/
 - Catalyst filters: https://duguid.com.au/tools/depreciation-rates/industry/basic-inorganic-chemical-manufacturing/catalyst-filters/

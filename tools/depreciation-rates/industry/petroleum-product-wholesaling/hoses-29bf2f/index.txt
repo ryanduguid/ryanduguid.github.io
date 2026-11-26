@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/hoses-29bf2f/
 
-> LPG depot and terminal assets: Hoses: effective life 5 years, prime cost 20.00%, diminishing value 40.00%, last updated 1 July 2010 (Table A, 2025 determination).
+> LPG depot and terminal assets: Hoses: life 5 years, prime cost 20.00%, diminishing value 40.00% if first held from 10 May 2006. Updated 1 July 2010.
 
 # LPG depot and terminal assets: Hoses
 
 ‘LPG depot and terminal assets: Hoses’, for an asset used in Petroleum product wholesaling, has an effective life of 5 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2010.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Hoses
 Under | LPG depot and terminal assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2010. The life that applies 
 
 ## Other rows under LPG depot and terminal assets
 
+Other rows under LPG depot and terminal assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Automatic tank gauges | 10 years | 10.00% | 20.00%
 Depot and terminal storage vessels – above ground and underground | 30 years | 3.33% | 6.67%
@@ -48,6 +50,8 @@ Vapour recovery units and vapour compressors | 7 years | 14.29% | 28.57%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Hoses | Wine and other alcoholic beverage manufacturing | 5 years | 20.00% | 40.00%
@@ -69,6 +73,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/hoses-29bf2f/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Automatic tank gauges: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/lpg-depot-and-terminal-assets-automatic-tank-gauges/
 - Depot and terminal storage vessels – above ground and underground: https://duguid.com.au/tools/depreciation-rates/industry/petroleum-product-wholesaling/depot-and-terminal-storage-vessels-above-ground-and/

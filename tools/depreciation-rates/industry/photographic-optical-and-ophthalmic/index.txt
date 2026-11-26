@@ -8,11 +8,13 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/photographic-opt
 
 18 effective lives in Table A of the Commissioner’s 2025 effective life determination for Photographic, optical and ophthalmic equipment manufacturing.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## The rows
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Rows of Photographic, optical and ophthalmic equipment manufacturing. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Optical lens grinding and contact lens manufacturing: | | | |
@@ -46,6 +48,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/#source
 - CNC milling machines: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/cnc-milling-machines/
 - Combined surface generators and grinders and finers: https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/combined-surface-generators-and-grinders-and-finers/
 - Deblocking and lens cleaning machines (including ultrasonic washers): https://duguid.com.au/tools/depreciation-rates/industry/photographic-optical-and-ophthalmic/deblocking-and-lens-cleaning-machines/

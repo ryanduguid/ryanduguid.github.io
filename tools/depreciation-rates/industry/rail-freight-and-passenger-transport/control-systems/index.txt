@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/rail-freight-and-passenger-transport/control-systems/
 
-> Communication, computer and passenger assets: Control systems (including commutators): effective life 10 years, last updated 1 July 2010 (Table A).
+> Control systems (including commutators): life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 July 2010.
 
 # Communication, computer and passenger assets: Control systems (including commutators)
 
 ‘Communication, computer and passenger assets: Control systems (including commutators)’, for an asset used in Rail freight and passenger transport services, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2010.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Control systems (including commutators)
 Under | Monorail operation assets: / Infrastructure assets: / Communication, computer and passenger assets:
@@ -33,6 +33,8 @@ The life was last reviewed and determined on 1 July 2010. The life that applies 
 
 ## Other rows under Communication, computer and passenger assets
 
+Other rows under Communication, computer and passenger assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 CCTV systems | 4 years | 25.00% | 50.00%
 Control systems (including commutators) (this page) | 10 years | 10.00% | 20.00%
@@ -45,6 +47,8 @@ Rescue and recovery vehicles | 30 years | 3.33% | 6.67%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination). The first 20 of 41 are shown.
+
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Control systems | AGRICULTURE, FORESTRY AND FISHING | 10 years | 10.00% | 20.00%
@@ -82,6 +86,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/rail-freight-and-passenger-transport/control-systems/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - CCTV systems: https://duguid.com.au/tools/depreciation-rates/industry/rail-freight-and-passenger-transport/cctv-systems/
 - Handheld passenger ticketing machines: https://duguid.com.au/tools/depreciation-rates/industry/rail-freight-and-passenger-transport/handheld-passenger-ticketing-machines/

@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/green-waste-mulchers-and-shredders/
 
-> Transfer stations and landfill operation assets: Green waste mulchers and shredders: effective life 7 years, last updated 1 July 2015 (Table A).
+> Green waste mulchers and shredders: life 7 years, prime cost 14.29%, diminishing value 28.57% if first held from 10 May 2006. Updated 1 July 2015.
 
 # Transfer stations and landfill operation assets: Green waste mulchers and shredders
 
 ‘Transfer stations and landfill operation assets: Green waste mulchers and shredders’, for an asset used in Waste treatment and disposal services, has an effective life of 7 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2015.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Green waste mulchers and shredders
 Under | Transfer stations and landfill operation assets:
@@ -30,6 +30,8 @@ An asset used in Waste treatment and disposal services takes this life if it mat
 The life was last reviewed and determined on 1 July 2015. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Transfer stations and landfill operation assets
+
+Other rows under Transfer stations and landfill operation assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Concrete crushing assets | 15 years | 6.67% | 13.33%
@@ -62,6 +64,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/green-waste-mulchers-and-shredders/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Concrete crushing assets: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/concrete-crushing-assets/
 - Dust and odour control assets: https://duguid.com.au/tools/depreciation-rates/industry/waste-treatment-and-disposal-services/dust-and-odour-control-assets/

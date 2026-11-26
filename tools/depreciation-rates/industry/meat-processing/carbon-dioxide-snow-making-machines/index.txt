@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/carbon-dioxide-snow-making-machines/
 
-> Cold storage assets: Carbon dioxide (CO2) snow making machines: effective life 10 years, last updated 1 July 2013 (Table A).
+> Carbon dioxide (CO2) snow making machines: life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 July 2013.
 
 # Cold storage assets: Carbon dioxide (CO2) snow making machines
 
 ‘Cold storage assets: Carbon dioxide (CO2) snow making machines’, for an asset used in Meat processing, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2013.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Carbon dioxide (CO2) snow making machines
 Under | Cold storage assets:
@@ -30,6 +30,8 @@ An asset used in Meat processing takes this life if it matches this row exactly 
 The life was last reviewed and determined on 1 July 2013. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Cold storage assets
+
+Other rows under Cold storage assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Air curtains | 5 years | 20.00% | 40.00%
@@ -60,6 +62,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/carbon-dioxide-snow-making-machines/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Air curtains: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/air-curtains/
 - Ammonia condensers: https://duguid.com.au/tools/depreciation-rates/industry/meat-processing/ammonia-condensers/

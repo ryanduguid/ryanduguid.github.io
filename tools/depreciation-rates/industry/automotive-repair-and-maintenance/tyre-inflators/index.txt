@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/tyre-inflators/
 
-> Automotive and heavy vehicle repair and maintenance assets: Tyre inflators (automatic and manual): effective life 3 years, last updated 1 July 2011 (Table A).
+> Tyre inflators (automatic and manual) …: life 3 years, prime cost 33.33%, diminishing value 66.67% if first held from 10 May 2006. Updated 1 July 2011.
 
 # Automotive and heavy vehicle repair and maintenance assets: Tyre inflators (automatic and manual)
 
 ‘Automotive and heavy vehicle repair and maintenance assets: Tyre inflators (automatic and manual)’, for an asset used in Automotive repair and maintenance, has an effective life of 3 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2011.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Tyre inflators (automatic and manual)
 Under | Automotive and heavy vehicle repair and maintenance assets:
@@ -30,6 +30,8 @@ An asset used in Automotive repair and maintenance takes this life if it matches
 The life was last reviewed and determined on 1 July 2011. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Automotive and heavy vehicle repair and maintenance assets
+
+Other rows under Automotive and heavy vehicle repair and maintenance assets. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Storage shelving | 10 years | 10.00% | 20.00%
@@ -52,6 +54,8 @@ Wheel balancing plates, flanges and finger adaptors | 5 years | 20.00% | 40.00%
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
 
+The same wording elsewhere. Effective lives and rates from the source determination.
+
 Row | Industry or table | Life | Prime cost | Diminishing value
 Tyre inflators (automatic and manual) | Motor vehicle tyre or tube retailing | 3 years | 33.33% | 66.67%
 
@@ -69,6 +73,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/tyre-inflators/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Storage shelving: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/storage-shelving/
 - Toolbox roller cabinets: https://duguid.com.au/tools/depreciation-rates/industry/automotive-repair-and-maintenance/toolbox-roller-cabinets/

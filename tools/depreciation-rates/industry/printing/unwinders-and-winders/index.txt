@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/printing/unwinders-and-winders/
 
-> Buffering/print line storage assets: Unwinders and winders …: effective life 15 years, last updated 1 January 2007 (Table A).
+> Unwinders and winders …: life 15 years, prime cost 6.67%, diminishing value 13.33% if first held from 10 May 2006. Updated 1 January 2007.
 
 # Buffering/print line storage assets: Unwinders and winders …
 
 ‘Buffering/print line storage assets: Unwinders and winders …’, for an asset used in Printing, has an effective life of 15 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2007.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Unwinders and winders (including single, double and triple stations and buffer docking stations)
 Under | Newspaper printing assets: / Buffering/print line storage assets:
@@ -33,6 +33,8 @@ The life was last reviewed and determined on 1 January 2007. The life that appli
 
 ## Other rows under Buffering/print line storage assets
 
+Other rows under Buffering/print line storage assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Storage devices (including discs, rolls, spools and associated mountings) | 15 years | 6.67% | 13.33%
 Unwinders and winders (including single, double and triple stations and buffer docking stations) (this page) | 15 years | 6.67% | 13.33%
@@ -51,6 +53,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/printing/unwinders-and-winders/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Storage devices (including discs, rolls, spools and associated mountings): https://duguid.com.au/tools/depreciation-rates/industry/printing/storage-devices/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

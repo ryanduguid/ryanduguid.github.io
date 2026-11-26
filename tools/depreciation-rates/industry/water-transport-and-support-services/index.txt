@@ -8,13 +8,15 @@ Source: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-
 
 81 effective lives in Table A of the Commissioner’s 2025 effective life determination for Water transport and support services.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 The determination notes for this heading: From the 2012-13 income year, a capped life of 10 years is available for the decline in value of eligible shipping vessels but only if certain conditions are met (see table item 10 of subsection 40-102(4) and subsection 40-102(4A))
 
 ## The rows
 
 A row with no life is a heading for the rows after it that name it, or points to another row.
+
+Rows of Water transport and support services. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value | Last updated
 Commercial vessels: | | | |
@@ -137,6 +139,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- source determination: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/#source
 - Canoes: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/canoes/
 - Dinghies and punts (not longer than 6 metres): https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/dinghies-and-punts/
 - Longer than 10 metres: https://duguid.com.au/tools/depreciation-rates/industry/water-transport-and-support-services/fishing-vessels-longer-than-10-metres/

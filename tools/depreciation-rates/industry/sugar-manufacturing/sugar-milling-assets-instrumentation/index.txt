@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-instrumentation/
 
-> Sugar milling assets / Support assets / Control system assets: Instrumentation (Sugar manufacturing): effective life 10 years, last updated 1 July 2011 (Table A).
+> Instrumentation, Sugar milling assets: life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 July 2011.
 
 # Sugar milling assets / Support assets / Control system assets: Instrumentation (Sugar manufacturing)
 
 ‘Control system assets: Instrumentation’, for an asset used in Sugar manufacturing, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 July 2011.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Instrumentation
 Under | Sugar milling assets: / Support assets: / Control system assets:
@@ -31,6 +31,8 @@ The life was last reviewed and determined on 1 July 2011. The life that applies 
 
 ## Other rows under Control system assets
 
+Other rows under Control system assets. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Control cabinets and switchgear | 10 years | 10.00% | 20.00%
 Instrumentation (this page) | 10 years | 10.00% | 20.00%
@@ -41,6 +43,8 @@ Variable speed drives (VSDs) | 10 years | 10.00% | 20.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Instrumentation (including flow meters, level transmitters, pressure transmitters etc) | Dairy product manufacturing | 10 years | 10.00% | 20.00%
@@ -59,6 +63,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-instrumentation/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Control cabinets and switchgear: https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/sugar-milling-assets-control-cabinets-and-switchgear/
 - Programmable logic controllers (PLCs): https://duguid.com.au/tools/depreciation-rates/industry/sugar-manufacturing/programmable-logic-controllers/

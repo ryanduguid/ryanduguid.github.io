@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/slit-lamp-biomicroscopes-mounted/
 
-> Slit lamp biomicroscopes: Mounted: effective life 12 years, prime cost 8.33%, diminishing value 16.67%, last updated 1 January 2004 (Table A, 2025 determination).
+> Slit lamp biomicroscopes: Mounted: life 12 years, prime cost 8.33%, diminishing value 16.67% if first held from 10 May 2006. Updated 1 January 2004.
 
 # Slit lamp biomicroscopes: Mounted
 
 ‘Slit lamp biomicroscopes: Mounted’, for an asset used in Optometry and optical dispensing, has an effective life of 12 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2004.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Mounted
 Under | Optical assets: / Slit lamp biomicroscopes:
@@ -30,6 +30,8 @@ An asset used in Optometry and optical dispensing takes this life if it matches 
 The life was last reviewed and determined on 1 January 2004. The life that applies is the one in force at the time subsection 40-95(2) fixes for your asset, so an earlier determination may apply to an asset acquired before then: see which determination applies.
 
 ## Other rows under Slit lamp biomicroscopes
+
+Other rows under Slit lamp biomicroscopes. Effective lives and rates from the source determination.
 
 Row | Life | Prime cost | Diminishing value
 Hand-held | 9 years | 11.11% | 22.22%
@@ -49,6 +51,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/slit-lamp-biomicroscopes-mounted/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Hand-held: https://duguid.com.au/tools/depreciation-rates/industry/optometry-and-optical-dispensing/slit-lamp-biomicroscopes-hand-held/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

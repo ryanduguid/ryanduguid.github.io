@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/cafes-restaurants-takeaway-food-services/in-dining-areas/
 
-> Furniture, freestanding, for customer use: In dining areas: effective life 8 years, last updated 1 July 2005 (Table A).
+> In dining areas: effective life 8 years, prime cost 12.50%, diminishing value 25.00% if first held from 10 May 2006. Updated 1 July 2005 (Table A, 2025).
 
 # Furniture, freestanding, for customer use: In dining areas
 
 ‘Furniture, freestanding, for customer use: In dining areas’, for an asset used in Cafes, restaurants, takeaway food services, pubs, taverns, bars and clubs (hospitality), has an effective life of 8 years (F2025L01097), last reviewed and determined on 1 July 2005.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | In dining areas
 Under | Furniture, freestanding, for customer use:
@@ -33,6 +33,8 @@ The life was last reviewed and determined on 1 July 2005. The life that applies 
 
 ## Other rows under Furniture, freestanding, for customer use
 
+Other rows under Furniture, freestanding, for customer use. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 In drinking areas of pubs, bars, clubs | 5 years | 20.00% | 40.00%
 In dining areas (this page) | 8 years | 12.50% | 25.00%
@@ -51,6 +53,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/cafes-restaurants-takeaway-food-services/in-dining-areas/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - In drinking areas of pubs, bars, clubs: https://duguid.com.au/tools/depreciation-rates/industry/cafes-restaurants-takeaway-food-services/in-drinking-areas-of-pubs-bars-clubs/
 - calculator on the depreciation rates page: https://duguid.com.au/tools/depreciation-rates/#deduction

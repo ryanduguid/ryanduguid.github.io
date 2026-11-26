@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/tools/depreciation-rates/industry/sheep-farming/weigh-bars-weigh-indicators-and-weigh-platforms/
 
-> Weigh bars, weigh indicators and weigh platforms: effective life 10 years, last updated 1 January 2007 (Table A).
+> Weigh bars, weigh indicators and weigh …: life 10 years, prime cost 10.00%, diminishing value 20.00% if first held from 10 May 2006. Updated 1 January 2007.
 
 # Weigh bars, weigh indicators and weigh platforms (Sheep farming)
 
 ‘Weigh bars, weigh indicators and weigh platforms’, for an asset used in Sheep farming, has an effective life of 10 years under the Commissioner’s 2025 effective life determination (F2025L01097), last reviewed and determined on 1 January 2007.
 
-Published 14 November 2026. Page updated 23 November 2026. Sources checked 13 November 2026.
+Published 14 November 2026. Page updated 26 November 2026. Sources checked 13 November 2026.
 
 ## Effective life and rates
 
-The determination is the Income Tax Assessment (Effective Life of Depreciating Assets) Determination 2025 (F2025L01097), registered on 15 September 2025.
+Effective life and rates from F2025L01097, registered on 15 September 2025.
 
 Row | Weigh bars, weigh indicators and weigh platforms
 Table | Table A (industry categories), AGRICULTURE, FORESTRY AND FISHING / Sheep farming, ANZSIC 01410
@@ -30,6 +30,8 @@ The life was last reviewed and determined on 1 January 2007. The life that appli
 
 ## Other rows under Sheep farming
 
+Other rows under Sheep farming. Effective lives and rates from the source determination.
+
 Row | Life | Prime cost | Diminishing value
 Crutching machines, portable type | 10 years | 10.00% | 20.00%
 Feeders (including grain feeders, oat feeders, hay feeders) | 15 years | 6.67% | 13.33%
@@ -42,6 +44,8 @@ Weigh bars, weigh indicators and weigh platforms (this page) | 10 years | 10.00%
 ## The same wording elsewhere
 
 Rows in another industry or in Table B describe an asset in the same words. The life that applies depends on the industry the asset is used in (section 6 of the determination).
+
+The same wording elsewhere. Effective lives and rates from the source determination.
 
 Row | Industry or table | Life | Prime cost | Diminishing value
 Weigh bars, weigh indicators and weigh platforms | Pig farming | 5 years | 20.00% | 40.00%
@@ -60,6 +64,7 @@ The determination is reused under the Creative Commons Attribution 4.0 Internati
 
 ## Links
 
+- F2025L01097: https://duguid.com.au/tools/depreciation-rates/industry/sheep-farming/weigh-bars-weigh-indicators-and-weigh-platforms/#source
 - which determination applies: https://duguid.com.au/tools/depreciation-rates/#which-determination
 - Crutching machines, portable type: https://duguid.com.au/tools/depreciation-rates/industry/sheep-farming/crutching-machines-portable-type/
 - Feeders (including grain feeders, oat feeders, hay feeders): https://duguid.com.au/tools/depreciation-rates/industry/sheep-farming/feeders/

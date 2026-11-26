@@ -96,7 +96,7 @@
               <a href="/tools/workpaper-review-gate/">Workpaper Review Gate</a> release <code>review-ready-gate/v0.1.3</code> has 2 send-back outcomes. Both exit 2 and write the findings to the output directory.
             </p>
             <div class="table-scroll" role="region" aria-label="Workpaper Review Gate refusals" tabindex="0">
-            <table class="facts tool-table--wide">
+            <table aria-label="Workpaper Review Gate refusals" class="facts tool-table--wide">
               <thead>
                 <tr>
                   <th scope="col">Fixture</th>
@@ -129,7 +129,7 @@
               Monthly Close Controls release <code>monthly-close-control-plane/v0.1.3</code> marks a pack <code>BLOCKED</code> when the current trial balance does not balance. The fixture is the repository’s <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/2de565b3ce3916afe718b2b895d5474930030aee/packages/monthly-close-control-plane/examples/current_trial_balance.csv">fictional <code>current_trial_balance.csv</code></a> with the Operating Bank debit raised from 15000.00 to 15100.00 and its YTD debit from 120000.00 to 120100.00, so the file is out by 100.00 on both measures.
             </p>
             <div class="table-scroll" role="region" aria-label="Monthly Close Controls refusal" tabindex="0">
-            <table class="facts tool-table--wide">
+            <table aria-label="Monthly Close Controls refusal" class="facts tool-table--wide">
               <thead>
                 <tr>
                   <th scope="col">Control</th>
@@ -157,7 +157,7 @@
               The <a href="/tools/xero-trial-balance/">Xero trial balance CSV export</a> release <code>xero-trial-balance-export/v0.1.6</code> refuses to write a file when the month movement or the year-to-date columns do not balance. The evaluation runner calls the same <code>check_balanced</code> gate the exporter uses, against the shared contract fixtures, without a Xero tenant.
             </p>
             <div class="table-scroll" role="region" aria-label="Xero trial balance export refusals" tabindex="0">
-            <table class="facts tool-table--wide">
+            <table aria-label="Xero trial balance export refusals" class="facts tool-table--wide">
               <thead>
                 <tr>
                   <th scope="col">Fixture</th>
@@ -190,7 +190,7 @@
 EMP009,2026-08-06,100.00,2026-08-07,,yes,no,,no
 EMP009,2026-08-20,100.00,2026-08-21,2026-09-03,no,no,,no</code></pre>
             <div class="table-scroll" role="region" aria-label="Payday Super timing refusal" tabindex="0">
-            <table class="facts tool-table--wide">
+            <table aria-label="Payday Super timing refusal" class="facts tool-table--wide">
               <thead>
                 <tr>
                   <th scope="col">Row</th>
@@ -209,7 +209,7 @@ EMP009,2026-08-20,100.00,2026-08-21,2026-09-03,no,no,,no</code></pre>
                 <tr>
                   <th scope="row">Row 3, QE day 2026-08-20</th>
                   <td><code>UNKNOWN</code>, between <code>LATE or ON_TIME</code></td>
-                  <td>An earlier row could extend the deadline to 3 September 2026 under s 18C(2) item 4, but the file does not evidence an eligible contribution received by the fund, applied to that earlier QE day and on time</td>
+                  <td>In this example an earlier row could have extended the deadline to 3 September 2026 under s 18C(2) item 4, but the file does not evidence an eligible contribution received by the fund, applied to that earlier QE day and on time</td>
                   <td>Reconcile the fund receipt and statutory allocation before deciding between the candidate verdicts. The run exits 2.</td>
                 </tr>
               </tbody>
@@ -237,7 +237,7 @@ async def main():
 
 asyncio.run(main())</code></pre>
             <div class="table-scroll" role="region" aria-label="Aus Accounting MCP refusal" tabindex="0">
-            <table class="facts tool-table--wide">
+            <table aria-label="Aus Accounting MCP refusal" class="facts tool-table--wide">
               <thead>
                 <tr>
                   <th scope="col">Tool</th>
@@ -262,7 +262,7 @@ asyncio.run(main())</code></pre>
               <a href="https://github.com/ryanduguid/DrDebits">DrDebits</a> is a GitHub repository, not one of the tools on this site: it has no tool page, no command and no entry in the tool register. It contains the DrDebits prompt guide for language models doing Australian tax and accounting work. This section records the refusals the guide requires; there is no command transcript. The pinned release <code>v0.3.2</code> ships a <a href="https://github.com/ryanduguid/DrDebits/blob/ac5bc87a07b183c8059d6527a68898785611b6ec/tests/behaviour-tests.md">behaviour-test table</a> whose <code>HARD_STOP</code> rows are the refusals an implementation must reproduce. The 13 rows below are quoted from that tagged file; whether a given model meets them is checked by a person running the scenarios, which this site has not done.
             </p>
             <div class="table-scroll" role="region" aria-label="DrDebits HARD_STOP scenarios" tabindex="0">
-            <table class="facts tool-table--wide">
+            <table aria-label="DrDebits HARD_STOP scenarios" class="facts tool-table--wide">
               <thead>
                 <tr>
                   <th scope="col">ID</th>
@@ -456,14 +456,15 @@ exit=0</code></pre>
         "@type": "TechArticle",
         "@id": "https://duguid.com.au/tools/refusals/#article",
         "url": "https://duguid.com.au/tools/refusals/",
+        "image": "https://duguid.com.au/assets/social-card-tools-20261123.png",
         "headline": "What these tools refuse",
         "description": "Each refusal the accounting tools give, with exact command output from fictional fixtures where a command exists, and the human step that follows.",
         "inLanguage": "en-AU",
         "datePublished": "2026-09-04",
         "dateModified": "2026-11-23",
         "license": "https://duguid.com.au/privacy/#licences",
-        "author": { "@id": "https://duguid.com.au/about/#person" },
-        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "author": { "@type": "Person", "@id": "https://duguid.com.au/about/#person", "name": "Ryan Duguid" },
+        "publisher": { "@type": "Person", "@id": "https://duguid.com.au/about/#person", "name": "Ryan Duguid" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" }
       },
       {
