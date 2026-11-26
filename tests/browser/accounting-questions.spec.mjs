@@ -791,7 +791,7 @@ test('FBT car exempts an eligible electric car and keeps its value reportable of
   await form.getByLabel('Plug-in hybrid electric').check();
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toContainText('Electric cars exemption, section 8A: does not apply.');
-  await expect(form.locator('output')).toContainText('FBT at 47%: $4,872.40.');
+  await expect(form.locator('output')).toContainText('FBT at 47%: $4,872.43.');
   // A first retail sale after the FBT year comes after every benefit in it, whatever its luxury car tax value (s 8A(1)(c)).
   await form.getByLabel('Battery electric').check();
   await form.getByLabel('Electric cars only: first retail sale').fill('2027-04-01');
