@@ -223,6 +223,13 @@ salary-dividend:
     url: /rates/individual-income-tax/
   - label: Super guarantee rate history
     url: /rates/super-guarantee/
+sole-trader-company:
+  - label: Sole trader tax set-aside calculator
+    url: /tools/individual-tax/sole-trader/
+  - label: Salary against dividends calculator
+    url: /tools/business-calculators/salary-dividend/
+  - label: PSI rules checker
+    url: /tools/business-calculators/psi-determination/
 cgt:
   - label: Small business CGT concessions checker
     url: /tools/business-calculators/cgt-concessions/
