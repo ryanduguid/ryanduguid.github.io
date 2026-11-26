@@ -17,7 +17,10 @@
 export const FBT_RETURN_YEARS = [2026, 2027];
 const LABELS_YEAR = 2026;
 
-/** Item 23 labels: [label, category, Number counts employees, contribution column, reductions column]. */
+/**
+ * Item 23 labels: [label, category, Number counts employees, contribution column, reductions column].
+ * @type {[string, string, boolean, boolean, boolean][]}
+ */
 export const ITEM_23 = [
   ['23A', 'Car fringe benefits, statutory formula', false, true, false],
   ['23B', 'Car fringe benefits, operating cost method', false, true, false],
@@ -34,7 +37,10 @@ export const ITEM_23 = [
   ['23P', 'Meal entertainment fringe benefits', false, false, false],
 ];
 
-/** Employer kinds: [name, cap per employee in dollars or null, provision]. */
+/**
+ * Employer kinds: [name, cap per employee in dollars or null, provision].
+ * @type {[string, number | null, string][]}
+ */
 export const FBT_EMPLOYER_KINDS = [
   ['taxable', null, 'FBTAA s 5B(1A)'],
   ['rebatable', 30000, 'FBTAA s 65J(1)'],

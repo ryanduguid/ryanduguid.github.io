@@ -36,7 +36,7 @@ export function fbtReturnTool(kit, fbtReturn, items, kinds) {
       rebatableDays: { type: 'integer', minimum: 0, maximum: 366, description: 'Rebatable employer only: whole days it was a rebatable employer.' },
       employerDays: { type: 'integer', minimum: 1, maximum: 366, description: 'Rebatable employer only: days in the year it was an employer.' },
       instalmentsReported: text('cost', 'FBT instalments reported for the year less credits claimed at 6B, in AUD; omit to leave items 20 to 22.'),
-      benefits: { type: 'array', minItems: 1, maxItems: 200, items: benefit, description: 'Each fringe benefit, one employee each.' },
+      benefits: { type: 'array', maxItems: 200, items: benefit, description: 'From 1 to 200 fringe benefits, one employee each.' },
     }, ['yearEnded', 'benefits']),
     run(input) {
       /** @type {Record<string, unknown>} */

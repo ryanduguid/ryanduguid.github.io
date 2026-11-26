@@ -11,6 +11,7 @@ export const FBT_INSTALMENT_YEARS = [2026, 2027];
 /** FBTAA s 109, 'relevant fraction', in quarters (30 June, 30 September, 31 December, 31 March). */
 const FRACTIONS = [1n, 2n, 3n, 4n];
 /** The ATO's reason codes for a variation (label F4). */
+/** @type {[number, string][]} */
 export const FBT_REASONS = [
   [22, 'current business structure not continuing'],
   [30, 'change in fringe benefits for employees'],

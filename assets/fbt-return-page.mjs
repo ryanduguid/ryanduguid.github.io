@@ -68,7 +68,8 @@ export function fbtReturnResult(value, aud) {
     rows.push([`Item ${row.label}, ${ITEM_23.find(([l]) => l === row.label)?.[1].toLowerCase()}, taxable value`, a(row.taxable)]);
   }
   for (const e of r.employees.filter((x) => Number(x.reportable) > 0)) rows.push([`${e.employee}: reportable fringe benefits amount`, a(e.reportable)]);
-  for (const e of r.capping?.employees ?? []) rows.push([`${e.employee}: grossed-up amount over the ${a(r.capping.cap)} cap`, a(e.over)]);
+  const caps = r.capping;
+  for (const e of caps?.employees ?? []) rows.push([`${e.employee}: grossed-up amount over the ${a(caps?.cap ?? '0')} cap`, a(e.over)]);
   const note = r.warnings[0] ?? (r.capping ? 'Benefits each employee receives are capped as FBTAA s 5B(1E) or s 65J(2B) applies; excluded meal entertainment and car parking are disregarded'
     : 'Type 1 benefits are grossed up at 2.0802 and type 2 at 1.8868; a reportable amount appears only above $2,000 of an employee’s benefits that are not excluded');
   return { inputs: fbtInputsText(input, aud), rows, principal, note };
