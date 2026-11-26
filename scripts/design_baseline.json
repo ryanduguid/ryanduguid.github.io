@@ -132,7 +132,7 @@
       "892efdd5ea320226486c58b8aed143dc2499974c64df11e0337d52ec327cc8c3"
     ],
     "tools/business-calculators/blackhole-expenditure/index.html": [
-      "90d154e40471672fe5b6f0b4b9db2855b0748940dc71b7006721dabd58f466b2"
+      "b7b52e4b42308a557202a0bd3c225c63c2bb1049dc75417d169dd36a02147582"
     ],
     "tools/business-calculators/borrowing-expenses/index.html": [
       "6f8f8003512eb912605cb8e0644a74b9a2716e82770a6faec7695fa7caa25a65"
@@ -443,7 +443,7 @@
   },
   "protected_files": {
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "0a3bedb9335e4c0d6baaed5fef6d1849b9676f44103b4d6b4fb3be24691c9152"
+    "sitemap.xml": "72446003782b1412bdf0bb5015906a4a9f39bd51caf39b17ce45810af5a6b2ae"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -503,7 +503,7 @@
     "rates/super-guarantee/index.html": "a5d7321076de35ab9916764165ca7cdc369eef5a36ae35762be3e2ed93c6dc56"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7815,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7816,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

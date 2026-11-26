@@ -34,7 +34,7 @@ Lumbridge Services is a fictional Newcastle maintenance business. Delay one cust
 
 Each tool runs on a fictional example first and keeps its working visible.
 
-- 60 business calculators (GST, FBT, CGT, duty, payroll tax)
+- 61 business calculators (GST, FBT, CGT, duty, payroll tax)
 - 18 individual tax, pay and super calculators
 - Depreciation rates (7,430 ATO effective lives)
 - Use accounting functions in Excel
@@ -79,7 +79,7 @@ Browse reproducible evaluations Set up AI tools
 
 - Explore the cash flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
-- 60 business calculators (GST, FBT, CGT, duty, payroll tax): https://duguid.com.au/tools/business-calculators/
+- 61 business calculators (GST, FBT, CGT, duty, payroll tax): https://duguid.com.au/tools/business-calculators/
 - 18 individual tax, pay and super calculators: https://duguid.com.au/tools/individual-tax/
 - Depreciation rates (7,430 ATO effective lives): https://duguid.com.au/tools/depreciation-rates/
 - Use accounting functions in Excel: https://duguid.com.au/tools/ozzit/
@@ -6572,7 +6572,7 @@ Sixty free calculators that run in your browser with the formula, assumptions an
 
 Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
-Search 60 calculators
+Search 61 calculators
 
 ## Pricing, planning and loans
 
@@ -13433,7 +13433,7 @@ Search 18 calculators
 - Pension minimum calculator The minimum annual payment from an account-based pension for 2024-25 to 2027-28, with the first year pro-rated from the start day and rounding to the nearest $10.
 - 183-day residency day count Your days in Australia in an income year from 2020-21 to 2026-27, added up from your arrival and departure days, against the 183-day residency test and its exception.
 
-For a business, see the 60 business calculators, depreciation rates and individual income tax rate tables.
+For a business, see the 61 business calculators, depreciation rates and individual income tax rate tables.
 
 Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22, salary packaging from 2022-23, novated leases from 2023-24, the withholding from a 2026-27 pay with a bonus or back payment, super projected from 2026-27, a transfer balance account from 2017-18, the excess concessional contributions charge for 2013-14 to 2020-21, the account-based pension minimum for 2024-25 to 2027-28, and the days in Australia for the 183-day residency test from 2020-21 to 2026-27. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -13457,7 +13457,7 @@ Estimates in AUD for one person’s full income year: income tax and study loans
 - Transfer balance calculator: https://duguid.com.au/tools/individual-tax/transfer-balance/
 - Pension minimum calculator: https://duguid.com.au/tools/individual-tax/pension-minimum/
 - 183-day residency day count: https://duguid.com.au/tools/individual-tax/residency-days/
-- 60 business calculators: https://duguid.com.au/tools/business-calculators/
+- 61 business calculators: https://duguid.com.au/tools/business-calculators/
 - depreciation rates: https://duguid.com.au/tools/depreciation-rates/
 - individual income tax rate tables: https://duguid.com.au/rates/individual-income-tax/
 
@@ -16590,13 +16590,13 @@ Source: https://duguid.com.au/tools/business-calculators/blackhole-expenditure/
 
 # Blackhole expenditure calculator
 
-Section 40-880 deductions, a fifth a year or at once as a start-up cost, 2020-21 to 2027-28.
+Section 40-880 deductions: a fifth a year or at once, 2020-21 to 2027-28.
 
 Published 26 November 2026. Last checked 26 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-Section 40-880 deductions for an income year Item 1
+Deductions for an income year Item 1
 
 Capital expenditure (AUD)
 
@@ -16678,13 +16678,13 @@ Expenditure preserving goodwill: s 40-880(6) lifts the s 40-880(5)(d) exclusion 
 The fifth year: $20,000 incurred in 2021-22 leaves nothing after 2025-26 | 2025-26; item 1: $20,000.00 incurred in 2021-22 for your business, 50% taxable purpose | Deduction $2,000.00, deductible expenditure $10,000.00, left for later years $0.00
 Part of a depreciating asset’s cost is refused: Division 40 deducts it (s 40-880(5)(a)) | 2025-26; item 1: $1,000.00 incurred in 2025-26 for your business, 100% taxable purpose, excluded by section 40-880(5)(a) | Refused: item 1: s 40-880(5)(a) excludes expenditure that forms part of the cost of a depreciating asset; it is deducted as the asset's decline in value under Division 40 (s 40-25, with its cost under Subdivision 40-C), which this worksheet does not work out
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
