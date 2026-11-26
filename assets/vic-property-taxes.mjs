@@ -110,9 +110,9 @@ function vacant(year, fields, needed) {
     const previous = flag(field(fields, 'liable_previous_tax_year').value, 'liable_previous_tax_year');
     const before = flag(field(fields, 'liable_tax_year_before').value, 'liable_tax_year_before');
     const index = !previous ? 0 : before ? 2 : 1;
-    rate = ['0.01', '0.02', '0.03'][index];
-    const paragraph = year === '2025' ? `(${'abc'[index]}) as in force for 2025` : `(b)(${['i', 'ii', 'iii'][index]})`;
-    authority = `Land Tax Act 2005 (Vic) ss 19(1A), 34A, 37A and 35(3)${paragraph}: ${VIC_PROPERTY_AUTHORITIES.history[index]}`;
+    rate = ['0.01', '0.02', '0.03'][index]; // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
+    const paragraph = year === '2025' ? `(${'abc'[index]}) as in force for 2025` : `(b)(${['i', 'ii', 'iii'][index]})`; // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
+    authority = `Land Tax Act 2005 (Vic) ss 19(1A), 34A, 37A and 35(3)${paragraph}: ${VIC_PROPERTY_AUTHORITIES.history[index]}`; // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   }
   return [[['vrlt', mul(civ, lit(rate))]], { vrlt_rate: rate }, authority];
 }
@@ -152,7 +152,7 @@ function windfall(needed) {
     const extra = Object.keys(/** @type {Record<string, unknown>} */ (item)).find((k) => k !== 'civ_before' && k !== 'civ_after');
     if (extra !== undefined) refuse('input.field_unknown', `parcel ${n}: ${extra} is not a fact it takes beside civ_before and civ_after.`);
     const read = (/** @type {string} */ key) => {
-      const raw = /** @type {Record<string, unknown>} */ (item)[key];
+      const raw = /** @type {Record<string, unknown>} */ (item)[key]; // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
       // Unlike a top-level field, a parcel's value has no length limit (Decimal::parse_input).
       const parsed = typeof raw === 'string' ? parseDecimal(raw) : null;
       try {

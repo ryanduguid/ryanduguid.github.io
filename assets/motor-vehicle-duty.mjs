@@ -134,7 +134,7 @@ function placeScale(place, day, needed, yes) {
   if (index === undefined) refuse('motor_vehicle_duty.emissions_category_invalid', 'emissions_category must be aaa, aa, a, b, c, d or non_rated.');
   if (!isNew && index !== 0) index = 4;
   const [authority, rows] = ACT[day < Date.UTC(2027, 1, 1) / 86400000 ? 0 : 1];
-  const [table1, base2, rate2, base3] = rows[index];
+  const [table1, base2, rate2, base3] = rows[index]; // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   return scale(`Duties Act 1999 (ACT) s 208 and the ${authority}`, [band(0, '0', table1, 0), band(45000, base2, rate2, 45000), band(80000, base3, '8', 80000)]);
 }
 

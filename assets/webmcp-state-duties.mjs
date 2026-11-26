@@ -37,7 +37,7 @@ export function motorVehicleDutyTool(kit, motorVehicleDuty) {
         year: '2026-27', scope_confirmed: input.scopeConfirmed ?? true };
       for (const [from, to] of [['engine', 'engine'], ['greenCar', 'green_car'], ['primaryProducer', 'primary_producer'],
         ['emissionsCategory', 'emissions_category'], ['newVehicle', 'new_vehicle'], ['fleetDiscount', 'fleet_discount'], ['electric', 'electric']]) {
-        if (input[from] !== undefined) call[to] = input[from];
+        if (input[from] !== undefined) call[to] = input[from]; // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
       }
       const r = motorVehicleDuty(call);
       return { financialYear: r.year, duty: r.amounts.duty, authority: r.authority, rates: r.rates, currency: 'AUD',
