@@ -10,14 +10,14 @@ import { WITHHOLDING_COMMANDS, withholdingSchedule } from '../assets/withholding
 import { scheduleResult } from '../assets/take-home-schedules.mjs';
 import { individualResult } from '../assets/individual-tax-results.mjs';
 
-const html = readFileSync(new URL('../_includes/calculators/take-home-pay.html', import.meta.url), 'utf8');
+const page = readFileSync('_includes/calculators/take-home-pay.html', 'utf8');
 const aud = (/** @type {number} */ value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
 
 test('the withholding schedules agree with the australian-accounting commands on every differential case', () => {
-  const { engine, cases } = JSON.parse(readFileSync(new URL('./withholding-schedules-engine-differential.json', import.meta.url), 'utf8'));
+  const { engine, cases } = JSON.parse(readFileSync('scripts/withholding-schedules-engine-differential.json', 'utf8'));
   assert.match(engine, /australian-accounting main at 0b8ca5ab/);
   assert.ok(cases.length > 3000);
-  assert.match(html, new RegExp(`on ${cases.length.toLocaleString('en-AU')} cases`));
+  assert.ok(page.includes(`on ${cases.length.toLocaleString('en-AU')} cases`));
   for (const command of WITHHOLDING_COMMANDS) {
     assert.ok(cases.some((c) => c.command === command && c.refused), `${command} refused`);
     assert.ok(cases.filter((c) => c.command === command && c.amounts).length >= 20, `${command} worked`);
@@ -72,23 +72,23 @@ test('the schedules round in the 40-digit context australian-accounting uses', (
 
 /** The form's defaults, then `fields`. @param {Record<string, string>} fields */
 function form(fields) {
-  /** @type {Record<string, string>} */
-  const values = {};
-  for (const m of html.matchAll(/<input[^>]*name="([^"]+)"[^>]*>/g)) {
+  /** @type {Map<string, string>} */
+  const all = new Map();
+  for (const m of page.matchAll(/<input[^>]*name="([^"]+)"[^>]*>/g)) {
     const tag = m[0];
     const v = /value="([^"]*)"/.exec(tag)?.[1] ?? '';
-    if (/type="radio"/.test(tag)) { if (/ checked/.test(tag)) values[m[1]] = v; } else values[m[1]] = v;
+    if (!/type="radio"/.test(tag) || / checked/.test(tag)) all.set(m[1], v);
   }
-  for (const m of html.matchAll(/<textarea[^>]*name="([^"]+)"/g)) values[m[1]] = '';
-  const all = { ...values, ...fields };
+  for (const m of page.matchAll(/<textarea[^>]*name="([^"]+)"/g)) all.set(m[1], '');
+  for (const [name, v] of Object.entries(fields)) all.set(name, v);
   return (/** @type {string} */ name) => {
-    assert.ok(Object.hasOwn(all, name), `the form has no ${name}`);
-    return all[name];
+    assert.ok(all.has(name), `the form has no ${name}`);
+    return /** @type {string} */ (all.get(name));
   };
 }
 
 test('the take-home page offers each schedule and works it beside the take-home result', () => {
-  const keys = [...html.matchAll(/name="withholding-schedule" value="([^"]+)"/g)].map((m) => m[1]);
+  const keys = [...page.matchAll(/name="withholding-schedule" value="([^"]+)"/g)].map((m) => m[1]);
   assert.deepEqual(keys, ['none', 'daily', 'sch2', 'sch3', 'sch4', 'sch6', 'sch9', 'sch10', 'sch14', 'sch15', 'noabn']);
   assert.equal(scheduleResult(form({}), aud), undefined);
   const base = { year: '2026-27', period: 'fortnight', 'ws-payment': '1299.30' };

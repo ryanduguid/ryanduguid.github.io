@@ -108,9 +108,9 @@ export function arg(value, decimal, key) {
   if (!decimal) return { kind: 'text', value };
   if (value.length > 8192) refuse('input.decimal_too_long', `${key}: decimal input exceeds 8192 bytes`);
   const text = value.trim();
-  const [whole, fraction, extra] = text.split('.');
-  if (/^-?\d+$/.test(whole) && extra === undefined && (fraction === undefined || /^\d+$/.test(fraction))) {
-    return { kind: 'dec', value: dec(text), places: fraction?.length ?? 0 };
+  const parts = text.split('.');
+  if (parts.length <= 2 && /^-?\d+$/.test(parts[0]) && (parts.length === 1 || /^\d+$/.test(parts[1]))) {
+    return { kind: 'dec', value: dec(text), places: parts.length === 2 ? parts[1].length : 0 };
   }
   if (/^[+-]?(inf|infinity|s?nan\d*)$/i.test(text)) return { kind: 'nan' };
   return refuse('input.decimal_unreadable', 'decimal.InvalidOperation');

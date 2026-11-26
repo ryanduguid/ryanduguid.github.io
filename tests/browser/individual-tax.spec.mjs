@@ -338,14 +338,14 @@ test('take-home pay shows only the chosen schedule’s questions and works Sched
   await page.goto('/tools/individual-tax/take-home-pay/');
   const form = page.locator('#take-home-pay form');
   await waitForCalculator(form);
-  const agreed = form.locator('fieldset', { has: page.locator('legend', { hasText: 'The agreed amount' }) });
+  const agreed = form.locator('fieldset[data-show-values="sch14"]');
   await expect(agreed).toBeHidden();
   await context.setOffline(true);
   await form.getByLabel('2026-27').check();
   await form.getByLabel('A fortnight').check();
   await form.getByLabel(/^Schedule 14: /).check();
   await expect(agreed).toBeVisible();
-  await expect(form.locator('fieldset', { has: page.locator('legend', { hasText: 'The annuity' }) })).toBeHidden();
+  await expect(form.locator('fieldset[data-show-values="sch6"]')).toBeHidden();
   await form.locator('#take-home-ws-payment').fill('1299.30');
   await form.locator('#take-home-ws-offsets').fill('1645');
   await form.locator('#take-home-ws-additional').fill('20');
