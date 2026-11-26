@@ -55,10 +55,10 @@ const NT_ELECTRIC = scale('Stamp Duty Act 1978 (NT) s 92A: an electric vehicle r
 const CATEGORIES = new Map([['aaa', 0], ['aa', 1], ['a', 2], ['b', 3], ['c', 4], ['d', 5], ['non_rated', 4]]);
 /** Each determination's rows: Table 1's rate, Table 2's base and rate over $45,000 and Table 3's base over $80,000 (rate $8). */
 const ACT = [
-  ['Taxation Administration (Amounts Payable—Motor Vehicle Duty) Determination 2025 (DI2025-152) s 6 Tables 1 to 3', [
+  ['ACT motor vehicle duty determination 2025 (DI2025-152) s 6 Tables 1 to 3', [
     ['2.50', '1125.00', '4.00', '2525.00'], ['2.67', '1201.50', '4.41', '2745.00'], ['2.84', '1278.00', '4.81', '2961.50'],
     ['3.00', '1350.00', '5.22', '3177.00'], ['3.17', '1426.50', '5.62', '3393.50'], ['4.53', '2038.50', '7.81', '4772.00']]],
-  ['Taxation Administration (Amounts Payable—Motor Vehicle Duty) Determination 2026 (DI2026-154, from 1 February 2027) s 6 Tables 1 to 3', [
+  ['ACT motor vehicle duty determination 2026 (DI2026-154, from 1 February 2027) s 6 Tables 1 to 3', [
     ['2.50', '1125.00', '4.00', '2525.00'], ['2.67', '1201.50', '4.41', '2745.00'], ['2.84', '1278.00', '4.81', '2961.50'],
     ['3.25', '1462.50', '5.59', '3419.00'], ['3.72', '1674.00', '6.44', '3928.00'], ['4.83', '2173.50', '8.00', '4973.50']]],
 ];
