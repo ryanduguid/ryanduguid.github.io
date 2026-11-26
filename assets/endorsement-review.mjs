@@ -178,13 +178,22 @@ const STATUS_TEXT = new Map([
   [NOT_ENTITLED, 'Not entitled to the endorsement on these answers'],
 ]);
 
+/** A question's row heading: ‘Winding up clause’. @param {string} key */
+const heading = (key) => {
+  const name = ENDORSEMENT_QUESTIONS.get(key)?.[1] ?? key;
+  return name[0].toUpperCase() + name.slice(1);
+};
+
+/** A provision's citation without its statement of the rule: ‘ITAA 1997 s 30-228’. @param {string} provision */
+const cited = (provision) => provision.split(': ')[0];
+
 /** The page's result. @param {(name: string) => string} value */
 export function endorsementReviewResult(value) {
   const [worksheet, answers] = endorsementFormInput(value);
   const r = endorsementReview(worksheet, answers);
   const rows = [['Outcome', `${STATUS_TEXT.get(r.status)}`], ['Worksheet', r.worksheet],
-    ...r.findings.map((f) => [ENDORSEMENT_QUESTIONS.get(f.question)?.[0] ?? f.question,
-      f.answer ? `Yes. ${f.provision}.` : `No. ${f.action} ${f.provision}.`])];
+    ...r.findings.map((f) => [heading(f.question),
+      f.answer ? `Yes. ${cited(f.provision)}.` : `No. ${f.action} ${f.provision}.`])];
   return { inputs: endorsementInputsText(worksheet, answers), rows, principal: 0,
-    note: `Not asked by the worksheet: ${r.notAsked.join('; ')}. ${r.record.slice(0, -1)}` };
+    note: `Not asked by the worksheet, so not tested here: ${r.notAsked.map(cited).join('; ')}. ${r.record.slice(0, -1)}` };
 }
