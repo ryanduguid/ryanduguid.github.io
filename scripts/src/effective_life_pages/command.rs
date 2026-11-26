@@ -357,11 +357,7 @@ fn check(root: &Path, build: &Build, present: &[String]) -> Result<u8> {
         .keys()
         .map(String::as_str)
         .filter(|rel| *rel != MAP_REL);
-    failures.extend(
-        crate::review_generated::message(&crate::review_generated::undeclared(root, generated)?)
-            .lines()
-            .map(str::to_owned),
-    );
+    failures.extend(crate::review_generated::undeclared(root, generated)?);
     if failures.is_empty() {
         say(&format!(
             "The {} effective life page files match the data file\n",

@@ -525,7 +525,7 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8> {
     let undeclared =
         crate::review_generated::undeclared(root, outputs.iter().map(|(rel, _)| rel.as_str()))?;
     if !undeclared.is_empty() {
-        say(&crate::review_generated::message(&undeclared))?;
+        say(&format!("{}\n", undeclared.join("\n")))?;
         return Ok(1);
     }
     say(

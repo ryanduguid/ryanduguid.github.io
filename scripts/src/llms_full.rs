@@ -503,7 +503,7 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
         .chain(mirrors.iter().map(String::as_str));
     let undeclared = crate::review_generated::undeclared(root, written)?;
     if !undeclared.is_empty() {
-        say(&crate::review_generated::message(&undeclared))?;
+        say(&format!("{}\n", undeclared.join("\n")))?;
         return Ok(1);
     }
     say(&format!(

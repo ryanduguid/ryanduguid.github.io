@@ -19,8 +19,9 @@ fn covered(rel: &str, specs: &[&str]) -> bool {
     })
 }
 
-/// The files in `written` (paths below the site root, `/`-separated) that the
-/// declaration does not cover. A tree without the declaration has nothing to cover.
+/// A failure line for each file in `written` (paths below the site root, `/`-separated)
+/// that the declaration does not cover. A tree without the declaration, such as a test
+/// fixture, has nothing to cover; the site's own declaration is held by a test below.
 pub fn undeclared<'a>(
     root: &Path,
     written: impl IntoIterator<Item = &'a str>,
@@ -41,16 +42,8 @@ pub fn undeclared<'a>(
     Ok(written
         .into_iter()
         .filter(|rel| !covered(rel, &paths) || covered(rel, &except))
-        .map(str::to_owned)
+        .map(|rel| format!("{rel} is generated but {DECLARATION} does not declare it"))
         .collect())
-}
-
-/// One line for each undeclared file, for a generator's `--check` to print.
-pub fn message(undeclared: &[String]) -> String {
-    undeclared
-        .iter()
-        .map(|rel| format!("{rel} is generated but {DECLARATION} does not declare it\n"))
-        .collect()
 }
 
 #[cfg(test)]
@@ -83,8 +76,12 @@ mod tests {
             ],
         )
         .unwrap();
+        let named: Vec<&str> = found
+            .iter()
+            .map(|line| line.split(' ').next().unwrap())
+            .collect();
         assert_eq!(
-            found,
+            named,
             [
                 "tools/a/keep.json",
                 "tools/ab/index.txt",
@@ -93,8 +90,8 @@ mod tests {
             ]
         );
         assert_eq!(
-            message(&found[..1]),
-            "tools/a/keep.json is generated but .github/review-generated.json does not declare it\n"
+            found[0],
+            "tools/a/keep.json is generated but .github/review-generated.json does not declare it"
         );
     }
 
@@ -114,6 +111,17 @@ mod tests {
         let err = undeclared(dir.path(), ["llms-full.txt"]).unwrap_err();
         assert!(err.starts_with(DECLARATION), "{err}");
         let dir = tree(Some("[]"));
-        assert_eq!(undeclared(dir.path(), ["x"]).unwrap(), ["x"]);
+        assert_eq!(undeclared(dir.path(), ["x"]).unwrap().len(), 1);
+    }
+
+    /// Deleting the site's declaration would turn every generator's check into a no-op.
+    #[test]
+    fn the_site_keeps_its_declaration() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
+        let json: serde_json::Value =
+            serde_json::from_str(&crate::read(&root.join(DECLARATION)).unwrap()).unwrap();
+        assert_eq!(json["format"], "review-generated/1");
+        assert!(json["paths"].as_array().is_some_and(|p| !p.is_empty()));
+        assert!(json["build"].as_array().is_some_and(|b| !b.is_empty()));
     }
 }
