@@ -1,0 +1,48 @@
+<section class="business-calculator" id="help-indexation">
+<form class="calculator-split" data-calculator="help-indexation">
+<fieldset disabled><legend>Your HELP debt for one indexation day</legend>
+<div class="form-grid">
+<fieldset class="field"><legend>Indexed on 1 June</legend>
+<label><input type="radio" name="year" value="2025-26" checked /> 2026</label>
+<label><input type="radio" name="year" value="2024-25" /> 2025</label>
+<label><input type="radio" name="year" value="2023-24" /> 2024</label>
+<label><input type="radio" name="year" value="2022-23" /> 2023</label>
+<label><input type="radio" name="year" value="2021-22" /> 2022</label>
+<label><input type="radio" name="year" value="2020-21" /> 2021</label>
+<label><input type="radio" name="year" value="2019-20" /> 2020</label>
+</fieldset>
+<label class="field" for="help-indexation-previous">Accumulated HELP debt on the 1 June a year earlier<input enterkeyhint="next" id="help-indexation-previous" name="previous" type="number" inputmode="decimal" min="0" max="1000000000000" step="0.01" value="30000" required aria-describedby="help-indexation-previous-note" /></label>
+</div>
+<p class="field-note" id="help-indexation-previous-note">Take the balance from your ATO account as it stood on the earlier 1 June, or enter 0 for none. For 1 June 2025, enter it before the 20% reduction: the calculator applies it.</p>
+<fieldset><legend>Debts and repayments</legend>
+<div class="form-grid">
+<label class="field" for="help-indexation-earlier-amount">Debt incurred from 1 January to 30 June a year before<input id="help-indexation-earlier-amount" name="earlier-amount" type="number" inputmode="decimal" min="0" step="0.01" value="" /></label>
+<label class="field" for="help-indexation-earlier-date">Day it was incurred (the census date)<input id="help-indexation-earlier-date" name="earlier-date" type="date" min="2019-01-01" max="2025-06-30" value="" /></label>
+<label class="field" for="help-indexation-current-amount">Debt incurred from 1 July to 31 December<input id="help-indexation-current-amount" name="current-amount" type="number" inputmode="decimal" min="0" step="0.01" value="" /></label>
+<label class="field" for="help-indexation-current-date">Day it was incurred<input id="help-indexation-current-date" name="current-date" type="date" min="2019-07-01" max="2025-12-31" value="" /></label>
+<label class="field" for="help-indexation-repaid-amount">Voluntary repayment from the earlier 1 June to 31 May<input id="help-indexation-repaid-amount" name="repaid-amount" type="number" inputmode="decimal" min="0" step="0.01" value="" /></label>
+<label class="field" for="help-indexation-repaid-date">Day it was made<input id="help-indexation-repaid-date" name="repaid-date" type="date" min="2019-06-01" max="2026-05-31" value="" /></label>
+<label class="field" for="help-indexation-compulsory">Compulsory repayments assessed in that period<input id="help-indexation-compulsory" name="compulsory" type="number" inputmode="decimal" min="0" step="0.01" value="" /></label>
+<label class="field" for="help-indexation-proposed">A voluntary repayment you are thinking of making<input enterkeyhint="done" id="help-indexation-proposed" name="proposed" type="number" inputmode="decimal" min="0" step="0.01" value="" aria-describedby="help-indexation-proposed-note" /></label>
+</div>
+<p class="field-note" id="help-indexation-proposed-note">Leave a row blank to skip it. A debt’s day is the census date of its unit. With a repayment you are thinking of making, the result compares paying it before 1 June with paying it on or after.</p>
+</fieldset>
+<button type="submit" class="button">Calculate</button>
+</fieldset>
+{% include calculator-example.html inputs="2025-26; debt on 1 June 2025 $30,000.00" rows="Accumulated HELP debt on 1 June 2025|$30,000.00;Plus debts incurred 1 January to 30 June 2025|$0.00;Less voluntary and compulsory repayments|$0.00;Amount indexed|$30,000.00;Indexation at 2.8%|$840.00;Plus debts incurred 1 July to 31 December 2025|$0.00;Accumulated HELP debt on 1 June 2026|$30,840.00" principal="6" note="Cents are dropped from the debt on 1 June 2026" %}
+<div class="sources-applied" hidden>
+<h2>Sources applied</h2>
+<ul class="sources">
+<li>The steps: <a href="https://www.legislation.gov.au/C2004A01234/latest/text">Higher Education Support Act 2003</a> ss 137-19A, 140-5, 140-10, 140-25, 140-26 and 140-30, Compilation No. 105 (17 October 2026), read 27 November 2026, the source the australian-accounting <code>help-indexation</code> command cites.</li>
+<li>The rates: the ATO’s <a href="https://www.ato.gov.au/tax-rates-and-codes/study-and-training-support-loans-indexation-rates">Study and training loan indexation rates</a> (last updated 17 April 2026), read 27 November 2026: 2.8% for 2026, 3.2% for 2025, 4% for 2024 (previously 4.7%), 3.2% for 2023 (previously 7.1%), 3.9% for 2022, 0.6% for 2021 and 1.8% for 2020.</li>
+<li>The calculator agrees with the command on 671 test cases, refusals included.</li>
+<li>Supplied by you: the year, the earlier balance, each debt, each repayment and its day.</li>
+</ul>
+</div>
+</form>
+<h2>How the HELP indexation calculator works</h2>
+<p>Each 1 June your HELP debt is indexed. The calculator follows the method statement in s 140-5 of the Higher Education Support Act 2003. It takes your accumulated HELP debt from the 1 June a year earlier, adds debts incurred from 1 January to 30 June before that day (each course’s total cut to whole dollars), and subtracts voluntary repayments made from that earlier 1 June to 31 May and compulsory repayments assessed in the same period. It multiplies the result by the indexation factor for the year, then adds debts incurred from 1 July to 31 December, which are not indexed until the next year. Cents are dropped.</p>
+<p>From 2023 the factor is the lower of the CPI and WPI factors, which reset the 2023 and 2024 rates to 3.2% and 4%. For 1 June 2025, s 140-26 cuts the amount by 20% before indexation, and s 137-19A cuts a debt incurred from 1 January to 1 June 2025 by 20% too. A voluntary repayment made before 1 June is taken off before indexation; one made on or after 1 June comes off the already indexed debt.</p>
+<h2>What the HELP indexation calculator does not cover</h2>
+<p>The calculator does not take a location-preferred HELP debtor’s reduced factor or debt, or VET Student Loan, SFSS or other loans indexed under other Acts. The form takes one debt in each half-year and one repayment; the WebMCP tool takes up to 100 of each, grouped by course, with amended assessments. It does not estimate your balance or work out a compulsory repayment: take both from your ATO account. It does not apply the 20% reduction to any year but 2025. Confirm your balance with the ATO or a registered tax agent.</p>
+</section>
