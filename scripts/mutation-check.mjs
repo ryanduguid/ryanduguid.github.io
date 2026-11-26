@@ -66,6 +66,7 @@ const marginScheme = { ...business, file: 'assets/gst-margin-scheme.mjs' };
 const surcharges = { ...business, file: 'assets/foreign-surcharge.mjs' };
 const businessDays = { ...business, file: 'assets/business-days.mjs' };
 const sgc = { ...business, file: 'assets/sgc-payday.mjs' };
+const cashflowEngine = { ...business, file: 'assets/payday-cashflow.mjs' };
 const cgt = { ...business, file: 'assets/cgt.mjs' };
 const lsl = { ...business, file: 'assets/long-service-leave.mjs' };
 const salaryDividend = { ...business, file: 'assets/salary-dividend.mjs' };
@@ -749,6 +750,12 @@ const MUTATIONS = [
   { ...sgc, name: 'SGC a first out-of-cycle contribution drops item 1', find: "['first-out-of-cycle', ['first', 'out-of-cycle']]", replace: "['first-out-of-cycle', ['out-of-cycle']]" },
   { ...sgc, name: 'SGC combined periods take the first, not the latest', find: '(period[0] > latest[0] ? period : latest), usual)', replace: '(latest[0] === usual[0] ? period : latest), usual)' },
   { ...sgc, name: 'SGC ignores the maximum contributions base', find: 'Math.min(earnings, Math.max(0, MAXIMUM_BASE_2026_27 - cents(inputs.earlier)))', replace: 'earnings' },
+  { ...cashflowEngine, name: 'Payday cashflow at 11%', find: 'BigInt(cents(inputs.earnings)) * 12n', replace: 'BigInt(cents(inputs.earnings)) * 11n' },
+  { ...cashflowEngine, name: 'Payday cashflow quarterly date a day late', find: "due: '2026-10-28'", replace: "due: '2026-10-29'" },
+  { ...cashflowEngine, name: 'Payday cashflow part-day dates not flagged', find: 'partDay = true;', replace: 'partDay = false;' },
+  { ...cashflowEngine, name: 'Payday cashflow fortnights of 15 days', find: "['fortnightly', { step: 14,", replace: "['fortnightly', { step: 15," },
+  { ...cashflowEngine, name: 'Payday cashflow monthly date not moved to a shorter month end', find: 'Math.min(date, last)', replace: 'date' },
+  { ...cashflowEngine, name: 'Payday cashflow average not weighted by amount', find: 'weighted += sg * daysEarlier;', replace: 'weighted += daysEarlier;' },
   { ...sgc, name: 'SGC notional earnings run on the final shortfall', find: 'const notional = compoundedEarnings(base, rates);', replace: 'const notional = compoundedEarnings(final, rates);' },
   { ...sgc, name: 'SGC notional earnings include the assessment day', find: 'received : assessment - 1;', replace: 'received : assessment;' },
   { ...sgc, name: 'SGC notional earnings stop the day before receipt', find: '? received : assessment - 1;', replace: '? received - 1 : assessment - 1;' },

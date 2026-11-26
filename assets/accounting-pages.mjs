@@ -578,6 +578,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'sgc-payday':
             result = calculate.sgcPaydayResult(value, aud);
             break;
+          case 'payday-cashflow':
+            result = calculate.paydayCashflowResult(value, aud);
+            break;
           case 'cgt':
             result = calculate.cgtResult(value, (name) => form.elements.namedItem(name).checked, aud);
             break;

@@ -793,6 +793,11 @@ Object.assign(INPUTS, { contractorEmployee: (x) => calculations.contractorInputs
   (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
 Object.assign(ENGINE_LABELS, { contractorEmployee: { employeeCost: 'employee cost', contractorSuperGuarantee: 'section 12(3) super guarantee',
   contractorCost: 'contractor cost', costDifference: 'difference', employeeTakeHome: 'employee take-home', contractorTakeHome: 'contractor take-home' } });
+// The Payday Super cashflow page's rows (its tests are with the SGC page's below).
+Object.assign(INPUTS, { paydayCashflow: (x) => calculations.cashflowInputsText(x, dollars) });
+Object.assign(ENGINE_LABELS, { paydayCashflow: { quarterlyDue: (v) => `quarterly date ${longDay(v)}`, total: (v) => `quarter ${dollars(v)}`,
+  peak: (v) => `peak ${dollars(v)}`, peakFrom: (v) => `peak from ${longDay(v)}`,
+  averageDaysEarlier: (v) => `${v.toFixed(1)} days earlier on average` } });
 
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
@@ -1263,6 +1268,8 @@ Object.assign(FORM_CALLS, { gstAdjustment: (f) => {
 } });
 
 Object.assign(FORM_CALLS, { deferredTax: (f) => [calculations.deferredTaxFormInput((name) => f[name] ?? '')] });
+Object.assign(FORM_CALLS, { paydayCashflow: (f) => [{ quarter: f.quarter, cycle: f.cycle, firstPayday: f['first-payday'],
+  earnings: f.earnings }] });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -3760,6 +3767,87 @@ test('the administrative uplift falls by the regulation 13C and 13D points, to n
     { message: 'Choose whether a disqualifying ATO assessment or estimate applies for this payday.' });
   assert.throws(() => calculations.paydaySuperCharge({ ...base, disclosure: 'yes' }),
     { message: 'Choose whether an approved voluntary disclosure statement was lodged before the assessment day.' });
+});
+
+// The Payday Super cashflow page's schedule (its rows' reading is set beside the deferred tax page's).
+const cashflow = (more) => calculations.paydayCashflow({ quarter: '1', cycle: 'fortnightly', firstPayday: '2026-07-02', earnings: '10000', ...more });
+
+// ATO, 'Payment deadlines for Payday Super' (last updated 29 September 2026), read 26 November 2026:
+// example 3, weekly pay on 10 December 2026, due 21 December 2026; example 4, fortnightly pay on
+// 3 September 2026, due 14 September 2026.
+test('Payday Super cashflow due dates are the SGC page’s, and match the ATO’s worked examples', () => {
+  const weekly = cashflow({ quarter: '2', cycle: 'weekly', firstPayday: '2026-10-01' });
+  assert.equal(weekly.paydays.find((p) => p.payday === '2026-12-10').due, '2026-12-21');
+  const fortnightly = cashflow({ firstPayday: '2026-07-09' });
+  assert.equal(fortnightly.paydays.find((p) => p.payday === '2026-09-03').due, '2026-09-14');
+  for (const [quarter, from] of [['1', '2026-07-01'], ['2', '2026-10-01'], ['3', '2027-01-01'], ['4', '2027-04-01']]) {
+    for (const cycle of ['weekly', 'fortnightly', 'monthly']) {
+      for (const p of cashflow({ quarter, cycle, firstPayday: from }).paydays.filter((row) => !row.partDay)) {
+        assert.equal(p.due, calculations.paydaySuperDue({ payday: p.payday, timing: 'standard', nextPayday: '', determination: '' }).due);
+      }
+    }
+  }
+});
+
+test('Payday Super cashflow takes the earliest due date where a part-day holiday leaves it open', () => {
+  const r = cashflow({ quarter: '2', cycle: 'weekly', firstPayday: '2026-10-01' });
+  assert.deepEqual(r.paydays.filter((p) => p.partDay).map((p) => [p.payday, p.due]), [['2026-12-17', '2026-12-30'], ['2026-12-24', '2027-01-07']]);
+  for (const p of r.paydays.filter((row) => row.partDay)) {
+    assert.throws(() => calculations.paydaySuperDue({ payday: p.payday, timing: 'standard', nextPayday: '', determination: '' }),
+      (error) => error.message.includes(`Possible dates are ${plainDate(p.due)} `) || error.message.includes(`Possible dates are ${plainDate(p.due)},`));
+  }
+});
+
+test('Payday Super cashflow compares with 28 days after each quarter, none a weekend or calendar holiday', () => {
+  for (const [quarter, { to, due }] of Object.entries(calculations.CASHFLOW_QUARTERS)) {
+    const day = Date.parse(`${due}T00:00:00Z`);
+    assert.equal(day - Date.parse(`${to}T00:00:00Z`), 28 * 86400000, quarter);
+    assert.ok(![0, 6].includes(new Date(day).getUTCDay()) && !calculations.NON_BUSINESS_WEEKDAYS.includes(due), due);
+  }
+});
+
+test('Payday Super cashflow builds the extra working capital payday by payday to the quarter’s total', () => {
+  const r = cashflow({ earnings: '4321.07', firstPayday: '2026-07-09' });
+  assert.deepEqual(r.paydays.map((p) => p.payday), ['2026-07-09', '2026-07-23', '2026-08-06', '2026-08-20', '2026-09-03', '2026-09-17']);
+  assert.ok(r.paydays.every((p, i) => p.sg === 518.53 && p.ahead === Math.round(518.53 * (i + 1) * 100) / 100));
+  assert.deepEqual([r.total, r.peak, r.peakFrom, r.peakDays], [3111.18, 3111.18, '2026-09-29', 29]);
+  // (each payday's days earlier, weighted by its amount) / the quarter's total, to one decimal place.
+  const days = r.paydays.map((p) => p.daysEarlier);
+  assert.equal(r.averageDaysEarlier, Math.round((days.reduce((a, b) => a + b, 0) / days.length) * 10) / 10);
+  assert.deepEqual(cashflow({ quarter: '3', cycle: 'monthly', firstPayday: '2027-01-31' }).paydays.map((p) => p.payday),
+    ['2027-01-31', '2027-02-28', '2027-03-31']);
+  assert.equal(cashflow({ cycle: 'weekly', firstPayday: '2026-07-07' }).paydays.length, 13);
+  for (const [more, message] of [[{ quarter: '5' }, 'Choose a quarter of 2026-27.'], [{ cycle: 'daily' }, 'Choose weekly, fortnightly or monthly pay.'],
+    [{ firstPayday: '2026-06-30' }, 'Enter the first payday of the quarter: a date in its first 14 days.'],
+    [{ firstPayday: '2026-07-15' }, 'Enter the first payday of the quarter: a date in its first 14 days.'],
+    [{ cycle: 'monthly', firstPayday: '2026-08-01' }, 'Enter the first payday of the quarter: a date in its first month.'],
+    [{ firstPayday: '2026-02-30' }, 'Enter the first payday of the quarter: a date in its first 14 days.']]) {
+    assert.throws(() => cashflow(more), { message }, JSON.stringify(more));
+  }
+  for (const earnings of ['', 'abc', '-1', '1e3', '100.001', '1000000001']) assert.throws(() => cashflow({ earnings }), Error, earnings);
+});
+
+// A retried page load can reach payday-cashflow.mjs through sgc-payday.mjs before that module has run.
+test('Payday Super cashflow loads when sgc-payday.mjs is the first module imported', async () => {
+  const { execFileSync } = await import('node:child_process');
+  const out = execFileSync(process.execPath, ['--input-type=module', '-e',
+    "const m = await import('./assets/sgc-payday.mjs'); const c = await import('./assets/payday-cashflow.mjs'); "
+    + "process.stdout.write(String(c.paydayCashflow({ quarter: '2', cycle: 'weekly', firstPayday: '2026-10-01', earnings: '1' }).paydays.length))"],
+  { cwd: new URL('..', import.meta.url), encoding: 'utf8' });
+  assert.equal(out, '14');
+});
+
+test('the Payday Super cashflow page opens on the result its calculation gives', () => {
+  const html = calculatorInclude('payday-cashflow');
+  const [inputs, rows, principal] = html.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" %\}/).slice(1);
+  const fields = formDefaults(html);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  const r = calculations.paydayCashflowResult((name) => fields[name] ?? '', aud);
+  assert.deepEqual([r.inputs, r.rows.map((row) => row.join('|')).join(';'), String(r.principal), r.note], [inputs, rows, principal, undefined]);
+  const december = { ...fields, quarter: '2', cycle: 'weekly', 'first-payday': '2026-10-01' };
+  assert.equal(calculations.paydayCashflowResult((name) => december[name] ?? '', aud).note,
+    'For the 17 December 2026 and 24 December 2026 paydays, the due date depends on whether 24 or 31 December, part-day holidays, '
+    + 'are business days; the date shown is the earliest possible');
 });
 
 test('the SGC page refuses malformed, nil and out-of-range money instead of reading it as nil', () => {

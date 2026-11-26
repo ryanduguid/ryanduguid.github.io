@@ -33,16 +33,16 @@ through the draft [WebMCP](https://webmachinelearning.github.io/webmcp/)
 `calculate_luxury_car_tax`, `calculate_margin_and_markup`, `calculate_objection_deadline`, `calculate_budget_variance`,
 `classify_vehicle`, `calculate_wine_equalisation_tax`, `calculate_cash_forecast`, `calculate_depreciation_pool`,
 `calculate_div7a_schedule`, `calculate_first_home_owner_grant`, `calculate_payg_instalment`, `calculate_payroll_tax`,
-`calculate_salary_vs_dividend`, `calculate_sgc_payday`, `calculate_staff_cost`, `calculate_capital_gains_tax`,
+`calculate_salary_vs_dividend`, `calculate_sgc_payday`, `calculate_payday_super_cashflow`, `calculate_staff_cost`, `calculate_capital_gains_tax`,
 `check_small_business_cgt_concessions`, `score_pcg_2021_4_risk`, `calculate_pcg_2021_4_allocation`, `check_psi_rules`,
 `calculate_rental_property`, `calculate_super_benefit_tax`, `calculate_unused_leave_withholding`,
 `calculate_workers_compensation_premium`, `calculate_business_days`, `calculate_division_296_tax`,
 `calculate_fbt_car`, `calculate_fbt_car_parking`, `calculate_fbt_expense_payment`, `calculate_fbt_loan`,
 `calculate_fbt_meal_entertainment`, `calculate_fbt_property`, `calculate_land_tax`,
 `calculate_termination_payment`, `calculate_transfer_duty`,
-`calculate_rd_tax_offset`, `calculate_gst_adjustments`, `calculate_deferred_tax`, `calculate_sole_trader_vs_company`, `calculate_casual_overtime_pay` and
-`calculate_contractor_employee`
-on the 60 business calculator pages,
+`calculate_rd_tax_offset`, `calculate_gst_adjustments`, `calculate_deferred_tax`, `calculate_sole_trader_vs_company`, `calculate_casual_overtime_pay`,
+`calculate_contractor_employee` and `calculate_payday_super_cashflow`
+on the 61 business calculator pages,
 `estimate_income_tax`, `calculate_take_home_pay`, `calculate_study_loan_repayment`, `calculate_sole_trader_set_aside`,
 `calculate_lump_sum_arrears`, `calculate_division_293_tax`, `calculate_income_tests`, `calculate_concessional_catch_up`,
 `calculate_bonus_withholding`, `calculate_salary_packaging`, `calculate_novated_lease`, `project_super_balance`,
