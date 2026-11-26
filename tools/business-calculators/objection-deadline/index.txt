@@ -14,7 +14,7 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 Objection deadline inputs
 
-Decision objected to Income tax assessment Amended income tax assessment FBT assessment Amended FBT assessment Another decision for which section 14ZW sets no other period Income tax only: does item 1, 2, 3 or 3A of the table in subsection 170(1) of the Income Tax Assessment Act 1936 apply to the assessment? Yes: 2 years No: 4 years Day notice of the decision was given or served Amended assessments only: day notice of the first assessment for the year was given or served
+Decision objected to Income tax assessment Amended income tax assessment FBT assessment Amended FBT assessment Another decision for which section 14ZW sets no other period Income tax only: does item 1, 2, 3 or 3A of the table in subsection 170(1) of the Income Tax Assessment Act 1936 apply to the assessment? Yes: 2 years No: 4 years Day notice of the decision was given or served Amended assessments only: day notice of the assessment amended was given or served (the first assessment, or an earlier amended one) Amended assessments only: day notice of the first assessment for the year was given or served
 
 Item 1 covers most individuals, and items 2 and 3 companies and trusts that are small or medium business entities; each excludes, for example, a scheme to obtain a tax benefit. Item 3A covers their requests to amend. Which item applies is not decided here.
 
@@ -24,7 +24,7 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 
 The objection deadline checker gives the last day to lodge a taxation objection under section 14ZW of the Taxation Administration Act 1953. An income tax assessment allows 2 years after notice of the assessment is given when item 1, 2, 3 or 3A of the table in subsection 170(1) of the Income Tax Assessment Act 1936 applies, and 4 years otherwise. An FBT assessment allows 4 years. Any other decision for which the section sets no other period allows 60 days after notice is served.
 
-An amended assessment allows whichever ends later: 60 days after notice of the amended assessment, or the 2 or 4 years after notice of the first assessment for that year. The checker shows both dates and the later one.
+An amended assessment allows whichever ends later: 60 days after notice of the amended assessment, or the 2 or 4 years after notice of the assessment it amends. A 2-year period runs from that notice even where the assessment amended was itself an amended one; a 4-year period runs from notice of the first assessment for that year. The checker shows both dates and the later one.
 
 Each period starts the day after notice, because subsection 36(1) of the Acts Interpretation Act 1901 leaves out the day a period begins after. A 2-year period from notice given on 28 February 2026 therefore starts on 1 March 2026 and ends on 29 February 2028. When the last day is a Saturday or Sunday, subsection 36(2) lets the objection be lodged on the next day that is not a weekend or holiday. The Act’s own example: a person who has until Saturday 31 March may apply on Monday 2 April.
 
@@ -44,9 +44,11 @@ A last day on a Sunday moves to the Monday | Income tax assessment, 4 years, not
 The day notice is given is not counted | Other decision, notice 1 January 2027 | Paragraph 14ZW(1)(c), period ends Tuesday 2 March 2027, last day Tuesday 2 March 2027
 A period starting on 1 March 2026 ends on 29 February 2028 | Income tax assessment, 2 years, notice 28 February 2026 | Period ends Tuesday 29 February 2028, last day Tuesday 29 February 2028
 A period starting on 1 March 2028 ends on 28 February 2030 | Income tax assessment, 2 years, notice 29 February 2028 | Period ends Thursday 28 February 2030, last day Thursday 28 February 2030
-An amended assessment takes the later of its 2 dates | Amended income tax assessment, 2 years, notice 2 October 2028, first notice 20 October 2026 | Subsection 14ZW(1BA), 60 days after the amended notice Friday 1 December 2028, first notice period ends Friday 20 October 2028, period ends Friday 1 December 2028, last day Friday 1 December 2028
+An amended assessment takes the later of its 2 dates | Amended income tax assessment, 2 years, notice 2 October 2028, notice of the assessment amended 20 October 2026, first notice 20 October 2026 | Subsection 14ZW(1BA), 60 days after the amended notice Friday 1 December 2028, original period ends Friday 20 October 2028, period ends Friday 1 December 2028, last day Friday 1 December 2028
 An FBT assessment allows 4 years | FBT assessment, notice 15 November 2026 | Paragraph 14ZW(1)(aaa), period ends Friday 15 November 2030, last day Friday 15 November 2030
-A first notice after the amended notice is refused | Amended FBT assessment, notice 1 July 2026, first notice 2 July 2026 | Refused: the first assessment’s notice cannot be later than the amended one
+A first notice after the notice of the assessment amended is refused | Amended FBT assessment, notice 1 July 2026, notice of the assessment amended 1 July 2026, first notice 2 July 2026 | Refused: the first assessment’s notice cannot be later than the notice of the assessment amended
+A second amendment counts subsection (1BA) from the assessment amended | Amended income tax assessment, 2 years, notice 1 June 2028, notice of the assessment amended 10 January 2028, first notice 1 March 2024 | Subsection 14ZW(1BA), 60 days after the amended notice Monday 31 July 2028, original period ends Thursday 10 January 2030, period ends Thursday 10 January 2030, last day Thursday 10 January 2030
+Subsection (1C) counts subsection (1B) from the first assessment | Amended income tax assessment, 4 years, notice 1 June 2028, notice of the assessment amended 10 January 2028, first notice 1 March 2024 | Subsection 14ZW(1B), 60 days after the amended notice Monday 31 July 2028, original period ends Wednesday 1 March 2028, period ends Monday 31 July 2028, last day Monday 31 July 2028
 
 One of the fifty-seven business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
