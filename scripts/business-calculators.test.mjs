@@ -7464,6 +7464,8 @@ test('the company tax statement refuses what its command refuses and works only 
   const r = calculations.companyTaxStatement({ ...company, prior_year_losses: [{ loss_year: 2026, amount: '50000', test: 'continuity_of_ownership' }] });
   assert.deepEqual([r.calculation_statement.A, r.taxable_income.prior_year_losses[0].remaining], ['50000.00', '0.00']);
 // The casual and overtime pay page: its example and sources, then the rules it applies. Hand-worked figures; the rules
+});
+
 // are SGAA s 6(1) and s 17A(2) (Compilation No. 78), SGR 2009/2 paras 22, 27, 35, 41 and 42 and draft LCR 2026/D1
 // paras 63 and 64, read 26 November 2026.
 const coHtml = readFileSync(new URL('../_includes/calculators/casual-overtime.html', import.meta.url), 'utf8');
