@@ -21,6 +21,9 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+27 November 2026 | A new business calculator, foreign resident capital gains withholding, works the amount a purchaser of Australian real property or a company title interest pays the ATO at settlement for a contract from 1 July 2017 to 30 June 2027: 12.5% with the $750,000 exclusion, or 15% with no threshold from 1 January 2025, shared among up to 3 vendors with clearance certificates and notices of variation. Its WebMCP tool, calculate_foreign_resident_withholding, takes up to 50 vendors.
+27 November 2026 | A new business calculator, partnership net income, works a partnership’s net income or partnership loss under section 90 of the Income Tax Assessment Act 1936 for 2024-25 to 2026-27 and each partner’s share of it and of exempt and non-assessable non-exempt income under section 92. Its WebMCP tool is calculate_partnership_net_income.
+27 November 2026 | A new business checker, trust loss tests, shows which Schedule 2F tests a fixed or non-fixed trust must pass to deduct a prior-year tax loss in 2024-25 to 2026-27, and whether each is passed on the facts given: the 50% stake, pattern of distributions, control and income injection tests. Its WebMCP tool is check_trust_loss_tests.
 27 November 2026 | The depreciation register distinguishes assets with the same name, shows the dates recorded against asset group headings and links directly to sections of long tables. The work expenses and rental property calculators now label telephone expenses as dollar amounts.
 27 November 2026 | The Markdown editions of calculators now preserve the instructions shown when JavaScript is off, including the link to the depreciation register data file.
 27 November 2026 | Reference tables now carry names for screen readers. Calculator fields and reference pages have more space between headings, instructions and tables. The depreciation register identifies the industry or asset group on links that share a name. Each indexed page also has a Markdown edition at index.md.
@@ -279,6 +282,9 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- foreign resident capital gains withholding: https://duguid.com.au/tools/business-calculators/foreign-resident-withholding/
+- partnership net income: https://duguid.com.au/tools/business-calculators/partnership-net-income/
+- trust loss tests: https://duguid.com.au/tools/business-calculators/trust-loss-tests/
 - depreciation register: https://duguid.com.au/tools/depreciation-rates/
 - depreciation register data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
 - sole trader against company: https://duguid.com.au/tools/business-calculators/sole-trader-company/

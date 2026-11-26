@@ -1,0 +1,88 @@
+# Foreign resident capital gains withholding calculator
+
+Source: https://duguid.com.au/tools/business-calculators/foreign-resident-withholding/
+
+> What a purchaser pays the ATO at settlement under section 14-200: 12.5% from $750,000 before 1 January 2025, then 15%, with clearance certificates and variations.
+
+# Foreign resident capital gains withholding calculator
+
+The amount a purchaser pays the ATO at settlement when buying Australian real property, 1 July 2017 to 30 June 2027.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Foreign resident capital gains withholding on one purchase
+
+Contract date
+
+Asset acquired Taxable Australian real property A company title interest
+
+Market value (AUD) Purchase price, the first element of the cost base (AUD) Option fee paid for an option you exercised (AUD) Sale price for a variation’s maximum (AUD; blank for the price)
+
+Excluded transaction (section 14-215) None On an approved stock exchange Through a crossing system Already subject to other withholding A securities lending arrangement An insolvent vendor company A bankruptcy or personal insolvency arrangement
+
+A class variation to nil applies (section 14-235(5) and (6)) No Yes
+
+Vendor 1
+
+Interest (any unit shared by the vendors)
+
+Document the vendor gave None A clearance certificate A notice of variation
+
+Varied rate (0.05 for 5%) Notice’s maximum sale price (AUD)
+
+Vendor 2 (optional)
+
+Interest (any unit shared by the vendors)
+
+Document the vendor gave None A clearance certificate A notice of variation
+
+Varied rate (0.05 for 5%) Notice’s maximum sale price (AUD)
+
+Vendor 3 (optional)
+
+Interest (any unit shared by the vendors)
+
+Document the vendor gave None A clearance certificate A notice of variation
+
+Varied rate (0.05 for 5%) Notice’s maximum sale price (AUD)
+
+Calculate
+
+The income year follows from the contract date. The varied rate and maximum price are used only for a vendor whose document is a notice of variation.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Contract 2026-03-15; taxable Australian real property, market value $1,200,000.00, purchase price $1,200,000.00; vendor 1: interest 50, no clearance certificate or variation; vendor 2: interest 50, a notice of variation at 5% up to $1,250,000.00. Withholding base (first element of the cost base less any option fee) $1,200,000.00 Rate for a contract on 2026-03-15 15% Vendor 1: no document: full rate $90,000.00 Vendor 2: notice of variation: varied rate $30,000.00 Amount to pay the ATO at settlement $120,000.00 Each amount is rounded half up to the cent; with no document, the single amount’s cents are shared by the largest remainders.
+
+## How the foreign resident capital gains withholding calculator works
+
+A purchaser of taxable Australian real property or a company title interest must pay the ATO an amount at settlement unless every vendor gives a clearance certificate (section 14-210 of Schedule 1 to the Taxation Administration Act 1953). The calculator ports the foreign-resident-withholding command of australian-accounting. The amount is the rate times the first element of the asset’s cost base, less any amount paid for an option you exercised to buy it (section 14-200(3)): 12.5% for a contract from 1 July 2017, when a market value under $750,000 is excluded, and 15% with no threshold for a contract from 1 January 2025.
+
+With several vendors, each vendor’s share of the base follows their interest. A vendor with a clearance certificate takes nil, one with a notice of variation its varied rate (unless the sale price is above the notice’s maximum), and one with neither the full rate. With no document at all the single amount is rounded once and its cents shared out. An excluded transaction (section 14-215) or a class variation to nil gives nothing to pay.
+
+## What the foreign resident capital gains withholding calculator does not cover
+
+The calculator does not decide whether a vendor is a foreign resident, whether a clearance certificate or variation is valid, or whether an exclusion applies: you enter those as given. It does not cover an indirect Australian real property interest other than a company title interest, an option or right to acquire one, look-through earnouts (section 14-205), contracts before 1 July 2017 or after 30 June 2027, or other withholding such as interest, dividends, royalties and managed investment trust payments. Where a notice’s maximum sale price falls between the base and the sale price, it refuses, as whether the notice applies turns on whether the maximum includes GST. The page takes 3 vendors; its WebMCP tool takes up to 50. Have a registered tax agent confirm the figures and the result.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Foreign resident capital gains withholding calculator
+
+Case | Inputs | Result
+The page’s example: 2 vendors, one with a notice of variation at 5% | Contract 2026-03-15; taxable Australian real property, market value $1,200,000.00, purchase price $1,200,000.00; vendor 1: interest 50, no clearance certificate or variation; vendor 2: interest 50, a notice of variation at 5% up to $1,250,000.00 | Withholding base $1,200,000.00, amount to pay the ATO $120,000.00, withholding applies
+A contract in June 2024: 12.5% of the price | Contract 2024-06-01; taxable Australian real property, market value $900,000.00, purchase price $900,000.00; vendor 1: interest 1, no clearance certificate or variation | Withholding base $900,000.00, amount to pay the ATO $112,500.00, withholding applies
+A contract in October 2024 with a market value under $750,000 is excluded | Contract 2024-10-01; taxable Australian real property, market value $700,000.00, purchase price $700,000.00; vendor 1: interest 1, no clearance certificate or variation | Withholding base $700,000.00, amount to pay the ATO $0.00, nothing to withhold: excluded transaction: market value under $750,000 (s 14-215(1)(a), acquisitions before 1 January 2025)
+From 1 January 2025 there is no threshold: 15% of $700,000 | Contract 2025-01-01; taxable Australian real property, market value $700,000.00, purchase price $700,000.00; vendor 1: interest 1, no clearance certificate or variation | Withholding base $700,000.00, amount to pay the ATO $105,000.00, withholding applies
+An exercised option: the option fee comes off the base | Contract 2026-01-10; taxable Australian real property, market value $800,000.00, purchase price $800,000.00, option fee $20,000.00; vendor 1: interest 1, no clearance certificate or variation | Withholding base $780,000.00, amount to pay the ATO $117,000.00, withholding applies
+Every vendor gave a clearance certificate | Contract 2026-03-15; taxable Australian real property, market value $1,200,000.00, purchase price $1,200,000.00; vendor 1: interest 50, a clearance certificate; vendor 2: interest 50, a clearance certificate | Withholding base $1,200,000.00, amount to pay the ATO $0.00, nothing to withhold: every vendor gave a clearance certificate: s 14-210(1) applies to none (s 14-210(2))
+A variation whose maximum sale price is below the sale price gives the full rate | Contract 2026-03-15; taxable Australian real property, market value $1,200,000.00, purchase price $1,200,000.00; vendor 1: interest 1, a notice of variation at 5% up to $1,000,000.00 | Withholding base $1,200,000.00, amount to pay the ATO $180,000.00, withholding applies
+
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
