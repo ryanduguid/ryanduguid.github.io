@@ -15844,7 +15844,7 @@ Source: https://duguid.com.au/tools/business-calculators/company-tax/
 
 A company’s 25% or 30% rate, its rate for franking, the maximum franking credit and a shareholder’s tax or refund.
 
-Published 18 November 2026. Last checked 18 November 2026.
+Published 18 November 2026. Last checked 26 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
