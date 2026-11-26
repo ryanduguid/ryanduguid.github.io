@@ -24,9 +24,9 @@ Calculate
 
 ## What the inputs need
 
-A small business entity has aggregated turnover under $10 million and has chosen simplified depreciation. A medium sized business could write off an asset only from 12 March 2020 to 30 June 2021. From 7.30 pm AEDT on 6 October 2020 to 30 June 2023, temporary full expensing applied instead; for a small business entity the calculator writes the whole asset off then, and for any other entity it refuses an asset first used in that window.
+A small business entity has aggregated turnover under $10 million and has chosen simplified depreciation. A medium sized business could write off an asset only from 12 March 2020 to 30 June 2021. From 7.30 pm AEDT on 6 October 2020 to 30 June 2023, temporary full expensing applied instead; for a small business entity the calculator writes the whole asset off then if the asset was acquired from that time, and for any other entity it refuses such an asset.
 
-The limits turn on the dates: the asset is written off in the income year it is first used or installed ready for use, and some limits apply only to an asset first acquired after a budget’s 7.30 pm announcement. An asset acquired on a budget day itself (12 May 2015, 2 April 2019 or 6 October 2020) is refused, as the calculator takes dates, not times.
+The limits turn on the dates: the asset is written off in the income year it is first used or installed ready for use, and some limits apply only to an asset first acquired after a budget’s 7.30 pm announcement. Where the limit turns on acquisition after a budget, an asset acquired on that budget day itself (12 May 2015, 2 April 2019 or 6 October 2020) is refused, as the calculator takes dates, not times.
 
 The cost is the asset’s whole cost; it must be less than the limit. The deduction is the cost times the share of use for a taxable purpose. An asset at or above the limit goes into the small business pool, or for other entities is depreciated under Division 40.
 
@@ -40,7 +40,7 @@ Its results match the instant-asset-write-off command of Ryan Duguid’s austral
 
 ## What the instant asset write-off calculator does not cover
 
-The calculator does not decide whether a business is a small business entity or medium sized business, whether it chose simplified depreciation, or the taxable use: you state those. It does not work out the small business pool, the car limit, second element costs added later, a balancing adjustment on disposal, backing business investment, or temporary full expensing for entities other than small business entities using simplified depreciation, which it refuses. It refuses an asset acquired on a budget day itself. Results are planning estimates: check them against your records and the ATO’s guidance.
+The calculator does not decide whether a business is a small business entity or medium sized business, whether it chose simplified depreciation, or the taxable use: you state those. It does not work out the small business pool, the car limit, second element costs added later, a balancing adjustment on disposal, backing business investment, or temporary full expensing for entities other than small business entities using simplified depreciation, which it refuses. It refuses an asset acquired on a budget day itself where the limit turns on acquisition after that budget. Results are planning estimates: check them against your records and the ATO’s guidance.
 
 ## Boundary cases
 
