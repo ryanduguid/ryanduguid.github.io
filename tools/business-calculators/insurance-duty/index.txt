@@ -1,0 +1,56 @@
+# Insurance duty calculator: every state, 2026-27
+
+Source: https://duguid.com.au/tools/business-calculators/insurance-duty/
+
+> Insurance duty on one general insurance premium in each state and territory for 2026-27, by the class each Act sets, with the exact figure and the cent amount.
+
+# Insurance duty calculator
+
+Duty on one general insurance premium in any state or territory, for 2026-27.
+
+Published 27 November 2026. Last checked 24 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Duty on one general insurance premium
+
+State or territory and class of insurance New South Wales: Type A: general insurance other than Type B or C New South Wales: Type B: motor vehicle, aviation, disability income, occupational indemnity or health insurance New South Wales: Type C: crop and livestock insurance Victoria: General insurance other than business insurance Victoria: Business insurance Queensland: Class 1 general insurance Queensland: Class 2 general insurance Queensland: CTP insurance Western Australia: General insurance South Australia: Insurance other than life insurance Tasmania: General insurance Australian Capital Territory: General insurance Northern Territory: General insurance for one year or less
+
+Premium (AUD) Day the contract was effected or renewed, in 2026-27
+
+Northern Territory only: issued or renewed for more than one year No Yes
+
+New South Wales Type C only: day the policy was taken out
+
+Calculate
+
+Enter the premium the duty is charged on, as the insurer states it. Only the questions for the chosen state or territory are used.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: VIC General insurance other than business insurance; premium $1,000.00; effected 2026-09-01. Premium $1,000.00 Rate 10% Insurance duty $100.00 Duties Act 2000 (Vic) s 179(1): 10% of the premium.
+
+## How the insurance duty calculator works
+
+The calculator works out the duty on one general insurance premium for a contract effected or renewed in 2026-27, at the rate each state’s Act sets for the class you choose. New South Wales charges 9% (Type A) or 5% (Type B), and Type C at 2.5% only for a policy taken out by 31 December 2017; Victoria 10%, or 7% for business insurance; Queensland 9% for class 1 and class 2, and 10 cents on each CTP premium; Western Australia, Tasmania and the Northern Territory 10%; South Australia 11%; and nil in the ACT, whose duty ended on 1 July 2017. The duty is rounded to the cent, half up, with the exact figure kept. It is a port of the insurance-duty command in the australian-accounting repository, checked against that command case by case.
+
+## What the insurance duty calculator does not cover
+
+The calculator does not decide which class a policy falls in, what the premium includes, or whether an exemption applies: you state those facts. It does not work life insurance, Queensland accident insurance or CTP insurance outside Queensland, and it refuses a Northern Territory policy for more than one year, whose charge on a whole-term premium the Act leaves unsettled. It does not add GST, the fire services levy or other charges. Results are planning estimates: check them against the insurer’s notice.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Insurance duty calculator
+
+Case | Inputs | Result
+Victoria, general insurance: 10% of the premium | VIC General insurance other than business insurance; premium $1,000.00; effected 2026-09-01 | Duty $100.00
+South Australia: 11%, rounded to the cent | SA Insurance other than life insurance; premium $1,234.56; effected 2026-09-01 | Duty $135.80
+New South Wales Type C taken out before 2018: 2.5% | NSW Type C; premium $2,000.00; effected 2026-09-01; policy taken out 2017-06-30 | Duty $50.00
+
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/

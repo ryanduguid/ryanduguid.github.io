@@ -6558,11 +6558,11 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Fifty-eight free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
+Sixty-one free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
 Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
-Search 58 calculators
+Search 61 calculators
 
 ## Pricing, planning and loans
 
@@ -6629,6 +6629,9 @@ Search 58 calculators
 
 - Transfer duty calculator General transfer (stamp) duty on a residential purchase in each of the 8 states and territories, and the duty for an eligible first home buyer of a home.
 - First home owner grant calculator The grant in each of the 8 states and territories for a new home, by contract date and value cap, beside the first home buyer transfer duty.
+- Motor vehicle duty calculator One passenger vehicle’s registration duty in any state or territory for 2026-27, from each Act’s scale, with Victoria’s green and primary producer cars, Queensland’s engine rows, Tasmania’s fleet discount, the ACT’s emissions categories and the Northern Territory’s electric vehicle exemption.
+- Insurance duty calculator The duty on one general insurance premium for a contract effected or renewed in 2026-27, at each state’s rate for the class: New South Wales Types A to C, Victoria’s business insurance, Queensland CTP, and nil in the ACT.
+- Victorian property taxes calculator One of 3 Victorian taxes on land for 2025 or 2026: vacant residential land tax at 1%, 2% or 3% of the capital improved value, the commercial and industrial property tax (nil in both years, with the earliest tax year the land can be liable) and windfall gains tax on a rezoning’s value uplift.
 - Land tax calculator Land tax for a full year in each of the 7 states and territories that levy it, at the general or trust rates, with a foreign or absentee owner surcharge and WA’s metropolitan region improvement tax where chosen, before any exemption.
 - Foreign purchaser surcharge calculator Foreign purchaser duty and the foreign owner land tax surcharge in each state and territory, with each one’s own test of who is foreign, the 2026-27 FIRB fee and the upfront total in all 8 side by side.
 - Payroll tax calculator One employer’s annual payroll tax for 2026-27 in any state or territory, for an employer outside a group, with each step cited.
@@ -6697,6 +6700,9 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - First home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
+- Motor vehicle duty calculator: https://duguid.com.au/tools/business-calculators/motor-vehicle-duty/
+- Insurance duty calculator: https://duguid.com.au/tools/business-calculators/insurance-duty/
+- Victorian property taxes calculator: https://duguid.com.au/tools/business-calculators/vic-property-taxes/
 - Land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
 - Foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
 - Payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
@@ -12784,6 +12790,201 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
 - Bonus withholding calculator: https://duguid.com.au/tools/individual-tax/bonus-withholding/
 - Payroll and super questions: https://duguid.com.au/tools/accounting-questions/payroll-super/
+
+---
+
+# Motor vehicle duty calculator: every state, 2026-27
+
+Source: https://duguid.com.au/tools/business-calculators/motor-vehicle-duty/
+
+> Stamp duty on registering a passenger vehicle in each state and territory for 2026-27, with the green car, engine, emissions and electric vehicle rates.
+
+# Motor vehicle duty calculator
+
+Duty on registering one passenger vehicle in any state or territory, for 2026-27.
+
+Published 27 November 2026. Last checked 24 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One passenger vehicle’s registration duty
+
+State or territory of registration New South Wales Victoria Queensland Western Australia South Australia Tasmania Australian Capital Territory Northern Territory
+
+Dutiable value, whole AUD Duty date, in 2026-27
+
+Queensland only: engine (Schedule 4C) Hybrid or electric Up to 4 cylinders, 2 rotors or steam 5 or 6 cylinders, or 3 rotors 7 or more cylinders
+
+Victoria only: a green car (tailpipe CO2 of 120 g/km or less) No Yes
+
+Victoria only: a primary producer passenger car No Yes
+
+ACT only: emissions category AAA AA A B C D Not rated
+
+ACT only: a new vehicle No Yes
+
+Tasmania only: a new vehicle with a manufacturer’s fleet discount No Yes
+
+Northern Territory only: an electric vehicle No Yes
+
+Calculate
+
+Enter the dutiable value the registration office uses: usually the market value or the price including GST and accessories, whichever is higher. Only the questions for the chosen state or territory are used.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: NSW; passenger vehicle; dutiable value $50,000.00; duty date 2026-09-01. Dutiable value $50,000.00 Motor vehicle duty $1,600.00 Revenue NSW and Service NSW: $3 for every $100, or part, to $44,999; $1,350 plus $5 for every $100, or part, over $45,000 (Duties Act 1997 (NSW) Chapter 9).
+
+## How the motor vehicle duty calculator works
+
+The calculator works out the duty on registering, or transferring the registration of, one passenger vehicle with a duty date in 2026-27, on the dutiable value you enter in whole dollars. Each state and territory charges a rate for every $100, or part of $100 ($200 in Victoria), of the value or of the part over a threshold: New South Wales $3, and $1,350 plus $5 over $45,000; Victoria $8.40 to the luxury car tax threshold, then $10.40, $14 and $18, or $8.40 throughout for a green car or a primary producer’s car; Queensland by the engine row, $2 more above $100,000; South Australia’s banded scale with a $5 minimum; Tasmania’s scale or its fleet discount rate; the ACT’s rate for the emissions category under the determination in force on the duty date, used vehicles other than Category AAA paying Category C’s; and the Northern Territory’s $3, with the first $50,000 of an electric vehicle exempt. Western Australia charges 2.75% to $25,000, a rate rising to 6.5% at $50,000 and 6.5% above, rounded down to 5 cents. It is a port of the motor-vehicle-duty command in the australian-accounting repository, checked against that command case by case.
+
+## What the motor vehicle duty calculator does not cover
+
+The calculator covers passenger vehicles only: it refuses motorcycles, goods and commercial vehicles, buses, heavy vehicles, trailers and special or conditionally registered vehicles. It does not work out the dutiable value, decide whether an exemption or concession applies beyond the ones it asks about, or add registration, CTP insurance or other fees. It refuses a duty date outside 2026-27 and a value with cents. Results are planning estimates: check them against the registration office’s quote.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Motor vehicle duty calculator
+
+Case | Inputs | Result
+New South Wales, $50,000: $1,350 plus $5 for every $100 over $45,000 | NSW; passenger vehicle; dutiable value $50,000.00; duty date 2026-09-01 | Duty $1,600.00
+Victoria, $85,000 above the luxury car threshold: $10.40 for every $200 | VIC; passenger vehicle; dutiable value $85,000.00; duty date 2026-09-01 | Duty $4,420.00
+Western Australia, $40,000: the sliding rate of 5% | WA; passenger vehicle; dutiable value $40,000.00; duty date 2026-09-01 | Duty $2,000.00
+
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Insurance duty calculator: every state, 2026-27
+
+Source: https://duguid.com.au/tools/business-calculators/insurance-duty/
+
+> Insurance duty on one general insurance premium in each state and territory for 2026-27, by the class each Act sets, with the exact figure and the cent amount.
+
+# Insurance duty calculator
+
+Duty on one general insurance premium in any state or territory, for 2026-27.
+
+Published 27 November 2026. Last checked 24 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Duty on one general insurance premium
+
+State or territory and class of insurance New South Wales: Type A: general insurance other than Type B or C New South Wales: Type B: motor vehicle, aviation, disability income, occupational indemnity or health insurance New South Wales: Type C: crop and livestock insurance Victoria: General insurance other than business insurance Victoria: Business insurance Queensland: Class 1 general insurance Queensland: Class 2 general insurance Queensland: CTP insurance Western Australia: General insurance South Australia: Insurance other than life insurance Tasmania: General insurance Australian Capital Territory: General insurance Northern Territory: General insurance for one year or less
+
+Premium (AUD) Day the contract was effected or renewed, in 2026-27
+
+Northern Territory only: issued or renewed for more than one year No Yes
+
+New South Wales Type C only: day the policy was taken out
+
+Calculate
+
+Enter the premium the duty is charged on, as the insurer states it. Only the questions for the chosen state or territory are used.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: VIC General insurance other than business insurance; premium $1,000.00; effected 2026-09-01. Premium $1,000.00 Rate 10% Insurance duty $100.00 Duties Act 2000 (Vic) s 179(1): 10% of the premium.
+
+## How the insurance duty calculator works
+
+The calculator works out the duty on one general insurance premium for a contract effected or renewed in 2026-27, at the rate each state’s Act sets for the class you choose. New South Wales charges 9% (Type A) or 5% (Type B), and Type C at 2.5% only for a policy taken out by 31 December 2017; Victoria 10%, or 7% for business insurance; Queensland 9% for class 1 and class 2, and 10 cents on each CTP premium; Western Australia, Tasmania and the Northern Territory 10%; South Australia 11%; and nil in the ACT, whose duty ended on 1 July 2017. The duty is rounded to the cent, half up, with the exact figure kept. It is a port of the insurance-duty command in the australian-accounting repository, checked against that command case by case.
+
+## What the insurance duty calculator does not cover
+
+The calculator does not decide which class a policy falls in, what the premium includes, or whether an exemption applies: you state those facts. It does not work life insurance, Queensland accident insurance or CTP insurance outside Queensland, and it refuses a Northern Territory policy for more than one year, whose charge on a whole-term premium the Act leaves unsettled. It does not add GST, the fire services levy or other charges. Results are planning estimates: check them against the insurer’s notice.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Insurance duty calculator
+
+Case | Inputs | Result
+Victoria, general insurance: 10% of the premium | VIC General insurance other than business insurance; premium $1,000.00; effected 2026-09-01 | Duty $100.00
+South Australia: 11%, rounded to the cent | SA Insurance other than life insurance; premium $1,234.56; effected 2026-09-01 | Duty $135.80
+New South Wales Type C taken out before 2018: 2.5% | NSW Type C; premium $2,000.00; effected 2026-09-01; policy taken out 2017-06-30 | Duty $50.00
+
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
+# Victorian vacant land, CIPT and windfall gains tax
+
+Source: https://duguid.com.au/tools/business-calculators/vic-property-taxes/
+
+> Victoria’s vacant residential land tax at 1%, 2% or 3%, the commercial and industrial property tax and windfall gains tax on a rezoning, for 2025 and 2026.
+
+# Victorian property taxes calculator
+
+Vacant residential land tax, the commercial and industrial property tax and windfall gains tax, for 2025 and 2026.
+
+Published 27 November 2026. Last checked 24 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One Victorian tax on land
+
+Tax Vacant residential land tax Commercial and industrial property tax Windfall gains tax
+
+Tax year (the calendar year) 2026 2025
+
+Vacant residential land tax: capital improved value (whole AUD)
+
+The residential land A home vacant for more than 6 months of the year Land with a home under construction Land with an uninhabitable home Undeveloped land in a residential zone (from 2026)
+
+The section 88EB concession applies (exempt under section 88EA in an earlier tax year) No Yes
+
+Liable to vacant residential land tax in the preceding tax year No Yes
+
+Liable in the tax year before that No Yes
+
+Commercial and industrial property tax: the land’s entry date Windfall gains tax: title 1 capital improved value before the rezoning (whole AUD) Title 1 capital improved value after the rezoning (whole AUD) Windfall gains tax: title 2 capital improved value before the rezoning (whole AUD) Title 2 capital improved value after the rezoning (whole AUD) Windfall gains tax: title 3 capital improved value before the rezoning (whole AUD) Title 3 capital improved value after the rezoning (whole AUD)
+
+Calculate
+
+Choose the tax and fill in its own questions; the others are not used. For windfall gains tax, give each title the rezoning rezoned; leave unused titles blank.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026 vacant residential land tax; capital improved value $800,000.00; vacant home; liable in the preceding tax year: no; the one before: no. Rate 1% of the capital improved value 2026 vacant residential land tax $8,000.00 Land Tax Act 2005 (Vic) ss 19(1A), 34A, 37A and 35(3)(b)(i): 1% of the capital improved value, the land not liable in the preceding tax year.
+
+## How the Victorian property taxes calculator works
+
+The calculator works out one of 3 Victorian taxes on land for the 2025 or 2026 tax year. Vacant residential land tax is 1% of the capital improved value in the first year the land is liable, 2% in the second and 3% from the third (section 35(3)), and 1% for undeveloped residential land from 2026 or land under the section 88EB concession. The commercial and industrial property tax is nil in both years: land is liable only once its 10-year transition period from its entry date has ended, and no land entered the scheme before 1 July 2024, so the calculator shows when the period ends and the earliest tax year the land can be liable. Windfall gains tax takes the value uplift on each rezoned title, ignores negative uplifts, and charges nothing to $100,000, 62.5% of the part over $100,000 below $500,000, and 50% of the whole uplift from $500,000. It is a port of the vic-property-taxes command in the australian-accounting repository, checked against that command case by case.
+
+## What the Victorian property taxes calculator does not cover
+
+The calculator does not decide whether land is vacant, residential, exempt or rezoned, or what its capital improved value is: you state those facts from the valuation and the land’s use. It does not work ordinary land tax, the vacant residential land tax exemptions, windfall gains tax deferral, exemptions or the Commissioner’s adjustments, or the tax’s due dates. It refuses an entry date on 31 December, where the Acts leave unsettled whether the land is still in its transition period at the moment that fixes liability. Results are planning estimates: check them against the State Revenue Office’s assessment.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Victorian property taxes calculator
+
+Case | Inputs | Result
+Vacant residential land tax in the first liable year: 1% | 2026 vacant residential land tax; capital improved value $800,000.00; vacant home; liable in the preceding tax year: no; the one before: no | Total $8,000.00
+Vacant residential land tax, liable in both earlier years: 3% | 2026 vacant residential land tax; capital improved value $800,000.00; vacant home; liable in the preceding tax year: yes; the one before: yes | Total $24,000.00
+Windfall gains tax on a $400,000 uplift: 62.5% over $100,000 | 2026 windfall gains tax; $1,000,000.00 to $1,400,000.00 | Total $187,500.00
+
+One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
 
 ---
 
