@@ -343,7 +343,7 @@ test('take-home pay shows only the chosen schedule’s questions and works Sched
   await context.setOffline(true);
   await form.getByLabel('2026-27').check();
   await form.getByLabel('A fortnight').check();
-  await form.getByLabel(/^Schedule 14: /).check();
+  await form.locator('input[name="withholding-schedule"][value="sch14"]').check();
   await expect(agreed).toBeVisible();
   await expect(form.locator('fieldset[data-show-values="sch6"]')).toBeHidden();
   await form.locator('#take-home-ws-payment').fill('1299.30');
