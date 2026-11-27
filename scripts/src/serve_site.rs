@@ -1190,12 +1190,12 @@ mod tests {
                 "GET /page.html HTTP/1.0\r\nAccept-Encoding: gzip\r\n\r\n",
             );
             assert!(
-                page.starts_with("HTTP/1.0 404 File not found\r\n"),
+                page.starts_with("HTTP/1.1 404 File not found\r\n"),
                 "{page}"
             );
             let folder = reply(site.path(), "GET /private/ HTTP/1.0\r\n\r\n");
             assert!(
-                folder.starts_with("HTTP/1.0 404 No permission to list directory\r\n"),
+                folder.starts_with("HTTP/1.1 404 No permission to list directory\r\n"),
                 "{folder}"
             );
         }
