@@ -106,6 +106,17 @@ test('the catch-up page adds the downsizer rows only when a downsizer contributi
   assert.match(late.note, /not covered: aged 54 .*; 104 days after the change of ownership/);
 });
 
+// The general caps of s 291-20 (2019-20 and 2020-21 $25,000, 2021-22 to 2023-24 $27,500, 2024-25 $30,000) leave
+// $67,500 unused from Sam's earlier years, so $97,500 uses the whole $97,500 available and a $10,000 proposal is all excess.
+test('the catch-up page works a proposed contribution alongside a downsizer contribution', () => {
+  const r = shown({ ...FORM, proposed: '10000' });
+  const row = (label) => r.rows.find((x) => x[0] === label)?.[1];
+  assert.deepEqual([row('Concessional cap available'), row('Contributions with the proposed one'),
+    row('Excess with the proposed contribution'), row('Downsizer contribution covered, outside both caps')],
+  ['97500', '107500', '10000', '300000']);
+  assert.ok(r.inputs.includes(', proposed 10000, ') && r.inputs.endsWith(', downsizer contribution 300000'));
+});
+
 test('the catch-up page words the downsizer refusals for the form', () => {
   for (const [fields, message] of [[{ 'downsizer-age': '6.5' }, 'Enter the age at the downsizer contribution in whole years, from 0 to 150.'],
     [{ 'downsizer-made': '' }, 'Enter each downsizer day as a date.'], [{ 'downsizer-amount': '' }, 'Enter each downsizer amount in dollars and cents.'],
