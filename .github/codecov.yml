@@ -1,7 +1,7 @@
 # Codecov reads this file from .github/, where Jekyll never publishes it. It
 # reports the site tools' Rust coverage and the calculator engines' Node
-# coverage together. The project floor is main's measured line coverage,
-# rounded down (96.80% on 27 November 2026: Rust 95.15%, engines 98.44%).
+# coverage together. The project floor is main's measured line coverage
+# (96.38% on 27 November 2026, at the merge of #822).
 # Raise it with the tests until it reaches 100%, never lower it to pass. Every
 # change must test each line it adds or changes. Codecov posts no comments.
 coverage:
@@ -9,11 +9,19 @@ coverage:
   status:
     project:
       default:
-        target: 96%
+        target: 96.38%
         threshold: 0%
         if_not_found: failure
     patch:
       default:
         target: 100%
         threshold: 0%
+# The Windows run of the Rust suites uploads under this flag and counts towards
+# the default statuses with the Linux upload. It is never carried forward: a
+# commit without its own Windows report leaves the Windows-only lines missed.
+flags:
+  windows:
+    paths:
+      - scripts/
+    carryforward: false
 comment: false

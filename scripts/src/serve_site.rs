@@ -406,9 +406,8 @@ pub fn parse_http_date(text: &str) -> Option<(i64, bool)> {
         0,
     )
     .ok()?;
-    if !(1..=9999).contains(&year) {
-        return None;
-    }
+    // datetime's year range needs no check of its own: the year starts with a digit,
+    // so it is at least 100 by here, and jiff's Date refuses years above 9999.
     let epoch = jiff::civil::date(1970, 1, 1).at(0, 0, 0, 0);
     let seconds = date.to_datetime(time).duration_since(epoch).as_secs() - offset.unwrap_or(0);
     Some((seconds, offset.is_none_or(|o| o == 0)))
@@ -568,12 +567,9 @@ impl Handler {
             self.buffer
                 .extend(format!("{keyword}: {value}\r\n").chars().map(|c| c as u8));
         }
-        if keyword.eq_ignore_ascii_case("connection") {
-            if value.eq_ignore_ascii_case("close") {
-                self.close_connection = true;
-            } else if value.eq_ignore_ascii_case("keep-alive") {
-                self.close_connection = false;
-            }
+        // http.server also reopens on `keep-alive`; the handler only ever sends `close`.
+        if keyword.eq_ignore_ascii_case("connection") && value.eq_ignore_ascii_case("close") {
+            self.close_connection = true;
         }
     }
 
@@ -1105,4 +1101,79 @@ pub fn run(root: &Path) -> Result<u8, String> {
         .map_err(|e| e.to_string())?;
     serve(listener, &site).map_err(|e| e.to_string())?;
     Ok(0)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::time::Duration;
+
+    #[test]
+    fn status_names_an_unlisted_code_as_http_server_does() {
+        assert_eq!(status(418), ("???", "???"));
+        assert_eq!(status(404).0, "Not Found");
+    }
+
+    #[test]
+    fn guess_type_follows_the_suffix_map_through_its_encoding() {
+        assert_eq!(guess_type("/site/a.tgz"), "application/x-tar");
+        assert_eq!(guess_type("/site/icon.svgz"), "image/svg+xml");
+        assert_eq!(guess_type("/site/a.gz"), "application/gzip");
+    }
+
+    #[test]
+    fn translate_path_drops_a_parent_word_with_its_name() {
+        let directory = Path::new("/srv");
+        let separator = std::path::MAIN_SEPARATOR;
+        assert_eq!(
+            translate_path(directory, "/a/../b.html?x=1"),
+            format!("/srv{separator}b.html")
+        );
+        assert_eq!(
+            translate_path(directory, "/../../c/"),
+            format!("/srv{separator}c/")
+        );
+    }
+
+    #[test]
+    fn timestamp_seconds_floors_a_time_before_the_epoch() {
+        let before = UNIX_EPOCH - Duration::from_millis(1500);
+        assert_eq!(timestamp_seconds(before), -2);
+        assert_eq!(
+            timestamp_seconds(UNIX_EPOCH + Duration::from_millis(1500)),
+            1
+        );
+    }
+
+    #[test]
+    fn parse_http_date_reads_full_month_names_and_refuses_empty_fields() {
+        let short = parse_http_date("Fri, 27 Nov 2026 10:00:00 GMT");
+        assert!(short.is_some());
+        assert_eq!(parse_http_date("Fri, 27 November 2026 10:00:00 GMT"), short);
+        assert_eq!(parse_http_date("Fri, 27--2026 10:00:00 GMT"), None);
+        assert_eq!(parse_http_date("Fri, 27 Nov 2026 aa:00:00 GMT"), None);
+    }
+
+    #[test]
+    fn parse_headers_splits_on_a_bare_carriage_return_and_stops_at_a_non_header() {
+        let lines = |parts: &[&str]| -> Vec<Vec<u8>> {
+            parts.iter().map(|p| p.as_bytes().to_vec()).collect()
+        };
+        let pair = |name: &str, value: &str| (name.to_owned(), value.to_owned());
+        assert_eq!(
+            parse_headers(&lines(&["A: 1\rB: 2\r\n"])),
+            [pair("A", "1"), pair("B", "2")]
+        );
+        assert_eq!(parse_headers(&lines(&["A: 1"])), [pair("A", "1")]);
+        assert_eq!(
+            parse_headers(&lines(&["A: 1\r\n", "not a header\r\n", "B: 2\r\n"])),
+            [pair("A", "1")]
+        );
+    }
+
+    #[test]
+    fn control_escaped_doubles_a_backslash_and_escapes_controls() {
+        assert_eq!(control_escaped(r"a\b"), r"a\\b");
+        assert_eq!(control_escaped("bell\x07"), r"bell\x07");
+    }
 }
