@@ -598,6 +598,7 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             break;
           case 'fbt-instalment':
             result = calculate.fbtInstalmentResult(value, aud);
+            break;
           case 'contractor-employee':
             result = calculate.contractorEmployeeResult(value, aud);
             break;
