@@ -619,16 +619,31 @@ pub fn load_policy(root: &Path) -> Result<Json> {
 }
 
 /// Report drift between the reviewed record and the public registries.
-/// `status` reads one URL's final HTTP status; `run` passes the network read.
-fn verify_live(root: &Path, status: &dyn Fn(&str) -> Result<u16>) -> Result<u8> {
-    let record = load_policy(root)?;
-    let mut used: Vec<(&str, String)> = Vec::new();
+/// The public registry page whose status says whether `package` is published.
+fn registry_url(registry: &str, package: &str) -> String {
+    if registry == "pypi" {
+        format!("https://pypi.org/pypi/{package}/json")
+    } else {
+        format!("https://registry.npmjs.org/{}", package.replace('/', "%2f"))
+    }
+}
+
+/// Every (registry, package) the scanned files install or run.
+fn used_packages(root: &Path) -> Result<Vec<(&'static str, String)>> {
+    let mut used = Vec::new();
     for path in scanned_files(root) {
         let prose = crate::suffix(&path) != ".json";
         for install in installs(&read(&path)?, prose)? {
             used.push((install.registry, install.package));
         }
     }
+    Ok(used)
+}
+
+/// `status` reads one URL's final HTTP status; `run` passes the network read.
+fn verify_live(root: &Path, status: &dyn Fn(&str) -> Result<u16>) -> Result<u8> {
+    let record = load_policy(root)?;
+    let used = used_packages(root)?;
     let Some(Json::Object(registries)) = record.get("packages") else {
         return Err("KeyError: 'packages'".into());
     };
@@ -642,11 +657,7 @@ fn verify_live(root: &Path, status: &dyn Fn(&str) -> Result<u16>) -> Result<u8> 
         let mut packages: Vec<&(String, Json)> = packages.iter().collect();
         packages.sort_by(|a, b| a.0.cmp(&b.0));
         for (package, entry) in packages {
-            let url = if registry == "pypi" {
-                format!("https://pypi.org/pypi/{package}/json")
-            } else {
-                format!("https://registry.npmjs.org/{}", package.replace('/', "%2f"))
-            };
+            let url = registry_url(registry, package);
             let status = status(&url).map_err(|e| format!("could not reach {url}: {e}"))?;
             let state = if status == 200 {
                 "published".to_owned()
@@ -732,7 +743,7 @@ mod tests {
     }
 
     fn scratch(name: &str) -> PathBuf {
-        let dir = std::env::temp_dir().join(format!(
+        let dir = Path::new(env!("OUT_DIR")).join(format!(
             "site-tools-agent-files-{name}-{}",
             std::process::id()
         ));

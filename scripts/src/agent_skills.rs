@@ -278,7 +278,8 @@ fn released_skill_names(fetch: Fetch, commit: &str) -> Result<Vec<String>> {
     Ok(names)
 }
 
-fn build(fetch: Fetch) -> Result<Json> {
+/// The commit the pinned release tag points at.
+fn release_commit(fetch: Fetch) -> Result<String> {
     let commit = match fetch_json(
         fetch,
         &format!("https://api.github.com/repos/{REPOSITORY}/commits/{RELEASE}"),
@@ -300,29 +301,39 @@ fn build(fetch: Fetch) -> Result<Json> {
             py::repr_str(&commit)
         ));
     }
+    Ok(commit)
+}
+
+/// One skill's manifest entry, read from its released SKILL.md.
+fn skill_entry(fetch: Fetch, commit: &str, name: &str) -> Result<Json> {
+    let url = format!("{}{name}/SKILL.md", raw_prefix(commit));
+    let body = fetch(&url)?;
+    let text = py::decode_utf8(&body).map_err(|e| format!("UnicodeDecodeError: {e}"))?;
+    if frontmatter_field(&text, "name")? != name {
+        return Err(format!(
+            "ValueError: {name}: frontmatter name differs from its directory"
+        ));
+    }
+    Ok(Json::Object(vec![
+        ("name".into(), Json::str_obj(name)),
+        ("type".into(), Json::str_obj("skill-md")),
+        (
+            "description".into(),
+            Json::Str(frontmatter_field(&text, "description")?),
+        ),
+        ("url".into(), Json::Str(url)),
+        (
+            "digest".into(),
+            Json::Str(format!("sha256:{}", crate::sha256(&body))),
+        ),
+    ]))
+}
+
+fn build(fetch: Fetch) -> Result<Json> {
+    let commit = release_commit(fetch)?;
     let mut skills = Vec::new();
     for name in released_skill_names(fetch, &commit)? {
-        let url = format!("{}{name}/SKILL.md", raw_prefix(&commit));
-        let body = fetch(&url)?;
-        let text = py::decode_utf8(&body).map_err(|e| format!("UnicodeDecodeError: {e}"))?;
-        if frontmatter_field(&text, "name")? != name {
-            return Err(format!(
-                "ValueError: {name}: frontmatter name differs from its directory"
-            ));
-        }
-        skills.push(Json::Object(vec![
-            ("name".into(), Json::Str(name.clone())),
-            ("type".into(), Json::str_obj("skill-md")),
-            (
-                "description".into(),
-                Json::Str(frontmatter_field(&text, "description")?),
-            ),
-            ("url".into(), Json::Str(url)),
-            (
-                "digest".into(),
-                Json::Str(format!("sha256:{}", crate::sha256(&body))),
-            ),
-        ]));
+        skills.push(skill_entry(fetch, &commit, &name)?);
     }
     let s = Json::str_obj;
     Ok(Json::Object(vec![
@@ -435,7 +446,7 @@ mod tests {
 
     /// A fresh, empty directory under the system temp folder for one test.
     fn scratch(name: &str) -> PathBuf {
-        let dir = std::env::temp_dir().join(format!(
+        let dir = Path::new(env!("OUT_DIR")).join(format!(
             "site-tools-agent-skills-{name}-{}",
             std::process::id()
         ));

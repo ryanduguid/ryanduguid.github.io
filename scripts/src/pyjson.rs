@@ -395,9 +395,9 @@ impl Parser<'_> {
                 if !self.member_end(idx, ']', "array")? {
                     return Ok(Step::Scan);
                 }
-                let Some(Frame::Array(items)) = stack.pop() else {
-                    unreachable!()
-                };
+                // The frame is done: take its members, then drop it.
+                let items = std::mem::take(items);
+                stack.pop();
                 Ok(Step::Attach(Json::Array(items)))
             }
             Some(Frame::Object(pairs, key)) => {
@@ -406,9 +406,9 @@ impl Parser<'_> {
                     *key = self.read_key(idx)?;
                     return Ok(Step::Scan);
                 }
-                let Some(Frame::Object(pairs, _)) = stack.pop() else {
-                    unreachable!()
-                };
+                // The frame is done: take its members, then drop it.
+                let pairs = std::mem::take(pairs);
+                stack.pop();
                 Ok(Step::Attach(Json::Object(if self.unique {
                     no_repeats(pairs)?
                 } else {
@@ -826,5 +826,49 @@ mod tests {
             dumps(&Json::Str("\u{1f600}".into()), Dump::default()),
             "\"\\ud83d\\ude00\""
         );
+    }
+
+    #[test]
+    fn bytes_without_a_bom_are_detected_as_python_does() {
+        let one = |raw: &[u8]| loads_bytes(raw).map(|v| v.repr());
+        assert_eq!(one(b"\x00\x00\x00\x31"), Ok("1".into()));
+        assert_eq!(one(b"\x00\x31\x00\x32"), Ok("12".into()));
+        assert_eq!(one(b"\x31\x00\x00\x00"), Ok("1".into()));
+        assert_eq!(one(b"\x00\x31"), Ok("1".into()));
+        assert_eq!(one(b"\x31\x00"), Ok("1".into()));
+        assert_eq!(
+            loads_bytes(b"\x00\x00\xfe\xff\x00").unwrap_err().0,
+            "truncated data"
+        );
+    }
+
+    #[test]
+    fn error_columns_count_from_the_last_newline() {
+        assert_eq!(err("[\n1,]"), "Expecting value: line 2 column 3 (char 4)");
+        assert_eq!(
+            err("[1e]"),
+            "Expecting ',' delimiter: line 1 column 3 (char 2)"
+        );
+        assert!(
+            err(r#""\udc00""#).starts_with(r"Unpaired surrogate in \uXXXX escape: line 1 column"),
+            "{}",
+            err(r#""\udc00""#)
+        );
+    }
+
+    #[test]
+    fn nested_frames_close_into_their_parents() {
+        let value = loads(r#"{"a": [1, {"b": [null]}], "c": {}}"#).unwrap();
+        assert_eq!(
+            dumps(&value, Dump::default()),
+            r#"{"a": [1, {"b": [null]}], "c": {}}"#
+        );
+        assert!(Json::Null.py_eq(&Json::Null));
+    }
+
+    #[test]
+    fn dumps_escapes_control_characters_by_name() {
+        let value = Json::str_obj("\r\x08\x0c\x01");
+        assert_eq!(dumps(&value, Dump::default()), r#""\r\b\f\u0001""#);
     }
 }

@@ -2003,7 +2003,8 @@ mod tests {
 
     #[test]
     fn document_delivery_refuses_a_non_string_page_key() {
-        let root = std::env::temp_dir().join(format!("site-tools-design-{}", std::process::id()));
+        let root =
+            Path::new(env!("OUT_DIR")).join(format!("site-tools-design-{}", std::process::id()));
         let _ = std::fs::remove_dir_all(&root);
         std::fs::create_dir_all(&root).unwrap();
         std::fs::write(
