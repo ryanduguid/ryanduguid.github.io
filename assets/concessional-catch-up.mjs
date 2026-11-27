@@ -90,10 +90,11 @@ const proposalGiven = (input) => input?.proposed !== undefined && String(input.p
 /** The command reads this year's amounts, then the downsizer inputs, before it checks the year or any range:
  * an amount it cannot read refuses first, then `readFirst` runs. @param {CatchUpInput} input @param {() => void} readFirst */
 function readAmounts(input, readFirst) {
+  /** @type {[unknown, string][]} */
   const given = [[input?.balance, 'Total super balance on 30 June before the year'],
     [input?.concessional, `${input?.year} concessional contributions`]];
   if (proposalGiven(input)) given.push([input.proposed, 'Proposed contribution']);
-  for (const [value, what] of given) if (!readable(value)) amount(value, String(what));
+  for (const [value, what] of given) if (!readable(value)) amount(value, what);
   readFirst();
 }
 
