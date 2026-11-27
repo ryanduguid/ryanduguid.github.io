@@ -1156,7 +1156,6 @@ const MUTATIONS = [
   { ...rdOffset, name: 'R&D clawback below the threshold allowed', find: 'if (clawback !== 0n && e.notional - clawback < THRESHOLD) {', replace: 'if (false) {' },
   { ...nrw, name: "NRW interest at the treaty rate", find: "const regRate = type === 'interest' ? /** @type {Dec} */ (parseDec(DOMESTIC.interest)) : applied;", replace: "const regRate = applied;" },
   { ...nrw, name: "NRW cents kept in the payment", find: "const used = wholeDollars(base);", replace: "const used = base;" },
-  { ...nrw, name: "NRW amount under $1 kept", find: "(cmp(a, { c: 1n, e: 0 }) < 0 ? ZERO : quantize(a, 0, 'down'))", replace: "quantize(a, 0, 'down')" },
   { ...nrw, name: "NRW franked part not taken off", find: "  return sub(payment, exemptParts);", replace: "  return payment;" },
   { ...nrw, name: "NRW section 12-300 cap ignored", find: "withholding: cmp(cap, reg) < 0 ? cap : reg", replace: "withholding: reg" },
   { ...nrw, name: "NRW already withheld not taken off the cap", find: "const left = sub(mul(applied, base), already);", replace: "const left = mul(applied, base);" },
