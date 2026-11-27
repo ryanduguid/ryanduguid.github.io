@@ -39,13 +39,19 @@ jobs:
           cache: npm
           cache-dependency-path: service/coal-lsl-levy/package-lock.json
       - run: npm ci --ignore-scripts
-      # npm test's suite, with line coverage. The paths gain the service's
-      # folder so Codecov finds them from the repository root.
+      # npm test's suite, with line coverage. c8 merges the coverage of every
+      # process the suite starts: the test runner's own merge can count a line
+      # no process ran (nodejs/node#66860). The paths gain the service's folder
+      # so Codecov finds them from the repository root.
       - name: Service tests with line coverage
         shell: bash
         run: |
           node deploy/build-worker.mjs
-          node --test --experimental-test-coverage             --test-coverage-include='src/**/*.mjs' --test-coverage-include='bin/**/*.mjs'             --test-coverage-include='deploy/**/*.mjs' --test-coverage-include='conformance/**/*.mjs'             --test-reporter=lcov --test-reporter-destination=coverage-service.lcov             --test-reporter=spec --test-reporter-destination=stdout             'test/*.test.mjs'
+          node_modules/.bin/c8 --reporter=lcovonly --reports-dir=coverage-service \
+            --include='src/**/*.mjs' --include='bin/**/*.mjs' \
+            --include='deploy/**/*.mjs' --include='conformance/**/*.mjs' \
+            node --test --test-reporter=spec 'test/*.test.mjs'
+          mv coverage-service/lcov.info coverage-service.lcov
           sed -i 's|^SF:|SF:service/coal-lsl-levy/|' coverage-service.lcov
       - name: Keep the coverage report for the Codecov upload
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
@@ -371,22 +377,25 @@ jobs:
           fi
       # The calculator engines' Node suites, as check_site runs them, plus
       # super-lump-sum-options, which only mutation-check runs. Page modules that
-      # only the browser tests load are not measured here.
+      # only the browser tests load are not measured here. c8 merges the test
+      # processes' coverage: the test runner's own merge can count a line no
+      # process ran (nodejs/node#66860).
+      - run: npm ci --ignore-scripts
       - name: Calculator engine tests with line coverage
         shell: bash
-        run: >-
-          node --test --experimental-test-coverage
-          --test-coverage-include='assets/**/*.mjs'
-          --test-reporter=lcov --test-reporter-destination=coverage-js.lcov
-          --test-reporter=dot --test-reporter-destination=stdout
-          scripts/levy.test.mjs scripts/business-calculators.test.mjs
-          scripts/first-home-grant.test.mjs scripts/individual-tax.test.mjs
-          scripts/field-errors.test.mjs scripts/webmcp-tools.test.mjs
-          scripts/rate-tables.test.mjs scripts/depreciation-rates.test.mjs
-          scripts/super-lump-sum-options.test.mjs
-          scripts/individual-results-branches.test.mjs scripts/fhss-work-pcg-branches.test.mjs
-          scripts/page-dom.test.mjs scripts/webmcp-branches.test.mjs
-          scripts/borrowing-fuel-fbt-levy-branches.test.mjs scripts/engine-notes-refusals.test.mjs
+        run: |
+          node_modules/.bin/c8 --reporter=lcovonly --reports-dir=coverage-js --include='assets/**/*.mjs' \
+          node --test --test-reporter=dot \
+          scripts/levy.test.mjs scripts/business-calculators.test.mjs \
+          scripts/first-home-grant.test.mjs scripts/individual-tax.test.mjs \
+          scripts/field-errors.test.mjs scripts/webmcp-tools.test.mjs \
+          scripts/rate-tables.test.mjs scripts/depreciation-rates.test.mjs \
+          scripts/super-lump-sum-options.test.mjs \
+          scripts/individual-results-branches.test.mjs scripts/fhss-work-pcg-branches.test.mjs \
+          scripts/page-dom.test.mjs scripts/webmcp-branches.test.mjs \
+          scripts/borrowing-fuel-fbt-levy-branches.test.mjs scripts/engine-notes-refusals.test.mjs \
+          scripts/engine-refusal-paths.test.mjs
+          mv coverage-js/lcov.info coverage-js.lcov
       - name: Keep the coverage reports for the Codecov upload
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:

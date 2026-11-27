@@ -211,3 +211,27 @@ test('a service that cannot be reached is an error, not a pass', async () => {
   assert.doesNotMatch(stdout, /checks passed/);
   assert.match(stderr, /fetch failed/);
 });
+
+test('a computed levy sent as a JSON number fails the decimal-string check', async () => {
+  const { code, stdout } = await checkThrough(({ method, status, bytes }) => {
+    if (!isComputed(method, status)) return undefined;
+    const body = JSON.parse(bytes);
+    body.levy = Number(body.levy);
+    return { body };
+  });
+  assert.equal(code, 1, stdout);
+  assert.ok(failed(stdout, 'money and rates are decimal strings'), stdout);
+});
+
+test('a service whose repeated answer differs fails the determinism check', async () => {
+  const asked = new Map();
+  const { code, stdout } = await checkThrough(({ method, url, status, bytes, requestBody }) => {
+    if (!isComputed(method, status)) return undefined;
+    const key = `${url} ${requestBody}`;
+    asked.set(key, (asked.get(key) ?? 0) + 1);
+    if (asked.get(key) % 2 === 1) return undefined;
+    return { body: { ...JSON.parse(bytes), answered: asked.get(key) } };
+  });
+  assert.equal(code, 1, stdout);
+  assert.ok(failed(stdout, 'repeats byte-identically'), stdout);
+});

@@ -1,7 +1,8 @@
 // Refusals and faults the fixtures do not reach: missing request sections, money helpers given
 // values they refuse, register rows that start or end mid-month, a register of the wrong shape,
-// and routes and faults past the calculator's own refusals.
+// routes and faults past the calculator’s own refusals, and an upload abandoned part-way.
 import { test } from 'node:test';
+import { connect } from 'node:net';
 import assert from 'node:assert/strict';
 
 import { listen } from '../src/server.mjs';
@@ -123,5 +124,20 @@ test('a fault in the register answers 500 with the request id, not a refusal', a
     const body = await response.json();
     assert.equal(body.error, 'internal_error');
     assert.equal(body.request_id, response.headers.get('x-request-id'));
+  } finally { await close(); }
+});
+
+test('an upload the client abandons part-way is logged as a 500, not calculated', { timeout: 10000 }, async () => {
+  let logged;
+  const line = new Promise((resolve) => { logged = resolve; });
+  const { app, close } = await serve({ log: (text) => logged(JSON.parse(text)) });
+  try {
+    const socket = connect(app.server.address().port, '127.0.0.1');
+    app.server.once('request', () => socket.destroy());
+    socket.write(`POST ${CALCULATE} HTTP/1.1\r\nHost: 127.0.0.1\r\nContent-Type: application/json\r\n`
+      + 'Content-Length: 200\r\n\r\n{"reporting_month":');
+    const record = await line;
+    assert.equal(record.path, CALCULATE);
+    assert.equal(record.status, 500);
   } finally { await close(); }
 });
