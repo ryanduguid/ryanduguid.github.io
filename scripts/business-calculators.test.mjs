@@ -6368,11 +6368,13 @@ test('the luxury car tax form sends only the fields each line’s kind takes', (
   assert.deepEqual(lctForm({ ...refund, 'kind-2': 'change_of_use_decreasing', 'on-supply-2': '10' }).lines,
     [{ kind: 'refund', supplied_in: '2025-26', claimant: 'primary_producer', refund_eligible_car: false, lct_borne: '5' },
       { kind: 'change_of_use_decreasing', lct_payable_on_supply: '10' }]);
-  // A refund's claimant and eligibility are never assumed; without a supply year it takes the tax period's, as the command does.
+  // A refund's claimant, eligibility and supply year are never assumed, as the command's are not (AA #930).
   assert.equal(lctCode(lctForm({ ...refund, 'claimant-1': '' })), 'input.missing_field');
   assert.equal(lctCode(lctForm({ ...refund, 'eligible-1': '' })), 'input.missing_field');
   assert.equal(lctForm({ ...refund, 'supplied-1': '' }).lines[0].supplied_in, undefined);
-  assert.equal(calculations.luxuryCarTax(lctForm({ ...refund, 'supplied-1': '', 'claimant-1': 'tourism_operator', 'eligible-1': 'yes' })).refunds, 5);
+  assert.throws(() => calculations.luxuryCarTax(lctForm({ ...refund, 'supplied-1': '' })),
+    { code: 'input.missing_field', message: 'Line 1: choose the financial year the car was supplied or imported in.' });
+  assert.equal(calculations.luxuryCarTax(lctForm({ ...refund, 'claimant-1': 'tourism_operator', 'eligible-1': 'yes' })).refunds, 5);
   // Lines fill in order, so the command's line numbers are the form's.
   assert.throws(() => lctForm({ 'kind-1': '' }), { message: 'Fill line 1 before line 2.' });
   assert.throws(() => lctForm({ 'kind-1': '', 'kind-2': '' }), { message: 'Choose what at least one line is.' });
