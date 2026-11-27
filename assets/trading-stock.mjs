@@ -70,7 +70,7 @@ function valueItem(given, i) {
   }
   if (method === 'lowest') {
     const [at, value] = lowest(name, values, 'lowest');
-    return { method: VALUES.at(at) ?? '', value };
+    return { method: /** @type {string} */ (VALUES[at]), value };
   }
   if (method === 'obsolescence') {
     const [, least] = lowest(name, values, 'obsolescence');
@@ -180,7 +180,7 @@ export function tradingStockResult(value, aud) {
   const r = tradingStock(input);
   const a = (/** @type {string} */ text) => aud(Number(text));
   /** @type {[string, string][]} */
-  const rows = r.items.map((item) => [`Item ${item.item} at its ${METHOD_WORDS.get(item.method) ?? item.method}`, a(item.value)]);
+  const rows = r.items.map((item) => [`Item ${item.item} at its ${METHOD_WORDS.get(item.method)}`, a(item.value)]);
   rows.push(['Stocktake value', a(r.amounts.stocktake_value)], ['Opening value', a(r.amounts.opening_value)],
     [r.simplifiedChosen ? 'Closing value, equal to the opening value (section 328-295)' : 'Closing value', a(r.amounts.closing_value)]);
   const deduction = Number(r.amounts.deduction) > 0;

@@ -34,8 +34,8 @@ export const ALCOHOL_PERIODS = [
   ['2026-02-02', '2026-08-02', 'C2026G00056', '54.74 10.57 63.75 33.11 63.75 43.39 3.84 4.43 107.99 100.85 107.99 107.99'],
   ['2026-08-03', '2027-01-31', 'C2026G00508', '55.83 10.57 65.03 33.11 65.03 43.39 3.92 4.52 110.15 102.87 110.15 110.15'],
 ].map(([from, to, notice, row]) => ({ from: /** @type {number} */ (parseDate(from)), to: /** @type {number} */ (parseDate(to)),
-  notice: notice ?? '', rates: new Map((row ?? '').split(' ').map((rate, i) => [SUBITEMS.at(i) ?? '', rate])) }));
-const LAST = ALCOHOL_PERIODS.at(-1)?.to ?? 0;
+  notice, rates: new Map(row.split(' ').map((rate, i) => [/** @type {string} */ (SUBITEMS[i]), rate])) }));
+const LAST = ALCOHOL_PERIODS[ALCOHOL_PERIODS.length - 1].to;
 
 const PRODUCTS = ['beer', 'brandy', 'spirit', 'other_excisable_beverage'];
 const REFUSED = new Map([
@@ -120,7 +120,7 @@ function parseLine(given, n) {
   const product = PRODUCTS.find((p) => p === named);
   if (!product) {
     const refused = typeof named === 'string' ? REFUSED.get(named) : undefined;
-    if (refused) refuse(refused[0] ?? '', `line ${n}: ${refused[1]}`);
+    if (refused) refuse(refused[0], `line ${n}: ${refused[1]}`);
     if (!line.has('product')) refuse('input.missing_field', `line ${n}: product is required`);
     return refuse('alcohol_excise.product_invalid', `line ${n}: product must be beer, brandy, spirit or other_excisable_beverage.`);
   }
@@ -147,9 +147,9 @@ function parseLine(given, n) {
 }
 
 /** The period whose rates apply on `day`. @param {number} day */
-const periodOn = (day) => ALCOHOL_PERIODS.find((p) => p.from <= day && day <= p.to) ?? ALCOHOL_PERIODS[0];
-/** @param {typeof ALCOHOL_PERIODS[number] | undefined} period @param {string} subitem */
-const rateOf = (period, subitem) => period?.rates.get(subitem) ?? '0';
+const periodOn = (day) => /** @type {typeof ALCOHOL_PERIODS[number]} */ (ALCOHOL_PERIODS.find((p) => p.from <= day && day <= p.to));
+/** @param {typeof ALCOHOL_PERIODS[number]} period @param {string} subitem */
+const rateOf = (period, subitem) => /** @type {string} */ (period.rates.get(subitem));
 /** A rate in cents. @param {string} rate */
 const rateCents = (rate) => BigInt(rate.replace('.', ''));
 
@@ -179,7 +179,7 @@ export function alcoholExcise(call) {
   if (!items.length || items.length > MAX_LINES) refuse('alcohol_excise.lines_invalid', `lines must hold from 1 to ${MAX_LINES} lines.`);
   const lines = items.map((item, i) => parseLine(item, i + 1));
   for (const [i, line] of lines.entries()) {
-    if (line.date < (bounds[0] ?? 0) || line.date > (bounds[1] ?? 0)) {
+    if (line.date < bounds[0] || line.date > bounds[1]) {
       refuse('alcohol_excise.date_outside_year', `line ${i + 1}: date is outside the financial year ${year}; work each financial year apart, as the `
         + 'remission cap is yearly.');
     }
@@ -199,11 +199,11 @@ export function alcoholExcise(call) {
     if (g) {
       g.lal += lal;
       g.lines.push(i + 1);
-      if (period && !g.periods.some((p) => p.from === period.from)) g.periods = [...g.periods, period].sort((a, b) => a.from - b.from);
-    } else if (period) groups.push({ periods: [period], subitem: line.subitem, remission: line.remission, lal, lines: [i + 1] });
+      if (!g.periods.some((p) => p.from === period.from)) g.periods = [...g.periods, period].sort((a, b) => a.from - b.from);
+    } else groups.push({ periods: [period], subitem: line.subitem, remission: line.remission, lal, lines: [i + 1] });
     return { ...line, litres: litres(lal) };
   });
-  groups.sort((a, b) => (a.periods[0]?.from ?? 0) - (b.periods[0]?.from ?? 0) || SUBITEMS.indexOf(a.subitem) - SUBITEMS.indexOf(b.subitem)
+  groups.sort((a, b) => a.periods[0].from - b.periods[0].from || SUBITEMS.indexOf(a.subitem) - SUBITEMS.indexOf(b.subitem)
     || Number(a.remission) - Number(b.remission));
   let [duty, eligible] = [0n, 0n];
   const returned = groups.map((g) => {
@@ -257,15 +257,15 @@ function remissionFacts(fields, lines, bounds, year) {
       refuse('alcohol_excise.fact_conflict', `manufacturer_from (${formatDay(from)}) is after a line marked remission (${formatDay(first)}): `
         + 'the remission is for goods an alcohol manufacturer entered.');
     }
-    if (from > (bounds[0] ?? 0)) {
-      const days = (bounds[1] ?? 0) - from + 1;
+    if (from > bounds[0]) {
+      const days = bounds[1] - from + 1;
       [cap, partYear] = [(full * BigInt(days)) / 365n, [from, days]];
     }
   }
   const used = field(fields, 'remission_used_this_year').dec;
   const usedCents = money(used);
   const paid = given('duty_paid') ? flag(field(fields, 'duty_paid').value, 'duty_paid') : false;
-  return { cap, partYear, used: { cents: usedCents, places: used?.finite ? -used.exponent : 0 }, paid };
+  return { cap, partYear, used: { cents: usedCents, places: -(/** @type {{exponent: number}} */ (used)).exponent }, paid };
 }
 
 const LINES_ON_PAGE = 3;

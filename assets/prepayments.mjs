@@ -191,5 +191,5 @@ export function prepaymentsResult(value, aud) {
   }
   const principal = rows.push([`Deduction in ${r.year}`, aud(Number(r.amounts.deduction_expenditure_year))]) - 1;
   for (const row of r.schedule.slice(1)) rows.push([`Deduction in ${row.year} (${row.days} days)`, aud(Number(row.deduction))]);
-  return { inputs: prepaymentsInputsText(input, aud), rows, principal, note: TREATMENT_NOTES.get(r.treatment) ?? r.treatment };
+  return { inputs: prepaymentsInputsText(input, aud), rows, principal, note: /** @type {string} */ (TREATMENT_NOTES.get(r.treatment)) };
 }

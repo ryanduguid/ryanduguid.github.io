@@ -4,7 +4,10 @@
 import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
+import { isDeepStrictEqual } from 'node:util';
+import * as aaCommand from '../assets/aa-command.mjs';
 import * as calculations from '../assets/business-calculators.mjs';
+import { useFraction, usePercent } from '../assets/instant-asset-write-off.mjs';
 import { DIVISION_296_LIABILITY } from '../assets/division-296.mjs';
 import { PAYROLL_TAX_2026_27 } from '../assets/payroll-tax.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, financeSchedule, interestByIncomeYear,
@@ -8204,4 +8207,208 @@ test('the alcohol excise page classifies beer by strength and container and caps
   assert.equal(s5Code(() => duty({ product: 'wine' })), 'alcohol_excise.not_excisable');
   assert.equal(s5Code(() => duty({ container_litres: '1', date: '2027-02-01' })), 'alcohol_excise.rate_unpublished');
   assert.equal(s5Code(() => duty({ container_litres: '1' }, { duty_paid: true })), 'input.field_unknown');
+});
+
+// The 4 pages' results as accounting-pages.mjs shows them: every differential case the form can enter (the form
+// gives back the case's call), with each row checked against the australian-accounting command's amounts.
+const s5Aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const s5Computed = (name) => JSON.parse(readFileSync(new URL(`./${name}-engine-differential.json`, import.meta.url), 'utf8')).cases
+  .filter((c) => !c.refused);
+const s5Enterable = (name, formOf, formInput) => s5Computed(name).flatMap((c) => {
+  const fields = formOf(c.call);
+  const value = (field) => fields[field] ?? '';
+  return isDeepStrictEqual(formInput(value), c.call) ? [{ ...c, value }] : [];
+});
+const s5Row = (result, label) => result.rows.find(([name]) => name === label)?.[1];
+const yesNo = (flag) => (flag ? 'yes' : 'no');
+// The form's text fields, each keyed by the call's key: a probe value names the field the form reads it from.
+const s5Fields = (formInput) => Object.entries(formInput((name) => `@${name}`))
+  .flatMap(([key, probe]) => (typeof probe === 'string' && probe.startsWith('@') ? [[key, probe.slice(1)]] : []));
+
+test('the SMSF tax page shows the command’s amounts for every case its form can enter', () => {
+  const fields = s5Fields(calculations.smsfFormInput);
+  const formOf = (call) => ({ ...Object.fromEntries(fields.map(([key, name]) => [name, call[key]])),
+    disregarded: yesNo(call.disregarded_small_fund_assets), 'new-fund': yesNo(call.newly_registered), 'wound-up': yesNo(call.wound_up) });
+  const cases = s5Enterable('smsf-tax', formOf, calculations.smsfFormInput);
+  const optional = [['Loss (O), carried forward', 'loss'], ['Non-arm’s length component, at 45%', 'non_arms_length_component'],
+    ['Tax on no-TFN contributions, at 32% (J)', 'no_tfn_contributions_tax'], ['Tax offset refunds (I)', 'tax_offset_refunds'],
+    ['Levy adjustment for a fund wound up (M)', 'levy_adjustment_wound_up'], ['Levy adjustment for a new fund (N)', 'levy_adjustment_new_fund']];
+  const seen = new Set();
+  for (const { source, call, amounts, value } of cases) {
+    const r = calculations.smsfTaxResult(value, s5Aud);
+    const due = Number(amounts.amount_due_or_refundable);
+    seen.add(due < 0 ? 'refundable' : 'due');
+    assert.deepEqual(r.rows[r.principal], [due < 0 ? 'Amount refundable (S)' : 'Amount due (S)', s5Aud(Math.abs(due))], source);
+    for (const [label, key] of [['Gross income (W)', 'gross_income'], ['Taxable income (A)', 'taxable_income'], ['Tax payable (T5)', 'tax_payable'],
+      ['Supervisory levy (L)', 'supervisory_levy']]) assert.equal(s5Row(r, label), s5Aud(Number(amounts[key])), `${source}: ${label}`);
+    for (const [label, key] of optional) {
+      assert.equal(s5Row(r, label), Number(amounts[key]) ? s5Aud(Number(amounts[key])) : undefined, `${source}: ${label}`);
+      if (Number(amounts[key])) seen.add(key);
+    }
+    assert.equal(r.note.startsWith('A loss: no tax'), Number(amounts.loss) !== 0, source);
+    assert.equal(r.inputs.includes('actuary’s proportion'), Number(call.unsegregated_income) !== 0, source);
+    assert.equal(r.inputs.includes('wound up'), call.wound_up, source);
+    assert.equal(r.inputs.includes('newly registered'), call.newly_registered, source);
+  }
+  assert.deepEqual([...seen].sort(), ['due', 'refundable', ...optional.map(([, key]) => key)].sort());
+  assert.ok(cases.length >= 200, `${cases.length} cases`);
+});
+
+test('the trading stock page shows the command’s values for every case its form can enter', () => {
+  const formOf = (call) => ({ entity: call.entity, opening: call.opening_value, estimate: call.estimated_closing_value ?? '',
+    choice: yesNo(call.simplified_choice), year: call.year, ...Object.fromEntries(call.items.flatMap((item, i) => [[`cost-${i + 1}`, item.cost],
+      [`market-${i + 1}`, item.market_selling_value ?? ''], [`replacement-${i + 1}`, item.replacement_value ?? ''], [`method-${i + 1}`, item.method],
+      [`obsolete-${i + 1}`, item.obsolescence_value]])) });
+  const cases = s5Enterable('trading-stock', formOf, calculations.tradingStockFormInput);
+  const words = { cost: 'cost', market_selling_value: 'market selling value', replacement_value: 'replacement value', obsolescence: 'obsolescence value' };
+  const notes = new Set();
+  for (const { source, call, amounts, items, simplified_available: available, simplified_chosen: chosen, value } of cases) {
+    const r = calculations.tradingStockResult(value, s5Aud);
+    assert.deepEqual(r.rows.slice(0, items.length), items.map((item) => [`Item ${item.item} at its ${words[item.method]}`, s5Aud(Number(item.value))]), source);
+    assert.equal(s5Row(r, 'Stocktake value'), s5Aud(Number(amounts.stocktake_value)), source);
+    assert.equal(s5Row(r, chosen ? 'Closing value, equal to the opening value (section 328-295)' : 'Closing value'), s5Aud(Number(amounts.closing_value)),
+      source);
+    assert.deepEqual(r.rows[r.principal], Number(amounts.deduction) > 0 ? ['Deduction for the decrease (section 70-35(3))', s5Aud(Number(amounts.deduction))]
+      : ['Assessable increase (section 70-35(2))', s5Aud(Number(amounts.assessable_increase))], source);
+    const note = chosen ? 'chosen' : available ? 'open' : r.note.endsWith('(section 328-285(1)(a))') ? 'entity' : 'estimate';
+    notes.add(note);
+    if (note === 'estimate') assert.ok(r.note.includes(`${s5Aud(Number(amounts.estimate_difference))} from the opening value`), source);
+    assert.equal(r.inputs.includes(`${call.items.length} ${call.items.length === 1 ? 'item' : 'items'} on hand`), true, source);
+    assert.equal(r.inputs.includes('estimated closing value'), call.estimated_closing_value !== null, source);
+  }
+  assert.deepEqual([...notes].sort(), ['chosen', 'entity', 'estimate', 'open']);
+  assert.ok(cases.length >= 100, `${cases.length} cases`);
+  assert.equal(calculations.tradingStockInputsText({ year: '2025-26', entity: 'trust', opening_value: '0', items: [{}], estimated_closing_value: null,
+    simplified_choice: false }, s5Aud), '2025-26; trust; opening value $0.00; 1 item on hand');
+});
+
+test('the prepaid expenses page shows the command’s deductions for every case its form can enter', () => {
+  const fields = s5Fields(calculations.prepaymentsFormInput);
+  const formOf = (call) => ({ ...Object.fromEntries(fields.map(([key, name]) => [name, call[key]])), individual: yesNo(call.individual),
+    business: yesNo(call.business_expenditure), chose: yesNo(call.chose_82kzmd), shelter: yesNo(call.tax_shelter) });
+  const cases = s5Enterable('prepayments', formOf, calculations.prepaymentsFormInput);
+  const treatments = new Set();
+  for (const { source, call, period, amounts, treatment, schedule, eligible_service_period: esp, value } of cases) {
+    const r = calculations.prepaymentsResult(value, s5Aud);
+    treatments.add(treatment);
+    assert.deepEqual(r.rows[0], ['Expenditure', s5Aud(Number(amounts.expenditure))], source);
+    assert.deepEqual(r.rows[r.principal], [`Deduction in ${period}`, s5Aud(Number(amounts.deduction_expenditure_year))], source);
+    assert.equal(r.principal, esp ? 2 : 1, source);
+    if (esp) assert.deepEqual(r.rows[1], [`Eligible service period, ${esp.start} to ${esp.end}`, `${esp.days.toLocaleString('en-AU')} days`], source);
+    assert.deepEqual(r.rows.slice(r.principal + 1), schedule.slice(1).map((row) => [`Deduction in ${row.year} (${row.days} days)`, s5Aud(Number(row.deduction))]),
+      source);
+    assert.ok(/section/.test(r.note) || r.note.endsWith('deductible in full when incurred'), source);
+    assert.equal(r.inputs.includes('choosing section 82KZMD'), call.chose_82kzmd, source);
+    assert.equal(r.inputs.includes('a tax shelter arrangement'), call.tax_shelter, source);
+  }
+  assert.deepEqual([...treatments].sort(), ['apportioned_82kzm', 'apportioned_82kzmd', 'apportioned_82kzmf', 'done_in_year', 'excluded_expenditure',
+    'not_prepaid', 'twelve_month_rule']);
+  const x = { year: '2025-26', expenditure: '1', business_expenditure: false, incurred: 'a', service_start: 'b', service_end: 'c' };
+  assert.equal(calculations.prepaymentsInputsText({ ...x, taxpayer: 'other', individual: true }, s5Aud),
+    '2025-26; an individual; $1.00 non-business expenditure incurred a for services from b to c');
+  assert.ok(calculations.prepaymentsInputsText({ ...x, taxpayer: 'other', individual: false }, s5Aud).includes('; another taxpayer;'));
+  assert.ok(calculations.prepaymentsInputsText({ ...x, taxpayer: 'trust' }, s5Aud).includes('; trust;'));
+});
+
+test('the alcohol excise page shows the command’s duty for every case its form can enter', () => {
+  const formOf = (call) => ({ year: call.year, used: call.remission_used_this_year, 'manufacturer-from': call.manufacturer_from ?? '',
+    'duty-paid': yesNo(call.duty_paid), ...Object.fromEntries(call.lines.flatMap((line, i) => [[`date-${i + 1}`, line.date], [`product-${i + 1}`, line.product],
+      [`volume-${i + 1}`, line.volume_litres], [`strength-${i + 1}`, line.strength_percent], [`labelled-${i + 1}`, line.labelled_strength_percent ?? ''],
+      [`container-${i + 1}`, line.container_litres], [`pressurised-${i + 1}`, line.pressurised_system === undefined ? '' : yesNo(line.pressurised_system)],
+      [`remission-${i + 1}`, yesNo(line.remission)]])) });
+  const cases = s5Enterable('alcohol-excise', formOf, calculations.alcoholFormInput);
+  const seen = new Set();
+  for (const { source, amounts, rates, return_lines: lines, value } of cases) {
+    const r = calculations.alcoholExciseResult(value, s5Aud);
+    assert.deepEqual(r.rows.slice(0, lines.length), lines.map((g) => [`Subitem ${g.subitem}: ${g.litres_of_alcohol_truncated} litres of alcohol at `
+      + `$${g.rate_per_litre_of_alcohol}${g.remission ? ', remission claimed' : ''}`, s5Aud(Number(g.duty))]), source);
+    assert.equal(s5Row(r, 'Excise duty'), s5Aud(Number(amounts.excise_duty)), source);
+    assert.deepEqual(r.rows[r.principal], ['Net duty payable', s5Aud(Number(amounts.net_duty))], source);
+    for (const [label, key] of [['Remission under the cap', 'remission'], ['Refund of duty paid, on application', 'refund'],
+      ['Duty above the remission cap', 'over_cap']]) {
+      const shown = key === 'remission' ? key in amounts : Number(amounts[key]) > 0;
+      assert.equal(s5Row(r, label), shown ? s5Aud(Number(amounts[key])) : undefined, `${source}: ${label}`);
+      if (shown) seen.add(key);
+    }
+    assert.equal(r.note.startsWith('Remission cap'), Boolean(rates.remission_cap), source);
+    if (rates.remission_cap) assert.ok(r.inputs.includes('remission already used this year'), source);
+  }
+  assert.deepEqual([...seen].sort(), ['over_cap', 'refund', 'remission']);
+  assert.ok(cases.length >= 100, `${cases.length} cases`);
+  assert.equal(calculations.alcoholInputsText({ year: '2025-26', lines: [{ volume_litres: '1', product: 'cider', strength_percent: '5',
+    date: '2025-08-04' }] }, s5Aud), '2025-26; 1 litres of cider at 5% on 2025-08-04');
+});
+
+// The command reader the ported engines share, against Python's Decimal (whitespace stripped, infinities and NaNs
+// read as non-finite) and the Acts Interpretation Act 1901 s 2G(2) period of months.
+test('the shared command reader reads decimals, fields, amounts and dates as the commands do', () => {
+  const code = (run) => {
+    try {
+      run();
+    } catch (error) {
+      return error.code;
+    }
+    return 'computed';
+  };
+  assert.deepEqual(aaCommand.parseDecimal('\u00a0 -12.50\t\u3000'), { finite: true, negative: true, coefficient: 1250n, exponent: -2 });
+  for (const text of ['Infinity', '-inf', 'sNaN12', 'nan']) assert.deepEqual(aaCommand.parseDecimal(text), { finite: false }, text);
+  assert.equal(aaCommand.parseDecimal('1e5'), null);
+  for (const call of [null, [], 'x']) assert.equal(code(() => aaCommand.readFields(call, 'c', [])), 'input.not_object');
+  assert.equal(code(() => aaCommand.readFields({ a: '1'.repeat(8193) }, 'c', [['a', 'dec']])), 'input.decimal_too_long');
+  assert.deepEqual(aaCommand.field(new Map(), 'a'), { value: undefined, dec: null });
+  assert.equal(code(() => aaCommand.money(null)), 'input.amount_invalid');
+  assert.equal(code(() => aaCommand.itemMoney(5, 'm')), 'input.amount_invalid');
+  assert.equal(code(() => aaCommand.itemMoney('1'.repeat(33), 'm')), 'input.amount_invalid');
+  assert.equal(aaCommand.itemMoney('12.5', 'm'), 1250n);
+  for (const text of [20260101, '2026/01/01', '2026-02-29', '1899-12-31']) assert.equal(aaCommand.parseDate(text), null, String(text));
+  const day = (text) => aaCommand.formatDay(text);
+  assert.equal(day(aaCommand.monthsEnd(aaCommand.parseDate('2026-01-15'), 1)), '2026-02-14');
+  assert.equal(day(aaCommand.monthsEnd(aaCommand.parseDate('2026-01-31'), 1)), '2026-02-28');
+  assert.equal(day(aaCommand.monthsEnd(aaCommand.parseDate('2024-01-31'), 1)), '2024-02-29');
+});
+
+// Refusals and edges the differential cases do not reach, in the commands' order: a number where a decimal string is
+// read, a decimal too long, an infinity, a missing field, and Python's negative zero ('-0.00').
+test('the S5 and leave engines refuse and show edges as their commands do', () => {
+  const code = s5Code;
+  const beer = { date: '2026-09-01', product: 'beer', volume_litres: '1000', strength_percent: '4.8', container_litres: '1' };
+  const duty = (more) => code(() => calculations.alcoholExcise({ lines: [{ ...beer, ...more }], year: '2026-27', scope_confirmed: true }));
+  assert.deepEqual([duty({ volume_litres: 1000 }), duty({ volume_litres: '1'.repeat(33) }), duty({ date: 20260901 })],
+    ['alcohol_excise.quantity_invalid', 'alcohol_excise.quantity_invalid', 'input.date_invalid']);
+  const asset = { entity: 'small_business_simplified', acquired: '2025-11-18', first_used: '2025-11-18', cost: '6800.00', taxable_use: '1',
+    year: '2025-26', scope_confirmed: true };
+  const write = (more) => code(() => calculations.instantAssetWriteOff({ ...asset, ...more }));
+  assert.deepEqual([write({ cost: 6800 }), write({ cost: '1'.repeat(8193) }), write({ cost: 'Infinity' }), write({ taxable_use: 'NaN' })],
+    ['input.amount_invalid', 'input.decimal_too_long', 'input.amount_invalid', 'input.fraction_invalid']);
+  const { year, ...noYear } = asset;
+  assert.equal(code(() => calculations.instantAssetWriteOff(noYear)), 'input.missing_field', year);
+  // The most the command takes: $1,000,000,000,000 at a 26-digit use, 40 digits, rounded half up to the cent.
+  const most = calculations.instantAssetWriteOff({ ...asset, cost: '1000000000000', taxable_use: `0.${'9'.repeat(26)}` });
+  assert.deepEqual([most.amounts.taxable_purpose_cost, most.written], ['1000000000000.00', false]);
+  const value = (fields) => (name) => fields[name] ?? '';
+  const page = calculations.instantAssetWriteOffResult(value({ entity: 'small_business_simplified', acquired: '2025-11-18', used: '2025-11-18',
+    cost: '25000', use: '100', year: '2025-26' }), s5Aud);
+  assert.deepEqual(page.rows[1], ['Instant asset write-off deduction: not written off', '$0.00']);
+  assert.deepEqual(['0.8', '0.125', '0.1250', '1', 5, 'part'].map((text) => usePercent(text)), ['80%', '12.5%', '12.5%', '100%', '5', 'part']);
+  assert.deepEqual(['', 'part', '.5', '80'].map((text) => useFraction(text)), ['', 'part', '0.005', '0.80']);
+  assert.equal(calculations.iawoInputsText({ year: '2025-26', entity: 'trust', acquired: 'soon', first_used: '2025-11-18', cost: '1', taxable_use: '1' },
+    s5Aud), '2025-26; trust; first acquired soon, first used 18 November 2025; cost $1.00, taxable use 100%');
+  const stock = (more) => calculations.tradingStock({ entity: 'small_business_entity', opening_value: '-0', items: [], estimated_closing_value: '0',
+    simplified_choice: false, year: '2025-26', scope_confirmed: true, ...more });
+  assert.deepEqual([stock().amounts.opening_value, stock().amounts.estimate_difference], ['-0.00', '0.00']);
+  assert.equal(stock({ opening_value: '0', estimated_closing_value: '-0' }).amounts.estimate_difference, '-0.00');
+  assert.equal(code(() => stock({ items: [{ cost: '1', market_selling_value: '1', method: 'cost' }] })), 'input.missing_field');
+  assert.equal(code(() => stock({ items: [{ cost: '1', market_selling_value: '1', replacement_value: '1', method: 7 }] })), 'trading_stock.method_invalid');
+  const prepaid = calculations.prepayments({ ...shownCases.prepayments.rows[0].call[0], expenditure: '-0' });
+  assert.deepEqual([prepaid.treatment, prepaid.amounts.expenditure, prepaid.schedule[0].deduction], ['excluded_expenditure', '-0.00', '-0.00']);
+  const leaveLine = { label: 'LSL', leave: 'long_service', hours: '1', hourly_rate: '1', probability: '1', settled_within_12_months: false,
+    years_to_settlement: 1, salary_growth: '0', discount_rate: '0', can_defer_settlement: true };
+  const leave = (more, line = {}) => code(() => calculations.leaveProvisions({ lines: [{ ...leaveLine, ...line }], defined_benefit_plan: false,
+    plan_assets: false, year: '2025-26', scope_confirmed: true, ...more }));
+  assert.equal(leave({}), 'computed');
+  assert.equal(leave({ plan_assets: 'no' }), 'input.flag_invalid');
+  assert.equal(code(() => calculations.leaveProvisions({ year: '2025-26' })), 'input.missing_field');
+  assert.equal(leave({}, { zeta: 1, beta: 2 }), 'leave_provisions.line_invalid');
+  assert.match(calculations.leaveInputsText({ year: '2025-26', lines: [leaveLine] }, s5Aud), /, can defer settlement$/);
+  assert.equal(calculations.leaveInputsText({ year: '2025-26' }, s5Aud), '2025-26; ');
 });

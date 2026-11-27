@@ -96,7 +96,7 @@ export function smsfTax(call) {
   if (!proportion?.finite || (proportion.negative && proportion.coefficient) || proportion.coefficient > 10n ** BigInt(-proportion.exponent)) {
     return refuse('smsf_tax.proportion_invalid', 'Enter the actuary’s proportion as a decimal from 0 to 1 (ITAA 1997 s 295-390(3)).');
   }
-  const at = (/** @type {string} */ key) => v.get(key) ?? 0n;
+  const at = (/** @type {string} */ key) => /** @type {bigint} */ (v.get(key));
   for (const [part, whole, why] of PARTS_OF) {
     if (at(part) > at(whole)) refuse('smsf_tax.part_exceeds_total', `${part.replaceAll('_', ' ')} exceeds ${whole.replaceAll('_', ' ')}: ${why}.`);
   }
@@ -108,7 +108,7 @@ export function smsfTax(call) {
   const woundUp = flag(value('wound_up'), 'wound_up');
   const steps = statement(at, floorProduct(at('unsegregated_income') / DOLLAR, proportion.coefficient, proportion.exponent) * DOLLAR,
     woundUp && !isNew, isNew && !woundUp);
-  const dollars = (/** @type {string} */ id) => Number(shownCents(steps.get(id) ?? 0n, 4));
+  const dollars = (/** @type {string} */ id) => Number(shownCents(/** @type {bigint} */ (steps.get(id)), 4));
   return { year, values: steps, rates: { ...RATES }, taxableIncome: dollars('taxable_income'), grossTax: dollars('gross_tax'),
     taxPayable: dollars('tax_payable'), amountDue: dollars('amount_due_or_refundable'), returnLabels: Object.fromEntries([...SMSF_LABELS].filter(([, label]) => label)),
     amounts: Object.fromEntries([...steps].map(([id, n]) => [id, shownCents(n, 4)])) };
@@ -177,7 +177,7 @@ export function smsfTaxResult(value, aud) {
   const input = smsfFormInput(value);
   const r = smsfTax(input);
   const a = (/** @type {string} */ id) => aud(Number(new Map(Object.entries(r.amounts)).get(id)));
-  const has = (/** @type {string} */ id) => (r.values.get(id) ?? 0n) !== 0n;
+  const has = (/** @type {string} */ id) => r.values.get(id) !== 0n;
   /** @type {[string, string][]} */
   const rows = [['Gross income (W)', a('gross_income')], ['Exempt current pension income (Y)', a('exempt_current_pension_income')],
     ['Total assessable income (V)', a('total_assessable_income')]];
@@ -192,7 +192,7 @@ export function smsfTaxResult(value, aud) {
   rows.push(['Supervisory levy (L)', a('supervisory_levy')]);
   if (has('levy_adjustment_wound_up')) rows.push(['Levy adjustment for a fund wound up (M)', a('levy_adjustment_wound_up')]);
   if (has('levy_adjustment_new_fund')) rows.push(['Levy adjustment for a new fund (N)', a('levy_adjustment_new_fund')]);
-  const due = r.values.get('amount_due_or_refundable') ?? 0n;
+  const due = /** @type {bigint} */ (r.values.get('amount_due_or_refundable'));
   const principal = rows.push([due < 0n ? 'Amount refundable (S)' : 'Amount due (S)', aud(Math.abs(Number(r.amounts.amount_due_or_refundable)))]) - 1;
   const note = has('loss') ? 'A loss: no tax on taxable income; the loss is carried forward in Section E'
     : 'Low tax component at 15% and any non-arm’s length component at 45% (Income Tax Rates Act 1986 s 26(1))';

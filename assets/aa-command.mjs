@@ -11,16 +11,6 @@ export function refuse(code, message) {
   throw Object.assign(new Error(message), { code });
 }
 
-/** The code a call is refused with, or 'computed'. @param {() => unknown} run */
-export function codeOf(run) {
-  try {
-    run();
-  } catch (error) {
-    return /** @type {{code?: string}} */ (error).code ?? 'error';
-  }
-  return 'computed';
-}
-
 /** Python's whitespace, which the commands strip from a decimal before reading it. */
 const SPACE = /[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/; // eslint-disable-line no-control-regex -- Python's whitespace includes U+001C to U+001F
 
@@ -122,7 +112,7 @@ const DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 /** @param {number} y */
 const leap = (y) => (y % 4 === 0 && y % 100 !== 0) || y % 400 === 0;
 /** @param {number} y @param {number} m */
-export const monthDays = (y, m) => (m === 2 && leap(y) ? 29 : DAYS[m - 1] ?? 31);
+export const monthDays = (y, m) => (m === 2 && leap(y) ? 29 : /** @type {number} */ (DAYS[m - 1]));
 
 /** A YYYY-MM-DD date from 1900 to 2100 as a day number (days since 1 January 1970), or null. @param {unknown} text */
 export function parseDate(text) {

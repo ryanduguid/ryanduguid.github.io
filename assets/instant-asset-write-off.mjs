@@ -50,7 +50,7 @@ function decimal(key, value) {
   if (/^[+-]?(inf|infinity|s?nan\d*)$/i.test(text)) return null;
   const parts = /^([+-]?)(\d*)(?:\.(\d*))?(?:e([+-]?\d+))?$/i.exec(text); // eslint-disable-line security/detect-unsafe-regex -- anchored, and each group takes a distinct character class: linear
   if (!parts || (parts[2] + (parts[3] ?? '')) === '') refuse('input.decimal_unreadable', `${key}: enter a number in digits, such as 1250.50.`);
-  const c = BigInt(`${parts[2]}${parts[3] ?? ''}` || '0');
+  const c = BigInt(`${parts[2]}${parts[3] ?? ''}`);
   return { c: parts[1] === '-' ? -c : c, e: Number(parts[4] ?? 0) - (parts[3] ?? '').length };
 }
 
@@ -111,19 +111,12 @@ function otherLimit(entity, acquired, used) {
   return { limit: 'not_applicable', rule: IAWO_RULES.noneBefore2019 };
 }
 
-/** Cents half up from a product in 10^-(2 + places) units, after the command's 40-digit context.
- * @param {bigint} units non-negative @param {number} places */
+/** Cents half up from a product in 10^-(2 + places) units. The command's 40-digit context never rounds it: the
+ * cost is at most 10^14 cents and the taxable use's coefficient at most 26 digits (under 10^26), so the product is
+ * under 10^40, at most 40 digits. @param {bigint} units non-negative @param {number} places */
 function productCents(units, places) {
-  let [u, p] = [units, places];
-  const digits = u.toString().length;
-  if (digits > 40) {
-    // The 40-digit context rounds the product half even before it is shown to the cent.
-    const cut = 10n ** BigInt(digits - 40);
-    const [q, r] = [u / cut, u % cut];
-    u = (2n * r > cut || (2n * r === cut && q % 2n === 1n) ? q + 1n : q) * cut;
-  }
-  const scale = 10n ** BigInt(p);
-  return (2n * u + scale) / (2n * scale);
+  const scale = 10n ** BigInt(places);
+  return (2n * units + scale) / (2n * scale);
 }
 
 /** @typedef {{year: string, entity: string, written: boolean, limit: string, rule: string, taxablePurposeCost: number,
