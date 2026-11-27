@@ -1160,6 +1160,26 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     Ok(code)
 }
 
+/// `items` under their count and `heading`, each marked `label`, with an Actions warning
+/// titled `title` for each when `actions`; nothing when there are none.
+fn list_warnings(
+    text: &mut String,
+    items: &[String],
+    (heading, label, title): (&str, &str, &str),
+    actions: bool,
+) {
+    if items.is_empty() {
+        return;
+    }
+    text.push_str(&format!("\n{} {heading}:\n", items.len()));
+    for item in items {
+        text.push_str(&format!("  {label} {item}\n"));
+        if actions {
+            text.push_str(&format!("::warning title={title}::{}\n", annotation(item)));
+        }
+    }
+}
+
 /// The run's closing report and its exit code: refusals and transient warnings (with
 /// their Actions annotations on CI), then the failures or the all-clear line.
 pub fn summary(
@@ -1170,36 +1190,18 @@ pub fn summary(
     offline: bool,
 ) -> (String, u8) {
     let mut text = String::new();
-    if !refusals.is_empty() {
-        text.push_str(&format!(
-            "\n{} source(s) refused the runner; check each in a browser:\n",
-            refusals.len()
-        ));
-        for refusal in refusals {
-            text.push_str(&format!("  REFUSED {refusal}\n"));
-            if actions {
-                text.push_str(&format!(
-                    "::warning title=Refused the runner::{}\n",
-                    annotation(refusal)
-                ));
-            }
-        }
-    }
-    if !warnings.is_empty() {
-        text.push_str(&format!(
-            "\n{} transient failure(s) reported as warnings:\n",
-            warnings.len()
-        ));
-        for warning in warnings {
-            text.push_str(&format!("  WARN {warning}\n"));
-            if actions {
-                text.push_str(&format!(
-                    "::warning title=Transient link failure::{}\n",
-                    annotation(warning)
-                ));
-            }
-        }
-    }
+    let refused = (
+        "source(s) refused the runner; check each in a browser",
+        "REFUSED",
+        "Refused the runner",
+    );
+    list_warnings(&mut text, refusals, refused, actions);
+    let transient = (
+        "transient failure(s) reported as warnings",
+        "WARN",
+        "Transient link failure",
+    );
+    list_warnings(&mut text, warnings, transient, actions);
     if failures.is_empty() {
         text.push_str(if offline {
             "\noffline checks passed; external links were skipped\n"

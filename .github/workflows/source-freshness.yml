@@ -180,6 +180,179 @@ jobs:
             gh issue create --title "$TITLE" --body-file "$RUNNER_TEMP/body.md"
           fi
 
+  # After the daily release check, rewrites the tool release snapshot and the
+  # pages it feeds from the published tags, so a new release arrives as a pull
+  # request instead of a hand-made refresh. Capability prose, the changelog row
+  # a tagged release needs and any licence name stay editorial, so that pull
+  # request is never set to auto-merge: its checks show what is left to write.
+  # Like the stamp job, this job runs the tools read-only and hands a patch on.
+  tool-releases:
+    needs: [release-tools, releases]
+    if: ${{ !cancelled() && github.ref == 'refs/heads/main' && needs.release-tools.result == 'success' }}
+    timeout-minutes: 10
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    outputs:
+      changed: ${{ steps.refresh.outputs.changed }}
+      patch: ${{ steps.refresh.outputs.patch }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # build_llms_full renders the site with Jekyll before it extracts the mirrors.
+      - uses: ruby/setup-ruby@b3aaceaef7e0ee231b499e7b5f49c03fc1d32199
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: site-tools-release-check
+          path: ${{ runner.temp }}/site-tools
+      - name: Refresh the tool release snapshot
+        id: refresh
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tools="$RUNNER_TEMP/site-tools/site-tools"
+          chmod +x "$tools"
+          "$tools" stamp_source_freshness --write-tool-releases
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          "$tools" build_llms_full --write
+          git diff --binary > "$RUNNER_TEMP/tool-releases.patch"
+          git diff --stat
+          echo "patch=$(sha256sum "$RUNNER_TEMP/tool-releases.patch" | cut -d " " -f 1)" >> "$GITHUB_OUTPUT"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: steps.refresh.outputs.changed == 'true'
+        with:
+          name: tool-releases
+          path: ${{ runner.temp }}/tool-releases.patch
+          if-no-files-found: error
+          overwrite: true
+          retention-days: 1
+
+  # Holds the refresh to what wrote it before the publish job may push it. The
+  # mirror check renders the site with Jekyll, whose gems stay out of the job that
+  # holds a write token; the publish job pushes only the patch this job checked.
+  check-tool-releases:
+    needs: [release-tools, tool-releases]
+    if: needs.tool-releases.outputs.changed == 'true'
+    timeout-minutes: 10
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: ruby/setup-ruby@b3aaceaef7e0ee231b499e7b5f49c03fc1d32199
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: tool-releases
+          path: ${{ runner.temp }}/tool-releases
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: site-tools-release-check
+          path: ${{ runner.temp }}/site-tools
+      - name: Check the refresh against its generators
+        shell: bash
+        env:
+          PATCH_SHA256: ${{ needs.tool-releases.outputs.patch }}
+        run: |
+          patch="$RUNNER_TEMP/tool-releases/tool-releases.patch"
+          echo "$PATCH_SHA256  $patch" | sha256sum --check --strict
+          git worktree add --detach "$RUNNER_TEMP/base" HEAD
+          git apply --index "$patch"
+          # Paths are not content, so each changed file is held to what wrote it:
+          # the snapshot may differ from main's only in release versions, dates and
+          # commits; each stamped page must be what apply_tool_releases writes from
+          # main's copy and that snapshot; any other file must be a text mirror,
+          # which build_llms_full --check regenerates byte for byte.
+          tools="$RUNNER_TEMP/site-tools/site-tools"
+          chmod +x "$tools"
+          mapfile -t changed < <(git diff --cached --name-only --no-renames)
+          "$tools" stamp_source_freshness --verify-tool-releases "$RUNNER_TEMP/base" "${changed[@]}"
+          "$tools" build_llms_full --check
+
+  publish-tool-releases:
+    needs: [tool-releases, check-tool-releases]
+    if: needs.tool-releases.outputs.changed == 'true'
+    timeout-minutes: 5
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    env:
+      RELEASE_BRANCH: automation/tool-releases
+    steps:
+      - name: Mint the pull request token
+        id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.SOURCE_FRESHNESS_APP_CLIENT_ID }}
+          private-key: ${{ secrets.SOURCE_FRESHNESS_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      # No stored credentials; the push step authenticates itself.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: tool-releases
+          path: ${{ runner.temp }}/tool-releases
+      - name: Open the refresh pull request
+        shell: bash
+        env:
+          PATCH_SHA256: ${{ needs.tool-releases.outputs.patch }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          # An open refresh pull request may hold a reviewer's prose and
+          # changelog edits, so it is never overwritten; it is noted instead.
+          if gh pr view "$RELEASE_BRANCH" --json state --jq .state 2>/dev/null | grep -q OPEN; then
+            echo "::notice::The open refresh pull request is left as it is; the first run after it merges or closes opens a fresh one."
+            exit 0
+          fi
+          # Only the patch check-tool-releases checked, byte for byte.
+          echo "$PATCH_SHA256  $RUNNER_TEMP/tool-releases/tool-releases.patch" | sha256sum --check --strict
+          git apply --index "$RUNNER_TEMP/tool-releases/tool-releases.patch"
+          # The release refresh writes only the snapshot, each tool page, the
+          # tools index, the home page, the sitemap and llms.txt; build_llms_full
+          # writes the text mirrors and copies llms.txt into .well-known. It
+          # only rewrites files main already has, so any other change (a new,
+          # deleted or retyped file) or a changed file mode is refused whatever
+          # its name; check-tool-releases has checked the content.
+          unexpected=$(git diff --cached --name-only --no-renames -- . \
+            ':(exclude)_data/tool_releases.json' ':(exclude)index.html' ':(exclude)sitemap.xml' \
+            ':(exclude)llms.txt' ':(exclude).well-known/llms.txt' ':(exclude)tools/index.html' \
+            ':(exclude,glob)tools/*/index.html' ':(exclude,glob)**/index.txt' ':(exclude,glob)llms-full*.txt')
+          not_rewritten=$(git diff --cached --name-only --no-renames --diff-filter=m)
+          mode_changed=$(git diff --cached --summary --no-renames | grep ' mode change ' || true)
+          if [ -n "$unexpected$not_rewritten$mode_changed" ]; then
+            printf '%s\n' "$unexpected" "$not_rewritten" "$mode_changed" >&2
+            echo "::error::The release refresh changes files outside its contract"
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -C "$RELEASE_BRANCH"
+          git commit -m "Refresh the tool release snapshot"
+          gh auth setup-git
+          git push --force origin "$RELEASE_BRANCH"
+          gh pr create \
+            --base main \
+            --head "$RELEASE_BRANCH" \
+            --title "Refresh the tool release snapshot" \
+            --body "$RUN_URL rewrote _data/tool_releases.json and the pages it feeds from the published stable release tags. Before merging: add the Tool releases row each new tag needs in changelog/index.html, review the capability prose and review dates of each changed page, name any new licence in _data/tools.json, then run site-tools stamp_source_freshness --sync-releases. This pull request is not set to auto-merge."
+
   # The public site is delivered through Cloudflare, which can rewrite the
   # HTML and add headers the repository never sees. This job fetches the live
   # pages and holds them to the delivery promises README.md records.

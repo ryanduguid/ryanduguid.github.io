@@ -40,7 +40,9 @@ fn collect(scripts: &Path, directory: &Path, files: &mut Vec<String>) -> std::io
         let path = entry?.path();
         if path.is_dir() {
             collect(scripts, &path, files)?;
-        } else if let Ok(relative) = path.strip_prefix(scripts) {
+        } else {
+            // `directory` is `scripts/src` or below it, so every entry is under `scripts`.
+            let relative = path.strip_prefix(scripts).expect("an entry below scripts");
             let parts: Vec<_> = relative.iter().map(|part| part.to_string_lossy()).collect();
             files.push(parts.join("/"));
         }

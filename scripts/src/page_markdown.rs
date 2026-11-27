@@ -159,3 +159,63 @@ pub fn render(html: &str, url: &str) -> Result<String, String> {
         body.trim()
     ))
 }
+
+#[cfg(test)]
+mod tests {
+    use super::render;
+
+    const URL: &str = "https://duguid.com.au/tools/example/";
+
+    fn page(head: &str, main: &str) -> String {
+        format!("<html><head>{head}</head><body><main>{main}</main></body></html>")
+    }
+
+    #[test]
+    fn a_header_row_heads_the_table_and_column_groups_are_ignored() {
+        let table = "<table><colgroup><col></colgroup><thead><tr><th>Year</th><th>Rate</th><th>Note</th></tr></thead><tbody><tr><td>2026-27</td><td>2.7%</td><td>Levy</td></tr></tbody></table>";
+        let text = render(&page("", table), URL).unwrap();
+        assert!(
+            text.contains(
+                "| Year | Rate | Note |\n| --- | --- | --- |\n| 2026-27 | 2.7% | Levy |\n"
+            ),
+            "{text}"
+        );
+    }
+
+    #[test]
+    fn an_empty_table_is_left_to_the_default_conversion() {
+        let text = render(&page("", "<p>Before</p><table></table><p>After</p>"), URL).unwrap();
+        assert!(!text.contains('|'), "{text}");
+        assert!(
+            text.starts_with("Before") && text.contains("After"),
+            "{text}"
+        );
+    }
+
+    #[test]
+    fn a_link_that_cannot_be_resolved_keeps_its_written_target() {
+        let text = render(
+            &page(
+                "",
+                r#"<p><a href="http://[::1">Broken</a> and <a href="/rates/">rates</a></p>"#,
+            ),
+            URL,
+        )
+        .unwrap();
+        assert!(text.contains("[Broken](http://[::1)"), "{text}");
+        assert!(
+            text.contains("[rates](https://duguid.com.au/rates/)"),
+            "{text}"
+        );
+    }
+
+    #[test]
+    fn the_description_follows_the_canonical_link_as_a_quote() {
+        let head = r#"<meta name="description" content="Rates in one place.">"#;
+        let text = render(&page(head, "<p>Body</p>"), URL).unwrap();
+        assert_eq!(
+            text,
+            format!("Body\n\n[Canonical page]({URL})\n\n> Rates in one place.\n")
+        );
+    }
+}
