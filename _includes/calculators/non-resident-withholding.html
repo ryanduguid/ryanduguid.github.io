@@ -1,14 +1,14 @@
 <section class="business-calculator" id="non-resident-withholding">
 <form class="calculator-split" data-calculator="non-resident-withholding">
 <fieldset disabled><legend>Withholding from one payment to a foreign resident</legend><div class="form-grid">
-<label class="field" for="non-resident-withholding-payment">Payment (AUD)<input id="non-resident-withholding-payment" name="payment" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="10000" required /></label>
+<label class="field" for="non-resident-withholding-payment">Payment (AUD)<input enterkeyhint="next" id="non-resident-withholding-payment" name="payment" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="10000" required /></label>
 <div class="field"><label for="non-resident-withholding-year">Income year</label><select name="year" id="non-resident-withholding-year"><option value="2026-27">2026-27</option><option value="2025-26" selected>2025-26</option><option value="2024-25">2024-25</option></select></div>
 <div class="field"><label for="non-resident-withholding-type">Payment</label><select name="type" id="non-resident-withholding-type"><option value="dividend" selected>Dividend</option><option value="interest">Interest</option><option value="royalty">Royalty</option></select></div>
-<label class="field" for="non-resident-withholding-franked">Franked part of a dividend (AUD)<input id="non-resident-withholding-franked" name="franked" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="5000" /></label>
-<label class="field" for="non-resident-withholding-cfi">Conduit foreign income in a dividend (AUD)<input id="non-resident-withholding-cfi" name="cfi" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" /></label>
-<label class="field" for="non-resident-withholding-treaty">Treaty rate (0.15 for 15%; blank for none)<input id="non-resident-withholding-treaty" name="treaty" type="text" inputmode="decimal" value="0.15" /></label>
+<label class="field" for="non-resident-withholding-franked">Franked part of a dividend (AUD)<input enterkeyhint="next" id="non-resident-withholding-franked" name="franked" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="5000" /></label>
+<label class="field" for="non-resident-withholding-cfi">Conduit foreign income in a dividend (AUD)<input enterkeyhint="next" id="non-resident-withholding-cfi" name="cfi" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" /></label>
+<label class="field" for="non-resident-withholding-treaty">Treaty rate (0.15 for 15%; blank for none)<input enterkeyhint="next" id="non-resident-withholding-treaty" name="treaty" type="text" inputmode="decimal" value="0.15" /></label>
 <div class="field"><label for="non-resident-withholding-exempt">No withholding tax is payable (exempt)</label><select name="exempt" id="non-resident-withholding-exempt"><option value="no" selected>No</option><option value="yes">Yes</option></select></div>
-<label class="field" for="non-resident-withholding-already">Already withheld from this payment (AUD)<input id="non-resident-withholding-already" name="already" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" /></label>
+<label class="field" for="non-resident-withholding-already">Already withheld from this payment (AUD)<input enterkeyhint="done" id="non-resident-withholding-already" name="already" type="number" inputmode="decimal" min="0" max="1000000000000" step=".01" value="0" /></label>
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
 <p class="field-note">The franked part and conduit foreign income are used only for a dividend. A treaty rate may not exceed the domestic rate: 30% for dividends and royalties, 10% for interest.</p>
