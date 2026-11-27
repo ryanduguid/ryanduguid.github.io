@@ -862,3 +862,41 @@ fn cli_parses_flags_positionals_and_json_inputs_as_argparse_does() {
         assert!(stderr.contains(message), "{args:?}: {stderr}");
     }
 }
+
+#[test]
+fn cli_reads_negative_number_tokens_as_values_as_argparse_does() {
+    let dimensions = [
+        "build_search_request",
+        "--start-date",
+        "2026-08-01",
+        "--end-date",
+        "2026-08-28",
+        "--dimensions",
+    ];
+    let days = ["comparison_windows", "--end-date", "2026-08-28", "--days"];
+    // argparse reads a token matching `-\.?\d` as a value, not an option.
+    let cases: &[(&[&str], &str, i32, &str)] = &[
+        (
+            &dimensions,
+            "-1.5",
+            1,
+            "unknown Search Console dimension: -1.5",
+        ),
+        (
+            &days,
+            "-1.5",
+            2,
+            "argument --days: invalid int value: '-1.5'",
+        ),
+        (&days, "-.5", 2, "argument --days: invalid int value: '-.5'"),
+        (&days, "-1x", 2, "argument --days: invalid int value: '-1x'"),
+        (&days, "-.", 2, "argument --days: expected one argument"),
+    ];
+    for (prefix, last, code, message) in cases {
+        let args = [*prefix, &[*last]].concat();
+        let output = run_cli(&args, None);
+        assert_eq!(output.status.code(), Some(*code), "{args:?}");
+        let stderr = String::from_utf8(output.stderr).unwrap();
+        assert!(stderr.contains(message), "{args:?}: {stderr}");
+    }
+}

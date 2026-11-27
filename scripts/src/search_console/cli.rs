@@ -74,8 +74,13 @@ struct CliOptions {
     positionals: Vec<String>,
 }
 
+/// argparse's negative-number test, `re.match(r'-\.?\d', arg)`: such a token is a
+/// value, not an option, as no option here looks like a negative number.
 fn is_negative_number(arg: &str) -> bool {
-    arg.len() > 1 && arg.starts_with('-') && arg[1..].bytes().all(|b| b.is_ascii_digit())
+    arg.strip_prefix('-').is_some_and(|rest| {
+        let rest = rest.strip_prefix('.').unwrap_or(rest);
+        rest.starts_with(|c: char| c.is_ascii_digit())
+    })
 }
 
 fn is_option_token(arg: &str) -> bool {
