@@ -435,14 +435,14 @@ pub fn read_dir(directory: &Path) -> Result<Vec<std::fs::DirEntry>, String> {
 /// `path.resolve(path)`: absolute and normalised, without resolving links.
 pub fn resolve(path: &Path) -> PathBuf {
     let absolute = std::path::absolute(path).unwrap_or_else(|_| path.to_path_buf());
+    // `components` yields `.` only first, and an absolute path starts with its root or
+    // prefix, so only `..` needs handling.
     let mut resolved = PathBuf::new();
     for component in absolute.components() {
-        match component {
-            Component::CurDir => {}
-            Component::ParentDir => {
-                resolved.pop();
-            }
-            other => resolved.push(other),
+        if component == Component::ParentDir {
+            resolved.pop();
+        } else {
+            resolved.push(component);
         }
     }
     resolved

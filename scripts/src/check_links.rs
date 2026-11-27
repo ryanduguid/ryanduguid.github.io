@@ -335,15 +335,14 @@ pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
             continue;
         }
         // A scheme-relative link takes the site's https; a relative one stays on the site.
-        let Ok(href) = pyurl::urljoin(&format!("{SELF_ORIGIN}/"), href) else {
-            continue;
-        };
+        // urljoin and urlsplit refuse only a netloc, and the join keeps the href's netloc,
+        // which urlsplit accepted above, or takes the site's.
+        let href = pyurl::urljoin(&format!("{SELF_ORIGIN}/"), href)
+            .expect("urljoin refuses only what urlsplit refused");
         if (actions && CI_MANUAL_URLS.contains(&href.as_str())) || targets.contains(&href) {
             continue;
         }
-        let Ok(parts) = pyurl::urlsplit(&href) else {
-            continue;
-        };
+        let parts = pyurl::urlsplit(&href).expect("a joined href has an accepted netloc");
         // A malformed port is reported by the link pass, never fetched.
         if is_self_origin(&parts) == Ok(false) {
             targets.push(href);
@@ -638,7 +637,10 @@ impl<'a> Checker<'a> {
         let headers = [("User-Agent", USER_AGENT.to_owned())];
         let mut target = url.to_owned();
         let mut waited = 0.0;
-        for attempt in 1..=MAX_FETCH_ATTEMPTS {
+        // retry_error refuses the last attempt, so the loop ends by returning.
+        let mut attempt = 0;
+        loop {
+            attempt += 1;
             match self.opener.open(&target, &headers) {
                 Ok(response) => {
                     if target != url
@@ -671,7 +673,6 @@ impl<'a> Checker<'a> {
                 }
             }
         }
-        unreachable!("the last attempt returns or raises")
     }
 
     /// Verify the canonical repository identity and read its archived flag.
@@ -1052,12 +1053,7 @@ fn prefetch_all(
         .collect();
     hrefs.extend(llms_hrefs(root).unwrap_or_default());
     let targets = fetch_targets(&hrefs, actions);
-    let mut names: Vec<String> = Vec::new();
-    for name in targets.iter().filter_map(|t| own_repository(t)) {
-        if !names.contains(&name) {
-            names.push(name);
-        }
-    }
+    let names = own_repositories(&targets);
     let transport = || {
         (
             Box::new(Network) as Box<dyn Opener>,
@@ -1066,6 +1062,17 @@ fn prefetch_all(
     };
     let verdicts = prefetch_verdicts(root, names, &transport, token);
     (prefetch(root, targets, &transport), verdicts)
+}
+
+/// The own repositories the targets name, each once, in first-use order.
+pub fn own_repositories(targets: &[String]) -> Vec<String> {
+    let mut names: Vec<String> = Vec::new();
+    for name in targets.iter().filter_map(|t| own_repository(t)) {
+        if !names.contains(&name) {
+            names.push(name);
+        }
+    }
+    names
 }
 
 /// Markdown link targets in llms.txt.
@@ -1142,52 +1149,72 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     }
     let llms = llms_hrefs(&root)?;
     failures.extend(checker.check_hrefs("llms.txt", &llms, offline)?);
+    let (text, code) = summary(
+        &checker.refusals,
+        &checker.warnings,
+        checker.actions,
+        &failures,
+        offline,
+    );
+    crate::print_text(&text, false).map_err(|e| e.to_string())?;
+    Ok(code)
+}
+
+/// `items` under their count and `heading`, each marked `label`, with an Actions warning
+/// titled `title` for each when `actions`; nothing when there are none.
+fn list_warnings(
+    text: &mut String,
+    items: &[String],
+    (heading, label, title): (&str, &str, &str),
+    actions: bool,
+) {
+    if items.is_empty() {
+        return;
+    }
+    text.push_str(&format!("\n{} {heading}:\n", items.len()));
+    for item in items {
+        text.push_str(&format!("  {label} {item}\n"));
+        if actions {
+            text.push_str(&format!("::warning title={title}::{}\n", annotation(item)));
+        }
+    }
+}
+
+/// The run's closing report and its exit code: refusals and transient warnings (with
+/// their Actions annotations on CI), then the failures or the all-clear line.
+pub fn summary(
+    refusals: &[String],
+    warnings: &[String],
+    actions: bool,
+    failures: &[String],
+    offline: bool,
+) -> (String, u8) {
     let mut text = String::new();
-    if !checker.refusals.is_empty() {
-        text.push_str(&format!(
-            "\n{} source(s) refused the runner; check each in a browser:\n",
-            checker.refusals.len()
-        ));
-        for refusal in &checker.refusals {
-            text.push_str(&format!("  REFUSED {refusal}\n"));
-            if checker.actions {
-                text.push_str(&format!(
-                    "::warning title=Refused the runner::{}\n",
-                    annotation(refusal)
-                ));
-            }
-        }
-    }
-    if !checker.warnings.is_empty() {
-        text.push_str(&format!(
-            "\n{} transient failure(s) reported as warnings:\n",
-            checker.warnings.len()
-        ));
-        for warning in &checker.warnings {
-            text.push_str(&format!("  WARN {warning}\n"));
-            if checker.actions {
-                text.push_str(&format!(
-                    "::warning title=Transient link failure::{}\n",
-                    annotation(warning)
-                ));
-            }
-        }
-    }
+    let refused = (
+        "source(s) refused the runner; check each in a browser",
+        "REFUSED",
+        "Refused the runner",
+    );
+    list_warnings(&mut text, refusals, refused, actions);
+    let transient = (
+        "transient failure(s) reported as warnings",
+        "WARN",
+        "Transient link failure",
+    );
+    list_warnings(&mut text, warnings, transient, actions);
     if failures.is_empty() {
         text.push_str(if offline {
             "\noffline checks passed; external links were skipped\n"
-        } else if checker.warnings.is_empty() && checker.refusals.is_empty() {
+        } else if warnings.is_empty() && refusals.is_empty() {
             "\nall clear\n"
         } else {
             "\nno other failures\n"
         });
-        crate::print_text(&text, false).map_err(|e| e.to_string())?;
-        return Ok(0);
+        return (text, 0);
     }
     text.push_str(&format!("\n{} failure(s):\n", failures.len()));
-    for failure in &failures {
+    for failure in failures {
         text.push_str(&format!("  FAIL {failure}\n"));
     }
-    crate::print_text(&text, false).map_err(|e| e.to_string())?;
-    Ok(1)
+    (text, 1)
 }

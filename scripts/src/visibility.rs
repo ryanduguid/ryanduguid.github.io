@@ -882,6 +882,15 @@ mod tests {
     }
 
     #[test]
+    fn parse_takes_an_abbreviation_of_check_as_check() {
+        // The site's own table has no shared prefix, so the same abbreviation is --check.
+        assert!(matches!(
+            parsed(&["--che"]).ok().unwrap().mode,
+            Mode::Check(_)
+        ));
+    }
+
+    #[test]
     fn parse_exits_for_help_and_refuses_an_unknown_short_option() {
         assert_eq!(parsed(&["-h"]).err(), Some(0));
         assert_eq!(parsed(&["-x"]).err(), Some(2));
