@@ -880,9 +880,12 @@ fn pages_error(root: &Path) -> String {
     site_tools::ozzit_functions::render_pages(root).expect_err("the pages must be refused")
 }
 
+/// An edit of the function reference and the error it must cause.
+type ReferenceEdit = (fn(&mut serde_json::Value), &'static str);
+
 #[test]
 fn a_function_reference_out_of_shape_is_refused() {
-    let edits: [(fn(&mut serde_json::Value), &str); 3] = [
+    let edits: [ReferenceEdit; 3] = [
         (|d| d["format"] = "other".into(), "format must be"),
         (
             |d| {

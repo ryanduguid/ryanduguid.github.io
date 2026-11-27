@@ -481,3 +481,11 @@ fn pyre_refuses_a_backreference_in_a_class() {
 fn pyre_refuses_a_verbose_group() {
     site_tools::pyre::translate("(?x)a", 0);
 }
+
+#[test]
+fn pycsv_ends_on_a_quoted_field_or_empty_text() {
+    assert_eq!(pycsv::reader("a,\"b\"").unwrap(), [["a", "b"]]);
+    assert_eq!(pycsv::reader("").unwrap(), Vec::<Vec<String>>::new());
+    // A bare carriage return ends a line, as it does for Python's universal newlines.
+    assert_eq!(pycsv::reader("a\rb").unwrap(), [["a"], ["b"]]);
+}
