@@ -202,10 +202,8 @@ pub fn check_person_graph(paths: &[PathBuf], root: &Path) -> Result<Vec<String>,
             ));
             continue;
         }
-        let (rel, node) = &**matches[0];
-        if rel != "index.html" {
-            failures.push(format!("person graph: {name} is in {rel}, not index.html"));
-        }
+        // `software` holds index.html nodes only, so the match is on the homepage.
+        let (_, node) = &**matches[0];
         if !eq(node.get("@id"), &s(&expected.id)) {
             failures.push(format!(
                 "person graph: {name} does not have its stable homepage @id"
@@ -727,10 +725,8 @@ pub fn check_authority_surface(root: &Path) -> Result<Vec<String>, String> {
     }
 
     for path in glob_children(root, "tools", "index.html") {
+        // Every match is tools/<name>/index.html, which NOT_INDEXED never lists.
         let rel = core::rel(&path, root);
-        if NOT_INDEXED.contains(&rel.as_str()) {
-            continue;
-        }
         let hrefs = core::anchor_hrefs(&core::visible_html(&crate::read(&path)?));
         if !hrefs.iter().any(|h| h == "/evidence/") {
             failures.push(format!("{rel}: no visible link to /evidence/"));

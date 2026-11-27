@@ -8,7 +8,7 @@
 // The parser keeps CPython's index arithmetic line for line, so prefix tests stay explicit.
 #![allow(clippy::manual_strip)]
 use crate::html;
-use crate::pyre::{self, re};
+use crate::pyre::re;
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Event {
@@ -124,16 +124,11 @@ impl Parser {
             // re.compile(r'\z') matches at the end.
             Some("plaintext") => Some(self.rawdata.len()),
             Some(elem) => {
-                // re.IGNORECASE | re.ASCII: only ASCII letters fold.
+                // re.IGNORECASE | re.ASCII. Every CDATA and RCDATA element name is ASCII
+                // letters, so each folds and none needs escaping.
                 let name: String = elem
                     .chars()
-                    .map(|c| {
-                        if c.is_ascii_alphabetic() {
-                            format!("[{}{}]", c.to_ascii_lowercase(), c.to_ascii_uppercase())
-                        } else {
-                            pyre::escape(&c.to_string())
-                        }
-                    })
+                    .map(|c| format!("[{}{}]", c.to_ascii_lowercase(), c.to_ascii_uppercase()))
                     .collect();
                 let amp = if self.escapable && !self.convert_charrefs {
                     "&|"
@@ -242,10 +237,9 @@ impl Parser {
                         self.emit(Event::Decl(rest[2..].to_owned()));
                     } else if rest.starts_with("<!") {
                         self.emit(Event::Comment(rest[2..].to_owned()));
-                    } else if rest.starts_with("<?") {
-                        self.emit(Event::Pi(rest[2..].to_owned()));
                     } else {
-                        unreachable!("we should not get here!");
+                        // Only parse_pi is left to have returned -1, so rest starts "<?".
+                        self.emit(Event::Pi(rest[2..].to_owned()));
                     }
                     k = n as isize;
                 }
@@ -274,7 +268,8 @@ impl Parser {
                 } else {
                     break;
                 }
-            } else if rest.starts_with('&') {
+            } else {
+                // `interesting` and the search for '<' stop only at '<' or '&'.
                 let found = re("&([a-zA-Z][-.a-zA-Z0-9]*)[^a-zA-Z0-9]", 0)
                     .match_at(&self.rawdata, i)
                     .map(|m| reference(&m, 1));
@@ -295,8 +290,6 @@ impl Parser {
                 } else {
                     break;
                 }
-            } else {
-                unreachable!("interesting.search() lied");
             }
         }
         if end && i < n {
@@ -308,10 +301,9 @@ impl Parser {
     }
 
     fn parse_html_declaration(&mut self, i: usize) -> isize {
+        // goahead sends "<!--" to parse_comment first.
         let rest = &self.rawdata[i..];
-        if rest.starts_with("<!--") {
-            self.parse_comment(i)
-        } else if rest.starts_with("<![CDATA[") {
+        if rest.starts_with("<![CDATA[") {
             match rest[9..].find("]]>") {
                 None => -1,
                 Some(j) => {
@@ -395,13 +387,10 @@ impl Parser {
                     let quoted = value.len() >= 2
                         && ((value.starts_with('\'') && value.ends_with('\''))
                             || (value.starts_with('"') && value.ends_with('"')));
-                    // Python's value[:1] == "'" == value[-1:] also holds for a lone quote.
-                    if quoted || value == "'" || value == "\"" {
-                        value = if value.len() >= 2 {
-                            &value[1..value.len() - 1]
-                        } else {
-                            ""
-                        };
+                    // A value group starting with a quote is a quoted pair, so Python's
+                    // test for a lone quote never holds.
+                    if quoted {
+                        value = &value[1..value.len() - 1];
                     }
                     Some(if value.is_empty() {
                         String::new()
@@ -578,6 +567,49 @@ mod tests {
                 Event::Comment("x".into()),
             ]
         );
+    }
+
+    /// Each expected list is what CPython 3.15's parser hands its handlers.
+    #[test]
+    fn unfinished_input_at_the_end_is_handled_as_cpython_does() {
+        let start = |name: &str| Event::StartTag(name.into(), vec![]);
+        // An unclosed script's text waits for close(), then is data.
+        assert_eq!(
+            events("<script>abc"),
+            vec![start("script"), Event::Data("abc".into())]
+        );
+        // A lone '<' at the end waits for close(), then is its own chunk.
+        assert_eq!(
+            events("a<"),
+            vec![Event::Data("a".into()), Event::Data("<".into())]
+        );
+        // An end tag whose '>' sits inside a quoted value is never finished, and dropped.
+        assert_eq!(events("x</a b='>'y"), vec![Event::Data("x".into())]);
+        assert_eq!(events("<?pi"), vec![Event::Pi("pi".into())]);
+    }
+
+    #[test]
+    fn quoted_values_lose_their_quotes_and_cdata_ends_fold_case() {
+        assert_eq!(
+            events("<a b='' c=\"d\" e=f>"),
+            vec![Event::StartTag(
+                "a".into(),
+                vec![
+                    ("b".into(), Some(String::new())),
+                    ("c".into(), Some("d".into())),
+                    ("e".into(), Some("f".into())),
+                ]
+            )]
+        );
+        assert_eq!(
+            events("<SCRIPT>x</ScRiPt >"),
+            vec![
+                Event::StartTag("script".into(), vec![]),
+                Event::Data("x".into()),
+                Event::EndTag("script".into()),
+            ]
+        );
+        assert_eq!(events("<!--c-->"), vec![Event::Comment("c".into())]);
     }
 
     #[test]
