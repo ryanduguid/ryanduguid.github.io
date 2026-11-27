@@ -34,7 +34,7 @@ export const ALCOHOL_PERIODS = [
   ['2026-02-02', '2026-08-02', 'C2026G00056', '54.74 10.57 63.75 33.11 63.75 43.39 3.84 4.43 107.99 100.85 107.99 107.99'],
   ['2026-08-03', '2027-01-31', 'C2026G00508', '55.83 10.57 65.03 33.11 65.03 43.39 3.92 4.52 110.15 102.87 110.15 110.15'],
 ].map(([from, to, notice, row]) => ({ from: /** @type {number} */ (parseDate(from)), to: /** @type {number} */ (parseDate(to)),
-  notice, rates: new Map(row.split(' ').map((rate, i) => [/** @type {string} */ (SUBITEMS[i]), rate])) }));
+  notice, rates: new Map(row.split(' ').map((rate, i) => [/** @type {string} */ (SUBITEMS.at(i)), rate])) }));
 const LAST = ALCOHOL_PERIODS[ALCOHOL_PERIODS.length - 1].to;
 
 const PRODUCTS = ['beer', 'brandy', 'spirit', 'other_excisable_beverage'];

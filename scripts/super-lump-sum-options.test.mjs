@@ -196,7 +196,7 @@ test('the income stream page shows the command’s withholding for every case it
   let shown = 0;
   for (const { source, call, amounts, rates, refused } of streams.cases) {
     const fields = fieldsOf(call);
-    const value = (name) => fields[name] ?? '';
+    const value = (name) => fields[name] ?? ''; // eslint-disable-line security/detect-object-injection -- name comes from the page's own field list
     if (refused || JSON.stringify(Object.entries(streamFormInput(value)).sort()) !== JSON.stringify(Object.entries(call).sort())) continue;
     shown += 1;
     const r = superBenefitTaxResult(value, aud);

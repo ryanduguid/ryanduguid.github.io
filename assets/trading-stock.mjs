@@ -70,7 +70,7 @@ function valueItem(given, i) {
   }
   if (method === 'lowest') {
     const [at, value] = lowest(name, values, 'lowest');
-    return { method: /** @type {string} */ (VALUES[at]), value };
+    return { method: /** @type {string} */ (VALUES.at(at)), value };
   }
   if (method === 'obsolescence') {
     const [, least] = lowest(name, values, 'obsolescence');
