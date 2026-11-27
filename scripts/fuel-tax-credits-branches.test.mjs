@@ -52,7 +52,7 @@ test('a light vehicle on a public road and a nil quantity earn no credit', () =>
   assert.deepEqual([nil.quantity, nil.credit], ['0', 0]);
 });
 
-const form = (fields) => (name) => fields[name] ?? '';
+const form = (fields) => { const map = new Map(Object.entries(fields)); return (name) => map.get(name) ?? ''; };
 
 test('the form refuses a line with both a quantity and a cost, and carries the tax period and return day', () => {
   assert.throws(() => fuelFormInput(form({ year: '2025-26', 'fuel-1': 'diesel', 'quantity-1': '5', 'cost-1': '10' })),

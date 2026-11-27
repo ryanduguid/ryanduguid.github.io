@@ -29,7 +29,8 @@ test('beneficiaries that are not a list count as none, and franked entitlements 
 
 test('the form skips a blank row and fills blank figures of a named one with nil', () => {
   const fields = { 'b1-name': '', 'b1-entitlement': '0', 'b2-name': 'Julian', 'b2-kind': 'company', 'b2-entitlement': '500' };
-  const input = trustStreamingFormInput((name) => fields[name] ?? '');
+  const map = new Map(Object.entries(fields));
+  const input = trustStreamingFormInput((name) => map.get(name) ?? '');
   assert.deepEqual(input.beneficiaries, [{ name: 'Julian', kind: 'company', present_entitlement: '500', capital_gain_entitled: '0', franked_entitled: '0' }]);
 });
 

@@ -69,7 +69,7 @@ test('the page writes every optional statement fact, each payment form and an un
   assert.equal(atoPenaltiesInputsText({ question: 'objection' }, money), 'objection');
 });
 
-const result = (fields) => atoPenaltiesInterestResult((name) => fields[name] ?? '', money);
+const result = (fields) => { const map = new Map(Object.entries(fields)); return atoPenaltiesInterestResult((name) => map.get(name) ?? '', money); };
 
 test('result rows name single days, assumed rates, no days of SIC and parts without a shortfall', () => {
   // 11.51% is the ATO's published GIC for October to December 2026 (rates/general-interest-charge).
