@@ -30,7 +30,6 @@ export function round40(n, d) {
   const scaled = (/** @type {number} */ shift) => (shift >= 0 ? [a * ten(shift), b] : [a, b * ten(-shift)]);
   let [top, bottom] = scaled(k);
   if (top / bottom >= ten(40)) [top, bottom] = scaled(--k);
-  if (top / bottom < ten(39)) [top, bottom] = scaled(++k);
   let q = top / bottom;
   const twice = 2n * (top - q * bottom);
   if (twice > bottom || (twice === bottom && q % 2n === 1n)) q += 1n;

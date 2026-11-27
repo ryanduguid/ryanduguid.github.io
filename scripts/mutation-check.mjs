@@ -1385,7 +1385,7 @@ const MUTATIONS = [
   { ...cryst, name: 'Crystallisation lesser test dropped', find: 'const chosen = min(byDays, sub(base, undeducted));', replace: 'const chosen = byDays;' },
   { ...cryst, name: 'Crystallisation CGT exempt left in the base', find: 'const base = sub(sub(sub(value, concessional), invalidity), cgt);', replace: 'const base = sub(sub(value, concessional), invalidity);' },
   { ...cryst, name: 'Crystallisation undeducted left out of the segment', find: 'add(add(add(add(concessional, invalidity), undeducted), cgt), pre)', replace: 'add(add(add(concessional, invalidity), cgt), pre)' },
-  { ...args, name: 'Decimal steps round to 39 digits', find: 'let k = 40 - (digits(a) - digits(b));', replace: 'let k = 39 - (digits(a) - digits(b));' },
+  { ...args, name: 'Decimal steps keep 41 digits', find: 'if (top / bottom >= ten(40))', replace: 'if (top / bottom >= ten(41))' },
 ];
 
 // Runs that must read as invalid, not as caught.

@@ -12,6 +12,10 @@ test('a quotient keeps 40 significant digits', () => {
   assert.deepEqual(round40(2n, 3n), { n: 6666666666666666666666666666666666666667n, d: 10n ** 40n });
 });
 
+test('a quotient of 10 or more still keeps 40 significant digits', () => {
+  assert.deepEqual(round40(9n, 2n), { n: 45n * 10n ** 38n, d: 10n ** 39n });
+});
+
 test('a tie rounds to the even digit', () => {
   const tie = 10n ** 40n + 5n;
   assert.deepEqual(round40(tie, 10n ** 41n), { n: 10n ** 39n, d: 10n ** 40n });
