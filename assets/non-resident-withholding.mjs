@@ -44,7 +44,7 @@ function refuse(code, message) {
 // A decimal as a signed integer coefficient and a power of 10, as Python's Decimal keeps it (trailing zeros kept).
 // The command reads digits with an optional point and leading minus; Infinity and NaN read but are not finite.
 /** @typedef {{ c: bigint, e: number, finite?: false }} Dec */
-const PLAIN = /^-?\d+(?:\.\d+)?$/;
+const PLAIN = /^-?\d+(?:\.\d+)?$/; // eslint-disable-line security/detect-unsafe-regex -- anchored, with no repetition over overlapping characters: linear
 const SPECIAL = /^[+-]?(?:inf|infinity|s?nan\d*)$/i;
 
 /** @param {string} text @returns {Dec | null} */
@@ -143,7 +143,7 @@ function checkCall(v) {
   if (OTHER_TYPES.includes(type)) {
     refuse('non_resident_withholding.payment_type_out_of_scope', 'This page covers dividend, interest and royalty payments under Subdivision 12-F only.');
   }
-  const wanted = WANTED[/** @type {keyof typeof WANTED} */ (type)];
+  const wanted = WANTED[/** @type {keyof typeof WANTED} */ (type)]; // eslint-disable-line security/detect-object-injection -- type is one of the 3 payment types checked before this line
   if (!wanted) {
     const hint = type === 'capital_gains' ? ' Use foreign-resident-withholding for foreign resident capital gains withholding (TAA Sch 1 s 14-200).' : '';
     refuse('non_resident_withholding.payment_type_invalid',
@@ -205,7 +205,7 @@ function regulationWithholding(type, base, used, applied, already) {
 export function nonResidentWithholding(call) {
   const v = readInputs(call);
   const { type, payment } = checkCall(v);
-  const domesticText = DOMESTIC[type];
+  const domesticText = DOMESTIC[type]; // eslint-disable-line security/detect-object-injection -- type is one of the 3 payment types checked before this line
   const domestic = /** @type {Dec} */ (parseDec(domesticText));
   const treaty = treatyRate(v.treaty_rate, domestic);
   if (!treaty.ok) {
