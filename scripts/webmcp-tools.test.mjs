@@ -2286,6 +2286,8 @@ test('the ESIC and vacancy fee tools return their page examples and refuse what 
   assert.deepEqual([limited.taxOffset, limited.tests.at(-1).met], ['0.00', false]);
   await assert.rejects(esic.execute({ ...base, innovationItems: [9] }), /innovationItems/);
   await assert.rejects(esic.execute({ ...base, extra: 1 }), /extra is not an input of this tool/);
+  const { innovationItems: _items, ...noItems } = base;
+  assert.equal((await esic.execute(noItems)).innovationPoints, 0);
   const fee = tools['residential-vacancy-fee'];
   const rvf = { incomeYear: '2025-26', vacancyYearStart: '2025-08-01', heldFullVacancyYear: true, residentiallyOccupiedDays: 100,
     returnLodgedOnTime: true, acquisitionBasis: 'notifiable_action', ownership: 'sole', consideration: '1500000', dwellingKind: 'new_or_near_new',

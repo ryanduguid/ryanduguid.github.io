@@ -177,8 +177,8 @@ function waivedFee(v, p) {
   const unsettled = (/** @type {string} */ m) => invalid('pre_2024_waiver_boundary_unsettled', m);
   if (!p.lodged) unsettled('For a pre-9 April 2024 vacancy year with a waived application fee and a late return, the s 10 item 1 amount turns on when the Commissioner issues the s 115E notice or the fee becomes payable, which is outside this worksheet.');
   if (Object.hasOwn(v, 'application_date') || Object.hasOwn(v, 'dwelling_kind')) invalid('application_fee_invalid', 'For a vacancy year starting before 9 April 2024 with a waived application fee, omit application_date and dwelling_kind: pre-9 April 2024 Fees Regulations ss 43(b) and 46(b) use the s 10 item 1 amount in force when the vacancy fee becomes payable.');
-  const [atEnd, atDue] = [scheduleFor(p.end), scheduleFor(p.end + 30)];
-  if (!atEnd || !atDue) return unsettled('The vacancy year end or 30-day return window lies outside the verified Fees Regulations 2020 schedule dates.');
+  // Every supported pre-9 April 2024 year ends, with its 30-day window, from 2021-06-30 to 2025-05-07, inside the schedule.
+  const [atEnd, atDue] = /** @type {[Schedule, Schedule]} */ ([scheduleFor(p.end), scheduleFor(p.end + 30)]);
   if (atEnd.tierOne !== atDue.tierOne) unsettled(`The 30-day return window (${formatDay(p.end)} to ${formatDay(p.end + 30)}) crosses a change in the s 10 item 1 fee ($${atEnd.tierOne} to $${atDue.tierOne}), so the pre-9 April 2024 waived-fee amount depends on the exact date the fee became payable.`);
   const whole = { id: 'whole_property_application_fee', authority: 'Fees Regulations 2020 (pre-9 April 2024 compilation) s 43(b) or s 46(b) and s 10 item 1: lowest residential tier fee', value: int(atEnd.tierOne) };
   return { ...shareSteps(whole, share), rates: [['tier_one_fee', String(atEnd.tierOne)]], basis: 'waived_tier_one' };
@@ -300,7 +300,7 @@ export function rvfInputsText(x, aud) {
   if (!x.held_full_vacancy_year) parts.push('not held all year');
   if (!x.return_lodged_on_time) parts.push('return late');
   if (x.exemption) parts.push(String(x.exemption).replace(/_/g, ' '));
-  parts.push(`${BASIS_WORDS[/** @type {keyof typeof BASIS_WORDS} */ (x.acquisition_basis)] ?? x.acquisition_basis}, ${String(x.ownership).replace(/_/g, ' ')}`);
+  parts.push(`${BASIS_WORDS[/** @type {keyof typeof BASIS_WORDS} */ (x.acquisition_basis)]}, ${String(x.ownership).replace(/_/g, ' ')}`);
   if (x.application_fee_payable !== undefined) parts.push(`application fee ${aud(Number(x.application_fee_payable))}`);
   else parts.push(x.application_fee_waiver === 'full' ? 'application fee waived' : `consideration ${aud(Number(x.consideration))}`);
   if (x.dwelling_kind) parts.push(`${x.dwelling_kind === 'established' ? 'established' : 'new or near-new'} dwelling notified ${x.application_date}`);

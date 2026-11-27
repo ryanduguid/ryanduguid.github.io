@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import * as calculations from '../assets/business-calculators.mjs';
+import * as aa from '../assets/aa-port.mjs';
 import { DIVISION_296_LIABILITY } from '../assets/division-296.mjs';
 import { PAYROLL_TAX_2026_27 } from '../assets/payroll-tax.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, financeSchedule, interestByIncomeYear,
@@ -7599,6 +7600,15 @@ test('the ESIC page keeps the sign of a nil amount and words its refusals', () =
   assert.equal(calculations.esic({ ...call, assessable_income_previous_year: '200000' }).tests[2].met, true);
   assert.throws(() => calculations.esic({ ...call, amount_paid: '50000', amount_receivable: '1', disclosure_exemption: false, other_companies_paid: '0',
     other_companies_exempt: true }), { code: 'esic.retail_limit_unsettled' });
+  assert.equal(calculations.esicFormInput((name) => ({ ...form, others: '' })[name] ?? '').other_offsets, '0');
+  assert.match(calculations.esicInputsText({ ...call, innovation_items: [] }, dollars), /; no innovation items$/);
+  assert.throws(() => calculations.esic({ ...call, amount_paid: '1'.repeat(8193) }), { code: 'input.decimal_too_long', message: 'amount_paid: decimal input exceeds 8192 bytes' });
+});
+
+test('the shared decimal and date helpers write exponents as Python does and end a period of months on the day before', () => {
+  assert.deepEqual([aa.decText({ s: false, c: 1n, e: 3 }), aa.decText({ s: true, c: 12n, e: -9 })], ['1E+3', '-1.2E-8']);
+  assert.equal(aa.parseDay(5), null);
+  assert.deepEqual(['2025-01-31', '2025-01-15'].map((day) => aa.formatDay(aa.monthsEnd(aa.parseDay(day), 1))), ['2025-02-28', '2025-02-14']);
 });
 
 test('the residential vacancy fee page builds the call each fee route needs and words its refusals', () => {
@@ -7622,6 +7632,15 @@ test('the residential vacancy fee page builds the call each fee route needs and 
   assert.throws(() => page({ days: '400' }), /whole number no more than the days/);
   assert.throws(() => page({ consideration: 'abc' }), /as a number/);
   assert.throws(() => page({ basis: 'other_exemption_certificate' }), { code: 'residential_vacancy_fee.application_fee_invalid' });
+  assert.deepEqual(call({ from: 'stated', fee: ' 500 ' }).application_fee_payable, '500');
+  const waived = call({ waiver: 'full' });
+  const { application_date: _date, ...undated } = waived;
+  assert.throws(() => calculations.residentialVacancyFee(undated), { code: 'residential_vacancy_fee.application_date_unsupported' });
+  assert.throws(() => calculations.residentialVacancyFee({ ...waived, application_fee_payable: '100' }),
+    { code: 'residential_vacancy_fee.application_fee_invalid', message: 'Omit application_fee_payable when application_fee_waiver is full.' });
+  assert.match(calculations.residentialVacancyFee(call({ waiver: 'full', basis: 'no_notice_order' })).steps[0].authority, /^Fees Regulations 2020 s 46\(b\)/);
+  assert.throws(() => calculations.residentialVacancyFee({ ...call({ waiver: 'full', start: '2023-08-01', year: '2023-24' }), application_date: '2023-01-01' }),
+    { code: 'residential_vacancy_fee.application_fee_invalid' });
 });
 
 Object.assign(INPUTS, { esicFigures: (x) => calculations.esicInputsText(x, dollars), rvfFigures: (x) => calculations.rvfInputsText(x, dollars) });
