@@ -12,7 +12,7 @@ Explore the cash flow example
 
 Built by Ryan Duguid, a senior accountant in Newcastle, NSW.
 
-Last reviewed 27 November 2026.
+Last reviewed 28 November 2026.
 
 ## Compare profit with cash flow
 

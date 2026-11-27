@@ -282,9 +282,9 @@ records the scenario, source and image hashes, renderer, and refresh procedure.
 The 9 contexts cover the site, tools, evaluations, rates, evidence, calculators, individual tax, depreciation and questions. They are rendered from one editable source and one context file. The Playwright renderer is development-only; the public site serves static PNGs with no social-card runtime dependency. The cards contain pixel art and text, with no portrait: the laptop emblem of the README banner, drawn from its hand-drawn 64 by 56 grid at the banner's pixel shape, then the context label, a gold rule and the heading after a `>` prompt, closed by a block cursor, inside a double dark gold frame whose tabs carry the page address and Ryan Duguid. Frame, tabs, emblem, prompt and cursor follow the social previews of Ryan's GitHub repositories.
 
 The current cards use dated filenames so preview crawlers receive a fresh image
-URL after a redesign. Earlier cards (the undated PNGs and the `-20260922`, `-20260924`, `-20261004`, `-20261013`, `-20261016` and `-20261104` sets)
-remain available for existing links. The site, tool guide, calculator, individual tax, depreciation and question
-cards use `-20261123`. The effective life tables keep their archived tool card.
+URL after a redesign. Earlier cards (the undated PNGs and the `-20260922`, `-20260924`, `-20261004`, `-20261013`, `-20261016`, `-20261104` and `-20261123` calculators sets)
+remain available for existing links. The site, tool guide, individual tax, depreciation and question
+cards use `-20261123`, and the business calculator card uses `-20261128`. The effective life tables keep their archived tool card.
 The evaluation, rate and evidence cards use `-20261104b`. Rebuild the cards
 with `node scripts/render-social-cards.mjs`, inspect all 9 outputs and update
 the hashes below. Advance the filename version in the context data, renderer,
@@ -300,7 +300,7 @@ Every card below shares one provenance record. Sources: `assets/social-card-temp
 | `assets/social-card-evaluations-20261104b.png` | `ddd78ec99d8694f70ce2397c79d11518e2bbb5b846e3ef90e0ce706c926cfaef` |
 | `assets/social-card-rates-20261104b.png` | `9ebf0ab19a41e4e0791a9ba56f5624532fab2b3bf4c5ac21dd3673a9f297518c` |
 | `assets/social-card-evidence-20261104b.png` | `21396f12f3a7856fc440f432807fad03ef31e33c01ffb2fdf370436bbb4ac67c` |
-| `assets/social-card-calculators-20261123.png` | `203046e5edf30f904d2cbcbccb579c882f4d7ca2b7de22a4c723522b1701c729` |
+| `assets/social-card-calculators-20261128.png` | `e0a9e1c6bfe7ad144462e6c3957fd9e992eec1b089e1c4b084acdbf9a2915a39` |
 | `assets/social-card-individual-tax-20261123.png` | `c542d842571113969696e61bed6acad5e5abc8f102ae43c658dd14a1d816b78a` |
 | `assets/social-card-depreciation-20261123.png` | `98331e3226d7361f7663768d18e00858d03db38dc43ad7b9ead4fbf40e32bb46` |
 | `assets/social-card-questions-20261123.png` | `687d0087eb413a443a7d927cd1da623349d452c5fe8b0e3e55f8074369ba81fe` |

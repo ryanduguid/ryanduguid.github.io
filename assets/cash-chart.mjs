@@ -225,6 +225,7 @@ function initCashChart(root) {
   const lowLabel = root.querySelector('[data-cash-low-label]');
   const minValue = root.querySelector('[data-cash-min-value]');
   const minNote = root.querySelector('[data-cash-min-note]');
+  const receiptSr = root.querySelector('[data-cash-receipt-sr]');
   const status = root.querySelector('[data-cash-status]');
 
   if (
@@ -244,6 +245,7 @@ function initCashChart(root) {
   }
 
   if (staticDelay instanceof HTMLElement) staticDelay.hidden = true;
+  if (receiptSr instanceof HTMLElement) receiptSr.hidden = false;
   controls.hidden = false;
   const controlsEl = controls;
   const lineEl = line;
@@ -257,6 +259,7 @@ function initCashChart(root) {
   const minValueEl = minValue;
   const minNoteEl = minNote;
   const staticDelayEl = staticDelay instanceof HTMLElement ? staticDelay : null;
+  const receiptSrEl = receiptSr instanceof HTMLElement ? receiptSr : null;
   const statusEl = status instanceof HTMLElement ? status : null;
 
   /**
@@ -299,6 +302,9 @@ function initCashChart(root) {
     minNoteEl.textContent = scenario.lowNote;
     if (staticDelayEl) {
       staticDelayEl.textContent = `${scenario.buttonLabel} (${scenario.receiptDateShort} receipt)`;
+    }
+    if (receiptSrEl) {
+      receiptSrEl.textContent = `OPEN-V receipt: ${scenario.receiptDateShort}.`;
     }
     if (announce && statusEl) {
       const negPeriods = negativeRuns(scenario.states).length;

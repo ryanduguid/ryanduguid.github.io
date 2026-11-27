@@ -1214,4 +1214,38 @@ fn light_mode_tokens_require_scheme_canvas_contrast_and_on_stamp() {
         design::check_light_tokens(&missing_on_stamp)
             .contains(&"--colour-on-stamp must be a six-digit colour".into())
     );
+
+    let bad_code_and_machine = low_contrast
+        .replace(
+            "--colour-machine-canvas: #ffffff;",
+            "--colour-machine-canvas: #eeeeee;",
+        )
+        .replace("--colour-code: #f5f5f5;", "--colour-code: not-hex;")
+        .replace("--colour-stamp: #990024;", "--colour-stamp: #111111;");
+    let more_failures = design::check_light_tokens(&bad_code_and_machine);
+    assert!(more_failures.contains(&"light machine canvas must be #ffffff".into()));
+    assert!(more_failures.contains(&"--colour-code must be a six-digit colour".into()));
+    assert!(more_failures.contains(&"--colour-stamp must be #990024".into()));
+
+    let bad_oled = r#"
+      :root {
+        --colour-canvas: #000000;
+        --colour-ink: #666666;
+        --colour-ink-soft: #9a9a9a;
+        --colour-alert: #ff9c91;
+        --colour-stamp: #990024;
+        --colour-stamp-strong: #66023c;
+        --colour-stroke: #e7162f;
+        --colour-pass: #0f4b32;
+        --colour-on-stamp: #fffff0;
+        --text-display: clamp(2.25rem, 1.45rem + 5.2vw, 5.5rem);
+      }
+    "#;
+    let oled_failures = design::check_oled_tokens(bad_oled);
+    assert!(oled_failures.contains(&"native colour scheme must be dark only".into()));
+    assert!(oled_failures.contains(&"ink contrast on filled accent must be at least 4.5:1".into()));
+    assert!(
+        design::check_oled_tokens(":root { color-scheme: dark; --colour-canvas: #111111; }")
+            .contains(&"OLED canvas must be #000000".into())
+    );
 }

@@ -53,12 +53,12 @@
   "calculators": {
     "label": "Business calculators",
     "heading": [
-      "54 Australian business",
+      "Australian business",
       "and tax calculators."
     ],
     "host": "duguid.com.au/tools/business-calculators/",
-    "output": "social-card-calculators-20261123.png",
-    "alt": "OLED register card: 54 Australian business and tax calculators."
+    "output": "social-card-calculators-20261128.png",
+    "alt": "OLED register card: Australian business and tax calculators."
   },
   "individual-tax": {
     "label": "Individual tax",

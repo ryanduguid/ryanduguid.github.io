@@ -2017,12 +2017,12 @@ mod tests {
 
     #[test]
     fn a_repeated_root_property_keeps_its_last_value() {
-        let css = ":root { --colour-ink: #111111; --COLOUR-INK: #EEEEEE ; }";
+        let css = "--colour-ink: #111111; --COLOUR-INK: #EEEEEE ;";
         assert_eq!(
-            css_root_properties(css),
+            css_block_properties(css),
             [("--colour-ink".to_owned(), "#eeeeee".to_owned())]
         );
-        assert!(css_root_properties("body { --colour-ink: #fff; }").is_empty());
+        assert!(css_block_properties("not a property").is_empty());
     }
 
     const OLED: &str = ":root {
@@ -2035,6 +2035,7 @@ mod tests {
         --colour-stamp-strong: #66023c;
         --colour-stroke: #e7162f;
         --colour-pass: #0f4b32;
+        --colour-on-stamp: #fffff0;
         --text-display: clamp(2rem, 5vw, 4rem);
     }";
 

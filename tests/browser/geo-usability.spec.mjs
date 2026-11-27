@@ -178,6 +178,8 @@ test('cash-flow entry points reach the workbook and About reaches review evidenc
     for (let day = 1; day <= 91; day += 1) {
       const iso = new Date(baseStartMs + day * 86400000).toISOString().slice(0, 10);
       balCents += flows.get(iso) ?? 0;
+      // All daily cash flows in daily-cash.csv are whole dollars (PBT retains cents).
+      expect(balCents % 100).toBe(0);
       const whole = Math.round(balCents / 100);
       if (whole !== states.at(-1)[1]) states.push([day, whole]);
       if (balCents < minCents) {
@@ -230,6 +232,7 @@ test('cash-flow entry points reach the workbook and About reaches review evidenc
   const receiptLine = chart.locator('[data-cash-receipt-line]');
   const receiptDot = chart.locator('[data-cash-receipt-dot]');
   const receiptLabel = chart.locator('[data-cash-receipt-label]');
+  const receiptSr = chart.locator('[data-cash-receipt-sr]');
   const lowDot = chart.locator('[data-cash-low-dot]');
   const status = chart.locator('[data-cash-status]');
 
@@ -238,6 +241,8 @@ test('cash-flow entry points reach the workbook and About reaches review evidenc
   await expect(chart).toContainText('$35,957.55');
   await expect(chart.locator('svg')).toContainText('$67,320');
   await expect(group.getByRole('radio', { name: '45 days', exact: true })).toBeChecked();
+  await expect(receiptSr).not.toHaveAttribute('hidden', '');
+  await expect(receiptSr).toHaveText('OPEN-V receipt: 28 Nov.');
   await expect(minVal).toHaveText('($25,160)');
   await expect(minNote).toHaveText('6 Nov · 16 days below $0');
   await expect(status).toHaveText('');
@@ -268,6 +273,7 @@ test('cash-flow entry points reach the workbook and About reaches review evidenc
       : `${shortDate(row.minimum_date)} · ${row.days_negative} ${unit} below $0`;
     await expect(minNote).toHaveText(expectedNote);
     await expect(receiptLabel).toHaveText(`OPEN-V receipt · ${shortDate(row.receipt_date)}`);
+    await expect(receiptSr).toHaveText(`OPEN-V receipt: ${shortDate(row.receipt_date)}.`);
     const linePath = await line.getAttribute('d');
     expect(linePath).toBe(buildStepPath(meta.states));
     expect(linePath).toMatch(/^M 12 137/);
@@ -365,9 +371,19 @@ test('cash-flow entry points reach the workbook and About reaches review evidenc
   await noJsPage.goto('/');
   await expect(noJsPage.locator('[data-cash-static-delay]')).toBeVisible();
   await expect(noJsPage.locator('[data-cash-static-delay]')).toHaveText('45 days (28 Nov receipt)');
+  await expect(noJsPage.locator('[data-cash-receipt-sr]')).toHaveAttribute('hidden', '');
   await expect(noJsPage.locator('[data-cash-controls]')).toBeHidden();
   await expect(noJsPage.locator('[data-cash-min-value]')).toHaveText('($25,160)');
   await expect(noJsPage.locator('[data-cash-line]')).toHaveAttribute('d', buildStepPath(ssr.states));
+  await expect(noJsPage.locator('[data-cash-deficit]')).toHaveAttribute('d', buildDeficitPath(ssr.states));
+  await expect(noJsPage.locator('[data-cash-neg-line]')).toHaveAttribute('d', buildNegativeStrokePath(ssr.states));
+  await expect(noJsPage.locator('[data-cash-receipt-line]')).toHaveAttribute('x1', String(xPos(ssrMeta.receiptDay)));
+  await expect(noJsPage.locator('[data-cash-receipt-line]')).toHaveAttribute('x2', String(xPos(ssrMeta.receiptDay)));
+  await expect(noJsPage.locator('[data-cash-receipt-line]')).toHaveAttribute('y2', String(yPos(ssrMeta.receiptBalance)));
+  await expect(noJsPage.locator('[data-cash-receipt-dot]')).toHaveAttribute('cx', String(xPos(ssrMeta.receiptDay)));
+  await expect(noJsPage.locator('[data-cash-receipt-dot]')).toHaveAttribute('cy', String(yPos(ssrMeta.receiptBalance)));
+  await expect(noJsPage.locator('[data-cash-low-dot]')).toHaveAttribute('cx', String(xPos(ssr.lowDay)));
+  await expect(noJsPage.locator('[data-cash-low-dot]')).toHaveAttribute('cy', String(yPos(ssr.lowValue)));
   await noJs.close();
 
   expect(pageErrors).toEqual([]);
