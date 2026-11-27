@@ -50,6 +50,27 @@
     <summary>A new business calculator, casual and overtime pay, works one employee’s gross pay for a pay period from the base hourly rate, casual loading and penalty and overtime rates you enter, and the 12% super guarantee on ordinary time earnings, leaving overtime out and keeping the casual loading in, for paydays from 1 July 2025 to 30 June 2027. It holds no award rates: the Fair Work Ombudsman’s pay guides and Pay and Conditions Tool give them.</summary>
   </entry>
   <entry>
+    <title>A new business calculator, Payday Super cashflow, lists each payday’s super…</title>
+    <link href="https://duguid.com.au/changelog/#entry-d02fe11c16ea41c0" />
+    <id>https://duguid.com.au/changelog/#entry-d02fe11c16ea41c0</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>A new business calculator, Payday Super cashflow, lists each payday’s super guarantee in a quarter of 2026-27 with the date the fund must receive it, 7 business days after payday, against the old quarterly date 28 days after the quarter, and the peak extra working capital, the quarter’s whole super guarantee, held from the last payday’s due date to the quarterly date.</summary>
+  </entry>
+  <entry>
+    <title>A new business calculator, tax invoice generator, makes a printable tax invoice…</title>
+    <link href="https://duguid.com.au/changelog/#entry-6fa99c5ee8f14b1b" />
+    <id>https://duguid.com.au/changelog/#entry-6fa99c5ee8f14b1b</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>A new business calculator, tax invoice generator, makes a printable tax invoice or recipient created tax invoice in the browser, storing and sending nothing, and checks it against section 29-70 of the GST Act: GST at one-eleventh with the total invoice and taxable supply rounding rules, the wording for taxable, GST-free and mixed invoices, the ABN check digit and the $1,000 recipient rule.</summary>
+  </entry>
+  <entry>
+    <title>A new business calculator, trust streaming, shares a resident discretionary…</title>
+    <link href="https://duguid.com.au/changelog/#entry-4e806f300e78a4e8" />
+    <id>https://duguid.com.au/changelog/#entry-4e806f300e78a4e8</id>
+    <updated>2026-11-26T00:00:00Z</updated>
+    <summary>A new business calculator, trust streaming, shares a resident discretionary trust’s net income between up to 4 beneficiaries by present entitlement under Division 6, streams a capital gain and franked distributions to the beneficiaries specifically entitled to them under Subdivisions 115-C and 207-B with Division 6E, and works the trustee’s 45% tax under section 99A on income no beneficiary is presently entitled to, tested against the ATO’s worked examples.</summary>
+  </entry>
+  <entry>
     <title>The tool pages, changelog, release record and machine indexes name the releases…</title>
     <link href="https://duguid.com.au/changelog/#entry-82c2fe0f98e0f02a" />
     <id>https://duguid.com.au/changelog/#entry-82c2fe0f98e0f02a</id>
