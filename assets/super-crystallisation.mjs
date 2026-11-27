@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // The crystallised segment of a superannuation interest's tax free component at 30 June 2007
-// (ITTPA 1997 s 307-225), with its pre-July 83 component under former ITAA 1936 s 27AA(1)(d): a port
+// (ITAA 1997 s 307-225), with its pre-July 83 component under former ITAA 1936 s 27AA(1)(d): a port
 // of the `super-crystallisation` command of ryanduguid/australian-accounting, checked against it on
 // every case of its differential fixture. The non-qualifying and excessive components are nil.
 
@@ -17,7 +17,7 @@ const BEFORE = /** @type {number} */ (dayOf('1983-06-30'));
 
 /** The days of service to 30 June 2007 and those before 1 July 1983, both ends counted. @param {number} start */
 function serviceDays(start) {
-  if (start > END) refuse('super_crystallisation.dates_invalid', 'Enter an eligible service start on or before 30 June 2007 (ITTPA 1997 s 307-225(1)).');
+  if (start > END) refuse('super_crystallisation.dates_invalid', 'Enter an eligible service start on or before 30 June 2007 (ITAA 1997 s 307-225(1)).');
   return [END - start + 1, Math.max(0, BEFORE - start + 1)];
 }
 
@@ -32,7 +32,7 @@ export function superCrystallisation(given) {
     refuse('super_crystallisation.untaxed_source', 'An interest from an untaxed source is not worked here: s 307-225(3) disregards the element untaxed in the fund for the pre-July 83 component.');
   }
   if (flag(input.get('income_stream_before_july_2007'), 'income_stream_before_july_2007')) {
-    refuse('super_crystallisation.income_stream_before_july_2007', 'An income stream first paid before 1 July 2007 is not worked here: ITTPA 1997 s 307-125 works out its tax free component from the s 27H deductible amount instead.');
+    refuse('super_crystallisation.income_stream_before_july_2007', 'An income stream first paid before 1 July 2007 is not worked here: ITAA 1997 s 307-125 works out its tax free component from the s 27H deductible amount instead.');
   }
   const [total, before] = serviceDays(dateOf(input.get('eligible_service_start'), 'eligible_service_start'));
   const [value, concessional, invalidity, cgt, undeducted] = COMPONENTS.map((key) => money(input.get(key)));

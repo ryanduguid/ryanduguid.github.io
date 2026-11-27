@@ -13,7 +13,7 @@ export function crystallisationTool(kit, { superCrystallisation }) {
   return tool({
     name: 'calculate_super_crystallisation',
     title: 'Super crystallisation at 30 June 2007',
-    description: 'Works the crystallised segment of a super interest’s tax free component at 30 June 2007 (ITTPA 1997 s 307-225), '
+    description: 'Works the crystallised segment of a super interest’s tax free component at 30 June 2007 (ITAA 1997 s 307-225), '
       + 'in AUD: the concessional, post-June 1994 invalidity and CGT exempt components, the undeducted contributions and the pre-July 83 '
       + 'component (former ITAA 1936 s 27AA(1)(d): the lesser of the base x days before 1 July 1983 / service days and the base less '
       + 'undeducted contributions), and the taxable component left. Non-qualifying and excessive components are nil; an untaxed '
