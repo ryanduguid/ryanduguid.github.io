@@ -816,7 +816,7 @@
     ]
   },
   "cgt": {
-    "checked": "2026-11-19",
+    "checked": "2026-11-27",
     "function": "capitalGain",
     "rows": [
       {"case": "ATO example 54: Brett’s rental property, the discount method beating indexation", "input": "Individual, investment; bought 1 July 1997, sold 1 February 2026 for $496,000.00; price $144,000.00, buying $20,000.00 on 1 July 1997, cost $30,000.00 on 1 October 2025, selling $12,500.00, capital works $255.00; other income $90,000.00", "call": [{"entity": "individual", "resident": "yes", "kind": "investment", "acquired": "1997-07-01", "event": "2026-02-01", "proceeds": "496000", "price": "144000", "buying": {"amount": "20000", "date": "1997-07-01"}, "improvements": [{"amount": "30000", "date": "2025-10-01"}, {"amount": "0", "date": ""}], "selling": "12500", "owning": "0", "works": "255", "currentLosses": "0", "priorLosses": "0", "income": "90000", "home": {"purchased": "", "sold": "", "movedIn": "", "practicable": "yes", "exclusions": "none", "away": [{"from": "", "to": "", "rented": false, "choose": false}, {"from": "", "to": "", "rented": false, "choose": false}, {"from": "", "to": "", "rented": false, "choose": false}, {"from": "", "to": "", "rented": false, "choose": false}], "partPercent": "0", "partFrom": "", "partTo": "", "market": "0"}}], "result": {"method": "discount", "costBase": 206245, "indexedCostBase": 211493, "gain": 289755, "discount": 144877.5, "net": 144877.5, "labelA": 144877, "tax": 56942.19}, "output": "Discount method, cost base $206,245.00, indexed cost base $211,493.00, capital gain $289,755.00, discount $144,877.50, net capital gain $144,877.50, label A $144,877, extra tax $56,942.19"},

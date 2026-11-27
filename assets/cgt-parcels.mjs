@@ -42,7 +42,7 @@ export function decimalOf(value) {
   if (/^[+-]?(?:inf(?:inity)?|s?nan\d*)$/i.test(text)) return { sign: false, coefficient: 0n, exponent: 0, finite: false };
   const negative = text.startsWith('-');
   const [whole, fraction = '', ...extra] = (negative ? text.slice(1) : text).split('.');
-  const digits = (part) => part.length > 0 && [...part].every((c) => c >= '0' && c <= '9');
+  const digits = (/** @type {string} */ part) => part.length > 0 && [...part].every((c) => c >= '0' && c <= '9');
   if (extra.length > 0 || !digits(whole) || (text.includes('.') && !digits(fraction))) return null;
   return { sign: negative, coefficient: BigInt(whole + fraction), exponent: -fraction.length, finite: true };
 }
@@ -172,6 +172,9 @@ function objects(value, name) {
 /** @typedef {{ n: number, security: string, date: number, units: Units, proceeds: bigint, selling: bigint,
  *   picks: Pick[] | null }} Disposal */
 
+/** The item at an index known to be in range. @template T @param {T[]} list @param {number} i @returns {T} */
+const nth = (list, i) => /** @type {T} */ (list.at(i));
+
 /** @param {number} n @param {Record<string, unknown>} fields @returns {Parcel} */
 function readParcel(n, fields) {
   const f = new Facts(`parcel ${n}`, fields);
@@ -285,11 +288,11 @@ function selectedTakes(parcels, disposal, held) {
   for (const pick of /** @type {Pick[]} */ (disposal.picks)) {
     const i = parcels.findIndex((p) => p.id === pick.parcel);
     if (i < 0) conflict(`${what}: no parcel is named ${pick.parcel}.`);
-    const parcel = parcels.at(i);
+    const parcel = nth(parcels, i);
     if (parcel.security !== disposal.security) conflict(`${what}: parcel ${parcel.id} is of ${parcel.security}, not ${disposal.security}.`);
     if (parcel.acquired > disposal.date) conflict(`${what}: parcel ${parcel.id} was acquired after the disposal.`);
-    if (pick.units.v > held.at(i).units.v) {
-      refuse('cgt_parcels.units_not_held', `${what}: parcel ${parcel.id} has ${unitsText(held.at(i).units)} units left, fewer than the ${unitsText(pick.units)} selected.`);
+    if (pick.units.v > nth(held, i).units.v) {
+      refuse('cgt_parcels.units_not_held', `${what}: parcel ${parcel.id} has ${unitsText(nth(held, i).units)} units left, fewer than the ${unitsText(pick.units)} selected.`);
     }
     total += pick.units.v;
     takes.push([i, pick.units]);
@@ -305,8 +308,8 @@ function firstInTakes(parcels, disposal, order, held) {
   /** @type {[number, Units][]} */
   const takes = [];
   for (const i of order) {
-    const parcel = parcels.at(i);
-    const left = held.at(i).units;
+    const parcel = nth(parcels, i);
+    const left = nth(held, i).units;
     if (wanted.v === 0n || parcel.acquired > disposal.date) break;
     if (parcel.security === disposal.security && left.v !== 0n) {
       const units = left.v < wanted.v ? left : wanted;
@@ -326,7 +329,7 @@ function firstInTakes(parcels, disposal, order, held) {
 function take(left, units) {
   const all = units.v === left.units.v;
   const taken = left.amounts.map((amount) => (all ? amount : share(amount, units.v, left.units.v)));
-  left.amounts = left.amounts.map((amount, k) => amount - taken.at(k));
+  left.amounts = left.amounts.map((amount, k) => amount - nth(taken, k));
   left.units = unitsLess(left.units, units);
   return taken;
 }
@@ -356,7 +359,7 @@ function piece(s, parcel, disposal, units, cost, sale) {
  * @param {Parcel[]} parcels @param {Disposal[]} disposals */
 function matchDisposals(s, parcels, disposals) {
   const held = parcels.map((p) => ({ units: p.units, amounts: [p.base, p.owning] }));
-  const order = parcels.map((_, i) => i).sort((a, b) => parcels.at(a).acquired - parcels.at(b).acquired || a - b);
+  const order = parcels.map((_, i) => i).sort((a, b) => nth(parcels, a).acquired - nth(parcels, b).acquired || a - b);
   const sorted = [...disposals].sort((a, b) => a.date - b.date || a.n - b.n);
   /** @type {Piece[]} */
   const pieces = [];
@@ -364,8 +367,8 @@ function matchDisposals(s, parcels, disposals) {
     const takes = disposal.picks ? selectedTakes(parcels, disposal, held) : firstInTakes(parcels, disposal, order, held);
     const sale = { units: disposal.units, amounts: [disposal.proceeds, disposal.selling] };
     for (const [i, units] of takes) {
-      const cost = take(held.at(i), units);
-      pieces.push(piece(s, parcels.at(i), disposal, units, cost, take(sale, units)));
+      const cost = take(nth(held, i), units);
+      pieces.push(piece(s, nth(parcels, i), disposal, units, cost, take(sale, units)));
     }
   }
   return { pieces, held };
@@ -426,13 +429,13 @@ const matchRow = (p) => ({ disposal: p.disposal, parcel: p.parcel.id, security: 
 /** The `cgt-parcels` command on its JSON input. @param {unknown} input @returns {CgtParcelsResult} */
 export function cgtParcels(input) {
   if (input === null || typeof input !== 'object' || Array.isArray(input)) refuse('input.not_object', 'input must be a JSON object');
-  const values = checkedInput(input);
+  const values = checkedInput(/** @type {Record<string, unknown>} */ (input));
   const s = settings(values);
   const { parcels, disposals } = readLists(values, s);
   const { pieces, held } = matchDisposals(s, parcels, disposals);
   const amounts = Object.fromEntries(Object.entries(amountsOf(pieces, s.others, s.fraction)).map(([k, v]) => [k, centsText(v)]));
   const holdings = parcels.flatMap((p, i) => {
-    const left = held.at(i);
+    const left = nth(held, i);
     return left.units.v === 0n ? [] : [{ parcel: p.id, security: p.security, acquired: dateText(p.acquired),
       units: unitsText(left.units), cost_base: centsText(left.amounts[0] + left.amounts[1]), reduced_cost_base: centsText(left.amounts[0]) }];
   });
