@@ -2,6 +2,7 @@
 import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { codeRevision } from './revision.mjs';
 
 const root = new URL('../../../', import.meta.url);
 const files = {
@@ -12,12 +13,7 @@ const files = {
 const git = (...args) => execFileSync('git', ['-C', fileURLToPath(root), ...args], { // NOSONAR: git's install path differs by host, so PATH finds it; this runs as the operator, and a failure only leaves the revision null
   encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'],
 }).trim();
-let revision = null;
-try {
-  const changed = git('status', '--porcelain', '--untracked-files=normal', '--',
-    'service/coal-lsl-levy', 'assets/levy.mjs', 'rates/register');
-  revision = git('rev-parse', 'HEAD') + (changed ? '-dirty' : '');
-} catch { /* An archive has no Git revision. The manifest reports null. */ }
+const revision = codeRevision(git);
 const evidence = Object.entries(files).map(([name, path]) =>
   `export const ${name} = Buffer.from(${JSON.stringify(readFileSync(new URL(path, root)).toString('base64'))}, 'base64');`,
 );

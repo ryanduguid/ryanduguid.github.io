@@ -65,6 +65,38 @@ fn unparseable_javascript_is_refused() {
 }
 
 #[test]
+fn a_parse_that_stops_early_is_refused_not_minified_to_nothing() {
+    // Oxc stops on each of these before the end of the source, and every such stop
+    // carries an error diagnostic, which is what `javascript` refuses on.
+    let mut fatal = 0;
+    for source in [
+        "function (",
+        "let x = \"open",
+        "if (a) {",
+        "/* open",
+        "class {",
+        "`${",
+    ] {
+        for module in [true, false] {
+            let allocator = oxc_allocator::Allocator::default();
+            let source_type = if module {
+                oxc_span::SourceType::mjs()
+            } else {
+                oxc_span::SourceType::unambiguous()
+            };
+            let parsed = oxc_parser::Parser::new(&allocator, source, source_type).parse();
+            if parsed.fatal_error {
+                fatal += 1;
+                assert!(parsed.diagnostics.errors().next().is_some(), "{source:?}");
+            }
+            let refused = javascript(source, module).expect_err(source);
+            assert!(!refused.is_empty(), "{source:?}");
+        }
+    }
+    assert!(fatal > 0, "no source stopped the parser");
+}
+
+#[test]
 fn a_stylesheet_shrinks_and_keeps_its_attribution() {
     let source = format!(
         "{HEADER_CSS}\n/* Layout notes. */\n.card {{\n  color: #ffffff;\n  margin: 0px 0px 0px 0px;\n}}\n"

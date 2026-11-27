@@ -474,6 +474,11 @@ cite it or edit its citation. A 403 from any other host still fails, as cloud
 storage answers 403 for a missing file, and so do a 404, 410, 401 or any other
 HTTP error.
 
+On 27 November 2026 developer.xero.com answered HTTP 403 to the runner on all 8
+links the site makes to it, whose 6 pages each returned HTTP 200 locally that day,
+so a 403 from that exact host is reported as refused
+the runner too. Xero's other hosts get no exception.
+
 ## Release claims
 
 `scripts/release_record.json` is the reviewed statement of which release each page

@@ -268,8 +268,11 @@ if (base === undefined) {
   await new Promise((resolve) => app.server.listen(0, '127.0.0.1', resolve));
   base = `http://127.0.0.1:${app.server.address().port}`;
 }
+// Exit after the finally block: process.exit inside the try would skip it.
+let passed;
 try {
-  process.exit(await run(base, expectedMonth, expectedRevision) ? 0 : 1);
+  passed = await run(base, expectedMonth, expectedRevision);
 } finally {
   app?.server.close();
 }
+process.exit(passed ? 0 : 1);

@@ -200,6 +200,70 @@ fn effective_life_pages_command_write_check_and_indexnow() {
     );
 }
 
+/// `--check` refuses a page file that is missing or differs from a rebuild, and
+/// `--indexnow` refuses an unreadable address map and one whose latest refresh changed
+/// more pages than one IndexNow request takes.
+#[test]
+fn effective_life_pages_check_and_indexnow_refusals() {
+    use site_tools::effective_life_pages::map::{AddressMap, MAP_REL, Record};
+    let dir = tempfile::tempdir().unwrap();
+    let source = dir.path().join("det.html");
+    std::fs::write(&source, sample_effective_life_html()).unwrap();
+    std::fs::create_dir_all(dir.path().join(effective_life::DATA_REL).parent().unwrap()).unwrap();
+    let src = source.to_string_lossy().into_owned();
+    let read = [
+        "--write",
+        "--source",
+        &src,
+        "--register-id",
+        "F2025L00001",
+        "--registered",
+        "2025-09-02",
+        "--source-url",
+        "https://www.legislation.gov.au/F2025L00001",
+        "--read",
+        "2026-11-24",
+    ];
+    assert_eq!(effective_life::run(dir.path(), &s(&read)).unwrap(), 0);
+    let pages = |flag: &str| effective_life_pages::run(dir.path(), &s(&[flag]));
+    assert_eq!(pages("--write").unwrap(), 0);
+    let page = std::fs::read_dir(dir.path().join("tools/depreciation-rates/asset"))
+        .unwrap()
+        .map(|entry| entry.unwrap().path())
+        .find(|path| path.extension().is_some_and(|e| e == "html"))
+        .expect("an asset page");
+    std::fs::write(&page, "edited by hand").unwrap();
+    assert_eq!(pages("--check").unwrap(), 1, "an edited page");
+    std::fs::remove_file(&page).unwrap();
+    assert_eq!(pages("--check").unwrap(), 1, "a missing page");
+    assert_eq!(pages("--write").unwrap(), 0);
+    assert_eq!(
+        pages("--check").unwrap(),
+        0,
+        "the rebuild restores the page"
+    );
+
+    let map_path = dir.path().join(MAP_REL);
+    std::fs::write(&map_path, "not json").unwrap();
+    let error = pages("--indexnow").unwrap_err();
+    assert!(error.starts_with(MAP_REL), "{error}");
+
+    let records = (0..10_001)
+        .map(|n| Record {
+            key: vec![format!("asset {n}")],
+            url: format!("/tools/depreciation-rates/asset/a{n}/"),
+            published: "2026-11-24".into(),
+            modified: "2026-11-24".into(),
+            sha256: "0".repeat(64),
+        })
+        .collect();
+    std::fs::write(&map_path, AddressMap::new(records).unwrap().to_text()).unwrap();
+    assert_eq!(
+        pages("--indexnow").unwrap_err(),
+        "10001 pages changed; IndexNow takes 10,000 a request"
+    );
+}
+
 #[test]
 fn serve_site_http_edge_cases_and_errors() {
     let dir = tempfile::tempdir().unwrap();

@@ -119,7 +119,8 @@ function scaled(value, places) {
 /** A rate in cents as a whole number of thousandths of a cent. @param {string} text */
 const milli = (text) => /** @type {bigint} */ (scaled(text, 3));
 
-/** An exact value of `numerator` / 10^places, without trailing zeros. @param {bigint} numerator @param {number} places */
+/** An exact value of `numerator` / 10^places, without trailing zeros. The padding leaves a digit before the point, which the
+ * pattern cannot reach past the point, so zero is '0', never empty. @param {bigint} numerator @param {number} places */
 function decimal(numerator, places) {
   const text = numerator.toString().padStart(places + 1, '0');
   const point = text.length - places;
@@ -292,7 +293,7 @@ function workLine(line, rateDay) {
       cents: publicCredit + otherCredit };
   }
   const rate = line.use === 'heavy_vehicle_public_road' ? heavy : line.use === 'other_business' ? other : '0';
-  const rateCents = decimal(milli(rate), 3) || '0';
+  const rateCents = decimal(milli(rate), 3);
   if (line.method === 'litres_from_cost') {
     const [cost, price] = /** @type {bigint[]} */ ([line.cost, line.price]);
     // Litres = cost in cents / price in 10^-4 cents a litre x 10^4; the credit uses the exact quotient.
@@ -301,7 +302,7 @@ function workLine(line, rateDay) {
       quantity: (Number(ratioCents(cost * 10n ** 8n, price)) / 10000).toFixed(4), rateCents, cents };
   }
   const q = /** @type {bigint} */ (line.quantity);
-  return { ...base, method: 'quantity', use: line.use, quantity: decimal(q, 4) || '0', rateCents, cents: ratioCents(q * milli(rate), 10n ** 7n) };
+  return { ...base, method: 'quantity', use: line.use, quantity: decimal(q, 4), rateCents, cents: ratioCents(q * milli(rate), 10n ** 7n) };
 }
 
 /** @typedef {{year: string, lines: unknown, small_claimant?: unknown, rate_at_period_end?: unknown, return_date?: unknown}} FtcInput */
@@ -446,16 +447,17 @@ export function fuelTaxCreditsResult(value, aud) {
   const input = fuelFormInput(value);
   const r = fuelTaxCredits(input);
   const rows = [];
+  // workLine sets every heavy vehicle figure on a basic line and the quantity on every other line.
   for (const l of r.lines) {
     const rated = `${rateText(l.rateCents ?? '', l.unit)} from ${plainDate(l.period.from)}`;
     if (l.method === 'basic_heavy_vehicle') {
-      rows.push([`Heavy vehicle: ${quantityText(l.publicRoadLitres ?? '', 'litres')} on public roads (${number(l.publicRoadKm ?? '')} km × ${l.litresPerKm} L/km) at `
-        + `${rateText(l.publicRoadRate ?? '', 'litres')}`, aud(l.publicRoadCredit ?? 0)],
-      [`Heavy vehicle: the other ${quantityText(l.otherLitres ?? '', 'litres')} at ${rateText(l.otherRate ?? '', 'litres')}`, aud(l.otherCredit ?? 0)]);
+      rows.push([`Heavy vehicle: ${quantityText(/** @type {string} */ (l.publicRoadLitres), 'litres')} on public roads (${number(/** @type {string} */ (l.publicRoadKm))} km × ${l.litresPerKm} L/km) at `
+        + `${rateText(/** @type {string} */ (l.publicRoadRate), 'litres')}`, aud(/** @type {number} */ (l.publicRoadCredit))],
+      [`Heavy vehicle: the other ${quantityText(/** @type {string} */ (l.otherLitres), 'litres')} at ${rateText(/** @type {string} */ (l.otherRate), 'litres')}`, aud(/** @type {number} */ (l.otherCredit))]);
       continue;
     }
     const from = l.method === 'litres_from_cost' ? ` worked out from the cost (PCG 2016/2 Method 1)` : '';
-    rows.push([`Line ${l.line}: ${quantityText(l.quantity ?? '', l.unit)}${from}, ${FTC_USES[/** @type {keyof typeof FTC_USES} */ (l.use)]}, at ${rated}`, aud(l.credit)]);
+    rows.push([`Line ${l.line}: ${quantityText(/** @type {string} */ (l.quantity), l.unit)}${from}, ${FTC_USES[/** @type {keyof typeof FTC_USES} */ (l.use)]}, at ${rated}`, aud(l.credit)]);
   }
   rows.push(['Fuel tax credits', aud(r.total)], ['Label 7D on the BAS, in whole dollars', aud(r.label7d)]);
   const note = r.warnings.length ? r.warnings.join(' ').replace(/\.$/, '') : undefined;

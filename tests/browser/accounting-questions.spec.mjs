@@ -2050,20 +2050,29 @@ test('objection deadline takes the later of an amended assessment’s 2 dates of
   await form.getByLabel('Amended income tax assessment', { exact: true }).check();
   await form.getByLabel('No: 4 years').check();
   await form.getByLabel('Day notice of the decision was given or served').fill('2028-10-02');
+  await form.getByLabel('Amended assessments only: day notice of the assessment amended was given or served (the first assessment, or an earlier amended one)').fill('2024-10-23');
   await form.getByLabel('Amended assessments only: day notice of the first assessment for the year was given or served').fill('2024-10-23');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   expect(await form.locator('output').evaluate((element) => element.textContent)).toBe(
     'Inputs: amended income tax assessment, no item 1, 2, 3 or 3A (4 years), notice given 2 October 2028, '
-    + 'first assessment’s notice given 23 October 2024. 60 days after the amended notice: Friday 1 December 2028. '
-    + '4 years after the first notice: Monday 23 October 2028. Period ends, subsection 14ZW(1B): Friday 1 December 2028. '
+    + 'notice of the assessment amended given 23 October 2024, first assessment’s notice given 23 October 2024. '
+    + '60 days after the amended notice: Friday 1 December 2028. 4 years after the first assessment’s notice: Monday 23 October 2028. Period ends, subsection 14ZW(1B): Friday 1 December 2028. '
     + 'Last day to lodge, under subsection 36(2) of the Acts Interpretation Act 1901: Friday 1 December 2028. '
     + 'If that day is a public holiday where the objection is lodged, or the office is closed all day, it may be lodged on the next day '
     + 'that is not a Saturday, Sunday or holiday. After the last day, an objection needs a written request under '
     + 'subsection 14ZW(2), which the Commissioner decides under section 14ZX.');
   await form.getByLabel('Day notice of the decision was given or served').fill('2028-09-01');
-  await form.getByLabel('Amended assessments only: day notice of the first assessment for the year was given or served').fill('2028-09-02');
+  await form.getByLabel('Amended assessments only: day notice of the assessment amended was given or served (the first assessment, or an earlier amended one)').fill('2028-09-03');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
-  await expect(form.locator('output')).toHaveText('The first assessment’s notice cannot be later than the amended one.');
+  await expect(form.locator('output')).toHaveText('The notice of the assessment amended cannot be later than the amended assessment’s.');
+  // A second amendment under subsection (1BA) counts from the assessment amended, not the first.
+  await form.getByLabel('Yes: 2 years').check();
+  await form.getByLabel('Day notice of the decision was given or served').fill('2028-06-01');
+  await form.getByLabel('Amended assessments only: day notice of the assessment amended was given or served (the first assessment, or an earlier amended one)').fill('2028-01-10');
+  await form.getByLabel('Amended assessments only: day notice of the first assessment for the year was given or served').fill('2024-03-01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('2 years after notice of the assessment amended: Thursday 10 January 2030. '
+    + 'Period ends, subsection 14ZW(1BA): Thursday 10 January 2030.');
 });
 
 test('a varied PAYG instalment rate gives the instalment and its credit offline', async ({ page, context }) => {

@@ -213,12 +213,10 @@ function requireCalculable({ reportingMonth, eligibleEmployee }, register) {
 function roundedLevyCents(eligibleWagesCents) {
   try {
     return levyCents(eligibleWagesCents);
-  } catch (issue) {
-    if (issue instanceof RangeError) {
-      throw new ValidationError('pay', 'amount_out_of_range',
-        'The combined amounts exceed the total this calculator handles exactly. Reduce the amounts.');
-    }
-    throw issue;
+  } catch {
+    // levyCents throws only its RangeErrors for a total out of range.
+    throw new ValidationError('pay', 'amount_out_of_range',
+      'The combined amounts exceed the total this calculator handles exactly. Reduce the amounts.');
   }
 }
 

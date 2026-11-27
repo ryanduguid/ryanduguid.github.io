@@ -33,7 +33,7 @@ The calculator gives an estimate for one employee’s unused leave paid on termi
 - splitting a payment between the periods by days of service under sections 83-95 to 83-115: enter each part;
 - whether a termination is a genuine redundancy, an early retirement scheme or invalidity;
 - unused leave paid after an employee’s death;
-- a working holiday maker, whose payments Schedule 15 covers;
+- a working holiday maker, whose payments Schedule 15 covers: the take-home pay calculator works it;
 - an employee who has not claimed the tax-free threshold, or claims a Medicare levy variation or the seniors and pensioners offset (scales 1, 5 and 6), or has a withholding variation;
 - a post-17 August 1993 payment under $300 with long service leave from before 16 August 1978, where Schedule 7 does not say how its limit applies;
 - employment termination payments, which the redundancy and ETP withholding calculator covers.
@@ -79,6 +79,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
+- take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - redundancy and ETP withholding calculator: https://duguid.com.au/tools/business-calculators/termination-payment/
 - Schedule 7: https://www.ato.gov.au/tax-rates-and-codes/payg-withholding-schedule-7-tax-table-for-unused-leave-payments-on-termination-of-employment
 - sixty-three business calculators: https://duguid.com.au/tools/business-calculators/

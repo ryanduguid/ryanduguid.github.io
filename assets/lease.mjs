@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { number, cents, ratioCents } from './money.mjs';
-import { FREQUENCIES, financeSchedule, interestByIncomeYear, periodsAfter } from './finance-schedule.mjs';
+import { FREQUENCIES, financeSchedule, interestByIncomeYear, periodsAfter, presentValue } from './finance-schedule.mjs';
 import { parseLife, schedule as declineInValue } from './depreciation-rates.mjs';
 
 // A lessee's lease under AASB 16 Leases (compiled standard F2024C00049, compilation 8 of
@@ -12,7 +12,8 @@ import { parseLife, schedule as declineInValue } from './depreciation-rates.mjs'
 // The lease liability is the lease payments not paid at commencement, discounted at the rate the
 // lessee enters (paragraphs 26 and 27): the payments and any residual value guarantee or purchase
 // option price, discounted one period at a time as the finance schedule does, rounded half up to
-// the cent. The right-of-use asset's cost adds the payments made at or before commencement, less
+// the cent. Paragraph 27(c) takes the amount expected to be payable under a guarantee, so a
+// residual is measured whatever its size, even above the payments' present value. The right-of-use asset's cost adds the payments made at or before commencement, less
 // incentives received, the initial direct costs and the restoration estimate (paragraph 24). Each
 // period's interest is the period rate on the liability, rounded half up to the cent (paragraph
 // 37); the payments stay as the lease states them, so the last period's interest takes the cents
@@ -49,9 +50,11 @@ const yearLabel = (first) => `${first}-${String((first + 1) % 100).padStart(2, '
 /** @param {bigint} value */
 const dollars = (value) => Number(value) / 100;
 
-/** The finance schedule's terms for the lease's payments, worked for their present value. @param {LeaseTerms} terms */
+/** The finance schedule's terms for the lease's payments, worked for their present value. The
+ * residual is left out: a finance schedule's balloon cannot exceed the amount financed, and a
+ * residual value guarantee has no such limit. @param {LeaseTerms} terms */
 const presentValueTerms = (terms) => ({ solve: /** @type {const} */ ('amount'), amount: '1', rate: terms.rate, payments: terms.payments,
-  payment: terms.payment, balloon: terms.residual, balloonKind: /** @type {const} */ ('amount'), frequency: terms.frequency,
+  payment: terms.payment, balloon: '0', balloonKind: /** @type {const} */ ('amount'), frequency: terms.frequency,
   timing: terms.timing, start: terms.start });
 
 /** Each income year's straight-line depreciation of `cost` over `count` periods from `start`: an
@@ -86,20 +89,20 @@ export function lease(terms) {
   const pv = financeSchedule(presentValueTerms(terms));
   const advance = terms.timing === 'advance';
   const payment = BigInt(Math.round(pv.payment * 100));
-  const residual = BigInt(Math.round(pv.balloon * 100));
+  const residual = BigInt(cents(terms.residual));
+  const { perYear } = FREQUENCIES[terms.frequency];
+  const rateUnits = BigInt(Math.round(pv.rate * 10000));
+  const den = BigInt(perYear) * 1000000n;
+  const count = pv.payments;
   // Paragraph 26: only the payments not paid at commencement; one in advance is paid then.
-  const liability = BigInt(Math.round(pv.amount * 100)) - (advance ? payment : 0n);
+  const liability = presentValue(payment, count, { num: rateUnits, den }, advance, residual) - (advance ? payment : 0n);
   const [prepaid, incentives, direct, restoration] = [terms.prepaid, terms.incentives, terms.direct, terms.restoration]
     .map((value) => BigInt(cents(value)));
   const paidAtStart = prepaid + (advance ? payment : 0n) + direct - incentives;
   const cost = liability + prepaid + (advance ? payment : 0n) - incentives + direct + restoration;
   if (cost <= 0n) throw new Error('The incentives received are as much as the rest of the right-of-use asset’s cost, which leaves it nothing to depreciate.');
 
-  const { perYear } = FREQUENCIES[terms.frequency];
-  const rateUnits = BigInt(Math.round(pv.rate * 10000));
-  const den = BigInt(perYear) * 1000000n;
   const start = dayOf(terms.start);
-  const count = pv.payments;
   /** @type {{period: number, date: number, opening: bigint, payment: bigint, interest: bigint, closing: bigint}[]} */
   const events = [];
   let balance = liability;

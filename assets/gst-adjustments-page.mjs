@@ -151,7 +151,8 @@ export function gstAdjustment(worksheet, input) {
   const r = /** @type {Record<string, any>} */ (ENGINES[/** @type {GstWorksheet} */ (worksheet)](input)); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   const amount = (/** @type {string} */ id) => (id in r.amounts ? Number(r.amounts[id]) : null); // eslint-disable-line security/detect-object-injection -- keys and indexes come from this module's own constant lists or a checked choice
   if (worksheet === 'creditable-purpose') {
-    const [inc, dec] = [amount('increasing_adjustment') ?? 0, amount('decreasing_adjustment') ?? 0];
+    // The command always gives both amounts, one of them nil.
+    const [inc, dec] = [Number(r.amounts.increasing_adjustment), Number(r.amounts.decreasing_adjustment)];
     return { ...r, outcome: inc ? 'increasing adjustment' : dec ? 'decreasing adjustment' : 'no adjustment', amount: inc || dec };
   }
   if (worksheet === 'annual-apportionment') {
