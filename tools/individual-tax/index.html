@@ -52,7 +52,7 @@
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">Individual tax calculators</li></ol></nav>
         <h1>Individual tax calculators</h1>
-        <p class="lead-note">Twenty-two free calculators for one person’s tax, pay and super, grounded in legislation and ATO worked examples. They run in your browser with no sign-up.</p>
+        <p class="lead-note">Eighteen free calculators for one person’s tax, pay and super, grounded in legislation and ATO worked examples. They run in your browser with no sign-up.</p>
         {% assign checked = "" %}{% for calculator in site.data.individual_tax_cases %}{% if calculator[1].checked and calculator[1].checked > checked %}{% assign checked = calculator[1].checked %}{% endif %}{% endfor %}
         <p class="page-meta">Published 17 November 2026. Last checked <time datetime="{{ checked }}">{{ checked | date: "%-d %B %Y" }}</time>, the newest of the calculators’ source checks.</p>
       </header>

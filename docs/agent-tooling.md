@@ -63,7 +63,7 @@ pattern, range or list, or a name the schema does not declare, rather than
 converting it. `scripts/webmcp-tools.test.mjs` covers each tool, with a refused
 input for each, and the WebMCP tests in `tests/browser/calculator.spec.mjs`
 cover registration on the GST, Division 7A, long service leave, fuel tax credit, borrowing expenses, depreciation rates and
-Coal LSL pages; `tests/browser/individual-tax.spec.mjs` covers the 22 individual tax pages.
+Coal LSL pages; `tests/browser/individual-tax.spec.mjs` covers the 18 individual tax pages.
 
 The 6 Ozzit module pages offer a second read-only tool, `ozzit_function`, through
 `assets/ozzit-tools.mjs`. It looks up one formula by name in the published
