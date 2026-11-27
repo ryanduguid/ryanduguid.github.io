@@ -6566,7 +6566,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 Sixty free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
-Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
+Published 11 September 2026. Last checked 27 November 2026, the newest of the calculators’ source checks.
 
 Search 60 calculators
 
@@ -17035,7 +17035,7 @@ Source: https://duguid.com.au/tools/business-calculators/cgt/
 
 The capital gain or loss on one sale to 30 June 2027: discount or indexation, losses, and the main residence and 6-year rules, each step cited.
 
-Published 19 November 2026. Last checked 19 November 2026.
+Published 19 November 2026. Last checked 27 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -17095,7 +17095,7 @@ Confirm the figure with the ATO or a registered tax agent before relying on it.
 
 ## Shares or units bought in parcels
 
-This form is for shares or units bought at different times and sold in the 2025-26 or 2026-27 income year. It matches each sale to its parcels, first in, first out or as you select, and works each capital gain or loss and the net capital gain.
+For shares or units bought at different times and sold in 2025-26 or 2026-27, the share parcels form matches each sale to its parcels, first in, first out or as you select, and works each gain or loss and the net capital gain.
 
 Parcels and sales in one income year
 
