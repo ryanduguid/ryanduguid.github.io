@@ -13,10 +13,16 @@ const WORDS = new Map([['acquisition_cost', 'the purchase cost'], ['incidental_c
   ['capital_proceeds', 'the sale proceeds'], ['units', 'the number of units'], ['acquired', 'the purchase date'],
   ['date', 'the sale date'], ['security', 'the code'], ['parcel', 'the parcel name']]);
 
-/** A refusal in the page's words. @param {string} message @returns {never} */
+/** A refusal of the page's input. @param {string} message @returns {never} */
 function refused(message) {
-  const words = message.split(/(\w+)/).map((part) => WORDS.get(part) ?? part).join('');
-  throw Object.assign(new Error(words), { code: 'cgt_parcels.page_input' });
+  throw Object.assign(new Error(message), { code: 'cgt_parcels.page_input' });
+}
+
+/** The command's refusal in the page's words: its parcel or disposal number as the form's line, and the input
+ * a fact refusal names as the form names it. @param {string} message */
+export function inPageWords(message) {
+  return message.replace(/^parcel (\d+)/, 'Parcel line $1').replace(/^disposal (\d+)/, 'Sale line $1')
+    .replace(/^([^:]*: )(\w+) (must be|is required)/, (_, head, key, tail) => `${head}${WORDS.get(key) ?? key} ${tail}`);
 }
 
 /** Non-blank lines split on spaces. @param {string} text */
@@ -76,7 +82,7 @@ export function cgtParcelsResult(value, aud) {
   try {
     r = cgtParcels(input);
   } catch (error) {
-    if (error instanceof Error && 'code' in error && String(error.code).startsWith('cgt_parcels.')) refused(error.message);
+    if (error instanceof Error && 'code' in error && String(error.code).startsWith('cgt_parcels.')) refused(inPageWords(error.message));
     throw error;
   }
   const a = new Map(Object.entries(r.amounts));
@@ -87,7 +93,9 @@ export function cgtParcelsResult(value, aud) {
     + `${aud(amount(m.cost_base))}, ${m.capital_loss === '0.00' ? `gain ${aud(amount(m.capital_gain))}` : `loss ${aud(amount(m.capital_loss))}`}`
     + `${m.discount && m.counted ? (m.discount.startsWith('discount') ? ', a discount capital gain' : ', no discount') : ''}`]);
   rows.push(['Total current year capital gains (label H)', money('total_capital_gains')], ['Capital losses', money('capital_losses')]);
-  rows.push([`CGT discount of ${r.rates.discount_denominator === '3' ? '33 1/3' : '50'}%`, money('discount')]);
+  const none = r.rates.discount_numerator === '0';
+  rows.push([none ? 'CGT discount: none for a company' : `CGT discount of ${r.rates.discount_denominator === '3' ? '33 1/3' : '50'}%`,
+    money('discount')]);
   const principal = rows.push(['Net capital gain', money('net_capital_gain')]) - 1;
   rows.push(['Net capital gain (label A), whole dollars', wholeAud(a.get('net_capital_gain') ?? '0')]);
   if (a.get('net_capital_losses_carried_forward') !== '0.00') {

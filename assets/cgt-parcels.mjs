@@ -284,7 +284,8 @@ function selectedTakes(parcels, disposal, held) {
   const what = `disposal ${disposal.n}`;
   /** @type {[number, Units][]} */
   const takes = [];
-  let total = 0n;
+  /** @type {Units} */
+  let total = { v: 0n, places: 0 };
   for (const pick of /** @type {Pick[]} */ (disposal.picks)) {
     const i = parcels.findIndex((p) => p.id === pick.parcel);
     if (i < 0) conflict(`${what}: no parcel is named ${pick.parcel}.`);
@@ -294,10 +295,12 @@ function selectedTakes(parcels, disposal, held) {
     if (pick.units.v > nth(held, i).units.v) {
       refuse('cgt_parcels.units_not_held', `${what}: parcel ${parcel.id} has ${unitsText(nth(held, i).units)} units left, fewer than the ${unitsText(pick.units)} selected.`);
     }
-    total += pick.units.v;
+    total = { v: total.v + pick.units.v, places: Math.max(total.places, pick.units.places) };
     takes.push([i, pick.units]);
   }
-  if (total !== disposal.units.v) conflict(`${what}: the selected parcels' units do not add up to the ${unitsText(disposal.units)} disposed of.`);
+  if (total.v !== disposal.units.v) {
+    conflict(`${what}: the selected parcels' units add up to ${unitsText(total)}, not the ${unitsText(disposal.units)} disposed of.`);
+  }
   return takes;
 }
 

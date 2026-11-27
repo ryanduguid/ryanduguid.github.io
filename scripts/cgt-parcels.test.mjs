@@ -10,7 +10,7 @@ import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import test from 'node:test';
 import { cgtParcels } from '../assets/cgt-parcels.mjs';
-import { cgtParcelsResult, parcelLines, saleLines } from '../assets/cgt-parcels-page.mjs';
+import { cgtParcelsResult, inPageWords, parcelLines, saleLines } from '../assets/cgt-parcels-page.mjs';
 
 const fixture = createRequire(import.meta.url)('./cgt-parcels-engine-differential.json');
 const page = readFileSync('_includes/cgt-parcels.html', 'utf8');
@@ -99,4 +99,24 @@ test('the page reads its lines and shows the result in its own words', () => {
   fields.set('parcel-lines', 'A ABC 2020-08-03 1000 5200 1.999');
   assert.throws(() => cgtParcelsResult((name) => fields.get(name) ?? '', String), /the buying or selling costs must be/);
   assert.ok(page.includes('data-calculator="cgt-parcels"') && sources.includes('TD33'));
+});
+
+test('refusals keep the command\'s words, and the page names its own lines and inputs', () => {
+  // The command's message on 27 November 2026 for selected parcels that do not add up to the sale.
+  const two = [parcel('A', '2020-01-01', '10.5', '100'), parcel('B', '2021-01-01', '5.25', '100')];
+  const picks = [{ parcel: 'A', units: '4.50' }, { parcel: 'B', units: '1' }];
+  assert.throws(() => cgtParcels({ ...base, identification: 'selected', parcels: two, disposals: [{ ...sale('2026-01-10', '6', '200'), parcels: picks }] }),
+    { message: "disposal 1: the selected parcels' units add up to 5.50, not the 6 disposed of." });
+  assert.equal(inPageWords('disposal 2: 12 units of ABC are disposed of, 2 more than the parcels acquired by then still hold.'),
+    'Sale line 2: 12 units of ABC are disposed of, 2 more than the parcels acquired by then still hold.');
+  assert.equal(inPageWords('parcel 1: incidental_costs must be a finite non-negative decimal string, at most 2dp and 1e12.'),
+    'Parcel line 1: the buying or selling costs must be a finite non-negative decimal string, at most 2dp and 1e12.');
+  assert.equal(inPageWords('disposal 1, selected parcel 2: units is required.'), 'Sale line 1, selected parcel 2: the number of units is required.');
+  assert.throws(() => parcelLines('A ABC 2020-08-03 1000 5200'), { message: /^Parcel line 1: enter a name, the code, the purchase date, the units,/ });
+  const fields = new Map([['entity', 'company'], ['identification', 'first_in_first_out'], ['year', '2025-26'],
+    ['parcel-lines', 'A ABC 2020-08-03 1000 5200 19.95'], ['sale-lines', 'ABC 2026-02-02 900 13500 29.95']]);
+  const rows = cgtParcelsResult((name) => fields.get(name) ?? '', (n) => `$${n.toFixed(2)}`).rows;
+  assert.deepEqual(rows.find(([label]) => label.startsWith('CGT discount')), ['CGT discount: none for a company', '$0.00']);
+  fields.set('entity', 'complying_superannuation_entity');
+  assert.equal(cgtParcelsResult((name) => fields.get(name) ?? '', String).rows.find(([label]) => label.startsWith('CGT discount'))[0], 'CGT discount of 33 1/3%');
 });
