@@ -22,6 +22,8 @@ import { SOLE_TRADER_YEARS, soleTraderSetAside } from './sole-trader.mjs';
 import { incomeTests } from './income-tests.mjs';
 import { CAP, CATCH_UP_YEARS, concessionalCatchUp } from './concessional-catch-up.mjs';
 import { superProjection } from './super-projection.mjs';
+import { scheduleResult } from './take-home-schedules.mjs';
+import { WITHHOLDING_COMMANDS, withholdingSchedule } from './withholding-schedules.mjs';
 
 /** @typedef {{inputs: string, rows: string[][], principal: number, note?: string}} Result */
 
@@ -125,9 +127,12 @@ function takeHomeResult(value, aud) {
   if (r.division293) {
     notes.push(`Division 293 tax applies to ${aud(r.division293)} of taxable contributions (section 293-20), not worked here`);
   }
+  const other = scheduleResult(value, aud);
+  rows.push(...(other?.rows ?? []));
+  if (other) notes.push(other.note);
   return { inputs: `${value('year')}, ${RESIDENCY[value('residency')]}, salary ${aud(Number(value('salary')))} ${PERIOD[period]} `
     + `${included ? 'including' : 'plus'} super, ${aud(Number(value('sacrifice')))} ${PERIOD[period]} sacrificed to super, `
-    + `${loan ? 'with a' : 'no'} study or training loan, ${covered ? 'with' : 'no'} private hospital cover`, principal: 8,
+    + `${loan ? 'with a' : 'no'} study or training loan, ${covered ? 'with' : 'no'} private hospital cover${other?.inputs ?? ''}`, principal: 8,
   rows, note: notes.join('. ') };
 }
 
@@ -160,8 +165,8 @@ function salaryPackagingResult(value, aud) {
     salary: value('salary'), typeTwo: value('type-two'), typeOne: value('type-one'), meals: value('meals'),
     mealsTypeOne: flag('meals-type-one'), studyLoan: flag('study-loan'), hospitalCover: flag('cover') });
   const rows = [['Benefits packaged, at their taxable value', aud(r.packaged)]];
-  if (r.grossedTypeOne) rows.push(['Type 1 benefits grossed up at 2.0802, to the dollar', aud(r.grossedTypeOne)]);
-  rows.push(['Type 2 benefits grossed up at 1.8868, to the dollar', aud(r.grossedTypeTwo)],
+  if (r.grossedTypeOne) rows.push(['Type 1 benefits grossed up under s 5B(1F), to the dollar', aud(r.grossedTypeOne)]);
+  rows.push(['Type 2 benefits grossed up under s 5B(1G), to the dollar', aud(r.grossedTypeTwo)],
     [`Cap for ${value('employer') === 'charity' ? 'a charity' : 'a hospital or ambulance service'}`, aud(r.cap)]);
   if (r.grossedMeals) rows.push(['Meal entertainment allowed above the cap, up to $5,000', aud(r.mealAllowance)]);
   rows.push(['Grossed-up amount liable to FBT', aud(r.excess)], ['FBT on it at 47%', aud(r.fbt)],
@@ -537,4 +542,4 @@ export const engines = { taxEstimate, takeHomePay, studyLoanRepayment, studyLoan
   concessionalCatchUp, catchUpYears: CATCH_UP_YEARS, incomeYears: INCOME_TAX_YEARS,
   payYears: Object.keys(SUPER_GUARANTEE), soleTraderYears: SOLE_TRADER_YEARS, division293Years: DIVISION_293_YEARS,
   bonusWithholding, salaryPackaging, novatedLease, packagingYears: PACKAGING_YEARS, novatedYears: NOVATED_YEARS,
-  superProjection };
+  superProjection, withholdingSchedule, withholdingCommands: WITHHOLDING_COMMANDS };

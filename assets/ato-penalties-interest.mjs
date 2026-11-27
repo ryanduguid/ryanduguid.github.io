@@ -77,8 +77,8 @@ function gicOn(day) {
   for (let i = rows.length - 1; i >= 0; i -= 1) if (rows[i][0] <= day) return rows[i][1];
   return null;
 }
-/** @param {number} day */
-const sicOn = (day) => { const rate = day >= dayOf(SIC_FROM) ? gicOn(day) : null; return rate === null ? null : rate - 400; };
+/** The SIC rate on a day from SIC_FROM: `sic` refuses a period that starts earlier. @param {number} day */
+const sicOn = (day) => { const rate = gicOn(day); return rate === null ? null : rate - 400; };
 /** @param {number} day */
 const baseOn = (day) => { const rate = gicOn(day); return rate === null ? null : rate - 700; };
 /** The penalty unit in dollars on a day, or null before the table. @param {number} day */

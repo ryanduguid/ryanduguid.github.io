@@ -1,19 +1,34 @@
 # Codecov reads this file from .github/, where Jekyll never publishes it. It
-# reports the site tools' Rust coverage and the calculator engines' Node
-# coverage together. The project floor is main's measured line coverage
-# (96.38% on 27 November 2026, at the merge of #822).
-# Raise it with the tests until it reaches 100%, never lower it to pass. Every
-# change must test each line it adds or changes. Codecov posts no comments.
+# reports the site tools' Rust coverage, the calculator engines' Node coverage
+# and the Coal LSL levy service's Node coverage together. c8 measures both Node
+# suites: the test runner's own merge of several processes' coverage can count
+# lines that never ran. The project floor is main's measured line coverage
+# (97.46% on 27 November 2026, at the merge of #818). Raise it with the tests
+# until it reaches 100%, never lower it to pass. Every change must test each
+# line it adds or changes. Codecov posts no comments.
 coverage:
   round: down
   status:
     project:
       default:
-        target: 96.38%
+        target: 97.46%
         threshold: 0%
         if_not_found: failure
+      # Each flag is one upload in checks.yml's codecov job.
+      coal-lsl-service:
+        flags: [coal-lsl-service]
+        target: 100%
+        threshold: 0%
     patch:
       default:
         target: 100%
         threshold: 0%
+# The Windows run of the Rust suites uploads under this flag and counts towards
+# the default statuses with the Linux upload. It is never carried forward: a
+# commit without its own Windows report leaves the Windows-only lines missed.
+flags:
+  windows:
+    paths:
+      - scripts/
+    carryforward: false
 comment: false

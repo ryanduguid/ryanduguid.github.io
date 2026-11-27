@@ -14,11 +14,11 @@ Source: https://duguid.com.au/tools/individual-tax/
 
 # Individual tax calculators
 
-Eighteen free calculators for one person’s tax, pay and super, grounded in legislation and ATO worked examples. They run in your browser with no sign-up.
+Nineteen free calculators for one person’s tax, pay and super, grounded in legislation and ATO worked examples. They run in your browser with no sign-up.
 
 Published 17 November 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
-Search 18 calculators
+Search 19 calculators
 
 ## Tax, pay and study loans
 
@@ -32,6 +32,7 @@ Search 18 calculators
 - Salary packaging calculator What packaging saves an employee of a charity, hospital or ambulance service, with the FBT cap, any FBT on the excess and the reportable amount.
 - Novated lease calculator A year of a novated car lease against paying from after-tax pay, with the electric car FBT exemption tested condition by condition.
 - Work expenses calculator Working from home by the fixed rate against actual cost, car expenses by cents per kilometre or log book, and self-education expenses, 2020-21 to 2026-27.
+- Do I need to lodge a tax return? Whether you must lodge for 2020-21 to 2025-26 under that year’s lodgment instrument: the $18,200 threshold, the other conditions, the exceptions and the due date.
 
 ## Super contributions and retirement
 
@@ -46,7 +47,7 @@ Search 18 calculators
 
 For a business, see the 63 business calculators, depreciation rates and individual income tax rate tables.
 
-Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22, salary packaging from 2022-23, novated leases from 2023-24, the withholding from a 2026-27 pay with a bonus or back payment, super projected from 2026-27, a transfer balance account from 2017-18, the excess concessional contributions charge for 2013-14 to 2020-21, the account-based pension minimum for 2024-25 to 2027-28, and the days in Australia for the 183-day residency test from 2020-21 to 2026-27. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
+Estimates in AUD for one person’s full income year: income tax and study loans from 2020-21 to 2026-27, take-home pay, a sole trader’s set-aside and Division 293 tax from 2021-22, salary packaging from 2022-23, novated leases from 2023-24, the withholding from a 2026-27 pay with a bonus or back payment, super projected from 2026-27, a transfer balance account from 2017-18, the excess concessional contributions charge for 2013-14 to 2020-21, the account-based pension minimum for 2024-25 to 2027-28, the days in Australia for the 183-day residency test from 2020-21 to 2026-27, and whether you must lodge a return for 2020-21 to 2025-26. Each page says what it does not compute. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
@@ -60,6 +61,7 @@ Estimates in AUD for one person’s full income year: income tax and study loans
 - Salary packaging calculator: https://duguid.com.au/tools/individual-tax/salary-packaging/
 - Novated lease calculator: https://duguid.com.au/tools/individual-tax/novated-lease/
 - Work expenses calculator: https://duguid.com.au/tools/individual-tax/work-expenses/
+- Do I need to lodge a tax return?: https://duguid.com.au/tools/individual-tax/lodgment-required/
 - Division 293 tax calculator: https://duguid.com.au/tools/individual-tax/division-293/
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
@@ -138,7 +140,7 @@ A balance a cent below $500,000 still carries forward | 2024-25, balance $499,99
 At a $500,000 balance nothing is carried forward and $10,000 is excess | 2024-25, balance $500,000.00, contributions $40,000.00; earlier 2019-20 $11,000.00, 2020-21 $12,000.00, 2021-22 $13,000.00, 2022-23 $14,000.00, 2023-24 $15,000.00 | Cap $30,000.00 with $67,500.00 unused from the previous 5 years, $0.00 applied, $10,000.00 excess; $14,000.00 lapses
 2026-27’s $32,500 cap with $17,500 carried forward, earliest first | 2026-27, balance $300,000.00, contributions $50,000.00; earlier 2021-22 $20,000.00, 2022-23 $20,000.00, 2023-24 $20,000.00, 2024-25 $20,000.00, 2025-26 $20,000.00 | Cap $75,000.00 with $42,500.00 unused from the previous 5 years, $17,500.00 applied, $0.00 excess; $0.00 lapses
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the nineteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -150,7 +152,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- nineteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Division 293 tax calculator: https://duguid.com.au/tools/individual-tax/division-293/
 - Super projection calculator: https://duguid.com.au/tools/individual-tax/super-projection/
 - Super co-contribution, LISTO and spouse offset calculator: https://duguid.com.au/tools/individual-tax/government-super/
@@ -312,7 +314,7 @@ Own income at the Medicare threshold amount: nil whatever the spouse earns | 202
 Foreign resident: no surcharge | 2026-27, foreign resident, taxable income $200,000, 365 days without hospital cover, withheld $0.00 | Tax $65,350.00, offset $0.00, Medicare levy $0.00, surcharge $0.00, total $65,350.00, owing $65,350.00
 Study loan with withholding short: an amount owing | 2026-27, Australian resident, taxable income $90,000, study loan, withheld $19,500.50 | Tax $17,520.00, offset $0.00, Medicare levy $1,800.00, surcharge $0.00, study loan $3,070.80, total $22,390.80, owing $2,890.30
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the nineteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Common questions
 
@@ -336,7 +338,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - Medicare levy reduction for low-income earners: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/medicare-levy-reduction/medicare-levy-reduction-for-low-income-earners
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- nineteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Individual income tax rates: https://duguid.com.au/rates/individual-income-tax/
 - Take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
@@ -371,6 +373,12 @@ Salary sacrificed to super each pay period (dollars and cents) Do you have a stu
 
 Did you have private patient hospital cover all year? Yes No
 
+## Withholding under another schedule
+
+For 2024-25 to 2026-27, the calculator can also work the amount to withhold from one payment under another schedule, beside the year’s result.
+
+Also work out withholding under another schedule? No, Schedule 1 only Daily or casual pay (tax table for daily and casual workers) Schedule 2: horticulture or shearing Schedule 3: actors, variety artists and other entertainers Schedule 4: a return to work payment Schedule 6: an annuity Schedule 9: a senior or pensioner Schedule 10: a payment under a voluntary agreement Schedule 14: an extra amount the payee asked for in writing Schedule 15: a working holiday maker A supplier who quoted no ABN
+
 Use dated earnings for super
 
 For one employer with super paid on top, enter one payment per line as date, gross salary before sacrifice and earnings for super. Separate the 3 entries with spaces, for example 2026-06-25 3000.00 2500.00. Use ordinary time earnings through 2025-26 and qualifying earnings from 2026-27. Gross payments must add up to the salary for the year. For an extra pay, enter the total salary and sacrifice for the year.
@@ -385,7 +393,7 @@ Calculate Fictional example: the first boundary case below. Change the inputs an
 
 The take-home pay calculator takes one salary for a year, month, fortnight or week and works out the year’s income tax, offsets, Medicare levy, any Medicare levy surcharge and any study or training loan repayment on it. Salary sacrificed to super comes off first. From 2026-27 it also takes off the standard deduction of up to $1,000 for work-related expenses. It then gives what is left for the year, a month, a fortnight and a week, and an estimate of employer super guarantee. Supply dated earnings to calculate super using the applicable quarters or paydays. Employer super goes to a fund and is separate from take-home pay.
 
-Those take-home amounts are the year’s tax spread evenly: the year’s net amount divided by 12, 26 and 52. They are not the amounts an employer withholds each pay. For a weekly, fortnightly or monthly pay, the calculator also works the PAYG amount withheld from one pay under the year’s Schedule 1, and Schedule 8 with a study loan, and the year’s withholding less the year’s tax, which is the refund or amount owing when the tax return is assessed. Withholding does not allow for the low and middle income tax offset, so in 2021-22 the offset comes back as part of the refund: $3,000 a fortnight has $670 withheld each pay and $1,543 back. For working holiday makers, who are withheld from under another schedule, use the ATO’s tax withheld calculator.
+Those take-home amounts are the year’s tax spread evenly: the year’s net amount divided by 12, 26 and 52. They are not the amounts an employer withholds each pay. For a weekly, fortnightly or monthly pay, the calculator also works the PAYG amount withheld from one pay under the year’s Schedule 1, and Schedule 8 with a study loan, and the year’s withholding less the year’s tax, which is the refund or amount owing when the tax return is assessed. Withholding does not allow for the low and middle income tax offset, so in 2021-22 the offset comes back as part of the refund: $3,000 a fortnight has $670 withheld each pay and $1,543 back. For other payments, choose another schedule: the calculator then also works the amount to withhold from one payment under the tax table for daily and casual workers, Schedule 2 (horticulture and shearing), 3 (performers), 4 (return to work payments), 6 (annuities), 9 (seniors and pensioners), 10 (voluntary agreements), 14 (an extra amount the payee asked for), 15 (working holiday makers) or the no ABN rule, for 2024-25 to 2026-27. Each is a port of the matching australian-accounting command, checked against it as the sources below say.
 
 The example on arrival is 2025-26, before the standard deduction: on $75,000 the Medicare levy is $1,500, as the ATO’s example of Matthew on What is the Medicare levy gives. In 2026-27 the same salary is $74,000 of taxable income.
 
@@ -395,7 +403,8 @@ When the salary includes super, the calculator splits it: at 12%, a package of $
 
 The tax and PAYG estimates assume one employer, a salary paid evenly over the full year and no other income, deductions or offsets. Dated super can use irregular payments that add up to the year’s gross salary.
 
-- separate tax or withholding treatment for overtime, bonuses, allowances or leave loading. PAYG estimates use 52 weekly or 26 fortnightly pays and omit withholding under scales 1, 5 and 6, withholding for working holiday makers, offsets claimed in a withholding declaration and Medicare levy variations;
+- separate tax or withholding treatment for overtime, bonuses, allowances or leave loading. PAYG estimates use 52 weekly or 26 fortnightly pays and omit withholding under scales 1, 5 and 6, offsets claimed in a withholding declaration and Medicare levy variations;
+- in the other schedules option, which refuses rather than guesses: payments before 2024-25, a dependants’ Medicare levy adjustment or 53 or 27 pays under Schedules 6 and 14, offsets or a levy adjustment under Schedule 9, a foreign resident with a TFN under Schedule 3 or the daily table, Pacific Australia Labour Mobility workers, a voluntary agreement not in force or without an ABN, and whether the payment belongs under the schedule;
 - 2025-26 withholding with a study loan that mixes the 2 Schedule 8s: the year’s withholding and refund take the one from 24 September 2025 for every pay, and the component before that date is shown beside it;
 - work-related deductions you claim, which reduce the standard deduction dollar for dollar except those section 25-130(3) disregards, such as professional association fees;
 - salary sacrifice of anything but super, reportable fringe benefits, excess concessional contributions or Division 293 tax;
@@ -431,7 +440,7 @@ Above the cap and in Division 293 | 2026-27, Australian resident, $260,000 a yea
 2021-22 fortnightly: withholding leaves the low and middle income tax offset to the return | 2021-22, Australian resident, $3,000 a fortnight plus super | Take-home $62,123.00 a year, $2,389.35 a fortnight; super $7,800.00; withheld $670.00 a pay, refund $1,543.00
 2025-26 fortnightly with a study loan: Schedule 8 from 24 September 2025 | 2025-26, Australian resident, $3,000 a fortnight plus super, study loan | Take-home $60,602.00 a year, $2,330.85 a fortnight; super $9,360.00; withheld $672.00 a pay, refund $74.00
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the nineteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Common questions
 
@@ -441,7 +450,7 @@ Yes. From 1 July 2025 the general super guarantee rate is 12%, and earlier years
 
 ### Which PAYG withholding schedules does it use?
 
-The take-home pay calculator applies the ATO’s Schedule 1 and Schedule 8 coefficients for weekly, fortnightly and monthly pay periods from 2021-22 to 2026-27.
+The take-home pay calculator applies the ATO’s Schedule 1 and Schedule 8 coefficients for weekly, fortnightly and monthly pay periods from 2021-22 to 2026-27. For 2024-25 to 2026-27 it can also work one payment under the daily and casual table, Schedule 2, 3, 4, 6, 9, 10, 14 or 15, or the no ABN rule.
 
 ## Related
 
@@ -453,11 +462,10 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
 - What is the Medicare levy: https://www.ato.gov.au/individuals-and-families/medicare-and-private-health-insurance/medicare-levy/what-is-the-medicare-levy
 - income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Simple tax calculator: https://www.ato.gov.au/calculators-and-tools/tax-return-simple-tax-calculator
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- nineteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - PAYG withholding coefficients: https://duguid.com.au/rates/payg-withholding/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
 
@@ -526,7 +534,7 @@ A recent year that was a rebate year itself is adjusted both ways | 2025-26, tax
 2016-17’s arrears above $180,000 carry the 2% budget repair levy | 2025-26, taxable $100,000.00; 2016-17 $10,000.00 on $200,000.00 | Tax on arrears $3,000.00, notional tax $4,700.00, offset $0.00
 2026-27’s 15% band: $20,000 from 2024-25 at 16% and 30% against 30% and 37% | 2026-27, taxable $150,000.00; 2024-25 $20,000.00 on $30,000.00 | Tax on arrears $7,050.00, notional tax $3,900.00, offset $3,150.00
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the nineteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -538,7 +546,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- nineteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - Bonus withholding calculator: https://duguid.com.au/tools/individual-tax/bonus-withholding/
 - Individual income tax rates: https://duguid.com.au/rates/individual-income-tax/
@@ -612,7 +620,7 @@ ATO example 4: Branson, 2024-25, at 5.5% by section 154-20 | 2024-25: taxable in
 2021-22 at 1% | 2021-22: taxable income $47,014 | Repayment income $47,014.00, repayment $470.14
 2020-21 a dollar below 10% | 2020-21: taxable income $136,739 | Repayment income $136,739.00, repayment $12,990.21
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the nineteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -626,7 +634,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - take-home pay calculator: https://duguid.com.au/tools/individual-tax/take-home-pay/
 - Study and training loan repayment calculator: https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- nineteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Study loan repayment thresholds: https://duguid.com.au/rates/study-loan-repayment/
 - Income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
 
@@ -724,7 +732,7 @@ No offset: $20,000 of profit on $70,000 of wages adds 30% tax and 2% Medicare le
 2023-24, other deductions take taxable income below the profit: the offset’s share stops at 1 | 2023-24, business $40,000 less $5,000, other deductions $3,000, invoice $1,000.00 | Offset $419.52, business tax $2,102.48; set aside $2,102.48 a year, $525.62 a quarter, 5.26% of each invoice
 2021-22, $25,000 of profit: the low and middle income offsets leave no tax for this offset | 2021-22, business $25,000 less $0, invoice $1,000.00 | Offset $0.00, business tax $163.50; set aside $163.50 a year, $40.88 a quarter, 0.65% of each invoice
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the nineteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -738,7 +746,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - calculators and tools: https://www.ato.gov.au/calculators-and-tools
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- nineteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
 - PAYG instalments calculator: https://duguid.com.au/tools/business-calculators/payg-instalments/
 - GST calculator: https://duguid.com.au/tools/business-calculators/gst/
@@ -812,7 +820,7 @@ Unused cap covers part of the excess | 2026-27: taxable income $210,000, fringe 
 2023-24: each part of Division 293 income | 2023-24: taxable income $200,000, fringe benefits $10,000, net investment loss $15,000, family trust distribution tax income $20,000, less FHSS $5,000; contributions $27,500.00 | Division 293 income $240,000.00, low tax contributions $27,500.00, taxable contributions $17,500.00, tax $2,625.00
 2021-22: a lump sum taxed at the zero rate comes off | 2021-22: taxable income $260,000, less zero-rate lump sum $30,000; contributions $27,500.00 | Division 293 income $230,000.00, low tax contributions $27,500.00, taxable contributions $7,500.00, tax $1,125.00
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the nineteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -824,87 +832,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- nineteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - Concessional catch-up calculator: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 - Income tests calculator: https://duguid.com.au/tools/individual-tax/income-tests/
 - Maximum super contribution base: https://duguid.com.au/rates/maximum-contribution-base/
-
----
-
-# Income tests calculator: rebate, HELP and surcharge
-
-Source: https://duguid.com.au/tools/individual-tax/income-tests/
-
-> The 6 income measures behind the surcharge, offsets, study loans and the co-contribution, from one resident's tax return for 2024-25 to 2026-27, each cited.
-
-# Income tests calculator
-
-The 6 income measures one resident's tax return feeds, for 2024-25 to 2026-27.
-
-Published 19 November 2026. Last checked 19 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Income test amounts for one income year
-
-Was the person an Australian resident for the whole income year? Yes No Taxable income, including any assessable FHSS released amount (whole dollars) Assessable income, before deductions (whole dollars) Assessable first home super saver (FHSS) released amount (whole dollars) Amounts on which family trust distribution tax was paid (whole dollars) Reportable fringe benefits from employers exempt under section 57A, IT1 label N (whole dollars) Reportable fringe benefits from other employers, IT1 label W (whole dollars) Reportable employer super contributions, IT2 (whole dollars) Personal super contributions you deduct, D12 (whole dollars) Excess concessional contributions for the year (whole dollars) Net financial investment loss, IT5 (whole dollars) Net rental property loss, IT6 (whole dollars) Tax-free government pensions or benefits, IT3 (whole dollars) Target foreign income, including exempt foreign employment income, IT4 (whole dollars) Exempt foreign employment income, less the costs of earning it (whole dollars) Child support you paid, IT7 (whole dollars) Deductions from carrying on a business (whole dollars)
-
-Enter 0 for any amount you do not have. The labels are those of the income tests section of the individual tax return.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: resident all year, taxable income $50,420.00, reportable fringe benefits from other employers $4,560.00, reportable employer super contributions $15,000.00, net financial investment loss $1,250.00, target foreign income $2,580.00, exempt foreign employment income $2,580.00, assessable income $50,420.00. Taxable income without the FHSS amount $50,420.00 Reportable fringe benefits total $4,560.00 Adjusted fringe benefits total $4,560.00 Total net investment loss $1,250.00 Reportable super contributions $15,000.00 Income for surcharge purposes $71,230.00 Division 293 income $56,230.00 Rebate income $71,230.00 Repayment income $73,810.00 Adjusted taxable income $73,810.00 Co-contribution total income $69,980.00 Income for surcharge purposes leaves out exempt foreign employment income, as section 995-1 defines it; the ATO’s surcharge page adds it where taxable income is $1 or more.
-
-## How the income tests calculator works
-
-The income tests calculator adds up the 6 income measures that the income tests section of an individual tax return feeds, from the same amounts. Each measure starts from taxable income without any assessable first home super saver released amount, then adds the parts its own definition names.
-
-- Income for surcharge purposes, for the Medicare levy surcharge and the private health insurance rebate, adds family trust distribution amounts, fringe benefits, reportable super contributions and investment losses.
-- Division 293 income, for the extra 15% tax when it and low tax contributions together exceed $250,000, is the same less reportable super contributions.
-- Rebate income, for the seniors and pensioners tax offset, adds super contributions, investment losses and the adjusted fringe benefits total.
-- Repayment income, for study and training loans, adds investment losses, fringe benefits, exempt foreign employment income and super contributions.
-- Adjusted taxable income, for the dependant (invalid and invalid carer) tax offset, adds adjusted fringe benefits, target foreign income, investment losses, tax-free pensions and super contributions, less child support paid.
-- Co-contribution total income starts from assessable income instead, adds fringe benefits and employer contributions and takes off business deductions.
-
-The ATO’s page When you must repay your loan, last updated 13 October 2026 and read 19 November 2026, works Christina’s repayment income: taxable income of $50,420, a $1,250 net investment loss, $4,560 of reportable fringe benefits, $2,580 of exempt foreign employment income and $15,000 of reportable super contributions give $73,810. The calculator opens on her figures, with her loss taken as a financial investment loss, the benefits from an employer that pays FBT, the contributions from her employer, her target foreign income as the exempt income alone and assessable income equal to taxable income; those splits are fictional. Tom’s income for surcharge purposes of $117,000, from the ATO’s surcharge page, is among the boundary cases.
-
-## What the income tests calculator does not cover
-
-The calculator works the measures only. It does not decide whether an offset, the surcharge, a study loan repayment, Division 293 tax or a co-contribution applies, or work out their amounts; the income tax calculator works the surcharge and a study loan repayment. It covers a person resident in Australia for the whole of 2024-25, 2025-26 or 2026-27: a foreign resident pays no Medicare levy or surcharge and repays a study loan on worldwide income, and a part-year resident’s measures were not checked.
-
-It does not add a spouse’s income, work out family tax benefit or child care subsidy income, which also count a partner’s, or the Commonwealth Seniors Health Card income test, which Services Australia applies. It takes each amount as you enter it: it does not decide what is a reportable fringe benefit, target foreign income or a tax-free pension, or work out excess concessional contributions. Confirm the figures with the ATO’s income tests calculator or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Income tests calculator
-
-Case | Inputs | Result
-ATO example: Christina’s repayment income of $73,810 | Resident all year, taxable $50,420, other fringe $4,560, employer super $15,000, financial loss $1,250, target foreign $2,580, exempt foreign $2,580, assessable $50,420 | Surcharge $71,230, Division 293 $56,230, rebate $71,230, repayment $73,810, adjusted taxable $73,810, co-contribution $69,980
-ATO example: Christina’s 2026-27 repayment income of $86,380 | Resident all year, taxable $60,470, other fringe $5,400, employer super $16,500, financial loss $1,330, target foreign $2,680, exempt foreign $2,680, assessable $60,470 | Surcharge $83,700, Division 293 $67,200, rebate $83,700, repayment $86,380, adjusted taxable $86,380, co-contribution $82,370
-ATO example: Tom’s income for surcharge purposes of $117,000 | Resident all year, taxable $90,000, other fringe $27,000, assessable $90,000 | Surcharge $117,000, Division 293 $117,000, rebate $117,000, repayment $117,000, adjusted taxable $117,000, co-contribution $117,000
-Division 293 income leaves out the $20,000 of contributions: $240,000 | Resident all year, taxable $200,000, other fringe $25,000, employer super $20,000, financial loss $15,000, assessable $230,000 | Surcharge $260,000, Division 293 $240,000, rebate $260,000, repayment $260,000, adjusted taxable $260,000, co-contribution $275,000
-A section 57A employer’s $4,567 counts as $2,420, rounded down, where adjusted | Resident all year, taxable $40,000, section 57A fringe $4,567, other fringe $1,000, assessable $40,000 | Surcharge $45,567, Division 293 $45,567, rebate $43,420, repayment $45,567, adjusted taxable $43,420, co-contribution $45,567
-Excess concessional contributions reduce the contributions, but not below nil | Resident all year, taxable $60,000, employer super $10,000, personal super $5,000, excess concessional $20,000, assessable $63,000 | Surcharge $60,000, Division 293 $60,000, rebate $60,000, repayment $60,000, adjusted taxable $60,000, co-contribution $63,000
-An FHSS released amount larger than taxable income leaves no taxable income | Resident all year, taxable $30,000, FHSS $40,000, assessable $50,000 | Surcharge $0, Division 293 $0, rebate $0, repayment $0, adjusted taxable $0, co-contribution $10,000
-Family trust distribution amounts count for the surcharge only | Resident all year, taxable $100,000, family trust $20,000, assessable $100,000 | Surcharge $120,000, Division 293 $120,000, rebate $100,000, repayment $100,000, adjusted taxable $100,000, co-contribution $100,000
-Child support paid can take adjusted taxable income below nil | Resident all year, taxable $0, child support $1,000 | Surcharge $0, Division 293 $0, rebate $0, repayment $0, adjusted taxable -$1,000, co-contribution $0
-Pensions and target foreign income count in adjusted taxable income only | Resident all year, taxable $20,000, pensions $5,000, target foreign $3,000, child support $8,000, assessable $20,000 | Surcharge $20,000, Division 293 $20,000, rebate $20,000, repayment $20,000, adjusted taxable $20,000, co-contribution $20,000
-Business deductions come off co-contribution total income only | Resident all year, taxable $35,000, other fringe $2,000, employer super $1,000, assessable $40,000, business deductions $5,000 | Surcharge $38,000, Division 293 $37,000, rebate $38,000, repayment $38,000, adjusted taxable $38,000, co-contribution $38,000
-
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-## Related
-
-- Income tax calculator
-- Division 293 tax calculator
-- Study and training loan calculator
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-## Links
-
-- When you must repay your loan: https://www.ato.gov.au/individuals-and-families/study-and-training-support-loans/when-must-you-repay-your-loan
-- income tax calculator: https://duguid.com.au/tools/individual-tax/income-tax/
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
-- Division 293 tax calculator: https://duguid.com.au/tools/individual-tax/division-293/
-- Study and training loan calculator: https://duguid.com.au/tools/individual-tax/study-loan/

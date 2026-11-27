@@ -121,3 +121,29 @@ fn ports_like_urllib() {
         assert_eq!(port(netloc), expected, "{netloc}");
     }
 }
+
+#[test]
+fn urlunsplit_keeps_a_double_slash_path_and_an_empty_file_netloc() {
+    let round = |url: &str| urlunsplit(&urlsplit(url).unwrap());
+    assert_eq!(round("////x"), "////x");
+    assert_eq!(round("file:///etc/hosts"), "file:///etc/hosts");
+    assert_eq!(round("mailto:a@b"), "mailto:a@b");
+}
+
+#[test]
+fn urljoin_takes_the_base_parts_a_reference_leaves_out() {
+    assert_eq!(urljoin("http://a/b?q#f", "#g"), Ok("http://a/b?q#g".into()));
+    assert_eq!(urljoin("http://a/b?q#f", "?r"), Ok("http://a/b?r".into()));
+    assert_eq!(
+        urljoin("http://a/b?q#f", "http:"),
+        Ok("http://a/b?q#f".into())
+    );
+}
+
+#[test]
+fn brackets_in_the_userinfo_leave_the_host_to_be_checked() {
+    assert_eq!(
+        urlsplit("http://[x]@host:80/").map(|s| s.netloc),
+        Err("'host' does not appear to be an IPv4 or IPv6 address".into())
+    );
+}

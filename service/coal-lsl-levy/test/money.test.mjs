@@ -45,6 +45,10 @@ test('rendering is exact and terminates', () => {
   assert.equal(quarterCentsToString(toQuarterCents(0.5)), '0.0050');
   assert.equal(exactDecimal(3240243n, 400000n, { maxScale: 8 }), '8.1006075');
   assert.equal(exactDecimal(16200n, 100n), '162.00');
+  // A whole number at minScale 0 has no point; a fraction stops at its last digit.
+  assert.equal(exactDecimal(4n, 2n, { minScale: 0 }), '2');
+  assert.equal(exactDecimal(5n, 2n, { minScale: 0 }), '2.5');
+  assert.equal(exactDecimal(1n, 8n, { minScale: 4 }), '0.1250');
   assert.throws(() => exactDecimal(1n, 3n), RangeError);
   // Fixed scales keep trailing zeros and refuse to round a digit away.
   assert.equal(atScale(3n, 4n, 4), '0.7500');

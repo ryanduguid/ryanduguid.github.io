@@ -117,10 +117,12 @@ function nonConcessionalRelease(facts, year) {
     rates: { proxy_rate_percent: percent } };
 }
 
-/** The command's result for one question. @param {unknown} given @returns {ExcessWorked} */
-export function excessContributions(given) {
+/** The command's result for one question. `years` are the contributions years it takes: RELEASE_YEARS
+ * unless a test asks for a year the rate tables do not yet cover.
+ * @param {unknown} given @param {readonly string[]} [years] @returns {ExcessWorked} */
+export function excessContributions(given, years = RELEASE_YEARS) {
   const input = readInput(given, INPUTS.slice(0, 3), INPUTS);
-  const year = scope(input, RELEASE_YEARS);
+  const year = scope(input, years);
   const facts = Object.fromEntries(Object.entries(input).filter(([key]) => !INPUTS.slice(0, 3).includes(key)));
   if (input.question === 'concessional_charge') return concessionalCharge(facts, year);
   if (input.question === 'non_concessional_release') return nonConcessionalRelease(facts, year);

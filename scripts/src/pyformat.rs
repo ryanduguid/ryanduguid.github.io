@@ -105,15 +105,10 @@ fn dtoa(d: f64, mode: u8, ndigits: usize) -> (String, i64) {
             (digits, decpt)
         }
     };
-    let trimmed = digits.trim_end_matches('0');
-    (
-        if trimmed.is_empty() {
-            "0".into()
-        } else {
-            trimmed.into()
-        },
-        decpt,
-    )
+    // `d` is not zero, so each mode's digits start with a nonzero digit (scientific
+    // notation leads with one, and mode 3 strips leading zeros and returns early when
+    // none is left): trimming trailing zeros never empties them.
+    (digits.trim_end_matches('0').into(), decpt)
 }
 
 #[derive(Clone, Copy, Default)]
@@ -1006,11 +1001,10 @@ impl Formatter<'_> {
                     object = getattr(&object, &name)?;
                 }
                 '[' => {
-                    while pos < field.len() && field[pos] != ']' {
+                    // The field name scan in `build` skipped from each '[' to its ']' and
+                    // only passes a name it closed, so the ']' is always found here.
+                    while field[pos] != ']' {
                         pos += 1;
-                    }
-                    if pos >= field.len() {
-                        return Err(value_error("Missing ']' in format string"));
                     }
                     let chars = &field[start..pos];
                     pos += 1;
@@ -1410,5 +1404,41 @@ mod tests {
             Json::Bool(false),
         ];
         assert_eq!(sum(&items).unwrap().repr(), "3");
+    }
+
+    #[test]
+    fn a_bool_past_the_small_int_fast_path_still_counts_as_one() {
+        // i64::MAX + True leaves the fast path for the exact integer sum.
+        let items = [Json::Int(BigInt::from(i64::MAX)), Json::Bool(true)];
+        assert_eq!(sum(&items).unwrap().repr(), "9223372036854775808");
+    }
+
+    #[test]
+    fn dtoa_digits_of_a_nonzero_value_lead_and_end_with_a_nonzero_digit() {
+        for d in [
+            5e-324, 1e-300, 0.001, 0.5, 9.5, 99.95, 1.0, 100.0, 1e300, -0.25,
+        ] {
+            for (mode, ndigits) in [(0, 0), (2, 1), (2, 3), (2, 17), (3, 0), (3, 2), (3, 400)] {
+                let (digits, _) = dtoa(d, mode, ndigits);
+                if mode == 3 && digits.is_empty() {
+                    continue; // rounded to zero at that many places
+                }
+                assert!(!digits.starts_with('0'), "{d} {mode} {ndigits}: {digits}");
+                assert!(!digits.ends_with('0'), "{d} {mode} {ndigits}: {digits}");
+            }
+        }
+    }
+
+    #[test]
+    fn an_unclosed_index_is_an_unclosed_field() {
+        let items = [Json::Array(vec![Json::Int(BigInt::from(7))])];
+        assert_eq!(format("{0[0]}", &items, &[]).unwrap(), "7");
+        for template in ["{0[0}", "{0[", "{0[0]", "{0.real[}"] {
+            assert_eq!(
+                format(template, &items, &[]).unwrap_err(),
+                "ValueError: expected '}' before end of string",
+                "{template}"
+            );
+        }
     }
 }

@@ -39,7 +39,27 @@ jobs:
           cache: npm
           cache-dependency-path: service/coal-lsl-levy/package-lock.json
       - run: npm ci --ignore-scripts
-      - run: npm test
+      # npm test's suite, with line coverage. c8 merges the coverage of every
+      # process the suite starts: the test runner's own merge can count a line
+      # no process ran (nodejs/node#66860). The paths gain the service's folder
+      # so Codecov finds them from the repository root.
+      - name: Service tests with line coverage
+        shell: bash
+        run: |
+          node deploy/build-worker.mjs
+          node_modules/.bin/c8 --reporter=lcovonly --reports-dir=coverage-service \
+            --include='src/**/*.mjs' --include='bin/**/*.mjs' \
+            --include='deploy/**/*.mjs' --include='conformance/**/*.mjs' \
+            node --test --test-reporter=spec 'test/*.test.mjs'
+          mv coverage-service/lcov.info coverage-service.lcov
+          sed -i 's|^SF:|SF:service/coal-lsl-levy/|' coverage-service.lcov
+      - name: Keep the coverage report for the Codecov upload
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: coverage-service
+          path: service/coal-lsl-levy/coverage-service.lcov
+          if-no-files-found: error
+          retention-days: 1
       - run: npm run conformance
       - run: npm run check:worker
       - run: npm audit --audit-level=high
@@ -116,7 +136,8 @@ jobs:
     # Because the deploy job runs the Linux binary on main pushes, main builds
     # it without a restored Rust cache; pull requests reuse main's cache in the
     # dev profile (whose dependencies are optimised). The Windows binary only
-    # serves the browser tests, so it reuses the cache rust-windows saves on main.
+    # serves the browser tests, so it restores the Windows cache this job saves
+    # on main.
     timeout-minutes: 20
     strategy:
       matrix:
@@ -138,7 +159,7 @@ jobs:
         with:
           workspaces: scripts -> target
           shared-key: windows-debug
-          save-if: false
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
         if: runner.os == 'Linux' && github.event_name == 'pull_request'
         with:
@@ -196,8 +217,9 @@ jobs:
   rust-windows:
     # The site checks run every Rust suite on Linux against the rendered site.
     # This runs them on Windows too, with the locked Jekyll; the suites render
-    # the site once and share it.
-    timeout-minutes: 30
+    # the site once and share it. It measures line coverage there as well, so
+    # Codecov merges the Windows-only branches with the Linux report.
+    timeout-minutes: 45
     runs-on: windows-2025
     defaults:
       run:
@@ -224,14 +246,37 @@ jobs:
           cp assets/social-card-template.svg assets/social-cards.json "$checked/assets/"
           printf 'SITE_CHECKED=%s\n' "$(cygpath -w "$checked")" >> "$GITHUB_ENV"
       - name: Install the pinned Rust toolchain
-        run: rustup toolchain install "$RUST_TOOLCHAIN" --profile minimal
+        run: rustup toolchain install "$RUST_TOOLCHAIN" --profile minimal --component llvm-tools
+      - name: Install the pinned cargo-llvm-cov
+        uses: taiki-e/install-action@4a76afe23f9e08d2d9550fb56e556444e8611d21 # v2.90.4
+        with:
+          tool: cargo-llvm-cov@0.9.1
+          fallback: none
       - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
         with:
-          workspaces: scripts -> target
-          shared-key: windows-debug
+          workspaces: scripts -> target/llvm-cov-target
+          shared-key: windows-llvm-cov
           save-if: ${{ github.ref == 'refs/heads/main' }}
-      - name: Rust tests
-        run: cargo test --locked
+      - name: Rust tests with line coverage
+        run: |
+          set -euo pipefail
+          report="$GITHUB_WORKSPACE/coverage-rust-windows.lcov"
+          cargo llvm-cov --locked --no-report
+          cargo llvm-cov report --lcov --output-path "$report"
+          # Codecov needs repository paths with forward slashes, not the runner's.
+          workspace="$(cygpath -m "$GITHUB_WORKSPACE")"
+          sed -i -e '/^SF:/ y/\\/\//' -e "s|^SF:${workspace}/|SF:|I" "$report"
+          if grep -qE '^SF:([A-Za-z]:|/)' "$report"; then
+            echo "::error::Coverage source is outside the repository"
+            exit 1
+          fi
+      - name: Keep the Windows coverage report for the Codecov upload
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: coverage-codecov-windows
+          path: coverage-rust-windows.lcov
+          if-no-files-found: error
+          retention-days: 1
 
   checks:
     # Runs alongside lint rather than after it; checks-gates still requires both.
@@ -357,19 +402,28 @@ jobs:
           fi
       # The calculator engines' Node suites, as check_site runs them, plus
       # super-lump-sum-options, which only mutation-check runs. Page modules that
-      # only the browser tests load are not measured here.
+      # only the browser tests load are not measured here. c8 merges the test
+      # processes' coverage: the test runner's own merge can count a line no
+      # process ran (nodejs/node#66860).
+      - run: npm ci --ignore-scripts
       - name: Calculator engine tests with line coverage
         shell: bash
-        run: >-
-          node --test --experimental-test-coverage
-          --test-coverage-include='assets/**/*.mjs'
-          --test-reporter=lcov --test-reporter-destination=coverage-js.lcov
-          --test-reporter=dot --test-reporter-destination=stdout
-          scripts/levy.test.mjs scripts/business-calculators.test.mjs
-          scripts/first-home-grant.test.mjs scripts/individual-tax.test.mjs
-          scripts/field-errors.test.mjs scripts/webmcp-tools.test.mjs
-          scripts/rate-tables.test.mjs scripts/depreciation-rates.test.mjs
-          scripts/super-lump-sum-options.test.mjs
+        run: |
+          node_modules/.bin/c8 --reporter=lcovonly --reports-dir=coverage-js --include='assets/**/*.mjs' \
+          node --test --test-reporter=dot \
+          scripts/levy.test.mjs scripts/business-calculators.test.mjs \
+          scripts/first-home-grant.test.mjs scripts/individual-tax.test.mjs \
+          scripts/field-errors.test.mjs scripts/webmcp-tools.test.mjs \
+          scripts/rate-tables.test.mjs scripts/depreciation-rates.test.mjs \
+          scripts/super-lump-sum-options.test.mjs \
+          scripts/individual-results-branches.test.mjs scripts/fhss-work-pcg-branches.test.mjs \
+          scripts/page-dom.test.mjs scripts/webmcp-branches.test.mjs \
+          scripts/borrowing-fuel-fbt-levy-branches.test.mjs scripts/engine-notes-refusals.test.mjs \
+          scripts/engine-refusal-paths.test.mjs scripts/engine-edge-cases.test.mjs \
+          scripts/ato-penalties-branches.test.mjs scripts/fuel-tax-credits-branches.test.mjs \
+          scripts/trust-streaming-branches.test.mjs scripts/gst-adjustments-page-branches.test.mjs \
+          scripts/rental-property-branches.test.mjs
+          mv coverage-js/lcov.info coverage-js.lcov
       - name: Keep the coverage reports for the Codecov upload
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
@@ -385,7 +439,7 @@ jobs:
   # project and patch statuses against codecov.yml.
   codecov:
     name: upload coverage to Codecov
-    needs: rust-coverage
+    needs: [rust-coverage, rust-windows, coal-lsl-service]
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     timeout-minutes: 10
@@ -399,10 +453,42 @@ jobs:
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
           name: coverage-codecov
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: coverage-service
+      # One upload per flag, so codecov.yml can hold each part to its own floor.
       - uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
         with:
           use_oidc: true
-          files: coverage-rust.lcov,coverage-js.lcov
+          files: coverage-rust.lcov
+          flags: rust
+          disable_search: true
+          fail_ci_if_error: true
+      - uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
+        with:
+          use_oidc: true
+          files: coverage-js.lcov
+          flags: javascript
+          disable_search: true
+          fail_ci_if_error: true
+      - uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
+        with:
+          use_oidc: true
+          files: coverage-service.lcov
+          flags: coal-lsl-service
+          disable_search: true
+          fail_ci_if_error: true
+      # The Windows run is its own upload under the windows flag; Codecov merges
+      # it with the Linux upload for the commit, so a line either run executes
+      # counts as covered.
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: coverage-codecov-windows
+      - uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
+        with:
+          use_oidc: true
+          files: coverage-rust-windows.lcov
+          flags: windows
           disable_search: true
           fail_ci_if_error: true
 

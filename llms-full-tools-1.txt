@@ -22,7 +22,7 @@ Last reviewed 23 November 2026.
 
 Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Rust to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Executable runs without Python or Rust.
 
-Browser: Coal LSL levy calculator, 63 business planning calculators, 18 individual tax calculators, depreciation rates and effective lives or 2026-27 BAS due dates. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
+Browser: Coal LSL levy calculator, 63 business planning calculators, 19 individual tax calculators, depreciation rates and effective lives or 2026-27 BAS due dates. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
 
 ## Contributions to other projects
 
@@ -245,7 +245,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Executable runs without Python or Rust.: https://duguid.com.au/tools/workpaper-review-gate/
 - 63 business planning calculators: https://duguid.com.au/tools/business-calculators/
-- 18 individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- 19 individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - depreciation rates and effective lives: https://duguid.com.au/tools/depreciation-rates/
 - 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/

@@ -77,14 +77,10 @@ impl Reader {
         let newline = matches!(c, Some('\n' | '\r'));
         match self.state {
             State::StartRecord | State::StartField => {
-                if self.state == State::StartRecord {
-                    if c.is_none() {
-                        return Ok(());
-                    }
-                    if newline {
-                        self.state = State::EatCrnl;
-                        return Ok(());
-                    }
+                // `lines` yields no empty line, so a record starts with a character.
+                if self.state == State::StartRecord && newline {
+                    self.state = State::EatCrnl;
+                    return Ok(());
                 }
                 match c {
                     None | Some('\n' | '\r') => {
@@ -148,15 +144,13 @@ impl Reader {
                     self.state = State::InField;
                 }
             },
-            State::EatCrnl => match c {
-                Some('\n' | '\r') => {}
-                None => self.state = State::StartRecord,
-                Some(_) => {
-                    return Err("_csv.Error: new-line character seen in unquoted field - \
-                                do you need to open the file with newline=''?"
-                        .into());
+            // `lines` ends a line at its first `\r`, `\r\n` or `\n`, so after a line
+            // break only the `\n` of `\r\n` or the end of the line can follow.
+            State::EatCrnl => {
+                if c.is_none() {
+                    self.state = State::StartRecord;
                 }
-            },
+            }
         }
         Ok(())
     }
@@ -217,6 +211,24 @@ pub fn dict_reader(text: &str) -> Result<Vec<DictRow>, String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn each_line_break_ends_a_record_and_a_blank_line_is_an_empty_row() {
+        let rows = reader("a\r\rb\r\n\r\nc\n\rd").unwrap();
+        let row = |text: &str| vec![text.to_string()];
+        assert_eq!(
+            rows,
+            vec![
+                row("a"),
+                vec![],
+                row("b"),
+                vec![],
+                row("c"),
+                vec![],
+                row("d")
+            ]
+        );
+    }
 
     #[test]
     fn reads_like_csv() {
