@@ -61,7 +61,7 @@ export const SURCHARGE_THRESHOLDS = {
   '2020-21': [90000, 105000, 140000],
 };
 
-const RESIDENCY = ['resident', 'foreign', 'working-holiday'];
+const RESIDENCY = ['resident', 'foreign', 'working-holiday', 'part-year'];
 
 /** @param {string} year */
 export function incomeYear(year) {
@@ -128,27 +128,87 @@ function medicareLevy(income, year) {
  * taxable income, pays the Part III rates. Foreign residents pay no Medicare levy (ATO: Tax rates –
  * foreign resident, last updated 1 June 2026). The offsets cannot take the tax below nil (ATO: Low
  * income tax offset, last updated 8 June 2026); the low income tax offset is applied first.
+ * A part-year resident ('part-year', 2024-25 to 2026-27) pays the Part I rates above a tax-free
+ * threshold pro-rated by the months with a part-year residency period (`partYearThreshold`), gets
+ * the low income tax offset in full (s 61-110(1)(a): resident at any time in the year) and pays the
+ * Medicare levy less the share for the days they were not a resident (`partYearLevy`).
  * @param {string} taxableIncome whole dollars
  * @param {string} year an income year in INCOME_TAX_YEARS
- * @param {string} residency 'resident', 'foreign' or 'working-holiday' */
-export function incomeTax(taxableIncome, year, residency) {
+ * @param {string} residency 'resident', 'foreign', 'working-holiday' or 'part-year'
+ * @param {PartYear} [partYear] the part-year resident's facts, for 'part-year' only */
+export function incomeTax(taxableIncome, year, residency, partYear) {
   incomeYear(year);
   if (!RESIDENCY.includes(residency)) {
     throw new Error('Choose Australian resident, foreign resident or working holiday maker.');
   }
   const income = wholeDollars(taxableIncome);
-  const resident = residency === 'resident';
+  const part = residency === 'part-year' ? partYearFacts(year, partYear) : null;
+  const resident = residency === 'resident' || part !== null;
   const current = FROM_2024_25.includes(year);
   const scale = resident ? RESIDENT_SCALES[year] : residency === 'foreign'
     ? (current ? FOREIGN_SCALE : FOREIGN_SCALE_TO_2023_24)
     : (current ? WORKING_HOLIDAY_SCALE : WORKING_HOLIDAY_SCALE_TO_2023_24);
-  const tax = halfUp(scaleTax(income, scale));
+  const tax = part ? partYearTax(income, scale, part.threshold) : halfUp(scaleTax(income, scale));
   const offset = resident ? Math.min(tax, halfUp(lowIncomeOffset(income))) : 0;
   const lmito = resident ? Math.min(tax - offset, halfUp(lowAndMiddleIncomeOffset(income, year))) : 0;
-  const medicare = resident ? medicareLevy(income, year) : 0;
+  // A full-year resident has no non-resident days, which leaves the levy whole.
+  const medicare = resident ? partYearLevy(medicareLevy(income, year), part?.nonResidentDays ?? 0, daysInYear(year)) : 0;
   return { tax: tax / 100, offset: offset / 100, lmito: lmito / 100, netTax: (tax - offset - lmito) / 100,
-    medicare: medicare / 100, total: (tax - offset - lmito + medicare) / 100 };
+    medicare: medicare / 100, total: (tax - offset - lmito + medicare) / 100,
+    ...(part ? { threshold: part.threshold / 12 } : {}) };
 }
+
+/** The income years the part-year option covers: those of australian-accounting's resident-tax. */
+export const PART_YEAR_YEARS = FROM_2024_25;
+
+/**
+ * @typedef {{months: number, eligiblePensioner: boolean, nonResidentDays: number}} PartYear
+ */
+
+/** The part-year facts checked, with the tax-free threshold in twelfths of a dollar. Income Tax
+ * Rates Act 1986 s 18(1): a part-year residency period is part of the year in which the person was
+ * a resident, so each of the months had at least 1 resident day and the non-resident days are at
+ * most the days in the year less the months; a person not resident at any time is a foreign
+ * resident (ITAA 1936 s 251S(1)(a) levies no Medicare levy on them).
+ * @param {string} year @param {PartYear | undefined} p */
+function partYearFacts(year, p) {
+  if (!PART_YEAR_YEARS.includes(year)) throw new Error('The part-year resident option covers 2024-25 to 2026-27.');
+  if (!p) throw new Error('Give the months with a part-year residency period and the days you were not a resident.');
+  if (!Number.isInteger(p.months) || p.months < 1 || p.months > 12) {
+    throw new Error('Enter the months in which you were a resident as a whole number from 1 to 12.');
+  }
+  if (typeof p.eligiblePensioner !== 'boolean') throw new Error('Say whether you were an eligible pensioner.');
+  const most = daysInYear(year) - p.months;
+  if (!Number.isInteger(p.nonResidentDays) || p.nonResidentDays < 0 || p.nonResidentDays > most) {
+    throw new Error(`Enter the days you were not a resident as a whole number from 0 to ${most}: each of the `
+      + `${p.months} months had at least 1 day of residence.`);
+  }
+  return { threshold: partYearThreshold(p.months, p.eligiblePensioner), nonResidentDays: p.nonResidentDays };
+}
+
+/** Income Tax Rates Act 1986 s 20(1), with ss 3(1), 16 and 18 (Compilation No. 66, 1 July 2026):
+ * with a part-year residency period the tax-free threshold is $13,464 ($18,200 less $4,736) plus
+ * $4,736 times the months in which there is such a period over 12, kept exact as the Act states no
+ * rounding; an eligible pensioner has no part-year residency period (s 18(2)(a)) and keeps $18,200.
+ * @param {number} months @param {boolean} eligiblePensioner @returns {number} twelfths of a dollar */
+export const partYearThreshold = (months, eligiblePensioner) => (eligiblePensioner ? 18200 * 12 : 13464 * 12 + 4736 * months);
+
+/** The Part I tax with the first band starting at `threshold` twelfths of a dollar, worked in
+ * twelfths of a tenth of a cent and rounded half up to the cent.
+ * @param {number} income @param {number[][]} scale @param {number} threshold @returns {number} cents */
+function partYearTax(income, scale, threshold) {
+  const twelfths = scale.reduce((tax, [over, rate], index) => {
+    const top = index + 1 < scale.length ? Math.min(income, scale[index + 1][0]) : income;
+    return tax + Math.max(0, 12 * top - (index === 0 ? threshold : 12 * over)) * Math.round(rate * 10);
+  }, 0);
+  return Math.floor((twelfths + 60) / 120);
+}
+
+/** Medicare Levy Act 1986 s 9(1) and ITAA 1936 s 251U(1)(d) and (3): a non-resident is a prescribed
+ * person, so the levy is reduced by its share for each day they were not a resident (a whole day;
+ * a person with no dependants), rounded half up to the cent.
+ * @param {number} levy cents @param {number} nonResident days @param {number} days @returns {number} cents */
+export const partYearLevy = (levy, nonResident, days) => Math.floor((2 * levy * (days - nonResident) + days) / (2 * days));
 
 /** The days in the income year that starts on 1 July of its first year. @param {string} year */
 export const daysInYear = (year) => {

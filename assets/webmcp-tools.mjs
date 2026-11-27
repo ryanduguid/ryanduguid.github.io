@@ -755,10 +755,15 @@ const INCOME_TAX_DESCRIPTION = 'One Australian individual\'s income tax for a fu
   + 'less the tax withheld, as a refund or an amount owing, each rounded half up to the cent. Every rate is cited '
   + `on ${INDIVIDUAL}income-tax/. It does not compute other offsets, deductions, the Medicare levy reduction `
   + 'for families or a Medicare levy exemption, a working holiday maker who is an Australian resident or has other '
-  + 'income besides working holiday taxable income, a part-year residency, a first home super saver released amount, '
+  + 'income besides working holiday taxable income, a first home super saver released amount, '
   + 'an amount on which family trust '
   + 'distribution tax has been paid, or the 2023-24 and earlier reduction of income for surcharge purposes by a super '
-  + 'lump sum, and it assumes the study loan debt is at least the repayment, which the debt still owed caps.';
+  + 'lump sum, and it assumes the study loan debt is at least the repayment, which the debt still owed caps. A part-year '
+  + 'resident (2024-25 to 2026-27) gets the pro-rated tax-free threshold, the full low income tax offset and the Medicare '
+  + 'levy less the non-resident days’ share, with no surcharge or study loan repayment.';
+const INCOME_TAX_RESIDENCY = choice(['resident', 'foreign', 'working-holiday', 'part-year'], 'Residency for tax purposes: '
+  + 'resident (Australian resident all year), foreign (foreign resident all year), working-holiday (working holiday maker, '
+  + 'visa 417 or 462) or part-year (Australian resident for part of 2024-25 to 2026-27, with partYear).');
 const TAKE_HOME_DESCRIPTION = 'Take-home pay in AUD from one salary for a full income year: the year\'s income tax, offsets, Medicare '
   + 'levy, any Medicare levy surcharge and study loan repayment, after salary sacrificed to super and, from 2026-27, '
   + 'the standard deduction, spread over a year, month, fortnight and week. Without datedPay, employer super is an annual estimate. '
@@ -1043,8 +1048,14 @@ function incomeTaxTool(taxEstimate, incomeYears) {
     description: INCOME_TAX_DESCRIPTION,
     inputSchema: record({
       incomeYear: choice(incomeYears, `Income year, ${incomeYears.at(-1)} to ${incomeYears[0]}.`),
-      residency: RESIDENCY,
+      residency: INCOME_TAX_RESIDENCY,
       taxableIncome: whole(0, 1e9, 'Taxable income in whole AUD.'),
+      partYear: { ...record({
+        monthsResident: whole(1, 12, 'Months of the income year in which the person was a resident on at least 1 day.'),
+        nonResidentDays: whole(0, 365, 'Days in the income year the person was not a resident.'),
+        eligiblePensioner: { type: 'boolean', description: 'true when the person was an eligible pensioner for the year '
+          + '(Income Tax Rates Act 1986 s 16), who keeps the full $18,200 threshold.' },
+      }, ['monthsResident', 'nonResidentDays', 'eligiblePensioner']), description: 'Required with residency part-year only.' },
       reportableFringeBenefits: dollarsOnly('Reportable fringe benefits total.'),
       reportableSuperContributions: dollarsOnly('Reportable super contributions, including salary sacrificed to super.'),
       totalNetInvestmentLoss: dollarsOnly('Total net investment loss.'),
@@ -1057,13 +1068,16 @@ function incomeTaxTool(taxEstimate, incomeYears) {
     }, ['incomeYear', 'residency', 'taxableIncome']),
     run({ incomeYear, residency, taxableIncome, reportableFringeBenefits = 0, reportableSuperContributions = 0,
       totalNetInvestmentLoss = 0, exemptForeignEmploymentIncome = 0, studyLoan = false, daysWithoutHospitalCover = 0,
-      spouseIncome, dependentChildren = 0, taxWithheld = '0' }) {
+      spouseIncome, dependentChildren = 0, taxWithheld = '0', partYear }) {
+      if ((residency === 'part-year') !== (partYear !== undefined)) throw new Error('Give partYear with residency part-year only.');
       const r = taxEstimate({ year: incomeYear, residency, taxable: String(taxableIncome),
         fringe: String(reportableFringeBenefits), super: String(reportableSuperContributions),
         losses: String(totalNetInvestmentLoss), foreign: String(exemptForeignEmploymentIncome), studyLoan,
         uncoveredDays: String(daysWithoutHospitalCover), spouse: spouseIncome === undefined ? null : String(spouseIncome),
-        children: String(dependentChildren), withheld: taxWithheld });
+        children: String(dependentChildren), withheld: taxWithheld, partYear: partYear && { months: partYear.monthsResident,
+          nonResidentDays: partYear.nonResidentDays, eligiblePensioner: partYear.eligiblePensioner } });
       return {
+        ...(partYear ? { taxFreeThreshold: dollars(Number(r.threshold)) } : {}),
         taxOnTaxableIncome: dollars(r.tax), lowIncomeTaxOffset: dollars(r.offset), lowAndMiddleIncomeTaxOffset: dollars(r.lmito),
         medicareLevy: dollars(r.medicare), medicareLevySurcharge: dollars(r.surcharge), studyLoanRepayment: dollars(r.studyLoan),
         total: dollars(r.assessed), taxWithheld: dollars(r.withheld), ...settled(r.refund), currency: 'AUD',

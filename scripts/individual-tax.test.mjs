@@ -37,6 +37,7 @@ import './pension-minimum.test.mjs';
 import { residencyDays, residencyDaysResult, residencyFormPresence } from '../assets/residency-days.mjs';
 import './residency-days.test.mjs';
 import { foreignIncomeFixture, foreignIncomeFormTests } from './foreign-income.test.mjs';
+import { partYearFormTests } from './part-year-resident.test.mjs';
 import { minorsFixture, minorsFormTests } from './minors-income.test.mjs';
 import { nonCommercialFixture, nonCommercialFormTests } from './non-commercial-losses.test.mjs';
 import { NET_MEDICAL_DEFAULTS, netMedicalFixture } from './net-medical-expenses.test.mjs';
@@ -701,8 +702,9 @@ test('the estimate is the tax withheld less the year’s tax, levies and repayme
 
 test('the engines refuse inputs they cannot work', () => {
   assert.throws(() => incomeTax('50000', '2019-20', 'resident'), { message: 'Choose an income year from 2020-21 to 2026-27.' });
-  assert.throws(() => incomeTax('50000', '2026-27', 'part-year'),
+  assert.throws(() => incomeTax('50000', '2026-27', 'temporary'),
     { message: 'Choose Australian resident, foreign resident or working holiday maker.' });
+  assert.throws(() => incomeTax('50000', '2026-27', 'part-year'), /Give the months with a part-year residency period/);
   for (const value of ['', '-1', '50000.50', '1e5', '1000000001']) assert.throws(() => incomeTax(value, '2026-27', 'resident'));
   assert.throws(() => studyLoanRepayment({ taxable: '1', fringe: '0', losses: '0', super: '0', foreign: '0' }, '2019-20'),
     { message: 'Choose an income year from 2020-21 to 2026-27.' });
@@ -1590,6 +1592,7 @@ const conversionPage = (fields = {}) => {
   }, aud);
 };
 foreignIncomeFormTests(incomeTaxPage, conversionPage);
+partYearFormTests(incomeTaxPage, incomeTaxHtml);
 
 const minorsPage = (fields = {}) => {
   const start = incomeTaxHtml.indexOf('<form class="calculator-split" data-calculator="minors-income">');

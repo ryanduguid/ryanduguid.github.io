@@ -500,6 +500,24 @@ test('income tax tool returns the page worked example: the ATO’s Tom with $21,
   assert.equal(family.medicareLevySurcharge, '1130.01');
 });
 
+// australian-accounting's personal-tax-estimate test: resident from 15 October 2025, 9 months and 106 days not.
+test('income tax tool works a part-year resident with the pro-rated threshold and the reduced levy', async () => {
+  const tool = individual['income-tax'];
+  const base = { incomeYear: '2025-26', residency: 'part-year', taxableIncome: 60000 };
+  const partYear = { monthsResident: 9, nonResidentDays: 106, eligiblePensioner: false };
+  const r = await tool.execute({ ...base, partYear });
+  assert.deepEqual([r.taxFreeThreshold, r.taxOnTaxableIncome, r.lowIncomeTaxOffset, r.medicareLevy, r.medicareLevySurcharge,
+    r.total], ['17016.00', '8977.44', '100.00', '851.51', '0.00', '9728.95']);
+  const pensioner = await tool.execute({ ...base, partYear: { ...partYear, eligiblePensioner: true } });
+  assert.deepEqual([pensioner.taxFreeThreshold, pensioner.taxOnTaxableIncome], ['18200.00', '8788.00']);
+  await assert.rejects(tool.execute(base), /partYear with residency part-year only/);
+  await assert.rejects(tool.execute({ ...base, residency: 'resident', partYear }), /partYear with residency part-year only/);
+  await assert.rejects(tool.execute({ ...base, incomeYear: '2023-24', partYear }), /covers 2024-25 to 2026-27/);
+  await assert.rejects(tool.execute({ ...base, studyLoan: true, partYear }), /full-year resident only/);
+  await assert.rejects(tool.execute({ ...base, partYear: { ...partYear, nonResidentDays: 357 } }), /from 0 to 356/);
+  assert.doesNotMatch(tool.description, /a part-year residency,/);
+});
+
 test('take-home pay tool gives PAYG withholding for a pay in any year and none for a year', async () => {
   const r = await individual['take-home-pay'].execute({ incomeYear: '2026-27', residency: 'resident', salary: '3000',
     payPeriod: 'fortnight', salarySacrifice: '200', studyLoan: true });
