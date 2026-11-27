@@ -573,6 +573,8 @@ impl Host for System<'_> {
             "_data",
             // The calculator defaults test reads each form's served values from here.
             "_includes",
+            // The mutation check's copy and the residency test read the calculator layout.
+            "_layouts",
             ".agents",
             "docs",
             "README.md",
