@@ -825,12 +825,8 @@ mod tests {
         .unwrap();
         let policy = pyjson::loads(r#"{"packages": {"npm": {}}}"#).unwrap();
         let findings = check(&py::resolve(&root), &policy).unwrap();
-        assert_eq!(
-            findings.len(),
-            1,
-            "{:?}",
-            findings.iter().map(|f| &f.what).collect::<Vec<_>>()
-        );
+        let found: Vec<_> = findings.iter().map(|f| &f.what).collect();
+        assert_eq!(found.len(), 1, "{found:?}");
         assert_eq!(findings[0].location, ".well-known/tools.json");
         assert!(
             findings[0]
