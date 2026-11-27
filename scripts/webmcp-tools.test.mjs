@@ -100,6 +100,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_trust_streaming',
     'calculate_foreign_resident_withholding', 'calculate_partnership_net_income', 'check_trust_loss_tests',
+    'calculate_motor_vehicle_duty', 'calculate_insurance_duty', 'calculate_vic_property_taxes',
     'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow', 'check_tax_invoice',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
@@ -2265,6 +2266,18 @@ test('S8 tools return their page examples and refuse what their pages refuse', a
     testYearDistributions: { income: [[{ individual: 'Ann', percent: '60' }], [{ individual: 'Ann', percent: '55' }]], capital: [[{ individual: 'Ann', percent: '51' }]] } });
   assert.deepEqual([t.deductible, t.patternOfDistributionsWorking.income.total], [true, '55']);
   await assert.rejects(trust.execute({ incomeYear: '2025-26', lossYear: 2026, trustKind: 'fixed' }), /must be earlier than financial_year/);
+});
+
+test('motor vehicle duty, insurance duty and Victorian property taxes tools return their pages’ examples and refuse bad input', async () => {
+  const car = await tools['motor-vehicle-duty'].execute({ jurisdiction: 'nsw', dutiableValue: '50000', dutyDate: '2026-09-01' });
+  assert.deepEqual([car.duty, car.rates.base, car.source], ['1600.00', '1350', 'https://duguid.com.au/tools/business-calculators/motor-vehicle-duty/']);
+  await assert.rejects(tools['motor-vehicle-duty'].execute({ jurisdiction: 'qld', dutiableValue: '50000', dutyDate: '2026-09-01' }), /engine is required/);
+  const cover = await tools['insurance-duty'].execute({ jurisdiction: 'vic', class: 'general', premium: '1000', effectedDate: '2026-09-01' });
+  assert.deepEqual([cover.duty, cover.rates.exact_duty], ['100.00', '100']);
+  await assert.rejects(tools['insurance-duty'].execute({ jurisdiction: 'vic', class: 'ctp', premium: '1000', effectedDate: '2026-09-01' }), /class in vic/);
+  const land = await tools['vic-property-taxes'].execute({ tax: 'windfall_gains', taxYear: '2026', parcels: [{ civBefore: '1000000', civAfter: '1400000' }] });
+  assert.deepEqual([land.total, land.amounts.taxable_value_uplift], ['187500.00', '400000.00']);
+  await assert.rejects(tools['vic-property-taxes'].execute({ tax: 'windfall_gains', taxYear: '2026', entryDate: '2025-01-01' }), /entry_date is an input only/);
 });
 
 test('casual and overtime pay tool returns the page example, Payday Super and quarterly rules, leave loading and refusals', async () => {
