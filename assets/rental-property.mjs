@@ -70,19 +70,22 @@ function at(label, work) {
 }
 
 // A decimal is [coefficient, exponent], its value coefficient x 10^exponent. Products, quotients and
-// sums are rounded to 28 significant digits half even, the command's decimal context.
+// sums are rounded to 28 significant digits half even, the command's decimal context. Every decimal worked here is
+// nil or positive: the inputs are checked before any arithmetic (amounts, the legal interest above nil, other taxable
+// income from nil), and the one difference taken, the undeducted construction expenditure, is taken only when it is
+// not negative.
 /** @typedef {[bigint, number]} Dec */
 const PRECISION = 28;
 const abs = (/** @type {bigint} */ n) => (n < 0n ? -n : n);
 /** @param {Dec} d @returns {Dec} */
 function fix([c, e]) {
-  const digits = abs(c).toString().length;
+  const digits = c.toString().length;
   if (digits <= PRECISION) return [c, e];
   const p = 10n ** BigInt(digits - PRECISION);
-  let q = abs(c) / p;
-  const r = abs(c) % p;
+  let q = c / p;
+  const r = c % p;
   if (2n * r > p || (2n * r === p && q % 2n === 1n)) q += 1n;
-  return [c < 0n ? -q : q, e + digits - PRECISION];
+  return [q, e + digits - PRECISION];
 }
 /** @type {Dec} */
 const RATE_4 = [4n, -2];
@@ -101,23 +104,21 @@ const add = (a, b) => { const [x, y, e] = aligned(a, b); return fix([x + y, e]);
 const sub = (a, b) => add(a, [-b[0], b[1]]);
 /** @param {Dec} a @param {Dec} b @returns {number} -1, 0 or 1 */
 const cmp = (a, b) => { const [x, y] = aligned(a, b); return x < y ? -1 : x > y ? 1 : 0; };
-/** a / b, as Python's decimal divides: prec + 1 digits and a sticky last digit, then rounded half even.
- * @param {Dec} a @param {Dec} b @returns {Dec} */
+/** a / b, as Python's decimal divides: prec + 1 digits and a sticky last digit, then rounded half even. Each dividend is
+ * a product or quotient, so it has at most 28 digits and the shift is at least 2. @param {Dec} a @param {Dec} b @returns {Dec} */
 function div(a, b) {
   if (a[0] === 0n) return [0n, 0];
-  const shift = abs(b[0]).toString().length - abs(a[0]).toString().length + PRECISION + 1;
-  const [num, den] = shift >= 0 ? [abs(a[0]) * 10n ** BigInt(shift), abs(b[0])] : [abs(a[0]), abs(b[0]) * 10n ** BigInt(-shift)];
+  const shift = b[0].toString().length - a[0].toString().length + PRECISION + 1;
+  const [num, den] = [a[0] * 10n ** BigInt(shift), b[0]];
   let q = num / den;
   if (num % den !== 0n && q % 5n === 0n) q += 1n;
-  const [c, e] = fix([q, a[1] - b[1] - shift]);
-  return [(a[0] < 0n) !== (b[0] < 0n) ? -c : c, e];
+  return fix([q, a[1] - b[1] - shift]);
 }
-/** The value in whole cents, rounded half up (away from zero). @param {Dec} d @returns {bigint} */
+/** The value in whole cents, rounded half up. @param {Dec} d @returns {bigint} */
 function cents([c, e]) {
   if (e >= -2) return c * 10n ** BigInt(e + 2);
   const p = 10n ** BigInt(-2 - e);
-  const q = abs(c) / p + (2n * (abs(c) % p) >= p ? 1n : 0n);
-  return c < 0n ? -q : q;
+  return c / p + (2n * (c % p) >= p ? 1n : 0n);
 }
 /** @param {bigint} c cents @returns {Dec} */
 const ofCents = (c) => [c, -2];
@@ -131,9 +132,16 @@ function amount(value, what) {
   if (c < 0n || c > MAX_AMOUNT_CENTS) refuse('input.amount_invalid', `${what}: enter dollars and cents from 0 to 1,000,000,000,000.`);
   return c;
 }
-/** A decimal input as the command reads one: digits with an optional sign and point. @param {unknown} value @param {string} key @returns {Dec} */
+/** A decimal input as the command reads one: text of digits with an optional sign and point, at most 8192 bytes. A legal
+ * interest that is not text is an invalid fact, and other taxable income that is not text an invalid amount, as the command
+ * refuses them. @param {unknown} value @param {'ownership_share' | 'other_taxable_income'} key @returns {Dec} */
 function decimalInput(value, key) {
-  const parts = typeof value === 'string' && value.length <= 8192 ? /^(-?)(\d+)(?:\.(\d+))?$/.exec(value.trim()) : null;
+  if (typeof value !== 'string') {
+    if (key === 'ownership_share') invalid('ownership_share must be a decimal fraction above 0 and at most 1.');
+    refuse('input.amount_invalid', 'Amounts must be finite non-negative Decimals, at most 2dp and 1e12.');
+  }
+  if (new TextEncoder().encode(value).length > 8192) refuse('input.decimal_too_long', `${key}: decimal input exceeds 8192 bytes`);
+  const parts = /^(-?)(\d+)(?:\.(\d+))?$/.exec(value.trim());
   if (!parts) refuse('input.decimal_unreadable', `${key} must be a decimal number.`);
   const c = BigInt(parts[2] + (parts[3] ?? ''));
   return [parts[1] ? -c : c, -(parts[3] ?? '').length];
