@@ -196,13 +196,10 @@ pub fn shlex_split(text: &str) -> std::result::Result<Vec<String>, String> {
         let ended = loop {
             let next = chars.next();
             match state {
+                // Between tokens: nothing is held yet, so whitespace is skipped.
                 ' ' => match next {
                     None => break true,
-                    Some(c) if whitespace(c) => {
-                        if !token.is_empty() || quoted {
-                            break false;
-                        }
-                    }
+                    Some(c) if whitespace(c) => {}
                     Some('\\') => {
                         escaped_state = 'a';
                         state = '\\';
@@ -236,14 +233,10 @@ pub fn shlex_split(text: &str) -> std::result::Result<Vec<String>, String> {
                     token.push(c);
                     state = escaped_state;
                 }
+                // In a token: it holds a character or a closed quotation, so whitespace ends it.
                 _ => match next {
                     None => break true,
-                    Some(c) if whitespace(c) => {
-                        state = ' ';
-                        if !token.is_empty() || quoted {
-                            break false;
-                        }
-                    }
+                    Some(c) if whitespace(c) => break false,
                     Some(c @ ('\'' | '"')) => state = c,
                     Some('\\') => {
                         escaped_state = 'a';
@@ -626,7 +619,8 @@ pub fn load_policy(root: &Path) -> Result<Json> {
 }
 
 /// Report drift between the reviewed record and the public registries.
-fn verify_live(root: &Path) -> Result<u8> {
+/// `status` reads one URL's final HTTP status; `run` passes the network read.
+fn verify_live(root: &Path, status: &dyn Fn(&str) -> Result<u16>) -> Result<u8> {
     let record = load_policy(root)?;
     let mut used: Vec<(&str, String)> = Vec::new();
     for path in scanned_files(root) {
@@ -653,12 +647,7 @@ fn verify_live(root: &Path) -> Result<u8> {
             } else {
                 format!("https://registry.npmjs.org/{}", package.replace('/', "%2f"))
             };
-            let status = crate::fetch::status(
-                &url,
-                "duguid.com.au agent-file check",
-                Duration::from_secs(30),
-            )
-            .map_err(|e| format!("could not reach {url}: {e}"))?;
+            let status = status(&url).map_err(|e| format!("could not reach {url}: {e}"))?;
             let state = if status == 200 {
                 "published".to_owned()
             } else {
@@ -696,7 +685,13 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8> {
         Parsed::Exit(code) => return Ok(code),
     };
     if flags.contains(&"--verify-live") {
-        return verify_live(root);
+        return verify_live(root, &|url| {
+            crate::fetch::status(
+                url,
+                "duguid.com.au agent-file check",
+                Duration::from_secs(30),
+            )
+        });
     }
     let root = py::resolve(root);
     let findings = check(&root, &load_policy(&root)?)?;
@@ -734,5 +729,163 @@ mod tests {
         assert_eq!(split("  ").unwrap(), Vec::<String>::new());
         assert!(split("'open").is_err());
         assert!(split("end\\").is_err());
+    }
+
+    fn scratch(name: &str) -> PathBuf {
+        let dir = std::env::temp_dir().join(format!(
+            "site-tools-agent-files-{name}-{}",
+            std::process::id()
+        ));
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(dir.join("scripts")).unwrap();
+        dir
+    }
+
+    fn found(text: &str) -> Vec<(&'static str, String, Option<String>)> {
+        installs(text, true)
+            .unwrap()
+            .into_iter()
+            .map(|i| (i.registry, i.package, i.version))
+            .collect()
+    }
+
+    #[test]
+    fn splits_escapes_and_quotes_inside_a_token_like_shlex() {
+        let split = |s: &str| shlex_split(s).unwrap();
+        assert_eq!(split("\\$HOME x"), ["$HOME", "x"]);
+        assert_eq!(split("a\"b c\"d 'e'f"), ["ab cd", "ef"]);
+        assert_eq!(split("'' x"), ["", "x"]);
+    }
+
+    #[test]
+    fn reads_scoped_npm_names_and_flag_values() {
+        assert_eq!(
+            found("npm install @scope/tool@1.2.3 left-pad"),
+            [
+                ("npm", "@scope/tool".into(), Some("1.2.3".into())),
+                ("npm", "left-pad".into(), None)
+            ]
+        );
+        assert_eq!(found("npx @bare"), [("npm", "@bare/".into(), None)]);
+        assert_eq!(
+            found("uvx --from=ruff==0.1.0 --with=black --python=3.12 ruff"),
+            [
+                ("pypi", "ruff".into(), Some("0.1.0".into())),
+                ("pypi", "black".into(), None)
+            ]
+        );
+    }
+
+    #[test]
+    fn falls_back_to_whitespace_when_prose_leaves_a_quote_open() {
+        assert_eq!(
+            found("npm install left-pad isn't pinned"),
+            [
+                ("npm", "left-pad".into(), None),
+                ("npm", "isn't".into(), None),
+                ("npm", "pinned".into(), None)
+            ]
+        );
+    }
+
+    #[test]
+    fn check_reads_install_commands_from_json_strings_only() {
+        let root = scratch("json");
+        std::fs::create_dir_all(root.join(".well-known")).unwrap();
+        std::fs::write(
+            root.join(".well-known").join("tools.json"),
+            r#"{"count": 3, "ok": true, "none": null, "run": ["npx unknown-tool"]}"#,
+        )
+        .unwrap();
+        let policy = pyjson::loads(r#"{"packages": {"npm": {}}}"#).unwrap();
+        let findings = check(&py::resolve(&root), &policy).unwrap();
+        assert_eq!(
+            findings.len(),
+            1,
+            "{:?}",
+            findings.iter().map(|f| &f.what).collect::<Vec<_>>()
+        );
+        assert_eq!(findings[0].location, ".well-known/tools.json");
+        assert!(
+            findings[0]
+                .what
+                .contains("'unknown-tool' is not in the reviewed record")
+        );
+        std::fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn check_refuses_a_registry_record_that_is_not_an_object() {
+        let root = scratch("registry");
+        std::fs::write(root.join("README.md"), "npm install left-pad@1.0.0\n").unwrap();
+        let policy = pyjson::loads(r#"{"packages": {"npm": 5}}"#).unwrap();
+        assert_eq!(
+            check(&py::resolve(&root), &policy).unwrap_err(),
+            "AttributeError: 'int' object has no attribute 'get'"
+        );
+        std::fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn check_refuses_a_root_that_is_not_resolved() {
+        let root = scratch("unresolved");
+        std::fs::write(root.join("README.md"), "text\n").unwrap();
+        let unresolved = py::resolve(&root).join("scripts").join("..");
+        let error = check(&unresolved, &pyjson::loads(r#"{"packages": {}}"#).unwrap()).unwrap_err();
+        assert!(error.starts_with("ValueError: "), "{error}");
+        assert!(error.contains("is not in the subpath of"), "{error}");
+        std::fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn load_policy_reports_a_missing_record() {
+        let root = scratch("nopolicy");
+        assert!(load_policy(&root).is_err());
+        std::fs::remove_dir_all(root).unwrap();
+    }
+
+    fn live_root(name: &str) -> PathBuf {
+        let root = scratch(name);
+        std::fs::write(
+            root.join("scripts").join("agent_file_policy.json"),
+            r#"{"packages": {"pypi": {"ours": {"owner": "ryanduguid"}},
+                "npm": {"@scope/tool": {"owner": "someone"}, "left-pad": {}}}}"#,
+        )
+        .unwrap();
+        std::fs::write(root.join("README.md"), "npm install left-pad@1.0.0\n").unwrap();
+        root
+    }
+
+    #[test]
+    fn verify_live_counts_unpublished_names_in_registry_order() {
+        let root = live_root("live");
+        let asked = std::cell::RefCell::new(Vec::new());
+        let status = |url: &str| {
+            asked.borrow_mut().push(url.to_owned());
+            Ok(if url.contains("left-pad") { 404 } else { 200 })
+        };
+        assert_eq!(verify_live(&root, &status), Ok(1));
+        assert_eq!(
+            *asked.borrow(),
+            [
+                "https://registry.npmjs.org/@scope%2ftool",
+                "https://registry.npmjs.org/left-pad",
+                "https://pypi.org/pypi/ours/json"
+            ]
+        );
+        let all_published = |_: &str| Ok(200);
+        assert_eq!(verify_live(&root, &all_published), Ok(0));
+        std::fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn verify_live_reports_a_registry_it_cannot_reach() {
+        let root = live_root("unreachable");
+        let down = |_: &str| Err("timed out".to_owned());
+        assert_eq!(
+            verify_live(&root, &down),
+            Err("could not reach https://registry.npmjs.org/@scope%2ftool: timed out".into())
+        );
+        std::fs::remove_dir_all(root).unwrap();
     }
 }
