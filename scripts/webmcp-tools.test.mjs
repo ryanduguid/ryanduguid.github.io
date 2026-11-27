@@ -73,7 +73,9 @@ const levy = levyTools({ computeEntry, levyCents }).levy;
 
 test('each business calculator tool is keyed by the form that registers it', () => {
   for (const key of Object.keys(tools)) {
-    const form = readFileSync(new URL(`../_includes/calculators/${key}.html`, import.meta.url), 'utf8');
+    // The share parcels form sits on the CGT page, so its markup is a part, not a calculator page of its own.
+    const folder = key === 'cgt-parcels' ? '' : 'calculators/';
+    const form = readFileSync(new URL(`../_includes/${folder}${key}.html`, import.meta.url), 'utf8');
     assert.ok(form.includes(`<form class="calculator-split" data-calculator="${key}">`)
       || form.includes(`<form class="calculator-split" data-calculator="${key}" `)
       || form.includes(`<form data-calculator="${key}">`), key);
@@ -99,7 +101,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_trust_streaming',
-    'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow', 'check_tax_invoice',
+    'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_cgt_share_parcels', 'calculate_payday_super_cashflow', 'check_tax_invoice',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -1726,8 +1728,8 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
     .map((name) => name.slice(0, -5))
     .sort();
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
-  assert.deepEqual(registered, slugs);
-  assert.equal(registered.length + 2, 83);
+  assert.deepEqual(registered.filter((slug) => slug !== 'cgt-parcels'), slugs);
+  assert.equal(registered.length + 2, 84);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {
