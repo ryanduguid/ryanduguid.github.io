@@ -14,7 +14,7 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 One employee share scheme interest
 
-Income year2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 InterestShares Rights (options) to acquire shares Day acquired Amount you paid for them Market value when acquired
+Day acquired Income year2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 InterestShares Rights (options) to acquire shares Amount you paid for them Market value when acquired
 
 Enter totals for the parcel. For rights valued by the regulations’ tables, leave the market value blank.
 
