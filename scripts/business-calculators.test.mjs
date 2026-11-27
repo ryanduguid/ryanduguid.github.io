@@ -793,6 +793,19 @@ Object.assign(INPUTS, { contractorEmployee: (x) => calculations.contractorInputs
   (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
 Object.assign(ENGINE_LABELS, { contractorEmployee: { employeeCost: 'employee cost', contractorSuperGuarantee: 'section 12(3) super guarantee',
   contractorCost: 'contractor cost', costDifference: 'difference', employeeTakeHome: 'employee take-home', contractorTakeHome: 'contractor take-home' } });
+// The Payday Super cashflow page's rows (its tests are with the SGC page's below).
+Object.assign(INPUTS, { paydayCashflow: (x) => calculations.cashflowInputsText(x, dollars) });
+Object.assign(ENGINE_LABELS, { paydayCashflow: { quarterlyDue: (v) => `quarterly date ${longDay(v)}`, total: (v) => `quarter ${dollars(v)}`,
+  peak: (v) => `peak ${dollars(v)}`, peakFrom: (v) => `peak from ${longDay(v)}`,
+  averageDaysEarlier: (v) => `${v.toFixed(1)} days earlier on average` } });
+// The trust streaming page's rows (its tests are with the page's other tests below): beneficiary n's figures are b<n>...
+Object.assign(INPUTS, { trustStreaming: (x) => calculations.trustStreamingInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { trustStreaming: { netIncome: 'net income', trusteeAssessable: 'trustee assessed under s 99A',
+  trusteeTax: 'trustee’s tax at 45%', trusteeTaxAfterOffset: 'trustee’s tax after the offset',
+  ...Object.fromEntries([1, 2, 3, 4].flatMap((n) => [['Division6', 'Division 6 share'], ['AttributableGain', 'attributable gain'],
+    ['ExtraCapitalGain', 'extra capital gain'], ['AttributableFranked', 'attributable franked distribution'], ['FrankingCredit', 'franking credit'],
+    ['Assessable', 'assessable']].map(([field, words]) => [`b${n}${field}`, `beneficiary ${n} ${words}`]))) } });
 
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
@@ -1263,6 +1276,10 @@ Object.assign(FORM_CALLS, { gstAdjustment: (f) => {
 } });
 
 Object.assign(FORM_CALLS, { deferredTax: (f) => [calculations.deferredTaxFormInput((name) => f[name] ?? '')] });
+Object.assign(FORM_CALLS, { paydayCashflow: (f) => [{ quarter: f.quarter, cycle: f.cycle, firstPayday: f['first-payday'],
+  earnings: f.earnings }] });
+
+Object.assign(FORM_CALLS, { trustStreaming: (f) => [calculations.trustStreamingFormInput((name) => f[name] ?? '')] });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -3760,6 +3777,87 @@ test('the administrative uplift falls by the regulation 13C and 13D points, to n
     { message: 'Choose whether a disqualifying ATO assessment or estimate applies for this payday.' });
   assert.throws(() => calculations.paydaySuperCharge({ ...base, disclosure: 'yes' }),
     { message: 'Choose whether an approved voluntary disclosure statement was lodged before the assessment day.' });
+});
+
+// The Payday Super cashflow page's schedule (its rows' reading is set beside the deferred tax page's).
+const cashflow = (more) => calculations.paydayCashflow({ quarter: '1', cycle: 'fortnightly', firstPayday: '2026-07-02', earnings: '10000', ...more });
+
+// ATO, 'Payment deadlines for Payday Super' (last updated 29 September 2026), read 26 November 2026:
+// example 3, weekly pay on 10 December 2026, due 21 December 2026; example 4, fortnightly pay on
+// 3 September 2026, due 14 September 2026.
+test('Payday Super cashflow due dates are the SGC page’s, and match the ATO’s worked examples', () => {
+  const weekly = cashflow({ quarter: '2', cycle: 'weekly', firstPayday: '2026-10-01' });
+  assert.equal(weekly.paydays.find((p) => p.payday === '2026-12-10').due, '2026-12-21');
+  const fortnightly = cashflow({ firstPayday: '2026-07-09' });
+  assert.equal(fortnightly.paydays.find((p) => p.payday === '2026-09-03').due, '2026-09-14');
+  for (const [quarter, from] of [['1', '2026-07-01'], ['2', '2026-10-01'], ['3', '2027-01-01'], ['4', '2027-04-01']]) {
+    for (const cycle of ['weekly', 'fortnightly', 'monthly']) {
+      for (const p of cashflow({ quarter, cycle, firstPayday: from }).paydays.filter((row) => !row.partDay)) {
+        assert.equal(p.due, calculations.paydaySuperDue({ payday: p.payday, timing: 'standard', nextPayday: '', determination: '' }).due);
+      }
+    }
+  }
+});
+
+test('Payday Super cashflow takes the earliest due date where a part-day holiday leaves it open', () => {
+  const r = cashflow({ quarter: '2', cycle: 'weekly', firstPayday: '2026-10-01' });
+  assert.deepEqual(r.paydays.filter((p) => p.partDay).map((p) => [p.payday, p.due]), [['2026-12-17', '2026-12-30'], ['2026-12-24', '2027-01-07']]);
+  for (const p of r.paydays.filter((row) => row.partDay)) {
+    assert.throws(() => calculations.paydaySuperDue({ payday: p.payday, timing: 'standard', nextPayday: '', determination: '' }),
+      (error) => error.message.includes(`Possible dates are ${plainDate(p.due)} `) || error.message.includes(`Possible dates are ${plainDate(p.due)},`));
+  }
+});
+
+test('Payday Super cashflow compares with 28 days after each quarter, none a weekend or calendar holiday', () => {
+  for (const [quarter, { to, due }] of Object.entries(calculations.CASHFLOW_QUARTERS)) {
+    const day = Date.parse(`${due}T00:00:00Z`);
+    assert.equal(day - Date.parse(`${to}T00:00:00Z`), 28 * 86400000, quarter);
+    assert.ok(![0, 6].includes(new Date(day).getUTCDay()) && !calculations.NON_BUSINESS_WEEKDAYS.includes(due), due);
+  }
+});
+
+test('Payday Super cashflow builds the extra working capital payday by payday to the quarter’s total', () => {
+  const r = cashflow({ earnings: '4321.07', firstPayday: '2026-07-09' });
+  assert.deepEqual(r.paydays.map((p) => p.payday), ['2026-07-09', '2026-07-23', '2026-08-06', '2026-08-20', '2026-09-03', '2026-09-17']);
+  assert.ok(r.paydays.every((p, i) => p.sg === 518.53 && p.ahead === Math.round(518.53 * (i + 1) * 100) / 100));
+  assert.deepEqual([r.total, r.peak, r.peakFrom, r.peakDays], [3111.18, 3111.18, '2026-09-29', 29]);
+  // (each payday's days earlier, weighted by its amount) / the quarter's total, to one decimal place.
+  const days = r.paydays.map((p) => p.daysEarlier);
+  assert.equal(r.averageDaysEarlier, Math.round((days.reduce((a, b) => a + b, 0) / days.length) * 10) / 10);
+  assert.deepEqual(cashflow({ quarter: '3', cycle: 'monthly', firstPayday: '2027-01-31' }).paydays.map((p) => p.payday),
+    ['2027-01-31', '2027-02-28', '2027-03-31']);
+  assert.equal(cashflow({ cycle: 'weekly', firstPayday: '2026-07-07' }).paydays.length, 13);
+  for (const [more, message] of [[{ quarter: '5' }, 'Choose a quarter of 2026-27.'], [{ cycle: 'daily' }, 'Choose weekly, fortnightly or monthly pay.'],
+    [{ firstPayday: '2026-06-30' }, 'Enter the first payday of the quarter: a date in its first 14 days.'],
+    [{ firstPayday: '2026-07-15' }, 'Enter the first payday of the quarter: a date in its first 14 days.'],
+    [{ cycle: 'monthly', firstPayday: '2026-08-01' }, 'Enter the first payday of the quarter: a date in its first month.'],
+    [{ firstPayday: '2026-02-30' }, 'Enter the first payday of the quarter: a date in its first 14 days.']]) {
+    assert.throws(() => cashflow(more), { message }, JSON.stringify(more));
+  }
+  for (const earnings of ['', 'abc', '-1', '1e3', '100.001', '1000000001']) assert.throws(() => cashflow({ earnings }), Error, earnings);
+});
+
+// A retried page load can reach payday-cashflow.mjs through sgc-payday.mjs before that module has run.
+test('Payday Super cashflow loads when sgc-payday.mjs is the first module imported', async () => {
+  const { execFileSync } = await import('node:child_process');
+  const out = execFileSync(process.execPath, ['--input-type=module', '-e',
+    "const m = await import('./assets/sgc-payday.mjs'); const c = await import('./assets/payday-cashflow.mjs'); "
+    + "process.stdout.write(String(c.paydayCashflow({ quarter: '2', cycle: 'weekly', firstPayday: '2026-10-01', earnings: '1' }).paydays.length))"],
+  { cwd: new URL('..', import.meta.url), encoding: 'utf8' });
+  assert.equal(out, '14');
+});
+
+test('the Payday Super cashflow page opens on the result its calculation gives', () => {
+  const html = calculatorInclude('payday-cashflow');
+  const [inputs, rows, principal] = html.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" %\}/).slice(1);
+  const fields = formDefaults(html);
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  const r = calculations.paydayCashflowResult((name) => fields[name] ?? '', aud);
+  assert.deepEqual([r.inputs, r.rows.map((row) => row.join('|')).join(';'), String(r.principal), r.note], [inputs, rows, principal, undefined]);
+  const december = { ...fields, quarter: '2', cycle: 'weekly', 'first-payday': '2026-10-01' };
+  assert.equal(calculations.paydayCashflowResult((name) => december[name] ?? '', aud).note,
+    'For the 17 December 2026 and 24 December 2026 paydays, the due date depends on whether 24 or 31 December, part-day holidays, '
+    + 'are business days; the date shown is the earliest possible');
 });
 
 test('the SGC page refuses malformed, nil and out-of-range money instead of reading it as nil', () => {
@@ -7530,3 +7628,295 @@ Object.assign(ENGINE_LABELS, {
 });
 Object.assign(FORM_CALLS, { esicFigures: (f) => [calculations.esicFormInput((name) => f[name] ?? '')],
   rvfFigures: (f) => [calculations.rvfFormInput((name) => f[name] ?? '')] });
+// The tax invoice generator: GST Act s 29-70(1) (Compilation No. 96, 1 January 2026), the ATO's 'Tax invoices'
+// (last updated 18 September 2026), GSTR 2013/1 paragraphs 17 to 38 and the Recipient Created Tax Invoice
+// Determination 2023, all read 26 November 2026.
+Object.assign(INPUTS, { taxInvoice: (x) => calculations.taxInvoiceInputsText(x) });
+Object.assign(ENGINE_LABELS, { taxInvoice: { heading: (v) => v, totalPrice: 'total price' } });
+Object.assign(FORM_CALLS, { taxInvoice: (f) => [calculations.taxInvoiceFormInput((name) => f[name] ?? '')] });
+const invoiceHtmlSource = readFileSync(new URL('../_includes/calculators/tax-invoice.html', import.meta.url), 'utf8');
+const invoiceAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+// ABN Lookup's worked example in 'Format of the ABN', and ASIC's example ACN 004 085 616 with the check digits of an ABN.
+const ABR_EXAMPLE = '51 824 753 556';
+const ASIC_EXAMPLE = '53 004 085 616';
+const invoiceBase = { issuer: 'supplier', supplier_name: 'Example Stationery Pty Ltd', supplier_business_number: ABR_EXAMPLE, issued: '2026-11-26',
+  prices: 'inclusive', rounding: 'invoice', lines: [{ description: 'Desk', quantity: '1', unit_price: '110.00', treatment: 'taxable' }] };
+const invoice = (more) => calculations.taxInvoice({ ...invoiceBase, ...more });
+const invoiceLine = (unit_price, treatment = 'taxable', quantity = '1') => ({ description: 'Item', quantity, unit_price, treatment });
+
+test('the tax invoice page opens on GSTR 2013/1 example 2 and dates its sources', () => {
+  const example = invoiceHtmlSource.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(invoiceHtmlSource);
+  const result = calculations.taxInvoiceResult((name) => fields[name] ?? '', invoiceAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  for (const cited of ['C2004A00446/2026-01-01/text', '(last updated 18 September 2026)', 'GSTR20131', 'F2023L00785', 'Help/AbnFormat',
+    'read 26 November 2026']) {
+    assert.ok(invoiceHtmlSource.includes(cited), cited);
+  }
+});
+
+// The ABN cases of apps/aus-accounting-mcp/tests/test_identifiers.py in ryanduguid/australian-accounting
+// (main at 704cbd9e, 26 November 2026), which `validate_abn` must pass: ABR's worked example however it is
+// spaced, a wrong digit, a leading zero whose sum still divides by 89, and malformed text never cleaned up.
+test('ABN check digits agree with every ABN case australian-accounting tests validate_abn on', () => {
+  for (const value of ['51 824 753 556', '51824753556', ' 51 824 753 556 ']) {
+    assert.deepEqual(calculations.abnCheck(value), { result: 'CHECK_DIGIT_VALID', formatted: '51 824 753 556' }, value);
+  }
+  for (const value of ['51 824 753 557', '41 824 753 556', '61 824 753 556']) {
+    assert.deepEqual(calculations.abnCheck(value), { result: 'CHECK_DIGIT_INVALID', formatted: value }, value);
+  }
+  for (const value of ['00000090000', '00 000 000 000']) assert.equal(calculations.abnCheck(value).result, 'CHECK_DIGIT_INVALID', value);
+  for (const value of ['\t51824753556', '51824753556\n', '51824753556\r', '\u00a051824753556', '\u200751824753556', '\u202f51824753556',
+    '51824753556-', '51824753556A', '51-824-753-556', '5182475355A', '5182475355', '518247535566', '', '   ', '\u0665\u0661824753556']) {
+    assert.deepEqual(calculations.abnCheck(value), { result: 'MALFORMED', formatted: null }, JSON.stringify(value));
+  }
+});
+
+test('ABN check digits follow ABN Lookup’s worked example and every single-digit change fails', () => {
+  // 'Subtract 1 from the first (left-most) digit (5) to give 41 824 753 556 ... a total of 534 ... 6 with zero remainder.'
+  const digits = [...'51824753556'].map(Number);
+  assert.equal(digits.reduce((sum, d, i) => sum + (i ? d : d - 1) * [10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19][i], 0), 534);
+  for (let i = 0; i < 11; i += 1) {
+    for (let d = 0; d < 10; d += 1) {
+      if (d === digits[i]) continue;
+      const changed = digits.with(i, d).join('');
+      assert.equal(calculations.abnCheck(changed).result, 'CHECK_DIGIT_INVALID', changed);
+    }
+  }
+});
+
+test('the recipient’s identity or ABN is needed from a total price of $1,000, including non-taxable lines', () => {
+  assert.equal(invoice({ lines: [invoiceLine('999.99')] }).recipientRequired, false);
+  assert.throws(() => invoice({ lines: [invoiceLine('1000.00')] }), /recipient’s name or ABN, as the total price is \$1,000 or more/);
+  assert.throws(() => invoice({ lines: [invoiceLine('500.00'), invoiceLine('500.00', 'gst-free')] }), /\$1,000 or more/);
+  // Prices excluding GST: $909.09 plus $90.91 GST is $1,000.00; $909.08 plus $90.91 is $999.99.
+  assert.throws(() => invoice({ prices: 'exclusive', lines: [invoiceLine('909.09')] }), /\$1,000 or more/);
+  assert.equal(invoice({ prices: 'exclusive', lines: [invoiceLine('909.08')] }).totalPrice, 999.99);
+  assert.equal(invoice({ recipient_business_number: ASIC_EXAMPLE, lines: [invoiceLine('1000.00')] }).recipient.abn, ASIC_EXAMPLE);
+  assert.equal(invoice({ recipient_name: 'Jim', lines: [invoiceLine('1000.00')] }).recipient.name, 'Jim');
+  // No taxable supply: no tax invoice, so no recipient is needed.
+  assert.equal(invoice({ recipient_name: 'Jim', lines: [invoiceLine('5000.00', 'gst-free')] }).recipientRequired, false);
+  assert.equal(invoice({ lines: [invoiceLine('5000.00', 'gst-free')] }).heading, 'Invoice');
+});
+
+test('GST is one-eleventh or 10%, rounded half up once by the total invoice rule or per line by the taxable supply rule', () => {
+  // One line: 55 cents carries exactly 5 cents of GST; 10% of 5 cents is half a cent, which rounds up; of 4 cents, down.
+  assert.equal(invoice({ lines: [invoiceLine('0.55')] }).gst, 0.05);
+  assert.equal(invoice({ prices: 'exclusive', lines: [invoiceLine('0.05')] }).gst, 0.01);
+  assert.equal(invoice({ prices: 'exclusive', lines: [invoiceLine('0.04')] }).gst, 0);
+  // 3 lines of 6 cents: 18/11 = 1.64 cents in total, but 6/11 = 0.55 cents rounds to 1 cent on each line.
+  const sixes = Array.from({ length: 3 }, () => invoiceLine('0.06'));
+  assert.equal(invoice({ lines: sixes }).gst, 0.02);
+  assert.equal(invoice({ lines: sixes, rounding: 'supply' }).gst, 0.03);
+  // A line's amount is quantity times unit price, rounded half up to the cent: 2.5 at $0.33 is $0.825, so $0.83.
+  assert.equal(invoice({ lines: [invoiceLine('0.33', 'taxable', '2.5')] }).lines[0].amount, 0.83);
+  // GST-free and input taxed lines carry no GST.
+  const mixed = invoice({ lines: [invoiceLine('11.00'), invoiceLine('7.00', 'gst-free'), invoiceLine('3.00', 'input-taxed')] });
+  assert.deepEqual([mixed.gst, mixed.totalPrice, mixed.lines.map((l) => [l.marked, l.gst])], [1, 21, [[true, 1], [false, 0], [false, 0]]]);
+});
+
+test('the invoice states the extent each supply is taxable in the ATO’s and GSTR 2013/1’s words', () => {
+  assert.deepEqual(invoice({}).statements, ['Each supply is taxable. Total price includes GST.']);
+  assert.deepEqual(invoice({ prices: 'exclusive' }).statements, ['Each supply is taxable. Prices exclude GST; the GST is added.']);
+  assert.deepEqual(invoice({ lines: [invoiceLine('11.00'), invoiceLine('7.00', 'gst-free')] }).statements,
+    ['* Taxable supply: the price includes GST.', 'Other supplies are GST-free or input taxed, as marked, and include no GST.']);
+  assert.deepEqual(invoice({ lines: [invoiceLine('7.00', 'input-taxed')] }).statements,
+    ['No GST: each supply is GST-free or input taxed, and the total price includes no GST.']);
+});
+
+test('an RCTI needs both ABNs, the recipient, a taxable line and the Determination, and says who pays the GST', () => {
+  const rcti = { issuer: 'recipient', recipient_name: 'Example Processor Pty Ltd', recipient_business_number: ASIC_EXAMPLE, rcti_conditions_met: true };
+  const r = invoice(rcti);
+  assert.equal(r.heading, 'Recipient created tax invoice');
+  assert.equal(r.recipientRequired, true);
+  assert.ok(r.statements.includes('The GST shown is payable by the supplier.'));
+  assert.equal(r.checks.at(-1)[0], 'GST payable by the supplier (s 29-70(1)(c)(vii))');
+  assert.throws(() => invoice({ ...rcti, recipient_business_number: '' }), /recipient’s ABN, which the ATO requires on an RCTI/);
+  assert.throws(() => invoice({ ...rcti, recipient_name: '' }), /recipient’s name, as the recipient issues an RCTI/);
+  assert.throws(() => invoice({ ...rcti, rcti_conditions_met: false }), /Determination 2023 allows this RCTI/);
+  assert.throws(() => invoice({ ...rcti, lines: [invoiceLine('10.00', 'gst-free')] }), /at least one taxable line/);
+  assert.throws(() => invoice({ ...rcti, issued: '2023-06-14' }), /in force from 15 June 2023/);
+  assert.equal(invoice({ ...rcti, issued: '2023-06-15' }).heading, 'Recipient created tax invoice');
+});
+
+test('the tax invoice generator refuses what section 29-70(1) needs and the input lacks, naming each detail', () => {
+  assert.throws(() => invoice({ supplier_name: ' ', supplier_business_number: '12' }), /enter the supplier’s name; the supplier’s ABN as 11 digits\./);
+  assert.throws(() => invoice({ recipient_business_number: ABR_EXAMPLE.replace(/6$/, '7') }), /recipient ABN that passes the check digit test \(51 824 753 557 fails it\)/);
+  assert.throws(() => invoice({ lines: [] }), /at least one line/);
+  assert.throws(() => invoice({ lines: Array.from({ length: 21 }, () => invoiceLine('1.00')) }), /no more than 20 lines/);
+  assert.throws(() => invoice({ lines: [{ ...invoiceLine('1.00'), description: '' }] }), /Describe what line 1 supplies/);
+  assert.throws(() => invoice({ lines: [invoiceLine('1.00', 'exempt')] }), /line 1 is taxable, GST-free or input taxed/);
+  assert.throws(() => invoice({ lines: [invoiceLine('1.001')] }), /Line 1: Enter a number with no more than 2 decimal places/);
+  assert.throws(() => invoice({ lines: [invoiceLine('-1.00')] }), /Line 1:/);
+  assert.throws(() => invoice({ lines: [invoiceLine('1.00', 'taxable', '0')] }), /Line 1:/);
+  assert.throws(() => invoice({ issued: '2026-02-30' }), /date the invoice is issued/);
+  assert.throws(() => invoice({ issued: '2000-06-30' }), /GST started on 1 July 2000/);
+  assert.throws(() => invoice({ prices: 'both' }), /whether prices include GST/);
+  assert.throws(() => invoice({ rounding: 'nearest' }), /rounding rule/);
+});
+
+test('the downloaded invoice escapes every entered text and loads nothing', () => {
+  const r = invoice({ supplier_name: '<script>alert(1)</script> & Co', invoice_number: '"7"',
+    lines: [{ ...invoiceLine('11.00'), description: '<img src=x onerror=alert(1)>' }, invoiceLine('7.00', 'gst-free')] });
+  const html = calculations.invoiceAsHtml(r, invoiceAud);
+  assert.ok(!/<script|<img/i.test(html));
+  assert.ok(html.includes('&#60;script&#62;alert(1)&#60;/script&#62; &#38; Co'));
+  assert.ok(html.includes("content=\"default-src 'none'; style-src 'unsafe-inline'\""));
+  assert.ok(html.includes('<h1>Tax invoice</h1>') && html.includes('Date issued: 26 November 2026'));
+  assert.ok(html.includes('* Taxable supply: the price includes GST.'));
+});
+
+test('the tax invoice form skips empty rows and reads each line row', () => {
+  const fields = { ...formDefaults(invoiceHtmlSource), 'line-2-description': '', 'line-2-quantity': '', 'line-2-price': '',
+    'line-5-description': 'Delivery', 'line-5-quantity': '1', 'line-5-price': '9.90', 'line-5-treatment': 'gst-free' };
+  const input = calculations.taxInvoiceFormInput((name) => fields[name] ?? '');
+  assert.deepEqual(input.lines.map((l) => l.description), ['Pens', 'Staplers', 'Delivery']);
+  assert.equal(input.lines[2].treatment, 'gst-free');
+  const result = calculations.taxInvoiceResult((name) => fields[name] ?? '', invoiceAud);
+  assert.deepEqual(result.tables.lines.map((row) => row[0]), ['* Pens', '* Staplers', 'Delivery']);
+  assert.equal(result.tables.checks.length, 7);
+});
+
+// The trust streaming page. Its figures are the ATO's worked examples in 'Streaming trust capital gains and franked
+// distributions' (read 26 November 2026), which round percentages to 2 places before multiplying; the engine does not.
+const trustHtml = calculatorInclude('trust-streaming');
+const trustAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const trustZero = { other_trust_income: '0', other_net_income: '0', franked_distributions: '0', franking_credits: '0', franked_deductions: '0',
+  capital_gain: '0', capital_gain_remaining: '0', capital_gain_concessions: 'none', capital_gain_trust_income: '0', beneficiaries: [] };
+const trustPerson = (name, present, gain = '0', franked = '0', kind = 'individual') => ({ name, kind, present_entitlement: present,
+  capital_gain_entitled: gain, franked_entitled: franked });
+const trailerpark = (more) => calculations.trustStreaming({ ...trustZero, other_trust_income: '50000', other_net_income: '50000',
+  capital_gain: '150000', capital_gain_remaining: '70000', capital_gain_concessions: 'discount', capital_gain_trust_income: '140000',
+  beneficiaries: [trustPerson('Ricky', '40000'), trustPerson('Julian', '150000', '110000')], ...more });
+
+test('the trust streaming page opens on its example and dates its sources', () => {
+  const example = trustHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(trustHtml);
+  const result = calculations.trustStreamingResult((name) => fields[name] ?? '', trustAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note], example.slice(1));
+  for (const cited of ['PAC/19360027/102UY', 'PAC/19970038/115-225', 'PAC/19970038/207-55', 'PAC/19860107/12', 'rateable-reduction',
+    'read 26 November 2026', 'section 100A', 'bucket company', 'family trust']) {
+    assert.ok(trustHtml.includes(cited), cited);
+  }
+});
+
+test('trust streaming matches the ATO Trailerpark Trust steps to the ATO’s rounding', () => {
+  const r = trailerpark({});
+  assert.deepEqual(r.beneficiaries.map((b) => [b.specificGain, b.adjustedPercentage]), [[0, 55.45], [117857.14, 44.55]]);
+  // The ATO shows $17,823 and $132,177, from percentages rounded first.
+  assert.deepEqual(r.beneficiaries.map((b) => Math.round(b.gainShare)), [17822, 132178]);
+  for (const [got, ato] of r.beneficiaries.map((b, i) => [b.attributableGain, [8316, 61684][i]])) assert.ok(Math.abs(got - ato) <= 1, `${got} ${ato}`);
+  assert.deepEqual(r.beneficiaries.map((b) => b.extraCapitalGain), [16633.66, 123366.34]);
+  // Every dollar of net income is assessed once: the Division 6 shares, attributable gains, franked amounts and credits.
+  const total = r.beneficiaries.reduce((t, b) => t + b.division6 + b.attributableGain + b.attributableFranked + b.frankingCredit, 0);
+  assert.equal(Math.round(total * 100) / 100, r.netIncome);
+});
+
+test('trust streaming reduces the gain rateably when net income falls short, as the ATO example does', () => {
+  const r = trailerpark({ other_trust_income: '-10000', other_net_income: '-10000',
+    beneficiaries: [trustPerson('Ricky', '10000'), trustPerson('Julian', '120000', '110000')] });
+  assert.deepEqual([r.amounts.reduced, r.amounts.reducedGain, r.amounts.division6ENetIncome], [true, 60000, 0]);
+  assert.deepEqual(r.beneficiaries.map((b) => b.adjustedPercentage), [82.35, 17.65]);
+  for (const [got, ato] of r.beneficiaries.map((b, i) => [b.attributableGain, [10590, 49410][i]])) assert.ok(Math.abs(got - ato) <= 2, `${got} ${ato}`);
+  assert.equal(trailerpark({}).amounts.reduced, false);
+});
+
+test('trust streaming reduces a gain and franked distributions together, worked by hand from ss 115-225(3) and 207-37(3)', () => {
+  // Trust income $57,000; net income $10,000, $7,000 without credits, short of the $20,000 gain and $7,000 franked
+  // distributions, so each is scaled by 7/27. Bea is specifically entitled to half the franked distributions; the rest is
+  // shared by adjusted Division 6 percentage over $13,500: Bea 6,500/13,500 and the trustee 7,000/13,500. Bea's share of the
+  // distribution is 20/27 and the trustee's 7/27.
+  const r = calculations.trustStreaming({ ...trustZero, other_trust_income: '10000', other_net_income: '-20000', franked_distributions: '7000',
+    franking_credits: '3000', capital_gain: '40000', capital_gain_remaining: '20000', capital_gain_concessions: 'discount',
+    capital_gain_trust_income: '40000', beneficiaries: [trustPerson('Alex', '40000', '40000'), trustPerson('Bea', '10000', '0', '3500', 'company')] });
+  assert.deepEqual([r.netIncome, r.amounts.reduced], [10000, true]);
+  // Alex: $20,000 x 7/27 = $5,185.19, grossed up to $10,370.37 and halved again by Alex's own discount.
+  assert.deepEqual([r.beneficiaries[0].attributableGain, r.beneficiaries[0].extraCapitalGain, r.beneficiaries[0].netCapitalGain],
+    [5185.19, 10370.37, 5185.19]);
+  // Bea: $7,000 x 7/27 x 20/27 = $1,344.31 and credits $3,000 x 20/27 = $2,222.22, not reduced.
+  assert.deepEqual([r.beneficiaries[1].attributableFranked, r.beneficiaries[1].frankingCredit, r.beneficiaries[1].assessable], [1344.31, 2222.22, 3566.53]);
+  // Trustee: $7,000 x 7/27 x 7/27 = $470.51 and credits $777.78, s 99A(4A) amount $1,248.29, tax $561.73 less the offset, nil.
+  assert.deepEqual([r.trustee.provision, r.trustee.assessable, r.trustee.tax, r.trustee.offset, r.trustee.taxAfterOffset],
+    ['s 99A(4A)', 1248.29, 561.73, 777.78, 0]);
+  // Division 6E net income is nil, so no Division 6 share; the 3 assessments are the net income.
+  assert.deepEqual(r.beneficiaries.map((b) => b.division6), [0, 0]);
+  const assessed = r.beneficiaries.reduce((t, b) => t + b.division6 + b.attributableGain + b.attributableFranked + b.frankingCredit, r.trustee.assessable);
+  // Each figure is rounded once, so the rounded figures may differ from net income by a cent or 2.
+  assert.ok(Math.abs(assessed - r.netIncome) <= 0.02, `${assessed}`);
+});
+
+test('trust streaming shares franked distributions and credits as the ATO Lang Trust example does', () => {
+  const lang = (more) => calculations.trustStreaming({ ...trustZero, other_trust_income: '80000', other_net_income: '80000',
+    franked_distributions: '70000', franking_credits: '30000', beneficiaries: [trustPerson('Lucy', '75000'), trustPerson('Hannah', '75000', '0', '50000')],
+    ...more });
+  assert.deepEqual(lang({}).beneficiaries.map((b) => [b.adjustedPercentage, b.frankedShare, b.attributableFranked, b.frankingCredit]),
+    [[75, 15000, 15000, 6428.57], [25, 55000, 55000, 23571.43]]);
+  // Directly relevant deductions reduce the attributable amount and the specific entitlement's net benefit, not the credit's base.
+  const net = lang({ franked_deductions: '7000', beneficiaries: [trustPerson('Lucy', '68000'), trustPerson('Hannah', '75000', '0', '50000')] });
+  // Hannah's $50,000 of a $63,000 net benefit is $55,555.56 of the gross distribution (s 207-58).
+  assert.equal(net.beneficiaries[1].specificFranked, 55555.56);
+  assert.equal(Math.round((net.beneficiaries[0].frankingCredit + net.beneficiaries[1].frankingCredit) * 100) / 100, 30000);
+  assert.equal(Math.round((net.beneficiaries[0].attributableFranked + net.beneficiaries[1].attributableFranked) * 100) / 100, 63000);
+});
+
+test('trust streaming applies Division 6E as the ATO Tudor Trust example does', () => {
+  const r = calculations.trustStreaming({ ...trustZero, other_trust_income: '100000', other_net_income: '100000', franked_distributions: '70000',
+    franking_credits: '30000', capital_gain: '300000', capital_gain_remaining: '100000', capital_gain_concessions: 'discount',
+    capital_gain_trust_income: '300000', beneficiaries: [trustPerson('Henry', '100000'), trustPerson('Anne', '70000', '0', '70000'),
+      trustPerson('Jane', '300000', '300000')] });
+  assert.deepEqual([r.amounts.trustIncome, r.netIncome, r.amounts.division6EIncome, r.amounts.division6ENetIncome], [470000, 300000, 100000, 100000]);
+  assert.deepEqual(r.beneficiaries.map((b) => b.division6), [100000, 0, 0]);
+  assert.deepEqual(r.beneficiaries.map((b) => [b.attributableFranked, b.frankingCredit, b.attributableGain]),
+    [[0, 0, 0], [70000, 30000, 0], [0, 0, 100000]]);
+});
+
+test('the trustee is assessed under section 99A at 45% with its share grossed up and its franking credit offset', () => {
+  const alone = calculations.trustStreaming({ ...trustZero, other_trust_income: '10000', other_net_income: '10000', capital_gain: '200',
+    capital_gain_remaining: '100', capital_gain_concessions: 'discount', capital_gain_trust_income: '200' });
+  assert.deepEqual([alone.trustee.provision, alone.trustee.grossedUpGain, alone.trustee.assessable, alone.trustee.tax], ['s 99A(4)', 200, 10200, 4590]);
+  const part = calculations.trustStreaming({ ...trustZero, other_trust_income: '80000', other_net_income: '80000', franked_distributions: '70000',
+    franking_credits: '30000', beneficiaries: [trustPerson('Lucy', '75000')] });
+  assert.deepEqual([part.trustee.provision, part.trustee.adjustedPercentage, part.trustee.frankingCredit, part.trustee.assessable],
+    ['s 99A(4A)', 50, 15000, 90000]);
+  assert.deepEqual([part.trustee.tax, part.trustee.offset, part.trustee.taxAfterOffset], [40500, 15000, 25500]);
+  const nobody = trailerpark({});
+  assert.deepEqual([nobody.trustee.provision, nobody.trustee.assessable], [null, 0]);
+});
+
+test('trust streaming grosses up by the concessions and applies the beneficiary’s own discount', () => {
+  const kinds = (concessions, kind) => calculations.trustStreaming({ ...trustZero, capital_gain: '400', capital_gain_remaining: '100',
+    capital_gain_concessions: concessions, capital_gain_trust_income: '400', beneficiaries: [trustPerson('A', '400', '400', '0', kind)] }).beneficiaries[0];
+  assert.deepEqual([kinds('both', 'individual').extraCapitalGain, kinds('both', 'individual').netCapitalGain, kinds('both', 'company').netCapitalGain],
+    [400, 100, 200]);
+  assert.deepEqual([kinds('discount', 'trust').netCapitalGain, kinds('discount', 'company').netCapitalGain], [100, 200]);
+  assert.deepEqual([kinds('small_business', 'company').netCapitalGain, kinds('none', 'individual').netCapitalGain], [100, 100]);
+});
+
+test('trust streaming refuses inputs it cannot settle', () => {
+  const refused = (more, pattern) => assert.throws(() => calculations.trustStreaming({ ...trustZero, other_trust_income: '100',
+    other_net_income: '100', ...more }), pattern);
+  refused({ beneficiaries: [trustPerson('A', '50', '0', '60')] }, /part of the present entitlement/);
+  refused({ capital_gain: '100', capital_gain_remaining: '0', capital_gain_trust_income: '100' }, /above nil and no more than/);
+  refused({ capital_gain: '100', capital_gain_remaining: '101' }, /above nil and no more than/);
+  refused({ capital_gain_trust_income: '5' }, /nil for all 3/);
+  refused({ franked_distributions: '10', franked_deductions: '11' }, /cannot exceed them/);
+  refused({ capital_gain: '100', capital_gain_remaining: '50', capital_gain_trust_income: '100', beneficiaries: [trustPerson('A', '101', '101')] },
+    /capital gain in trust income/);
+  refused({ capital_gain_concessions: 'indexation' }, /Choose the concessions/);
+  refused({ beneficiaries: [{ ...trustPerson('A', '1'), kind: 'partnership' }] }, /choose individual, company or trust/);
+  refused({ beneficiaries: Array.from({ length: 5 }, (_, i) => trustPerson(`P${i}`, '1')) }, /at most 4/);
+  refused({ other_net_income: '-80', franked_distributions: '70', franking_credits: '30' }, /rateable reduction/);
+  // Credits above 30/70 of the distribution rounded to the nearest cent are refused; the rounded limit is accepted.
+  refused({ franked_distributions: '70', franking_credits: '30.01' }, /30\/70/);
+  refused({ franked_distributions: '100000', franking_credits: '42857.15' }, /30\/70/);
+  for (const [franked, credits] of [['70', '30'], ['100000', '42857.14'], ['1', '0.43']]) {
+    assert.doesNotThrow(() => calculations.trustStreaming({ ...trustZero, other_trust_income: '100', other_net_income: '100',
+      franked_distributions: franked, franking_credits: credits }), `${franked} ${credits}`);
+  }
+  // A specific entitlement in tax dollars above the beneficiary's present entitlement leaves a negative adjusted percentage.
+  refused({ other_trust_income: '0', other_net_income: '0', capital_gain: '150', capital_gain_remaining: '70', capital_gain_concessions: 'discount',
+    capital_gain_trust_income: '140', beneficiaries: [trustPerson('A', '110', '110'), trustPerson('B', '30')] }, /below nil, so the adjusted/);
+  assert.equal(calculations.trustStreaming({ ...trustZero, other_trust_income: '100', other_net_income: '100' }).trustee.assessable, 100);
+  // Trust income below nil with net income above it: nobody is entitled and the trustee is assessed on it all.
+  assert.equal(calculations.trustStreaming({ ...trustZero, other_trust_income: '-50', other_net_income: '100' }).trustee.assessable, 100);
+});
