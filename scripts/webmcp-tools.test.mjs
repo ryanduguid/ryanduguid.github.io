@@ -2138,6 +2138,9 @@ test('pension minimum tool covers full years, pro-rating, 1 June nil and leap ye
   assert.deepEqual([full.percentageFactorPercent, full.daysCounted, full.daysInYear, full.clause, full.minimumBeforeRounding,
     full.minimumPayment, full.currency, full.source],
   [5, 365, 365, 'cl 1(1)', '30000.00', '30000.00', 'AUD', 'https://duguid.com.au/tools/individual-tax/pension-minimum/']);
+  assert.equal(full.maximumPayment, null);
+  const ttr = await tool.execute({ incomeYear: '2025-26', accountBalance: '400000', age: 62, startDate: '2026-01-01', transitionToRetirement: true });
+  assert.deepEqual([ttr.minimumPayment, ttr.maximumPayment], ['7930.00', '40000.00']);
   assert.doesNotThrow(() => JSON.stringify(full));
   const thavi = await tool.execute({ incomeYear: '2024-25', accountBalance: '250000', age: 66, startDate: '2025-01-01' });
   assert.deepEqual([thavi.daysCounted, thavi.clause, thavi.minimumBeforeRounding, thavi.minimumPayment], [181, 'cl 3', '6198.63', '6200.00']);

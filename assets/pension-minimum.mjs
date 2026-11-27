@@ -65,7 +65,7 @@ function centsText(num, den) {
   return `${text.slice(0, -2)}.${text.slice(-2)}`;
 }
 
-/** @typedef {{year: string, amounts: {account_balance_used: string, minimum_before_rounding: string, minimum_payment: string},
+/** @typedef {{year: string, amounts: {account_balance_used: string, minimum_before_rounding: string, minimum_payment: string, maximum_payment?: string},
  *   rates: {percentage_factor: string, days: string, days_in_year: string}, factor: number, days: number, daysInYear: number,
  *   clause: 'cl 1(1)' | 'cl 3' | 'cl 4'}} PensionWorked */
 
@@ -80,6 +80,8 @@ export function pensionMinimum(given) {
   if (input.get('scope_confirmed') !== true) refuse('scope.not_confirmed', 'Confirm the facts the calculator takes as given.');
   const year = PENSION_MINIMUM_YEARS.find((y) => y === input.get('year'));
   if (year === undefined) refuse('period.unsupported', 'Choose an income year from 2024-25 to 2027-28.');
+  const ttr = input.has('transition_to_retirement') ? input.get('transition_to_retirement') : false;
+  if (typeof ttr !== 'boolean') refuse('input.flag_invalid', 'transition_to_retirement must be a boolean.');
   const balance = balanceCents(input.get('account_balance'));
   const age = whole(input.get('age'), 150);
   if (age === null) refuse('input.age_invalid', 'Enter the age in whole years, from 0 to 150.');
@@ -93,7 +95,10 @@ export function pensionMinimum(given) {
     : days < daysInYear ? [balance * factor * BigInt(days), 100n * BigInt(daysInYear), 'cl 3'] : [balance * factor, 100n, 'cl 1(1)'];
   // cl 5: to the nearest $10, $5 rounded up.
   const tens = (2n * num + 1000n * den) / (2000n * den);
-  return { year, amounts: { account_balance_used: centsText(balance, 1n), minimum_before_rounding: centsText(num, den), minimum_payment: `${tens * 10n}.00` },
+  return { year, amounts: { account_balance_used: centsText(balance, 1n), minimum_before_rounding: centsText(num, den), minimum_payment: `${tens * 10n}.00`,
+      // SISR reg 6.01(2) 'transition to retirement income stream': at most 10% of the same balance, not
+      // reduced for a part year, down to the cent so a payment of it stays within the limit.
+      ...(ttr ? { maximum_payment: `${balance / 1000n}.${String(balance / 10n % 100n).padStart(2, '0')}` } : {}) },
     rates: { percentage_factor: `0.${String(factor).padStart(2, '0')}`, days: String(days), days_in_year: String(daysInYear) },
     factor: Number(factor), days, daysInYear, clause: /** @type {'cl 1(1)' | 'cl 3' | 'cl 4'} */ (clause) };
 }
@@ -109,7 +114,7 @@ export function pensionMinimumFormInput(value) {
   const days = started === '' ? daysInYear : Math.round((Date.UTC(second, 5, 30) - Date.parse(`${started}T00:00:00Z`)) / 86400000) + 1;
   const age = value('age').trim();
   return { account_balance: value('balance').trim(), age: /^\d+$/.test(age) ? Number(age) : age, days: Number.isNaN(days) ? started : days, year,
-    scope_confirmed: true };
+    scope_confirmed: true, ...(value('ttr') === 'yes' ? { transition_to_retirement: true } : {}) };
 }
 
 /** The page's result. @param {(name: string) => string} value @param {(value: number) => string} aud */
@@ -132,8 +137,9 @@ export function pensionMinimumResult(value, aud) {
     ['Days counted', r.clause === 'cl 1(1)' ? `All ${r.daysInYear}` : `${r.days} of ${r.daysInYear}`],
     ['Minimum before rounding', aud(Number(r.amounts.minimum_before_rounding))],
     ['Minimum annual payment, to the nearest $10', aud(Number(r.amounts.minimum_payment))]];
+  if (r.amounts.maximum_payment) rows.push(['Transition to retirement maximum, 10% of the balance', aud(Number(r.amounts.maximum_payment))]);
   const note = r.clause === 'cl 4' ? 'Nothing is required for a pension starting on or after 1 June, in the last 30 days of the year'
     : r.clause === 'cl 3' ? `Pro-rated from the start day, ${day(started)}, to 30 June; $5 rounds up` : 'The whole year from 1 July; $5 rounds up';
-  return { inputs: `${r.year}; balance ${aud(Number(r.amounts.account_balance_used))}; age ${input.age}${started ? `; started ${day(started)}` : '; held on 1 July'}`,
+  return { inputs: `${r.year}; balance ${aud(Number(r.amounts.account_balance_used))}; age ${input.age}${started ? `; started ${day(started)}` : '; held on 1 July'}${input.transition_to_retirement ? '; transition to retirement' : ''}`,
     rows, principal: 4, note };
 }

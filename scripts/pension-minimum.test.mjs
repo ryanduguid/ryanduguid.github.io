@@ -39,8 +39,8 @@ test('the page agrees with the australian-accounting command on every differenti
     }
     assert.deepEqual(got, c.refused ? { refused: c.refused } : { amounts: c.amounts, rates: c.rates }, c.source);
   }
-  assert.equal(fixture.cases.length, 1194);
-  assert.ok(page.includes('agrees with the command on 1,194 test cases'));
+  assert.equal(fixture.cases.length, 1560);
+  assert.ok(page.includes('agrees with the command on 1,560 test cases'));
 });
 
 test('the factors, the first year, the last 30 days and rounding to $10', () => {
@@ -59,6 +59,19 @@ test('the factors, the first year, the last 30 days and rounding to $10', () => 
   assert.equal(code(() => minimum('2026-27', '1000', '80', 365)), 'input.age_invalid');
 });
 
+test('a transition to retirement income stream adds the 10% maximum, down to the cent and not pro-rated', () => {
+  const ttr = (balance, days, flag = true) => pensionMinimum({ account_balance: balance, age: 62, days, year: '2025-26', scope_confirmed: true,
+    transition_to_retirement: flag });
+  assert.deepEqual(ttr('400000.00', 181).amounts, { account_balance_used: '400000.00', minimum_before_rounding: '7934.25', minimum_payment: '7930.00',
+    maximum_payment: '40000.00' });
+  assert.deepEqual([ttr('0.09', 365).amounts.maximum_payment, ttr('123456.78', 30).amounts.maximum_payment, ttr('-0', 365).amounts.maximum_payment],
+    ['0.00', '12345.67', '0.00']);
+  assert.equal('maximum_payment' in ttr('1000', 365, false).amounts, false);
+  assert.equal(code(() => ttr('1000', 365, 'true')), 'input.flag_invalid');
+  assert.equal(code(() => ttr('x', 365, null)), 'input.decimal_unreadable');
+  assert.equal(code(() => ttr('-1', 365, null)), 'input.flag_invalid');
+});
+
 test('the form counts the days from the start day to 30 June', () => {
   const input = (fields) => pensionMinimumFormInput(ask({ year: '2027-28', balance: '1000', age: '70', ...fields }));
   assert.equal(input({ started: '' }).days, 366);
@@ -72,6 +85,11 @@ test('the form counts the days from the start day to 30 June', () => {
   assert.deepEqual(shown.rows[shown.principal], ['Minimum annual payment, to the nearest $10', '$6,200.00']);
   assert.deepEqual(shown.rows[2], ['Days counted', '181 of 365']);
   assert.match(shown.note, /^Pro-rated from the start day, 1 January 2025/);
+  assert.equal(shown.rows.length, 5);
+  const ttr = pensionMinimumResult(ask({ year: '2024-25', balance: '250000', age: '60', started: '', ttr: 'yes' }), aud);
+  assert.deepEqual(ttr.rows.at(-1), ['Transition to retirement maximum, 10% of the balance', '$25,000.00']);
+  assert.match(ttr.inputs, /; held on 1 July; transition to retirement$/);
+  assert.equal('transition_to_retirement' in input({ ttr: 'no' }), false);
   const late = ask({ year: '2025-26', balance: '1000', age: '70', started: '2026-07-01' });
   assert.throws(() => pensionMinimumResult(late, aud), { code: 'input.day_count_invalid', message: 'Enter a start day from 1 July 2025 to 30 June 2026, or leave it blank.' });
 });
