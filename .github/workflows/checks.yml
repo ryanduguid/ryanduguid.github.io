@@ -373,6 +373,7 @@ jobs:
           scripts/individual-results-branches.test.mjs scripts/fhss-work-pcg-branches.test.mjs
           scripts/page-dom.test.mjs scripts/webmcp-branches.test.mjs
           scripts/borrowing-fuel-fbt-levy-branches.test.mjs scripts/engine-notes-refusals.test.mjs
+          scripts/engine-edge-cases.test.mjs
       - name: Keep the coverage reports for the Codecov upload
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
