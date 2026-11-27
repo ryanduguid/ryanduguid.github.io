@@ -257,3 +257,38 @@ fn the_command_rewrites_only_the_portrait() {
     let error = about_portrait::run(root.path(), &args).unwrap_err();
     assert!(error.contains("expected one portrait pre"), "{error}");
 }
+
+#[test]
+fn near_black_clothes_still_render_a_valid_portrait() {
+    // Grey 5 sits in sRGB's linear toe and below CIE lightness's cube-root knee.
+    let art = about_portrait::render(&encode(300, 300, &bust(false, 5.0)), &font()).unwrap();
+    assert_valid_portrait_markup(&art);
+}
+
+#[test]
+fn a_figure_that_never_narrows_has_no_neck() {
+    // An opaque block 40 wide, framed by clear pixels at the top and sides and running
+    // off the bottom edge: every row below its top is as wide as the head.
+    let (width, height) = (44u32, 60u32);
+    let mut pixels = Vec::new();
+    for y in 0..height {
+        for x in 0..width {
+            let inside = (2..42).contains(&x) && y >= 2;
+            let grey = (x + y) as u8 * 2;
+            pixels.extend([grey, grey, grey, if inside { 255 } else { 0 }]);
+        }
+    }
+    let error = about_portrait::render(&encode(width, height, &pixels), &font()).unwrap_err();
+    assert_eq!(error, "no neck found below the head; check the cutout");
+}
+
+#[test]
+fn the_command_needs_exactly_one_photo() {
+    let root = tempfile::tempdir().unwrap();
+    for args in [vec![], vec!["a.png".to_owned(), "b.png".to_owned()]] {
+        assert_eq!(
+            about_portrait::run(root.path(), &args).unwrap_err(),
+            "usage: site-tools render_about_portrait <cutout.png>"
+        );
+    }
+}

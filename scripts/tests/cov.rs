@@ -9,6 +9,8 @@ mod common;
 mod cli_and_io;
 #[path = "cov/commands.rs"]
 mod commands;
+#[path = "cov/node_edges.rs"]
+mod node_edges;
 #[path = "cov/part_b4.rs"]
 mod part_b4;
 #[path = "cov/pass2_contracts.rs"]
@@ -21,8 +23,14 @@ mod pass2_validators;
 mod py_format_json;
 #[path = "cov/py_helpers.rs"]
 mod py_helpers;
+#[path = "cov/pytime_edges.rs"]
+mod pytime_edges;
+#[path = "cov/seo_core_edges.rs"]
+mod seo_core_edges;
 #[path = "cov/site_contracts.rs"]
 mod site_contracts;
+#[path = "cov/site_contracts_edges.rs"]
+mod site_contracts_edges;
 #[path = "cov/validators_a.rs"]
 mod validators_a;
 #[path = "cov/validators_b.rs"]

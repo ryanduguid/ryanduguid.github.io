@@ -2680,3 +2680,18 @@ fn calculator_dates_are_not_older_than_what_they_depend_on() {
         );
     }
 }
+
+#[test]
+fn a_json_ld_block_that_is_not_an_object_or_list_has_no_context() {
+    let tmp = tempfile::tempdir().unwrap();
+    std::fs::write(
+        tmp.path().join("index.html"),
+        r#"<html lang="en"><head><script type="application/ld+json">5</script></head></html>"#,
+    )
+    .unwrap();
+    expect_failure(
+        "scalar JSON-LD",
+        &page_metadata_failures(tmp.path(), "index.html"),
+        "index.html: JSON-LD @context is not https://schema.org",
+    );
+}
