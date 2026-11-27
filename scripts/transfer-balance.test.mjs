@@ -11,7 +11,7 @@ import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import test from 'node:test';
 import { CHARGE_YEARS, RELEASE_YEARS, excessContributions } from '../assets/excess-contributions.mjs';
-import { TBA_YEARS, dollarsText, transferBalance } from '../assets/transfer-balance.mjs';
+import { TBA_YEARS, dayOf, decimalParts, dollarsText, transferBalance, yearLength } from '../assets/transfer-balance.mjs';
 import { excessFormInput, tbaFormInput, transferBalanceResult } from '../assets/transfer-balance-result.mjs';
 
 const fixture = createRequire(import.meta.url)('./transfer-balance-engine-differential.json');
@@ -153,4 +153,57 @@ test('the page shows the account’s caps, ledger and excess periods, and each q
   const r = result('release');
   assert.deepEqual(r.rows[r.principal], ['Total release amount: the excess and 85% of the earnings', '$112,463.55']);
   assert.match(r.note, /The ATO publishes 11\.33% a year/);
+});
+
+test('a calendar year has 366 days on the Gregorian leap rule', () => {
+  assert.deepEqual(['2025-03-01', '2024-03-01', '2100-03-01', '2000-03-01'].map((iso) => yearLength(/** @type {number} */ (dayOf(iso)))),
+    [365, 366, 365, 366]);
+});
+
+test('a decimal with 2 points does not read as a decimal', () => {
+  assert.equal(decimalParts('1.2.3'), null);
+  assert.deepEqual(decimalParts('-12.5'), { negative: true, whole: '12', decimals: '5' });
+});
+
+test('the account refuses an input, event, date or last day it cannot read', () => {
+  const given = { to: '2020-06-30', year: '2019-20', previously_liable: false, scope_confirmed: true };
+  assert.equal(code(() => transferBalance(null)), 'input.not_object');
+  for (const bad of [42, { date: 'soon', kind: 'commutation', amount: '1' }, { date: '2019-08-01', kind: 7, amount: '1' }]) {
+    assert.equal(code(() => transferBalance({ ...given, events: [bad] })), 'transfer_balance.fact_invalid', JSON.stringify(bad));
+  }
+  assert.equal(code(() => transferBalance({ ...given, to: 'later', events: [] })), 'transfer_balance.fact_invalid');
+});
+
+test('the account result names one event, an earlier liability and no excess', () => {
+  const r = transferBalanceResult(ask({ calc: 'transfer', 'event-1-date': '2019-08-01', 'event-1-kind': 'new_income_stream',
+    'event-1-amount': '1000000', to: '2020-06-30', liable: 'yes' }), aud);
+  assert.equal(r.inputs, '2019-20; 1 event to 30 June 2020; liable for an earlier period from 1 July 2018');
+  assert.equal(r.note, 'No excess at the end of any day to 30 June 2020');
+  assert.equal(r.tables['tba-periods'], undefined);
+});
+
+test('the caps table shows proportional indexation from the highest balance', () => {
+  // $1,000,000 uses 62.5% of the $1,600,000 cap, rounded down to 62%, so 38% of 2021-22's $100,000 and 2023-24's $200,000
+  // increases is added.
+  const r = transferBalanceResult(ask({ calc: 'transfer', 'event-1-date': '2019-08-01', 'event-1-kind': 'new_income_stream',
+    'event-1-amount': '1000000', to: '2024-06-30' }), aud);
+  assert.deepEqual(r.tables['tba-caps'].slice(2), [
+    ['2021-22', '$1,700,000.00', '$1,638,000.00', '38% unused × $100,000.00 indexation; highest balance $1,000,000.00 on 1 August 2019'],
+    ['2022-23', '$1,700,000.00', '$1,638,000.00', 'Last year’s cap: the general cap was not indexed'],
+    ['2023-24', '$1,900,000.00', '$1,714,000.00', '38% unused × $200,000.00 indexation; highest balance $1,000,000.00 on 1 August 2019']]);
+});
+
+test('an excess still held at the last day keeps accruing; one removed is not in excess', () => {
+  // $1,700,000 against the $1,600,000 cap from 1 August 2019: 335 days to 30 June 2020, or 61 to 30 September 2019 when a
+  // $200,000 commutation on 1 October 2019 removes it. The first excess is taxed at 15% (ITAA 1997 s 294-230).
+  const credit = { calc: 'transfer', 'event-1-date': '2019-08-01', 'event-1-kind': 'new_income_stream', 'event-1-amount': '1700000',
+    to: '2020-06-30' };
+  const held = transferBalanceResult(ask(credit), aud);
+  assert.match(held.note, /^In excess at the end of 30 June 2020: earnings keep accruing until the excess is removed; an estimate/);
+  assert.deepEqual(held.tables['tba-periods'].map((p) => [p[0], p[1], p[3]]), [['1 August 2019 to 30 June 2020', '335', '15%']]);
+  const removed = transferBalanceResult(ask({ ...credit, 'event-2-date': '2019-10-01', 'event-2-kind': 'commutation',
+    'event-2-amount': '200000' }), aud);
+  assert.match(removed.note, /^Not in excess at the last day; /);
+  assert.equal(removed.inputs, '2019-20; 2 events to 30 June 2020');
+  assert.deepEqual(removed.tables['tba-periods'].map((p) => [p[0], p[1]]), [['1 August 2019 to 30 September 2019', '61']]);
 });

@@ -54,9 +54,9 @@ function accountResult(value, aud) {
     ['Excess transfer balance', money(r.amounts.excess_transfer_balance)],
     ['Excess transfer balance earnings', money(r.amounts.notional_earnings)], ['Excess transfer balance tax', money(r.amounts.excess_transfer_balance_tax)]];
   const caps = r.caps.map((c) => [c.year, aud(c.general), aud(c.cap), c.why === 'indexed'
-    ? `${c.unused}% unused × ${aud(/** @type {number} */ (c.increase))} indexation${c.highest === undefined ? '' : `; highest balance ${money(c.highest)} on ${day(/** @type {string} */ (c.highestOn))}`}`
+    ? `${c.unused}% unused × ${aud(/** @type {number} */ (c.increase))} indexation; highest balance ${money(/** @type {string} */ (c.highest))} on ${day(/** @type {string} */ (c.highestOn))}`
     : HOW[c.why]()]);
-  const ledger = r.ledger.map((l) => [day(l.date), KIND_NAMES.get(l.kind) ?? l.kind, money(l.debit), money(l.credit), money(l.balance)]);
+  const ledger = r.ledger.map((l) => [day(l.date), /** @type {string} */ (KIND_NAMES.get(l.kind)), money(l.debit), money(l.credit), money(l.balance)]);
   const periods = r.periods.map((p) => [`${day(p.from)} to ${day(p.to)}`, String(p.days), money(p.earnings), `${p.rate}%`, money(p.tax)]);
   const note = r.periods.length === 0 ? `No excess at the end of any day to ${day(r.to)}`
     : `${r.inExcess ? `In excess at the end of ${day(r.to)}: earnings keep accruing until the excess is removed` : 'Not in excess at the last day'}; `
@@ -71,22 +71,22 @@ function excessResult(value, aud) {
   const input = excessFormInput(value);
   const r = excessContributions(input);
   const money = (/** @type {string} */ text) => aud(Number(text));
-  const a = new Map(Object.entries(r.amounts));
+  const a = r.amounts;
   if (r.question === 'concessional_charge') {
-    return { inputs: `${r.year}; additional income tax ${money(input.additional_tax ?? '0')}; tax due ${day(input.tax_due_date ?? '')}`,
-      rows: [['Additional income tax', money(input.additional_tax ?? '0')],
+    return { inputs: `${r.year}; additional income tax ${money(/** @type {string} */ (input.additional_tax))}; tax due ${day(/** @type {string} */ (input.tax_due_date))}`,
+      rows: [['Additional income tax', money(/** @type {string} */ (input.additional_tax))],
         ['Days charged', `${r.days}, ${day(/** @type {string} */ (r.firstDay))} to ${day(/** @type {string} */ (r.lastDay))}`],
-        ['Excess concessional contributions charge', money(a.get('excess_concessional_contributions_charge') ?? '0')]],
+        ['Excess concessional contributions charge', money(a.excess_concessional_contributions_charge)]],
       principal: 2, note: 'Compounded daily at the shortfall interest charge rate; payable only once the ATO’s determination states it', tables: {} };
   }
   const [annual, daily] = /** @type {string[]} */ (ATO_TABLE_5.get(r.year));
-  return { inputs: `${r.year} contributions year; excess ${money(input.excess ?? '0')}; determination ${day(input.determination_date ?? '')}`,
-    rows: [['Excess non-concessional contributions', money(input.excess ?? '0')],
+  return { inputs: `${r.year} contributions year; excess ${money(/** @type {string} */ (input.excess))}; determination ${day(/** @type {string} */ (input.determination_date))}`,
+    rows: [['Excess non-concessional contributions', money(/** @type {string} */ (input.excess))],
       ['Proxy rate, the year’s average base interest rate plus 7 points', `${Number(r.rates.proxy_rate_percent)}% a year`],
-      ['Days to the determination', String(r.days)], ['Associated earnings, rounded down to the dollar', money(a.get('associated_earnings') ?? '0')],
-      ['Total release amount: the excess and 85% of the earnings', money(a.get('total_release_amount') ?? '0')],
-      ['Associated earnings in your assessable income', money(a.get('assessable_associated_earnings') ?? '0')],
-      ['Tax offset, 15% of the earnings', money(a.get('associated_earnings_tax_offset') ?? '0')]],
+      ['Days to the determination', String(r.days)], ['Associated earnings, rounded down to the dollar', money(a.associated_earnings)],
+      ['Total release amount: the excess and 85% of the earnings', money(a.total_release_amount)],
+      ['Associated earnings in your assessable income', money(a.assessable_associated_earnings)],
+      ['Tax offset, 15% of the earnings', money(a.associated_earnings_tax_offset)]],
     principal: 4, note: `Assumes the whole amount is released. The ATO publishes ${annual}% a year (${daily}% a day) for ${r.year}; `
       + 'a determination using it can differ by some dollars', tables: {} };
 }
