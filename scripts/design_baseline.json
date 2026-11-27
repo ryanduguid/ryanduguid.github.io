@@ -335,6 +335,9 @@
     "tools/individual-tax/government-super/index.html": [
       "28564a618992191fa1018a10a7c53c69ccb7662ead7d91e60e95151e4281782d"
     ],
+    "tools/individual-tax/help-indexation/index.html": [
+      "251da169c8971dfbc468574ae1579ea758b4ce95d27830b79d9d659baee29ccb"
+    ],
     "tools/individual-tax/income-tax/index.html": [
       "b3aa07550f26ff4da3544c729203392390613afb4a9e37f0dd8cf2dfefefe744"
     ],
@@ -500,7 +503,7 @@
     "rates/super-guarantee/index.html": "a5d7321076de35ab9916764165ca7cdc369eef5a36ae35762be3e2ed93c6dc56"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7815,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7816,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
