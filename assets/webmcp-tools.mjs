@@ -13,6 +13,7 @@ import { casualOvertimeTool } from './webmcp-casual-overtime.mjs';
 import { contractorEmployeeTool } from './webmcp-contractor-employee.mjs';
 import { paydayCashflowTool } from './webmcp-payday-cashflow.mjs';
 import { taxInvoiceTools } from './webmcp-tax-invoice.mjs';
+import { nonResidentWithholdingTool } from './webmcp-non-resident-withholding.mjs';
 import {
   concessionalCatchUpTool, fhssTool, governmentSuperTool, lumpSumArrearsTool, studyLoanTool, workExpensesTool,
 } from './webmcp-individual-more.mjs';
@@ -569,7 +570,8 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
  *   | 'contractorEmployee' | 'CONTRACTOR_YEARS' | 'paydayCashflow' | 'taxInvoice' | 'TREATMENTS' | 'MAX_LINES'
  *   | 'trustStreaming' | 'TRUST_STREAMING_ROWS' | 'foreignResidentWithholding' | 'FRCGW_YEARS'
  *   | 'partnershipNetIncome' | 'trustLossTests'
- *   | 'motorVehicleDuty' | 'insuranceDuty' | 'INSURANCE_CLASSES' | 'vicPropertyTaxes'>} calculate */
+ *   | 'motorVehicleDuty' | 'insuranceDuty' | 'INSURANCE_CLASSES' | 'vicPropertyTaxes'
+ *   | 'nonResidentWithholding' | 'NRW_YEARS'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -594,6 +596,7 @@ export function calculatorTools(calculate) {
     'payday-cashflow': paydayCashflowTool(TOOL_KIT, calculate.paydayCashflow),
     ...taxInvoiceTools(TOOL_KIT, calculate),
     ...stateDutyTools(TOOL_KIT, calculate),
+    'non-resident-withholding': nonResidentWithholdingTool(TOOL_KIT, calculate),
   };
 }
 

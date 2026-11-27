@@ -82,6 +82,7 @@ const casualOt = { ...business, file: 'assets/casual-overtime.mjs' };
 const contractor = { ...business, file: 'assets/contractor-employee.mjs' };
 const invoice = { ...business, file: 'assets/tax-invoice.mjs' };
 const trustStream = { ...business, file: 'assets/trust-streaming.mjs' };
+const nrw = { ...business, file: 'assets/non-resident-withholding.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
 const motorDutyEngine = { ...business, file: 'assets/motor-vehicle-duty.mjs' };
@@ -1188,6 +1189,12 @@ const MUTATIONS = [
   { ...trustLosses, name: "Trust pattern test at 50% passes", find: "results.push(cmp(total, d('50')) > 0);", replace: "results.push(cmp(total, d('50')) >= 0);" },
   { ...trustLosses, name: "Trust income injection applies to a super fund", find: "const exempt = para === 's 272-100(b)' ||", replace: "const exempt = false &&" },
   { ...trustLosses, name: "Trust absent individual not counted at nil", find: "const p = other.get(name) ?? d('0');", replace: "const p = other.get(name) ?? d('100');" },
+  { ...nrw, name: "NRW interest at the treaty rate", find: "const regRate = type === 'interest' ? /** @type {Dec} */ (parseDec(DOMESTIC.interest)) : applied;", replace: "const regRate = applied;" },
+  { ...nrw, name: "NRW cents kept in the payment", find: "const used = wholeDollars(base);", replace: "const used = base;" },
+  { ...nrw, name: "NRW franked part not taken off", find: "  return sub(payment, exemptParts);", replace: "  return payment;" },
+  { ...nrw, name: "NRW section 12-300 cap ignored", find: "withholding: cmp(cap, reg) < 0 ? cap : reg", replace: "withholding: reg" },
+  { ...nrw, name: "NRW already withheld not taken off the cap", find: "const left = sub(mul(applied, base), already);", replace: "const left = mul(applied, base);" },
+  { ...nrw, name: "NRW treaty rate above the domestic rate accepted", find: "cmp(parsed, max) <= 0", replace: "true" },
   { ...contractor, name: 'Contractor labour of exactly half counted as principally', find: 'const principally = 2 * labour > fee;', replace: 'const principally = 2 * labour >= fee;' },
   { ...contractor, name: 'Contractor right to delegate ignored', find: 'personal: !e.delegate,', replace: 'personal: true,' },
   { ...contractor, name: 'Contractor result contract ignored', find: 'notResult: !e.result,', replace: 'notResult: true,' },
@@ -1462,6 +1469,7 @@ const SHARED = [
   'scripts/motor-vehicle-duty-engine-differential.json',
   'scripts/insurance-duty-engine-differential.json',
   'scripts/vic-property-taxes-engine-differential.json',
+  'scripts/non-resident-withholding-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',
   'scripts/borrowing-expenses-engine-differential.json',
   'scripts/wine-equalisation-tax-engine-differential.json',

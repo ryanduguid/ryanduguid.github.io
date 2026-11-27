@@ -101,6 +101,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_trust_streaming',
     'calculate_foreign_resident_withholding', 'calculate_partnership_net_income', 'check_trust_loss_tests',
     'calculate_motor_vehicle_duty', 'calculate_insurance_duty', 'calculate_vic_property_taxes',
+    'calculate_non_resident_withholding',
     'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow', 'check_tax_invoice',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
@@ -2366,4 +2367,16 @@ test('trust streaming tool returns the ATO Lang Trust example and the trustee’
     /kind does not match/);
   await assert.rejects(tool.execute({ otherTrustIncome: '100', otherNetIncome: '100', beneficiaries: [{ kind: 'individual', presentEntitlement: '101' }] }),
     /cannot exceed the trust/);
+});
+
+test('the non-resident withholding tool returns its page example and refuses what its page refuses', async () => {
+  const nrw = tools['non-resident-withholding'];
+  const r = await nrw.execute({ incomeYear: '2025-26', paymentType: 'dividend', payment: '10000', frankedAmount: '5000', treatyRate: '0.15' });
+  assert.deepEqual([r.withholding, r.netPayment, r.rates.applied_rate, r.source],
+    ['750.00', '9250.00', '0.15', 'https://duguid.com.au/tools/business-calculators/non-resident-withholding/']);
+  const interest = await nrw.execute({ incomeYear: '2026-27', paymentType: 'interest', payment: '1234.56' });
+  assert.deepEqual([interest.paymentUsed, interest.withholding], ['1234.00', '123.00']);
+  await assert.rejects(nrw.execute({ incomeYear: '2025-26', paymentType: 'royalty', payment: '100', treatyRate: '0.31' }), /treaty_rate must be null/);
+  await assert.rejects(nrw.execute({ incomeYear: '2025-26', paymentType: 'interest', payment: '100', extra: 1 }), /extra is not an input of this tool/);
+  await assert.rejects(nrw.execute({ incomeYear: '2025-26', paymentType: 'interest', payment: '1000', frankedAmount: '500' }), /franked_amount is not an input for this payment_type/);
 });

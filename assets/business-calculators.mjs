@@ -685,3 +685,4 @@ export { gstCreditablePurposeChange, gstAnnualApportionment, gstFinancialAcquisi
 export { gstAdjustment, gstAdjustmentsResult, gstFormInput, gstInputsText, percentFraction, GST_WORKSHEETS } from './gst-adjustments-page.mjs';
 export { deferredTax, deferredTaxResult, deferredTaxFormInput, deferredTaxInputsText, DEFERRED_TAX_YEARS, DEFERRED_TAX_ROWS,
   DEFERRED_TAX_MISMATCH } from './deferred-tax.mjs';
+export { nonResidentWithholding, nrwFigures, nrwResult, nrwFormInput, nrwInputsText, NRW_YEARS } from './non-resident-withholding.mjs';
