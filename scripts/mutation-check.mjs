@@ -1407,7 +1407,7 @@ const SHARED = [
   'rates/general-interest-charge', '_data/individual_tax_cases.json', 'tools/individual-tax',
   'rates/individual-income-tax', 'rates/study-loan-repayment', 'rates/super-guarantee',
   'rates/maximum-contribution-base', 'rates/car-limit', 'tools/payday-super', 'llms.txt',
-  '.well-known/llms.txt', 'scripts/fbt-engine-differential.json',
+  '.well-known/llms.txt', '_layouts/calculator.html', 'scripts/fbt-engine-differential.json',
   'scripts/fbt-property-expense-engine-differential.json',
   'scripts/lump-sum-arrears-engine-differential.json',
   'scripts/income-tests-engine-differential.json',
