@@ -440,6 +440,81 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ---
 
+# Do I need to lodge a tax return? Lodgment test calculator
+
+Source: https://duguid.com.au/tools/individual-tax/lodgment-required/
+
+> Whether you must lodge a tax return for 2020-21 to 2025-26: the $18,200 threshold, the other conditions, the exceptions and the 31 October due date.
+
+# Do I need to lodge a tax return?
+
+Whether you must lodge a tax return for 2020-21 to 2025-26 under that year’s instrument, and by when.
+
+Published 26 November 2026. Last checked 26 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Your income year and income
+
+Income year, 1 July to 30 June 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Your residency in the yearResident all year Resident for part of the year Not resident at any time Taxable income (AUD) Dividends and franking credits (AUD)
+
+Your residency is your answer; the 183-day residency day count checks one test.
+
+Any of these in the year?
+
+Tax withheld from a payment, other than an excluded one A tax loss, or one from an earlier year to deduct A net capital loss, or one from an earlier year to apply Carried on a business A primary production trust beneficiary A partner in a primary production partnership Exempt foreign employment income and $1 or more of other income Paid a PAYG instalment A special professional, such as an author or sportsperson Private health insurance offset not fully claimed Reportable fringe benefits or employer super contributions Super contributions earning a co-contribution Exceeded a super contributions cap A super lump sum with an untaxed element at 60 or over, or any element under 60
+
+Under 18 for the whole yearNo Yes A study or training loan debt on 1 June before the yearNo Yes
+
+Exceptions
+
+A working holiday makerNo Yes A listed payment, such as JobSeekerNo Yes Eligible for the seniors and pensioners tax offsetNo Yes A parent liable for or entitled to child supportNo Yes
+
+Calculate
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; resident all year; taxable income $15,000; 1 condition ticked. Paragraph 6(2)(a): an amount withheld under PAYG withholding, other than from the payments the paragraph excludes Yes, as you answered: met Paragraph 6(2)(o): assessable income from dividends or distributions and franking credits over $18,200 $0: not met Subparagraph 6(3)(a)(i): a resident for the whole year with taxable income over $18,200 Taxable income $15,000: not met Return required Yes You must lodge for 2025-26 under paragraph 6(2)(a) of the Taxation Laws (Requirement to Lodge a Return for the 2026 Year) Instrument 2026, by 31 October 2026 if you lodge yourself.
+
+## How the lodgment test works
+
+Each year the Commissioner makes an instrument under s 161 of the Income Tax Assessment Act 1936 that says who must lodge a tax return. The calculator applies the year’s instrument to one person: it lists each condition you ticked, works out the ones that turn on an amount, and then checks the exceptions you answered. You must lodge if any condition is met and no exception that names it applies. Tax withheld counts unless it was withheld only from a payment the instrument excludes, such as dividends, interest or royalties paid to a non-resident.
+
+The amounts it works out are the $18,200 tax-free threshold for a resident all year; for a part-year resident, the lesser of $18,200 and $13,464 plus $395 for each month resident; $416 for a person under 18 with income other than from work; $18,200 of dividends and franking credits; and, for a foreign resident with a study or training loan debt, the year’s repayment income threshold. A non-resident with income taxable in Australia must lodge, unless the only such income is dividends, interest, royalties, managed investment trust payments or labour mobility program payments taxed by withholding.
+
+The exceptions are a working holiday maker with no other assessable income and taxable income under $45,001; a person who received a payment the instrument lists, with no other assessable income or taxable income under the year’s limit; and a person eligible for the seniors and pensioners tax offset with rebate income under the year’s limit. The due date shown is 31 October after the year, for a person who lodges without a registered tax agent.
+
+## What the lodgment test does not cover
+
+The calculator covers one individual’s own return for 2020-21 to 2025-26. It does not cover a return as a trustee, partner, agent or ship’s master, a company or other full self-assessment taxpayer, or a substituted accounting period. No instrument for 2026-27 had been made when the calculator was built, so that year is refused. It does not decide your residency or test the conditions it takes as your answers, and it does not apply the separate instrument for parents liable for or entitled to child support: a parent the main instrument does not require to lodge is told to check that one. It does not say whether lodging would be worthwhile: you may still lodge, for example to get a refund of tax withheld, and the ATO may ask you to lodge. A registered tax agent’s lodgment program may allow a later date than 31 October.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Do I need to lodge a tax return?
+
+Case | Inputs | Result
+Tax withheld from $15,000 of wages in 2025-26: required by paragraph 6(2)(a) (the form’s example) | 2025-26, resident all year, taxable income $15,000.00, payg_withheld | Required by paragraph 6(2)(a), due 2026-10-31
+A resident all year with taxable income of exactly $18,200: not required | 2025-26, resident all year, taxable income $18,200.00 | Not required
+One cent over the $18,200 threshold: required by subparagraph 6(3)(a)(i), due 31 October 2026 | 2025-26, resident all year, taxable income $18,200.01 | Required by subparagraph 6(3)(a)(i), due 2026-10-31
+Resident 5 months: the lesser of $18,200 and $13,464 + 5 × $395 = $15,439, so $15,439.01 is over | 2025-26, resident 5 months, taxable income $15,439.01 | Required by subparagraph 6(3)(a)(ii), due 2026-10-31
+Under 18 with $416.01 of income not from work: required by paragraph 6(2)(i) | 2025-26, resident all year, taxable income $416.01, under 18 with $416.01 not from work | Required by paragraph 6(2)(i), due 2026-10-31
+2021-22 Notice: $21,884.99 with a listed payment and other income is under the Table K amount, so Table B is relieved | 2021-22, resident all year, taxable income $21,884.99, listed payment and other income | Not required: Table K item (1) applies
+2025-26: the listed payment limit is at most $22,575, so exactly $22,575 is still relieved | 2025-26, resident all year, taxable income $22,575.00, listed payment and other income | Not required: subsection 7(2) applies
+2024-25 single senior with rebate income of $34,918.99, under $34,919: subsection 7(3) relieves subsection 6(3) | 2024-25, resident all year, taxable income $30,000.00, SAPTO single rebate income $34,918.99 | Not required: subsection 7(3) applies
+
+One of the nineteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- 183-day residency day count: https://duguid.com.au/tools/individual-tax/residency-days/
+- nineteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
 # 183-day tax residency test day count calculator
 
 Source: https://duguid.com.au/tools/individual-tax/residency-days/
@@ -815,94 +890,3 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - nineteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
 - PAYG withholding coefficients: https://duguid.com.au/rates/payg-withholding/
 - Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/
-
----
-
-# Salary packaging calculator for FBT-exempt employers
-
-Source: https://duguid.com.au/tools/individual-tax/salary-packaging/
-
-> Salary packaging with a charity, hospital or ambulance service: the $30,000 or $17,000 FBT cap, FBT on the excess, the reportable amount and tax saved.
-
-# Salary packaging calculator
-
-Tax saved by salary packaging with a charity, hospital or ambulance service, with the FBT cap and reportable amount, 2022-23 to 2026-27.
-
-Published 19 November 2026. Last checked 19 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Salary packaging inputs for one year
-
-Income year 2026-27 2025-26 2024-25 2023-24 2022-23
-
-Your employer A public benevolent institution or health promotion charity ($30,000 cap) A public or not-for-profit hospital, or a public ambulance service you work in or support ($17,000 cap)
-
-Residency for tax purposes all year Australian resident Foreign resident
-
-Salary for the year before packaging, without super (whole dollars) Benefits your employer gets no GST credit for, such as mortgage, rent or loan payments and other bills (Type 2, dollars and cents) Benefits your employer claims a GST credit for (Type 1, dollars and cents) Salary packaged meal entertainment and venue hire (dollars and cents) Does your employer claim GST credits on the meal entertainment? Yes: Type 1 No: Type 2
-
-Do you have a study or training loan, such as HELP? No Yes
-
-Private patient hospital cover all year? Yes No
-
-Each income year takes the FBT year ending 31 March in it. Enter each benefit at its taxable value for that FBT year, usually what your employer pays for it. The calculator takes the salary as your only income and the benefits as paid from it evenly through the year.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27, Australian resident employed by a public benevolent institution or health promotion charity, salary $70,000.00, Type 2 benefits $15,899.93, Type 1 benefits $0.00, salary packaged meal entertainment $0.00 (Type 1), no study loan, with private hospital cover. Benefits packaged, at their taxable value $15,899.93 Type 2 benefits grossed up under s 5B(1G), to the dollar $30,000.00 Cap for a charity $30,000.00 Grossed-up amount liable to FBT $0.00 FBT on it at 47% $0.00 Reportable fringe benefits amount $29,999.00 Tax, levies and study loan without packaging $12,600.00 Tax, levies and study loan with packaging $7,308.50 Tax saved $5,291.50 Gain after the FBT, if your employer passes it on $5,291.50 Your income statement shows $29,999.00 of reportable fringe benefits: it is not taxed, but it counts for the Medicare levy surcharge, study loan repayments and other income tests.
-
-## How the salary packaging calculator works
-
-The salary packaging calculator shows what packaging is worth to an employee of a public benevolent institution, health promotion charity, public or not-for-profit hospital or public ambulance service for one year. Your employer pays chosen expenses from your salary before tax. Those benefits are exempt from FBT up to the employer’s cap, measured on their grossed-up value: the taxable value times 1 / (1 − 47%), about 1.8868, when the employer gets no GST credit, or (47% + 10%) / ((1 − 47%) × (1 + 10%) × 47%), about 2.0802, when it does (subsections 5B(1G) and (1F)). So about $15,900 of Type 2 benefits fills a $30,000 cap and about $9,010 a $17,000 cap. Salary packaged meal entertainment and venue hire can take up to $5,000 more of grossed-up value before FBT applies.
-
-The calculator works your tax with and without the packaging and shows the difference. It also gives the reportable fringe benefits amount your income statement will show. That amount is not taxed, but it is added back for the Medicare levy surcharge, study loan repayments and other income tests, so packaging can raise a surcharge or a repayment while it lowers your income tax. If the benefits pass the cap, the employer owes FBT on the excess and usually recovers it from your package; the calculator takes that off the saving.
-
-## What the salary packaging calculator does not compute
-
-The calculator covers the FBT years ending 31 March 2023 to 2027, for one employer and the salary as your only income. It does not compute:
-
-- rebatable employers, such as other registered charities, whose FBT is reduced by a rebate of 47% up to a $30,000 cap, or ordinary employers, who pay full FBT on packaged benefits;
-- benefits outside the cap, such as car parking and meal entertainment that is not salary packaged, exempt benefits such as portable electronic devices, or a novated car lease, which the novated lease calculator works;
-- an ambulance service employee not predominantly involved in providing or supporting its ambulance services, whose benefits are not exempt (section 57A(3)(b));
-- package fees, the cost of the benefits themselves, or whether a benefit is Type 1 or Type 2, which your employer decides;
-- excluded fringe benefits, such as remote area housing, which count towards the cap but are not reportable: entered here, they would raise the reportable amount;
-- salary sacrificed to super, other income, deductions, or a spouse and dependants for the Medicare levy surcharge;
-- how the FBT year from 1 April to 31 March lines up with the income year from 1 July: the benefits are taken as packaged evenly in the income year.
-
-Confirm the figures with your employer’s salary packaging provider or a registered tax agent.
-
-## Boundary cases
-
-Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Salary packaging calculator
-
-Case | Inputs | Result
-A charity’s cap filled with Type 2 benefits: $15,899.93 grosses up to $30,000 | 2026-27, charity, resident, salary $70,000, Type 2 $15,899.93 | Gain $5,291.50: tax saved $5,291.50, FBT $0.00, reportable $29,999
-The ATO’s example: a health promotion charity employee’s FBT of $1,986.22 | 2026-27, charity, resident, salary $80,000, Type 2 $9,000.00, Type 1 $7,700.00, meal entertainment $3,300.00 (Type 2) | Gain $4,528.78: tax saved $6,515.00, FBT $1,986.22, reportable $37,735
-A hospital’s cap filled: $9,009.96 grosses up to $17,000 | 2026-27, hospital, resident, salary $70,000, Type 2 $9,009.96 | Gain $2,983.35: tax saved $2,983.35, FBT $0.00, reportable $16,999
-To the dollar, $15,900.26 still grosses up to $30,000 under s 5B(1G) | 2026-27, charity, resident, salary $70,000, Type 2 $15,900.26 | Gain $5,291.84: tax saved $5,291.84, FBT $0.00, reportable $30,000
-A cent more is $1 over the cap and $0.47 of FBT | 2026-27, charity, resident, salary $70,000, Type 2 $15,900.27 | Gain $5,291.37: tax saved $5,291.84, FBT $0.47, reportable $30,000
-Meal entertainment up to $5,000 grossed up sits above the cap | 2026-27, charity, resident, salary $70,000, Type 2 $15,899.93, meal entertainment $2,403.61 (Type 1) | Gain $6,096.84: tax saved $6,096.84, FBT $0.00, reportable $34,534
-Meal entertainment beyond the $5,000 allowance is taxed with the rest | 2026-27, charity, resident, salary $70,000, Type 2 $20,000.00, meal entertainment $3,000.00 (Type 1) | Gain $3,450.81: tax saved $7,670.00, FBT $4,219.19, reportable $43,396
-Benefits of $2,000 are not reportable | 2026-27, charity, resident, salary $70,000, Type 2 $2,000.00 | Gain $640.00: tax saved $640.00, FBT $0.00, reportable $0
-A cent more is reportable as $3,773, as the ATO’s threshold table says | 2026-27, charity, resident, salary $70,000, Type 2 $2,000.01 | Gain $640.32: tax saved $640.32, FBT $0.00, reportable $3,773
-The reportable amount brings on the surcharge and raises the study loan repayment | 2026-27, charity, resident, salary $100,000, Type 2 $15,899.93, study loan, no hospital cover | Gain $1,842.16: tax saved $1,842.16, FBT $0.00, reportable $29,999
-A foreign resident | 2026-27, charity, foreign, salary $70,000, Type 2 $15,899.93 | Gain $4,770.00: tax saved $4,770.00, FBT $0.00, reportable $29,999
-2022-23, before the standard deduction | 2022-23, charity, resident, salary $70,000, Type 2 $15,899.93 | Gain $5,674.00: tax saved $5,674.00, FBT $0.00, reportable $29,999
-
-One of the nineteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-## Related
-
-- FBT rate and gross-up rates
-- Novated lease calculator
-- Meal entertainment calculator
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-## Links
-
-- novated lease calculator: https://duguid.com.au/tools/individual-tax/novated-lease/
-- nineteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
-- FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
-- Meal entertainment calculator: https://duguid.com.au/tools/business-calculators/fbt-meal-entertainment/

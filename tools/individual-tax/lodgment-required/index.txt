@@ -62,10 +62,11 @@ Under 18 with $416.01 of income not from work: required by paragraph 6(2)(i) | 2
 2025-26: the listed payment limit is at most $22,575, so exactly $22,575 is still relieved | 2025-26, resident all year, taxable income $22,575.00, listed payment and other income | Not required: subsection 7(2) applies
 2024-25 single senior with rebate income of $34,918.99, under $34,919: subsection 7(3) relieves subsection 6(3) | 2024-25, resident all year, taxable income $30,000.00, SAPTO single rebate income $34,918.99 | Not required: subsection 7(3) applies
 
-One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the nineteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+- 183-day residency day count: https://duguid.com.au/tools/individual-tax/residency-days/
+- nineteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
