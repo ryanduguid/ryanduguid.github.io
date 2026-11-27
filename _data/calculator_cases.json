@@ -1202,7 +1202,7 @@
     ]
   },
   "portable-lsl-levy": {
-    "checked": "2026-11-27",
+    "checked": "2026-11-24",
     "function": "plslFigures",
     "rows": [
       {"case":"The page’s example: Victorian community services on $500,000 of ordinary wages","input":"2026-27; Victoria community services; ordinary wages $500,000.00","call":[{"jurisdiction":"vic","scheme":"community_services","year":"2026-27","scope_confirmed":true,"ordinary_wages":"500000"}],"result":{"levy":8250},"output":"Levy payable $8,250.00"},
