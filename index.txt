@@ -26,7 +26,7 @@ Lumbridge Services is a fictional Newcastle maintenance business. Delay one cust
 
 Each tool runs on a fictional example first and keeps its working visible.
 
-- 60 business calculators (GST, FBT, CGT, duty, payroll tax)
+- 61 business calculators (GST, FBT, CGT, duty, payroll tax)
 - 18 individual tax, pay and super calculators
 - Depreciation rates (7,430 ATO effective lives)
 - Use accounting functions in Excel
@@ -71,7 +71,7 @@ Browse reproducible evaluations Set up AI tools
 
 - Explore the cash flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
-- 60 business calculators (GST, FBT, CGT, duty, payroll tax): https://duguid.com.au/tools/business-calculators/
+- 61 business calculators (GST, FBT, CGT, duty, payroll tax): https://duguid.com.au/tools/business-calculators/
 - 18 individual tax, pay and super calculators: https://duguid.com.au/tools/individual-tax/
 - Depreciation rates (7,430 ATO effective lives): https://duguid.com.au/tools/depreciation-rates/
 - Use accounting functions in Excel: https://duguid.com.au/tools/ozzit/

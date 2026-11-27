@@ -610,7 +610,7 @@
     ]
   },
   "company-tax": {
-    "checked": "2026-11-18",
+    "checked": "2026-11-26",
     "function": "companyTax",
     "rows": [
       {"case":"Happy Feet’s income from the ATO’s example: 3.85% passive, so 25%","input":"Turnover $104,000.00, passive income $4,000.00 of $104,000.00, taxable income $104,000.00; last year turnover $104,000.00, passive income $4,000.00 of $104,000.00; dividend $30,000.00 franked 100%, marginal rate 30%","call":[{"turnover":"104000","assessable":"104000","passive":"4000","taxable":"104000","existed":true,"prior":{"turnover":"104000","assessable":"104000","passive":"4000"},"dividend":"30000","franking":"100","marginal":"30"}],"result":{"rate":25,"tax":26000,"imputationRate":25,"maximum":10000,"credit":10000,"net":2000},"output":"Tax rate 25%, tax $26,000.00, franking rate 25%, maximum franking credit $10,000.00, franking credit $10,000.00, tax left to pay $2,000.00"},
@@ -1051,6 +1051,187 @@
       {"case":"A private company whose offset would be reduced needs its income tax","input":"2025-26, private company, 30%, opening $55,000.00, 28 October 2025 PAYG instalment paid $42,000.00, 28 February 2026 PAYG instalment paid $42,000.00, 28 April 2026 PAYG instalment paid $42,000.00, 28 June 2026 PAYG instalment paid $42,000.00, 1 December 2025 Franking credit on a franked distribution received $13,714.00, 15 March 2026 Income tax refund received $330,000.00, 30 September 2025 distribution $70,000.00 franked $30,000.00","call":[{"year":"2025-26","entity":"private","rate":"30","opening":"55000","rdForward":"0","lastBenchmark":"","periodsSince":"","determination":false,"taxBefore":"","offsetForward":"","earlierLiability":"","events":[{"date":"2025-10-28","type":"payg_instalment","amount":"42000","rdPart":""},{"date":"2026-02-28","type":"payg_instalment","amount":"42000","rdPart":""},{"date":"2026-04-28","type":"payg_instalment","amount":"42000","rdPart":""},{"date":"2026-06-28","type":"payg_instalment","amount":"42000","rdPart":""},{"date":"2025-12-01","type":"franked_distribution_received","amount":"13714","rdPart":""},{"date":"2026-03-15","type":"income_tax_refund","amount":"330000","rdPart":""}],"distributions":[{"date":"2025-09-30","amount":"70000","credit":"30000","permitted":""}]}],"refused":"The offset reduction applies unless section 205-70(5) does, which turns on the private company’s income tax: enter its income tax before this offset, the offset brought forward and whether it had an earlier liability.","output":"Refused: the offset reduction applies unless section 205-70(5) does, which turns on the private company’s income tax: enter its income tax before this offset, the offset brought forward and whether it had an earlier liability"},
       {"case":"Distributions out of date order are refused","input":"2025-26, not a private company, 30%, opening $0.00, 1 September 2025 distribution $1.00 franked $0.00, 1 August 2025 distribution $1.00 franked $0.00","call":[{"year":"2025-26","entity":"public","rate":"30","opening":"0","rdForward":"0","lastBenchmark":"","periodsSince":"","determination":false,"taxBefore":"","offsetForward":"","earlierLiability":"","events":[],"distributions":[{"date":"2025-09-01","amount":"1","credit":"0","permitted":""},{"date":"2025-08-01","amount":"1","credit":"0","permitted":""}]}],"refused":"Distribution 2: enter the distributions in date order; the first in a franking period sets its benchmark (s 203-30).","output":"Refused: distribution 2: enter the distributions in date order; the first in a franking period sets its benchmark (s 203-30)"}
 
+    ]
+  },
+  "blackhole-expenditure": {
+    "checked": "2026-11-26",
+    "function": "businessCapitalExpenditure",
+    "rows": [
+      {
+        "case": "The page’s example: $10,000 at 80% spread from 2023-24 and a $2,500 start-up cost deducted at once",
+        "input": "2025-26; item 1: $10,000.00 incurred in 2023-24 for your business, 80% taxable purpose; item 2: $2,500.00 incurred in 2025-26 for a proposed business, 100% taxable purpose, a start-up cost",
+        "call": [
+          {
+            "items": [
+              {
+                "amount": "10000",
+                "incurred_in": "2023-24",
+                "capital": true,
+                "business": "current",
+                "taxable_purpose": "0.8",
+                "exclusions": []
+              },
+              {
+                "amount": "2500",
+                "incurred_in": "2025-26",
+                "capital": true,
+                "business": "proposed",
+                "carried_on_by": "you",
+                "within_reasonable_time": true,
+                "start_up_expense": "advice_or_services",
+                "entity_test": "small_business_entity",
+                "taxable_purpose": "1",
+                "exclusions": []
+              }
+            ],
+            "year": "2025-26",
+            "scope_confirmed": true
+          }
+        ],
+        "result": {
+          "totalDeduction": 4100,
+          "deductibleExpenditure": 10500,
+          "remaining": 3200
+        },
+        "output": "Deduction $4,100.00, deductible expenditure $10,500.00, left for later years $3,200.00"
+      },
+      {
+        "case": "Another entity’s former business, not in connection with your assessable income: nothing to deduct (s 40-880(4)(b))",
+        "input": "2025-26; item 1: $8,000.00 incurred in 2025-26 for a former business of another entity, 100% taxable purpose",
+        "call": [
+          {
+            "items": [
+              {
+                "amount": "8000",
+                "incurred_in": "2025-26",
+                "capital": true,
+                "business": "former",
+                "carried_on_by": "another_entity",
+                "assessable_income_connection": false,
+                "taxable_purpose": "1",
+                "exclusions": []
+              }
+            ],
+            "year": "2025-26",
+            "scope_confirmed": true
+          }
+        ],
+        "result": {
+          "totalDeduction": 0,
+          "deductibleExpenditure": 0,
+          "remaining": 0
+        },
+        "output": "Deduction $0.00, deductible expenditure $0.00, left for later years $0.00"
+      },
+      {
+        "case": "A start-up cost by an entity that meets none of the s 40-880(2A)(c) tests is spread over 5 years",
+        "input": "2025-26; item 1: $5,000.00 incurred in 2024-25 for a proposed business, 100% taxable purpose, a start-up cost",
+        "call": [
+          {
+            "items": [
+              {
+                "amount": "5000",
+                "incurred_in": "2024-25",
+                "capital": true,
+                "business": "proposed",
+                "carried_on_by": "you",
+                "within_reasonable_time": true,
+                "start_up_expense": "government_fees",
+                "entity_test": "none",
+                "taxable_purpose": "1",
+                "exclusions": []
+              }
+            ],
+            "year": "2025-26",
+            "scope_confirmed": true
+          }
+        ],
+        "result": {
+          "totalDeduction": 1000,
+          "deductibleExpenditure": 5000,
+          "remaining": 3000
+        },
+        "output": "Deduction $1,000.00, deductible expenditure $5,000.00, left for later years $3,000.00"
+      },
+      {
+        "case": "Expenditure preserving goodwill: s 40-880(6) lifts the s 40-880(5)(d) exclusion",
+        "input": "2026-27; item 1: $3,000.00 incurred in 2026-27 for your business, 100% taxable purpose, excluded by section 40-880(5)(d)",
+        "call": [
+          {
+            "items": [
+              {
+                "amount": "3000",
+                "incurred_in": "2026-27",
+                "capital": true,
+                "business": "current",
+                "taxable_purpose": "1",
+                "exclusions": [
+                  "5(d)"
+                ],
+                "goodwill_right": true
+              }
+            ],
+            "year": "2026-27",
+            "scope_confirmed": true
+          }
+        ],
+        "result": {
+          "totalDeduction": 600,
+          "deductibleExpenditure": 3000,
+          "remaining": 2400
+        },
+        "output": "Deduction $600.00, deductible expenditure $3,000.00, left for later years $2,400.00"
+      },
+      {
+        "case": "The fifth year: $20,000 incurred in 2021-22 leaves nothing after 2025-26",
+        "input": "2025-26; item 1: $20,000.00 incurred in 2021-22 for your business, 50% taxable purpose",
+        "call": [
+          {
+            "items": [
+              {
+                "amount": "20000",
+                "incurred_in": "2021-22",
+                "capital": true,
+                "business": "current",
+                "taxable_purpose": "0.5",
+                "exclusions": []
+              }
+            ],
+            "year": "2025-26",
+            "scope_confirmed": true
+          }
+        ],
+        "result": {
+          "totalDeduction": 2000,
+          "deductibleExpenditure": 10000,
+          "remaining": 0
+        },
+        "output": "Deduction $2,000.00, deductible expenditure $10,000.00, left for later years $0.00"
+      },
+      {
+        "case": "Part of a depreciating asset’s cost is refused: Division 40 deducts it (s 40-880(5)(a))",
+        "input": "2025-26; item 1: $1,000.00 incurred in 2025-26 for your business, 100% taxable purpose, excluded by section 40-880(5)(a)",
+        "call": [
+          {
+            "items": [
+              {
+                "amount": "1000",
+                "incurred_in": "2025-26",
+                "capital": true,
+                "business": "current",
+                "taxable_purpose": "1",
+                "exclusions": [
+                  "5(a)"
+                ]
+              }
+            ],
+            "year": "2025-26",
+            "scope_confirmed": true
+          }
+        ],
+        "refused": "item 1: s 40-880(5)(a) excludes expenditure that forms part of the cost of a depreciating asset; it is deducted as the asset's decline in value under Division 40 (s 40-25, with its cost under Subdivision 40-C), which this worksheet does not work out.",
+        "output": "Refused: item 1: s 40-880(5)(a) excludes expenditure that forms part of the cost of a depreciating asset; it is deducted as the asset's decline in value under Division 40 (s 40-25, with its cost under Subdivision 40-C), which this worksheet does not work out"
+      }
     ]
   },
   "contractor-employee": {

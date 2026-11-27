@@ -770,6 +770,12 @@ Object.assign(ENGINE_LABELS, { rentalProperty: { grossRent: (v) => `gross rent $
 // The R&D tax offset page's rows (its tests are with the page's other tests below).
 Object.assign(INPUTS, { rdTaxOffset: (x) => calculations.rdInputsText(x,
   (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+// The blackhole expenditure page's rows (its tests are with the page's other tests below).
+Object.assign(INPUTS, { businessCapitalExpenditure: (x) => calculations.blackholeInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { businessCapitalExpenditure: { totalDeduction: 'deduction', deductibleExpenditure: 'deductible expenditure',
+  remaining: 'left for later years' } });
+
 Object.assign(ENGINE_LABELS, { rdTaxOffset: { taxOffset: 'R&D tax offset', refundableOffset: 'refundable',
   nonRefundableOffset: 'non-refundable', clawbackIncome: 'included in assessable income' } });
 
@@ -1255,6 +1261,7 @@ Object.assign(FORM_CALLS, { casualOvertime: (f) => [calculations.casualOvertimeF
 
 Object.assign(FORM_CALLS, { rdTaxOffset: (f) => [calculations.rdFormInput((name) => f[name] ?? '')] });
 
+Object.assign(FORM_CALLS, { businessCapitalExpenditure: (f) => [calculations.blackholeFormInput((name) => f[name] ?? '')] });
 Object.assign(FORM_CALLS, { contractorEmployee: (f) => [calculations.contractorFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { gstAdjustment: (f) => {
@@ -7314,7 +7321,151 @@ test('the deferred tax form sends the rows with a name or an amount, in order', 
   assert.deepEqual(loss.rows.at(-1), ['Average effective tax rate', '0%']);
 });
 
+// The blackhole expenditure page (ITAA 1997 s 40-880, read 26 November 2026) ports the business-capital-expenditure command of
+// australian-accounting; the company tax page's optional statement ports the-exchequer-tally's company-tax-statement command.
+const AA_MAIN = /^ryanduguid\/australian-accounting at e1f5bee /;
+const s6Fixture = (file) => JSON.parse(readFileSync(new URL(`./${file}`, import.meta.url), 'utf8'));
+
+test('blackhole expenditure agrees with the business-capital-expenditure command on every recorded case', () => {
+  const { engine, cases } = s6Fixture('blackhole-expenditure-engine-differential.json');
+  assert.match(engine, AA_MAIN);
+  assert.ok(cases.length >= 360);
+  assert.ok(cases.filter((c) => c.source.startsWith('AA test')).length >= 60);
+  for (const { source, call, refused, period, amounts, rates, items } of cases) {
+    if (refused) {
+      assert.throws(() => calculations.businessCapitalExpenditure(call), { code: refused }, source);
+      continue;
+    }
+    const r = calculations.businessCapitalExpenditure(call);
+    assert.deepEqual({ period: r.period, amounts: r.amounts, rates: r.rates, items: r.items }, { period, amounts, rates, items }, source);
+  }
+});
+
+test('the company tax statement agrees with the company-tax-statement command on every recorded case', () => {
+  const { engine, cases } = s6Fixture('company-tax-statement-engine-differential.json');
+  assert.match(engine, AA_MAIN);
+  assert.ok(cases.length >= 390);
+  assert.ok(cases.filter((c) => c.source.startsWith('AA test')).length >= 90);
+  for (const { source, call, refused, result } of cases) {
+    if (refused) {
+      assert.throws(() => calculations.companyTaxStatement(call), Error, source);
+      continue;
+    }
+    assert.deepEqual(JSON.parse(JSON.stringify(calculations.companyTaxStatement(call))), result, source);
+  }
+});
+
+const blackholeHtml = readFileSync(new URL('../_includes/calculators/blackhole-expenditure.html', import.meta.url), 'utf8');
+const blackholeAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+
+test('the blackhole expenditure page opens on its example and cites section 40-880 read on 26 November 2026', () => {
+  const example = blackholeHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)" note="([^"]*)" %\}/);
+  const fields = formDefaults(blackholeHtml);
+  const r = calculations.blackholeResult((name) => fields[name] ?? '', blackholeAud);
+  assert.deepEqual([r.inputs, r.rows.map((row) => row.join('|')).join(';'), String(r.principal), r.note], example.slice(1));
+  assert.match(blackholeHtml, /docid=PAC\/19970038\/40-880">section 40-880<\/a>[^<]*<em>Income Tax Assessment Act 1997<\/em> on the ATO’s legal database, read 26 November 2026/);
+  assert.match(blackholeHtml, /<h2>What the blackhole expenditure calculator does not cover<\/h2>/);
+});
+
+test('the blackhole page sends only the facts each item’s answers call for, and its percentages exactly', () => {
+  const fields = formDefaults(blackholeHtml);
+  const form = (more) => calculations.blackholeFormInput((name) => ({ ...fields, ...more })[name] ?? '');
+  assert.deepEqual(form({}).items.map((it) => Object.keys(it).sort()), [
+    ['amount', 'business', 'capital', 'exclusions', 'incurred_in', 'taxable_purpose'],
+    ['amount', 'business', 'capital', 'carried_on_by', 'entity_test', 'exclusions', 'incurred_in', 'start_up_expense', 'taxable_purpose', 'within_reasonable_time']]);
+  assert.equal(form({ 'item-2-amount': '' }).items.length, 1);
+  const wind = form({ 'item-1-business': 'wind_up', 'item-1-connection': 'no', 'item-1-exclusion': '5(f)', 'item-1-goodwill': 'yes' }).items[0];
+  assert.deepEqual([wind.assessable_income_connection, wind.exclusions, wind.goodwill_right, 'carried_on_by' in wind], [false, ['5(f)'], true, false]);
+  for (const [typed, fraction] of [['75', '0.75'], ['100', '1'], ['0', '0'], ['7', '0.07'], ['12.345', '0.12345'], ['100.0', '1']]) {
+    assert.equal(calculations.blackholeFormInput((name) => ({ ...fields, 'item-1-purpose': typed })[name] ?? '').items[0].taxable_purpose, fraction);
+  }
+  assert.throws(() => calculations.blackholeResult((name) => ({ ...fields, 'item-1-amount': '', 'item-2-amount': '' })[name] ?? '', blackholeAud),
+    /at least one item/);
+});
+
+test('blackhole expenditure spreads, deducts at once, excludes and refuses as section 40-880 does', () => {
+  const item = (more) => ({ amount: '1000', incurred_in: '2025-26', capital: true, business: 'current', taxable_purpose: '1', exclusions: [], ...more });
+  const run = (year, ...items) => calculations.businessCapitalExpenditure({ items, year, scope_confirmed: true });
+  const code = (year, ...items) => {
+    try {
+      run(year, ...items);
+    } catch (error) {
+      return error.code;
+    }
+    return 'computed';
+  };
+  assert.deepEqual(run('2025-26', item({ amount: '1000', taxable_purpose: '0.3' })).amounts,
+    { expenditure: '1000.00', deductible_expenditure: '300.00', deduction: '60.00', remaining_expenditure_after_year: '240.00' });
+  assert.equal(run('2027-28', item({ incurred_in: '2022-23' })).amounts.deduction, '0.00');
+  assert.equal(run('2026-27', item({ incurred_in: '2022-23' })).amounts.deduction, '200.00');
+  const startUp = { business: 'proposed', carried_on_by: 'you', within_reasonable_time: true, start_up_expense: 'advice_or_services' };
+  assert.equal(run('2025-26', item({ ...startUp, entity_test: 'covered_by_2b' })).amounts.deduction, '1000.00');
+  assert.equal(run('2026-27', item({ ...startUp, entity_test: 'covered_by_2b' })).amounts.deduction, '0.00');
+  assert.equal(run('2025-26', item({ ...startUp, within_reasonable_time: false, entity_test: 'covered_by_2b' })).amounts.deduction, '0.00');
+  assert.equal(run('2025-26', item({ exclusions: ['5(d)'], goodwill_right: false })).amounts.deduction, '0.00');
+  assert.equal(run('2025-26', item({ amount: '1', taxable_purpose: '0.333333333333333333333333333333333333333333' })).items[0].deductible_expenditure,
+    '0.3333333333333333333333333333333333333333');
+  assert.equal(code('2025-26', item({ exclusions: ['5(f)'], goodwill_right: false })), 'business_capital.cgt_amount');
+  assert.equal(code('2025-26', item({ exclusions: ['5(a)'] })), 'business_capital.depreciating_asset_cost');
+  assert.equal(code('2025-26', item({ incurred_in: '2019-20' })), 'business_capital.incurred_before_july_2020');
+  assert.equal(code('2024-25', item({ incurred_in: '2025-26' })), 'business_capital.incurred_after_year');
+  assert.equal(code('2025-26', item({ capital: false })), 'business_capital.not_capital');
+  assert.equal(code('2025-26', item({ extra: 1 })), 'input.field_unknown');
+  assert.equal(code('2019-20', item({})), 'period.unsupported');
+});
+
+const companyHtml = readFileSync(new URL('../_includes/calculators/company-tax.html', import.meta.url), 'utf8');
+const companyAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+
+test('the company tax page’s statement option adds the return’s labels and checks taxable income against label A', () => {
+  const fields = formDefaults(companyHtml);
+  assert.equal(fields.statement, 'no');
+  const input = { turnover: fields.turnover, assessable: fields.assessable, passive: fields.passive, taxable: fields.taxable, existed: true,
+    prior: { turnover: fields['prior-turnover'], assessable: fields['prior-assessable'], passive: fields['prior-passive'] },
+    dividend: fields.dividend, franking: fields.franking, marginal: fields.marginal };
+  const page = (more, taxable = input.taxable) => calculations.companyTaxPageResult({ ...input, taxable },
+    (name) => ({ ...fields, ...more })[name] ?? '', companyAud, calculations.companyTaxResult);
+  assert.deepEqual(page({}), calculations.companyTaxResult(input, companyAud));
+  const on = page({ statement: 'yes', 'statement-k': '20000' });
+  assert.deepEqual(on.rows.slice(-3), [['Tax payable (T5)', '$26,000.00'], ['PAYG instalments (K)', '$20,000.00'], ['Amount due (S)', '$6,000.00']]);
+  assert.match(on.inputs, /; calculation statement for 2026-27$/);
+  const losses = { statement: 'yes', 'statement-loss-1-year': '2024', 'statement-loss-1-amount': '30000', 'statement-loss-1-test': 'same_business',
+    'statement-loss-2-year': '2023', 'statement-loss-2-amount': '9000', 'statement-loss-2-test': 'failed' };
+  assert.throws(() => page(losses), /taxable income of \$74,000\.00 \(label A\)/);
+  assert.deepEqual(page(losses, '74000').rows.slice(-4, -2), [['Taxable income for 2026-27 (label A)', '$74,000.00'], ['Gross tax at 25% (labels T1 and B)', '$18,500.00']]);
+  // The ATO's Division 160 example for 2026-27: a $900,000 loss carried back to 2 years before it, capped by each year's liability.
+  const back = { statement: 'yes', 'statement-deductions': '1004000', 'statement-carry-back': 'yes', 'statement-conditions': 'yes', 'statement-balance': '500000',
+    'statement-back-1-amount': '405000', 'statement-back-1-liability': '120000', 'statement-back-1-exempt': '5000',
+    'statement-back-2-amount': '495000', 'statement-back-2-liability': '210000' };
+  const r = page(back, '0');
+  assert.deepEqual(r.rows.slice(-5), [['Amount refundable (S)', '$223,750.00'], ['Tax loss for the year (s 36-10)', '$900,000.00'],
+    ['Carried back (Division 160)', '$900,000.00'], ['Loss carry back tax offset, in label E', '$223,750.00'], ['Carried forward', '$0.00']]);
+  assert.throws(() => page({ ...back, 'statement-year': '2025' }, '0'), /no loss carry back tax offset for the claim year ending in 2025/);
+  assert.throws(() => page({ ...back, 'statement-conditions': 'no' }, '0'), /condition corporate_tax_entity_throughout is not stated as true/);
+});
+
+test('the company tax statement refuses what its command refuses and works only the carry back years the law covers', () => {
+  const company = { financial_year: 2027, aggregated_turnover: '60000000', assessable_income: '100000', passive_income: '0', deductions: '0' };
+  const refused = (more) => assert.throws(() => calculations.companyTaxStatement({ ...company, ...more }), Error, JSON.stringify(more));
+  for (const fy of [2024, 2025, 2026]) refused({ financial_year: fy, deductions: '200000', loss_carry_back: { franking_account_balance: '1' } });
+  refused({ financial_year: 2020 });
+  // 2025-26 has no offset under either version, whatever conditions are stated.
+  const every = Object.fromEntries([...calculations.CARRY_BACK_CONDITIONS.temporary, ...calculations.CARRY_BACK_CONDITIONS.permanent]
+    .map((key) => [key, true]));
+  assert.throws(() => calculations.companyTaxStatement({ ...company, financial_year: 2026, deductions: '200000',
+    loss_carry_back: { franking_account_balance: '100000', conditions: every, carry_backs: [{ loss_year: 2026, earlier_year: 2025, amount: '1000' }],
+      earlier_years: [{ year: 2025, income_tax_liability: '50000', liability_previously_used: '0' }] } }),
+  /no loss carry back tax offset for the claim year ending in 2026/);
+  refused({ consolidated_group: true });
+  refused({ prior_year_losses: [{ loss_year: 2015, amount: '1', test: 'similar_business' }] });
+  refused({ prior_year_losses: [{ loss_year: 2025, amount: '1', test: 'part_year' }] });
+  refused({ non_refundable_non_carry_forward_offsets: '1', franking_tax_offsets: '2' });
+  assert.deepEqual(calculations.CARRY_BACK_CONDITIONS.permanent.length, 7);
+  const r = calculations.companyTaxStatement({ ...company, prior_year_losses: [{ loss_year: 2026, amount: '50000', test: 'continuity_of_ownership' }] });
+  assert.deepEqual([r.calculation_statement.A, r.taxable_income.prior_year_losses[0].remaining], ['50000.00', '0.00']);
 // The casual and overtime pay page: its example and sources, then the rules it applies. Hand-worked figures; the rules
+});
+
 // are SGAA s 6(1) and s 17A(2) (Compilation No. 78), SGR 2009/2 paras 22, 27, 35, 41 and 42 and draft LCR 2026/D1
 // paras 63 and 64, read 26 November 2026.
 const coHtml = readFileSync(new URL('../_includes/calculators/casual-overtime.html', import.meta.url), 'utf8');

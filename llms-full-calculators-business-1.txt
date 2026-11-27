@@ -18,7 +18,7 @@ Sixty free calculators that run in your browser with the formula, assumptions an
 
 Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
-Search 60 calculators
+Search 61 calculators
 
 ## Pricing, planning and loans
 
@@ -60,6 +60,7 @@ Search 60 calculators
 
 - Franking account calculator A company’s franking account for 2025-26 or 2026-27: franking deficit tax and its offset, the benchmark rule and the franking return’s labels and due date.
 - Company tax and franking calculator A company’s 25% or 30% rate from the base rate entity test, its rate for franking dividends, the maximum franking credit and a shareholder’s tax or refund.
+- Blackhole expenditure calculator Business capital expenditure under section 40-880 for 2020-21 to 2027-28: a fifth a year over 5 income years, start-up costs deducted at once, and the exclusions.
 - R&D tax offset calculator A company’s R&D tax incentive offset for 2021-22 to 2026-27, refundable or with the premium tiers, and the amount a grant or feedstock clawback includes in assessable income.
 - Deferred tax calculator A company’s AASB 112 tax effect worksheet: deferred tax liability and asset, the movement, current tax and the reconciliation.
 - Salary against dividends calculator A company owner’s salary and super guarantee against fully franked dividends for 2021-22 to 2026-27: the cash and super kept after tax, and the split that keeps the most.
@@ -139,6 +140,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - PSI rules checker: https://duguid.com.au/tools/business-calculators/psi-determination/
 - Franking account calculator: https://duguid.com.au/tools/business-calculators/franking-account/
 - Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
+- Blackhole expenditure calculator: https://duguid.com.au/tools/business-calculators/blackhole-expenditure/
 - R&D tax offset calculator: https://duguid.com.au/tools/business-calculators/rd-tax-offset/
 - Deferred tax calculator: https://duguid.com.au/tools/business-calculators/deferred-tax/
 - Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/

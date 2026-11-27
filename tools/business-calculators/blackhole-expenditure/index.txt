@@ -1,0 +1,103 @@
+# Blackhole expenditure calculator: section 40-880 deductions
+
+Source: https://duguid.com.au/tools/business-calculators/blackhole-expenditure/
+
+> Section 40-880 business capital expenditure: a fifth a year over 5 income years, start-up costs at once, another entity’s business and the exclusions.
+
+# Blackhole expenditure
+
+Section 40-880 deductions: a fifth a year or at once, 2020-21 to 2027-28.
+
+Published 26 November 2026. Last checked 26 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Deductions for an income year Item 1
+
+Capital expenditure (AUD)
+
+Income year incurred 2020-21 2021-22 2022-23 2023-24 2024-25 2025-26 2026-27 2027-28
+
+Business it relates to (section 40-880(2)) Your current business A business that used to be carried on A business proposed to be carried on Winding up a company, partnership or trust you were in that carried on a business
+
+Former or proposed business carried on by You Another entity
+
+Another entity’s business: in connection with your deriving assessable income from it (section 40-880(4)(b)) Yes No
+
+Taxable purpose of the business (%)
+
+Excluded by (section 40-880(5), (8) or (9)) None Section 40-880(5)(a) Section 40-880(5)(b) Section 40-880(5)(c) Section 40-880(5)(d) Section 40-880(5)(e) Section 40-880(5)(f) Section 40-880(5)(g) Section 40-880(5)(h) Section 40-880(5)(i) Section 40-880(5)(j) Section 40-880(8) Section 40-880(9)(a) Section 40-880(9)(b)
+
+Section 40-880(5)(d) or (f): it preserves goodwill through a right valued only for its effect on goodwill (section 40-880(6)) No Yes
+
+Proposed business: reasonable to conclude it will start within a reasonable time (section 40-880(7)) Yes No
+
+Proposed business: a start-up cost (section 40-880(2A)(b)) Neither Advice or services on its proposed structure or operation Fees, taxes or charges to an Australian government agency to establish it
+
+Start-up cost: who you are in the year incurred (section 40-880(2A)(c)) A small business entity Covered by section 40-880(2B): turnover under $50 million Not in business, and not connected with or an affiliate of a business None of these
+
+Income year to work out 2020-21 2021-22 2022-23 2023-24 2024-25 2025-26 2026-27 2027-28
+
+## Second item of capital expenditure
+
+Item 2 (leave the amount blank for none)
+
+Capital expenditure (AUD)
+
+Income year incurred 2020-21 2021-22 2022-23 2023-24 2024-25 2025-26 2026-27 2027-28
+
+Business it relates to (section 40-880(2)) Your current business A business that used to be carried on A business proposed to be carried on Winding up a company, partnership or trust you were in that carried on a business
+
+Former or proposed business carried on by You Another entity
+
+Another entity’s business: in connection with your deriving assessable income from it (section 40-880(4)(b)) Yes No
+
+Taxable purpose of the business (%)
+
+Excluded by (section 40-880(5), (8) or (9)) None Section 40-880(5)(a) Section 40-880(5)(b) Section 40-880(5)(c) Section 40-880(5)(d) Section 40-880(5)(e) Section 40-880(5)(f) Section 40-880(5)(g) Section 40-880(5)(h) Section 40-880(5)(i) Section 40-880(5)(j) Section 40-880(8) Section 40-880(9)(a) Section 40-880(9)(b)
+
+Section 40-880(5)(d) or (f): it preserves goodwill through a right valued only for its effect on goodwill (section 40-880(6)) No Yes
+
+Proposed business: reasonable to conclude it will start within a reasonable time (section 40-880(7)) Yes No
+
+Proposed business: a start-up cost (section 40-880(2A)(b)) Neither Advice or services on its proposed structure or operation Fees, taxes or charges to an Australian government agency to establish it
+
+Start-up cost: who you are in the year incurred (section 40-880(2A)(c)) A small business entity Covered by section 40-880(2B): turnover under $50 million Not in business, and not connected with or an affiliate of a business None of these
+
+Calculate
+
+Enter capital expenditure only, as established for the business. The questions about another entity, a proposed business, start-up costs and goodwill apply only where the item’s other answers call for them; the rest are not used.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; item 1: $10,000.00 incurred in 2023-24 for your business, 80% taxable purpose; item 2: $2,500.00 incurred in 2025-26 for a proposed business, 100% taxable purpose, a start-up cost. Item 1: deductible expenditure $8,000.00 Item 1: deduction for 2025-26 (a fifth a year from 2023-24 to 2027-28) $1,600.00 Item 2: deductible expenditure $2,500.00 Item 2: deduction for 2025-26 (in full in 2025-26, a start-up cost) $2,500.00 Deduction for 2025-26 $4,100.00 Left to deduct in later income years $3,200.00 Section 40-880(2) deducts a fifth in each of 5 income years from the year incurred, not apportioned for part of a year.
+
+## How the blackhole expenditure calculator works
+
+Section 40-880 of the Income Tax Assessment Act 1997 lets a business deduct capital expenditure that no other provision deals with, often called blackhole expenditure: the costs of setting up, restructuring or winding up a business. The calculator ports the business-capital-expenditure command of australian-accounting. For each item it takes the expenditure to the extent of the business’s taxable purpose (subsections (3) and (4)), then deducts a fifth in the year incurred and in each of the next 4 income years (subsection (2)). A start-up cost of a proposed business, meaning advice or services on its structure or operation or a government agency’s fee, tax or charge, is deducted in full in the year incurred by a small business entity, an entity covered by subsection (2B), or an entity not in business and not connected with one (subsection (2A)).
+
+An item for another entity’s former or proposed business, or for winding up a company, partnership or trust, is deductible only in connection with deriving your assessable income from that business (subsection (4)(b)). A proposed business must be reasonably expected to start within a reasonable time (subsection (7)). An exclusion in subsection (5), (8) or (9) leaves nothing to deduct, except that subsection (6) lifts paragraphs (5)(d) and (f) for expenditure preserving goodwill. The result gives each item’s deduction for the year you choose and what is left for later years.
+
+## What the blackhole expenditure calculator does not cover
+
+The calculator does not decide whether an outlay is capital, whether an exclusion applies, whether you are a small business entity or the business’s taxable purpose: you enter those as established. Expenditure that forms part of the cost of a depreciating asset (paragraph (5)(a)) belongs to Division 40, and expenditure that a capital gain or loss takes into account (paragraph (5)(f)) to the CGT provisions; the calculator refuses both. It does not cover expenditure incurred before 1 July 2020, when subsection (2A) had another form, or what happens to the fifths left when a business ceases or is sold within the 5 years. The page takes 2 items; its WebMCP tool takes any number. Have a registered tax agent confirm the figures and the result.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Blackhole expenditure
+
+Case | Inputs | Result
+The page’s example: $10,000 at 80% spread from 2023-24 and a $2,500 start-up cost deducted at once | 2025-26; item 1: $10,000.00 incurred in 2023-24 for your business, 80% taxable purpose; item 2: $2,500.00 incurred in 2025-26 for a proposed business, 100% taxable purpose, a start-up cost | Deduction $4,100.00, deductible expenditure $10,500.00, left for later years $3,200.00
+Another entity’s former business, not in connection with your assessable income: nothing to deduct (s 40-880(4)(b)) | 2025-26; item 1: $8,000.00 incurred in 2025-26 for a former business of another entity, 100% taxable purpose | Deduction $0.00, deductible expenditure $0.00, left for later years $0.00
+A start-up cost by an entity that meets none of the s 40-880(2A)(c) tests is spread over 5 years | 2025-26; item 1: $5,000.00 incurred in 2024-25 for a proposed business, 100% taxable purpose, a start-up cost | Deduction $1,000.00, deductible expenditure $5,000.00, left for later years $3,000.00
+Expenditure preserving goodwill: s 40-880(6) lifts the s 40-880(5)(d) exclusion | 2026-27; item 1: $3,000.00 incurred in 2026-27 for your business, 100% taxable purpose, excluded by section 40-880(5)(d) | Deduction $600.00, deductible expenditure $3,000.00, left for later years $2,400.00
+The fifth year: $20,000 incurred in 2021-22 leaves nothing after 2025-26 | 2025-26; item 1: $20,000.00 incurred in 2021-22 for your business, 50% taxable purpose | Deduction $2,000.00, deductible expenditure $10,000.00, left for later years $0.00
+Part of a depreciating asset’s cost is refused: Division 40 deducts it (s 40-880(5)(a)) | 2025-26; item 1: $1,000.00 incurred in 2025-26 for your business, 100% taxable purpose, excluded by section 40-880(5)(a) | Refused: item 1: s 40-880(5)(a) excludes expenditure that forms part of the cost of a depreciating asset; it is deducted as the asset's decline in value under Division 40 (s 40-25, with its cost under Subdivision 40-C), which this worksheet does not work out
+
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/

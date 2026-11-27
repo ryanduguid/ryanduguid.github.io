@@ -36,7 +36,7 @@ const abs = (n) => (n < 0n ? -n : n);
 
 /** `c` rounded half even to the context's 40 digits, `sticky` when a discarded remainder follows it.
  * @param {bigint} c @param {number} e @param {boolean} [sticky] @returns {Dec} */
-function rounded(c, e, sticky = false) {
+export function rounded(c, e, sticky = false) {
   const n = digits(c);
   if (n <= PRECISION && !sticky) return { c, e };
   const drop = Math.max(n - PRECISION, 0);
@@ -55,17 +55,17 @@ function rounded(c, e, sticky = false) {
   return { c: sign * high, e: exponent };
 }
 /** @param {Dec} a @param {Dec} b */
-const mul = (a, b) => rounded(a.c * b.c, a.e + b.e);
+export const mul = (a, b) => rounded(a.c * b.c, a.e + b.e);
 /** @param {Dec} a @param {Dec} b @returns {[bigint, bigint, number]} */
 const aligned = (a, b) => {
   const e = Math.min(a.e, b.e);
   return [a.c * TEN ** BigInt(a.e - e), b.c * TEN ** BigInt(b.e - e), e];
 };
 /** @param {Dec} a @param {Dec} b */
-const sub = (a, b) => { const [x, y, e] = aligned(a, b); return rounded(x - y, e); };
+export const sub = (a, b) => { const [x, y, e] = aligned(a, b); return rounded(x - y, e); };
 /** @param {Dec} a @param {Dec} b */
 /** The quotient rounded half even to 40 digits. @param {Dec} a @param {Dec} b */
-function div(a, b) {
+export function div(a, b) {
   const shift = Math.max(PRECISION + 2 + digits(b.c) - digits(a.c), 0);
   const top = abs(a.c) * TEN ** BigInt(shift);
   const q = top / abs(b.c);
@@ -74,13 +74,13 @@ function div(a, b) {
   return rounded(sign * q, a.e - b.e - shift, r !== 0n);
 }
 /** -1, 0 or 1. @param {Dec} a @param {Dec} b */
-const cmp = (a, b) => { const [x, y] = aligned(a, b); return x < y ? -1 : x > y ? 1 : 0; };
+export const cmp = (a, b) => { const [x, y] = aligned(a, b); return x < y ? -1 : x > y ? 1 : 0; };
 /** @param {string} text */
-const d = (text) => { const [whole, part = ''] = text.split('.'); return { c: BigInt(whole + part), e: -part.length }; };
-const ZERO = d('0');
+export const d = (text) => { const [whole, part = ''] = text.split('.'); return { c: BigInt(whole + part), e: -part.length }; };
+export const ZERO = d('0');
 const ONE = d('1');
 /** The decimal to the cent, half up, as the commands write it. @param {Dec} a */
-function cents(a) {
+export function cents(a) {
   let q;
   if (a.e >= -2) q = abs(a.c) * TEN ** BigInt(a.e + 2);
   else {
@@ -95,7 +95,7 @@ function cents(a) {
 /** Python's whitespace, which the commands strip from a decimal before reading it. */
 const SPACE = /[\t\n\v\f\r\x1c-\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/; // eslint-disable-line no-control-regex -- Python's whitespace includes U+001C to U+001F
 /** `text` without Python's whitespace at either end. @param {string} text */
-const stripSpace = (text) => {
+export const stripSpace = (text) => {
   let start = 0;
   let end = text.length;
   while (start < end && SPACE.test(text.charAt(start))) start += 1;

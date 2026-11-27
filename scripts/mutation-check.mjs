@@ -74,6 +74,8 @@ const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
+const blackhole = { ...business, file: 'assets/blackhole-expenditure.mjs' };
+const statement = { ...business, file: 'assets/company-tax-statement.mjs' };
 const casualOt = { ...business, file: 'assets/casual-overtime.mjs' };
 const contractor = { ...business, file: 'assets/contractor-employee.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
@@ -1153,6 +1155,25 @@ const MUTATIONS = [
   { ...rdOffset, name: 'R&D deduction amount not subtracted', find: 'const income = offset - adjusted[6] - deduction;', replace: 'const income = offset - adjusted[6];' },
   { ...rdOffset, name: 'R&D clawback income over the offset year rate', find: 'ratioCents((income < 0n ? -income : income), presentRate * 1000n)', replace: 'ratioCents((income < 0n ? -income : income), e.rate * 1000n)' },
   { ...rdOffset, name: 'R&D clawback below the threshold allowed', find: 'if (clawback !== 0n && e.notional - clawback < THRESHOLD) {', replace: 'if (false) {' },
+  { ...blackhole, name: 'Blackhole spread over 4 years', find: 'const FIVE = d(\'5\');', replace: 'const FIVE = d(\'4\');' },
+  { ...blackhole, name: 'Blackhole taxable purpose ignored', find: 'const deductible = excluded ? ZERO : mul(it.amount, it.share);', replace: 'const deductible = excluded ? ZERO : it.amount;' },
+  { ...blackhole, name: 'Blackhole fifth year dropped', find: 'if (later >= 0) deduction = fifth;', replace: 'if (later > 0) deduction = fifth;' },
+  { ...blackhole, name: 'Blackhole start-up cost deducted in later years too', find: 'deduction = it.incurred === year ? deductible : ZERO;', replace: 'deduction = deductible;' },
+  { ...blackhole, name: 'Blackhole s 40-880(4)(b) ignored', find: 'item.excludedBy.push(NOT_CONNECTED);', replace: 'void NOT_CONNECTED;' },
+  { ...blackhole, name: 'Blackhole s 40-880(7) ignored', find: 'if (!f.flag(\'within_reasonable_time\', \'s 40-880(7) limits expenditure on a proposed business\')) item.excludedBy.push(NOT_REASONABLE_TIME);', replace: 'f.flag(\'within_reasonable_time\', \'s 40-880(7) limits expenditure on a proposed business\');' },
+  { ...blackhole, name: 'Blackhole goodwill lifts no exclusion', find: 'if (labels.includes(label) && !(goodwill && (label === \'5(d)\' || label === \'5(f)\'))) item.excludedBy.push(citation);', replace: 'if (labels.includes(label)) item.excludedBy.push(citation);' },
+  { ...blackhole, name: 'Blackhole 2019-20 expenditure allowed', find: 'const FIRST_INCURRED = 2020;', replace: 'const FIRST_INCURRED = 2019;' },
+  { ...statement, name: 'Statement losses not limited by the excess', find: 'const cap = least(floor(available - fromNei), floor(excess));', replace: 'const cap = floor(available - fromNei);' },
+  { ...statement, name: 'Statement net exempt income absorbs no losses', find: 'const neiLeft = excess === 0n ? 0n : floor(nei - floor(-excess));', replace: 'const neiLeft = 0n;' },
+  { ...statement, name: 'Statement failed loss test deducted', find: 'else if (test === \'failed\') found = [false, \'s 165-10 ITAA 1997: not deductible\'];', replace: 'else if (test === \'failed\') found = [true, \'s 165-10 ITAA 1997: not deductible\'];' },
+  { ...statement, name: 'Statement losses deducted newest first', find: '.sort((a, b) => a.year - b.year);', replace: '.sort((a, b) => b.year - a.year);' },
+  { ...statement, name: 'Statement excess refundable offsets not refunded', find: 'const i = floor(e - t3);', replace: 'const i = 0n;' },
+  { ...statement, name: 'Statement PAYG instalments not credited', find: 'const s = t5 + g - h - i - k;', replace: 'const s = t5 + g - h - i;' },
+  { ...statement, name: 'Statement carry back not capped at the franking balance', find: 'const offset = least(total, balance);', replace: 'const offset = total;' },
+  { ...statement, name: 'Statement carry back not capped at the unused liability', find: 'const component = least(sum, cap);', replace: 'const component = sum;' },
+  { ...statement, name: 'Statement carry back for 2025-26', find: 'else if (fy === 2027) permanent = true;', replace: 'else if (fy >= 2026) permanent = true;' },
+  { ...statement, name: 'Statement carry back ignores net exempt income', find: 'const reduced = floor(p.amount - nei);', replace: 'const reduced = p.amount;' },
+  { ...statement, name: 'Statement 2020-21 at 25%', find: 'const rateText = bre ? (fy <= 2020 ? \'0.275\' : fy === 2021 ? \'0.260\' : \'0.250\') : \'0.300\';', replace: 'const rateText = bre ? (fy <= 2020 ? \'0.275\' : \'0.250\') : \'0.300\';' },
   { ...contractor, name: 'Contractor labour of exactly half counted as principally', find: 'const principally = 2 * labour > fee;', replace: 'const principally = 2 * labour >= fee;' },
   { ...contractor, name: 'Contractor right to delegate ignored', find: 'personal: !e.delegate,', replace: 'personal: true,' },
   { ...contractor, name: 'Contractor result contract ignored', find: 'notResult: !e.result,', replace: 'notResult: true,' },
@@ -1395,6 +1416,8 @@ const SHARED = [
   'scripts/luxury-car-tax-engine-differential.json',
   'scripts/depreciation-pools-engine-differential.json',
   'scripts/rd-tax-offset-engine-differential.json',
+  'scripts/blackhole-expenditure-engine-differential.json',
+  'scripts/company-tax-statement-engine-differential.json',
   'scripts/gst-adjustments-engine-differential.json',
   'scripts/deferred-tax-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',

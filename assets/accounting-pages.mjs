@@ -593,6 +593,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'rd-tax-offset':
             result = calculate.rdTaxOffsetResult(value, aud);
             break;
+          case 'blackhole-expenditure':
+            result = calculate.blackholeResult(value, aud);
+            break;
           case 'contractor-employee':
             result = calculate.contractorEmployeeResult(value, aud);
             break;
@@ -648,8 +651,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             break;
           case 'company-tax': {
             const year = (prefix) => ({ turnover: value(`${prefix}turnover`), assessable: value(`${prefix}assessable`), passive: value(`${prefix}passive`) });
-            result = calculate.companyTaxResult({ ...year(''), taxable: value('taxable'), existed: value('existed') === 'yes', prior: year('prior-'),
-              dividend: value('dividend'), franking: value('franking'), marginal: value('marginal') }, aud);
+            // The optional calculation statement appends its rows (company-tax-statement.mjs).
+            result = calculate.companyTaxPageResult({ ...year(''), taxable: value('taxable'), existed: value('existed') === 'yes', prior: year('prior-'),
+              dividend: value('dividend'), franking: value('franking'), marginal: value('marginal') }, value, aud, calculate.companyTaxResult);
             break;
           }
           case 'gst-margin-scheme': {

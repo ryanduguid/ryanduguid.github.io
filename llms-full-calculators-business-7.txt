@@ -16,13 +16,47 @@ Source: https://duguid.com.au/tools/business-calculators/company-tax/
 
 A company’s 25% or 30% rate, its rate for franking, the maximum franking credit and a shareholder’s tax or refund.
 
-Published 18 November 2026. Last checked 18 November 2026.
+Published 18 November 2026. Last checked 26 November 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
 Company tax and franking inputs for one income year from 2021-22
 
 Aggregated turnover for the year (AUD) Assessable income for the year (AUD) Base rate entity passive income in it, franking credits included (AUD) Taxable income for the year (AUD) Did the company exist in the previous income year? Yes No Previous year’s aggregated turnover (AUD) Previous year’s assessable income (AUD) Previous year’s base rate entity passive income (AUD) Dividend paid this year (AUD) Franking percentage (%) Shareholder’s marginal tax rate, with any Medicare levy (%)
+
+## Taxable income after losses and the amount due
+
+Company tax return calculation statement (optional)
+
+Work out the return’s taxable income after losses and the amount due No Yes
+
+Income year of the return 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22
+
+Deductions for the year, prior-year losses not included (AUD) Net exempt income for the year (AUD)
+
+Prior-year tax loss 1: the year incurred None 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18 2016-17 2015-16 2014-15 2013-14 2012-13 2011-12 2010-11
+
+Prior-year tax loss 1: the amount still unused (AUD)
+
+Prior-year tax loss 1: the loss test outcome (sections 165-12 and 165-13) Continuity of ownership test passed Same business test passed Similar business test passed (losses from 2015-16) Neither test passed
+
+Prior-year tax loss 2: the year incurred None 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18 2016-17 2015-16 2014-15 2013-14 2012-13 2011-12 2010-11
+
+Prior-year tax loss 2: the amount still unused (AUD)
+
+Prior-year tax loss 2: the loss test outcome (sections 165-12 and 165-13) Continuity of ownership test passed Same business test passed Similar business test passed (losses from 2015-16) Neither test passed
+
+Loss deduction you choose (blank for the most allowed) (AUD) Non-refundable non-carry forward tax offsets (C) (AUD) Of those, franking tax offsets (AUD) Non-refundable carry forward tax offsets (D) (AUD) Refundable tax offsets (E), other than loss carry back (AUD) Franking deficit tax offset (F) (AUD) Section 102AAM interest charge (G) (AUD) Credits for amounts withheld (H) (AUD) PAYG instalments (K) (AUD)
+
+## Loss carry back tax offset
+
+Loss carry back tax offset, 2021-22, 2022-23 and 2026-27 only (Division 160)
+
+Carry this year’s tax loss back No Yes
+
+Every Division 160 condition for the year is met: a corporate tax entity throughout, returns lodged, the choice made in the approved form, no transferred or excess franking losses, no integrity scheme, and carrying on a business in each loss year (to 2022-23) or not a significant global entity (2026-27) No Yes
+
+Franking account balance at the end of the year (AUD) Tax loss carried back to the income year 2 years before (AUD) 2 years before: income tax liability (AUD) 2 years before: liability used by earlier carry backs (AUD) 2 years before: net exempt income (AUD) Tax loss carried back to the income year before (AUD) The year before: income tax liability (AUD) The year before: liability used by earlier carry backs (AUD) The year before: net exempt income (AUD)
 
 Aggregated turnover includes that of connected entities and affiliates. The previous year’s figures set the rate for franking dividends; when the company did not exist then, they are not used. The shareholder is an Australian resident individual.
 
@@ -38,9 +72,15 @@ The shareholder includes the dividend and its franking credit in assessable inco
 
 The calculator reproduces the outcome of each ATO example: Happy Feet (3.8% passive income, 25%), Coffee and Cake (28.6%, 25%), Best Equity (100%, 30%), SoftDev (85%, 30%) and Hats 4 Cats ($170 million of aggregated turnover, 30%). For Dillmore Manufacture’s $100,000 dividend franked at 30% it gives $42,857.14, the exact credit; the ATO rounds the gross-up rate to 2.3333 and shows $42,857.75, which is more than the section 202-60 maximum.
 
+## How the calculation statement and loss carry back work
+
+The optional calculation statement works the company tax return from assessable income to the amount due. Prior-year losses are deducted only where you state that the continuity of ownership test or the same or similar business test was passed (section 165-10), oldest first; net exempt income absorbs them first, and without a chosen amount the most allowed is deducted (section 36-17). Gross tax is taxable income at the year’s rate, rounded half up to the cent. Offsets come off in the return’s order: non-refundable non-carry forward offsets (C), carry forward offsets (D), refundable offsets (E) and the franking deficit tax offset (F); then the interest charge (G) is added and credits (H), refundable offsets in excess of tax (I) and PAYG instalments (K) taken off, giving S, the amount due or refundable. The statement’s taxable income must equal the taxable income entered above.
+
+A loss carry back tax offset is worked only for the claim years the law gives one: 2020-21 to 2022-23 under Division 160 as it stood (this page offers 2021-22 and 2022-23), and 2026-27 under the Division 160 that Act No. 71 of 2026 substituted for income years from 1 July 2026, for a company that is not a significant global entity. There is none for 2023-24 to 2025-26. The page carries the year’s own tax loss back to one or both of the 2 income years before it: each amount after that year’s net exempt income, at the rate of the loss year, capped at the earlier year’s unused income tax liability, and the total capped at the franking account balance. The offset is refundable, at label E.
+
 ## What the company tax and franking calculator does not cover
 
-The calculator does not work out aggregated turnover, assessable income or base rate entity passive income: enter figures you have established, with the turnover of connected entities and affiliates included, as the ATO’s Hats 4 Cats example shows. Taxable income gives the tax before offsets, PAYG instalments and other credits.
+The calculator does not work out aggregated turnover, assessable income or base rate entity passive income: enter figures you have established, with the turnover of connected entities and affiliates included, as the ATO’s Hats 4 Cats example shows. Without the statement, taxable income gives the tax before offsets, PAYG instalments and other credits. The statement does not judge the loss tests, works no part-year loss (section 165-20) or Subdivision 165-B year, does not cover consolidated and MEC groups, foreign residents or companies taxed at other rates, and refuses franking tax offsets with a chosen loss deduction (section 36-17(5)) or in excess of tax (section 36-55), and carry forward offsets with net exempt income. On this page the carry back takes the year’s own loss to the 2 years before it; earlier loss years carried back under the former Division 160 are left to the WebMCP tool.
 
 Not covered: the rates of RSA providers and pooled development funds (subsections 23(3) to (5)), life insurance companies (section 23A), not-for-profit companies and credit unions; corporate unit trusts and public trading trusts; and income years before 2021-22, when the base rate was 27.5% or 26%. A shareholder that is a company, trust, super fund or non-resident is outside its scope; a company shareholder cannot have excess franking credits refunded (section 67-25). Franking account balances, franking deficit tax, the benchmark rule and the holding period rule are not tested: the company tax and franking worksheets track the franking account and the benchmark rule. Have a registered tax agent confirm the figures and the result.
 
@@ -426,6 +466,112 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ---
 
+# Blackhole expenditure calculator: section 40-880 deductions
+
+Source: https://duguid.com.au/tools/business-calculators/blackhole-expenditure/
+
+> Section 40-880 business capital expenditure: a fifth a year over 5 income years, start-up costs at once, another entity’s business and the exclusions.
+
+# Blackhole expenditure
+
+Section 40-880 deductions: a fifth a year or at once, 2020-21 to 2027-28.
+
+Published 26 November 2026. Last checked 26 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Deductions for an income year Item 1
+
+Capital expenditure (AUD)
+
+Income year incurred 2020-21 2021-22 2022-23 2023-24 2024-25 2025-26 2026-27 2027-28
+
+Business it relates to (section 40-880(2)) Your current business A business that used to be carried on A business proposed to be carried on Winding up a company, partnership or trust you were in that carried on a business
+
+Former or proposed business carried on by You Another entity
+
+Another entity’s business: in connection with your deriving assessable income from it (section 40-880(4)(b)) Yes No
+
+Taxable purpose of the business (%)
+
+Excluded by (section 40-880(5), (8) or (9)) None Section 40-880(5)(a) Section 40-880(5)(b) Section 40-880(5)(c) Section 40-880(5)(d) Section 40-880(5)(e) Section 40-880(5)(f) Section 40-880(5)(g) Section 40-880(5)(h) Section 40-880(5)(i) Section 40-880(5)(j) Section 40-880(8) Section 40-880(9)(a) Section 40-880(9)(b)
+
+Section 40-880(5)(d) or (f): it preserves goodwill through a right valued only for its effect on goodwill (section 40-880(6)) No Yes
+
+Proposed business: reasonable to conclude it will start within a reasonable time (section 40-880(7)) Yes No
+
+Proposed business: a start-up cost (section 40-880(2A)(b)) Neither Advice or services on its proposed structure or operation Fees, taxes or charges to an Australian government agency to establish it
+
+Start-up cost: who you are in the year incurred (section 40-880(2A)(c)) A small business entity Covered by section 40-880(2B): turnover under $50 million Not in business, and not connected with or an affiliate of a business None of these
+
+Income year to work out 2020-21 2021-22 2022-23 2023-24 2024-25 2025-26 2026-27 2027-28
+
+## Second item of capital expenditure
+
+Item 2 (leave the amount blank for none)
+
+Capital expenditure (AUD)
+
+Income year incurred 2020-21 2021-22 2022-23 2023-24 2024-25 2025-26 2026-27 2027-28
+
+Business it relates to (section 40-880(2)) Your current business A business that used to be carried on A business proposed to be carried on Winding up a company, partnership or trust you were in that carried on a business
+
+Former or proposed business carried on by You Another entity
+
+Another entity’s business: in connection with your deriving assessable income from it (section 40-880(4)(b)) Yes No
+
+Taxable purpose of the business (%)
+
+Excluded by (section 40-880(5), (8) or (9)) None Section 40-880(5)(a) Section 40-880(5)(b) Section 40-880(5)(c) Section 40-880(5)(d) Section 40-880(5)(e) Section 40-880(5)(f) Section 40-880(5)(g) Section 40-880(5)(h) Section 40-880(5)(i) Section 40-880(5)(j) Section 40-880(8) Section 40-880(9)(a) Section 40-880(9)(b)
+
+Section 40-880(5)(d) or (f): it preserves goodwill through a right valued only for its effect on goodwill (section 40-880(6)) No Yes
+
+Proposed business: reasonable to conclude it will start within a reasonable time (section 40-880(7)) Yes No
+
+Proposed business: a start-up cost (section 40-880(2A)(b)) Neither Advice or services on its proposed structure or operation Fees, taxes or charges to an Australian government agency to establish it
+
+Start-up cost: who you are in the year incurred (section 40-880(2A)(c)) A small business entity Covered by section 40-880(2B): turnover under $50 million Not in business, and not connected with or an affiliate of a business None of these
+
+Calculate
+
+Enter capital expenditure only, as established for the business. The questions about another entity, a proposed business, start-up costs and goodwill apply only where the item’s other answers call for them; the rest are not used.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; item 1: $10,000.00 incurred in 2023-24 for your business, 80% taxable purpose; item 2: $2,500.00 incurred in 2025-26 for a proposed business, 100% taxable purpose, a start-up cost. Item 1: deductible expenditure $8,000.00 Item 1: deduction for 2025-26 (a fifth a year from 2023-24 to 2027-28) $1,600.00 Item 2: deductible expenditure $2,500.00 Item 2: deduction for 2025-26 (in full in 2025-26, a start-up cost) $2,500.00 Deduction for 2025-26 $4,100.00 Left to deduct in later income years $3,200.00 Section 40-880(2) deducts a fifth in each of 5 income years from the year incurred, not apportioned for part of a year.
+
+## How the blackhole expenditure calculator works
+
+Section 40-880 of the Income Tax Assessment Act 1997 lets a business deduct capital expenditure that no other provision deals with, often called blackhole expenditure: the costs of setting up, restructuring or winding up a business. The calculator ports the business-capital-expenditure command of australian-accounting. For each item it takes the expenditure to the extent of the business’s taxable purpose (subsections (3) and (4)), then deducts a fifth in the year incurred and in each of the next 4 income years (subsection (2)). A start-up cost of a proposed business, meaning advice or services on its structure or operation or a government agency’s fee, tax or charge, is deducted in full in the year incurred by a small business entity, an entity covered by subsection (2B), or an entity not in business and not connected with one (subsection (2A)).
+
+An item for another entity’s former or proposed business, or for winding up a company, partnership or trust, is deductible only in connection with deriving your assessable income from that business (subsection (4)(b)). A proposed business must be reasonably expected to start within a reasonable time (subsection (7)). An exclusion in subsection (5), (8) or (9) leaves nothing to deduct, except that subsection (6) lifts paragraphs (5)(d) and (f) for expenditure preserving goodwill. The result gives each item’s deduction for the year you choose and what is left for later years.
+
+## What the blackhole expenditure calculator does not cover
+
+The calculator does not decide whether an outlay is capital, whether an exclusion applies, whether you are a small business entity or the business’s taxable purpose: you enter those as established. Expenditure that forms part of the cost of a depreciating asset (paragraph (5)(a)) belongs to Division 40, and expenditure that a capital gain or loss takes into account (paragraph (5)(f)) to the CGT provisions; the calculator refuses both. It does not cover expenditure incurred before 1 July 2020, when subsection (2A) had another form, or what happens to the fifths left when a business ceases or is sold within the 5 years. The page takes 2 items; its WebMCP tool takes any number. Have a registered tax agent confirm the figures and the result.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Blackhole expenditure
+
+Case | Inputs | Result
+The page’s example: $10,000 at 80% spread from 2023-24 and a $2,500 start-up cost deducted at once | 2025-26; item 1: $10,000.00 incurred in 2023-24 for your business, 80% taxable purpose; item 2: $2,500.00 incurred in 2025-26 for a proposed business, 100% taxable purpose, a start-up cost | Deduction $4,100.00, deductible expenditure $10,500.00, left for later years $3,200.00
+Another entity’s former business, not in connection with your assessable income: nothing to deduct (s 40-880(4)(b)) | 2025-26; item 1: $8,000.00 incurred in 2025-26 for a former business of another entity, 100% taxable purpose | Deduction $0.00, deductible expenditure $0.00, left for later years $0.00
+A start-up cost by an entity that meets none of the s 40-880(2A)(c) tests is spread over 5 years | 2025-26; item 1: $5,000.00 incurred in 2024-25 for a proposed business, 100% taxable purpose, a start-up cost | Deduction $1,000.00, deductible expenditure $5,000.00, left for later years $3,000.00
+Expenditure preserving goodwill: s 40-880(6) lifts the s 40-880(5)(d) exclusion | 2026-27; item 1: $3,000.00 incurred in 2026-27 for your business, 100% taxable purpose, excluded by section 40-880(5)(d) | Deduction $600.00, deductible expenditure $3,000.00, left for later years $2,400.00
+The fifth year: $20,000 incurred in 2021-22 leaves nothing after 2025-26 | 2025-26; item 1: $20,000.00 incurred in 2021-22 for your business, 50% taxable purpose | Deduction $2,000.00, deductible expenditure $10,000.00, left for later years $0.00
+Part of a depreciating asset’s cost is refused: Division 40 deducts it (s 40-880(5)(a)) | 2025-26; item 1: $1,000.00 incurred in 2025-26 for your business, 100% taxable purpose, excluded by section 40-880(5)(a) | Refused: item 1: s 40-880(5)(a) excludes expenditure that forms part of the cost of a depreciating asset; it is deducted as the asset's decline in value under Division 40 (s 40-25, with its cost under Subdivision 40-C), which this worksheet does not work out
+
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
 # Foreign buyer duty and land tax surcharge: all 8 states
 
 Source: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
@@ -534,190 +680,3 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
 - sixty business calculators: https://duguid.com.au/tools/business-calculators/
-
----
-
-# ASIC fees 2026-27 and late fee calculator
-
-Source: https://duguid.com.au/tools/business-calculators/asic-fees/
-
-> ASIC’s fees from 1 July 2026 for company registration, name reservation, annual reviews and business names, and the $102 or $428 late fee tier.
-
-# ASIC fees calculator
-
-ASIC’s 2026-27 fees and late fee tiers.
-
-Published 22 November 2026. Last checked 22 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-ASIC fee and late fee tier for 2026-27
-
-FeeRegister a company with share capital Register a company without share capital Reserve a company name, or extend a reservation Annual review fee, proprietary company (not special purpose) Annual review fee, public company (not special purpose or a small transferring financial institution) Annual review fee, special purpose proprietary company Annual review fee, special purpose company that is not proprietary Register or renew a business name for 1 year Register or renew a business name for 3 years Late payment of an annual review fee Late lodgement of a document Late fees only: the due date Late fees only: the day ASIC received the payment or document
-
-Enter the due date from ASIC’s invoice or statement, or, for a document, the last day of the time allowed to lodge it, and the day ASIC received the payment or document, both from 1 July 2026 to 30 June 2027. The calculator does not work the due date out from a review date or move it for a weekend or holiday.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Thursday 15 October 2026. Last day of the first month after the due date Thursday 15 October 2026 Late fee tier Late, within one month after the due date Late fee, no GST $102.00 ASIC code LPF1_ETM; Corporations (Review Fees) Regulations 2003, Schedule 1 Part 3 items 1 and 2. A late fee is on top of the fee itself. Public holidays are not checked: if the due date or the last day of the first month is one where you pay or lodge, check ASIC’s invoice.
-
-## ASIC fees from 1 July 2026
-
-ASIC’s standard fees from 1 July 2026 are listed below as ASIC’s fee data and INFO 30 gave them on 22 November 2026. GST does not apply to ASIC fees.
-
-ASIC fees from 1 July 2026 (AUD, no GST)
-
-Fee | ASIC code | Amount | Imposed by
-Register a company with share capital | I02 | $636 | Corporations (Fees) Regulations 2001, Schedule 2 item 1(a)(i)
-Register a company without share capital | I01 | $524 | Schedule 2 item 1(a)(ii)
-Reserve a company name, or extend a reservation | R01 | $65 | Schedule 2 item 8
-Annual review fee, proprietary company (not a special purpose company) | A52 | $342 | Corporations (Review Fees) Regulations 2003, Schedule 1 Part 1 item 2
-Annual review fee, public company (not a special purpose company or small transferring financial institution) | A51 | $1,591 | Schedule 1 Part 1 item 1
-Annual review fee, special purpose company that is a proprietary company | A58 | $70 | Schedule 1 Part 1 item 5
-Annual review fee, special purpose company that is not a proprietary company | A53 | $65 | Schedule 1 Part 1 item 4
-Late payment of a review fee, within one month after the due date | LPF1_ETM | $102 | Schedule 1 Part 3 item 1
-Late payment of a review fee, more than one month after the due date | LPF2_ETM | $428 | Schedule 1 Part 3 item 2
-Late lodgement, within one month after the prescribed time | LPF1_ETM | $102 | Corporations (Fees) Regulations 2001, Schedule 2 item 14(a)
-Late lodgement, more than one month after the prescribed time | LPF2_ETM | $428 | Schedule 2 item 14(b)
-Register or renew a business name for 1 year | BZA, BZC | $47 | Business Names Registration (Fees) Regulations 2022, section 6 items 1 and 2
-Register or renew a business name for 3 years | BZB, BZD | $108 | Section 6 items 3 and 4
-
-The regulations state base amounts, and ASIC raises some of them each 1 July in line with the Consumer Price Index; the table gives ASIC’s indexed amounts. A special purpose company is defined in regulation 3 of the review fees regulations; it includes a company whose constitution prohibits distributions to its members and whose sole purpose is to act as trustee of a regulated superannuation fund. A company in liquidation and an entity registered with the Australian Charities and Not-for-profits Commission pay no review fee (Schedule 1 Part 1 items 10 and 11).
-
-## How the ASIC fees calculator works
-
-For a standard fee, the calculator returns ASIC’s 2026-27 amount. For a late fee, it compares the day ASIC received the payment or document with the due date you enter, as INFO 30 sets the tiers by the day ASIC receives them. A payment or document received on or before the due date is not late. A review fee paid after its due date but within one month after it costs $102, and later $428 (Schedule 1 Part 3 of the review fees regulations); a document lodged late attracts the same 2 amounts (Schedule 2 item 14 of the fees regulations). A late fee is on top of the fee itself, and ASIC can charge more than one late fee when several obligations are missed.
-
-The one month begins the day after the due date, which is not counted (item 6 of subsection 36(1) of the Acts Interpretation Act 1901). Under subsection 2G(1), a month runs to just before the same day of the next calendar month, or to the end of that month when it has no such day. A fee due on Tuesday 15 September 2026 is within one month if received by Thursday 15 October; one due on Monday 30 November 2026 is within one month if received by Thursday 31 December, because that month starts on 1 December.
-
-## What the ASIC fees calculator does not cover
-
-The calculator does not work out a due date. An annual review fee is due 2 months after the review date (subsection 1351(3) of the Corporations Act 2001), a review date can change, and a document’s lodgement period depends on the document, so you enter the due date shown by ASIC or the form’s rules. When a deadline falls on a weekend or public holiday, subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may allow the next business day. The calculator does not apply that. When the due date or the last day of the first month is a Saturday or Sunday, it declines to give a tier for a received date that such a move could change, up to the following Wednesday and, after a weekend due date, the end of the month that would follow the moved date. It does not check public holidays.
-
-Not covered: due dates and received dates before 1 July 2026 or after 30 June 2027, including a fee due in one financial year and received in the next, because the sources read do not settle which year’s indexed amount applies; upfront review fees; deregistration and the review fee exceptions in subsection 1351(4); registered schemes, notified foreign passport funds, small transferring financial institutions and CCIVs; registered Australian bodies and foreign companies; credit licensee late fees; fee waivers and reviews of a late fee; and the industry funding levy. Check the amount against ASIC’s invoice before you pay.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: ASIC fees calculator
-
-Case | Inputs | Result
-Received exactly one month after the due date: $102 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Thursday 15 October 2026 | First month ends Thursday 15 October 2026, within one month, fee $102.00
-Received on the due date: not late | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Tuesday 15 September 2026 | Not late, fee $0.00
-Received the day after the due date: $102 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Wednesday 16 September 2026 | First month ends Thursday 15 October 2026, within one month, fee $102.00
-Received the day after the first month: $428 | Late payment of an annual review fee, due Tuesday 15 September 2026, payment received by ASIC Friday 16 October 2026 | First month ends Thursday 15 October 2026, more than one month, fee $428.00
-Due on a month’s last day: the month runs to 31 December, s 2G(1)(b)(i) | Late lodgement of a document, due Monday 30 November 2026, document received by ASIC Thursday 31 December 2026 | First month ends Thursday 31 December 2026, within one month, fee $102.00
-Due on a month’s last day, received the day after the month: $428 | Late lodgement of a document, due Monday 30 November 2026, document received by ASIC Friday 1 January 2027 | First month ends Thursday 31 December 2026, more than one month, fee $428.00
-No 31 November: the month ends on 30 November, s 2G(1)(b)(ii) | Late payment of an annual review fee, due Friday 30 October 2026, payment received by ASIC Monday 30 November 2026 | First month ends Monday 30 November 2026, within one month, fee $102.00
-No 31 November, received on 1 December: $428 | Late payment of an annual review fee, due Friday 30 October 2026, payment received by ASIC Tuesday 1 December 2026 | First month ends Monday 30 November 2026, more than one month, fee $428.00
-No 30 February: the month ends on 28 February 2027 | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Sunday 28 February 2027 | First month ends Sunday 28 February 2027, within one month, fee $102.00
-A first month ending on a Sunday, received on the Monday: refused | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Monday 1 March 2027 | Refused: the first month after the due date ends on a Saturday or Sunday: subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may extend it; this page does not decide that. Check ASIC’s invoice
-A first month ending on a Sunday, received on the Thursday: $428 | Late payment of an annual review fee, due Friday 29 January 2027, payment received by ASIC Thursday 4 March 2027 | First month ends Sunday 28 February 2027, more than one month, fee $428.00
-A due date on a Saturday, received on the Monday: refused | Late payment of an annual review fee, due Saturday 15 August 2026, payment received by ASIC Monday 17 August 2026 | Refused: the due date is a Saturday or Sunday, so subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may move it; this page does not decide that. Check ASIC’s invoice
-A due date on a Saturday, received on the Thursday: $102 | Late payment of an annual review fee, due Saturday 15 August 2026, payment received by ASIC Thursday 20 August 2026 | First month ends Tuesday 15 September 2026, within one month, fee $102.00
-A Saturday due date that may move to Wednesday 3 March, received on 1 April: refused | Late payment of an annual review fee, due Saturday 27 February 2027, payment received by ASIC Thursday 1 April 2027 | Refused: the due date is a Saturday or Sunday, so the first month after it may end later: subsection 105(3) of the Corporations Act or subsection 36(2) of the Acts Interpretation Act may extend it; this page does not decide that. Check ASIC’s invoice
-The same due date, received on 8 April: $428 | Late payment of an annual review fee, due Saturday 27 February 2027, payment received by ASIC Thursday 8 April 2027 | First month ends Saturday 27 March 2027, more than one month, fee $428.00
-Due in 2025-26, received on 2 July 2026: refused, the year’s amount is not settled | Late payment of an annual review fee, due Monday 15 June 2026, payment received by ASIC Thursday 2 July 2026 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
-Received on 30 June 2026: refused, before 2026-27 | Late lodgement of a document, due Monday 15 June 2026, document received by ASIC Tuesday 30 June 2026 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
-Received on 30 June 2027: $102 | Late lodgement of a document, due Tuesday 15 June 2027, document received by ASIC Wednesday 30 June 2027 | First month ends Thursday 15 July 2027, within one month, fee $102.00
-Received on 1 July 2027: refused, after 2026-27 | Late lodgement of a document, due Tuesday 15 June 2027, document received by ASIC Thursday 1 July 2027 | Refused: this page holds ASIC’s 2026-27 amounts: enter a due date and a received date from 1 July 2026 to 30 June 2027
-Received the day before the due date: not late | Late lodgement of a document, due Tuesday 15 September 2026, document received by ASIC Monday 14 September 2026 | Not late, fee $0.00
-ASIC code I02 | Register a company with share capital | Fee $636.00, ASIC code I02
-ASIC code I01 | Register a company without share capital | Fee $524.00, ASIC code I01
-ASIC code R01 | Reserve a company name, or extend a reservation | Fee $65.00, ASIC code R01
-ASIC code A52 | Annual review fee, proprietary company (not a special purpose company) | Fee $342.00, ASIC code A52
-ASIC code A51 | Annual review fee, public company (not a special purpose company or small transferring financial institution) | Fee $1,591.00, ASIC code A51
-ASIC code A58 | Annual review fee, special purpose company that is a proprietary company | Fee $70.00, ASIC code A58
-ASIC code A53 | Annual review fee, special purpose company that is not a proprietary company | Fee $65.00, ASIC code A53
-ASIC code BZA or BZC | Register or renew a business name for 1 year | Fee $47.00, ASIC code BZA or BZC
-ASIC code BZB or BZD | Register or renew a business name for 3 years | Fee $108.00, ASIC code BZB or BZD
-
-One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-## Related
-
-- Starting a business questions
-- Companies and trusts questions
-- Company tax and franking calculator
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-## Links
-
-- sixty business calculators: https://duguid.com.au/tools/business-calculators/
-- Starting a business questions: https://duguid.com.au/tools/accounting-questions/business-setup/
-- Companies and trusts questions: https://duguid.com.au/tools/accounting-questions/company-compliance/
-- Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
-
----
-
-# Australian business days calculator: 2026 and 2027
-
-Source: https://duguid.com.au/tools/business-calculators/business-days/
-
-> Count business days between 2 dates, or add or subtract them, skipping weekends and each Australian state or territory’s public holidays in 2026 and 2027.
-
-# Business days calculator
-
-Business days between 2 dates, or the date a number of business days after or before one, skipping weekends and each state’s public holidays for 2026 and 2027.
-
-Published 18 November 2026. Last checked 23 November 2026.
-
-JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-Business days inputs, 2026 and 2027
-
-Work out Business days between 2 dates The date a number of business days after the start The date a number of business days before the start Public holidays of Australian Capital Territory New South Wales Northern Territory Queensland South Australia Tasmania Victoria Western Australia Any state or territory: skip a holiday that applies throughout any of them Start date End date, to count between 2 dates Number of business days, to find a date
-
-The count starts the day after the start date and includes the end date. Dates run from 1 January 2026 to 31 December 2027.
-
-Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: New South Wales, start 21 December 2026, end 4 January 2027. Business days after the start, to and including the end 7 Weekday public holidays skipped 25 December 2026 (Christmas Day), 28 December 2026 (Boxing Day / Boxing Day (observed) / Proclamation Day (observed)), 1 January 2027 (New Year's Day) Part-day and regional holidays count as business days; where a local day replaces Melbourne Cup Day or the WA King’s Birthday, the state date is still skipped.
-
-## How the business days calculator works
-
-The calculator skips Saturdays, Sundays and the public holidays of the state or territory you choose, using the dates confirmed for 2026 and 2027. Between 2 dates, it counts the business days after the start date up to and including the end date, so a Friday to the next Monday is 1. Forward or back, it finds the date that is that many business days after or before the start, and lists each weekday holiday it skipped.
-
-‘Any state or territory’ skips full-day public holidays that apply throughout at least one state or territory. It counts Melbourne Cup Day and the WA King’s Birthday as business days because regions can observe them on different dates.
-
-## What the business days calculator does not cover
-
-Part-day holidays, such as the evenings of Christmas Eve and New Year’s Eve in South Australia and the Northern Territory, count as business days. So do regional holidays, among them the Royal Queensland Show in Brisbane, Tasmania’s Royal Hobart Regatta and Recreation Day, and show days, and days off for one group only, such as Tasmania’s Easter Tuesday for the public service. A council or region’s local substitute for Melbourne Cup Day or the WA King’s Birthday is not applied: the state date is still skipped.
-
-The calculator covers dates through 31 December 2027. Check the applicable law for which days and which place count towards a deadline. The separate SGC and Payday Super calculator works out those due dates within its own coverage period.
-
-## Boundary cases
-
-Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
-
-Boundary cases: Business days calculator
-
-Case | Inputs | Result
-New South Wales over Christmas and New Year: 7 | New South Wales, Monday 21 December 2026 to Monday 4 January 2027 | 7 business days
-Friday to the next Monday is 1 | New South Wales, Friday 13 November 2026 to Monday 16 November 2026 | 1 business day
-The same date is 0 | New South Wales, Wednesday 18 November 2026 to Wednesday 18 November 2026 | 0 business days
-Victoria skips Melbourne Cup Day | Victoria, Monday 2 November 2026 to Wednesday 4 November 2026 | 1 business day
-New South Wales does not | New South Wales, Monday 2 November 2026 to Wednesday 4 November 2026 | 2 business days
-Western Australia skips its King’s Birthday on 28 September 2026 | Western Australia, Friday 25 September 2026 to Tuesday 29 September 2026 | 1 business day
-Any state or territory skips 9 March 2026, a holiday in 4 of them | Any state or territory, Friday 6 March 2026 to Tuesday 10 March 2026 | 1 business day
-10 business days on from 21 December 2026 in New South Wales | New South Wales, 10 business days after Monday 21 December 2026 | 10 business days, date Thursday 7 January 2027
-5 business days back from the Tuesday after Easter 2026 in New South Wales | New South Wales, 5 business days before Tuesday 7 April 2026 | 5 business days, date Friday 27 March 2026
-An end before the start is refused | New South Wales, Wednesday 18 November 2026 to Tuesday 17 November 2026 | Refused: the end date must not be before the start date
-Victoria skips the Grand Final holiday | Victoria, Thursday 30 September 2027 to Friday 1 October 2027 | 0 business days
-Counting past 31 December 2027 is refused | New South Wales, 20 business days after Monday 20 December 2027 | Refused: this page has public holidays from 1 January 2026 to 31 December 2027 for New South Wales; choose dates in that range
-
-One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
-
-## Related
-
-- Payday Super business days
-- Objection deadline checker
-- 2026-27 BAS due dates
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-## Links
-
-- SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
-- sixty business calculators: https://duguid.com.au/tools/business-calculators/
-- Payday Super business days: https://duguid.com.au/tools/payday-super/business-days/
-- Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/
-- 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
