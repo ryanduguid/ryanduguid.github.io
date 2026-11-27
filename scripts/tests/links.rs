@@ -1942,7 +1942,7 @@ fn own_repositories_are_named_once_in_first_use_order() {
     ]);
     assert_eq!(
         site_tools::check_links::own_repositories(&targets),
-        strings(&["Ozzit", "aus-accounting-mcp"])
+        strings(&["ozzit", "aus-accounting-mcp"])
     );
 }
 

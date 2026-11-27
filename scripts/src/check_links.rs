@@ -674,7 +674,6 @@ impl<'a> Checker<'a> {
                 }
             }
         }
-        unreachable!("the last attempt returns or raises")
     }
 
     /// Verify the canonical repository identity and read its archived flag.
