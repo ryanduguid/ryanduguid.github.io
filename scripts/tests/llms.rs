@@ -196,14 +196,63 @@ fn section_parts_are_bounded_and_preserve_citations() {
     assert!(parts.iter().any(|p| p.name == "llms-full-tools-1.txt"
         && p.titles == ["A"]
         && p.text.contains("https://example.com/a")));
-    assert!(
-        section_parts(&[(
-            format!("{SITE}tools/huge/"),
-            format!("# H\n{}", "x".repeat(100_000))
-        )])
-        .is_err()
+    let err = section_parts(&[(
+        format!("{SITE}tools/huge/"),
+        format!("# H\n{}", "x".repeat(100_000)),
+    )])
+    .err()
+    .unwrap();
+    assert_eq!(
+        err,
+        "llms-full: tools page holds a line or block over the section part budget"
     );
     assert!(section_parts(&[(format!("{SITE}about/"), "About".into())]).is_err());
+}
+
+/// A page over the 96,000-byte part budget continues in the next part of its section,
+/// cut only after whole lines outside fenced blocks; one smaller stays whole.
+#[test]
+fn an_oversized_page_continues_in_the_next_part() {
+    use site_tools::llms_full::section_parts;
+    const BUDGET: usize = 96_000;
+    let url = format!("{SITE}changelog/");
+    let probe = section_parts(&[(url.clone(), "# C\n".into())]).unwrap();
+    // A part is the header, a line break and "---\n\n" before the entry.
+    let room = BUDGET - (probe[0].text.len() - "# C\n".len());
+    let rows = |bytes: usize| {
+        let row = format!("{}\n", "r".repeat(99));
+        let mut entry = String::from("# C\n");
+        while entry.len() + row.len() < bytes {
+            entry.push_str(&row);
+        }
+        entry.push_str(&"s".repeat(bytes - entry.len() - 1));
+        entry.push('\n');
+        entry
+    };
+    let header = &probe[0].text[..probe[0].text.len() - "---\n\n# C\n".len()];
+    for (bytes, count) in [(room - 1, 1), (room, 1), (room + 1, 2)] {
+        let entry = rows(bytes);
+        let parts = section_parts(&[(url.clone(), entry.clone())]).unwrap();
+        assert_eq!(parts.len(), count, "{bytes} bytes");
+        assert!(parts.iter().all(|p| p.text.len() <= BUDGET));
+        let joined: String = parts.iter().map(|p| &p.text[header.len()..]).collect();
+        assert_eq!(joined, format!("---\n\n{entry}"));
+        assert!(parts.iter().all(|p| p.text.ends_with('\n')));
+        if count == 2 {
+            assert_eq!(parts[1].name, "llms-full-changelog-2.txt");
+            assert_eq!(parts[0].titles, ["C"]);
+            assert_eq!(parts[1].titles, ["C (continued)"]);
+        }
+    }
+    // A fenced block is never cut, so the cut comes before it.
+    let fence = format!("```\n{}```\n", "f\n".repeat(30_000));
+    let entry = format!("# C\n{}{fence}tail\n", "a\n".repeat(20_000));
+    let parts = section_parts(&[(url.clone(), entry)]).unwrap();
+    assert_eq!(parts.len(), 2);
+    assert!(parts[1].text[header.len()..].starts_with(&fence));
+    // A block larger than the budget still fails.
+    let entry = format!("# C\n```\n{}```\n", "f\n".repeat(50_000));
+    assert!(section_parts(&[(url, entry)]).is_err());
 }
 
 /// llms.txt lists each part file with the titles of the pages it holds.
