@@ -20,6 +20,7 @@ import { dbIncomeCapTool } from './webmcp-individual-db-income-cap.mjs';
 import { foreignPensionTool } from './webmcp-individual-foreign-pension.mjs';
 import { scholarshipTool } from './webmcp-individual-scholarship.mjs';
 import { crystallisationTool } from './webmcp-individual-crystallisation.mjs';
+import { helpIndexationTool } from './webmcp-individual-help.mjs';
 
 // WebMCP tool descriptors for the site's calculators. Each tool calls the same module
 // function as its page's form, reads nothing from the form and sends nothing anywhere.
@@ -1068,6 +1069,14 @@ export function scholarshipTools(engine) {
  */
 export function crystallisationTools(engine) {
   return { 'super-crystallisation': crystallisationTool(TOOL_KIT, engine) };
+}
+
+/**
+ * WebMCP descriptor for the HELP indexation calculator.
+ * @param {import('./webmcp-individual-help.mjs').HelpIndexationEngine} engine
+ */
+export function helpIndexationTools(engine) {
+  return { 'help-indexation': helpIndexationTool(TOOL_KIT, engine) };
 }
 
 /** The WebMCP descriptor for the income tax estimate.

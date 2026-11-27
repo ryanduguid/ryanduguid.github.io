@@ -46,6 +46,8 @@ import './defined-benefit-income-cap.test.mjs';
 import './foreign-pension-upp.test.mjs';
 import './scholarship-exemption.test.mjs';
 import './super-crystallisation.test.mjs';
+import { helpIndexation, helpIndexationFormInput, helpIndexationResult } from '../assets/help-indexation.mjs';
+import './help-indexation.test.mjs';
 import { foreignIncomeFixture, foreignIncomeFormTests } from './foreign-income.test.mjs';
 import { minorsFixture, minorsFormTests } from './minors-income.test.mjs';
 import { nonCommercialFixture, nonCommercialFormTests } from './non-commercial-losses.test.mjs';
@@ -59,6 +61,7 @@ const engines = { taxEstimate, takeHomePay, studyLoanRepayment, soleTraderSetAsi
   workExpenses, governmentSuperAmounts,
   transferBalanceCases: (command, input) => (command === 'transfer-balance' ? transferBalance(input) : excessContributions(input)).amounts,
   pensionMinimumAmounts: (input) => pensionMinimum(input).amounts,
+  helpIndexationAmounts: (input) => helpIndexation(input).amounts,
   residencyDaysCases: (...call) => {
     const r = residencyDays(...call);
     return { days_in_australia: r.tests.days_in_australia, days_needed: r.tests.days_needed, exception_applies: r.visitor, days_183: r.tests.days_183 };
@@ -108,6 +111,11 @@ const INPUTS = {
     : f.question === 'concessional_charge' ? `${f.year} charge on ${dollars(f.additional_tax)}, tax due ${f.tax_due_date}`
       : `${f.year} release of ${dollars(f.excess)}, determination ${f.determination_date}`),
   pensionMinimumAmounts: (f) => `${f.year}, balance ${dollars(f.account_balance)}, age ${f.age}, ${f.days} days`,
+  helpIndexationAmounts: (f) => `${f.year}, debt ${dollars(f.previous_accumulated_debt)}`
+    + `${(f.earlier_debts ?? []).map((d) => `, earlier debt ${dollars(d.amount)} on ${d.incurred}`).join('')}`
+    + `${(f.current_debts ?? []).map((d) => `, current debt ${dollars(d.amount)} on ${d.incurred}`).join('')}`
+    + `${(f.voluntary_repayments ?? []).map((d) => `, repaid ${dollars(d.amount)} on ${d.date}`).join('')}`
+    + `${f.proposed_repayment ? `, proposed ${dollars(f.proposed_repayment)}` : ''}`,
   residencyDaysCases: (year, presence, outside, intends) => `${year}, ${presence.map((p) => `${p.from} to ${p.to}`).join(', ')}`
     + `${outside ? ', usual abode outside Australia' : ''}${intends ? ', intends to take up residence' : ''}`,
   governmentSuperAmounts: (f) => `${f.year}, assessable income ${whole(f.assessable_income)}`
@@ -185,6 +193,9 @@ const OUTPUTS = {
     : f.question === 'concessional_charge' ? `Charge ${dollars(r.excess_concessional_contributions_charge)}`
       : `Earnings ${dollars(r.associated_earnings)}, release ${dollars(r.total_release_amount)}, offset ${dollars(r.associated_earnings_tax_offset)}`),
   pensionMinimumAmounts: (r) => `Before rounding ${dollars(r.minimum_before_rounding)}, minimum ${dollars(r.minimum_payment)}`,
+  helpIndexationAmounts: (r) => `Indexation ${dollars(r.indexation)}, debt on 1 June ${dollars(r.accumulated_debt)}`
+    + `${r.proposed_repayment ? `; paid before 1 June ${dollars(r.accumulated_debt_if_paid_before_1_june)}, `
+      + `after ${dollars(r.accumulated_debt_if_paid_on_or_after_1_june)}` : ''}`,
   residencyDaysCases: (r) => `${r.days_in_australia} days, ${r.days_needed} needed${r.exception_applies ? ', exception applies' : ''}: ${r.days_183 ? 'met' : 'not met'}`,
   governmentSuperAmounts: (r) => `Co-contribution ${dollars(r.amounts.co_contribution_paid)}, LISTO ${dollars(r.amounts.listo_paid)}`
     + (r.amounts.spouse_contribution_offset === undefined ? '' : `, spouse offset ${dollars(r.amounts.spouse_contribution_offset)}`),
@@ -267,6 +278,7 @@ const FORM_CALLS = {
   transferBalanceCases: (f) => (f.calc === 'transfer' ? ['transfer-balance', tbaFormInput((name) => f[name] ?? '')]
     : ['excess-contributions', excessFormInput((name) => f[name] ?? '')]),
   pensionMinimumAmounts: (f) => [pensionMinimumFormInput((name) => f[name] ?? '')],
+  helpIndexationAmounts: (f) => [helpIndexationFormInput((name) => f[name] ?? '')],
   residencyDaysCases: (f) => [f.year, residencyFormPresence((name) => f[name] ?? ''), f['usual-abode-outside'] === 'yes', f['intends-residence'] === 'yes'],
   fhssAmounts: (f) => {
     const fixture = fhssExampleFields(f);
@@ -755,6 +767,7 @@ for (const page of Object.keys(shownCases)) {
       : page === 'foreign-pension-upp' ? foreignPensionResult(value)
       : page === 'scholarship-exemption' ? scholarshipResult(value)
       : page === 'super-crystallisation' ? crystallisationResult(value)
+      : page === 'help-indexation' ? helpIndexationResult(value, aud)
       : individualResult(page, value, aud);
     assert.equal(result.inputs, example[1]);
     assert.equal(result.rows.map((row) => row.join('|')).join(';'), example[2]);

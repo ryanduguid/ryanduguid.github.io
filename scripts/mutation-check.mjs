@@ -54,6 +54,7 @@ const fpUpp = { file: 'assets/foreign-pension-upp.mjs', test: 'scripts/foreign-p
 const schol = { file: 'assets/scholarship-exemption.mjs', test: 'scripts/scholarship-exemption.test.mjs' };
 const cryst = { file: 'assets/super-crystallisation.mjs', test: 'scripts/super-crystallisation.test.mjs' };
 const args = { file: 'assets/command-args.mjs', test: 'scripts/command-args.test.mjs' };
+const hi = { file: 'assets/help-indexation.mjs', test: 'scripts/help-indexation.test.mjs' };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
 const div7a = { ...business, file: 'assets/div7a.mjs' };
@@ -1408,6 +1409,16 @@ const MUTATIONS = [
   { ...rd, name: 'residency treaty refusal dropped', find: 'metBy.length > 0 && elsewhere', replace: 'false' },
   { ...rd, name: 'residency scope not needed', find: "if (input.get('scope_confirmed') !== true) refuse", replace: 'if (false) refuse' },
   { ...rd, name: 'residency form blank departure is 29 June', find: '`${start + 1}-06-30`', replace: '`${start + 1}-06-29`' },
+  { ...hi, name: 'HELP 2025 reduction not applied', find: 'const base = reduce ? (before * 8n) / 10n : before;', replace: 'const base = before;' },
+  { ...hi, name: 'HELP group total not cut to dollars', find: 'total += (sum / 1000000n) * 1000000n;', replace: 'total += sum;' },
+  { ...hi, name: 'HELP cents kept on the debt', find: 'const accumulated = ((former + current) / 1000000n) * 1000000n;', replace: 'const accumulated = former + current;' },
+  { ...hi, name: 'HELP current debts indexed', find: 'const former = (base * factor) / 1000n;', replace: 'const former = ((base + current) * factor) / 1000n;' },
+  { ...hi, name: 'HELP 1 June 2025 debt not reduced', find: 'if (on >= from && on <= to) {', replace: 'if (on >= from && on < to) {' },
+  { ...hi, name: 'HELP repayment of 31 May refused', find: "[date('06-01', y - 1), date('05-31', y)]", replace: "[date('06-01', y - 1), date('05-30', y)]" },
+  { ...hi, name: 'HELP repayments allowed to exceed the debt', find: 'if (before < 0n || currentNet < 0n) {', replace: 'if (false) {' },
+  { ...hi, name: "HELP early payment goes to the year's own debts first", find: 'const toIndexed = proposed < w.before ? proposed : w.before;', replace: 'const toIndexed = 0n;' },
+  { ...hi, name: 'HELP 3 decimal places taken', find: 'if (fraction.length > 2) return null;', replace: 'if (fraction.length > 3) return null;' },
+  { ...hi, name: 'HELP location-preferred taken', find: 'if (input.location_preferred) refuse(', replace: 'if (false) refuse(' },
   { ...rd, name: 'residency page principal is the count', find: 'rows: table, principal: 3, note', replace: 'rows: table, principal: 0, note' },
   { ...dbCap, name: 'DB cap not rounded up', find: 'days)))), true)', replace: 'days)))), false)' },
   { ...dbCap, name: 'DB cap pro-rating drops the first day', find: 'add(exact(1n), exact(BigInt(after)))', replace: 'exact(BigInt(after))' },
@@ -1461,6 +1472,7 @@ const SHARED = [
   'scripts/scholarship-exemption-engine-differential.json',
   'scripts/super-crystallisation-engine-differential.json',
   'scripts/super-income-cases.mjs',
+  'scripts/help-indexation-engine-differential.json',
   'scripts/concessional-catch-up-engine-differential.json',
   'scripts/unused-leave-engine-differential.json',
   'scripts/franking-account-engine-differential.json',
@@ -1484,7 +1496,7 @@ const SHARED = [
 
 const TEST_FILES = [
   levy.test, business.test, individualTest,
-  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test, dbCap.test, fpUpp.test, schol.test, cryst.test, args.test,
+  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test, dbCap.test, fpUpp.test, schol.test, cryst.test, args.test, hi.test,
   'scripts/net-medical-expenses.test.mjs',
   'scripts/foreign-income.test.mjs',
   'scripts/minors-income.test.mjs',

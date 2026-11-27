@@ -5,13 +5,14 @@
 import * as calculate from '../../assets/business-calculators.mjs';
 import {
   calculatorTools, fhssTools, governmentSuperTools, individualTaxTools, pensionMinimumTools, residencyDaysTools, crystallisationTools, dbIncomeCapTools, foreignPensionTools, scholarshipTools, transferBalanceTools,
-  workExpensesTools,
+  workExpensesTools, helpIndexationTools,
 } from '../../assets/webmcp-tools.mjs';
 import { MAX_PERIODS, RESIDENCY_YEARS, residencyDays } from '../../assets/residency-days.mjs';
 import { DB_INCOME_CAP_YEARS, definedBenefitIncomeCap } from '../../assets/defined-benefit-income-cap.mjs';
 import { FOREIGN_PENSION_YEARS, foreignPensionUpp } from '../../assets/foreign-pension-upp.mjs';
 import { COMMONWEALTH_PAYMENTS, PAYMENT_TYPES, SCHOLARSHIP_YEARS, scholarshipExemption } from '../../assets/scholarship-exemption.mjs';
 import { superCrystallisation } from '../../assets/super-crystallisation.mjs';
+import { HELP_INDEXATION_YEARS, MAX_ENTRIES, helpIndexation } from '../../assets/help-indexation.mjs';
 import { PENSION_MINIMUM_YEARS, pensionMinimum } from '../../assets/pension-minimum.mjs';
 import {
   ATO_TABLE_5, CHARGE_YEARS, RELEASE_YEARS, TBA_KINDS, TBA_YEARS, dayOf, excessContributions, label, transferBalance,
@@ -632,6 +633,9 @@ pensionMinimumTools({ pensionMinimum });
 void residencyDaysTools({ MAX_PERIODS, RESIDENCY_YEARS, residencyDays })['residency-days'].execute({ incomeYear: '2025-26', periods: [{ arrival: '2025-07-01', departure: '2025-09-30' }], usualPlaceOfAbodeOutsideAustralia: false, intendsToTakeUpResidence: false });
 // @ts-expect-error residencyDaysTools requires MAX_PERIODS alongside the years and residencyDays.
 residencyDaysTools({ RESIDENCY_YEARS, residencyDays });
+void helpIndexationTools({ HELP_INDEXATION_YEARS, MAX_ENTRIES, helpIndexation })['help-indexation'].execute({ incomeYear: '2025-26', previousAccumulatedDebt: '30000', voluntaryRepayments: [{ date: '2026-05-01', amount: '500' }] });
+// @ts-expect-error helpIndexationTools requires MAX_ENTRIES alongside the years and helpIndexation.
+helpIndexationTools({ HELP_INDEXATION_YEARS, helpIndexation });
 const coInput = { payday: '2026-07-10', base_rate: '30.00', casual_loading: '25', ordinary_hours: '30',
   lines: [{ hours: '3', percent: '175', overtime: true }], leave_hours: '0', leave_loading: '0', leave_loading_overtime: false };
 const coSuper: number = calculate.casualOvertime(coInput).superGuarantee;

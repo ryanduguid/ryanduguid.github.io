@@ -48,7 +48,8 @@ on the 63 business calculator pages,
 `calculate_bonus_withholding`, `calculate_salary_packaging`, `calculate_novated_lease`, `project_super_balance`,
 `calculate_fhss_release`, `calculate_work_expenses`, `calculate_government_super_amounts`,
 `calculate_pension_minimum`, `calculate_transfer_balance`, `calculate_residency_days`,
-`calculate_defined_benefit_income_cap`, `calculate_foreign_pension_upp`, `check_scholarship_exemption` and `calculate_super_crystallisation` on the 22
+`calculate_defined_benefit_income_cap`, `calculate_foreign_pension_upp`, `check_scholarship_exemption`, `calculate_super_crystallisation`
+and `calculate_help_indexation` on the 18
 individual tax calculator pages, `calculate_decline_in_value` on the depreciation rates page and
 `calculate_coal_lsl_levy` on the Coal LSL levy calculator.
 `assets/accounting-pages.mjs`, `assets/depreciation-calculator-page.mjs` and

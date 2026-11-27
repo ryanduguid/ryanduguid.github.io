@@ -8,6 +8,13 @@
   <updated>2026-11-27T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>Added the HELP indexation calculator: the HELP debt after indexation on 1 June…</title>
+    <link href="https://duguid.com.au/changelog/#entry-46192f081579b43f" />
+    <id>https://duguid.com.au/changelog/#entry-46192f081579b43f</id>
+    <updated>2026-11-27T00:00:00Z</updated>
+    <summary>Added the HELP indexation calculator: the HELP debt after indexation on 1 June from 2020 to 2026, with the 20% reduction of 2025 and what a voluntary repayment before 1 June saves. It agrees with the australian-accounting help-indexation command on 671 test cases.</summary>
+  </entry>
+  <entry>
     <title>The depreciation register distinguishes assets with the same name, shows the…</title>
     <link href="https://duguid.com.au/changelog/#entry-812e9c722d31e872" />
     <id>https://duguid.com.au/changelog/#entry-812e9c722d31e872</id>
