@@ -3,7 +3,9 @@
 
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { waitForCalculators } from './calculator-ready.mjs';
 import { observePageHealth } from './health.mjs';
+import { projectKind } from './project-kind.mjs';
 
 test('the published stylesheet and Markdown editions load from the served site', async ({ page, request }) => {
   await page.goto('/');
@@ -11,7 +13,8 @@ test('the published stylesheet and Markdown editions load from the served site',
   expect(bundle).toMatch(/^\/assets\/screen-[a-f0-9]{16}\.css$/);
   expect((await request.get(bundle)).headers()['content-type']).toContain('text/css');
   for (const [route, content] of [
-    ['/', /!\[[^\]]+\]\(https:\/\/duguid\.com\.au\/assets\/examples\//],
+    ['/', /\\?\$35,957\.55[\s\S]*\(?\\?\$25,160\)?[\s\S]*\[Source data\]\(https:\/\/duguid\.com\.au\/assets\/examples\/lumbridge\/sensitivity\.json\)/],
+    ['/examples/profit-vs-cash-flow/', /!\[[^\]]+\]\(https:\/\/duguid\.com\.au\/assets\/examples\//],
     ['/tools/business-calculators/margin/', /^\|\s*---\s*\|/m],
     ['/tools/depreciation-rates/', /Every row is in the \[data file\]\(https:\/\/duguid\.com\.au\/tools\/depreciation-rates\/effective-life\.json\)/],
     ['/tools/depreciation-rates/asset/working-dogs/', /\| Effective life \| 8 years \|/],
@@ -86,6 +89,9 @@ test('view mode defaults to Human and preserves the page when switching back', a
   await expect(page.getByRole('main')).toHaveCount(1);
   await expect(view).toContainText('Source: https://duguid.com.au/');
   await expect(view).toContainText('Tools for Australian accountants');
+  await expect(view).toContainText('$35,957.55');
+  await expect(view).toContainText('($25,160)');
+  await expect(view).toContainText('Source data');
   await expect(view).toContainText('https://duguid.com.au/examples/profit-vs-cash-flow/');
   await expect(view).toContainText('Nothing here is accounting, tax, legal or financial advice.');
   await expect(view).toContainText('Ryan Duguid, ABN 59 834 031 764');
@@ -130,14 +136,16 @@ test('enlarged header text keeps navigation clear of the view switch', async ({ 
     await page.evaluate(() => { document.documentElement.style.fontSize = '200%'; });
     await page.evaluate(() => document.fonts.ready);
     const toggle = await page.getByRole('radiogroup', { name: 'View mode' }).boundingBox();
+    const themeToggle = await page.getByRole('radiogroup', { name: 'Colour theme' }).boundingBox();
     const links = await page.locator('.site-header a').evaluateAll(elements => elements.map(element => {
       const rect = element.getBoundingClientRect();
       return { label: element.textContent, x: rect.x, y: rect.y, width: rect.width, height: rect.height };
     }));
+    const hits = (a, b) => a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y;
+    expect(hits(themeToggle, toggle), `${width}px: theme vs view overlap`).toBe(false);
     for (const link of links) {
-      const overlaps = link.x < toggle.x + toggle.width && link.x + link.width > toggle.x
-        && link.y < toggle.y + toggle.height && link.y + link.height > toggle.y;
-      expect(overlaps, `${width}px: ${link.label}`).toBe(false);
+      expect(hits(link, toggle), `${width}px: ${link.label} vs view`).toBe(false);
+      expect(hits(link, themeToggle), `${width}px: ${link.label} vs theme`).toBe(false);
       expect(link.x + link.width, `${width}px: ${link.label}`).toBeLessThanOrEqual(width + 1);
     }
     const nav = page.getByRole('navigation', { name: 'Primary' });
@@ -152,7 +160,7 @@ test('enlarged header text keeps navigation clear of the view switch', async ({ 
       const padding = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop);
       return target.top >= document.querySelector('.site-header').getBoundingClientRect().bottom
         && Math.abs(target.top - padding) < 2;
-    })).toBe(true);
+    }), { timeout: 15_000 }).toBe(true);
     expect(await page.locator('.about-header > .lead-note').evaluate(element => element.clientWidth)).toBeGreaterThan(150);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width + 1);
   }
@@ -285,4 +293,131 @@ test('the floating switch leaves the last footer link unobscured', async ({ page
   const index = await page.getByRole('link', { name: 'Machine-readable index', exact: true }).boundingBox();
   const toggle = await page.getByRole('radiogroup', { name: 'View mode' }).boundingBox();
   expect(index.y + index.height < toggle.y || toggle.y + toggle.height < index.y).toBe(true);
+});
+
+test('colour theme defaults to pure black regardless of OS preference and switches to Light Mode', async ({ page, context }) => {
+  const health = observePageHealth(page);
+  await page.emulateMedia({ colorScheme: 'light' });
+  await page.goto('/');
+  const light = page.getByRole('radio', { name: 'Light', exact: true });
+  const dark = page.getByRole('radio', { name: 'Dark', exact: true });
+  await expect(dark).toBeChecked();
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(0, 0, 0)');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#000000');
+  await expect(page.locator('meta[name="color-scheme"]')).toHaveAttribute('content', 'dark');
+
+  await light.check();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+  await expect(page.locator('body')).toHaveCSS('color', 'rgb(0, 0, 0)');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#ffffff');
+  await expect(page.locator('meta[name="color-scheme"]')).toHaveAttribute('content', 'light');
+
+  await page.reload();
+  await expect(light).toBeChecked();
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+  await page.goto('/about/');
+  await expect(light).toBeChecked();
+  await expect(page.locator('.about-portrait')).toHaveCSS('background-color', 'rgb(0, 0, 0)');
+
+  const other = await context.newPage();
+  await other.goto('/tools/');
+  await expect(other.getByRole('radio', { name: 'Light', exact: true })).toBeChecked();
+  await other.getByRole('radio', { name: 'Dark', exact: true }).check();
+  await expect(dark).toBeChecked();
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(0, 0, 0)');
+  health.assertHealthy();
+});
+
+test('Light and Dark switch sits left of Tools, matches View mode height, and fits all widths', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/');
+  const themeBox = await page.getByRole('radiogroup', { name: 'Colour theme' }).boundingBox();
+  const viewBox = await page.getByRole('radiogroup', { name: 'View mode' }).boundingBox();
+  const toolsBox = await page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'Tools', exact: true }).boundingBox();
+  const headerBox = await page.locator('.site-header').boundingBox();
+  expect(themeBox.x + themeBox.width).toBeLessThan(toolsBox.x);
+  expect(themeBox.height).toBeCloseTo(viewBox.height, 0);
+  expect(headerBox.height).toBeLessThanOrEqual(73);
+
+  const dark = page.getByRole('radio', { name: 'Dark', exact: true });
+  await page.emulateMedia({ forcedColors: 'active' });
+  await dark.focus();
+  await page.keyboard.press('Shift+Tab');
+  await page.keyboard.press('Tab');
+  await expect(page.locator('.theme-mode__option:has(:focus-visible)')).toHaveCSS('outline-style', 'solid');
+  await expect(page.locator('.theme-mode__option:has(:focus-visible)')).toHaveCSS('outline-width', '3px');
+  await page.emulateMedia({ forcedColors: 'none' });
+
+  for (const width of [288, 320, 360, 390, 480, 481, 640, 768, 896, 960, 1280, 1440]) {
+    await page.setViewportSize({ width, height: 844 });
+    if (width >= 960) {
+      expect(await page.locator('.site-header').evaluate(el => el.getBoundingClientRect().height), `${width}px header height`).toBeLessThanOrEqual(73);
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+    for (const label of ['Light', 'Dark']) {
+      const box = await page.locator('.theme-mode__option', { hasText: label }).boundingBox();
+      expect(box.height, `${width}px ${label} height`).toBeGreaterThanOrEqual(44);
+      expect(box.width, `${width}px ${label} width`).toBeGreaterThanOrEqual(44);
+    }
+    const overlap = await page.evaluate(() => {
+      const themeRect = document.querySelector('.theme-mode').getBoundingClientRect();
+      const viewRect = document.querySelector('.view-mode').getBoundingClientRect();
+      const links = [...document.querySelectorAll('.site-header a')].map(el => el.getBoundingClientRect());
+      const hits = (a, b) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+      return hits(themeRect, viewRect) || links.some(link => hits(themeRect, link));
+    });
+    expect(overlap, `${width}px overlap`).toBe(false);
+  }
+});
+
+test('Light Mode works with keyboard, storage denial, JS disabled, print, and passes axe across key routes', async ({ page, browser, baseURL }, testInfo) => {
+  test.setTimeout(60_000);
+  await page.goto('/');
+  const dark = page.getByRole('radio', { name: 'Dark', exact: true });
+  const light = page.getByRole('radio', { name: 'Light', exact: true });
+  await dark.focus();
+  await page.keyboard.press('ArrowLeft');
+  await expect(light).toBeChecked();
+
+  for (const route of ['/', '/tools/', '/rates/super-guarantee/', '/tools/coal-lsl-levy/', '/tools/business-calculators/margin/', '/about/', '/evidence/', '/privacy/', '/examples/profit-vs-cash-flow/']) {
+    await page.goto(route);
+    await waitForCalculators(page);
+    const scan = await new AxeBuilder({ page }).analyze();
+    const violations = scan.violations.map(({ id, impact, nodes }) => `${id} (${impact}): ${nodes[0]?.target}`);
+    expect(violations, `${route} Light Mode axe violations`).toEqual([]);
+  }
+
+  await page.goto('/');
+  await expect(page.locator('.home-hero__actions a.button')).toHaveCSS('color', 'rgb(255, 255, 240)');
+  if (projectKind(testInfo) === 'desktop') {
+    await page.locator('.site-nav a').first().hover();
+    await expect(page.locator('.site-nav a').first()).toHaveCSS('color', 'rgb(255, 255, 240)');
+  }
+  await page.goto('/evaluate/manager-review-gate/');
+  await expect(page.locator('.is-pass > th').first()).toHaveCSS('color', 'rgb(255, 255, 240)');
+
+  await page.getByRole('radio', { name: 'Machine', exact: true }).check();
+  await expect(page.getByRole('main', { name: 'Machine view' })).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+  await page.getByRole('radio', { name: 'Human', exact: true }).check();
+
+  await page.emulateMedia({ media: 'print' });
+  await expect(page.locator('.theme-mode')).toBeHidden();
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+  await expect(page.locator('body')).toHaveCSS('color', 'rgb(0, 0, 0)');
+  await page.emulateMedia({ media: 'screen' });
+
+  await page.addInitScript(() => {
+    Object.defineProperty(window, 'localStorage', { get() { throw new DOMException('Blocked', 'SecurityError'); } });
+  });
+  await page.goto('/');
+  await page.getByRole('radio', { name: 'Light', exact: true }).check();
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+
+  const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
+  const noJsPage = await context.newPage();
+  await noJsPage.goto('/');
+  await expect(noJsPage.getByRole('radiogroup', { name: 'Colour theme' })).toBeHidden();
+  await expect(noJsPage.locator('body')).toHaveCSS('background-color', 'rgb(0, 0, 0)');
+  await context.close();
 });

@@ -8,7 +8,7 @@ Source: https://duguid.com.au/privacy/
 
 The duguid.com.au privacy notice explains how the site handles browser calculations, hosting and feedback.
 
-Published 12 September 2026. Last reviewed 24 November 2026.
+Published 12 September 2026. Last reviewed 27 November 2026.
 
 ## Browser calculations
 
@@ -28,7 +28,7 @@ Cloudflare also asks browsers to report network errors to Cloudflare for seven d
 
 On a sample of page loads, Cloudflare adds a report-only security policy header, which asks your browser to tell Cloudflare which scripts the page loads and which connections it makes. It blocks nothing. A report includes the page address, which can hold question-search terms, but not the figures you type into the calculators. If Cloudflare treats a request as suspicious, it can answer with its own verification page, which runs Cloudflare’s code and may set a security cookie; see Cloudflare’s cookie documentation. Cloudflare makes these additions itself; they are not part of this website’s source. The calculators work out their figures in your browser without sending them to a server.
 
-When you select Human or Machine view, your browser saves that display preference on this device. The preference is not sent to a server. You can change it with the view switch or remove it by clearing this site’s browser storage.
+When you select Human or Machine view, or Light or Dark mode, your browser saves that display preference on this device. The preference is not sent to a server. You can change it with the header switches or remove it by clearing this site’s browser storage.
 
 ## Hosting
 

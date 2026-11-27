@@ -90,6 +90,7 @@
   --colour-stamp-wash: #161616;
   --colour-pass: #0f4b32;
   --colour-alert: #ff9c91;
+  --colour-on-stamp: #fffff0;
   --colour-masthead: #fffff0;
   --colour-code: #000000;
   --colour-code-ink: #fffff0;
@@ -152,11 +153,54 @@
   --layer-skip: 30;
 }
 
+/* Opt-in Light Mode, selected by header switch; pure-black OLED remains the default. */
+@media screen {
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --colour-canvas: #ffffff;
+    --colour-paper: #ffffff;
+    --colour-paper-raised: #f5f5f5;
+    --colour-ink: #000000;
+    --colour-ink-mid: #262626;
+    --colour-ink-soft: #595959;
+    --colour-rule: #dadada;
+    --colour-rule-strong: #767676;
+    --colour-stamp: #990024;
+    --colour-stamp-strong: #66023c;
+    --colour-stroke: #e7162f;
+    --colour-stamp-wash: #e5e4e2;
+    --colour-pass: #0f4b32;
+    --colour-alert: #990024;
+    --colour-on-stamp: #fffff0;
+    --colour-masthead: #000000;
+    --colour-code: #f5f5f5;
+    --colour-code-ink: #000000;
+    --colour-code-comment: #595959;
+    --colour-machine-canvas: #ffffff;
+    --colour-machine-ink: #262626;
+  }
+
+  /* Keep the ASCII headshot positive on a dark plate in Light Mode so highlights do not invert into a negative. */
+  :root[data-theme="light"] .about-portrait {
+    --colour-paper: #000000;
+    --colour-ink: #fffff0;
+    --colour-ink-mid: #c8c8c8;
+    --colour-ink-soft: #9a9a9a;
+    --colour-rule: #262626;
+    --colour-rule-strong: #606060;
+  }
+}
+
 /* Brighter landing-page copy; fixed captures and other routes keep their palette. */
 @media screen {
   .page-home {
     --colour-ink-mid: #e5e4e2;
     --colour-ink-soft: #dadada;
+  }
+
+  :root[data-theme="light"] .page-home {
+    --colour-ink-mid: #161616;
+    --colour-ink-soft: #262626;
   }
 }
 
@@ -174,6 +218,15 @@
     --colour-ink-soft: #fffff0;
     --colour-rule: #606060;
     --colour-rule-strong: #fffff0;
+    --rule-thin: 0.125rem;
+  }
+
+  :root[data-theme="light"],
+  :root[data-theme="light"] .page-home {
+    --colour-ink-mid: #000000;
+    --colour-ink-soft: #000000;
+    --colour-rule: #606060;
+    --colour-rule-strong: #000000;
     --rule-thin: 0.125rem;
   }
 }

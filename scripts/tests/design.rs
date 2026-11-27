@@ -539,8 +539,8 @@ fn design_contracts_text_mutations() {
         (
             "interaction timing drift",
             "assets/site.css",
-            "transition:\n    color var(--motion-standard) var(--ease-standard),\n    text-decoration-color var(--motion-standard) var(--ease-standard);",
-            "transition:\n    color var(--motion-fast) var(--ease-standard),\n    text-decoration-color var(--motion-fast) var(--ease-standard);",
+            "transition:\n    color var(--motion-standard) var(--ease-standard),\n    background-color var(--motion-standard) var(--ease-standard),\n    text-decoration-color var(--motion-standard) var(--ease-standard);",
+            "transition:\n    color var(--motion-fast) var(--ease-standard),\n    background-color var(--motion-fast) var(--ease-standard),\n    text-decoration-color var(--motion-fast) var(--ease-standard);",
             "links and controls must use the standard motion duration",
         ),
         (
@@ -1140,4 +1140,78 @@ fn update_baseline_recounts_text_and_pins_new_pages() {
             assert!(now.py_eq(then), "{key}");
         }
     }
+}
+
+#[test]
+fn light_mode_tokens_require_scheme_canvas_contrast_and_on_stamp() {
+    if !rendered() {
+        return;
+    }
+    let valid = std::fs::read_to_string(root().join("assets/tokens.css")).unwrap();
+    assert!(design::check_oled_tokens(&valid).is_empty());
+    assert!(design::check_light_tokens(&valid).is_empty());
+
+    assert_eq!(
+        design::check_light_tokens(":root { --colour-canvas: #000000; }"),
+        ["light theme tokens must exist"]
+    );
+    assert_eq!(
+        design::check_light_tokens(r#":root[data-theme="light"] { --colour-canvas: #f5f5f5; }"#),
+        [
+            "light theme colour scheme must be light",
+            "light canvas must be #ffffff",
+        ]
+    );
+
+    let low_contrast = r#"
+      :root[data-theme="light"] {
+        color-scheme: light;
+        --colour-canvas: #ffffff;
+        --colour-paper: #e5e4e2;
+        --colour-ink: #999999;
+        --colour-ink-mid: #262626;
+        --colour-ink-soft: not-hex;
+        --colour-alert: #990024;
+        --colour-masthead: #000000;
+        --colour-machine-canvas: #ffffff;
+        --colour-machine-ink: #262626;
+        --colour-code: #f5f5f5;
+        --colour-code-ink: #000000;
+        --colour-code-comment: #bbbbbb;
+        --colour-rule-strong: #cccccc;
+        --colour-stamp: #990024;
+        --colour-stamp-strong: #66023c;
+        --colour-stroke: #e7162f;
+        --colour-pass: #0f4b32;
+        --colour-on-stamp: #606060;
+      }
+    "#;
+    let failures = design::check_light_tokens(low_contrast);
+    assert!(failures.contains(&"light paper must be #ffffff".into()));
+    assert!(failures.contains(&"--colour-ink contrast on canvas must be at least 4.5:1".into()));
+    assert!(failures.contains(&"--colour-ink-soft must be a six-digit colour".into()));
+    assert!(
+        failures
+            .contains(&"--colour-code-comment contrast on canvas must be at least 4.5:1".into())
+    );
+    assert!(
+        failures.contains(&"--colour-rule-strong contrast on canvas must be at least 3:1".into())
+    );
+    assert!(
+        failures.contains(
+            &"--colour-on-stamp contrast on --colour-stamp must be at least 4.5:1".into()
+        )
+    );
+
+    let bad_home = valid.replace("--colour-ink-mid: #161616;", "--colour-ink-mid: #aaaaaa;");
+    assert!(
+        design::check_light_tokens(&bad_home)
+            .contains(&"--colour-ink-mid contrast on canvas must be at least 4.5:1".into())
+    );
+
+    let missing_on_stamp = low_contrast.replace("--colour-on-stamp: #606060;", "");
+    assert!(
+        design::check_light_tokens(&missing_on_stamp)
+            .contains(&"--colour-on-stamp must be a six-digit colour".into())
+    );
 }

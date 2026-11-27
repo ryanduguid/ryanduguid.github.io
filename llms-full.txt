@@ -20,13 +20,27 @@ Explore the cash flow example
 
 Built by Ryan Duguid, a senior accountant in Newcastle, NSW.
 
-Last reviewed 23 November 2026.
+Last reviewed 27 November 2026.
 
 ## Compare profit with cash flow
 
-Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter’s profit stays the same.
+Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by up to 60 days and inspect the cash gap in its forecast. The quarter’s profit before tax stays the same.
 
-13-week forecast with one receipt paid 45 days late. Weekly closing cash falls to ($25,160) against a $15,000 buffer, then recovers to $67,320 by December, the same as without the delay. Exported from the supplied workbook in Excel 16.0 on 4 November 2026. Capture record.
+Quarterly profit before tax
+
+$35,957.55
+
+Unchanged across delays
+
+Lowest daily cash
+
+($25,160)
+
+6 Nov · 16 days below $0
+
+Receipt delay (days) 45 days (28 Nov receipt)
+
+Daily closing cash, Oct to Dec 2026 (AUD; intraday not measured), fictional Lumbridge Services. Dashed $15,000 buffer; red below $0. Delaying one $44,000 receipt leaves the $35,957.55 profit before tax and $67,320 close unchanged. Source data.
 
 ## Choose a route
 
@@ -78,7 +92,7 @@ Browse reproducible evaluations Set up AI tools
 ## Links
 
 - Explore the cash flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
-- Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
+- Source data: https://duguid.com.au/assets/examples/lumbridge/sensitivity.json
 - 63 business calculators (GST, FBT, CGT, duty, payroll tax): https://duguid.com.au/tools/business-calculators/
 - 19 individual tax, pay and super calculators: https://duguid.com.au/tools/individual-tax/
 - Depreciation rates (7,430 ATO effective lives): https://duguid.com.au/tools/depreciation-rates/
@@ -17573,7 +17587,7 @@ Source: https://duguid.com.au/privacy/
 
 The duguid.com.au privacy notice explains how the site handles browser calculations, hosting and feedback.
 
-Published 12 September 2026. Last reviewed 24 November 2026.
+Published 12 September 2026. Last reviewed 27 November 2026.
 
 ## Browser calculations
 
@@ -17593,7 +17607,7 @@ Cloudflare also asks browsers to report network errors to Cloudflare for seven d
 
 On a sample of page loads, Cloudflare adds a report-only security policy header, which asks your browser to tell Cloudflare which scripts the page loads and which connections it makes. It blocks nothing. A report includes the page address, which can hold question-search terms, but not the figures you type into the calculators. If Cloudflare treats a request as suspicious, it can answer with its own verification page, which runs Cloudflare’s code and may set a security cookie; see Cloudflare’s cookie documentation. Cloudflare makes these additions itself; they are not part of this website’s source. The calculators work out their figures in your browser without sending them to a server.
 
-When you select Human or Machine view, your browser saves that display preference on this device. The preference is not sent to a server. You can change it with the view switch or remove it by clearing this site’s browser storage.
+When you select Human or Machine view, or Light or Dark mode, your browser saves that display preference on this device. The preference is not sent to a server. You can change it with the header switches or remove it by clearing this site’s browser storage.
 
 ## Hosting
 

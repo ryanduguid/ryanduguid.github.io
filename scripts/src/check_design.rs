@@ -68,6 +68,9 @@ const HERO_ACTIONS_PATTERN: &str = concat!(
     r#"[^"\']*["\'])[^>]*>(.*?)</nav>"#
 );
 const ROOT_BLOCK_PATTERN: &str = r":root\s*\{(.*?)\}";
+const LIGHT_BLOCK_PATTERN: &str = r#":root\[data-theme\s*=\s*["']light["']\]\s*\{(.*?)\}"#;
+const LIGHT_HOME_BLOCK_PATTERN: &str =
+    r#":root\[data-theme\s*=\s*["']light["']\]\s+\.page-home\s*\{(.*?)\}"#;
 const PROPERTY_PATTERN: &str = r"(--[\w-]+)\s*:\s*([^;]+);";
 const UNICODE_RANGE_PATTERN: &str = r"U\+([0-9A-F]{1,6})(?:-([0-9A-F]{1,6}))?";
 const MAX_FONT_BYTES: u64 = 25_000;
@@ -449,12 +452,9 @@ pub fn main_link_targets(path: &Path) -> Result<Option<Vec<String>>, String> {
     }))
 }
 
-fn css_root_properties(tokens_css: &str) -> Vec<(String, String)> {
-    let Some(block) = re(ROOT_BLOCK_PATTERN, S | I).search(tokens_css) else {
-        return vec![];
-    };
+fn css_block_properties(block: &str) -> Vec<(String, String)> {
     let mut properties: Vec<(String, String)> = Vec::new();
-    for groups in re(PROPERTY_PATTERN, 0).findall_groups(&block[1]) {
+    for groups in re(PROPERTY_PATTERN, 0).findall_groups(block) {
         let name = groups[0].to_lowercase();
         let value = py::strip(&groups[1]).to_lowercase();
         match properties.iter_mut().find(|(n, _)| *n == name) {
@@ -463,6 +463,13 @@ fn css_root_properties(tokens_css: &str) -> Vec<(String, String)> {
         }
     }
     properties
+}
+
+fn token_get<'a>(properties: &'a [(String, String)], name: &str) -> Option<&'a str> {
+    properties
+        .iter()
+        .find(|(n, _)| n == name)
+        .map(|(_, v)| v.as_str())
 }
 
 fn relative_luminance(colour: &str) -> f64 {
@@ -493,68 +500,163 @@ fn six_digit(value: &str) -> bool {
     pyre::fullmatch(r"#[0-9a-f]{6}", 0, value)
 }
 
+fn check_contrast_tokens(
+    properties: &[(String, String)],
+    canvas: &str,
+    tokens: &[&str],
+    min_ratio: f64,
+    failures: &mut Vec<String>,
+) {
+    for token in tokens {
+        match token_get(properties, token) {
+            Some(value) if six_digit(value) => {
+                if contrast_ratio(value, canvas) < min_ratio {
+                    failures.push(format!(
+                        "{token} contrast on canvas must be at least {min_ratio}:1"
+                    ));
+                }
+            }
+            _ => failures.push(format!("{token} must be a six-digit colour")),
+        }
+    }
+}
+
+fn check_brand_accents(properties: &[(String, String)], failures: &mut Vec<String>) {
+    for (token, colour) in [
+        ("--colour-stamp", "#990024"),
+        ("--colour-stamp-strong", "#66023c"),
+        // Link underlines and accent rules only: 4.55:1 on black, 4.61:1 on white.
+        ("--colour-stroke", "#e7162f"),
+        ("--colour-pass", "#0f4b32"),
+    ] {
+        if token_get(properties, token) != Some(colour) {
+            failures.push(format!("{token} must be {colour}"));
+        }
+    }
+}
+
+fn check_on_stamp_contrast(properties: &[(String, String)], failures: &mut Vec<String>) {
+    let Some(on_stamp) = token_get(properties, "--colour-on-stamp").filter(|v| six_digit(v)) else {
+        failures.push("--colour-on-stamp must be a six-digit colour".into());
+        return;
+    };
+    for token in ["--colour-stamp", "--colour-stamp-strong", "--colour-pass"] {
+        if let Some(fill) = token_get(properties, token).filter(|v| six_digit(v))
+            && contrast_ratio(on_stamp, fill) < 4.5
+        {
+            failures.push(format!(
+                "--colour-on-stamp contrast on {token} must be at least 4.5:1"
+            ));
+        }
+    }
+}
+
 pub fn check_oled_tokens(tokens_css: &str) -> Vec<String> {
     let mut failures = Vec::new();
     let root_block = re(ROOT_BLOCK_PATTERN, S | I)
         .search(tokens_css)
         .map_or(String::new(), |m| m[1].to_owned());
-    let properties = css_root_properties(tokens_css);
-    let get = |name: &str| {
-        properties
-            .iter()
-            .find(|(n, _)| n == name)
-            .map(|(_, v)| v.as_str())
-    };
+    let properties = css_block_properties(&root_block);
     if !re(r"\bcolor-scheme\s*:\s*dark\s*;", I).is_match(&root_block) {
         failures.push("native colour scheme must be dark only".into());
     }
     if tokens_css.to_lowercase().contains("prefers-color-scheme") {
         failures.push("OLED theme must not contain a prefers-color-scheme override".into());
     }
-    let canvas = get("--colour-canvas");
-    if canvas != Some("#000000") {
+    if token_get(&properties, "--colour-canvas") != Some("#000000") {
         failures.push("OLED canvas must be #000000".into());
         return failures;
     }
-    for token in ["--colour-ink", "--colour-ink-soft", "--colour-alert"] {
-        match get(token) {
-            Some(value) if six_digit(value) => {
-                if contrast_ratio(value, "#000000") < 4.5 {
-                    failures.push(format!("{token} contrast on canvas must be at least 4.5:1"));
-                }
-            }
-            _ => failures.push(format!("{token} must be a six-digit colour")),
-        }
-    }
-    for (token, colour) in [
-        ("--colour-stamp", "#990024"),
-        ("--colour-stamp-strong", "#66023c"),
-        // Link underlines and accent rules only: 4.55:1 on the black canvas.
-        ("--colour-stroke", "#e7162f"),
-        ("--colour-pass", "#0f4b32"),
-    ] {
-        if get(token) != Some(colour) {
-            failures.push(format!("{token} must be {colour}"));
-        }
-    }
-    let ink = get("--colour-ink");
+    check_contrast_tokens(
+        &properties,
+        "#000000",
+        &["--colour-ink", "--colour-ink-soft", "--colour-alert"],
+        4.5,
+        &mut failures,
+    );
+    check_brand_accents(&properties, &mut failures);
+    let ink = token_get(&properties, "--colour-ink");
     for token in ["--colour-stamp", "--colour-stamp-strong"] {
-        if let (Some(stamp), Some(ink)) = (get(token), ink)
-            && !stamp.is_empty()
+        if let (Some(stamp), Some(ink)) = (token_get(&properties, token), ink)
             && six_digit(stamp)
-            && !ink.is_empty()
             && six_digit(ink)
             && contrast_ratio(ink, stamp) < 4.5
         {
             failures.push("ink contrast on filled accent must be at least 4.5:1".into());
         }
     }
-    let display = get("--text-display").unwrap_or("");
+    check_on_stamp_contrast(&properties, &mut failures);
+    let display = token_get(&properties, "--text-display").unwrap_or("");
     let minimum = re(r"clamp\(\s*([0-9]+(?:\.[0-9]+)?)rem\s*,", 0)
         .match_at(display, 0)
         .and_then(|m| m[1].parse::<f64>().ok());
     if minimum.is_none_or(|m| m > 2.5) {
         failures.push("display type minimum must fit the 320px viewport".into());
+    }
+    failures
+}
+
+/// Validate the opt-in `:root[data-theme="light"]` palette and contrast floors.
+pub fn check_light_tokens(tokens_css: &str) -> Vec<String> {
+    let mut failures = Vec::new();
+    let Some(light_match) = re(LIGHT_BLOCK_PATTERN, S | I).search(tokens_css) else {
+        return vec!["light theme tokens must exist".into()];
+    };
+    let light_block = &light_match[1];
+    let properties = css_block_properties(light_block);
+    if !re(r"\bcolor-scheme\s*:\s*light\s*;", I).is_match(light_block) {
+        failures.push("light theme colour scheme must be light".into());
+    }
+    if token_get(&properties, "--colour-canvas") != Some("#ffffff") {
+        failures.push("light canvas must be #ffffff".into());
+        return failures;
+    }
+    if token_get(&properties, "--colour-paper") != Some("#ffffff") {
+        failures.push("light paper must be #ffffff".into());
+    }
+    if token_get(&properties, "--colour-machine-canvas") != Some("#ffffff") {
+        failures.push("light machine canvas must be #ffffff".into());
+    }
+    check_contrast_tokens(
+        &properties,
+        "#ffffff",
+        &[
+            "--colour-ink",
+            "--colour-ink-mid",
+            "--colour-ink-soft",
+            "--colour-alert",
+            "--colour-masthead",
+            "--colour-machine-ink",
+        ],
+        4.5,
+        &mut failures,
+    );
+    match token_get(&properties, "--colour-code") {
+        Some(code_bg) if six_digit(code_bg) => check_contrast_tokens(
+            &properties,
+            code_bg,
+            &["--colour-code-ink", "--colour-code-comment"],
+            4.5,
+            &mut failures,
+        ),
+        _ => failures.push("--colour-code must be a six-digit colour".into()),
+    }
+    check_contrast_tokens(
+        &properties,
+        "#ffffff",
+        &["--colour-rule-strong"],
+        3.0,
+        &mut failures,
+    );
+    check_brand_accents(&properties, &mut failures);
+    check_on_stamp_contrast(&properties, &mut failures);
+    for groups in re(LIGHT_HOME_BLOCK_PATTERN, S | I).findall_groups(tokens_css) {
+        let home_props = css_block_properties(&groups[0]);
+        for token in ["--colour-ink-mid", "--colour-ink-soft"] {
+            if token_get(&home_props, token).is_some() {
+                check_contrast_tokens(&home_props, "#ffffff", &[token], 4.5, &mut failures);
+            }
+        }
     }
     failures
 }
@@ -906,6 +1008,7 @@ pub fn check_stylesheets(root: &Path, baseline: &Json) -> Result<Vec<String>, St
         failures.push(format!("unprotected font declared: {rel}"));
     }
     failures.extend(check_oled_tokens(&tokens_css));
+    failures.extend(check_light_tokens(&tokens_css));
     Ok(failures)
 }
 

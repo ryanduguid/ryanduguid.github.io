@@ -8,7 +8,7 @@
 }
 
 ::selection {
-  color: var(--colour-ink);
+  color: var(--colour-on-stamp);
   background: var(--colour-stamp);
 }
 
@@ -45,6 +45,13 @@ textarea {
   font: inherit;
 }
 
+input,
+select,
+textarea {
+  caret-color: var(--colour-stroke);
+  accent-color: var(--colour-stamp);
+}
+
 button,
 input,
 select {
@@ -61,13 +68,14 @@ a {
   touch-action: manipulation;
   transition:
     color var(--motion-standard) var(--ease-standard),
+    background-color var(--motion-standard) var(--ease-standard),
     text-decoration-color var(--motion-standard) var(--ease-standard);
 }
 
 /* The red underline becomes a crimson fill. */
 a:hover,
 a:active {
-  color: var(--colour-ink);
+  color: var(--colour-on-stamp);
   background: var(--colour-stamp);
   text-decoration-color: currentColor;
 }
@@ -264,6 +272,11 @@ pre code {
   font-weight: 400;
 }
 
+.site-identity:hover::after,
+.site-identity:active::after {
+  color: var(--colour-on-stamp);
+}
+
 .site-nav {
   display: flex;
   flex-wrap: wrap;
@@ -280,10 +293,14 @@ pre code {
   white-space: nowrap;
 }
 
-.site-nav a:hover,
 .site-nav a[aria-current="page"],
 .site-nav a[aria-current="location"] {
   color: var(--colour-ink);
+}
+
+.site-nav a:hover,
+.site-nav a:active {
+  color: var(--colour-on-stamp);
 }
 
 .site-nav a[aria-current] {
@@ -310,7 +327,7 @@ button {
   padding: var(--space-2) var(--space-4);
   border: var(--rule-thin) solid var(--colour-rule-strong);
   border-radius: var(--radius-control);
-  color: var(--colour-ink);
+  color: var(--colour-on-stamp);
   background: var(--colour-stamp);
   font-family: var(--font-body);
   font-size: var(--text-body);
@@ -330,7 +347,7 @@ button {
   .link-button:hover,
   button:hover {
     border-color: var(--colour-ink);
-    color: var(--colour-ink);
+    color: var(--colour-on-stamp);
     background: var(--colour-stamp-strong);
   }
 }
@@ -352,7 +369,7 @@ button:not(.button) {
 @media (hover: hover) {
   .button--secondary:hover,
   button:not(.button):hover {
-    color: var(--colour-ink);
+    color: var(--colour-on-stamp);
     background: var(--colour-stamp-strong);
   }
 }
@@ -368,6 +385,7 @@ button:not(.button) {
 .page-meta {
   color: var(--colour-ink-soft);
   font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
   line-height: 1.5;
 }
 
@@ -488,6 +506,12 @@ main p {
   max-width: 26.25rem;
   margin-inline: auto;
   container-type: inline-size;
+}
+
+@media screen {
+  :root[data-theme="light"] .about-portrait {
+    background: var(--colour-paper);
+  }
 }
 
 /* 140 columns of Spline Sans Mono (0.6em advance) at 5px fill the 26.25rem
@@ -653,8 +677,9 @@ main p {
   text-decoration: none;
 }
 
-.article-toc a:hover {
-  color: var(--colour-ink);
+.article-toc a:hover,
+.article-toc a:active {
+  color: var(--colour-on-stamp);
   text-decoration: underline;
 }
 
@@ -1040,7 +1065,7 @@ caption {
    a passed node does in the GitHub diagrams. The label text states the
    result, so the colour is never the only signal. */
 .is-pass > th:first-child {
-  color: var(--colour-ink);
+  color: var(--colour-on-stamp);
   background: var(--colour-pass);
 }
 
@@ -1392,9 +1417,8 @@ caption {
 
 /* One ruled row per release: the tool and version lead, the date trails. */
 .latest-releases li {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: baseline;
   gap: var(--space-1) var(--space-5);
   margin: 0;
@@ -1407,6 +1431,7 @@ caption {
   color: var(--colour-ink-soft);
   font-family: var(--font-mono);
   font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
 }
 
 /* A tool page's delivery, requirements and boundary, read before the detail. */
@@ -1433,6 +1458,7 @@ caption {
 
 .tool-facts dd {
   margin: 0;
+  font-variant-numeric: tabular-nums;
 }
 
 /* The optional note sits under the description so the facts column keeps
@@ -1497,6 +1523,7 @@ caption {
   color: var(--colour-ink-soft);
   font-family: var(--font-mono);
   font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
 }
 
 /* Copy sits under its block, beside the status line, so a long line of code
@@ -1554,7 +1581,7 @@ caption {
 
 @media (hover: hover) {
   .copy-button:hover {
-    color: var(--colour-ink);
+    color: var(--colour-on-stamp);
     background: var(--colour-stamp-strong);
   }
 }
@@ -1564,6 +1591,7 @@ caption {
   color: var(--colour-ink-soft);
   font-family: var(--font-mono);
   font-size: var(--text-small);
+  font-variant-numeric: tabular-nums;
 }
 
 .print-note {
@@ -1600,8 +1628,9 @@ caption {
   text-decoration: none;
 }
 
-.site-footer__nav a:hover {
-  color: var(--colour-ink);
+.site-footer__nav a:hover,
+.site-footer__nav a:active {
+  color: var(--colour-on-stamp);
   text-decoration: underline;
 }
 
@@ -1723,13 +1752,257 @@ caption {
 
 .case-preview > a {
   display: block;
+  border: var(--rule-thin) solid var(--colour-rule-strong);
   cursor: zoom-in;
+  transition: border-color var(--motion-standard) var(--ease-standard);
+}
+
+@media (hover: hover) {
+  .case-preview > a:hover {
+    background: transparent;
+    border-color: var(--colour-stroke);
+  }
 }
 
 .case-preview figcaption {
   margin-top: var(--space-3);
   color: var(--colour-ink-soft);
   font-size: var(--text-small);
+}
+
+/* Interactive 5-delay Lumbridge cash-flow step chart on the homepage. */
+.cash-chart {
+  border: var(--rule-thin) solid var(--colour-rule-strong);
+  border-radius: var(--radius-control);
+  background: var(--colour-paper);
+}
+
+.cash-chart__kpis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  border-bottom: var(--rule-thin) solid var(--colour-rule);
+}
+
+.cash-chart__kpi {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+}
+
+.cash-chart__kpi + .cash-chart__kpi {
+  border-inline-start: var(--rule-thin) solid var(--colour-rule);
+}
+
+.cash-chart__kpi dt {
+  color: var(--colour-ink-soft);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 400;
+}
+
+.cash-chart__kpi dd {
+  margin: 0;
+}
+
+.cash-chart__kpi-value {
+  color: var(--colour-ink);
+  font-family: var(--font-body);
+  font-size: clamp(1.25rem, 1.1rem + 0.65vw, 1.55rem);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
+}
+
+.cash-chart[data-state="alert"] .cash-chart__kpi-value--cash {
+  color: var(--colour-alert);
+}
+
+.cash-chart__kpi-note {
+  color: var(--colour-ink-soft);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+.cash-chart__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 456 / 266;
+}
+
+.cash-chart__grid {
+  stroke: var(--colour-rule);
+  stroke-width: 1;
+}
+
+.cash-chart__zero {
+  stroke: var(--colour-rule-strong);
+  stroke-width: 1.25;
+}
+
+.cash-chart__buffer {
+  stroke: var(--colour-rule-strong);
+  stroke-width: 1.25;
+  stroke-dasharray: 4 4;
+}
+
+.cash-chart__receipt-line {
+  stroke: var(--colour-ink-soft);
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+}
+
+.cash-chart__deficit {
+  fill: var(--colour-stamp);
+  fill-opacity: 0.38;
+}
+
+@media screen {
+  :root[data-theme="light"] .cash-chart__deficit {
+    fill-opacity: 0.18;
+  }
+}
+
+.cash-chart__line {
+  fill: none;
+  stroke: var(--colour-ink);
+  stroke-width: 2.25;
+  stroke-linejoin: miter;
+}
+
+.cash-chart__neg-line {
+  fill: none;
+  stroke: var(--colour-stroke);
+  stroke-width: 2.5;
+  stroke-linejoin: miter;
+}
+
+.cash-chart__dot {
+  fill: var(--colour-paper);
+  stroke: var(--colour-ink);
+  stroke-width: 2;
+}
+
+.cash-chart__dot--low {
+  fill: var(--colour-alert);
+  stroke: var(--colour-paper);
+  stroke-width: 2;
+}
+
+.cash-chart[data-state="ok"] .cash-chart__dot--low {
+  fill: var(--colour-ink);
+}
+
+.cash-chart__axis,
+.cash-chart__label,
+.cash-chart__receipt-label {
+  color: var(--colour-ink-soft);
+  fill: var(--colour-ink-soft);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.cash-chart__label--strong {
+  color: var(--colour-ink);
+  fill: var(--colour-ink);
+}
+
+.cash-chart__label--low {
+  color: var(--colour-alert);
+  fill: var(--colour-alert);
+}
+
+.cash-chart[data-state="ok"] .cash-chart__label--low {
+  color: var(--colour-ink);
+  fill: var(--colour-ink);
+}
+
+.cash-chart__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-3);
+  min-height: 4.25rem;
+  padding: var(--space-2) var(--space-4);
+  border-top: var(--rule-thin) solid var(--colour-rule);
+}
+
+.cash-chart__bar-label,
+.cash-chart__static-delay {
+  color: var(--colour-ink-soft);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+.cash-chart__controls[hidden],
+.cash-chart__static-delay[hidden] {
+  display: none !important;
+}
+
+.cash-chart__controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border: var(--rule-thin) solid var(--colour-rule-strong);
+  border-radius: var(--radius-control);
+  background: var(--colour-canvas);
+}
+
+.cash-chart__option {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  margin: 0;
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-control);
+  color: var(--colour-ink-soft);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition:
+    background-color var(--motion-standard) var(--ease-standard),
+    color var(--motion-standard) var(--ease-standard);
+}
+
+.cash-chart__option input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  width: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  cursor: inherit;
+}
+
+@media (hover: hover) {
+  .cash-chart__option:hover {
+    color: var(--colour-ink);
+    background: var(--colour-stamp-wash);
+  }
+}
+
+.cash-chart__option:has(:checked) {
+  color: var(--colour-on-stamp);
+  background: var(--colour-stamp);
+}
+
+.cash-chart__option:has(:focus-visible) {
+  outline: 0.1875rem solid var(--colour-ink);
+  outline-offset: 2px;
 }
 
 .chart-dialog {
@@ -1769,8 +2042,9 @@ caption {
    into the hero grid so their children can take their own cells. */
 @media (min-width: 56.0625rem) {
   .home-hero {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
     gap: var(--space-5) var(--space-8);
+    padding-block: var(--space-7) var(--space-8);
   }
 
   .home-hero__copy,
@@ -1785,7 +2059,7 @@ caption {
 
   .home-hero__summary,
   .home-hero__note,
-  .home-hero > .page-meta,
+  .home-hero__copy > .page-meta,
   .home-hero__actions,
   .home-case > div {
     grid-column: 1;
@@ -1794,12 +2068,12 @@ caption {
   .home-case > div {
     margin-top: var(--space-6);
     padding-top: var(--space-5);
-    border-top: var(--rule-thin) solid var(--colour-rule);
+    border-top: var(--rule-thin) solid var(--colour-rule-strong);
   }
 
   .home-case > .case-preview {
     grid-column: 2;
-    grid-row: 3 / span 5;
+    grid-row: 2 / span 5;
     align-self: start;
   }
 }
@@ -1832,7 +2106,7 @@ caption {
 
 .home-tool-preview__entry {
   display: grid;
-  grid-template-columns: minmax(9rem, 0.45fr) minmax(14rem, 1fr) minmax(13rem, 0.8fr);
+  grid-template-columns: minmax(10rem, 0.55fr) minmax(13rem, 0.85fr) minmax(16rem, 1.15fr);
   gap: var(--space-5);
   align-items: baseline;
   padding-block: var(--space-5);
@@ -1855,6 +2129,36 @@ caption {
   margin-top: 0;
 }
 
+.home-tool-preview > div:has(> .related) {
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.55fr) minmax(0, 2fr);
+  gap: var(--space-5);
+  align-items: baseline;
+  padding-block: var(--space-5);
+  border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
+}
+
+.home-tool-preview > div:has(> .related) > h2 {
+  font-size: var(--text-lead);
+}
+
+.home-tool-preview > div > .related {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-tool-preview > div > .related li {
+  margin-top: 0;
+}
+
+.home-tool-preview > div > .related li + li {
+  padding-top: var(--space-4);
+  border-top: var(--rule-thin) solid var(--colour-rule);
+}
+
 /* The release register: the statement and its 2 links on the leading edge,
    the newest releases as ruled rows beside it. */
 .home-register {
@@ -1868,6 +2172,8 @@ caption {
 .home-register__lead {
   display: grid;
   gap: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: var(--rule-strong) solid var(--colour-ink);
 }
 
 .home-register__lead > p:not(.home-register__links) {
@@ -1896,6 +2202,11 @@ caption {
     color: var(--colour-ink);
     background: var(--colour-stamp-wash);
   }
+}
+
+.adoption-links > a:active {
+  color: var(--colour-ink);
+  background: var(--colour-stamp-wash);
 }
 
 /* The row is the link, so its title carries the entry-title underline at rest;
@@ -2080,6 +2391,7 @@ caption {
 
 .credential-card__facts dd {
   margin: 0;
+  font-variant-numeric: tabular-nums;
 }
 
 .credential-card__links {
@@ -2314,7 +2626,7 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
   grid-column: 1 / -1;
 }
 
-.bonus-remove {
+button.bonus-remove {
   color: var(--colour-alert);
   background: transparent;
   border-color: var(--colour-alert);
@@ -2412,7 +2724,7 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
 /* The fill keeps a little room either side of the figure it highlights. */
 .result-row[data-result-kind="levy"] strong {
   padding-inline: var(--space-1);
-  color: var(--colour-ink);
+  color: var(--colour-on-stamp);
   background: var(--colour-stamp);
 }
 
@@ -2653,6 +2965,12 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
     grid-column: 2;
   }
 
+  .home-tool-preview > div:has(> .related) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3);
+    padding-block: var(--space-4);
+  }
+
   .home-register {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -2680,7 +2998,7 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
 
   .site-header__inner {
     min-height: calc(var(--header-height) - 1px);
-    grid-template-rows: minmax(2.75rem, auto) 2.75rem;
+    grid-template-rows: minmax(2.75rem, auto) minmax(2.75rem, auto);
     gap: 0;
     padding-block: 0;
   }
@@ -2936,6 +3254,7 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
     --colour-stamp-wash: var(--colour-print-paper);
     --colour-pass: var(--colour-print-paper);
     --colour-alert: var(--colour-print-ink);
+    --colour-on-stamp: var(--colour-print-ink);
   }
 
   body {
@@ -3110,11 +3429,12 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
   font-size: var(--text-body);
 }
 
-/* Human/Machine view switch, requested on 12 September 2026. It sits in the
-   sticky header at every width, on the shell's right edge, so it never covers
-   page text while scrolling. Since 4 November it uses the site's control
-   shape, strong rule and inks: no pill, blur or shadow. */
+/* Human/Machine view switch and Light/Dark theme switch. The view switch sits
+   in the sticky header at every width, on the shell's right edge, so it never
+   covers page text whilst scrolling. Both use the site's control shape, strong
+   rule and inks: no pill, blur or shadow. */
 .view-mode[hidden],
+.theme-mode[hidden],
 .machine-view[hidden],
 .machine-view [hidden] {
   display: none !important;
@@ -3137,7 +3457,21 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
   line-height: 1;
 }
 
-.view-mode__option {
+.theme-mode {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: var(--rule-thin) solid var(--colour-rule-strong);
+  border-radius: var(--radius-control);
+  background: var(--colour-canvas);
+  font-size: 12px;
+  line-height: 1;
+}
+
+.view-mode__option,
+.theme-mode__option {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -3148,24 +3482,32 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
   color: var(--colour-ink-soft);
   font-weight: 400;
   cursor: pointer;
-  transition: background var(--motion-standard), color var(--motion-standard);
+  transition:
+    background-color var(--motion-standard) var(--ease-standard),
+    color var(--motion-standard) var(--ease-standard);
 }
 
-.view-mode__option:hover,
-.view-mode__option:has(:checked) {
+@media (hover: hover) {
+  .view-mode__option:hover,
+  .theme-mode__option:hover {
+    color: var(--colour-ink);
+  }
+}
+
+.view-mode__option:has(:checked),
+.theme-mode__option:has(:checked) {
   color: var(--colour-ink);
-}
-
-.view-mode__option:has(:checked) {
   background: var(--colour-stamp-wash);
 }
 
-.view-mode__option:has(:focus-visible) {
+.view-mode__option:has(:focus-visible),
+.theme-mode__option:has(:focus-visible) {
   outline: 2px solid var(--colour-ink);
   outline-offset: 3px;
 }
 
-.view-mode__option input {
+.view-mode__option input,
+.theme-mode__option input {
   appearance: none;
   flex: 0 0 6px;
   width: 6px;
@@ -3180,13 +3522,15 @@ input:is([type="radio"], [type="checkbox"]):focus-visible {
   cursor: inherit;
 }
 
-.view-mode__option input:checked {
+.view-mode__option input:checked,
+.theme-mode__option input:checked {
   background: var(--colour-stamp);
   outline: 1px solid var(--colour-ink);
 }
 
 @supports selector(:has(*)) {
-  .view-mode__option input:focus-visible {
+  .view-mode__option input:focus-visible,
+  .theme-mode__option input:focus-visible {
     outline: none;
   }
 }
@@ -3246,21 +3590,42 @@ html[data-view-mode="machine"] body {
 /* The 52px switch leaves the nav room beside it in the one-row header. */
 @media (min-width: 56.0625rem) {
   .site-header__inner {
-    padding-inline-end: calc(168px + var(--space-5));
+    gap: clamp(var(--space-3), 1.5vw, var(--space-5));
+    padding-inline-end: calc(168px + clamp(var(--space-3), 1.5vw, var(--space-5)));
+  }
+
+  .site-nav {
+    gap: clamp(var(--space-2), 1.1vw, var(--space-5));
+  }
+
+  .site-nav a {
+    padding-inline: 0.25em;
+    border-radius: var(--radius-control);
+  }
+}
+
+@media (min-width: 56.0625rem) and (max-width: 64rem) {
+  .theme-mode__option {
+    padding-inline: 8px;
   }
 }
 
 /* The two-row header holds a flat 44px switch on the identity row. */
 @media (max-width: 56rem) {
-  .view-mode {
-    top: var(--space-2);
+  .view-mode,
+  .theme-mode {
     padding: 0;
     border: 0;
     outline: var(--rule-thin) solid var(--colour-rule-strong);
     outline-offset: -1px;
   }
 
-  .view-mode__option {
+  .view-mode {
+    top: var(--space-2);
+  }
+
+  .view-mode__option,
+  .theme-mode__option {
     padding-inline: 8px;
   }
 
@@ -3310,24 +3675,51 @@ html[data-view-mode="machine"] body {
 }
 
 @media (forced-colors: active) {
-  .view-mode__option input {
+  .view-mode__option input,
+  .theme-mode__option input {
     forced-color-adjust: none;
     background: Canvas;
     border: 1px solid CanvasText;
   }
-  .view-mode__option input:checked {
+  .view-mode__option input:checked,
+  .theme-mode__option input:checked {
     background: Highlight;
     border-color: Highlight;
   }
-  .view-mode__option:has(:checked) {
+  .view-mode__option:has(:checked),
+  .theme-mode__option:has(:checked) {
     outline: 1px solid Highlight;
+    outline-offset: -1px;
+  }
+  .cash-chart__option:has(:checked) {
+    forced-color-adjust: none;
+    color: HighlightText;
+    background: Highlight;
+  }
+  .view-mode__option:has(:focus-visible),
+  .theme-mode__option:has(:focus-visible),
+  .cash-chart__option:has(:focus-visible) {
+    outline: 3px solid Highlight;
+    outline-offset: 3px;
   }
 }
 
 @media print {
   .view-mode,
+  .theme-mode,
+  .cash-chart__controls,
   .machine-view {
     display: none !important;
+  }
+  .cash-chart__static-delay[hidden],
+  .cash-chart__static-delay {
+    display: inline !important;
+  }
+  .cash-chart__grid {
+    opacity: 0.25;
+  }
+  .cash-chart__deficit {
+    fill-opacity: 0.12;
   }
   html[data-view-mode="machine"],
   html[data-view-mode="machine"] body {
@@ -3353,10 +3745,53 @@ html[data-view-mode="machine"] body {
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 6.25rem), 1fr));
   }
 
+  .theme-mode {
+    justify-self: start;
+    align-self: center;
+  }
+
+  .theme-mode__option {
+    gap: 4px;
+    padding-inline: 6px;
+  }
+
   .site-nav a {
     min-width: 0;
     white-space: normal;
     overflow-wrap: anywhere;
+  }
+
+  .latest-releases li {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cash-chart__kpi {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .cash-chart__kpi-value {
+    font-size: clamp(1rem, 5.2vw, 1.25rem);
+  }
+
+  .cash-chart__axis,
+  .cash-chart__label,
+  .cash-chart__receipt-label {
+    font-size: 13.5px;
+  }
+
+  .cash-chart__bar {
+    gap: var(--space-1);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .cash-chart__controls {
+    width: 100%;
+  }
+
+  .cash-chart__option {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-inline: 0;
   }
 
   /* Keep the worked examples in the first viewport below the taller header. */
@@ -3369,6 +3804,6 @@ html[data-view-mode="machine"] body {
   }
 
   .payday-example .article-header {
-    padding-top: var(--space-2);
+    padding-block: var(--space-2);
   }
 }
