@@ -1387,7 +1387,6 @@ fn a_release_check_that_cannot_reach_gh_exits_2_not_1() {
 #[cfg(unix)]
 #[test]
 fn gh_output_past_node_max_buffer_is_an_outage() {
-    use std::os::unix::fs::PermissionsExt;
     // execFileSync stops gh once stdout and stderr together pass 1 MiB (ENOBUFS). The
     // list stays valid JSON however far it is padded, so only that limit can fail it.
     let check = |kib: u32| {
@@ -1398,8 +1397,7 @@ fn gh_output_past_node_max_buffer_is_an_outage() {
             "#!/bin/sh\nprintf '%s' '{}'\ni=0\nwhile [ \"$i\" -lt {kib} ]; do printf '%1024s' ''; i=$((i+1)); done\n",
             release_json(&["v1.0.0"])
         );
-        std::fs::write(&gh, script).unwrap();
-        std::fs::set_permissions(&gh, std::fs::Permissions::from_mode(0o755)).unwrap();
+        common::write_script(&gh, &script);
         let output = std::process::Command::new(env!("CARGO_BIN_EXE_site-tools"))
             .args(["stamp_source_freshness", "--check-releases"])
             .env("SITE_ROOT", root.path())
@@ -1418,16 +1416,13 @@ fn gh_output_past_node_max_buffer_is_an_outage() {
 #[cfg(unix)]
 #[test]
 fn a_failed_gh_reports_its_command_and_error_output() {
-    use std::os::unix::fs::PermissionsExt;
     let (root, _, _) = cli_fixture(&[]);
     let bin = tempfile::tempdir().unwrap();
     let gh = bin.path().join("gh");
-    std::fs::write(
+    common::write_script(
         &gh,
         "#!/bin/sh\necho 'HTTP 403: rate limited' >&2\nexit 1\n",
-    )
-    .unwrap();
-    std::fs::set_permissions(&gh, std::fs::Permissions::from_mode(0o755)).unwrap();
+    );
     let output = std::process::Command::new(env!("CARGO_BIN_EXE_site-tools"))
         .args(["stamp_source_freshness", "--check-releases"])
         .env("SITE_ROOT", root.path())
@@ -1665,7 +1660,6 @@ fn the_command_without_a_site_root_exits_2() {
 #[test]
 fn a_gh_call_past_its_time_limit_is_an_outage() {
     use site_tools::source_freshness::System;
-    use std::os::unix::fs::PermissionsExt;
     // The child copy of this test, with only the slow gh on PATH, makes the call.
     if std::env::var_os("SOURCE_FRESHNESS_SLOW_GH").is_some() {
         assert_eq!(
@@ -1678,8 +1672,7 @@ fn a_gh_call_past_its_time_limit_is_an_outage() {
     }
     let bin = tempfile::tempdir().unwrap();
     let gh = bin.path().join("gh");
-    std::fs::write(&gh, "#!/bin/sh\nexec /bin/sleep 10\n").unwrap();
-    std::fs::set_permissions(&gh, std::fs::Permissions::from_mode(0o755)).unwrap();
+    common::write_script(&gh, "#!/bin/sh\nexec /bin/sleep 10\n");
     let status = std::process::Command::new(std::env::current_exe().unwrap())
         .args(["--exact", "a_gh_call_past_its_time_limit_is_an_outage"])
         .env("SOURCE_FRESHNESS_SLOW_GH", "1")

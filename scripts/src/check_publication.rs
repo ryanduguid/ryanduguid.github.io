@@ -1034,16 +1034,28 @@ mod tests {
     #[cfg(unix)]
     mod api {
         use super::*;
-        use std::os::unix::fs::PermissionsExt;
+        use std::io::Write;
 
         const MINUTE: Duration = Duration::from_secs(60);
 
-        /// Runs `body` as a `/bin/sh` script standing in for `gh`.
+        /// Runs `body` as a `/bin/sh` script standing in for `gh`. `/bin/sh` writes the
+        /// script, so this process never holds it open for writing: a test thread that
+        /// spawns whilst another holds such a handle passes it to its child until that
+        /// child execs, and running the script in that window fails with ETXTBSY.
         fn call(body: &str, limit: Duration, endpoint: &str, paginate: bool) -> Result<Json> {
             let dir = tempfile::tempdir().unwrap();
             let path = dir.path().join("gh");
-            std::fs::write(&path, format!("#!/bin/sh\n{body}\n")).unwrap();
-            std::fs::set_permissions(&path, std::fs::Permissions::from_mode(0o755)).unwrap();
+            let mut writer = Command::new("/bin/sh")
+                .args(["-c", r#"cat > "$1" && chmod 755 "$1""#, "sh"])
+                .arg(&path)
+                .stdin(Stdio::piped())
+                .spawn()
+                .unwrap();
+            let script = format!("#!/bin/sh\n{body}\n");
+            let mut stdin = writer.stdin.take().unwrap();
+            stdin.write_all(script.as_bytes()).unwrap();
+            drop(stdin);
+            assert!(writer.wait().unwrap().success());
             api_json(&path.to_string_lossy(), limit, endpoint, paginate)
         }
 
