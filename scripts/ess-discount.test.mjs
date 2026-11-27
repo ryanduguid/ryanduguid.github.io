@@ -78,8 +78,8 @@ test('decimals print, divide and round as Python does', () => {
   assert.equal(cmp(amountOf('-0.00'), int(0)), 0);
   assert.equal(str(add(amountOf('-0'), amountOf('-0.0'))), '-0.0');
   assert.equal(str(div(lit(`1${'0'.repeat(45)}`), int(3))), '3.333333333333333333333333333333333333333E+44');
-  assert.deepEqual(['1.000', '1.', '.5', '+1', '1e3', '1_000', 'inf', '-1', '1000000000000.01', 5, 'x'.repeat(33)].map(amountOf),
-    Array(11).fill(null));
+  assert.deepEqual(['1.000', '1.', '.5', '+1', '1e3', '1_000', 'inf', '-1', '1000000000000.01', 5, 'x'.repeat(33), '\u0665', `${' '.repeat(32)}5`].map(amountOf),
+    Array(13).fill(null));
   assert.equal(shown(amountOf('\u001c 7.5\u2003')), '7.50');
   assert.equal(shown(amountOf('1000000000000')), '1000000000000.00');
 });

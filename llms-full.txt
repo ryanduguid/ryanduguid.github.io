@@ -5709,6 +5709,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+27 November 2026 | Added the employee share scheme discount calculator: what Division 83A includes for employee shares and rights acquired from 1 July 2015, for 2020-21 to 2026-27, taxed upfront or at the deferred taxing point, with the $1,000 reduction, the start-up concession and the regulations’ value for unlisted rights. It agrees with the australian-accounting ess-discount command on 701 test cases.
 27 November 2026 | The depreciation register distinguishes assets with the same name, shows the dates recorded against asset group headings and links directly to sections of long tables. The work expenses and rental property calculators now label telephone expenses as dollar amounts.
 27 November 2026 | The Markdown editions of calculators now preserve the instructions shown when JavaScript is off, including the link to the depreciation register data file.
 27 November 2026 | Reference tables now carry names for screen readers. Calculator fields and reference pages have more space between headings, instructions and tables. The depreciation register identifies the industry or asset group on links that share a name. Each indexed page also has a Markdown edition at index.md.
@@ -5973,6 +5974,7 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- employee share scheme discount calculator: https://duguid.com.au/tools/individual-tax/ess-discount/
 - depreciation register: https://duguid.com.au/tools/depreciation-rates/
 - depreciation register data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
 - sole trader against company: https://duguid.com.au/tools/business-calculators/sole-trader-company/
@@ -13411,7 +13413,7 @@ Source: https://duguid.com.au/tools/individual-tax/
 
 Eighteen free calculators for one person’s tax, pay and super, grounded in legislation and ATO worked examples. They run in your browser with no sign-up.
 
-Published 17 November 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
+Published 17 November 2026. Last checked 27 November 2026, the newest of the calculators’ source checks.
 
 Search 18 calculators
 
@@ -13438,6 +13440,7 @@ Search 18 calculators
 - Transfer balance calculator Your transfer balance account and personal cap with proportional indexation, excess transfer balance earnings and tax, the excess concessional contributions charge, and the release of excess non-concessional contributions.
 - Pension minimum calculator The minimum annual payment from an account-based pension for 2024-25 to 2027-28, with the first year pro-rated from the start day and rounding to the nearest $10.
 - 183-day residency day count Your days in Australia in an income year from 2020-21 to 2026-27, added up from your arrival and departure days, against the 183-day residency test and its exception.
+- Employee share scheme discount calculator The taxable discount on employee share scheme shares and rights for 2020-21 to 2026-27, taxed upfront or at the deferred taxing point, with the $1,000 reduction, the start-up concession and question 12’s labels.
 
 For a business, see the 63 business calculators, depreciation rates and individual income tax rate tables.
 
@@ -13463,6 +13466,7 @@ Estimates in AUD for one person’s full income year: income tax and study loans
 - Transfer balance calculator: https://duguid.com.au/tools/individual-tax/transfer-balance/
 - Pension minimum calculator: https://duguid.com.au/tools/individual-tax/pension-minimum/
 - 183-day residency day count: https://duguid.com.au/tools/individual-tax/residency-days/
+- Employee share scheme discount calculator: https://duguid.com.au/tools/individual-tax/ess-discount/
 - 63 business calculators: https://duguid.com.au/tools/business-calculators/
 - depreciation rates: https://duguid.com.au/tools/depreciation-rates/
 - individual income tax rate tables: https://duguid.com.au/rates/individual-income-tax/
