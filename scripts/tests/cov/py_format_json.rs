@@ -416,3 +416,31 @@ fn pyjson_covers_encodings_equality_errors_and_dumps_options() {
     );
     assert!(compact.contains("café 😀"));
 }
+
+#[test]
+fn pyformat_signs_special_floats_rounds_zero_and_sums_bools() {
+    let f = |v: f64, spec: &str| pyformat::format_value(&Json::Float(v), spec).unwrap();
+    // format(float('inf'), '+'), format(1.5, '+') and zero in each float style.
+    assert_eq!(f(f64::INFINITY, "+"), "+inf");
+    assert_eq!(f(1.5, "+"), "+1.5");
+    assert_eq!(f(0.0, "e"), "0.000000e+00");
+    assert_eq!(f(0.0, "g"), "0");
+    assert_eq!(f(0.0, ".3"), "0.0");
+    assert_eq!(f(0.0, "+.0f"), "+0");
+    assert_eq!(pyformat::format_value(&jint(255), "x").unwrap(), "ff");
+    assert_eq!(pyformat::format_value(&jint(5), ".1f").unwrap(), "5.0");
+    assert_eq!(pyformat::format_value(&Json::Bool(true), "d").unwrap(), "1");
+    assert!(pyformat::format_value(&jint(5), "s").is_err());
+    assert!(pyformat::format_value(&Json::Str("a".into()), "d").is_err());
+    // str.format pairs the brackets before it reads the field, as CPython does.
+    assert_eq!(
+        pyformat::format("{0[}", &[jint(1)], &[]).unwrap_err(),
+        "ValueError: expected '}' before end of string"
+    );
+    assert!(pyformat::format("{0!r", &[jint(1)], &[]).is_err());
+    assert!(
+        pyformat::sum(&[Json::Bool(true), jint(2)])
+            .unwrap()
+            .py_eq(&jint(3))
+    );
+}

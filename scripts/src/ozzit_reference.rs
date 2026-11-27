@@ -221,20 +221,17 @@ fn expected_display(example: &Json, result: &Json) -> Result<String> {
         return shape_error();
     };
     let len = |n: usize| Json::Int(num_bigint::BigInt::from(n));
-    if !len(result_rows.len()).py_eq(&rows)
-        || result_rows
-            .iter()
-            .any(|row| !matches!(row, Json::Array(items) if len(items.len()).py_eq(&columns)))
-    {
-        return shape_error();
-    }
-    let values: Vec<Json> = result_rows
+    let shaped: Option<Vec<&Vec<Json>>> = result_rows
         .iter()
-        .flat_map(|row| match row {
-            Json::Array(items) => items.clone(),
-            _ => Vec::new(),
+        .map(|row| match row {
+            Json::Array(items) if len(items.len()).py_eq(&columns) => Some(items),
+            _ => None,
         })
         .collect();
+    let Some(shaped) = shaped.filter(|_| len(result_rows.len()).py_eq(&rows)) else {
+        return shape_error();
+    };
+    let values: Vec<Json> = shaped.into_iter().flatten().cloned().collect();
     let Json::Str(template) = subscript(example, &Json::str_obj("expected_template"))? else {
         return Err(value_error("Expected display template must be text"));
     };
@@ -492,9 +489,8 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8> {
     if write {
         for (rel, expected) in &outputs {
             let path = root.join(rel);
-            if let Some(parent) = path.parent() {
-                std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
-            }
+            let parent = path.parent().expect("an output under the root");
+            std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
             std::fs::write(&path, expected).map_err(|e| {
                 crate::py::oserror_str(&e, &path.to_string_lossy(), crate::py::OsStyle::Errno)
             })?;

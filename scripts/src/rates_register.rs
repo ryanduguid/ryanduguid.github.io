@@ -116,10 +116,7 @@ fn py_sorted(mut values: Vec<Json>) -> Result<Vec<Json>> {
         _ => None,
     };
     if values.iter().all(|v| matches!(v, Json::Str(_))) {
-        values.sort_by(|a, b| match (a, b) {
-            (Json::Str(a), Json::Str(b)) => a.cmp(b),
-            _ => Ordering::Equal,
-        });
+        values.sort_by(|a, b| a.as_str().cmp(&b.as_str()));
         return Ok(values);
     }
     if values.iter().all(|v| number(v).is_some()) {
@@ -910,5 +907,83 @@ mod tests {
         );
         assert!(py_sorted(vec![s("a"), Json::Int(1.into())]).is_err());
         assert!(py_sorted(vec![Json::Null]).is_ok());
+    }
+}
+
+#[cfg(test)]
+mod row_tests {
+    use super::*;
+
+    fn row(changes: &str) -> Json {
+        let mut text = String::from(
+            r#"{"row_id": "2023-07-01", "period_start": "2023-07-01", "period_end": null, "value": "2.7", "status": "superseded", "review": "automated-retrieval", "primary_source": {"title": "Regulations", "url": "https://www.legislation.gov.au/F2018L00217/latest/text", "publisher": "Federal Register of Legislation"}, "verified_at": "2026-09-18", "verified_by": "automated retrieval""#,
+        );
+        if !changes.is_empty() {
+            text.push_str(", ");
+            text.push_str(changes);
+        }
+        text.push('}');
+        pyjson::loads(&text).unwrap()
+    }
+
+    fn row_failures(changes: &str) -> Vec<String> {
+        let mut failures = Vec::new();
+        let today = Date::new(2026, 11, 27).unwrap();
+        check_row(&row(changes), "levy", today, &mut failures).unwrap();
+        failures
+    }
+
+    #[test]
+    fn a_row_id_that_is_not_a_slug_is_named() {
+        assert!(
+            row_failures(r#""row_id": "Not A Slug""#)
+                .contains(&"levy/Not A Slug: row_id is not a slug".to_owned())
+        );
+    }
+
+    #[test]
+    fn a_numeric_value_must_be_written_as_a_decimal_string() {
+        assert!(
+            row_failures(r#""value": 2.7"#)
+                .contains(&"levy/2023-07-01: value must be a decimal string, not 2.7".to_owned())
+        );
+    }
+
+    #[test]
+    fn a_series_that_cannot_be_read_is_reported_unreadable() {
+        let dir = tempfile::tempdir().unwrap();
+        let mut failures = Vec::new();
+        let today = Date::new(2026, 11, 27).unwrap();
+        check_series(&dir.path().join("missing.json"), &mut failures, today).unwrap();
+        assert_eq!(failures.len(), 1);
+        assert!(
+            failures[0]
+                .starts_with("missing.json: unreadable ([Errno 2] No such file or directory: "),
+            "{failures:?}"
+        );
+    }
+
+    #[test]
+    fn sums_skip_blank_lines_report_malformed_ones_and_keep_a_names_last_digest() {
+        let dir = tempfile::tempdir().unwrap();
+        std::fs::write(dir.path().join("a.txt"), "x\n").unwrap();
+        let right = crate::sha256(b"x\n");
+        let wrong = "0".repeat(64);
+        std::fs::write(
+            dir.path().join("SHA256SUMS"),
+            format!("\n{wrong}  a.txt\n{right}  a.txt\nnot a digest\n"),
+        )
+        .unwrap();
+        let mut failures = Vec::new();
+        check_sums(dir.path(), &mut failures).unwrap();
+        assert_eq!(
+            failures,
+            vec!["SHA256SUMS: malformed line 'not a digest'".to_owned()]
+        );
+    }
+
+    #[test]
+    fn only_an_object_has_keys() {
+        assert!(keys(&Json::Array(vec![])).is_empty());
     }
 }
