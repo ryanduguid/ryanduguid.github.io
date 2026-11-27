@@ -117,8 +117,8 @@ fn dtoa(d: f64, mode: u8, ndigits: usize) -> (String, i64) {
 }
 
 #[derive(Clone, Copy, Default)]
+// CPython's Py_DTSF_ADD_SIGN is never set here: format_float_internal adds the sign itself.
 struct FloatFlags {
-    add_sign: bool,
     add_dot_0: bool,
     alt: bool,
     no_neg_0: bool,
@@ -141,8 +141,6 @@ fn format_float_short(
         }
         if sign {
             out.push('-');
-        } else if flags.add_sign {
-            out.push('+');
         }
         out.push_str(match (d.is_nan(), upper) {
             (true, false) => "nan",
@@ -197,8 +195,6 @@ fn format_float_short(
     };
     if sign {
         out.push('-');
-    } else if flags.add_sign {
-        out.push('+');
     }
     let zeros = |n: i64| "0".repeat(n.max(0) as usize);
     if decpt <= 0 {
@@ -1391,5 +1387,28 @@ mod tests {
         ];
         assert_eq!(sum(&mixed).unwrap().repr(), "2.5");
         assert!(sum(&[Json::Str("x".into())]).is_err());
+    }
+
+    #[test]
+    fn zero_keeps_one_digit_in_every_float_presentation() {
+        for (value, spec, expected) in [
+            (0.0, ".2e", "0.00e+00"),
+            (0.0, "", "0.0"),
+            (-0.0, "g", "-0"),
+            (0.0, "+.1f", "+0.0"),
+            (f64::INFINITY, "+", "+inf"),
+        ] {
+            assert_eq!(f(Json::Float(value), spec), expected, "{value} {spec}");
+        }
+    }
+
+    #[test]
+    fn sum_counts_a_bool_as_an_int() {
+        let items = [
+            Json::Bool(true),
+            Json::Int(BigInt::from(2)),
+            Json::Bool(false),
+        ];
+        assert_eq!(sum(&items).unwrap().repr(), "3");
     }
 }

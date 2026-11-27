@@ -941,6 +941,38 @@ mod row_tests {
         );
     }
 
+    fn row_error(changes: &str) -> String {
+        let mut failures = Vec::new();
+        let today = Date::new(2026, 11, 27).unwrap();
+        check_row(&row(changes), "levy", today, &mut failures).unwrap_err()
+    }
+
+    #[test]
+    fn a_source_url_python_cannot_split_stops_the_check() {
+        let primary =
+            r#""primary_source": {"title": "T", "url": "https://[::1/x", "publisher": "P"}"#;
+        assert_eq!(row_error(primary), "ValueError: Invalid IPv6 URL");
+        assert_eq!(
+            row_error(r#""cross_checks": ["https://[::1/x"]"#),
+            "ValueError: Invalid IPv6 URL"
+        );
+    }
+
+    #[test]
+    fn an_empty_userinfo_carries_no_credentials() {
+        let empty = r#""primary_source": {"title": "T", "url": "https://@www.legislation.gov.au/F2018L00217/latest/text", "publisher": "P"}"#;
+        assert_eq!(row_failures(empty), row_failures(""));
+    }
+
+    #[test]
+    fn a_check_date_is_not_compared_with_a_period_start_that_is_not_a_date() {
+        let failures = row_failures(r#""period_start": "2023-7-1", "verified_at": "2020-01-01""#);
+        assert_eq!(
+            failures,
+            ["levy/2023-07-01.period_start: '2023-7-1' is not a YYYY-MM-DD date".to_owned()]
+        );
+    }
+
     #[test]
     fn a_numeric_value_must_be_written_as_a_decimal_string() {
         assert!(
