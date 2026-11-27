@@ -60,6 +60,8 @@ test('2024-25 takes 20% off before indexation (s 140-26), and s 137-19A cuts deb
   assert.equal(debt('2025-26', '0', { earlier_debts: [{ incurred: '2025-06-01', amount: '1000' }] }).earlier_debts, '800.00');
   assert.equal(debt('2025-26', '0', { earlier_debts: [{ incurred: '2025-06-02', amount: '1000' }] }).earlier_debts, '1000.00');
   assert.equal(code(() => debt('2024-25', '1', { debts_already_reduced: true })), 'help_indexation.reduction_already_applied');
+  assert.throws(() => debt('2024-25', '1', { debts_already_reduced: 'yes' }),
+    { code: 'input.flag_invalid', message: 'debts_already_reduced must be true or false.' });
   assert.equal(debt('2023-24', '1', { debts_already_reduced: true }).accumulated_debt, '1.00');
 });
 
