@@ -691,10 +691,14 @@ struct Args {
     include_fixtures: bool,
 }
 
+/// The long options `parse` takes besides `--help`. No 2 of them, `--help` included,
+/// share a prefix past `--`, so an abbreviation names at most one and argparse's
+/// ambiguous-option error cannot arise.
+const OPTIONS: [&str; 4] = ["--template", "--check", "--summary", "--include-fixtures"];
+
 /// argparse for the exclusive `--template`, `--check [CAPTURE ...]` and
 /// `--summary [CAPTURE ...]`, and `--include-fixtures`. `Err` is the exit code.
 fn parse(args: &[String]) -> std::result::Result<Args, u8> {
-    let options = ["--template", "--check", "--summary", "--include-fixtures"];
     let error = |message: &str| {
         let _ = crate::print_text(
             &format!("{USAGE}site-tools visibility_benchmark: error: {message}\n"),
@@ -710,7 +714,7 @@ fn parse(args: &[String]) -> std::result::Result<Args, u8> {
             return false;
         }
         let known = |name: &str| {
-            name == "-h" || std::iter::once("--help").chain(options).any(|o| o == name)
+            name == "-h" || std::iter::once("--help").chain(OPTIONS).any(|o| o == name)
         };
         let head = arg.split_once('=').map_or(arg, |(head, _)| head);
         if known(arg) || known(head) {
@@ -719,7 +723,7 @@ fn parse(args: &[String]) -> std::result::Result<Args, u8> {
         if head.starts_with("--")
             && head.len() > 2
             && std::iter::once("--help")
-                .chain(options)
+                .chain(OPTIONS)
                 .any(|o| o.starts_with(head))
         {
             return true;
@@ -753,20 +757,10 @@ fn parse(args: &[String]) -> std::result::Result<Args, u8> {
         let option = if name == "-h" {
             Some("--help")
         } else if name.len() > 2 && name.starts_with("--") {
-            let all = std::iter::once("--help").chain(options);
-            let exact = all.clone().find(|o| *o == name);
-            let found: Vec<&str> = all.filter(|o| o.starts_with(name)).collect();
-            match (exact, found.as_slice()) {
-                (Some(exact), _) => Some(exact),
-                (None, [one]) => Some(*one),
-                (None, []) => None,
-                (None, many) => {
-                    return error(&format!(
-                        "ambiguous option: {name} could match {}",
-                        many.join(", ")
-                    ));
-                }
-            }
+            // An exact name is its own only prefix match (see OPTIONS).
+            std::iter::once("--help")
+                .chain(OPTIONS)
+                .find(|o| o.starts_with(name))
         } else {
             None
         };
@@ -895,5 +889,16 @@ mod tests {
     fn parse_exits_for_help_and_refuses_an_unknown_short_option() {
         assert_eq!(parsed(&["-h"]).err(), Some(0));
         assert_eq!(parsed(&["-x"]).err(), Some(2));
+    }
+
+    #[test]
+    fn no_two_options_share_a_prefix_past_the_dashes() {
+        let mut third: Vec<u8> = std::iter::once("--help")
+            .chain(OPTIONS)
+            .map(|o| o.as_bytes()[2])
+            .collect();
+        third.sort_unstable();
+        third.dedup();
+        assert_eq!(third.len(), OPTIONS.len() + 1);
     }
 }
