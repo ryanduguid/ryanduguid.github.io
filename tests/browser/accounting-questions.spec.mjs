@@ -1267,6 +1267,61 @@ test('R&D tax offset page works Company V, a refundable offset and refuses a cla
   await expect(form.locator('output')).toContainText('does not choose between them');
 });
 
+// Fortnightly pay from 2 July 2026 is the form's default; weekly pay to Christmas takes the earliest part-day dates,
+// and a first payday after the quarter's first week is refused.
+test('Payday Super cashflow page works a fortnightly quarter, a December quarter and refuses a late first payday offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/payday-cashflow/');
+  const form = page.locator('#payday-cashflow form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Peak extra working capital: $8,400.00.');
+  await expect(form.locator('output')).toContainText('Payday 30 July 2026: $1,200.00, fund must receive it by: Tuesday 11 August 2026, 78 days before the quarterly date.');
+  await form.getByLabel('October to December 2026').check();
+  await form.getByLabel('Weekly').check();
+  await form.locator('[name="first-payday"]').fill('2026-10-01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Peak extra working capital: $16,800.00.');
+  await expect(form.locator('output')).toContainText('Wednesday 30 December 2026 (earliest possible), 29 days before the quarterly date.');
+  await form.locator('[name="first-payday"]').fill('2026-10-08');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('a date in its first 7 days');
+});
+
+// GSTR 2013/1 example 2 is the form's default; a GST-free line makes it mixed, the download is the invoice itself,
+// and $1,000 without the recipient is refused.
+test('tax invoice page works GSTR 2013/1 example 2, a mixed invoice and its download, and refuses $1,000 without the recipient offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/tax-invoice/');
+  const form = page.locator('#tax-invoice form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('GST: $17.00.');
+  await expect(form.locator('table[data-results="checks"] tbody tr')).toHaveCount(7);
+  await form.locator('[name="line-4-description"]').fill('Bread');
+  await form.locator('[name="line-4-quantity"]').fill('2');
+  await form.locator('[name="line-4-price"]').fill('4.50');
+  await form.locator('[name="line-4-treatment"]').selectOption('gst-free');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('* Taxable supply: the price includes GST.');
+  await expect(form.locator('table[data-results="lines"] tbody tr').nth(3)).toContainText('GST-free');
+  const download = page.waitForEvent('download');
+  await form.getByRole('button', { name: 'Download the invoice to print' }).click();
+  const file = await download;
+  expect(file.suggestedFilename()).toBe('tax-invoice.html');
+  const html = await readFile(await file.path(), 'utf8');
+  expect(html).toContain('<h1>Tax invoice</h1>');
+  const abrExample = '51 824 753 556';
+  expect(html).toContain(`ABN ${abrExample}`);
+  expect(html).toContain('$196.00');
+  expect(html).not.toContain('<script');
+  await form.locator('[name="recipient-name"]').fill('');
+  await form.locator('[name="line-4-price"]').fill('500');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toHaveText(/recipient’s name or ABN, as the total price is \$1,000 or more/);
+  await expect(form.getByRole('button', { name: 'Download the invoice to print' })).toBeDisabled();
+});
+
 // GSTR 2000/24's Bill is the form's default; the bad debt worksheet shows its own fields and the conditions table.
 test('GST adjustments page works Bill, a recipient bad debt and refuses a margin scheme debt offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/gst-adjustments/');
@@ -1310,6 +1365,26 @@ test('Deferred tax page works its example, a further item and refuses a business
   await form.locator('[name="business-combination"]').selectOption('yes');
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(form.locator('output')).toContainText('business combination');
+});
+
+// The form opens on a gain streamed to Alex and franked distributions to Bea Pty Ltd, the rest the trustee's at 45%;
+// a third beneficiary takes the rest, and entitlements above the trust's income are refused.
+test('Trust streaming page works its example, a third beneficiary and refuses entitlements above income offline', async ({ page, context }) => {
+  await page.goto('/tools/business-calculators/trust-streaming/');
+  const form = page.locator('#trust-streaming form');
+  await waitForCalculator(form);
+  await context.setOffline(true);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Trustee’s tax after the offset: $20,142.86.');
+  await expect(form.locator('table[data-results="beneficiaries"] tbody tr')).toHaveCount(3);
+  await form.locator('[name="b3-name"]').fill('Cy');
+  await form.locator('[name="b3-entitlement"]').fill('50000');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output .result-row--principal')).toHaveText('Trustee’s tax after the offset: $0.00.');
+  await expect(form.locator('table[data-results="beneficiaries"] tbody tr')).toHaveCount(4);
+  await form.locator('[name="b3-entitlement"]').fill('50000.01');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('cannot exceed the trust’s income');
 });
 
 test('ATO penalties and interest page works GIC by quarter, a failure to lodge penalty and refuses remission offline', async ({ page, context }) => {
@@ -1841,7 +1916,7 @@ const CALCULATORS = ['gst', 'business-use', 'margin', 'break-even', 'hourly', 'f
   'div7a-schedule', 'division-296', 'payroll-tax', 'psi-determination', 'cgt-concessions',
   'franking-account', 'company-tax', 'salary-dividend', 'foreign-surcharge', 'business-days', 'sgc-payday', 'cgt', 'long-service-leave', 'unused-leave', 'borrowing-expenses',
   'workers-compensation', 'fuel-tax-credits', 'luxury-car-tax', 'super-benefit-tax', 'lease', 'gst-margin-scheme', 'wine-equalisation-tax', 'asic-fees', 'depreciation-pools', 'ato-penalties-interest', 'rental-property', 'rd-tax-offset', 'casual-overtime', 'contractor-employee',
-  'gst-adjustments', 'deferred-tax', 'sole-trader-company'];
+  'gst-adjustments', 'deferred-tax', 'sole-trader-company', 'payday-cashflow', 'tax-invoice', 'trust-streaming'];
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });

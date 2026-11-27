@@ -560,16 +560,17 @@ fn the_pages_artifact_survives_a_rerun_of_only_the_failed_jobs() {
 
 /// Fuzzing never runs on pull requests, and a fuzz finding after merge must not hold
 /// back an unrelated deployment. `publication` runs after the aggregate, on main
-/// pushes only. check_gates.py stays Python (shared with other repositories), so its
+/// pushes only. `codecov` only uploads coverage, and Codecov reports its own
+/// statuses. check_gates.py stays Python (shared with other repositories), so its
 /// run needs a Python interpreter; without one only the workflow text is checked.
 #[test]
-fn only_deploy_fuzzing_and_publication_are_exempt_from_the_actual_aggregate() {
+fn only_deploy_fuzzing_publication_and_codecov_are_exempt_from_the_actual_aggregate() {
     let repository = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
     let workflow =
         std::fs::read_to_string(repository.join(".github/workflows/checks.yml")).unwrap();
-    assert!(
-        workflow.contains("checks-gates --exempt deploy --exempt fuzzing --exempt publication\n")
-    );
+    assert!(workflow.contains(
+        "checks-gates --exempt deploy --exempt fuzzing --exempt publication --exempt codecov\n"
+    ));
     let python = if cfg!(windows) { "python" } else { "python3" };
     if std::process::Command::new(python)
         .arg("--version")
@@ -610,6 +611,8 @@ fn only_deploy_fuzzing_and_publication_are_exempt_from_the_actual_aggregate() {
                 "fuzzing",
                 "--exempt",
                 "publication",
+                "--exempt",
+                "codecov",
             ])
             .current_dir(root.path())
             .env("RESULTS", results)
