@@ -32,8 +32,8 @@ export function parcelLines(text) {
     }
     const [parcel, security, acquired, units, cost, incidental, owning, improvements, title] = entries;
     return { parcel, security, acquired, units, acquisition_cost: cost, incidental_costs: incidental,
-      ...(owning === undefined ? {} : { ownership_costs: owning }),
-      ...(improvements === undefined ? {} : { capital_expenditure: improvements }), ...(title === undefined ? {} : { title_costs: title }) };
+      ...(entries.length > 6 ? { ownership_costs: owning } : {}),
+      ...(entries.length > 7 ? { capital_expenditure: improvements } : {}), ...(entries.length > 8 ? { title_costs: title } : {}) };
   });
 }
 

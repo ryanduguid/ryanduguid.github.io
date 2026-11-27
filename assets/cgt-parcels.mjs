@@ -40,10 +40,11 @@ export function decimalOf(value) {
   if (typeof value !== 'string' || value.length > 8192) return null;
   const text = value.trim();
   if (/^[+-]?(?:inf(?:inity)?|s?nan\d*)$/i.test(text)) return { sign: false, coefficient: 0n, exponent: 0, finite: false };
-  const parts = /^(-?)(\d+)(?:\.(\d+))?$/.exec(text);
-  if (!parts) return null;
-  const fraction = parts[3] ?? '';
-  return { sign: parts[1] === '-', coefficient: BigInt(parts[2] + fraction), exponent: -fraction.length, finite: true };
+  const negative = text.startsWith('-');
+  const [whole, fraction = '', ...extra] = (negative ? text.slice(1) : text).split('.');
+  const digits = (part) => part.length > 0 && [...part].every((c) => c >= '0' && c <= '9');
+  if (extra.length > 0 || !digits(whole) || (text.includes('.') && !digits(fraction))) return null;
+  return { sign: negative, coefficient: BigInt(whole + fraction), exponent: -fraction.length, finite: true };
 }
 
 /** A decimal scaled to whole 10^-places when its exponent is at least -places, or null.
@@ -422,7 +423,7 @@ const matchRow = (p) => ({ disposal: p.disposal, parcel: p.parcel.id, security: 
  *   matches: ReturnType<typeof matchRow>[], holdings: Record<string, string>[] }} CgtParcelsResult
  */
 
-/** The `cgt-parcels` command on its JSON input. @param {Record<string, unknown>} input @returns {CgtParcelsResult} */
+/** The `cgt-parcels` command on its JSON input. @param {unknown} input @returns {CgtParcelsResult} */
 export function cgtParcels(input) {
   if (input === null || typeof input !== 'object' || Array.isArray(input)) refuse('input.not_object', 'input must be a JSON object');
   const values = checkedInput(input);
