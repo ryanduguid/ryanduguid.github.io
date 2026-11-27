@@ -286,7 +286,7 @@ function ntConstruction(v, year) {
     [step], [['threshold', threshold], ['upper_tier_limit', upper], ['rate', applied]]);
 }
 
-const CONSTRUCTION = { nsw: nswConstruction, qld: qldConstruction, nt: ntConstruction, tas: tasConstruction };
+const CONSTRUCTION = new Map([['nsw', nswConstruction], ['qld', qldConstruction], ['nt', ntConstruction], ['tas', tasConstruction]]);
 
 /**
  * The command's result for one state or territory scheme: period, amounts (cents, half up), rates, the steps with
@@ -311,7 +311,7 @@ export function portableLslLevy(call) {
   }
   const context = `${jurisdiction} ${scheme} portable LSL levy`;
   rejectPresent(v, COAL_FIELDS, context);
-  const construction = scheme === 'construction' ? CONSTRUCTION[/** @type {keyof typeof CONSTRUCTION} */ (jurisdiction)] : undefined;
+  const construction = scheme === 'construction' ? CONSTRUCTION.get(jurisdiction) : undefined;
   return construction ? construction(v, year) : payrollScheme(v, jurisdiction, scheme, year, context);
 }
 
