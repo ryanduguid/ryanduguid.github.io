@@ -4,7 +4,10 @@
 import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
+import { isDeepStrictEqual } from 'node:util';
+import * as aaCommand from '../assets/aa-command.mjs';
 import * as calculations from '../assets/business-calculators.mjs';
+import { useFraction, usePercent } from '../assets/instant-asset-write-off.mjs';
 import { DIVISION_296_LIABILITY } from '../assets/division-296.mjs';
 import { PAYROLL_TAX_2026_27 } from '../assets/payroll-tax.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, financeSchedule, interestByIncomeYear,
@@ -773,6 +776,17 @@ Object.assign(INPUTS, { rdTaxOffset: (x) => calculations.rdInputsText(x,
 Object.assign(ENGINE_LABELS, { rdTaxOffset: { taxOffset: 'R&D tax offset', refundableOffset: 'refundable',
   nonRefundableOffset: 'non-refundable', clawbackIncome: 'included in assessable income' } });
 
+// The instant asset write-off page's rows (its tests are with the page's other tests below).
+Object.assign(INPUTS, { instantAssetWriteOff: (x) => calculations.iawoInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { instantAssetWriteOff: { taxablePurposeCost: 'taxable purpose proportion', deduction: 'deduction',
+  written: (v) => (v ? 'written off' : 'not written off') } });
+
+// The leave provisions page's rows (its tests are with the page's other tests below).
+Object.assign(INPUTS, { leaveProvisions: (x) => calculations.leaveInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { leaveProvisions: { total: 'total leave provisions', current: 'current', nonCurrent: 'non-current' } });
+
 // The GST adjustments page's rows (its tests are with the page's other tests below): a worksheet and its input.
 Object.assign(INPUTS, { gstAdjustment: (worksheet, x) => calculations.gstInputsText(worksheet, x,
   (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
@@ -806,6 +820,15 @@ Object.assign(ENGINE_LABELS, { trustStreaming: { netIncome: 'net income', truste
   ...Object.fromEntries([1, 2, 3, 4].flatMap((n) => [['Division6', 'Division 6 share'], ['AttributableGain', 'attributable gain'],
     ['ExtraCapitalGain', 'extra capital gain'], ['AttributableFranked', 'attributable franked distribution'], ['FrankingCredit', 'franking credit'],
     ['Assessable', 'assessable']].map(([field, words]) => [`b${n}${field}`, `beneficiary ${n} ${words}`]))) } });
+// The SMSF tax, trading stock, prepaid expenses and alcohol excise pages' rows (their tests are at the end of this file).
+Object.assign(INPUTS, { smsfTax: (x) => calculations.smsfInputsText(x, (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })),
+  tradingStock: (x) => calculations.tradingStockInputsText(x, (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })),
+  prepayments: (x) => calculations.prepaymentsInputsText(x, (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })),
+  alcoholExcise: (x) => calculations.alcoholInputsText(x, (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { smsfTax: { taxableIncome: 'taxable income', taxPayable: 'tax payable', amountDue: 'amount due or refundable' },
+  tradingStock: { closingValue: 'closing value', assessableIncrease: 'assessable increase', deduction: 'deduction' },
+  prepayments: { deductionNow: 'deduction in the expenditure year', deductionLater: 'deduction in later years' },
+  alcoholExcise: { exciseDuty: 'excise duty', netDuty: 'net duty' } });
 
 for (const [page, { function: name, peer, rows }] of Object.entries(shownCases)) {
   if (peer) {
@@ -1265,6 +1288,8 @@ Object.assign(FORM_CALLS, { wineEqualisationTax: (f) => [calculations.wetFormInp
 Object.assign(FORM_CALLS, { rentalProperty: (f) => [calculations.rentalFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { casualOvertime: (f) => [calculations.casualOvertimeFormInput((name) => f[name] ?? '')] });
+Object.assign(FORM_CALLS, { leaveProvisions: (f) => [calculations.leaveFormInput((name) => f[name] ?? '')] });
+Object.assign(FORM_CALLS, { instantAssetWriteOff: (f) => [calculations.iawoFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { rdTaxOffset: (f) => [calculations.rdFormInput((name) => f[name] ?? '')] });
 
@@ -1280,6 +1305,11 @@ Object.assign(FORM_CALLS, { paydayCashflow: (f) => [{ quarter: f.quarter, cycle:
   earnings: f.earnings }] });
 
 Object.assign(FORM_CALLS, { trustStreaming: (f) => [calculations.trustStreamingFormInput((name) => f[name] ?? '')] });
+
+Object.assign(FORM_CALLS, { smsfTax: (f) => [calculations.smsfFormInput((name) => f[name] ?? '')],
+  tradingStock: (f) => [calculations.tradingStockFormInput((name) => f[name] ?? '')],
+  prepayments: (f) => [calculations.prepaymentsFormInput((name) => f[name] ?? '')],
+  alcoholExcise: (f) => [calculations.alcoholFormInput((name) => f[name] ?? '')] });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -7954,4 +7984,492 @@ test('trust streaming refuses inputs it cannot settle', () => {
   assert.equal(calculations.trustStreaming({ ...trustZero, other_trust_income: '100', other_net_income: '100' }).trustee.assessable, 100);
   // Trust income below nil with net income above it: nobody is entitled and the trustee is assessed on it all.
   assert.equal(calculations.trustStreaming({ ...trustZero, other_trust_income: '-50', other_net_income: '100' }).trustee.assessable, 100);
+});
+
+// The instant asset write-off page: its example, the command it ports, the ATO's examples and the refusals. The
+// command read ITAA 1997 ss 40-82 and 328-180, IT(TP)A 1997 ss 328-180 and 328-181 and Act No. 71 of 2026 Sch 2 on
+// 23 November 2026; the ATO's 'Instant asset write-off for eligible businesses' (last updated 28 August 2026) was
+// read again on 26 November 2026.
+const iawoHtml = readFileSync(new URL('../_includes/calculators/instant-asset-write-off.html', import.meta.url), 'utf8');
+const iawoAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const iawoBase = { entity: 'small_business_simplified', acquired: '2025-11-18', first_used: '2025-11-18', cost: '6800.00',
+  taxable_use: '0.8', year: '2025-26', scope_confirmed: true };
+const iawo = (more) => calculations.instantAssetWriteOff({ ...iawoBase, ...more });
+const iawoCode = (input) => {
+  try {
+    calculations.instantAssetWriteOff(input);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+
+test('the instant asset write-off page opens on the ATO’s Fiona and dates its sources', () => {
+  const example = iawoHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(iawoHtml);
+  const result = calculations.instantAssetWriteOffResult((name) => fields[name] ?? '', iawoAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note],
+    example.slice(1));
+  for (const cited of ['Instant asset write-off for eligible businesses</a> (last updated 28 August 2026), read 26 November 2026',
+    'PAC/19970038/328-180', 'PAC/19970038/40-82', 'PAC/19970040/328-181', 'C2026A00071']) {
+    assert.ok(iawoHtml.includes(cited), cited);
+  }
+});
+
+test('the instant asset write-off agrees with the australian-accounting command on every differential case', () => {
+  const { engine, cases } = JSON.parse(readFileSync(new URL('./instant-asset-write-off-engine-differential.json', import.meta.url), 'utf8'));
+  assert.match(engine, /77796dbe6fb93a0970502fb9223a87a37d1355f1/);
+  assert.equal(cases.filter((c) => c.source.startsWith('AA test')).length, 66);
+  assert.equal(cases.length, 366);
+  assert.ok(iawoHtml.includes(`command of Ryan Duguid’s <a href="https://github.com/ryanduguid/australian-accounting">australian-accounting</a> calculators on ${cases.length} test cases`));
+  let refused = 0;
+  for (const { source, call, amounts, rates, warnings = [], refused: code } of cases) {
+    if (code) {
+      refused += 1;
+      assert.equal(iawoCode(call), code, source);
+      continue;
+    }
+    const r = calculations.instantAssetWriteOff(call);
+    assert.deepEqual({ amounts: r.amounts, rates: r.rates, warnings: r.warnings }, { amounts, rates, warnings }, source);
+  }
+  assert.equal(refused, 116);
+});
+
+test('the instant asset write-off takes the ATO’s examples and each limit’s edge', () => {
+  // Fiona's $700 printer and Jack's $4,500 welder; Daryl's $40,000 ute goes to the pool.
+  assert.equal(iawo({ cost: '700.00', taxable_use: '1' }).deduction, 700);
+  assert.equal(iawo({ acquired: '2026-03-12', first_used: '2026-03-12', cost: '4500.00', taxable_use: '1' }).deduction, 4500);
+  const ute = iawo({ acquired: '2025-07-28', first_used: '2025-07-28', cost: '40000.00', taxable_use: '0.4' });
+  assert.deepEqual([ute.written, ute.taxablePurposeCost, ute.deduction, ute.warnings[0].slice(0, 16)], [false, 16000, 0, 'Not written off:']);
+  const late = { acquired: '2026-07-01', first_used: '2026-07-01', year: '2026-27', taxable_use: '1' };
+  assert.deepEqual([iawo({ ...late, cost: '19999.99' }).written, iawo({ ...late, cost: '20000.00' }).written], [true, false]);
+  const medium = { entity: 'medium_business', acquired: '2019-06-01', first_used: '2020-08-01', year: '2020-21', taxable_use: '1' };
+  assert.deepEqual([iawo({ ...medium, cost: '149999.99' }).written, iawo({ ...medium, cost: '150000.00' }).written], [true, false]);
+  assert.equal(iawo({ ...medium, acquired: '2019-04-01' }).rule, iawo({ ...medium, acquired: '2019-03-01' }).rule);
+  assert.equal(iawoCode({ ...iawoBase, acquired: '2020-10-06', first_used: '2021-01-01', year: '2020-21' }), 'instant_asset_write_off.budget_time_day');
+  assert.equal(iawoCode({ ...iawoBase, entity: 'other', acquired: '2021-01-01', first_used: '2021-01-01', year: '2020-21' }), 'instant_asset_write_off.temporary_full_expensing');
+  assert.equal(iawoCode({ ...iawoBase, taxable_use: '1.01' }), 'input.fraction_invalid');
+});
+
+// The leave provisions page: its example, the command it ports, the form's blank lines and the refusals. The command
+// read the AASB 119 and AASB 101 compilations on 23 November 2026; AASB 119 compilation no. 6 (30 June 2026) and
+// AASB 101 compilation no. 6 (31 December 2022) on the Federal Register of Legislation were read on 26 November 2026.
+const provisionsHtml = readFileSync(new URL('../_includes/calculators/leave-provisions.html', import.meta.url), 'utf8');
+const provisionsAud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const provisionsCode = (input) => {
+  try {
+    calculations.leaveProvisions(input);
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+
+test('the leave provisions page opens on its example and dates its sources', () => {
+  const example = provisionsHtml.match(/\{% include calculator-example\.html inputs="([^"]*)" rows="([^"]*)" principal="(\d+)"(?: note="([^"]*)")? %\}/);
+  const fields = formDefaults(provisionsHtml);
+  const result = calculations.leaveProvisionsResult((name) => fields[name] ?? '', provisionsAud);
+  assert.deepEqual([result.inputs, result.rows.map((row) => row.join('|')).join(';'), String(result.principal), result.note],
+    example.slice(1));
+  for (const cited of ['F2015L01612/latest/text">AASB 119 Employee Benefits</a> on the Federal Register of Legislation, compilation no. 6 of 30 June 2026',
+    'F2015L01626/latest/text">AASB 101 Presentation of Financial Statements</a>, compilation no. 6 of 31 December 2022', 'read 26 November 2026']) {
+    assert.ok(provisionsHtml.includes(cited), cited);
+  }
+});
+
+test('the leave provisions agree with the australian-accounting command on every differential case', () => {
+  const { engine, cases } = JSON.parse(readFileSync(new URL('./leave-provisions-engine-differential.json', import.meta.url), 'utf8'));
+  assert.match(engine, /77796dbe6fb93a0970502fb9223a87a37d1355f1/);
+  assert.equal(cases.filter((c) => c.source.startsWith('AA test')).length, 47);
+  assert.equal(cases.length, 347);
+  assert.ok(provisionsHtml.includes(`command of Ryan Duguid’s <a href="https://github.com/ryanduguid/australian-accounting">australian-accounting</a> calculators on ${cases.length} test cases`));
+  let refused = 0;
+  for (const { source, call, amounts, rates, lines, warnings, refused: code } of cases) {
+    if (code) {
+      refused += 1;
+      assert.equal(provisionsCode(call), code, source);
+      continue;
+    }
+    const r = calculations.leaveProvisions(call);
+    assert.deepEqual({ amounts: r.amounts, rates: r.rates, lines: r.lines, warnings: r.warnings }, { amounts, rates, lines, warnings }, source);
+  }
+  assert.equal(refused, 55);
+});
+
+test('the leave provisions form drops blank lines and sends a short-term line without long-term fields', () => {
+  const fields = formDefaults(provisionsHtml);
+  const input = calculations.leaveFormInput((name) => ({ ...fields, 'line-3-label': ' ', 'line-3-hours': '' })[name] ?? '');
+  assert.equal(input.lines.length, 2);
+  assert.deepEqual(Object.keys(input.lines[0]), ['label', 'leave', 'hours', 'hourly_rate', 'probability', 'settled_within_12_months']);
+  assert.deepEqual([input.lines[1].probability, input.lines[1].salary_growth, input.lines[1].discount_rate, input.lines[1].years_to_settlement],
+    ['1.00', '0.03', '0.045', 2]);
+  // A percentage typed from the point is that percentage, not a fraction: .5% is 0.005.
+  const point = calculations.leaveFormInput((name) => ({ ...fields, 'line-1-probability': '.5' })[name] ?? '');
+  assert.equal(point.lines[0].probability, '0.005');
+  const base = { lines: input.lines, defined_benefit_plan: false, plan_assets: false, year: '2025-26', scope_confirmed: true };
+  assert.equal(provisionsCode({ ...base, plan_assets: true }), 'leave_provisions.plan_assets');
+  assert.equal(provisionsCode({ ...base, lines: [] }), 'leave_provisions.line_invalid');
+  assert.equal(provisionsCode({ ...base, year: '2019-20' }), 'period.unsupported');
+  assert.equal(provisionsCode({ ...base, lines: [{ ...input.lines[1], discount_rate: '0.0000001' }] }), 'leave_provisions.line_invalid');
+});
+
+// The SMSF tax, trading stock, prepaid expenses and alcohol excise pages: ports of australian-accounting's smsf-tax,
+// trading-stock, prepayments and alcohol-excise commands, checked against the commands' release build on every input
+// their tests give them and 300 seeded cases each.
+// A refusal where a result is expected fails as an assertion, so a mutant that refuses is caught, not invalid.
+const s5Run = (run, note) => {
+  try {
+    return run();
+  } catch (error) {
+    return assert.fail(`${note}: refused with ${error.code}`);
+  }
+};
+const s5Code = (run) => {
+  try {
+    run();
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+
+const s5Shown = {
+  'smsf-tax': (r) => ({ period: r.year, amounts: r.amounts, rates: r.rates }),
+  'trading-stock': (r) => ({ period: r.year, amounts: r.amounts, rates: r.rates, items: r.items, simplified_available: r.simplifiedAvailable,
+    simplified_chosen: r.simplifiedChosen }),
+  prepayments: (r) => ({ period: r.year, amounts: r.amounts, rates: r.rates, treatment: r.treatment, schedule: r.schedule,
+    eligible_service_period: r.eligible_service_period }),
+  'alcohol-excise': (r) => ({ period: r.year, amounts: r.amounts, rates: r.rates,
+    return_lines: r.return_lines.map(({ notices, ...line }) => (assert.ok(notices.length), line)),
+    ...(r.part_year_cap ? { part_year_cap: r.part_year_cap } : {}) }),
+};
+const s5Engines = { 'smsf-tax': calculations.smsfTax, 'trading-stock': calculations.tradingStock, prepayments: calculations.prepayments,
+  'alcohol-excise': calculations.alcoholExcise };
+for (const [command, tests, total, refusals] of [['smsf-tax', 91, 391, 103], ['trading-stock', 49, 349, 193], ['prepayments', 77, 377, 168],
+  ['alcohol-excise', 102, 402, 113]]) {
+  test(`the ${command} page agrees with the australian-accounting command on every differential case`, () => {
+    const { engine, cases } = JSON.parse(readFileSync(new URL(`./${command}-engine-differential.json`, import.meta.url), 'utf8'));
+    assert.match(engine, /at e1f5bee /);
+    assert.equal(cases.filter((c) => c.source.startsWith('AA test')).length, tests);
+    assert.equal(cases.length, total);
+    let refused = 0;
+    for (const { source, call, refused: code, ...want } of cases) {
+      if (code) {
+        refused += 1;
+        assert.equal(s5Code(() => s5Engines[command](call)), code, source);
+        continue;
+      }
+      const got = s5Shown[command](s5Run(() => s5Engines[command](call), source));
+      assert.deepEqual(JSON.parse(JSON.stringify(got)), want, source);
+      assert.deepEqual(Object.keys(got.amounts), Object.keys(want.amounts), source);
+    }
+    assert.equal(refused, refusals);
+  });
+}
+
+test('the SMSF tax page rounds the actuary’s proportion as the command does, and refuses as it does', () => {
+  const base = shownCases['smsf-tax'].rows[0].call[0];
+  const smsf = (more) => calculations.smsfTax({ ...base, ...more });
+  // floor(120,000 x 0.33333...) with the product first rounded to 40 digits: 40,000 for 41 threes, 39,999 for fewer.
+  assert.equal(smsf({ exempt_proportion: `0.${'9'.repeat(45)}` }).amounts.exempt_current_pension_income, '120000.00');
+  assert.equal(smsf({ exempt_proportion: `0.${'9'.repeat(20)}` }).amounts.exempt_current_pension_income, '119999.00');
+  // A 41-digit product ending in 5 is a tie: half even rounds an odd 40-digit quotient up ($1 x 0.(40 nines)5 is 1.000...0,
+  // so $1 is exempt) and leaves an even one ($1 x 0.(39 nines)85 stays under 1, so $0 is exempt), as Python's Decimal does.
+  assert.equal(smsf({ unsegregated_income: '1', exempt_proportion: `0.${'9'.repeat(40)}5` }).amounts.exempt_current_pension_income, '1.00');
+  assert.equal(smsf({ unsegregated_income: '1', exempt_proportion: `0.${'9'.repeat(39)}85` }).amounts.exempt_current_pension_income, '0.00');
+  assert.equal(smsf({ net_non_arms_length_income: '10000', general_expense_non_arms_length_income: '0.01' }).amounts.tax_on_taxable_income, '25800.00');
+  assert.equal(smsf({ payg_instalments: '20558.99', refundable_offsets: '0', newly_registered: true }).amounts.amount_due_or_refundable, '1259.01');
+  assert.deepEqual([smsf({ wound_up: true }).amounts.levy_adjustment_wound_up, smsf({ wound_up: true, newly_registered: true }).amounts.levy_adjustment_wound_up],
+    ['259.00', '0.00']);
+  for (const [more, code] of [[{ complying_fund: false }, 'smsf_tax.non_complying'], [{ australian_superannuation_fund: false }, 'smsf_tax.foreign_fund'],
+    [{ deductions: '8000.50' }, 'input.amount_not_whole_dollars'], [{ exempt_proportion: '1.01' }, 'smsf_tax.proportion_invalid'],
+    [{ no_tfn_contributions: '60001' }, 'smsf_tax.part_exceeds_total'], [{ segregated_pension_income: '1', disregarded_small_fund_assets: true },
+      'smsf_tax.disregarded_small_fund_assets'], [{ year: '2019-20' }, 'period.unsupported'], [{ levy: '259' }, 'input.field_unknown']]) {
+    assert.equal(s5Code(() => smsf(more)), code, code);
+  }
+});
+
+test('the trading stock page applies the $5,000 choice and the $50 million entity from 2021-22', () => {
+  const base = shownCases['trading-stock'].rows[0].call[0];
+  const stock = (more) => calculations.tradingStock({ ...base, ...more });
+  assert.equal(s5Run(() => stock({ opening_value: '39000', simplified_choice: true }), 'the $5,000 limit').amounts.estimate_difference, '5000.00');
+  assert.equal(s5Code(() => stock({ opening_value: '39000.01', simplified_choice: true })), 'trading_stock.simplified_unavailable');
+  assert.equal(stock({ entity: 'medium_business_entity', opening_value: '36000', simplified_choice: true, year: '2021-22' }).deduction, 0);
+  assert.equal(s5Code(() => stock({ entity: 'medium_business_entity', opening_value: '36000', simplified_choice: true, year: '2020-21' })),
+    'trading_stock.simplified_unavailable');
+  assert.deepEqual(stock({ items: [{ cost: '10', market_selling_value: '10', replacement_value: '9', method: 'lowest' }] }).items[0],
+    { item: 1, method: 'replacement_value', value: '9.00' });
+  assert.equal(s5Code(() => stock({ items: [{ cost: '10', market_selling_value: '10', replacement_value: '9', method: 'obsolescence',
+    obsolescence_value: '9' }] })), 'trading_stock.obsolescence_not_below');
+  assert.equal(s5Code(() => stock({ items: [{ cost: null, market_selling_value: '10', replacement_value: '9', method: 'cost' }] })),
+    'trading_stock.value_missing');
+});
+
+test('the prepaid expenses page applies the 12-month rule, the $1,000 exclusion and the 10-year cap', () => {
+  const base = shownCases.prepayments.rows[0].call[0];
+  const pay = (more) => calculations.prepayments({ ...base, ...more });
+  assert.equal(pay({ expenditure: '999.99' }).treatment, 'excluded_expenditure');
+  assert.equal(pay({ expenditure: '1000' }).treatment, 'apportioned_82kzmd');
+  assert.equal(pay({ taxpayer: 'small_business_entity' }).treatment, 'twelve_month_rule');
+  assert.equal(pay({ taxpayer: 'small_business_entity', service_end: '2027-03-01' }).treatment, 'apportioned_82kzm');
+  assert.equal(pay({ taxpayer: 'small_business_entity', service_end: '2026-06-30' }).treatment, 'done_in_year');
+  const long = pay({ service_end: '2040-02-28' });
+  assert.deepEqual([long.eligible_service_period.end, long.schedule.length, long.schedule.reduce((sum, row) => sum + Number(row.deduction) * 100, 0)],
+    ['2036-02-29', 11, 2400000]);
+  assert.equal(s5Code(() => pay({ chose_82kzmd: true })), 'prepayments.choice_unavailable');
+  assert.equal(s5Code(() => pay({ agreement_date: '1999-11-11' })), 'prepayments.agreement_before_cutoff');
+  assert.equal(s5Code(() => pay({ incurred: '2026-07-01' })), 'prepayments.dates_invalid');
+});
+
+test('the alcohol excise page classifies beer by strength and container and caps the remission', () => {
+  const line = { date: '2026-09-01', product: 'beer', volume_litres: '1000', strength_percent: '4.8' };
+  const duty = (more, extra = {}) => calculations.alcoholExcise({ lines: [{ ...line, ...more }], year: '2026-27', scope_confirmed: true, ...extra });
+  const sub = (more) => s5Run(() => duty(more), 'beer container').return_lines[0].subitem;
+  assert.deepEqual([sub({ container_litres: '48.001' }), sub({ container_litres: '48', pressurised_system: true }),
+    sub({ container_litres: '48', pressurised_system: false }), sub({ container_litres: '7.999' }), sub({ brew_on_premises: true })],
+  ['1.11', '1.11', '1.10', '1.10', '1.16']);
+  assert.deepEqual([sub({ strength_percent: '3', container_litres: '1' }), sub({ strength_percent: '3.5', container_litres: '1' })], ['1.1', '1.5']);
+  // 1,000 x (4.8 - 1.15) / 100 = 36.5 litres of alcohol at $65.03.
+  assert.equal(duty({ container_litres: '1' }).amounts.excise_duty, '2373.59');
+  const spirit = { date: '2026-09-01', product: 'spirit', volume_litres: '1000000', strength_percent: '40', remission: true };
+  const capped = calculations.alcoholExcise({ lines: [spirit], year: '2026-27', scope_confirmed: true, remission_used_this_year: '0' });
+  assert.deepEqual([capped.amounts.remission, capped.amounts.over_cap], ['400000.00', '43660000.00']);
+  const late = calculations.alcoholExcise({ lines: [spirit], year: '2026-27', scope_confirmed: true, remission_used_this_year: '0',
+    manufacturer_from: '2026-08-01' });
+  assert.deepEqual([late.rates.remission_cap, late.part_year_cap], ['366027.39', { manufacturer_from: '2026-08-01', eligible_days: 334 }]);
+  assert.equal(s5Code(() => duty({ product: 'wine' })), 'alcohol_excise.not_excisable');
+  assert.equal(s5Code(() => duty({ container_litres: '1', date: '2027-02-01' })), 'alcohol_excise.rate_unpublished');
+  assert.equal(s5Code(() => duty({ container_litres: '1' }, { duty_paid: true })), 'input.field_unknown');
+});
+
+// The 4 pages' results as accounting-pages.mjs shows them: every differential case the form can enter (the form
+// gives back the case's call), with each row checked against the australian-accounting command's amounts.
+const s5Aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+const s5Computed = (name) => JSON.parse(readFileSync(new URL(`./${name}-engine-differential.json`, import.meta.url), 'utf8')).cases
+  .filter((c) => !c.refused);
+const s5Enterable = (name, formOf, formInput) => s5Computed(name).flatMap((c) => {
+  const fields = formOf(c.call);
+  const value = (field) => fields[field] ?? '';
+  return isDeepStrictEqual(formInput(value), c.call) ? [{ ...c, value }] : [];
+});
+const s5Row = (result, label) => result.rows.find(([name]) => name === label)?.[1];
+const yesNo = (flag) => (flag ? 'yes' : 'no');
+// The form's text fields, each keyed by the call's key: a probe value names the field the form reads it from.
+const s5Fields = (formInput) => Object.entries(formInput((name) => `@${name}`))
+  .flatMap(([key, probe]) => (typeof probe === 'string' && probe.startsWith('@') ? [[key, probe.slice(1)]] : []));
+
+test('the SMSF tax page shows the command’s amounts for every case its form can enter', () => {
+  const fields = s5Fields(calculations.smsfFormInput);
+  const formOf = (call) => ({ ...Object.fromEntries(fields.map(([key, name]) => [name, call[key]])),
+    disregarded: yesNo(call.disregarded_small_fund_assets), 'new-fund': yesNo(call.newly_registered), 'wound-up': yesNo(call.wound_up) });
+  const cases = s5Enterable('smsf-tax', formOf, calculations.smsfFormInput);
+  const optional = [['Loss (O), carried forward', 'loss'], ['Non-arm’s length component, at 45%', 'non_arms_length_component'],
+    ['Tax on no-TFN contributions, at 32% (J)', 'no_tfn_contributions_tax'], ['Tax offset refunds (I)', 'tax_offset_refunds'],
+    ['Levy adjustment for a fund wound up (M)', 'levy_adjustment_wound_up'], ['Levy adjustment for a new fund (N)', 'levy_adjustment_new_fund']];
+  const seen = new Set();
+  for (const { source, call, amounts, value } of cases) {
+    const r = calculations.smsfTaxResult(value, s5Aud);
+    const due = Number(amounts.amount_due_or_refundable);
+    seen.add(due < 0 ? 'refundable' : 'due');
+    assert.deepEqual(r.rows[r.principal], [due < 0 ? 'Amount refundable (S)' : 'Amount due (S)', s5Aud(Math.abs(due))], source);
+    for (const [label, key] of [['Gross income (W)', 'gross_income'], ['Taxable income (A)', 'taxable_income'], ['Tax payable (T5)', 'tax_payable'],
+      ['Supervisory levy (L)', 'supervisory_levy']]) assert.equal(s5Row(r, label), s5Aud(Number(amounts[key])), `${source}: ${label}`);
+    for (const [label, key] of optional) {
+      assert.equal(s5Row(r, label), Number(amounts[key]) ? s5Aud(Number(amounts[key])) : undefined, `${source}: ${label}`);
+      if (Number(amounts[key])) seen.add(key);
+    }
+    assert.equal(r.note.startsWith('A loss: no tax'), Number(amounts.loss) !== 0, source);
+    assert.equal(r.inputs.includes('actuary’s proportion'), Number(call.unsegregated_income) !== 0, source);
+    assert.equal(r.inputs.includes('wound up'), call.wound_up, source);
+    assert.equal(r.inputs.includes('newly registered'), call.newly_registered, source);
+  }
+  assert.deepEqual([...seen].sort(), ['due', 'refundable', ...optional.map(([, key]) => key)].sort());
+  assert.ok(cases.length >= 200, `${cases.length} cases`);
+});
+
+test('the trading stock page shows the command’s values for every case its form can enter', () => {
+  const formOf = (call) => ({ entity: call.entity, opening: call.opening_value, estimate: call.estimated_closing_value ?? '',
+    choice: yesNo(call.simplified_choice), year: call.year, ...Object.fromEntries(call.items.flatMap((item, i) => [[`cost-${i + 1}`, item.cost],
+      [`market-${i + 1}`, item.market_selling_value ?? ''], [`replacement-${i + 1}`, item.replacement_value ?? ''], [`method-${i + 1}`, item.method],
+      [`obsolete-${i + 1}`, item.obsolescence_value]])) });
+  const cases = s5Enterable('trading-stock', formOf, calculations.tradingStockFormInput);
+  const words = { cost: 'cost', market_selling_value: 'market selling value', replacement_value: 'replacement value', obsolescence: 'obsolescence value' };
+  const notes = new Set();
+  for (const { source, call, amounts, items, simplified_available: available, simplified_chosen: chosen, value } of cases) {
+    const r = calculations.tradingStockResult(value, s5Aud);
+    assert.deepEqual(r.rows.slice(0, items.length), items.map((item) => [`Item ${item.item} at its ${words[item.method]}`, s5Aud(Number(item.value))]), source);
+    assert.equal(s5Row(r, 'Stocktake value'), s5Aud(Number(amounts.stocktake_value)), source);
+    assert.equal(s5Row(r, chosen ? 'Closing value, equal to the opening value (section 328-295)' : 'Closing value'), s5Aud(Number(amounts.closing_value)),
+      source);
+    assert.deepEqual(r.rows[r.principal], Number(amounts.deduction) > 0 ? ['Deduction for the decrease (section 70-35(3))', s5Aud(Number(amounts.deduction))]
+      : ['Assessable increase (section 70-35(2))', s5Aud(Number(amounts.assessable_increase))], source);
+    const note = chosen ? 'chosen' : available ? 'open' : r.note.endsWith('(section 328-285(1)(a))') ? 'entity' : 'estimate';
+    notes.add(note);
+    if (note === 'estimate') assert.ok(r.note.includes(`${s5Aud(Number(amounts.estimate_difference))} from the opening value`), source);
+    assert.equal(r.inputs.includes(`${call.items.length} ${call.items.length === 1 ? 'item' : 'items'} on hand`), true, source);
+    assert.equal(r.inputs.includes('estimated closing value'), call.estimated_closing_value !== null, source);
+  }
+  assert.deepEqual([...notes].sort(), ['chosen', 'entity', 'estimate', 'open']);
+  assert.ok(cases.length >= 100, `${cases.length} cases`);
+  assert.equal(calculations.tradingStockInputsText({ year: '2025-26', entity: 'trust', opening_value: '0', items: [{}], estimated_closing_value: null,
+    simplified_choice: false }, s5Aud), '2025-26; trust; opening value $0.00; 1 item on hand');
+});
+
+test('the prepaid expenses page shows the command’s deductions for every case its form can enter', () => {
+  const fields = s5Fields(calculations.prepaymentsFormInput);
+  const formOf = (call) => ({ ...Object.fromEntries(fields.map(([key, name]) => [name, call[key]])), individual: yesNo(call.individual),
+    business: yesNo(call.business_expenditure), chose: yesNo(call.chose_82kzmd), shelter: yesNo(call.tax_shelter) });
+  const cases = s5Enterable('prepayments', formOf, calculations.prepaymentsFormInput);
+  const treatments = new Set();
+  for (const { source, call, period, amounts, treatment, schedule, eligible_service_period: esp, value } of cases) {
+    const r = calculations.prepaymentsResult(value, s5Aud);
+    treatments.add(treatment);
+    assert.deepEqual(r.rows[0], ['Expenditure', s5Aud(Number(amounts.expenditure))], source);
+    assert.deepEqual(r.rows[r.principal], [`Deduction in ${period}`, s5Aud(Number(amounts.deduction_expenditure_year))], source);
+    assert.equal(r.principal, esp ? 2 : 1, source);
+    if (esp) assert.deepEqual(r.rows[1], [`Eligible service period, ${esp.start} to ${esp.end}`, `${esp.days.toLocaleString('en-AU')} days`], source);
+    assert.deepEqual(r.rows.slice(r.principal + 1), schedule.slice(1).map((row) => [`Deduction in ${row.year} (${row.days} days)`, s5Aud(Number(row.deduction))]),
+      source);
+    assert.ok(/section/.test(r.note) || r.note.endsWith('deductible in full when incurred'), source);
+    assert.equal(r.inputs.includes('choosing section 82KZMD'), call.chose_82kzmd, source);
+    assert.equal(r.inputs.includes('a tax shelter arrangement'), call.tax_shelter, source);
+  }
+  assert.deepEqual([...treatments].sort(), ['apportioned_82kzm', 'apportioned_82kzmd', 'apportioned_82kzmf', 'done_in_year', 'excluded_expenditure',
+    'not_prepaid', 'twelve_month_rule']);
+  const x = { year: '2025-26', expenditure: '1', business_expenditure: false, incurred: 'a', service_start: 'b', service_end: 'c' };
+  assert.equal(calculations.prepaymentsInputsText({ ...x, taxpayer: 'other', individual: true }, s5Aud),
+    '2025-26; an individual; $1.00 non-business expenditure incurred a for services from b to c');
+  assert.ok(calculations.prepaymentsInputsText({ ...x, taxpayer: 'other', individual: false }, s5Aud).includes('; another taxpayer;'));
+  assert.ok(calculations.prepaymentsInputsText({ ...x, taxpayer: 'trust' }, s5Aud).includes('; trust;'));
+});
+
+test('the alcohol excise page shows the command’s duty for every case its form can enter', () => {
+  const formOf = (call) => ({ year: call.year, used: call.remission_used_this_year, 'manufacturer-from': call.manufacturer_from ?? '',
+    'duty-paid': yesNo(call.duty_paid), ...Object.fromEntries(call.lines.flatMap((line, i) => [[`date-${i + 1}`, line.date], [`product-${i + 1}`, line.product],
+      [`volume-${i + 1}`, line.volume_litres], [`strength-${i + 1}`, line.strength_percent], [`labelled-${i + 1}`, line.labelled_strength_percent ?? ''],
+      [`container-${i + 1}`, line.container_litres], [`pressurised-${i + 1}`, line.pressurised_system === undefined ? '' : yesNo(line.pressurised_system)],
+      [`remission-${i + 1}`, yesNo(line.remission)]])) });
+  const cases = s5Enterable('alcohol-excise', formOf, calculations.alcoholFormInput);
+  const seen = new Set();
+  for (const { source, amounts, rates, return_lines: lines, value } of cases) {
+    const r = calculations.alcoholExciseResult(value, s5Aud);
+    assert.deepEqual(r.rows.slice(0, lines.length), lines.map((g) => [`Subitem ${g.subitem}: ${g.litres_of_alcohol_truncated} litres of alcohol at `
+      + `$${g.rate_per_litre_of_alcohol}${g.remission ? ', remission claimed' : ''}`, s5Aud(Number(g.duty))]), source);
+    assert.equal(s5Row(r, 'Excise duty'), s5Aud(Number(amounts.excise_duty)), source);
+    assert.deepEqual(r.rows[r.principal], ['Net duty payable', s5Aud(Number(amounts.net_duty))], source);
+    for (const [label, key] of [['Remission under the cap', 'remission'], ['Refund of duty paid, on application', 'refund'],
+      ['Duty above the remission cap', 'over_cap']]) {
+      const shown = key === 'remission' ? key in amounts : Number(amounts[key]) > 0;
+      assert.equal(s5Row(r, label), shown ? s5Aud(Number(amounts[key])) : undefined, `${source}: ${label}`);
+      if (shown) seen.add(key);
+    }
+    assert.equal(r.note.startsWith('Remission cap'), Boolean(rates.remission_cap), source);
+    if (rates.remission_cap) assert.ok(r.inputs.includes('remission already used this year'), source);
+  }
+  assert.deepEqual([...seen].sort(), ['over_cap', 'refund', 'remission']);
+  assert.ok(cases.length >= 100, `${cases.length} cases`);
+  assert.equal(calculations.alcoholInputsText({ year: '2025-26', lines: [{ volume_litres: '1', product: 'cider', strength_percent: '5',
+    date: '2025-08-04' }] }, s5Aud), '2025-26; 1 litres of cider at 5% on 2025-08-04');
+});
+
+// The command reader the ported engines share, against Python's Decimal (whitespace stripped, infinities and NaNs
+// read as non-finite) and the Acts Interpretation Act 1901 s 2G(2) period of months.
+test('the shared command reader reads decimals, fields, amounts and dates as the commands do', () => {
+  const code = (run) => {
+    try {
+      run();
+    } catch (error) {
+      return error.code;
+    }
+    return 'computed';
+  };
+  assert.deepEqual(aaCommand.parseDecimal('\u00a0 -12.50\t\u3000'), { finite: true, negative: true, coefficient: 1250n, exponent: -2 });
+  for (const text of ['Infinity', '-inf', 'sNaN12', 'nan']) assert.deepEqual(aaCommand.parseDecimal(text), { finite: false }, text);
+  assert.equal(aaCommand.parseDecimal('1e5'), null);
+  for (const call of [null, [], 'x']) assert.equal(code(() => aaCommand.readFields(call, 'c', [])), 'input.not_object');
+  assert.equal(code(() => aaCommand.readFields({ a: '1'.repeat(8193) }, 'c', [['a', 'dec']])), 'input.decimal_too_long');
+  assert.deepEqual(aaCommand.field(new Map(), 'a'), { value: undefined, dec: null });
+  assert.equal(code(() => aaCommand.money(null)), 'input.amount_invalid');
+  assert.equal(code(() => aaCommand.itemMoney(5, 'm')), 'input.amount_invalid');
+  assert.equal(code(() => aaCommand.itemMoney('1'.repeat(33), 'm')), 'input.amount_invalid');
+  assert.equal(aaCommand.itemMoney('12.5', 'm'), 1250n);
+  for (const text of [20260101, '2026/01/01', '2026-02-29', '1899-12-31']) assert.equal(aaCommand.parseDate(text), null, String(text));
+  const day = (text) => aaCommand.formatDay(text);
+  assert.equal(day(aaCommand.monthsEnd(aaCommand.parseDate('2026-01-15'), 1)), '2026-02-14');
+  assert.equal(day(aaCommand.monthsEnd(aaCommand.parseDate('2026-01-31'), 1)), '2026-02-28');
+  assert.equal(day(aaCommand.monthsEnd(aaCommand.parseDate('2024-01-31'), 1)), '2024-02-29');
+});
+
+// Refusals and edges the differential cases do not reach, in the commands' order: a number where a decimal string is
+// read, a decimal too long, an infinity, a missing field, and Python's negative zero ('-0.00').
+test('the S5 and leave engines refuse and show edges as their commands do', () => {
+  const code = s5Code;
+  const beer = { date: '2026-09-01', product: 'beer', volume_litres: '1000', strength_percent: '4.8', container_litres: '1' };
+  const duty = (more) => code(() => calculations.alcoholExcise({ lines: [{ ...beer, ...more }], year: '2026-27', scope_confirmed: true }));
+  assert.deepEqual([duty({ volume_litres: 1000 }), duty({ volume_litres: '1'.repeat(33) }), duty({ date: 20260901 })],
+    ['alcohol_excise.quantity_invalid', 'alcohol_excise.quantity_invalid', 'input.date_invalid']);
+  const asset = { entity: 'small_business_simplified', acquired: '2025-11-18', first_used: '2025-11-18', cost: '6800.00', taxable_use: '1',
+    year: '2025-26', scope_confirmed: true };
+  const write = (more) => code(() => calculations.instantAssetWriteOff({ ...asset, ...more }));
+  assert.deepEqual([write({ cost: 6800 }), write({ cost: '1'.repeat(8193) }), write({ cost: 'Infinity' }), write({ taxable_use: 'NaN' })],
+    ['input.amount_invalid', 'input.decimal_too_long', 'input.amount_invalid', 'input.fraction_invalid']);
+  const { year, ...noYear } = asset;
+  assert.equal(code(() => calculations.instantAssetWriteOff(noYear)), 'input.missing_field', year);
+  // The most the command takes: $1,000,000,000,000 at a 26-digit use, 40 digits, rounded half up to the cent.
+  const most = calculations.instantAssetWriteOff({ ...asset, cost: '1000000000000', taxable_use: `0.${'9'.repeat(26)}` });
+  assert.deepEqual([most.amounts.taxable_purpose_cost, most.written], ['1000000000000.00', false]);
+  const value = (fields) => (name) => fields[name] ?? '';
+  const page = calculations.instantAssetWriteOffResult(value({ entity: 'small_business_simplified', acquired: '2025-11-18', used: '2025-11-18',
+    cost: '25000', use: '100', year: '2025-26' }), s5Aud);
+  assert.deepEqual(page.rows[1], ['Instant asset write-off deduction: not written off', '$0.00']);
+  assert.deepEqual(['0.8', '0.125', '0.1250', '1', 5, 'part'].map((text) => usePercent(text)), ['80%', '12.5%', '12.5%', '100%', '5', 'part']);
+  assert.deepEqual(['', 'part', '.5', '80'].map((text) => useFraction(text)), ['', 'part', '0.005', '0.80']);
+  assert.equal(calculations.iawoInputsText({ year: '2025-26', entity: 'trust', acquired: 'soon', first_used: '2025-11-18', cost: '1', taxable_use: '1' },
+    s5Aud), '2025-26; trust; first acquired soon, first used 18 November 2025; cost $1.00, taxable use 100%');
+  const stock = (more) => calculations.tradingStock({ entity: 'small_business_entity', opening_value: '-0', items: [], estimated_closing_value: '0',
+    simplified_choice: false, year: '2025-26', scope_confirmed: true, ...more });
+  assert.deepEqual([stock().amounts.opening_value, stock().amounts.estimate_difference], ['-0.00', '0.00']);
+  assert.equal(stock({ opening_value: '0', estimated_closing_value: '-0' }).amounts.estimate_difference, '-0.00');
+  assert.equal(code(() => stock({ items: [{ cost: '1', market_selling_value: '1', method: 'cost' }] })), 'input.missing_field');
+  assert.equal(code(() => stock({ items: [{ cost: '1', market_selling_value: '1', replacement_value: '1', method: 7 }] })), 'trading_stock.method_invalid');
+  const prepaid = calculations.prepayments({ ...shownCases.prepayments.rows[0].call[0], expenditure: '-0' });
+  assert.deepEqual([prepaid.treatment, prepaid.amounts.expenditure, prepaid.schedule[0].deduction], ['excluded_expenditure', '-0.00', '-0.00']);
+  const leaveLine = { label: 'LSL', leave: 'long_service', hours: '1', hourly_rate: '1', probability: '1', settled_within_12_months: false,
+    years_to_settlement: 1, salary_growth: '0', discount_rate: '0', can_defer_settlement: true };
+  const leave = (more, line = {}) => code(() => calculations.leaveProvisions({ lines: [{ ...leaveLine, ...line }], defined_benefit_plan: false,
+    plan_assets: false, year: '2025-26', scope_confirmed: true, ...more }));
+  assert.equal(leave({}), 'computed');
+  assert.equal(leave({ plan_assets: 'no' }), 'input.flag_invalid');
+  assert.equal(code(() => calculations.leaveProvisions({ year: '2025-26' })), 'input.missing_field');
+  assert.equal(leave({}, { zeta: 1, beta: 2 }), 'leave_provisions.line_invalid');
+  assert.equal(leave({}, { alpha: 1, omega: 2 }), 'leave_provisions.line_invalid');
+  assert.match(calculations.leaveInputsText({ year: '2025-26', lines: [leaveLine] }, s5Aud), /, can defer settlement$/);
+  assert.equal(calculations.leaveInputsText({ year: '2025-26' }, s5Aud), '2025-26; ');
+});
+
+// Checked against the australian-accounting v1.4.0 release build (leave-provisions, instant-asset-write-off and smsf-tax with
+// --refusal-json, 27 November 2026): a zero typed as '-0' keeps its sign through a product and its quantize, a total starts
+// from 0.00 so it is never '-0.00', and an amount past 40 digits is decimal.invalid_operation.
+test('the leave, write-off and SMSF engines show a negative zero and refuse 40-digit cents as their commands do', () => {
+  const lsl = { label: 'LSL', leave: 'long_service', hours: '1', hourly_rate: '1', probability: '1', settled_within_12_months: false,
+    years_to_settlement: 1, salary_growth: '0', discount_rate: '0', can_defer_settlement: true };
+  const leave = (...lines) => calculations.leaveProvisions({ lines, defined_benefit_plan: false, plan_assets: false, year: '2025-26', scope_confirmed: true });
+  const shown = (r) => r.lines.map((l) => [l.value_at_current_rate, l.projected_value, l.provision].filter(Boolean));
+  const minus = leave({ ...lsl, hourly_rate: '-0' });
+  assert.deepEqual([shown(minus), minus.amounts.total_provision, minus.amounts.non_current_provision], [[['-0.00', '-0.00', '-0.00']], '0.00', '0.00']);
+  assert.deepEqual(shown(leave({ ...lsl, probability: '-0' })), [['1.00', '1.00', '-0.00']]);
+  assert.deepEqual(shown(leave({ ...lsl, hours: '-0', hourly_rate: '-0' })), [['0.00', '0.00', '0.00']]);
+  assert.deepEqual(shown(leave({ label: 'AL', leave: 'annual', hours: '-0', hourly_rate: '5', probability: '1', settled_within_12_months: true })),
+    [['-0.00', '-0.00']]);
+  // The most hours and rate, doubling for 50 years: about 1.1 x 10^41 cents, past the command's 40 digits.
+  const most = { ...lsl, hours: '1000000000000', hourly_rate: '1000000000000', salary_growth: '1', years_to_settlement: 50 };
+  assert.equal(s5Code(() => leave(most)), 'decimal.invalid_operation');
+  assert.equal(s5Code(() => leave({ ...lsl, hours: 'abc' })), 'leave_provisions.line_invalid');
+  const asset = { entity: 'small_business_simplified', acquired: '2025-11-18', first_used: '2025-11-18', cost: '-0', taxable_use: '1',
+    year: '2025-26', scope_confirmed: true };
+  const write = (more) => Object.values(calculations.instantAssetWriteOff({ ...asset, ...more }).amounts);
+  assert.deepEqual([write({}), write({ entity: 'other' }), write({ taxable_use: '-0' }), write({ cost: '100', taxable_use: '-0' })],
+    [['-0.00', '-0.00'], ['-0.00', '0.00'], ['0.00', '0.00'], ['-0.00', '-0.00']]);
+  const fund = calculations.smsfTax({ ...shownCases['smsf-tax'].rows[0].call[0], no_tfn_contributions: '-0' }).amounts;
+  assert.deepEqual([fund.no_tfn_contributions_tax, fund.gross_tax], ['-0.00', '21300.00']);
 });

@@ -28,11 +28,12 @@ import { WITHHOLDING_COMMANDS, withholdingSchedule } from './withholding-schedul
 /** @typedef {{inputs: string, rows: string[][], principal: number, note?: string}} Result */
 
 const RESIDENCY = /** @type {Record<string, string>} */ ({ resident: 'Australian resident', foreign: 'foreign resident',
-  'working-holiday': 'working holiday maker' });
+  'working-holiday': 'working holiday maker', 'part-year': 'Australian resident for part of the year' });
 const NOT_RESIDENT = /** @type {Record<string, string>} */ ({
   foreign: 'A foreign resident gets no low income tax offset and pays no Medicare levy or surcharge',
   'working-holiday': 'Working holiday maker rates apply to all of this taxable income, taken as a foreign resident’s: '
     + 'no low income tax offset and no Medicare levy or surcharge',
+  'part-year': 'The Medicare levy surcharge is not worked out for a part-year resident',
 });
 const PERIOD = /** @type {Record<string, string>} */ ({ year: 'a year', month: 'a month', fortnight: 'a fortnight', week: 'a week' });
 const whole = (/** @type {number} */ value) => `$${value.toLocaleString('en-AU')}`;
@@ -47,13 +48,16 @@ function incomeTaxResult(value, aud) {
   const loan = value('study-loan') === 'yes';
   const resident = value('residency') === 'resident';
   const offsets = incomeTaxOptions(value, spouse);
+  const partYear = value('residency') === 'part-year' ? { months: Number(value('part-year-months')),
+    nonResidentDays: Number(value('non-resident-days')), eligiblePensioner: value('eligible-pensioner') === 'yes' } : undefined;
   const r = taxEstimate({ year: value('year'), residency: value('residency'), taxable: value('income'),
     fringe: value('fringe'), super: value('super'), losses: value('losses'), foreign: value('foreign'), studyLoan: loan,
     uncoveredDays: value('uncovered'), spouse: spouse ? value('spouse-income') : null, children: value('children'),
-    withheld: value('withheld'), offsets });
+    withheld: value('withheld'), offsets, partYear });
   const children = Number(value('children'));
   const [before, after, refundable] = offsets ? optionRows(r, aud) : [[], [], []];
-  const rows = [['Tax on taxable income', aud(r.tax)], ...before, ['Low income tax offset', aud(r.offset)]];
+  const rows = [...(partYear ? [['Tax-free threshold', aud(Number(r.threshold))]] : []), ['Tax on taxable income', aud(r.tax)],
+    ...before, ['Low income tax offset', aud(r.offset)]];
   if (['2020-21', '2021-22'].includes(value('year'))) rows.push(['Low and middle income tax offset', aud(r.lmito)]);
   rows.push(...after, ['Medicare levy', aud(r.medicare)], ['Medicare levy surcharge', aud(r.surcharge)]);
   if (loan) rows.push(['Study and training loan repayment', aud(r.studyLoan)]);
@@ -70,6 +74,8 @@ function incomeTaxResult(value, aud) {
       + `${count(Number(value('uncovered')), 'day')} without private hospital cover, `
       + `${spouse ? `a spouse with income for surcharge purposes of ${aud(Number(value('spouse-income')))}` : 'no spouse'} and `
       + `${children === 1 ? '1 dependent child' : `${children || 'no'} dependent children`}, tax withheld ${aud(Number(value('withheld')))}`
+      + (partYear ? `, ${count(partYear.months, 'month')} as a resident and ${count(partYear.nonResidentDays, 'day')} not, `
+        + `${partYear.eligiblePensioner ? 'an' : 'not an'} eligible pensioner` : '')
       + (offsets ? optionInputs(value, offsets, aud) : ''),
     principal: rows.length - 1, rows, note: surcharge };
 }

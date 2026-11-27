@@ -1,0 +1,66 @@
+# Alcohol excise calculator: beer, spirits and the remission
+
+Source: https://duguid.com.au/tools/business-calculators/alcohol-excise/
+
+> Excise duty on beer and spirits at the rate in force on the day, with draught beer rates and the $350,000 or $400,000 manufacturer remission cap.
+
+# Alcohol excise calculator
+
+Excise duty on beer and spirits entered from 1 July 2022, with the manufacturer remission.
+
+Published 26 November 2026. Last checked 22 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Alcohol excise for one financial year
+
+Remission, rebates and refunds already used this financial year (AUD) The day the business first became an alcohol manufacturer, if in this year
+
+The duty has been paid, so the remission is a refund on application No Yes
+
+Financial year 2026-27 2025-26 2024-25 2023-24 2022-23
+
+## Goods entered for home consumption
+
+Enter up to 3 lines; leave a line’s volume blank to leave it out.
+
+Line 1: goods entered for home consumption Day entered (delivered, or paid without a periodic settlement permission) ProductBeer Spirits, such as vodka, whisky or gin Brandy Other excisable beverage, such as a ready-to-drink Volume (litres), blank for no line Actual strength (% alcohol by volume) Labelled strength where higher (%), else blank Beer: container size (litres) Beer in 8 to 48 litre containers: designed for a pressurised gas or pump systemNot applicable Yes No Claim the alcohol manufacturer remissionNo Yes
+
+Line 2: goods entered for home consumption (optional) Day entered (delivered, or paid without a periodic settlement permission) ProductBeer Spirits, such as vodka, whisky or gin Brandy Other excisable beverage, such as a ready-to-drink Volume (litres), blank for no line Actual strength (% alcohol by volume) Labelled strength where higher (%), else blank Beer: container size (litres) Beer in 8 to 48 litre containers: designed for a pressurised gas or pump systemNot applicable Yes No Claim the alcohol manufacturer remissionNo Yes
+
+Line 3: goods entered for home consumption (optional) Day entered (delivered, or paid without a periodic settlement permission) ProductBeer Spirits, such as vodka, whisky or gin Brandy Other excisable beverage, such as a ready-to-drink Volume (litres), blank for no line Actual strength (% alcohol by volume) Labelled strength where higher (%), else blank Beer: container size (litres) Beer in 8 to 48 litre containers: designed for a pressurised gas or pump systemNot applicable Yes No Claim the alcohol manufacturer remissionNo Yes
+
+## Work out the duty
+
+Calculate
+
+A line marked for the remission states that the manufacturer meets item 10 (a), (b), (d) and (e) of the Excise Regulation 2015: duty payable by it, independence, at least 70% fermented or distilled by it and, for a distillery after its first 2 years, the still test. The cap is $350,000 a financial year to 2025-26 and $400,000 from 2026-27.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; 5000 litres of beer at 4.8% on 2026-09-01 in 50 litre containers; 400 litres of spirits at 40% on 2026-10-15, remission claimed; remission already used this year $0.00. Subitem 1.11: 182.5 litres of alcohol at $43.39 $7,918.67 Subitem 3.10: 160.0 litres of alcohol at $110.15, remission claimed $17,624.00 Excise duty $25,542.67 Remission under the cap $17,624.00 Net duty payable $7,918.67 Remission cap $400,000.00 for the year, $400,000.00 left before these goods.
+
+## How the alcohol excise calculator works
+
+The calculator works the excise duty on beer, spirits, brandy and other excisable beverages entered for home consumption in a financial year from 2022-23 to 2026-27, up to 31 January 2027. Each line is classified to its Schedule subitem by product, strength and, for beer, the container: over 48 litres, or 8 to 48 litres designed for a pressurised gas or pump system, takes the draught rate. Litres of alcohol are the volume times the strength, and for beer only the strength above 1.15%. Where the label states a higher strength, duty is on the labelled one (section 77FA). Each line takes the rate in force on the day it is entered. Goods of one subitem at one rate are one return line: their litres of alcohol are truncated to 0.1 litre and the duty to the cent, as the ATO’s guidelines allow. The alcohol manufacturer remission is applied to the lines that claim it, up to the cap left for the year: $350,000 to 2025-26 and $400,000 from 2026-27, reduced by days for a manufacturer that started during the year. Where the duty was already paid, the remission is a refund on application.
+
+## What the alcohol excise calculator does not cover
+
+The calculator does not cover wine, which bears wine equalisation tax, imported goods, which bear customs duty, tobacco, fuel, concessional spirit under subitems 3.5 to 3.8, or liquor made for non-commercial purposes. It does not decide whether a manufacturer meets the remission’s independence, 70% and still tests, or whether a business holds a licence or periodic settlement permission. It holds no rate for goods entered after 31 January 2027, before the next indexation was published, and refuses a labelled strength that would move the goods to another subitem. It takes up to 3 lines on this page and up to 1,000 through its tool. Results are planning estimates: check them against your excise returns and the ATO’s guidance.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Alcohol excise calculator
+
+Case | Inputs | Result
+Draught beer and spirits with the remission: $7,918.67 payable | 2026-27; 5000 litres of beer at 4.8% on 2026-09-01 in 50 litre containers; 400 litres of spirits at 40% on 2026-10-15, remission claimed; remission already used this year $0.00 | Excise duty $25,542.67, net duty $7,918.67
+Packaged beer over 3% and up to 3.5% in 375 ml cans, 2025-26 | 2025-26; 20000 litres of beer at 3.5% on 2025-11-01 in 0.375 litre containers | Excise duty $29,403.20, net duty $29,403.20
+The cap almost used: $1 of remission left | 2026-27; 400 litres of spirits at 40% on 2026-10-15, remission claimed; remission already used this year $399,999.00 | Excise duty $17,624.00, net duty $17,623.00
+
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/

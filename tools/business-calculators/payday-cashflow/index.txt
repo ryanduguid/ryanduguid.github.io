@@ -58,7 +58,7 @@ The smallest earnings with a cent of super guarantee, weekly to 30 June 2027 | A
 A first weekly payday after the quarter’s first 7 days is refused | July to September 2026, paid weekly from 8 July 2026, one employee’s ordinary time earnings $10,000.00 each payday | Refused: enter the first payday of the quarter: a date in its first 7 days
 Earnings whose 12% rounds to nil are refused | July to September 2026, paid fortnightly from 2 July 2026, one employee’s ordinary time earnings $0.04 each payday | Refused: enter ordinary time earnings of at least $0.05 each payday, so that 12% of them is a cent or more
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -66,4 +66,4 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - Payday Super calendar: https://duguid.com.au/tools/payday-super/business-days/
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/

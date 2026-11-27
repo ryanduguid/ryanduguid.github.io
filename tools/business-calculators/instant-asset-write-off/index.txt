@@ -1,0 +1,69 @@
+# Instant asset write-off calculator, 2020-21 to 2026-27
+
+Source: https://duguid.com.au/tools/business-calculators/instant-asset-write-off/
+
+> Whether a small business or medium sized business writes one asset off in full: the cost limit from the dates, $20,000 from 1 July 2026, and the deduction.
+
+# Instant asset write-off calculator
+
+Whether one asset is written off in full, 2020-21 to 2026-27.
+
+Published 26 November 2026. Last checked 26 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One depreciating asset
+
+Cost of the asset (AUD) Taxable use (%) Date first acquired Date first used, or installed ready for use, for a taxable purpose
+
+The business A small business entity using simplified depreciation A medium sized business (turnover $10 million to under $500 million) Another entity
+
+Income year the asset is first used 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Calculate
+
+## What the inputs need
+
+A small business entity has aggregated turnover under $10 million and has chosen simplified depreciation. A medium sized business could write off an asset only from 12 March 2020 to 30 June 2021. From 7.30 pm AEDT on 6 October 2020 to 30 June 2023, temporary full expensing applied instead; for a small business entity the calculator writes the whole asset off then if the asset was acquired from that time, and for any other entity it refuses such an asset.
+
+The limits turn on the dates: the asset is written off in the income year it is first used or installed ready for use, and some limits apply only to an asset first acquired after a budget’s 7.30 pm announcement. Where the limit turns on acquisition after a budget, an asset acquired on that budget day itself (12 May 2015, 2 April 2019 or 6 October 2020) is refused, as the calculator takes dates, not times.
+
+The cost is the asset’s whole cost; it must be less than the limit. The deduction is the cost times the share of use for a taxable purpose. An asset at or above the limit goes into the small business pool, or for other entities is depreciated under Division 40.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; a small business entity using simplified depreciation; first acquired 18 November 2025, first used 18 November 2025; cost $6,800.00, taxable use 80%. Taxable purpose proportion of the cost $5,440.00 Instant asset write-off deduction $5,440.00 Cost limit less than $20,000.00 IT(TP)A 1997 s 328-180(4)(d): less than $20,000 for an asset first acquired from 7.30 pm on 12 May 2015 and first used or installed ready for use from 1 July 2023 to 30 June 2026.
+
+## How the instant asset write-off calculator works
+
+The instant asset write-off calculator decides whether one depreciating asset is written off in full in the income year it is first used, or installed ready for use, for a taxable purpose, from 2020-21 to 2026-27. It finds the cost limit that applies from the business, the date the asset was first acquired and the date it was first used, and writes the asset off if its cost is less than that limit. The deduction is the cost times the taxable use, rounded to the cent.
+
+Its results match the instant-asset-write-off command of Ryan Duguid’s australian-accounting calculators on 366 test cases, refusals included.
+
+## What the instant asset write-off calculator does not cover
+
+The calculator does not decide whether a business is a small business entity or medium sized business, whether it chose simplified depreciation, or the taxable use: you state those. It does not work out the small business pool, the car limit, second element costs added later, a balancing adjustment on disposal, backing business investment, or temporary full expensing for entities other than small business entities using simplified depreciation, which it refuses. It refuses an asset acquired on a budget day itself where the limit turns on acquisition after that budget. Results are planning estimates: check them against your records and the ATO’s guidance.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Instant asset write-off calculator
+
+Case | Inputs | Result
+The ATO’s Fiona: a $6,800 computer used 80% for business, $5,440 written off | 2025-26; a small business entity using simplified depreciation; first acquired 18 November 2025, first used 18 November 2025; cost $6,800.00, taxable use 80% | taxable purpose proportion $5,440.00, deduction $5,440.00, written off
+The ATO’s Daryl: a $40,000 ute used 40%, at or above $20,000, goes to the pool | 2025-26; a small business entity using simplified depreciation; first acquired 28 July 2025, first used 28 July 2025; cost $40,000.00, taxable use 40% | taxable purpose proportion $16,000.00, deduction $0.00, not written off
+From 1 July 2026: $19,999.99 is less than $20,000 and written off | 2026-27; a small business entity using simplified depreciation; first acquired 1 July 2026, first used 1 July 2026; cost $19,999.99, taxable use 100% | taxable purpose proportion $19,999.99, deduction $19,999.99, written off
+From 1 July 2026: $20,000.00 is not less than $20,000 | 2026-27; a small business entity using simplified depreciation; first acquired 1 July 2026, first used 1 July 2026; cost $20,000.00, taxable use 100% | taxable purpose proportion $20,000.00, deduction $0.00, not written off
+A small business’s asset held from 6 October 2020 and first used by 30 June 2023 has no limit | 2020-21; a small business entity using simplified depreciation; first acquired 2 November 2020, first used 1 March 2021; cost $250,000.00, taxable use 60% | taxable purpose proportion $150,000.00, deduction $150,000.00, written off
+Acquired before 12 May 2015 and first used in 2023-24: the $1,000 limit | 2023-24; a small business entity using simplified depreciation; first acquired 15 January 2015, first used 1 September 2023; cost $1,500.00, taxable use 100% | taxable purpose proportion $1,500.00, deduction $0.00, not written off
+A medium sized business: $149,999.99, acquired after 2 April 2019 and first used by 30 June 2021 | 2020-21; a medium sized business; first acquired 1 June 2019, first used 1 August 2020; cost $149,999.99, taxable use 100% | taxable purpose proportion $149,999.99, deduction $149,999.99, written off
+A medium sized business’s asset first used after 30 June 2021 is not written off | 2023-24; a medium sized business; first acquired 1 July 2021, first used 1 August 2023; cost $5,000.00, taxable use 100% | taxable purpose proportion $5,000.00, deduction $0.00, not written off
+Acquired on budget day 6 October 2020 is refused: the result turns on the time | 2020-21; a small business entity using simplified depreciation; first acquired 6 October 2020, first used 1 January 2021; cost $50,000.00, taxable use 100% | Refused: the result turns on whether the asset was first acquired before or after 7.30 pm on 6 October 2020 (legal time in the ACT), and the calculator takes dates only
+
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- australian-accounting: https://github.com/ryanduguid/australian-accounting
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/

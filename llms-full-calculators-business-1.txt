@@ -14,11 +14,11 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Sixty-three free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
+Sixty-nine free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
 Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
-Search 63 calculators
+Search 69 calculators
 
 ## Pricing, planning and loans
 
@@ -62,14 +62,17 @@ Search 63 calculators
 - Company tax and franking calculator A company’s 25% or 30% rate from the base rate entity test, its rate for franking dividends, the maximum franking credit and a shareholder’s tax or refund.
 - R&D tax offset calculator A company’s R&D tax incentive offset for 2021-22 to 2026-27, refundable or with the premium tiers, and the amount a grant or feedstock clawback includes in assessable income.
 - Deferred tax calculator A company’s AASB 112 tax effect worksheet: deferred tax liability and asset, the movement, current tax and the reconciliation.
+- Trading stock calculator The change in value of trading stock for 2020-21 to 2026-27: each item at its elected value, the assessable increase or deduction, and the small business choice not to account for a change of $5,000 or less.
+- Prepaid expenses calculator When one prepaid amount incurred in 2020-21 to 2026-27 is deductible: in full under the 12-month rule or as excluded expenditure, or apportioned by days over the eligible service period.
 - Salary against dividends calculator A company owner’s salary and super guarantee against fully franked dividends for 2021-22 to 2026-27: the cash and super kept after tax, and the split that keeps the most.
 - Sole trader against company calculator One business profit taxed as a sole trader, with the small business income tax offset, and through a company paying a salary, super guarantee and fully franked dividends, for 2021-22 to 2026-27: each structure’s total tax.
 - Trust streaming calculator A discretionary trust’s net income shared by present entitlement, with capital gains and franked distributions streamed to the beneficiaries specifically entitled, and the trustee’s 45% tax under section 99A.
 
-## Capital gains tax
+## Capital gains tax and capital assets
 
 - Capital gains tax calculator The capital gain or loss on one sale to 30 June 2027: discount or indexation, losses, and the main residence and 6-year rules, each step cited.
 - Small business CGT concessions checker Which of the 4 small business CGT concessions in Division 152 are open for one capital gain, each with the provision that decides it.
+- Instant asset write-off calculator Whether a small business entity using simplified depreciation, or a medium sized business to 30 June 2021, writes one asset off in full: the cost limit from the dates and the deduction.
 
 ## Staff, payroll and termination
 
@@ -80,8 +83,10 @@ Search 63 calculators
 - SGC and Payday Super calculator When a Payday Super contribution is due, how many days late it was, and one employee’s super guarantee charge, each step cited.
 - Payday Super cashflow calculator Each payday’s super guarantee due date under Payday Super against the old quarterly date, and the peak extra working capital for a quarter of 2026-27.
 - Long service leave calculator One employee’s long service leave under each state and territory’s Act: the leave to take now, or the weeks payable when employment ends for a given reason and their value, each step cited.
+- Leave provisions calculator Annual and long service leave provisions under AASB 119, line by line, split current and non-current under AASB 101.
 - Workers compensation premium calculator A 2026-27 premium from the declared wages and the insurer’s rate under each state and territory’s scheme, with GST, duty and the actual wages adjustment, each step cited.
 - Super lump sum tax The components of a super lump sum and the most tax each part can bear, for members and death benefits, 2020-21 to 2026-27.
+- SMSF tax calculator A complying SMSF’s income tax calculation statement (item 13) for 2020-21 to 2026-27: exempt current pension income, the low tax and non-arm’s length components, offsets, the supervisory levy and the amount due or refundable.
 - Redundancy and ETP withholding The tax-free part of a genuine redundancy payment and the amount to withhold from an ETP under Schedule 11, for 2026-27.
 - Unused leave on termination Schedule 7 withholding and the lump sum A, B and type U amounts for unused leave paid on termination, for 2026-27.
 
@@ -101,6 +106,7 @@ Search 63 calculators
 - Fuel tax credit calculator A business’s fuel tax credits at the ATO’s rate for each day since 1 July 2022, by fuel and use, with label 7D and the small claimant methods.
 - Luxury car tax calculator Luxury car tax, its adjustments and refunds for 2019-20 to 2026-27.
 - Wine equalisation tax calculator WET on a tax period’s wholesale sales, retail sales, own use and sales under quote, the producer rebate within the year’s $350,000 or $400,000 cap, and labels 1C and 1D.
+- Alcohol excise calculator Excise duty on beer, spirits and other excisable beverages entered from 1 July 2022 to 31 January 2027, at the rate in force on the day, with the alcohol manufacturer remission under its yearly cap.
 - Business days calculator Business days between 2 dates, or the date a number of business days on or back, with each state’s public holidays for 2026 and 2027.
 - ASIC fees calculator ASIC’s 2026-27 fees and late fee tiers.
 
@@ -144,11 +150,14 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
 - R&D tax offset calculator: https://duguid.com.au/tools/business-calculators/rd-tax-offset/
 - Deferred tax calculator: https://duguid.com.au/tools/business-calculators/deferred-tax/
+- Trading stock calculator: https://duguid.com.au/tools/business-calculators/trading-stock/
+- Prepaid expenses calculator: https://duguid.com.au/tools/business-calculators/prepayments/
 - Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/
 - Sole trader against company calculator: https://duguid.com.au/tools/business-calculators/sole-trader-company/
 - Trust streaming calculator: https://duguid.com.au/tools/business-calculators/trust-streaming/
 - Capital gains tax calculator: https://duguid.com.au/tools/business-calculators/cgt/
 - Small business CGT concessions checker: https://duguid.com.au/tools/business-calculators/cgt-concessions/
+- Instant asset write-off calculator: https://duguid.com.au/tools/business-calculators/instant-asset-write-off/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - Casual and overtime pay calculator: https://duguid.com.au/tools/business-calculators/casual-overtime/
 - Contractor against employee calculator: https://duguid.com.au/tools/business-calculators/contractor-employee/
@@ -156,8 +165,10 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - SGC and Payday Super calculator: https://duguid.com.au/tools/business-calculators/sgc-payday/
 - Payday Super cashflow calculator: https://duguid.com.au/tools/business-calculators/payday-cashflow/
 - Long service leave calculator: https://duguid.com.au/tools/business-calculators/long-service-leave/
+- Leave provisions calculator: https://duguid.com.au/tools/business-calculators/leave-provisions/
 - Workers compensation premium calculator: https://duguid.com.au/tools/business-calculators/workers-compensation/
 - Super lump sum tax: https://duguid.com.au/tools/business-calculators/super-benefit-tax/
+- SMSF tax calculator: https://duguid.com.au/tools/business-calculators/smsf-tax/
 - Redundancy and ETP withholding: https://duguid.com.au/tools/business-calculators/termination-payment/
 - Unused leave on termination: https://duguid.com.au/tools/business-calculators/unused-leave/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
@@ -171,6 +182,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Fuel tax credit calculator: https://duguid.com.au/tools/business-calculators/fuel-tax-credits/
 - Luxury car tax calculator: https://duguid.com.au/tools/business-calculators/luxury-car-tax/
 - Wine equalisation tax calculator: https://duguid.com.au/tools/business-calculators/wine-equalisation-tax/
+- Alcohol excise calculator: https://duguid.com.au/tools/business-calculators/alcohol-excise/
 - Business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
 - ASIC fees calculator: https://duguid.com.au/tools/business-calculators/asic-fees/
 - 19 individual tax calculators: https://duguid.com.au/tools/individual-tax/
@@ -223,7 +235,7 @@ GST below half a cent rounds to nil | $0.01 including GST | Exclusive $0.01, GST
 
 Official comparison on 5 November 2026, on one fictional input: for $20.15 excluding GST, the Moneysmart GST calculator gave GST $2.02, price including GST $22.17, and this calculator gave GST $2.02, inclusive $22.17. Both give the same cents on this input. This records that date only and is not a standing match.
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -238,7 +250,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
 - A New Tax System (Goods and Services Tax) Act 1999: https://www.legislation.gov.au/C2004A00446/latest/text
 - Moneysmart GST calculator: https://moneysmart.gov.au/work-and-tax/gst-calculator
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 - GST and BAS questions: https://duguid.com.au/tools/accounting-questions/gst-bas/
 - 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
 - GST margin scheme calculator: https://duguid.com.au/tools/business-calculators/gst-margin-scheme/
@@ -288,7 +300,7 @@ An exact half cent rounds up | $20.15 at 50% | Business share $10.08
 No business use | $100.00 at 0% | Business share $0.00
 A share over 100% is refused | $100.00 at 100.01% | Refused: enter an amount between 0 and 100
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -302,7 +314,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - rate by income year: https://duguid.com.au/rates/cents-per-kilometre/
 - Phone and internet record checklist: https://duguid.com.au/tools/accounting-questions/deductions/#q15
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 - Deductions questions: https://duguid.com.au/tools/accounting-questions/deductions/
 - Work expenses calculator: https://duguid.com.au/tools/individual-tax/work-expenses/
 
@@ -351,7 +363,7 @@ Nil cost gives no markup | Sales $50.00, cost $0.00 | Profit $50.00, margin 100.
 
 Official comparison on 13 November 2026, on one fictional input: for $450,000 total revenue and $300,000 cost of goods sold, the Business Queensland gross profit and gross profit margin calculators gave a gross profit of $150,000 and a gross profit margin of 33.33%, and this calculator gave profit $150,000.00, margin 33.33%. Business Queensland ignored the cents in amounts entered, so this input is in whole dollars; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -365,7 +377,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 - Break-even sales calculator: https://duguid.com.au/tools/business-calculators/break-even/
 - Budget variance calculator: https://duguid.com.au/tools/business-calculators/variance/
 - Management reporting questions: https://duguid.com.au/tools/accounting-questions/management-reporting/
@@ -414,7 +426,7 @@ A price equal to variable cost never breaks even | Fixed $1,000.00, price $18.00
 
 Official comparison on 13 November 2026, on one fictional input: for $1,000 fixed costs, a $25 price and $15 variable cost a unit, which is a 40% gross profit margin, the Business Queensland break-even calculator gave a break-even point of $2,500, and this calculator gave 100 units, sales $2,500.00. Business Queensland ignored the cents in amounts entered and does not round up to a whole unit, so this input is in whole dollars and breaks even on a whole unit; the 2 agree on it. This records that date only and is not a standing match.
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -427,7 +439,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - Business Queensland: break-even and profit: https://www.business.qld.gov.au/running-business/finance/essentials/break-even-profit
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 - Margin and markup calculator: https://duguid.com.au/tools/business-calculators/margin/
 - Hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
 - Management reporting questions: https://duguid.com.au/tools/accounting-questions/management-reporting/
@@ -474,7 +486,7 @@ Case | Inputs | Result
 An exact half cent rounds up | Costs $20.15, profit $0.00, 2 hours | Rate $10.08
 A rate rounds up so the hours cover the total | Costs $100.00, profit $0.00, 3 hours | Rate $33.34
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -487,7 +499,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - Business Queensland: pricing products and services: https://www.business.qld.gov.au/running-business/marketing-sales/marketing/strategy-planning/pricing-products-services
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 - Fixed fee pricing calculator: https://duguid.com.au/tools/business-calculators/fixed-fee/
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - Break-even sales calculator: https://duguid.com.au/tools/business-calculators/break-even/
@@ -540,7 +552,7 @@ The first instalment carries the cents left over | 3 hours at $100.00 an hour, 0
 A margin fee rounds up, not to the nearest cent | 1 hour at $120.00 an hour, 45% margin, rounded up to the cent, no GST, 1 instalment | Fee $218.19, GST $0.00, total $218.19, first instalment $218.19, each later instalment $218.19, effective rate $218.19
 A margin of 100% is refused | 10 hours at $100.00 an hour, 100% margin, rounded up to $10, GST added, 12 instalments | Refused: enter an amount between 0 and 99.99
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -553,7 +565,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 - Margin and markup calculator: https://duguid.com.au/tools/business-calculators/margin/
 - GST calculator: https://duguid.com.au/tools/business-calculators/gst/
 
@@ -606,7 +618,7 @@ Income above budget is favourable | Actual $110.00, budget $100.00, income | Dif
 Cost above budget is unfavourable | Actual $110.00, budget $100.00, cost | Difference $10.00, 10.00%, Unfavourable
 A nil budget has no percentage | Actual $10.00, budget $0.00, income | Difference $10.00, no percentage, Favourable
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -620,7 +632,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 - Budget explanation checklist: https://duguid.com.au/tools/accounting-questions/management-reporting/#q75
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 - Margin and markup calculator: https://duguid.com.au/tools/business-calculators/margin/
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - Management reporting questions: https://duguid.com.au/tools/accounting-questions/management-reporting/
@@ -690,7 +702,7 @@ Payments that add up to less than the amount financed have no rate | $1,000.00 f
 
 Official comparison on 5 November 2026, on one fictional input: for $100,000 at 6% over 30 years, repaid monthly, no fees, the Moneysmart mortgage calculator gave repayments of $600 a month, total repayments $215,838, and this calculator gave payment $599.55, total interest $115,838.45 on the $100,000.00 borrowed. Moneysmart shows whole dollars, and the 2 agree to the dollar on this input. This records that date only and is not a standing match.
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -706,7 +718,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - hire purchase and chattel mortgage schedule: https://duguid.com.au/tools/business-calculators/hire-purchase/
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
 - Moneysmart mortgage calculator: https://moneysmart.gov.au/home-loans/mortgage-calculator
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 - AASB 16 lease calculator: https://duguid.com.au/tools/business-calculators/lease/
 - Borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
 
@@ -763,7 +775,7 @@ The implicit rate of a hire purchase agreement with a residual | $50,000.00 fina
 A residual equal to the amount financed leaves interest only | $1,000.00 financed, 12% a year, 12 monthly payments, balloon $1,000.00, from 2026-07-01; working out the payment | Payment $10.00, last payment $10.00, total interest $120.00
 A payment that does not cover the interest never reaches the residual | $60,000.00 financed, 7.5% a year, monthly payments, $375.00 each, balloon $18,000.00, from 2026-07-01; working out the number of payments | Refused: the payment does not cover a period’s interest, so the balance never falls to the balloon
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -776,7 +788,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - australian-accounting: https://github.com/ryanduguid/australian-accounting
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 - Loan repayment schedule calculator: https://duguid.com.au/tools/business-calculators/loan/
 - AASB 16 lease calculator: https://duguid.com.au/tools/business-calculators/lease/
 - Car limit for depreciation: https://duguid.com.au/rates/car-limit/
@@ -841,7 +853,7 @@ A payment before commencement and the restoration estimate add to the asset, qua
 Incentives as large as the rest of the cost are refused | 60 monthly payments of $1,000.00, 7.5% a year, incentives $60,000.00, from 2026-07-01 | Refused: the incentives received are as much as the rest of the right-of-use asset’s cost, which leaves it nothing to depreciate
 Ownership transferring without a useful life is refused | 60 monthly payments of $1,000.00, 7.5% a year, residual $5,000.00, from 2026-07-01, ownership transfers | Refused: enter the asset’s useful life in months: with ownership transferring, the asset is depreciated over it
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -854,7 +866,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - depreciation rates page: https://duguid.com.au/tools/depreciation-rates/
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 - Hire purchase and chattel mortgage schedule: https://duguid.com.au/tools/business-calculators/hire-purchase/
 - Loan repayment schedule calculator: https://duguid.com.au/tools/business-calculators/loan/
 - Borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
@@ -981,7 +993,7 @@ A building begun from 22 August 1979 to 17 July 1985 is refused | 2025-26; legal
 The effect on tax before 2024-25 is refused | 2023-24; legal interest 1; held from 1 July 2020; 366 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00; other taxable income $50,000.00 | Refused: the effect on tax is worked out for 2024-25 to 2026-27, the years the resident scale is held for here; leave other taxable income blank for an earlier year
 2027-28 is refused | 2027-28; legal interest 1; held from 1 July 2020; 365 days let or available; rental income $0.00; expenses apportioned by days $0.00; expenses solely for renting $0.00; borrowing expenses $0.00 | Refused: choose an income year from 2020-21 to 2026-27. From 2027-28 s 26-155 can limit residential rental deductions, which this calculator does not work out
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -994,6 +1006,6 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 ## Links
 
 - borrowing expenses calculator: https://duguid.com.au/tools/business-calculators/borrowing-expenses/
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 - Depreciation pools and capital works calculator: https://duguid.com.au/tools/business-calculators/depreciation-pools/
 - Land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/

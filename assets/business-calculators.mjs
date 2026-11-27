@@ -668,6 +668,8 @@ export { companyTax, companyTaxResult } from './company-tax.mjs';
 export { gstMarginScheme, gstMarginSchemeResult } from './gst-margin-scheme.mjs';
 export { lowValuePool, smallBusinessPool, capitalWorks, depreciationPoolsResult, poolFormInput, poolInputsText, POOL_YEARS } from './depreciation-pools.mjs';
 export { casualOvertime, casualOvertimeResult, casualOvertimeFormInput, casualOvertimeInputsText, CASUAL_OVERTIME_PAYDAYS } from './casual-overtime.mjs';
+export { leaveProvisions, leaveProvisionsResult, leaveFormInput, leaveInputsText, LEAVE_YEARS, LEAVE_ROWS } from './leave-provisions.mjs';
+export { instantAssetWriteOff, instantAssetWriteOffResult, iawoFormInput, iawoInputsText, IAWO_YEARS } from './instant-asset-write-off.mjs';
 export { rdTaxOffset, rdTaxOffsetResult, rdFormInput, rdInputsText, RD_YEARS } from './rd-tax-offset.mjs';
 export { contractorEmployee, contractorEmployeeResult, contractorFormInput, contractorInputsText, CONTRACTOR_YEARS } from './contractor-employee.mjs';
 export { abnCheck, taxInvoice, taxInvoiceResult, taxInvoiceFormInput, taxInvoiceInputsText, invoiceAsHtml, TREATMENTS, MAX_LINES } from './tax-invoice.mjs';
@@ -682,5 +684,9 @@ export { businessDays, businessDaysResult, parseHolidays } from './business-days
 export { gstCreditablePurposeChange, gstAnnualApportionment, gstFinancialAcquisitionsThreshold, gstGoingConcern, gstSecondHandGoods, gstBadDebt,
   GST_ADJUSTMENT_YEARS } from './gst-adjustments.mjs';
 export { gstAdjustment, gstAdjustmentsResult, gstFormInput, gstInputsText, percentFraction, GST_WORKSHEETS } from './gst-adjustments-page.mjs';
+export { smsfTax, smsfTaxResult, smsfFormInput, smsfInputsText, SMSF_YEARS } from './smsf-tax.mjs';
+export { tradingStock, tradingStockResult, tradingStockFormInput, tradingStockInputsText, TRADING_STOCK_YEARS } from './trading-stock.mjs';
+export { prepayments, prepaymentsResult, prepaymentsFormInput, prepaymentsInputsText, PREPAYMENT_YEARS } from './prepayments.mjs';
+export { alcoholExcise, alcoholExciseResult, alcoholFormInput, alcoholInputsText, ALCOHOL_YEARS } from './alcohol-excise.mjs';
 export { deferredTax, deferredTaxResult, deferredTaxFormInput, deferredTaxInputsText, DEFERRED_TAX_YEARS, DEFERRED_TAX_ROWS,
   DEFERRED_TAX_MISMATCH } from './deferred-tax.mjs';
