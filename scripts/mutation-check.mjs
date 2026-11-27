@@ -48,6 +48,7 @@ const tba = { file: 'assets/transfer-balance.mjs', test: 'scripts/transfer-balan
 const excess = { ...tba, file: 'assets/excess-contributions.mjs' };
 const tbaPage = { ...tba, file: 'assets/transfer-balance-result.mjs' };
 const pm = { file: 'assets/pension-minimum.mjs', test: 'scripts/pension-minimum.test.mjs' };
+const dz = { file: 'assets/downsizer.mjs', test: 'scripts/downsizer.test.mjs' };
 const rd = { file: 'assets/residency-days.mjs', test: 'scripts/residency-days.test.mjs' };
 const lr = { file: 'assets/lodgment-required.mjs', test: 'scripts/lodgment-required.test.mjs' };
 const wsDecimal = { file: 'assets/withholding-decimal.mjs', test: individualTest };
@@ -81,6 +82,10 @@ const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
 const casualOt = { ...business, file: 'assets/casual-overtime.mjs' };
 const contractor = { ...business, file: 'assets/contractor-employee.mjs' };
+const esicEngine = { ...business, file: 'assets/esic.mjs' };
+const rvfEngine = { ...business, file: 'assets/residential-vacancy-fee.mjs' };
+const aaPort = { ...business, file: 'assets/aa-port.mjs' };
+const plsl = { ...business, file: 'assets/portable-lsl-levy.mjs' };
 const invoice = { ...business, file: 'assets/tax-invoice.mjs' };
 const trustStream = { ...business, file: 'assets/trust-streaming.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
@@ -1179,6 +1184,30 @@ const MUTATIONS = [
   { ...rdOffset, name: 'R&D deduction amount not subtracted', find: 'const income = offset - adjusted[6] - deduction;', replace: 'const income = offset - adjusted[6];' },
   { ...rdOffset, name: 'R&D clawback income over the offset year rate', find: 'ratioCents((income < 0n ? -income : income), presentRate * 1000n)', replace: 'ratioCents((income < 0n ? -income : income), e.rate * 1000n)' },
   { ...rdOffset, name: 'R&D clawback below the threshold allowed', find: 'if (clawback !== 0n && e.notional - clawback < THRESHOLD) {', replace: 'if (false) {' },
+  { ...esicEngine, name: "ESIC offset at 25%", find: "c: 20n, e: -2", replace: "c: 25n, e: -2" },
+  { ...esicEngine, name: "ESIC $200,000 cap ignored", find: "value: cmp(room, gross.value) < 0 ? room : gross.value }", replace: "value: gross.value }" },
+  { ...esicEngine, name: "ESIC income limit of $200,000 exceeded", find: "cmp(income, int(200_000)) <= 0", replace: "cmp(income, int(200_000)) < 0" },
+  { ...esicEngine, name: "ESIC item 7 counted with item 6", find: "if (seen[5]) seen[6] = false;", replace: "if (false) seen[6] = false;" },
+  { ...esicEngine, name: "ESIC 6-year route expenses of $1 million refused", find: "cmp(money(v.expenses_three_prior_years), int(1_000_000)) <= 0", replace: "cmp(money(v.expenses_three_prior_years), int(1_000_000)) < 0" },
+  { ...esicEngine, name: "ESIC money receivable left out of the retail limit", find: "retailLimit(w, paid, add(add(paid, receivable), nonCash));", replace: "retailLimit(w, paid, add(paid, nonCash));" },
+  { ...rvfEngine, name: "Vacancy fee not doubled from 9 April 2024", find: "const multiplier = p.start >= APRIL_2024 ? 2 : 1;", replace: "const multiplier = 1;" },
+  { ...rvfEngine, name: "Vacancy fee due at exactly 183 days", find: "else if (occupied >= 183)", replace: "else if (occupied > 183)" },
+  { ...rvfEngine, name: "Vacancy fee established dwelling not tripled", find: "const whole = wholeFee(p.basis, consideration, schedule, triple);", replace: "const whole = wholeFee(p.basis, consideration, schedule, 1);" },
+  { ...rvfEngine, name: "Vacancy fee exact million multiple not reduced", find: "=== 0 ? floored - 1n : floored", replace: "=== 0 ? floored : floored" },
+  { ...rvfEngine, name: "Vacancy fee residential cap ignored", find: "const capped = single > BigInt(s.cap) ? BigInt(s.cap) : single;", replace: "const capped = single;" },
+  { ...rvfEngine, name: "Vacancy fee share rounded down", find: "quantize(mul(whole.value, share), -2, 'half-up')", replace: "quantize(mul(whole.value, share), -2, 'down')" },
+  { ...rvfEngine, name: "Vacancy fee late return not deemed liable", find: "else if (!lodged) status = 'deemed_liable_late_return';", replace: "else if (false) status = 'deemed_liable_late_return';" },
+  { ...aaPort, name: "AA port nil sum loses its sign", find: "s: x === 0n ? a.s && b.s : x < 0n", replace: "s: x < 0n" },
+  { ...aaPort, name: "AA port amounts at 3 decimal places", find: "v.e < -2)", replace: "v.e < -3)" },
+  { ...plsl, name: "Portable LSL NSW construction rate of 0.3%", find: "[d('250000'), d('0.0025')]", replace: "[d('250000'), d('0.003')]" },
+  { ...plsl, name: "Portable LSL NSW construction rounded half up", find: "quantize(mul(cost, applied), 0, 'down')", replace: "quantize(mul(cost, applied), 0, 'half-up')" },
+  { ...plsl, name: "Portable LSL 50 cents rounded up", find: "d('0.5')) > 0 ?", replace: "d('0.5')) >= 0 ?" },
+  { ...plsl, name: "Portable LSL Queensland levy due below $150,000", find: "cmp(cost, threshold) < 0 ? nil(id, below)", replace: "cmp(cost, threshold) <= 0 ? nil(id, below)" },
+  { ...plsl, name: "Portable LSL NT projects over $5 billion calculated", find: "if (cmp(cost, upper) > 0) {", replace: "if (cmp(cost, upper) > 1) {" },
+  { ...plsl, name: "Portable LSL Tasmania on-time rate of 2.5%", find: "? ['0.018', '1.8% discounted", replace: "? ['0.025', '1.8% discounted" },
+  { ...plsl, name: "Portable LSL wage levy rounded down", find: "value: quantize(mul(wages, applied), -2, 'half-up')", replace: "value: quantize(mul(wages, applied), -2, 'down')" },
+  { ...plsl, name: "Portable LSL Coal LSL fields accepted", find: "rejectPresent(v, COAL_FIELDS, context);", replace: "void COAL_FIELDS;" },
+  { ...plsl, name: "Portable LSL NSW community services 1.7% in 2025-26", find: "? ['0.013', '1.3% transitional", replace: "? ['0.017', '1.3% transitional" },
   { ...contractor, name: 'Contractor labour of exactly half counted as principally', find: 'const principally = 2 * labour > fee;', replace: 'const principally = 2 * labour >= fee;' },
   { ...contractor, name: 'Contractor right to delegate ignored', find: 'personal: !e.delegate,', replace: 'personal: true,' },
   { ...contractor, name: 'Contractor result contract ignored', find: 'notResult: !e.result,', replace: 'notResult: true,' },
@@ -1401,6 +1430,17 @@ const MUTATIONS = [
   { ...pm, name: 'pension age to 149', find: "whole(input.get('age'), 150)", replace: "whole(input.get('age'), 149)" },
   { ...pm, name: 'pension form counts to 29 June', find: 'Date.UTC(second, 5, 30)', replace: 'Date.UTC(second, 5, 29)' },
   { ...pm, name: 'pension page principal is the balance', find: 'rows, principal: 4, note', replace: 'rows, principal: 0, note' },
+  { ...pm, name: 'pension TTR maximum rounded half up', find: 'String(balance / 10n % 100n)', replace: 'String((balance + 5n) / 10n % 100n)' },
+  { ...pm, name: 'pension TTR flag not checked', find: "if (typeof ttr !== 'boolean') refuse", replace: 'if (false) refuse' },
+  { ...pm, name: 'pension TTR maximum always shown', find: '...(ttr ? { maximum_payment', replace: '...(true ? { maximum_payment' },
+  { ...dz, name: 'downsizer at 54', find: 'met: age >= 55', replace: 'met: age >= 54' },
+  { ...dz, name: 'downsizer 91 days', find: 'days <= 90 || longer', replace: 'days <= 91 || longer' },
+  { ...dz, name: 'downsizer longer period ignored', find: 'days <= 90 || longer', replace: 'days <= 90' },
+  { ...dz, name: 'downsizer contract before 1 July 2018', find: "contract >= '2018-07-01'", replace: "contract >= '2018-06-30'" },
+  { ...dz, name: 'downsizer $300,001 limit', find: 'PERSON_LIMIT = 30000000n', replace: 'PERSON_LIMIT = 30000100n' },
+  { ...dz, name: 'downsizer covers when ineligible', find: 'const covered = eligible ?', replace: 'const covered = true ?' },
+  { ...dz, name: 'downsizer proceeds limit ignored', find: 'least(least(made, ownRoom), proceedsRoom)', replace: 'least(made, ownRoom)' },
+  { ...dz, name: 'downsizer settlement after contribution taken', find: 'if (made < settled) {', replace: 'if (false) {' },
   { ...rd, name: 'residency one-half enough', find: 'Math.floor(yearDays / 2) + 1', replace: 'Math.floor(yearDays / 2)' },
   { ...rd, name: 'residency exception on the abode alone', find: 'usualOutside && !intends', replace: 'usualOutside' },
   { ...rd, name: 'residency departure day not counted', find: 'Math.min(to, last) - first + 1', replace: 'Math.min(to, last) - first' },
@@ -1461,6 +1501,7 @@ const SHARED = [
   'scripts/government-super-engine-differential.json',
   'scripts/transfer-balance-engine-differential.json',
   'scripts/pension-minimum-engine-differential.json',
+  'scripts/downsizer-engine-differential.json',
   'scripts/residency-days-engine-differential.json',
   'scripts/lodgment-required-engine-differential.json',
   'scripts/concessional-catch-up-engine-differential.json',
@@ -1472,6 +1513,9 @@ const SHARED = [
   'scripts/rd-tax-offset-engine-differential.json',
   'scripts/gst-adjustments-engine-differential.json',
   'scripts/deferred-tax-engine-differential.json',
+  'scripts/esic-engine-differential.json',
+  'scripts/residential-vacancy-fee-engine-differential.json',
+  'scripts/portable-lsl-levy-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',
   'scripts/borrowing-expenses-engine-differential.json',
   'scripts/wine-equalisation-tax-engine-differential.json',
@@ -1487,7 +1531,7 @@ const SHARED = [
 
 const TEST_FILES = [
   levy.test, business.test, individualTest,
-  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test, lr.test,
+  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, dz.test, rd.test, lr.test,
   'scripts/net-medical-expenses.test.mjs',
   'scripts/foreign-income.test.mjs',
   'scripts/minors-income.test.mjs',

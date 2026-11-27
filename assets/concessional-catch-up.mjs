@@ -6,7 +6,7 @@
 // year's contributions and any proposed one, with the year it lapses. ITAA 1997 s 291-20(1) to (7)
 // (Compilation No. 268, 1 October 2026), read 19 November 2026 on the ATO Legal Database. The caps are
 // Table 1.1 of the ATO's 'Contributions caps' (last updated 11 September 2026), read 19 November 2026.
-import { cents } from './money.mjs';
+import { cents, commandCents } from './money.mjs';
 import { CONCESSIONAL_CAP } from './take-home-pay.mjs';
 
 /** The years this calculator works the cap for. */
@@ -74,11 +74,37 @@ function apply(pool, need) {
   return applied;
 }
 
+/** Whether the command reads `value` as a decimal, whatever its range. @param {unknown} value */
+function readable(value) {
+  try {
+    commandCents(value);
+  } catch (error) {
+    return /** @type {{code?: string}} */ (error).code !== 'input.decimal_unreadable';
+  }
+  return true;
+}
+
+/** @param {CatchUpInput} input */
+const proposalGiven = (input) => input?.proposed !== undefined && String(input.proposed).trim() !== '';
+
+/** The command reads this year's amounts, then the downsizer inputs, before it checks the year or any range:
+ * an amount it cannot read refuses first, then `readFirst` runs. @param {CatchUpInput} input @param {(() => void) | undefined} readFirst */
+function readAmounts(input, readFirst) {
+  /** @type {[unknown, string][]} */
+  const given = [[input?.balance, 'Total super balance on 30 June before the year'],
+    [input?.concessional, `${input?.year} concessional contributions`]];
+  if (proposalGiven(input)) given.push([input.proposed, 'Proposed contribution']);
+  for (const [value, what] of given) if (!readable(value)) amount(value, what);
+  readFirst?.();
+}
+
 /**
  * The year's concessional cap with the unused cap carried forward, in dollars and cents.
  * @param {CatchUpInput} input
+ * @param {() => void} [readFirst] reads the downsizer inputs where the command does, before the other checks
  */
-export function concessionalCatchUp(input) {
+export function concessionalCatchUp(input, readFirst) {
+  readAmounts(input, readFirst);
   if (!CATCH_UP_YEARS.includes(input?.year)) throw new Error(`Choose ${CATCH_UP_YEARS.slice().reverse().join(', ')}.`);
   if (typeof input.definedBenefit !== 'boolean') throw new Error('Say whether the person has a defined benefit interest.');
   // ITAA 1997 Subdivision 291-C: a defined benefit interest's notional taxed contributions (s 291-170) count
@@ -90,7 +116,7 @@ export function concessionalCatchUp(input) {
   const current = Number(input.year.slice(0, 4));
   const balance = amount(input.balance, 'Total super balance on 30 June before the year');
   const concessional = amount(input.concessional, `${input.year} concessional contributions`);
-  const hasProposal = input.proposed !== undefined && String(input.proposed).trim() !== '';
+  const hasProposal = proposalGiven(input);
   const proposed = hasProposal ? amount(input.proposed, 'Proposed contribution') : 0;
   const cap = CAP[input.year] * 100;
   /** @type {Unused[]} */

@@ -21,6 +21,7 @@ import { RECEIPT_YEARS, lumpSumArrears } from './lump-sum-arrears.mjs';
 import { SOLE_TRADER_YEARS, soleTraderSetAside } from './sole-trader.mjs';
 import { incomeTests } from './income-tests.mjs';
 import { CAP, CATCH_UP_YEARS, concessionalCatchUp } from './concessional-catch-up.mjs';
+import { downsizer, downsizerFormArgs, downsizerFormPart, readDownsizerForm } from './downsizer.mjs';
 import { superProjection } from './super-projection.mjs';
 import { scheduleResult } from './take-home-schedules.mjs';
 import { WITHHOLDING_COMMANDS, withholdingSchedule } from './withholding-schedules.mjs';
@@ -470,8 +471,11 @@ function catchUpResult(value, aud) {
   }
   const proposed = value('proposed').trim();
   const year = value('year');
+  const given = downsizerFormArgs(value);
+  // The command reads the downsizer inputs before it checks the catch-up, and works the downsizer after it.
   const r = concessionalCatchUp({ year, balance: value('balance'), concessional: value('concessional'),
-    ...(proposed === '' ? {} : { proposed }), definedBenefit: value('defined-benefit') === 'yes', earlier });
+    ...(proposed === '' ? {} : { proposed }), definedBenefit: value('defined-benefit') === 'yes', earlier },
+  () => given && readDownsizerForm(given, year));
   const rows = [['General concessional cap', aud(r.cap)], ['Unused cap from the previous 5 years', aud(r.unusedCarried)],
     ['Concessional cap available', aud(r.available)], ['Carried-forward cap applied', aud(r.carryForwardApplied)],
     ['Cap left after this year’s contributions', aud(r.remaining)], ['Excess concessional contributions', aud(r.excess)]];
@@ -480,14 +484,17 @@ function catchUpResult(value, aud) {
       ['Excess with the proposed contribution', aud(/** @type {number} */ (r.excessWithProposal))]);
   }
   for (const row of r.years) rows.push([`${row.year} unused cap left, lapses after ${row.expiresAtEndOf}`, aud(row.remaining)]);
+  const downsized = downsizerFormPart(given, year, aud);
+  rows.push(...downsized.rows);
   const notes = Object.entries(r.earlierApplied).map(([to, from]) => `${to}’s excess used `
     + Object.entries(from).map(([source, amount]) => `${aud(amount)} of ${source}’s unused cap`).join(' and '));
   notes.push(r.carriesForward ? 'Unused cap applies earliest year first, and only to contributions above the general cap'
     : 'With a total super balance of $500,000 or more on 30 June before the year, no unused cap increases this year’s; '
       + 'the unused amounts still lapse after 5 years');
+  notes.push(...downsized.notes);
   return { inputs: `${year}, total super balance ${aud(Number(value('balance')))}, concessional contributions `
     + `${aud(Number(value('concessional')))}${proposed === '' ? '' : `, proposed ${aud(Number(proposed))}`}, earlier years `
-    + earlier.map((e) => `${e.year} ${aud(Number(e.contributions))}`).join(', '), principal: 2, rows,
+    + earlier.map((e) => `${e.year} ${aud(Number(e.contributions))}`).join(', ') + downsized.inputs, principal: 2, rows,
   note: notes.join('. ') };
 }
 
@@ -539,7 +546,7 @@ export function individualResult(kind, value, aud) {
 /** The engines and years assets/webmcp-tools.mjs offers as this page's WebMCP tools. */
 export const engines = { taxEstimate, takeHomePay, studyLoanRepayment, studyLoanYears: Object.keys(STUDY_LOAN_YEARS),
   soleTraderSetAside, lumpSumArrears, receiptYears: RECEIPT_YEARS, division293Tax, incomeTests,
-  concessionalCatchUp, catchUpYears: CATCH_UP_YEARS, incomeYears: INCOME_TAX_YEARS,
+  concessionalCatchUp, catchUpYears: CATCH_UP_YEARS, downsizer, incomeYears: INCOME_TAX_YEARS,
   payYears: Object.keys(SUPER_GUARANTEE), soleTraderYears: SOLE_TRADER_YEARS, division293Years: DIVISION_293_YEARS,
   bonusWithholding, salaryPackaging, novatedLease, packagingYears: PACKAGING_YEARS, novatedYears: NOVATED_YEARS,
   superProjection, withholdingSchedule, withholdingCommands: WITHHOLDING_COMMANDS };

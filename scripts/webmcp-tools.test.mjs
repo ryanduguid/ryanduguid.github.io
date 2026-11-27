@@ -101,6 +101,8 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_trust_streaming',
     'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow', 'check_tax_invoice',
+    'calculate_esic_tax_offset', 'calculate_residential_vacancy_fee',
+    'calculate_portable_lsl_levy',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -766,6 +768,15 @@ test('concessional catch-up tool returns Sam’s example, enforces the $500k cap
     proposedContribution: '5000', earlierYears });
   assert.deepEqual([over.carriesForward, over.availableCap, over.excessConcessionalContributions, over.withProposal, over.excessWithProposal],
     [false, '30000.00', '10000.00', '45000.00', '15000.00']);
+  assert.equal(sam.downsizer, null);
+  const downsizer = { contribution: '300000', contributionDate: '2025-01-15', age: 67, contractDate: '2024-10-01', settlementDate: '2024-12-01',
+    longerPeriodAllowed: false, capitalProceeds: '250000', earlierOwn: '0', earlierFromProceeds: '0', conditionsMet: true };
+  const sold = await tool.execute({ incomeYear: '2024-25', totalSuperBalance: '450000', concessionalContributions: '97500', earlierYears, downsizer });
+  assert.deepEqual({ ...sold.downsizer, tests: sold.downsizer.tests.map((t) => [t.test, t.met]) }, { eligible: true, covered: '250000.00',
+    notCovered: '50000.00', capRemaining: '300000.00', proceedsRemaining: '250000.00',
+    tests: [['age', true], ['contract_date', true], ['within_90_days', true], ['stated_conditions', true]] });
+  await assert.rejects(tool.execute({ incomeYear: '2024-25', totalSuperBalance: '450000', concessionalContributions: '97500', earlierYears,
+    downsizer: { ...downsizer, contributionDate: '2025-07-01' } }), /not in the 2024-25 income year/);
   await assert.rejects(tool.execute({ incomeYear: '2024-25', totalSuperBalance: '450000', concessionalContributions: '30000',
     definedBenefit: true, earlierYears }), /Subdivision 291-C/);
   await assert.rejects(tool.execute({ incomeYear: '2024-25', totalSuperBalance: 450000, concessionalContributions: '30000', earlierYears }),
@@ -2171,6 +2182,9 @@ test('pension minimum tool covers full years, pro-rating, 1 June nil and leap ye
   assert.deepEqual([full.percentageFactorPercent, full.daysCounted, full.daysInYear, full.clause, full.minimumBeforeRounding,
     full.minimumPayment, full.currency, full.source],
   [5, 365, 365, 'cl 1(1)', '30000.00', '30000.00', 'AUD', 'https://duguid.com.au/tools/individual-tax/pension-minimum/']);
+  assert.equal(full.maximumPayment, null);
+  const ttr = await tool.execute({ incomeYear: '2025-26', accountBalance: '400000', age: 62, startDate: '2026-01-01', transitionToRetirement: true });
+  assert.deepEqual([ttr.minimumPayment, ttr.maximumPayment], ['7930.00', '40000.00']);
   assert.doesNotThrow(() => JSON.stringify(full));
   const thavi = await tool.execute({ incomeYear: '2024-25', accountBalance: '250000', age: 66, startDate: '2025-01-01' });
   assert.deepEqual([thavi.daysCounted, thavi.clause, thavi.minimumBeforeRounding, thavi.minimumPayment], [181, 'cl 3', '6198.63', '6200.00']);
@@ -2293,6 +2307,32 @@ test('contractor against employee tool works the page default, section 12(3) and
   await assert.rejects(tool.execute({ ...base, awardRate: '30' }), /awardRate is not an input of this tool/);
 });
 
+test('the ESIC and vacancy fee tools return their page examples and refuse what their pages refuse', async () => {
+  const esic = tools.esic;
+  const base = { incomeYear: '2025-26', investor: 'individual', amountPaid: '100000', disclosureExemption: true, incorporatedYear: '2024-25',
+    totalExpensesPreviousYear: '300000', assessableIncomePreviousYear: '20000', innovationItems: [1, 6] };
+  const r = await esic.execute(base);
+  assert.deepEqual([r.taxOffset, r.innovationPoints, r.entitled, r.modifiedCgtTreatment, r.source],
+    ['20000.00', 125, true, true, 'https://duguid.com.au/tools/business-calculators/esic/']);
+  const limited = await esic.execute({ ...base, disclosureExemption: false, otherCompaniesPaid: '0', otherCompaniesExempt: false, amountReceivable: '0' });
+  assert.deepEqual([limited.taxOffset, limited.tests.at(-1).met], ['0.00', false]);
+  await assert.rejects(esic.execute({ ...base, innovationItems: [9] }), /innovationItems/);
+  await assert.rejects(esic.execute({ ...base, extra: 1 }), /extra is not an input of this tool/);
+  const { innovationItems: _items, ...noItems } = base;
+  assert.equal((await esic.execute(noItems)).innovationPoints, 0);
+  const fee = tools['residential-vacancy-fee'];
+  const rvf = { incomeYear: '2025-26', vacancyYearStart: '2025-08-01', heldFullVacancyYear: true, residentiallyOccupiedDays: 100,
+    returnLodgedOnTime: true, acquisitionBasis: 'notifiable_action', ownership: 'sole', consideration: '1500000', dwellingKind: 'new_or_near_new',
+    applicationDate: '2025-05-01' };
+  const v = await fee.execute(rvf);
+  assert.deepEqual([v.vacancyFeePayable, v.liabilityStatus, v.returnDueDate, v.rates.vacancy_fee_multiplier, v.source],
+    ['59000.00', 'liable_vacant', '2026-08-30', '2', 'https://duguid.com.au/tools/business-calculators/residential-vacancy-fee/']);
+  const exempt = await fee.execute({ ...rvf, exemption: 'substantial_repairs_or_renovations', ownership: 'tenants_in_common', ownershipShare: '0.5' });
+  assert.deepEqual([exempt.vacancyFeePayable, exempt.applicationFeeBase, exempt.liable], ['0.00', '14750.00', false]);
+  await assert.rejects(fee.execute({ ...rvf, applicationFeePayable: '13200' }), /not both/);
+  await assert.rejects(fee.execute({ ...rvf, residentiallyOccupiedDays: 400 }), /residentiallyOccupiedDays/);
+});
+
 // The tax invoice page's example (GSTR 2013/1 example 2), a mixed invoice by the taxable supply rule, an RCTI and refusals.
 test('tax invoice tool returns the page example, a mixed invoice and an RCTI, and refuses what the page refuses', async () => {
   const tool = tools['tax-invoice'];
@@ -2344,6 +2384,21 @@ test('trust streaming tool returns the ATO Lang Trust example and the trustee’
     /kind does not match/);
   await assert.rejects(tool.execute({ otherTrustIncome: '100', otherNetIncome: '100', beneficiaries: [{ kind: 'individual', presentEntitlement: '101' }] }),
     /cannot exceed the trust/);
+});
+
+test('portable LSL levy tool returns the page example, the Queensland parts and refuses what the page refuses', async () => {
+  const tool = tools['portable-lsl-levy'];
+  const base = { incomeYear: '2026-27', jurisdiction: 'vic', scheme: 'community_services', ordinaryWages: '500000' };
+  const r = await tool.execute(base);
+  assert.deepEqual([r.levy, r.board, r.basis, r.rates.rate, r.source],
+    ['8250.00', 'Portable Long Service Authority (Victoria)', 'ordinary_wages', '0.0165', 'https://duguid.com.au/tools/business-calculators/portable-lsl-levy/']);
+  const qld = await tool.execute({ incomeYear: '2026-27', jurisdiction: 'qld', scheme: 'construction', projectCost: '200400', partialExemption: false });
+  assert.deepEqual([qld.levy, qld.amounts.whs_levy, qld.steps.length], ['1151.00', '250.00', 4]);
+  const tas = await tool.execute({ incomeYear: '2026-27', jurisdiction: 'tas', scheme: 'construction', ordinaryWages: '1000', paidOnTime: false });
+  assert.equal(tas.levy, '25.00');
+  await assert.rejects(tool.execute({ ...base, scheme: 'security', jurisdiction: 'nsw' }), /No portable long service leave scheme/);
+  await assert.rejects(tool.execute({ ...base, projectCost: '1' }), /project_cost does not apply/);
+  await assert.rejects(tool.execute({ ...base, extra: 1 }), /extra is not an input of this tool/);
 });
 
 test('lodgment tool applies the threshold, the exceptions and the due date, and refuses 2026-27', async () => {

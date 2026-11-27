@@ -1,0 +1,62 @@
+# Portable LSL levy calculator: state and territory schemes
+
+Source: https://duguid.com.au/tools/business-calculators/portable-lsl-levy/
+
+> State and territory portable long service leave levies for construction, community services, contract cleaning and security, with each board’s rate and rounding.
+
+# Portable long service leave levy calculator
+
+The levy an employer or project owner pays to a state or territory portable long service leave scheme.
+
+Published 27 November 2026. Last checked 24 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One return or one project
+
+Ordinary wages or project cost (AUD)
+
+State or territory New South Wales Victoria Queensland South Australia Western Australia Australian Capital Territory Tasmania Northern Territory
+
+Industry scheme Building and construction Community services Contract cleaning Security
+
+Financial year 2026-27 2025-26 2024-25 2023-24
+
+Tasmania construction: return lodged and paid by the due dates Yes, the 1.8% discounted rate No, the 2.5% standard rate
+
+NSW, Queensland or NT construction: a partial or special exemption applies No Yes
+
+Calculate
+
+NSW construction takes the cost of work including GST, Queensland excluding GST and the NT the total contract price including GST. Every other scheme takes the ordinary wages for the return.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2026-27; Victoria community services; ordinary wages $500,000.00. Board Portable Long Service Authority (Victoria) Levied on Ordinary wages Rate 1.65% Levy payable $8,250.00 Wage-based levies round half up to the cent; NSW construction rounds down to the whole dollar, and Queensland and NT construction round to the nearest dollar with 50 cents rounded down.
+
+## How the portable LSL levy calculator works
+
+Each state and territory runs portable long service leave schemes for some industries, funded by a levy. The calculator ports the state and territory part of the portable-lsl-levy command of australian-accounting. The construction levies in New South Wales, Queensland and the Northern Territory are on the project’s cost of work: 0.25% from $250,000 in NSW, rounded down to the dollar; 0.575% from $150,000 in Queensland, in 3 parts (0.35% portable leave, 0.1% CSQ training and 0.125% WHSQ), each rounded to the nearest dollar with 50 cents down; and 0.1% from $1 million to $5 billion in the NT. Every other scheme is a rate on ordinary wages, rounded half up to the cent: Victoria, South Australia, Western Australia, the ACT and Tasmania for construction, and the community services, contract cleaning and security schemes where they run. Each scheme has the years whose rate was read.
+
+## What the portable LSL levy calculator does not cover
+
+The calculator does not decide which workers or work a scheme covers, what counts as ordinary pay or as the cost of work, or apprentice and trainee exemptions: you state the figures. It refuses partial or special project exemptions, NT projects over $5 billion and the years a scheme’s rate was not read for. It leaves out the ACT services discounts for food and beverage businesses from 1 January 2027, late payment interest, penalties, instalments, refunds and lodgment. Coal LSL has its own Coal LSL levy calculator. Check the levy against the board’s return portal before paying.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Portable long service leave levy calculator
+
+Case | Inputs | Result
+The page’s example: Victorian community services on $500,000 of ordinary wages | 2026-27; Victoria community services; ordinary wages $500,000.00 | Levy payable $8,250.00
+Queensland construction at $150,000 excluding GST: all 3 parts apply | 2026-27; Queensland construction; project cost $150,000.00 | Levy payable $862.00
+NSW construction at $249,999.99: under the $250,000 threshold, no levy | 2026-27; New South Wales construction; project cost $249,999.99 | Levy payable $0.00
+NSW construction with a partial exemption: refused, as exemptions are outside the calculator | 2026-27; New South Wales construction; project cost $500,000.00; partial exemption | Refused: partial or special exemptions (owner-builder, non-profit, church, Crown or local government reductions) are outside NSW building and construction levy
+
+One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
+- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/

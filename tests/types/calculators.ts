@@ -637,6 +637,14 @@ calculate.casualOvertime({ ...coInput, lines: [{ hours: '3', percent: '175', ove
 // @ts-expect-error Rates and hours are decimal text, not numbers.
 calculate.casualOvertime({ ...coInput, base_rate: 30 });
 void coSuper;
+const esicOffset: string = calculate.esic({}).amounts.tax_offset;
+const esicMet: boolean | null = calculate.esic({}).tests[0].met;
+const rvfFee: string = calculate.residentialVacancyFee({}).amounts.vacancy_fee_payable;
+void esicOffset;
+void esicMet;
+void rvfFee;
+const plslLevy: string = calculate.portableLslLevy({}).amounts.levy;
+void plslLevy;
 void lodgmentRequiredTools({ LODGMENT_YEARS, STATED, lodgmentRequired })['lodgment-required'].execute({ incomeYear: '2025-26', residency: 'whole_year', taxableIncome: '15000', dividendsAndFrankingCredits: '0', conditions: ['payg_withheld'] });
 // @ts-expect-error lodgmentRequiredTools requires STATED alongside the years and lodgmentRequired.
 lodgmentRequiredTools({ LODGMENT_YEARS, lodgmentRequired });

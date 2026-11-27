@@ -9,7 +9,9 @@ import { businessCohortDTools } from './webmcp-business-d.mjs';
 import { businessCohortETools } from './webmcp-business-e.mjs';
 import { casualOvertimeTool } from './webmcp-casual-overtime.mjs';
 import { contractorEmployeeTool } from './webmcp-contractor-employee.mjs';
+import { esicTool, vacancyFeeTool } from './webmcp-esic-vacancy.mjs';
 import { paydayCashflowTool } from './webmcp-payday-cashflow.mjs';
+import { portableLslLevyTool } from './webmcp-portable-lsl-levy.mjs';
 import { taxInvoiceTools } from './webmcp-tax-invoice.mjs';
 import {
   concessionalCatchUpTool, fhssTool, governmentSuperTool, lumpSumArrearsTool, studyLoanTool, workExpensesTool,
@@ -566,7 +568,8 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
  *   | 'rdTaxOffset' | 'RD_YEARS' | 'gstAdjustment' | 'percentFraction' | 'GST_WORKSHEETS' | 'GST_ADJUSTMENT_YEARS'
  *   | 'deferredTax' | 'DEFERRED_TAX_YEARS' | 'soleTraderCompany' | 'SOLE_TRADER_COMPANY_YEARS' | 'casualOvertime'
  *   | 'contractorEmployee' | 'CONTRACTOR_YEARS' | 'paydayCashflow' | 'taxInvoice' | 'TREATMENTS' | 'MAX_LINES'
- *   | 'trustStreaming' | 'TRUST_STREAMING_ROWS'>} calculate */
+ *   | 'trustStreaming' | 'TRUST_STREAMING_ROWS'
+ *   | 'esic' | 'ESIC_YEARS' | 'residentialVacancyFee' | 'RVF_YEARS' | 'portableLslLevy' | 'PLSL_YEARS'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),
@@ -589,6 +592,9 @@ export function calculatorTools(calculate) {
     'contractor-employee': contractorEmployeeTool(TOOL_KIT, calculate),
     'payday-cashflow': paydayCashflowTool(TOOL_KIT, calculate.paydayCashflow),
     ...taxInvoiceTools(TOOL_KIT, calculate),
+    esic: esicTool(TOOL_KIT, calculate),
+    'residential-vacancy-fee': vacancyFeeTool(TOOL_KIT, calculate),
+    'portable-lsl-levy': portableLslLevyTool(TOOL_KIT, calculate),
   };
 }
 
@@ -986,6 +992,7 @@ const TOOL_KIT = { text, choice, whole, record, tool, dollars, dollarsOnly, cent
  *   division293Tax: typeof import('./division-293.mjs').division293Tax,
  *   incomeTests: typeof import('./income-tests.mjs').incomeTests,
  *   concessionalCatchUp: typeof import('./concessional-catch-up.mjs').concessionalCatchUp, catchUpYears: string[],
+ *   downsizer: typeof import('./downsizer.mjs').downsizer,
  *   incomeYears: string[], payYears: string[], soleTraderYears: string[], division293Years: string[],
  *   bonusWithholding: typeof import('./bonus-withholding.mjs').bonusWithholding,
  *   salaryPackaging: typeof import('./salary-packaging.mjs').salaryPackaging,
@@ -994,7 +1001,7 @@ const TOOL_KIT = { text, choice, whole, record, tool, dollars, dollarsOnly, cent
  *   withholdingSchedule: typeof import('./withholding-schedules.mjs').withholdingSchedule, withholdingCommands: string[]}} engines
  */
 export function individualTaxTools({ taxEstimate, takeHomePay, studyLoanRepayment, studyLoanYears, soleTraderSetAside,
-  lumpSumArrears, receiptYears, division293Tax, incomeTests, concessionalCatchUp, catchUpYears, incomeYears,
+  lumpSumArrears, receiptYears, division293Tax, incomeTests, concessionalCatchUp, catchUpYears, downsizer, incomeYears,
   payYears, soleTraderYears, division293Years, bonusWithholding, salaryPackaging, novatedLease, packagingYears,
   novatedYears, superProjection, withholdingSchedule, withholdingCommands }) {
   return {
@@ -1006,7 +1013,7 @@ export function individualTaxTools({ taxEstimate, takeHomePay, studyLoanRepaymen
     'sole-trader': soleTraderTool(soleTraderSetAside, soleTraderYears),
     'lump-sum-arrears': lumpSumArrearsTool(TOOL_KIT, lumpSumArrears, receiptYears),
     'division-293': division293Tool({ division293Tax, division293Years }),
-    'concessional-catch-up': concessionalCatchUpTool(TOOL_KIT, concessionalCatchUp, catchUpYears),
+    'concessional-catch-up': concessionalCatchUpTool(TOOL_KIT, concessionalCatchUp, catchUpYears, downsizer),
     'bonus-withholding': bonusWithholdingTool(bonusWithholding),
     'salary-packaging': salaryPackagingTool(salaryPackaging, packagingYears),
     'novated-lease': novatedLeaseTool(novatedLease, novatedYears),

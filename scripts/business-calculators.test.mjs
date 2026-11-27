@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import { readdirSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 import * as calculations from '../assets/business-calculators.mjs';
+import * as aa from '../assets/aa-port.mjs';
 import { DIVISION_296_LIABILITY } from '../assets/division-296.mjs';
 import { PAYROLL_TAX_2026_27 } from '../assets/payroll-tax.mjs';
 import { gst, businessUse, margin, breakEven, hourlyRate, variance, financeSchedule, interestByIncomeYear,
@@ -2420,6 +2421,10 @@ test('the Division 296 page opens on the result its calculation gives for the fo
 // https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate: '2027 | 8.77%',
 // '2026 | 8.37%', '2025 | 8.77%', '2024 | 8.27%', '2023 | 4.77%', '2022 | 4.52%', each income year
 // ending 30 June.
+// The portable LSL levy page's boundary cases (its tests are at the end of this file).
+Object.assign(INPUTS, { plslFigures: (x) => calculations.plslInputsText(x, dollars) });
+Object.assign(ENGINE_LABELS, { plslFigures: { levy: (v) => `levy payable ${dollars(v)}` } });
+Object.assign(FORM_CALLS, { plslFigures: (f) => [calculations.plslFormInput((name) => f[name] ?? '')] });
 const { DIV7A_PUBLISHED_RATES } = await import('../assets/div7a.mjs');
 const div7aScheduleHtml = readFileSync(new URL('../_includes/calculators/div7a-schedule.html', import.meta.url), 'utf8');
 const scheduleLoan = { made: '2022-10-01', amount: '100000', term: '7', assumedRate: '8.77', repayments: '', marginalRate: '',
@@ -7663,6 +7668,103 @@ test('contractor against employee refuses what it does not work', () => {
   assert.throws(() => ce({ hours: '0' }), /hours worked/);
 });
 
+// The ESIC tax offset and residential vacancy fee pages port the esic and residential-vacancy-fee commands of
+// australian-accounting; every case the commands' tests and the seeded sweep recorded must agree.
+const differential = (name) => JSON.parse(readFileSync(new URL(`./${name}-engine-differential.json`, import.meta.url), 'utf8'));
+const portChecked = {
+  esic: (r) => ({ esic: r.esic, innovation_points: r.innovation_points, entitled: r.entitled, modified_cgt_treatment: r.modified_cgt_treatment,
+    tests: r.tests.map((t) => [t.test, t.met]) }),
+  'residential-vacancy-fee': (r) => ({ ...Object.fromEntries(['vacancy_year_start', 'vacancy_year_end', 'days_in_vacancy_year', 'return_required',
+    'return_due_date', 'record_retention_until', 'liable', 'liability_status', 'fee_basis', 'exemption_applied'].map((k) => [k, r[k]])),
+  ban_note: r.established_dwelling_ban_note !== null }),
+};
+for (const [name, engine] of [['esic', calculations.esic], ['residential-vacancy-fee', calculations.residentialVacancyFee]]) {
+  test(`${name} agrees with the ${name} command on every recorded case`, () => {
+    const { cases } = differential(name);
+    assert.ok(cases.length >= 170);
+    for (const { source, call, refused, message, period, amounts, rates, checked } of cases) {
+      if (refused) {
+        assert.throws(() => engine(structuredClone(call)), { code: refused, message }, source);
+        continue;
+      }
+      const r = engine(structuredClone(call));
+      assert.deepEqual([r.period, r.amounts, r.rates, portChecked[name](r)], [period, amounts, rates, checked], source); // eslint-disable-line security/detect-object-injection -- name is one of the 2 pages
+    }
+  });
+}
+
+test('the ESIC page keeps the sign of a nil amount and words its refusals', () => {
+  const form = { paid: '100000', receivable: '', noncash: '0', expenses3: '0', expenses: '300000', income: '20000', grant: '0', clawback: '0',
+    items: '1, 6', elsewhere: '0', others: '0', carried: '0', year: '2025-26', investor: 'individual', incorporated: '2024-25', registered: 'none',
+    principles: 'no', listed: 'no', foreign: 'no', affiliate: 'no', ess: 'no', thirty: 'no', disclosure: 'yes', elsewhereExempt: 'no' };
+  const page = (change) => calculations.esicResult((name) => ({ ...form, ...change })[name] ?? '', dollars);
+  assert.deepEqual(page({}).rows[page({}).principal], ['Tax offset', '$20,000.00']);
+  assert.deepEqual(page({ expenses: '1000000.01' }).rows.at(-1), ['Test not met', 'total expenses of $1000000.01 in the previous income year, limit $1,000,000']);
+  const elsewhere = calculations.esicFormInput((name) => ({ ...form, disclosure: 'no', receivable: '500' })[name] ?? '');
+  assert.deepEqual([elsewhere.other_companies_paid, elsewhere.other_companies_exempt, elsewhere.amount_receivable], ['0', false, '500']);
+  assert.throws(() => page({ items: '1, x' }), /innovation test items as distinct numbers/);
+  assert.throws(() => page({ paid: '1.005' }), /from \$0 to \$1,000,000,000,000/);
+  assert.throws(() => page({ incorporated: '2030-31' }), { code: 'esic.incorporation_after_year' });
+  const periods = [[null, 'None'], [true, 'True'], [false, 'False'], [2025, '2025'], ['2015-16', "'2015-16'"]].map(([year, shown]) => [
+    () => calculations.esic({ ...calculations.esicFormInput((name) => form[name] ?? ''), year }), `Unsupported period ${shown}; supported: 2016-17,`]);
+  for (const [run, start] of periods) assert.throws(run, (e) => e.code === 'period.unsupported' && e.message.startsWith(start), start);
+  const call = calculations.esicFormInput((name) => form[name] ?? '');
+  assert.equal(calculations.esic({ ...call, amount_paid: '-0', non_cash_benefit: '-0' }).amounts.tax_offset, '-0.00');
+  assert.equal(calculations.esic({ ...call, innovation_items: [6, 7] }).innovation_points, 50);
+  assert.equal(calculations.esic({ ...call, incorporated_year: '2021-22', expenses_three_prior_years: '1000000' }).tests[0].met, true);
+  assert.equal(calculations.esic({ ...call, assessable_income_previous_year: '200000' }).tests[2].met, true);
+  assert.throws(() => calculations.esic({ ...call, amount_paid: '50000', amount_receivable: '1', disclosure_exemption: false, other_companies_paid: '0',
+    other_companies_exempt: true }), { code: 'esic.retail_limit_unsettled' });
+  assert.equal(calculations.esicFormInput((name) => ({ ...form, others: '' })[name] ?? '').other_offsets, '0');
+  assert.match(calculations.esicInputsText({ ...call, innovation_items: [] }, dollars), /; no innovation items$/);
+  assert.throws(() => calculations.esic({ ...call, amount_paid: '1'.repeat(8193) }), { code: 'input.decimal_too_long', message: 'amount_paid: decimal input exceeds 8192 bytes' });
+});
+
+test('the shared decimal and date helpers write exponents as Python does and end a period of months on the day before', () => {
+  assert.deepEqual([aa.decText({ s: false, c: 1n, e: 3 }), aa.decText({ s: true, c: 12n, e: -9 })], ['1E+3', '-1.2E-8']);
+  assert.equal(aa.parseDay(5), null);
+  assert.deepEqual(['2025-01-31', '2025-01-15'].map((day) => aa.formatDay(aa.monthsEnd(aa.parseDay(day), 1))), ['2025-02-28', '2025-02-14']);
+});
+
+test('the residential vacancy fee page builds the call each fee route needs and words its refusals', () => {
+  const form = { start: '2025-08-01', days: '100', fee: '', consideration: '1500000', applied: '2025-05-01', share: '', year: '2025-26', held: 'yes',
+    lodged: 'yes', exemption: '', basis: 'notifiable_action', ownership: 'sole', waiver: 'none', from: 'schedule', kind: 'new_or_near_new' };
+  const call = (change) => calculations.rvfFormInput((name) => ({ ...form, ...change })[name] ?? '');
+  const page = (change) => calculations.rvfResult((name) => ({ ...form, ...change })[name] ?? '', dollars);
+  assert.deepEqual(page({}).rows[page({}).principal], ['Vacancy fee payable', '$59,000.00']);
+  assert.equal(call({ waiver: 'full', start: '2023-08-01', year: '2023-24' }).dwelling_kind, undefined);
+  assert.equal(call({ waiver: 'full' }).consideration, undefined);
+  assert.equal(call({ ownership: 'tenants_in_common', share: '0.5' }).ownership_share, '0.5');
+  assert.equal(page({ held: 'no' }).rows.length, 5);
+  assert.match(calculations.rvfInputsText(call({ held: 'no', lodged: 'no', exemption: 'medical_or_residential_care', waiver: 'full', ownership: 'tenants_in_common', share: '0.5' }), dollars),
+    /not held all year; return late; medical or residential care; notified, tenants in common; application fee waived; new or near-new dwelling notified 2025-05-01; share 0.5/);
+  assert.equal(call({ days: '1.5' }).residentially_occupied_days, '1.5');
+  const fee = (change) => calculations.residentialVacancyFee(call(change));
+  assert.equal(fee({ consideration: '2000000' }).rates.tier_multiple, '1');
+  assert.equal(fee({ consideration: '1000000000000' }).amounts.whole_property_application_fee, '1171600.00');
+  assert.equal(fee({ ownership: 'tenants_in_common', share: '0.12345' }).amounts.application_fee_base, '3641.78');
+  assert.equal(fee({ lodged: 'no' }).liability_status, 'deemed_liable_late_return');
+  assert.throws(() => page({ days: '400' }), /whole number no more than the days/);
+  assert.throws(() => page({ consideration: 'abc' }), /as a number/);
+  assert.throws(() => page({ basis: 'other_exemption_certificate' }), { code: 'residential_vacancy_fee.application_fee_invalid' });
+  assert.deepEqual(call({ from: 'stated', fee: ' 500 ' }).application_fee_payable, '500');
+  const waived = call({ waiver: 'full' });
+  const { application_date: _date, ...undated } = waived;
+  assert.throws(() => calculations.residentialVacancyFee(undated), { code: 'residential_vacancy_fee.application_date_unsupported' });
+  assert.throws(() => calculations.residentialVacancyFee({ ...waived, application_fee_payable: '100' }),
+    { code: 'residential_vacancy_fee.application_fee_invalid', message: 'Omit application_fee_payable when application_fee_waiver is full.' });
+  assert.match(calculations.residentialVacancyFee(call({ waiver: 'full', basis: 'no_notice_order' })).steps[0].authority, /^Fees Regulations 2020 s 46\(b\)/);
+  assert.throws(() => calculations.residentialVacancyFee({ ...call({ waiver: 'full', start: '2023-08-01', year: '2023-24' }), application_date: '2023-01-01' }),
+    { code: 'residential_vacancy_fee.application_fee_invalid' });
+});
+
+Object.assign(INPUTS, { esicFigures: (x) => calculations.esicInputsText(x, dollars), rvfFigures: (x) => calculations.rvfInputsText(x, dollars) });
+Object.assign(ENGINE_LABELS, {
+  esicFigures: { offsetBase: (v) => `amount for the issue ${dollars(v)}`, taxOffset: (v) => `tax offset ${dollars(v)}`, points: (v) => `${v} innovation points` },
+  rvfFigures: { applicationFeeBase: (v) => `application fee basis ${dollars(v)}`, vacancyFee: (v) => `vacancy fee payable ${dollars(v)}` },
+});
+Object.assign(FORM_CALLS, { esicFigures: (f) => [calculations.esicFormInput((name) => f[name] ?? '')],
+  rvfFigures: (f) => [calculations.rvfFormInput((name) => f[name] ?? '')] });
 // The tax invoice generator: GST Act s 29-70(1) (Compilation No. 96, 1 January 2026), the ATO's 'Tax invoices'
 // (last updated 18 September 2026), GSTR 2013/1 paragraphs 17 to 38 and the Recipient Created Tax Invoice
 // Determination 2023, all read 26 November 2026.
@@ -7954,4 +8056,84 @@ test('trust streaming refuses inputs it cannot settle', () => {
   assert.equal(calculations.trustStreaming({ ...trustZero, other_trust_income: '100', other_net_income: '100' }).trustee.assessable, 100);
   // Trust income below nil with net income above it: nobody is entitled and the trustee is assessed on it all.
   assert.equal(calculations.trustStreaming({ ...trustZero, other_trust_income: '-50', other_net_income: '100' }).trustee.assessable, 100);
+});
+
+// The portable LSL levy page ports the states part of the portable-lsl-levy command of australian-accounting; every
+// recorded case (the command's own test calls and a seeded sweep) must agree, and each refusal the command makes.
+test('portable LSL levy agrees with the portable-lsl-levy command on every recorded case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./portable-lsl-levy-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length >= 350);
+  for (const { source, call, refused, period, amounts, rates, jurisdiction, scheme, basis, authority_board: board } of cases) {
+    if (refused) {
+      assert.throws(() => calculations.portableLslLevy(structuredClone(call)), { code: refused }, source);
+      continue;
+    }
+    const r = calculations.portableLslLevy(structuredClone(call));
+    assert.deepEqual([r.period, r.amounts, r.rates, r.jurisdiction, r.scheme, r.basis, r.authority_board],
+      [period, amounts, rates, jurisdiction, scheme, basis, board], source);
+  }
+});
+
+test('portable LSL levy refuses as the command does and keeps its rounding', () => {
+  const plsl = calculations.portableLslLevy;
+  const base = { jurisdiction: 'vic', scheme: 'security', year: '2026-27', scope_confirmed: true, ordinary_wages: '1000' };
+  const without = (key) => Object.fromEntries(Object.entries(base).filter(([k]) => k !== key));
+  const tasBase = { ...base, jurisdiction: 'tas', scheme: 'construction' };
+  const refusals = [
+    [{ ...base, extra: 1 }, 'input.field_unknown'], [without('jurisdiction'), 'input.missing_field'],
+    [{ ...base, ordinary_wages: 'x'.repeat(8193) }, 'input.decimal_too_long'], [{ ...base, ordinary_wages: '1e3' }, 'input.decimal_unreadable'],
+    [{ ...base, ordinary_wages: 'Infinity' }, 'input.amount_invalid'], [{ ...base, ordinary_wages: 5 }, 'input.amount_invalid'],
+    [{ ...base, ordinary_wages: [] }, 'input.amount_invalid'], [{ ...base, ordinary_wages: {} }, 'input.amount_invalid'],
+    [{ ...base, ordinary_wages: `${String.fromCharCode(0xfeff)}100` }, 'input.decimal_unreadable'],
+    [{ ...base, ordinary_wages: '1.005' }, 'input.amount_invalid'], [{ ...base, ordinary_wages: '-1' }, 'input.amount_invalid'],
+    [{ ...base, ordinary_wages: '1000000000000.01' }, 'input.amount_invalid'], [{ ...base, scope_confirmed: 'true' }, 'scope.not_confirmed'],
+    [{ ...base, year: '2027-28' }, 'period.unsupported'], [{ ...base, jurisdiction: 'NSW' }, 'portable_lsl_levy.jurisdiction_invalid'],
+    [{ ...base, scheme: null }, 'portable_lsl_levy.scheme_invalid'], [{ ...base, jurisdiction: 'cth', scheme: 'coal' }, 'portable_lsl_levy.scheme_unavailable'],
+    [{ ...base, scheme: 'coal' }, 'portable_lsl_levy.scheme_unavailable'], [{ ...base, jurisdiction: 'wa' }, 'portable_lsl_levy.scheme_unavailable'],
+    [{ ...base, branch: 'base_rate' }, 'portable_lsl_levy.branch_field_mismatch'], [{ ...base, project_cost: '1' }, 'portable_lsl_levy.branch_field_mismatch'],
+    [{ ...base, year: '2025-26' }, 'portable_lsl_levy.scheme_year_unsupported'], [without('ordinary_wages'), 'input.missing_field'],
+    [tasBase, 'input.missing_field'], [{ ...tasBase, paid_on_time: 'yes' }, 'input.flag_invalid'],
+    [{ ...tasBase, paid_on_time: true, project_cost: '1' }, 'portable_lsl_levy.branch_field_mismatch'],
+  ];
+  for (const [call, code] of refusals) assert.throws(() => plsl(call), { code }, JSON.stringify(call).slice(0, 120));
+  const project = (j, more) => plsl({ jurisdiction: j, scheme: 'construction', year: '2026-27', scope_confirmed: true, ...more });
+  assert.throws(() => project('nt', { project_cost: '5000000000.01' }), { code: 'portable_lsl_levy.project_cost_above_tier' });
+  assert.throws(() => project('nsw', { project_cost: '300000', partial_exemption: true }), { code: 'portable_lsl_levy.exemption_unsupported' });
+  assert.throws(() => project('qld', { project_cost: '300000', partial_exemption: 1 }), { code: 'input.flag_invalid' });
+  assert.throws(() => project('nsw', { project_cost: '300000', ordinary_wages: '1' }), { code: 'portable_lsl_levy.branch_field_mismatch' });
+  assert.throws(() => project('nsw', {}), { code: 'input.missing_field' });
+  const levy = (j, cost) => project(j, { project_cost: cost }).amounts.levy;
+  assert.deepEqual([levy('nsw', '250399'), levy('nsw', '249999.99'), levy('nt', '1000500'), levy('nt', '1001500.01'), levy('nt', '999999.99'), levy('qld', '149999.99')],
+    ['625.00', '0.00', '1000.00', '1002.00', '0.00', '0.00']);
+  assert.deepEqual(project('qld', { project_cost: '200400', partial_exemption: false }).amounts,
+    { lsl_levy: '701.00', training_levy: '200.00', whs_levy: '250.00', levy: '1151.00' });
+  assert.equal(plsl({ ...base, ordinary_wages: '-0' }).amounts.levy, '-0.00');
+  assert.equal(plsl({ ...base, ordinary_wages: ' 00012.30 ' }).amounts.levy, '0.22');
+  assert.equal(plsl({ ...base, ordinary_wages: `${String.fromCharCode(0x3000, 0x85)}100${String.fromCharCode(0x1c)}` }).amounts.levy, '1.80');
+  assert.equal(plsl({ ...base, jurisdiction: 'nsw', scheme: 'community_services', year: '2025-26' }).rates.rate, '0.013');
+  assert.equal(plsl({ ...base, jurisdiction: 'nsw', scheme: 'community_services' }).rates.rate, '0.017');
+  const tas = (onTime) => plsl({ ...tasBase, paid_on_time: onTime });
+  assert.deepEqual([tas(true).amounts.levy, tas(false).amounts.levy, tas(false).authority_board], ['18.00', '25.00', 'TasBuild (Tasmania)']);
+});
+
+test('the portable LSL levy page builds its call from the form and words its refusals', () => {
+  const form = { amount: '500000', jurisdiction: 'vic', scheme: 'community_services', year: '2026-27', onTime: 'yes', exemption: 'no' };
+  const page = (change) => calculations.plslResult((name) => ({ ...form, ...change })[name] ?? '', dollars);
+  const call = (change) => calculations.plslFormInput((name) => ({ ...form, ...change })[name] ?? '');
+  const vic = page({});
+  assert.deepEqual([vic.rows[vic.principal], vic.rows[2], vic.rows.length], [['Levy payable', '$8,250.00'], ['Rate', '1.65%'], 4]);
+  const qld = page({ jurisdiction: 'qld', scheme: 'construction', amount: '150000' });
+  assert.deepEqual(qld.rows.slice(1, 4), [['Levied on', 'The cost of the building or construction work'], ['Rate', '0.575% in 3 parts'], ['No levy below', '$150,000.00']]);
+  assert.deepEqual(qld.rows[qld.principal], ['Levy payable', '$862.00']);
+  assert.deepEqual(call({ jurisdiction: 'nt', scheme: 'construction', exemption: 'yes', amount: ' ' }),
+    { jurisdiction: 'nt', scheme: 'construction', year: '2026-27', scope_confirmed: true, project_cost: '0', partial_exemption: true });
+  const text = (change) => calculations.plslInputsText(call(change), dollars);
+  assert.equal(text({ jurisdiction: 'tas', scheme: 'construction' }), '2026-27; Tasmania construction; ordinary wages $500,000.00; paid on time');
+  assert.equal(text({ jurisdiction: 'tas', scheme: 'construction', onTime: 'no' }), '2026-27; Tasmania construction; ordinary wages $500,000.00; not paid on time');
+  assert.equal(text({ jurisdiction: 'nsw', scheme: 'construction', exemption: 'yes' }), '2026-27; New South Wales construction; project cost $500,000.00; partial exemption');
+  assert.throws(() => page({ jurisdiction: 'nsw', scheme: 'security' }), /no portable long service leave scheme for that industry/);
+  assert.throws(() => page({ amount: '1.005' }), /from \$0 to \$1,000,000,000,000/);
+  assert.throws(() => page({ amount: 'abc' }), /as a number/);
+  assert.throws(() => page({ year: '2025-26' }), { code: 'portable_lsl_levy.scheme_year_unsupported' });
+  assert.deepEqual(calculations.plslFigures(call({})), { levy: 8250 });
 });

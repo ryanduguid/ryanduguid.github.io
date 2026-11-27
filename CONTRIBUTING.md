@@ -445,6 +445,10 @@ cites; each returned HTTP 200 locally on 18 November 2026.
 In run 45010467606 on 22 November 2026 the connection ended the same way for the
 Tasmanian first home owner grant eligibility page the first home owner grant
 calculator cites, which returned HTTP 200 locally that day.
+In run 45947107085 on 27 November 2026 the runner rejected the certificate chain
+(unknown issuer) of the 2 South Australian portable long service leave pages the
+portable long service leave levy calculator cites; each returned HTTP 200 locally
+that day.
 The link checker
 reports every exact URL in `CI_MANUAL_URLS` as requiring manual verification in
 GitHub Actions. Run `site-tools check_links` locally before changing any
