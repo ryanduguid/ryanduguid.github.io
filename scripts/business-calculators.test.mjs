@@ -8468,7 +8468,8 @@ test('the leave, write-off and SMSF engines show a negative zero and refuse 40-d
   const asset = { entity: 'small_business_simplified', acquired: '2025-11-18', first_used: '2025-11-18', cost: '-0', taxable_use: '1',
     year: '2025-26', scope_confirmed: true };
   const write = (more) => Object.values(calculations.instantAssetWriteOff({ ...asset, ...more }).amounts);
-  assert.deepEqual([write({}), write({ entity: 'other' }), write({ taxable_use: '-0' })], [['-0.00', '-0.00'], ['-0.00', '0.00'], ['0.00', '0.00']]);
+  assert.deepEqual([write({}), write({ entity: 'other' }), write({ taxable_use: '-0' }), write({ cost: '100', taxable_use: '-0' })],
+    [['-0.00', '-0.00'], ['-0.00', '0.00'], ['0.00', '0.00'], ['-0.00', '-0.00']]);
   const fund = calculations.smsfTax({ ...shownCases['smsf-tax'].rows[0].call[0], no_tfn_contributions: '-0' }).amounts;
   assert.deepEqual([fund.no_tfn_contributions_tax, fund.gross_tax], ['-0.00', '21300.00']);
 });

@@ -1368,8 +1368,8 @@ test('prepaid expenses page apportions its example and applies the 12-month rule
   await expect(form.locator('output .result-row--principal')).toHaveText('Deduction in 2025-26: $24,000.00.');
 });
 
-// The alcohol excise example is the form's default; wine is refused.
-test('alcohol excise page works its example and refuses an unpublished rate offline', async ({ page, context }) => {
+// The alcohol excise example is the form's default; 31 January 2027 is the last published rate day.
+test('alcohol excise page works its example and the last published rate day without remission offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/alcohol-excise/');
   const form = page.locator('#alcohol-excise form');
   await waitForCalculator(form);
