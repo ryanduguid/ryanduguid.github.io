@@ -1,0 +1,75 @@
+# Residential vacancy fee for foreign owners
+
+Source: https://duguid.com.au/tools/business-calculators/residential-vacancy-fee/
+
+> A foreign owner’s annual vacancy fee on a dwelling occupied fewer than 183 days, for vacancy years from 2020-21 to 2026-27, with the return’s due date.
+
+# Residential vacancy fee calculator
+
+A foreign owner’s annual vacancy fee on a residential dwelling.
+
+Published 27 November 2026. Last checked 24 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One foreign owner’s dwelling for one vacancy year
+
+First day of the vacancy year
+
+Financial year the vacancy year starts in 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21
+
+Days residentially occupied or genuinely available to rent
+
+Held as a foreign person for the whole vacancy year Yes No
+
+Vacancy fee return lodged within 30 days after the year Yes No
+
+Section 43D exemption, with evidence None Damaged, unsafe or unsuitable Substantial repairs or renovations Court order or law prevents occupation Occupant in medical or residential care
+
+How the dwelling was acquired Notified to the Treasurer Under a developer’s exemption certificate Under another exemption certificate Under an order or no objection notification
+
+Ownership Sole owner Joint tenants Tenants in common
+
+Application fee waived No Waived in full
+
+Application fee from The fee schedule, from the consideration The fee paid, entered below
+
+Application fee paid by this owner (AUD) Consideration for the dwelling (AUD)
+
+Dwelling New or near-new Established
+
+Date the application or notice was given Share held as a tenant in common (0.5 for half)
+
+Calculate
+
+A vacancy year runs 12 months from the day the owner could first occupy the dwelling, or its anniversary. The dwelling and its notice date are not used for a fee waived in full in a vacancy year starting before 9 April 2024.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; vacancy year from 2025-08-01; 100 days occupied; notified, sole; consideration $1,500,000.00; new or near-new dwelling notified 2025-05-01. Vacancy year 2025-08-01 to 2026-07-31 Liability Liable: occupied fewer than 183 days Application fee basis $29,500.00 Vacancy fee multiplier 2 Vacancy fee payable $59,000.00 Return due 2026-08-30 Keep records until 2031-07-31 The fee is the application fee for the dwelling, doubled for a vacancy year from 9 April 2024; it is payable on the date in the notice of liability.
+
+## How the residential vacancy fee calculator works
+
+Under Part 6A of the Foreign Acquisitions and Takeovers Act 1975, a foreign owner of a residential dwelling lodges a vacancy fee return each vacancy year. The owner pays an annual vacancy fee if the dwelling was residentially occupied, or genuinely available to rent, for fewer than 183 days. The calculator ports the residential-vacancy-fee command of australian-accounting. The fee equals the foreign investment application fee for the dwelling, worked from the fee schedule in force on the notice date or entered as paid, and is doubled for a vacancy year starting on or after 9 April 2024. A late return makes the owner liable whatever the days, and an exemption under section 43D of the Foreign Acquisitions and Takeovers Regulation 2015 removes the fee. It also gives the return’s due date and how long to keep records.
+
+## What the residential vacancy fee calculator does not cover
+
+The calculator does not decide whether you are a foreign person, when the vacancy year starts, which days count as occupied or whether an exemption applies: you enter those. It does not cover build-to-rent developments, partial fee waivers, a waiver or remission under section 115H, the fee schedule before 2021 (enter the application fee paid instead), a fee above the statutory cap floor, or state and territory vacancy taxes and surcharges. Have a registered tax agent confirm the figures and the result.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Residential vacancy fee calculator
+
+Case | Inputs | Result
+The page’s example: $1.5 million consideration, occupied 100 days, doubled | 2025-26; vacancy year from 2025-08-01; 100 days occupied; notified, sole; consideration $1,500,000.00; new or near-new dwelling notified 2025-05-01 | Application fee basis $29,500.00, vacancy fee payable $59,000.00
+Occupied 183 days: no fee | 2025-26; vacancy year from 2025-08-01; 183 days occupied; notified, sole; consideration $1,500,000.00; new or near-new dwelling notified 2025-05-01 | Application fee basis $29,500.00, vacancy fee payable $0.00
+A vacancy year before 9 April 2024 with a stated fee: not doubled | 2023-24; vacancy year from 2023-08-01; 100 days occupied; notified, sole; application fee $13,200.00 | Application fee basis $13,200.00, vacancy fee payable $13,200.00
+An established dwelling notified from 9 April 2024: the fee tripled, then doubled | 2025-26; vacancy year from 2025-08-01; 100 days occupied; notified, sole; consideration $1,500,000.00; established dwelling notified 2025-05-01 | Application fee basis $88,500.00, vacancy fee payable $177,000.00
+
+One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/

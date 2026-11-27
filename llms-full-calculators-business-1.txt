@@ -14,11 +14,11 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Sixty-three free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
+Sixty-five free calculators that run in your browser with the formula, assumptions and primary source beside the inputs. No sign-up; inputs stay on your device.
 
 Published 11 September 2026. Last checked 26 November 2026, the newest of the calculators’ source checks.
 
-Search 63 calculators
+Search 65 calculators
 
 ## Pricing, planning and loans
 
@@ -61,6 +61,7 @@ Search 63 calculators
 - Franking account calculator A company’s franking account for 2025-26 or 2026-27: franking deficit tax and its offset, the benchmark rule and the franking return’s labels and due date.
 - Company tax and franking calculator A company’s 25% or 30% rate from the base rate entity test, its rate for franking dividends, the maximum franking credit and a shareholder’s tax or refund.
 - R&D tax offset calculator A company’s R&D tax incentive offset for 2021-22 to 2026-27, refundable or with the premium tiers, and the amount a grant or feedstock clawback includes in assessable income.
+- ESIC tax offset calculator The early stage investor tax offset on new shares in an early stage innovation company for 2016-17 to 2026-27: the company and investor tests, the 20% offset, the $200,000 cap and the modified CGT treatment.
 - Deferred tax calculator A company’s AASB 112 tax effect worksheet: deferred tax liability and asset, the movement, current tax and the reconciliation.
 - Salary against dividends calculator A company owner’s salary and super guarantee against fully franked dividends for 2021-22 to 2026-27: the cash and super kept after tax, and the split that keeps the most.
 - Sole trader against company calculator One business profit taxed as a sole trader, with the small business income tax offset, and through a company paying a salary, super guarantee and fully franked dividends, for 2021-22 to 2026-27: each structure’s total tax.
@@ -91,6 +92,7 @@ Search 63 calculators
 - First home owner grant calculator The grant in each of the 8 states and territories for a new home, by contract date and value cap, beside the first home buyer transfer duty.
 - Land tax calculator Land tax for a full year in each of the 7 states and territories that levy it, at the general or trust rates, with a foreign or absentee owner surcharge and WA’s metropolitan region improvement tax where chosen, before any exemption.
 - Foreign purchaser surcharge calculator Foreign purchaser duty and the foreign owner land tax surcharge in each state and territory, with each one’s own test of who is foreign, the 2026-27 FIRB fee and the upfront total in all 8 side by side.
+- Residential vacancy fee calculator A foreign owner’s annual vacancy fee on a residential dwelling for vacancy years from 2020-21 to 2026-27: the 183-day test, exemptions, the application fee schedule, the doubling from 9 April 2024 and the return’s due date.
 - Payroll tax calculator One employer’s annual payroll tax for 2026-27 in any state or territory, for an employer outside a group, with each step cited.
 
 ## Indirect taxes, ATO deadlines and ASIC
@@ -143,6 +145,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - Franking account calculator: https://duguid.com.au/tools/business-calculators/franking-account/
 - Company tax and franking calculator: https://duguid.com.au/tools/business-calculators/company-tax/
 - R&D tax offset calculator: https://duguid.com.au/tools/business-calculators/rd-tax-offset/
+- ESIC tax offset calculator: https://duguid.com.au/tools/business-calculators/esic/
 - Deferred tax calculator: https://duguid.com.au/tools/business-calculators/deferred-tax/
 - Salary against dividends calculator: https://duguid.com.au/tools/business-calculators/salary-dividend/
 - Sole trader against company calculator: https://duguid.com.au/tools/business-calculators/sole-trader-company/
@@ -164,6 +167,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 - First home owner grant calculator: https://duguid.com.au/tools/business-calculators/first-home-owner-grant/
 - Land tax calculator: https://duguid.com.au/tools/business-calculators/land-tax/
 - Foreign purchaser surcharge calculator: https://duguid.com.au/tools/business-calculators/foreign-surcharge/
+- Residential vacancy fee calculator: https://duguid.com.au/tools/business-calculators/residential-vacancy-fee/
 - Payroll tax calculator: https://duguid.com.au/tools/business-calculators/payroll-tax/
 - PAYG instalments calculator: https://duguid.com.au/tools/business-calculators/payg-instalments/
 - Objection deadline checker: https://duguid.com.au/tools/business-calculators/objection-deadline/

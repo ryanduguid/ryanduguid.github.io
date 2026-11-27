@@ -272,6 +272,92 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ---
 
+# ESIC tax offset: early stage investor offset and CGT
+
+Source: https://duguid.com.au/tools/business-calculators/esic/
+
+> The 20% early stage investor tax offset on new ESIC shares for 2016-17 to 2026-27: the company and investor tests, the $200,000 cap and the modified CGT treatment.
+
+# ESIC tax offset calculator
+
+The early stage investor tax offset on shares in an early stage innovation company.
+
+Published 27 November 2026. Last checked 24 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+One investor’s new shares in one company
+
+Money paid for the shares (AUD)
+
+Income year the shares were issued 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18 2016-17
+
+Investor Individual Company, not widely held Widely held company or its 100% subsidiary ESVCLP
+
+Money still to be received (AUD, blank for none) Non-cash benefit at market value (AUD)
+
+Year incorporated in Australia Not incorporated in Australia 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18 2016-17 2015-16 2014-15 2013-14 2012-13 2011-12 2010-11
+
+Year registered in the ABR Not registered, or not needed 2026-27 2025-26 2024-25 2023-24 2022-23 2021-22 2020-21 2019-20 2018-19 2017-18 2016-17 2015-16 2014-15
+
+Expenses in the 3 years before (AUD) Expenses, previous year (AUD) Assessable income, previous year (AUD) Of which an Accelerating Commercialisation Grant (AUD) Of which an R&D clawback, s 355-450(1) (AUD) Innovation items that apply, s 360-45(1) (e.g. 1, 6)
+
+Company meets the principles-based innovation test No Yes
+
+Company’s shares are listed on a stock exchange No Yes
+
+Company is a foreign company No Yes
+
+Investor and company are affiliates of each other No Yes
+
+Shares acquired under an employee share scheme No Yes
+
+Investor holds more than 30% after the issue No Yes
+
+No disclosure document needed (s 708(8), (10) or (11)) Yes No
+
+Paid for other ESICs’ shares this year (AUD)
+
+Another ESIC’s offer needed no disclosure document No Yes
+
+Other early stage investor offsets this year, with affiliates (AUD) Those offsets carried forward to this year (AUD)
+
+Calculate
+
+The other ESICs’ fields apply only where this offer needed a disclosure document (section 360-20). Item 7 does not count with item 6.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; individual investing $100,000.00; company incorporated 2024-25, expenses $300,000.00, income $20,000.00; items 1, 6. Early stage innovation company Yes Innovation points 125 Amount for the issue of the shares $100,000.00 20% of that amount $20,000.00 Room under the $200,000 cap $200,000.00 Tax offset $20,000.00 Modified CGT treatment Applies to these shares The offset is 20% of the amount for the issue, capped so the year’s offsets with affiliates and carried forward amounts do not exceed $200,000.
+
+## How the ESIC tax offset calculator works
+
+An investor in new shares of an early stage innovation company (ESIC) gets a non-refundable tax offset of 20% of the amount for the issue, under Subdivision 360-A of the Income Tax Assessment Act 1997. The calculator ports the esic command of australian-accounting. It checks the company tests of section 360-40 for the year of issue: incorporated or registered recently enough, expenses of $1 million or less and assessable income of $200,000 or less in the previous year, not listed, from 2018-19 not a foreign company, and 100 innovation points under section 360-45 or the principles-based test. It then checks the investor tests of sections 360-15 and 360-20, including the $50,000 limit where an offer needed a disclosure document. The offset is capped so the year’s offsets with affiliates and carried forward amounts do not exceed $200,000. Where the investor is entitled, the shares also take the modified CGT treatment of Subdivision 360-B.
+
+## What the ESIC tax offset calculator does not cover
+
+The calculator does not decide whether the principles-based test is met or which innovation items apply: you state them. It does not work out the offset for a trust’s or partnership’s members, whether the investor is a sophisticated investor, the offset carried forward to a later year, or the capital gain or loss when the shares are sold. Before 2018-19 it refuses a non-cash benefit, an ESVCLP investor and the 6-year incorporation route; for 2021-22 it refuses an R&D clawback amount. Have a registered tax agent confirm the figures and the result.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: ESIC tax offset calculator
+
+Case | Inputs | Result
+The page’s example: an individual’s $100,000 in a company incorporated last year | 2025-26; individual investing $100,000.00; company incorporated 2024-25, expenses $300,000.00, income $20,000.00; items 1, 6 | Amount for the issue $100,000.00, tax offset $20,000.00, 125 innovation points
+The $200,000 cap leaves $10,000 of room | 2025-26; individual investing $100,000.00; company incorporated 2024-25, expenses $300,000.00, income $20,000.00; items 1, 6 | Amount for the issue $100,000.00, tax offset $10,000.00, 125 innovation points
+Expenses of $1,000,000.01 in the previous year: not an ESIC, no offset | 2025-26; individual investing $100,000.00; company incorporated 2024-25, expenses $1,000,000.01, income $20,000.00; items 1, 6 | Amount for the issue $100,000.00, tax offset $0.00, 125 innovation points
+Items 1 and 3 together: refused | 2025-26; individual investing $100,000.00; company incorporated 2024-25, expenses $300,000.00, income $20,000.00; items 1, 3 | Refused: items 1 (at least 50% of total expenses) and 3 (at least 15% but less than 50%) cannot both apply
+
+One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+
+---
+
 # Trust streaming calculator: Division 6, 6E and section 99A
 
 Source: https://duguid.com.au/tools/business-calculators/trust-streaming/

@@ -8,6 +8,20 @@
   <updated>2026-11-27T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>A new business calculator, residential vacancy fee, works a foreign owner’s…</title>
+    <link href="https://duguid.com.au/changelog/#entry-604af2fbd5b7b15b" />
+    <id>https://duguid.com.au/changelog/#entry-604af2fbd5b7b15b</id>
+    <updated>2026-11-27T00:00:00Z</updated>
+    <summary>A new business calculator, residential vacancy fee, works a foreign owner’s annual vacancy fee on a dwelling for vacancy years from 2020-21 to 2026-27 under Part 6A of the Foreign Acquisitions and Takeovers Act 1975, with the application fee schedule, the doubling from 9 April 2024 and the return’s due date. Its WebMCP tool is calculate_residential_vacancy_fee.</summary>
+  </entry>
+  <entry>
+    <title>A new business calculator, ESIC tax offset, works the early stage investor tax…</title>
+    <link href="https://duguid.com.au/changelog/#entry-4faa993702687a27" />
+    <id>https://duguid.com.au/changelog/#entry-4faa993702687a27</id>
+    <updated>2026-11-27T00:00:00Z</updated>
+    <summary>A new business calculator, ESIC tax offset, works the early stage investor tax offset on new shares in an early stage innovation company for 2016-17 to 2026-27 under Subdivision 360-A of the Income Tax Assessment Act 1997: the company and investor tests, the 20% offset, the $200,000 cap and the modified CGT treatment. Its WebMCP tool is calculate_esic_tax_offset.</summary>
+  </entry>
+  <entry>
     <title>The depreciation register distinguishes assets with the same name, shows the…</title>
     <link href="https://duguid.com.au/changelog/#entry-812e9c722d31e872" />
     <id>https://duguid.com.au/changelog/#entry-812e9c722d31e872</id>
