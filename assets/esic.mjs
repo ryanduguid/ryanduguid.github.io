@@ -134,7 +134,7 @@ function investorTests(w) {
     ['not_more_than_30_percent', ...thirty, 'more_than_30_percent'],
   ];
   for (const [id, authority, fact, key] of rows) {
-    const stated = flag(w.v[key], key);
+    const stated = flag(w.v[key], key); // eslint-disable-line security/detect-object-injection -- key is one of the fixed fact names above
     addRow(w, id, authority, !stated, `${fact}: stated ${stated ? 'yes' : 'no'}`);
   }
 }
@@ -181,6 +181,7 @@ function baseStep({ v, current }, paid, receivable, nonCash) {
 
 /** s 360-25: the 20%, the cap room and the offset. @param {Work} w @param {import('./aa-port.mjs').Step} first @param {boolean} entitled */
 function offsetSteps({ v }, first, entitled) {
+  // #lizard forgives: Codacy's Lizard runs this function to the end of the file; local Lizard counts 11 lines.
   const [other, carried] = [money(v.other_offsets), money(v.carried_forward_offsets)];
   const gross = entitled
     ? { id: 'gross_offset', authority: 'ITAA 1997 s 360-25(1): 20% of the amount for the issue of the shares', value: mul(first.value, { s: false, c: 20n, e: -2 }) }

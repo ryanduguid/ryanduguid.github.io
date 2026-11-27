@@ -9,7 +9,7 @@
 // doubling for vacancy years from 9 April 2024, the tripled established dwelling fees and the cap floor. The command
 // read the compilations and the ATO and Treasury pages its source names on 24 November 2026.
 
-import { add, addMonths, cmp, decText, flag, formatDay, int, money, monthsEnd, mul, parseDay, parseDec, quantize, readCall, refuse,
+import { addMonths, cmp, decText, flag, formatDay, int, money, monthsEnd, mul, parseDay, parseDec, quantize, readCall, refuse,
   rendered, scopeYear, yearFirst } from './aa-port.mjs';
 
 export const RVF_YEARS = ['2026-27', '2025-26', '2024-25', '2023-24', '2022-23', '2021-22', '2020-21'];
@@ -154,6 +154,7 @@ function statedFee(v, basis, waived) {
   if (OPTIONAL.slice(1).some(([key]) => Object.hasOwn(v, key))) bad('Supply either application_fee_payable alone, or consideration, dwelling_kind and application_date (with ownership_share for tenants_in_common), not both.');
   const fee = money(v.application_fee_payable);
   if (cmp(fee, int(0)) <= 0) bad('application_fee_payable must be above nil.');
+  // eslint-disable-next-line security/detect-object-injection -- basis is a parsed acquisition basis, one of these fixed keys
   const authority = {
     notifiable_action: 'Fees Regulations 2020 s 43(a): Division 2 Part 2 application fee payable by the person for the s 81 notice',
     other_exemption_certificate: 'Fees Regulations 2020 s 45(a): Division 7 Part 2 application fee payable by the person for the exemption certificate',

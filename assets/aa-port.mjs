@@ -27,7 +27,10 @@ export function parseDec(text) {
 }
 
 /** @param {number} n @returns {Dec} */
-export const int = (n) => ({ s: n < 0, c: BigInt(Math.abs(n)), e: 0 });
+export function int(n) {
+  // #lizard forgives: Codacy's Lizard runs this function to the end of the file; local Lizard counts 1 line.
+  return { s: n < 0, c: BigInt(Math.abs(n)), e: 0 };
+}
 /** @param {Dec} a @param {number} e */
 const signed = (a, e) => (a.s ? -1n : 1n) * a.c * 10n ** BigInt(a.e - e);
 /** @param {Dec} a @param {Dec} b */
