@@ -63,9 +63,9 @@ pub fn items(payload: &Json, key: &str) -> Result<Vec<Json>> {
     let mut found = Vec::new();
     let mut total: Option<Option<Json>> = None;
     for page in pages {
-        if !matches!(page, Json::Object(_)) || !matches!(page.get(key), Some(Json::Array(_))) {
+        let (Json::Object(_), Some(Json::Array(values))) = (page, page.get(key)) else {
             return refuse("Unreadable API page");
-        }
+        };
         let count = page.get("total_count").cloned();
         let total = total.get_or_insert(count.clone());
         let consistent = match (total.as_ref(), count.as_ref()) {
@@ -75,9 +75,6 @@ pub fn items(payload: &Json, key: &str) -> Result<Vec<Json>> {
         if !consistent {
             return refuse("API listing changed or has no count");
         }
-        let Some(Json::Array(values)) = page.get(key) else {
-            unreachable!("checked above");
-        };
         for value in values {
             if !matches!(value, Json::Object(_)) || int(value.get("id")).is_none() {
                 return refuse("Unreadable API identity");
@@ -593,7 +590,12 @@ fn alert_levels(listing: &Json) -> Result<Vec<AlertLevel>> {
 
 /// `gh api <endpoint> [--paginate --slurp]` with check=True and a 60-second timeout.
 fn gh_json(endpoint: &str, paginate: bool) -> Result<Json> {
-    let mut command = Command::new("gh");
+    api_json("gh", Duration::from_secs(60), endpoint, paginate)
+}
+
+/// `<program> api <endpoint> [--paginate --slurp]`, killed after `limit`.
+fn api_json(program: &str, limit: Duration, endpoint: &str, paginate: bool) -> Result<Json> {
+    let mut command = Command::new(program);
     command.args(["api", endpoint]);
     // An analysis read by its id returns its SARIF only when asked for it.
     if endpoint.contains("/code-scanning/analyses/") {
@@ -619,7 +621,7 @@ fn gh_json(endpoint: &str, paginate: bool) -> Result<Json> {
         let mut buffer = Vec::new();
         let _ = stderr.read_to_end(&mut buffer);
     });
-    let status = wait_up_to_a_minute(&mut child)?;
+    let status = wait_up_to(&mut child, limit)?;
     let stdout = out.join().unwrap_or_default();
     let _ = err.join();
     if !status.success() {
@@ -636,9 +638,12 @@ fn gh_json(endpoint: &str, paginate: bool) -> Result<Json> {
     })
 }
 
-/// The child's exit status, or External once it has run for 60 seconds and been killed.
-fn wait_up_to_a_minute(child: &mut std::process::Child) -> Result<std::process::ExitStatus> {
-    let deadline = Instant::now() + Duration::from_secs(60);
+/// The child's exit status, or External once it has run for `limit` and been killed.
+fn wait_up_to(
+    child: &mut std::process::Child,
+    limit: Duration,
+) -> Result<std::process::ExitStatus> {
+    let deadline = Instant::now() + limit;
     loop {
         match child.try_wait() {
             Ok(Some(status)) => return Ok(status),
@@ -706,20 +711,10 @@ fn parse(args: &[String]) -> std::result::Result<(String, String, i64), u8> {
         let option = if name == "-h" {
             Some("--help")
         } else if name.len() > 2 && name.starts_with("--") {
-            let all = std::iter::once("--help").chain(options);
-            let exact = all.clone().find(|o| *o == name);
-            let found: Vec<&str> = all.filter(|o| o.starts_with(name)).collect();
-            match (exact, found.as_slice()) {
-                (Some(exact), _) => Some(exact),
-                (None, [one]) => Some(*one),
-                (None, []) => None,
-                (None, many) => {
-                    return error(&format!(
-                        "ambiguous option: {name} could match {}",
-                        many.join(", ")
-                    ));
-                }
-            }
+            // No 2 options share a prefix past `--`, so an abbreviation names at most one.
+            std::iter::once("--help")
+                .chain(options)
+                .find(|o| o.starts_with(name))
         } else {
             None
         };
@@ -765,21 +760,18 @@ fn parse(args: &[String]) -> std::result::Result<(String, String, i64), u8> {
         .filter(|(_, v)| v.is_none())
         .map(|(o, _)| *o)
         .collect();
-    if !missing.is_empty() {
+    let [Some(repository), Some(commit), wait] = values else {
         return error(&format!(
             "the following arguments are required: {}",
             missing.join(", ")
         ));
-    }
+    };
     if !unrecognized.is_empty() {
         return error(&format!(
             "unrecognized arguments: {}",
             unrecognized.join(" ")
         ));
     }
-    let [Some(repository), Some(commit), wait] = values else {
-        unreachable!("required");
-    };
     let wait = match wait {
         Some(text) => py::parse_int(&text, 10)
             .ok()
@@ -845,4 +837,270 @@ pub fn run(args: &[String]) -> std::result::Result<u8, String> {
         &mut |repository, commit| evaluate(repository, commit, &mut fetch),
         &mut clock,
     ))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const REPO: &str = "example/site";
+
+    fn json(text: &str) -> Json {
+        pyjson::loads(text).unwrap()
+    }
+
+    fn sha() -> String {
+        "a".repeat(40)
+    }
+
+    fn main_ref() -> Json {
+        json(&format!(r#"{{"object": {{"sha": "{}"}}}}"#, sha()))
+    }
+
+    /// One complete listing page holding `count` records under `key`.
+    fn listing(key: &str, records: &str, count: usize) -> Json {
+        json(&format!(
+            r#"[{{"{key}": {records}, "total_count": {count}}}]"#
+        ))
+    }
+
+    /// A run of `path` on main for `sha()`, with `extra` fields replacing the base ones.
+    fn run(path: &str, event: &str, extra: &str) -> String {
+        let c = sha();
+        let base = format!(
+            r#""id": 2, "path": "{path}", "event": "{event}", "head_sha": "{c}", "head_branch": "main", "status": "completed", "repository": {{"full_name": "{REPO}"}}, "head_repository": {{"full_name": "{REPO}"}}"#
+        );
+        // A later duplicate key wins, as in Python's json.
+        if extra.is_empty() {
+            format!("{{{base}}}")
+        } else {
+            format!("{{{base}, {extra}}}")
+        }
+    }
+
+    /// evaluate() against main at `sha()` and one workflow run; `jobs` answers any
+    /// jobs listing, None makes it fail as the API would.
+    fn evaluate_run(run: &str, jobs: Option<&str>) -> Result<bool> {
+        let runs = listing("workflow_runs", &format!("[{run}]"), 1);
+        let jobs = jobs.map(|jobs| listing("jobs", &format!("[{jobs}]"), 1));
+        let mut fetch = |endpoint: &str, _paginate: bool| -> Result<Json> {
+            if endpoint.ends_with("heads/main") {
+                Ok(main_ref())
+            } else if endpoint.contains("/actions/runs?") {
+                Ok(runs.clone())
+            } else {
+                jobs.clone().ok_or(Refusal::External)
+            }
+        };
+        evaluate(REPO, &sha(), &mut fetch)
+    }
+
+    fn value(message: &str) -> Result<bool> {
+        Err(Refusal::Value(message.into()))
+    }
+
+    #[test]
+    fn a_failed_workflow_run_listing_stops_verification() {
+        let mut fetch = |endpoint: &str, _: bool| -> Result<Json> {
+            if endpoint.ends_with("heads/main") {
+                Ok(main_ref())
+            } else {
+                Err(Refusal::External)
+            }
+        };
+        assert_eq!(evaluate(REPO, &sha(), &mut fetch), Err(Refusal::External));
+    }
+
+    #[test]
+    fn a_run_without_its_workflow_path_is_unreadable() {
+        assert_eq!(
+            evaluate_run(r#"{"id": 1}"#, None),
+            value("Unreadable workflow path")
+        );
+    }
+
+    #[test]
+    fn an_audit_run_without_its_branch_is_unreadable() {
+        let audit = run(AUDIT_WORKFLOW, "push", r#""head_branch": null"#);
+        assert_eq!(
+            evaluate_run(&audit, None),
+            value("Unreadable workflow identity")
+        );
+    }
+
+    #[test]
+    fn a_run_whose_repository_is_not_a_record_names_its_kind() {
+        let audit = run(AUDIT_WORKFLOW, "push", r#""repository": "example/site""#);
+        assert_eq!(
+            evaluate_run(&audit, None),
+            value("Unreadable audit repository")
+        );
+        let analysis = run(CODEQL_WORKFLOW, "dynamic", r#""head_repository": {}"#);
+        assert_eq!(
+            evaluate_run(&analysis, None),
+            value("Unreadable analysis repository")
+        );
+    }
+
+    #[test]
+    fn a_failed_audit_job_listing_stops_verification() {
+        let audit = run(AUDIT_WORKFLOW, "push", "");
+        assert_eq!(evaluate_run(&audit, None), Err(Refusal::External));
+    }
+
+    #[test]
+    fn an_audit_job_without_its_status_is_unreadable() {
+        let audit = run(AUDIT_WORKFLOW, "push", "");
+        let job = format!(
+            r#"{{"id": 3, "name": "{AUDIT_JOB}", "head_sha": "{}"}}"#,
+            sha()
+        );
+        assert_eq!(
+            evaluate_run(&audit, Some(&job)),
+            value("Unreadable audit job identity")
+        );
+    }
+
+    #[test]
+    fn a_failed_analysis_job_listing_stops_verification() {
+        let mut fetch = |_: &str, _: bool| -> Result<Json> { Err(Refusal::External) };
+        assert!(matches!(
+            analysis_jobs(REPO, &["6".into()], &mut fetch),
+            Err(Refusal::External)
+        ));
+    }
+
+    #[test]
+    fn an_analysis_upload_without_its_sarif_id_is_unreadable() {
+        let c = sha();
+        let jobs = listing(
+            "jobs",
+            r#"[{"id": 7, "name": "Analyze (python)", "started_at": "2026-11-16T00:00:00Z", "completed_at": "2026-11-16T00:05:00Z"}]"#,
+            1,
+        );
+        let analyses = json(&format!(
+            r#"[{{"id": 9, "commit_sha": "{c}", "category": "/language:python", "created_at": "2026-11-16T00:02:30Z"}}]"#
+        ));
+        let mut fetch = |endpoint: &str, _: bool| -> Result<Json> {
+            if endpoint.contains("/jobs?") {
+                Ok(jobs.clone())
+            } else if endpoint.ends_with("&page=1") {
+                Ok(analyses.clone())
+            } else {
+                Ok(json("[]"))
+            }
+        };
+        assert_eq!(
+            analyses_pass(REPO, &c, &["6".into()], &mut fetch),
+            value("Unreadable analysis upload")
+        );
+    }
+
+    #[test]
+    fn sarif_whose_runs_are_not_a_list_is_unreadable() {
+        assert_eq!(
+            sarif_fails(&json(r#"{"runs": {}}"#)),
+            value("Unreadable analysis results")
+        );
+    }
+
+    fn strings(args: &[&str]) -> Vec<String> {
+        args.iter().map(|s| (*s).to_owned()).collect()
+    }
+
+    #[test]
+    fn unknown_and_single_dash_options_are_unrecognised_and_abbreviations_are_accepted() {
+        let c = sha();
+        let full = |extra: &str| strings(&["--repository", REPO, "--commit", &c, extra]);
+        assert_eq!(parse(&full("--zzz")), Err(2));
+        assert_eq!(parse(&full("-x")), Err(2));
+        assert_eq!(parse(&full("--commit")), Err(2));
+        assert_eq!(
+            parse(&strings(&["--rep", REPO, "--co", &c, "--wait", "5"])),
+            Ok((REPO.into(), c.clone(), 5))
+        );
+        assert_eq!(parse(&strings(&["--repository", REPO, "-x"])), Err(2));
+    }
+
+    #[test]
+    fn the_system_clock_sleeps_forward_and_never_backward() {
+        let mut clock = SystemClock(Instant::now());
+        let start = clock.monotonic();
+        clock.sleep(-5.0);
+        clock.sleep(0.01);
+        assert!(clock.monotonic() - start >= 0.01);
+    }
+
+    #[cfg(unix)]
+    mod api {
+        use super::*;
+        use std::os::unix::fs::PermissionsExt;
+
+        const MINUTE: Duration = Duration::from_secs(60);
+
+        /// Runs `body` as a `/bin/sh` script standing in for `gh`.
+        fn call(body: &str, limit: Duration, endpoint: &str, paginate: bool) -> Result<Json> {
+            let dir = tempfile::tempdir().unwrap();
+            let path = dir.path().join("gh");
+            std::fs::write(&path, format!("#!/bin/sh\n{body}\n")).unwrap();
+            std::fs::set_permissions(&path, std::fs::Permissions::from_mode(0o755)).unwrap();
+            api_json(&path.to_string_lossy(), limit, endpoint, paginate)
+        }
+
+        /// The script prints its arguments as a JSON list of strings.
+        const ECHO: &str = r#"printf '['; sep=; for a in "$@"; do printf '%s"%s"' "$sep" "$a"; sep=,; done; printf ']'"#;
+
+        #[test]
+        fn a_listing_is_read_with_pagination_and_an_analysis_with_its_sarif() {
+            assert_eq!(
+                call(ECHO, MINUTE, "repos/a/b/actions/runs", true).unwrap(),
+                json(r#"["api", "repos/a/b/actions/runs", "--paginate", "--slurp"]"#)
+            );
+            assert_eq!(
+                call(ECHO, MINUTE, "repos/a/b/code-scanning/analyses/9", false).unwrap(),
+                json(
+                    r#"["api", "repos/a/b/code-scanning/analyses/9", "-H", "Accept: application/sarif+json"]"#
+                )
+            );
+        }
+
+        #[test]
+        fn a_failed_call_or_malformed_json_hides_the_response() {
+            assert_eq!(
+                call("echo secret; exit 1", MINUTE, "x", false),
+                Err(Refusal::External)
+            );
+            assert_eq!(
+                call("echo '{secret'", MINUTE, "x", false),
+                Err(Refusal::External)
+            );
+        }
+
+        #[test]
+        fn a_response_that_is_not_utf8_is_a_printable_value_error() {
+            let result = call(r"printf '\377'", MINUTE, "x", false);
+            assert!(
+                matches!(&result, Err(Refusal::Value(message)) if message.contains("decode")),
+                "{result:?}"
+            );
+        }
+
+        #[test]
+        fn a_call_still_running_at_its_limit_is_killed() {
+            let started = Instant::now();
+            assert_eq!(
+                call("exec sleep 30", Duration::from_millis(200), "x", false),
+                Err(Refusal::External)
+            );
+            assert!(started.elapsed() < Duration::from_secs(20));
+        }
+
+        #[test]
+        fn a_missing_program_is_an_external_failure() {
+            assert_eq!(
+                api_json("/nonexistent/gh", MINUTE, "x", false),
+                Err(Refusal::External)
+            );
+        }
+    }
 }
