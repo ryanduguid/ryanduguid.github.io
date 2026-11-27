@@ -48,7 +48,7 @@ An amended assessment takes the later of its 2 dates | Amended income tax assess
 An FBT assessment allows 4 years | FBT assessment, notice 15 November 2026 | Paragraph 14ZW(1)(aaa), period ends Friday 15 November 2030, last day Friday 15 November 2030
 A first notice after the amended notice is refused | Amended FBT assessment, notice 1 July 2026, first notice 2 July 2026 | Refused: the first assessment’s notice cannot be later than the amended one
 
-One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -60,7 +60,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- sixty business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
 - ATO penalties and interest calculator: https://duguid.com.au/tools/business-calculators/ato-penalties-interest/
 - Business days calculator: https://duguid.com.au/tools/business-calculators/business-days/
 - 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
