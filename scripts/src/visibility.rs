@@ -691,10 +691,15 @@ struct Args {
     include_fixtures: bool,
 }
 
-/// The long options `parse` takes besides `--help`. No 2 of them, `--help` included,
-/// share a prefix past `--`, so an abbreviation names at most one and argparse's
-/// ambiguous-option error cannot arise.
-const OPTIONS: [&str; 4] = ["--template", "--check", "--summary", "--include-fixtures"];
+/// The long options `parse` takes. No 2 share a prefix past `--`, so an abbreviation
+/// names at most one and argparse's ambiguous-option error cannot arise.
+const OPTIONS: [&str; 5] = [
+    "--help",
+    "--template",
+    "--check",
+    "--summary",
+    "--include-fixtures",
+];
 
 /// argparse for the exclusive `--template`, `--check [CAPTURE ...]` and
 /// `--summary [CAPTURE ...]`, and `--include-fixtures`. `Err` is the exit code.
@@ -713,19 +718,12 @@ fn parse(args: &[String]) -> std::result::Result<Args, u8> {
         if !arg.starts_with('-') || arg == "-" {
             return false;
         }
-        let known = |name: &str| {
-            name == "-h" || std::iter::once("--help").chain(OPTIONS).any(|o| o == name)
-        };
+        let known = |name: &str| name == "-h" || OPTIONS.contains(&name);
         let head = arg.split_once('=').map_or(arg, |(head, _)| head);
         if known(arg) || known(head) {
             return true;
         }
-        if head.starts_with("--")
-            && head.len() > 2
-            && std::iter::once("--help")
-                .chain(OPTIONS)
-                .any(|o| o.starts_with(head))
-        {
+        if head.starts_with("--") && head.len() > 2 && OPTIONS.iter().any(|o| o.starts_with(head)) {
             return true;
         }
         !negative(arg) && !arg.contains(' ')
@@ -758,9 +756,7 @@ fn parse(args: &[String]) -> std::result::Result<Args, u8> {
             Some("--help")
         } else if name.len() > 2 && name.starts_with("--") {
             // An exact name is its own only prefix match (see OPTIONS).
-            std::iter::once("--help")
-                .chain(OPTIONS)
-                .find(|o| o.starts_with(name))
+            OPTIONS.into_iter().find(|o| o.starts_with(name))
         } else {
             None
         };
@@ -893,12 +889,9 @@ mod tests {
 
     #[test]
     fn no_two_options_share_a_prefix_past_the_dashes() {
-        let mut third: Vec<u8> = std::iter::once("--help")
-            .chain(OPTIONS)
-            .map(|o| o.as_bytes()[2])
-            .collect();
+        let mut third = OPTIONS.map(|o| o.as_bytes()[2]).to_vec();
         third.sort_unstable();
         third.dedup();
-        assert_eq!(third.len(), OPTIONS.len() + 1);
+        assert_eq!(third.len(), OPTIONS.len());
     }
 }
