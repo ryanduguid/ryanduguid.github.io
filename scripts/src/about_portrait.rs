@@ -790,10 +790,10 @@ mod tests {
     fn a_head_with_no_figure_in_its_rows_is_refused() {
         let value = grey(2, vec![0.2, 0.8, 0.4, 0.6]);
         let empty = grey(2, vec![0.0; 4]);
-        let error = contrast(&value, &empty, 2).unwrap_err();
+        let error = contrast(&value, &empty, 2).err().unwrap();
         assert_eq!(error, "the crop holds none of the figure; check the cutout");
         let person = grey(2, vec![1.0; 4]);
-        let error = contrast(&value, &person, 0).unwrap_err();
+        let error = contrast(&value, &person, 0).err().unwrap();
         assert_eq!(error, "the crop holds none of the figure; check the cutout");
     }
 
@@ -801,7 +801,7 @@ mod tests {
     fn a_figure_of_one_flat_tone_is_refused() {
         let flat = grey(2, vec![0.5; 4]);
         let person = grey(2, vec![1.0; 4]);
-        let error = contrast(&flat, &person, 2).unwrap_err();
+        let error = contrast(&flat, &person, 2).err().unwrap();
         assert_eq!(
             error,
             "the figure has no tonal range to draw; check the photo"
