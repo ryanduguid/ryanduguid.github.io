@@ -991,16 +991,19 @@ mod row_tests {
         let rows: Vec<String> = starts
             .iter()
             .map(|start| {
-                let mut json = row(&format!(
+                let json = row(&format!(
                     r#""period_start": "{start}", "status": "current""#
                 ));
-                if let Json::Object(fields) = &mut json {
-                    fields.retain(|(k, _)| k != "row_id");
-                    if ids {
-                        fields.push(("row_id".into(), Json::Str((*start).into())));
-                    }
-                }
-                pyjson::dumps(&json, pyjson::Dump::default())
+                let id = if ids {
+                    format!(r#""row_id": "{start}", "#)
+                } else {
+                    String::new()
+                };
+                pyjson::dumps(&json, pyjson::Dump::default()).replacen(
+                    r#""row_id": "2023-07-01", "#,
+                    &id,
+                    1,
+                )
             })
             .collect();
         let dir = tempfile::tempdir().unwrap();
