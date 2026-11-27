@@ -9,6 +9,8 @@ mod common;
 mod cli_and_io;
 #[path = "cov/commands.rs"]
 mod commands;
+#[path = "cov/part_b4.rs"]
+mod part_b4;
 #[path = "cov/pass2_contracts.rs"]
 mod pass2_contracts;
 #[path = "cov/pass2_runtime.rs"]
