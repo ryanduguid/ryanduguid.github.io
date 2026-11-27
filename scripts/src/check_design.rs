@@ -1800,12 +1800,7 @@ pub fn update_baseline(root: &Path) -> Result<PathBuf, UpdateError> {
         },
     ) + "\n";
     // Path.write_text writes the platform's line ending.
-    let text = if cfg!(windows) {
-        text.replace('\n', "\r\n")
-    } else {
-        text
-    };
-    std::fs::write(&path, text)
+    std::fs::write(&path, crate::platform_text(&text))
         .map_err(|e| py::oserror_str(&e, &path.to_string_lossy(), py::OsStyle::Errno))?;
     Ok(path)
 }
@@ -1903,4 +1898,155 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     }
     say("design contracts passed")?;
     Ok(0)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn suffix_follows_pathlib_for_leading_and_trailing_dots() {
+        assert_eq!(suffix("page.html"), ".html");
+        assert_eq!(suffix(".hidden"), "");
+        assert_eq!(suffix("ends."), "");
+        assert_eq!(suffix("plain"), "");
+    }
+
+    #[test]
+    fn a_repeated_root_property_keeps_its_last_value() {
+        let css = ":root { --colour-ink: #111111; --COLOUR-INK: #EEEEEE ; }";
+        assert_eq!(
+            css_root_properties(css),
+            [("--colour-ink".to_owned(), "#eeeeee".to_owned())]
+        );
+        assert!(css_root_properties("body { --colour-ink: #fff; }").is_empty());
+    }
+
+    const OLED: &str = ":root {
+        color-scheme: dark;
+        --colour-canvas: #000000;
+        --colour-ink: #ffffff;
+        --colour-ink-soft: #cccccc;
+        --colour-alert: #ff6666;
+        --colour-stamp: #990024;
+        --colour-stamp-strong: #66023c;
+        --colour-stroke: #e7162f;
+        --colour-pass: #0f4b32;
+        --text-display: clamp(2rem, 5vw, 4rem);
+    }";
+
+    #[test]
+    fn oled_tokens_pass_and_name_each_broken_rule() {
+        assert_eq!(check_oled_tokens(OLED), Vec::<String>::new());
+        let scheme = format!("{OLED}\n@media (prefers-color-scheme: light) {{ }}");
+        assert_eq!(
+            check_oled_tokens(&scheme),
+            ["OLED theme must not contain a prefers-color-scheme override"]
+        );
+        let alert = OLED.replace("--colour-alert: #ff6666", "--colour-alert: red");
+        assert_eq!(
+            check_oled_tokens(&alert),
+            ["--colour-alert must be a six-digit colour"]
+        );
+        let display = OLED.replace("clamp(2rem", "clamp(3rem");
+        assert_eq!(
+            check_oled_tokens(&display),
+            ["display type minimum must fit the 320px viewport"]
+        );
+        let unclamped = OLED.replace("clamp(2rem, 5vw, 4rem)", "3rem");
+        assert_eq!(
+            check_oled_tokens(&unclamped),
+            ["display type minimum must fit the 320px viewport"]
+        );
+    }
+
+    #[test]
+    fn baseline_keys_iterate_as_python_does() {
+        let baseline = pyjson::loads(r#"{"list": ["a", 1], "text": "ab", "number": 2}"#).unwrap();
+        assert_eq!(
+            baseline_keys(&baseline, "list"),
+            Ok(vec![Json::str_obj("a"), pyjson::loads("1").unwrap()])
+        );
+        assert_eq!(
+            baseline_keys(&baseline, "text"),
+            Ok(vec![Json::str_obj("a"), Json::str_obj("b")])
+        );
+        assert_eq!(
+            baseline_keys(&baseline, "number"),
+            Err("TypeError: 'int' object is not iterable".into())
+        );
+        assert_eq!(baseline_keys(&baseline, "absent"), Ok(vec![]));
+    }
+
+    #[test]
+    fn text_alternate_swaps_the_suffix_and_refuses_an_empty_name() {
+        assert_eq!(
+            text_alternate("guides/./tax.html"),
+            Ok("guides/tax.txt".into())
+        );
+        assert_eq!(text_alternate("/a//b.html"), Ok("/a/b.txt".into()));
+        assert_eq!(text_alternate("readme"), Ok("readme.txt".into()));
+        assert_eq!(
+            text_alternate(""),
+            Err("ValueError: PosixPath('.') has an empty name".into())
+        );
+        assert_eq!(
+            text_alternate("/"),
+            Err("ValueError: PosixPath('/') has an empty name".into())
+        );
+    }
+
+    #[test]
+    fn document_delivery_refuses_a_non_string_page_key() {
+        let root =
+            Path::new(env!("OUT_DIR")).join(format!("site-tools-design-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&root);
+        std::fs::create_dir_all(&root).unwrap();
+        std::fs::write(
+            root.join(JEKYLL_CONFIG),
+            "asset_version: \"20261127a\"
+",
+        )
+        .unwrap();
+        let baseline = pyjson::loads(r#"{"json_ld": [["index.html"]]}"#).unwrap();
+        let result = check_document_delivery(&root, &baseline);
+        std::fs::remove_dir_all(&root).unwrap();
+        assert_eq!(result, Err("TypeError: unhashable type: 'list'".into()));
+    }
+
+    // Windows paths as pathlib's as_posix reports them, measured by the Windows
+    // coverage run.
+    #[cfg(windows)]
+    #[test]
+    fn windows_reports_and_derives_paths_with_forward_slashes() {
+        assert_eq!(
+            text_alternate(r"guides\tax.html"),
+            Ok("guides/tax.txt".into())
+        );
+        let dir = Path::new(env!("OUT_DIR"))
+            .join(format!("site-tools-design-win-{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+        let page = dir.join("page.html");
+        std::fs::write(
+            &page,
+            r#"<script type="application/ld+json">{"a": }</script>"#,
+        )
+        .unwrap();
+        let result = json_ld_digests(&page);
+        std::fs::remove_dir_all(&dir).unwrap();
+        let (digests, failures) = result.unwrap();
+        assert!(digests.is_empty());
+        let shown = format!("invalid JSON-LD block 1: {}: ", posix(&page));
+        assert!(!shown.contains('\\'), "{shown}");
+        assert_eq!(failures.len(), 1);
+        assert!(failures[0].starts_with(&shown), "{failures:?}");
+    }
+
+    #[test]
+    fn banned_screen_maps_the_letters_ignorecase_folds() {
+        assert!(banned_screen("a \u{17f}eamless flow"));
+        assert!(banned_screen("unloc\u{212a} it"));
+        assert!(banned_screen("del\u{131}ve? no: delve"));
+        assert!(!banned_screen("plain, careful words"));
+    }
 }
