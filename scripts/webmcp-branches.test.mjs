@@ -71,7 +71,8 @@ test('the PSI tool applies the business premises test from the premises answers'
 });
 
 test('the objection tool needs the first notice date for an amended assessment', async () => {
-  await assert.rejects(tools['objection-deadline'].execute({ decision: 'amended', reviewPeriodYears: '2', noticeDate: '2026-11-18' }),
+  await assert.rejects(tools['objection-deadline'].execute({ decision: 'amended', reviewPeriodYears: '2', noticeDate: '2026-11-18',
+    amendedNoticeDate: '2025-11-18' }),
     { message: 'firstNoticeDate is required for an amended assessment.' });
 });
 
