@@ -1353,4 +1353,37 @@ mod tests {
         .unwrap();
         assert_eq!(run(root.path(), &["--verify-live".into()]), Ok(0));
     }
+
+    #[test]
+    fn a_component_with_no_documented_release_has_no_page_to_check() {
+        let root = tempfile::tempdir().unwrap();
+        let component = json(r#"{"documented": null, "published": {"version": "1.0.0"}}"#);
+        assert_eq!(
+            check_component(root.path(), "engine", &component),
+            Ok(Vec::new())
+        );
+    }
+
+    #[test]
+    fn an_evaluation_without_a_label_keeps_its_version_visible() {
+        let root = tempfile::tempdir().unwrap();
+        let page = |text: &str| {
+            std::fs::write(
+                root.path().join("eval.html"),
+                format!("<main><p>{text}</p></main>"),
+            )
+            .unwrap();
+        };
+        let record = json(r#"{"evaluations": {"eval.html": {"version": "1.2.0"}}}"#);
+        page("Evaluated at release 1.2.0.");
+        assert_eq!(check_evaluations(root.path(), &record), Ok(Vec::new()));
+        page("Evaluated at an earlier release.");
+        assert_eq!(
+            check_evaluations(root.path(), &record),
+            Ok(vec![
+                "eval.html: preserved evaluation must keep release 1.2.0 visible as '1.2.0'"
+                    .to_owned()
+            ])
+        );
+    }
 }
