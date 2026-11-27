@@ -21,6 +21,7 @@ import { RECEIPT_YEARS, lumpSumArrears } from './lump-sum-arrears.mjs';
 import { SOLE_TRADER_YEARS, soleTraderSetAside } from './sole-trader.mjs';
 import { incomeTests } from './income-tests.mjs';
 import { CAP, CATCH_UP_YEARS, concessionalCatchUp } from './concessional-catch-up.mjs';
+import { downsizer } from './downsizer.mjs';
 import { superProjection } from './super-projection.mjs';
 
 /** @typedef {{inputs: string, rows: string[][], principal: number, note?: string}} Result */
@@ -455,6 +456,42 @@ function soleTraderResult(value, aud) {
 /** The earlier years the catch-up form asks about, from 2018-19 to the year before the latest it works. */
 const CATCH_UP_EARLIER = Object.keys(CAP).filter((year) => year < '2026-27').sort((a, b) => a.localeCompare(b));
 
+/** The form's message for each downsizer refusal it can meet. @param {string} year */
+const downsizerMessages = (year) => ({ 'input.age_invalid': 'Enter the age at the downsizer contribution in whole years, from 0 to 150.',
+  'input.date_invalid': 'Enter each downsizer day as a date.', 'input.decimal_unreadable': 'Enter each downsizer amount in dollars and cents.',
+  'input.amount_invalid': 'Enter each downsizer amount from 0 to 1,000,000,000,000, to the cent.',
+  'downsizer.date_outside_year': `Enter a downsizer contribution day in ${year}.`,
+  'downsizer.settlement_before_contract': 'The change of ownership cannot be before the sale contract.',
+  'downsizer.contribution_before_settlement': 'Enter a downsizer contribution made on or after the change of ownership.' });
+
+/** The downsizer rows and note, or none when no downsizer contribution is given.
+ * @param {(name: string) => string} value @param {string} year @param {(amount: number) => string} aud */
+function downsizerPart(value, year, aud) {
+  if (value('downsizer') !== 'yes') return { rows: [], notes: [], inputs: '' };
+  const age = value('downsizer-age').trim();
+  const amount = (/** @type {string} */ name) => value(`downsizer-${name}`).trim();
+  let r;
+  try {
+    r = downsizer({ downsizer_contribution: amount('amount'), downsizer_contribution_date: value('downsizer-made'),
+      downsizer_age: /^\d+$/.test(age) ? Number(age) : age, downsizer_contract_date: value('downsizer-contract'),
+      downsizer_settlement_date: value('downsizer-settled'), downsizer_longer_period_allowed: value('downsizer-longer') === 'yes',
+      downsizer_capital_proceeds: amount('proceeds'), downsizer_earlier_own: amount('earlier-own'),
+      downsizer_earlier_from_proceeds: amount('earlier-proceeds'), downsizer_conditions_met: value('downsizer-conditions') === 'yes' }, year);
+  } catch (error) {
+    const code = /** @type {{code?: string}} */ (error).code;
+    throw new Error(/** @type {Record<string, string>} */ (downsizerMessages(year))[String(code)] ?? /** @type {Error} */ (error).message);
+  }
+  const shown = (/** @type {string} */ key) => aud(Number(r.amounts[/** @type {keyof typeof r.amounts} */ (key)]));
+  const failed = r.tests.filter((test) => !test.met).map((test) => `${test.finding} (${test.authority})`);
+  return { rows: [['Downsizer contribution covered, outside both caps', shown('downsizer_covered')],
+    ['Downsizer contribution not covered', shown('downsizer_not_covered')],
+    ['Left of the $300,000 downsizer limit', shown('downsizer_cap_remaining')],
+    ['Left of the capital proceeds', shown('downsizer_proceeds_remaining')]],
+  notes: [r.eligible ? 'The downsizer contribution is covered up to the lesser of the 2 limits (s 292-102(3))'
+    : `The downsizer contribution is not covered: ${failed.join('; ')}`],
+  inputs: `, downsizer contribution ${aud(Number(amount('amount')))}` };
+}
+
 /** @param {(name: string) => string} value @param {(amount: number) => string} aud @returns {Result} */
 function catchUpResult(value, aud) {
   const earlier = [];
@@ -475,14 +512,17 @@ function catchUpResult(value, aud) {
       ['Excess with the proposed contribution', aud(/** @type {number} */ (r.excessWithProposal))]);
   }
   for (const row of r.years) rows.push([`${row.year} unused cap left, lapses after ${row.expiresAtEndOf}`, aud(row.remaining)]);
+  const downsized = downsizerPart(value, year, aud);
+  rows.push(...downsized.rows);
   const notes = Object.entries(r.earlierApplied).map(([to, from]) => `${to}’s excess used `
     + Object.entries(from).map(([source, amount]) => `${aud(amount)} of ${source}’s unused cap`).join(' and '));
   notes.push(r.carriesForward ? 'Unused cap applies earliest year first, and only to contributions above the general cap'
     : 'With a total super balance of $500,000 or more on 30 June before the year, no unused cap increases this year’s; '
       + 'the unused amounts still lapse after 5 years');
+  notes.push(...downsized.notes);
   return { inputs: `${year}, total super balance ${aud(Number(value('balance')))}, concessional contributions `
     + `${aud(Number(value('concessional')))}${proposed === '' ? '' : `, proposed ${aud(Number(proposed))}`}, earlier years `
-    + earlier.map((e) => `${e.year} ${aud(Number(e.contributions))}`).join(', '), principal: 2, rows,
+    + earlier.map((e) => `${e.year} ${aud(Number(e.contributions))}`).join(', ') + downsized.inputs, principal: 2, rows,
   note: notes.join('. ') };
 }
 
@@ -534,7 +574,7 @@ export function individualResult(kind, value, aud) {
 /** The engines and years assets/webmcp-tools.mjs offers as this page's WebMCP tools. */
 export const engines = { taxEstimate, takeHomePay, studyLoanRepayment, studyLoanYears: Object.keys(STUDY_LOAN_YEARS),
   soleTraderSetAside, lumpSumArrears, receiptYears: RECEIPT_YEARS, division293Tax, incomeTests,
-  concessionalCatchUp, catchUpYears: CATCH_UP_YEARS, incomeYears: INCOME_TAX_YEARS,
+  concessionalCatchUp, catchUpYears: CATCH_UP_YEARS, downsizer, incomeYears: INCOME_TAX_YEARS,
   payYears: Object.keys(SUPER_GUARANTEE), soleTraderYears: SOLE_TRADER_YEARS, division293Years: DIVISION_293_YEARS,
   bonusWithholding, salaryPackaging, novatedLease, packagingYears: PACKAGING_YEARS, novatedYears: NOVATED_YEARS,
   superProjection };

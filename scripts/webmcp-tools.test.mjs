@@ -764,6 +764,15 @@ test('concessional catch-up tool returns Sam’s example, enforces the $500k cap
     proposedContribution: '5000', earlierYears });
   assert.deepEqual([over.carriesForward, over.availableCap, over.excessConcessionalContributions, over.withProposal, over.excessWithProposal],
     [false, '30000.00', '10000.00', '45000.00', '15000.00']);
+  assert.equal(sam.downsizer, null);
+  const downsizer = { contribution: '300000', contributionDate: '2025-01-15', age: 67, contractDate: '2024-10-01', settlementDate: '2024-12-01',
+    longerPeriodAllowed: false, capitalProceeds: '250000', earlierOwn: '0', earlierFromProceeds: '0', conditionsMet: true };
+  const sold = await tool.execute({ incomeYear: '2024-25', totalSuperBalance: '450000', concessionalContributions: '97500', earlierYears, downsizer });
+  assert.deepEqual({ ...sold.downsizer, tests: sold.downsizer.tests.map((t) => [t.test, t.met]) }, { eligible: true, covered: '250000.00',
+    notCovered: '50000.00', capRemaining: '300000.00', proceedsRemaining: '250000.00',
+    tests: [['age', true], ['contract_date', true], ['within_90_days', true], ['stated_conditions', true]] });
+  await assert.rejects(tool.execute({ incomeYear: '2024-25', totalSuperBalance: '450000', concessionalContributions: '97500', earlierYears,
+    downsizer: { ...downsizer, contributionDate: '2025-07-01' } }), /not in the 2024-25 income year/);
   await assert.rejects(tool.execute({ incomeYear: '2024-25', totalSuperBalance: '450000', concessionalContributions: '30000',
     definedBenefit: true, earlierYears }), /Subdivision 291-C/);
   await assert.rejects(tool.execute({ incomeYear: '2024-25', totalSuperBalance: 450000, concessionalContributions: '30000', earlierYears }),

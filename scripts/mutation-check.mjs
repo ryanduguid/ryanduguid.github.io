@@ -48,6 +48,7 @@ const tba = { file: 'assets/transfer-balance.mjs', test: 'scripts/transfer-balan
 const excess = { ...tba, file: 'assets/excess-contributions.mjs' };
 const tbaPage = { ...tba, file: 'assets/transfer-balance-result.mjs' };
 const pm = { file: 'assets/pension-minimum.mjs', test: 'scripts/pension-minimum.test.mjs' };
+const dz = { file: 'assets/downsizer.mjs', test: 'scripts/downsizer.test.mjs' };
 const rd = { file: 'assets/residency-days.mjs', test: 'scripts/residency-days.test.mjs' };
 const money = { ...business, file: 'assets/money.mjs' };
 const division296 = { ...business, file: 'assets/division-296.mjs' };
@@ -1352,6 +1353,14 @@ const MUTATIONS = [
   { ...pm, name: 'pension age to 149', find: "whole(input.get('age'), 150)", replace: "whole(input.get('age'), 149)" },
   { ...pm, name: 'pension form counts to 29 June', find: 'Date.UTC(second, 5, 30)', replace: 'Date.UTC(second, 5, 29)' },
   { ...pm, name: 'pension page principal is the balance', find: 'rows, principal: 4, note', replace: 'rows, principal: 0, note' },
+  { ...dz, name: 'downsizer at 54', find: 'met: age >= 55', replace: 'met: age >= 54' },
+  { ...dz, name: 'downsizer 91 days', find: 'days <= 90 || longer', replace: 'days <= 91 || longer' },
+  { ...dz, name: 'downsizer longer period ignored', find: 'days <= 90 || longer', replace: 'days <= 90' },
+  { ...dz, name: 'downsizer contract before 1 July 2018', find: "contract >= '2018-07-01'", replace: "contract >= '2018-06-30'" },
+  { ...dz, name: 'downsizer $300,001 limit', find: 'PERSON_LIMIT = 30000000n', replace: 'PERSON_LIMIT = 30000100n' },
+  { ...dz, name: 'downsizer covers when ineligible', find: 'const covered = eligible ?', replace: 'const covered = true ?' },
+  { ...dz, name: 'downsizer proceeds limit ignored', find: 'least(least(made, ownRoom), proceedsRoom)', replace: 'least(made, ownRoom)' },
+  { ...dz, name: 'downsizer settlement after contribution taken', find: 'if (made < settled) {', replace: 'if (false) {' },
   { ...rd, name: 'residency one-half enough', find: 'Math.floor(yearDays / 2) + 1', replace: 'Math.floor(yearDays / 2)' },
   { ...rd, name: 'residency exception on the abode alone', find: 'usualOutside && !intends', replace: 'usualOutside' },
   { ...rd, name: 'residency departure day not counted', find: 'Math.min(to, last) - first + 1', replace: 'Math.min(to, last) - first' },
@@ -1387,6 +1396,7 @@ const SHARED = [
   'scripts/government-super-engine-differential.json',
   'scripts/transfer-balance-engine-differential.json',
   'scripts/pension-minimum-engine-differential.json',
+  'scripts/downsizer-engine-differential.json',
   'scripts/residency-days-engine-differential.json',
   'scripts/concessional-catch-up-engine-differential.json',
   'scripts/unused-leave-engine-differential.json',
@@ -1410,7 +1420,7 @@ const SHARED = [
 
 const TEST_FILES = [
   levy.test, business.test, individualTest,
-  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test,
+  'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, dz.test, rd.test,
   'scripts/net-medical-expenses.test.mjs',
   'scripts/foreign-income.test.mjs',
   'scripts/minors-income.test.mjs',
