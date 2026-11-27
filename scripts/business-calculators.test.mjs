@@ -8173,6 +8173,10 @@ test('the SMSF tax page rounds the actuary’s proportion as the command does, a
   // floor(120,000 x 0.33333...) with the product first rounded to 40 digits: 40,000 for 41 threes, 39,999 for fewer.
   assert.equal(smsf({ exempt_proportion: `0.${'9'.repeat(45)}` }).amounts.exempt_current_pension_income, '120000.00');
   assert.equal(smsf({ exempt_proportion: `0.${'9'.repeat(20)}` }).amounts.exempt_current_pension_income, '119999.00');
+  // A 41-digit product ending in 5 is a tie: half even rounds an odd 40-digit quotient up ($1 x 0.(40 nines)5 is 1.000...0,
+  // so $1 is exempt) and leaves an even one ($1 x 0.(39 nines)85 stays under 1, so $0 is exempt), as Python's Decimal does.
+  assert.equal(smsf({ unsegregated_income: '1', exempt_proportion: `0.${'9'.repeat(40)}5` }).amounts.exempt_current_pension_income, '1.00');
+  assert.equal(smsf({ unsegregated_income: '1', exempt_proportion: `0.${'9'.repeat(39)}85` }).amounts.exempt_current_pension_income, '0.00');
   assert.equal(smsf({ net_non_arms_length_income: '10000', general_expense_non_arms_length_income: '0.01' }).amounts.tax_on_taxable_income, '25800.00');
   assert.equal(smsf({ payg_instalments: '20558.99', refundable_offsets: '0', newly_registered: true }).amounts.amount_due_or_refundable, '1259.01');
   assert.deepEqual([smsf({ wound_up: true }).amounts.levy_adjustment_wound_up, smsf({ wound_up: true, newly_registered: true }).amounts.levy_adjustment_wound_up],
