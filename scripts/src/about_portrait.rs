@@ -206,8 +206,8 @@ fn crop_resize(image: &Grey, bounds: [i64; 4], width: usize, height: usize) -> G
     out
 }
 
-/// Gaussian blur; beyond the edges the image is mirrored, or zero when `zero_edges`.
-fn blur(image: &Grey, sigma: f64, zero_edges: bool) -> Grey {
+/// Gaussian blur; beyond the edges the image is mirrored.
+fn blur(image: &Grey, sigma: f64) -> Grey {
     let radius = (4.0 * sigma + 0.5) as isize;
     let kernel: Vec<f64> = (-radius..=radius)
         .map(|i| (-0.5 * (i as f64 / sigma).powi(2)).exp())
@@ -233,9 +233,6 @@ fn blur(image: &Grey, sigma: f64, zero_edges: bool) -> Grey {
                 for (k, w) in kernel.iter().enumerate() {
                     let mut j = i as isize + k as isize - radius;
                     if j < 0 || j >= len as isize {
-                        if zero_edges {
-                            continue;
-                        }
                         // Mirror including the edge pixel, as scipy's 'reflect' mode does.
                         let period = 2 * len as isize;
                         j = j.rem_euclid(period);
@@ -285,8 +282,8 @@ fn crop(head: &Head) -> Result<([i64; 4], usize), String> {
 /// Each sample pushed `amount` further from its surroundings within the figure,
 /// which a blur of `sigma` samples gives.
 fn local_contrast(value: &Grey, person: &Grey, sigma: f64, amount: f64) -> Grey {
-    let weighted = blur(&value.zip(person, |v, m| v * m), sigma, false);
-    let base = weighted.zip(&blur(person, sigma, false), |n, d| n / d.max(1e-6));
+    let weighted = blur(&value.zip(person, |v, m| v * m), sigma);
+    let base = weighted.zip(&blur(person, sigma), |n, d| n / d.max(1e-6));
     value.zip(&base, |v, b| v + amount * (v - b))
 }
 
@@ -771,6 +768,57 @@ mod tests {
         }
         outline.close();
         outline
+    }
+
+    fn grey(width: usize, data: Vec<f64>) -> Grey {
+        Grey {
+            width,
+            height: data.len() / width,
+            data,
+        }
+    }
+
+    #[test]
+    fn a_crop_past_the_photo_reads_zero_outside_it() {
+        // A head at the photo's edge gives a crop box that runs off it.
+        let image = grey(1, vec![1.0]);
+        let out = crop_resize(&image, [-1, 0, 1, 1], 2, 1);
+        assert_eq!(out.data, vec![0.0, 1.0]);
+    }
+
+    #[test]
+    fn a_head_with_no_figure_in_its_rows_is_refused() {
+        let value = grey(2, vec![0.2, 0.8, 0.4, 0.6]);
+        let empty = grey(2, vec![0.0; 4]);
+        let error = contrast(&value, &empty, 2).err().unwrap();
+        assert_eq!(error, "the crop holds none of the figure; check the cutout");
+        let person = grey(2, vec![1.0; 4]);
+        let error = contrast(&value, &person, 0).err().unwrap();
+        assert_eq!(error, "the crop holds none of the figure; check the cutout");
+    }
+
+    #[test]
+    fn a_figure_of_one_flat_tone_is_refused() {
+        let flat = grey(2, vec![0.5; 4]);
+        let person = grey(2, vec![1.0; 4]);
+        let error = contrast(&flat, &person, 2).err().unwrap();
+        assert_eq!(
+            error,
+            "the figure has no tonal range to draw; check the photo"
+        );
+    }
+
+    #[test]
+    fn markup_trims_blank_rows_and_refuses_a_blank_render() {
+        let blank = vec![(0, 0); 2 * COLUMNS];
+        assert_eq!(
+            markup(&blank).unwrap_err(),
+            "the render came out empty; check the photo"
+        );
+        let ink = GLYPHS.chars().nth(1).unwrap();
+        let mut picks = vec![(0, 0); 3 * COLUMNS];
+        picks[COLUMNS] = (4, 1);
+        assert_eq!(markup(&picks).unwrap(), ink.to_string());
     }
 
     #[test]
