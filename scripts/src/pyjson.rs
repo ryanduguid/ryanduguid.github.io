@@ -852,10 +852,10 @@ mod tests {
             err("[1e]"),
             "Expecting ',' delimiter: line 1 column 3 (char 2)"
         );
+        let unpaired = err(r#""\udc00""#);
         assert!(
-            err(r#""\udc00""#).starts_with(r"Unpaired surrogate in \uXXXX escape: line 1 column"),
-            "{}",
-            err(r#""\udc00""#)
+            unpaired.starts_with(r"Unpaired surrogate in \uXXXX escape: line 1 column"),
+            "{unpaired}"
         );
     }
 

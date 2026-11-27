@@ -329,6 +329,29 @@ fn skill_entry(fetch: Fetch, commit: &str, name: &str) -> Result<Json> {
     ]))
 }
 
+/// The manifest's `source` object: where the pinned skills come from.
+fn source_entry(commit: &str) -> Json {
+    let s = Json::str_obj;
+    Json::Object(vec![
+        (
+            "repository".into(),
+            Json::Str(format!("https://github.com/{REPOSITORY}")),
+        ),
+        ("release".into(), s(RELEASE)),
+        ("commit".into(), s(commit)),
+        ("license".into(), s("Apache-2.0")),
+        (
+            "install".into(),
+            Json::Array(
+                install_commands(commit)
+                    .into_iter()
+                    .map(Json::Str)
+                    .collect(),
+            ),
+        ),
+    ])
+}
+
 fn build(fetch: Fetch) -> Result<Json> {
     let commit = release_commit(fetch)?;
     let mut skills = Vec::new();
@@ -351,27 +374,7 @@ fn build(fetch: Fetch) -> Result<Json> {
             "skill_format".into(),
             s("https://agentskills.io/specification"),
         ),
-        (
-            "source".into(),
-            Json::Object(vec![
-                (
-                    "repository".into(),
-                    Json::Str(format!("https://github.com/{REPOSITORY}")),
-                ),
-                ("release".into(), s(RELEASE)),
-                ("commit".into(), Json::Str(commit.clone())),
-                ("license".into(), s("Apache-2.0")),
-                (
-                    "install".into(),
-                    Json::Array(
-                        install_commands(&commit)
-                            .into_iter()
-                            .map(Json::Str)
-                            .collect(),
-                    ),
-                ),
-            ]),
-        ),
+        ("source".into(), source_entry(&commit)),
         (
             "note".into(),
             s(concat!(
@@ -505,27 +508,29 @@ mod tests {
         assert_eq!(run_with(&root, &args("--write"), &fetch), Ok(0));
         let written = std::fs::read_to_string(manifest_path(&root)).unwrap();
         let manifest = pyjson::loads(&written).unwrap();
-        let skills = match manifest.get("skills") {
-            Some(Json::Array(skills)) => skills.clone(),
-            other => panic!("skills: {other:?}"),
+        let skill = |name: &str, description: &str, body: &str| {
+            Json::Object(vec![
+                ("name".into(), Json::str_obj(name)),
+                ("type".into(), Json::str_obj("skill-md")),
+                ("description".into(), Json::str_obj(description)),
+                (
+                    "url".into(),
+                    Json::Str(format!("{}{name}/SKILL.md", raw_prefix(SHA))),
+                ),
+                (
+                    "digest".into(),
+                    Json::Str(format!("sha256:{}", crate::sha256(body))),
+                ),
+            ])
         };
-        let names: Vec<_> = skills.iter().map(|s| s.get("name").cloned()).collect();
+        let alpha = "---\nname: alpha\ndescription: \"Says \\\"hi\\\"\"\n---\nBody\n";
+        let beta = "---\nname: beta\ndescription:   Plain words  \n---\n";
         assert_eq!(
-            names,
-            [Some(Json::str_obj("alpha")), Some(Json::str_obj("beta"))]
-        );
-        assert_eq!(
-            skills[0].get("description"),
-            Some(&Json::str_obj("Says \"hi\""))
-        );
-        assert_eq!(
-            skills[1].get("description"),
-            Some(&Json::str_obj("Plain words"))
-        );
-        let body = "---\nname: alpha\ndescription: \"Says \\\"hi\\\"\"\n---\nBody\n";
-        assert_eq!(
-            skills[0].get("digest"),
-            Some(&Json::Str(format!("sha256:{}", crate::sha256(body))))
+            manifest.get("skills"),
+            Some(&Json::Array(vec![
+                skill("alpha", "Says \"hi\"", alpha),
+                skill("beta", "Plain words", beta),
+            ]))
         );
         assert!(written.ends_with("}\n"));
         assert_eq!(check(&root), Ok(Vec::new()));
@@ -593,6 +598,11 @@ mod tests {
             let fetch = table(with(tree_url(), body));
             assert_eq!(build(&fetch), Err(expected.to_owned()), "{body}");
         }
+        let error = build(&table(with(tree_url(), "["))).unwrap_err();
+        assert!(
+            error.starts_with("json.decoder.JSONDecodeError: "),
+            "{error}"
+        );
     }
 
     #[test]
@@ -611,7 +621,7 @@ mod tests {
             build(&fetch),
             Err("ValueError: frontmatter has no description".into())
         );
-        let invalid = vec![(alpha.clone(), vec![0xff_u8])];
+        let invalid = [(alpha.clone(), vec![0xff_u8])];
         let fetch = move |url: &str| {
             invalid
                 .iter()
@@ -656,18 +666,11 @@ mod tests {
         let fetch = table(release());
         run_with(&root, &args("--write"), &fetch).unwrap();
         let path = manifest_path(&root);
-        let mut manifest = pyjson::loads(&std::fs::read_to_string(&path).unwrap()).unwrap();
-        if let Json::Object(fields) = &mut manifest {
-            for (key, value) in fields.iter_mut() {
-                if key == "skills" {
-                    *value = pyjson::loads(
-                        r#"[{"description": "a"}, {"description": "b"}, {"name": "c"}]"#,
-                    )
-                    .unwrap();
-                }
-            }
-        }
-        std::fs::write(&path, pyjson::dumps(&manifest, Dump::default())).unwrap();
+        // `skills` is the manifest's last key, so everything from it on is replaced.
+        let written = std::fs::read_to_string(&path).unwrap();
+        let (head, _) = written.split_once(r#""skills": "#).unwrap();
+        let skills = r#"[{"description": "a"}, {"description": "b"}, {"name": "c"}]"#;
+        std::fs::write(&path, format!("{head}\"skills\": {skills}\n}}\n")).unwrap();
         let failures = check(&root).unwrap();
         assert!(
             failures.contains(&"skill names repeat".to_owned()),

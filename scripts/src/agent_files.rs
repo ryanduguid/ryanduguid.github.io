@@ -690,19 +690,22 @@ fn verify_live(root: &Path, status: &dyn Fn(&str) -> Result<u16>) -> Result<u8> 
     Ok(u8::from(drift > 0))
 }
 
+/// The live status of one registry URL, as `--verify-live` reads it.
+fn live_status(url: &str) -> Result<u16> {
+    crate::fetch::status(
+        url,
+        "duguid.com.au agent-file check",
+        Duration::from_secs(30),
+    )
+}
+
 pub fn run(root: &Path, args: &[String]) -> Result<u8> {
     let flags = match PARSER.parse(args) {
         Parsed::Flags(flags) => flags,
         Parsed::Exit(code) => return Ok(code),
     };
     if flags.contains(&"--verify-live") {
-        return verify_live(root, &|url| {
-            crate::fetch::status(
-                url,
-                "duguid.com.au agent-file check",
-                Duration::from_secs(30),
-            )
-        });
+        return verify_live(root, &live_status);
     }
     let root = py::resolve(root);
     let findings = check(&root, &load_policy(&root)?)?;
@@ -740,6 +743,18 @@ mod tests {
         assert_eq!(split("  ").unwrap(), Vec::<String>::new());
         assert!(split("'open").is_err());
         assert!(split("end\\").is_err());
+    }
+
+    #[test]
+    fn live_status_reads_the_final_http_status() {
+        let dir = scratch("live");
+        std::fs::write(dir.join("present.txt"), "here").unwrap();
+        let listener = crate::serve_site::create_server(0).unwrap();
+        let port = listener.local_addr().unwrap().port();
+        std::thread::spawn(move || crate::serve_site::serve(listener, &dir));
+        let url = |path: &str| format!("http://{}:{port}/{path}", crate::serve_site::HOST);
+        assert_eq!(live_status(&url("present.txt")), Ok(200));
+        assert_eq!(live_status(&url("absent.txt")), Ok(404));
     }
 
     fn scratch(name: &str) -> PathBuf {
