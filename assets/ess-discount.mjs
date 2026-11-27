@@ -109,6 +109,7 @@ function sacrificed(i, a) {
 function sacrificeYears(all, assessed) {
   /** @type {Map<string, Dec>} */
   const totals = new Map();
+  /** @type {string[]} */
   const unsettled = [];
   all.forEach((i, n) => {
     const year = incomeYear(i.acquired);
