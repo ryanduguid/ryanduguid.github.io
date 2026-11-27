@@ -557,6 +557,8 @@ workExpensesTools({ workExpenses });
 governmentSuperTools({ governmentSuperAmounts });
 const businessSet = calculatorTools(calculate);
 void businessSet['asic-fees'].execute({ fee: 'company-share-capital' });
+void businessSet['instant-asset-write-off'].execute({ incomeYear: '2025-26', entity: 'small_business_simplified', acquired: '2025-11-18', firstUsed: '2025-11-18', cost: '6800', taxableUse: '0.8' });
+void businessSet['leave-provisions'].execute({ incomeYear: '2025-26', lines: [{ label: 'Annual leave', leave: 'annual', hours: '152', hourlyRate: '45.50', probability: '1', settledWithin12Months: true }] });
 void businessSet['ato-penalties-interest'].execute({ question: 'gic', incomeYear: '2025-26', amount: '10000', dueDate: '2025-11-21', toDate: '2026-06-30' });
 void businessSet['business-use'].execute({ cost: '20.15', businessUsePercent: '50' });
 void businessSet['fixed-fee'].execute({ hours: '18.5', rate: '95' });

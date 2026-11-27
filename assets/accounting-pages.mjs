@@ -593,6 +593,12 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'casual-overtime':
             result = calculate.casualOvertimeResult(value, aud);
             break;
+          case 'leave-provisions':
+            result = calculate.leaveProvisionsResult(value, aud);
+            break;
+          case 'instant-asset-write-off':
+            result = calculate.instantAssetWriteOffResult(value, aud);
+            break;
           case 'rd-tax-offset':
             result = calculate.rdTaxOffsetResult(value, aud);
             break;

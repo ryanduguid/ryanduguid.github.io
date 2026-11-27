@@ -100,6 +100,7 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_trust_streaming',
     'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow', 'check_tax_invoice',
+    'calculate_instant_asset_write_off', 'calculate_leave_provisions',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -1612,7 +1613,7 @@ test('rental property tool returns the page worked example, serialises borrowing
   }), /extra is not an input of this tool/);
 });
 
-test('super lump sum tax tool returns all 3 calculations and refuses mismatched or unknown inputs', async () => {
+test('super lump sum tax tool returns all 4 calculations and refuses mismatched or unknown inputs', async () => {
   const tool = tools['super-benefit-tax'];
   const tax = await tool.execute({
     calculation: 'tax', incomeYear: '2026-27', paymentDate: '2026-10-01', recipient: 'member',
@@ -1633,6 +1634,20 @@ test('super lump sum tax tool returns all 3 calculations and refuses mismatched 
   });
   assert.equal(wh.withholding, '13600.00');
   assert.doesNotThrow(() => JSON.stringify(wh));
+  const stream = await tool.execute({
+    calculation: 'stream', incomeYear: '2026-27', paymentDate: '2026-09-01', recipient: 'member', benefit: '1400',
+    interestValue: '1400', interestTaxFreeComponent: '300', untaxedElement: '0', dateOfBirth: '1968-01-15',
+    disabilitySuperannuationBenefit: true, tfnProvided: true, foreignResident: false, incomeStreamPeriod: 'fortnightly',
+    taxFreeThresholdClaimed: true, cappedDefinedBenefit: false,
+  });
+  assert.deepEqual([stream.treatment, stream.incomeStreamPeriod, stream.amounts.withholding_amount, stream.amounts.tax_offset,
+    stream.amounts.offset_adjustment, stream.withholding, stream.age],
+  ['income_stream_disability_under_60', 'fortnightly', '60.00', '165.00', '2.40', '2.00', 58]);
+  await assert.rejects(tool.execute({
+    calculation: 'withholding', incomeYear: '2026-27', paymentDate: '2026-10-01', recipient: 'member',
+    benefit: '1000', interestValue: '1000', interestTaxFreeComponent: '0', tfnProvided: true, foreignResident: false,
+    incomeStreamPeriod: 'weekly',
+  }), /incomeStreamPeriod does not apply/);
   const dasp = await tool.execute({
     calculation: 'dasp', incomeYear: '2026-27', taxFreeComponent: '25000', taxedElement: '17000',
     untaxedElement: '0', workingHolidayMakerContributions: false, unclaimedMoneyRollover: false,
@@ -1741,6 +1756,40 @@ test('every calculator include in _includes/calculators has a registered WebMCP 
   const registered = [...Object.keys(tools), ...Object.keys(individual)].sort();
   assert.deepEqual(registered, slugs);
   assert.equal(registered.length + 2, 83);
+});
+
+test('instant asset write-off tool returns Fiona’s computer and Daryl’s ute and refuses a budget day', async () => {
+  const tool = tools['instant-asset-write-off'];
+  const fiona = await tool.execute({ incomeYear: '2025-26', entity: 'small_business_simplified', acquired: '2025-11-18',
+    firstUsed: '2025-11-18', cost: '6800', taxableUse: '0.8' });
+  assert.deepEqual([fiona.writtenOff, fiona.taxablePurposeCost, fiona.deduction, fiona.costLimit, fiona.currency, fiona.source],
+    [true, '5440.00', '5440.00', '20000', 'AUD', 'https://duguid.com.au/tools/business-calculators/instant-asset-write-off/']);
+  const ute = await tool.execute({ incomeYear: '2025-26', entity: 'small_business_simplified', acquired: '2025-07-28',
+    firstUsed: '2025-07-28', cost: '40000', taxableUse: '0.4' });
+  assert.deepEqual([ute.writtenOff, ute.taxablePurposeCost, ute.deduction], [false, '16000.00', '0.00']);
+  await assert.rejects(tool.execute({ incomeYear: '2020-21', entity: 'small_business_simplified', acquired: '2020-10-06',
+    firstUsed: '2021-01-01', cost: '50000', taxableUse: '1' }), /7.30 pm on 6 October 2020/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', entity: 'small_business_simplified', acquired: '2025-11-18',
+    firstUsed: '2025-11-18', cost: '6800', taxableUse: '0.8', extra: 1 }), /extra is not an input of this tool/);
+});
+
+test('leave provisions tool returns the page example and refuses a defined benefit line type and a short-term line with long-term fields', async () => {
+  const tool = tools['leave-provisions'];
+  const annual = { label: 'Annual leave', leave: 'annual', hours: '152.00', hourlyRate: '45.50', probability: '1', settledWithin12Months: true };
+  const lines = [annual,
+    { label: 'Long service leave, vested', leave: 'long_service', hours: '400.00', hourlyRate: '52.00', probability: '1', settledWithin12Months: false,
+      yearsToSettlement: 2, salaryGrowth: '0.03', discountRate: '0.045', canDeferSettlement: false },
+    { label: 'Long service leave, unvested', leave: 'long_service', hours: '120.00', hourlyRate: '38.00', probability: '0.4', settledWithin12Months: false,
+      yearsToSettlement: 5, salaryGrowth: '0.035', discountRate: '0.0425', canDeferSettlement: true }];
+  const r = await tool.execute({ incomeYear: '2025-26', lines });
+  assert.deepEqual([r.annualLeaveProvision, r.longServiceLeaveProvision, r.totalProvision, r.currentProvision, r.nonCurrentProvision, r.source],
+    ['6916.00', '21966.49', '28882.49', '27123.16', '1759.33', 'https://duguid.com.au/tools/business-calculators/leave-provisions/']);
+  assert.deepEqual(r.lines[2], { label: 'Long service leave, unvested', leave: 'long_service', category: 'other_long_term', valueAtCurrentRate: '4560.00',
+    projectedValue: '5415.85', provision: '1759.33', classification: 'non_current' });
+  assert.equal(r.lines[0].projectedValue, null);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', lines: [{ ...annual, leave: 'sick' }] }), /leave/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', lines: [{ ...annual, yearsToSettlement: 2 }] }), /years_to_settlement is for a line not expected/);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', lines: [{ ...annual, probability: '0.1234567' }] }), /at most 6 places/);
 });
 
 test('business days tool returns the page worked example, matches holiday JSON and refuses mismatched or invalid inputs', async () => {

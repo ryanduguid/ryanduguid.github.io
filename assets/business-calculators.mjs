@@ -663,6 +663,8 @@ export { companyTax, companyTaxResult } from './company-tax.mjs';
 export { gstMarginScheme, gstMarginSchemeResult } from './gst-margin-scheme.mjs';
 export { lowValuePool, smallBusinessPool, capitalWorks, depreciationPoolsResult, poolFormInput, poolInputsText, POOL_YEARS } from './depreciation-pools.mjs';
 export { casualOvertime, casualOvertimeResult, casualOvertimeFormInput, casualOvertimeInputsText, CASUAL_OVERTIME_PAYDAYS } from './casual-overtime.mjs';
+export { leaveProvisions, leaveProvisionsResult, leaveFormInput, leaveInputsText, LEAVE_YEARS, LEAVE_ROWS } from './leave-provisions.mjs';
+export { instantAssetWriteOff, instantAssetWriteOffResult, iawoFormInput, iawoInputsText, IAWO_YEARS } from './instant-asset-write-off.mjs';
 export { rdTaxOffset, rdTaxOffsetResult, rdFormInput, rdInputsText, RD_YEARS } from './rd-tax-offset.mjs';
 export { contractorEmployee, contractorEmployeeResult, contractorFormInput, contractorInputsText, CONTRACTOR_YEARS } from './contractor-employee.mjs';
 export { abnCheck, taxInvoice, taxInvoiceResult, taxInvoiceFormInput, taxInvoiceInputsText, invoiceAsHtml, TREATMENTS, MAX_LINES } from './tax-invoice.mjs';
