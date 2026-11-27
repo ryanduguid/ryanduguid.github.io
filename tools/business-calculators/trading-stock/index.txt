@@ -59,10 +59,10 @@ Cost and the lowest value: a $6,000 decrease, the choice not open | 2025-26; a s
 A small business within $5,000 chooses not to account for the change | 2025-26; a small business entity; opening value $36,000.00; 2 items on hand; choosing not to account for the change | Closing value $36,000.00, assessable increase $0.00, deduction $0.00
 An obsolescence value below all 3: an increase | 2025-26; a small business entity; opening value $20,000.00; 2 items on hand | Closing value $27,000.00, assessable increase $7,000.00, deduction $0.00
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/

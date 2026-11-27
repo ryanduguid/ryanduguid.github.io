@@ -84,7 +84,7 @@ A sale to an associate is refused | Freehold, bought under the margin scheme, so
 A valuation for property acquired after 1 July 2000 is refused | Freehold, bought under the margin scheme; price $190,000.00 GST-inclusive, valuation $400,000.00, 200,000 of 2,000,000 | Refused: an approved valuation sets the margin only for property held since before 1 July 2000 (subsection 75-10(3)); use the consideration you paid for property acquired later
 A part larger than the whole is refused | Freehold, bought under the margin scheme; price $190,000.00 GST-inclusive, cost $400,000.00, 2,000,001 of 2,000,000 | Refused: this sale’s part cannot be more than the whole it is part of
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -96,7 +96,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 - GST calculator: https://duguid.com.au/tools/business-calculators/gst/
 - Transfer duty calculator: https://duguid.com.au/tools/business-calculators/transfer-duty/
 - GST and BAS questions: https://duguid.com.au/tools/accounting-questions/gst-bas/

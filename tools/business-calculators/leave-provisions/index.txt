@@ -96,11 +96,11 @@ A probability to 7 decimal places is refused | 2025-26; Long service leave: long
 Sick leave is outside the worksheet | 2025-26; Annual leave: annual leave, 152 hours at $45.50, probability 100%, settled within 12 months | Refused: line 1: leave must be annual or long_service; sick, parental, jury and military service leave, long-term disability and termination benefits are outside this worksheet (AASB 119 paras 17, 18, 157 and 159)
 A defined benefit plan is refused | 2025-26; Annual leave: annual leave, 152 hours at $45.50, probability 100%, settled within 12 months; Long service leave, vested: long service leave, 400 hours at $52.00, probability 100%, settled in 2 years, salary growth 3%, discount rate 4.5%, cannot defer settlement; Long service leave, unvested: long service leave, 120 hours at $38.00, probability 40%, settled in 5 years, salary growth 3.5%, discount rate 4.25%, can defer settlement | Refused: a defined benefit plan or other post-employment benefit is measured under AASB 119 paras 26 to 152, which this worksheet does not apply
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
 - australian-accounting: https://github.com/ryanduguid/australian-accounting
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/

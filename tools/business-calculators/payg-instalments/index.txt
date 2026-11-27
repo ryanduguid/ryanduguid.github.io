@@ -54,7 +54,7 @@ A new rate at T2 does not decide the credit | Varied rate from estimated tax $80
 A first instalment with earlier instalments is refused | Varied amount, instalment 1; estimated tax $8,000.00, earlier instalments $1,000.00, credits $0.00 | Refused: the first instalment of the year has no earlier instalments
 A credit for the second instalment is refused | Varied amount, instalment 2; estimated tax $8,000.00, earlier instalments $2,000.00, credits $500.00 | Refused: the first and second instalments of the year add back no credits
 
-One of the sixty-three business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 ## Related
 
@@ -66,7 +66,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ## Links
 
-- sixty-three business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
 - 2026-27 BAS due dates: https://duguid.com.au/tools/bas-due-dates/
 - GST and BAS questions: https://duguid.com.au/tools/accounting-questions/gst-bas/
 - Sole trader tax set-aside calculator: https://duguid.com.au/tools/individual-tax/sole-trader/

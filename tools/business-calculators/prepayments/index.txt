@@ -55,10 +55,10 @@ A larger business’s 12 months of services from 1 March: apportioned by days | 
 A small business entity: the 12-month rule allows it all now | 2025-26; a small business entity; $24,000.00 business expenditure incurred 2026-03-01 for services from 2026-03-01 to 2027-02-28 | Deduction in the expenditure year $24,000.00, deduction in later years $0.00
 An individual’s non-business prepayment for 2 years: apportioned | 2025-26; an individual; $3,000.00 non-business expenditure incurred 2026-03-01 for services from 2026-03-01 to 2028-02-29 | Deduction in the expenditure year $500.68, deduction in later years $2,499.32
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/

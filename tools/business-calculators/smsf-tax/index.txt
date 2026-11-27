@@ -55,10 +55,10 @@ A fund with a 25% actuary’s proportion and franking credits: $16,559 due | 202
 Non-arm’s length income taxed at 45%, a newly registered fund paying the levy twice | 2025-26; assessable contributions $60,000.00, net non-arm’s length income $10,000.00, other income $120,000.00, deductions $8,000.00, refundable offsets $3,000.00, PAYG instalments $2,000.00; actuary’s proportion 0.25; newly registered | Taxable income $152,000.00, tax payable $22,800.00, amount due or refundable $21,318.00
 A fund wholly in pension phase with franking credits: a refund | 2025-26; other income $120,000.00, refundable offsets $3,000.00; actuary’s proportion 1 | Taxable income $0.00, tax payable $0.00, amount due or refundable -$2,741.00
 
-One of the fifty-eight business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+One of the sixty-nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
 ## Links
 
-- fifty-eight business calculators: https://duguid.com.au/tools/business-calculators/
+- sixty-nine business calculators: https://duguid.com.au/tools/business-calculators/
