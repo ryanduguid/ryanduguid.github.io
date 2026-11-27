@@ -2193,6 +2193,13 @@ test('employee share scheme tool returns the page example, a deferred right and 
   const lost = await tool.execute({ incomeYear: '2025-26', interests: [{ kind: 'share', acquired: '2023-09-01',
     forfeiture: { cause: 'ceased_employment', protectsAgainstFall: false, considerationReceived: false, amountIncluded: '400', yearIncluded: '2023-24' } }] });
   assert.deepEqual(lost.forfeitureExclusions, { '2023-24': '400.00' });
+  // Acquired after 30 June 2022 with no day passed: no cessation fact, no value asked for, the 15-year point.
+  const pending = await tool.execute({ incomeYear: '2025-26', interests: [{ ...shares, acquired: '2023-09-01',
+    conditions: { ...shares.conditions, realRiskOfForfeiture: true }, deferral: { costBase: '0' } }] });
+  assert.deepEqual([pending.interests[0].deferred_taxing_point, pending.interests[0].value_at_taxing_point, pending.amounts.assessable_discount],
+    ['2038-08-31', null, '0.00']);
+  await assert.rejects(tool.execute({ incomeYear: '2025-26', interests: [{ kind: 'share', acquired: '2025-09-01', consideration: '0',
+    marketValue: '2500' }] }), { code: 'input.missing_field', message: /conditions: employed is required/ });
   await assert.rejects(tool.execute({ incomeYear: '2025-26', interests: [shares], scopeConfirmed: false }), { code: 'scope.not_confirmed' });
   await assert.rejects(tool.execute({ incomeYear: '2025-26', interests: [shares] }), { code: 'input.missing_field' });
   await assert.rejects(tool.execute({ incomeYear: '2019-20', interests: [shares] }), /incomeYear does not match/);
