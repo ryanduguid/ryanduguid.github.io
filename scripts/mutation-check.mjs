@@ -926,7 +926,7 @@ const MUTATIONS = [
   { ...lct, name: 'LCT refund for a car that is not refund-eligible', find: '!l.eligible ? 0n :', replace: 'false ? 0n :' },
   { ...lct, name: 'LCT 2 primary producer refunds pass', find: 'if (primary.length > 1) {', replace: 'if (primary.length > 2) {' },
   { ...lct, name: 'LCT a refund before 1 July 2019 passes', find: 'if (supplyYear(fields, n, year) < \'2019-20\') {', replace: 'if (supplyYear(fields, n, year) < \'2012-13\') {' },
-  { ...lct, name: 'LCT an adjustment without its supply year takes the period', find: '&& !Object.hasOwn(fields, \'supplied_in\')) {\n    refuse(\'input.missing_field\'', replace: '&& false) {\n    refuse(\'input.missing_field\'' },
+  { ...lct, name: 'LCT an adjustment without its supply year takes the period', find: '=== \'refund\') && !Object.hasOwn(fields, \'supplied_in\')) {', replace: '=== \'refund\') && false) {' },
   { ...lct, name: 'LCT a refund without its supply year takes the period', find: "kind === 'change_of_use_increasing' || kind === 'refund') && !Object", replace: "kind === 'change_of_use_increasing') && !Object" },
   { ...fhog, name: 'FHOG NSW bought cap at $750,000', find: 'amount: 10000, bought: 600000, built: 750000 }', replace: 'amount: 10000, bought: 750000, built: 750000 }' },
   { ...fhog, name: 'FHOG Queensland pays $15,000', find: 'amount: 30000, bought: 749999', replace: 'amount: 15000, bought: 749999' },
