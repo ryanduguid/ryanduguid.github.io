@@ -110,9 +110,9 @@ function money(value) {
   return v;
 }
 
-/** Each input as the command reads it: unknown keys first (in key order), then each input in order, a decimal string parsed. @param {Record<string, unknown>} call */
+/** Each input as the command reads it: unknown keys first (in byte order), then each input in order, a decimal string parsed. @param {Record<string, unknown>} call */
 function readInputs(call) {
-  const unknown = Object.keys(call).sort().find((key) => !BASE.includes(key) && !OPTIONAL.includes(key));
+  const unknown = Object.keys(call).sort((a, b) => Number(a > b) - Number(a < b)).find((key) => !BASE.includes(key) && !OPTIONAL.includes(key));
   if (unknown) refuse('input.field_unknown', `${unknown} is not an input of non-resident-withholding`);
   /** @type {Record<string, unknown>} */
   const read = {};
