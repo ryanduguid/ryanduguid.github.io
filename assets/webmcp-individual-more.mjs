@@ -22,7 +22,9 @@ const CATCH_UP_DESCRIPTION = 'Carry-forward unused concessional super contributi
   + 'available cap, cap applied, remaining cap, any excess, any proposed contribution\'s effect and each year\'s remaining '
   + 'unused cap with the year after which it lapses. Requires a total super balance below $500,000 on 30 June before the year '
   + 'to carry forward unused cap. Refuses defined benefit interests (Subdivision 291-C), gaps or missing years from the '
-  + 'previous 5 years. Sources on ';
+  + 'previous 5 years. An optional downsizer input tests one downsizer contribution under s 292-102: age 55 or more, a '
+  + 'contract from 1 July 2018, within 90 days of the change of ownership unless allowed longer, covered to the lesser of '
+  + '$300,000 less amounts already covered and the capital proceeds less amounts already covered from them. Sources on ';
 
 const ARREARS_DESCRIPTION = 'Lump sum payment in arrears tax offset in AUD for a 2024-25, 2025-26 or 2026-27 year of receipt '
   + 'under ITAA 1936 Part III Division 17 Subdivision AB (ss 159ZR to 159ZRD), for an Australian resident for the whole of the '
@@ -99,12 +101,26 @@ export function studyLoanTool(kit, studyLoanRepayment, studyLoanYears) {
   });
 }
 
+/** The downsizer test of ITAA 1997 s 292-102 for the tool's optional downsizer input.
+ * @param {typeof import('./downsizer.mjs').downsizer} downsizer @param {Record<string, unknown>} given @param {string} year */
+function downsizerOutput(downsizer, given, year) {
+  const r = downsizer({ downsizer_contribution: given.contribution, downsizer_contribution_date: given.contributionDate,
+    downsizer_age: given.age, downsizer_contract_date: given.contractDate, downsizer_settlement_date: given.settlementDate,
+    downsizer_longer_period_allowed: given.longerPeriodAllowed, downsizer_capital_proceeds: given.capitalProceeds,
+    downsizer_earlier_own: given.earlierOwn, downsizer_earlier_from_proceeds: given.earlierFromProceeds,
+    downsizer_conditions_met: given.conditionsMet }, year);
+  return { eligible: r.eligible, covered: r.amounts.downsizer_covered, notCovered: r.amounts.downsizer_not_covered,
+    capRemaining: r.amounts.downsizer_cap_remaining, proceedsRemaining: r.amounts.downsizer_proceeds_remaining,
+    tests: r.tests.map(({ test, met, finding }) => ({ test, met, finding })) };
+}
+
 /**
  * @param {ToolKit} kit
  * @param {typeof import('./concessional-catch-up.mjs').concessionalCatchUp} concessionalCatchUp
  * @param {string[]} catchUpYears
+ * @param {typeof import('./downsizer.mjs').downsizer} downsizer
  */
-export function concessionalCatchUpTool(kit, concessionalCatchUp, catchUpYears) {
+export function concessionalCatchUpTool(kit, concessionalCatchUp, catchUpYears, downsizer) {
   const { text, choice, record, tool, dollars, INDIVIDUAL } = kit;
   return tool({
     name: 'calculate_concessional_catch_up',
@@ -125,8 +141,22 @@ export function concessionalCatchUpTool(kit, concessionalCatchUp, catchUpYears) 
           totalSuperBalance: text('amount', 'Total super balance on 30 June before that year in AUD; required if that year\'s contributions exceeded its cap.'),
         }, ['year', 'contributions']),
       },
+      downsizer: record({
+        contribution: text('amount', 'Downsizer contribution in AUD with at most 2 decimal places.'),
+        contributionDate: text('date', 'Day the contribution was made, YYYY-MM-DD inside incomeYear.'),
+        age: { type: 'integer', minimum: 0, maximum: 150, description: 'Age in whole years on the contribution day.' },
+        contractDate: text('date', 'Day the sale contract was entered into, YYYY-MM-DD.'),
+        settlementDate: text('date', 'Day ownership changed, YYYY-MM-DD, on or after contractDate and on or before contributionDate.'),
+        longerPeriodAllowed: { type: 'boolean', description: 'true when the Commissioner allowed longer than 90 days after the change of ownership.' },
+        capitalProceeds: text('amount', 'Capital proceeds from the disposal in AUD.'),
+        earlierOwn: text('amount', 'The person’s contributions already covered as downsizer contributions, in AUD.'),
+        earlierFromProceeds: text('amount', 'Contributions already covered from these proceeds, by the person or their spouse, in AUD.'),
+        conditionsMet: { type: 'boolean', description: 'true when the caller has checked the other conditions of ITAA 1997 s 292-102(1) and (2).' },
+      }, ['contribution', 'contributionDate', 'age', 'contractDate', 'settlementDate', 'longerPeriodAllowed', 'capitalProceeds',
+        'earlierOwn', 'earlierFromProceeds', 'conditionsMet']),
     }, ['incomeYear', 'totalSuperBalance', 'concessionalContributions', 'earlierYears']),
-    run({ incomeYear, totalSuperBalance, concessionalContributions, proposedContribution, definedBenefit = false, earlierYears }) {
+    run({ incomeYear, totalSuperBalance, concessionalContributions, proposedContribution, definedBenefit = false, earlierYears,
+      downsizer: given }) {
       const earlier = earlierYears.map((/** @type {{year: string, contributions: string, totalSuperBalance?: string}} */ e) => ({
         year: e.year, contributions: e.contributions, ...(e.totalSuperBalance === undefined ? {} : { balance: e.totalSuperBalance }),
       }));
@@ -146,6 +176,7 @@ export function concessionalCatchUpTool(kit, concessionalCatchUp, catchUpYears) 
         earlierApplied: Object.fromEntries(Object.entries(r.earlierApplied).map(([k, v]) => [k, moneyMap(v)])),
         applied: moneyMap(r.applied),
         years: r.years.map((y) => ({ year: y.year, remaining: dollars(y.remaining), expiresAtEndOf: y.expiresAtEndOf })),
+        downsizer: given === undefined ? null : downsizerOutput(downsizer, given, incomeYear),
         currency: 'AUD', source: `${INDIVIDUAL}concessional-catch-up/`,
       };
     },

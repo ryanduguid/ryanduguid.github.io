@@ -34,6 +34,7 @@ import { excessFormInput, tbaFormInput, transferBalanceResult } from '../assets/
 import './transfer-balance.test.mjs';
 import { pensionMinimum, pensionMinimumFormInput, pensionMinimumResult } from '../assets/pension-minimum.mjs';
 import './pension-minimum.test.mjs';
+import './downsizer.test.mjs';
 import { residencyDays, residencyDaysResult, residencyFormPresence } from '../assets/residency-days.mjs';
 import './residency-days.test.mjs';
 import { foreignIncomeFixture, foreignIncomeFormTests } from './foreign-income.test.mjs';
