@@ -5,7 +5,7 @@
 // helpers against Python's decimal module (the commands' arithmetic), and each page's form, wording and refusals
 // against the commands' recorded results in the engine-differential fixtures.
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import test from 'node:test';
 import * as calculations from '../assets/business-calculators.mjs';
 import { field, parseDate, parseDecimal, readFields } from '../assets/aa-command.mjs';
@@ -14,9 +14,19 @@ import * as exact from '../assets/exact-decimal.mjs';
 import { decText, parseDec } from '../assets/non-resident-withholding.mjs';
 import { calculatorTools } from '../assets/webmcp-tools.mjs';
 
+const require = createRequire(import.meta.url);
+const FIXTURES = new Map([
+  ['motor-vehicle-duty', () => require('./motor-vehicle-duty-engine-differential.json').cases],
+  ['insurance-duty', () => require('./insurance-duty-engine-differential.json').cases],
+  ['vic-property-taxes', () => require('./vic-property-taxes-engine-differential.json').cases],
+  ['non-resident-withholding', () => require('./non-resident-withholding-engine-differential.json').cases],
+]);
 const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
-const form = (values) => (name) => values[name] ?? '';
-const fixture = (slug) => JSON.parse(readFileSync(new URL(`./${slug}-engine-differential.json`, import.meta.url), 'utf8')).cases;
+const form = (values) => {
+  const entries = new Map(Object.entries(values));
+  return (name) => entries.get(name) ?? '';
+};
+const fixture = (slug) => FIXTURES.get(slug)();
 const codeOf = (run) => {
   try {
     run();
@@ -88,7 +98,7 @@ test('the motor vehicle duty page shows the command’s duty for every recorded 
     const r = calculations.motorVehicleDutyResult(form(values), aud);
     assert.deepEqual(r.rows[r.principal], ['Motor vehicle duty', aud(Number(c.amounts.duty))], c.source);
     assert.equal(r.rows.length === 3, Boolean(c.rates.rate_applied_percent), c.source);
-    assert.match(r.inputs, new RegExp(`^${x.jurisdiction.toUpperCase()}; passenger vehicle; `), c.source);
+    assert.ok(r.inputs.startsWith(`${x.jurisdiction.toUpperCase()}; passenger vehicle; `), c.source);
   }
   assert.ok(shown >= 100, `${shown}`);
   assert.equal(codeOf(() => calculations.motorVehicleDuty({ jurisdiction: 'act', vehicle_class: 'passenger', dutiable_value: '30000', duty_date: '2026-09-01',
@@ -115,7 +125,7 @@ test('the insurance duty page shows the command’s duty for every recorded case
     const r = calculations.insuranceDutyResult(form(values), aud);
     assert.deepEqual(r.rows[r.principal], ['Insurance duty', aud(Number(c.amounts.duty))], c.source);
     assert.equal(r.rows.length === 3, Boolean(c.rates.rate_percent), c.source);
-    if (c.rates.abolished_from) assert.match(r.note, new RegExp(`; abolished from ${c.rates.abolished_from}$`), c.source);
+    if (c.rates.abolished_from) assert.ok(r.note.endsWith(`; abolished from ${c.rates.abolished_from}`), c.source);
   }
   assert.ok(shown >= 100, `${shown}`);
   assert.match(calculations.insuranceDutyInputsText({ jurisdiction: 'vic', class: 'unknown', premium: '1', effected_date: 'd' }, aud), /^VIC unknown; /);
@@ -178,7 +188,7 @@ test('the non-resident withholding page shows the command’s amounts for every 
   // The command quotes a bad period with Python's repr: repr(True) is True, repr(2026) is 2026.
   const call = { payment_type: 'interest', payment: '1', treaty_rate: null, exempt: false, already_withheld: '0', scope_confirmed: true };
   for (const [year, quoted] of [[true, 'True'], [false, 'False'], [2026, '2026'], [null, 'None']]) {
-    assert.throws(() => calculations.nonResidentWithholding({ ...call, year }), { message: new RegExp(`^Unsupported period ${quoted}; `) });
+    assert.throws(() => calculations.nonResidentWithholding({ ...call, year }), (error) => error.message.startsWith(`Unsupported period ${quoted}; `));
   }
   assert.equal(codeOf(() => calculations.nonResidentWithholding({ ...call, year: '2025-26', payment: '1'.repeat(8193) })), 'input.decimal_too_long');
   assert.equal(codeOf(() => calculations.nonResidentWithholding({ ...call, year: '2025-26', payment_type: 5 })), codeOf(() => calculations.nonResidentWithholding({ ...call, year: '2025-26', payment_type: 'x' })));
@@ -193,7 +203,8 @@ test('foreign resident capital gains withholding refuses what the command refuse
   // repr() of JSON values: None, True, False, 'a', "it's", 'a\\b', [1, 'a'], {'k': [None, False]}, 1.5.
   for (const [year, quoted] of [[null, 'None'], [true, 'True'], [false, 'False'], ['a', "'a'"], ["it's", '"it\'s"'], ['a\\b', "'a\\\\b'"],
     [[1, 'a'], "[1, 'a']"], [{ k: [null, false] }, "{'k': [None, False]}"], [1.5, '1.5']]) {
-    assert.throws(() => calculations.foreignResidentWithholding({ ...sale, year }), { code: 'period.unsupported', message: new RegExp(`^Unsupported period ${quoted.replace(/[[\]{}\\.]/g, '\\$&')}; `) });
+    assert.throws(() => calculations.foreignResidentWithholding({ ...sale, year }),
+      (error) => error.code === 'period.unsupported' && error.message.startsWith(`Unsupported period ${quoted}; `));
   }
   for (const call of [null, [], 'x']) assert.equal(codeOf(() => calculations.foreignResidentWithholding(call)), 'input.not_object');
   assert.equal(code({ market_value: '1'.repeat(8193) }), 'input.decimal_too_long');
@@ -247,8 +258,12 @@ test('the partnership page shows net income, the shares of exempt and non-assess
 });
 
 test('the trust loss page words each test’s state and the deduction as the command decides them', () => {
-  const words = { 'false/true': 'Does not apply', 'false/false': 'Does not apply', 'false/null': 'Does not apply', 'null/true': 'Passed; whether it applies not stated',
-    'true/true': 'Passed', 'null/false': 'Failed; whether it applies not stated', 'true/false': 'Failed', 'true/null': 'Not established', 'null/null': 'Not established' };
+  const words = new Map([
+    ['false/true', 'Does not apply'], ['false/false', 'Does not apply'], ['false/null', 'Does not apply'],
+    ['null/true', 'Passed; whether it applies not stated'], ['true/true', 'Passed'],
+    ['null/false', 'Failed; whether it applies not stated'], ['true/false', 'Failed'],
+    ['true/null', 'Not established'], ['null/null', 'Not established'],
+  ]);
   const fields = ['stake', 'alternative', 'income-now', 'income-before', 'capital-now', 'capital-before', 'pattern', 'previously-failed', 'over-50', 'maintained',
     'control', 'injection'];
   const seen = new Set();
@@ -263,8 +278,9 @@ test('the trust loss page words each test’s state and the deduction as the com
             const r = calculations.trustLossTests(calculations.trustLossFormInput(form(values)));
             const page = calculations.trustLossResult(form(values));
             r.tests.forEach((t, i) => {
-              assert.equal(page.rows[i][1], words[`${t.applies}/${t.passed}`]);
-              seen.add(page.rows[i][1]);
+              const [, state] = page.rows.at(i);
+              assert.equal(state, words.get(`${t.applies}/${t.passed}`));
+              seen.add(state);
             });
             assert.equal(page.rows[page.principal][1], r.deductible === true ? 'Yes' : r.deductible === false ? 'No' : 'Not established');
             deductible.add(r.deductible);
