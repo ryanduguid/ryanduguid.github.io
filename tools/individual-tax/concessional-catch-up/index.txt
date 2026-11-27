@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/individual-tax/concessional-catch-up/
 
 # Concessional catch-up calculator
 
-The concessional cap with the previous 5 years' unused cap carried forward, for 2024-25 to 2026-27.
+The concessional cap with the previous 5 years' unused cap carried forward, and a downsizer contribution test, for 2024-25 to 2026-27.
 
 Published 19 November 2026. Last checked 19 November 2026.
 
@@ -30,6 +30,10 @@ Year | Concessional contributions (AUD) | Total super balance on the 30 June bef
 
 Concessional contributions are your employer’s contributions, including salary sacrifice, and personal contributions you claim a deduction for, as your fund reports them on ATO online services.
 
+Was a downsizer contribution made in the year? No Yes
+
+A downsizer contribution from the sale of a home does not count towards either cap. Answer yes to test one under section 292-102.
+
 Calculate Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2024-25, total super balance $450,000.00, concessional contributions $97,500.00, earlier years 2019-20 $11,000.00, 2020-21 $12,000.00, 2021-22 $13,000.00, 2022-23 $14,000.00, 2023-24 $15,000.00. General concessional cap $30,000.00 Unused cap from the previous 5 years $67,500.00 Concessional cap available $97,500.00 Carried-forward cap applied $67,500.00 Cap left after this year’s contributions $0.00 Excess concessional contributions $0.00 2019-20 unused cap left, lapses after 2024-25 $0.00 2020-21 unused cap left, lapses after 2025-26 $0.00 2021-22 unused cap left, lapses after 2026-27 $0.00 2022-23 unused cap left, lapses after 2027-28 $0.00 2023-24 unused cap left, lapses after 2028-29 $0.00 2024-25 unused cap left, lapses after 2029-30 $0.00 Unused cap applies earliest year first, and only to contributions above the general cap.
 
 ## How the concessional catch-up calculator works
@@ -40,9 +44,11 @@ With a total super balance under $500,000 on 30 June before the year, the cap av
 
 The ATO’s concessional contributions cap page works Sam’s example: unused cap of $14,000, $13,000, $14,500, $13,500 and $12,500 from 2019-20 to 2023-24 gives $67,500, so his 2024-25 cap is $97,500, and contributions of $97,500 use it all with no excess. The calculator opens on his figures; the ATO says only that his balance was below $500,000, so the $450,000 is fictional.
 
+A downsizer contribution, from selling a home you held for 10 years or more, counts towards neither cap. Answer yes to test one: you must be 55 or older when you make it, the sale contract must be from 1 July 2018 and the contribution within 90 days after the change of ownership unless the Commissioner allows longer. The part covered is limited to $300,000 less your contributions already covered and to the capital proceeds less contributions already covered from them, by you or your spouse.
+
 ## What the concessional catch-up calculator does not cover
 
-The calculator works the cap only. It does not decide what counts as a concessional contribution, in which year a contribution counts, or whether a deduction notice is valid, and it does not work out the tax on excess contributions or Division 293 tax. It does not cover a defined benefit interest, or non-concessional contributions and their bring-forward. It covers 2024-25, 2025-26 and 2026-27.
+The calculator works the cap only. It does not decide what counts as a concessional contribution, in which year a contribution counts, or whether a deduction notice is valid, and it does not work out the tax on excess contributions or Division 293 tax. It does not cover a defined benefit interest, or non-concessional contributions and their bring-forward. It tests one downsizer contribution on the ages, days and amounts you give; it does not check the other conditions of section 292-102 you confirm, and whether a fund accepts the part the test does not cover is the fund’s decision. It covers 2024-25, 2025-26 and 2026-27.
 
 Your carry-forward amounts are on ATO online services (Super, then Information, then Carry forward concessional contributions), which use the contributions your funds have reported. Confirm the figures there or with a registered tax agent before you contribute.
 
