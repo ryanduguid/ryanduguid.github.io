@@ -8108,4 +8108,3 @@ test('the portable LSL levy page builds its call from the form and words its ref
   assert.throws(() => page({ year: '2025-26' }), { code: 'portable_lsl_levy.scheme_year_unsupported' });
   assert.deepEqual(calculations.plslFigures(call({})), { levy: 8250 });
 });
-
