@@ -45,7 +45,7 @@ directory holding `_config.yml` or `scripts/`, or `SITE_ROOT` when set.
 | `release_record [--verify-live]` | release claims against `release_record.json` |
 | `render_about_portrait <cutout.png>` | the About page's ASCII portrait from a transparent-background headshot |
 | `serve_site` | the preview server on `127.0.0.1:4173` |
-| `stamp_source_freshness [--write \| --check-releases \| --write-tool-releases \| --sync-releases \| --build]` | the tool cards' last-commit stamps, release references, offline release sync and tool release snapshot |
+| `stamp_source_freshness [--write \| --check-releases \| --write-tool-releases \| --sync-releases \| --build \| --verify-tool-releases BASE [PATH ...]]` | the tool cards' last-commit stamps, release references, offline release sync, tool release snapshot and the content check of its refresh |
 | `visibility_benchmark` | assistant-visibility captures |
 
 ## Tests

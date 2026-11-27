@@ -38,6 +38,8 @@ const PARSER: Parser = Parser {
 };
 
 type Result<T> = std::result::Result<T, String>;
+/// Reads one URL; `run` passes the network fetch, the tests a fixed table.
+type Fetch<'a> = &'a dyn Fn(&str) -> Result<Vec<u8>>;
 
 /// The manifest path as Python holds it, `ROOT / ".well-known" / "agent-skills" / "index.json"`.
 fn manifest_path(root: &Path) -> PathBuf {
@@ -223,7 +225,7 @@ fn fetch(url: &str) -> Result<Vec<u8>> {
     crate::fetch::get(url, USER_AGENT, Duration::from_secs(30))
 }
 
-fn fetch_json(url: &str) -> Result<Json> {
+fn fetch_json(fetch: Fetch, url: &str) -> Result<Json> {
     pyjson::loads_bytes(&fetch(url)?).map_err(|e| format!("json.decoder.JSONDecodeError: {e}"))
 }
 
@@ -247,10 +249,11 @@ fn frontmatter_field(text: &str, field: &str) -> Result<String> {
     Ok(value.to_owned())
 }
 
-fn released_skill_names(commit: &str) -> Result<Vec<String>> {
-    let tree = fetch_json(&format!(
-        "https://api.github.com/repos/{REPOSITORY}/git/trees/{commit}?recursive=1"
-    ))?;
+fn released_skill_names(fetch: Fetch, commit: &str) -> Result<Vec<String>> {
+    let tree = fetch_json(
+        fetch,
+        &format!("https://api.github.com/repos/{REPOSITORY}/git/trees/{commit}?recursive=1"),
+    )?;
     if get(&tree, "truncated")?.is_some_and(|t| t.truthy()) {
         return Err("RuntimeError: tree listing truncated".into());
     }
@@ -275,10 +278,12 @@ fn released_skill_names(commit: &str) -> Result<Vec<String>> {
     Ok(names)
 }
 
-fn build() -> Result<Json> {
-    let commit = match fetch_json(&format!(
-        "https://api.github.com/repos/{REPOSITORY}/commits/{RELEASE}"
-    ))?
+/// The commit the pinned release tag points at.
+fn release_commit(fetch: Fetch) -> Result<String> {
+    let commit = match fetch_json(
+        fetch,
+        &format!("https://api.github.com/repos/{REPOSITORY}/commits/{RELEASE}"),
+    )?
     .get("sha")
     {
         Some(Json::Str(sha)) => sha.clone(),
@@ -296,29 +301,62 @@ fn build() -> Result<Json> {
             py::repr_str(&commit)
         ));
     }
+    Ok(commit)
+}
+
+/// One skill's manifest entry, read from its released SKILL.md.
+fn skill_entry(fetch: Fetch, commit: &str, name: &str) -> Result<Json> {
+    let url = format!("{}{name}/SKILL.md", raw_prefix(commit));
+    let body = fetch(&url)?;
+    let text = py::decode_utf8(&body).map_err(|e| format!("UnicodeDecodeError: {e}"))?;
+    if frontmatter_field(&text, "name")? != name {
+        return Err(format!(
+            "ValueError: {name}: frontmatter name differs from its directory"
+        ));
+    }
+    Ok(Json::Object(vec![
+        ("name".into(), Json::str_obj(name)),
+        ("type".into(), Json::str_obj("skill-md")),
+        (
+            "description".into(),
+            Json::Str(frontmatter_field(&text, "description")?),
+        ),
+        ("url".into(), Json::Str(url)),
+        (
+            "digest".into(),
+            Json::Str(format!("sha256:{}", crate::sha256(&body))),
+        ),
+    ]))
+}
+
+/// The manifest's `source` object: where the pinned skills come from.
+fn source_entry(commit: &str) -> Json {
+    let s = Json::str_obj;
+    Json::Object(vec![
+        (
+            "repository".into(),
+            Json::Str(format!("https://github.com/{REPOSITORY}")),
+        ),
+        ("release".into(), s(RELEASE)),
+        ("commit".into(), s(commit)),
+        ("license".into(), s("Apache-2.0")),
+        (
+            "install".into(),
+            Json::Array(
+                install_commands(commit)
+                    .into_iter()
+                    .map(Json::Str)
+                    .collect(),
+            ),
+        ),
+    ])
+}
+
+fn build(fetch: Fetch) -> Result<Json> {
+    let commit = release_commit(fetch)?;
     let mut skills = Vec::new();
-    for name in released_skill_names(&commit)? {
-        let url = format!("{}{name}/SKILL.md", raw_prefix(&commit));
-        let body = fetch(&url)?;
-        let text = py::decode_utf8(&body).map_err(|e| format!("UnicodeDecodeError: {e}"))?;
-        if frontmatter_field(&text, "name")? != name {
-            return Err(format!(
-                "ValueError: {name}: frontmatter name differs from its directory"
-            ));
-        }
-        skills.push(Json::Object(vec![
-            ("name".into(), Json::Str(name.clone())),
-            ("type".into(), Json::str_obj("skill-md")),
-            (
-                "description".into(),
-                Json::Str(frontmatter_field(&text, "description")?),
-            ),
-            ("url".into(), Json::Str(url)),
-            (
-                "digest".into(),
-                Json::Str(format!("sha256:{}", crate::sha256(&body))),
-            ),
-        ]));
+    for name in released_skill_names(fetch, &commit)? {
+        skills.push(skill_entry(fetch, &commit, &name)?);
     }
     let s = Json::str_obj;
     Ok(Json::Object(vec![
@@ -336,27 +374,7 @@ fn build() -> Result<Json> {
             "skill_format".into(),
             s("https://agentskills.io/specification"),
         ),
-        (
-            "source".into(),
-            Json::Object(vec![
-                (
-                    "repository".into(),
-                    Json::Str(format!("https://github.com/{REPOSITORY}")),
-                ),
-                ("release".into(), s(RELEASE)),
-                ("commit".into(), Json::Str(commit.clone())),
-                ("license".into(), s("Apache-2.0")),
-                (
-                    "install".into(),
-                    Json::Array(
-                        install_commands(&commit)
-                            .into_iter()
-                            .map(Json::Str)
-                            .collect(),
-                    ),
-                ),
-            ]),
-        ),
+        ("source".into(), source_entry(&commit)),
         (
             "note".into(),
             s(concat!(
@@ -378,12 +396,16 @@ fn say(text: &str) -> Result<()> {
 }
 
 pub fn run(root: &Path, args: &[String]) -> Result<u8> {
+    run_with(root, args, &fetch)
+}
+
+fn run_with(root: &Path, args: &[String], fetch: Fetch) -> Result<u8> {
     let flags = match PARSER.parse(args) {
         Parsed::Flags(flags) => flags,
         Parsed::Exit(code) => return Ok(code),
     };
     if flags.contains(&"--write") {
-        let manifest = build()?;
+        let manifest = build(fetch)?;
         let count = match manifest.get("skills") {
             Some(Json::Array(skills)) => skills.len(),
             _ => 0,
@@ -417,4 +439,245 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8> {
     }
     say("agent-skills manifest: checks passed\n")?;
     Ok(0)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const SHA: &str = "0123456789abcdef0123456789abcdef01234567";
+
+    /// A fresh, empty directory under the system temp folder for one test.
+    fn scratch(name: &str) -> PathBuf {
+        let dir = Path::new(env!("OUT_DIR")).join(format!(
+            "site-tools-agent-skills-{name}-{}",
+            std::process::id()
+        ));
+        let _ = std::fs::remove_dir_all(&dir);
+        std::fs::create_dir_all(&dir).unwrap();
+        dir
+    }
+
+    fn commit_url() -> String {
+        format!("https://api.github.com/repos/{REPOSITORY}/commits/{RELEASE}")
+    }
+
+    fn tree_url() -> String {
+        format!("https://api.github.com/repos/{REPOSITORY}/git/trees/{SHA}?recursive=1")
+    }
+
+    /// A fetch that serves `table` and refuses every other URL as urllib's 404.
+    fn table(entries: Vec<(String, String)>) -> impl Fn(&str) -> Result<Vec<u8>> {
+        move |url: &str| {
+            entries
+                .iter()
+                .find(|(u, _)| u == url)
+                .map(|(_, body)| body.clone().into_bytes())
+                .ok_or_else(|| format!("urllib.error.HTTPError: HTTP Error 404: {url}"))
+        }
+    }
+
+    fn release() -> Vec<(String, String)> {
+        let tree = r#"{"truncated": false, "tree": [
+            {"path": ".claude/skills/beta/SKILL.md"},
+            {"path": ".claude/skills/alpha/SKILL.md"},
+            {"path": ".claude/skills/alpha/notes.md"},
+            {"path": "README.md"}]}"#;
+        vec![
+            (commit_url(), format!(r#"{{"sha": "{SHA}"}}"#)),
+            (tree_url(), tree.into()),
+            (
+                format!("{}alpha/SKILL.md", raw_prefix(SHA)),
+                "---\nname: alpha\ndescription: \"Says \\\"hi\\\"\"\n---\nBody\n".into(),
+            ),
+            (
+                format!("{}beta/SKILL.md", raw_prefix(SHA)),
+                "---\nname: beta\ndescription:   Plain words  \n---\n".into(),
+            ),
+        ]
+    }
+
+    fn args(flag: &str) -> Vec<String> {
+        vec![flag.into()]
+    }
+
+    #[test]
+    fn write_builds_a_manifest_that_check_accepts() {
+        let root = scratch("write");
+        let fetch = table(release());
+        assert_eq!(run_with(&root, &args("--write"), &fetch), Ok(0));
+        let written = std::fs::read_to_string(manifest_path(&root)).unwrap();
+        let manifest = pyjson::loads(&written).unwrap();
+        let skill = |name: &str, description: &str, body: &str| {
+            Json::Object(vec![
+                ("name".into(), Json::str_obj(name)),
+                ("type".into(), Json::str_obj("skill-md")),
+                ("description".into(), Json::str_obj(description)),
+                (
+                    "url".into(),
+                    Json::Str(format!("{}{name}/SKILL.md", raw_prefix(SHA))),
+                ),
+                (
+                    "digest".into(),
+                    Json::Str(format!("sha256:{}", crate::sha256(body))),
+                ),
+            ])
+        };
+        let alpha = "---\nname: alpha\ndescription: \"Says \\\"hi\\\"\"\n---\nBody\n";
+        let beta = "---\nname: beta\ndescription:   Plain words  \n---\n";
+        assert_eq!(
+            manifest.get("skills"),
+            Some(&Json::Array(vec![
+                skill("alpha", "Says \"hi\"", alpha),
+                skill("beta", "Plain words", beta),
+            ]))
+        );
+        assert!(written.ends_with("}\n"));
+        assert_eq!(check(&root), Ok(Vec::new()));
+        assert_eq!(run_with(&root, &args("--check"), &fetch), Ok(0));
+        std::fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn write_reports_a_manifest_path_it_cannot_create_or_write() {
+        let root = scratch("blocked");
+        std::fs::write(root.join(".well-known"), "a file, not a folder").unwrap();
+        let fetch = table(release());
+        let error = run_with(&root, &args("--write"), &fetch).unwrap_err();
+        assert!(error.contains("agent-skills"), "{error}");
+        std::fs::remove_file(root.join(".well-known")).unwrap();
+        std::fs::create_dir_all(manifest_path(&root)).unwrap();
+        let error = run_with(&root, &args("--write"), &fetch).unwrap_err();
+        assert!(error.contains("index.json"), "{error}");
+        std::fs::remove_dir_all(root).unwrap();
+    }
+
+    fn with(url: String, body: &str) -> Vec<(String, String)> {
+        let mut entries: Vec<_> = release().into_iter().filter(|(u, _)| *u != url).collect();
+        entries.push((url, body.into()));
+        entries
+    }
+
+    #[test]
+    fn build_refuses_a_release_that_does_not_resolve_to_a_commit() {
+        let cases = [
+            (r#"{"sha": 7}"#, "TypeError: expected string, got int"),
+            ("{}", "KeyError: 'sha'"),
+            (
+                r#"{"sha": "v0.4.0"}"#,
+                "ValueError: v0.4.0 did not resolve to a commit: 'v0.4.0'",
+            ),
+        ];
+        for (body, expected) in cases {
+            let fetch = table(with(commit_url(), body));
+            assert_eq!(build(&fetch), Err(expected.to_owned()), "{body}");
+        }
+        let fetch = table(with(commit_url(), "not json"));
+        let error = build(&fetch).unwrap_err();
+        assert!(
+            error.starts_with("json.decoder.JSONDecodeError: "),
+            "{error}"
+        );
+    }
+
+    #[test]
+    fn build_refuses_a_tree_it_cannot_list_in_full() {
+        let cases = [
+            (
+                r#"{"truncated": true, "tree": []}"#,
+                "RuntimeError: tree listing truncated",
+            ),
+            (r#"{"truncated": false}"#, "KeyError: 'tree'"),
+            (r#"{"tree": [{"mode": "100644"}]}"#, "KeyError: 'path'"),
+            (
+                r#"{"tree": [{"path": "README.md"}]}"#,
+                "RuntimeError: no SKILL.md files in the release",
+            ),
+        ];
+        for (body, expected) in cases {
+            let fetch = table(with(tree_url(), body));
+            assert_eq!(build(&fetch), Err(expected.to_owned()), "{body}");
+        }
+        let error = build(&table(with(tree_url(), "["))).unwrap_err();
+        assert!(
+            error.starts_with("json.decoder.JSONDecodeError: "),
+            "{error}"
+        );
+    }
+
+    #[test]
+    fn build_refuses_a_skill_whose_frontmatter_disagrees_with_its_folder() {
+        let alpha = format!("{}alpha/SKILL.md", raw_prefix(SHA));
+        let fetch = table(with(
+            alpha.clone(),
+            "---\nname: gamma\ndescription: x\n---\n",
+        ));
+        assert_eq!(
+            build(&fetch),
+            Err("ValueError: alpha: frontmatter name differs from its directory".into())
+        );
+        let fetch = table(with(alpha.clone(), "---\nname: alpha\n---\n"));
+        assert_eq!(
+            build(&fetch),
+            Err("ValueError: frontmatter has no description".into())
+        );
+        let invalid = [(alpha.clone(), vec![0xff_u8])];
+        let fetch = move |url: &str| {
+            invalid
+                .iter()
+                .find(|(u, _)| u == url)
+                .map(|(_, b)| b.clone())
+                .map_or_else(|| table(release())(url), Ok)
+        };
+        assert!(
+            build(&fetch)
+                .unwrap_err()
+                .starts_with("UnicodeDecodeError: ")
+        );
+        let fetch = table(release().into_iter().filter(|(u, _)| *u != alpha).collect());
+        assert_eq!(
+            build(&fetch),
+            Err(format!("urllib.error.HTTPError: HTTP Error 404: {alpha}"))
+        );
+    }
+
+    #[test]
+    fn frontmatter_field_reads_plain_and_quoted_values_before_the_body() {
+        let text = "---\nname: \"\"\nshort: \"\nplain: words here\n---\nlater: body\n";
+        assert_eq!(frontmatter_field(text, "name"), Ok(String::new()));
+        assert_eq!(frontmatter_field(text, "short"), Ok(String::new()));
+        assert_eq!(frontmatter_field(text, "plain"), Ok("words here".into()));
+        assert_eq!(
+            frontmatter_field(text, "later"),
+            Err("ValueError: frontmatter has no later".into())
+        );
+    }
+
+    #[test]
+    fn fetch_reports_an_unreachable_host_as_a_urlerror() {
+        // Port 9 on loopback (discard) has no listener on a test machine.
+        let error = fetch("http://127.0.0.1:9/").unwrap_err();
+        assert!(error.starts_with("urllib.error.URLError: "), "{error}");
+    }
+
+    #[test]
+    fn check_treats_two_missing_names_as_a_repeat() {
+        let root = scratch("names");
+        let fetch = table(release());
+        run_with(&root, &args("--write"), &fetch).unwrap();
+        let path = manifest_path(&root);
+        // `skills` is the manifest's last key, so everything from it on is replaced.
+        let written = std::fs::read_to_string(&path).unwrap();
+        let (head, _) = written.split_once(r#""skills": "#).unwrap();
+        let skills = r#"[{"description": "a"}, {"description": "b"}, {"name": "c"}]"#;
+        std::fs::write(&path, format!("{head}\"skills\": {skills}\n}}\n")).unwrap();
+        let failures = check(&root).unwrap();
+        assert!(
+            failures.contains(&"skill names repeat".to_owned()),
+            "{failures:?}"
+        );
+        let one_missing = failures.iter().filter(|f| f.starts_with("None: ")).count();
+        assert!(one_missing >= 2, "{failures:?}");
+        std::fs::remove_dir_all(root).unwrap();
+    }
 }

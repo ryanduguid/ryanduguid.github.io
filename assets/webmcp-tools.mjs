@@ -18,6 +18,7 @@ import {
 } from './webmcp-individual-more.mjs';
 import { pensionMinimumTool, transferBalanceTool } from './webmcp-individual-retirement.mjs';
 import { residencyDaysTool } from './webmcp-individual-residency.mjs';
+import { lodgmentRequiredTool } from './webmcp-individual-lodgment.mjs';
 
 // WebMCP tool descriptors for the site's calculators. Each tool calls the same module
 // function as its page's form, reads nothing from the form and sends nothing anywhere.
@@ -785,7 +786,31 @@ const TAKE_HOME_DESCRIPTION = 'Take-home pay in AUD from one salary for a full i
   + 'component from 24 September 2025, and so do the year\'s withholding and the refund or amount owing; the component '
   + 'before that date is given beside it and not mixed in. '
   + 'It names, but does not work, concessional contributions above the cap and Division 293 taxable '
-  + `contributions. Sources on ${INDIVIDUAL}take-home-pay/.`;
+  + 'contributions. With otherSchedule it also gives, for 2024-25 to 2026-27, the amount to withhold from one payment under '
+  + 'another schedule (daily and casual, Schedule 2, 3, 4, 6, 9, 10, 14 or 15, or no ABN quoted): the amounts and rates the '
+  + 'australian-accounting command gives, with incomeYear as its year; inputs a schedule does not take are refused. '
+  + `Sources on ${INDIVIDUAL}take-home-pay/.`;
+
+const SCHEDULE_FLAGS = ['tfn_quoted', 'foreign_resident', 'tax_free_threshold_claimed', 'working_holiday_maker', 'labour_mobility_scheme',
+  'agreement_in_force', 'abn_quoted', 'agreement_applies_instalment_rate', 'employer_registered', 'extra_pay_withholding', 'study_loan'];
+const SCHEDULE_AMOUNTS = ['earnings', 'payment', 'gst_included', 'supply_total_excluding_gst', 'additional_amount', 'deductible_amount',
+  'payments_before', 'tax_offsets'];
+/** The take-home pay tool's otherSchedule: an australian-accounting withholding command and its inputs. @param {string[]} commands */
+const otherScheduleSchema = (commands) => record({
+  command: choice(commands, 'The australian-accounting command for the schedule.'),
+  ...Object.fromEntries(SCHEDULE_AMOUNTS.map((k) => [k, text('amount', `${k} in AUD with at most 2 decimal places, as the command takes it.`)])),
+  ...Object.fromEntries(SCHEDULE_FLAGS.map((k) => [k, { type: 'boolean', description: `${k}, as the command takes it.` }])),
+  instalment_rate: text('percent', 'The payee’s Commissioner’s instalment rate in per cent, for Schedule 10.'),
+  pay_period: choice(['weekly', 'fortnightly', 'monthly', 'quarterly'], 'The pay period; quarterly for Schedules 6 and 14 only.'),
+  scale: whole(1, 6, 'The Schedule 1 scale for Schedules 6 and 14; 4 is no TFN, with foreign_resident.'),
+  instalments: whole(1, 366, 'Annuity instalments in the income year, for Schedule 6.'),
+  performances_per_week: whole(1, 1000, 'Performances in the week, for Schedule 3.'),
+  performances_per_day: whole(1, 1000, 'Performances on the day paid for, for Schedule 3.'),
+  medicare_adjustment_children: whole(0, 30, 'Dependent children for a Medicare levy adjustment, scales 2 and 6.'),
+  status: choice(['single', 'illness_separated', 'couple'], 'The payee’s status, for Schedule 9.'),
+  medicare_levy_exemption: choice(['none', 'full', 'half'], 'A Medicare levy exemption claimed, for Schedule 9.'),
+  pay_date: text('date', 'The pay date in YYYY-MM-DD form, for Schedule 9 with a study loan in 2025-26.'),
+}, ['command']);
 
 const BONUS_WITHHOLDING_DESCRIPTION = 'PAYG withholding in AUD from one 2026-27 weekly, fortnightly or monthly pay that includes a '
   + 'back payment, commission, bonus or similar payment, by the methods of the ATO\'s Schedule 5 for payments made from '
@@ -935,8 +960,9 @@ const DIVISION_293_DESCRIPTION = 'Division 293 tax in AUD for one individual and
 
 const SALARY_PACKAGING_DESCRIPTION = 'Salary packaging in AUD for one employee of an FBT-exempt employer for one year: a public '
   + 'benevolent institution or health promotion charity ($30,000 cap) or a public or not-for-profit hospital or public '
-  + 'ambulance service ($17,000 cap), FBTAA s 57A. Type 1 and Type 2 benefits are grossed up at 2.0802 and 1.8868 to the '
-  + 'dollar and added; FBT is 47% of the part above the cap after up to $5,000 more of salary packaged meal entertainment '
+  + 'ambulance service ($17,000 cap), FBTAA s 57A. Type 1 benefits are grossed up by (47% + 10%) / ((1 - 47%) x '
+  + '(1 + 10%) x 47%) and Type 2 by 1 / (1 - 47%) (s 5B(1F) and (1G), not the rounded 2.0802 and 1.8868), each to the '
+  + 'dollar, and added; FBT is 47% of the part above the cap after up to $5,000 more of salary packaged meal entertainment '
   + '(s 5B(1E)). The reportable fringe benefits amount is the taxable value over $2,000 times 1 / 0.53, cents dropped '
   + '(s 135Q). Tax, the Medicare levy and surcharge and any study loan repayment are worked with and without the '
   + 'packaging, the salary as the only income. It does not compute rebatable or ordinary employers, car parking, '
@@ -976,16 +1002,17 @@ const TOOL_KIT = { text, choice, whole, record, tool, dollars, dollarsOnly, cent
  *   bonusWithholding: typeof import('./bonus-withholding.mjs').bonusWithholding,
  *   salaryPackaging: typeof import('./salary-packaging.mjs').salaryPackaging,
  *   novatedLease: typeof import('./novated-lease.mjs').novatedLease, packagingYears: string[],
- *   novatedYears: string[], superProjection: typeof import('./super-projection.mjs').superProjection}} engines
+ *   novatedYears: string[], superProjection: typeof import('./super-projection.mjs').superProjection,
+ *   withholdingSchedule: typeof import('./withholding-schedules.mjs').withholdingSchedule, withholdingCommands: string[]}} engines
  */
 export function individualTaxTools({ taxEstimate, takeHomePay, studyLoanRepayment, studyLoanYears, soleTraderSetAside,
   lumpSumArrears, receiptYears, division293Tax, incomeTests, concessionalCatchUp, catchUpYears, incomeYears,
   payYears, soleTraderYears, division293Years, bonusWithholding, salaryPackaging, novatedLease, packagingYears,
-  novatedYears, superProjection }) {
+  novatedYears, superProjection, withholdingSchedule, withholdingCommands }) {
   return {
     'income-tests': incomeTestsTool(incomeTests),
     'income-tax': incomeTaxTool(taxEstimate, incomeYears),
-    'take-home-pay': takeHomePayTool(takeHomePay, payYears),
+    'take-home-pay': takeHomePayTool(takeHomePay, payYears, withholdingSchedule, withholdingCommands),
     'study-loan': studyLoanTool(TOOL_KIT, studyLoanRepayment, studyLoanYears),
     'super-projection': superProjectionTool(superProjection),
     'sole-trader': soleTraderTool(soleTraderSetAside, soleTraderYears),
@@ -1046,6 +1073,14 @@ export function residencyDaysTools(engine) {
   return { 'residency-days': residencyDaysTool(TOOL_KIT, engine) };
 }
 
+/**
+ * WebMCP descriptor for the 'do I need to lodge' test.
+ * @param {import('./webmcp-individual-lodgment.mjs').LodgmentEngine} engine
+ */
+export function lodgmentRequiredTools(engine) {
+  return { 'lodgment-required': lodgmentRequiredTool(TOOL_KIT, engine) };
+}
+
 /** The WebMCP descriptor for the income tax estimate.
  * @param {typeof import('./tax-estimate.mjs').taxEstimate} taxEstimate @param {string[]} incomeYears */
 function incomeTaxTool(taxEstimate, incomeYears) {
@@ -1095,8 +1130,9 @@ function incomeTaxTool(taxEstimate, incomeYears) {
 }
 
 /** The WebMCP descriptor for the take-home pay calculator.
- * @param {typeof import('./take-home-pay.mjs').takeHomePay} takeHomePay @param {string[]} payYears */
-function takeHomePayTool(takeHomePay, payYears) {
+ * @param {typeof import('./take-home-pay.mjs').takeHomePay} takeHomePay @param {string[]} payYears
+ * @param {typeof import('./withholding-schedules.mjs').withholdingSchedule} withholdingSchedule @param {string[]} commands */
+function takeHomePayTool(takeHomePay, payYears, withholdingSchedule, commands) {
   return tool({
     name: 'calculate_take_home_pay',
     title: 'Take-home pay calculator',
@@ -1117,9 +1153,12 @@ function takeHomePayTool(takeHomePay, payYears) {
         grossSalary: text('amount', 'Gross salary on this payment before salary sacrifice, excluding employer super.'),
         superEarnings: text('amount', 'Ordinary time earnings through 2025-26 or qualifying earnings from 2026-27, in AUD.'),
       }, ['payday', 'grossSalary', 'superEarnings']) },
+      otherSchedule: otherScheduleSchema(commands),
     }, ['incomeYear', 'residency', 'salary']),
     run({ incomeYear, residency, salary, payPeriod = 'year', includesSuper = false, salarySacrifice = '0', studyLoan = false,
-      privateHospitalCover = true, datedPay }) {
+      privateHospitalCover = true, datedPay, otherSchedule }) {
+      const { command, ...scheduleInput } = otherSchedule ?? {};
+      const other = otherSchedule ? withholdingSchedule(command, { ...scheduleInput, year: incomeYear, scope_confirmed: true }) : null;
       const r = takeHomePay({ year: incomeYear, residency, salary, period: payPeriod, includesSuper,
         sacrifice: salarySacrifice, studyLoan, hospitalCover: privateHospitalCover, datedPay });
       const cents = (/** @type {number} */ value) => Math.round(value * 100);
@@ -1135,6 +1174,7 @@ function takeHomePayTool(takeHomePay, payYears) {
           studyLoanComponentBefore24September2025: r.withheld.earlierStudyLoan === null ? null
             : dollars(r.withheld.earlierStudyLoan),
           year: dollars(r.withheld.year), ...settled(r.withheld.refund) } : null,
+        ...(other ? { otherSchedule: { command, ...other } } : {}),
         currency: 'AUD', source: `${INDIVIDUAL}take-home-pay/`,
       };
     },

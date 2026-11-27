@@ -11,7 +11,7 @@ const CALCULATORS = { 'income-tax': '$510.00', 'take-home-pay': '$60,212.00', 's
   'salary-packaging': '$5,291.50', 'novated-lease': '$6,047.48',
   'super-projection': '$539,266.80', fhss: '$14,350.00', 'work-expenses': '$590.00',
   'government-super': '$500.00', 'transfer-balance': '$26.80', 'pension-minimum': '$30,000.00',
-  'residency-days': 'Met' };
+  'residency-days': 'Met', 'lodgment-required': 'Yes' };
 
 test.describe('before any script runs', () => {
   test.use({ javaScriptEnabled: false });
@@ -351,6 +351,27 @@ test('a 2026-27 fortnightly pay shows PAYG withheld beside the year spread evenl
   await expect(form.locator('output .result-row--principal strong')).toHaveText('$58,183.20');
 });
 
+test('take-home pay shows only the chosen schedule’s questions and works Schedule 14 beside the year offline', async ({ page, context }) => {
+  await page.goto('/tools/individual-tax/take-home-pay/');
+  const form = page.locator('#take-home-pay form');
+  await waitForCalculator(form);
+  const agreed = form.locator('fieldset[data-show-values="sch14"]');
+  await expect(agreed).toBeHidden();
+  await context.setOffline(true);
+  await form.getByLabel('2026-27').check();
+  await form.getByLabel('A fortnight').check();
+  await form.locator('input[name="withholding-schedule"][value="sch14"]').check();
+  await expect(agreed).toBeVisible();
+  await expect(form.locator('fieldset[data-show-values="sch6"]')).toBeHidden();
+  await form.locator('#take-home-ws-payment').fill('1299.30');
+  await form.locator('#take-home-ws-offsets').fill('1645');
+  await form.locator('#take-home-ws-additional').fill('20');
+  await form.locator('input[name="ws-exemption"][value="full"]').check();
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const row = (label) => form.locator('output .result-row').filter({ has: page.getByText(label, { exact: true }) }).locator('strong');
+  await expect(row('Schedule 14: amount to withhold')).toHaveText('$43.00');
+});
+
 test('take-home pay uses the supplied salary dates for super', async ({ page }) => {
   await page.goto('/tools/individual-tax/take-home-pay/');
   const form = page.locator('#take-home-pay form');
@@ -572,6 +593,8 @@ for (const [id, name, input, expected] of [
     residency: 'full_year_resident', assessableIncome: 35000, taxableIncome: 35000, eligibleIncome: '35000',
     personalContributions: '1040', returnLodged: true, under71: true, nonConcessionalWithinCap: 'yes',
     totalSuperBalanceBelowCap: 'yes' }, { amounts: { co_contribution_paid: '500.00' } }],
+  ['lodgment-required', 'check_lodgment_required', { incomeYear: '2025-26', residency: 'whole_year', taxableIncome: '18200.01',
+    dividendsAndFrankingCredits: '0' }, { lodgmentRequired: true, dueDate: '2026-10-31' }],
   ['pension-minimum', 'calculate_pension_minimum', { incomeYear: '2026-27', accountBalance: '600000', age: 67 },
     { minimumPayment: '30000.00' }],
   ['transfer-balance', 'calculate_transfer_balance', { calculation: 'concessional_charge', incomeYear: '2020-21',
