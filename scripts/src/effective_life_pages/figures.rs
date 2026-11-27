@@ -71,3 +71,16 @@ pub fn count(value: usize) -> String {
     }
     out
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn date_spells_iso_dates_and_returns_other_text_unchanged() {
+        assert_eq!(date("2008-07-01"), "1 July 2008");
+        assert_eq!(date("2008-07"), "2008-07");
+        assert_eq!(date("2008-13-01"), "2008-13-01");
+        assert_eq!(date("2008-xx-01"), "2008-xx-01");
+    }
+}
