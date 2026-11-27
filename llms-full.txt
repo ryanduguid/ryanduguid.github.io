@@ -14722,6 +14722,72 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 ---
 
+# HELP debt indexation calculator, 1 June 2020 to 2026
+
+Source: https://duguid.com.au/tools/individual-tax/help-indexation/
+
+> Work out your HELP debt after indexation on 1 June from 2020 to 2026, with the 20% cut of 2025, and see what paying before 1 June saves.
+
+# HELP indexation calculator
+
+Your HELP debt after indexation on 1 June, 2020 to 2026.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+Your HELP debt for one indexation day
+
+Indexed on 1 June 2026 2025 2024 2023 2022 2021 2020
+
+Accumulated HELP debt on the 1 June a year earlier
+
+Take the balance from your ATO account as it stood on the earlier 1 June, or enter 0 for none. For 1 June 2025, enter it before the 20% reduction: the calculator applies it.
+
+Debts and repayments
+
+Debt incurred from 1 January to 30 June a year before Day it was incurred (the census date) Debt incurred from 1 July to 31 December Day it was incurred Voluntary repayment from the earlier 1 June to 31 May Day it was made Compulsory repayments assessed in that period A voluntary repayment you are thinking of making
+
+Leave a row blank to skip it. A debt’s day is the census date of its unit. With a repayment you are thinking of making, the result compares paying it before 1 June with paying it on or after.
+
+Calculate
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; debt on 1 June 2025 $30,000.00. Accumulated HELP debt on 1 June 2025 $30,000.00 Plus debts incurred 1 January to 30 June 2025 $0.00 Less voluntary and compulsory repayments $0.00 Amount indexed $30,000.00 Indexation at 2.8% $840.00 Plus debts incurred 1 July to 31 December 2025 $0.00 Accumulated HELP debt on 1 June 2026 $30,840.00 Cents are dropped from the debt on 1 June 2026.
+
+## How the HELP indexation calculator works
+
+Each 1 June your HELP debt is indexed. The calculator follows the method statement in s 140-5 of the Higher Education Support Act 2003. It takes your accumulated HELP debt from the 1 June a year earlier, adds debts incurred from 1 January to 30 June before that day (each course’s total cut to whole dollars), and subtracts voluntary repayments made from that earlier 1 June to 31 May and compulsory repayments assessed in the same period. It multiplies the result by the indexation factor for the year, then adds debts incurred from 1 July to 31 December, which are not indexed until the next year. Cents are dropped.
+
+From 2023 the factor is the lower of the CPI and WPI factors, which reset the 2023 and 2024 rates to 3.2% and 4%. For 1 June 2025, s 140-26 cuts the amount by 20% before indexation, and s 137-19A cuts a debt incurred from 1 January to 1 June 2025 by 20% too. A voluntary repayment made before 1 June is taken off before indexation; one made on or after 1 June comes off the already indexed debt.
+
+## What the HELP indexation calculator does not cover
+
+The calculator does not take a location-preferred HELP debtor’s reduced factor or debt, or VET Student Loan, SFSS or other loans indexed under other Acts. The form takes one debt in each half-year and one repayment; the WebMCP tool takes up to 100 of each, grouped by course, with amended assessments. It does not estimate your balance or work out a compulsory repayment: take both from your ATO account. It does not apply the 20% reduction to any year but 2025. Confirm your balance with the ATO or a registered tax agent.
+
+## Boundary cases
+
+Each row is a test: scripts/individual-tax.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: HELP indexation calculator
+
+Case | Inputs | Result
+$30,000 on 1 June 2025 indexed by 2.8% on 1 June 2026 (the form’s example) | 2025-26, debt $30,000.00 | Indexation $840.00, debt on 1 June $30,840.00
+1 June 2025: 20% off the $30,000 before 3.2% indexation, and 20% off a debt of August 2024 (HESA s 140-26) | 2024-25, debt $30,000.00, current debt $1,000.00 on 2024-08-31 | Indexation $768.00, debt on 1 June $25,568.00
+A debt incurred on 1 June 2025 is 20% less (s 137-19A); one of 2 June 2025 is not | 2025-26, debt $0.00, earlier debt $1,000.00 on 2025-06-01, earlier debt $1,000.00 on 2025-06-02 | Indexation $50.40, debt on 1 June $1,850.00
+$2,000 repaid before 1 June 2026 avoids $56 of indexation on a $10,000 debt | 2025-26, debt $10,000.00, proposed $2,000.00 | Indexation $280.00, debt on 1 June $10,280.00; paid before 1 June $8,224.00, after $8,280.00
+A repayment made on 31 May 2026 comes off before indexation; cents are dropped (s 140-30) | 2025-26, debt $5,000.99, repaid $1,000.00 on 2026-05-31 | Indexation $112.03, debt on 1 June $4,113.00
+2023 used the lower of CPI and WPI: 3.2%, not the 7.1% first published | 2022-23, debt $20,000.00 | Indexation $640.00, debt on 1 June $20,640.00
+
+One of the eighteen individual tax calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- eighteen individual tax calculators: https://duguid.com.au/tools/individual-tax/
+
+---
+
 # First home super saver (FHSS) calculator
 
 Source: https://duguid.com.au/tools/individual-tax/fhss/
