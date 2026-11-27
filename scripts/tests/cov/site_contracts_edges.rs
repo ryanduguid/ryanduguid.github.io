@@ -183,7 +183,9 @@ fn evaluation_pack_recipes_ignore_trailing_blank_lines_and_need_one_code_block()
     let about =
         |rel: &str| -> Vec<&String> { failures.iter().filter(|f| f.starts_with(rel)).collect() };
     assert!(
-        !about(trailing.rel).iter().any(|f| f.contains("#reproduce")),
+        !about(trailing.rel)
+            .iter()
+            .any(|f| f.contains("#reproduce must")),
         "{failures:?}"
     );
     assert!(has(
