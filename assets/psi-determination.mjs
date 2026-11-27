@@ -47,29 +47,34 @@ const payerRows = (payers) => payers.reduce((/** @type {number[]} */ first, { sa
 }, []);
 
 /** Client labels (s 87-20(1)(a)), as the command checks them: over the rows with an amount, on every row or
- * none, and one label never on 2 payers, as an entity and its associates are one payer (s 87-15(3)).
+ * none, and one label never on 2 payers, as an entity and its associates are one payer (s 87-15(3)). Every
+ * label's form is checked first, as the command reads every row before it compares them.
  * @param {PsiPayer[]} payers @param {number[]} amounts @param {number[]} rows */
 function clientsConsistent(payers, amounts, rows) {
+  payers.forEach(({ client }, i) => {
+    if (client !== undefined && (typeof client !== 'string' || !client.length || [...client].length > 100)) {
+      throw new Error(`Payer ${i + 1}: a client label is 1 to 100 characters.`);
+    }
+  });
   /** @type {Map<string, number>} */
   const payerOf = new Map();
   let labelled = 0;
   let counted = 0;
   payers.forEach(({ client }, i) => {
-    if (client !== undefined && (typeof client !== 'string' || !client.length || [...client].length > 100)) {
-      throw new Error(`Payer ${i + 1}: a client label is 1 to 100 characters.`);
-    }
     if (!amounts[i]) return;
     counted += 1;
-    if (client === undefined) return;
-    labelled += 1;
+    if (client !== undefined) labelled += 1;
+  });
+  if (labelled && labelled !== counted) {
+    throw new Error('Give every payer a client label for the unrelated clients test, or none.');
+  }
+  payers.forEach(({ client }, i) => {
+    if (!amounts[i] || client === undefined) return;
     if ((payerOf.get(client) ?? rows[i]) !== rows[i]) {
       throw new Error(`Payer ${i + 1}: rows with one client label are one entity or its associates, so they are the same payer.`);
     }
     payerOf.set(client, rows[i]);
   });
-  if (labelled && labelled !== counted) {
-    throw new Error('Give every payer a client label for the unrelated clients test, or none.');
-  }
 }
 
 /** Section 87-40: the principal's payments and the commission in them, checked whenever an agent

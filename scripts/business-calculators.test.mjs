@@ -1711,6 +1711,42 @@ test('PSI client labels count unrelated clients apart from payers, on every row 
     { message: 'Give every payer a client label for the unrelated clients test, or none.' });
 });
 
+// The command this page ports, run on the same cases: see the fixture's engine line. Each refusal is
+// matched to the command's code by the start of the page's message.
+const PSI_CODES = [['Enter the principal', 'psi_test.agent_payments_invalid'], ['At least 75%', 'psi_test.agent_rules'],
+  ['Enter the PSI', 'psi_test.no_psi'], ['The market value', 'psi_test.others_exceed_psi'],
+  ['Give every payer', 'psi_test.clients_invalid'], ['The unrelated clients test', 'psi_test.clients_needed'],
+  ['Enter up to', 'psi_test.payers_invalid']];
+const psiCode = (call) => {
+  try {
+    calculations.psiDetermination(call);
+  } catch (error) {
+    if (/^Payer \d+: rows with one client label/.test(error.message)) return 'psi_test.clients_invalid';
+    if (/^Payer \d+: a client label/.test(error.message)) return 'psi_test.payers_invalid';
+    return (PSI_CODES.find(([start]) => error.message.startsWith(start)) ?? [null, error.message])[1];
+  }
+  return null;
+};
+test('PSI agrees with the australian-accounting psi-test command on every differential case', () => {
+  const { cases } = JSON.parse(readFileSync(new URL('./psi-test-engine-differential.json', import.meta.url), 'utf8'));
+  assert.ok(cases.length > 300);
+  const fixed = (v) => (v === null ? null : v.toFixed(2));
+  const reached = new Set();
+  for (const { case: source, call, refused, ...want } of cases) {
+    reached.add(refused ?? want.rule);
+    if (refused) {
+      assert.equal(psiCode(call), refused, source);
+      continue;
+    }
+    const r = calculations.psiDetermination(call);
+    assert.deepEqual({ rule: r.rule, effect: r.effect.replaceAll('’', '\''), psb: r.psb, results: fixed(r.results),
+      source: fixed(r.source), unrelated: r.unrelated, employment: fixed(r.employment) }, want, source);
+  }
+  for (const outcome of ['psi_test.clients_invalid', 'psi_test.clients_needed', 'psi_test.payers_invalid', 'section 87-20']) {
+    assert.ok(reached.has(outcome), outcome);
+  }
+});
+
 test('PSI checks an agent’s payments before any outcome, and the 75% rule after the results test', () => {
   const agent = (fields) => psi({ agent: true, commission: '100.01', principal: '100', payers: [psiPayer('100')], ...fields });
   const message = 'Enter the principal’s payments and the part of them that is commission or performance fees.';
