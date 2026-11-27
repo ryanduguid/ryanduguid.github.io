@@ -588,10 +588,10 @@ export function calculatorTools(calculate) {
     ...businessCohortETools(TOOL_KIT, calculate),
     'casual-overtime': casualOvertimeTool(TOOL_KIT, calculate.casualOvertime),
     'contractor-employee': contractorEmployeeTool(TOOL_KIT, calculate),
-    esic: esicTool(TOOL_KIT, calculate),
-    'residential-vacancy-fee': vacancyFeeTool(TOOL_KIT, calculate),
     'payday-cashflow': paydayCashflowTool(TOOL_KIT, calculate.paydayCashflow),
     ...taxInvoiceTools(TOOL_KIT, calculate),
+    esic: esicTool(TOOL_KIT, calculate),
+    'residential-vacancy-fee': vacancyFeeTool(TOOL_KIT, calculate),
   };
 }
 

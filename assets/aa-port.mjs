@@ -93,10 +93,13 @@ export function yearFirst(text) {
   return first >= 1000 && `${first}-${String((first + 1) % 100).padStart(2, '0')}` === text ? first : null;
 }
 
+/** A JSON value as Python's repr shows it in the command's messages. @param {unknown} value */
+const pyRepr = (value) => (typeof value === 'string' ? `'${value}'` : value == null ? 'None' : typeof value === 'boolean' ? (value ? 'True' : 'False') : String(value));
+
 /** The engine's `scope`: confirmation, then a supported period. @param {Record<string, unknown>} v @param {readonly string[]} periods */
 export function scopeYear(v, periods) {
   if (v.scope_confirmed !== true) refuse('scope.not_confirmed', 'Establish all stated scope conditions before calculating.');
-  if (typeof v.year !== 'string' || !periods.includes(v.year)) refuse('period.unsupported', `Unsupported period; supported: ${periods.join(', ')}.`);
+  if (typeof v.year !== 'string' || !periods.includes(v.year)) refuse('period.unsupported', `Unsupported period ${pyRepr(v.year)}; supported: ${periods.join(', ')}.`);
   return /** @type {string} */ (v.year);
 }
 

@@ -7566,9 +7566,9 @@ for (const [name, engine] of [['esic', calculations.esic], ['residential-vacancy
   test(`${name} agrees with the ${name} command on every recorded case`, () => {
     const { cases } = differential(name);
     assert.ok(cases.length >= 170);
-    for (const { source, call, refused, period, amounts, rates, checked } of cases) {
+    for (const { source, call, refused, message, period, amounts, rates, checked } of cases) {
       if (refused) {
-        assert.throws(() => engine(structuredClone(call)), { code: refused }, source);
+        assert.throws(() => engine(structuredClone(call)), { code: refused, message }, source);
         continue;
       }
       const r = engine(structuredClone(call));
@@ -7589,6 +7589,9 @@ test('the ESIC page keeps the sign of a nil amount and words its refusals', () =
   assert.throws(() => page({ items: '1, x' }), /innovation test items as distinct numbers/);
   assert.throws(() => page({ paid: '1.005' }), /from \$0 to \$1,000,000,000,000/);
   assert.throws(() => page({ incorporated: '2030-31' }), { code: 'esic.incorporation_after_year' });
+  const periods = [[null, 'None'], [true, 'True'], [false, 'False'], [2025, '2025'], ['2015-16', "'2015-16'"]].map(([year, shown]) => [
+    () => calculations.esic({ ...calculations.esicFormInput((name) => form[name] ?? ''), year }), `Unsupported period ${shown}; supported: 2016-17,`]);
+  for (const [run, start] of periods) assert.throws(run, (e) => e.code === 'period.unsupported' && e.message.startsWith(start), start);
   const call = calculations.esicFormInput((name) => form[name] ?? '');
   assert.equal(calculations.esic({ ...call, amount_paid: '-0', non_cash_benefit: '-0' }).amounts.tax_offset, '-0.00');
   assert.equal(calculations.esic({ ...call, innovation_items: [6, 7] }).innovation_points, 50);

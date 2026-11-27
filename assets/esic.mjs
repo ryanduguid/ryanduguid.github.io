@@ -83,7 +83,7 @@ function countedIncome({ v, current }) {
     refuse('esic.amount_above_income', 'accelerating_commercialisation_grant and rd_clawback_income are parts of assessable_income_previous_year and together cannot exceed it.');
   }
   if (current === 2021 && !isZero(clawback)) {
-    refuse('esic.clawback_year_unsettled', 's 360-40(2)(b) applies to assessments for income years commencing on or after 1 July 2021 (Act No. 92 of 2020 Sch 5 item 37); a 2020-21 amount tested in 2021-22 is not decided here.');
+    refuse('esic.clawback_year_unsettled', 's 360-40(2)(b) applies to assessments for income years commencing on or after 1 July 2021 (Act No. 92 of 2020 Sch 5 item 37) and refers to s 355-450(1) as that Act amended it; a 2020-21 amount tested in 2021-22 is not decided here.');
   }
   return current >= 2022
     ? { id: 'counted_assessable_income', authority: "ITAA 1997 s 360-40(1)(c) and (2): the previous year's assessable income, disregarding an Accelerating Commercialisation Grant and a s 355-450(1) amount", value: sub(sub(income, grant), clawback) }

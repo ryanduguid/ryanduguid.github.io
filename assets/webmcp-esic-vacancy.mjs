@@ -22,7 +22,7 @@ export function esicTool(kit, calculate) {
       + 'treatment follows. It does not decide the principles-based test or the innovation items, nor work out trust or partnership members\' offsets.',
     inputSchema: record({
       incomeYear: choice([...years], `Income year the shares were issued, ${years.at(-1)} to ${years[0]}.`),
-      investor: choice(['individual', 'company', 'widely_held_company', 'esvclp', 'trust', 'partnership'], 'The investor; a trust or partnership is refused.'),
+      investor: choice(['individual', 'company', 'widely_held_company', 'esvclp', 'trust', 'partnership'], 'The investor; a trust or partnership is refused, and an ESVCLP before 2018-19.'),
       amountPaid: amount('Money paid for the shares'), amountReceivable: amount('Money the company is still to receive for the shares; omit for none'),
       nonCashBenefit: amount('Market value of a non-cash benefit for the shares; 0 when omitted'),
       disclosureExemption: flag('true when Corporations Act s 708(8), (10) or (11) removed the need for a disclosure document for the offer.'),

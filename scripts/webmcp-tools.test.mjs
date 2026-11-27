@@ -2297,6 +2297,8 @@ test('the ESIC and vacancy fee tools return their page examples and refuse what 
   assert.deepEqual([exempt.vacancyFeePayable, exempt.applicationFeeBase, exempt.liable], ['0.00', '14750.00', false]);
   await assert.rejects(fee.execute({ ...rvf, applicationFeePayable: '13200' }), /not both/);
   await assert.rejects(fee.execute({ ...rvf, residentiallyOccupiedDays: 400 }), /residentiallyOccupiedDays/);
+});
+
 // The tax invoice page's example (GSTR 2013/1 example 2), a mixed invoice by the taxable supply rule, an RCTI and refusals.
 test('tax invoice tool returns the page example, a mixed invoice and an RCTI, and refuses what the page refuses', async () => {
   const tool = tools['tax-invoice'];

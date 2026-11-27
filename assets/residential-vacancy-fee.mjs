@@ -60,11 +60,11 @@ function parseVacancy(v) {
   const year = scopeYear(v, PERIODS);
   const first = /** @type {number} */ (yearFirst(year));
   const start = parseDay(v.vacancy_year_start) ?? refuse('input.date_invalid', 'vacancy_year_start must be a YYYY-MM-DD date from 1900 to 2100.');
-  if (start < DAY(`${first}-07-01`) || start > DAY(`${first + 1}-06-30`)) invalid('date_outside_year', `vacancy_year_start must be in the ${year} financial year.`);
+  if (start < DAY(`${first}-07-01`) || start > DAY(`${first + 1}-06-30`)) invalid('date_outside_year', `vacancy_year_start must be in the ${year} financial year, from ${first}-07-01 to ${first + 1}-06-30.`);
   const end = monthsEnd(start, 12);
   const heldFull = flag(v.held_full_vacancy_year, 'held_full_vacancy_year');
   const occupied = v.residentially_occupied_days;
-  if (!Number.isInteger(occupied) || occupied < 0 || occupied > end - start + 1) invalid('days_invalid', 'residentially_occupied_days must be a JSON integer from 0 to the days in the vacancy year.');
+  if (!Number.isInteger(occupied) || occupied < 0 || occupied > end - start + 1) invalid('days_invalid', `residentially_occupied_days must be a JSON integer from 0 to ${end - start + 1} for this vacancy year.`);
   const lodged = flag(v.return_lodged_on_time, 'return_lodged_on_time');
   const exemption = v.exemption === null ? null : typeof v.exemption === 'string' && Object.hasOwn(RVF_EXEMPTIONS, v.exemption) ? v.exemption
     : invalid('exemption_invalid', 'exemption must be null or one of damaged_unsafe_or_unsuitable, substantial_repairs_or_renovations, legal_restriction_or_court_order or medical_or_residential_care.');
@@ -99,7 +99,7 @@ function parseWaiver(given, basis) {
   if (given === 'partial') invalid('partial_waiver_unsupported', "Partial waivers of the original application fee fall outside Fees Regulations 2020 Part 3's full-waiver substitution rules and depend on case-by-case Treasury waiver or remission under FATA s 115H.");
   if (given !== 'full') invalid('waiver_invalid', 'application_fee_waiver must be none, full or partial.');
   if (basis === 'developer_exemption_certificate') invalid('waiver_invalid', 'application_fee_waiver cannot be full for developer_exemption_certificate: under Fees Regulations s 44 the purchaser paid no personal application fee to waive.');
-  if (basis === 'other_exemption_certificate') invalid('other_ec_waiver_unsupported', 'Under Fees Regulations s 45(b), a waived fee for another exemption certificate uses the lowest Division 7 fee for that specific certificate kind, which is outside this worksheet.');
+  if (basis === 'other_exemption_certificate') invalid('other_ec_waiver_unsupported', 'Under Fees Regulations s 45(b), a waived fee for another exemption certificate uses the lowest Division 7 fee for that specific certificate kind, which depends on the Division 7 category (s 32, s 33 or s 34) and is outside this worksheet.');
   return true;
 }
 
@@ -107,7 +107,7 @@ function parseWaiver(given, basis) {
 function dwellingKind(v, basis) {
   const kind = v.dwelling_kind;
   if (kind !== 'new_or_near_new' && kind !== 'established') invalid('dwelling_kind_invalid', 'dwelling_kind is required and must be new_or_near_new or established.');
-  if (basis === 'developer_exemption_certificate' && kind === 'established') invalid('dwelling_kind_invalid', 'dwelling_kind cannot be established for developer_exemption_certificate.');
+  if (basis === 'developer_exemption_certificate' && kind === 'established') invalid('dwelling_kind_invalid', 'dwelling_kind cannot be established for developer_exemption_certificate: Fees Regulations s 44 covers only s 57 new dwellings and reg 43A near-new dwelling interests certificates.');
   return /** @type {string} */ (kind);
 }
 
@@ -116,7 +116,7 @@ function applicationDate(v, basis, start) {
   const unsupported = (/** @type {string} */ m) => invalid('application_date_unsupported', m);
   if (!Object.hasOwn(v, 'application_date')) unsupported('application_date (YYYY-MM-DD, from 2021-01-01 to 2027-06-30) is required to determine the statutory residential fee schedule.');
   const day = parseDay(v.application_date) ?? refuse('input.date_invalid', 'application_date must be a YYYY-MM-DD date from 1900 to 2100.');
-  const schedule = scheduleFor(day) ?? unsupported('application_date must be from 2021-01-01 to 2027-06-30. For a pre-2021 notified acquisition, supply application_fee_payable directly.');
+  const schedule = scheduleFor(day) ?? unsupported('application_date must be from 2021-01-01 to 2027-06-30, where the Fees Imposition Regulations 2020 residential fee schedule is verified. For a pre-2021 notified acquisition, supply application_fee_payable directly.');
   if ((basis === 'notifiable_action' || basis === 'developer_exemption_certificate') && day > start) {
     unsupported('application_date cannot be after vacancy_year_start for a notified acquisition or developer exemption certificate.');
   }
@@ -175,10 +175,10 @@ function waivedFee(v, p) {
   }
   const unsettled = (/** @type {string} */ m) => invalid('pre_2024_waiver_boundary_unsettled', m);
   if (!p.lodged) unsettled('For a pre-9 April 2024 vacancy year with a waived application fee and a late return, the s 10 item 1 amount turns on when the Commissioner issues the s 115E notice or the fee becomes payable, which is outside this worksheet.');
-  if (Object.hasOwn(v, 'application_date') || Object.hasOwn(v, 'dwelling_kind')) invalid('application_fee_invalid', 'For a vacancy year starting before 9 April 2024 with a waived application fee, omit application_date and dwelling_kind.');
+  if (Object.hasOwn(v, 'application_date') || Object.hasOwn(v, 'dwelling_kind')) invalid('application_fee_invalid', 'For a vacancy year starting before 9 April 2024 with a waived application fee, omit application_date and dwelling_kind: pre-9 April 2024 Fees Regulations ss 43(b) and 46(b) use the s 10 item 1 amount in force when the vacancy fee becomes payable.');
   const [atEnd, atDue] = [scheduleFor(p.end), scheduleFor(p.end + 30)];
   if (!atEnd || !atDue) unsettled('The vacancy year end or 30-day return window lies outside the verified Fees Regulations 2020 schedule dates.');
-  if (atEnd.tierOne !== atDue.tierOne) unsettled('The 30-day return window crosses a change in the s 10 item 1 fee, so the pre-9 April 2024 waived-fee amount depends on the exact date the fee became payable.');
+  if (atEnd.tierOne !== atDue.tierOne) unsettled(`The 30-day return window (${formatDay(p.end)} to ${formatDay(p.end + 30)}) crosses a change in the s 10 item 1 fee ($${atEnd.tierOne} to $${atDue.tierOne}), so the pre-9 April 2024 waived-fee amount depends on the exact date the fee became payable.`);
   const whole = { id: 'whole_property_application_fee', authority: 'Fees Regulations 2020 (pre-9 April 2024 compilation) s 43(b) or s 46(b) and s 10 item 1: lowest residential tier fee', value: int(atEnd.tierOne) };
   return { ...shareSteps(whole, share), rates: [['tier_one_fee', String(atEnd.tierOne)]], basis: 'waived_tier_one' };
 }
@@ -238,11 +238,11 @@ function vacancySteps(p, base, multiplier) {
   const uncapped = mul(base, int(multiplier));
   const floor = CAPS.find(([from, to]) => p.end >= DAY(from) && p.end <= DAY(to))?.[2] ?? CAP_FLOOR;
   if (cmp(uncapped, int(floor)) > 0) {
-    invalid('cap_unsettled', `The uncapped vacancy fee ($${decText(uncapped)}) exceeds the Fees Imposition Act 2015 s 6(3) statutory fee cap floor at vacancy_year_end ($${floor}), and this worksheet takes no notice date.`);
+    invalid('cap_unsettled', `The uncapped vacancy fee ($${decText(uncapped)}) exceeds the Fees Imposition Act 2015 s 6(3) statutory fee cap floor at vacancy_year_end ($${floor}). Because the applicable indexed cap under s 7 and Fees Regulations s 61A can rise if the Commissioner's s 115E notice or s 115F due date falls after a later 1 July indexation, and this worksheet takes no notice date, a fee above the cap floor is refused.`);
   }
   return { cap: floor, steps: [
     { id: 'uncapped_vacancy_fee', authority: multiplier === 2 ? 'Fees Regulations 2020 Part 3 (ss 43 to 46) and s 67(2) (Act No. 17 of 2024): double the application fee basis for vacancy years starting on or after 9 April 2024' : 'Fees Regulations 2020 Part 3 (ss 43 to 46, pre-9 April 2024 compilation): equal to the application fee basis for vacancy years starting before 9 April 2024', value: uncapped },
-    { id: 'vacancy_fee_payable', authority: 'Fees Imposition Act 2015 ss 6(3) and 7(3) and Fees Regulations 2020 s 61A: uncapped vacancy fee does not exceed the non-decreasing statutory fee cap floor, so the cap cannot bind', value: uncapped }] };
+    { id: 'vacancy_fee_payable', authority: 'Fees Imposition Act 2015 ss 6(3) and 7(3) and Fees Regulations 2020 s 61A: uncapped vacancy fee does not exceed the non-decreasing statutory fee cap floor, so the cap cannot bind regardless of s 115E notice or s 115F due date', value: uncapped }] };
 }
 
 /**
