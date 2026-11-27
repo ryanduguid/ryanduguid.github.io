@@ -100,6 +100,7 @@ pub const CHECKS: &[Check] = &[
         "--test",
         "scripts/borrowing-fuel-fbt-levy-branches.test.mjs",
     ]),
+    Check::External(&["node", "--test", "scripts/engine-notes-refusals.test.mjs"]),
 ];
 
 /// The steps before the checked tree exists, in order, around the Jekyll build.
