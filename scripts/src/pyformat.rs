@@ -821,6 +821,16 @@ fn unknown_code(kind: char, value: &Json) -> String {
     }
 }
 
+/// `format(int, spec)`, `value` being the int or bool `int` came from.
+fn format_integer(int: &BigInt, value: &Json, spec: &str) -> Result<String> {
+    let format = parse_spec(value, spec, Some('d'), '>')?;
+    match format.kind.unwrap_or('d') {
+        'b' | 'c' | 'd' | 'o' | 'x' | 'X' | 'n' => format_int(int, &format),
+        'e' | 'E' | 'f' | 'F' | 'g' | 'G' | '%' => format_float(int_to_float(int)?, &format),
+        kind => Err(unknown_code(kind, value)),
+    }
+}
+
 /// `format(value, spec)` for a decoded value (str, int, float, bool, None, list, dict).
 pub fn format_value(value: &Json, spec: &str) -> Result<String> {
     if spec.is_empty() {
@@ -829,28 +839,14 @@ pub fn format_value(value: &Json, spec: &str) -> Result<String> {
     match value {
         Json::Str(s) => {
             let format = parse_spec(value, spec, Some('s'), '<')?;
-            match format.kind {
-                Some('s') => format_string(s, &format),
-                Some(kind) => Err(unknown_code(kind, value)),
-                None => unreachable!("default type"),
+            // parse_spec falls back to the default type, so the kind is always set.
+            match format.kind.unwrap_or('s') {
+                's' => format_string(s, &format),
+                kind => Err(unknown_code(kind, value)),
             }
         }
-        Json::Int(_) | Json::Bool(_) => {
-            let int = match value {
-                Json::Int(i) => i.clone(),
-                Json::Bool(b) => BigInt::from(u8::from(*b)),
-                _ => unreachable!(),
-            };
-            let format = parse_spec(value, spec, Some('d'), '>')?;
-            match format.kind {
-                Some('b' | 'c' | 'd' | 'o' | 'x' | 'X' | 'n') => format_int(&int, &format),
-                Some('e' | 'E' | 'f' | 'F' | 'g' | 'G' | '%') => {
-                    format_float(int_to_float(&int)?, &format)
-                }
-                Some(kind) => Err(unknown_code(kind, value)),
-                None => unreachable!("default type"),
-            }
-        }
+        Json::Int(i) => format_integer(i, value, spec),
+        Json::Bool(b) => format_integer(&BigInt::from(u8::from(*b)), value, spec),
         Json::Float(f) => {
             let format = parse_spec(value, spec, None, '>')?;
             match format.kind {
