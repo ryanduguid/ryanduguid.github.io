@@ -21,6 +21,8 @@ mod py_format_json;
 mod py_helpers;
 #[path = "cov/site_contracts.rs"]
 mod site_contracts;
+#[path = "cov/site_contracts_edges.rs"]
+mod site_contracts_edges;
 #[path = "cov/validators_a.rs"]
 mod validators_a;
 #[path = "cov/validators_b.rs"]
