@@ -14,6 +14,7 @@ import { FUEL_EFFICIENT_THRESHOLDS } from '../assets/fbt-ev-exemption.mjs';
 import { COMPANY_TAX_LAW } from '../assets/company-tax.mjs';
 import { FOREIGN_SURCHARGES } from '../assets/foreign-surcharge.mjs';
 import { BUSINESS_DAY_PLACES, BUSINESS_DAYS_COVERAGE, STATE_ONLY_HOLIDAYS } from '../assets/business-days.mjs';
+import './aa-ports.test.mjs';
 
 test('finite-decimal calculations round half cents up without binary drift', () => {
   assert.equal(businessUse('20.15', '50').share, 10.08);
@@ -784,6 +785,9 @@ Object.assign(INPUTS, { deferredTax: (x) => calculations.deferredTaxInputsText(x
 Object.assign(ENGINE_LABELS, { deferredTax: { deferredTaxLiability: 'deferred tax liability', deferredTaxAsset: 'deferred tax asset',
   deferredTaxExpense: 'deferred tax expense', currentTax: 'current tax', incomeTaxExpense: 'income tax expense' } });
 
+const s9Aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+Object.assign(INPUTS, { motorVehicleDuty: (x) => calculations.motorVehicleDutyInputsText(x, s9Aud),
+  insuranceDuty: (x) => calculations.insuranceDutyInputsText(x, s9Aud), vicPropertyTaxes: (x) => calculations.vicPropertyInputsText(x, s9Aud) });
 // The casual and overtime pay page's rows (its tests are with the page's other tests below).
 Object.assign(INPUTS, { casualOvertime: (x) => calculations.casualOvertimeInputsText(x,
   (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
@@ -1280,6 +1284,10 @@ Object.assign(FORM_CALLS, { paydayCashflow: (f) => [{ quarter: f.quarter, cycle:
   earnings: f.earnings }] });
 
 Object.assign(FORM_CALLS, { trustStreaming: (f) => [calculations.trustStreamingFormInput((name) => f[name] ?? '')] });
+
+Object.assign(FORM_CALLS, { motorVehicleDuty: (f) => [calculations.motorVehicleDutyFormInput((name) => f[name] ?? '')],
+  insuranceDuty: (f) => [calculations.insuranceDutyFormInput((name) => f[name] ?? '')],
+  vicPropertyTaxes: (f) => [calculations.vicPropertyFormInput((name) => f[name] ?? '')] });
 
 for (const [page, { function: name, rows: [first] }] of Object.entries(shownCases)) {
   test(`${page} opens on its first boundary case as the fictional example`, () => {
@@ -7523,6 +7531,189 @@ test('the deferred tax form sends the rows with a name or an amount, in order', 
   assert.deepEqual(loss.rows.at(-1), ['Average effective tax rate', '0%']);
 });
 
+// The S8 pages port australian-accounting commands: foreign-resident-withholding (TAA 1953 Sch 1 ss 14-200 to 14-235),
+// and solomons-sword's partnership-net-income (ITAA 1936 ss 90 to 92) and trust-loss-tests (ITAA 1936 Sch 2F), read 27 November 2026.
+const S8_MAIN = /^ryanduguid\/australian-accounting at 4df634b /;
+const s8Fixture = (file) => JSON.parse(readFileSync(new URL(`./${file}`, import.meta.url), 'utf8'));
+
+test('foreign resident capital gains withholding agrees with the foreign-resident-withholding command on every recorded case', () => {
+  const { engine, cases } = s8Fixture('foreign-resident-withholding-engine-differential.json');
+  const authorities = s8Fixture('foreign-resident-withholding-authorities.json');
+  assert.match(engine, S8_MAIN);
+  assert.ok(cases.length >= 600);
+  assert.ok(cases.filter((c) => c.source.startsWith('AA test')).length >= 300);
+  for (const { source, call, refused, message, ...want } of cases) {
+    if (refused) {
+      assert.throws(() => calculations.foreignResidentWithholding(call), { code: refused, message }, source);
+      continue;
+    }
+    const r = calculations.foreignResidentWithholding(call);
+    assert.deepEqual(r.authorities, authorities, source);
+    const { authorities: _, ...got } = r;
+    assert.deepEqual(got, want, source);
+  }
+});
+
+for (const [slug, run] of [['partnership-net-income', 'partnershipNetIncome'], ['trust-loss-tests', 'trustLossTests']]) {
+  test(`${slug} agrees with the solomons-sword command on every recorded case`, () => {
+    const { engine, cases } = s8Fixture(`${slug}-engine-differential.json`);
+    assert.match(engine, S8_MAIN);
+    assert.ok(cases.length >= 340);
+    assert.ok(cases.filter((c) => c.source.startsWith('AA test')).length >= 40);
+    for (const { source, call, refused, result } of cases) {
+      if (refused) {
+        assert.throws(() => calculations[run](call), { message: refused }, source);
+        continue;
+      }
+      assert.deepEqual(calculations[run](call), result, source);
+    }
+  });
+}
+
+// The S8 pages' boundary rows: the form's call, how the page writes it, and the figures each row shows.
+const s8Aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+Object.assign(INPUTS, { frcgwFigures: (x) => calculations.frcgwInputsText(x, s8Aud), partnershipNetIncome: (x) => calculations.partnershipInputsText(x, s8Aud),
+  trustLossTests: (x) => calculations.trustLossInputsText(x) });
+Object.assign(ENGINE_LABELS, {
+  frcgwFigures: { withholdingBase: (v) => `withholding base ${dollars(v)}`, amountPayable: (v) => `amount to pay the ATO ${dollars(v)}`,
+    nilReason: (v) => (v === null ? 'withholding applies' : `nothing to withhold: ${v}`) },
+  partnershipNetIncome: { deductions_counted: (v) => `deductions counted ${dollars(Number(v))}`, net_income: (v) => `net income ${dollars(Number(v))}`,
+    partnership_loss: (v) => `partnership loss ${dollars(Number(v))}` },
+  trustLossTests: { deductible: (v) => (v === true ? 'prior-year loss deductible' : v === false ? 'prior-year loss not deductible' : 'deductibility not established') },
+});
+Object.assign(FORM_CALLS, { frcgwFigures: (f) => [calculations.frcgwFormInput((name) => f[name] ?? '')],
+  partnershipNetIncome: (f) => [calculations.partnershipFormInput((name) => f[name] ?? '')], trustLossTests: (f) => [calculations.trustLossFormInput((name) => f[name] ?? '')] });
+
+test('the S8 pages put their refusals in the page’s words', () => {
+  const frcgwForm = { date: '2026-03-15', asset: 'taxable_australian_real_property', 'market-value': '800000', price: '800000', option: '800001', exclusion: 'none',
+    'class-nil': 'no', 'vendor-1-interest': '1', 'vendor-1-document': 'none' };
+  assert.throws(() => calculations.frcgwResult((name) => frcgwForm[name] ?? '', s8Aud), { message: 'Enter an option fee no more than the purchase price.' });
+  assert.throws(() => calculations.frcgwResult((name) => ({ ...frcgwForm, option: '0', 'sale-price': '880000', 'vendor-1-document': 'variation', 'vendor-1-rate': '0.05',
+    'vendor-1-maximum': '850000' })[name] ?? '', s8Aud), /whether the maximum includes GST/);
+  const frcgw = calculations.frcgwResult((name) => ({ ...frcgwForm, option: '0', 'vendor-1-document': 'variation', 'vendor-1-rate': '0.07', 'vendor-1-maximum': '900000' })[name] ?? '', s8Aud);
+  assert.match(frcgw.inputs, / at 7% up to \$900,000\.00$/);
+  const partnership = { year: '2026', 'assessable-income': '1000', deductions: '0', scope: 'none', australian: 'no', 'partner-1-name': 'A', 'partner-1-interest': '60',
+    'partner-1-residency': 'non_resident', 'partner-2-name': 'B', 'partner-2-interest': '30', 'partner-2-residency': 'resident' };
+  assert.throws(() => calculations.partnershipResult((name) => partnership[name] ?? '', s8Aud), /choose Yes for all the income being from Australian sources/);
+  assert.throws(() => calculations.partnershipResult((name) => ({ ...partnership, australian: 'yes' })[name] ?? '', s8Aud),
+    { message: 'Enter partner interests that total 100%; these total 90%.' });
+  assert.throws(() => calculations.trustLossResult((name) => ({ year: '2026', 'loss-year': '2026', kind: 'fixed', excepted: 'none' })[name] ?? 'unknown'),
+    { message: 'Choose a loss year earlier than the income year deducting it.' });
+});
+
+test('the S8 pages work their own examples from the form', () => {
+  const aud = (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+  const frcgw = calculations.frcgwResult((name) => ({ date: '2026-03-15', asset: 'taxable_australian_real_property', 'market-value': '1200000', price: '1200000',
+    option: '0', 'sale-price': '', exclusion: 'none', 'class-nil': 'no', 'vendor-1-interest': '50', 'vendor-1-document': 'none',
+    'vendor-2-interest': '50', 'vendor-2-document': 'variation', 'vendor-2-rate': '0.05', 'vendor-2-maximum': '1250000' })[name] ?? '', aud);
+  assert.deepEqual(frcgw.rows[frcgw.principal], ['Amount to pay the ATO at settlement', '$120,000.00']);
+  assert.throws(() => calculations.frcgwResult((name) => ({ date: '2026-03-15', 'vendor-1-interest': '' })[name] ?? '', aud), /at least one vendor/);
+  const partnership = calculations.partnershipResult((name) => ({ year: '2026', 'assessable-income': '1000', deductions: '1500', scope: 'none', australian: 'yes',
+    'partner-1-name': 'A', 'partner-1-interest': '50', 'partner-1-residency': 'resident', 'partner-2-name': 'B', 'partner-2-interest': '50',
+    'partner-2-residency': 'resident' })[name] ?? '', aud);
+  assert.deepEqual(partnership.rows.slice(2), [['Partnership loss (s 90)', '$500.00'], ['A (50%): share of the loss to deduct', '$250.00'], ['B (50%): share of the loss to deduct', '$250.00']]);
+  const trust = calculations.trustLossResult((name) => ({ year: '2026', 'loss-year': '2023', kind: 'non_fixed', excepted: 'family_trust', injection: 'unknown' })[name] ?? 'unknown');
+  assert.deepEqual(trust.rows.at(-1), ['Prior-year loss deductible under Schedule 2F', 'Not established']);
+  assert.match(trust.note, /income injection test/);
+});
+
+test('exact decimals read what the command reads, and plain decimals are digits with at most one point between digits', async () => {
+  const { parse, isPlainDecimal } = await import('../assets/exact-decimal.mjs');
+  const read = (text) => { const x = parse(text); return x && `${x.neg ? '-' : ''}${x.coef}e${x.exp}${x.special ?? ''}`; };
+  assert.deepEqual(['1', '+1.50', '-.5', '5.', '1e3', '1.5E-2', ' 7 ', '000.100'].map(read), ['1e0', '150e-2', '-5e-1', '5e0', '1e3', '15e-3', '7e0', '100e-3']);
+  assert.deepEqual(['', '.', '+', '-', 'e5', '1e', '1e+', '1e5e5', '1..2', '1.2.3', '+-1', '--1', '1_0', '１', 'x'].map(read), Array(15).fill(null));
+  assert.equal(read('-Infinity'), '-0e0inf');
+  assert.equal(read('NaN12'), '0e0nan');
+  assert.deepEqual(['0', '12', '1.5', '10.25'].map(isPlainDecimal), [true, true, true, true]);
+  assert.deepEqual(['', '.', '.5', '5.', '1.2.3', '-1', '1e3', ' 1', '１'].map(isPlainDecimal), Array(9).fill(false));
+});
+
+// The motor vehicle duty, insurance duty and Victorian property taxes pages: ports of australian-accounting's
+// motor-vehicle-duty, insurance-duty and vic-property-taxes commands, checked against the commands' release build.
+const s9Code = (run) => {
+  try {
+    run();
+  } catch (error) {
+    return error.code;
+  }
+  return 'computed';
+};
+const s9Engines = { 'motor-vehicle-duty': calculations.motorVehicleDuty, 'insurance-duty': calculations.insuranceDuty,
+  'vic-property-taxes': calculations.vicPropertyTaxes };
+const s9Sorted = (o) => Object.fromEntries(Object.entries(o).sort(([a], [b]) => (a < b ? -1 : 1)));
+for (const [command, tests, total, refusals] of [['motor-vehicle-duty', 275, 575, 107], ['insurance-duty', 253, 552, 135], ['vic-property-taxes', 99, 312, 145]]) {
+  test(`the ${command} page agrees with the australian-accounting command on every differential case`, () => {
+    const { engine, cases } = JSON.parse(readFileSync(new URL(`./${command}-engine-differential.json`, import.meta.url), 'utf8'));
+    assert.match(engine, /at 4df634b /);
+    assert.equal(cases.filter((c) => c.source.startsWith('AA test')).length, tests);
+    assert.equal(cases.length, total);
+    let refused = 0;
+    for (const { source, call, refused: code, ...want } of cases) {
+      if (code) {
+        refused += 1;
+        assert.equal(s9Code(() => s9Engines[command](structuredClone(call))), code, source);
+        continue;
+      }
+      const r = s9Engines[command](structuredClone(call));
+      assert.deepEqual({ period: r.year, amounts: s9Sorted(r.amounts), rates: s9Sorted(r.rates) },
+        { period: want.period, amounts: s9Sorted(want.amounts), rates: s9Sorted(want.rates) }, source);
+    }
+    assert.equal(refused, refusals);
+  });
+}
+
+test('the motor vehicle duty page charges each band edge and the conditional inputs where they belong', () => {
+  const base = shownCases['motor-vehicle-duty'].rows[0].call[0];
+  const duty = (more) => calculations.motorVehicleDuty({ ...base, ...more }).amounts.duty;
+  // New South Wales: $3 for every $100, or part, to $45,000; from $45,001 the higher band, so $45,001 pays $1,350 plus $5.
+  assert.deepEqual([duty({ dutiable_value: '45000' }), duty({ dutiable_value: '45001' }), duty({ dutiable_value: '101' })], ['1350.00', '1355.00', '6.00']);
+  // Western Australia rounds down to 5 cents; $30,000 is at 3.50%.
+  assert.deepEqual([duty({ jurisdiction: 'wa', dutiable_value: '30000' }), duty({ jurisdiction: 'wa', dutiable_value: '1001' })], ['1050.00', '27.50']);
+  // The ACT's used vehicles other than AAA pay Category C, and DI2026-154 applies from 1 February 2027.
+  const act = { jurisdiction: 'act', emissions_category: 'd', new_vehicle: false, dutiable_value: '30000' };
+  assert.deepEqual([duty(act), duty({ ...act, new_vehicle: true }), duty({ ...act, new_vehicle: true, duty_date: '2027-02-01' })],
+    ['951.00', '1359.00', '1449.00']);
+  assert.equal(duty({ jurisdiction: 'nt', electric: true, dutiable_value: '50001' }), '3.00');
+  assert.equal(duty({ jurisdiction: 'sa', dutiable_value: '1' }), '5.00');
+  for (const [more, code] of [[{ engine: 'up_to_4_cylinders' }, 'input.field_unknown'], [{ jurisdiction: 'qld' }, 'input.missing_field'],
+    [{ dutiable_value: '100.50' }, 'input.amount_not_whole_dollars'], [{ duty_date: '2027-07-01' }, 'motor_vehicle_duty.date_outside_year'],
+    [{ vehicle_class: 'motorcycle' }, 'motor_vehicle_duty.vehicle_class_unsupported']]) {
+    assert.equal(s9Code(() => calculations.motorVehicleDuty({ ...base, ...more })), code, code);
+  }
+});
+
+test('the insurance duty page keeps the exact duty and refuses what the Acts leave open', () => {
+  const base = shownCases['insurance-duty'].rows[0].call[0];
+  const run = (more) => calculations.insuranceDuty({ ...base, ...more });
+  assert.deepEqual(run({ premium: '0.05' }).rates, { rate_percent: '10', exact_duty: '0.005' });
+  assert.equal(run({ premium: '0.05' }).amounts.duty, '0.01');
+  assert.deepEqual(run({ jurisdiction: 'qld', class: 'ctp' }).amounts, { duty: '0.10' });
+  assert.deepEqual(run({ jurisdiction: 'act' }).rates.abolished_from, '2017-07-01');
+  assert.equal(run({ jurisdiction: 'nsw', class: 'type_c', policy_taken_out: '2018-01-01' }).amounts.duty, '0.00');
+  assert.equal(s9Code(() => run({ jurisdiction: 'nt', term_over_one_year: true })), 'insurance_duty.term_unsettled');
+  assert.equal(s9Code(() => run({ jurisdiction: 'nt' })), 'input.missing_field');
+  assert.equal(s9Code(() => run({ class: 'life' })), 'insurance_duty.class_invalid');
+});
+
+test('the Victorian property taxes page applies the year rules, the CIPT transition and the windfall gains bands', () => {
+  const [vrlt, , wgt] = shownCases['vic-property-taxes'].rows.map((row) => row.call[0]);
+  const run = (base, more) => calculations.vicPropertyTaxes({ ...base, ...more });
+  const undeveloped = { ...vrlt, residential_land: 'undeveloped' };
+  delete undeveloped.new_residential_concession;
+  delete undeveloped.liable_previous_tax_year;
+  delete undeveloped.liable_tax_year_before;
+  assert.equal(run(undeveloped, {}).amounts.total, '8000.00');
+  assert.equal(s9Code(() => run(undeveloped, { year: '2025' })), 'vic_property_taxes.undeveloped_before_2026');
+  const cipt = run({ tax: 'commercial_industrial', year: '2026', scope_confirmed: true }, { entry_date: '2028-02-29' });
+  assert.deepEqual([cipt.amounts.total, cipt.rates.transition_period_ends, cipt.rates.earliest_possible_tax_year], ['0.00', '2038-02-28', '2039']);
+  assert.equal(s9Code(() => run({ tax: 'commercial_industrial', year: '2026', scope_confirmed: true }, { entry_date: '2025-12-31' })),
+    'vic_property_taxes.transition_end_unsettled');
+  const uplift = (after) => run(wgt, { parcels: [{ civ_before: '0', civ_after: after }, { civ_before: '50000', civ_after: '0' }] }).amounts.wgt;
+  assert.deepEqual([uplift('100000'), uplift('499999'), uplift('500000')], ['0.00', '249999.38', '250000.00']);
+  // A parcel's value, unlike a top-level field, has no 8,192-byte limit in the command.
+  assert.equal(run(wgt, { parcels: [{ civ_before: `${'0'.repeat(9000)}100000`, civ_after: '700000' }] }).amounts.wgt, '300000.00');
+});
+
 // The casual and overtime pay page: its example and sources, then the rules it applies. Hand-worked figures; the rules
 // are SGAA s 6(1) and s 17A(2) (Compilation No. 78), SGR 2009/2 paras 22, 27, 35, 41 and 42 and draft LCR 2026/D1
 // paras 63 and 64, read 26 November 2026.
@@ -7955,3 +8146,44 @@ test('trust streaming refuses inputs it cannot settle', () => {
   // Trust income below nil with net income above it: nobody is entitled and the trustee is assessed on it all.
   assert.equal(calculations.trustStreaming({ ...trustZero, other_trust_income: '-50', other_net_income: '100' }).trustee.assessable, 100);
 });
+
+// The non-resident withholding page ports the non-resident-withholding command of australian-accounting for its
+// Subdivision 12-F payment types; every case the command's tests and the seeded sweep recorded must agree.
+const nrwFixture = JSON.parse(readFileSync(new URL('./non-resident-withholding-engine-differential.json', import.meta.url), 'utf8'));
+const nrwAud = (v) => dollars(v);
+
+test('non-resident withholding agrees with the non-resident-withholding command on every recorded case', () => {
+  assert.ok(nrwFixture.cases.length >= 900);
+  for (const { source, call, refused, period, amounts, rates } of nrwFixture.cases) {
+    if (refused) {
+      assert.throws(() => calculations.nonResidentWithholding(structuredClone(call)), { code: refused }, source);
+      continue;
+    }
+    const r = calculations.nonResidentWithholding(structuredClone(call));
+    assert.deepEqual([r.period, r.amounts, r.rates], [period, amounts, rates], source);
+  }
+});
+
+test('non-resident withholding refuses the payment types this page does not cover', () => {
+  for (const type of ['mit_fund_payment', 'gaming_junket', 'entertainment_or_sports', 'construction']) {
+    assert.throws(() => calculations.nonResidentWithholding({ payment_type: type, payment: '100', year: '2025-26', scope_confirmed: true }),
+      { code: 'non_resident_withholding.payment_type_out_of_scope' });
+  }
+});
+
+test('the non-resident withholding page works its example and words its refusals', () => {
+  const form = { year: '2025-26', type: 'dividend', payment: '10000', franked: '5000', cfi: '0', treaty: '0.15', exempt: 'no', already: '0' };
+  const r = calculations.nrwResult((name) => form[name] ?? '', nrwAud);
+  assert.deepEqual(r.rows[r.principal], ['Amount to withhold', '$750.00']);
+  assert.equal(r.inputs, '2025-26; dividend of $10,000.00; franked $5,000.00, conduit foreign income $0.00; treaty rate 15%');
+  const royalty = calculations.nrwResult((name) => ({ ...form, type: 'royalty', payment: '999.99', treaty: '' })[name] ?? '', nrwAud);
+  assert.deepEqual(royalty.rows[royalty.principal], ['Amount to withhold', '$299.00']);
+  assert.throws(() => calculations.nrwResult((name) => ({ ...form, treaty: '0.4' })[name] ?? '', nrwAud), /treaty rate as a decimal/);
+  assert.throws(() => calculations.nrwResult((name) => ({ ...form, franked: '20000' })[name] ?? '', nrwAud), /together are no more than the dividend/);
+  assert.throws(() => calculations.nrwResult((name) => ({ ...form, already: '20000' })[name] ?? '', nrwAud), /already withheld no more than the payment/);
+});
+
+Object.assign(INPUTS, { nrwFigures: (x) => calculations.nrwInputsText(x, nrwAud) });
+Object.assign(ENGINE_LABELS, { nrwFigures: { withholdingBase: (v) => `withholding base ${dollars(v)}`,
+  withholding: (v) => `amount to withhold ${dollars(v)}`, netPayment: (v) => `net payment ${dollars(v)}` } });
+Object.assign(FORM_CALLS, { nrwFigures: (f) => [calculations.nrwFormInput((name) => f[name] ?? '')] });

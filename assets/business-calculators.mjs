@@ -5,6 +5,9 @@ import { number, cents, ratioCents, ratioMoney, ratioPercent } from './money.mjs
 export { fbtCarParking, fbtExpensePayment, fbtLoan, fbtMealEntertainment, fbtProperty } from './fbt-benefits.mjs';
 export { fbtEvExemption } from './fbt-ev-exemption.mjs';
 export { landTaxYear } from './land-tax.mjs';
+export { motorVehicleDuty, motorVehicleDutyResult, motorVehicleDutyFormInput, motorVehicleDutyInputsText, MOTOR_VEHICLE_DUTY_YEARS } from './motor-vehicle-duty.mjs';
+export { insuranceDuty, insuranceDutyResult, insuranceDutyFormInput, insuranceDutyInputsText, INSURANCE_CLASSES } from './insurance-duty.mjs';
+export { vicPropertyTaxes, vicPropertyResult, vicPropertyFormInput, vicPropertyInputsText, VIC_PROPERTY_YEARS } from './vic-property-taxes.mjs';
 export { vehicleClass } from './vehicle-class.mjs';
 export { pcgRisk, pcgAllocation, pcgAllocationResult } from './pcg-2021-4.mjs';
 export { cgtConcessions, cgtConcessionsAnswersOf, cgtConcessionsResult } from './cgt-concessions.mjs';
@@ -669,6 +672,9 @@ export { gstMarginScheme, gstMarginSchemeResult } from './gst-margin-scheme.mjs'
 export { lowValuePool, smallBusinessPool, capitalWorks, depreciationPoolsResult, poolFormInput, poolInputsText, POOL_YEARS } from './depreciation-pools.mjs';
 export { casualOvertime, casualOvertimeResult, casualOvertimeFormInput, casualOvertimeInputsText, CASUAL_OVERTIME_PAYDAYS } from './casual-overtime.mjs';
 export { rdTaxOffset, rdTaxOffsetResult, rdFormInput, rdInputsText, RD_YEARS } from './rd-tax-offset.mjs';
+export { foreignResidentWithholding, frcgwFigures, frcgwResult, frcgwFormInput, frcgwInputsText, frcgwYearOf, FRCGW_YEARS, FRCGW_EXCLUSIONS } from './foreign-resident-withholding.mjs';
+export { partnershipNetIncome, partnershipResult, partnershipFormInput, partnershipInputsText, PARTNERSHIP_YEARS } from './partnership-net-income.mjs';
+export { trustLossTests, trustLossResult, trustLossFormInput, trustLossInputsText, EXCEPTED_TRUSTS } from './trust-loss-tests.mjs';
 export { contractorEmployee, contractorEmployeeResult, contractorFormInput, contractorInputsText, CONTRACTOR_YEARS } from './contractor-employee.mjs';
 export { abnCheck, taxInvoice, taxInvoiceResult, taxInvoiceFormInput, taxInvoiceInputsText, invoiceAsHtml, TREATMENTS, MAX_LINES } from './tax-invoice.mjs';
 export { trustStreaming, trustStreamingResult, trustStreamingFormInput, trustStreamingInputsText, TRUST_STREAMING_ROWS } from './trust-streaming.mjs';
@@ -684,3 +690,4 @@ export { gstCreditablePurposeChange, gstAnnualApportionment, gstFinancialAcquisi
 export { gstAdjustment, gstAdjustmentsResult, gstFormInput, gstInputsText, percentFraction, GST_WORKSHEETS } from './gst-adjustments-page.mjs';
 export { deferredTax, deferredTaxResult, deferredTaxFormInput, deferredTaxInputsText, DEFERRED_TAX_YEARS, DEFERRED_TAX_ROWS,
   DEFERRED_TAX_MISMATCH } from './deferred-tax.mjs';
+export { nonResidentWithholding, nrwFigures, nrwResult, nrwFormInput, nrwInputsText, NRW_YEARS } from './non-resident-withholding.mjs';

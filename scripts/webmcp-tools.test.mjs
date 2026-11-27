@@ -100,7 +100,10 @@ test('every calculator tool is read-only, refuses unknown inputs and has its own
     'calculate_fbt_expense_payment', 'calculate_fbt_loan', 'calculate_fbt_meal_entertainment', 'calculate_fbt_property',
     'calculate_land_tax', 'calculate_termination_payment', 'calculate_transfer_duty',
     'calculate_rd_tax_offset', 'calculate_gst_adjustments', 'calculate_deferred_tax', 'calculate_sole_trader_vs_company', 'calculate_trust_streaming',
+    'calculate_foreign_resident_withholding', 'calculate_partnership_net_income', 'check_trust_loss_tests',
     'calculate_casual_overtime_pay', 'calculate_contractor_employee', 'calculate_payday_super_cashflow', 'check_tax_invoice',
+    'calculate_motor_vehicle_duty', 'calculate_insurance_duty', 'calculate_vic_property_taxes',
+    'calculate_non_resident_withholding',
     'calculate_decline_in_value', 'calculate_coal_lsl_levy']);
   for (const t of all) {
     assert.equal(t.annotations.readOnlyHint, true, t.name);
@@ -2258,6 +2261,45 @@ test('transfer balance tool runs transfer, charge and release modes and refuses 
   }), /extra is not an input of this tool/);
 });
 
+test('S8 tools return their page examples and refuse what their pages refuse', async () => {
+  const frcgw = tools['foreign-resident-withholding'];
+  const sale = { acquisitionDate: '2026-03-15', asset: 'taxable_australian_real_property', marketValue: '1200000', costBaseFirstElement: '1200000',
+    vendors: [{ interest: '50', document: 'none' }, { interest: '50', document: 'variation', rate: '0.05', maximumPrice: '1250000' }] };
+  const r = await frcgw.execute(sale);
+  assert.deepEqual([r.amountPayable, r.rate, r.incomeYear, r.source], ['120000.00', '0.15', '2025-26', 'https://duguid.com.au/tools/business-calculators/foreign-resident-withholding/']);
+  assert.equal((await frcgw.execute({ ...sale, acquisitionDate: '2024-06-01', marketValue: '700000' })).nilReason.startsWith('excluded transaction: market value under $750,000'), true);
+  await assert.rejects(frcgw.execute({ ...sale, acquisitionDate: '2017-06-30' }), /Unsupported period/);
+  await assert.rejects(frcgw.execute({ ...sale, extra: 1 }), /extra is not an input of this tool/);
+  const partnership = tools['partnership-net-income'];
+  const p = await partnership.execute({ incomeYear: '2025-26', assessableIncome: '250000', deductions: '130000', excludedDeductions: '10000',
+    partners: [{ name: 'Alex', residency: 'resident', interestPercentage: '50' }, { name: 'Sam', residency: 'resident', interestPercentage: '30' },
+      { name: 'Jo', residency: 'resident', interestPercentage: '20' }] });
+  assert.deepEqual([p.netIncome, p.partners.map((x) => x.assessable_income)], ['130000.00', ['65000.00', '39000.00', '26000.00']]);
+  await assert.rejects(partnership.execute({ incomeYear: '2025-26', assessableIncome: '1', deductions: '0', partners: [{ name: 'A', residency: 'non_resident', interestPercentage: '100' }] }),
+    /non-resident partner/);
+  await assert.rejects(partnership.execute({ incomeYear: '2025-26', assessableIncome: '1', deductions: '0', outOfScope: 'foreign_hybrid',
+    partners: [{ name: 'A', residency: 'resident', interestPercentage: '100' }] }), /foreign hybrid limited partnership/);
+  const trust = tools['trust-loss-tests'];
+  const t = await trust.execute({ incomeYear: '2025-26', lossYear: 2023, trustKind: 'non_fixed', incomeDistributedInIncomeYearOr2MonthsAfter: 'yes',
+    incomeDistributedIn6EarlierYears: 'yes', previouslyFailedPatternTest: 'no', individualsHadOver50PercentStake: 'no', groupBeganToControl: 'no',
+    incomeInjectionScheme: 'no', capitalDistributedInIncomeYearOr2MonthsAfter: 'no',
+    testYearDistributions: { income: [[{ individual: 'Ann', percent: '60' }], [{ individual: 'Ann', percent: '55' }]], capital: [[{ individual: 'Ann', percent: '51' }]] } });
+  assert.deepEqual([t.deductible, t.patternOfDistributionsWorking.income.total], [true, '55']);
+  await assert.rejects(trust.execute({ incomeYear: '2025-26', lossYear: 2026, trustKind: 'fixed' }), /must be earlier than financial_year/);
+});
+
+test('motor vehicle duty, insurance duty and Victorian property taxes tools return their pages’ examples and refuse bad input', async () => {
+  const car = await tools['motor-vehicle-duty'].execute({ jurisdiction: 'nsw', dutiableValue: '50000', dutyDate: '2026-09-01' });
+  assert.deepEqual([car.duty, car.rates.base, car.source], ['1600.00', '1350', 'https://duguid.com.au/tools/business-calculators/motor-vehicle-duty/']);
+  await assert.rejects(tools['motor-vehicle-duty'].execute({ jurisdiction: 'qld', dutiableValue: '50000', dutyDate: '2026-09-01' }), /engine is required/);
+  const cover = await tools['insurance-duty'].execute({ jurisdiction: 'vic', class: 'general', premium: '1000', effectedDate: '2026-09-01' });
+  assert.deepEqual([cover.duty, cover.rates.exact_duty], ['100.00', '100']);
+  await assert.rejects(tools['insurance-duty'].execute({ jurisdiction: 'vic', class: 'ctp', premium: '1000', effectedDate: '2026-09-01' }), /class in vic/);
+  const land = await tools['vic-property-taxes'].execute({ tax: 'windfall_gains', taxYear: '2026', parcels: [{ civBefore: '1000000', civAfter: '1400000' }] });
+  assert.deepEqual([land.total, land.amounts.taxable_value_uplift], ['187500.00', '400000.00']);
+  await assert.rejects(tools['vic-property-taxes'].execute({ tax: 'windfall_gains', taxYear: '2026', entryDate: '2025-01-01' }), /entry_date is an input only/);
+});
+
 test('casual and overtime pay tool returns the page example, Payday Super and quarterly rules, leave loading and refusals', async () => {
   const tool = tools['casual-overtime'];
   const r = await tool.execute({ payday: '2026-07-10', baseRate: '30.00', casualLoadingPercent: '25', ordinaryHours: '30',
@@ -2344,6 +2386,18 @@ test('trust streaming tool returns the ATO Lang Trust example and the trustee’
     /kind does not match/);
   await assert.rejects(tool.execute({ otherTrustIncome: '100', otherNetIncome: '100', beneficiaries: [{ kind: 'individual', presentEntitlement: '101' }] }),
     /cannot exceed the trust/);
+});
+
+test('the non-resident withholding tool returns its page example and refuses what its page refuses', async () => {
+  const nrw = tools['non-resident-withholding'];
+  const r = await nrw.execute({ incomeYear: '2025-26', paymentType: 'dividend', payment: '10000', frankedAmount: '5000', treatyRate: '0.15' });
+  assert.deepEqual([r.withholding, r.netPayment, r.rates.applied_rate, r.source],
+    ['750.00', '9250.00', '0.15', 'https://duguid.com.au/tools/business-calculators/non-resident-withholding/']);
+  const interest = await nrw.execute({ incomeYear: '2026-27', paymentType: 'interest', payment: '1234.56' });
+  assert.deepEqual([interest.paymentUsed, interest.withholding], ['1234.00', '123.00']);
+  await assert.rejects(nrw.execute({ incomeYear: '2025-26', paymentType: 'royalty', payment: '100', treatyRate: '0.31' }), /treaty_rate must be null/);
+  await assert.rejects(nrw.execute({ incomeYear: '2025-26', paymentType: 'interest', payment: '100', extra: 1 }), /extra is not an input of this tool/);
+  await assert.rejects(nrw.execute({ incomeYear: '2025-26', paymentType: 'interest', payment: '1000', frankedAmount: '500' }), /franked_amount is not an input for this payment_type/);
 });
 
 test('lodgment tool applies the threshold, the exceptions and the due date, and refuses 2026-27', async () => {

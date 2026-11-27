@@ -41,7 +41,10 @@ through the draft [WebMCP](https://webmachinelearning.github.io/webmcp/)
 `calculate_fbt_meal_entertainment`, `calculate_fbt_property`, `calculate_land_tax`,
 `calculate_termination_payment`, `calculate_transfer_duty`,
 `calculate_rd_tax_offset`, `calculate_gst_adjustments`, `calculate_deferred_tax`, `calculate_sole_trader_vs_company`, `calculate_trust_streaming`,
-`calculate_casual_overtime_pay`, `calculate_contractor_employee` and `check_tax_invoice`
+`calculate_casual_overtime_pay`, `calculate_contractor_employee`, `check_tax_invoice`,
+`calculate_foreign_resident_withholding`, `calculate_partnership_net_income`, `check_trust_loss_tests`,
+`calculate_motor_vehicle_duty`, `calculate_insurance_duty`, `calculate_vic_property_taxes`
+and `calculate_non_resident_withholding`
 on the 63 business calculator pages,
 `estimate_income_tax`, `calculate_take_home_pay`, `calculate_study_loan_repayment`, `calculate_sole_trader_set_aside`,
 `calculate_lump_sum_arrears`, `calculate_division_293_tax`, `calculate_income_tests`, `calculate_concessional_catch_up`,

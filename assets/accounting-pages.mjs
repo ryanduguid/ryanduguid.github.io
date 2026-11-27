@@ -600,6 +600,15 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'rd-tax-offset':
             result = calculate.rdTaxOffsetResult(value, aud);
             break;
+          case 'foreign-resident-withholding':
+            result = calculate.frcgwResult(value, aud);
+            break;
+          case 'partnership-net-income':
+            result = calculate.partnershipResult(value, aud);
+            break;
+          case 'trust-loss-tests':
+            result = calculate.trustLossResult(value);
+            break;
           case 'contractor-employee':
             result = calculate.contractorEmployeeResult(value, aud);
             break;
@@ -609,6 +618,9 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
             // The download is the invoice itself, a page to print or save as PDF.
             csv = result.html; // eslint-disable-line xss/no-mixed-html -- the invoice file is downloaded, never inserted into this page
             csvDownload.disabled = false;
+            break;
+          case 'non-resident-withholding':
+            result = calculate.nrwResult(value, aud);
             break;
           case 'fuel-tax-credits':
             result = calculate.fuelTaxCreditsResult(value, aud);
@@ -706,6 +718,15 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'gst-adjustments':
             result = calculate.gstAdjustmentsResult(value, aud);
             showTables(result.tables);
+            break;
+          case 'motor-vehicle-duty':
+            result = calculate.motorVehicleDutyResult(value, aud);
+            break;
+          case 'insurance-duty':
+            result = calculate.insuranceDutyResult(value, aud);
+            break;
+          case 'vic-property-taxes':
+            result = calculate.vicPropertyResult(value, aud);
             break;
           case 'deferred-tax':
             result = calculate.deferredTaxResult(value, aud);

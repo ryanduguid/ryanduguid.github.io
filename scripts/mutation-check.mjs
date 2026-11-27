@@ -79,12 +79,19 @@ const leaseEngine = { ...business, file: 'assets/lease.mjs' };
 const ftc = { ...business, file: 'assets/fuel-tax-credits.mjs' };
 const pools = { ...business, file: 'assets/depreciation-pools.mjs' };
 const rdOffset = { ...business, file: 'assets/rd-tax-offset.mjs' };
+const frcgw = { ...business, file: 'assets/foreign-resident-withholding.mjs' };
+const partnershipEngine = { ...business, file: 'assets/partnership-net-income.mjs' };
+const trustLosses = { ...business, file: 'assets/trust-loss-tests.mjs' };
 const casualOt = { ...business, file: 'assets/casual-overtime.mjs' };
 const contractor = { ...business, file: 'assets/contractor-employee.mjs' };
 const invoice = { ...business, file: 'assets/tax-invoice.mjs' };
 const trustStream = { ...business, file: 'assets/trust-streaming.mjs' };
+const nrw = { ...business, file: 'assets/non-resident-withholding.mjs' };
 const gstAdjustments = { ...business, file: 'assets/gst-adjustments.mjs' };
 const deferredTaxEngine = { ...business, file: 'assets/deferred-tax.mjs' };
+const motorDutyEngine = { ...business, file: 'assets/motor-vehicle-duty.mjs' };
+const insuranceDutyEngine = { ...business, file: 'assets/insurance-duty.mjs' };
+const vicPropertyEngine = { ...business, file: 'assets/vic-property-taxes.mjs' };
 const lct = { ...business, file: 'assets/luxury-car-tax.mjs' };
 const fhog = { ...business, file: 'assets/first-home-owner-grant.mjs' };
 const sbt = { ...business, file: 'assets/super-benefit-tax.mjs' };
@@ -101,6 +108,14 @@ const borrow = { ...business, file: 'assets/borrowing-expenses.mjs' };
 const wc = { ...business, file: 'assets/workers-compensation.mjs' };
 
 const MUTATIONS = [
+  { ...motorDutyEngine, name: 'Motor vehicle duty: a used ACT vehicle keeps its category', find: 'if (!isNew && index !== 0) index = 4;', replace: 'if (!isNew && index === 5) index = 4;' },
+  { ...motorDutyEngine, name: 'Motor vehicle duty: a part of $100 not charged', find: 'const lots = cmp(down, share) < 0 ? add(down, int(1)) : down;', replace: 'const lots = down;' },
+  { ...motorDutyEngine, name: 'Motor vehicle duty: WA 6.5% above $50,000 dropped', find: "percent = cmp(value, int(50000)) > 0 ? lit('6.5') : lit('2.75');", replace: "percent = lit('2.75');" },
+  { ...insuranceDutyEngine, name: 'Insurance duty: NSW Type C exemption reversed', find: "(parseDate(a)) ? /** @type {string} */ (b) : '0'", replace: "(parseDate(a)) ? '0' : /** @type {string} */ (b)" },
+  { ...insuranceDutyEngine, name: 'Insurance duty: cents rounded down', find: "return quantize(exact, -2, 'half_up');", replace: "return quantize(exact, -2, 'down');" },
+  { ...vicPropertyEngine, name: 'VRLT: 3% year charged at 2%', find: 'const index = !previous ? 0 : before ? 2 : 1;', replace: 'const index = !previous ? 0 : 1;' },
+  { ...vicPropertyEngine, name: 'WGT: negative uplifts counted', find: 'if (cmp(uplift, dec(0n)) > 0) taxable = add(taxable, uplift);', replace: 'taxable = add(taxable, uplift);' },
+  { ...vicPropertyEngine, name: 'WGT: 50% band above $500,000 dropped', find: 'cmp(taxable, dec(500000n)) < 0 ?', replace: 'true ?' },
   { ...levy, name: 'levy rate is 2.6%', find: 'LEVY_RATE_NUMERATOR = 27;', replace: 'LEVY_RATE_NUMERATOR = 26;' },
   { ...levy, name: 'formula B takes all of the aggregate', find: '(aggregate * 3) / 4', replace: '(aggregate * 4) / 4' },
   { ...levy, name: 'eligible wages take the lesser formula', find: 'Math.max(formulaA, formulaB)', replace: 'Math.min(formulaA, formulaB)' },
@@ -1179,6 +1194,24 @@ const MUTATIONS = [
   { ...rdOffset, name: 'R&D deduction amount not subtracted', find: 'const income = offset - adjusted[6] - deduction;', replace: 'const income = offset - adjusted[6];' },
   { ...rdOffset, name: 'R&D clawback income over the offset year rate', find: 'ratioCents((income < 0n ? -income : income), presentRate * 1000n)', replace: 'ratioCents((income < 0n ? -income : income), e.rate * 1000n)' },
   { ...rdOffset, name: 'R&D clawback below the threshold allowed', find: 'if (clawback !== 0n && e.notional - clawback < THRESHOLD) {', replace: 'if (false) {' },
+  { ...frcgw, name: "FRCGW 15% from 2025", find: "const FIFTEEN_FROM = '2025-01-01';", replace: "const FIFTEEN_FROM = '2026-01-01';" },
+  { ...frcgw, name: "FRCGW option fee not taken off the base", find: "const base = sub(costBase, option);", replace: "const base = costBase;" },
+  { ...frcgw, name: "FRCGW $750,000 threshold inclusive", find: "cmp(marketValue, d(threshold)) < 0", replace: "cmp(marketValue, d(threshold)) <= 0" },
+  { ...frcgw, name: "FRCGW clearance certificate withholds", find: "x.kind === 'clearance_certificate' ? [d('0'), 'clearance certificate: nil']", replace: "x.kind === 'clearance_certificate' ? [full, 'clearance certificate: nil']" },
+  { ...frcgw, name: "FRCGW variation applies above its maximum", find: "cmp(salePrice, /** @type {any} */ (x.maximum)) > 0 ? [full,", replace: "false ? [full," },
+  { ...frcgw, name: "FRCGW rounding cent not shared", find: "if (cmp(left, d('0')) <= 0) break;", replace: "break;" },
+  { ...partnershipEngine, name: "Partnership excluded deductions counted", find: "const counted = sub(deductions, excluded);", replace: "const counted = deductions;" },
+  { ...partnershipEngine, name: "Partnership left-over cent dropped", find: "    if (isZero(left)) break;\n    parts[i] = add(parts[i], cent);", replace: "    break;\n    parts[i] = add(parts[i], cent);" },
+  { ...partnershipEngine, name: "Partnership non-resident allowed without Australian income", find: "if (residency === 'non_resident' && australian !== true) {", replace: "if (false) {" },
+  { ...trustLosses, name: "Trust pattern test at 50% passes", find: "results.push(cmp(total, d('50')) > 0);", replace: "results.push(cmp(total, d('50')) >= 0);" },
+  { ...trustLosses, name: "Trust income injection applies to a super fund", find: "const exempt = para === 's 272-100(b)' ||", replace: "const exempt = false &&" },
+  { ...trustLosses, name: "Trust absent individual not counted at nil", find: "const p = other.get(name) ?? d('0');", replace: "const p = other.get(name) ?? d('100');" },
+  { ...nrw, name: "NRW interest at the treaty rate", find: "const regRate = type === 'interest' ? /** @type {Dec} */ (parseDec(DOMESTIC.interest)) : applied;", replace: "const regRate = applied;" },
+  { ...nrw, name: "NRW cents kept in the payment", find: "const used = wholeDollars(base);", replace: "const used = base;" },
+  { ...nrw, name: "NRW franked part not taken off", find: "  return sub(payment, exemptParts);", replace: "  return payment;" },
+  { ...nrw, name: "NRW section 12-300 cap ignored", find: "withholding: cmp(cap, reg) < 0 ? cap : reg", replace: "withholding: reg" },
+  { ...nrw, name: "NRW already withheld not taken off the cap", find: "const left = sub(mul(applied, base), already);", replace: "const left = mul(applied, base);" },
+  { ...nrw, name: "NRW treaty rate above the domestic rate accepted", find: "cmp(parsed, max) <= 0", replace: "true" },
   { ...contractor, name: 'Contractor labour of exactly half counted as principally', find: 'const principally = 2 * labour > fee;', replace: 'const principally = 2 * labour >= fee;' },
   { ...contractor, name: 'Contractor right to delegate ignored', find: 'personal: !e.delegate,', replace: 'personal: true,' },
   { ...contractor, name: 'Contractor result contract ignored', find: 'notResult: !e.result,', replace: 'notResult: true,' },
@@ -1470,8 +1503,16 @@ const SHARED = [
   'scripts/luxury-car-tax-engine-differential.json',
   'scripts/depreciation-pools-engine-differential.json',
   'scripts/rd-tax-offset-engine-differential.json',
+  'scripts/foreign-resident-withholding-engine-differential.json',
+  'scripts/foreign-resident-withholding-authorities.json',
+  'scripts/partnership-net-income-engine-differential.json',
+  'scripts/trust-loss-tests-engine-differential.json',
   'scripts/gst-adjustments-engine-differential.json',
   'scripts/deferred-tax-engine-differential.json',
+  'scripts/motor-vehicle-duty-engine-differential.json',
+  'scripts/insurance-duty-engine-differential.json',
+  'scripts/vic-property-taxes-engine-differential.json',
+  'scripts/non-resident-withholding-engine-differential.json',
   'scripts/ato-penalties-interest-engine-differential.json',
   'scripts/borrowing-expenses-engine-differential.json',
   'scripts/wine-equalisation-tax-engine-differential.json',
@@ -1487,6 +1528,7 @@ const SHARED = [
 
 const TEST_FILES = [
   levy.test, business.test, individualTest,
+  'scripts/aa-ports.test.mjs',
   'scripts/fhss.test.mjs', 'scripts/work-expenses.test.mjs', 'scripts/government-super-amounts.test.mjs', swh.test, tba.test, pm.test, rd.test, lr.test,
   'scripts/net-medical-expenses.test.mjs',
   'scripts/foreign-income.test.mjs',

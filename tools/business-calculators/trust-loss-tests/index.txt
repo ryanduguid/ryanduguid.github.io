@@ -1,0 +1,86 @@
+# Trust loss tests checker: Schedule 2F for a prior-year loss
+
+Source: https://duguid.com.au/tools/business-calculators/trust-loss-tests/
+
+> Which Schedule 2F tests a trust must pass to deduct a prior-year loss in 2024-25 to 2026-27: 50% stake, pattern of distributions, control and income injection.
+
+# Trust loss tests checker
+
+The Schedule 2F tests a trust must pass to deduct a prior-year tax loss, 2024-25 to 2026-27.
+
+Published 27 November 2026. Last checked 27 November 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+The Schedule 2F tests for a trust deducting a prior-year tax loss
+
+Income year deducting the loss 2024-25 2025-26 2026-27
+
+Income year of the loss 2018-19 2019-20 2020-21 2021-22 2022-23 2023-24 2024-25 2025-26
+
+Kind of trust Non-fixed (such as a discretionary trust) Fixed
+
+Excepted trust throughout the test period (section 272-100) None A family trust A complying super fund A complying approved deposit fund A pooled superannuation trust A deceased estate within section 272-100(c) An exempt entity unit trust A designated infrastructure project entity
+
+Facts (Unknown leaves one unstated)
+
+Fixed trust: passed the 50% stake test (section 266-40) Unknown Yes No
+
+Fixed trust: meets the section 266-45 conditions instead Unknown Yes No
+
+Income distributed in the income year or 2 months after Unknown Yes No
+
+Income distributed in the 6 earlier income years Unknown Yes No
+
+Capital distributed in the income year or 2 months after Unknown Yes No
+
+Capital distributed in the 6 earlier income years Unknown Yes No
+
+Passed the pattern of distributions test (section 269-60) Unknown Yes No
+
+Denied this loss in an earlier year for failing the pattern test Unknown Yes No
+
+Individuals held over 50% of income or capital in the test period Unknown Yes No
+
+Those individuals kept it to the end Unknown Yes No
+
+A group began to control the trust in the test period Unknown Yes No
+
+A scheme injected assessable income to use the loss (section 270-10) Unknown Yes No
+
+Check
+
+Each fact is yours to establish. Only the facts a test needs are used: a fixed trust’s stake questions, or a non-fixed trust’s pattern, stake and control questions.
+
+Fictional example: the first boundary case below. Change the inputs and calculate your own. Inputs: 2025-26; a non-fixed trust deducting a tax loss from 2022-23. Pattern of distributions test (ss 267-30, 269-60, 269-65, 269-70) Passed Pattern test not failed in an earlier year (s 267-35) Passed 50% stake test (ss 267-40, 269-50, 269-55) Does not apply Control test (ss 267-45, 269-95) Passed Income injection test (ss 270-10, 270-15, 270-25) Passed Prior-year loss deductible under Schedule 2F Yes Each test that applies was answered on the facts stated.
+
+## How the trust loss tests checker works
+
+A trust can deduct a tax loss from an earlier year only if it passes the tests in Schedule 2F to the Income Tax Assessment Act 1936. The checker ports the trust-loss-tests command of australian-accounting. A fixed trust must pass the 50% stake test or meet the section 266-45 conditions. A non-fixed trust must pass the pattern of distributions test where it distributed income or capital in the income year and in an earlier year, must not have failed that test for the loss before, must keep any more than 50% stake individuals had, and no group may begin to control it. Every trust except a complying super fund, approved deposit fund or pooled superannuation trust, a deceased estate or an exempt entity unit trust must also pass the income injection test (section 270-10(1)(d)).
+
+An excepted trust, such as a family trust, is outside the stake, pattern and control tests. A fact left unknown stays unknown, so a test can be not established rather than passed or failed, and the loss is deductible only when every test that applies is passed.
+
+## What the trust loss tests checker does not cover
+
+The checker does not decide the facts: whether a family trust election is in force, who held the stakes, or which distributions are test year distributions. Its WebMCP tool also works the pattern of distributions test from stated test year distribution percentages; the page takes the result. It refuses widely held trusts, bad debts and current-year losses, and it does not cover deducting part of a loss year, family trust distribution tax (Division 271) or sections 269-75 to 269-85. It covers 2024-25 to 2026-27. Have a registered tax agent confirm the figures and the result.
+
+## Boundary cases
+
+Each row is a test: scripts/business-calculators.test.mjs runs this calculator on these fictional inputs and fails if the result differs from the one shown.
+
+Boundary cases: Trust loss tests checker
+
+Case | Inputs | Result
+The page’s example: a non-fixed trust that passes each test that applies | 2025-26; a non-fixed trust deducting a tax loss from 2022-23 | Prior-year loss deductible
+A group began to control the trust: the control test fails | 2025-26; a non-fixed trust deducting a tax loss from 2022-23 | Prior-year loss not deductible
+A fixed trust that passed the 50% stake test | 2025-26; a fixed trust deducting a tax loss from 2022-23 | Prior-year loss deductible
+A family trust with the income injection question unanswered | 2025-26; a non-fixed trust deducting a tax loss from 2022-23; excepted trust: family trust | Deductibility not established
+A deceased estate: outside every test, including income injection | 2025-26; a non-fixed trust deducting a tax loss from 2022-23; excepted trust: deceased estate | Prior-year loss deductible
+
+One of the sixty business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+## Links
+
+- sixty business calculators: https://duguid.com.au/tools/business-calculators/
