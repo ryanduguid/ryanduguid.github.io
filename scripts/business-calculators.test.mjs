@@ -2322,6 +2322,10 @@ test('the Division 296 page opens on the result its calculation gives for the fo
 // https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate: '2027 | 8.77%',
 // '2026 | 8.37%', '2025 | 8.77%', '2024 | 8.27%', '2023 | 4.77%', '2022 | 4.52%', each income year
 // ending 30 June.
+// The portable LSL levy page's boundary cases (its tests are at the end of this file).
+Object.assign(INPUTS, { plslFigures: (x) => calculations.plslInputsText(x, dollars) });
+Object.assign(ENGINE_LABELS, { plslFigures: { levy: (v) => `levy payable ${dollars(v)}` } });
+Object.assign(FORM_CALLS, { plslFigures: (f) => [calculations.plslFormInput((name) => f[name] ?? '')] });
 const { DIV7A_PUBLISHED_RATES } = await import('../assets/div7a.mjs');
 const div7aScheduleHtml = readFileSync(new URL('../_includes/calculators/div7a-schedule.html', import.meta.url), 'utf8');
 const scheduleLoan = { made: '2022-10-01', amount: '100000', term: '7', assumedRate: '8.77', repayments: '', marginalRate: '',
@@ -7925,6 +7929,3 @@ test('the portable LSL levy page builds its call from the form and words its ref
   assert.deepEqual(calculations.plslFigures(call({})), { levy: 8250 });
 });
 
-Object.assign(INPUTS, { plslFigures: (x) => calculations.plslInputsText(x, dollars) });
-Object.assign(ENGINE_LABELS, { plslFigures: { levy: (v) => `levy payable ${dollars(v)}` } });
-Object.assign(FORM_CALLS, { plslFigures: (f) => [calculations.plslFormInput((name) => f[name] ?? '')] });
