@@ -13,6 +13,8 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+27 November 2026 | A new business calculator, residential vacancy fee, works a foreign owner’s annual vacancy fee on a dwelling for vacancy years from 2020-21 to 2026-27 under Part 6A of the Foreign Acquisitions and Takeovers Act 1975, with the application fee schedule, the doubling from 9 April 2024 and the return’s due date. Its WebMCP tool is calculate_residential_vacancy_fee.
+27 November 2026 | A new business calculator, ESIC tax offset, works the early stage investor tax offset on new shares in an early stage innovation company for 2016-17 to 2026-27 under Subdivision 360-A of the Income Tax Assessment Act 1997: the company and investor tests, the 20% offset, the $200,000 cap and the modified CGT treatment. Its WebMCP tool is calculate_esic_tax_offset.
 27 November 2026 | The depreciation register distinguishes assets with the same name, shows the dates recorded against asset group headings and links directly to sections of long tables. The work expenses and rental property calculators now label telephone expenses as dollar amounts.
 27 November 2026 | The Markdown editions of calculators now preserve the instructions shown when JavaScript is off, including the link to the depreciation register data file.
 27 November 2026 | Reference tables now carry names for screen readers. Calculator fields and reference pages have more space between headings, instructions and tables. The depreciation register identifies the industry or asset group on links that share a name. Each indexed page also has a Markdown edition at index.md.
@@ -274,6 +276,8 @@ Published 30 August 2026. Last reviewed 24 November 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- residential vacancy fee: https://duguid.com.au/tools/business-calculators/residential-vacancy-fee/
+- ESIC tax offset: https://duguid.com.au/tools/business-calculators/esic/
 - depreciation register: https://duguid.com.au/tools/depreciation-rates/
 - depreciation register data file: https://duguid.com.au/tools/depreciation-rates/effective-life.json
 - sole trader against company: https://duguid.com.au/tools/business-calculators/sole-trader-company/

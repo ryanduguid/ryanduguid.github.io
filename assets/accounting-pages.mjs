@@ -590,6 +590,12 @@ function initialiseCalculators([calculate, fieldErrors, fbtForms, { individualRe
           case 'casual-overtime':
             result = calculate.casualOvertimeResult(value, aud);
             break;
+          case 'esic':
+            result = calculate.esicResult(value, aud);
+            break;
+          case 'residential-vacancy-fee':
+            result = calculate.rvfResult(value, aud);
+            break;
           case 'rd-tax-offset':
             result = calculate.rdTaxOffsetResult(value, aud);
             break;
