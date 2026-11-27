@@ -14,7 +14,7 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 One return or one project
 
-Ordinary wages, or the project’s cost of work for NSW, Queensland and NT construction (AUD)
+Ordinary wages or project cost (AUD)
 
 State or territory New South Wales Victoria Queensland South Australia Western Australia Australian Capital Territory Tasmania Northern Territory
 
