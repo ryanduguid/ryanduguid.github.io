@@ -272,15 +272,20 @@ jobs:
           # tools index, the home page, the sitemap and llms.txt; build_llms_full
           # writes the text mirrors and copies llms.txt into .well-known. It
           # only rewrites files main already has, so any other change (a new,
-          # deleted or retyped file) is refused whatever its name: with the
-          # globs, that admits only the generated mirrors main tracks.
+          # deleted or retyped file) or a changed file mode is refused whatever
+          # its name: with the globs, that admits only content rewrites of the
+          # generated mirrors main tracks. Their content is checked where it
+          # can be: the pull request below runs the required checks, whose
+          # build_llms_full --check regenerates every mirror and fails on any
+          # byte it did not write, and it is never set to auto-merge.
           unexpected=$(git diff --cached --name-only --no-renames -- . \
             ':(exclude)_data/tool_releases.json' ':(exclude)index.html' ':(exclude)sitemap.xml' \
             ':(exclude)llms.txt' ':(exclude).well-known/llms.txt' ':(exclude)tools/index.html' \
             ':(exclude,glob)tools/*/index.html' ':(exclude,glob)**/index.txt' ':(exclude,glob)llms-full*.txt')
           not_rewritten=$(git diff --cached --name-only --no-renames --diff-filter=m)
-          if [ -n "$unexpected$not_rewritten" ]; then
-            printf '%s\n' "$unexpected" "$not_rewritten" >&2
+          mode_changed=$(git diff --cached --summary --no-renames | grep ' mode change ' || true)
+          if [ -n "$unexpected$not_rewritten$mode_changed" ]; then
+            printf '%s\n' "$unexpected" "$not_rewritten" "$mode_changed" >&2
             echo "::error::The release refresh changes files outside its contract"
             exit 1
           fi

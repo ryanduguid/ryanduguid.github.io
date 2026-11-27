@@ -15,6 +15,10 @@ const APPLY: &str = "git apply --index \"$RUNNER_TEMP/tool-releases/tool-release
 const LISTED: &str = "unexpected=$(git diff --cached --name-only --no-renames -- . \\";
 const REWRITES: &str =
     "not_rewritten=$(git diff --cached --name-only --no-renames --diff-filter=m)";
+const MODES: &str =
+    "mode_changed=$(git diff --cached --summary --no-renames | grep ' mode change ' || true)";
+/// The test of what the 3 commands found: any one of them refuses the patch.
+const REFUSES: &str = "if [ -n \"$unexpected$not_rewritten$mode_changed\" ]; then";
 const PATHSPECS: [&str; 9] = [
     ":(exclude)_data/tool_releases.json",
     ":(exclude)index.html",
@@ -127,6 +131,36 @@ fn allow_list_is_the_reviewed_set() {
         block.contains(&REWRITES),
         "{WORKFLOW} lost the rewrite-only rule"
     );
+    assert!(block.contains(&MODES), "{WORKFLOW} lost the mode rule");
+    let refusal = text
+        .lines()
+        .map(str::trim)
+        .skip_while(|line| *line != APPLY)
+        .find(|line| line.starts_with("if ["));
+    assert_eq!(
+        refusal,
+        Some(REFUSES),
+        "{WORKFLOW} no longer refuses on all 3 findings"
+    );
+}
+
+/// A mode-only change to a generated file is a modification, so only the mode rule sees it.
+#[test]
+fn a_mode_change_is_refused() {
+    let dir = staged(&["evidence/index.txt"], &[]);
+    git(
+        dir.path(),
+        &["update-index", "--chmod=+x", "evidence/index.txt"],
+    );
+    // Git prints the line as " mode change ...", which the workflow's grep matches; the
+    // helper trims its leading space.
+    let summary = git(
+        dir.path(),
+        &["diff", "--cached", "--summary", "--no-renames"],
+    );
+    assert_eq!(summary, "mode change 100644 => 100755 evidence/index.txt");
+    let specs = PATHSPECS.map(str::to_owned);
+    assert!(refused(&specs, &["evidence/index.txt"], &[]).is_empty());
 }
 
 #[test]
