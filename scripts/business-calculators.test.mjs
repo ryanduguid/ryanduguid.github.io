@@ -767,6 +767,12 @@ Object.assign(INPUTS, { rentalProperty: (x) => calculations.rentalInputsText(x,
 Object.assign(ENGINE_LABELS, { rentalProperty: { grossRent: (v) => `gross rent ${dollars(v)}`,
   totalDeductions: (v) => `total deductions ${dollars(v)}`, netRent: (v) => `net rent ${dollars(v)}` } });
 
+// The FBT return page's rows: the return's totals for its call.
+Object.assign(INPUTS, { fbtReturnTotals: (x) => calculations.fbtInputsText(x,
+  (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
+Object.assign(ENGINE_LABELS, { fbtReturnTotals: { taxableAmount: 'fringe benefits taxable amount', payable: 'tax payable',
+  due: 'payment due', credit: 'credit due' } });
+
 // The R&D tax offset page's rows (its tests are with the page's other tests below).
 Object.assign(INPUTS, { rdTaxOffset: (x) => calculations.rdInputsText(x,
   (value) => value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })) });
@@ -1251,6 +1257,7 @@ Object.assign(FORM_CALLS, { wineEqualisationTax: (f) => [calculations.wetFormInp
 
 Object.assign(FORM_CALLS, { rentalProperty: (f) => [calculations.rentalFormInput((name) => f[name] ?? '')] });
 
+Object.assign(FORM_CALLS, { fbtReturnTotals: (f) => [calculations.fbtFormInput((name) => f[name] ?? '')] });
 Object.assign(FORM_CALLS, { casualOvertime: (f) => [calculations.casualOvertimeFormInput((name) => f[name] ?? '')] });
 
 Object.assign(FORM_CALLS, { rdTaxOffset: (f) => [calculations.rdFormInput((name) => f[name] ?? '')] });
@@ -7314,6 +7321,60 @@ test('the deferred tax form sends the rows with a name or an amount, in order', 
   assert.deepEqual(loss.rows.at(-1), ['Average effective tax rate', '0%']);
 });
 
+// The FBT return and FBT instalment engines against the australian-accounting commands fbt-return and
+// fbt-instalment: every call of their tests and 500 seeded calls, each benefit given as its worksheet's amounts.
+test('FBT return and instalment engines agree with australian-accounting on every recorded case', () => {
+  const [header, ...cases] = readFileSync(new URL('./fbt-return-engine-differential.json', import.meta.url), 'utf8').trim().split('\n')
+    .map((line) => JSON.parse(line));
+  assert.equal(cases.length, header.cases);
+  assert.ok(cases.length >= 700);
+  for (const c of cases) {
+    const call = JSON.stringify(c.call);
+    if (c.expected.refused) {
+      assert.throws(() => calculations.fbtInstalment(c.call), (e) => e.code === c.expected.refused, call);
+    } else if (c.command === 'fbt-instalment') {
+      assert.deepEqual(calculations.fbtInstalment(c.call).labels, c.expected.labels, call);
+    } else {
+      const r = calculations.fbtReturn(c.call);
+      assert.deepEqual(r.labels, c.expected.labels, call);
+      assert.deepEqual(r.item23.map(({ category: _, ...row }) => row), c.expected.item23, call);
+      assert.deepEqual(r.employees, c.expected.employees, call);
+      assert.deepEqual(r.capping, c.expected.capping, call);
+      for (const [key, value] of Object.entries(r.amounts)) assert.equal(value, c.expected.amounts[key], `${call} ${key}`);
+    }
+  }
+});
+
+test('FBT return refuses what the command refuses before any worksheet runs', () => {
+  const car = { employee: 'A', label: '23A', gst_type: 'type_1', excluded: false, gross_taxable_value: '1000.00', taxable_value: '1000.00' };
+  const refused = (input, code) => assert.throws(() => calculations.fbtReturn({ year_ended: 2027, benefits: [car], ...input }),
+    (e) => e.code === code, code);
+  refused({ year_ended: 2025 }, 'period.unsupported');
+  refused({ employer_kind: 'rebatable' }, 'fbt_return.rebatable_days_invalid');
+  refused({ rebatable_days: 10, employer_days: 20 }, 'input.field_unknown');
+  refused({ employer_kind: 'church' }, 'fbt_return.employer_kind_unsupported');
+  refused({ payroll_tax: '1' }, 'input.field_unknown');
+  refused({ benefits: [] }, 'input.missing_field');
+  refused({ benefits: [{ ...car, label: '23P' }] }, 'fbt_return.exclusion_conflict');
+  refused({ benefits: [{ ...car, gst_type: 'type_3' }] }, 'fbt_return.gst_type_missing');
+  refused({ benefits: [{ ...car, entertainment: 'salary_packaged' }] }, 'input.field_unknown');
+  refused({ employer_kind: 'public_hospital', benefits: [{ ...car, excluded: true, entertainment: 'salary_packaged' }] },
+    'fbt_return.entertainment_invalid');
+  refused({ employer_kind: 'public_hospital', benefits: [{ ...car, taxable_value: '0.00', electric_car_exempt: true,
+    reportable_taxable_value: '900.00' }] }, 'fbt_return.nfp_exempt_car_unsupported');
+  refused({ benefits: [{ ...car, employee_contribution: '1.00' }] }, 'fbt_return.amounts_inconsistent');
+  refused({ instalments_reported: '1.001' }, 'input.amount_invalid');
+});
+
+test('FBT return page reads its forms and writes items 14A to 19, reportable amounts and the instalment', () => {
+  const fields = formDefaults(readFileSync(new URL('../_includes/calculators/fbt-return.html', import.meta.url), 'utf8'));
+  const shown = (v) => `$${v.toFixed(2)}`;
+  const result = calculations.fbtReturnResult((name) => fields[name] ?? '', shown);
+  assert.deepEqual(result.rows[result.principal], ['Item 19, amount of tax payable', '$18735.61']);
+  assert.ok(result.rows.some(([label, value]) => label === 'A: reportable fringe benefits amount' && value === '$18867.00'));
+  const instalment = calculations.fbtInstalmentResult((name) => fields[name] ?? '', shown);
+  assert.deepEqual(instalment.rows[instalment.principal], ['Label 6A, FBT instalment', '$1000.00']);
+});
 // The casual and overtime pay page: its example and sources, then the rules it applies. Hand-worked figures; the rules
 // are SGAA s 6(1) and s 17A(2) (Compilation No. 78), SGR 2009/2 paras 22, 27, 35, 41 and 42 and draft LCR 2026/D1
 // paras 63 and 64, read 26 November 2026.

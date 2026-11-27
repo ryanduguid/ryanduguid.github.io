@@ -562,7 +562,7 @@ const fuelTaxCreditsTool = (fuelTaxCredits) => tool({
  *   | 'fbtLoan' | 'fbtMealEntertainment' | 'fbtProperty' | 'landTaxYear' | 'terminationPayment' | 'transferDuty'
  *   | 'rdTaxOffset' | 'RD_YEARS' | 'gstAdjustment' | 'percentFraction' | 'GST_WORKSHEETS' | 'GST_ADJUSTMENT_YEARS'
  *   | 'deferredTax' | 'DEFERRED_TAX_YEARS' | 'soleTraderCompany' | 'SOLE_TRADER_COMPANY_YEARS' | 'casualOvertime'
- *   | 'contractorEmployee' | 'CONTRACTOR_YEARS'>} calculate */
+ *   | 'contractorEmployee' | 'CONTRACTOR_YEARS' | 'fbtReturn' | 'ITEM_23' | 'FBT_EMPLOYER_KINDS' | 'fbtInstalment' | 'FBT_REASONS'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: gstTool(calculate.gst),

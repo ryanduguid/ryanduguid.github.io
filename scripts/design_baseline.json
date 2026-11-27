@@ -12,7 +12,7 @@
   },
   "json_ld": {
     "about/index.html": [
-      "02aa09ec79f08e66feb8b071a927c07aa4e5f4b248e88654d397fc645ddb74fa"
+      "d384092bcd609195bb0114adfac09e4ca29c92041351968d3b8aefd16752fffd"
     ],
     "changelog/index.html": [
       "2f99cacd968d0cce8b2c3be85df980d2ded4206f071d2663f2c82c23816fd1b2"
@@ -39,7 +39,7 @@
       "3c1604e9daed736e19910e5339f54086500888b4704379eeead8622996cd0385"
     ],
     "index.html": [
-      "151590eb2e0927afbd658d37cb88b8655b33ef3bd59c300c24d61ef6a09e6759"
+      "241962463a4eabde6e2e1aaed861992d203c4ea965b31fba5db6a0dba9ed99ac"
     ],
     "privacy/index.html": [
       "dabe19f4f720b7d61a2993c85ad4ea6f5ba29a4f6109f90a3b9267b611902a15"
@@ -194,6 +194,9 @@
     "tools/business-calculators/fbt-property/index.html": [
       "07e42ba739f6d623f294db90379905130f183fd1ffddcf1d2a110a72126e35b3"
     ],
+    "tools/business-calculators/fbt-return/index.html": [
+      "25dd8c6c78e591ac15e1ee7456d338472f4e1943d65b10a79bf06a55404beceb"
+    ],
     "tools/business-calculators/first-home-owner-grant/index.html": [
       "a9a6f2f893d3289d5ce70307636441f4fecba8aede440cb69409fbb4b0f2708a"
     ],
@@ -228,7 +231,7 @@
       "1ee789e07f991caadaf17f3e165e8bc60550a06242fe627a485241855184f7b5"
     ],
     "tools/business-calculators/index.html": [
-      "017c5417aec4fa67cac2cd5aee9d90d5bf40f8378532c09cf3038cbc263bc7d0"
+      "dbba8486378a122ca1d46bc6593ef5d71956c88d7c481932c6a8da3564f99644"
     ],
     "tools/business-calculators/land-tax/index.html": [
       "90b1d2897a81b87c05cb1a74bb0937f468ac5e1806fa0b19603b5fff589b9e09"
@@ -440,7 +443,7 @@
   },
   "protected_files": {
     "robots.txt": "18d6a7d73dbde21fcae1ba0ac8ccd5750ced144637be01d142ea5dc16ee96a9d",
-    "sitemap.xml": "0a3bedb9335e4c0d6baaed5fef6d1849b9676f44103b4d6b4fb3be24691c9152"
+    "sitemap.xml": "7664d700a9cdafc4c91ee052ea07981fb8962f22f17acf8ca9587d6baedadd19"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -500,7 +503,7 @@
     "rates/super-guarantee/index.html": "a5d7321076de35ab9916764165ca7cdc369eef5a36ae35762be3e2ed93c6dc56"
   },
   "protected_text": {
-    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7815,
+    "Ryan Duguid is not a registered tax or BAS agent. Nothing here is accounting, tax, legal or financial advice. Outputs are review aids for a qualified professional.": 7816,
     "Nothing here is accounting, tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }
