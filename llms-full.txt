@@ -12244,12 +12244,12 @@ PSI inputs for one individual and one income year
 
 Who receives the income The individual, as a contractor (sole trader) A company, partnership or trust the individual works through The individual, as an employee or office holder The individual, as a religious practitioner paid by an enterprise for work in their vocation as a member of a religious institution Is over half the income a reward for the individual’s personal efforts or skills (subsection 84-5(1))? Yes No: mainly from goods, assets or a business structure Is a personal services business determination in force for this income? No Yes
 
-Payer, with its associates | PSI in the year (AUD) | Same payer as | Associate of the individual or entity | Engaged by an offer to the public | Paid for a result | Supplies plant and tools | Liable for defects
-Payer 1 | | | | | | |
-Payer 2 | | None Payer 1 | | | | |
-Payer 3 | | None Payer 1 Payer 2 | | | | |
-Payer 4 | | None Payer 1 Payer 2 Payer 3 | | | | |
-Payer 5 | | None Payer 1 Payer 2 Payer 3 Payer 4 | | | | |
+Payer, with its associates | PSI in the year (AUD) | Same payer as | Client label (optional) | Associate of the individual or entity | Engaged by an offer to the public | Paid for a result | Supplies plant and tools | Liable for defects
+Payer 1 | | | | | | | |
+Payer 2 | | None Payer 1 | | | | | |
+Payer 3 | | None Payer 1 Payer 2 | | | | | |
+Payer 4 | | None Payer 1 Payer 2 Payer 3 | | | | | |
+Payer 5 | | None Payer 1 Payer 2 Payer 3 Payer 4 | | | | | |
 
 Each tick is your answer; ‘How the PSI rules checker works’ says when to tick.
 
@@ -12269,7 +12269,7 @@ The checker reproduces the conclusion of each worked example in TR 2022/3 that r
 
 ## How to enter payers in the PSI rules checker
 
-Enter each payer once, with its associates’ payments added in: the payer is whoever must pay under the contract, so a labour hire firm or agency is the payer, not its client (TR 2022/3 paragraphs 69 to 72). Payers that are associates of each other count as one payer too, as section 87-20 counts only payers that are not associates of each other: put them in one row, or choose the first of their rows under ‘Same payer as’ in each later one. Linked rows count as one payer in the unrelated clients test too, so 2 payers that are each an associate of a third, but not of each other, count once there; that can only make the test harder to pass. Count each Australian government agency as its own payer (section 87-35) and leave out income received as an employee. If the individual works through their own company, partnership or trust, choose that entity as who receives the income, even if it pays them a salary. Tick ‘Paid for a result’, ‘Supplies plant and tools’ and ‘Liable for defects’ only where the contract or industry custom makes it so (subsection 87-18(4)). The results test counts income, not payers, and a tick covers all of that row’s PSI: where only part of a payer’s PSI meets all 3, enter that part in a row of its own and choose the payer’s first row under ‘Same payer as’, so the 80% rule and section 87-20 still count one payer. For the market value of principal work by others, count work by any individual or entity engaged, an individual associate included, but not by an associate that is a company, partnership or trust, nor, for an entity, by an individual whose PSI it receives; a partner counts only if they earn no PSI through the partnership (subsections 87-25(1), (2) and (2A); TR 2022/3 paragraphs 110 to 116). With more than 5 payers, put the smallest together in one row only where every answer is the same; that can only make a test harder to pass.
+Enter each payer once, with its associates’ payments added in: the payer is whoever must pay under the contract, so a labour hire firm or agency is the payer, not its client (TR 2022/3 paragraphs 69 to 72). Payers that are associates of each other count as one payer too, as section 87-20 counts only payers that are not associates of each other: put them in one row, or choose the first of their rows under ‘Same payer as’ in each later one. Linked rows count as one payer in the unrelated clients test too, unless you give every payer with PSI a client label: rows with one label are one entity or associates of each other and rows with different labels are not, so 2 payers that are each an associate of a third, but not of each other, can count as 2 clients (paragraph 87-20(1)(a)). One label stays within one payer’s rows. Without labels, where 2 or more linked rows won by public offers would decide the outcome, the checker asks for labels. Count each Australian government agency as its own payer (section 87-35) and leave out income received as an employee. If the individual works through their own company, partnership or trust, choose that entity as who receives the income, even if it pays them a salary. Tick ‘Paid for a result’, ‘Supplies plant and tools’ and ‘Liable for defects’ only where the contract or industry custom makes it so (subsection 87-18(4)). The results test counts income, not payers, and a tick covers all of that row’s PSI: where only part of a payer’s PSI meets all 3, enter that part in a row of its own and choose the payer’s first row under ‘Same payer as’, so the 80% rule and section 87-20 still count one payer. For the market value of principal work by others, count work by any individual or entity engaged, an individual associate included, but not by an associate that is a company, partnership or trust, nor, for an entity, by an individual whose PSI it receives; a partner counts only if they earn no PSI through the partnership (subsections 87-25(1), (2) and (2A); TR 2022/3 paragraphs 110 to 116). With more than 5 payers, put the smallest together in one row only where every answer is the same; that can only make a test harder to pass.
 
 ## What the PSI rules checker leaves to you
 
@@ -15853,7 +15853,7 @@ For a business registered or required to be registered for GST. You establish ea
 
 The value is the luxury car tax value, with GST and customs duty but not luxury car tax; for a price adjustment, the corrected value. Leave the litres blank for a car with no combined fuel consumption rating.
 
-An adjustment takes the year the car was supplied or imported in. A refund left blank takes the tax period’s year; choose the earlier year for a car supplied or imported before then, and one from before 1 July 2019 is refused.
+An adjustment or refund takes the year the car was supplied or imported in, which can be before the tax period’s; a refund for a car supplied or imported before 1 July 2019 is refused.
 
 Needed only for a car rated above 3.5 and up to 7 litres, supplied or imported from 1 July 2025. Answer yes if, before that day, it was supplied or imported and used in Australia other than for a quotable purpose: the 7 litre rating then continues.
 
@@ -15865,7 +15865,7 @@ Fictional example: the first boundary case below. Change the inputs and calculat
 
 The luxury car tax calculator works out the tax on a tax period’s sales and importations of luxury cars in 2019-20 to 2026-27, with the price and change of use adjustments and labels 1E and 1F on the business activity statement. Each car takes the threshold for the financial year of its supply or importation, or the fuel-efficient car limit for a car rated at most 3.5 litres per 100 km from 1 July 2025 and at most 7 litres before. The tax is 33% of the GST-exclusive value over that threshold. Tax on an importation is shown apart, because it is paid to the Department of Home Affairs with any customs duty. A primary producer’s or tourism operator’s refund of the tax borne on a refund-eligible car, up to $10,000, is shown apart too, because it is claimed on the ATO’s form.
 
-Its results match the luxury-car-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 306 test cases, refusals included.
+Its results match the luxury-car-tax command of Ryan Duguid’s australian-accounting calculators on the ATO’s examples and 309 test cases, refusals included.
 
 ## What the luxury car tax calculator does not cover
 
