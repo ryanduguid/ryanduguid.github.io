@@ -257,3 +257,54 @@ fn the_command_rewrites_only_the_portrait() {
     let error = about_portrait::run(root.path(), &args).unwrap_err();
     assert!(error.contains("expected one portrait pre"), "{error}");
 }
+
+#[test]
+fn near_black_clothes_still_render_a_valid_portrait() {
+    // Grey 5 sits in sRGB's linear toe and below CIE lightness's cube-root knee.
+    let art = about_portrait::render(&encode(300, 300, &bust(false, 5.0)), &font()).unwrap();
+    assert_valid_portrait_markup(&art);
+}
+
+/// A transparent frame round an opaque `width` by `height` block of one grey.
+fn block(width: u32, height: u32, grey: impl Fn(u32, u32) -> u8) -> Vec<u8> {
+    let mut pixels = Vec::new();
+    for y in 0..height + 4 {
+        for x in 0..width + 4 {
+            let inside = (2..width + 2).contains(&x) && (2..height + 2).contains(&y);
+            let shade = grey(x, y);
+            pixels.extend([shade, shade, shade, if inside { 255 } else { 0 }]);
+        }
+    }
+    encode(width + 4, height + 4, &pixels)
+}
+
+#[test]
+fn a_figure_that_never_narrows_has_no_neck() {
+    let error =
+        about_portrait::render(&block(40, 60, |x, y| (x + y) as u8 * 2), &font()).unwrap_err();
+    assert_eq!(error, "no neck found below the head; check the cutout");
+}
+
+#[test]
+fn a_figure_of_one_tone_is_refused() {
+    let mut pixels = bust(false, 30.0);
+    for px in pixels.as_chunks_mut::<4>().0 {
+        px[..3].fill(100);
+    }
+    let error = about_portrait::render(&encode(300, 300, &pixels), &font()).unwrap_err();
+    assert_eq!(
+        error,
+        "the figure has no tonal range to draw; check the photo"
+    );
+}
+
+#[test]
+fn the_command_needs_exactly_one_photo() {
+    let root = tempfile::tempdir().unwrap();
+    for args in [vec![], vec!["a.png".to_owned(), "b.png".to_owned()]] {
+        assert_eq!(
+            about_portrait::run(root.path(), &args).unwrap_err(),
+            "usage: site-tools render_about_portrait <cutout.png>"
+        );
+    }
+}

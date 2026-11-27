@@ -756,3 +756,37 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     .map_err(|e| e.to_string())?;
     Ok(0)
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// The unit square, its edges drawn by `edge` from each corner to the next.
+    fn square(edge: impl Fn(&mut Outline, (f32, f32), (f32, f32))) -> Outline {
+        let mut outline = Outline::default();
+        let corners = [(0.0, 0.0), (1.0, 0.0), (1.0, 1.0), (0.0, 1.0), (0.0, 0.0)];
+        outline.move_to(0.0, 0.0);
+        for pair in corners.windows(2) {
+            edge(&mut outline, pair[0], pair[1]);
+        }
+        outline.close();
+        outline
+    }
+
+    #[test]
+    fn a_cubic_outline_with_straight_controls_covers_its_square() {
+        // CFF fonts draw with cubics; a cubic whose controls sit on its chord is that chord.
+        let lines = square(|o, _, (x, y)| o.line_to(x, y));
+        let cubics = square(|o, (x0, y0), (x, y)| {
+            let third = |a: f32, b: f32| a + (b - a) / 3.0;
+            o.curve_to(third(x0, x), third(y0, y), third(x, x0), third(y, y0), x, y);
+        });
+        let straight = rasterise_glyph(&lines, 10, 20, 10.0, 15.0);
+        let curved = rasterise_glyph(&cubics, 10, 20, 10.0, 15.0);
+        assert!(straight.iter().any(|&c| c > 0.5));
+        assert_eq!(straight.len(), curved.len());
+        for (a, b) in straight.iter().zip(&curved) {
+            assert!((a - b).abs() < 1e-3, "{a} vs {b}");
+        }
+    }
+}
