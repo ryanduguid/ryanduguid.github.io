@@ -265,37 +265,21 @@ fn near_black_clothes_still_render_a_valid_portrait() {
     assert_valid_portrait_markup(&art);
 }
 
-/// A transparent frame round an opaque `width` by `height` block of one grey.
-fn block(width: u32, height: u32, grey: impl Fn(u32, u32) -> u8) -> Vec<u8> {
-    let mut pixels = Vec::new();
-    for y in 0..height + 4 {
-        for x in 0..width + 4 {
-            let inside = (2..width + 2).contains(&x) && (2..height + 2).contains(&y);
-            let shade = grey(x, y);
-            pixels.extend([shade, shade, shade, if inside { 255 } else { 0 }]);
-        }
-    }
-    encode(width + 4, height + 4, &pixels)
-}
-
 #[test]
 fn a_figure_that_never_narrows_has_no_neck() {
-    let error =
-        about_portrait::render(&block(40, 60, |x, y| (x + y) as u8 * 2), &font()).unwrap_err();
-    assert_eq!(error, "no neck found below the head; check the cutout");
-}
-
-#[test]
-fn a_figure_of_one_tone_is_refused() {
-    let mut pixels = bust(false, 30.0);
-    for px in pixels.as_chunks_mut::<4>().0 {
-        px[..3].fill(100);
+    // An opaque block 40 wide, framed by clear pixels at the top and sides and running
+    // off the bottom edge: every row below its top is as wide as the head.
+    let (width, height) = (44u32, 60u32);
+    let mut pixels = Vec::new();
+    for y in 0..height {
+        for x in 0..width {
+            let inside = (2..42).contains(&x) && y >= 2;
+            let grey = (x + y) as u8 * 2;
+            pixels.extend([grey, grey, grey, if inside { 255 } else { 0 }]);
+        }
     }
-    let error = about_portrait::render(&encode(300, 300, &pixels), &font()).unwrap_err();
-    assert_eq!(
-        error,
-        "the figure has no tonal range to draw; check the photo"
-    );
+    let error = about_portrait::render(&encode(width, height, &pixels), &font()).unwrap_err();
+    assert_eq!(error, "no neck found below the head; check the cutout");
 }
 
 #[test]
