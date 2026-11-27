@@ -689,10 +689,6 @@ impl Tree {
         self.elements[id].parent
     }
 
-    pub fn children(&self, id: usize) -> &[Child] {
-        &self.elements[id].children
-    }
-
     pub fn is_rendered(&self, id: usize) -> bool {
         let mut current = Some(id);
         while let Some(c) = current {

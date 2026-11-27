@@ -19,6 +19,8 @@ mod pass2_validators;
 mod py_format_json;
 #[path = "cov/py_helpers.rs"]
 mod py_helpers;
+#[path = "cov/seo_core_edges.rs"]
+mod seo_core_edges;
 #[path = "cov/site_contracts.rs"]
 mod site_contracts;
 #[path = "cov/site_contracts_edges.rs"]
